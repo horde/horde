@@ -31,13 +31,13 @@ class Horde_ActiveSync_Message_Base
 {
 
     /* Attribute Keys */
-    const KEY_ATTRIBUTE = 1;
-    const KEY_VALUES = 2;
-    const KEY_TYPE = 3;
+    const KEY_ATTRIBUTE    = 1;
+    const KEY_VALUES       = 2;
+    const KEY_TYPE         = 3;
 
     /* Types */
-    const TYPE_DATE = 1;
-    const TYPE_HEX = 2;
+    const TYPE_DATE        = 1;
+    const TYPE_HEX         = 2;
     const TYPE_DATE_DASHES = 3;
     const TYPE_MAPI_STREAM = 4;
 
@@ -239,15 +239,14 @@ class Horde_ActiveSync_Message_Base
                     continue;
                 }
 
-                /* Found start tag */
+                // Found start tag
                 if (!isset($this->_mapping[$entity[Horde_ActiveSync_Wbxml::EN_TAG]])) {
                     $this->_logger->debug('Tag ' . $entity[Horde_ActiveSync_Wbxml::EN_TAG] . ' unexpected in type XML type ' . get_class($this));
                     throw new Horde_ActiveSync_Exception('Unexpected tag');
                 } else {
                     $map = $this->_mapping[$entity[Horde_ActiveSync_Wbxml::EN_TAG]];
-
-                    /* Handle arrays of attribute values */
                     if (isset($map[self::KEY_VALUES])) {
+                        // Handle arrays of attribute values
                         while (1) {
                             if (!$decoder->getElementStartTag($map[self::KEY_VALUES])) {
                                 break;
@@ -258,13 +257,11 @@ class Horde_ActiveSync_Message_Base
                             } else {
                                 $decoded = $decoder->getElementContent();
                             }
-
                             if (!isset($this->$map[self::KEY_ATTRIBUTE])) {
                                 $this->$map[self::KEY_ATTRIBUTE] = array($decoded);
                             } else {
                                 array_push($this->$map[self::KEY_ATTRIBUTE], $decoded);
                             }
-
                             if (!$decoder->getElementEndTag()) {
                                 throw new Horde_ActiveSync_Exception('Missing expected wbxml end tag');
                             }
@@ -274,9 +271,9 @@ class Horde_ActiveSync_Message_Base
                             return false;
                         }
                     } else {
-                        /* Handle a simple attribute value */
+                        // Handle a simple attribute value
                         if (isset($map[self::KEY_TYPE])) {
-                            /* Complex type, decode recursively */
+                            // Complex type, decode recursively
                             if ($map[self::KEY_TYPE] == self::TYPE_DATE || $map[self::KEY_TYPE] == self::TYPE_DATE_DASHES) {
                                 $decoded = self::_parseDate($decoder->getElementContent());
                                 if (!$decoder->getElementEndTag()) {
@@ -292,7 +289,6 @@ class Horde_ActiveSync_Message_Base
                                 if ($subdecoder->decodeStream($decoder) === false) {
                                     throw new Horde_ActiveSync_Exception('Missing expected wbxml end tag');
                                 }
-
                                 $decoded = $subdecoder;
                                 if (!$decoder->getElementEndTag()) {
                                     $this->_logger->err('No end tag for ' . $entity[Horde_ActiveSync_Wbxml::EN_TAG]);
@@ -300,22 +296,21 @@ class Horde_ActiveSync_Message_Base
                                 }
                             }
                         } else {
-                            /* Simple type, just get content */
+                            // Simple type, just get content
                             $decoded = $decoder->getElementContent();
                             if ($decoded === false) {
                                 $this->_logger->err('Unable to get content for ' . $entity[Horde_ActiveSync_Wbxml::EN_TAG]);
-                                //throw new Horde_ActiveSync_Exception('Unknown parsing error.');
                             }
-
                             if (!$decoder->getElementEndTag()) {
                                 $this->_loger->err('Unable to get end tag for ' . $entity[Horde_ActiveSync_Wbxml::EN_TAG]);
                                 throw new Horde_ActiveSync_Exception('Missing expected wbxml end tag');
                             }
                         }
-                        /* $decoded now contains data object (or string) */
+                        // $decoded now contains data object (or string)
                         $this->$map[self::KEY_ATTRIBUTE] = $decoded;
                     }
                 }
+
             } elseif ($entity[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_TYPE_ENDTAG) {
                 $decoder->_ungetElement($entity);
                 break;
@@ -336,14 +331,14 @@ class Horde_ActiveSync_Message_Base
     {
         foreach ($this->_mapping as $tag => $map) {
             if (isset($this->$map[self::KEY_ATTRIBUTE])) {
-                /* Variable is available */
+                // Variable is available
                 if (is_object($this->$map[self::KEY_ATTRIBUTE]) && !($this->$map[self::KEY_ATTRIBUTE] instanceof Horde_Date)) {
-                    /* Subobjects can do their own encoding */
+                    // Subobjects can do their own encoding
                     $encoder->startTag($tag);
                     $this->$map[self::KEY_ATTRIBUTE]->encodeStream($encoder);
                     $encoder->endTag();
                 } elseif (isset($map[self::KEY_VALUES]) && is_array($this->$map[self::KEY_ATTRIBUTE])) {
-                    /* Array of objects */
+                    // Array of objects
                     $encoder->startTag($tag); // Outputs array container (eg Attachments)
                     foreach ($this->$map[self::KEY_ATTRIBUTE] as $element) {
                         if (is_object($element)) {
@@ -352,11 +347,8 @@ class Horde_ActiveSync_Message_Base
                             $element->encodeStream($encoder);
                             $encoder->endTag();
                         } else {
-                            if(strlen($element) == 0) {
-                                  // Do not output empty items. Not sure if we
-                                  // should output an empty tag with
-                                  // $encoder->startTag($map[self::KEY_VALUES], false, true);
-                            } else {
+                            // Do not ever output empty items here
+                            if(strlen($element) > 0) {
                                 $encoder->startTag($map[self::KEY_VALUES]);
                                 $encoder->content($element);
                                 $encoder->endTag();
@@ -365,7 +357,7 @@ class Horde_ActiveSync_Message_Base
                     }
                     $encoder->endTag();
                 } else {
-                    /* Simple type */
+                    // Simple type
                     if (strlen($this->$map[self::KEY_ATTRIBUTE]) == 0) {
                           // Do not output empty items except for the following:
                           if ($this->_checkSendEmpty($tag)) {
@@ -392,6 +384,7 @@ class Horde_ActiveSync_Message_Base
             }
         }
     }
+
     /**
      * Checks to see if we should send an empty value.
      *
@@ -407,8 +400,8 @@ class Horde_ActiveSync_Message_Base
     /**
      * Helper method to allow default values for unset properties.
      *
-     * @param string $name  The property name
-     * @param stting $default The default value to return if $property is empty
+     * @param string $name     The property name
+     * @param stting $default  The default value to return if $property is empty
      *
      * @return mixed
      */

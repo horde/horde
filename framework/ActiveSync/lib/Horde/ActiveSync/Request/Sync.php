@@ -15,14 +15,14 @@
 class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
 {
     /* Status */
-    const STATUS_SUCCESS = 1;
+    const STATUS_SUCCESS     = 1;
     const STATUS_VERSIONMISM = 2;
-    const STATUS_KEYMISM = 3;
-    const STATUS_PROTERROR = 4;
+    const STATUS_KEYMISM     = 3;
+    const STATUS_PROTERROR   = 4;
     const STATUS_SERVERERROR = 5;
 
     /* Maximum window size */
-    const MAX_WINDOW_SIZE = 512;
+    const MAX_WINDOW_SIZE    = 512;
 
     /**
      * Handle the sync request
