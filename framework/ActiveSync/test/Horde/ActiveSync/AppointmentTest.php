@@ -270,4 +270,29 @@ class Horde_ActiveSync_AppointmentTest extends Horde_Test_Case
         $this->assertEquals('2012-01-12 15:00:00', (string)$date);
     }
 
+    public function testRecurrenceDSTSwitch()
+    {
+
+        $this->markTestSkipped('Timezone handling broken for recurring events from device.');
+
+        // Recurring event starts 10/1/2011 15:00:00 EDST
+        $l = new Horde_Test_Log();
+        $logger = $l->getLogger();
+
+        // Test Decoding
+        $stream = fopen(dirname(__FILE__) . '/fixtures/dst.wbxml', 'r+');
+        $decoder = new Horde_ActiveSync_Wbxml_Decoder($stream);
+
+        $element = $decoder->getElementStartTag(Horde_ActiveSync::SYNC_DATA);
+        $appt = new Horde_ActiveSync_Message_Appointment(array('logger' => $logger));
+        $appt->decodeStream($decoder);
+        fclose($stream);
+        $decoder->getElementEndTag();
+
+        $rrule = $appt->getRecurrence();
+        $next = $rrule->nextActiveRecurrence(new Horde_Date('2011-10-15'));
+
+        $this->assertEquals('2011-10-15 15:00:00', (string)$next->setTimezone('America/New_York'));
+    }
+
 }
