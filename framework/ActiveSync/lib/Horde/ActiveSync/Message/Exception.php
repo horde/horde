@@ -10,29 +10,40 @@
  */
 class Horde_ActiveSync_Message_Exception extends Horde_ActiveSync_Message_Appointment
 {
-    /**
-     * Constructor
-     *
-     * @param array $params
-     *
-     * @return Horde_ActiveSync_Message_Appointment
-     */
-    public function __construct($params = array())
-    {
-        parent::__construct($params);
+    protected $_mapping = array(
+        Horde_ActiveSync_Message_Appointment::POOMCAL_DTSTAMP            => array(self::KEY_ATTRIBUTE => 'dtstamp', self::KEY_TYPE => self::TYPE_DATE),
+        Horde_ActiveSync_Message_Appointment::POOMCAL_STARTTIME          => array(self::KEY_ATTRIBUTE => 'starttime', self::KEY_TYPE => self::TYPE_DATE),
+        Horde_ActiveSync_Message_Appointment::POOMCAL_SUBJECT            => array(self::KEY_ATTRIBUTE => 'subject'),
+        Horde_ActiveSync_Message_Appointment::POOMCAL_LOCATION           => array(self::KEY_ATTRIBUTE => 'location'),
+        Horde_ActiveSync_Message_Appointment::POOMCAL_ENDTIME            => array(self::KEY_ATTRIBUTE => 'endtime', self::KEY_TYPE => self::TYPE_DATE),
+        Horde_ActiveSync_Message_Appointment::POOMCAL_SENSITIVITY        => array(self::KEY_ATTRIBUTE => 'sensitivity'),
+        Horde_ActiveSync_Message_Appointment::POOMCAL_BUSYSTATUS         => array(self::KEY_ATTRIBUTE => 'busystatus'),
+        Horde_ActiveSync_Message_Appointment::POOMCAL_ALLDAYEVENT        => array(self::KEY_ATTRIBUTE => 'alldayevent'),
+        Horde_ActiveSync_Message_Appointment::POOMCAL_REMINDER           => array(self::KEY_ATTRIBUTE => 'reminder'),
+        Horde_ActiveSync_Message_Appointment::POOMCAL_RTF                => array(self::KEY_ATTRIBUTE => 'rtf'),
+        Horde_ActiveSync_Message_Appointment::POOMCAL_MEETINGSTATUS      => array(self::KEY_ATTRIBUTE => 'meetingstatus'),
+        Horde_ActiveSync_Message_Appointment::POOMCAL_ATTENDEES          => array(self::KEY_ATTRIBUTE => 'attendees', self::KEY_TYPE => 'Horde_ActiveSync_Message_Attendee', self::KEY_VALUES => Horde_ActiveSync_Message_Appointment::POOMCAL_ATTENDEE),
+        Horde_ActiveSync_Message_Appointment::POOMCAL_BODY               => array(self::KEY_ATTRIBUTE => 'body'),
+        Horde_ActiveSync_Message_Appointment::POOMCAL_CATEGORIES         => array(self::KEY_ATTRIBUTE => 'categories', self::KEY_VALUES => Horde_ActiveSync_Message_Appointment::POOMCAL_CATEGORY),
+        Horde_ActiveSync_Message_Appointment::POOMCAL_EXCEPTIONSTARTTIME => array(self::KEY_ATTRIBUTE => 'exceptionstarttime', self::KEY_TYPE => self::TYPE_DATE),
+    );
 
-        /* Some additional properties for Exceptions */
-        $this->_mapping[Horde_ActiveSync_Message_Appointment::POOMCAL_EXCEPTIONSTARTTIME] = array(
-            self::KEY_ATTRIBUTE => 'exceptionstarttime',
-            self::KEY_TYPE => self::TYPE_DATE);
-
-        $this->_mapping[Horde_ActiveSync_Message_Appointment::POOMCAL_DELETED] = array(self::KEY_ATTRIBUTE => 'deleted');
-
-        $this->_properties += array(
-            'exceptionstarttime' => false,
-            'deleted' => false,
-        );
-    }
+    protected $_properties = array(
+        'dtstamp'        => false,
+        'starttime'      => false,
+        'subject'        => false,
+        'location'       => false,
+        'endtime'        => false,
+        'sensitivity'    => false,
+        'busystatus'     => false,
+        'alldayevent'    => false,
+        'reminder'       => false,
+        'rtf'            => false,
+        'meetingstatus'  => false,
+        'body'           => false,
+        'exceptionstarttime' => false,
+        'deleted' => false,
+    );
 
     /**
      * Sets the DELETED field on this exception
