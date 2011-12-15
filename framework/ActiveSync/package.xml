@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-12-13</date>
- <time>11:53:30</time>
+ <date>2011-12-15</date>
+ <time>18:43:55</time>
  <version>
   <release>1.1.11</release>
   <api>1.1.0</api>
@@ -108,7 +108,10 @@
      <dir name="ActiveSync">
       <dir name="fixtures">
        <file name="appointment.wbxml" role="test" />
+       <file name="dst.wbxml" role="test" />
        <file name="FolderSyncRequest.txt" role="test" />
+       <file name="recurrence.wbxml" role="test" />
+       <file name="simpleexception.wbxml" role="test" />
       </dir> <!-- /test/Horde/ActiveSync/fixtures -->
       <file name="AllTests.php" role="test" />
       <file name="AppointmentTest.php" role="test" />
@@ -230,7 +233,10 @@
    <install as="Horde/ActiveSync/TimezoneTest.php" name="test/Horde/ActiveSync/TimezoneTest.php" />
    <install as="Horde/ActiveSync/{137c3bb0-838d-499a-9f0e-fb6c0761da51}1" name="test/Horde/ActiveSync/{137c3bb0-838d-499a-9f0e-fb6c0761da51}1" />
    <install as="Horde/ActiveSync/fixtures/appointment.wbxml" name="test/Horde/ActiveSync/fixtures/appointment.wbxml" />
+   <install as="Horde/ActiveSync/fixtures/dst.wbxml" name="test/Horde/ActiveSync/fixtures/dst.wbxml" />
    <install as="Horde/ActiveSync/fixtures/FolderSyncRequest.txt" name="test/Horde/ActiveSync/fixtures/FolderSyncRequest.txt" />
+   <install as="Horde/ActiveSync/fixtures/recurrence.wbxml" name="test/Horde/ActiveSync/fixtures/recurrence.wbxml" />
+   <install as="Horde/ActiveSync/fixtures/simpleexception.wbxml" name="test/Horde/ActiveSync/fixtures/simpleexception.wbxml" />
   </filelist>
  </phprelease>
  <changelog>
@@ -483,7 +489,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-12-13</date>
+   <date>2011-12-15</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Improve support for timezones in appointments originating on the client.
