@@ -375,14 +375,17 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
 
       .. As of PHP 5.3.0, this module is automatically enabled by default.
 
-   b. idn
+   b. intl
 
-      The idn module is required to handle display of Internationalized Domain
-      Names (see RFC 3490), e.g in e-mail addresses.
+      The intl module is required to handle display of Internationalized
+      Domain Names (see RFC 3490), e.g in e-mail addresses.
 
       To install, enter the following at the command prompt::
 
-        pecl install idn
+        pecl install intl
+
+      Alternatively, this module is shipped with PHP 5.3.0+ and can be
+      enabled by adding the ``--enable-intl`` option when compiling PHP.
 
    c. imagick
 

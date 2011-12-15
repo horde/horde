@@ -22,6 +22,9 @@ v5.1-git
 v5.0.17-git
 -----------
 
+[mms] Allow creation of the mailbox '0' (Bug #10866).
+[mms] Correctly handle numeric mailbox names.
+[mms] Fix display of mailbox names living under special mailboxes (Bug #10802).
 [mms] Fix broken Hide/Purge Deleted links in traditional view (Bug #10860).
 [mms] Fix issue in dynamic mailbox view with thread sorting and a reset of
       mailbox metadata (Bug #10835).

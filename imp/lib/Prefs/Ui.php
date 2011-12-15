@@ -1208,7 +1208,7 @@ class IMP_Prefs_Ui
                 : null;
 
             if ($view_mode == 'dimp') {
-                $mailboxids['enable_' . $key] = strval($val);
+                $mailboxids['enable_' . $key] = $val->formid;
             }
 
             $vout[] = array(
@@ -1233,8 +1233,8 @@ class IMP_Prefs_Ui
 
             $editable = !$filter_locked && $imp_search->isFilter($val, true);
 
-            if ($view_mode == 'dimp') {
-                $mailboxids['enable_' . $key] = strval($val);
+            if ($editable && ($view_mode == 'dimp')) {
+                $mailboxids['enable_' . $key] = $val->formid;
             }
 
             $fout[] = array(

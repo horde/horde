@@ -422,6 +422,13 @@
     <name>idn</name>
     <channel>pecl.php.net</channel>
    </package>
+   <package>
+    <name>intl</name>
+    <channel>pecl.php.net</channel>
+   </package>
+   <extension>
+    <name>intl</name>
+   </extension>
   </optional>
  </dependencies>
  <phprelease>
