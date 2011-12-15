@@ -31,24 +31,19 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
     private $_ungetbuffer;
 
     /**
-     * Const'r
+     * Start reading the wbxml stream, pulling off the initial header and
+     * populate the properties.
      *
-     * @param stream $input
-     *
-     * @return Horde_ActiveSync_Wbxml_Decoder
+     * @return void
      */
-    public function __construct($input)
+    public function readWbxmlHeader()
     {
-        parent::__construct($input);
-        $this->version = $this->_getByte();
-        $this->publicid = $this->_getMBUInt();
+        $this->_version = $this->_getByte();
+        $this->_publicid = $this->_getMBUInt();
         if ($this->publicid == 0) {
             $this->publicstringid = $this->_getMBUInt();
         }
         $this->charsetid = $this->_getMBUInt();
-
-        // This is used, but not sure what the missing getStringTableEntry()
-        // method was supposed to do yet.
         $this->stringtable = $this->_getStringTable();
     }
 

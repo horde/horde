@@ -280,6 +280,9 @@ class Horde_ActiveSync
         $this->_encoder = $encoder;
         $this->_decoder = $decoder;
 
+        // Read the initial Wbxml header
+        $this->_decoder->readWbxmlHeader();
+
         // The http request
         $this->_request = $request;
     }
