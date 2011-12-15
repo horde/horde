@@ -22,7 +22,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Improve support for timezones in appointments originating on the client.
+* [mjr] Improve performance when working with timezones on PHP 5.3+
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -485,7 +486,8 @@
    <date>2011-12-13</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Improve support for timezones in appointments originating on the client.
+* [mjr] Improve performance when working with timezones on PHP 5.3+
    </notes>
   </release>
  </changelog>
