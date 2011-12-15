@@ -438,7 +438,10 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
             return false;
         }
 
-        $rrule = new Horde_Date_Recurrence(new Horde_Date($this->_getAttribute('starttime')));
+        $d = clone($this->_getAttribute('starttime'));
+        $d->setTimezone($this->getTimezone());
+
+        $rrule = new Horde_Date_Recurrence($d);
 
         /* Map MS AS type field to Horde_Date_Recurrence types */
         switch ($recurrence->type) {
