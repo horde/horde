@@ -290,7 +290,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             'a' => $attributes,
             'c' => 0,
             'p' => self::BASE_ELT,
-            'v' => $name
+            'v' => strval($name)
         );
 
         /* Check for polled status. */
@@ -1244,25 +1244,24 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         }
 
         $basesort = $othersort = array();
+        /* INBOX always appears first. */
+        $sorted = array('INBOX');
 
-        foreach ($mbox as $val) {
+        foreach ($mbox as $key => $val) {
             if ($this->isNonImapElt($this->_tree[$val])) {
-                $othersort[$val] = IMP_Mailbox::get($val)->label;
-            } else {
-                $basesort[$val] = IMP_Mailbox::get($val)->label;
+                $othersort[$key] = IMP_Mailbox::get($val)->label;
+            } elseif ($val !== 'INBOX') {
+                $basesort[$key] = IMP_Mailbox::get($val)->label;
             }
         }
 
-        /* Sort IMAP mailboxes. INBOX always occurs first. */
         natcasesort($basesort);
-        unset($basesort['INBOX']);
-        $mbox = array_merge(array('INBOX'), array_keys($basesort));
-
-        /* Sort non-IMAP elements. */
-        if (!empty($othersort)) {
-            natcasesort($othersort);
-            $mbox = array_merge($mbox, array_keys($othersort));
+        natcasesort($othersort);
+        foreach (array_merge(array_keys($basesort), array_keys($othersort)) as $key) {
+            $sorted[] = $mbox[$key];
         }
+
+        $mbox = $sorted;
     }
 
     /**
@@ -1724,7 +1723,8 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
     public function next()
     {
-        if (!($curr = $this->current())) {
+        $curr = $this->current();
+        if (is_null($curr)) {
             return;
         }
 
@@ -1748,7 +1748,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
             /* Descend tree until we reach a level that has more leaves we
              * have not yet traversed. */
-            while (!($curr = $this->current()) &&
+            while ((($curr = $this->current()) === null) &&
                    (!isset($c['samelevel']) ||
                     ($c['samelevel'] != $this->_currparent)) &&
                    ($parent = $this->_getParent($this->_currparent, true))) {
@@ -1756,14 +1756,12 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             }
         }
 
-        if ($curr) {
-            if (!$this->_activeElt($curr)) {
-                $this->next();
-            }
-        } else {
+        if (is_null($curr)) {
             /* If we don't have a current element by this point, we have run
              * off the end of the tree. */
             $this->_currkey = null;
+        } elseif (!$this->_activeElt($curr)) {
+            $this->next();
         }
 
         $this->_showunsub = $old_showunsub;
@@ -1804,12 +1802,11 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                     $c['samelevel'] = $tmp->value;
 
                     /* Check to make sure current element is valid. */
-                    if ($curr = $this->current()) {
-                        if (!$this->_activeElt($curr)) {
-                            $this->next();
-                        }
-                    } else {
+                    $curr = $this->current();
+                    if (is_null($curr)) {
                         $this->_currkey = null;
+                    } elseif (!$this->_activeElt($curr)) {
+                        $this->next();
                     }
                 } else {
                     $this->_currparent = strval($tmp->parent);
