@@ -226,6 +226,7 @@ Choices are:
                 );
             } else {
                 file_put_contents($options['log'], 'The Horde_Log_Logger class is not available!');
+                unset($options['log']);
             }
         }
         $world['storage'] = $this->_getStorage($options);
