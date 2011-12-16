@@ -57,7 +57,9 @@
        </dir> <!-- /lib/Horde/Kolab/Cli/Module -->
        <file name="Exception.php" role="php" />
        <file name="Module.php" role="php" />
-       <file name="Translation.php" role="php" />
+       <file name="Translation.php" role="php">
+        <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+       </file>
       </dir> <!-- /lib/Horde/Kolab/Cli -->
       <file name="Cli.php" role="php" />
      </dir> <!-- /lib/Horde/Kolab -->
@@ -129,6 +131,13 @@
     <min>1.7.0</min>
    </pearinstaller>
    <package>
+    <name>Horde_Autoloader</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
     <name>Horde_Cli</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0</min>
@@ -143,9 +152,23 @@
     <exclude>2.0.0</exclude>
    </package>
    <package>
+    <name>Horde_Imap_Client</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
     <name>Horde_Kolab_Storage</name>
     <channel>pear.horde.org</channel>
     <min>1.1.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Log</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -160,13 +183,6 @@
    </package>
    <package>
     <name>Horde_Util</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
-   </package>
-   <package>
-    <name>Horde_Log</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0</min>
     <max>2.0.0</max>
