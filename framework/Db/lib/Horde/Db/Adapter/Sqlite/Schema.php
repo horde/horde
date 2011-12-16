@@ -481,17 +481,16 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
      *
      * @since Horde_Db 1.2.0
      *
-     * @param string $reference  The reference date.
-     * @param string $operator   The oprator for the modification (+/-)
-     * @param string $amount     The modification amount.
-     * @param string $interval   The interval (SECOND, MINUTE, HOUR, DAY,
-     *                           MONTH, YEAR).
+     * @param string $reference  The reference date - this is a column referenced in the SELECT.
+     * @param string $operator   Add or subtract time? (+/-)
+     * @param string $amount     The shift amount (number of days if $interval is DAY, etc).
+     * @param string $interval   The interval (SECOND, MINUTE, HOUR, DAY, MONTH, YEAR).
      *
      * @return string  The generated INTERVAL clause.
      */
     public function modifyDate($reference, $operator, $amount, $interval)
     {
-        switch($interval) {
+        switch ($interval) {
         case 'YEAR':
             $interval = 'years';
             break;
@@ -513,6 +512,7 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
         default:
             break;
         }
+
         return 'datetime(' . $reference . ', \'' . $operator . $amount . ' '
             . $interval . '\')';
     }
