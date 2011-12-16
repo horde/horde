@@ -23,6 +23,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [gwr] Fixed datatype for birthday and anniversary contact attributes.
 * [gwr] Completed missing data API v1 support.
  </notes>
  <contents>
@@ -565,6 +566,7 @@
    <date>2011-12-09</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [gwr] Fixed datatype for birthday and anniversary contact attributes.
 * [gwr] Completed missing data API v1 support.
    </notes>
   </release>
