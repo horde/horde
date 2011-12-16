@@ -197,7 +197,7 @@ implements Horde_Kolab_Cli_Module
             }
             break;
         case 'namespaces':
-            $cli->writeln((string) $world['storage']->getList()->getNamespace());
+            $cli->writeln((string)$world['storage']->getList()->getNamespace());
             break;
         case 'sync':
             $folders = $world['storage']->getList()->synchronize();
