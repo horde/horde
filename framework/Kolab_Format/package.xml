@@ -12,9 +12,9 @@
   <active>yes</active>
  </lead>
  <date>2011-12-16</date>
- <time>22:33:07</time>
+ <time>22:34:39</time>
  <version>
-  <release>1.1.1</release>
+  <release>1.1.2</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -23,8 +23,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [gwr] Fixed datatype for birthday and anniversary contact attributes.
-* [gwr] Completed missing data API v1 support.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -568,6 +567,19 @@
    <notes>
 * [gwr] Fixed datatype for birthday and anniversary contact attributes.
 * [gwr] Completed missing data API v1 support.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.2</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-16</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
