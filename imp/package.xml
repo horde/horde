@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-12-13</date>
- <time>11:21:41</time>
+ <date>2011-12-15</date>
+ <time>22:52:28</time>
  <version>
   <release>5.1.0</release>
   <api>5.0.0</api>
@@ -85,12 +85,14 @@
     <file name="folders.js" role="horde" />
     <file name="imp.js" role="horde" />
     <file name="indices.js" role="horde" />
+    <file name="jstorage.js" role="horde" />
     <file name="login.js" role="horde" />
     <file name="mailbox-dimp.js" role="horde" />
     <file name="mailbox.js" role="horde" />
     <file name="message-dimp.js" role="horde" />
     <file name="message.js" role="horde" />
     <file name="mobile.js" role="horde" />
+    <file name="pgp.js" role="horde" />
     <file name="search.js" role="horde" />
     <file name="searchesprefs.js" role="horde" />
     <file name="signaturehtml.js" role="horde" />
@@ -111,7 +113,6 @@
     </dir> <!-- /lib/Block -->
     <dir name="Compose">
      <file name="Exception.php" role="horde" />
-     <file name="Stationery.php" role="horde" />
     </dir> <!-- /lib/Compose -->
     <dir name="Crypt">
      <file name="Pgp.php" role="horde" />
@@ -733,6 +734,7 @@
     </dir> <!-- /templates/pgp -->
     <dir name="prefs">
      <file name="acl.html" role="horde" />
+     <file name="composetemplates.html" role="horde" />
      <file name="drafts.html" role="horde" />
      <file name="encrypt.html" role="horde" />
      <file name="flags.html" role="horde" />
@@ -748,7 +750,6 @@
      <file name="smimepublickey.html" role="horde" />
      <file name="spam.html" role="horde" />
      <file name="specialuse.html" role="horde" />
-     <file name="stationery.html" role="horde" />
      <file name="trash.html" role="horde" />
     </dir> <!-- /templates/prefs -->
     <dir name="print">
@@ -796,28 +797,16 @@
     </dir> <!-- /test/Imp -->
    </dir> <!-- /test -->
    <dir name="themes">
-    <dir name="azur">
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/azur -->
-    <dir name="bluemoon">
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/bluemoon -->
     <dir name="bluewhite">
      <dir name="dimp">
       <file name="screen.css" role="horde" />
      </dir> <!-- /themes/bluewhite/dimp -->
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/bluewhite -->
-    <dir name="brown">
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/brown -->
-    <dir name="burntorange">
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/burntorange -->
-    <dir name="cornflower">
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/cornflower -->
     <dir name="default">
+     <dir name="block">
+      <file name="screen.css" role="horde" />
+     </dir> <!-- /themes/default/block -->
      <dir name="dimp">
       <file name="ie7.css" role="horde" />
       <file name="screen.css" role="horde" />
@@ -880,6 +869,7 @@
       <file name="dragHandle.png" role="horde" />
       <file name="dragHandleVert.png" role="horde" />
       <file name="edit.png" role="horde" />
+      <file name="email_attach.png" role="horde" />
       <file name="empty_spam.png" role="horde" />
       <file name="empty_trash.png" role="horde" />
       <file name="encrypted.png" role="horde" />
@@ -951,42 +941,6 @@
      <file name="rtl.css" role="horde" />
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/default -->
-    <dir name="fadetogreen">
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/fadetogreen -->
-    <dir name="gennevilliers">
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/gennevilliers -->
-    <dir name="green">
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/green -->
-    <dir name="grey">
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/grey -->
-    <dir name="ideas">
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/ideas -->
-    <dir name="lavander">
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/lavander -->
-    <dir name="luc">
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/luc -->
-    <dir name="lucblue">
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/lucblue -->
-    <dir name="mozilla">
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/mozilla -->
-    <dir name="postnuke">
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/postnuke -->
-    <dir name="purple">
-     <dir name="dimp">
-      <file name="screen.css" role="horde" />
-     </dir> <!-- /themes/purple/dimp -->
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/purple -->
     <dir name="silver">
      <dir name="dimp">
       <file name="screen.css" role="horde" />
@@ -1041,6 +995,7 @@
       <file name="download.png" role="horde" />
       <file name="drafts.png" role="horde" />
       <file name="edit.png" role="horde" />
+      <file name="email_attach.png" role="horde" />
       <file name="empty_spam.png" role="horde" />
       <file name="empty_trash.png" role="horde" />
       <file name="encrypted.png" role="horde" />
@@ -1090,9 +1045,6 @@
      <file name="rtl.css" role="horde" />
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/silver -->
-    <dir name="simplex">
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/simplex -->
     <dir name="tango-blue">
      <dir name="dimp">
       <file name="screen.css" role="horde" />
@@ -1458,12 +1410,14 @@
    <install as="imp/js/folders.js" name="js/folders.js" />
    <install as="imp/js/imp.js" name="js/imp.js" />
    <install as="imp/js/indices.js" name="js/indices.js" />
+   <install as="imp/js/jstorage.js" name="js/jstorage.js" />
    <install as="imp/js/login.js" name="js/login.js" />
    <install as="imp/js/mailbox-dimp.js" name="js/mailbox-dimp.js" />
    <install as="imp/js/mailbox.js" name="js/mailbox.js" />
    <install as="imp/js/message-dimp.js" name="js/message-dimp.js" />
    <install as="imp/js/message.js" name="js/message.js" />
    <install as="imp/js/mobile.js" name="js/mobile.js" />
+   <install as="imp/js/pgp.js" name="js/pgp.js" />
    <install as="imp/js/search.js" name="js/search.js" />
    <install as="imp/js/searchesprefs.js" name="js/searchesprefs.js" />
    <install as="imp/js/signaturehtml.js" name="js/signaturehtml.js" />
@@ -1496,7 +1450,6 @@
    <install as="imp/lib/Block/Newmail.php" name="lib/Block/Newmail.php" />
    <install as="imp/lib/Block/Summary.php" name="lib/Block/Summary.php" />
    <install as="imp/lib/Compose/Exception.php" name="lib/Compose/Exception.php" />
-   <install as="imp/lib/Compose/Stationery.php" name="lib/Compose/Stationery.php" />
    <install as="imp/lib/Crypt/Pgp.php" name="lib/Crypt/Pgp.php" />
    <install as="imp/lib/Crypt/Smime.php" name="lib/Crypt/Smime.php" />
    <install as="imp/lib/Factory/AuthImap.php" name="lib/Factory/AuthImap.php" />
@@ -1811,6 +1764,7 @@
    <install as="imp/templates/mobile/notice.html.php" name="templates/mobile/notice.html.php" />
    <install as="imp/templates/pgp/import_key.html" name="templates/pgp/import_key.html" />
    <install as="imp/templates/prefs/acl.html" name="templates/prefs/acl.html" />
+   <install as="imp/templates/prefs/composetemplates.html" name="templates/prefs/composetemplates.html" />
    <install as="imp/templates/prefs/drafts.html" name="templates/prefs/drafts.html" />
    <install as="imp/templates/prefs/encrypt.html" name="templates/prefs/encrypt.html" />
    <install as="imp/templates/prefs/flags.html" name="templates/prefs/flags.html" />
@@ -1826,7 +1780,6 @@
    <install as="imp/templates/prefs/smimepublickey.html" name="templates/prefs/smimepublickey.html" />
    <install as="imp/templates/prefs/spam.html" name="templates/prefs/spam.html" />
    <install as="imp/templates/prefs/specialuse.html" name="templates/prefs/specialuse.html" />
-   <install as="imp/templates/prefs/stationery.html" name="templates/prefs/stationery.html" />
    <install as="imp/templates/prefs/trash.html" name="templates/prefs/trash.html" />
    <install as="imp/templates/print/headers.html" name="templates/print/headers.html" />
    <install as="imp/templates/quota/quota.html" name="templates/quota/quota.html" />
@@ -1843,18 +1796,14 @@
    <install as="Imp/Unit/QuotaTest.php" name="test/Imp/Unit/QuotaTest.php" />
    <install as="Imp/Unit/Mime/Viewer/HtmlTest.php" name="test/Imp/Unit/Mime/Viewer/HtmlTest.php" />
    <install as="Imp/Unit/Mime/Viewer/ItipTest.php" name="test/Imp/Unit/Mime/Viewer/ItipTest.php" />
-   <install as="imp/themes/azur/screen.css" name="themes/azur/screen.css" />
-   <install as="imp/themes/bluemoon/screen.css" name="themes/bluemoon/screen.css" />
    <install as="imp/themes/bluewhite/screen.css" name="themes/bluewhite/screen.css" />
    <install as="imp/themes/bluewhite/dimp/screen.css" name="themes/bluewhite/dimp/screen.css" />
-   <install as="imp/themes/brown/screen.css" name="themes/brown/screen.css" />
-   <install as="imp/themes/burntorange/screen.css" name="themes/burntorange/screen.css" />
-   <install as="imp/themes/cornflower/screen.css" name="themes/cornflower/screen.css" />
    <install as="imp/themes/default/ie6_or_less.css" name="themes/default/ie6_or_less.css" />
    <install as="imp/themes/default/ie7.css" name="themes/default/ie7.css" />
    <install as="imp/themes/default/mobile.css" name="themes/default/mobile.css" />
    <install as="imp/themes/default/rtl.css" name="themes/default/rtl.css" />
    <install as="imp/themes/default/screen.css" name="themes/default/screen.css" />
+   <install as="imp/themes/default/block/screen.css" name="themes/default/block/screen.css" />
    <install as="imp/themes/default/dimp/ie7.css" name="themes/default/dimp/ie7.css" />
    <install as="imp/themes/default/dimp/screen.css" name="themes/default/dimp/screen.css" />
    <install as="imp/themes/default/graphics/addressbook_add.png" name="themes/default/graphics/addressbook_add.png" />
@@ -1885,6 +1834,7 @@
    <install as="imp/themes/default/graphics/dragHandle.png" name="themes/default/graphics/dragHandle.png" />
    <install as="imp/themes/default/graphics/dragHandleVert.png" name="themes/default/graphics/dragHandleVert.png" />
    <install as="imp/themes/default/graphics/edit.png" name="themes/default/graphics/edit.png" />
+   <install as="imp/themes/default/graphics/email_attach.png" name="themes/default/graphics/email_attach.png" />
    <install as="imp/themes/default/graphics/empty_spam.png" name="themes/default/graphics/empty_spam.png" />
    <install as="imp/themes/default/graphics/empty_trash.png" name="themes/default/graphics/empty_trash.png" />
    <install as="imp/themes/default/graphics/encrypted.png" name="themes/default/graphics/encrypted.png" />
@@ -1970,18 +1920,6 @@
    <install as="imp/themes/default/graphics/nav/right-grey.png" name="themes/default/graphics/nav/right-grey.png" />
    <install as="imp/themes/default/graphics/nav/right.png" name="themes/default/graphics/nav/right.png" />
    <install as="imp/themes/default/mimp/screen.css" name="themes/default/mimp/screen.css" />
-   <install as="imp/themes/fadetogreen/screen.css" name="themes/fadetogreen/screen.css" />
-   <install as="imp/themes/gennevilliers/screen.css" name="themes/gennevilliers/screen.css" />
-   <install as="imp/themes/green/screen.css" name="themes/green/screen.css" />
-   <install as="imp/themes/grey/screen.css" name="themes/grey/screen.css" />
-   <install as="imp/themes/ideas/screen.css" name="themes/ideas/screen.css" />
-   <install as="imp/themes/lavander/screen.css" name="themes/lavander/screen.css" />
-   <install as="imp/themes/luc/screen.css" name="themes/luc/screen.css" />
-   <install as="imp/themes/lucblue/screen.css" name="themes/lucblue/screen.css" />
-   <install as="imp/themes/mozilla/screen.css" name="themes/mozilla/screen.css" />
-   <install as="imp/themes/postnuke/screen.css" name="themes/postnuke/screen.css" />
-   <install as="imp/themes/purple/screen.css" name="themes/purple/screen.css" />
-   <install as="imp/themes/purple/dimp/screen.css" name="themes/purple/dimp/screen.css" />
    <install as="imp/themes/silver/rtl.css" name="themes/silver/rtl.css" />
    <install as="imp/themes/silver/screen.css" name="themes/silver/screen.css" />
    <install as="imp/themes/silver/dimp/screen.css" name="themes/silver/dimp/screen.css" />
@@ -2004,6 +1942,7 @@
    <install as="imp/themes/silver/graphics/download.png" name="themes/silver/graphics/download.png" />
    <install as="imp/themes/silver/graphics/drafts.png" name="themes/silver/graphics/drafts.png" />
    <install as="imp/themes/silver/graphics/edit.png" name="themes/silver/graphics/edit.png" />
+   <install as="imp/themes/silver/graphics/email_attach.png" name="themes/silver/graphics/email_attach.png" />
    <install as="imp/themes/silver/graphics/empty_spam.png" name="themes/silver/graphics/empty_spam.png" />
    <install as="imp/themes/silver/graphics/empty_trash.png" name="themes/silver/graphics/empty_trash.png" />
    <install as="imp/themes/silver/graphics/encrypted.png" name="themes/silver/graphics/encrypted.png" />
@@ -2073,7 +2012,6 @@
    <install as="imp/themes/silver/graphics/nav/left.png" name="themes/silver/graphics/nav/left.png" />
    <install as="imp/themes/silver/graphics/nav/right-grey.png" name="themes/silver/graphics/nav/right-grey.png" />
    <install as="imp/themes/silver/graphics/nav/right.png" name="themes/silver/graphics/nav/right.png" />
-   <install as="imp/themes/simplex/screen.css" name="themes/simplex/screen.css" />
    <install as="imp/themes/tango-blue/screen.css" name="themes/tango-blue/screen.css" />
    <install as="imp/themes/tango-blue/dimp/screen.css" name="themes/tango-blue/dimp/screen.css" />
    <install as="imp/themes/tango-blue/graphics/addressbook_browse.png" name="themes/tango-blue/graphics/addressbook_browse.png" />
