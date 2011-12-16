@@ -38,8 +38,8 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
      */
     public function readWbxmlHeader()
     {
-        $this->_version = $this->_getByte();
-        $this->_publicid = $this->_getMBUInt();
+        $this->version = $this->_getByte();
+        $this->publicid = $this->_getMBUInt();
         if ($this->publicid == 0) {
             $this->publicstringid = $this->_getMBUInt();
         }

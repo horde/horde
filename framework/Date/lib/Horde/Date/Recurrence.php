@@ -352,7 +352,7 @@ class Horde_Date_Recurrence
         }
 
         // Make sure $after and $this->start are in the same TZ
-        $after->setTimeZone($this->start->timezone);
+        $after->setTimezone($this->start->timezone);
         if ($this->start->compareDateTime($after) >= 0) {
             return clone $this->start;
         }
