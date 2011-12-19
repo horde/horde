@@ -154,9 +154,11 @@ class Horde_Block_Weather extends Horde_Core_Block
 
         // Location and local time.
         $html .= '<div class="control">'
-            . '<strong>' . $station->name . '</strong> '
-            . sprintf(_("Local time: %s %s"), $current->time->strftime($GLOBALS['prefs']->getValue('date_format')), $current->time->strftime($GLOBALS['prefs']->getValue('time_format')))
-            . '</div>';
+            . '<strong>' . $station->name . '</strong>';
+        if ($current->time->timestamp()) {
+            $html .= ' ' . sprintf(_("Local time: %s %s"), $current->time->strftime($GLOBALS['prefs']->getValue('date_format')), $current->time->strftime($GLOBALS['prefs']->getValue('time_format')));
+        }
+        $html .= '</div>';
 
         // Sunrise/sunset.
         if ($station->sunrise) {
