@@ -26,7 +26,7 @@
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
+ <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
 * 
  </notes>
@@ -774,7 +774,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-03-09</date>
-   <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * First alpha release for Horde 4.
    </notes>
@@ -789,7 +789,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * Fix PDF generation.
 * Fix encrypting and decrypting of notes.
@@ -805,7 +805,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-23</date>
-   <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * First release candidate for Horde 4.
 * [gwr] Adapted the Kolab driver to Horde 4.
@@ -821,7 +821,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-30</date>
-   <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * Second release candidate for Horde 4.
    </notes>
@@ -836,7 +836,7 @@
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * First stable release for Horde 4.
 * [jan] Fix generating tooltip previews of encrypted notes.
@@ -854,7 +854,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-05-18</date>
-   <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Fix accidental encryption of notes (Bug #9981).
 * [jan] Fix color picker for categories in the note list header (Bug #9980).
@@ -868,7 +868,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-02</date>
-   <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Don&apos;t load all shares with requested permissions from the backend if $conf[&apos;share&apos;][&apos;hidden&apos;] is enabled.
    </notes>
@@ -881,7 +881,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-10-18</date>
-   <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Add Estonian translation (Alar Sing &lt;alar.sing@err.ee&gt;).
 * [gwr] Avoid including the owner name into the default share (Kolab backend).
@@ -896,7 +896,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-12-13</date>
-   <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Use locale based sorting.
 * [jan] Fix remembering the expansion state of the notepads panel (Bug #10797).
@@ -911,7 +911,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-12-13</date>
-   <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * 
    </notes>

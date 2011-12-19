@@ -7,7 +7,7 @@
  * @category Horde
  * @package  Mnemo
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.horde.org/licenses/asl.php
+ * @license  http://www.horde.org/licenses/apache
  * @link     http://www.horde.org/apps/mnemo
  */
 
@@ -17,12 +17,12 @@
  * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
- * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @category Horde
  * @package  Mnemo
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.horde.org/licenses/asl.php
+ * @license  http://www.horde.org/licenses/apache
  * @link     http://www.horde.org/apps/mnemo
  */
 class Mnemo_Notepads_Kolab

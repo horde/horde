@@ -8,7 +8,7 @@
  * @package    Mnemo
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.horde.org/licenses/asl.php
+ * @license    http://www.horde.org/licenses/apache
  * @link       http://www.horde.org/apps/mnemo
  */
 

@@ -5,7 +5,7 @@
  * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
- * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author Jason Felice <jason.m.felice@gmail.com>
  * @author Jan Schneider <jan@horde.org>

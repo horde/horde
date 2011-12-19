@@ -3,7 +3,7 @@
  * The Ingo_Script_Sieve_Test_Relational class represents a relational test.
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
- * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author  Todd Merritt <tmerritt@email.arizona.edu>
  * @package Ingo
