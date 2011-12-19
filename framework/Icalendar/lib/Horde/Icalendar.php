@@ -733,14 +733,16 @@ class Horde_Icalendar
 
                 // Geo fields.
                 case 'GEO':
-                    if ($this->_oldFormat) {
-                        $floats = explode(',', $value);
-                        $value = array('latitude' => floatval($floats[1]),
-                                       'longitude' => floatval($floats[0]));
-                    } else {
-                        $floats = explode(';', $value);
-                        $value = array('latitude' => floatval($floats[0]),
-                                       'longitude' => floatval($floats[1]));
+                    if ($value) {
+                        if ($this->_oldFormat) {
+                            $floats = explode(',', $value);
+                            $value = array('latitude' => floatval($floats[1]),
+                                           'longitude' => floatval($floats[0]));
+                        } else {
+                            $floats = explode(';', $value);
+                            $value = array('latitude' => floatval($floats[0]),
+                                           'longitude' => floatval($floats[1]));
+                        }
                     }
                     $this->setAttribute($tag, $value, $params);
                     break;
