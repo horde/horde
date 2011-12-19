@@ -146,11 +146,10 @@ END:VCARD
         $contact = $this->contact;
         unset($contact['name']);
         $object = new Turba_Object($driver, $contact);
-        $vcard = $this->driver->tovCard($this->object, '3.0');
+        $vcard = $this->driver->tovCard($object, '3.0');
         $this->assertEquals(
 'BEGIN:VCARD
 VERSION:3.0
-FN:Mr. Jan K. Schneiderö
 EMAIL;TYPE=INTERNET:jan@horde.org
 NICKNAME:yunosh
 X-EPOCSECONDNAME:yunosh
@@ -171,6 +170,7 @@ PHOTO;ENCODING=b;TYPE=image/png:iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJAgMAAACd/+6
  DAAAACVBMVEW6ABZmZmYAAACMtcxCAAAAAXRSTlMAQObYZgAAABpJREFUCFtjYACBBgYmRgEIZm
  GBYAFGMAYBABVmAOEH9qP8AAAAAElFTkSuQmCC
 N:Schneiderö;Jan;K.;Mr.;
+FN:Mr. Jan K. Schneiderö
 ORG:Horde Project;äöü
 ADR;TYPE=HOME:;;Schönestr. 15\n33604 Bielefeld;;;;
 ADR;TYPE=WORK:;;Hübschestr. 19;Köln;Allgäu;;Dänemark
