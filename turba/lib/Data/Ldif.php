@@ -4,8 +4,8 @@
  *
  * Copyright 2007-2011 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file LICENSE for license information (ASL).  If you
+ * did not receive this file, see http://www.horde.org/licenses/asl.php.
  *
  * @author  Rita Selsky <ritaselsky@gmail.com>
  * @package Horde_Data
