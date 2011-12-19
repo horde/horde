@@ -26,7 +26,7 @@ class Horde_Core_Ajax_Imple_WeatherLocationAutoCompleter extends Horde_Core_Ajax
                   ->add('blockid', 'horde_block_weather');
         Horde::addInlineScript(
             array(
-                'if (!window.weatherupdate) { window.weatherupdate = {}; }',
+                'window.weatherupdate = window.weatherupdate || {};',
                 'window.weatherupdate["' . $this->_params['instance'] . '"] = {
                     value: false,
                     choices: {},
@@ -48,6 +48,7 @@ class Horde_Core_Ajax_Imple_WeatherLocationAutoCompleter extends Horde_Core_Ajax
                 }',
                 '$("button' . $this->_params['instance'] . '").observe("click", function(e) {
                     window.weatherupdate["' . $this->_params['instance'] . '"].update();
+                    e.stop();
                 });'
             ),
             'dom'
