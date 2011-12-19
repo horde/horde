@@ -887,29 +887,35 @@ class Horde_Icalendar
                     if ($param_value === null) {
                         $params_str .= ";$param_name";
                     } else {
-                        $len = strlen($param_value);
-                        $safe_value = '';
-                        $quote = false;
-                        for ($i = 0; $i < $len; ++$i) {
-                            $ord = ord($param_value[$i]);
-                            // Accept only valid characters.
-                            if ($ord == 9 || $ord == 32 || $ord == 33 ||
-                                ($ord >= 35 && $ord <= 126) ||
-                                $ord >= 128) {
-                                $safe_value .= $param_value[$i];
-                                // Characters above 128 do not need to be
-                                // quoted as per RFC2445 but Outlook requires
-                                // this.
-                                if ($ord == 44 || $ord == 58 || $ord == 59 ||
+                        if (!is_array($param_value)) {
+                            $param_value = array($param_value);
+                        }
+                        foreach ($param_value as &$one_param_value) {
+                            $len = strlen($one_param_value);
+                            $safe_value = '';
+                            $quote = false;
+                            for ($i = 0; $i < $len; ++$i) {
+                                $ord = ord($one_param_value[$i]);
+                                // Accept only valid characters.
+                                if ($ord == 9 || $ord == 32 || $ord == 33 ||
+                                    ($ord >= 35 && $ord <= 126) ||
                                     $ord >= 128) {
-                                    $quote = true;
+                                    $safe_value .= $one_param_value[$i];
+                                    // Characters above 128 do not need to be
+                                    // quoted as per RFC2445 but Outlook requires
+                                    // this.
+                                    if ($ord == 44 || $ord == 58 || $ord == 59 ||
+                                        $ord >= 128) {
+                                        $quote = true;
+                                    }
                                 }
                             }
+                            if ($quote) {
+                                $safe_value = '"' . $safe_value . '"';
+                            }
+                            $one_param_value = $safe_value;
                         }
-                        if ($quote) {
-                            $safe_value = '"' . $safe_value . '"';
-                        }
-                        $params_str .= ";$param_name=$safe_value";
+                        $params_str .= ";$param_name=" . implode(',', $param_value);
                     }
                 }
             }
