@@ -1063,9 +1063,9 @@ class Turba_Driver implements Countable
                     break;
                 }
                 if ($version == '2.1') {
-                    $vcard->setAttribute('TEL', $val, array('HOME' => null));
+                    $vcard->setAttribute('TEL', $val, array('HOME' => null, 'VOICE' => null));
                 } else {
-                    $vcard->setAttribute('TEL', $val, array('TYPE' => 'HOME'));
+                    $vcard->setAttribute('TEL', $val, array('TYPE' => array('HOME', 'VOICE')));
                 }
                 break;
 
@@ -1077,9 +1077,9 @@ class Turba_Driver implements Countable
                     break;
                 }
                 if ($version == '2.1') {
-                    $vcard->setAttribute('TEL', $val, array('WORK' => null));
+                    $vcard->setAttribute('TEL', $val, array('WORK' => null, 'VOICE' => null));
                 } else {
-                    $vcard->setAttribute('TEL', $val, array('TYPE' => 'WORK'));
+                    $vcard->setAttribute('TEL', $val, array('TYPE' => array('WORK', 'VOICE')));
                 }
                 break;
 
@@ -1091,9 +1091,9 @@ class Turba_Driver implements Countable
                     break;
                 }
                 if ($version == '2.1') {
-                    $vcard->setAttribute('TEL', $val, array('CELL' => null));
+                    $vcard->setAttribute('TEL', $val, array('CELL' => null, 'VOICE' => null));
                 } else {
-                    $vcard->setAttribute('TEL', $val, array('TYPE' => 'CELL'));
+                    $vcard->setAttribute('TEL', $val, array('TYPE' => array('CELL', 'VOICE')));
                 }
                 break;
 
@@ -1107,16 +1107,18 @@ class Turba_Driver implements Countable
                         isset($fields['TEL']->Params['TYPE']->ValEnum['CELL'])) {
                         if ($version == '2.1') {
                             $parameters['CELL'] = null;
+                            $parameters['VOICE'] = null;
                         } else {
-                            $parameters['TYPE'] = 'CELL';
+                            $parameters['TYPE'] = array('CELL', 'VOICE');
                         }
                     }
                     if (!isset($fields['TEL']->Params['TYPE']) ||
                         isset($fields['TEL']->Params['TYPE']->ValEnum['HOME'])) {
                         if ($version == '2.1') {
                             $parameters['HOME'] = null;
+                            $parameters['VOICE'] = null;
                         } else {
-                            $parameters['TYPE'] = 'HOME';
+                            $parameters['TYPE'] = array('HOME', 'VOICE');
                         }
                     }
                     if (empty($parameters)) {
@@ -1124,9 +1126,9 @@ class Turba_Driver implements Countable
                     }
                 } else {
                     if ($version == '2.1') {
-                        $parameters = array('CELL' => null, 'HOME' => null);
+                        $parameters = array('CELL' => null, 'HOME' => null, 'VOICE' => null);
                     } else {
-                        $parameters = array('TYPE' => 'CELL', 'TYPE' => 'HOME');
+                        $parameters = array('TYPE' => array('CELL', 'HOME', 'VOICE'));
                     }
                 }
                 $vcard->setAttribute('TEL', $val, $parameters);
@@ -1142,16 +1144,18 @@ class Turba_Driver implements Countable
                         isset($fields['TEL']->Params['TYPE']->ValEnum['CELL'])) {
                         if ($version == '2.1') {
                             $parameters['CELL'] = null;
+                            $parameters['VOICE'] = null;
                         } else {
-                            $parameters['TYPE'] = 'CELL';
+                            $parameters['TYPE'] = array('CELL', 'VOICE');
                         }
                     }
                     if (!isset($fields['TEL']->Params['TYPE']) ||
                         isset($fields['TEL']->Params['TYPE']->ValEnum['WORK'])) {
                         if ($version == '2.1') {
                             $parameters['WORK'] = null;
+                            $parameters['VOICE'] = null;
                         } else {
-                            $parameters['TYPE'] = 'WORK';
+                            $parameters['TYPE'] = array('WORK', 'VOICE');
                         }
                     }
                     if (empty($parameters)) {
@@ -1159,9 +1163,9 @@ class Turba_Driver implements Countable
                     }
                 } else {
                     if ($version == '2.1') {
-                        $parameters = array('CELL' => null, 'WORK' => null);
+                        $parameters = array('CELL' => null, 'WORK' => null, 'VOICE' => null);
                     } else {
-                        $parameters = array('TYPE' => 'CELL', 'TYPE' => 'WORK');
+                        $parameters = array('TYPE' => array('CELL', 'WORK', 'VOICE'));
                     }
                 }
                 $vcard->setAttribute('TEL', $val, $parameters);
@@ -1210,7 +1214,7 @@ class Turba_Driver implements Countable
                     if ($version == '2.1') {
                         $parameters = array('VIDEO' => null, 'HOME' => null);
                     } else {
-                        $parameters = array('TYPE' => 'VIDEO', 'TYPE' => 'HOME');
+                        $parameters = array('TYPE' => array('VIDEO', 'HOME'));
                     }
                 }
                 $vcard->setAttribute('TEL', $val, $parameters);
@@ -1245,7 +1249,7 @@ class Turba_Driver implements Countable
                     if ($version == '2.1') {
                         $parameters = array('VIDEO' => null, 'WORK' => null);
                     } else {
-                        $parameters = array('TYPE' => 'VIDEO', 'TYPE' => 'WORK');
+                        $parameters = array('TYPE' => array('VIDEO', 'WORK'));
                     }
                 }
                 $vcard->setAttribute('TEL', $val, $parameters);
@@ -1349,7 +1353,7 @@ class Turba_Driver implements Countable
                     if ($version == '2.1') {
                         $parameters = array('FAX' => null, 'HOME' => null);
                     } else {
-                        $parameters = array('TYPE' => 'FAX', 'TYPE' => 'HOME');
+                        $parameters = array('TYPE' => array('FAX', 'HOME'));
                     }
                 }
                 $vcard->setAttribute('TEL', $val, $parameters);
@@ -1384,14 +1388,14 @@ class Turba_Driver implements Countable
                     if ($version == '2.1') {
                         $parameters = array('FAX' => null, 'WORK' => null);
                     } else {
-                        $parameters = array('TYPE' => 'FAX', 'TYPE' => 'WORK');
+                        $parameters = array('TYPE' => array('FAX', 'WORK'));
                     }
                 }
                 $vcard->setAttribute('TEL', $val, $parameters);
                 if ($version == '2.1') {
                     $vcard->setAttribute('TEL', $val, array('FAX' => null, 'WORK' => null));
                 } else {
-                    $vcard->setAttribute('TEL', $val, array('TYPE' => 'FAX', 'TYPE' => 'WORK'));
+                    $vcard->setAttribute('TEL', $val, array('TYPE' => array('FAX', 'WORK')));
                 }
                 break;
 

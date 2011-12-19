@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
+* [jan] Set VOICE parameter when exporting phone numbers to vCard (Request #10349).
 * [jan] Fix importing vCards with empty X-ANNIVERSARY attributes (Bug #10557).
 * [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
  </notes>
@@ -681,7 +682,7 @@
    <package>
     <name>Horde_Icalendar</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.1.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -1363,6 +1364,7 @@
    <date>2011-11-02</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
+* [jan] Set VOICE parameter when exporting phone numbers to vCard (Request #10349).
 * [jan] Fix importing vCards with empty X-ANNIVERSARY attributes (Bug #10557).
 * [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
    </notes>

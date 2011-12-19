@@ -2,6 +2,8 @@
 v3.0.11-git
 -----------
 
+[jan] Set VOICE parameter when exporting phone numbers to vCard (Request
+      #10349).
 [jan] Fix importing vCards with empty X-ANNIVERSARY attributes (Bug #10557).
 [jan] Update Japanese translation (Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>).
 
