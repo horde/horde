@@ -750,7 +750,10 @@ var DimpBase = {
             this.setMsgHash();
         }.bindAsEventListener(this));
 
-        container.observe('ViewPort:fetch', this.loadingImg.bind(this, 'viewport', true));
+        container.observe('ViewPort:fetch', function(e) {
+            $('searchbar').hide();
+            this.loadingImg('viewport', true);
+        }.bindAsEventListener(this));
 
         container.observe('ViewPort:remove', function(e) {
             var v = e.memo.getBuffer().getView();
