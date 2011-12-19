@@ -203,8 +203,8 @@
  *   VP_rownum: (integer) The row number of the row.
  *
  *
- * Scroll bars use ars styled using these CSS class names:
- * -------------------------------------------------------
+ * Scroll bars are styled using these CSS class names:
+ * ---------------------------------------------------
  * vpScroll - The scroll bar container.
  * vpScrollUp - The UP arrow.
  * vpScrollCursor - The cursor used to slide within the bounds.
