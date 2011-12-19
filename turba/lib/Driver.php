@@ -2252,7 +2252,11 @@ class Turba_Driver implements Countable
                 break;
 
             case 'X-ANNIVERSARY':
-                $hash['anniversary'] = $item['value']['year'] . '-' . $item['value']['month'] . '-' . $item['value']['mday'];
+                if (empty($item['value'])) {
+                    $hash['anniversary'] = '';
+                } else {
+                    $hash['anniversary'] = $item['value']['year'] . '-' . $item['value']['month'] . '-' . $item['value']['mday'];
+                }
                 break;
 
             case 'X-CHILDREN':
