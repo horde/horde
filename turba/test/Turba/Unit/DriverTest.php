@@ -42,7 +42,7 @@ class Turba_Unit_DriverTest extends Turba_TestCase
             'workCity' => 'Köln',
             'workProvince' => 'Allgäu',
             'workPostalcode' => '33602',
-            'workCountry' => 'Dänemark',
+            'workCountry' => 'DK',
             'homePhone' => '+49 521 555123',
             'workPhone' => '+49 521 555456',
             'cellPhone' => '+49 177 555123',
