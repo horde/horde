@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../Autoload.php';
+require_once dirname(__FILE__) . '/Base.php';
 
 /**
  * Test the core Turba class with the Kolab backend.

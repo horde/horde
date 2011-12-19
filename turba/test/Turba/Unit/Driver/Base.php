@@ -13,6 +13,11 @@
  */
 
 /**
+ * Prepare the test setup.
+ */
+require_once dirname(__FILE__) . '/../../TestCase.php';
+
+/**
  * Driver test base.
  *
  * Copyright 2011 Horde LLC (http://www.horde.org/)

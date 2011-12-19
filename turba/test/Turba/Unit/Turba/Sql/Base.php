@@ -13,6 +13,11 @@
  */
 
 /**
+ * Prepare the test setup.
+ */
+require_once dirname(__FILE__) . '/../Base.php';
+
+/**
  * Test the core Turba class with a SQL backend.
  *
  * Copyright 2011 Horde LLC (http://www.horde.org/)
@@ -25,7 +30,8 @@
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @link       http://www.horde.org/apps/turba
- * @license    http://www.horde.org/licenses/apache Apache-li */
+ * @license    http://www.horde.org/licenses/apache Apache-like
+ */
 class Turba_Unit_Turba_Sql_Base extends Turba_Unit_Turba_Base
 {
     public static function setUpBeforeClass()
