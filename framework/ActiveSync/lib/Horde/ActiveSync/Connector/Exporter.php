@@ -82,7 +82,7 @@ class Horde_ActiveSync_Connector_Exporter
     /**
      * Send a message change over the wbxml stream
      *
-     * @param string $id                              Thenuid of the message
+     * @param string $id                              The uid of the message
      * @param Horde_ActiveSync_Message_Base $message  The message object
      *
      * @return boolean
