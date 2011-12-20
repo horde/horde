@@ -2793,9 +2793,8 @@ var DimpBase = {
                 params = { mbox: val };
                 if (mode == 'createsub') {
                     params.parent = folder.up('LI').retrieve('mbox');
-                    tmp = folder.up('LI').next();
+                    tmp = this.getSubMboxElt(params.parent);
                     if (!tmp ||
-                        !tmp.hasClassName('subfolders') ||
                         !tmp.down('UL').childElements().size()) {
                         params.noexpand = 1;
                     }
@@ -3205,6 +3204,7 @@ var DimpBase = {
 
         if (sub &&
             (submbox = this.getSubMboxElt(m_elt))) {
+            delete this.smboxes[submbox.retrieve('mbox')];
             submbox.remove();
         }
         [ DragDrop.Drags.getDrag(m), DragDrop.Drops.getDrop(m) ].compact().invoke('destroy');
@@ -3212,6 +3212,7 @@ var DimpBase = {
         if (this.viewport) {
             this.viewport.deleteView(m);
         }
+        delete this.mboxes[m_elt.retrieve('mbox')];
         m_elt.remove();
     },
 
