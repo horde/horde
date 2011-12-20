@@ -123,6 +123,8 @@ class IMP_Mailbox implements Serializable
     const CACHE_DISPLAY = 'd';
     // (array) Icons array
     const CACHE_ICONS = 'i';
+    // (string) Label string
+    const CACHE_LABEL = 'l';
     // (array) Namespace information
     const CACHE_NAMESPACE = 'n';
     // (boolean) Read-only?
@@ -407,19 +409,30 @@ class IMP_Mailbox implements Serializable
             return $injector->getInstance('IMP_Imap_Tree')->isOpen($this->_mbox);
 
         case 'label':
-            /* Returns the plain text label that is displayed for the current
-             * mailbox, replacing virtual search mailboxes with an appropriate
-             * description, removing namespace and mailbox prefix information
-             * from what is shown to the user, and passing the label through a
-             * user-defined hook. */
-            $imp_search = $injector->getInstance('IMP_Search');
-            $label = ($ob = $imp_search[$this->_mbox])
-                ? $ob->label
-                : $this->_getDisplay();
+            if (!isset($this->_cache[self::CACHE_LABEL])) {
+                /* Returns the plain text label that is displayed for the
+                 * current mailbox, replacing virtual search mailboxes with an
+                 * appropriate description, removing namespace and mailbox
+                 * prefix information from what is shown to the user, and
+                 * passing the label through a user-defined hook. */
+                $imp_search = $injector->getInstance('IMP_Search');
+                $label = ($ob = $imp_search[$this->_mbox])
+                    ? $ob->label
+                    : $this->_getDisplay();
 
-            return self::$_temp[self::CACHE_HASLABELHOOK]
-                ? Horde::callHook('mbox_label', array($this->_mbox, $label), 'imp')
-                : $label;
+                if (self::$_temp[self::CACHE_HASLABELHOOK]) {
+                    $label = Horde::callHook('mbox_label', array($this->_mbox, $label), 'imp');
+                }
+
+                $this->_cache[self::CACHE_LABEL] = (isset($this->_cache[self::CACHE_DISPLAY]) && ($this->_cache[self::CACHE_DISPLAY] == $label))
+                    ? true
+                    : $label;
+                $this->_changed = self::CHANGED_YES;
+            }
+
+            return ($this->_cache[self::CACHE_LABEL] === true)
+                ? $this->_cache[self::CACHE_DISPLAY]
+                : $this->_cache[self::CACHE_LABEL];
 
         case 'level':
             $elt = $injector->getInstance('IMP_Imap_Tree')->getElement($this->_mbox);
