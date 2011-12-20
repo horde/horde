@@ -411,9 +411,14 @@ var ViewPort = Class.create({
                 this.remove.bind(this, vs).defer();
             } else {
                 this.isbusy = true;
-                this._remove(vs);
-                if (vs.getBuffer().getView() == this.view) {
-                    this.requestContentRefresh(this.currentOffset());
+                try {
+                    this._remove(vs);
+                    if (vs.getBuffer().getView() == this.view) {
+                        this.requestContentRefresh(this.currentOffset());
+                    }
+                } catch (e) {
+                    this.isbusy = false;
+                    throw e;
                 }
                 this.isbusy = false;
             }
@@ -583,11 +588,21 @@ var ViewPort = Class.create({
     _fetchBuffer: function(opts)
     {
         if (this.isbusy) {
-            return this._fetchBuffer.bind(this, opts).defer();
+            this._fetchBuffer.bind(this, opts).defer();
+        } else {
+            this.isbusy = true;
+            try {
+                this._fetchBufferDo(opts);
+            } catch (e) {
+                this.isbusy = false;
+                throw e;
+            }
+            this.isbusy = false;
         }
+    },
 
-        this.isbusy = true;
-
+    _fetchBufferDo: function(opts)
+    {
         var llist, lrows, rlist, tmp, type, value,
             view = (opts.view || this.view),
             b = this._getBuffer(view),
@@ -648,7 +663,6 @@ var ViewPort = Class.create({
                 if (!this.active_req && !opts.background) {
                     this.active_req = llist.keys().numericSort().last();
                 }
-                this.isbusy = false;
                 return;
             }
 
@@ -658,7 +672,6 @@ var ViewPort = Class.create({
             rlist = $A($R(tmp.start, tmp.end)).diff(b.getAllRows());
 
             if (!rlist.size()) {
-                this.isbusy = false;
                 return;
             }
 
@@ -682,8 +695,6 @@ var ViewPort = Class.create({
         }
 
         this._ajaxRequest(params, { noslice: true, view: view });
-
-        this.isbusy = false;
     },
 
     // rownum = (integer) Row number
@@ -819,10 +830,20 @@ var ViewPort = Class.create({
     {
         if (this.isbusy) {
             this._ajaxResponse.bind(this, r).defer();
-            return;
+        } else {
+            this.isbusy = true;
+            try {
+                this._ajaxResponseDo(r);
+            } catch (e) {
+                this.isbusy = false;
+                throw e;
+            }
+            this.isbusy = false;
         }
+    },
 
-        this.isbusy = true;
+    _ajaxResponseDo: function(r)
+    {
         this._clearWait();
 
         var callback, offset, tmp,
@@ -879,8 +900,6 @@ var ViewPort = Class.create({
             // viewport incorrectly.
             buffer.setMetaData({ offset: Number(r.rownum) - 1 }, true);
         }
-
-        this.isbusy = false;
     },
 
     // offset = (integer) Offset of row to display
