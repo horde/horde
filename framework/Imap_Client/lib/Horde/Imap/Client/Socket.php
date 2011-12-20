@@ -1032,13 +1032,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             'subscribed' => ($check ? array_flip($subscribed) : null)
         );
         $t['listresponse'] = array();
+        $return_opts = array();
 
         if ($this->queryCapability('LIST-EXTENDED') &&
             empty($options['no_listext'])) {
             $cmd = array('LIST');
             $t['mailboxlist']['ext'] = true;
 
-            $return_opts = $select_opts = array();
+            $select_opts = array();
 
             if (($mode == Horde_Imap_Client::MBOX_SUBSCRIBED) ||
                 ($mode == Horde_Imap_Client::MBOX_SUBSCRIBED_EXISTS)) {
@@ -1076,35 +1077,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             if (!empty($options['special_use'])) {
                 $return_opts[] = 'SPECIAL-USE';
             }
-
-            if (!empty($options['status']) &&
-                $this->queryCapability('LIST-STATUS')) {
-                $status_mask = array(
-                    Horde_Imap_Client::STATUS_MESSAGES => 'MESSAGES',
-                    Horde_Imap_Client::STATUS_RECENT => 'RECENT',
-                    Horde_Imap_Client::STATUS_UIDNEXT => 'UIDNEXT',
-                    Horde_Imap_Client::STATUS_UIDVALIDITY => 'UIDVALIDITY',
-                    Horde_Imap_Client::STATUS_UNSEEN => 'UNSEEN',
-                    Horde_Imap_Client::STATUS_HIGHESTMODSEQ => 'HIGHESTMODSEQ'
-                );
-
-                $status_opts = array();
-                foreach ($status_mask as $key => $val) {
-                    if ($options['status'] & $key) {
-                        $status_opts[] = $val;
-                    }
-                }
-
-                if (!empty($status_opts)) {
-                    $return_opts[] = 'STATUS';
-                    $return_opts[] = $status_opts;
-                }
-            }
-
-            if (!empty($return_opts)) {
-                $cmd[] = 'RETURN';
-                $cmd[] = $return_opts;
-            }
         } else {
             if (is_array($pattern)) {
                 $return_array = array();
@@ -1119,6 +1091,36 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 '""',
                 array('t' => Horde_Imap_Client::DATA_LISTMAILBOX, 'v' => $pattern)
             );
+        }
+
+        /* LIST-STATUS does NOT depend on LIST-EXTENDED. */
+        if (!empty($options['status']) &&
+            $this->queryCapability('LIST-STATUS')) {
+            $status_mask = array(
+                Horde_Imap_Client::STATUS_MESSAGES => 'MESSAGES',
+                Horde_Imap_Client::STATUS_RECENT => 'RECENT',
+                Horde_Imap_Client::STATUS_UIDNEXT => 'UIDNEXT',
+                Horde_Imap_Client::STATUS_UIDVALIDITY => 'UIDVALIDITY',
+                Horde_Imap_Client::STATUS_UNSEEN => 'UNSEEN',
+                Horde_Imap_Client::STATUS_HIGHESTMODSEQ => 'HIGHESTMODSEQ'
+            );
+
+            $status_opts = array();
+            foreach ($status_mask as $key => $val) {
+                if ($options['status'] & $key) {
+                    $status_opts[] = $val;
+                }
+            }
+
+            if (!empty($status_opts)) {
+                $return_opts[] = 'STATUS';
+                $return_opts[] = $status_opts;
+            }
+        }
+
+        if (!empty($return_opts)) {
+            $cmd[] = 'RETURN';
+            $cmd[] = $return_opts;
         }
 
         $this->_sendLine($cmd);

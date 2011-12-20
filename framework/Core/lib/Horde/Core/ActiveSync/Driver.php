@@ -12,8 +12,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 {
     /** Constants **/
     const APPOINTMENTS_FOLDER = 'Calendar';
-    const CONTACTS_FOLDER = 'Contacts';
-    const TASKS_FOLDER = 'Tasks';
+    const CONTACTS_FOLDER     = 'Contacts';
+    const TASKS_FOLDER        = 'Tasks';
+    const FOLDER_INBOX        = 'Inbox';
 
     /**
      * Cache message stats
@@ -140,6 +141,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $folders[] = $this->statFolder(self::TASKS_FOLDER);
         }
 
+        // HACK to allow email setup to complete enough to allow invitation
+        // emails.
+        $folders[] = $this->statFolder(self::FOLDER_INBOX);
+
         if ($errors = Horde::endBuffer()) {
             $this->_logger->err('Unexpected output: ' . $errors);
         }
@@ -173,6 +178,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             break;
         case self::TASKS_FOLDER:
             $folder->type = Horde_ActiveSync::FOLDER_TYPE_TASK;
+            break;
+        case self::FOLDER_INBOX:
+            $folder->type = Horde_ActiveSync::FOLDER_TYPE_INBOX;
             break;
         default:
             return false;
@@ -682,24 +690,34 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     public function sendMail($rfc822, $forward = false, $reply = false, $parent = false)
     {
         $headers = Horde_Mime_Headers::parseHeaders($rfc822);
-        $part = Horde_Mime_Part::parseMessage($rfc822);
+        $message = Horde_Mime_Part::parseMessage($rfc822);
+
+        // Message requests do not contain the From, since it is assumed to
+        // be from the user of the AS account.
+        $ident = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Identity')
+            ->create($this->_user);
+        $name = $ident->getValue('fullname');
+        $from_addr = $ident->getValue('from_addr');
 
         $mail = new Horde_Mime_Mail();
         $mail->addHeaders($headers->toArray());
+        $mail->addHeader('From', $name . '<' . $from_addr . '>');
 
-        $body_id = $part->findBody();
+        $body_id = $message->findBody();
         if ($body_id) {
-            $body = $part->getPart($body_id);
-            $body = $body->getContents();
+            $part = $message->getPart($body_id);
+            $body = $part->getContents();
             $mail->setBody($body);
         } else {
             $mail->setBody('No body?');
         }
-        foreach ($part->contentTypeMap() as $id => $type) {
-            $mail->addPart($type, $part->getPart($id)->toString());
+
+        foreach ($message->contentTypeMap() as $id => $type) {
+            $mail->addPart($type, $message->getPart($id)->toString());
         }
 
-        $mail->send($this->_params['mail']);
+        $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
 
         return true;
     }

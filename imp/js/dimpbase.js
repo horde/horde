@@ -2794,7 +2794,8 @@ var DimpBase = {
                 if (mode == 'createsub') {
                     params.parent = folder.up('LI').retrieve('mbox');
                     tmp = folder.up('LI').next();
-                    if (!tmp.hasClassName('subfolders') ||
+                    if (!tmp ||
+                        !tmp.hasClassName('subfolders') ||
                         !tmp.down('UL').childElements().size()) {
                         params.noexpand = 1;
                     }
