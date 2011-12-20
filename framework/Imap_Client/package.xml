@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] LIST-STATUS does not depend on LIST-EXTENDED.
 * [mms] Add dependency checking for capabilities.
  </notes>
  <contents>
@@ -641,6 +642,7 @@
    <date>2011-12-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] LIST-STATUS does not depend on LIST-EXTENDED.
 * [mms] Add dependency checking for capabilities.
    </notes>
   </release>
