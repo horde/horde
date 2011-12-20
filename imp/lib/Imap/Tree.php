@@ -480,7 +480,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         $sub_pref = $GLOBALS['prefs']->getValue('subscribe');
 
         foreach ($elts as $val) {
-            $key = $val['mailbox'];
+            $key = strval($val['mailbox']);
             if (isset($this->_tree[$key]) ||
                 in_array('\nonexistent', $val['attributes'])) {
                 continue;
