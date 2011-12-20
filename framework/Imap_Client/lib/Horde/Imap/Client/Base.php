@@ -449,10 +449,23 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 return false;
             }
         }
+
         $capability = strtoupper($capability);
-        return isset($this->_init['capability'][$capability])
-            ? $this->_init['capability'][$capability]
-            : false;
+
+        if (!isset($this->_init['capability'][$capability])) {
+            return false;
+        }
+
+        /* Check for capability requirements. */
+        if (isset(Horde_Imap_Client::$capability_deps[$capability])) {
+            foreach (Horde_Imap_Client::$capability_deps[$capability] as $val) {
+                if (!$this->queryCapability($val)) {
+                    return false;
+                }
+            }
+        }
+
+        return $this->_init['capability'][$capability];
     }
 
     /**

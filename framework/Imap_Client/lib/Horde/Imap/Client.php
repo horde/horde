@@ -166,6 +166,32 @@ class Horde_Imap_Client
     const SLOW_COMMAND = 1;
 
     /**
+     * Capability dependencies.
+     *
+     * @var array
+     */
+    static public $capability_deps = array(
+        // RFC 5162 [1]
+        'QRESYNC' => array(
+            // QRESYNC requires CONDSTORE, but the latter is implied and is
+            // not required to be listed.
+            'ENABLE'
+        ),
+        // RFC 5182 [2.1]
+        'SEARCHRES' => array(
+            'ESEARCH'
+        ),
+        // RFC 5255 [3.1]
+        'LANGUAGE' => array(
+            'NAMESPACE'
+        ),
+        // RFC 5957 [1]
+        'SORT=DISPLAY' => array(
+            'SORT'
+        )
+    );
+
+    /**
      * Attempts to return a concrete Horde_Imap_Client instance based on
      * $driver.
      *

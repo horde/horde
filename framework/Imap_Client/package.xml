@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Add dependency checking for capabilities.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -641,7 +641,7 @@
    <date>2011-12-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Add dependency checking for capabilities.
    </notes>
   </release>
  </changelog>
