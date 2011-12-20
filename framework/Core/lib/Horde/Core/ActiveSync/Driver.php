@@ -692,8 +692,17 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $headers = Horde_Mime_Headers::parseHeaders($rfc822);
         $message = Horde_Mime_Part::parseMessage($rfc822);
 
+        // Message requests do not contain the From, since it is assumed to
+        // be from the user of the AS account.
+        $ident = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Identity')
+            ->create($this->_user);
+        $name = $ident->getValue('fullname');
+        $from_addr = $ident->getValue('from_addr');
+
         $mail = new Horde_Mime_Mail();
         $mail->addHeaders($headers->toArray());
+        $mail->addHeader('From', $name . '<' . $from_addr . '>');
 
         $body_id = $message->findBody();
         if ($body_id) {
