@@ -2,6 +2,7 @@
 v5.0.17-git
 -----------
 
+[mms] Fix editing date search elements.
 [mms] Allow creation of the mailbox '0' (Bug #10866).
 [mms] Correctly handle numeric mailbox names.
 [mms] Fix display of mailbox names living under special mailboxes (Bug #10802).

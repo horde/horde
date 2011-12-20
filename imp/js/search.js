@@ -53,7 +53,8 @@ var ImpSearch = {
                 break;
 
             case 'IMP_Search_Element_Date':
-                this.insertDate(this.data.constants.index(crit.t), new Date(crit.d));
+                // JS Date() requires timestamp in ms; PHP value is in secs
+                this.insertDate(this.data.constants.date.index(crit.t), new Date(crit.d * 1000));
                 break;
 
             case 'IMP_Search_Element_Flag':
@@ -101,7 +102,7 @@ var ImpSearch = {
                 break;
 
             case 'IMP_Search_Element_Within':
-                this.insertWithin(crit.o ? 'older' : 'younger', { l: this.data.constants.index(crit.t), v: crit.v });
+                this.insertWithin(crit.o ? 'older' : 'younger', { l: this.data.constants.within.index(crit.t), v: crit.v });
                 break;
             }
         }, this);
