@@ -26,11 +26,15 @@ class Horde_ActiveSync_Message_Attendee extends Horde_ActiveSync_Message_Base
     protected $_mapping = array(
         Horde_ActiveSync_Message_Appointment::POOMCAL_EMAIL => array (self::KEY_ATTRIBUTE => 'email'),
         Horde_ActiveSync_Message_Appointment::POOMCAL_NAME  => array (self::KEY_ATTRIBUTE => 'name'),
+        Horde_ActiveSync_Message_Appointment::POOMCAL_ATTENDEESTATUS => array(self::KEY_ATTRIBUTE => 'status'),
+        Horde_ActiveSync_Message_Appointment::POOMCAL_ATTENDEETYPE => array(self::KEY_ATTRIBUTE => 'type')
     );
 
     protected $_properties = array(
         'email' => false,
         'name'  => false,
+        'status' => 0,
+        'type' => false
     );
 
 }
