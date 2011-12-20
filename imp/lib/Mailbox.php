@@ -115,6 +115,7 @@ class IMP_Mailbox implements Serializable
     const SPECIAL_SENT = 'sent';
     const SPECIAL_SPAM = 'spam';
     const SPECIAL_TRASH = 'trash';
+    const SPECIAL_USERHOOK = 'userhook';
 
     /* Cache identifiers. */
     // (array) ACL rights
@@ -613,7 +614,10 @@ class IMP_Mailbox implements Serializable
                 return true;
             }
 
-            return in_array($this->_mbox, $special[self::SPECIAL_SENT]);
+            return in_array($this->_mbox, array_merge(
+                $special[self::SPECIAL_SENT],
+                $special[self::SPECIAL_USERHOOK]
+            ));
 
         case 'special_outgoing':
             $special = $this->getSpecialMailboxes();
@@ -696,6 +700,10 @@ class IMP_Mailbox implements Serializable
         switch ($key) {
         case 'cache':
             $this->_cache = $value;
+            break;
+
+        case 'display':
+            $this->_cache[self::CACHE_DISPLAY] = $value;
             break;
         }
     }
@@ -1451,13 +1459,24 @@ class IMP_Mailbox implements Serializable
     static public function getSpecialMailboxes()
     {
         if (!isset(self::$_temp[self::CACHE_SPECIALMBOXES])) {
-            self::$_temp[self::CACHE_SPECIALMBOXES] = array(
+            $sm = &self::$_temp[self::CACHE_SPECIALMBOXES];
+
+            $sm = array(
                 self::SPECIAL_COMPOSETEMPLATES => self::getPref('composetemplates_mbox'),
                 self::SPECIAL_DRAFTS => self::getPref('drafts_folder'),
                 self::SPECIAL_SENT => $GLOBALS['injector']->getInstance('IMP_Identity')->getAllSentmailFolders(),
                 self::SPECIAL_SPAM => self::getPref('spam_folder'),
-                self::SPECIAL_TRASH => $GLOBALS['prefs']->getValue('use_trash') ? self::getPref('trash_folder') : null
+                self::SPECIAL_TRASH => $GLOBALS['prefs']->getValue('use_trash') ? self::getPref('trash_folder') : null,
+                self::SPECIAL_USERHOOK => array()
             );
+
+            try {
+                foreach (Horde::callHook('mbox_special', array(), 'imp') as $key => $val) {
+                    $ob = self::get($key);
+                    $ob->display = $val;
+                    $sm[self::SPECIAL_USERHOOK][strval($key)] = $ob;
+                }
+            } catch (Horde_Exception_HookNotSet $e) {}
         }
 
         return self::$_temp[self::CACHE_SPECIALMBOXES];
@@ -1733,7 +1752,9 @@ class IMP_Mailbox implements Serializable
                     $info->class = 'sentImg';
                     $info->icon = 'folders/sent.png';
                 } else {
-                    $info->alt = _("Mailbox");
+                    $info->alt = in_array($this->_mbox, $special[self::SPECIAL_USERHOOK])
+                        ? $this->display
+                        : _("Mailbox");
                     if ($this->is_open) {
                         $info->class = 'folderopenImg';
                         $info->icon = 'folders/open.png';

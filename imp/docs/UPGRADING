@@ -38,6 +38,7 @@ Server Options (backends.php)
 The 'namespace' option now requires the namespaces to be in the UTF-8 charset,
 not UTF7-IMAP.
 
+
 Configuration Options (conf.php)
 --------------------------------
 
@@ -50,6 +51,12 @@ The following configuration options were removed::
 
    $conf['dimp']['viewport']['buffer_pages']
    $conf['dimp']['viewport']['viewport_wait']
+
+
+Hooks (hooks.php)
+-----------------
+The 'mbox_special' hook has been added.
+
 
 Preferences (prefs.php)
 -----------------------
