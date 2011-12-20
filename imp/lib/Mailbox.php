@@ -26,9 +26,11 @@
  * @property mixed $acl  Either an ACL object for the mailbox, or null if
  *                       no ACL found for the mailbox.
  * @property string $basename  The basename of the mailbox (UTF-8).
+ * @property array $cache  Get the cached information for this object.
  * @property string $cacheid  Cache ID for the mailbox.
  * @property string $cacheid_date  Cache ID for the mailbox, with added date
  *                                 information.
+ * @property integer $changed  Has this object changed?
  * @property boolean $children  Does the element have children?
  * @property boolean $container  Is this a container element?
  * @property string $display  Display version of mailbox. Special mailboxes
@@ -141,14 +143,14 @@ class IMP_Mailbox implements Serializable
      *
      * @var array
      */
-    public $cache = array();
+    protected $_cache = array();
 
     /**
      * Has this object changed?
      *
      * @var integer
      */
-    public $changed = self::CHANGED_NO;
+    protected $_changed = self::CHANGED_NO;
 
     /**
      * Temporary data from importMbox().
@@ -158,18 +160,18 @@ class IMP_Mailbox implements Serializable
     protected $_import;
 
     /**
-     * Temporary cached data.  Used among all instances.
-     *
-     * @var array
-     */
-    static protected $_temp = array();
-
-    /**
      * The IMAP mailbox name (UTF-8).
      *
      * @var string
      */
     protected $_mbox;
+
+    /**
+     * Temporary cached data.  Used among all instances.
+     *
+     * @var array
+     */
+    static protected $_temp = array();
 
     /**
      * Shortcut to obtaining mailbox object(s).
@@ -301,21 +303,21 @@ class IMP_Mailbox implements Serializable
                     !$this->search);
 
         case 'acl':
-            if (isset($this->cache[self::CACHE_ACL])) {
-                return is_null($this->cache[self::CACHE_ACL])
+            if (isset($this->_cache[self::CACHE_ACL])) {
+                return is_null($this->_cache[self::CACHE_ACL])
                     ? null
-                    : new Horde_Imap_Client_Data_Acl($this->cache[self::CACHE_ACL]);
+                    : new Horde_Imap_Client_Data_Acl($this->_cache[self::CACHE_ACL]);
             }
 
-            $acl = $this->cache[self::CACHE_ACL] = null;
-            $this->changed = self::CHANGED_YES;
+            $acl = $this->_cache[self::CACHE_ACL] = null;
+            $this->_changed = self::CHANGED_YES;
 
             if (!$this->nonimap) {
                 try {
                     $acl = $injector->getInstance('IMP_Imap_Acl')->getACL($this, true);
                     /* Store string representation of ACL for a more compact
                      * serialized format. */
-                    $this->cache[self::CACHE_ACL] = strval($acl);
+                    $this->_cache[self::CACHE_ACL] = strval($acl);
                 } catch (IMP_Exception $e) {}
             }
 
@@ -330,9 +332,15 @@ class IMP_Mailbox implements Serializable
                 ? $this->_mbox
                 : substr($this->_mbox, $pos + 1);
 
+        case 'cache':
+            return $this->_cache;
+
         case 'cacheid':
         case 'cacheid_date':
             return $this->_getCacheID($key == 'cacheid_date');
+
+        case 'changed':
+            return $this->_changed;
 
         case 'children':
             return $injector->getInstance('IMP_Imap_Tree')->hasChildren($this->_mbox);
@@ -460,8 +468,8 @@ class IMP_Mailbox implements Serializable
         case 'namespace_info':
             $keys = array('delimiter', 'hidden', 'name', 'translation', 'type');
 
-            if (isset($this->cache[self::CACHE_NAMESPACE])) {
-                $ns = $this->cache[self::CACHE_NAMESPACE];
+            if (isset($this->_cache[self::CACHE_NAMESPACE])) {
+                $ns = $this->_cache[self::CACHE_NAMESPACE];
 
                 if (is_null($ns)) {
                     return null;
@@ -479,18 +487,18 @@ class IMP_Mailbox implements Serializable
 
             $ns_info = $injector->getInstance('IMP_Factory_Imap')->create()->getNamespace($this->_mbox);
             if (is_null($ns_info)) {
-                $this->cache[self::CACHE_NAMESPACE] = null;
+                $this->_cache[self::CACHE_NAMESPACE] = null;
             } else {
                 /* Store data compressed in the cache array. */
-                $this->cache[self::CACHE_NAMESPACE] = array();
+                $this->_cache[self::CACHE_NAMESPACE] = array();
                 foreach ($keys as $id => $key) {
                     if ($ns_info[$key]) {
-                        $this->cache[self::CACHE_NAMESPACE][$id] = $ns_info[$key];
+                        $this->_cache[self::CACHE_NAMESPACE][$id] = $ns_info[$key];
                     }
                 }
             }
 
-            $this->changed = self::CHANGED_YES;
+            $this->_changed = self::CHANGED_YES;
 
             return $ns_info;
 
@@ -551,18 +559,18 @@ class IMP_Mailbox implements Serializable
             return $injector->getInstance('IMP_Search')->isQuery($this->_mbox);
 
         case 'readonly':
-            if (isset($this->cache[self::CACHE_READONLY])) {
-                return $this->cache[self::CACHE_READONLY];
+            if (isset($this->_cache[self::CACHE_READONLY])) {
+                return $this->_cache[self::CACHE_READONLY];
             }
 
-            $this->cache[self::CACHE_READONLY] = false;
-            $this->changed = self::CHANGED_YES;
+            $this->_cache[self::CACHE_READONLY] = false;
+            $this->_changed = self::CHANGED_YES;
 
             /* This check works for regular and search mailboxes. */
             if (empty(self::$_temp[self::CACHE_READONLYHOOK])) {
                 try {
                     if (Horde::callHook('mbox_readonly', array($this->_mbox), 'imp')) {
-                        $this->cache[self::CACHE_READONLY] = true;
+                        $this->_cache[self::CACHE_READONLY] = true;
                     }
                 } catch (Horde_Exception_HookNotSet $e) {
                     self::$_temp[self::CACHE_READONLYHOOK] = true;
@@ -571,7 +579,7 @@ class IMP_Mailbox implements Serializable
 
             /* The UIDNOTSTICKY check would go here. */
 
-            return $this->cache[self::CACHE_READONLY];
+            return $this->_cache[self::CACHE_READONLY];
 
         case 'search':
             return $injector->getInstance('IMP_Search')->isSearchMbox($this->_mbox);
@@ -634,17 +642,17 @@ class IMP_Mailbox implements Serializable
             }
 
             $status = $imp_imap->status($this->_mbox, Horde_Imap_Client::STATUS_UIDVALIDITY);
-            if (($first = !isset($this->cache[self::CACHE_UIDVALIDITY])) ||
-                ($status['uidvalidity'] != $this->cache[self::CACHE_UIDVALIDITY])) {
-                $this->cache[self::CACHE_UIDVALIDITY] = $status['uidvalidity'];
-                $this->changed = self::CHANGED_YES;
+            if (($first = !isset($this->_cache[self::CACHE_UIDVALIDITY])) ||
+                ($status['uidvalidity'] != $this->_cache[self::CACHE_UIDVALIDITY])) {
+                $this->_cache[self::CACHE_UIDVALIDITY] = $status['uidvalidity'];
+                $this->_changed = self::CHANGED_YES;
 
                 if (!$first) {
                     throw new IMP_Exception(_("Mailbox structure on server has changed."));
                 }
             }
 
-            return $this->cache[self::CACHE_UIDVALIDITY];
+            return $this->_cache[self::CACHE_UIDVALIDITY];
 
         case 'utf7imap':
             return Horde_String::convertCharset($this->_mbox, 'UTF-8', 'UTF7-IMAP');
@@ -666,6 +674,17 @@ class IMP_Mailbox implements Serializable
         }
 
         return false;
+    }
+
+    /**
+     */
+    public function __set($key, $value)
+    {
+        switch ($key) {
+        case 'cache':
+            $this->_cache = $value;
+            break;
+        }
     }
 
     /**
@@ -1127,7 +1146,7 @@ class IMP_Mailbox implements Serializable
     {
         if (is_null($entries)) {
             $changed = true;
-            $this->cache = array();
+            $this->_cache = array();
         } else {
             $changed = false;
 
@@ -1136,13 +1155,13 @@ class IMP_Mailbox implements Serializable
             }
 
             foreach ($entries as $val) {
-                $changed = isset($this->cache[$val]);
-                unset($this->cache[$val], self::$_temp[$val]);
+                $changed = isset($this->_cache[$val]);
+                unset($this->_cache[$val], self::$_temp[$val]);
             }
         }
 
         if ($changed) {
-            $this->changed = empty($this->cache)
+            $this->_changed = empty($this->_cache)
                 ? self::CHANGED_DELETE
                 : self::CHANGED_YES;
         }
@@ -1535,8 +1554,8 @@ class IMP_Mailbox implements Serializable
      */
     protected function _getDisplay($notranslate = false)
     {
-        if (!$notranslate && isset($this->cache[self::CACHE_DISPLAY])) {
-            return $this->cache[self::CACHE_DISPLAY];
+        if (!$notranslate && isset($this->_cache[self::CACHE_DISPLAY])) {
+            return $this->_cache[self::CACHE_DISPLAY];
         }
 
         /* Handle special container mailboxes. */
@@ -1558,7 +1577,7 @@ class IMP_Mailbox implements Serializable
             /* Return translated namespace information. */
             if (!empty($ns_info['translation']) && $this->namespace) {
                 $this->_cache[self::CACHE_DISPLAY] = $ns_info['translation'];
-                $this->changed = self::CHANGED_YES;
+                $this->_changed = self::CHANGED_YES;
                 return $d;
             }
 
@@ -1627,8 +1646,8 @@ class IMP_Mailbox implements Serializable
             }
         }
 
-        $this->cache[self::CACHE_DISPLAY] = $out;
-        $this->changed = self::CHANGED_YES;
+        $this->_cache[self::CACHE_DISPLAY] = $out;
+        $this->_changed = self::CHANGED_YES;
 
         return $out;
     }
@@ -1729,20 +1748,20 @@ class IMP_Mailbox implements Serializable
         }
 
         /* Overwrite the icon information now. */
-        if (empty($this->cache[self::CACHE_ICONS]) &&
+        if (empty($this->_cache[self::CACHE_ICONS]) &&
             self::$_temp[self::CACHE_HASICONHOOK]) {
             if (!isset(self::$_temp[self::CACHE_ICONHOOK])) {
                 self::$_temp[self::CACHE_ICONHOOK] = Horde::callHook('mbox_icons', array(), 'imp');
             }
 
             if (isset(self::$_temp[self::CACHE_ICONHOOK][$this->_mbox])) {
-                $this->cache[self::CACHE_ICONS] = self::$_temp[self::CACHE_ICONHOOK][$this->_mbox];
-                $this->changed = self::CHANGED_YES;
+                $this->_cache[self::CACHE_ICONS] = self::$_temp[self::CACHE_ICONHOOK][$this->_mbox];
+                $this->_changed = self::CHANGED_YES;
             }
         }
 
-        if (!empty($this->cache[self::CACHE_ICONS])) {
-            $mi = $this->cache[self::CACHE_ICONS];
+        if (!empty($this->_cache[self::CACHE_ICONS])) {
+            $mi = $this->_cache[self::CACHE_ICONS];
 
             if (isset($mi['alt'])) {
                 $info->alt = $mi['alt'];
@@ -1777,7 +1796,7 @@ class IMP_Mailbox implements Serializable
     {
         return json_encode(array(
             $this->_mbox,
-            $this->cache
+            $this->_cache
         ));
     }
 
@@ -1787,7 +1806,7 @@ class IMP_Mailbox implements Serializable
     {
         list(
             $this->_mbox,
-            $this->cache
+            $this->_cache
         ) = json_decode($data, true);
     }
 
