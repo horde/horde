@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Fix attachment detection search filter.
 * [mms] Fix editing date search elements.
 * [mms] Allow creation of the mailbox &apos;0&apos; (Bug #10866).
 * [mms] Correctly handle numeric mailbox names.
@@ -2626,6 +2627,7 @@
    <date>2011-12-13</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix attachment detection search filter.
 * [mms] Fix editing date search elements.
 * [mms] Allow creation of the mailbox &apos;0&apos; (Bug #10866).
 * [mms] Correctly handle numeric mailbox names.

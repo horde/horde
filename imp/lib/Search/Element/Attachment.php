@@ -36,13 +36,18 @@ class IMP_Search_Element_Attachment extends IMP_Search_Element
         $ob2 = clone $ob;
         $ob3 = clone $ob;
 
-        $ob->headerText('content-type', 'multipart/mixed');
-        $ob2->headerText('content-type', 'message/rfc822');
+        $ob->headerText('content-type', 'multipart/mixed', $this->_data);
+        $ob2->headerText('content-type', 'message/rfc822', $this->_data);
 
-        /* These searches are OR'd together.  Only 1 must match. */
-        $ob3->orSearch(array($ob, $ob2));
+        /* If regular search, searches are OR'd: only one must match.
+         * If NOT search, searches are AND'd: both must not match. */
+        if ($this->_data) {
+            $ob3->andSearch(array($ob, $ob2));
+        } else {
+            $ob3->orSearch(array($ob, $ob2));
+        }
 
-        /* ...but the combined OR search must be AND'd with the rest of the
+        /* ...but the combined search must be AND'd with the rest of the
          * search terms. */
         $queryob->andSearch(array($ob3));
 

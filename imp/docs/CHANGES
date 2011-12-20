@@ -2,6 +2,7 @@
 v5.0.17-git
 -----------
 
+[mms] Fix attachment detection search filter.
 [mms] Fix editing date search elements.
 [mms] Allow creation of the mailbox '0' (Bug #10866).
 [mms] Correctly handle numeric mailbox names.

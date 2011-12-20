@@ -48,6 +48,10 @@ var ImpSearch = {
             var crit = c.criteria;
 
             switch (c.element) {
+            case 'IMP_Search_Element_Attachment':
+                this.insertFilter('attach', crit);
+                break;
+
             case 'IMP_Search_Element_Bulk':
                 this.insertFilter('bulk', crit);
                 break;
