@@ -57,15 +57,15 @@ class IMP_Search_Element_Date extends IMP_Search_Element
     {
         switch ($this->_data->t) {
         case self::DATE_ON:
-            $label = _("Date Equals (=)");
+            $label = _("Date Equals");
             break;
 
         case self::DATE_BEFORE:
-            $label = _("Date Until (<)");
+            $label = _("Date Until");
             break;
 
         case self::DATE_SINCE:
-            $label = _("Date Since (>=)");
+            $label = _("Date Since");
             break;
         }
 

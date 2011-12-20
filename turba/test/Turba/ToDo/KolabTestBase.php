@@ -7,7 +7,7 @@
  * @category Kolab
  * @package  Kolab_Test
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @license  http://www.horde.org/licenses/apache ASL
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 
@@ -17,13 +17,13 @@
  *
  * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file LICENSE for license information (ASL).  If you
+ * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @category Kolab
  * @package  Kolab_Test
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @license  http://www.horde.org/licenses/apache ASL
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 class Turba_KolabTestBase extends Turba_TestCase

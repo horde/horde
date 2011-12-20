@@ -51,8 +51,8 @@ class IMP_Search_Element_Size extends IMP_Search_Element
     public function queryText()
     {
         $label = $this->_data->l
-            ? _("Size (KB) >")
-            : _("Size (KB) <");
+            ? _("Size - Greater Than (KB)")
+            : _("Size - Less Than (KB)");
 
         return $label . ' ' . ($this->_data->s / 1024);
     }

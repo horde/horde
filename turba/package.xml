@@ -468,9 +468,11 @@
    </dir> <!-- /templates -->
    <dir name="test">
     <dir name="Turba">
+     <dir name="fixtures">
+      <file name="az.png" role="test" />
+     </dir> <!-- /test/Turba/fixtures -->
      <dir name="ToDo">
       <file name="ApiTest.php" role="test" />
-      <file name="az.png" role="test" />
       <file name="BrowsePageTest.php" role="test" />
       <file name="bug_6518.phpt" role="test" />
       <file name="DriverTest.php" role="test" />
@@ -486,7 +488,6 @@
       <file name="ListViewTest.php" role="test" />
       <file name="TestBase.php" role="test" />
       <file name="tohash.phpt" role="test" />
-      <file name="tovcard.phpt" role="test" />
       <file name="ViewBrowseTest.php" role="test" />
       <file name="ViewListTest.php" role="test" />
      </dir> <!-- /test/Turba/ToDo -->
@@ -511,6 +512,7 @@
        <file name="Base.php" role="test" />
        <file name="KolabTest.php" role="test" />
       </dir> <!-- /test/Turba/Unit/Turba -->
+      <file name="DriverTest.php" role="test" />
      </dir> <!-- /test/Turba/Unit -->
      <file name="AllTests.php" role="test" />
      <file name="Autoload.php" role="test" />
@@ -680,7 +682,7 @@
    <package>
     <name>Horde_Icalendar</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.1.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -1026,8 +1028,8 @@
    <install as="Turba/Autoload.php" name="test/Turba/Autoload.php" />
    <install as="Turba/phpunit.xml" name="test/Turba/phpunit.xml" />
    <install as="Turba/TestCase.php" name="test/Turba/TestCase.php" />
+   <install as="Turba/fixtures/az.png" name="test/Turba/fixtures/az.png" />
    <install as="Turba/ToDo/ApiTest.php" name="test/Turba/ToDo/ApiTest.php" />
-   <install as="Turba/ToDo/az.png" name="test/Turba/ToDo/az.png" />
    <install as="Turba/ToDo/BrowsePageTest.php" name="test/Turba/ToDo/BrowsePageTest.php" />
    <install as="Turba/ToDo/bug_6518.phpt" name="test/Turba/ToDo/bug_6518.phpt" />
    <install as="Turba/ToDo/DriverTest.php" name="test/Turba/ToDo/DriverTest.php" />
@@ -1043,9 +1045,9 @@
    <install as="Turba/ToDo/ListViewTest.php" name="test/Turba/ToDo/ListViewTest.php" />
    <install as="Turba/ToDo/TestBase.php" name="test/Turba/ToDo/TestBase.php" />
    <install as="Turba/ToDo/tohash.phpt" name="test/Turba/ToDo/tohash.phpt" />
-   <install as="Turba/ToDo/tovcard.phpt" name="test/Turba/ToDo/tovcard.phpt" />
    <install as="Turba/ToDo/ViewBrowseTest.php" name="test/Turba/ToDo/ViewBrowseTest.php" />
    <install as="Turba/ToDo/ViewListTest.php" name="test/Turba/ToDo/ViewListTest.php" />
+   <install as="Turba/Unit/DriverTest.php" name="test/Turba/Unit/DriverTest.php" />
    <install as="Turba/Unit/Driver/Base.php" name="test/Turba/Unit/Driver/Base.php" />
    <install as="Turba/Unit/Driver/KolabTest.php" name="test/Turba/Unit/Driver/KolabTest.php" />
    <install as="Turba/Unit/Driver/Sql/Base.php" name="test/Turba/Unit/Driver/Sql/Base.php" />
@@ -1359,9 +1361,11 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-02</date>
+   <date>2011-12-19</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
+* [jan] Set VOICE parameter when exporting phone numbers to vCard (Request #10349).
+* [jan] Fix importing vCards with empty X-ANNIVERSARY attributes (Bug #10557).
 * [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
    </notes>
   </release>

@@ -10,35 +10,34 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-10-17</date>
- <time>18:57:11</time>
+ <date>2011-12-17</date>
+ <time>00:26:02</time>
  <version>
-  <release>1.0.0beta1</release>
+  <release>1.0.0alpha2</release>
   <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Add Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
-* [jan] Update Latvian translation.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="bin">
-    <file name="klb" role="script" />
+    <file name="horde-kolab-cli" role="script" />
    </dir> <!-- /bin -->
    <dir name="doc">
     <dir name="Horde">
      <dir name="Kolab">
       <dir name="Cli">
        <file name="COPYING" role="doc" />
+       <file name="TODO" role="doc" />
       </dir> <!-- /doc/Horde/Kolab/Cli -->
      </dir> <!-- /doc/Horde/Kolab -->
     </dir> <!-- /doc/Horde -->
-    <file name="TODO" role="doc" />
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
@@ -58,7 +57,9 @@
        </dir> <!-- /lib/Horde/Kolab/Cli/Module -->
        <file name="Exception.php" role="php" />
        <file name="Module.php" role="php" />
-       <file name="Translation.php" role="php" />
+       <file name="Translation.php" role="php">
+        <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+       </file>
       </dir> <!-- /lib/Horde/Kolab/Cli -->
       <file name="Cli.php" role="php" />
      </dir> <!-- /lib/Horde/Kolab -->
@@ -71,6 +72,12 @@
       <file name="Horde_Kolab_Cli.po" role="data" />
      </dir> <!-- /locale/fi/LC_MESSAGES -->
     </dir> <!-- /locale/fi -->
+    <dir name="ja">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Kolab_Cli.mo" role="data" />
+      <file name="Horde_Kolab_Cli.po" role="data" />
+     </dir> <!-- /locale/ja/LC_MESSAGES -->
+    </dir> <!-- /locale/ja -->
     <dir name="lv">
      <dir name="LC_MESSAGES">
       <file name="Horde_Kolab_Cli.mo" role="data" />
@@ -124,23 +131,44 @@
     <min>1.7.0</min>
    </pearinstaller>
    <package>
+    <name>Horde_Autoloader</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
     <name>Horde_Cli</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Cli_Modular</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Imap_Client</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Kolab_Storage</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.1.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Log</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -149,28 +177,21 @@
    <package>
     <name>Horde_Support</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
-   </package>
-   <package>
-    <name>Horde_Log</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Yaml</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -178,9 +199,9 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="klb" name="bin/klb" />
-   <install as="TODO" name="doc/TODO" />
+   <install as="horde-kolab-cli" name="bin/horde-kolab-cli" />
    <install as="COPYING" name="doc/Horde/Kolab/Cli/COPYING" />
+   <install as="TODO" name="doc/Horde/Kolab/Cli/TODO" />
    <install as="Horde/Kolab/Cli.php" name="lib/Horde/Kolab/Cli.php" />
    <install as="Horde/Kolab/Cli/Exception.php" name="lib/Horde/Kolab/Cli/Exception.php" />
    <install as="Horde/Kolab/Cli/Module.php" name="lib/Horde/Kolab/Cli/Module.php" />
@@ -196,6 +217,8 @@
    <install as="locale/Horde_Kolab_Cli.pot" name="locale/Horde_Kolab_Cli.pot" />
    <install as="locale/fi/LC_MESSAGES/Horde_Kolab_Cli.mo" name="locale/fi/LC_MESSAGES/Horde_Kolab_Cli.mo" />
    <install as="locale/fi/LC_MESSAGES/Horde_Kolab_Cli.po" name="locale/fi/LC_MESSAGES/Horde_Kolab_Cli.po" />
+   <install as="locale/ja/LC_MESSAGES/Horde_Kolab_Cli.mo" name="locale/ja/LC_MESSAGES/Horde_Kolab_Cli.mo" />
+   <install as="locale/ja/LC_MESSAGES/Horde_Kolab_Cli.po" name="locale/ja/LC_MESSAGES/Horde_Kolab_Cli.po" />
    <install as="locale/lv/LC_MESSAGES/Horde_Kolab_Cli.mo" name="locale/lv/LC_MESSAGES/Horde_Kolab_Cli.mo" />
    <install as="locale/lv/LC_MESSAGES/Horde_Kolab_Cli.po" name="locale/lv/LC_MESSAGES/Horde_Kolab_Cli.po" />
    <install as="locale/pt_BR/LC_MESSAGES/Horde_Kolab_Cli.mo" name="locale/pt_BR/LC_MESSAGES/Horde_Kolab_Cli.mo" />
@@ -222,7 +245,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-03-10</date>
+   <date>2011-12-17</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First alpha release for Horde 4.
@@ -230,18 +253,15 @@
   </release>
   <release>
    <version>
-    <release>1.0.0beta1</release>
-    <api>1.0.0</api>
-   </version>
+    <release>1.0.0alpha2</release>
+    <api>1.0.0</api></version>
    <stability>
-    <release>beta</release>
-    <api>beta</api>
-   </stability>
-   <date>2011-10-17</date>
+    <release>alpha</release>
+    <api>alpha</api></stability>
+   <date>2011-12-17</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [jan] Add Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
-* [jan] Update Latvian translation.
+* 
    </notes>
   </release>
  </changelog>

@@ -55,8 +55,7 @@ implements Horde_Kolab_Cli_Module
                 array(
                     'action' => 'store',
                     'choices' => array('horde', 'horde-php', 'php', 'pear', 'roundcube', 'mock'),
-                    'help'   => Horde_Kolab_Cli_Translation::t(
-"The Kolab backend driver that should be used.
+                    'help'   => Horde_Kolab_Cli_Translation::t("The Kolab backend driver that should be used.
 Choices are:
 
  - horde     [IMAP]: The Horde_Imap_Client driver as pure PHP implementation.
@@ -227,6 +226,7 @@ Choices are:
                 );
             } else {
                 file_put_contents($options['log'], 'The Horde_Log_Logger class is not available!');
+                unset($options['log']);
             }
         }
         $world['storage'] = $this->_getStorage($options);
@@ -251,7 +251,7 @@ Choices are:
                 'format' => 'brief',
                 'user/test' => null
             );
-        }        
+        }
         $params = array(
             'driver' => $options['driver'],
             'params' => $options,

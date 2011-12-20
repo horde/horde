@@ -1481,7 +1481,33 @@ class Horde_Registry
 
         $GLOBALS['conf'] = ($app == 'horde')
             ? $this->_confCache['horde']
-            : Horde_Array::replaceRecursive($this->_confCache['horde'], $this->_confCache[$app]);
+            : $this->_mergeConfig($this->_confCache['horde'], $this->_confCache[$app]);
+    }
+
+    /**
+     * Merge configurations between two applications.
+     * See Bug #10381 for more information.
+     *
+     * @param array $a1  Horde configuration.
+     * @param array $a2  App configuration.
+     *
+     * @return array  Merged configuration.
+     */
+    protected function _mergeConfig(array $a1, array $a2)
+    {
+        foreach ($a2 as $key => $val) {
+            if (isset($a1[$key]) &&
+                is_array($a1[$key])) {
+                reset($a1[$key]);
+                $a1[$key] = is_int(key($a1[$key]))
+                    ? $val
+                    : $this->_mergeConfig($a1[$key], $val);
+            } else {
+                $a1[$key] = $val;
+            }
+        }
+
+        return $a1;
     }
 
     /**

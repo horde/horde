@@ -13,6 +13,11 @@
  */
 
 /**
+ * Prepare the test setup.
+ */
+require_once dirname(__FILE__) . '/../Base.php';
+
+/**
  * Test base for the SQL driver.
  *
  * Copyright 2011 Horde LLC (http://www.horde.org/)

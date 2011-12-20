@@ -23,7 +23,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Catch exceptions when changing or retrieving objects from the applications.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1199,7 +1199,7 @@ Make the SyncML package independant from Horde, provide a new Sql backend as a r
    <date>2011-11-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Catch exceptions when changing or retrieving objects from the applications.
    </notes>
   </release>
  </changelog>

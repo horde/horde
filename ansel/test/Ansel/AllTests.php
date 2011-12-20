@@ -8,7 +8,7 @@
  * @package    Ansel
  * @subpackage UnitTests
  * @author     Michael J Rubinsky <mrubinsk@horde.org>
- * @license    http://www.horde.org/licenses/asl.php
+ * @license    http://www.horde.org/licenses/gpl GPL-2.0
  * @link       http://www.horde.org/apps/mnemo
  */
 
@@ -29,14 +29,14 @@ require_once 'Horde/Test/AllTests.php';
  *
  * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file LICENSE for license information (ASL). If you
- * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category   Horde
  * @package    Ansel
  * @subpackage UnitTests
  * @author     Michael J Rubinsky <mrubinsk@horde.org>
- * @license    http://www.horde.org/licenses/asl.php
+ * @license    http://www.horde.org/licenses/gpl GPL-2.0
  * @link       http://www.horde.org/apps/mnemo
  */
 class Ansel_AllTests extends Horde_Test_AllTests

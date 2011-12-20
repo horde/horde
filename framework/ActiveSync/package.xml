@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Improve support for Android device provisioning.
 * [mjr] Improve support for timezones in appointments originating on the client.
 * [mjr] Improve performance when working with timezones on PHP 5.3+
  </notes>
@@ -492,6 +493,7 @@
    <date>2011-12-15</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Improve support for Android device provisioning.
 * [mjr] Improve support for timezones in appointments originating on the client.
 * [mjr] Improve performance when working with timezones on PHP 5.3+
    </notes>

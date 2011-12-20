@@ -27,8 +27,8 @@
  <date>2011-11-22</date>
  <time>15:31:48</time>
  <version>
-  <release>1.0.6</release>
-  <api>1.0.0</api>
+  <release>1.1.0</release>
+  <api>1.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -36,7 +36,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Allow to pass multiple parameter values in setAttribute() (Bug #7248).
+* [jan] Fix exporting base64-encoded attributes.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -815,15 +816,16 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
   </release>
   <release>
    <version>
-    <release>1.0.6</release>
-    <api>1.0.0</api></version>
+    <release>1.1.0</release>
+    <api>1.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Allow to pass multiple parameter values in setAttribute() (Bug #7248).
+* [jan] Fix exporting base64-encoded attributes.
    </notes>
   </release>
  </changelog>

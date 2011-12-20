@@ -194,7 +194,7 @@ implements Horde_Kolab_Cli_Module
             );
             $cli->writeln(
                 $list->getQuery(Horde_Kolab_Storage_List::QUERY_SHARE)
-                ->getDescription($folder_name)
+                    ->getDescription($folder_name)
             );
             break;
         case 'setdesc':

@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../Autoload.php';
+require_once dirname(__FILE__) . '/Base.php';
 
 /**
  * Test the Kolab driver.
@@ -32,8 +32,7 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
  * @link       http://www.horde.org/apps/turba
  * @license    http://www.horde.org/licenses/apache Apache-like
  */
-class Turba_Unit_Driver_KolabTest
-extends Turba_Unit_Driver_Base
+class Turba_Unit_Driver_KolabTest extends Turba_Unit_Driver_Base
 {
     protected $backupGlobals = false;
 

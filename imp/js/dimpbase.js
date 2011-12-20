@@ -795,7 +795,10 @@ var DimpBase = {
             this.setMsgHash();
         }.bindAsEventListener(this));
 
-        container.observe('ViewPort:fetch', this.loadingImg.bind(this, 'viewport', true));
+        container.observe('ViewPort:fetch', function(e) {
+            $('searchbar').hide();
+            this.loadingImg('viewport', true);
+        }.bindAsEventListener(this));
 
         container.observe('ViewPort:remove', function(e) {
             var v = e.memo.getBuffer().getView();
@@ -2495,8 +2498,11 @@ var DimpBase = {
                 e.stop();
                 return;
 
-            case 'checkmaillink':
             case 'search_refresh':
+                this.loadingImg('viewport', true);
+                // Fall-through
+
+            case 'checkmaillink':
                 this.poll(id == 'search_refresh');
                 e.stop();
                 return;

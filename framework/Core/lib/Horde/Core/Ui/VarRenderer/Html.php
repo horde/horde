@@ -1370,7 +1370,11 @@ EOT;
         if ((is_array($date) && !empty($date['year']) &&
              !empty($date['month']) && !empty($date['day'])) ||
             (!is_array($date) && !empty($date) && $date != '0000-00-00')) {
-            return $var->type->formatDate($date);
+            try {
+                return $var->type->formatDate($date);
+            } catch (Horde_Date_Exception $e) {
+                return $e->getMessage();
+            }
         }
         return '';
     }
@@ -1378,7 +1382,11 @@ EOT;
     protected function _renderVarDisplay_datetime($form, &$var, &$vars)
     {
         $value = $var->getValue($vars);
-        $html = htmlspecialchars($var->type->formatDate($value));
+        try {
+            $html = htmlspecialchars($var->type->formatDate($value));
+        } catch (Horde_Date_Exception $e) {
+            return $e->getMessage();
+        }
         if (!$var->type->emptyDateArray($value)) {
             $html .= Horde_Form_Type_date::getAgo($value);
         }
