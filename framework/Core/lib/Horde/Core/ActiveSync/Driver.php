@@ -12,8 +12,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 {
     /** Constants **/
     const APPOINTMENTS_FOLDER = 'Calendar';
-    const CONTACTS_FOLDER = 'Contacts';
-    const TASKS_FOLDER = 'Tasks';
+    const CONTACTS_FOLDER     = 'Contacts';
+    const TASKS_FOLDER        = 'Tasks';
+    const FOLDER_INBOX        = 'Inbox';
 
     /**
      * Cache message stats
@@ -140,6 +141,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $folders[] = $this->statFolder(self::TASKS_FOLDER);
         }
 
+        // HACK to allow email setup to complete enough to allow invitation
+        // emails.
+        $folders[] = $this->statFolder(self::FOLDER_INBOX);
+
         if ($errors = Horde::endBuffer()) {
             $this->_logger->err('Unexpected output: ' . $errors);
         }
@@ -173,6 +178,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             break;
         case self::TASKS_FOLDER:
             $folder->type = Horde_ActiveSync::FOLDER_TYPE_TASK;
+            break;
+        case self::FOLDER_INBOX:
+            $folder->type = Horde_ActiveSync::FOLDER_TYPE_INBOX;
             break;
         default:
             return false;
