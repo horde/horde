@@ -965,10 +965,7 @@ span.dimpactionRefresh {
 span.dimpactionDelete {
     background-image: url("../graphics/delete.png");
 }
-span.dimpactionOther {
-    background-image: url("../graphics/plus.png");
-}
-span.dimpactionSort {
+span.dimpactionOther, span.dimpactionSort {
     background-image: url("../graphics/plus.png");
 }
 span.dimpactionDrafts, span.dimpactionTemplates {

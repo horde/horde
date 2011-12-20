@@ -63,7 +63,7 @@ span.dimpactionRefresh {
 span.dimpactionDelete {
     background-image: url("../graphics/delete.png");
 }
-span.dimpactionOther {
+span.dimpactionOther, span.dimpactionSort {
     background-image: url("../graphics/plus.png");
 }
 span.dimpactionDrafts, span.dimpactionTemplates {
