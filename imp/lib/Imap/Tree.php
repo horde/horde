@@ -264,7 +264,11 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             $result = array();
         }
 
-        $this->_cache[$showunsub ? 'fulllist' : 'subscribed'] = $result;
+        $tmp = array();
+        foreach ($result as $val) {
+            $tmp[strval($val['mailbox'])] = $val;
+        }
+        $this->_cache[$showunsub ? 'fulllist' : 'subscribed'] = $tmp;
 
         return $result;
     }
@@ -475,7 +479,8 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     {
         $sub_pref = $GLOBALS['prefs']->getValue('subscribe');
 
-        foreach ($elts as $key => $val) {
+        foreach ($elts as $val) {
+            $key = $val['mailbox'];
             if (isset($this->_tree[$key]) ||
                 in_array('\nonexistent', $val['attributes'])) {
                 continue;

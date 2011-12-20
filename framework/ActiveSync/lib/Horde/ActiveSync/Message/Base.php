@@ -443,7 +443,7 @@ class Horde_ActiveSync_Message_Base
      */
     static protected function _parseDate($ts)
     {
-        if (preg_match("/(\d{4})[^0-9]*(\d{2})[^0-9]*(\d{2})T(\d{2})[^0-9]*(\d{2})[^0-9]*(\d{2})(.\d+)?Z/", $ts, $matches)) {
+        if (preg_match("/(\d{4})[^0-9]*(\d{2})[^0-9]*(\d{2})(T(\d{2})[^0-9]*(\d{2})[^0-9]*(\d{2})(.\d+)?Z){0,1}$/", $ts, $matches)) {
             return new Horde_Date($ts);
         }
 

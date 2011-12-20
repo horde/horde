@@ -2567,6 +2567,7 @@
    <date>2011-12-13</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix display of numerically-named mailboxes on IMAP servers without the LIST-EXTENDED IMAP capability (Bug #10869).
 * [mms] Fix attachment detection search filter.
 * [mms] Fix editing date search elements.
 * [mms] Allow creation of the mailbox &apos;0&apos; (Bug #10866).
