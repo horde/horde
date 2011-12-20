@@ -527,9 +527,4 @@ class Horde_ActiveSync_Wbxml
         $this->_logger = new Horde_Support_Stub();
     }
 
-    public function setCodePage($page)
-    {
-        $this->_tagcp = $page;
-    }
-
 }
