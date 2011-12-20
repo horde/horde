@@ -385,9 +385,9 @@ class IMP_Hooks
 
 
     /**
-     * Allow a custom folder icon to be specified for "standard" mailboxes
-     * ("Standard" means all folders except the INBOX, sent-mail folders and
-     * trash folders.)
+     * Allow a custom mailbox icon to be specified for "standard" mailboxes
+     * ("Standard" means all mailboxes except the INBOX, sent-mail, and
+     * trash mailboxes.)
      *
      * @return array  A list of mailboxes, with the name as keys and the
      *                values an array with 'icon' and 'alt' entries.
