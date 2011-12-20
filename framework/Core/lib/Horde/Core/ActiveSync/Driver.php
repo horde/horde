@@ -690,24 +690,25 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     public function sendMail($rfc822, $forward = false, $reply = false, $parent = false)
     {
         $headers = Horde_Mime_Headers::parseHeaders($rfc822);
-        $part = Horde_Mime_Part::parseMessage($rfc822);
+        $message = Horde_Mime_Part::parseMessage($rfc822);
 
         $mail = new Horde_Mime_Mail();
         $mail->addHeaders($headers->toArray());
 
-        $body_id = $part->findBody();
+        $body_id = $message->findBody();
         if ($body_id) {
-            $body = $part->getPart($body_id);
-            $body = $body->getContents();
+            $part = $message->getPart($body_id);
+            $body = $part->getContents();
             $mail->setBody($body);
         } else {
             $mail->setBody('No body?');
         }
-        foreach ($part->contentTypeMap() as $id => $type) {
-            $mail->addPart($type, $part->getPart($id)->toString());
+
+        foreach ($message->contentTypeMap() as $id => $type) {
+            $mail->addPart($type, $message->getPart($id)->toString());
         }
 
-        $mail->send($this->_params['mail']);
+        $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
 
         return true;
     }
