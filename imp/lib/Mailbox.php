@@ -1,7 +1,6 @@
 <?php
 /**
- * The IMP_Mailbox class acts as a clearinghouse for actions related to a
- * mailbox.
+ * This object is a clearinghouse for actions related to an IMP mailbox.
  *
  * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
