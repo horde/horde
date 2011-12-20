@@ -2,6 +2,8 @@
 v5.0.17-git
 -----------
 
+[mms] Fix display of numerically-named mailboxes on IMAP servers without the
+      LIST-EXTENDED IMAP capability (Bug #10869).
 [mms] Fix attachment detection search filter.
 [mms] Fix editing date search elements.
 [mms] Allow creation of the mailbox '0' (Bug #10866).
