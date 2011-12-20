@@ -8,6 +8,7 @@ class Horde_Core_Factory_ActiveSyncServer extends Horde_Core_Factory_Injector
     public function create(Horde_Injector $injector)
     {
         global $conf;
+        $logger = false;
 
         // Logger
         if ($conf['activesync']['logging']['type'] == 'custom') {
@@ -15,12 +16,16 @@ class Horde_Core_Factory_ActiveSyncServer extends Horde_Core_Factory_Injector
             $request = $GLOBALS['injector']->getInstance('Horde_Controller_Request');
             $get = $request->getGetVars();
             if (!empty($get['DeviceId'])) {
-                $path = dirname($conf['activesync']['logging']['path']) . '/' . $get['DeviceId'] . '.txt';
-            } else {
-                $path = $conf['activesync']['logging']['path'];
+                $stream = @fopen(dirname($conf['activesync']['logging']['path']) . '/' . $get['DeviceId'] . '.txt', 'a');
             }
-            $logger = new Horde_Log_Logger(new Horde_Log_Handler_Stream(fopen($path, 'a')));
-        } else {
+            if (!$stream) {
+                $stream = @fopen($conf['activesync']['logging']['path'], 'a');
+            }
+            if ($stream) {
+                $logger = new Horde_Log_Logger(new Horde_Log_Handler_Stream($stream));
+            }
+        }
+        if (!$logger) {
             $logger = $injector->getInstance('Horde_Log_Logger');
         }
 
