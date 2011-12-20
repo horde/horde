@@ -303,6 +303,7 @@ Horde::addInlineScript($compose_result['jsonload'], 'dom');
 $scripts = array(
     array('compose-base.js', 'imp'),
     array('compose-dimp.js', 'imp'),
+    array('contextsensitive.js', 'horde'),
     array('md5.js', 'horde'),
     array('popup.js', 'horde'),
     array('textarearesize.js', 'horde')

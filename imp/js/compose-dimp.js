@@ -95,15 +95,10 @@ var DimpCompose = {
 
     setSaveSentMail: function(set)
     {
-        var ssm = $('save_sent_mail'), tmp;
+        var ssm = $('save_sent_mail');
 
         if (ssm) {
             ssm.setValue(set);
-
-            tmp = $('attach_cell').down('LABEL');
-            if (tmp) {
-                [ tmp ].invoke(set ? 'show' : 'hide');
-            }
         }
     },
 
@@ -1046,8 +1041,33 @@ var DimpCompose = {
         }
     },
 
+    contextOnClick: function(parentfunc, e)
+    {
+        var id = e.memo.elt.readAttribute('id'), tmp;
+
+        switch (id) {
+        case 'ctx_msg_other_rr':
+            tmp = !$F('request_read_receipt');
+            $('request_read_receipt').setValue(tmp);
+            DimpCore.toggleCheck($('ctx_msg_other_rr').down('DIV'), tmp);
+            break;
+
+        case 'ctx_msg_other_saveatc':
+            tmp = !$F('save_attachments_select');
+            $('save_attachments_select').setValue(tmp);
+            DimpCore.toggleCheck($('ctx_msg_other_saveatc').down('DIV'), tmp);
+            break;
+
+        default:
+            parentfunc(e);
+            break;
+        }
+    },
+
     onDomLoad: function()
     {
+        var tmp;
+
         DimpCore.growler_log = false;
         DimpCore.init();
 
@@ -1082,6 +1102,21 @@ var DimpCompose = {
             document.observe('SpellChecker:after', this._onSpellCheckAfter.bind(this));
             document.observe('SpellChecker:before', this._onSpellCheckBefore.bind(this));
             document.observe('SpellChecker:error', this._onSpellCheckError.bind(this));
+        }
+
+        tmp = $('msg_other_options');
+        if (tmp.childElements().size()) {
+            DimpCore.addPopdown(tmp.down('A'), 'msg_other', {
+                trigger: true
+            });
+            if (tmp = $('ctx_msg_other_rr')) {
+                DimpCore.toggleCheck(tmp.down('DIV'), $F('request_read_receipt'));
+            }
+            if (tmp = $('ctx_msg_other_saveatc')) {
+                DimpCore.toggleCheck(tmp.down('DIV'), $F('save_attachments_select'));
+            }
+        } else {
+            tmp.hide();
         }
 
         /* Create sent-mail list. */
@@ -1137,6 +1172,9 @@ var DimpCompose = {
 /* Attach event handlers. */
 document.observe('dom:loaded', DimpCompose.onDomLoad.bind(DimpCompose));
 document.observe('TextareaResize:resize', DimpCompose.resizeMsgArea.bind(DimpCompose));
+
+/* ContextSensitive functions. */
+DimpCore.contextOnClick = DimpCore.contextOnClick.wrap(DimpCompose.contextOnClick.bind(DimpCompose));
 
 /* Click handler. */
 DimpCore.clickHandler = DimpCore.clickHandler.wrap(DimpCompose.clickHandler.bind(DimpCompose));

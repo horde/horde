@@ -478,6 +478,26 @@ var DimpCore = {
         }
     },
 
+    toggleCheck: function(elt, on)
+    {
+        if (on === null) {
+            elt.hide();
+            return;
+        }
+
+        var a, r;
+
+        if (on) {
+            a = 'msCheckOn';
+            r = 'msCheck';
+        } else {
+            a = 'msCheck';
+            r = 'msCheckOn';
+        }
+
+        elt.removeClassName(r).addClassName(a).show();
+    },
+
     /* Mouse click handler. */
     clickHandler: function(e)
     {

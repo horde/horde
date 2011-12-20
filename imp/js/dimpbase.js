@@ -103,7 +103,7 @@ var DimpBase = {
             this.resetSelected();
         } else {
             this.viewport.select($A($R(1, this.viewport.getMetaData('total_rows'))));
-            this.toggleCheck(tmp, true);
+            DimpCore.toggleCheck(tmp, true);
         }
     },
 
@@ -129,7 +129,7 @@ var DimpBase = {
 
     resetSelectAll: function()
     {
-        this.toggleCheck($('msglistHeaderContainer').down('DIV.msCheckAll'), false);
+        DimpCore.toggleCheck($('msglistHeaderContainer').down('DIV.msCheckAll'), false);
     },
 
     // num = (integer) See absolute.
@@ -1364,8 +1364,8 @@ var DimpBase = {
                 : null;
 
             $(ctx_id).childElements().each(function(elt) {
-                this.toggleCheck(elt.down('DIV'), (flags === null) ? null : flags.include(elt.retrieve('flag')));
-            }, this);
+                DimpCore.toggleCheck(elt.down('DIV'), (flags === null) ? null : flags.include(elt.retrieve('flag')));
+            });
             break;
 
         case 'ctx_datesort':
@@ -1380,7 +1380,7 @@ var DimpBase = {
             break;
 
         case 'ctx_subjectsort':
-            this.toggleCheck($('ctx_subjectsort_thread').down('DIV.iconImg'), this.isThreadSort());
+            DimpCore.toggleCheck($('ctx_subjectsort_thread').down('DIV.iconImg'), this.isThreadSort());
             break;
 
         case 'ctx_preview':
@@ -1426,26 +1426,6 @@ var DimpBase = {
         );
 
         a.store('flag', flag);
-    },
-
-    toggleCheck: function(elt, on)
-    {
-        if (on === null) {
-            elt.hide();
-            return;
-        }
-
-        var a, r;
-
-        if (on) {
-            a = 'msCheckOn';
-            r = 'msCheck';
-        } else {
-            a = 'msCheck';
-            r = 'msCheckOn';
-        }
-
-        elt.removeClassName(r).addClassName(a).show();
     },
 
     // foldername: (boolean) If true, update the folderName label

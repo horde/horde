@@ -4,6 +4,8 @@
  <input type="hidden" id="last_identity" name="last_identity" value="<tag:selected_identity />" />
  <input type="hidden" id="html" name="html" value="<if:rte><if:compose_html>1</if:compose_html></if:rte>" />
  <input type="hidden" id="composeCache" name="composeCache" value="<tag:composeCache />" />
+ <input type="hidden" id="request_read_receipt" name="request_read_receipt" value="<if:read_receipt_set>1</if:read_receipt_set>" />
+ <input type="hidden" id="save_attachments_select" name="save_attachments_select" value="<if:save_attach_set>1</if:save_attach_set>" />
 
  <div class="dimpActions dimpActionsCompose">
 <if:compose_enable><if:send_button>
@@ -36,13 +38,6 @@
      </label>
     </div>
 </if:rte>
-<if:read_receipt>
-    <div>
-     <label>
-      <input id="request_read_receipt" name="request_read_receipt" type="checkbox" class="checkbox"<if:read_receipt_set> checked="checked"</if:read_receipt_set> /><gettext>Read Receipt</gettext>
-     </label>
-    </div>
-</if:read_receipt>
 <if:save_sent_mail>
     <div style="display:none">
      <label>
@@ -64,6 +59,11 @@
      <input id="encrypt" name="encrypt" type="hidden" value="<tag:encrypt />" />
     </div>
 </if:encrypt>
+    <div>
+     <span id="msg_other_options">
+      <a><gettext>Other Options</gettext></a>
+     </span>
+    </div>
    </div>
 
    <table>
@@ -135,18 +135,12 @@
      <td class="label">
       <span class="iconImg attachmentImg"></span>:
      </td>
-     <td id="attach_cell">
+     <td>
       <span id="upload_limit" style="display:none"><gettext>The attachment limit has been reached.</gettext></span>
       <span id="upload_wait" style="display:none"></span>
       <span>
        <input type="file" id="upload" name="file_1" />
       </span>
-<if:save_attach>
-      <label style="display:none">
-       <input type="checkbox" class="checkbox" name="save_attachments_select"<if:save_attach_set> checked="checked"</if:save_attach_set> /><gettext>Save Attachments in sent folder</gettext>
-      </label>
-      <br />
-</if:save_attach>
       <ul id="attach_list" style="display:none"></ul>
      </td>
     </tr>
@@ -212,5 +206,14 @@
 </if:compose_enable>
 
 <span id="sendingImg" class="loadingImg" style="display:none"></span>
+
+<div class="context" id="ctx_msg_other" style="display:none;">
+<if:read_receipt>
+ <a id="ctx_msg_other_rr"><div class="iconImg"></div><gettext>Read Receipt</gettext></a>
+</if:read_receipt>
+<if:save_attach>
+ <a id="ctx_msg_other_saveatc"><div class="iconImg"></div><gettext>Save Attachments in Sent Mailbox</gettext></a>
+</if:save_attach>
+</div>
 
 <iframe name="submit_frame" id="submit_frame" style="display:none" src="javascript:false;"></iframe>
