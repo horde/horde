@@ -2375,8 +2375,11 @@ var DimpBase = {
                 e.stop();
                 return;
 
-            case 'checkmaillink':
             case 'search_refresh':
+                this.loadingImg('viewport', true);
+                // Fall-through
+
+            case 'checkmaillink':
                 this.poll(id == 'search_refresh');
                 e.stop();
                 return;
