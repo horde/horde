@@ -228,7 +228,16 @@ class Horde_Template
         }
 
         /* First, check for a cached compiled version. */
-        $cacheid = 'horde_template|' . filemtime($file) . '|' . $file . '|' . $this->getOption('gettext');
+        $parts = array(
+            'horde_template',
+            filemtime($file),
+            $file
+        );
+        if ($this->getOption('gettext')) {
+            $parts[] = setlocale(LC_ALL, 0);
+        }
+        $cacheid = implode('|', $parts);
+
         if (!$force && is_null($this->_template) && $this->_cache) {
             $this->_template = $this->_cache->get($cacheid, 0);
             if ($this->_template === false) {
@@ -240,7 +249,7 @@ class Horde_Template
         if ($force || is_null($this->_template)) {
             $this->_template = str_replace("\n", " \n", file_get_contents($file));
             $this->_parse();
-            if ($this->_cache && isset($cacheid)) {
+            if ($this->_cache) {
                 $this->_cache->set($cacheid, $this->_template);
                 if ($this->_logger) {
                     $this->_logger->log(sprintf('Saved compiled template file for "%s".', $file), 'DEBUG');
