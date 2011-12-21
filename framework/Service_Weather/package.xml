@@ -10,11 +10,11 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-12-13</date>
- <time>12:04:59</time>
+ <date>2011-12-21</date>
+ <time>18:14:48</time>
  <version>
-  <release>1.0.0</release>
-  <api>1.0.0RC1</api>
+  <release>1.0.0RC2</release>
+  <api>1.0.0RC2</api>
  </version>
  <stability>
   <release>beta</release>
@@ -472,12 +472,12 @@
   </release>
   <release>
    <version>
-    <release>1.0.0</release>
-    <api>1.0.0RC1</api></version>
+    <release>1.0.0RC2</release>
+    <api>1.0.0RC2</api></version>
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2011-12-13</date>
+   <date>2011-12-21</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * [mjr] Fix using IP addresses for determining forecast location (Bug #10857)
