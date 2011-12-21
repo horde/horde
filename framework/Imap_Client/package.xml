@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2011-12-21</date>
- <time>18:10:36</time>
+ <time>18:13:27</time>
  <version>
-  <release>1.3.1</release>
+  <release>1.3.2</release>
   <api>1.2.0</api>
  </version>
  <stability>
@@ -22,8 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] LIST-STATUS does not depend on LIST-EXTENDED.
-* [mms] Add dependency checking for capabilities.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -644,6 +643,19 @@
    <notes>
 * [mms] LIST-STATUS does not depend on LIST-EXTENDED.
 * [mms] Add dependency checking for capabilities.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.3.2</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-21</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
