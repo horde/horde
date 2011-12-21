@@ -1735,14 +1735,15 @@ class IMP_Prefs_Ui
      * Update special folder preferences.
      *
      * @param string $pref             The pref name to update.
-     * @param string $old              The old name.
-     * @param string $new              The new name.
+     * @param IMP_Mailbox $form        The form data.
+     * @param string $new              The new mailbox name.
      * @param string $type             Special use attribute (RFC 6154).
      * @param Horde_Core_Prefs_Ui $ui  The UI object.
      *
      * @return boolean  True if preferences were updated.
      */
-    protected function _updateSpecialFolders($pref, $old, $new, $type, $ui)
+    protected function _updateSpecialFolders($pref, IMP_Mailbox $form, $new,
+                                             $type, $ui)
     {
         global $injector, $prefs;
 
@@ -1754,15 +1755,19 @@ class IMP_Prefs_Ui
         }
 
         if ($mbox_ob = IMP_Mailbox::getPref($pref)) {
-            $mbox_ob->expire(IMP_Mailbox::CACHE_SPECIALMBOXES);
+            $mbox_ob->expire(array(
+                IMP_Mailbox::CACHE_DISPLAY,
+                IMP_Mailbox::CACHE_LABEL,
+                IMP_Mailbox::CACHE_SPECIALMBOXES
+            ));
         }
 
-        if ($old == self::PREF_NO_FOLDER) {
+        if ($form == self::PREF_NO_FOLDER) {
             return $prefs->setValue($pref, '');
         }
 
-        if (strpos($old, self::PREF_SPECIALUSE) === 0) {
-            $mbox = IMP_Mailbox::get(substr($old, strlen(self::PREF_SPECIALUSE)));
+        if (strpos($form, self::PREF_SPECIALUSE) === 0) {
+            $mbox = IMP_Mailbox::get(substr($form, strlen(self::PREF_SPECIALUSE)));
         } elseif (!empty($new)) {
             $mbox = IMP_Mailbox::get($new)->namespace_append;
 
@@ -1774,12 +1779,19 @@ class IMP_Prefs_Ui
                 $mbox = null;
             }
         } else {
-            $mbox = $old;
+            $mbox = $form;
         }
 
-        return $mbox
-            ? $prefs->setValue($pref, $mbox->pref_to)
-            : false;
+        if (!$mbox) {
+            return false;
+        }
+
+        $mbox->expire(array(
+            IMP_Mailbox::CACHE_DISPLAY,
+            IMP_Mailbox::CACHE_LABEL
+        ));
+
+        return $prefs->setValue($pref, $mbox->pref_to);
     }
 
     /**
