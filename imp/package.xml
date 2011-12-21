@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-12-13</date>
- <time>11:21:41</time>
+ <date>2011-12-21</date>
+ <time>18:52:49</time>
  <version>
   <release>5.0.17</release>
   <api>5.0.0</api>
@@ -2627,7 +2627,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-12-13</date>
+   <date>2011-12-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Cache message headers during a page access.
