@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Nag H4 (3.0.6-git)\n"
+"Project-Id-Version: Nag H4 (3.0.8-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-11-21 18:18+0100\n"
+"POT-Creation-Date: 2011-12-21 18:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -167,7 +167,7 @@ msgstr ""
 msgid "Always show overdue tasks?"
 msgstr ""
 
-#: lib/Form/Type/NagMethod.php:45
+#: lib/Form/Type/NagMethod.php:42
 msgid "An alarm must be set to specify a notification method"
 msgstr ""
 
@@ -189,7 +189,7 @@ msgstr ""
 msgid "CSV"
 msgstr ""
 
-#: lib/Ui/VarRenderer/Nag.php:111 lib/Ui/VarRenderer/Nag.php:161
+#: lib/Ui/VarRenderer/Nag.php:84 lib/Ui/VarRenderer/Nag.php:134
 msgid "Calendar"
 msgstr ""
 
@@ -388,7 +388,7 @@ msgstr ""
 msgid "Created"
 msgstr ""
 
-#: lib/Ui/VarRenderer/Nag.php:102 lib/Ui/VarRenderer/Nag.php:151
+#: lib/Ui/VarRenderer/Nag.php:75 lib/Ui/VarRenderer/Nag.php:124
 msgid "Date"
 msgstr ""
 
@@ -400,7 +400,7 @@ msgstr ""
 msgid "Date:"
 msgstr ""
 
-#: lib/Nag.php:739 lib/Ui/VarRenderer/Nag.php:191
+#: lib/Nag.php:739 lib/Ui/VarRenderer/Nag.php:164
 msgid "Day(s)"
 msgstr ""
 
@@ -484,7 +484,7 @@ msgstr ""
 msgid "Due Date"
 msgstr ""
 
-#: lib/Ui/VarRenderer/Nag.php:150
+#: lib/Ui/VarRenderer/Nag.php:123
 msgid "Due date specified."
 msgstr ""
 
@@ -553,7 +553,11 @@ msgstr ""
 msgid "General Preferences"
 msgstr ""
 
-#: lib/Nag.php:742 lib/Ui/VarRenderer/Nag.php:190
+#: mobile.php:46
+msgid "Home"
+msgstr ""
+
+#: lib/Nag.php:742 lib/Ui/VarRenderer/Nag.php:163
 msgid "Hour(s)"
 msgstr ""
 
@@ -627,7 +631,7 @@ msgstr ""
 msgid "Maximum Number of Tasks"
 msgstr ""
 
-#: lib/Nag.php:745 lib/Ui/VarRenderer/Nag.php:190
+#: lib/Nag.php:745 lib/Ui/VarRenderer/Nag.php:163
 msgid "Minute(s)"
 msgstr ""
 
@@ -672,11 +676,11 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: lib/Ui/VarRenderer/Nag.php:97
+#: lib/Ui/VarRenderer/Nag.php:70
 msgid "No delay"
 msgstr ""
 
-#: lib/Ui/VarRenderer/Nag.php:146
+#: lib/Ui/VarRenderer/Nag.php:119
 msgid "No due date."
 msgstr ""
 
@@ -704,7 +708,7 @@ msgstr ""
 msgid "No tasks to display"
 msgstr ""
 
-#: lib/Form/Task.php:96 lib/Nag.php:749 lib/Ui/VarRenderer/Nag.php:206
+#: lib/Form/Task.php:96 lib/Nag.php:749 lib/Ui/VarRenderer/Nag.php:179
 msgid "None"
 msgstr ""
 
@@ -761,10 +765,6 @@ msgstr ""
 #: lib/Api.php:1152 lib/Api.php:1169 lib/Api.php:1199 lib/Api.php:1285
 #: lib/Api.php:1364 lib/Api.php:1421 lib/Application.php:306 lib/Nag.php:333
 msgid "Permission Denied"
-msgstr ""
-
-#: mobile.php:46
-msgid "Portal"
 msgstr ""
 
 #: config/prefs.php:66 config/prefs.php:87 config/prefs.php:105 data.php:60
@@ -966,7 +966,7 @@ msgstr ""
 msgid "Start Date"
 msgstr ""
 
-#: lib/Ui/VarRenderer/Nag.php:101
+#: lib/Ui/VarRenderer/Nag.php:74
 msgid "Start date specified."
 msgstr ""
 
@@ -1219,7 +1219,7 @@ msgstr ""
 msgid "This file format is not supported."
 msgstr ""
 
-#: lib/Ui/VarRenderer/Nag.php:166
+#: lib/Ui/VarRenderer/Nag.php:139
 msgid "Time"
 msgstr ""
 
@@ -1270,11 +1270,11 @@ msgstr ""
 msgid "Unsupported Content-Type: %s"
 msgstr ""
 
-#: lib/Ui/VarRenderer/Nag.php:62
+#: lib/Ui/VarRenderer/Nag.php:41
 msgid "Use custom notification method"
 msgstr ""
 
-#: lib/Ui/VarRenderer/Nag.php:56
+#: lib/Ui/VarRenderer/Nag.php:35
 msgid "Use default notification method"
 msgstr ""
 
@@ -1282,7 +1282,7 @@ msgstr ""
 msgid "We would like to remind you of this due task."
 msgstr ""
 
-#: lib/Nag.php:736 lib/Ui/VarRenderer/Nag.php:191
+#: lib/Nag.php:736 lib/Ui/VarRenderer/Nag.php:164
 msgid "Week(s)"
 msgstr ""
 
@@ -1431,7 +1431,7 @@ msgstr ""
 msgid "am"
 msgstr ""
 
-#: lib/Ui/VarRenderer/Nag.php:165
+#: lib/Ui/VarRenderer/Nag.php:138
 msgid "at"
 msgstr ""
 

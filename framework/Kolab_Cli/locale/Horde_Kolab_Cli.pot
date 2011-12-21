@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Kolab_Cli \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-11-21 18:18+0100\n"
+"POT-Creation-Date: 2011-12-21 18:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -142,7 +142,7 @@ msgstr ""
 msgid "Action %s not supported!"
 msgstr ""
 
-#: lib/Horde/Kolab/Cli/Module/Base.php:148
+#: lib/Horde/Kolab/Cli/Module/Base.php:147
 msgid ""
 "Activates the IMAP debug log. This will log the full IMAP communication - "
 "CAUTION: the \"php\" driver is the only driver variant that does not support "
@@ -152,33 +152,33 @@ msgid ""
 "directed there."
 msgstr ""
 
-#: lib/Horde/Kolab/Cli/Module/Base.php:132
+#: lib/Horde/Kolab/Cli/Module/Base.php:131
 msgid "Deactivate caching of the IMAP data."
 msgstr ""
 
-#: lib/Horde/Kolab/Cli/Module/Base.php:156
+#: lib/Horde/Kolab/Cli/Module/Base.php:155
 msgid ""
 "Path to the configuration file. Comman line parameters overwrite values from "
 "the configuration file."
 msgstr ""
 
-#: lib/Horde/Kolab/Cli/Module/Base.php:116
+#: lib/Horde/Kolab/Cli/Module/Base.php:115
 msgid ""
 "Produce time measurements to indicate how long the processing takes. You "
 "*must* activate logging for this as well."
 msgstr ""
 
-#: lib/Horde/Kolab/Cli/Module/Base.php:124
+#: lib/Horde/Kolab/Cli/Module/Base.php:123
 msgid ""
 "Report memory consumption statistics. You *must* activate logging for this "
 "as well."
 msgstr ""
 
-#: lib/Horde/Kolab/Cli/Module/Base.php:108
+#: lib/Horde/Kolab/Cli/Module/Base.php:107
 msgid "Sets the connection type. Use either \"tls\" or \"ssl\" here."
 msgstr ""
 
-#: lib/Horde/Kolab/Cli/Module/Base.php:59
+#: lib/Horde/Kolab/Cli/Module/Base.php:58
 msgid ""
 "The Kolab backend driver that should be used.\n"
 "Choices are:\n"
@@ -192,23 +192,23 @@ msgid ""
 " - mock      [Mem.]: A dummy driver that uses memory."
 msgstr ""
 
-#: lib/Horde/Kolab/Cli/Module/Base.php:92
+#: lib/Horde/Kolab/Cli/Module/Base.php:91
 msgid "The host that holds the data."
 msgstr ""
 
-#: lib/Horde/Kolab/Cli/Module/Base.php:84
+#: lib/Horde/Kolab/Cli/Module/Base.php:83
 msgid "The password of the user accessing the backend."
 msgstr ""
 
-#: lib/Horde/Kolab/Cli/Module/Base.php:100
+#: lib/Horde/Kolab/Cli/Module/Base.php:99
 msgid "The port that should be used to connect to the host."
 msgstr ""
 
-#: lib/Horde/Kolab/Cli/Module/Base.php:76
+#: lib/Horde/Kolab/Cli/Module/Base.php:75
 msgid "The user accessing the backend."
 msgstr ""
 
-#: lib/Horde/Kolab/Cli/Module/Base.php:140
+#: lib/Horde/Kolab/Cli/Module/Base.php:139
 msgid ""
 "Write a log file in the provided LOG location. Use \"STDOUT\" here to direct "
 "the log output to the screen."

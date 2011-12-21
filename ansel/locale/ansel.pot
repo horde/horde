@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ansel H4 (2.0.1-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-11-21 18:18+0100\n"
+"POT-Creation-Date: 2011-12-21 18:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1003,6 +1003,10 @@ msgstr ""
 msgid "Height of map (width automatically adjusts to block)"
 msgstr ""
 
+#: templates/mobile/galleries.html.php:4
+msgid "Home"
+msgstr ""
+
 #: config/prefs.php:162 lib/Form/Watermark.php:43
 msgid "Horizontal Alignment"
 msgstr ""
@@ -1473,10 +1477,6 @@ msgstr ""
 
 #: lib/ImageGenerator/PolaroidThumb.php:15
 msgid "Polaroids"
-msgstr ""
-
-#: templates/mobile/galleries.html.php:4
-msgid "Portal"
 msgstr ""
 
 #: templates/image/crop_image.inc:149
@@ -2103,7 +2103,7 @@ msgstr ""
 msgid "This image"
 msgstr ""
 
-#: lib/ImageGenerator.php:123
+#: lib/ImageGenerator.php:122
 #, php-format
 msgid ""
 "This install does not support the %s feature. Please contact your "

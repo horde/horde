@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hermes H4 (2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-11-21 18:18+0100\n"
+"POT-Creation-Date: 2011-12-21 18:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,7 +59,7 @@ msgstr ""
 msgid "--- Select A Client ---"
 msgstr ""
 
-#: lib/Data/iif.php:62
+#: lib/Data/Iif.php:74
 msgid "; Notes: "
 msgstr ""
 
@@ -183,7 +183,7 @@ msgstr ""
 msgid "Combine same clients in one invoice"
 msgstr ""
 
-#: lib/Form/Export.php:29
+#: lib/Form/Export.php:30
 msgid "Comma-Separated Variable (.csv)"
 msgstr ""
 
@@ -370,7 +370,7 @@ msgstr ""
 msgid "Estimated Hours"
 msgstr ""
 
-#: lib/Form/Export.php:47
+#: lib/Form/Export.php:48
 msgid "Export"
 msgstr ""
 
@@ -454,11 +454,11 @@ msgstr ""
 msgid "Log"
 msgstr ""
 
-#: lib/Form/Export.php:41
+#: lib/Form/Export.php:42
 msgid "Mark the time as exported?"
 msgstr ""
 
-#: lib/Form/Export.php:30
+#: lib/Form/Export.php:31
 msgid "Microsoft Excel (.xls)"
 msgstr ""
 
@@ -495,7 +495,7 @@ msgid "Next month"
 msgstr ""
 
 #: invoicing.php:70 lib/Api.php:31 lib/Form/Admin/DeleteJobType.php:28
-#: lib/Form/Export.php:40 lib/Form/Search.php:54 lib/Form/Time/Entry.php:69
+#: lib/Form/Export.php:41 lib/Form/Search.php:54 lib/Form/Time/Entry.php:69
 msgid "No"
 msgstr ""
 
@@ -516,7 +516,7 @@ msgstr ""
 msgid "No search to export!"
 msgstr ""
 
-#: search.php:57
+#: search.php:59
 msgid "No time to export!"
 msgstr ""
 
@@ -552,7 +552,7 @@ msgstr ""
 msgid "Previous month"
 msgstr ""
 
-#: lib/Form/Export.php:31
+#: lib/Form/Export.php:32
 msgid "QuickBooks (.iif)"
 msgstr ""
 
@@ -583,7 +583,7 @@ msgstr ""
 msgid "Search For Time"
 msgstr ""
 
-#: lib/Api.php:98 search.php:100 templates/index/search.inc:45
+#: lib/Api.php:98 search.php:102 templates/index/search.inc:45
 msgid "Search Results"
 msgstr ""
 
@@ -591,7 +591,7 @@ msgstr ""
 msgid "Search Time"
 msgstr ""
 
-#: search.php:80
+#: search.php:82
 msgid "Search for Time"
 msgstr ""
 
@@ -613,7 +613,7 @@ msgstr ""
 msgid "Select hours to be invoiced"
 msgstr ""
 
-#: lib/Form/Export.php:35
+#: lib/Form/Export.php:36
 msgid "Select the export format"
 msgstr ""
 
@@ -672,7 +672,7 @@ msgstr ""
 msgid "Summary"
 msgstr ""
 
-#: lib/Form/Export.php:32
+#: lib/Form/Export.php:33
 msgid "Tab-Separated Variable (.tsv, .txt)"
 msgstr ""
 
@@ -842,7 +842,7 @@ msgid "Using the \"%s\" stop watch from %s to %s"
 msgstr ""
 
 #: invoicing.php:70 lib/Api.php:30 lib/Form/Admin/DeleteJobType.php:28
-#: lib/Form/Export.php:39 lib/Form/Search.php:53 lib/Form/Time/Entry.php:69
+#: lib/Form/Export.php:40 lib/Form/Search.php:53 lib/Form/Time/Entry.php:69
 msgid "Yes"
 msgstr ""
 
