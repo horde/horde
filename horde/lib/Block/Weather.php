@@ -191,12 +191,12 @@ class Horde_Block_Weather extends Horde_Core_Block
             $html .= '<br /><strong>' . _("Pressure") . ': </strong>';
             $trend = $current->pressure_trend;
             if (empty($trend)) {
-                $html .= sprintf(_("%d %s"),
-                    round($current->pressure), $units['pres']);
+                $html .= sprintf('%d %s',
+                                 round($current->pressure), $units['pres']);
             } else {
                 $html .= sprintf(_("%d %s and %s"),
-                    round($current->pressure), $units['pres'],
-                    _($trend));
+                                 round($current->pressure), $units['pres'],
+                                 _($trend));
             }
         }
         if ($current->wind_direction) {
