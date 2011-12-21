@@ -125,7 +125,7 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
                 (($show == 'hidden') ||
                  (($show == 'thread') && (basename(Horde::selfUrl()) == 'thread.php')));
             if (!$hideBlocks && in_array($show, array('list', 'listthread'))) {
-                $header = $this->getConfigParam('imp_contents')->getHeaderOb();
+                $header = $this->getConfigParam('imp_contents')->getHeader();
                 $imp_ui = new IMP_Ui_Message();
                 $list_info = $imp_ui->getListInformation($header);
                 $hideBlocks = $list_info['exists'];

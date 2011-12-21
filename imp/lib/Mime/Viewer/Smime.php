@@ -213,7 +213,7 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
 
         $new_part = Horde_Mime_Part::parseMessage($decrypted_data, array('forcemime' => true));
 
-        $hdrs = $this->getConfigParam('imp_contents')->getHeaderOb();
+        $hdrs = $this->getConfigParam('imp_contents')->getHeader();
         $new_part->setMetadata('imp-smime-from', $hdrs->getValue('from'));
 
         return $new_part;

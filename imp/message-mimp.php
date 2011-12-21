@@ -34,8 +34,6 @@ if (!$imp_mailbox->isValidIndex()) {
     IMP::$mailbox->url('mailbox-mimp.php')->add('a', 'm')->redirect();
 }
 
-$readonly = IMP::$mailbox->readonly;
-
 $imp_ui_mimp = $injector->getInstance('IMP_Ui_Mimp');
 $imp_hdr_ui = new IMP_Ui_Headers();
 $imp_ui = new IMP_Ui_Message();
@@ -110,9 +108,6 @@ try {
 
     $query = new Horde_Imap_Client_Fetch_Query();
     $query->envelope();
-    $query->headerText(array(
-        'peek' => $readonly
-    ));
     $fetch_ret = $imp_imap->fetch($mailbox, $query, array(
         'ids' => $imp_imap->getIdsOb($uid)
     ));
@@ -122,11 +117,11 @@ try {
 
 $envelope = $fetch_ret[$uid]->getEnvelope();
 $flags = $flags_ret[$uid]->getFlags();
-$mime_headers = $fetch_ret[$uid]->getHeaderText(0, Horde_Imap_Client_Data_Fetch::HEADER_PARSE);
 
 /* Parse the message. */
 try {
     $imp_contents = $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($imp_mailbox));
+    $mime_headers = $imp_contents->getHeaderAndMarkAsSeen();
 } catch (IMP_Exception $e) {
     $mailbox->url('mailbox-mimp.php')->add('a', 'm')->redirect();
 }

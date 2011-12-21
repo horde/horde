@@ -2,6 +2,7 @@
 v5.0.17-git
 -----------
 
+[mms] Cache message headers during a page access.
 [mms] Fix adding submailboxes to last mailbox in a level in dynamic view.
 [mms] Fix display of numerically-named mailboxes on IMAP servers without the
       LIST-EXTENDED IMAP capability (Bug #10869).

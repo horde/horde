@@ -199,7 +199,7 @@ case 'mailto':
         break;
     }
 
-    $imp_headers = $contents->getHeaderOb();
+    $imp_headers = $contents->getHeader();
     $header['to'] = '';
     if ($vars->mailto) {
         $header['to'] = $imp_headers->getValue('to');
@@ -291,7 +291,7 @@ case 'reply_list':
         if ($vars->actionID == 'reply_auto') {
             $replyauto_list = true;
 
-            $hdr_ob = $contents->getHeaderOb();
+            $hdr_ob = $contents->getHeader();
             $addr_ob = Horde_Mime_Address::parseAddressList($hdr_ob->getValue('list-id'));
             if (isset($addr_ob[0]['personal'])) {
                 $replyauto_list_id = $addr_ob[0]['personal'];

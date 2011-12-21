@@ -35,7 +35,7 @@ class IMP_Ui_Imageview
             return false;
         }
 
-        $from = Horde_Mime_Address::bareAddress($contents->getHeaderOb()->getValue('from'));
+        $from = Horde_Mime_Address::bareAddress($contents->getHeader()->getValue('from'));
         if ($prefs->getValue('image_addrbook') &&
             $registry->hasMethod('contacts/getField')) {
             $params = IMP::getAddressbookSearchParams();

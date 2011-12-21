@@ -101,9 +101,6 @@ class IMP_Views_ShowMessage
         try {
             $query = new Horde_Imap_Client_Fetch_Query();
             $query->envelope();
-            $query->headerText(array(
-                'peek' => false
-            ));
 
             $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
             $fetch_ret = $imp_imap->fetch($mailbox, $query, array(
@@ -114,14 +111,13 @@ class IMP_Views_ShowMessage
                 throw new Exception();
             }
 
-            /* Parse MIME info and create the body of the message. */
             $imp_contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($mailbox->getIndicesOb($uid));
         } catch (Exception $e) {
             throw new IMP_Exception(_("Requested message not found."));
         }
 
         $envelope = $fetch_ret[$uid]->getEnvelope();
-        $mime_headers = $fetch_ret[$uid]->getHeaderText(0, Horde_Imap_Client_Data_Fetch::HEADER_PARSE);
+        $mime_headers = $imp_contents->getHeaderAndMarkAsSeen();
         $headers = array();
 
         /* Initialize variables. */

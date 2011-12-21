@@ -41,6 +41,11 @@ class IMP_Contents
     const RENDER_RAW = 32;
     const RENDER_RAW_FALLBACK = 64;
 
+    /* Header return type for getHeader(). */
+    const HEADER_OB = 1;
+    const HEADER_TEXT = 2;
+    const HEADER_STREAM = 3;
+
     /**
      * Flag to indicate whether the last call to getBodypart() returned
      * decoded data.
@@ -50,11 +55,25 @@ class IMP_Contents
     public $lastBodyPartDecode = null;
 
     /**
-     * The IMAP UID of the message.
+     * Have we scanned for embedded parts?
      *
-     * @var integer
+     * @var boolean
      */
-    protected $_uid = null;
+    protected $_build = false;
+
+    /**
+     * The list of MIME IDs that consist of embedded data.
+     *
+     * @var array
+     */
+    protected $_embedded = array();
+
+    /**
+     * Message header.
+     *
+     * @var mixed
+     */
+    protected $_header;
 
     /**
      * The mailbox of the current message.
@@ -71,18 +90,11 @@ class IMP_Contents
     protected $_message;
 
     /**
-     * Have we scanned for embedded parts?
+     * The IMAP UID of the message.
      *
-     * @var boolean
+     * @var integer
      */
-    protected $_build = false;
-
-    /**
-     * The list of MIME IDs that consist of embedded data.
-     *
-     * @var array
-     */
-    protected $_embedded = array();
+    protected $_uid = null;
 
     /**
      * Constructor.
@@ -314,9 +326,6 @@ class IMP_Contents
         $query->bodyText(array(
             'peek' => true
         ));
-        $query->headerText(array(
-            'peek' => true,
-        ));
 
         try {
             $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
@@ -325,10 +334,10 @@ class IMP_Contents
             ));
 
             if (empty($options['stream'])) {
-                return $res[$this->_uid]->getHeaderText(0) . $res[$this->_uid]->getBodyText(0);
+                return $this->getHeader(self::HEADER_TEXT) . $res[$this->_uid]->getBodyText(0);
             }
 
-            $swrapper = new Horde_Support_CombineStream(array($res[$this->_uid]->getHeaderText(0, Horde_Imap_Client_Data_Fetch::HEADER_STREAM), $res[$this->_uid]->getBodyText(0, true)));
+            $swrapper = new Horde_Support_CombineStream(array($this->getHeader(self::HEADER_STREAM), $res[$this->_uid]->getBodyText(0, true)));
             return $swrapper->fopen();
         } catch (Horde_Imap_Client_Exception $e) {
             return empty($options['stream'])
@@ -338,35 +347,100 @@ class IMP_Contents
     }
 
     /**
-     * Returns the header object.
+     * Returns base header information.
      *
-     * @param boolean $parse  Parse the headers into a headers object?
+     * @param integer $type  Return type (HEADER_* constant).
      *
-     * @return Horde_Mime_Headers|string  Either a Horde_Mime_Headers object
-     *                                    (if $parse is true) or the header
-     *                                    text (if $parse is false).
+     * @return mixed  Either a Horde_Mime_Headers object (HEADER_OB), header
+     *                text (HEADER_TEXT), or a stream resource (HEADER_STREAM).
      */
-    public function getHeaderOb($parse = true)
+    public function getHeader($type = self::HEADER_OB)
     {
-        if (is_null($this->_uid)) {
-            return $this->_message->addMimeHeaders();
+        return $this->_getHeader($type, false);
+    }
+
+    /**
+     * Returns base header information and marks the message as seen.
+     *
+     * @param integer $type  See getHeader().
+     *
+     * @return mixed  See getHeader().
+     */
+    public function getHeaderAndMarkAsSeen($type = self::HEADER_OB)
+    {
+        if ($this->_mailbox->readonly) {
+            $seen = false;
+        } else {
+            $seen = true;
+
+            if (isset($this->_header)) {
+                try {
+                    $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+                    $imp_imap->store($this->_mailbox, array(
+                        'add' => array(
+                            Horde_Imap_Client::FLAG_SEEN
+                        ),
+                        'ids' => $imp_imap->getIdsOb($this->_uid)
+                    ));
+                } catch (Exception $e) {}
+            }
         }
 
-        $query = new Horde_Imap_Client_Fetch_Query();
-        $query->headerText(array(
-            'peek' => true
-        ));
+        return $this->_getHeader($type, $seen);
+    }
 
-        try {
-            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
-            $res = $imp_imap->fetch($this->_mailbox, $query, array(
-                'ids' => $imp_imap->getIdsOb($this->_uid)
-            ));
-            return $res[$this->_uid]->getHeaderText(0, $parse ? Horde_Imap_Client_Data_Fetch::HEADER_PARSE : 0);
-        } catch (Horde_Imap_Client_Exception $e) {
-            return $parse
-                ? new Horde_Mime_Headers()
-                : '';
+    /**
+     * Returns base header information.
+     *
+     * @param integer $type  See getHeader().
+     * @param boolean $seen  Mark message as seen?
+     *
+     * @return mixed  See getHeader().
+     */
+    protected function _getHeader($type, $seen)
+    {
+        if (!isset($this->_header)) {
+            if (is_null($this->_uid)) {
+                $ob = $this->_message->addMimeHeaders();
+            } else {
+                $query = new Horde_Imap_Client_Fetch_Query();
+                $query->headerText(array(
+                    'peek' => !$seen
+                ));
+
+                try {
+                    $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+                    $res = $imp_imap->fetch($this->_mailbox, $query, array(
+                        'ids' => $imp_imap->getIdsOb($this->_uid)
+                    ));
+                    $ob = $res[$this->_uid];
+                } catch (Horde_Imap_Client_Exception $e) {
+                    $ob = new Horde_Imap_Client_Data_Fetch();
+                }
+            }
+
+            $this->_header = $ob;
+        }
+
+        switch ($type) {
+        case self::HEADER_OB:
+            return is_null($this->_uid)
+                ? $this->_header
+                : $this->_header->getHeaderText(0, Horde_Imap_Client_Data_Fetch::HEADER_PARSE);
+
+        case self::HEADER_TEXT:
+            return is_null($this->_uid)
+                ? $this->_header->toString()
+                : $this->_header->getHeaderText();
+
+        case self::HEADER_STREAM:
+            if (is_null($this->_uid)) {
+                $stream = new Horde_Support_StringStream($this->_header->toString());
+                $stream->fopen();
+                return $stream;
+            }
+
+            return $this->_header->getHeaderText(0, Horde_Imap_Client_Data_Fetch::HEADER_STREAM);
         }
     }
 
