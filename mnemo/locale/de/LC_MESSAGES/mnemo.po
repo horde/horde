@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mnemo 3.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-11-21 18:18+0100\n"
+"POT-Creation-Date: 2011-12-21 18:23+0100\n"
 "PO-Revision-Date: 2011-10-07 15:26+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@horde.org>\n"
@@ -61,7 +61,7 @@ msgstr "CSV"
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: data.php:49 templates/view/memo.inc:26
+#: data.php:49 templates/view/memo.inc:24
 msgid "Category"
 msgstr "Kategorie"
 
@@ -97,7 +97,7 @@ msgstr "Notizblock erstellen"
 msgid "Create a new Notepad"
 msgstr "Neuen Notizblock erstellen"
 
-#: templates/view/memo.inc:32
+#: templates/view/memo.inc:30
 msgid "Created"
 msgstr "Erstellt"
 
@@ -105,7 +105,7 @@ msgstr "Erstellt"
 msgid "Date"
 msgstr "Datum"
 
-#: templates/memo/memo.inc:23 templates/view/memo.inc:54
+#: templates/memo/memo.inc:23 templates/view/memo.inc:52
 msgid "Decrypt"
 msgstr "Entschlüsseln"
 
@@ -122,7 +122,7 @@ msgid "Default sorting direction:"
 msgstr "Sortierrichtung:"
 
 #: lib/Form/DeleteNotepad.php:34 notepads/index.php:35
-#: templates/notepad_list.php:31 templates/view/memo.inc:16
+#: templates/notepad_list.php:31 templates/view/memo.inc:15
 msgid "Delete"
 msgstr "Löschen"
 
@@ -160,7 +160,7 @@ msgid "Do you want to confirm deleting entries?"
 msgstr "Möchten Sie das Löschen von Einträgen bestätigen?"
 
 #: notepads/index.php:33 templates/notepad_list.php:27
-#: templates/view/memo.inc:13
+#: templates/view/memo.inc:12
 msgid "Edit"
 msgstr "Bearbeiten"
 
@@ -225,7 +225,7 @@ msgstr "Notizen Import/Export"
 msgid "In: "
 msgstr "In: "
 
-#: templates/view/memo.inc:39
+#: templates/view/memo.inc:37
 msgid "Last Modified"
 msgstr "Letzte Änderung"
 
@@ -375,7 +375,7 @@ msgstr ""
 "gemacht werden, und alle Daten in diesem Notizblock werden endgültig "
 "gelöscht."
 
-#: templates/view/memo.inc:16
+#: templates/view/memo.inc:15
 msgid "Really delete this note?"
 msgstr "Diese Notiz wirklich löschen?"
 
@@ -384,7 +384,7 @@ msgstr "Diese Notiz wirklich löschen?"
 msgid "Save"
 msgstr "Speichern"
 
-#: templates/view/memo.inc:11
+#: templates/view/memo.inc:10
 msgid "Save as PDF"
 msgstr "Als PDF speichern"
 
@@ -555,7 +555,7 @@ msgstr "Diese Notiz wurde verschlüsselt."
 
 #: lib/Block/Summary.php:116 lib/Mnemo.php:310 lib/Mnemo.php:311
 #: lib/Mnemo.php:325 lib/Mnemo.php:326 templates/list/memo_summaries.inc:20
-#: templates/view/memo.inc:27
+#: templates/view/memo.inc:25
 msgid "Unfiled"
 msgstr "Nicht zugeordnet"
 
@@ -614,11 +614,11 @@ msgstr "_Kategorie"
 msgid "_Category:"
 msgstr "_Kategorie:"
 
-#: templates/view/memo.inc:16
+#: templates/view/memo.inc:15
 msgid "_Delete"
 msgstr "_Löschen"
 
-#: templates/view/memo.inc:13
+#: templates/view/memo.inc:12
 msgid "_Edit"
 msgstr "_Bearbeiten"
 
@@ -642,7 +642,7 @@ msgstr "Notizen _anzeigen"
 msgid "_New Note"
 msgstr "_Neue Notiz"
 
-#: templates/memo/memo.inc:21 templates/view/memo.inc:52
+#: templates/memo/memo.inc:21 templates/view/memo.inc:50
 msgid "_Password"
 msgstr "_Passwort"
 

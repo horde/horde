@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Turba 3.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-11-21 18:18+0100\n"
+"POT-Creation-Date: 2011-12-21 18:23+0100\n"
 "PO-Revision-Date: 2011-11-01 12:58+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <i18n@lists.horde.org>\n"
@@ -113,7 +113,7 @@ msgstr[1] ""
 "%d Kontakte hinzugefügt oder aktualisiert, aber mindestens ein Kontakt ist "
 "fehlgeschlagen:"
 
-#: lib/Driver.php:2868
+#: lib/Driver.php:2876
 msgid "Adding contacts is not available."
 msgstr "Hinzufügen von Kontakten nicht unterstützt."
 
@@ -447,7 +447,7 @@ msgstr "Löschen nicht erlaubt."
 msgid "Delete failed: (%s) %s"
 msgstr "Löschen fehlgeschlagen: (%s) %s"
 
-#: lib/Driver.php:2881
+#: lib/Driver.php:2889
 msgid "Deleting contacts is not available."
 msgstr "Löschen von Kontakten nicht unterstützt."
 
@@ -1126,7 +1126,7 @@ msgstr "Telefon Funk"
 msgid "Read failed: (%s) %s"
 msgstr "Lesen fehlgeschlagen: (%s) %s"
 
-#: lib/Driver.php:2855
+#: lib/Driver.php:2863
 msgid "Reading contacts is not available."
 msgstr "Anzeigen von Kontakten nicht unterstützt."
 
@@ -1144,7 +1144,7 @@ msgstr ""
 msgid "Remove from this list"
 msgstr "Aus dieser Liste entfernen"
 
-#: lib/Driver.php:2906
+#: lib/Driver.php:2914
 msgid ""
 "Removing user data is not supported in the current address book storage "
 "driver."
@@ -1189,7 +1189,7 @@ msgstr "Speichern"
 msgid "Save search as a virtual address book?"
 msgstr "Suche als Virtuelles Adressbuch speichern?"
 
-#: lib/Driver.php:2894
+#: lib/Driver.php:2902
 msgid "Saving contacts is not available."
 msgstr "Speichern von Kontakten nicht unterstützt."
 
@@ -1217,7 +1217,7 @@ msgstr "Suche fehlgeschlagen: %s"
 msgid "Search for: "
 msgstr "Suchen nach: "
 
-#: lib/Driver.php:2838
+#: lib/Driver.php:2846
 msgid "Searching is not available."
 msgstr "Suchen von Kontakten nicht unterstützt."
 
@@ -1738,6 +1738,10 @@ msgstr "Sie müssen einen Namen für das Virtuelle Adressbuch angeben."
 #: lib/Turba.php:680
 msgid "You must select a target address book."
 msgstr "Sie müssen erst ein Zieladressbuch auswählen."
+
+#: lib/Turba.php:678
+msgid "You must select a target contact list."
+msgstr "Sie müssen erst eine Zielliste angeben."
 
 #: edit.php:28 lib/Turba.php:677
 msgid "You must select at least one contact first."

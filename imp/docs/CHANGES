@@ -22,8 +22,14 @@ v5.1-git
 
 
 -----------
-v5.0.17-git
+v5.0.18-git
 -----------
+
+
+
+-------
+v5.0.17
+-------
 
 [mms] Cache message headers during a page access.
 [mms] Fix adding submailboxes to last mailbox in a level in dynamic view.

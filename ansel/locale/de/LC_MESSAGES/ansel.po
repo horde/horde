@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ansel 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-11-21 18:18+0100\n"
+"POT-Creation-Date: 2011-12-21 18:23+0100\n"
 "PO-Revision-Date: 2011-11-21 18:29+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -1025,6 +1025,10 @@ msgstr "Galerien gruppieren nach"
 msgid "Height of map (width automatically adjusts to block)"
 msgstr "Höhe der Karte (Breite passt sich automatisch an den Block an)"
 
+#: templates/mobile/galleries.html.php:4
+msgid "Home"
+msgstr "Pos1"
+
 #: config/prefs.php:162 lib/Form/Watermark.php:43
 msgid "Horizontal Alignment"
 msgstr "Horizontale Ausrichtung"
@@ -1511,10 +1515,6 @@ msgstr "Polaroid-Vorschau (Weißer Hintergrund)"
 #: lib/ImageGenerator/PolaroidThumb.php:15
 msgid "Polaroids"
 msgstr "Polaroids"
-
-#: templates/mobile/galleries.html.php:4
-msgid "Portal"
-msgstr "Portal"
 
 #: templates/image/crop_image.inc:149
 msgid "Portrait"
@@ -2155,7 +2155,7 @@ msgstr ""
 msgid "This image"
 msgstr "Dieses Bild"
 
-#: lib/ImageGenerator.php:123
+#: lib/ImageGenerator.php:122
 #, php-format
 msgid ""
 "This install does not support the %s feature. Please contact your "
@@ -2528,3 +2528,6 @@ msgstr "Benutzereinstellungen"
 #: templates/image/resize_image.inc:67
 msgid "width"
 msgstr "Breite"
+
+#~ msgid "Portal"
+#~ msgstr "Portal"
