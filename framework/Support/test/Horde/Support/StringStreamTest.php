@@ -24,9 +24,6 @@ class Horde_Support_StringStreamTest extends PHPUnit_Framework_TestCase
 {
     public function testMemoryUsage()
     {
-        $dummy = '';
-        $dummy = new Horde_Support_StringStream($dummy);
-
         $bytes = 1024 * 1024;
         $string = str_repeat('*', $bytes);
         $memoryUsage = memory_get_usage();

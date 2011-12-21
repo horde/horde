@@ -89,7 +89,7 @@ default:
 /* Run through action handlers */
 switch ($vars->actionID) {
 case 'download_all':
-    $headers = $contents->getHeaderOb();
+    $headers = $contents->getHeader();
     $zipfile = _sanitizeName($headers->getValue('subject'));
     if (empty($zipfile)) {
         $zipfile = _("attachments.zip");
@@ -203,7 +203,7 @@ case 'view_source':
     break;
 
 case 'save_message':
-    $mime_headers = $contents->getHeaderOb();
+    $mime_headers = $contents->getHeader();
 
     if (($subject = $mime_headers->getValue('subject'))) {
         $name = _sanitizeName($subject);
@@ -222,7 +222,7 @@ case 'save_message':
     break;
 
 case 'view_face':
-    $mime_headers = $contents->getHeaderOb();
+    $mime_headers = $contents->getHeader();
     if ($face = $mime_headers->getValue('face')) {
         $face = base64_decode($face);
         $browser->downloadHeaders(null, 'image/png', true, strlen($face));
@@ -247,7 +247,7 @@ case 'print_attach':
     $imp_ui = new IMP_Ui_Message();
     $basic_headers = $imp_ui->basicHeaders();
     unset($basic_headers['bcc'], $basic_headers['reply-to']);
-    $headerob = $contents->getHeaderOb();
+    $headerob = $contents->getHeader();
 
     $d_param = Horde_Mime::decodeParam('content-type', $render[$render_key]['type'], 'UTF-8');
 
@@ -316,7 +316,7 @@ case 'print_attach':
     $bodyelt->insertBefore($doc->dom->importNode($div, true), $bodyelt->firstChild);
 
     /* Make the title the e-mail subject. */
-    $headers = $contents->getHeaderOb();
+    $headers = $contents->getHeader();
     $imp_ui_mbox = new IMP_Ui_Mailbox();
 
     $headelt = $doc->getHead();

@@ -270,7 +270,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             return false;
         }
 
-        $from = Horde_Mime_Address::bareAddress($this->getConfigParam('imp_contents')->getHeaderOb()->getValue('from'));
+        $from = Horde_Mime_Address::bareAddress($this->getConfigParam('imp_contents')->getHeader()->getValue('from'));
 
         if ($GLOBALS['prefs']->getValue('html_image_addrbook') &&
             $GLOBALS['registry']->hasMethod('contacts/getField')) {

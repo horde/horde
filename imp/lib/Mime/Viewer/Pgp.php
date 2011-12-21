@@ -111,7 +111,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
 
         /* Determine the address of the sender. */
         if (is_null($this->_address)) {
-            $headers = $this->getConfigParam('imp_contents')->getHeaderOb();
+            $headers = $this->getConfigParam('imp_contents')->getHeader();
             $this->_address = Horde_Mime_Address::bareAddress($headers->getValue('from'));
         }
 
@@ -124,7 +124,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
 
         case 'multipart/encrypted':
             if (!isset($headers)) {
-                $headers = $this->getConfigParam('imp_contents')->getHeaderOb();
+                $headers = $this->getConfigParam('imp_contents')->getHeader();
             }
 
             $mid = $headers->getValue('message-id');
@@ -160,7 +160,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
             return null;
         }
 
-        $mid = $this->getConfigParam('imp_contents')->getHeaderOb()->getValue('message-id');
+        $mid = $this->getConfigParam('imp_contents')->getHeader()->getValue('message-id');
 
         $partlist = array_keys($this->_mimepart->contentTypeMap());
         $base_id = reset($partlist);

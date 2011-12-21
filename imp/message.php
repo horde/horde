@@ -71,9 +71,6 @@ if ($vars->actionID) {
     }
 }
 
-/* Determine if mailbox is readonly. */
-$peek = $readonly = IMP::$mailbox->readonly;
-
 /* Get mailbox/UID of message. */
 $index_array = $imp_mailbox->getIMAPIndex();
 $mailbox = $index_array['mailbox'];
@@ -83,6 +80,7 @@ $indices = new IMP_Indices($mailbox, $uid);
 $imp_flags = $injector->getInstance('IMP_Flags');
 $imp_hdr_ui = new IMP_Ui_Headers();
 $imp_ui = new IMP_Ui_Message();
+$peek = false;
 
 switch ($vars->actionID) {
 case 'blacklist':
@@ -236,9 +234,6 @@ try {
 
     $query = new Horde_Imap_Client_Fetch_Query();
     $query->envelope();
-    $query->headerText(array(
-        'peek' => $peek
-    ));
     $fetch_ret = $imp_imap->fetch($mailbox, $query, array(
         'ids' => $imp_imap->getIdsOb($uid)
     ));
@@ -250,7 +245,9 @@ try {
 
 $envelope = $fetch_ret[$uid]->getEnvelope();
 $flags = $flags_ret[$uid]->getFlags();
-$mime_headers = $fetch_ret[$uid]->getHeaderText(0, Horde_Imap_Client_Data_Fetch::HEADER_PARSE);
+$mime_headers = $peek
+    ? $imp_contents->getHeader()
+    : $imp_contents->getHeaderAndMarkAsSeen();
 
 /* Get the title/mailbox label of the mailbox page. */
 $page_label = IMP::$mailbox->label;

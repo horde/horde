@@ -1417,7 +1417,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * AJAX action: Send a Message Disposition Notification (MDN).
      *
      * Variables used:
-     *   - uid: (string) Index of the messages to preview (IMAP sequence
+     *   - uid: (string) Index of the messages to send MDN for (IMAP sequence
      *          string; mailbox is base64url encoded) - must be single index.
      *
      * @return mixed  False on failure, or an object with these properties:
@@ -1431,25 +1431,16 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             return false;
         }
 
-        list($mbox, $uid) = $indices->getSingle();
-
-        $query = new Horde_Imap_Client_Fetch_Query();
-        $query->headerText(array(
-            'peek' => false
-        ));
-
         try {
-            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
-            $fetch_ret = $imp_imap->fetch($mbox, $query, array(
-                'ids' => $imp_imap->getIdsOb($uid)
-            ));
+            $contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($indices);
         } catch (IMP_Imap_Exception $e) {
             $e->notify(_("The Message Disposition Notification was not sent. This is what the server said") . ': ' . $e->getMessage());
             return false;
         }
 
+        list($mbox, $uid) = $indices->getSingle();
         $imp_ui = new IMP_Ui_Message();
-        $imp_ui->MDNCheck($mbox, $uid, $fetch_ret[$uid]->getHeaderText(0, Horde_Imap_Client_Data_Fetch::HEADER_PARSE), true);
+        $imp_ui->MDNCheck($mbox, $uid, $contents->getHeaderAndMarkAsSeen(), true);
 
         $GLOBALS['notification']->push(_("The Message Disposition Notification was sent successfully."), 'horde.success');
 

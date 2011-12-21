@@ -411,7 +411,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         }
 
         $header = array();
-        $headers = $contents->getHeaderOb();
+        $headers = $contents->getHeader();
         $imp_draft = false;
         $reply_type = null;
 
@@ -1586,7 +1586,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             'subject' => ''
         );
 
-        $h = $contents->getHeaderOb();
+        $h = $contents->getHeader();
         $match_identity = $this->_getMatchingIdentity($h);
         $reply_type = self::REPLY_SENDER;
 
@@ -1806,7 +1806,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             );
         }
 
-        $h = $contents->getHeaderOb();
+        $h = $contents->getHeader();
 
         $from = Horde_Mime_Address::addrArray2String($h->getOb('from'));
 
@@ -1946,7 +1946,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             }
         }
 
-        $h = $contents->getHeaderOb();
+        $h = $contents->getHeader();
         $format = 'text';
         $msg = '';
 
@@ -2010,7 +2010,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     {
         global $prefs;
 
-        $h = $contents->getHeaderOb();
+        $h = $contents->getHeader();
 
         $from = Horde_Mime_Address::addrArray2String($h->getOb('from'));
 
@@ -2095,7 +2095,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                     throw new IMP_Compose_Exception(_("Error when redirecting message."));
                 }
 
-                $headers = $contents->getHeaderOb();
+                $headers = $contents->getHeader();
 
                 /* We need to set the Return-Path header to the current user -
                  * see RFC 2821 [4.4]. */
@@ -2110,7 +2110,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                 $resent_headers->addHeader('Resent-To', $recip['header']['to']);
                 $resent_headers->addHeader('Resent-Message-ID', Horde_Mime::generateMessageId());
 
-                $header_text = trim($resent_headers->toString(array('encode' => 'UTF-8'))) . "\n" . trim($contents->getHeaderOb(false));
+                $header_text = trim($resent_headers->toString(array('encode' => 'UTF-8'))) . "\n" . trim($contents->getHeader(IMP_Contents::HEADER_TEXT));
 
                 $this->_prepSendMessageAssert($recipients);
                 $to = $this->_prepSendMessage($recipients);
@@ -2187,7 +2187,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             foreach ($ob->uids as $idx) {
                 ++$attached;
                 $contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($ob->mbox, $idx));
-                $headerob = $contents->getHeaderOb();
+                $headerob = $contents->getHeader();
 
                 $part = new Horde_Mime_Part();
                 $part->setCharset('UTF-8');

@@ -141,7 +141,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
                 if ($registry->hasMethod('calendar/updateAttendee')) {
                     try {
                         $sender = $this->getConfigParam('imp_contents')
-                            ->getHeaderOb()
+                            ->getHeader()
                             ->getValue('From');
                         $event = $registry->call('calendar/updateAttendee', array('response' => $components[$key], 'sender' => Horde_Mime_Address::bareAddress($sender)));
                         $msgs[] = array('success', _("Respondent Status Updated."));
@@ -494,7 +494,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
             break;
 
         case 'REQUEST':
-            $hdrs = $this->getConfigParam('imp_contents')->getHeaderOb();
+            $hdrs = $this->getConfigParam('imp_contents')->getHeader();
             $sender = $hdrs->getValue('From');
             $desc = _("%s requests your free/busy information.");
             break;
@@ -649,7 +649,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
             break;
 
         case 'REPLY':
-            $hdrs = $this->getConfigParam('imp_contents')->getHeaderOb();
+            $hdrs = $this->getConfigParam('imp_contents')->getHeader();
             $desc = _("%s has replied to the invitation to \"%s\".");
             $sender = $hdrs->getValue('From');
             if ($registry->hasMethod('calendar/updateAttendee')) {
