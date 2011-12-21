@@ -348,7 +348,7 @@ class IMP_Auth
      */
     static public function authenticateCallback()
     {
-        global $browser, $conf, $injector, $prefs, $registry, $session;
+        global $browser, $conf, $injector, $notification, $prefs, $registry, $session;
 
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create(null, true);
         $ptr = $imp_imap->loadServerConfig($session->get('imp', 'server_key'));
@@ -434,8 +434,13 @@ class IMP_Auth
         /* Determine View */
         $mode = $session->get('horde', 'mode');
         if (!IMP::showAjaxView() && !$mode == 'smartmobile') {
-            if ($mode == 'dynamic' || ($mode == 'auto' && $prefs->getValue('dynamic_view'))) {
-                $GLOBALS['notification']->push(_("Your browser is too old to display the dynamic mode. Using traditional mode instead."), 'horde.warning');
+            if ($browser->hasFeature('javascript')) {
+                if ($mode == 'dynamic' ||
+                    ($mode == 'auto' && $prefs->getValue('dynamic_view'))) {
+                    $notification->push(_("Your browser is too old to display the dynamic mode. Using traditional mode instead."), 'horde.warning');
+                }
+            } else {
+                $notification->push(_("Your browser does not support javascript. Using mobile mode instead."), 'horde.warning');
             }
             $session->set('imp', 'view', 'imp');
         } else {

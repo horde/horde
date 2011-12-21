@@ -1,12 +1,10 @@
 <table>
  <tr class="control">
   <td>
-<if:javascript>
    <div class="leftFloat">
     <label for="checkAll<tag:id />" class="hidden"><gettext>Check All/None</gettext></label>
     &nbsp;<input type="checkbox" class="checkbox" id="checkAll<tag:id />" name="checkAll" <tag:check_ak /> />
    </div>
-</if:javascript>
    <div class="leftFloat folderChoose">
     <label for="action_choose<tag:id />" class="hidden"><gettext>Choose Action</gettext></label>
     <select id="action_choose<tag:id />">
@@ -41,9 +39,6 @@
      <option value="" disabled="disabled">--------------------</option>
      <option value="rebuild_tree"><gettext>Rebuild Folder Tree</gettext></option>
     </select>
-<if:javascript><else:javascript>
-    <input name="btn_action" type="submit" class="button" value="<tag:go />" />
-</else:javascript></if:javascript>
    </div>
    <div class="leftFloat folderActions">
     <ul class="msgactions">

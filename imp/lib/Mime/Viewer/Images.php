@@ -112,13 +112,19 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
         $status = new IMP_Mime_Status(_("Your browser does not support inline display of this image type."));
 
         /* See if we can convert to an inline browser viewable form. */
-        if ($GLOBALS['browser']->hasFeature('javascript')) {
+        switch (IMP::getViewMode()) {
+        case 'mimp':
+            // Do nothing.
+            break;
+
+        default:
             $img = $this->_getHordeImageOb(false);
             if ($img &&
                 $GLOBALS['browser']->isViewable($img->getContentType())) {
                 $convert_link = $this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', _("HERE"), array('params' => array('imp_img_view' => 'view_convert')));
                 $status->addText(sprintf(_("Click %s to convert the image file into a format your browser can attempt to view."), $convert_link));
             }
+            break;
         }
 
         return array(
@@ -145,10 +151,13 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
         $status = new IMP_Mime_Status(_("This is a thumbnail of an image attachment."));
         $status->icon('mime/image.png');
 
-        if ($GLOBALS['browser']->hasFeature('javascript')) {
-            $status->addText($this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', $this->_outputImgTag('view_thumbnail', _("View Attachment")), null, null, null));
-        } else {
+        switch (IMP::getViewMode()) {
+        case 'mimp':
             $status->addText(Horde::link($this->getConfigParam('imp_contents')->urlView($this->_mimepart, 'view_attach')) . $this->_outputImgTag('view_thumbnail', _("View Attachment")) . '</a>');
+            break;
+
+        default:
+            $status->addText($this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', $this->_outputImgTag('view_thumbnail', _("View Attachment")), null, null, null));
         }
 
         return array(

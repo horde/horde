@@ -32,6 +32,11 @@ outdated.
 Upgrading IMP From 5.0 To 5.1
 =============================
 
+Traditional mode now requires javascript support on the browser. If not
+available, the user will automatically be redirected to the mobile (minimal)
+view.
+
+
 Server Options (backends.php)
 -----------------------------
 

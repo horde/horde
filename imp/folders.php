@@ -362,14 +362,8 @@ $head_template->set('folders_token', $folders_token);
 $a_template = $injector->createInstance('Horde_Template');
 $a_template->setOption('gettext', true);
 $a_template->set('id', 0);
-$a_template->set('javascript', $browser->hasFeature('javascript'));
 
-if ($a_template->get('javascript')) {
-    $a_template->set('check_ak', Horde::getAccessKeyAndTitle(_("Check _All/None")));
-} else {
-    $a_template->set('go', _("Go"));
-}
-
+$a_template->set('check_ak', Horde::getAccessKeyAndTitle(_("Check _All/None")));
 $a_template->set('create_folder', $injector->getInstance('Horde_Core_Perms')->hasAppPermission('create_folders') && $injector->getInstance('Horde_Core_Perms')->hasAppPermission('max_folders'));
 if ($prefs->getValue('subscribe')) {
     $a_template->set('subscribe', true);

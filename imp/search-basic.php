@@ -107,6 +107,7 @@ $t = $injector->createInstance('Horde_Template');
 $t->setOption('gettext', true);
 
 $t->set('action', Horde::url('search-basic.php'));
+$t->set('advsearch', Horde::link(IMP::$mailbox->url('search.php')));
 $t->set('mbox', IMP::$mailbox->form_to);
 $t->set('search_title', sprintf(_("Search %s"), htmlspecialchars(IMP::$mailbox->display)));
 $t->set('flist', $flag_set);
@@ -116,10 +117,6 @@ $menu = IMP::menu();
 require IMP_TEMPLATES . '/common-header.inc';
 echo $menu;
 IMP::status();
-
-if ($browser->hasFeature('javascript')) {
-    $t->set('advsearch', Horde::link(IMP::$mailbox->url('search.php')));
-}
 
 echo $t->fetch(IMP_TEMPLATES . '/imp/search/search-basic.html');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

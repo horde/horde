@@ -57,28 +57,23 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
      */
     protected function _renderInline()
     {
-        /* Non-javascript browsers can't handle IFRAME resizing, so it isn't
-         * possible to view inline. */
-        if (!$this->getConfigParam('browser')->hasFeature('javascript')) {
+        switch (IMP::getViewMode()) {
+        case 'mimp':
             $status = new IMP_Mime_Status(array(
                 _("This message part contains HTML data, but this data can not be displayed inline."),
-                $this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', _("View HTML data in new window."))
+                $this->getConfigParam('imp_contents')->linkView($this->_mimepart, 'view_attach', _("View HTML data in new window."))
             ));
             $status->icon('mime/html.png');
 
-            return array(
-                $this->_mimepart->getMimeId() => array(
-                    'data' => '',
-                    'status' => $status,
-                    'type' => 'text/html; charset=' . $this->getConfigParam('charset')
-                )
+            $data = array(
+                'data' => '',
+                'status' => $status,
+                'type' => 'text/html; charset=' . $this->getConfigParam('charset')
             );
-        }
+            break;
 
-        $data = $this->_IMPrender(true);
-
-        /* Catches case where using mimp on a javascript browser. */
-        if (IMP::getViewMode() != 'mimp') {
+        default:
+            $data = $this->_IMPrender(true);
             $uid = strval(new Horde_Support_Randomid());
 
             Horde::addScriptFile('imp.js', 'imp');
@@ -86,6 +81,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             $data['js'] = array('IMP_JS.iframeInject("' . $uid . '", ' . Horde_Serialize::serialize($data['data'], Horde_Serialize::JSON, $this->_mimepart->getCharset()) . ')');
             $data['data'] = '<div>' . _("Loading...") . '</div><iframe class="htmlMsgData" id="' . $uid . '" src="javascript:false" frameborder="0" style="display:none"></iframe>';
             $data['type'] = 'text/html; charset=UTF-8';
+            break;
         }
 
         return array(

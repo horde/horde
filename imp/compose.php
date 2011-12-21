@@ -50,16 +50,6 @@ if (!$prefs->isLocked('default_identity') && !is_null($vars->identity)) {
     $identity->setDefault($vars->identity);
 }
 
-/* Catch submits if javascript is not present. */
-if (!$vars->actionID) {
-    foreach (array('replyall_revert', 'replylist_revert', 'send_message', 'save_draft', 'cancel_compose', 'add_attachment', 'save_template') as $val) {
-        if ($vars->get('btn_' . $val)) {
-            $vars->actionID = $val;
-            break;
-        }
-    }
-}
-
 if ($vars->actionID) {
     switch ($vars->actionID) {
     case 'draft':
@@ -612,29 +602,27 @@ case 'template_new':
 $composeCacheID = $imp_compose->getCacheId();
 
 /* Attach autocompleters to the compose form elements. */
-if ($browser->hasFeature('javascript')) {
-    if ($redirect) {
-        $imp_ui->attachAutoCompleter(array('to'));
-    } else {
-        $auto_complete = array('to');
-        foreach (array('cc', 'bcc') as $val) {
-            if ($prefs->getValue('compose_' . $val)) {
-                $auto_complete[] = $val;
-            }
+if ($redirect) {
+    $imp_ui->attachAutoCompleter(array('to'));
+} else {
+    $auto_complete = array('to');
+    foreach (array('cc', 'bcc') as $val) {
+        if ($prefs->getValue('compose_' . $val)) {
+            $auto_complete[] = $val;
         }
-        $imp_ui->attachAutoCompleter($auto_complete);
-
-        if (!empty($conf['spell']['driver'])) {
-            try {
-                Horde_SpellChecker::factory($conf['spell']['driver'], array());
-                $spellcheck = true;
-                $imp_ui->attachSpellChecker();
-            } catch (Exception $e) {
-                Horde::logMessage($e, 'ERR');
-            }
-        }
-        Horde::addScriptFile('ieescguard.js', 'horde');
     }
+    $imp_ui->attachAutoCompleter($auto_complete);
+
+    if (!empty($conf['spell']['driver'])) {
+        try {
+            Horde_SpellChecker::factory($conf['spell']['driver'], array());
+            $spellcheck = true;
+            $imp_ui->attachSpellChecker();
+        } catch (Exception $e) {
+            Horde::logMessage($e, 'ERR');
+        }
+    }
+    Horde::addScriptFile('ieescguard.js', 'horde');
 }
 
 $max_attach = $imp_compose->additionalAttachmentsAllowed();

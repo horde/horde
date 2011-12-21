@@ -141,11 +141,9 @@ $constants = array(
     )
 );
 
-/* Load basic search if javascript is not enabled or searching is not allowed
- * (basic page will do the required redirection in the latter case). */
-$imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
-if (!$imp_imap->access(IMP_Imap::ACCESS_SEARCH) ||
-    !$browser->hasFeature('javascript')) {
+/* Load basic search if searching is not allowed (basic page will do the
+ * required redirection). */
+if (!$injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_SEARCH)) {
     require IMP_BASE . '/search-basic.php';
     exit;
 }

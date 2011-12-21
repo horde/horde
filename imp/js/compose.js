@@ -222,6 +222,8 @@ var ImpCompose = {
                 switch (name) {
                 case 'btn_add_attachment':
                 case 'btn_redirect':
+                case 'btn_replyall_revert':
+                case 'btn_replylist_revert':
                 case 'btn_save_draft':
                 case 'btn_save_template':
                 case 'btn_send_message':

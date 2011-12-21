@@ -2,6 +2,7 @@
 v5.1-git
 --------
 
+[mms] Traditional mode now requires javascript on the browser.
 [mms] Added 'mbox_special' hook (Request #10801; rsalmon@mbpgroup.com).
 [mms] Converted stationery to the Templates special mailbox (Request #9296).
 [mms] Hide inactive buttons in dynamic view instead of dimming them.

@@ -205,7 +205,7 @@ class IMP_Application extends Horde_Registry_Application
     }
 
     /**
-     * @param array $opts         Additional options:
+     * @param array $opts  Additional options:
      *   - For 'max_recipients' and 'max_timelimit', 'value' is the number of
      *     recipients in the current message.
      */
