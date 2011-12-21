@@ -11,9 +11,6 @@
  * @link     http://pear.horde.org/index.php?package=Imap_Client
  */
 
-/* Prepare the test setup. */
-require_once dirname(__FILE__) . '/Autoload.php';
-
 /**
  * Tests for IMAP URL parsing.
  *
