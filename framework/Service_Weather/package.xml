@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2011-12-21</date>
- <time>18:14:48</time>
+ <time>18:16:03</time>
  <version>
-  <release>1.0.0RC2</release>
+  <release>1.0.0</release>
   <api>1.0.0RC2</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-* [mjr] Fix using IP addresses for determining forecast location (Bug #10857)
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -481,6 +481,19 @@
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * [mjr] Fix using IP addresses for determining forecast location (Bug #10857)
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0RC2</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2011-12-21</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
