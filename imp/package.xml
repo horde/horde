@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2011-12-21</date>
- <time>18:52:49</time>
+ <time>18:57:07</time>
  <version>
-  <release>5.0.17</release>
+  <release>5.0.18</release>
   <api>5.0.0</api>
  </version>
  <stability>
@@ -34,17 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mms] Cache message headers during a page access.
-* [mms] Fix adding submailboxes to last mailbox in a level in dynamic view.
-* [mms] Fix display of numerically-named mailboxes on IMAP servers without the LIST-EXTENDED IMAP capability (Bug #10869).
-* [mms] Fix attachment detection search filter.
-* [mms] Fix editing date search elements.
-* [mms] Allow creation of the mailbox &apos;0&apos; (Bug #10866).
-* [mms] Correctly handle numeric mailbox names.
-* [mms] Fix display of mailbox names living under special mailboxes (Bug #10802).
-* [mms] Fix broken Hide/Purge Deleted links in traditional view (Bug #10860).
-* [mms] Fix issue in dynamic mailbox view with thread sorting and a reset of mailbox metadata (Bug #10835).
-* [mms] Fix message redirection regression in dynamic view (Bug #10859).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2641,6 +2631,19 @@
 * [mms] Fix broken Hide/Purge Deleted links in traditional view (Bug #10860).
 * [mms] Fix issue in dynamic mailbox view with thread sorting and a reset of mailbox metadata (Bug #10835).
 * [mms] Fix message redirection regression in dynamic view (Bug #10859).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.18</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-21</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
