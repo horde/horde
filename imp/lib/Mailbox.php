@@ -1267,11 +1267,11 @@ class IMP_Mailbox implements Serializable
      */
     public function importMbox($fname, $type)
     {
-        $fd = $format = $msg = null;
-
         if (!file_exists($fname)) {
             return false;
         }
+
+        $fd = null;
 
         switch ($type) {
         case 'application/gzip':
@@ -1280,14 +1280,14 @@ class IMP_Mailbox implements Serializable
             // No need to default to Horde_Compress because it uses zlib
             // also.
             if (in_array('compress.zlib', stream_get_wrappers())) {
-                $fname = 'compress.zlib://' . $fname;
+                $fd = 'compress.zlib://' . $fname;
             }
             break;
 
         case 'application/x-bzip2':
         case 'application/x-bzip':
             if (in_array('compress.bzip2', stream_get_wrappers())) {
-                $fname = 'compress.bzip2://' . $fname;
+                $fd = 'compress.bzip2://' . $fname;
             }
             break;
 
@@ -1295,7 +1295,7 @@ class IMP_Mailbox implements Serializable
         case 'application/x-compressed':
         case 'application/x-zip-compressed':
             if (in_array('zip', stream_get_wrappers())) {
-                $fname = 'zip://' . $fname;
+                $fd = 'zip://' . $fname;
             } else {
                 try {
                     $zip = Horde_Compress::factory('Zip');
@@ -1326,18 +1326,18 @@ class IMP_Mailbox implements Serializable
                         $fd = null;
                     }
                 }
-
-                $fname = null;
             }
+            break;
+
+        default:
+            $fd = $fname;
             break;
         }
 
-        if (!is_null($fname)) {
-            $fd = fopen($fname, 'r');
-        }
-
-        if (!$fd) {
-            throw new IMP_Exception(_("The uploaded file cannot be opened"));
+        try {
+            $parsed = new IMP_Mbox_Parse($fd);
+        } catch (IMP_Exception $e) {
+            throw new IMP_Exception(_("The uploaded file cannot be opened."));
         }
 
         $this->_import = array(
@@ -1346,37 +1346,12 @@ class IMP_Mailbox implements Serializable
             'size' => 0
         );
 
-        while (!feof($fd)) {
-            $line = fgets($fd);
-
-            /* RFC 4155 - mbox format. */
-            // TODO: Better preg for matching From line
-            // See(?) http://code.iamcal.com/php/rfc822/
-            if ((!$format || ($format == 'mbox')) &&
-                preg_match('/^From (.+@.+|- )/', $line)) {
-                $format = 'mbox';
-
-                if ($msg) {
-                    /* Send in chunks to take advantage of MULTIAPPEND (if
-                     * available). */
-                    $this->_importMbox($msg, true);
-                }
-
-                $msg = fopen('php://temp', 'r+');
-            } elseif ($msg) {
-                fwrite($msg, $line);
-            } elseif (!$format && trim($line)) {
-                /* Allow blank space at beginning of file. Anything else is
-                 * treated as message input. */
-                $format = 'eml';
-                $msg = fopen('php://temp', 'r+');
-                fwrite($msg, $line);
+        if ($pcount = count($parsed)) {
+            foreach ($parsed as $key => $val) {
+                $this->_importMbox($val, ($key + 1) != $pcount);
             }
-        }
-        fclose($fd);
-
-        if ($msg) {
-            $this->_importMbox($msg);
+        } else {
+            $this->_importMbox($parsed[0]);
         }
 
         return $this->_import['msgs']
