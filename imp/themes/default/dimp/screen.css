@@ -419,9 +419,10 @@ span.iconImgSidebar {
     text-decoration: underline;
 }
 
-#encrypt_label, #priority_label {
+#encrypt_label, #priority_label, #sent_mail_folder_label {
     cursor: default;
     font-weight: bold;
+    text-decoration: underline;
 }
 
 /* Actions */
