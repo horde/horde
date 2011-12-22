@@ -41,12 +41,16 @@ class Horde_Util
     );
 
     /**
-     * TODO
+     * Are magic quotes in use?
+     *
+     * @var boolean
      */
     static protected $_magicquotes = null;
 
     /**
      * TODO
+     *
+     * @var array
      */
     static protected $_shutdowndata = array(
         'dirs' => array(),
@@ -55,7 +59,9 @@ class Horde_Util
     );
 
     /**
-     * TODO
+     * Has the shutdown method been registered?
+     *
+     * @var boolean
      */
     static protected $_shutdownreg = false;
 
@@ -202,9 +208,9 @@ class Horde_Util
     /**
      * If magic_quotes_gpc is in use, run stripslashes() on $var.
      *
-     * @param string $var  The string to un-quote, if necessary.
+     * @param mixed $var  The string, or an array of strings, to un-quote.
      *
-     * @return string  $var, minus any magic quotes.
+     * @return mixed  $var, minus any magic quotes.
      */
     static public function dispelMagicQuotes($var)
     {
@@ -213,11 +219,9 @@ class Horde_Util
         }
 
         if (self::$_magicquotes) {
-            if (!is_array($var)) {
-                $var = stripslashes($var);
-            } else {
-                $var = array_map(array(__CLASS__, 'dispelMagicQuotes'), $var);
-            }
+            $var = is_array($var)
+                ? array_map(array(__CLASS__, 'dispelMagicQuotes'), $var)
+                : stripslashes($var);
         }
 
         return $var;
