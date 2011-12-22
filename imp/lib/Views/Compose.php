@@ -56,7 +56,7 @@ class IMP_Views_Compose
             /* Generate identities list. */
             $result['js'] = array_merge($result['js'], $injector->getInstance('IMP_Ui_Compose')->identityJs());
 
-            $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($args['composeCache']);
+            $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create(isset($args['composeCache']) ? $args['composeCache'] : null);
 
             if ($t->get('composeCache') && count($imp_compose)) {
                 foreach ($imp_compose as $num => $atc) {
