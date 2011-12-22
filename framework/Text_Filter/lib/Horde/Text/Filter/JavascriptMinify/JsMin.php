@@ -140,17 +140,31 @@ class Horde_Text_Filter_JavascriptMinify_JsMin
         case self::ACTION_DELETE_A_B:
             $this->_b = $this->_next();
 
-            if ($this->_b === '/' && strspn($this->_a, '(,=:[!&|?')) {
+            if ($this->_b === '/' && strspn($this->_a, '(,=:[!&|?{};\n')) {
                 $this->_output .= $this->_a . $this->_b;
 
                 while (true) {
                     $this->_a = $this->_get();
 
-                    if ($this->_a === '/') {
-                        break;
-                    }
+                    if ($this->_a === '[') {
+                        /* Inside a regex [...] set, which MAY contain a
+                         * '/' itself. */
+                        while (true) {
+                            $this->_output .= $this->_a;
+                            $this->_a = $this->_get();
 
-                    if ($this->_a === '\\') {
+                            if ($this->_a === ']') {
+                                break;
+                            } elseif ($this->_a === '\\') {
+                                $this->_output .= $this->_a;
+                                $this->_a = $this->_get();
+                            } elseif (ord($this->_a) <= self::ORD_LF) {
+                                throw new Exception('Unterminated regular expression set in regex literal.');
+                            }
+                        }
+                    } elseif ($this->_a === '/') {
+                        break;
+                    } elseif ($this->_a === '\\') {
                         $this->_output .= $this->_a;
                         $this->_a = $this->_get();
                     } elseif (ord($this->_a) <= self::ORD_LF) {
