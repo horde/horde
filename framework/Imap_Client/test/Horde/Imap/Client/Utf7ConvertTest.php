@@ -107,11 +107,9 @@ class Horde_Imap_Client_Utf7ConvertTest extends PHPUnit_Framework_TestCase
 
     public function testBug10093()
     {
-        $this->markTestSkipped();
-
         $orig = 'Foo&Bar-2011';
 
-        $utf7_imap = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($orig);
+        $utf7_imap = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap(Horde_Imap_Client_Mailbox::get($orig));
         $this->assertEquals(
             'Foo&-Bar-2011',
             $utf7_imap

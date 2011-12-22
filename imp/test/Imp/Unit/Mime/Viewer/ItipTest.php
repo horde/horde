@@ -77,7 +77,7 @@ extends PHPUnit_Framework_TestCase
         $GLOBALS['session'] = $session;
 
         $GLOBALS['conf']['server']['name'] = 'localhost';
-        $_GET['identity'] = 'test';
+        $_REQUEST['identity'] = 'test';
         $_SERVER['REMOTE_ADDR'] = 'localhost';
     }
 
@@ -179,7 +179,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testAcceptingAnInvitationResultsInReplySent()
     {
-        $_GET['itip_action'] = array(0 => 'accept');
+        $_REQUEST['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $result = $viewer->render('inline');
         $result = array_pop($result);
@@ -192,7 +192,7 @@ extends PHPUnit_Framework_TestCase
      */
     public function testAcceptingAnInvitationWithoutOrganizerResultsInNoAction()
     {
-        $_GET['itip_action'] = array(0 => 'accept');
+        $_REQUEST['itip_action'] = array(0 => 'accept');
         $vCal = new Horde_Icalendar();
         $vCal->setAttribute('METHOD', 'REQUEST');
         $inv = Horde_Icalendar::newComponent('VEVENT', $vCal);
@@ -205,7 +205,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testAcceptingAnInvitationResultsInMimeMessageSent()
     {
-        $_GET['itip_action'] = array(0 => 'accept');
+        $_REQUEST['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
         $this->assertInstanceOf('Horde_Icalendar', $this->_getIcalendar());
@@ -213,7 +213,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testResultMessageContainsProductId()
     {
-        $_GET['itip_action'] = array(0 => 'accept');
+        $_REQUEST['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
         $this->assertEquals('-//The Horde Project//Horde Application Framework 4//EN', $this->_getIcalendar()->getAttribute('PRODID'));
@@ -221,7 +221,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testResultMessageIndicatesMethodReply()
     {
-        $_GET['itip_action'] = array(0 => 'accept');
+        $_REQUEST['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
         $this->assertEquals('REPLY', $this->_getIcalendar()->getAttribute('METHOD'));
@@ -229,7 +229,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testResultMessageContainsVevent()
     {
-        $_GET['itip_action'] = array(0 => 'accept');
+        $_REQUEST['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
         $this->assertInstanceOf('Horde_Icalendar_Vevent', $this->_getVevent());
@@ -237,7 +237,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testResultMessageContainsCopiedUid()
     {
-        $_GET['itip_action'] = array(0 => 'accept');
+        $_REQUEST['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
         $this->assertEquals('1001', $this->_getVevent()->getAttribute('UID'));
@@ -249,7 +249,7 @@ extends PHPUnit_Framework_TestCase
      */
     public function testResultMessageThrowsExceptionIfUidIsMissing()
     {
-        $_GET['itip_action'] = array(0 => 'accept');
+        $_REQUEST['itip_action'] = array(0 => 'accept');
         $vCal = new Horde_Icalendar();
         $vCal->setAttribute('METHOD', 'REQUEST');
         $viewer = $this->_getViewer("BEGIN:VEVENT\nORGANIZER:somebody@example.com\nDTSTAMP:20100816T143648Z\nDTSTART:20100816T143648Z\nEND:VEVENT");
@@ -258,7 +258,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testResultMessageContainsCopiedSummary()
     {
-        $_GET['itip_action'] = array(0 => 'accept');
+        $_REQUEST['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
         $this->assertEquals('Test Invitation', $this->_getVevent()->getAttribute('SUMMARY'));
@@ -266,7 +266,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testResultMessageContainsEmptySummaryIfNotAvailable()
     {
-        $_GET['itip_action'] = array(0 => 'accept');
+        $_REQUEST['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getMinimalInvitation()->exportvCalendar());
         $viewer->render('inline');
         $this->assertEquals('', $this->_getVevent()->getAttribute('SUMMARY'));
@@ -274,7 +274,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testResultMessageContainsCopiedDescription()
     {
-        $_GET['itip_action'] = array(0 => 'accept');
+        $_REQUEST['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
         $this->assertEquals('You are invited', $this->_getVevent()->getAttribute('DESCRIPTION'));
@@ -282,7 +282,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testResultMessageContainsEmptyDescriptionIfNotAvailable()
     {
-        $_GET['itip_action'] = array(0 => 'accept');
+        $_REQUEST['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getMinimalInvitation()->exportvCalendar());
         $viewer->render('inline');
         $this->assertEquals('Default', $this->_getVevent()->getAttributeDefault('DESCRIPTION', 'Default'));
@@ -290,7 +290,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testResultMessageContainsCopiedStartDate()
     {
-        $_GET['itip_action'] = array(0 => 'accept');
+        $_REQUEST['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
         $this->assertEquals('1222426800', $this->_getVevent()->getAttribute('DTSTART'));
@@ -298,7 +298,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testResultMessageContainsCopiedStartDateParameters()
     {
-        $_GET['itip_action'] = array(0 => 'accept');
+        $_REQUEST['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
         $dtstart = $this->_getVevent()->getAttribute('DTSTART', true);
@@ -307,7 +307,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testResultMessageContainsCopiedEndDate()
     {
-        $_GET['itip_action'] = array(0 => 'accept');
+        $_REQUEST['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
         $this->assertEquals('1222430400', $this->_getVevent()->getAttribute('DTEND'));
@@ -315,7 +315,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testResultMessageContainsCopiedEndDateParameters()
     {
-        $_GET['itip_action'] = array(0 => 'accept');
+        $_REQUEST['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
         $dtend = $this->_getVevent()->getAttribute('DTEND', true);
@@ -324,7 +324,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testResultMessageContainsCopiedDurationIfEndDateIsMissing()
     {
-        $_GET['itip_action'] = array(0 => 'accept');
+        $_REQUEST['itip_action'] = array(0 => 'accept');
         $start = new Horde_Date('20080926T110000');
         $vCal = new Horde_Icalendar();
         $vCal->setAttribute('METHOD', 'REQUEST');
@@ -340,7 +340,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testResultMessageContainsCopiedDurationParametersIfEndDateIsMissing()
     {
-        $_GET['itip_action'] = array(0 => 'accept');
+        $_REQUEST['itip_action'] = array(0 => 'accept');
         $start = new Horde_Date('20080926T110000');
         $vCal = new Horde_Icalendar();
         $vCal->setAttribute('METHOD', 'REQUEST');
@@ -357,7 +357,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testResultMessageContainsCopiedInvitation()
     {
-        $_GET['itip_action'] = array(0 => 'accept');
+        $_REQUEST['itip_action'] = array(0 => 'accept');
         $inv = $this->_getInvitation();
         $inv->setAttribute('SEQUENCE', '10');
         $viewer = $this->_getViewer($inv->exportvCalendar());
@@ -367,7 +367,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testResultMessageContainsNoSequenceIfNotAvailable()
     {
-        $_GET['itip_action'] = array(0 => 'accept');
+        $_REQUEST['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getMinimalInvitation()->exportvCalendar());
         $viewer->render('inline');
         $this->assertEquals('99', $this->_getVevent()->getAttributeDefault('SEQUENCE', '99'));
@@ -375,7 +375,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testResultMessageContainsCopiedOrganizer()
     {
-        $_GET['itip_action'] = array(0 => 'accept');
+        $_REQUEST['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
         $this->assertEquals('mailto:orga@example.org', $this->_getVevent()->getAttribute('ORGANIZER'));
@@ -383,7 +383,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testResultMessageContainsCopiedOrganizerParameters()
     {
-        $_GET['itip_action'] = array(0 => 'accept');
+        $_REQUEST['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
         $organizer = $this->_getVevent()->getAttribute('ORGANIZER', true);
@@ -392,7 +392,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testResultMessageContainsAttendeeEmail()
     {
-        $_GET['itip_action'] = array(0 => 'accept');
+        $_REQUEST['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
         $this->assertEquals('mailto:test@example.org', $this->_getVevent()->getAttribute('ATTENDEE'));
@@ -400,7 +400,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testResultMessageContainsAttendeeName()
     {
-        $_GET['itip_action'] = array(0 => 'accept');
+        $_REQUEST['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
         $attendee = $this->_getVevent()->getAttribute('ATTENDEE', true);
@@ -410,7 +410,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testAcceptActionResultsInMessageWithAttendeeStatusAccept()
     {
-        $_GET['itip_action'] = array(0 => 'accept');
+        $_REQUEST['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
         $attendee = $this->_getVevent()->getAttribute('ATTENDEE', true);
@@ -420,7 +420,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testDenyActionResultsInMessageWithAttendeeStatusDecline()
     {
-        $_GET['itip_action'] = array(0 => 'deny');
+        $_REQUEST['itip_action'] = array(0 => 'deny');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
         $attendee = $this->_getVevent()->getAttribute('ATTENDEE', true);
@@ -430,7 +430,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testTentativeActionResultsInMessageWithAttendeeStatusTentative()
     {
-        $_GET['itip_action'] = array(0 => 'tentative');
+        $_REQUEST['itip_action'] = array(0 => 'tentative');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
         $attendee = $this->_getVevent()->getAttribute('ATTENDEE', true);
@@ -440,7 +440,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testResultIsAMultipartMimeMessage()
     {
-        $_GET['itip_action'] = array(0 => 'accept');
+        $_REQUEST['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
         $this->assertEquals('multipart/alternative', $this->_getMimeMessage()->getType());
@@ -448,31 +448,31 @@ extends PHPUnit_Framework_TestCase
 
     public function testAcceptResultContainsAcceptMimeMessage()
     {
-        $_GET['itip_action'] = array(0 => 'accept');
+        $_REQUEST['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
-        $this->assertEquals("Mr. Test has accepted the invitation to the following event:\n\nTest Invitation", $this->_getMimeMessage()->getPart(1)->getContents());
+        $this->assertEquals("Mr. Test has accepted the invitation to the following event:\n\nTest Invitation", str_replace("\r", '', trim($this->_getMimeMessage()->getPart(1)->getContents())));
     }
 
     public function testDenyResultContainsDeclineMimeMessage()
     {
-        $_GET['itip_action'] = array(0 => 'deny');
+        $_REQUEST['itip_action'] = array(0 => 'deny');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
-        $this->assertEquals("Mr. Test has declined the invitation to the following event:\n\nTest Invitation", $this->_getMimeMessage()->getPart(1)->getContents());
+        $this->assertEquals("Mr. Test has declined the invitation to the following event:\n\nTest Invitation", str_replace("\r", '', trim($this->_getMimeMessage()->getPart(1)->getContents())));
     }
 
     public function testTentativeResultContainsTentativeMimeMessage()
     {
-        $_GET['itip_action'] = array(0 => 'tentative');
+        $_REQUEST['itip_action'] = array(0 => 'tentative');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
-        $this->assertEquals("Mr. Test has tentatively accepted the invitation to the following event:\n\nTest Invitation", $this->_getMimeMessage()->getPart(1)->getContents());
+        $this->assertEquals("Mr. Test has tentatively accepted the invitation to the following event:\n\nTest Invitation", str_replace("\r", '', trim($this->_getMimeMessage()->getPart(1)->getContents())));
     }
 
     public function testResultMimeMessagePartOneHasRegistryCharset()
     {
-        $_GET['itip_action'] = array(0 => 'accept');
+        $_REQUEST['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar(), 'BIG5');
         $viewer->render('inline');
         $this->assertEquals('big5', $this->_getMimeMessage()->getPart(1)->getCharset());
@@ -480,7 +480,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testResultMimeMessagePartTwoHasRegistryCharset()
     {
-        $_GET['itip_action'] = array(0 => 'accept');
+        $_REQUEST['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar(), 'BIG5');
         $viewer->render('inline');
         $ics = $this->_getMimeMessage()->getPart(2);
@@ -492,7 +492,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testResultMimeMessagePartTwoHasFileName()
     {
-        $_GET['itip_action'] = array(0 => 'accept');
+        $_REQUEST['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
         $ics = $this->_getMimeMessage()->getPart(2);
@@ -504,7 +504,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testResultMimeMessagePartTwoHasContentTypeParameter()
     {
-        $_GET['itip_action'] = array(0 => 'accept');
+        $_REQUEST['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
         $ics = $this->_getMimeMessage()->getPart(2);
@@ -516,7 +516,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testResultMimeMessageHeadersContainsReceivedHeader()
     {
-        $_GET['itip_action'] = array(0 => 'accept');
+        $_REQUEST['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
         $this->assertContains('(Horde Framework) with HTTP', $this->_getMailHeaders()->getValue('Received'));
@@ -524,7 +524,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testResultMimeMessageHeadersContainsMessageId()
     {
-        $_GET['itip_action'] = array(0 => 'accept');
+        $_REQUEST['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
         $this->assertContains('.Horde.', $this->_getMailHeaders()->getValue('Message-ID'));
@@ -532,7 +532,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testResultMimeMessageHeadersContainsDate()
     {
-        $_GET['itip_action'] = array(0 => 'accept');
+        $_REQUEST['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
         $date = $this->_getMailHeaders()->getValue('Date');
@@ -541,7 +541,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testResultMimeMessageHeadersContainsFrom()
     {
-        $_GET['itip_action'] = array(0 => 'accept');
+        $_REQUEST['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
         $this->assertEquals('"Mr. Test" <test@example.org>', $this->_getMailHeaders()->getValue('From'));
@@ -549,7 +549,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testResultMimeMessageHeadersContainsTo()
     {
-        $_GET['itip_action'] = array(0 => 'accept');
+        $_REQUEST['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
         $this->assertEquals('orga@example.org', $this->_getMailHeaders()->getValue('To'));
@@ -557,7 +557,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testAcceptActionResultMimeMessageHeadersContainsAcceptSubject()
     {
-        $_GET['itip_action'] = array(0 => 'accept');
+        $_REQUEST['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
         $this->assertEquals('Accepted: Test Invitation', $this->_getMailHeaders()->getValue('Subject'));
@@ -565,7 +565,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testDenyActionResultMimeMessageHeadersContainsDeclineSubject()
     {
-        $_GET['itip_action'] = array(0 => 'deny');
+        $_REQUEST['itip_action'] = array(0 => 'deny');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
         $this->assertEquals('Declined: Test Invitation', $this->_getMailHeaders()->getValue('Subject'));
@@ -573,15 +573,15 @@ extends PHPUnit_Framework_TestCase
 
     public function testTentativeActionResultMimeMessageHeadersContainsTentativeSubject()
     {
-        $_GET['itip_action'] = array(0 => 'tentative');
+        $_REQUEST['itip_action'] = array(0 => 'tentative');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
         $this->assertEquals('Tentative: Test Invitation', $this->_getMailHeaders()->getValue('Subject'));
     }
     public function testResultMimeMessageHeadersContainsReplyToForAlternateIdentity()
     {
-      $_GET['identity'] = 'other';
-        $_GET['itip_action'] = array(0 => 'accept');
+        $_REQUEST['identity'] = 'other';
+        $_REQUEST['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
         $this->assertEquals('reply@example.org', $this->_getMailHeaders()->getValue('Reply-To'));

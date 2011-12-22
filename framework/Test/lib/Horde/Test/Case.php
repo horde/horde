@@ -47,6 +47,7 @@ class Horde_Test_Case extends PHPUnit_Framework_TestCase
      * file from the same directory as the test case.
      *
      * @param string $env     An environment variable name.
+     * @param string $path    The path to use.
      * @param array $default  Some default values that are merged into the
      *                        configuration if specified as a json hash.
      *

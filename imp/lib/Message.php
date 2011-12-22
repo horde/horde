@@ -566,8 +566,8 @@ class IMP_Message
                     'flags' => $flags,
                     'internaldate' => $res[$uid]->getImapDate()
                 )
-            ));
-            $new_uid = reset($new_uid->ids);
+            ))->ids;
+            $new_uid = reset($new_uid);
         } catch (IMP_Imap_Exception $e) {
             throw new IMP_Exception(_("An error occured while attempting to strip the attachment."));
         }
