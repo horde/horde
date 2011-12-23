@@ -59,7 +59,9 @@ class Horde_Service_Weather_Period_Wwo extends Horde_Service_Weather_Period_Base
         case 'humidity':
         case 'precipitation_percent':
         case 'wind_gust':
-            return null;
+        case 'snow_total':
+        case 'rain_total':
+            return false;
 
         case 'conditions':
             return Horde_Service_Weather_Translation::t($this->_properties->weatherDesc[0]->value);
