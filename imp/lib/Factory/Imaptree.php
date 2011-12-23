@@ -28,13 +28,6 @@
 class IMP_Factory_Imaptree extends Horde_Core_Factory_Injector
 {
     /**
-     * Indicates that the tree object is being initialized.
-     *
-     * @var boolean
-     */
-    static private $_isInit = false;
-
-    /**
      * Return the IMP_Imap_Tree object.
      *
      * @return IMP_Imap_Tree  The singleton instance.
@@ -66,9 +59,11 @@ class IMP_Factory_Imaptree extends Horde_Core_Factory_Injector
         }
 
         if (!($instance instanceof IMP_Imap_Tree)) {
-            self::$_isInit = true;
             $instance = new IMP_Imap_Tree();
-            self::$_isInit = false;
+        }
+
+        if (IMP::getViewMode() == 'dimp') {
+            $instance->track = true;
         }
 
         register_shutdown_function(array($this, 'shutdown'), $instance, $injector);
@@ -95,18 +90,6 @@ class IMP_Factory_Imaptree extends Horde_Core_Factory_Injector
                 $cache->set($GLOBALS['session']->get('imp', 'treeob'), serialize($instance), 86400);
             }
         }
-    }
-
-    /**
-     * Static method: determines if IMP_Imap_Tree has already been initialized
-     * in this session.
-     *
-     * @return boolean  True if the tree object has been initialized.
-     */
-    static public function initialized()
-    {
-        return (!self::$_isInit &&
-                $GLOBALS['session']->exists('imp', 'treeob'));
     }
 
 }

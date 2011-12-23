@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Accurately track changes to virtual folders in dynamic folder tree (Bug #10886).
 * [mms] Traditional mode now requires javascript on the browser.
 * [mms] Converted stationery to the Templates special mailbox (Request #9296).
 * [mms] Hide inactive buttons in dynamic view instead of dimming them.

@@ -2088,7 +2088,7 @@ var DimpBase = {
             dropbase = (drop == $('dropbase'));
             if (dropbase ||
                 (ftype != 'special' && !this.isSubfolder(drag, drop))) {
-                DimpCore.doAction('renameMailbox', { old_name: drag.retrieve('mbox'), new_parent: dropbase ? '' : foldername, new_name: drag.retrieve('l') }, { callback: this.mailboxCallback.bind(this) });
+                DimpCore.doAction('renameMailbox', { old_name: drag.retrieve('mbox'), new_parent: dropbase ? '' : foldername, new_name: drag.retrieve('l') });
             }
         } else if (ftype != 'container') {
             sel = this.viewport.getSelected();
@@ -2725,7 +2725,7 @@ var DimpBase = {
                 break;
 
             case 'delete':
-                this.viewaction = DimpCore.doAction.bind(DimpCore, 'deleteMailbox', { mbox: params.elt.retrieve('mbox') }, { callback: this.mailboxCallback.bind(this) });
+                this.viewaction = DimpCore.doAction.bind(DimpCore, 'deleteMailbox', { mbox: params.elt.retrieve('mbox') });
                 IMPDialog.display({
                     cancel_text: DIMP.text.cancel,
                     noinput: true,
@@ -2803,7 +2803,7 @@ var DimpBase = {
             }
 
             if (action) {
-                DimpCore.doAction(action, params, { callback: this.mailboxCallback.bind(this) });
+                DimpCore.doAction(action, params);
             }
         }
     },
@@ -2811,7 +2811,11 @@ var DimpBase = {
     /* Mailbox action callback functions. */
     mailboxCallback: function(r)
     {
-        r = r.response.mailbox;
+        if (!r.mailbox) {
+            return;
+        }
+
+        r = r.mailbox;
 
         if (r.d) {
             r.d.each(this.deleteFolder.bind(this));
@@ -2862,7 +2866,8 @@ var DimpBase = {
         if (r.response.expand) {
             this.expandmbox = params.base ? params.base : true;
         }
-        this.mailboxCallback(r);
+        this.mailboxCallback(r.response);
+        delete r.response.mailbox;
         this.expandmbox = false;
 
         if (params.base) {
@@ -3736,6 +3741,7 @@ DimpCore.onDoActionComplete = function(r) {
     if (DimpBase.viewport) {
         DimpBase.viewport.parseJSONResponse(r);
     }
+    DimpBase.mailboxCallback(r);
     DimpBase.flagCallback(r);
     DimpBase.pollCallback(r);
 };

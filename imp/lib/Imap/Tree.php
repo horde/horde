@@ -25,7 +25,7 @@
 class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 {
     /* Serialized version. */
-    const VERSION = 1;
+    const VERSION = 2;
 
     /* Constants for mailboxElt attributes. */
     const ELT_NOSELECT = 1;
@@ -69,67 +69,11 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     const OTHER_KEY = "other\0";
 
     /**
-     * Array containing the mailbox tree.
-     *
-     * @var array
-     */
-    protected $_tree;
-
-    /**
-     * Tree changed flag.  Set when something in the tree has been altered.
+     * Track element changes?
      *
      * @var boolean
      */
-    protected $_changed = false;
-
-    /**
-     * Location of current element in the tree.
-     *
-     * @var string
-     */
-    protected $_currparent;
-
-    /**
-     * Location of current element in the tree.
-     *
-     * @var integer
-     */
-    protected $_currkey;
-
-    /**
-     * Show unsubscribed mailboxes?
-     *
-     * @var boolean
-     */
-    protected $_showunsub;
-
-    /**
-     * Parent list.
-     *
-     * @var array
-     */
-    protected $_parent;
-
-    /**
-     * The string used for the IMAP delimiter.
-     *
-     * @var string
-     */
-    protected $_delimiter;
-
-    /**
-     * The list of namespaces to add to the tree.
-     *
-     * @var array
-     */
-    protected $_namespaces;
-
-    /**
-     * Used to determine the list of element changes.
-     *
-     * @var array
-     */
-    protected $_eltdiff = null;
+    public $track = false;
 
     /**
      * Cached data that is not saved across serialization.
@@ -142,6 +86,69 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             'mask' => 0
         )
     );
+
+    /**
+     * Tree changed flag.  Set when something in the tree has been altered.
+     *
+     * @var boolean
+     */
+    protected $_changed = false;
+
+    /**
+     * Location of current element in the tree.
+     *
+     * @var integer
+     */
+    protected $_currkey;
+
+    /**
+     * Location of current element in the tree.
+     *
+     * @var string
+     */
+    protected $_currparent;
+
+    /**
+     * The string used for the IMAP delimiter.
+     *
+     * @var string
+     */
+    protected $_delimiter;
+
+    /**
+     * List of element changes.
+     *
+     * @var array
+     */
+    protected $_eltdiff;
+
+    /**
+     * The list of namespaces to add to the tree.
+     *
+     * @var array
+     */
+    protected $_namespaces;
+
+    /**
+     * Parent list.
+     *
+     * @var array
+     */
+    protected $_parent;
+
+    /**
+     * Show unsubscribed mailboxes?
+     *
+     * @var boolean
+     */
+    protected $_showunsub;
+
+    /**
+     * Array containing the mailbox tree.
+     *
+     * @var array
+     */
+    protected $_tree;
 
     /**
      * Unseen count.
@@ -191,6 +198,11 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         $this->_namespaces = $this->_parent = $this->_tree = array();
         $this->_showunsub = $unsubmode;
         unset($this->_cache['fulllist'], $this->_cache['subscribed']);
+        $this->_resetEltDiff();
+
+        /* Don't track initialization. */
+        $old_track = $this->track;
+        $this->track = false;
 
         /* Do IMAP specific initialization. */
         if ($imp_imap->imap) {
@@ -246,7 +258,11 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         /* Add virtual folders to the tree. */
         $imp_search = $injector->getInstance('IMP_Search');
         $imp_search->setIteratorFilter(IMP_Search::LIST_VFOLDER);
-        $this->updateVFolders(iterator_to_array($imp_search));
+        foreach ($imp_search as $val) {
+            $this->insertVfolder($val);
+        }
+
+        $this->track = $old_track;
     }
 
     /**
@@ -484,6 +500,18 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     }
 
     /**
+     * Insert a virtual folder into the tree.
+     *
+     * @param IMP_Search_Vfolder $ob  The virtual folder to insert.
+     */
+    public function insertVfolder($ob)
+    {
+        if ($ob->enabled) {
+            $this->insert(self::VFOLDER_KEY . $this->_delimiter . $ob);
+        }
+    }
+
+    /**
      * Insert mailbox elements into the tree.
      *
      * @param array $elts   See Horde_Imap_Client_Base::listMailboxes().
@@ -567,7 +595,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
         $this->_changed = true;
 
-        $prev = is_null($this->_eltdiff)
+        $prev = $this->track
             ? null
             : $this->hasChildren($this->_tree[$elt['p']]);
 
@@ -1245,10 +1273,10 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         /* If we are switching from subscribed to unsubscribed, we need
          * to add all unsubscribed elements that live in currently
          * discovered items. */
-        $old_eltdiff = $this->_eltdiff;
-        $this->_eltdiff = null;
+        $old_track = $this->track;
+        $this->track = false;
         $this->_insert($this->_getList(true), false);
-        $this->_eltdiff = $old_eltdiff;
+        $this->track = $old_track;
     }
 
     /**
@@ -1319,19 +1347,6 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     }
 
     /**
-     * Set the start point for determining element differences via eltDiff().
-     */
-    public function eltDiffStart()
-    {
-        $this->_eltdiff = array(
-            'a' => array(),
-            'c' => array(),
-            'd' => array(),
-            'o' => array()
-        );
-    }
-
-    /**
      * Mark an element as changed.
      *
      * @param array $elt    An element array.
@@ -1339,7 +1354,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      */
     protected function _addEltDiff($elt, $type)
     {
-        if (is_null($this->_eltdiff)) {
+        if (!$this->track) {
             return;
         }
 
@@ -1377,57 +1392,16 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     }
 
     /**
-     * Return the list of elements that have changed since eltDiffStart()
-     * was last called.
-     *
-     * @return array  Returns false if no changes have occurred, or an array
-     *                with the following keys:
-     *   - a: (array) Elements that have been added.
-     *   - c: (array) Elements that have been changed.
-     *   - d: (array) Elements that have been deleted.
+     * Reset eltdiff array.
      */
-    public function eltDiff()
+    protected function _resetEltDiff()
     {
-        if (is_null($this->_eltdiff) || !$this->changed) {
-            return false;
-        }
-
-        $ret = array(
-            'a' => array_keys($this->_eltdiff['a']),
-            'c' => array_keys($this->_eltdiff['c']),
-            'd' => array_keys($this->_eltdiff['d'])
+        $this->_eltdiff = array(
+            'a' => array(),
+            'c' => array(),
+            'd' => array(),
+            'o' => array()
         );
-
-        $this->_eltdiff = null;
-
-        return $ret;
-    }
-
-    /**
-     * Updates the virtual folder list in the tree.
-     *
-     * @param array $vfolders  A list of IMP_Search_VFolder objects.
-     */
-    public function updateVFolders($vfolders)
-    {
-        /* Clear old entries. */
-        if (isset($this->_parent[self::VFOLDER_KEY])) {
-            foreach ($this->_parent[self::VFOLDER_KEY] as $key) {
-                unset($this->_tree[$key]);
-            }
-            unset($this->_parent[self::VFOLDER_KEY]);
-            $this->_changed = true;
-        }
-
-        if (!$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS)) {
-            return;
-        }
-
-        foreach ($vfolders as $val) {
-            if ($val->enabled) {
-                $this->insert(self::VFOLDER_KEY . $this->_delimiter . $val);
-            }
-        }
     }
 
     /**
@@ -1690,6 +1664,159 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         return isset($this->_tree[$in])
             ? $this->_tree[$in]
             : null;
+    }
+
+    /**
+     * Prepares an AJAX Mailbox response.
+     *
+     * @param array $opts  Options:
+     *   - mboxes: (array) The list of mailboxes to use as 'added' instead
+     *              of the tracked element changes.
+     *   - suppress: (array) Add suppressed entry to these mailboxes.
+     *
+     * @return array  The object used by JS code to update the folder tree.
+     */
+    public function getAjaxResponse(array $opts = array())
+    {
+        if (isset($opts['mboxes'])) {
+            $changes = array(
+                'a' => array_fill_keys($opts['mboxes'], 1)
+            );
+        } else {
+            $changes = $this->_eltdiff;
+            $this->_resetEltDiff();
+            if ($changes != $this->_eltdiff) {
+                $this->_changed = true;
+            }
+        }
+
+        $result = array();
+        if (!isset($opts['suppress'])) {
+            $opts['suppress'] = array();
+        }
+
+        if (!empty($changes['a'])) {
+            $result['a'] = array();
+            foreach (array_keys($changes['a']) as $val) {
+                $elt = is_object($val) ? $val : $this[$val];
+                $result['a'][] = $this->_ajaxElt($elt, in_array($elt->value, $opts['suppress']));
+            }
+        }
+
+        if (!empty($changes['c'])) {
+            $result['c'] = array();
+            foreach (array_keys($changes['c']) as $val) {
+                // Skip the base element, since any change there won't ever be
+                // updated on-screen.
+                if ($val != self::BASE_ELT) {
+                    $elt = $this[$val];
+                    $result['c'][] = $this->_ajaxElt($elt, in_array($elt->value, $opts['suppress']));
+                }
+            }
+        }
+
+        if (!empty($changes['d'])) {
+            $result['d'] = array();
+            foreach (array_reverse(array_keys($changes['d'])) as $val) {
+                $result['d'][] = IMP_Mailbox::get($val)->form_to;
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Create an object sent in an AJAX response.
+     *
+     * @param IMP_Mailbox $elt  A mailbox object.
+     *
+     * @return stdClass  The element object. Contains the following items:
+     *   - ch: (boolean) [children] Does the mailbox contain children?
+     *         DEFAULT: no
+     *   - cl: (string) [class] The CSS class.
+     *         DEFAULT: 'base'
+     *   - co: (boolean) [container] Is this mailbox a container element?
+     *         DEFAULT: no
+     *   - i: (string) [icon] A user defined icon to use.
+     *        DEFAULT: none
+     *   - l: (string) [label] The mailbox display label.
+     *        DEFAULT: 'm' val
+     *   - m: (string) [mbox] The mailbox value (base64url encoded).
+     *   - n: (boolean) [non-imap] A non-IMAP element?
+     *        DEFAULT: no
+     *   - pa: (string) [parent] The parent element.
+     *         DEFAULT: DIMP.conf.base_mbox
+     *   - po: (boolean) [polled] Is the element polled?
+     *         DEFAULT: no
+     *   - s: (boolean) [special] Is this a "special" element?
+     *        DEFAULT: no
+     *   - sup: (boolean) [suppress] Suppress display of this element?
+     *          DEFAULT: no
+     *   - t: (string) [title] Mailbox title.
+     *        DEFAULT: 'm' val
+     *   - un: (boolean) [unsubscribed] Is this mailbox unsubscribed?
+     *         DEFAULT: no
+     *   - v: (integer) [virtual] Virtual folder? 0 = not vfolder, 1 = system
+     *        vfolder, 2 = user vfolder
+     *        DEFAULT: 0
+     */
+    protected function _ajaxElt(IMP_Mailbox $elt)
+    {
+        $ob = new stdClass;
+
+        if ($elt->children) {
+            $ob->ch = 1;
+        }
+        $ob->m = $elt->form_to;
+
+        $label = $elt->label;
+        if ($ob->m != $label) {
+            $ob->t = $label;
+        }
+
+        $tmp = htmlspecialchars($elt->abbrev_label);
+        if ($ob->m != $tmp) {
+            $ob->l = $tmp;
+        }
+
+        $parent = $elt->parent;
+        if ($parent != self::BASE_ELT) {
+            $ob->pa = $parent->form_to;
+        }
+        if ($elt->vfolder) {
+            $ob->v = $elt->editvfolder ? 2 : 1;
+        }
+        if (!$elt->sub) {
+            $ob->un = 1;
+        }
+
+        if ($elt->container) {
+            $ob->cl = 'exp';
+            $ob->co = 1;
+            if ($elt->nonimap) {
+                $ob->n = 1;
+            }
+        } else {
+            if ($elt->polled) {
+                $ob->po = 1;
+            }
+
+            if ($elt->special) {
+                $ob->s = 1;
+            } elseif (empty($ob->v) && $elt->children) {
+                $ob->cl = 'exp';
+            }
+        }
+
+        $icon = $elt->icon;
+        if ($icon->user_icon) {
+            $ob->cl = 'customimg';
+            $ob->i = strval($icon->icon);
+        } else {
+            $ob->cl = $icon->class;
+        }
+
+        return $ob;
     }
 
     /* ArrayAccess methods. */
@@ -1996,6 +2123,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             // Serialized data ID.
             self::VERSION,
             $this->_delimiter,
+            $this->track ? $this->_eltdiff : null,
             $this->_namespaces,
             $this->_parent,
             $this->_showunsub,
@@ -2016,10 +2144,13 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         }
 
         $this->_delimiter = $data[1];
-        $this->_namespaces = $data[2];
-        $this->_parent = $data[3];
-        $this->_showunsub = $data[4];
-        $this->_tree = $data[5];
+        $this->_eltdiff = is_null($data[2])
+            ? $this->_resetEltDiff()
+            : $data[2];
+        $this->_namespaces = $data[3];
+        $this->_parent = $data[4];
+        $this->_showunsub = $data[5];
+        $this->_tree = $data[6];
     }
 
 }

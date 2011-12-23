@@ -36,13 +36,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     protected $_queue;
 
     /**
-     * Suppress these mailboxes when creating mailbox response.
-     *
-     * @var array
-     */
-    protected $_suppress;
-
-    /**
      * The list of actions that require readonly access to the session.
      *
      * @var array
@@ -146,18 +139,14 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             return false;
         }
 
-        $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
-        $imptree->eltDiffStart();
-
         try {
-            $result = $imptree->createMailboxName(
+            $result = $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->createMailboxName(
                 isset($this->_vars->parent) ? IMP_Mailbox::formFrom($this->_vars->parent) : '',
                 $this->_vars->mbox
             )->create();
 
             if ($result) {
                 $result = new stdClass;
-                $result->mailbox = $this->_getMailboxResponse($imptree);
                 if (isset($this->_vars->parent) && $this->_vars->noexpand) {
                     $result->mailbox['noexpand'] = 1;
                 }
@@ -221,19 +210,9 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             return false;
         }
 
-        $mbox = IMP_Mailbox::formFrom($this->_vars->mbox);
-
-        $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
-        $imptree->eltDiffStart();
-
-        if (!$mbox->delete()) {
-            return false;
-        }
-
-        $result = new stdClass;
-        $result->mailbox = $this->_getMailboxResponse($imptree);
-
-        return $result;
+        return IMP_Mailbox::formFrom($this->_vars->mbox)->delete()
+            ? new stdClass
+            : false;
     }
 
     /**
@@ -258,13 +237,10 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             return false;
         }
 
-        $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
-        $imptree->eltDiffStart();
-
         $result = false;
 
         try {
-            $new_name = $imptree->createMailboxName(
+            $new_name = $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->createMailboxName(
                 isset($this->_vars->new_parent) ? IMP_Mailbox::formFrom($this->_vars->new_parent) : '',
                 $this->_vars->new_name
             );
@@ -273,8 +249,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
             if (($old_name != $new_name) && $old_name->rename($new_name)) {
                 $result = new stdClass;
-                $result->mailbox = $this->_getMailboxResponse($imptree);
-
                 $this->_queue->poll($new_name);
             }
         } catch (Horde_Exception $e) {
@@ -449,7 +423,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         /* Add special mailboxes explicitly to the initial folder list, since
          * they are ALWAYS displayed, may appear outside of the folder
          * slice requested, and need to be sorted logically. */
-        $this->_suppress = array();
+        $suppress = array();
         if ($initreload) {
             foreach (IMP_Mailbox::getSpecialMailboxes() as $val) {
                 if (is_array($val)) {
@@ -481,7 +455,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
                             }
 
                             if (!$not_special) {
-                                $this->_suppress[] = strval($parent);
+                                $suppress[] = strval($parent);
                             }
                         }
                     }
@@ -489,14 +463,12 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             }
         }
 
-        $result->mailbox = $this->_getMailboxResponse($imptree, array(
-            'a' => array_values($folder_list),
-            'c' => array(),
-            'd' => array()
+        $result->mailbox = $imptree->getAjaxResponse(array(
+            'mboxes' => $folder_list,
+            'suppress' => $suppress
         ));
 
         $this->_queue->quota();
-        $this->_suppress = array();
 
         if ($this->_vars->initial) {
             $GLOBALS['session']->start();
@@ -1576,7 +1548,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *   - identity: (integer) If set, this is the identity that is tied to
      *               the current recipient address.
      *   - log: (array) Maillog information
-     *   - mailbox: (array) See _getMailboxResponse().
      *   - mbox: (string) Mailbox of original message (base64url encoded).
      *   - success: (integer) 1 on success, 0 on failure.
      *   - uid: (integer) IMAP UID of original message.
@@ -1599,11 +1570,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         }
 
         $headers['replyto'] = $identity->getValue('replyto_addr');
-
-        /* Use IMP_Tree to determine whether the sent mail folder was
-         * created. */
-        $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
-        $imptree->eltDiffStart();
 
         $sm_displayed = !empty($GLOBALS['conf']['user']['select_sentmail_folder']) && !$GLOBALS['prefs']->isLocked('sent_mail_folder');
 
@@ -1684,8 +1650,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $result->uid = $imp_compose->getMetadata('uid');
 
         $imp_compose->destroy('send');
-
-        $result->mailbox = $this->_getMailboxResponse($imptree);
 
         return $result;
     }
@@ -2056,160 +2020,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $base->ViewPort = $list_msg->listMessages($args);
 
         return $base;
-    }
-
-    /**
-     * Formats the response to send to javascript code when dealing with
-     * mailbox operations.
-     *
-     * @param IMP_Imap_Tree $imptree  A Tree object.
-     * @param array $changes          An array with three sub arrays - to be
-     *                                used instead of the return from
-     *                                $imptree->eltDiff():
-     *   - a: (array) A list of mailboxes/objects to add.
-     *   - c: (array) A list of changed mailboxes.
-     *   - d: (array) A list of mailboxes to delete.
-     *
-     * @return array  The object used by the JS code to update the folder
-     *                tree.
-     */
-    protected function _getMailboxResponse($imptree, $changes = null)
-    {
-        if (is_null($changes)) {
-            $changes = $imptree->eltDiff();
-        }
-        if (empty($changes)) {
-            return false;
-        }
-
-        $result = array();
-
-        if (!empty($changes['a'])) {
-            $result['a'] = array();
-            foreach ($changes['a'] as $val) {
-                $result['a'][] = $this->_createMailboxElt(is_object($val) ? $val : $imptree[$val]);
-            }
-        }
-
-        if (!empty($changes['c'])) {
-            $result['c'] = array();
-            foreach ($changes['c'] as $val) {
-                // Skip the base element, since any change there won't ever be
-                // updated on-screen.
-                if ($val != IMP_Imap_Tree::BASE_ELT) {
-                    $result['c'][] = $this->_createMailboxElt($imptree[$val]);
-                }
-            }
-        }
-
-        if (!empty($changes['d'])) {
-            $result['d'] = array();
-            foreach (array_reverse($changes['d']) as $val) {
-                $result['d'][] = IMP_Mailbox::get($val)->form_to;
-            }
-        }
-
-        return $result;
-    }
-
-    /**
-     * Create an object used by DimpCore to generate the folder tree.
-     *
-     * @param IMP_Mailbox $elt  A mailbox object.
-     *
-     * @return stdClass  The element object. Contains the following items:
-     *   - ch: (boolean) [children] Does the mailbox contain children?
-     *         DEFAULT: no
-     *   - cl: (string) [class] The CSS class.
-     *         DEFAULT: 'base'
-     *   - co: (boolean) [container] Is this mailbox a container element?
-     *         DEFAULT: no
-     *   - i: (string) [icon] A user defined icon to use.
-     *        DEFAULT: none
-     *   - l: (string) [label] The mailbox display label.
-     *        DEFAULT: 'm' val
-     *   - m: (string) [mbox] The mailbox value (base64url encoded).
-     *   - n: (boolean) [non-imap] A non-IMAP element?
-     *        DEFAULT: no
-     *   - pa: (string) [parent] The parent element.
-     *         DEFAULT: DIMP.conf.base_mbox
-     *   - po: (boolean) [polled] Is the element polled?
-     *         DEFAULT: no
-     *   - s: (boolean) [special] Is this a "special" element?
-     *        DEFAULT: no
-     *   - sup: (boolean) [suppress] Suppress display of this element?
-     *          DEFAULT: no
-     *   - t: (string) [title] Mailbox title.
-     *        DEFAULT: 'm' val
-     *   - un: (boolean) [unsubscribed] Is this mailbox unsubscribed?
-     *         DEFAULT: no
-     *   - v: (integer) [virtual] Virtual folder? 0 = not vfolder, 1 = system
-     *        vfolder, 2 = user vfolder
-     *        DEFAULT: 0
-     */
-    protected function _createMailboxElt(IMP_Mailbox $elt)
-    {
-        $ob = new stdClass;
-
-        if ($elt->children) {
-            $ob->ch = 1;
-        }
-        $ob->m = $elt->form_to;
-
-        $label = $elt->label;
-        if ($ob->m != $label) {
-            $ob->t = $label;
-        }
-
-        $tmp = htmlspecialchars($elt->abbrev_label);
-        if ($ob->m != $tmp) {
-            $ob->l = $tmp;
-        }
-
-        $parent = $elt->parent;
-        if ($parent != IMP_Imap_Tree::BASE_ELT) {
-            $ob->pa = $parent->form_to;
-        }
-        if ($elt->vfolder) {
-            $ob->v = $elt->editvfolder ? 2 : 1;
-        }
-        if (!$elt->sub) {
-            $ob->un = 1;
-        }
-
-        if ($elt->container) {
-            $ob->cl = 'exp';
-            $ob->co = 1;
-            if ($elt->nonimap) {
-                $ob->n = 1;
-            }
-        } else {
-            if ($elt->polled) {
-                $ob->po = 1;
-                $this->_queue->poll($elt);
-            }
-
-            if ($elt->special) {
-                $ob->s = 1;
-            } elseif (empty($ob->v) && $elt->children) {
-                $ob->cl = 'exp';
-            }
-        }
-
-        $icon = $elt->icon;
-        if ($icon->user_icon) {
-            $ob->cl = 'customimg';
-            $ob->i = strval($icon->icon);
-        } else {
-            $ob->cl = $icon->class;
-        }
-
-        if (!empty($this->_suppress) &&
-            in_array($elt->value, $this->_suppress)) {
-            $ob->sup = true;
-        }
-
-        return $ob;
     }
 
     /**
