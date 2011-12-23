@@ -3609,12 +3609,8 @@ var DimpBase = {
         if (DIMP.conf.disable_compose) {
             $('button_reply', 'button_forward').compact().invoke('up', 'SPAN').concat($('button_compose', 'composelink', 'ctx_contacts_new')).compact().invoke('remove');
         } else {
-            DimpCore.addPopdownButton('button_reply', 'reply', {
-                disabled: true
-            });
-            DimpCore.addPopdownButton('button_forward', 'forward', {
-                disabled: true
-            });
+            DimpCore.addPopdownButton('button_reply', 'reply');
+            DimpCore.addPopdownButton('button_forward', 'forward');
         }
 
         new Drop('dropbase', this._folderDropConfig);
