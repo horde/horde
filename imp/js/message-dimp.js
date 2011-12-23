@@ -56,8 +56,7 @@ var DimpMessage = {
             return;
         }
 
-        var i, id,
-            r = result.response;
+        var r = result.response;
 
         switch (r.type) {
         case 'forward_redirect':
@@ -77,12 +76,9 @@ var DimpMessage = {
             r.opts.noupdate = true;
             r.opts.show_editor = (r.format == 'html');
 
-            id = (r.identity === null) ? $F('identity') : r.identity;
-            i = ImpComposeBase.identities[id];
+            $('identity', 'last_identity').invoke('setValue', (r.identity === null) ? $F('identity') : r.identity);
 
-            $('identity', 'last_identity').invoke('setValue', id);
-
-            DimpCompose.fillForm((i.id[2]) ? ("\n" + r.body) : (r.body + "\n"), r.header, r.opts);
+            DimpCompose.fillForm(r.body, r.header, r.opts);
             break;
         }
     },
