@@ -228,6 +228,8 @@
         "icon_url":"http://icons-ak.wxug.com/i/c/k/partlycloudy.gif",
         "skyicon":"partlycloudy",
         "pop":0,
+        "qpf_allday": {"in": 0.63, "mm": 16},
+        "snow_allday": {"in": 0, "cm": 0},
         "maxwind": {
         "mph": 11,
         "kph": 18,
