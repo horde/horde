@@ -179,8 +179,12 @@ abstract class Horde_Service_Weather_Base
      * Returns a mapping of units for each UNIT type.
      *
      */
-    public function getUnits($type = Horde_Service_Weather::UNITS_STANDARD)
+    public function getUnits($type = null)
     {
+        if (empty($type)) {
+            $type = $this->units;
+        }
+
         if ($type == Horde_Service_Weather::UNITS_STANDARD) {
             return array(
                 'temp' => Horde_Service_Weather_Translation::t('F'),
