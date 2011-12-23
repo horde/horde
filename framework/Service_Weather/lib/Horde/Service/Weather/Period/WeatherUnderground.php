@@ -14,22 +14,6 @@
 /**
  * Horde_Service_Weather_Period_WeatherUnderground
  *
- * Provides information for the following properties:
- *<pre>
- *  conditions             Condition description.
- *  icon_url               URL to an appropriate icon provided by the provider.
- *  icon                   Name of a Horde_Service_Weather icon.
- *  precipitation_percent  Percent chance of precipitation.
- *  period                 The period number.
- *  high                   High temperature.
- *  low                    Low  temperature.
- *  date                   Period date.
- *  humidity               The predicted humidity
- *  wind_degrees           Wind direction, in degrees
- *  wind_direction         Ordinal wind direction
- *  wind_speed             Wind speed, in requested units.
- *</pre>
- *
  * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @category Horde
  * @package  Service_Weather
@@ -118,6 +102,18 @@ class Horde_Service_Weather_Period_WeatherUnderground extends Horde_Service_Weat
                return $this->_properties['maxwind']->mph;
            }
            return $this->_properties['maxwind']->kph;
+
+        case 'rain_total':
+            if ($this->_forecast->weather->units == Horde_Service_Weather::UNITS_STANDARD) {
+                return $this->_properties['qpf_allday']->in;
+            }
+            return $this->_properties['qpf_allday']->mm;
+
+        case 'snow_total':
+            if ($this->_forecast->weather->units == Horde_Service_Weather::UNITS_STANDARD) {
+                return $this->_properties['snow_allday']->in;
+            }
+            return $this->_properties['snow_allday']->cm;
 
         default:
             if (!empty($this->_map[$property])) {

@@ -179,14 +179,20 @@ abstract class Horde_Service_Weather_Base
      * Returns a mapping of units for each UNIT type.
      *
      */
-    public function getUnits($type = Horde_Service_Weather::UNITS_STANDARD)
+    public function getUnits($type = null)
     {
+        if (empty($type)) {
+            $type = $this->units;
+        }
+
         if ($type == Horde_Service_Weather::UNITS_STANDARD) {
             return array(
                 'temp' => Horde_Service_Weather_Translation::t('F'),
                 'wind' => Horde_Service_Weather_Translation::t('mph'),
                 'pres' => Horde_Service_Weather_Translation::t('inches'),
-                'vis' => Horde_Service_Weather_Translation::t('miles')
+                'vis' => Horde_Service_Weather_Translation::t('miles'),
+                'rain' => Horde_Service_Weather_Translation::t('inches'),
+                'snow' => Horde_Service_Weather_Translation::t('inches'),
             );
         }
 
@@ -194,7 +200,9 @@ abstract class Horde_Service_Weather_Base
             'temp' => Horde_Service_Weather_Translation::t('C'),
             'wind' => Horde_Service_Weather_Translation::t('kph'),
             'pres' => Horde_Service_Weather_Translation::t('millibars'),
-            'vis' => Horde_Service_Weather_Translation::t('km')
+            'vis' => Horde_Service_Weather_Translation::t('km'),
+            'rain' => Horde_Service_Weather_Translation::t('millimeters'),
+            'snow' => Horde_Service_Weather_Translation::t('centimeters'),
         );
     }
 

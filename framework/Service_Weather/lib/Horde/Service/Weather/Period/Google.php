@@ -14,14 +14,6 @@
 /**
  * Horde_Service_Weather_Period_WeatherUnderground
  *
- * Provides information for the following properties:
- *<pre>
- *  conditions
- *  icon_url
- *  icon
- *  high
- *  low
- *</pre>
  * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @category Horde
  * @package  Service_Weather
@@ -83,6 +75,8 @@ class Horde_Service_Weather_Period_Google extends Horde_Service_Weather_Period_B
         case 'wind_direction':
         case 'wind_degrees':
         case 'wind_gust':
+        case 'snow_total':
+        case 'rain_total':
             // Not supported by Google.
             return false;
         case 'date':

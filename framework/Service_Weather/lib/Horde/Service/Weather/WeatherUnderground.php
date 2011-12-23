@@ -26,6 +26,13 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
     public $logo = 'weather/wundergroundlogo.png';
 
     /**
+     * Language to request strings from Google in.
+     *
+     * @var string
+     */
+    protected $_language = 'en';
+
+    /**
      * Icon map for wunderground. Not some are returned as
      * "sky" conditions and some as "condition" icons. Public
      * so it can be overridded in client code if desired.
@@ -86,6 +93,9 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
         // Check required api key parameters here...
         if (empty($params['apikey'])) {
             throw new InvalidArgumentException('Missing required API Key parameter.');
+        }
+        if (!empty($params['language'])) {
+            $this->_language = $params['language'];
         }
         $this->_apiKey = $params['apikey'];
         unset($params['apikey']);

@@ -14,6 +14,24 @@
 /**
  * Horde_Service_Weather_Period_Base class
  *
+ * @property is_pm                  Indicates if this is for an evening period.
+ * @property hour                   Indicates if this is for an hourly period.
+ * @property precipitation_percent  Change of precipitation percent.
+ * @property period                 The cardinal number of this period.
+ * @property humidity               Humidity percent.
+ * @property wind_speed             Wind speed, in currently configured units.
+ * @property wind_direction         Cardinal wind direction e.g., NNW.
+ * @property wind_degrees           Wind direction, in degrees.
+ * @property wind_gust              Wind gust speed, in currently configured units.
+ * @property snow_total             Daily snow totals, in configured units.
+ * @property rain_total             Daily rain totals, in configured units.
+ * @property conditions             Forecast conditions e.g., "Sunny".
+ * @property icon_url               Url to a condition icon.
+ * @property icon                   Name of condition icon.
+ * @property date                   Date for this period.
+ * @property high                   Forecast high temp, in configured units.
+ * @property low                    Forecast low temp, in configured units.
+ *
  * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @category Horde
  * @package  Service_Weather
