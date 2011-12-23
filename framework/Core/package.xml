@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-12-13</date>
- <time>11:47:02</time>
+ <date>2011-12-23</date>
+ <time>10:46:42</time>
  <version>
   <release>1.8.3</release>
   <api>1.8.0</api>
@@ -582,9 +582,13 @@
        <file name="KolabServerTest.php" role="test" />
        <file name="KolabSessionTest.php" role="test" />
       </dir> <!-- /test/Horde/Core/Factory -->
+      <dir name="Stub">
+       <file name="Registry.php" role="test" />
+      </dir> <!-- /test/Horde/Core/Stub -->
       <file name="AllTests.php" role="test" />
       <file name="Autoload.php" role="test" />
       <file name="phpunit.xml" role="test" />
+      <file name="RegistryTest.php" role="test" />
       <file name="UrlTest.php" role="test" />
      </dir> <!-- /test/Horde/Core -->
     </dir> <!-- /test/Horde -->
@@ -1282,10 +1286,12 @@
    <install as="Horde/Core/AllTests.php" name="test/Horde/Core/AllTests.php" />
    <install as="Horde/Core/Autoload.php" name="test/Horde/Core/Autoload.php" />
    <install as="Horde/Core/phpunit.xml" name="test/Horde/Core/phpunit.xml" />
+   <install as="Horde/Core/RegistryTest.php" name="test/Horde/Core/RegistryTest.php" />
    <install as="Horde/Core/UrlTest.php" name="test/Horde/Core/UrlTest.php" />
    <install as="Horde/Core/Factory/GroupTest.php" name="test/Horde/Core/Factory/GroupTest.php" />
    <install as="Horde/Core/Factory/KolabServerTest.php" name="test/Horde/Core/Factory/KolabServerTest.php" />
    <install as="Horde/Core/Factory/KolabSessionTest.php" name="test/Horde/Core/Factory/KolabSessionTest.php" />
+   <install as="Horde/Core/Stub/Registry.php" name="test/Horde/Core/Stub/Registry.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -1686,7 +1692,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-12-13</date>
+   <date>2011-12-23</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Fix implementation of SENDMAIL ActiveSync command. Fixes sending of meeting requests from device.
