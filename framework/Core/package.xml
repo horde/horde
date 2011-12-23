@@ -29,9 +29,9 @@
   <active>yes</active>
  </developer>
  <date>2011-12-23</date>
- <time>10:47:22</time>
+ <time>10:48:08</time>
  <version>
-  <release>1.8.3</release>
+  <release>1.8.4</release>
   <api>1.8.0</api>
  </version>
  <stability>
@@ -40,9 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Fix implementation of SENDMAIL ActiveSync command. Fixes sending of meeting requests from device.
-* [mjr] Fix issue that caused ActiveSync failure when using device specific logging in certain cases.
-* [mms] Fix merging config data (Bug #10381).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1698,6 +1696,19 @@
 * [mjr] Fix implementation of SENDMAIL ActiveSync command. Fixes sending of meeting requests from device.
 * [mjr] Fix issue that caused ActiveSync failure when using device specific logging in certain cases.
 * [mms] Fix merging config data (Bug #10381).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.8.4</release>
+    <api>1.8.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-23</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
