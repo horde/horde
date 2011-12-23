@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mms] Fix deleting virtual folders in dynamic view.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2643,7 +2643,7 @@
    <date>2011-12-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mms] Fix deleting virtual folders in dynamic view.
    </notes>
   </release>
  </changelog>

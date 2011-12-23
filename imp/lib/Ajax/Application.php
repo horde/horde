@@ -226,19 +226,12 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
         $imptree->eltDiffStart();
 
-        if ($mbox->edit_vfolder) {
-            $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
-            unset($imp_search[strval($mbox)]);
-            $GLOBALS['notification']->push(sprintf(_("Deleted Virtual Folder \"%s\"."), $mbox->label), 'horde.success');
-            $result = true;
-        } else {
-            $result = $mbox->delete();
+        if (!$mbox->delete()) {
+            return false;
         }
 
-        if ($result) {
-            $result = new stdClass;
-            $result->mailbox = $this->_getMailboxResponse($imptree);
-        }
+        $result = new stdClass;
+        $result->mailbox = $this->_getMailboxResponse($imptree);
 
         return $result;
     }

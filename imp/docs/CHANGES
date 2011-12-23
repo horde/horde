@@ -2,6 +2,7 @@
 v5.0.18-git
 -----------
 
+[mms] Fix deleting virtual folders in dynamic view.
 
 
 -------
