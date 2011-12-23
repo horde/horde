@@ -119,6 +119,18 @@ class Horde_Service_Weather_Period_WeatherUnderground extends Horde_Service_Weat
            }
            return $this->_properties['maxwind']->kph;
 
+        case 'rain_total':
+            if ($this->_forecast->weather->units == Horde_Service_Weather::UNITS_STANDARD) {
+                return $this->_properties['qpf_allday']->in;
+            }
+            return $this->_properties['qpf_allday']->mm;
+
+        case 'snow_total':
+            if ($this->_forecast->weather->units == Horde_Service_Weather::UNITS_STANDARD) {
+                return $this->_properties['snow_allday']->in;
+            }
+            return $this->_properties['snow_allday']->cm;
+
         default:
             if (!empty($this->_map[$property])) {
                 return Horde_Service_Weather_Translation::t($this->_properties[$this->_map[$property]]);
