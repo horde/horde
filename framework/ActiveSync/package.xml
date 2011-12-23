@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-12-15</date>
- <time>18:43:55</time>
+ <date>2011-12-23</date>
+ <time>10:37:45</time>
  <version>
   <release>1.2.0</release>
   <api>1.2.0</api>
@@ -493,7 +493,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-12-15</date>
+   <date>2011-12-23</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix sending meeting request emails when creating a meeting.
