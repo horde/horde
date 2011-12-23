@@ -1,4 +1,10 @@
 <?php
+/**
+ * List of strings needed to translate for Wwo. Never loaded, so
+ * use of _ shortcut here is fine.
+ *
+ * @package Service_Weather
+ */
 _("Moderate or heavy snow in area with thunder");
 _("Patchy light snow in area with thunder");
 _("Moderate or heavy rain in area with thunder");
