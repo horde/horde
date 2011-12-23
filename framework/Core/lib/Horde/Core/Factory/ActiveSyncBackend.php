@@ -25,6 +25,12 @@ class Horde_Core_Factory_ActiveSyncBackend extends Horde_Core_Factory_Injector
             'ping' => $conf['activesync']['ping'],
             'state_basic' => $injector->getInstance('Horde_ActiveSyncState'),
             'auth' => $injector->getInstance('Horde_Core_Factory_Auth')->create());
+
+        // Pass IMAP object from IMP if we have it.
+        if ($GLOBALS['registry']->hasInterface('mail')) {
+            $driver_params['imap'] = $GLOBALS['registry']->mail->imapOb();
+        }
+
         if ($params['provisioning'] = $conf['activesync']['securitypolicies']['provisioning']) {
             $driver_params['policies'] = $conf['activesync']['securitypolicies'];
         }

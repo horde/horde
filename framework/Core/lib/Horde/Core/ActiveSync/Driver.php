@@ -31,6 +31,13 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     private $_connector;
 
     /**
+     * Imap client
+     *
+     * @var Horde_Imap_Client_Socket
+     */
+    private $_imap;
+
+    /**
      * Const'r
      * <pre>
      * Required params (in addition to the base class' requirements):
@@ -53,8 +60,15 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             throw new InvalidArgumentException('Missing required Auth object');
         }
 
+        if (!empty($this->_params['imap'])) {
+            $this->_imap = $this->_params['imap'];
+            unset($this->_params['imap']);
+        }
+
         $this->_connector = $params['connector'];
         $this->_auth = $params['auth'];
+        unset($this->_params['connector']);
+        unset($this->_params['auth']);
     }
 
     /**
@@ -144,6 +158,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         // HACK to allow email setup to complete enough to allow invitation
         // emails.
         $folders[] = $this->statFolder(self::FOLDER_INBOX);
+        $folders[] = $this->statFolder(self::FOLDER_SENT);
+
 
         if ($errors = Horde::endBuffer()) {
             $this->_logger->err('Unexpected output: ' . $errors);
@@ -181,6 +197,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             break;
         case self::FOLDER_INBOX:
             $folder->type = Horde_ActiveSync::FOLDER_TYPE_INBOX;
+            break;
+        case self::FOLDER_SENT;
+            $folder->type = Horde_ActiveSync::FOLDER_TYPE_SENTMAIL;
             break;
         default:
             return false;
