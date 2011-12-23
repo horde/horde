@@ -14,6 +14,26 @@
 /**
  * Horde_Service_Weather_Current_Wwo class
  *
+ * @property pressure
+ * @property pressure_trend
+ * @property logo_url
+ * @property dewpoint
+ * @property wind_direction
+ * @property wind_degrees
+ * @property wind_speed
+ * @property wind_gust
+ * @property visibility
+ * @property wind_chill
+ * @property temp
+ * @property icon
+ * @property condition
+ * @property humidity
+ * @property wind
+ * @property icon_url
+ * @property logo_url
+ * @property time
+ * @property heat_index
+ *
  * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @category Horde
  * @package  Service_Weather
