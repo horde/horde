@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2011-12-23</date>
- <time>10:37:45</time>
+ <time>10:38:50</time>
  <version>
-  <release>1.2.0</release>
+  <release>1.2.1</release>
   <api>1.2.0</api>
  </version>
  <stability>
@@ -22,12 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix sending meeting request emails when creating a meeting.
-* [mjr] Fix retrieving the body of SENDMAIL requests.
-* [mjr] Fix parsing birthday strings on certain android 2.2 clients.
-* [mjr] Improve support for Android device provisioning.
-* [mjr] Improve support for timezones in appointments originating on the client.
-* [mjr] Improve performance when working with timezones on PHP 5.3+
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -502,6 +497,19 @@
 * [mjr] Improve support for Android device provisioning.
 * [mjr] Improve support for timezones in appointments originating on the client.
 * [mjr] Improve performance when working with timezones on PHP 5.3+
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.1</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-23</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
