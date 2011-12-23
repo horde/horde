@@ -33,7 +33,7 @@ class Horde_ActiveSync_Message_Attendee extends Horde_ActiveSync_Message_Base
     protected $_properties = array(
         'email' => false,
         'name'  => false,
-        'status' => 0,
+        'status' => false,
         'type' => false
     );
 
