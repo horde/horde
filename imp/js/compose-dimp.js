@@ -279,7 +279,7 @@ var DimpCompose = {
                     }
 
                     if (d.log) {
-                        DimpCore.base.DimpBase.updateMsgLog(d.log, { uid: d.uid, mailbox: d.mbox });
+                        DimpCore.base.DimpBase.updateMsgLog(d.log, { uid: d.uid, mbox: d.mbox });
                     }
 
                     if (!DIMP.conf_compose.qreply) {
@@ -294,7 +294,7 @@ var DimpCompose = {
                     if (d.log) {
                         d.log.each(function(l) {
                             DimpCore.base.DimpBase.updateMsgLog(l.log, {
-                                mailbox: l.mbox,
+                                mbox: l.mbox,
                                 uid: l.uid
                             });
                         });
