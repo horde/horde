@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-12-21</date>
- <time>18:16:03</time>
+ <date>2011-12-23</date>
+ <time>11:53:24</time>
  <version>
   <release>1.0.0</release>
   <api>1.0.0RC2</api>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-* 
+* [mjr] Add snow and rain totals to wunderground driver.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -490,10 +490,10 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2011-12-21</date>
+   <date>2011-12-23</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
-* 
+* [mjr] Add snow and rain totals to wunderground driver.
    </notes>
   </release>
  </changelog>

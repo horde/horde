@@ -83,12 +83,16 @@ class Horde_Service_Weather_WundergroundTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(50, $dayOne->low);
         $this->assertEquals(8, $dayOne->wind_speed);
         $this->assertEquals(11, $dayOne->wind_gust);
+        $this->assertEquals(0.63, $dayOne->rain_total);
 
         $weather->units = Horde_Service_Weather::UNITS_METRIC;
         $this->assertEquals(14, $dayOne->high);
         $this->assertEquals(10, $dayOne->low);
         $this->assertEquals(13, $dayOne->wind_speed);
         $this->assertEquals(18, $dayOne->wind_gust);
+
+        $this->assertEquals(0, $dayOne->snow_total);
+        $this->assertEquals(16, $dayOne->rain_total);
     }
 
     private function _getStub($fixture, $language = 'en')
