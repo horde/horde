@@ -14,6 +14,26 @@
 /**
  * Horde_Service_Weather_Current_Base class
  *
+ * @property pressure          The barometric pressure.
+ * @property pressure_trend    The pressure trend.
+ * @property logo_url          URL to a provider logo.
+ * @property dewpoint          The dewpoint.
+ * @property wind_direction    The cardinal wind direction.
+ * @property wind_degrees      The wind direction, in degrees.
+ * @property wind_speed        The wind speed, in requested units.
+ * @property wind_gust         The wind gust speed.
+ * @property visibility        The visisbility, in requested units.
+ * @property wind_chill        The wind chill.
+ * @property heat_index        Heat index.
+ * @property temp              The temperature.
+ * @property icon              Icon name to represent conditions.
+ * @property condition         The condition string.
+ * @property humidity          The humidity.
+ * @property wind              Full wind description string.
+ * @property icon_url          Url to icon.
+ * @property logo_url          Url to logo.
+ * @property time              Forecast time.
+ *
  * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @category Horde
  * @package  Service_Weather

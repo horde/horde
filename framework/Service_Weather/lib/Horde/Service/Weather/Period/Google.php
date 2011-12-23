@@ -14,14 +14,6 @@
 /**
  * Horde_Service_Weather_Period_WeatherUnderground
  *
- * Provides information for the following properties:
- *<pre>
- *  conditions
- *  icon_url
- *  icon
- *  high
- *  low
- *</pre>
  * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @category Horde
  * @package  Service_Weather
