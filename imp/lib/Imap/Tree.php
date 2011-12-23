@@ -17,6 +17,10 @@
  * @category Horde
  * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
+ *
+ * @property boolean $changed  Has the tree changed?
+ * @property integer $unseen  The number of unseen messages counted during the
+ *                            last tree iteration.
  */
 class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 {
@@ -65,25 +69,18 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     const OTHER_KEY = "other\0";
 
     /**
-     * Tree changed flag.  Set when something in the tree has been altered.
-     *
-     * @var boolean
-     */
-    public $changed = false;
-
-    /**
-     * Unseen count.
-     *
-     * @var array
-     */
-    public $unseen = 0;
-
-    /**
      * Array containing the mailbox tree.
      *
      * @var array
      */
     protected $_tree;
+
+    /**
+     * Tree changed flag.  Set when something in the tree has been altered.
+     *
+     * @var boolean
+     */
+    protected $_changed = false;
 
     /**
      * Location of current element in the tree.
@@ -147,11 +144,31 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     );
 
     /**
+     * Unseen count.
+     *
+     * @var array
+     */
+    protected $_unseen = 0;
+
+    /**
      * Constructor.
      */
     public function __construct()
     {
         $this->init();
+    }
+
+    /**
+     */
+    public function __get($name)
+    {
+        switch ($name) {
+        case 'changed':
+            return $this->_changed;
+
+        case 'unseen':
+            return $this->_unseen;
+        }
     }
 
     /**
@@ -168,7 +185,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                       $session->get('imp', 'showunsub'));
 
         /* Reset class variables to the defaults. */
-        $this->changed = true;
+        $this->_changed = true;
         $this->_currkey = $this->_currparent = null;
         $this->_delimiter = null;
         $this->_namespaces = $this->_parent = $this->_tree = array();
@@ -396,7 +413,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
         if ($this->hasChildren($elt)) {
             if (!$this->isOpen($elt)) {
-                $this->changed = true;
+                $this->_changed = true;
                 $this->_setOpen($elt, true);
             }
 
@@ -419,7 +436,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         $folder = $this->_convertName($folder);
 
         if (isset($this->_tree[$folder])) {
-            $this->changed = true;
+            $this->_changed = true;
             $this->_setOpen($this->_tree[$folder], false);
         }
     }
@@ -548,7 +565,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             return;
         }
 
-        $this->changed = true;
+        $this->_changed = true;
 
         $prev = is_null($this->_eltdiff)
             ? null
@@ -624,7 +641,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             } else {
                 $this->_parent[$parent] = array_values($this->_parent[$parent]);
             }
-            $this->changed = true;
+            $this->_changed = true;
 
             return true;
         }
@@ -637,7 +654,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             return false;
         }
 
-        $this->changed = true;
+        $this->_changed = true;
 
         $elt = &$this->_tree[$id];
 
@@ -706,7 +723,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         foreach ($id as $val) {
             $val = $this->_convertName($val);
             if (isset($this->_tree[$val])) {
-                $this->changed = true;
+                $this->_changed = true;
                 $this->_setSubscribed($this->_tree[$val], true);
                 $this->_setContainer($this->_tree[$val], false);
             }
@@ -734,7 +751,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
             /* INBOX can never be unsubscribed to. */
             if (isset($this->_tree[$val]) && ($val != 'INBOX')) {
-                $this->changed = true;
+                $this->_changed = true;
 
                 $elt = &$this->_tree[$val];
 
@@ -1084,7 +1101,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     protected function _updatePollList()
     {
         $GLOBALS['prefs']->setValue('nav_poll', serialize($this->_cache['poll']));
-        $this->changed = true;
+        $this->_changed = true;
     }
 
     /**
@@ -1217,7 +1234,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         }
 
         $this->_showunsub = $unsub;
-        $this->changed = true;
+        $this->_changed = true;
 
         /* If we are switching from unsubscribed to subscribed, no need
          * to do anything (we just ignore unsubscribed stuff). */
@@ -1399,7 +1416,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                 unset($this->_tree[$key]);
             }
             unset($this->_parent[self::VFOLDER_KEY]);
-            $this->changed = true;
+            $this->_changed = true;
         }
 
         if (!$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS)) {
@@ -1466,7 +1483,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         if ($this->_needSort($this->_tree[$id])) {
             $this->_sortList($this->_parent[$id], ($id === self::BASE_ELT));
             $this->_setNeedSort($this->_tree[$id], false);
-            $this->changed = true;
+            $this->_changed = true;
         }
     }
 
@@ -1540,7 +1557,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             'render_type' => 'Javascript'
         ), $opts);
 
-        $this->unseen = 0;
+        $this->_unseen = 0;
 
         if ($name instanceof Horde_Tree_Base) {
             $tree = $name;
@@ -1609,7 +1626,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                     }
                 } else {
                     if ($poll_info->unseen) {
-                        $this->unseen += $poll_info->unseen;
+                        $this->_unseen += $poll_info->unseen;
                         $label = '<strong>' . $label . '</strong>';
                     }
 
