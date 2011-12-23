@@ -22,6 +22,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix sending meeting request emails when creating a meeting.
+* [mjr] Fix retrieving the body of SENDMAIL requests.
+* [mjr] Fix parsing birthday strings on certain android 2.2 clients.
 * [mjr] Improve support for Android device provisioning.
 * [mjr] Improve support for timezones in appointments originating on the client.
 * [mjr] Improve performance when working with timezones on PHP 5.3+
@@ -493,6 +496,9 @@
    <date>2011-12-15</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix sending meeting request emails when creating a meeting.
+* [mjr] Fix retrieving the body of SENDMAIL requests.
+* [mjr] Fix parsing birthday strings on certain android 2.2 clients.
 * [mjr] Improve support for Android device provisioning.
 * [mjr] Improve support for timezones in appointments originating on the client.
 * [mjr] Improve performance when working with timezones on PHP 5.3+
