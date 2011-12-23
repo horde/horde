@@ -226,19 +226,12 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
         $imptree->eltDiffStart();
 
-        if ($mbox->edit_vfolder) {
-            $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
-            unset($imp_search[strval($mbox)]);
-            $GLOBALS['notification']->push(sprintf(_("Deleted Virtual Folder \"%s\"."), $mbox->label), 'horde.success');
-            $result = true;
-        } else {
-            $result = $mbox->delete();
+        if (!$mbox->delete()) {
+            return false;
         }
 
-        if ($result) {
-            $result = new stdClass;
-            $result->mailbox = $this->_getMailboxResponse($imptree);
-        }
+        $result = new stdClass;
+        $result->mailbox = $this->_getMailboxResponse($imptree);
 
         return $result;
     }
@@ -2069,13 +2062,13 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * Formats the response to send to javascript code when dealing with
      * mailbox operations.
      *
-     * @param IMP_Tree $imptree  An IMP_Tree object.
-     * @param array $changes     An array with three sub arrays - to be used
-     *                           instead of the return from
-     *                           $imptree->eltDiff():
-     *                           'a' - a list of mailboxes/objects to add
-     *                           'c' - a list of changed mailboxes
-     *                           'd' - a list of mailboxes to delete
+     * @param IMP_Imap_Tree $imptree  A Tree object.
+     * @param array $changes          An array with three sub arrays - to be
+     *                                used instead of the return from
+     *                                $imptree->eltDiff():
+     *   - a: (array) A list of mailboxes/objects to add.
+     *   - c: (array) A list of changed mailboxes.
+     *   - d: (array) A list of mailboxes to delete.
      *
      * @return array  The object used by the JS code to update the folder
      *                tree.

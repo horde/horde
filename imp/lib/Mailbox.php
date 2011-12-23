@@ -789,6 +789,19 @@ class IMP_Mailbox implements Serializable
     {
         global $conf, $injector, $notification;
 
+        if ($this->vfolder) {
+            if ($this->editvfolder) {
+                $imp_search = $injector->getInstance('IMP_Search');
+                $label = $imp_search[$this->_mbox]->label;
+                unset($imp_search[$this->_mbox]);
+                $notification->push(sprintf(_("Deleted Virtual Folder \"%s\"."), $label), 'horde.success');
+                return true;
+            }
+
+            $notification->push(sprintf(_("Could not delete Virtual Folder \"%s\"."), $this->label), 'horde.error');
+            return false;
+        }
+
         if ((!$force && $this->fixed) || !$this->access_deletembox)  {
             $notification->push(sprintf(_("The mailbox \"%s\" may not be deleted."), $this->display), 'horde.error');
             return false;
