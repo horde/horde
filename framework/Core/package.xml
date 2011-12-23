@@ -40,6 +40,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Fix implementation of SENDMAIL ActiveSync command. Fixes sending of meeting requests from device.
+* [mjr] Fix issue that caused ActiveSync failure when using device specific logging in certain cases.
 * [mms] Fix merging config data (Bug #10381).
  </notes>
  <contents>
@@ -1687,7 +1689,9 @@
    <date>2011-12-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Fix implementation of SENDMAIL ActiveSync command. Fixes sending of meeting requests from device.
+* [mjr] Fix issue that caused ActiveSync failure when using device specific logging in certain cases.
+* [mms] Fix merging config data (Bug #10381).
    </notes>
   </release>
  </changelog>
