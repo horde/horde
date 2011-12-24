@@ -15,6 +15,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     const CONTACTS_FOLDER     = 'Contacts';
     const TASKS_FOLDER        = 'Tasks';
     const FOLDER_INBOX        = 'Inbox';
+    const FOLDER_SENT         = 'Sent';
+    const FOLDER_TRASH        = 'Trash';
+    const FOLDER_DRAFTS       = 'Drafts';
 
     /**
      * Cache message stats
@@ -155,11 +158,31 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $folders[] = $this->statFolder(self::TASKS_FOLDER);
         }
 
-        // HACK to allow email setup to complete enough to allow invitation
-        // emails.
-        $folders[] = $this->statFolder(self::FOLDER_INBOX);
-        $folders[] = $this->statFolder(self::FOLDER_SENT);
-
+        if (array_search('mail', $supported)) {
+            // TODO - Figure out the special folders. For now, just use "Sent"
+            // TODO - Need to flesh out hierarchy. i.e. Does parent contain
+            //        the name of the parent folder?
+            $imap_folders = $this->_connector->mail_folderlist();
+            foreach ($imap_folders as $folder) {
+                $mb = Horde_Imap_Client_Mailbox::get($folder['label']);
+                switch (Horde_String::lower($mb->utf8)) {
+                case 'sent':
+                    $folders[] = $this->statFolder(self::FOLDER_SENT, 0, $mb->utf7imap);
+                    break;
+                case 'inbox':
+                    $folders[] = $this->statFolder(self::FOLDER_INBOX, 0, $mb->utf7imap);
+                    break;
+                case 'drafts':
+                    $folders[] = $this->statFolder(self::FOLDER_DRAFTS, 0, $mb->utf7imap);
+                    break;
+                case 'trash':
+                    $folders[] = $this->statFolder(self::FOLDER_TRASH, 0, $mb->utf7imap);
+                    break;
+                default:
+                    $folders[] = $this->statFolder($mb->utf8, 0, $mb->utf7imap);
+                }
+            }
+        }
 
         if ($errors = Horde::endBuffer()) {
             $this->_logger->err('Unexpected output: ' . $errors);
@@ -198,11 +221,18 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         case self::FOLDER_INBOX:
             $folder->type = Horde_ActiveSync::FOLDER_TYPE_INBOX;
             break;
-        case self::FOLDER_SENT;
+        case self::FOLDER_SENT:
             $folder->type = Horde_ActiveSync::FOLDER_TYPE_SENTMAIL;
             break;
+        case self::FOLDER_DRAFTS:
+            $folder->type = Horde_ActiveSync::FOLDER_TYPE_DRAFTS;
+            break;
+        case self::FOLDER_TRASH:
+            $folder->type = Horde_ActiveSync::FOLDER_TYPE_WASTEBASKET;
+            break;
         default:
-            return false;
+            $folder->type = Horde_ActiveSync::FOLDER_TYPE_USER_MAIL;
+            break;
         }
 
         return $folder;
@@ -216,14 +246,14 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *
      * @return a stat hash
      */
-    public function statFolder($id)
+    public function statFolder($id, $parent = 0, $mod = null)
     {
         $this->_logger->debug('Horde::statFolder(' . $id . ')');
 
         $folder = array();
         $folder['id'] = $id;
-        $folder['mod'] = $id;
-        $folder['parent'] = 0;
+        $folder['mod'] = empty($mod) ? $id : $mod;
+        $folder['parent'] = $parent;
 
         return $folder;
     }

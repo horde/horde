@@ -393,4 +393,14 @@ class Horde_Core_ActiveSync_Connector
         }
     }
 
+    /**
+     * Get the IMAP folder list.
+     *
+     * @return array  An array of folders.
+     */
+    public function mail_folderList()
+    {
+        return $this->_registry->mail->folderlist();
+    }
+
 }
