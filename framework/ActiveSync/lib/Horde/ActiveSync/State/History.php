@@ -786,9 +786,9 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             $this->_logger->debug('[' . $this->_devId . '] Initializing message diff engine for ' . $this->_collection['id']);
             // Do nothing if it is a dummy folder
             if ($folderId != Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
-                /* First, need to see if we have exising changes left over
-                 * from a previous sync that resulted in a MORE_AVAILABLE */
-                if (!empty($this->_changes) && count($this->_changes)) {
+                // First, need to see if we have exising changes left over from
+                // a previous sync that resulted in a MORE_AVAILABLE
+                if (!empty($this->_changes)) {
                     $this->_logger->debug('[' . $this->_devId . '] Returning previously found changes.');
                     return $this->_changes;
                 }
