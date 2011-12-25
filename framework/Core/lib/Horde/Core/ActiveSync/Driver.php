@@ -41,6 +41,13 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     private $_imap;
 
     /**
+     * Folder cache
+     *
+     * @var array
+     */
+     private $_folders = array();
+
+    /**
      * Const'r
      * <pre>
      * Required params (in addition to the base class' requirements):
@@ -133,63 +140,66 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function getFolderList()
     {
-        ob_start();
+        if (empty($this->_folderList)) {
+            ob_start();
+            $this->_logger->debug('Horde::getFolderList()');
+            /* Make sure we have the APIs needed for each folder class */
+            try {
+                $supported = $this->_connector->horde_listApis();
+            } catch (Exception $e) {
+                $this->_logger->err($e->getMessage());
+                $this->_endBuffer();
+                return array();
+            }
+            $folders = array();
 
-        $this->_logger->debug('Horde::getFolderList()');
-        /* Make sure we have the APIs needed for each folder class */
-        try {
-            $supported = $this->_connector->horde_listApis();
-        } catch (Exception $e) {
-            $this->_logger->err($e->getMessage());
-            $this->_endBuffer();
-            return array();
-        }
-        $folders = array();
+            if (array_search('calendar', $supported)) {
+                $folders[] = $this->statFolder(self::APPOINTMENTS_FOLDER);
+            }
 
-        if (array_search('calendar', $supported)) {
-            $folders[] = $this->statFolder(self::APPOINTMENTS_FOLDER);
-        }
+            if (array_search('contacts', $supported)) {
+                $folders[] = $this->statFolder(self::CONTACTS_FOLDER);
+            }
 
-        if (array_search('contacts', $supported)) {
-            $folders[] = $this->statFolder(self::CONTACTS_FOLDER);
-        }
+            if (array_search('tasks', $supported)) {
+                $folders[] = $this->statFolder(self::TASKS_FOLDER);
+            }
 
-        if (array_search('tasks', $supported)) {
-            $folders[] = $this->statFolder(self::TASKS_FOLDER);
-        }
-
-        if (array_search('mail', $supported)) {
-            // TODO - Figure out the special folders. For now, just use "Sent"
-            // TODO - Need to flesh out hierarchy. i.e. Does parent contain
-            //        the name of the parent folder?
-            $imap_folders = $this->_connector->mail_folderlist();
-            foreach ($imap_folders as $folder) {
-                $mb = Horde_Imap_Client_Mailbox::get($folder['label']);
-                switch (Horde_String::lower($mb->utf8)) {
-                case 'sent':
-                    $folders[] = $this->statFolder(self::FOLDER_SENT, 0, $mb->utf7imap);
-                    break;
-                case 'inbox':
-                    $folders[] = $this->statFolder(self::FOLDER_INBOX, 0, $mb->utf7imap);
-                    break;
-                case 'drafts':
-                    $folders[] = $this->statFolder(self::FOLDER_DRAFTS, 0, $mb->utf7imap);
-                    break;
-                case 'trash':
-                    $folders[] = $this->statFolder(self::FOLDER_TRASH, 0, $mb->utf7imap);
-                    break;
-                default:
-                    $folders[] = $this->statFolder($mb->utf8, 0, $mb->utf7imap);
+            if (array_search('mail', $supported)) {
+                // TODO - Figure out the special folders. For now, just use "Sent"
+                // TODO - Need to flesh out hierarchy. i.e. Does parent contain
+                //        the name of the parent folder?
+                $imap_folders = $this->_connector->mail_folderlist();
+                foreach ($imap_folders as $folder) {
+                    $mb = Horde_Imap_Client_Mailbox::get($folder['label']);
+                    switch (Horde_String::lower($mb->utf8)) {
+                    case 'sent':
+                        $folders[] = $this->statFolder(self::FOLDER_SENT, 0, $mb->utf7imap);
+                        break;
+                    case 'inbox':
+                        $folders[] = $this->statFolder(self::FOLDER_INBOX, 0, $mb->utf7imap);
+                        break;
+                    case 'drafts':
+                        $folders[] = $this->statFolder(self::FOLDER_DRAFTS, 0, $mb->utf7imap);
+                        break;
+                    case 'trash':
+                        $folders[] = $this->statFolder(self::FOLDER_TRASH, 0, $mb->utf7imap);
+                        break;
+                    default:
+                        $folders[] = $this->statFolder($mb->utf8, 0, $mb->utf7imap);
+                    }
                 }
             }
+
+            if ($errors = Horde::endBuffer()) {
+                $this->_logger->err('Unexpected output: ' . $errors);
+            }
+            $this->_endBuffer();
+
+            $this->_folderList = $folders;
         }
 
-        if ($errors = Horde::endBuffer()) {
-            $this->_logger->err('Unexpected output: ' . $errors);
-        }
-        $this->_endBuffer();
-
-        return $folders;
+        return $this->_folderList;
     }
 
     /**
@@ -205,7 +215,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
         $folder = new Horde_ActiveSync_Message_Folder();
         $folder->serverid = $id;
-        $folder->parentid = "0";
+        $folder->parentid = '0';
         $folder->displayname = $id;
 
         switch ($id) {
