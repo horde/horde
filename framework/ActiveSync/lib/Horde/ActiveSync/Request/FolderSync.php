@@ -39,9 +39,6 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
             return false;
         }
 
-        // Maps serverid -> clientid for items that are received from the PIM
-        $map = array();
-
         // Start parsing input
         if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::FOLDERHIERARCHY_FOLDERSYNC)) {
             $this->_logger->err('[Horde_ActiveSync::handleFolderSync] No input to parse');
@@ -117,12 +114,6 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
                     $serverid = $importer->importFolderDeletion($folder);
                     $changes = true;
                     break;
-                }
-
-                /* Update the map */
-                if ($serverid) {
-                    // FIXME: Yet Another property used, but never defined
-                    $map[$serverid] = $folder->clientid;
                 }
             }
 
