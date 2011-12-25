@@ -767,7 +767,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
     /**
      * Get all items that have changed since the last sync time
      *
-     * @param integer $flags
+     * @param integer $flags  Any flags to use
      *
      * @return array
      */
@@ -784,17 +784,16 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
         if (!empty($this->_collection['id'])) {
             $folderId = $this->_collection['id'];
             $this->_logger->debug('[' . $this->_devId . '] Initializing message diff engine for ' . $this->_collection['id']);
-            // Do nothing if it is a dummy folder
             if ($folderId != Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
-                // First, need to see if we have exising changes left over from
-                // a previous sync that resulted in a MORE_AVAILABLE
+                // First, need to see if we have exising changes left over
                 if (!empty($this->_changes)) {
                     $this->_logger->debug('[' . $this->_devId . '] Returning previously found changes.');
                     return $this->_changes;
                 }
 
-                /* No existing changes, poll the backend */
-                $changes = $this->_backend->getServerChanges($folderId, (int)$this->_lastSyncTS, (int)$this->_thisSyncTS, $cutoffdate);
+                // No existing changes, poll the backend
+                $changes = $this->_backend->getServerChanges(
+                    $folderId, (int)$this->_lastSyncTS, (int)$this->_thisSyncTS, $cutoffdate);
             }
             // Unfortunately we can't use an empty synckey to detect an initial
             // sync. The AS protocol doesn't start looking for changes until
@@ -802,14 +801,16 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             // at least query the map table to see if there are any entries at
             // all for this device before going through and stating all the
             // messages.
-            $this->_logger->debug('[' . $this->_devId . '] Found ' . count($changes) . ' message changes, checking for PIM initiated changes.');
+            $this->_logger->debug('[' . $this->_devId . '] Found '
+                . count($changes) . ' message changes, checking for PIM initiated changes.');
             if ($this->_havePIMChanges()) {
                 $this->_changes = array();
                 foreach ($changes as $change) {
                     $stat = $this->_backend->statMessage($folderId, $change['id']);
                     $ts = $this->_getPIMChangeTS($change['id']);
                     if ($ts && $ts >= $stat['mod']) {
-                        $this->_logger->debug('[' . $this->_devId . '] Ignoring PIM initiated change for ' . $change['id'] . '(PIM TS: ' . $ts . ' Stat TS: ' . $stat['mod']);
+                        $this->_logger->debug('[' . $this->_devId . '] Ignoring PIM initiated change for '
+                            . $change['id'] . '(PIM TS: ' . $ts . ' Stat TS: ' . $stat['mod']);
                     } else {
                         $this->_changes[] = $change;
                     }
@@ -825,8 +826,9 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             if ($folderlist === false) {
                 return false;
             }
-
-            $this->_changes = $this->_getDiff((empty($this->_state) ? array() : $this->_state), $folderlist);
+            $this->_changes = $this->_getDiff(
+                (empty($this->_state) ? array() : $this->_state),
+                $folderlist);
             $this->_logger->debug('[' . $this->_devId . '] Found ' . count($this->_changes) . ' folder changes');
         }
 
@@ -988,7 +990,10 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
      * the provided uid. Used to avoid mirroring back changes to the PIM that it
      * sent to the server.
      *
-     * @param string $uid
+     * @param string $uid  The uid of the entry to check.
+     *
+     * @return integer|null The timestamp of the last PIM-initiated change for
+     *                      the specified uid, or null if none found.
      */
     protected function _getPIMChangeTS($uid)
     {
