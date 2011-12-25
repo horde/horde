@@ -272,7 +272,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_DATA)) {
                         switch ($collection['class']) {
                         case 'Email':
-                            //@TODO
+                            //@TODO - I thought this would go through the SENDMAIL
+                            //        command??
                             //$appdata = new SyncMail();
                             //$appdata->decode($decoder);
                             // Remove error code when implemented.

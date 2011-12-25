@@ -211,8 +211,8 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                         $this->_statusCode = self::STATUS_NEEDSYNC;
                     }
 
-                    // Update the state, but don't bother with the backend since
-                    // we are not updating any data.
+                    // Update the state, but don't use the exporter since we
+                    // are only PINGing, not SYNCing.
                     while (is_array($sync->syncronize(Horde_ActiveSync::BACKEND_DISCARD_DATA)));
                 }
 
