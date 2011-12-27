@@ -16,6 +16,8 @@
  *                                 only the bare mailbox name (no parents).
  * @property boolean $access_creatembox  Can sub mailboxes be created?
  * @property boolean $access_deletembox  Can this mailbox be deleted?
+ * @property boolean $access_deletembox_acl  Can this mailbox be deleted
+ *                                           according to ACL rules?
  * @property boolean $access_deletemsgs  Can messages be deleted in this
  *                                       mailbox?
  * @property boolean $access_expunge  Can messages be expunged in this
@@ -273,6 +275,9 @@ class IMP_Mailbox implements Serializable
                     ($acl[Horde_Imap_Client::ACL_CREATEMBOX]));
 
         case 'access_deletembox':
+            return ($this->access_deletembox_acl && !$this->fixed);
+
+        case 'access_deletembox_acl':
             return (!($acl = $this->acl) ||
                     ($acl[Horde_Imap_Client::ACL_DELETEMBOX]));
 
@@ -802,7 +807,7 @@ class IMP_Mailbox implements Serializable
             return false;
         }
 
-        if ((!$force && $this->fixed) || !$this->access_deletembox)  {
+        if ((!$force && $this->fixed) || !$this->access_deletembox_acl)  {
             $notification->push(sprintf(_("The mailbox \"%s\" may not be deleted."), $this->display), 'horde.error');
             return false;
         }
@@ -839,7 +844,7 @@ class IMP_Mailbox implements Serializable
             return false;
         }
 
-        if ((!$force && $this->fixed) || !$this->access_deletembox) {
+        if ((!$force && $this->fixed) || !$this->access_deletembox_acl) {
             $notification->push(sprintf(_("The mailbox \"%s\" may not be renamed."), $this->display), 'horde.error');
             return false;
         }

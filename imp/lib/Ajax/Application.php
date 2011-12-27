@@ -179,7 +179,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     {
         $mbox = IMP_Mailbox::formFrom($this->_vars->mbox);
 
-        if (!$mbox->fixed && $mbox->access_deletembox) {
+        if ($mbox->access_deletembox) {
             return true;
         }
 
