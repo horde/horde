@@ -1382,36 +1382,21 @@ class IMP_Contents
                     continue;
                 }
 
-                $part_text = '';
+                $part_text = ($contents_mask && empty($info['nosummary']))
+                    ? $this->_formatSummary($id, $contents_mask, $part_info_display, !empty($info['attach']))
+                    : '';
 
                 if (empty($info['attach'])) {
-                    if ($contents_mask) {
-                        if (empty($info['nosummary'])) {
-                            $part_text .= $this->_formatSummary($id, $contents_mask, $part_info_display);
+                    if (isset($info['status'])) {
+                        if (!is_array($info['status'])) {
+                            $info['status'] = array($info['status']);
                         }
-
-                        if (isset($info['status'])) {
-                            if (!is_array($info['status'])) {
-                                $info['status'] = array($info['status']);
-                            }
-                            $part_text .= implode('', array_map('strval', $info['status']));
-                        }
-
-                        $part_text .= '<div class="mimePartData">' . $info['data'] . '</div>';
-                    } else {
-                        if ($part_text && !empty($options['sep'])) {
-                            $part_text .= $options['sep'];
-                        }
-                        $part_text .= $info['data'];
-                    }
-                } else {
-                    if ($show_parts == 'atc') {
-                        $atc_parts[$id] = 1;
+                        $part_text .= implode('', array_map('strval', $info['status']));
                     }
 
-                    if ($contents_mask && empty($info['nosummary'])) {
-                        $part_text .= $this->_formatSummary($id, $contents_mask, $part_info_display, true);
-                    }
+                    $part_text .= '<div class="mimePartData">' . $info['data'] . '</div>';
+                } elseif ($show_parts == 'atc') {
+                    $atc_parts[$id] = 1;
                 }
 
                 $msgtext[$id] = array(

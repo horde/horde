@@ -1,7 +1,7 @@
 <?php
 /**
- * The IMP_Mime_Viewer_Html class renders out HTML text with an effort
- * to remove potentially malicious code.
+ * This class renders out HTML text with an effort to remove potentially
+ * malicious code.
  *
  * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
  *
@@ -57,23 +57,17 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
      */
     protected function _renderInline()
     {
+        $data = $this->_IMPrender(true);
+
         switch (IMP::getViewMode()) {
         case 'mimp':
-            $status = new IMP_Mime_Status(array(
+            $data['status'] = new IMP_Mime_Status(array(
                 _("This message part contains HTML data, but this data can not be displayed inline."),
                 $this->getConfigParam('imp_contents')->linkView($this->_mimepart, 'view_attach', _("View HTML data in new window."))
             ));
-            $status->icon('mime/html.png');
-
-            $data = array(
-                'data' => '',
-                'status' => $status,
-                'type' => 'text/html; charset=' . $this->getConfigParam('charset')
-            );
             break;
 
         default:
-            $data = $this->_IMPrender(true);
             $uid = strval(new Horde_Support_Randomid());
 
             Horde::addScriptFile('imp.js', 'imp');
@@ -130,7 +124,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
         /* Don't do IMP DOM processing if in mimp mode or converting to
          * text. */
-        if ((IMP::getViewMode() == 'mimp') ||
+        if (($inline && (IMP::getViewMode() == 'mimp')) ||
             (!$inline && Horde_Util::getFormData('convert_text'))) {
             $this->_imptmp = null;
         } else {
