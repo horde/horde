@@ -127,10 +127,15 @@ case 'import_mbox':
 case 'create_folder':
     if (isset($vars->new_mailbox)) {
         try {
-            $imaptree->createMailboxName(
+            $new_mbox = $imaptree->createMailboxName(
                 $folder_list[0],
                 Horde_String::convertCharset($vars->new_mailbox, 'UTF-8', 'UTF7-IMAP')
-            )->create();
+            );
+            if ($new_mbox->exists) {
+                $notification->push(sprintf(_("Mailbox \"%s\" already exists."), $new_mbox->display), 'horde.warning');
+            } else {
+                $new_mbox->create();
+            }
         } catch (Horde_Exception $e) {
             $notification->push($e);
         }
