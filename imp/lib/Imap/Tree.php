@@ -1672,6 +1672,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      * @param array $opts  Options:
      *   - mboxes: (array) The list of mailboxes to use as 'added' instead
      *              of the tracked element changes.
+     *   - poll: (boolean) Add polled mailboxes to output?
      *   - suppress: (array) Add suppressed entry to these mailboxes.
      *
      * @return array  The object used by JS code to update the folder tree.
@@ -1691,15 +1692,11 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         }
 
         $result = array();
-        if (!isset($opts['suppress'])) {
-            $opts['suppress'] = array();
-        }
 
         if (!empty($changes['a'])) {
             $result['a'] = array();
             foreach (array_keys($changes['a']) as $val) {
-                $elt = is_object($val) ? $val : $this[$val];
-                $result['a'][] = $this->_ajaxElt($elt, in_array($elt->value, $opts['suppress']));
+                $result['a'][] = $this->_ajaxElt($val, $opts);
             }
         }
 
@@ -1709,8 +1706,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                 // Skip the base element, since any change there won't ever be
                 // updated on-screen.
                 if ($val != self::BASE_ELT) {
-                    $elt = $this[$val];
-                    $result['c'][] = $this->_ajaxElt($elt, in_array($elt->value, $opts['suppress']));
+                    $result['c'][] = $this->_ajaxElt($val, $opts);
                 }
             }
         }
@@ -1728,7 +1724,10 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     /**
      * Create an object sent in an AJAX response.
      *
-     * @param IMP_Mailbox $elt  A mailbox object.
+     * @param mixed $elt  A mailbox object/string.
+     * @param array $opts  Options:
+     *   - poll: (boolean) Add polled mailboxes to output?
+     *   - suppress: (array) Add suppressed entry to these mailboxes.
      *
      * @return stdClass  The element object. Contains the following items:
      *   - ch: (boolean) [children] Does the mailbox contain children?
@@ -1760,8 +1759,12 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      *        vfolder, 2 = user vfolder
      *        DEFAULT: 0
      */
-    protected function _ajaxElt(IMP_Mailbox $elt)
+    protected function _ajaxElt($elt, array $opts = array())
     {
+        if (!is_object($elt)) {
+            $elt = $this[$elt];
+        }
+
         $ob = new stdClass;
 
         if ($elt->children) {
@@ -1799,6 +1802,9 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         } else {
             if ($elt->polled) {
                 $ob->po = 1;
+                if (!empty($opts['poll'])) {
+                    $GLOBALS['injector']->getInstance('IMP_Ajax_Queue')->poll($elt);
+                }
             }
 
             if ($elt->special) {
@@ -1814,6 +1820,11 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             $ob->i = strval($icon->icon);
         } else {
             $ob->cl = $icon->class;
+        }
+
+        if (!empty($opts['suppress']) &&
+            in_array($elt->value, $opts['suppress'])) {
+            $ob->sup = 1;
         }
 
         return $ob;

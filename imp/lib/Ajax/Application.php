@@ -89,6 +89,12 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         if (is_object($res)) {
             foreach ($this->_queue->generate() as $key => $val) {
+                if (isset($res->$key)) {
+                    foreach (get_object_vars($res) as $key2 => $val2) {
+                        $val->$key2 = $val2;
+                    }
+                }
+
                 $res->$key = $val;
             }
         }
@@ -465,6 +471,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         $result->mailbox = $imptree->getAjaxResponse(array(
             'mboxes' => $folder_list,
+            'poll' => true,
             'suppress' => $suppress
         ));
 
