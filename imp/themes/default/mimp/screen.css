@@ -11,9 +11,21 @@ body {
     font-family: monospace;
 }
 
+.mimeStatusMessage {
+    padding-bottom: 10px;
+}
+
+.mimeStatusMessageTable {
+    border-collapse: collapse;
+}
+
 .notices img {
     display: none;
 }
 .notices {
     border: 1px solid black;
+}
+
+ul.mimpMenu li {
+    padding-bottom: 4px;
 }

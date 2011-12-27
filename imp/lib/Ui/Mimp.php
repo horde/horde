@@ -50,7 +50,7 @@ class IMP_Ui_Mimp
             }
         }
 
-        $out = '<ul>';
+        $out = '<ul class="mimpMenu">';
         foreach ($items as $val) {
             $out .= '<li><a href="' . $val[1] . '">' . htmlspecialchars($val[0]) . '</a></li>';
         }
