@@ -115,12 +115,12 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     {
         $mbox = IMP_Mailbox::formFrom($this->_vars->mbox);
 
-        if (!$mbox->access_creatembox) {
-            $GLOBALS['notification']->push(sprintf(_("You may not create child folders in \"%s\"."), $mbox->display), 'horde.error');
-            return false;
+        if ($mbox->access_creatembox) {
+            return true;
         }
 
-        return true;
+        $GLOBALS['notification']->push(sprintf(_("You may not create child folders in \"%s\"."), $mbox->display), 'horde.error');
+        return false;
     }
 
     /**
@@ -138,6 +138,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *       a: (array) Mailboxes that were added (base64url encoded).
      *       c: (array) Mailboxes that were changed (base64url encoded).
      *       d: (array) Mailboxes that were deleted (base64url encoded).
+     *       noexpand: (integer) TODO
      */
     public function createMailbox()
     {
@@ -212,11 +213,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      */
     public function deleteMailbox()
     {
-        if (!$this->_vars->mbox) {
-            return false;
-        }
-
-        return IMP_Mailbox::formFrom($this->_vars->mbox)->delete()
+        return ($this->_vars->mbox && IMP_Mailbox::formFrom($this->_vars->mbox)->delete())
             ? new stdClass
             : false;
     }
