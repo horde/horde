@@ -69,7 +69,7 @@ case 'u':
 case 'rs':
 case 'ri':
     $msg_index = $imp_mailbox->getMessageIndex();
-    $msg_delete = (IMP_Spam::reportSpam(new IMP_Indices($imp_mailbox), $vars->a == 'rs' ? 'spam' : 'innocent', array('mailboxob' => $imp_mailbox)) === 1);
+    $msg_delete = (IMP_Spam::reportSpam(new IMP_Indices($imp_mailbox), $vars->a == 'rs' ? 'spam' : 'notspam', array('mailboxob' => $imp_mailbox)) === 1);
     break;
 
 // 'pa' = part action
