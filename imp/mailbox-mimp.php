@@ -67,7 +67,7 @@ case 'u':
 // 'ri' = report innocent
 case 'rs':
 case 'ri':
-    IMP_Spam::reportSpam(new IMP_Indices($vars->indices), $vars->a == 'rs' ? 'spam' : 'innocent');
+    IMP_Spam::reportSpam(new IMP_Indices($vars->indices), $vars->a == 'rs' ? 'spam' : 'notspam');
     break;
 }
 
