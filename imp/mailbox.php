@@ -432,7 +432,7 @@ if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
     }
 }
 
-if (IMP::$mailbox->access_deletemsgs && IMP::$mailbox->access_expunge) {
+if (IMP::$mailbox->access_empty) {
     $hdr_template->set('empty', $mailbox_imp_url->copy()->add(array(
         'actionID' => 'empty_mailbox',
         'mailbox_token' => $mailbox_token

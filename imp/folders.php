@@ -222,7 +222,7 @@ case 'folders_empty_mailbox_confirm':
                 break;
 
             case 'folders_empty_mailbox_confirm':
-                if (!$val->access_deletemsgs || !$val->access_expunge) {
+                if (!$val->access_empty) {
                     $notification->push(sprintf(_("The folder \"%s\" may not be emptied."), $val->display), 'horde.error');
                     continue 2;
                 }

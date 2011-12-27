@@ -20,6 +20,7 @@
  *                                           according to ACL rules?
  * @property boolean $access_deletemsgs  Can messages be deleted in this
  *                                       mailbox?
+ * @property boolean $access_empty  Can this mailbox be emptied?
  * @property boolean $access_expunge  Can messages be expunged in this
  *                                    mailbox?
  * @property boolean $access_filters  Is filtering available?
@@ -285,6 +286,9 @@ class IMP_Mailbox implements Serializable
             return (!$this->readonly &&
                     (!($acl = $this->acl) ||
                     ($acl[Horde_Imap_Client::ACL_DELETEMSGS])));
+
+        case 'access_empty':
+            return ($this->access_deletemsgs && $this->access_expunge);
 
         case 'access_expunge':
             return (!$this->readonly &&

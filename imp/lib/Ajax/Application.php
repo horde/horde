@@ -275,7 +275,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     {
         $mbox = IMP_Mailbox::formFrom($this->_vars->mbox);
 
-        if (!$mbox->access_deletemsgs || !$mbox->access_expunge) {
+        if (!$mbox->access_empty) {
             $GLOBALS['notification']->push(sprintf(_("The folder \"%s\" may not be emptied."), $mbox->display), 'horde.error');
             return 0;
         }
