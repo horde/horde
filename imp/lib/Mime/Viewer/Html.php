@@ -124,8 +124,9 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
         /* Don't do IMP DOM processing if in mimp mode or converting to
          * text. */
-        if (($inline && (IMP::getViewMode() == 'mimp')) ||
-            (!$inline && Horde_Util::getFormData('convert_text'))) {
+        $convert_text = (IMP::getViewMode() == 'mimp') ||
+                        Horde_Util::getFormData('convert_text');
+        if (!$inline || $convert_text) {
             $this->_imptmp = null;
         } else {
             if ($inline) {
@@ -187,7 +188,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
         /* We are done processing if in mimp mode, or we are converting to
          * text. */
-        if (is_null($this->_imptmp)) {
+        if ($convert_text) {
             $data = $this->_textFilter($data, 'Html2text', array(
                 'wrap' => false
             ));
@@ -199,14 +200,14 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             );
         }
 
-        if ($this->_imptmp['imgblock']) {
+        if ($inline && $this->_imptmp['imgblock']) {
             $tmp = new IMP_Mime_Status(array(
                 _("Images have been blocked in this message part."),
                 Horde::link('#', '', 'unblockImageLink') . _("Show Images?") . '</a>'
             ));
             $tmp->icon('mime/image.png');
             $status[] = $tmp;
-        } elseif ($this->_imptmp['cssblock']) {
+        } elseif ($inline && $this->_imptmp['cssblock']) {
             /* This is a bit less intuitive for end users, so hide within
              * image blocking if possible. */
             $tmp = new IMP_Mime_Status(array(
@@ -238,7 +239,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         $data = IMP::filterText($data);
 
         /* Add used CID information. */
-        if (!empty($this->_imptmp['cid'])) {
+        if ($inline && !empty($this->_imptmp['cid'])) {
             $related_part->setMetadata('related_cids_used', $this->_imptmp['cid_used']);
         }
 
