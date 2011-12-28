@@ -403,4 +403,110 @@ class Horde_Core_ActiveSync_Connector
         return $this->_registry->mail->folderlist();
     }
 
+    /**
+     * Get a list of messages in the requested folder.
+     *
+     * @param  Horde_ActiveSync_Message_Folder $folder  The mailbox folder.
+     *
+     * @return Horde_Imap_Client_Data_Fetch  The result set.
+     */
+    public function mail_getMessageList($folder)
+    {
+        $imap = $this->_registry->mail->imapOb();
+        $query = new Horde_Imap_Client_Fetch_Query();
+        $mbox = new Horde_Imap_Client_Mailbox($folder->serverid);
+
+        return $imap->fetch($mbox, $query);
+    }
+
+    /**
+     * Return a AS mail messages, from the given IMAP UIDs.
+     *
+     * @param Horde_ActiveSync_Message_Folder $folder  The mailbox folder.
+     * @param array $messages                          List of IMAP message UIDs
+     * @param array $options                           Additional Options:
+     *   -truncation:  (integer)  Truncate body of email to this length.
+     *                            DEFAULT: false (No truncation).
+     *
+     * @return array  An array of Horde_ActiveSync_Message_Mail objects.
+     */
+    public function mail_getMessages($folder, $messages, $options = array())
+    {
+        $imap = $this->_registry->mail->imapOb();
+        $query = new Horde_Imap_Client_Fetch_Query();
+        $query->envelope();
+        $query->flags();
+        $queryOpts = array('peek' => true);
+        if ($options['truncation']) {
+            $queryOpts['length'] = $options['truncation'];
+        }
+        $query->bodyText($queryOpts);
+        $ids = new Horde_Imap_Client_Ids($messages);
+        $mbox = new Horde_Imap_Client_Mailbox($folder->serverid);
+        $messages = array();
+        try {
+            $results = $imap->fetch($mbox, $query, array('ids' => $ids));
+            foreach ($results as $result) {
+                $messages[] = $this->_buildMailMessage($result, $options);
+            }
+        } catch (Exception $e) {
+            Horde::debug($e);
+        }
+
+        return $messages;
+    }
+
+    /**
+     * Builds a proper AS mail message object.
+     *
+     * @param  Horde_Imap_Client_Data_Fetch $data  The fetch results.
+     *
+     * @return Horde_ActiveSync_Mail_Message
+     */
+    protected function _buildMailMessage(Horde_Imap_Client_Data_Fetch $data, $options = array())
+    {
+        $message = new Horde_ActiveSync_Message_Mail();
+        $envelope = $data->getEnvelope();
+
+        // Parse To: header
+        $to = $envelope->to_decoded;
+        $tos = array();
+        foreach ($to as $r) {
+            $tos[] = Horde_Mime_Address::writeAddress($r['mailbox'], $r['host'], $r['personal']);
+            $dtos[] = $to['personal'];
+        }
+        $message->to = implode(',', $tos);
+        $message->displayto = implode(',', $dtos);
+
+        // Parse From: header
+        $from = array_pop($envelope->from_decoded);
+        $message->from = Horde_Mime_Address::writeAddress($from['mailbox'], $from['host'], $from['personal']);
+
+        $message->subject = $envelope->subject_decoded;
+        $message->datereceived = new Horde_Date((string)$envelope->date);
+        $message->body = $data->getBodyText();
+        $message->bodysize = strlen($message->body);
+
+        // truncation is taken care of when the message is requested.
+        if($options['truncation']) {
+            $message->bodytruncated = 1;
+        } else {
+            $output->bodytruncated = 0;
+        }
+
+        // @TODO - truncate
+
+        // @TODO: Parse out/detect at least meeting requests and notifications.
+        $message->messageclass = 'IPM.Note';
+
+        // Seen flag
+        if (array_search('/seen', $data->getFlags())) {
+            $message->read = 1;
+        } else {
+            $message->read = 0;
+        }
+
+        return $message;
+    }
+
 }

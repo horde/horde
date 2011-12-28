@@ -201,9 +201,19 @@ abstract class Horde_ActiveSync_Driver_Base
     abstract public function getFolder($id);
 
     /**
-     * Get the list of folders from the backend.
+     * Get the list of folder stat arrays
+     *
+     * @return array  An array of folder stat arrays.
      */
     abstract public function getFolderList();
+
+    /**
+     * Return an array of folder objects.
+     *
+     * @return array  An array of Horde_ActiveSync_Message_Folder objects.
+     * @since TODO
+     */
+    abstract public function getFolders();
 
     /**
      * Get a full list of messages on the server
@@ -403,6 +413,7 @@ abstract class Horde_ActiveSync_Driver_Base
     {
         $folders = array();
 
+        // @TODO, use self::getFolders() once we bump the min required version
         $fl = $this->getFolderList();
         foreach ($fl as $f) {
             $folders[] = $this->getFolder($f['id']);
@@ -612,6 +623,8 @@ abstract class Horde_ActiveSync_Driver_Base
      * Truncate an UTF-8 encoded sting correctly
      *
      * If it's not possible to truncate properly, an empty string is returned
+     *
+     * @deprecated  Use Horde_String::substr() instead.
      *
      * @param string $string  The string to truncate
      * @param string $length  The length of the returned string

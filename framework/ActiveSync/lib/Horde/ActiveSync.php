@@ -27,59 +27,7 @@
  */
 
 // POOMMAIL
-//define("SYNC_POOMMAIL_ATTACHMENT","POOMMAIL:Attachment");
-//define("SYNC_POOMMAIL_ATTACHMENTS","POOMMAIL:Attachments");
-//define("SYNC_POOMMAIL_ATTNAME","POOMMAIL:AttName");
-//define("SYNC_POOMMAIL_ATTSIZE","POOMMAIL:AttSize");
-//define("SYNC_POOMMAIL_ATTOID","POOMMAIL:AttOid");
-//define("SYNC_POOMMAIL_ATTMETHOD","POOMMAIL:AttMethod");
-//define("SYNC_POOMMAIL_ATTREMOVED","POOMMAIL:AttRemoved");
-//define("SYNC_POOMMAIL_BODY","POOMMAIL:Body");
-//define("SYNC_POOMMAIL_BODYSIZE","POOMMAIL:BodySize");
-//define("SYNC_POOMMAIL_BODYTRUNCATED","POOMMAIL:BodyTruncated");
-//define("SYNC_POOMMAIL_DATERECEIVED","POOMMAIL:DateReceived");
-//define("SYNC_POOMMAIL_DISPLAYNAME","POOMMAIL:DisplayName");
-//define("SYNC_POOMMAIL_DISPLAYTO","POOMMAIL:DisplayTo");
-//define("SYNC_POOMMAIL_IMPORTANCE","POOMMAIL:Importance");
-//define("SYNC_POOMMAIL_MESSAGECLASS","POOMMAIL:MessageClass");
-//define("SYNC_POOMMAIL_SUBJECT","POOMMAIL:Subject");
-//define("SYNC_POOMMAIL_READ","POOMMAIL:Read");
-//define("SYNC_POOMMAIL_TO","POOMMAIL:To");
-//define("SYNC_POOMMAIL_CC","POOMMAIL:Cc");
-//define("SYNC_POOMMAIL_FROM","POOMMAIL:From");
-//define("SYNC_POOMMAIL_REPLY_TO","POOMMAIL:Reply-To");
-//define("SYNC_POOMMAIL_ALLDAYEVENT","POOMMAIL:AllDayEvent");
-//define("SYNC_POOMMAIL_CATEGORIES","POOMMAIL:Categories");
-//define("SYNC_POOMMAIL_CATEGORY","POOMMAIL:Category");
-//define("SYNC_POOMMAIL_DTSTAMP","POOMMAIL:DtStamp");
-//define("SYNC_POOMMAIL_ENDTIME","POOMMAIL:EndTime");
-//define("SYNC_POOMMAIL_INSTANCETYPE","POOMMAIL:InstanceType");
-//define("SYNC_POOMMAIL_BUSYSTATUS","POOMMAIL:BusyStatus");
-//define("SYNC_POOMMAIL_LOCATION","POOMMAIL:Location");
-//define("SYNC_POOMMAIL_MEETINGREQUEST","POOMMAIL:MeetingRequest");
-//define("SYNC_POOMMAIL_ORGANIZER","POOMMAIL:Organizer");
-//define("SYNC_POOMMAIL_RECURRENCEID","POOMMAIL:RecurrenceId");
-//define("SYNC_POOMMAIL_REMINDER","POOMMAIL:Reminder");
-//define("SYNC_POOMMAIL_RESPONSEREQUESTED","POOMMAIL:ResponseRequested");
-//define("SYNC_POOMMAIL_RECURRENCES","POOMMAIL:Recurrences");
-//define("SYNC_POOMMAIL_RECURRENCE","POOMMAIL:Recurrence");
-//define("SYNC_POOMMAIL_TYPE","POOMMAIL:Type");
-//define("SYNC_POOMMAIL_UNTIL","POOMMAIL:Until");
-//define("SYNC_POOMMAIL_OCCURRENCES","POOMMAIL:Occurrences");
-//define("SYNC_POOMMAIL_INTERVAL","POOMMAIL:Interval");
-//define("SYNC_POOMMAIL_DAYOFWEEK","POOMMAIL:DayOfWeek");
-//define("SYNC_POOMMAIL_DAYOFMONTH","POOMMAIL:DayOfMonth");
-//define("SYNC_POOMMAIL_WEEKOFMONTH","POOMMAIL:WeekOfMonth");
-//define("SYNC_POOMMAIL_MONTHOFYEAR","POOMMAIL:MonthOfYear");
-//define("SYNC_POOMMAIL_STARTTIME","POOMMAIL:StartTime");
-//define("SYNC_POOMMAIL_SENSITIVITY","POOMMAIL:Sensitivity");
-//define("SYNC_POOMMAIL_TIMEZONE","POOMMAIL:TimeZone");
-//define("SYNC_POOMMAIL_GLOBALOBJID","POOMMAIL:GlobalObjId");
-//define("SYNC_POOMMAIL_THREADTOPIC","POOMMAIL:ThreadTopic");
-//define("SYNC_POOMMAIL_MIMEDATA","POOMMAIL:MIMEData");
-//define("SYNC_POOMMAIL_MIMETRUNCATED","POOMMAIL:MIMETruncated");
-//define("SYNC_POOMMAIL_MIMESIZE","POOMMAIL:MIMESize");
-//define("SYNC_POOMMAIL_INTERNETCPID","POOMMAIL:InternetCPID");
+
 //
 //// ResolveRecipients
 //define("SYNC_RESOLVERECIPIENTS_RESOLVERECIPIENTS","ResolveRecipients:ResolveRecipients");
@@ -118,6 +66,8 @@ class Horde_ActiveSync
     const CONFLICT_OVERWRITE_SERVER     = 0;
     const CONFLICT_OVERWRITE_PIM        = 1;
 
+    /* Flag used to indicate we should NOT export change data to the PIM. Used
+     * during PING requests. */
     const BACKEND_DISCARD_DATA          = 1;
 
     /* TRUNCATION Constants */
