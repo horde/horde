@@ -650,7 +650,9 @@ class Horde_Vfs_File extends Horde_Vfs_Base
      */
     protected function _getNativePath($path = '', $name = '')
     {
+        var_dump(getenv('LANG'), $name);
         $name = basename($name);
+        var_dump($name);
         if (strlen($name)) {
             if ($name == '..') {
                 $name = '';
