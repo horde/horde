@@ -51,6 +51,8 @@ class Horde_Vcs_RcsTest extends Horde_Vcs_TestBase
         $this->assertInternalType('array', $files);
         $this->assertEquals(2, count($files));
         $this->assertInstanceOf('Horde_Vcs_File_Rcs', $files[0]);
+        $this->assertEquals('umläüte', $files[0]->getFileName());
+        $this->assertEquals('file1', $files[1]->getFileName());
         $this->assertEquals(2, count($dir->getFiles(true)));
         $this->assertEquals(array(), $dir->getBranches());
 
@@ -113,6 +115,21 @@ class Horde_Vcs_RcsTest extends Horde_Vcs_TestBase
             $this->fail('Expected Horde_Vcs_Exception');
         } catch (Horde_Vcs_Exception $e) {
         }
+
+        /* Test unicode file. */
+        $file = $this->vcs->getFile('umläüte');
+        $this->assertInstanceOf('Horde_Vcs_File_Rcs', $file);
+        $this->assertEquals('umläüte', $file->getFileName());
+        $this->assertEquals('umläüte', $file->getSourcerootPath());
+        $this->assertEquals(dirname(__FILE__) . '/repos/rcs/umläüte',
+                            $file->getPath());
+        $this->assertEquals(dirname(__FILE__) . '/repos/rcs/umläüte,v',
+                            $file->getFullPath());
+        $this->assertEquals('1.1', $file->getRevision());
+        $this->assertEquals(1, $file->revisionCount());
+        $this->assertEquals(array(), $file->getTags());
+        $this->assertEquals(array(), $file->getBranches());
+        $this->assertFalse($file->isDeleted());
     }
 
     public function testLog()
@@ -145,6 +162,11 @@ class Horde_Vcs_RcsTest extends Horde_Vcs_TestBase
             $log->getMessage());
         $this->assertEquals(array(), $log->getBranch());
         $this->assertEquals(array(), $log->getTags());
+
+        $logs = $this->vcs->getFile('umläüte')->getLog();
+        $this->assertInternalType('array', $logs);
+        $this->assertEquals(array('1.1'), array_keys($logs));
+        $this->assertInstanceOf('Horde_Vcs_Log_Rcs', $logs['1.1']);
     }
 
     public function testLastLog()

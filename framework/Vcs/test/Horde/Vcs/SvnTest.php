@@ -54,6 +54,8 @@ class Horde_Vcs_SvnTest extends Horde_Vcs_TestBase
         $this->assertInternalType('array', $files);
         $this->assertEquals(2, count($files));
         $this->assertInstanceOf('Horde_Vcs_File_Svn', $files[0]);
+        $this->assertEquals('file1', $files[0]->getFileName());
+        $this->assertEquals('umläüte', $files[1]->getFileName());
         $this->assertEquals(2, count($dir->getFiles(true)));
         $this->assertEquals(array(), $dir->getBranches());
 
@@ -124,6 +126,20 @@ class Horde_Vcs_SvnTest extends Horde_Vcs_TestBase
         /* Test non-existant file. */
         $file = $this->vcs->getFile('foo');
         $this->assertInstanceOf('Horde_Vcs_File_Svn', $file);
+
+        /* Test unicode file. */
+        $file = $this->vcs->getFile('umläüte');
+        $this->assertInstanceOf('Horde_Vcs_File_Svn', $file);
+        $this->assertEquals('umläüte', $file->getFileName());
+        $this->assertEquals('umläüte', $file->getSourcerootPath());
+        $this->assertEquals(
+            'file:///home/jan/horde-git/framework/Vcs/test/Horde/Vcs/repos/svn/umläüte',
+            $file->getPath());
+        $this->assertEquals('3', $file->getRevision());
+        $this->assertEquals(1, $file->revisionCount());
+        $this->assertEquals(array(), $file->getTags());
+        $this->assertEquals(array(), $file->getBranches());
+        $this->assertFalse($file->isDeleted());
     }
 
     public function testLog()
@@ -182,6 +198,11 @@ class Horde_Vcs_SvnTest extends Horde_Vcs_TestBase
         $this->assertEquals(1, $log->getAddedLines());
         $this->assertEquals(1, $log->getDeletedLines());
         */
+
+        $logs = $this->vcs->getFile('umläüte')->getLog();
+        $this->assertInternalType('array', $logs);
+        $this->assertEquals(array('3'), array_keys($logs));
+        $this->assertInstanceOf('Horde_Vcs_Log_Svn', $logs['3']);
     }
 
     public function testLastLog()
