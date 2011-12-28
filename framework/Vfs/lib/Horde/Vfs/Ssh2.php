@@ -34,7 +34,7 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
      *
      * @var array
      */
-    protected var $_permissions = array(
+    protected $_permissions = array(
         'owner' => array(
             'read' => true,
             'write' => true,
