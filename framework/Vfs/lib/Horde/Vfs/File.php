@@ -368,7 +368,7 @@ class Horde_Vfs_File extends Horde_Vfs_Base
      */
     public function createFolder($path, $name)
     {
-        if (!@mkdir($this->_getNativePath($path, $name), 0777, true)) {
+        if (!@mkdir($this->_getNativePath($path, $name))) {
             throw new Horde_Vfs_Exception('Unable to create VFS directory.');
         }
     }
