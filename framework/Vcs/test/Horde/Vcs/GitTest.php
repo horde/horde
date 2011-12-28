@@ -51,9 +51,9 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
         $this->assertEquals(array('dir1'), $dir->getDirectories());
         $files = $dir->getFiles();
         $this->assertInternalType('array', $files);
-        $this->assertEquals(1, count($files));
+        $this->assertEquals(2, count($files));
         $this->assertInstanceOf('Horde_Vcs_File_Git', $files[0]);
-        $this->assertEquals(1, count($dir->getFiles(true)));
+        $this->assertEquals(2, count($dir->getFiles(true)));
         $this->assertEquals(array('branch1', 'master'), $dir->getBranches());
 
         $dir = $this->vcs->getDirectory('dir1');
@@ -97,7 +97,7 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
         $this->assertEquals(array('tag1' => '160a468250615b713a7e33d34243530afc4682a9'),
                                   $file->getTags());
         $this->assertEquals(
-            array('master' => '160a468250615b713a7e33d34243530afc4682a9',
+            array('master' => '2d701be7faf94a5fad1942eb763b6c5c6cae540f',
                   'branch1' => 'da46ee2e478c6d3a9963eaafcd8f43e83d630526'),
             $file->getBranches());
         $this->assertFalse($file->isDeleted());
@@ -111,7 +111,7 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
 
         $file = $this->vcs->getFile('file1', array('branch' => 'branch1'));
         $this->assertEquals(
-            array('master' => '160a468250615b713a7e33d34243530afc4682a9',
+            array('master' => '2d701be7faf94a5fad1942eb763b6c5c6cae540f',
                   //FIXME? 'branch1' => 'da46ee2e478c6d3a9963eaafcd8f43e83d630526'),
                   'branch1' => 'branch1'),
             $file->getBranches());
@@ -149,7 +149,7 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
         $this->assertEquals(array('tag1' => '160a468250615b713a7e33d34243530afc4682a9'),
                                   $file->getTags());
         $this->assertEquals(
-            array('master' => '160a468250615b713a7e33d34243530afc4682a9',
+            array('master' => '2d701be7faf94a5fad1942eb763b6c5c6cae540f',
                   'branch1' => 'da46ee2e478c6d3a9963eaafcd8f43e83d630526'),
             $file->getBranches());
         $this->assertFalse($file->isDeleted());
