@@ -65,7 +65,7 @@ $notification->notify(array('listeners' => 'status'));
 $view->notify = Horde::endBuffer();
 
 Horde::startBuffer();
-$form->renderActive(null, $vars, 'search.php', 'get');
+$form->renderActive(null, $vars, Horde::url('search.php'), 'get');
 $view->searchForm = Horde::endBuffer();
 
 $title = _("Search Forums");

@@ -61,7 +61,7 @@ $view = new Agora_View();
 $view->menu = Horde::menu();
 
 Horde::startBuffer();
-$form->renderActive(null, null, 'ban.php', 'post');
+$form->renderActive(null, null, Horde::url('ban.php'), 'post');
 $view->formbox = Horde::endBuffer();
 
 Horde::startBuffer();

@@ -67,5 +67,5 @@ if ($form->validate($vars)) {
 require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
-$form->renderActive($renderer, $vars, 'blacklist.php', 'post');
+$form->renderActive($renderer, $vars, Horde::url('blacklist.php'), 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

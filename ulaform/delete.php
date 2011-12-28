@@ -48,7 +48,7 @@ if ($form_submit == _("Delete")) {
 /* Render the form. */
 $renderer = new Horde_Form_Renderer();
 Horde::startBuffer();
-$delform->renderActive($renderer, $delvars, 'delete.php', 'post');
+$delform->renderActive($renderer, $delvars, Horde::url('delete.php'), 'post');
 $viewform->renderInactive($renderer, $viewvars);
 $main = Horde::endBuffer();
 

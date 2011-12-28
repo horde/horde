@@ -60,7 +60,7 @@ $view = new Agora_View();
 $view->menu = Horde::menu();
 
 Horde::startBuffer();
-$form->renderActive(null, null, 'editforum.php', 'post');
+$form->renderActive(null, null, Horde::url('editforum.php'), 'post');
 $view->main = Horde::endBuffer();
 
 Horde::startBuffer();

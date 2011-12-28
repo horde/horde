@@ -42,7 +42,7 @@ if ($command = trim(Horde_Util::getFormData('cmd'))) {
 }
 ?>
 
-<form action="cmdshell.php" method="post">
+<form action="<?php echo Horde::url('cmdshell.php') ?>" method="post">
 <?php Horde_Util::pformInput() ?>
 <label for="cmd" class="hidden"><?php echo _("Command") ?></label>
 <h1 class="header"><?php echo $title ?></h1>

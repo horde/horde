@@ -4,7 +4,7 @@ if (empty($url)) {
         ->add(array('month' => $month, 'year' => $year));
 }
 ?>
-<form action="delete.php" method="post" name="delete">
+<form action="<?php echo Horde::url('delete.php') ?>" method="post" name="delete">
 <?php echo Horde_Util::formInput() ?>
 <input type="hidden" name="year" value="<?php if (isset($year)) echo htmlspecialchars($year) ?>" />
 <input type="hidden" name="month" value="<?php if (isset($month)) echo htmlspecialchars($month) ?>" />

@@ -99,7 +99,7 @@ if ($formname && !$changed_type) {
 /* Render the form. */
 $view = new Horde_View(array('templatePath' => ULAFORM_TEMPLATES));
 Horde::startBuffer();
-$form->renderActive(new Horde_Form_Renderer(), $vars, 'genhtml.php', 'post');
+$form->renderActive(new Horde_Form_Renderer(), $vars, Horde::url('genhtml.php'), 'post');
 $view->inputform = Horde::endBuffer();
 $view->html = $html;
 

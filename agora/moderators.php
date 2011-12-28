@@ -78,7 +78,7 @@ $view = new Agora_View();
 $view->menu = Horde::menu();
 
 Horde::startBuffer();
-$form->renderActive(null, null, 'moderators.php', 'post');
+$form->renderActive(null, null, Horde::url('moderators.php'), 'post');
 $view->formbox = Horde::endBuffer();
 
 Horde::startBuffer();

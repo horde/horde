@@ -68,7 +68,7 @@ $view = new Agora_View();
 $view->menu = Horde::menu();
 
 Horde::startBuffer();
-$form->renderActive(null, $vars, 'lock.php', 'post');
+$form->renderActive(null, $vars, Horde::url('lock.php'), 'post');
 $view->formbox = Horde::endBuffer();
 
 Horde::startBuffer();

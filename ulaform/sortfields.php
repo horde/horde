@@ -46,7 +46,7 @@ if ($formname) {
 /* Render the form. */
 $view = new Horde_View(array('templatePath' => ULAFORM_TEMPLATES));
 Horde::startBuffer();
-$sortform->renderActive(new Horde_Form_Renderer(), $vars, 'sortfields.php', 'post');
+$sortform->renderActive(new Horde_Form_Renderer(), $vars, Horde::url('sortfields.php'), 'post');
 $view->main = Horde::endBuffer();
 
 require $registry->get('templates', 'horde') . '/common-header.inc';

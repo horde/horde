@@ -87,6 +87,6 @@ require WHUPS_TEMPLATES . '/prevnext.inc';
 $tabs = Whups::getTicketTabs($vars, $id);
 echo $tabs->render('comment');
 
-$commentForm->renderActive(new Horde_Form_Renderer(), $vars, 'comment.php', 'post');
+$commentForm->renderActive(new Horde_Form_Renderer(), $vars, Horde::url('comment.php'), 'post');
 
 require $registry->get('templates', 'horde') . '/common-footer.inc';
