@@ -312,7 +312,7 @@ class Horde_Vfs_File extends Horde_Vfs_Base
 
         // Otherwise we go ahead and try to write out the file.
         if (!@file_put_contents($this->_getNativePath($path, $name), $data)) {
-            throw new Horde_Vfs_Exception('Unable to write VFS file data.' . $this->_getNativePath($path, $name));
+            throw new Horde_Vfs_Exception('Unable to write VFS file data.');
         }
     }
 
