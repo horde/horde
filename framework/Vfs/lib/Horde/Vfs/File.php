@@ -148,8 +148,7 @@ class Horde_Vfs_File extends Horde_Vfs_Base
      * @return string  The file data.
      * @throws Horde_Vfs_Exception
      */
-    public function readByteRange($path, $name, &$offset, $length = -1,
-                                  &$remaining)
+    public function readByteRange($path, $name, &$offset, $length, &$remaining)
     {
         if ($offset < 0) {
             throw new Horde_Vfs_Exception(sprintf('Wrong offset %d while reading a VFS file.', $offset));
@@ -543,7 +542,7 @@ class Horde_Vfs_File extends Horde_Vfs_Base
      * @return array  Folder list.
      * @throws Horde_Vfs_Exception
      */
-    function listFolders($path = '', $filter = null, $dotfolders = true)
+    public function listFolders($path = '', $filter = null, $dotfolders = true)
     {
         $this->_connect();
 

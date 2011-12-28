@@ -277,7 +277,8 @@ class Horde_Vfs_Ftp extends Horde_Vfs_Base
             $result = @ftp_chdir($this->_stream, $this->_getPath($path, $name));
 
             $this->_setPath($olddir);
-        } catch (Horde_Vfs_Exception $e) {}
+        } catch (Horde_Vfs_Exception $e) {
+        }
 
         return $result;
     }
@@ -430,7 +431,7 @@ class Horde_Vfs_Ftp extends Horde_Vfs_Base
                 $list = ftp_rawlist($this->_stream, '-l');
             }
         } else {
-           $list = ftp_rawlist($this->_stream, '');
+            $list = ftp_rawlist($this->_stream, '');
         }
 
         if (!is_array($list)) {
@@ -496,17 +497,17 @@ class Horde_Vfs_Ftp extends Horde_Vfs_Base
                     $file['name'] = substr($file['name'], 0, strpos($file['name'], '->') - 1);
                     $file['type'] = '**sym';
 
-                   if ($this->isFolder('', $file['link'])) {
-                       $file['linktype'] = '**dir';
-                   } else {
-                       $parts = explode('/', $file['link']);
-                       $name = explode('.', array_pop($parts));
-                       if (count($name) == 1 || ($name[0] === '' && count($name) == 2)) {
-                           $file['linktype'] = '**none';
-                       } else {
-                           $file['linktype'] = Horde_String::lower(array_pop($name));
-                       }
-                   }
+                    if ($this->isFolder('', $file['link'])) {
+                        $file['linktype'] = '**dir';
+                    } else {
+                        $parts = explode('/', $file['link']);
+                        $name = explode('.', array_pop($parts));
+                        if (count($name) == 1 || ($name[0] === '' && count($name) == 2)) {
+                            $file['linktype'] = '**none';
+                        } else {
+                            $file['linktype'] = Horde_String::lower(array_pop($name));
+                        }
+                    }
                 } elseif ($p1 === 'd') {
                     $file['type'] = '**dir';
                 } else {
@@ -559,10 +560,8 @@ class Horde_Vfs_Ftp extends Horde_Vfs_Base
                 }
 
                 $file['name'] = $item[7];
-                $index = 8;
-                while ($index < count($item)) {
+                for ($index = 8, $c = count($item); $index < $c; $index++) {
                     $file['name'] .= ' ' . $item[$index];
-                    $index++;
                 }
             } else {
                 /* Handle Windows FTP servers returning DOS-style file
@@ -571,10 +570,8 @@ class Horde_Vfs_Ftp extends Horde_Vfs_Base
                 $file['owner'] = '';
                 $file['group'] = '';
                 $file['name'] = $item[3];
-                $index = 4;
-                while ($index < count($item)) {
+                for ($index = 4, $c = count($item); $index < $c; $index++) {
                     $file['name'] .= ' ' . $item[$index];
-                    $index++;
                 }
                 $file['date'] = strtotime($item[0] . ' ' . $item[1]);
                 if ($item[2] == '<DIR>') {

@@ -34,7 +34,7 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
      *
      * @var array
      */
-    var $_permissions = array(
+    protected var $_permissions = array(
         'owner' => array(
             'read' => true,
             'write' => true,
@@ -188,7 +188,7 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
         $this->_connect();
         $this->_checkQuotaWrite('file', $tmpFile);
 
-        if (!$this->_send($tmpFile, $this->_getPath($path, $name)))  {
+        if (!$this->_send($tmpFile, $this->_getPath($path, $name))) {
             if ($autocreate) {
                 $this->autocreatePath($path);
                 if ($this->_send($tmpFile, $this->_getPath($path, $name))) {
@@ -487,18 +487,18 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
                     $file['name'] = substr($file['name'], 0, strpos($file['name'], '->') - 1);
                     $file['type'] = '**sym';
 
-                   if ($this->isFolder('', $file['link'])) {
-                       $file['linktype'] = '**dir';
-                   } else {
-                       $parts = explode('/', $file['link']);
-                       $name = explode('.', array_pop($parts));
-                       if ((count($name) == 1) ||
-                           (($name[0] === '') && (count($name) == 2))) {
-                           $file['linktype'] = '**none';
-                       } else {
-                           $file['linktype'] = Horde_String::lower(array_pop($name));
-                       }
-                   }
+                    if ($this->isFolder('', $file['link'])) {
+                        $file['linktype'] = '**dir';
+                    } else {
+                        $parts = explode('/', $file['link']);
+                        $name = explode('.', array_pop($parts));
+                        if ((count($name) == 1) ||
+                            (($name[0] === '') && (count($name) == 2))) {
+                            $file['linktype'] = '**none';
+                        } else {
+                            $file['linktype'] = Horde_String::lower(array_pop($name));
+                        }
+                    }
                 } elseif ($p1 === 'd') {
                     $file['type'] = '**dir';
                 } else {
@@ -541,10 +541,8 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
                 }
                 $file['size'] = $item[3];
                 $file['name'] = $item[7];
-                $index = 8;
-                while ($index < count($item)) {
+                for ($index = 8, $c = count($item); $index < $c; $index++) {
                     $file['name'] .= ' ' . $item[$index];
-                    $index++;
                 }
             } else {
                 /* Handle Windows SSH2 servers returning DOS-style file
@@ -553,10 +551,8 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
                 $file['owner'] = '';
                 $file['group'] = '';
                 $file['name'] = $item[3];
-                $index = 4;
-                while ($index < count($item)) {
+                for ($index = 4, $c = count($item); $index < $c; $index++) {
                     $file['name'] .= ' ' . $item[$index];
-                    $index++;
                 }
                 $file['date'] = strtotime($item[0] . ' ' . $item[1]);
                 if ($item[2] == '<DIR>') {
@@ -607,7 +603,7 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
      *
      * @return boolean  True if it exists, false otherwise.
      */
-    function exists($path, $name)
+    public function exists($path, $name)
     {
         $conn = $this->_connect();
         if (is_a($conn, 'PEAR_Error')) {
