@@ -320,9 +320,10 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
                        // Only save what we need. Note that 'mod' is eq to the
                        // folder id, since that is the only thing that can
                        // change in a folder.
+                       $folder = $this->_backend->getFolder($value['id']);
                        $stat = array(
                            'id' => $value['id'],
-                           'mod' => (empty($value['mod']) ? $value['id'] : $value['mod']),
+                           'mod' => $folder->displayname,
                            'parent' => (empty($value['parent']) ? 0 : $value['parent'])
                        );
                        $this->_state[] = $stat;

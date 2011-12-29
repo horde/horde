@@ -145,8 +145,12 @@ class Horde_ActiveSync_Sync
                 $change = $this->_changes[$this->_step];
                 switch($change['type']) {
                 case Horde_ActiveSync::CHANGE_TYPE_CHANGE:
+                    // Get the new folder information
                     $folder = $this->_backend->getFolder($change['id']);
-                    $stat = $this->_backend->statFolder($change['id']);
+                    $stat = $this->_backend->statFolder(
+                        $change['id'],
+                        $folder->parentid,
+                        $folder->displayname);
                     if (!$folder) {
                         return;
                     }
