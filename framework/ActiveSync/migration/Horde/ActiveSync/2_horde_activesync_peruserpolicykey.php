@@ -16,7 +16,7 @@ class HordeActiveSyncPeruserpolicykey extends Horde_Db_Migration_Base
         $this->addColumn(
             'horde_activesync_device',
             'device_policykey',
-            'biginit',
+            'bigint',
             array('default' => 0));
 
         $this->removeColumn('horde_activesync_device_users', 'device_policykey');
