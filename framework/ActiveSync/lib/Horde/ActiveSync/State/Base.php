@@ -363,7 +363,10 @@ abstract class Horde_ActiveSync_State_Base
                 break;
             }
 
-            if ($old[$iold]['mod'] == $new[$inew]['mod']) {
+            // If ids are the same, but mod is different, a folder was
+            // renamed on the client, but the server keeps it's id.
+            // Not sure if this ever happens.
+            if ($old[$iold]['id'] == $new[$inew]['id']) {
                 // Both folders are still available compare mod
                 if ($old[$iold]['mod'] != $new[$inew]['mod']) {
                     $change['type'] = Horde_ActiveSync::CHANGE_TYPE_CHANGE;
@@ -374,26 +377,10 @@ abstract class Horde_ActiveSync_State_Base
 
                 $inew++;
                 $iold++;
-            } else {
-                if ($old[$iold]['mod'] > $new[$inew]['mod']) {
-                    // Folder in state seems to have disappeared (delete)
-                    $change['type'] = Horde_ActiveSync::CHANGE_TYPE_DELETE;
-                    $change['mod'] = $old[$iold]['mod'];
-                    $change['id'] = $old[$iold]['id'];
-                    $changes[] = $change;
-                    $iold++;
-                } else {
-                    // Folder in new seems to be new (add)
-                    $change['type'] = Horde_ActiveSync::CHANGE_TYPE_CHANGE;
-                    $change['flags'] = Horde_ActiveSync::FLAG_NEWMESSAGE;
-                    $change['mod'] = $new[$inew]['mod'];
-                    $change['id'] = $new[$inew]['id'];
-                    $changes[] = $change;
-                    $inew++;
-                }
             }
         }
 
+        // @TODO: Don't think this could ever happen (delete folder on client).
         while ($iold < count($old)) {
             // All data left in _syncstate have been deleted
             $change['type'] = Horde_ActiveSync::CHANGE_TYPE_DELETE;
@@ -403,6 +390,7 @@ abstract class Horde_ActiveSync_State_Base
             $iold++;
         }
 
+        // New folders added on server.
         while ($inew < count($new)) {
             // All data left in new have been added
             $change['type'] = Horde_ActiveSync::CHANGE_TYPE_CHANGE;
