@@ -124,8 +124,8 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
     public function loadState($syncKey, $type = null, $id = null)
     {
         $this->_type = $type;
-        if ($type == 'foldersync' && empty($id)) {
-            $id = 'foldersync';
+        if ($type == Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC && empty($id)) {
+            $id = Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC;
         }
         if (empty($syncKey)) {
             $this->_state = array();
@@ -166,13 +166,13 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
 
         // Restore any state or pending changes
         $data = unserialize($results['sync_data']);
-        if ($type == 'foldersync') {
+        if ($type == Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC) {
             $this->_state = ($data !== false) ? $data : array();
             $this->_logger->debug(
                 sprintf('[%s] Loading FOLDERSYNC state: %s',
                 $this->_devId,
                 print_r($this->_state, true)));
-        } elseif ($type == 'sync') {
+        } elseif ($type == Horde_ActiveSync::REQUEST_TYPE_SYNC) {
             $this->_changes = ($data !== false) ? $data : null;
             if ($this->_changes) {
                 $this->_logger->debug(
@@ -196,7 +196,8 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
     {
         // $stat == server's message information
          if ($stat['mod'] > $this->_lastSyncTS) {
-             if ($type == 'delete' || $type == 'change') {
+             if ($type == Horde_ActiveSync::CHANGE_TYPE_DELETE ||
+                 $type == Horde_ActiveSync::CHANGE_TYPE_CHANGE) {
                  // changed here - deleted there
                  // changed here - changed there
                  return true;
@@ -220,9 +221,9 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             . ' VALUES (?, ?, ?, ?, ?, ?)';
 
         // Remember any left over changes
-        if ($this->_type == 'foldersync') {
+        if ($this->_type == Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC) {
             $data = (isset($this->_state) ? serialize($this->_state) : '');
-        } elseif ($this->_type == 'sync') {
+        } elseif ($this->_type == Horde_ActiveSync::REQUEST_TYPE_SYNC) {
             $data = (isset($this->_changes) ? serialize(array_values($this->_changes)) : '');
         } else {
             $data = '';
@@ -233,7 +234,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             $data,
             $this->_devId,
             $this->_thisSyncTS,
-            !empty($this->_collection['id']) ? $this->_collection['id'] : 'foldersync',
+            !empty($this->_collection['id']) ? $this->_collection['id'] : Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC,
             $this->_deviceInfo->user);
         $this->_logger->debug(
             sprintf('[%s] Saving state: %s', $this->_devId, print_r($params, true)));
@@ -273,9 +274,9 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
      *
      * @return void
      */
-    public function updateState($type, array $change,
-                                $origin = Horde_ActiveSync::CHANGE_ORIGIN_NA,
-                                $user = null, $clientid = '')
+    public function updateState(
+        $type, array $change, $origin = Horde_ActiveSync::CHANGE_ORIGIN_NA,
+        $user = null, $clientid = '')
     {
         $this->_logger->debug('Updating state during ' . $type);
         if ($origin == Horde_ActiveSync::CHANGE_ORIGIN_PIM) {
@@ -305,7 +306,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
            // send all of them.
             foreach ($this->_changes as $key => $value) {
                if ($value['id'] == $change['id']) {
-                   if ($type == 'foldersync') {
+                   if ($type == Horde_ActiveSync::CHANGE_TYPE_FOLDERSYNC) {
                        foreach ($this->_state as $fi => $state) {
                            if ($state['id'] == $value['id']) {
                                unset($this->_state[$fi]);
@@ -795,6 +796,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
                 $changes = $this->_backend->getServerChanges(
                     $folderId, (int)$this->_lastSyncTS, (int)$this->_thisSyncTS, $cutoffdate);
             }
+
             // Unfortunately we can't use an empty synckey to detect an initial
             // sync. The AS protocol doesn't start looking for changes until
             // after the device/server negotiate a synckey. What we CAN do is
@@ -1074,9 +1076,9 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             . ' WHERE sync_devid = ? AND sync_folderid = ?';
         $values = array(
             $this->_devId,
-            !empty($this->_collection['id']) ?
-                $this->_collection['id'] :
-                'foldersync');
+            !empty($this->_collection['id'])
+                ? $this->_collection['id']
+                : Horde_ActiveSync::CHANGE_TYPE_FOLDERSYNC);
 
         $results = $this->_db->selectAll($sql, $values);
         $remove = array();

@@ -367,14 +367,14 @@ abstract class Horde_ActiveSync_State_Base
                 // Both messages are still available, compare flags and mod
                 if (isset($old[$iold]['flags']) && isset($new[$inew]['flags']) && $old[$iold]['flags'] != $new[$inew]['flags']) {
                     // Flags changed
-                    $change['type'] = 'flags';
+                    $change['type'] = Horde_ActiveSync::CHANGE_TYPE_FLAGS;
                     $change['id'] = $new[$inew]['id'];
                     $change['flags'] = $new[$inew]['flags'];
                     $changes[] = $change;
                 }
 
                 if ($old[$iold]['mod'] != $new[$inew]['mod']) {
-                    $change['type'] = 'change';
+                    $change['type'] = Horde_ActiveSync::CHANGE_TYPE_CHANGE;
                     $change['id'] = $new[$inew]['id'];
                     $changes[] = $change;
                 }
@@ -384,13 +384,13 @@ abstract class Horde_ActiveSync_State_Base
             } else {
                 if ($old[$iold]['id'] > $new[$inew]['id']) {
                     // Message in state seems to have disappeared (delete)
-                    $change['type'] = 'delete';
+                    $change['type'] = Horde_ActiveSync::CHANGE_TYPE_DELETE;
                     $change['id'] = $old[$iold]['id'];
                     $changes[] = $change;
                     $iold++;
                 } else {
                     // Message in new seems to be new (add)
-                    $change['type'] = 'change';
+                    $change['type'] = Horde_ActiveSync::CHANGE_TYPE_CHANGE;
                     $change['flags'] = Horde_ActiveSync::FLAG_NEWMESSAGE;
                     $change['id'] = $new[$inew]['id'];
                     $changes[] = $change;
@@ -401,7 +401,7 @@ abstract class Horde_ActiveSync_State_Base
 
         while ($iold < count($old)) {
             // All data left in _syncstate have been deleted
-            $change['type'] = 'delete';
+            $change['type'] = Horde_ActiveSync::CHANGE_TYPE_DELETE;
             $change['id'] = $old[$iold]['id'];
             $changes[] = $change;
             $iold++;
@@ -409,7 +409,7 @@ abstract class Horde_ActiveSync_State_Base
 
         while ($inew < count($new)) {
             // All data left in new have been added
-            $change['type'] = 'change';
+            $change['type'] = Horde_ActiveSync::CHANGE_TYPE_CHANGE;
             $change['flags'] = Horde_ActiveSync::FLAG_NEWMESSAGE;
             $change['id'] = $new[$inew]['id'];
             $changes[] = $change;

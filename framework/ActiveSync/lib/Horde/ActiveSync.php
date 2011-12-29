@@ -194,6 +194,17 @@ class Horde_ActiveSync
     const GAL_MOBILEPHONE               = 'GAL:MobilePhone';
     const GAL_EMAILADDRESS              = 'GAL:EmailAddress';
 
+    /* Request Type */
+    const REQUEST_TYPE_SYNC             = 'sync';
+    const REQUEST_TYPE_FOLDERSYNC       = 'foldersync';
+
+    /* Change Type */
+    const CHANGE_TYPE_CHANGE            = 'change';
+    const CHANGE_TYPE_DELETE            = 'delete';
+    const CHANGE_TYPE_FLAGS             = 'flags';
+    const CHANGE_TYPE_MOVE              = 'move';
+    const CHANGE_TYPE_FOLDERSYNC        = 'foldersync';
+
     /**
      * Logger
      *

@@ -210,7 +210,7 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
                     if ($type == 'flags') {
                         // Update flags
                         $this->_stateCache[$i]['flags'] = $change['flags'];
-                    } elseif ($type == 'delete') {
+                    } elseif ($type == Horde_ActiveSync::CHANGE_TYPE_DELETE) {
                         // Delete item
                         array_splice($this->_stateCache, $i, 1);
                     }

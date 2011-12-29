@@ -144,7 +144,7 @@ class Horde_ActiveSync_Sync
             if ($this->_step < count($this->_changes)) {
                 $change = $this->_changes[$this->_step];
                 switch($change['type']) {
-                case 'change':
+                case Horde_ActiveSync::CHANGE_TYPE_CHANGE:
                     $folder = $this->_backend->getFolder($change['id']);
                     $stat = $this->_backend->statFolder($change['id']);
                     if (!$folder) {
@@ -153,14 +153,16 @@ class Horde_ActiveSync_Sync
                     if ($flags & Horde_ActiveSync::BACKEND_DISCARD_DATA ||
                         $this->_exporter->folderChange($folder)) {
 
-                        $this->_stateMachine->updateState('foldersync', $stat);
+                        $this->_stateMachine->updateState(
+                            Horde_ActiveSync::CHANGE_TYPE_FOLDERSYNC, $stat);
                     }
                     break;
-                case 'delete':
+                case Horde_ActiveSync::CHANGE_TYPE_DELETE:
                     if ($flags & Horde_ActiveSync::BACKEND_DISCARD_DATA ||
                         $this->_exporter->folderDeletion($change['id'])) {
 
-                        $this->_stateMachine->updateState('foldersync', $change);
+                        $this->_stateMachine->updateState(
+                            Horde_ActiveSync::CHANGE_TYPE_FOLDERSYNC, $change);
                     }
                     break;
                 }
@@ -185,7 +187,7 @@ class Horde_ActiveSync_Sync
                 }
 
                 switch($change['type']) {
-                case 'change':
+                case Horde_ActiveSync::CHANGE_TYPE_CHANGE:
                     $truncsize = self::_getTruncSize($this->_truncation);
                     if (!$message = $this->_backend->getMessage($this->_folderId, $change['id'], $truncsize)) {
                         return false;
@@ -194,25 +196,29 @@ class Horde_ActiveSync_Sync
                     // copy the flag to the message
                     $message->flags = (isset($change['flags'])) ? $change['flags'] : 0;
                     if ($flags & Horde_ActiveSync::BACKEND_DISCARD_DATA || $this->_exporter->messageChange($change['id'], $message) == true) {
-                        $this->_stateMachine->updateState('change', $change);
+                        $this->_stateMachine->updateState(
+                            Horde_ActiveSync::CHANGE_TYPE_CHANGE, $change);
                     }
                     break;
 
-                case 'delete':
+                case Horde_ActiveSync::CHANGE_TYPE_DELETE:
                     if ($flags & Horde_ActiveSync::BACKEND_DISCARD_DATA || $this->_exporter->messageDeletion($change['id']) == true) {
-                        $this->_stateMachine->updateState('delete', $change);
+                        $this->_stateMachine->updateState(
+                            Horde_ActiveSync::CHANGE_TYPE_DELETE, $change);
                     }
                     break;
 
-                case 'flags':
+                case Horde_ActiveSync::CHANGE_TYPE_FLAGS:
                     if ($flags & Horde_ActiveSync::BACKEND_DISCARD_DATA || $this->_exporter->messageReadFlag($change['id'], $change['flags']) == true) {
-                        $this->_stateMachine->updateState('flags', $change);
+                        $this->_stateMachine->updateState(
+                            Horde_ActiveSync::CHANGE_TYPE_FLAGS, $change);
                     }
                     break;
 
-                case 'move':
+                case Horde_ActiveSync::CHANGE_TYPE_MOVE:
                     if ($flags & Horde_ActiveSync::BACKEND_DISCARD_DATA || $this->_exporter->messageMove($change['id'], $change['parent']) == true) {
-                        $this->_stateMachine->updateState('move', $change);
+                        $this->_stateMachine->updateState(
+                            Horde_ActiveSync::CHANGE_TYPE_MOVE, $change);
                     }
                     break;
                 }

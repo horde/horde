@@ -207,7 +207,10 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 }
 
                 try {
-                    $this->_state->loadState($collection['synckey'], 'sync', $collection['id']);
+                    $this->_state->loadState(
+                        $collection['synckey'],
+                        Horde_ActiveSync::REQUEST_TYPE_SYNC,
+                        $collection['id']);
                 } catch (Horde_ActiveSync_Exception $e) {
                     $this->_statusCode = self::STATUS_KEYMISM;
                     $this->_handleError($collection);

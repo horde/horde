@@ -107,7 +107,10 @@ class Horde_ActiveSync_Connector_Importer
         /* Changing an existing object */
         if ($id) {
             /* Check for conflicts */
-            $conflict = $this->_isConflict('change', $this->_folderId, $id);
+            $conflict = $this->_isConflict(
+                Horde_ActiveSync::CHANGE_TYPE_CHANGE,
+                $this->_folderId,
+                $id);
 
             /* Update client state before we attempt to save changes, so we
              * have a record of the change. This way, if the server change fails
@@ -120,7 +123,10 @@ class Horde_ActiveSync_Connector_Importer
             $change['mod'] = 0;
             $change['parent'] = $this->_folderId;
             $change['flags'] = (isset($message->read)) ? $message->read : 0;
-            $this->_state->updateState('change', $change, Horde_ActiveSync::CHANGE_ORIGIN_NA);
+            $this->_state->updateState(
+                Horde_ActiveSync::CHANGE_TYPE_CHANGE,
+                $change,
+                Horde_ActiveSync::CHANGE_ORIGIN_NA);
 
             /* If this is a conflict, see if the server wins */
             if ($conflict && $this->_flags == Horde_ActiveSync::CONFLICT_OVERWRITE_PIM) {
@@ -141,8 +147,11 @@ class Horde_ActiveSync_Connector_Importer
 
         /* Record the state of the message */
         $this->_state->updateState(
-            'change', $stat, Horde_ActiveSync::CHANGE_ORIGIN_PIM,
-            $this->_backend->getUser(), $clientid);
+            Horde_ActiveSync::CHANGE_TYPE_CHANGE,
+            $stat,
+            Horde_ActiveSync::CHANGE_ORIGIN_PIM,
+            $this->_backend->getUser(),
+            $clientid);
 
         return $stat['id'];
     }
@@ -163,14 +172,19 @@ class Horde_ActiveSync_Connector_Importer
         }
 
         /* Check for conflict */
-        $conflict = $this->_isConflict('delete', $this->_folderId, $id);
+        $conflict = $this->_isConflict(
+            Horde_ActiveSync::CHANGE_TYPE_DELETE, $this->_folderId, $id);
 
         /* Update client state */
         $change = array();
         $change['id'] = $id;
         $change['mod'] = time();
         $change['parent'] = $this->_folderId;
-        $this->_state->updateState('delete', $change, Horde_ActiveSync::CHANGE_ORIGIN_PIM, $this->_backend->getUser());
+        $this->_state->updateState(
+            Horde_ActiveSync::CHANGE_TYPE_DELETE,
+            $change,
+            Horde_ActiveSync::CHANGE_ORIGIN_PIM,
+            $this->_backend->getUser());
 
         /* If server wins the conflict, don't import change - it will be
          * detected on next sync and sent back to PIM (since we updated the PIM
@@ -202,7 +216,10 @@ class Horde_ActiveSync_Connector_Importer
         $change = array();
         $change['id'] = $id;
         $change['flags'] = $flags;
-        $this->_state->updateState('flags', $change, Horde_ActiveSync::CHANGE_ORIGIN_NA);
+        $this->_state->updateState(
+            Horde_ActiveSync::CHANGE_TYPE_FLAGS,
+            $change,
+            Horde_ActiveSync::CHANGE_ORIGIN_NA);
 
         /* Tell backend */
         $this->_backend->setReadFlag($this->_folderId, $id, $flags);
@@ -248,13 +265,19 @@ class Horde_ActiveSync_Connector_Importer
             $change['mod'] = $displayname;
             $change['parent'] = $parent;
             $change['flags'] = 0;
-            $this->_state->updateState('change', $change, Horde_ActiveSync::CHANGE_ORIGIN_NA);
+            $this->_state->updateState(
+                Horde_ActiveSync::CHANGE_TYPE_CHANGE,
+                $change,
+                Horde_ActiveSync::CHANGE_ORIGIN_NA);
         }
 
         /* Tell the backend */
         $stat = $this->_backend->ChangeFolder($parent, $id, $displayname, $type);
         if ($stat) {
-            $this->_state->updateState('change', $stat, Horde_ActiveSync::CHANGE_ORIGIN_NA);
+            $this->_state->updateState(
+                Horde_ActiveSync::CHANGE_TYPE_CHANGE,
+                $stat,
+                Horde_ActiveSync::CHANGE_ORIGIN_NA);
         }
 
         return $stat['id'];
@@ -278,7 +301,10 @@ class Horde_ActiveSync_Connector_Importer
         $change = array();
         $change['id'] = $id;
 
-        $this->_state->updateState('delete', $change, Horde_ActiveSync::CHANGE_ORIGIN_NA);
+        $this->_state->updateState(
+            Horde_ActiveSync::CHANGE_TYPE_DELETE,
+            $change,
+            Horde_ActiveSync::CHANGE_ORIGIN_NA);
         $this->_backend->deleteFolder($parent, $id);
 
         return true;
@@ -306,7 +332,7 @@ class Horde_ActiveSync_Connector_Importer
         $stat = $this->_backend->statMessage($folderid, $id);
         if (!$stat) {
             /* Message is gone, if type is change, this is a conflict */
-            if ($type == 'change') {
+            if ($type == Horde_ActiveSync::CHANGE_TYPE_CHANGE) {
                 return true;
             } else {
                 return false;
