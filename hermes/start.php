@@ -30,6 +30,6 @@ $title = _("Stop Watch");
 require $registry->get('templates', 'horde') . '/common-header.inc';
 
 $renderer = new Horde_Form_Renderer();
-$form->renderActive($renderer, $vars, 'start.php', 'post');
+$form->renderActive($renderer, $vars, Horde::url('start.php'), 'post');
 
 require $registry->get('templates', 'horde') . '/common-footer.inc';

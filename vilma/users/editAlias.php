@@ -96,7 +96,7 @@ $renderer = new Horde_Form_Renderer();
 $template = $injector->createInstance('Horde_Template');
 
 Horde::startBuffer();
-$form->renderActive($renderer, $vars, 'editAlias.php', 'post');
+$form->renderActive($renderer, $vars, Horde::url('editAlias.php'), 'post');
 $template->set('main', Horde::endBuffer());
 
 $template->set('menu', Horde::menu());

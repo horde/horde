@@ -40,7 +40,7 @@ class Horde_Vfs_Gc
                     $vfs->deleteFile($path, $val['name']);
                 }
             }
-        } catch (Horde_Vfs_Exception $e) {}
+        } catch (Horde_Vfs_Exception $e) {
+        }
     }
-
 }

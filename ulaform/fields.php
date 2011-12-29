@@ -106,7 +106,7 @@ $view->actions = $actions;
 
 /* Render the form. */
 Horde::startBuffer();
-$fieldform->renderActive(new Horde_Form_Renderer(), $vars, 'fields.php', 'post');
+$fieldform->renderActive(new Horde_Form_Renderer(), $vars, Horde::url('fields.php'), 'post');
 $view->inputform = Horde::endBuffer();
 
 /* Set up the field list. */

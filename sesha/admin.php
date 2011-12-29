@@ -252,11 +252,11 @@ echo $tabs->render(strpos($actionID, 'propert') === false ? 'list_categories' : 
 
 // Render forms if they are defined.
 if (isset($form)) {
-    $form->renderActive($renderer, $vars, 'admin.php', 'post');
+    $form->renderActive($renderer, $vars, Horde::url('admin.php'), 'post');
 }
 if (isset($form2)) {
     echo '<br />';
-    $form2->renderActive($renderer, $vars2, 'admin.php', 'post');
+    $form2->renderActive($renderer, $vars2, Horde::url('admin.php'), 'post');
 }
 
 require $registry->get('templates', 'horde') . '/common-footer.inc';

@@ -55,7 +55,7 @@ require_once 'Horde/Form/Renderer.php';
 $renderer = new Horde_Form_Renderer();
 
 Horde::startBuffer();
-$form->renderActive($renderer, $vars, 'send.php', 'post');
+$form->renderActive($renderer, $vars, Horde::url('send.php'), 'post');
 $send_form = Horde::endBuffer();
 
 /* Set up template. */

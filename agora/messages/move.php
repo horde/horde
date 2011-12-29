@@ -66,7 +66,7 @@ $view = new Agora_View();
 $view->menu = Horde::menu();
 
 Horde::startBuffer();
-$form->renderActive(null, $vars, 'move.php', 'post');
+$form->renderActive(null, $vars, Horde::url('move.php'), 'post');
 $view->formbox = Horde::endBuffer();
 
 $view->message_subject = $message['message_subject'];

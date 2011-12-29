@@ -56,7 +56,7 @@ require WHUPS_TEMPLATES . '/prevnext.inc';
 $tabs = Whups::getTicketTabs($vars, $id);
 echo $tabs->render('delete');
 
-$deleteform->renderActive($deleteform->getRenderer(), $vars, 'delete.php', 'post');
+$deleteform->renderActive($deleteform->getRenderer(), $vars, Horde::url('delete.php'), 'post');
 echo '<br />';
 
 $form = new Whups_Form_TicketDetails($vars, $ticket);

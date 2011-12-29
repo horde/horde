@@ -37,5 +37,5 @@ $title = $form->getTitle();
 require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Horde::menu();
 $notification->notify();
-echo $form->renderActive($form->getRenderer(), $vars, 'create.php', 'post');
+echo $form->renderActive($form->getRenderer(), $vars, Horde::url('create.php'), 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

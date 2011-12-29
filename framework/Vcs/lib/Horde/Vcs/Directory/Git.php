@@ -69,6 +69,11 @@ class Horde_Vcs_Directory_Git extends Horde_Vcs_Directory_Base
 
             list(, $type, , $file) = preg_split('/\s+/', $line, -1,
                                                 PREG_SPLIT_NO_EMPTY);
+            $file = preg_replace('/\\\\(\d+)/e', 'chr(0$1)', $file);
+            $file = str_replace(array('\\t', '\\n', '\\\\'),
+                                array("\t", "\n", '\\'),
+                                $file);
+            $file = trim($file, '"');
             if ($type == 'tree') {
                 $this->_dirs[] = basename($file);
             } else {

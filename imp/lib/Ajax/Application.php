@@ -146,13 +146,17 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             return false;
         }
 
+        $result = false;
+
         try {
-            $result = $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->createMailboxName(
+            $new_mbox = $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->createMailboxName(
                 isset($this->_vars->parent) ? IMP_Mailbox::formFrom($this->_vars->parent) : '',
                 $this->_vars->mbox
-            )->create();
+            );
 
-            if ($result) {
+            if ($new_mbox->exists) {
+                $GLOBALS['notification']->push(sprintf(_("Mailbox \"%s\" already exists."), $new_mbox->display), 'horde.warning');
+            } elseif ($new_mbox->create()) {
                 $result = new stdClass;
                 if (isset($this->_vars->parent) && $this->_vars->noexpand) {
                     $result->mailbox['noexpand'] = 1;
@@ -160,7 +164,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             }
         } catch (Horde_Exception $e) {
             $GLOBALS['notification']->push($e);
-            $result = false;
         }
 
         return $result;

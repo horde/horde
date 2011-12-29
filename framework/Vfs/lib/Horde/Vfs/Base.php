@@ -237,8 +237,7 @@ abstract class Horde_Vfs_Base
      * @return string  The file data.
      * @throws Horde_Vfs_Exception
      */
-    public function readByteRange($path, $name, &$offset, $length = -1,
-                                  &$remaining)
+    public function readByteRange($path, $name, &$offset, $length, &$remaining)
     {
         throw new Horde_Vfs_Exception('Not supported.');
     }

@@ -328,7 +328,7 @@ if ($session->get('horde', 'config/')) {
     }
     /* Render the form. */
     Horde::startBuffer();
-    $ftpform->renderActive(new Horde_Form_Renderer(), $vars, 'index.php', 'post');
+    $ftpform->renderActive(new Horde_Form_Renderer(), $vars, Horde::url('index.php'), 'post');
     $ftpform = Horde::endBuffer();
 }
 

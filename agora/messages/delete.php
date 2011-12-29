@@ -80,7 +80,7 @@ $notification->notify(array('listeners' => 'status'));
 $view->notify = Horde::endBuffer();
 
 Horde::startBuffer();
-$form->renderActive(null, $vars, 'delete.php', 'post');
+$form->renderActive(null, $vars, Horde::url('delete.php'), 'post');
 $view->formbox = Horde::endBuffer();
 
 require $registry->get('templates', 'horde') . '/common-header.inc';

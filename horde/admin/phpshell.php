@@ -41,7 +41,7 @@ require HORDE_TEMPLATES . '/admin/menu.inc';
 
 ?>
 <div>
-<form action="phpshell.php" method="post">
+<form action="<?php echo Horde::url('phpshell.php') ?>" method="post">
 <?php Horde_Util::pformInput() ?>
 
 <h1 class="header"><?php echo $title ?></h1>

@@ -27,5 +27,5 @@ $vars->set('location', array(SESHA_SEARCH_NAME));
 // Page display.
 require_once SESHA_TEMPLATES . '/common-header.inc';
 require_once SESHA_TEMPLATES . '/menu.inc';
-$form->renderActive($renderer, $vars, 'list.php', 'post');
+$form->renderActive($renderer, $vars, Horde::url('list.php'), 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

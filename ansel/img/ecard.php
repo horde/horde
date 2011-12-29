@@ -105,5 +105,5 @@ if ($editor->supportedByBrowser()) {
 
 require $registry->get('templates', 'horde') . '/common-header.inc';
 $notification->notify(array('listeners' => 'status'));
-$form->renderActive($renderer, $vars, 'ecard.php', 'post', 'multipart/form-data');
+$form->renderActive($renderer, $vars, Horde::url('ecard.php'), 'post', 'multipart/form-data');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

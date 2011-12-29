@@ -176,7 +176,7 @@ echo $queryTabs->render(Horde_Util::getFormData('action', 'edit'));
 
 if ($showExtraForm !== null) {
     $form = new $showExtraForm($vars);
-    $form->renderActive($form->getRenderer(), $vars, 'index.php');
+    $form->renderActive($form->getRenderer(), $vars, Horde::url('index.php'));
     echo '<br class="spacer" />';
 }
 

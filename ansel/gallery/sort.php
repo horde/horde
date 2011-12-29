@@ -69,7 +69,7 @@ $notification->notify(array('listeners' => 'status'));
 ?>
 <h1 class="header"><?php echo htmlspecialchars($title) ?></h1>
 <div class="instructions">
- <form action="sort.php" method="post">
+ <form action="<?php echo Horde::url('sort.php') ?>" method="post">
   <?php echo Horde_Util::formInput() ?>
   <input type="hidden" name="gallery" value="<?php echo (int)$galleryId ?>" />
   <input type="hidden" name="action" value="Sort" />

@@ -90,5 +90,5 @@ $title = $vars->exists('id') ? _("Edit Time") : _("New Time");
 require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
-$form->renderActive(new Horde_Form_Renderer(), $vars, 'entry.php', 'post');
+$form->renderActive(new Horde_Form_Renderer(), $vars, Horde::url('entry.php'), 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

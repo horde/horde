@@ -23,9 +23,6 @@ var HordeIdentitySelect = {
 
         this.identities[id].each(function(a) {
             var field = $(a[0]);
-            if (!field) {
-                return;
-            }
 
             switch (a[1]) {
             case "special":

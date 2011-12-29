@@ -64,10 +64,10 @@ require WHUPS_TEMPLATES . '/ticket/watchers.inc';
 
 $r = new Horde_Form_Renderer();
 
-$addform->renderActive($r, $vars, 'watch.php', 'post');
+$addform->renderActive($r, $vars, Horde::url('watch.php'), 'post');
 echo '<br class="spacer" />';
 
-$delform->renderActive($r, $vars, 'watch.php', 'post');
+$delform->renderActive($r, $vars, Horde::url('watch.php'), 'post');
 echo '<br class="spacer" />';
 
 $form = new Whups_Form_TicketDetails($vars, $ticket, '[#' . $id . '] ' . $ticket->get('summary'));
