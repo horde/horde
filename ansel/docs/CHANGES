@@ -2,6 +2,7 @@
 v2.0.1-git
 ----------
 
+[mjr] Fix issue with carousel display on legacy uploader.
 [mjr] Fix issue where gallery still retained image count after it was empties
       of all images when using gallery cache.
 [mjr] Fix issue with map not showing when user does not have Horde_Perms::EDIT

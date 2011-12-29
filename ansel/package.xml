@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix issue with carousel display on legacy uploader.
 * [mjr] Fix issue where gallery still retained image count after it was empties of all images when using gallery cache.
 * [mjr] Fix issue with map not showing when user does not have Horde_Perms::EDIT on the gallery (Bug #10762).
  </notes>
@@ -1266,6 +1267,7 @@
    <date>2011-11-02</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix issue with carousel display on legacy uploader.
 * [mjr] Fix issue where gallery still retained image count after it was empties of all images when using gallery cache.
 * [mjr] Fix issue with map not showing when user does not have Horde_Perms::EDIT on the gallery (Bug #10762).
    </notes>
