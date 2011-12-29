@@ -471,15 +471,15 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         case Horde_ActiveSync::FOLDER_TYPE_DRAFTS:
         case Horde_ActiveSync::FOLDER_TYPE_USER_MAIL:
             try {
-                $messageList = $this->_connector->mail_getMessageList($folder);
+                $messageList = $this->_connector->mail_getMessageList(
+                    $folder,
+                    array('sincedate' => (int)$cutoffdate));
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 $this->_endBuffer();
                 return array();
             }
-            foreach ($messageList as $message) {
-                $changes['add'][] = $message->getUid();
-            }
+            $changes['add'] = $messageList['ids'];
             break;
         }
 
