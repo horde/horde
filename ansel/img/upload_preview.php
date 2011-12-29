@@ -28,7 +28,10 @@ $style->height = 115;
 $from = (int)Horde_Util::getFormData('from');
 $to = (int)Horde_Util::getFormData('to');
 $count = $to - $from + 1;
+$old_mode = $gallery->get('view_mode');
+$gallery->set('view_mode', 'Normal');
 $images = $gallery->getImages($from, $count);
+$gallery->set('view_mode', $old_mode);
 foreach ($images as $image) {
     echo  '<li>';
     echo '<div>';
