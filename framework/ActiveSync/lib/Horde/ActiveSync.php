@@ -205,6 +205,12 @@ class Horde_ActiveSync
     const CHANGE_TYPE_MOVE              = 'move';
     const CHANGE_TYPE_FOLDERSYNC        = 'foldersync';
 
+    /* Collection Classes */
+    const CLASS_EMAIL = 'Email';
+    const CLASS_CONTACTS = 'Contacts';
+    const CLASS_CALENDAR = 'Calendar';
+    const CLASS_TASKS = 'Tasks';
+
     /**
      * Logger
      *
