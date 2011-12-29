@@ -101,10 +101,14 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             throw new InvalidArgumentException('Missing or invalid Horde_Db parameter.');
         }
 
+        // @TODO Horde 5 - no need to *require* these to be passed, the
+        // tables are created by migrations from within this package so we
+        // can assume table names here.
         $this->_syncStateTable = $params['statetable'];
         $this->_syncMapTable = $params['maptable'];
         $this->_syncDeviceTable = $params['devicetable'];
         $this->_syncUsersTable = $params['userstable'];
+
         $this->_db = $params['db'];
     }
 
@@ -114,7 +118,8 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
      * @param string $syncKey   The synckey of the state to load. If empty will
      *                          force a reset of the state for the class
      *                          specified in $id
-     * @prarm string $type      The type of state (sync, foldersync).
+     * @prarm string $type      The type of state a
+     *                          Horde_ActiveSync::REQUEST_TYPE constant.
      * @param string $id        The folder id this state represents. If empty
      *                          assumed to be a foldersync state.
      *
@@ -143,7 +148,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
         }
         $this->_syncKey = $syncKey;
 
-        // Cleanup all older syncstates
+        // Cleanup older syncstates
         $this->_gc($syncKey);
 
         // Load the previous syncState from storage
