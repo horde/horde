@@ -336,7 +336,7 @@ abstract class Horde_ActiveSync_State_Base
 
     /**
      * Helper function that performs the actual diff between PIM state and
-     * server state arrays.
+     * server state FOLDERSYNC arrays.
      *
      * @param array $old  The PIM state
      * @param array $new  The current server state
@@ -354,7 +354,7 @@ abstract class Horde_ActiveSync_State_Base
         $inew = 0;
         $iold = 0;
 
-        // Get changes by comparing our list of messages with
+        // Get changes by comparing our list of folders with
         // our previous state
         while (1) {
             $change = array();
@@ -363,18 +363,11 @@ abstract class Horde_ActiveSync_State_Base
                 break;
             }
 
-            if ($old[$iold]['id'] == $new[$inew]['id']) {
-                // Both messages are still available, compare flags and mod
-                if (isset($old[$iold]['flags']) && isset($new[$inew]['flags']) && $old[$iold]['flags'] != $new[$inew]['flags']) {
-                    // Flags changed
-                    $change['type'] = Horde_ActiveSync::CHANGE_TYPE_FLAGS;
-                    $change['id'] = $new[$inew]['id'];
-                    $change['flags'] = $new[$inew]['flags'];
-                    $changes[] = $change;
-                }
-
+            if ($old[$iold]['mod'] == $new[$inew]['mod']) {
+                // Both folders are still available compare mod
                 if ($old[$iold]['mod'] != $new[$inew]['mod']) {
                     $change['type'] = Horde_ActiveSync::CHANGE_TYPE_CHANGE;
+                    $change['mod'] = $new[$inew]['mod'];
                     $change['id'] = $new[$inew]['id'];
                     $changes[] = $change;
                 }
@@ -382,16 +375,18 @@ abstract class Horde_ActiveSync_State_Base
                 $inew++;
                 $iold++;
             } else {
-                if ($old[$iold]['id'] > $new[$inew]['id']) {
-                    // Message in state seems to have disappeared (delete)
+                if ($old[$iold]['mod'] > $new[$inew]['mod']) {
+                    // Folder in state seems to have disappeared (delete)
                     $change['type'] = Horde_ActiveSync::CHANGE_TYPE_DELETE;
+                    $change['mod'] = $old[$iold]['mod'];
                     $change['id'] = $old[$iold]['id'];
                     $changes[] = $change;
                     $iold++;
                 } else {
-                    // Message in new seems to be new (add)
+                    // Folder in new seems to be new (add)
                     $change['type'] = Horde_ActiveSync::CHANGE_TYPE_CHANGE;
                     $change['flags'] = Horde_ActiveSync::FLAG_NEWMESSAGE;
+                    $change['mod'] = $new[$inew]['mod'];
                     $change['id'] = $new[$inew]['id'];
                     $changes[] = $change;
                     $inew++;
@@ -402,6 +397,7 @@ abstract class Horde_ActiveSync_State_Base
         while ($iold < count($old)) {
             // All data left in _syncstate have been deleted
             $change['type'] = Horde_ActiveSync::CHANGE_TYPE_DELETE;
+            $change['mod'] = $old[$iold]['mod'];
             $change['id'] = $old[$iold]['id'];
             $changes[] = $change;
             $iold++;
@@ -411,6 +407,7 @@ abstract class Horde_ActiveSync_State_Base
             // All data left in new have been added
             $change['type'] = Horde_ActiveSync::CHANGE_TYPE_CHANGE;
             $change['flags'] = Horde_ActiveSync::FLAG_NEWMESSAGE;
+            $change['mod'] = $new[$inew]['mod'];
             $change['id'] = $new[$inew]['id'];
             $changes[] = $change;
             $inew++;
