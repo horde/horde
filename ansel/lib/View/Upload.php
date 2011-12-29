@@ -70,7 +70,6 @@ class Ansel_View_Upload
         $this->_handleFileUpload();
 
         // TODO: Configure which runtimes to allow?
-
         Horde::addScriptFile('plupload/plupload.js', 'horde');
         Horde::addScriptFile('plupload/plupload.flash.js', 'horde');
         Horde::addScriptFile('plupload/plupload.silverlight.js', 'horde');
