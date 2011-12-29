@@ -452,10 +452,14 @@ class Horde_Core_ActiveSync_Connector
         $query->envelope();
         $query->flags();
         $queryOpts = array('peek' => true);
-        if ($options['truncation']) {
-            $queryOpts['length'] = $options['truncation'];
-        }
+
+        // @TODO: Can't truncate here until I figure out how to get the
+        // plaintext part of MIME emails without having to parse fullMsg()
+        // if ($options['truncation']) {
+        //     $queryOpts['length'] = $options['truncation'];
+        // }
         $query->bodyText($queryOpts);
+        $query->fullText($queryOpts);
         $ids = new Horde_Imap_Client_Ids($messages);
         $mbox = new Horde_Imap_Client_Mailbox($folder->serverid);
         $messages = array();
@@ -474,11 +478,14 @@ class Horde_Core_ActiveSync_Connector
     /**
      * Builds a proper AS mail message object.
      *
-     * @param  Horde_Imap_Client_Data_Fetch $data  The fetch results.
+     * @param Horde_Imap_Client_Data_Fetch $data  The fetch results.
+     * @param array $options                      Additional Options:
+     *   -
      *
      * @return Horde_ActiveSync_Mail_Message
      */
-    protected function _buildMailMessage(Horde_Imap_Client_Data_Fetch $data, $options = array())
+    protected function _buildMailMessage(
+        Horde_Imap_Client_Data_Fetch $data, $options = array())
     {
         $message = new Horde_ActiveSync_Message_Mail();
         $envelope = $data->getEnvelope();
@@ -499,17 +506,29 @@ class Horde_Core_ActiveSync_Connector
 
         $message->subject = $envelope->subject_decoded;
         $message->datereceived = new Horde_Date((string)$envelope->date);
-        $message->body = $data->getBodyText();
+
+        // EAS 2.5 does not support MIME or HTML
+        // @TODO: Not sure if I'm supposed to need to parse the mail this way...
+        // I thought I'd be able to use $data->getStructure()->findBody() etc...
+        $body = $data->getFullMsg();
+        $msg = Horde_Mime_Part::parseMessage($data->getFullMsg());
+        $id = $msg->findBody();
+        if ($id) {
+            $message->body = $msg->getPart($id)->getContents();
+        } else {
+            // Not sure if we should just return an error text here or not.
+            $message->body = $data->getBodyText();
+        }
         $message->bodysize = strlen($message->body);
 
-        // truncation is taken care of when the message is requested.
+        // Can't truncate in the imap library for now, since we apparently need
+        // to parse the message to get the plaintext part.
         if($options['truncation']) {
+            $message->body = Horde_String::substr($message->body, 0, $options['truncation']);
             $message->bodytruncated = 1;
         } else {
             $output->bodytruncated = 0;
         }
-
-        // @TODO - truncate
 
         // @TODO: Parse out/detect at least meeting requests and notifications.
         $message->messageclass = 'IPM.Note';
