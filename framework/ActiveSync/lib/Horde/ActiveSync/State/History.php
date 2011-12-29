@@ -153,7 +153,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
 
         // Load the previous syncState from storage
         try {
-            $results = $this->_db->selectOne('SELECT sync_data, sync_devid, sync_time FROM '
+            $results = $this->_db->selectOne('SELECT sync_data, sync_devid, sync_time, sync_pending FROM '
                 . $this->_syncStateTable . ' WHERE sync_key = ?', array($this->_syncKey));
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
@@ -171,6 +171,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
 
         // Restore any state or pending changes
         $data = unserialize($results['sync_data']);
+        $pending = unserialize($results['sync_pending']);
         if ($type == Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC) {
             $this->_state = ($data !== false) ? $data : array();
             $this->_logger->debug(
@@ -178,7 +179,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
                 $this->_devId,
                 print_r($this->_state, true)));
         } elseif ($type == Horde_ActiveSync::REQUEST_TYPE_SYNC) {
-            $this->_changes = ($data !== false) ? $data : null;
+            $this->_changes = ($pending !== false) ? $pending : null;
             if ($this->_changes) {
                 $this->_logger->debug(
                     sprintf('[%s] Found %d changes remaining from previous SYNC.',
@@ -222,15 +223,18 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
     {
         // Update state table to remember this last synctime and key
         $sql = 'INSERT INTO ' . $this->_syncStateTable
-            . ' (sync_key, sync_data, sync_devid, sync_time, sync_folderid, sync_user)'
-            . ' VALUES (?, ?, ?, ?, ?, ?)';
+            . ' (sync_key, sync_data, sync_devid, sync_time, sync_folderid, sync_user, sync_pending)'
+            . ' VALUES (?, ?, ?, ?, ?, ?, ?)';
 
-        // Remember any left over changes
+        // Prepare state and pending data
         if ($this->_type == Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC) {
             $data = (isset($this->_state) ? serialize($this->_state) : '');
+            $pending = '';
         } elseif ($this->_type == Horde_ActiveSync::REQUEST_TYPE_SYNC) {
-            $data = (isset($this->_changes) ? serialize(array_values($this->_changes)) : '');
+            $pending = (isset($this->_changes) ? serialize(array_values($this->_changes)) : '');
+            $data = '';
         } else {
+            $pending = '';
             $data = '';
         }
 
@@ -240,7 +244,8 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             $this->_devId,
             $this->_thisSyncTS,
             !empty($this->_collection['id']) ? $this->_collection['id'] : Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC,
-            $this->_deviceInfo->user);
+            $this->_deviceInfo->user,
+            $pending);
         $this->_logger->debug(
             sprintf('[%s] Saving state: %s', $this->_devId, print_r($params, true)));
         try {
@@ -837,6 +842,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             $this->_changes = $this->_getDiff(
                 (empty($this->_state) ? array() : $this->_state),
                 $folderlist);
+
             $this->_logger->debug('[' . $this->_devId . '] Found ' . count($this->_changes) . ' folder changes');
         }
 
