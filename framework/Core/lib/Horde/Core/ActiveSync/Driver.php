@@ -401,7 +401,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         switch ($folder->type) {
         case Horde_ActiveSync::FOLDER_TYPE_APPOINTMENT:
             if ($from_ts == 0) {
-                /* Can't use History if it's a first sync */
+                // Can't use History if it's a first sync
                 $startstamp = (int)$cutoffdate;
                 $endstamp = time() + 32140800; //60 * 60 * 24 * 31 * 12 == one year
                 try {
@@ -423,7 +423,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             break;
 
         case Horde_ActiveSync::FOLDER_TYPE_CONTACT:
-            /* Can't use History for first sync */
+            // Can't use History for first sync
             if ($from_ts == 0) {
                 try {
                     $changes['add'] = $this->_connector->contacts_listUids();
@@ -445,7 +445,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             break;
 
         case Horde_ActiveSync::FOLDER_TYPE_TASK:
-            /* Can't use History for first sync */
+            // Can't use History for first sync
             if ($from_ts == 0) {
                 try {
                     $changes['add'] = $this->_connector->tasks_listUids();
@@ -485,7 +485,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
         $results = array();
 
-        /* Server additions */
+        // Server additions
         foreach ($changes['add'] as $add) {
             $results[] = array(
                 'id' => $add,
@@ -493,14 +493,14 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 'flags' => Horde_ActiveSync::FLAG_NEWMESSAGE);
         }
 
-        /* Server changes */
+        // Server changes
         foreach ($changes['modify'] as $change) {
             $results[] = array(
                 'id' => $change,
                 'type' => 'change');
         }
 
-        /* Server Deletions */
+        // Server Deletions
         foreach ($changes['delete'] as $deleted) {
             $results[] = array(
                 'id' => $deleted,
