@@ -60,6 +60,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             $collection['clientids'] = array();
             $collection['fetchids'] = array();
             $collection['windowsize'] = 100;
+            $collection['conflict'] = Horde_ActiveSync::CONFLICT_OVERWRITE_PIM;
 
             if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FOLDERTYPE)) {
                 throw new Horde_ActiveSync_Exception('Protocol error');
@@ -200,15 +201,9 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     $this->_state->setDeviceInfo($this->_device);
                 }
 
-                // compatibility mode - get folderid from the state directory
+                // Compatibility mode - get folderid from the state
                 if (!isset($collection['id'])) {
                     $collection['id'] = $this->_state->getFolderData($this->_device->id, $collection['class']);
-                }
-
-                // compatibility mode - set default conflict behavior if no
-                // conflict resolution algorithm is set
-                if (!isset($collection['conflict'])) {
-                    $collection['conflict'] = Horde_ActiveSync::CONFLICT_OVERWRITE_PIM;
                 }
 
                 try {
