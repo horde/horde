@@ -121,7 +121,7 @@ $notification->notify(array('listeners' => 'status'));
 $view->notify = Horde::endBuffer();
 
 Horde::startBuffer();
-$form->renderActive(null, $vars, Horde::url('edit.php'), 'post');
+$form->renderActive(null, $vars, Horde::url('message/edit.php'), 'post');
 $view->formbox = Horde::endBuffer();
 
 require $registry->get('templates', 'horde') . '/common-header.inc';

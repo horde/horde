@@ -100,7 +100,7 @@ $renderer = $form->getRenderer();
 $renderer->setAttrColumnWidth('50%');
 
 Horde::startBuffer();
-$form->renderActive($renderer, $vars, Horde::url('config.php'), 'post');
+$form->renderActive($renderer, $vars, Horde::url('admin/config/config.php'), 'post');
 $template->set('form', Horde::endBuffer());
 
 echo $template->fetch(HORDE_TEMPLATES . '/admin/config/config.html');

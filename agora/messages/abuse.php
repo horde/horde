@@ -85,7 +85,7 @@ $view = new Agora_View();
 $view->menu = Horde::menu();
 
 Horde::startBuffer();
-$form->renderActive(null, $vars, Horde::url('abuse.php'), 'post');
+$form->renderActive(null, $vars, Horde::url('message/abuse.php'), 'post');
 $view->formbox = Horde::endBuffer();
 
 Horde::startBuffer();

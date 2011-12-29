@@ -131,7 +131,7 @@ $share_template = new Horde_Template();
 
 // Buffer the form and notifications and send to the template
 Horde::startBuffer();
-$form->renderActive(null, $vars, Horde::url('share.php'), 'post');
+$form->renderActive(null, $vars, Horde::url('stories/share.php'), 'post');
 $share_template->set('main', Horde::endBuffer());
 
 Horde::startBuffer();

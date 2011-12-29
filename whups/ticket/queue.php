@@ -116,7 +116,7 @@ case 'sq2':
 
     $form1->renderInactive($r, $vars);
     echo '<br />';
-    $form2->renderActive($r, $vars, Horde::url('queue.php'), 'post');
+    $form2->renderActive($r, $vars, Horde::url('ticket/queue.php'), 'post');
     break;
 
 case 'sq3':
@@ -128,12 +128,12 @@ case 'sq3':
     echo '<br />';
     $form2->renderInactive($r, $vars);
     echo '<br />';
-    $form3->renderActive($r, $vars, Horde::url('queue.php'), 'post');
+    $form3->renderActive($r, $vars, Horde::url('ticket/queue.php'), 'post');
     break;
 
 default:
     $form1 = new Whups_Form_Queue_StepOne($vars, _("Set Queue - Step 1"));
-    $form1->renderActive($r, $vars, Horde::url('queue.php'), 'post');
+    $form1->renderActive($r, $vars, Horde::url('ticket/queue.php'), 'post');
     break;
 }
 

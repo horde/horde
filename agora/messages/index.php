@@ -204,7 +204,7 @@ if (!$messages->hasPermission(Horde_Perms::EDIT)) {
     $vars->set('message_body_old', $reply['body']);
     $form = $messages->getForm($vars, sprintf(_("Post a Reply to \"%s\""), $reply['message_subject']));
     Horde::startBuffer();
-    $form->renderActive(null, null, Horde::url('edit.php'), 'post', null, false);
+    $form->renderActive(null, null, Horde::url('message/edit.php'), 'post', null, false);
     $view->form = Horde::endBuffer();
 }
 
