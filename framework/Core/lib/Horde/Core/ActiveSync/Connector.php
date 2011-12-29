@@ -406,17 +406,32 @@ class Horde_Core_ActiveSync_Connector
     /**
      * Get a list of messages in the requested folder.
      *
-     * @param  Horde_ActiveSync_Message_Folder $folder  The mailbox folder.
+     * @param Horde_ActiveSync_Message_Folder $folder  The mailbox folder.
+     * @param array $options                           Additional Options:
+     *   -sincedate  (integer)  Timestamp of earliest message to retrieve.
+     *                          DEFAULT: 0 (Don't filter)
      *
-     * @return Horde_Imap_Client_Data_Fetch  The result set.
+     * @return array  The result set:
+     *   -count (integer)  The result count.
+     *   -ids   (array)    Array of UIDs.
+     *   -TODO (Do we need modseq and min/max?)
      */
-    public function mail_getMessageList($folder)
+    public function mail_getMessageList(
+        Horde_ActiveSync_Message_Folder $folder, $options = array())
     {
         $imap = $this->_registry->mail->imapOb();
-        $query = new Horde_Imap_Client_Fetch_Query();
         $mbox = new Horde_Imap_Client_Mailbox($folder->serverid);
+        $query = new Horde_Imap_Client_Search_Query();
+        $query->dateSearch(
+            new Horde_Date($options['sincedate']),
+            Horde_Imap_Client_Search_Query::DATE_SINCE);
 
-        return $imap->fetch($mbox, $query);
+        $results = $imap->search($mbox, $query);
+
+        return array(
+            'count' => $results['count'],
+            'ids'   => $results['match']->ids,
+        );
     }
 
     /**
