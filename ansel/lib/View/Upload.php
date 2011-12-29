@@ -140,7 +140,7 @@ EOT;
     /**
      * Handle uploads from non-js browsers
      */
-    public function handleNoJs()
+    public function handleLegacy()
     {
         global $conf, $notification, $browser;
 
