@@ -230,9 +230,11 @@ abstract class Horde_ActiveSync_Driver_Base
      * Get a list of server changes that occured during the specified time
      * period.
      *
-     * @param string $folderId    The server id of the collection to check.
-     * @param timestamp $from_ts  The starting timestamp
-     * @param timestamp $to_ts    The ending timestamp
+     * @param string $folderId     The server id of the collection to check.
+     * @param integer $from_ts     The starting timestamp
+     * @param integer $to_ts       The ending timestamp
+     * @param integer $cutoffdate  The earliest date to retrieve back to
+     * @param string $class        The collection class of the folder @since TODO
      *
      * @return array A list of messge uids that have chnaged in the specified
      *               time period.

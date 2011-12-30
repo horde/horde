@@ -383,7 +383,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * @param integer $to_ts       The ending timestamp
      * @param integer $cutoffdate  The earliest date to retrieve back to
      *
-     * @return array A list of messge uids that have chnaged in the specified
+     * @return array A list of messge uids that have changed in the specified
      *               time period.
      */
     public function getServerChanges($folderId, $from_ts, $to_ts, $cutoffdate)

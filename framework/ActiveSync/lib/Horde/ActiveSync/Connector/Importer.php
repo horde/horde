@@ -36,7 +36,7 @@ class Horde_ActiveSync_Connector_Importer
     protected $_backend;
 
     /**
-     * Flags
+     * Conflict resolution flags
      *
      * @var integer
      */
@@ -64,9 +64,9 @@ class Horde_ActiveSync_Connector_Importer
     /**
      * Initialize the exporter for this collection
      *
-     * @param Horde_ActiveSync_State_Base $state  The state machine
-     * @param string $folderId                    The collection's id
-     * @param integer $flags                      Any flags
+     * @param Horde_ActiveSync_State_Base $state  The state machine.
+     * @param string $folderId                    The collection's id.
+     * @param integer $flags                      Conflict resolution flags.
      */
     public function init(Horde_ActiveSync_State_Base &$state, $folderId, $flags = 0)
     {

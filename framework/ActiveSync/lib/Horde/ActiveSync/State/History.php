@@ -1,17 +1,35 @@
 <?php
 /**
- * Horde_History based state management. Needs a number of SQL tables present:
+ * Horde_ActiveSync_State_History
+ *
+ * PHP Version 5
+ *
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ * @copyright 2010-2011 Horde LLC (http://www.horde.org)
+ * @author    Michael J. Rubinsky <mrubinsk@horde.org>
+ * @link      http://pear.horde.org/index.php?package=ActiveSync
+ * @package   ActiveSync
+ */
+/**
+ * SQL based state management. Responsible for maintaining device state
+ * information such as last sync time, provisioning status, client-sent changes,
+ * and for calculating deltas between server and client.
+ *
+ * Needs a number of SQL tables present:
  * <pre>
  *    syncStateTable (horde_activesync_state):
- *        sync_time:  timestamp of last sync
- *        sync_key:   the syncKey for the last sync
- *        sync_data:  If the last sync resulted in a MOREAVAILABLE, this contains
- *                    a list of UIDs that still need to be sent to the PIM.  If
- *                    this sync_key represents a FOLDERSYNC state, then this
- *                    contains the current folder state on the PIM.
- *        sync_devid: The device id.
- *        sync_folderid: The folder id for this sync.
- *        sync_user:     The user for this synckey
+ *        sync_time:    - The timestamp of last sync
+ *        sync_key:     - The syncKey for the last sync
+ *        sync_pending: - If the last sync resulted in a MOREAVAILABLE, this
+ *                        contains a list of UIDs that still need to be sent to
+ *                        the client.
+ *        sync_data:    - Any state data that we need to track for the specific
+ *                        syncKey. Data such as current folder list on the client
+ *                        (for a FOLDERSYNC) and IMAP email UIDs (for Email
+ *                        collections during a SYNC).
+ *        sync_devid:   - The device id.
+ *        sync_folderid:- The folder id for this sync.
+ *        sync_user:    - The user for this synckey
  *
  *    syncMapTable (horde_activesync_map):
  *        message_uid    - The server uid for the object
@@ -23,26 +41,30 @@
  *        sync_user      - The user that initiated the change.
  *
  *    syncDeviceTable (horde_activesync_device):
- *        device_id      - The unique id for this device
- *        device_type    - The device type the PIM identifies itself with
- *        device_agent   - The user agent string sent by the device
+ *        device_id         - The unique id for this device
+ *        device_type       - The device type the PIM identifies itself with
+ *        device_agent      - The user agent string sent by the device
  *        device_policykey  - The current policykey for this device
  *        device_rwstatus   - The current remote wipe status for this device
  *
  *    syncUsersTable (horde_activesync_device_users):
- *        device_user    - A username attached to the device
- *        device_id      - The device id
- *        device_ping    - The account's ping state
- *        device_folders - Account's folder data
+ *        device_user      - A username attached to the device
+ *        device_id        - The device id
+ *        device_ping      - The account's ping state
+ *        device_folders   - Account's folder data
+ *        device_policykey - The provisioned policykey for this device/user
+ *                           combonation.
  * </pre>
- *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org)
  *
  * @TODO: H5 This driver should be renamed to Horde_ActiveSync_State_Sql since the
  *        History related changes have been refactored out to a Core library.
  *
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
- * @package ActiveSync
+ *
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ * @copyright 2010-2011 Horde LLC (http://www.horde.org)
+ * @author    Michael J. Rubinsky <mrubinsk@horde.org>
+ * @link      http://pear.horde.org/index.php?package=ActiveSync
+ * @package   ActiveSync
  */
 class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
 {
@@ -457,13 +479,13 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
     }
 
     /**
-     * Obtain the device object. For this driver, we also store the PING data
-     * in the device table.
+     * Obtain the device object. We also store the PING data in the device
+     * table.
      *
      * @param string $devId   The device id to obtain
      * @param string $user    The user to retrieve user-specific device info for
      *
-     * @return StdClass The device obejct
+     * @return StdClass The device object
      * @throws Horde_ActiveSync_Exception
      */
     public function loadDeviceInfo($devId, $user)
