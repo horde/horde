@@ -510,7 +510,6 @@ class Horde_Core_ActiveSync_Connector
         // EAS 2.5 does not support MIME or HTML
         // @TODO: Not sure if I'm supposed to need to parse the mail this way...
         // I thought I'd be able to use $data->getStructure()->findBody() etc...
-        $body = $data->getFullMsg();
         $msg = Horde_Mime_Part::parseMessage($data->getFullMsg());
         $id = $msg->findBody();
         if ($id) {
