@@ -533,7 +533,7 @@ class Horde_Core_ActiveSync_Connector
         $message->messageclass = 'IPM.Note';
 
         // Seen flag
-        if (array_search('/seen', $data->getFlags())) {
+        if (array_search('\seen', $data->getFlags()) !== false) {
             $message->read = 1;
         } else {
             $message->read = 0;
