@@ -563,7 +563,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         case Horde_ActiveSync::FOLDER_TYPE_DRAFTS:
         case Horde_ActiveSync::FOLDER_TYPE_USER_MAIL:
             // Build the email object.
-            $messages = $this->_connector->mail_getMessages($folder, $id, array('truncation' => $truncsize));
+            $messages = $this->_connector->mail_getMessages(
+                $folder,
+                $id,
+                array('truncation' => $truncsize));
             $this->_endBuffer();
             return array_pop($messages);
             break;
