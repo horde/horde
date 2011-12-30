@@ -890,7 +890,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     private function _getMailFolder($sid, $f)
     {
-        //$this->_logger->debug(sprintf('Horde_ActiveSync_Driver_Horde::_getMailFolder(%s, %s)', $sid, print_r($f, true)));
         $folder = new Horde_ActiveSync_Message_Folder();
         $folder->serverid = $sid;
         $folder->displayname = $f['label'];
