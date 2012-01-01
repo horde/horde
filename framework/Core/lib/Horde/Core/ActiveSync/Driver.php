@@ -963,9 +963,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
     /**
      *
-     * @param string $folderid  The folder id
-     * @param string $id        The message id
-     * @param mixed $hint       @TODO: Figure out what, exactly, this does :)
+     * @param string  $folderid  The folder id
+     * @param string  $id        The message id
+     * @param boolean $hint      Use the cached data, if available?
      *
      * @return message stat hash
      */
@@ -976,11 +976,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $statKey = $folderid . $id;
         $mod = false;
 
-        if ($hint !== false && isset($this->_modCache[$statKey])) {
+        if ($hint && isset($this->_modCache[$statKey])) {
             $mod = $this->_modCache[$statKey];
-        } elseif (is_int($hint)) {
-            $mod = $hint;
-            $this->_modCache[$statKey] = $mod;
         } else {
             try {
                 switch ($folderid) {
