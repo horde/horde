@@ -153,7 +153,7 @@ abstract class Horde_ActiveSync_Request_Base
 
          // Use looseprovisioning?
          if (empty($sentKey) && $this->_hasBrokenProvisioning() && $this->_provisioning == 'loose') {
-             $sentKey = null;
+            $sentKey = null;
          }
 
         // Don't attempt if we don't care
