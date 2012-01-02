@@ -467,7 +467,7 @@ class Horde_Translation_Script
                 . ' --sort-output'
                 . ' --package-name=' . ($this->apps[$i] == 'imp' ? 'IMP' : ucfirst($this->apps[$i]))
                 . ' --package-version="' . $version . '"'
-                . ' --copyright-holder="Horde Project"'
+                . ' --copyright-holder="Horde LLC (http://www.horde.org/)"'
                 . ' --msgid-bugs-address="dev@lists.horde.org"'
                 . ' --files-from=' . $file . '.list'
                 . ' --output=' . $tmp_file;
