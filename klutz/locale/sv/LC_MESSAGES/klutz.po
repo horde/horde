@@ -1,5 +1,5 @@
 # Klutz Swedish translation
-# Copyright (C) 2002-2006 Horde Project
+# Copyright 2002-2006 Horde LLC
 # This file is distributed under the same license as the Klutz package.
 # Joaquim Homrighausen <joho@webbplatsen.se>, 2006.
 # Andreas Dahlén <andreas@dahlen.ws>, 2002.
