@@ -48,7 +48,7 @@ class Text_Wiki_Parse_Blockquote extends Text_Wiki_Parse {
     * 
     */
     
-    var $regex = '/\n((\>).*\n)(?!(\>))/Us';
+    var $regex = '/\n(\>+ .*\n)(?!\>+ )/Us';
     
     
     /**
@@ -76,14 +76,14 @@ class Text_Wiki_Parse_Blockquote extends Text_Wiki_Parse {
     function process(&$matches)
     {
         // the replacement text we will return to parse()
-        $return = "\n";
+        $return = '';
         
         // the list of post-processing matches
         $list = array();
         
-        // $matches[1] is the text matched as a list set by parse();
+        // $matches[1] is the text matched as a blockquote by parse();
         // create an array called $list that contains a new set of
-        // matches for the various list-item elements.
+        // matches for the various blockquote lines.
         preg_match_all(
             '=^(\>+) (.*\n)=Ums',
             $matches[1],
@@ -93,25 +93,22 @@ class Text_Wiki_Parse_Blockquote extends Text_Wiki_Parse {
         
         $curLevel = 0;
 
-        // loop through each list-item element.
+        // loop through each blockquote line.
         foreach ($list as $key => $val) {
             
-            // $val[0] is the full matched list-item line
+            // $val[0] is the full matched line
             // $val[1] is the number of initial '>' chars (indent level)
             // $val[2] is the quote text
             
             // we number levels starting at 1, not zero
             $level = strlen($val[1]);
             
-            // add a level to the list?
+            // add a level?
             while ($level > $curLevel) {
                 // the current indent level is greater than the number
                 // of stack elements, so we must be starting a new
-                // level.  push the new level onto the stack with a 
-                // dummy value (boolean true)...
+                // level.
                 ++$curLevel;
-                
-                //$return .= "\n";
                 
                 // ...and add a start token to the return.
                 $return .= $this->wiki->addToken(
@@ -121,8 +118,6 @@ class Text_Wiki_Parse_Blockquote extends Text_Wiki_Parse {
                         'level' => $curLevel
                     )
                 );
-                
-                //$return .= "\n\n";
             }
             
             // remove a level?
@@ -133,8 +128,6 @@ class Text_Wiki_Parse_Blockquote extends Text_Wiki_Parse {
                 // continue adding end-list tokens until the stack count
                 // and the indent level are the same.
                 
-                //$return .= "\n\n";
-                
                 $return .= $this->wiki->addToken(
                     $this->rule, 
                     array (
@@ -143,7 +136,6 @@ class Text_Wiki_Parse_Blockquote extends Text_Wiki_Parse {
                     )
                 );
                 
-                //$return .= "\n";
                 --$curLevel;
             }
             
@@ -151,14 +143,7 @@ class Text_Wiki_Parse_Blockquote extends Text_Wiki_Parse {
             $return .= $val[2];
         }
         
-        // the last char of the matched pattern must be \n but we don't
-        // want this to be inside the tokens
-        $return = substr($return, 0, -1);
-        
-        // the last line may have been indented.  go through the stack
-        // and create end-tokens until the stack is empty.
-        //$return .= "\n";
-
+        // close the pending levels
         while ($curLevel > 0) {
             $return .= $this->wiki->addToken(
                 $this->rule, 
@@ -170,9 +155,6 @@ class Text_Wiki_Parse_Blockquote extends Text_Wiki_Parse {
             --$curLevel;
         }
         
-        // put back the trailing \n
-        $return .= "\n";
-
         // we're done!  send back the replacement text.
         return $return;
     }
