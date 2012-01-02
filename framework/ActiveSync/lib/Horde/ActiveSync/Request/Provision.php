@@ -80,18 +80,26 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
             $policytype = self::POLICYTYPE_XML;
         } else {
             if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_POLICIES) ||
-                !$this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_POLICY) ||
-                !$this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_POLICYTYPE)) {
+                !$this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_POLICY)) {
 
                 return $this->_globalError(self::STATUS_PROTERROR);
             }
 
-            $policytype = $this->_decoder->getElementContent();
-            if ($policytype != self::POLICYTYPE_XML) {
-                $policyStatus = self::STATUS_POLICYUNKNOWN;
-            }
-            if (!$this->_decoder->getElementEndTag()) {//policytype
-                return $this->_globalError(self::STATUS_PROTERROR);
+            // iOS (at least 5.0.1) incorrectly sends a STATUS tag before the
+            // REMOTEWIPE response.
+            if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_POLICYTYPE)) {
+                if ($this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_STATUS)) {
+                    $this->_decoder->getElementContent();
+                    $this->_decoder->getElementEndTag(); // status
+                }
+            } else {
+                $policytype = $this->_decoder->getElementContent();
+                if ($policytype != self::POLICYTYPE_XML) {
+                    $policyStatus = self::STATUS_POLICYUNKNOWN;
+                }
+                if (!$this->_decoder->getElementEndTag()) {//policytype
+                    return $this->_globalError(self::STATUS_PROTERROR);
+                }
             }
 
             // Check to be sure that we *need* to PROVISION
