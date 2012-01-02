@@ -2,7 +2,7 @@
 # FIRST AUTHOR <duck@obala.net>, 2007.
 # Marko Milost <marko.milost@obala.si>, 2008.
 # Usms translation.
-# Copyright (C) 2007 Horde Project
+# Copyright 2007-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the FOlks package.
 msgid ""
 msgstr ""

@@ -1130,13 +1130,13 @@ span.readonlyImg {
 }
 
 /* Growler notification styles. */
-#Growler div.imp-reply, span.imp-reply {
+.imp-reply {
     background-image: url("../graphics/mail_answered.png");
 }
-#Growler div.imp-reply_all, span.imp-reply_all {
+.imp-reply_all, .imp-reply_list {
     background-image: url("../graphics/replyall.png");
 }
-#Growler div.imp-forward, div.imp-redirect, span.imp-forward, span.imp-redirect {
+.imp-forward, .imp-redirect {
     background-image: url("../graphics/mail_forwarded.png");
 }
 

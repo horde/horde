@@ -1,6 +1,6 @@
 # Italian translation for sam package
 # Traduzione Italiana per il pacchetto sam
-# Copyright (C) 2009 Horde Project
+# Copyright 2009-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the sam package.
 # Automatically generated, 2009.
 #

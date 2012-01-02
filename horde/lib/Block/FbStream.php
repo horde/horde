@@ -4,7 +4,7 @@
  * filter it using the same Facebook filters available on facebook.com.  Also
  * provides ability to update the current user's status.
  *
- * Copyright 2009-2011 Horde LLC (http://www.horde.org)
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Horde

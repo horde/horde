@@ -1,6 +1,6 @@
 # German translations for SAM package
 # German messages for SAM.
-# Copyright 2002-2011 Horde LLC
+# Copyright 2002-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the SAM package.
 # Jan Schneider <jan@horde.org>, 2002-2006.
 #

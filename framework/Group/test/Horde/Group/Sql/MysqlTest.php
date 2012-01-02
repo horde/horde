@@ -5,11 +5,12 @@
 require_once dirname(__FILE__) . '/Base.php';
 
 /**
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ *
  * @author     Jan Schneider <jan@horde.org>
  * @category   Horde
  * @package    Group
  * @subpackage UnitTests
- * @copyright  2010 Horde LLC (http://www.horde.org/)
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
 class Horde_Group_Sql_MysqlTest extends Horde_Group_Test_Sql_Base

@@ -3,7 +3,7 @@
  * Ansel_Ajax_Imple_UploadNotification:: class provides an API for sending
  * notification to various services after uploading images to a gallery.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel

@@ -1,25 +1,15 @@
 <?php
 /**
- * @category   Horde
- * @package    Support
- * @copyright  2008-2009 Horde LLC (http://www.horde.org/)
- * @license    http://www.horde.org/licenses/bsd
- */
-
-/**
  * Class for generating RFC 4122 UUIDs. Usage:
  *
  * <code>
- *  <?php
- *
- *  $uuid = (string)new Horde_Support_Uuid;
- *
- *  ?>
+ * $uuid = (string)new Horde_Support_Uuid;
  * </code>
+ *
+ * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
  *
  * @category   Horde
  * @package    Support
- * @copyright  2008-2009 Horde LLC (http://www.horde.org/)
  * @license    http://www.horde.org/licenses/bsd
  */
 class Horde_Support_Uuid

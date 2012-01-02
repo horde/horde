@@ -14,7 +14,7 @@
 /**
  * This provider fetches the data from a remote server by passing it through.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If
  * you did not receive this file, see

@@ -1,12 +1,5 @@
 <?php
 /**
- * @category   Horde
- * @copyright  2010-2011 Horde LLC (http://www.horde.org/)
- * @license    http://www.horde.org/licenses/bsd BSD
- * @package    Support
- */
-
-/**
  * Class for generating a 23-character random ID string. This string uses all
  * characters in the class [-_0-9a-zA-Z].
  *
@@ -14,11 +7,12 @@
  * $id = (string)new Horde_Support_Randomid();
  * </code>
  *
- * @author     Michael Slusarz <slusarz@horde.org>
- * @category   Horde
- * @copyright  2010-2011 Horde LLC (http://www.horde.org/)
- * @license    http://www.horde.org/licenses/bsd BSD
- * @package    Support
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ *
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/bsd BSD
+ * @package  Support
  */
 class Horde_Support_Randomid
 {

@@ -1,6 +1,6 @@
 # Polish translations for Mnemo package
 # Polskie tlumaczenia dla pakietu Mnemo.
-# Copyright 2005-2009 Horde LLC
+# Copyright 2005-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Mnemo package.
 # Mateusz Kaminski <matipl@pld-linux.org>, 2005.
 # Piotr Tarnowski <drfugazi@drfugazi.eu.org>, 2007.

@@ -6,7 +6,7 @@
  * Instances of this class are created during the XML parsing by
  * Horde_SyncMl_Command_Sync.
  *
- * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.

@@ -1,5 +1,5 @@
 # Finnish translation for Klutz.
-# Copyright (C)
+# Copyright
 # Leena Heino <liinu@uta.fi>, 2003-2004.
 #
 msgid ""

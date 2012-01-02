@@ -9,7 +9,7 @@ require_once 'Horde/Form/Type.php';
  * other functionality for the Horde Application Framework.
  *
  * Copyright 2001-2007 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.

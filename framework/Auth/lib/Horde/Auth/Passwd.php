@@ -4,7 +4,7 @@
  * the Horde authentication system.
  *
  * Copyright 1997-2007 Rasmus Lerdorf <rasmus@php.net>
- * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, http://www.horde.org/licenses/lgpl21

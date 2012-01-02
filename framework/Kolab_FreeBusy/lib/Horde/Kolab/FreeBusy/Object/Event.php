@@ -18,7 +18,7 @@
  * A reduced event representation derived from the Kronolith event
  * representation.
  *
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  * Copyright 2004-2008 Klarälvdalens Datakonsult AB
  * Copyright 2011 Kolab Systems AG
  *
