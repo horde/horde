@@ -30,6 +30,7 @@ class Text_Wiki_Render_Xhtml_Toc extends Text_Wiki_Render {
         'css_item' => null,
         'title' => '<strong>Table of Contents</strong>',
         'div_id' => 'toc',
+        'base_url' => '',
         'collapse' => true
     );
 
@@ -102,7 +103,7 @@ class Text_Wiki_Render_Xhtml_Toc extends Text_Wiki_Render {
             $pad = ($level - $this->min);
             $html .= " style=\"margin-left: {$pad}em;\">";
 
-            $html .= "<a href=\"#$id\">";
+            $html .= '<a href="' . $this->getConf('base_url') . '#' . $id . '">';
             return $html;
             break;
 
