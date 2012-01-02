@@ -182,6 +182,7 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
                 $this->_state->setPolicyKey($this->_device->id, $policykey);
                 $this->_state->setDeviceRWStatus($this->_device->id, Horde_ActiveSync::RWSTATUS_OK);
             }
+            $this->_cleanUpAfterPairing();
         } elseif (empty($policykey)) {
             // This is phase2 - we need to set the intermediate key
             $policykey = $this->_state->generatePolicyKey();
