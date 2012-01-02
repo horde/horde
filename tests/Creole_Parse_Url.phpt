@@ -1,10 +1,7 @@
 --TEST--
 Text_Wiki_Creole_Parse_Url
---SKIPIF--
-<?php require_once dirname(__FILE__).'/skipif.php'; ?>
 --FILE--
 <?php
-include 'config.php';
 require_once 'Text/Wiki.php';
 $t = Text_Wiki::factory('Creole', array('Url'));
 $t->parse('
