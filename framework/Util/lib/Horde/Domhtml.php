@@ -1,19 +1,13 @@
 <?php
 /**
- * @category   Horde
- * @package    Util
- * @copyright  2010 Horde LLC (http://www.horde.org/)
- * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
- */
-
-/**
  * Utility class to help in loading DOM data from HTML strings.
  *
- * @author     Michael Slusarz <slusarz@horde.org>
- * @category   Horde
- * @package    Util
- * @copyright  2010 Horde LLC (http://www.horde.org/)
- * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ *
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @package  Util
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
 class Horde_Domhtml
 {

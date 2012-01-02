@@ -5,14 +5,14 @@
 require_once dirname(__FILE__) . '/../Autoload.php';
 
 /**
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
+ *
  * @author     Michael J Rubinsky <mrubinsk@horde.org>
  * @category   Horde
  * @package    Image
  * @subpackage UnitTests
- * @copyright  2011 Horde LLC (http://www.horde.org/)
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
-
 class Horde_Image_Test_Exif_Base extends Horde_Test_Case
 {
     /**

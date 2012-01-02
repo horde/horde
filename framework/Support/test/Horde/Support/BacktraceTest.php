@@ -1,9 +1,10 @@
 <?php
 /**
+ * Copyright 2007-2011 Horde LLC (http://www.horde.org/)
+ *
  * @category   Horde
  * @package    Support
  * @subpackage UnitTests
- * @copyright  2007-2009 Horde LLC (http://www.horde.org/)
  * @license    http://www.horde.org/licenses/bsd
  */
 
@@ -18,11 +19,9 @@ function backtraceTestFunction()
 }
 
 /**
- * @group      support
  * @category   Horde
  * @package    Support
  * @subpackage UnitTests
- * @copyright  2007-2009 Horde LLC (http://www.horde.org/)
  * @license    http://www.horde.org/licenses/bsd
  */
 class Horde_Support_BacktraceTest extends PHPUnit_Framework_TestCase

@@ -2,6 +2,9 @@
 /**
  * The main Horde_Ldap class.
  *
+ * Copyright 2003-2007 Tarjej Huse, Jan Wagner, Del Elson, Benedikt Hallinger
+ * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
+ *
  * @package   Ldap
  * @author    Tarjej Huse <tarjei@bergfald.no>
  * @author    Jan Wagner <wagner@netsols.de>
@@ -10,8 +13,6 @@
  * @author    Ben Klang <ben@alkaloid.net>
  * @author    Chuck Hagenbuch <chuck@horde.org>
  * @author    Jan Schneider <jan@horde.org>
- * @copyright 2009-2011 Horde LLC (http://www.horde.org/)
- * @copyright 2003-2007 Tarjej Huse, Jan Wagner, Del Elson, Benedikt Hallinger
  * @license   http://www.gnu.org/licenses/lgpl-3.0.txt LGPLv3
  */
 class Horde_Ldap

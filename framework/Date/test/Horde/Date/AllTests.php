@@ -1,9 +1,10 @@
 <?php
 /**
+ * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
+ *
  * @category   Horde
  * @package    Date
  * @subpackage UnitTests
- * @copyright  2008-2010 Horde LLC (http://www.horde.org/)
  * @license    http://www.horde.org/licenses/bsd
  */
 

@@ -10,7 +10,6 @@
  * @category   Horde
  * @package    Support
  * @subpackage UnitTests
- * @copyright  2008-2010 Horde LLC (http://www.horde.org/)
  * @license    http://www.horde.org/licenses/bsd
  */
 

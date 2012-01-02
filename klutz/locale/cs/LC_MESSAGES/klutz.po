@@ -1,5 +1,5 @@
 # Czech Translation for Klutz package
-# Copyright (C) 2002 Pavel Chytil.
+# Copyright 2002 Pavel Chytil.
 # This file is distributed under the same license as the Klutz package.
 # Pavel Chytil <pavel@chytil.tk>, 2002
 #

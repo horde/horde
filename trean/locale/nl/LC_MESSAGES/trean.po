@@ -1,5 +1,5 @@
 # Dutch translations for Trean package.
-# Copyright 2005-2009 Horde LLC (http://www.horde.org/)
+# Copyright 2005-2011 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Trean package.
 # Automatically generated, 2005.
 #

@@ -2,7 +2,7 @@
 /**
  * Horde_ActiveSync_Message_Task class represents a single ActiveSync Task.
  *
- * @copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package ActiveSync
