@@ -181,12 +181,12 @@ span.popdownImg, span.spellcheckPopdownImg {
     background-image: url("../graphics/popdown.png");
 }
 
-#Growler div.imp-reply {
+.imp-reply {
     background-image: url("../graphics/mail_answered.png");
 }
-#Growler div.imp-reply_all, span.imp-reply_all {
+.imp-reply_all, .imp-reply_list {
         background-image: url("../graphics/replyall.png");
 }
-#Growler div.imp-forward, #Growler div.imp-redirect {
+.imp-forward, .imp-redirect {
     background-image: url("../graphics/mail_forwarded.png");
 }
