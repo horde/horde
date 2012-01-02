@@ -3,7 +3,7 @@
  * The Horde_Lock class provides an API to create, store, check and expire locks
  * based on a given resource URI.
  *
- * Copyright 2008-2010 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://www.horde.org/licenses/lgpl21.

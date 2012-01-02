@@ -3,7 +3,7 @@
 /**
  * DeliverableClientSelector - Form for selecting client on deliverables screen
  *
- * Copyright 2002-2009 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.

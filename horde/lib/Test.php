@@ -3,7 +3,7 @@
  * The Horde_Test:: class provides functions used in the test scripts
  * used in the various applications (test.php).
  *
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.

@@ -3,7 +3,7 @@
  * This class provides cache storage in a memcache installation.
  *
  * Copyright 2006-2007 Duck <duck@obala.net>
- * Copyright 2007-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.

@@ -5,11 +5,12 @@
 require_once dirname(__FILE__) . '/../Base.php';
 
 /**
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ *
  * @author     Jan Schneider <jan@horde.org>
  * @category   Horde
  * @package    Share
  * @subpackage UnitTests
- * @copyright  2010 Horde LLC (http://www.horde.org/)
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
 class Horde_Share_Sql_Pdo_SqliteTest extends Horde_Share_Test_Sql_Base

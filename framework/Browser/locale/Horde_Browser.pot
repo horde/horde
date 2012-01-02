@@ -1,5 +1,5 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Horde Project
+# Copyright YEAR Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Browser package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #

@@ -1,9 +1,10 @@
 <?php
 /**
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ *
  * @category   Horde
  * @package    Support
  * @subpackage UnitTests
- * @copyright  2010 Horde LLC (http://www.horde.org/)
  * @license    http://www.horde.org/licenses/bsd
  */
 
@@ -16,7 +17,6 @@ require_once dirname(__FILE__) . '/Autoload.php';
  * @category   Horde
  * @package    Support
  * @subpackage UnitTests
- * @copyright  2010 Horde LLC (http://www.horde.org/)
  * @license    http://www.horde.org/licenses/bsd
  */
 class Horde_Support_GuidTest extends PHPUnit_Framework_TestCase

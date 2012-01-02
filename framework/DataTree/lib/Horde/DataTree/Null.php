@@ -3,7 +3,7 @@
  * The Horde_DataTree_null class provides a dummy implementation of the
  * Horde_DataTree API; no data will last beyond a single page request.
  *
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.

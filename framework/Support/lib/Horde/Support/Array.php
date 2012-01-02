@@ -1,19 +1,13 @@
 <?php
 /**
- * @category   Horde
- * @package    Support
- * @copyright  2007-2009 Horde LLC (http://www.horde.org/)
- * @license    http://www.horde.org/licenses/bsd
- */
-
-/**
- * @category   Horde
- * @package    Support
- * @copyright  2007-2009 Horde LLC (http://www.horde.org/)
- * @license    http://www.horde.org/licenses/bsd
+ * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
  *
- * Incorporate stuff from Horde_Array?
- * http://docs.python.org/lib/typesmapping.html
+ * @todo - Incorporate stuff from Horde_Array?
+ *       - http://docs.python.org/lib/typesmapping.html
+ *
+ * @category   Horde
+ * @package    Support
+ * @license    http://www.horde.org/licenses/bsd
  */
 class Horde_Support_Array implements ArrayAccess, Countable, Iterator
 {

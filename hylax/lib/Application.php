@@ -5,7 +5,7 @@
  * This file brings in all of the dependencies that every Hylax script will
  * need, and sets up objects that all scripts use.
  *
- * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.

@@ -3,7 +3,7 @@
  * This Ulaform script allows for the fields in a form to be sorted in
  * a specific order, using the standard Horde_Form sorter field.
  *
- * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.

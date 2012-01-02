@@ -1,25 +1,19 @@
 <?php
 /**
- * @category   Horde
- * @package    Support
- * @copyright  2007-2010 Horde LLC (http://www.horde.org/)
- * @license    http://www.horde.org/licenses/bsd
- */
-
-/**
- * @category   Horde
- * @package    Support
- * @copyright  2007-2010 Horde LLC (http://www.horde.org/)
- * @license    http://www.horde.org/licenses/bsd
- *
  * For a thorough description of consistent hashing, see
  * http://www.spiteful.com/2008/03/17/programmers-toolbox-part-3-consistent-hashing/,
  * and also the original paper:
  * http://www8.org/w8-papers/2a-webserver/caching/paper2.html
  *
- * @TODO Ideas for future enhancement:
+ * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
+ *
+ * @todo Ideas for future enhancement:
  *   - provide a callback when a point is moved on the circle, so that the
  *     calling code can take an action (say, transferring data).
+ *
+ * @category Horde
+ * @package  Support
+ * @license  http://www.horde.org/licenses/bsd
  */
 class Horde_Support_ConsistentHash
 {

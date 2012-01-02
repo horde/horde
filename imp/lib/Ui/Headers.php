@@ -3,7 +3,7 @@
  * The IMP_Ui_Headers:: class is designed to provide a place to store common
  * code shared among IMP's various UI views for header information.
  *
- * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.

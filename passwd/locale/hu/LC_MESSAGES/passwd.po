@@ -1,5 +1,5 @@
 # passwd module translations
-# Copyright 2002-2009 Horde LLC.
+# Copyright 2002-2012 Horde LLC (http://www.horde.org/)
 # Gyula Szabo <gyufi@sztaki.hu>, 2003.
 #
 msgid ""

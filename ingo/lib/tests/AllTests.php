@@ -1,9 +1,10 @@
 <?php
 /**
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ *
  * @category   Horde
  * @package    Ingo
  * @subpackage UnitTests
- * @copyright  2009 Horde LLC (http://www.horde.org/)
  * @license    http://www.horde.org/licenses/lgpl21
  */
 

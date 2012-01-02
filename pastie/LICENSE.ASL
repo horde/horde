@@ -1,6 +1,6 @@
 Version 1.0
 
-Copyright 2006-2011 Horde LLC. All rights reserved.
+Copyright 2006-2012 Horde LLC. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are

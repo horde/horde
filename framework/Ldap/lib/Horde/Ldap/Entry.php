@@ -2,14 +2,15 @@
 /**
  * Horde_Ldap_Entry represents an LDAP entry.
  *
+ * Copyright 2003-2007 Tarjej Huse, Jan Wagner, Benedikt Hallinger
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ *
  * @package   Ldap
  * @author    Jan Wagner <wagner@netsols.de>
  * @author    Tarjej Huse <tarjei@bergfald.no>
  * @author    Benedikt Hallinger <beni@php.net>
  * @author    Ben Klang <ben@alkaloid.net>
  * @author    Jan Schneider <jan@horde.org>
- * @copyright 2009-2011 Horde LLC
- * @copyright 2003-2007 Tarjej Huse, Jan Wagner, Benedikt Hallinger
  * @license   http://www.gnu.org/licenses/lgpl-3.0.html LGPL-3.0
  */
 class Horde_Ldap_Entry

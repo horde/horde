@@ -8,7 +8,7 @@
  *  - keep track of call limits and either dynamically alter update time or
  *    at least provide feedback to user.
  *
- * Copyright 2009-2011 Horde LLC (http://www.horde.org)
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.

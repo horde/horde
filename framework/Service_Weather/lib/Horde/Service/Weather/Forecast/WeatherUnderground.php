@@ -3,7 +3,7 @@
  * This file contains the Horde_Service_Weather_Forecast class for abstracting
  * access to forecast data from Weatherunderground.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @license  http://www.horde.org/licenses/bsd BSD

@@ -1,6 +1,6 @@
 # Danish translations for Passwd package
 # Danske oversættelser for pakke Passwd
-# Copyright 2003-2009 Horde LLC
+# Copyright 2003-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Passwd package.
 # Anders Bruun Olsen <anders@bruun-olsen.net>, 2003.
 # Brian Truelsen <horde+i18n@briantruelsen.dk>, 2006.

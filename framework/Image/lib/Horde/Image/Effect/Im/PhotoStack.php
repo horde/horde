@@ -2,7 +2,7 @@
 /**
  * Effect for composing multiple images into a single image.
  *
- * Copyright 2007-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
  *
  * The technique for the Polaroid-like stack using the Imagick extension is
  * credited to Mikko Koppanen and is documented at http://valokuva.org
