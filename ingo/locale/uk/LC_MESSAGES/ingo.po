@@ -1,5 +1,5 @@
 # Ukrainian win-1251 translations for Ingo package.
-# Copyright 2005-2011 Horde LLC
+# Copyright 2005-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Ingo package.
 #
 msgid ""

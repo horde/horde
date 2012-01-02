@@ -4,7 +4,7 @@
  * Allows translation between abstracted search criteria and a generated IMAP
  * search criteria string suitable for sending to a remote IMAP server.
  *
- * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.

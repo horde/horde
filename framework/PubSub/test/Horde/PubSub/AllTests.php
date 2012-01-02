@@ -2,8 +2,6 @@
 /**
  * All tests for the Horde_PubSub:: package.
  *
- * PHP version 5
- *
  * @category Horde
  * @package  PubSub
  * @author   Gunnar Wrobel <wrobel@pardus.de>

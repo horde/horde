@@ -2,7 +2,7 @@
 /**
  * Provides access to the Combine stream wrapper.
  *
- * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @license  http://www.horde.org/licenses/bsd BSD

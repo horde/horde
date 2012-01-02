@@ -6,7 +6,7 @@
  * For now, only provide methods for authenticating that make sense from
  * within a Horde context.
  *
- * Copyright 2009-2011 Horde LLC (http://www.horde.org)
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @category Horde

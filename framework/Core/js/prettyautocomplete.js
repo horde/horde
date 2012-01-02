@@ -2,7 +2,7 @@
  * An autocompleter implementation that provides a UI similar to Apple's Mail
  * To: field where entered items are represented as bubbles etc...
  *
- * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.

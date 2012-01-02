@@ -1,5 +1,5 @@
 # Finnish translation for Timeobjects.
-# Copyright (C) YEAR Horde Project
+# Copyright YEAR Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Timeobjects package.
 # Leena Heino <liinu@uta.fi>, 2010-2011.
 #

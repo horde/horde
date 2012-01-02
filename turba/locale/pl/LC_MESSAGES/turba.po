@@ -1,6 +1,6 @@
 # Polish translations for Turba package
 # Polskie tlumaczenia dla pakietu Turba.
-# Copyright 2007-2011 Horde LLC
+# Copyright 2007-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde package.
 # Automatically generated, 2007.
 # Mariusz Zynel <mariusz@math.uwb.edu.pl>, 2001.

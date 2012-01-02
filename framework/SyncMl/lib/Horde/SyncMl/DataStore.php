@@ -6,7 +6,7 @@
  * Most important attributes are the preferred MIME Types for sending and
  * receiving data for this datastore: $Tx_Pref and $Rx_Pref.
  *
- * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.

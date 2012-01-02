@@ -1,5 +1,5 @@
 # Italian translations for op package.
-# Copyright 2003-2009 Horde LLC
+# Copyright 2003-2012 Horde LLC (http://www.horde.org/)
 # Copyright 2003 Sergio G. Caredda.
 # Sergio G. Caredda <scaredda@tiscali.it>, 2003.
 # Copyright 2007 nethesis srl.

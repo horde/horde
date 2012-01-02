@@ -16,7 +16,7 @@
  * Horde_Pear_Package_Contents_InstallAs_Horde:: determines install locations
  * for the base Horde application.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.

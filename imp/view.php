@@ -26,7 +26,7 @@
  * pmode - (string) The print mode of this request ('content', 'headers').
  * zip - (boolean) Download in .zip format?
  *
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.

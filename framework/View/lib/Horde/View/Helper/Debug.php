@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2007-2008 Maintainable Software, LLC
- * Copyright 2006-2009 Horde LLC (http://www.horde.org/)
+ * Copyright 2006-2012 Horde LLC (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
