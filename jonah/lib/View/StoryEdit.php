@@ -75,7 +75,7 @@ class Jonah_View_StoryEdit extends Jonah_View_Base
         $title = $form->getTitle();
         require $registry->get('templates', 'horde') . '/common-header.inc';
         require JONAH_TEMPLATES . '/menu.inc';
-        $form->renderActive($form->getRenderer(), $vars, Horde::url('edit.php'), 'post');
+        $form->renderActive($form->getRenderer(), $vars, Horde::url('stories/edit.php'), 'post');
         require $registry->get('templates', 'horde') . '/common-footer.inc';
     }
 

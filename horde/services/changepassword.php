@@ -71,5 +71,5 @@ $vars->remove('password_2');
 require HORDE_TEMPLATES . '/common-header.inc';
 $notification->notify(array('listeners' => 'status'));
 $renderer = new Horde_Form_Renderer();
-$form->renderActive($renderer, $vars, Horde::url('changepassword.php'), 'post');
+$form->renderActive($renderer, $vars, Horde::url('services/changepassword.php'), 'post');
 require HORDE_TEMPLATES . '/common-footer.inc';

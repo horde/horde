@@ -42,5 +42,5 @@ require $registry->get('templates', 'horde') . '/common-header.inc';
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
 echo $menu;
 $notification->notify(array('listeners' => 'status'));
-echo $form->renderActive($form->getRenderer(), $vars, Horde::url('create.php'), 'post');
+echo $form->renderActive($form->getRenderer(), $vars, Horde::url('resources/create.php'), 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

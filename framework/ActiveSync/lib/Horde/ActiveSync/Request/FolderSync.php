@@ -39,9 +39,6 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
             return false;
         }
 
-        // Maps serverid -> clientid for items that are received from the PIM
-        $map = array();
-
         // Start parsing input
         if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::FOLDERHIERARCHY_FOLDERSYNC)) {
             $this->_logger->err('[Horde_ActiveSync::handleFolderSync] No input to parse');
@@ -117,12 +114,6 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
                     $serverid = $importer->importFolderDeletion($folder);
                     $changes = true;
                     break;
-                }
-
-                /* Update the map */
-                if ($serverid) {
-                    // FIXME: Yet Another property used, but never defined
-                    $map[$serverid] = $folder->clientid;
                 }
             }
 
@@ -204,14 +195,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
             $this->_state->setNewSyncKey($newsynckey);
             $this->_state->save();
         }
-
-        // Android sends a bogus device id of 'validate' during initial
-        // handshake. This data is never used again, and the resulting
-        // FOLDERSYNC response is ignored by the client. Remove the entry,
-        // to avoid having 2 device entries for every android client.
-        if ($this->_device->id == 'validate') {
-            $this->_state->removeState(null, 'validate');
-        }
+        $this->_cleanUpAfterPairing();
 
         return true;
     }

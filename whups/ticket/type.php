@@ -86,12 +86,12 @@ case 'st2':
 
     $form1->renderInactive($r, $vars);
     echo '<br />';
-    $form2->renderActive($r, $vars, Horde::url('type.php'), 'post');
+    $form2->renderActive($r, $vars, Horde::url('ticket/type.php'), 'post');
     break;
 
 default:
     $form1 = new Whups_Form_SetTypeStepOne($vars, _("Set Type - Step 1"));
-    $form1->renderActive($r, $vars, Horde::url('type.php'), 'post');
+    $form1->renderActive($r, $vars, Horde::url('ticket/type.php'), 'post');
     break;
 }
 

@@ -80,18 +80,26 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
             $policytype = self::POLICYTYPE_XML;
         } else {
             if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_POLICIES) ||
-                !$this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_POLICY) ||
-                !$this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_POLICYTYPE)) {
+                !$this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_POLICY)) {
 
                 return $this->_globalError(self::STATUS_PROTERROR);
             }
 
-            $policytype = $this->_decoder->getElementContent();
-            if ($policytype != self::POLICYTYPE_XML) {
-                $policyStatus = self::STATUS_POLICYUNKNOWN;
-            }
-            if (!$this->_decoder->getElementEndTag()) {//policytype
-                return $this->_globalError(self::STATUS_PROTERROR);
+            // iOS (at least 5.0.1) incorrectly sends a STATUS tag before the
+            // REMOTEWIPE response.
+            if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_POLICYTYPE)) {
+                if ($this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_STATUS)) {
+                    $this->_decoder->getElementContent();
+                    $this->_decoder->getElementEndTag(); // status
+                }
+            } else {
+                $policytype = $this->_decoder->getElementContent();
+                if ($policytype != self::POLICYTYPE_XML) {
+                    $policyStatus = self::STATUS_POLICYUNKNOWN;
+                }
+                if (!$this->_decoder->getElementEndTag()) {//policytype
+                    return $this->_globalError(self::STATUS_PROTERROR);
+                }
             }
 
             // Check to be sure that we *need* to PROVISION
@@ -174,6 +182,7 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
                 $this->_state->setPolicyKey($this->_device->id, $policykey);
                 $this->_state->setDeviceRWStatus($this->_device->id, Horde_ActiveSync::RWSTATUS_OK);
             }
+            $this->_cleanUpAfterPairing();
         } elseif (empty($policykey)) {
             // This is phase2 - we need to set the intermediate key
             $policykey = $this->_state->generatePolicyKey();
@@ -186,35 +195,34 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
         $this->_encoder->endTag();
 
         // Wipe data if status is pending or wiped
+        $this->_encoder->startTag(Horde_ActiveSync::PROVISION_POLICIES);
+        $this->_encoder->startTag(Horde_ActiveSync::PROVISION_POLICY);
+        $this->_encoder->startTag(Horde_ActiveSync::PROVISION_POLICYTYPE);
+        $this->_encoder->content($policytype);
+        $this->_encoder->endTag();
+        $this->_encoder->startTag(Horde_ActiveSync::PROVISION_STATUS);
+        $this->_encoder->content($policyStatus);
+        $this->_encoder->endTag();
+        $this->_encoder->startTag(Horde_ActiveSync::PROVISION_POLICYKEY);
+        $this->_encoder->content($policykey);
+        $this->_encoder->endTag();
+
+        // Send security policies - configure this/move to it's own method.
+        if ($phase2 && $status == self::STATUS_SUCCESS && $policyStatus == self::STATUS_SUCCESS) {
+            $this->_encoder->startTag(Horde_ActiveSync::PROVISION_DATA);
+            if ($policytype == self::POLICYTYPE_XML) {
+                $this->_encoder->content($this->_driver->getCurrentPolicy(self::POLICYTYPE_XML));
+            } else {
+                // TODO wbxml for 12.0
+            }
+            $this->_encoder->endTag(); //data
+        }
+        $this->_encoder->endTag();     //policy
+        $this->_encoder->endTag();     //policies
         $rwstatus = $this->_state->getDeviceRWStatus($this->_device->id);
         if ($rwstatus == Horde_ActiveSync::RWSTATUS_PENDING || $rwstatus == Horde_ActiveSync::RWSTATUS_WIPED) {
             $this->_encoder->startTag(Horde_ActiveSync::PROVISION_REMOTEWIPE, false, true);
             $this->_state->setDeviceRWStatus($this->_device->id, Horde_ActiveSync::RWSTATUS_WIPED);
-        } else {
-            $this->_encoder->startTag(Horde_ActiveSync::PROVISION_POLICIES);
-            $this->_encoder->startTag(Horde_ActiveSync::PROVISION_POLICY);
-            $this->_encoder->startTag(Horde_ActiveSync::PROVISION_POLICYTYPE);
-            $this->_encoder->content($policytype);
-            $this->_encoder->endTag();
-            $this->_encoder->startTag(Horde_ActiveSync::PROVISION_STATUS);
-            $this->_encoder->content($policyStatus);
-            $this->_encoder->endTag();
-            $this->_encoder->startTag(Horde_ActiveSync::PROVISION_POLICYKEY);
-            $this->_encoder->content($policykey);
-            $this->_encoder->endTag();
-
-            // Send security policies - configure this/move to it's own method.
-            if ($phase2 && $status == self::STATUS_SUCCESS && $policyStatus == self::STATUS_SUCCESS) {
-                $this->_encoder->startTag(Horde_ActiveSync::PROVISION_DATA);
-                if ($policytype == self::POLICYTYPE_XML) {
-                    $this->_encoder->content($this->_driver->getCurrentPolicy(self::POLICYTYPE_XML));
-                } else {
-                    // TODO wbxml for 12.0
-                }
-                $this->_encoder->endTag(); //data
-            }
-            $this->_encoder->endTag();     //policy
-            $this->_encoder->endTag();     //policies
         }
         $this->_encoder->endTag();         //provision
 
