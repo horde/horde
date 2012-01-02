@@ -147,8 +147,7 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
      * @return string  The file data.
      * @throws Horde_Vfs_Exception
      */
-    public function readByteRange($path, $name, &$offset, $length = -1,
-                                  &$remaining)
+    public function readByteRange($path, $name, &$offset, $length, &$remaining)
     {
         $data = $this->_readBlob($this->_params['table'], 'vfs_data', array(
             'vfs_path' => $this->_convertPath($path),

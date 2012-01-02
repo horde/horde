@@ -49,7 +49,7 @@ $view = new Ansel_View_Upload(
 if (!$prefs->getValue('force_old_uploader', 'false')) {
     $view->run();
 }
-$nojs = $view->handleNoJs();
+$nojs = $view->handleLegacy();
 
 $title = _("Add Photo");
 require $registry->get('templates', 'horde') . '/common-header.inc';

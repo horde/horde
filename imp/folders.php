@@ -126,10 +126,15 @@ case 'import_mbox':
 case 'create_folder':
     if (isset($vars->new_mailbox)) {
         try {
-            $imaptree->createMailboxName(
+            $new_mbox = $imaptree->createMailboxName(
                 $folder_list[0],
                 $vars->new_mailbox
-            )->create();
+            );
+            if ($new_mbox->exists) {
+                $notification->push(sprintf(_("Mailbox \"%s\" already exists."), $new_mbox->display), 'horde.warning');
+            } else {
+                $new_mbox->create();
+            }
         } catch (Horde_Exception $e) {
             $notification->push($e);
         }
@@ -215,14 +220,14 @@ case 'folders_empty_mailbox_confirm':
         foreach ($folder_list as $val) {
             switch ($vars->actionID) {
             case 'delete_folder_confirm':
-                if ($val->fixed || !$val->access_deletembox) {
+                if (!$val->access_deletembox) {
                     $notification->push(sprintf(_("The folder \"%s\" may not be deleted."), $val->display), 'horde.error');
                     continue 2;
                 }
                 break;
 
             case 'folders_empty_mailbox_confirm':
-                if (!$val->access_deletemsgs || !$val->access_expunge) {
+                if (!$val->access_empty) {
                     $notification->push(sprintf(_("The folder \"%s\" may not be emptied."), $val->display), 'horde.error');
                     continue 2;
                 }

@@ -933,7 +933,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
         if ($status == Horde_ActiveSync::RWSTATUS_PENDING) {
             // Need to clear the policykey to force a PROVISION. Clear ALL
             // entries, to ensure the device is wiped.
-            $query .= 'UPDATE ' . $this->_syncUsersTable
+            $query = 'UPDATE ' . $this->_syncUsersTable
                 . ' SET device_policykey = 0 WHERE device_id = ?';
             try {
                 $this->_db->update($query, array($devId));

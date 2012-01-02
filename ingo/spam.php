@@ -139,5 +139,5 @@ $menu = Ingo::menu();
 require $registry->get('templates', 'horde') . '/common-header.inc';
 echo $menu;
 Ingo::status();
-$form->renderActive($renderer, $vars, 'spam.php', 'post');
+$form->renderActive($renderer, $vars, Horde::url('spam.php'), 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

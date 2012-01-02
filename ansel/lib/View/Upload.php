@@ -33,6 +33,13 @@ class Ansel_View_Upload
     protected $_forceNoScript = false;
 
     /**
+     * Flag for when we already output the carousel code.
+     *
+     * @var boolean
+     */
+    protected $_haveCarousel = false;
+
+    /**
      * Initialize the view. Needs the following parameters:
      * <pre>
      *   'browse_button' - Dom id of button to open file system browser.
@@ -50,6 +57,11 @@ class Ansel_View_Upload
         if (!empty($params['forceNoScript'])) {
             $this->_forceNoScript = true;
         }
+
+        Ansel::initJSVariables();
+        Horde::addScriptFile('effects.js', 'horde', true);
+        Horde::addScriptFile('carousel.js', 'ansel', true);
+        Horde::addScriptFile('upload.js', 'ansel');
     }
 
     public function run()
@@ -58,16 +70,12 @@ class Ansel_View_Upload
         $this->_handleFileUpload();
 
         // TODO: Configure which runtimes to allow?
-        Ansel::initJSVariables();
         Horde::addScriptFile('plupload/plupload.js', 'horde');
         Horde::addScriptFile('plupload/plupload.flash.js', 'horde');
         Horde::addScriptFile('plupload/plupload.silverlight.js', 'horde');
         Horde::addScriptFile('plupload/plupload.html5.js', 'horde');
         Horde::addScriptFile('plupload/plupload.browserplus.js', 'horde');
         Horde::addScriptFile('plupload/uploader.js', 'horde');
-        Horde::addScriptFile('effects.js', 'horde', true);
-        Horde::addScriptFile('carousel.js', 'ansel', true);
-        Horde::addScriptFile('upload.js', 'ansel');
 
         $startText = _("Upload");
         $addText = _("Add Images");
@@ -76,7 +84,7 @@ class Ansel_View_Upload
         $subText = _("Add files to the upload queue and click the start button.");
         $sizeError = _("File size error.");
         $typeError = _("File type error.");
-        $previewUrl = Horde::url('img/upload_preview.php')->add('gallery', $this->_gallery->id);
+
         $imple = $GLOBALS['injector']
             ->getInstance('Horde_Core_Factory_Imple')
             ->create(array('ansel', 'UploadNotification'));
@@ -119,55 +127,31 @@ class Ansel_View_Upload
             }
         });
         uploader.init();
-
-        Ajax.Response.prototype._getHeaderJSON = function() {
-            var nbElements = {$this->_gallery->countImages()};
-            var from = this.request.parameters.from;
-            var to   = Math.min(nbElements, this.request.parameters.to);
-            return {html: this.responseText, from: from, to: to, more: to != nbElements};
-        }
-
-        function runCarousel() {
-            updateCarouselSize();
-            carousel = new UI.Ajax.Carousel("horizontal_carousel", { url: "{$previewUrl}", elementSize: 115 })
-                .observe("request:started", function() {
-                    $('spinner').show().morph("opacity:0.8", {duration:0.5});
-                })
-                .observe("request:ended", function() {
-                    $('spinner').morph("opacity:0", {duration:0.5, afterFinish: function(obj) { obj.element.hide(); }});
-                });
-        }
-        function resized() {
-            updateCarouselSize();
-            if (carousel) {
-                carousel.updateSize();
-            }
-        }
-        function updateCarouselSize() {
-            var dim = $('anseluploader').getDimensions();
-            $("horizontal_carousel").style.width = dim.width + "px";
-            $$("#horizontal_carousel .container").first().style.width =  (dim.width - 50) + "px";
-        }
         $('twitter').observe('click', function() {
             AnselUpload.doUploadNotification('twitter', '{$this->_gallery->id}');
         });
-        Event.observe(window, 'resize', resized);
-        carousel = null;
-        runCarousel();
 EOT;
 
+        $js .= $this->_doCarouselSetup();
         Horde::addInlineScript($js, 'load');
     }
 
     /**
      * Handle uploads from non-js browsers
      */
-    public function handleNoJs()
+    public function handleLegacy()
     {
         global $conf, $notification, $browser;
 
         $vars = Horde_Variables::getDefaultVariables();
         $form = new Ansel_Form_Upload($vars, _("Upload photos"));
+
+        // Output the carousel JS in case we are here because the user
+        // explicitly selected the old uploader.
+        $js = $this->_doCarouselSetup();
+        if (!empty($js)) {
+            Horde::addInlineScript($js, 'load');
+        }
 
         if ($form->validate($vars)) {
             $valid = true;
@@ -275,6 +259,59 @@ EOT;
         include ANSEL_TEMPLATES . '/image/upload.inc';
 
         return ($this->_forceNoScript ? '' : '<noscript>') . Horde::endBuffer() . ($this->_forceNoScript ? '' : '</noscript>');
+    }
+
+    /**
+     * Return javascript needed to initialize the carousel.
+     *
+     * @return string  The javascript code.
+     */
+    protected function _doCarouselSetup()
+    {
+        if ($this->_haveCarousel) {
+            return '';
+        }
+
+        $this->_haveCarousel = true;
+        $previewUrl = Horde::url('img/upload_preview.php')
+            ->add('gallery', $this->_gallery->id);
+
+        $js = <<<EOT
+           Ajax.Response.prototype._getHeaderJSON = function() {
+            var nbElements = {$this->_gallery->countImages()};
+            var from = this.request.parameters.from;
+            var to   = Math.min(nbElements, this.request.parameters.to);
+            return {html: this.responseText, from: from, to: to, more: to != nbElements};
+        }
+
+        function runCarousel() {
+            updateCarouselSize();
+            carousel = new UI.Ajax.Carousel("horizontal_carousel", { url: "{$previewUrl}", elementSize: 115 })
+                .observe("request:started", function() {
+                    $('spinner').show().morph("opacity:0.8", {duration:0.5});
+                })
+                .observe("request:ended", function() {
+                    $('spinner').morph("opacity:0", {duration:0.5, afterFinish: function(obj) { obj.element.hide(); }});
+                });
+        }
+        function resized() {
+            updateCarouselSize();
+            if (carousel) {
+                carousel.updateSize();
+            }
+        }
+        function updateCarouselSize() {
+            var dim = $('anseluploader').getDimensions();
+            $("horizontal_carousel").style.width = dim.width + "px";
+            $$("#horizontal_carousel .container").first().style.width =  (dim.width - 50) + "px";
+        }
+
+        Event.observe(window, 'resize', resized);
+        carousel = null;
+        runCarousel();
+EOT;
+
+        return $js;
     }
 
     /**

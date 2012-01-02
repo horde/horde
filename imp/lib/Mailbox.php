@@ -16,8 +16,11 @@
  *                                 only the bare mailbox name (no parents).
  * @property boolean $access_creatembox  Can sub mailboxes be created?
  * @property boolean $access_deletembox  Can this mailbox be deleted?
+ * @property boolean $access_deletembox_acl  Can this mailbox be deleted
+ *                                           according to ACL rules?
  * @property boolean $access_deletemsgs  Can messages be deleted in this
  *                                       mailbox?
+ * @property boolean $access_empty  Can this mailbox be emptied?
  * @property boolean $access_expunge  Can messages be expunged in this
  *                                    mailbox?
  * @property boolean $access_filters  Is filtering available?
@@ -273,6 +276,9 @@ class IMP_Mailbox implements Serializable
                     ($acl[Horde_Imap_Client::ACL_CREATEMBOX]));
 
         case 'access_deletembox':
+            return ($this->access_deletembox_acl && !$this->fixed);
+
+        case 'access_deletembox_acl':
             return (!($acl = $this->acl) ||
                     ($acl[Horde_Imap_Client::ACL_DELETEMBOX]));
 
@@ -280,6 +286,9 @@ class IMP_Mailbox implements Serializable
             return (!$this->readonly &&
                     (!($acl = $this->acl) ||
                     ($acl[Horde_Imap_Client::ACL_DELETEMSGS])));
+
+        case 'access_empty':
+            return ($this->access_deletemsgs && $this->access_expunge);
 
         case 'access_expunge':
             return (!$this->readonly &&
@@ -789,7 +798,20 @@ class IMP_Mailbox implements Serializable
     {
         global $conf, $injector, $notification;
 
-        if ((!$force && $this->fixed) || !$this->access_deletembox)  {
+        if ($this->vfolder) {
+            if ($this->editvfolder) {
+                $imp_search = $injector->getInstance('IMP_Search');
+                $label = $imp_search[$this->_mbox]->label;
+                unset($imp_search[$this->_mbox]);
+                $notification->push(sprintf(_("Deleted Virtual Folder \"%s\"."), $label), 'horde.success');
+                return true;
+            }
+
+            $notification->push(sprintf(_("Could not delete Virtual Folder \"%s\"."), $this->label), 'horde.error');
+            return false;
+        }
+
+        if ((!$force && $this->fixed) || !$this->access_deletembox_acl)  {
             $notification->push(sprintf(_("The mailbox \"%s\" may not be deleted."), $this->display), 'horde.error');
             return false;
         }
@@ -826,7 +848,7 @@ class IMP_Mailbox implements Serializable
             return false;
         }
 
-        if ((!$force && $this->fixed) || !$this->access_deletembox) {
+        if ((!$force && $this->fixed) || !$this->access_deletembox_acl) {
             $notification->push(sprintf(_("The mailbox \"%s\" may not be renamed."), $this->display), 'horde.error');
             return false;
         }

@@ -7,8 +7,16 @@ body {
     font-size: 90%;
 }
 
-.fixed {
+.fixed, .mimePartData {
     font-family: monospace;
+}
+
+.mimeStatusMessage {
+    padding-bottom: 10px;
+}
+
+.mimeStatusMessageTable {
+    border-collapse: collapse;
 }
 
 .notices img {
@@ -16,4 +24,8 @@ body {
 }
 .notices {
     border: 1px solid black;
+}
+
+ul.mimpMenu li {
+    padding-bottom: 4px;
 }

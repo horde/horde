@@ -48,6 +48,9 @@ class IMP_Ajax_Queue
      *   - uids: (string) Indices of the messages that have changed (IMAP
      *           sequence string; mboxes are base64url encoded).
      *
+     * For mailbox data (key: 'mailbox'), a list of added/changed/deleted
+     * objects used to alter the folder tree.
+     *
      * For poll data (key: 'poll'), an array with keys as base64url encoded
      * mailbox names, values as the number of unseen messages.
      *
@@ -64,6 +67,12 @@ class IMP_Ajax_Queue
         if (!empty($this->_flag)) {
             $res['flag'] = $this->_flag;
             $this->_flag = array();
+        }
+
+        /* Add folder tree information. */
+        $out = $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->getAjaxResponse();
+        if (!empty($out)) {
+            $res['mailbox'] = $out;
         }
 
         /* Add poll information. */

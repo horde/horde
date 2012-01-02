@@ -153,7 +153,7 @@ if ($results) {
     $results->html();
     if (is_object($form)) {
         $form->setTitle(_("Refine Search"));
-        $form->renderActive($renderer, $vars, 'search.php', 'get');
+        $form->renderActive($renderer, $vars, Horde::url('search.php'), 'get');
         echo '<br />';
     }
 }
@@ -161,7 +161,7 @@ if ($results) {
 if (!$beendone) {
     // Front search page.
     $form->setTitle(_("Ticket Search"));
-    $form->renderActive($renderer, $vars, 'search.php', 'get');
+    $form->renderActive($renderer, $vars, Horde::url('search.php'), 'get');
     echo '<br class="spacer" />';
 }
 

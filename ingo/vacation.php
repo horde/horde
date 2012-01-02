@@ -144,5 +144,5 @@ $menu = Ingo::menu();
 require $registry->get('templates', 'horde') . '/common-header.inc';
 echo $menu;
 Ingo::status();
-$form->renderActive(new Horde_Form_Renderer(array('encode_title' => false)), $vars, 'vacation.php', 'post');
+$form->renderActive(new Horde_Form_Renderer(array('encode_title' => false)), $vars, Horde::url('vacation.php'), 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

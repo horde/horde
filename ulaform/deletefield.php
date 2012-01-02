@@ -56,7 +56,7 @@ if ($vars->get('submitbutton') == _("Delete")) {
 /* Render the form. */
 $view = new Horde_View(array('templatePath' => ULAFORM_TEMPLATES));
 Horde::startBuffer();
-$fieldform->renderActive(new Horde_Form_Renderer(), $vars, 'deletefield.php', 'post');
+$fieldform->renderActive(new Horde_Form_Renderer(), $vars, Horde::url('deletefield.php'), 'post');
 $view->main = Horde::endBuffer();
 
 require $registry->get('templates', 'horde') . '/common-header.inc';

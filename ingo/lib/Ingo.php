@@ -428,6 +428,7 @@ class Ingo
     static public function menu()
     {
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
+        $t->set('form_url', Horde::url('filters.php'));
         $t->set('forminput', Horde_Util::formInput());
 
         if (!empty($GLOBALS['ingo_shares']) &&

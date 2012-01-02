@@ -175,7 +175,7 @@ case 'modify':
     $vars->set('image_uploaded', $image->uploaded);
 
     require $registry->get('templates', 'horde') . '/common-header.inc';
-    $form->renderActive($renderer, $vars, 'image.php', 'post', 'multipart/form-data');
+    $form->renderActive($renderer, $vars, Horde::url('image.php'), 'post', 'multipart/form-data');
     require $registry->get('templates', 'horde') . '/common-footer.inc';
     exit;
 
@@ -554,7 +554,7 @@ case 'setwatermark':
     $renderer = new Horde_Form_Renderer();
 
     require $registry->get('templates', 'horde') . '/common-header.inc';
-    $form->renderActive($renderer, $vars, 'image.php', 'post');
+    $form->renderActive($renderer, $vars, Horde::url('image.php'), 'post');
     require $registry->get('templates', 'horde') . '/common-footer.inc';
     exit;
 
@@ -872,6 +872,6 @@ default:
 
 require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Horde::menu();
-$form->renderActive($renderer, $vars, 'image.php', 'post',
+$form->renderActive($renderer, $vars, Horde::url('image.php'), 'post',
                     'multipart/form-data');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

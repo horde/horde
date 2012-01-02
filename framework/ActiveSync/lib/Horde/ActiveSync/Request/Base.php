@@ -153,7 +153,7 @@ abstract class Horde_ActiveSync_Request_Base
 
          // Use looseprovisioning?
          if (empty($sentKey) && $this->_hasBrokenProvisioning() && $this->_provisioning == 'loose') {
-             $sentKey = null;
+            $sentKey = null;
          }
 
         // Don't attempt if we don't care
@@ -216,6 +216,24 @@ abstract class Horde_ActiveSync_Request_Base
 
         // Not an android device - enforce provisioning if needed.
         return false;
+    }
+
+    /**
+     * Clean up after initial pairing. Initial pairing can happen either as a
+     * result of either a FOLDERSYNC or PROVISION command, depending on the
+     * device capabilities.
+     *
+     * @TODO Move this to a device object??
+     */
+    protected function _cleanUpAfterPairing()
+    {
+        // Android sends a bogus device id of 'validate' during initial
+        // handshake. This data is never used again, and the resulting
+        // FOLDERSYNC response is ignored by the client. Remove the entry,
+        // to avoid having 2 device entries for every android client.
+        if ($this->_device->id == 'validate') {
+            $this->_state->removeState(null, 'validate');
+        }
     }
 
 }

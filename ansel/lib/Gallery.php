@@ -1096,14 +1096,15 @@ class Ansel_Gallery implements Serializable
             $value = serialize($value);
         }
 
+        if ($attribute == 'view_mode' && $this->get('view_mode') != $value) {
+            //$mode = isset($attributes['attribute_view_mode']) ? $attributes['attribute_view_mode'] : 'Normal';
+            $this->_setModeHelper($value);
+        }
+
         try {
             $this->_share->set($attribute, $value, $update);
         } catch (Horde_Share_Exception $e) {
             throw new Ansel_Exception($e);
-        }
-        if ($attribute == 'view_mode' && $this->get('view_mode') != $value) {
-            //$mode = isset($attributes['attribute_view_mode']) ? $attributes['attribute_view_mode'] : 'Normal';
-            $this->_setModeHelper($value);
         }
     }
 

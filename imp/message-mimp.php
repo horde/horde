@@ -69,7 +69,7 @@ case 'u':
 case 'rs':
 case 'ri':
     $msg_index = $imp_mailbox->getMessageIndex();
-    $msg_delete = (IMP_Spam::reportSpam(new IMP_Indices($imp_mailbox), $vars->a == 'rs' ? 'spam' : 'innocent', array('mailboxob' => $imp_mailbox)) === 1);
+    $msg_delete = (IMP_Spam::reportSpam(new IMP_Indices($imp_mailbox), $vars->a == 'rs' ? 'spam' : 'notspam', array('mailboxob' => $imp_mailbox)) === 1);
     break;
 
 // 'pa' = part action
@@ -236,8 +236,7 @@ foreach ($flag_parse as $val) {
 /* Create the body of the message. */
 $inlineout = $imp_contents->getInlineOutput(array(
     'display_mask' => IMP_Contents::RENDER_INLINE,
-    'no_inline_all' => !$prefs->getValue('mimp_inline_all'),
-    'sep' => '<br /><hr />'
+    'no_inline_all' => !$prefs->getValue('mimp_inline_all')
 ));
 
 $msg_text = $inlineout['msgtext'];
@@ -250,7 +249,7 @@ if ($prefs->getValue('mimp_preview_msg') &&
     $t->set('fullmsg_link', $self_link->copy()->add('fullmsg', 1));
 }
 
-$t->set('msg', nl2br($injector->getInstance('Horde_Core_Factory_TextFilter')->filter($msg_text, 'space2html', array('encode' => true))));
+$t->set('msg', nl2br($injector->getInstance('Horde_Core_Factory_TextFilter')->filter($msg_text, 'space2html')));
 
 $compose_params = array(
     'identity' => $identity,

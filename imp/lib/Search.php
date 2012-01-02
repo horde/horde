@@ -199,6 +199,7 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
             /* This will overwrite previous value, if it exists. */
             $this->_search['vfolders'][$ob->id] = $ob;
             $this->setVFolders($this->_search['vfolders']);
+            $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->insertVfolder($ob);
             break;
         }
 
@@ -253,7 +254,6 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
         $this->changed = true;
     }
 
-
     /**
      * Is a mailbox a filter query?
      *
@@ -303,7 +303,6 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
     public function setVFolders($vfolders)
     {
         $GLOBALS['prefs']->setValue('vfolder', serialize(array_values($vfolders)));
-        $this->_getVFolders();
     }
 
     /**
@@ -339,12 +338,6 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
                     }
                 }
             }
-        }
-
-        /* Only update if IMP_Imap_Tree is already initialized; otherwise,
-         * we have a cyclic dependency. */
-        if (IMP_Factory_Imaptree::initialized()) {
-            $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->updateVFolders($vf);
         }
 
         $this->_search['vfolders'] = $vf;
@@ -508,6 +501,10 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
 
                 if ($key == 'vfolders') {
                     $this->setVFolders($this->_search['vfolders']);
+
+                    $imaptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
+                    $imaptree->delete($id);
+                    $imaptree->insert($value);
                 }
                 return;
             }
@@ -532,6 +529,7 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
 
                 if ($val == 'vfolders') {
                     $this->setVFolders($this->_search['vfolders']);
+                    $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->delete($id);
                 }
                 break;
             }
