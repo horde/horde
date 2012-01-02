@@ -6,7 +6,7 @@ require_once dirname(__FILE__) . '/TestBase.php';
  * @package    Ldap
  * @subpackage UnitTests
  * @author     Jan Schneider <jan@horde.org>
- * @copyright  2010-2011 Horde LLC
+ * @copyright  2010-2011 Horde LLC (http://www.horde.org/)
  * @license    http://www.gnu.org/licenses/lgpl-3.0.html LGPL-3.0
  */
 class Horde_Ldap_SearchTest extends Horde_Ldap_TestBase

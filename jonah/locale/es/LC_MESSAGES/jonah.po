@@ -1,6 +1,6 @@
 # Spanish translations for jonah package
 # Traducciones al español para el paquete jonah.
-# Copyright 2008-2009 Horde LLC
+# Copyright 2008-2009 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the jonah package.
 # Automatically generated, 2008.
 #

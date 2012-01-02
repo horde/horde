@@ -1,6 +1,6 @@
 # Slovenian translations for Trean packaga
 # Slovenski prevod Trean paketa
-# Copyright 2006-2009 Horde LLC
+# Copyright 2006-2009 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the horde package.
 # Automatically generated, 2006.
 #

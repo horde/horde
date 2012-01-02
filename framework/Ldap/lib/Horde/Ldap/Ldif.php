@@ -31,7 +31,7 @@
  * @author    Benedikt Hallinger <beni@php.net>
  * @author    Jan Schneider <jan@horde.org>
  * @copyright 2009 Benedikt Hallinger
- * @copyright 2010-2011 Horde LLC
+ * @copyright 2010-2011 Horde LLC (http://www.horde.org/)
  * @license   http://www.gnu.org/licenses/lgpl-3.0.html LGPL-3.0
  * @see       http://www.ietf.org/rfc/rfc2849.txt
  * @todo      LDAPv3 controls are not implemented yet

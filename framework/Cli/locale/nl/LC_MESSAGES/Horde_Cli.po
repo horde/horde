@@ -1,5 +1,5 @@
 # Dutch translations for Horde_Cli module.
-# Copyright 2010-2011 Horde LLC
+# Copyright 2010-2011 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Cli module.
 # Automatically generated, 2010.
 #

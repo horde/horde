@@ -1,5 +1,5 @@
 # Latvian translations for Ingo package.
-# Copyright 2004 Horde LLC
+# Copyright 2004 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Ingo package.
 # Janis Eisaks, <jancs@dv.lv>, 2011.
 #
