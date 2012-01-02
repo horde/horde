@@ -3,7 +3,7 @@
  * Getting the rootDSE entry of a LDAP server.
  *
  * Copyright 2009 Jan Wagner
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * @category  Horde
  * @package   Ldap

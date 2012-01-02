@@ -36,7 +36,7 @@
  *        device_folders - Account's folder data
  * </pre>
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * @TODO: H5 This driver should be renamed to Horde_ActiveSync_State_Sql since the
  *        History related changes have been refactored out to a Core library.

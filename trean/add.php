@@ -2,7 +2,7 @@
 /**
  * $Horde: trean/add.php,v 1.49 2009/07/09 08:18:39 slusarz Exp $
  *
- * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did not
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.

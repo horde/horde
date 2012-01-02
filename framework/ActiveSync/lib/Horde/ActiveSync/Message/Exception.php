@@ -3,7 +3,7 @@
  * Horde_ActiveSync_Message_Exception class represents a single exception to a
  * recurring event. This is basically a Appointment object with some tweaks.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package ActiveSync

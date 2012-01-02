@@ -4,7 +4,7 @@
  * (http://weierophinney.net/matthew/archives/199-A-Simple-PHP-Publish-Subscribe-System.html)
  *
  * Copyright 2008-2011 Matthew Weier O'Phinney
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * @category  Horde
  * @package   PubSub

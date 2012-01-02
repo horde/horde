@@ -22,7 +22,7 @@
  *
  * The original Exifer library has been heavily modified and refactored. All
  * modifications are
- * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Image

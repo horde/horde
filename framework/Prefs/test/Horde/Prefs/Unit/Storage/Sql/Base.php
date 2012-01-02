@@ -5,7 +5,7 @@
 require_once dirname(__FILE__) . '/../../../Autoload.php';
 
 /**
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * @author     Jan Schneider <jan@horde.org>
  * @category   Horde

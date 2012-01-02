@@ -12,7 +12,7 @@
  *   - pgp_verify_msg: (boolean) Do verification of PGP signed data.
  *   - rawpgpkey: (boolean) Display the PGP Public Key in raw, text format?
  *
- * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.

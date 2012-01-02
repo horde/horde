@@ -3,7 +3,7 @@
  * Horde_Crypt_Smime:: provides a framework for Horde applications to
  * interact with the OpenSSL library and implement S/MIME.
  *
- * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.

@@ -16,7 +16,7 @@
  * Free/Busy application. It also provides the entry point into the the Horde
  * MVC system and allows to dispatch a request.
  *
- * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see

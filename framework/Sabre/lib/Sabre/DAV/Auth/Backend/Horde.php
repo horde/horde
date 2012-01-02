@@ -3,7 +3,7 @@
  * This class implements an authentication backend for Sabre_DAV based on
  * Horde_Auth.
  *
- * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
  * @package Sabre
  * @author  Jan Schneider <jan@horde.org>

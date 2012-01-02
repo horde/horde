@@ -4,7 +4,7 @@
  * Contains code written by the Z-Push project. Original file header preserved
  * below.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package ActiveSync
