@@ -14,7 +14,7 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 $permission = 'phpshell';
 Horde_Registry::appInit('horde');
-if (!$registry->isAdmin() && 
+if (!$registry->isAdmin() &&
     !$injector->getInstance('Horde_Perms')->hasPermission('horde:administration:'.$permission, $registry->getAuth(), Horde_Perms::SHOW)) {
     $registry->authenticateFailure('horde', new Horde_Exception(sprintf("Not an admin and no %s permission", $permission)));
 }
@@ -41,7 +41,7 @@ require HORDE_TEMPLATES . '/admin/menu.inc';
 
 ?>
 <div>
-<form action="<?php echo Horde::url('config/phpshell.php') ?>" method="post">
+<form action="<?php echo Horde::url('admin/phpshell.php') ?>" method="post">
 <?php Horde_Util::pformInput() ?>
 
 <h1 class="header"><?php echo $title ?></h1>
