@@ -404,29 +404,38 @@ class Horde_Core_ActiveSync_Connector
     }
 
     /**
-     * Get a list of messages in the requested folder.
+     * Get the full list of messages in the requested folder, optionally
+     * restricting to a SINCE date.
      *
-     * @param Horde_ActiveSync_Message_Folder $folder  The mailbox folder.
-     * @param array $options                           Additional Options:
+     * @param Horde_ActiveSync_Folder_Imap $folder  The mailbox folder.
+     * @param array $options                        Additional Options:
      *   -sincedate  (integer)  Timestamp of earliest message to retrieve.
      *                          DEFAULT: 0 (Don't filter)
      *
-     * @return array  The result set:
-     *   -count (integer)  The result count.
-     *   -ids   (array)    Array of UIDs.
-     *   -TODO (Do we need modseq and min/max?)
+     * @return Horde_ActiveSync_Folder_Imap  The folder object representing this
+     *                                       IMAP folder.
      */
     public function mail_getMessageList(
-        Horde_ActiveSync_Message_Folder $folder, $options = array())
+        Horde_ActiveSync_Folder_Imap $folder, $options = array())
     {
         $imap = $this->_registry->mail->imapOb();
-        $mbox = new Horde_Imap_Client_Mailbox($folder->serverid);
+        $mbox = new Horde_Imap_Client_Mailbox($folder->serverid());
         $query = new Horde_Imap_Client_Search_Query();
         $query->dateSearch(
             new Horde_Date($options['sincedate']),
             Horde_Imap_Client_Search_Query::DATE_SINCE);
-
+        $query->modSeq($folder->modSeq());
         $results = $imap->search($mbox, $query);
+
+        $query = new Horde_Imap_Client_Fetch_Query();
+        $query->flags();
+        $results = $imap->fetch($mbox, $query, array('ids' => $results['match']));
+
+        $newFolder = new Horde_ActiveSync_Folder_Imap(
+            $folder->serverid(),
+            $x,
+            $y
+        );
 
         return array(
             'count' => $results['count'],
@@ -444,32 +453,24 @@ class Horde_Core_ActiveSync_Connector
      *                            DEFAULT: false (No truncation).
      *
      * @return array  An array of Horde_ActiveSync_Message_Mail objects.
+     * @throws Horde_Exception
      */
     public function mail_getMessages($folder, $messages, $options = array())
     {
         $imap = $this->_registry->mail->imapOb();
         $query = new Horde_Imap_Client_Fetch_Query();
-        $query->envelope();
-        $query->flags();
-        $queryOpts = array('peek' => true);
-
-        // @TODO: Can't truncate here until I figure out how to get the
-        // plaintext part of MIME emails without having to parse fullMsg()
-        // if ($options['truncation']) {
-        //     $queryOpts['length'] = $options['truncation'];
-        // }
-        $query->bodyText($queryOpts);
-        $query->fullText($queryOpts);
+        $query->getStructure();
+        $query->uid;
         $ids = new Horde_Imap_Client_Ids($messages);
         $mbox = new Horde_Imap_Client_Mailbox($folder->serverid);
         $messages = array();
         try {
             $results = $imap->fetch($mbox, $query, array('ids' => $ids));
-            foreach ($results as $result) {
-                $messages[] = $this->_buildMailMessage($result, $options);
-            }
-        } catch (Exception $e) {
-            Horde::debug($e);
+        } catch (Horde_Imap_Client_Exception $e) {
+            throw new Horde_Exception($e);
+        }
+        foreach ($results as $result) {
+            $messages[] = $this->_buildMailMessage($result, $options);
         }
 
         return $messages;
@@ -478,17 +479,56 @@ class Horde_Core_ActiveSync_Connector
     /**
      * Builds a proper AS mail message object.
      *
+     * @param Horde_Imap_Client_Mailbox    $mbox  The IMAP mailbox.
      * @param Horde_Imap_Client_Data_Fetch $data  The fetch results.
      * @param array $options                      Additional Options:
-     *   -
+     *   -truncation  Truncate the message body to this length.
      *
      * @return Horde_ActiveSync_Mail_Message
+     * @throws Horde_Exception
      */
     protected function _buildMailMessage(
-        Horde_Imap_Client_Data_Fetch $data, $options = array())
+        Horde_Imap_Client_Mailbox $mailbox,
+        Horde_Imap_Client_Data_Fetch $data,
+        $options = array())
     {
-        $message = new Horde_ActiveSync_Message_Mail();
+        $part = $data->getStructure();
+        $id = $part->findBody();
+        $body = $part->getPart($id);
+
+        $imap = $this->_registry->mail->imapOb();
+        $query = new Horde_Imap_Client_Fetch_Query();
+        $query->envelope();
+        $qopts = array(
+            'decode' => true,
+            'peek' => true
+        );
+        if ($options['truncation']) {
+            $qopts['length'] = $options['truncation'];
+        }
+        $query->bodyPart($id, $qopts);
+        try {
+            $messages = $imap->fetch(
+                $mbox,
+                $query,
+                new Horde_Imap_Client_Ids(array($data->uid)));
+        } catch (Horde_Imap_Client_Exception $e) {
+            throw new Horde_Exception($e);
+        }
+        $data = array_pop($messages);
         $envelope = $data->getEnvelope();
+
+        // Get the plaintext part.
+        $text = $data->getBodyPart($id);
+        if (!$data->getBodyPartDecode($id)) {
+            $body->setContents($data->getBodyPart($id));
+            $text = $body->getContents();
+        }
+
+        $message = new Horde_ActiveSync_Message_Mail();
+        $message->body = $text;
+        $message->bodysize = strlen($message->body);
+        $message->bodytruncated = $options['truncation'] ? 1 : 0;
 
         // Parse To: header
         $to = $envelope->to_decoded;
@@ -507,27 +547,6 @@ class Horde_Core_ActiveSync_Connector
         $message->subject = $envelope->subject_decoded;
         $message->datereceived = new Horde_Date((string)$envelope->date);
 
-        // EAS 2.5 does not support MIME or HTML
-        // @TODO: Not sure if I'm supposed to need to parse the mail this way...
-        // I thought I'd be able to use $data->getStructure()->findBody() etc...
-        $msg = Horde_Mime_Part::parseMessage($data->getFullMsg());
-        $id = $msg->findBody();
-        if ($id) {
-            $message->body = $msg->getPart($id)->getContents();
-        } else {
-            // Not sure if we should just return an error text here or not.
-            $message->body = $data->getBodyText();
-        }
-        $message->bodysize = strlen($message->body);
-
-        // Can't truncate in the imap library for now, since we apparently need
-        // to parse the message to get the plaintext part.
-        if($options['truncation']) {
-            $message->body = Horde_String::substr($message->body, 0, $options['truncation']);
-            $message->bodytruncated = 1;
-        } else {
-            $output->bodytruncated = 0;
-        }
 
         // @TODO: Parse out/detect at least meeting requests and notifications.
         $message->messageclass = 'IPM.Note';
