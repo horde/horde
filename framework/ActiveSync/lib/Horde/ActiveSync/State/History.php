@@ -61,7 +61,7 @@
  *
  *
  * @license   http://www.horde.org/licenses/gpl GPLv2
- * @copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * @copyright 2010-2012 Horde LLC (http://www.horde.org/)
  * @author    Michael J. Rubinsky <mrubinsk@horde.org>
  * @link      http://pear.horde.org/index.php?package=ActiveSync
  * @package   ActiveSync
@@ -85,7 +85,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
     /**
      * Local cache of state.
      *
-     * @var array
+     * @var mixed  array|Horde_ActiveSync_Folder_Imap
      */
     protected $_state;
 
@@ -826,8 +826,21 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
                 }
 
                 // No existing changes, poll the backend
+                if ($this->_collection['class'] == Horde_Activesync::CLASS_EMAIL) {
+                    // Email SYNC - use the Horde_ActiveSync_Folder_Imap object.
+                    $folderId = $this->_state;
+                }
                 $changes = $this->_backend->getServerChanges(
-                    $folderId, (int)$this->_lastSyncTS, (int)$this->_thisSyncTS, $cutoffdate);
+                    $folderId,
+                    (int)$this->_lastSyncTS,
+                    (int)$this->_thisSyncTS,
+                    $cutoffdate);
+
+                // @TODO, make sure this is properly passed by reference??
+                if ($this->_collection['class'] == Horde_Activesync::CLASS_EMAIL) {
+                    // Email SYNC - use the Horde_ActiveSync_Folder_Imap object.
+                    $this->_state->updateState();
+                }
             }
 
             // Unfortunately we can't use an empty synckey to detect an initial
