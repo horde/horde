@@ -943,12 +943,12 @@
     </case>
    </configswitch>
    <configheader>Group Caching</configheader>
-   <configdescription>Enabling group caching improves performance because the
+   <configdescription>GROUP CACHING HAS NOT BEEN IMPLEMENTED FOR HORDE 4 YET. Enabling group caching improves performance because the
    group backend will only be queried once per session. But it also increases
    the users' session sizes, and group changes won't take effect before the
    users log in the next time.</configdescription>
-   <configboolean name="cache" required="false" desc="Enable group
-   caching?">false</configboolean>
+   <!--<configboolean name="cache" required="false" desc="Enable group
+   caching?">false</configboolean>-->
   </configsection>
  </configtab>
 
