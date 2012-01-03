@@ -504,10 +504,10 @@ class Horde_Rpc_Webdav extends Horde_Rpc
             $now = time();
             $root = array('name' => '/',
                           'created' => $now,
-                          'mtime' => $now,
-                          'mimetype' => 'httpd/unix-directory',
+                          'modified' => $now,
+                          'contenttype' => 'httpd/unix-directory',
                           'contentlength' => 0,
-                          'resourcetype' => 'collection');
+                          'browseable' => true);
             $list[] = array('path' => $path,
                             'props' => $this->_getProps($options['props'], $root));
 
