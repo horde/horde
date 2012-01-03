@@ -415,40 +415,66 @@ class Horde_Core_ActiveSync_Connector
      * @return Horde_ActiveSync_Folder_Imap  The folder object representing this
      *                                       IMAP folder.
      */
-    public function mail_getMessageList(
-        Horde_ActiveSync_Folder_Imap $folder, $options = array())
+    public function mail_getMessagesList(
+        Horde_ActiveSync_Folder_Imap $folder,
+        $options = array())
     {
         $imap = $this->_registry->mail->imapOb();
         $mbox = new Horde_Imap_Client_Mailbox($folder->serverid());
-        $query = new Horde_Imap_Client_Search_Query();
-        $query->dateSearch(
-            new Horde_Date($options['sincedate']),
-            Horde_Imap_Client_Search_Query::DATE_SINCE);
-        $query->modSeq($folder->modSeq());
-        $results = $imap->search($mbox, $query);
 
-        $query = new Horde_Imap_Client_Fetch_Query();
-        $query->flags();
-        $results = $imap->fetch($mbox, $query, array('ids' => $results['match']));
+        // @TODO: How to ensure modseq hasn't changed during this entire method?
+        // Maybe check before each operation and recurse into the method again
+        // if it *has* changed?
+        $status = $imap->status($mbox,
+            Horde_Imap_Client::STATUS_HIGHESTMODSEQ |
+            Horde_Imap_Client::STATUS_UIDVALIDITY |
+            Horde_Imap_Client::STATUS_UIDNEXT
+         );
+         $modseq = $status['highestmodseq'];
 
-        $newFolder = new Horde_ActiveSync_Folder_Imap(
-            $folder->serverid(),
-            $x,
-            $y
-        );
+        // If we have a modseq, start getting deltas.
+        // Check against our own cached modseq, not sure if the
+        // cached LASTMODSEQUIDS value is available across our
+        // AS requests.
+        if ($folder->modseq() &&
+            $folder->modseq() > $modseq &&
+            $folder->uidnext == $status['uidnext']) {
+            // Get the VANISHED messages.
+            $query = new Horde_Imap_Client_Fetch_Query();
+            $removed = $imap->fetch($mbox, $query, array(
+                'changedsince' => $folder->modseq(),
+                'vanished' => true,
+                'ids' => $folder->ids()
+            ));
+            $folder->setRemoved(array_keys($removed));
 
-        return array(
-            'count' => $results['count'],
-            'ids'   => $results['match']->ids,
-        );
+            // Get changed messages and new messages.
+            $messages = $imap->fetch($mbox, $query, array(
+                'changedsince' => $folder->modseq()
+            ));
+            $folder->setChanged(array_keys($messages));
+        } elseif (!$folder->modseq()) {
+            // No modseq value, pull the entire list
+            $query = new Horde_Imap_Client_Search_Query();
+            if ($options['sincedate']) {
+                $query->dateSearch(
+                    new Horde_Date($options['sincedate']),
+                    Horde_Imap_Client_Search_Query::DATE_SINCE);
+            }
+            $results = $imap->search($mbox, $query);
+            $folder->setMessages($results['match']->ids);
+            $folder->setHighestModseq($modseq);
+        }
+
+        return $folder;
     }
 
     /**
      * Return a AS mail messages, from the given IMAP UIDs.
      *
-     * @param Horde_ActiveSync_Message_Folder $folder  The mailbox folder.
-     * @param array $messages                          List of IMAP message UIDs
-     * @param array $options                           Additional Options:
+     * @param Horde_ActiveSync_Folder_Imap  $folder  The mailbox folder.
+     * @param array $messages                        List of IMAP message UIDs
+     * @param array $options                         Additional Options:
      *   -truncation:  (integer)  Truncate body of email to this length.
      *                            DEFAULT: false (No truncation).
      *
@@ -470,7 +496,7 @@ class Horde_Core_ActiveSync_Connector
             throw new Horde_Exception($e);
         }
         foreach ($results as $result) {
-            $messages[] = $this->_buildMailMessage($result, $options);
+            $messages[] = $this->_buildMailMessage($mbox, $result, $options);
         }
 
         return $messages;
@@ -488,7 +514,7 @@ class Horde_Core_ActiveSync_Connector
      * @throws Horde_Exception
      */
     protected function _buildMailMessage(
-        Horde_Imap_Client_Mailbox $mailbox,
+        Horde_Imap_Client_Mailbox $mbox,
         Horde_Imap_Client_Data_Fetch $data,
         $options = array())
     {
@@ -499,6 +525,7 @@ class Horde_Core_ActiveSync_Connector
         $imap = $this->_registry->mail->imapOb();
         $query = new Horde_Imap_Client_Fetch_Query();
         $query->envelope();
+        $query->flags();
         $qopts = array(
             'decode' => true,
             'peek' => true

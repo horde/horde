@@ -378,7 +378,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * Get a list of server changes that occured during the specified time
      * period.
      *
-     * @param string $folderId     The server id of the collection to check.
+     * @param mixed   $folderId    The server id of the collection to check, or
+     *                             a Horde_ActiveSyncFolder_Imap. @TODO Let this
+     *                             take a Horde_ActiveSync_Folder_Base obejct in
+     *                             Horde 5.
      * @param integer $from_ts     The starting timestamp
      * @param integer $to_ts       The ending timestamp
      * @param integer $cutoffdate  The earliest date to retrieve back to
@@ -397,90 +400,92 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         );
 
         ob_start();
-        $folder = $this->getFolder($folderId);
-        switch ($folder->type) {
-        case Horde_ActiveSync::FOLDER_TYPE_APPOINTMENT:
-            if ($from_ts == 0) {
-                // Can't use History if it's a first sync
-                $startstamp = (int)$cutoffdate;
-                $endstamp = time() + 32140800; //60 * 60 * 24 * 31 * 12 == one year
-                try {
-                    $changes['add'] = $this->_connector->calendar_listUids($startstamp, $endstamp);
-                } catch (Horde_Exception $e) {
-                    $this->_logger->err($e->getMessage());
-                    $this->_endBuffer();
-                    return array();
-                }
-            } else {
-                try {
-                    $changes = $this->_connector->getChanges('calendar', $from_ts, $to_ts);
-                } catch (Horde_Exception $e) {
-                    $this->_logger->err($e->getMessage());
-                    $this->_endBuffer();
-                    return array();
-                }
-            }
-            break;
+        if (!($folderId instanceof Horde_ActiveSync_Folder_Imap)) {
+            $folder = $this->getFolder($folderId);
 
-        case Horde_ActiveSync::FOLDER_TYPE_CONTACT:
-            // Can't use History for first sync
-            if ($from_ts == 0) {
-                try {
-                    $changes['add'] = $this->_connector->contacts_listUids();
-                } catch (Horde_Exception $e) {
-                    $this->_logger->err($e->getMessage());
-                    $this->_endBuffer();
-                    return array();
+            switch ($folder->type) {
+            case Horde_ActiveSync::FOLDER_TYPE_APPOINTMENT:
+                if ($from_ts == 0) {
+                    // Can't use History if it's a first sync
+                    $startstamp = (int)$cutoffdate;
+                    $endstamp = time() + 32140800; //60 * 60 * 24 * 31 * 12 == one year
+                    try {
+                        $changes['add'] = $this->_connector->calendar_listUids($startstamp, $endstamp);
+                    } catch (Horde_Exception $e) {
+                        $this->_logger->err($e->getMessage());
+                        $this->_endBuffer();
+                        return array();
+                    }
+                } else {
+                    try {
+                        $changes = $this->_connector->getChanges('calendar', $from_ts, $to_ts);
+                    } catch (Horde_Exception $e) {
+                        $this->_logger->err($e->getMessage());
+                        $this->_endBuffer();
+                        return array();
+                    }
                 }
-                $edits = $deletes = array();
-            } else {
-                try {
-                    $changes = $this->_connector->getChanges('contacts', $from_ts, $to_ts);
-                } catch (Horde_Exception $e) {
-                    $this->_logger->err($e->getMessage());
-                    $this->_endBuffer();
-                    return array();
-                }
-            }
-            break;
+                break;
 
-        case Horde_ActiveSync::FOLDER_TYPE_TASK:
-            // Can't use History for first sync
-            if ($from_ts == 0) {
-                try {
-                    $changes['add'] = $this->_connector->tasks_listUids();
-                } catch (Horde_Exception $e) {
-                    $this->_logger->err($e->getMessage());
-                    $this->_endBuffer();
-                    return array();
+            case Horde_ActiveSync::FOLDER_TYPE_CONTACT:
+                // Can't use History for first sync
+                if ($from_ts == 0) {
+                    try {
+                        $changes['add'] = $this->_connector->contacts_listUids();
+                    } catch (Horde_Exception $e) {
+                        $this->_logger->err($e->getMessage());
+                        $this->_endBuffer();
+                        return array();
+                    }
+                    $edits = $deletes = array();
+                } else {
+                    try {
+                        $changes = $this->_connector->getChanges('contacts', $from_ts, $to_ts);
+                    } catch (Horde_Exception $e) {
+                        $this->_logger->err($e->getMessage());
+                        $this->_endBuffer();
+                        return array();
+                    }
                 }
-            } else {
-                try {
-                    $changes = $this->_connector->getChanges('tasks', $from_ts, $to_ts);
-                } catch (Horde_Exception $e) {
-                    $this->_logger->err($e->getMessage());
-                    $this->_endBuffer();
-                    return array();
-                }
-            }
-            break;
+                break;
 
-        case Horde_ActiveSync::FOLDER_TYPE_INBOX:
-        case Horde_ActiveSync::FOLDER_TYPE_SENTMAIL:
-        case Horde_ActiveSync::FOLDER_TYPE_WASTEBASKET:
-        case Horde_ActiveSync::FOLDER_TYPE_DRAFTS:
-        case Horde_ActiveSync::FOLDER_TYPE_USER_MAIL:
-            try {
-                $messageList = $this->_connector->mail_getMessageList(
-                    $folder,
-                    array('sincedate' => (int)$cutoffdate));
-            } catch (Horde_Exception $e) {
-                $this->_logger->err($e->getMessage());
-                $this->_endBuffer();
-                return array();
+            case Horde_ActiveSync::FOLDER_TYPE_TASK:
+                // Can't use History for first sync
+                if ($from_ts == 0) {
+                    try {
+                        $changes['add'] = $this->_connector->tasks_listUids();
+                    } catch (Horde_Exception $e) {
+                        $this->_logger->err($e->getMessage());
+                        $this->_endBuffer();
+                        return array();
+                    }
+                } else {
+                    try {
+                        $changes = $this->_connector->getChanges('tasks', $from_ts, $to_ts);
+                    } catch (Horde_Exception $e) {
+                        $this->_logger->err($e->getMessage());
+                        $this->_endBuffer();
+                        return array();
+                    }
+                }
             }
-            $changes['add'] = $messageList['ids'];
-            break;
+        } else {
+            // Email request.
+            if ($from_ts == 0) {
+                // First sync, or forcing a first sync.
+                try {
+                    $folderId = $this->_connector->mail_getMessageList(
+                        $folderId,
+                        array('sincedate' => (int)$cutoffdate));
+                } catch (Horde_Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                    $this->_endBuffer();
+                    return array();
+                }
+            }
+            $changes['add'] = $folderId->added();
+            $changes['delete'] = $folderId->removed();
+            $changes['modify'] = $folderId->changed();
         }
 
         $results = array();
