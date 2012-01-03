@@ -594,12 +594,12 @@ class Horde_Rpc_Webdav extends Horde_Rpc
             $props[] = $this->mkprop('displayname', $item['name']);
             unset($properties['DAV:']['displayname']);
         }
-        if (in_array('getlastmodified', $properties['DAV:'])) {
-            $props[] = $this->mkprop('getlastmodified', empty($item['mtime']) ? time() : $item['mtime']);
-            unset($properties['DAV:']['getlastmodified']);
+        if (in_array('resourcetype', $properties['DAV:'])) {
+            $props[] = $this->mkprop('resourcetype', $item['browseable'] ? 'collection' : '');
+            unset($properties['DAV:']['resourcetype']);
         }
         if (in_array('getcontenttype', $properties['DAV:'])) {
-            $props[] = $this->mkprop('getcontenttype', empty($item['mimetype']) ? 'application/octet-stream' : $item['mimetype']);
+            $props[] = $this->mkprop('getcontenttype', empty($item['contenttype']) ? 'application/octet-stream' : $item['contenttype']);
             unset($properties['DAV:']['getcontenttype']);
         }
         if (in_array('getcontentlength', $properties['DAV:'])) {
@@ -614,6 +614,10 @@ class Horde_Rpc_Webdav extends Horde_Rpc
         if (in_array('creationdate', $properties['DAV:'])) {
             $props[] = $this->mkprop('creationdate', empty($item['created']) ? time() : $item['created']);
             unset($properties['DAV:']['creationdate']);
+        }
+        if (in_array('getlastmodified', $properties['DAV:'])) {
+            $props[] = $this->mkprop('getlastmodified', empty($item['modified']) ? time() : $item['modified']);
+            unset($properties['DAV:']['getlastmodified']);
         }
 
         if (isset($properties[self::CALDAVNS])) {
