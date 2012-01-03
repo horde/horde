@@ -481,7 +481,8 @@ class Horde_Core_ActiveSync_Connector
      * @return array  An array of Horde_ActiveSync_Message_Mail objects.
      * @throws Horde_Exception
      */
-    public function mail_getMessages($folder, $messages, $options = array())
+    public function mail_getMessages(
+        Horde_ActiveSync_Message_Folder $folder, array $messages, array $options = array())
     {
         $imap = $this->_registry->mail->imapOb();
         $query = new Horde_Imap_Client_Fetch_Query();

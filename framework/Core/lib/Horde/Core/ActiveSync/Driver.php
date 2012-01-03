@@ -925,15 +925,16 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     /**
      * Build a stat structure for an email message.
      *
-     * @param  Horde_Imap_Client_Data_Fetch $message  The message object.
-     *
      * @return array
      */
-    private function _statMailMessage(Horde_Imap_Client_Data_Fetch $message)
+    private function _statMailMessage($folderid, $id)
     {
+        $folder = $this->getFolder($folderid);
+        $messages = $this->_connector->mail_getMessages($folder, array($id));
+        $message = array_pop($messages);
         $envelope = $message->getEnvelope();
         $stat = array(
-            'id' => $message->getUid(),
+            'id' => $id,
             'mod' => $envelope->date,
             'flags' => 0
         );
@@ -999,8 +1000,13 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     break;
 
                 default:
-                    $this->_endBuffer();
-                    return false;
+                    try {
+                        return $this->_statMailMessage($folderid, $id);
+                    } catch (Horde_ActiveSync_Exception $e) {
+                        $this->_endBuffer();
+                        return false;
+                    }
+
                 }
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
