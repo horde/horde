@@ -341,6 +341,7 @@ var ImpMobile = {
                 args = '&mbox=' + data.mbox + '&uid=' + data.uid;
 
             ImpMobile.uid = data.uid;
+            document.title = data.title;
             $('#imp-message-title').html(data.title);
             $('#imp-message-subject').html(data.subject);
             $('#imp-message-from').text(data.from[0].personal || data.from[0].inner);
