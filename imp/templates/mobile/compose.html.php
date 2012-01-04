@@ -5,6 +5,13 @@
     <a href="<?php echo $this->logout ?>" rel="external" data-theme="e" data-icon="delete" class="ui-btn-right"><?php echo _("Log out") ?></a>
     <?php endif ?>
   </div>
+
+  <form id="imp-redirect-form" action="<?php echo $this->composeLink ?>" style="display:none">
+   <input type="hidden" id="imp-redirect-cache" name="composeCache" value="<?php echo $this->composeCache ?>" />
+   <label for="imp-redirect-to"><?php echo _("To:") ?></label>
+   <input type="text" id="imp-redirect-to" name="redirect_to" />
+  </form>
+
   <form id="imp-compose-form" action="<?php echo $this->composeLink ?>" method="post" enctype="multipart/form-data" target="submit_frame">
     <input type="hidden" id="imp-compose-last-identity" name="last_identity" value="<?php echo $this->defaultIdentity ?>" />
     <input type="hidden" id="imp-compose-cache" name="composeCache" value="<?php echo $this->composeCache ?>" />
@@ -29,6 +36,7 @@
 
     </div>
   </form>
+
   <div data-role="footer" class="ui-bar">
     <a href="" data-role="button" id="imp-compose-submit"><?php echo _("Send Message") ?></a>
   </div>

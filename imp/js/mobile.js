@@ -389,6 +389,9 @@ var ImpMobile = {
                 $('#imp-message-forward').attr(
                     'href',
                     '#compose?type=forward_auto' + args);
+                $('#imp-message-redirect').attr(
+                    'href',
+                    '#compose?type=forward_redirect' + args);
             }
 
             if (ImpMobile.readOnly) {
@@ -437,8 +440,11 @@ var ImpMobile = {
         }
 
         var type = match[1], mailbox = match[2], uid = match[3],
-            func, o = {};
+            func, cache, o = {};
         o[mailbox] = [ uid ];
+
+        $('#imp-compose-form').show();
+        $('#imp-redirect-form').hide();
 
         switch (type) {
         case 'reply':
@@ -446,6 +452,7 @@ var ImpMobile = {
         case 'reply_auto':
         case 'reply_list':
             func = 'getReplyData';
+            cache = '#imp-compose-cache';
             break;
 
         case 'forward_auto':
@@ -453,15 +460,15 @@ var ImpMobile = {
         case 'forward_body':
         case 'forward_both':
             func = 'getForwardData';
+            cache = '#imp-compose-cache';
             break;
 
         case 'forward_redirect':
-            /*
-            $('compose').hide();
-            $('redirect').show();
+            $('#imp-compose-form').hide();
+            $('#imp-redirect-form').show();
             func = 'getRedirectData';
+            cache = '#imp-redirect-cache';
             break;
-            */
         }
 
         options.dataUrl = url.href;
@@ -469,7 +476,7 @@ var ImpMobile = {
             func,
             {
                 type: type,
-                imp_compose: $('#imp-compose-cache').val(),
+                imp_compose: $(cache).val(),
                 uid: ImpMobile.toRangeString(o)
             },
             function(r) { ImpMobile.composeLoaded(r, options); });
@@ -484,7 +491,10 @@ var ImpMobile = {
     composeLoaded: function(r, options)
     {
         if (r.imp_compose) {
-            $('#imp-compose-cache').val(r.imp_compose);
+            var cache = r.type == 'forward_redirect'
+                ? '#imp-redirect-cache'
+                : '#imp-compose-cache';
+            $(cache).val(r.imp_compose);
         }
 
         if (r.type != 'forward_redirect') {
@@ -887,7 +897,10 @@ var ImpMobile = {
 
             case 'imp-compose-submit':
                 if (!ImpMobile.disabled) {
-                    ImpMobile.uniqueSubmit('sendMessage');
+                    var action = $('#imp-compose-form').is(':hidden')
+                        ? 'redirectMessage'
+                        : 'sendMessage';
+                    ImpMobile.uniqueSubmit(action);
                 }
                 return;
             }

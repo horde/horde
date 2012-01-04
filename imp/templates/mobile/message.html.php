@@ -28,6 +28,7 @@
     <div data-role="controlgroup" data-type="horizontal">
       <a href="#" id="imp-message-reply" data-role="button" data-icon="back"><?php echo _("Reply") ?></a>
       <a href="#" id="imp-message-forward" data-role="button" data-icon="forward"><?php echo _("Forward") ?></a>
+      <a href="#" id="imp-message-redirect" data-role="button" data-icon="forward"><?php echo _("Redirect") ?></a>
     </div>
     <?php endif ?>
     <div data-role="controlgroup" data-type="horizontal">
