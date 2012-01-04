@@ -1,3 +1,16 @@
+.ui-bar .ui-title {
+    /* copy of .ui-header .ui-title */
+    min-height: 1.1em;
+    text-align: center;
+    font-size: 16px;
+    margin: 0 20px .1em;
+    white-space: nowrap;
+}
+
+.center {
+    text-align: center;
+}
+
 pre, code, .fixed, table.lineNumbered * {
     font-family: Menlo,Consolas,"Lucida Console","DejaVu Sans Mono",monospace;
 }

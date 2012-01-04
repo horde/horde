@@ -6,9 +6,19 @@
     <a href="<?php echo $this->logout ?>" rel="external" data-theme="e" data-icon="delete"><?php echo _("Log out") ?></a>
     <?php endif ?>
   </div>
+  <div id="imp-mailbox-navtop" class="ui-bar ui-bar-a center" style="display:none">
+    <a href="" id="imp-mailbox-prev1" data-iconpos="notext" data-role="button" data-icon="arrow-l">Previous</a>
+    <h2 class="ui-title">&nbsp;</h2>
+    <a href="" id="imp-mailbox-next1" data-role="button" data-icon="arrow-r" data-iconpos="notext">Next</a>
+  </div>
   <div data-role="content">
     <ul id="imp-mailbox-list" data-role="listview">
     </ul>
+  </div>
+  <div id="imp-mailbox-navbottom" class="ui-bar ui-bar-a center" style="display:none">
+    <a href="" id="imp-mailbox-prev2" data-iconpos="notext" data-role="button" data-icon="arrow-l">Previous</a>
+    <h2 class="ui-title">&nbsp;</h2>
+    <a href="" id="imp-mailbox-next2" data-role="button" data-icon="arrow-r" data-iconpos="notext">Next</a>
   </div>
   <?php if ($this->canCompose): ?>
   <div data-role="footer" class="ui-bar" data-position="fixed">

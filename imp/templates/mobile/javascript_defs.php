@@ -81,17 +81,18 @@ $code['conf'] = array_filter(array(
 
 /* Gettext strings used in core javascript files. */
 $code['text'] = array(
-    'copy' => _("Copy"),
-    'more_messages' => _("%d more messages..."),
-    'move' => _("Move"),
-    'new_message' => _("New Message"),
-    'nosubject' => _("The message does not have a Subject entered.") . "\n" . _("Send message without a Subject?"),
     'confirm' => array(
         'text' => array(
             'delete' => _("Are you sure you want to delete this message?")),
         'action' => array(
             'delete' => _("Delete")),
     ),
+    'copy' => _("Copy"),
+    'more_messages' => _("%d more messages..."),
+    'move' => _("Move"),
+    'nav' => _("%d to %d of %d"),
+    'new_message' => _("New Message"),
+    'nosubject' => _("The message does not have a Subject entered.") . "\n" . _("Send message without a Subject?"),
 );
 
 Horde::addInlineJsVars(array(
