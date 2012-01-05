@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Sort user and group names in permission screen (Request #10896).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2028,7 +2028,7 @@
    <date>2011-12-13</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Sort user and group names in permission screen (Request #10896).
    </notes>
   </release>
  </changelog>
