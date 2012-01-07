@@ -71,12 +71,14 @@ class Horde_ActiveSync
     const BACKEND_DISCARD_DATA          = 1;
 
     /* TRUNCATION Constants */
-    const TRUNCATION_HEADERS            = 0;
-    const TRUNCATION_512B               = 1;
-    const TRUNCATION_1K                 = 2;
-    const TRUNCATION_5K                 = 4;
-    const TRUNCATION_SEVEN              = 7;
-    const TRUNCATION_ALL                = 9;
+    const TRUNCATION_ALL                = 0;
+    const TRUNCATION_1                  = 1;
+    const TRUNCATION_2                  = 2;
+    const TRUNCATION_3                  = 3;
+    const TRUNCATION_4                  = 4;
+    const TRUNCATION_7                  = 7;
+    const TRUNCATION_8                  = 8;
+    const TRUNCATION_NONE               = 9;
 
     /* Request related constants that are used in multiple places */
     /* FOLDERHIERARCHY */
