@@ -873,11 +873,11 @@ KronolithCore = {
             row = $('kronolithAgendaTemplate').clone(true);
 
         // Fill week number and day cells.
-        row.down()
+        row.store('date', date)
+            .down()
             .setText(this.parseDate(date).toString('D'))
             .next()
-            .writeAttribute('id', 'kronolithAgendaDay' + date)
-            .store('date', date);
+            .writeAttribute('id', 'kronolithAgendaDay' + date);
         row.removeAttribute('id');
 
         // Insert row.
