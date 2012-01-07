@@ -1449,6 +1449,8 @@ div.kronolithEvent {
     cursor: pointer;
     overflow: hidden;
     position: absolute;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
 }
 img.kronolithEventIcon {
     float: left;
