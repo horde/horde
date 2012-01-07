@@ -2109,7 +2109,7 @@ KronolithCore = {
 
         this.setEventText(div, event.value,
                           { length: view == 'month' ? 30 : null,
-                            time: view == 'agenda' })
+                            time: view == 'agenda' || Kronolith.conf.show_time })
             .observe('mouseover', div.addClassName.curry('kronolithSelected'))
             .observe('mouseout', div.removeClassName.curry('kronolithSelected'));
     },
