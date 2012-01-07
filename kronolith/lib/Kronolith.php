@@ -619,7 +619,11 @@ class Kronolith
                 if ($startDate &&
                     $event->start->compareDateTime($startDate) < 0) {
                     /* It started before the beginning of the period. */
-                    $eventStart = clone $startDate;
+                    if ($event->recurs()) {
+                        $eventStart = $event->recurrence->nextRecurrence($startDate);
+                    } else {
+                        $eventStart = clone $startDate;
+                    }
                 } else {
                     $eventStart = clone $event->start;
                 }
