@@ -131,7 +131,6 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
         }
 
         // Start sending server -> PIM changes
-        $this->_logger->debug('[Horde_ActiveSync::handleFolderSync] Preparing to send changes to PIM');
         $newsynckey = $this->_state->getNewSyncKey($synckey);
         $seenfolders = $this->_state->getKnownFolders();
         $this->_logger->debug('[Horde_ActiveSync::handleFolderSync] newSyncKey: ' . $newsynckey);

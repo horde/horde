@@ -232,6 +232,7 @@ abstract class Horde_ActiveSync_Request_Base
         // FOLDERSYNC response is ignored by the client. Remove the entry,
         // to avoid having 2 device entries for every android client.
         if ($this->_device->id == 'validate') {
+            $this->_logger->debug('[' . $this->_device->id . '] Removing state for bogus VALIDATE device.');
             $this->_state->removeState(null, 'validate');
         }
     }

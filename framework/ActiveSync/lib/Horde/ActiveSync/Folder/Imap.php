@@ -30,14 +30,14 @@ class Horde_ActiveSync_Folder_Imap
     const UIDNEXT     = 'uidnext';
 
     /** The MODSEQ value */
-    const MODSEQ      = 'modseq';
+    const MODSEQ      = 'highestmodseq';
 
     /**
      * The folder status.
      *
      * @var array
      */
-    protected $_status;
+    protected $_status = array();
 
     /**
      * The folder's current message list.
@@ -45,11 +45,11 @@ class Horde_ActiveSync_Folder_Imap
      *
      * @var array
      */
-    protected $_messages;
+    protected $_messages = array();
 
-    protected $_added;
-    protected $_changed;
-    protected $_removed;
+    protected $_added = array();
+    protected $_changed = array();
+    protected $_removed = array();
 
     /**
      * The server id for this folder
@@ -71,10 +71,10 @@ class Horde_ActiveSync_Folder_Imap
      */
     public function __construct(
         $serverid,
-        array $status)
+        array $status = array())
     {
-        $this->_imap = $imap;
         $this->_serverid = $serverid;
+        $this->_status = $status;
     }
 
     public function serverid()
@@ -82,13 +82,25 @@ class Horde_ActiveSync_Folder_Imap
         return $this->_serverid;
     }
 
-    public function setChanges($messages) {
+    public function setChanges($messages)
+    {
         $this->_added = array_diff($messages, $this->_messages);
-        $this->_changed = array_diff($messages, $this->_add);
+        $this->_changed = array_diff($messages, $this->_added);
     }
 
-    public function setRemoved($message_ids) {
+    public function setRemoved($message_ids)
+    {
         $this->_removed = $message_ids;
+    }
+
+    public function setMessages($messages)
+    {
+        $this->_messages = $messages;
+    }
+
+    public function setStatus(array $status)
+    {
+        $this->_status = $status;
     }
 
     /**
@@ -133,7 +145,7 @@ class Horde_ActiveSync_Folder_Imap
      */
     public function modseq()
     {
-        return $this->_status[self::MODSEQ];
+        return empty($this->_status[self::MODSEQ]) ? 0 : $this->_status[self::MODSEQ];
     }
 
     /**
@@ -152,25 +164,8 @@ class Horde_ActiveSync_Folder_Imap
 
     public function ids()
     {
-        return new Horde_Imap_Client_Ids(array_keys($this->_messages));
+        return new Horde_Imap_Client_Ids($this->_messages);
     }
-
-    /**
-     * Indicate if there was a complete folder reset.
-     *
-     * @param Horde_ActiveSync_Folder_Imap  The folder to compare against.
-     *
-     * @return boolean  True if there was a complete folder reset, false if not.
-     */
-    public function isReset(Horde_ActiveSync_Folder_Imap $folder)
-    {
-        if ($this->uidvalidity() != $folder->uidvalidity()) {
-            return true;
-        }
-
-        return false;
-    }
-
 
     public function added()
     {
@@ -215,11 +210,14 @@ class Horde_ActiveSync_Folder_Imap
     public function __toString()
     {
         return sprintf(
-            "uidvalidity: %s\nuidnext: %s\nuids: %s\nmodseq: %s",
+            "uidvalidity: %s\nuidnext: %s\nuids: %s\nmodseq: %s\nchanged: %s\nadded: %s\nremoved: %s",
             $this->uidvalidity(),
             $this->uidnext(),
-            join(', ', $this->ids(),
-            $this->modseq())
+            join(', ', $this->ids()->ids),
+            $this->modseq(),
+            join(', ', $this->_changed),
+            join(', ', $this->_added),
+            join(', ', $this->_removed)
         );
     }
 

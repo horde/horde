@@ -98,6 +98,12 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
     const CLASS_MEETING_REQUEST = 'IPM.Schedule.Meeting.Request';
     const CLASS_MEETING_NOTICE  = 'IPM.Notification.Meeting';
 
+    /** Flags */
+    const FLAG_READ_UNSEEN = 0;
+    const FLAG_READ_SEEN   = 1;
+
+    public $read = false;
+
     protected $_properties = array(
         'to' => false,
         'cc' => false,
@@ -107,7 +113,6 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
         'datereceived' => false,
         'displayto' => false,
         'importance' => false,
-        'read' => false,
         'attachments' => false,
         'mimetruncated' => false,
         'mimedata' => false,

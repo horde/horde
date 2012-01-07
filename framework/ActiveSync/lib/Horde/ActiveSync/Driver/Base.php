@@ -268,8 +268,6 @@ abstract class Horde_ActiveSync_Driver_Base
      *
      * @param string $folderId  Folder id
      * @param string $id        Message id
-     *
-     * @return boolean
      */
     abstract public function deleteMessage($folderid, $id);
 

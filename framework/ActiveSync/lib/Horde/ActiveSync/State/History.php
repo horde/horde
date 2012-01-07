@@ -155,7 +155,9 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             $id = Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC;
         }
         if (empty($syncKey)) {
-            $this->_state = array();
+            $this->_state = $this->_collection['class'] == Horde_ActiveSync::CLASS_EMAIL
+                ? new Horde_ActiveSync_Folder_Imap($this->_collection['id'])
+                : array();
             $this->_resetDeviceState($id);
             return;
         }
@@ -194,13 +196,30 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
         // Restore any state or pending changes
         $data = unserialize($results['sync_data']);
         $pending = unserialize($results['sync_pending']);
-        $this->_state = ($data !== false) ? $data : array();
+
+
         if ($type == Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC) {
+            $this->_state = ($data !== false) ? $data : array();
             $this->_logger->debug(
                 sprintf('[%s] Loading FOLDERSYNC state: %s',
                 $this->_devId,
                 print_r($this->_state, true)));
+
         } elseif ($type == Horde_ActiveSync::REQUEST_TYPE_SYNC) {
+            $this->_state = ($data !== false
+                ? $data
+                : ($this->_collection['class'] == Horde_ActiveSync::CLASS_EMAIL
+                    ? new Horde_ActiveSync_Folder_Imap($this->_collection['id'])
+                    : array())
+            );
+
+
+            $this->_logger->debug(sprintf(
+                '[%s] Loaded previous state data: %s',
+                $this->_devId,
+                print_r($this->_state, true))
+            );
+
             $this->_changes = ($pending !== false) ? $pending : null;
             if ($this->_changes) {
                 $this->_logger->debug(
@@ -359,21 +378,23 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
                         $this->_state = array_values($this->_state);
                     }
 
-                    // Track the UIDs sent to the PIM.
-                    foreach ($this->_state as $fi => $state) {
-                        if ($state['id'] == $value['id']) {
-                            unset($this->_state[$fi]);
-                            break;
+                    if ($this->_collection['class'] != Horde_ActiveSync::CLASS_EMAIL) {
+                        // Track the UIDs sent to the PIM.
+                        foreach ($this->_state as $fi => $state) {
+                            if ($state['id'] == $value['id']) {
+                                unset($this->_state[$fi]);
+                                break;
+                            }
                         }
+                        // @TODO - can we just use the entire $value here?
+                        $stat = array(
+                            'id' => $value['id'],
+                            'mod' => $value['mod'],
+                            'flags' => $value['flags']
+                        );
+                        $this->_state[] = $stat;
+                        $this->_state = array_values($this->_state);
                     }
-                    // @TODO - can we just use the entire $value here?
-                    $stat = array(
-                        'id' => $value['id'],
-                        'mod' => $value['mod'],
-                        'flags' => $value['flags']
-                    );
-                    $this->_state[] = $stat;
-                    $this->_state = array_values($this->_state);
                     unset($this->_changes[$key]);
                     break;
                 }
@@ -743,6 +764,15 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
                 throw new Horde_ActiveSync_Exception_StateGone('Previous syncstate has been removed.');
             }
             $this->_logger->debug('[' . $this->_devId . '] Obtained last sync time for ' . $pingCollection['class'] . ' - ' . $this->_lastSyncTS);
+
+            if ($this->_collection['class'] == Horde_ActiveSync::CLASS_EMAIL) {
+                // @TODO: This is not ideal at all. This is a hack to load
+                //        the state object into memory. We use the timestamp
+                //        since it's the only data we have (we don't have
+                //        synckey since we are PINGing) This MUST be cleaned up.
+                $this->_logger->debug('PINGing EMAIL folder, load SYNC state.');
+                $this->_state = $this->_getLastEmailState($this->_collection['id'], $this->_lastSyncTS);
+            }
         } else {
             // Initialize the collection's state.
             $this->_logger->info('[' . $this->_devId . '] Empty state for '. $pingCollection['class']);
@@ -837,6 +867,16 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             $folderId = $this->_collection['id'];
             $this->_logger->debug('[' . $this->_devId . '] Initializing message diff engine for ' . $this->_collection['id']);
             if ($folderId != Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
+
+                // @TODO HACK: We need to refactor out the need to always check
+                //             the collection class and overwrite the _state in
+                //             H5 we will use a Folder State class for each
+                //             folder collection.
+                if ($this->_collection['class'] == Horde_Activesync::CLASS_EMAIL) {
+                    // Email SYNC - use the Horde_ActiveSync_Folder_Imap object.
+                    $folderId = &$this->_state;
+                }
+
                 // Any exising changes left over?
                 if (!empty($this->_changes)) {
                     $this->_logger->debug('[' . $this->_devId . '] Returning previously found changes.');
@@ -844,24 +884,21 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
                 }
 
                 // No existing changes, poll the backend
-                if ($this->_collection['class'] == Horde_Activesync::CLASS_EMAIL) {
-                    // Email SYNC - use the Horde_ActiveSync_Folder_Imap object.
-                    $folderId = !empty($this->_state)
-                        ? $this->_state
-                        : null;
-                }
-                $this->_changes = $this->_backend->getServerChanges(
+                $changes = $this->_backend->getServerChanges(
                     $folderId,
                     (int)$this->_lastSyncTS,
                     (int)$this->_thisSyncTS,
                     $cutoffdate);
 
-                // @TODO, make sure this is properly passed by reference??
                 if ($this->_collection['class'] == Horde_Activesync::CLASS_EMAIL) {
                     // Email SYNC - use the Horde_ActiveSync_Folder_Imap object.
+                    $this->_logger->debug("UPDATING STATE " . print_r($this->_state, true));
                     $this->_state->updateState();
                 }
             }
+
+            $this->_logger->debug('[' . $this->_devId . '] Found '
+                . count($changes) . ' message changes, checking for PIM initiated changes.');
 
             if ($this->_collection['class'] !== Horde_ActiveSync::CLASS_EMAIL) {
                 // Unfortunately we can't use an empty synckey to detect an initial
@@ -870,8 +907,6 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
                 // at least query the map table to see if there are any entries at
                 // all for this device before going through and stating all the
                 // messages.
-                $this->_logger->debug('[' . $this->_devId . '] Found '
-                    . count($changes) . ' message changes, checking for PIM initiated changes.');
                 if ($this->_havePIMChanges()) {
                     $this->_changes = array();
                     foreach ($changes as $change) {
@@ -890,8 +925,8 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
                     $this->_changes = $changes;
                 }
             } else {
-                // @TODO: Might have to implement a check against modseq here?
-                $this->_logger->debug('[' . $this->_devId . '] SYNCing Email folder, not checking for PIM changes');
+                $this->_logger->debug('[' . $this->_devId . '] Syncing Email folder, not checking for PIM changes');
+                $this->_changes = $changes;
             }
         } else {
             $this->_logger->debug('[' . $this->_devId . '] Initializing folder diff engine');
@@ -1123,6 +1158,14 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
         }
 
         return !empty($this->_lastSyncTS) ? $this->_lastSyncTS : 0;
+    }
+
+    protected function _getLastEmailState($id, $ts)
+    {
+        $sql = 'SELECT sync_data FROM ' . $this->_syncStateTable
+            . ' WHERE sync_folderid = ? AND sync_time = ?';
+
+        return unserialize($this->_db->selectValue($sql, array($id, $ts)));
     }
 
     /**

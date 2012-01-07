@@ -270,12 +270,11 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_DATA)) {
                         switch ($collection['class']) {
                         case 'Email':
-                            //@TODO - I thought this would go through the SENDMAIL
-                            //        command??
-                            //$appdata = new SyncMail();
-                            //$appdata->decode($decoder);
-                            // Remove error code when implemented.
-                            $this->_statusCode = self::STATUS_SERVERERROR;
+                            $appdata = new Horde_ActiveSync_Message_Mail(
+                                array('logger' => $this->_logger,
+                                      'protocolversion' => $this->_version)
+                            );
+                            $appdata->decodeStream($this->_decoder);
                             break;
                         case 'Contacts':
                             $appdata = new Horde_ActiveSync_Message_Contact(
@@ -284,11 +283,13 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                             $appdata->decodeStream($this->_decoder);
                             break;
                         case 'Calendar':
-                            $appdata = new Horde_ActiveSync_Message_Appointment(array('logger' => $this->_logger));
+                            $appdata = new Horde_ActiveSync_Message_Appointment(
+                                array('logger' => $this->_logger));
                             $appdata->decodeStream($this->_decoder);
                             break;
                         case 'Tasks':
-                            $appdata = new Horde_ActiveSync_Message_Task(array('logger' => $this->_logger));
+                            $appdata = new Horde_ActiveSync_Message_Task(
+                                array('logger' => $this->_logger));
                             $appdata->decodeStream($this->_decoder);
                             break;
                         }

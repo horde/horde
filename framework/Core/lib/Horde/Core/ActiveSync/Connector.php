@@ -1,14 +1,19 @@
 <?php
 /**
+ * Registry connector for Horde backend.
+ *
+ * @copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * @license http://www.horde.org/licenses/lgpl21 LGPL
+ * @author  Michael J Rubinsky <mrubinsk@horde.org>
+ * @package Core
+ */
+/**
  * Registry connector for Horde backend. Provides the communication between
  * the Horde Registry on the local machine and the ActiveSync Horde driver.
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
- *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
- *
- * @author  Michael J. Rubinsky <mrubinsk@horde.org>
+ * @copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * @license http://www.horde.org/licenses/lgpl21 LGPL
+ * @author  Michael J Rubinsky <mrubinsk@horde.org>
  * @package Core
  */
 class Horde_Core_ActiveSync_Connector
@@ -25,10 +30,11 @@ class Horde_Core_ActiveSync_Connector
      *
      * @param array $params  Configuration parameters. Requires:
      * <pre>
-     *   'registry' - An instance of Horde_Registry
+     *   -registry An instance of Horde_Registry
      * </pre>
      *
      * @return Horde_ActiveSync_Driver_Horde_Connector_Registry
+     * @throws InvalidArgumentException
      */
     public function __construct($params = array())
     {
@@ -57,29 +63,11 @@ class Horde_Core_ActiveSync_Connector
     }
 
     /**
-     * Get a list of event uids that have had $action happen since $from_ts.
-     *
-     * @param string $action    The action to check for (add, modify, delete)
-     * @param integer $from_ts  The timestamp to start checking from
-     * @param integer $to_ts    The ending timestamp
-     *
-     * @return array  An array of event uids
-     */
-    public function calendar_listBy($action, $from_ts, $to_ts)
-    {
-        try {
-            $uids = $this->_registry->calendar->listBy($action, $from_ts, null, $to_ts);
-        } catch (Exception $e) {
-            return array();
-        }
-    }
-
-    /**
      * Export the specified event as an ActiveSync message
      *
-     * @param string $uid          The calendar id
+     * @param string $uid          The calendar id.
      *
-     * @return Horde_ActiveSync_Message_Appointment
+     * @return Horde_ActiveSync_Message_Appointment  The requested event.
      */
     public function calendar_export($uid)
     {
@@ -87,14 +75,13 @@ class Horde_Core_ActiveSync_Connector
     }
 
     /**
-     * Import an event into Horde's calendar store.
+     * Import an event into the user's default calendar.
      *
      * @param Horde_ActiveSync_Message_Appointment $content  The event content
-     * @param string $calendar                               The calendar to import event into
      *
-     * @return string  The event's UID
+     * @return string  The event's UID.
      */
-    public function calendar_import($content)
+    public function calendar_import(Horde_ActiveSync_Message_Appointment $content)
     {
         return $this->_registry->calendar->import($content, 'activesync');
     }
@@ -102,26 +89,23 @@ class Horde_Core_ActiveSync_Connector
     /**
      * Replace the event with new data
      *
-     * @param string $uid                                    The UID of the event to replace
-     * @param Horde_ActiveSync_Message_Appointment $content  The new event content
-     *
-     * @return boolean
+     * @param string $uid                                    The UID of the
+     *                                                       event to replace.
+     * @param Horde_ActiveSync_Message_Appointment $content  The new event.
      */
-    public function calendar_replace($uid, $content)
+    public function calendar_replace($uid, Horde_ActiveSync_Message_Appointment $content)
     {
-        return $this->_registry->calendar->replace($uid, $content, 'activesync');
+        $this->_registry->calendar->replace($uid, $content, 'activesync');
     }
 
     /**
      * Delete an event from Horde's calendar storage
      *
      * @param string $uid  The UID of the event to delete
-     *
-     * @return boolean
      */
     public function calendar_delete($uid)
     {
-        return $this->_registry->calendar->delete($uid);
+        $this->_registry->calendar->delete($uid);
     }
 
     /**
@@ -140,7 +124,7 @@ class Horde_Core_ActiveSync_Connector
     /**
      * Get a list of all contacts a user can see
      *
-     * @return array of contact UIDs
+     * @return array An array of contact UIDs
      */
     public function contacts_listUids()
     {
@@ -162,14 +146,13 @@ class Horde_Core_ActiveSync_Connector
     /**
      * Import the provided contact data into Horde's contacts storage
      *
-     * @param string $content      The contact data
-     * @param string $source       The contact source to import to
+     * @param Horde_ActiveSync_Message_Contact $content      The contact data
      *
-     * @return boolean
+     * @return mixed  string|boolean  The new UID or false on failure.
      */
-    public function contacts_import($content, $import_source = null)
+    public function contacts_import(Horde_ActiveSync_Message_Contact $content)
     {
-        return $this->_registry->contacts->import($content, 'activesync', $import_source);
+        return $this->_registry->contacts->import($content, 'activesync');
     }
 
     /**
@@ -177,13 +160,10 @@ class Horde_Core_ActiveSync_Connector
      *
      * @param string $uid          The UID of the contact to replace
      * @param string $content      The contact data
-     * @param string $sources      The sources where UID will be replaced
-     *
-     * @return boolean
      */
-    public function contacts_replace($uid, $content, $sources = null)
+    public function contacts_replace($uid, $content)
     {
-        return $this->_registry->contacts->replace($uid, $content, 'activesync', $sources);
+        $this->_registry->contacts->replace($uid, $content, 'activesync', $sources);
     }
 
     /**
@@ -236,7 +216,8 @@ class Horde_Core_ActiveSync_Connector
     /**
      * Get the GAL source uid.
      *
-     * @return string | boolean
+     * @return string | boolean  The address book id of the GAL, or false if
+     *                           not available.
      */
     public function contacts_getGal()
     {
@@ -277,7 +258,7 @@ class Horde_Core_ActiveSync_Connector
      *
      * @return string  The newly added task's uid.
      */
-    public function tasks_import($message)
+    public function tasks_import(Horde_ActiveSync_Message_Task $message)
     {
         return $this->_registry->tasks->import($message, 'activesync');
     }
@@ -287,24 +268,20 @@ class Horde_Core_ActiveSync_Connector
      *
      * @param string $uid  The existing tasks's uid
      * @param Horde_ActiveSync_Message_Task $message  The task object
-     *
-     * @return boolean
      */
-    public function tasks_replace($uid, $message)
+    public function tasks_replace($uid, Horde_ActiveSync_Message_Task $message)
     {
-        return $this->_registry->tasks->replace($uid, $message, 'activesync');
+        $this->_registry->tasks->replace($uid, $message, 'activesync');
     }
 
     /**
      * Delete a task from the backend.
      *
      * @param string $id  The task's uid
-     *
-     * @return boolean
      */
     public function tasks_delete($id)
     {
-        return $this->_registry->tasks->delete($id);
+        $this->_registry->tasks->delete($id);
     }
 
     /**
@@ -329,7 +306,7 @@ class Horde_Core_ActiveSync_Connector
      *
      * @return array  An array of event uids
      */
-    public function tasks_listBy($action, $from_ts)
+    public function tasks_listBy($action, $from_ts, $to_ts)
     {
         return $this->_registry->tasks->listBy($action, $from_ts, null, $to_ts);
     }
@@ -372,6 +349,7 @@ class Horde_Core_ActiveSync_Connector
 
     /**
      * Get all server changes for the specified collection
+     *
      * @param string $collection  The collection type (calendar, contacts, tasks)
      * @param integer $from_ts    Starting timestamp
      * @param integer $to_ts      Ending timestamp
@@ -415,16 +393,13 @@ class Horde_Core_ActiveSync_Connector
      * @return Horde_ActiveSync_Folder_Imap  The folder object representing this
      *                                       IMAP folder.
      */
-    public function mail_getMessagesList(
+    public function mail_getMessageList(
         Horde_ActiveSync_Folder_Imap $folder,
         $options = array())
     {
         $imap = $this->_registry->mail->imapOb();
         $mbox = new Horde_Imap_Client_Mailbox($folder->serverid());
 
-        // @TODO: How to ensure modseq hasn't changed during this entire method?
-        // Maybe check before each operation and recurse into the method again
-        // if it *has* changed?
         $status = $imap->status($mbox,
             Horde_Imap_Client::STATUS_HIGHESTMODSEQ |
             Horde_Imap_Client::STATUS_UIDVALIDITY |
@@ -433,26 +408,26 @@ class Horde_Core_ActiveSync_Connector
          $modseq = $status['highestmodseq'];
 
         // If we have a modseq, start getting deltas.
-        // Check against our own cached modseq, not sure if the
-        // cached LASTMODSEQUIDS value is available across our
-        // AS requests.
-        if ($folder->modseq() &&
-            $folder->modseq() > $modseq &&
-            $folder->uidnext == $status['uidnext']) {
-            // Get the VANISHED messages.
-            $query = new Horde_Imap_Client_Fetch_Query();
-            $removed = $imap->fetch($mbox, $query, array(
-                'changedsince' => $folder->modseq(),
-                'vanished' => true,
-                'ids' => $folder->ids()
-            ));
-            $folder->setRemoved(array_keys($removed));
+        if ($folder->modseq() &&  $folder->modseq() < $modseq) {
+            $query = new Horde_Imap_Client_Search_Query();
+            if ($options['sincedate']) {
+                $query->dateSearch(
+                    new Horde_Date($options['sincedate']),
+                    Horde_Imap_Client_Search_Query::DATE_SINCE);
+            }
+            // Don't include \deleted, since EAS 2.5 doesn't support it.
+            $query->flag(Horde_Imap_Client::FLAG_DELETED, false);
+
+            $results = $imap->search($mbox, $query);
+            $folder->setRemoved(array_diff($folder->ids()->ids, $results['match']->ids));
+
 
             // Get changed messages and new messages.
+            $query = new Horde_Imap_Client_Fetch_Query();
             $messages = $imap->fetch($mbox, $query, array(
                 'changedsince' => $folder->modseq()
             ));
-            $folder->setChanged(array_keys($messages));
+            $folder->setChanges(array_keys($messages));
         } elseif (!$folder->modseq()) {
             // No modseq value, pull the entire list
             $query = new Horde_Imap_Client_Search_Query();
@@ -462,15 +437,17 @@ class Horde_Core_ActiveSync_Connector
                     Horde_Imap_Client_Search_Query::DATE_SINCE);
             }
             $results = $imap->search($mbox, $query);
-            $folder->setMessages($results['match']->ids);
-            $folder->setHighestModseq($modseq);
+            $folder->setChanges($results['match']->ids);
+            $folder->setStatus($status);
         }
+
+        $folder->setStatus($status);
 
         return $folder;
     }
 
     /**
-     * Return a AS mail messages, from the given IMAP UIDs.
+     * Return AS mail messages, from the given IMAP UIDs.
      *
      * @param Horde_ActiveSync_Folder_Imap  $folder  The mailbox folder.
      * @param array $messages                        List of IMAP message UIDs
@@ -486,7 +463,7 @@ class Horde_Core_ActiveSync_Connector
     {
         $imap = $this->_registry->mail->imapOb();
         $query = new Horde_Imap_Client_Fetch_Query();
-        $query->getStructure();
+        $query->structure();
         $query->uid;
         $ids = new Horde_Imap_Client_Ids($messages);
         $mbox = new Horde_Imap_Client_Mailbox($folder->serverid);
@@ -501,6 +478,30 @@ class Horde_Core_ActiveSync_Connector
         }
 
         return $messages;
+    }
+
+    public function mail_getSpecialFolders()
+    {
+        if ($this->_registry->hasMethod('mail/getSpecialMailboxes')) {
+            return $this->_registry->mail->getSpecialMailboxes();
+        }
+
+        return array();
+    }
+
+    public function mail_setReadFlag($mbox, $uid, $flag)
+    {
+        $imap = $this->_registry->mail->imapOb();
+        $mbox = new Horde_Imap_Client_Mailbox($mbox);
+        $options = array(
+            'ids' => new Horde_Imap_Client_Ids(array($uid)),
+        );
+        if ($flag == Horde_ActiveSync_Message_Mail::FLAG_READ_SEEN) {
+            $options['add'] = array(Horde_Imap_Client::FLAG_SEEN);
+        } else if ($flag == Horde_ActiveSync_Message_Mail::FLAG_READ_UNSEEN) {
+            $options['remove'] = array(Horde_Imap_Client::FLAG_SEEN);
+        }
+        $imap->store($mbox, $options);
     }
 
     /**
@@ -535,11 +536,12 @@ class Horde_Core_ActiveSync_Connector
             $qopts['length'] = $options['truncation'];
         }
         $query->bodyPart($id, $qopts);
+        Horde::debug($data);
         try {
             $messages = $imap->fetch(
                 $mbox,
                 $query,
-                new Horde_Imap_Client_Ids(array($data->uid)));
+                array('ids' => new Horde_Imap_Client_Ids(array($data->getUid()))));
         } catch (Horde_Imap_Client_Exception $e) {
             throw new Horde_Exception($e);
         }
