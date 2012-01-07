@@ -648,7 +648,8 @@ class Turba_Driver implements Countable
             $key = $ob->getValue('__key');
 
             // Calculate the age of the time object
-            if ($start->year == $end->year) {
+            if ($start->year == $end->year ||
+                $end->year == 9999) {
                 $age = $start->year - $t_object->year;
             } elseif ($t_object->month <= $end->month) {
                 // t_object must be in later year
