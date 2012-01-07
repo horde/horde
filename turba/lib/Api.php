@@ -997,7 +997,7 @@ class Turba_Api extends Horde_Registry_Api
      * the specified contentType.
      *
      * @param string $uid            Idenfity the contact to replace.
-     * @param string $content        The content of the contact.
+     * @param mixed  $content        The content of the contact.
      * @param string $contentType    What format is the data in? Currently
      *                               supports array, text/directory,
      *                               text/vcard, text/x-vcard and activesync.
