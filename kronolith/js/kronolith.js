@@ -2201,8 +2201,11 @@ KronolithCore = {
             div.insert(new Element('img', { src: event.ic, className: 'kronolithEventIcon' }));
         }
         if (opts.time && !event.al) {
-            div.insert(event.start.toString(Kronolith.conf.time_format) + '-' +
-                       event.end.toString(Kronolith.conf.time_format) + ': ');
+            div.insert(event.start.toString(Kronolith.conf.time_format));
+            if (!event.start.equals(event.end)) {
+                div.insert('-' + event.end.toString(Kronolith.conf.time_format));
+            }
+            div.insert(': ');
         }
         div.insert((opts.length ? event.t.truncate(opts.length) : event.t).escapeHTML());
         div.insert(span);
