@@ -1480,6 +1480,9 @@ img.kronolithEventIcon {
 #kronolithViewWeek div.kronolithEvent {
     font-size: 90%;
 }
+#kronolithViewMonth div.kronolithEvent {
+    max-height: 2.6em;
+}
 #kronolithViewDay .kronolithViewHead div.kronolithEvent,
 #kronolithViewWeek .kronolithViewHead div.kronolithEvent {
     white-space: nowrap;
@@ -1488,7 +1491,7 @@ img.kronolithEventIcon {
     float: left;
 }
 #kronolithViewWeek .kronolithViewHead div.kronolithEvent {
-    margin-right: 10%;
+    margin-right: 2%;
 }
 div.kronolithEvent .kronolithDragger {
     position: absolute;
