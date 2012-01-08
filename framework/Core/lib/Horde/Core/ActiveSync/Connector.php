@@ -421,7 +421,6 @@ class Horde_Core_ActiveSync_Connector
             $results = $imap->search($mbox, $query);
             $folder->setRemoved(array_diff($folder->ids()->ids, $results['match']->ids));
 
-
             // Get changed messages and new messages.
             $query = new Horde_Imap_Client_Fetch_Query();
             $messages = $imap->fetch($mbox, $query, array(
@@ -436,6 +435,7 @@ class Horde_Core_ActiveSync_Connector
                     new Horde_Date($options['sincedate']),
                     Horde_Imap_Client_Search_Query::DATE_SINCE);
             }
+            $query->flag(Horde_Imap_Client::FLAG_DELETED, false);
             $results = $imap->search($mbox, $query);
             $folder->setChanges($results['match']->ids);
             $folder->setStatus($status);
