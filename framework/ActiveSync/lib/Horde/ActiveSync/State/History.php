@@ -892,7 +892,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
 
                 if ($this->_collection['class'] == Horde_Activesync::CLASS_EMAIL) {
                     // Email SYNC - use the Horde_ActiveSync_Folder_Imap object.
-                    $this->_logger->debug("UPDATING STATE " . print_r($this->_state, true));
+                    $this->_logger->debug('Updating state for CLASS_EMAIL: ' . (string)$this->_state);
                     $this->_state->updateState();
                 }
             }
