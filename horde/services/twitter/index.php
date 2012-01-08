@@ -105,18 +105,24 @@ case 'getPage':
             $replace = '<a href="' . $link->url . '" title="' . $link->expanded_url . '">' . htmlspecialchars($link->display_url) . '</a>';
             $map[$link->indices[0]] = array($link->indices[1], $replace);
         }
-        foreach ($tweet->entities->media as $picture) {
-            $replace = '<a href="' . $picture->url . '" title="' . $picture->expanded_url . '">' . htmlentities($picture->display_url) . '</a>';
-            $map[$picture->indices[0]] = array($picture->indices[1], $replace);
-            $previews[] = ' <a href="#" onclick="return Horde[\'twitter' . $instance . '\'].showPreview(\'' . $picture->media_url . ':small\');"><img src="' . Horde_Themes::img('mime/image.png') . '" /></a>';
+        if (!empty($tweet->entities->media)) {
+            foreach ($tweet->entities->media as $picture) {
+                $replace = '<a href="' . $picture->url . '" title="' . $picture->expanded_url . '">' . htmlentities($picture->display_url) . '</a>';
+                $map[$picture->indices[0]] = array($picture->indices[1], $replace);
+                $previews[] = ' <a href="#" onclick="return Horde[\'twitter' . $instance . '\'].showPreview(\'' . $picture->media_url . ':small\');"><img src="' . Horde_Themes::img('mime/image.png') . '" /></a>';
+            }
         }
-        foreach ($tweet->entities->user_mentions as $user) {
-            $replace = ' <a title="' . $user->name . '" href="http://twitter.com/' . $user->screen_name . '">@' . htmlentities($user->screen_name) . '</a>';
-            $map[$user->indices[0]] = array($user->indices[1], $replace);
+        if (!empty($tweet->entities->user_mentions)) {
+            foreach ($tweet->entities->user_mentions as $user) {
+                $replace = ' <a title="' . $user->name . '" href="http://twitter.com/' . $user->screen_name . '">@' . htmlentities($user->screen_name) . '</a>';
+                $map[$user->indices[0]] = array($user->indices[1], $replace);
+            }
         }
-        foreach ($tweet->entities->hashtags as $hashtag) {
-            $replace = ' <a href="http://twitter.com/search?q=#' . urlencode($hashtag->text) . '">#' . htmlentities($hashtag->text) . '</a>';
-            $map[$hashtag->indices[0]] = array($hashtag->indices[1], $replace);
+        if (!empty($tweet->entities->hastags)) {
+            foreach ($tweet->entities->hashtags as $hashtag) {
+                $replace = ' <a href="http://twitter.com/search?q=#' . urlencode($hashtag->text) . '">#' . htmlentities($hashtag->text) . '</a>';
+                $map[$hashtag->indices[0]] = array($hashtag->indices[1], $replace);
+            }
         }
         $body = '';
         $pos = 0;
