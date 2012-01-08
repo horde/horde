@@ -532,11 +532,15 @@ class Horde_Core_ActiveSync_Connector
             'decode' => true,
             'peek' => true
         );
-        if ($options['truncation']) {
+        // Figure out if we need the body, and if so, how to truncate it.
+        if (isset($options['truncation']) && $options['truncation'] > 0) {
             $qopts['length'] = $options['truncation'];
         }
-        $query->bodyPart($id, $qopts);
-        Horde::debug($data);
+        if ((isset($options['truncation']) && $options['truncation'] > 0) ||
+            !isset($options['truncation'])) {
+            $query->bodyPart($id, $qopts);
+        }
+
         try {
             $messages = $imap->fetch(
                 $mbox,

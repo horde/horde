@@ -590,11 +590,14 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $this->_endBuffer();
             return false;
         }
-        if ($truncsize) {
+        if (strlen($message->body) > $truncsize) {
+            $message->body = Horde_String::substr($message->body, 0, $truncsize);
             $message->bodytruncated = 1;
         } else {
+            // Be certain this is set.
             $message->bodytruncated = 0;
         }
+
         $this->_endBuffer();
         return $message;
     }
