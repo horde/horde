@@ -1,35 +1,20 @@
 <?php
 /**
- * Base class for ActiveSync backends. Provides the communication between
- * the ActiveSync classes and the actual backend data that is being sync'd.
+ * ActiveSync backends.
  *
- * Also responsible for providing objects to the command objects that can
- * generate the delta between the PIM and server.
- *
- * Based, in part, on code by the Z-Push project. Original copyright notices
- * appear below.
- *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
- *
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ * @copyright 2010-2012 Horde LLC (http://www.horde.org/)
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package ActiveSync
  */
-/**
- * File      :   diffbackend.php
- * Project   :   Z-Push
- * Descr     :   We do a standard differential
- *               change detection by sorting both
- *               lists of items by their unique id,
- *               and then traversing both arrays
- *               of items at once. Changes can be
- *               detected by comparing items at
- *               the same position in both arrays.
+ /**
+ * Base class for ActiveSync backends. Provides the communication between
+ * the ActiveSync classes and the actual backend data that is being sync'd.
  *
- * Created   :   01.10.2007
- *
- * Zarafa Deutschland GmbH, www.zarafaserver.de
- * This file is distributed under GPL-2.0.
- * Consult COPYING file for details
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ * @copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @package ActiveSync
  */
 abstract class Horde_ActiveSync_Driver_Base
 {
@@ -75,15 +60,15 @@ abstract class Horde_ActiveSync_Driver_Base
      *
      * <pre>
      * Currently supported settings are:
-     *   pin      - Device must have a pin lock enabled.
-     *   computerunlock  - Device can be unlocked by a computer.
-     *   AEFrequencyValue - Time (in minutes) of inactivity before device locks
-     *   DeviceWipeThreshold - Number of failed unlock attempts before the
-     *                         device should wipe on devices that support this.
-     *   CodewordFrequency   - Number of failed unlock attempts before needing
-     *                         to verify that a person who can read and write is
-     *                         using the PIM.
-     *   MinimumPasswordLength
+     *   pin                    - Device must have a pin lock enabled.
+     *   computerunlock         - Device can be unlocked by a computer.
+     *   AEFrequencyValue       - Time (in minutes) of inactivity before device locks
+     *   DeviceWipeThreshold    - Number of failed unlock attempts before the
+     *                            device should wipe on devices that support this.
+     *   CodewordFrequency      - Number of failed unlock attempts before needing
+     *                            to verify that a person who can read and write is
+     *                            using the PIM.
+     *   MinimumPasswordLength  - Minimum length of password DEFAULT: 5
      *   PasswordComplexity     - 0 - alphanumeric, 1 - numeric, 2 - anything
      * </pre>
      */
@@ -99,9 +84,6 @@ abstract class Horde_ActiveSync_Driver_Base
 
     /**
      * The state object for this request. Needs to be injected into this class.
-     * Different Sync objects may require more then one type of stateObject.
-     * For instance, Horde can sync contacts and caledar data with a history
-     * based state engine, but cannot due the same for email.
      *
      * @var Horde_ActiveSync_State_Base
      */
@@ -113,12 +95,8 @@ abstract class Horde_ActiveSync_Driver_Base
      * @param array $params  Any configuration parameters or injected objects
      *                       the concrete driver may need.
      *  <pre>
-     *     (optional) logger       Horde_Log_Logger instance
-     *     (required) state_basic  A Horde_ActiveSync_State_Base object that is
-     *                             capable of handling all collections except
-     *                             email.
-     *     (optional) state_email  A Horde_ActiveSync_State_Base object that is
-     *                             capable of handling email collections.
+     *     -logger       Horde_Log_Logger instance
+     *     -state_basic  A Horde_ActiveSync_State_Base object.
      *  </pre>
      *
      * @return Horde_ActiveSync_Driver
@@ -151,6 +129,9 @@ abstract class Horde_ActiveSync_Driver_Base
         }
     }
 
+    /**
+     * Prevent circular dependency issues.
+     */
     public function __destruct()
     {
         unset($this->_stateObject);
@@ -160,8 +141,6 @@ abstract class Horde_ActiveSync_Driver_Base
      * Setter for the logger instance
      *
      * @param Horde_Log_Logger $logger  The logger
-     *
-     * @void
      */
     public function setLogger(Horde_Log_Logger $logger)
     {
@@ -180,28 +159,36 @@ abstract class Horde_ActiveSync_Driver_Base
 
     /**
      * Get folder stat
-     *  "id" => The server ID that will be used to identify the folder.
-     *          It must be unique, and not too long. How long exactly is not
-     *          known, but try keeping it under 20 chars or so.
-     *          It must be a string.
-     *  "parent" => The server ID of the parent of the folder. Same restrictions
-     *              as 'id' apply.
-     *  "mod" => This is the modification signature. It is any arbitrary string
+     *
+     * @param string $id  The folder server id.
+     *
+     * @return array  An array defined like:
+     *<pre>
+     *  -id      The server ID that will be used to identify the folder.
+     *           It must be unique, and not too long. How long exactly is not
+     *           known, but try keeping it under 20 chars or so.
+     *           It must be a string.
+     *  -parent  The server ID of the parent of the folder. Same restrictions
+     *           as 'id' apply.
+     *  -mod     This is the modification signature. It is any arbitrary string
      *           which is constant as long as the folder has not changed. In
      *           practice this means that 'mod' can be equal to the folder name
      *           as this is the only thing that ever changes in folders.
+     *</pre>
      */
     abstract public function statFolder($id);
 
     /**
-     * Get a folder from the backend
+     * Return the ActiveSync message object for the specified folder.
      *
-     * To be implemented by concrete backend driver.
+     * @param string $id  The folder's server id.
+     *
+     * @return Horde_ActiveSync_Message_Folder object.
      */
     abstract public function getFolder($id);
 
     /**
-     * Get the list of folder stat arrays
+     * Get the list of folder stat arrays @see self::statFolder()
      *
      * @return array  An array of folder stat arrays.
      */
@@ -216,17 +203,6 @@ abstract class Horde_ActiveSync_Driver_Base
     abstract public function getFolders();
 
     /**
-     * Get a full list of messages on the server
-     *
-     * @param string $folderId       The folder id
-     * @param timestamp $cutOffDate  The timestamp of the earliest date for
-     *                               calendar or mail entries
-     *
-     * @return array  A list of messages
-     */
-    abstract public function getMessageList($folderId, $cutOffDate);
-
-    /**
      * Get a list of server changes that occured during the specified time
      * period.
      *
@@ -234,7 +210,6 @@ abstract class Horde_ActiveSync_Driver_Base
      * @param integer $from_ts     The starting timestamp
      * @param integer $to_ts       The ending timestamp
      * @param integer $cutoffdate  The earliest date to retrieve back to
-     * @param string $class        The collection class of the folder @since TODO
      *
      * @return array A list of messge uids that have chnaged in the specified
      *               time period.
