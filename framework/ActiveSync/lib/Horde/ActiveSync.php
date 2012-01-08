@@ -76,6 +76,8 @@ class Horde_ActiveSync
     const TRUNCATION_2                  = 2;
     const TRUNCATION_3                  = 3;
     const TRUNCATION_4                  = 4;
+    const TRUNCATION_5                  = 5;
+    const TRUNCATION_6                  = 6;
     const TRUNCATION_7                  = 7;
     const TRUNCATION_8                  = 8;
     const TRUNCATION_NONE               = 9;
