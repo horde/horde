@@ -523,7 +523,7 @@ class Horde_Core_ActiveSync_Connector
         $part = $data->getStructure();
         $id = $part->findBody();
         $body = $part->getPart($id);
-
+        $charset = $body->getCharset();
         $imap = $this->_registry->mail->imapOb();
         $query = new Horde_Imap_Client_Fetch_Query();
         $query->envelope();
@@ -556,9 +556,9 @@ class Horde_Core_ActiveSync_Connector
         }
 
         $message = new Horde_ActiveSync_Message_Mail();
-        $message->body = $text;
-        $message->bodysize = strlen($message->body);
-        $message->bodytruncated = $options['truncation'] ? 1 : 0;
+        $message->body = Horde_String::convertCharset($text, $charset, 'UTF-8');
+        $message->bodysize = Horde_String::length($message->body);
+        $message->bodytruncated = isset($options['truncation']) ? 1 : 0;
 
         // Parse To: header
         $to = $envelope->to_decoded;
