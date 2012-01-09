@@ -619,21 +619,24 @@ class IMP_Application extends Horde_Registry_Application
     }
 
     /**
-     * Callback, called from common-template-mobile.inc that sets up the
-     * jquery mobile init hanler.
+     * Callback, called from common-template-mobile.inc that sets up the jquery
+     * mobile init handler.
      */
     public function mobileInitCallback()
     {
         Horde::addScriptFile('mobile.js');
         require IMP_TEMPLATES . '/mobile/javascript_defs.php';
+        $response = Horde::prepareResponse(null, true);
 
         /* Inline script. */
         Horde::addInlineScript(
-          '$(window.document).bind("mobileinit", function() {
-              $.mobile.page.prototype.options.addBackBtn = true;
-              $.mobile.page.prototype.options.backBtnText = "' . _("Back") .'";
-              $.mobile.loadingMessage = "' . _("loading") . '";
-           });'
+'$(window.document).bind("mobileinit", function() {
+    $.mobile.page.prototype.options.addBackBtn = true;
+    $.mobile.page.prototype.options.backBtnText = "' . _("Back") .'";
+    $.mobile.dialog.prototype.options.closeBtnText = "' . _("Close") .'";
+    $.mobile.loadingMessage = "' . _("loading") . '";
+});
+window.setTimeout(function(){HordeMobile.showNotifications(' . Horde_Serialize::serialize(isset($response->msgs) ? $response->msgs : array(), Horde_Serialize::JSON) . ') }, 0);'
         );
     }
 

@@ -144,6 +144,9 @@ class IMP
      *                 DEFAULT: No
      *   - selected: (string) The mailbox to have selected by default.
      *               DEFAULT: None
+     *   - optgroup: (boolean) Whether to use <optgroup> elements to group
+     *               folder types.
+     *               DEFAULT: false
      *
      * @return string  A string containing <option> elements for each mailbox
      *                 in the list.

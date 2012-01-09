@@ -34,6 +34,11 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Add mailbox paging to smartphone view.
+* [jan] Add copy and move to smartphone view.
+* [jan] Add deleting messages to smartphone view.
+* [jan] Add reply and forward to smartphone view.
+* [jan] Add compose functionality to smartphone view.
 * [mms] Accurately track changes to virtual folders in dynamic folder tree (Bug #10886).
 * [mms] Traditional mode now requires javascript on the browser.
 * [mms] Converted stationery to the Templates special mailbox (Request #9296).

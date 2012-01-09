@@ -728,7 +728,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     public function moveMessages()
     {
         $indices = new IMP_Indices_Form($this->_vars->uid);
-        if (!$this->_vars->mboxto || !count($indices)) {
+        if ((!$this->_vars->mboxto && !$this->_vars->newmbox) ||
+            !count($indices)) {
             return false;
         }
 
@@ -738,9 +739,17 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             return false;
         }
 
-        $mbox = IMP_Mailbox::formFrom($this->_vars->mboxto);
+        if ($this->_vars->newmbox) {
+            $mbox = IMP_Mailbox::prefFrom($this->_vars->newmbox);
+            $newMbox = true;
+        } else {
+            $mbox = IMP_Mailbox::formFrom($this->_vars->mboxto);
+            $newMbox = false;
+        }
 
-        $result = $GLOBALS['injector']->getInstance('IMP_Message')->copy($mbox, 'move', $indices);
+        $result = $GLOBALS['injector']
+            ->getInstance('IMP_Message')
+            ->copy($mbox, 'move', $indices, array('create' => $newMbox));
 
         if ($result) {
             $result = $this->_generateDeleteResult($indices, $change);
@@ -769,13 +778,24 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     public function copyMessages()
     {
         $indices = new IMP_Indices_Form($this->_vars->uid);
-        if (!$this->_vars->mboxto || !count($indices)) {
+        if ((!$this->_vars->mboxto && !$this->_vars->newmbox) ||
+            !count($indices)) {
             return false;
         }
 
-        $mbox = IMP_Mailbox::formFrom($this->_vars->mboxto);
+        if ($this->_vars->newmbox) {
+            $mbox = IMP_Mailbox::prefFrom($this->_vars->newmbox);
+            $newMbox = true;
+        } else {
+            $mbox = IMP_Mailbox::formFrom($this->_vars->mboxto);
+            $newMbox = false;
+        }
 
-        if ($result = $GLOBALS['injector']->getInstance('IMP_Message')->copy($mbox, 'copy', $indices)) {
+        $result = $GLOBALS['injector']
+            ->getInstance('IMP_Message')
+            ->copy($mbox, 'copy', $indices, array('create' => $newMbox));
+
+        if ($result) {
             $this->_queue->poll($mbox);
         } else {
             $result = $this->_checkUidvalidity();

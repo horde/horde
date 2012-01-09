@@ -11,4 +11,9 @@
       <?php echo $this->tree ?>
     </ul>
   </div>
+  <?php if ($this->canCompose): ?>
+  <div data-role="footer" class="ui-bar" data-position="fixed">
+    <a href="#compose" data-role="button" data-icon="plus"><?php echo _("New Message") ?></a>
+  </div>
+  <?php endif ?>
 </div>

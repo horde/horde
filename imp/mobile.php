@@ -16,11 +16,10 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('imp', array('impmode' => 'mobile'));
 
-$title = _("Mobile Mail");
-require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
-
 $view = new Horde_View(array('templatePath' => IMP_TEMPLATES . '/mobile'));
 new Horde_View_Helper_Text($view);
+
+$imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
 /* Initialize the IMP_Imap_Tree object. */
 $imptree = $injector->getInstance('IMP_Imap_Tree');
@@ -31,12 +30,52 @@ $tree = $imptree->createTree('mobile_folders', array(
 ));
 $view->tree = $tree->getTree(true);
 
+$view->allowFolders = $imp_imap->access(IMP_Imap::ACCESS_FOLDERS);
+if ($view->allowFolders) {
+    $view->options = IMP::flistSelect(array(
+        'heading' => _("This message to"),
+        'optgroup' => true,
+        'inc_tasklists' => true,
+        'inc_notepads' => true,
+        'new_folder' => true
+    ));
+}
+
 $view->portal = Horde::getServiceLink('portal', 'horde')->setRaw(false);
 $view->logout = Horde::getServiceLink('logout')->setRaw(false);
 
+$view->canCompose = IMP::canCompose();
+if ($view->canCompose) {
+    /* Setting up identities. */
+    $identity = $injector->getInstance('IMP_Identity');
+    $view->defaultIdentity = $identity->getDefault();
+    $view->identities = array();
+    foreach ($identity->getSelectList() as $id => $from) {
+        $view->identities[] = array(
+            'label' => htmlspecialchars($from),
+            'sel' => $id == $identity->getDefault(),
+            'val' => htmlspecialchars($id)
+        );
+    }
+
+    $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create();
+    $view->composeLink = Horde::getServiceLink('ajax', 'imp');
+    $view->composeLink->pathInfo = 'addAttachment';
+    $view->composeCache = $imp_compose->getCacheId();
+}
+
+$title = _("Mobile Mail");
+require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
 echo $view->render('head.html.php');
 echo $view->render('folders.html.php');
 echo $view->render('mailbox.html.php');
 echo $view->render('message.html.php');
+if (IMP::canCompose()) {
+    echo $view->render('compose.html.php');
+}
 echo $view->render('notice.html.php');
+echo $view->render('confirm.html.php');
+if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
+    echo $view->render('target.html.php');
+}
 require $registry->get('templates', 'horde') . '/common-footer-mobile.inc';

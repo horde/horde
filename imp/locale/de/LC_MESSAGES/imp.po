@@ -1268,7 +1268,7 @@ msgstr "Text-Emoticons in grafische umwandeln?"
 
 #: mailbox.php:531 message.php:483
 msgid "Copy"
-msgstr "_Kopiere"
+msgstr "Kopiere"
 
 #: templates/dimp/javascript_defs.php:159
 #, php-format
@@ -2965,7 +2965,7 @@ msgstr "Monate"
 
 #: mailbox.php:530 message.php:482
 msgid "Move"
-msgstr "Verschie_be"
+msgstr "Verschiebe"
 
 #: templates/dimp/javascript_defs.php:174
 #, php-format

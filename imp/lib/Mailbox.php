@@ -1226,11 +1226,18 @@ class IMP_Mailbox implements Serializable
         if ($page instanceof Horde_Url) {
             $url = clone $page;
         } else {
-            if (($page != 'search.php') && (IMP::getViewMode() == 'dimp')) {
-                $anchor = is_null($uid)
-                    ? ('mbox:' . $this->form_to)
-                    : ('msg:' . $this->getIndicesOb($uid)->formTo());
-                return Horde::url('index.php')->setAnchor($anchor);
+            if ($page != 'search.php') {
+                if (IMP::getViewMode() == 'dimp') {
+                    $anchor = is_null($uid)
+                        ? ('mbox:' . $this->form_to)
+                        : ('msg:' . $this->getIndicesOb($uid)->formTo());
+                    return Horde::url('index.php')->setAnchor($anchor);
+                } elseif (IMP::getViewMode() == 'mobile') {
+                    $anchor = is_null($uid)
+                        ? ('mbox=' . $this->form_to)
+                        : ('msg=' . $this->getIndicesOb($uid)->formTo());
+                    return '#mailbox?' . $anchor;
+                }
             }
 
             $url = Horde::url($page);
