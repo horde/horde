@@ -120,8 +120,13 @@ abstract class Horde_Rdo_Base implements IteratorAggregate
             if (isset($rel['query'])) {
                 $query = $this->_fillPlaceholders($rel['query']);
                 $this->_fields[$field] = $m->findOne($query);
-            } else {
+            } elseif(!empty($this->{$rel['foreignKey']})) {
                 $this->_fields[$field] = $m->findOne($this->{$rel['foreignKey']});
+                if (empty($this->_fields[$field])) {
+                    throw new Horde_Rdo_Exception('The referenced object with key ' . $this->{$rel['foreignKey']} . ' does not exist. Your data is inconsistent');
+                }
+            } else {
+                $this->_fields[$field] = null;
             }
             break;
 

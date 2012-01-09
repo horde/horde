@@ -16,7 +16,8 @@ require_once dirname(__FILE__) . '/../Base.php';
 class Horde_Rdo_Test_Sql_Base extends Horde_Rdo_Test_Base
 {
     protected static $db;
-    protected static $BaseObjectMapper;
+    protected static $EagerBaseObjectMapper;
+    protected static $LazyBaseObjectMapper;
     protected static $RelatedThingMapper;
 
     public static function setUpBeforeClass()
@@ -51,50 +52,66 @@ class Horde_Rdo_Test_Sql_Base extends Horde_Rdo_Test_Base
 
     public function testFindReturnsHordeRdoList()
     {
-        $result = self::$BaseObjectMapper->find();
+        $result = self::$LazyBaseObjectMapper->find();
         $this->assertTrue($result instanceof Horde_Rdo_List, "find() returns a Horde_Rdo_List");
     }
 
     public function testFindOneReturnsEntity()
     {
-        $result = self::$BaseObjectMapper->findOne();
+        $result = self::$LazyBaseObjectMapper->findOne();
         $this->assertTrue($result instanceof Horde_Rdo_Base, "findOne() returns a Horde_Rdo_Base");
     }
     public function testFindOneWithScalarReturnsEntityWithKeyValue()
     {
-        $result = self::$BaseObjectMapper->findOne(2);
+        $result = self::$LazyBaseObjectMapper->findOne(2);
         $this->assertEquals(2, $result->baseobject_id, "findOne() returns the right Horde_Rdo_Base if key is given as argument");
     }
 
     public function testToOneRelationRetrievesEntityWhenKeyIsFound()
     {
-        $entity = self::$BaseObjectMapper->findOne(1);
-        $this->assertTrue($entity->relatedthing instanceof Horde_Rdo_Test_Objects_RelatedThing, "to-one-relations return an instance object");
-    }
-
-    public function testToOneRelationReturnsNullWhenKeyIsNotFound()
-    {
-        $entity = self::$BaseObjectMapper->findOne(3);
-        $this->assertNull($entity->relatedthing, "to-one-relations return null when relation key is not found");
-    }
-
-    public function testToOneRelationReturnsNullWhenKeyIsNull()
-    {
-        $entity = self::$BaseObjectMapper->findOne(4);
-        $this->assertEquals(100, $entity->relatedthing->relatedthing_intproperty, "to-one-relations return an instance object if relation key is null");
+        $entity = self::$LazyBaseObjectMapper->findOne(1);
+        $this->assertTrue($entity->lazyRelatedThing instanceof Horde_Rdo_Test_Objects_RelatedThing, "to-one-relations return an instance object");
     }
 
     public function testToOneRelationRetrievesCorrectEntityWhenKeyIsFound()
     {
-        $result = self::$BaseObjectMapper->findOne(1);
-        $this->assertEquals(100, $result->relatedthing->relatedthing_intproperty, "to-one-relations return correct related object when key is found");
+        $result = self::$LazyBaseObjectMapper->findOne(1);
+        $this->assertEquals(100, $result->lazyRelatedThing->relatedthing_intproperty, "to-one-relations return correct related object when key is found");
     }
+   /**
+    * @expectedException Horde_Rdo_Exception
+    */
+    public function testLazyToOneRelationThrowsExceptionWhenKeyIsNotFound()
+    {
+        $entity = self::$LazyBaseObjectMapper->findOne(3);
+        $this->assertNull($entity->lazyRelatedThing, "lazy to-one-relations throw exception when relation key is not found");
+    }
+
+    public function testLazyToOneRelationReturnsNullWhenKeyIsEmpty()
+    {
+        $entity = self::$LazyBaseObjectMapper->findOne(4);
+        $this->assertNull($entity->lazyRelatedThing, "lazy to-one-relations returns 0 when relation key is empty() value");
+    }
+
+    public function testObjectWithEagerToOneRelationIsNotLoadedWhenRelatedObjectDoesntExist()
+    {
+        $entity = self::$EagerBaseObjectMapper->findOne(3);
+        $this->assertNull($entity, "Base Object not loaded when eager relation key references nonexisting line");
+    }
+
+    public function testObjectWithEagerToOneRelationIsNotLoadedWhenlWhenKeyIsNull()
+    {
+        $entity = self::$EagerBaseObjectMapper->findOne(4);
+        $this->assertNull($entity, "Base Object not loaded when eager relation key is null");
+    }
+
 
     public static function tearDownAfterClass()
     {
         if (self::$db) {
             $migration = new Horde_Db_Migration_Base(self::$db);
-            $migration->dropTable('test_somebaseobjects');
+            $migration->dropTable('test_someeagerbaseobjects');
+            $migration->dropTable('test_somelazybaseobjects');
             $migration->dropTable('test_relatedthings');
             self::$db = null;
         }
@@ -106,6 +123,7 @@ class Horde_Rdo_Test_Sql_Base extends Horde_Rdo_Test_Base
             $this->markTestSkipped('No sqlite extension or no sqlite PDO driver.');
         }
 
-       self::$BaseObjectMapper = new Horde_Rdo_Test_Objects_SomeBaseObjectMapper(self::$db);
+       self::$LazyBaseObjectMapper = new Horde_Rdo_Test_Objects_SomeLazyBaseObjectMapper(self::$db);
+       self::$EagerBaseObjectMapper = new Horde_Rdo_Test_Objects_SomeEagerBaseObjectMapper(self::$db);
     }
 }

@@ -6,12 +6,18 @@ function migrate_sql($db)
 
     /* Cleanup potential left-overs. */
     try {
-        $migration->dropTable('test_somebaseobjects');
+        $migration->dropTable('test_someeagerbaseobjects');
+        $migration->dropTable('test_somelazybaseobjects');
         $migration->dropTable('test_relatedthings');
     } catch (Horde_Db_Exception $e) {
     }
 
-    $t = $migration->createTable('test_somebaseobjects', array('autoincrementKey' => 'baseobject_id'));
+    $t = $migration->createTable('test_someeagerbaseobjects', array('autoincrementKey' => 'baseobject_id'));
+    $t->column('relatedthing_id', 'integer');
+    $t->column('atextproperty', 'string');
+    $t->end();
+
+    $t = $migration->createTable('test_somelazybaseobjects', array('autoincrementKey' => 'baseobject_id'));
     $t->column('relatedthing_id', 'integer');
     $t->column('atextproperty', 'string');
     $t->end();

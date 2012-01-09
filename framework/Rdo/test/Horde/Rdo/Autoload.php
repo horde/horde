@@ -22,7 +22,9 @@ require_once 'Horde/Test/Autoload.php';
 error_reporting(E_ALL | E_STRICT);
 
 /** Load Mapper definitions */
-require_once dirname(__FILE__) . '/Objects/SomeBaseObjectMapper.php';
-require_once dirname(__FILE__) . '/Objects/SomeBaseObject.php';
+require_once dirname(__FILE__) . '/Objects/SomeLazyBaseObjectMapper.php';
+require_once dirname(__FILE__) . '/Objects/SomeLazyBaseObject.php';
+require_once dirname(__FILE__) . '/Objects/SomeEagerBaseObjectMapper.php';
+require_once dirname(__FILE__) . '/Objects/SomeEagerBaseObject.php';
 require_once dirname(__FILE__) . '/Objects/RelatedThingMapper.php';
 require_once dirname(__FILE__) . '/Objects/RelatedThing.php';
