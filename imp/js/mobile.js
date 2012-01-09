@@ -243,7 +243,6 @@ var ImpMobile = {
             });
             l = list.children().length;
             if (r.ViewPort.totalrows > l) {
-                console.log(ImpMobile.from, ImpMobile.from + 24, r.ViewPort.totalrows);
                 var navtext = IMP.text.nav
                     .replace(/%d/, ImpMobile.from)
                     .replace(/%d/, Math.min(ImpMobile.from + 24, r.ViewPort.totalrows))
