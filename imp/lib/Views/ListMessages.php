@@ -288,7 +288,7 @@ class IMP_Views_ListMessages
             }
             $rownum = $mailbox_list->getArrayIndex(reset($uid_search));
         } elseif (!empty($args['search_uid'])) {
-            $rownum = $mailbox_list->getArrayIndex($args['search_uid'], $args['search_mbox']);
+            $rownum = $mailbox_list->getArrayIndex($args['search_uid'], $mbox);
         } else {
             /* If this is the initial request for a mailbox, figure out the
              * starting location based on user's preferences. */
