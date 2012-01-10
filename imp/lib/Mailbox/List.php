@@ -561,9 +561,9 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
     /**
      * Returns the array index of the given message UID.
      *
-     * @param integer $uid   The message UID.
-     * @param integer $mbox  The message mailbox (defaults to the current
-     *                       mailbox).
+     * @param integer $uid  The message UID.
+     * @param string $mbox  The message mailbox (defaults to the current
+     *                      mailbox).
      *
      * @return mixed  The array index of the location of the message UID in
      *                the current mailbox. Returns null if not found.
