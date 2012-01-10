@@ -2341,31 +2341,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $ret = &$options['fetch_res'];
         }
 
-        /* If doing a changedsince/vanished search that involves a subset of
-         * UIDs, we need to limit the UIDs now. */
-        if ((!empty($options['changedsince']) ||
-             !empty($options['vanished'])) &&
-            !$options['ids']->all) {
-            $changed_query = new Horde_Imap_Client_Fetch_Query();
-            if ($options['ids']->sequence) {
-                $changed_query->seq();
-            } else {
-                $changed_query->uid();
-            }
-
-            $ret = array_intersect_key($ret, $this->_fetch($changed_query, array(), array(
-                'changedsince' => $options['changedsince'],
-                'ids' => $options['ids'],
-                'vanished' => !empty($options['vanished'])
-            )));
-
-            if (empty($ret)) {
-                return $ret;
-            }
-
-            $options['ids'] = $this->getIdsOb(array_keys($ret), $options['ids']->sequence);
-        }
-
         /* If nothing is cacheable, we can do a straight search. */
         if (empty($cache_array)) {
             $ret = $this->_fetch($query, $ret, $options);
@@ -2375,6 +2350,33 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 }
             }
             return $ret;
+        }
+
+        /* If doing a changedsince/vanished search, limit the UIDs now. */
+        if (!empty($options['changedsince'])) {
+            $changed_query = new Horde_Imap_Client_Fetch_Query();
+            if (empty($options['vanished']) && $options['ids']->sequence) {
+                $changed_query->seq();
+            } else {
+                $changed_query->uid();
+            }
+
+            $cs_res = $this->_fetch($changed_query, array(), array(
+                'changedsince' => $options['changedsince'],
+                'ids' => $options['ids'],
+                'vanished' => !empty($options['vanished'])
+            ));
+
+            if (!empty($options['vanished'])) {
+                return $cs_res;
+            }
+
+            $ret = array_intersect_key($ret, $cs_res);
+            if (empty($ret)) {
+                return $ret;
+            }
+
+            $options['ids'] = $this->getIdsOb(array_keys($ret), $options['ids']->sequence);
         }
 
         /* Need Seq -> UID lookup if we haven't already grabbed it. */

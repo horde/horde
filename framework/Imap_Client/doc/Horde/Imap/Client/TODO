@@ -6,6 +6,13 @@ TODO for 2.0
       The 'mailbox' return value should always be returned as a
       Horde_Imap_Client_Mailbox object.
 
+  - Horde_Imap_Client_Base#fetch()
+
+      Move 'vanished' parameter to a separate method.  Tt does not return
+      true data objects like the other options - it should instead return a
+      list of UIDs only - so it doesn't really fit in a fetch() call, even
+      though the underlying IMAP command used is FETCH.
+
   - Horde_Imap_Client_Base#getNamespaces()
 
       The array keys, 'name' key, and 'translation' key in the return array
