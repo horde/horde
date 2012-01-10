@@ -1638,6 +1638,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _parseVanished($data)
     {
+        $vanished = array();
+
         /* There are two forms of VANISHED.  VANISHED (EARLIER) will be sent
          * in a FETCH (VANISHED) or SELECT/EXAMINE (QRESYNC) call.
          * If this is the case, we can go ahead and update the cache
@@ -1648,15 +1650,26 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             if (strtoupper(reset($data[0])) == 'EARLIER') {
                 /* Caching is guaranteed to be active if we are using
                  * QRESYNC. */
-                $this->_deleteMsgs($this->_temp['mailbox']['name'], $this->utils->fromSequenceString($data[1]));
+                $vanished = $this->utils->fromSequenceString($data[1]);
+                $this->_deleteMsgs($this->_temp['mailbox']['name'], $vanished);
+
+                if (!empty($this->_temp['fetch_vanished'])) {
+                    foreach ($vanished as $val) {
+                        $ob = new $this->_fetchDataClass();
+                        $ob->setUid($val);
+                        $this->_temp['fetchresp']->uid[] = $ob;
+                    }
+                }
             }
         } else {
             /* The second form is just VANISHED. This is returned from an
              * EXPUNGE command and will be processed in _expunge(). */
-            $this->_temp['vanished'] = $this->utils->fromSequenceString($data[0]);
-            $this->_temp['mailbox']['messages'] -= count($this->_temp['vanished']);
+            $vanished = $this->utils->fromSequenceString($data[0]);
+            $this->_temp['mailbox']['messages'] -= count($vanished);
             $this->_temp['mailbox']['lookup'] = array();
         }
+
+        $this->_temp['vanished'] = $vanished;
     }
 
     /**
@@ -2415,7 +2428,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     protected function _fetch($query, $results, $options)
     {
         $t = &$this->_temp;
-        $t['fetchcmd'] = array();
+        $t['fetchcmd'] = $t['vanished'] = array();
         $fetch = array();
 
         /* Build an IMAP4rev1 compliant FETCH query. We handle the following
@@ -2592,10 +2605,18 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             if (empty($this->_temp['mailbox']['highestmodseq'])) {
                 $this->_exception('Mailbox does not support mod-sequences.', 'MBOXNOMODSEQ');
             }
-            $cmd[] = array(
+
+            $fetch_opts = array(
                 'CHANGEDSINCE',
                 array('t' => Horde_Imap_Client::DATA_NUMBER, 'v' => $options['changedsince'])
             );
+
+            if (!empty($options['vanished'])) {
+                $fetch_opts[] = 'VANISHED';
+                $t['fetch_vanished'] = true;
+            }
+
+            $cmd[] = $fetch_opts;
         }
 
         $fr = $this->_newFetchResult();
@@ -2609,7 +2630,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             'fetch' => $fr
         ));
 
-        unset($t['fetchcmd']);
+        unset($t['fetchcmd'], $t['fetch_vanished']);
 
         return $options['ids']->sequence
             ? $fr->seq

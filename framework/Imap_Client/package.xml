@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix &apos;changedsince&apos; and &apos;vanished&apos; parameters&apos; in the fetch() command (Bug #10915).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -655,7 +655,7 @@
    <date>2011-12-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix &apos;changedsince&apos; and &apos;vanished&apos; parameters&apos; in the fetch() command (Bug #10915).
    </notes>
   </release>
  </changelog>
