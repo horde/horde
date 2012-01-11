@@ -361,6 +361,7 @@ KronolithCore = {
                      (loc == 'month' && date.getMonth() == this.date.getMonth()) ||
                      (loc == 'week' && date.getRealWeek() == this.date.getRealWeek()) ||
                      ((loc == 'day'  || loc == 'agenda') && date.dateString() == this.date.dateString()))) {
+                         this.setViewTitle(date, loc);
                          this.addHistory(fullloc);
                          this.loadNextView();
                          return;
@@ -644,7 +645,7 @@ KronolithCore = {
             this.allDayEvents = [];
             $('kronolithViewDay')
                 .down('caption span')
-                .update(this.setTitle(date.toString('D')));
+                .update(this.setViewTitle(date, view, data));
             $('kronolithViewDay')
                 .down('.kronolithAllDayContainer')
                 .store('date', date.dateString());
@@ -670,7 +671,7 @@ KronolithCore = {
 
             $('kronolithViewWeek')
                 .down('caption span')
-                .update(this.setTitle(dates[0].toString('d') + ' - ' + dates[1].toString('d')));
+                .update(this.setViewTitle(date, view, data));
 
             for (i = 0; i < 24; i++) {
                 day = dates[0].clone();
@@ -717,7 +718,7 @@ KronolithCore = {
 
             $('kronolithViewMonth')
                 .down('caption span')
-                .update(this.setTitle(date.toString('MMMM yyyy')));
+                .update(this.setViewTitle(date, view, data));
 
             // Remove old rows. Maybe we should only rebuild the calendars if
             // necessary.
@@ -741,7 +742,7 @@ KronolithCore = {
         case 'year':
             var month;
 
-            $('kronolithYearDate').update(this.setTitle(date.toString('yyyy')));
+            $('kronolithYearDate').update(this.setViewTitle(date, view, data));
 
             // Build new calendar view.
             for (month = 0; month < 12; month++) {
@@ -757,12 +758,12 @@ KronolithCore = {
             if (view == 'agenda') {
                 var dates = this.viewDates(date, view);
                 $('kronolithAgendaDate')
-                    .update(this.setTitle(Kronolith.text.agenda + ' ' + dates[0].toString('d') + ' - ' + dates[1].toString('d')));
+                    .update(this.setViewTitle(date, view, data));
                 $('kronolithAgendaNavigation').show();
                 $('kronolithSearchNavigation').hide();
             } else {
                 $('kronolithAgendaDate')
-                    .update(this.setTitle(Kronolith.text.searching.interpolate({ term: data })));
+                    .update(this.setViewTitle(date, view, data));
                 $('kronolithAgendaNavigation').hide();
                 $('kronolithSearchNavigation').show();
             }
@@ -778,6 +779,38 @@ KronolithCore = {
             });
 
             break;
+        }
+    },
+
+    /**
+     * Sets the browser title of the calendar views.
+     *
+     * @param Date date    The date to show in the calendar.
+     * @param string view  The view that's displayed.
+     * @param mixed data   Any additional data that might be required.
+     */
+    setViewTitle: function(date, view, data)
+    {
+        switch (view) {
+        case 'day':
+            return this.setTitle(date.toString('D'));
+
+        case 'week':
+            var dates = this.viewDates(date, view);
+            return this.setTitle(dates[0].toString('d') + ' - ' + dates[1].toString('d'));
+
+        case 'month':
+            return this.setTitle(date.toString('MMMM yyyy'));
+
+        case 'year':
+            return this.setTitle(date.toString('yyyy'));
+
+        case 'agenda':
+            var dates = this.viewDates(date, view);
+            return this.setTitle(Kronolith.text.agenda + ' ' + dates[0].toString('d') + ' - ' + dates[1].toString('d'));
+
+        case 'search':
+            return this.setTitle(Kronolith.text.searching.interpolate({ term: data }));
         }
     },
 
