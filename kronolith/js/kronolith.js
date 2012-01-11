@@ -398,6 +398,7 @@ KronolithCore = {
 
             case 'tasks':
                 var tasktype = locParts.shift() || this.tasktype;
+                this.setTitle(Kronolith.text.tasks);
                 if (this.view == loc && this.tasktype == tasktype) {
                     this.addHistory(fullloc);
                     this.loadNextView();

@@ -248,6 +248,7 @@ class Kronolith
             'hidelog' => _("Hide Notifications"),
             'growlerinfo' => _("This is the notification backlog"),
             'agenda' => _("Agenda"),
+            'tasks' => _("Tasks"),
             'searching' => sprintf(_("Events matching \"%s\""), '#{term}'),
             'allday' => _("All day"),
             'more' => _("more..."),
