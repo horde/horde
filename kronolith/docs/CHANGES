@@ -2,6 +2,8 @@
 v3.0.14-git
 -----------
 
+[mjr] Fix bug that could cause incorrect event exceptions to be created when
+      drag and dropping events in month view.
 [jan] Fix page titles not always updating correctly.
 [jan] Display event time in dynamic if requested (Request #9866).
 [jan] Only show end time if different from start time.
