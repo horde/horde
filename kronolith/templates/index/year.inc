@@ -7,7 +7,6 @@
       <a title="<?php echo _("Previous") ?>" class="kronolithPrev">&lt;</a>
       <a class="kronolithGotoToday"><?php echo Horde::highlightAccessKey(_("_Today"), $todayAccessKey) ?></a>
       <a title="<?php echo _("Next") ?>" class="kronolithNext">&gt;</a>
-      <a class="kronolithPrint" onclick="print()" title="<?php echo _("Print") ?>"><span><?php echo _("Print") ?></span></a>
     </span>
   </caption>
 </table>

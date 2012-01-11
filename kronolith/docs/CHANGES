@@ -2,6 +2,7 @@
 v3.1-git
 --------
 
+[jan] Remove print buttons.
 [jan] Add work week view to dynamic interface (rsalmon@mbpgroup.com, Request
       #10519).
 [jan] Support importing of iCalendar events with non-local timezones (Request
