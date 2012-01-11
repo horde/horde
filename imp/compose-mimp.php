@@ -267,7 +267,11 @@ case _("Send"):
     case _("Send"):
         $sig = $identity->getSignature();
         if (!empty($sig)) {
-            $message .= "\n" . $sig;
+            if ($identity->getValue('sig_first')) {
+                $message = $sig . $message;
+            } else {
+                $message .= $sig;
+            }
         }
 
         $options = array(
