@@ -82,7 +82,7 @@ var DimpMessage = {
 
             $('identity', 'last_identity').invoke('setValue', id);
 
-            DimpCompose.fillForm((i.id[2]) ? ("\n" + i.sig + r.body) : (r.body + "\n" + i.sig), r.header, r.opts);
+            DimpCompose.fillForm((i.id.sig_loc) ? ("\n" + i.sig + r.body) : (r.body + "\n" + i.sig), r.header, r.opts);
             break;
         }
     },
