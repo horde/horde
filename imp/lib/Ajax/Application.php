@@ -1635,8 +1635,10 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             }
         }
 
-        $result->mbox = $imp_compose->getMetadata('mailbox')->form_to;
-        $result->uid = $imp_compose->getMetadata('uid');
+        if ($reply_mbox = $imp_compose->getMetadata('mailbox')) {
+            $result->mbox = $reply_mbox->form_to;
+            $result->uid = $imp_compose->getMetadata('uid');
+        }
 
         $imp_compose->destroy('send');
 
