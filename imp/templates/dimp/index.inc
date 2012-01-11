@@ -567,3 +567,10 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
   </div>
  </div>
 </div>
+
+<?php
+Horde::includeScriptFiles();
+Horde::outputInlineScript();
+?>
+
+</body></html>

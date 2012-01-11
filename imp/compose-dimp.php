@@ -303,7 +303,10 @@ IMP::status();
 $t->set('status', Horde::endBuffer());
 
 IMP_Dimp::header($title, $scripts);
-echo $t->fetch(IMP_TEMPLATES . '/dimp/compose/compose-base.html');
+
+Horde::startBuffer();
 Horde::includeScriptFiles();
 Horde::outputInlineScript();
-echo "</body>\n</html>";
+$t->set('script', Horde::endBuffer());
+
+echo $t->fetch(IMP_TEMPLATES . '/dimp/compose/compose-base.html');
