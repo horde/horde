@@ -1,7 +1,7 @@
 <div data-role="page" id="gallerylist">
   <div data-role="header">
     <h1><?php echo _("My Galleries")?></h1>
-    <a rel="external" href="<?php echo $this->portal ?>"><?php echo _("Home")?></a>
+    <a rel="external" href="<?php echo $this->portal ?>"><?php echo _("Portal")?></a>
     <?php if ($this->logout): ?>
       <a href="<?php echo $this->logout ?>" rel="external" data-theme="e" data-icon="delete"><?php echo _("Log out") ?></a>
     <?php endif ?>

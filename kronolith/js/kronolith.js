@@ -882,11 +882,11 @@ KronolithCore = {
             row = $('kronolithAgendaTemplate').clone(true);
 
         // Fill week number and day cells.
-        row.down()
+        row.store('date', date)
+            .down()
             .setText(this.parseDate(date).toString('D'))
             .next()
-            .writeAttribute('id', 'kronolithAgendaDay' + date)
-            .store('date', date);
+            .writeAttribute('id', 'kronolithAgendaDay' + date);
         row.removeAttribute('id');
 
         // Insert row.
@@ -2135,8 +2135,7 @@ KronolithCore = {
         }
 
         this.setEventText(div, event.value,
-                          { length: view == 'month' ? 30 : null,
-                            time: view == 'agenda' })
+                          { time: view == 'agenda' || Kronolith.conf.show_time })
             .observe('mouseover', div.addClassName.curry('kronolithSelected'))
             .observe('mouseout', div.removeClassName.curry('kronolithSelected'));
     },
@@ -2222,17 +2221,20 @@ KronolithCore = {
     {
         var calendar = event.calendar.split('|'),
             span = new Element('span');
-        opts = Object.extend({ length: false, time: false }, opts || {}),
+        opts = Object.extend({ time: false }, opts || {}),
 
         div.update();
         if (event.ic) {
             div.insert(new Element('img', { src: event.ic, className: 'kronolithEventIcon' }));
         }
         if (opts.time && !event.al) {
-            div.insert(event.start.toString(Kronolith.conf.time_format) + '-' +
-                       event.end.toString(Kronolith.conf.time_format) + ': ');
+            div.insert(event.start.toString(Kronolith.conf.time_format));
+            if (!event.start.equals(event.end)) {
+                div.insert('-' + event.end.toString(Kronolith.conf.time_format));
+            }
+            div.insert(': ');
         }
-        div.insert((opts.length ? event.t.truncate(opts.length) : event.t).escapeHTML());
+        div.insert(event.t.escapeHTML());
         div.insert(span);
         if (event.a) {
             span.insert(' ')

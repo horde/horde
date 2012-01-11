@@ -51,7 +51,7 @@ class IMP_Search_Element_Text extends IMP_Search_Element
             ? _("Message Body")
             : _("Entire Message (including Headers)");
 
-        return sprintf("%s for '%s'", $label, ((!empty($this->_data->n)) ? _("not") . ' ' : '') . $this->_data->t);
+        return sprintf(_("%s for '%s'"), $label, ((!empty($this->_data->n)) ? _("not") . ' ' : '') . $this->_data->t);
     }
 
 }

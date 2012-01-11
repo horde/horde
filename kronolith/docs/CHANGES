@@ -15,6 +15,10 @@ v3.1-git
 v3.0.14-git
 -----------
 
+[jan] Display event time in dynamic if requested (Request #9866).
+[jan] Only show end time if different from start time.
+[jan] Fix day sorting in agenda view.
+[jan] Sort user and group names in permission screen (Request #10896).
 
 
 -------

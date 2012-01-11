@@ -103,14 +103,21 @@ if ($session->get('imp', 'file_upload') &&
 /* Run through the action handlers. */
 switch ($vars->a) {
 // 'd' = draft
+// 'en' = edit as new
 // 't' = template
 case 'd':
+case 'en':
+case 't':
     try {
         $indices_ob = IMP::$thismailbox->getIndicesOb(IMP::$uid);
 
         switch ($vars->a) {
         case 'd':
             $result = $imp_compose->resumeDraft($indices_ob);
+            break;
+
+        case 'en':
+            $result = $imp_compose->editAsNew($indices_ob);
             break;
 
         case 't':

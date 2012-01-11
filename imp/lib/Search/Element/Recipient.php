@@ -57,7 +57,7 @@ class IMP_Search_Element_Recipient extends IMP_Search_Element
      */
     public function queryText()
     {
-        return sprintf("Recipients (To/Cc/Bcc) for '%s'", ($this->_data->n ? _("not") . ' ' : '') . $this->_data->t);
+        return sprintf(_("Recipients (To/Cc/Bcc) for '%s'"), ($this->_data->n ? _("not") . ' ' : '') . $this->_data->t);
     }
 
 }

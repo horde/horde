@@ -795,6 +795,12 @@ var DimpBase = {
             this.setMsgHash();
         }.bindAsEventListener(this));
 
+        container.observe('ViewPort:endRangeFetch', function(e) {
+            if (this.view == e.memo) {
+                this.loadingImg('viewport', false);
+            }
+        }.bindAsEventListener(this));
+
         container.observe('ViewPort:fetch', function(e) {
             $('searchbar').hide();
             this.loadingImg('viewport', true);

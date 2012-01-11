@@ -156,6 +156,7 @@ class Kronolith
                                          array('d', 'dd', 'ddd', 'dddd', 'MM', 'MMM', 'MMM', 'MMMM', 'yy', 'yyyy'),
                                          Horde_Nls::getLangInfo(D_FMT)),
             'time_format' => $prefs->getValue('twentyFour') ? 'HH:mm' : 'hh:mm tt',
+            'show_time' => self::viewShowTime(),
             'default_alarm' => (int)$prefs->getValue('default_alarm'),
             'status' => array('tentative' => self::STATUS_TENTATIVE,
                               'confirmed' => self::STATUS_CONFIRMED,
@@ -652,7 +653,11 @@ class Kronolith
                 if ($startDate &&
                     $event->start->compareDateTime($startDate) < 0) {
                     /* It started before the beginning of the period. */
-                    $eventStart = clone $startDate;
+                    if ($event->recurs()) {
+                        $eventStart = $event->recurrence->nextRecurrence($startDate);
+                    } else {
+                        $eventStart = clone $startDate;
+                    }
                 } else {
                     $eventStart = clone $event->start;
                 }

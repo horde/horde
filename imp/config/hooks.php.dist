@@ -530,6 +530,7 @@ class IMP_Hooks
      * @param string $view  Either 'imp' or 'dimp'.
      *
      * @return array  The altered array to use in the template.
+     */
 //    public function mailboxarray($msgs, $view)
 //    {
 //        // Example #1: Adds a 'foo' entry to each message element.
