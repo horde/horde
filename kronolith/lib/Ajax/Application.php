@@ -251,8 +251,8 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
                 break;
 
             case 'offDays':
-                $event->start->mday += $value;
-                $event->end->mday += $value;
+                $event->start->mday = $event->start->mday + $value;
+                $event->end->mday = $event->end->mday + $value;
                 break;
 
             case 'offMins':
@@ -938,6 +938,7 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
             $result->events = array();
             return $result;
         }
+
         try {
             $event->save();
             $end = new Horde_Date($this->_vars->view_end);
@@ -947,6 +948,8 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
             Kronolith::addEvents($events, $event,
                                  new Horde_Date($this->_vars->view_start),
                                  $end, true, true);
+
+
             /* If this is an exception, we re-add the original event as well
              * cstart and cend are the cacheStart and cacheEnd dates from the
              * client. */
@@ -996,12 +999,16 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
         // Add the exception to the original event
         if ($attributes->rstart) {
             $rstart = new Horde_Date($attributes->rstart);
+            $rstart->setTimezone($event->start->timezone);
             $rend = new Horde_Date($attributes->rend);
+            $rend->setTimezone($event->end->timezone);
         } else {
             $rstart = new Horde_Date($attributes->rday);
+            $rstart->setTimezone($event->start->timezone);
             $rstart->hour = $event->start->hour;
             $rstart->min = $event->start->min;
             $rend = $rstart->add($event->getDuration);
+            $rend->setTimezone($event->end->timezone);
             $rend->hour = $event->end->hour;
             $rend->min = $event->end->min;
         }
