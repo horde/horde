@@ -1254,15 +1254,14 @@ class IMP_Contents
     /**
      * Return the descriptive part label, making sure it is not empty.
      *
-     * @param Horde_Mime_Part $part            The MIME Part object.
-     * @param boolean         $useDescription  Use description? If false, uses
-     *                                         name.
+     * @param Horde_Mime_Part $part  The MIME Part object.
+     * @param boolean $use_descrip   Use description? If false, uses name.
      *
      * @return string  The part label (non-empty).
      */
-    public function getPartName(Horde_Mime_Part $part, $useDescription = false)
+    public function getPartName(Horde_Mime_Part $part, $use_descrip = false)
     {
-        $name = $useDescription
+        $name = $use_descrip
             ? $part->getDescription(true)
             : $part->getName(true);
 
@@ -1270,21 +1269,45 @@ class IMP_Contents
             return $name;
         }
 
-        $ptype = $part->getPrimaryType();
-        switch ($ptype) {
+        switch ($ptype = $part->getPrimaryType()) {
         case 'multipart':
             if (($part->getSubType() == 'related') &&
                 ($view_id = $part->getMetaData('viewable_part')) &&
                 ($viewable = $this->getMIMEPart($view_id, array('nocontents' => true)))) {
-                return $this->getPartName($viewable, $useDescription);
+                return $this->getPartName($viewable, $use_descrip);
             }
             /* Fall-through. */
 
         case 'application':
-            return sprintf(_("%s part"), ucfirst($part->getSubType()));
+        case 'model':
+            $ptype = $part->getSubType();
+            break;
+        }
+
+        switch ($ptype) {
+        case 'audio':
+            return _("Audio part");
+
+        case 'image':
+            return _("Image part");
+
+        case 'message':
+        case Horde_Mime_Part::UNKNOWN:
+            return _("Message part");
+
+        case 'multipart':
+            return _("Multipart part");
+
+        case 'text':
+            return _("Text part");
+
+        case 'video':
+            return _("Video part");
 
         default:
-            return sprintf(_("%s part"), ucfirst($ptype));
+            // Attempt to translate this type, if possible. Odds are that
+            // it won't appear in the dictionary though.
+            return sprintf(_("%s part"), _(Horde_String::ucfirst($ptype)));
         }
     }
 
