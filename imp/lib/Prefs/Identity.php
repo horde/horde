@@ -46,7 +46,7 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
             $this->_prefnames['properties'],
             array(
                 'replyto_addr', 'alias_addr', 'tieto_addr', 'bcc_addr',
-                'signature', 'signature_html', 'sig_first', 'save_sent_mail',
+                'signature', 'signature_html', 'save_sent_mail',
                 'sent_mail_folder'
             )
         );
