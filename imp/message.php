@@ -71,6 +71,9 @@ if ($vars->actionID) {
     }
 }
 
+/* Determine if mailbox is readonly. */
+$readonly = IMP::$mailbox->readonly;
+
 /* Get mailbox/UID of message. */
 $index_array = $imp_mailbox->getIMAPIndex();
 $mailbox = $index_array['mailbox'];
