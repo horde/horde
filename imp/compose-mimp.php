@@ -265,11 +265,6 @@ case _("Send"):
         break;
 
     case _("Send"):
-        $sig = $identity->getSignature();
-        if (!empty($sig)) {
-            $message .= "\n" . $sig;
-        }
-
         $options = array(
             'identity' => $identity,
             'readreceipt' => ($prefs->getValue('request_mdn') == 'always'),
@@ -278,7 +273,7 @@ case _("Send"):
         );
 
         try {
-            if ($imp_compose->buildAndSendMessage($message, $header, $options)) {
+            if ($imp_compose->buildAndSendMessage($message . $identity->getSignature(), $header, $options)) {
                 $imp_compose->destroy('send');
 
                 $notification->push(_("Message sent successfully."), 'horde.success');
