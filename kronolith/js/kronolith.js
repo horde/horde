@@ -3722,10 +3722,10 @@ KronolithCore = {
         switch (view) {
         case 'week':
         case 'workweek':
-            start.moveToBeginOfWeek(Kronolith.conf.week_start);
+            start.moveToBeginOfWeek(view == 'week' ? Kronolith.conf.week_start : 1);
             end.moveToEndOfWeek(Kronolith.conf.week_start);
             if (view == 'workweek') {
-                end.add(-2).days();
+                end.add(-2 + Kronolith.conf.week_start).days();
             }
             break;
         case 'month':
