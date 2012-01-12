@@ -245,7 +245,10 @@ class IMP_Views_ShowMessage
 
         /* Do MDN processing now. */
         if ($imp_ui->MDNCheck($mailbox, $uid, $mime_headers)) {
-            $status = new IMP_Mime_Status(_("The sender of this message is requesting a Message Disposition Notification from you when you have read this message."), sprintf(_("Click %s to send the notification message."), Horde::link('#', '', '', '', '', '', '', array('id' => 'send_mdn_link')) . _("HERE") . '</a>'));
+            $status = new IMP_Mime_Status(array(
+                _("The sender of this message is requesting notification from you when you have read this message."),
+                sprintf(_("Click %s to send the notification message."), Horde::link('#', '', '', '', '', '', '', array('id' => 'send_mdn_link')) . _("HERE") . '</a>')
+            ));
             $status->domid('sendMdnMessage');
             $result['msgtext'] .= strval($status);
         }

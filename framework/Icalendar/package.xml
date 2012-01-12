@@ -36,7 +36,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix compatibility with Horde_SyncMl (Bug #10908).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -836,7 +836,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <date>2011-12-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix compatibility with Horde_SyncMl (Bug #10908).
    </notes>
   </release>
  </changelog>

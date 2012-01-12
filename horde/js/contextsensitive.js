@@ -227,6 +227,10 @@ var ContextSensitive = Class.create({
     {
         var ctx, def_ctx, el, offset, offsets, tmp, voffsets;
 
+        if (!Object.isElement(target)) {
+            return false;
+        }
+
         [ target ].concat(target.ancestors()).find(function(n) {
             ctx = this.validElement(n.id, leftclick);
             return ctx;

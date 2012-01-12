@@ -290,7 +290,7 @@ case _("Send"):
         );
 
         try {
-            if ($imp_compose->buildAndSendMessage($message, $header, $options)) {
+            if ($imp_compose->buildAndSendMessage($message . $identity->getSignature(), $header, $options)) {
                 $imp_compose->destroy('send');
 
                 $notification->push(_("Message sent successfully."), 'horde.success');

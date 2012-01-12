@@ -23,7 +23,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix undefined method while synchronizing events with Funambol (Bug #10908).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1212,7 +1212,7 @@ Make the SyncML package independant from Horde, provide a new Sql backend as a r
    <date>2011-12-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix undefined method while synchronizing events with Funambol (Bug #10908).
    </notes>
   </release>
  </changelog>
