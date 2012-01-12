@@ -1844,7 +1844,7 @@ KronolithCore = {
         case 'week':
         case 'workweek':
             var storage = view + 'Sizes',
-                what = 'view' == 'week' ? 'Week' : 'Workweek',
+                what = view == 'week' ? 'Week' : 'Workweek',
                 div = _createElement(event),
                 margin = view == 'day' ? 1 : 3,
                 style = { backgroundColor: Kronolith.conf.calendars[calendar[0]][calendar[1]].bg,
