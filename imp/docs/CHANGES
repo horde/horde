@@ -2,6 +2,7 @@
 v5.0.18-git
 -----------
 
+[mms] Fix regression preventing sending of MDNs.
 [mms] Fix reporting as innocent in mobile view.
 [mms] Fix updating log information when replying/forwarding in dynamic view.
 [mms] Fix deleting virtual folders in dynamic view.

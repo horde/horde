@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Fix regression preventing sending of MDNs.
 * [mms] Fix reporting as innocent in mobile view.
 * [mms] Fix updating log information when replying/forwarding in dynamic view.
 * [mms] Fix deleting virtual folders in dynamic view.
@@ -2645,6 +2646,7 @@
    <date>2011-12-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix regression preventing sending of MDNs.
 * [mms] Fix reporting as innocent in mobile view.
 * [mms] Fix updating log information when replying/forwarding in dynamic view.
 * [mms] Fix deleting virtual folders in dynamic view.
