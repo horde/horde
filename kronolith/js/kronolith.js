@@ -805,6 +805,7 @@ KronolithCore = {
             return this.setTitle(date.toString('D'));
 
         case 'week':
+        case 'workweek':
             var dates = this.viewDates(date, view);
             return this.setTitle(dates[0].toString('d') + ' - ' + dates[1].toString('d'));
 
