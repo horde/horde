@@ -977,10 +977,10 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
             $cal = $event->calendarType . '|' . $event->calendar;
         }
         $result = $this->_signedResponse($cal);
-        // if (!$this->_vars->view_start || !$this->_vars->view_end) {
-        //     $result->events = array();
-        //     return $result;
-        // }
+        if (!$this->_vars->view_start || !$this->_vars->view_end) {
+            $result->events = array();
+            return $result;
+        }
         $events = array();
         try {
             $event->save();

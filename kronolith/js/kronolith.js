@@ -4327,6 +4327,8 @@ KronolithCore = {
                 start = viewDates[0].toString('yyyyMMdd'),
                 end = viewDates[1].toString('yyyyMMdd');
                 params.sig = start + end + (Math.random() + '').slice(2);
+                params.view_start = start;
+                params.view_end = end;
 
                 this.doAction('deleteEvent',
                               params,
