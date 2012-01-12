@@ -11,6 +11,16 @@
 <input id="kronolithEventRecurOEnd" type="hidden" name="rend" />
 
 <div id="kronolithEventDiv">
+  <div id="kronolithEventEditRecur" style="display:none;">
+    <div class="kronolithDialogWarning">
+      <?php echo _("This is a recurring event") ?>
+    </div>
+    <?php echo sprintf(_("Edit the %s Entire Series %s, the %s Current Event %s or this and all %s Future Events %s?"),
+    '<label for="kronolithEditRecurAll"><input type="radio" name="recur_edit" value="all" id="kronolithEditRecurAll" checked="checked" />', '</label>',
+    '<label for="kronolithEditRecurCurrent"><input type="radio" name="recur_edit" value="current" id="kronolithEditRecurCurrent" />', '</label>',
+    '<label for="kronolithEditRecurFuture"><input type="radio" name="recur_edit" value="future" id="kronolithEditRecurFuture" />', '</label>'
+    ); ?>
+  </div>
 <div>
   <label for="kronolithEventTitle">
     <?php echo _("Event title") ?>:<br />
@@ -238,16 +248,6 @@
 </div>
 
 <div class="kronolithFormActions">
-  <div id="kronolithEventEditRecur" style="display:none;">
-    <div class="kronolithDialogWarning">
-      <?php echo _("This is a recurring event") ?>
-    </div>
-    <?php echo sprintf(_("Edit the %s Current %s event %s Future %s events or %s All %s events?"),
-    '<label for="kronolithEditRecurCurrent"><input type="radio" name="recur_edit" value="current" id="kronolithEditRecurCurrent" />', '</label>',
-    '<label for="kronolithEditRecurFuture"><input type="radio" name="recur_edit" value="future" id="kronolithEditRecurFuture" />', '</label>',
-    '<label for="kronolithEditRecurAll"><input type="radio" name="recur_edit" value="all" id="kronolithEditRecurAll" />', '</label>'
-    ); ?>
-  </div>
   <input id="kronolithEventSave" type="button" value="<?php echo _("Save") ?>" class="button ok" />
   <input id="kronolithEventSaveAsNew" type="button" value="<?php echo _("Save As New") ?>" class="button ok" />
   <input id="kronolithEventDelete" type="button" value="<?php echo _("Delete") ?>" class="button ko" />

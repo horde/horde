@@ -41,6 +41,8 @@ KronolithCore = {
     search: 'future',
     effectDur: 0.4,
     macos: navigator.appVersion.indexOf('Mac') != -1,
+    orstart: null,
+    orend: null,
 
     /**
      * The location that was open before the current location.
@@ -4322,7 +4324,6 @@ KronolithCore = {
                     return el.retrieve('calendar') == cal &&
                         el.retrieve('eventid') == eventid;
                 }).invoke('hide');
-                // move to a method?
                 var viewDates = this.viewDates(this.date, this.view),
                 start = viewDates[0].toString('yyyyMMdd'),
                 end = viewDates[1].toString('yyyyMMdd');
@@ -4607,9 +4608,10 @@ KronolithCore = {
                 }
                 return;
 
-            case 'kronolithEditRecurAll':
-                $('kronolithEventStartDate').setValue($F('kronolithEventRecurStart'));
-                $('kronolithEventEndDate').setValue($F('kronolithEventRecurEnd'));
+            case 'kronolithEditRecurCurrent':
+            case 'kronolithEditRecurFuture':
+                $('kronolithEventStartDate').setValue(this.orstart);
+                $('kronolithEventEndDate').setValue(this.orend);
                 return;
             }
 
@@ -5440,19 +5442,19 @@ KronolithCore = {
 
             // ...and put the same value in the form field to replace the
             // date of the initial series.
-            $('kronolithEventStartDate').setValue(ev.rsd);
-            $('kronolithEventEndDate').setValue(ev.red);
-
-            // Save the original series start in case we choose to edit 'all'.
-            $('kronolithEventRecurStart').setValue(ev.sd);
-            $('kronolithEventRecurEnd').setValue(ev.ed);
+            $('kronolithEventStartDate').setValue(ev.sd);
+            $('kronolithEventEndDate').setValue(ev.ed);
+            // Save the current datetime in case we are not editing 'all'
+            this.orstart = ev.rsd;
+            this.orend = ev.red;
         } else {
             $('kronolithEventStartDate').setValue(ev.sd);
             $('kronolithEventEndDate').setValue(ev.ed);
-            $('kronolithEventRecurStart').clear();
             $('kronolithEventRecurEnd').clear();
             $('kronolithEventRecurOStart').clear();
             $('kronolithEventRecurOEnd').clear();
+            this.orstart = null;
+            this.orend = null;
         }
 
         $('kronolithEventStartTime').setValue(ev.st);
