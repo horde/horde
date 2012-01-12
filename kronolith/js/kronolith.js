@@ -3725,7 +3725,7 @@ KronolithCore = {
             start.moveToBeginOfWeek(view == 'week' ? Kronolith.conf.week_start : 1);
             end.moveToEndOfWeek(Kronolith.conf.week_start);
             if (view == 'workweek') {
-                end.add(-2 + (Kronolith.conf.week_start == 0 ? 1 : 0)).days();
+                end.add(Kronolith.conf.week_start == 0 ? -1 : -2).days();
             }
             break;
         case 'month':
