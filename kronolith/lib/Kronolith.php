@@ -1210,7 +1210,7 @@ class Kronolith
             !count(self::listInternalCalendars(true))) {
             $calendars = $GLOBALS['injector']->getInstance('Kronolith_Factory_Calendars')
                 ->create();
-            
+
             $share = $calendars->createDefaultShare();
             $GLOBALS['all_calendars'][$share->getName()] = new Kronolith_Calendar_Internal(array('share' => $share));
             $GLOBALS['display_calendars'][] = $share->getName();
@@ -2366,10 +2366,11 @@ class Kronolith
      *        values.
      * @param Horde_Date $instance
      *        If cancelling a single instance of a recurring event, the date of
-     *        this intance.
+     *        this instance.
      */
-    static public function sendITipNotifications($event, $notification,
-                                                 $action, $instance = null)
+    static public function sendITipNotifications(
+        Kronolith_Event $event, Horde_Notification_Handler $notification,
+        $action, Horde_Date $instance = null)
     {
         global $conf, $registry;
 
