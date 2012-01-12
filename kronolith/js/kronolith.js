@@ -4754,13 +4754,14 @@ KronolithCore = {
                 e.stop();
                 return;
             } else if (elt.hasClassName('kronolithEventsWeek') ||
+                       elt.hasClassName('kronolithEventsWorkweek') ||
                        elt.hasClassName('kronolithAllDayContainer')) {
                 var date = elt.retrieve('date');
                 if (elt.hasClassName('kronolithAllDayContainer')) {
                     date += 'all';
                 } else {
                     date = this.parseDate(date);
-                    date.add(Math.round((e.pointerY() - elt.cumulativeOffset().top + elt.up('.kronolithViewBody').scrollTop) / this.weekSizes.height * 2) * 30).minutes();
+                    date.add(Math.round((e.pointerY() - elt.cumulativeOffset().top + elt.up('.kronolithViewBody').scrollTop) / (elt.hasClassName('kronolithEventsWeek') ? this.weekSizes.height : this.workweekSizes.height) * 2) * 30).minutes();
                     date = date.toString('yyyyMMddHHmm');
                 }
                 this.go('event:' + date);
