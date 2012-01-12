@@ -5855,10 +5855,8 @@ KronolithCore = {
                 $('kronolithEventRecurCount').disable();
             }
         } else {
-            if (!$('kronolithEventRepeatType').visible()) {
-                $('kronolithEventTabRecur').select('div').invoke('hide');
-                $('kronolithEventRepeatType').show();
-            }
+            $('kronolithEventTabRecur').select('div').invoke('hide');
+            $('kronolithEventRepeatType').show();
         }
     },
 
