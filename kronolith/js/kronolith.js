@@ -43,6 +43,7 @@ KronolithCore = {
     macos: navigator.appVersion.indexOf('Mac') != -1,
     orstart: null,
     orend: null,
+    lastRecurType: 'None',
 
     /**
      * The location that was open before the current location.
@@ -4613,7 +4614,14 @@ KronolithCore = {
             case 'kronolithEditRecurFuture':
                 $('kronolithEventStartDate').setValue(this.orstart);
                 $('kronolithEventEndDate').setValue(this.orend);
+                if (id == 'kronolithEditRecurCurrent') {
+                    this.toggleRecurrence('Exception');
+                } else {
+                    this.toggleRecurrence(this.lastRecurType);
+                }
                 return;
+            case 'kronolithEditRecurAll':
+                this.toggleRecurrence(this.lastRecurType);
             }
 
             // Caution, this only works if the element has definitely only a
@@ -5823,6 +5831,7 @@ KronolithCore = {
         } else if (recur != 'None') {
             var div = $('kronolithEventRepeat' + recur),
                 length = $('kronolithEventRepeatLength');
+            this.lastRecurType = recur;
             if (!div.visible()) {
                 $('kronolithEventTabRecur').select('div').invoke('hide');
                 div.show();
