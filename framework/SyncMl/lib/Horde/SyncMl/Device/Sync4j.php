@@ -393,7 +393,6 @@ class Horde_SyncMl_Device_sync4j extends Horde_SyncMl_Device
             $d = new Horde_Date(array('year' => date('Y', $t),
                                       'month' => date('m', $t),
                                       'mday' => date('d', $t) + 1));
-            $d->correct();
             $vEvent->setAttribute('DTEND',$d, array('VALUE' => 'DATE'));
         } else {
             $startTime = $iCal->_parseDateTime($a['Start']);
@@ -1081,7 +1080,6 @@ class Horde_SyncMl_Device_sync4j extends Horde_SyncMl_Device
                         $d = new Horde_Date(array('year' => $date['year'],
                                                   'month' => $date['month'],
                                                   'mday' => $date['mday'] + 1));
-                        $d->correct();
                         $hash['Exceptions'][] = array('ExcludeDate' => $d->format('Y-m-d'));
                     } else {
                         $hash['Exceptions'][] = array('ExcludeDate' => Horde_Icalendar::_exportDate($date));

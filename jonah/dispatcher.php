@@ -66,7 +66,6 @@ case 'feed':
                                                    'month' => ++$month,
                                                    'year' => $year));
                 $criteria['updated-max']->sec--;
-                $criteria['updated-max']->correct();
                 break;
             }
 
