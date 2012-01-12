@@ -267,11 +267,24 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
     }
 
     /**
-     * TODO
+     * Deletes an event, or an instance of an event series from the backend.
+     *
+     * Uses the following request variables:
+     *<pre>
+     *   -cal:     The calendar id.
+     *   -id:      The event id.
+     *   -r:       If this is an event series, what type of deletion to perform
+     *             [future | current | all]
+     *   -rstart:  The start time of the event instance being removed, if
+     *             this is a series instance.
+     *   -cstart:  The start date of the client event cache.
+     *   -cend:    The end date of the client event cache.
+     * </pre>
      */
     public function deleteEvent()
     {
         $result = new stdClass;
+        $instance = null;
 
         if (!($kronolith_driver = $this->_getDriver($this->_vars->cal)) ||
             !isset($this->_vars->id)) {
@@ -284,12 +297,42 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
                 $GLOBALS['notification']->push(_("You do not have permission to delete this event."), 'horde.warning');
                 return $result;
             }
-            if ($event->recurs()) {
+            if ($event->recurs() && $this->_vars->r != 'all') {
+                switch ($this->_vars->r) {
+                case 'future':
+                    // Deleting all future instances.
+                    // @TODO: Check if we need to find future exceptions
+                    //        that are after $recurEnd and remove those as well.
+                    $instance = new Horde_Date($this->_vars->rstart, $event->timezone);
+                    $recurEnd = clone($instance);
+                    $recurEnd->hour = 0;
+                    $recurEnd->min = 0;
+                    $recurEnd->sec = 0;
+                    if ($event->end->compareDate($recurEnd) > 0) {
+                        $kronolith_driver->deleteEvent($event->id);
+                    } else {
+                        $event->recurrence->setRecurEnd($recurEnd);
+                        $result = $this->_saveEvent($event, $event, $this->_vars);
+                    }
+                    break;
+                case 'current':
+                    // Deleting only the current instance.
+                    $instance = new Horde_Date($this->_vars->rstart, $event->timezone);
+                    $event->recurrence->addException(
+                        $instance->year, $instance->month, $instance->mday);
+                    $result = $this->_saveEvent($event, $event, $this->_vars);
+                }
+            } else {
+                // Deleting an entire series, or this is a single event only.
+                $kronolith_driver->deleteEvent($event->id);
+                $result->events = array();
+                $result = $this->_signedResponse($this->_vars->cal);
                 $result->uid = $event->uid;
             }
-            $deleted = $kronolith_driver->deleteEvent($event->id);
+
             if ($this->_vars->sendupdates) {
-                Kronolith::sendITipNotifications($event, $GLOBALS['notification'], Kronolith::ITIP_CANCEL);
+                Kronolith::sendITipNotifications(
+                    $event, $GLOBALS['notification'], Kronolith::ITIP_CANCEL, $instance);
             }
             $result->deleted = true;
         } catch (Horde_Exception_NotFound $e) {
@@ -934,30 +977,31 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
             $cal = $event->calendarType . '|' . $event->calendar;
         }
         $result = $this->_signedResponse($cal);
-        if (!$this->_vars->view_start || !$this->_vars->view_end) {
-            $result->events = array();
-            return $result;
-        }
-
+        // if (!$this->_vars->view_start || !$this->_vars->view_end) {
+        //     $result->events = array();
+        //     return $result;
+        // }
+        $events = array();
         try {
             $event->save();
-            $end = new Horde_Date($this->_vars->view_end);
-            $end->hour = 23;
-            $end->min = $end->sec = 59;
-            $events = array();
-            Kronolith::addEvents($events, $event,
-                                 new Horde_Date($this->_vars->view_start),
-                                 $end, true, true);
-
-
-            /* If this is an exception, we re-add the original event as well
-             * cstart and cend are the cacheStart and cacheEnd dates from the
-             * client. */
+            if ($this->_vars->view_start && $this->_vars->view_end) {
+                $end = new Horde_Date($this->_vars->view_end);
+                $end->hour = 23;
+                $end->min = $end->sec = 59;
+                Kronolith::addEvents(
+                    $events, $event,
+                    new Horde_Date($this->_vars->view_start),
+                    $end, true, true);
+            }
+            // If this is an exception, we re-add the original event also;
+            // cstart and cend are the cacheStart and cacheEnd dates from the
+            // client.
             if (!empty($original)) {
-                Kronolith::addEvents($events, $original,
-                                     new Horde_Date($attributes->cstart),
-                                     new Horde_Date($attributes->cend),
-                                     true, true);
+                Kronolith::addEvents(
+                    $events, $original,
+                    new Horde_Date($attributes->cstart),
+                    new Horde_Date($attributes->cend),
+                    true, true);
             }
             $result->events = count($events) ? $events : array();
         } catch (Exception $e) {

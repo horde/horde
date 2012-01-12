@@ -2298,6 +2298,13 @@ KronolithCore = {
         }).invoke('remove');
     },
 
+    /**
+     * Removes all events that reprensent exceptions to the event series
+     * represented by uid.
+     *
+     * @param string calendar  A calendar name.
+     * @param stirng uid       An event uid.
+     */
     removeException: function(calendar, uid)
     {
         this.kronolithBody.select('div.kronolithEvent').findAll(function(el) {
@@ -4282,21 +4289,47 @@ KronolithCore = {
                 $('kronolithEventDiv').show();
                 return;
 
+            case 'kronolithRecurDeleteAll':
+            case 'kronolithRecurDeleteCurrent':
+            case 'kronolithRecurDeleteFuture':
             case 'kronolithEventDeleteConfirm':
                 if (elt.disabled) {
                     e.stop();
                     break;
                 }
-
                 elt.disable();
                 var cal = $F('kronolithEventCalendar'),
                     eventid = $F('kronolithEventId');
+                var params = {
+                    cal: cal,
+                    id: eventid,
+                    rstart: $F('kronolithEventRecurOStart'),
+                    cstart: this.cacheStart.toISOString(),
+                    cend: this.cacheEnd.toISOString()
+                };
+                switch (id) {
+                case 'kronolithRecurDeleteAll':
+                    params.r = 'all';
+                    break;
+                case 'kronolithRecurDeleteCurrent':
+                    params.r = 'current';
+                    break;
+                case 'kronolithRecurDeleteFuture':
+                    params.r = 'future';
+                    break;
+                }
                 this.kronolithBody.select('div').findAll(function(el) {
                     return el.retrieve('calendar') == cal &&
                         el.retrieve('eventid') == eventid;
                 }).invoke('hide');
+                // move to a method?
+                var viewDates = this.viewDates(this.date, this.view),
+                start = viewDates[0].toString('yyyyMMdd'),
+                end = viewDates[1].toString('yyyyMMdd');
+                params.sig = start + end + (Math.random() + '').slice(2);
+
                 this.doAction('deleteEvent',
-                              { cal: cal, id: eventid },
+                              params,
                               function(r) {
                                   if (r.response.deleted) {
                                       var days;
@@ -4311,6 +4344,7 @@ KronolithCore = {
                                       if (r.response.uid) {
                                           this.removeException(cal, r.response.uid);
                                       }
+                                      this.loadEventsCallback(r, false);
                                       if (days && days.length) {
                                           this.reRender(days);
                                       }
@@ -5451,11 +5485,20 @@ KronolithCore = {
                 $('kronolithEventRepeatLength').down('input[name=recur_end_type][value=none]').setValue(true);
             }
             this.toggleRecurrence(scheme);
+            $('kronolithRecurDelete').show();
+            $('kronolithNoRecurDelete').hide();
+            $('kronolithEventEditRecur').show();
         } else if (ev.bid) {
+            $('kronolithRecurDelete').hide();
+            $('kronolithNoRecurDelete').show();
+            $('kronolithEventEditRecur').hide();
             var div = $('kronolithEventRepeatException');
             div.down('span').update(ev.eod);
             this.toggleRecurrence('Exception');
         } else {
+            $('kronolithRecurDelete').hide();
+            $('kronolithNoRecurDelete').show();
+            $('kronolithEventEditRecur').hide();
             this.toggleRecurrence('None');
         }
 

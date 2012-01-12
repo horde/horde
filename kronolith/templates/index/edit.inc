@@ -5,6 +5,10 @@
 <input id="kronolithEventLocationLon" type="hidden" name="lon" />
 <input id="kronolithEventLocationLat" type="hidden" name="lat" />
 <input id="kronolithEventMapZoom" type="hidden" name="zoom" />
+<input id="kronolithEventRecurStart" type="hidden" />
+<input id="kronolithEventRecurEnd" type="hidden" />
+<input id="kronolithEventRecurOStart" type="hidden" name="rstart" />
+<input id="kronolithEventRecurOEnd" type="hidden" name="rend" />
 
 <div id="kronolithEventDiv">
 <div>
@@ -244,7 +248,14 @@
 <div id="kronolithDeleteDiv" style="display:none">
 <p><?php echo _("Permanently delete this event?") ?></p>
 <div class="kronolithFormActions">
-  <input id="kronolithEventDeleteConfirm" type="button" value="<?php echo _("Delete") ?>" class="button ko" />
+  <span id="kronolithRecurDelete" style="display:none">
+    <input id="kronolithRecurDeleteAll" type="button" value="<?php echo _("Delete All") ?>" class="button" />
+    <input id="kronolithRecurDeleteCurrent" type="button" value="<?php echo _("Delete This Event Only") ?>" class="button" />
+    <input id="kronolithRecurDeleteFuture" type="button" value="<?php echo _("Delete This and Future Events") ?>" class="button" />
+  </span>
+  <span id="kronolithNoRecurDelete" style="display:none">
+    <input id="kronolithEventDeleteConfirm" type="button" value="<?php echo _("Delete") ?>" class="button ko" />
+  </span>
   <span class="kronolithSeparator"><?php echo _("or") ?></span> <a id="kronolithEventDeleteCancel" class="kronolithFormCancel"><?php echo _("Cancel") ?></a>
 </div>
 </div>
