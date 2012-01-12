@@ -364,7 +364,7 @@ KronolithCore = {
                     date.getYear() == this.date.getYear() &&
                     ((loc == 'year') ||
                      (loc == 'month' && date.getMonth() == this.date.getMonth()) ||
-                     (loc == 'week' && date.getRealWeek() == this.date.getRealWeek()) ||
+                     ((loc == 'week' || loc == 'workweek') && date.getRealWeek() == this.date.getRealWeek()) ||
                      ((loc == 'day'  || loc == 'agenda') && date.dateString() == this.date.dateString()))) {
                          this.setViewTitle(date, loc);
                          this.addHistory(fullloc);
