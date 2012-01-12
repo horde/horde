@@ -66,7 +66,17 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
     }
 
     /**
-     * TODO
+     * Return a JSON object representing the requested event.
+     * Request variables used:
+     *<pre>
+     *  -cal    The calendar id
+     *  -id     The event id
+     *  -date   The date of the event we are requesting [OPTIONAL]
+     *  -rsd    The event start date of the instance of a recurring event, if
+     *          requesting a specific instance.
+     *  -red    The event end date of the instance of a recurring event, if
+     *          requesting a specific instance.
+     *</pre>
      */
     public function getEvent()
     {
@@ -81,6 +91,15 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
             $event = $kronolith_driver->getEvent($this->_vars->id, $this->_vars->date);
             $event->setTimezone(true);
             $result->event = $event->toJson(null, true, $GLOBALS['prefs']->getValue('twentyFour') ? 'H:i' : 'h:i A');
+            // If recurring, we need to format the dates of this instance, since
+            // Kronolith_Driver#getEvent will return the start/end dates of the
+            // original event in the series.
+            if ($event->recurs() && $this->_vars->rsd) {
+                $rs = new Horde_Date($this->_vars->rsd);
+                $result->event->rsd = $rs->strftime('%x');
+                $re = new Horde_Date($this->_vars->red);
+                $result->event->red = $re->strftime('%x');
+            }
         } catch (Horde_Exception_NotFound $e) {
             $GLOBALS['notification']->push(_("The requested event was not found."), 'horde.error');
         } catch (Exception $e) {
@@ -91,7 +110,23 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
     }
 
     /**
-     * TODO
+     * Save a new or update an existing event from the AJAX event detail view.
+     * Request parameters used:
+     *<pre>
+     *   -event:          The event id.
+     *   -cal:            The calendar id.
+     *   -targetcalendar: If moving events, the targetcalendar to move to.
+     *   -as_new:         Save an existing event as a new event.
+     *   -recur_edit:     If editing an instance of a recurring event series,
+     *                    how to apply the edit [current|future|all].
+     *   -rstart:         If editing an instance of a recurring event series,
+     *                    the original start datetime of this instance.
+     *   -rend:           If editing an instance of a recurring event series,
+     *                    the original ending datetime of this instance.
+     *   -sendupdates:    Should updates be sent to attendees?
+     *   -cstart:         Start time of the client cache.
+     *   -cend:           End time of the client cache.
+     *</pre>
      */
     public function saveEvent()
     {
@@ -165,13 +200,64 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
             return $result;
         }
 
-        try {
-            $event->readForm();
-            $result = $this->_saveEvent($event);
-        } catch (Exception $e) {
-            $GLOBALS['notification']->push($e);
-            return $result;
+        if ($this->_vars->recur_edit && $this->_vars->recur_edit != 'all') {
+
+            switch ($this->_vars->recur_edit) {
+            case 'current':
+                $attributes = new stdClass();
+                $attributes->rstart = $this->_vars->rstart;
+                $attributes->rend = $this->_vars->rend;
+                $this->_addException($event, $attributes);
+
+                // Create a copy of the original event so we can read in the new
+                // form values for the exception. We also MUST reset the recurrence
+                // property even though we won't be using it, since clone() does not
+                // do a deep copy. Otherwise, the original event's recurrence will
+                // become corrupt.
+                $newEvent = clone($event);
+                $newEvent->recurrence = new Horde_Date_Recurrence();
+                $newEvent->readForm();
+
+                // Create an exception event from the new properties.
+                $exception = $this->_copyEvent($event, $newEvent, $attributes);
+                $exception->start = $newEvent->start;
+                $exception->end = $newEvent->end;
+
+                // Save the new exception.
+                $attributes->cstart = $this->_vars->cstart;
+                $attributes->cend = $this->_vars->cend;
+                $result = $this->_saveEvent(
+                    $exception,
+                    $event,
+                    $attributes);
+                break;
+            case 'future':
+                $instance = new Horde_Date($this->_vars->rstart, $event->timezone);
+                $exception = clone($instance);
+                $exception->mday--;
+                if ($event->end->compareDate($exception) > 0) {
+                    // Same as 'all' since this is the first recurrence.
+                    $this->_vars->recur_edit = 'all';
+                    return $this->saveEvent();
+                } else {
+                    $event->recurrence->setRecurEnd($exception);
+                    $newEvent = $kronolith_driver->getEvent();
+                    $newEvent->readForm();
+                    $newEvent->uid = null;
+                    $result = $this->_saveEvent($newEvent, $event, $this->_vars, true);
+                }
+
+            }
+        } else {
+            try {
+                $event->readForm();
+                $result = $this->_saveEvent($event);
+            } catch (Exception $e) {
+                $GLOBALS['notification']->push($e);
+                return $result;
+            }
         }
+
         if (($result !== true) && $this->_vars->sendupdates) {
             Kronolith::sendITipNotifications($event, $GLOBALS['notification'], Kronolith::ITIP_REQUEST);
         }
@@ -196,7 +282,24 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
     }
 
     /**
-     * Update event details as a result of a drag/drop operation.
+     * Update event details as a result of a drag/drop operation (which would
+     * only affect the event's start/end times).
+     *
+     * Uses the following request variables:
+     *<pre>
+     *   -cal:  The calendar id.
+     *   -id:   The event id.
+     *   -att:  Attribute hash of changed values. Can contain:
+     *      -start:     A new start datetime for the event.
+     *      -end:       A new end datetime for the event.
+     *      -offDays:   An offset of days to apply to the event.
+     *      -offMins:   An offset of minutes to apply to the event.
+     *      -rstart:    The orginal start datetime of a series instance.
+     *      -rend:      The original end datetime of a series instance.
+     *      -rday:      A new start value for a series instance (used when
+     *                  dragging on the month view where only the date can
+     *                  change, and not the start/end times).
+     *</pre>
      */
     public function updateEvent()
     {
@@ -225,7 +328,8 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
 
         // If this is a recurring event, need to create an exception.
         if ($oevent->recurs()) {
-            $event = $this->_createExceptionEvent($oevent, $attributes);
+            $this->_addException($oevent, $attributes);
+            $event = $this->_copyEvent($oevent, null, $attributes);
         } else {
             $event = clone($oevent);
         }
@@ -233,15 +337,15 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
         foreach ($attributes as $attribute => $value) {
             switch ($attribute) {
             case 'start':
-                $timezone = $event->start->timezone;
-                $event->start = new Horde_Date($value);
-                $event->start->setTimezone($timezone);
+                $newDate = new Horde_Date($value);
+                $newDate->setTimezone($event->start->timezone);
+                $event->start = clone($newDate);
                 break;
 
             case 'end':
-                $timezone = $event->end->timezone;
-                $event->end = new Horde_Date($value);
-                $event->end->setTimezone($timezone);
+                $newDate = new Horde_Date($value);
+                $newDate->setTimezone($event->end->timezone);
+                $event->end = clone($newDate);
                 if ($event->end->hour == 23 &&
                     $event->end->min == 59 &&
                     $event->end->sec == 59) {
@@ -251,8 +355,8 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
                 break;
 
             case 'offDays':
-                $event->start->mday = $event->start->mday + $value;
-                $event->end->mday = $event->end->mday + $value;
+                $event->start->mday += $value;
+                $event->end->mday += $value;
                 break;
 
             case 'offMins':
@@ -308,8 +412,11 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
                     $recurEnd->hour = 0;
                     $recurEnd->min = 0;
                     $recurEnd->sec = 0;
+                    $recurEnd->mday--;
                     if ($event->end->compareDate($recurEnd) > 0) {
                         $kronolith_driver->deleteEvent($event->id);
+                        $result = $this->_signedResponse($this->_vars->cal);
+                        $result->events = array();
                     } else {
                         $event->recurrence->setRecurEnd($recurEnd);
                         $result = $this->_saveEvent($event, $event, $this->_vars);
@@ -325,8 +432,8 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
             } else {
                 // Deleting an entire series, or this is a single event only.
                 $kronolith_driver->deleteEvent($event->id);
-                $result->events = array();
                 $result = $this->_signedResponse($this->_vars->cal);
+                $result->events = array();
                 $result->uid = $event->uid;
             }
 
@@ -962,12 +1069,15 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
      *                                   be set to the original event.
      * @param object $attributes         The attributes sent by the client.
      *                                   Expected to contain cstart and cend.
+     * @param boolean $saveOriginal      Commit any changes in $original to
+     *                                   storage also.
      *
      * @return object  The result object.
      */
     protected function _saveEvent(Kronolith_Event $event,
                                   Kronolith_Event $original = null,
-                                  $attributes = null)
+                                  $attributes = null,
+                                  $saveOriginal = false)
     {
         if ($this->_vars->targetcalendar) {
             $cal = $this->_vars->targetcalendar;
@@ -1002,6 +1112,9 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
                     new Horde_Date($attributes->cstart),
                     new Horde_Date($attributes->cend),
                     true, true);
+                if ($saveOriginal) {
+                    $original->save();
+                }
             }
             $result->events = count($events) ? $events : array();
         } catch (Exception $e) {
@@ -1027,20 +1140,50 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
     }
 
     /**
-     * Creates a new event that represents an exception to a recurring event.
-     * Causes an exception to be added to the original event as well.
+     * Add an exception to the original event.
      *
      * @param Kronolith_Event $event  The recurring event.
      * @param object $attributes      The attributes passed from the client.
-     *                                Expected to contain rstart and rend.
+     *                                Expected to contain either rstart or rday.
      *
      * @return Kronolith_Event  The event representing the exception, with
      *                          the start/end times set the same as the original
      *                          occurence.
      */
-    protected function _createExceptionEvent(Kronolith_Event $event, $attributes)
+    protected function _addException(Kronolith_Event $event, $attributes)
     {
-        // Add the exception to the original event
+        if ($attributes->rstart) {
+            $rstart = new Horde_Date($attributes->rstart);
+            $rstart->setTimezone($event->start->timezone);
+        } else {
+            $rstart = new Horde_Date($attributes->rday);
+            $rstart->setTimezone($event->start->timezone);
+            $rstart->hour = $event->start->hour;
+            $rstart->min = $event->start->min;
+        }
+        $event->recurrence->addException($rstart->year, $rstart->month, $rstart->mday);
+        $event->save();
+    }
+
+    /**
+     * Creates a new event that represents an exception to a recurring event.
+     *
+     * @param Kronolith_Event $event  The original recurring event.
+     * @param Kronolith_Event $copy   If present, contains a copy of $event, but
+     *                                with changes from edited event form.
+     * @param stdClass $attributes    The attributes passed from the client.
+     *                                Expected to contain rstart and rend or
+     *                                rday that represents the original
+     *                                starting/ending date of the instance.
+     *
+     * @return Kronolith_Event  The event representing the exception
+     */
+    protected function _copyEvent(Kronolith_Event $event, Kronolith_Event $copy = null, $attributes = null)
+    {
+        if (empty($copy)) {
+            $copy = clone($event);
+        }
+
         if ($attributes->rstart) {
             $rstart = new Horde_Date($attributes->rstart);
             $rstart->setTimezone($event->start->timezone);
@@ -1056,9 +1199,6 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
             $rend->hour = $event->end->hour;
             $rend->min = $event->end->min;
         }
-
-        $event->recurrence->addException($rstart->year, $rstart->month, $rstart->mday);
-        $event->save();
         $uid = $event->uid;
         $otime = $event->start->strftime('%T');
 
@@ -1066,19 +1206,20 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
         $nevent = $event->getDriver()->getEvent();
         $nevent->baseid = $uid;
         $nevent->exceptionoriginaldate = new Horde_Date($rstart->strftime('%Y-%m-%d') . 'T' . $otime);
+        $nevent->exceptionoriginaldate->setTimezone($event->start->timezone);
         $nevent->creator = $event->creator;
-        $nevent->title = $event->title;
-        $nevent->description = $event->description;
-        $nevent->location = $event->location;
-        $nevent->private = $event->private;
-        $nevent->url = $event->url;
-        $nevent->status = $event->status;
-        $nevent->attendees = $event->attendees;
-        //@TODO: add resources - need a Kronolith_Event::setResource() method.
+        $nevent->title = $copy->title;
+        $nevent->description = $copy->description;
+        $nevent->location = $copy->location;
+        $nevent->private = $copy->private;
+        $nevent->url = $copy->url;
+        $nevent->status = $copy->status;
+        $nevent->attendees = $copy->attendees;
         $nevent->start = $rstart;
         $nevent->end = $rend;
         $nevent->initialized = true;
 
         return $nevent;
     }
+
 }

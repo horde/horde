@@ -4606,6 +4606,11 @@ KronolithCore = {
                     this.colorPicker.hide();
                 }
                 return;
+
+            case 'kronolithEditRecurAll':
+                $('kronolithEventStartDate').setValue($F('kronolithEventRecurStart'));
+                $('kronolithEventEndDate').setValue($F('kronolithEventRecurEnd'));
+                return;
             }
 
             // Caution, this only works if the element has definitely only a
@@ -5219,7 +5224,17 @@ KronolithCore = {
         if (id) {
             // An id passed to this function indicates we are editing an event.
             RedBox.loading();
-            this.doAction('getEvent', { cal: calendar, id: id, date: date }, this.editEventCallback.bind(this));
+            var attributes = { cal: calendar, id: id, date: date };
+            // Need the current st and et of this instance.
+            var events = this.getCacheForDate(date.toString('yyyyMMdd'), calendar);
+            if (events) {
+                var ev = events.find(function(e) { return e.key == id; });
+                if (ev[1].r) {
+                    attributes.rsd = ev[1].start.dateString();
+                    attributes.red = ev[1].end.dateString();
+                }
+            }
+            this.doAction('getEvent', attributes, this.editEventCallback.bind(this));
             $('kronolithEventTopTags').update();
         } else {
             // This is a new event.
@@ -5251,6 +5266,7 @@ KronolithCore = {
             $('kronolithEventLinkExport').up('span').hide();
             $('kronolithEventSaveAsNew').hide();
             this.toggleRecurrence('None');
+            $('kronolithEventEditRecur').hide();
             this.enableAlarm('Event', Kronolith.conf.default_alarm);
             this.redBoxLoading = true;
             RedBox.showHtml($('kronolithEventDialog').show());
@@ -5299,7 +5315,8 @@ KronolithCore = {
         params = $H($('kronolithEventForm').serialize({ hash: true }))
             .merge(this.saveEventParams());
         params.set('as_new', asnew ? 1 : 0);
-
+        params.set('cstart', this.cacheStart.toISOString());
+        params.set('cend', this.cacheEnd.toISOString());
         this.eventTagAc.shutdown();
         $('kronolithEventSave').disable();
         $('kronolithEventSaveAsNew').disable();
@@ -5411,10 +5428,35 @@ KronolithCore = {
         $('kronolithEventUrl').setValue(ev.u);
         $('kronolithEventAllday').setValue(ev.al);
         this.toggleAllDay(ev.al);
-        $('kronolithEventStartDate').setValue(ev.sd);
+
+        if (ev.r && ev.rsd && ev.red) {
+            // Save the original datetime, so we can properly create the
+            // exception.
+            var osd = Date.parse(ev.rsd + ' ' + ev.st);
+            var oed = Date.parse(ev.red + ' ' + ev.et);
+
+            $('kronolithEventRecurOStart').setValue(osd.toString('s'));
+            $('kronolithEventRecurOEnd').setValue(oed.toString('s'));
+
+            // ...and put the same value in the form field to replace the
+            // date of the initial series.
+            $('kronolithEventStartDate').setValue(ev.rsd);
+            $('kronolithEventEndDate').setValue(ev.red);
+
+            // Save the original series start in case we choose to edit 'all'.
+            $('kronolithEventRecurStart').setValue(ev.sd);
+            $('kronolithEventRecurEnd').setValue(ev.ed);
+        } else {
+            $('kronolithEventStartDate').setValue(ev.sd);
+            $('kronolithEventEndDate').setValue(ev.ed);
+            $('kronolithEventRecurStart').clear();
+            $('kronolithEventRecurEnd').clear();
+            $('kronolithEventRecurOStart').clear();
+            $('kronolithEventRecurOEnd').clear();
+        }
+
         $('kronolithEventStartTime').setValue(ev.st);
         this.knl.kronolithEventStartTime.setSelected(ev.st);
-        $('kronolithEventEndDate').setValue(ev.ed);
         $('kronolithEventEndTime').setValue(ev.et);
         this.knl.kronolithEventEndTime.setSelected(ev.et);
         this.duration = Math.abs(Date.parse(ev.e).getTime() - Date.parse(ev.s).getTime()) / 60000;
