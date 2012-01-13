@@ -38,9 +38,9 @@ if (!isset($vars->source) || !isset($source_list[$vars->source])) {
     $vars->source = key($source_list);
 }
 
-if (!isset($vars->formname)) {
-    $vars->formname = 'compose';
-}
+$formname = isset($vars->formname)
+    ? filter_var($vars->formname, FILTER_SANITIZE_STRING)
+    : 'compose';
 
 $search_params = IMP::getAddressbookSearchParams();
 $apiargs = array(
@@ -73,7 +73,7 @@ $template = $injector->createInstance('Horde_Template');
 $template->setOption('gettext', true);
 
 $template->set('action', Horde::url('contacts.php')->unique());
-$template->set('formname', $vars->formname);
+$template->set('formname', $formname);
 $template->set('formInput', Horde_Util::formInput());
 $template->set('search', htmlspecialchars($vars->search));
 if (count($source_list) > 1) {
@@ -105,7 +105,7 @@ $template->set('cc', intval(!$vars->to_only));
 $template->set('sa', $selected_addresses);
 
 $js = array(
-    'ImpContacts.formname' => $vars->formname,
+    'ImpContacts.formname' => $formname,
     'ImpContacts.to_only' => intval($vars->to_only)
 );
 if (isset($vars->formfield)) {

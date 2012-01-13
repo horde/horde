@@ -2,6 +2,8 @@
 v5.0.18-git
 -----------
 
+[mms] SECURITY: Fix XSS vulnerabilities on the compose page (traditional
+      view), the contacts popup window, and with certain IMAP mailbox names.
 [mms] Fix updating context menu when a mailbox is converted into a container
       element after being deleted.
 [mms] Fix expand/collapse of folder tree in mobile view.
