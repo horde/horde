@@ -636,6 +636,7 @@ if ($isPopup) {
     if (count($imp_compose)) {
         $cancel_url = Horde::selfUrl()->setRaw(true)->add(array(
             'actionID' => 'cancel_compose',
+            'compose_requestToken' => $injector->getInstance('Horde_Token')->get('imp.compose'),
             'composeCache' => $composeCacheID,
             'popup' => 1
         ));
@@ -646,6 +647,7 @@ if ($isPopup) {
     if (count($imp_compose)) {
         $cancel_url = $imp_ui->mailboxReturnUrl(Horde::selfUrl()->setRaw(true))->add(array(
             'actionID' => 'cancel_compose',
+            'compose_requestToken' => $injector->getInstance('Horde_Token')->get('imp.compose'),
             'composeCache' => $composeCacheID
         ));
     } else {
@@ -715,7 +717,7 @@ if ($prefs->getValue('use_pgp') &&
 $js_vars = array(
     'ImpComposeBase.editor_on' => intval($rtemode),
     'ImpCompose.auto_save' => intval($prefs->getValue('auto_save_drafts')),
-    'ImpCompose.cancel_url' => $cancel_url,
+    'ImpCompose.cancel_url' => strval($cancel_url),
     'ImpCompose.cursor_pos' => ($rtemode ? null : $prefs->getValue('compose_cursor')),
     'ImpCompose.max_attachments' => (($max_attach === true) ? null : $max_attach),
     'ImpCompose.popup' => intval($isPopup),
