@@ -17,7 +17,7 @@
 class Horde_Imap_Client_Search_Query implements Serializable
 {
     /* Serialized version. */
-    const VERSION = 2;
+    const VERSION = 3;
 
     /* Constants for dateSearch() */
     const DATE_BEFORE = 'BEFORE';
@@ -247,7 +247,7 @@ class Horde_Imap_Client_Search_Query implements Serializable
         }
 
         if (!empty($ptr['date'])) {
-            foreach ($ptr['date'] as $key => $val) {
+            foreach ($ptr['date'] as $val) {
                 $this->_addFuzzy(!empty($val['fuzzy']));
 
                 if (!empty($val['not'])) {
@@ -256,12 +256,12 @@ class Horde_Imap_Client_Search_Query implements Serializable
                     $imap4 = true;
                 }
 
-                if ($key == 'header') {
+                if (empty($val['header'])) {
+                    $cmds[] = $val['range'];
+                } else {
                     $cmds[] = 'SENT' . $val['range'];
                     // 'SENT*' searches were not in IMAP2
                     $imap4 = true;
-                } else {
-                    $cmds[] = $val['range'];
                 }
                 $cmds[] = $val['date'];
             }
@@ -550,8 +550,7 @@ class Horde_Imap_Client_Search_Query implements Serializable
     }
 
     /**
-     * Search for messages within a date range. Only one internal date and
-     * one RFC 2822 date can be specified per query.
+     * Search for messages within a date range.
      *
      * @param mixed $date    DateTime or Horde_Date object.
      * @param string $range  Either:
@@ -569,13 +568,13 @@ class Horde_Imap_Client_Search_Query implements Serializable
     public function dateSearch($date, $range, $header = true, $not = false,
                                array $opts = array())
     {
-        $type = $header ? 'header' : 'internal';
         if (!isset($this->_search['date'])) {
             $this->_search['date'] = array();
         }
-        $this->_search['date'][$header ? 'header' : 'internal'] = array_filter(array(
+        $this->_search['date'][] = array_filter(array(
             'date' => $date->format('d-M-Y'),
             'fuzzy' => !empty($opts['fuzzy']),
+            'header' => $header,
             'range' => $range,
             'not' => $not
         ));

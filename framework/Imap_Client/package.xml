@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Allow multiple date searches to be specified in a single AND search query.
 * [mms] Fix deleting cached mailbox when mailbox name is given as an object.
 * [mms] Fix &apos;changedsince&apos; and &apos;vanished&apos; parameters&apos; in the fetch() command (Bug #10915).
  </notes>
@@ -656,6 +657,7 @@
    <date>2011-12-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Allow multiple date searches to be specified in a single AND search query.
 * [mms] Fix deleting cached mailbox when mailbox name is given as an object.
 * [mms] Fix &apos;changedsince&apos; and &apos;vanished&apos; parameters&apos; in the fetch() command (Bug #10915).
    </notes>
