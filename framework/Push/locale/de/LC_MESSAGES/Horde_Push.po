@@ -1,0 +1,42 @@
+# German translations for Horde_Push package.
+# Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Horde_Push package.
+# Automatically generated, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Push \n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2011-11-21 18:18+0100\n"
+"PO-Revision-Date: 2011-11-21 18:23+0100\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/Horde/Push/Cli.php:79
+msgid "A comma delimited list of links."
+msgstr "Eine kommagetrennte Linkliste."
+
+#: lib/Horde/Push/Cli.php:63
+msgid "A comma delimited list of recipients."
+msgstr "Eine kommagetrennte Empfängerliste."
+
+#: lib/Horde/Push/Cli.php:71
+msgid "A comma delimited list of tags."
+msgstr "Eine kommagetrennte Tagliste."
+
+#: lib/Horde/Push/Cli.php:55
+msgid "A summary replacing the value provided by the source."
+msgstr "Zusammenfassung die den Text aus der eigentlichen Quelle ersetzt."
+
+#: lib/Horde/Push/Cli.php:87
+msgid "Do not push the content but display what would be done."
+msgstr "Keinen Beitrag hochladen sondern nur anzeigen, was getan werden würde."
+
+#: lib/Horde/Push/Cli.php:47
+msgid "Path to the configuration file."
+msgstr "Pfad zur Konfigurationsdatei."

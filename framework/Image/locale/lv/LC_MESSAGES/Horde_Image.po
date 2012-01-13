@@ -1,5 +1,5 @@
 # Latvian translations for Horde_Image package.
-# Copyright 2011 Horde LLC
+# Copyright 2011-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Image package.
 # Automatically generated, 2011.
 #
@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Horde_Image\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-02-02 16:17+0100\n"
-"PO-Revision-Date: 2011-07-21 15:52+0300\n"
+"PO-Revision-Date: 2011-11-07 16:55+0300\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: lv\n"
@@ -56,75 +56,27 @@ msgstr "%d sec"
 msgid "%s / %s sec"
 msgstr "%s / %s sec"
 
-#: lib/Horde/Image/Exif/Parser/Canon.php:113
-msgid "/10s"
-msgstr ""
-
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:85
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:94
-#, fuzzy
 msgid "1-area-focusing"
-msgstr "zīmēšanas lauks"
-
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:91
-msgid "1-area-focusing (High speed)"
-msgstr ""
-
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:426
-msgid "10s"
-msgstr ""
+msgstr "1 laukuma fokusēšana"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:324
 #, fuzzy
 msgid "1st curtain sync"
 msgstr "Pēdējās sinhronizācijas laiks"
 
-#: lib/Horde/Image/Exif/Parser/Canon.php:321
-msgid "2nd(rear)-curtain sync used"
-msgstr ""
-
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:429
-msgid "2s"
-msgstr ""
-
-#: lib/Horde/Image/Exif/Parser/Canon.php:191
-msgid "2x"
-msgstr ""
-
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:88
-msgid "3-area-focusing (High speed)"
-msgstr ""
-
-#: lib/Horde/Image/Exif/Parser/Canon.php:192
-msgid "4x"
-msgstr ""
-
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:82
-#, fuzzy
 msgid "9-area-focusing"
-msgstr "zīmēšanas lauks"
+msgstr "9 laukumu fokusēšana"
 
 #: lib/Horde/Image/Exif.php:301
-#, fuzzy
 msgid "90 deg CCW"
-msgstr "Temperatūra<br />(%sMaks%s/%sMin%s) &deg;%s"
-
-#: lib/Horde/Image/Exif.php:303
-msgid "90 deg CCW Mirrored"
-msgstr ""
+msgstr "90 grādi pret pulksteņrādītāja virzienam"
 
 #: lib/Horde/Image/Exif.php:305
-#, fuzzy
 msgid "90 deg CW"
-msgstr "Temperatūra<br />(%sMaks%s/%sMin%s) &deg;%s"
-
-#: lib/Horde/Image/Exif.php:299
-msgid "90 deg CW Mirrored"
-msgstr ""
-
-#: lib/Horde/Image/Exif/Parser/Fujifilm.php:240
-msgid "AE Good"
-msgstr ""
+msgstr "90 grādi pulksteņrādītāja virzienā"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:256
 #, fuzzy
@@ -132,35 +84,24 @@ msgid "AF non D"
 msgstr "Nepiedalās"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:150
-#, fuzzy
 msgid "AI Focus"
-msgstr "Pieņemt fokusu"
-
-#: lib/Horde/Image/Exif/Parser/Canon.php:149
-msgid "AI Servo"
-msgstr ""
+msgstr "AI fokuss"
 
 #: lib/Horde/Image/Exif.php:262
 msgid "Action"
 msgstr "Action"
 
 #: lib/Horde/Image/Exif.php:105 lib/Horde/Image/Exif.php:128
-#, fuzzy
 msgid "Aperture"
-msgstr "Temperatūra"
+msgstr "Atvērums"
 
 #: lib/Horde/Image/Exif.php:259 lib/Horde/Image/Exif/Parser/Panasonic.php:266
 msgid "Aperture Priority"
 msgstr "Aperture Priority"
 
-#: lib/Horde/Image/Exif/Parser/Fujifilm.php:203
-msgid "Aperture Prority AE"
-msgstr ""
-
 #: lib/Horde/Image/Exif.php:119
-#, fuzzy
 msgid "Artist"
-msgstr "izpildītāja ID"
+msgstr "Mākslinieks"
 
 #: lib/Horde/Image/Exif.php:417 lib/Horde/Image/Exif/Parser/Canon.php:127
 #: lib/Horde/Image/Exif/Parser/Canon.php:229
@@ -173,18 +114,12 @@ msgstr "izpildītāja ID"
 #: lib/Horde/Image/Exif/Parser/Nikon.php:196
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:161
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:194
-#, fuzzy
 msgid "Auto"
 msgstr "Auto"
 
-#: lib/Horde/Image/Exif/Parser/Canon.php:131
-msgid "Auto + Red Eye Reduction"
-msgstr ""
-
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:231
-#, fuzzy
 msgid "Auto Focus Good"
-msgstr "Fokusēties Augšlīmenī"
+msgstr "Labs autofokuss"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:267
 #, fuzzy
@@ -197,9 +132,8 @@ msgid "Auto bracket"
 msgstr "auto iz&Vēlnes"
 
 #: lib/Horde/Image/Exif.php:249
-#, fuzzy
 msgid "Auto exposure"
-msgstr "auto iz&Vēlnes"
+msgstr "Autimātiks ekspozīcija"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:203
 #, fuzzy
@@ -215,10 +149,6 @@ msgstr "Izvēles pogu kārtība"
 #, fuzzy
 msgid "Auto-DEP"
 msgstr "auto iz&Vēlnes"
-
-#: lib/Horde/Image/Exif/Parser/Canon.php:279
-msgid "Av"
-msgstr ""
 
 #: lib/Horde/Image/Exif.php:379
 #, fuzzy
@@ -241,18 +171,12 @@ msgid "Black and White"
 msgstr "Nesaspiests melnbaltais Y-plakne"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:174
-#, fuzzy
 msgid "Bright+"
-msgstr "Nakts"
+msgstr "Spilgtums+"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:175
-#, fuzzy
 msgid "Bright-"
-msgstr "Nakts"
-
-#: lib/Horde/Image/Exif.php:185
-msgid "Bulb"
-msgstr ""
+msgstr "Spilgtums-"
 
 #: lib/Horde/Image/Exif.php:73
 #, fuzzy
@@ -282,7 +206,6 @@ msgstr "virsraksts"
 #: lib/Horde/Image/Exif/Parser/Canon.php:269
 #: lib/Horde/Image/Exif/Parser/Canon.php:392
 #: lib/Horde/Image/Exif/Parser/Nikon.php:228
-#, fuzzy
 msgid "Center"
 msgstr "Centrs"
 
@@ -305,18 +228,9 @@ msgstr "Centimetrs"
 msgid "Chroma Saturation High"
 msgstr "<Privatas izmantošanas augsts aizstājējs>"
 
-#: lib/Horde/Image/Exif/Parser/Fujifilm.php:141
-msgid "Chroma Saturation Low(ORG)"
-msgstr ""
-
-#: lib/Horde/Image/Exif/Parser/Fujifilm.php:139
-msgid "Chroma Saturation Normal(STD)"
-msgstr ""
-
 #: lib/Horde/Image/Exif/Parser/Canon.php:259
-#, fuzzy
 msgid "Close-up (Macro)"
-msgstr " Spied makro karsto taustiņu: "
+msgstr "Makro"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:366
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:126
@@ -326,39 +240,21 @@ msgid "Cloudy"
 msgstr "Mākoņains"
 
 #: lib/Horde/Image/Exif.php:397
-#, fuzzy
 msgid "Cloudy weather"
-msgstr "Laika prognoze"
+msgstr "Mākoņains"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:164
 msgid "Color"
 msgstr "Krāsa"
 
-#: lib/Horde/Image/Exif.php:467
-msgid "Color Sequential Area Sensor"
-msgstr ""
-
-#: lib/Horde/Image/Exif.php:469
-msgid "Color Sequential Linear Sensor"
-msgstr ""
-
 #: lib/Horde/Image/Exif.php:114
-#, fuzzy
 msgid "Color Space"
-msgstr "Krāsu režīms:"
+msgstr "Krāsu gamma"
 
 #: lib/Horde/Image/Exif.php:432
 #, fuzzy
 msgid "Compulsory Flash"
 msgstr "Flash video"
-
-#: lib/Horde/Image/Exif.php:434
-msgid "Compulsory Flash, Return light detected"
-msgstr ""
-
-#: lib/Horde/Image/Exif.php:433
-msgid "Compulsory Flash, Return light not detected"
-msgstr ""
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:140
 #: lib/Horde/Image/Exif/Parser/Canon.php:153
@@ -383,18 +279,12 @@ msgid "Contrast Normal(STD)"
 msgstr "--normal  Izvada parastu diff."
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:176
-#, fuzzy
 msgid "Contrast+"
-msgstr "Kontrasts"
+msgstr "Kontrasts+"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:177
-#, fuzzy
 msgid "Contrast-"
-msgstr "Kontrasts"
-
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:351
-msgid "Cool"
-msgstr ""
+msgstr "Kontrasts-"
 
 #: lib/Horde/Image/Exif.php:401
 #, fuzzy
@@ -402,9 +292,8 @@ msgid "Cool white fluorescent"
 msgstr "Aizpildīt ar baltu"
 
 #: lib/Horde/Image/Exif.php:74 lib/Horde/Image/Exif.php:118
-#, fuzzy
 msgid "Copyright"
-msgstr "Autortiesības:"
+msgstr "Autortiesības"
 
 #: lib/Horde/Image/Exif/Bundled.php:269
 #, fuzzy
@@ -428,7 +317,6 @@ msgstr "Izveidot"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:370
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:131
-#, fuzzy
 msgid "Custom"
 msgstr "Izvēles"
 
@@ -460,35 +348,16 @@ msgstr "Aizpildīt ar baltu"
 #: lib/Horde/Image/Exif.php:392 lib/Horde/Image/Exif/Parser/Fujifilm.php:125
 #: lib/Horde/Image/Exif/Parser/Nikon.php:198
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:164
-#, fuzzy
 msgid "Daylight"
-msgstr "Nakts"
-
-#: lib/Horde/Image/Exif.php:399
-msgid "Daylight fluorescent"
-msgstr ""
-
-#: lib/Horde/Image/Exif/Parser/Fujifilm.php:127
-msgid "DaylightColor-fluorescence"
-msgstr ""
-
-#: lib/Horde/Image/Exif/Parser/Fujifilm.php:128
-msgid "DaywhiteColor-fluorescence"
-msgstr ""
+msgstr "Dienasgaisma"
 
 #: lib/Horde/Image/Exif.php:129
-#, fuzzy
 msgid "Depth of Field"
-msgstr "Lauka matrica"
+msgstr "Lauka dziļums"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:269
-#, fuzzy
 msgid "Did Not Fire"
-msgstr "Jūs neesat autentificēts(a)."
-
-#: lib/Horde/Image/Exif/Parser/Canon.php:276
-msgid "EasyShoot"
-msgstr ""
+msgstr "Nonostrādāja"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:249
 #, fuzzy
@@ -496,9 +365,8 @@ msgid "Evaluative"
 msgstr "aktīvs"
 
 #: lib/Horde/Image/Exif.php:102
-#, fuzzy
 msgid "Exposure"
-msgstr "Ekspozīcija:"
+msgstr "Ekspozīcija"
 
 #: lib/Horde/Image/Exif.php:108
 #, fuzzy
@@ -507,34 +375,28 @@ msgstr "Eksportēt uzdevumus"
 
 #
 #: lib/Horde/Image/Exif.php:109
-#, fuzzy
 msgid "Exposure Mode"
-msgstr "&Saraksta režīms..."
+msgstr "Ekspozīcijas režīms"
 
 #: lib/Horde/Image/Exif.php:110
-#, fuzzy
 msgid "Exposure Program"
-msgstr "ECMAScript programma"
+msgstr "Ekspozīcijas programma"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:271
-#, fuzzy
 msgid "External"
-msgstr "Ārējā panelēšana"
+msgstr "Ārējais"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:312
-#, fuzzy
 msgid "External E-TTL"
-msgstr "Ārējā panelēšana"
+msgstr "Ārējais E-TTL"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:133
-#, fuzzy
 msgid "External Flash"
-msgstr "Flash video"
+msgstr "Ārējā zibspuldze"
 
 #: lib/Horde/Image/Exif.php:106
-#, fuzzy
 msgid "F-Number"
-msgstr "Skaits"
+msgstr "Atvērums"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:318
 #, fuzzy
@@ -555,14 +417,9 @@ msgstr " Filtrēts skatījums "
 msgid "File Size"
 msgstr "Faila izmērs"
 
-#: lib/Horde/Image/Exif/Parser/Canon.php:119
-msgid "Fine"
-msgstr ""
-
 #: lib/Horde/Image/Exif.php:396
-#, fuzzy
 msgid "Fine weather"
-msgstr "Laika prognoze"
+msgstr "Labs laiks"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:284
 msgid "Fireworks"
@@ -575,76 +432,40 @@ msgstr "Zivs acs"
 #: lib/Horde/Image/Exif.php:395 lib/Horde/Image/Exif.php:429
 #: lib/Horde/Image/Exif/Parser/Canon.php:369
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:176
-#, fuzzy
 msgid "Flash"
-msgstr "Flash"
+msgstr "Zibspuldze"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:304
-#, fuzzy
 msgid "Flash Did Not Fire"
-msgstr "Jūs neesat autentificēts(a)."
+msgstr "Zibspuldze nenostrādāja"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:305
-#, fuzzy
 msgid "Flash Fired"
-msgstr "Flash video"
+msgstr "Zibspuldze nostrādāja"
 
 #: lib/Horde/Image/Exif.php:112
-#, fuzzy
 msgid "Flash Setting"
-msgstr "Flash video"
+msgstr "Zibspuldzes iestatījumi"
 
 #: lib/Horde/Image/Exif.php:437
-#, fuzzy
 msgid "Flash, Auto-Mode"
-msgstr " Rediģēt Glabāšanas Režīmu "
-
-#: lib/Horde/Image/Exif.php:439
-msgid "Flash, Auto-Mode, Return light detected"
-msgstr ""
-
-#: lib/Horde/Image/Exif.php:438
-msgid "Flash, Auto-Mode, Return light not detected"
-msgstr ""
-
-#: lib/Horde/Image/Exif.php:431
-msgid "Flash, strobe return light detected"
-msgstr ""
-
-#: lib/Horde/Image/Exif.php:430
-msgid "Flash, strobe return light not detected"
-msgstr ""
+msgstr "Zibspuldze, auto režīms"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:200
-#, fuzzy
 msgid "Flourescence"
-msgstr "Neatkārtojas"
-
-#: lib/Horde/Image/Exif.php:393 lib/Horde/Image/Exif/Parser/Canon.php:368
-msgid "Fluorescent"
-msgstr ""
+msgstr "Fluorescence"
 
 #: lib/Horde/Image/Exif.php:103
-#, fuzzy
 msgid "Focal Length"
-msgstr "Maksimālais garums"
-
-#: lib/Horde/Image/Exif.php:104
-msgid "Focal Length (35mm equiv)"
-msgstr ""
+msgstr "Fokusa attālums"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:296
 msgid "Food"
 msgstr "Pārtika"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:172
-#, fuzzy
 msgid "Full Auto"
-msgstr "auto iz&Vēlnes"
-
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:170
-msgid "Halogen"
-msgstr ""
+msgstr "Pilnīgi automātisks"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:115
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:116
@@ -667,9 +488,8 @@ msgid "High"
 msgstr "Augsta"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:302
-#, fuzzy
 msgid "High Sensitivity"
-msgstr "Spiedienjūtīgs"
+msgstr "Augsta jūtība"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:441
 #, fuzzy
@@ -677,9 +497,8 @@ msgid "Horizontal (normal)"
 msgstr "Normāls (128x128)"
 
 #: lib/Horde/Image/Exif.php:107
-#, fuzzy
 msgid "ISO Setting"
-msgstr "ISO 8859-1"
+msgstr "ISO skaitlis"
 
 #: lib/Horde/Image/Exif.php:410
 #, fuzzy
@@ -711,33 +530,25 @@ msgid "Image Stabilization"
 msgstr "Attēla stabilizācija"
 
 #: lib/Horde/Image/Exif.php:72
-#, fuzzy
 msgid "Image Title"
-msgstr "Attēla faila formāts"
+msgstr "Attēla nosaukums"
 
 #: lib/Horde/Image/Exif.php:71
 #, fuzzy
 msgid "Image keywords"
 msgstr "AutoCAD attēls"
 
-#: lib/Horde/Image/Exif/Parser/Fujifilm.php:130
-#: lib/Horde/Image/Exif/Parser/Nikon.php:199
-msgid "Incandescense"
-msgstr ""
-
 #: lib/Horde/Image/Exif.php:279
 msgid "Inch"
 msgstr "colla"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:375
-#, fuzzy
 msgid "Infinite"
-msgstr "Apstipriniet bezgalīgu sesiju:"
+msgstr "Bezgalība"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:315
-#, fuzzy
 msgid "Internal Flash"
-msgstr "Flash video"
+msgstr "Iekšējā zibspuldze"
 
 #: lib/Horde/Image/Exif.php:264 lib/Horde/Image/Exif.php:482
 #: lib/Horde/Image/Exif/Parser/Canon.php:174
@@ -755,18 +566,12 @@ msgstr "Meridiāns"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:270
 #: lib/Horde/Image/Exif/Parser/Canon.php:395
-#, fuzzy
 msgid "Left"
 msgstr "Pa kreisi"
 
-#: lib/Horde/Image/Exif.php:127
-msgid "Lens"
-msgstr ""
-
 #: lib/Horde/Image/Exif.php:120
-#, fuzzy
 msgid "Light source"
-msgstr "C pirmkods"
+msgstr "Gaismas avots"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:260
 #, fuzzy
@@ -842,14 +647,12 @@ msgid "Mirrored"
 msgstr "Kļūda"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:215
-#, fuzzy
 msgid "Mode 1"
-msgstr "Režīms"
+msgstr "Režīms 1"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:221
-#, fuzzy
 msgid "Mode 2"
-msgstr "Režīms"
+msgstr "Režīms 2"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:165
 msgid "Monochrome"
@@ -866,9 +669,8 @@ msgid "Multi-Spot"
 msgstr "Multi_taustiņš"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:462
-#, fuzzy
 msgid "Natural"
-msgstr "Sestdiena"
+msgstr "Dabīgs"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:177
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:201
@@ -876,19 +678,16 @@ msgid "Night"
 msgstr "Nakts"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:260
-#, fuzzy
 msgid "Night Portrait"
-msgstr "Apgriezts portrets"
+msgstr "Nakts portrets"
 
 #: lib/Horde/Image/Exif.php:484
-#, fuzzy
 msgid "Night Scene"
-msgstr "Blender aina"
+msgstr "Nakts aina"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:293
-#, fuzzy
 msgid "Night Scenery"
-msgstr "No rīta neliels sniegs"
+msgstr "Nakts secnārijs"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:323
 msgid "No"
@@ -896,9 +695,8 @@ msgstr "Nē"
 
 #: lib/Horde/Image/Exif.php:428 lib/Horde/Image/Exif.php:435
 #: lib/Horde/Image/Exif.php:436 lib/Horde/Image/Exif.php:440
-#, fuzzy
 msgid "No Flash"
-msgstr "Flash video"
+msgstr "Bez zibspuldzes"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:222
 #, fuzzy
@@ -961,18 +759,10 @@ msgstr "Izslēgts"
 msgid "On"
 msgstr "ZZ"
 
-#: lib/Horde/Image/Exif/Parser/Canon.php:132
-msgid "On + Red Eye Reduction"
-msgstr ""
-
 #: lib/Horde/Image/Exif/Parser/Nikon.php:272
 #, fuzzy
 msgid "On Camera"
 msgstr "Pa virsu"
-
-#: lib/Horde/Image/Exif.php:464
-msgid "One Chip Color Area Sensor"
-msgstr ""
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:148
 #, fuzzy
@@ -984,14 +774,12 @@ msgid "Other"
 msgstr "Cits"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:232
-#, fuzzy
 msgid "Out of Focus"
-msgstr "Pieņemt fokusu"
+msgstr "Nav fokusa"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:241
-#, fuzzy
 msgid "Over Exposure"
-msgstr " kamēr atkārto blokus"
+msgstr "Pāreksponēts"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:183
 #, fuzzy
@@ -1004,9 +792,8 @@ msgid "Panning"
 msgstr "Brīdinājums"
 
 #: lib/Horde/Image/Exif.php:384 lib/Horde/Image/Exif/Parser/Canon.php:250
-#, fuzzy
 msgid "Partial"
-msgstr "daļēja e-pasta ziņa"
+msgstr "Daļējs"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:287
 msgid "Party"
@@ -1043,9 +830,8 @@ msgstr "Gatavi līniju raksti:"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:277
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:263
-#, fuzzy
 msgid "Program"
-msgstr "ECMAScript programma"
+msgstr "Programma"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:202
 #, fuzzy
@@ -1053,56 +839,20 @@ msgid "Program AE"
 msgstr "ECMAScript programma"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:149
-#, fuzzy
 msgid "RAW"
-msgstr "Panasonic jēlattēls"
+msgstr "Jēlattēls (RAW)"
 
 #: lib/Horde/Image/Exif.php:441
-#, fuzzy
 msgid "Red Eye"
-msgstr "Sarkanais savienotājs"
+msgstr "Sarkanā acs"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:129
-#, fuzzy
 msgid "Red Eye Reduction"
-msgstr "Protanopija (nejūtīgums uz sarkano)"
-
-#: lib/Horde/Image/Exif.php:447
-msgid "Red Eye, Auto-Mode"
-msgstr ""
-
-#: lib/Horde/Image/Exif.php:449
-msgid "Red Eye, Auto-Mode, Return light detected"
-msgstr ""
-
-#: lib/Horde/Image/Exif.php:448
-msgid "Red Eye, Auto-Mode, Return light not detected"
-msgstr ""
-
-#: lib/Horde/Image/Exif.php:444
-msgid "Red Eye, Compulsory Flash"
-msgstr ""
-
-#: lib/Horde/Image/Exif.php:446
-msgid "Red Eye, Compulsory Flash, Return light detected"
-msgstr ""
-
-#: lib/Horde/Image/Exif.php:445
-msgid "Red Eye, Compulsory Flash, Return light not detected"
-msgstr ""
-
-#: lib/Horde/Image/Exif.php:443
-msgid "Red Eye, Return light detected"
-msgstr ""
-
-#: lib/Horde/Image/Exif.php:442
-msgid "Red Eye, Return light not detected"
-msgstr ""
+msgstr "Sarkano acu korekcija"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:162
-#, fuzzy
 msgid "Red-Eye Reduction"
-msgstr "Protanopija (nejūtīgums uz sarkano)"
+msgstr "Sarkano acu korekcija"
 
 #: lib/Horde/Image/Exif.php:100
 #, fuzzy
@@ -1111,14 +861,12 @@ msgstr "Vienību izvēle"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:268
 #: lib/Horde/Image/Exif/Parser/Canon.php:389
-#, fuzzy
 msgid "Right"
 msgstr "Pa labi"
 
 #: lib/Horde/Image/Exif.php:80
-#, fuzzy
 msgid "Rights"
-msgstr "Nakts"
+msgstr "Tiesības"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:447
 #, fuzzy
@@ -1148,10 +896,6 @@ msgstr "Normāls (128x128)"
 #, fuzzy
 msgid "Scene Type"
 msgstr "Līknes tips:"
-
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:254
-msgid "Scenery"
-msgstr ""
 
 #: lib/Horde/Image/Exif.php:115
 #, fuzzy
@@ -1219,7 +963,6 @@ msgid "Soft"
 msgstr "Mierīga gaisma"
 
 #: lib/Horde/Image/Exif.php:92
-#, fuzzy
 msgid "Software Version"
 msgstr "Programmas versija"
 
@@ -1237,14 +980,6 @@ msgstr "Sports"
 msgid "Sports"
 msgstr "Sports"
 
-#: lib/Horde/Image/Exif.php:381
-msgid "Spot"
-msgstr ""
-
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:97
-msgid "Spot-focusing"
-msgstr ""
-
 #: lib/Horde/Image/Exif.php:481 lib/Horde/Image/Exif/Parser/Panasonic.php:143
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:387
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:405
@@ -1252,36 +987,25 @@ msgid "Standard"
 msgstr "Standarta"
 
 #: lib/Horde/Image/Exif.php:403
-#, fuzzy
 msgid "Standard light A"
-msgstr "Stingra gaisma"
+msgstr "Standarta gaisma A"
 
 #: lib/Horde/Image/Exif.php:404
-#, fuzzy
 msgid "Standard light B"
-msgstr "Stingra gaisma"
+msgstr "Standarta gaisma B"
 
 #: lib/Horde/Image/Exif.php:405
-#, fuzzy
 msgid "Standard light C"
-msgstr "Stingra gaisma"
+msgstr "Standarta gaisma C"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:365
 msgid "Sunny"
 msgstr "Saulains"
 
-#: lib/Horde/Image/Exif/Parser/Canon.php:120
-msgid "Superfine"
-msgstr ""
-
 #: lib/Horde/Image/Exif/Bundled.php:53
 #, fuzzy
 msgid "The file could not be opened."
 msgstr "Nevar pievienot failu %s."
-
-#: lib/Horde/Image/Exif.php:466
-msgid "Three Chip Color Area Sensor"
-msgstr ""
 
 #: lib/Horde/Image/Exif.php:468
 #, fuzzy
@@ -1295,14 +1019,6 @@ msgstr "Wolframs"
 #: lib/Horde/Image/Exif/Parser/Canon.php:278
 msgid "Tv"
 msgstr "Tv"
-
-#: lib/Horde/Image/Exif.php:465
-msgid "Two Chip Color Area Sensor"
-msgstr ""
-
-#: lib/Horde/Image/Exif.php:476
-msgid "Uncalibrated"
-msgstr ""
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:305
 msgid "Underwater"
@@ -1398,14 +1114,6 @@ msgstr "Nezināms: (%s)"
 msgid "Unknown: (%s)"
 msgstr "Nezināms: (%s)"
 
-#: lib/Horde/Image/Exif.php:295
-msgid "Upsidedown"
-msgstr ""
-
-#: lib/Horde/Image/Exif.php:297
-msgid "Upsidedown Mirrored"
-msgstr ""
-
 #: lib/Horde/Image/Exif.php:81
 msgid "Usage Terms"
 msgstr "Lietošanas noteikumi"
@@ -1431,10 +1139,6 @@ msgstr "Normāls (128x128)"
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:146
 msgid "Very High"
 msgstr "Ļoti augsts"
-
-#: lib/Horde/Image/Exif/Parser/Panasonic.php:348
-msgid "Warm"
-msgstr ""
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:223
 msgid "Warning"

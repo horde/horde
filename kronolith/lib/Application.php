@@ -5,7 +5,7 @@
  * This file defines Horde's core API interface. Other core Horde libraries
  * can interact with Kronolith through this API.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -44,7 +44,7 @@ class Kronolith_Application extends Horde_Registry_Application
 
     /**
      */
-    public $version = 'H4 (3.0.10-git)';
+    public $version = 'H4 (3.0.14-git)';
 
     /**
      * Global variables defined:
@@ -186,12 +186,14 @@ class Kronolith_Application extends Horde_Registry_Application
                 }
                 break;
             case 'sync_calendars':
+                $sync = @unserialize($prefs->getValue('sync_calendars'));
+                if (empty($sync)) {
+                    $prefs->setValue('sync_calendars', serialize(array(Kronolith::getDefaultCalendar())));
+                }
                 $out = array();
                 foreach (Kronolith::listInternalCalendars(true, Horde_Perms::EDIT) as $key => $cal) {
-                    $out[$key] = $cal->get('name');
-                    $sync = @unserialize($prefs->getValue('sync_calendars'));
-                    if (empty($sync)) {
-                        $prefs->setValue('sync_calendars', serialize(array(Kronolith::getDefaultCalendar())));
+                    if ($cal->getName() != Kronolith::getDefaultCalendar(Horde_Perms::EDIT)) {
+                        $out[$key] = $cal->get('name');
                     }
                 }
                 $ui->override['sync_calendars'] = $out;
@@ -290,6 +292,23 @@ class Kronolith_Application extends Horde_Registry_Application
                     }
                 }
             } catch (Exception $e) {}
+        }
+
+        // Ensure that the current default_share is included in sync_calendars
+        if ($GLOBALS['prefs']->isDirty('sync_calendars') || $GLOBALS['prefs']->isDirty('default_share')) {
+            $sync = @unserialize($GLOBALS['prefs']->getValue('sync_calendars'));
+            $haveDefault = false;
+            $default = Kronolith::getDefaultCalendar(Horde_Perms::EDIT);
+            foreach ($sync as $cid) {
+                if ($cid == $default) {
+                    $haveDefault = true;
+                    break;
+                }
+            }
+            if (!$haveDefault) {
+                $sync[] = $default;
+                $GLOBALS['prefs']->setValue('sync_calendars', serialize($sync));
+            }
         }
 
         if ($GLOBALS['conf']['activesync']['enabled'] && $GLOBALS['prefs']->isDirty('sync_calendars')) {

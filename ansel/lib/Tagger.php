@@ -3,7 +3,7 @@
  * The Ansel_Tagger:: class wraps Ansel's interaction with the Content/Tagger
  * system.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -303,11 +303,13 @@ class Ansel_Tagger
      * @return array  An array of hashes, tag_id, tag_name, and count.
      * @throws Ansel_Exception
      */
-    public function getTagInfo($tags, $limit = 500, $type = null)
+    public function getTagInfo($tags = null, $limit = 500, $type = null, $user = null)
     {
-        $filter = array('typeId' => empty($type) ? array_values($this->_type_ids) : $this->_type_ids[$type],
-                        'tagIds' => $tags,
-                        'limit' => $limit);
+        $filter = array(
+            'typeId' => empty($type) ? array_values($this->_type_ids) : $this->_type_ids[$type],
+            'tagIds' => $tags,
+            'limit' => $limit,
+            'userId' => $user);
 
         try {
             return $this->_tagger->getTagCloud($filter);

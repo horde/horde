@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did
  * did not receive this file, see http://cvs.horde.org/co.php/jonah/LICENSE.
@@ -66,7 +66,6 @@ case 'feed':
                                                    'month' => ++$month,
                                                    'year' => $year));
                 $criteria['updated-max']->sec--;
-                $criteria['updated-max']->correct();
                 break;
             }
 

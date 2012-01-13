@@ -1,5 +1,5 @@
 # Japanese translation for Horde.
-# Copyright 2004-2009 Horde Project
+# Copyright 2004-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde package.
 # Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>
 #
@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Image\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
-"PO-Revision-Date: 2011-03-16 18:20+0900\n"
+"POT-Creation-Date: 2011-09-20 13:49+0200\n"
+"PO-Revision-Date: 2011-11-21 22:58+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: lib/Horde/Image/Exif.php:180
@@ -359,15 +359,15 @@ msgstr ""
 msgid "Copyright"
 msgstr "著作権"
 
-#: lib/Horde/Image/Exif/Bundled.php:269
+#: lib/Horde/Image/Exif/Bundled.php:285
 msgid "Couldnt Find IFD1"
 msgstr "IFD1 が見つけられません"
 
-#: lib/Horde/Image/Exif/Bundled.php:315
+#: lib/Horde/Image/Exif/Bundled.php:331
 msgid "Couldnt Find InteroperabilityIFD"
 msgstr "InteroperabilityIFD が見つけられません"
 
-#: lib/Horde/Image/Exif/Bundled.php:232
+#: lib/Horde/Image/Exif/Bundled.php:248
 msgid "Couldnt Find SubIFD"
 msgstr "SubIFD が見つけられません"
 
@@ -595,15 +595,15 @@ msgstr "ISO 設定"
 msgid "ISO studio tungsten"
 msgstr "ISO スタジオ・タングステン"
 
-#: lib/Horde/Image/Exif/Bundled.php:288
+#: lib/Horde/Image/Exif/Bundled.php:304
 msgid "Illegal size for IFD1"
 msgstr "IFD1 のサイズが不正です"
 
-#: lib/Horde/Image/Exif/Bundled.php:334
+#: lib/Horde/Image/Exif/Bundled.php:350
 msgid "Illegal size for InteroperabilityIFD"
 msgstr "InteroperabilityFD のサイズが不正です"
 
-#: lib/Horde/Image/Exif/Bundled.php:251
+#: lib/Horde/Image/Exif/Bundled.php:267
 msgid "Illegal size for SubIFD"
 msgstr "SubIFD のサイズが不正です"
 
@@ -659,9 +659,9 @@ msgstr "緯度"
 msgid "Left"
 msgstr "左"
 
-#: lib/Horde/Image/Exif.php:127
-msgid "Lens"
-msgstr "レンズ"
+#: lib/Horde/Image/Exif.php:126
+msgid "Lens Id"
+msgstr "レンズ Id"
 
 #: lib/Horde/Image/Exif.php:120
 msgid "Light source"
@@ -973,7 +973,7 @@ msgstr "赤目緩和"
 
 #: lib/Horde/Image/Exif.php:100
 msgid "Resolution Unit"
-msgstr ""
+msgstr "解像度単位"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:268
 #: lib/Horde/Image/Exif/Parser/Canon.php:389
@@ -1006,7 +1006,7 @@ msgstr "SXGA 標準"
 
 #: lib/Horde/Image/Exif.php:122
 msgid "Scene Type"
-msgstr ""
+msgstr "場面の種類"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:254
 msgid "Scenery"
@@ -1119,7 +1119,7 @@ msgstr "晴れ"
 msgid "Superfine"
 msgstr "高精細"
 
-#: lib/Horde/Image/Exif/Bundled.php:53
+#: lib/Horde/Image/Exif/Bundled.php:69
 msgid "The file could not be opened."
 msgstr "ファイルが開けませんでした。"
 
@@ -1251,7 +1251,7 @@ msgstr "上下左右反転"
 
 #: lib/Horde/Image/Exif.php:81
 msgid "Usage Terms"
-msgstr ""
+msgstr "使用条件"
 
 #: lib/Horde/Image/Exif.php:113
 msgid "User Comment"
@@ -1317,7 +1317,7 @@ msgstr "その他の光源"
 msgid "sRGB"
 msgstr "sRGB"
 
-#: lib/Horde/Image/Exif/Bundled.php:800
+#: lib/Horde/Image/Exif/Bundled.php:816
 #, php-format
 msgid "version %d"
 msgstr "バージョン %d"

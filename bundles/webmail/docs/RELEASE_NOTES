@@ -15,7 +15,7 @@ $this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG, Horde_Release
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Horde Groupware
-Webmail Edition version 4.0.2.
+Webmail Edition version 4.0.5.
 
 Horde Groupware Webmail Edition is a free, enterprise ready, browser based
 communication suite. Users can read, send and organize email messages with
@@ -29,38 +29,46 @@ http://www.horde.org/apps/webmail/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/webmail/docs/INSTALL
 
-The major changes compared to the Horde Groupware Webmail Edition version 4.0.1
+The major changes compared to the Horde Groupware Webmail Edition version 4.0.4
 are:
 
 General changes:
-    * Improved synchronization support.
-    * Improved performance.
+    * Improved weather support.
+    * Updated Dutch and Japanese translations.
     * Small bugfixes and improvements.
-    * Updated Latvian translation.
 
 Mail changes:
-    * Save messages from dynamic view preview.
-    * User interface improvements.
+    * Added option to edit mailbox ACLs from context menu.
+    * Allowed to redirect multiple messages from traditional view.
+    * Improved PGP support.
 
 Filters changes:
-    * Fixed creating of new IMAP folders.
+    * Set Return-Path: in Maildrop vacation driver.
 
 Calendar changes:
-    * Improved attendee management.
-    * Relaxed WebDAV server requirements.
+    * Improved Kolab compatibility.
+    * Improved CalDAV compatibility.
+
+Tasks changes:
+    * Fixed setting custom alarm methods.
+
+Notes changes:
+    * Improved notes sorting.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Improved synchronization support.
-Improved performance.
-Save messages from dynamic view preview.
-User interface improvements in dynamic view.
-Fixed creating of new IMAP folders from mail filters.
-Improved attendee management.
-Relaxed WebDAV server requirements.
+Added option to edit mailbox ACLs from context menu.
+Allowed to redirect multiple messages from traditional view.
+Set Return-Path: in Maildrop vacation driver.
+Improved weather support.
+Improved PGP support.
+Improved Kolab compatibility.
+Improved CalDAV compatibility.
+Improved notes sorting.
+Fixed setting custom task alarm methods.
+Updated Dutch and Japanese translations.
 Small bugfixes and improvements.
-Updated Latvian translation.
 FM;
 
 $this->notes['name'] = 'Horde Groupware Webmail Edition';

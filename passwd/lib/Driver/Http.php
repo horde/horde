@@ -3,48 +3,29 @@
  * The Http driver attempts to change a user's password via a web based
  * interface and implements the Passwd_Driver API.
  *
- * Copyright 2000-2011 Horde LLC (http://www.horde.org/)
- *
- * WARNING: This driver has only formally been converted to Horde 4. 
- * No testing has been done. If this doesn't work, please file bugs at
- * bugs.horde.org
- * If you really need this to work reliably, think about sponsoring development
- * Please send a mail to lang -at- b1-systems.de if you can verify this driver to work
+ * Copyright 2000-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.php.
  *
+ * @todo Convert to use Horde_Http_Client
+ *
  * @author  Michael Rubinsky <mrubinsk@horde.org>
  * @package Passwd
- * @since   Passwd 3.1
  */
-class Passwd_Driver_Http extends Passwd_Driver {
-
+class Passwd_Driver_Http extends Passwd_Driver
+{
     /**
-     * Constructs a new Passwd_Driver_http object.
-     *
-     * @param array $params  A hash containing connection parameters.
-     */
-    function __construct($params = array())
-    {
-        $this->_params = $params;
-    }
-
-    /**
-     * Change the user's password.
+     * Changes the user's password.
      *
      * @param string $username      The user for which to change the password.
      * @param string $old_password  The old (current) user password.
      * @param string $new_password  The new user password to set.
      *
-     * @return mixed  True on success or throw Passwd_Exception on failure.
+     * @throws Passwd_Exception
      */
-    function changePassword($username,  $old_password, $new_password)
+    public function changePassword($username, $old_password, $new_password)
     {
-        require_once 'HTTP/Request.php';
-        // TODO: Can we make the Autoloader handle this?
-        // TODO: Could this be converted to Horde_Http?
-
         $req = new HTTP_Request($this->_params['url']);
         $req->setMethod(HTTP_REQUEST_METHOD_POST);
 
@@ -61,7 +42,7 @@ class Passwd_Driver_Http extends Passwd_Driver {
 
         // Send the request
         $result = $req->sendRequest();
-        if (is_a($result, 'PEAR_Error')) {
+        if ($result instanceof PEAR_Error) {
             throw new Passwd_Exception($result->getMessage());
         }
 
@@ -76,11 +57,12 @@ class Passwd_Driver_Http extends Passwd_Driver {
         $responseBody = $req->getResponseBody();
         if (strpos($responseBody, $this->_params['eval_results']['badPass'])) {
             throw new Passwd_Exception(_("Incorrect old password."));
-        } elseif (strpos($responseBody, $this->_params['eval_results']['badUser'])) {
+        }
+        if (strpos($responseBody, $this->_params['eval_results']['badUser'])) {
             throw new Passwd_Exception(_("The username could not be found."));
-        } elseif (!strpos($responseBody, $this->_params['eval_results']['success'])) {
+        }
+        if (!strpos($responseBody, $this->_params['eval_results']['success'])) {
             throw new Passwd_Exception(_("Your password could not be changed."));
         }
-        return true;
     }
 }

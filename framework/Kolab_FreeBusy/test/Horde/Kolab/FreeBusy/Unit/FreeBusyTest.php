@@ -20,7 +20,7 @@ require_once dirname(__FILE__) . '/../Autoload.php';
 /**
  * Test the entry point into the export system.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -55,8 +55,22 @@ extends Horde_Kolab_FreeBusy_TestCase
 
     public function testDispatch()
     {
-        $e = new Horde_Kolab_FreeBusy('Freebusy', 'Kolab');
+        $e = new Horde_Kolab_FreeBusy(
+            'Freebusy',
+            'Kolab',
+            array(
+                'writer' => array(
+                    'class' => 'Horde_Controller_ResponseWriter_WebDebug'
+                )
+            )
+        );
+        ob_start();
         $e->dispatch();
+        $output = ob_get_clean();
+        $this->assertContains(
+            '<div><strong>Headers:',
+            $output
+        );
     }
 
     public function testDispatchError()

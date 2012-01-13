@@ -2,33 +2,33 @@
 <package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>wicked</name>
  <channel>pear.horde.org</channel>
- <summary>A web-based Wiki application</summary>
+ <summary>Wiki application</summary>
  <description>Wicked is a wiki application for Horde.</description>
- <lead>
-  <name>Chuck Hagenbuch</name>
-  <user>chuck</user>
-  <email>chuck@horde.org</email>
-  <active>yes</active>
- </lead>
  <lead>
   <name>Jan Schneider</name>
   <user>jan</user>
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-13</date>
- <time>19:03:13</time>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2011-12-13</date>
+ <time>13:35:12</time>
  <version>
-  <release>1.0.0alpha1</release>
-  <api>1.0.0alpha1</api>
+  <release>1.0.2</release>
+  <api>1.0.0</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
- <license uri="TODO">TODO</license>
+ <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* Initial release.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -44,26 +44,58 @@
     <file name="prefs.php" role="horde" />
    </dir> <!-- /config -->
    <dir name="data">
+    <dir name="BBCode">
+     <dir name="Wiki">
+      <file name="TextFormat" role="horde" />
+     </dir> <!-- /data/BBCode/Wiki -->
+    </dir> <!-- /data/BBCode -->
     <dir name="Cowiki">
-     <file name="WickedTextFormat" role="horde" />
+     <dir name="Wiki">
+      <file name="TextFormat" role="horde" />
+     </dir> <!-- /data/Cowiki/Wiki -->
     </dir> <!-- /data/Cowiki -->
+    <dir name="Creole">
+     <dir name="Wiki">
+      <file name="AddingPages" role="horde" />
+      <file name="Home" role="horde" />
+      <file name="Page" role="horde" />
+      <file name="SandBox" role="horde" />
+      <file name="TextFormat" role="horde" />
+      <file name="Usage" role="horde" />
+     </dir> <!-- /data/Creole/Wiki -->
+    </dir> <!-- /data/Creole -->
     <dir name="Default">
-     <file name="AddingPages" role="horde" />
-     <file name="HowToUseWiki" role="horde" />
-     <file name="SandBox" role="horde" />
+     <dir name="Wiki">
+      <file name="AddingPages" role="horde" />
+      <file name="Home" role="horde" />
+      <file name="Page" role="horde" />
+      <file name="SandBox" role="horde" />
+      <file name="TextFormat" role="horde" />
+      <file name="Usage" role="horde" />
+     </dir> <!-- /data/Default/Wiki -->
      <file name="SmashWordsTogether" role="horde" />
-     <file name="WikiHome" role="horde" />
-     <file name="WikiPage" role="horde" />
-     <file name="WikiTextFormat" role="horde" />
     </dir> <!-- /data/Default -->
     <dir name="Mediawiki">
-     <file name="AddingPages" role="horde" />
-     <file name="HowToUseWiki" role="horde" />
-     <file name="SandBox" role="horde" />
-     <file name="WikiHome" role="horde" />
-     <file name="WikiPage" role="horde" />
-     <file name="WikiTextFormat" role="horde" />
+     <dir name="Wiki">
+      <file name="AddingPages" role="horde" />
+      <file name="Home" role="horde" />
+      <file name="Page" role="horde" />
+      <file name="SandBox" role="horde" />
+      <file name="TextFormat" role="horde" />
+      <file name="Usage" role="horde" />
+     </dir> <!-- /data/Mediawiki/Wiki -->
     </dir> <!-- /data/Mediawiki -->
+    <dir name="Tiki">
+     <dir name="Wiki">
+      <file name="AddingPages" role="horde" />
+      <file name="Home" role="horde" />
+      <file name="Page" role="horde" />
+      <file name="SandBox" role="horde" />
+      <file name="TextFormat" role="horde" />
+      <file name="Usage" role="horde" />
+     </dir> <!-- /data/Tiki/Wiki -->
+     <file name="SmashWordsTogether" role="horde" />
+    </dir> <!-- /data/Tiki -->
     <file name=".htaccess" role="horde" />
    </dir> <!-- /data -->
    <dir name="docs">
@@ -71,6 +103,7 @@
     <file name="CREDITS" role="doc" />
     <file name="INSTALL" role="doc" />
     <file name="lighttpd-wicked.conf" role="doc" />
+    <file name="RELEASE_NOTES" role="doc" />
     <file name="TODO" role="doc" />
    </dir> <!-- /docs -->
    <dir name="js">
@@ -112,19 +145,27 @@
     <dir name="Text_Wiki">
      <dir name="Parse">
       <dir name="BBCode">
+       <file name="Attribute.php" role="horde" />
+       <file name="Code2.php" role="horde" />
        <file name="Image2.php" role="horde" />
        <file name="Registrylink.php" role="horde" />
        <file name="Wickedblock.php" role="horde" />
       </dir> <!-- /lib/Text_Wiki/Parse/BBCode -->
       <dir name="Cowiki">
+       <file name="Attribute.php" role="horde" />
+       <file name="Code2.php" role="horde" />
+       <file name="Freelink2.php" role="horde" />
        <file name="Image2.php" role="horde" />
        <file name="Registrylink.php" role="horde" />
        <file name="Wickedblock.php" role="horde" />
+       <file name="Wikilink2.php" role="horde" />
       </dir> <!-- /lib/Text_Wiki/Parse/Cowiki -->
       <dir name="Creole">
+       <file name="Attribute.php" role="horde" />
        <file name="Image2.php" role="horde" />
        <file name="Registrylink.php" role="horde" />
        <file name="Wickedblock.php" role="horde" />
+       <file name="Wikilink2.php" role="horde" />
       </dir> <!-- /lib/Text_Wiki/Parse/Creole -->
       <dir name="Default">
        <file name="Attribute.php" role="horde" />
@@ -136,22 +177,32 @@
        <file name="Wikilink2.php" role="horde" />
       </dir> <!-- /lib/Text_Wiki/Parse/Default -->
       <dir name="Mediawiki">
+       <file name="Attribute.php" role="horde" />
+       <file name="Code2.php" role="horde" />
        <file name="Image2.php" role="horde" />
        <file name="Registrylink.php" role="horde" />
        <file name="Wickedblock.php" role="horde" />
+       <file name="Wikilink2.php" role="horde" />
       </dir> <!-- /lib/Text_Wiki/Parse/Mediawiki -->
       <dir name="Tiki">
+       <file name="Attribute.php" role="horde" />
+       <file name="Code2.php" role="horde" />
+       <file name="Freelink2.php" role="horde" />
        <file name="Image2.php" role="horde" />
        <file name="Registrylink.php" role="horde" />
        <file name="Wickedblock.php" role="horde" />
+       <file name="Wikilink2.php" role="horde" />
       </dir> <!-- /lib/Text_Wiki/Parse/Tiki -->
      </dir> <!-- /lib/Text_Wiki/Parse -->
      <dir name="Render">
       <dir name="Rst">
+       <file name="Bold.php" role="horde" />
+       <file name="Code.php" role="horde" />
        <file name="Deflist.php" role="horde" />
        <file name="Freelink.php" role="horde" />
        <file name="Heading.php" role="horde" />
        <file name="Links.php" role="horde" />
+       <file name="List.php" role="horde" />
        <file name="Newline.php" role="horde" />
        <file name="Paragraph.php" role="horde" />
        <file name="Raw.php" role="horde" />
@@ -233,6 +284,12 @@
       <file name="wicked.po" role="horde" />
      </dir> <!-- /locale/pt_BR/LC_MESSAGES -->
     </dir> <!-- /locale/pt_BR -->
+    <dir name="sk">
+     <dir name="LC_MESSAGES">
+      <file name="wicked.mo" role="horde" />
+      <file name="wicked.po" role="horde" />
+     </dir> <!-- /locale/sk/LC_MESSAGES -->
+    </dir> <!-- /locale/sk -->
     <dir name="sl">
      <dir name="LC_MESSAGES">
       <file name="wicked.mo" role="horde" />
@@ -259,6 +316,7 @@
     <file name="2_wicked_autoincrement_page_id.php" role="horde" />
     <file name="3_wicked_unsigned_ints.php" role="horde" />
     <file name="4_wicked_single_revisions.php" role="horde" />
+    <file name="5_wicked_rename_pages.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="templates">
     <dir name="diff">
@@ -302,6 +360,10 @@
    </dir> <!-- /templates -->
    <dir name="test">
     <dir name="Wicked">
+     <dir name="fixtures">
+      <file name="cli_modular.rst" role="test" />
+      <file name="cli_modular.wiki" role="test" />
+     </dir> <!-- /test/Wicked/fixtures -->
      <dir name="Unit">
       <dir name="Driver">
        <file name="SqlTest.php" role="test" />
@@ -322,7 +384,6 @@
       <file name="diff.png" role="horde" />
       <file name="external.png" role="horde" />
       <file name="favicon.ico" role="horde" />
-      <file name="HowToUseWiki.png" role="horde" />
       <file name="info.png" role="horde" />
       <file name="locked.png" role="horde" />
       <file name="PageSearch.png" role="horde" />
@@ -333,6 +394,7 @@
       <file name="TitleSearch.png" role="horde" />
       <file name="wicked.png" role="horde" />
       <file name="WikiHome.png" role="horde" />
+      <file name="WikiUsage.png" role="horde" />
       <file name="za.png" role="horde" />
      </dir> <!-- /themes/default/graphics -->
      <file name="screen.css" role="horde" />
@@ -340,13 +402,13 @@
     <dir name="hordeweb">
      <dir name="graphics">
       <file name="AllPages.png" role="horde" />
-      <file name="HowToUseWiki.png" role="horde" />
       <file name="PageSearch.png" role="horde" />
       <file name="RecentChanges.png" role="horde" />
       <file name="SyncPages.png" role="horde" />
       <file name="TitleSearch.png" role="horde" />
       <file name="wicked.png" role="horde" />
       <file name="WikiHome.png" role="horde" />
+      <file name="WikiUsage.png" role="horde" />
      </dir> <!-- /themes/hordeweb/graphics -->
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/hordeweb -->
@@ -382,9 +444,135 @@
     <exclude>5.0.0</exclude>
    </package>
    <package>
+    <name>Horde_Auth</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Autoloader</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Core</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
-    <min>1.1.0</min>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Exception</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Form</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Http</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Lock</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Mail</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Mime</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Mime_Viewer</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Notification</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Perms</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Prefs</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Rpc</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Text_Diff</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Url</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Util</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Vfs</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -395,33 +583,19 @@
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
+   <extension>
+    <name>gettext</name>
+   </extension>
   </required>
   <optional>
    <package>
-    <name>Text_Wiki_BBCode</name>
+    <name>Text_Figlet</name>
     <channel>pear.php.net</channel>
-    <min>0.0.4</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
-   </package>
-   <package>
-    <name>Text_Wiki_Cowiki</name>
-    <channel>pear.php.net</channel>
-    <min>0.0.2</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Text_Wiki_Creole</name>
     <channel>pear.php.net</channel>
     <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
-   </package>
-   <package>
-    <name>Text_Wiki_Doku</name>
-    <channel>pear.php.net</channel>
-    <min>0.0.1</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -461,24 +635,39 @@
    <install as="wicked/config/menu.php.dist" name="config/menu.php.dist" />
    <install as="wicked/config/prefs.php" name="config/prefs.php" />
    <install as="wicked/data/.htaccess" name="data/.htaccess" />
-   <install as="wicked/data/Cowiki/WickedTextFormat" name="data/Cowiki/WickedTextFormat" />
-   <install as="wicked/data/Default/AddingPages" name="data/Default/AddingPages" />
-   <install as="wicked/data/Default/HowToUseWiki" name="data/Default/HowToUseWiki" />
-   <install as="wicked/data/Default/SandBox" name="data/Default/SandBox" />
+   <install as="wicked/data/BBCode/Wiki/TextFormat" name="data/BBCode/Wiki/TextFormat" />
+   <install as="wicked/data/Cowiki/Wiki/TextFormat" name="data/Cowiki/Wiki/TextFormat" />
+   <install as="wicked/data/Creole/Wiki/AddingPages" name="data/Creole/Wiki/AddingPages" />
+   <install as="wicked/data/Creole/Wiki/Home" name="data/Creole/Wiki/Home" />
+   <install as="wicked/data/Creole/Wiki/Page" name="data/Creole/Wiki/Page" />
+   <install as="wicked/data/Creole/Wiki/SandBox" name="data/Creole/Wiki/SandBox" />
+   <install as="wicked/data/Creole/Wiki/TextFormat" name="data/Creole/Wiki/TextFormat" />
+   <install as="wicked/data/Creole/Wiki/Usage" name="data/Creole/Wiki/Usage" />
    <install as="wicked/data/Default/SmashWordsTogether" name="data/Default/SmashWordsTogether" />
-   <install as="wicked/data/Default/WikiHome" name="data/Default/WikiHome" />
-   <install as="wicked/data/Default/WikiPage" name="data/Default/WikiPage" />
-   <install as="wicked/data/Default/WikiTextFormat" name="data/Default/WikiTextFormat" />
-   <install as="wicked/data/Mediawiki/AddingPages" name="data/Mediawiki/AddingPages" />
-   <install as="wicked/data/Mediawiki/HowToUseWiki" name="data/Mediawiki/HowToUseWiki" />
-   <install as="wicked/data/Mediawiki/SandBox" name="data/Mediawiki/SandBox" />
-   <install as="wicked/data/Mediawiki/WikiHome" name="data/Mediawiki/WikiHome" />
-   <install as="wicked/data/Mediawiki/WikiPage" name="data/Mediawiki/WikiPage" />
-   <install as="wicked/data/Mediawiki/WikiTextFormat" name="data/Mediawiki/WikiTextFormat" />
+   <install as="wicked/data/Default/Wiki/AddingPages" name="data/Default/Wiki/AddingPages" />
+   <install as="wicked/data/Default/Wiki/Home" name="data/Default/Wiki/Home" />
+   <install as="wicked/data/Default/Wiki/Page" name="data/Default/Wiki/Page" />
+   <install as="wicked/data/Default/Wiki/SandBox" name="data/Default/Wiki/SandBox" />
+   <install as="wicked/data/Default/Wiki/TextFormat" name="data/Default/Wiki/TextFormat" />
+   <install as="wicked/data/Default/Wiki/Usage" name="data/Default/Wiki/Usage" />
+   <install as="wicked/data/Mediawiki/Wiki/AddingPages" name="data/Mediawiki/Wiki/AddingPages" />
+   <install as="wicked/data/Mediawiki/Wiki/Home" name="data/Mediawiki/Wiki/Home" />
+   <install as="wicked/data/Mediawiki/Wiki/Page" name="data/Mediawiki/Wiki/Page" />
+   <install as="wicked/data/Mediawiki/Wiki/SandBox" name="data/Mediawiki/Wiki/SandBox" />
+   <install as="wicked/data/Mediawiki/Wiki/TextFormat" name="data/Mediawiki/Wiki/TextFormat" />
+   <install as="wicked/data/Mediawiki/Wiki/Usage" name="data/Mediawiki/Wiki/Usage" />
+   <install as="wicked/data/Tiki/SmashWordsTogether" name="data/Tiki/SmashWordsTogether" />
+   <install as="wicked/data/Tiki/Wiki/AddingPages" name="data/Tiki/Wiki/AddingPages" />
+   <install as="wicked/data/Tiki/Wiki/Home" name="data/Tiki/Wiki/Home" />
+   <install as="wicked/data/Tiki/Wiki/Page" name="data/Tiki/Wiki/Page" />
+   <install as="wicked/data/Tiki/Wiki/SandBox" name="data/Tiki/Wiki/SandBox" />
+   <install as="wicked/data/Tiki/Wiki/TextFormat" name="data/Tiki/Wiki/TextFormat" />
+   <install as="wicked/data/Tiki/Wiki/Usage" name="data/Tiki/Wiki/Usage" />
    <install as="CHANGES" name="docs/CHANGES" />
    <install as="CREDITS" name="docs/CREDITS" />
    <install as="INSTALL" name="docs/INSTALL" />
    <install as="lighttpd-wicked.conf" name="docs/lighttpd-wicked.conf" />
+   <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
    <install as="TODO" name="docs/TODO" />
    <install as="wicked/js/toc.js" name="js/toc.js" />
    <install as="wicked/lib/Api.php" name="lib/Api.php" />
@@ -511,15 +700,23 @@
    <install as="wicked/lib/Page/SyncDiff.php" name="lib/Page/SyncDiff.php" />
    <install as="wicked/lib/Page/SyncPages.php" name="lib/Page/SyncPages.php" />
    <install as="wicked/lib/Sync/Wicked.php" name="lib/Sync/Wicked.php" />
+   <install as="wicked/lib/Text_Wiki/Parse/BBCode/Attribute.php" name="lib/Text_Wiki/Parse/BBCode/Attribute.php" />
+   <install as="wicked/lib/Text_Wiki/Parse/BBCode/Code2.php" name="lib/Text_Wiki/Parse/BBCode/Code2.php" />
    <install as="wicked/lib/Text_Wiki/Parse/BBCode/Image2.php" name="lib/Text_Wiki/Parse/BBCode/Image2.php" />
    <install as="wicked/lib/Text_Wiki/Parse/BBCode/Registrylink.php" name="lib/Text_Wiki/Parse/BBCode/Registrylink.php" />
    <install as="wicked/lib/Text_Wiki/Parse/BBCode/Wickedblock.php" name="lib/Text_Wiki/Parse/BBCode/Wickedblock.php" />
+   <install as="wicked/lib/Text_Wiki/Parse/Cowiki/Attribute.php" name="lib/Text_Wiki/Parse/Cowiki/Attribute.php" />
+   <install as="wicked/lib/Text_Wiki/Parse/Cowiki/Code2.php" name="lib/Text_Wiki/Parse/Cowiki/Code2.php" />
+   <install as="wicked/lib/Text_Wiki/Parse/Cowiki/Freelink2.php" name="lib/Text_Wiki/Parse/Cowiki/Freelink2.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Cowiki/Image2.php" name="lib/Text_Wiki/Parse/Cowiki/Image2.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Cowiki/Registrylink.php" name="lib/Text_Wiki/Parse/Cowiki/Registrylink.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Cowiki/Wickedblock.php" name="lib/Text_Wiki/Parse/Cowiki/Wickedblock.php" />
+   <install as="wicked/lib/Text_Wiki/Parse/Cowiki/Wikilink2.php" name="lib/Text_Wiki/Parse/Cowiki/Wikilink2.php" />
+   <install as="wicked/lib/Text_Wiki/Parse/Creole/Attribute.php" name="lib/Text_Wiki/Parse/Creole/Attribute.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Creole/Image2.php" name="lib/Text_Wiki/Parse/Creole/Image2.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Creole/Registrylink.php" name="lib/Text_Wiki/Parse/Creole/Registrylink.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Creole/Wickedblock.php" name="lib/Text_Wiki/Parse/Creole/Wickedblock.php" />
+   <install as="wicked/lib/Text_Wiki/Parse/Creole/Wikilink2.php" name="lib/Text_Wiki/Parse/Creole/Wikilink2.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Default/Attribute.php" name="lib/Text_Wiki/Parse/Default/Attribute.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Default/Code2.php" name="lib/Text_Wiki/Parse/Default/Code2.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Default/Freelink2.php" name="lib/Text_Wiki/Parse/Default/Freelink2.php" />
@@ -527,17 +724,27 @@
    <install as="wicked/lib/Text_Wiki/Parse/Default/Registrylink.php" name="lib/Text_Wiki/Parse/Default/Registrylink.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Default/Wickedblock.php" name="lib/Text_Wiki/Parse/Default/Wickedblock.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Default/Wikilink2.php" name="lib/Text_Wiki/Parse/Default/Wikilink2.php" />
+   <install as="wicked/lib/Text_Wiki/Parse/Mediawiki/Attribute.php" name="lib/Text_Wiki/Parse/Mediawiki/Attribute.php" />
+   <install as="wicked/lib/Text_Wiki/Parse/Mediawiki/Code2.php" name="lib/Text_Wiki/Parse/Mediawiki/Code2.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Mediawiki/Image2.php" name="lib/Text_Wiki/Parse/Mediawiki/Image2.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Mediawiki/Registrylink.php" name="lib/Text_Wiki/Parse/Mediawiki/Registrylink.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Mediawiki/Wickedblock.php" name="lib/Text_Wiki/Parse/Mediawiki/Wickedblock.php" />
+   <install as="wicked/lib/Text_Wiki/Parse/Mediawiki/Wikilink2.php" name="lib/Text_Wiki/Parse/Mediawiki/Wikilink2.php" />
+   <install as="wicked/lib/Text_Wiki/Parse/Tiki/Attribute.php" name="lib/Text_Wiki/Parse/Tiki/Attribute.php" />
+   <install as="wicked/lib/Text_Wiki/Parse/Tiki/Code2.php" name="lib/Text_Wiki/Parse/Tiki/Code2.php" />
+   <install as="wicked/lib/Text_Wiki/Parse/Tiki/Freelink2.php" name="lib/Text_Wiki/Parse/Tiki/Freelink2.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Tiki/Image2.php" name="lib/Text_Wiki/Parse/Tiki/Image2.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Tiki/Registrylink.php" name="lib/Text_Wiki/Parse/Tiki/Registrylink.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Tiki/Wickedblock.php" name="lib/Text_Wiki/Parse/Tiki/Wickedblock.php" />
+   <install as="wicked/lib/Text_Wiki/Parse/Tiki/Wikilink2.php" name="lib/Text_Wiki/Parse/Tiki/Wikilink2.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst.php" name="lib/Text_Wiki/Render/Rst.php" />
+   <install as="wicked/lib/Text_Wiki/Render/Rst/Bold.php" name="lib/Text_Wiki/Render/Rst/Bold.php" />
+   <install as="wicked/lib/Text_Wiki/Render/Rst/Code.php" name="lib/Text_Wiki/Render/Rst/Code.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Deflist.php" name="lib/Text_Wiki/Render/Rst/Deflist.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Freelink.php" name="lib/Text_Wiki/Render/Rst/Freelink.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Heading.php" name="lib/Text_Wiki/Render/Rst/Heading.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Links.php" name="lib/Text_Wiki/Render/Rst/Links.php" />
+   <install as="wicked/lib/Text_Wiki/Render/Rst/List.php" name="lib/Text_Wiki/Render/Rst/List.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Newline.php" name="lib/Text_Wiki/Render/Rst/Newline.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Paragraph.php" name="lib/Text_Wiki/Render/Rst/Paragraph.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Raw.php" name="lib/Text_Wiki/Render/Rst/Raw.php" />
@@ -575,6 +782,8 @@
    <install as="wicked/locale/lv/LC_MESSAGES/wicked.po" name="locale/lv/LC_MESSAGES/wicked.po" />
    <install as="wicked/locale/pt_BR/LC_MESSAGES/wicked.mo" name="locale/pt_BR/LC_MESSAGES/wicked.mo" />
    <install as="wicked/locale/pt_BR/LC_MESSAGES/wicked.po" name="locale/pt_BR/LC_MESSAGES/wicked.po" />
+   <install as="wicked/locale/sk/LC_MESSAGES/wicked.mo" name="locale/sk/LC_MESSAGES/wicked.mo" />
+   <install as="wicked/locale/sk/LC_MESSAGES/wicked.po" name="locale/sk/LC_MESSAGES/wicked.po" />
    <install as="wicked/locale/sl/LC_MESSAGES/wicked.mo" name="locale/sl/LC_MESSAGES/wicked.mo" />
    <install as="wicked/locale/sl/LC_MESSAGES/wicked.po" name="locale/sl/LC_MESSAGES/wicked.po" />
    <install as="wicked/locale/uk/LC_MESSAGES/wicked.mo" name="locale/uk/LC_MESSAGES/wicked.mo" />
@@ -585,6 +794,7 @@
    <install as="wicked/migration/2_wicked_autoincrement_page_id.php" name="migration/2_wicked_autoincrement_page_id.php" />
    <install as="wicked/migration/3_wicked_unsigned_ints.php" name="migration/3_wicked_unsigned_ints.php" />
    <install as="wicked/migration/4_wicked_single_revisions.php" name="migration/4_wicked_single_revisions.php" />
+   <install as="wicked/migration/5_wicked_rename_pages.php" name="migration/5_wicked_rename_pages.php" />
    <install as="wicked/templates/menu.inc" name="templates/menu.inc" />
    <install as="wicked/templates/diff/diff.inc" name="templates/diff/diff.inc" />
    <install as="wicked/templates/display/AttachedFiles.html" name="templates/display/AttachedFiles.html" />
@@ -615,6 +825,8 @@
    <install as="Wicked/Autoload.php" name="test/Wicked/Autoload.php" />
    <install as="Wicked/phpunit.xml" name="test/Wicked/phpunit.xml" />
    <install as="Wicked/TestCase.php" name="test/Wicked/TestCase.php" />
+   <install as="Wicked/fixtures/cli_modular.rst" name="test/Wicked/fixtures/cli_modular.rst" />
+   <install as="Wicked/fixtures/cli_modular.wiki" name="test/Wicked/fixtures/cli_modular.wiki" />
    <install as="Wicked/Unit/RstTest.php" name="test/Wicked/Unit/RstTest.php" />
    <install as="Wicked/Unit/Driver/SqlTest.php" name="test/Wicked/Unit/Driver/SqlTest.php" />
    <install as="wicked/themes/default/screen.css" name="themes/default/screen.css" />
@@ -623,7 +835,6 @@
    <install as="wicked/themes/default/graphics/diff.png" name="themes/default/graphics/diff.png" />
    <install as="wicked/themes/default/graphics/external.png" name="themes/default/graphics/external.png" />
    <install as="wicked/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
-   <install as="wicked/themes/default/graphics/HowToUseWiki.png" name="themes/default/graphics/HowToUseWiki.png" />
    <install as="wicked/themes/default/graphics/info.png" name="themes/default/graphics/info.png" />
    <install as="wicked/themes/default/graphics/locked.png" name="themes/default/graphics/locked.png" />
    <install as="wicked/themes/default/graphics/PageSearch.png" name="themes/default/graphics/PageSearch.png" />
@@ -634,16 +845,17 @@
    <install as="wicked/themes/default/graphics/TitleSearch.png" name="themes/default/graphics/TitleSearch.png" />
    <install as="wicked/themes/default/graphics/wicked.png" name="themes/default/graphics/wicked.png" />
    <install as="wicked/themes/default/graphics/WikiHome.png" name="themes/default/graphics/WikiHome.png" />
+   <install as="wicked/themes/default/graphics/WikiUsage.png" name="themes/default/graphics/WikiUsage.png" />
    <install as="wicked/themes/default/graphics/za.png" name="themes/default/graphics/za.png" />
    <install as="wicked/themes/hordeweb/screen.css" name="themes/hordeweb/screen.css" />
    <install as="wicked/themes/hordeweb/graphics/AllPages.png" name="themes/hordeweb/graphics/AllPages.png" />
-   <install as="wicked/themes/hordeweb/graphics/HowToUseWiki.png" name="themes/hordeweb/graphics/HowToUseWiki.png" />
    <install as="wicked/themes/hordeweb/graphics/PageSearch.png" name="themes/hordeweb/graphics/PageSearch.png" />
    <install as="wicked/themes/hordeweb/graphics/RecentChanges.png" name="themes/hordeweb/graphics/RecentChanges.png" />
    <install as="wicked/themes/hordeweb/graphics/SyncPages.png" name="themes/hordeweb/graphics/SyncPages.png" />
    <install as="wicked/themes/hordeweb/graphics/TitleSearch.png" name="themes/hordeweb/graphics/TitleSearch.png" />
    <install as="wicked/themes/hordeweb/graphics/wicked.png" name="themes/hordeweb/graphics/wicked.png" />
    <install as="wicked/themes/hordeweb/graphics/WikiHome.png" name="themes/hordeweb/graphics/WikiHome.png" />
+   <install as="wicked/themes/hordeweb/graphics/WikiUsage.png" name="themes/hordeweb/graphics/WikiUsage.png" />
    <install as="wicked/themes/hordeweb1/screen.css" name="themes/hordeweb1/screen.css" />
   </filelist>
  </phprelease>
@@ -657,10 +869,66 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-09-13</date>
-   <license uri="TODO">TODO</license>
+   <date>2011-09-27</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * Initial release.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC1</release>
+    <api>1.0.0RC1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2011-10-11</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Fix rendering attached images with Mediawiki syntax (Bug #10570).
+* [jan] Fix links to add new pages on pages with non-ascii names (Bug #10612).
+* [gwr] Support rendering bold text and code section in the rst renderer.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-10-27</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Fix links to existing pages with non-ascii or special characters (Bug #10672).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-13</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [gwr] Corrected teletype format for the reST renderer.
+* [gwr] Support rendering lists in the reST renderer.
+* [jan] Add Slovak translation (Martin Matuška &lt;martin@matuska.org&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-13</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

@@ -33,14 +33,14 @@ var ImpCompose = {
     changeIdentity: function(elt)
     {
         var id = $F(elt),
-            last = IMP_Compose_Base.getIdentity($F('last_identity')),
-            next = IMP_Compose_Base.getIdentity(id),
+            last = ImpComposeBase.getIdentity($F('last_identity')),
+            next = ImpComposeBase.getIdentity(id),
             bcc = $('bcc'),
             save = $('ssm'),
             smf = $('sent_mail_folder'),
             re;
 
-        IMP_Compose_Base.replaceSignature(id);
+        ImpComposeBase.replaceSignature(id);
 
         if (this.smf_check) {
             smf.setValue(next.id.smf_name);
@@ -124,7 +124,8 @@ var ImpCompose = {
 
         case 'auto_save_draft':
             // Move HTML text to textarea field for submission.
-            if (IMP_Compose_Base.editor_on) {
+            if (ImpComposeBase.editor_on &&
+                CKEDITOR.instances.composeMessage) {
                 CKEDITOR.instances.composeMessage.updateElement();
             }
 
@@ -145,7 +146,7 @@ var ImpCompose = {
             return;
         }
 
-        if (this.editor_wait && IMP_Compose_Base.editor_on) {
+        if (this.editor_wait && ImpComposeBase.editor_on) {
             return this.uniqSubmit.bind(this, actionID, e).defer();
         }
 
@@ -215,7 +216,10 @@ var ImpCompose = {
         var elt = e.element(), name;
 
         while (Object.isElement(elt)) {
-            if (elt.hasClassName('button')) {
+            if (elt.readAttribute('id') == 'redirect_abook') {
+                window.open(this.redirect_contacts, "contacts", "toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=300,left=100,top=100");
+                return;
+            } else if (elt.hasClassName('button')) {
                 name = elt.readAttribute('name');
                 switch (name) {
                 case 'btn_add_attachment':
@@ -270,22 +274,23 @@ var ImpCompose = {
 
     onDomLoad: function()
     {
-        var handler = this.keyDownHandler.bindAsEventListener(this);
-
-        /* Prevent Return from sending messages - it should bring us out of
-         * autocomplete, not submit the whole form. */
-        $('compose').select('INPUT').each(function(i) {
-            /* Attach to everything but button and submit elements. */
-            if (i.type != 'submit' && i.type != 'button') {
-                i.observe('keydown', handler);
-            }
-        });
-
-        IMP_Compose_Base.setCursorPosition('composeMessage', this.cursor_pos, IMP_Compose_Base.getIdentity($F('last_identity')).sig);
+        var handler;
 
         if (this.redirect) {
             $('to').focus();
         } else {
+            handler = this.keyDownHandler.bindAsEventListener(this);
+            /* Prevent Return from sending messages - it should bring us out
+             * of autocomplete, not submit the whole form. */
+            $('compose').select('INPUT').each(function(i) {
+                /* Attach to everything but button and submit elements. */
+                if (i.type != 'submit' && i.type != 'button') {
+                    i.observe('keydown', handler);
+                }
+            });
+
+            ImpComposeBase.setCursorPosition('composeMessage', this.cursor_pos, ImpComposeBase.getIdentity($F('last_identity')).sig);
+
             if (Prototype.Browser.IE) {
                 $('subject').observe('keydown', function(e) {
                     if (e.keyCode == Event.KEY_TAB && !e.shiftKey) {
@@ -295,7 +300,7 @@ var ImpCompose = {
                 });
             }
 
-            if (IMP_Compose_Base.editor_on) {
+            if (ImpComposeBase.editor_on) {
                 document.observe('SpellChecker:after', this._onAfterSpellCheck.bind(this));
                 document.observe('SpellChecker:before', this._onBeforeSpellCheck.bind(this));
             }
@@ -303,28 +308,28 @@ var ImpCompose = {
             if ($('to') && !$F('to')) {
                 $('to').focus();
             } else if (!$F('subject')) {
-                if (IMP_Compose_Base.editor_on) {
+                if (ImpComposeBase.editor_on) {
                     $('subject').focus();
                 } else {
                     $('composeMessage').focus();
                 }
             }
+
+            document.observe('SpellChecker:noerror', this._onNoErrorSpellCheck.bind(this));
+
+            if (Prototype.Browser.IE) {
+                $('identity', 'stationery', 'sentmail_folder', 'upload_1').compact().invoke('observe', 'change', this.changeHandler.bindAsEventListener(this));
+            } else {
+                document.observe('change', this.changeHandler.bindAsEventListener(this));
+            }
+
+            if (this.auto_save) {
+                /* Immediately execute to get MD5 hash of empty message. */
+                new PeriodicalExecuter(this.uniqSubmit.bind(this, 'auto_save_draft'), this.auto_save * 60).execute();
+            }
         }
 
         document.observe('click', this.clickHandler.bindAsEventListener(this));
-        document.observe('SpellChecker:noerror', this._onNoErrorSpellCheck.bind(this));
-
-        if (Prototype.Browser.IE) {
-            $('identity', 'stationery', 'sentmail_folder', 'upload_1').compact().invoke('observe', 'change', this.changeHandler.bindAsEventListener(this));
-        } else {
-            document.observe('change', this.changeHandler.bindAsEventListener(this));
-        }
-
-        if (this.auto_save) {
-            /* Immediately execute to get MD5 hash of empty message. */
-            new PeriodicalExecuter(this.uniqSubmit.bind(this, 'auto_save_draft'), this.auto_save * 60).execute();
-        }
-
         this.resize.bind(this).delay(0.25);
     },
 
@@ -333,7 +338,7 @@ var ImpCompose = {
         this.editor_wait = true;
         CKEDITOR.instances.composeMessage.setData($F('composeMessage'), function() { this.editor_wait = false; }.bind(this));
         $('composeMessage').next().show();
-        this.sc_submit = null;
+        delete this.sc_submit;
     },
 
     _onBeforeSpellCheck: function()
@@ -348,10 +353,10 @@ var ImpCompose = {
         if (this.sc_submit) {
             this.skip_spellcheck = true;
             this.uniqSubmit(this.sc_submit.a, this.sc_submit.e);
-        } else if (IMP_Compose_Base.editor_on) {
+        } else if (ImpComposeBase.editor_on) {
             this._onAfterSpellCheck();
         } else {
-            this.sc_submit = null;
+            delete this.sc_submit;
         }
     },
 

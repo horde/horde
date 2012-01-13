@@ -16,10 +16,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-09</date>
- <time>17:37:33</time>
+ <date>2011-11-18</date>
+ <time>12:48:59</time>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.3</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -28,10 +28,17 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-* [mms] Fix SMTP error codes/messages (Bug #10498).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Mail">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/Mail -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Mail">
@@ -90,6 +97,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Mail/COPYING" />
    <install as="Horde/Mail.php" name="lib/Horde/Mail.php" />
    <install as="Horde/Mail/Exception.php" name="lib/Horde/Mail/Exception.php" />
    <install as="Horde/Mail/Rfc822.php" name="lib/Horde/Mail/Rfc822.php" />
@@ -188,10 +196,37 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-09</date>
+   <date>2011-09-20</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
+* [mms] Fix parseAddressList() for empty address strings (Bug #10534).
 * [mms] Fix SMTP error codes/messages (Bug #10498).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-18</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* [mms] Always use canonical line endings in sendmail driver (Bug #10696).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-18</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

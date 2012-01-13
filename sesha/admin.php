@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -270,11 +270,11 @@ echo $tabs->render(strpos($actionID, 'propert') === false ? 'list_categories' : 
 
 // Render forms if they are defined.
 if (isset($form)) {
-    $form->renderActive($renderer, $vars, 'admin.php', 'post');
+    $form->renderActive($renderer, $vars, Horde::url('admin.php'), 'post');
 }
 if (isset($form2)) {
     echo '<br />';
-    $form2->renderActive($renderer, $vars2, 'admin.php', 'post');
+    $form2->renderActive($renderer, $vars2, Horde::url('admin.php'), 'post');
 }
 
 require $registry->get('templates', 'horde') . '/common-footer.inc';

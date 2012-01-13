@@ -9,22 +9,38 @@ Tips on performance tuning systems for IMP.  See `horde/docs/PERFORMANCE`_
 for general performance tips for Horde.
 
 
-* Consider an IMAP proxy for more persistent connections.  Some IMAP proxies
-  are up-imapproxy_ and Perdition_.
+* Consider an IMAP proxy to allow persistent connections.
 
-  up-imapproxy is HIGHLY RECOMMENDED - especially versions 1.2.7rc1 and
+  imapproxy_ is HIGHLY RECOMMENDED - especially versions 1.2.7rc1 and
   greater which contains features used internally by Horde to speed up
   access to the remote server.
 
-* Some IMAP servers (or IMAP mailbox store formats) perform better than
-  others.  Consider switching to a faster format if needed.
+* Use an IMAP server that supports CONDSTORE (RFC 4551) and/or QRESYNC (RFC
+  5162).
+
+  These extensions are required to properly cache data and to properly keep
+  the dynamic display synchronized. It is impossible to do otherwise, and the
+  UI experience will be limited without these extensions.
+
+  Technical information can be found here:
+
+  http://lists.horde.org/archives/imp/Week-of-Mon-20110523/052285.html
+
+* Some IMAP servers perform better than others. The Horde Project recommends
+  either Cyrus_ or Dovecot_ as these servers are actively developed, implement
+  advanced IMAP protocols, and use server-side caching to speed performance.
+
+* Consider switching to a faster mailbox storage format if needed. This may
+  also entail switching the underlying filesystem.
+
+  Further information can be found here:
+
+  http://wiki2.dovecot.org/MailboxFormat
 
 * Follow the IMAP servers' performance hints:
 
-  - Cyrus: http://www.cyrusimap.org/docs/cyrus-imapd/2.4.2/install-perf.php
   - Cyrus: http://git.cyrusimap.org/cyrus-imapd/tree/doc/install-perf.html
   - Dovecot: http://wiki.dovecot.org/PerformanceTuning
-
 
 * IMP can use persistent caching on the server side to store information
   about user's messages.  This results in much reduced mail server traffic
@@ -37,9 +53,15 @@ for general performance tips for Horde.
   To use this caching, you must have a ``Cache System`` configured in Horde's
   ``Administration/Configuration`` screen and have the relevant settings
   enabled in IMP's configuration screen
-  (``Administration/Configuration/Webmail/Mailbox``).
+  (``Administration/Configuration/Mail/Mailbox``).
+
+* Configure Horde to use a VFS filesystem-based backend. Presently, the SQL
+  VFS backend uses 4-5 times the amount of memory as a filesystem-based
+  backend, so users attaching larger files to outgoing mail messages may
+  cause PHP out-of-memory errors to occur.
 
 
+.. _Cyrus: http://www.cyrusimap.org/
+.. _Dovecot: http://www.dovecot.org/
 .. _`horde/docs/PERFORMANCE`: ../../horde/docs/PERFORMANCE
-.. _up-imapproxy: http://www.imapproxy.org/
-.. _Perdition: http://www.vergenet.net/linux/perdition/
+.. _imapproxy: http://www.imapproxy.org/

@@ -4,17 +4,17 @@
  <channel>pear.horde.org</channel>
  <extends>SyncML</extends>
  <summary>Horde_SyncMl provides an API for processing SyncML requests</summary>
- <description>This package provides classes for implementing a SyncML server.</description>
+ <description>Classes for implementing a SyncML server.</description>
  <lead>
   <name>Jan Schneider</name>
   <user>jan</user>
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-09</date>
- <time>14:35:16</time>
+ <date>2011-12-21</date>
+ <time>18:18:04</time>
  <version>
-  <release>1.0.6</release>
+  <release>1.0.8</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -23,7 +23,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix undefined method while synchronizing events with Funambol (Bug #10908).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1183,10 +1183,36 @@ Make the SyncML package independant from Horde, provide a new Sql backend as a r
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-09</date>
+   <date>2011-11-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix encoding of CDATA (horde@chk.cksf.de, Bug #10692).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.7</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-21</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Catch exceptions when changing or retrieving objects from the applications.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.8</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-21</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix undefined method while synchronizing events with Funambol (Bug #10908).
    </notes>
   </release>
  </changelog>

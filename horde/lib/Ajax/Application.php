@@ -2,7 +2,7 @@
 /**
  * Defines the AJAX interface for Horde.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -20,6 +20,7 @@ class Horde_Ajax_Application extends Horde_Core_Ajax_Application
     {
         switch ($this->_action) {
         case 'blockAutoUpdate':
+        case 'blockRefresh':
             return 'html';
         }
 
@@ -47,7 +48,7 @@ class Horde_Ajax_Application extends Horde_Core_Ajax_Application
                     ->getInstance('Horde_Core_Factory_BlockCollection')
                     ->create()
                     ->getBlock($this->_vars->app, $this->_vars->blockid)
-                    ->getContent();
+                    ->getContent(isset($this->_vars->options) ? $this->_vars->options : null);
             } catch (Exception $e) {
                 return $e->getMessage();
             }
@@ -55,6 +56,25 @@ class Horde_Ajax_Application extends Horde_Core_Ajax_Application
 
         return '';
     }
+
+    public function blockRefresh()
+    {
+        if (isset($this->_vars->app) && isset($this->_vars->blockid)) {
+            try {
+                Horde::debug($this->_vars);
+                return $GLOBALS['injector']
+                    ->getInstance('Horde_Core_Factory_BlockCollection')
+                    ->create()
+                    ->getBlock($this->_vars->app, $this->_vars->blockid)
+                    ->refreshContent($this->_vars);
+            } catch (Exception $e) {
+                return $e->getMessage();
+            }
+        }
+
+        return '';
+    }
+
     /**
      * AJAX action: Update portal block.
      */

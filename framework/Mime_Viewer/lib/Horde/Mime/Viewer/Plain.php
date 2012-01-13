@@ -3,7 +3,7 @@
  * The Horde_Mime_Viewer_Plain class renders out plain text with URLs made
  * into hyperlinks (if viewing inline).
  *
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -84,7 +84,7 @@ class Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Base
      */
     protected function _formatFlowed($text, $delsp = null)
     {
-        $flowed = new Horde_Text_Flowed($this->_mimepart->replaceEOL($text, "\n"), $this->_mimepart->getCharset());
+        $flowed = new Horde_Text_Flowed($text, $this->_mimepart->getCharset());
         $flowed->setMaxLength(0);
         if (!is_null($delsp)) {
             $flowed->setDelSp($delsp);

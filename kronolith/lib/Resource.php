@@ -2,7 +2,7 @@
 /**
  * Utility class for dealing with Kronolith_Resource objects
  *
- * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -34,27 +34,11 @@ class Kronolith_Resource
     static public function addResource($resource)
     {
         // Create a new calendar id.
-        $calendar = 'resource_' . uniqid(mt_rand());
+        $calendar = uniqid(mt_rand());
         $resource->set('calendar', $calendar);
         $driver = Kronolith::getDriver('Resource');
 
         return $driver->save($resource);
-    }
-
-    /**
-     * Determine if the provided calendar id represents a resource's calendar.
-     *
-     * @param string $calendar  The calendar identifier to check.
-     *
-     * @return boolean
-     */
-    static public function isResourceCalendar($calendar)
-    {
-        if (strncmp($calendar, 'resource_', 9) === 0) {
-            return true;
-        }
-
-        return false;
     }
 
 }

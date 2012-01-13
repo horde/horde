@@ -4,7 +4,7 @@
  * various preferences storage mediums.  It also includes all of the
  * functions for retrieving, storing, and checking preference values.
  *
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -387,13 +387,27 @@ class Horde_Prefs implements ArrayAccess
      */
     public function store()
     {
+        $backtrace = new Horde_Support_Backtrace();
+        $from_shutdown = $backtrace->getNestingLevel() == 1;
         foreach ($this->_scopes as $scope) {
             if ($scope->isDirty()) {
                 foreach ($this->_storage as $storage) {
-                    $storage->store($scope);
+                    try {
+                        $storage->store($scope);
+                    } catch (Exception $e) {
+                        if (!$from_shutdown) {
+                            throw $e;
+                        }
+                    }
                 }
 
-                $this->_cache->store($scope);
+                try {
+                    $this->_cache->store($scope);
+                } catch (Exception $e) {
+                    if (!$from_shutdown) {
+                        throw $e;
+                    }
+                }
             }
         }
     }

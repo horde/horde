@@ -1,0 +1,2433 @@
+# Latvian translations for Whups H4 package.
+# Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Whups package.
+# Automatically generated, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Whups H4 (2.0-git)\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2011-05-18 12:23+0200\n"
+"PO-Revision-Date: 2011-12-10 19:50+0300\n"
+"Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"Language: lv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+"X-Poedit-Language: Latvian\n"
+"X-Poedit-Country: LATVIA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: templates/menu.inc:5
+msgid "#Id"
+msgstr "#Id"
+
+#: templates/ticket/watchers.inc:3
+#, php-format
+msgid "%d people watching, %d people responsible"
+msgstr "%d personas seko, %d personas atbildīgas"
+
+#: queue/rss.php:92
+#, php-format
+msgid "%s %s tickets in %s"
+msgstr "%s %s biļetes rindā %s"
+
+#: queue/rss.php:96
+#, php-format
+msgid "%s %s tickets in all queues"
+msgstr "%s %s biļetes visās rindās"
+
+#: lib/Renderer/Comment.php:123
+#, php-format
+msgid "%s &rArr; %s"
+msgstr "%s &rArr; %s"
+
+#: lib/Driver.php:520
+#, php-format
+msgid "%s (%s) wrote:"
+msgstr "%s (%s) rakstīja:"
+
+#: admin/index.php:699
+#, fuzzy, php-format
+msgid "%s added to those responsible for \"%s\""
+msgstr "Kļūda pieslēdzoties par %1 atbildīgajam datoram"
+
+#: templates/reports/stats.inc:15
+#, php-format
+msgid "%s days"
+msgstr "%s dienas"
+
+#: lib/Mail.php:177 lib/Mail.php:180
+#, php-format
+msgid "%s part"
+msgstr "%s daļa"
+
+#: queue/rss.php:100
+#, php-format
+msgid "%s tickets in %s"
+msgstr "%s biļetes %s"
+
+#: queue/rss.php:104
+#, php-format
+msgid "%s tickets in all queues"
+msgstr "%s biļetes visās rindās"
+
+#: lib/Driver.php:188
+msgid "(inactive)"
+msgstr "(neaktīvs)"
+
+#: admin/index.php:106
+msgid "- Stage 1"
+msgstr "- Pirmais etaps"
+
+#: admin/index.php:111
+msgid "- Stage 2"
+msgstr "- Otrais etaps"
+
+#: scripts/mail-filter.php:149
+msgid "--queue-name or --queue-id must specify a valid and public queue."
+msgstr "--queue-name vai --queue-id jānorāda derīgu un publisku rindu."
+
+#: templates/prevnext.inc:15
+msgid "<<First"
+msgstr "<<Pirmais"
+
+#: templates/prevnext.inc:18
+msgid "<Prev"
+msgstr "<Iepriekšējais"
+
+#: view.php:49
+#, php-format
+msgid "Access denied to %s"
+msgstr "%s pieeja liegta."
+
+#: lib/Forms/Admin/Attribute.php:20
+msgid "Add Attribute"
+msgstr "Pievienot atribūtu"
+
+#: lib/Forms/Query.php:270
+msgid "Add Attribute Criterion"
+msgstr "Pievienot atribūta kritēriju"
+
+#: mybugs.php:44
+msgid "Add Content"
+msgstr "Pievienot saturu"
+
+#: query/index.php:235
+msgid "Add Criterion"
+msgstr "Pievienot kritēriju"
+
+#: lib/Forms/Query.php:324
+msgid "Add Date Criterion"
+msgstr "Pievienot datuma kritēriju"
+
+#: lib/Forms/Admin/Reply.php:20
+msgid "Add Form Reply"
+msgstr "Pievienot tipveida atbildi"
+
+#: lib/Forms/Query.php:88
+msgid "Add Group Criterion"
+msgstr "Pievienot grupas kritēriju"
+
+#: lib/Forms/Admin/Priority.php:18
+msgid "Add Priority"
+msgstr "Pievienot prioritāti"
+
+#: lib/Forms/Query.php:172
+msgid "Add Property Criterion"
+msgstr "Pievienot īpašības kritēriju"
+
+#: lib/Forms/Admin/Queue.php:18 lib/Forms/Admin/Queue.php:19
+msgid "Add Queue"
+msgstr "Pievienot rindu"
+
+#: lib/Forms/Admin/State.php:18
+msgid "Add State"
+msgstr "Pievienot stāvokli"
+
+#: lib/Forms/Query.php:129
+msgid "Add Text Criterion"
+msgstr "Pievienot teksta kritēriju"
+
+#: lib/Forms/Admin/Type.php:18 lib/Forms/Admin/Type.php:19
+msgid "Add Type"
+msgstr "Pievienot tipu"
+
+#: admin/index.php:106 admin/index.php:111
+#, php-format
+msgid "Add Type %s"
+msgstr "Pievienot tipu %s"
+
+#: lib/Forms/Query.php:39
+msgid "Add User Criterion"
+msgstr "Pievienot lietotāja kritēriju"
+
+#: lib/Forms/Admin/User.php:19
+msgid "Add Users"
+msgstr "Pievienot lietotājus"
+
+#: lib/Forms/Admin/Version.php:18
+msgid "Add Version"
+msgstr "Pievienot versiju"
+
+#: ticket/watch.php:45
+msgid "Add Watcher"
+msgstr "Pievienot novērotāju"
+
+#: ticket/create.php:52
+#, php-format
+msgid "Adding your ticket failed: %s."
+msgstr "Jūsu biļeti pievienot neizdevās: %s."
+
+#: config/prefs.php:30
+msgid "Address Books"
+msgstr "Adrešu grāmatas"
+
+#: admin/index.php:51 lib/Application.php:61
+msgid "Administration"
+msgstr "Administrēšana"
+
+#: lib/Forms/Query.php:22 lib/Renderer/Query.php:75
+msgid "And"
+msgstr "un"
+
+#: lib/Forms/Query.php:179 lib/Forms/Query.php:186 lib/Forms/Query.php:191
+#: lib/Forms/Query.php:198 lib/Forms/Query.php:203 lib/Forms/Search.php:30
+msgid "Any"
+msgstr "Jebkurš"
+
+#: ticket/queue.php:43 ticket/type.php:38
+msgid "Any Group"
+msgstr "Jebkura grupa"
+
+#: config/prefs.php:65
+msgid "Ascending"
+msgstr "Augoši"
+
+#: lib/Application.php:82
+msgid "Assign"
+msgstr "Piešķirt"
+
+#: config/prefs.php:54 lib/Api.php:702 lib/Driver.php:213
+#: lib/Renderer/Query.php:154 lib/Ticket.php:989 lib/Whups.php:688
+msgid "Assigned"
+msgstr "Piešķirts"
+
+#: lib/Forms/Query.php:337 lib/Forms/Search.php:64
+msgid "Assigned from"
+msgstr "Piešķirts no"
+
+#: lib/Forms/Query.php:338
+msgid "Assigned to"
+msgstr "Piešķirts līdz"
+
+#: lib/Renderer/Comment.php:71
+#, php-format
+msgid "Assigned to %s"
+msgstr "Piešķirts %s"
+
+#: admin/index.php:1203
+msgid "Associations updated successfully."
+msgstr "Asociācijas veiksmīgi atsvaidzinātas."
+
+#: lib/Forms/AddComment.php:22 lib/Forms/CreateTicket.php:164
+#: lib/Forms/EditTicket.php:139
+msgid "Attachment"
+msgstr "Pielikums"
+
+#: ticket/delete_attachment.php:28
+#, php-format
+msgid "Attachment %s deleted."
+msgstr "Pielikums %s izdzēsts."
+
+#: lib/Driver/sql.php:1232 lib/Ticket.php:492
+#, php-format
+msgid "Attachment %s not found."
+msgstr "Pielikums %s nav atrasts."
+
+#: lib/Ticket.php:999
+msgid "Attachments"
+msgstr "Pielikumi"
+
+#: query/index.php:158
+msgid "Attri_bute Criteria"
+msgstr "Atribūta kritērijs"
+
+#: lib/Driver.php:119
+#, php-format
+msgid "Attribute %d"
+msgstr "Atribūts %d"
+
+#: lib/Forms/Admin/Attribute.php:24 lib/Forms/Admin/Attribute.php:94
+#: lib/Forms/Admin/Attribute.php:140
+msgid "Attribute Description"
+msgstr "Atribūta apraksts"
+
+#: lib/Forms/Admin/Attribute.php:23 lib/Forms/Admin/Attribute.php:72
+#: lib/Forms/Admin/Attribute.php:91 lib/Forms/Admin/Attribute.php:137
+msgid "Attribute Name"
+msgstr "Atribūta nosaukums"
+
+#: lib/Forms/Admin/Attribute.php:29 lib/Forms/Admin/Attribute.php:101
+msgid "Attribute Type"
+msgstr "Atribūta tips"
+
+#: lib/Forms/Search.php:18
+msgid "Attributes"
+msgstr "Atribūti"
+
+#: lib/Forms/Admin/Type.php:112
+msgid "Attributes for this Type"
+msgstr "Šī tipa atribūti"
+
+#: scripts/mail-filter.php:151
+msgid "Available queues:"
+msgstr "Pieejamās rindas:"
+
+#: lib/Forms/Query.php:27
+msgid "Branch Type"
+msgstr "Atzarojuma tips"
+
+#: scripts/mail-filter.php:172
+msgid "Cannot authenticate at mail server:"
+msgstr "Neizdevās autentificēties pie pasta servera."
+
+#: lib/Query.php:159
+#, fuzzy
+msgid "Case Insensitive Substring"
+msgstr "Atbilstība ir reģistrnejutīga."
+
+#: templates/renderer/querysetcurrenttype.inc:6
+msgid "Change"
+msgstr "Mainīt"
+
+#: config/prefs.php:14
+#, fuzzy
+msgid "Change display preferences such as how search results are sorted."
+msgstr ""
+"Mainīt attēlošanas iestatījumus, piemēram, vēstuļu skaitu lapā un vēstuļu "
+"kārtošanas veidu."
+
+#: config/prefs.php:25
+#, fuzzy
+msgid "Change preferences for email notifications of ticket activity."
+msgstr "Konfigurēt tradicionālā skata iestatījumus."
+
+#: query/index.php:161
+msgid "Choose Action:"
+msgstr "Izvēlieties darbību:"
+
+#: lib/Forms/CreateTicket.php:50 lib/Forms/CreateTicket.php:80
+msgid "Choose:"
+msgstr "Izvēlēties:"
+
+#: config/prefs.php:140
+msgid "Chronological (oldest first)"
+msgstr "Hronoloģiski (senākās vispirms)"
+
+#: lib/Forms/Admin/Type.php:193
+msgid "Clone"
+msgstr "Klonēt"
+
+#: lib/Forms/Admin/Type.php:200
+msgid "Clone Description"
+msgstr "Klonēt aprakstu"
+
+#: admin/index.php:148 lib/Forms/Admin/Type.php:34
+msgid "Clone Type"
+msgstr "Klonēt tipu"
+
+#: config/templates.php:46
+msgid "Comma Separated Values (CSV file)"
+msgstr "Ar komatu atdalītas vērtības (CSV fails)"
+
+#: lib/Forms/AddComment.php:21 lib/Forms/EditTicket.php:144
+#: lib/Renderer/Query.php:86 ticket/queue.php:31 ticket/type.php:28
+msgid "Comment"
+msgstr "Komentārs"
+
+#: lib/Renderer/Comment.php:161
+#, php-format
+msgid "Comment #%d"
+msgstr "Komentārs #%d"
+
+#: lib/Renderer/Comment.php:159
+#, php-format
+msgid "Comment #%d (Private)"
+msgstr "Komentārs #%d (privāts)"
+
+#: ticket/comment.php:79
+msgid "Comment added"
+msgstr "Komentārs pievienots"
+
+#: ticket/comment.php:44
+#, php-format
+msgid "Comment on %s"
+msgstr "Komentārs par %s"
+
+#: lib/Renderer/Query.php:85
+msgid "Commentor"
+msgstr "Komentētājs"
+
+#: lib/Forms/Admin/Type.php:198
+#, php-format
+msgid "Copy of %s"
+msgstr "%s kopija"
+
+#: lib/Forms/Query.php:101
+msgid "Could not find any groups."
+msgstr "Nevar atrast nevienu grupu."
+
+#: lib/Mail.php:134
+#, php-format
+msgid "Could not find ticket \"%s\"."
+msgstr "Neizdevās atrast biļeti \"%s\"."
+
+#: lib/Forms/Admin/Type.php:100
+msgid "Create Default Priorities"
+msgstr "Izveidot noklusētās prioritātes"
+
+#: lib/Forms/Admin/Type.php:83
+msgid "Create Default States"
+msgstr "Izveidot noklusētos stāvokļus"
+
+#
+#: config/prefs.php:78
+msgid "Create Ticket"
+msgstr "Izveidot biļeti"
+
+#: lib/Forms/CreateTicket.php:26
+msgid "Create Ticket - Step 1"
+msgstr "Izveidot biļeti - 1. solis"
+
+#: lib/Forms/CreateTicket.php:68
+msgid "Create Ticket - Step 2"
+msgstr "Izveidot biļeti - 2. solis"
+
+#: lib/Forms/CreateTicket.php:115
+msgid "Create Ticket - Step 3"
+msgstr "Izveidot biļeti - 3. solis"
+
+#: lib/Forms/CreateTicket.php:208
+msgid "Create Ticket - Step 4"
+msgstr "Izveidot biļeti - 4. solis"
+
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+#: config/prefs.php:53 lib/Api.php:707 lib/Renderer/Query.php:139
+#: lib/Ticket.php:974 lib/Whups.php:686
+msgid "Created"
+msgstr "Izveidots"
+
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+#: lib/Ticket.php:624 lib/Ticket.php:650
+msgid "Created By"
+msgstr "Izveidojis"
+
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+#: lib/Forms/Query.php:328 lib/Forms/Search.php:58
+msgid "Created from"
+msgstr "Izveidots no"
+
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+#: lib/Forms/Query.php:329
+msgid "Created to"
+msgstr "Izveidots līdz"
+
+#: query/index.php:225 query/index.php:242
+#, fuzzy
+msgid "Current Query"
+msgstr "Notīrīt vaicājumu"
+
+#: templates/renderer/querysetcurrenttype.inc:4
+#, fuzzy
+msgid "Current Ticket Type"
+msgstr "Izdzēst aktīvo faila tipu."
+
+#: config/prefs.php:106
+msgid "DD/MM/YY"
+msgstr "DD/MM/YY"
+
+#: config/prefs.php:107
+msgid "DD/MM/YY HH:MM:SS"
+msgstr "DD/MM/YY HH:MM:SS"
+
+#: lib/Ticket.php:735
+msgid "DO NOT REPLY TO THIS MESSAGE. THIS EMAIL ADDRESS IS NOT MONITORED."
+msgstr "NEATBILDIET UZ ŠO VĒSTULI. ŠAI E-PASTA ADRESEI NETIEK SEKOTS."
+
+#: config/prefs.php:111
+msgid "Date/Time format for search results"
+msgstr "Datuma/laika formāts rezultātu meklēšanai"
+
+#: lib/Forms/Search.php:57
+msgid "Dates"
+msgstr "Datumi"
+
+#
+#: lib/Forms/Admin/Queue.php:104
+msgid "Default Ticket Type"
+msgstr "Noklusētais biļetes tips"
+
+#: config/prefs.php:57
+msgid "Default sorting criteria:"
+msgstr "Noklusētie kārtošanas nosacījumi:"
+
+#: config/prefs.php:68
+msgid "Default sorting direction:"
+msgstr "Noklusētais kārtošanas virziens:"
+
+#: query/index.php:162
+msgid "Delete"
+msgstr "Dzēst"
+
+#: lib/Whups.php:851 lib/Whups.php:852
+#, php-format
+msgid "Delete %s"
+msgstr "Dzēst %s"
+
+#: ticket/delete.php:58
+#, php-format
+msgid "Delete %s?"
+msgstr "Dzēst %s?  "
+
+#
+#: admin/index.php:948 lib/Forms/Admin/Attribute.php:55
+msgid "Delete Attribute"
+msgstr "Dzēst atribūtu"
+
+#: lib/Forms/Admin/Attribute.php:130
+msgid "Delete Attribute Confirmation"
+msgstr "Atribūta dzēšanas apstiprinājums"
+
+#: admin/index.php:1083 lib/Forms/Admin/Reply.php:34
+msgid "Delete Form Reply"
+msgstr "Dzēst tipveida atbildi"
+
+#: lib/Forms/Admin/Reply.php:92
+msgid "Delete Form Reply Confirmation"
+msgstr "Tipveida vēstules dzēšanas apstiprinājums"
+
+#: admin/index.php:588 lib/Forms/Admin/Priority.php:34
+msgid "Delete Priority"
+msgstr "Dzēst prioritāti"
+
+#: lib/Forms/Admin/Priority.php:105
+msgid "Delete Priority Confirmation"
+msgstr "Prioritātes dzēšanas apstiprinājums"
+
+#: lib/Forms/Query.php:451
+msgid "Delete Query?"
+msgstr "Dzēst rindu?"
+
+#: admin/index.php:328 lib/Forms/Admin/Queue.php:42
+msgid "Delete Queue"
+msgstr "Dzēst rindu"
+
+#: lib/Forms/Admin/Queue.php:157
+msgid "Delete Queue Confirmation"
+msgstr "Rindas dzēšanas apstiprinājums"
+
+#: admin/index.php:453 lib/Forms/Admin/State.php:33
+msgid "Delete State"
+msgstr "Dzēst stāvokli"
+
+#: lib/Forms/Admin/State.php:105
+msgid "Delete State Confirmation"
+msgstr "Stāvokļa dzēšanas apstiprinājums"
+
+#: admin/index.php:142 lib/Forms/Admin/Type.php:35
+msgid "Delete Type"
+msgstr "Dzēst tipu"
+
+#: lib/Forms/Admin/Type.php:147
+msgid "Delete Type Confirmation"
+msgstr "Tipa dzēšanas apstiprinājums"
+
+#: admin/index.php:816 lib/Forms/Admin/Version.php:36
+msgid "Delete Version"
+msgstr "Dzēst versiju"
+
+#: lib/Forms/Admin/Version.php:84
+msgid "Delete Version Confirmation"
+msgstr "Versijas dzēšanas apstiprinājums"
+
+#: lib/Renderer/Comment.php:177 lib/Renderer/Comment.php:178
+msgid "Delete entry"
+msgstr "Dzēst ierakstu"
+
+#: lib/Ticket.php:629 lib/Ticket.php:727
+msgid "Deleted Attachment"
+msgstr "Dzēst pielikumu"
+
+#: lib/Renderer/Comment.php:66
+#, php-format
+msgid "Deleted Attachment: %s"
+msgstr "Dzēst pielikumu: %s"
+
+#: config/prefs.php:66
+msgid "Descending"
+msgstr "Dilstoši"
+
+#: lib/Forms/CreateTicket.php:165
+msgid "Description"
+msgstr "Apraksts"
+
+#: config/prefs.php:13
+msgid "Display Preferences"
+msgstr "Attēlošanas iestatījumi"
+
+#: lib/Whups.php:842
+msgid "Download"
+msgstr "Lejupielādēt"
+
+#: templates/view/results.inc:91
+msgid "Download these results as: "
+msgstr "Saglabāt rezultātus kā:"
+
+#: lib/Api.php:711 lib/Renderer/Query.php:159 lib/Ticket.php:621
+#: lib/Ticket.php:815 lib/Ticket.php:979
+#, fuzzy
+msgid "Due"
+msgstr "Termiņš"
+
+#: lib/Renderer/Comment.php:131
+#, fuzzy, php-format
+msgid "Due &rArr; %s"
+msgstr "Izpildīt līdz"
+
+#: lib/Forms/CreateTicket.php:162 lib/Forms/EditTicket.php:90
+msgid "Due Date"
+msgstr "Izpildīt līdz"
+
+#: lib/Forms/Query.php:340 lib/Forms/Search.php:66
+#, fuzzy
+msgid "Due from"
+msgstr "No tēmas"
+
+#: lib/Forms/Query.php:341
+#, fuzzy
+msgid "Due to"
+msgstr "Rādīt darbus, kas jāpabeidz"
+
+#: lib/Query.php:235
+msgid "E_xecute Query"
+msgstr "Izpildīt vaicājumu"
+
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  lv_LV.po (Gollem 1.0.3)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+#: query/index.php:163
+msgid "Edit"
+msgstr "Labot"
+
+#: lib/Forms/Admin/Queue.php:80 lib/Forms/Admin/Type.php:61
+#, php-format
+msgid "Edit %s"
+msgstr "Labot %s"
+
+#
+#: admin/index.php:943 lib/Forms/Admin/Attribute.php:55
+#: lib/Forms/Admin/Attribute.php:84
+msgid "Edit Attribute"
+msgstr "Labot atribūtu"
+
+#: lib/Forms/Query.php:270
+msgid "Edit Attribute Criterion"
+msgstr "Labot atribūta kritēriju"
+
+#: lib/Forms/Admin/Type.php:117
+msgid "Edit Attributes"
+msgstr "Labot atribūtus"
+
+#: lib/Forms/Query.php:324
+msgid "Edit Date Criterion"
+msgstr "Labot datuma kritēriju"
+
+#: lib/Forms/Admin/Type.php:133
+msgid "Edit Form Replies"
+msgstr "Labot tipveida atbildes"
+
+#: admin/index.php:1078 lib/Forms/Admin/Reply.php:34
+#: lib/Forms/Admin/Reply.php:62
+msgid "Edit Form Reply"
+msgstr "Labot tipveida atbildi"
+
+#: lib/Forms/Query.php:88
+msgid "Edit Group Criterion"
+msgstr "Labot grupas kritēriju"
+
+#: lib/Forms/Admin/Type.php:96
+msgid "Edit Priorities"
+msgstr "Labot prioritātes"
+
+#: admin/index.php:583 lib/Forms/Admin/Priority.php:34
+#: lib/Forms/Admin/Priority.php:57
+msgid "Edit Priority"
+msgstr "Labot prioritāti"
+
+#: lib/Forms/Query.php:172
+msgid "Edit Property Criterion"
+msgstr "Labot īpašības kritēriju"
+
+#: admin/index.php:322 lib/Forms/Admin/Queue.php:42
+#: lib/Forms/Admin/Queue.php:45
+msgid "Edit Queue"
+msgstr "Labot rindu"
+
+#: lib/Forms/Admin/Queue.php:44
+msgid "Edit Queues"
+msgstr "Labot rindas"
+
+#
+#: admin/index.php:448 lib/Forms/Admin/State.php:33
+#: lib/Forms/Admin/State.php:54
+msgid "Edit State"
+msgstr "Labot stāvokli"
+
+#: lib/Forms/Admin/Type.php:79
+msgid "Edit States"
+msgstr "Labot stāvokļus"
+
+#: lib/Forms/Query.php:129
+msgid "Edit Text Criterion"
+msgstr "Labot teksta kritēriju"
+
+#: admin/index.php:136 lib/Forms/Admin/Type.php:33
+msgid "Edit Type"
+msgstr "Labot tipu"
+
+#: lib/Forms/Query.php:39
+msgid "Edit User Criterion"
+msgstr "Labot lietotāja kritēriju"
+
+#: admin/index.php:811 lib/Forms/Admin/Version.php:36
+#: lib/Forms/Admin/Version.php:59
+msgid "Edit Version"
+msgstr "Labot versiju"
+
+#: lib/Query.php:231
+msgid "Edit _Permissions"
+msgstr "Labot pieejas tiesības"
+
+#: admin/index.php:31
+msgid "Edit _Types"
+msgstr "Labot tipus"
+
+#: lib/Forms/Admin/Attribute.php:54
+msgid "Edit or Delete Attributes"
+msgstr "Labot vai dzēst atribūtus"
+
+#: lib/Forms/Admin/Priority.php:33
+msgid "Edit or Delete Priorities"
+msgstr "Labot vai dzēst prioritātes"
+
+#: lib/Forms/Admin/Queue.php:41
+msgid "Edit or Delete Queues"
+msgstr "Labot vai dzēst rindas"
+
+#: lib/Forms/Admin/State.php:32
+msgid "Edit or Delete States"
+msgstr "Labot vai dzēst stāvokļus"
+
+#: lib/Forms/Admin/Type.php:32
+msgid "Edit or Delete Types"
+msgstr "Labot vai dzēst tipus"
+
+#: lib/Forms/Admin/Version.php:35
+msgid "Edit or Delete Versions"
+msgstr "Labot vai dzēst versijas"
+
+#: lib/Forms/Admin/Reply.php:79
+#, fuzzy
+msgid "Edit the permissions on this form reply"
+msgstr "Mainīt pieejas tiesības %s"
+
+#: lib/Forms/Admin/Queue.php:142
+#, fuzzy
+msgid "Edit the permissions on this queue"
+msgstr "Pārbaudiet jūsu pieejas atļaujas šim resursam."
+
+#: lib/Forms/Admin/Queue.php:116
+#, fuzzy
+msgid "Edit the versions for this queue"
+msgstr "Mainīt %s pieejas tiesības"
+
+#: ticket/watch.php:20
+#, fuzzy
+msgid "Email address to notify"
+msgstr "Nav norādīta adrese, kurp nosūtīt paziņojumu"
+
+#: ticket/watch.php:32
+#, fuzzy
+msgid "Email address to remove"
+msgstr "\"%s\" nav atpazīstama kā e-pasta adrese."
+
+#: lib/Api.php:349
+msgid "Empty attachment"
+msgstr "Tukšs pielikums"
+
+#: ticket/delete_history.php:26
+msgid "Entry deleted."
+msgstr "Ieraksts dzēsts."
+
+#: scripts/mail-filter.php:161 scripts/mail-filter.php:181
+#, fuzzy
+msgid "Error processing message:"
+msgstr "IMAP kļūda. Paziņojums: %s. Kļūda: %s"
+
+#: lib/Query.php:158
+msgid "Exact Match"
+msgstr "Precīza atbilstība"
+
+#: query/run.php:112
+msgid "Execute Query"
+msgstr "Izpildīt vaicājumu"
+
+#: lib/Forms/Admin.php:33
+#, fuzzy
+msgid "For tickets from these queues"
+msgstr "Rādīt šo kategoriju piezīmes"
+
+#: lib/Forms/Admin.php:37
+#, fuzzy
+msgid "For tickets which are"
+msgstr "Krāsu blīvums, kurā tiek skaidroti paraugi"
+
+#: lib/Application.php:70
+msgid "Form Replies"
+msgstr "Tipveida atbildes"
+
+#: lib/Forms/Admin/Type.php:128
+msgid "Form Replies for this Type"
+msgstr "Tipveida atbildes šim tipam"
+
+#: lib/Forms/Admin/Reply.php:23 lib/Forms/Admin/Reply.php:50
+#: lib/Forms/Admin/Reply.php:69 lib/Forms/Admin/Reply.php:99
+msgid "Form Reply Name"
+msgstr "Tipveida atbildes nosaukums"
+
+#: lib/Forms/Admin/Reply.php:24 lib/Forms/Admin/Reply.php:72
+#: lib/Forms/Admin/Reply.php:102
+msgid "Form Reply Text"
+msgstr "Tipveida atbildes teksts"
+
+#: lib/Forms/EditTicket.php:156
+msgid "Form Reply:"
+msgstr "Tipveida atbilde:"
+
+#: config/prefs.php:12 config/prefs.php:23 config/prefs.php:29
+msgid "General Preferences"
+msgstr "Vispārējie iestatījumi"
+
+#: templates/menu.inc:5
+msgid "Go"
+msgstr "Aiziet"
+
+#: lib/Forms/CreateTicket.php:243 lib/Forms/EditTicket.php:128
+msgid "Group Owners"
+msgstr " Grupas īpašnieki"
+
+#: lib/Forms/Query.php:102 lib/Forms/Query.php:104 lib/Renderer/Query.php:83
+msgid "Groups"
+msgstr "Grupas"
+
+#: lib/Application.php:64
+msgid "Hidden Comments"
+msgstr "Slēptie komentāri"
+
+#: ticket/index.php:41
+msgid "History"
+msgstr "Vēsture"
+
+#: query/index.php:164
+#, fuzzy
+msgid "Hoist Children"
+msgstr "Rindai ir bērni"
+
+#: config/prefs.php:46 lib/Forms/Query.php:175 lib/Renderer/Query.php:81
+#: lib/Whups.php:671 lib/Whups.php:678
+msgid "Id"
+msgstr "id"
+
+#: query/index.php:165
+#, fuzzy
+msgid "Insert And"
+msgstr "pirms %1 un %2"
+
+#: lib/Forms/Query.php:19
+#, fuzzy
+msgid "Insert Branch"
+msgstr "Atzara mape:"
+
+#: query/index.php:167
+#, fuzzy
+msgid "Insert Not"
+msgstr "Nav autorizēts"
+
+#: query/index.php:166
+#, fuzzy
+msgid "Insert Or"
+msgstr "Nesakrītošs ( vai \\("
+
+#: lib/Forms/Admin/Queue.php:75 lib/Forms/Admin/Queue.php:76
+#, fuzzy
+msgid "Invalid Queue"
+msgstr "ziņu rinda"
+
+#: lib/Api.php:340 lib/Whups.php:267
+#, fuzzy
+msgid "Invalid Ticket Id"
+msgstr "Nepareizs partnera ID."
+
+#: queue/index.php:27
+#, fuzzy
+msgid "Invalid queue"
+msgstr "ziņu rinda"
+
+#: search/rss.php:28
+#, fuzzy
+msgid "Invalid search"
+msgstr "Izvēlieties ceļus"
+
+#: lib/Api.php:248
+#, fuzzy, php-format
+msgid "Invalid ticket data supplied: %s"
+msgstr "Norādīts nepareizs uzdevumu saraksta nosaukums."
+
+#: templates/prevnext.inc:26
+msgid "Last>>"
+msgstr "Pēdējais>>"
+
+#: lib/Forms/Query.php:415
+msgid "Load Query"
+msgstr "Ieladēt vaicājumu"
+
+#: lib/Forms/VarRenderer.php:38
+msgid "Loading..."
+msgstr "Lasa..."
+
+#: config/prefs.php:104
+msgid "MM/DD/YY"
+msgstr "MM/DD/YY"
+
+#: config/prefs.php:105
+msgid "MM/DD/YY HH:MM:SS"
+msgstr "MM/DD/YY HH:MM:SS"
+
+#: lib/Forms/Admin/Type.php:191
+#, php-format
+msgid "Make a clone of %s"
+msgstr "Izveidot %s kopiju"
+
+#: lib/Forms/Query.php:278
+msgid "Match"
+msgstr "Atbilstība"
+
+#: lib/Forms/Query.php:43 lib/Forms/Query.php:133 lib/Forms/Query.php:279
+#, fuzzy
+msgid "Match Operator"
+msgstr "Būla operators"
+
+#: lib/Query.php:162
+#, fuzzy
+msgid "Match Pattern"
+msgstr "Dublēt šablonu"
+
+#: lib/Query.php:161
+#, fuzzy
+msgid "Match Word"
+msgstr "Sakrīt _viss vārds"
+
+#: reports.php:27
+#, fuzzy
+msgid "Maximum time a ticket is unresolved"
+msgstr "Maksimālais ieraktīšanas laiks ir 15 sekundes"
+
+#: config/prefs.php:141
+msgid "Most recent first"
+msgstr "Jaunākās vispirms"
+
+#: ticket/queue.php:184
+#, php-format
+msgid "Moved ticket %d to \"%s\""
+msgstr "Biļete %d veiksmīgi pārvietota uz \"%s\""
+
+#: mybugs.php:43
+#, php-format
+msgid "My %s"
+msgstr "Mani %s"
+
+#: mybugs_edit.php:29
+#, fuzzy, php-format
+msgid "My %s :: Add Content"
+msgstr "Pievienot manam kalendāram"
+
+#: search.php:177
+msgid "My Queries"
+msgstr "Mani vaicājumi"
+
+#: lib/Block/Myrequests.php:13
+msgid "My Requests"
+msgstr "Mani pieprasījumi"
+
+#: config/prefs.php:76 lib/Block/Mytickets.php:13
+msgid "My Tickets"
+msgstr "Manas biļetes"
+
+#: lib/Api.php:675
+msgid "My tickets by assignment date"
+msgstr "Manas biļetes pēc piešķiršanas datuma"
+
+#: lib/Api.php:674
+msgid "My tickets by creation date"
+msgstr "Manas biļetes pēc izveidošanas datuma"
+
+#: lib/Api.php:676
+#, fuzzy
+msgid "My tickets by due date"
+msgstr ""
+"#-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#\n"
+"Beigu datums\n"
+"#-#-#-#-#  kronolith.po (2.1.7)  #-#-#-#-#\n"
+"Noteikt beigu datumu"
+
+#: lib/Api.php:677
+msgid "My tickets by resolution date"
+msgstr "Manas biļetes pēc atbildēšanas datuma"
+
+#: lib/Forms/Query.php:426
+msgid "Name"
+msgstr "Nosaukums"
+
+#: lib/Forms/Admin/Type.php:196
+msgid "Name of the cloned copy"
+msgstr "Kopijas nosaukums"
+
+#: lib/Query.php:221
+msgid "Ne_w Query"
+msgstr "Jauns vaicājums"
+
+#: lib/Driver.php:212
+msgid "New"
+msgstr "Jauns"
+
+#: lib/Ticket.php:628 lib/Ticket.php:721
+msgid "New Attachment"
+msgstr "Jauns pielikums"
+
+#: lib/Renderer/Comment.php:56 lib/Renderer/Comment.php:60
+#, php-format
+msgid "New Attachment: %s"
+msgstr "Jauns pielikums: %s"
+
+#: ticket/queue.php:28
+msgid "New Queue"
+msgstr "Jauna rinda"
+
+#: lib/Application.php:180 ticket/create.php:63
+msgid "New Ticket"
+msgstr "Jauna biļete"
+
+#: ticket/type.php:27
+msgid "New Type"
+msgstr "Jauns tips"
+
+#: templates/prevnext.inc:23
+msgid "Next>"
+msgstr "Nākošais>"
+
+#: lib/Forms/Admin/Attribute.php:147 lib/Forms/Admin/Priority.php:119
+#: lib/Forms/Admin/Queue.php:172 lib/Forms/Admin/Reply.php:108
+#: lib/Forms/Admin/State.php:119 lib/Forms/Admin/Type.php:174
+#: lib/Forms/Admin/Version.php:98 lib/Forms/Query.php:453 ticket/delete.php:29
+msgid "No"
+msgstr "Nē"
+
+#: lib/Block/Myqueries.php:36
+msgid "No queries have been saved."
+msgstr "Nav saglabātu vaicājumu."
+
+#: lib/Block/Query.php:61 lib/Driver/sql.php:541
+msgid "No query to run"
+msgstr "Nav izpildāmu vaicājumu"
+
+#: lib/Block/Queuecontents.php:26
+msgid "No queues available."
+msgstr "Nav pieejama neviena rinda."
+
+#: reports.php:32
+msgid "No stats available."
+msgstr "Statistika nav pieejama"
+
+#: lib/View.php:31
+#, fuzzy, php-format
+msgid "No such view \"%s\" found"
+msgstr "\"%s\" modulis nav atrasts."
+
+#: lib/Block/Mytickets.php:32
+msgid "No tickets are assigned to you."
+msgstr "Jums nav atbildāmu biļešu."
+
+#: lib/Block/Unassigned.php:32
+#, fuzzy
+msgid "No tickets are unassigned!"
+msgstr "Nav pieejams neviens kanāls."
+
+#: lib/Block/Queuecontents.php:60 lib/Block/Queuecontents.php:71
+msgid "No tickets in queue."
+msgstr "Rinda tukša."
+
+#: lib/Whups.php:720
+msgid "No tickets matched your search criteria."
+msgstr "Neviena biļete neatbilst vaicājuma nosacījumiem."
+
+#: lib/Reports.php:66
+msgid "None"
+msgstr "Nekas"
+
+#: lib/Forms/Query.php:24 lib/Renderer/Query.php:77
+msgid "Not"
+msgstr "nav"
+
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  nag.po (Nag 2.1.4)  #-#-#-#-#
+#
+# #-#-#-#-#  nag.po (Nag 2.1.4)  #-#-#-#-#
+#
+#: config/prefs.php:24
+#, fuzzy
+msgid "Notification Preferences"
+msgstr "Citi iestatījumi"
+
+#: lib/Driver.php:193
+#, fuzzy
+msgid "Older? Please update first!"
+msgstr "Vispirms izvēlieties kanālu"
+
+#: queue/rss.php:40
+msgid "Open"
+msgstr "Atvērt"
+
+#: reports.php:20
+#, fuzzy
+msgid "Open Tickets by Owner"
+msgstr "palaist/meklēt īpašniekam"
+
+#: reports.php:18
+#, fuzzy
+msgid "Open Tickets by Priority"
+msgstr "Šķirot pēc prioritātes"
+
+#: reports.php:15
+msgid "Open Tickets by Queue"
+msgstr "Atvērtās biļetes pēc rindas"
+
+#: reports.php:19
+msgid "Open Tickets by Requester"
+msgstr "Atvērtās biļetes pēc pieprasītāja"
+
+#: reports.php:16
+msgid "Open Tickets by State"
+msgstr "Atvērtās biļetes pēc stāvokļa"
+
+#: reports.php:17
+msgid "Open Tickets by Type"
+msgstr "Atvērtās biļetes pēc tipa"
+
+#: lib/Block/Queuecontents.php:47
+#, fuzzy, php-format
+msgid "Open Tickets in %s"
+msgstr "Atvērt pārlūkā"
+
+#: queue/index.php:40 queue/index.php:54 queue/rss.php:115
+#, fuzzy, php-format
+msgid "Open tickets in %s"
+msgstr "Atvērt pārlūkā"
+
+#: queue/rss.php:117
+#, fuzzy
+msgid "Open tickets in all queues."
+msgstr "Atvērt %1 fontus apskatei?"
+
+#: lib/Forms/Query.php:23 lib/Renderer/Query.php:76
+msgid "Or"
+msgstr "vai"
+
+#: lib/Forms/CreateTicket.php:236 lib/Forms/CreateTicket.php:254
+#: lib/Forms/EditTicket.php:118 lib/Renderer/Query.php:82 lib/Ticket.php:627
+#: lib/Ticket.php:711 lib/Ticket.php:712 lib/Ticket.php:715 lib/Ticket.php:819
+#: lib/Ticket.php:840 lib/Ticket.php:961 lib/Whups.php:685
+msgid "Owners"
+msgstr "Īpašnieki"
+
+#: lib/Whups.php:851
+#, php-format
+msgid "Permanently delete %s?"
+msgstr "Dzēst %s?"
+
+#: lib/Renderer/Comment.php:177
+msgid "Permanently delete entry?"
+msgstr "Dzēst ierakstu?"
+
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  lv_LV.po (Ingo H3 (1.1.5))  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  ingo.po (Ingo H3 (1.1.5))  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+#: ticket/delete.php:48 ticket/delete_attachment.php:17
+#: ticket/delete_history.php:16 ticket/queue.php:135 ticket/type.php:71
+#: ticket/update.php:19
+msgid "Permission Denied"
+msgstr "Pieeja liegta"
+
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  lv_LV.po (Ingo H3 (1.1.5))  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  ingo.po (Ingo H3 (1.1.5))  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+#: lib/Forms/EditTicket.php:210 ticket/delete.php:36
+msgid "Permission Denied."
+msgstr "Pieeja liegta."
+
+#: lib/Forms/Query.php:463 query/index.php:29 query/run.php:43
+#, php-format
+msgid "Permission denied."
+msgstr "Pieeja liegta."
+
+#: lib/Forms/Admin/Type.php:91 lib/Forms/Admin/Type.php:169
+msgid "Priorities for this Type"
+msgstr "Šī tipa prioritātes"
+
+#: config/prefs.php:50 lib/Forms/CreateTicket.php:158
+#: lib/Forms/EditTicket.php:84 lib/Forms/Query.php:202
+#: lib/Renderer/Query.php:123 lib/Ticket.php:620 lib/Ticket.php:814
+#: lib/Ticket.php:956 lib/Whups.php:673 lib/Whups.php:682 ticket/queue.php:113
+#: ticket/type.php:62
+msgid "Priority"
+msgstr "Prioritāte"
+
+#: lib/Renderer/Comment.php:118
+#, php-format
+msgid "Priority &rArr; %s"
+msgstr "Prioritāte &rArr; %s"
+
+#: lib/Forms/Admin/Priority.php:22 lib/Forms/Admin/Priority.php:68
+#: lib/Forms/Admin/Priority.php:116
+msgid "Priority Description"
+msgstr "Prioritātes apraksts"
+
+#: lib/Forms/Admin/Priority.php:21 lib/Forms/Admin/Priority.php:46
+#: lib/Forms/Admin/Priority.php:65 lib/Forms/Admin/Priority.php:92
+#: lib/Forms/Admin/Priority.php:113
+msgid "Priority Name"
+msgstr "Prioritātes nosaukums"
+
+#: search.php:177
+msgid "Public Queries"
+msgstr "Publiski vaicājumi"
+
+#: query/index.php:174
+msgid "Query Builder"
+msgstr "Vaicājumu redaktors"
+
+#: lib/Forms/Query.php:391
+msgid "Query Name"
+msgstr "Vaicājuma nosaukums"
+
+#: lib/Forms/QueryParameterForm.php:18
+msgid "Query Parameters"
+msgstr "Vaicājuma parametri"
+
+#: lib/Block/Query.php:13 query/rss.php:60 query/run.php:81
+msgid "Query Results"
+msgstr "Vaicājuma rezultāti"
+
+#: lib/Forms/Query.php:393
+#, fuzzy
+msgid "Query Slug"
+msgstr "Notīrīt vaicājumu"
+
+#: lib/Block/Query.php:35
+msgid "Query to run"
+msgstr "Izpildāmais vaicājums"
+
+#: config/prefs.php:51 lib/Block/Queuecontents.php:35
+#: lib/Block/Queuesummary.php:43 lib/Forms/Query.php:185
+#: lib/Forms/Search.php:38 lib/Renderer/Query.php:92 lib/Ticket.php:616
+#: lib/Ticket.php:810 lib/Ticket.php:921 lib/Ticket.php:926 lib/Whups.php:683
+msgid "Queue"
+msgstr "Rinda"
+
+#: lib/Renderer/Comment.php:98
+#, php-format
+msgid "Queue &rArr; %s"
+msgstr "Rinda &rArr; %s"
+
+#: lib/Block/Queuecontents.php:13
+msgid "Queue Contents"
+msgstr "Rindas saturs"
+
+#: lib/Forms/Admin/Queue.php:22 lib/Forms/Admin/Queue.php:87
+#: lib/Forms/Admin/Queue.php:168
+msgid "Queue Description"
+msgstr "Rindas apraksts"
+
+#: lib/Forms/Admin/Queue.php:28 lib/Forms/Admin/Queue.php:95
+msgid "Queue Email"
+msgstr "Rindas epasts"
+
+#: lib/Forms/Admin/Queue.php:21 lib/Forms/Admin/Queue.php:58
+#: lib/Forms/Admin/Queue.php:83 lib/Forms/Admin/Queue.php:164
+#: lib/Forms/CreateTicket.php:32 lib/Forms/CreateTicket.php:48
+msgid "Queue Name"
+msgstr "Rindas nosaukums"
+
+#: lib/Forms/Admin/Queue.php:24 lib/Forms/Admin/Queue.php:91
+#, fuzzy
+msgid "Queue Slug"
+msgstr "ziņu rinda"
+
+#: lib/Block/Queuesummary.php:13
+msgid "Queue Summary"
+msgstr "Rindas kopsavilkums"
+
+#: lib/Forms/CreateTicket.php:96 lib/Forms/EditTicket.php:74
+#: lib/Ticket.php:935 lib/Ticket.php:941 ticket/queue.php:82
+msgid "Queue Version"
+msgstr "Rindasversija"
+
+#: admin/index.php:32
+msgid "Queue/Type Matri_x"
+msgstr "Rindas/tipa matrica"
+
+#: templates/admin/mtmatrix.inc:6
+msgid "Queue/Type Matrix"
+msgstr "Rindas/tipa matrica"
+
+#: lib/Api.php:31 lib/Application.php:67
+msgid "Queues"
+msgstr "Rindas"
+
+#: templates/prevnext.inc:28
+msgid "Re_turn to Search Results"
+msgstr "Atgriezties pie vaicājuma rezultātiem"
+
+#
+#: lib/Forms/Admin/Reply.php:106
+#, fuzzy
+msgid "Really delete this form reply?"
+msgstr "Tiešām dzēst šo ziņu rakstu?"
+
+#: lib/Forms/Query.php:454
+#, fuzzy
+msgid "Really delete this query? This operation is not undoable."
+msgstr "Tiešām dzēst \"%s\"? Šī darbība ir neatgriezeniska."
+
+#: lib/Mail.php:58
+msgid "Received message:"
+msgstr "Saņemtā vēstule:"
+
+#: search.php:161
+msgid "Refine Search"
+msgstr "Precizēt meklēšanu"
+
+#: admin/index.php:1171
+msgid "Reminders were sent."
+msgstr "Atgādinājumi nosūtīti."
+
+#: lib/Forms/Admin/User.php:57
+msgid "Remove User"
+msgstr "Dzēst lietotāju"
+
+#: ticket/watch.php:46
+#, fuzzy
+msgid "Remove Watcher"
+msgstr "Pievienot novērotāju"
+
+#: lib/Renderer/Comment.php:93
+msgid "Reply to this comment"
+msgstr "Atbildēt uz šo komentāru"
+
+#: reports.php:37
+msgid "Reports"
+msgstr "Atskaites"
+
+#: lib/Renderer/Query.php:84 lib/Ticket.php:968 lib/Whups.php:684
+msgid "Requester"
+msgstr "Pieprasītājs"
+
+#: lib/Forms/Admin/Attribute.php:26 lib/Forms/Admin/Attribute.php:97
+#, fuzzy
+msgid "Required Attribute?"
+msgstr "Pievienot atribūtu"
+
+#: config/prefs.php:55 lib/Api.php:716 lib/Driver.php:214
+#: lib/Renderer/Query.php:149 lib/Ticket.php:994 lib/Whups.php:689
+msgid "Resolved"
+msgstr "Atrisināts"
+
+#: lib/Forms/Query.php:334 lib/Forms/Search.php:62
+#, fuzzy
+msgid "Resolved from"
+msgstr "No tēmas"
+
+#: lib/Forms/Query.php:335
+#, fuzzy
+msgid "Resolved to"
+msgstr " Kopét uz"
+
+#: lib/Forms/Admin/User.php:59
+msgid "Responsible Users"
+msgstr "Atbildīgie lietotāji"
+
+#: lib/Whups.php:309
+#, fuzzy
+msgid "S_et Queue"
+msgstr "ziņu rinda"
+
+#: lib/Query.php:239
+msgid "Sa_ve Query"
+msgstr "Saglabāt rindu"
+
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Nag 2.1.4)  #-#-#-#-#
+#
+# #-#-#-#-#  nag.po (Nag 2.1.4)  #-#-#-#-#
+#
+#: lib/Forms/Query.php:389 templates/view/results.inc:97
+msgid "Save"
+msgstr "Saglabāt"
+
+#: query/index.php:235
+msgid "Save Criterion"
+msgstr "Saglabāt kritēriju"
+
+#: lib/Forms/Query.php:388
+msgid "Save Query"
+msgstr "Saglabāt vaicājumu"
+
+#: lib/Forms/Search.php:17 search.php:67
+msgid "Save as Query"
+msgstr "Saglabāt kā vaicājumu"
+
+#: lib/Block/Myqueries.php:13
+msgid "Saved Queries"
+msgstr "Saglabātie vaicājumi"
+
+#: lib/Application.php:192 search.php:154
+msgid "Search"
+msgstr "Meklēt"
+
+#: lib/Forms/Query.php:282
+#, fuzzy, php-format
+msgid "Search %s Attribute"
+msgstr "Pievienot atribūtu"
+
+#: lib/Forms/Query.php:276 lib/Forms/Query.php:285
+#, fuzzy
+msgid "Search Attribute"
+msgstr "Pievienot atribūtu"
+
+#: lib/Forms/Query.php:46 lib/Forms/Query.php:135
+#, fuzzy
+msgid "Search Comments"
+msgstr "Komentārs"
+
+#: lib/Forms/Query.php:44
+#, fuzzy
+msgid "Search Owners"
+msgstr "Izvēlieties ceļus"
+
+#: lib/Forms/Query.php:45
+#, fuzzy
+msgid "Search Requester"
+msgstr "Izvēlieties ceļus"
+
+#: search.php:146 search/rss.php:52 search/rss.php:56
+msgid "Search Results"
+msgstr "Meklēšanas rezultāti"
+
+#: templates/prevnext.inc:34
+#, fuzzy, php-format
+msgid "Search Results: %s of %s"
+msgstr "Meklēšanas rezultāti"
+
+#: lib/Forms/Query.php:134
+#, fuzzy
+msgid "Search Summary"
+msgstr "RSS kopsavilkums"
+
+#: config/prefs.php:77
+#, fuzzy
+msgid "Search Tickets"
+msgstr "Izvēlieties ceļus"
+
+#: config/prefs.php:31
+msgid "Select address book sources for adding and searching for addresses."
+msgstr "Izvēlies adrešu grāmatas adrešu pievienošanai un meklēšanai."
+
+#: config/prefs.php:80
+#, fuzzy
+msgid "Select the view to display after login:"
+msgstr "Skats vai pastkaste, ko rādīt pēc pieslēgšanās:"
+
+#: admin/index.php:33
+msgid "Sen_d Reminders"
+msgstr "Nosūtīt atgādinājumus"
+
+#: lib/Forms/Admin.php:21
+msgid "Send Reminders"
+msgstr "Nosūtīt atgādinājumus"
+
+#: lib/Forms/Admin/Priority.php:78 lib/Forms/Admin/Priority.php:80
+msgid "Set Default Priority"
+msgstr "Iestatīt noklusēto prioritāti"
+
+#: lib/Forms/Admin/State.php:78 lib/Forms/Admin/State.php:80
+msgid "Set Default State"
+msgstr "Iestatīt noklusēto stāvokli"
+
+#: ticket/queue.php:204 ticket/queue.php:213 ticket/queue.php:225
+#, fuzzy
+msgid "Set Queue - Step 1"
+msgstr "Progresa impulsa solis"
+
+#: ticket/queue.php:205 ticket/queue.php:214
+#, fuzzy
+msgid "Set Queue - Step 2"
+msgstr "Progresa impulsa solis"
+
+#: ticket/queue.php:215
+#, fuzzy
+msgid "Set Queue - Step 3"
+msgstr "Progresa impulsa solis"
+
+#: ticket/queue.php:192
+#, fuzzy, php-format
+msgid "Set Queue for %s"
+msgstr "Iestatīt kolonnu kā paplašinātāja kolonnu"
+
+#: lib/Application.php:83
+#, fuzzy
+msgid "Set Requester"
+msgstr "Uzstādīt &visus"
+
+#: ticket/type.php:136 ticket/type.php:145
+#, fuzzy
+msgid "Set Type - Step 1"
+msgstr "Labot darba tipu, 2. solis"
+
+#: ticket/type.php:137
+#, fuzzy
+msgid "Set Type - Step 2"
+msgstr "Labot darba tipu, 2. solis"
+
+#: ticket/type.php:124
+#, fuzzy, php-format
+msgid "Set Type for %s"
+msgstr "Segmenta nokrāsas tips"
+
+#: lib/Whups.php:314
+msgid "Set _Type"
+msgstr "Iestatīt tipu"
+
+#: config/prefs.php:143
+msgid "Show comments in chronological order, or most recent first?"
+msgstr "Rādīt komentārus hronoloģiskā secībā vai arī pēdējos vispirms?"
+
+#: config/templates.php:19
+msgid "Simple HTML Report"
+msgstr "Vienkārša HTML atskaite"
+
+#: templates/view/results.inc:37 templates/view/results.inc:41
+#, php-format
+msgid "Sort by %s"
+msgstr "Šķirot pēc %s"
+
+#: lib/Forms/AddComment.php:18 lib/Forms/AddComment.php:49
+#: lib/Forms/CreateTicket.php:139 lib/Forms/CreateTicket.php:186
+msgid "Spam protection"
+msgstr "Mēstuļu aizsardzība"
+
+#: config/prefs.php:48 lib/Forms/EditTicket.php:78 lib/Forms/Query.php:197
+#: lib/Renderer/Query.php:115 lib/Ticket.php:619 lib/Ticket.php:813
+#: lib/Ticket.php:952 lib/Whups.php:674 lib/Whups.php:680 ticket/queue.php:112
+#: ticket/type.php:61
+msgid "State"
+msgstr "Stāvoklis"
+
+#: lib/Renderer/Comment.php:113
+#, php-format
+msgid "State &rArr; %s"
+msgstr "Stāvoklis &rArr; %s"
+
+#: lib/Forms/Admin/State.php:23 lib/Forms/Admin/State.php:68
+msgid "State Category"
+msgstr "Stāvokļa kategorija:"
+
+#: lib/Forms/Admin/State.php:22 lib/Forms/Admin/State.php:65
+#: lib/Forms/Admin/State.php:116
+msgid "State Description"
+msgstr "Stāvokļa apraksts"
+
+#: lib/Forms/Admin/State.php:21 lib/Forms/Admin/State.php:45
+#: lib/Forms/Admin/State.php:62 lib/Forms/Admin/State.php:94
+#: lib/Forms/Admin/State.php:113
+msgid "State Name"
+msgstr "Stāvokļa nosaukums"
+
+#: lib/Forms/Admin/Type.php:74 lib/Forms/Admin/Type.php:163
+msgid "States for this Type"
+msgstr "Šī tipa stāvokļi"
+
+#: templates/ticket/watchers.inc:1
+msgid "Status"
+msgstr "Statuss"
+
+#: ticket/create.php:141
+msgid "Submit"
+msgstr "Iesniegt"
+
+#: query/run.php:95 query/run.php:96
+msgid "Subscribe to this query"
+msgstr "Parakstīties uz šo vaicājumu"
+
+#: admin/index.php:195
+#, php-format
+msgid "Successfully Cloned %s to %s."
+msgstr "%s veiksmīgi nokopēts uz %s"
+
+#: ticket/type.php:115
+msgid "Successfully changed ticket type."
+msgstr "Biļetes tips nomainīts veiksmīgi."
+
+#: config/prefs.php:47 lib/Forms/CreateTicket.php:163
+#: lib/Forms/EditTicket.php:62 lib/Renderer/Query.php:87 lib/Ticket.php:626
+#: lib/Ticket.php:653 lib/Ticket.php:656 lib/Ticket.php:660 lib/Ticket.php:819
+#: lib/Ticket.php:828 lib/Ticket.php:915 lib/Whups.php:672 lib/Whups.php:679
+#: ticket/delete.php:26
+msgid "Summary"
+msgstr "Kopsavilkums"
+
+#: lib/Renderer/Comment.php:49
+#, php-format
+msgid "Summary &rArr; %s"
+msgstr "Kopsavilkums &rArr; %s"
+
+#: lib/Forms/Search.php:41
+#, fuzzy
+msgid "Summary like"
+msgstr "Komforts"
+
+#: lib/Renderer/Comment.php:77
+#, php-format
+msgid "Taken from %s"
+msgstr "Ņemts no %s"
+
+#: lib/Forms/Query.php:132
+msgid "Text"
+msgstr "Teksts"
+
+#: lib/Forms/CreateTicket.php:132
+msgid "The Requester's Email Address"
+msgstr "Pieprasītāja e-pasta adrese"
+
+#: lib/Ticket.php:431 lib/Ticket.php:481 view.php:43
+msgid "The VFS backend needs to be configured to enable attachment uploads."
+msgstr ""
+"Lai varētu augšupielādēt pielikumus, nepieciešams konfigurēt VFS palīgmoduli."
+
+#: admin/index.php:907
+#, php-format
+msgid "The attribute \"%s\" has been added to %s."
+msgstr "Atribūts \"%s\" pievienots %s."
+
+#: admin/index.php:1007
+msgid "The attribute has been deleted."
+msgstr "Atribūts izdzēsts."
+
+#: admin/index.php:975
+msgid "The attribute has been modified."
+msgstr "Atribūts mainīts."
+
+#
+#: admin/index.php:1016
+msgid "The attribute was not deleted."
+msgstr "Atribūts nav izdzēsts."
+
+#: admin/index.php:641
+msgid "The default priority has been set."
+msgstr "Noteikta noklusētā prioritāte."
+
+#: admin/index.php:505
+#, fuzzy
+msgid "The default state has been set."
+msgstr "Konfigurācija ir iestatīta kā darbvirsmas noklusētā."
+
+#: admin/index.php:1044
+#, php-format
+msgid "The form reply \"%s\" has been added to %s."
+msgstr "Tipveida atbilde\"%s\" pievienota %s."
+
+#: admin/index.php:1136
+msgid "The form reply has been deleted."
+msgstr "Tipveida atbilde izdzēsta."
+
+#: admin/index.php:1109
+msgid "The form reply has been modified."
+msgstr "Tipveida atbilde mainīta."
+
+#
+#: admin/index.php:1145
+msgid "The form reply was not deleted."
+msgstr "Tipveida atbilde nav izdzēsta."
+
+#: admin/index.php:555
+#, php-format
+msgid "The priority \"%s\" has been added to %s."
+msgstr "Prioritāte \"%s\" pievienota %s."
+
+#: admin/index.php:660
+msgid "The priority has been deleted."
+msgstr "Prioritāte izdzēsta."
+
+#: admin/index.php:608
+msgid "The priority has been modified."
+msgstr "Prioritāte mainīta."
+
+#
+#: admin/index.php:669
+msgid "The priority was not deleted."
+msgstr "Prioritāte nav izdzēsta."
+
+#: lib/Forms/Query.php:467
+#, fuzzy, php-format
+msgid "The query \"%s\" couldn't be deleted: %s"
+msgstr "Šo resursu nevar izdzēst."
+
+#: lib/Forms/Query.php:469
+#, fuzzy, php-format
+msgid "The query \"%s\" has been deleted."
+msgstr "Brīdinājums izdzēsts."
+
+#: lib/Forms/Query.php:434
+#, fuzzy, php-format
+msgid "The query couldn't be loaded:"
+msgstr "Paplašinājums %s nav ielādējams!"
+
+#: admin/index.php:296
+#, fuzzy, php-format
+msgid "The queue \"%s\" has been created."
+msgstr "Radīts kalendārs \"%s\"."
+
+#: admin/index.php:391
+msgid "The queue has been deleted."
+msgstr "Rinda izdzēsta"
+
+#: admin/index.php:356
+msgid "The queue has been modified."
+msgstr "Rinda mainīta."
+
+#
+#: admin/index.php:399
+msgid "The queue was not deleted."
+msgstr "Rinda nav izdzēsta."
+
+#: data.php:21
+msgid "The requested template does not exist."
+msgstr "Pieprasītā veidne neeksistē."
+
+#: admin/index.php:421
+#, php-format
+msgid "The state \"%s\" has been added to %s."
+msgstr "Stāvoklis\"%s\" pievienots %s."
+
+#: admin/index.php:524
+msgid "The state has been deleted."
+msgstr "Stāvoklis izdzēsts."
+
+#: admin/index.php:474
+msgid "The state has been modified."
+msgstr "Stāvoklis mainīts."
+
+#
+#: admin/index.php:532
+msgid "The state was not deleted."
+msgstr "Stāvoklis nav izdzēsts."
+
+#
+#: ticket/delete.php:74
+msgid "The ticket was not deleted."
+msgstr "Biļete nav izdzēsta."
+
+#: admin/index.php:219
+#, php-format
+msgid "The type \"%s\" has been modified."
+msgstr "Tips \"%s\" mainīts."
+
+#: admin/index.php:268
+msgid "The type has been deleted."
+msgstr "Tips izdzēsts."
+
+#
+#: admin/index.php:276
+msgid "The type was not deleted."
+msgstr "Tips nav izdzēsts."
+
+#: admin/index.php:776
+#, php-format
+msgid "The version \"%s\" has been added to %s."
+msgstr "Versija \"%s\" pievienota %s."
+
+#: admin/index.php:866
+msgid "The version has been deleted."
+msgstr "Versija izdzēsta."
+
+#: admin/index.php:836
+msgid "The version has been modified."
+msgstr "Versija mainīta."
+
+#: admin/index.php:874
+msgid "The version was not deleted."
+msgstr "Versija nav izdzēsta."
+
+#: lib/Forms/Admin/Attribute.php:68
+#, fuzzy
+msgid "There are no attribute types to edit"
+msgstr "Nav eksportējamu adrešu."
+
+#: lib/Forms/Query.php:285
+#, fuzzy
+msgid "There are no attributes defined."
+msgstr "Opciju nav."
+
+#
+#: lib/Forms/Admin/Reply.php:46
+#, fuzzy
+msgid "There are no form replies to edit"
+msgstr "Nav eksportējamu piezīmjut"
+
+#: lib/Block/Queuesummary.php:29
+#, fuzzy
+msgid "There are no open tickets."
+msgstr "Opciju nav."
+
+#
+#: lib/Forms/Admin/Priority.php:42 lib/Forms/Admin/Priority.php:88
+#, fuzzy
+msgid "There are no priorities to edit"
+msgstr "Nav apstiprināmu e-pasta adrešu."
+
+#: lib/Forms/Admin.php:29
+#, fuzzy
+msgid "There are no queues available."
+msgstr "Nav pieejama neviena rinda."
+
+#: lib/Forms/Admin/Queue.php:55
+#, fuzzy
+msgid "There are no queues to edit"
+msgstr "Nav apstiprināmu e-pasta adrešu."
+
+#: lib/Forms/Admin/State.php:41 lib/Forms/Admin/State.php:90
+#, fuzzy
+msgid "There are no states to edit"
+msgstr "Nav apstiprināmu e-pasta adrešu."
+
+#: lib/Forms/Admin/Type.php:43
+#, fuzzy
+msgid "There are no types to edit"
+msgstr "Meklēšanai nav izvēlēts neviens atgādinājuma tips"
+
+#: lib/Forms/CreateTicket.php:253
+#, fuzzy
+msgid "There are no users to which this ticket can be assigned."
+msgstr "Nav daļu, ko varētu parādīt iekļautā veidā."
+
+#: lib/Forms/Admin/Version.php:44
+#, fuzzy
+msgid "There are no versions to edit"
+msgstr "Nav apstiprināmu e-pasta adrešu."
+
+#: lib/Reports.php:142
+#, fuzzy
+msgid "There is no data for this report."
+msgstr "Atvaino, šim līmenim ieteikuma nav."
+
+#: admin/index.php:704
+#, fuzzy, php-format
+msgid "There was an error adding \"%s\" to the responsible list for \"%s\":"
+msgstr ""
+"#-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#\n"
+"Kļūme pievienojot \"%s\" sistēmai: %s\n"
+"#-#-#-#-#  admin.po (admin)  #-#-#-#-#\n"
+"Problēma pievienojot sistēmai \"%s\" : %s"
+
+#: admin/index.php:912
+msgid "There was an error creating the attribute:"
+msgstr "Kļūda radot atribūtu:"
+
+#: admin/index.php:1052
+msgid "There was an error creating the form reply:"
+msgstr "Kļūda radot jaunu tipveida atbildi:"
+
+#: admin/index.php:560
+msgid "There was an error creating the priority:"
+msgstr "Kļūda radot prioritāti:"
+
+#: admin/index.php:305
+msgid "There was an error creating the queue:"
+msgstr "Kļūda radot jaunu rindu:"
+
+#: admin/index.php:425
+msgid "There was an error creating the state:"
+msgstr "Kļūda radot stāvokli:"
+
+#: admin/index.php:780
+msgid "There was an error creating the version:"
+msgstr "Kļūda radot versiju:"
+
+#: admin/index.php:1011
+msgid "There was an error deleting the attribute:"
+msgstr "Kļūda dzēšot atribūtu:"
+
+#: admin/index.php:1140
+msgid "There was an error deleting the form reply:"
+msgstr "Kļūda dzēšot tipveida atbildi:"
+
+#: admin/index.php:664
+msgid "There was an error deleting the priority:"
+msgstr "Kļūda dzēšot prioritāti:"
+
+#: admin/index.php:394
+msgid "There was an error deleting the queue:"
+msgstr "Kļūda dzēšot rindu:"
+
+#: admin/index.php:527
+msgid "There was an error deleting the state:"
+msgstr "Kļūda dzēšot stāvokli:"
+
+#: ticket/delete.php:72
+msgid "There was an error deleting the ticket:"
+msgstr "Kļūda dzēšot biļeti:"
+
+#: admin/index.php:271
+msgid "There was an error deleting the type:"
+msgstr "Kļūda dzēšot tipu:"
+
+#: admin/index.php:869
+msgid "There was an error deleting the version:"
+msgstr "Kļūda dzēšot versiju:"
+
+#: admin/index.php:983
+msgid "There was an error editing the attribute:"
+msgstr "Kļūda labojot atribūtu:"
+
+#: admin/index.php:1105
+msgid "There was an error editing the form reply:"
+msgstr "Kļūda labojot tipveida atbildi:"
+
+#: admin/index.php:614
+msgid "There was an error editing the priority:"
+msgstr "Kļūda labojot prioritāti:"
+
+#: admin/index.php:374
+msgid "There was an error editing the queue:"
+msgstr "Kļūda labojot rindu:"
+
+#: admin/index.php:479
+msgid "There was an error editing the state:"
+msgstr "Kļūda labojot stāvokli:"
+
+#: admin/index.php:842
+msgid "There was an error editing the version:"
+msgstr "Kļūda labojot versiju:"
+
+#: lib/Forms/Admin/User.php:33
+#, fuzzy, php-format
+msgid "There was an error listing users: %s; %s"
+msgstr "Kļūda aktivējot skriptu."
+
+#: queue/index.php:49
+#, fuzzy, php-format
+msgid "There was an error locating tickets in this queue: "
+msgstr "Kļūda saglabājot piezīmi: %s"
+
+#: admin/index.php:215
+#, fuzzy
+msgid "There was an error modifying the type:"
+msgstr "Radās kļūda, izmainot īpašības"
+
+#: search.php:139
+#, fuzzy, php-format
+msgid "There was an error performing your search: %s"
+msgstr "Radās kļūda sūtot vēstuli: %s"
+
+#: admin/index.php:749
+#, fuzzy, php-format
+msgid ""
+"There was an error removing \"%s\" from the responsible list for \"%s\":"
+msgstr ""
+"#-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#\n"
+"Kļūme dzēšot \"%s\" no sistēmas:\n"
+"#-#-#-#-#  admin.po (admin)  #-#-#-#-#\n"
+"Problēma dzēšot \"%s\" no sistēmas:"
+
+#: admin/index.php:637
+#, fuzzy
+msgid "There was an error setting the default priority:"
+msgstr "Radās kļūda, iestatot PIN: <message>%1</message>."
+
+#: admin/index.php:501
+#, fuzzy
+msgid "There was an error setting the default state:"
+msgstr "Radās kļūda, iestatot PIN: <message>%1</message>."
+
+#: lib/Forms/AddComment.php:35 lib/Forms/EditTicket.php:179
+msgid "This comment is visible to everyone"
+msgstr "Šis komentārs ir visiem redzams"
+
+#: lib/Query.php:440 lib/Query.php:673
+#, fuzzy
+msgid "This query element cannot be edited."
+msgstr "Piezīme nav atšīfrējama:"
+
+#: lib/Ticket.php:648 lib/Ticket.php:827
+msgid "Ticket"
+msgstr "Biļete"
+
+#: ticket/delete.php:68
+#, php-format
+msgid "Ticket %d has been deleted."
+msgstr "Biļete %d izdzēsta."
+
+#: lib/Api.php:641
+#, php-format
+msgid "Ticket %s - %s"
+msgstr "Biļete %s - %s"
+
+#: lib/Driver/sql.php:1068
+#, php-format
+msgid "Ticket %s was not found."
+msgstr "Biļete %s nav atrasta."
+
+#: search.php:169
+#, fuzzy
+msgid "Ticket Search"
+msgstr "Izvēlieties ceļus"
+
+#: lib/Forms/CreateTicket.php:148 lib/Forms/CreateTicket.php:151
+#, fuzzy
+msgid "Ticket State"
+msgstr "Printera stāvoklis:"
+
+#: templates/reports/stats.inc:1
+#, fuzzy
+msgid "Ticket Stats"
+msgstr "Līmeņa statistika"
+
+#: lib/Forms/CreateTicket.php:83
+#, fuzzy
+msgid "Ticket Type"
+msgstr "Līknes tips:"
+
+#: lib/Ticket.php:643
+#, fuzzy, php-format
+msgid "Ticket URL: %s"
+msgstr "Mājas lapas URL"
+
+#: ticket/update.php:106
+#, fuzzy
+msgid "Ticket Updated"
+msgstr "Pēdējo reizi atjaunots:"
+
+#: lib/Api.php:662
+msgid "Tickets"
+msgstr "Biļetes"
+
+#: query/rss.php:67
+#, php-format
+msgid "Tickets matching the query \"%s\"."
+msgstr "Vaicājumam \"%s\" atbilstošas biļetes."
+
+#: config/prefs.php:49 lib/Forms/Query.php:178 lib/Renderer/Query.php:106
+#: lib/Ticket.php:618 lib/Ticket.php:812 lib/Ticket.php:948 lib/Whups.php:681
+#: ticket/queue.php:85
+msgid "Type"
+msgstr "Tips"
+
+#: lib/Renderer/Comment.php:108
+#, php-format
+msgid "Type &rArr; %s"
+msgstr "Tips &rArr; %s"
+
+#: lib/Forms/Admin/Type.php:21 lib/Forms/Admin/Type.php:68
+#: lib/Forms/Admin/Type.php:158
+msgid "Type Description"
+msgstr "Tipa apraksts"
+
+#: lib/Forms/Admin/Type.php:20 lib/Forms/Admin/Type.php:46
+#: lib/Forms/Admin/Type.php:65 lib/Forms/Admin/Type.php:154
+msgid "Type Name"
+msgstr "Tipa nosaukums"
+
+#: search/rss.php:37
+#, php-format
+msgid "Type: %s; State: %s"
+msgstr "Tips: %s; Stāvoklis: %s"
+
+#: lib/Ticket.php:964
+msgid "Unassigned"
+msgstr "Nenozīmēts"
+
+#: lib/Block/Unassigned.php:13
+msgid "Unassigned Tickets"
+msgstr "Nepiešķirtās biļetes"
+
+#: lib/Forms/Admin.php:40
+msgid "Unassigned tickets"
+msgstr "Nepiešķirtās biļetes"
+
+#: lib/Driver.php:211
+msgid "Unconfirmed"
+msgstr "Neapstiprināts"
+
+#: lib/Renderer/Query.php:165 lib/Renderer/Query.php:205
+#, fuzzy, php-format
+msgid "Unknown node type %s"
+msgstr "Nezināms faila tips"
+
+#: lib/Application.php:84
+msgid "Update"
+msgstr "Mainīt"
+
+#: ticket/update.php:120
+#, php-format
+msgid "Update %s"
+msgstr "Mainīt %s"
+
+#: templates/admin/mtmatrix.inc:29
+msgid "Update Associations"
+msgstr "Atsvaidzināt asociācijas"
+
+#: lib/Renderer/Query.php:144 lib/Ticket.php:984 lib/Whups.php:687
+msgid "Updated"
+msgstr "Atjaunināts"
+
+#: lib/Ticket.php:625 lib/Ticket.php:650
+#, fuzzy
+msgid "Updated By"
+msgstr "Sarakstīja %s.\n"
+
+#: lib/Forms/Query.php:331 lib/Forms/Search.php:60
+#, fuzzy
+msgid "Updated from"
+msgstr "No tēmas"
+
+#: lib/Forms/Query.php:332
+#, fuzzy
+msgid "Updated to"
+msgstr "Atjaunots uz %1. revīziju."
+
+#: lib/Forms/Admin/User.php:32 lib/Forms/Admin/User.php:42
+#: lib/Forms/Admin/User.php:45
+msgid "User"
+msgstr "Lietotājs"
+
+#: lib/Forms/Query.php:42
+msgid "User ID"
+msgstr "Lietotāja ID"
+
+#: lib/Forms/Admin/Queue.php:129
+msgid "Users responsible for this Queue"
+msgstr "Par šo rindu atbildīgie lietotāji"
+
+#: lib/Forms/Admin/User.php:77
+msgid "Users responsible for this queue"
+msgstr "Par šo rindu atbildīgie lietotāji"
+
+#: config/prefs.php:52 lib/Forms/Query.php:189 lib/Renderer/Query.php:100
+#: lib/Ticket.php:617 lib/Ticket.php:811
+msgid "Version"
+msgstr "Versija"
+
+#: lib/Renderer/Comment.php:103
+#, php-format
+msgid "Version &rArr; %s"
+msgstr "Versija &rArr; %s"
+
+#: lib/Forms/Admin/Version.php:23 lib/Forms/Admin/Version.php:72
+msgid "Version Active?"
+msgstr "Versija aktīva?"
+
+#: lib/Forms/Admin/Version.php:22 lib/Forms/Admin/Version.php:70
+#: lib/Forms/Admin/Version.php:95
+msgid "Version Description"
+msgstr "Versijas apraksts"
+
+#: lib/Forms/Admin/Version.php:21 lib/Forms/Admin/Version.php:48
+#: lib/Forms/Admin/Version.php:67 lib/Forms/Admin/Version.php:92
+msgid "Version Name"
+msgstr "Versijas nosaukums"
+
+#: ticket/queue.php:45 ticket/type.php:39
+msgid "Viewable only by members of"
+msgstr "Apskatāms tikai šīs grupas locekļiem"
+
+#: lib/Forms/AddComment.php:23
+msgid "Watch this ticket"
+msgstr "Sekot šai biļetei"
+
+#: ticket/watch.php:75
+#, fuzzy, php-format
+msgid "Watchers for %s"
+msgstr "Nosaukums priekš \"%s\":"
+
+#: config/prefs.php:102
+msgid "Weekday Day Month"
+msgstr "Nedēļas diena, diena, mēnesis"
+
+#: config/prefs.php:108
+msgid "YY/MM/DD"
+msgstr "YY/MM/DD"
+
+#: config/prefs.php:109
+msgid "YY/MM/DD HH:MM:SS"
+msgstr "YY/MM/DD HH:MM:SS"
+
+#: lib/Forms/Admin/Attribute.php:147 lib/Forms/Admin/Priority.php:119
+#: lib/Forms/Admin/Queue.php:172 lib/Forms/Admin/Reply.php:108
+#: lib/Forms/Admin/State.php:119 lib/Forms/Admin/Type.php:174
+#: lib/Forms/Admin/Version.php:98 lib/Forms/Query.php:453 ticket/delete.php:29
+msgid "Yes"
+msgstr "Jā"
+
+#: view.php:37
+#, php-format
+msgid "You are not allowed to view ticket %d."
+msgstr "Jums nav tiesību apskatīt biļeti %d."
+
+#: lib/Driver/sql.php:1077
+#, fuzzy, php-format
+msgid "You do not have permission to access this ticket (%s)."
+msgstr "Jums nav tiesību mainīt pieejas tiesības šai mapei"
+
+#: lib/Api.php:226
+#, fuzzy
+msgid "You do not have permission to update this ticket."
+msgstr "Jums nav tiesību apskatīt šo kontaktu."
+
+#: lib/Block/Myrequests.php:33
+msgid "You have no open requests."
+msgstr "Jums nav atvērtu pieprasījumu."
+
+#: lib/Block/Query.php:28 lib/Forms/Query.php:423
+msgid "You have no saved queries."
+msgstr "Juma nav saglabātu vaicājumu."
+
+#: lib/Whups.php:714
+#, fuzzy
+msgid "You must select at least one queue to send reminders for."
+msgstr "Vispirms jāizvēlas vismaz viena vēstule."
+
+#: lib/Forms/AddComment.php:16 lib/Forms/CreateTicket.php:135
+msgid "Your Email Address"
+msgstr "Jūsu e-pasta adrese"
+
+#: lib/Mail.php:88 lib/Mail.php:92
+#, fuzzy
+msgid "[ Could not render body of message. ]"
+msgstr "Neizdevās šifrēt vēstuli ar PGP:"
+
+#: lib/Whups.php:487
+msgid "[Hidden]"
+msgstr "[Slēpts]"
+
+#: lib/Whups.php:773
+msgid "_Admin"
+msgstr "Administrēt"
+
+#: lib/Whups.php:301
+msgid "_Comment"
+msgstr "Komentārs"
+
+#: query/index.php:156
+#, fuzzy
+msgid "_Date Criteria"
+msgstr "Meklēšanas kritēriji"
+
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+#: lib/Whups.php:319
+msgid "_Delete"
+msgstr "Dzēst"
+
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+#: lib/Query.php:242
+#, fuzzy
+msgid "_Delete Query"
+msgstr "Notīrīt vaicājumu"
+
+#: lib/Query.php:223
+msgid "_Edit Query"
+msgstr "Labot vaicājumu"
+
+#: admin/index.php:30
+msgid "_Edit Queues"
+msgstr "Labot rindu"
+
+#: templates/menu.inc:5
+#, fuzzy
+msgid "_Go"
+msgstr "_Doties"
+
+#: query/index.php:155
+#, fuzzy
+msgid "_Group Criteria"
+msgstr "Meklēšanas kritēriji"
+
+#: lib/Whups.php:295
+msgid "_History"
+msgstr " Vēsture "
+
+#: lib/Query.php:236
+#, fuzzy
+msgid "_Load Query"
+msgstr "Notīrīt vaicājumu"
+
+#: lib/Whups.php:765
+#, fuzzy, php-format
+msgid "_My %s"
+msgstr "Manas valodas"
+
+#: lib/Whups.php:767
+msgid "_New Ticket"
+msgstr "Jauna biļete"
+
+#: query/index.php:153
+#, fuzzy
+msgid "_Property Criteria"
+msgstr "Meklēšanas kritēriji"
+
+#: lib/Whups.php:768
+#, fuzzy
+msgid "_Query Builder"
+msgstr "Notīrīt vaicājumu"
+
+#: lib/Whups.php:769
+msgid "_Reports"
+msgstr "Atskaites"
+
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+#: lib/Whups.php:766
+msgid "_Search"
+msgstr "Meklēt"
+
+#: query/index.php:157
+#, fuzzy
+msgid "_Text Criteria"
+msgstr "Meklēšanas kritēriji"
+
+#: lib/Whups.php:297
+msgid "_Update"
+msgstr "Atjaunināt"
+
+#: query/index.php:154
+#, fuzzy
+msgid "_User Criteria"
+msgstr "Meklēšanas kritēriji"
+
+#: lib/Whups.php:305
+#, fuzzy
+msgid "_Watch"
+msgstr "Skatīties zvaigznēs"
+
+#: lib/Renderer/Query.php:185
+#, fuzzy
+msgid "contains (case insensitive) substring"
+msgstr "Atbilstība ir reģistrnejutīga."
+
+#: lib/Renderer/Query.php:189
+#, fuzzy
+msgid "contains (case sensitive) substring"
+msgstr "Čaulas aizstājējzīmes (* un ?). Reģistrjutīgs."
+
+#: lib/Renderer/Query.php:193
+msgid "contains the word"
+msgstr "satur vārdu"
+
+#: lib/Mail.php:128 lib/Mail.php:152 lib/Mail.php:189
+msgid "current user:"
+msgstr "pašreizējais lietotājs:"
+
+#: lib/Api.php:650
+#, fuzzy
+msgid "estimated time"
+msgstr "Aptuvenais laiks"
+
+#: lib/Renderer/Query.php:181
+msgid "is"
+msgstr "Ir"
+
+#: lib/Renderer/Query.php:173
+msgid "is greater than"
+msgstr "lielāks par"
+
+#: lib/Renderer/Query.php:177
+msgid "is less than"
+msgstr "mazāks par"
+
+#: lib/Renderer/Query.php:197
+msgid "matches the pattern"
+msgstr "atbilst pazīmei"
+
+#: lib/Forms/Search.php:59 lib/Forms/Search.php:61 lib/Forms/Search.php:63
+#: lib/Forms/Search.php:65 lib/Forms/Search.php:67
+msgid "to"
+msgstr "līdz"

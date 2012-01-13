@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2007 Maintainable Software, LLC
- * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -659,7 +659,9 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
      */
     public function rollbackDbTransaction()
     {
-        if (! $this->_transactionStarted) { return; }
+        if (!$this->_transactionStarted) {
+            return;
+        }
 
         $this->_connection->rollBack();
         $this->_transactionStarted = false;

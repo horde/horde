@@ -14,7 +14,7 @@
 /**
  * The Horde_Kolab_Cli_Module_Data:: class handles Kolab data.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -37,15 +37,17 @@ implements Horde_Kolab_Cli_Module
     {
         return Horde_Kolab_Cli_Translation::t("  data - Handle Kolab data (the default action is \"info\"). PATH refers to the path of the folder that holds the data and the optional TYPE argument indicates which data type should be read. This is usually already defined by the folder setting.
 
-  - info      PATH              : Display general information.
-  - stamp     PATH              : Display the folder status information.
-  - ids       PATH TYPE         : Display all object ids in the folder PATH of
-                                  type TYPE.
-  - complete  PATH BACKENDID    : Return the complete message from folder PATH
-                                  for the given BACKENDID.
-  - backendid PATH TYPE OBJECTID: Return the backend ID for the object with ID
-                                  OBJECTID.
-  - delete    PATH TYPE ID,ID,..: Delete the given object id's.
+  - info      PATH               : Display general information.
+  - stamp     PATH               : Display the folder status information.
+  - ids       PATH TYPE          : Display all object ids in the folder PATH of
+                                   type TYPE.
+  - complete  PATH BACKENDID     : Return the complete message from folder PATH
+                                   for the given BACKENDID.
+  - create    PATH TYPE yaml PATH: Create an object as defined in the specified
+                                   YAML data
+  - backendid PATH TYPE OBJECTID : Return the backend ID for the object with ID
+                                   OBJECTID.
+  - delete    PATH TYPE ID,ID,.. : Delete the given object id's.
 
 ");
     }
@@ -144,7 +146,7 @@ implements Horde_Kolab_Cli_Module
             break;
         case 'stamp':
             $cli->writeln(
-                (string) $world['storage']->getData($folder_name)->getStamp()
+                (string)$world['storage']->getData($folder_name)->getStamp()
             );
             break;
         case 'complete':
@@ -168,7 +170,7 @@ implements Horde_Kolab_Cli_Module
         case 'ids':
             $data = $world['storage']->getData($folder_name, $arguments[3]);
             foreach ($data->getObjectIds() as $id) {
-                $cli->writeln((string) $id);
+                $cli->writeln((string)$id);
             }
             break;
         case 'objects':
@@ -206,6 +208,7 @@ implements Horde_Kolab_Cli_Module
                 }
             }
             $data->create($object);
+            $cli->writeln($object['uid']);
             break;
         case 'move':
             $data = $world['storage']->getData($folder_name, $arguments[3]);
@@ -224,7 +227,7 @@ implements Horde_Kolab_Cli_Module
             break;
         case 'backendid':
             $data = $world['storage']->getData($folder_name, $arguments[3]);
-            $cli->writeln((string) $data->getBackendId($arguments[4]));
+            $cli->writeln((string)$data->getBackendId($arguments[4]));
             break;
         default:
             $cli->message(

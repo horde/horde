@@ -14,7 +14,7 @@
 /**
  * Components_Module_Release:: generates a release.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -119,7 +119,7 @@ extends Components_Module_Base
                 '--fm_token',
                 array(
                     'action' => 'store',
-                    'help'   => 'The token for accessing freshmeat.net.'
+                    'help'   => 'The token for accessing freecode.com.'
                 )
             ),
         );
@@ -171,7 +171,7 @@ The available tasks are:
  - tag         : Add a git release tag.
  - announce    : Announce the release on the mailing lists.
  - bugs        : Add the new release on bugs.horde.org
- - freshmeat   : Add the new release on freshmeat.net
+ - freecode    : Add the new release on freecode.com
  - next        : Update package.xml with the next version.
  - nextsentinel: Update the sentinels for the next version as well.
 

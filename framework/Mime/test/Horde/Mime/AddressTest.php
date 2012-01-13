@@ -2,9 +2,9 @@
 /**
  * Tests for the Horde_Mime_Address class.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
- * @author     Michael Slusarz <slusarz@curecanti.org>
+ * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package    Mime
@@ -17,7 +17,7 @@
 require_once dirname(__FILE__) . '/Autoload.php';
 
 /**
- * @author     Michael Slusarz <slusarz@curecanti.org>
+ * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package    Mime

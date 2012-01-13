@@ -14,7 +14,7 @@
 /**
  * Handles iTip response options for Horde iTip responses.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
@@ -88,6 +88,6 @@ extends Horde_Itip_Response_Options_Base
     public function getProductId()
     {
         $headers = new Horde_Mime_Headers();
-        return '-//Horde LLC//' . $headers->getUserAgent() . '//EN';
+        return '-//The Horde Project//' . $headers->getUserAgent() . '//EN';
     }
 }

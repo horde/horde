@@ -4,10 +4,12 @@
  * since we stream the actual binary data as we build it. Contains code from
  * the Z-Push project. Original file header below.
  *
- * @copyright 2010-2011 Horde LLC (http://www.horde.org)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package ActiveSync
  */
+
 /**
  * File      :   wbxml.php
  * Project   :   Z-Push
@@ -15,36 +17,12 @@
  *
  * Created   :   01.10.2007
  *
- * � Zarafa Deutschland GmbH, www.zarafaserver.de
+ * © Zarafa Deutschland GmbH, www.zarafaserver.de
  * This file is distributed under GPL-2.0.
  * Consult COPYING file for details
  */
 class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
 {
-    /**
-     * Output stream - normally the php output stream, but can technically take
-     * any writable stream (for testing).
-     *
-     * @var stream
-     */
-    private $_out;
-
-    /**
-     * Track the codepage for the currently output tag so we know when to
-     * switch codepages.
-     *
-     * @var integer
-     */
-    private $_tagcp;
-
-    /**
-     * Used to hold log entries for each tag so we can only output the log
-     * entries for the tags that are actually sent (@see $_stack).
-     *
-     * @var array
-     */
-    private $_logStack = array();
-
     /**
      * Cache the tags to output. The stack is output when content() is called.
      * We only output tags when they actually contain something. i.e. calling
@@ -64,8 +42,7 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
      */
     function __construct($output)
     {
-        $this->_out = $output;
-        $this->_tagcp = 0;
+        parent::__construct($output);
 
         /* reverse-map the DTD */
         $dtd = array();
@@ -79,7 +56,6 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
                 $dtd['codes'][$cp][$tagname] = $tagid;
             }
         }
-
         $this->_dtd = $dtd;
     }
 
@@ -253,7 +229,7 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
      */
     private function _outByte($byte)
     {
-        fwrite($this->_out, chr($byte));
+        fwrite($this->_stream, chr($byte));
     }
 
     /**
@@ -284,8 +260,8 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
      */
     private function _outTermStr($content)
     {
-        fwrite($this->_out, $content);
-        fwrite($this->_out, chr(0));
+        fwrite($this->_stream, $content);
+        fwrite($this->_stream, chr(0));
     }
 
     /**

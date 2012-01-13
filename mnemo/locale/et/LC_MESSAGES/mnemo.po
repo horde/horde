@@ -1,0 +1,674 @@
+# Estonian translations for Mnemo H4 package.
+# Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Mnemo package.
+# Automatically generated, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Mnemo H4 (3.0.2-git)\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2011-08-02 15:24+0200\n"
+"PO-Revision-Date: 2011-08-23 09:27+0200\n"
+"Last-Translator: Alar Sing <alar.sing@err.ee>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"Language: et\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: templates/memo/memo.inc:53
+#, php-format
+msgid "%s characters"
+msgstr "%s märki"
+
+#: data.php:195
+#, php-format
+msgid "%s file successfully imported"
+msgstr "Fail %s edukalt imporditud"
+
+#: memo.php:248
+msgid "Access denied deleting note."
+msgstr "Märkme kustutamise õigus puudub."
+
+#: memo.php:183 memo.php:186
+msgid "Access denied moving the note."
+msgstr "Märkme liigutamise õigus puudub."
+
+#: memo.php:134
+#, php-format
+msgid "Access denied saving note to %s."
+msgstr "Märkme salvestamiseks %s  õigus puudub."
+
+#: lib/Block/Note.php:80
+#, php-format
+msgid "An error occurred displaying %s"
+msgstr "Tekkis viga %s näitamisel"
+
+#: lib/Block/Note.php:82
+msgid "An error occurred displaying the note"
+msgstr "Tekkis viga märkme näitamisel"
+
+#: config/prefs.php:64
+msgid "Ascending"
+msgstr "Kasvav"
+
+#: data.php:27 templates/data/import.inc:11
+msgid "CSV"
+msgstr "CSV"
+
+#: lib/Ajax/Imple/EditNote.php:45 lib/Form/DeleteNotepad.php:34
+#: lib/Form/DeleteNotepad.php:40
+msgid "Cancel"
+msgstr "Loobu"
+
+#: data.php:49 templates/view/memo.inc:26
+msgid "Category"
+msgstr "Kategooria"
+
+#: notepads/index.php:34 templates/notepad_list.php:29
+msgid "Change Permissions"
+msgstr "Muuda Õigusi"
+
+#: config/prefs.php:14
+msgid "Change your note sorting and display preferences."
+msgstr "Muuda märkmete sorteerimise ja vaate seadeid."
+
+#: config/prefs.php:21
+msgid "Choose your default Notepad."
+msgstr "Vali oma vaike Märkmikud."
+
+#: lib/Ajax/Imple/EditNote.php:43
+msgid "Click to add text..."
+msgstr "Klõpsa teksti lisamiseks..."
+
+#: templates/list/header.inc:8
+msgid "Close Search"
+msgstr "Sulge otsing"
+
+#: lib/Form/CreateNotepad.php:25
+msgid "Create"
+msgstr "Loo"
+
+#: lib/Form/CreateNotepad.php:20
+msgid "Create Notepad"
+msgstr "Loo Märkmik"
+
+#: templates/notepad_list.php:9
+msgid "Create a new Notepad"
+msgstr "Loo uus Märkmik"
+
+#: templates/view/memo.inc:32
+msgid "Created"
+msgstr "Loodud"
+
+#: templates/list/memo_headers.inc:40
+msgid "Date"
+msgstr "Kuupäev"
+
+#: templates/memo/memo.inc:23 templates/view/memo.inc:54
+msgid "Decrypt"
+msgstr "Dekrüpteeri"
+
+#: config/prefs.php:20
+msgid "Default Notepad"
+msgstr "Vaike Märkmik"
+
+#: config/prefs.php:56
+msgid "Default sorting criteria:"
+msgstr "Vaikimisi otsingutingimus:"
+
+#: config/prefs.php:67
+msgid "Default sorting direction:"
+msgstr "Vaikimisi järjestuse suund:"
+
+#: lib/Form/DeleteNotepad.php:34 notepads/index.php:35
+#: templates/notepad_list.php:31 templates/view/memo.inc:16
+msgid "Delete"
+msgstr "Kustuta"
+
+#: lib/Form/DeleteNotepad.php:29
+#, php-format
+msgid "Delete %s"
+msgstr "Kustuta %s"
+
+#: config/prefs.php:27
+msgid "Delete Confirmation"
+msgstr "Kustutamise kinnitus"
+
+#: config/prefs.php:28
+msgid "Delete button behaviour"
+msgstr "Kustuta nupu käitumine"
+
+#: templates/memo/memo.inc:11
+msgid "Delete this note"
+msgstr "Kustuta see märge"
+
+#: config/prefs.php:65
+msgid "Descending"
+msgstr "Kahanev"
+
+#: lib/Form/CreateNotepad.php:23 lib/Form/EditNotepad.php:30
+msgid "Description"
+msgstr "Kirjeldus"
+
+#: config/prefs.php:13
+msgid "Display Preferences"
+msgstr "Vaate Eelistused"
+
+#: config/prefs.php:97
+msgid "Do you want to confirm deleting entries?"
+msgstr "Kas sa tahad kinnitada kirjete kustutamist?"
+
+#: notepads/index.php:33 templates/notepad_list.php:27
+#: templates/view/memo.inc:13
+msgid "Edit"
+msgstr "Muuda"
+
+#: templates/list/memo_summaries.inc:5
+#, php-format
+msgid "Edit \"%s\""
+msgstr "Muuda \"%s\""
+
+#: lib/Form/EditNotepad.php:26
+#, php-format
+msgid "Edit %s"
+msgstr "Muuda %s"
+
+#: lib/Block/Summary.php:91 lib/Block/Summary.php:92
+#: templates/list/memo_headers.inc:30
+msgid "Edit Note"
+msgstr "Muuda Märget"
+
+#: templates/list/memo_headers.inc:48
+msgid "Edit categories and colors"
+msgstr "Muuda kategooriaid ja värve"
+
+#: memo.php:114 memo.php:146
+#, php-format
+msgid "Edit: %s"
+msgstr "Muuda: %s"
+
+#: lib/Block/Summary.php:113 templates/list/memo_summaries.inc:15
+msgid "Empty Note"
+msgstr "Tühi Märge"
+
+#: lib/Driver.php:85
+msgid ""
+"Encryption support has not been configured, please contact your "
+"administrator."
+msgstr ""
+"Süsteemi seadistus ei võimalda krüpteerimist. Võta ühendust "
+"administraatoriga."
+
+#: templates/data/export.inc:16
+msgid "Export"
+msgstr "Eksport"
+
+#: templates/data/export.inc:2
+msgid "Export Notes"
+msgstr "Ekspordi Märkmed"
+
+#: config/prefs.php:12 config/prefs.php:19 config/prefs.php:26
+msgid "General Preferences"
+msgstr "Üldseaded"
+
+#: templates/data/import.inc:1
+#, php-format
+msgid "Import Notes, Step %d"
+msgstr "Märkmete Import, Samm %d"
+
+#: data.php:201
+msgid "Import/Export Notes"
+msgstr "Märkmete import/eksport"
+
+#: templates/search/search.inc:17
+msgid "In: "
+msgstr "Sees: "
+
+#: templates/view/memo.inc:39
+msgid "Last Modified"
+msgstr "Viimati muudetud"
+
+#: notepads/index.php:39 templates/notepad_list.php:2
+msgid "Manage Notepads"
+msgstr "Halda Märkmike"
+
+#: lib/Application.php:56
+msgid "Maximum Number of Notes"
+msgstr "Märkmete Arvu Piirmäär"
+
+#: data.php:48
+msgid "Memo Text"
+msgstr "Memo Tekst"
+
+#: config/prefs.php:54
+msgid "Modification Date"
+msgstr "Muutmise Aeg"
+
+#: templates/list/header.inc:9
+msgid "More Options..."
+msgstr "Rohkem Seadeid..."
+
+#: lib/Api.php:378
+msgid "Multiple iCalendar components found; only one vNote is supported."
+msgstr "Mitu iCal osa leitud; ainult üks vNote on toetatud."
+
+#: templates/panel.inc:51
+msgid "My Notepads:"
+msgstr "Minu Märkmikud:"
+
+#: list.php:29 stickies.php:29
+msgid "My Notes"
+msgstr "Minu Märkmed"
+
+#: lib/Form/CreateNotepad.php:22 lib/Form/EditNotepad.php:29
+msgid "Name"
+msgstr "Nimi"
+
+#: lib/Application.php:128 memo.php:92 memo.php:138
+msgid "New Note"
+msgstr "Uus Sissekanne"
+
+#: templates/data/import.inc:34
+msgid "Next"
+msgstr "Järgmine"
+
+#: lib/Api.php:222 lib/Api.php:371
+msgid "No iCalendar data was found."
+msgstr "iCal andmeid ei leitud."
+
+#: lib/Block/Note.php:71
+msgid "No note loaded"
+msgstr "Märkmeid ei laetud"
+
+#: templates/list/memo_footers.inc:4
+msgid "No notes match"
+msgstr "Märkmeid ei leitud"
+
+#: templates/list/empty.inc:1
+msgid "No notes match the current criteria."
+msgstr "Ühtegi vastet ei leitud otsingule."
+
+#: lib/Block/Summary.php:121
+msgid "No notes to display"
+msgstr "Märkmeid ei ole"
+
+#: templates/list/memo_headers.inc:37
+msgid "No_te"
+msgstr "Mä_rge"
+
+#: lib/Driver/Kolab.php:109 lib/Driver/Sql.php:80
+msgid "Not Found"
+msgstr "Ei leitud"
+
+#: config/prefs.php:52
+msgid "Note Category"
+msgstr "Märkme Kategooria"
+
+#: view.php:115
+msgid "Note Details"
+msgstr "Märkme Üksikasjad"
+
+#: config/prefs.php:51
+msgid "Note Text"
+msgstr "Märkme Tekst"
+
+#: templates/memo/memo.inc:53
+msgid "Note _Text"
+msgstr "Märkme _Sisu"
+
+#: memo.php:102 memo.php:143 note/pdf.php:52 view.php:52
+msgid "Note not found."
+msgstr "Märget ei leitud."
+
+#: templates/memo/memo.inc:63
+msgid "Note_pad:"
+msgstr "Märkm_ikud:"
+
+#: config/prefs.php:53 templates/list/memo_headers.inc:33
+#: templates/notepad_list.php:17
+msgid "Notepad"
+msgstr "Märkmik"
+
+#: templates/notepad_list.php:14
+msgid "Notepad List"
+msgstr "Märkmike loend"
+
+#: lib/Mnemo.php:568
+#, php-format
+msgid "Notepad of %s"
+msgstr "%s Märkmikud"
+
+#: templates/panel.inc:33 templates/panel.inc:34
+msgid "Notepads"
+msgstr "Märkmikud"
+
+#: lib/Block/Summary.php:12
+msgid "Notes Summary"
+msgstr "Märkmete Kokkuvõte"
+
+#: lib/Ajax/Imple/EditNote.php:46
+msgid "Ok"
+msgstr "Ok"
+
+#: lib/Api.php:105 lib/Api.php:138 lib/Api.php:170 lib/Api.php:201
+#: lib/Api.php:286 lib/Api.php:331 lib/Api.php:354
+msgid "Permission Denied"
+msgstr "Ligipääs keelatud"
+
+#: lib/Form/DeleteNotepad.php:47
+msgid "Permission denied"
+msgstr "Juurdepääs puudub"
+
+#: lib/Form/DeleteNotepad.php:32
+#, php-format
+msgid ""
+"Really delete the notepad \"%s\"? This cannot be undone and all data on this "
+"notepad will be permanently removed."
+msgstr ""
+"Kas tõesti kustutad märkmiku \"%s\"? See toiming on pöördumatu ja kõik "
+"andmed märkmikust eemaldatakse jäädavalt."
+
+#: templates/view/memo.inc:16
+msgid "Really delete this note?"
+msgstr "Kindel et tahad kustutada selle märkme?"
+
+#: lib/Form/EditNotepad.php:32 templates/memo/memo.inc:58
+#: templates/panel.inc:69
+msgid "Save"
+msgstr "Salvesta"
+
+#: templates/view/memo.inc:11
+msgid "Save as PDF"
+msgstr "Salvesta PDFina"
+
+#: lib/Application.php:154 search.php:22 templates/list/header.inc:4
+#: templates/search/search.inc:4 templates/search/search.inc:27
+msgid "Search"
+msgstr "Otsi"
+
+#: list.php:52 notes/index.php:38 stickies.php:52
+msgid "Search Results"
+msgstr "Otsingu Tulemused"
+
+#: templates/panel.inc:39
+msgid "Search for Notepads:"
+msgstr "Otsi Märkmike:"
+
+#: templates/data/export.inc:9
+msgid "Select the export format:"
+msgstr "Vali ekspordi vorming:"
+
+#: templates/data/import.inc:31
+msgid "Select the file to import:"
+msgstr "Vali imporditav fail:"
+
+#: templates/data/import.inc:9
+msgid "Select the format of the source file:"
+msgstr "Vali lähtefaili vorming:"
+
+#: templates/panel.inc:60
+msgid "Shared Notepads:"
+msgstr "Jagatud Märkmikud:"
+
+#: config/prefs.php:37
+msgid "Should the Notepad be shown in its own column in the List view?"
+msgstr "Kas Märkmik peaks näitama oma veergu Loend vaates?"
+
+#: lib/Block/Summary.php:42
+msgid "Show action buttons?"
+msgstr "Näita tegevus nuppe?"
+
+#: lib/Block/Summary.php:47
+msgid "Show notepad name?"
+msgstr "Näita märkmiku nime?"
+
+#: lib/Block/Summary.php:52
+msgid "Show notes from these categories"
+msgstr "Näita märkmeid nendest kategooriatest"
+
+#: lib/Block/Note.php:34
+msgid "Show this note"
+msgstr "Näita seda märget"
+
+#: templates/list/memo_headers.inc:44
+msgid "Sort by Category"
+msgstr "Sorteeri katekoorja järgi"
+
+#: templates/list/memo_headers.inc:40
+msgid "Sort by Modification Date"
+msgstr "Järjesta Muutmise Aja järgi"
+
+#: templates/list/memo_headers.inc:37
+msgid "Sort by Note Text"
+msgstr "Järjest Märkme Sisu järgi"
+
+#: templates/list/memo_headers.inc:33
+msgid "Sort by Notepad"
+msgstr "Järjesta Märkmiku järgi"
+
+#: memo.php:221
+#, php-format
+msgid "Successfully saved \"%s\"."
+msgstr "\"%s\" salvestamine õnnestus."
+
+#: data.php:190
+#, php-format
+msgid "The %s file didn't contain any notes."
+msgstr "%s ei sisaldanud ühtegi märget."
+
+#: memo.php:243
+msgid "The note was deleted."
+msgstr "Märge kustutatud."
+
+#: notepads/create.php:29
+#, php-format
+msgid "The notepad \"%s\" has been created."
+msgstr "Märkmik \"%s\" on loodud."
+
+#: notepads/delete.php:43
+#, php-format
+msgid "The notepad \"%s\" has been deleted."
+msgstr "Märkmik \"%s\" on kustutatud."
+
+#: notepads/edit.php:42
+#, php-format
+msgid "The notepad \"%s\" has been renamed to \"%s\"."
+msgstr "Märkmik \"%s\" on nimetatud \"%s\"."
+
+#: notepads/edit.php:44
+#, php-format
+msgid "The notepad \"%s\" has been saved."
+msgstr "Märkmik \"%s\" on salvestatud."
+
+#: memo.php:136
+msgid "The passwords don't match."
+msgstr "Salasõnad ei klappi."
+
+#: data.php:193
+#, php-format
+msgid "There was an error importing the data: %s"
+msgstr "Tekkis viga andmete importimisel: %s"
+
+#: lib/Api.php:216 lib/Api.php:365
+msgid "There was an error importing the iCalendar data."
+msgstr "Tekkis viga iCal andmete importimisel."
+
+#: lib/Api.php:53 lib/Api.php:65
+#, php-format
+msgid "There was an error removing notes for %s. Details have been logged."
+msgstr "Tekkis viga märkme %s kustutamisel. Üksikasjad logiti."
+
+#: memo.php:245
+#, php-format
+msgid "There was an error removing the note: %s"
+msgstr "Tekkis viga märkme kustutamisel: %s"
+
+#: memo.php:219
+#, php-format
+msgid "There was an error saving the note: %s"
+msgstr "Tekkis viga märkme salvestamisel: %s"
+
+#: note/pdf.php:42 view.php:42
+#, php-format
+msgid "There was an error viewing this notepad: %s"
+msgstr "Tekkis viga selle märkmiku vaatamisel: %s"
+
+#: data.php:74
+msgid "There were no memos to export."
+msgstr "Ühtegi memo ei eksporditud."
+
+#: data.php:106
+msgid "This file format is not supported."
+msgstr "Seda faili vormingut ei toetata."
+
+#: memo.php:38 view.php:102
+msgid "This note cannot be decrypted:"
+msgstr "Seda märget ei saa dekrüptida:"
+
+#: memo.php:31 memo.php:41 view.php:97 view.php:105
+msgid ""
+"This note has been encrypted, and cannot be decrypted without a secure web "
+"connection"
+msgstr ""
+"See märge on krüpteeritud ja ei saa dekrüptida ilma turvalise ühenduseta."
+
+#: memo.php:28 view.php:94
+msgid "This note has been encrypted, please provide the password below"
+msgstr "See märge on krüpteeritud, palun sisesta salasõna allpool"
+
+#: lib/Api.php:280 lib/Driver/Kolab.php:292 lib/Driver/Sql.php:344
+msgid "This note has been encrypted."
+msgstr "See märge on krüpteeritud."
+
+#: lib/Block/Summary.php:116 lib/Mnemo.php:310 lib/Mnemo.php:311
+#: lib/Mnemo.php:325 lib/Mnemo.php:326 templates/list/memo_summaries.inc:20
+#: templates/view/memo.inc:27
+msgid "Unfiled"
+msgstr "Täitmata"
+
+#: lib/Api.php:249 lib/Api.php:305 lib/Api.php:388
+#, php-format
+msgid "Unsupported Content-Type: %s"
+msgstr "Toetamatu Sisu-Tüüp: %s"
+
+#: lib/Block/Note.php:16
+msgid "View note"
+msgstr "Vaata märget"
+
+#: templates/data/import.inc:16
+msgid "Which Notepad should the notes be added to?"
+msgstr "Millisesse Märkmikusse peaks märkme lisama?"
+
+#: notepads/edit.php:31
+msgid "You are not allowed to change this notepad."
+msgstr "Sul pole lubatud muuta seda märkmiku."
+
+#: data.php:40 data.php:127 memo.php:75
+#, php-format
+msgid "You are not allowed to create more than %d notes."
+msgstr "Sul ei ole lubatud teha rohkem kui %d märget."
+
+#: notepads/delete.php:29
+msgid "You are not allowed to delete this notepad."
+msgstr "Sul pole lubatud kustutad seda märkmiku."
+
+#: lib/Ajax/Imple/EditNote.php:74
+msgid "You do not have permission to edit this note."
+msgstr "Sul pole õigust muuta seda märget."
+
+#: note/pdf.php:46 view.php:46
+#, php-format
+msgid "You do not have permission to view the notepad %s."
+msgstr "Sul pole õigust vaadata märkmiku %s."
+
+#: config/prefs.php:85
+msgid "Your default notepad:"
+msgstr "Sinu vaike märkmik:"
+
+#: templates/panel.inc:46
+msgid "[Manage Notepads]"
+msgstr "[Halda Märkmike]"
+
+#: templates/search/search.inc:21
+msgid "_Body"
+msgstr "_Sisu"
+
+#: templates/list/memo_headers.inc:44
+msgid "_Category"
+msgstr "_Kategooria"
+
+#: templates/memo/memo.inc:78
+msgid "_Category:"
+msgstr "_Kategooria:"
+
+#: templates/view/memo.inc:16
+msgid "_Delete"
+msgstr "Ku_stuta"
+
+#: templates/view/memo.inc:13
+msgid "_Edit"
+msgstr "_Muuda"
+
+#: templates/memo/memo.inc:84
+msgid "_Encrypt?"
+msgstr "_Krüpti?"
+
+#: templates/search/search.inc:9
+msgid "_For: "
+msgstr "_Jaoks: "
+
+#: lib/Application.php:81
+msgid "_Import/Export"
+msgstr "_Import/Eksport"
+
+#: lib/Application.php:68
+msgid "_List Notes"
+msgstr "_Näita Märkmeid"
+
+#: lib/Application.php:73
+msgid "_New Note"
+msgstr "_Uus Sissekanne"
+
+#: templates/memo/memo.inc:21 templates/view/memo.inc:52
+msgid "_Password"
+msgstr "_Salasõna"
+
+#: templates/memo/memo.inc:89
+msgid "_Password:"
+msgstr "_Salasõna:"
+
+#: templates/memo/memo.inc:93
+msgid "_Repeat:"
+msgstr "_Korda:"
+
+#: lib/Application.php:77
+msgid "_Search"
+msgstr "_Otsi"
+
+#: templates/search/search.inc:20
+msgid "_Title"
+msgstr "_Pealkiri"
+
+#: view.php:68 view.php:77
+#, php-format
+msgid "by %s"
+msgstr "%s"
+
+#: view.php:70 view.php:79
+msgid "by me"
+msgstr "minu"
+
+#: lib/Application.php:141
+#, php-format
+msgid "in %s"
+msgstr "%s sees"
+
+#: data.php:85 templates/data/export.inc:4
+msgid "notes.csv"
+msgstr "notes.csv"
+
+#: data.php:28 templates/data/import.inc:12
+msgid "vNote"
+msgstr "vMärkmed"

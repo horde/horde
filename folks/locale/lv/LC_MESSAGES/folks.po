@@ -1,5 +1,5 @@
 # Latvian translations for Folks H4 package.
-# Copyright 2011 Horde LLC
+# Copyright 2011-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Folks package.
 # Automatically generated, 2011.
 #
@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Folks H4 (0.1-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-05-18 12:23+0200\n"
-"PO-Revision-Date: 2011-07-22 14:57+0300\n"
+"PO-Revision-Date: 2011-12-10 20:27+0300\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: lv\n"
@@ -25,21 +25,6 @@ msgstr ""
 #, fuzzy, php-format
 msgid "%s Invited to join %s."
 msgstr "Pievienot karstajam sarakstam"
-
-#: edit/friends/add.php:38
-#, php-format
-msgid "%s added you as a friend on %s"
-msgstr ""
-
-#: edit/friends/approve.php:35
-#, php-format
-msgid "%s approved you as a friend on %s"
-msgstr ""
-
-#: edit/friends/reject.php:34
-#, php-format
-msgid "%s rejected you as a friend on %s"
-msgstr ""
 
 #: user.php:62
 #, fuzzy, php-format
@@ -206,18 +191,6 @@ msgstr "Ikviens"
 msgid "Application"
 msgstr "Aplikācija"
 
-#: config/prefs.php:119
-msgid ""
-"Application you would like NOT to log activitiy when you post a new PUBLIC "
-"COMMENT"
-msgstr ""
-
-#: config/prefs.php:105
-msgid ""
-"Application you would like NOT to log your activitiy when you post a new "
-"PUBLIC CONTENT."
-msgstr ""
-
 #: edit/friends/for.php:37
 msgid "Approve"
 msgstr "Apstiprināt"
@@ -266,10 +239,6 @@ msgstr "Atcelt"
 #: lib/Folks.php:160 lib/Folks.php:164
 msgid "Cancer"
 msgstr "Vēzis"
-
-#: scripts/mail-filter.php:97
-msgid "Cannot authenticate at mail server:"
-msgstr ""
 
 #: account/resetpassword.php:21
 msgid "Cannot reset password automatically, contact your administrator."
@@ -337,10 +306,6 @@ msgstr "Turpināt"
 msgid "Copyright infringement"
 msgstr "Autortiesību virkne"
 
-#: account/username.php:28
-msgid "Could not find any username with this email."
-msgstr ""
-
 #: edit/facebook.php:20 lib/Notification/facebook.php:132
 #, fuzzy, php-format
 msgid ""
@@ -380,14 +345,6 @@ msgstr "paroles teksts"
 #: templates/edit/activity.php:17
 msgid "Date"
 msgstr "Datums"
-
-#: scripts/mail-filter.php:156
-#, php-format
-msgid ""
-"Dear %s, we tried to send you an email, but if turns out that the mail is "
-"usable any more. Maybe you run over quota. If your mail is discontinued, "
-"please update your profile with the email you are using now at %s."
-msgstr ""
 
 #: templates/edit/activity.php:31 templates/edit/groups.php:27
 #: templates/list/search.php:14
@@ -484,10 +441,6 @@ msgstr " Ievadiet direktorijas nosaukumu:"
 msgid "Enter the username you registered to %s"
 msgstr "Jānorāda dzēšamā lietotāja vārds."
 
-#: lib/Forms/Login.php:24
-msgid "Enter your password. Please be aware that password is case sensitive."
-msgstr ""
-
 #: edit/facebook.php:16 edit/tabs.php:32 lib/Notification/facebook.php:30
 msgid "Facebook"
 msgstr "Facebook"
@@ -495,10 +448,6 @@ msgstr "Facebook"
 #: templates/user/user.php:252
 msgid "Faces"
 msgstr "Sejas"
-
-#: templates/user/user.php:252
-msgid "Faces in user galleries"
-msgstr ""
 
 #: templates/edit/header.php:42
 msgid "Feeds"
@@ -526,11 +475,6 @@ msgstr "Pārsūtīt"
 msgid "Friend"
 msgstr "Draugs"
 
-#: edit/friends/invite.php:47
-#, php-format
-msgid "Friend \"%s\" was invited to join %s."
-msgstr ""
-
 #: edit/friends/invite.php:24
 msgid "Friend's e-mail"
 msgstr "Draugu epasts"
@@ -556,10 +500,6 @@ msgstr "Darbību saraksts:\n"
 #, fuzzy
 msgid "Friends activity"
 msgstr "Aktivitātes Bloki"
-
-#: edit/friends/from.php:15
-msgid "Friends we are waiting approval from"
-msgstr ""
 
 #: lib/Folks.php:156 lib/Folks.php:160
 msgid "Gemini"
@@ -653,10 +593,6 @@ msgstr "Lasīt inte_rnetā"
 msgid "Last activity"
 msgstr "Pēdējā aktivitāte"
 
-#: lib/Block/MyComments.php:13
-msgid "Last comments on my profile"
-msgstr ""
-
 #: templates/user/user.php:54
 msgid "Last time online"
 msgstr "Pēdējo reizi pieslēdzies"
@@ -681,10 +617,6 @@ msgstr "Saraksts"
 #, fuzzy
 msgid "Log account changes?"
 msgstr "Jūsu informācija"
-
-#: config/prefs.php:80
-msgid "Log when we comment a user?"
-msgstr ""
 
 #: scripts/mail.php:71
 #, fuzzy, php-format
@@ -711,23 +643,10 @@ msgstr "Pieslēgšanās uzdevumi"
 msgid "Login to %s"
 msgstr " Kopét uz"
 
-#: templates/user/actions.php:9
-msgid "Look at this profile"
-msgstr ""
-
 #: edit/edit.php:27 lib/Forms/Search.php:19 templates/list/list.php:69
 #: templates/user/user.php:91
 msgid "Male"
 msgstr "vīr."
-
-#: scripts/mail.php:136
-msgid ""
-"Mandatory arguments to long options are mandatory for short options too."
-msgstr ""
-
-#: lib/Forms/Search.php:23
-msgid "Mast have"
-msgstr ""
 
 #: templates/edit/groups.php:24
 msgid "Members"
@@ -737,10 +656,6 @@ msgstr "Locekļi"
 #, fuzzy
 msgid "Might know"
 msgstr "Nedaudz snigs"
-
-#: edit/comments.php:27
-msgid "Moderate comments - I will approve every single comment"
-msgstr ""
 
 #: config/prefs.php:20
 #, fuzzy
@@ -828,14 +743,6 @@ msgstr "Nav šai operācijai pieejamu šablonu."
 msgid "Notification driver %s does not exists."
 msgstr "Pastkaste %s neeksistē."
 
-#: config/prefs.php:62
-msgid "Notify friends that I loged in"
-msgstr ""
-
-#: edit/privacy.php:46
-msgid "Notify online friends that I logged in"
-msgstr ""
-
 #: lib/Block/Activities.php:23
 #, fuzzy
 msgid "Number of activities to display"
@@ -885,10 +792,6 @@ msgstr "Lietotāji tiešsaistē"
 #, fuzzy
 msgid "Only authenticated users"
 msgstr "Visi autentificētie lietotāji"
-
-#: templates/user/user.php:381 templates/user/user.php:387
-msgid "Only authenticated users can post comments."
-msgstr ""
 
 #: edit/privacy.php:32
 msgid "Only my friedns"
@@ -978,14 +881,6 @@ msgstr "Privāti"
 msgid "Public"
 msgstr "Publisks"
 
-#: edit/privacy.php:25
-msgid "Public - only authenticated users can see my personal data"
-msgstr ""
-
-#: edit/privacy.php:27
-msgid "Public - only my friends can see my presonal data"
-msgstr ""
-
 #: lib/Block/Random.php:14
 #, fuzzy
 msgid "Random users"
@@ -1044,11 +939,6 @@ msgstr "Līknes tips:"
 #, fuzzy
 msgid "Report user"
 msgstr " Lietotāja izvēlne "
-
-#: config/prefs.php:71
-msgid ""
-"Require my confirmation if someone would like to add me to his freidn list."
-msgstr ""
 
 #: edit/friends/groups.php:52 edit/password.php:180
 msgid "Reset"
@@ -1130,17 +1020,9 @@ msgstr "Sūtīt vēstuli"
 msgid "Send private message"
 msgstr "Sūtīt vēstuli bez temata?"
 
-#: templates/user/actions.php:9
-msgid "Send this profile to a friend"
-msgstr ""
-
 #: lib/Folks.php:301
 msgid "Services"
 msgstr "Servisi"
-
-#: config/prefs.php:21
-msgid "Set account action details"
-msgstr ""
 
 #: config/prefs.php:28
 #, fuzzy
@@ -1235,26 +1117,6 @@ msgstr ""
 msgid "Taurus"
 msgstr "Vērsis"
 
-#: report.php:29
-msgid "Terms and conditions infringement"
-msgstr ""
-
-#: account/approve.php:58 account/renew.php:58
-msgid ""
-"The code is not right. If you copy and paste the link from your email, "
-"please check if you copied the whole string."
-msgstr ""
-
-#: account/resetpassword.php:54
-msgid ""
-"The picture above is for antispam checking. Please retype the characters "
-"from the picture. They are case sensitive."
-msgstr ""
-
-#: templates/edit/activity.php:7
-msgid "There is no activity logged for your account."
-msgstr ""
-
 #: account/signup.php:46
 #, fuzzy, php-format
 msgid "There was a problem adding \"%s\" to the system: %s"
@@ -1265,12 +1127,6 @@ msgstr "Kļūme pievienojot \"%s\" sistēmai: %s"
 #, fuzzy
 msgid "This account was deleted or is expired."
 msgstr "Piezīme izdzēsta."
-
-#: login.php:179
-msgid ""
-"This account was still not activated. Check your inbox, we send you the "
-"activation code there."
-msgstr ""
 
 #: lib/Block/MyComments.php:47
 msgid "Title"
@@ -1286,14 +1142,6 @@ msgstr "Neatbalstīts"
 #, php-format
 msgid "Updated \"%s\"."
 msgstr "\"%s\" mainīts."
-
-#: edit/edit.php:65
-msgid "Updated his/her profile details."
-msgstr ""
-
-#: edit/edit.php:67
-msgid "Updated his/her profile picture."
-msgstr ""
 
 #: edit/edit.php:40
 #, fuzzy
@@ -1328,17 +1176,6 @@ msgstr ""
 "#-#-#-#-#  admin.po (admin)  #-#-#-#-#\n"
 "Lietotājs \"%s\" jau eksistē."
 
-#: lib/Friends.php:308
-#, php-format
-msgid ""
-"User \"%s\" is already in fiend list, but we are waiting his/her approval."
-msgstr ""
-
-#: account/renew.php:38
-#, php-format
-msgid "User \"%s\" is not market to be in the removal process."
-msgstr ""
-
 #: edit/friends/add.php:55
 #, fuzzy, php-format
 msgid "User \"%s\" was added as your friend."
@@ -1354,16 +1191,6 @@ msgstr "Notikums pievienots Jūsu kalendāram."
 msgid "User \"%s\" was already activated."
 msgstr "\"%s\" jau eksistē un netika importēts."
 
-#: edit/friends/approve.php:33
-#, php-format
-msgid "User \"%s\" was confirmed as a friend."
-msgstr ""
-
-#: edit/friends/reject.php:32
-#, php-format
-msgid "User \"%s\" was rejected as a friend."
-msgstr ""
-
 #: edit/friends/blacklist.php:30
 #, fuzzy, php-format
 msgid "User \"%s\" was removed from your blacklist."
@@ -1373,22 +1200,6 @@ msgstr "Adrese \"%s\" pievienota Melnajam sarakstam."
 #, fuzzy, php-format
 msgid "User \"%s\" was removed from your friend list."
 msgstr "Adrese \"%s\" pievienota Baltajam sarakstam."
-
-#: edit/friends/add.php:41
-#, php-format
-msgid ""
-"User %s added you to his firends list on %s. \n"
-"To approve, go to: %s \n"
-"To reject, go to: %s \n"
-"To see to his profile, go to: %s \n"
-msgstr ""
-
-#: edit/friends/approve.php:39
-#, php-format
-msgid ""
-"User %s confirmed you as a friend on %s.. \n"
-"To see to his profile, go to: %s \n"
-msgstr ""
 
 #: templates/user/user.php:369
 #, fuzzy, php-format
@@ -1404,32 +1215,6 @@ msgstr "Baterija tika ielikta."
 #, fuzzy, php-format
 msgid "User %s is inactive."
 msgstr "Kolonnas lielums ir lietotājam maināms"
-
-#: login.php:52
-#, php-format
-msgid ""
-"User %s just logged in.\n"
-"%s"
-msgstr ""
-
-#: edit/friends/reject.php:38
-#, php-format
-msgid ""
-"User %s rejected you as a friend on %s.. \n"
-"To see to his profile, go to: %s \n"
-msgstr ""
-
-#: templates/user/authenticated.php:5
-#, php-format
-msgid ""
-"User %s would like to his profile remains visible only to authenticated "
-"users."
-msgstr ""
-
-#: templates/user/friends.php:5
-#, php-format
-msgid "User %s would like to his profile remains visible only to his friends."
-msgstr ""
 
 #: templates/user/private.php:5
 #, fuzzy, php-format
@@ -1480,18 +1265,10 @@ msgstr "Lietotāja vārds"
 msgid "Users"
 msgstr "Lietotāji"
 
-#: templates/list/list.php:9
-msgid "Users celebrating birthday today"
-msgstr ""
-
 #: templates/list/list.php:3
 #, fuzzy
 msgid "Users currently online"
 msgstr "Izmantot tiešsaistes versiju"
-
-#: edit/friends/for.php:15
-msgid "Users waiting our approval"
-msgstr ""
 
 #: edit/edit.php:41 lib/Forms/Search.php:23 templates/list/list.php:38
 msgid "Video"
@@ -1536,18 +1313,6 @@ msgstr "Vai mēs rādam logu"
 msgid "What are you doing right now?"
 msgstr "Pie kā Jūs šobrīd strādājat?"
 
-#: edit/comments.php:35
-msgid "Who can post comments to your profile"
-msgstr ""
-
-#: edit/privacy.php:43
-msgid "Who can see my acticity log on my profile"
-msgstr ""
-
-#: edit/privacy.php:40
-msgid "Who can see when I was last time online"
-msgstr ""
-
 #: lib/Forms/Search.php:17
 #, fuzzy
 msgid "Word"
@@ -1560,22 +1325,10 @@ msgstr "Word dokuments"
 msgid "Yes"
 msgstr "Jā"
 
-#: lib/Forms/Login.php:28
-msgid "Yes, remember me so the next time I don't neet to login"
-msgstr ""
-
-#: account/approve.php:55 account/renew.php:55
-msgid "You account is activated, you can login now."
-msgstr ""
-
 #: lib/Friends/shared.php:156
 #, fuzzy, php-format
 msgid "You already have a group named \"%s\"."
 msgstr "Fails ar nosaukumu '%s' jau eksistē."
-
-#: login.php:135
-msgid "You are entering your data too fast!"
-msgstr ""
 
 #: templates/user/user.php:377 templates/user/user.php:394
 #, fuzzy, php-format
@@ -1591,22 +1344,6 @@ msgstr "Jūs pāradresēt šo vēstuli %s %%s."
 #, fuzzy, php-format
 msgid "You cannot add \"%s\" to your blacklist."
 msgstr "Adrese \"%s\" pievienota Melnajam sarakstam."
-
-#: lib/Friends.php:286
-msgid "You cannot add yourself as your own friend."
-msgstr ""
-
-#: lib/Friends.php:217
-msgid "You cannot add yourself to your blacklist."
-msgstr ""
-
-#: lib/Api.php:302
-msgid "You cannot log activities for other users."
-msgstr ""
-
-#: lib/Driver.php:666 lib/Forms/Activity.php:35
-msgid "You cannot post an empty activity message."
-msgstr ""
 
 #: account/approve.php:18 account/renew.php:18
 #, fuzzy
@@ -1742,14 +1479,6 @@ msgstr ""
 msgid "Your securiy questions was updated."
 msgstr "Notikums atsvaidzināts Jūsu kalendārā."
 
-#: account/username.php:32
-#, php-format
-msgid ""
-"Your username on %s %s is: %s. \n"
-"\n"
-" It was requested by %s on %s"
-msgstr ""
-
 #: login.php:156
 msgid "Your username or password is incorrect."
 msgstr "Nepareizs lietotāja vārds vai parole."
@@ -1758,18 +1487,6 @@ msgstr "Nepareizs lietotāja vārds vai parole."
 #, fuzzy
 msgid "Your username was requested"
 msgstr "Lūdzu ievadiet lietotāja vārdu."
-
-#: account/username.php:41
-#, php-format
-msgid "Your username was sent, check your email (%s)."
-msgstr ""
-
-#: login.php:172
-#, php-format
-msgid ""
-"Your username was temporary deacirvated. For any additional information "
-"please write to %s, and don't forgot to incluide your username."
-msgstr ""
 
 #: edit/password.php:29
 msgid "type the password twice to confirm"

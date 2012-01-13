@@ -1,7 +1,80 @@
 -----------
-v3.0.10-git
+v3.0.14-git
 -----------
 
+[mjr] Fix bug that could cause incorrect event exceptions to be created when
+      drag and dropping events in month view.
+[jan] Fix page titles not always updating correctly.
+[jan] Display event time in dynamic if requested (Request #9866).
+[jan] Only show end time if different from start time.
+[jan] Fix day sorting in agenda view.
+[jan] Sort user and group names in permission screen (Request #10896).
+
+
+-------
+v3.0.13
+-------
+
+[jan] Hide disabled calendar sections (Bug #9815).
+[gwr] Fixed recurrence handling with the Kolab backend.
+[gwr] Fixed naming of the default calendar for the Kolab backend.
+[gwr] Fixed deleting events with the Kolab backend.
+[gwr] Fixed migrations for SQLite as database backend.
+[mjr] Fix keyboard navigation of time entry fields in dynamic view (Bug
+      #10799).
+[mjr] Fix parsing display_cal variables for internal calendar links on various
+      blocks and embedded imples (Bug #10767).
+[mjr] Fix adding events directly to a resource's calendar (Bug #10827).
+[mjr] Fix regression introduced in 3.0.12 that broke checking a Resource's
+      availability in certain cases (Bug #10806).
+[jan] Don't fail on empty CalDAV calendars (christof@buergi.lugs.ch, Bug
+      #10739).
+[jan] Check permissions when building application drop down
+      (sberthelot@emisfr.com, Bug #10811).
+[gwr] Fix saving Kolab events.
+[jan] Update Japanese translation (Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>).
+
+
+-------
+v3.0.12
+-------
+
+[jan] Show status of events in agenda messages (Request #10517).
+[mjr] Fix selecting custom time from time selection drop down (Bug #10737).
+[jan] Always use fresh Horde_Http_Client instances for remote calendars (Bug
+      #10740).
+[jan] Add confirmation screen when deleting events in dynamic view (Request
+      #10725).
+[jan] Fix holidays disappearing from month view if deleting another event.
+[jan] Fix resetting attendee response status when saving events in dynamic
+      view (Bug #10620).
+[jan] Support CalDAV servers that don't use DAV: as the default namespace
+      (christof@buergi.lugs.ch, Bug #10716).
+[jan] Allow to view and create copies of holiday events (Bug #10650).
+[jan] Don't show import/export tabs in dynamic view if disabled (Bug #10705).
+[jan] Don't show option to share with everyone in basic permissions if disabled
+      (piper@hrz.uni-marburg.de, Bug #10706).
+[mjr] Only set ORGANIZER field if the event is a group meeting (Bug #10697).
+
+
+-------
+v3.0.11
+-------
+
+[mjr] Fix alarms for recurring events (Bug #10678).
+[mjr] Allow filtering listTagInfo results by user.
+[jan] Fix uncompleting tasks in dynamic view (Carlos Timóteo, Bug #10653).
+[cjh/jan] Improve design.
+[mjr] Fix displaying resources when no attendees are present (Bug #10507).
+
+
+-------
+v3.0.10
+-------
+
+[jan] Fix opening events from agenda view.
+[mjr] Always included the current default calendar in the sync_calendars
+      preference.
 [mjr] Ensure exception gets start and end times when created from month view
       (Bug #10496)
 [jan] Update group permission when changing group down list in basic

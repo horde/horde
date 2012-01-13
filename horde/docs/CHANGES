@@ -1,7 +1,46 @@
 -----------
-v4.0.10-git
+v4.0.14-git
 -----------
 
+[jan] Sort user and group names in permission screen (Request #10896).
+
+
+-------
+v4.0.13
+-------
+
+[jan] Make the lifetime of cached weather information configurable (Arjen de
+      Korte, Request #10848).
+[jan] Update Dutch translation (Arjen de Korte <build+horde@de-korte.org>).
+[mjr] Improve layout of weather block.
+[jan] Update Japanese translation (Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>).
+
+
+-------
+v4.0.12
+-------
+
+[mjr] Replace Weatherdotcom portal block with generic Weather block supported
+      by Horde_Service_Weather.
+[jan] Add configuration option to disable password resets (Request #10640).
+
+
+-------
+v4.0.11
+-------
+
+[cjh] Add Hordevetica theme.
+[mjr] Fix issue with ajax uploader and file sizes over 1mb (Bug #10641).
+[mjr] Do not show results in the tag cloud block owned by other users.
+
+
+-------
+v4.0.10
+-------
+
+[mjr] Update javascript map library.
+[mms] Allow in-page base64 image encoding to be disabled via configuration.
+[jan] Add administration page to list and clear locks.
 
 
 ------

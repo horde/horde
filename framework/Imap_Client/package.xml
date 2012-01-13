@@ -3,18 +3,18 @@
  <name>Horde_Imap_Client</name>
  <channel>pear.horde.org</channel>
  <summary>Horde IMAP abstraction interface</summary>
- <description>This package provides an abstracted API interface to various IMAP4rev1 (RFC 3501) backend drivers.</description>
+ <description>An abstracted API interface to various IMAP4rev1 (RFC 3501) backend drivers.</description>
  <lead>
   <name>Michael Slusarz</name>
   <user>slusarz</user>
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-09</date>
- <time>00:12:43</time>
+ <date>2011-12-21</date>
+ <time>18:13:27</time>
  <version>
-  <release>1.1.0</release>
-  <api>1.1.0</api>
+  <release>1.3.2</release>
+  <api>1.2.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -22,9 +22,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix search charset determination for servers that support SORT &amp; ESORT (Bug #10479).
-* [mms] Add shortcuts to get MIME decoded envelope information.
-* [mms] Automatically authenticate to server when using a command that requires an authenticated/selected state (Bug #10473).
+* [mms] Allow multiple date searches to be specified in a single AND search query.
+* [mms] Fix deleting cached mailbox when mailbox name is given as an object.
+* [mms] Fix &apos;changedsince&apos; and &apos;vanished&apos; parameters&apos; in the fetch() command (Bug #10915).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -33,6 +33,8 @@
      <dir name="Imap">
       <dir name="Client">
        <file name="COPYING" role="doc" />
+       <file name="TODO" role="doc" />
+       <file name="UPGRADING" role="doc" />
       </dir> <!-- /doc/Horde/Imap/Client -->
      </dir> <!-- /doc/Horde/Imap -->
     </dir> <!-- /doc/Horde -->
@@ -44,9 +46,6 @@
        <dir name="Auth">
         <file name="DigestMD5.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Auth -->
-       <dir name="Cclient">
-        <file name="Pop3.php" role="php" />
-       </dir> <!-- /lib/Horde/Imap/Client/Cclient -->
        <dir name="Data">
         <dir name="Fetch">
          <file name="Pop3.php" role="php" />
@@ -62,19 +61,24 @@
        <dir name="Fetch">
         <file name="Query.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Fetch -->
+       <dir name="Ids">
+        <file name="Pop3.php" role="php" />
+       </dir> <!-- /lib/Horde/Imap/Client/Ids -->
        <dir name="Search">
         <file name="Query.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Search -->
        <dir name="Socket">
         <file name="Pop3.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Socket -->
+       <dir name="Utils">
+        <file name="Pop3.php" role="php" />
+       </dir> <!-- /lib/Horde/Imap/Client/Utils -->
        <file name="Base.php" role="php" />
        <file name="Cache.php" role="php" />
-       <file name="Cclient.php" role="php" />
        <file name="DateTime.php" role="php" />
        <file name="Exception.php" role="php" />
        <file name="Ids.php" role="php" />
-       <file name="Mock.php" role="php" />
+       <file name="Mailbox.php" role="php" />
        <file name="Socket.php" role="php" />
        <file name="Sort.php" role="php" />
        <file name="Utf7imap.php" role="php" />
@@ -89,19 +93,24 @@
      <dir name="Imap">
       <dir name="Client">
        <dir name="fixtures">
+        <file name="bug_10503.txt" role="test" />
         <file name="test_email.txt" role="test" />
         <file name="test_email2.txt" role="test" />
        </dir> <!-- /test/Horde/Imap/Client/fixtures -->
        <dir name="Stub">
         <file name="DigestMD5.php" role="test" />
+        <file name="Socket.php" role="test" />
        </dir> <!-- /test/Horde/Imap/Client/Stub -->
        <file name="AclTest.php" role="test" />
        <file name="AllTests.php" role="test" />
        <file name="AuthTest.php" role="test" />
        <file name="Autoload.php" role="test" />
        <file name="DateTimeTest.php" role="test" />
+       <file name="IdsParseTest.php" role="test" />
        <file name="IdsTest.php" role="test" />
+       <file name="MailboxTest.php" role="test" />
        <file name="SearchTest.php" role="test" />
+       <file name="SocketTest.php" role="test" />
        <file name="SubjectParseTest.php" role="test" />
        <file name="test_client.php" role="test" />
        <file name="UrlParseTest.php" role="test" />
@@ -130,7 +139,7 @@
    <package>
     <name>Horde_Mime</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.4.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -181,20 +190,20 @@
  <phprelease>
   <filelist>
    <install as="COPYING" name="doc/Horde/Imap/Client/COPYING" />
+   <install as="TODO" name="doc/Horde/Imap/Client/TODO" />
+   <install as="UPGRADING" name="doc/Horde/Imap/Client/UPGRADING" />
    <install as="Horde/Imap/Client.php" name="lib/Horde/Imap/Client.php" />
    <install as="Horde/Imap/Client/Base.php" name="lib/Horde/Imap/Client/Base.php" />
    <install as="Horde/Imap/Client/Cache.php" name="lib/Horde/Imap/Client/Cache.php" />
-   <install as="Horde/Imap/Client/Cclient.php" name="lib/Horde/Imap/Client/Cclient.php" />
    <install as="Horde/Imap/Client/DateTime.php" name="lib/Horde/Imap/Client/DateTime.php" />
    <install as="Horde/Imap/Client/Exception.php" name="lib/Horde/Imap/Client/Exception.php" />
    <install as="Horde/Imap/Client/Ids.php" name="lib/Horde/Imap/Client/Ids.php" />
-   <install as="Horde/Imap/Client/Mock.php" name="lib/Horde/Imap/Client/Mock.php" />
+   <install as="Horde/Imap/Client/Mailbox.php" name="lib/Horde/Imap/Client/Mailbox.php" />
    <install as="Horde/Imap/Client/Socket.php" name="lib/Horde/Imap/Client/Socket.php" />
    <install as="Horde/Imap/Client/Sort.php" name="lib/Horde/Imap/Client/Sort.php" />
    <install as="Horde/Imap/Client/Utf7imap.php" name="lib/Horde/Imap/Client/Utf7imap.php" />
    <install as="Horde/Imap/Client/Utils.php" name="lib/Horde/Imap/Client/Utils.php" />
    <install as="Horde/Imap/Client/Auth/DigestMD5.php" name="lib/Horde/Imap/Client/Auth/DigestMD5.php" />
-   <install as="Horde/Imap/Client/Cclient/Pop3.php" name="lib/Horde/Imap/Client/Cclient/Pop3.php" />
    <install as="Horde/Imap/Client/Data/Acl.php" name="lib/Horde/Imap/Client/Data/Acl.php" />
    <install as="Horde/Imap/Client/Data/AclCommon.php" name="lib/Horde/Imap/Client/Data/AclCommon.php" />
    <install as="Horde/Imap/Client/Data/AclNegative.php" name="lib/Horde/Imap/Client/Data/AclNegative.php" />
@@ -204,22 +213,29 @@
    <install as="Horde/Imap/Client/Data/Thread.php" name="lib/Horde/Imap/Client/Data/Thread.php" />
    <install as="Horde/Imap/Client/Data/Fetch/Pop3.php" name="lib/Horde/Imap/Client/Data/Fetch/Pop3.php" />
    <install as="Horde/Imap/Client/Fetch/Query.php" name="lib/Horde/Imap/Client/Fetch/Query.php" />
+   <install as="Horde/Imap/Client/Ids/Pop3.php" name="lib/Horde/Imap/Client/Ids/Pop3.php" />
    <install as="Horde/Imap/Client/Search/Query.php" name="lib/Horde/Imap/Client/Search/Query.php" />
    <install as="Horde/Imap/Client/Socket/Pop3.php" name="lib/Horde/Imap/Client/Socket/Pop3.php" />
+   <install as="Horde/Imap/Client/Utils/Pop3.php" name="lib/Horde/Imap/Client/Utils/Pop3.php" />
    <install as="Horde/Imap/Client/AclTest.php" name="test/Horde/Imap/Client/AclTest.php" />
    <install as="Horde/Imap/Client/AllTests.php" name="test/Horde/Imap/Client/AllTests.php" />
    <install as="Horde/Imap/Client/AuthTest.php" name="test/Horde/Imap/Client/AuthTest.php" />
    <install as="Horde/Imap/Client/Autoload.php" name="test/Horde/Imap/Client/Autoload.php" />
    <install as="Horde/Imap/Client/DateTimeTest.php" name="test/Horde/Imap/Client/DateTimeTest.php" />
+   <install as="Horde/Imap/Client/IdsParseTest.php" name="test/Horde/Imap/Client/IdsParseTest.php" />
    <install as="Horde/Imap/Client/IdsTest.php" name="test/Horde/Imap/Client/IdsTest.php" />
+   <install as="Horde/Imap/Client/MailboxTest.php" name="test/Horde/Imap/Client/MailboxTest.php" />
    <install as="Horde/Imap/Client/SearchTest.php" name="test/Horde/Imap/Client/SearchTest.php" />
+   <install as="Horde/Imap/Client/SocketTest.php" name="test/Horde/Imap/Client/SocketTest.php" />
    <install as="Horde/Imap/Client/SubjectParseTest.php" name="test/Horde/Imap/Client/SubjectParseTest.php" />
    <install as="Horde/Imap/Client/test_client.php" name="test/Horde/Imap/Client/test_client.php" />
    <install as="Horde/Imap/Client/UrlParseTest.php" name="test/Horde/Imap/Client/UrlParseTest.php" />
    <install as="Horde/Imap/Client/Utf7ConvertTest.php" name="test/Horde/Imap/Client/Utf7ConvertTest.php" />
+   <install as="Horde/Imap/Client/fixtures/bug_10503.txt" name="test/Horde/Imap/Client/fixtures/bug_10503.txt" />
    <install as="Horde/Imap/Client/fixtures/test_email.txt" name="test/Horde/Imap/Client/fixtures/test_email.txt" />
    <install as="Horde/Imap/Client/fixtures/test_email2.txt" name="test/Horde/Imap/Client/fixtures/test_email2.txt" />
    <install as="Horde/Imap/Client/Stub/DigestMD5.php" name="test/Horde/Imap/Client/Stub/DigestMD5.php" />
+   <install as="Horde/Imap/Client/Stub/Socket.php" name="test/Horde/Imap/Client/Stub/Socket.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -556,12 +572,94 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-09</date>
+   <date>2011-10-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix client-side Cc/From/To sorting (Bug #10503).
+* [mms] Improved IMAP debug logging.
 * [mms] Fix search charset determination for servers that support SORT &amp; ESORT (Bug #10479).
-* [mms] Add shortcuts to get MIME decoded envelope information.
+* [mms] Improved phpdoc documentation.
+* [mms] API CHANGE: Add shortcuts to get MIME decoded envelope information.
 * [mms] Automatically authenticate to server when using a command that requires an authenticated/selected state (Bug #10473).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.0</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-04</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Fixed setting data for several POP3 fetch results.
+* [mms] Parsing/generating sequence strings for POP3 servers has been fixed.
+* [mms] Removed unmaintained Mock driver.
+* [mms] API CHANGE: Added Horde_Imap_Client_Mailbox to provide way to accurately switch between UTF7-IMAP and UTF-8 mailbox representations.
+* [mms] API CHANGE: Deprecate Horde_Imap_Client_Base::parseCommandArray() - use Horde_Imap_Client_Utils::parseCommandArray() instead.
+* [mms] API CHANGE: Added a required parameter (&apos;baseob&apos;) to Horde_Imap_Client_Cache constructor.
+* [mms] API CHANGE: Added Horde_Imap_Client_Base::writeDebug().
+* [mms] API CHANGE: Added Horde_Imap_Client_Base::getIdsOb().
+* [mms] API CHANGE: Deprecate Horde_Imap_Client_Cache::singleton().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.1</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Workaround missing search charset support in the Socket driver (Bug #10726).
+* [mms] Only add CHARSET data to SEARCH queries if necessary (Bug #10726).
+* [mms] Fix deletion of cached message entries.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.3.0</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-13</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Work around broken headers in IMAP envelope data.
+* [mms] Remove Cclient drivers.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.3.1</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-21</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] LIST-STATUS does not depend on LIST-EXTENDED.
+* [mms] Add dependency checking for capabilities.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.3.2</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-21</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Allow multiple date searches to be specified in a single AND search query.
+* [mms] Fix deleting cached mailbox when mailbox name is given as an object.
+* [mms] Fix &apos;changedsince&apos; and &apos;vanished&apos; parameters&apos; in the fetch() command (Bug #10915).
    </notes>
   </release>
  </changelog>

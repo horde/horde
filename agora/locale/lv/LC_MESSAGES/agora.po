@@ -1,5 +1,5 @@
 # Latvian translations for Agora H4 package.
-# Copyright 2011 Horde LLC
+# Copyright 2011-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Agora package.
 # Automatically generated, 2011.
 #
@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Agora H4 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-05-18 12:23+0200\n"
-"PO-Revision-Date: 2011-07-22 15:53+0300\n"
+"PO-Revision-Date: 2011-12-10 19:32+0300\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: lv\n"
@@ -22,67 +22,38 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 
 #: moderate.php:32
-#, fuzzy, php-format
+#, php-format
 msgid "%d messages was approved."
-msgstr "\"%s\" nav radīts: %s."
+msgstr "%d ziņojumi apstiprināti."
 
 #: moderate.php:38
-#, fuzzy, php-format
+#, php-format
 msgid "%d messages was deleted."
-msgstr "Piezīme izdzēsta."
-
-#: scripts/phorum2agora.php:182
-msgid "-a, --agora_id[=aid]         Agora forum id to save message to"
-msgstr ""
-
-#: scripts/phorum2agora.php:185
-msgid "-c, --count[=messages]       Number of messages to move at once"
-msgstr ""
-
-#: scripts/phorum2agora.php:184
-msgid ""
-"-f, --from[=offset]          Offset from where to start to read messages"
-msgstr ""
+msgstr "%d ziņojumi izdzēsti."
 
 #: scripts/phorum2agora.php:180
-#, fuzzy
 msgid "-h, --help                   Show this help"
-msgstr "Rādīt šo piezīmi"
-
-#: scripts/phorum2agora.php:181
-msgid "-p, --phorum_id[=pid]        Phorum forum id to read message from"
-msgstr ""
-
-#: scripts/phorum2agora.php:183
-msgid "-t, --phorum_table[=table]   Phorum messages tablename"
-msgstr ""
+msgstr "-h, --help                   Rādīt šo palīdzību"
 
 #: lib/Api.php:683
-#, fuzzy
 msgid "Add a comment"
-msgstr "Attīrīt komentāru"
+msgstr "Pievienot komentāru"
 
 #: lib/Application.php:49
 msgid "Admin"
 msgstr "Administrēt"
 
 #: messages/merge.php:59
-#, fuzzy
 msgid "After Message: "
-msgstr "TNEF ziņa"
+msgstr "Pēc ziņojuma:"
 
 #: forums.php:74
 msgid "All Forums"
 msgstr "Visi forumi"
 
 #: lib/Form/Forum.php:39
-#, fuzzy
 msgid "Allow attachments in this forum?"
-msgstr "Saglabāt pielikumus nosūtīto vēstuļu mapē"
-
-#: messages/lock.php:44
-msgid "Allow replies in this thread"
-msgstr ""
+msgstr "Atļaut pielikumus šajā forumā?"
 
 #: moderate.php:29 moderate.php:64
 msgid "Approve"
@@ -105,19 +76,13 @@ msgstr "Autors"
 msgid "Avatar"
 msgstr "Avatārs"
 
-#: config/prefs.php:73
-#, php-format
-msgid ""
-"Avatars must be smaller than %s by %s pixels and less than %sKb in size."
-msgstr ""
-
 #: ban.php:51 lib/Messages.php:1525
 msgid "Ban"
-msgstr "Bans"
+msgstr "Bloķēt"
 
 #: templates/ban.html.php:10
 msgid "Banned"
-msgstr "Banots"
+msgstr "Bloķēts"
 
 #: moderate.php:57
 msgid "Body"
@@ -129,78 +94,66 @@ msgstr "Ķermenis"
 msgid "Cancel"
 msgstr "Atcelt"
 
-#: lib/Messages.php:1944
-msgid "Cannot create a forum with an empty name."
-msgstr ""
-
 #: lib/Api.php:312 lib/Comments.php:52
 msgid "Comments"
 msgstr "Komentāri"
 
 #: rss/threads.php:57
-#, fuzzy, php-format
+#, php-format
 msgid "Comments on %s"
-msgstr "Pa virsu"
+msgstr "Komentāri par %s"
 
 #: config/prefs.php:56
-#, fuzzy
 msgid "Comments view"
-msgstr " Filtrēts skatījums "
+msgstr "Komentāru skatījums "
 
 #: editforum.php:39
-#, fuzzy, php-format
+#, php-format
 msgid "Could not create the forum. %s"
-msgstr "Nevar izveidot straumi: %s"
+msgstr "Nevar izveidot forumu. %s"
 
 #: deleteforum.php:60
-#, fuzzy, php-format
+#, php-format
 msgid "Could not delete the forum. %s"
-msgstr "Nevar izdzēst kontaktu. %s"
+msgstr "Nevar izdzēst forumu. %s"
 
 #: lib/Api.php:584 lib/Api.php:595 lib/Api.php:609 messages/delete.php:56
-#, fuzzy, php-format
+#, php-format
 msgid "Could not delete the message. %s"
-msgstr "Nevar izdzēst kontaktu. %s"
+msgstr "Nevar izdzēst ziņojumu. %s"
 
 #: threads.php:26
-#, fuzzy, php-format
+#, php-format
 msgid "Could not list threads. %s"
-msgstr "Nevar attīrīt sarakstu"
+msgstr "Nevar atvērt pavedienu sarakstu. %s"
 
 #: messages/lock.php:53
-#, fuzzy, php-format
+#, php-format
 msgid "Could not lock the thread. %s"
-msgstr "Nevarēja atvērt konsoli.\n"
+msgstr "Nevar aizslēgt pavedienu. %s"
 
 #: messages/abuse.php:25 messages/delete.php:27 messages/index.php:27
 #: messages/index.php:48 messages/lock.php:27 messages/merge.php:25
 #: messages/move.php:25 messages/split.php:25
-#, fuzzy, php-format
+#, php-format
 msgid "Could not open the message. %s"
-msgstr "Nevarēja atvērt konsoli.\n"
+msgstr "Nevar atvērt ziņojumu. %s"
 
 #: lib/Api.php:447 lib/Api.php:500 messages/edit.php:27 messages/edit.php:77
-#, fuzzy
 msgid "Could not post the message: "
-msgstr "Neizdevās šifrēt vēstuli ar PGP:"
+msgstr "Nevar nosūtīt ziņojumu:"
 
 #: scripts/phorum2agora.php:29
-#, fuzzy
 msgid "Couldn't read command-line options."
-msgstr ""
-"#-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#\n"
-"Nav iespējams atgriezties pie iepriekšējās konfigurācijas.\n"
-"#-#-#-#-#  admin.po (admin)  #-#-#-#-#\n"
-"Nevar atjaunot konfigurāciju."
+msgstr "Nevar nolasīt komandrindas opcijas."
 
 #: lib/Form/Forum.php:24
 msgid "Create"
 msgstr "Izveidot"
 
 #: lib/Messages.php:1575
-#, fuzzy
 msgid "Current attachment"
-msgstr "Apakšas piesaiste"
+msgstr "Pašreizējais pielikums"
 
 #: config/prefs.php:94 config/prefs.php:132 config/prefs.php:176
 #: config/prefs.php:260 forums.php:53 lib/Api.php:301 lib/Block/Forums.php:89
@@ -210,33 +163,28 @@ msgid "Date"
 msgstr "Datums"
 
 #: config/prefs.php:262
-#, fuzzy
 msgid "Default comments view sort:"
-msgstr "Noklusētais skatījums:"
+msgstr "Noklusētais komentāru skata kārtošanas virziens:"
 
 #
 #: config/prefs.php:96
-#, fuzzy
 msgid "Default forums view sort:"
-msgstr "Noklusētais skatījums:"
+msgstr "Noklusētais forumu skata kārtošanas virziens:"
 
 #: config/prefs.php:106 config/prefs.php:145 config/prefs.php:188
 #: config/prefs.php:272
-#, fuzzy
 msgid "Default sorting direction:"
 msgstr "Noklusētais kārtošanas virziens:"
 
 #
 #: config/prefs.php:178
-#, fuzzy
 msgid "Default thread view sort:"
-msgstr "Slēpts Pavediena skatījumā"
+msgstr "Noklusētais pavediena skata kārtošanas virziens:"
 
 #
 #: config/prefs.php:135
-#, fuzzy
 msgid "Default threads view sort:"
-msgstr "Noklusētais skatījums:"
+msgstr "Noklusētais pavedienu skata kārtošanas virziens:"
 
 #: ban.php:48 deleteforum.php:39 deleteforum.php:57 lib/Api.php:601
 #: lib/Api.php:606 lib/Messages.php:952 lib/Messages.php:1837
@@ -246,9 +194,9 @@ msgid "Delete"
 msgstr "Dzēst"
 
 #: lib/Api.php:600 messages/delete.php:41
-#, fuzzy, php-format
+#, php-format
 msgid "Delete \"%s\" and all replies?"
-msgstr "Dzēst visas vēstules?"
+msgstr "Dzēsts \"%s\" un visas atbildes?"
 
 #: deleteforum.php:37 lib/Messages.php:1523
 msgid "Delete Forum"
@@ -260,12 +208,11 @@ msgstr "Dzēst forumu"
 
 #: lib/Messages.php:952
 msgid "Delete message"
-msgstr "Dzēst vēstuli"
+msgstr "Dzēst ziņojumu"
 
 #: lib/Messages.php:1574
-#, fuzzy
 msgid "Delete the existing attachment?"
-msgstr "\"%s\" pievienots kā pielikums."
+msgstr "Dzēst eksistējošu pielikumu?"
 
 #: config/prefs.php:104 config/prefs.php:143 config/prefs.php:186
 #: config/prefs.php:270 lib/Comments.php:72
@@ -278,22 +225,12 @@ msgstr "Apraksts"
 
 #: config/prefs.php:21 config/prefs.php:28 config/prefs.php:38
 #: config/prefs.php:48 config/prefs.php:55
-#, fuzzy
 msgid "Display Preferences"
-msgstr "Attēlošanas iestatījumi"
-
-#: config/prefs.php:251
-msgid "Display full message bodies in the comments view?"
-msgstr ""
-
-#: config/prefs.php:199
-msgid "Display full message bodies in the thread list view?"
-msgstr ""
+msgstr "Ekrāna iestatījumi"
 
 #: config/prefs.php:222
-#, fuzzy
 msgid "Display graphical emoticons?"
-msgstr "Ievades / displeja kodu tabula:"
+msgstr "Rādīt grafiskās emotikonas?"
 
 # #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
 # #-#-#-#-#  lv_LV.po (Mnemo 2.1.2)  #-#-#-#-#
@@ -309,40 +246,31 @@ msgstr "Labot"
 
 #
 #: editforum.php:21 lib/Messages.php:1520
-#, fuzzy
 msgid "Edit Forum"
-msgstr "rediģēt joslu"
+msgstr "Labot forumu"
 
 #: lib/Api.php:475
-#, fuzzy
 msgid "Edit Message"
-msgstr "TNEF ziņa"
+msgstr "Labot ziņojumu"
 
 #: messages/edit.php:64
-#, fuzzy, php-format
+#, php-format
 msgid "Edit Message in \"%s\""
-msgstr "ziņa dažādos formātos"
+msgstr "Labot ziņojumu \"%s\""
 
 #
 #: lib/Api.php:681
-#, fuzzy
 msgid "Edit a comment"
-msgstr "Rediģēt &komenāru"
+msgstr "Labot komentāru"
 
 #
 #: lib/Messages.php:1830
-#, fuzzy
 msgid "Edit forum"
-msgstr "rediģēt joslu"
+msgstr "Labot forumu"
 
 #: lib/Messages.php:948
-#, fuzzy
 msgid "Edit message"
-msgstr "TNEF ziņa"
-
-#: lib/Form/Forum.php:35
-msgid "Enter a brief description of this forum"
-msgstr ""
+msgstr "Labot ziņojumu"
 
 #: config/prefs.php:248 lib/Comments.php:58 messages/index.php:160
 msgid "Flat"
@@ -355,9 +283,9 @@ msgid "Forum"
 msgstr "Forums"
 
 #: lib/Api.php:578 lib/Messages.php:1735
-#, fuzzy, php-format
+#, php-format
 msgid "Forum %s does not exist."
-msgstr "Ierīce \"%s\" neeksistē."
+msgstr "Forums %s nepastāv."
 
 # #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
 # #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
@@ -377,14 +305,12 @@ msgid "Forum deleted."
 msgstr "Forums izdzēsts."
 
 #: deleteforum.php:43 lib/Form/Forum.php:27 templates/moderators.html.php:9
-#, fuzzy
 msgid "Forum name"
-msgstr "Pieejamais vārds"
+msgstr "Foruma nosaukums"
 
 #: deleteforum.php:65
-#, fuzzy
 msgid "Forum not deleted."
-msgstr "Pieejas tiesības \"%s\" nav izdzēstas."
+msgstr "Forums nav izdzēsts."
 
 #: forums.php:75 lib/Application.php:52 lib/Block/Forums.php:21
 #: templates/forums.html.php:9
@@ -392,160 +318,121 @@ msgid "Forums"
 msgstr "Forumi"
 
 #: config/prefs.php:22
-#, fuzzy
 msgid "Forums View"
-msgstr " Filtrēts skatījums "
+msgstr "Foruma skatījums "
 
 #: rss/index.php:23
-#, fuzzy, php-format
+#, php-format
 msgid "Forums in %s"
-msgstr "Grepoju iekš %s"
+msgstr "Forumi uz %s"
 
 #: lib/Messages.php:1556
 msgid "From"
 msgstr "Sūtītājs"
 
 #: templates/threads.html.php:46
-#, fuzzy
 msgid "Goto page:"
-msgstr "ASP lapa"
+msgstr "Iet uz lapu:"
 
 #: messages/index.php:150 messages/index.php:159
-#, fuzzy
 msgid "Hide bodies"
-msgstr "Slēpt priekšskatu"
+msgstr "Slēpt ķermeņus"
 
 #: lib/Messages.php:866
-#, fuzzy
 msgid "Hot thread"
-msgstr "Dzēst pavedienu"
-
-#: lib/Form/Forum.php:39
-msgid "If selected users will be able to attach files to their messages."
-msgstr ""
-
-#: messages/edit.php:110
-msgid ""
-"Invalid parent message, you will be posting this message as a new thread."
-msgstr ""
+msgstr "Karsts pavedienu"
 
 #: lib/Form/Forum.php:36
-#, fuzzy
 msgid "Is this a moderated forum?"
-msgstr "Šis lauks ir obligāts."
+msgstr "Vai šis ir cenzēts forums?"
 
 #: lib/Form/Search.php:41
-#, fuzzy
 msgid "Keywords"
 msgstr "Atslēgvārdi"
 
 #: config/prefs.php:92
-#, fuzzy
 msgid "Last Message"
-msgstr "Lapa ar (jaunāko) neredzēto vēstuli"
+msgstr "Pēdējais ziņojums"
 
 #: forums.php:53 lib/Block/Forums.php:89
-#, fuzzy
 msgid "Last Post"
-msgstr "Vēstkopa-vēstules"
+msgstr "Pēdējais ziņojums"
 
 #: config/prefs.php:133 threads.php:54
-#, fuzzy
 msgid "Last post"
-msgstr "Vēstkopa-vēstules"
+msgstr "Pēdējais ziņojums"
 
 #: owner.php:28
-#, fuzzy, php-format
+#, php-format
 msgid "Last posts in forums owned by %s"
-msgstr "Uzdevumu saraksta īpašnieks - %s."
+msgstr "Pēdējie ziņojumi forumos, kuru  īpašnieks ir %s."
 
 #: lib/Messages.php:956
-#, fuzzy
 msgid "Lock"
-msgstr "Aizslēgt:"
+msgstr "Aizslēgt"
 
 #: messages/index.php:119
-#, fuzzy
 msgid "Lock thread"
-msgstr "Dzēst pavedienu"
+msgstr "Aizslēgt pavedienu"
 
 #: messages/lock.php:41
-#, fuzzy, php-format
+#, php-format
 msgid "Locking thread \"%s\""
-msgstr "Dzēst pavedienu"
+msgstr "Slēdzu pavedienu \"%s\""
 
 #: lib/Agora.php:307
-#, fuzzy
 msgid "Malformed avatar."
-msgstr "Izkropļota galvene: '%s'"
+msgstr "Nederīgs avatārs."
 
 #: lib/Agora.php:330
-#, fuzzy
 msgid "Malformed database entry."
-msgstr "Jauna karstā saraksta ieraksts"
-
-#: scripts/phorum2agora.php:178
-msgid ""
-"Mandatory arguments to long options are mandatory for short options too."
-msgstr ""
+msgstr "Kļūdains datubāzes ieraksts."
 
 #: lib/Messages.php:967 messages/merge.php:40 messages/merge.php:66
-#, fuzzy
 msgid "Merge"
-msgstr "_Apvienot"
-
-#: messages/merge.php:39
-#, php-format
-msgid "Merge \"%s\" with another thread"
-msgstr ""
+msgstr "Apvienot"
 
 #: lib/Messages.php:1569
-#, fuzzy
 msgid "Message"
-msgstr "Vēstule"
+msgstr "Ziņojums"
 
 #: messages/abuse.php:71
-#, fuzzy, php-format
+#, php-format
 msgid "Message %s reported as abuse"
-msgstr "Vēstule \"%s\" atzīta par ne-mēstuli."
+msgstr "Ziņojums %s ir atzīmēts kā aizskarošs"
 
 #: lib/Messages.php:519
-#, fuzzy, php-format
+#, php-format
 msgid "Message ID \"%d\" not found"
-msgstr "Kanāla id \"%s\" nav atrasts."
+msgstr "Ziņojuma ID \"%d\" nav atrasts"
 
 #: config/prefs.php:49
-#, fuzzy
 msgid "Message View"
-msgstr "Skatīt vēstuli"
+msgstr "Ziņojumu skats"
 
 #: lib/Api.php:611 messages/delete.php:58
-#, fuzzy
 msgid "Message deleted."
-msgstr "Atzīmēt vēstuli kā izdzēstu"
+msgstr "Ziņojums izdzēsts."
 
 #: lib/Api.php:616 messages/delete.php:48
-#, fuzzy
 msgid "Message not deleted."
-msgstr "Pieejas tiesības \"%s\" nav izdzēstas."
+msgstr "Ziņojums nav izdzēsts."
 
 #: lib/Api.php:502 messages/edit.php:82
-#, fuzzy
 msgid "Message posted."
-msgstr "Nosūtīts %s caur %s"
+msgstr "Ziņojums nosūtīts."
 
 #: config/prefs.php:91 templates/messages/index.html.php:1
 msgid "Messages"
-msgstr "Vēstules"
+msgstr "Ziņojumi"
 
 #: moderate.php:80 templates/moderate.html.php:11
-#, fuzzy
 msgid "Messages Awaiting Moderation"
-msgstr "Vēl %s neredzētas vēstules."
+msgstr "Apstiprinājumu gaidošie ziņojumi"
 
 #: lib/Messages.php:1856
 msgid "Moderate"
-msgstr "Mērens"
+msgstr "Cenzēt"
 
 #: lib/Tree/Flat.php:115 moderators.php:68 templates/messages/flat.html.php:11
 #: templates/messages/flat_thread.html.php:10
@@ -563,191 +450,142 @@ msgid "Move"
 msgstr "Pārvietot"
 
 #: messages/move.php:39
-#, fuzzy, php-format
+#, php-format
 msgid "Move \"%s\" to another forum"
-msgstr "Pārvietot uz citu darba _vietu"
+msgstr "Pārvietot \"%s\" uz citu forumu"
 
 #: config/prefs.php:13
-#, fuzzy
 msgid "My Information"
-msgstr "Jūsu informācija"
+msgstr "Mana informācija"
 
 #: editforum.php:21
 msgid "New Forum"
 msgstr "Jauns forums"
 
 #: lib/Messages.php:1825
-#, fuzzy
 msgid "New Post"
-msgstr "Vēstkopa-vēstules"
+msgstr "Jauns ziņojums"
 
 #: lib/Application.php:89
 msgid "New Thread"
 msgstr "Jauns pavediens"
 
 #: lib/Messages.php:867
-#, fuzzy
 msgid "New posts"
-msgstr "&Pievienot jaunu"
+msgstr "Jauni ziņojumi"
 
 #: config/prefs.php:195
 msgid "No"
 msgstr "Nē"
 
 #: lib/Block/Threads.php:109
-#, fuzzy
 msgid "No available threads."
-msgstr "Vairs nav pieejams"
+msgstr "Nav pieejamu pavedienu"
 
 #: lib/Block/Threads.php:88
-#, fuzzy
 msgid "No forum selected"
-msgstr "Izvēlētu filtru nav"
+msgstr "Nav izvēlēts neviens forums"
 
 #: templates/forums.html.php:60
-#, fuzzy
 msgid "No forums have been created."
-msgstr "Radīts kalendārs \"%s\"."
+msgstr "Forumi nav izveidoti."
 
 #: config/prefs.php:219
-#, fuzzy
 msgid "No graphical emoticons"
-msgstr "Neviens logs nav atvērts"
-
-#: moderate.php:49
-msgid "No messages are waiting for moderation."
-msgstr ""
-
-#: messages/abuse.php:32
-msgid "No moderators are associated with this forum."
-msgstr ""
+msgstr "Bez grafiskām emotikonām"
 
 #: templates/moderators.html.php:27
-#, fuzzy
 msgid "No moderators have been created."
-msgstr "Radīts kalendārs \"%s\"."
+msgstr "Nav radīti moderatori."
 
 #: owner.php:41 templates/block/threads.html.php:32
-#, fuzzy
 msgid "No threads"
-msgstr "-  < Nav tulkojuma >"
-
-#: messages/lock.php:44
-msgid "No, do not allow replies"
-msgstr ""
+msgstr "Nav pavedienu"
 
 #: config/prefs.php:119
-#, fuzzy
 msgid "Number of forums to display on each page"
-msgstr "Rādāmo rakstu skaits"
+msgstr "Vienā lapā rādāmo forumu skaits"
 
 #: config/prefs.php:212
-#, fuzzy
 msgid "Number of message to display on each page"
-msgstr "Rādāmo rakstu skaits"
+msgstr "Vienā lapā rādāmo ziņojumu skaits"
 
 #: config/prefs.php:164 config/prefs.php:285
-#, fuzzy
 msgid "Number of messages to display on each page"
-msgstr "Rādāmo rakstu skaits"
-
-#: config/prefs.php:151
-msgid "Number of views in 24hrs to trigger a 'hot-thread':"
-msgstr ""
-
-#: lib/Block/Forums.php:38
-msgid "Only display this many forums (0 to display all forums)"
-msgstr ""
-
-#: lib/Block/Threads.php:49
-msgid "Only display this many threads (0 to display all threads)"
-msgstr ""
-
-#: lib/Form/Forum.php:37
-msgid "Optional email address to recieve a copy of each posted message"
-msgstr ""
+msgstr "Vienā lapā rādāmo ziņojumu skaits"
 
 #: templates/forums.html.php:34
 msgid "Options"
 msgstr "Opcijas"
 
 #: lib/Messages.php:914
-#, fuzzy, php-format
+#, php-format
 msgid "Page %d"
-msgstr "Lapa %d"
+msgstr "%d. lapa"
 
 #: lib/Form/Forum.php:30
-#, fuzzy
 msgid "Parent forum"
-msgstr "Pieejamais vecāks"
+msgstr "Galvenais forums"
 
 #: lib/Messages.php:1538
 msgid "Post"
-msgstr "Post"
+msgstr "Iesūtīt"
 
 #: lib/Api.php:475
-#, fuzzy
 msgid "Post a New Message"
-msgstr "Jauna vēstule %s"
+msgstr "Iesūtīt jaunu ziņojumu"
 
 #: messages/edit.php:65
-#, fuzzy, php-format
+#, php-format
 msgid "Post a New Message to \"%s\""
-msgstr "Pārvietot vēstules uz mapi:"
+msgstr "Iesūtīt jaunu ziņojumu \"%s\""
 
 #: messages/edit.php:63 messages/index.php:205
-#, fuzzy, php-format
+#, php-format
 msgid "Post a Reply to \"%s\""
-msgstr "Atbildēt visiem"
+msgstr "Nosūtīt atbildi \"%s\""
 
 #: lib/Messages.php:1514 lib/Messages.php:1825
-#, fuzzy
 msgid "Post message"
-msgstr "TNEF ziņa"
+msgstr "Nosūtīt ziņojumu"
 
 #: config/prefs.php:93 config/prefs.php:130 config/prefs.php:175
 #: config/prefs.php:259 forums.php:53 lib/Api.php:299 lib/Block/Forums.php:89
 #: lib/Block/Thread.php:78 lib/Block/Threads.php:113 lib/Comments.php:84
 #: lib/Tree/Flat.php:110 messages/index.php:139 moderate.php:57 owner.php:56
 #: templates/messages/flat_thread.html.php:7
-#, fuzzy
 msgid "Posted by"
-msgstr "Sarakstīja %s.\n"
+msgstr "Nosūtītājs"
 
 #: lib/Messages.php:564 messages/index.php:84
 #: templates/messages/flat.html.php:9
-#, fuzzy, php-format
+#, php-format
 msgid "Posted by %s on %s"
-msgstr " Nevar operēt uz \"..\"! "
+msgstr "Nosūtījis %s, %s"
 
 #: config/prefs.php:131 forums.php:53 lib/Block/Forums.php:89 threads.php:54
-#, fuzzy
 msgid "Posts"
-msgstr "Post"
+msgstr "Ziņojumi"
 
 #: lib/Messages.php:1561
-#, fuzzy
 msgid "Quote"
-msgstr "Interpunkcija, beigu pēdiņas"
+msgstr "Citēt"
 
 #: lib/Messages.php:936 messages/index.php:107
 msgid "Reply"
 msgstr "Atbildēt"
 
 #: lib/Messages.php:936
-#, fuzzy
 msgid "Reply to message"
-msgstr "Jauna vēstule %s"
+msgstr "Atbildēt uz ziņojumu"
 
 #: lib/Messages.php:942 messages/abuse.php:40 messages/abuse.php:41
-#, fuzzy
 msgid "Report as abuse"
-msgstr "Pieteikt kā derīgu"
+msgstr "Pieteikt kā apvainojošu"
 
 #: lib/Form/Search.php:42
-#, fuzzy
 msgid "Require all keywords?"
-msgstr "Pārrakstīt visus mērļus?"
+msgstr "Pieprasīt visus atslēgvārdus?"
 
 # #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
 # #-#-#-#-#  lv_LV.po (Nag 2.1.4)  #-#-#-#-#
@@ -763,88 +601,64 @@ msgid "Search"
 msgstr "Meklēt"
 
 #: lib/Form/Search.php:31 search.php:71
-#, fuzzy
 msgid "Search Forums"
-msgstr "Izvēlieties ceļus"
+msgstr "Meklēt forumos"
 
 #: templates/search.html.php:5
 msgid "Search Results"
 msgstr "Meklēšanas rezultāti"
 
 #: lib/Form/Search.php:50
-#, fuzzy
 msgid "Search in message contents?"
-msgstr "ziņa dažādos formātos"
+msgstr "Meklēt ziņojumu tekstā?"
 
 #: lib/Form/Search.php:46
-#, fuzzy
 msgid "Search in subjects?"
-msgstr "Meklēt atkārtojumus:"
+msgstr "Meklēt tematos?"
 
 #: lib/Form/Search.php:35
-#, fuzzy
 msgid "Search in these forums"
-msgstr "Meklēt rakstzīmju _detaļās"
-
-#: config/prefs.php:15
-msgid "Set the avatar image that is shown with your posts."
-msgstr ""
-
-#: lib/Form/Forum.php:36
-msgid ""
-"Set this if you want all messages to be checked by a moderator before they "
-"are posted."
-msgstr ""
+msgstr "Meklēt šajos forumos"
 
 #: config/prefs.php:23
-#, fuzzy
 msgid "Set your preferences for the forums view."
-msgstr "Konfigurēt mobilā skata iestatījumus."
+msgstr "Konfigurēt forumu skata iestatījumus."
 
 #: config/prefs.php:50
-#, fuzzy
 msgid "Set your preferences for the message view."
-msgstr "Konfigurēt mobilā skata iestatījumus."
+msgstr "Konfigurēt ziņojuma skata iestatījumus."
 
 #: config/prefs.php:40 config/prefs.php:57
-#, fuzzy
 msgid "Set your preferences for the single thread view."
-msgstr "Konfigurēt mobilā skata iestatījumus."
+msgstr "Konfigurēt atsevišķa pavediena skata iestatījumus."
 
 #: config/prefs.php:30
-#, fuzzy
 msgid "Set your preferences for the threads view."
-msgstr "Konfigurēt tradicionālā skata iestatījumus."
+msgstr "Konfigurēt pavedienu skata iestatījumus."
 
 #: config/prefs.php:220
-#, fuzzy
 msgid "Show graphical emoticons"
-msgstr "parādīt &Dublējumkopiju failus"
+msgstr "Rādīt grafiskās emotikonas"
 
 #: lib/Block/Thread.php:21
-#, fuzzy
 msgid "Single Thread"
-msgstr "Dzēst pavedienu"
+msgstr "Atsevišķs pavediens"
 
 #: config/prefs.php:39
-#, fuzzy
 msgid "Single Thread View"
-msgstr "Slēpts Pavediena skatījumā"
+msgstr "Atsevišķs pavediena skats"
 
 #: lib/Agora.php:193
-#, fuzzy
 msgid "Sort Ascending"
-msgstr " Palaist Kārtošanu "
+msgstr "Augoši"
 
 #: lib/Agora.php:193
-#, fuzzy
 msgid "Sort Descending"
-msgstr " Palaist Kārtošanu "
+msgstr "Dilstoši"
 
 #: lib/Comments.php:63
-#, fuzzy
 msgid "Sort by"
-msgstr "Šķirot pēc %s"
+msgstr "Šķirot pēc"
 
 #: lib/Agora.php:201 lib/Agora.php:208
 #, php-format
@@ -852,14 +666,12 @@ msgid "Sort by %s"
 msgstr "Šķirot pēc %s"
 
 #: lib/Comments.php:69
-#, fuzzy
 msgid "Sort direction"
 msgstr "Šķirošanas secība"
 
 #: lib/Form/Message.php:22 lib/Messages.php:1583
-#, fuzzy
 msgid "Spam protection"
-msgstr "Pieteikt kā mēstuli"
+msgstr "Mēstuļu aizsardzība"
 
 #: lib/Messages.php:972 messages/split.php:40 messages/split.php:48
 msgid "Split"
@@ -892,9 +704,8 @@ msgstr ""
 "Lai varētu augšupielādēt pielikumus, nepieciešams konfigurēt VFS palīgmoduli."
 
 #: config/prefs.php:69
-#, fuzzy
 msgid "The location of your avatar image."
-msgstr "Kopēt attēla atrašanās vietu starpliktuvē"
+msgstr "Jūsu avatāra attēla atrašanās vieta."
 
 #
 #: lib/Block/Forums.php:80
@@ -902,18 +713,12 @@ msgid "There are no forums."
 msgstr "Forumu nav."
 
 #: templates/threads.html.php:71
-#, fuzzy
 msgid "There are no threads in this forum."
-msgstr "Šajā pastkastē vēstuļu nav."
+msgstr "Šajā forumā nav pavedienu."
 
 #: lib/Messages.php:156
-#, fuzzy
 msgid "This thread has been locked."
-msgstr "Piezīme ir nošifrēta."
-
-#: deleteforum.php:42
-msgid "This will delete the forum, any subforums and all relative messages."
-msgstr ""
+msgstr "Šis pavediens ir slēgts."
 
 #: config/prefs.php:128 config/prefs.php:173 config/prefs.php:249
 #: lib/Block/Thread.php:32 lib/Block/Thread.php:78 lib/Comments.php:59
@@ -921,45 +726,36 @@ msgstr ""
 msgid "Thread"
 msgstr "Pavediens"
 
-#: messages/merge.php:71
-#, php-format
-msgid "Thread %s merged with thread %s after message %s."
-msgstr ""
-
 #: messages/move.php:57
-#, fuzzy, php-format
+#, php-format
 msgid "Thread %s moved to from forum %s to %s."
-msgstr "Mainīts izpildes termiņš no %s uz %s"
+msgstr "Pavediens %s pārvietots no foruma %s uz %s."
 
 #: lib/Block/Thread.php:85 templates/messages/index.html.php:10
 msgid "Thread List"
 msgstr "Pavediena skatījums"
 
 #: templates/messages/message.html.php:34
-#, fuzzy
 msgid "Thread Summary"
-msgstr "RSS kopsavilkums"
+msgstr "Pavediena kopsavilkums"
 
 #
 #: messages/delete.php:63
-#, fuzzy
 msgid "Thread deleted."
-msgstr "Iztīrīt dzēstās"
+msgstr "Pavediens dzēsts."
 
 #: messages/index.php:197 messages/lock.php:56
-#, fuzzy
 msgid "Thread locked."
-msgstr "Dzēst pavedienu"
+msgstr "Pavediens slēgts."
 
 #: messages/split.php:53
-#, fuzzy, php-format
+#, php-format
 msgid "Thread splitted by message %s."
-msgstr "Šķirot pēc vēstules izmēra"
+msgstr "Pavediens sadalīts aiz ziņojuma %s."
 
 #: messages/lock.php:58
-#, fuzzy
 msgid "Thread unlocked."
-msgstr "Dzēst pavedienu"
+msgstr "Pavediens atvērts."
 
 #: forums.php:53 lib/Block/Threads.php:29 lib/Comments.php:75
 #: templates/threads.html.php:1
@@ -971,42 +767,31 @@ msgid "Threads View"
 msgstr "Pavedienu skats"
 
 #: lib/Block/Threads.php:73
-#, fuzzy, php-format
+#, php-format
 msgid "Threads in \"%s\""
-msgstr "Grepoju iekš %s"
+msgstr "Pavedieni forumā \"%s\""
 
 #: rss/threads.php:51 threads.php:61 threads.php:78
-#, fuzzy, php-format
+#, php-format
 msgid "Threads in %s"
-msgstr "Grepoju iekš %s"
+msgstr "Pavedieni forumā %s"
 
 #: lib/Block/Thread.php:66
-#, fuzzy
 msgid "Unable to fetch selected thread."
-msgstr "Nevar uzstādīt patikšanu."
-
-#: lib/Block/Threads.php:94
-msgid "Unable to fetch threads for selected forum."
-msgstr ""
-
-#: lib/Messages.php:956
-msgid "Unlock"
-msgstr ""
+msgstr "Nevar atvērt izvēlēto forumu."
 
 #: messages/index.php:119
-#, fuzzy
 msgid "Unlock thread"
-msgstr "Dzēst pavedienu"
+msgstr "Atvērt pavedienu"
 
 #: lib/Form/Forum.php:24 messages/lock.php:42
-#, fuzzy
 msgid "Update"
-msgstr "Mainīt"
+msgstr "Atsvaidzinat"
 
 #: scripts/phorum2agora.php:176
-#, fuzzy, php-format
+#, php-format
 msgid "Usage: %s [OPTIONS]..."
-msgstr "Lietošana: %s [izvēles] [<intervāls> [<skaits>]]\n"
+msgstr "Lietošana: %s [opcijas]..."
 
 #: ban.php:58
 msgid "User"
@@ -1017,81 +802,67 @@ msgid "View"
 msgstr "Skatīt"
 
 #: messages/index.php:175
-#, fuzzy
 msgid "View bodies"
-msgstr " Filtrēts skatījums "
+msgstr "Rādīt ķermeņus"
 
 #: threads.php:54
-#, fuzzy
 msgid "Views"
-msgstr "Pacelt logus"
+msgstr "Skatījumi"
 
 #: messages/merge.php:50
-#, fuzzy
 msgid "With Thread: "
-msgstr "Dzēst pavedienu"
+msgstr "Ar pavedienu:"
 
 #: config/prefs.php:196
 msgid "Yes"
 msgstr "Jā"
 
 #: messages/lock.php:44
-#, fuzzy
 msgid "Yes, allow replies"
-msgstr "_Atļaut Auto-Palaišanu"
-
-#: config/prefs.php:197
-msgid "Yes, and don't thread them"
-msgstr ""
+msgstr "Jā, atļaut atbildes"
 
 #: lib/Messages.php:1719
-#, fuzzy, php-format
+#, php-format
 msgid "You don't have permission to access messages in forum %s."
-msgstr "Jums nav tiesību pievienot notikumus %s."
+msgstr "Jums nav tiesību piekļūt ziņojumiem forumā %s."
 
 #: lib/Api.php:589 lib/Messages.php:585 lib/Messages.php:763
 #: messages/delete.php:33 messages/lock.php:33 messages/merge.php:31
 #: messages/move.php:31 messages/split.php:31
-#, fuzzy, php-format
+#, php-format
 msgid "You don't have permission to delete messages in forum %s."
-msgstr "Jums nav tiesību deleģēt notikumus %s."
+msgstr "Jums nav tiesību dzēst ziņojumus forumā %s."
 
 #: lib/Api.php:457 lib/Messages.php:161 messages/edit.php:33
 #: messages/index.php:195
-#, fuzzy, php-format
+#, php-format
 msgid "You don't have permission to post messages in forum %s."
-msgstr "Jums nav tiesību pievienot notikumus %s."
+msgstr "Jums nav tiesību iesūtīt ziņojumus forumā %s."
 
 #: lib/Messages.php:838
-#, fuzzy, php-format
+#, php-format
 msgid "You don't have permission to read messages in forum %s."
-msgstr "Jums nav tiesību pievienot notikumus %s."
+msgstr "Jums nav tiesību lasīt ziņojumus forumā %s."
 
 #: ban.php:24
-#, fuzzy, php-format
+#, php-format
 msgid "You don't have permissions to ban users from forum %s."
-msgstr "Jums nav tiesību pievienot notikumus %s."
+msgstr "Jums nav tiesību bloķēt lietotājus forumā %s."
 
 #: editforum.php:31
-#, fuzzy, php-format
+#, php-format
 msgid "You don't have permissions to create a new forum in %s"
-msgstr "Jums nav tiesību deleģēt notikumus %s."
+msgstr "Jums nav tiesību izveidot jaunu forumu %s"
 
 #: deleteforum.php:23
-#, fuzzy, php-format
+#, php-format
 msgid "You don't have permissions to delete forums in %s"
-msgstr "Jums nav tiesību deleģēt notikumus %s."
+msgstr "Jums nav tiesību dzēst forumus %s"
 
 #: editforum.php:27
-#, fuzzy, php-format
+#, php-format
 msgid "You don't have permissions to edit forum %s"
-msgstr "Jums nav tiesību labot filtru likumus."
-
-#: messages/edit.php:80
-msgid ""
-"Your message has been enqueued and is awaiting moderation.  It will become "
-"visible after moderator approval."
-msgstr ""
+msgstr "Jums nav tiesību labot forumu %s"
 
 #: lib/Application.php:82
 msgid "_Forums"
@@ -1099,7 +870,7 @@ msgstr "Forumi"
 
 #: lib/Application.php:100
 msgid "_Moderate"
-msgstr "Moderēt"
+msgstr "Cenzēt"
 
 #: lib/Application.php:104
 msgid "_Moderators"
@@ -1123,19 +894,16 @@ msgid "_Threads"
 msgstr "Pavedieni"
 
 #: templates/forums.html.php:51 templates/threads.html.php:62
-#, fuzzy
 msgid "by"
-msgstr "\"%s\"ko \"%s\""
+msgstr "autors: "
 
 #: lib/Messages.php:1665
-#, fuzzy
 msgid "download"
-msgstr "Lejupielādēt %s"
+msgstr "lejupielādēt"
 
 #: lib/Tree/Flat.php:111 templates/messages/flat_thread.html.php:8
-#, fuzzy
 msgid "on: "
-msgstr "Ieslēgts"
+msgstr "datums:"
 
 #: lib/Messages.php:1666
 #, php-format

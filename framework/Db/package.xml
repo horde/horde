@@ -23,11 +23,11 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-08-31</date>
- <time>22:58:39</time>
+ <date>2011-12-13</date>
+ <time>11:52:02</time>
  <version>
-  <release>1.1.0</release>
-  <api>1.1.0</api>
+  <release>1.2.1</release>
+  <api>1.2.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -35,9 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-* [jan] Add methods to add and drop primary keys (Request #10469).
-* [gwr] Fix usage of Horde_Exception_Wrapped.
-* [jan] Fix setting unix socket in PostgreSQL DSN (bug-reports@flipjam.co.uk, Bug #10466).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -45,8 +43,13 @@
     <file name="horde-db-migrate-component" role="script" />
    </dir> <!-- /bin -->
    <dir name="doc">
-    <file name="README.TESTING.txt" role="doc" />
-    <file name="TODO.txt" role="doc" />
+    <dir name="Horde">
+     <dir name="Db">
+      <file name="COPYING" role="doc" />
+      <file name="README.TESTING.txt" role="doc" />
+      <file name="TODO.txt" role="doc" />
+     </dir> <!-- /doc/Horde/Db -->
+    </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
@@ -243,8 +246,9 @@
  <phprelease>
   <filelist>
    <install as="horde-db-migrate-component" name="bin/horde-db-migrate-component" />
-   <install as="README.TESTING.txt" name="doc/README.TESTING.txt" />
-   <install as="TODO.txt" name="doc/TODO.txt" />
+   <install as="COPYING" name="doc/Horde/Db/COPYING" />
+   <install as="README.TESTING.txt" name="doc/Horde/Db/README.TESTING.txt" />
+   <install as="TODO.txt" name="doc/Horde/Db/TODO.txt" />
    <install as="Horde/Db.php" name="lib/Horde/Db.php" />
    <install as="Horde/Db/Adapter.php" name="lib/Horde/Db/Adapter.php" />
    <install as="Horde/Db/Exception.php" name="lib/Horde/Db/Exception.php" />
@@ -493,12 +497,71 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-31</date>
+   <date>2011-09-20</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * [jan] Add methods to add and drop primary keys (Request #10469).
 * [gwr] Fix usage of Horde_Exception_Wrapped.
 * [jan] Fix setting unix socket in PostgreSQL DSN (bug-reports@flipjam.co.uk, Bug #10466).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-10-11</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* [jan] More flexible conversion of charset names to native MySQL names.
+* [jan] Correctly escape binding characters in buildClause() (Bug #10610).
+* [jan] Fix transactions with MySQLi driver (Bug #10578).
+* [jan] Fix DISTINCT clause generation on PostgreSQL (Bug #10543).
+* [mms] Fix escaping binary data on Postgresql 9.1+ servers (Bug #10602).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.2</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-22</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* [mms] Greatly reduce memory usage when working with binary data in PostgreSQL 9.0+ (Bug #10774).
+* [mms] Cache postgresql version.
+* [jan] Improve API documentation.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.0</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-13</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* [gwr] Alternative API to support modified dates with SQLite as well.
+* [mjr] Add support for mediumtext and longtext field types.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.1</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-13</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

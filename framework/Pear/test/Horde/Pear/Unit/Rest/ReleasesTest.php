@@ -20,7 +20,7 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
 /**
  * Test the releases parser.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -91,6 +91,14 @@ extends Horde_Pear_TestCase
         $this->_getReleases()->getReleaseStability('0.0.2');
     }
 
+    public function testGetReleaseStabilityWithStream()
+    {
+        $this->assertEquals(
+            'stable', 
+            $this->_getStreamReleases()->getReleaseStability('1.2.0')
+        );
+    }
+
     private function _getReleases()
     {
         return new Horde_Pear_Rest_Releases(
@@ -98,33 +106,17 @@ extends Horde_Pear_TestCase
         );
     }
 
+    private function _getStreamReleases()
+    {
+        return new Horde_Pear_Rest_Releases(
+            fopen(dirname(__FILE__) . '/../../fixture/rest/releases.xml', 'r')
+        );
+    }
+
     private function _getInput()
     {
-        return '<?xml version="1.0" encoding="UTF-8" ?>
-<a xmlns="http://pear.php.net/dtd/rest.allreleases" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink"     xsi:schemaLocation="http://pear.php.net/dtd/rest.allreleases http://pear.php.net/dtd/rest.allreleases.xsd">
-    <p>Horde_Core</p>
-    <c>pear.horde.org</c>
-    <r>
-        <v>1.2.0</v>
-        <s>stable</s>
-    </r>
-    <r>
-        <v>1.0.1</v>
-        <s>stable</s>
-    </r>
-    <r>
-        <v>1.0.0</v>
-        <s>stable</s>
-    </r>
-    <r>
-        <v>1.0.0beta1</v>
-        <s>beta</s>
-    </r>
-    <r>
-        <v>1.0.0alpha1</v>
-        <s>alpha</s>
-    </r>
-
-</a>';
+        return file_get_contents(
+            dirname(__FILE__) . '/../../fixture/rest/releases.xml'
+        );
     }
 }

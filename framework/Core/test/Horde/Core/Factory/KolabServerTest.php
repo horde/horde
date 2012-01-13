@@ -19,7 +19,7 @@ require_once dirname(__FILE__) . '/../Autoload.php';
 /**
  * Test the Kolab_Server factory.
  *
- * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -63,7 +63,7 @@ class Horde_Core_Factory_KolabServerTest extends PHPUnit_Framework_TestCase
     public function testMethodGetserverReturnsServer()
     {
         $factory = $this->_getFactory();
-        $this->assertType('Horde_Kolab_Server_Interface', $factory->getServer());
+        $this->assertInstanceOf('Horde_Kolab_Server_Interface', $factory->getServer());
     }
 
     public function testMethodGetconfigurationReturnsArrayConfiguration()
@@ -77,7 +77,7 @@ class Horde_Core_Factory_KolabServerTest extends PHPUnit_Framework_TestCase
     public function testMethodGetconnectionHasResultConnection()
     {
         $factory = $this->_getFactory();
-        $this->assertType(
+        $this->assertInstanceOf(
             'Horde_Kolab_Server_Connection_Interface',
             $factory->getConnection()
         );
@@ -87,7 +87,7 @@ class Horde_Core_Factory_KolabServerTest extends PHPUnit_Framework_TestCase
     {
         $GLOBALS['conf']['kolab']['server']['mock'] = true;
         $factory = $this->_getFactory();
-        $this->assertType('Horde_Kolab_Server_Connection_Mock', $factory->getConnection());
+        $this->assertInstanceOf('Horde_Kolab_Server_Connection_Mock', $factory->getConnection());
     }
 
     public function testMethodGetconnectionHasResultMockConnectionWithDataIfConfiguredThatWay()
@@ -95,26 +95,26 @@ class Horde_Core_Factory_KolabServerTest extends PHPUnit_Framework_TestCase
         $GLOBALS['conf']['kolab']['server']['mock'] = true;
         $GLOBALS['conf']['kolab']['server']['data'] = array();
         $factory = $this->_getFactory();
-        $this->assertType('Horde_Kolab_Server_Connection_Mock', $factory->getConnection());
+        $this->assertInstanceOf('Horde_Kolab_Server_Connection_Mock', $factory->getConnection());
     }
 
     public function testMethodConstructHasResultSimpleConnectionByDefault()
     {
         $factory = $this->_getFactory();
-        $this->assertType('Horde_Kolab_Server_Connection_SimpleLdap', $factory->getConnection());
+        $this->assertInstanceOf('Horde_Kolab_Server_Connection_SimpleLdap', $factory->getConnection());
     }
 
     public function testMethodConstructHasResultSplittedLdapIfConfiguredThatWay()
     {
         $GLOBALS['conf']['kolab']['server']['host_master'] = 'master';
         $factory = $this->_getFactory();
-        $this->assertType('Horde_Kolab_Server_Connection_SplittedLdap', $factory->getConnection());
+        $this->assertInstanceOf('Horde_Kolab_Server_Connection_SplittedLdap', $factory->getConnection());
     }
 
     public function testMethodGetserverHasResultServerldapstandard()
     {
         $factory = $this->_getFactory();
-        $this->assertType(
+        $this->assertInstanceOf(
             'Horde_Kolab_Server_Ldap_Standard',
             $factory->getServer()
         );
@@ -154,7 +154,7 @@ class Horde_Core_Factory_KolabServerTest extends PHPUnit_Framework_TestCase
     {
         $GLOBALS['conf']['kolab']['server']['filter'] = 'filter';
         $factory = $this->_getFactory();
-        $this->assertType(
+        $this->assertInstanceOf(
             'Horde_Kolab_Server_Ldap_Filtered',
             $factory->getServer()
         );
@@ -163,7 +163,7 @@ class Horde_Core_Factory_KolabServerTest extends PHPUnit_Framework_TestCase
     public function testMethodGetobjectsHasResultObjects()
     {
         $factory = $this->_getFactory();
-        $this->assertType(
+        $this->assertInstanceOf(
             'Horde_Kolab_Server_Objects_Interface',
             $factory->getObjects()
         );
@@ -172,7 +172,7 @@ class Horde_Core_Factory_KolabServerTest extends PHPUnit_Framework_TestCase
     public function testMethodGetstructureHasResultStructureKolab()
     {
         $factory = $this->_getFactory();
-        $this->assertType(
+        $this->assertInstanceOf(
             'Horde_Kolab_Server_Structure_Kolab',
             $factory->getStructure()
         );
@@ -193,7 +193,7 @@ class Horde_Core_Factory_KolabServerTest extends PHPUnit_Framework_TestCase
     public function testMethodGetsearchHasResultSearch()
     {
         $factory = $this->_getFactory();
-        $this->assertType(
+        $this->assertInstanceOf(
             'Horde_Kolab_Server_Search_Interface',
             $factory->getSearch()
         );
@@ -202,7 +202,7 @@ class Horde_Core_Factory_KolabServerTest extends PHPUnit_Framework_TestCase
     public function testMethodGetschemaHasResultSchema()
     {
         $factory = $this->_getFactory();
-        $this->assertType(
+        $this->assertInstanceOf(
             'Horde_Kolab_Server_Schema_Interface',
             $factory->getSchema()
         );
@@ -211,7 +211,7 @@ class Horde_Core_Factory_KolabServerTest extends PHPUnit_Framework_TestCase
     public function testMethodGetcompositeReturnsComposite()
     {
         $factory = $this->_getFactory();
-        $this->assertType(
+        $this->assertInstanceOf(
             'Horde_Kolab_Server_Composite',
             $factory->getComposite()
         );
@@ -221,7 +221,7 @@ class Horde_Core_Factory_KolabServerTest extends PHPUnit_Framework_TestCase
     {
         $GLOBALS['conf']['kolab']['server']['count'] = true;
         $factory = $this->_getFactory();
-        $this->assertType(
+        $this->assertInstanceOf(
             'Horde_Kolab_Server_Decorator_Count', $factory->getServer()
         );
     }
@@ -230,7 +230,7 @@ class Horde_Core_Factory_KolabServerTest extends PHPUnit_Framework_TestCase
     {
         $GLOBALS['conf']['kolab']['server']['log'] = true;
         $factory = $this->_getFactory();
-        $this->assertType(
+        $this->assertInstanceOf(
             'Horde_Kolab_Server_Decorator_Log', $factory->getServer()
         );
     }
@@ -239,7 +239,7 @@ class Horde_Core_Factory_KolabServerTest extends PHPUnit_Framework_TestCase
     {
         $GLOBALS['conf']['kolab']['server']['map'] = array();
         $factory = $this->_getFactory();
-        $this->assertType(
+        $this->assertInstanceOf(
             'Horde_Kolab_Server_Decorator_Map', $factory->getServer()
         );
     }
@@ -248,7 +248,7 @@ class Horde_Core_Factory_KolabServerTest extends PHPUnit_Framework_TestCase
     {
         $GLOBALS['conf']['kolab']['server']['cleanup'] = true;
         $factory = $this->_getFactory();
-        $this->assertType(
+        $this->assertInstanceOf(
             'Horde_Kolab_Server_Decorator_Clean', $factory->getServer()
         );
     }
@@ -256,7 +256,7 @@ class Horde_Core_Factory_KolabServerTest extends PHPUnit_Framework_TestCase
     public function testMethodGetconfigurationHasResultArray()
     {
         $factory = $this->_getFactory();
-        $this->assertType(
+        $this->assertInternalType(
             'array',
             $factory->getConfiguration()
         );

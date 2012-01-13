@@ -2,7 +2,7 @@
 /**
  * Wicked SyncPages class.
  *
- * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -191,9 +191,6 @@ class Wicked_Page_SyncPages extends Wicked_Page {
 
         // Prepare default values
         $stored = @unserialize($GLOBALS['prefs']->getValue('sync_data'));
-        if (isset($_GET['__old_sync_select'])) {
-            $session->remove('wicked', 'sync');
-        }
         if ($vars->get('sync_select') && isset($stored[$vars->get('sync_select')])) {
             $defaults = $stored[$vars->get('sync_select')];
             foreach ($defaults as $k => $v) {

@@ -2,23 +2,31 @@
 /**
  * Class for interfacing with the tickets API.
  *
- * Copyright 2007-2011 Horde LLC (http://www.horde.org/)
+ * PHP version 5
+ *
+ * @category Horde
+ * @package  Release
+ * @author   Michael J. Rubinsky <mrubinsk@horde.org>
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @link     http://www.horde.org/libraries/Horde_Release
+ */
+
+/**
+ * Glue class for a modular CLI.
+ *
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- * @package Release
+ * @category Horde
+ * @package  Release
+ * @author   Michael J. Rubinsky <mrubinsk@horde.org>
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @link     http://www.horde.org/libraries/Horde_Release
  */
 class Horde_Release_Whups
 {
-    /**
-     * Instance of Horde_Rpc client object.
-     *
-     * @var Horde_Rpc
-     */
-    protected $_client;
-
     /**
      * Local copy of config params.
      *
@@ -29,7 +37,6 @@ class Horde_Release_Whups
     /**
      * Http client
      *
-     * @TODO: inject this
      * @var Horde_Http_Client
      */
     protected $_http;
@@ -41,10 +48,15 @@ class Horde_Release_Whups
      */
     public function __construct($params)
     {
+        if (isset($params['client'])) {
+            $this->_http = $params['client'];
+            unset($params['client']);
+        } else {
+            $this->_http = new Horde_Http_Client(
+                array('request.username' => $params['user'],
+                      'request.password' => $params['pass']));
+        }
         $this->_params = $params;
-        $this->_http = new Horde_Http_Client(
-            array('request.username' => $this->_params['user'],
-                  'request.password' => $this->_params['pass']));
     }
 
     /**
@@ -66,7 +78,7 @@ class Horde_Release_Whups
         $method = 'tickets.addVersion';
         $params = array($id, $version, $desc);
         try {
-            $res = Horde_Rpc::request('jsonrpc', $this->_params['url'], $method, $this->_http, $params);
+            Horde_Rpc::request('jsonrpc', $this->_params['url'], $method, $this->_http, $params);
         } catch (Horde_Http_Client_Exception $e) {
             throw new Horde_Exception_Wrapped($e);
         }
@@ -79,7 +91,7 @@ class Horde_Release_Whups
      *
      * @return boolean  TODO
      */
-    function getQueueId($module)
+    public function getQueueId($module)
     {
         $queues = $this->_listQueues();
 

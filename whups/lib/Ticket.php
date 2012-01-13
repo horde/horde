@@ -3,7 +3,7 @@
  * The Whups_Ticket class encapsulates some logic relating to tickets, sending
  * updates, etc.
  *
- * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -369,6 +369,11 @@ class Whups_Ticket
                 $updates['queue'] = $value;
 
             default:
+                if (strpos($detail, 'attribute_') === 0 &&
+                    !is_string($value)) {
+                    $value = Horde_Serialize::Serialize($value,
+                                                        Horde_Serialize::JSON);
+                }
                 $updates[$detail] = $value;
             }
         }
@@ -593,16 +598,24 @@ class Whups_Ticket
      *
      * @return integer  The permission id.
      */
-    public function addCommentPerms($commentId, $group)
+    static public function addCommentPerms($commentId, $group)
     {
         if (!empty($group)) {
-            $perm = $GLOBALS['injector']
-                ->getInstance('Horde_Core_Perms')
-                ->newPermission('whups:comments:' . $commentId);
+            $perms = $GLOBALS['injector']
+                ->getInstance('Horde_Perms');
+            $perms_core = $GLOBALS['injector']
+                ->getInstance('Horde_Core_Perms');
+            if (!$perms->exists('whups')) {
+                $perm = $perms_core->newPermission('whups');
+                $perm->addDefaultPermission(Horde_Perms::ALL, false);
+                $perms->addPermission($perm);
+            }
+            if (!$perms->exists('whups:comments')) {
+                $perms->addPermission($perms_core->newPermission('whups:comments'));
+            }
+            $perm = $perms_core->newPermission('whups:comments:' . $commentId);
             $perm->addGroupPermission($group, Horde_Perms::READ, false);
-            return $GLOBALS['injector']
-                ->getInstance('Horde_Perms')
-                ->addPermission($perm);
+            return $perms->addPermission($perm);
         }
     }
 

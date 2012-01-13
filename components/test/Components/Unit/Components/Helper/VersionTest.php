@@ -20,7 +20,7 @@ require_once dirname(__FILE__) . '/../../../Autoload.php';
 /**
  * Test the version helper.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -155,4 +155,19 @@ extends Components_TestCase
         );
     }
 
+    public function testNextVersion()
+    {
+        $this->assertEquals(
+            '5.0.1-git',
+            Components_Helper_Version::nextVersion('5.0.0')
+        );
+        $this->assertEquals(
+            '5.0.0-git',
+            Components_Helper_Version::nextVersion('5.0.0RC1')
+        );
+        $this->assertEquals(
+            '5.0.0-git',
+            Components_Helper_Version::nextVersion('5.0.0alpha1')
+        );
+    }
 }

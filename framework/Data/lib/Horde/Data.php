@@ -3,7 +3,7 @@
  * Abstract class to handle different kinds of Data formats and to
  * help data exchange between Horde applications and external sources.
  *
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -60,8 +60,14 @@ class Horde_Data
      */
     static public function factory($format, array $params = array())
     {
-        $format = ucfirst(strtolower(basename($format)));
-        $class = __CLASS__ . '_' . $format;
+        if (is_array($format)) {
+            $app = ucfirst($format[0]);
+            $format = ucfirst(strtolower(basename($format[1])));
+            $class = $app . '_Data_' . $format;
+        } else {
+            $format = ucfirst(strtolower(basename($format)));
+            $class = __CLASS__ . '_' . $format;
+        }
 
         if (class_exists($class)) {
             return new $class($params);

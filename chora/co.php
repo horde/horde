@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2000-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2000-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -23,7 +23,7 @@ $plain = Horde_Util::getFormData('p', 0);
 
 /* Create the VC_File object and populate it. */
 try {
-    $file = $VC->getFileObject($where);
+    $file = $VC->getFile($where);
 } catch (Horde_Vcs_Exception $e) {
     Chora::fatal($e);
 }
@@ -34,7 +34,7 @@ $r = Horde_Util::getFormData('r');
 /* If no revision is specified, default to HEAD.  If a revision is
  * specified, it's safe to cache for a long time. */
 if (is_null($r)) {
-    $r = $file->queryRevision();
+    $r = $file->getRevision();
     header('Cache-Control: max-age=60, must-revalidate');
 } else {
     header('Cache-Control: max-age=2419200');
@@ -47,7 +47,7 @@ if (!$VC->isValidRevision($r)) {
 
 /* Retrieve the actual checkout. */
 try {
-    $checkOut = $VC->checkout($file->queryPath(), $r);
+    $checkOut = $VC->checkout($file->getPath(), $r);
 } catch (Horde_Vcs_Exception $e) {
     Chora::fatal($e);
 }
@@ -77,19 +77,19 @@ if (!$plain) {
     }
 
     /* Get this revision's attributes in printable form. */
-    $log = $file->queryLogs($r);
+    $log = $file->getLog($r);
 
     $title = sprintf(_("%s Revision %s (%s ago)"),
                      basename($fullname),
                      $r,
-                     Chora::readableTime($log->queryDate(), true));
+                     Chora::readableTime($log->getDate(), true));
 
     $views = array(
         Horde::widget(Chora::url('annotate', $where, array('rev' => $r)), _("Annotate"), 'widget', '', '', _("_Annotate")),
         Horde::widget(Chora::url('co', $where, array('r' => $r, 'p' => 1)), _("Download"), 'widget', '', '', _("_Download"))
     );
     if ($VC->hasFeature('snapshots')) {
-        $snapdir = dirname($file->queryPath());
+        $snapdir = dirname($file->getPath());
         $views[] = Horde::widget(Chora::url('browsedir', $snapdir == '.' ? '' : $snapdir . '/', array('onb' => $r)), _("Snapshot"), 'widget', '', '', _("_Snapshot"));
     }
     $extraLink = _("View:") . ' ' . implode(' | ', $views);
@@ -113,7 +113,7 @@ while ($line = fgets($checkOut)) {
 fclose($checkOut);
 
 // Get name.
-$filename = $file->queryName();
+$filename = $file->getFileName();
 if ($browser->getBrowser() == 'opera') {
     $filename = strtr($filename, ' ', '_');
 }

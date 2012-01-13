@@ -2,7 +2,7 @@
 /**
  * This class handles date-related search queries.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -57,15 +57,15 @@ class IMP_Search_Element_Date extends IMP_Search_Element
     {
         switch ($this->_data->t) {
         case self::DATE_ON:
-            $label = _("Date Equals (=)");
+            $label = _("Date Equals");
             break;
 
         case self::DATE_BEFORE:
-            $label = _("Date Until (<)");
+            $label = _("Date Until");
             break;
 
         case self::DATE_SINCE:
-            $label = _("Date Since (>=)");
+            $label = _("Date Since");
             break;
         }
 

@@ -1,0 +1,430 @@
++ Sample Page for Wiki Markup
+
+[[toc]]
+
+
+++ General Notes
+
+The markup described is a combination of the [http://tavi.sourceforge.net \
+WikkTikkiTavi] and [http://develnet.org/ coWiki] markup styles.
+
+All text is entered as plain text, and will be converted to HTML entities as \
+necessary.  This means that {{<}}, {{>}}, {{&}}, and so on are converted for \
+you (except in special situations where the characters are Wiki markup; \
+the Wiki is generally smart enough to know when to convert and when not to).
+
+Just hit "return" twice to make a paragraph break.  If you want \
+to keep the same logical line but have to split it across \
+two physical lines (such as when your editor only shows a certain number \
+of characters per line), end the line with a backslash {{\}} and hit \
+return once.  This will cause the two lines to be joined on display, and the \
+backslash will not show.  (If you end a line with a backslash and a tab \
+or space, it will ''not'' be joined with the next line, and the backslash \
+will be printed.)
+
+
+++ Inline Formatting
+
+|| {{``//emphasis text//``}}                    || //emphasis text// ||
+|| {{``**strong text**``}}                      || **strong text** ||
+|| {{``//**emphasis and strong**//``}}          || //**emphasis and strong**// ||
+|| {{``'''bold text'''``}}                      || '''bold text''' ||
+|| {{``''italic text''``}}                      || ''italic text'' ||
+|| {{``__underline text__``}}                   || __underline text__ ||
+|| {{``{{teletype text}}``}}                    || {{teletype text}} ||
+|| {{``,,subscript,, text``}}                   || ,,subscript,, text ||
+|| {{``^^superscript^^ text``}}                 || ^^superscript^^ text ||
+|| {{``@@--- delete text +++ insert text @@``}} || @@--- delete text +++ insert text @@ ||
+|| {{``@@--- delete only @@``}}                 || @@--- delete only @@ ||
+|| {{``@@+++ insert only @@``}}                 || @@+++ insert only @@ ||
+|| {{``##red|red text## ``}}                    || ##red|red text## ||
+|| {{``##FFFF00|yellow text##``}}               || ##FFFF00|yellow text## ||
+
+
+++ Literal Text
+
+If you don't want the wiki to parse some text, enclose it in two backticks (not single-quotes).
+
+<code>
+
+This //text// gets **parsed**.
+
+``This //text// does not get **parsed**.``
+
+</code>
+
+This //text// gets **parsed**.
+
+``This //text// does not get **parsed**.``
+
+
+++ Headings
+
+You can make various levels of heading by putting \
+plus-signs before the text (all on its own line):
+
+<code>
++++ Level 3 Heading
+++++ Level 4 Heading
++++++ Level 5 Heading
+++++++ Level 6 Heading
+</code>
+
++++ Level 3 Heading
+++++ Level 4 Heading
++++++ Level 5 Heading
+++++++ Level 6 Heading
+
+
+++ Text Alignment
+
+You can center align paragraphs by starting it with an equal sign.
+
+<code>
+= Center aligned text
+</code>
+
+= Center aligned text
+
+
+++ Table of Contents
+
+To create a list of every heading, with a link to that heading, put a table of contents tag on its own line.
+
+<code>
+[[toc]]
+</code>
+
+
+++ Horizontal Rules
+
+Use four dashes ({{``----``}}) to create a horizontal rule.
+
+----
+
+
+++ Lists
+
+
++++ Bullet Lists
+
+You can create bullet lists by starting a paragraph with one or \
+more asterisks.
+
+<code>
+* Bullet one
+ * Sub-bullet
+</code>
+
+* Bullet one
+ * Sub-bullet
+
+
++++ Numbered Lists
+
+Similarly, you can create numbered lists by starting a paragraph \
+with one or more hashes.
+
+<code>
+# Numero uno
+# Number two
+ # Sub-item
+</code>
+
+# Numero uno
+# Number two
+ # Sub-item
+
+
++++ Mixing Bullet and Number List Items
+
+You can mix and match bullet and number lists:
+
+<code>
+# Number one
+ * Bullet
+ * Bullet
+# Number two
+ * Bullet
+ * Bullet
+  * Sub-bullet
+   # Sub-sub-number
+   # Sub-sub-number
+# Number three
+ * Bullet
+ * Bullet
+</code>
+
+# Number one
+ * Bullet
+ * Bullet
+# Number two
+ * Bullet
+ * Bullet
+  * Sub-bullet
+   # Sub-sub-number
+   # Sub-sub-number
+# Number three
+ * Bullet
+ * Bullet
+
+
++++ Definition Lists
+
+You can create a definition (description) list with the following syntax:
+
+<code>
+: Item 1 : Something
+: Item 2 : Something else
+</code>
+
+: Item 1 : Something
+: Item 2 : Something else
+
+
+++ Block Quotes
+
+You can mark a blockquote by starting a line with one or more '>' \
+characters, followed by a space and the text to be quoted.
+
+<code>
+This is normal text here.
+
+> Indent me! The quick brown fox jumps over the lazy dog. \
+Now this the time for all good men to come to the aid of \
+their country. Notice how we can continue the block-quote \
+in the same "paragraph" by using a backslash at the end of \
+the line.
+>
+> Another block, leading to...
+>> Second level of indenting.  This second is indented even \
+more than the previous one.
+
+Back to normal text.
+</code>
+
+This is normal text here.
+
+> Indent me! The quick brown fox jumps over the lazy dog. \
+Now this the time for all good men to come to the aid of \
+their country. Notice how we can continue the block-quote \
+in the same "paragraph" by using a backslash at the end of \
+the line.
+>
+> Another block, leading to...
+>> Second level of indenting.  This second is indented even \
+more than the previous one.
+
+Back to normal text.
+
+
+++ Links and Images
+
+
++++ Wiki Links
+
+SmashWordsTogether to create a page link.
+
+You can force a Wiki page name '''not''' to be clickable by putting \
+an exclamation mark in front of it.
+
+<code>
+SmashWordsTogether !SmashWordsTogether
+</code>
+
+SmashWordsTogether !SmashWordsTogether
+
+You can force a Wiki page to be clickable even if it does '''not''' match the page name format by putting the name in parentheses.
+
+<code>
+((Wiki/Page))
+</code>
+
+((Wiki/Page))
+
+You can also use this format to create a "described" or "labeled" link or to add an anchor target.
+
+<code>
+((Wiki/Page|Descriptive text for the link.#anchor))
+</code>
+
+((Wiki/Page|Descriptive text for the link.#anchor))
+
+
++++ Interwiki Links
+
+Interwiki links are links to pages on other Wiki sites. \
+Type the {{``SiteName:PageName``}} like this:
+
+* MeatBall:RecentChanges
+* Advogato:proj/WikkiTikkiTavi
+* Wiki:WorseIsBetter
+
+
++++ PHP Manual Links
+
+PHP manual links are links to the PHP manual on the php.net web site.
+
+<code>
+[[php strtolower]]
+</code>
+
+[[php strtolower]]
+
+
++++ URLs
+
+Create a remote link simply by typing its URL: http://www.horde.org.
+
+If you like, enclose it in brackets to create a numbered reference \
+and avoid cluttering the page; {{``[http://www.horde.org/]``}} becomes [http://www.horde.org/].
+
+Or you can have a described-reference instead of a numbered reference:
+<code>
+[http://www.horde.org Horde]
+</code>
+[http://www.horde.org Horde]
+
+
++++ On-Page Links
+
+Create an anchor on the page by {{``[[# anchorName nice anchor text]]``}} [[# anchorName nice anchor text]] and refer to it by {{``#anchorName``}} #anchorName, or {{``[#anchorName use normal link renaming]``}} [#anchorName use normal link renaming].
+
+
++++ Images
+
+You can put a picture in a page with {{``[[image foo.jpg]]``}}. You can use any file type, but most browsers only support GIF, JPEG, and PNG formats. The filename can either be a relative reference (in which case the wiki looks for a file attached to the current page - or a different wiki page if the file name is prefixed with a page name, e.g. {{``[[image SomePage:foo.jpg]]``}}), an absolute reference which begins with a slash (in which case the wiki uses it to retrieve a file relative to the web server's root), or a full, external URL.
+
+Additional attributes, such as "alt" can follow the image filename or URL like so: {{``[[image foo.jpg alt="A Foo JPEG"]]``}}.  "link" is a special attribute which makes the image a link to the specified URL.
+
+
+++ Application Content
+
++++ Application Blocks
+
+Content from other Horde applications provided by portal blocks can be embedded into a page using {{[[block]]}} tags.
+
+To include Horde's moon phases block for example:
+
+<code>
+[[block horde/Moon phase=next hemisphere=northern]]
+</code>
+
+[[block horde/Moon phase=next hemisphere=northern]]
+
++++ Application Links
+
+Links to other Horde applications is supported if those applications support API links. The Wiki itself supports such an API to link to individual wiki pages:
+
+<code>
+[[link Link to some other wiki page|wiki/show page=Wiki/Page]]
+</code>
+
+[[link Link to some other wiki page|wiki/show page=Wiki/Page]]
+
+
+++ Code Blocks
+
+Create code blocks by using {{<code>...</code>}} tags (each on its own line).
+
+<code>
+This is an example code block!
+</code>
+
+To create PHP blocks that get automatically colorized when you use PHP tags, simply surround the code with {{<code type="php">...</code>}} tags (the tags themselves should each be on their own lines, and no need for the {{<?php ... ?>}} tags).
+
+<code>
+ <code type="php">
+ // Set up the wiki options
+ $options = array();
+ $options['view_url'] = "index.php?page=";
+
+ // load the text for the requested page
+ $text = implode('', file($page . '.wiki.txt'));
+
+ // create a Wiki objext with the loaded options
+ $wiki = new Text_Wiki($options);
+
+ // transform the wiki text.
+ echo $wiki->transform($text);
+ </code>
+</code>
+
+<code type="php">
+// Set up the wiki options
+$options = array();
+$options['view_url'] = "index.php?page=";
+
+// load the text for the requested page
+$text = implode('', file($page . '.wiki.txt'));
+
+// create a Wiki objext with the loaded options
+$wiki = new Text_Wiki($options);
+
+// transform the wiki text.
+echo $wiki->transform($text);
+</code>
+
+API references can be generated using {{<function>}} tags.
+
+<code>
+<function>
+name:listUsers
+access:public
+param:string,Filter users by this string.,'USER'
+returns:array
+throws:Exception,if user backend not available.
+</function>
+</code>
+
+//Rendering of this rule is broken as of Text_Wiki 1.2.1, usage is discouraged.//
+
+
+++ HTML Markup
+
+You can add native HTML markup using {{<html>...</html>}} tags.
+
+<code>
+<html>
+<div style="border:2px double blue"><strong>HTML</strong></div>
+</html>
+</code>
+
+//This rule is disabled by default.//
+
+<html>
+<div style="border:2px double blue"><strong>HTML</strong></div>
+</html>
+
+
+++ Tables
+
+You can create tables using pairs of vertical bars:
+
+<code>
+||~ Heading one ||~ Heading two ||
+|| cell one || cell two ||
+|||| big ol' line ||
+|| cell four || cell five ||
+|| cell six || here's a very long cell ||
+</code>
+
+||~ Heading one ||~ Heading two ||
+|| cell one || cell two ||
+|||| big ol' line ||
+|| cell four || cell five ||
+|| cell six || here's a very long cell ||
+
+<code>
+|| lines must start and end || with double vertical bars || nothing ||
+|| cells are separated by || double vertical bars || nothing ||
+|||| you can span multiple columns by || starting each cell ||
+|| with extra cell |||| separators ||
+|||||| but perhaps an example is the easiest way to see ||
+</code>
+
+|| lines must start and end || with double vertical bars || nothing ||
+|| cells are separated by || double vertical bars || nothing ||
+|||| you can span multiple columns by || starting each cell ||
+|| with extra cell |||| separators ||
+|||||| but perhaps an example is the easiest way to see ||

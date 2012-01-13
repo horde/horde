@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -176,7 +176,7 @@ echo $queryTabs->render(Horde_Util::getFormData('action', 'edit'));
 
 if ($showExtraForm !== null) {
     $form = new $showExtraForm($vars);
-    $form->renderActive($form->getRenderer(), $vars, 'index.php');
+    $form->renderActive($form->getRenderer(), $vars, Horde::url('query/index.php'));
     echo '<br class="spacer" />';
 }
 

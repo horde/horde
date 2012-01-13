@@ -3,7 +3,7 @@
  * The Horde_Mime_Viewer_Syntaxhighlighter class renders source code appropriate
  * for highlighting with http://alexgorbatchev.com/SyntaxHighlighter/.
  *
- * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -47,7 +47,6 @@ class Horde_Mime_Viewer_Syntaxhighlighter extends Horde_Mime_Viewer_Base
         /* Determine the language and brush from the mime type. */
         $mimeType = $this->_mimepart->getType();
         $language = $this->_mimeTypeToLanguage($mimeType);
-        $brush = $this->_languageToBrush($language);
 
         $results = '<pre class="brush: ' . $language . '">' . htmlspecialchars($this->_mimepart->getContents()) . '</pre>';
         return $this->_renderReturn(
@@ -137,14 +136,8 @@ class Horde_Mime_Viewer_Syntaxhighlighter extends Horde_Mime_Viewer_Base
         case 'text/x-java':
             return 'java';
 
-        case 'text/x-pascal':
-            return 'pascal';
-
         case 'text/x-sql':
             return 'sql';
-
-        case 'application/x-extension-bat':
-            return 'batch';
 
         case 'application/x-extension-cs':
             return 'csharp';
@@ -161,31 +154,25 @@ class Horde_Mime_Viewer_Syntaxhighlighter extends Horde_Mime_Viewer_Base
     protected function _languageToBrush($language)
     {
         switch ($language) {
-        case 'php':
-            return 'Php';
-
-        case 'xml':
-        case 'html':
-        case 'xhtml':
-        case 'xslt':
-            return 'Xml';
-
         case 'bash':
         case 'sh':
         case 'shell':
             return 'Bash';
 
-        case 'diff':
-        case 'patch':
-        case 'pas':
-            return 'Diff';
-
-        case 'css':
-            return 'Css';
+        case 'csharp':
+            return 'Csharp';
 
         case 'c':
         case 'cpp':
             return 'Cpp';
+
+        case 'css':
+            return 'Css';
+
+        case 'diff':
+        case 'patch':
+        case 'pas':
+            return 'Diff';
 
         case 'java':
             return 'Java';
@@ -194,6 +181,30 @@ class Horde_Mime_Viewer_Syntaxhighlighter extends Horde_Mime_Viewer_Base
         case 'jscript':
         case 'javascript':
             return 'JScript';
+
+        case 'perl':
+            return 'Perl';
+
+        case 'php':
+            return 'Php';
+
+        case 'python':
+            return 'Python';
+
+        case 'ruby':
+            return 'Ruby';
+
+        case 'sql':
+            return 'Sql';
+
+        case 'vb':
+            return 'Vb';
+
+        case 'xml':
+        case 'html':
+        case 'xhtml':
+        case 'xslt':
+            return 'Xml';
 
         default:
             return 'Plain';

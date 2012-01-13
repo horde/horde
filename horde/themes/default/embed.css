@@ -15,5 +15,5 @@ div.nicetitle {
 div.nicetitle pre {
     text-align: left;
     font-size: 75%;
-    font-family: Consolas,"Lucida Console",'DejaVu Sans Mono,monospace;
+    font-family: Consolas,"Lucida Console", "DejaVu Sans Mono",monospace;
 }

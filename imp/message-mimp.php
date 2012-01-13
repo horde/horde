@@ -8,7 +8,7 @@
  *   'mt' - (string) Message token
  *   'fullmsg' - (boolean) View full message?
  *
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -34,8 +34,6 @@ if (!$imp_mailbox->isValidIndex()) {
     IMP::$mailbox->url('mailbox-mimp.php')->add('a', 'm')->redirect();
 }
 
-$readonly = IMP::$mailbox->readonly;
-
 $imp_ui_mimp = $injector->getInstance('IMP_Ui_Mimp');
 $imp_hdr_ui = new IMP_Ui_Headers();
 $imp_ui = new IMP_Ui_Message();
@@ -54,7 +52,10 @@ case 'u':
     if ($vars->a == 'd') {
         try {
             $injector->getInstance('Horde_Token')->validate($vars->mt, 'imp.message-mimp');
-            $msg_delete = (bool)$imp_message->delete($imp_indices);
+            $msg_delete = (bool)$imp_message->delete(
+                $imp_indices,
+                array('mailboxob' => $imp_mailbox)
+            );
         } catch (Horde_Token_Exception $e) {
             $notification->push($e);
         }
@@ -68,7 +69,7 @@ case 'u':
 case 'rs':
 case 'ri':
     $msg_index = $imp_mailbox->getMessageIndex();
-    $msg_delete = (IMP_Spam::reportSpam(new IMP_Indices($imp_mailbox), $vars->a == 'rs' ? 'spam' : 'innocent', array('mailboxob' => $imp_mailbox)) === 1);
+    $msg_delete = (IMP_Spam::reportSpam(new IMP_Indices($imp_mailbox), $vars->a == 'rs' ? 'spam' : 'notspam', array('mailboxob' => $imp_mailbox)) === 1);
     break;
 
 // 'pa' = part action
@@ -102,16 +103,13 @@ try {
     $query = new Horde_Imap_Client_Fetch_Query();
     $query->flags();
     $flags_ret = $imp_imap->fetch($mailbox, $query, array(
-        'ids' => new Horde_Imap_Client_Ids($uid)
+        'ids' => $imp_imap->getIdsOb($uid)
     ));
 
     $query = new Horde_Imap_Client_Fetch_Query();
     $query->envelope();
-    $query->headerText(array(
-        'peek' => $readonly
-    ));
     $fetch_ret = $imp_imap->fetch($mailbox, $query, array(
-        'ids' => new Horde_Imap_Client_Ids($uid)
+        'ids' => $imp_imap->getIdsOb($uid)
     ));
 } catch (IMP_Imap_Exception $e) {
     $mailbox->url('mailbox-mimp.php')->add('a', 'm')->redirect();
@@ -119,11 +117,11 @@ try {
 
 $envelope = $fetch_ret[$uid]->getEnvelope();
 $flags = $flags_ret[$uid]->getFlags();
-$mime_headers = $fetch_ret[$uid]->getHeaderText(0, Horde_Imap_Client_Data_Fetch::HEADER_PARSE);
 
 /* Parse the message. */
 try {
     $imp_contents = $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($imp_mailbox));
+    $mime_headers = $imp_contents->getHeaderAndMarkAsSeen();
 } catch (IMP_Exception $e) {
     $mailbox->url('mailbox-mimp.php')->add('a', 'm')->redirect();
 }
@@ -155,8 +153,8 @@ if (($vars->a == 'pa') &&
     } else {
         $title = _("View Attachment");
 
-        $data = $imp_contents->renderMIMEPart($vars->id, $imp_contents->canDisplay($vars->id, IMP_Contents::RENDER_INLINE | IMP_Contents::RENDER_INFO));
-        $t->set('view_data', $data ? $data : _("This part is empty."));
+        $data = $imp_contents->renderMIMEPart($vars->id, $imp_contents->canDisplay($vars->id, IMP_Contents::RENDER_INLINE));
+        $t->set('view_data', isset($data[$vars->id]) ? $data[$vars->id]['data'] : _("This part is empty."));
     }
 
     $t->set('self_link', $self_link);
@@ -343,7 +341,7 @@ foreach ($inlineout['atc_parts'] as $key) {
             : $summary['download'];
     }
 
-    if ($imp_contents->canDisplay($key, IMP_Contents::RENDER_INLINE_AUTO)) {
+    if ($imp_contents->canDisplay($key, IMP_Contents::RENDER_INLINE)) {
         $tmp['view'] = $self_link->copy()->add(array('a' => 'pa', 'id' => $key));
     }
 

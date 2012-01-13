@@ -3,7 +3,7 @@
  <name>Horde_Test</name>
  <channel>pear.horde.org</channel>
  <summary>Horde testing base classes</summary>
- <description>The Horde_Test library provides Horde-specific PHPUnit base classes.</description>
+ <description>Horde-specific PHPUnit base classes.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -16,11 +16,11 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-08</date>
- <time>08:15:26</time>
+ <date>2011-12-13</date>
+ <time>12:07:00</time>
  <version>
-  <release>1.2.0</release>
-  <api>1.2.0</api>
+  <release>1.3.1</release>
+  <api>1.3.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [gwr] Add Horde_Test_Setup for complex test suite setups.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -43,6 +43,8 @@
     <dir name="Horde">
      <dir name="Test">
       <dir name="Factory">
+       <file name="Alarm.php" role="php" />
+       <file name="Cache.php" role="php" />
        <file name="Db.php" role="php" />
        <file name="Group.php" role="php" />
        <file name="History.php" role="php" />
@@ -50,10 +52,12 @@
        <file name="Perms.php" role="php" />
        <file name="Prefs.php" role="php" />
        <file name="Registry.php" role="php" />
+       <file name="Session.php" role="php" />
        <file name="Share.php" role="php" />
       </dir> <!-- /lib/Horde/Test/Factory -->
       <dir name="Stub">
        <file name="Cli.php" role="php" />
+       <file name="Factory.php" role="php" />
        <file name="Parser.php" role="php" />
        <file name="Registry.php" role="php" />
       </dir> <!-- //lib/Horde/Test/Stub -->
@@ -130,6 +134,8 @@
    <install as="Horde/Test/Functional.php" name="lib/Horde/Test/Functional.php" />
    <install as="Horde/Test/Log.php" name="lib/Horde/Test/Log.php" />
    <install as="Horde/Test/Setup.php" name="lib/Horde/Test/Setup.php" />
+   <install as="Horde/Test/Factory/Alarm.php" name="lib/Horde/Test/Factory/Alarm.php" />
+   <install as="Horde/Test/Factory/Cache.php" name="lib/Horde/Test/Factory/Cache.php" />
    <install as="Horde/Test/Factory/Db.php" name="lib/Horde/Test/Factory/Db.php" />
    <install as="Horde/Test/Factory/Group.php" name="lib/Horde/Test/Factory/Group.php" />
    <install as="Horde/Test/Factory/History.php" name="lib/Horde/Test/Factory/History.php" />
@@ -137,8 +143,10 @@
    <install as="Horde/Test/Factory/Perms.php" name="lib/Horde/Test/Factory/Perms.php" />
    <install as="Horde/Test/Factory/Prefs.php" name="lib/Horde/Test/Factory/Prefs.php" />
    <install as="Horde/Test/Factory/Registry.php" name="lib/Horde/Test/Factory/Registry.php" />
+   <install as="Horde/Test/Factory/Session.php" name="lib/Horde/Test/Factory/Session.php" />
    <install as="Horde/Test/Factory/Share.php" name="lib/Horde/Test/Factory/Share.php" />
    <install as="Horde/Test/Stub/Cli.php" name="lib/Horde/Test/Stub/Cli.php" />
+   <install as="Horde/Test/Stub/Factory.php" name="lib/Horde/Test/Stub/Factory.php" />
    <install as="Horde/Test/Stub/Parser.php" name="lib/Horde/Test/Stub/Parser.php" />
    <install as="Horde/Test/Stub/Registry.php" name="lib/Horde/Test/Stub/Registry.php" />
   </filelist>
@@ -267,10 +275,51 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-08</date>
+   <date>2011-10-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [gwr] Added Horde_Test_Stub_Factory as a simple factory stub.
 * [gwr] Add Horde_Test_Setup for complex test suite setups.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.1</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-08</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Require PHPUnit 3.5 due to BC breaking changes in 3.6.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.3.0</release>
+    <api>1.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-13</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [gwr] Added Alarm, Cache, and Session stub factories
+* [gwr] Fix autoloading to work with PHPUnit-3.6.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.3.1</release>
+    <api>1.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-13</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

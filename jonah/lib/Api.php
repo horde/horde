@@ -5,7 +5,7 @@
  * This file defines Jonah's external API interface. Other
  * applications can interact with Jonah through this API.
  *
- * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did not
  * did not receive this file, see http://cvs.horde.org/co.php/jonah/LICENSE.
@@ -200,6 +200,8 @@ class Jonah_Api extends Horde_Registry_Api
      *      'view_url' - The URL to view this resource.
      *      'app'      - The Horde application this resource belongs to.
      *    </pre>
+     *
+     * @TODO Refactor to match the other application's searchTags API signature.
      */
     public function searchTags($names, $filter = array(), $raw = false)
     {

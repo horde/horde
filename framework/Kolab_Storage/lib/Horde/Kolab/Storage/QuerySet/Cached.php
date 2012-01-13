@@ -14,7 +14,7 @@
 /**
  * Adds a set of cached queries to the list handlers.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -55,11 +55,10 @@ extends Horde_Kolab_Storage_QuerySet_Base
      * @param array                       $params  Optional parameters.
      * @param Horde_Kolab_Storage_Cache   $cache   The cache.
      */
-    public function __construct(
-        Horde_Kolab_Storage_Factory $factory,
-        array $params = array(),
-        Horde_Kolab_Storage_Cache $cache
-    ) {
+    public function __construct(Horde_Kolab_Storage_Factory $factory,
+                                array $params = array(),
+                                Horde_Kolab_Storage_Cache $cache = null)
+    {
         parent::__construct($factory, $params);
         $this->_cache = $cache;
     }
@@ -71,7 +70,8 @@ extends Horde_Kolab_Storage_QuerySet_Base
      *
      * @return array The parameters for list queries.
      */
-    protected function _getListQueryParameters(Horde_Kolab_Storage_List $list) {
+    protected function _getListQueryParameters(Horde_Kolab_Storage_List $list)
+    {
         return array(
             'cache' => $this->_cache->getListCache(
                 $list->getIdParameters()
@@ -86,7 +86,8 @@ extends Horde_Kolab_Storage_QuerySet_Base
      *
      * @return array The parameters for data queries.
      */
-    protected function _getDataQueryParameters(Horde_Kolab_Storage_Data $data) {
+    protected function _getDataQueryParameters(Horde_Kolab_Storage_Data $data)
+    {
         return array(
             'cache' => $this->_cache->getDataCache(
                 $data->getIdParameters()

@@ -1,0 +1,508 @@
+{
+    "response": {
+        "version": "0.1"
+        ,"termsofService": "http://www.wunderground.com/weather/api/d/terms.html"
+        ,"features": {
+        "geolookup": 1
+        ,
+        "conditions": 1
+        ,
+        "forecast": 1
+        ,
+        "astronomy": 1
+        }
+    }
+        ,   "location": {
+        "type":"CITY",
+        "country":"US",
+        "country_iso3166":"US",
+        "country_name":"USA",
+        "state":"MA",
+        "city":"Boston",
+        "tz_short":"EST",
+        "tz_long":"America/New_York",
+        "lat":"42.37046814",
+        "lon":"-71.02747345",
+        "zip":"02101",
+        "magic":"1",
+        "wmo":"99999",
+        "l":"/q/zmw:02101.1.99999",
+        "requesturl":"US/MA/Boston.html",
+        "wuiurl":"http://www.wunderground.com/US/MA/Boston.html",
+        "nearby_weather_stations": {
+        "airport": {
+        "station": [
+        { "city":"Boston", "state":"MA", "country":"US", "icao":"KBOS", "lat":"42.36000061", "lon":"-71.00000000" },
+        { "city":"East Milton", "state":"MA", "country":"US", "icao":"KMQE", "lat":"42.20999908", "lon":"-71.11000061" },
+        { "city":"Norwood", "state":"MA", "country":"US", "icao":"KOWD", "lat":"42.18999863", "lon":"-71.16999817" },
+        { "city":"Bedford", "state":"MA", "country":"US", "icao":"KBED", "lat":"42.47000122", "lon":"-71.29000092" }
+        ]
+        }
+        ,
+        "pws": {
+        "station": [
+        { "neighborhood":"Winthrop Beach", "city":"Winthrop", "state":"MA", "country":"US", "id":"KMAWINTH1", "distance_km":4, "distance_mi":2 },
+        { "neighborhood":"boston - washington street", "city":"Boston", "state":"MA", "country":"US", "id":"KMABOSTO22", "distance_km":4, "distance_mi":2 },
+        { "neighborhood":"MIT (Green Bld Roof)", "city":"Cambridge", "state":"MA", "country":"US", "id":"KMACAMBR9", "distance_km":5, "distance_mi":3 },
+        { "neighborhood":"Inman Square", "city":"Somerville", "state":"MA", "country":"US", "id":"KMASOMER8", "distance_km":6, "distance_mi":3 },
+        { "neighborhood":"Central Square", "city":"Cambridge", "state":"MA", "country":"US", "id":"KMACAMBR4", "distance_km":6, "distance_mi":3 },
+        { "neighborhood":"Malden West", "city":"Malden", "state":"MA", "country":"US", "id":"KMAMALDE3", "distance_km":7, "distance_mi":4 },
+        { "neighborhood":"David B\u0027s Weather", "city":"Malden", "state":"MA", "country":"US", "id":"KMAMALDE5", "distance_km":7, "distance_mi":4 },
+        { "neighborhood":"PAPA\u0027S PLACE", "city":"MALDEN", "state":"MA", "country":"US", "id":"KMAMALDE1", "distance_km":7, "distance_mi":4 },
+        { "neighborhood":"Fields Corner", "city":"Dorchester", "state":"MA", "country":"US", "id":"KMADORCH2", "distance_km":8, "distance_mi":4 },
+        { "neighborhood":"Porter Square", "city":"Cambridge", "state":"MA", "country":"US", "id":"KMACAMBR14", "distance_km":8, "distance_mi":4 },
+        { "neighborhood":"Emerson St. Across from Police Station", "city":"Medford", "state":"MA", "country":"US", "id":"KMAMEDFO4", "distance_km":8, "distance_mi":5 },
+        { "neighborhood":"Near Wyoming Cemetery", "city":"Melrose", "state":"MA", "country":"US", "id":"KMAMELRO3", "distance_km":8, "distance_mi":5 },
+        { "neighborhood":"North Cambridge", "city":"Cambridge", "state":"MA", "country":"US", "id":"KMACAMBR15", "distance_km":8, "distance_mi":5 },
+        { "neighborhood":"Bass Point", "city":"Nahant", "state":"MA", "country":"US", "id":"KMANAHAN2", "distance_km":9, "distance_mi":5 },
+        { "neighborhood":"Lawrence Estates", "city":"Medford", "state":"MA", "country":"US", "id":"KMAMEDFO6", "distance_km":9, "distance_mi":5 },
+        { "neighborhood":"East Arlington", "city":"Arlington", "state":"MA", "country":"US", "id":"KMAARLIN4", "distance_km":9, "distance_mi":5 },
+        { "neighborhood":"Mount Auburn Cemetery", "city":"Watertown", "state":"MA", "country":"US", "id":"KMAWATER3", "distance_km":10, "distance_mi":6 },
+        { "neighborhood":"East Side Melrose", "city":"Melrose", "state":"MA", "country":"US", "id":"KMAMELRO1", "distance_km":10, "distance_mi":6 },
+        { "neighborhood":"East Arlington 2", "city":"Arlington", "state":"MA", "country":"US", "id":"KMAARLIN5", "distance_km":10, "distance_mi":6 },
+        { "neighborhood":"Houghs Neck", "city":"Quincy", "state":"MA", "country":"US", "id":"KMAQUINC9", "distance_km":13, "distance_mi":7 },
+        { "neighborhood":"Chestnut Hill", "city":"Chestnut Hill", "state":"MA", "country":"US", "id":"KMACHEST3", "distance_km":13, "distance_mi":7 },
+        { "neighborhood":"Allerton Hill", "city":"Hull", "state":"MA", "country":"US", "id":"KMAHULL1", "distance_km":13, "distance_mi":8 },
+        { "neighborhood":"Arlington Heights - Turkey Hill", "city":"ARLINGTON", "state":"MA", "country":"US", "id":"KMAARLIN3", "distance_km":13, "distance_mi":8 },
+        { "neighborhood":"", "city":"Quincy", "state":"MA", "country":"US", "id":"KMAQUINC2", "distance_km":13, "distance_mi":8 },
+        { "neighborhood":"APRSWXNET Swampscott MA US", "city":"Swampscott", "state":"MA", "country":"US", "id":"MD2257", "distance_km":14, "distance_mi":8 },
+        { "neighborhood":"APRSWXNET Boston MA US", "city":"Quincy", "state":"MA", "country":"US", "id":"MC1378", "distance_km":15, "distance_mi":9 },
+        { "neighborhood":"Buchanan Circle", "city":"Lynn", "state":"MA", "country":"US", "id":"KMALYNN6", "distance_km":15, "distance_mi":9 },
+        { "neighborhood":"", "city":"Quincy", "state":"MA", "country":"US", "id":"KMAQUINC10", "distance_km":15, "distance_mi":9 },
+        { "neighborhood":"", "city":"Newton Highlands", "state":"MA", "country":"US", "id":"KMANEWTO4", "distance_km":15, "distance_mi":9 },
+        { "neighborhood":"The Great Meadow", "city":"Lexington", "state":"MA", "country":"US", "id":"KMALEXIN3", "distance_km":16, "distance_mi":9 },
+        { "neighborhood":"", "city":"Waltham", "state":"MA", "country":"US", "id":"KMAWALTH6", "distance_km":16, "distance_mi":9 },
+        { "neighborhood":"Waban/NewtonHighlands", "city":"Waban", "state":"MA", "country":"US", "id":"KMAWABAN2", "distance_km":16, "distance_mi":10 },
+        { "neighborhood":"South Waltham", "city":"Waltham", "state":"MA", "country":"US", "id":"KMAWALTH9", "distance_km":16, "distance_mi":10 }
+        ]
+        }
+        }
+    }
+        ,   "current_observation": {
+        "image": {
+        "url":"http://icons-ak.wxug.com/graphics/wu2/logo_130x80.png",
+        "title":"Weather Underground",
+        "link":"http://www.wunderground.com"
+        },
+        "display_location": {
+        "full":"Boston, MA",
+        "city":"Boston",
+        "state":"MA",
+        "state_name":"Massachusetts",
+        "country":"US",
+        "country_iso3166":"US",
+        "zip":"02101",
+        "latitude":"42.37046814",
+        "longitude":"-71.02747345",
+        "elevation":"6.00000000"
+        },
+        "observation_location": {
+        "full":"Winthrop Beach, Winthrop, Massachusetts",
+        "city":"Winthrop Beach, Winthrop",
+        "state":"Massachusetts",
+        "country":"US",
+        "country_iso3166":"US",
+        "latitude":"42.377106",
+        "longitude":"-70.973625",
+        "elevation":"30 ft"
+        },
+        "estimated": {
+        },
+        "station_id":"KMAWINTH1",
+        "observation_time":"Last Updated on November 27, 11:10 PM EST",
+        "observation_time_rfc822":"Sun, 27 Nov 2011 23:10:25 -0500",
+        "observation_epoch":"1322453425",
+        "local_time_rfc822":"Sun, 27 Nov 2011 23:11:11 -0500",
+        "local_epoch":"1322453471",
+        "local_tz_short":"EST",
+        "local_tz_long":"America/New_York",
+        "weather":"Mostly Cloudy",
+        "temperature_string":"53.9 F (12.2 C)",
+        "temp_f":53.9,
+        "temp_c":12.2,
+        "relative_humidity":"90%",
+        "wind_string":"From the WSW at 8.0 MPH Gusting to 13.0 MPH",
+        "wind_dir":"WSW",
+        "wind_degrees":237,
+        "wind_mph":8.0,
+        "wind_gust_mph":"13.0",
+        "pressure_mb":"1019.2",
+        "pressure_in":"30.10",
+        "pressure_trend":"-",
+        "dewpoint_string":"51 F (11 C)",
+        "dewpoint_f":51,
+        "dewpoint_c":11,
+        "heat_index_string":"NA",
+        "heat_index_f":"NA",
+        "heat_index_c":"NA",
+        "windchill_string":"NA",
+        "windchill_f":"NA",
+        "windchill_c":"NA",
+        "visibility_mi":"10.0",
+        "visibility_km":"16.1",
+        "precip_1hr_string":"0.00 in ( 0 mm)",
+        "precip_1hr_in":"0.00",
+        "precip_1hr_metric":" 0",
+        "precip_today_string":"0.00 in (0 mm)",
+        "precip_today_in":"0.00",
+        "precip_today_metric":"0",
+        "icon":"mostlycloudy",
+        "icon_url":"http://icons-ak.wxug.com/i/c/k/nt_mostlycloudy.gif",
+        "forecast_url":"http://www.wunderground.com/US/MA/Boston.html",
+        "history_url":"http://www.wunderground.com/history/airport/KMAWINTH1/2011/11/27/DailyHistory.html",
+        "ob_url":"http://www.wunderground.com/cgi-bin/findweather/getForecast?query=42.377106,-70.973625"
+    }
+        ,
+    "forecast":{
+        "txt_forecast": {
+        "date":"10:15 PM EST",
+        "forecastday": [
+        {
+        "period":1,
+        "icon":"nt_cloudy",
+        "icon_url":"http://icons-ak.wxug.com/i/c/k/nt_cloudy.gif",
+        "title":"Overnight",
+        "fcttext":"Mostly cloudy. Areas of fog. Not as cool. Near steady temperature around 50. Southwest winds 10 to 15 mph. Gusts up to 25 mph. "
+        },
+        {
+        "period":2,
+        "icon":"partlysunny",
+        "icon_url":"http://icons-ak.wxug.com/i/c/k/partlysunny.gif",
+        "title":"Monday",
+        "fcttext":"Partly sunny. Areas of fog in the morning. Highs in the lower 60s. Southwest winds 10 to 15 mph with gusts up to 25 mph. "
+        },
+        {
+        "period":3,
+        "icon":"nt_cloudy",
+        "icon_url":"http://icons-ak.wxug.com/i/c/k/nt_cloudy.gif",
+        "title":"Monday Night",
+        "fcttext":"Mostly cloudy. Areas of fog after midnight. Visibility one quarter mile or less at times after midnight. Lows in the upper 40s. Southwest winds 5 to 10 mph. "
+        },
+        {
+        "period":4,
+        "icon":"chancerain",
+        "icon_url":"http://icons-ak.wxug.com/i/c/k/chancerain.gif",
+        "title":"Tuesday",
+        "fcttext":"Mostly cloudy with a 40 percent chance of showers. Areas of fog. Visibility one quarter mile or less at times. Highs in the lower 60s. South winds 5 to 10 mph...becoming southeast with gusts up to 20 mph in the afternoon. "
+        },
+        {
+        "period":5,
+        "icon":"nt_rain",
+        "icon_url":"http://icons-ak.wxug.com/i/c/k/nt_rain.gif",
+        "title":"Tuesday Night",
+        "fcttext":"Showers. Lows in the upper 40s. Southeast winds 10 to 15 mph with gusts up to 25 mph. Chance of rain 90 percent. "
+        }
+        ]
+        },
+        "simpleforecast": {
+        "forecastday": [
+        {"date":{
+    "epoch":"1322449240",
+    "pretty":"10:00 PM EST on November 27, 2011",
+    "day":27,
+    "month":11,
+    "year":2011,
+    "yday":330,
+    "hour":22,
+    "min":"00",
+    "sec":40,
+    "isdst":"0",
+    "monthname":"November",
+    "weekday_short":"Sun",
+    "weekday":"Sunday",
+    "ampm":"PM",
+    "tz_short":"EST",
+    "tz_long":"America/New_York"
+},
+        "period":1,
+        "high": {
+        "fahrenheit":"58",
+        "celsius":"14"
+        },
+        "low": {
+        "fahrenheit":"50",
+        "celsius":"10"
+        },
+        "conditions":"Partly Cloudy",
+        "icon":"partlycloudy",
+        "icon_url":"http://icons-ak.wxug.com/i/c/k/partlycloudy.gif",
+        "skyicon":"partlycloudy",
+        "pop":0,
+        "qpf_allday": {"in": 0.63, "mm": 16},
+        "snow_allday": {"in": 0, "cm": 0},
+        "maxwind": {
+        "mph": 11,
+        "kph": 18,
+        "dir": "SW",
+        "degrees": 220
+        },
+        "avewind": {
+        "mph": 8,
+        "kph": 13,
+        "dir": "South",
+        "degrees": 187
+        },
+        "avehumidity": 75,
+        "maxhumidity": 80,
+        "minhumidity": 61
+        },
+        {"date":{
+    "epoch":"1322535640",
+    "pretty":"10:00 PM EST on November 28, 2011",
+    "day":28,
+    "month":11,
+    "year":2011,
+    "yday":331,
+    "hour":22,
+    "min":"00",
+    "sec":40,
+    "isdst":"0",
+    "monthname":"November",
+    "weekday_short":"Mon",
+    "weekday":"Monday",
+    "ampm":"PM",
+    "tz_short":"EST",
+    "tz_long":"America/New_York"
+},
+        "period":2,
+        "high": {
+        "fahrenheit":"63",
+        "celsius":"17"
+        },
+        "low": {
+        "fahrenheit":"49",
+        "celsius":"9"
+        },
+        "conditions":"Partly Cloudy",
+        "icon":"partlycloudy",
+        "icon_url":"http://icons-ak.wxug.com/i/c/k/partlycloudy.gif",
+        "skyicon":"partlycloudy",
+        "pop":0,
+        "maxwind": {
+        "mph": 12,
+        "kph": 19,
+        "dir": "SW",
+        "degrees": 230
+        },
+        "avewind": {
+        "mph": 7,
+        "kph": 11,
+        "dir": "SW",
+        "degrees": 217
+        },
+        "avehumidity": 78,
+        "maxhumidity": 85,
+        "minhumidity": 62
+        },
+        {"date":{
+    "epoch":"1322622040",
+    "pretty":"10:00 PM EST on November 29, 2011",
+    "day":29,
+    "month":11,
+    "year":2011,
+    "yday":332,
+    "hour":22,
+    "min":"00",
+    "sec":40,
+    "isdst":"0",
+    "monthname":"November",
+    "weekday_short":"Tue",
+    "weekday":"Tuesday",
+    "ampm":"PM",
+    "tz_short":"EST",
+    "tz_long":"America/New_York"
+},
+        "period":3,
+        "high": {
+        "fahrenheit":"61",
+        "celsius":"16"
+        },
+        "low": {
+        "fahrenheit":"47",
+        "celsius":"8"
+        },
+        "conditions":"Chance of Rain",
+        "icon":"chancerain",
+        "icon_url":"http://icons-ak.wxug.com/i/c/k/chancerain.gif",
+        "skyicon":"mostlycloudy",
+        "pop":50,
+        "maxwind": {
+        "mph": 6,
+        "kph": 10,
+        "dir": "SSE",
+        "degrees": 150
+        },
+        "avewind": {
+        "mph": 5,
+        "kph": 8,
+        "dir": "South",
+        "degrees": 171
+        },
+        "avehumidity": 89,
+        "maxhumidity": 96,
+        "minhumidity": 77
+        },
+        {"date":{
+    "epoch":"1322697640",
+    "pretty":"7:00 PM EST on November 30, 2011",
+    "day":30,
+    "month":11,
+    "year":2011,
+    "yday":333,
+    "hour":19,
+    "min":"00",
+    "sec":40,
+    "isdst":"0",
+    "monthname":"November",
+    "weekday_short":"Wed",
+    "weekday":"Wednesday",
+    "ampm":"PM",
+    "tz_short":"EST",
+    "tz_long":"America/New_York"
+},
+        "period":4,
+        "high": {
+        "fahrenheit":"56",
+        "celsius":"13"
+        },
+        "low": {
+        "fahrenheit":"38",
+        "celsius":"3"
+        },
+        "conditions":"Chance of Rain",
+        "icon":"chancerain",
+        "icon_url":"http://icons-ak.wxug.com/i/c/k/chancerain.gif",
+        "skyicon":"partlycloudy",
+        "pop":50,
+        "maxwind": {
+        "mph": 8,
+        "kph": 13,
+        "dir": "SSW",
+        "degrees": 210
+        },
+        "avewind": {
+        "mph": 5,
+        "kph": 8,
+        "dir": "WSW",
+        "degrees": 255
+        },
+        "avehumidity": 68,
+        "maxhumidity": 99,
+        "minhumidity": 58
+        },
+        {"date":{
+    "epoch":"1322784040",
+    "pretty":"7:00 PM EST on December 01, 2011",
+    "day":1,
+    "month":12,
+    "year":2011,
+    "yday":334,
+    "hour":19,
+    "min":"00",
+    "sec":40,
+    "isdst":"0",
+    "monthname":"December",
+    "weekday_short":"Thu",
+    "weekday":"Thursday",
+    "ampm":"PM",
+    "tz_short":"EST",
+    "tz_long":"America/New_York"
+},
+        "period":5,
+        "high": {
+        "fahrenheit":"52",
+        "celsius":"11"
+        },
+        "low": {
+        "fahrenheit":"34",
+        "celsius":"1"
+        },
+        "conditions":"Partly Cloudy",
+        "icon":"partlycloudy",
+        "icon_url":"http://icons-ak.wxug.com/i/c/k/partlycloudy.gif",
+        "skyicon":"partlycloudy",
+        "pop":10,
+        "maxwind": {
+        "mph": 6,
+        "kph": 10,
+        "dir": "NNW",
+        "degrees": 340
+        },
+        "avewind": {
+        "mph": 6,
+        "kph": 10,
+        "dir": "NNW",
+        "degrees": 340
+        },
+        "avehumidity": 67,
+        "maxhumidity": 78,
+        "minhumidity": 54
+        },
+        {"date":{
+    "epoch":"1322870440",
+    "pretty":"7:00 PM EST on December 02, 2011",
+    "day":2,
+    "month":12,
+    "year":2011,
+    "yday":335,
+    "hour":19,
+    "min":"00",
+    "sec":40,
+    "isdst":"0",
+    "monthname":"December",
+    "weekday_short":"Fri",
+    "weekday":"Friday",
+    "ampm":"PM",
+    "tz_short":"EST",
+    "tz_long":"America/New_York"
+},
+        "period":6,
+        "high": {
+        "fahrenheit":"50",
+        "celsius":"10"
+        },
+        "low": {
+        "fahrenheit":"34",
+        "celsius":"1"
+        },
+        "conditions":"Chance of Snow",
+        "icon":"chancesnow",
+        "icon_url":"http://icons-ak.wxug.com/i/c/k/chancesnow.gif",
+        "skyicon":"partlycloudy",
+        "pop":20,
+        "maxwind": {
+        "mph": 8,
+        "kph": 13,
+        "dir": "NW",
+        "degrees": 310
+        },
+        "avewind": {
+        "mph": 7,
+        "kph": 11,
+        "dir": "NW",
+        "degrees": 315
+        },
+        "avehumidity": 67,
+        "maxhumidity": 79,
+        "minhumidity": 54
+        }
+        ]
+        }
+    }
+        ,   "moon_phase": {
+        "percentIlluminated":"11",
+        "ageOfMoon":"3",
+        "current_time": {
+        "hour":"23",
+        "minute":"11"
+        },
+        "sunset": {
+        "hour":"16",
+        "minute":"14"
+        },
+        "sunrise": {
+        "hour":"6",
+        "minute":"48"
+        }
+    }
+}

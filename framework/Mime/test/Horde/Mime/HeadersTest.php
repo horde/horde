@@ -2,9 +2,9 @@
 /**
  * Tests for the Horde_Mime_Headers class.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
- * @author     Michael Slusarz <slusarz@curecanti.org>
+ * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package    Mime
@@ -17,7 +17,7 @@
 require_once dirname(__FILE__) . '/Autoload.php';
 
 /**
- * @author     Michael Slusarz <slusarz@curecanti.org>
+ * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package    Mime
@@ -56,6 +56,19 @@ class Horde_Mime_HeadersTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             'Versión',
+            $hdrs->getValue('Test')
+        );
+    }
+
+    public function testHeaderAutoDetectCharset()
+    {
+        $hdrs = Horde_Mime_Headers::parseHeaders(
+            // This string is in Windows-1252
+            'Test: ' . base64_decode('UnVubmVyc5IgQWxlcnQh=')
+        );
+
+        $this->assertEquals(
+            'Runners’ Alert!',
             $hdrs->getValue('Test')
         );
     }

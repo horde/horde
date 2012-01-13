@@ -1,8 +1,8 @@
 <?php
 /**
- * Horde_Vcs_Patchset_Git class.
+ * Git patchset class.
  *
- * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -11,7 +11,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Vcs
  */
-class Horde_Vcs_Patchset_Git extends Horde_Vcs_Patchset
+class Horde_Vcs_Patchset_Git extends Horde_Vcs_Patchset_Base
 {
     /**
      * Constructor
@@ -29,17 +29,18 @@ class Horde_Vcs_Patchset_Git extends Horde_Vcs_Patchset
         $revs = array();
 
         if (isset($opts['file'])) {
-            $ob = $rep->getFileObject($opts['file']);
-            $revs = $ob->queryLogs();
+            $ob = $rep->getFile($opts['file']);
+            $revs = $ob->getLog();
         } elseif (!empty($opts['range'])) {
             foreach ($opts['range'] as $val) {
                 /* Grab a filename in the patchset to get log info. */
-                $cmd = $rep->getCommand() . ' diff-tree --name-only -r ' . escapeshellarg($val);
-                exec($cmd, $output);
+                list($resource, $stream) = $rep->runCommand('diff-tree --name-only -r ' . escapeshellarg($val));
 
                 /* The first line is the SHA1 hash. */
-                $ob = $rep->getFileObject($output[1]);
-                $revs[$val] = $ob->queryLogs($val);
+                $ob = $rep->getFile(fgets($stream));
+                fclose($stream);
+                proc_close($resource);
+                $revs[$val] = $ob->getLog($val);
             }
         }
 
@@ -49,26 +50,26 @@ class Horde_Vcs_Patchset_Git extends Horde_Vcs_Patchset
                 continue;
             }
 
-            $this->_patchsets[$rev] = array(
-                'log' => $log,
-                'members' => array(),
+            $this->_patchsets[$rev] = array_merge(
+                $log->toHash(),
+                array('members' => array())
             );
 
-            foreach ($log->queryFiles() as $file) {
-                $from = $log->queryParent();
+            foreach ($log->getFiles() as $file) {
+                $from = $log->getParent();
                 $to = $rev;
 
                 switch ($file['status']) {
                 case 'A':
-                    $status = self::ADDED;
+                    $status = Horde_Vcs_Patchset::ADDED;
                     break;
 
                 case 'D':
-                    $status = self::DELETED;
+                    $status = Horde_Vcs_Patchset::DELETED;
                     break;
 
                 default:
-                    $status = self::MODIFIED;
+                    $status = Horde_Vcs_Patchset::MODIFIED;
                 }
 
                 $statinfo = isset($file['added'])

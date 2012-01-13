@@ -23,7 +23,7 @@
  *   - subfolder: (boolean) If set, search mailbox will default to subfolder
  *                search.
  *
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -339,7 +339,9 @@ if ($vars->criteria_form) {
     /* Redirect to the mailbox page. */
     if ($redirect_target) {
         if ($dimp_view && $redirect_dimp) {
-            IMP_Dimp::returnToDimp(strval($q_ob));
+            print '<html><head>' .
+                Horde::wrapInlineScript(array('window.parent.DimpBase.go("mbox", "' . $q_ob->mbox_ob->form_to . '")')) .
+                '</head></html>';
             exit;
         }
 
@@ -454,28 +456,14 @@ $t->set('flist', $flag_set);
 /* Generate master folder list. */
 $folder_list = array();
 if (!$t->get('edit_query_filter')) {
-    $imap_tree = $injector->getInstance('IMP_Imap_Tree');
-    $imap_tree->setIteratorFilter();
+    $js_vars['ImpSearch.allsearch'] = IMP_Mailbox::formTo(IMP_Search_Query::ALLSEARCH);
+    $ob = $injector->getInstance('IMP_Ui_Search')->getSearchMboxList();
+    $folder_list = $ob->folder_list;
+    $t->set('tree', $ob->tree->getTree());
 
-    $t2 = $injector->createInstance('Horde_Template');
-    $t2->setOption('gettext', true);
-    $t2->set('allsearch', IMP_Mailbox::formTo(IMP_Search_Query::ALLSEARCH));
-
-    $js_vars['ImpSearch.allsearch'] = $t2->get('allsearch');
-
-    $tree = $imap_tree->createTree('imp_search', array(
-        'render_params' => array(
-            'abbrev' => 0,
-            'container_select' => true,
-            'customhtml' => $t2->fetch(IMP_TEMPLATES . '/imp/search/search-all.html'),
-            'heading' => _("Add search folder:")
-        ),
-        'render_type' => 'IMP_Tree_Flist'
-    ));
-    $t->set('tree', $tree->getTree());
-
-    foreach ($imap_tree as $val) {
-        $folder_list[$val->form_to] = $val->display;
+    if ($prefs->getValue('subscribe')) {
+        $t->set('subscribe', true);
+        $js_vars['ImpSearch.ajaxurl'] = Horde::getServiceLink('ajax', 'imp')->url;
     }
 }
 
@@ -490,7 +478,7 @@ Horde::addInlineJsVars(array_merge($js_vars, array(
         'dimp' => $dimp_view,
         'folder_list' => $folder_list,
         'months' => Horde_Core_Ui_JsCalendar::months(),
-        'searchmbox' => strval($default_mailbox),
+        'searchmbox' => $default_mailbox->form_to,
         'types' => $types
     ),
     /* Gettext strings for this page. */

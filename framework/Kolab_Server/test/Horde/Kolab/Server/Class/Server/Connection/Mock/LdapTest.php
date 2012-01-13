@@ -19,7 +19,7 @@ require_once dirname(__FILE__) . '/../../../../LdapTestCase.php';
 /**
  * Test the test backend.
  *
- * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -368,6 +368,8 @@ extends Horde_Kolab_Server_LdapTestCase
 
     public function testMethodSearchHasResultMocksearchSingleElementIfNoFilterIsSetAndSearchScopeIsBase()
     {
+        $this->skipIfNoLdap();
+
         $conn = new Horde_Kolab_Server_Connection_Mock_Ldap(
             array(),
             array('test' =>
@@ -400,6 +402,8 @@ extends Horde_Kolab_Server_LdapTestCase
 
     public function testMethodSearchHasResultMocksearchEmptyIfNoFilterIsSetSearchScopeIsBaseAndTheSpecifiedBaseDoesNotExist()
     {
+        $this->skipIfNoLdap();
+
         $conn = new Horde_Kolab_Server_Connection_Mock_Ldap(
             array(),
             array()
@@ -414,6 +418,8 @@ extends Horde_Kolab_Server_LdapTestCase
 
     public function testMethodSearchHasResultMocksearchSingleElementIfNoFilterIsSetSearchScopeIsSubAndOnlyOneElementMatchesBase()
     {
+        $this->skipIfNoLdap();
+
         $conn = new Horde_Kolab_Server_Connection_Mock_Ldap(
             array(),
             array('test' =>
@@ -446,6 +452,8 @@ extends Horde_Kolab_Server_LdapTestCase
 
     public function testMethodSearchHasResultMocksearchWithMatchingElementsIfNoSearchScopeIsSet()
     {
+        $this->skipIfNoLdap();
+
         $conn = new Horde_Kolab_Server_Connection_Mock_Ldap(
             array(),
             array('test' =>
@@ -481,6 +489,8 @@ extends Horde_Kolab_Server_LdapTestCase
 
     public function testMethodSearchHasResultMocksearchWithSelectedAttributesIfSpecificAttributesWereSet()
     {
+        $this->skipIfNoLdap();
+
         $conn = new Horde_Kolab_Server_Connection_Mock_Ldap(
             array(),
             array('test' =>

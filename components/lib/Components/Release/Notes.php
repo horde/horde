@@ -16,7 +16,7 @@
  * Components_Release_Notes:: deals with the information associated to a
  * release.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -75,7 +75,7 @@ class Components_Release_Notes
             if (isset($this->notes['fm']['changes']) &&
                 strlen($this->notes['fm']['changes']) > 600) {
                 $this->_output->warn(
-                    'freshmeat release notes are longer than 600 characters!'
+                    'freecode release notes are longer than 600 characters!'
                 );
             }
         }
@@ -157,7 +157,7 @@ class Components_Release_Notes
     }
 
     /**
-     * Return the freshmeat project name.
+     * Return the freecode project name.
      *
      * @return string The project name.
      */
@@ -170,7 +170,7 @@ class Components_Release_Notes
     }
 
     /**
-     * Return the freshmeat change log.
+     * Return the freecode change log.
      *
      * @return string The change log.
      */
@@ -189,15 +189,15 @@ class Components_Release_Notes
      */
     public function hasNotes()
     {
-        return !empty($this->notes);
+        return !empty($this->notes['ml']);
     }
 
     /**
-     * Does the current component come with freshmeat information?
+     * Does the current component come with freecode information?
      *
-     * @return boolean True if freshmeat information is available.
+     * @return boolean True if freecode information is available.
      */
-    public function hasFreshmeat()
+    public function hasFreecode()
     {
         return !empty($this->notes['fm']);
     }

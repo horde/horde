@@ -2,9 +2,9 @@
 /**
  * Tests for the Horde_Mime_Part class.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
- * @author     Michael Slusarz <slusarz@curecanti.org>
+ * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package    Mime
@@ -17,7 +17,7 @@
 require_once dirname(__FILE__) . '/Autoload.php';
 
 /**
- * @author     Michael Slusarz <slusarz@curecanti.org>
+ * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package    Mime
@@ -75,13 +75,13 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
         );
 
         $this->assertEquals(
-            "Test text.\n\n",
+            "Test text.\r\n\r\n",
             Horde_Mime_Part::getRawPartText($msg, 'body', '2.1')
         );
 
         $this->assertEquals(
-            "Content-Type: image/png; name=index.png\n" .
-            "Content-Disposition: attachment; filename=index.png\n" .
+            "Content-Type: image/png; name=index.png\r\n" .
+            "Content-Disposition: attachment; filename=index.png\r\n" .
             'Content-Transfer-Encoding: base64',
             Horde_Mime_Part::getRawPartText($msg, 'header', '3')
         );

@@ -3,7 +3,7 @@
  <name>Horde_Image</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Image API</summary>
- <description>This package provides an Image utility API, with backends for:
+ <description>An Image utility API, with backends for:
 * GD
 * GIF
 * PNG
@@ -23,10 +23,10 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-27</date>
- <time>16:26:53</time>
+ <date>2011-12-06</date>
+ <time>11:16:24</time>
  <version>
-  <release>1.0.5</release>
+  <release>1.0.10</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -35,10 +35,18 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-*
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Image">
+      <file name="COPYING" role="doc" />
+      <file name="COPYING-EXIF" role="doc" />
+     </dir> <!-- /doc/Horde/Image -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Image">
@@ -372,6 +380,22 @@
     <file name="Horde_Image.pot" role="data" />
    </dir> <!-- /locale -->
    <dir name="test">
+    <dir name="Horde">
+     <dir name="Image">
+      <dir name="Exif">
+       <file name="Base.php" role="test" />
+       <file name="BundledTest.php" role="test" />
+       <file name="ExiftoolTest.php" role="test" />
+       <file name="PhpTest.php" role="test" />
+      </dir> <!-- /test/Horde/Image/Exif -->
+      <dir name="Fixtures">
+       <file name="img_exif.jpg" role="test" />
+      </dir> <!-- /test/Horde/Image/Fixtures -->
+      <file name="AllTests.php" role="test" />
+      <file name="Autoload.php" role="test" />
+      <file name="conf.php.dist" role="test" />
+     </dir> <!-- /test/Horde/Image -->
+    </dir> <!-- /test/Horde -->
     <file name=".htaccess" role="test" />
     <file name="gd.php" role="test" />
     <file name="im.php" role="test" />
@@ -441,6 +465,8 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Image/COPYING" />
+   <install as="COPYING-EXIF" name="doc/Horde/Image/COPYING-EXIF" />
    <install as="Horde/Image.php" name="lib/Horde/Image.php" />
    <install as="Horde/Image/Base.php" name="lib/Horde/Image/Base.php" />
    <install as="Horde/Image/Effect.php" name="lib/Horde/Image/Effect.php" />
@@ -590,6 +616,14 @@
    <install as="svg.php" name="test/svg.php" />
    <install as="swf.php" name="test/swf.php" />
    <install as="two_page.tif.tiff" name="test/two_page.tif.tiff" />
+   <install as="Horde/Image/AllTests.php" name="test/Horde/Image/AllTests.php" />
+   <install as="Horde/Image/Autoload.php" name="test/Horde/Image/Autoload.php" />
+   <install as="Horde/Image/conf.php.dist" name="test/Horde/Image/conf.php.dist" />
+   <install as="Horde/Image/Exif/Base.php" name="test/Horde/Image/Exif/Base.php" />
+   <install as="Horde/Image/Exif/BundledTest.php" name="test/Horde/Image/Exif/BundledTest.php" />
+   <install as="Horde/Image/Exif/ExiftoolTest.php" name="test/Horde/Image/Exif/ExiftoolTest.php" />
+   <install as="Horde/Image/Exif/PhpTest.php" name="test/Horde/Image/Exif/PhpTest.php" />
+   <install as="Horde/Image/Fixtures/img_exif.jpg" name="test/Horde/Image/Fixtures/img_exif.jpg" />
   </filelist>
  </phprelease>
  <changelog>
@@ -743,10 +777,78 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-27</date>
+   <date>2011-10-15</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-*
+* [mjr] Added support for Lens and LensID EXIF fields)
+* [mjr] Ensure string values are parsed as strings (Bug #10646).
+* [mjr] Add basic unit tests for EXIF data
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.6</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-10-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Fix parsing GPS values for locales that do not use the decimal separator (Bug #10643).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.7</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-03</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Add a version of the convert command for center cropping with ImageMagick versions less than 6.3.8 (Bug #10687).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.8</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update Croatian translation.
+* [jan] Update Latvian translation.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.9</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.10</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

@@ -1,5 +1,5 @@
 # Latvian translations for Horde_Kolab_Cli package.
-# Copyright 2011 Horde LLC
+# Copyright 2011-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Kolab_Cli package.
 # Automatically generated, 2011.
 #
@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Horde_Kolab_Cli\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-05-18 12:23+0200\n"
-"PO-Revision-Date: 2011-07-20 14:32+0300\n"
+"PO-Revision-Date: 2011-10-16 15:21+0300\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: lv\n"
@@ -20,88 +20,6 @@ msgstr ""
 "X-Poedit-Language: Latvian\n"
 "X-Poedit-Country: LATVIA\n"
 "X-Poedit-SourceCharset: utf-8\n"
-
-#: lib/Horde/Kolab/Cli/Module/Data.php:38
-msgid ""
-"  data - Handle Kolab data (the default action is \"info\"). PATH refers to "
-"the path of the folder that holds the data and the optional TYPE argument "
-"indicates which data type should be read. This is usually already defined by "
-"the folder setting.\n"
-"\n"
-"  - info      PATH  : Display general information.\n"
-"  - stamp     PATH  : Display the folder status information.\n"
-"\n"
-"\n"
-msgstr ""
-
-#: lib/Horde/Kolab/Cli/Module/Folder.php:38
-msgid ""
-"  folder - Handle a single folder (the default action is \"show\")\n"
-"\n"
-"  - show      PATH         : Display information about the folder at PATH.\n"
-"  - create    PATH [TYPE]  : Create the folder PATH (with the optional type "
-"TYPE).\n"
-"  - delete    PATH         : Delete the folder PATH.\n"
-"  - rename    OLD NEW      : Rename the folder from OLD to NEW.\n"
-"  - getacl    PATH         : Get all ACL on the specified folder.\n"
-"  - getmyacl  PATH         : Get your ACL on the specified folder.\n"
-"  - setacl    PATH USER ACL: Set the ACL for the specified user on the "
-"folder.\n"
-"  - deleteacl PATH USER ACL: Delete the ACL for the specified user on the "
-"folder.\n"
-"  - getdesc   PATH         : Return the share description of the specified "
-"folder.\n"
-"  - setdesc   PATH DESC    : Set the share description of the specified "
-"folder to DESC.\n"
-"  - getshare  PATH         : Return the share parameters of the specified "
-"folder.\n"
-"\n"
-"\n"
-msgstr ""
-
-#: lib/Horde/Kolab/Cli/Module/Format.php:38
-msgid ""
-"  format - Handle the Kolab format (the default action is \"read\")\n"
-"\n"
-"  - read TYPE [FILE|FOLDER UID PART]: Read a Kolab format file of the "
-"specified\n"
-"                                      type. Specify either a direct file "
-"name\n"
-"                                      or a combination of an IMAP folder, a "
-"UID\n"
-"                                      within that folder and the specific "
-"part\n"
-"                                      that should be parsed.\n"
-"\n"
-"\n"
-msgstr ""
-
-#: lib/Horde/Kolab/Cli/Module/Ledger.php:40
-msgid ""
-"  ledger - Handle ledger data in a Kolab backend (the default action is "
-"\"display\").\n"
-"\n"
-"  - display            : Display all ledgers.\n"
-"  - import FOLDER FILE : Import ledger XML data stored in FILE into Kolab "
-"folder FOLDER.\n"
-"\n"
-msgstr ""
-
-#: lib/Horde/Kolab/Cli/Module/List.php:38
-msgid ""
-"  list - Handle folder lists (the default action is \"folders\")\n"
-"\n"
-"  - folders          : List the folders in the backend\n"
-"  - types            : Display all folders that have a folder type.\n"
-"  - type TYPE        : Display the folders of type TYPE.\n"
-"  - owners           : List all folders and their owners.\n"
-"  - defaults         : List the default folders for all users.\n"
-"  - aclsupport       : Display if the server supports ACL.\n"
-"  - namespace        : Display the server namespace information.\n"
-"  - sync             : Synchronize the cache.\n"
-"\n"
-"\n"
-msgstr ""
 
 #: lib/Horde/Kolab/Cli/Module/Format.php:142
 #, php-format
@@ -117,76 +35,10 @@ msgstr "%s nav lokāls fails!"
 msgid "Action %s not supported!"
 msgstr "Darbība %s nav atbalstīta!"
 
-#: lib/Horde/Kolab/Cli/Module/Base.php:150
-msgid ""
-"Activates the IMAP debug log. This will log the full IMAP communication - "
-"CAUTION: the \"php\" driver is the only driver variant that does not support "
-"this feature. For most drivers you should use \"STDOUT\" which will direct "
-"the debug log to your screen. For the horde, the horde-php, and the "
-"roundcube drivers you may also set this to a filename and the output will be "
-"directed there."
-msgstr ""
-
 #: lib/Horde/Kolab/Cli/Module/Base.php:134
 msgid "Deactivate caching of the IMAP data."
 msgstr "Atslēdziet IMAP datu kešošanu."
 
-#: lib/Horde/Kolab/Cli/Module/Base.php:118
-msgid ""
-"Produce time measurements to indicate how long the processing takes. You "
-"*must* activate logging for this as well."
-msgstr ""
-
-#: lib/Horde/Kolab/Cli/Module/Base.php:126
-msgid ""
-"Report memory consumption statistics. You *must* activate logging for this "
-"as well."
-msgstr ""
-
-#: lib/Horde/Kolab/Cli/Module/Base.php:110
-msgid "Sets the connection type. Use either \"tls\" or \"ssl\" here."
-msgstr ""
-
-#: lib/Horde/Kolab/Cli/Module/Base.php:59
-msgid ""
-"The Kolab backend driver that should be used.\n"
-"Choices are:\n"
-"\n"
-" - horde     [IMAP]: The Horde_Imap_Client driver as pure PHP "
-"implementation.\n"
-" - horde-php [IMAP]: The Horde_Imap_Client driver based on c-client in PHP\n"
-" - php       [IMAP]: The PHP imap_* functions which are based on c-client\n"
-" - pear      [IMAP]: The PEAR-Net_IMAP driver\n"
-" - roundcube [IMAP]: The roundcube IMAP driver\n"
-" - mock      [Mem.]: A dummy driver that uses memory."
-msgstr ""
-
 #: lib/Horde/Kolab/Cli/Module/Base.php:93
 msgid "The host that holds the data."
 msgstr "Datus saturošā stacija."
-
-#: lib/Horde/Kolab/Cli/Module/Base.php:85
-msgid "The password of the user accessing the backend."
-msgstr ""
-
-#: lib/Horde/Kolab/Cli/Module/Base.php:102
-msgid "The port that should be used to connect to the host."
-msgstr ""
-
-#: lib/Horde/Kolab/Cli/Module/Base.php:77
-msgid "The user accessing the backend."
-msgstr ""
-
-#: lib/Horde/Kolab/Cli/Module/Base.php:142
-msgid ""
-"Write a log file in the provided LOG location. Use \"STDOUT\" here to direct "
-"the log output to the screen."
-msgstr ""
-
-#: lib/Horde/Kolab/Cli.php:94
-msgid ""
-"[options] MODULE ACTION\n"
-"\n"
-"Possible MODULEs and ACTIONs:\n"
-"\n"
-msgstr ""

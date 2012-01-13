@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2007 Maintainable Software, LLC
- * Copyright 2006-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2006-2012 Horde LLC (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -348,6 +348,25 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
     {
         $this->_transactionStarted = true;
         $this->_connection->autocommit(false);
+    }
+
+    /**
+     * Commits the transaction (and turns on auto-committing).
+     */
+    public function commitDbTransaction()
+    {
+        parent::commitDbTransaction();
+        $this->_connection->autocommit(true);
+    }
+
+    /**
+     * Rolls back the transaction (and turns on auto-committing). Must be
+     * done if the transaction block raises an exception or returns false.
+     */
+    public function rollbackDbTransaction()
+    {
+        parent::rollbackDbTransaction();
+        $this->_connection->autocommit(true);
     }
 
 

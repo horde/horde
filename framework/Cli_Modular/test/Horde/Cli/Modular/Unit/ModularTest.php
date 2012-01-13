@@ -3,7 +3,7 @@
  * Test the module wrapper.
  *
  * PHP version 5
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -27,6 +27,16 @@ require_once dirname(__FILE__) . '/../Autoload.php';
 class Horde_Cli_Modular_Unit_ModularTest
 extends Horde_Cli_Modular_TestCase
 {
+    public function setUp()
+    {
+        $_SERVER['argv'] = array('test');
+    }
+
+    public function tearDown()
+    {
+        unset($_SERVER['argv']);
+    }
+
     public function testParser()
     {
         $modular = new Horde_Cli_Modular(

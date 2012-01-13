@@ -2,10 +2,10 @@
 /**
  * Rules script.
  *
- * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
- * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author Mike Cochrane <mike@graftonhall.co.nz>
  * @author Michael Slusarz <slusarz@horde.org>

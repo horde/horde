@@ -19,7 +19,7 @@ require_once dirname(__FILE__) . '/../../../../TestCase.php';
 /**
  * Test the base attribute.
  *
- * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -53,7 +53,7 @@ extends Horde_Kolab_Server_TestCase
     public function testMethodGetattributeReturnsAttributeInteralAssociatedWithThisAttribute()
     {
         $attribute = new Attribute_Mock($this->attribute, '');
-        $this->assertType(
+        $this->assertInstanceOf(
             'Horde_Kolab_Server_Structure_Attribute_Interface',
             $attribute->getAttribute()
         );

@@ -1,0 +1,543 @@
+# Latvian translations for Sesha H4 package.
+# Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Sesha package.
+# Automatically generated, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Sesha H4 (2.0-git)\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2011-09-20 13:49+0200\n"
+"PO-Revision-Date: 2011-10-17 10:41+0300\n"
+"Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"Language: lv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+"X-Poedit-Language: Latvian\n"
+"X-Poedit-Country: LATVIA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: list.php:79
+#, php-format
+msgid "%d Items"
+msgstr "%d objekti"
+
+#: list.php:78
+msgid "1 Item"
+msgstr "1 objekts"
+
+#: lib/api.php:45
+msgid "Add Stock"
+msgstr "Pievienot krājumu"
+
+#: admin.php:36
+msgid "Add a category"
+msgstr "Pievienot kategoriju"
+
+#: admin.php:211
+msgid "Add a new category"
+msgstr "Pievienot jaunu kategoriju"
+
+#: admin.php:179 admin.php:238
+msgid "Add a new property"
+msgstr "Pievienot jaunu īpašību"
+
+#: admin.php:175
+msgid "Add a property"
+msgstr "Pievienot īpašību"
+
+#: lib/Sesha.php:253
+msgid "Admin"
+msgstr "Administrēt"
+
+#: lib/api.php:43
+msgid "Administration"
+msgstr "Administrēšana"
+
+#: list.php:48
+msgid "Available Inventory"
+msgstr "Pieejamie krājumi"
+
+#: list.php:48
+#, php-format
+msgid "Available Inventory in %s"
+msgstr "Pieejamie krājumi %s"
+
+#: lib/Forms/Category.php:86 lib/Forms/Stock.php:68
+msgid "Category"
+msgstr "Kategorija"
+
+#: lib/Forms/Category.php:44
+msgid "Category Name"
+msgstr "Kategorijas nosaukums"
+
+#: lib/Forms/Stock.php:137
+msgid "Client"
+msgstr "Klients"
+
+#: lib/Forms/Category.php:104 lib/Forms/Property.php:131
+msgid "Confirm"
+msgstr "Apstiprināt"
+
+#: admin.php:53
+msgid "Could not add new category."
+msgstr "Nevar pievienot jaunu kategoriju."
+
+#: admin.php:190
+msgid "Could not add property."
+msgstr "Nevar pievienot īpašību."
+
+#: admin.php:84
+msgid "Could not update category details."
+msgstr "Nevar atsvaidzināt kategorijas aprakstu."
+
+#: admin.php:81
+msgid "Could not update properties for this category."
+msgstr "Nevar atsvaidzināt šīs kategorijas īpašības."
+
+#: admin.php:145
+msgid "Could not update property details."
+msgstr "Nevar atsvaidzināt īpašības aprakstu."
+
+#: list.php:17
+msgid "Current Inventory"
+msgstr "Pašreizējie krājumi"
+
+#: lib/Forms/Property.php:36
+msgid "Data Type"
+msgstr "Datu tips"
+
+#: admin.php:94 lib/Forms/Category.php:70 lib/Forms/Category.php:97
+msgid "Delete Category"
+msgstr "Dzēst kategoriju"
+
+#: admin.php:95
+#, php-format
+msgid "Delete Category \"%s\""
+msgstr "Dzēst kategoriju \"%s\""
+
+#: list.php:75 list.php:126
+msgid "Delete Item"
+msgstr "Dzēst objektu"
+
+#: admin.php:125 lib/Forms/Property.php:97 lib/Forms/Property.php:124
+msgid "Delete Property"
+msgstr "Dzēst īpašību"
+
+#: admin.php:126
+#, php-format
+msgid "Delete Property \"%s\""
+msgstr "Dzēst īpašību \"%s\""
+
+#: lib/Forms/Category.php:45 lib/Forms/Property.php:41
+msgid "Description"
+msgstr "Apraksts"
+
+# #-#-#-#-#  horde.po (Horde 4.0.7-git)  #-#-#-#-#
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  lv_LV.po (Gollem 1.0.3)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  Horde_Core.po (Horde_Core)  #-#-#-#-#
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  lv_LV.po (Gollem 1.0.3)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  Horde_Perms.po (Horde_Perms )  #-#-#-#-#
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  lv_LV.po (Gollem 1.0.3)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  ansel.po (Ansel H4 (2.0-git))  #-#-#-#-#
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  lv_LV.po (Gollem 1.0.3)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  hermes.po (Hermes H4 (2.0-git))  #-#-#-#-#
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  lv_LV.po (Gollem 1.0.3)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  trean.po (Trean H4 (1.0-git))  #-#-#-#-#
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  lv_LV.po (Gollem 1.0.3)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  beatnik.po (Beatnik H4 (1.0-git))  #-#-#-#-#
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  lv_LV.po (Gollem 1.0.3)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  agora.po (Agora H4 (1.0-git))  #-#-#-#-#
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  lv_LV.po (Gollem 1.0.3)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  wicked.po (Wicked H4 (2.0-git))  #-#-#-#-#
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  lv_LV.po (Gollem 1.0.3)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  gollem.po (Gollem H4 (2.0-git))  #-#-#-#-#
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  lv_LV.po (Gollem 1.0.3)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+#: stock.php:134
+msgid "Edit"
+msgstr "Labot"
+
+#
+#: admin.php:66 lib/Forms/Category.php:69
+msgid "Edit Category"
+msgstr "Labot kategoriju"
+
+#
+#: stock.php:132
+msgid "Edit Inventory Item"
+msgstr "Labot krājumu objektu"
+
+#
+#: list.php:73 list.php:123
+msgid "Edit Item"
+msgstr "Labot objektu"
+
+#
+#: lib/Forms/Property.php:97
+msgid "Edit Property"
+msgstr "Labot īpašību"
+
+#
+#: lib/Forms/Category.php:76
+msgid "Edit a category"
+msgstr "Labot kategoriju"
+
+#
+#: lib/Forms/Property.php:103
+msgid "Edit a property"
+msgstr "Labot īpašību"
+
+#: templates/menu.inc:7
+msgid "Go"
+msgstr "Aiziet"
+
+#: lib/Driver/sql.php:127
+msgid "Invalid search parameters"
+msgstr "Nepareizi meklēšanas parametri."
+
+#: lib/Forms/Search.php:31 list.php:95
+msgid "Item Name"
+msgstr "Objekta nosaukums:"
+
+#: lib/Forms/Search.php:32
+msgid "Item Note"
+msgstr "Objekta piezīme"
+
+#: stock.php:84
+#, php-format
+msgid "Item number %d was successfully deleted"
+msgstr "Objekts ar numuru %d veiksmīgi izdzēsts"
+
+#: admin.php:23
+msgid "Manage Categories"
+msgstr "Vadīt kategorijas"
+
+#: admin.php:24
+msgid "Manage Properties"
+msgstr "Vadīt īpašības"
+
+#: list.php:45
+msgid "Matching Inventory"
+msgstr "Saskanošie krājumi"
+
+#: admin.php:68
+#, php-format
+msgid "Modifying %s"
+msgstr "Mainām %s"
+
+#: admin.php:131
+#, php-format
+msgid "Modifying property \"%s\""
+msgstr "Mainām īpašību \"%s\""
+
+#: lib/Forms/Stock.php:61
+msgid "Name"
+msgstr "Nosaukums"
+
+#: admin.php:48
+msgid "New category added successfully."
+msgstr "Jaunā kategorija veiksmīgi pievienota."
+
+#: admin.php:185
+msgid "New property added successfully."
+msgstr "Jaunā īpašība veiksmīgi pievienota."
+
+#: lib/Forms/Category.php:99 lib/Forms/Property.php:126
+msgid "No"
+msgstr "Nē"
+
+#: lib/Forms/Stock.php:99 list.php:109
+msgid "Note"
+msgstr "Piezīme"
+
+#: lib/Forms/Category.php:53
+msgid "Properties"
+msgstr "Īpašības"
+
+#: lib/Forms/Property.php:113
+msgid "Property"
+msgstr "Īpašība"
+
+#: lib/Forms/Property.php:32
+msgid "Property Name"
+msgstr "Īpašības nosaukums"
+
+#: lib/Forms/Search.php:33
+msgid "Property Value"
+msgstr "Īpašības vērtība"
+
+#
+#: lib/Forms/Category.php:100
+msgid "Really delete this category?"
+msgstr "Tiešām dzēst šo kategoriju?"
+
+#
+#: lib/Forms/Property.php:127
+msgid "Really delete this property?"
+msgstr "Tiešām dzēst šo īpašību?"
+
+#: admin.php:67 lib/Forms/Category.php:17
+msgid "Save Category"
+msgstr "Saglabāt kategoriju:"
+
+#: lib/Forms/Stock.php:34
+msgid "Save Item"
+msgstr "Saglabāt objektu"
+
+#: lib/Forms/Property.php:17
+msgid "Save Property"
+msgstr "Saglabāt īpašību"
+
+#: lib/Forms/Search.php:25
+msgid "Search"
+msgstr "Meklēt"
+
+#: list.php:44 search.php:18
+msgid "Search Inventory"
+msgstr "Meklēt krājumos"
+
+#: lib/Forms/Search.php:23
+msgid "Search The Inventory"
+msgstr "Meklēt krājumos"
+
+#: lib/Forms/Search.php:28
+msgid "Search these properties"
+msgstr "Meklēt šīs īpašības"
+
+#: templates/list.html:12
+msgid "Show Category:"
+msgstr "Rādīt kategoriju:"
+
+#: lib/Forms/Category.php:46 lib/Forms/Property.php:42
+msgid "Sort Weight"
+msgstr "Šķirošanas svari"
+
+#: list.php:102
+#, php-format
+msgid "Sort by %s"
+msgstr "Šķirot pēc %s"
+
+#: list.php:95
+msgid "Sort by item name"
+msgstr "Šķirot pēc nosaukuma"
+
+#: list.php:109
+msgid "Sort by note"
+msgstr "Šķirot pēc piezīmes"
+
+#: list.php:91
+msgid "Sort by stock ID"
+msgstr "Šķirot pēc krājuma ID"
+
+#
+#: admin.php:111
+msgid "The category was deleted."
+msgstr "Kategorija izdzēsta."
+
+#
+#: admin.php:114
+msgid "The category was not deleted."
+msgstr "Kategorija nav izdzēsta."
+
+#: lib/Forms/Property.php:65
+#, php-format
+msgid "The form field type \"%s\" doesn't exist."
+msgstr "Formas lauka ar tipu \"%s\" nepastāv."
+
+#: stock.php:50
+msgid "The item was added succcessfully."
+msgstr "Objekts veiksmīgi pievienots."
+
+#
+#: admin.php:164
+msgid "The property was deleted."
+msgstr "Īpašība izdzēsta."
+
+#
+#: admin.php:167
+msgid "The property was not deleted."
+msgstr "Īpašība nav izdzēsta."
+
+#: stock.php:157
+msgid "The stock item was successfully updated."
+msgstr "Krājumu objekts veiksmīgi atsvaidzināts."
+
+#: templates/list.html:66
+msgid "There are no stocked items matching the criteria"
+msgstr "Neviens krājumu objekts neatbilst norādītajiem krietērijiem"
+
+#: stock.php:46
+#, php-format
+msgid "There was a problem adding the item: %s"
+msgstr "Kļūme pievienojot objektu: %s"
+
+#: stock.php:169
+#, php-format
+msgid "There was a problem updating the inventory: %s"
+msgstr "Kļūme atsvaidzinot krājumus: %s"
+
+#: stock.php:80
+#, php-format
+msgid "There was a problem with the driver while deleting: %s"
+msgstr "Dziņa kļūda dzēšot: %s"
+
+#: admin.php:109
+msgid "There was an error removing the category."
+msgstr "Kļūda dzēšot kategoriju."
+
+#: admin.php:162
+msgid "There was an error removing the property."
+msgstr "Kļūda dzēšot īpašību."
+
+#: lib/Forms/Property.php:40
+msgid "Unit"
+msgstr "Vienība"
+
+#: lib/Forms/Stock.php:84
+msgid "Unit: "
+msgstr "Vienība:"
+
+#: admin.php:101
+msgid "Unknown category"
+msgstr "Nezināma kategorija"
+
+#: admin.php:154
+msgid "Unknown property"
+msgstr "Nezināma īpašība"
+
+#: admin.php:79
+msgid "Updated category successfully."
+msgstr "Kategorija veiksmīgi atsvaidzināta."
+
+#: admin.php:140
+msgid "Updated property successfully."
+msgstr "Īpašība veiksmīgi atsvaidzinata."
+
+#: stock.php:95
+msgid "View Inventory Item"
+msgstr "Skatīt krājumu objektu"
+
+#: list.php:131 list.php:134
+msgid "View Item"
+msgstr "Skatīt objektu"
+
+#: lib/Forms/Category.php:98 lib/Forms/Property.php:125
+msgid "Yes"
+msgstr "Jā"
+
+#: stock.php:72
+msgid "You do not have sufficient permissions to delete."
+msgstr "Jums nav dzēšanas tiesību."
+
+#: lib/Sesha.php:252
+msgid "_Add Stock"
+msgstr "Pievienot krājumus"
+
+#: lib/Sesha.php:250
+msgid "_List Stock"
+msgstr "Krājumu saraksts"
+
+#
+#: lib/Sesha.php:259
+msgid "_Print"
+msgstr "Drukāt"
+
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  hermes.po (Hermes H4 (2.0-git))  #-#-#-#-#
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  trean.po (Trean H4 (1.0-git))  #-#-#-#-#
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  agora.po (Agora H4 (1.0-git))  #-#-#-#-#
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+#: lib/Sesha.php:255
+msgid "_Search"
+msgstr "Meklēt"

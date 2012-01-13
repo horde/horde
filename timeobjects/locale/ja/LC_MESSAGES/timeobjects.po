@@ -1,14 +1,14 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Horde Project
+# Japanese translation for Timeobjects.
+# Copyright 2011-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Timeobjects package.
 # Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Timeobjects H4 (0.1-git)\n"
+"Project-Id-Version: Timeobjects (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-15 13:27+0100\n"
-"PO-Revision-Date: 2011-03-20 22:53+0900\n"
+"POT-Creation-Date: 2011-11-21 18:18+0100\n"
+"PO-Revision-Date: 2011-11-22 18:30+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -17,101 +17,63 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: lib/Driver/Weatherdotcom.php:221 lib/Driver/Weatherdotcom.php:236
+#: lib/Driver/Weather.php:145
 #, php-format
-msgid " gusting %d%s"
-msgstr " 突風 %d %s"
+msgid ""
+"\n"
+"%s"
+msgstr ""
+"\n"
+"%s"
 
-#: lib/Driver/Weatherdotcom.php:154
-msgid "An unknown error has occured."
-msgstr "予期しないエラーが発生しました。"
-
-#: lib/Driver/Weatherdotcom.php:150
-msgid "Cache init was not completed."
-msgstr "キャッシュの初期化が完了しませんでした。"
-
-#: lib/Driver/Weatherdotcom.php:210
+#: lib/Driver/Weather.php:119
 #, php-format
 msgid ""
 "Conditions: %s\n"
 "High temperature: %d%s\n"
-"Precipitation: %d%%\n"
-"Humidity: %d%%\n"
-"Winds: From the %s at %d%s"
+"Precipitation: %s\n"
 msgstr ""
+"気象状況: %s\n"
+"最高気温: %d%s\n"
+"降水: %s\n"
 
-#: lib/Driver/Weatherdotcom.php:225
+#: lib/Driver/Weather.php:107
 #, php-format
 msgid ""
 "Conditions: %s\n"
-"Low temperature: %d%s\n"
-"Precipitation: %d%%\n"
+"High temperature: %d%s\n"
+"Precipitation: %s\n"
 "Humidity: %d%%\n"
 "Winds: From the %s at %d%s"
 msgstr ""
+"気象状況: %s\n"
+"最高気温: %d%s\n"
+"降水: %s\n"
+"湿度: %d%%\n"
+"風: From the %s at %d%s"
 
-#: lib/Api.php:40
+#: lib/Api.php:46
 msgid "Facebook Events"
 msgstr "Facebook イベント"
 
-#: lib/Driver/Weatherdotcom.php:164
-msgid "Invalid license key."
-msgstr "不正なライセンスキイです。"
+#: lib/Driver/Weather.php:134
+#, php-format
+msgid "Location: %s"
+msgstr "場所: %s"
 
-#: lib/Driver/Weatherdotcom.php:158
-msgid "Invalid location provided."
-msgstr "不正な場所が指定されました。"
+#: lib/Driver/Weather.php:103
+msgid "N/A"
+msgstr "N/A"
 
-#: lib/Driver/Weatherdotcom.php:160
-msgid "Invalid partner id."
-msgstr "不正なパートナーID です。"
-
-#: lib/Driver/Weatherdotcom.php:162
-msgid "Invalid product code."
-msgstr "不正な製品番号です。"
-
-#: lib/Driver/Weatherdotcom.php:240
+#: lib/Driver/Weather.php:139
 #, php-format
 msgid ""
-"Location: %s\n"
 "Sunrise: %s\n"
 "Sunset: %s\n"
-"\n"
-"Day\n"
-"%s\n"
-"\n"
-"Evening\n"
-"%s"
 msgstr ""
+"日出: %s\n"
+"日没: %s\n"
 
-#: lib/Driver/Weatherdotcom.php:152
-msgid "MetarDB is not connected."
-msgstr ""
-
-#: lib/Driver/Weatherdotcom.php:120
-msgid "No location is set."
-msgstr "場所が設定されていません。"
-
-#: lib/Driver/Weatherdotcom.php:156
-msgid "No location provided."
-msgstr "場所が分かりません。"
-
-#: lib/Driver/Weatherdotcom.php:129
-msgid "No temporary directory available for cache."
-msgstr "キャッシュ用の一時ディレクトリがありません。"
-
-#: lib/Driver/Weatherdotcom.php:144
-msgid "Requested service could not be found."
-msgstr "要求されたサービスが見つかりません。"
-
-#: lib/Driver/Weatherdotcom.php:148
-msgid "Server data wrong or not available."
-msgstr "サーバのデータが正しくないか有効ではありません。"
-
-#: lib/Driver/Weatherdotcom.php:146
-msgid "Unknown location provided."
-msgstr "不明な場所が指定されました。"
-
-#: lib/Api.php:35
+#: lib/Api.php:38
 msgid "Weather"
-msgstr "Weather"
+msgstr "天気"

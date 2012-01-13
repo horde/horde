@@ -224,7 +224,7 @@ $_prefs['default_share'] = array(
 $_prefs['sync_calendars'] = array(
     'value' => 'a:0:{}',
     'type' => 'multienum',
-    'desc' => _("Select the calendars that should be used for synchronization with external devices:"),
+    'desc' => _("Select the calendars that, in addition to the default, should be used for synchronization with external devices:"),
 );
 
 // Which drivers are we supposed to use to examine holidays?
@@ -267,7 +267,7 @@ $_prefs['event_notification'] = array(
         '' => _("No"),
         'owner' => _("On my calendars only"),
         'show' => _("On all shown calendars"),
-        'read' => _("On all calendars I have read access to")
+        'read' => _("On all calendars I have explicitly read access to")
     ),
     'desc' => _("Choose if you want to be notified of new, edited, and deleted events by email:")
 );

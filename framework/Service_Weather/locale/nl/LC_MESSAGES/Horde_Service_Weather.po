@@ -1,0 +1,863 @@
+# Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Horde_Service_Weather package.
+#
+# Arjen de Korte <build+horde@de-korte.org>, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Service_Weather \n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2011-12-07 19:19+0100\n"
+"PO-Revision-Date: 2011-12-07 19:58+0100\n"
+"Last-Translator: Arjen de Korte <build+horde@de-korte.org>\n"
+"Language-Team: Dutch <i18n@lists.horde.org>\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:38
+msgid "Blizzard"
+msgstr "Sneeuwstorm"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:25
+msgid "Blowing Sand"
+msgstr "Stuifzand"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:23
+msgid "Blowing Snow"
+msgstr "Driftsneeuw"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:24
+msgid "Blowing Widespread Dust"
+msgstr "Opwaaiend stof"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:39
+msgid "Blowing snow"
+msgstr "Driftsneeuw"
+
+#: lib/Horde/Service/Weather/Base.php:194
+msgid "C"
+msgstr "C"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:126
+msgid "Chance of Flurries"
+msgstr "Mogelijk windstoten"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:128
+msgid "Chance of Freezing Rain"
+msgstr "Mogelijk aanvriezende regen"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:127
+msgid "Chance of Rain"
+msgstr "Mogelijk regen"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:129
+msgid "Chance of Sleet"
+msgstr "Mogelijk natte sneeuw"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:130
+msgid "Chance of Snow"
+msgstr "Mogelijk sneeuw"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:131
+msgid "Chance of Thunderstorms"
+msgstr "Mogelijk onweer"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:132
+msgid "Chance of a Thunderstorm"
+msgstr "Mogelijk een onweersbui"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:121
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:133
+#: lib/Horde/Service/Weather/Wwo_Strings.php:49
+msgid "Clear"
+msgstr "Onbewolkt"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:134
+#: lib/Horde/Service/Weather/Wwo_Strings.php:47
+msgid "Cloudy"
+msgstr "Bewolkt"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:3
+msgid "Drizzle"
+msgstr "Motregen"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:18
+msgid "Dust Whirls"
+msgstr "Zandhoos"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:156
+msgid "ENE"
+msgstr "oostnoordoost"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:158
+msgid "ESE"
+msgstr "oostzuidoost"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:157
+msgid "East"
+msgstr "het oosten"
+
+#: lib/Horde/Service/Weather/Base.php:186
+msgid "F"
+msgstr "F"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:135
+msgid "Flurries"
+msgstr "Windstoten"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:11
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:136
+#: lib/Horde/Service/Weather/Wwo_Strings.php:37
+msgid "Fog"
+msgstr "Mist"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:38
+msgid "Freezing Drizzle"
+msgstr "Aanvriezende motregen"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:40
+msgid "Freezing Fog"
+msgstr "Aanvriezende mist"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:39
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:142
+msgid "Freezing Rain"
+msgstr "Aanvriezende regen"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:33
+msgid "Freezing drizzle"
+msgstr "Aanvriezende motregen"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:36
+msgid "Freezing fog"
+msgstr "Aanvriezende mist"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:9
+msgid "Hail"
+msgstr "Hagel"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:30
+msgid "Hail Showers"
+msgstr "Hagelbuien"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:16
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:137
+msgid "Haze"
+msgstr "Heiig"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:103
+msgid "Heavy Blowing Sand"
+msgstr "Zwaar stuifzand"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:101
+msgid "Heavy Blowing Snow"
+msgstr "Zware driftsneeuw"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:102
+msgid "Heavy Blowing Widespread Dust"
+msgstr "Zwaar opwaaiend stof"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:81
+msgid "Heavy Drizzle"
+msgstr "Zware motregen"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:96
+msgid "Heavy Dust Whirls"
+msgstr "Zware zandhoos"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:89
+msgid "Heavy Fog"
+msgstr "Zware mist"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:116
+msgid "Heavy Freezing Drizzle"
+msgstr "Zware aanvriezende motregen"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:118
+msgid "Heavy Freezing Fog"
+msgstr "Zware aanvriezende mist"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:117
+msgid "Heavy Freezing Rain"
+msgstr "Zware aanvriezende regen"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:87
+msgid "Heavy Hail"
+msgstr "Zware hagel"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:108
+msgid "Heavy Hail Showers"
+msgstr "Zware hagelbuien"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:94
+msgid "Heavy Haze"
+msgstr "Zeer heiig"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:85
+msgid "Heavy Ice Crystals"
+msgstr "Zware ijskristallen"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:107
+msgid "Heavy Ice Pellet Showers"
+msgstr "Zware korrelhagelbuien"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:86
+msgid "Heavy Ice Pellets"
+msgstr "Zware korrelhagel"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:100
+msgid "Heavy Low Drifting Sand"
+msgstr "Zware zandverstuivingen"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:98
+msgid "Heavy Low Drifting Snow"
+msgstr "Zware lage driftsneeuw"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:99
+msgid "Heavy Low Drifting Widespread Dust"
+msgstr "Zwaar stuivend stof"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:88
+msgid "Heavy Mist"
+msgstr "Zware nevel"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:82
+msgid "Heavy Rain"
+msgstr "Zware regen"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:104
+msgid "Heavy Rain Mist"
+msgstr "Zware regenmist"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:105
+msgid "Heavy Rain Showers"
+msgstr "Zware regenbuien"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:93
+msgid "Heavy Sand"
+msgstr "Zwaar zand"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:97
+msgid "Heavy Sandstorm"
+msgstr "Zware zandstorm"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:109
+msgid "Heavy Small Hail Showers"
+msgstr "Zware hagelbuien"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:90
+msgid "Heavy Smoke"
+msgstr "Zware smog"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:83
+msgid "Heavy Snow"
+msgstr "Zware sneeuwval"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:84
+msgid "Heavy Snow Grains"
+msgstr "Zware motsneeuw"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:106
+msgid "Heavy Snow Showers"
+msgstr "Zware sneeuwbuien"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:95
+msgid "Heavy Spray"
+msgstr "Zware miezerregen"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:110
+msgid "Heavy Thunderstorm"
+msgstr "Zwaar onweer"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:113
+msgid "Heavy Thunderstorms and Ice Pellets"
+msgstr "Zwaar onweer en korrelhagel"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:111
+msgid "Heavy Thunderstorms and Rain"
+msgstr "Zware onweersbuien en regen"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:112
+msgid "Heavy Thunderstorms and Snow"
+msgstr "Zware onweersbuien en sneeuw"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:114
+msgid "Heavy Thunderstorms with Hail"
+msgstr "Zware onweeersbuien met hagelstenen"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:115
+msgid "Heavy Thunderstorms with Small Hail"
+msgstr "Zware onweersbuien met hagel"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:91
+msgid "Heavy Volcanic Ash"
+msgstr "Zware vulkaanas"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:92
+msgid "Heavy Widespread Dust"
+msgstr "Zwaar stoffig"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:32
+msgid "Heavy freezing drizzle"
+msgstr "Zware aanvriezende motregen"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:26
+msgid "Heavy rain"
+msgstr "Zware regen"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:27
+msgid "Heavy rain at times"
+msgstr "Van tijd tot tijd zware regen"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:16
+msgid "Heavy snow"
+msgstr "Zware sneeuw"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:7
+msgid "Ice Crystals"
+msgstr "IJskristallen"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:29
+msgid "Ice Pellet Showers"
+msgstr "Korrelhagelbuien"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:8
+msgid "Ice Pellets"
+msgstr "Korrelhagel"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:15
+msgid "Ice pellets"
+msgstr "Korrelhagel"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:64
+msgid "Light Blowing Sand"
+msgstr "Licht stuifzand"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:62
+msgid "Light Blowing Snow"
+msgstr "Lichte driftsneeuw"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:63
+msgid "Light Blowing Widespread Dust"
+msgstr "Licht stuivend stof"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:42
+msgid "Light Drizzle"
+msgstr "Lichte motregen"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:57
+msgid "Light Dust Whirls"
+msgstr "Lichte zandhoos"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:50
+msgid "Light Fog"
+msgstr "Lichte mist"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:77
+msgid "Light Freezing Drizzle"
+msgstr "Lichte aanvriezende motregen"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:79
+msgid "Light Freezing Fog"
+msgstr "Lichte aanvriezende mist"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:78
+msgid "Light Freezing Rain"
+msgstr "Lichte aanvriezende regen"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:48
+msgid "Light Hail"
+msgstr "Lichte hagelstenen"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:69
+msgid "Light Hail Showers"
+msgstr "Lichte hagelbuien"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:55
+msgid "Light Haze"
+msgstr "Licht heiig"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:46
+msgid "Light Ice Crystals"
+msgstr "Lichte ijskristallen"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:68
+msgid "Light Ice Pellet Showers"
+msgstr "Lichte korrelhagelbuien"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:47
+msgid "Light Ice Pellets"
+msgstr "Lichte korrelhagel"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:61
+msgid "Light Low Drifting Sand"
+msgstr "Licht zandverstuivingen"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:59
+msgid "Light Low Drifting Snow"
+msgstr "Lichte lage driftsneeuw"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:60
+msgid "Light Low Drifting Widespread Dust"
+msgstr "Licht stuivend stof"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:49
+msgid "Light Mist"
+msgstr "Lichte nevel"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:43
+msgid "Light Rain"
+msgstr "Lichte regen"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:65
+msgid "Light Rain Mist"
+msgstr "Lichte nevel"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:66
+msgid "Light Rain Showers"
+msgstr "Lichte regenbuien"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:54
+msgid "Light Sand"
+msgstr "Licht zand"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:58
+msgid "Light Sandstorm"
+msgstr "Lichte zandstorm"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:70
+msgid "Light Small Hail Showers"
+msgstr "Lichte hagelbuien"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:44
+msgid "Light Snow"
+msgstr "Lichte sneeuwval"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:45
+msgid "Light Snow Grains"
+msgstr "Lichte motsneeuw"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:67
+msgid "Light Snow Showers"
+msgstr "Lichte sneeuwbuien"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:56
+msgid "Light Spray"
+msgstr "Lichte miezerregen"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:71
+msgid "Light Thunderstorm"
+msgstr "Licht onweer"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:74
+msgid "Light Thunderstorms and Ice Pellets"
+msgstr "Licht onweer en korrelhagel"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:72
+msgid "Light Thunderstorms and Rain"
+msgstr "Licht onweer en regen"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:73
+msgid "Light Thunderstorms and Snow"
+msgstr "Licht onweer en sneeuw"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:75
+msgid "Light Thunderstorms with Hail"
+msgstr "Licht onweer met hagelstenen"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:76
+msgid "Light Thunderstorms with Small Hail"
+msgstr "Licht onweer met hagel"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:52
+msgid "Light Volcanic Ash"
+msgstr "Lichte vulkaanas"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:53
+msgid "Light Widespread Dust"
+msgstr "Licht stoffig"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:34
+msgid "Light drizzle"
+msgstr "Lichte motregen"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:25
+msgid "Light freezing rain"
+msgstr "Lichte aanvriezende regen"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:30
+msgid "Light rain"
+msgstr "Lichte regen"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:14
+msgid "Light rain shower"
+msgstr "Lichte regenbui"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:7
+msgid "Light showers of ice pellets"
+msgstr "Lichte korrelhagel"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:23
+msgid "Light sleet"
+msgstr "Lichte natte sneeuw"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:11
+msgid "Light sleet showers"
+msgstr "Lichte natte sneeuwbuien"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:20
+msgid "Light snow"
+msgstr "Lichte sneeuwval"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:9
+msgid "Light snow showers"
+msgstr "Lichte sneeuwbuien"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:22
+msgid "Low Drifting Sand"
+msgstr "Zandverstuivingen"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:20
+msgid "Low Drifting Snow"
+msgstr "Lage driftsneeuw"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:21
+msgid "Low Drifting Widespread Dust"
+msgstr "Laag stuivend stof"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:10
+#: lib/Horde/Service/Weather/Wwo_Strings.php:45
+msgid "Mist"
+msgstr "Nevel"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:24
+msgid "Moderate or Heavy freezing rain"
+msgstr "Matige of zware aanvriezende regen"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:4
+msgid "Moderate or heavy rain in area with thunder"
+msgstr "Lokaal matige of zware regen met onweer"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:13
+msgid "Moderate or heavy rain shower"
+msgstr "Matige of zware regenbui"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:6
+msgid "Moderate or heavy showers of ice pellets"
+msgstr "Matige of zware korrelhagenbuien"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:22
+msgid "Moderate or heavy sleet"
+msgstr "Matige of zware natte sneeuw"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:10
+msgid "Moderate or heavy sleet showers"
+msgstr "Matige of zware natter sneeuwbuien"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:2
+msgid "Moderate or heavy snow in area with thunder"
+msgstr "Lokaal matige of zware sneeuw met onweer"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:8
+msgid "Moderate or heavy snow showers"
+msgstr "Matige of zware sneeuwbuien"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:28
+msgid "Moderate rain"
+msgstr "Regen"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:29
+msgid "Moderate rain at times"
+msgstr "Van tijd tot tijd regen"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:18
+msgid "Moderate snow"
+msgstr "Sneeuw"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:123
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:138
+#: test/Horde/Service/Weather/WundergroundTest.php:28
+msgid "Mostly Cloudy"
+msgstr "Overwegend bewolkt"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:139
+msgid "Mostly Sunny"
+msgstr "Overwegend zonnig"
+
+#: lib/Horde/Service/Weather/Current/WeatherUnderground.php:127
+#: lib/Horde/Service/Weather/Period/WeatherUnderground.php:89
+#: lib/Horde/Service/Weather/Period/WeatherUnderground.php:97
+msgid "N/A"
+msgstr "N/B"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:155
+msgid "NE"
+msgstr "noordoost"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:154
+msgid "NNE"
+msgstr "noordnoordoost"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:168
+msgid "NNW"
+msgstr "noordnoordwest"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:167
+msgid "NW"
+msgstr "noordwest"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:153
+msgid "North"
+msgstr "het noorden"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:120
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:150
+#: lib/Horde/Service/Weather/Wwo_Strings.php:46
+msgid "Overcast"
+msgstr "Zwaar bewolkt"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:122
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:140
+#: lib/Horde/Service/Weather/Wwo_Strings.php:48
+#: test/Horde/Service/Weather/WundergroundTest.php:76
+#: test/Horde/Service/Weather/WwoTest.php:32
+msgid "Partly Cloudy"
+msgstr "Gedeeltelijk bewolkt"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:141
+msgid "Partly Sunny"
+msgstr "Gedeeltelijk zonnig"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:41
+msgid "Patchy freezing drizzle nearby"
+msgstr "Hier en daar lokaal aanvriezende motregen"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:17
+msgid "Patchy heavy snow"
+msgstr "Hier en daar zware sneeuw"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:35
+msgid "Patchy light drizzle"
+msgstr "Hier en daar lichte motregen"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:31
+msgid "Patchy light rain"
+msgstr "Hier en daar lichte regen"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:5
+msgid "Patchy light rain in area with thunder"
+msgstr "Hier en daar lichte regen met onweer"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:21
+msgid "Patchy light snow"
+msgstr "Hier en daar lichte sneeuw"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:3
+msgid "Patchy light snow in area with thunder"
+msgstr "Hier en daar lichte regen met onweer"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:19
+msgid "Patchy moderate snow"
+msgstr "Hier en daar sneeuw"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:44
+msgid "Patchy rain nearby"
+msgstr "Hier en daar lokaal regen"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:42
+msgid "Patchy sleet nearby"
+msgstr "Hier en daar lokaal natte sneeuw"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:43
+msgid "Patchy snow nearby"
+msgstr "Hier en daar lokaal sneeuw"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:4
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:143
+msgid "Rain"
+msgstr "Regen"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:26
+msgid "Rain Mist"
+msgstr "Regenmist"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:27
+msgid "Rain Showers"
+msgstr "Regenbuien"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:159
+msgid "SE"
+msgstr "zuidoost"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:160
+msgid "SSE"
+msgstr "zuidzuidoost"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:162
+msgid "SSW"
+msgstr "zuidzuidwest"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:163
+msgid "SW"
+msgstr "zuidwest"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:15
+msgid "Sand"
+msgstr "Zand"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:19
+msgid "Sandstorm"
+msgstr "Zandstorm"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:124
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:151
+msgid "Scattered Clouds"
+msgstr "Licht bewolkt"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:144
+msgid "Sleet"
+msgstr "Natte sneeuw"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:31
+msgid "Small Hail Showers"
+msgstr "Hagelbui"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:12
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:51
+msgid "Smoke"
+msgstr "Smog"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:5
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:145
+msgid "Snow"
+msgstr "Sneeuw"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:6
+msgid "Snow Grains"
+msgstr "Motsneeuw"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:28
+msgid "Snow Showers"
+msgstr "Sneeuwbuien"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:161
+msgid "South"
+msgstr "het zuiden"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:17
+msgid "Spray"
+msgstr "Miezerregen"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:146
+#: lib/Horde/Service/Weather/Wwo_Strings.php:50
+#: test/Horde/Service/Weather/WwoTest.php:84
+#: test/Horde/Service/Weather/WwoTest.php:99
+msgid "Sunny"
+msgstr "Zonnig"
+
+#: lib/Horde/Service/Weather/Google.php:169
+msgid ""
+"There was a problem with the weather request. Maybe an invalid location?"
+msgstr ""
+"Er was een probleem met de weerbericht. Wellicht een ongeldige lokatie?"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:32
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:148
+msgid "Thunderstorm"
+msgstr "Onweersbui"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:147
+msgid "Thunderstorms"
+msgstr "Onweer"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:35
+msgid "Thunderstorms and Ice Pellets"
+msgstr "Onweer en korrelhagel"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:33
+msgid "Thunderstorms and Rain"
+msgstr "Onweer en regen"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:34
+msgid "Thunderstorms and Snow"
+msgstr "Onweer en sneeuw"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:36
+msgid "Thunderstorms with Hail"
+msgstr "Onweer met hagelstenen"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:37
+msgid "Thunderstorms with Small Hail"
+msgstr "Onweer met hagel"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:40
+msgid "Thundery outbreaks nearby"
+msgstr "Onweer in omgeving"
+
+#: lib/Horde/Service/Weather/Wwo_Strings.php:12
+msgid "Torrential rain shower"
+msgstr "Stortbui"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:149
+msgid "Unknown"
+msgstr "Onbekend"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:13
+msgid "Volcanic Ash"
+msgstr "Vulkaanas"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:166
+msgid "WNW"
+msgstr "westnoordwest"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:164
+msgid "WSW"
+msgstr "westzuidwest"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:165
+msgid "West"
+msgstr "het westen"
+
+#: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:14
+msgid "Widespread Dust"
+msgstr "Stof"
+
+#: lib/Horde/Service/Weather/Current/WeatherUnderground.php:115
+#: test/Horde/Service/Weather/WundergroundTest.php:53
+msgid "falling"
+msgstr "dalend"
+
+#: lib/Horde/Service/Weather/Base.php:188
+msgid "inches"
+msgstr "inch"
+
+#: lib/Horde/Service/Weather/Base.php:197
+msgid "km"
+msgstr "km"
+
+#: lib/Horde/Service/Weather/Base.php:195
+msgid "kph"
+msgstr "km/u"
+
+#: lib/Horde/Service/Weather/Base.php:189
+msgid "miles"
+msgstr "mijl"
+
+#: lib/Horde/Service/Weather/Base.php:196
+msgid "millibars"
+msgstr "mbar"
+
+#: lib/Horde/Service/Weather/Base.php:187
+msgid "mph"
+msgstr "mi/h"
+
+#: lib/Horde/Service/Weather/Current/WeatherUnderground.php:113
+msgid "rising"
+msgstr "stijgend"
+
+#: lib/Horde/Service/Weather/Current/WeatherUnderground.php:111
+msgid "steady"
+msgstr "stabiel"

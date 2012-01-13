@@ -2,9 +2,7 @@
  Installing Passwd 4.0
 =======================
 
-:Last update:   $Date: 2009/06/10 08:20:39 $
-:Revision:      $Revision: 1.31.2.4 $
-:Contact:       sork@lists.horde.org
+:Contact: sork@lists.horde.org
 
 .. contents:: Contents
 .. section-numbering::
@@ -46,9 +44,9 @@ To function properly, Passwd **requires** the following:
 
       LDAP support is required for the kolab, ldap, and smbldap drivers.
 
-   c. Mhash support ``--with-mhash`` [OPTIONAL]
+   c. Hash support [OPTIONAL]
 
-      Mhash support is necessary for the smbldap driver.  See `LDAP
+      Hash support is necessary for the smbldap driver.  See `LDAP
       Implementation Information`_ for details.
 
    d. Mcrypt support ``--with-mcrypt`` [OPTIONAL]
@@ -69,7 +67,7 @@ To function properly, Passwd **requires** the following:
                   automatically download and install all required PEAR modules.
 
    a. Crypt_CHAP [OPTIONAL]
-  
+
       Passwd uses this package to encrypt passwords for the smbldap driver.
 
 The following items might be required, depending on the drivers you want to
@@ -93,11 +91,9 @@ use:
 Installing Passwd
 ===================
 
-There are several ways to install Passwd. The recommended way to install Passwd
-is using the PEAR installer. Alternatively it can be installed from
-tarballs. Finally, if you want to run the latest development code, or get the
-latest, not yet released, fixes, you can install Passwd from Git.
-
+The **RECOMMENDED** way to install Passwd is using the PEAR installer.
+Alternatively, if you want to run the latest development code or get the
+latest not yet released fixes, you can install Passwd from Git.
 
 Installing with PEAR
 ~~~~~~~~~~~~~~~~~~~~
@@ -123,42 +119,12 @@ your PHP configuration::
 
    pear install -a horde/passwd
 
+Installing from Git
+~~~~~~~~~~~~~~~~~~~
 
-Installing from Release Tarballs
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+See::
 
-.. Important:: As of today, there are no tarballs released for Passwd 4
-               yet. Please use the `Installing with PEAR`_ method to install
-               Passwd 4.
-
-Passwd can be obtained from the Horde website and FTP server, at
-
-   http://www.horde.org/apps/passwd
-
-   ftp://ftp.horde.org/pub/passwd/
-
-Or use the mirror closest to you:
-
-   http://www.horde.org/mirrors.php
-
-Passwd is written in PHP, and must be installed in a web-accessible directory.
-The precise location of this directory will differ from system to system.
-Conventionally, Passwd is installed directly underneath Horde in the web
-server's document tree.
-
-Since Passwd is written in PHP, there is no compilation necessary; simply
-expand the distribution where you want it to reside and rename the root
-directory of the distribution to whatever you wish to appear in the URL.  For
-example, with the Apache web server's default document root of
-``/usr/local/apache/htdocs``, you would type::
-
-   cd /usr/local/apache/htdocs/horde
-   tar zxvf /path/to/passwd-x.y.z.tar.gz
-   mv passwd-x.y.z passwd
-
-and would then find Passwd at the URL::
-
-   http://your-server/horde/passwd/
+   http://horde.org/source/git.php
 
 
 Configuring Passwd
@@ -177,10 +143,6 @@ Configuring Passwd
    the file.  In this case, go back to ``Configuration`` and choose one of the
    other methods to create the configuration file ``passwd/config/conf.php``.
 
-   To configure Passwd, change to the ``config/`` directory of the installed
-   distribution, and copy the ``backends.php.dist`` configuration file to
-   ``backends.php`` and edit it to your needs.
-
    Documentation on the format and purpose of the other configuration files in
    the ``config/`` directory can be found in each file. You may create
    ``*.local.php`` versions of these files if you wish to customize Passwd's
@@ -195,7 +157,7 @@ Configuring Passwd
    scripts.  If you installed Passwd as described above, the URL to the test
    page would be::
 
-      http://your-server/horde/passwd/test.php
+      http://your-server/horde/test.php?app=passwd
 
 
 Security considerations
@@ -245,10 +207,9 @@ d. Crypt encrypted passwords
 e. MD5 encrypted passwords (using base64 encoding - md5-base64)
 f. SMD5 encrypted passwords
 
-The smbldap extension require the php mhash and mcrypt extensions.  To
-enable these you must compile php with the ``--with-mhash[=DIR]`` and
-``--with-mcrypt[=DIR]`` parameters. ``DIR`` is the mhash or mcrypt
-install directory.
+The smbldap extension require the php hash and mcrypt extensions.  To enable
+these you must compile php with ``--with-mcrypt[=DIR]`` and **without** the
+``--disable-hash`` parameters. ``DIR`` is the mcrypt install directory.
 
 Crypt cannot handle passwords longer than eight characters (it accepts them
 but truncates them at 8 characters).  If you want to use longer passwords, you
@@ -307,7 +268,7 @@ Expect Script Information
 
 This code allows users to change their passwords via an expect script.  The
 module requires the expect program and a telnet or ssh program.  You may need
-to change some of the expect patterns in ``scripts/passwd_expect`` such as the
+to change some of the expect patterns in ``passwd-expect`` such as the
 ``badpassword_string`` or ``success_string`` (as only two examples).
 
 For security reasons, it is generally suggested to use ssh rather than telnet
@@ -332,7 +293,7 @@ The Horde Frequently Asked Questions List (FAQ), available on the Web at
 
   http://wiki.horde.org/FAQ
 
-Horde LLC runs a number of mailing lists, for individual applications
+The Horde Project runs a number of mailing lists, for individual applications
 and for issues relating to the project as a whole.  Information, archives, and
 subscription information can be found at
 

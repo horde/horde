@@ -43,7 +43,39 @@
    </configmultienum>
   </configsection>
  </configtab>
-
+ <configtab name="anselmap" desc="Map Settings">
+  <configsection name="maps">
+  <configheader>Maps</configheader>
+  <configswitch name="driver" desc="Which driver should we use for inline
+   maps?">
+   <case name="false" desc="No inline map support" />
+   <case name="Horde" desc="Horde driver (support for various map providers)">
+    <configmultienum name="providers" desc="Which layers should we add to the
+    map?">
+     <values>
+      <value desc="Google">Google</value>
+      <value desc="Bing">Bing</value>
+      <value desc="Yahoo">Yahoo</value>
+      <value desc="CloudMade">Cloudmade</value>
+      <value desc="MyTopo">Mytopo</value>
+      <value desc="Tiles@Home">Tilesathome</value>
+      <value desc="OpenStreetMap">Osm</value>
+      <value desc="OpenCycleMap">Ocm</value>
+      <value desc="OpenMapquest">Mapquest</value>
+     </values>
+    </configmultienum>
+    <configenum default="false" name="geocoder" desc="Which Geocoder service
+    should we use?">
+     <values>
+      <value desc="None" default="true">Null</value>
+      <value desc="Google">Google</value>
+      <value desc="Yahoo">Yahoo</value>
+     </values>
+    </configenum>
+   </case>
+  </configswitch>
+ </configsection>
+</configtab>
  <configtab name="vfs" desc="VFS and Photo">
   <configheader>VFS Settings</configheader>
   <configsection name="images">
@@ -72,8 +104,8 @@
    <configenum name="type" desc="What format should photos be generated in?
    Make sure that your server supports whichever format you choose!">
     <values>
+     <value desc="PNG (Highly recommended)">png</value>
      <value desc="JPEG">jpeg</value>
-     <value desc="PNG">png</value>
     </values>
    </configenum>
    <configstring name="autogen" desc="Should Ansel automatically generate the
@@ -101,7 +133,8 @@
    an average sized mobile image. Note also that if you are using localhost or
    something similar as the server name, this will fail.">false</configboolean>
    <configstring name="num_uploads" desc="How many photos should a user be
-   allowed to upload at once?">5</configstring>
+   allowed to upload at once? This setting only applies to the non-javascript
+   uploader.">5</configstring>
    <configstring name="font" required="false" desc="What font would you like
    to use when watermarking photos? If you leave this blank, the default for
    the particular photo manipulation functions will be used. Make sure you

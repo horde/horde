@@ -3,7 +3,7 @@
  * The IMP_Mime_Viewer_Vcard class renders out the contents of vCard
  * files in HTML format and allows inline display of embedded photos.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -65,7 +65,6 @@ class IMP_Mime_Viewer_Vcard extends Horde_Core_Mime_Viewer_Vcard
             $this->_mimepart->getMimeId() => array(
                 'data' => base64_decode($photos[$p]['value']),
                 'name' => $name . '.' . Horde_Mime_Magic::mimeToExt($photos[$p]['params']['TYPE']),
-                'status' => array(),
                 'type' => $photos[$p]['params']['TYPE'],
             )
         );

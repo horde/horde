@@ -1,0 +1,93 @@
+# Estonian translations for Horde_Auth package.
+# Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Horde_Auth package.
+# Automatically generated, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Auth \n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2011-10-19 13:56+0300\n"
+"PO-Revision-Date: 2011-11-09 13:56+0300\n"
+"Last-Translator: Alar Sing <alar.sing@err.ee>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"Language: et\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/Horde/Auth.php:355
+#, php-format
+msgid ""
+"The password is too long; passwords may not be more than %d characters long!"
+msgstr "Salasõna on liiga pikk; salasõna ei või olla pikem kui %d tähte!"
+
+#: lib/Horde/Auth.php:425 lib/Horde/Auth.php:434
+msgid "The password is too simple to guess."
+msgstr "Salasõna on liiga lihtsasti ära arvatav."
+
+#: lib/Horde/Auth.php:351
+#, php-format
+msgid "The password must be at least %d characters long!"
+msgstr "Salasõna peab olema vähemalt %d märki pikk!"
+
+#: lib/Horde/Auth.php:387
+#, php-format
+msgid "The password must contain at least %d alphabetic character."
+msgid_plural "The password must contain at least %d alphabetic characters."
+msgstr[0] "Salasõna peab sisaldama vähemalt %d tähte."
+msgstr[1] "Salasõna peab sisaldama vähemalt %d tähte."
+
+#: lib/Horde/Auth.php:390
+#, php-format
+msgid "The password must contain at least %d alphanumeric character."
+msgid_plural "The password must contain at least %d alphanumeric characters."
+msgstr[0] "Salasõna peab sisaldama vähemalt %d numbrit või tähte."
+msgstr[1] "Salasõna peab sisaldama vähemalt %d numbrit või tähte."
+
+#: lib/Horde/Auth.php:393
+#, php-format
+msgid ""
+"The password must contain at least %d different types of characters. The "
+"types are: lower, upper, numeric, and symbols."
+msgstr ""
+"Salasõna peab vähemalt sisaldama %d eritüüpi märke.Need on: väiksed ja "
+"suured tähed, numbrid ning sümbolid."
+
+#: lib/Horde/Auth.php:381
+#, php-format
+msgid "The password must contain at least %d lowercase character."
+msgid_plural "The password must contain at least %d lowercase characters."
+msgstr[0] "Salasõna peab sisaldama vähemalt %d väikest tähte."
+msgstr[1] "Salasõna peab sisaldama vähemalt %d väikest tähte."
+
+#: lib/Horde/Auth.php:384
+#, php-format
+msgid "The password must contain at least %d numeric character."
+msgid_plural "The password must contain at least %d numeric characters."
+msgstr[0] "Salasõna peab sisaldama vähemalt %d numbrit."
+msgstr[1] "Salasõna peab sisaldama vähemalt %d numbrit."
+
+#: lib/Horde/Auth.php:402
+#, php-format
+msgid "The password must contain at least %d symbol character."
+msgid_plural "The password must contain at least %d symbol characters."
+msgstr[0] "Salasõna peab sisaldama vähemalt %d sümbolit."
+msgstr[1] "Salasõna peab sisaldama vähemalt %d sümbplit."
+
+#: lib/Horde/Auth.php:378
+#, php-format
+msgid "The password must contain at least %d uppercase character."
+msgid_plural "The password must contain at least %d uppercase characters."
+msgstr[0] "Salasõna peab sisaldama vähemalt %d suurt tähte."
+msgstr[1] "Salasõna peab sisaldama vähemalt %d suurt tähte."
+
+#: lib/Horde/Auth.php:397
+#, php-format
+msgid "The password must contain less than %d whitespace characters."
+msgstr "Salasõna ei või sisaldada rohkem kui %d tühikut."
+
+#: lib/Horde/Auth.php:399
+msgid "The password must not contain whitespace characters."
+msgstr "Salasõna ei või sisaldada tühikuid."

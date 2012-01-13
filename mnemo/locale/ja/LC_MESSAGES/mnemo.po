@@ -1,16 +1,17 @@
 # Japanese translation for Mnemo.
-# Copyright 2004-2009 Horde Project
+# Copyright 2004-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Mnemo package.
 # Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Mnemo 2.2.3\n"
+"Project-Id-Version: Mnemo H4 (3.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-15 13:27+0100\n"
-"PO-Revision-Date: 2011-03-16 18:28+0900\n"
+"POT-Creation-Date: 2011-11-21 18:18+0100\n"
+"PO-Revision-Date: 2011-11-19 18:09+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -48,7 +49,7 @@ msgstr "%s 表示中にエラーが発生しました"
 msgid "An error occurred displaying the note"
 msgstr "メモ表示中にエラーが発生しました"
 
-#: config/prefs.php:62
+#: config/prefs.php:64
 msgid "Ascending"
 msgstr "昇順"
 
@@ -69,11 +70,11 @@ msgstr "分類"
 msgid "Change Permissions"
 msgstr "アクセス権変更"
 
-#: config/prefs.php:13
+#: config/prefs.php:14
 msgid "Change your note sorting and display preferences."
 msgstr "メモの並び順と表示オプションを変更する。"
 
-#: config/prefs.php:20
+#: config/prefs.php:21
 msgid "Choose your default Notepad."
 msgstr "デフォルトのメモ帳を選択して下さい。"
 
@@ -101,19 +102,23 @@ msgstr "新しいメモ帳の作成"
 msgid "Created"
 msgstr "作成日時"
 
+#: templates/list/memo_headers.inc:40
+msgid "Date"
+msgstr "日付"
+
 #: templates/memo/memo.inc:23 templates/view/memo.inc:54
 msgid "Decrypt"
 msgstr "復号"
 
-#: config/prefs.php:19
+#: config/prefs.php:20
 msgid "Default Notepad"
 msgstr "デフォルトのメモ帳"
 
-#: config/prefs.php:54
+#: config/prefs.php:56
 msgid "Default sorting criteria:"
 msgstr "デフォルトの並び基準："
 
-#: config/prefs.php:65
+#: config/prefs.php:67
 msgid "Default sorting direction:"
 msgstr "デフォルトの並び方向："
 
@@ -127,11 +132,11 @@ msgstr "削除"
 msgid "Delete %s"
 msgstr "%s を削除"
 
-#: config/prefs.php:26
+#: config/prefs.php:27
 msgid "Delete Confirmation"
 msgstr "削除の確認"
 
-#: config/prefs.php:27
+#: config/prefs.php:28
 msgid "Delete button behaviour"
 msgstr "削除ボタンの動作"
 
@@ -139,7 +144,7 @@ msgstr "削除ボタンの動作"
 msgid "Delete this note"
 msgstr "メモを削除"
 
-#: config/prefs.php:63
+#: config/prefs.php:65
 msgid "Descending"
 msgstr "降順"
 
@@ -147,11 +152,11 @@ msgstr "降順"
 msgid "Description"
 msgstr "説明"
 
-#: config/prefs.php:12
+#: config/prefs.php:13
 msgid "Display Preferences"
 msgstr "表示設定"
 
-#: config/prefs.php:95
+#: config/prefs.php:97
 msgid "Do you want to confirm deleting entries?"
 msgstr "削除する際に確認しますか？"
 
@@ -175,7 +180,7 @@ msgstr "%s を編集"
 msgid "Edit Note"
 msgstr "メモの編集"
 
-#: templates/list/memo_headers.inc:45
+#: templates/list/memo_headers.inc:48
 msgid "Edit categories and colors"
 msgstr "分類と色の編集"
 
@@ -188,7 +193,7 @@ msgstr "編集：%s"
 msgid "Empty Note"
 msgstr "空のメモ"
 
-#: lib/Driver.php:86
+#: lib/Driver.php:85
 msgid ""
 "Encryption support has not been configured, please contact your "
 "administrator."
@@ -202,7 +207,7 @@ msgstr "エクスポート"
 msgid "Export Notes"
 msgstr "メモのエクスポート"
 
-#: config/prefs.php:11 config/prefs.php:18 config/prefs.php:25
+#: config/prefs.php:12 config/prefs.php:19 config/prefs.php:26
 msgid "General Preferences"
 msgstr "一般設定"
 
@@ -227,7 +232,7 @@ msgstr "最終変更日"
 msgid "Manage Notepads"
 msgstr "メモ帳の管理"
 
-#: lib/Application.php:57
+#: lib/Application.php:56
 msgid "Maximum Number of Notes"
 msgstr "メモの最大数"
 
@@ -235,11 +240,15 @@ msgstr "メモの最大数"
 msgid "Memo Text"
 msgstr "メモの内容"
 
+#: config/prefs.php:54
+msgid "Modification Date"
+msgstr "更新日時"
+
 #: templates/list/header.inc:9
 msgid "More Options..."
 msgstr "他のオプション"
 
-#: lib/Api.php:378
+#: lib/Api.php:346
 msgid "Multiple iCalendar components found; only one vNote is supported."
 msgstr ""
 "複数の iCalendar 要素があります；ただ１つの vNete だけをサポートします。"
@@ -248,7 +257,7 @@ msgstr ""
 msgid "My Notepads:"
 msgstr "私のメモ帳："
 
-#: list.php:29 stickies.php:29
+#: list.php:29
 msgid "My Notes"
 msgstr "私のメモ帳"
 
@@ -256,7 +265,7 @@ msgstr "私のメモ帳"
 msgid "Name"
 msgstr "名前"
 
-#: lib/Application.php:133 memo.php:92 memo.php:138
+#: lib/Application.php:128 memo.php:92 memo.php:138
 msgid "New Note"
 msgstr "新規メモ"
 
@@ -264,7 +273,7 @@ msgstr "新規メモ"
 msgid "Next"
 msgstr "次"
 
-#: lib/Api.php:222 lib/Api.php:371
+#: lib/Api.php:190 lib/Api.php:339
 msgid "No iCalendar data was found."
 msgstr "iCalendar のデータが見付かりません。"
 
@@ -288,12 +297,11 @@ msgstr "表示するメモはありません。"
 msgid "No_te"
 msgstr "_Tメモ"
 
-#: lib/Driver/Kolab.php:68 lib/Driver/Sql.php:72
-#, fuzzy
+#: lib/Driver/Kolab.php:109 lib/Driver/Sql.php:80
 msgid "Not Found"
 msgstr "見付かりません"
 
-#: config/prefs.php:51
+#: config/prefs.php:52
 msgid "Note Category"
 msgstr "メモの分類"
 
@@ -301,7 +309,7 @@ msgstr "メモの分類"
 msgid "Note Details"
 msgstr "メモの詳細"
 
-#: config/prefs.php:50
+#: config/prefs.php:51
 msgid "Note Text"
 msgstr "メモの内容"
 
@@ -317,7 +325,7 @@ msgstr "メモが見付かりません。"
 msgid "Note_pad:"
 msgstr "_Pメモ帳："
 
-#: config/prefs.php:52 templates/list/memo_headers.inc:33
+#: config/prefs.php:53 templates/list/memo_headers.inc:33
 #: templates/notepad_list.php:17
 msgid "Notepad"
 msgstr "メモ帳"
@@ -326,7 +334,7 @@ msgstr "メモ帳"
 msgid "Notepad List"
 msgstr "メモ帳一覧"
 
-#: lib/Mnemo.php:444
+#: lib/Notepads/Default.php:65
 #, php-format
 msgid "Notepad of %s"
 msgstr "%s のメモ帳"
@@ -334,6 +342,10 @@ msgstr "%s のメモ帳"
 #: templates/panel.inc:33 templates/panel.inc:34
 msgid "Notepads"
 msgstr "メモ帳"
+
+#: lib/Notepads/Kolab.php:38
+msgid "Notes"
+msgstr "メモ"
 
 #: lib/Block/Summary.php:12
 msgid "Notes Summary"
@@ -343,8 +355,8 @@ msgstr "メモ概要"
 msgid "Ok"
 msgstr "Ok"
 
-#: lib/Api.php:105 lib/Api.php:138 lib/Api.php:170 lib/Api.php:201
-#: lib/Api.php:286 lib/Api.php:331 lib/Api.php:354
+#: lib/Api.php:73 lib/Api.php:106 lib/Api.php:138 lib/Api.php:169
+#: lib/Api.php:254 lib/Api.php:299 lib/Api.php:322
 msgid "Permission Denied"
 msgstr "アクセス拒否"
 
@@ -374,12 +386,12 @@ msgstr "保存"
 msgid "Save as PDF"
 msgstr "PDF として保存"
 
-#: lib/Application.php:166 search.php:22 templates/list/header.inc:4
+#: lib/Application.php:154 search.php:22 templates/list/header.inc:4
 #: templates/search/search.inc:4 templates/search/search.inc:27
 msgid "Search"
 msgstr "検索"
 
-#: list.php:52 notes/index.php:38 stickies.php:52
+#: list.php:52 notes/index.php:38
 msgid "Search Results"
 msgstr "検索結果"
 
@@ -403,7 +415,7 @@ msgstr "ソースファイルの形式を選択："
 msgid "Shared Notepads:"
 msgstr "共有メモ帳："
 
-#: config/prefs.php:36
+#: config/prefs.php:37
 msgid "Should the Notepad be shown in its own column in the List view?"
 msgstr "一覧表示でメモ帳の名前も表示しますか？"
 
@@ -423,9 +435,13 @@ msgstr "この分類のメモを表示"
 msgid "Show this note"
 msgstr "このメモを表示"
 
-#: templates/list/memo_headers.inc:41
+#: templates/list/memo_headers.inc:44
 msgid "Sort by Category"
 msgstr "分類で並び替え"
+
+#: templates/list/memo_headers.inc:40
+msgid "Sort by Modification Date"
+msgstr "更新日時で並べる"
 
 #: templates/list/memo_headers.inc:37
 msgid "Sort by Note Text"
@@ -478,11 +494,11 @@ msgstr "パスワードが一致しません。"
 msgid "There was an error importing the data: %s"
 msgstr "データのインポート中にエラーが発生しました：%s"
 
-#: lib/Api.php:216 lib/Api.php:365
+#: lib/Api.php:184 lib/Api.php:333
 msgid "There was an error importing the iCalendar data."
 msgstr "iCalendar のインポート中にエラーが発生しました。"
 
-#: lib/Api.php:53 lib/Api.php:65
+#: lib/Application.php:202
 #, php-format
 msgid "There was an error removing notes for %s. Details have been logged."
 msgstr "メモ %s の削除中にエラーが発生しました。詳細は記録されました。"
@@ -524,17 +540,17 @@ msgstr "メモは暗号化されています。復号するには安全なweb接
 msgid "This note has been encrypted, please provide the password below"
 msgstr "メモは暗号化されています。パスワードを入力して下さい"
 
-#: lib/Api.php:280 lib/Driver/Kolab.php:281 lib/Driver/Sql.php:336
+#: lib/Api.php:248 lib/Driver/Kolab.php:292 lib/Driver/Sql.php:344
 msgid "This note has been encrypted."
 msgstr "メモは暗号化されました。"
 
-#: lib/Block/Summary.php:116 lib/Mnemo.php:260 lib/Mnemo.php:261
-#: lib/Mnemo.php:275 lib/Mnemo.php:276 templates/list/memo_summaries.inc:17
+#: lib/Block/Summary.php:116 lib/Mnemo.php:310 lib/Mnemo.php:311
+#: lib/Mnemo.php:325 lib/Mnemo.php:326 templates/list/memo_summaries.inc:20
 #: templates/view/memo.inc:27
 msgid "Unfiled"
 msgstr "未整理"
 
-#: lib/Api.php:249 lib/Api.php:305 lib/Api.php:388
+#: lib/Api.php:217 lib/Api.php:273 lib/Api.php:356
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr "サポートされていない Content-Type です：%s"
@@ -569,7 +585,7 @@ msgstr "あなたにはメモ %s を編集するアクセス権がありませ�
 msgid "You do not have permission to view the notepad %s."
 msgstr "あなたにはメモ帳 %s を表示するアクセス権がありません。"
 
-#: config/prefs.php:83
+#: config/prefs.php:85
 msgid "Your default notepad:"
 msgstr "あなたのデフォルトのメモ帳："
 
@@ -581,7 +597,7 @@ msgstr "[メモ帳の管理]"
 msgid "_Body"
 msgstr "_B本文"
 
-#: templates/list/memo_headers.inc:41
+#: templates/list/memo_headers.inc:44
 msgid "_Category"
 msgstr "_C分類"
 
@@ -605,15 +621,15 @@ msgstr "_暗号？"
 msgid "_For: "
 msgstr "_For: "
 
-#: lib/Application.php:82
+#: lib/Application.php:81
 msgid "_Import/Export"
 msgstr "_Iイン/アウト"
 
-#: lib/Application.php:69
+#: lib/Application.php:68
 msgid "_List Notes"
 msgstr "_Lメモ一覧"
 
-#: lib/Application.php:74
+#: lib/Application.php:73
 msgid "_New Note"
 msgstr "_N新規メモ"
 
@@ -625,15 +641,11 @@ msgstr "_Pパスワード"
 msgid "_Password:"
 msgstr "_Pパスワード："
 
-#: lib/Application.php:87
-msgid "_Print"
-msgstr "_P印刷"
-
 #: templates/memo/memo.inc:93
 msgid "_Repeat:"
 msgstr "_R繰り返し："
 
-#: lib/Application.php:78
+#: lib/Application.php:77
 msgid "_Search"
 msgstr "_S検索"
 
@@ -650,7 +662,7 @@ msgstr "%s 作"
 msgid "by me"
 msgstr "自作"
 
-#: lib/Application.php:153
+#: lib/Application.php:141
 #, php-format
 msgid "in %s"
 msgstr "in %s"

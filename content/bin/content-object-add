@@ -1,9 +1,21 @@
 #!/usr/bin/env php
 <?php
+/**
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ *
+ * @license  http://www.horde.org/licenses/bsd BSD
+ * @package Content
+ */
 
-define('AUTH_HANDLER', true);
-require $CONTENT_DIR . 'lib/Objects/Object.php';
-require $CONTENT_DIR . 'lib/Objects/ObjectMapper.php';
+if (file_exists(dirname(__FILE__) . '/../../content/lib/Application.php')) {
+    $baseDir = dirname(__FILE__) . '/../';
+} else {
+    require_once 'PEAR/Config.php';
+    $baseDir = PEAR_Config::singleton()
+        ->get('horde_dir', null, 'pear.horde.org') . '/content/';
+}
+require_once $baseDir . 'lib/Application.php';
+Horde_Registry::appInit('content', array('cli' => true));
 
 $options = array(
     new Horde_Argv_Option('-i', '--id', array('type' => 'int')),
@@ -16,7 +28,10 @@ if (!$opts->id || !$opts->type_id) {
     throw new InvalidArgumentException('id and type-id are both required');
 }
 
-$m = new Content_ObjectMapper;
+require CONTENT_BASE . '/lib/Objects/Object.php';
+require CONTENT_BASE . '/lib/Objects/ObjectMapper.php';
+
+$m = new Content_ObjectMapper($injector->getInstance('Horde_Db_Adapter'));
 $i = $m->create(array('object_name' => $opts->id,
                       'type_id' => $opts->type_id,
                ));

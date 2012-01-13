@@ -14,7 +14,7 @@
 /**
  * Components_Helper_Installer:: provides an installation helper.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -173,8 +173,8 @@ class Components_Helper_Installer
                         throw new Components_Exception(
                             sprintf(
                                 'Failed resolving component %s/%s!',
-                                $component->getChannel(),
-                                $component->getName()
+                                $dependency->getChannel(),
+                                $dependency->getName()
                             )
                         );
                     } else {

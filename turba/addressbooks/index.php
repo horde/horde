@@ -2,10 +2,10 @@
 /**
  * Turba addressbooks - index.
  *
- * Copyright 2001-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
- * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ * did not receive this file, see http://www.horde.org/licenses/apache.
  */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
@@ -37,7 +37,7 @@ foreach ($addressbooks as $addressbook) {
 asort($sorted_addressbooks);
 
 $browse_img = Horde::img('turba.png', _("Browse"));
-$edit_img = Horde::img('edit.png', _("Edit"));
+$edit_img = '<span class="iconImg editImg" title="' . htmlspecialchars(_("Edit")) . '"></span>';
 $perms_img = Horde::img('perms.png', _("Change Permissions"));
 $delete_img = Horde::img('delete.png', _("Delete"));
 

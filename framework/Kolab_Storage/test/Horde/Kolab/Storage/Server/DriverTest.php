@@ -20,7 +20,7 @@ require_once dirname(__FILE__) . '/../Autoload.php';
 /**
  * Server test of the different driver implementations.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -149,7 +149,7 @@ class Horde_Kolab_Storage_Server_DriverTest extends PHPUnit_Framework_TestCase
      */
     public function testDriverType($driver)
     {
-        $this->assertType('Horde_Kolab_Storage_Driver', $this->_getDriver($driver));
+        $this->assertInstanceOf('Horde_Kolab_Storage_Driver', $this->_getDriver($driver));
     }
 
     /**

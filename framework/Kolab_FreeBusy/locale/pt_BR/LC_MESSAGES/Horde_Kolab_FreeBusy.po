@@ -1,5 +1,5 @@
 # Portuguese translations for Horde_Kolab_FreeBusy module.
-# Copyright 2010-2011 Horde LLC
+# Copyright 2010-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Kolab_FreeBusy module.
 # Automatically generated, 2010.
 #
@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Kolab_FreeBusy\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
+"POT-Creation-Date: 2011-08-02 15:24+0200\n"
 "PO-Revision-Date: 2011-06-12 19:21-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -42,22 +42,12 @@ msgstr "Erros:"
 msgid "Failed regenerating calendar %s: %s"
 msgstr "Falhou ao regenerar calendário %s: %s"
 
-#: lib/Horde/Kolab/FreeBusy/Imap.php:128
-#, php-format
-msgid "Folder %s does not exist!"
-msgstr "Pasta %s não existe!"
-
-#: lib/Horde/Kolab/FreeBusy/Imap.php:135
-#, php-format
-msgid "Folder %s has type \"%s\" not \"event\"!"
-msgstr "Pasta %s tem tipo \"%s\" não \"event\"!"
-
-#: lib/Horde/Kolab/FreeBusy/Driver/Base.php:183
+#: lib/Horde/Kolab/FreeBusy/Driver/Base.php:93
 #, php-format
 msgid "Invalid authentication for user %s!"
 msgstr "Autenticação inválida para usuário: %s!"
 
-#: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Base.php:218
+#: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Base.php:321
 #, php-format
 msgid "No such account %s!"
 msgstr "Não há a conta %s!"
@@ -71,7 +61,7 @@ msgstr "Não ha a pasta %s"
 msgid "Not found"
 msgstr "Não encontrado"
 
-#: lib/Horde/Kolab/FreeBusy/Driver/Base.php:179
+#: lib/Horde/Kolab/FreeBusy/Driver/Base.php:89
 msgid "Please authenticate!"
 msgstr "Por favor autentique-se!"
 
@@ -97,7 +87,7 @@ msgstr "A URL solicitada %s não foi encontrada neste servidor."
 msgid "Unable to determine owner of the free/busy data!"
 msgstr "Impossível determinar o proprietário dos dados de livre/ocupado!"
 
-#: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Base.php:295
+#: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Base.php:398
 #, php-format
 msgid "Unable to read free/busy information from %s"
 msgstr "Impossível ler informação de livre/ocupado de %s"

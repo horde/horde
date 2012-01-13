@@ -3,8 +3,8 @@
  <name>Horde_Nls</name>
  <channel>pear.horde.org</channel>
  <extends>Horde_NLS</extends>
- <summary>This package provides Native Language Support (NLS)</summary>
- <description>Provide common methods for handling language data, timezones, and hostname-&gt;country lookups.</description>
+ <summary>Native Language Support (NLS)</summary>
+ <description>Common methods for handling language data, timezones, and hostname-&gt;country lookups.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -17,11 +17,11 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-27</date>
- <time>16:32:08</time>
+ <date>2011-12-06</date>
+ <time>11:04:30</time>
  <version>
-  <release>1.0.3</release>
-  <api>1.0.0</api>
+  <release>1.1.4</release>
+  <api>1.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -33,6 +33,13 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Nls">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/Nls -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Nls">
@@ -40,6 +47,7 @@
       <file name="Coordinates.php" role="php" />
       <file name="Countries.php" role="php" />
       <file name="Geoip.php" role="php" />
+      <file name="Languages.php" role="php" />
       <file name="Tld.php" role="php" />
       <file name="Translation.php" role="php">
        <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
@@ -347,11 +355,13 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Nls/COPYING" />
    <install as="Horde/Nls.php" name="lib/Horde/Nls.php" />
    <install as="Horde/Nls/Carsigns.php" name="lib/Horde/Nls/Carsigns.php" />
    <install as="Horde/Nls/Coordinates.php" name="lib/Horde/Nls/Coordinates.php" />
    <install as="Horde/Nls/Countries.php" name="lib/Horde/Nls/Countries.php" />
    <install as="Horde/Nls/Geoip.php" name="lib/Horde/Nls/Geoip.php" />
+   <install as="Horde/Nls/Languages.php" name="lib/Horde/Nls/Languages.php" />
    <install as="Horde/Nls/Tld.php" name="lib/Horde/Nls/Tld.php" />
    <install as="Horde/Nls/Translation.php" name="lib/Horde/Nls/Translation.php" />
    <install as="locale/Horde_Nls.pot" name="locale/Horde_Nls.pot" />
@@ -579,12 +589,66 @@ Converted to package.xml 2.0 for pear.horde.org
   </release>
   <release>
    <version>
-    <release>1.0.3</release>
-    <api>1.0.0</api></version>
+    <release>1.1.0</release>
+    <api>1.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-27</date>
+   <date>2011-10-18</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Add ISO 639 language code lookup.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-02</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update German translation.
+* [jan] Update Brazilian Portuguese translation.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.2</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update Croatian translation.
+* [jan] Update Estonian translation.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.3</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.4</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

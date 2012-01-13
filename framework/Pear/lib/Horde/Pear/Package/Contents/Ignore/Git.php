@@ -16,7 +16,7 @@
  * Horde_Pear_Package_Contents_Ignore_Git:: indicates which files in a content
  * listing should be ignored based on the contents from a .gitignore file.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.

@@ -3,7 +3,7 @@
  * Test cases for Ingo_Script:: and derived classes
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
- * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author     Jason M. Felice <jason.m.felice@gmail.com>
  * @package    Ingo

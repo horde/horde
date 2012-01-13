@@ -82,11 +82,9 @@ To function properly, Kronolith requires the following:
 Installing Kronolith
 ====================
 
-There are several ways to install Kronolith. The recommended way to install
-Kronolith is using the PEAR installer. Alternatively it can be installed from
-tarballs. Finally, if you want to run the latest development code, or get the
-latest, not yet released, fixes, you can install Kronolith from Git.
-
+The **RECOMMENDED** way to install Kronolith is using the PEAR installer.
+Alternatively, if you want to run the latest development code or get the
+latest not yet released fixes, you can install Kronolith from Git.
 
 Installing with PEAR
 ~~~~~~~~~~~~~~~~~~~~
@@ -111,6 +109,13 @@ extensions through PECL that might need further configuration or activation in
 your PHP configuration::
 
    pear install -a horde/kronolith
+
+Installing from Git
+~~~~~~~~~~~~~~~~~~~
+
+See::
+
+   http://horde.org/source/git.php
 
 
 Configuring Kronolith
@@ -137,8 +142,6 @@ Configuring Kronolith
    write the file.  In this case, go back to ``Configuration`` and choose one
    of the other methods to create the configuration file
    ``kronolith/config/conf.php``.
-
-   TODO: Configure maps
 
    Documentation on the format and purpose of the other configuration files in
    the ``config/`` directory can be found in each file. You may create
@@ -201,7 +204,7 @@ The Horde Frequently Asked Questions List (FAQ), available on the Web at
 
   http://wiki.horde.org/FAQ
 
-Horde LLC runs a number of mailing lists, for individual applications
+The Horde Project runs a number of mailing lists, for individual applications
 and for issues relating to the project as a whole.  Information, archives, and
 subscription information can be found at
 

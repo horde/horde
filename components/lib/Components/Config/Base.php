@@ -16,7 +16,7 @@
  * Components_Configs_Base:: provides common utilities for the configuration
  * handlers.
  *
- * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -50,6 +50,13 @@ implements Components_Config
      * @var Components_Component
      */
     private $_component;
+
+    /**
+     * The path to component in case the selected one is a source component.
+     *
+     * @var string
+     */
+    private $_path;
 
     /**
      * Set an additional option value.
@@ -145,5 +152,28 @@ implements Components_Config
             );
         }
         return $this->_component;
+    }
+
+    /**
+     * Set the path to the directory of the selected source component.
+     *
+     * @param string $path The path to the component directory.
+     *
+     * @return NULL
+     */
+    public function setPath($path)
+    {
+        $this->_path = $path;
+    }
+
+    /**
+     * Get the path to the directory of the selected component (in case it was a
+     * source component).
+     *
+     * @return string The path to the component directory.
+     */
+    public function getPath()
+    {
+        return $this->_path;
     }
 }

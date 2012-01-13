@@ -16,10 +16,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:08:31</time>
+ <date>2011-10-11</date>
+ <time>13:49:32</time>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -33,6 +33,11 @@
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="doc">
+    <dir name="Horde">
+     <dir name="DataTree">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/DataTree -->
+    </dir> <!-- /doc/Horde -->
     <file name="find-datatree-attribute-orphans.sql" role="doc" />
    </dir> <!-- /doc -->
    <dir name="lib">
@@ -97,6 +102,7 @@
  <phprelease>
   <filelist>
    <install as="find-datatree-attribute-orphans.sql" name="doc/find-datatree-attribute-orphans.sql" />
+   <install as="COPYING" name="doc/Horde/DataTree/COPYING" />
    <install as="Horde/DataTree.php" name="lib/Horde/DataTree.php" />
    <install as="Horde/DataTreeObject.php" name="lib/Horde/DataTreeObject.php" />
    <install as="Horde/DataTree/Null.php" name="lib/Horde/DataTree/Null.php" />
@@ -232,7 +238,20 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2011-10-11</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Add missing dependency on PEAR&apos;s DB package.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-10-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

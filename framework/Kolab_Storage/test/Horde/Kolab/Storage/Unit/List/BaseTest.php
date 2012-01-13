@@ -20,7 +20,7 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
 /**
  * Test the basic folder list handler.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -41,7 +41,7 @@ extends Horde_Kolab_Storage_TestCase
             $this->getNullMock(),
             new Horde_Kolab_Storage_Factory()
         );
-        $this->assertType('array', $list->listFolders());
+        $this->assertInternalType('array', $list->listFolders());
     }
 
     public function testListReturnsFolders()
@@ -62,7 +62,7 @@ extends Horde_Kolab_Storage_TestCase
             $this->getNullMock(),
             new Horde_Kolab_Storage_Factory()
         );
-        $this->assertType('array', $list->listFolderTypes());
+        $this->assertInternalType('array', $list->listFolderTypes());
     }
 
     public function testGetNamespace()

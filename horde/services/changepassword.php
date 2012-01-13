@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -71,5 +71,5 @@ $vars->remove('password_2');
 require HORDE_TEMPLATES . '/common-header.inc';
 $notification->notify(array('listeners' => 'status'));
 $renderer = new Horde_Form_Renderer();
-$form->renderActive($renderer, $vars, 'changepassword.php', 'post');
+$form->renderActive($renderer, $vars, Horde::url('services/changepassword.php'), 'post');
 require HORDE_TEMPLATES . '/common-footer.inc';

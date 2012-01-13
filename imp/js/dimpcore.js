@@ -1,7 +1,7 @@
 /**
  * dimpcore.js - Dimp UI application logic.
  *
- * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -34,77 +34,19 @@ var DimpCore = {
         }
     },
 
-    // Convert object to an IMP UID Range string. See IMP::toRangeString()
-    // ob = (object) mailbox name as keys, values are array of uids.
-    toRangeString: function(ob)
+    toUIDString: function(ob, opts)
     {
-        var str = '';
-
-        $H(ob).each(function(o) {
-            if (!o.value.size()) {
-                return;
-            }
-
-            var u = (DIMP.conf.pop3 ? o.value.clone() : o.value.numericSort()),
-                first = u.shift(),
-                last = first,
-                out = [];
-
-            u.each(function(k) {
-                if (!DIMP.conf.pop3 && (last + 1 == k)) {
-                    last = k;
-                } else {
-                    out.push(first + (last == first ? '' : (':' + last)));
-                    first = last = k;
-                }
-            });
-            out.push(first + (last == first ? '' : (':' + last)));
-            str += '{' + o.key.length + '}' + o.key + out.join(',');
-        });
-
-        return str;
-    },
-
-    // Parses an IMP UID Range string. See IMP::parseRangeString()
-    // str = (string) An IMP UID range string.
-    parseRangeString: function(str)
-    {
-        var count, end, i, mbox, uidstr,
-            mlist = {},
-            uids = [];
-        str = str.strip();
-
-        while (!str.blank()) {
-            if (!str.startsWith('{')) {
-                break;
-            }
-            i = str.indexOf('}');
-            count = Number(str.substr(1, i - 1));
-            mbox = str.substr(i + 1, count);
-            i += count + 1;
-            end = str.indexOf('{', i);
-            if (end == -1) {
-                uidstr = str.substr(i);
-                str = '';
-            } else {
-                uidstr = str.substr(i, end - i);
-                str = str.substr(end);
-            }
-
-            uidstr.split(',').each(function(e) {
-                var r = e.split(':');
-                if (r.size() == 1) {
-                    uids.push(DIMP.conf.pop3 ? e : Number(e));
-                } else {
-                    // POP3 will never exist in range here.
-                    uids = uids.concat($A($R(Number(r[0]), Number(r[1]))));
-                }
-            });
-
-            mlist[mbox] = uids;
+        if (DIMP.conf.pop3) {
+            opts = opts || {};
+            opts.pop3 = 1;
         }
 
-        return mlist;
+        return ImpIndices.toUIDString(ob, opts);
+    },
+
+    parseUIDString: function(str)
+    {
+        return ImpIndices.parseUIDString(str, DIMP.conf.pop3 ? { pop3: 1 } : {});
     },
 
     // 'opts' -> ajaxopts, callback, uids
@@ -119,7 +61,7 @@ var DimpCore = {
             if (opts.uids.viewport_selection) {
                 opts.uids = this.selectionToRange(opts.uids);
             }
-            params.set('uid', this.toRangeString(opts.uids));
+            params.set('uid', this.toUIDString(opts.uids));
         }
 
         this.addRequestParams(params);
@@ -146,10 +88,10 @@ var DimpCore = {
 
         if (b.getMetaData('search')) {
             s.get('dataob').each(function(r) {
-                if (tmp[r.view]) {
-                    tmp[r.view].push(r.uid);
+                if (tmp[r.mbox]) {
+                    tmp[r.mbox].push(r.uid);
                 } else {
-                    tmp[r.view] = [ r.uid ];
+                    tmp[r.mbox] = [ r.uid ];
                 }
             });
         } else {
@@ -332,7 +274,7 @@ var DimpCore = {
 
         if (type.startsWith('forward') || !args || !args.uids) {
             if (type.startsWith('forward')) {
-                params.uids = this.toRangeString(this.selectionToRange(args.uids));
+                params.uids = this.toUIDString(this.selectionToRange(args.uids));
             } else if (args) {
                 if (args.to) {
                     params.to = args.to;
@@ -344,7 +286,7 @@ var DimpCore = {
             this.popupWindow(this.addURLParam(DIMP.conf.URI_COMPOSE, params), 'compose' + new Date().getTime());
         } else {
             args.uids.get('dataob').each(function(d) {
-                params.mailbox = d.view.base64urlEncode();
+                params.mailbox = d.mbox;
                 params.uid = d.uid;
                 this.popupWindow(this.addURLParam(DIMP.conf.URI_COMPOSE, params), 'compose' + new Date().getTime());
             }, this);
@@ -419,18 +361,24 @@ var DimpCore = {
 
     // p = (Element) Parent element
     // t = (string) Context menu type
-    // trigger = (boolean) Trigger popdown on button click?
-    // d = (boolean) Disabled?
-    addPopdown: function(p, t, trigger, d)
+    // o = (object) Options:
+    //   - disabled: (boolean) Disabled?
+    //   - insert: (string) Insertion position.
+    //   - trigger: (boolean) Trigger popdown on button click?
+    addPopdown: function(p, t, o)
     {
-        var elt = new Element('SPAN', { className: 'iconImg popdownImg popdown' });
+        o = o || {};
+
+        var elt = new Element('SPAN', { className: 'iconImg popdownImg popdown' }),
+            ins = {};
         p = $(p);
 
-        p.insert({ after: elt });
+        ins[o.insert ? o.insert : 'after'] = elt;
+        p.insert(ins);
 
-        if (trigger) {
+        if (o.trigger) {
             this.addContextMenu({
-                disable: d,
+                disable: o.disabled,
                 id: p.identify(),
                 left: true,
                 offset: p.up(),
@@ -439,7 +387,7 @@ var DimpCore = {
         }
 
         this.addContextMenu({
-            disable: d,
+            disable: o.disabled,
             id: elt.identify(),
             left: true,
             offset: elt.up(),
@@ -447,9 +395,10 @@ var DimpCore = {
         });
     },
 
-    addPopdownButton: function(p, t, trigger, d)
+    // See addPopdown() for documentation
+    addPopdownButton: function(p, t, o)
     {
-        this.addPopdown(p, t, trigger, d);
+        this.addPopdown(p, t, o);
         $(p).next('SPAN.popdown').insert({ before: new Element('SPAN', { className: 'popdownSep' }) });
     },
 

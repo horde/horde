@@ -3,14 +3,31 @@
  * Class to make an "official" Horde or application release.
  *
  * Copyright 1999 Mike Hardy
- * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
+ *
+ * @category Horde
+ * @package  Release
+ * @author   Mike Hardy
+ * @author   Jan Schneider <jan@horde.org>
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @link     http://www.horde.org/libraries/Horde_Release
+ */
+
+/**
+ * Class to make an "official" Horde or application release.
+ *
+ * Copyright 1999 Mike Hardy
+ * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author  Mike Hardy
- * @author  Jan Schneider <jan@horde.org>
- * @package Release
+ * @category Horde
+ * @package  Release
+ * @author   Mike Hardy
+ * @author   Jan Schneider <jan@horde.org>
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @link     http://www.horde.org/libraries/Horde_Release
  */
 class Horde_Release
 {
@@ -24,7 +41,7 @@ class Horde_Release
         'nocommit' => false,
         'noftp' => false,
         'noannounce' => false,
-        'nofreshmeat' => false,
+        'nofreecode' => false,
         'nowhups' => false,
     );
 
@@ -286,7 +303,6 @@ class Horde_Release
                 // GNU diff reports binary diffs as the following:
                 // Binary files ./locale/de_DE/LC_MESSAGES/imp.mo and ../../horde/imp/locale/de_DE/LC_MESSAGES/imp.mo differ
                 if (preg_match("/^Binary files (.+) and (.+) differ$/i", rtrim(fgets($handle)), $matches)) {
-                    // [1] = oldname, [2] = newname
                     $this->_binaryDiffs[] = ltrim(str_replace($this->_oldDirectoryName . '/', '', $matches[1]));
                 }
             }
@@ -362,7 +378,7 @@ class Horde_Release
         if (!$old) {
             include "$directory/RELEASE_NOTES";
             if (strlen($this->notes['fm']['changes']) > 600) {
-                print "WARNING: freshmeat release notes are longer than 600 characters!\n";
+                print "WARNING: freecode release notes are longer than 600 characters!\n";
             }
         }
         exec("cd $directory; cvs status CHANGES", $output);
@@ -512,7 +528,7 @@ class Horde_Release
     }
 
     /**
-     * announce release to mailing lists and freshmeat.
+     * announce release to mailing lists and freecode.
      */
     public function announce($doc_dir = null)
     {
@@ -522,10 +538,10 @@ class Horde_Release
             return;
         }
         if (!empty($this->_options['noannounce']) ||
-            !empty($this->_options['nofreshmeat'])) {
-            print "NOT announcing release on freshmeat.net\n";
+            !empty($this->_options['nofreecode'])) {
+            print "NOT announcing release on freecode.com\n";
         } else {
-            print "Announcing release on freshmeat.net\n";
+            print "Announcing release on freecode.com\n";
         }
 
         if (empty($doc_dir)) {
@@ -556,7 +572,7 @@ class Horde_Release
         }
 
         if (!empty($this->_options['noannounce']) ||
-            !empty($this->_options['nofreshmeat'])) {
+            !empty($this->_options['nofreecode'])) {
 
             print "Announcement data:\n";
             print_r($version);
@@ -666,7 +682,7 @@ class Horde_Release
                            'release' => $params);
         $http = new Horde_Http_Client();
         try {
-            $response = $http->post('http://freshmeat.net/projects/' . $this->notes['fm']['project'] . '/releases.json',
+            $response = $http->post('http://freecode.com/projects/' . $this->notes['fm']['project'] . '/releases.json',
                                     Horde_Serialize::serialize($fm_params, Horde_Serialize::JSON),
                                     array('Content-Type' => 'application/json'));
         } catch (Horde_Http_Exception $e) {
@@ -690,7 +706,7 @@ class Horde_Release
         // to update.
         $http = new Horde_Http_Client();
         try {
-            $response = $http->get('http://freshmeat.net/projects/' . $this->notes['fm']['project'] . '/urls.json?auth_code=' . $this->_options['fm']['user_token']);
+            $response = $http->get('http://freecode.com/projects/' . $this->notes['fm']['project'] . '/urls.json?auth_code=' . $this->_options['fm']['user_token']);
         } catch (Horde_Http_Exception $e) {
             throw new Horde_Exception_Wrapped($e);
         }
@@ -719,7 +735,7 @@ class Horde_Release
             if (empty($permalink)) {
                 // No link found to update...create it.
                 try {
-                    $response = $http->post('http://freshmeat.net/projects/' . $this->notes['fm']['project'] . '/urls.json',
+                    $response = $http->post('http://freecode.com/projects/' . $this->notes['fm']['project'] . '/urls.json',
                                             Horde_Serialize::serialize($link, Horde_Serialize::JSON),
                                             array('Content-Type' => 'application/json'));
                     $response = $response->getBody();
@@ -733,7 +749,7 @@ class Horde_Release
             } else {
                 // Found the link to update...update it.
                 try {
-                    $response = $http->put('http://freshmeat.net/projects/' . $this->notes['fm']['project'] . '/urls/' . $permalink . '.json',
+                    $response = $http->put('http://freecode.com/projects/' . $this->notes['fm']['project'] . '/urls/' . $permalink . '.json',
                                            Horde_Serialize::serialize($link, Horde_Serialize::JSON),
                                            array('Content-Type' => 'application/json'));
                     $response = $response->getBody();
@@ -936,7 +952,7 @@ class Horde_Release
         if ($this->_options['module'] == 'horde') {
             $this->_ticketVersionDesc .= ' ' . implode('.', $ver);
         } else {
-            $this->_ticketVersionDesc .= ' ' . '(' . implode('.', $ver) . ')';
+            $this->_ticketVersionDesc .= ' (' . implode('.', $ver) . ')';
         }
 
         // See if we have a 'Final', 'Alpha', or 'RC' to add.
@@ -978,67 +994,67 @@ class Horde_Release
         // Parse the command-line arguments
         array_shift($argv);
         foreach ($argv as $arg) {
-            // Check to see if they gave us a module
             if (preg_match('/--module=(.*)/', $arg, $matches)) {
+                // Check to see if they gave us a module
                 $this->_options['module'] = $matches[1];
 
-            // Check to see if they tell us the version of the tarball to make
             } elseif (preg_match('/--version=(.*)/', $arg, $matches)) {
+                // Check to see if they tell us the version of the tarball to make
                 $this->_options['version']= $matches[1];
 
-            // Check to see if they tell us the last release version
             } elseif (preg_match('/--oldversion=(.*)/', $arg, $matches)) {
+                // Check to see if they tell us the last release version
                 $this->_options['oldversion']= $matches[1];
 
-            // Check to see if they tell us which branch to work with
             } elseif (preg_match('/--branch=(.*)/', $arg, $matches)) {
+                // Check to see if they tell us which branch to work with
                 $this->_options['branch']= $matches[1];
 
-            // Check to see if they tell us not to commit or tag
             } elseif (strstr($arg, '--nocommit')) {
+                // Check to see if they tell us not to commit or tag
                 $this->_options['nocommit']= true;
 
-            // Check to see if they tell us not to upload
             } elseif (strstr($arg, '--noftp')) {
+                // Check to see if they tell us not to upload
                 $this->_options['noftp']= true;
 
-            // Check to see if they tell us not to announce
             } elseif (strstr($arg, '--noannounce')) {
+                // Check to see if they tell us not to announce
                 $this->_options['noannounce']= true;
 
-            // Check to see if they tell us not to announce
-            } elseif (strstr($arg, '--nofreshmeat')) {
-                $this->_options['nofreshmeat']= true;
+            } elseif (strstr($arg, '--nofreecode')) {
+                // Check to see if they tell us not to announce
+                $this->_options['nofreecode']= true;
 
-            // Check to see if they tell us not to add new ticket versions
             } elseif (strstr($arg, '--noticketversion')) {
+                // Check to see if they tell us not to add new ticket versions
                 $this->_options['nowhups'] = true;
 
-            // Check to see if they tell us to do a dry run
             } elseif (strstr($arg, '--dryrun')) {
+                // Check to see if they tell us to do a dry run
                 $this->_options['nocommit'] = true;
                 $this->_options['noftp'] = true;
                 $this->_options['noannounce'] = true;
                 $this->_options['nowhups'] = true;
-                $this->_options['nofreshmeat']= true;
+                $this->_options['nofreecode']= true;
 
-            // Check to see if they tell us to test (for development only)
             } elseif (strstr($arg, '--test')) {
+                // Check to see if they tell us to test (for development only)
                 $this->_options['test']= true;
                 // safety first
                 $this->_options['nocommit'] = true;
                 $this->_options['noftp'] = true;
                 $this->_options['noannounce'] = true;
                 $this->_options['nowhups'] = true;
-                $this->_options['nofreshmeat']= true;
+                $this->_options['nofreecode']= true;
 
-            // Check for help usage.
             } elseif (strstr($arg, '--help')) {
+                // Check for help usage.
                 $this->print_usage();
                 exit;
 
-            // We have no idea what this is
             } else {
+                // We have no idea what this is
                 $this->print_usage('You have used unknown arguments: ' . $arg);
                 exit;
             }
@@ -1116,7 +1132,7 @@ make-release.php: Horde release generator.
                          --version=[Hn-]xx.yy[.zz[-<string>]]
                          --oldversion=[Hn-]xx[.yy[.zz[-<string>]]]
                          [--branch=<branchname>] [--nocommit] [--noftp]
-                         [--noannounce] [--nofreshmeat] [--noticketversion]
+                         [--noannounce] [--nofreecode] [--noticketversion]
                          [--test] [--dryrun] [--help]
 
    If you omit the branch, it will implicitly work with the HEAD branch.
@@ -1125,11 +1141,11 @@ make-release.php: Horde release generator.
    repository).
    Use the --noftp option to not upload any files on the FTP server.
    Use the --noannounce option to not send any release announcements.
-   Use the --nofreshmeat option to not send any freshmeat announcements.
+   Use the --nofreecode option to not send any freecode announcements.
    Use the --noticketversion option to not update the version information on
    bugs.horde.org.
    The --dryrun option is an alias for:
-     --nocommit --noftp --noannounce --nofreshmeat --noticketversion.
+     --nocommit --noftp --noannounce --nofreecode --noticketversion.
    The --test option is for debugging purposes only.
 
    EXAMPLES:

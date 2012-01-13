@@ -1,8 +1,8 @@
 <?php
 /**
- * Horde_Vcs_Patchset_Cvs class.
+ * CVS patchset class.
  *
- * Copyright 2000-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2000-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -11,7 +11,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Vcs
  */
-class Horde_Vcs_Patchset_Cvs extends Horde_Vcs_Patchset
+class Horde_Vcs_Patchset_Cvs extends Horde_Vcs_Patchset_Base
 {
     /**
      * Constructor
@@ -30,7 +30,7 @@ class Horde_Vcs_Patchset_Cvs extends Horde_Vcs_Patchset
      */
     public function __construct($rep, $opts = array())
     {
-        $file = $rep->sourceroot() . '/' . $opts['file'];
+        $file = $rep->sourceroot . '/' . $opts['file'];
 
         /* Check that we are actually in the filesystem. */
         if (!$rep->isFile($file)) {
@@ -48,7 +48,10 @@ class Horde_Vcs_Patchset_Cvs extends Horde_Vcs_Patchset
             : ' -s ' . escapeshellarg(implode(',', $opts['range']));
 
         $ret_array = array();
-        $cmd = $HOME . escapeshellcmd($rep->getPath('cvsps')) . $rangecmd . ' -u --cvs-direct --root ' . escapeshellarg($rep->sourceroot()) . ' -f ' . escapeshellarg(basename($file)) . ' ' . escapeshellarg(dirname($file));
+        $cmd = $HOME . escapeshellcmd($rep->getPath('cvsps')) . $rangecmd
+            . ' -u --cvs-direct --root ' . escapeshellarg($rep->sourceroot)
+            . ' -f ' . escapeshellarg(basename($file))
+            . ' -q ' . escapeshellarg(dirname($file));
         exec($cmd, $ret_array, $retval);
         if ($retval) {
             throw new Horde_Vcs_Exception('Failed to spawn cvsps to retrieve patchset information.');
@@ -67,7 +70,7 @@ class Horde_Vcs_Patchset_Cvs extends Horde_Vcs_Patchset
             switch ($state) {
             case 'begin':
                 $id = str_replace('PatchSet ', '', $line);
-                $this->_patchsets[$id] = array();
+                $this->_patchsets[$id] = array('revision' => $id);
                 $state = 'info';
                 break;
 
@@ -118,14 +121,14 @@ class Horde_Vcs_Patchset_Cvs extends Horde_Vcs_Patchset
                 if (!empty($line)) {
                     $parts = explode(':', $line);
                     list($from, $to) = explode('->', $parts[1], 2);
-                    $status = self::MODIFIED;
+                    $status = Horde_Vcs_Patchset::MODIFIED;
 
                     if ($from == 'INITIAL') {
                         $from = null;
-                        $status = self::ADDED;
+                        $status = Horde_Vcs_Patchset::ADDED;
                     } elseif (substr($to, -6) == '(DEAD)') {
                         $to = null;
-                        $status = self::DELETED;
+                        $status = Horde_Vcs_Patchset::DELETED;
                     }
 
                     $this->_patchsets[$id]['members'][] = array(

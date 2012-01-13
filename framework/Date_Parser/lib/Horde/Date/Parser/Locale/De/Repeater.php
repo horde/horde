@@ -32,6 +32,7 @@ class Horde_Date_Parser_Locale_De_Repeater extends Horde_Date_Parser_Locale_Base
         '/^nachmittags?$/' => 'afternoon',
         '/^abends?$/' => 'evening',
         '/^nachts?$/' => 'night',
+        '/^n8s?$/' => 'night',
     );
 
     public $unitScanner = array(

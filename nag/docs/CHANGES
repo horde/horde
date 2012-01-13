@@ -1,7 +1,40 @@
 ----------
-v3.0.4-git
+v3.0.8-git
 ----------
 
+
+
+------
+v3.0.7
+------
+
+[jan] Fix setting custom alarm methods (Bug #9543).
+[jan] Update Japanese translation (Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>).
+
+
+------
+v3.0.6
+------
+
+[jan] Don't display task details of private tasks via the API (Bug #10712).
+[jan] Use correct locale when parsing quick tasks (thpo+horde@dotrc.de, Bug
+      #10720).
+
+
+------
+v3.0.5
+------
+
+[cjh] Nicer date/time input with fewer input fields and helper javascript.
+[mjr] Add ability to choose which tasklists to synchronize.
+[mjr] Fix task export to ActiveSync for tasks with no due dates or reminders.
+
+
+------
+v3.0.4
+------
+
+[jan] Add missing parameters when PUTing tasks (Bug #10545).
 [mjr] Fix removeUserData implementation.
 [gwr] Fix Kolab object attribute handling for tasks.
 [gwr] Avoid including the owner name into the default share.

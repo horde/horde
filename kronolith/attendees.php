@@ -46,7 +46,7 @@ case 'add':
 
         /* Do our best to see what the response will be. Note that this response
          * is only guarenteed once the event is saved. */
-        $date = new Horde_Date(Horde_Util::getFormData('date'));
+        $date = new Horde_Date(Horde_Util::getFormData('startdate'));
         $end = new Horde_Date(Horde_Util::getFormData('enddate'));
         $response = $resource->getResponse(array('start' => $date, 'end' => $end));
         $resources[$resource->getId()] = array(
@@ -149,7 +149,7 @@ case 'dismiss':
     if (!empty($url)) {
         $url = new Horde_Url($url, true);
     } else {
-        $date = new Horde_Date(Horde_Util::getFormData('date'));
+        $date = new Horde_Date(Horde_Util::getFormData('startdate'));
         $url = Horde::url($prefs->getValue('defaultview') . '.php', true)
             ->add('date', $date->dateString());
     }
@@ -254,7 +254,7 @@ if (count($resources)) {
     }
 }
 
-$date = new Horde_Date(Horde_Util::getFormData('date', date('Ymd') . '000000'));
+$date = new Horde_Date(Horde_Util::getFormData('startdate', date('Ymd') . '000000'));
 $end =  new Horde_Date(Horde_Util::getFormData('enddate', date('Ymd') . '000000'));
 
 $vfb_html = $attendee_view->render($date);

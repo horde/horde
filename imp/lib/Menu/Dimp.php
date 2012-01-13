@@ -3,7 +3,7 @@
  * This class builds the menu entries for use within IMP's dynamic view
  * (dimp).
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -23,18 +23,26 @@ class IMP_Menu_Dimp extends Horde_Menu
     protected $_renderCalled = false;
 
     /**
-     * @param string $type  Either 'sidebar' or 'tabs'.
      */
-    public function render($type)
+    public function render()
     {
         if (!$this->_renderCalled) {
             parent::render();
 
+            $msort = array();
             foreach ($this->_menu as $k => $v) {
-                if ($v == 'separator') {
-                    unset($this->_menu[$k]);
+                if ($v != 'separator') {
+                    $msort[$k] = $v['text'];
                 }
             }
+
+            asort($msort, SORT_LOCALE_STRING);
+
+            $tmp = array();
+            foreach (array_keys($msort) as $k) {
+                $tmp[$k] = $this->_menu[$k];
+            }
+            $this->_menu = $tmp;
 
             $this->_renderCalled = true;
         }
@@ -42,29 +50,18 @@ class IMP_Menu_Dimp extends Horde_Menu
         $out = '';
 
         foreach ($this->_menu as $k => $m) {
-            switch ($type) {
-            case 'sidebar':
-                // FIXME: solve the ajax view detection properly.
-                if (empty($GLOBALS['conf']['menu']['apps_iframe']) ||
-                    $GLOBALS['registry']->hasAjaxView($m['icon']->app)) {
-                    $href = ' href="' . htmlspecialchars($m['url']) . '"';
-                } else {
-                    $href = '';
-                }
-                $out .= '<li class="custom">' .
-                    Horde::img($m['icon'], Horde::stripAccessKey($m['text']), '', $m['icon_path'])
-                    . '<a id="sidebarapp_' . htmlspecialchars($k) . '"'
-                    . $href . '>' . htmlspecialchars($m['text']) . '</a></li>';
-                break;
-
-            case 'tabs':
-                $out .= '<li>' .
-                    '<a class="applicationtab" id="apptab_' . htmlspecialchars($k) . '">' .
-                    Horde::img($m['icon'], Horde::stripAccessKey($m['text']), '', $m['icon_path']) .
-                    htmlspecialchars($m['text']) .
-                    '</a></li>';
-                break;
+            // FIXME: solve the ajax view detection properly.
+            if (empty($GLOBALS['conf']['menu']['apps_iframe']) ||
+                (($m['icon'] instanceof Horde_Themes_Image) &&
+                 $GLOBALS['registry']->hasAjaxView($m['icon']->app))) {
+                $href = ' href="' . htmlspecialchars($m['url']) . '"';
+            } else {
+                $href = '';
             }
+            $out .= '<li class="custom">' .
+                Horde::img($m['icon'], Horde::stripAccessKey($m['text']), '', $m['icon_path'])
+                . '<a id="sidebarapp_' . htmlspecialchars($k) . '"'
+                . $href . '>' . htmlspecialchars($m['text']) . '</a></li>';
         }
 
         return $out;

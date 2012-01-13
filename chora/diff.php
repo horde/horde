@@ -8,7 +8,7 @@
  *   - t: 'colored'
  *   - ty: Diff type
  *
- * Copyright 2000-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2000-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -24,7 +24,7 @@ Horde_Registry::appInit('chora');
 
 /* Spawn the repository and file objects */
 try {
-    $fl = $VC->getFileObject($where);
+    $fl = $VC->getFile($where);
 } catch (Horde_Vcs_Exception $e) {
     Chora::fatal($e);
 }
@@ -33,7 +33,7 @@ $vars = Horde_Variables::getDefaultVariables();
 
 if (!isset($vars->r2)) {
     $vars->r2 = $vars->r1;
-    $vars->r1 = $fl->queryPreviousRevision($vars->r1);
+    $vars->r1 = $fl->getPreviousRevision($vars->r1);
 }
 
 /* Ensure that we have valid revision numbers. */
@@ -68,7 +68,7 @@ $title = sprintf(_("Diff for %s between version %s and %s"),
 /* Format log entries. */
 $log_messages = array();
 foreach ($VC->getRevisionRange($fl, $vars->r1, $vars->r2) as $val) {
-    $clog = $fl->queryLogs($val);
+    $clog = $fl->getLog($val);
     if (!is_null($clog)) {
         $log_messages[] = $clog;
     }

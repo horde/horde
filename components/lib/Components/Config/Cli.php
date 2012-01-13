@@ -16,7 +16,7 @@
  * Components_Config_Cli:: class provides central options for the command line
  * configuration of the components tool.
  *
- * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -86,7 +86,7 @@ extends Components_Config_Base
                 '--pretend',
                 array(
                     'action' => 'store_true',
-                    'help'   => 'Just pretend and indicate what would be done rather than performing the action (This option is not yet supported by all modules - "install", "change", and "release" so far).',
+                    'help'   => 'Just pretend and indicate what would be done rather than performing the action.',
                 )
             )
         );

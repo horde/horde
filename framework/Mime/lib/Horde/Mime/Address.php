@@ -3,7 +3,7 @@
  * The Horde_Mime_Address:: class provides methods for dealing with email
  * address standards (RFC 822/2822/3490/5322).
  *
- * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -29,12 +29,10 @@ class Horde_Mime_Address
      * @param string $mailbox   Mailbox name.
      * @param string $host      Domain name of mailbox's host.
      * @param string $personal  Personal name phrase.
-     * @param array $opts  Additional options:
-     * <pre>
-     * 'idn' - (boolean) Decode IDN domain names (Punycode/RFC 3490).
-     *         Requires the PECL idn module.
-     *         DEFAULT: true
-     * </pre>
+     * @param array $opts       Additional options:
+     *   - idn: (boolean) Decode IDN domain names (Punycode/RFC 3490).
+     *          Requires the idn or intl PHP module.
+     *          DEFAULT: true
      *
      * @return string  The correctly escaped and quoted
      *                 "$personal <$mailbox@$host>" string.
@@ -163,18 +161,16 @@ class Horde_Mime_Address
      *
      * @param array $ob    The address object to be turned into a string.
      * @param array $opts  Additional options:
-     * <pre>
-     * 'charset' - (string) The local charset.
-     *             DEFAULT: NONE
-     * 'filter' - (mixed) A user@example.com style bare address to ignore.
-     *            Either single string or an array of strings. If the address
-     *            matches $filter, an empty string will be returned.
-     *            DEFAULT: No filter
-     * 'idn' - (boolean) Convert IDN domain names (Punycode/RFC 3490) into
-     *         the local charset.
-     *         Requires the PECL idn module.
-     *         DEFAULT: true
-     * </pre>
+     *   - charset: (string) The local charset.
+     *              DEFAULT: NONE
+     *   - filter: (mixed) A user@example.com style bare address to ignore.
+     *             Either single string or an array of strings. If the address
+     *             matches $filter, an empty string will be returned.
+     *             DEFAULT: No filter
+     *   - idn: (boolean) Convert IDN domain names (Punycode/RFC 3490) into
+     *          the local charset.
+     *          Requires the idn or intl PHP module.
+     *          DEFAULT: true
      *
      * @return string  The formatted address.
      */
@@ -226,17 +222,15 @@ class Horde_Mime_Address
      *
      * @param array $addresses  The array of address objects.
      * @param array $opts       Additional options:
-     * <pre>
-     * 'charset' - (string) The local charset.
-     *             DEFAULT: NONE
-     * 'filter' - (mixed) A user@example.com style bare address to ignore.
-     *            Either single string or an array of strings.
-     *            DEFAULT: No filter
-     * 'idn' - (boolean) Convert IDN domain names (Punycode/RFC 3490) into
-     *         the local charset.
-     *         Requires the PECL idn module.
-     *         DEFAULT: true
-     * </pre>
+     *   - charset: (string) The local charset.
+     *              DEFAULT: NONE
+     *   - filter: (mixed) A user@example.com style bare address to ignore.
+     *             Either single string or an array of strings.
+     *             DEFAULT: No filter
+     *   - idn: (boolean) Convert IDN domain names (Punycode/RFC 3490) into
+     *          the local charset.
+     *          Requires the idn or intl PHP module.
+     *          DEFAULT: true
      *
      * @return string  All of the addresses in a comma-delimited string.
      *                 Returns the empty string on error/no addresses found.
@@ -249,7 +243,7 @@ class Horde_Mime_Address
 
         $addrList = array();
 
-        foreach ($addresses as &$addr) {
+        foreach ($addresses as $addr) {
             $val = self::addrObject2String($addr, $opts);
             if (!empty($val)) {
                 $addrList[Horde_String::lower(self::bareAddress($val))] = $val;
@@ -264,27 +258,23 @@ class Horde_Mime_Address
      *
      * @param array $obs   An array of header objects.
      * @param array $opts  Additional options:
-     * <pre>
-     * 'charset' - (string) The local charset.
-     *             DEFAULT: NONE
-     * 'filter' - (mixed) A user@example.com style bare address to ignore.
-     *            Either single string or an array of strings.
-     *            DEFAULT: No filter
-     * 'idn' - (boolean) Convert IDN domain names (Punycode/RFC 3490) into
-     *         the local charset.
-     *         Requires the PECL idn module.
-     *         DEFAULT: true
-     * </pre>
+     *   - charset: (string) The local charset.
+     *              DEFAULT: NONE
+     *   - filter: (mixed) A user@example.com style bare address to ignore.
+     *             Either single string or an array of strings.
+     *             DEFAULT: No filter
+     *   - idn: (boolean) Convert IDN domain names (Punycode/RFC 3490) into
+     *          the local charset.
+     *          Requires the idn or intl PHP module.
+     *          DEFAULT: true
      *
      * @return array  An array of address information. Array elements:
-     * <pre>
-     * 'address' - (string) Full address
-     * 'display' - (string) A displayable version of the address
-     * 'groupname' - (string) The group name.
-     * 'host' - (string) Hostname
-     * 'inner' - (string) Trimmed, bare address
-     * 'personal' - (string) Personal string
-     * </pre>
+     *   - address: (string) Full address
+     *   - display: (string) A displayable version of the address
+     *   - groupname: (string) The group name.
+     *   - host: (string) Hostname
+     *   - inner: (string) Trimmed, bare address
+     *   - personal: (string) Personal string
      */
     static public function getAddressesFromObject($obs, $opts = array())
     {

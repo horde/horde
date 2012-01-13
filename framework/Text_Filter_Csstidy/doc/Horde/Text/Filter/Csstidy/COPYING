@@ -1,41 +1,12 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
-<head>
-<title></title>
-<meta http-equiv="content-type" content="text/html; charset=utf-8">
-<meta name="keywords" content="groupware,webmail,web,application,framework,php,consulting,support,development,library">
-<link type="text/css" rel="stylesheet" href="http://www.horde.org/css/horde.css" media="screen">
-<link rel="SHORTCUT ICON" type="image/x-icon" href="http://www.horde.org/images/favicon.ico" />
-<link href="https://www.horde-llc.com/static/30cfe78067a824ef9dc03c289dbf8428.css" rel="stylesheet" type="text/css" /></head>
-<body>
-<div class="area">
-  <div class="inside">
-    <div class="top">
-    <a href="/" title="Horde" class="logo"><img src="http://www.horde.org/images/logo.png" alt="Horde"/></a>
-    <ul>
-        <li><a href="/" title="Home" class="home first">Home</a></li>
-        <li><a href="/apps" title="Applications" class="applications">Applications</a></li>
-        <li><a href="http://wiki.horde.org" title="Wiki" class="wiki">Wiki</a></li>
-        <li><a href="/support" title="Support" class="support">Support</a></li>
-        <li><a href="/contact" title="Contact Us" class="contactus last">Contact Us</a></li>
-    </ul>
-</div>
-    <div class="podest" id="podest"></div>
-    <div class="content">
-  <div class="main">
-    <div class="mainareasplit">
-      <h2><span>&nbsp;</span><a href="/licenses">Licenses</a>&nbsp;&nbsp;&raquo;&nbsp;&nbsp;GPL</h2>
-      <div class="section">
-     <em>Original:</em> <a href="http://www.horde.org/licenses/gpl">http://www.horde.org/licenses/gpl</a><br /><pre>
                     GNU GENERAL PUBLIC LICENSE
-               Version 2, June 1991
+                       Version 2, June 1991
 
- Copyright 1989, 1991 Free Software Foundation, Inc.
-     59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ Copyright (C) 1989, 1991 Free Software Foundation, Inc.,
+ 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  Everyone is permitted to copy and distribute verbatim copies
  of this license document, but changing it is not allowed.
 
-                Preamble
+                            Preamble
 
   The licenses for most software are designed to take away your
 freedom to share and change it.  By contrast, the GNU General Public
@@ -44,7 +15,7 @@ software--to make sure the software is free for all its users.  This
 General Public License applies to most of the Free Software
 Foundation's software and to any other program whose authors commit to
 using it.  (Some other Free Software Foundation software is covered by
-the GNU Library General Public License instead.)  You can apply it to
+the GNU Lesser General Public License instead.)  You can apply it to
 your programs, too.
 
   When we speak of free software, we are referring to freedom, not
@@ -85,18 +56,18 @@ patent must be licensed for everyone's free use or not licensed at all.
   The precise terms and conditions for copying, distribution and
 modification follow.
 
-            GNU GENERAL PUBLIC LICENSE
+                    GNU GENERAL PUBLIC LICENSE
    TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
 
   0. This License applies to any program or other work which contains
 a notice placed by the copyright holder saying it may be distributed
-under the terms of this General Public License.  The &quot;Program&quot;, below,
-refers to any such program or work, and a &quot;work based on the Program&quot;
+under the terms of this General Public License.  The "Program", below,
+refers to any such program or work, and a "work based on the Program"
 means either the Program or any derivative work under copyright law:
 that is to say, a work containing the Program or a portion of it,
 either verbatim or with modifications and/or translated into another
 language.  (Hereinafter, translation is included without limitation in
-the term &quot;modification&quot;.)  Each licensee is addressed as &quot;you&quot;.
+the term "modification".)  Each licensee is addressed as "you".
 
 Activities other than copying, distribution and modification are not
 covered by this License; they are outside its scope.  The act of
@@ -269,8 +240,8 @@ be similar in spirit to the present version, but may differ in detail to
 address new problems or concerns.
 
 Each version is given a distinguishing version number.  If the Program
-specifies a version number of this License which applies to it and &quot;any
-later version&quot;, you have the option of following the terms and conditions
+specifies a version number of this License which applies to it and "any
+later version", you have the option of following the terms and conditions
 either of that version or of any later version published by the Free
 Software Foundation.  If the Program does not specify a version number of
 this License, you may choose any version ever published by the Free Software
@@ -284,12 +255,12 @@ make exceptions for this.  Our decision will be guided by the two goals
 of preserving the free status of all derivatives of our free software and
 of promoting the sharing and reuse of software generally.
 
-                NO WARRANTY
+                            NO WARRANTY
 
   11. BECAUSE THE PROGRAM IS LICENSED FREE OF CHARGE, THERE IS NO WARRANTY
 FOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE LAW.  EXCEPT WHEN
 OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES
-PROVIDE THE PROGRAM &quot;AS IS&quot; WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED
+PROVIDE THE PROGRAM "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED
 OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
 MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.  THE ENTIRE RISK AS
 TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH YOU.  SHOULD THE
@@ -306,267 +277,4 @@ YOU OR THIRD PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER
 PROGRAMS), EVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGES.
 
-             END OF TERMS AND CONDITIONS
-      </div>
-    </div>
-    <div class="rightcol" style="background: none;"><div>
-      <h2>Featured At</h2>
-    <div id="b-webi-widget" style="width:136px;">
-	<div class="b-webi-header">
-		Featured at:
-	</div>
-	<div class="b-webi-content">
-                    <div class="b-webi-item">
-                <div class="b-webi-domain">
-                    <div class="b-webi-more">more</div>
-                    <div class="b-webi-hide">hide</div>
-                    <a class="b-webi-link" provider-id="41727_319129" href="http://informe.com/trac.roundcube.net/"
-                       alt="
-      Roundcube Webmail
-    .">trac.roundcube.net</a>
-                </div>
-                <div class="b-webi-more-block">
-                    <div class="b-webi-title">
-      Roundcube Webmail
-    </div>
-                    <div class="b-webi-description"></div>
-                                </div>
-            </div>
-                    <div class="b-webi-item">
-                <div class="b-webi-domain">
-                    <div class="b-webi-more">more</div>
-                    <div class="b-webi-hide">hide</div>
-                    <a class="b-webi-link" provider-id="41727_65865" href="http://informe.com/linuxlinks.com/"
-                       alt="Linux Links - The Linux Portal.Comprehensive links to information and
-resources about the Linux Operating System.">linuxlinks.com</a>
-                </div>
-                <div class="b-webi-more-block">
-                    <div class="b-webi-title">Linux Links - The Linux Portal</div>
-                    <div class="b-webi-description">Comprehensive links to information and
-resources about the Linux Operating System.</div>
-                                </div>
-            </div>
-                    <div class="b-webi-item">
-                <div class="b-webi-domain">
-                    <div class="b-webi-more">more</div>
-                    <div class="b-webi-hide">hide</div>
-                    <a class="b-webi-link" provider-id="41727_10421" href="http://informe.com/chronicle.com/"
-                       alt="
-Home - The Chronicle of Higher Education.">chronicle.com</a>
-                </div>
-                <div class="b-webi-more-block">
-                    <div class="b-webi-title">
-Home - The Chronicle of Higher Education</div>
-                    <div class="b-webi-description"></div>
-                                </div>
-            </div>
-                    <div class="b-webi-item">
-                <div class="b-webi-domain">
-                    <div class="b-webi-more">more</div>
-                    <div class="b-webi-hide">hide</div>
-                    <a class="b-webi-link" provider-id="41727_236411" href="http://informe.com/kattare.com/"
-                       alt="Kattare Hosting: The Java Hosting Experts.Home of Kattare Internet Services - The Java Hosting Experts">kattare.com</a>
-                </div>
-                <div class="b-webi-more-block">
-                    <div class="b-webi-title">Kattare Hosting: The Java Hosting Experts</div>
-                    <div class="b-webi-description">Home of Kattare Internet Services - The Java Hosting Experts</div>
-                                </div>
-            </div>
-                    <div class="b-webi-item">
-                <div class="b-webi-domain">
-                    <div class="b-webi-more">more</div>
-                    <div class="b-webi-hide">hide</div>
-                    <a class="b-webi-link" provider-id="41727_1331266" href="http://informe.com/wiki.contribs.org/"
-                       alt="Main Page - SME Server.">wiki.contribs.org</a>
-                </div>
-                <div class="b-webi-more-block">
-                    <div class="b-webi-title">Main Page - SME Server</div>
-                    <div class="b-webi-description"></div>
-                                </div>
-            </div>
-                    <div class="b-webi-item">
-                <div class="b-webi-domain">
-                    <div class="b-webi-more">more</div>
-                    <div class="b-webi-hide">hide</div>
-                    <a class="b-webi-link" provider-id="41727_726110" href="http://informe.com/archives.free.net.ph/"
-                       alt="Mailing List Archives by the Free Network Group.">archives.free.net.ph</a>
-                </div>
-                <div class="b-webi-more-block">
-                    <div class="b-webi-title">Mailing List Archives by the Free Network Group</div>
-                    <div class="b-webi-description"></div>
-                                </div>
-            </div>
-                    <div class="b-webi-item">
-                <div class="b-webi-domain">
-                    <div class="b-webi-more">more</div>
-                    <div class="b-webi-hide">hide</div>
-                    <a class="b-webi-link" provider-id="41727_112286" href="http://informe.com/heise-online.pl/"
-                       alt="The H: Security news and Open source developments.The H brings you the in-depth coverage of the world of IT,
-communications, data security and the politics of technology.">heise-online.pl</a>
-                </div>
-                <div class="b-webi-more-block">
-                    <div class="b-webi-title">The H: Security news and Open source developments</div>
-                    <div class="b-webi-description">The H brings you the in-depth coverage of the world of IT,
-communications, data security and the politics of technology.</div>
-                                </div>
-            </div>
-                    <div class="b-webi-item">
-                <div class="b-webi-domain">
-                    <div class="b-webi-more">more</div>
-                    <div class="b-webi-hide">hide</div>
-                    <a class="b-webi-link" provider-id="41727_302215" href="http://informe.com/packages.debian.org/"
-                       alt="Debian -- Packages .">packages.debian.org</a>
-                </div>
-                <div class="b-webi-more-block">
-                    <div class="b-webi-title">Debian -- Packages </div>
-                    <div class="b-webi-description"></div>
-                                </div>
-            </div>
-                    <div class="b-webi-item">
-                <div class="b-webi-domain">
-                    <div class="b-webi-more">more</div>
-                    <div class="b-webi-hide">hide</div>
-                    <a class="b-webi-link" provider-id="41727_26218" href="http://informe.com/h-online.com/"
-                       alt="The H: Security news and Open source developments.The H brings you the in-depth coverage of the world of IT,
-communications, data security and the politics of technology.">h-online.com</a>
-                </div>
-                <div class="b-webi-more-block">
-                    <div class="b-webi-title">The H: Security news and Open source developments</div>
-                    <div class="b-webi-description">The H brings you the in-depth coverage of the world of IT,
-communications, data security and the politics of technology.</div>
-                                </div>
-            </div>
-                    <div class="b-webi-item">
-                <div class="b-webi-domain">
-                    <div class="b-webi-more">more</div>
-                    <div class="b-webi-hide">hide</div>
-                    <a class="b-webi-link" provider-id="41727_22824" href="http://informe.com/uibk.ac.at/"
-                       alt="University of Innsbruck.The University of Innsbruck was founded 1669 and is one of Austria’s oldest universities. Today, with over 26.000 students and 4.000 staff, it is western Austria’s largest institution of higher educa...">uibk.ac.at</a>
-                </div>
-                <div class="b-webi-more-block">
-                    <div class="b-webi-title">University of Innsbruck</div>
-                    <div class="b-webi-description">The University of Innsbruck was founded 1669 and is one of Austria’s oldest universities. Today, with over 26.000 students and 4.000 staff, it is western Austria’s largest institution of higher educat...</div>
-                                </div>
-            </div>
-            
-	</div>
-	<div class="b-webi-footer">
-		Powered by <a href="http://informe.com/"><b>informe.com</b></a>
-	</div>
-</div>
-<br />
-    <h2>Sponsors</h2>
-  <ul class="ads">
-    <li>
-      <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-      <input type="hidden" name="cmd" value="_xclick" />
-      <input type="hidden" name="business" value="chuck@horde.org" />
-      <input type="hidden" name="item_name" value="Support the Horde Project" />
-      <input type="hidden" name="item_number" value="1" />
-      <input type="hidden" name="no_shipping" value="1" />
-      <input type="hidden" name="cn" value="Notes" />
-      <input type="hidden" name="currency_code" value="USD" />
-      <input type="hidden" name="tax" value="0" />
-      <input type="image" src="https://www.paypal.com/en_US/i/btn/x-click-but04.gif" style="border:0" name="submit" alt="Donate to the Horde Project" />
-      </form>
-    </li>
-    <li><a href="http://www.easydns.com/?V=55611cf92a7e0842"><img src="http://www.horde.org/images/easyDNS.png" /></a></li>
-    <li><a href="http://www.hub.org/?ri=765"><img src="http://www.horde.org/images/hub.png"/></a></li>
-    <li><a href="http://www.verendus.com"><img src="http://www.horde.org/images/verendus.jpg"/></a></li>
-  </ul>
-  <h2>More</h2>
-  <a href="http://twitter.com/hordeproject" class="twitter-follow-button" data-show-count="false">Follow @hordeproject</a>
-  <script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
-  <br />
-  <iframe src="http://www.facebook.com/plugins/like.php?app_id=132513070157462&amp;href=http%3A%2F%2Fwww.facebook.com%2Fpages%2FHorde-LLC%2F192707224109487&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font=arial&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:120px; height:21px;" allowTransparency="true"></iframe>
-  <g:plusone size="medium"></g:plusone>
-  <p>
-    <a href="/logos" class="logos">Logos</a>    <a href="/thanks" class="thanks">Thanks</a>  </p>
-  <h2>Shops</h2>
-  <span style="text-align:center;width:91px;float:left;">European Store<a class="boxl"
-  href="/shop/eu">
-  <img src="http://www.horde.org/images/store-eu.png"/>
-  </a></span>
-  <span style="text-align:center;width:91px;float:left;">US Store<a class="boxl"
-  href="/shop/us">
-  <img src="http://www.horde.org/images/store-us.png"/>
-  </a></span>
-  <span style="text-align:center;width:61px;float:left;">CafePress<a class="boxl"
-  href="http://cafepress.com/hordeproject"> <img style="margin-top:15px"
-  src="http://www.horde.org/images/store-cafepress.jpg"/>
-  </a></span>
-  <!--Cafepress widget seems to have js issues...getting all kinds of errors while navigating-->
-   <!--<div id="cpi-s1-1001" class="cpi cpi-s1" affiliate=""
-   tracking="hordeproject" color="#797979" source="shop:hordeproject"
-   width="100" height="100">
-     Make&nbsp;
-     <a href="http://www.cafepress.com/make/" title="Make Custom Gifts at CafePress">Custom Gifts</a>&nbsp;at CafePress
-   </div>
-   <script type="text/javascript" src="http://content4.cpcache.com/marketplace/widgets/javascripts/widget.js"></script>
-   --></div>
-</div>
-</div>
-    <div class="clear"></div>
-  </div>
-</div>
-                    <div class="footer">
-                        <div class="section">
-                            <div class="add-nav">
-                                <h3>Site Navigation</h3>
-                                <ul>
-                                    <li><a href="/" title="Home" class="home">Home</a></li>
-                                    <li><a href="/community" title="Community" class="community">Community</a></li>
-                                    <li><a href="/development" title="Development" class="home">Development</a></li>
-                                    <li><a href="/services" title="Services" class="services">Services</a></li>
-                                    <li><a href="/apps" title="Applications" class="applications">Applications</a></li>
-                                    <li><a href="http://wiki.horde.org" title="Wiki" class="wiki">Wiki</a></li>
-                                    <li><a href="/support" title="Support" class="support">Support</a></li>
-                                    <li><a href="/contact" title="Contact Us" class="contactus">Contact Us</a></li>
-                                </ul>
-                            </div>
-                            <div class="follow-us">
-                                <h3>Follow us</h3>
-                                <ul>
-                                    <li><a href="http://bit.ly/iggr7v" class="newsletter">Newsletter</a></li>
-                                    <li><a href="http://www.twitter.com/hordeproject" class="twitter">Twitter</a></li>
-                                    <li><a href="http://www.facebook.com/pages/Horde-LLC/192707224109487" class="facebook">Facebook</a></li>
-                                    <li><a href="http://github.com/horde" class="github">GitHub</a></li>
-                                    <li><a href="https://www.ohloh.net/p/horde" class="ohloh">Ohloh</a></li>
-                                </ul>
-                            </div>
-                            <div class="contact-info">
-    <h3>Quick Contact</h3>
-    <dl>
-        <dt>Email:</dt>
-        <dd><a href="mailto:info@horde.org">info@horde.org</a></dd>
-        <dt>Postal Address:</dt>
-        <dd>P.O. Box 79322<br>Atlanta, GA<br>30307<br>United States</dd>
-        <dt>Phone:</dt>
-        <dd>
-          +1.404.475.4830 (US)<br>
-          +49.521.4469.8995 (DE)
-        </dd>
-    </dl>
-</div>
-                            <div class="testimonials">
-    <h3>Testimonials</h3>
-    <p class="what">&quot;Horde 3 beats the competitors already, and Horde 4 looks to beat them hands down.&quot;</p>
-    <p class="who">Arthur P. Meiners</p>
-</div>                            <div class="clear"></div>
-                        </div>
-                </div>
-  </div>
-</div>
-<script type="text/javascript" src="/static/89550ec92282fc532744d2a773c8c465.js"></script>
-<script type="text/javascript" src="/static/4958c16d9b5e31e2522973c312a5fbce.js"></script>
-<script type="text/javascript" src="http://www.horde.org/js/toc.js"></script>
-<script type="text/javascript" src="http://www.google-analytics.com/ga.js"></script>
-<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
-<script type="text/javascript" src="js/informer.js"></script>
-<script type="text/javascript">
-var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-22320801-1']);
-_gaq.push(['_trackPageview']);
-</script>
-</body>
-</html>
+                    END OF TERMS AND CONDITIONS

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -234,21 +234,18 @@ case 'editform':
             }
         }
 
-        $result = $share->setPermission($perm, false);
-        if ($result instanceof PEAR_Error) {
-            $notification->push($result, 'horde.error');
-        } else {
-            $result = $share->save();
-            if ($result instanceof PEAR_Error) {
-                $notification->push($result, 'horde.error');
-            } else {
-                if (Horde_Util::getFormData('save_and_finish')) {
-                    echo Horde::wrapInlineScript(array('window.close();'));
-                    exit;
-                }
-                $notification->push(sprintf(_("Updated \"%s\"."), $share->get('name')), 'horde.success');
-            }
+        try {
+            $share->setPermission($perm, false);
+            $share->save();
+        } catch (Exception $e) {
+            $notification->push($e->getMessage(), 'horde.error');
         }
+        if (Horde_Util::getFormData('save_and_finish')) {
+            echo Horde::wrapInlineScript(array('window.close();'));
+            exit;
+        }
+        $notification->push(
+            sprintf(_("Updated \"%s\"."), $share->get('name')), 'horde.success');
 
         $form = 'edit.inc';
     }

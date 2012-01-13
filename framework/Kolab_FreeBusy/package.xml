@@ -4,7 +4,7 @@
  <channel>pear.horde.org</channel>
  <extends>Kolab_FreeBusy</extends>
  <summary>A package for providing free/busy information</summary>
- <description>This package provides free/busy information for the
+ <description>Free/busy information for the
  users of a Kolab server. A Kolab client changing calendar data in an
  IMAP folder is required to call the triggering script provided within
  this package via HTTP. This will refresh the cache maintained by this
@@ -17,8 +17,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-07-27</date>
- <time>07:10:38</time>
+ <date>2011-11-13</date>
+ <time>22:07:24</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0</api>
@@ -29,10 +29,20 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix tests to work with PHPUnit 3.6.
 * [jan] Update Latvian translation.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Kolab">
+      <dir name="FreeBusy">
+       <file name="COPYING" role="doc" />
+      </dir> <!-- /doc/Horde/Kolab/FreeBusy -->
+     </dir> <!-- /doc/Horde/Kolab -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Kolab">
@@ -529,7 +539,6 @@
      </dir> <!-- /www/Horde/Kolab -->
     </dir> <!-- /www/Horde -->
    </dir> <!-- /www -->
-   <file name="COPYING" role="doc" />
    <file name="TODO" role="php" />
   </dir> <!-- / -->
  </contents>
@@ -588,6 +597,7 @@
  <phprelease>
   <filelist>
    <install as="" name="TODO" />
+   <install as="COPYING" name="doc/Horde/Kolab/FreeBusy/COPYING" />
    <install as="Horde/Kolab/FreeBusy.php" name="lib/Horde/Kolab/FreeBusy.php" />
    <install as="Horde/Kolab/FreeBusy/Cache.php" name="lib/Horde/Kolab/FreeBusy/Cache.php" />
    <install as="Horde/Kolab/FreeBusy/Exception.php" name="lib/Horde/Kolab/FreeBusy/Exception.php" />
@@ -893,10 +903,11 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-07-27</date>
+   <date>2011-11-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-*
+* [jan] Fix tests to work with PHPUnit 3.6.
+* [jan] Update Latvian translation.
    </notes>
   </release>
  </changelog>

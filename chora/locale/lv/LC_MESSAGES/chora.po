@@ -1,5 +1,5 @@
 # Latvian translations for Chora H4 package.
-# Copyright 2011 Horde LLC
+# Copyright 2011-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Chora package.
 # Automatically generated, 2011.
 #
@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Chora H4 (3.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-05-18 12:23+0200\n"
-"PO-Revision-Date: 2011-07-22 15:02+0300\n"
+"PO-Revision-Date: 2011-10-16 15:21+0300\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: lv\n"
@@ -21,44 +21,23 @@ msgstr ""
 "X-Poedit-Country: LATVIA\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-#: templates/annotate/header.inc:4
-msgid "#"
-msgstr ""
-
-#: templates/log/header.inc:14
-#, php-format
-msgid ""
-"%1$s shows diffs to the previous revision. If you select a revision by "
-"clicking its row, %1$s will show the differences to the selected row."
-msgstr ""
-
 #: co.php:82
-#, fuzzy, php-format
+#, php-format
 msgid "%s Revision %s (%s ago)"
-msgstr "(pirms %s dienām)"
+msgstr "%s Revīzija %s (pirms %s)"
 
 #: lib/Application.php:169
-#, fuzzy, php-format
-msgid "%s: Forbidden by server configuration"
-msgstr "RADIUS serveris atsaka autentifikāciju."
-
-#: cvsgraph.php:24
 #, php-format
-msgid "%s: no such file or directory"
-msgstr ""
+msgid "%s: Forbidden by server configuration"
+msgstr "%s: aizliegts servera konfigurācijas dēļ"
 
 #: app/views/diff/caption.html.php:4
 msgid "Added"
 msgstr "Pievienots"
 
 #: templates/directory/header.inc:7
-#, fuzzy
 msgid "All Branches"
-msgstr "_Aizvērt visus"
-
-#: co.php:88
-msgid "Annotate"
-msgstr ""
+msgstr "Visi atzari"
 
 #: annotate.php:32 templates/annotate/header.inc:5
 #: templates/directory/header.inc:28 templates/patchsets/header_table.inc:13
@@ -70,60 +49,40 @@ msgstr "Autors"
 msgid "Back"
 msgstr "Atpakaļ"
 
-#: app/views/_logMessage.html.php:18 lib/Chora.php:332 lib/Chora.php:333
-#: lib/Chora.php:336 lib/Chora.php:337
-msgid "Branches"
-msgstr ""
-
 #: templates/history/branch_cell.inc:2
-#, fuzzy
 msgid "Branching to"
-msgstr " Kopét uz"
+msgstr "Atzars uz"
 
 #: lib/Chora.php:234
-#, fuzzy
 msgid "Change repositories:"
-msgstr "Iet &Uz"
+msgstr "Mainīt krātuves:"
 
 #: templates/history/rev.inc:7
-#, fuzzy, php-format
+#, php-format
 msgid "Changed: %s"
-msgstr "Manītais apraksts"
-
-#: templates/cvsgraph/cvsgraph.inc:5
-msgid ""
-"Click on the links in between revisions to get a diff between those "
-"revisions."
-msgstr ""
-
-#: templates/cvsgraph/cvsgraph.inc:3
-msgid "Click on the revisions and branches to display the file."
-msgstr ""
+msgstr "Manīts: %s"
 
 #: templates/patchsets/header_table.inc:11
-#, fuzzy
 msgid "Commit"
-msgstr "Komentārs:"
+msgstr "Iesniegt"
 
 #: commit.php:28
-#, fuzzy, php-format
+#, php-format
 msgid "Commit %s"
-msgstr "Komentāri: %d"
+msgstr "Iesniegt %s"
 
 #: commit.php:38 patchsets.php:40
-#, fuzzy
 msgid "Commit Not Found"
-msgstr "Parādāmais nav atrasts"
+msgstr "Iesniegums nav atrasts"
 
 #: templates/stats/stats.inc:5
-#, fuzzy
 msgid "Commits"
-msgstr "Komentārs:"
+msgstr "Iesniegumi"
 
 #: patchsets.php:28
-#, fuzzy, php-format
+#, php-format
 msgid "Commits to %s"
-msgstr " Kopét uz"
+msgstr "%s Iesniegumi"
 
 #: templates/directory/header.inc:31
 msgid "Da_te"
@@ -147,11 +106,6 @@ msgstr "Apraksts"
 msgid "Diff"
 msgstr "Diff"
 
-#: diff.php:65
-#, php-format
-msgid "Diff for %s between version %s and %s"
-msgstr ""
-
 #: templates/annotate/line.inc:13
 #, php-format
 msgid "Diff to %s"
@@ -170,18 +124,17 @@ msgid "Download diff as: "
 msgstr "Lejuplādēt diff kā:"
 
 #: app/views/file/html.html.php:16 co.php:76
-#, fuzzy, php-format
+#, php-format
 msgid "Download revision %s"
-msgstr "Revidēšanas vēsture"
+msgstr "Lejuplādēt revīziju %s"
 
 #: templates/error_page.inc:4
 msgid "Error"
 msgstr "Kļūda"
 
 #: templates/error_page.inc:7
-#, fuzzy
 msgid "Error Encountered"
-msgstr " Ext2lib kļūda "
+msgstr "Notikusi  kļūda "
 
 #: templates/directory/file.inc:7 templates/directory/file.inc:30
 #: templates/directory/header.inc:22
@@ -193,24 +146,21 @@ msgid "Get Diff"
 msgstr "Saņemt diff"
 
 #: cvsgraph.php:53
-#, fuzzy, php-format
+#, php-format
 msgid "Graph for %s"
-msgstr "Nosaukums priekš \"%s\":"
+msgstr "%s grafiks"
 
 #: browsedir.php:42
-#, fuzzy
 msgid "Hide Deleted Files"
-msgstr "divu failu atšķirība"
+msgstr "Slēpt dzēstās datnes"
 
 #: browsedir.php:42
-#, fuzzy
 msgid "Hide _Deleted Files"
-msgstr "divu failu atšķirība"
+msgstr "Slēpt _dzēstās datnes"
 
 #: templates/directory/header.inc:33
-#, fuzzy
 msgid "Last Log"
-msgstr "lietotnes žurnāls"
+msgstr "Žurnāls"
 
 #: templates/annotate/header.inc:9
 msgid "Line"
@@ -224,10 +174,6 @@ msgstr "Lasa..."
 msgid "Location:"
 msgstr "Vieta:"
 
-#: lib/Chora.php:319 lib/Chora.php:320
-msgid "Logs"
-msgstr ""
-
 #: diff.php:41
 msgid "Malformed Query"
 msgstr "Kļūdains vaicājums"
@@ -238,117 +184,85 @@ msgstr "Kļūdains vaicājums"
 # #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
 #
 #: app/views/diff/caption.html.php:5
-#, fuzzy
 msgid "Modified"
-msgstr "Izmainīts"
+msgstr "Mainīts"
 
 #: commit.php:25
-#, fuzzy
 msgid "No commit ID given"
-msgstr "Darba tips ar ID  \"%s\" nepastāv."
+msgstr "Nav norādīts iesnieguma ID"
 
 #: lib/Application.php:112
-#, fuzzy
 msgid "No repositories found."
-msgstr "Nav atrasta neviena vienība"
+msgstr "Nav atrasta neviena krātuve."
 
 #: templates/directory/back.inc:4
-#, fuzzy
 msgid "Parent Directory"
 msgstr "Galvenā mape"
 
-#: lib/Chora.php:324 lib/Chora.php:325
-msgid "Patchsets"
-msgstr ""
-
 #: templates/error_page.inc:13
-#, fuzzy
 msgid "Please contact"
-msgstr "Kontaktu meklēšana"
+msgstr "Lūdzu, sazinieties"
 
 #: templates/annotate/header.inc:8
-#, fuzzy
 msgid "Prev"
-msgstr "Priekšskats"
+msgstr "Iepriekšējais"
 
 #: app/views/diff/caption.html.php:6
 msgid "Removed"
 msgstr "Dzēsts"
 
-#: lib/Application.php:179
-msgid "Repositories"
-msgstr ""
-
 #: templates/annotate/header.inc:6 templates/directory/header.inc:25
-#, fuzzy
 msgid "Rev"
-msgstr "Aizvākt"
+msgstr "Revīzija"
 
 #: annotate.php:25
-#, fuzzy, php-format
+#, php-format
 msgid "Revision %s not found"
-msgstr "Parādāmais nav atrasts"
+msgstr "Revīzija %s nav atrasta"
 
 #: co.php:45
-#, fuzzy, php-format
+#, php-format
 msgid "Revision Not Found: %s is not a valid revision"
-msgstr "'%s' nav derīgs POT fails."
+msgstr "Revīzija nav atrasta: %s nav atrodama"
 
 #: templates/patchsets/header_table.inc:3
-#, fuzzy
 msgid "Search Commits:"
-msgstr "Izvēlieties ceļus"
+msgstr "Meklēt iesniegumus:"
 
 #: templates/patchsets/header.inc:7
-#, fuzzy
 msgid "Search Patchsets:"
-msgstr "Izvēlieties ceļus"
+msgstr "Meklēt pačus:"
 
 #: templates/log/header.inc:21
-#, fuzzy
 msgid "Show Branch:"
-msgstr "Vēlreiz parādīt pēdējo"
+msgstr "Rādīt atzaru:"
 
 #: browsedir.php:42
-#, fuzzy
 msgid "Show Deleted Files"
-msgstr "parādīt &Dublējumkopiju failus"
+msgstr "Rādīt dzēstās datnes"
 
 #: templates/log/header.inc:14
-#, fuzzy
 msgid "Show Differences"
-msgstr "rādīt atškirības"
+msgstr "Rādīt atšķirības"
 
 #: browsedir.php:42
-#, fuzzy
 msgid "Show _Deleted Files"
-msgstr "parādīt &Dublējumkopiju failus"
+msgstr "Rādīt _dzēstās datnes"
 
 #: templates/log/header.inc:8
-#, fuzzy, php-format
+#, php-format
 msgid "Show diffs between %s and %s"
-msgstr "Robeža starp tekstu un rāmi."
-
-#: co.php:93
-msgid "Snapshot"
-msgstr ""
+msgstr "Rādīt atšķirības starp %s un %s"
 
 #: annotate.php:45
-#, fuzzy, php-format
+#, php-format
 msgid "Source Annotation of %s (revision %s)"
-msgstr "Ada pirmkods"
+msgstr "%s Izejas koda anotācija (revīzija %s)"
 
 #: history.php:129
-#, fuzzy, php-format
+#, php-format
 msgid "Source Branching View for %s"
-msgstr "Šūnu skata modelis"
-
-#: lib/Application.php:165
-msgid ""
-"Sourceroot not found. This could be a misconfiguration by the server "
-"administrator, or the server could be having temporary problems. Please try "
-"again later."
-msgstr ""
+msgstr "%s Izejas koda atzaru skats"
 
 #: lib/Chora.php:342 lib/Chora.php:343
 msgid "Statistics"
@@ -364,19 +278,18 @@ msgid "Tags"
 msgstr "Iezīmes"
 
 #: lib/Application.php:118
-#, fuzzy, php-format
+#, php-format
 msgid "The repository with the slug '%s' was not found"
-msgstr "Pieprasītais uzdevums nav atrasts."
+msgstr "Krātuve ar rindu '%s' nav atrasta"
 
 #: app/helpers/Diff.php:37
-#, fuzzy, php-format
+#, php-format
 msgid "There was an error generating the diff: %s"
-msgstr "Kļūda aktivējot skriptu."
+msgstr "Kļūda ģenerējot diff: %s"
 
 #: templates/headerbar.inc:9
-#, fuzzy
 msgid "Tracking Branch"
-msgstr "Laika uzskaite"
+msgstr "Sekot atzaram"
 
 #: templates/diff/header.inc:10
 msgid "Unified"
@@ -392,30 +305,20 @@ msgid "View"
 msgstr "Skatīt"
 
 #: templates/directory/header.inc:5
-#, fuzzy
 msgid "View Branch:"
-msgstr " Filtrēts skatījums "
+msgstr "Skatīt atzaru:"
 
 #: app/views/_logMessage.html.php:6
-#, fuzzy
 msgid "View commit"
-msgstr " Filtrēts skatījums "
+msgstr "Skatīt iesniegumu"
 
 #: co.php:95 lib/Chora.php:345
 msgid "View:"
 msgstr "Skatīt:"
 
-#: co.php:88
-msgid "_Annotate"
-msgstr ""
-
 #: templates/directory/header.inc:28
 msgid "_Author"
 msgstr "Autors"
-
-#: lib/Chora.php:333 lib/Chora.php:337
-msgid "_Branches"
-msgstr ""
 
 #: lib/Application.php:198
 msgid "_Browse"
@@ -432,18 +335,6 @@ msgstr "Fails"
 #: lib/Chora.php:320
 msgid "_Logs"
 msgstr "Žurnāli"
-
-#: lib/Chora.php:325
-msgid "_Patchsets"
-msgstr ""
-
-#: templates/directory/header.inc:25
-msgid "_Rev"
-msgstr ""
-
-#: co.php:93
-msgid "_Snapshot"
-msgstr ""
 
 #: lib/Chora.php:343
 msgid "_Statistics"
@@ -463,9 +354,8 @@ msgid "days"
 msgstr "dienas"
 
 #: templates/error_page.inc:14
-#, fuzzy
 msgid "for further information."
-msgstr "Programmas autortiesību informācija"
+msgstr "tālākai informācijai"
 
 #: lib/Chora.php:387
 msgid "hour"
@@ -497,9 +387,9 @@ msgstr "mēneši"
 # #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
 #
 #: templates/history/branch_cell.inc:6
-#, fuzzy, php-format
+#, php-format
 msgid "revision %s"
-msgstr "Revidēšanas vēsture"
+msgstr "revīzija %s"
 
 #: lib/Chora.php:385
 msgid "second"
@@ -510,9 +400,8 @@ msgid "seconds"
 msgstr "sekundes"
 
 #: lib/Chora.php:406
-#, fuzzy
 msgid "very little time"
-msgstr "Kursora Mirgošanas Laiks"
+msgstr "ļoti maz laika"
 
 #: lib/Chora.php:389
 msgid "week"

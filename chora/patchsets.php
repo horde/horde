@@ -2,7 +2,7 @@
 /**
  * Patchsets script.
  *
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -30,7 +30,7 @@ if ($where) {
 }
 
 try {
-    $ps = $VC->getPatchsetObject($ps_opts);
+    $ps = $VC->getPatchset($ps_opts);
     $patchsets = $ps->getPatchsets();
 } catch (Horde_Vcs_Exception $e) {
     Chora::fatal($e);
@@ -53,18 +53,15 @@ $diff_img = Horde::img('diff.png', _("Diff"));
 
 reset($patchsets);
 while (list($id, $patchset) = each($patchsets)) {
-    $patchset_link = Chora::url('patchsets', $where, array('ps' => $id))
-        ->link(array('title' => sprintf("Commits to %s", $id)))
+    $patchset_link = Chora::url('commit', $where, array('commit' => $id))
+        ->link(array('title' => $id))
         . htmlspecialchars($VC->abbrev($id)) . '</a>';
 
-    $commitDate = Chora::formatDate($patchset['log']->queryDate());
-    $readableDate = Chora::readableTime($patchset['log']->queryDate(), true);
-    $author = Chora::showAuthorName($patchset['log']->queryAuthor(), true);
-    $logMessage = Chora::formatLogMessage($patchset['log']->queryLog());
-    $tags = array_merge(
-        $patchset['log']->queryBranch(),
-        $patchset['log']->queryTags()
-    );
+    $commitDate = Chora::formatDate($patchset['date']);
+    $readableDate = Chora::readableTime($patchset['date'], true);
+    $author = Chora::showAuthorName($patchset['author'], true);
+    $logMessage = Chora::formatLogMessage($patchset['log']);
+    $tags = array_merge($patchset['branch'], $patchset['tags']);
 
     require CHORA_TEMPLATES . '/patchsets/ps.inc';
 }

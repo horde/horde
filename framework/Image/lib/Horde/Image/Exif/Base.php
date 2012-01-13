@@ -2,7 +2,7 @@
 /**
  * Base class for Horde_Image_Exif drivers.
  *
- * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -63,7 +63,7 @@ abstract class Horde_Image_Exif_Base
                 $value = $this->_parseGPSData($exif[$field]);
                 if (!empty($exif[$field . 'Ref']) &&
                     in_array($exif[$field . 'Ref'], array('S', 'South', 'W', 'West'))) {
-                    $value = '-' . abs($value);
+                    $value = - abs($value);
                 }
             }
 
@@ -77,7 +77,7 @@ abstract class Horde_Image_Exif_Base
                 }
             }
 
-            if ($data['type'] == 'array') {
+            if ($data['type'] == 'array' || is_array($value)) {
                 if (is_array($value)) {
                     $value = implode(',', $value);
                 }
@@ -112,18 +112,27 @@ abstract class Horde_Image_Exif_Base
         if ($data[0] == 0) {
             return 0;
         }
-        $min = explode('/', $data[1]);
-        if (count($min) > 1) {
-            $min = $min[0] / $min[1];
+
+        if (strpos($data[1], '/') !== false) {
+            $min = explode('/', $data[1]);
+            if (count($min) > 1) {
+                $min = $min[0] / $min[1];
+            } else {
+                $min = $min[0];
+            }
         } else {
-            $min = $min[0];
+            $min = $data[1];
         }
 
-        $sec = explode('/', $data[2]);
-        if (count($sec) > 1) {
-            $sec = $sec[0] / $sec[1];
+        if (strpos($data[2], '/') !== false) {
+            $sec = explode('/', $data[2]);
+            if (count($sec) > 1) {
+                $sec = $sec[0] / $sec[1];
+            } else {
+                $sec = $sec[0];
+            }
         } else {
-            $sec = $sec[0];
+            $sec = $data[2];
         }
 
         return self::_degToDecimal($data[0], $min, $sec);
@@ -139,6 +148,7 @@ abstract class Horde_Image_Exif_Base
     protected function _degToDecimal($degrees, $minutes, $seconds)
     {
         $degs = (double)($degrees + ($minutes / 60) + ($seconds / 3600));
+
         return round($degs, 6);
     }
 

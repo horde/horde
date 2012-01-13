@@ -3,7 +3,7 @@
  * The IMP_Crypt_Smime:: class contains all functions related to handling
  * S/MIME messages within IMP.
  *
- * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -146,19 +146,19 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
             throw new Horde_Crypt_Exception(_("Not a valid public key."));
         }
 
+        /* Add key to the user's address book. */
+        $email = $this->getEmailFromKey($cert);
+        if (is_null($email)) {
+            throw new Horde_Crypt_Exception(_("No email information located in the public key."));
+        }
+
         /* Get the name corresponding to this key. */
         if (isset($key_info['subject']['CN'])) {
             $name = $key_info['subject']['CN'];
         } elseif (isset($key_info['subject']['OU'])) {
             $name = $key_info['subject']['OU'];
         } else {
-            throw new Horde_Crypt_Exception(_("Not a valid public key."));
-        }
-
-        /* Add key to the user's address book. */
-        $email = $this->getEmailFromKey($cert);
-        if (is_null($email)) {
-            throw new Horde_Crypt_Exception(_("No email information located in the public key."));
+            $name = $email;
         }
 
         return array($name, $email);

@@ -6,7 +6,7 @@
  * This script imports the contents of an existing Bugzilla bug database into
  * a Whups database.
  *
- * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
  *
  * @author Jon Parise <jon@horde.org>
  */
@@ -22,7 +22,14 @@ $BUGZILLA_BUG_TYPE = array('Bug', 'Imported Bugzilla Bug');
 $BUGZILLA_PRIORITIES = array('P1', 'P2', 'P3', 'P4', 'P5');
 /* END CONFIGURATION */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+if (file_exists(dirname(__FILE__) . '/../../whups/lib/Application.php')) {
+    $baseDir = dirname(__FILE__) . '/../';
+} else {
+    require_once 'PEAR/Config.php';
+    $baseDir = PEAR_Config::singleton()
+        ->get('horde_dir', null, 'pear.horde.org') . '/whups/';
+}
+require_once $baseDir . 'lib/Application.php';
 Horde_Registry::appInit('whups', array('cli' => true));
 
 function sectionHeader($text)

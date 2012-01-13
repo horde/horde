@@ -14,7 +14,7 @@
 /**
  * Components_Runner_Dependencies:: lists a tree of dependencies.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -58,9 +58,15 @@ class Components_Runner_Dependencies
 
     public function run()
     {
-        $this->_dependencies->listTree(
-            $this->_config->getComponent(),
-            $this->_config->getOptions()
-        );
+        $options = $this->_config->getOptions();
+        if (!empty($options['no_tree'])) {
+            print Horde_Yaml::dump(
+                $this->_config->getComponent()->getDependencies()
+            );
+        } else {
+            $this->_dependencies->listTree(
+                $this->_config->getComponent(), $options
+            );
+        }
     }
 }

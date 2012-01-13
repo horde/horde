@@ -14,7 +14,7 @@
 /**
  * Represents a component.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -54,6 +54,13 @@ interface Components_Component
      * @return string The component version.
      */
     public function getVersion();
+
+    /**
+     * Return the last release date of the component.
+     *
+     * @return string The date.
+     */
+    public function getDate();
 
     /**
      * Return the channel of the component.
@@ -128,6 +135,14 @@ interface Components_Component
      * @return Components_Component_DependencyList The dependency list.
      */
     public function getDependencyList();
+
+    /**
+     * Return a data array with the most relevant information about this
+     * component.
+     *
+     * @return array Information about this component.
+     */
+    public function getData();
 
     /**
      * Return the path to a DOCS_ORIGIN file within the component.
@@ -231,7 +246,7 @@ interface Components_Component
      *               archive, optionally [1] an array of error strings, and [2]
      *               PEAR output.
      */
-    public function placeArchive($destination, $options);
+    public function placeArchive($destination, $options = array());
 
     /**
      * Identify the repository root.

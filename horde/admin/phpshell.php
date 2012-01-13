@@ -2,7 +2,7 @@
 /**
  * PHP Shell.
  *
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -14,7 +14,7 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 $permission = 'phpshell';
 Horde_Registry::appInit('horde');
-if (!$registry->isAdmin() && 
+if (!$registry->isAdmin() &&
     !$injector->getInstance('Horde_Perms')->hasPermission('horde:administration:'.$permission, $registry->getAuth(), Horde_Perms::SHOW)) {
     $registry->authenticateFailure('horde', new Horde_Exception(sprintf("Not an admin and no %s permission", $permission)));
 }
@@ -41,7 +41,7 @@ require HORDE_TEMPLATES . '/admin/menu.inc';
 
 ?>
 <div>
-<form action="phpshell.php" method="post">
+<form action="<?php echo Horde::url('admin/phpshell.php') ?>" method="post">
 <?php Horde_Util::pformInput() ?>
 
 <h1 class="header"><?php echo $title ?></h1>

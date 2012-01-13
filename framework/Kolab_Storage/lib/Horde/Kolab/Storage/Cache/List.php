@@ -14,7 +14,7 @@
 /**
  * A cache backend for Kolab storage list handlers.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -94,10 +94,9 @@ class Horde_Kolab_Storage_Cache_List
      *                                              are only recorded and have
      *                                              no further impact.
      */
-    public function __construct(
-        Horde_Kolab_Storage_Cache $cache,
-        $parameters = null
-    ) {
+    public function __construct(Horde_Kolab_Storage_Cache $cache,
+                                $parameters = null)
+    {
         $this->_cache = $cache;
         $this->_parameters = $parameters;
     }

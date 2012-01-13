@@ -3,7 +3,10 @@
 /**
  * This script clears cache data from a backend.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Usage: horde-clear-cache [-f]
+ *        -f: Force clearing without prompt.
+ *
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -33,7 +36,29 @@ try {
     $cli->fatal($e);
 }
 
-if ($cli->prompt($cli->red('Are you sure you want to expire all cached data?'), array('y' => 'Yes', 'n' => 'No'), 'n') == 'y') {
+$c = new Console_Getopt();
+$argv = $c->readPHPArgv();
+array_shift($argv);
+$options = $c->getopt2($argv, 'f');
+if ($options instanceof PEAR_Error) {
+    $cli->fatal($options->getMessage());
+}
+
+$prompt = false;
+
+foreach ($options[0] as $val) {
+    switch ($val[0]) {
+    case 'f':
+        $prompt = true;
+        break;
+    }
+}
+
+if (!$prompt) {
+    $prompt = $cli->prompt($cli->red('Are you sure you want to expire all cached data?'), array('y' => 'Yes', 'n' => 'No'), 'n') == 'y';
+}
+
+if ($prompt) {
     try {
         $cache->clear();
         $cli->message('Cache data cleared.', 'cli.success');

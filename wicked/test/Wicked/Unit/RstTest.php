@@ -2,7 +2,7 @@
 /**
  * Test the restructured text renderer.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPLv2). If
  * you did not receive this file, see
@@ -169,7 +169,7 @@ H6
         $this->assertEquals(
             'Further information on Horde and the latest version can be obtained at
 
-  http://www.horde.org/apps/horde
+``  ``http://www.horde.org/apps/horde
 
 ',
             $this->protectAgainstPearError($wiki->transform('Further information on Horde and the latest version can be obtained at
@@ -230,6 +230,7 @@ is a list of Horde applications and projects at http://www.horde.org/apps.
 :`docs/CHANGES`_: Changes by release
 
 
+
 .. _`COPYING`: http://www.horde.org/licenses/lgpl
 .. _`docs/CHANGES`: CHANGES',
             $this->protectAgainstPearError($wiki->transform('The following documentation is available in the Horde distribution:
@@ -240,5 +241,130 @@ is a list of Horde applications and projects at http://www.horde.org/apps.
         );
     }
 
+    public function testCode()
+    {
+        $wiki = new Text_Wiki_Default();
+        $this->assertEquals(
+            '::
 
+ test
+
+',
+            $this->protectAgainstPearError($wiki->transform('
+<code>
+test
+</code>
+', 'Rst'))
+        );
+    }
+
+    public function testBold()
+    {
+        $wiki = new Text_Wiki_Default();
+        $this->assertEquals(
+            '**bold**
+
+',
+            $this->protectAgainstPearError($wiki->transform("'''bold'''", 'Rst'))
+        );
+    }
+
+    public function testDeflist()
+    {
+        $wiki = new Text_Wiki_Default();
+        $this->assertEquals(
+            ':The term:     A definition
+:Another term: Another definition
+
+',
+            $this->protectAgainstPearError($wiki->transform('
+: The term : A definition
+: Another term : Another definition
+', 'Rst'))
+        );
+    }
+
+    public function testLongDeflist()
+    {
+        $wiki = new Text_Wiki_Default();
+        $this->assertEquals(
+            ':The term:     A long long long long long long long long long long long long
+               long definition
+:Another term: Another definition
+
+',
+            $this->protectAgainstPearError($wiki->transform('
+: The term : A long long long long long long long long long long long long long definition
+: Another term : Another definition
+', 'Rst'))
+        );
+    }
+
+    public function testBulletlist()
+    {
+        $wiki = new Text_Wiki_Default();
+        $this->assertEquals(
+            '* A
+* B
+',
+            $this->protectAgainstPearError($wiki->transform('
+* A
+* B
+', 'Rst'))
+        );
+    }
+
+    public function testTwoLevelBulletlist()
+    {
+        $wiki = new Text_Wiki_Default();
+        $this->assertEquals(
+            '* A
+  * B
+',
+            $this->protectAgainstPearError($wiki->transform('
+* A
+  * B
+', 'Rst'))
+        );
+    }
+
+    public function testNumberedList()
+    {
+        $wiki = new Text_Wiki_Default();
+        $this->assertEquals(
+            '1. A
+2. B
+',
+            $this->protectAgainstPearError($wiki->transform('
+# A
+# B
+', 'Rst'))
+        );
+    }
+
+    public function testTwoLevelNumberedList()
+    {
+        $wiki = new Text_Wiki_Default();
+        $this->assertEquals(
+            '1. A
+  1. B
+',
+            $this->protectAgainstPearError($wiki->transform('
+# A
+  # B
+', 'Rst'))
+        );
+    }
+
+    public function testFixtureCliModular()
+    {
+        $fixture = dirname(__FILE__) . '/../fixtures/cli_modular';
+        $wiki = new Text_Wiki_Default();
+        $this->assertEquals(
+            file_get_contents($fixture . '.rst'),
+            $this->protectAgainstPearError(
+                $wiki->transform(file_get_contents($fixture . '.wiki'), 'Rst')
+            )
+        );
+    }
 }

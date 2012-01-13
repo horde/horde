@@ -1,5 +1,5 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright YEAR Horde Project
+# Copyright YEAR Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the PACKAGE package.
 # Keo Sophon <keosophon@khmeros.info>, 2005.
 # Leang Chumsoben <soben@khmeros.info>, 2006.

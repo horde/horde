@@ -3,7 +3,7 @@
  * From Binary XML Content Format Specification Version 1.3, 25 July 2001
  * found at http://www.wapforum.org
  *
- * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -44,14 +44,16 @@ class Horde_Xml_Wbxml_Dtd_SyncMlMetInf extends Horde_Xml_Wbxml_Dtd
 
         if ($this->version == 1) {
             $this->setCodePage(0, Horde_Xml_Wbxml_Dtd::SYNCML_1_1, 'syncml:syncml1.1');
-            $this->setCodePage(1, Horde_Xml_Wbxml_Dtd::METINF_1_1, 'syncml:metinf');
+            $this->setCodePage(1, Horde_Xml_Wbxml_Dtd::METINF_1_1, 'syncml:metinf1.1');
+            $this->setURI('syncml:metinf1.1');
         } elseif ($this->version == 2) {
             $this->setCodePage(0, Horde_Xml_Wbxml_Dtd::SYNCML_1_2, 'syncml:syncml1.2');
-            $this->setCodePage(1, Horde_Xml_Wbxml_Dtd::METINF_1_2, 'syncml:metinf');
+            $this->setCodePage(1, Horde_Xml_Wbxml_Dtd::METINF_1_2, 'syncml:metinf1.2');
+            $this->setURI('syncml:metinf1.2');
         } else {
             $this->setCodePage(0, Horde_Xml_Wbxml_Dtd::SYNCML_1_0, 'syncml:syncml1.0');
-            $this->setCodePage(1, Horde_Xml_Wbxml_Dtd::METINF_1_0, 'syncml:metinf');
+            $this->setCodePage(1, Horde_Xml_Wbxml_Dtd::METINF_1_0, 'syncml:metinf1.0');
+            $this->setURI('syncml:metinf1.0');
         }
-        $this->setURI('syncml:metinf');
     }
 }

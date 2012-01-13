@@ -54,11 +54,9 @@ To function properly, Ingo **requires** the following:
 Installing Ingo
 ===============
 
-There are several ways to install Ingo. The recommended way to install Ingo
-is using the PEAR installer. Alternatively it can be installed from
-tarballs. Finally, if you want to run the latest development code, or get the
-latest, not yet released, fixes, you can install Ingo from Git.
-
+The **RECOMMENDED** way to install Ingo is using the PEAR installer.
+Alternatively, if you want to run the latest development code or get the
+latest not yet released fixes, you can install Ingo from Git.
 
 Installing with PEAR
 ~~~~~~~~~~~~~~~~~~~~
@@ -83,6 +81,13 @@ extensions through PECL that might need further configuration or activation in
 your PHP configuration::
 
    pear install -a horde/ingo
+
+Installing from Git
+~~~~~~~~~~~~~~~~~~~
+
+See::
+
+   http://horde.org/source/git.php
 
 
 Configuring Ingo
@@ -142,7 +147,7 @@ The Horde Frequently Asked Questions List (FAQ), available on the Web at
 
   http://wiki.horde.org/FAQ
 
-Horde LLC runs a number of mailing lists, for individual applications
+The Horde Project runs a number of mailing lists, for individual applications
 and for issues relating to the project as a whole.  Information, archives, and
 subscription information can be found at
 

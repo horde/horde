@@ -3,7 +3,7 @@
  * Displays and handles the form to change the ticket type.
  *
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -86,12 +86,12 @@ case 'st2':
 
     $form1->renderInactive($r, $vars);
     echo '<br />';
-    $form2->renderActive($r, $vars, 'type.php', 'post');
+    $form2->renderActive($r, $vars, Horde::url('ticket/type.php'), 'post');
     break;
 
 default:
     $form1 = new Whups_Form_SetTypeStepOne($vars, _("Set Type - Step 1"));
-    $form1->renderActive($r, $vars, 'type.php', 'post');
+    $form1->renderActive($r, $vars, Horde::url('ticket/type.php'), 'post');
     break;
 }
 

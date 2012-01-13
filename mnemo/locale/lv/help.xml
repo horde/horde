@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- $Horde: mnemo/locale/lv/help.xml, 2011/06/03 Janis Eisaks Exp $ -->
+<!-- $Horde: mnemo/locale/en_US/help.xml,v 1.6 2004/11/30 22:25:43 jan Exp $ -->
 <help>
 
-<entry id="Overview">
+<entry id="Overview" state="uptodate" md5="50ee76138fb08b04b029006053bbadbc">
     <para>
   <i>Piezīmes</i> ir aplikācija, kas ļauj radīt līmlapiņu datorizētu ekvivalentu. Piezīmes var 
     rakstīt, labot, dzēst, drukāt un eksportēt kā PDF vai CSV datni. Bez tam ir iespējams meklēt 
@@ -14,7 +14,7 @@
     </para>
 </entry>
 
-<entry id="list-actions">
+<entry id="list-actions" state="uptodate" md5="6d592f153bfb5c296de5dfebb428e1ba">
     <title>Piezīmju saraksts: Darbības</title>
     <heading>Darbības</heading>
     <para>
@@ -28,7 +28,7 @@
     </para>
 </entry>
 
-<entry id="menu-actions">
+<entry id="menu-actions" state="uptodate" md5="715a853d93cd3330e4d730b9112c8a82">
     <title>Rīkjosla</title>
     <heading>Rīkjosla</heading>
     <para>
@@ -50,7 +50,7 @@
 </entry>
 
 
-<entry id="sorting">
+<entry id="sorting" state="uptodate" md5="cca3b1d1c9ed0ec5ab385f82469ddc8f">
     <title>Ierakstu šķirošana</title>
     <heading>Ierakstu šķirošana</heading>
     <para>

@@ -3,7 +3,7 @@
  * The IMP_Crypt_Pgp:: class contains all functions related to handling
  * PGP messages within IMP.
  *
- * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -352,6 +352,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      * @param string $text       The text to verify.
      * @param string $address    E-mail address of public key.
      * @param string $signature  A PGP signature block.
+     * @param string $charset    Charset to use.
      *
      * @return stdClass  See Horde_Crypt_Pgp::decrypt().
      * @throws Horde_Crypt_Exception

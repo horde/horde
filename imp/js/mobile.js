@@ -1,7 +1,7 @@
 /**
  * jQuery Mobile UI application logic.
  *
- * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -27,41 +27,6 @@ var ImpMobile = {
     messages: {},
 
     /**
-     * Converts an object to an IMP UID Range string.
-     * See IMP::toRangeString().
-     *
-     * @param object ob  Mailbox name as keys, values are array of uids.
-     */
-    toRangeString: function(ob)
-    {
-        var str = '';
-
-        $.each(ob, function(key, value) {
-            if (!value.length) {
-                return;
-            }
-
-            var u = (IMP.conf.pop3 ? value : value.numericSort()),
-                first = u.shift(),
-                last = first,
-                out = [];
-
-            $.each(u, function(n, k) {
-                if (!IMP.conf.pop3 && (last + 1 == k)) {
-                    last = k;
-                } else {
-                    out.push(first + (last == first ? '' : (':' + last)));
-                    first = last = k;
-                }
-            });
-            out.push(first + (last == first ? '' : (':' + last)));
-            str += '{' + key.length + '}' + key + out.join(',');
-        });
-
-        return str;
-    },
-
-    /**
      * Switches to the mailbox view and loads a mailbox.
      *
      * @param string mailbox  A mailbox name.
@@ -79,7 +44,7 @@ var ImpMobile = {
                 slice: '1:25',
                 requestid: 1,
                 sortby: IMP.conf.sort.date.v,
-                sortdir: 1,
+                sortdir: 1
             },
             ImpMobile.mailboxLoaded);
     },
@@ -103,7 +68,7 @@ var ImpMobile = {
                     });
                 }
                 list.prepend(
-                    $('<li class="' + c + '" data-imp-mailbox="' + data.view + '" data-imp-uid="' + data.uid + '">').append(
+                    $('<li class="' + c + '" data-imp-mailbox="' + data.mbox + '" data-imp-uid="' + data.uid + '">').append(
                         $('<h3>').append(
                             $('<a href="#">').html(data.subject))).append(
                         $('<div class="ui-grid-a">').append(
@@ -143,8 +108,8 @@ var ImpMobile = {
         HordeMobile.doAction(
             'showMessage',
             {
-                uid: ImpMobile.toRangeString(o),
-                view: mailbox,
+                uid: this.toUIDString(o),
+                view: mailbox
             },
             ImpMobile.messageLoaded);
     },
@@ -169,7 +134,7 @@ var ImpMobile = {
         if (!newuid || !ImpMobile.data[newuid]) {
             return;
         }
-        ImpMobile.toMessage(ImpMobile.data[newuid].view, newuid);
+        ImpMobile.toMessage(ImpMobile.data[newuid].mbox, newuid);
     },
 
     /**
@@ -202,6 +167,48 @@ var ImpMobile = {
                 });
             }
         }
+    },
+
+    /**
+     * Converts an object to an IMP UID range string.
+     *
+     * @param object ob  Mailbox name as keys, values are array of uids.
+     *
+     * @return string  The UID range string.
+     */
+    toUIDString: function(ob)
+    {
+        var str = '';
+
+        $.each(ob, function(key, value) {
+            if (!value.length) {
+                return;
+            }
+
+            if (IMP.conf.pop3) {
+                $.each(value, function(pk, pv) {
+                    str += '{P' + pv.length + '}' + pv;
+                });
+            } else {
+                var u = value.numericSort(),
+                    first = u.shift(),
+                    last = first,
+                    out = [];
+
+                $.each(u, function(n, k) {
+                    if (last + 1 == k) {
+                        last = k;
+                    } else {
+                        out.push(first + (last == first ? '' : (':' + last)));
+                        first = last = k;
+                    }
+                });
+                out.push(first + (last == first ? '' : (':' + last)));
+                str += '{' + key.length + '}' + key + out.join(',');
+            }
+        });
+
+        return str;
     },
 
     /**

@@ -2,7 +2,7 @@
 /**
  * Class to encapsulate the UI for adding/viewing/changing galleries.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -106,8 +106,28 @@ class Ansel_View_GalleryProperties
         $view->url = $this->_params['url'];
         $view->availableThumbs = $this->_thumbStyles();
         $view->galleryViews = $this->_galleryViewStyles();
-
-        Horde::addInlineScript(array('$("gallery_name").focus()'), 'dom');
+        $js = array('$("gallery_name").focus()');
+        if ($GLOBALS['conf']['image']['type'] != 'png') {
+            $js[] = 'function checkStyleSelection()
+                {
+                    var s, bg = $F("background_color");
+                    $A($("thumbnail_style").options).each(function(o) {
+                        if (o.value == "Thumb" && o.selected == "1") {
+                           s = true;
+                        }
+                    });
+                    if (bg == "none" && !s) {
+                        alert("' . _("Your server does not support thumbnails with transparent backgrounds.  Either select a background color or use the 'Basic Thumbnail' type. Please contact your server administrator for more information.") . '");
+                        $A($("thumbnail_style").options).each(function(o) {
+                            if (o.value == "Thumb") {
+                                o.selected = "1";
+                            }
+                        })
+                    }
+                }';
+            $js[] = '$("background_color").observe("change", checkStyleSelection); $("thumbnail_style").observe("change", checkStyleSelection);';
+        }
+        Horde::addInlineScript($js, 'dom');
         Horde::addScriptFile('stripe.js', 'horde');
         Horde::addScriptFile('popup.js', 'horde');
 
@@ -370,7 +390,9 @@ class Ansel_View_GalleryProperties
 
         // Make sure that the style hash is recorded, ignoring non-styled thumbs
         if ($style->thumbstyle != 'Thumb') {
-            $GLOBALS['injector']->getInstance('Ansel_Storage')->ensureHash($gallery->getStyle()->getHash('thumb'));
+            $GLOBALS['injector']->
+                getInstance('Ansel_Storage')
+                ->ensureHash($gallery->getStyle()->getHash('thumb'));
         }
 
         // Clear the OtherGalleries widget cache

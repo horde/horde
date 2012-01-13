@@ -33,7 +33,8 @@ Webserver/PHP tuning
   Suite`_, the `Alternative PHP Cache`_, eAccelerator_, or XCache_.  These
   accelerators speed up access by caching the compiled PHP code, eliminating
   the need to recompile the code for every single page load. **This is probably
-  the easiest way to improve the performance of Horde Groupware**.
+  the easiest way to improve the performance of Horde Groupware**. See
+  Autoloading_ further down to get even more out of some of those accelerators.
 
 * Enable PHP output compression in the Horde configuration. Do not enable
   compression in the PHP configuration (i.e. in ``php.ini``), because certain
@@ -174,6 +175,42 @@ MySQL tuning
   size to meet your needs)::
 
     set-variable = query_cache_size=128M
+
+
+Horde tuning
+============
+
+
+Autoloading
+-----------
+
+* An easy way to improve the performance of the Horde Autoloader library, is to
+  install the Autoloader Cache extension::
+
+    pear install horde/horde_autoloader_cache
+
+  This library is not installed by default because it will unconditionally use
+  any of the following cache backends and does not allow for any further
+  configuration: `Alternative PHP Cache`_, XCache_, eAccelerator_, or the local
+  temporary filesystem.
+
+  It also doesn't detect the rare case when the file paths of any PHP class in
+  Horde changes. In this case you either need to use the provided script to
+  empty the cache::
+
+     horde-autoloader-cache-prune
+
+  or empty the cache manually, e.g. by restarting the web server or deleting
+  the cache file from the temporary directory.
+
+
+VFS
+---
+
+* Try to avoid using a SQL backend for VFS. Many databases require binary data
+  to be heavily escaped, resulting in storage sizes that are many times
+  greater than the actual size of the data. File system VFS will normally
+  provide much improved performance.
 
 
 Application tuning

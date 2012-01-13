@@ -3,7 +3,7 @@
  * The Ingo_Script_Sieve_Action_Notify class represents a notify action.
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
- * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author  Paul Wolstenholme <wolstena@sfu.ca>
  * @package Ingo

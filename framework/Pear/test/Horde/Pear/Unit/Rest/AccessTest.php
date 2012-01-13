@@ -20,7 +20,7 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
 /**
  * Test the rest access helper.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -35,6 +35,12 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
 class Horde_Pear_Unit_Rest_AccessTest
 extends Horde_Pear_TestCase
 {
+    public function setUp()
+    {
+        $this->markTestIncomplete();
+    }
+
+
     public function testLatestRelease()
     {
         $this->assertEquals(
@@ -66,6 +72,36 @@ extends Horde_Pear_TestCase
         $this->assertInstanceOf(
             'Horde_Pear_Rest_Dependencies',
             $this->_getDependencyAccess()->getDependencies('A', '1.0.0')
+        );
+    }
+
+    public function testPackageXml()
+    {
+        $this->assertInstanceOf(
+            'Horde_Pear_Package_Xml',
+            $this->_getPackageAccess()->getPackageXml('A', '1.0.0')
+        );
+    }
+
+    public function testPackageXmlName()
+    {
+        $this->assertEquals(
+            'Fixture',
+            $this->_getPackageAccess()->getPackageXml('A', '1.0.0')->getName()
+        );
+    }
+
+    public function testReleaseExists()
+    {
+        $this->assertTrue(
+            $this->_getPackageAccess()->releaseExists('A', '1.0.0')
+        );
+    }
+
+    public function testReleaseDoesNotExist()
+    {
+        $this->assertFalse(
+            $this->_getPackageAccess(404)->releaseExists('A', '1.0.0')
         );
     }
 
@@ -129,6 +165,21 @@ extends Horde_Pear_TestCase
         $body = new Horde_Support_StringStream($string);
         $response = new Horde_Http_Response_Mock('', $body->fopen());
         $response->code = 200;
+        $request = new Horde_Http_Request_Mock();
+        $request->setResponse($response);
+        return $this->_createAccess($request);
+    }
+
+    private function _getPackageAccess($code = 200)
+    {
+        if (!class_exists('Horde_Http_Client')) {
+            $this->markTestSkipped('Horde_Http is missing!');
+        }
+        $response = new Horde_Http_Response_Mock(
+            '',
+            fopen(dirname(__FILE__) . '/../../fixture/horde/horde/package.xml', 'r')
+        );
+        $response->code = $code;
         $request = new Horde_Http_Request_Mock();
         $request->setResponse($response);
         return $this->_createAccess($request);

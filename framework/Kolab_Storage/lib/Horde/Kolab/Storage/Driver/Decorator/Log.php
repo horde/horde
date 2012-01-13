@@ -14,7 +14,7 @@
 /**
  * A log decorator definition for the Kolab storage drivers.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -125,7 +125,7 @@ extends Horde_Kolab_Storage_Driver_Decorator_Base
             sprintf(
                 'Driver "%s": Retrieved namespaces [%s].',
                 $this->getDriverName(),
-                (string) $result
+                (string)$result
             )
         );
         return $result;

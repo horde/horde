@@ -10,22 +10,33 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-08-30</date>
- <time>17:24:55</time>
+ <date>2011-11-02</date>
+ <time>10:30:01</time>
  <version>
-  <release>1.0.0beta1</release>
+  <release>1.0.1</release>
   <api>1.0.0</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2.1</license>
  <notes>
-* First beta release for Horde 4.
+* [gwr] Fixed wording of the documentation.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Cli">
+      <dir name="Modular">
+       <file name="COPYING" role="doc" />
+       <file name="DOCS_ORIGIN" role="doc" />
+       <file name="README" role="doc" />
+      </dir> <!-- /doc/Horde/Cli/Modular -->
+     </dir> <!-- /doc/Horde/Cli -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Cli">
@@ -69,7 +80,6 @@
      </dir> <!-- /test/Horde/Cli -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
-   <file name="COPYING" role="data" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -100,6 +110,9 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Cli/Modular/COPYING" />
+   <install as="DOCS_ORIGIN" name="doc/Horde/Cli/Modular/DOCS_ORIGIN" />
+   <install as="README" name="doc/Horde/Cli/Modular/README" />
    <install as="Horde/Cli/Modular.php" name="lib/Horde/Cli/Modular.php" />
    <install as="Horde/Cli/Modular/Exception.php" name="lib/Horde/Cli/Modular/Exception.php" />
    <install as="Horde/Cli/Modular/Module.php" name="lib/Horde/Cli/Modular/Module.php" />
@@ -117,8 +130,7 @@
    <install as="Horde/Cli/Modular/Unit/ModularTest.php" name="test/Horde/Cli/Modular/Unit/ModularTest.php" />
    <install as="Horde/Cli/Modular/Unit/ModuleProviderTest.php" name="test/Horde/Cli/Modular/Unit/ModuleProviderTest.php" />
    <install as="Horde/Cli/Modular/Unit/ModulesTest.php" name="test/Horde/Cli/Modular/Unit/ModulesTest.php" />
-   <install as="COPYING" name="COPYING" />
-  </filelist>
+   </filelist>
  </phprelease>
  <changelog>
   <release>
@@ -138,15 +150,41 @@
   </release>
   <release>
    <version>
-    <release>1.0.0beta1</release>
+    <release>1.0.0RC1</release>
     <api>1.0.0</api></version>
    <stability>
-    <release>alpha</release>
-    <api>alpha</api></stability>
-   <date>2011-08-30</date>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2011-10-17</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2.1</license>
    <notes>
-* First beta release for Horde 4.
+* First release candidate for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-02</date>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2.1</license>
+   <notes>
+* First stable release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-02</date>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2.1</license>
+   <notes>
+* [gwr] Fixed wording of the documentation.
    </notes>
   </release>
  </changelog>

@@ -2,7 +2,7 @@
 /**
  * Wrapper for CVSGraph.
  *
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -24,7 +24,7 @@ if (!is_file($fullname . ',v')) {
     Chora::fatal(sprintf(_("%s: no such file or directory"), $where), '404 Not Found');
 }
 
-$root = escapeShellCmd($VC->sourceroot());
+$root = escapeShellCmd($VC->sourceroot);
 $file = escapeShellCmd($where . ',v');
 
 if (Horde_Util::getFormData('show_image')) {

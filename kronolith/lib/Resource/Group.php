@@ -2,7 +2,7 @@
 /**
  * Kronolith_Resource implementation to represent a group of similar resources.
  *
- * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -97,7 +97,8 @@ class Kronolith_Resource_Group extends Kronolith_Resource_Base
         foreach ($resources as $resource_id) {
             $conflict = false;
             $resource = $this->_driver->getResource($resource_id);
-            $busy = Kronolith::listEvents($start, $end, array($resource->get('calendar')));
+            $busy = Kronolith::getDriver('Resource', $resource->get('calendar'))
+                ->listEvents($start, $end, true);
 
             /* No events at all during time period for requested event */
             if (!count($busy)) {

@@ -563,10 +563,12 @@ class Nag_Api extends Horde_Registry_Api
                             isset($task->completed) ? (int)$task->completed : $existing->completed,
                             isset($task->category) ? $task->category : $existing->category,
                             isset($task->alarm) ? $task->alarm : $existing->alarm,
+                            isset($task->methods) ? $task->methods : $existing->methods,
                             isset($task->parent_id) ? $task->parent_id : $existing->parent_id,
                             isset($task->private) ? $task->private : $existing->private,
                             $owner,
-                            isset($task->assignee) ? $task->assignee : $existing->assignee
+                            isset($task->assignee) ? $task->assignee : $existing->assignee,
+                            isset($task->completed_date) ? $task->completed_date : $existing->completed_date
                         );
                     } catch (Nag_Exception $e) {
                         throw new Nag_Exception($e->getMessage(), 500);
@@ -584,6 +586,7 @@ class Nag_Api extends Horde_Registry_Api
                             !empty($task->completed),
                             isset($task->category) ? $task->category : '',
                             isset($task->alarm) ? $task->alarm : 0,
+                            isset($task->methods) ? $task->methods : null,
                             isset($task->uid) ? $task->uid : null,
                             isset($task->parent_id) ? $task->parent_id : '',
                             !empty($task->private),
@@ -680,7 +683,7 @@ class Nag_Api extends Horde_Registry_Api
      * Returns an array of UIDs for all tasks that the current user is authorized
      * to see.
      *
-     * @param mixed $tasklist  The tasklist or an array of taskslists to list.
+     * @param mixed $tasklists  The tasklist or an array of taskslists to list.
      *
      * @return array             An array of UIDs for all tasks
      *                           the user can access.
@@ -688,17 +691,26 @@ class Nag_Api extends Horde_Registry_Api
      * @throws Horde_Exception_PermissionDenied
      * @throws Nag_Exception
      */
-    public function listUids($tasklist = null)
+    public function listUids($tasklists = null)
     {
         if (!isset($GLOBALS['conf']['storage']['driver'])) {
             throw new Nag_Exception(_("Not configured"));
         }
-        if ($tasklist === null) {
-            $tasklist = Nag::getDefaultTasklist(Horde_Perms::READ);
-        } elseif (!Nag::hasPermission($tasklist, Horde_Perms::READ)) {
-            throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
+
+        if (empty($tasklists)) {
+            $tasklists = Nag::getSyncLists();
+        } else {
+            if (!is_array($tasklists)) {
+                $tasklists = array($tasklists);
+            }
+            foreach ($tasklists as $list) {
+                if (!Nag::hasPermission($list, Horde_Perms::READ)) {
+                    throw new Horde_Exception_PermissionDenied();
+                }
+            }
         }
-        $tasks = Nag::listTasks(null, null, null, array($tasklist), 1);
+
+        $tasks = Nag::listTasks(null, null, null, $tasklists, 1);
         $uids = array();
         $tasks->reset();
         while ($task = $tasks->each()) {
@@ -714,7 +726,7 @@ class Nag_Api extends Horde_Registry_Api
      *
      * @param string  $action     The action to check for - add, modify, or delete.
      * @param integer $timestamp  The time to start the search.
-     * @param string  $tasklist   The tasklist to be used. If 'null', the
+     * @param mixed   $tasklists  The tasklists to be used. If 'null', the
      *                            user's default tasklist will be used.
      * @param integer $end        The optional ending timestamp.
      *
@@ -725,10 +737,13 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function listBy($action, $timestamp, $tasklist = null, $end = null)
     {
-        if ($tasklist === null) {
-            $tasklist = Nag::getDefaultTasklist(Horde_Perms::READ);
-        } elseif (!Nag::hasPermission($tasklist, Horde_Perms::READ)) {
-           throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
+        if (empty($tasklist)) {
+            $tasklist = Nag::getSyncLists();
+            $results = array();
+            foreach ($tasklist as $list) {
+                $results = array_merge($results, $this->listBy($action, $timestamp, $list, $end));
+            }
+            return $results;
         }
 
         $filter = array(array('op' => '=', 'field' => 'action', 'value' => $action));
@@ -755,9 +770,10 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function getChanges($start, $end)
     {
-        return array('add' => $this->listBy('add', $start, null, $end),
-                     'modify' => $this->listBy('modify', $start, null, $end),
-                     'delete' => $this->listBy('delete', $start, null, $end));
+        return array(
+            'add' => $this->listBy('add', $start, null, $end),
+            'modify' => $this->listBy('modify', $start, null, $end),
+            'delete' => $this->listBy('delete', $start, null, $end));
     }
 
     /**
@@ -940,7 +956,7 @@ class Nag_Api extends Horde_Registry_Api
             !empty($task['completed']),
             isset($task['category']) ? $task['category'] : '',
             isset($task['alarm']) ? $task['alarm'] : 0,
-            isset($task['methods']) ? $task['alarm'] : null,
+            isset($task['methods']) ? $task['methods'] : null,
             isset($task['uid']) ? $task['uid'] : null,
             isset($task['parent_id']) ? $task['parent_id'] : '',
             !empty($task['private']),
@@ -1019,7 +1035,7 @@ class Nag_Api extends Horde_Registry_Api
         $storage = Nag_Driver::singleton();
         $task = $storage->getByUID($uid);
         if (!Nag::hasPermission($task->tasklist, Horde_Perms::READ)) {
-            throw new Horde_Exception_PermimssionDenied(_("Permission Denied"));
+            throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
         }
 
         $version = '2.0';
@@ -1029,7 +1045,7 @@ class Nag_Api extends Horde_Registry_Api
         case 'text/calendar':
             // Create the new iCalendar container.
             $iCal = new Horde_Icalendar($version);
-            $iCal->setAttribute('PRODID', '-//Horde LLC//Nag ' . $GLOBALS['registry']->getVersion() . '//EN');
+            $iCal->setAttribute('PRODID', '-//The Horde Project//Nag ' . $GLOBALS['registry']->getVersion() . '//EN');
             $iCal->setAttribute('METHOD', 'PUBLISH');
 
             // Create new vTodo object.
@@ -1057,11 +1073,10 @@ class Nag_Api extends Horde_Registry_Api
     public function getTask($tasklist, $id)
     {
         if (!Nag::hasPermission($tasklist, Horde_Perms::READ)) {
-            throw new Horde_Exception_PermimssionDenied(_("Permission Denied"));
+            throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
         }
 
-        $storage = Nag_Driver::singleton($tasklist);
-        return $storage->get($id);
+        return Nag::getTask($tasklist, $id);
     }
 
     /**
@@ -1082,7 +1097,7 @@ class Nag_Api extends Horde_Registry_Api
     public function exportTasklist($tasklist, $contentType)
     {
         if (!Nag::hasPermission($tasklist, Horde_Perms::READ)) {
-            throw new Horde_Exception_PermimssionDenied(_("Permission Denied"));
+            throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
         }
 
         $tasks = Nag::listTasks(null, null, null, array($tasklist), 1);
@@ -1134,7 +1149,7 @@ class Nag_Api extends Horde_Registry_Api
         if (!$GLOBALS['registry']->isAdmin() &&
             !Nag::hasPermission($task->tasklist, Horde_Perms::DELETE)) {
 
-             throw new Horde_Exception_PermimssionDenied(_("Permission Denied"));
+             throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
         }
 
         return $storage->delete($task->id);
@@ -1151,7 +1166,7 @@ class Nag_Api extends Horde_Registry_Api
         if (!$GLOBALS['registry']->isAdmin() &&
             !Nag::hasPermission($tasklist, Horde_Perms::DELETE)) {
 
-            throw new Horde_Exception_PermimssionDenied(_("Permission Denied"));
+            throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
         }
 
         $storage = Nag_Driver::singleton($tasklist);
@@ -1181,7 +1196,7 @@ class Nag_Api extends Horde_Registry_Api
         $existing = $storage->getByUID($uid);
         $taskId = $existing->id;
         if (!Nag::hasPermission($existing->tasklist, Horde_Perms::EDIT)) {
-            throw new Horde_Exception_PermimssionDenied(_("Permission Denied"));
+            throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
         }
 
         switch ($contentType) {
@@ -1267,7 +1282,7 @@ class Nag_Api extends Horde_Registry_Api
     {
         if (!$GLOBALS['registry']->isAdmin() &&
             !Nag::hasPermission($tasklist, Horde_Perms::EDIT)) {
-            throw new Horde_Exception_PermimssionDenied(_("Permission Denied"));
+            throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
         }
 
         $storage = Nag_Driver::singleton($tasklist);
@@ -1403,7 +1418,7 @@ class Nag_Api extends Horde_Registry_Api
         $storage = Nag_Driver::singleton();
         $existing = $storage->get($timeobject['id']);
         if (!Nag::hasPermission($existing->tasklist, Horde_Perms::EDIT)) {
-            throw new Horde_Exception_PermimssionDenied(_("Permission Denied"));
+            throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
         }
         $storage = Nag_Driver::singleton($existing->tasklist);
         if (isset($timeobject['start'])) {

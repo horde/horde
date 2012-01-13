@@ -9,7 +9,7 @@
  *          'rlog', 'cvsps', 'cvsps_home', and 'temp' (the temp path).
  * </pre>
  *
- * Copyright 2000-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2000-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -21,36 +21,52 @@
 class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
 {
     /**
-     * Does driver support patchsets?
+     * The current driver.
      *
-     * @var boolean
+     * @var string
      */
-    protected $_patchsets = true;
+    protected $_driver = 'Cvs';
 
     /**
-     * Does driver support deleted files?
+     * Driver features.
      *
-     * @var boolean
+     * @var array
      */
-    protected $_deleted = true;
+    protected $_features = array(
+        'deleted'   => true,
+        'patchsets' => true,
+        'branches'  => true,
+        'snapshots' => false);
 
     /**
-     * Does driver support branches?
-     *
-     * @var boolean
+     * Constructor.
      */
-    protected $_branches = true;
-
-    /**
-     * Does this driver support the given feature?
-     *
-     * @return boolean  True if driver supports the given feature.
-     */
-    public function hasFeature($feature)
+    public function __construct($params = array())
     {
-        return (($feature != 'patchsets') || $this->getPath('cvsps'))
-            ? parent::hasFeature($feature)
-            : false;
+        parent::__construct($params);
+        if (!$this->getPath('cvsps')) {
+            $this->_features['patchsets'] = false;
+        }
+    }
+
+    /**
+     * TODO
+     */
+    public function getFile($filename, $opts = array())
+    {
+        $filename = ltrim($filename, '/');
+        $fname = $filename . ',v';
+
+        /* Assume file is in the Attic if it doesn't exist. */
+        if (!@is_file($this->sourceroot . '/' . $fname)) {
+            $fname = dirname($filename) . '/Attic/' . basename($filename) . ',v';
+        }
+
+        if (!@is_file($this->sourceroot . '/' . $fname)) {
+            throw new Horde_Vcs_Exception(sprintf('File "%s" not found', $filename));
+        }
+
+        return Horde_Vcs_Base::getFile($fname, $opts);
     }
 
     /**
@@ -65,22 +81,21 @@ class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
     /**
      * Obtain the differences between two revisions of a file.
      *
-     * @param Horde_Vcs_File $file  The desired file.
-     * @param string $rev1          Original revision number to compare from.
-     * @param string $rev2          New revision number to compare against.
-     * @param array $opts           The following optional options:
-     * <pre>
-     * 'num' - (integer) DEFAULT: 3
-     * 'type' - (string) DEFAULT: 'unified'
-     * 'ws' - (boolean) DEFAULT: true
-     * </pre>
+     * @param Horde_Vcs_File_Cvs $file  The desired file.
+     * @param string $rev1              Original revision number to compare
+     *                                  from.
+     * @param string $rev2              New revision number to compare against.
+     * @param array $opts               The following optional options:
+     *                                  - 'num': (integer) DEFAULT: 3
+     *                                  - 'type': (string) DEFAULT: 'unified'
+     *                                  - 'ws': (boolean) DEFAULT: true
      *
      * @return string|boolean  False on failure, or a string containing the
      *                         diff on success.
      */
-    protected function _diff($file, $rev1, $rev2, $opts)
+    protected function _diff(Horde_Vcs_File_Base $file, $rev1, $rev2, $opts)
     {
-        $fullName = $file->queryFullPath();
+        $fullName = $file->getPath();
         $diff = array();
         $flags = '-kk ';
 
@@ -124,25 +139,6 @@ class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
 
     /**
      * TODO
-     */
-    public function getFileObject($filename, $opts = array())
-    {
-        if (substr($filename, 0, 1) != '/') {
-            $filename = '/' . $filename;
-        }
-
-        $filename = $this->sourceroot() . $filename;
-
-        /* Assume file is in the Attic if it doesn't exist. */
-        $fname = $filename . ',v';
-        if (!@is_file($fname)) {
-            $fname = dirname($filename) . '/Attic/' . basename($filename) . ',v';
-                                        }
-        return parent::getFileObject($fname, $opts);
-    }
-
-    /**
-     * TODO
      *
      * @throws Horde_Vcs_Exception
      */
@@ -151,12 +147,12 @@ class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
         $this->assertValidRevision($rev);
 
         $tmpfile = Horde_Util::getTempFile('vc', true, $this->_paths['temp']);
-        $where = $fileob->queryModulePath();
+        $where = $fileob->getSourcerootPath();
 
         $pipe = popen(escapeshellcmd($this->getPath('cvs')) . ' -n server > ' . escapeshellarg($tmpfile), VC_WINDOWS ? 'wb' : 'w');
 
         $out = array(
-            'Root ' . $this->sourceroot(),
+            'Root ' . $this->sourceroot,
             'Valid-responses ok error Valid-requests Checked-in Updated Merged Removed M E',
             'UseUnchanged',
             'Argument -r',
@@ -167,12 +163,12 @@ class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
         $dirs = explode('/', dirname($where));
         while (count($dirs)) {
             $out[] = 'Directory ' . implode('/', $dirs);
-            $out[] = $this->sourceroot() . '/' . implode('/', $dirs);
+            $out[] = $this->sourceroot . '/' . implode('/', $dirs);
             array_pop($dirs);
         }
 
         $out[] = 'Directory .';
-        $out[] = $this->sourceroot();
+        $out[] = $this->sourceroot;
         $out[] = 'annotate';
 
         foreach ($out as $line) {
@@ -241,7 +237,7 @@ class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
          * and we check that this is the case and error otherwise
          */
         $co = fgets($RCS, 1024);
-        if (!preg_match('/^([\S ]+,v)\s+-->\s+st(andar)?d ?out(put)?\s*$/', $co, $regs) ||
+        if (!preg_match('/^([\S ]+),v\s+-->\s+st(andar)?d ?out(put)?\s*$/', $co, $regs) ||
             ($regs[1] != $fullname)) {
             throw new Horde_Vcs_Exception('Unexpected output from checkout: ' . $co);
         }

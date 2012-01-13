@@ -5,7 +5,7 @@
  * This file defines Horde's core API interface. Other core Horde libraries
  * can interact with Chora through this API.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -71,7 +71,7 @@ class Chora_Application extends Horde_Registry_Application
          * TODO: defaults of 1 will not get propagated correctly - avsm
          * XXX: Rewrite this propagation code, since it sucks - avsm
          */
-        $acts = array(
+        $defaultActs = $acts = array(
             'onb' => 0,
             'ord' => Horde_Vcs::SORT_ASCENDING,
             'rev' => 0,
@@ -216,7 +216,7 @@ class Chora_Application extends Horde_Registry_Application
                     false,
                     array(
                         'icon' => Horde_Themes::img('tree/folder.png'),
-                        'url' => Chora::url('browsedir', '', array('rt' => $key))
+                        'url' => Chora::url('browsedir', '', array('rt' => $key))->setRaw(true)
                     )
                 );
             }

@@ -2,7 +2,7 @@
 /**
  * Defines the AJAX interface for Ansel.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -30,7 +30,10 @@ class Ansel_Ajax_Application extends Horde_Core_Ajax_Application
     {
         $id = $this->_vars->id;
         try {
-            return $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($id)->toJson(true);
+            return $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
+                ->getGallery($id)
+                ->toJson(true);
         } catch (Exception $e) {
             Horde::logMessage($e, 'ERR');
             return false;

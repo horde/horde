@@ -1,5 +1,5 @@
 # German translations for Horde_Image module.
-# Copyright 2010-2011 Horde LLC
+# Copyright 2010-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Image module.
 # Automatically generated, 2010.
 #
@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Image\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
-"PO-Revision-Date: 2011-02-02 18:25+0100\n"
+"POT-Creation-Date: 2011-09-20 13:49+0200\n"
+"PO-Revision-Date: 2011-09-20 14:04+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -359,15 +359,15 @@ msgstr "Kühl-weiße Leuchtstoffröhre"
 msgid "Copyright"
 msgstr "Copyright"
 
-#: lib/Horde/Image/Exif/Bundled.php:269
+#: lib/Horde/Image/Exif/Bundled.php:285
 msgid "Couldnt Find IFD1"
 msgstr "IFD1"
 
-#: lib/Horde/Image/Exif/Bundled.php:315
+#: lib/Horde/Image/Exif/Bundled.php:331
 msgid "Couldnt Find InteroperabilityIFD"
 msgstr "InteroperabilityIFD nicht gefunden"
 
-#: lib/Horde/Image/Exif/Bundled.php:232
+#: lib/Horde/Image/Exif/Bundled.php:248
 msgid "Couldnt Find SubIFD"
 msgstr "SubIFD nicht gefunden<"
 
@@ -595,15 +595,15 @@ msgstr "ISO-Einstellung"
 msgid "ISO studio tungsten"
 msgstr "ISO-genormtes Studio-Kunstlicht"
 
-#: lib/Horde/Image/Exif/Bundled.php:288
+#: lib/Horde/Image/Exif/Bundled.php:304
 msgid "Illegal size for IFD1"
 msgstr "Ungültige Größe für IFD1"
 
-#: lib/Horde/Image/Exif/Bundled.php:334
+#: lib/Horde/Image/Exif/Bundled.php:350
 msgid "Illegal size for InteroperabilityIFD"
 msgstr "Ungültige Größe für InteroperabilityIFD"
 
-#: lib/Horde/Image/Exif/Bundled.php:251
+#: lib/Horde/Image/Exif/Bundled.php:267
 msgid "Illegal size for SubIFD"
 msgstr "Ungültige Größe für SubIFD"
 
@@ -659,9 +659,9 @@ msgstr "Breitengrad"
 msgid "Left"
 msgstr "Links"
 
-#: lib/Horde/Image/Exif.php:127
-msgid "Lens"
-msgstr "Linse"
+#: lib/Horde/Image/Exif.php:126
+msgid "Lens Id"
+msgstr "Linsen-ID"
 
 #: lib/Horde/Image/Exif.php:120
 msgid "Light source"
@@ -1119,7 +1119,7 @@ msgstr "Sonnig"
 msgid "Superfine"
 msgstr "Sehr fein"
 
-#: lib/Horde/Image/Exif/Bundled.php:53
+#: lib/Horde/Image/Exif/Bundled.php:69
 msgid "The file could not be opened."
 msgstr "Die Datei konnte nicht geöffnet werden."
 
@@ -1317,7 +1317,7 @@ msgstr "Andere Lichtquelle"
 msgid "sRGB"
 msgstr "sRGB"
 
-#: lib/Horde/Image/Exif/Bundled.php:800
+#: lib/Horde/Image/Exif/Bundled.php:816
 #, php-format
 msgid "version %d"
 msgstr "Version %d"

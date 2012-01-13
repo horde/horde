@@ -473,7 +473,11 @@ class Turba
                 if (empty($params['name'])) {
                     $params['name'] = $name;
                     $share->set('params', serialize($params));
-                    $share->save();
+                    try {
+                        $share->save();
+                    } catch (Horde_Share_Exception $e) {
+                        Horde::logMessage($e, 'ERR');
+                    }
                 }
 
                 $info = $sources[$params['source']];
@@ -499,7 +503,7 @@ class Turba
             }
             if (!empty($GLOBALS['conf']['share']['auto_create']) &&
                 $GLOBALS['registry']->getAuth() && !$personal) {
-                
+
                 // User's default share is missing.
                 try {
                     $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($source);
@@ -671,7 +675,7 @@ class Turba
         Horde::addInlineJsVars(array(
             'TurbaBrowse.confirmdelete' => _("Are you sure that you want to delete %s?"),
             'TurbaBrowse.contact1' => _("You must select at least one contact first."),
-            'TurbaBrowse.contact2' => ("You must select a target contact list."),
+            'TurbaBrowse.contact2' => _("You must select a target contact list."),
             'TurbaBrowse.contact3' => _("Please name the new contact list:"),
             'TurbaBrowse.copymove' => _("You must select a target address book."),
             'TurbaBrowse.submit' => _("Are you sure that you want to delete the selected contacts?")

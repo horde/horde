@@ -593,27 +593,6 @@ $_prefs['portal_layout'] = array(
 
 
 
-// *** Remote Servers Preferences ***
-
-$prefGroups['remote'] = array(
-    'column' => _("Other Information"),
-    'label' => _("Remote Servers"),
-    'desc' => _("Set up remote servers that you want to access from your portal."),
-    'members' => array('remotemanagement')
-);
-
-$_prefs['remotemanagement'] = array(
-    'type' => 'special'
-);
-
-// the remote servers.
-$_prefs['remote_summaries'] = array(
-    // value = serialize(array())
-    'value' => 'a:0:{}'
-);
-
-
-
 // *** Facebook Integration Preferences ***
 
 $prefGroups['facebook'] = array(

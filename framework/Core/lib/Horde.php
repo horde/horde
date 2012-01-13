@@ -3,7 +3,7 @@
  * The Horde:: class provides the functionality shared by all Horde
  * applications.
  *
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -148,6 +148,13 @@ class Horde
     static public function fatal($error, $file = null, $line = null,
                                  $log = true)
     {
+        // Log the error via logMessage() if requested.
+        if ($log) {
+            try {
+                self::logMessage($error, 'EMERG');
+            } catch (Exception $e) {}
+        }
+
         header('Content-type: text/html; charset=UTF-8');
         try {
             $admin = $GLOBALS['registry']->isAdmin();
@@ -179,13 +186,6 @@ class Horde
             }
         } catch (Exception $e) {
             die($e);
-        }
-
-        // Log the error via logMessage() if requested.
-        if ($log) {
-            try {
-                self::logMessage($error, 'EMERG');
-            } catch (Exception $e) {}
         }
 
         if ($cli) {
@@ -499,6 +499,7 @@ HTML;
      * 'login'
      * 'logintasks'
      * 'logout'
+     * 'pixel'
      * 'portal'
      * 'problem'
      * 'sidebar'
@@ -551,6 +552,9 @@ HTML;
 
         case 'logout':
             return $GLOBALS['registry']->getLogoutUrl(array('reason' => Horde_Auth::REASON_LOGOUT));
+
+        case 'pixel':
+            return self::url('services/images/pixel.php', false, $opts);
 
         case 'prefs':
             if (!in_array($GLOBALS['conf']['prefs']['driver'], array('', 'none'))) {
@@ -1055,10 +1059,17 @@ HTML;
 
         if (isset($puri['path']) &&
             (substr($puri['path'], 0, 1) == '/') &&
-            !preg_match($schemeRegexp, $webroot)) {
+            (!preg_match($schemeRegexp, $webroot) ||
+             (preg_match($schemeRegexp, $webroot) && isset($puri['scheme'])))) {
             $url .= $puri['path'];
         } elseif (isset($puri['path']) && preg_match($schemeRegexp, $webroot)) {
-            $url = $webroot . (substr($puri['path'], 0, 1) != '/' ? '/' : '') . $puri['path'];
+            if (substr($puri['path'], 0, 1) == '/') {
+                $pwebroot = parse_url($webroot);
+                $url = $pwebroot['scheme'] . '://' . $pwebroot['host']
+                    . $puri['path'];
+            } else {
+                $url = $webroot . '/' . $puri['path'];
+            }
         } else {
             $url .= '/' . ($webroot ? $webroot . '/' : '') . (isset($puri['path']) ? $puri['path'] : '');
         }
@@ -1399,7 +1410,7 @@ HTML;
         }
 
         /* Return the closed image tag. */
-        return $img . ' src="' . self::base64ImgData($src) . '" />';
+        return $img . ' src="' . (empty($GLOBALS['conf']['nobase64_img']) ? self::base64ImgData($src) : $src) . '" />';
     }
 
     /**
@@ -1422,7 +1433,9 @@ HTML;
         }
 
         /* If we can send as data, no need to get the full path */
-        $src = self::base64ImgData($src);
+        if (!empty($GLOBALS['conf']['nobase64_img'])) {
+            $src = self::base64ImgData($src);
+        }
         if (substr($src, 0, 10) != 'data:image') {
             $src = self::url($src, true, array('append_session' => -1));
         }
@@ -1552,24 +1565,35 @@ HTML;
      * Creates a temporary filename for the lifetime of the script, and
      * (optionally) registers it to be deleted at request shutdown.
      *
-     * @param string $prefix   Prefix to make the temporary name more
-     *                         recognizable.
-     * @param boolean $delete  Delete the file at the end of the request?
-     * @param string $dir      Directory to create the temporary file in.
-     * @param boolean $secure  If deleting file, should we securely delete the
-     *                         file?
+     * @param string $prefix           Prefix to make the temporary name more
+     *                                 recognizable.
+     * @param boolean $delete          Delete the file at the end of the
+     *                                 request?
+     * @param string $dir              Directory to create the temporary file
+     *                                 in.
+     * @param boolean $secure          If deleting file, should we securely
+     *                                 delete the file?
+     * @param boolean $session_remove  Delete this file when session is
+     *                                 destroyed (since 1.7.0)?
      *
      * @return string   Returns the full path-name to the temporary file or
      *                  false if a temporary file could not be created.
      */
     static public function getTempFile($prefix = 'Horde', $delete = true,
-                                       $dir = '', $secure = false)
+                                       $dir = '', $secure = false,
+                                       $session_remove = false)
     {
         if (empty($dir) || !is_dir($dir)) {
             $dir = self::getTempDir();
         }
+        $tmpfile = Horde_Util::getTempFile($prefix, $delete, $dir, $secure);
+        if ($session_remove) {
+            $gcfiles = $GLOBALS['session']->get('horde', 'gc_tempfiles', Horde_Session::TYPE_ARRAY);
+            $gcfiles[] = $tmpfile;
+            $GLOBALS['session']->set('horde', 'gc_tempfiles', $gcfiles);
+        }
 
-        return Horde_Util::getTempFile($prefix, $delete, $dir, $secure);
+        return $tmpfile;
     }
 
     /**
@@ -2256,5 +2280,4 @@ HTML;
             $GLOBALS['notification']->push($error, 'horde.warning');
         }
     }
-
 }

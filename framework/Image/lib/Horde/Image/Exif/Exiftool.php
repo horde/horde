@@ -2,7 +2,7 @@
 /**
  * Exiftool driver for reading/writing image meta data
  *
- * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -29,8 +29,11 @@ class Horde_Image_Exif_Exiftool extends Horde_Image_Exif_Base
     }
 
     /**
+     * Get the image's EXIF data.
      *
-     * @return unknown_type
+     * @param string $image  The path to an image.
+     *
+     * @return array  The exif data.
      */
     public function getData($image)
     {
@@ -70,6 +73,8 @@ class Horde_Image_Exif_Exiftool extends Horde_Image_Exif_Base
      */
     protected function _execute($command)
     {
+        $output = array();
+        $retval = null;
         exec($this->_exiftool . ' ' . escapeshellcmd($command), $output, $retval);
         if ($retval) {
             $this->_logErr(sprintf("Error running command: %s", $command . "\n" . implode("\n", $output)));

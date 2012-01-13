@@ -2,7 +2,7 @@
 /**
  * Login system task for automated upgrade tasks.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -17,7 +17,8 @@ class Horde_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTa
     /**
      */
     protected $_versions = array(
-        '4.0'
+        '4.0',
+        '4.0.12'
     );
 
     /**
@@ -26,21 +27,14 @@ class Horde_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTa
     {
         switch ($version) {
         case '4.0':
-            $this->_clearCache();
             $this->_upgradePortal();
             $this->_upgradePrefs();
             break;
-        }
-    }
 
-    /**
-     * Clear the existing cache.
-     */
-    protected function _clearCache()
-    {
-        try {
-            $GLOBALS['injector']->getInstance('Horde_Cache')->clear();
-        } catch (Exception $e) {}
+        case '4.0.12':
+            $this->_replaceWeatherBlock();
+            break;
+        }
     }
 
     /**
@@ -62,6 +56,29 @@ class Horde_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTa
         );
 
         $GLOBALS['injector']->getInstance('Horde_Core_Prefs_Storage_Upgrade')->upgradeSerialized($GLOBALS['prefs'], $upgrade_prefs);
+    }
+
+    protected function _replaceWeatherBlock()
+    {
+        $col = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_BlockCollection')
+            ->create(array('horde'));
+        $m = $col->getLayoutManager();
+        $layout = $col->getLayout();
+        foreach ($layout as $r => $cur_row) {
+            foreach ($cur_row as $c => &$cur_col) {
+                if (isset($cur_col['app']) &&
+                    $cur_col['app'] == 'horde' &&
+                    is_array($cur_col['params']) &&
+                    Horde_String::lower($cur_col['params']['type2']) == 'horde_block_weatherdotcom') {
+
+                    $m->handle('removeBlock', $r, $c);
+                }
+            }
+        }
+        if ($m->updated()) {
+            $GLOBALS['prefs']->setValue('portal_layout', $m->serialize());
+        }
     }
 
 }

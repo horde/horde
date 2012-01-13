@@ -47,7 +47,7 @@ class Horde_Constraint_AndTest extends Horde_Test_Case
 
         $returnConst = $and->addConstraint(new Horde_Constraint_AlwaysFalse());
 
-        $this->assertType('Horde_Constraint_And', $returnConst);
+        $this->assertInstanceOf('Horde_Constraint_And', $returnConst);
     }
 
     public function testReturnedAndEvaluatesFalseWhenFalseConstraintIsAddedViaSetter()

@@ -3,7 +3,7 @@
  * Displays and handles the form to delete a ticket.
  *
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -56,7 +56,7 @@ require WHUPS_TEMPLATES . '/prevnext.inc';
 $tabs = Whups::getTicketTabs($vars, $id);
 echo $tabs->render('delete');
 
-$deleteform->renderActive($deleteform->getRenderer(), $vars, 'delete.php', 'post');
+$deleteform->renderActive($deleteform->getRenderer(), $vars, Horde::url('ticket/delete.php'), 'post');
 echo '<br />';
 
 $form = new Whups_Form_TicketDetails($vars, $ticket);

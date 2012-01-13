@@ -20,7 +20,7 @@ require_once dirname(__FILE__) . '/../Autoload.php';
 /**
  * Test the REST connector.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -52,7 +52,7 @@ extends Horde_Pear_TestCase
 
     public function testFetchPackageList()
     {
-        $this->assertType(
+        $this->assertInternalType(
             'resource',
             $this->_getRest()->fetchPackageList()
         );
@@ -81,7 +81,7 @@ extends Horde_Pear_TestCase
 
     public function testFetchPackageInformation()
     {
-        $this->assertType(
+        $this->assertInternalType(
             'resource',
             $this->_getRest()->fetchPackageInformation('Horde_Core')
         );
@@ -99,7 +99,7 @@ extends Horde_Pear_TestCase
 
     public function testFetchPackageReleases()
     {
-        $this->assertType(
+        $this->assertInternalType(
             'resource',
             $this->_getRest()->fetchPackageReleases('Horde_Core')
         );
@@ -117,7 +117,7 @@ extends Horde_Pear_TestCase
 
     public function testFetchLatestPackageReleases()
     {
-        $this->assertType(
+        $this->assertInternalType(
             'array',
             $this->_getRest()->fetchLatestPackageReleases('Horde_Core')
         );
@@ -134,7 +134,7 @@ extends Horde_Pear_TestCase
 
     public function testFetchReleaseInformation()
     {
-        $this->assertType(
+        $this->assertInternalType(
             'resource',
             $this->_getRest()->fetchReleaseInformation('Horde_Core', '1.0.0')
         );
@@ -152,7 +152,7 @@ extends Horde_Pear_TestCase
 
     public function testFetchReleasePackageXml()
     {
-        $this->assertType(
+        $this->assertInternalType(
             'resource',
             $this->_getRest()->fetchReleasePackageXml('Horde_Core', '1.0.0')
         );

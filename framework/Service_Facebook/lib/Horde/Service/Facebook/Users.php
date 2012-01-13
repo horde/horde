@@ -2,7 +2,7 @@
 /**
  * Users methods for Horde_Service_Facebook
  *
- * Copyright 2009-2011 Horde LLC (http://www.horde.org)
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @category Horde
@@ -23,7 +23,7 @@ class Horde_Service_Facebook_Users extends Horde_Service_Facebook_Base
         return $this->_facebook->callMethod('facebook.users.getInfo',
             array('uids' => $uids,
                   'fields' => $fields,
-                  'session_key' => $this->_sessionKey));
+                  'session_key' => $this->_facebook->auth->getSessionKey()));
     }
 
     /**
@@ -161,14 +161,15 @@ class Horde_Service_Facebook_Users extends Horde_Service_Facebook_Base
      */
     public function &getStatus($uid = null, $limit = 1)
     {
-        if (empty($uid) && !$skey = $this->_facebook->auth->getSessionKey()) {
+        $skey = $this->_facebook->auth->getSessionKey();
+        if (empty($uid) && !$skey) {
             throw new Horde_Service_Facebook_Exception('users.setStatus requires a uid or a session_key',
                 Horde_Service_Facebook_ErrorCodes::API_EC_PARAM_SESSION_KEY);
         }
 
         $params = array('session_key' => $skey, 'limit' => $limit);
-        if (!empty($user)) {
-            $params['uid'] = $user;
+        if (!empty($uid)) {
+            $params['uid'] = $uid;
         }
 
         return $this->_facebook->callMethod('Status.get', $params);

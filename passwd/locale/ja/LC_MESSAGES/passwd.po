@@ -1,368 +1,295 @@
 # Japanese translation for Passwd.
-# Copyright YEAR Horde Project
+# Copyright 2004-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Passwd package.
 # Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Passwd H4 (3.1.4-git)\n"
+"Project-Id-Version: Passwd H4 (4.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-15 13:27+0100\n"
-"PO-Revision-Date: 2011-03-31 19:06+0900\n"
+"POT-Creation-Date: 2011-11-01 12:55+0100\n"
+"PO-Revision-Date: 2011-11-19 18:09+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: Japanese <LL@li.org>\n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: lib/Driver/expect.php:34
+#: lib/Driver/Expect.php:30
 #, php-format
 msgid "%s does not exist or is not executable."
 msgstr "%s が存在しないか実行可能ではありません。"
 
-#: lib/Driver/expectpecl.php:73
+#: lib/Driver/Composite.php:67
 #, php-format
-msgid "%s extension cannot be loaded!"
-msgstr "%s 拡張がロードできませんでした！"
+msgid "%s: unable to load sub driver: %s"
+msgstr "%s: サブドライバーがロードできません: %s"
 
-#: lib/Driver/composite.php:63
-#, php-format
-msgid "%s: unable to load driver: %s"
-msgstr "%s: ドライバーがロードできません: %s"
-
-#: lib/Driver/adsi.php:61
+#: lib/Driver/Adsi.php:69
 #, php-format
 msgid "ADSI error %s."
 msgstr "ADSI エラー %s。"
 
-#: lib/Driver/adsi.php:64 lib/Driver/pspasswd.php:105
+#: lib/Driver/Adsi.php:66 lib/Driver/Pspasswd.php:118
 msgid "Access Denied."
 msgstr "アクセスが拒否されました。"
 
-#: lib/Driver.php:101
-msgid "Backend not correctly implemented."
-msgstr "バックエンドの設定が正しくありません。"
+#: lib/Driver/Servuftp.php:63
+msgid "Cannot change password"
+msgstr "パスワードを変更できません"
 
-#: lib/Driver/poppassd.php:90
+#: lib/Driver/Poppassd.php:86
 msgid "Cannot send command to server."
 msgstr "コマンドをサーバに送れませんでした。"
 
-#: main.php:265 templates/main/main.inc:141
+#: index.php:226 templates/index.html.php:84
 msgid "Change Password"
 msgstr "パスワード変更"
 
-#: templates/main/main.inc:126
+#: index.php:187
 msgid "Change password for:"
 msgstr "パスワード変更:"
 
-#: templates/main/main.inc:67
+#: index.php:203
 msgid "Change your password"
 msgstr "パスワード変更"
 
-#: templates/main/main.inc:65
+#: index.php:205
 #, php-format
 msgid "Changing password for %s"
 msgstr "%s のパスワードを変更します"
 
-#: templates/main/main.inc:113
+#: index.php:186
 msgid "Confirm new password:"
 msgstr "新しいパスワードの確認："
 
-#: lib/Driver/kolab.php:60 lib/Driver/ldap.php:127
+#: lib/Driver/Servuftp.php:51
+msgid "Connection failed"
+msgstr "接続に失敗しました"
+
+#: lib/Driver/Kolab.php:49
 msgid "Could not bind to LDAP server"
 msgstr "LDAP サーバにバインドできません"
 
-#: lib/Driver/expectpecl.php:118
+#: lib/Driver/Expectpecl.php:104
 msgid "Could not change password (bad old password?)"
 msgstr "パスワードを変更できませんでした（古いパスワードが間違っている？）"
 
-#: lib/Driver/expectpecl.php:138
+#: lib/Driver/Expectpecl.php:118
 msgid "Could not change password."
 msgstr "パスワードを変更できませんでした。"
 
-#: lib/Driver/kolab.php:46 lib/Driver/ldap.php:87
+#: lib/Driver/Kolab.php:35
 msgid "Could not connect to LDAP server"
 msgstr "LDAP サーバに接続できません"
 
-#: lib/Driver/expectpecl.php:98
+#: lib/Driver/Expectpecl.php:90
 msgid "Could not login to system (no password prompt)"
 msgstr ""
 "システムにログインできませんでした（パスワードのプロンプトがありません）"
 
-#: lib/Driver/smbpasswd.php:57
+#: lib/Driver/Smbpasswd.php:56
 msgid "Could not open pipe to smbpasswd."
 msgstr "smbpasswd にパイプで接続できません。"
 
-#: lib/Driver/ldap.php:93
-msgid "Could not start TLS connection to LDAP server"
-msgstr "LDAP サーバにTLSで接続できませんでした"
-
-#: lib/Driver/expectpecl.php:108
+#: lib/Driver/Expectpecl.php:97
 msgid "Could not start passwd program (no old password prompt)"
 msgstr ""
 "プログラム passwd を起動できませんでした（パスワードのプロンプトが出ない）"
 
-#: lib/Driver/expectpecl.php:44
+#: lib/Driver/Expectpecl.php:41
 msgid "End of file."
 msgstr "ファイルの末尾です。"
 
-#: lib/Driver/smbpasswd.php:79
+#: lib/Driver/Smbpasswd.php:78
 msgid "Error sending data to smbpasswd."
 msgstr "smbpasswd へのデータ送信中エラーです。"
 
-#: lib/Driver/pspasswd.php:93
+#: lib/Driver/Pspasswd.php:108
 msgid "Failed to verify old password."
 msgstr "古いパスワードが確認できません。"
 
-#: lib/Driver/composite.php:102 main.php:224
+#: index.php:147 lib/Driver/Composite.php:100
 #, php-format
 msgid "Failure in changing password for %s: %s"
 msgstr "%s のパスワード変更失敗しました： %s"
 
-#: lib/Driver/expectpecl.php:50
+#: lib/Driver/Expectpecl.php:45
 msgid "Full buffer."
 msgstr "バッファーが一杯です。"
 
-#: lib/Driver.php:72 lib/Driver/http.php:72 lib/Driver/kolab.php:84
-#: lib/Driver/ldap.php:144 lib/Driver/poppassd.php:120
-#: lib/Driver/vmailmgr.php:42
+#: lib/Driver.php:66 lib/Driver/Horde.php:40 lib/Driver/Http.php:59
+#: lib/Driver/Kolab.php:73 lib/Driver/Poppassd.php:115
+#: lib/Driver/Vmailmgr.php:38
 msgid "Incorrect old password."
 msgstr "古いパスワードが正しくありません。"
 
-#: lib/Driver/ldap.php:208
+#: lib/Driver/Servuftp.php:59
+msgid "Incorrect password"
+msgstr "正しくないパスワードです"
+
+#: lib/Driver/Ldap.php:154
 msgid "Minimum password age has not yet expired"
 msgstr "パスワードの有効期限は過ぎていません。"
 
-#: lib/Driver/expectpecl.php:128
+#: lib/Driver/Expectpecl.php:111
 msgid "New password not valid (too short, bad password, too similar, ...)"
 msgstr ""
 "新しいパスワードが正しくありません（短すぎる、許されないパスワード、同じ文字"
 "列等）"
 
-#: templates/main/main.inc:101
+#: index.php:185
 msgid "New password:"
 msgstr "新しいパスワード："
 
-#: lib/Driver/poppassd.php:67
+#: lib/Passwd.php:46
+msgid "No backend configured for this host"
+msgstr "このホスト用のバックエンドが設定されていません"
+
+#: lib/Passwd.php:19
+msgid "No backends configured in backends.php"
+msgstr "バックエンドの設定が backends.php にありません"
+
+#: lib/Driver/Poppassd.php:64
 msgid "No prompt returned from server."
 msgstr "サーバからプロンプトが帰ってきません。"
 
-#: lib/Driver.php:130
-#, php-format
-msgid "No such backend \"%s\" found."
-msgstr "バックエンド \"%s\" が見付かりません。"
-
-#: templates/main/main.inc:89
+#: index.php:184
 msgid "Old password:"
 msgstr "古いパスワード："
 
-#: lib/Driver/smbpasswd.php:47
+#: lib/Driver/Smbpasswd.php:46
 msgid "Passwd is not properly configured."
 msgstr "Passwd が正しく設定されていません。"
 
-#: main.php:211
+#: lib/Application.php:47
+msgid "Password"
+msgstr "パスワード"
+
+#: index.php:134
 #, php-format
 msgid "Password changed on %s."
 msgstr "%s のパスワードを変更しました。"
 
-#: lib/Driver/sql.php:127
-#, php-format
-msgid "Password column \"%s\" not found in password table."
-msgstr "パスワードの表に \"%s\" という欄がありません。"
-
-#: lib/Driver/pspasswd.php:75
+#: lib/Driver/Pspasswd.php:75
 msgid "Password module can't find the supplied bin."
 msgstr "パスワードモジュールは指定されたパス（bin）を見つけられません。"
 
-#: lib/Driver/pspasswd.php:73
+#: lib/Driver/Pspasswd.php:72 lib/Driver/Servuftp.php:34
 msgid "Password module is missing required parameters."
 msgstr "パスワードモジュールは要求されたパラメータを見つけられません。"
 
-#: lib/Driver/adsi.php:51
+#: lib/Driver/Adsi.php:55
 msgid "Password module is missing target parameter."
 msgstr "パスワードモジュールは目的のパラメータを見つけられません。"
 
-#: lib/Driver/servuftp.php:71 main.php:191
+#: index.php:115
 msgid "Password module is not properly configured"
 msgstr "パスワードモジュールが正しく設定されていません"
 
-#: lib/Driver/servuftp.php:98
-msgid "Password module is not properly configured."
-msgstr "パスワードモジュールが正しく設定されていません。"
-
-#: templates/main/main.inc:11
+#: index.php:220
 msgid "Please provide a new password"
 msgstr "新しいパスワードを入力して下さい"
 
-#: templates/main/main.inc:7
+#: index.php:219
 msgid "Please provide your current password"
 msgstr "現在のパスワードを入力して下さい"
 
-#: templates/main/main.inc:15
+#: index.php:221
 msgid "Please verify your new password"
 msgstr "新しいパスワードを確認して下さい"
 
-#: lib/Driver/composite.php:41
+#: lib/Driver/Composite.php:41
 msgid "Required 'drivers' is misconfigured in Composite configuration."
 msgstr "要求されたドライバーは正しく設定されていません。"
 
-#: lib/Driver/sql.php:46
-msgid "Required 'phptype' not specified in Passwd SQL configuration."
-msgstr "SQL 設定に必要な 'phptype' が指定されていません"
-
-#: lib/Driver/vpopmail.php:49
-msgid "Required 'phptype' not specified in SQL configuration."
-msgstr "SQL 設定に必要な 'phptype' が指定されていません"
-
-#: templates/main/main.inc:142
+#: templates/index.html.php:85
 msgid "Reset"
 msgstr "リセット"
 
-#: lib/Driver/http.php:65
+#: lib/Driver/Horde.php:31
+msgid "The current horde configuration does not allow changing passwords."
+msgstr "現在の horde の設定はパスワードの変更を許可していません。"
+
+#: lib/Factory/Driver.php:50
+#, php-format
+msgid "The password backend \"%s\" does not exist."
+msgstr "パスワードのバックエンド \"%s\" は存在しません。"
+
+#: lib/Driver/Http.php:52
 msgid "The requested website for changing user passwords could not be reached."
 msgstr ""
 "ユーザのパスワードを変更するために要求されたwebサイトに接続できませんでした。"
 
-#: lib/Driver/http.php:74
+#: lib/Driver/Http.php:62
 msgid "The username could not be found."
 msgstr "ユーザ名が見つかりませんでした。"
 
-#: lib/Driver/expectpecl.php:47
+#: lib/Driver/Expectpecl.php:43
 msgid "Time out."
 msgstr "時間切れです。"
 
-#: lib/Driver/sql.php:75 lib/Driver/vpopmail.php:83
-msgid "Unable to connect to SQL server."
-msgstr "SQL サーバに接続できません。"
+#: lib/Factory/Driver.php:57
+#, php-format
+msgid "Unable to load the definition of %s."
+msgstr "定義 %s をロードできません。"
 
-#: lib/Driver/ldap.php:99
-msgid "Unable to disable directory referrals"
-msgstr "ディレクトリの照会を禁止にできません"
+#: lib/Driver/Expectpecl.php:85
+msgid "Unable to open expect stream"
+msgstr "Expectストリームを開けません"
 
-#: lib/Driver/expectpecl.php:93
-msgid "Unable to open expect stream!"
-msgstr "Expectストリームを開けません！"
+#: lib/Driver/Servuftp.php:55
+msgid "Unknown user"
+msgstr "不明なユーザー"
 
-#: lib/Driver/poppassd.php:114 lib/Driver/sql.php:135
-#: lib/Driver/vpopmail.php:150
+#: lib/Driver/Poppassd.php:108 lib/Driver/Sql.php:95
+#: lib/Driver/Vpopmail.php:105
 msgid "User not found"
 msgstr "ユーザが見付かりません"
 
-#: lib/Driver/kolab.php:76 lib/Driver/ldap.php:185 lib/Driver/ldap.php:257
-#: lib/Driver/pine.php:231
+#: lib/Driver/Kolab.php:65 lib/Driver/Ldap.php:134 lib/Driver/Pine.php:243
 msgid "User not found."
 msgstr "ユーザが見付かりません"
 
-#: templates/main/main.inc:76
+#: index.php:183
 msgid "Username:"
 msgstr "ユーザ名："
 
-#: main.php:55
+#: index.php:58
 #, php-format
 msgid "You can't change password for user %s"
 msgstr "あなたはユーザ %s のパスワードは変更できません"
 
-#: main.php:63
+#: index.php:66
 msgid "You must give your current password"
 msgstr "古いパスワードを指定して下さい"
 
-#: main.php:72
+#: index.php:75
 msgid "You must give your new password"
 msgstr "新しいパスワードを指定して下さい"
 
-#: main.php:76
+#: index.php:79
 msgid "You must verify your new password"
 msgstr "新しいパスワードを確認して下さい"
 
-#: main.php:96
-#, php-format
-msgid ""
-"Your new password is too long; passwords may not be more than %d characters "
-"long!"
-msgstr "新しいパスワードが長すぎます。%d 文字までにして下さい"
-
-#: main.php:180
-msgid "Your new password is too simple to guess!  Not changed!"
-msgstr "新しいパスワードは簡単すぎます！ 変更しません！"
-
-#: main.php:171
-msgid "Your new password is too simple to guess. Not changed!"
-msgstr "新しいパスワードは簡単すぎます！ 変更しません！"
-
-#: main.php:91
-#, php-format
-msgid "Your new password must be at least %d characters long!"
-msgstr "新しいパスワードは %d 文字以上にして下さい"
-
-#: main.php:84
+#: index.php:87
 msgid "Your new password must be different from your current password"
 msgstr "新しいパスワードは古いパスワードとは違うものにして下さい"
 
-#: main.php:136
-#, php-format
-msgid "Your new password must contain at least %d alphabetic character."
-msgid_plural ""
-"Your new password must contain at least %d alphabetic characters."
-msgstr[0] "新しいパスワードには %d 個以上の英字を含めて下さい。"
-
-#: main.php:141
-#, php-format
-msgid "Your new password must contain at least %d alphanumeric character."
-msgid_plural ""
-"Your new password must contain at least %d alphanumeric characters."
-msgstr[0] "新しいパスワードには %d 個以上の英数字を含めて下さい。"
-
-#: main.php:146
-#, php-format
-msgid ""
-"Your new password must contain at least %d different types of characters. "
-"The types are: lower, upper, numeric, and symbols."
-msgstr ""
-"新しいパスワードには少なくとも %d 個の異なる文字を含めて下さい。つまり、小文"
-"字、大文字、数字と記号です。"
-
-#: main.php:126
-#, php-format
-msgid "Your new password must contain at least %d lowercase character."
-msgid_plural "Your new password must contain at least %d lowercase characters."
-msgstr[0] "新しいパスワードには %d 個以上の小文字を含めて下さい。"
-
-#: main.php:131
-#, php-format
-msgid "Your new password must contain at least %d numeric character."
-msgid_plural "Your new password must contain at least %d numeric characters."
-msgstr[0] "新しいパスワードには %d 個以上の数字を含めて下さい。"
-
-#: main.php:160
-#, php-format
-msgid "Your new password must contain at least %d symbol character."
-msgid_plural "Your new password must contain at least %d symbol characters."
-msgstr[0] "新しいパスワードには %d 個以上の記号を含めて下さい。"
-
-#: main.php:121
-#, php-format
-msgid "Your new password must contain at least %d uppercase character."
-msgid_plural "Your new password must contain at least %d uppercase characters."
-msgstr[0] "新しいパスワードには %d 個以上の大文字を含めて下さい。"
-
-#: main.php:152
-#, php-format
-msgid "Your new password must contain less than %d whitespace characters."
-msgstr "新しいパスワードに %d 個以上の空白を含めて下さい。"
-
-#: main.php:154
-msgid "Your new password must not contain whitespace characters."
-msgstr "新しいパスワードに空白を入れないで下さい。"
-
-#: main.php:80
+#: index.php:83
 msgid "Your new passwords didn't match"
 msgstr "新しいパスワードが一致しません"
 
-#: lib/Driver/http.php:76
+#: lib/Driver/Http.php:65
 msgid "Your password could not be changed."
 msgstr "あなたのパスワードは変更できませんでした。"
 
-#: templates/main/main.inc:19
+#: index.php:222
 msgid "Your passwords do not match"
 msgstr "パスワードが一致しません"
+
+#: lib/Driver/Expectpecl.php:65
+msgid "expect extension cannot be loaded"
+msgstr "expect 拡張がロードできませんでした"

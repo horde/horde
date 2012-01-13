@@ -16,7 +16,7 @@
  * The Components_Dependencies:: interface is a central broker for
  * providing the dependencies to the different application parts.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -92,6 +92,13 @@ interface Components_Dependencies
     public function getRunnerRelease();
 
     /**
+     * Returns the qc handler for a package.
+     *
+     * @return Components_Runner_Qc The qc handler.
+     */
+    public function getRunnerQc();
+
+    /**
      * Returns the change log handler for a package.
      *
      * @return Components_Runner_Change The change log handler.
@@ -113,11 +120,11 @@ interface Components_Dependencies
     public function getRunnerDistribute();
 
     /**
-     * Returns the documentation handler for a package.
+     * Returns the website documentation handler for a package.
      *
-     * @return Components_Runner_Document The documentation handler.
+     * @return Components_Runner_Webdocs The documentation handler.
      */
-    public function getRunnerDocument();
+    public function getRunnerWebdocs();
 
     /**
      * Returns the documentation fetch handler for a package.

@@ -3,7 +3,7 @@
  * Move tags from Kronolith to content storage. This migration ONLY migrates
  * categories from the Horde_Share_Sql backend.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -40,7 +40,7 @@ class KronolithUpgradeCategoriesToTags extends Horde_Db_Migration_Base
             $this->_tagger->tag(
                 $row['event_creator_id'],
                 array('object' => (string)$row['event_uid'], 'type' => $this->_type_ids['event']),
-                Horde_String::convertCharset($row['event_category'], $this->getOption('charset'), 'UTF-8')
+                $row['event_category']
             );
 
             // Do we need to tag the event again, but as the share owner?
@@ -50,7 +50,7 @@ class KronolithUpgradeCategoriesToTags extends Horde_Db_Migration_Base
                     $this->_tagger->tag(
                         $cal->get('owner'),
                         array('object' => (string)$row['event_uid'], 'type' => $this->_type_ids['event']),
-                        Horde_String::convertCharset($row['event_category'], $this->getOption('charset'), 'UTF-8')
+                        $row['event_category']
                     );
                 }
             } catch (Exception $e) {

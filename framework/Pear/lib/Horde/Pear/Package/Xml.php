@@ -14,7 +14,7 @@
 /**
  * Handles package.xml files.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -52,6 +52,13 @@ class Horde_Pear_Package_Xml
     private $_xpath;
 
     /**
+     * The XPath namespace prefix (if necessary).
+     *
+     * @var string
+     */
+    private $_namespace_prefix = '';
+
+    /**
      * The factory for required instances.
      *
      * @var Horde_Pear_Package_Xml_Factory
@@ -73,8 +80,12 @@ class Horde_Pear_Package_Xml
         }
         $this->_xml = new DOMDocument('1.0', 'UTF-8');
         $this->_xml->loadXML(stream_get_contents($xml));
+        $rootNamespace = $this->_xml->lookupNamespaceUri($this->_xml->namespaceURI);
         $this->_xpath = new DOMXpath($this->_xml);
-        $this->_xpath->registerNamespace('p', self::XMLNAMESPACE);
+        if ($rootNamespace !== null) {
+            $this->_xpath->registerNamespace('p', $rootNamespace);
+            $this->_namespace_prefix = 'p:';
+        }
         if ($factory === null) {
             $this->_factory = new Horde_Pear_Package_Xml_Factory();
         } else {
@@ -83,9 +94,9 @@ class Horde_Pear_Package_Xml
     }
 
     /**
-     * Return the path to the package.xml file.
+     * Return the list of contents.
      *
-     * @return string The path to the package.xml.
+     * @return Horde_Pear_Package_Contents_List The contents.
      */
     public function getContent($type = 'horde', $path = null)
     {
@@ -155,6 +166,16 @@ class Horde_Pear_Package_Xml
     }
 
     /**
+     * Return the release date.
+     *
+     * @return string The date for the current release.
+     */
+    public function getDate()
+    {
+        return $this->getNodeText('/p:package/p:date');
+    }
+
+    /**
      * Return the package notes.
      *
      * @return string The notes for the current release.
@@ -182,7 +203,7 @@ class Horde_Pear_Package_Xml
     /**
      * Return the package dependencies.
      *
-     * @return string The package dependencies.
+     * @return array The package dependencies.
      */
     public function getDependencies()
     {
@@ -263,10 +284,11 @@ class Horde_Pear_Package_Xml
      */
     public function getLicenseLocation()
     {
-        return $this->findNode('/p:package')
-            ->getElementsByTagNameNS(self::XMLNAMESPACE, 'license')
-            ->item(0)
-            ->getAttribute('uri');
+        $node = $this->findNode('/p:package/p:license');
+        if (empty($node)) {
+            return '';
+        }
+        return $node->getAttribute('uri');
     }
 
     /**
@@ -277,7 +299,7 @@ class Horde_Pear_Package_Xml
     public function getLeads()
     {
         $result = array();
-        foreach($this->findNodes('/p:package/p:lead') as $lead) {
+        foreach ($this->findNodes('/p:package/p:lead') as $lead) {
             $result[] = array(
                 'name' => $this->getNodeTextRelativeTo('./p:name', $lead),
                 'user' => $this->getNodeTextRelativeTo('./p:user', $lead),
@@ -434,12 +456,9 @@ class Horde_Pear_Package_Xml
      *
      * @return NULL
      */
-    public function addNextVersion(
-        $version,
-        $initial_note,
-        $stability_api = null,
-        $stability_release = null
-    )
+    public function addNextVersion($version, $initial_note,
+                                   $stability_api = null,
+                                   $stability_release = null)
     {
         $notes = "\n* " . $initial_note . "\n ";
         $api = $this->getNodeText('/p:package/p:version/p:api');
@@ -468,7 +487,7 @@ class Horde_Pear_Package_Xml
         $this->_appendChild($release, 'date', date('Y-m-d'), "\n   ");
         $this->_appendLicense(
             $release,
-            $this->getLicense(), 
+            $this->getLicense(),
             $this->getLicenseLocation(),
             "\n   "
         );
@@ -639,6 +658,7 @@ class Horde_Pear_Package_Xml
      */
     public function findNodes($query)
     {
+        $query = preg_replace('#/p:#', '/' . $this->_namespace_prefix, $query);
         return $this->_xpath->query($query);
     }
 
@@ -651,6 +671,7 @@ class Horde_Pear_Package_Xml
      */
     public function findNodesRelativeTo($query, $context)
     {
+        $query = preg_replace('#/p:#', '/' . $this->_namespace_prefix, $query);
         return $this->_xpath->query($query, $context);
     }
 
@@ -715,12 +736,8 @@ class Horde_Pear_Package_Xml
      *
      * @return DOMNodeList The list of DOMNodes.
      */
-    public function replaceTextNodeRelativeTo(
-        $path,
-        DOMNode $context,
-        $value,
-        $attributes = array()
-    )
+    public function replaceTextNodeRelativeTo($path, DOMNode $context, $value,
+                                              $attributes = array())
     {
         if ($node = $this->findNodeRelativeTo($path, $context)) {
             $new_node = $this->_replacementNode($node, $value);

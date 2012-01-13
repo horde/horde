@@ -4,7 +4,7 @@
  <channel>pear.horde.org</channel>
  <extends>Oauth</extends>
  <summary>Horde OAuth client/server</summary>
- <description>This package provides an OAuth consumer (http://oauth.net) and OAuth infrastruture, and in the future will provide an OAuth server.</description>
+ <description>An OAuth consumer (http://oauth.net) and OAuth infrastructure, and in the future will provide an OAuth server.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>

@@ -19,7 +19,7 @@ require_once dirname(__FILE__) . '/../Autoload.php';
 /**
  * Test the Kolab_Session factory.
  *
- * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -53,7 +53,7 @@ class Horde_Core_Factory_KolabSessionTest extends PHPUnit_Framework_TestCase
     public function testMethodGetvalidatorHasResultHordekolabsessionvalid()
     {
         $session = $this->getMock('Horde_Kolab_Session');
-        $this->assertType(
+        $this->assertInstanceOf(
             'Horde_Kolab_Session_Valid_Interface',
             $this->_getFactory()->getSessionValidator($session, $this->session_auth)
         );
@@ -74,7 +74,7 @@ class Horde_Core_Factory_KolabSessionTest extends PHPUnit_Framework_TestCase
 
     public function testMethodCreatesessionHasResultHordekolabsessionstored()
     {
-        $this->assertType('Horde_Kolab_Session_Decorator_Stored', $this->_getFactory()->createSession());
+        $this->assertInstanceOf('Horde_Kolab_Session_Decorator_Stored', $this->_getFactory()->createSession());
     }
 
     public function testMethodGetsessionHasResultHordekolabsessionTheOldSessionIfAnOldSessionWasStoredAndValid()
@@ -115,7 +115,7 @@ class Horde_Core_Factory_KolabSessionTest extends PHPUnit_Framework_TestCase
         $this->session_storage->expects($this->once())
             ->method('load')
             ->will($this->returnValue(false));
-        $this->assertType('Horde_Kolab_Session', $factory->getSession());
+        $this->assertInstanceOf('Horde_Kolab_Session', $factory->getSession());
     }
 
 
@@ -123,7 +123,7 @@ class Horde_Core_Factory_KolabSessionTest extends PHPUnit_Framework_TestCase
     {
         $GLOBALS['conf']['kolab']['session']['anonymous']['user'] = 'anonymous';
         $GLOBALS['conf']['kolab']['session']['anonymous']['pass'] = '';
-        $this->assertType(
+        $this->assertInstanceOf(
             'Horde_Kolab_Session_Decorator_Anonymous',
             $this->_getFactory()->getSession()
         );
@@ -132,7 +132,7 @@ class Horde_Core_Factory_KolabSessionTest extends PHPUnit_Framework_TestCase
     public function testMethodCreatesessionHasResultHordekolabsessionloggedIfConfiguredThatWay()
     {
         $GLOBALS['conf']['kolab']['session']['log'] = true;
-        $this->assertType(
+        $this->assertInstanceOf(
             'Horde_Kolab_Session_Decorator_Logged',
             $this->_getFactory()->getSession()
         );
@@ -143,7 +143,7 @@ class Horde_Core_Factory_KolabSessionTest extends PHPUnit_Framework_TestCase
         $session = $this->getMock('Horde_Kolab_Session');
         $auth = $this->getMock('Horde_Kolab_Session_Auth_Interface');
         $GLOBALS['conf']['kolab']['session']['log'] = true;
-        $this->assertType(
+        $this->assertInstanceOf(
             'Horde_Kolab_Session_Valid_Decorator_Logged',
             $this->_getFactory()->getSessionValidator($session, $auth)
         );
@@ -151,7 +151,7 @@ class Horde_Core_Factory_KolabSessionTest extends PHPUnit_Framework_TestCase
 
     public function testMethodGetstorageHasresultSessionstorage()
     {
-        $this->assertType(
+        $this->assertInstanceOf(
             'Horde_Kolab_Session_Storage_Interface',
             $this->_getFactory()->getStorage()
         );

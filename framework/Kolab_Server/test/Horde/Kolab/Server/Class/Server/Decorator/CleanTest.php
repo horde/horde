@@ -19,7 +19,7 @@ require_once dirname(__FILE__) . '/../../../Autoload.php';
 /**
  * Test the cleanup decorator for the server.
  *
- * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -94,7 +94,7 @@ class Horde_Kolab_Server_Class_Server_Decorator_CleanTest extends PHPUnit_Framew
             ->method('find')
             ->with($query)
             ->will($this->returnValue($result));
-        $this->assertType(
+        $this->assertInstanceOf(
             'Horde_Kolab_Server_Result_Interface',
             $this->cleaner->find($query)
         );
@@ -110,7 +110,7 @@ class Horde_Kolab_Server_Class_Server_Decorator_CleanTest extends PHPUnit_Framew
             ->method('findBelow')
             ->with($query, 'none')
             ->will($this->returnValue($result));
-        $this->assertType(
+        $this->assertInstanceOf(
             'Horde_Kolab_Server_Result_Interface',
             $this->cleaner->findBelow($query, 'none')
         );

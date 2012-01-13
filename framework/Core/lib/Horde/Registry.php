@@ -4,7 +4,7 @@
  * between Horde applications and keeping track of application
  * configuration information.
  *
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -335,8 +335,10 @@ class Horde_Registry
             'Horde_SessionHandler' => 'Horde_Core_Factory_SessionHandler',
             'Horde_Template' => 'Horde_Core_Factory_Template',
             'Horde_Token' => 'Horde_Core_Factory_Token',
+            'Horde_Service_UrlShortener' => 'Horde_Core_Factory_UrlShortener',
             'Horde_View' => 'Horde_Core_Factory_View',
             'Horde_View_Base' => 'Horde_Core_Factory_View',
+            'Horde_Weather' => 'Horde_Core_Factory_Weather',
             'Net_DNS2_Resolver' => 'Horde_Core_Factory_Dns',
         );
 
@@ -769,8 +771,8 @@ class Horde_Registry
      *
      * @param array $filter   An array of the statuses that should be
      *                        returned. Defaults to non-hidden.
-     * @param boolean $assoc  Associative array with app names as keys and
-     *                        config parameters as values.
+     * @param boolean $assoc  Return hash with app names as keys and config
+     *                        parameters as values?
      * @param integer $perms  The permission level to check for in the list.
      *                        If null, skips permission check.
      *
@@ -1304,7 +1306,7 @@ class Horde_Registry
                 }
 
                 Horde::logMessage(sprintf('%s does not have READ permission for %s', $this->getAuth() ? 'User ' . $this->getAuth() : 'Guest user', $app), 'DEBUG');
-                throw new Horde_Exception(sprintf(Horde_Core_Translation::t('%s is not authorized for %s.'), $this->getAuth() ? 'User ' . $this->getAuth() : 'Guest user', $this->applications[$app]['name']), self::PERMISSION_DENIED);
+                throw new Horde_Exception(sprintf('%s is not authorized for %s.', $this->getAuth() ? 'User ' . $this->getAuth() : 'Guest user', $this->applications[$app]['name']), self::PERMISSION_DENIED);
             }
         }
 
@@ -1470,7 +1472,33 @@ class Horde_Registry
 
         $GLOBALS['conf'] = ($app == 'horde')
             ? $this->_confCache['horde']
-            : Horde_Array::replaceRecursive($this->_confCache['horde'], $this->_confCache[$app]);
+            : $this->_mergeConfig($this->_confCache['horde'], $this->_confCache[$app]);
+    }
+
+    /**
+     * Merge configurations between two applications.
+     * See Bug #10381 for more information.
+     *
+     * @param array $a1  Horde configuration.
+     * @param array $a2  App configuration.
+     *
+     * @return array  Merged configuration.
+     */
+    protected function _mergeConfig(array $a1, array $a2)
+    {
+        foreach ($a2 as $key => $val) {
+            if (isset($a1[$key]) &&
+                is_array($a1[$key])) {
+                reset($a1[$key]);
+                $a1[$key] = is_int(key($a1[$key]))
+                    ? $val
+                    : $this->_mergeConfig($a1[$key], $val);
+            } else {
+                $a1[$key] = $val;
+            }
+        }
+
+        return $a1;
     }
 
     /**
@@ -2118,6 +2146,10 @@ class Horde_Registry
             $entry = true;
         }
 
+        if (is_null($app)) {
+            $app = $base_app;
+        }
+
         $session->set('horde', 'auth_app/' . $app, $entry);
     }
 
@@ -2143,7 +2175,7 @@ class Horde_Registry
 
         if (!$session->exists('horde', 'auth_app/' . $app)) {
             return ($base_app != $app)
-                ? $this->_getAuthCredentials($app)
+                ? $this->_getAuthCredentials($base_app)
                 : false;
         }
 

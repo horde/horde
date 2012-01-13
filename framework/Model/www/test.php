@@ -6,7 +6,9 @@
  * 2005.
  */
 
-$horde_base = '/path/to/horde';
+set_include_path(dirname(__DIR__) . '/lib' . ':' . get_include_path());
+require_once 'Horde/Core/Form.php';
+$horde_base = '/var/www/h4';
 
 require_once $horde_base . '/lib/Application.php';
 Horde_Registry::appInit('horde', array('authentication' => 'none'));
@@ -14,7 +16,7 @@ Horde_Registry::appInit('horde', array('authentication' => 'none'));
 $vars = Horde_Variables::getDefaultVariables();
 
 $vars->set('example_bar', 'text with a beginning and an end');
-$form = new Horde_Form($vars, 'Horde_Form Test');
+$form = new Horde_Core_Form($vars, 'Horde_Form Test');
 
 $choices = array('big' => 'BIG',
                  'small' => 'small',
@@ -78,9 +80,9 @@ if ($form->validate()) {
 }
 
 /* Render the form. */
-$renderer = new Horde_Form_Renderer_Xhtml;
-$renderer->setButtons(_("Add user"), _("Reset"));
-$renderer->renderActive($form, 'test.php', 'post');
+$renderer = new Horde_Core_Form_Renderer_Html();
+//$renderer->setButtons(_("Add user"), _("Reset"));
+$renderer->renderActive($form, Horde::url('test.php'), 'post');
 
 ?>
 </body>

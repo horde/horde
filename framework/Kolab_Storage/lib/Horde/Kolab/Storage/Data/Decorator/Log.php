@@ -14,7 +14,7 @@
 /**
  * A log decorator for the data handlers.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -52,10 +52,9 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      *                                         must provide the debug() and 
      *                                         info() methods.
      */
-    public function __construct(
-        Horde_Kolab_Storage_Data $data,
-        $logger
-    ) {
+    public function __construct(Horde_Kolab_Storage_Data $data,
+                                $logger)
+    {
         $this->_data = $data;
         $this->_logger = $logger;
     }

@@ -3,7 +3,7 @@
  * This class contains code related to generating and handling a mailbox
  * message list.
  *
- * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -13,7 +13,7 @@
  * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
-class IMP_Mailbox_List implements Countable, Serializable
+class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
 {
     /* Serialized version. */
     const VERSION = 2;
@@ -166,7 +166,7 @@ class IMP_Mailbox_List implements Countable, Serializable
         foreach ($to_process as $mbox => $ids) {
             try {
                 $fetch_res = $imp_imap->fetch($mbox, $fetch_query, array(
-                    'ids' => new Horde_Imap_Client_Ids(array_keys($ids))
+                    'ids' => $imp_imap->getIdsOb(array_keys($ids))
                 ));
 
                 if ($options['preview']) {
@@ -598,27 +598,6 @@ class IMP_Mailbox_List implements Countable, Serializable
     }
 
     /**
-     * Returns a raw sorted list of the mailbox.
-     *
-     * @return array  An array with two keys: 's' = sorted UIDS list, 'm' =
-     *                sorted mailboxes list.
-     */
-    public function getSortedList()
-    {
-        $this->_buildMailbox();
-
-        /* For exterior use, the array needs to begin numbering at 1. */
-        $s = $this->_sorted;
-        array_unshift($s, 0);
-        unset($s[0]);
-        $m = $this->_sortedMbox;
-        array_unshift($m, 0);
-        unset($m[0]);
-
-        return array('s' => $s, 'm' => $m);
-    }
-
-    /**
      * Generate an IMP_Indices object out of the contents of this mailbox.
      *
      * @return IMP_Indices  An indices object.
@@ -641,7 +620,7 @@ class IMP_Mailbox_List implements Countable, Serializable
     }
 
     /**
-     * Returns the current sorted array without the given messages.
+     * Removes messages from the mailbox.
      *
      * @param mixed $indices  An IMP_Indices object or true to remove all
      *                        messages in the mailbox.
@@ -680,6 +659,49 @@ class IMP_Mailbox_List implements Countable, Serializable
         return true;
     }
 
+    /* ArrayAccess methods. */
+
+    /**
+     * @param integer $offset  Sequence number of message.
+     */
+    public function offsetExists($offset)
+    {
+        return isset($this->_sorted[$offset - 1]);
+    }
+
+    /**
+     * @param integer $offset  Sequence number of message.
+     *
+     * @return array  Two-element array:
+     *   - m: (IMP_Mailbox) Mailbox of message.
+     *   - u: (string) UID of message.
+     */
+    public function offsetGet($offset)
+    {
+        return isset($this->_sorted[$offset - 1])
+            ? array(
+                  'm' => (empty($this->_sortedMbox) ? $this->_mailbox : IMP_Mailbox::get($this->_sortedMbox[$offset - 1])),
+                  'u' => $this->_sorted[$offset - 1]
+              )
+            : null;
+    }
+
+    /**
+     * @throws BadMethodCallException
+     */
+    public function offsetSet($offset, $value)
+    {
+        throw new BadMethodCallException('Not supported');
+    }
+
+    /**
+     * @throws BadMethodCallException
+     */
+    public function offsetUnset($offset)
+    {
+        throw new BadMethodCallException('Not supported');
+    }
+
     /* Countable methods. */
 
     /**
@@ -691,6 +713,51 @@ class IMP_Mailbox_List implements Countable, Serializable
     {
         $this->_buildMailbox();
         return count($this->_sorted);
+    }
+
+    /* Iterator methods. */
+
+    /**
+     * @return array  Two-element array:
+     *   - m: (IMP_Mailbox) Mailbox of message.
+     *   - u: (string) UID of message.
+     */
+    public function current()
+    {
+        $key = key($this->_sorted);
+        return array(
+            'm' => (empty($this->_sortedMbox) ? $this->_mailbox : IMP_Mailbox::get($this->_sortedMbox[$key])),
+            'u' => $this->_sorted[$key]
+        );
+    }
+
+    /**
+     * @return integer  Sequence number of message.
+     */
+    public function key()
+    {
+        return (key($this->_sorted) + 1);
+    }
+
+    /**
+     */
+    public function next()
+    {
+        next($this->_sorted);
+    }
+
+    /**
+     */
+    public function rewind()
+    {
+        reset($this->_sorted);
+    }
+
+    /**
+     */
+    public function valid()
+    {
+        return (key($this->_sorted) !== null);
     }
 
     /* Serializable methods. */

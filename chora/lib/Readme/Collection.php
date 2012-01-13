@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2000-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2000-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -40,20 +40,20 @@ class Chora_Readme_Collection
         if ($this->_isHtmlReadme($a)) { return self::CHOOSE_A; }
         if ($this->_isHtmlReadme($b)) { return self::CHOOSE_B; }
 
-        $a_len = Horde_String::length($a->queryName());
-        $b_len = Horde_String::length($b->queryName());
+        $a_len = Horde_String::length($a->getFileName());
+        $b_len = Horde_String::length($b->getFileName());
         if ($a_len < $b_len) {
             return self::CHOOSE_A;
         } elseif ($b_len < $a_len) {
             return self::CHOOSE_B;
         } else {
-            return strcasecmp($a->queryName(), $b->queryName());
+            return strcasecmp($a->getFileName(), $b->getFileName());
         }
     }
 
     protected function _isHtmlReadme(Horde_Vcs_File $readme)
     {
-        $file = Horde_String::lower($readme->queryName());
+        $file = Horde_String::lower($readme->getFileName());
         return ($file == 'readme.html' || $file == 'readme.htm' || ($file == 'readme' && $readme->mimeType == 'text/html'));
     }
 }

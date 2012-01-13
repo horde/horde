@@ -1,26 +1,39 @@
 #kronolithBody {
     overflow-x: hidden;
 }
+#kronolithMinical {
+    margin-top: 35px;
+}
 #kronolithViewMonth {
     width: 100%;
     height: expression(kronolithBody.offsetHeight+'px');
 }
 #kronolithViewMonthContainer {
-    top: 45px;
+    top: 41px;
     width: 100%;
     height: expression(kronolithViewMonth.offsetHeight-66+'px');
 }
-#kronolithLoadingmonth {
-    top: 23px;
+#kronolithLoading {
+    width: 18px;
+}
+#kronolithLoadingmonth, #kronolithLoadingday {
+    top: 20px;
 }
 table.kronolithView td.kronolithFirstCol {
     width: 22px;
 }
 #kronolithViewMonthHead .kronolithFirstCol {
-    width: 20px;
+    width: 21px;
 }
-.kronolithFirstCol span {
+.kronolithFirstCol span, .kronolithViewBody .kronolithFirstCol span {
     filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+    height: 20px;
+    width: 40px;
+    margin-bottom: 20px;
+}
+.kronolithAllDay .kronolithFirstCol span {
+    width: 80px;
+    margin-bottom: 60px;
 }
 #kronolithViewWeek .kronolithViewHead,
 #kronolithViewDay .kronolithViewHead {

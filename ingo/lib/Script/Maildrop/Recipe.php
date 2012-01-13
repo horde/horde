@@ -5,7 +5,7 @@
  * Copyright 2005-2007 Matt Weyland <mathias@weyland.ch>
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
- * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author  Matt Weyland <mathias@weyland.ch>
  * @package Ingo
@@ -154,11 +154,12 @@ class Ingo_Script_Maildrop_Recipe
                 $this->_action[] = '      {';
             }
             $this->_action[] = '  cc "' . str_replace('"', '\\"', sprintf(
-                '| mailbot %s -D %d -c \'UTF-8\' -t $HOME/vacation.msg -d $HOME/vacation -A %s -s %s /usr/sbin/sendmail -t',
+                '| mailbot %s -D %d -c \'UTF-8\' -t $HOME/vacation.msg -d $HOME/vacation -A %s -s %s /usr/sbin/sendmail -t -f %s',
                 $this->_params['mailbotargs'],
                 $params['action-value']['days'],
                 escapeshellarg('From: ' . $from),
-                escapeshellarg(Horde_Mime::encode($params['action-value']['subject'], 'UTF-8'))))
+                escapeshellarg(Horde_Mime::encode($params['action-value']['subject'], 'UTF-8')),
+                escapeshellarg($from)))
                 . '"';
             if (($start != 0) && ($end !== 0)) {
                 $this->_action[] = '      }';

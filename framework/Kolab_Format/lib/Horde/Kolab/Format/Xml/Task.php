@@ -9,14 +9,14 @@
  * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Kolab_Server
+ * @link     http://www.horde.org/libraries/Horde_Kolab_Format
  */
 
 /**
  * Kolab XML handler for task groupware objects.
  *
  * Copyright 2007-2009 Klarälvdalens Datakonsult AB
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
@@ -27,97 +27,34 @@
  * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Kolab_Server
+ * @link     http://www.horde.org/libraries/Horde_Kolab_Format
  */
 class Horde_Kolab_Format_Xml_Task extends Horde_Kolab_Format_Xml
 {
     /**
-     * Specific data fields for the note object
+     * The name of the root element.
      *
-     * @var array
+     * @var string
      */
-    protected $_fields_specific;
+    protected $_root_name = 'task';
 
     /**
-     * Constructor
+     * Specific data fields for the prefs object
+     *
+     * @var Kolab
      */
-    public function __construct($parser, $params = array())
-    {
-        $this->_root_name = 'task';
-
-        /** Specific task fields, in kolab format specification order
-         */
-        $this->_fields_specific = array(
-            'summary' => array(
-                'type'    => self::TYPE_STRING,
-                'value'   => self::VALUE_DEFAULT,
-                'default' => '',
-            ),
-            'location' => array(
-                'type'    => self::TYPE_STRING,
-                'value'   => self::VALUE_DEFAULT,
-                'default' => '',
-            ),
-            'organizer' => $this->_fields_simple_person,
-            'start-date' => array(
-                'type'    => self::TYPE_DATE_OR_DATETIME,
-                'value'   => self::VALUE_MAYBE_MISSING,
-            ),
-            'alarm' => array(
-                'type'    => self::TYPE_INTEGER,
-                'value'   => self::VALUE_MAYBE_MISSING,
-            ),
-            'recurrence' => array(
-                'type'    => self::TYPE_COMPOSITE,
-                'value'   => self::VALUE_CALCULATED,
-                'load'    => 'Recurrence',
-                'save'    => 'Recurrence',
-            ),
-            'attendee' => $this->_fields_attendee,
-            'priority' => array(
-                'type'    => self::TYPE_INTEGER,
-                'value'   => self::VALUE_DEFAULT,
-                'default' => 3,
-            ),
-            'completed' => array(
-                'type'    => self::TYPE_INTEGER,
-                'value'   => self::VALUE_DEFAULT,
-                'default' => 0,
-            ),
-            'status' => array(
-                'type'    => self::TYPE_STRING,
-                'value'   => self::VALUE_DEFAULT,
-                'default' => 'not-started',
-            ),
-            'due-date' => array(
-                'type'    => self::TYPE_DATE_OR_DATETIME,
-                'value'   => self::VALUE_MAYBE_MISSING,
-            ),
-            'parent' => array(
-                'type'    => self::TYPE_STRING,
-                'value'   => self::VALUE_MAYBE_MISSING,
-            ),
-            // These are not part of the Kolab specification but it is
-            // ok if the client supports additional entries
-            'creator'   => $this->_fields_simple_person,
-            'percentage' => array(
-                'type'    => self::TYPE_INTEGER,
-                'value'   => self::VALUE_MAYBE_MISSING,
-            ),
-            'estimate' => array(
-                'type'    => self::TYPE_STRING,
-                'value'   => self::VALUE_MAYBE_MISSING,
-            ),
-            'completed_date' => array(
-                'type'    => self::TYPE_DATE_OR_DATETIME,
-                'value'   => self::VALUE_MAYBE_MISSING,
-            ),
-            'horde-alarm-methods' => array(
-                'type'    => self::TYPE_STRING,
-                'value'   => self::VALUE_MAYBE_MISSING,
-            ),
-        );
-
-        parent::__construct($parser, $params);
-    }
+    protected $_fields_specific = array(
+        'summary'             => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
+        'location'            => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
+        'organizer'           => 'Horde_Kolab_Format_Xml_Type_Composite_SimplePerson',
+        'start-date'          => 'Horde_Kolab_Format_Xml_Type_DateTime',
+        'alarm'               => 'Horde_Kolab_Format_Xml_Type_Integer',
+        'recurrence'          => 'Horde_Kolab_Format_Xml_Type_Composite_Recurrence',
+        'attendee'            => 'Horde_Kolab_Format_Xml_Type_Multiple_Attendee',
+        'priority'            => 'Horde_Kolab_Format_Xml_Type_TaskPriority',
+        'completed'           => 'Horde_Kolab_Format_Xml_Type_TaskCompletion',
+        'status'              => 'Horde_Kolab_Format_Xml_Type_TaskStatus',
+        'due-date'            => 'Horde_Kolab_Format_Xml_Type_DateTime',
+        'parent'              => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
+    );
 }

@@ -3,7 +3,7 @@
  * Displays and handles the form to move a ticket to a different queue.
  *
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -116,7 +116,7 @@ case 'sq2':
 
     $form1->renderInactive($r, $vars);
     echo '<br />';
-    $form2->renderActive($r, $vars, 'queue.php', 'post');
+    $form2->renderActive($r, $vars, Horde::url('ticket/queue.php'), 'post');
     break;
 
 case 'sq3':
@@ -128,12 +128,12 @@ case 'sq3':
     echo '<br />';
     $form2->renderInactive($r, $vars);
     echo '<br />';
-    $form3->renderActive($r, $vars, 'queue.php', 'post');
+    $form3->renderActive($r, $vars, Horde::url('ticket/queue.php'), 'post');
     break;
 
 default:
     $form1 = new Whups_Form_Queue_StepOne($vars, _("Set Queue - Step 1"));
-    $form1->renderActive($r, $vars, 'queue.php', 'post');
+    $form1->renderActive($r, $vars, Horde::url('ticket/queue.php'), 'post');
     break;
 }
 

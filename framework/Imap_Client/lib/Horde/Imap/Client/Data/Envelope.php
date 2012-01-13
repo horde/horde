@@ -2,7 +2,7 @@
 /**
  * Envelope data as returned by the IMAP FETCH command (RFC 3501 [7.4.2]).
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -154,7 +154,12 @@ class Horde_Imap_Client_Data_Envelope
             }
 
             if (!empty($save)) {
-                $this->_data[$name] = $save;
+                $this->_data[$name] = array();
+                foreach ($save as $val) {
+                    $this->_data[$name][] = Horde_Mime_Headers::sanityCheck($name, $val, array(
+                        'encode' => true
+                    ));
+                }
             }
             break;
 
@@ -164,9 +169,16 @@ class Horde_Imap_Client_Data_Envelope
 
         case 'in_reply_to':
         case 'message_id':
-        case 'subject':
             if (strlen($value)) {
                 $this->_data[$name] = $value;
+            }
+            break;
+
+        case 'subject':
+            if (strlen($value)) {
+                $this->_data[$name] = Horde_Mime_Headers::sanityCheck($name, $value, array(
+                    'encode' => true
+                ));
             }
             break;
         }

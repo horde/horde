@@ -20,7 +20,7 @@ require_once dirname(__FILE__) . '/../Base.php';
 /**
  * Integration test for the Kolab driver based on the in-memory mock driver.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -42,6 +42,10 @@ class Horde_Share_Kolab_MockTest extends Horde_Share_Test_Base
 
     public static function setUpBeforeClass()
     {
+        if (!class_exists('Horde_Kolab_Storage_Driver_Mock_Data')) {
+            return;
+        }
+
         self::$_data = new Horde_Kolab_Storage_Driver_Mock_Data(
             array(
                 '' => array('permissions' => array('anyone' => 'alrid')),

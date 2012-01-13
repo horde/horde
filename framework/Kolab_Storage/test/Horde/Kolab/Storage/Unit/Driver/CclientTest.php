@@ -20,7 +20,7 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
 /**
  * Test the Kolab mock driver.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -48,7 +48,7 @@ extends PHPUnit_Framework_TestCase
         $driver = new Horde_Kolab_Storage_Driver_Cclient(
             new Horde_Kolab_Storage_Factory(), array()
         );
-        $this->assertType(
+        $this->assertInstanceOf(
             'Horde_Kolab_Storage_Folder_Namespace',
             $driver->getNamespace()
         );

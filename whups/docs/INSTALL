@@ -47,11 +47,9 @@ To function properly, Whups **requires** the following:
 Installing Whups
 ================
 
-There are several ways to install Whups. The recommended way to install Whups
-is using the PEAR installer. Alternatively it can be installed from
-tarballs. Finally, if you want to run the latest development code, or get the
-latest, not yet released, fixes, you can install Whups from Git.
-
+The **RECOMMENDED** way to install Whups is using the PEAR installer.
+Alternatively, if you want to run the latest development code or get the
+latest not yet released fixes, you can install Whups from Git.
 
 Installing with PEAR
 ~~~~~~~~~~~~~~~~~~~~
@@ -77,71 +75,18 @@ your PHP configuration::
 
    pear install -a horde/whups
 
+Installing from Git
+~~~~~~~~~~~~~~~~~~~
 
-Installing from Release Tarballs
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+See::
 
-.. Important:: As of today, there are no tarballs released for Whups 2
-               yet. Please use the `Installing with PEAR`_ method to install
-               Whups 2.
-
-Whups can be obtained from the Horde website and FTP server, at
-
-   http://www.horde.org/apps/whups
-
-   ftp://ftp.horde.org/pub/whups/
-
-Or use the mirror closest to you:
-
-   http://www.horde.org/mirrors.php
-
-Whups is written in PHP, and must be installed in a web-accessible directory.
-The precise location of this directory will differ from system to system.
-Conventionally, Whups is installed directly underneath Horde in the web
-server's document tree.
-
-Since Whups is written in PHP, there is no compilation necessary; simply
-expand the distribution where you want it to reside and rename the root
-directory of the distribution to whatever you wish to appear in the URL. For
-example, with the Apache web server's default document root of
-``/usr/local/apache/htdocs``, you would type::
-
-   cd /usr/local/apache/htdocs/horde
-   tar zxvf /path/to/whups-h3-x.y.z.tar.gz
-   mv whups-h3-x.y.z whups
-
-and would then find Whups at the URL::
-
-   http://your-server/horde/whups/
+   http://horde.org/source/git.php
 
 
 Configuring Whups
 =================
 
 1. Configuring Whups
-
-   TODO: clean up for 2.0 release!
-
-   To configure Whups, change to the ``config/`` directory of the installed
-   distribution, and make copies of all of the configuration ``dist`` files
-   without the ``dist`` suffix::
-
-      cd config/
-      for foo in *.dist; do cp $foo `basename $foo .dist`; done
-
-   Or on Windows::
-
-      copy *.dist *.
-
-   Documentation on the format and purpose of those files can be found in each
-   file. You may edit these files if you wish to customize Whups's appearance
-   and behavior. With one exception (``reminders.php``, in case you want to
-   automatically sent out reminders about open tickets) the defaults will be
-   correct for most sites.
-
-   The ``create_email.plain.php`` and ``notify_email.plain.php`` files define
-   how outgoing email notifications about new respectively updated tickets look
-   like. See the comments in these files for details.
 
    You must login to Horde as a Horde Administrator to finish the
    configuration of Whups. Use the Horde ``Administration`` menu item to get
@@ -154,21 +99,34 @@ Configuring Whups
    file. In this case, go back to ``Configuration`` and choose one of the
    other methods to create the configuration file ``whups/config/conf.php``.
 
-   If you would like the ability to create and update tickets via
-   email, you will need to set up ``whups/scripts/mail-filter.php`` to
-   receive email from the appropriate addresses. This script takes a
-   number of arguments; see the script for more details. A typical
-   setup might be::
+   Documentation on the format and purpose of the other configuration files and
+   templates in the ``config/`` directory can be found in each file. You may
+   create ``*.local.php`` versions of these files if you wish to customize
+   Whups' appearance and behavior. See the header of the configuration files
+   for details and examples. With one exception (``reminders.php``, in case you
+   want to automatically sent out reminders about open tickets) the defaults
+   will be correct for most sites.
 
-      bugs |/path/to/horde/whups/scripts/mail-filter.php --queue-name=Bugs --type-name=Bug --state-name=New --priority-name=Low
+   The ``*_email.plain.php`` files define how outgoing email notifications
+   about ticket changes look like. See the comments in these files for details.
 
-   This will take in mail to the ``bugs`` address at your domain, and
-   create new tickets in the ``Bugs`` queue, with a type of ``Bug``, a
-   state of ``New``, and ``Low`` priority. Note that this must be a
-   valid combination of queue/type/state/priority names in your Whups
-   installation. If an email references an existing ticket (ticket
-   numbers are recognized in the subject line) it will be updated
-   instead.
+   If you would like the ability to create and update tickets via email, you
+   will need to set up ``whups-mail-filter`` to receive email from the
+   appropriate addresses. This script takes a number of arguments; see the
+   script for more details. A typical setup might be::
+
+      bugs |/usr/bin/whups-mail-filter --queue-name=Bugs
+
+   This will take in mail to the ``bugs`` address at your domain, and create
+   new tickets in the ``Bugs`` queue, with the default type, state and priority
+   of this queue. If an email references an existing ticket (ticket numbers are
+   recognized in the subject line) it will be updated instead.
+
+   If not installing Whups through PEAR of if PEAR's ``bin_dir`` configuration
+   doesn't point to ``/usr/bin/``, replace ``/usr/bin/whups-mail-filter`` with
+   the path to the ``whups-mail-filter`` script in your Horde installation.
+
+   See also `Creating tickets from email messages`_ below.
 
 2. Creating the database table
 
@@ -176,16 +134,16 @@ Configuring Whups
    database tables by clicking the ``DB schema is out of date.`` link in the
    Whups row of the configuration screen.
 
-   Alternatively you creating the Whups database tables can be accomplished with
-   horde's ``horde-db-migrate`` utility.  If your database is properly setup in the
-   Horde configuration, just run the following::
+   Alternatively creating the Whups database tables can be accomplished with
+   horde's ``horde-db-migrate`` utility.  If your database is properly setup in
+   the Horde configuration, just run the following::
 
-      horde/bin/horde-db-migrate whups
+      horde-db-migrate whups
 
 3. Testing Whups
 
-   Use Whups to create your base data, create tickets, and modify
-   tickets. Test at least the following:
+   Use Whups to create your base data, create tickets, and modify tickets. Test
+   at least the following:
 
      - Creating a new project (queue)
      - Creating ticket types, states, priorities for a project
@@ -197,11 +155,10 @@ Configuring Whups
 
    Whups provides functionality that can be used to create and update tickets
    from email messages. One part of this functionality is the
-   ``mail-filter.php`` in the ``whups/scripts/`` directory. It can either be
-   installed inside the mail chain, or run as a standalone script against an
-   IMAP or POP3 server. It provides a list of all available command line
-   arguments if called with the ``--help`` argument: ``./mail-filter.php
-   --help``.
+   ``whups-mail-filter`` script. It can either be installed inside the mail
+   chain, or run as a standalone script against an IMAP or POP3 server. It
+   provides a list of all available command line arguments if called with the
+   ``--help`` argument: ``whups-mail-filter --help``.
 
    If you use the arguments starting with ``--mail``, the script will login to
    the provided IMAP or POP3 server and process all messages in the specified
@@ -216,17 +173,17 @@ Configuring Whups
    this script, e.g. through the forwarding or alias mechanism. An example
    entry in ``/etc/alias`` could look like this::
 
-      bugs:"|/pathtohorde/whups/scripts/mail-filter.php -q 'Test Queue' -t mytype -p '1. Low' -s Unconfirmed"
+      bugs:"|/usr/bin/whups-mail-filter -q 'Test Queue'"
 
-   Even though this example uses "names" for the arguments, it's preferred to
-   use IDs, because those doesn't cause any problems with spaces, or non-ascii
-   characters.
+   Even though this example uses a queue "name" for the argument, it's
+   preferred to use IDs, because those doesn't cause any problems with spaces,
+   or non-ascii characters.
 
    The script tries to determine the ticket number from the message, if a
-   ticket number hasn't been specified with the ``--ticket``
-   argument. Currently it searches for strings looking like "[Bug #1]" in the
-   message subject. If a ticket number cannot be determined by any means, or
-   if a ticket with that number doesn't exist, a new ticket is created.
+   ticket number hasn't been specified with the ``--ticket`` argument.
+   Currently it searches for strings looking like "[Bug #1]" in the message
+   subject. If a ticket number cannot be determined by any means, or if a
+   ticket with that number doesn't exist, a new ticket is created.
 
    The (Horde) user that will be used to create or update the ticket, will
    also be determined by investigating the message. The email address used in
@@ -244,11 +201,18 @@ Configuring Whups
 
    Finally, you might want to to enable the setting in Whups' configuration,
    below the "Email Settings" tab, that allows users to reply to ticket
-   emails. This setting removes the warning from the generated ticket emails
-   to *not* reply to those emails. And you should of course make sure that you
-   specify the correct email address here for the generated messages. It
-   should the address that you use for the mail pipe, or the IMAP/POP3 account
-   when calling ``mail-filter.php``.
+   emails. This setting removes the warning from the generated ticket emails to
+   *not* reply to those emails. And you should of course make sure that you
+   specify the correct email address here for the generated messages. It should
+   be the address that you use for the mail pipe, or the IMAP/POP3 account when
+   calling ``whups-mail-filter``.
+
+   Any attachments that have been sent with the message will be added to the
+   ticket as attachments too. This is done via the virtual file system (VFS) of
+   Horde. If you use the local file system as the VFS backend, you need to take
+   care of permissions and umasks, i.e. both the user running the
+   ``whups-mail-filter`` script and the user running the web server need to
+   have read-write permissions to the VFS storage directory.
 
 
 Obtaining Support
@@ -260,7 +224,7 @@ The Horde Frequently Asked Questions List (FAQ), available on the Web at
 
   http://wiki.horde.org/FAQ
 
-Horde LLC runs a number of mailing lists, for individual applications
+The Horde Project runs a number of mailing lists, for individual applications
 and for issues relating to the project as a whole. Information, archives, and
 subscription information can be found at
 

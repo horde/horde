@@ -3,7 +3,7 @@
  * The IMP_Mime_Viewer_Appledouble class handles multipart/appledouble
  * messages conforming to RFC 1740.
  *
- * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -85,13 +85,11 @@ class IMP_Mime_Viewer_Appledouble extends Horde_Mime_Viewer_Base
 
         $data_name = $this->getConfigParam('imp_contents')->getPartName($data_part);
 
-        $status = array(
-            'icon' => Horde::img('mime/apple.png', _("Macintosh File")),
-            'text' => array(
-                sprintf(_("This message contains a Macintosh file (named \"%s\")."), $data_name),
-                sprintf(_("The Macintosh resource fork can be downloaded %s."), $this->getConfigParam('imp_contents')->linkViewJS($applefile_part, 'download_attach', _("HERE"), array('jstext' => _("The Macintosh resource fork"))))
-            )
-        );
+        $status = new IMP_Mime_Status(array(
+            sprintf(_("This message contains a Macintosh file (named \"%s\")."), $data_name),
+            sprintf(_("The Macintosh resource fork can be downloaded %s."), $this->getConfigParam('imp_contents')->linkViewJS($applefile_part, 'download_attach', _("HERE"), array('jstext' => _("The Macintosh resource fork"))))
+        ));
+        $status->icon('mime/apple.png', _("Macintosh File"));
 
         /* For inline viewing, attempt to display the data inline. */
         $ret = array();
@@ -104,7 +102,7 @@ class IMP_Mime_Viewer_Appledouble extends Horde_Mime_Viewer_Base
                 $ret[$val] = (strcmp($val, $mime_id) === 0)
                     ? array(
                           'data' => '',
-                          'status' => array($status),
+                          'status' => $status,
                           'type' => 'text/html; charset=' . $this->getConfigParam('charset'),
                           'wrap' => 'mimePartWrap'
                       )

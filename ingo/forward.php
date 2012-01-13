@@ -2,10 +2,10 @@
 /**
  * Forwards script.
  *
- * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
- * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author Todd Merritt <tmerritt@email.arizona.edu>
  */
@@ -95,5 +95,5 @@ $menu = Ingo::menu();
 require $registry->get('templates', 'horde') . '/common-header.inc';
 echo $menu;
 Ingo::status();
-$form->renderActive(new Horde_Form_Renderer(array('encode_title' => false)), $vars, 'forward.php', 'post');
+$form->renderActive(new Horde_Form_Renderer(array('encode_title' => false)), $vars, Horde::url('forward.php'), 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

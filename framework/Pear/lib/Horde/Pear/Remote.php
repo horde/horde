@@ -14,7 +14,7 @@
 /**
  * Remote access to a PEAR server.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -28,30 +28,31 @@
 class Horde_Pear_Remote
 {
     /**
-     * The tool generator for accessing the REST interface of the PEAR server.
+     * The instance accessing the REST interface of the PEAR server.
      *
-     * @var Horde_Pear_Rest_Access
+     * @var Horde_Pear_Rest
      */
-    private $_access;
+    private $_rest;
 
     /**
      * Constructor
      *
-     * @param string                 $server The server name.
-     * @param Horde_Pear_Rest_Access $access The accessor to the PEAR server
-     *                                       rest interface.
+     * @param string          $server The server name.
+     * @param Horde_Pear_Rest $rest   The accessor to the PEAR server rest
+     *                                interface.
      */
-    public function __construct(
-        $server = 'pear.horde.org',
-        Horde_Pear_Rest_Access $access = null
-    )
+    public function __construct($server = 'pear.horde.org',
+                                Horde_Pear_Rest $rest = null)
     {
-        if ($access === null) {
-            $this->_access = new Horde_Pear_Rest_Access();
+        if ($rest === null) {
+            $this->_rest = new Horde_Pear_Rest(
+                new Horde_Http_Client(),
+                $server
+            );
         } else {
-            $this->_access = $access;
+            $this->_rest = $rest;
+            $this->_rest->setServer($server);
         }
-        $this->_access->setServer($server);
     }
 
     /**
@@ -61,21 +62,34 @@ class Horde_Pear_Remote
      */
     public function listPackages()
     {
-        return $this->_access->getPackageList()->listPackages();
+        $list = new Horde_Pear_Rest_PackageList(
+            $this->_rest->fetchPackageList()
+        );
+        return $list->listPackages();
     }
 
     /**
      * Return the latest release for a specific package and stability.
      *
      * @param string $package The name of the package.
-     * @param string $stability The stability of the release.
+     * @param string $stability The stability of the release. Must be one of
+     *                          "stable", "beta", "alpha", or "devel". The
+     *                          default is "stable" If you explicitely set the
+     *                          $stability parameter to NULL the method will
+     *                          return the highest release version independent
+     *                          of the stability.
      *
      * @return string|boolean The latest version for this stability or false if
      *                        no version with this stability level exists.
      */
     public function getLatestRelease($package, $stability = 'stable')
     {
-        return $this->_access->getLatestRelease($package, $stability);
+        if ($stability === null) {
+            return $this->_rest->fetchLatestRelease($package);
+        } else {
+            $result = $this->_rest->fetchLatestPackageReleases($package);
+            return isset($result[$stability]) ? $result[$stability] : false;
+        }
     }
 
     /**
@@ -88,8 +102,10 @@ class Horde_Pear_Remote
      */
     public function getDependencies($package, $version)
     {
-        return $this->_access->getDependencies($package, $version)
-            ->getDependencies();
+        $deps = new Horde_Pear_Rest_Dependencies(
+            $this->_rest->fetchPackageDependencies($package, $version)
+        );
+        return $deps->getDependencies();
     }
 
     /**
@@ -102,7 +118,9 @@ class Horde_Pear_Remote
      */
     public function getPackageXml($package, $version)
     {
-        return $this->_access->getPackageXml($package, $version);
+        return new Horde_Pear_Package_Xml(
+            $this->_rest->fetchReleasePackageXml($package, $version)
+        );
     }
 
     /**
@@ -112,7 +130,7 @@ class Horde_Pear_Remote
      */
     public function getChannel()
     {
-        return $this->_access->getChannel();
+        return $this->_rest->fetchChannelXml();
     }
 
     /**
@@ -125,14 +143,19 @@ class Horde_Pear_Remote
      */
     public function releaseExists($package, $version)
     {
-        return $this->_access->releaseExists($package, $version);
+        return $this->_rest->releaseExists($package, $version);
     }
 
     /**
      * Retrieve the download location for the latest package release.
      *
      * @param string $package   The package name.
-     * @param string $stability The stability the release should have.
+     * @param string $stability The stability the release should have. Must be one of
+     *                          "stable", "beta", "alpha", or "devel". The
+     *                          default is "stable" If you explicitely set the
+     *                          $stability parameter to NULL the method will
+     *                          return the download URI for the highest release
+     *                          version independent of the stability.
      *
      * @return string The URI for downloading the release.
      *
@@ -143,7 +166,7 @@ class Horde_Pear_Remote
     public function getLatestDownloadUri($package, $stability = 'stable')
     {
         if ($latest = $this->getLatestRelease($package, $stability)) {
-            return $this->_access->getRelease($package, $latest)->getDownloadUri();
+            return $this->_getRelease($package, $latest)->getDownloadUri();
         } else {
             throw new Horde_Pear_Exception(
                 sprintf(
@@ -158,18 +181,40 @@ class Horde_Pear_Remote
     /**
      * Retrieve the release details for the most stable package version.
      *
-     * @param string $package The package name.
+     * @param string $package   The package name.
+     * @param string $stability The stability of the release. Must be one of
+     *                          "stable", "beta", "alpha", or "devel". The
+     *                          default is "stable" If you explicitely set the
+     *                          $stability parameter to NULL the method will
+     *                          return the details for the highest release
+     *                          version independent of the stability.
      *
      * @return Horde_Pear_Rest_Release|boolean The details of the most stable
      *                                         release. Or false if no release
      *                                         was found.
      */
-    public function getLatestDetails($package)
+    public function getLatestDetails($package, $stability = 'stable')
     {
         $result = false;
-        if ($latest = $this->_access->getLatestRelease($package)) {
-            return $this->_access->getRelease($package, $latest);
+        if ($latest = $this->getLatestRelease($package, $stability)) {
+            return $this->_getRelease($package, $latest);
         }
         return $result;
+    }
+
+    /**
+     * Return the release information wrapper for a specific package version
+     * from the server.
+     *
+     * @param string $package The name of the package.
+     * @param string $version The version of the release.
+     *
+     * @return Horde_Pear_Rest_Release The wrapper.
+     */
+    private function _getRelease($package, $version)
+    {
+        return new Horde_Pear_Rest_Release(
+            $this->_rest->fetchReleaseInformation($package, $version)
+        );
     }
 }

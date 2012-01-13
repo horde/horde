@@ -39,6 +39,17 @@ table.mboxactions {
     font-weight: bold;
 }
 
+.sortup {
+    background-image: url("graphics/arrow_down.png");
+}
+.sortdown {
+    background-image: url("graphics/arrow_up.png");
+}
+
+table.messageList .sortup, table.messageList .sortdown {
+    padding-left: 0;
+}
+
 /* Message list table styles. */
 .searchfolder a.smallheader {
     display: block;
@@ -191,6 +202,12 @@ div.msgActions, #fmanager div.folderActions {
     vertical-align: top;
 }
 
+/* Attachment tree styling. */
+div.partsTreeDiv span span:last-child {
+    padding-left: 3px;
+    vertical-align: bottom;
+}
+
 /* Message body styling. */
 .messageBody {
     border-top: 1px solid #ccc;
@@ -261,7 +278,7 @@ div.msgActions, #fmanager div.folderActions {
     vertical-align: text-top;
 }
 
-.searchuiCalendar {
+.calendarImg {
     background-image: url("graphics/calendar.png");
 }
 .searchuiFoldersActions {
@@ -348,6 +365,9 @@ span.trashImg {
     vertical-align: top;
 }
 
+#compose span.notices {
+    margin: 0;
+}
 #replyallnotice, #replylistnotice {
     background-color: #fcc;
 }
@@ -658,6 +678,9 @@ div.mimeStatusMessage, div.mimePartInfo {
     background-repeat: no-repeat;
     padding-left: 25px;
 }
+span.mimePartInfoSize {
+    color: #666;
+}
 
 .mimeStatusMessageTable td {
     padding: 0;
@@ -715,6 +738,51 @@ div.mimeStatusMessage, div.mimePartInfo {
 }
 .editImg {
     background-image: url("graphics/edit.png");
+}
+.searchImg {
+    background-image: url("graphics/search.png");
+}
+.readonlyImg {
+    background-image: url("graphics/locked.png");
+}
+.addrbookaddImg {
+    background-image: url("graphics/addressbook_add.png");
+}
+.spellcheckImg {
+    background-image: url("graphics/spellcheck.png");
+}
+.emptytrashImg {
+    background-image: url("graphics/empty_trash.png");
+}
+
+.filtersIcon {
+    background-image: url("graphics/filters.png");
+}
+
+/* Nav images (TODO: move to Horde) */
+.navfirstgreyImg {
+    background-image: url("graphics/nav/first-grey.png");
+}
+.navfirstImg {
+    background-image: url("graphics/nav/first.png");
+}
+.navlastgreyImg {
+    background-image: url("graphics/nav/last-grey.png");
+}
+.navlastImg {
+    background-image: url("graphics/nav/last.png");
+}
+.navleftgreyImg {
+    background-image: url("graphics/nav/left-grey.png");
+}
+.navleftImg {
+    background-image: url("graphics/nav/left.png");
+}
+.navrightgreyImg {
+    background-image: url("graphics/nav/right-grey.png");
+}
+.navrightImg {
+    background-image: url("graphics/nav/right.png");
 }
 
 /* iTip styles. */

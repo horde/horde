@@ -16,7 +16,7 @@
  * The Components_Dependencies_Bootstrap:: class provides the Components
  * dependencies specifically for the bootstrapping process.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -190,13 +190,13 @@ implements Components_Dependencies
     }
 
     /**
-     * Returns the documentation handler for a package.
+     * Returns the website documentation handler for a package.
      *
-     * @return Components_Runner_Document The documentation handler.
+     * @return Components_Runner_Webdocs The documentation handler.
      */
-    public function getRunnerDocument()
+    public function getRunnerWebdocs()
     {
-        return $this->getInstance('Components_Runner_Document');
+        return $this->getInstance('Components_Runner_Webdocs');
     }
 
     /**
@@ -217,6 +217,16 @@ implements Components_Dependencies
     public function getRunnerRelease()
     {
         return $this->getInstance('Components_Runner_Release');
+    }
+
+    /**
+     * Returns the qc handler for a package.
+     *
+     * @return Components_Runner_Qc The qc handler.
+     */
+    public function getRunnerQc()
+    {
+        return $this->getInstance('Components_Runner_Qc');
     }
 
     /**

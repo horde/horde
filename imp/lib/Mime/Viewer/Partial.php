@@ -3,7 +3,7 @@
  * The IMP_Mime_Viewer_Partial class allows message/partial messages
  * to be displayed (RFC 2046 [5.2.2]).
  *
- * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -58,7 +58,7 @@ class IMP_Mime_Viewer_Partial extends Horde_Mime_Viewer_Base
             return array(
                 $id => array(
                     'data' => null,
-                    'status' => array(self::$_statuscache[$id]),
+                    'status' => self::$_statuscache[$id],
                     'type' => 'text/plain; charset=' . $this->getConfigParam('charset')
                 )
             );
@@ -93,12 +93,9 @@ class IMP_Mime_Viewer_Partial extends Horde_Mime_Viewer_Base
          * status message. */
         $msg_count = count($indices);
         if ($msg_count != $total) {
-            self::$_statuscache[$this->_mimepart->getMimeId()] = array(
-                'icon' => Horde::img('alerts/error.png', _("Error")),
-                'text' => array(
-                    sprintf(_("Cannot display message - found only %s of %s parts of this message in the current mailbox."), $msg_count, $total)
-                )
-            );
+            $status = new IMP_Mime_Status(sprintf(_("Cannot display message - found only %s of %s parts of this message in the current mailbox."), $msg_count, $total));
+            $status->action(IMP_Mime_Status::ERROR);
+            self::$_statuscache[$this->_mimepart->getMimeId()] = $status;
             return null;
         }
 

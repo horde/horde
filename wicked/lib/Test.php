@@ -2,7 +2,7 @@
 /**
  * This class provides the Wicked configuration for the test script.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -36,14 +36,6 @@ class Wicked_Test extends Horde_Test
             'error' => 'The Text_Wiki module is required to parse and render the wiki markup in Wicked.',
             'required' => true,
             'function' => '_checkPearTextWikiVersion'
-        ),
-        'Text_Wiki_BBCode' => array(
-            'error' => 'The Text_Wiki_BBCode module is required if you plan on using BBCode formatting.',
-            'required' => false,
-        ),
-        'Text_Wiki_Cowiki' => array(
-            'error' => 'The Text_Wiki_Cowiki module is required if you plan on using Cowiki formatting.',
-            'required' => false,
         ),
         'Text_Wiki_Creole' => array(
             'error' => 'The Text_Wiki_Creole module is required if you plan on using Creole formatting.',

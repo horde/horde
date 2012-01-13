@@ -19,7 +19,7 @@ require_once dirname(__FILE__) . '/../../../LdapTestCase.php';
 /**
  * Test the LDAP result handler.
  *
- * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -32,6 +32,11 @@ require_once dirname(__FILE__) . '/../../../LdapTestCase.php';
  */
 class Horde_Kolab_Server_Class_Server_Result_LdapTest extends Horde_Kolab_Server_LdapTestCase
 {
+    public function setUp()
+    {
+        $this->skipIfNoLdap();
+    }
+
     public function testMethodConstructHasParameterNetldap2searchSearchResult()
     {
         $search = $this->getMock(

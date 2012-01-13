@@ -8,13 +8,13 @@
   <th class="turba-browse-icon item" width="1%" style="cursor:pointer" onclick="document.contacts.checkAll.checked = !document.contacts.checkAll.checked; SelectAll();" nowrap="nowrap"><label for="checkAll" class="hidden"><?php echo _("Check All/None") ?></label><input type="checkbox" id="checkAll" name="checkAll" onclick="document.contacts.checkAll.checked = !document.contacts.checkAll.checked; SelectAll();" <?php echo Horde::getAccessKeyAndTitle(_("Check _All/None")) ?> /></th>
 <?php endif; ?>
 <?php if ($this->showEdit): $col_count++; ?>
-  <th class="turba-browse-icon item" width="1%"><?php echo Horde::img('edit.png', _("Edit")) ?></th>
+  <th class="turba-browse-icon item" width="1%"><span class="iconImg editImg" title="<?php echo htmlspecialchars(_("Edit")) ?>"></span></th>
 <?php endif; ?>
 <?php if ($this->showVcard): $col_count++; ?>
-  <th class="turba-browse-icon item" width="1%"><?php echo Horde::img('mime/vcard.png', _("vCard")) ?></th>
+  <th class="turba-browse-icon item" width="1%"><span class="iconImg vcardImg" title="<?php echo htmlspecialchars(_("Download vCard")) ?>"></span></th>
 <?php endif; ?>
 <?php if ($this->showGroup): $col_count++; ?>
-  <th class="turba-browse-icon item" width="1%"><?php echo Horde::img('group.png', _("List")) ?></th>
+  <th class="turba-browse-icon item" width="1%"><span class="iconImg groupImg" title="<?php echo htmlspecialchars(_("List")) ?>"></span></th>
 <?php endif; ?>
   <?php $s_url = Horde_Util::removeParameter(Horde::selfUrl(true), array('sortadd', 'sortby', 'sortdir')); for ($i = 0, $imax = count($this->columns); $i <= $imax; ++$i): ?>
     <?php $columnlabel = $GLOBALS['attributes'][$i == 0 ? 'name' : $this->getColumnName($i)]['label']; ?>

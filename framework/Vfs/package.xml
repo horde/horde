@@ -4,7 +4,7 @@
  <channel>pear.horde.org</channel>
  <extends>VFS</extends>
  <summary>Virtual File System API</summary>
- <description>This package provides a Virtual File System API, with backends for:
+ <description>A Virtual File System API, with backends for:
 
 * SQL
 * FTP
@@ -27,10 +27,10 @@ Reading, writing and listing of files are all supported, and there are both obje
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-27</date>
- <time>16:58:25</time>
+ <date>2011-11-08</date>
+ <time>22:45:28</time>
  <version>
-  <release>1.0.5</release>
+  <release>1.0.9</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -39,14 +39,20 @@ Reading, writing and listing of files are all supported, and there are both obje
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix renaming and catching errors while reading sizes in SQL driver.
-* [jan] Fix reading file contents from FTP.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="bin">
     <file name="horde-vfs" role="script" />
    </dir> <!-- /bin -->
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Vfs">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/Vfs -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Vfs">
@@ -347,6 +353,7 @@ Reading, writing and listing of files are all supported, and there are both obje
        <file name="samba2.txt" role="test" />
       </dir> <!-- /test/Horde/Vfs/fixtures -->
       <file name="AllTests.php" role="test" />
+      <file name="FileTest.php" role="test" />
       <file name="KolabTest.php" role="test" />
       <file name="SmbTest.php" role="test" />
      </dir> <!-- /test/Horde/Vfs -->
@@ -440,6 +447,7 @@ Reading, writing and listing of files are all supported, and there are both obje
  <phprelease>
   <filelist>
    <install as="horde-vfs" name="bin/horde-vfs" />
+   <install as="COPYING" name="doc/Horde/Vfs/COPYING" />
    <install as="Horde/Vfs.php" name="lib/Horde/Vfs.php" />
    <install as="Horde/Vfs/Base.php" name="lib/Horde/Vfs/Base.php" />
    <install as="Horde/Vfs/Browser.php" name="lib/Horde/Vfs/Browser.php" />
@@ -547,6 +555,7 @@ Reading, writing and listing of files are all supported, and there are both obje
    <install as="migration/1_horde_vfs_base_tables.php" name="migration/Horde/Vfs/1_horde_vfs_base_tables.php" />
    <install as="migration/2_horde_vfs_upgrade_autoincrement.php" name="migration/Horde/Vfs/2_horde_vfs_upgrade_autoincrement.php" />
    <install as="Horde/Vfs/AllTests.php" name="test/Horde/Vfs/AllTests.php" />
+   <install as="Horde/Vfs/FileTest.php" name="test/Horde/Vfs/FileTest.php" />
    <install as="Horde/Vfs/KolabTest.php" name="test/Horde/Vfs/KolabTest.php" />
    <install as="Horde/Vfs/SmbTest.php" name="test/Horde/Vfs/SmbTest.php" />
    <install as="Horde/Vfs/fixtures/samba1.txt" name="test/Horde/Vfs/fixtures/samba1.txt" />
@@ -866,11 +875,68 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-27</date>
+   <date>2011-09-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix renaming and catching errors while reading sizes in SQL driver.
 * [jan] Fix reading file contents from FTP.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.6</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-10-11</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix setting permissions with File driver (Bug #10630).
+* [mms] Fix using File driver if vfsroot directory already exists (Bug #10584).
+* [mms] Fix internal reference to QUOTA_METRIC_* constants (Bug #10585).
+* [jan] Fix parsing of directory listings on /dev file systems in the SSH driver.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.7</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-10-18</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix reading file sizes from Samba backends.
+* [jan] Catch output from smbclient during error conditions (Bug #10638).
+* [jan] Implement size() method in Samba driver.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.8</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-08</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [gwr] Make unit tests timezone independent.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.9</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-08</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

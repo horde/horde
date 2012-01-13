@@ -17,11 +17,11 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-13</date>
- <time>15:30:18</time>
+ <date>2011-12-13</date>
+ <time>11:58:09</time>
  <version>
-  <release>1.1.0</release>
-  <api>1.1.0</api>
+  <release>1.4.1</release>
+  <api>1.4.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -29,9 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Provide method to return approximate size of parts if it contains base64 encoded data (Request #9783).
-* [mms] Support Content-Duration MIME header (RFC 3803).
-* [mms] MIME body part can not have disposition of &apos;attachment&apos; (Bug #10458).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -396,7 +394,7 @@
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.1.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -424,6 +422,13 @@
     <name>idn</name>
     <channel>pecl.php.net</channel>
    </package>
+   <package>
+    <name>intl</name>
+    <channel>pecl.php.net</channel>
+   </package>
+   <extension>
+    <name>intl</name>
+   </extension>
   </optional>
  </dependencies>
  <phprelease>
@@ -737,12 +742,120 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-13</date>
+   <date>2011-09-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Provide method to return approximate size of parts if it contains base64 encoded data (Request #9783).
 * [mms] Support Content-Duration MIME header (RFC 3803).
 * [mms] MIME body part can not have disposition of &apos;attachment&apos; (Bug #10458).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.0</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-09-27</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Add Horde_Mime_Mail#clearParts().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.1</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-02</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Horde_Mime_Part::getRawPartText() was incorrectly returning a trailing EOL for body data.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.3.0</release>
+    <api>1.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-08</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Make unit tests locale independent.
+* [mms] Added &apos;canonical&apos; parameter to Horde_Mime_Headers#toArray() and Horde_Mime_Headers#toString() (Bug #10696).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.3.1</release>
+    <api>1.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Work around broken number_format() in PHP &lt; 5.4.0.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.3.2</release>
+    <api>1.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-30</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Fix for broken 8BITMIME/BINARYMIME SMTP capability detection (christof@buergi.lugs.ch, Bug #10820).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.3.3</release>
+    <api>1.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Improved detection of charsets in broken (8-bit) MIME headers.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.4.0</release>
+    <api>1.4.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-13</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Allow Horde_Mime_Part::getRawPartText() to accept stream input.
+* [mms] Workaround incoming message data to Horde_Mime_Part::getRawPartText() that contains varying EOL characters (Bug #10809).
+* [mms] Fix detection of MIME boundaries at beginning of string (Bug #10809).
+* [mms] Abstract charset detection code out into Horde_Mime_Headers::sanityCheck().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.4.1</release>
+    <api>1.4.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-13</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

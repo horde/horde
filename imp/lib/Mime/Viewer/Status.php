@@ -3,7 +3,7 @@
  * The IMP_Mime_Viewer_Status class handles multipart/report messages
  * that refer to mail system administrative messages (RFC 3464).
  *
- * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -98,15 +98,11 @@ class IMP_Mime_Viewer_Status extends Horde_Mime_Viewer_Base
         switch ($action) {
         case 'failed':
         case 'delayed':
-            $status = array(
-                array(
-                    'icon' => Horde::img('alerts/error.png', _("Error")),
-                    'text' => array(
-                        _("ERROR: Your message could not be delivered."),
-                        sprintf(_("Technical error details can be viewed %s."), $this->getConfigParam('imp_contents')->linkViewJS($part2, 'view_attach', _("HERE"), array('jstext' => _("Technical details"), 'params' => array('ctype' => 'text/plain', 'mode' => IMP_Contents::RENDER_FULL))))
-                    )
-                )
-            );
+            $status = new IMP_Mime_Status(array(
+                _("ERROR: Your message could not be delivered."),
+                sprintf(_("Technical error details can be viewed %s."), $this->getConfigParam('imp_contents')->linkViewJS($part2, 'view_attach', _("HERE"), array('jstext' => _("Technical details"), 'params' => array('ctype' => 'text/plain', 'mode' => IMP_Contents::RENDER_FULL))))
+            ));
+            $status->action(IMP_Mime_Status::ERROR);
             $msg_link = _("The text of the returned message can be viewed %s.");
             $msg_link_status = _("The text of the returned message");
             break;
@@ -114,15 +110,11 @@ class IMP_Mime_Viewer_Status extends Horde_Mime_Viewer_Base
         case 'delivered':
         case 'expanded':
         case 'relayed':
-            $status = array(
-                array(
-                    'icon' => Horde::img('alerts/success.png', _("Success")),
-                    'text' => array(
-                        _("Your message was successfully delivered."),
-                        sprintf(_("Technical message details can be viewed %s."), $this->getConfigParam('imp_contents')->linkViewJS($part2, 'view_attach', _("HERE"), array('jstext' => _("Technical details"), 'params' => array('ctype' => 'text/x-simple', 'mode' => IMP_Contents::RENDER_FULL))))
-                    )
-                )
-            );
+            $status = new IMP_Mime_Status(array(
+                _("Your message was successfully delivered."),
+                sprintf(_("Technical message details can be viewed %s."), $this->getConfigParam('imp_contents')->linkViewJS($part2, 'view_attach', _("HERE"), array('jstext' => _("Technical details"), 'params' => array('ctype' => 'text/x-simple', 'mode' => IMP_Contents::RENDER_FULL))))
+            ));
+            $status->action(IMP_Mime_Status::SUCCESS);
             $msg_link = _("The text of the message can be viewed %s.");
             $msg_link_status = _("The text of the message");
             break;
@@ -131,7 +123,7 @@ class IMP_Mime_Viewer_Status extends Horde_Mime_Viewer_Base
         /* Display a link to the returned message, if it exists. */
         $part3 = $this->getConfigParam('imp_contents')->getMIMEPart($part3_id);
         if ($part3) {
-            $status[0]['text'][] = sprintf($msg_link, $this->getConfigParam('imp_contents')->linkViewJS($part3, 'view_attach', _("HERE"), array('jstext' => $msg_link_status, 'params' => array('ctype' => 'message/rfc822'))));
+            $status->addText(sprintf($msg_link, $this->getConfigParam('imp_contents')->linkViewJS($part3, 'view_attach', _("HERE"), array('jstext' => $msg_link_status, 'params' => array('ctype' => 'message/rfc822')))));
         }
 
         $ret = array_fill_keys(array_diff($parts, array($part1_id)), null);

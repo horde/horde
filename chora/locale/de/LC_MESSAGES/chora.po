@@ -1,12 +1,12 @@
 # German translation for Chora.
-# Copyright 2001-2011 Horde LLC
+# Copyright 2001-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Chora package.
 # Jan Schneider <jan@horde.org>, 2001-2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: Chora 3.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-05-18 12:23+0200\n"
+"POT-Creation-Date: 2011-12-21 18:23+0100\n"
 "PO-Revision-Date: 2011-02-02 18:08+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
@@ -66,7 +66,7 @@ msgstr "Autor"
 msgid "Back"
 msgstr "Zurück"
 
-#: app/views/_logMessage.html.php:18 lib/Chora.php:332 lib/Chora.php:333
+#: app/views/_logMessage.html.php:20 lib/Chora.php:332 lib/Chora.php:333
 #: lib/Chora.php:336 lib/Chora.php:337
 msgid "Branches"
 msgstr "Branches"
@@ -135,7 +135,7 @@ msgstr "Gelöschte Dateien"
 msgid "Description"
 msgstr "Beschreibung"
 
-#: app/views/_logMessage.html.php:9 patchsets.php:52
+#: app/views/_logMessage.html.php:10 patchsets.php:52
 #: templates/log/header.inc:11
 msgid "Diff"
 msgstr "Unterschiede"
@@ -189,11 +189,11 @@ msgstr "Unterschiede herunterladen"
 msgid "Graph for %s"
 msgstr "Grafik für %s"
 
-#: browsedir.php:42
+#: browsedir.php:43
 msgid "Hide Deleted Files"
 msgstr "Gelöschte Dateien verstecken"
 
-#: browsedir.php:42
+#: browsedir.php:43
 msgid "Hide _Deleted Files"
 msgstr "_Gelöschte Dateien verstecken"
 
@@ -283,7 +283,7 @@ msgstr "Patchsätze suchen:"
 msgid "Show Branch:"
 msgstr "Branch anzeigen:"
 
-#: browsedir.php:42
+#: browsedir.php:43
 msgid "Show Deleted Files"
 msgstr "Gelöschte Dateien anzeigen"
 
@@ -291,7 +291,7 @@ msgstr "Gelöschte Dateien anzeigen"
 msgid "Show Differences"
 msgstr "Unterschiede anzeigen"
 
-#: browsedir.php:42
+#: browsedir.php:43
 msgid "Show _Deleted Files"
 msgstr "_Gelöschte Dateien anzeigen"
 
@@ -328,12 +328,12 @@ msgstr ""
 msgid "Statistics"
 msgstr "Statistiken"
 
-#: stats.php:26
+#: stats.php:33
 #, php-format
 msgid "Statistics for %s"
 msgstr "Statistik für %s"
 
-#: app/views/_logMessage.html.php:27 templates/patchsets/ps.inc:8
+#: app/views/_logMessage.html.php:29 templates/patchsets/ps.inc:8
 msgid "Tags"
 msgstr "Tags"
 

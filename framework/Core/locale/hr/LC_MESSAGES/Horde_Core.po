@@ -1,38 +1,44 @@
 # Croatian translations for Horde_Core module.
-# Copyright 2010-2011 Horde LLC
+# Copyright 2010-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Core module.
-# Automatically generated, 2010.
+# Valentin Vidic <Valentin.Vidic@CARNet.hr>, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Core\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2011-11-04 15:10+0100\n"
+"PO-Revision-Date: 2011-11-08 16:49+0200\n"
+"Last-Translator: Valentin Vidic <Valentin.Vidic@CARNet.hr>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: lib/Horde.php:1613
+#: lib/Horde.php:1770
 #, php-format
 msgid " (Accesskey %s)"
 msgstr " (Accesskey %s)"
 
-#: lib/Horde/Registry.php:1122 lib/Horde/Registry.php:1573
+#: lib/Horde/Core/Factory/Group.php:35
+#, php-format
+msgid "\"%s\" group driver not found."
+msgstr "Podrška za grupe \"%s\" nije pronađena."
+
+#: lib/Horde/Registry.php:1203 lib/Horde/Registry.php:1686
 #, php-format
 msgid "\"%s\" is not configured in the Horde Registry."
 msgstr "\"%s\" nije konfiguriran u Horde Registru."
 
-#: lib/Horde/Core/Factory/Share.php:83
+#: lib/Horde/Core/Factory/ShareBase.php:57
 #, php-format
 msgid "\"%s\" share driver not found."
 msgstr "Nije pronađena metoda dijeljenja \"%s\"."
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:134
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:125
 #, php-format
 msgid "%d contact was successfully added to your address book."
 msgid_plural "%d contacts were successfully added to your address book."
@@ -40,7 +46,7 @@ msgstr[0] "%d kontakt je uspješno dodan u Vaš adresar."
 msgstr[1] "%d kontakta je uspješno dodano u Vaš adresar."
 msgstr[2] "%d kontakata je uspješno dodano u Vaš adresar."
 
-#: lib/Horde/Core/Auth/Application.php:583
+#: lib/Horde/Core/Auth/Application.php:656
 #, php-format
 msgid "%d day until your password expires."
 msgid_plural "%d days until your password expires."
@@ -48,51 +54,46 @@ msgstr[0] "Lozinka vam ističe za %d dan."
 msgstr[1] "Lozinka vam ističe za %d dana."
 msgstr[2] "Lozinka vam ističe za %d dana."
 
-#: lib/Horde/Core/Auth/Signup/Form.php:37
+#: lib/Horde/Registry.php:1308
 #, php-format
-msgid "%s Sign Up"
-msgstr "%s Prijava"
-
-#: lib/Horde/Registry.php:1220
-#, fuzzy, php-format
 msgid "%s is not authorized for %s."
 msgstr "Korisnik %s nije ovlašten za %s."
 
-#: lib/Horde/Core/Perms/Ui.php:338 lib/Horde/Core/Perms/Ui.php:397
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:847
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:815 lib/Horde/Core/Perms/Ui.php:347
+#: lib/Horde/Core/Perms/Ui.php:407
 msgid "-- select --"
 msgstr "-- odaberi --"
 
-#: lib/Horde/Core/Notification/Status.php:82
+#: lib/Horde/Core/Notification/Event/Status.php:72
 msgid "1 day"
 msgstr "1 dan"
 
-#: lib/Horde/Core/Notification/Status.php:80
+#: lib/Horde/Core/Notification/Event/Status.php:70
 msgid "1 hour"
 msgstr "1 sat"
 
-#: lib/Horde/Core/Notification/Status.php:79
+#: lib/Horde/Core/Notification/Event/Status.php:69
 msgid "15 minutes"
 msgstr "15 minuta"
 
-#: lib/Horde/Core/Notification/Status.php:78
+#: lib/Horde/Core/Notification/Event/Status.php:68
 msgid "5 minutes"
 msgstr "5 minuta"
 
-#: lib/Horde/Core/Notification/Status.php:81
+#: lib/Horde/Core/Notification/Event/Status.php:71
 msgid "6 hours"
 msgstr "6 sati"
 
-#: lib/Horde/Core/Ui/Pager.php:86
+#: lib/Horde/Core/Ui/Pager.php:77
 msgid "<Previous"
 msgstr "<Prethodni"
 
 # kobne?
-#: lib/Horde.php:109
+#: lib/Horde.php:156
 msgid "A fatal error has occurred"
 msgstr "Došlo je do fatalne pogreške."
 
-#: lib/Horde/Core/Prefs/Identity.php:81
+#: lib/Horde/Core/Prefs/Identity.php:63
 #, php-format
 msgid ""
 "A message has been sent to \"%s\" to verify that this is really your "
@@ -102,7 +103,7 @@ msgstr ""
 "Na adresu \"%s\" je poslana poruka radi potvrde da je to stvarno vaša "
 "adresa. Nova e-mail adresa će biti aktivirana čim potvrdite tu poruku."
 
-#: lib/Horde/Core/Auth/Signup/Base.php:96
+#: lib/Horde/Core/Auth/Signup/Base.php:83
 #, php-format
 msgid ""
 "A new account for the user \"%s\" has been requested through the signup form."
@@ -110,628 +111,678 @@ msgstr ""
 "Otvaranje novog korisničkog računa za korisnika \"%s\" zatraženo je putem "
 "forme za registraciju."
 
-#: lib/Horde/Script/Files.php:128
+#: lib/Horde/Script/Files.php:126
 msgid ""
 "A popup window could not be opened. Your browser may be blocking popups."
 msgstr ""
+"Nije uspjelo otvaranje novog prozora. Vaš preglednig možda blokira otvaranje "
+"novih prozora."
 
-#: lib/Horde/Core/Auth/Signup/Base.php:103
+#: lib/Horde/Core/Auth/Signup/Base.php:91
 #, php-format
 msgid "Account signup request for \"%s\""
 msgstr "Zahtjev za korisničkim računom \"%s\""
 
-#: lib/Horde/Core/Perms/Ui.php:192 lib/Horde/Core/Ui/VarRenderer/Html.php:651
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:620 lib/Horde/Core/Perms/Ui.php:194
 msgid "Add"
 msgstr "Dodaj"
 
-#: lib/Horde/Core/Perms/Ui.php:130
+#: lib/Horde/Core/Perms/Ui.php:132
 msgid "Add Child Permission"
 msgstr "Dodaj pod-dozvolu"
 
-#: lib/Horde/Core/Perms/Ui.php:101
+#: lib/Horde/Core/Perms/Ui.php:103
 msgid "Add New Permission"
 msgstr "Dodaj novu dozvolu"
 
-#: lib/Horde/Core/Perms/Ui.php:78
+#: lib/Horde/Core/Perms/Ui.php:80
 msgid "Add Permission"
 msgstr "Dodaj dozvolu"
 
-#: lib/Horde/Core/Perms/Ui.php:191
+#: lib/Horde/Core/Perms/Ui.php:193
 #, php-format
 msgid "Add a child permission to \"%s\""
 msgstr "Dodaj pod-dozvolu na \"%s\""
 
-#: lib/Horde/Core/Prefs/Ui/Widgets.php:107
-#, fuzzy
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:92
 msgid "Add source"
-msgstr "Dodaj korisnika"
+msgstr "Dodaj izvor"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:415
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:408
 msgid "Add to address book:"
 msgstr "Dodaj u adresar:"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:430
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:423
 msgid "Add to my address book"
 msgstr "Dodaj u moj adresar"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:237
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:301
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:231
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:295
 msgid "Address"
 msgstr "Adresa"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:417
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:410
 msgid "Address Book"
 msgstr "Adresar"
 
-#: lib/Horde/Core/Sidebar.php:58
+#: lib/Horde/Core/Sidebar.php:118
 msgid "Administration"
 msgstr "Administriranje"
 
-#: lib/Horde/Core/Notification/Status.php:98
+#: lib/Horde/Core/Notification/Event/Status.php:88
 msgid "Alarm"
 msgstr "Alarm"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:161
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:155
 msgid "Alias"
 msgstr "Alias"
 
-#: lib/Horde/Core/Perms/Ui.php:253
+#: lib/Horde/Core/Perms/Ui.php:262
 msgid "All Authenticated Users"
 msgstr "Svi autenticirani korisnici"
 
-#: lib/Horde/Core/Perms/Ui.php:104
+#: lib/Horde/Core/Perms.php:121 lib/Horde/Core/Perms/Ui.php:106
 msgid "All Permissions"
 msgstr "Sve dozvole"
 
-#: lib/Horde/Core/Prefs/Ui.php:259 lib/Horde/Core/Prefs/Ui.php:275
+#: lib/Horde/Core/Prefs/Ui.php:307 lib/Horde/Core/Prefs/Ui.php:323
 msgid "An illegal value was specified."
 msgstr "Odabrana je nedopuštena vrijednost."
 
-#: lib/Horde/Core/Auth/Signup/Base.php:98
+#: lib/Horde/Core/Auth/Signup/Base.php:85
 msgid "Approve the account:"
 msgstr "Odobri dodavanje korisničkog računa:"
 
-#: lib/Horde/Core/Ui/JsCalendar.php:139
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:463
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:501
+#: lib/Horde/Core/Ui/JsCalendar.php:130
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:435
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:481
 msgid "April"
 msgstr "Travanj"
 
-#: lib/Horde/Core/Ui/JsCalendar.php:143
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:467
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:505
+#: lib/Horde/Core/Ui/JsCalendar.php:134
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:439
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:485
 msgid "August"
 msgstr "Kolovoz"
 
-#: lib/Horde/Core/Prefs/Ui/Widgets.php:214
-#, fuzzy
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:199
 msgid "Available address books:"
-msgstr "Dodaj u adresar:"
+msgstr "Dostupni adresari:"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:168
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:162
 msgid "Birthday"
 msgstr "Rođendan"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:543
+# temeljni, korijenski
+#: lib/Horde/Core/Block/Collection.php:392
+#, php-format
+msgid "Block \"%s\" of application \"%s\" not found."
+msgstr "Blok \"%s\" aplikacije \"%s\" nije pronađen."
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:522
 msgid "Calendar"
 msgstr "Kalendar"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:327
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:321
 msgid "Cell Phone"
 msgstr "Mobilni telefon"
 
-#: lib/Horde/Core/Auth/Signup/Form.php:53
-#: lib/Horde/Core/Auth/Signup/Form.php:67
+#: lib/Horde/Core/Auth/Signup/Form.php:45
+#: lib/Horde/Core/Auth/Signup/Form.php:59
 msgid "Choose a password"
 msgstr "Izaberite lozinku"
 
-#: lib/Horde/Core/Auth/Signup/Form.php:50
-#: lib/Horde/Core/Auth/Signup/Form.php:66
+#: lib/Horde/Core/Auth/Signup/Form.php:42
+#: lib/Horde/Core/Auth/Signup/Form.php:58
 msgid "Choose a username"
 msgstr "Izaberite korsničko ime"
 
-#: lib/Horde/Core/Prefs/Ui/Widgets.php:208
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:193
 msgid "Choose the order of address books to search when expanding addresses."
-msgstr ""
+msgstr "Odaberite redosljed pretraživanja adresara kod proširivanja adresa."
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:599
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:601
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:569
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:571
 msgid "Color Picker"
 msgstr "Birač boja"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:379
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:372
 msgid "Company"
 msgstr "Tvrtka"
 
-#: lib/Horde/Core/Prefs/Identity.php:72
+#: lib/Horde/Core/Prefs/Identity.php:54
 msgid "Confirm new email address"
 msgstr "Potvrdite novu e-mail adresu"
 
+#: lib/Horde/Config.php:293
+#, php-format
+msgid "Could not save the backup configuration file %s."
+msgstr "Ne može spremiti %s datoteku pričuvne konfiguracije."
+
 # vlasnika?
-#: lib/Horde/Core/Perms/Ui.php:284
+#: lib/Horde/Core/Perms/Ui.php:293
 msgid "Creator Permissions"
 msgstr "Dozvole keatora"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:510
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:490
 msgid "DD"
 msgstr "DD"
 
-#: lib/Horde/Core/Ui/JsCalendar.php:147
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:471
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:509
+#: lib/Horde/Core/Ui/JsCalendar.php:138
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:443
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:489
 msgid "December"
 msgstr "Prosinac"
 
-#: lib/Horde/Core/Perms/Ui.php:483 lib/Horde/Core/Perms/Ui.php:501
+#: lib/Horde/Core/Perms/Ui.php:493 lib/Horde/Core/Perms/Ui.php:511
 msgid "Delete"
 msgstr "Izbriši"
 
-#: lib/Horde/Core/Perms/Ui.php:82 lib/Horde/Core/Perms/Ui.php:138
+#: lib/Horde/Core/Perms/Ui.php:84 lib/Horde/Core/Perms/Ui.php:140
 msgid "Delete Permission"
 msgstr "Izbriši dozvolu"
 
-#: lib/Horde/Core/Perms/Ui.php:482
+#: lib/Horde/Core/Perms/Ui.php:492
 #, php-format
 msgid "Delete permissions for \"%s\""
 msgstr "Izbriši dozvole za \"%s\""
 
-#: lib/Horde/Core/Perms/Ui.php:485
+#: lib/Horde/Core/Perms/Ui.php:495
 #, php-format
 msgid "Delete permissions for \"%s\" and any sub-permissions?"
 msgstr "Izbriši dozvole za \"%s\" i sve pod-dozvole?"
 
-#: lib/Horde/Core/Auth/Signup/Base.php:100
+#: lib/Horde/Core/Auth/Signup/Base.php:87
 msgid "Deny the account:"
 msgstr "Odbij dodavanje korisničkog računa:"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:381
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:374
 msgid "Department"
 msgstr "Odjel"
 
 # pojedinosti
-#: lib/Horde.php:127
-#, fuzzy
+#: lib/Horde.php:173
 msgid "Details"
-msgstr "Detalji:"
+msgstr "Detalji"
 
-#: lib/Horde.php:132
+#: lib/Horde.php:178
 msgid "Details have been logged for the administrator."
 msgstr "Detalji su zabilježeni za administratora."
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1188
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1166
 #, php-format
 msgid "Dial %s"
 msgstr "Nazovi %s"
 
-#: lib/Horde/Core/Notification/Status.php:77
+#: lib/Horde/Core/Notification/Event/Status.php:67
 msgid "Dismiss"
 msgstr "Zanemari"
 
-#: lib/Horde/Core/Perms/Ui.php:483
+#: lib/Horde/Core/Perms/Ui.php:493
 msgid "Do not delete"
 msgstr "Ne briši"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:216
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:280
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:210
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:274
 msgid "Domestic Address"
 msgstr "Adresa za tuzemne isporuke"
 
-#: lib/Horde/Core/Perms/Ui.php:81 lib/Horde/Core/Perms/Ui.php:136
+#: lib/Horde/Core/Block/Layout.php:107 lib/Horde/Core/Block/Layout.php:108
+msgid "Edit"
+msgstr "Uredi"
+
+#: lib/Horde/Core/Perms/Ui.php:83 lib/Horde/Core/Perms/Ui.php:138
 msgid "Edit Permission"
 msgstr "Uredi dozvolu"
 
-#: lib/Horde/Core/Perms/Ui.php:416
+#: lib/Horde/Core/Perms/Ui.php:426
 #, php-format
 msgid "Edit permissions for \"%s\""
 msgstr "Uredi dozvole za \"%s\""
 
 # E-pošta ?
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:364
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:357
 msgid "Email"
 msgstr "E-mail"
 
-#: lib/Horde/Core/Prefs/Identity.php:105
+#: lib/Horde/Core/Prefs/Identity.php:87
 msgid "Email addresses to confirm not found."
 msgstr "Nisu pronađene e-mail adrese koje treba potvrditi."
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:336
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:313
 msgid "Emoticons"
 msgstr "Emotikoni"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:988
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1000
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:950
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:961
 msgid "Enter the letters below:"
 msgstr "Upišite sljedeća slova:"
 
-#: lib/Horde/Core/Notification/Status.php:103
+#: lib/Horde/Core/Notification/Event/Status.php:93
+#: lib/Horde/Core/Block/Layout/View.php:131
 msgid "Error"
 msgstr "Greška"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:318
+#: lib/Horde/Core/Block/Layout/Manager.php:532
+msgid "Expand"
+msgstr "Proširi"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:312
 msgid "Fax"
 msgstr "Fax"
 
-#: lib/Horde/Core/Ui/JsCalendar.php:137
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:461
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:499
+#: lib/Horde/Core/Ui/JsCalendar.php:128
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:433
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:479
 msgid "February"
 msgstr "Veljača"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:279
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:254
 msgid "Fix ratio"
 msgstr "Fiksni omjer"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:254
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:229
 msgid "Flip"
 msgstr "Preokreni"
 
-#: lib/Horde/Core/Ui/JsCalendar.php:105
+#: lib/Horde/Core/Ui/JsCalendar.php:96
 msgid "Fr"
 msgstr "Pet"
 
-#: lib/Horde/Core/Ui/JsCalendar.php:123
+#: lib/Horde/Core/Ui/JsCalendar.php:114
 msgid "Friday"
-msgstr ""
+msgstr "Petak"
 
-#: lib/Horde/Core/Prefs/Ui.php:597 lib/Horde/Core/Sidebar.php:91
-#, fuzzy
+#: lib/Horde/Core/Sidebar.php:139 lib/Horde/Core/Prefs/Ui.php:650
 msgid "Global Preferences"
-msgstr "Postavke"
+msgstr "Opće postavke"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1333
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1311
 msgid "Google Maps"
 msgstr "Google Maps"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:260
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:235
 msgid "Grayscale"
 msgstr "Nijanse sive"
 
-#: lib/Horde/Core/Perms/Ui.php:358
+#: lib/Horde/Core/Perms/Ui.php:367
 msgid "Groups"
 msgstr "Grupe"
 
-#: lib/Horde/Core/Perms/Ui.php:271
+#: lib/Horde/Core/Perms/Ui.php:280
 msgid "Guest Permissions"
 msgstr "Dozvole gosta"
 
-#: lib/Horde/Help.php:218 lib/Horde/Help.php:219 lib/Horde/Menu.php:197
+#: lib/Horde/Menu.php:227 lib/Horde/Help.php:219 lib/Horde/Help.php:220
 msgid "Help"
 msgstr "Pomoć"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:208
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:272
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:202
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:266
 msgid "Home Address"
 msgstr "Kućna adresa"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:321
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:315
 msgid "Home Phone"
 msgstr "Kućni telefon"
 
-#: lib/Horde/Core/Perms/Ui.php:297
+#: lib/Horde/Core/Perms/Ui.php:306
 msgid "Individual Users"
 msgstr "Pojedinačni korisnici"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:220
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:284
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:214
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:278
 msgid "International Address"
 msgstr "Adresa za međunarodne isporuke"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:777
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:745
 #: lib/Horde/Core/Ui/VarRenderer/TablesetHtml.php:26
 msgid "Invert selection"
 msgstr "Preokreni odabir"
 
-#: lib/Horde/Core/Ui/JsCalendar.php:136
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:460
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:498
+#: lib/Horde/Core/Ui/JsCalendar.php:127
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:432
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:478
 msgid "January"
 msgstr "Siječanj"
 
-#: lib/Horde/Core/Ui/JsCalendar.php:142
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:466
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:504
+#: lib/Horde/Core/Ui/JsCalendar.php:133
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:438
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:484
 msgid "July"
 msgstr "Srpanj"
 
-#: lib/Horde/Core/Ui/JsCalendar.php:141
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:465
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:503
+#: lib/Horde/Core/Ui/JsCalendar.php:132
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:437
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:483
 msgid "June"
 msgstr "Lipanj"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:287
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:262
 msgid "Keep original?"
 msgstr "Zadrži izvorno?"
 
-#: lib/Horde/Core/Sidebar.php:120
+#: lib/Horde/Core/Sidebar.php:168
 msgid "Log in"
 msgstr "Prijavi se"
 
-#: lib/Horde/Core/Sidebar.php:113
+#: lib/Horde/Core/Sidebar.php:161
 msgid "Log out"
-msgstr "Odjavi se"
+msgstr "Odjava"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:459
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:497
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:431
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:477
 msgid "MM"
 msgstr "MM"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1259
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1308
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1237
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1286
 msgid "MapQuest map"
 msgstr "MapQuest mapa"
 
-#: lib/Horde/Core/Ui/JsCalendar.php:138
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:462
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:500
+#: lib/Horde/Core/Ui/JsCalendar.php:129
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:434
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:480
 msgid "March"
 msgstr "Ožujak"
 
-#: lib/Horde/Core/Ui/JsCalendar.php:140
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:464
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:502
+#: lib/Horde/Core/Ui/JsCalendar.php:131
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:436
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:482
 msgid "May"
 msgstr "Svibanj"
 
-#: lib/Horde/Core/Notification/Status.php:109
+#: lib/Horde/Core/Notification/Event/Status.php:98
 msgid "Message"
 msgstr "Poruka"
 
 # Zrcalno računalo?
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:257
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:232
 msgid "Mirror"
 msgstr "Mirror"
 
-#: lib/Horde/Core/Ui/JsCalendar.php:101
+#: lib/Horde/Core/Ui/JsCalendar.php:92
 msgid "Mo"
 msgstr "Pon"
 
-#: lib/Horde/Core/Ui/JsCalendar.php:119
+#: lib/Horde/Core/Ui/JsCalendar.php:110
 msgid "Monday"
 msgstr "Ponedjeljak"
 
-#: lib/Horde/Core/Prefs/Ui/Widgets.php:112
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:623
+#: lib/Horde/Core/Block/Layout/Manager.php:566
+msgid "Move Down"
+msgstr "Pomakni dolje"
+
+#: lib/Horde/Core/Block/Layout/Manager.php:570
+msgid "Move Left"
+msgstr "Pomakni ulijevo"
+
+#: lib/Horde/Core/Block/Layout/Manager.php:574
+msgid "Move Right"
+msgstr "Pomakni udesno"
+
+#: lib/Horde/Core/Block/Layout/Manager.php:562
+msgid "Move Up"
+msgstr "Pomakni gore"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:592
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:97
 msgid "Move down"
 msgstr "Pomakni dolje"
 
-#: lib/Horde/Core/Prefs/Ui/Widgets.php:111
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:622
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:623
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:591
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:592
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:96
 msgid "Move up"
 msgstr "Pomakni gore"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1228
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1206
 msgid "Multimap UK map"
 msgstr "Karta Multimap UK"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:157
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:151
 msgid "Name"
 msgstr "Ime"
 
-#: lib/Horde/Core/Ui/Pager.php:129
+#: lib/Horde/Core/Ui/Pager.php:120
 msgid "Next>"
 msgstr "Dalje>"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1093
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1054
 msgid "No"
 msgstr "Ne"
 
-#: lib/Horde/Core/Factory/Twitter.php:43
+#: lib/Horde/Core/Factory/Twitter.php:42
 msgid "No OAuth Key or Secret found for the Twitter API"
-msgstr ""
+msgstr "Nije pronađen OAuth ključili tajna za Twitter API"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:569
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:539
 msgid "No Sound"
 msgstr "Bez zvuka"
 
-#: lib/Horde/Core/Prefs/Ui/Widgets.php:246
-#, fuzzy
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:231
 msgid "No address book selected."
-msgstr "Dodaj u adresar:"
+msgstr "Nije odabran adresar."
 
-#: lib/Horde/Core/Perms/Ui.php:200
+#: lib/Horde/Core/Perms/Ui.php:202
 msgid "No children can be added to this permission."
 msgstr "Ovoj dozvoli se ne mogu dodavati pod-dozvole."
 
-#: lib/Horde.php:868
+#: lib/Horde.php:953
 #, php-format
 msgid "No configuration information specified for %s."
 msgstr "Nedostaju konfiguracijski parametri za %s."
 
-#: lib/Horde/Core/Ajax/Application.php:185
-#, fuzzy
+#: lib/Horde/Core/Ajax/Application.php:203
 msgid "No valid email address found"
-msgstr "\"%s\" nije ispravna e-mail adresa."
+msgstr "Nije pronađena ispravna adresa elektroničke pošte."
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1101
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1111
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1122
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1139
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1062
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1072
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1083
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1100
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1117
 msgid "No values"
 msgstr "Nema vrijednosti"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:387
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:380
 msgid "Notes"
 msgstr "Bilješke"
 
-#: lib/Horde/Core/Ui/JsCalendar.php:146
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:470
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:508
+#: lib/Horde/Core/Ui/JsCalendar.php:137
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:442
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:488
 msgid "November"
 msgstr "Studeni"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:969
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:932
 msgid "Object"
 msgstr "Objekt"
 
-#: lib/Horde/Core/Ui/JsCalendar.php:145
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:469
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:507
+#: lib/Horde/Core/Ui/JsCalendar.php:136
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:441
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:487
 msgid "October"
 msgstr "Listopad"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:228
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:292
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:222
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:286
 msgid "Parcel Address"
 msgstr "Adresa za isporuku paketa"
 
-#: lib/Horde/Core/Perms/Ui.php:200
+#: lib/Horde/Core/Perms/Ui.php:202
 msgid "Permission"
 msgstr "Dozvola"
 
-#: lib/Horde/Core/Perms/Ui.php:205 lib/Horde/Core/Perms/Ui.php:208
+#: lib/Horde/Core/Perms/Ui.php:207 lib/Horde/Core/Perms/Ui.php:217
 msgid "Permissions"
 msgstr "Dozvole"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:330
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:324
 msgid "Phone"
 msgstr "Telefon"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:176
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:184
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:188
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:170
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:178
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:182
 msgid "Photo"
 msgstr "Slika"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:224
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:288
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:218
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:282
 msgid "Postal Address"
 msgstr "Poštanska adresa"
 
-#: lib/Horde/Core/Sidebar.php:80
+#: lib/Horde/Core/Sidebar.php:128
 msgid "Preferences"
 msgstr "Postavke"
 
-#: lib/Horde/Core/Prefs/Ui.php:597
-#, fuzzy, php-format
+#: lib/Horde/Core/Prefs/Ui.php:650
+#, php-format
 msgid "Preferences for %s"
-msgstr "Postavke"
+msgstr "Postavke za aplikaciju %s"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:232
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:296
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:226
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:290
 msgid "Preferred Address"
 msgstr "Preferirana adresa"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1527
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1509
 msgid "Preview"
 msgstr "Pregled"
 
-#: lib/Horde/Menu.php:189
+#: lib/Horde/Menu.php:219
 msgid "Problem"
 msgstr "Problem"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:654
+#: lib/Horde/Core/Block/Layout.php:117
+msgid "Really delete this block?"
+msgstr "Stvarno obrisati ovaj blok?"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:199
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:623
+#: lib/Horde/Core/Block/Layout.php:114 lib/Horde/Core/Block/Layout.php:118
 msgid "Remove"
 msgstr "Obriši"
 
-#: lib/Horde/Core/Prefs/Ui/Widgets.php:108
-#, fuzzy
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:93
 msgid "Remove source"
-msgstr "Obriši korisnika"
+msgstr "Obriši izvor"
 
-#: lib/Horde.php:878
+#: lib/Horde.php:962
 #, php-format
 msgid "Required \"%s\" not specified in %s configuration."
 msgstr "Traženo \"%s\" nije navedeno u %s kofiguraciji."
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:242
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:217
 msgid "Reset"
 msgstr "Resetiraj"
 
 # svojstvo, uloga,
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:374
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:367
 msgid "Role"
 msgstr "Funkcija"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:248
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:223
 msgid "Rotate 180"
 msgstr "Rotiraj za 180"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:245
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:220
 msgid "Rotate Left"
 msgstr "Rotiraj ulijevo"
 
 # okreni, zaokreni
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:251
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:226
 msgid "Rotate Right"
 msgstr "Rotiraj udesno"
 
-#: lib/Horde/Core/Ui/JsCalendar.php:106
+#: lib/Horde/Core/Ui/JsCalendar.php:97
 msgid "Sa"
 msgstr "Sub"
 
-#: lib/Horde/Core/Ui/JsCalendar.php:124
+#: lib/Horde/Core/Ui/JsCalendar.php:115
 msgid "Saturday"
-msgstr ""
+msgstr "Subota"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:543
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:522
 msgid "Select a date"
 msgstr "Odaberite datum"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:775
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:743
 #: lib/Horde/Core/Ui/VarRenderer/TablesetHtml.php:24
 msgid "Select all"
 msgstr "Označi sve"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:969
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:932
 msgid "Select an object"
 msgstr "Odaberite objekt"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:776
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:744
 #: lib/Horde/Core/Ui/VarRenderer/TablesetHtml.php:25
 msgid "Select none"
 msgstr "Označiti ništa"
 
-#: lib/Horde/Core/Prefs/Ui.php:758
+#: lib/Horde/Core/Prefs/Ui.php:814
 msgid "Select the identity you want to change:"
 msgstr "Odaberite identitet koji želite izmijeniti:"
 
-#: lib/Horde/Core/Prefs/Ui/Widgets.php:209
-#, fuzzy
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:194
 msgid "Selected address books:"
-msgstr "Dodaj u adresar:"
+msgstr "Odabrani adresari:"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1204
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1182
 msgid "Send SMS"
 msgstr "Pošalji SMS"
 
-#: lib/Horde/Core/Ui/JsCalendar.php:144
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:468
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:506
+#: lib/Horde/Core/Ui/JsCalendar.php:135
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:440
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:486
 msgid "September"
 msgstr "Rujan"
 
+#: lib/Horde/Core/Block/Layout/Manager.php:537
+msgid "Shrink"
+msgstr "Smanji"
+
 # Prijavi se
-#: lib/Horde/Core/Auth/Signup/Form.php:39
+#: lib/Horde/Core/Auth/Signup/Form.php:31
 msgid "Sign up"
 msgstr "Prijava"
 
-#: lib/Horde/Core/Notification/Status.php:85
+#: lib/Horde/Core/Auth/Signup/Form.php:29
+msgid "Sign up for an account"
+msgstr "Otvori novi račun"
+
+#: lib/Horde/Core/Notification/Event/Status.php:75
 msgid "Snooze..."
 msgstr "Odgodi..."
 
-#: lib/Horde/Core/Ui/JsCalendar.php:100
+#: lib/Horde/Core/Ui/JsCalendar.php:91
 msgid "Su"
 msgstr "Ned"
 
-#: lib/Horde/Core/Notification/Status.php:115
+#: lib/Horde/Core/Notification/Event/Status.php:103
 msgid "Success"
 msgstr "Uspjeh"
 
-#: lib/Horde/Core/Ui/JsCalendar.php:118
+#: lib/Horde/Config.php:291
+#, php-format
+msgid "Successfully saved the backup configuration file %s."
+msgstr "Uspješno spremljena pričuvna kopija konfiguracijske datoteke %s."
+
+#: lib/Horde/Core/Ui/JsCalendar.php:109
 msgid "Sunday"
 msgstr "Nedjelja"
 
-#: lib/Horde/Core/Ui/JsCalendar.php:104
+#: lib/Horde/Core/Ui/JsCalendar.php:95
 msgid "Th"
 msgstr "Čet"
 
-#: lib/Horde/Core/Binder/History.php:13
+#: lib/Horde/Core/Factory/History.php:12
 msgid "The History system is disabled."
 msgstr "Sustav za povijest je onemogućen."
 
-#: lib/Horde/Core/Prefs/Identity.php:130
+#: lib/Horde/Core/Prefs/Identity.php:112
 #, php-format
 msgid ""
 "The email address %s has been added to your identities. You can close this "
@@ -739,21 +790,28 @@ msgid ""
 msgstr ""
 "E-mail adresa %s je dodana vašim identitetima. Možete zatvoriti ovaj prozor."
 
-#: lib/Horde.php:675
+#: lib/Horde.php:736
 msgid "The encryption features require a secure web connection."
 msgstr "Svojstva enkripcije zahtijevaju sigurnu vezu prema webu."
 
-#: lib/Horde.php:879
+#: lib/Horde.php:963
 #, php-format
 msgid "The file %s should contain a %s setting."
 msgstr "Datoteka %s bi trebala sadržavati %s postavku."
 
-#: lib/Horde.php:869
+#: lib/Horde.php:954
 #, php-format
 msgid "The file %s should contain some %s settings."
 msgstr "Datoteka %s bi trebala sadržavati neke %s postavke."
 
-#: lib/Horde.php:128
+#: lib/Horde/Registry.php:2352
+#, php-format
+msgid "The following applications encountered errors removing user data: %s"
+msgstr ""
+"Došlo je do greške prilikom brisanja korisničkih podataka iz sljedećih "
+"aplikacija: %s"
+
+#: lib/Horde.php:174
 msgid ""
 "The full error message is logged in Horde's log file, and is shown below "
 "only to administrators. Non-administrative users will not see error details."
@@ -762,65 +820,76 @@ msgstr ""
 "administratorima. Korisnici bez administratorskih prava neće vidjeti detalje "
 "greške."
 
-#: lib/Horde/Core/Prefs/Ui.php:825
+#: lib/Horde/Core/Prefs/Ui.php:878
 #, php-format
 msgid "The identity \"%s\" has been deleted."
 msgstr "Identitet  \"%s\" je izbrisan."
 
-#: lib/Horde/Core/Prefs/Ui.php:871
+#: lib/Horde/Core/Prefs/Ui.php:926
 msgid "The new from address can't be verified, try again later: "
 msgstr "Nije uspjela provjera nove adrese pošiljatelja, pokušajte kasnije: "
 
-#: lib/Horde/Core/Prefs/Identity.php:96 lib/Horde/Core/Prefs/Identity.php:102
+#: lib/Horde/Core/Factory/Prefs.php:197
+#, php-format
+msgid ""
+"The preference \"%s\" could not be saved because its data exceeds the "
+"maximum allowable size"
+msgstr ""
+"Postavka \"%s\" nije mogla biti spremljena jer sadržaj postavke premašuje "
+"maksimalno dozvoljenu veličinu"
+
+#: lib/Horde/Core/Factory/Prefs.php:169
+msgid ""
+"The preferences backend is currently unavailable and your preferences have "
+"not been loaded. You may continue to use the system with default preferences."
+msgstr ""
+"Baza postavki trenutno nije dostupna i vaše postavke nisu mogle biti "
+"učitane. Možete nastaviti koristiti sustav sa pretpostavljenim vrijednostima "
+"postavki."
+
+#: lib/Horde/Core/Prefs/Identity.php:78 lib/Horde/Core/Prefs/Identity.php:84
 msgid "There are no email addresses to confirm."
 msgstr "Nema e-mail adresa koje treba potvrditi."
 
-#: lib/Horde/Core/Prefs/Ui.php:398
-#, fuzzy
+#: lib/Horde/Core/Prefs/Ui.php:445
 msgid "There are no preferences available for this application."
-msgstr "Nema dostupnih opcija."
+msgstr "Nema dostupnih postavki za ovu aplikaciju."
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:129
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:120
 msgid "There was an error importing the contact data:"
 msgstr "Došlo je do greške pri uvoženju kontaktnih informacija:"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:115
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:106
 msgid "There was an error reading the contact data."
 msgstr "Došlo je do greške pri čitanju kontaktnih informacija."
 
-#: lib/Horde/Core/Prefs/Ui.php:289
-#, fuzzy
-msgid "This number must be non-zero."
-msgstr "Ovaj broj mora biti najmanje jedan."
+#: lib/Horde/Core/Prefs/Ui.php:359
+msgid "There were errors encountered while updating your preferences."
+msgstr "Došlo je do greške prilikom ažuriranja vaših postavki."
 
-#: lib/Horde.php:381
-#, php-format
-msgid ""
-"This request cannot be completed because the link you followed or the form "
-"you submitted was only valid for %s minutes. Please try again now."
-msgstr ""
-"Ovaj zahtjev se ne može ispuniti jer je poveznica na koju ste kliknuli ili "
-"forma koju ste poslali vrijedila samo %s minuta. Molimo pokušajte ponovo."
-
-#: lib/Horde/Registry.php:474
+#: lib/Horde/Registry.php:445
 msgid "This system is currently deactivated."
 msgstr "Sustav je trenutno deaktiviran."
 
 # brojčana?
-#: lib/Horde/Core/Prefs/Ui.php:287
+#: lib/Horde/Core/Prefs/Ui.php:335
 msgid "This value must be a number."
 msgstr "Ova vrijednost mora biti broj."
 
-#: lib/Horde/Core/Ui/JsCalendar.php:122
-msgid "Thursday"
-msgstr ""
+#: lib/Horde/Core/Prefs/Ui.php:337
+msgid "This value must be non-zero."
+msgstr "Ovaj broj mora biti različit od nule."
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:369
+#: lib/Horde/Core/Ui/JsCalendar.php:113
+msgid "Thursday"
+msgstr "Četvrtak"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:362
 msgid "Title"
 msgstr "Naziv"
 
 # odabir, označavanje?
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:748
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:716
 msgid ""
 "To select multiple items, hold down the Control (PC) or Command (Mac) key "
 "while clicking."
@@ -828,94 +897,100 @@ msgstr ""
 "Za selektiranje više jedinica, držite pritisnitu tipku Control (PC) ili "
 "Command (Mac) dok klikate mišem."
 
-#: lib/Horde/Core/Ui/JsCalendar.php:102
+#: lib/Horde/Core/Ui/JsCalendar.php:93
 msgid "Tu"
 msgstr "Uto"
 
-#: lib/Horde/Core/Ui/JsCalendar.php:120
+#: lib/Horde/Core/Ui/JsCalendar.php:111
 msgid "Tuesday"
-msgstr ""
+msgstr "Utorak"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:393
+#: lib/Horde/Core/Auth/Signup/Form.php:45
+#: lib/Horde/Core/Auth/Signup/Form.php:59
+msgid "Type your password twice to confirm"
+msgstr "Dvaput unesite lozinku za potvrdu"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:386
 msgid "URL"
 msgstr "URL"
 
-#: lib/Horde/Core/Perms/Ui.php:243
+#: lib/Horde/Core/Perms/Ui.php:252
 msgid "Update"
 msgstr "Ažuriraj"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:221
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:191
 msgid "Upload"
 msgstr "Prijenos (upload)"
 
-#: lib/Horde/Core/Auth/Signup/Sql.php:96
+#: lib/Horde/Core/Auth/Signup/Sql.php:95
 #, php-format
 msgid "User \"%s\" does not exist."
 msgstr "Korisnik \"%s\" ne postoji."
 
-#: lib/Horde/Core/Prefs/Ui.php:551
-#, fuzzy
+#: lib/Horde/Core/Prefs/Ui.php:605
 msgid "User Preferences"
-msgstr "Postavke"
+msgstr "Korisničke postavke"
 
-#: lib/Horde/Core/Auth/Signup/Base.php:129
+#: lib/Horde/Core/Auth/Signup/Base.php:116
 #, php-format
 msgid "Username \"%s\" already exists."
 msgstr "Korisničko ime \"%s\" već postoji."
 
-#: lib/Horde/Core/Notification/Status.php:121
+#: lib/Horde/Core/Notification/Event/Status.php:108
 msgid "Warning"
 msgstr "Upozorenje"
 
-#: lib/Horde/Core/Ui/JsCalendar.php:103
+#: lib/Horde/Core/Ui/JsCalendar.php:94
 msgid "We"
 msgstr "Sri"
 
-#: lib/Horde.php:376
-msgid ""
-"We cannot verify that this request was really sent by you. It could be a "
-"malicious request. If you intended to perform this action, you can retry it "
-"now."
-msgstr ""
-"Ne možemo potvrditi da ovaj zahtjev dolazi od Vaše strane. Možda se radi o "
-"zloćudnom zahtjevu. Ako ste zaista željeli izvršiti ovu akciju, sada ju "
-"možete ponoviti."
-
-#: lib/Horde/Core/Ui/JsCalendar.php:121
+#: lib/Horde/Core/Ui/JsCalendar.php:112
 msgid "Wednesday"
-msgstr ""
+msgstr "Srijeda"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1235
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1213
 msgid "Whereis Australia map"
 msgstr "Karta Whereis Australija"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:212
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:276
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:206
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:270
 msgid "Work Address"
 msgstr "Adresa tvrtke"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:324
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:318
 msgid "Work Phone"
 msgstr "Službeni telefon"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:472
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:514
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:444
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:494
 msgid "YYYY"
 msgstr "YYYY"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1279
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1257
 msgid "Yahoo! map"
 msgstr "Yahoo! mapa"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1093
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1054
 msgid "Yes"
 msgstr "Da"
 
-#: lib/Horde/Registry.php:1841
+#: lib/Horde/Core/Block/Layout/Manager.php:221
+#, php-format
+msgid "You are not allowed to create more than %d block."
+msgid_plural "You are not allowed to create more than %d blocks."
+msgstr[0] "Nemate ovlasti za dodavanje više od %d bilješke."
+msgstr[1] "Nemate ovlasti za dodavanje više od %d bilješke."
+msgstr[2] "Nemate ovlasti za dodavanje više od %d bilješki."
+
+#: lib/Horde/Registry.php:2319
+msgid "You are not allowed to remove user data."
+msgstr "Nemate ovlasti za brisanje korisničkih podataka."
+
+#: lib/Horde/Registry.php:1898
 msgid "You are not authenticated."
 msgstr "Niste autenticirani."
 
-#: lib/Horde/Core/Prefs/Identity.php:62
+#: lib/Horde/Core/Prefs/Identity.php:44
 #, php-format
 msgid ""
 "You have requested to add the email address \"%s\" to the list of your "
@@ -936,88 +1011,80 @@ msgstr ""
 "Ako ne znate što ova poruka znači, možete ju obrisati."
 
 # virtual file system? pozadinske procese?
-#: lib/Horde/Core/Factory/Vfs.php:82
+#: lib/Horde/Core/Factory/Vfs.php:75
 msgid "You must configure a VFS backend."
 msgstr "Morate konfigurirati VFS backend."
 
-#: lib/Horde/Core/Prefs/Ui/Widgets.php:411
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:397
 #, php-format
 msgid "You must provide a setting for \"%s\"."
 msgstr "Unesite postavku za \"%s\"."
 
 # predefinirani, predviđeni, predodređeni?
-#: lib/Horde/Core/Prefs/Ui.php:839
+#: lib/Horde/Core/Prefs/Ui.php:894
 msgid "Your default identity has been changed."
 msgstr "Vaš zadani identitet je promijenjen."
 
 # predefinirani, predviđeni, predodređeni?
-#: lib/Horde/Core/Prefs/Ui.php:757
+#: lib/Horde/Core/Prefs/Ui.php:813
 msgid "Your default identity:"
 msgstr "Vaš zadani identitet:"
 
-#: lib/Horde/Core/Prefs/Ui.php:323
-#, fuzzy
+#: lib/Horde/Core/Prefs/Ui.php:371
 msgid "Your preferences have been updated for the duration of this session."
-msgstr "Vaše su se opcije ažurirale u trajanju ove sesije."
+msgstr "Vaše postavke su ažurirane do kraja ove sjednice."
 
-#: lib/Horde/Core/Prefs/Ui.php:325
-#, fuzzy
+#: lib/Horde/Core/Prefs/Ui.php:373
 msgid "Your preferences have been updated."
-msgstr "Vaše opcije su ažurirane."
+msgstr "Vaše postavke su ažurirane."
 
-#: lib/Horde/Core/Text/Filter/Highlightquotes.php:75
+#: lib/Horde/Core/Text/Filter/Highlightquotes.php:51
 msgid "[Hide Quoted Text]"
 msgstr "[Sakrij citirani tekst]"
 
-#: lib/Horde/Core/Text/Filter/Highlightquotes.php:73
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:145
+msgid "[No Label]"
+msgstr "[Bez naziva]"
+
+#: lib/Horde/Core/Text/Filter/Highlightquotes.php:50
 #, php-format
 msgid "[Show Quoted Text - %d lines]"
 msgstr "[Pokaži citirani tekst - %d redova]"
 
-#: lib/Horde.php:2083
-msgid "_Home"
-msgstr "_Početna"
-
 # _Prijavi se
-#: lib/Horde/Menu.php:218
+#: lib/Horde/Menu.php:248
 msgid "_Log in"
 msgstr "P_rijava"
 
 # _Odjavi se
-#: lib/Horde/Menu.php:213
+#: lib/Horde/Menu.php:243
 msgid "_Log out"
 msgstr "O_djava"
 
-#: lib/Horde/Menu.php:182
-#, fuzzy
+#: lib/Horde/Menu.php:212
 msgid "_Preferences"
-msgstr "Postavke"
+msgstr "_Postavke"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:272
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:247
 msgid "h:"
 msgstr "h:"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:416
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:388
 msgid "hh"
 msgstr "hh"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:427
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:399
 msgid "mm"
 msgstr "mm"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:444
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:416
 msgid "ss"
 msgstr "ss"
 
-#: lib/Horde/Core/Auth/Signup/Form.php:53
-#: lib/Horde/Core/Auth/Signup/Form.php:67
-msgid "type the password twice to confirm"
-msgstr "dvaput unesite lozinku za potvrdu"
-
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:111
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:102
 msgid "vCard"
 msgstr "Posjetnica (vCard)"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:264
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:239
 msgid "w:"
 msgstr "w:"

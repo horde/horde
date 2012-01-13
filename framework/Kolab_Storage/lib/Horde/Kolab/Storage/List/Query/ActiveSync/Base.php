@@ -14,7 +14,7 @@
 /**
  * Handles a active sync parameters.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -47,10 +47,9 @@ implements Horde_Kolab_Storage_List_Query_ActiveSync
      * @param Horde_Kolab_Storage_List $list   The queriable list.
      * @param array                    $params Additional parameters.
      */
-    public function __construct(
-        Horde_Kolab_Storage_List $list,
-        $params
-    ) {
+    public function __construct(Horde_Kolab_Storage_List $list,
+                                $params)
+    {
         $this->_driver = $list->getDriver();
     }
 

@@ -10,7 +10,6 @@ class Horde_Block_Cloud extends Horde_Core_Block
     public function __construct($app, $params = array())
     {
         parent::__construct($app, $params);
-
         $this->_name = _("Tag Cloud");
     }
 
@@ -20,9 +19,9 @@ class Horde_Block_Cloud extends Horde_Core_Block
     {
         $cloud = new Horde_Core_Ui_TagCloud();
         foreach ($this->_getTags() as $tag) {
-            $cloud->addElement($tag['tag_name'], '#', $tag['total'],
-                               null,
-                               'doSearch(\'' . $tag['tag_name'] . '\');');
+            $cloud->addElement(
+                $tag['tag_name'], '#', $tag['count'], null,
+                'doSearch(\'' . $tag['tag_name'] . '\');');
         }
 
         Horde::startBuffer();
@@ -43,7 +42,9 @@ class Horde_Block_Cloud extends Horde_Core_Block
         foreach ($GLOBALS['registry']->listAPIs() as $api) {
             if ($GLOBALS['registry']->hasMethod($api . '/listTagInfo')) {
                 try {
-                    $results = array_merge($results, $GLOBALS['registry']->call($api . '/listTagInfo'));
+                    $results = array_merge(
+                        $results,
+                        $GLOBALS['registry']->call($api . '/listTagInfo', array(null, $GLOBALS['registry']->getAuth())));
                 } catch (Horde_Exception $e) {}
             }
         }

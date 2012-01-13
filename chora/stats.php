@@ -2,7 +2,7 @@
 /**
  * Stats script.
  *
- * Copyright 2000-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2000-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -16,9 +16,16 @@ Horde_Registry::appInit('chora');
 
 $extraLink = Chora::getFileViews($where, 'stats');
 
+/* Spawn the file object. */
+try {
+    $fl = $VC->getFile($where);
+} catch (Horde_Vcs_Exception $e) {
+    Chora::fatal($e);
+}
+
 $stats = array();
-foreach ($fl->queryLogs() as $lg) {
-    $qa = $lg->queryAuthor();
+foreach ($fl->getLog() as $lg) {
+    $qa = $lg->getAuthor();
     $stats[$qa] = isset($stats[$qa]) ? ($stats[$qa] + 1) : 1;
 }
 arsort($stats);

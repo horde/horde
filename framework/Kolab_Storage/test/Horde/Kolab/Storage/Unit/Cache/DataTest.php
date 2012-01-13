@@ -20,7 +20,7 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
 /**
  * Test the data cache.
  *
- * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -192,7 +192,7 @@ extends Horde_Kolab_Storage_TestCase
 
     public function testGetStampEmpty()
     {
-        $this->assertType(
+        $this->assertInternalType(
             'string',
             $this->_getSyncedCache()->getStamp()
         );
@@ -229,7 +229,7 @@ extends Horde_Kolab_Storage_TestCase
 
     public function testGetVersionEmpty()
     {
-        $this->assertType(
+        $this->assertInternalType(
             'string',
             $this->_getSyncedCache()->getVersion()
         );

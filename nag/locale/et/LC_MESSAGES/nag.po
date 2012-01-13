@@ -2,230 +2,328 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nag 2.2 RC1\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2008-05-29 15:49+0300\n"
-"PO-Revision-Date: \n"
-"Last-Translator: Alar SIng <alar.sing@err.ee>\n"
+"POT-Creation-Date: 2011-08-02 15:24+0200\n"
+"PO-Revision-Date: 2011-08-22 15:01+0200\n"
+"Last-Translator: Alar Sing <alar.sing@err.ee>\n"
 "Language-Team: \n"
+"Language: et\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Language: Estonian\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: templates/view/task.inc:35
+#: templates/view/task.inc:39
 #, php-format
 msgid " (%s including sub-tasks)"
 msgstr "(%s koos alamtöödega)"
 
-#: lib/Nag.php:71
+#: lib/Nag.php:116
 #, php-format
 msgid "%d hour"
 msgstr "%d tund"
 
-#: lib/Nag.php:73
+#: lib/Nag.php:118
 #, php-format
 msgid "%d hour, %d minute"
 msgstr "%d tund, %d minuti"
 
-#: lib/Nag.php:75
+#: lib/Nag.php:120
 #, php-format
 msgid "%d hour, %d minutes"
 msgstr "%d tund, %d minutit"
 
-#: lib/Nag.php:63
+#: lib/Nag.php:108
 #, php-format
 msgid "%d hours"
 msgstr "%d tundi"
 
-#: lib/Nag.php:65
+#: lib/Nag.php:110
 #, php-format
 msgid "%d hours, %d minute"
 msgstr "%d tundi, %d minut"
 
-#: lib/Nag.php:67
+#: lib/Nag.php:112
 #, php-format
 msgid "%d hours, %d minutes"
 msgstr "%d tundi, %d minutit"
 
-#: lib/Nag.php:81
+#: lib/Nag.php:126
 #, php-format
 msgid "%d minute"
 msgstr "%d minut"
 
-#: lib/Nag.php:83
+#: lib/Nag.php:128
 #, php-format
 msgid "%d minutes"
 msgstr "%d minutit"
 
-#: lib/Nag.php:364
+#: lib/Nag.php:642
 #, php-format
 msgid "%s at %s"
 msgstr "%s ajal %s"
 
-#: lib/Nag.php:590 lib/Block/tree_alarms.php:42 lib/Block/summary.php:106
+#: lib/Application.php:328 lib/Block/Summary.php:142 lib/Nag.php:828
 #, php-format
 msgid "%s is due in %s"
 msgstr "%s tähtaeg on %s"
 
-#: lib/Nag.php:588 lib/Block/tree_alarms.php:44 lib/Block/summary.php:104
+#: lib/Application.php:329 lib/Block/Summary.php:139 lib/Nag.php:826
 #, php-format
 msgid "%s is due now."
-msgstr "%s tähtaeg on nüüd"
+msgstr "%s tähtaeg on nüüd."
 
-#: task.php:231
+#: task.php:228
 #, php-format
 msgid "%s is now incomplete."
 msgstr "%s on lõpetamata."
 
-#: data.php:199
+#: data.php:223
 #, php-format
 msgid "%s successfully imported"
 msgstr "%s edukalt imporditud"
 
-#: tasklists.php:106 lib/Nag.php:516
-#, php-format
-msgid "%s's Task List"
-msgstr "%s Tööde nimekiri"
-
-#: lib/Nag.php:315 lib/Forms/task.php:55
+#: lib/Form/Task.php:64 lib/Nag.php:593
 msgid "(highest)"
 msgstr "(kõrgeim)"
 
-#: lib/Nag.php:315 lib/Forms/task.php:56
+#: lib/Form/Task.php:68 lib/Nag.php:593
 msgid "(lowest)"
 msgstr "(madalaim)"
 
-#: task.php:215
+#: lib/Form/Type/NagAlarm.php:30
+msgid "A due date must be set to enable alarms."
+msgstr "Lõpp kuupäev peab olema määratud, et võimaldada meeldetuletus."
+
+#: task.php:211
 #, php-format
 msgid "Access denied completing task %s."
 msgstr "%s töö lõpetamiseks õigus puudub."
 
-#: task.php:24
-#, php-format
-msgid "Access denied deleting %s"
-msgstr "%s kustutamiseks õigus puudub"
+#: task.php:23
+msgid "Access denied deleting task."
+msgstr "Töö kustutamise õigus puudub."
 
-#: task.php:84 task.php:90
+#: task.php:94 task.php:100
 msgid "Access denied editing task."
 msgstr "Töö muutmise õigus puudub."
 
-#: task.php:82
+#: task.php:91
 #, php-format
 msgid "Access denied editing task: %s"
 msgstr "%s töö muutmise õigus puudub"
 
-#: task.php:163
+#: lib/Driver.php:305
 #, php-format
 msgid "Access denied moving the task to %s."
 msgstr "%s töö liigutamise õigus puudub."
 
-#: task.php:166
+#: lib/Driver.php:293
 #, php-format
 msgid "Access denied removing task from %s."
 msgstr "%s töö kustutamise õigus puudub."
 
-#: task.php:125
+#: task.php:136
 #, php-format
 msgid "Access denied saving task to %s."
 msgstr "%s töö salvestamise õigus puudub."
 
-#: task.php:121
+#: task.php:132
 #, php-format
 msgid "Access denied saving task: %s"
 msgstr "%s töö salvestamise õigus puudub"
 
-#: templates/view/task.inc:26 lib/Forms/task.php:85
+#: quick.php:13
+#, php-format
+msgid "Added %d task"
+msgid_plural "Added %d tasks"
+msgstr[0] "Lisatud %d töö"
+msgstr[1] "Lisatud %d tööd"
+
+#: data.php:58 lib/Form/Task.php:100 templates/view/task.inc:30
 msgid "Alarm"
 msgstr "Teavitus"
 
-#: config/prefs.php.dist:201
+#: config/prefs.php:192 templates/data/export.inc:34
 msgid "All tasks"
 msgstr "Kõik tööd"
 
-#: lib/Block/summary.php:63
-msgid "Always show completed tasks?"
-msgstr "Alati näita lõpetatud töid?"
+#: lib/Block/Summary.php:88
+msgid "Always show completed and future tasks?"
+msgstr "Alati näita lõpetatud ja tuleviku töid?"
 
-#: lib/Block/summary.php:60
+#: lib/Block/Summary.php:83
 msgid "Always show overdue tasks?"
 msgstr "Alati näita üle tähtaja töid?"
 
-#: config/prefs.php.dist:118
+#: lib/Form/Type/NagMethod.php:45
+msgid "An alarm must be set to specify a notification method"
+msgstr "Teavitus peab olema seadistatud et täpsustada meetodit"
+
+#: config/prefs.php:116
 msgid "Ascending"
 msgstr "Kasvav"
 
-#: lib/Block/summary.php:39
+#: config/prefs.php:60 config/prefs.php:87 config/prefs.php:105 data.php:56
+#: lib/Form/Task.php:95 templates/list/task_headers.inc:64
+#: templates/view/task.inc:12
+msgid "Assignee"
+msgstr "Valdaja"
+
+#: lib/Block/Summary.php:48
 msgid "Block title"
 msgstr "Ploki pealkiri"
 
-#: data.php:30
+#: data.php:28
 msgid "CSV"
 msgstr "CSV"
 
-#: lib/UI/VarRenderer/nag.php:58 lib/UI/VarRenderer/nag.php:106
+#: lib/Ui/VarRenderer/Nag.php:111 lib/Ui/VarRenderer/Nag.php:162
 msgid "Calendar"
 msgstr "Kalender"
 
-#: templates/list/task_headers.inc:53
+#: lib/Form/DeleteTaskList.php:40 lib/Form/DeleteTaskList.php:46
+#: templates/quick.inc:8
+msgid "Cancel"
+msgstr "Loobu"
+
+#: templates/list/task_headers.inc:68
 msgid "Cat_egory"
 msgstr "Kat_egooria"
 
-#: data.php:54 templates/view/task.inc:8 lib/Forms/task.php:73
-#: lib/Forms/task.php:79 config/prefs.php.dist:90 config/prefs.php.dist:105
+#: config/prefs.php:64 config/prefs.php:82 config/prefs.php:100 data.php:55
+#: lib/Form/Task.php:87 lib/Form/Task.php:91 templates/view/task.inc:8
 msgid "Category"
 msgstr "Kategooria"
 
-#: templates/tasklists/tasklists.inc:26
-msgid "Change"
-msgstr "Muuda"
+#: tasklists/index.php:60 templates/tasklist_list.php:35
+msgid "Change Permissions"
+msgstr "Muuda Õigusi"
 
-#: config/prefs.php.dist:15
-msgid "Change your task sorting and display options."
+#: config/prefs.php:14
+msgid "Change your task sorting and display preferences."
 msgstr "Muuda tööde sorteerimise ja vaate seadeid."
 
-#: config/prefs.php.dist:180
+#: lib/Nag.php:1023
+#, php-format
+msgid "Changed alarm from %s to %s"
+msgstr "Teavitus %s muudetud %s"
+
+#: lib/Nag.php:1002
+#, php-format
+msgid "Changed assignee from \"%s\" to \"%s\""
+msgstr "Valdaja \"%s\" muudetud \"%s\""
+
+#: lib/Nag.php:987
+#, php-format
+msgid "Changed category from \"%s\" to \"%s\""
+msgstr "Kategooria \"%s\" muudetud \"%s\""
+
+#: lib/Nag.php:1038
+#, php-format
+msgid "Changed completion from %s to %s"
+msgstr "Lõpetamine %s muudetud %s"
+
+#: lib/Nag.php:1043
+msgid "Changed description"
+msgstr "Kirjeldus muudetud"
+
+#: lib/Nag.php:1011
+#, php-format
+msgid "Changed due date from %s to %s"
+msgstr "Lõpp tähtaeg %s muudetud %s"
+
+#: lib/Nag.php:1033
+#, php-format
+msgid "Changed estimate from %s to %s"
+msgstr "Hinnanguline tähtaeg %s muudetud %s"
+
+#: lib/Nag.php:965
+#, php-format
+msgid "Changed name from \"%s\" to \"%s\""
+msgstr "Nimi \"%s\" muudetud \"%s\""
+
+#: lib/Nag.php:979
+#, php-format
+msgid "Changed parent task from \"%s\" to \"%s\""
+msgstr "Ülemtöö \"%s\" muudetud \"%s\""
+
+#: lib/Nag.php:1028
+#, php-format
+msgid "Changed priority from %s to %s"
+msgstr "Prioriteet %s muudetud %s"
+
+#: lib/Nag.php:1017
+#, php-format
+msgid "Changed start date from %s to %s"
+msgstr "Alguse kuupäev %s muudetud %s"
+
+#: lib/Nag.php:971
+#, php-format
+msgid "Changed task list from \"%s\" to \"%s\""
+msgstr "Tööde nimekiri \"%s\" muudetud \"%s\""
+
+#: lib/Nag.php:962
+msgid "Changes made for this task:"
+msgstr "Tehtud muutuse sellele tööle:"
+
+#: lib/Application.php:182
 msgid "Choose how you want to receive reminders for tasks with alarms:"
 msgstr "Vali kuidas sa tahad saada meeldetuletusi töödest:"
 
-#: config/prefs.php.dist:171
+#: config/prefs.php:161
 msgid ""
 "Choose if you want to be notified of new, edited, and deleted tasks by email:"
 msgstr ""
 "Vali kui soovid teavitusi mailiga uutest, muudetud ja kustutatud töödest:"
 
-#: config/prefs.php.dist:43
+#: config/prefs.php:42
 msgid "Choose if you want to be notified of task changes and task alarms."
 msgstr "Vali kui soovid teavitust muudetud töödest."
 
-#: config/prefs.php.dist:36
+#: config/prefs.php:35
 msgid "Choose your default task list."
 msgstr "Vali oma vaikimisi tööde nimekiri."
 
-#: templates/list/header.inc:8
+#: templates/tasklist_list.php:31 templates/tasklist_list.php:32
+msgid "Click or copy this URL to display this task list"
+msgstr "Klõpsa või kopeeri antud URL nägemaks seda tööde nimekirja"
+
+#: templates/panel.inc:45
+msgid "Close"
+msgstr "Sule"
+
+#: templates/list/header.inc:7
 msgid "Close Search"
 msgstr "Sulge otsing"
 
-#: view.php:99
+#: lib/Form/CreateTaskList.php:24
+msgid "Color"
+msgstr "Värv"
+
+#: view.php:106
 msgid "Complete"
 msgstr "Lõpeta"
 
-#: templates/list/task_summaries.inc:11 lib/Block/summary.php:168
+#: lib/Block/Summary.php:213 mobile.php:114
+#: templates/list/task_summaries.inc:10
 #, php-format
 msgid "Complete \"%s\""
 msgstr "Lõpeta \"%s\""
 
-#: templates/view/task.inc:42
+#: templates/view/task.inc:46
 msgid "Complete Task"
 msgstr "Lõpeta töö"
 
-#: config/prefs.php.dist:203
+#: config/prefs.php:194
 msgid "Complete tasks"
 msgstr "Lõpeta tööd"
 
-#: lib/Nag.php:379 lib/Block/summary.php:166
+#: lib/Block/Summary.php:211 lib/Nag.php:657 mobile.php:129
 msgid "Completed"
 msgstr "Lõpetatud"
 
-#: task.php:229
+#: task.php:226
 #, php-format
 msgid "Completed %s."
 msgstr "Lõpetatud %s."
@@ -234,137 +332,197 @@ msgstr "Lõpetatud %s."
 msgid "Completed Tasks"
 msgstr "Lõpetatud tööd"
 
-#: templates/list/task_summaries.inc:16
+#: mobile.php:120 templates/list/task_summaries.inc:15
 msgid "Completed parent task, mark it as incomplete first"
 msgstr "Lõpetatud ülemtöö, märgi see ennem mittelõpetatuks"
 
-#: templates/list/task_headers.inc:31 templates/view/task.inc:38
-#: lib/Forms/task.php:91 config/prefs.php.dist:92 config/prefs.php.dist:107
+#: templates/data/export.inc:37
+msgid "Completed tasks"
+msgstr "Lõpetatud tööd"
+
+#: config/prefs.php:85 config/prefs.php:103 lib/Form/Task.php:109
+#: templates/list/task_headers.inc:31 templates/view/task.inc:42
 msgid "Completed?"
 msgstr "Lõpetatud?"
 
-#: data.php:58
+#: data.php:64
+msgid "Completion Date"
+msgstr "Lõpetamise Aeg"
+
+#: data.php:63
 msgid "Completion Status"
 msgstr "Progress"
 
-#: lib/api.php:317 lib/api.php:544
+#: lib/Api.php:656
 #, php-format
 msgid "Connection failed: %s"
 msgstr "Ühendus ebaõnnestus: %s"
 
-#: templates/tasklists/tasklists.inc:17 templates/tasklists/tasklists.inc:86
+#: lib/Form/CreateTaskList.php:32 templates/quick.inc:7
 msgid "Create"
 msgstr "Loo"
 
-#: templates/view/task.inc:57
+#: lib/Form/CreateTaskList.php:21
+msgid "Create Task List"
+msgstr "Loo Tööde Nimekiri"
+
+#: templates/tasklist_list.php:9
+msgid "Create a new Task List"
+msgstr "Loo uus Tööde nimekiri"
+
+#: templates/view/task.inc:61
 msgid "Created"
 msgstr "Loodud"
 
-#: lib/UI/VarRenderer/nag.php:51 lib/UI/VarRenderer/nag.php:100
+#: templates/alarm/mail.html.php:13
+msgid "Date and time:"
+msgstr "Kuupäeva ja aeg:"
+
+#: templates/alarm/mail.plain.php:7
+msgid "Date:"
+msgstr "Kuupäev:"
+
+#: lib/Ui/VarRenderer/Nag.php:100 lib/Ui/VarRenderer/Nag.php:151
 msgid "Day"
 msgstr "Päev"
 
-#: lib/Nag.php:411 lib/UI/VarRenderer/nag.php:136
+#: lib/Nag.php:689 lib/Ui/VarRenderer/Nag.php:193
 msgid "Day(s)"
 msgstr "Päev(ad)"
 
-#: config/prefs.php.dist:35
+#: config/prefs.php:34
 msgid "Default Task List"
 msgstr "Vaike tööde nimekiri"
 
-#: config/prefs.php.dist:29
+#: config/prefs.php:28
 msgid "Defaults for new tasks"
 msgstr "Vaike väärtused uuele tööle"
 
-#: lib/Forms/task.php:84
+#: lib/Form/Task.php:99
 msgid "Delay Start Until"
 msgstr "Viivita algusega kuni"
 
-#: view.php:106 templates/tasklists/tasklists.inc:87
+#: lib/Form/DeleteTaskList.php:40 tasklists/index.php:61
+#: templates/tasklist_list.php:37 view.php:113
 msgid "Delete"
 msgstr "Kustuta"
 
-#: config/prefs.php.dist:21
+#: lib/Form/DeleteTaskList.php:34
+#, php-format
+msgid "Delete %s"
+msgstr "Kustuta %s"
+
+#: config/prefs.php:20
 msgid "Delete Confirmation"
 msgstr "Kustutamise kinnitus"
 
-#: config/prefs.php.dist:22
+#: config/prefs.php:21
 msgid "Delete button behaviour"
 msgstr "Kustuta nupu käitumine"
 
-#: task.php:105 lib/Forms/task.php:96
+#: lib/Form/Renderer/Task.php:39 lib/Form/Task.php:120 task.php:115
 msgid "Delete this task"
 msgstr "Kustuta see töö"
 
-#: task.php:32
+#: task.php:34
 #, php-format
 msgid "Deleted %s."
 msgstr "%s kustutatud."
 
-#: config/prefs.php.dist:119
+#: lib/Api.php:635
+msgid "Deleting entire tasklists is not supported."
+msgstr "Terve tööde nimekirja kustutamine ei ole lubatud."
+
+#: config/prefs.php:117
 msgid "Descending"
 msgstr "Kahanev"
 
-#: data.php:53 lib/Forms/task.php:92
+#: data.php:54 lib/Form/CreateTaskList.php:25 lib/Form/Task.php:116
 msgid "Description"
 msgstr "Kirjeldus"
 
-#: templates/tasklists/tasklists.inc:75
+#: templates/alarm/mail.html.php:23
 msgid "Description:"
 msgstr "Kirjeldus:"
 
-#: config/prefs.php.dist:14
-msgid "Display Options"
-msgstr "Kuvamise seaded"
+#: config/prefs.php:13
+msgid "Display Preferences"
+msgstr "Vaate Eelistused"
 
-#: config/prefs.php.dist:129
+#: templates/tasklist_list.php:19
+msgid "Display URL"
+msgstr "Vaate URL"
+
+#: config/prefs.php:126
 msgid "Do you want to confirm deleting entries?"
 msgstr "Kas sa tahad kinnitada kirjete kustutamist?"
 
-#: data.php:55 templates/view/task.inc:22 lib/Forms/task.php:83
+#: config/prefs.php:168
+msgid ""
+"Don't send me a notification if I've added, changed or deleted the task?"
+msgstr "Ära teavita mind kui ma lisan, muuda või kustutan sündmusi?"
+
+#: data.php:57 lib/Form/Task.php:98 templates/view/task.inc:26
 msgid "Due By"
 msgstr "Tähtaeg"
 
-#: config/prefs.php.dist:91 config/prefs.php.dist:106
+#: config/prefs.php:61 config/prefs.php:83 config/prefs.php:101
 msgid "Due Date"
 msgstr "Tähtaja kuupäev"
 
-#: lib/UI/VarRenderer/nag.php:99
+#: lib/Ui/VarRenderer/Nag.php:150
 msgid "Due date specified."
 msgstr "Tähtaeg määratud."
 
-#: view.php:102
+#: tasklists/index.php:59 templates/tasklist_list.php:33 view.php:109
 msgid "Edit"
 msgstr "Muuda"
 
-#: templates/list/task_summaries.inc:38 lib/Block/summary.php:159
+#: lib/Block/Summary.php:204 templates/list/task_summaries.inc:37
 #, php-format
 msgid "Edit \"%s\""
 msgstr "Muuda \"%s\""
 
-#: templates/list/task_headers.inc:42
+#: lib/Form/EditTaskList.php:35
+#, php-format
+msgid "Edit %s"
+msgstr "Muuda %s"
+
+#: templates/list/task_headers.inc:43
 msgid "Edit Task"
 msgstr "Muuda tööd"
 
-#: templates/list/task_headers.inc:58
+#: templates/list/task_headers.inc:74
 msgid "Edit categories and colors"
 msgstr "Muuda kategooriaid ja värve"
 
-#: task.php:95 task.php:109
+#: task.php:106 task.php:119
 #, php-format
 msgid "Edit: %s"
 msgstr "Muuda: %s"
 
-#: task.php:19
+#: templates/quick.inc:4
+msgid ""
+"Enter one task per line. Create child tasks by indenting them below their "
+"parent task. Include due dates like \"laundry tomorrow\" or \"get dry "
+"cleaning next Thursday\"."
+msgstr ""
+"Sisesta üks töö rea kohta. Alamtöö lisamiseks kasuta taandrida. Lõpp "
+"kuupäeva määramiseks kasuta formaati \"pesupäev homme\" või \"pesupäev "
+"Neljapäeval\"."
+
+#: task.php:39
 #, php-format
 msgid "Error deleting task: %s"
 msgstr "Viga töö: %s kustutamisel"
 
-#: templates/view/task.inc:34 lib/Forms/task.php:90
+#: config/prefs.php:63 config/prefs.php:86 config/prefs.php:104 data.php:62
+#: lib/Form/Task.php:108 templates/list/task_headers.inc:60
+#: templates/view/task.inc:38
 msgid "Estimated Time"
 msgstr "Eeldatav aeg"
 
-#: templates/data/export.inc:17
+#: templates/data/export.inc:41
 msgid "Export"
 msgstr "Eksport"
 
@@ -372,19 +530,23 @@ msgstr "Eksport"
 msgid "Export Tasks"
 msgstr "Ekspordi tööd"
 
-#: config/prefs.php.dist:57
+#: config/prefs.php:48
 msgid "External Data"
 msgstr "Välised andmed"
 
-#: config/prefs.php.dist:13 config/prefs.php.dist:20 config/prefs.php.dist:27
-msgid "General Options"
-msgstr "Üldised seaded"
+#: config/prefs.php:195 templates/data/export.inc:36
+msgid "Future tasks"
+msgstr "Tuleviku tööd"
 
-#: lib/UI/VarRenderer/nag.php:111
+#: config/prefs.php:12 config/prefs.php:19 config/prefs.php:26
+msgid "General Preferences"
+msgstr "Üldseaded"
+
+#: lib/Ui/VarRenderer/Nag.php:168
 msgid "Hour"
 msgstr "Tund"
 
-#: lib/Nag.php:414 lib/UI/VarRenderer/nag.php:135
+#: lib/Nag.php:692 lib/Ui/VarRenderer/Nag.php:192
 msgid "Hour(s)"
 msgstr "Tund(i)"
 
@@ -393,11 +555,11 @@ msgstr "Tund(i)"
 msgid "Import Tasks, Step %d"
 msgstr "Impordi Tööd, Samm %d"
 
-#: data.php:205
+#: data.php:235
 msgid "Import/Export Tasks"
 msgstr "Tööde import/eksport"
 
-#: list.php:112
+#: list.php:111
 msgid "Incom_plete tasks"
 msgstr "Pooleli olevad tööd"
 
@@ -405,64 +567,84 @@ msgstr "Pooleli olevad tööd"
 msgid "Incomplete Tasks"
 msgstr "Pooleli olevad tööd"
 
-#: templates/list/task_summaries.inc:8
+#: mobile.php:111 templates/list/task_summaries.inc:7
 msgid "Incomplete sub tasks, complete them first"
 msgstr "Pooleli olevad alamtööd, lõpeta need ennem"
 
-#: config/prefs.php.dist:202
+#: config/prefs.php:193 templates/data/export.inc:35
 msgid "Incomplete tasks"
 msgstr "Pooleli olevad tööd"
 
-#: templates/view/task.inc:64
+#: lib/Api.php:336
+msgid "Invalid tasklist file requested."
+msgstr "Taotleti vigast tööde nimekirja faili."
+
+#: lib/Api.php:470
+msgid "Invalid tasklist name supplied."
+msgstr "Vigane tööde nimekirja nimi."
+
+#: lib/Api.php:352
+msgid "Invalid tasklist requested."
+msgstr "Taotleti vigast tööde nimekirja."
+
+#: templates/tasklist_list.php:18
+msgid "Kind"
+msgstr "Tüüp"
+
+#: templates/view/task.inc:68
 msgid "Last Modified"
 msgstr "Viimati muudetud"
 
-#: templates/list/task_summaries.inc:19
+#: templates/tasklist_list.php:30
+msgid "Local"
+msgstr "Kohalik"
+
+#: mobile.php:48
+msgid "Log out"
+msgstr "Logi välja"
+
+#: tasklists/index.php:64 templates/tasklist_list.php:2
+msgid "Manage Task Lists"
+msgstr "Halda Tööde Nimekirju"
+
+#: mobile.php:123 templates/list/task_summaries.inc:18
 #, php-format
 msgid "Mark \"%s\" as incomplete"
 msgstr "Märgi \"%s\" pooleli olevaks"
 
-#: templates/view/task.inc:44
+#: templates/view/task.inc:48
 msgid "Mark as incomplete"
 msgstr "Märgi pooleli olevaks"
 
-#: lib/api.php:120
+#: lib/Application.php:64
 msgid "Maximum Number of Tasks"
 msgstr "Suurim number töid"
 
-#: lib/Block/tree_alarms.php:3
-msgid "Menu Alarms"
-msgstr "Teavituste menüü"
-
-#: lib/Block/tree_menu.php:3
-msgid "Menu List"
-msgstr "Menüü"
-
-#: lib/UI/VarRenderer/nag.php:112
+#: lib/Ui/VarRenderer/Nag.php:169
 msgid "Minute"
 msgstr "Minut"
 
-#: lib/Nag.php:417 lib/UI/VarRenderer/nag.php:135
+#: lib/Nag.php:695 lib/Ui/VarRenderer/Nag.php:192
 msgid "Minute(s)"
 msgstr "Minut(id)"
 
-#: lib/UI/VarRenderer/nag.php:52 lib/UI/VarRenderer/nag.php:101
+#: lib/Ui/VarRenderer/Nag.php:101 lib/Ui/VarRenderer/Nag.php:152
 msgid "Month"
 msgstr "Kuu"
 
-#: templates/list/header.inc:9
+#: templates/list/header.inc:8
 msgid "More Options..."
-msgstr "Rohkem seadeid..."
+msgstr "Rohkem Seadeid..."
 
-#: lib/api.php:986
+#: lib/Api.php:1201
 msgid "Multiple iCalendar components found; only one vTodo is supported."
 msgstr "Mitu iCal osa leitud; ainult üks vTodo on toetatud."
 
-#: templates/panel.inc:38
-msgid "My Tasklists:"
-msgstr "Minu Tööd:"
+#: templates/panel.inc:73
+msgid "My Task Lists:"
+msgstr "Minu Tööde nimekirjad:"
 
-#: list.php:34
+#: list.php:33 mobile.php:10
 msgid "My Tasks"
 msgstr "Minu tööd"
 
@@ -470,24 +652,15 @@ msgstr "Minu tööd"
 msgid "N_ame"
 msgstr "N_imi"
 
-#: templates/list/task_headers.inc:45
+#: templates/list/task_headers.inc:46
 msgid "Na_me"
 msgstr "Ni_mi"
 
-#: lib/Driver/kolab.php:741
-#, php-format
-msgid "Nag/kolab: Did not find task %s"
-msgstr "Tööd/kolab: Ei leidnud tööd: %s"
-
-#: data.php:52 lib/Forms/task.php:62
+#: data.php:53 lib/Form/CreateTaskList.php:23 lib/Form/Task.php:74
 msgid "Name"
 msgstr "Nimi"
 
-#: templates/tasklists/tasklists.inc:68
-msgid "Name:"
-msgstr "Nimi:"
-
-#: task.php:74 task.php:109 lib/Block/tree_menu.php:27
+#: lib/Application.php:382 task.php:82 task.php:119
 msgid "New Task"
 msgstr "Uus töö"
 
@@ -495,127 +668,152 @@ msgstr "Uus töö"
 msgid "Next"
 msgstr "Järgmine"
 
-#: config/prefs.php.dist:167
+#: config/prefs.php:156
 msgid "No"
 msgstr "Ei"
 
-#: lib/UI/VarRenderer/nag.php:46
+#: lib/Ui/VarRenderer/Nag.php:95
 msgid "No delay"
 msgstr "Ilma viivituseta"
 
-#: lib/UI/VarRenderer/nag.php:95
+#: lib/Ui/VarRenderer/Nag.php:146
 msgid "No due date."
-msgstr "Ilma lõpp kuupäevata"
+msgstr "Ilma lõpp kuupäevata."
 
-#: lib/api.php:405 lib/api.php:709 lib/api.php:767 lib/api.php:979
+#: lib/Api.php:832 lib/Api.php:884 lib/Api.php:1208
 msgid "No iCalendar data was found."
 msgstr "iCal andmeid ei leitud."
 
-#: lib/Forms/task.php:50
+#: lib/Form/Task.php:35
 msgid "No parent task"
 msgstr "Ülemtööd puudub"
 
-#: lib/Nag.php:605
+#: lib/Nag.php:846
 msgid "No task lists are available to guests."
 msgstr "Mitte ühtegi tööde nimekirja ei ole külalistele."
 
-#: templates/list/task_footers.inc:5
+#: quick.php:15 quick.php:18
+msgid "No tasks have been added."
+msgstr "Töid pole lisatud."
+
+#: templates/list/task_footers.inc:4
 msgid "No tasks match"
 msgstr "Töid ei leitud"
 
-#: lib/Block/summary.php:222
+#: lib/Block/Summary.php:269
 msgid "No tasks to display"
 msgstr "Töid ei ole"
 
-#: lib/Nag.php:421 lib/UI/VarRenderer/nag.php:151
+#: lib/Form/Task.php:96 lib/Nag.php:699 lib/Ui/VarRenderer/Nag.php:208
 msgid "None"
-msgstr "Mitte midagi"
+msgstr "Määramata"
 
-#: lib/Nag.php:380
+#: lib/Nag.php:658
 msgid "Not Completed"
 msgstr "Pooleli"
 
-#: templates/view/task.inc:14
+#: lib/Driver/Kolab.php:93
+msgid "Not Found"
+msgstr "Ei leitud"
+
+#: templates/view/task.inc:18
 msgid "Not Private"
 msgstr "Avalik"
 
-#: lib/Driver/sql.php:100 lib/Driver/sql.php:136
-msgid "Not found"
-msgstr "Ei leitud"
+#: mobile.php:132
+msgid "Not completed"
+msgstr "Pooleli"
 
-#: config/prefs.php.dist:42
+#: lib/Api.php:694
+msgid "Not configured"
+msgstr "Seadistamata"
+
+#: lib/Form/Task.php:102
+msgid "Notification"
+msgstr "Meetod"
+
+#: config/prefs.php:41
 msgid "Notifications"
 msgstr "Teavitused"
 
-#: config/prefs.php.dist:169
-msgid "On all shown tasklists"
-msgstr "Kõigil näidatavatel töödel"
+#: config/prefs.php:158
+msgid "On all shown task lists"
+msgstr "Kõigil näidatud tööde nimekirjadel"
 
-#: config/prefs.php.dist:170
-msgid "On all tasklists I have read access to"
-msgstr "Kõigil töödel millel on lugemis õigus"
+#: config/prefs.php:159
+msgid "On all task lists I have read access to"
+msgstr "Kõigil tööde nimekirjadel millel on lugemis õigus"
 
-#: config/prefs.php.dist:168
-msgid "On my tasklists only"
-msgstr "Minu töödel"
+#: config/prefs.php:157
+msgid "On my task lists only"
+msgstr "Ainult minu tööde nimekirjadel"
 
 #: templates/list/task_headers.inc:39
 msgid "P_ri"
 msgstr "Pri"
 
-#: lib/Forms/task.php:69
+#: lib/Form/Task.php:83
 msgid "Parent task"
 msgstr "Ülemtöö"
 
-#: templates/tasklists/tasklists.inc:71
-msgid "Permission"
-msgstr "Õigused"
-
-#: lib/api.php:683 lib/api.php:805 lib/api.php:860 lib/api.php:924
-#: lib/api.php:961
+#: lib/Api.php:699 lib/Api.php:731 lib/Api.php:782 lib/Api.php:811
+#: lib/Api.php:929 lib/Api.php:968 lib/Api.php:983 lib/Api.php:1022
+#: lib/Api.php:1060 lib/Api.php:1085 lib/Api.php:1137 lib/Api.php:1154
+#: lib/Api.php:1184 lib/Api.php:1270 lib/Api.php:1349 lib/Api.php:1406
+#: lib/Application.php:263 lib/Nag.php:284
 msgid "Permission Denied"
 msgstr "Ligipääs keelatud"
 
-#: lib/api.php:178
-msgid "Permission denied"
-msgstr "Ligipääs keelatud"
+#: mobile.php:46
+msgid "Portal"
+msgstr "Portaal"
 
-#: data.php:57 templates/view/task.inc:30 lib/Forms/task.php:87
-#: config/prefs.php.dist:88 config/prefs.php.dist:103
+#: config/prefs.php:59 config/prefs.php:80 config/prefs.php:98 data.php:60
+#: lib/Form/Task.php:105 templates/view/task.inc:34
 msgid "Priority"
 msgstr "Prioriteet"
 
-#: templates/view/task.inc:14 lib/Driver.php:902
+#: lib/Task.php:518 templates/view/task.inc:18
 msgid "Private"
 msgstr "Privaatne"
 
-#: lib/Driver.php:900
+#: data.php:61 lib/Task.php:516
 msgid "Private Task"
 msgstr "Privaatne töö"
 
-#: templates/view/task.inc:12 lib/Forms/task.php:82
+#: lib/Form/Task.php:97 templates/view/task.inc:16
 msgid "Private?"
 msgstr "Privaatne?"
 
-#: view.php:106
+#: templates/quick.inc:2
+msgid "Quick Task Creation"
+msgstr "Kiir Tööde Lisamine"
+
+#: lib/Form/DeleteTaskList.php:37
+#, php-format
+msgid ""
+"Really delete the task list \"%s\"? This cannot be undone and all data on "
+"this task list will be permanently removed."
+msgstr ""
+"Kas tõesti kustutad tööde nimekirja \"%s\"? See toiming on pöördumatu ja "
+"kõik andmed tööde nimekirjas eemaldatakse jäädavalt."
+
+#: view.php:113
 msgid "Really delete this task?"
 msgstr "Kindel et tahad kustutada selle töö?"
 
-#: templates/tasklists/tasklists.inc:81
-msgid "Remote Subscription URL"
-msgstr "Välise tellimuse URL"
-
-#: templates/panel.inc:57 lib/Forms/task.php:94
+#: lib/Form/EditTaskList.php:45 lib/Form/Renderer/Task.php:37
+#: lib/Form/Task.php:118 templates/panel.inc:91
 msgid "Save"
 msgstr "Salvesta"
 
-#: task.php:194
+#: task.php:189
 #, php-format
 msgid "Saved %s."
 msgstr "%s on salvestatud."
 
-#: search.php:14 templates/list/header.inc:4 templates/search/search.inc:31
-#: lib/Block/tree_menu.php:47
+#: lib/Application.php:408 search.php:19 templates/list/header.inc:3
+#: templates/search/search.inc:31
 msgid "Search"
 msgstr "Otsi"
 
@@ -627,100 +825,96 @@ msgstr "Otsi töös:"
 msgid "Search _Text:"
 msgstr "Otsi _teksti:"
 
+#: templates/panel.inc:61
+msgid "Search for Task Lists:"
+msgstr "Otsi Tööde Nimekirja:"
+
 #: templates/search/search.inc:24
 msgid "Search:"
 msgstr "Otsi:"
 
-#: list.php:73
+#: list.php:75 tasks/index.php:41
 #, php-format
 msgid "Search: Results for \"%s\""
 msgstr "Otsing: Tulemused \"%s\""
 
-#: lib/UI/VarRenderer/nag.php:58 lib/UI/VarRenderer/nag.php:106
-msgid "Select a date"
-msgstr "Vali kuupäev"
-
-#: templates/tasklists/tasklists.inc:62
-msgid "Select a tasklist"
-msgstr "Vali töönimekiri"
-
-#: templates/tasklists/tasklists.inc:24 templates/tasklists/tasklists.inc:82
-msgid "Select a tasklist above to display the Remote Subscription URL"
-msgstr "Vali tööde nimekiri ülevalt et näha välise liitumise URLi"
-
-#: templates/tasklists/tasklists.inc:23 templates/tasklists/tasklists.inc:80
-msgid "Select a tasklist above to display the URL"
-msgstr "Vali tööde nimekiri ülevalt et näha URLi"
+#: config/prefs.php:66
+msgid "Select the columns that should be shown in the list view:"
+msgstr "Vali tulbad mida peab näitama nimekirja vaates:"
 
 #: templates/data/export.inc:11
 msgid "Select the export format:"
-msgstr "Vali eksportimise formaat:"
+msgstr "Vali ekspordi vorming:"
 
 #: templates/data/import.inc:36
 msgid "Select the file to import:"
-msgstr "Vali fail mida importida:"
+msgstr "Vali imporditav fail:"
 
 #: templates/data/import.inc:12
 msgid "Select the format of the source file:"
-msgstr "Vali faili tüüo:"
+msgstr "Vali lähtefaili vorming:"
 
-#: templates/panel.inc:48
-msgid "Shared Tasklists:"
-msgstr "Jagatud tööde nimekiri:"
+#: templates/data/export.inc:20
+msgid "Select the task list(s) to export from:"
+msgstr "Vali tööde nimekiri mida eksportida:"
 
-#: config/prefs.php.dist:69
-msgid "Should the Task List be shown in its own column in the List view?"
-msgstr "Kas tööde nimekiri peaks olema oma veerus nimekirja vaates?"
+#: templates/data/export.inc:32
+msgid "Select the task states to export:"
+msgstr "Vali tööde staatused mida eksportida:"
 
-#: lib/Block/summary.php:45
+#: templates/panel.inc:82
+msgid "Shared Task Lists:"
+msgstr "Jagatud Tööde Nimekirjad:"
+
+#: lib/Block/Summary.php:58
 msgid "Show action buttons?"
 msgstr "Näita tegevus nuppe?"
 
-#: config/prefs.php.dist:204
+#: config/prefs.php:197
 msgid "Show complete, incomplete, or all tasks in the task list?"
 msgstr "Näita lõpetatud, poolikuid või kõiki töid tööde nimekirjas?"
 
-#: config/prefs.php.dist:191
+#: config/prefs.php:184
 msgid "Show data from any of these other applications in your task list?"
 msgstr "Näita andmeid järgmistest allikatest?"
 
-#: config/prefs.php.dist:58
+#: config/prefs.php:49
 msgid "Show data from other applications or sources."
 msgstr "Näita andmeid teistest allikatest."
 
-#: lib/Block/summary.php:48
+#: lib/Block/Summary.php:63
 msgid "Show due dates?"
 msgstr "Näita tähtaegu?"
 
-#: lib/Block/summary.php:42
+#: lib/Block/Summary.php:53
 msgid "Show priorities?"
 msgstr "Näita prioriteete?"
 
-#: lib/Block/summary.php:54
+#: lib/Block/Summary.php:73
 msgid "Show task alarms?"
 msgstr "Näita tööde teavitusi?"
 
-#: lib/Block/summary.php:57
+#: lib/Block/Summary.php:78
 msgid "Show task category?"
 msgstr "Näita töö kategooriat?"
 
-#: config/prefs.php.dist:79
-msgid "Show task list options panel?"
-msgstr "Näita seadistamise paneeli?"
-
-#: lib/Block/summary.php:51
+#: lib/Block/Summary.php:68
 msgid "Show tasklist name?"
 msgstr "Näita tööde nimekirja nime?"
 
-#: lib/Block/summary.php:70
+#: lib/Block/Summary.php:99
 msgid "Show tasks from these categories"
 msgstr "Näita töid nendest kategooriatest"
 
-#: lib/Block/summary.php:66
+#: lib/Block/Summary.php:93
 msgid "Show tasks from these tasklists"
 msgstr "Näita töid nendest tööde nimekirjadest"
 
-#: templates/list/task_headers.inc:53
+#: templates/list/task_headers.inc:64
+msgid "Sort by Assignee"
+msgstr "Järjest Valdaja järgi"
+
+#: templates/list/task_headers.inc:68
 msgid "Sort by Category"
 msgstr "Sorteeri katekoorja järgi"
 
@@ -728,11 +922,11 @@ msgstr "Sorteeri katekoorja järgi"
 msgid "Sort by Completion Status"
 msgstr "Sorteeri progressi järgi"
 
-#: templates/list/task_headers.inc:50
+#: templates/list/task_headers.inc:52
 msgid "Sort by Due Date"
 msgstr "Sorteeri tähtaja järgi"
 
-#: templates/list/task_headers.inc:45
+#: templates/list/task_headers.inc:46
 msgid "Sort by Name"
 msgstr "Sorteeri nime järgi"
 
@@ -740,63 +934,118 @@ msgstr "Sorteeri nime järgi"
 msgid "Sort by Priority"
 msgstr "Sorteeri prioriteedi järgi"
 
+#: templates/list/task_headers.inc:56
+msgid "Sort by Start Date"
+msgstr "Järjesta Alguse Kuupäeva järgi"
+
 #: templates/list/task_headers.inc:35
 msgid "Sort by User Name"
 msgstr "Sorteeri kasutaja järgi"
 
-#: config/prefs.php.dist:120
+#: templates/list/task_headers.inc:60
+msgid "Sort by estimated time"
+msgstr "Järjesta hinnangulise tähtaeg järgi"
+
+#: config/prefs.php:119
 msgid "Sort direction:"
 msgstr "Sorteerimise suund:"
 
-#: config/prefs.php.dist:94
+#: config/prefs.php:90
 msgid "Sort tasks by:"
 msgstr "Sorteeri tööd:"
 
-#: data.php:56
+#: data.php:59
 msgid "Start"
 msgstr "Algus"
 
-#: templates/view/task.inc:18
+#: config/prefs.php:62 config/prefs.php:84 config/prefs.php:102
+#: templates/view/task.inc:22
 msgid "Start Date"
-msgstr "Algus aeg"
+msgstr "Alguse Kuupäev"
 
-#: lib/UI/VarRenderer/nag.php:50
+#: lib/Ui/VarRenderer/Nag.php:99
 msgid "Start date specified."
-msgstr "Algus aeg määratud."
+msgstr "Alguse kuupäev määratud."
 
-#: templates/list/task_summaries.inc:57
+#: templates/tasklist_list.php:20
+msgid "Subscription URL"
+msgstr "Tellimise URL"
+
+#: templates/tasklist_list.php:30
+msgid "System"
+msgstr "Süsteem"
+
+#: lib/Form/CreateTaskList.php:28 lib/Form/EditTaskList.php:41
+msgid "System Task List"
+msgstr "Süsteemi Tööde nimekiri"
+
+#: lib/Form/CreateTaskList.php:29 lib/Form/EditTaskList.php:42
+msgid ""
+"System task lists don't have an owner. Only administrators can change the "
+"task list settings and permissions."
+msgstr ""
+"Süsteemi tööde nimekirja ei ole omaniku. Ainult administraatorid saavad "
+"muuta tööde nimekirja seadeid ja õigusi."
+
+#: templates/list/task_summaries.inc:58
 msgid "Task Alarm"
 msgstr "Töö teavitus"
 
-#: templates/list/task_headers.inc:48
+#: templates/list/task_headers.inc:49
 msgid "Task Alarm?"
 msgstr "Töö teavitus?"
 
-#: config/prefs.php.dist:28
+#: config/prefs.php:27
 msgid "Task Defaults"
 msgstr "Töö vaike seaded"
 
-#: lib/Forms/task.php:65
+#: config/prefs.php:58 config/prefs.php:88 config/prefs.php:106
+#: lib/Form/Task.php:78 templates/tasklist_list.php:17
 msgid "Task List"
 msgstr "Tööde nimekiri"
 
-#: config/prefs.php.dist:34 config/prefs.php.dist:41 config/prefs.php.dist:56
-msgid "Task List and Share Options"
+#: lib/Form/EditTaskList.php:38
+msgid "Task List Description"
+msgstr "Tööd Nimekirja Kirjeldus"
+
+#: templates/panel.inc:6
+msgid "Task List Information"
+msgstr "Tööde Nimekirja Informatsioon"
+
+#: templates/tasklist_list.php:14
+msgid "Task List List"
+msgstr "Nimekiri Tööde Nimekirjadest"
+
+#: lib/Form/EditTaskList.php:37
+msgid "Task List Name"
+msgstr "Tööde Nimekiri Nimi"
+
+#: config/prefs.php:33 config/prefs.php:40 config/prefs.php:47
+msgid "Task List and Share Preferences"
 msgstr "Tööde nimekiri ja jagamise seaded"
 
-#: tasklists.php:119
+#: templates/tasklist_info.php:6
+#, php-format
+msgid "Task List owned by %s."
+msgstr "Tööde Nimekirjad kelle omanik on %s."
+
+#: templates/tasklist_info.php:6
+msgid "Task List owned by system."
+msgstr "Süsteemi tööde nimekirjad."
+
+#: templates/panel.inc:55 templates/panel.inc:56
 msgid "Task Lists"
 msgstr "Tööde nimekiri"
 
-#: config/prefs.php.dist:89 config/prefs.php.dist:104
+#: config/prefs.php:81 config/prefs.php:99
 msgid "Task Name"
 msgstr "Töö nimi"
 
-#: templates/list/task_summaries.inc:55
+#: templates/list/task_summaries.inc:56
 msgid "Task Note"
 msgstr "Töö märkmed"
 
-#: templates/list/task_headers.inc:47
+#: templates/list/task_headers.inc:48
 msgid "Task Note?"
 msgstr "Töö märge?"
 
@@ -804,48 +1053,58 @@ msgstr "Töö märge?"
 msgid "Task Search"
 msgstr "Töö otsing"
 
-#: lib/Nag.php:630
+#: lib/Driver/Sql.php:89
+#, php-format
+msgid "Task UID %s not found"
+msgstr "Töö %s UID ei leitud"
+
+#: lib/Nag.php:944
 msgid "Task added:"
 msgstr "Töö lisatud:"
 
-#: lib/Nag.php:640
+#: lib/Nag.php:1048
 msgid "Task deleted:"
 msgstr "Töö kustutatud:"
 
-#: tasklists.php:34
-msgid "Task lists must have a name."
-msgstr "Töö nimekirjal peab olema nimi."
+#: lib/Nag.php:1065
+msgid "Task description:"
+msgstr "Töö kirjeldus:"
 
-#: lib/Nag.php:635
+#: lib/Nag.php:790
+#, php-format
+msgid "Task list of %s"
+msgstr "%s'i tööde nimekirjad"
+
+#: lib/Nag.php:955
 msgid "Task modified:"
 msgstr "Töö muudetud:"
 
-#: task.php:88 view.php:44
+#: task.php:98 view.php:38
 msgid "Task not found."
 msgstr "Tööd ei leitud."
 
-#: config/prefs.php.dist:93 config/prefs.php.dist:108
-msgid "Tasklist"
-msgstr "Tööde nimekiri"
+#: lib/Api.php:648
+msgid "Tasklist does not exist or no permission to delete"
+msgstr "Tööde nimekirja ei eksisteeri või sul puudub õiguse seda kustutada."
 
-#: templates/panel.inc:30 templates/panel.inc:31
-#: templates/tasklists/tasklists.inc:58
-msgid "Tasklists"
-msgstr "Tööde nimekirjad"
+#: lib/Api.php:476
+msgid "Tasklist does not exist or no permission to edit"
+msgstr "Tööde nimekirja ei eksisteeri või sul puudub õiguse seda muuta."
 
-#: templates/tasklists/tasklists.inc:60
-msgid "Tasklists:"
-msgstr "Tööde nimekirjad:"
-
-#: lib/api.php:1041
+#: lib/Api.php:1321
 msgid "Tasks"
 msgstr "Tööd"
 
-#: lib/Block/summary.php:3
+#: lib/Block/Summary.php:12
 msgid "Tasks Summary"
 msgstr "Tööde kokkuvõte"
 
-#: data.php:193
+#: lib/Api.php:298
+#, php-format
+msgid "Tasks from %s"
+msgstr "Töö %s'lt"
+
+#: data.php:220
 #, php-format
 msgid "The %s file didn't contain any tasks."
 msgstr "Fail %s ei sisaldanud ühtki tööd."
@@ -854,64 +1113,57 @@ msgstr "Fail %s ei sisaldanud ühtki tööd."
 msgid "The Tasks backend is not currently available."
 msgstr "Tööde alusrakendus ei ole saadaval."
 
-#: lib/Driver.php:137
+#: lib/Driver.php:116
 #, php-format
 msgid "The Tasks backend is not currently available: %s"
 msgstr "ööde alusrakendus ei ole saadaval: %s"
 
-#: lib/Forms/task.php:130
-msgid "The alarm value must not be empty."
-msgstr "Teavitus ei tohi olla tühi."
-
-#: templates/prefs/defaultduetimeselect.inc:8
+#: lib/Application.php:135
 msgid "The current hour"
 msgstr "Hetke tund"
 
-#: lib/Nag.php:631
+#: lib/Nag.php:948
 #, php-format
 msgid ""
-"The task \"%s\" has been added to \"%s\" tasklist, with a due date of: %s."
-msgstr "Töö \"%s\" on lisatud nimekirja \"%s\" tähtajaga: %s."
+"The task \"%s\" has been added to task list \"%s\", with a due date of: %s."
+msgstr "Töö \"%s\" on lisatud nimekirja \"%s\", tähtajaga: %s."
 
-#: lib/Nag.php:641
+#: lib/Nag.php:949
 #, php-format
-msgid ""
-"The task \"%s\" has been deleted from \"%s\" tasklist, with a due date of: %"
-"s."
-msgstr "Töö \"%s\" on kustutatud nimekirjast \"%s\" tähtajaga: %s."
+msgid "The task \"%s\" has been added to task list \"%s\"."
+msgstr "Töö \"%s\" on lisatud nimekirja \"%s\"."
 
-#: lib/Nag.php:636
+#: lib/Nag.php:1052
 #, php-format
-msgid ""
-"The task \"%s\" has been edited on \"%s\" tasklist, with a due date of: %s."
-msgstr "Töö \"%s\" on muudetud nimekirjas \"%s\" tähtajaga: %s."
+msgid "The task \"%s\" has been deleted from task list \"%s\"."
+msgstr "Töö \"%s\" on kustutatud nimekirjast \"%s\"."
 
-#: tasklists.php:51
+#: lib/Nag.php:958
 #, php-format
-msgid "The task list \"%s\" couldn't be created: %s"
-msgstr "Tööde nimekirja \"%s\" ei saanud luua: %s"
+msgid "The task \"%s\" has been edited on task list \"%s\"."
+msgstr "Töö \"%s\" on muudetud nimekirjas \"%s\"."
 
-#: tasklists.php:62
-#, php-format
-msgid "The task list \"%s\" couldn't be saved: %s"
-msgstr "Tööde nimekirja \"%s\" ei saanud salvestada: %s"
-
-#: tasklists.php:53
+#: tasklists/create.php:25
 #, php-format
 msgid "The task list \"%s\" has been created."
 msgstr "Tööde nimekirja \"%s\" on loodud."
 
-#: tasklists.php:87
+#: tasklists/delete.php:37
 #, php-format
 msgid "The task list \"%s\" has been deleted."
 msgstr "Tööde nimekirja \"%s\" on kustutatud."
 
-#: tasklists.php:64
+#: tasklists/edit.php:37
+#, php-format
+msgid "The task list \"%s\" has been renamed to \"%s\"."
+msgstr "Tööde nimekiri \"%s\" on nimetatud \"%s\"."
+
+#: tasklists/edit.php:39
 #, php-format
 msgid "The task list \"%s\" has been saved."
 msgstr "Tööde nimekirja \"%s\" on salvestatud."
 
-#: config/prefs.php.dist:109
+#: config/prefs.php:108
 msgid "Then:"
 msgstr "Siis:"
 
@@ -919,101 +1171,120 @@ msgstr "Siis:"
 msgid "There are no tasks matching the current criteria."
 msgstr "Hetke kriteeriumitele ei vasta ühtegi tööd."
 
-#: task.php:225
+#: task.php:222
 #, php-format
 msgid "There was a problem completing %s: %s"
 msgstr "Tekkis probleem töö %s lõpetamisel: %s"
 
-#: task.php:29
+#: task.php:30
 #, php-format
 msgid "There was a problem deleting %s: %s"
 msgstr "Tekkis probleem töö %s kustutamisel: %s"
 
-#: task.php:192
+#: task.php:183
 #, php-format
 msgid "There was a problem saving the task: %s."
 msgstr "Tekkis probleem töö %s salvestamisel."
 
-#: data.php:196
+#: data.php:204
 #, php-format
 msgid "There was an error importing the data: %s"
-msgstr "Tekkis viga importimisel: %s"
+msgstr "Tekkis viga andmete importimisel: %s"
 
-#: lib/api.php:397 lib/api.php:701 lib/api.php:973
+#: lib/Api.php:492 lib/Api.php:824 lib/Api.php:1193
 msgid "There was an error importing the iCalendar data."
 msgstr "Tekkis viga iCal andmete importimisel."
 
-#: data.php:80
+#: lib/Application.php:238 lib/Application.php:250
+#, php-format
+msgid "There was an error removing tasks for %s. Details have been logged."
+msgstr "Tekis viga töö %s kustutamisel. Üksikasjad logiti."
+
+#: data.php:94
 msgid "There were no tasks to export."
 msgstr "Ühtegi tööd ei eksporditud."
 
-#: data.php:126
+#: data.php:151
 msgid "This file format is not supported."
-msgstr "Faili formaat ei ole toetatud."
+msgstr "Seda faili vormingut ei toetata."
 
-#: templates/tasklists/tasklists.inc:79
-msgid "URL"
-msgstr "URL"
+#: templates/alarm/mail.plain.php:9
+msgid "Time:"
+msgstr "Ajavahemik:"
 
-#: tasklists.php:83
+#: templates/tasklist_info.php:7
+msgid "To subscribe to this task list from another program, use this URL:"
+msgstr ""
+"Et tellida seda ülesannet nimekirja mõnest muust programmist, kasutage seda "
+"URL'i:"
+
+#: lib/Nag.php:1007
+msgid "Turned privacy off"
+msgstr "Lülista privaatsus välja"
+
+#: lib/Nag.php:1007
+msgid "Turned privacy on"
+msgstr "Lülita privaatsus sisse"
+
+#: lib/Api.php:666
 #, php-format
-msgid "Unable to delete \"%s\": %s"
-msgstr "Viga kustutamisel \"%s\": %s"
+msgid "Unable to delete tasklist \"%s\": %s"
+msgstr "Viga kustutamisel tööde nimekirjast \"%s\": %s"
 
-#: lib/Driver.php:140
+#: lib/Driver.php:119
 #, php-format
 msgid "Unable to load the definition of %s."
-msgstr "Viga definitsioonide laadimisel: %s"
+msgstr "Ei õnnestu laadida %s kirjeldust."
 
-#: templates/list/task_summaries.inc:62 templates/view/task.inc:9
-#: lib/Nag.php:850 lib/Nag.php:851 lib/Nag.php:865 lib/Nag.php:866
-#: lib/Block/summary.php:31 lib/Block/summary.php:215 lib/Forms/task.php:78
+#: lib/Nag.php:552
+#, php-format
+msgid "Unable to save task list \"%s\": %s"
+msgstr "Ei õnnestu salvestada tööde nimekirja \"%s\": %s"
+
+#: lib/Block/Summary.php:38 lib/Block/Summary.php:262 lib/Form/Task.php:92
+#: lib/Nag.php:1362 lib/Nag.php:1363 lib/Nag.php:1377 lib/Nag.php:1378
+#: templates/list/task_summaries.inc:77 templates/view/task.inc:9
 msgid "Unfiled"
 msgstr "Täitmata"
 
-#: lib/api.php:502 lib/api.php:774 lib/api.php:832 lib/api.php:886
-#: lib/api.php:1011
+#: data.php:65
+msgid "Unique ID"
+msgstr "Unikaalne ID"
+
+#: lib/Api.php:602 lib/Api.php:915 lib/Api.php:1045 lib/Api.php:1108
+#: lib/Api.php:1253
 #, php-format
 msgid "Unsupported Content-Type: %s"
-msgstr "Formaat ei ole toetatud: %s"
+msgstr "Toetamatu Sisu-Tüüp: %s"
 
-#: lib/Driver.php:1079
-#, php-format
-msgid ""
-"We would like to remind you of this due task.\n"
-"\n"
-"%s\n"
-"\n"
-"Date: %s\n"
-"Time: %s\n"
-"\n"
-"%s"
-msgstr ""
-"Me sooviksime meelde tuletada, et töö tähtaeg on.\n"
-"\n"
-"%s\n"
-"\n"
-"Kuupäev: %s\n"
-"Kellaaeg: %s\n"
-"\n"
-"%s"
+#: lib/Ui/VarRenderer/Nag.php:62
+msgid "Use custom notification method"
+msgstr "Kasuta kohandatud teavitamise meetodit"
 
-#: lib/Nag.php:408 lib/UI/VarRenderer/nag.php:136
+#: lib/Ui/VarRenderer/Nag.php:56
+msgid "Use default notification method"
+msgstr "Kasuta vaike teavitamise meetodit"
+
+#: templates/alarm/mail.plain.php:1
+msgid "We would like to remind you of this due task."
+msgstr "Me sooviksime meelde tuletada sellest lõpetamist vajavast tööst."
+
+#: lib/Nag.php:686 lib/Ui/VarRenderer/Nag.php:193
 msgid "Week(s)"
 msgstr "Nädal(ad)"
 
-#: templates/prefs/defaultduetimeselect.inc:6
+#: config/prefs.php:148
 msgid "What do you want to be the default due time for tasks?"
 msgstr "Vaike tähtaeg töödele oleks?"
 
-#: config/prefs.php.dist:147
+#: config/prefs.php:141
 msgid ""
 "When creating a new task, how many days in the future should the default due "
 "date be (0 means today)?"
 msgstr ""
 "Töö loomisel mitu päeva tuleviku peaks olema vaike tähtaeg (0 tähendab täna)?"
 
-#: config/prefs.php.dist:138
+#: config/prefs.php:133
 msgid "When creating a new task, should it default to having a due date?"
 msgstr "Kas töö loomisel peaks olema vaikimisi tähtaeg?"
 
@@ -1021,50 +1292,65 @@ msgstr "Kas töö loomisel peaks olema vaikimisi tähtaeg?"
 msgid "Which tasklist should the tasks be added to?"
 msgstr "Millisesse nimekirja peaks töö lisama?"
 
-#: lib/UI/VarRenderer/nag.php:53 lib/UI/VarRenderer/nag.php:102
+#: lib/Ui/VarRenderer/Nag.php:102 lib/Ui/VarRenderer/Nag.php:153
 msgid "Year"
 msgstr "Aasta"
 
-#: task.php:61 data.php:41 data.php:151
+#: lib/Nag.php:541 tasklists/edit.php:26
+msgid "You are not allowed to change this task list."
+msgstr "Sul pole lubatud muuta seda tööde nimekirja."
+
+#: data.php:44 data.php:173 task.php:73
 #, php-format
 msgid "You are not allowed to create more than %d tasks."
-msgstr "Pole lubatud luua rohkem kui %d tööd."
+msgstr "Sul pole lubatud luua rohkem kui %d tööd."
 
-#: view.php:52
+#: lib/Nag.php:568 tasklists/delete.php:27
+msgid "You are not allowed to delete this task list."
+msgstr "Sul pole lubatud kustutada seda tööde nimekirja."
+
+#: lib/Api.php:127
+msgid "You are not allowed to retrieve this task list."
+msgstr "Sul pole lubatud vaadata seda tööde nimekirja."
+
+#: view.php:48
 msgid "You do not have permission to view this tasklist."
 msgstr "Sul puuduvad õigused selle tööde nimekirja vaatamiseks."
 
-#: tasklists.php:90
-msgid "You must select a task list to be deleted."
-msgstr "Sa pead valima tööde nimekirja mida kustutada."
+#: templates/alarm/mail.html.php:35
+#, php-format
+msgid ""
+"You get this message because your task list is configured to send you "
+"reminders of due tasks with alarms. You can change this if you %slogin to "
+"the task list%s and change your preferences."
+msgstr ""
+"Sa saad selle teate, sest teie tööde nimekiri on seadistatud saatma teile "
+"meeldetuletusi lõpp tähtajaga töödest. Saad seda muuta kui logid kasutajana "
+"%s sisse ja muudad tööde nimekirja %s seadeid."
 
-#: templates/tasklists/tasklists.inc:47
-msgid "You must select a tasklist to be deleted."
-msgstr "Sa pead valima tööde nimekirja mida kustutada."
-
-#: lib/Nag.php:631
-msgid "You requested to be notified when tasks are added to your tasklists."
+#: lib/Nag.php:945
+msgid "You requested to be notified when tasks are added to your task lists."
 msgstr "Te soovisite teavitust kui tööde nimekirja lisatakse uus töö."
 
-#: lib/Nag.php:641
+#: lib/Nag.php:1050
 msgid ""
-"You requested to be notified when tasks are deleted from your tasklists."
+"You requested to be notified when tasks are deleted from your task lists."
 msgstr "Te soovisite teavitust kui tööde nimekirjast kustutatakse töö."
 
-#: lib/Nag.php:636
-msgid "You requested to be notified when tasks are edited on your tasklists."
+#: lib/Nag.php:956
+msgid "You requested to be notified when tasks are edited on your task lists."
 msgstr "Te soovisite teavitust kui tööde nimekirja muudetakse."
 
-#: templates/prefs/tasklistselect.inc:10
+#: config/prefs.php:210
 msgid "Your default task list:"
 msgstr "Sinu vaike tööde nimekiri:"
 
-#: templates/panel.inc:43
-msgid "[Manage My Tasklists]"
-msgstr "[Halda Minu tööde nimekirja]"
+#: templates/panel.inc:68
+msgid "[Manage Task Lists]"
+msgstr "[Halda Tööde Nimekirja]"
 
-#: templates/list/task_summaries.inc:46 lib/Block/summary.php:101
-#: lib/Block/summary.php:199
+#: lib/Block/Summary.php:136 lib/Block/Summary.php:245
+#: templates/list/task_summaries.inc:47
 msgid "[none]"
 msgstr "[midagi]"
 
@@ -1072,7 +1358,7 @@ msgstr "[midagi]"
 msgid "_All Tasks"
 msgstr "_Kõik tööd"
 
-#: list.php:111
+#: list.php:110
 msgid "_All tasks"
 msgstr "_Kõik tööd"
 
@@ -1080,15 +1366,15 @@ msgstr "_Kõik tööd"
 msgid "_Category"
 msgstr "_Kategooria"
 
-#: view.php:99
+#: view.php:106
 msgid "_Complete"
 msgstr "_Lõpeta"
 
-#: list.php:114
+#: list.php:113
 msgid "_Completed tasks"
 msgstr "_Lõpetatud tööd"
 
-#: view.php:106
+#: view.php:113
 msgid "_Delete"
 msgstr "Ku_stuta"
 
@@ -1096,67 +1382,100 @@ msgstr "Ku_stuta"
 msgid "_Description"
 msgstr "_Kirjeldus"
 
-#: templates/list/task_headers.inc:50
+#: templates/list/task_headers.inc:52
 msgid "_Due Date"
 msgstr "Tä_htaeg"
 
-#: view.php:102
+#: view.php:109
 msgid "_Edit"
 msgstr "_Muuda"
 
-#: list.php:113
+#: list.php:112
 msgid "_Future tasks"
 msgstr "Tu_leviku tööd"
 
-#: lib/Nag.php:553
+#: lib/Application.php:94
 msgid "_Import/Export"
 msgstr "_Import/Eksport"
 
-#: lib/Nag.php:540
+#: lib/Application.php:76
 msgid "_List Tasks"
 msgstr "_Nimekiri"
 
-#: lib/Nag.php:545
+#: lib/Application.php:81
 msgid "_New Task"
 msgstr "_Uus töö"
 
-#: lib/Nag.php:558
-msgid "_Print"
-msgstr "_Prindi"
+#: lib/Application.php:85
+msgid "_Quick Add"
+msgstr "_Kiir Lisamine"
 
-#: lib/Nag.php:549
+#: lib/Application.php:90
 msgid "_Search"
-msgstr "_Otsing"
+msgstr "_Otsi"
+
+#: templates/list/task_headers.inc:56
+msgid "_Start Date"
+msgstr "_Alguse Kuupäev"
 
 #: templates/list/task_headers.inc:35
 msgid "_Task List"
 msgstr "_Tööd"
 
-#: templates/prefs/defaultduetimeselect.inc:15
+#: lib/Application.php:140
 msgid "am"
 msgstr "EL"
 
-#: data.php:31
+#: view.php:67 view.php:76
+#, php-format
+msgid "by %s"
+msgstr "%s"
+
+#: view.php:69 view.php:78
+msgid "by me"
+msgstr "minu"
+
+#: lib/Nag.php:1039 lib/Nag.php:1040
+msgid "completed"
+msgstr "lõpetatud"
+
+#: data.php:29
 msgid "iCalendar (vTodo)"
 msgstr "iCal (vTodo)"
 
-#: lib/Block/tree_menu.php:37
+#: lib/Application.php:395
 #, php-format
 msgid "in %s"
 msgstr "%s ajal"
 
-#: lib/Nag.php:79
+#: lib/Nag.php:1012 lib/Nag.php:1013
+msgid "no due date"
+msgstr "puudub lõpp kuupäeva"
+
+#: lib/Nag.php:980 lib/Nag.php:981
+msgid "no parent"
+msgstr "ülemtööd puudub"
+
+#: lib/Nag.php:1018 lib/Nag.php:1019
+msgid "no start date"
+msgstr "puudub alguse kuupäev"
+
+#: lib/Nag.php:124
 msgid "no time"
 msgstr "Ilma ajata"
 
-#: templates/prefs/defaultduetimeselect.inc:15
+#: lib/Nag.php:1039 lib/Nag.php:1040
+msgid "not completed"
+msgstr "lõpetamata"
+
+#: lib/Application.php:140
 msgid "pm"
 msgstr "PL"
 
-#: data.php:100 templates/data/export.inc:1
+#: data.php:113 templates/data/export.inc:1
 msgid "tasks.csv"
-msgstr "tasks.csv"
+msgstr "tööd.csv"
 
-#: data.php:111
+#: data.php:125
 msgid "tasks.ics"
-msgstr "tasks.ics"
+msgstr "tööd.ics"

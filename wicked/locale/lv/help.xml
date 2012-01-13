@@ -1,10 +1,10 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
 
-<entry id="Templates">
+<entry id="Templates" state="uptodate" md5="438946cc274c2b4b068380b2fa36f201">
  <title>Page Templates</title>
  <para>
-  Templates are pages that begin or end with &quot;Template&quot;
+  Templates are pages that begin or end with "Template"
   (capitalization counts). They can be used to provide initial content
   or structure when creating new pages.
  </para>

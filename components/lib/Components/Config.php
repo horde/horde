@@ -16,7 +16,7 @@
  * Components_Config:: interface represents a configuration type for the Horde
  * component tool.
  *
- * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -70,9 +70,10 @@ interface Components_Config
     public function getArguments();
 
     /**
-     * Set the path to the component directory.
+     * Set the selected component.
      *
-     * @param Components_Component $component The path to the component directory.
+     * @param Components_Component $component The selected component.
+     *
      * @return NULL
      */
     public function setComponent(Components_Component $component);
@@ -83,4 +84,21 @@ interface Components_Config
      * @return Components_Component The selected component.
      */
     public function getComponent();
+
+    /**
+     * Set the path to the directory of the selected source component.
+     *
+     * @param string $path The path to the component directory.
+     *
+     * @return NULL
+     */
+    public function setPath($path);
+
+    /**
+     * Get the path to the directory of the selected component (in case it was a
+     * source component).
+     *
+     * @return string The path to the component directory.
+     */
+    public function getPath();
 }

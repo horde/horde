@@ -2,10 +2,10 @@
 /**
  * Horde Mnemo driver for the Kolab_Storage backend.
  *
- * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
- * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author  Gunnar Wrobel <wrobel@pardus.de>
  * @author  Thomas Jarosch <thomas.jarosch@intra2net.com>

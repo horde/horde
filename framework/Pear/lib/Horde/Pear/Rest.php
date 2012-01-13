@@ -18,7 +18,7 @@
  * This implements a subset of the REST methods detailed in
  * http://pear.php.net/manual/en/core.rest.php
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -59,10 +59,22 @@ class Horde_Pear_Rest
      * @param Horde_Http_Client $client The HTTP client.
      * @param string            $url    The URL for the remote PEAR server.
      */
-    public function __construct(Horde_Http_Client $client, $url)
+    public function __construct($client, $url)
     {
         $this->_client = $client;
         $this->_url = $url;
+    }
+
+    /**
+     * Set the server name.
+     *
+     * @params string $server The server name.
+     *
+     * @return NULL
+     */
+    public function setServer($server)
+    {
+        $this->_url = 'http://' . $server;
     }
 
     /**
@@ -169,7 +181,7 @@ class Horde_Pear_Rest
         $response = $this->_client->get(
             $this->_url . '/rest/r/' . strtolower($package) . '/' . $version . '.xml'
         );
-        if ($response->code === 200) { 
+        if ($response->code === 200) {
             return true;
         } else {
             return false;
@@ -239,7 +251,7 @@ class Horde_Pear_Rest
     private function _read($url)
     {
         $response = $this->_client->get($url);
-        if ($response->code === 200) { 
+        if ($response->code === 200) {
             return $response->getBody();
         } else {
             return false;

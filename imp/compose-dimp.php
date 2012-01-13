@@ -17,7 +17,7 @@
  *             (requires 'to' parameter also).
  *   - uids: UIDs of message to forward (only used when forwarding a message).
  *
- * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -55,7 +55,7 @@ if (isset($header['to']) &&
 
 $fillform_opts = array('noupdate' => 1);
 $get_sig = true;
-$msg = $vars->body;
+$msg = strval($vars->body);
 
 $js = array();
 
@@ -90,31 +90,24 @@ case 'reply_list':
         'reply_list' => IMP_Compose::REPLY_LIST
     );
 
-    $reply_msg = $imp_compose->replyMessage($reply_map[$vars->type], $contents, $header['to']);
+    $reply_msg = $imp_compose->replyMessage($reply_map[$vars->type], $contents, isset($header['to']) ? $header['to'] : null);
 
     $msg = $reply_msg['body'];
     $header = $reply_msg['headers'];
     if ($vars->type == 'reply_auto') {
         $fillform_opts['auto'] = array_search($reply_msg['type'], $reply_map);
 
-        switch ($fillform_opts['auto']) {
-        case 'reply_all':
-            try {
-                $recip_list = $imp_compose->recipientList($header);
-                $fillform_opts['reply_recip'] = count($recip_list['list']);
-            } catch (IMP_Compose_Exception $e) {
-                $fillform_opts['reply_recip'] = 0;
-            }
-            break;
-
-        case 'reply_list':
-            $hdr_ob = $contents->getHeaderOb();
-            $addr_ob = Horde_Mime_Address::parseAddressList($hdr_ob->getValue('list-id'));
-            if (isset($addr_ob[0]['personal'])) {
-                $fillform_opts['reply_list_id'] = $addr_ob[0]['personal'];
-            }
-            break;
+        if (isset($reply_msg['reply_recip'])) {
+            $fillform_opts['reply_recip'] = $reply_msg['reply_recip'];
         }
+
+        if (isset($reply_msg['reply_list_id'])) {
+            $fillform_opts['reply_list_id'] = $reply_msg['reply_list_id'];
+        }
+    }
+
+    if (!empty($reply_msg['lang'])) {
+        $fillform_opts['reply_lang'] = array_values($reply_msg['lang']);
     }
 
     switch ($reply_msg['type']) {
@@ -149,7 +142,7 @@ case 'forward_auto':
 case 'forward_body':
 case 'forward_both':
     $indices = $vars->uids
-        ? new IMP_Indices($vars->uids)
+        ? new IMP_Indices_Form($vars->uids)
         : null;
 
     if ($indices && (count($indices) > 1)) {
@@ -159,7 +152,7 @@ case 'forward_both':
 
         try {
             $header = array(
-                'subject' => $imp_compose->attachImapMessage(new IMP_Indices($vars->uids))
+                'subject' => $imp_compose->attachImapMessage($indices)
             );
         } catch (IMP_Compose_Exception $e) {
             $notification->push($e, 'horde.error');
@@ -204,8 +197,7 @@ case 'forward_both':
 
 case 'forward_redirect':
     try {
-        $contents = $imp_ui->getContents($vars);
-        $imp_compose->redirectMessage($contents);
+        $imp_compose->redirectMessage($imp_ui->getIndices($vars));
         $get_sig = false;
         $title = _("Redirect");
         $vars->type = 'redirect';
@@ -293,7 +285,6 @@ if ($vars->type != 'redirect') {
 Horde::addInlineScript($compose_result['jsonload'], 'dom');
 
 $scripts = array(
-    array('base64url.js', 'imp'),
     array('compose-base.js', 'imp'),
     array('compose-dimp.js', 'imp'),
     array('md5.js', 'horde'),
@@ -312,7 +303,10 @@ IMP::status();
 $t->set('status', Horde::endBuffer());
 
 IMP_Dimp::header($title, $scripts);
-echo $t->fetch(IMP_TEMPLATES . '/dimp/compose/compose-base.html');
+
+Horde::startBuffer();
 Horde::includeScriptFiles();
 Horde::outputInlineScript();
-echo "</body>\n</html>";
+$t->set('script', Horde::endBuffer());
+
+echo $t->fetch(IMP_TEMPLATES . '/dimp/compose/compose-base.html');

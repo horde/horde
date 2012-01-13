@@ -14,7 +14,7 @@
 /**
  * A Horde_Injector:: based factory for creating Horde_Db_Adapter objects.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -87,7 +87,10 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
                   $config['show_encryption'],
                   $config['username_field'],
                   $config['password_field'],
-                  $config['table']);
+                  $config['table'],
+                  $config['login_block'],
+                  $config['login_block_count'],
+                  $config['login_block_time']);
         }
         unset($config['umask']);
 

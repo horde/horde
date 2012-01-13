@@ -2,7 +2,7 @@
 /**
  * Compose script for traditional (IMP) view.
  *
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -42,7 +42,7 @@ $header = array();
 $msg = '';
 
 $get_sig = true;
-$showmenu = $spellcheck = false;
+$redirect = $showmenu = $spellcheck = false;
 $oldrtemode = $rtemode = null;
 
 /* Set the current identity. */
@@ -122,11 +122,8 @@ if ($readonly_sentmail = ($sent_mail_folder && $sent_mail_folder->readonly)) {
 $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($vars->composeCache);
 $imp_compose->pgpAttachPubkey((bool) $vars->pgp_attach_pubkey);
 $imp_compose->userLinkAttachments((bool) $vars->link_attachments);
-
-try {
-    $imp_compose->attachVCard((bool) $vars->vcard, $identity->getValue('fullname'));
-} catch (IMP_Compose_Exception $e) {
-    $notification->push($e);
+if ($vars->vcard) {
+    $imp_compose->attachVCard($identity->getValue('fullname'));
 }
 
 /* Init objects. */
@@ -202,7 +199,7 @@ case 'mailto':
         break;
     }
 
-    $imp_headers = $contents->getHeaderOb();
+    $imp_headers = $contents->getHeader();
     $header['to'] = '';
     if ($vars->mailto) {
         $header['to'] = $imp_headers->getValue('to');
@@ -294,7 +291,7 @@ case 'reply_list':
         if ($vars->actionID == 'reply_auto') {
             $replyauto_list = true;
 
-            $hdr_ob = $contents->getHeaderOb();
+            $hdr_ob = $contents->getHeader();
             $addr_ob = Horde_Mime_Address::parseAddressList($hdr_ob->getValue('list-id'));
             if (isset($addr_ob[0]['personal'])) {
                 $replyauto_list_id = $addr_ob[0]['personal'];
@@ -305,6 +302,11 @@ case 'reply_list':
         $title = _("Reply to List:");
         break;
     }
+
+    if (!empty($reply_msg['lang'])) {
+        $reply_lang = array_values($reply_msg['lang']);
+    }
+
     $title .= ' ' . $header['subject'];
 
     if (!is_null($rtemode)) {
@@ -346,9 +348,10 @@ case 'forward_both':
 
 case 'redirect_compose':
     try {
-        $contents = $imp_ui->getContents();
-        $imp_compose->redirectMessage($contents);
-        $title = _("Redirect");
+        $indices = $imp_ui->getIndices($vars);
+        $imp_compose->redirectMessage($indices);
+        $redirect = true;
+        $title = ngettext(_("Redirect"), _("Redirect Messages"), count($indices));
     } catch (IMP_Compose_Exception $e) {
         $notification->push($e, 'horde.error');
     }
@@ -356,18 +359,17 @@ case 'redirect_compose':
 
 case 'redirect_send':
     try {
-        $imp_compose->sendRedirectMessage($imp_ui->getAddressList($vars->to));
-
+        $num_msgs = $imp_compose->sendRedirectMessage($imp_ui->getAddressList($vars->to));
         $imp_compose->destroy('send');
         if ($isPopup) {
             if ($prefs->getValue('compose_confirm')) {
-                $notification->push(_("Message redirected successfully."), 'horde.success');
+                $notification->push(ngettext("Message redirected successfully.", "Messages redirected successfully", count($num_msgs)), 'horde.success');
                 $imp_ui->popupSuccess();
             } else {
                 echo Horde::wrapInlineScript(array('window.close();'));
             }
         } else {
-            $notification->push(_("Message redirected successfully."), 'horde.success');
+            $notification->push(ngettext("Message redirected successfully.", "Messages redirected successfully", count($num_msgs)), 'horde.success');
             $imp_ui->mailboxReturnUrl()->redirect();
         }
         exit;
@@ -484,7 +486,6 @@ case 'send_message':
             $notification->push(_("Your identity has been switched to the identity associated with the current recipient address. The identity will not be checked again during this compose action."));
         }
 
-        // TODO
         switch ($e->encrypt) {
         case 'pgp_symmetric_passphrase_dialog':
             $imp_ui->passphraseDialog('pgp_symm', $imp_compose->getCacheId());
@@ -517,9 +518,10 @@ case 'send_message':
     exit;
 
 case 'fwd_digest':
-    if (isset($vars->fwddigest)) {
+    $indices = $imp_ui->getIndices($vars);
+    if (count($indices)) {
         try {
-            $header['subject'] = $imp_compose->attachImapMessage(new IMP_Indices($vars->fwddigest));
+            $header['subject'] = $imp_compose->attachImapMessage($indices);
             $fwd_msg = array('type' => IMP_Compose::FORWARD_ATTACH);
         } catch (IMP_Compose_Exception $e) {
             $notification->push($e, 'horde.error');
@@ -580,9 +582,6 @@ case 'add_attachment':
 
 /* Get the message cache ID. */
 $composeCacheID = $imp_compose->getCacheId();
-
-/* Are we in redirect mode? */
-$redirect = ($vars->actionID == 'redirect_compose');
 
 /* Attach autocompleters to the compose form elements. */
 if ($browser->hasFeature('javascript')) {
@@ -706,23 +705,18 @@ if ($prefs->getValue('use_pgp') &&
 }
 
 /* Define some variables used in the javascript code. */
-$js_code = array(
-    'IMP_Compose_Base.editor_on = ' . intval($rtemode),
-    'ImpCompose.auto_save = ' . intval($prefs->getValue('auto_save_drafts')),
-    'ImpCompose.cancel_url = \'' . $cancel_url . '\'',
-    'ImpCompose.cursor_pos = ' .($rtemode ? 'null' : ('"' . $prefs->getValue('compose_cursor') . '"')),
-    'ImpCompose.max_attachments = ' . (($max_attach === true) ? 'null' : $max_attach),
-    'ImpCompose.popup = ' . intval($isPopup),
-    'ImpCompose.redirect = ' . intval($redirect),
-    'ImpCompose.reloaded = ' . intval($vars->compose_formToken),
-    'ImpCompose.smf_check = ' . intval($smf_check),
-    'ImpCompose.spellcheck = ' . intval($spellcheck && $prefs->getValue('compose_spellcheck'))
+$js_vars = array(
+    'ImpComposeBase.editor_on' => intval($rtemode),
+    'ImpCompose.auto_save' => intval($prefs->getValue('auto_save_drafts')),
+    'ImpCompose.cancel_url' => $cancel_url,
+    'ImpCompose.cursor_pos' => ($rtemode ? null : $prefs->getValue('compose_cursor')),
+    'ImpCompose.max_attachments' => (($max_attach === true) ? null : $max_attach),
+    'ImpCompose.popup' => intval($isPopup),
+    'ImpCompose.redirect' => intval($redirect),
+    'ImpCompose.reloaded' => intval($vars->compose_formToken),
+    'ImpCompose.smf_check' => intval($smf_check),
+    'ImpCompose.spellcheck' => intval($spellcheck && $prefs->getValue('compose_spellcheck'))
 );
-
-/* Create javascript identities array. */
-if (!$redirect) {
-    $js_code = array_merge($js_code, $imp_ui->identityJs());
-}
 
 /* Set up the base template now. */
 $t = $injector->createInstance('Horde_Template');
@@ -745,9 +739,10 @@ if ($redirect) {
     if ($registry->hasMethod('contacts/search')) {
         $t->set('abook', $blank_url->copy()->link(array(
             'class' => 'widget',
-            'onclick.raw' => 'window.open("' . Horde::url('contacts.php')->add(array('formname' => 'redirect', 'to_only' => 1)) . '", "contacts", "toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=300,left=100,top=100"); return false;',
+            'id' => 'redirect_abook',
             'title' => _("Address Book")
         )) . Horde::img('addressbook_browse.png') . '<br />' . _("Address Book") . '</a>');
+        $js_vars['ImpCompose.redirect_contacts'] = strval(Horde::url('contacts.php')->add(array('formname' => 'redirect', 'to_only' => 1))->setRaw(true));
     }
 
     $t->set('to', Horde::label('to', _("To")));
@@ -909,7 +904,7 @@ if ($redirect) {
         $url = new Horde_Url('#attachments');
         $compose_options[] = array(
             'url' => $url->link(array('class' => 'widget')),
-            'img' => Horde::img('manage_attachments.png'),
+            'img' => Horde::img('attachment.png'),
             'label' => $show_text ? _("Attachments") : ''
         );
     }
@@ -977,6 +972,10 @@ if ($redirect) {
         }
     }
 
+    if (isset($reply_lang)) {
+        $t->set('reply_lang', implode(',', $reply_lang));
+    }
+
     $t->set('message_label', Horde::label('composeMessage', _("Te_xt")));
     $t->set('message_tabindex', ++$tabindex);
     $t->set('message', htmlspecialchars($msg));
@@ -1002,7 +1001,6 @@ if ($redirect) {
         $t->set('attach_vcard', $vars->vcard);
     }
     if ($session->get('imp', 'file_upload')) {
-        $localeinfo = Horde_Nls::getLocaleInfo();
         try {
             $t->set('selectlistlink', $registry->call('files/selectlistLink', array(_("Attach Files"), 'widget', 'compose', true)));
         } catch (Horde_Exception $e) {
@@ -1015,7 +1013,7 @@ if ($redirect) {
                 $t->set('file_tabindex', ++$tabindex);
             }
         }
-        $t->set('attach_size', number_format($imp_compose->maxAttachmentSize(), 0, $localeinfo['decimal_point'], $localeinfo['thousands_sep']));
+        $t->set('attach_size', IMP::numberFormat($imp_compose->maxAttachmentSize(), 0));
         $t->set('help-attachments', Horde_Help::link('imp', 'compose-attachments'));
 
         $save_attach = $prefs->getValue('save_attachments');
@@ -1070,10 +1068,10 @@ if ($redirect) {
                 $atc[] = $entry;
             }
             $t->set('atc', $atc);
-            $t->set('total_attach_size', number_format($imp_compose->sizeOfAttachments() / 1024, 2, $localeinfo['decimal_point'], $localeinfo['thousands_sep']));
+            $t->set('total_attach_size', IMP::numberFormat($imp_compose->sizeOfAttachments() / 1024, 2));
             $t->set('perc_attach', ((!empty($conf['compose']['attach_size_limit'])) && ($conf['compose']['attach_size_limit'] > 0)));
             if ($t->get('perc_attach')) {
-                $t->set('perc_attach', sprintf(_("%s%% of allowed size"), number_format($imp_compose->sizeOfAttachments() / $conf['compose']['attach_size_limit'] * 100, 2, $localeinfo['decimal_point'], $localeinfo['thousands_sep'])));
+                $t->set('perc_attach', sprintf(_("%s%% of allowed size"), IMP::numberFormat($imp_compose->sizeOfAttachments() / $conf['compose']['attach_size_limit'] * 100, 2)));
             }
             $t->set('help-current-attachments', Horde_Help::link('imp', 'compose-current-attachments'));
         }
@@ -1097,7 +1095,10 @@ Horde::addScriptFile('compose-base.js', 'imp');
 Horde::addScriptFile('compose.js', 'imp');
 Horde::addScriptFile('md5.js', 'horde');
 require IMP_TEMPLATES . '/common-header.inc';
-Horde::addInlineScript($js_code);
+Horde::addInlineJsVars($js_vars);
+if (!$redirect) {
+    Horde::addInlineScript($imp_ui->identityJs());
+}
 if ($showmenu) {
     echo $menu;
 }

@@ -1,7 +1,40 @@
+----------
+v1.0.2-git
+----------
+
+
+
+------
+v1.0.1
+------
+
+[gwr] Corrected teletype format for the reST renderer.
+[gwr] Support rendering lists in the reST renderer.
+[jan] Add Slovak translation (Martin Matuška <martin@matuska.org>).
+
+
+----
+v1.0
+----
+
+[jan] Fix links to existing pages with non-ascii or special characters (Bug
+      #10672).
+
+
 --------
-v1.0-git
+v1.0-RC1
 --------
 
+[jan] Fix rendering attached images with Mediawiki syntax (Bug #10570).
+[jan] Fix links to add new pages on pages with non-ascii names (Bug #10612).
+[gwr] Support rendering bold text and code section in the rst renderer.
+
+
+-----------
+v1.0-ALPHA1
+-----------
+
+[jan] Move all default pages into the Wiki/ namespace (Request #7021).
 [jan] Support Unicode wiki page names.
 [gwr] Added support for reStructuredText export.
 [jan] Add embedding of Horde blocks.

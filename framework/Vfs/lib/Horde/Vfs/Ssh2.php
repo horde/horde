@@ -12,7 +12,7 @@
  * port - (integer) The port used to connect to the ssh2 server if other than
  *        22.</pre>
  *
- * Copyright 2006-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2006-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -34,7 +34,7 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
      *
      * @var array
      */
-    var $_permissions = array(
+    protected $_permissions = array(
         'owner' => array(
             'read' => true,
             'write' => true,
@@ -188,7 +188,7 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
         $this->_connect();
         $this->_checkQuotaWrite('file', $tmpFile);
 
-        if (!$this->_send($tmpFile, $this->_getPath($path, $name)))  {
+        if (!$this->_send($tmpFile, $this->_getPath($path, $name))) {
             if ($autocreate) {
                 $this->autocreatePath($path);
                 if ($this->_send($tmpFile, $this->_getPath($path, $name))) {
@@ -352,7 +352,7 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
      *
      * @param string $path        The parent folder of the item.
      * @param string $name        The name of the item.
-     * @param string $permission  The permission to set.
+     * @param string $permission  The permission to set in octal notation.
      *
      * @throws Horde_Vfs_Exception
      */
@@ -463,7 +463,13 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
                     $file['owner'] = $item[2];
                     $file['group'] = $item[3];
                 }
-                $file['name'] = substr($line, strpos($line, sprintf("%s %2s %5s", $item[5], $item[6], $item[7])) + 13);
+
+                // /dev file systems may have an additional column.
+                $addcol = 0;
+                if (substr($item[4], -1) == ',') {
+                    $addcol = 1;
+                }
+                $file['name'] = substr($line, strpos($line, sprintf("%s %2s %5s", $item[5 + $addcol], $item[6 + $addcol], $item[7 + $addcol])) + 13);
 
                 // Filter out '.' and '..' entries.
                 if (preg_match('/^\.\.?\/?$/', $file['name'])) {
@@ -481,18 +487,18 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
                     $file['name'] = substr($file['name'], 0, strpos($file['name'], '->') - 1);
                     $file['type'] = '**sym';
 
-                   if ($this->isFolder('', $file['link'])) {
-                       $file['linktype'] = '**dir';
-                   } else {
-                       $parts = explode('/', $file['link']);
-                       $name = explode('.', array_pop($parts));
-                       if ((count($name) == 1) ||
-                           (($name[0] === '') && (count($name) == 2))) {
-                           $file['linktype'] = '**none';
-                       } else {
-                           $file['linktype'] = Horde_String::lower(array_pop($name));
-                       }
-                   }
+                    if ($this->isFolder('', $file['link'])) {
+                        $file['linktype'] = '**dir';
+                    } else {
+                        $parts = explode('/', $file['link']);
+                        $name = explode('.', array_pop($parts));
+                        if ((count($name) == 1) ||
+                            (($name[0] === '') && (count($name) == 2))) {
+                            $file['linktype'] = '**none';
+                        } else {
+                            $file['linktype'] = Horde_String::lower(array_pop($name));
+                        }
+                    }
                 } elseif ($p1 === 'd') {
                     $file['type'] = '**dir';
                 } else {
@@ -508,10 +514,10 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
                 if ($file['type'] == '**dir') {
                     $file['size'] = -1;
                 } else {
-                    $file['size'] = $item[4];
+                    $file['size'] = $item[4 + $addcol];
                 }
-                if (strpos($item[7], ':') !== false) {
-                    $file['date'] = strtotime($item[7] . ':00' . $item[5] . ' ' . $item[6] . ' ' . date('Y', $currtime));
+                if (strpos($item[7 + $addcol], ':') !== false) {
+                    $file['date'] = strtotime($item[7 + $addcol] . ':00' . $item[5 + $addcol] . ' ' . $item[6 + $addcol] . ' ' . date('Y', $currtime));
                     // If the ssh2 server reports a file modification date more
                     // less than one day in the future, don't try to subtract
                     // a year from the date.  There is no way to know, for
@@ -519,13 +525,13 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
                     // in different timezones.  We should simply report to the
                     //  user what the SSH2 server is returning.
                     if ($file['date'] > ($currtime + 86400)) {
-                        $file['date'] = strtotime($item[7] . ':00' . $item[5] . ' ' . $item[6] . ' ' . (date('Y', $currtime) - 1));
+                        $file['date'] = strtotime($item[7 + $addcol] . ':00' . $item[5 + $addcol] . ' ' . $item[6 + $addcol] . ' ' . (date('Y', $currtime) - 1));
                     }
                 } else {
-                    $file['date'] = strtotime('00:00:00' . $item[5] . ' ' . $item[6] . ' ' . $item[7]);
+                    $file['date'] = strtotime('00:00:00' . $item[5 + $addcol] . ' ' . $item[6 + $addcol] . ' ' . $item[7 + $addcol]);
                 }
             } elseif ($type == 'netware') {
-                $file = Array();
+                $file = array();
                 $file['perms'] = $item[1];
                 $file['owner'] = $item[2];
                 if ($item[0] == 'd') {
@@ -535,10 +541,8 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
                 }
                 $file['size'] = $item[3];
                 $file['name'] = $item[7];
-                $index = 8;
-                while ($index < count($item)) {
+                for ($index = 8, $c = count($item); $index < $c; $index++) {
                     $file['name'] .= ' ' . $item[$index];
-                    $index++;
                 }
             } else {
                 /* Handle Windows SSH2 servers returning DOS-style file
@@ -547,10 +551,8 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
                 $file['owner'] = '';
                 $file['group'] = '';
                 $file['name'] = $item[3];
-                $index = 4;
-                while ($index < count($item)) {
+                for ($index = 4, $c = count($item); $index < $c; $index++) {
                     $file['name'] .= ' ' . $item[$index];
-                    $index++;
                 }
                 $file['date'] = strtotime($item[0] . ' ' . $item[1]);
                 if ($item[2] == '<DIR>') {
@@ -601,7 +603,7 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
      *
      * @return boolean  True if it exists, false otherwise.
      */
-    function exists($path, $name)
+    public function exists($path, $name)
     {
         $conn = $this->_connect();
         if (is_a($conn, 'PEAR_Error')) {

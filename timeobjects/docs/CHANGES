@@ -1,0 +1,51 @@
+----------
+v1.0.6-git
+----------
+
+
+
+------
+v1.0.5
+------
+
+[jan] Add Dutch translation (Arjen de Korte <arjen+horde@de-korte.org>).
+[jan] Update Japanese translation (Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>).
+
+
+------
+v1.0.4
+------
+
+[jan] Fix retrieving driver list if Horde_Service packages are not installed.
+
+
+------
+v1.0.3
+------
+
+[mjr] Remove support for the now non-existent weatherdotcom API.
+[mjr] Add support for Horde_Service_Weather.
+[jan] Add Latvian translation (Jānis Eisaks <jancs@dv.lv>).
+[jan] Add Estonian translation (Alar Sing <alar.sing@err.ee>).
+
+
+------
+v1.0.2
+------
+
+[jan] Export location, description, status, privacy, and URL of Facebook events.
+[jan] Fix timezone conversion of Facebook events (Bug #10341).
+
+
+------
+v1.0.1
+------
+
+[jan] Fix installation paths.
+
+
+------
+v1.0.0
+------
+
+Initial release.

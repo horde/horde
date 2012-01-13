@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -87,6 +87,6 @@ require WHUPS_TEMPLATES . '/prevnext.inc';
 $tabs = Whups::getTicketTabs($vars, $id);
 echo $tabs->render('comment');
 
-$commentForm->renderActive(new Horde_Form_Renderer(), $vars, 'comment.php', 'post');
+$commentForm->renderActive(new Horde_Form_Renderer(), $vars, Horde::url('ticket/comment.php'), 'post');
 
 require $registry->get('templates', 'horde') . '/common-footer.inc';

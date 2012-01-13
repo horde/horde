@@ -2,7 +2,7 @@
 /**
  * The Ulaform script to create a new form or edit an existing form's details.
  *
- * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -100,7 +100,7 @@ if ($formname && !$changed_action) {
 /* Render the form. */
 $view = new Horde_View(array('templatePath' => ULAFORM_TEMPLATES));
 Horde::startBuffer();
-$form->renderActive(new Horde_Form_Renderer(), $vars, 'edit.php', 'post');
+$form->renderActive(new Horde_Form_Renderer(), $vars, Horde::url('edit.php'), 'post');
 $view->main = Horde::endBuffer();
 
 $title = _("Edit Forms");

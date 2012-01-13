@@ -1,6 +1,6 @@
 # translation of pt_BR.po to Português brasileiro
 # Portuguese translations for Wicked package.
-# Copyright 2008-2011 Horde LLC
+# Copyright 2008-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Wicked package.
 #
 # Automatically generated, 2008.
@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-15 13:27+0100\n"
-"PO-Revision-Date: 2011-07-13 23:20-0300\n"
+"POT-Creation-Date: 2011-10-30 20:30-0200\n"
+"PO-Revision-Date: 2011-10-30 20:35-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: Português brasileiro <i18n@lists.horde.org>\n"
 "Language: \n"
@@ -20,7 +20,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: lib/Page/StandardPage.php:283
+#: lib/Page/StandardPage.php:287
 #, php-format
 msgid "%d minute"
 msgid_plural "%d minutes"
@@ -53,44 +53,12 @@ msgstr "%s não existe. Você pode criá-la agora."
 msgid "(None)"
 msgstr "(Nenhum)"
 
-#: scripts/wicked.php:143
-msgid ""
-"-d, --debug                  Run in debug mode (displays extra information)"
-msgstr ""
-"-d, --debug                  Run in debug mode (displays extra information)"
-
-#: scripts/wicked.php:145
-msgid ""
-"-g, --get[=pagetitle]        Return all pages (unless pagetitle specified)"
-msgstr ""
-"-g, --get[=pagetitle]        Return all pages (unless pagetitle specified)"
-
-#: scripts/wicked.php:142
-msgid "-h, --help                   Show this help"
-msgstr "-h, --help                   Show this help"
-
-#: scripts/wicked.php:144
-msgid "-l, --list-pages             List pages"
-msgstr "-l, --list-pages             List pages"
-
-#: scripts/wicked.php:146
-msgid "-o, --out[=type]             Output type for results (default:xml)"
-msgstr "-o, --out[=type]             Output type for results (default:xml)"
-
-#: scripts/wicked.php:148
-msgid "-p, --password[=password]    Horde login password"
-msgstr "-p, --password[=password]    Horde login password"
-
-#: scripts/wicked.php:147
-msgid "-u, --username[=username]    Horde login username"
-msgstr "-u, --username[=username]    Horde login username"
-
 #: templates/sync/list.inc:25 templates/sync/list.inc:51
 #: templates/sync/list.inc:73
 msgid "Actions"
 msgstr "Ações"
 
-#: lib/Page/AddPage.php:101
+#: lib/Page/AddPage.php:102
 #, php-format
 msgid "Add Page: %s"
 msgstr "Adicionar Página: %s"
@@ -129,7 +97,7 @@ msgstr "Anexar Arquivo"
 msgid "Attach a New File"
 msgstr "Anexar um Novo Arquivo"
 
-#: lib/Page/AttachedFiles.php:155
+#: lib/Page/AttachedFiles.php:154
 #, php-format
 msgid "Attached Files: %s"
 msgstr "Arquivos Anexados: %s"
@@ -143,15 +111,14 @@ msgstr "Nome do Anexo"
 msgid "Attachments"
 msgstr "Anexos"
 
-#: lib/Page/AttachedFiles.php:210
+#: lib/Page/AttachedFiles.php:209
 msgid "Attachments with spaces can't be embedded into a page."
 msgstr "Anexos com espaços não podem ser incorporados em uma página."
 
-#: lib/Page/Search.php:144 templates/edit/create.inc:19
-#: templates/history/header.inc:23 templates/pagelist/header.inc:7
-#: templates/sync/diff.inc:25 templates/sync/diff.inc:61
-#: templates/sync/list.inc:24 templates/sync/list.inc:50
-#: templates/display/AttachedFiles.html:10
+#: templates/edit/create.inc:19 templates/history/header.inc:23
+#: templates/pagelist/header.inc:7 templates/sync/diff.inc:25
+#: templates/sync/diff.inc:61 templates/sync/list.inc:24
+#: templates/sync/list.inc:50 templates/display/AttachedFiles.html:10
 msgid "Author"
 msgstr "Autor"
 
@@ -172,11 +139,11 @@ msgstr "Referenciadores"
 msgid "Backlinks: %s"
 msgstr "Referenciadores: %s"
 
-#: lib/Page/SyncPages.php:234 lib/Page/SyncPages.php:237
+#: lib/Page/SyncPages.php:229 lib/Page/SyncPages.php:232
 msgid "By default, your login data will be used"
 msgstr "Por padrão, sua informação de login será usada"
 
-#: lib/Page/AttachedFiles.php:216
+#: lib/Page/AttachedFiles.php:215
 msgid "Can't read uploaded file."
 msgstr "Impossível ler arquivo enviado."
 
@@ -185,7 +152,7 @@ msgstr "Impossível ler arquivo enviado."
 msgid "Can't revert to an unknown version."
 msgstr "Impossível reverter para uma versão desconhecida."
 
-#: lib/Page/AttachedFiles.php:257
+#: lib/Page/AttachedFiles.php:255
 #, php-format
 msgid "Can't update \"%s\": no such attachment."
 msgstr "Impossível atualizar \"%s\": anexo inexistente."
@@ -206,7 +173,7 @@ msgid "Change log"
 msgstr "Log de alterações"
 
 #: templates/display/AttachedFiles.html:80
-#: templates/display/AttachedFiles.html:146
+#: templates/display/AttachedFiles.html:137
 msgid "Change log entry"
 msgstr "Registro do log de alterações"
 
@@ -234,10 +201,6 @@ msgid ""
 msgstr ""
 "Clique em \"Criar\" abaixo se você deseja criar esta página e editá-la."
 
-#: scripts/wicked.php:24
-msgid "Couldn't read command-line options."
-msgstr "Não foi possível ler opções de linha de comando."
-
 #: templates/edit/create.inc:46
 msgid "Create"
 msgstr "Criar"
@@ -253,12 +216,15 @@ msgstr "Criação Falhou: %s"
 msgid "Created"
 msgstr "Criado"
 
-#: lib/Page/Search.php:145 templates/edit/create.inc:20
-#: templates/pagelist/header.inc:8
+#: templates/edit/create.inc:20 templates/pagelist/header.inc:8
 msgid "Creation Date"
 msgstr "Data de Criação"
 
-#: lib/Page/SyncPages.php:219
+#: lib/Page/Search.php:143
+msgid "Current Version"
+msgstr "Versão Atual"
+
+#: lib/Page/SyncPages.php:214
 msgid "Custom"
 msgstr "Personalizado"
 
@@ -306,7 +272,7 @@ msgstr "Diferenciar Para"
 msgid "Diff for %s between %s and %s"
 msgstr "Diferenciar para %s entre %s e %s"
 
-#: lib/Page/SyncPages.php:239
+#: lib/Page/SyncPages.php:234
 msgid "Display"
 msgstr "Exibir"
 
@@ -328,7 +294,7 @@ msgstr "Baixar"
 msgid "Download this page as:"
 msgstr "Baixar esta página como:"
 
-#: lib/Page/SyncPages.php:355
+#: lib/Page/SyncPages.php:349
 msgid "Downloaded from remote server"
 msgstr "Baixar do servidor remoto"
 
@@ -336,11 +302,11 @@ msgstr "Baixar do servidor remoto"
 msgid "Downloads"
 msgstr "Downloads"
 
-#: lib/Page/SyncPages.php:225
+#: lib/Page/SyncPages.php:220
 msgid "Driver"
 msgstr "Driver"
 
-#: lib/Page/SyncPages.php:242
+#: lib/Page/SyncPages.php:237
 msgid "Edit"
 msgstr "Editar"
 
@@ -381,12 +347,12 @@ msgstr ""
 msgid "Error retrieving %s: %s"
 msgstr "Erro ao retornar %s: %s"
 
-#: lib/Page/AttachedFiles.php:100 lib/Page/AttachedFiles.php:239
+#: lib/Page/AttachedFiles.php:99 lib/Page/AttachedFiles.php:238
 #, php-format
 msgid "Error retrieving attachments: %s"
 msgstr "Erro ao retornar anexos: %s"
 
-#: lib/Page/AddPage.php:63
+#: lib/Page/AddPage.php:64
 #, php-format
 msgid "Error retrieving templates: %s"
 msgstr "Erro ao retornar modelos: %s"
@@ -395,7 +361,7 @@ msgstr "Erro ao retornar modelos: %s"
 msgid "Exact Match"
 msgstr "Correspondência Exata"
 
-#: lib/Page/SyncPages.php:181 lib/Page/SyncPages.php:259
+#: lib/Page/SyncPages.php:179 lib/Page/SyncPages.php:254
 msgid "Fetch page list"
 msgstr "Obter lista de página"
 
@@ -442,18 +408,22 @@ msgstr "Erro interno ao exibir a página requisitada"
 msgid "Internal error viewing requested page: %s"
 msgstr "Erro interno ao exibir a página requisitada: %s"
 
-#: lib/Api.php:254
+#: lib/Api.php:250
 msgid "Invalid page requested."
 msgstr "Página requisitada inválida."
 
-#: templates/display/AttachedFiles.html:133
-msgid "Is this a minor update?"
-msgstr "Esta é uma pequena atualização?"
+#: lib/Page/Search.php:144
+msgid "Last Author"
+msgstr "Último Autor"
 
 #: templates/display/title.inc:6 templates/edit/standard.inc:20
 #, php-format
 msgid "Last Modified %s by %s"
 msgstr "Modificado em %s por %s"
+
+#: lib/Page/Search.php:145
+msgid "Last Update"
+msgstr "Última Atualização"
 
 #: templates/display/standard.inc:142
 msgid "Latex"
@@ -482,22 +452,6 @@ msgstr "Proteger %s"
 msgid "Locked"
 msgstr "Protegida"
 
-#: scripts/wicked.php:86
-#, php-format
-msgid "Logged in successfully as \"%s\"."
-msgstr "Sucesso ao entrar como \"%s\"."
-
-#: scripts/wicked.php:82
-msgid "Login is incorrect."
-msgstr "Login está errado."
-
-#: scripts/wicked.php:140
-msgid ""
-"Mandatory arguments to long options are mandatory for short options too."
-msgstr ""
-"Argumentos essenciais para opções longas são essenciais para opções pequenas "
-"também."
-
 #: templates/display/standard.inc:63
 msgid "Merge/Rename"
 msgstr "Mesclar/Renomear"
@@ -522,10 +476,6 @@ msgstr "\"%s\" combinada em \"%s\". Nova página: %s\n"
 msgid "Merged from %s"
 msgstr "Combinada de %s"
 
-#: templates/edit/standard.inc:30
-msgid "Minor Change"
-msgstr "Pequena Alteração"
-
 #: lib/Page/MostPopular.php:78
 msgid "Most Popular"
 msgstr "Mais Popular"
@@ -547,7 +497,7 @@ msgstr "Nova Página"
 msgid "New Page: %s"
 msgstr "Nova Página: %s"
 
-#: lib/Page/AttachedFiles.php:290
+#: lib/Page/AttachedFiles.php:286
 #, php-format
 msgid "New attachment \"%s\" to page \"%s\"."
 msgstr "Novo anexo \"%s\" para a página \"%s\"."
@@ -568,7 +518,7 @@ msgstr "Novas páginas no servidor local"
 msgid "New pages on remote server"
 msgstr "Novas páginas no servidor remoto"
 
-#: lib/Api.php:192 lib/Page/EditPage.php:168 lib/Page/SyncPages.php:352
+#: lib/Api.php:188 lib/Page/EditPage.php:167 lib/Page/SyncPages.php:346
 msgid "No changes made"
 msgstr "Nenhuma mudança feita"
 
@@ -591,12 +541,12 @@ msgstr "Página"
 msgid "Page \"%s\" already exists."
 msgstr "Página \"%s\" já existe."
 
-#: lib/Page/SyncPages.php:378
+#: lib/Page/SyncPages.php:372
 #, php-format
 msgid "Page \"%s\" was sucessfully uploaded from local to remote wiki."
 msgstr "Página \"%s\" foi enviada com sucesso da wiki local para a remota."
 
-#: lib/Page/SyncPages.php:364
+#: lib/Page/SyncPages.php:358
 #, php-format
 msgid "Page \"%s\" was sucessfuly downloaded from remote to local wiki."
 msgstr "Página \"%s\" foi baixada com sucesso da wiki remota para a local."
@@ -605,7 +555,7 @@ msgstr "Página \"%s\" foi baixada com sucesso da wiki remota para a local."
 msgid "Page Created"
 msgstr "Página Criada"
 
-#: lib/Page/EditPage.php:171
+#: lib/Page/EditPage.php:170
 msgid "Page Saved"
 msgstr "Página Gravada"
 
@@ -635,7 +585,7 @@ msgstr "Falha ao proteger página: %s"
 msgid "Page failed to unlock: %s"
 msgstr "Falha ao desproteger página: %s"
 
-#: lib/Driver/Sql.php:497 lib/Page/AddPage.php:48 lib/Page/NewPage.php:65
+#: lib/Driver/Sql.php:555 lib/Page/AddPage.php:49 lib/Page/NewPage.php:65
 msgid "Page name must not be empty"
 msgstr "Nome da página não pode ser vazio"
 
@@ -643,7 +593,7 @@ msgstr "Nome da página não pode ser vazio"
 msgid "Page unlocked"
 msgstr "Página desprotegida"
 
-#: lib/Application.php:58
+#: lib/Application.php:59
 msgid "Pages"
 msgstr "Páginas"
 
@@ -655,7 +605,7 @@ msgstr "Páginas não podem ser vazias."
 msgid "Pages to sync"
 msgstr "Páginas para sincronizar"
 
-#: lib/Page/SyncPages.php:237
+#: lib/Page/SyncPages.php:232
 msgid "Password"
 msgstr "Senha"
 
@@ -663,7 +613,7 @@ msgstr "Senha"
 msgid "Permissio_ns"
 msgstr "Permissõ_es"
 
-#: lib/Api.php:250
+#: lib/Api.php:246
 msgid "Permission denied."
 msgstr "Permissão negada."
 
@@ -671,7 +621,7 @@ msgstr "Permissão negada."
 msgid "Plain Text"
 msgstr "Texto Puro"
 
-#: lib/Page/SyncPages.php:228
+#: lib/Page/SyncPages.php:223
 msgid "Prefix"
 msgstr "Prefixo"
 
@@ -692,7 +642,7 @@ msgstr "Alterações Recentes"
 msgid "Referrer \"%s\" does not exist."
 msgstr "Referenciador \"%s\" não existe."
 
-#: lib/Page/AttachedFiles.php:116
+#: lib/Page/AttachedFiles.php:115
 #, php-format
 msgid "Reload \"%s\""
 msgstr "Recarregar \"%s\""
@@ -710,7 +660,7 @@ msgstr "Recarregar Página"
 msgid "Remote"
 msgstr "Remoto"
 
-#: lib/Page/SyncPages.php:181 lib/Page/SyncPages.php:284
+#: lib/Page/SyncPages.php:179 lib/Page/SyncPages.php:279
 msgid "Remove login info"
 msgstr "Remover informação de login"
 
@@ -724,12 +674,12 @@ msgstr "Renomeada \"%s\" para \"%s\"."
 msgid "Renamed \"%s\" to \"%s\". New page: %s\n"
 msgstr "\"%s\" renomeada para \"%s\". Nova página: %s\n"
 
-#: lib/Driver/Sql.php:564
+#: lib/Driver/Sql.php:623
 #, php-format
 msgid "Renamed page from %s"
 msgstr "Página renomeada de %s"
 
-#: lib/Page/SyncPages.php:181
+#: lib/Page/SyncPages.php:179
 msgid "Reset"
 msgstr "Limpar"
 
@@ -750,12 +700,12 @@ msgstr "Reverter Página"
 msgid "Revert to version %s"
 msgstr "Reverter para versão %s"
 
-#: lib/Page/RevertPage.php:120
+#: lib/Page/RevertPage.php:118
 #, php-format
 msgid "Reverted to version %s of \"%s\"."
 msgstr "Revertida para versão %s de \"%s\"."
 
-#: lib/Driver/Sql.php:501
+#: lib/Driver/Sql.php:559
 msgid "Robots are not allowed to create pages"
 msgstr "Robôs não podem criar páginas"
 
@@ -767,11 +717,11 @@ msgstr "Pàginas S_imilares"
 msgid "Save"
 msgstr "Gravar"
 
-#: lib/Page/SyncPages.php:181 lib/Page/SyncPages.php:273
+#: lib/Page/SyncPages.php:179 lib/Page/SyncPages.php:268
 msgid "Save login info"
 msgstr "Gravar informação de login"
 
-#: lib/Page/Search.php:190 templates/menu.inc:17
+#: lib/Page/Search.php:195 templates/menu.inc:17
 msgid "Search"
 msgstr "Pesquisar"
 
@@ -816,7 +766,7 @@ msgstr "Páginas Similares"
 msgid "Similar Pages: %s"
 msgstr "Páginas Similares: %s"
 
-#: templates/edit/standard.inc:41
+#: templates/edit/standard.inc:40
 msgid "Spam Protection - Enter the letters below:"
 msgstr "Proteção contra Spam - Digite as letras abaixo:"
 
@@ -824,7 +774,7 @@ msgstr "Proteção contra Spam - Digite as letras abaixo:"
 msgid "Stop and don't do anything"
 msgstr "Parar e não fazer nada"
 
-#: lib/Page/SyncPages.php:219
+#: lib/Page/SyncPages.php:214
 msgid "Stored"
 msgstr "Armazenado"
 
@@ -837,7 +787,7 @@ msgstr "Enviar"
 msgid "Successfully deleted \"%s\"."
 msgstr "\"%s\" excluido com sucesso."
 
-#: lib/Page/AttachedFiles.php:188
+#: lib/Page/AttachedFiles.php:187
 #, php-format
 msgid "Successfully deleted version %s of \"%s\" from \"%s\""
 msgstr "Versão %s de \"%s\" de \"%s\" apagada com sucesso."
@@ -846,19 +796,19 @@ msgstr "Versão %s de \"%s\" de \"%s\" apagada com sucesso."
 msgid "Sync Diff"
 msgstr "Sincronizar Diferenças"
 
-#: lib/Page/SyncPages.php:153
+#: lib/Page/SyncPages.php:151
 msgid "Sync Pages"
 msgstr "Sincronizar Páginas"
 
-#: lib/Page/SyncPages.php:180
+#: lib/Page/SyncPages.php:178
 msgid "Sync data"
 msgstr "Sincronizar dados"
 
-#: lib/Page/SyncPages.php:289
+#: lib/Page/SyncPages.php:284
 msgid "Sync login info was removed."
 msgstr "Informação de sincronia de login foi removida."
 
-#: lib/Page/SyncPages.php:280
+#: lib/Page/SyncPages.php:275
 msgid "Sync login info was stored"
 msgstr "Informação de sincronia de login foi armazenada"
 
@@ -866,15 +816,15 @@ msgstr "Informação de sincronia de login foi armazenada"
 msgid "Synchronization is disabled"
 msgstr "Sincronização está desabilitada"
 
-#: lib/Page.php:464
+#: lib/Page.php:461
 msgid "Table of Contents"
 msgstr "Índice"
 
-#: lib/Page/StandardPage.php:251
+#: lib/Page/StandardPage.php:255
 msgid "The page is already locked."
 msgstr "Esta página já está bloquada."
 
-#: lib/Page/AttachedFiles.php:266
+#: lib/Page/AttachedFiles.php:263
 #, php-format
 msgid "There is already an attachment named \"%s\"."
 msgstr "Já existe um anexo chamado \"%s\"."
@@ -887,7 +837,7 @@ msgstr "Este é um campo necessário."
 msgid "This page does not have a history"
 msgstr "Esta página não possui um histórico"
 
-#: display.php:127
+#: display.php:133
 #, php-format
 msgid "This page is locked by %s for %d Minutes."
 msgstr "Esta página está bloquada por %s por %d Minutos."
@@ -901,28 +851,28 @@ msgstr "Esta página é referenciada a partir de %d outra(s) página(s)."
 msgid "Un_lock"
 msgstr "_Desproteger"
 
-#: lib/Page/StandardPage.php:68
+#: lib/Page/StandardPage.php:72
 #, php-format
 msgid "Unable to create %s"
 msgstr "Impossível criar %s"
 
-#: lib/Page/StandardPage.php:78
-msgid "Unable to create WikiHome. The wiki is not configured."
-msgstr "Impossível criar WikiHome. O wiki não está configurado."
+#: lib/Page/StandardPage.php:82
+msgid "Unable to create Wiki/Home. The wiki is not configured."
+msgstr "Impossível criar Wiki/Home. O wiki não está configurado."
 
 #: templates/display/standard.inc:34
 #, php-format
 msgid "Unlock %s"
 msgstr "Desproteger %s"
 
-#: lib/Page.php:239 lib/Page.php:272 lib/Page.php:277 lib/Page.php:371
-#: lib/Page.php:379 lib/Page.php:387 lib/Page.php:395 lib/Page.php:500
-#: lib/Page.php:511 lib/Page.php:516 lib/Page.php:521 lib/Page.php:526
-#: lib/Page.php:566
+#: lib/Page.php:239 lib/Page.php:272 lib/Page.php:277 lib/Page.php:368
+#: lib/Page.php:376 lib/Page.php:384 lib/Page.php:392 lib/Page.php:501
+#: lib/Page.php:512 lib/Page.php:517 lib/Page.php:522 lib/Page.php:527
+#: lib/Page.php:567
 msgid "Unsupported"
 msgstr "Não suportado"
 
-#: templates/display/AttachedFiles.html:154
+#: templates/display/AttachedFiles.html:145
 msgid "Update File"
 msgstr "Atualizar Arquivo"
 
@@ -930,7 +880,7 @@ msgstr "Atualizar Arquivo"
 msgid "Update an Attachment"
 msgstr "Atualizar um Anexo"
 
-#: lib/Page/AttachedFiles.php:287
+#: lib/Page/AttachedFiles.php:283
 #, php-format
 msgid "Updated attachment \"%s\" on page \"%s\"."
 msgstr "Atualizado anexo \"%s\" na página \"%s\"."
@@ -939,44 +889,38 @@ msgstr "Atualizado anexo \"%s\" na página \"%s\"."
 msgid "Upload"
 msgstr "Enviar"
 
-#: lib/Page/SyncPages.php:377
+#: lib/Page/SyncPages.php:371
 msgid "Uploaded from remote server"
 msgstr "Enviado do servidor remoto"
 
-#: lib/Page/SyncPages.php:231
+#: lib/Page/SyncPages.php:226
 msgid "Url"
 msgstr "Url"
 
-#: scripts/wicked.php:138
-#, php-format
-msgid "Usage: %s [OPTIONS]..."
-msgstr "Usage: %s [OPTIONS]..."
-
-#: lib/Page/SyncPages.php:234
+#: lib/Page/SyncPages.php:229
 msgid "User"
 msgstr "Usuário"
 
-#: lib/Page/Search.php:143 templates/edit/create.inc:18
-#: templates/history/header.inc:13 templates/pagelist/header.inc:6
-#: templates/sync/diff.inc:23 templates/sync/diff.inc:59
-#: templates/sync/list.inc:22 templates/sync/list.inc:48
-#: templates/display/AttachedFiles.html:9
+#: templates/edit/create.inc:18 templates/history/header.inc:13
+#: templates/pagelist/header.inc:6 templates/sync/diff.inc:23
+#: templates/sync/diff.inc:59 templates/sync/list.inc:22
+#: templates/sync/list.inc:48 templates/display/AttachedFiles.html:9
 msgid "Version"
 msgstr "Versão"
 
-#: lib/Page/SyncPages.php:162
+#: lib/Page/SyncPages.php:160
 msgid "View local"
 msgstr "Ver local"
 
-#: lib/Page/AttachedFiles.php:296
+#: lib/Page/AttachedFiles.php:292
 msgid "View page: "
 msgstr "Exibir página: "
 
-#: lib/Page/SyncPages.php:164
+#: lib/Page/SyncPages.php:162
 msgid "View remote"
 msgstr "Ver remoto"
 
-#: lib/Api.php:209
+#: lib/Api.php:205
 msgid "Wiki Templates"
 msgstr "Modelos de Wiki"
 
@@ -992,11 +936,11 @@ msgstr "Você não pode proteger esta página"
 msgid "You are not allowed to unlock this page"
 msgstr "Você não pode desproteger esta página"
 
-#: lib/Page/AttachedFiles.php:180
+#: lib/Page/AttachedFiles.php:179
 msgid "You do not have permission to delete attachments from this page."
 msgstr "Você não tem permissão para apagar anexos dessa página."
 
-#: lib/Page/AttachedFiles.php:222 lib/Page/MergeOrRename.php:175
+#: lib/Page/AttachedFiles.php:221 lib/Page/MergeOrRename.php:175
 #: lib/Page/MergeOrRename.php:188
 #, php-format
 msgid "You do not have permission to edit \"%s\""
@@ -1012,25 +956,25 @@ msgstr "Você não tem permissão para criar \"%s\"."
 msgid "You don't have permission to delete \"%s\"."
 msgstr "Você não tem permissão para apagar \"%s\"."
 
-#: lib/Api.php:174 lib/Page/EditPage.php:149 lib/Page/RevertPage.php:124
-#: lib/Page/SyncPages.php:346
+#: lib/Api.php:170 lib/Page/EditPage.php:149 lib/Page/RevertPage.php:122
+#: lib/Page/SyncPages.php:340
 #, php-format
 msgid "You don't have permission to edit \"%s\"."
 msgstr "Você não tem permissão para editar \"%s\"."
 
-#: display.php:69 display.php:72 display.php:116 display.php:118
+#: display.php:69 display.php:72 display.php:122 display.php:124
 msgid "You don't have permission to view this page."
 msgstr "Você não tem permissão para ver esta página."
 
-#: lib/Page/AttachedFiles.php:230
+#: lib/Page/AttachedFiles.php:229
 msgid "You must enter a change description to attach this file."
 msgstr "Você deve digitar uma descrição de alteração para anexar esse arquivo."
 
-#: lib/Api.php:178 lib/Page/EditPage.php:160
+#: lib/Api.php:174 lib/Page/EditPage.php:160
 msgid "You must provide a change log."
 msgstr "Você deve fornecer um log de alteração."
 
-#: lib/Wicked.php:105
+#: lib/Wicked.php:106
 msgid "_All Pages"
 msgstr "Todas _As Páginas"
 
@@ -1046,7 +990,7 @@ msgstr "E_xcluir"
 msgid "_Edit"
 msgstr "_Editar"
 
-#: lib/Wicked.php:102
+#: lib/Wicked.php:103
 msgid "_Home"
 msgstr "_Início"
 
@@ -1058,23 +1002,22 @@ msgstr "_Proteger"
 msgid "_Merge/Rename"
 msgstr "_Mesclar/Renomear"
 
-#: lib/Wicked.php:104
+#: lib/Wicked.php:105
 msgid "_Recent Changes"
 msgstr "Alterações _Recentes"
 
-#: lib/Wicked.php:103
+#: lib/Wicked.php:104
 msgid "_Usage"
 msgstr "_Uso"
 
-#: lib/Page/StandardPage.php:277
+#: lib/Page/StandardPage.php:281
 msgid "a guest"
 msgstr "um convidado"
 
-#: lib/Page/AttachedFiles.php:202
+#: lib/Page/AttachedFiles.php:201
 msgid "attachment"
 msgstr "anexo"
 
-#: scripts/wicked.php:105
-#, php-format
-msgid "page \"%s\" doesn't exist."
-msgstr "página \"%s\" não existe."
+#: templates/display/standard.inc:143
+msgid "reStructuredText"
+msgstr "textoReEstruturado"

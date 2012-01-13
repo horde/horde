@@ -12,7 +12,7 @@
   <tr>
     <td class="kronolithFirstCol"><div id="kronolithLoadingmonth" class="kronolithLoading"></div></td>
     <?php for ($w = $prefs->getValue('week_start_monday'), $i = $w, $c = $i + 7; $i < $c; $i++): ?>
-    <td><span><?php echo Horde_Nls::getLangInfo(constant('DAY_' . ($i % 7 + 1))) ?></span></td>
+    <td class="kronolithColHead"><span><?php echo Horde_Nls::getLangInfo(constant('DAY_' . ($i % 7 + 1))) ?></span></td>
     <?php endfor; ?>
   </tr>
 </table>

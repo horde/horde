@@ -13,10 +13,13 @@ class Nag_Form_Type_NagStart extends Horde_Form_Type
         $start_type = $vars->get('start_date');
         $start = $vars->get('start');
         if (is_array($start)) {
-            $start_day = !empty($start['day']) ? $start['day'] : null;
-            $start_month = !empty($start['month']) ? $start['month'] : null;
-            $start_year = !empty($start['year']) ? $start['year'] : null;
-            $start = (int)strtotime("$start_month/$start_day/$start_year");
+            if (empty($start['date'])) {
+                $start = null;
+            } else {
+                $start_array = Nag::parseDate($start['date'], false);
+                $start_dt = new Horde_Date($start_array);
+                $start = $start_dt->timestamp();
+            }
         }
 
         $info = strcasecmp($start_type, 'none') ? $start : 0;
@@ -31,5 +34,4 @@ class Nag_Form_Type_NagStart extends Horde_Form_Type
     {
         return 'NagStart';
     }
-
 }

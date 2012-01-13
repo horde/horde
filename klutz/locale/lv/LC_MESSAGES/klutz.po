@@ -1,0 +1,235 @@
+# Latvian translations for Klutz H4 package.
+# Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Klutz package.
+# Automatically generated, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Klutz H4 (2.0.0-git)\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2011-08-02 15:24+0200\n"
+"PO-Revision-Date: 2011-11-04 13:30+0300\n"
+"Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"Language: lv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+"X-Poedit-Language: Latvian\n"
+"X-Poedit-Country: LATVIA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: comics.php:301 templates/comics/comic.inc:5 templates/comics/comic.inc:8
+#: templates/comics/main.inc:45 templates/comics/missing.inc:5
+#: templates/comics/missing.inc:8
+#, php-format
+msgid "%s by %s"
+msgstr "%s pēc %s"
+
+#: lib/Application.php:56
+msgid "Administration"
+msgstr "Administrēšana"
+
+#: backend.php:116
+msgid "All Comics"
+msgstr "Visi komiksi"
+
+#: backend.php:91
+msgid "All Dates"
+msgstr "Visi datumi"
+
+#: backend.php:256
+#, php-format
+msgid "An error occurred removing %s for %s<br />\n"
+msgstr "Radusies kļūda aizvācot %s līdz %s <br />\n"
+
+#: templates/savecomic.html.php:29
+msgid "Cancel"
+msgstr "Atcelt"
+
+#: config/prefs.php:9
+msgid ""
+"Change display options such as what comics you see, and how comics are "
+"sorted."
+msgstr ""
+"Mainīt attēlošanas iestatījumus, piemēram, kādus komiksus rādīt un komiksu "
+"kārtošanas veidu."
+
+#: backend.php:127 backend.php:137
+msgid "Comics Update"
+msgstr "Komiksu atsvaidzināšana"
+
+#: backend.php:255
+#, php-format
+msgid "Could not find %s for %s<br />\n"
+msgstr "Nevar atrast %s priekš %s<br />\n"
+
+#: lib/Block/Comics.php:69
+msgid "Could not find any comics to display."
+msgstr "Nav atrodams neviens rādāms komikss"
+
+#: config/prefs.php:51
+msgid "Default gallery to use when saving comics:"
+msgstr "Izvēlieties noklusēto galeriju, kurā saglabāt komiksus:"
+
+#: templates/backend.html.php:27
+msgid "Delete"
+msgstr "Dzēst"
+
+#: templates/backend.html.php:35
+msgid "Delete Comics"
+msgstr "Dzēst komiksu"
+
+#: templates/savecomic.html.php:19
+msgid "Description"
+msgstr "Apraksts"
+
+#: config/prefs.php:8
+msgid "Display Options"
+msgstr "Attēlošanas iestatījumi"
+
+#: backend.php:225
+msgid "Done"
+msgstr "Darīts"
+
+#: templates/savecomic.html.php:18
+msgid "Enter a description for this comic"
+msgstr "Ievadiet šī komiksa aprakstu"
+
+#: templates/savecomic.html.php:23
+msgid "Enter any tags for this image"
+msgstr "Ievadiet šī attēla tagus"
+
+#: backend.php:231
+msgid "Error storing the image"
+msgstr "Kļūda saglabājot attēlu"
+
+#: templates/backend.html.php:21
+msgid "Fetch Comics"
+msgstr "Iegūt komiksu"
+
+#: backend.php:209
+#, php-format
+msgid "Fetching %s for date %s..."
+msgstr "Saņemam %s datumam %s..."
+
+#: templates/savecomic.html.php:12
+msgid "Gallery"
+msgstr "Galerija"
+
+#: templates/savecomic.html.php:7
+msgid "Image"
+msgstr "Attēls"
+
+#: templates/backend.html.php:4
+msgid "Klutz Backend"
+msgstr "Klutz dzinis"
+
+#: comics.php:110
+msgid "Main Listing"
+msgstr "Galvenais saraksts"
+
+#: config/prefs.php:7
+msgid "Other Options"
+msgstr "Citi iestatījumi"
+
+#: comics.php:216 comics.php:218 comics.php:313 comics.php:315
+msgid "Save Comic to Gallery"
+msgstr "Saglabāt komiksu galerijā"
+
+#: savecomic.php:63
+msgid "Save Image"
+msgstr "Saglabāt atēlu"
+
+#: templates/prefs/comic_select.inc:65
+msgid "Select All"
+msgstr "Iezīmēt visu"
+
+#: templates/prefs/comic_select.inc:64
+msgid "Select None"
+msgstr "Neizvēlēties neko"
+
+#: templates/savecomic.html.php:8
+msgid "Select the gallery to save the comic to."
+msgstr "Izvēlieties galeriju, kurā saglabāt komiksu."
+
+#: backend.php:234
+#, php-format
+msgid "Skipping %s for %s"
+msgstr "Izlaižam %s līdz %s"
+
+#: templates/savecomic.html.php:28
+msgid "Submit"
+msgstr "Iesniegt"
+
+#: backend.php:254
+#, php-format
+msgid "Successfully removed %s for %s<br />\n"
+msgstr "Veiksmīgi aizvākts %s priekš %s<br />\n"
+
+#: templates/savecomic.html.php:24
+msgid "Tags"
+msgstr "Iezīmes"
+
+#: backend.php:216 backend.php:218
+msgid "The image doesn't exist or can't be retrieved"
+msgstr "Šis attēls nepastāv vai nav pieejams."
+
+#: backend.php:85
+msgid "The unique identifiers table has been rebuilt."
+msgstr "Unikālo identifikatoru tabula ir atsvaidzināta."
+
+#: savecomic.php:35
+msgid "There was an error retrieving the comic."
+msgstr "Kļūda saņemot komiksu."
+
+#: comics.php:242
+msgid "This comic doesn't exist or is disabled."
+msgstr "Šis komikss nepastāv vai nav pieejams."
+
+#: templates/comics/missing.inc:13
+msgid "This image is not currently available."
+msgstr "Šis attēls šobrīd nav pieejams."
+
+#: templates/prefs/comic_select.inc:52
+msgid ""
+"To select multiple comics, hold down the Control (PC) or Command (Mac) while "
+"clicking."
+msgstr ""
+"Lai iezīmētu vairākus komiksus, klikšķinot turiet nospiestu Control (PC) vai "
+"Command (MAC) pogu."
+
+#: comics.php:22
+msgid "Today's Comics"
+msgstr "Šodienas komikss"
+
+#: templates/comics/main.inc:32
+msgid "View by comic"
+msgstr "Skatīt pēc komiksiem"
+
+#: templates/comics/main.inc:9
+#, php-format
+msgid "View comics for %s"
+msgstr "Skatīt komiksus priekš %s"
+
+#: lib/Application.php:74
+msgid "_Browse"
+msgstr "Pārlūkot"
+
+#: lib/Application.php:77
+msgid "_Today"
+msgstr "Šodien"
+
+#: lib/Application.php:81
+msgid "_Update"
+msgstr "Mainīt"
+
+#: backend.php:271
+msgid "any dates"
+msgstr "jebkurš datums"
+
+#: templates/backend.html.php:15
+msgid "for"
+msgstr "priekš"

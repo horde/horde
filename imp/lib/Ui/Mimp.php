@@ -2,7 +2,7 @@
 /**
  * Provides mobile view (MIMP) helper functions.
  *
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -20,7 +20,8 @@ class IMP_Ui_Mimp
      *
      * @param string $page  The current page ('compose', 'folders', 'mailbox',
      *                                        'message', 'search').
-     * @param array $items  TODO
+     * @param array $items  Additional menu items to add to the menu. First
+     *                      element is label, second is URL to link to.
      *
      * @return string  The menu.
      */

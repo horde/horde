@@ -26,7 +26,3 @@ require_once dirname(__FILE__) . '/Unit/Nag/Base.php';
 require_once dirname(__FILE__) . '/Unit/Nag/Sql/Base.php';
 require_once dirname(__FILE__) . '/Unit/Form/Task/Base.php';
 require_once dirname(__FILE__) . '/Unit/Form/Task/Sql/Base.php';
-
-/** Load the stub definitions */
-require_once dirname(__FILE__) . '/Stub/DbFactory.php';
-require_once dirname(__FILE__) . '/Stub/Registry.php';

@@ -1,5 +1,5 @@
 # Latvian translations for Passwd H4 package.
-# Copyright 2011 Horde LLC
+# Copyright 2011-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Passwd package.
 # Automatically generated, 2011.
 #
@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Passwd H4 (3.1.4-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-05-18 12:43+0200\n"
-"PO-Revision-Date: 2011-07-21 16:09+0300\n"
+"PO-Revision-Date: 2011-10-16 15:35+0300\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: lv\n"
@@ -46,9 +46,8 @@ msgid "Access Denied."
 msgstr "Pieeja liegta."
 
 #: lib/Driver.php:101
-#, fuzzy
 msgid "Backend not correctly implemented."
-msgstr "Nevar iedarbināt VFS moduli: %s"
+msgstr "Dzinis nav korekti ieviests."
 
 #: lib/Driver/poppassd.php:90
 msgid "Cannot send command to server."
@@ -76,7 +75,6 @@ msgid "Confirm new password:"
 msgstr "Apstiprināt jauno paroli:"
 
 #: lib/Driver/kolab.php:60 lib/Driver/ldap.php:127
-#, fuzzy
 msgid "Could not bind to LDAP server"
 msgstr "Neizdevās pieslēgties LDAP serverim."
 
@@ -97,9 +95,8 @@ msgid "Could not login to system (no password prompt)"
 msgstr "Nevar pieslēgties sistēmai (nav paroles ievades uzaicinājuma)"
 
 #: lib/Driver/smbpasswd.php:57
-#, fuzzy
 msgid "Could not open pipe to smbpasswd."
-msgstr "Nevarēja atvērt pārveidotāju no '%s' uz '%s'"
+msgstr "Nevarēja atvērt kanālu uz smbpasswd."
 
 #: lib/Driver/ldap.php:93
 msgid "Could not start TLS connection to LDAP server"
@@ -123,9 +120,9 @@ msgid "Failed to verify old password."
 msgstr "Kļūme pārbaudot veco paroli."
 
 #: lib/Driver/composite.php:102 main.php:226
-#, fuzzy, php-format
+#, php-format
 msgid "Failure in changing password for %s: %s"
-msgstr "Jūsu jaunā %s parole ir: %s"
+msgstr "Kļūda mainot %s paroli: %s"
 
 #: lib/Driver/expectpecl.php:50
 msgid "Full buffer."
@@ -164,9 +161,9 @@ msgid "No prompt returned from server."
 msgstr "No servera nav saņemts uzaicinājums."
 
 #: lib/Driver.php:130
-#, fuzzy, php-format
+#, php-format
 msgid "No such backend \"%s\" found."
-msgstr "\"%s\" elements nav atrasts palīgmoduļa konfigurācijā ."
+msgstr "Dzinis \"%s\" nav atrasts."
 
 #: templates/main/main.inc:89
 msgid "Old password:"
@@ -247,9 +244,8 @@ msgid "The username could not be found."
 msgstr "Lietotājs nav atrodams."
 
 #: lib/Driver/expectpecl.php:47
-#, fuzzy
 msgid "Time out."
-msgstr "AUX 1 izeja"
+msgstr "Taimauts"
 
 #: lib/Driver/sql.php:75 lib/Driver/vpopmail.php:83
 msgid "Unable to connect to SQL server."

@@ -16,7 +16,7 @@
  * Components_Component_Resolver:: resolves component names and dependencies
  * into component representations.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -113,11 +113,13 @@ class Components_Component_Resolver
                     );
                 }
             }
-            $remote = $this->_getRemote($channel);
-            if ($remote->getLatestRelease($name, $attempt)) {
-                return $this->_factory->createRemote(
-                    $name, $attempt, $channel, $remote
-                );
+            if (!empty($options['allow_remote'])) {
+                $remote = $this->_getRemote($channel);
+                if ($remote->getLatestRelease($name, $attempt)) {
+                    return $this->_factory->createRemote(
+                        $name, $attempt, $channel, $remote
+                    );
+                }
             }
         }
         return false;

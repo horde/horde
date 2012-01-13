@@ -9,54 +9,54 @@
  * message. Its purpose is to make sure that SyncML messages are correctly and
  * completely parsed and distributed into the business logic.
  *
- * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author  Jan Schneider <jan@horde.org>
- * @package SyncML
+ * @package SyncMl
  */
 
-require_once 'SyncML.php';
+require_once 'Horde/Autoloader/Default.php';
 
-class Backend extends Horde_SyncMl_Backend {
+class Backend extends Horde_SyncMl_Backend
+{
+    protected $_logLevel = 'DEBUG';
 
-    var $_logLevel = 'DEBUG';
-
-    function logMessage($message, $priority = 'INFO')
+    public function logMessage($message, $priority = 'INFO')
     {
         parent::logMessage($message, $priority);
         echo $this->_logtext;
         $this->_logtext = '';
     }
 
-    function logFile()
+    public function logFile()
     {
     }
 
-    function _checkAuthentication($username)
+    protected function _checkAuthentication($username)
     {
         return strlen($username) ? $username : true;
     }
 
-    function setupState()
+    public function setupState()
     {
         $this->state->user = 'dummyUser';
         $this->state->authenticated = true;
     }
 
-    function addEntry($databaseURI, $content, $contentType, $cuid)
+    public function addEntry($databaseURI, $content, $contentType, $cuid)
     {
         echo "Adding $cuid of $contentType to $databaseURI:\n$content\n";
     }
 
-    function replaceEntry($databaseURI, $content, $contentType, $cuid)
+    public function replaceEntry($databaseURI, $content, $contentType, $cuid)
     {
         echo "Replacing $cuid of $contentType in $databaseURI:\n$content\n";
     }
 
-    function deleteEntry($databaseURI, $cuid)
+    public function deleteEntry($databaseURI, $cuid)
     {
         echo "Deleting $cuid from $databaseURI\n";
     }

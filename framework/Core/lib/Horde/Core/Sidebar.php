@@ -2,7 +2,7 @@
 /**
  * This class provides the code needed to generate the Horde sidebar.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -72,11 +72,10 @@ class Horde_Core_Sidebar
              * everyone (but get filtered out later if they have no
              * children). Administrators always see all applications except
              * those marked 'inactive'. */
-            if (($isAdmin &&
-                 $params['status'] != 'noadmin') ||
-                 $params['status'] == 'heading' ||
+            if ($params['status'] == 'heading' ||
                 (in_array($params['status'], array('active', 'noadmin', 'sidebar')) &&
-                 $registry->hasPermission((!empty($params['app']) ? $params['app'] : $app), Horde_Perms::SHOW))) {
+                 $registry->hasPermission((!empty($params['app']) ? $params['app'] : $app), Horde_Perms::SHOW) &&
+                 !($isAdmin && $params['status'] == 'noadmin'))) {
                 $menu[$app] = $params;
 
                 if (isset($params['menu_parent'])) {

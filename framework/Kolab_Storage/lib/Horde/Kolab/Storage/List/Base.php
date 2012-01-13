@@ -14,7 +14,7 @@
 /**
  * The basic handler for accessing folder lists from Kolab storage.
  *
- * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -58,10 +58,9 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
      * @param Horde_Kolab_Storage_Driver      $driver  The primary connection driver.
      * @param Horde_Kolab_Storage_Factory     $factory The factory.
      */
-    public function __construct(
-        Horde_Kolab_Storage_Driver $driver,
-        Horde_Kolab_Storage_Factory $factory
-    ) {
+    public function __construct(Horde_Kolab_Storage_Driver $driver,
+                                Horde_Kolab_Storage_Factory $factory)
+    {
         $this->_driver  = $driver;
         $this->_factory = $factory;
     }

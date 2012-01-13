@@ -1,0 +1,103 @@
+# Latvian translations for Horde_Auth package.
+# Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Horde_Auth package.
+# Automatically generated, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Auth\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2011-09-28 00:27+0200\n"
+"PO-Revision-Date: 2011-11-04 13:26+0300\n"
+"Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"Language: lv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+"X-Poedit-Language: Latvian\n"
+"X-Poedit-Country: LATVIA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: lib/Horde/Auth.php:355
+#, php-format
+msgid ""
+"The password is too long; passwords may not be more than %d characters long!"
+msgstr "Jaunā parole ir pārāk gara: paroles garums nevar pārsniegt %d zīmes!"
+
+#: lib/Horde/Auth.php:424 lib/Horde/Auth.php:433
+msgid "The password is too simple to guess."
+msgstr "Jūs jaunā parole ir viegli uzminama."
+
+#: lib/Horde/Auth.php:351
+#, php-format
+msgid "The password must be at least %d characters long!"
+msgstr "Jaunajai parolei jābūt vismaz %d zīmes garai!"
+
+#: lib/Horde/Auth.php:387
+#, php-format
+msgid "The password must contain at least %d alphabetic character."
+msgid_plural "The password must contain at least %d alphabetic characters."
+msgstr[0] "Jaunajai parolei jāsatur vismaz %d alfabēta burtu."
+msgstr[1] "Jaunajai parolei jāsatur vismaz %d alfabēta burtus."
+msgstr[2] "Jaunajai parolei jāsatur vismaz %d alfabēta burtus."
+
+#: lib/Horde/Auth.php:390
+#, php-format
+msgid "The password must contain at least %d alphanumeric character."
+msgid_plural "The password must contain at least %d alphanumeric characters."
+msgstr[0] "Jaunajai parolei jāsatur vismaz %d burtu un ciparu."
+msgstr[1] "Jaunajai parolei jāsatur vismaz %d burtus un ciparus."
+msgstr[2] "Jaunajai parolei jāsatur vismaz %d burtus un ciparus."
+
+#: lib/Horde/Auth.php:393
+#, php-format
+msgid ""
+"The password must contain at least %d different types of characters. The "
+"types are: lower, upper, numeric, and symbols."
+msgstr ""
+"Jaunajai parolei jāsatur vismaz %d dažāda veida zīmes. Tie būtu: parastie un "
+"kapitalizētie burti, cipari un simboli."
+
+#: lib/Horde/Auth.php:381
+#, php-format
+msgid "The password must contain at least %d lowercase character."
+msgid_plural "The password must contain at least %d lowercase characters."
+msgstr[0] "Jaunajai parolei jāsatur vismaz %d mazo burtu."
+msgstr[1] "Jaunajai parolei jāsatur vismaz %d mazos burtus."
+msgstr[2] "Jaunajai parolei jāsatur vismaz %d mazos burtus."
+
+#: lib/Horde/Auth.php:384
+#, php-format
+msgid "The password must contain at least %d numeric character."
+msgid_plural "The password must contain at least %d numeric characters."
+msgstr[0] "Jaunajai parolei jāsatur vismaz %d ciparu."
+msgstr[1] "Jaunajai parolei jāsatur vismaz %d ciparus."
+msgstr[2] "Jaunajai parolei jāsatur vismaz %d ciparu."
+
+#: lib/Horde/Auth.php:402
+#, php-format
+msgid "The password must contain at least %d symbol character."
+msgid_plural "The password must contain at least %d symbol characters."
+msgstr[0] "Jaunajai parolei jāsatur vismaz %d simbolu zīmi."
+msgstr[1] "Jaunajai parolei jāsatur vismaz %d simbolu zīmes."
+msgstr[2] "Jaunajai parolei jāsatur vismaz %d simbolu zīmes."
+
+#: lib/Horde/Auth.php:378
+#, php-format
+msgid "The password must contain at least %d uppercase character."
+msgid_plural "The password must contain at least %d uppercase characters."
+msgstr[0] "Jaunajai parolei jāsatur vismaz %d kapitalizēto burtu."
+msgstr[1] "Jaunajai parolei jāsatur vismaz %d kapitalizētos burtus."
+msgstr[2] "Jaunajai parolei jāsatur vismaz %d kapitalizētos burtus."
+
+#: lib/Horde/Auth.php:397
+#, php-format
+msgid "The password must contain less than %d whitespace characters."
+msgstr "Jaunā parole drīkst saturēt ne vairāk kā %d tukšumus."
+
+#: lib/Horde/Auth.php:399
+msgid "The password must not contain whitespace characters."
+msgstr "Jaunā parole nedrīkst saturēt tukšumus."

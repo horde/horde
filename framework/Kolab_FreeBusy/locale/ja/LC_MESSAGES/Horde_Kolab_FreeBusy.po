@@ -1,5 +1,5 @@
 # Japanese translation for Horde.
-# Copyright 2004-2009 Horde Project
+# Copyright 2004-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde package.
 # Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>
 #
@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Kolab_FreeBusy\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
-"PO-Revision-Date: 2011-03-19 14:28+0900\n"
+"POT-Creation-Date: 2011-08-02 15:24+0200\n"
+"PO-Revision-Date: 2011-11-19 17:57+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: lib/Horde/Kolab/FreeBusy/View.php:229
@@ -42,22 +42,12 @@ msgstr "エラー："
 msgid "Failed regenerating calendar %s: %s"
 msgstr "予定表 %s の再生成に失敗しました： %s"
 
-#: lib/Horde/Kolab/FreeBusy/Imap.php:128
-#, php-format
-msgid "Folder %s does not exist!"
-msgstr "フォルダー %s は存在しません！"
-
-#: lib/Horde/Kolab/FreeBusy/Imap.php:135
-#, php-format
-msgid "Folder %s has type \"%s\" not \"event\"!"
-msgstr "フォルダー %s の型は \"%s\" であって \"イベント\"ではありません！"
-
-#: lib/Horde/Kolab/FreeBusy/Driver/Base.php:183
+#: lib/Horde/Kolab/FreeBusy/Driver/Base.php:93
 #, php-format
 msgid "Invalid authentication for user %s!"
 msgstr "ユーザ %s の不正な認証です！"
 
-#: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Base.php:218
+#: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Base.php:321
 #, php-format
 msgid "No such account %s!"
 msgstr "%s というアカウントはありません！"
@@ -71,7 +61,7 @@ msgstr "%s というフォルダーはありません"
 msgid "Not found"
 msgstr "見つかりません"
 
-#: lib/Horde/Kolab/FreeBusy/Driver/Base.php:179
+#: lib/Horde/Kolab/FreeBusy/Driver/Base.php:89
 msgid "Please authenticate!"
 msgstr "認証を受けて下さい！"
 
@@ -97,7 +87,7 @@ msgstr "要求された URL %s はこのシステムにみつかりませんで�
 msgid "Unable to determine owner of the free/busy data!"
 msgstr "空き時間（free/busy）データの所有者が特定できません！"
 
-#: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Base.php:295
+#: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Base.php:398
 #, php-format
 msgid "Unable to read free/busy information from %s"
 msgstr "%s から予定情報を所得できません"

@@ -2,7 +2,7 @@
 /**
  * @author   Michael J. Rubinsky <mrubinsk@horde.org>
  * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
+ * @license  http://www.horde.org/licenses/apache ASL
  * @package  Turba
  */
 
@@ -11,14 +11,14 @@ require_once dirname(__FILE__) . '/../lib/Turba.php';
 /**
  * Add hierarchcal related columns to the legacy sql share driver
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.
+ * See the enclosed file LICENSE for license information (ASL).  If you
+ * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author   Michael J. Rubinsky <mrubinsk@horde.org>
  * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
+ * @license  http://www.horde.org/licenses/apache ASL
  * @package  Turba
  */
 class TurbaUpgradeUpdateSchema extends Horde_Db_Migration_Base

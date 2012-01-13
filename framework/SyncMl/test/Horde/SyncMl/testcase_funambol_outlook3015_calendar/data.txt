@@ -38,7 +38,7 @@ output received from horde backend (text/calendar):
 BEGIN:VCALENDAR
 VERSION:2.0
 X-WR-CALNAME:syncmltest's Calendar
-PRODID:-//Horde LLC//Horde_iCalendar Library//EN
+PRODID:-//The Horde Project//Horde_iCalendar Library//EN
 METHOD:PUBLISH
 BEGIN:VEVENT
 DTSTART:20070102T050000Z
@@ -60,7 +60,7 @@ output received from horde backend (text/calendar):
 BEGIN:VCALENDAR
 VERSION:2.0
 X-WR-CALNAME:syncmltest's Calendar
-PRODID:-//Horde LLC//Horde_iCalendar Library//EN
+PRODID:-//The Horde Project//Horde_iCalendar Library//EN
 METHOD:PUBLISH
 BEGIN:VEVENT
 DTSTART:20070106T050000Z
@@ -135,7 +135,7 @@ output received from horde backend (text/calendar):
 BEGIN:VCALENDAR
 VERSION:2.0
 X-WR-CALNAME:syncmltest's Calendar
-PRODID:-//Horde LLC//Horde_iCalendar Library//EN
+PRODID:-//The Horde Project//Horde_iCalendar Library//EN
 METHOD:PUBLISH
 BEGIN:VEVENT
 DTSTART:20070103T050000Z
@@ -157,7 +157,7 @@ output received from horde backend (text/calendar):
 BEGIN:VCALENDAR
 VERSION:2.0
 X-WR-CALNAME:syncmltest's Calendar
-PRODID:-//Horde LLC//Horde_iCalendar Library//EN
+PRODID:-//The Horde Project//Horde_iCalendar Library//EN
 METHOD:PUBLISH
 BEGIN:VEVENT
 DTSTART;VALUE=DATE:20070101
@@ -181,7 +181,7 @@ output received from horde backend (text/calendar):
 BEGIN:VCALENDAR
 VERSION:2.0
 X-WR-CALNAME:syncmltest's Calendar
-PRODID:-//Horde LLC//Horde_iCalendar Library//EN
+PRODID:-//The Horde Project//Horde_iCalendar Library//EN
 METHOD:PUBLISH
 BEGIN:VEVENT
 DTSTART:20070107T220000Z

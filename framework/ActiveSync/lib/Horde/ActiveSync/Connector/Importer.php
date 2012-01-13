@@ -4,10 +4,12 @@
  * Contains code written by the Z-Push project. Original file header preserved
  * below.
  *
- * @copyright 2010-2011 Horde LLC (http://www.horde.org)
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ *
+ * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package ActiveSync
  */
+
 /**
  * File      :   streamimporter.php
  * Project   :   Z-Push
@@ -15,7 +17,7 @@
  *
  * Created   :   01.10.2007
  *
- * � Zarafa Deutschland GmbH, www.zarafaserver.de
+ * © Zarafa Deutschland GmbH, www.zarafaserver.de
  * This file is distributed under GPL-2.0.
  * Consult COPYING file for details
  */
@@ -91,10 +93,13 @@ class Horde_ActiveSync_Connector_Importer
      * @param mixed $id                                A server message id or
      *                                                 false if a new message
      * @param Horde_ActiveSync_Message_Base $message   A message object
+     * @param StdClass $device                         A device descriptor
+     * @param integer $clientid                        Client id sent from PIM
+     *                                                 on message addition.
      *
      * @return mixed The server message id or false
      */
-    public function importMessageChange($id, $message, $device)
+    public function importMessageChange($id, $message, $device, $clientid)
     {
         /* do nothing if it is in a dummy folder */
         if ($this->_folderId == Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
@@ -123,6 +128,11 @@ class Horde_ActiveSync_Connector_Importer
             if ($conflict && $this->_flags == Horde_ActiveSync::CONFLICT_OVERWRITE_PIM) {
                 return $id;
             }
+        } else {
+            if ($uid = $this->_state->isDuplicatePIMAddition($clientid)) {
+                // Already saw this addition, but PIM never received UID
+                return $uid;
+            }
         }
 
         /* Tell the backend about the change */
@@ -132,7 +142,9 @@ class Horde_ActiveSync_Connector_Importer
         $stat['parent'] = $this->_folderId;
 
         /* Record the state of the message */
-        $this->_state->updateState('change', $stat, Horde_ActiveSync::CHANGE_ORIGIN_PIM, $this->_backend->getUser());
+        $this->_state->updateState(
+            'change', $stat, Horde_ActiveSync::CHANGE_ORIGIN_PIM,
+            $this->_backend->getUser(), $clientid);
 
         return $stat['id'];
     }

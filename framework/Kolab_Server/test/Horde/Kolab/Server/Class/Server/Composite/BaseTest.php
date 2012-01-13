@@ -19,7 +19,7 @@ require_once dirname(__FILE__) . '/../../../TestCase.php';
 /**
  * Test the composite server.
  *
- * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -35,11 +35,11 @@ class Horde_Kolab_Server_Class_Server_Composite_BaseTest extends Horde_Kolab_Ser
     public function testMethodGetReturnsServerElement()
     {
         $composite = $this->getMockedComposite();
-        $this->assertType('Horde_Kolab_Server_Interface', $composite->server);
-        $this->assertType('Horde_Kolab_Server_Objects_Interface', $composite->objects);
-        $this->assertType('Horde_Kolab_Server_Structure_Interface', $composite->structure);
-        $this->assertType('Horde_Kolab_Server_Search_Interface', $composite->search);
-        $this->assertType('Horde_Kolab_Server_Schema_Interface', $composite->schema);
+        $this->assertInstanceOf('Horde_Kolab_Server_Interface', $composite->server);
+        $this->assertInstanceOf('Horde_Kolab_Server_Objects_Interface', $composite->objects);
+        $this->assertInstanceOf('Horde_Kolab_Server_Structure_Interface', $composite->structure);
+        $this->assertInstanceOf('Horde_Kolab_Server_Search_Interface', $composite->search);
+        $this->assertInstanceOf('Horde_Kolab_Server_Schema_Interface', $composite->schema);
         try {
             $a = $composite->something;
             $this->fail('No exception!');

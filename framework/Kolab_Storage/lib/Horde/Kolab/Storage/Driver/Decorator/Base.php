@@ -14,7 +14,7 @@
 /**
  * The basic driver decorator definition for accessing Kolab storage.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -106,7 +106,7 @@ implements Horde_Kolab_Storage_Driver
      * @param mixed $parser The parser that should be used.
      *
      * @return NULL
-     */ 
+     */
     public function setParser(Horde_Kolab_Storage_Data_Parser $parser)
     {
         $this->_driver->setParser($parser);
@@ -220,7 +220,7 @@ implements Horde_Kolab_Storage_Driver
     {
         return $this->_driver->getAcl($folder);
     }
-    
+
     /**
      * Retrieve the access rights the current user has on a folder.
      *

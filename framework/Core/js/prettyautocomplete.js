@@ -2,7 +2,7 @@
  * An autocompleter implementation that provides a UI similar to Apple's Mail
  * To: field where entered items are represented as bubbles etc...
  *
- * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -92,12 +92,12 @@ var PrettyAutocompleter = Class.create({
         this.p.domParent = this.p.box;
         new Ajax.Autocompleter(this.p.trigger, this.p.uri, this.p);
 
+        this.initialized = true;
+
         // Prepopulate the items and the container elements?
         if (typeof this.p.existing != 'undefined') {
-            this.init(this.p.existing);
+            this.reset(this.p.existing);
         }
-
-        this.initialized = true;
     },
 
     /**

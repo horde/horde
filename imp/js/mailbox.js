@@ -248,6 +248,9 @@ var ImpMailbox = {
                 } else if (elt.hasClassName('forwardAction')) {
                     this.submit('fwd_digest');
                     e.stop();
+                } else if (elt.hasClassName('redirectAction')) {
+                    this.submit('redirect_messages');
+                    e.stop();
                 } else if (elt.hasClassName('spamAction')) {
                     this.submit('spam_report');
                     e.stop();
@@ -262,8 +265,6 @@ var ImpMailbox = {
             } else if (elt.hasClassName('checkbox')) {
                 this.selectRange(e);
                 // Fall through to elt.up() call below.
-            } else if (elt.hasClassName('nosort')) {
-                return;
             }
 
             id = elt.readAttribute('id');

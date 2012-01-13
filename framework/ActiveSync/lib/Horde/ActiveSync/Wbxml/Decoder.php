@@ -19,64 +19,47 @@
  */
 class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
 {
-    /**
-     * PHP input stream
-     *
-     * @var stream
-     */
-    private $_in;
-
     // These seem to only be used in the Const'r, and I can't find any
     // client code that access these properties...
     public $version;
     public $publicid;
     public $publicstringid;
     public $charsetid;
-
     public $stringtable;
 
-    private $_tagcp = 0;
     private $_attrcp = 0;
     private $_ungetbuffer;
-    private $_logStack = array();
 
     /**
-     * @var Horde_Log_Logger
-     */
-    private $_logger;
-
-    /**
-     * Const'r
+     * Start reading the wbxml stream, pulling off the initial header and
+     * populate the properties.
      *
-     * @param stream $input
-     * @param array $dtd
-     * @param array $config
-     *
-     * @return Horde_ActiveSync_Wbxml_Decoder
+     * @return void
      */
-    public function __construct($input)
+    public function readWbxmlHeader()
     {
-        $this->_in = $input;
-        $this->_logger = new Horde_Support_Stub();
         $this->version = $this->_getByte();
         $this->publicid = $this->_getMBUInt();
         if ($this->publicid == 0) {
             $this->publicstringid = $this->_getMBUInt();
         }
         $this->charsetid = $this->_getMBUInt();
-
-        // This is used, but not sure what the missing getStringTableEntry()
-        // method was supposed to do yet.
         $this->stringtable = $this->_getStringTable();
     }
 
+    /**
+     * Set the logger instance
+     *
+     * @param Horde_Log_Logger $logger  The logger.
+     */
     public function setLogger(Horde_Log_Logger $logger)
     {
         $this->_logger = $logger;
     }
 
     /**
-     * Returns either start, content or end, and auto-concatenates successive content
+     * Returns either start, content or end, and auto-concatenates successive
+     * content
      */
     public function getElement()
     {
@@ -107,7 +90,7 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
 
     /**
      *
-     * @return unknown_type
+     * @return array  The next element in the stream.
      */
     public function peek()
     {
@@ -118,9 +101,11 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
     }
 
     /**
+     * Get the next tag, which is assumed to be a start tag.
      *
-     * @param $tag
-     * @return unknown_type
+     * @param string $tag  The element that this should be a start tag for.
+     *
+     * @return mixed  The start tag array | false on failure.
      */
     public function getElementStartTag($tag)
     {
@@ -131,7 +116,6 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
 
             return $element;
         } else {
-            //$this->_logger->debug('Unmatched tag' .  $tag . ':');
             $this->_ungetElement($element);
         }
 
@@ -139,8 +123,9 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
     }
 
     /**
+     * Get the next tag, which is assumed to be an end tag.
      *
-     * @return unknown_type
+     * @return mixed  The element array | false on failure.
      */
     public function getElementEndTag()
     {
@@ -157,8 +142,9 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
     }
 
     /**
+     * Get the element contents
      *
-     * @return unknown_type
+     * @return mixed  The content of the current element | false on failure.
      */
     public function getElementContent()
     {
@@ -175,7 +161,9 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
     }
 
     /**
-     * @return unknown_type
+     * Get the next [start | content | end] tag.
+     *
+     * @return array  The next, complete, token array.
      */
     public function getToken()
     {
@@ -193,9 +181,11 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
     }
 
     /**
+     * Log the token.
      *
-     * @param unknown_type $el
-     * @return unknown_type
+     * @param array  The element array.
+     *
+     * @return void
      */
     private function _logToken($el)
     {
@@ -220,7 +210,9 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
     }
 
     /**
-     * Returns either a start tag, content or end tag
+     * Get the next start tag, content or end tag
+     *
+     * @return array  The element array.
      */
    private function _getToken() {
 
@@ -327,9 +319,12 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
     }
 
     /**
+     * Unget the specified element from the stream. Places the element into
+     * the unget buffer.
      *
-     * @param $element
-     * @return unknown_type
+     * @param array $element  The element array to unget.
+     *
+     * @return void
      */
     public function _ungetElement($element)
     {
@@ -340,8 +335,9 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
     }
 
     /**
+     * Get the element attributes
      *
-     * @return unknown_type
+     * @return mixed  The value of the element's attributes.
      */
     private function _getAttributes()
     {
@@ -355,89 +351,89 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
             }
 
             switch($byte) {
-                case Horde_ActiveSync_Wbxml::SWITCH_PAGE:
-                    $this->_attrcp = $this->_getByte();
-                    break;
+            case Horde_ActiveSync_Wbxml::SWITCH_PAGE:
+                $this->_attrcp = $this->_getByte();
+                break;
 
-                case Horde_ActiveSync_Wbxml::END:
+            case Horde_ActiveSync_Wbxml::END:
+                if ($attr != '') {
+                    $attributes += $this->_splitAttribute($attr);
+                }
+                return $attributes;
+
+            case Horde_ActiveSync_Wbxml::ENTITY:
+                $entity = $this->_getMBUInt();
+                $attr .= $this->entityToCharset($entity);
+                return $element;
+
+            case Horde_ActiveSync_Wbxml::STR_I:
+                $attr .= $this->_getTermStr();
+                return $element;
+
+            case Horde_ActiveSync_Wbxml::LITERAL:
+                if ($attr != '') {
+                    $attributes += $this->_splitAttribute($attr);
+                }
+                $attr = $this->_getStringTableEntry($this->_getMBUInt());
+                return $element;
+
+            case Horde_ActiveSync_Wbxml::EXT_I_0:
+            case Horde_ActiveSync_Wbxml::EXT_I_1:
+            case Horde_ActiveSync_Wbxml::EXT_I_2:
+                $this->_getTermStr();
+                continue;
+
+            case Horde_ActiveSync_Wbxml::PI:
+            case Horde_ActiveSync_Wbxml::LITERAL_C:
+                // Invalid
+                return false;
+
+            case Horde_ActiveSync_Wbxml::EXT_T_0:
+            case Horde_ActiveSync_Wbxml::EXT_T_1:
+            case Horde_ActiveSync_Wbxml::EXT_T_2:
+                $this->_getMBUInt();
+                continue;
+
+            case Horde_ActiveSync_Wbxml::STR_T:
+                $attr .= $this->_getStringTableEntry($this->_getMBUInt());
+                return $element;
+
+            case Horde_ActiveSync_Wbxml::LITERAL_A:
+                return false;
+
+            case Horde_ActiveSync_Wbxml::EXT_0:
+            case Horde_ActiveSync_Wbxml::EXT_1:
+            case Horde_ActiveSync_Wbxml::EXT_2:
+                continue;
+
+            case Horde_ActiveSync_Wbxml::OPAQUE:
+                $length = $this->_getMBUInt();
+                $attr .= $this->_getOpaque($length);
+                return $element;
+
+            case Horde_ActiveSync_Wbxml::LITERAL_AC:
+                return false;
+
+            default:
+                if ($byte < 128) {
                     if ($attr != '') {
                         $attributes += $this->_splitAttribute($attr);
+                        $attr = '';
                     }
-                    return $attributes;
+                }
 
-                case Horde_ActiveSync_Wbxml::ENTITY:
-                    $entity = $this->_getMBUInt();
-                    $attr .= $this->entityToCharset($entity);
-                    return $element;
-
-                case Horde_ActiveSync_Wbxml::STR_I:
-                    $attr .= $this->_getTermStr();
-                    return $element;
-
-                case Horde_ActiveSync_Wbxml::LITERAL:
-                    if ($attr != '') {
-                        $attributes += $this->_splitAttribute($attr);
-                    }
-                    $attr = $this->_getStringTableEntry($this->_getMBUInt());
-                    return $element;
-
-                case Horde_ActiveSync_Wbxml::EXT_I_0:
-                case Horde_ActiveSync_Wbxml::EXT_I_1:
-                case Horde_ActiveSync_Wbxml::EXT_I_2:
-                    $this->_getTermStr();
-                    continue;
-
-                case Horde_ActiveSync_Wbxml::PI:
-                case Horde_ActiveSync_Wbxml::LITERAL_C:
-                    // Invalid
-                    return false;
-
-                case Horde_ActiveSync_Wbxml::EXT_T_0:
-                case Horde_ActiveSync_Wbxml::EXT_T_1:
-                case Horde_ActiveSync_Wbxml::EXT_T_2:
-                    $this->_getMBUInt();
-                    continue;
-
-                case Horde_ActiveSync_Wbxml::STR_T:
-                    $attr .= $this->_getStringTableEntry($this->_getMBUInt());
-                    return $element;
-
-                case Horde_ActiveSync_Wbxml::LITERAL_A:
-                    return false;
-
-                case Horde_ActiveSync_Wbxml::EXT_0:
-                case Horde_ActiveSync_Wbxml::EXT_1:
-                case Horde_ActiveSync_Wbxml::EXT_2:
-                    continue;
-
-                case Horde_ActiveSync_Wbxml::OPAQUE:
-                    $length = $this->_getMBUInt();
-                    $attr .= $this->_getOpaque($length);
-                    return $element;
-
-                case Horde_ActiveSync_Wbxml::LITERAL_AC:
-                    return false;
-
-                default:
-                    if ($byte < 128) {
-                        if ($attr != '') {
-                            $attributes += $this->_splitAttribute($attr);
-                            $attr = '';
-                        }
-                    }
-
-                    $attr .= $this->_getMapping($this->_attrcp, $byte);
-                    break;
+                $attr .= $this->_getMapping($this->_attrcp, $byte);
+                break;
             }
         }
-
     }
 
     /**
+     * Parses an attribute string
      *
-     * @param $attr
+     * @param string $attr  The raw attribute value.
      *
-     * @return unknown_type
+     * @return array  The attribute hash
      */
     private function _splitAttribute($attr)
     {
@@ -453,8 +449,9 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
     }
 
     /**
+     * Get a null terminated string from the stream.
      *
-     * @return unknown_type
+     * @return string  The string
      */
     private function _getTermStr()
     {
@@ -473,23 +470,25 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
     }
 
     /**
+     * Get an opaque value from the stream of the specified length.
      *
-     * @param $len
+     * @param integer $len  The length of the data to fetch.
      *
-     * @return unknown_type
+     * @return string  A string of bytes representing the opaque value.
      */
     private function _getOpaque($len)
     {
-        return fread($this->_in, $len);
+        return fread($this->_stream, $len);
     }
 
     /**
+     * Fetch a single byte from the stream.
      *
-     * @return unknown_type
+     * @return string  The single byte.
      */
     private function _getByte()
     {
-        $ch = fread($this->_in, 1);
+        $ch = fread($this->_stream, 1);
         if (strlen($ch) > 0) {
             $ch = ord($ch);
             //$this->_logger->debug('_getByte: ' . $ch);
@@ -500,8 +499,9 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
     }
 
     /**
+     * Get an MBU integer
      *
-     * @return unknown_type
+     * @return integer
      */
     private function _getMBUInt()
     {
@@ -516,23 +516,22 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
           }
         }
 
-        //$this->_logger->debug('_getMBUInt(): ' . $uint);
         return $uint;
     }
 
     /**
+     * Fetch the string table. Don't think we use the results anywhere though.
      *
-     * @return unknown_type
+     * @return string  The string table.
      */
     private function _getStringTable()
     {
         $stringtable = '';
         $length = $this->_getMBUInt();
         if ($length > 0) {
-            $stringtable = fread($this->_in, $length);
+            $stringtable = fread($this->_stream, $length);
         }
 
-        //$this->_logger->debug('_getStringTable(): ' . $stringtable);
         return $stringtable;
     }
 
@@ -543,9 +542,9 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
      * normal use-cases do not reach the calling code. Either way, it needs to
      * eventually be fixed.
      *
-     * @param unknown_type $id
+     * @param integer $id  The entry to return??
      *
-     * @return unknown_type
+     * @return string
      */
     private function _getStringTableEntry($id)
     {
@@ -553,10 +552,12 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
     }
 
     /**
+     * Get a dtd mapping
      *
-     * @param $cp
-     * @param $id
-     * @return unknown_type
+     * @param integer $cp  The codepage to use.
+     * @param integer $id  The property.
+     *
+     * @return mixed  The mapped value.
      */
     private function _getMapping($cp, $id)
     {

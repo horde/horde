@@ -14,7 +14,7 @@
 /**
  * Represents a source component.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -434,7 +434,7 @@ class Components_Component_Source extends Components_Component_Base
      *               archive, optionally [1] an array of error strings, and [2]
      *               PEAR output.
      */
-    public function placeArchive($destination, $options)
+    public function placeArchive($destination, $options = array())
     {
         if (!file_exists($this->_getPackageXmlPath())) {
             throw new Components_Exception(

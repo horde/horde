@@ -1,134 +1,144 @@
 # Croatian translations for Mnemo.
-# Copyright (C) 2008 Horde Project
+# Copyright 2008-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the horde package.
 # Matej Vela <Matej.Vela@CARNet.hr>, 2008.
+# Valentin Vidic <Valentin.Vidic@CARNet.hr>, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: horde 3\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2009-09-16 13:45+0200\n"
-"PO-Revision-Date: 2008-02-26 16:13+0100\n"
-"Last-Translator: Matej Vela <Matej.Vela@CARNet.hr>\n"
+"POT-Creation-Date: 2011-11-04 15:10+0100\n"
+"PO-Revision-Date: 2011-11-08 16:49+0200\n"
+"Last-Translator: Valentin Vidic <Valentin.Vidic@CARNet.hr>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: templates/memo/memo.inc:53
 #, php-format
 msgid "%s characters"
 msgstr "%s znakova"
 
-#: data.php:200
+#: data.php:195
 #, php-format
 msgid "%s file successfully imported"
 msgstr "%s datoteka uspješno uvezena"
 
-#: lib/Mnemo.php:457 lib/Forms/DeleteNotepad.php:86
-#, php-format
-msgid "%s's Notepad"
-msgstr "%s - Bilježnica"
-
-#: memo.php:237
+#: memo.php:248
 msgid "Access denied deleting note."
 msgstr "Pristup odbijen pri brisanju bilješke."
 
-#: memo.php:180 memo.php:183
+#: memo.php:183 memo.php:186
 msgid "Access denied moving the note."
 msgstr "Pristup odbijen pri preimenovanju bilješke."
 
-#: memo.php:135
+#: memo.php:134
 #, php-format
 msgid "Access denied saving note to %s."
 msgstr "Pristup odbijen pri spremanju bilješke u %s."
 
-#: memo.php:133
+#: lib/Block/Note.php:80
 #, php-format
-msgid "Access denied saving note: %s"
-msgstr "Pristup odbijen pri spremanju bilješke: %s"
+msgid "An error occurred displaying %s"
+msgstr "Greška kod prikaza %s"
 
-#: config/prefs.php.dist:69
+#: lib/Block/Note.php:82
+msgid "An error occurred displaying the note"
+msgstr "Došlo je do pogreške prilikom prikaza bilješke"
+
+#: config/prefs.php:64
 msgid "Ascending"
 msgstr "uzlazno"
 
-#: data.php:32 templates/data/import.inc:11
+#: data.php:27 templates/data/import.inc:11
 msgid "CSV"
 msgstr "CSV"
 
-#: lib/Forms/DeleteNotepad.php:45 lib/Forms/DeleteNotepad.php:51
+#: lib/Form/DeleteNotepad.php:34 lib/Form/DeleteNotepad.php:40
+#: lib/Ajax/Imple/EditNote.php:45
 msgid "Cancel"
 msgstr "Odustani"
 
-#: data.php:54 templates/view/memo.inc:26
+#: data.php:49 templates/view/memo.inc:26
 msgid "Category"
 msgstr "Kategorija"
 
-#: notepads/index.php:32 templates/notepad_list.php:29
+#: notepads/index.php:34 templates/notepad_list.php:29
 msgid "Change Permissions"
 msgstr "Promijeni dozvole"
 
-#: config/prefs.php.dist:14
-msgid "Change your note sorting and display options."
-msgstr "Prilagodite opcije sortiranja i prikazivanja bilješki."
+#: config/prefs.php:14
+msgid "Change your note sorting and display preferences."
+msgstr "Prilagodite postavke sortiranja i prikaza bilješki."
 
-#: config/prefs.php.dist:21
+#: config/prefs.php:21
 msgid "Choose your default Notepad."
-msgstr "Izaberite podrazumijevanu Bilježnicu."
+msgstr "Odabir podrazumijevane bilježnice."
+
+#: lib/Ajax/Imple/EditNote.php:43
+msgid "Click to add text..."
+msgstr "Kliknite za dodavanje teksta..."
 
 #: templates/list/header.inc:8
 msgid "Close Search"
 msgstr "Zatvori pretragu"
 
-#: lib/Forms/CreateNotepad.php:39
+#: lib/Form/CreateNotepad.php:25
 msgid "Create"
-msgstr "Kreiraj"
+msgstr "Dodaj"
 
-#: lib/Forms/CreateNotepad.php:34
+#: lib/Form/CreateNotepad.php:20
 msgid "Create Notepad"
-msgstr "Kreiraj Bilježnicu"
+msgstr "Dodaj bilježnicu"
 
 #: templates/notepad_list.php:9
 msgid "Create a new Notepad"
-msgstr "Kreiraj novu Bilježnicu"
+msgstr "Dodaj novu bilježnicu"
 
 #: templates/view/memo.inc:32
 msgid "Created"
-msgstr "Kreirano"
+msgstr "Dodano"
+
+#: templates/list/memo_headers.inc:40
+msgid "Date"
+msgstr "Datum"
 
 #: templates/view/memo.inc:54 templates/memo/memo.inc:23
 msgid "Decrypt"
-msgstr "Dešifriraj"
+msgstr "Dekriptiraj"
 
-#: config/prefs.php.dist:20
+#: config/prefs.php:20
 msgid "Default Notepad"
-msgstr "Podrazumijevana Bilježnica"
+msgstr "Podrazumijevana bilježnica"
 
-#: config/prefs.php.dist:60
+#: config/prefs.php:56
 msgid "Default sorting criteria:"
 msgstr "Podrazumijevani kriteriji sortiranja:"
 
-#: config/prefs.php.dist:71
+#: config/prefs.php:67
 msgid "Default sorting direction:"
 msgstr "Podrazumijevani smjer sortiranja:"
 
-#: lib/Forms/DeleteNotepad.php:45 notepads/index.php:33
+#: lib/Form/DeleteNotepad.php:34 notepads/index.php:35
 #: templates/notepad_list.php:31 templates/view/memo.inc:16
 msgid "Delete"
 msgstr "Obriši"
 
-#: lib/Forms/DeleteNotepad.php:40
+#: lib/Form/DeleteNotepad.php:29
 #, php-format
 msgid "Delete %s"
 msgstr "Obriši %s"
 
-#: config/prefs.php.dist:27
+#: config/prefs.php:27
 msgid "Delete Confirmation"
-msgstr "Obriši potvrdu"
+msgstr "Potvrda brisanja"
 
-#: config/prefs.php.dist:28
+#: config/prefs.php:28
 msgid "Delete button behaviour"
 msgstr "Ponašanje gumba Obriši"
 
@@ -136,28 +146,23 @@ msgstr "Ponašanje gumba Obriši"
 msgid "Delete this note"
 msgstr "Obriši ovu bilješku"
 
-#: config/prefs.php.dist:70
+#: config/prefs.php:65
 msgid "Descending"
 msgstr "silazno"
 
-#: lib/Forms/CreateNotepad.php:37 lib/Forms/EditNotepad.php:44
+#: lib/Form/CreateNotepad.php:23 lib/Form/EditNotepad.php:30
 msgid "Description"
 msgstr "Opis"
 
-#: lib/Driver/kolab.php:556
-#, php-format
-msgid "Did not find note %s"
-msgstr "Nije pronađena bilješka %s"
+#: config/prefs.php:13
+msgid "Display Preferences"
+msgstr "Postavke prikaza"
 
-#: config/prefs.php.dist:13
-msgid "Display Options"
-msgstr "Opcije prikaza"
-
-#: config/prefs.php.dist:116
+#: config/prefs.php:97
 msgid "Do you want to confirm deleting entries?"
-msgstr "Želite li potvrđivati brisanje zapisa?"
+msgstr "Želite li potvrđivati brisanje bilješki?"
 
-#: notepads/index.php:31 templates/notepad_list.php:27
+#: notepads/index.php:33 templates/notepad_list.php:27
 #: templates/view/memo.inc:13
 msgid "Edit"
 msgstr "Uredi"
@@ -167,35 +172,35 @@ msgstr "Uredi"
 msgid "Edit \"%s\""
 msgstr "Uredi \"%s\""
 
-#: lib/Forms/EditNotepad.php:40
+#: lib/Form/EditNotepad.php:26
 #, php-format
 msgid "Edit %s"
 msgstr "Uredi %s"
 
-#: lib/Block/summary.php:79 lib/Block/summary.php:80
+#: lib/Block/Summary.php:91 lib/Block/Summary.php:92
 #: templates/list/memo_headers.inc:30
 msgid "Edit Note"
 msgstr "Uredi bilješku"
 
-#: templates/list/memo_headers.inc:45
+#: templates/list/memo_headers.inc:48
 msgid "Edit categories and colors"
 msgstr "Uredi kategorije i boje"
 
-#: memo.php:118 memo.php:149
+#: memo.php:114 memo.php:146
 #, php-format
 msgid "Edit: %s"
 msgstr "Uredi: %s"
 
-#: lib/Block/summary.php:104 templates/list/memo_summaries.inc:15
+#: lib/Block/Summary.php:113 templates/list/memo_summaries.inc:15
 msgid "Empty Note"
 msgstr "Prazna bilješka"
 
-#: lib/Driver.php:118
+#: lib/Driver.php:85
 msgid ""
 "Encryption support has not been configured, please contact your "
 "administrator."
 msgstr ""
-"Podrška za šifriranje nije podešena, molimo kontaktirajte administratora."
+"Podrška za kriptiranje nije podešena, molimo kontaktirajte administratora."
 
 #: templates/data/export.inc:16
 msgid "Export"
@@ -205,16 +210,16 @@ msgstr "Izvoz"
 msgid "Export Notes"
 msgstr "Izvoz bilješki"
 
-#: config/prefs.php.dist:12 config/prefs.php.dist:19 config/prefs.php.dist:26
-msgid "General Options"
-msgstr "Općenite opcije"
+#: config/prefs.php:12 config/prefs.php:19 config/prefs.php:26
+msgid "General Preferences"
+msgstr "Opće postavke"
 
 #: templates/data/import.inc:1
 #, php-format
 msgid "Import Notes, Step %d"
-msgstr "Uvoz bilješki, korak %d"
+msgstr "Uvoz bilješki (%d. korak)"
 
-#: data.php:206
+#: data.php:201
 msgid "Import/Export Notes"
 msgstr "Uvoz/izvoz bilješki"
 
@@ -226,43 +231,43 @@ msgstr "U: "
 msgid "Last Modified"
 msgstr "Zadnja promjena"
 
-#: notepads/index.php:37 templates/notepad_list.php:2
+#: notepads/index.php:39 templates/notepad_list.php:2
 msgid "Manage Notepads"
-msgstr "Upravljaj bilježnicama"
+msgstr "Upravljanje bilježnicama"
 
-#: lib/api.php:82
+#: lib/Application.php:56
 msgid "Maximum Number of Notes"
 msgstr "Maksimalni broj bilješki"
 
-#: data.php:53
+#: data.php:48
 msgid "Memo Text"
 msgstr "Tekst dopisa"
 
-#: lib/Block/tree_menu.php:3
-msgid "Menu List"
-msgstr "Izbornik"
+#: config/prefs.php:54
+msgid "Modification Date"
+msgstr "Datum izmjene"
 
 #: templates/list/header.inc:9
 msgid "More Options..."
 msgstr "Još opcija..."
 
-#: lib/api.php:524
+#: lib/Api.php:346
 msgid "Multiple iCalendar components found; only one vNote is supported."
 msgstr "Nađeno više iCalendar komponenti; podržan je samo jedan vTodo."
 
-#: templates/panel.inc:50
+#: templates/panel.inc:51
 msgid "My Notepads:"
 msgstr "Moje bilježnice:"
 
-#: list.php:31
+#: list.php:29
 msgid "My Notes"
 msgstr "Moje bilješke"
 
-#: lib/Forms/CreateNotepad.php:36 lib/Forms/EditNotepad.php:43
+#: lib/Form/CreateNotepad.php:22 lib/Form/EditNotepad.php:29
 msgid "Name"
 msgstr "Ime"
 
-#: memo.php:95 memo.php:140 lib/Block/tree_menu.php:23
+#: memo.php:92 memo.php:138 lib/Application.php:128
 msgid "New Note"
 msgstr "Nova bilješka"
 
@@ -270,9 +275,13 @@ msgstr "Nova bilješka"
 msgid "Next"
 msgstr "Dalje"
 
-#: lib/api.php:337 lib/api.php:517
+#: lib/Api.php:190 lib/Api.php:339
 msgid "No iCalendar data was found."
 msgstr "Nisu pronađeni podaci u iCalendar formatu."
+
+#: lib/Block/Note.php:71
+msgid "No note loaded"
+msgstr "Nije učitana niti jedna bilješka"
 
 #: templates/list/memo_footers.inc:4
 msgid "No notes match"
@@ -282,7 +291,7 @@ msgstr "Nije nađena nijedna bilješka"
 msgid "No notes match the current criteria."
 msgstr "Nijedna bilješka ne zadovoljava trenutne uvjete."
 
-#: lib/Block/summary.php:112
+#: lib/Block/Summary.php:121
 msgid "No notes to display"
 msgstr "Nema bilješki za prikaz"
 
@@ -290,19 +299,19 @@ msgstr "Nema bilješki za prikaz"
 msgid "No_te"
 msgstr "_Bilješka"
 
-#: lib/Driver/sql.php:198
-msgid "Not found"
-msgstr "Nije nađeno"
+#: lib/Driver/Kolab.php:109 lib/Driver/Sql.php:80
+msgid "Not Found"
+msgstr "Nije pronađeno"
 
-#: config/prefs.php.dist:58
+#: config/prefs.php:52
 msgid "Note Category"
 msgstr "Kategorija bilješke"
 
-#: view.php:121
+#: view.php:115
 msgid "Note Details"
 msgstr "Detalji bilješke"
 
-#: config/prefs.php.dist:57
+#: config/prefs.php:51
 msgid "Note Text"
 msgstr "Tekst bilješke"
 
@@ -310,7 +319,7 @@ msgstr "Tekst bilješke"
 msgid "Note _Text"
 msgstr "_Tekst bilješke"
 
-#: memo.php:105 memo.php:145 view.php:56 note/pdf.php:57
+#: memo.php:102 memo.php:143 view.php:52 note/pdf.php:52
 msgid "Note not found."
 msgstr "Bilješka nije nađena"
 
@@ -318,8 +327,8 @@ msgstr "Bilješka nije nađena"
 msgid "Note_pad:"
 msgstr "B_ilježnica"
 
-#: templates/notepad_list.php:17 templates/list/memo_headers.inc:33
-#: config/prefs.php.dist:59
+#: config/prefs.php:53 templates/notepad_list.php:17
+#: templates/list/memo_headers.inc:33
 msgid "Notepad"
 msgstr "Bilježnica"
 
@@ -327,24 +336,37 @@ msgstr "Bilježnica"
 msgid "Notepad List"
 msgstr "Popis bilježnica"
 
-#: templates/panel.inc:32 templates/panel.inc:33
+#: lib/Notepads/Default.php:65
+#, php-format
+msgid "Notepad of %s"
+msgstr "Bilježnica od %s"
+
+#: templates/panel.inc:33 templates/panel.inc:34
 msgid "Notepads"
 msgstr "Bilježnice"
 
-#: lib/Block/summary.php:3
+#: lib/Notepads/Kolab.php:38
+msgid "Notes"
+msgstr "Bilješke"
+
+#: lib/Block/Summary.php:12
 msgid "Notes Summary"
 msgstr "Pregled bilješki"
 
-#: lib/api.php:212 lib/api.php:252 lib/api.php:285 lib/api.php:315
-#: lib/api.php:402 lib/api.php:470 lib/api.php:499
+#: lib/Ajax/Imple/EditNote.php:46
+msgid "Ok"
+msgstr "Spremi"
+
+#: lib/Api.php:73 lib/Api.php:106 lib/Api.php:138 lib/Api.php:169
+#: lib/Api.php:254 lib/Api.php:299 lib/Api.php:322
 msgid "Permission Denied"
 msgstr "Pristup odbijen"
 
-#: lib/Forms/DeleteNotepad.php:56
+#: lib/Form/DeleteNotepad.php:47
 msgid "Permission denied"
 msgstr "Pristup odbijen"
 
-#: lib/Forms/DeleteNotepad.php:43
+#: lib/Form/DeleteNotepad.php:32
 #, php-format
 msgid ""
 "Really delete the notepad \"%s\"? This cannot be undone and all data on this "
@@ -357,7 +379,7 @@ msgstr ""
 msgid "Really delete this note?"
 msgstr "Stvarno obrisati ovu bilješku?"
 
-#: lib/Forms/EditNotepad.php:46 templates/panel.inc:68
+#: lib/Form/EditNotepad.php:32 templates/panel.inc:69
 #: templates/memo/memo.inc:58
 msgid "Save"
 msgstr "Spremi"
@@ -366,16 +388,16 @@ msgstr "Spremi"
 msgid "Save as PDF"
 msgstr "Spremi kao PDF"
 
-#: search.php:17 lib/Block/tree_menu.php:44 templates/list/header.inc:4
+#: search.php:22 lib/Application.php:154 templates/list/header.inc:4
 #: templates/search/search.inc:4 templates/search/search.inc:27
 msgid "Search"
 msgstr "Pretraga"
 
-#: list.php:54 notes/index.php:35
+#: list.php:52 notes/index.php:38
 msgid "Search Results"
 msgstr "Rezultati pretrage"
 
-#: templates/panel.inc:38
+#: templates/panel.inc:39
 msgid "Search for Notepads:"
 msgstr "Traži bilježnice:"
 
@@ -391,29 +413,37 @@ msgstr "Odaberite datoteku za uvoz:"
 msgid "Select the format of the source file:"
 msgstr "Odaberite format izvorne datoteke:"
 
-#: templates/panel.inc:59
+#: templates/panel.inc:60
 msgid "Shared Notepads:"
 msgstr "Zajedničke bilježnice:"
 
-#: config/prefs.php.dist:39
+#: config/prefs.php:37
 msgid "Should the Notepad be shown in its own column in the List view?"
-msgstr "Treba li prikazati bilježnicu u posebnom stupcu pregleda?"
+msgstr "Prikazati ime bilježnice u posebnom stupcu pregleda?"
 
-#: lib/Block/summary.php:35
+#: lib/Block/Summary.php:42
 msgid "Show action buttons?"
 msgstr "Prikazati akcijske gumbe?"
 
-#: lib/Block/summary.php:39
+#: lib/Block/Summary.php:47
 msgid "Show notepad name?"
 msgstr "Prikazati ime bilježnice?"
 
-#: lib/Block/summary.php:43
+#: lib/Block/Summary.php:52
 msgid "Show notes from these categories"
 msgstr "Prikaži bilješke iz sljedećih kategorija"
 
-#: templates/list/memo_headers.inc:41
+#: lib/Block/Note.php:34
+msgid "Show this note"
+msgstr "Prikaži ovu bilješku"
+
+#: templates/list/memo_headers.inc:44
 msgid "Sort by Category"
 msgstr "Sortiraj po kategoriji"
+
+#: templates/list/memo_headers.inc:40
+msgid "Sort by Modification Date"
+msgstr "Sortiraj po datumu izmjene"
 
 #: templates/list/memo_headers.inc:37
 msgid "Sort by Note Text"
@@ -423,35 +453,26 @@ msgstr "Sortiraj po tekstu bilješke"
 msgid "Sort by Notepad"
 msgstr "Sortiraj po bilježnici"
 
-#: memo.php:211
+#: memo.php:221
 #, php-format
 msgid "Successfully saved \"%s\"."
 msgstr "\"%s\" uspješno spremljeno."
 
-#: data.php:194
+#: data.php:190
 #, php-format
 msgid "The %s file didn't contain any notes."
 msgstr "U %s datoteci nije bilo bilješki."
 
-#: lib/Driver.php:53
-msgid "The Notes backend is not currently available."
-msgstr "Pohrana bilješki trenutno nije dostupna."
-
-#: lib/Driver.php:227
-#, php-format
-msgid "The Notes backend is not currently available: %s"
-msgstr "Pohrana bilješki trenutno nije dostupna: %s"
-
-#: memo.php:234
+#: memo.php:243
 msgid "The note was deleted."
 msgstr "Bilješka je obrisana."
 
-#: notepads/create.php:31
+#: notepads/create.php:29
 #, php-format
 msgid "The notepad \"%s\" has been created."
-msgstr "Bilježnica \"%s\" je kreirana."
+msgstr "Bilježnica \"%s\" je dodana."
 
-#: notepads/delete.php:48
+#: notepads/delete.php:43
 #, php-format
 msgid "The notepad \"%s\" has been deleted."
 msgstr "Bilježnica \"%s\" je obrisana."
@@ -466,131 +487,122 @@ msgstr "Bilježnica \"%s\" je preimenovana u \"%s\"."
 msgid "The notepad \"%s\" has been saved."
 msgstr "Bilježnica \"%s\" je spremljena."
 
-#: memo.php:137
+#: memo.php:136
 msgid "The passwords don't match."
 msgstr "Nove lozinke se ne podudaraju."
 
-#: data.php:197
+#: data.php:193
 #, php-format
 msgid "There was an error importing the data: %s"
 msgstr "Došlo je do greške prilikom uvoza podataka: %s"
 
-#: lib/api.php:331 lib/api.php:511
+#: lib/Api.php:184 lib/Api.php:333
 msgid "There was an error importing the iCalendar data."
 msgstr "Došlo je do greške prilikom uvoza iCalendar podataka."
 
-#: lib/api.php:168
+#: lib/Application.php:202
 #, php-format
 msgid "There was an error removing notes for %s. Details have been logged."
 msgstr ""
 "Došlo je do greške prilikom brisanja bilješki za %s. Detalji su zabilježeni "
 "u log."
 
-#: memo.php:232
+#: memo.php:245
 #, php-format
 msgid "There was an error removing the note: %s"
 msgstr "Došlo je do greške prilikom brisanja bilješke: %s"
 
-#: memo.php:209
+#: memo.php:219
 #, php-format
 msgid "There was an error saving the note: %s"
 msgstr "Došlo je do greške prilikom spremanja bilješke: %s"
 
-#: view.php:45 note/pdf.php:46
+#: view.php:42 note/pdf.php:42
 #, php-format
 msgid "There was an error viewing this notepad: %s"
 msgstr "Došlo je do greške prilikom pregleda bilježnice: %s"
 
-#: data.php:78
+#: data.php:74
 msgid "There were no memos to export."
 msgstr "Nema dopisa za izvoz."
 
-#: data.php:105
+#: data.php:106
 msgid "This file format is not supported."
 msgstr "Ovaj datotečni format nije podržan."
 
-#: memo.php:43 view.php:111
+#: memo.php:38 view.php:102
 msgid "This note cannot be decrypted:"
-msgstr "Ova bilješka se ne može dešifrirati:"
+msgstr "Ova bilješka se ne može dekriptirati:"
 
-#: memo.php:34 view.php:103
-msgid "This note has been encrypted, please provide the password below."
-msgstr "Ova bilješka je šifrirana, molimo unesite lozinku."
+#: memo.php:31 memo.php:41 view.php:97 view.php:105
+msgid ""
+"This note has been encrypted, and cannot be decrypted without a secure web "
+"connection"
+msgstr ""
+"Ova bilješka je kriptirana i ne može se dekriptirati bez sigurne web veze"
 
-#: memo.php:30 memo.php:39 view.php:100 view.php:108 lib/api.php:408
-#: lib/Driver/sql.php:461 lib/Driver/kolab.php:766
+#: memo.php:28 view.php:94
+msgid "This note has been encrypted, please provide the password below"
+msgstr "Ova bilješka je kriptirana, molimo unesite lozinku"
+
+#: lib/Api.php:248 lib/Driver/Kolab.php:292 lib/Driver/Sql.php:344
 msgid "This note has been encrypted."
-msgstr "Ova bilješka je šifrirana."
+msgstr "Ova bilješka je kriptirana."
 
-#: notepads/delete.php:24
-msgid "This notepad cannot be deleted"
-msgstr "Ova bilješka se ne može obrisati"
-
-#: lib/Forms/DeleteNotepad.php:63
-#, php-format
-msgid "Unable to delete \"%s\": %s"
-msgstr "Nije uspjelo brisanje \"%s\": %s"
-
-#: lib/Driver.php:230
-#, php-format
-msgid "Unable to load the definition of %s."
-msgstr "Nije uspjelo učitavanje definicije %s."
-
-#: lib/Forms/EditNotepad.php:55
-#, php-format
-msgid "Unable to save notepad \"%s\": %s"
-msgstr "Nije uspjelo spremanje bilježnice \"%s\": %s"
-
-#: lib/Mnemo.php:273 lib/Mnemo.php:274 lib/Mnemo.php:288 lib/Mnemo.php:289
-#: lib/Block/summary.php:107 templates/list/memo_summaries.inc:17
+#: lib/Mnemo.php:310 lib/Mnemo.php:311 lib/Mnemo.php:325 lib/Mnemo.php:326
+#: lib/Block/Summary.php:116 templates/list/memo_summaries.inc:20
 #: templates/view/memo.inc:27
 msgid "Unfiled"
 msgstr "Ostalo"
 
-#: lib/api.php:367 lib/api.php:433 lib/api.php:533
+#: lib/Api.php:217 lib/Api.php:273 lib/Api.php:356
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr "Content-Type nije podržan: %s"
+
+#: lib/Block/Note.php:16
+msgid "View note"
+msgstr "Pogledaj bilješku"
 
 #: templates/data/import.inc:16
 msgid "Which Notepad should the notes be added to?"
 msgstr "Kojoj bilježnici treba dodavati bilješke?"
 
-#: notepads/edit.php:28
+#: notepads/edit.php:31
 msgid "You are not allowed to change this notepad."
 msgstr "Nemate ovlasti za mijenjanje ove bilježnice."
 
-#: data.php:42 data.php:129 memo.php:75
+#: data.php:40 data.php:127 memo.php:75
 #, php-format
 msgid "You are not allowed to create more than %d notes."
-msgstr "Nemate ovlasti za kreiranje više od %d bilješki."
+msgstr "Nemate ovlasti za dodavanje više od %d bilješki."
 
-#: notepads/delete.php:35
+#: notepads/delete.php:29
 msgid "You are not allowed to delete this notepad."
 msgstr "Nemate ovlasti za brisanje ove bilježnice."
 
-#: lib/api.php:100
-msgid "You are not allowed to remove user data."
-msgstr "Nemate ovlasti za brisanje korisničkih podataka."
+#: lib/Ajax/Imple/EditNote.php:74
+msgid "You do not have permission to edit this note."
+msgstr "Nemate dozvole za uređivanje ove bilješke."
 
-#: view.php:49 note/pdf.php:50
+#: view.php:46 note/pdf.php:46
 #, php-format
 msgid "You do not have permission to view the notepad %s."
 msgstr "Nemate dozvole za pregled bilježnice %s."
 
-#: templates/prefs/notepadselect.inc:10
+#: config/prefs.php:85
 msgid "Your default notepad:"
 msgstr "Vaša podrazumijevana bilježnica:"
 
-#: templates/panel.inc:45
+#: templates/panel.inc:46
 msgid "[Manage Notepads]"
-msgstr "[Upravljaj bilježnicama]"
+msgstr "[Upravljanje bilježnicama]"
 
 #: templates/search/search.inc:21
 msgid "_Body"
 msgstr "_Tijelu"
 
-#: templates/list/memo_headers.inc:41
+#: templates/list/memo_headers.inc:44
 msgid "_Category"
 msgstr "_Kategorija"
 
@@ -614,15 +626,15 @@ msgstr "Š_ifriraj?"
 msgid "_For: "
 msgstr "_Sadrži: "
 
-#: lib/Mnemo.php:494
+#: lib/Application.php:81
 msgid "_Import/Export"
 msgstr "_Uvoz/izvoz"
 
-#: lib/Mnemo.php:481
+#: lib/Application.php:68
 msgid "_List Notes"
 msgstr "_Popis bilješki"
 
-#: lib/Mnemo.php:486
+#: lib/Application.php:73
 msgid "_New Note"
 msgstr "_Nova bilješka"
 
@@ -634,40 +646,36 @@ msgstr "_Lozinka"
 msgid "_Password:"
 msgstr "_Lozinka:"
 
-#: lib/Mnemo.php:499
-msgid "_Print"
-msgstr "_Ispiši"
-
 #: templates/memo/memo.inc:93
 msgid "_Repeat:"
 msgstr "_Ponovi:"
 
-#: lib/Mnemo.php:490
+#: lib/Application.php:77
 msgid "_Search"
-msgstr "_Traži"
+msgstr "Pre_traga"
 
 #: templates/search/search.inc:20
 msgid "_Title"
 msgstr "_Naslovu"
 
-#: view.php:74 view.php:83
+#: view.php:68 view.php:77
 #, php-format
 msgid "by %s"
 msgstr "%s"
 
-#: view.php:76 view.php:85
+#: view.php:70 view.php:79
 msgid "by me"
 msgstr "ja"
 
-#: lib/Block/tree_menu.php:33
+#: lib/Application.php:141
 #, php-format
 msgid "in %s"
 msgstr "u %s"
 
-#: data.php:90 templates/data/export.inc:4
+#: data.php:85 templates/data/export.inc:4
 msgid "notes.csv"
 msgstr "biljeske.csv"
 
-#: data.php:33 templates/data/import.inc:12
+#: data.php:28 templates/data/import.inc:12
 msgid "vNote"
 msgstr "vNote"

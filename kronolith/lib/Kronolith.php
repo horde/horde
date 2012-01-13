@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -152,6 +152,7 @@ class Kronolith
                                          array('d', 'dd', 'ddd', 'dddd', 'MM', 'MMM', 'MMM', 'MMMM', 'yy', 'yyyy'),
                                          Horde_Nls::getLangInfo(D_FMT)),
             'time_format' => $prefs->getValue('twentyFour') ? 'HH:mm' : 'hh:mm tt',
+            'show_time' => self::viewShowTime(),
             'default_alarm' => (int)$prefs->getValue('default_alarm'),
             'status' => array('tentative' => self::STATUS_TENTATIVE,
                               'confirmed' => self::STATUS_CONFIRMED,
@@ -247,6 +248,7 @@ class Kronolith
             'hidelog' => _("Hide Notifications"),
             'growlerinfo' => _("This is the notification backlog"),
             'agenda' => _("Agenda"),
+            'tasks' => _("Tasks"),
             'searching' => sprintf(_("Events matching \"%s\""), '#{term}'),
             'allday' => _("All day"),
             'more' => _("more..."),
@@ -551,22 +553,6 @@ class Kronolith
                           $event->end->mday - $event->start->mday,
                           $event->end->hour - $event->start->hour,
                           $event->end->min - $event->start->min);
-            while ($diff[4] < 0) {
-                --$diff[3];
-                $diff[4] += 60;
-            }
-            while ($diff[3] < 0) {
-                --$diff[2];
-                $diff[3] += 24;
-            }
-            while ($diff[2] < 0) {
-                --$diff[1];
-                $diff[2] += Horde_Date_Utils::daysInMonth($event->start->month, $event->start->year);
-            }
-            while ($diff[1] < 0) {
-                --$diff[0];
-                $diff[1] += 12;
-            }
 
             if ($event->start->compareDateTime($startDate) < 0) {
                 /* The first time the event happens was before the period
@@ -634,7 +620,11 @@ class Kronolith
                 if ($startDate &&
                     $event->start->compareDateTime($startDate) < 0) {
                     /* It started before the beginning of the period. */
-                    $eventStart = clone $startDate;
+                    if ($event->recurs()) {
+                        $eventStart = $event->recurrence->nextRecurrence($startDate);
+                    } else {
+                        $eventStart = clone $startDate;
+                    }
                 } else {
                     $eventStart = clone $event->start;
                 }
@@ -649,24 +639,45 @@ class Kronolith
                         $eventEnd = $endDate;
                     }
                 } else {
+                    /* Need to perform some magic if this is a single instance
+                     * of a recurring event since $event->end would be the
+                     * original end date, not the recurrence's end date. */
+                    if ($event->recurs()) {
+
+                        $diff = array($event->end->year - $event->start->year,
+                                      $event->end->month - $event->start->month,
+                                      $event->end->mday - $event->start->mday,
+                                      $event->end->hour - $event->start->hour,
+                                      $event->end->min - $event->start->min);
+
+                        $theEnd = $event->recurrence->nextRecurrence($eventStart);
+                        $theEnd->year  += $diff[0];
+                        $theEnd->month += $diff[1];
+                        $theEnd->mday  += $diff[2];
+                        $theEnd->hour  += $diff[3];
+                        $theEnd->min   += $diff[4];
+                    } else {
+                        $theEnd = clone $event->end;
+                    }
+
                     /* If the event doesn't end at 12am set the end date to
                      * the current end date. If it ends at 12am and does not
                      * end at the same time that it starts (0 duration), set
                      * the end date to the previous day's end date. */
-                    if ($event->end->hour != 0 ||
-                        $event->end->min != 0 ||
-                        $event->end->sec != 0 ||
-                        $event->start->compareDateTime($event->end) == 0 ||
+                    if ($theEnd->hour != 0 ||
+                        $theEnd->min != 0 ||
+                        $theEnd->sec != 0 ||
+                        $event->start->compareDateTime($theEnd) == 0 ||
                         $allDay) {
-                        $eventEnd = clone $event->end;
+                        $eventEnd = clone $theEnd;
                     } else {
                         $eventEnd = new Horde_Date(
                             array('hour' =>  23,
                                   'min' =>   59,
                                   'sec' =>   59,
-                                  'month' => $event->end->month,
-                                  'mday' =>  $event->end->mday - 1,
-                                  'year' =>  $event->end->year));
+                                  'month' => $theEnd->month,
+                                  'mday' =>  $theEnd->mday - 1,
+                                  'year' =>  $theEnd->year));
                     }
                 }
 
@@ -690,9 +701,8 @@ class Kronolith
                         if ($loopDate->compareDate($eventStart) == 0) {
                             $addEvent->start = $eventStart;
                         } else {
-                            $addEvent->start = new Horde_Date(array(
-                                'hour' => 0, 'min' => 0, 'sec' => 0,
-                                'month' => $loopDate->month, 'mday' => $loopDate->mday, 'year' => $loopDate->year));
+                            $addEvent->start = clone $loopDate;
+                            $addEvent->start->hour = $addEvent->start->min = $addEvent->start->sec = 0;
                             $addEvent->first = false;
                         }
 
@@ -701,9 +711,9 @@ class Kronolith
                         if ($loopDate->compareDate($eventEnd) == 0) {
                             $addEvent->end = $eventEnd;
                         } else {
-                            $addEvent->end = new Horde_Date(array(
-                                'hour' => 23, 'min' => 59, 'sec' => 59,
-                                'month' => $loopDate->month, 'mday' => $loopDate->mday, 'year' => $loopDate->year));
+                            $addEvent->end = clone $loopDate;
+                            $addEvent->end->hour = 23;
+                            $addEvent->end->min = $addEvent->end->sec = 59;
                             $addEvent->last = false;
                         }
 
@@ -938,6 +948,7 @@ class Kronolith
                         $GLOBALS['display_external_calendars'][] = $calendarId;
                     }
                 } elseif (strncmp($calendarId, 'resource_', 9) === 0) {
+                    $calendarId = substr($calendarId, 9);
                     if (!in_array($calendarId, $GLOBALS['display_resource_calendars'])) {
                         $GLOBALS['display_resource_calendars'][] = $calendarId;
                     }
@@ -947,6 +958,9 @@ class Kronolith
                         $GLOBALS['display_holidays'][] = $calendarId;
                     }
                 } else {
+                    if (strncmp($calendarId, 'internal_', 9) === 0) {
+                        $calendarId = substr($calendarId, 9);
+                    }
                     if (!in_array($calendarId, $GLOBALS['display_calendars'])) {
                         $GLOBALS['display_calendars'][] = $calendarId;
                     }
@@ -1140,17 +1154,14 @@ class Kronolith
         }
         $GLOBALS['prefs']->setValue('display_external_cals', serialize($GLOBALS['display_external_calendars']));
 
-        /* If an authenticated doesn't own a calendar, create it. */
+        /* If an authenticated user doesn't own a calendar, create it. */
         if (!empty($GLOBALS['conf']['share']['auto_create']) &&
             $GLOBALS['registry']->getAuth() &&
             !count(self::listInternalCalendars(true))) {
-            $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
-            $share = $GLOBALS['kronolith_shares']->newShare(
-                $GLOBALS['registry']->getAuth(),
-                strval(new Horde_Support_Randomid()),
-                sprintf(_("Calendar of %s"), $identity->getName())
-            );
-            $GLOBALS['kronolith_shares']->addShare($share);
+            $calendars = $GLOBALS['injector']->getInstance('Kronolith_Factory_Calendars')
+                ->create();
+            
+            $share = $calendars->createDefaultShare();
             $GLOBALS['all_calendars'][$share->getName()] = new Kronolith_Calendar_Internal(array('share' => $share));
             $GLOBALS['display_calendars'][] = $share->getName();
 
@@ -1204,9 +1215,8 @@ class Kronolith
             this block since horde driver *must* contain a provider array */
 
             // Language specific file needed?
-            //$language = str_replace('_', '-', $GLOBALS['language']);
-            $language = $GLOBALS['language'];
-            if (!file_exists($GLOBALS['registry']->get('jsfs', 'horde') . '/map/' . $language . '.js')) {
+            $language = str_replace('_', '-', $GLOBALS['language']);
+            if (!file_exists($GLOBALS['registry']->get('jsfs', 'horde') . '/map/lang/' . $language . '.js')) {
                 $language = 'en-US';
             }
             $params['conf'] = array(
@@ -2899,7 +2909,7 @@ class Kronolith
                     $customParams = $params;
                     unset($customParams['driverconfig'], $customParams['table'], $customParams['utc']);
                     $params['db'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create('kronolith', $customParams);
-               } else {
+                } else {
                     $params['db'] = $GLOBALS['injector']->getInstance('Horde_Db_Adapter');
                 }
                 break;
@@ -3180,7 +3190,7 @@ class Kronolith
      */
     static public function getInternalCalendar($target)
     {
-        if (Kronolith_Resource::isResourceCalendar($target)) {
+        if (Kronolith::getDriver('Resource')->isResourceCalendar($target)) {
             $driver = self::getDriver('Resource');
             $id = $driver->getResourceIdByCalendar($target);
             return $driver->getResource($id);

@@ -27,12 +27,10 @@ function doResort(column, sortDown)
 }
 </script>
 
-<table width="100%" cellspacing="0">
- <tr>
-  <td class="header nowrap"><?php echo $this->_params['title'] . ' (' . count($this->_params['results']) . ')' ?></td>
-  <td class="header nowrap rightAlign"><?php echo isset($this->_params['extra']) ? $this->_params['extra'] : '&nbsp;' ?></td>
- </tr>
-</table>
+<div class="header nowrap">
+  <span class="nowrap rightAlign rightFloat subscribe"><?php echo isset($this->_params['extra']) ? $this->_params['extra'] : '&nbsp;' ?></span>
+  <?php echo $this->_params['title'] . ' (' . count($this->_params['results']) . ')' ?>
+</div>
 <?php if (count($this->_params['results'])): ?>
 <!-- Results Begin -->
 <table class="tickets striped sortable" id="sresults_<?php echo $this->_id ?>" width="100%" cellspacing="0">

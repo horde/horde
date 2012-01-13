@@ -3,7 +3,7 @@
  * From Binary XML Content Format Specification Version 1.3, 25 July 2001
  * found at http://www.wapforum.org
  *
- * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -92,7 +92,7 @@ class Horde_Xml_Wbxml_ContentHandler
 
     public function characters($str)
     {
-        $this->_output .= $str;
+        $this->_output .= htmlspecialchars($str);
     }
 
     public function opaque($o)

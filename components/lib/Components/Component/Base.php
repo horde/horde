@@ -14,7 +14,7 @@
 /**
  * Represents base functionality for a component.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -96,6 +96,16 @@ abstract class Components_Component_Base implements Components_Component
     public function getVersion()
     {
         return $this->getPackageXml()->getVersion();
+    }
+
+    /**
+     * Return the last release date of the component.
+     *
+     * @return string The date.
+     */
+    public function getDate()
+    {
+        return $this->getPackageXml()->getDate();
     }
 
     /**
@@ -189,9 +199,18 @@ abstract class Components_Component_Base implements Components_Component
      */
     public function getChangelog($helper)
     {
-        throw new Components_Exception(
-            'Not supported!'
-        );
+        throw new Components_Exception('Not supported!');
+    }
+
+    /**
+     * Return a data array with the most relevant information about this
+     * component.
+     *
+     * @return array Information about this component.
+     */
+    public function getData()
+    {
+        throw new Components_Exception('Not supported!');
     }
 
     /**
@@ -370,11 +389,14 @@ abstract class Components_Component_Base implements Components_Component
         Components_Pear_Environment $env, $options = array()
     )
     {
-        $env->provideChannel(
-            $this->getChannel(),
-            $options,
-            sprintf(' [required by %s]', $this->getName())
-        );
+        $channel = $this->getChannel();
+        if (!empty($channel)) {
+            $env->provideChannel(
+                $channel,
+                $options,
+                sprintf(' [required by %s]', $this->getName())
+            );
+        }
     }
 
     /**

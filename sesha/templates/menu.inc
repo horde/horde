@@ -1,4 +1,4 @@
-<form action="stock.php" method="post" name="stockjumpform">
+<form action="<?php echo Horde::url('stock.php') ?>" method="post" name="stockjumpform">
 <?php echo Horde_Util::formInput() ?>
 <input type="hidden" name="actionId" value="update_stock" />
 <div id="menu">

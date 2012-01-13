@@ -1,5 +1,5 @@
 # Japanese translation for Horde.
-# Copyright 2004-2009 Horde Project
+# Copyright 2004-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde package.
 # Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>
 #
@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Kolab_Storage\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-15 13:27+0100\n"
-"PO-Revision-Date: 2011-03-19 17:00+0900\n"
+"POT-Creation-Date: 2011-11-21 18:18+0100\n"
+"PO-Revision-Date: 2011-11-19 17:58+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: lib/Horde/Kolab/Storage/Driver/Cclient.php:103
@@ -163,8 +163,8 @@ msgstr ""
 "フォルダー %2$s 内のメッセージ %1$s の構造を取得することに失敗しました。エ"
 "ラー: %3$s"
 
-#: lib/Horde/Kolab/Storage/Folder/Base.php:831
-#: lib/Horde/Kolab/Storage/Folder/Base.php:837
+#: lib/Horde/Kolab/Storage/Folder/Base.php:842
+#: lib/Horde/Kolab/Storage/Folder/Base.php:848
 #, php-format
 msgid "Failed retrieving the message with ID %s. Original error: %s."
 msgstr "ID %s のメッセージの取得に失敗しました。エラー：%s"
@@ -177,12 +177,12 @@ msgstr ""
 "フォルダー %s でユーザ %s の ACL を %s に設定することに失敗しました。エラー："
 "%s"
 
-#: lib/Horde/Kolab/Storage/Folder/Decorator/Trigger.php:228
+#: lib/Horde/Kolab/Storage/Folder/Decorator/Trigger.php:224
 #, php-format
 msgid "Failed triggering folder %s. Error was: %s"
 msgstr "フォルダー %s のトリガーに失敗しました。エラー: %s"
 
-#: lib/Horde/Kolab/Storage/Factory.php:184
+#: lib/Horde/Kolab/Storage/Factory.php:182
 #, php-format
 msgid ""
 "Invalid \"driver\" parameter \"%s\". Please use one of \"mock\", \"php\", "
@@ -191,7 +191,7 @@ msgstr ""
 "不正な \"driver\" パラメータ \"%s\"。 以下のどれかを指定して下さい： \"mock"
 "\", \"php\", \"pear\", \"horde\", \"horde-php\", \"roundcube\""
 
-#: lib/Horde/Kolab/Storage/Factory.php:242
+#: lib/Horde/Kolab/Storage/Factory.php:243
 #, php-format
 msgid "Invalid \"namespace\" type \"%s\"!"
 msgstr "\"%s\"は無効なネームスペースの種類です！"
@@ -201,7 +201,7 @@ msgstr "\"%s\"は無効なネームスペースの種類です！"
 msgid "Listing folders for %s failed. Error: %s"
 msgstr "%s のフォルダ一覧取得に失敗しました。エラー：%s"
 
-#: lib/Horde/Kolab/Storage/Factory.php:141
+#: lib/Horde/Kolab/Storage/Factory.php:139
 msgid "Missing \"driver\" parameter!"
 msgstr "\"driver\" パラメータがありません！"
 
@@ -262,7 +262,7 @@ msgid "Setting annotation %s[%s] on folder %s%s to %s failed. Error: %s"
 msgstr ""
 "注釈 %s[%s] をフォルダー %s%s に %s と設定することに失敗しました。エラー：%s"
 
-#: lib/Horde/Kolab/Storage/Data/Base.php:218
+#: lib/Horde/Kolab/Storage/Data/Base.php:259
 #, php-format
 msgid ""
 "The message with ID %s does not exist. This probably means that the Kolab "
@@ -273,7 +273,7 @@ msgstr ""
 "クトを取得した後で、誰かが Kolab オブジェクトを変更したのでしょう。元のエ"
 "ラー：%s"
 
-#: lib/Horde/Kolab/Storage/Folder/Base.php:670
+#: lib/Horde/Kolab/Storage/Folder/Base.php:681
 #, php-format
 msgid ""
 "The message with ID %s does not exist. This probably means that the Kolab "
@@ -283,7 +283,7 @@ msgstr ""
 "ID %s のメッセージは存在しません。おそらく、あなたが編集中の Kolab オブジェク"
 "トを誰かが変更したのでしょう。編集内容は失われました。"
 
-#: lib/Horde/Kolab/Storage/Data/Format/Mime.php:195
+#: lib/Horde/Kolab/Storage/Data/Format/Mime.php:216
 #, php-format
 msgid ""
 "This is a Kolab Groupware object. To view this object you will need an email "
@@ -294,12 +294,12 @@ msgstr ""
 "は、Kokab グループウエアの書式を理解しているメールクライアントが必要です。そ"
 "のようなメールクライアントの一覧がここにあります：%s"
 
-#: lib/Horde/Kolab/Storage/Folder/Base.php:353
+#: lib/Horde/Kolab/Storage/Folder/Base.php:364
 #, php-format
 msgid "Unable to rename %s to %s: destination folder already exists"
 msgstr "%s を %s に変更できません：目的のフォルダーは既に存在します"
 
-#: lib/Horde/Kolab/Storage/Folder/Decorator/Trigger.php:261
+#: lib/Horde/Kolab/Storage/Folder/Decorator/Trigger.php:257
 #, php-format
 msgid "Unable to trigger URL %s. Response: %s"
 msgstr "URL %s をトリガーできません。応答： %s"

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -54,7 +54,7 @@ $renderer = new Horde_Form_Renderer();
 
 if (!$vars->exists('deliverable_id') && !$vars->exists('new')) {
     $clientSelector = new Hermes_Form_Deliverable_ClientSelector($vars);
-    $clientSelector->renderActive($renderer, $vars, 'deliverables.php', 'post');
+    $clientSelector->renderActive($renderer, $vars, Horde::url('deliverables.php'), 'post');
 }
 
 if ($vars->exists('deliverable_id') || $vars->exists('new')) {
@@ -65,7 +65,7 @@ if ($vars->exists('deliverable_id') || $vars->exists('new')) {
         }
     }
     $form = new Hermes_Form_Deliverable($vars);
-    $form->renderActive($renderer, $vars, 'deliverables.php', 'post');
+    $form->renderActive($renderer, $vars, Horde::url('deliverables.php'), 'post');
 } elseif ($vars->exists('client_id')) {
     $clients = Hermes::listClients();
     $clientname = $clients[$vars->get('client_id')];

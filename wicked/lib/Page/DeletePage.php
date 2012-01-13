@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -67,7 +67,7 @@ class Wicked_Page_DeletePage extends Wicked_Page {
         $version = Horde_Util::getFormData('version');
         $page = Wicked_Page::getPage($this->referrer(), $version);
         if (!$page->isValid()) {
-            Wicked::url('WikiHome', true)->redirect();
+            Wicked::url('Wiki/Home', true)->redirect();
         }
 
         if (empty($version)) {
@@ -126,7 +126,7 @@ class Wicked_Page_DeletePage extends Wicked_Page {
                 $GLOBALS['notification']->push(sprintf(_("Successfully deleted \"%s\"."), $pagename), 'horde.success');
                 Wicked::mail("Deleted page: $pagename\n",
                              array('Subject' => '[' . $GLOBALS['registry']->get('name') . '] deleted: ' . $pagename));
-                Wicked::url('WikiHome', true)->redirect();
+                Wicked::url('Wiki/Home', true)->redirect();
             }
             $GLOBALS['wicked']->removeVersion($pagename, $version);
             $GLOBALS['notification']->push(sprintf(_("Deleted version %s of \"%s\"."), $version, $pagename), 'horde.success');

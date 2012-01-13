@@ -6,7 +6,7 @@
  * All content has to be passed UTF-8 encoded. The charset parameters is used
  * for the generated message only.
  *
- * Copyright 2007-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -318,6 +318,17 @@ class Horde_Mime_Mail
         if (isset($this->_parts[$part])) {
             unset($this->_parts[$part]);
         }
+    }
+
+    /**
+     * Removes all (additional) message parts but leaves the body parts
+     * untouched.
+     *
+     * @since Horde_Mime 1.2.0
+     */
+    public function clearParts()
+    {
+        $this->_parts = array();
     }
 
     /**

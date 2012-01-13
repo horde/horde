@@ -22,7 +22,7 @@
  * This class does not offer a lot of safeties and is primarily intended to be
  * used within the Horde_Kolab_Storage_Data class.
  *
- * Copyright 2007-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -254,7 +254,7 @@ class Horde_Kolab_Storage_Cache
     private function _getAttachmentId($data_id, $obid, $attachment_id)
     {
         return md5(
-            serialize(array('d' => $data_id, 'o' => (string) $obid, 'p' => (string) $attachment_id))
+            serialize(array('d' => $data_id, 'o' => (string)$obid, 'p' => (string)$attachment_id))
         );
     }
 

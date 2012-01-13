@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -104,59 +104,79 @@ class Kronolith_Event_Kolab extends Kronolith_Event
 
         // Recurrence
         if (isset($event['recurrence'])) {
+            if (isset($event['recurrence']['exclusion'])) {
+                $exceptions = array();
+                foreach($event['recurrence']['exclusion'] as $exclusion) {
+                    if (!empty($exclusion)) {
+                        $exceptions[] = join('', explode('-', $exclusion));
+                    }
+                }
+                $event['recurrence']['exceptions'] = $exceptions;
+            }
+            if (isset($event['recurrence']['complete'])) {
+                $completions = array();
+                foreach($event['recurrence']['complete'] as $complete) {
+                    if (!empty($complete)) {
+                        $completions[] = join('', explode('-', $complete));
+                    }
+                }
+                $event['recurrence']['completions'] = $completions;
+            }
             $this->recurrence = new Horde_Date_Recurrence($this->start);
             $this->recurrence->fromHash($event['recurrence']);
         }
 
         // Attendees
         $attendee_count = 0;
-        foreach($event['attendee'] as $attendee) {
-            $name = $attendee['display-name'];
-            $email = $attendee['smtp-address'];
+        if (!empty($event['attendee'])) {
+            foreach($event['attendee'] as $attendee) {
+                $name = $attendee['display-name'];
+                $email = $attendee['smtp-address'];
 
-            $role = $attendee['role'];
-            switch ($role) {
-            case 'optional':
-                $role = Kronolith::PART_OPTIONAL;
-                break;
+                $role = $attendee['role'];
+                switch ($role) {
+                case 'optional':
+                    $role = Kronolith::PART_OPTIONAL;
+                    break;
 
-            case 'resource':
-                $role = Kronolith::PART_NONE;
-                break;
+                case 'resource':
+                    $role = Kronolith::PART_NONE;
+                    break;
 
-            case 'required':
-            default:
-                $role = Kronolith::PART_REQUIRED;
+                case 'required':
+                default:
+                    $role = Kronolith::PART_REQUIRED;
                 break;
+                }
+
+                $status = $attendee['status'];
+                switch ($status) {
+                case 'accepted':
+                    $status = Kronolith::RESPONSE_ACCEPTED;
+                    break;
+
+                case 'declined':
+                    $status = Kronolith::RESPONSE_DECLINED;
+                    break;
+
+                case 'tentative':
+                    $status = Kronolith::RESPONSE_TENTATIVE;
+                    break;
+
+                case 'none':
+                default:
+                    $status = Kronolith::RESPONSE_NONE;
+                    break;
+                }
+
+                // Attendees without an email address get added as incremented number
+                if (empty($email)) {
+                    $email = $attendee_count;
+                    $attendee_count++;
+                }
+
+                $this->addAttendee($email, $role, $status, $name);
             }
-
-            $status = $attendee['status'];
-            switch ($status) {
-            case 'accepted':
-                $status = Kronolith::RESPONSE_ACCEPTED;
-                break;
-
-            case 'declined':
-                $status = Kronolith::RESPONSE_DECLINED;
-                break;
-
-            case 'tentative':
-                $status = Kronolith::RESPONSE_TENTATIVE;
-                break;
-
-            case 'none':
-            default:
-                $status = Kronolith::RESPONSE_NONE;
-                break;
-            }
-
-            // Attendees without an email address get added as incremented number
-            if (empty($email)) {
-                $email = $attendee_count;
-                $attendee_count++;
-            }
-
-            $this->addAttendee($email, $role, $status, $name);
         }
 
         $this->initialized = true;
@@ -178,9 +198,9 @@ class Kronolith_Event_Kolab extends Kronolith_Event
         // Only set organizer if this is a new event
         if ($this->_id == null) {
             $organizer = array(
-                            'display-name' => Kronolith::getUserName($this->creator),
-                            'smtp-address' => Kronolith::getUserEmail($this->creator)
-                         );
+                'display-name' => Kronolith::getUserName($this->creator),
+                'smtp-address' => Kronolith::getUserEmail($this->creator)
+            );
             $event['organizer'] = $organizer;
         }
 
@@ -211,10 +231,29 @@ class Kronolith_Event_Kolab extends Kronolith_Event
         // Recurrence
         if ($this->recurs()) {
             $event['recurrence'] = $this->recurrence->toHash();
-        } else {
-            $event['recurrence'] = array();
+            if (!empty($event['recurrence']['exceptions'])) {
+                $exclusions = array();
+                foreach($event['recurrence']['exceptions'] as $exclusion) {
+                    if (!empty($exclusion)) {
+                        $exclusions[] = vsprintf(
+                            '%04d-%02d-%02d', sscanf($exclusion, '%04d%02d%02d')
+                        );
+                    }
+                }
+                $event['recurrence']['exclusion'] = $exclusions;
+            }
+            if (!empty($event['recurrence']['completions'])) {
+                $completions = array();
+                foreach($event['recurrence']['completions'] as $complete) {
+                    if (!empty($complete)) {
+                        $completions[] = vsprintf(
+                            '%04d-%02d-%02d', sscanf($complete, '%04d%02d%02d')
+                        );
+                    }
+                }
+                $event['recurrence']['complete'] = $completions;
+            }
         }
-
 
         // Attendees
         $event['attendee'] = array();

@@ -6,7 +6,7 @@
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
-var IMP_Compose_Base = {
+var ImpComposeBase = {
 
     // Vars defaulting to null: editor_on, identities
 
@@ -78,13 +78,13 @@ var IMP_Compose_Base = {
             tmp.update(CKEDITOR.instances['composeMessage'].getData());
             tmp2 = tmp.select('DIV.impComposeSignature');
             if (tmp2.size()) {
-                msg = tmp2.last().update(next.sig);
+                tmp2.last().update(next.sig);
+            } else if (next.id.sig_loc) {
+                tmp.insert({ top: next.sig });
             } else {
-                msg = next.id.sig_loc
-                    ? tmp.insert({ top: next.sig })
-                    : tmp.insert({ bottom: next.sig });
+                tmp.insert({ bottom: next.sig });
             }
-            CKEDITOR.instances['composeMessage'].setData(msg.innerHTML);
+            CKEDITOR.instances['composeMessage'].setData(tmp.innerHTML);
             tmp.remove();
         } else {
             msg = $F('composeMessage').replace(/\r\n/g, '\n');
@@ -98,11 +98,11 @@ var IMP_Compose_Base = {
 
             if (pos != -1) {
                 if (next.id.sig_loc == last.id.sig_loc) {
-                    msg = msg.substring(0, pos) + nextsig + msg.substring(pos + lastsig.length, msg.length);
+                    msg = msg.substring(0, pos) + next.sig + msg.substring(pos + lastsig.length, msg.length);
                 } else if (next.id.sig_loc) {
-                    msg = nextsig + msg.substring(0, pos) + msg.substring(pos + lastsig.length, msg.length);
+                    msg = next.sig + msg.substring(0, pos) + msg.substring(pos + lastsig.length, msg.length);
                 } else {
-                    msg = msg.substring(0, pos) + msg.substring(pos + lastsig.length, msg.length) + nextsig;
+                    msg = msg.substring(0, pos) + msg.substring(pos + lastsig.length, msg.length) + next.sig;
                 }
 
                 $('composeMessage').setValue(msg.replace(/\r\n/g, '\n').replace(/\n/g, '\r\n'));

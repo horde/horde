@@ -2,7 +2,7 @@
 /**
  * The Gollem_Auth class provides authentication for Gollem.
  *
- * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -165,9 +165,9 @@ class Gollem_Auth
             $pos = strrpos($backend['home'], '/');
             $cr_dir = substr($backend['home'], 0, $pos);
             $cr_file = substr($backend['home'], $pos + 1);
-            if (!$GLOBALS['injector']->getInstance('Gollem_Vfs')->exists($cr_dir, $cr_file)) {
+            if (!$vfs->exists($cr_dir, $cr_file)) {
                 try {
-                    $res = Gollem::createFolder($cr_dir, $cr_file);
+                    $res = Gollem::createFolder($cr_dir, $cr_file, $vfs);
                 } catch (Gollem_Exception $e) {
                     throw new Horde_Auth_Exception('Backend Configuration Error: Could not create home directory ' . $backend['home'] . ': ' . $e->getMessage(), Horde_Auth::REASON_MESSAGE);
                 }

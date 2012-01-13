@@ -2,7 +2,7 @@
 /**
  * The Ulaform script to delete a form.
  *
- * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -48,7 +48,7 @@ if ($form_submit == _("Delete")) {
 /* Render the form. */
 $renderer = new Horde_Form_Renderer();
 Horde::startBuffer();
-$delform->renderActive($renderer, $delvars, 'delete.php', 'post');
+$delform->renderActive($renderer, $delvars, Horde::url('delete.php'), 'post');
 $viewform->renderInactive($renderer, $viewvars);
 $main = Horde::endBuffer();
 

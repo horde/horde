@@ -2,7 +2,7 @@
 /**
  * Single message display for the dynamic view (dimp).
  *
- * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -49,8 +49,9 @@ $args = array(
 );
 
 $show_msg = new IMP_Views_ShowMessage();
-$show_msg_result = $show_msg->showMessage($args);
-if (isset($show_msg_result['error'])) {
+try {
+    $show_msg_result = $show_msg->showMessage($args);
+} catch (IMP_Exception $e) {
     IMP::status();
     echo Horde::wrapInlineScript(array(
         'parent.close()'
@@ -63,11 +64,10 @@ $scripts = array(
     array('textarearesize.js', 'horde'),
     array('toggle_quotes.js', 'horde'),
     array('message-dimp.js', 'imp'),
-    array('imp.js', 'imp'),
-    array('base64url.js', 'imp'),
+    array('imp.js', 'imp')
 );
 
-foreach (array('from', 'to', 'cc', 'bcc', 'replyTo', 'log', 'uid', 'mailbox') as $val) {
+foreach (array('from', 'to', 'cc', 'bcc', 'replyTo', 'log', 'uid', 'mbox') as $val) {
     if (!empty($show_msg_result[$val])) {
         $js_vars['DimpMessage.' . $val] = $show_msg_result[$val];
     }
@@ -213,8 +213,9 @@ $t->set('status', Horde::endBuffer());
 
 IMP_Dimp::header($show_msg_result['title'], $scripts);
 
-echo $t->fetch(IMP_TEMPLATES . '/dimp/message/message.html');
-
+Horde::startBuffer();
 Horde::includeScriptFiles();
 Horde::outputInlineScript();
-echo "</body>\n</html>";
+$t->set('script', Horde::endBuffer());
+
+echo $t->fetch(IMP_TEMPLATES . '/dimp/message/message.html');

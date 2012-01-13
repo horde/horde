@@ -1,140 +1,137 @@
 # Croatian translations for horde.
-# Copyright (C) 2006-2008 Horde Project
+# Copyright 2006-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the horde package.
 # Iva Rumora <iva.rumora@zg.t-com.hr>, 2006.
 # Matej Vela <Matej.Vela@CARNet.hr>, 2008.
+# Valentin Vidic <Valentin.Vidic@CARNet.hr>, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: horde 3\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 02:42+0200\n"
-"PO-Revision-Date: 2008-02-24 18:16+0100\n"
-"Last-Translator: Matej Vela <Matej.Vela@CARNet.hr>\n"
+"POT-Creation-Date: 2011-11-04 15:10+0100\n"
+"PO-Revision-Date: 2011-11-08 16:49+0200\n"
+"Last-Translator: Valentin Vidic <Valentin.Vidic@CARNet.hr>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: lib/Block/weatherdotcom.php:260 lib/Block/weatherdotcom.php:363
-#: lib/Block/weatherdotcom.php:409
+#: lib/Block/Weatherdotcom.php:240 lib/Block/Weatherdotcom.php:343
+#: lib/Block/Weatherdotcom.php:389
 msgid " at "
 msgstr " brzinom od "
 
-#: admin/groups.php:50
+#: admin/groups.php:33
 #, php-format
 msgid "\"%s\" was added to the groups system."
 msgstr "\"%s\" je dodan/a u sustav grupa."
 
-#: admin/perms/addchild.php:43
+#: admin/perms/addchild.php:49
 #, php-format
 msgid "\"%s\" was added to the permissions system."
 msgstr "\"%s\" je dodan/a u sustav dozvola."
 
-#: admin/groups.php:56 admin/perms/addchild.php:47
+#: admin/perms/addchild.php:53
 #, php-format
 msgid "\"%s\" was not created: %s."
 msgstr "\"%s\" nije kreiran: %s."
 
-#: lib/Block/account.php:83
+#: lib/Block/Account.php:80
 #, php-format
 msgid "%.2fMB used of %.2fMB allowed (%.2f%%)"
 msgstr "%.2fMB iskorišteno od %.2fMB dozvoljenih (%.2f%%)"
 
-#: lib/Block/weatherdotcom.php:241
+#: lib/Block/Weatherdotcom.php:221
 #, php-format
 msgid "%d %s and %s"
 msgstr "%d %s i %s"
 
-#: lib/Block/account.php:708 lib/Block/account.php:720
+#: lib/Block/Account/Ldap.php:228 lib/Block/Account/Ldap.php:243
 #, php-format
 msgid "%d days until your password expires."
 msgstr "Lozinka vam ističe za %d dana."
 
-#: lib/Block/metar.php:281
+#: lib/Block/Metar.php:259
 #, php-format
 msgid "%d minutes"
 msgstr "%d minuta"
 
-#: services/facebook.php:114
+#: services/facebook/index.php:122
 #, php-format
 msgid "%d person likes this"
 msgid_plural "%d persons like this"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d osobi se ovo sviđa"
+msgstr[1] "%d osobe se ovo sviđa"
+msgstr[2] "%d osoba se ovo sviđa"
 
 #: templates/admin/user/list.inc:4
 #, php-format
 msgid "%d to %d of %d"
 msgstr "%d-%d od %d"
 
-#: lib/Block/weatherdotcom.php:288
+#: lib/Block/Weatherdotcom.php:268
 #, php-format
 msgid "%d-day forecast"
 msgstr "%d-dnevna prognoza"
 
-#: services/logintasks.php:83
+#: services/logintasks.php:89
 #, php-format
 msgid "%s - Notice"
 msgstr "%s - Bilješka"
 
-#: admin/config/config.php:21 admin/config/index.php:226
-#, fuzzy, php-format
+#: admin/config/config.php:26 admin/config/index.php:355
+#, php-format
 msgid "%s Configuration"
-msgstr "Konfiguracija"
+msgstr "%s Konfiguracija"
 
-#: services/logintasks.php:64
-#, fuzzy, php-format
+#: services/logintasks.php:69
+#, php-format
 msgid "%s Tasks - Confirmation"
-msgstr "Lozinka s potvrdom"
+msgstr "%s zadaci - potvrda"
 
-#: services/logintasks.php:74
+#: services/logintasks.php:79
 #, php-format
 msgid "%s Terms of Agreement"
 msgstr "%s Uvjeti sporazuma"
 
-#: lib/Block/metar.php:154 lib/Block/metar.php:160 lib/Block/metar.php:234
-#: lib/Block/metar.php:340 lib/Block/metar.php:346
+#: lib/Block/Metar.php:132 lib/Block/Metar.php:138 lib/Block/Metar.php:212
+#: lib/Block/Metar.php:318 lib/Block/Metar.php:324
 #, php-format
 msgid "%s at %s %s"
 msgstr "%s u %s %s"
 
-#: services/logintasks.php:63
-#, fuzzy, php-format
+#: services/logintasks.php:70
+#, php-format
 msgid ""
-"%s is ready to perform the tasks checked below. Check the box for any "
-"operation(s) you want to perform at this time."
+"%s is ready to perform the tasks below. Select each operation to run at this "
+"time."
 msgstr ""
 "Aplikacija %s je spremna za dolje ponuđene postupke održavanja. Označite "
-"kućice postupaka koje želite provesti u ovom trenutku."
+"postupke koje želite provesti u ovom trenutku."
 
-#: lib/Block/vatid.php:58
-#, php-format
-msgid "%s not found."
-msgstr "%s nije pronađen."
-
-#: lib/Block/weatherdotcom.php:367 lib/Block/weatherdotcom.php:412
+#: lib/Block/Weatherdotcom.php:347 lib/Block/Weatherdotcom.php:392
 msgid ", gusting "
 msgstr ", udari vjetra "
 
-#: lib/Block/metar.php:183 lib/Block/metar.php:188
+#: lib/Block/Metar.php:161 lib/Block/Metar.php:166
 #, php-format
 msgid ", gusting %s %s"
 msgstr ", udari vjetra %s %s"
 
-#: lib/Block/metar.php:196
+#: lib/Block/Metar.php:174
 #, php-format
 msgid ", variable from %s to %s"
 msgstr ", promjenjiv/a od %s do %s"
 
-#: lib/Block/time.php:26
+#: lib/Block/Time.php:31
 msgid "12 Hour Format"
 msgstr "12-satni format"
 
-#: lib/Block/time.php:25
+#: lib/Block/Time.php:30
 msgid "24 Hour Format"
 msgstr "24-satni format"
 
@@ -142,97 +139,115 @@ msgstr "24-satni format"
 msgid "24 hours"
 msgstr "24 sata"
 
-#: templates/prefs/facebook.html:15
+#: config/prefs.php:438 config/prefs.php:440
+msgid "24-hour format"
+msgstr "24-satni format"
+
+#: templates/prefs/facebook.html:14
 msgid ""
 "<tag:app_name /> can interact with your Facebook account, but you must login "
 "to Facebook manually each time."
 msgstr ""
+"Aplikacija <tag:app_name /> može koristiti Vaš Facebook račun, ali se svaki "
+"put morate prijaviti na Facebook."
 
-#: templates/prefs/facebook.html:38
-msgid "<tag:app_name /> cannot read your stream messages."
+#: templates/prefs/facebook.html:49
+msgid "<tag:app_name /> cannot read information about your Facebook friends."
 msgstr ""
+"Aplikacija <tag:app_name /> ne može pročitati informacije o Vašim Facebook "
+"prijateljima."
 
-#: templates/prefs/facebook.html:26
+#: templates/prefs/facebook.html:37
+msgid ""
+"<tag:app_name /> cannot read your stream messages and various other Facebook "
+"data items."
+msgstr ""
+"Aplikacija <tag:app_name /> ne može pročitati Vaš niz poruka i razne druge "
+"Facebook podatke."
+
+#: templates/prefs/facebook.html:25
 msgid ""
 "<tag:app_name /> cannot set your status messages or publish other content to "
 "Facebook."
 msgstr ""
+"Aplikacija <tag:app_name /> ne može promijeniti Vaš status ili objaviti "
+"drugi sadržaj na Facebook."
 
 #: templates/prefs/twitter.html:9
 msgid "<tag:appname /> can interact with your Twitter account"
-msgstr ""
+msgstr "Aplikacija <tag:appname /> može koristiti vaš Twitter račun"
 
 #: services/keyboard.php:46
 msgid "A characters"
 msgstr "Slova A"
 
-#: lib/Block/metar.php:117
-msgid "A database backend is required for this block."
-msgstr "Ovaj blok zahtijeva backend u bazi podataka."
-
-#: admin/activesync.php:35
+#: admin/activesync.php:36
 msgid ""
 "A device wipe has been requested. Device will be wiped on next "
 "syncronization attempt."
 msgstr ""
+"Zatraženo je brisanje uređaja. Uređaj će biti obrisan prilikom sljedećeg "
+"pokušaja sinkronizacije."
 
-#: admin/config/index.php:92 admin/config/index.php:124
+#: admin/config/index.php:147 admin/config/index.php:185
 #, php-format
 msgid "A newer version (%s) exists."
 msgstr "Postoji novija verzija (%s)."
 
-#: lib/Prefs/Ui.php:743
+#: lib/Prefs/Ui.php:708
 #, php-format
 msgid ""
 "A remote wipe for device id %s has been initiated. The device will be wiped "
 "during the next synchronisation."
 msgstr ""
+"Automatsko brisanje za uređaj sa identifikatorom %s je pokrenuto. Uređaj će "
+"biti obrisan prilikom sljedeće sinkronizacije."
 
-#: lib/Block/weatherdotcom_strings.php:7
+#: lib/Block/WeatherdotcomStrings.php:7
 msgid "AM Clouds"
 msgstr "Oblaci prijepodne"
 
-#: lib/Block/weatherdotcom_strings.php:8
+#: lib/Block/WeatherdotcomStrings.php:8
 msgid "AM Drizzle"
 msgstr "Sitna kiša prijepodne"
 
-#: lib/Block/weatherdotcom_strings.php:9
+#: lib/Block/WeatherdotcomStrings.php:9
 msgid "AM Fog"
 msgstr "Magla prijepodne"
 
-#: lib/Block/weatherdotcom_strings.php:10
+#: lib/Block/WeatherdotcomStrings.php:10
 msgid "AM Light Rain"
 msgstr "Slaba kiša prijepodne"
 
-#: lib/Block/weatherdotcom_strings.php:11
+#: lib/Block/WeatherdotcomStrings.php:11
 msgid "AM Light Snow"
 msgstr "Slab snijeg prijepodne"
 
-#: lib/Block/weatherdotcom_strings.php:12
+#: lib/Block/WeatherdotcomStrings.php:12
 msgid "AM Rain"
 msgstr "Jutarnja kiša"
 
-#: lib/Block/weatherdotcom_strings.php:13
+#: lib/Block/WeatherdotcomStrings.php:13
 msgid "AM Showers"
 msgstr "Jutarnji pljuskovi"
 
-#: lib/Block/weatherdotcom_strings.php:14
+#: lib/Block/WeatherdotcomStrings.php:14
 msgid "AM Snow"
 msgstr "Snijeg prijepodne"
 
-#: lib/Block/weatherdotcom_strings.php:15
+#: lib/Block/WeatherdotcomStrings.php:15
 msgid "AM Snow Showers"
 msgstr "Jutarnji pljuskovi snijega"
 
-#: lib/Block/weatherdotcom_strings.php:16
+#: lib/Block/WeatherdotcomStrings.php:16
 msgid "AM Sun"
 msgstr "Sunčano prijepodne"
 
-#: lib/Block/weatherdotcom_strings.php:17
+#: lib/Block/WeatherdotcomStrings.php:17
 msgid "AM T-Showers"
 msgstr "Jutarnji pljuskovi s grmljavinom"
 
-#: lib/Block/weatherdotcom_strings.php:18
+#: lib/Block/WeatherdotcomStrings.php:18
 msgid "AM T-Storms"
 msgstr "Oluja s grmljavinom prijepodne"
 
@@ -240,42 +255,39 @@ msgstr "Oluja s grmljavinom prijepodne"
 msgid "AM/PM"
 msgstr "Jutro/Poslijepodne"
 
-#: lib/Block/account.php:3
+#: lib/Block/Account.php:19
 msgid "Account Information"
 msgstr "Korisnički podaci"
 
-#: config/prefs.php.dist:276
+#: config/prefs.php:296
 msgid "Account Password"
 msgstr "Lozinka Korisničkog Računa"
 
-#: admin/activesync.php:126
-#, fuzzy
+#: admin/activesync.php:128
 msgid "Actions"
-msgstr "Opcije"
+msgstr "Akcije"
 
-#: config/prefs.php.dist:676
+#: config/prefs.php:673
 msgid "ActiveSync"
-msgstr ""
+msgstr "ActiveSync"
 
-#: admin/activesync.php:71
-#, fuzzy
+#: admin/activesync.php:73
 msgid "ActiveSync Device Administration"
-msgstr "Administracija korisnika"
+msgstr "Administracija ActiveSync uređaja"
 
-#: admin/activesync.php:199 lib/Api.php:80
+#: admin/activesync.php:201 lib/Api.php:85
 msgid "ActiveSync Devices"
-msgstr ""
+msgstr "ActiveSync uređaji"
 
-#: admin/activesync.php:20 lib/Prefs/Ui.php:376
-#, fuzzy
+#: admin/activesync.php:25 lib/Prefs/Ui.php:351
 msgid "ActiveSync not activated."
-msgstr "%s nije aktiviran."
+msgstr "ActiveSync nije omogućen."
 
-#: templates/admin/groups/addchild.inc:12 templates/portal/add.inc:14
+#: templates/admin/groups/add.inc:11 templates/portal/add.inc:14
 msgid "Add"
 msgstr "Dodaj"
 
-#: services/portal/index.php:68
+#: services/portal/index.php:49
 msgid "Add Content"
 msgstr "Dodaj sadržaj"
 
@@ -283,36 +295,31 @@ msgstr "Dodaj sadržaj"
 msgid "Add Here:"
 msgstr "Ovdje dodaj:"
 
-#: templates/admin/groups/edit.inc:49
+#: templates/admin/groups/edit.inc:56
 msgid "Add Members"
 msgstr "Dodaj članove"
 
-#: admin/groups.php:253 templates/admin/groups/addchild.inc:7
-#, php-format
-msgid "Add a child group to \"%s\""
-msgstr "Dodaj pod-grupu u \"%s\""
+#: templates/admin/groups/add.inc:6
+msgid "Add a group"
+msgstr "Dodaj grupu"
 
-#: admin/groups.php:238
-msgid "Add a new group"
-msgstr "Dodaj novu grupu"
-
-#: admin/user.php:21
+#: admin/user.php:26
 msgid "Add a new user:"
 msgstr "Dodaj novog korisnika:"
 
-#: admin/alarms.php:22
+#: admin/alarms.php:27
 msgid "Add new alarm"
 msgstr "Dodaj novi alarm"
 
-#: templates/data/csvmap.inc:92
+#: templates/data/csvmap.inc:93
 msgid "Add pair"
 msgstr "Dodaj par"
 
-#: admin/user.php:22
+#: admin/user.php:27
 msgid "Add user"
 msgstr "Dodaj korisnika"
 
-#: admin/signup_confirm.php:80 admin/user.php:92
+#: admin/signup_confirm.php:80 admin/user.php:97
 #, php-format
 msgid ""
 "Added \"%s\" to the system, but could not add additional signup information: "
@@ -330,39 +337,43 @@ msgstr "\"%s\" dodan u sustav. Možete se prijaviti."
 msgid "Adding users is disabled."
 msgstr "Dodavanje korisnika je onemogućeno."
 
-#: lib/Block/vatid.php:101
+#: lib/Block/Vatid.php:117
 msgid "Address"
 msgstr "Adresa"
 
-#: config/registry.php.dist:142
+#: config/registry.php:122
 msgid "Address Book"
 msgstr "Adresar"
 
-#: admin/alarms.php:26
+#: lib/Application.php:46
+msgid "Administration"
+msgstr "Administracija"
+
+#: admin/alarms.php:31
 msgid "Alarm end"
 msgstr "Kraj alarma"
 
-#: admin/alarms.php:28
+#: admin/alarms.php:33
 msgid "Alarm methods"
 msgstr "Načini alarmiranja"
 
-#: admin/alarms.php:25
+#: admin/alarms.php:30
 msgid "Alarm start"
 msgstr "Početak alarma"
 
-#: admin/alarms.php:27
+#: admin/alarms.php:32
 msgid "Alarm text"
 msgstr "Tekst alarma"
 
-#: admin/alarms.php:24
+#: admin/alarms.php:29
 msgid "Alarm title"
 msgstr "Naziv alarma"
 
-#: admin/alarms.php:133
+#: admin/alarms.php:138
 msgid "Alarms"
 msgstr "Alarmi"
 
-#: lib/Block/fortune.php:94
+#: lib/Block/Fortune.php:93
 msgid "All"
 msgstr "Svi"
 
@@ -370,54 +381,52 @@ msgstr "Svi"
 msgid "All Authenticated Users"
 msgstr "Svi autenticirani korisnici"
 
-#: admin/groups.php:26 admin/groups.php:244
-msgid "All Groups"
-msgstr "Sve grupe"
-
-#: admin/activesync.php:50
+#: admin/activesync.php:51
 msgid "All policy keys successfully reset."
-msgstr ""
+msgstr "Ključevi svih procedura su uspješno resetirani."
 
-#: lib/Prefs/Ui.php:753
+#: lib/Prefs/Ui.php:718
 msgid ""
-"All state removed for your devices. They will resynchronize next time they "
-"connect to the server."
+"All state removed for your ActiveSync devices. They will resynchronize next "
+"time they connect to the server."
 msgstr ""
+"Uklonjeno stanje za Vaše ActiveSync uređaje. Uređaji će se ponovo "
+"sinkronizirati kod sljedećeg spajanja na poslužitelj."
 
-#: lib/Prefs/Ui.php:724
+#: lib/Prefs/Ui.php:688
 msgid "All synchronization sessions deleted."
 msgstr "Obrisane sve sinkronizacijske sesije."
 
-#: config/prefs.php.dist:644
+#: config/prefs.php:639
 msgid "Alternate IMSP Login"
 msgstr "Alternativna IMSP prijava"
 
-#: config/prefs.php.dist:658
+#: config/prefs.php:653
 msgid "Alternate IMSP Password"
 msgstr "Alternativna IMSP lozinka"
 
-#: config/prefs.php.dist:652
+#: config/prefs.php:647
 msgid "Alternate IMSP Username"
 msgstr "Alternativno IMSP korisničko ime"
 
-#: services/resetpassword.php:31
+#: services/resetpassword.php:32
 msgid "Alternate email address"
 msgstr "Alternativna e-mail adresa"
 
-#: lib/Block/weatherdotcom.php:170
+#: lib/Block/Weatherdotcom.php:150
 msgid "An unknown error has occured."
 msgstr "Došlo je do nepoznate pogreške."
 
-#: services/resetpassword.php:48
+#: services/resetpassword.php:49
 msgid "Answer"
 msgstr "Odgovori"
 
-#: templates/data/csvmap.inc:112 templates/admin/config/index.html:11
+#: templates/data/csvmap.inc:113 templates/admin/config/index.html:27
 msgid "Application"
 msgstr "Aplikacija"
 
 # Popis
-#: admin/phpshell.php:44
+#: admin/phpshell.php:49
 msgid "Application Context: "
 msgstr "Aplikacijski kontekst: "
 
@@ -426,11 +435,11 @@ msgstr "Aplikacijski kontekst: "
 msgid "Application List"
 msgstr "Lista aplikacija"
 
-#: admin/config/index.php:160
+#: admin/config/index.php:225
 msgid "Application is ready."
 msgstr "Aplikacija je spremna."
 
-#: admin/config/index.php:95 admin/config/index.php:127
+#: admin/config/index.php:150 admin/config/index.php:188
 msgid "Application is up-to-date."
 msgstr "Aplikacija je ažurna."
 
@@ -439,11 +448,11 @@ msgid "Approve"
 msgstr "Odobri"
 
 # Arapski
-#: config/nls.php:167
+#: config/nls.php:168
 msgid "Arabic (Windows-1256)"
 msgstr "Arabic (Windows-1256)"
 
-#: admin/alarms.php:123
+#: admin/alarms.php:128
 #, php-format
 msgid "Are you sure you want to delete '%s'?"
 msgstr "Jeste li sigurni da želite obrisati '%s'?"
@@ -455,35 +464,39 @@ msgstr "Jeste li sigurni da želite obrisati prijavu od strane \"%s\"?"
 
 #: templates/admin/groups/delete.inc:7
 #, php-format
-msgid "Are you sure you wish to delete \"%s\" and any sub-groups?"
-msgstr "Jeste li sigurni da želite obrisati \"%s\" i sve pod-grupe?"
+msgid "Are you sure you wish to delete \"%s\"?"
+msgstr "Jeste li sigurni da želite obrisati \"%s\"?"
 
 # Armenijski
-#: config/nls.php:168
+#: config/nls.php:169
 msgid "Armenian (ARMSCII-8)"
 msgstr "Armenian (ARMSCII-8)"
 
-#: lib/Block/fortune.php:35
+#: lib/Block/Fortune.php:35
 msgid "Art"
 msgstr "Umjetnost"
 
-#: lib/Block/fortune.php:36
+#: lib/Block/Fortune.php:36
 msgid "Ascii Art"
 msgstr "Ascii crteži"
+
+#: lib/LoginTasks/Task/AdminCheck.php:65
+msgid "At least one database schema is outdated."
+msgstr "Jedna ili više shema baze je zastarjela."
 
 #: templates/problem/problem.inc:43
 msgid "Attachment"
 msgstr "Prilog"
 
-#: admin/groups.php:72
+#: admin/groups.php:58
 msgid "Attempt to delete a non-existent group."
 msgstr "Pokušavate izbrisati nepostojeću grupu."
 
-#: admin/perms/delete.php:24
+#: admin/perms/delete.php:30
 msgid "Attempt to delete a non-existent permission."
 msgstr "Pokušavate izbrisati nepostojeću dozvolu."
 
-#: admin/perms/edit.php:92
+#: admin/perms/edit.php:98
 msgid "Attempt to edit a non-existent permission."
 msgstr "Pokušavate urediti nepostojeću dozvolu."
 
@@ -491,25 +504,31 @@ msgstr "Pokušavate urediti nepostojeću dozvolu."
 msgid "Attempt to edit a non-existent share."
 msgstr "Pokušavate urediti nepostojeću particiju."
 
-#: admin/sessions.php:40
-#, fuzzy
+#: admin/sessions.php:44
 msgid "Authenticated to:"
-msgstr "Svi autenticirani korisnici"
+msgstr "Prijavljen na:"
 
-#: templates/prefs/facebook.html:27
+#: templates/prefs/facebook.html:50
+msgid "Authorize Access to Friends Data:"
+msgstr "Dozvolite pristup podacima prijatelja:"
+
+#: templates/prefs/facebook.html:26
 msgid "Authorize Publish"
-msgstr ""
+msgstr "Dozvolite objavljivanje"
 
-#: templates/prefs/facebook.html:39
-#, fuzzy
+#: templates/prefs/facebook.html:38
 msgid "Authorize Read:"
-msgstr "Nedovoljna autorizacija"
+msgstr "Dozvolite čitanje:"
 
-#: templates/prefs/facebook.html:16
+#: templates/prefs/facebook.html:15
 msgid "Authorize an infinite session:"
-msgstr ""
+msgstr "Dozvolite beskonačnu prijavu:"
 
-#: templates/data/csvmap.inc:70
+#: login.php:219
+msgid "Automatic"
+msgstr "Automatski"
+
+#: templates/data/csvmap.inc:71
 msgid "Available fields:"
 msgstr "Dostupna polja:"
 
@@ -517,12 +536,12 @@ msgstr "Dostupna polja:"
 msgid "Azur"
 msgstr "Azurna"
 
-#: lib/Block/fortune.php:37
+#: lib/Block/Fortune.php:37
 msgid "BOFH Excuses"
 msgstr "BOFH isprike"
 
 # Balitički
-#: config/nls.php:169
+#: config/nls.php:170
 msgid "Baltic (ISO-8859-13)"
 msgstr "Baltic (ISO-8859-13)"
 
@@ -552,11 +571,11 @@ msgstr "Puni mjesec"
 msgid "Blue and White"
 msgstr "Plava i bijela"
 
-#: config/registry.php.dist:226
+#: config/registry.php:204
 msgid "Bookmarks"
 msgstr "URL adresar"
 
-#: lib/Block/fortune.php:103
+#: lib/Block/Fortune.php:103
 msgid "Both"
 msgstr "Oboje"
 
@@ -564,7 +583,7 @@ msgstr "Oboje"
 msgid "Brown"
 msgstr "Smeđa"
 
-#: admin/sessions.php:38
+#: admin/sessions.php:42
 msgid "Browser:"
 msgstr "Preglednik:"
 
@@ -572,15 +591,15 @@ msgstr "Preglednik:"
 msgid "Burnt Orange"
 msgstr "Tamno narandžasta"
 
-#: lib/Block/weatherdotcom.php:166
+#: lib/Block/Weatherdotcom.php:146
 msgid "Cache init was not completed."
 msgstr "Inicijalizacija cache memorije nije uspjela."
 
-#: config/registry.php.dist:157
+#: config/registry.php:144
 msgid "Calendar"
 msgstr "Kalendar"
 
-#: lib/Block/weatherdotcom.php:250
+#: lib/Block/Weatherdotcom.php:230
 msgid "Calm"
 msgstr "Mirno"
 
@@ -588,7 +607,7 @@ msgstr "Mirno"
 msgid "Camouflage"
 msgstr "Kamuflaža"
 
-#: admin/user.php:115 admin/user.php:135 templates/admin/groups/delete.inc:11
+#: admin/user.php:120 admin/user.php:140 templates/admin/groups/delete.inc:11
 #: templates/admin/user/clear.inc:12 templates/admin/user/remove.inc:12
 msgid "Cancel"
 msgstr "Odustani"
@@ -597,27 +616,26 @@ msgstr "Odustani"
 msgid "Cancel Problem Report"
 msgstr "Opozovi izvještaj o problemu"
 
-#: admin/activesync.php:183 templates/prefs/activesync.html:31
-#, fuzzy
+#: admin/activesync.php:185 templates/prefs/activesync.html:31
 msgid "Cancel Wipe"
-msgstr "Odustani"
+msgstr "Odustani od brisanja"
 
-#: services/resetpassword.php:17
+#: services/resetpassword.php:18
 msgid "Cannot reset password automatically, contact your administrator."
 msgstr ""
 "Automatsko resetiranje lozinke nije moguće, kontaktirajte administratora."
 
-#: config/prefs.php.dist:440
+#: config/prefs.php:463
 msgid "Categories and Labels"
 msgstr "Kategorije i oznake"
 
 # Keltski
-#: config/nls.php:170
+#: config/nls.php:171
 msgid "Celtic (ISO-8859-14)"
 msgstr "Celtic (ISO-8859-14)"
 
 # Srednjo-europski
-#: config/nls.php:171
+#: config/nls.php:172
 msgid "Central European (ISO-8859-2)"
 msgstr "Central European (ISO-8859-2)"
 
@@ -629,11 +647,9 @@ msgstr "Promijeni"
 msgid "Change Your Password"
 msgstr "Promijenite Vašu lozinku"
 
-#: config/prefs.php.dist:214
-msgid ""
-"Change the name and address that people see when they read and reply to your "
-"emails."
-msgstr "Promijeni ime i adresu koji su vidljivi primateljima e-maila."
+#: config/prefs.php:233
+msgid "Change your personal information."
+msgstr "Uredite Vaše osobne podatke"
 
 #: services/changepassword.php:17
 msgid ""
@@ -643,7 +659,7 @@ msgstr ""
 "Mijenjanje lozinke nije podržano u trenutnoj konfiguraciji. Kontaktirajte "
 "administratora."
 
-#: lib/Block/vatid.php:45
+#: lib/Block/Vatid.php:41
 msgid "Check"
 msgstr "Provjeri"
 
@@ -651,21 +667,17 @@ msgstr "Provjeri"
 msgid "Check for newer versions"
 msgstr "Provjeri ima li novijih verzija"
 
-#: lib/Block/vatid.php:47
+#: lib/Block/Vatid.php:43
 msgid "Checking"
 msgstr "Provjera u toku..."
 
-#: templates/admin/groups/addchild.inc:10
-msgid "Child"
-msgstr "Pod-grupa"
-
 # Kineski pojednostavljeni
-#: config/nls.php:172
+#: config/nls.php:173
 msgid "Chinese Simplified (GB2312)"
 msgstr "Chinese Simplified (GB2312)"
 
 # Kineski tradicionalni
-#: config/nls.php:173
+#: config/nls.php:174
 msgid "Chinese Traditional (Big5)"
 msgstr "Chinese Traditional (Big5)"
 
@@ -675,26 +687,23 @@ msgstr "Chinese Traditional (Big5)"
 msgid "Choose %s"
 msgstr "Izaberite %s"
 
-#: config/prefs.php.dist:403
-#, fuzzy
+#: config/prefs.php:429
 msgid "Choose how to display dates (abbreviated format):"
-msgstr "Odabir prikaza datuma:"
+msgstr "Odabir prikaza datuma (skraćeni oblik):"
 
-#: config/prefs.php.dist:377
-#, fuzzy
+#: config/prefs.php:404
 msgid "Choose how to display dates (full format):"
-msgstr "Odabir prikaza datuma:"
+msgstr "Odabir prikaza datuma (dugi oblik):"
 
-#: config/prefs.php.dist:419
-#, fuzzy
+#: config/prefs.php:443
 msgid "Choose how to display times:"
-msgstr "Odabir prikaza datuma:"
+msgstr "Odabir prikaza vremena:"
 
-#: lib/Block/weatherdotcom_strings.php:19
+#: lib/Block/WeatherdotcomStrings.php:19
 msgid "Clear"
 msgstr "Vedro"
 
-#: admin/sqlshell.php:109
+#: admin/sqlshell.php:122
 msgid "Clear Query"
 msgstr "Izbriši upit"
 
@@ -712,11 +721,11 @@ msgstr "Izbriši korisnika"
 msgid "Clear user data"
 msgstr "Izbriši korisničke podatke"
 
-#: lib/Block/weatherdotcom_strings.php:20
+#: lib/Block/WeatherdotcomStrings.php:20
 msgid "Clearing Early"
 msgstr "Razvedravanje ujutro"
 
-#: lib/Block/weatherdotcom_strings.php:21
+#: lib/Block/WeatherdotcomStrings.php:21
 msgid "Clearing Late"
 msgstr "Razvedravanje navečer"
 
@@ -724,9 +733,9 @@ msgstr "Razvedravanje navečer"
 msgid ""
 "Click on one of your selected address books and then select all fields to "
 "search."
-msgstr ""
+msgstr "Kliknite na jedan od Vaših adresara i odaberite polja za pretragu."
 
-#: templates/logintasks/logintasks.html:38
+#: templates/logintasks/logintasks.html:30 templates/logintasks/mobile.html:37
 msgid "Click to Continue"
 msgstr "Klikni za nastavak"
 
@@ -738,83 +747,82 @@ msgstr "Klijentska oznaka"
 msgid "Close Window"
 msgstr "Zatvori prozor"
 
-#: lib/Block/metar.php:239
+#: lib/Block/Metar.php:217
 msgid "Clouds"
 msgstr "Oblaci"
 
-#: lib/Block/weatherdotcom_strings.php:22
+#: lib/Block/WeatherdotcomStrings.php:22
 msgid "Clouds Early"
 msgstr "Oblačno ujutro"
 
-#: lib/Block/weatherdotcom_strings.php:23
+#: lib/Block/WeatherdotcomStrings.php:23
 msgid "Clouds Late"
 msgstr "Oblaci navečer"
 
-#: lib/Block/weatherdotcom_strings.php:24
+#: lib/Block/WeatherdotcomStrings.php:24
 msgid "Cloudy"
 msgstr "Oblačno"
 
-#: admin/sessions.php:31
+#: admin/sessions.php:35
 msgid "Collapse"
 msgstr "Smanji"
 
-#: templates/sidebar/sidebar.inc:3
-msgid "Collapse Sidebar"
-msgstr "Smanji bočnu traku"
-
-#: lib/Prefs/Ui.php:237
+#: lib/Prefs/Ui.php:213
 msgid "Color Picker"
 msgstr "Birač boja"
 
-#: admin/cmdshell.php:20 admin/cmdshell.php:42
+#: config/registry.php:254
+msgid "Comics"
+msgstr "Stripovi"
+
+#: admin/cmdshell.php:25 admin/cmdshell.php:47
 msgid "Command"
 msgstr "Naredba"
 
-#: admin/cmdshell.php:14
+#: admin/cmdshell.php:19
 msgid "Command Shell"
 msgstr "Komandna linija"
 
-#: services/facebook.php:101
-#, fuzzy, php-format
+#: services/facebook/index.php:109
+#, php-format
 msgid "Comments: %d"
-msgstr "Komentar"
+msgstr "Komentara: %d"
 
-#: lib/Block/fortune.php:38
+#: lib/Block/Fortune.php:38
 msgid "Computers"
 msgstr "Računala"
 
 # prilike, vremenske?
-#: lib/Block/weatherdotcom.php:300
+#: lib/Block/Weatherdotcom.php:280
 msgid "Condition"
 msgstr "Vremenske prilike"
 
 # prilike, vremenske?
-#: lib/Block/metar.php:244
+#: lib/Block/Metar.php:222
 msgid "Conditions"
 msgstr "Uvjeti"
 
-#: admin/config/config.php:65 templates/admin/config/config.html:9
+#: admin/config/config.php:74 templates/admin/config/config.html:9
 msgid "Configuration"
 msgstr "Konfiguracija"
 
-#: admin/config/diff.php:80
+#: admin/config/diff.php:85
 msgid "Configuration Differences"
 msgstr "Konfiguracijske razlike"
 
-#: config/prefs.php.dist:665
+#: config/prefs.php:662
 msgid "Configuration for syncing with PDAs, Smartphones and Outlook."
 msgstr "Konfiguracija sinkroniziranja s PDA-ovima, Smartphoneom i Outlookom."
 
-#: admin/config/index.php:155
+#: admin/config/index.php:220
 msgid "Configuration is out of date."
 msgstr "Konfiguraciju treba ažurirati."
 
-#: templates/admin/config/index.html:61
-#, fuzzy
+#: templates/admin/config/index.html:89
 msgid "Configuration upgrade scripts available"
-msgstr "Dostupni skriptovi za ažuriranje instalacije"
+msgstr "Dostupne su skripte za nadogradnju konfiguracije"
 
-#: admin/config/index.php:111
+#: admin/config/index.php:165
 #, php-format
 msgid "Configure %s"
 msgstr "Konfiguriraj %s"
@@ -823,12 +831,12 @@ msgstr "Konfiguriraj %s"
 msgid "Confirm Password"
 msgstr "Potvrdi lozinku"
 
-#: services/changepassword.php:25 services/resetpassword.php:25
+#: services/changepassword.php:25 services/resetpassword.php:26
 msgid "Continue"
 msgstr "Nastavi"
 
 # Kolačić?
-#: lib/Block/fortune.php:39
+#: lib/Block/Fortune.php:39
 msgid "Cookie"
 msgstr "Cookie"
 
@@ -836,36 +844,29 @@ msgstr "Cookie"
 msgid "Cornflower"
 msgstr "Različak"
 
-#: lib/Block/account.php:484
-msgid "Could not bind to LDAP server."
-msgstr "Autentikacija na LDAP poslužitelj nije uspjela."
-
-#: lib/Block/account.php:463
-msgid "Could not connect to LDAP server."
-msgstr "Spajanje na LDAP poslužitelj nije uspjelo."
-
-#: admin/config/index.php:27
+#: admin/config/index.php:32
 #, php-format
 msgid "Could not connect to server \"%s\" using FTP: %s"
 msgstr "Povezivanje na poslužitelj \"%s\" putem FTP-a nije uspjelo: %s"
 
-#: admin/config/index.php:66
-#, fuzzy
+#: admin/config/index.php:76
 msgid "Could not contact server. Try again later."
-msgstr "Neočekivani odgovor poslužitelja, pokušajte kasnije."
+msgstr "Nije uspjelo spajanje na poslužitelj. Molimo pokušajte kasnije."
 
-#: admin/config/scripts.php:35
-#, fuzzy, php-format
+#: admin/config/scripts.php:40
+#, php-format
 msgid "Could not delete configuration upgrade script \"%s\"."
-msgstr "Brisanje skripte za ažuriranje instalacije \"%s\" nije uspjelo."
+msgstr "Brisanje skripte za nadogradnju konfiguracije \"%s\" nije uspjelo."
 
 #: templates/prefs/twitter.html:14
 msgid ""
 "Could not find authorization for <tag:appname /> to interact with your "
 "Twitter account"
 msgstr ""
+"Nije pronađena autorizacija koju bi aplikacija <tag:appname /> koristila za "
+"spajanje na Vaš Twitter račun"
 
-#: services/resetpassword.php:92
+#: services/resetpassword.php:97
 msgid ""
 "Could not reset the password for the requested user. Some or all of the "
 "details are not correct. Try again or contact your administrator if you need "
@@ -875,26 +876,35 @@ msgstr ""
 "nisu ispravni. Pokušajte ponovno ili kontaktirajte administratora za daljnju "
 "pomoć."
 
-#: admin/config/config.php:43
+#: admin/config/config.php:52
 msgid "Could not revert configuration."
 msgstr "Ne može povratiti konfiguraciju."
 
-#: admin/config/index.php:41
+#: admin/config/index.php:46
 #, php-format
 msgid "Could not save a backup configuation: %s"
 msgstr "Ne može spremiti pričuvnu konfiguraciju: %s"
 
-#: admin/config/scripts.php:94
-#, fuzzy, php-format
+#: admin/config/scripts.php:101
+#, php-format
 msgid "Could not save configuration upgrade script to: \"%s\"."
-msgstr "Ne može spremiti skriptu za ažuriranje instalacije u: \"%s\""
+msgstr "Ne može spremiti skriptu za nadogradnju konfiguracije u: \"%s\"."
 
-#: admin/config/config.php:53
+#: admin/config/config.php:62
 #, php-format
 msgid "Could not save the backup configuration file %s."
 msgstr "Ne može spremiti %s datoteku pričuvne konfiguracije."
 
-#: admin/config/config.php:65
+#: admin/config/index.php:100
+#, php-format
+msgid ""
+"Could not save the configuration file %s. Use one of the options below to "
+"save the code."
+msgstr ""
+"Nije uspjelo spremanje konfiguracijske datoteke %s. Koristite neku od donjih "
+"mogućnosti za spremanje koda."
+
+#: admin/config/config.php:74
 #, php-format
 msgid ""
 "Could not save the configuration file %s. You can either use one of the "
@@ -903,12 +913,12 @@ msgstr ""
 "Ne može spremiti konfiguracijsku datoteku %s.  Možete iskorisiti jednu od "
 "opcija za spremanje koda natrag na %s ili ručno kopirati kod ispod na %s."
 
-#: admin/config/index.php:51
+#: admin/config/index.php:56
 #, php-format
 msgid "Could not write configuration for \"%s\": %s"
 msgstr "Ne može zapisati konfiguraciju za \"%s\": %s"
 
-#: lib/Block/vatid.php:91
+#: lib/Block/Vatid.php:105
 msgid "Country"
 msgstr "Zemlja"
 
@@ -917,11 +927,10 @@ msgid "Create"
 msgstr "Kreiraj"
 
 #: templates/prefs/identityselect.html:22
-#, fuzzy
 msgid "Create New Identity"
-msgstr "Zadani identitet"
+msgstr "Kreiraj novi identitet"
 
-#: lib/Block/moon.php:24
+#: lib/Block/Moon.php:25
 msgid "Current 4 Phases"
 msgstr "Trenutne 4 mijene"
 
@@ -929,62 +938,78 @@ msgstr "Trenutne 4 mijene"
 msgid "Current Alarms"
 msgstr "Postavljeni alarmi"
 
-#: admin/sessions.php:23
+#: templates/admin/locks/list.html.php:2
+msgid "Current Locks"
+msgstr "Trenutno zaključani korisnici"
+
+#: admin/sessions.php:27
 msgid "Current Sessions"
 msgstr "Trenutne sesije"
 
-#: lib/Block/time.php:3 lib/Block/time.php:36
+#: lib/Block/Time.php:17
 msgid "Current Time"
 msgstr "Trenutno vrijeme"
 
-#: lib/Block/metar.php:31
+#: lib/Block/Metar.php:29
 msgid "Current Weather"
 msgstr "Trenutna prognoza"
 
-#: lib/Block/weatherdotcom.php:279
+#: lib/Block/Weatherdotcom.php:259
 msgid "Current condition: "
 msgstr "Trenutni uvjeti: "
 
 # Ćirilićni
-#: config/nls.php:174
+#: config/nls.php:175
 msgid "Cyrillic (KOI8-R)"
 msgstr "Cyrillic (KOI8-R)"
 
 # Ćirilićni
-#: config/nls.php:175
+#: config/nls.php:176
 msgid "Cyrillic (Windows-1251)"
 msgstr "Cyrillic (Windows-1251)"
 
 # Ćirilićni/Ukrajinski
-#: config/nls.php:176
+#: config/nls.php:177
 msgid "Cyrillic/Ukrainian (KOI8-U)"
 msgstr "Cyrillic/Ukrainian (KOI8-U)"
 
-#: templates/data/date.inc:47 templates/data/date.inc:48
-#: templates/data/date.inc:49 templates/data/date.inc:50
+#: admin/config/index.php:238 admin/config/index.php:276
+msgid "DB access is not configured."
+msgstr "DB pristup nije podešen."
+
+#: admin/config/index.php:244 admin/config/index.php:283
+msgid "DB schema is out of date."
+msgstr "DB shema je zastarjela."
+
+#: admin/config/index.php:249 admin/config/index.php:288
+msgid "DB schema is ready."
+msgstr "DB shema je spremna."
+
 #: templates/data/datetime.inc:89 templates/data/datetime.inc:90
 #: templates/data/datetime.inc:91 templates/data/datetime.inc:92
+#: templates/data/date.inc:47 templates/data/date.inc:48
+#: templates/data/date.inc:49 templates/data/date.inc:50
 msgid "DD"
 msgstr "DD"
 
-#: templates/data/csvmap.inc:101
+#: templates/data/csvmap.inc:102
 msgid "Data"
 msgstr "Podaci"
 
 # StabloPodataka? Hijerarhija?
-#: admin/datatree.php:62
+#: admin/datatree.php:65
 msgid "DataTree"
 msgstr "DataTree"
 
-#: admin/datatree.php:59
+#: admin/datatree.php:62
 msgid "DataTree Browser"
 msgstr "DataTree preglednik"
 
-#: templates/prefs/syncml.html:11
+#: templates/prefs/syncml.html:11 templates/admin/config/index.html:33
 msgid "Database"
 msgstr "Baza"
 
-#: lib/Block/vatid.php:94
+#: lib/Block/Vatid.php:108
 msgid "Date"
 msgstr "Datum"
 
@@ -997,27 +1022,37 @@ msgstr "Datum primitka"
 msgid "Date: %s; time: %s"
 msgstr "Datum: %s; vrijeme: %s"
 
-#: lib/Block/weatherdotcom.php:295 lib/Block/weatherdotcom.php:324
+#: lib/Block/Weatherdotcom.php:275 lib/Block/Weatherdotcom.php:304
 msgid "Day"
 msgstr "Dan"
 
-#: lib/Prefs/Ui.php:69 lib/Prefs/Ui.php:74
+#: config/prefs.php:354 config/prefs.php:437 lib/Prefs/Ui.php:80
+#: lib/Prefs/Ui.php:94
 msgid "Default"
 msgstr "Zadano"
 
-#: lib/Prefs/Ui.php:252 lib/Prefs/Ui.php:282
+#: lib/Prefs/Ui.php:228 lib/Prefs/Ui.php:258
 msgid "Default Color"
 msgstr "Zadana boja"
 
-#: lib/Block/account.php:78
+#: lib/Block/Account.php:76
 msgid "Default Shell"
 msgstr "Zadani shell"
 
-#: lib/Block/fortune.php:40
+# predefinirani, predviđeni, predodređeni?
+#: config/prefs.php:357
+msgid "Default charset for sending e-mail messages:"
+msgstr "Vaš zadani skup znakova za odlazne poruke:"
+
+#: config/prefs.php:269
+msgid "Default location to use for location-aware features."
+msgstr "Pretpostavljena lokacija za lokacijski ovisne mogućnosti."
+
+#: lib/Block/Fortune.php:40
 msgid "Definitions"
 msgstr "Definicije"
 
-#: admin/groups.php:68 templates/admin/groups/delete.inc:10
+#: admin/groups.php:54 templates/admin/groups/delete.inc:10
 #: templates/admin/user/list.inc:34 templates/shares/edit.inc:63
 #: templates/shares/edit.inc:83 templates/shares/edit.inc:98
 #: templates/shares/edit.inc:118 templates/shares/edit.inc:134
@@ -1025,12 +1060,12 @@ msgstr "Definicije"
 #: templates/shares/edit.inc:193 templates/shares/edit.inc:228
 #: templates/shares/edit.inc:255 templates/shares/edit.inc:271
 #: templates/shares/edit.inc:291 templates/shares/edit.inc:320
-#: templates/prefs/identityselect.html:34 templates/prefs/rpc.html:35
-#: templates/prefs/syncml.html:14 templates/prefs/syncml.html:23
+#: templates/prefs/rpc.html:35 templates/prefs/syncml.html:14
+#: templates/prefs/syncml.html:23 templates/prefs/identityselect.html:34
 msgid "Delete"
 msgstr "Izbriši"
 
-#: admin/alarms.php:122 admin/groups.php:254
+#: admin/groups.php:210 admin/alarms.php:127
 #, php-format
 msgid "Delete \"%s\""
 msgstr "Obriši \"%s\""
@@ -1039,16 +1074,16 @@ msgstr "Obriši \"%s\""
 msgid "Delete All SyncML Data"
 msgstr "Obriši sve podatke za SyncML"
 
-#: admin/groups.php:215
+#: admin/groups.php:184
 msgid "Delete Group"
 msgstr "Izbriši grupu"
 
-#: admin/config/scripts.php:33
-#, fuzzy, php-format
+#: admin/config/scripts.php:38
+#, php-format
 msgid "Deleted configuration upgrade script \"%s\"."
-msgstr "Izbriši skriptu za ažuriranje instalacije \"%s\"."
+msgstr "Obrisana skripta za nadogradnju configuracije \"%s\"."
 
-#: lib/Prefs/Ui.php:717
+#: lib/Prefs/Ui.php:680
 #, php-format
 msgid "Deleted synchronization session for device \"%s\" and database \"%s\"."
 msgstr "Obrisana sinkronizacijska sesija za uređaj \"%s\" i bazu \"%s\"."
@@ -1057,7 +1092,7 @@ msgstr "Obrisana sinkronizacijska sesija za uređaj \"%s\" i bazu \"%s\"."
 msgid "Describe the Problem"
 msgstr "Opišite problem"
 
-#: config/registry.php.dist:239
+#: config/registry.php:216
 msgid "Development"
 msgstr "Razvoj"
 
@@ -1065,120 +1100,99 @@ msgstr "Razvoj"
 msgid "Device"
 msgstr "Uređaj"
 
-#: admin/activesync.php:119
-#, fuzzy
+#: admin/activesync.php:121
 msgid "Device ID"
-msgstr "Uređaj"
+msgstr "Identifikator uređaja"
 
 #: templates/prefs/activesync.html:11
-#, fuzzy
 msgid "Device Management"
-msgstr "Datoteke"
+msgstr "Upravljanje uređajem"
 
-#: lib/Prefs/Ui.php:432
-#, fuzzy
+#: lib/Prefs/Ui.php:404
 msgid "Device id:"
-msgstr "Uređaj"
+msgstr "Identifikator uređaja:"
 
-#: admin/activesync.php:167 lib/Prefs/Ui.php:420
+#: admin/activesync.php:169 lib/Prefs/Ui.php:392
 msgid "Device is wiped"
-msgstr ""
+msgstr "Uređaj je obrisan"
 
-#: admin/activesync.php:45
-#, fuzzy
+#: admin/activesync.php:46
 msgid "Device successfully removed."
-msgstr "Sljedeći događaj je uspješno uklonjen:"
+msgstr "Uređaj uspješno obrisan."
 
-#: admin/activesync.php:40
+#: admin/activesync.php:41
 msgid "Device wipe successfully canceled."
-msgstr ""
+msgstr "Brisanje uređaja uspješno otkazano."
 
-#: lib/Block/metar.php:212
+#: lib/Block/Metar.php:190
 msgid "Dew Point"
 msgstr "Točka rošenja"
 
-#: lib/Block/metar.php:289
+#: lib/Block/Metar.php:267
 msgid "Dew Point for last hour: "
 msgstr "Točka rošenja zadnjih sat vremena: "
 
-#: lib/Block/weatherdotcom.php:231
+#: lib/Block/Weatherdotcom.php:211
 msgid "Dew point: "
 msgstr "Točka rošenja: "
 
 # Izlistaj tablice ?
-#: templates/prefs/facebook.html:11 templates/prefs/facebook.html:22
-#: templates/prefs/facebook.html:34 templates/prefs/twitter.html:10
-#, fuzzy
+#: templates/prefs/twitter.html:10 templates/prefs/facebook.html:10
+#: templates/prefs/facebook.html:21 templates/prefs/facebook.html:33
+#: templates/prefs/facebook.html:45
 msgid "Disable"
-msgstr "Tablice liste"
+msgstr "Onemogući"
 
-#: config/prefs.php.dist:345
+#: config/prefs.php:373
 msgid "Display 24-hour times?"
 msgstr "Prikazuj 24-satno vrijeme?"
 
-#: config/prefs.php.dist:468
-#, fuzzy
+#: config/prefs.php:489
 msgid "Display Preferences"
-msgstr "Postavke"
+msgstr "Postavke prikaza"
 
-#: lib/Block/weatherdotcom.php:86
+#: lib/Block/Weatherdotcom.php:79
 msgid "Display detailed forecast"
 msgstr "Prikaži detaljnu prognozu"
 
-#: lib/Block/metar.php:84
+#: lib/Block/Metar.php:71
 msgid "Display forecast (TAF)"
 msgstr "Prikaži prognozu (TAF)"
 
-#: scripts/import_squirrelmail_prefs.php:77
-#, fuzzy
-msgid "Do not use Drafts"
-msgstr "Ne briši"
-
-#: scripts/import_squirrelmail_prefs.php:44
-#: scripts/import_squirrelmail_prefs.php:145
-#, fuzzy
-msgid "Do not use Sent"
-msgstr "Ne briši"
-
-#: scripts/import_squirrelmail_prefs.php:183
-msgid "Do not use Trash"
-msgstr ""
-
-#: templates/data/csvinfo.inc:12 templates/data/tsvinfo.inc:12
+#: templates/data/tsvinfo.inc:12 templates/data/csvinfo.inc:12
 msgid "Does the first row contain the field names? If yes, check this box:"
 msgstr "Sadrži li prvi red nazive polja? Ako da, označite ovu kućicu:"
 
-#: templates/login/login.inc:72
+#: templates/login/login.inc:54
 msgid "Don't have an account? Sign up."
 msgstr "Nemate račun? Prijavite se."
 
-#: scripts/upgrades/2008-08-29_fix_mdb2_sequences.php:61
-#, fuzzy
-msgid "Done"
-msgstr "Ništa"
-
-#: admin/config/index.php:92 admin/config/index.php:124
+#: admin/config/index.php:147 admin/config/index.php:185
 #, php-format
 msgid "Download %s"
 msgstr "Preuzmi %s"
 
-#: admin/config/index.php:179
+#: admin/config/index.php:306
 msgid "Download generated configuration as PHP script."
 msgstr "Preuzmi generiranu konfiguraciju u obliku PHP skripte."
 
-#: lib/Block/weatherdotcom_strings.php:25
+#: lib/Block/WeatherdotcomStrings.php:25
 msgid "Drizzle"
 msgstr "Sitna kiša"
 
-#: lib/Block/fortune.php:41
+#: lib/Block/Fortune.php:41
 msgid "Drugs"
 msgstr "Lijekovi"
+
+#: login.php:227
+msgid "Dynamic"
+msgstr "Dinamički"
 
 #: services/keyboard.php:64
 msgid "E characters"
 msgstr "Slova E"
 
-#: lib/Block/vatid.php:3
+#: lib/Block/Vatid.php:14
 msgid "EU VAT identification"
 msgstr "Identifikacija EU PDV-a"
 
@@ -1192,19 +1206,14 @@ msgstr "Identifikacija EU PDV-a"
 msgid "Edit"
 msgstr "Uredi"
 
-#: admin/alarms.php:89
+#: admin/alarms.php:94
 #, php-format
 msgid "Edit \"%s\""
 msgstr "Uredi \"%s\""
 
-#: admin/groups.php:214
-msgid "Edit Group"
-msgstr "Uredi grupu"
-
 #: templates/prefs/app.html:7
-#, fuzzy
 msgid "Edit Preferences for"
-msgstr "Postavke"
+msgstr "Izmjeni postavke za"
 
 #: services/shares/edit.php:259
 msgid "Edit permissions"
@@ -1215,20 +1224,23 @@ msgstr "Uredi dozvole"
 msgid "Edit permissions for \"%s\""
 msgstr "Uredi dozvole za \"%s\""
 
-#: lib/Block/fortune.php:42
+#: lib/Block/Fortune.php:42
 msgid "Education"
 msgstr "Obrazovanje"
 
-#: templates/admin/groups/edit.inc:11 templates/admin/user/update.inc:45
+#: templates/admin/groups/edit.inc:12 templates/admin/user/update.inc:45
 msgid "Email Address"
 msgstr "E-mail adresa"
 
-#: lib/Prefs/Ui.php:225
-#, fuzzy
+#: templates/admin/locks/list.html.php:14
+msgid "End Time"
+msgstr "Završno vrijeme"
+
+#: lib/Prefs/Ui.php:201
 msgid "Enter a name for the new category:"
 msgstr "Molimo unesite naziv za novu kategoriju:"
 
-#: config/prefs.php.dist:288
+#: config/prefs.php:307
 msgid ""
 "Enter a security question which you will be asked if you need to reset your "
 "password, e.g. 'what is the name of your pet?':"
@@ -1236,22 +1248,20 @@ msgstr ""
 "Unesite tajno pitanje koje će vam biti postavljeno ako ćete morati "
 "resetirati lozinku; npr. 'Kako Vam se zove ljubimac?':"
 
-#: lib/Block/metar.php:41 lib/Block/weatherdotcom.php:50
-msgid "Error"
-msgstr "Greška"
-
-#: lib/Prefs/Ui.php:577 services/twitter.php:128 services/twitter.php:151
-#, fuzzy, php-format
+#: lib/Prefs/Ui.php:546 services/twitter/index.php:176
+#: services/twitter/index.php:199
+#, php-format
 msgid ""
 "Error connecting to Twitter: %s Details have been logged for the "
 "administrator."
-msgstr "Interna LDAP greška. Detalji su zabilježeni za administratora."
+msgstr ""
+"Greška pri spajanju na Twitter: %s. Detalji su dostupni administratorima."
 
-#: lib/Prefs/Ui.php:715
+#: lib/Prefs/Ui.php:682
 msgid "Error deleting synchronization session:"
 msgstr "Greška pri brisanju sinkronizacijske sesije:"
 
-#: lib/Prefs/Ui.php:722
+#: lib/Prefs/Ui.php:690
 msgid "Error deleting synchronization sessions:"
 msgstr "Greška pri brisanju sinkronizacijskih sesija:"
 
@@ -1260,33 +1270,31 @@ msgstr "Greška pri brisanju sinkronizacijskih sesija:"
 msgid "Error updating password: %s"
 msgstr "Greška prilikom promjene lozinke: %s."
 
-#: lib/Block/fortune.php:43
+#: lib/Block/Fortune.php:43
 msgid "Ethnic"
 msgstr "Nacionalan"
 
-#: services/facebook.php:69
+#: services/facebook/index.php:77
 msgid "Event Invites:"
-msgstr ""
+msgstr "Pozivi na događaje:"
 
-#: templates/portal/layout.inc:101 config/prefs.php.dist:520
+#: config/prefs.php:539 templates/portal/layout.inc:101
 msgid "Every 15 minutes"
 msgstr "Svakih 15 minuta"
 
-#: config/prefs.php.dist:559
+#: config/prefs.php:575
 msgid "Every 2 minutes"
 msgstr "Svake 2 minute"
 
-#: templates/portal/layout.inc:98 config/prefs.php.dist:517
-#: config/prefs.php.dist:557
+#: config/prefs.php:536 config/prefs.php:573 templates/portal/layout.inc:98
 msgid "Every 30 seconds"
 msgstr "Svakih 30 sekundi"
 
-#: templates/portal/layout.inc:100 config/prefs.php.dist:519
-#: config/prefs.php.dist:560
+#: config/prefs.php:538 config/prefs.php:576 templates/portal/layout.inc:100
 msgid "Every 5 minutes"
 msgstr "Svakih 5 minuta"
 
-#: templates/portal/layout.inc:102 config/prefs.php.dist:521
+#: config/prefs.php:540 templates/portal/layout.inc:102
 msgid "Every half hour"
 msgstr "Svakih pola sata"
 
@@ -1294,120 +1302,117 @@ msgstr "Svakih pola sata"
 msgid "Every hour"
 msgstr "Svaki sat"
 
-#: templates/portal/layout.inc:99 config/prefs.php.dist:518
-#: config/prefs.php.dist:558
+#: config/prefs.php:537 config/prefs.php:574 templates/portal/layout.inc:99
 msgid "Every minute"
 msgstr "Svake minute"
 
-#: templates/data/datemap.inc:24
+#: templates/data/datemap.inc:26
 msgid "Example values:"
 msgstr "Primjeri vrijednosti:"
 
-#: admin/cmdshell.php:48 admin/phpshell.php:55 admin/sqlshell.php:108
+#: admin/phpshell.php:60 admin/sqlshell.php:121 admin/cmdshell.php:53
 msgid "Execute"
 msgstr "Izvrši"
 
-#: admin/sessions.php:30
+#: admin/sessions.php:34
 msgid "Expand"
 msgstr "Proširi"
 
-#: lib/Block/iframe.php:29
+#: lib/Block/Iframe.php:38
 msgid "Extra Large"
 msgstr "vrlo velika"
 
-#: templates/admin/config/index.html:74
-#, fuzzy
+#: templates/admin/config/index.html:102
 msgid "FTP upload of configuration"
-msgstr "Konfiguracija %s je spremljena."
+msgstr "FTP postavljanje konfiguracije"
 
-#: config/prefs.php.dist:604
+#: config/prefs.php:600
 msgid "Facebook Integration"
-msgstr ""
+msgstr "Povezivanje sa Facebookom"
 
 #: themes/fadetogreen/info.php:9
 msgid "Fade to Green"
 msgstr "Izblijedi u zeleno"
 
 # Vedro
-#: lib/Block/weatherdotcom_strings.php:26
+#: lib/Block/WeatherdotcomStrings.php:26
 msgid "Fair"
 msgstr "Lijepo"
 
-#: lib/Block/feed.php:41
+#: lib/Block/Feed.php:56
 msgid "Feed"
 msgstr "Kanal"
 
-#: lib/Block/feed.php:17
+#: lib/Block/Feed.php:28
 msgid "Feed Address"
 msgstr "Adresa kanala"
 
 # Osjetilno ?
-#: lib/Block/metar.php:215
+#: lib/Block/Metar.php:193
 msgid "Feels Like"
 msgstr "Osjeća se kao"
 
-#: lib/Block/weatherdotcom.php:235
+#: lib/Block/Weatherdotcom.php:215
 msgid "Feels like: "
 msgstr "Osjeća se kao: "
 
-#: lib/Block/weatherdotcom_strings.php:27
+#: lib/Block/WeatherdotcomStrings.php:27
 msgid "Few Showers"
 msgstr "Mjestimični pljuskovi"
 
-#: lib/Block/weatherdotcom_strings.php:28
+#: lib/Block/WeatherdotcomStrings.php:28
 msgid "Few Snow Showers"
 msgstr "Mjestimični pljuskovi snijega"
 
 #: templates/prefs/addressbooks.html:17
 msgid "Fields to search"
-msgstr ""
+msgstr "Polja za pretragu"
 
-#: config/registry.php.dist:340
+#: config/registry.php:305
 msgid "File Manager"
 msgstr "Datoteke"
 
-#: lib/Block/fb_stream.php:82
-#, fuzzy
+#: lib/Block/FbStream.php:54
 msgid "Filter"
-msgstr "Filteri"
+msgstr "Filtriranje"
 
-#: config/registry.php.dist:93
+#: config/registry.php:88
 msgid "Filters"
 msgstr "Filteri"
 
-#: lib/Block/moon.php:164
+#: lib/Block/Moon.php:167
 msgid "First Half"
 msgstr "Prva polovica"
 
-#: lib/Block/moon.php:72 lib/Block/moon.php:74
+#: lib/Block/Moon.php:75 lib/Block/Moon.php:77
 msgid "First Quarter"
 msgstr "Prva četvrt"
 
-#: lib/Block/weatherdotcom_strings.php:29
+#: lib/Block/WeatherdotcomStrings.php:29
 msgid "Fog"
 msgstr "Magla"
 
-#: lib/Block/weatherdotcom_strings.php:30
+#: lib/Block/WeatherdotcomStrings.php:30
 msgid "Fog Early"
 msgstr "Magla ujutro"
 
-#: lib/Block/weatherdotcom_strings.php:31
+#: lib/Block/WeatherdotcomStrings.php:31
 msgid "Fog Late"
 msgstr "Magla navečer"
 
-#: lib/Block/weatherdotcom_strings.php:32
+#: lib/Block/WeatherdotcomStrings.php:32
 msgid "Foggy"
 msgstr "Maglovito"
 
-#: lib/Block/fortune.php:44
+#: lib/Block/Fortune.php:44
 msgid "Food"
 msgstr "Hrana"
 
-#: lib/Block/metar.php:329
+#: lib/Block/Metar.php:307
 msgid "Forecast (TAF)"
 msgstr "Prognoza (TAF)"
 
-#: lib/Block/weatherdotcom.php:74
+#: lib/Block/Weatherdotcom.php:67
 msgid ""
 "Forecast Days (note that the returned forecast returns both day and night; a "
 "large number here could result in a wide block)"
@@ -1415,61 +1420,65 @@ msgstr ""
 "Prognozirani dani (uočite da primljena vrem.prognoza sadrži i dnevnu i "
 "noćni; velik broj može proširiti blok)"
 
-#: templates/login/login.inc:81
+#: templates/login/login.inc:61
 msgid "Forgot your password?"
 msgstr "Zaboravili ste lozinku?"
 
+#: config/registry.php:333
+msgid "Forms"
+msgstr "Formulari"
+
 # Sudbina ?
-#: lib/Block/fortune.php:28
+#: lib/Block/Fortune.php:25
 msgid "Fortune"
 msgstr "Sreća"
 
-#: lib/Block/fortune.php:106
+#: lib/Block/Fortune.php:108
 msgid "Fortune type"
 msgstr "Vrsta sreće"
 
-#: lib/Block/fortune.php:45
+#: lib/Block/Fortune.php:45
 msgid "Fortunes"
 msgstr "Sreća"
 
-#: lib/Block/fortune.php:46
+#: lib/Block/Fortune.php:46
 msgid "Fortunes 2"
 msgstr "Sreća 2"
 
-#: config/registry.php.dist:376
+#: config/registry.php:327
 msgid "Forums"
 msgstr "Forumi"
 
-#: config/registry.php.dist:113
-msgid "Forwards"
-msgstr "Proslijeđeni"
-
-#: lib/Block/weatherdotcom_strings.php:33
+#: lib/Block/WeatherdotcomStrings.php:33
 msgid "Freezing Drizzle"
 msgstr "Susnježica"
 
-#: services/facebook.php:68
+#: services/facebook/index.php:76
 msgid "Friend Requests:"
-msgstr ""
+msgstr "Zahtjevi za prijateljstvom:"
 
-#: lib/Block/weatherdotcom.php:252 lib/Block/weatherdotcom.php:362
-#: lib/Block/weatherdotcom.php:408
+#: templates/prefs/facebook.html:44
+msgid "Friends enabled"
+msgstr "Omogućeni prijatelji"
+
+#: lib/Block/Weatherdotcom.php:232 lib/Block/Weatherdotcom.php:342
+#: lib/Block/Weatherdotcom.php:388
 msgid "From the "
 msgstr "Sa "
 
 #: templates/problem/problem.inc:48
 msgid "Full Description"
-msgstr "Pun opis"
+msgstr "Detaljan opis problema"
 
-#: lib/Block/moon.php:79 lib/Block/moon.php:174
+#: lib/Block/Moon.php:82 lib/Block/Moon.php:177
 msgid "Full Moon"
 msgstr "Pun Mjesec"
 
-#: lib/Block/account.php:68 templates/admin/user/update.inc:37
+#: lib/Block/Account.php:70 templates/admin/user/update.inc:37
 msgid "Full Name"
 msgstr "Puno Ime"
 
-#: admin/config/config.php:31
+#: admin/config/config.php:36
 #, php-format
 msgid "Generate %s Configuration"
 msgstr "Generiraj %s konfiguraciju"
@@ -1478,33 +1487,28 @@ msgstr "Generiraj %s konfiguraciju"
 msgid "Generated Code"
 msgstr "Generirani kod"
 
-#: lib/Block/fb_stream.php:192 lib/Block/twitter_timeline.php:171
+#: lib/Block/FbStream.php:170 templates/block/twitter-layout.html.php:35
 msgid "Get More"
-msgstr ""
+msgstr "Dohvati još"
 
 #: templates/prefs/app.html:10
-#, fuzzy
 msgid "Global Preferences"
-msgstr "Postavke"
+msgstr "Općenito"
 
 #: templates/prefs/app.html:17
 msgid "Go"
 msgstr "Kreni"
 
-#: lib/Block/fortune.php:47
+#: lib/Block/Fortune.php:47
 msgid "Goedel"
 msgstr "Goedel"
 
-#: lib/Block/google.php:3 lib/Block/google.php:19
+#: lib/Block/Google.php:14
 msgid "Google Search"
 msgstr "Google pretraga"
 
-#: lib/Block/google.php:30
-msgid "Google search is not enabled."
-msgstr "Google pretraga nije uključena."
-
 # Grčki
-#: config/nls.php:177
+#: config/nls.php:178
 msgid "Greek (ISO-8859-7)"
 msgstr "Greek (ISO-8859-7)"
 
@@ -1516,16 +1520,20 @@ msgstr "Zelena"
 msgid "Grey"
 msgstr "Siva"
 
-#: admin/groups.php:195
+#: admin/groups.php:165
 msgid "Group Administration"
 msgstr "Administracija grupe"
 
-#: admin/groups.php:44
+#: templates/admin/groups/add.inc:9
+msgid "Group name"
+msgstr "Ime grupe"
+
+#: admin/groups.php:36
 #, php-format
 msgid "Group was not created: %s."
 msgstr "Grupa nije kreirana: %s."
 
-#: admin/groups.php:268 templates/shares/edit.inc:266
+#: admin/groups.php:224 templates/shares/edit.inc:266
 msgid "Groups"
 msgstr "Grupe"
 
@@ -1533,30 +1541,30 @@ msgstr "Grupe"
 msgid "Guest Permissions"
 msgstr "Dozvole gosta"
 
-#: lib/Block/weatherdotcom_strings.php:34
+#: lib/Block/WeatherdotcomStrings.php:34
 msgid "Haze"
 msgstr "Sumaglica"
 
-#: lib/Block/weatherdotcom_strings.php:35
+#: lib/Block/WeatherdotcomStrings.php:35
 msgid "Heavy Rain"
 msgstr "Jaka kiša"
 
-#: lib/Block/weatherdotcom_strings.php:36
+#: lib/Block/WeatherdotcomStrings.php:36
 msgid "Heavy T-Storm"
 msgstr "Oluja sa snažnom grmljavinom"
 
 # Hebrejski
-#: config/nls.php:178
+#: config/nls.php:179
 msgid "Hebrew (ISO-8859-8-I)"
 msgstr "Hebrew (ISO-8859-8-I)"
 
-#: lib/Block/iframe.php:24
+#: lib/Block/Iframe.php:32
 msgid "Height"
 msgstr "Visina"
 
-#: lib/Block/fb_stream.php:92 lib/Block/twitter_timeline.php:87
-msgid "Height of map (width automatically adjusts to block)"
-msgstr ""
+#: lib/Block/TwitterTimeline.php:70 lib/Block/FbStream.php:69
+msgid "Height of stream content (width automatically adjusts to block)"
+msgstr "Visina niza novih poruka (širina se automatski podešava prema bloku)"
 
 #: services/help/index.php:17 templates/help/index.inc:4
 msgid "Help"
@@ -1567,11 +1575,11 @@ msgid "Help _Topics"
 msgstr "Teme pomoći"
 
 # Polutka
-#: lib/Block/moon.php:27
+#: lib/Block/Moon.php:28
 msgid "Hemisphere"
 msgstr "Hemisfera"
 
-#: templates/data/csvinfo.inc:10 templates/data/tsvinfo.inc:10
+#: templates/data/tsvinfo.inc:10 templates/data/csvinfo.inc:10
 msgid "Here is the beginning of the file:"
 msgstr "Ovo je početak datoteke:"
 
@@ -1579,24 +1587,27 @@ msgstr "Ovo je početak datoteke:"
 msgid "Hi-Contrast"
 msgstr "Visoki kontrast"
 
-#: templates/prefs/app.html:23
-#, fuzzy
+#: templates/prefs/app.html:24
 msgid "Hide Advanced Preferences"
-msgstr "Postavke"
+msgstr "Sakrij napredne postavke"
 
-#: services/portal/cloud_search.php:33
+#: services/portal/cloud_search.php:37
 msgid "Hide Results"
 msgstr "Sakrij rezultate"
 
-#: lib/Block/weatherdotcom_strings.php:100
+#: templates/sidebar/sidebar.inc:3
+msgid "Hide Sidebar"
+msgstr "Sakrij bočnu traku"
+
+#: lib/Block/WeatherdotcomStrings.php:100
 msgid "High"
 msgstr "Visoko"
 
-#: lib/Block/account.php:73
+#: lib/Block/Account.php:73
 msgid "Home Directory"
 msgstr "Korisnički direktorij"
 
-#: config/registry.php.dist:76
+#: config/registry.php:75
 msgid "Horde"
 msgstr "Horde"
 
@@ -1604,23 +1615,23 @@ msgstr "Horde"
 msgid "Horde Website"
 msgstr "Horde web stranice"
 
-#: templates/data/csvinfo.inc:21
+#: templates/data/csvinfo.inc:18
 msgid "How many fields (columns) are there?"
 msgstr "Koliko ima polja (stupaca)?"
 
-#: lib/Block/feed.php:21
+#: lib/Block/Feed.php:36
 msgid "How many seconds before we check for new articles?"
 msgstr "Koliko sekundi između provjera ima li novih članaka?"
 
-#: lib/Block/metar.php:225 lib/Block/weatherdotcom.php:303
+#: lib/Block/Metar.php:203 lib/Block/Weatherdotcom.php:283
 msgid "Humidity"
 msgstr "Vlažnost"
 
-#: lib/Block/weatherdotcom.php:263
+#: lib/Block/Weatherdotcom.php:243
 msgid "Humidity: "
 msgstr "Vlažnost: "
 
-#: lib/Block/fortune.php:48
+#: lib/Block/Fortune.php:48
 msgid "Humorists"
 msgstr "Komičari"
 
@@ -1628,7 +1639,7 @@ msgstr "Komičari"
 msgid "I characters"
 msgstr "Slova I"
 
-#: config/prefs.php.dist:545
+#: config/prefs.php:562
 msgid "Icons Only"
 msgstr "Samo ikone"
 
@@ -1637,7 +1648,7 @@ msgstr "Samo ikone"
 msgid "Icons for %s"
 msgstr "Ikone za %s"
 
-#: config/prefs.php.dist:546
+#: config/prefs.php:563
 msgid "Icons with text"
 msgstr "Ikone s tekstom"
 
@@ -1646,17 +1657,17 @@ msgstr "Ikone s tekstom"
 msgid "Ideas"
 msgstr "Ideje"
 
-#: config/prefs.php.dist:226
+#: config/prefs.php:244
 msgid "Identity's name:"
 msgstr "Naziv identiteta:"
 
-#: templates/data/csvinfo.inc:7 templates/data/csvmap.inc:54
 #: templates/data/datemap.inc:7 templates/data/tsvinfo.inc:7
+#: templates/data/csvinfo.inc:7 templates/data/csvmap.inc:54
 #, php-format
 msgid "Import, Step %d"
 msgstr "Uvezi, Korak %d"
 
-#: templates/data/datemap.inc:15
+#: templates/data/datemap.inc:17
 #, php-format
 msgid "Imported field: %s"
 msgstr "Uvezeno polje: %s"
@@ -1665,9 +1676,9 @@ msgstr "Uvezeno polje: %s"
 msgid "Imported fields:"
 msgstr "Uvezena polja:"
 
-#: lib/Block/twitter_timeline.php:136
+#: lib/Block/TwitterTimeline.php:118
 msgid "In reply to:"
-msgstr ""
+msgstr "Odgovor na:"
 
 #: templates/data/csvmap.inc:57
 msgid ""
@@ -1680,7 +1691,7 @@ msgstr ""
 "odgovarajuće polje u vašem adresaru. Potom kliknite \"Dodaj par\" kako biste "
 "ih označili za uvoz. Kada završite, kliknite \"Sljedeće\"."
 
-#: services/resetpassword.php:50
+#: services/resetpassword.php:55
 msgid ""
 "Incorrect username or alternate address. Try again or contact your "
 "administrator if you need further help."
@@ -1692,32 +1703,31 @@ msgstr ""
 msgid "Individual Users"
 msgstr "Pojedinačni korisnici"
 
-#: templates/prefs/facebook.html:10
-#, fuzzy
+#: templates/prefs/facebook.html:9
 msgid "Infinite sessions enabled."
-msgstr "Izlistavanje sesija nije uspjelo: %s"
+msgstr "Beskonačna prijava aktivirana."
 
-#: config/registry.php.dist:281
+#: config/registry.php:249
 msgid "Information"
 msgstr "Informacije"
 
-#: lib/Block/weatherdotcom.php:332
+#: lib/Block/Weatherdotcom.php:312
 msgid "Information no longer available."
 msgstr "Informacija više nije dostupna."
 
-#: templates/admin/groups/edit.inc:36
+#: templates/admin/groups/edit.inc:42
 msgid "Inherited Members"
 msgstr "Naslijeđeni članovi"
 
-#: config/prefs.php.dist:304
+#: config/prefs.php:321
 msgid "Insert an email address to which you can receive the new password:"
 msgstr "Unesite e-mail adresu na koju možete primiti novu lozinku:"
 
-#: config/prefs.php.dist:296
+#: config/prefs.php:314
 msgid "Insert the required answer to the security question:"
 msgstr "Unesite traženi odgovor na sigurnosno pitanje:"
 
-#: lib/Block/vatid.php:52
+#: lib/Block/Vatid.php:57
 msgid "Invalid VAT identification number format."
 msgstr "Neispravan oblik brojčane oznake PDV-a."
 
@@ -1726,7 +1736,7 @@ msgstr "Neispravan oblik brojčane oznake PDV-a."
 msgid "Invalid action %s"
 msgstr "Neispravna akcija %s."
 
-#: admin/config/config.php:24
+#: admin/config/config.php:29
 msgid "Invalid application."
 msgstr "Neispravna aplikacija."
 
@@ -1734,49 +1744,49 @@ msgstr "Neispravna aplikacija."
 msgid "Invalid hash."
 msgstr "Neispravan sažetak."
 
-#: lib/Block/weatherdotcom.php:180
+#: lib/Block/Weatherdotcom.php:160
 msgid "Invalid license key."
 msgstr "Neispravni ključ licence."
 
-#: lib/Block/weatherdotcom.php:174
+#: lib/Block/Weatherdotcom.php:154
 msgid "Invalid location provided."
 msgstr "Navedena neispravna lokacija."
 
 # matična, osnovna, nadređena
-#: admin/perms/addchild.php:23
+#: admin/perms/addchild.php:29
 msgid "Invalid parent permission."
 msgstr "Neispravna nad-dozvola."
 
-#: lib/Block/weatherdotcom.php:176
+#: lib/Block/Weatherdotcom.php:156
 msgid "Invalid partner id."
 msgstr "Neispravna oznaka partnera."
 
-#: lib/Block/weatherdotcom.php:178
+#: lib/Block/Weatherdotcom.php:158
 msgid "Invalid product code."
 msgstr "Neispravan kod usluge."
 
-#: lib/Block/weatherdotcom_strings.php:37
+#: lib/Block/WeatherdotcomStrings.php:37
 msgid "Isolated T-Storms"
 msgstr "Mjestimične oluje s grmljavinom"
 
 # Japanski
-#: config/nls.php:179
+#: config/nls.php:180
 msgid "Japanese (ISO-2022-JP)"
 msgstr "Japanese (ISO-2022-JP)"
 
-#: lib/Block/twitter_timeline.php:138
+#: lib/Block/TwitterTimeline.php:120
 msgid "Just now..."
-msgstr ""
+msgstr "Maloprije..."
 
-#: lib/Block/fortune.php:49
+#: lib/Block/Fortune.php:49
 msgid "Kernel Newbies"
 msgstr "Kernel početnici"
 
-#: services/help/index.php:138
+#: services/help/index.php:134
 msgid "Keyword"
 msgstr "Ključna riječ"
 
-#: lib/Block/fortune.php:50
+#: lib/Block/Fortune.php:50
 msgid "Kids"
 msgstr "Djeca"
 
@@ -1785,64 +1795,62 @@ msgid "Kolab"
 msgstr "Kolab"
 
 # Korejski
-#: config/nls.php:180
+#: config/nls.php:181
 msgid "Korean (EUC-KR)"
 msgstr "Korean (EUC-KR)"
 
-#: login.php:314 templates/login/login.inc:49
+#: login.php:363 templates/login/login.inc:34
 msgid "Language"
 msgstr "Jezik"
 
-#: lib/Block/iframe.php:28
+#: lib/Block/Iframe.php:37
 msgid "Large"
 msgstr "velika"
 
-#: lib/Block/moon.php:167
+#: lib/Block/Moon.php:170
 msgid "Last Half"
 msgstr "Zadnja polovica"
 
-#: lib/Block/account.php:91
+#: lib/Block/Account.php:86
 msgid "Last Password Change"
 msgstr "Zadnja promjena lozinke"
 
-#: lib/Block/moon.php:84 lib/Block/moon.php:86
+#: lib/Block/Moon.php:87 lib/Block/Moon.php:89
 msgid "Last Quarter"
 msgstr "Zadnja četvrt"
 
-#: admin/activesync.php:98 templates/prefs/activesync.html:21
-#, fuzzy
+#: admin/activesync.php:100 templates/prefs/activesync.html:21
 msgid "Last Sync Time"
-msgstr "Lokalizacijske opcije"
+msgstr "Vrijeme posljednje sinkronizacije"
 
-#: lib/Block/metar.php:146
+#: lib/Block/Metar.php:124
 msgid "Last Updated:"
 msgstr "Posljednje ažuriranje:"
 
-#: lib/LoginTasks/Task/LastLogin.php:46
+#: lib/LoginTasks/Task/LastLogin.php:49
 #, php-format
 msgid "Last login: %s"
 msgstr "Posljednja prijava: %s"
 
-#: lib/LoginTasks/Task/LastLogin.php:48
+#: lib/LoginTasks/Task/LastLogin.php:51
 #, php-format
 msgid "Last login: %s from %s"
 msgstr "Posljednja prijava: %s sa %s"
 
-#: lib/LoginTasks/Task/LastLogin.php:44
+#: lib/LoginTasks/Task/LastLogin.php:47
 msgid "Last login: Never"
 msgstr "Posljednja prijava: Nikad"
 
 # Kraljevina
-#: lib/Block/twitter_timeline.php:168
-#, fuzzy
+#: templates/block/twitter-layout.html.php:19
 msgid "Latest"
-msgstr "Lesoto"
+msgstr "Najnovije"
 
 #: themes/lavander/info.php:2
 msgid "Lavender"
 msgstr "Lavanda"
 
-#: lib/Block/fortune.php:51
+#: lib/Block/Fortune.php:51
 msgid "Law"
 msgstr "Zakon"
 
@@ -1851,71 +1859,75 @@ msgstr "Zakon"
 msgid "Light Blue"
 msgstr "Svijetlo plava"
 
-#: lib/Block/weatherdotcom_strings.php:38
+#: lib/Block/WeatherdotcomStrings.php:38
 msgid "Light Drizzle"
 msgstr "Sitna kiša"
 
-#: lib/Block/weatherdotcom_strings.php:39
+#: lib/Block/WeatherdotcomStrings.php:39
 msgid "Light Rain"
 msgstr "Slaba kiša"
 
-#: lib/Block/weatherdotcom_strings.php:40
+#: lib/Block/WeatherdotcomStrings.php:40
 msgid "Light Rain Early"
 msgstr "Slaba kiša ujutro"
 
-#: lib/Block/weatherdotcom_strings.php:41
+#: lib/Block/WeatherdotcomStrings.php:41
 msgid "Light Rain Late"
 msgstr "Slaba kiša navečer"
 
-#: lib/Block/weatherdotcom_strings.php:42
+#: lib/Block/WeatherdotcomStrings.php:42
 msgid "Light Rain Shower"
 msgstr "Slab pljusak"
 
-#: lib/Block/weatherdotcom_strings.php:43
+#: lib/Block/WeatherdotcomStrings.php:43
 msgid "Light Rain with Thunder"
 msgstr "Slaba kiša s grmljavinom"
 
-#: lib/Block/weatherdotcom_strings.php:44
+#: lib/Block/WeatherdotcomStrings.php:44
 msgid "Light Snow"
 msgstr "Slab snijeg"
 
-#: lib/Block/weatherdotcom_strings.php:45
+#: lib/Block/WeatherdotcomStrings.php:45
 msgid "Light Snow Early"
 msgstr "Slab snijeg ujutro"
 
-#: lib/Block/weatherdotcom_strings.php:46
+#: lib/Block/WeatherdotcomStrings.php:46
 msgid "Light Snow Late"
 msgstr "Slab snijeg navečer"
 
-#: lib/Block/weatherdotcom_strings.php:47
+#: lib/Block/WeatherdotcomStrings.php:47
 msgid "Light Snow Shower"
 msgstr "Pljusak sa susnježicom"
 
-#: services/facebook.php:105
-#, fuzzy
+#: services/facebook/index.php:113
 msgid "Like"
-msgstr "Poveznica"
+msgstr "Sviđa mi se"
 
 # grad ili šaljiva pjesmica?
-#: lib/Block/fortune.php:52
+#: lib/Block/Fortune.php:52
 msgid "Limerick"
 msgstr "Limerick"
 
-#: lib/Block/fortune.php:53
+#: lib/Block/Fortune.php:53
 msgid "Linux Cookie"
 msgstr "Linux Cookie"
 
 # Izlistaj tablice ?
-#: admin/sqlshell.php:113
+#: admin/sqlshell.php:126
 msgid "List Tables"
 msgstr "Tablice liste"
 
-#: admin/alarms.php:130
+#: admin/alarms.php:135
 #, php-format
 msgid "Listing alarms failed: %s"
 msgstr "Izlistavanje alarma nije uspjelo: %s"
 
-#: admin/sessions.php:62
+#: admin/locks.php:55
+#, php-format
+msgid "Listing locks failed: %s"
+msgstr "Izlistavanje zaključanih korisnika nije uspjelo: %s"
+
+#: admin/sessions.php:71
 #, php-format
 msgid "Listing sessions failed: %s"
 msgstr "Izlistavanje sesija nije uspjelo: %s"
@@ -1924,53 +1936,65 @@ msgstr "Izlistavanje sesija nije uspjelo: %s"
 msgid "Listing users is disabled."
 msgstr "Izlistavanje korisnika je onemogućeno."
 
-#: lib/Block/fortune.php:54
+#: lib/Block/Fortune.php:54
 msgid "Literature"
 msgstr "Literatura"
 
-#: lib/Block/weatherdotcom.php:215
+#: templates/sidebar/sidebar.inc:5
+msgid "Loading..."
+msgstr "Učitava se..."
+
+#: lib/Block/Weatherdotcom.php:195
 msgid "Local time: "
 msgstr "Lokalno vrijeme: "
 
-#: config/prefs.php.dist:313
+#: config/prefs.php:330
 msgid "Locale and Time"
 msgstr "Lokalizacijske opcije"
 
-#: lib/Block/metar.php:64 lib/Block/sunrise.php:20
-#: lib/Block/weatherdotcom.php:59
+#: lib/Block/Sunrise.php:23 lib/Block/Metar.php:51
+#: lib/Block/Weatherdotcom.php:52
 msgid "Location"
 msgstr "Lokacija"
 
-#: login.php:261 templates/login/login.inc:64
+#: templates/admin/user/update.inc:54
+msgid "Lock User"
+msgstr "Zaključani korisnik"
+
+#: admin/locks.php:58
+msgid "Locks"
+msgstr "Zaključani korisnici"
+
+#: login.php:303 templates/login/login.inc:43
 msgid "Log in"
 msgstr "Prijavi se"
 
-# Prijava
-#: lib/Block/account.php:64
-msgid "Login"
-msgstr "Prijavi se"
+# _Odjavi se
+#: templates/portal/mobile.inc:7
+msgid "Log out"
+msgstr "Odjava"
 
-#: login.php:286
+#: login.php:328
 msgid "Login failed because your username or password was entered incorrectly."
 msgstr "Prijava nije uspjela zbog krivog korisničkog imena ili zaporke."
 
-#: login.php:282
+#: login.php:324
 msgid "Login failed."
 msgstr "Prijava nije uspjela."
 
-#: templates/prefs/facebook.html:46
+#: templates/prefs/facebook.html:57
 msgid "Login to Facebook and authorize <tag:app_name />"
-msgstr ""
+msgstr "Prijava na Facebook i autorizacija aplikacije <tag:app_name />"
 
 #: templates/prefs/twitter.html:21
 msgid "Login to Twitter and authorize the <tag:appname /> application"
-msgstr ""
+msgstr "Prijava na Twitter i autorizacija aplikacije <tag:appname />"
 
-#: lib/Block/fortune.php:55
+#: lib/Block/Fortune.php:55
 msgid "Love"
 msgstr "Ljubav"
 
-#: lib/Block/weatherdotcom_strings.php:98
+#: lib/Block/WeatherdotcomStrings.php:98
 msgid "Low"
 msgstr "Nisko"
 
@@ -1982,27 +2006,27 @@ msgstr "Loyola"
 msgid "Loyola Blue"
 msgstr "Loyola plavo"
 
-#: templates/data/date.inc:47 templates/data/date.inc:48
-#: templates/data/date.inc:49 templates/data/date.inc:50
 #: templates/data/datetime.inc:89 templates/data/datetime.inc:90
 #: templates/data/datetime.inc:91 templates/data/datetime.inc:92
+#: templates/data/date.inc:47 templates/data/date.inc:48
+#: templates/data/date.inc:49 templates/data/date.inc:50
 msgid "MM"
 msgstr "MM"
 
-#: lib/Block/fortune.php:56
+#: lib/Block/Fortune.php:56
 msgid "Magic"
 msgstr "Čarolija"
 
-#: config/registry.php.dist:85
+#: config/registry.php:80
 msgid "Mail"
 msgstr "Pošta"
 
 # pošte, e-maila
-#: config/registry.php.dist:403
+#: config/registry.php:350
 msgid "Mail Admin"
 msgstr "Mail Administrator"
 
-#: config/prefs.php.dist:441
+#: config/prefs.php:464
 msgid ""
 "Manage the list of categories you have to label items with, and colors "
 "associated with those categories."
@@ -2010,125 +2034,120 @@ msgstr ""
 "Upravljanje kategorijama i označavanje njihovih elemenata te dodjeljivanje "
 "boje tim kategorijama."
 
-#: config/prefs.php.dist:677
+#: config/prefs.php:674
 msgid "Manage your ActiveSync devices."
-msgstr ""
+msgstr "Upravljanje Vašim ActiveSync uređajima."
 
-#: templates/data/csvmap.inc:96
+#: templates/data/csvmap.inc:97
 msgid "Matching fields:"
 msgstr "Podudarajuća polja:"
 
-#: lib/Block/metar.php:301
+#: lib/Block/Metar.php:279
 msgid "Max temp last 24 hours: "
 msgstr "Max. temp. zadnja 24 sata: "
 
-#: lib/Block/metar.php:293
+#: lib/Block/Metar.php:271
 msgid "Max temp last 6 hours: "
 msgstr "Max. temp. zadnjih 6 sati: "
 
-#: lib/Application.php:38
+#: lib/Application.php:42
 msgid "Maximum Number of Portal Blocks"
 msgstr "Maksimalan broj blokova Portala"
 
-#: lib/Block/fb_stream.php:86
-#, fuzzy
+#: lib/Block/FbStream.php:60
 msgid "Maximum number of entries to display"
-msgstr "Broj prikazanih članaka"
+msgstr "Maksimalan broj zapisa za prikaz"
 
-#: lib/Block/fortune.php:57
+#: lib/Block/Fortune.php:57
 msgid "Medicine"
 msgstr "Medicina"
 
-#: lib/Block/iframe.php:27
+#: lib/Block/Iframe.php:36
 msgid "Medium"
 msgstr "srednja"
 
-#: templates/admin/groups/edit.inc:17
+#: templates/admin/groups/edit.inc:19
 msgid "Members"
 msgstr "Članovi"
 
-#: config/prefs.php.dist:548
+#: templates/block/twitter-layout.html.php:25
+msgid "Mentions"
+msgstr "Spominje"
+
+#: config/prefs.php:565
 msgid "Menu mode:"
 msgstr "Izgled izbornika:"
 
-#: lib/Block/metar.php:5
+#: lib/Block/Metar.php:22
 msgid "Metar Weather"
 msgstr "METAR prognoza"
 
-# meteorološki
-#: lib/Block/metar.php:42
-msgid "Metar block not available."
-msgstr "Podaci o prognozi (METAR) nisu dostupni."
-
-#: lib/Block/metar.php:110
-msgid ""
-"Metar block not available. Details have been logged for the administrator."
-msgstr ""
-"Podaci o prognozi (METAR) nisu dostupni. Detalji su zabilježeni za "
-"administratora."
-
-#: lib/Block/weatherdotcom.php:168
+#: lib/Block/Weatherdotcom.php:148
 msgid "MetarDB is not connected."
 msgstr "MetarDB nije dostupan."
 
-#: lib/Block/metar.php:74 lib/Block/weatherdotcom.php:69
+#: lib/Block/Metar.php:61 lib/Block/Weatherdotcom.php:62
 msgid "Metric"
 msgstr "Metrički"
 
 # posljednja?
-#: lib/Block/metar.php:305
+#: lib/Block/Metar.php:283
 msgid "Min temp last 24 hours: "
 msgstr "Min. temp. zadnja 24 sata: "
 
-#: lib/Block/metar.php:297
+#: lib/Block/Metar.php:275
 msgid "Min temp last 6 hours: "
 msgstr "Min. temp. zadnjih 6 sati: "
 
-#: lib/Block/fortune.php:58
+#: lib/Block/Fortune.php:58
 msgid "Miscellaneous"
 msgstr "Razno"
 
-#: admin/config/index.php:135
-msgid ""
-"Missing configuration. You must generate it before using this application."
-msgstr ""
-"Nedostaje konfiguracija. Morate ju generirati prije korištenja ove "
-"aplikacije."
+#: admin/config/index.php:197
+msgid "Missing configuration."
+msgstr "Nedostaje konfiguracija."
 
-#: lib/Block/weatherdotcom_strings.php:48
+#: lib/Block/WeatherdotcomStrings.php:48
 msgid "Mist"
 msgstr "Magla"
 
-#: lib/Block/weatherdotcom_strings.php:99
+#: login.php:235
+msgid "Mobile"
+msgstr "Mobilni telefon"
+
+#: login.php:231
+msgid "Mobile (Smartphone)"
+msgstr "Mobilni telefon (pametni uređaji)"
+
+#: login.php:215
+msgid "Mode"
+msgstr "Način prikaza"
+
+#: lib/Block/WeatherdotcomStrings.php:99
 msgid "Moderate"
 msgstr "Umjereno"
 
-#: scripts/upgrades/2008-08-29_fix_mdb2_sequences.php:57
-#, php-format
-msgid "Modified sequence for %s"
-msgstr ""
-
-#: config/prefs.php.dist:430
+#: config/prefs.php:452
 msgid "Monday"
 msgstr "Ponedjeljak"
 
-#: lib/Block/moon.php:3 lib/Block/moon.php:14
+#: lib/Block/Moon.php:13
 msgid "Moon Phases"
 msgstr "Mjesečeve mijene"
 
-#: lib/Block/weatherdotcom_strings.php:49
+#: lib/Block/WeatherdotcomStrings.php:49
 msgid "Mostly Clear"
 msgstr "Pretežno vedro"
 
-#: lib/Block/weatherdotcom_strings.php:50
+#: lib/Block/WeatherdotcomStrings.php:50
 msgid "Mostly Cloudy"
 msgstr "Pretežno oblačno"
 
-#: lib/Block/weatherdotcom_strings.php:51
+#: lib/Block/WeatherdotcomStrings.php:51
 msgid "Mostly Cloudy and Windy"
 msgstr "Pretežno oblačno i vjetrovito"
 
-#: lib/Block/weatherdotcom_strings.php:52
+#: lib/Block/WeatherdotcomStrings.php:52
 msgid "Mostly Sunny"
 msgstr "Pretežno sunčano"
 
@@ -2136,31 +2155,39 @@ msgstr "Pretežno sunčano"
 msgid "Mozilla"
 msgstr "Mozilla"
 
-#: config/registry.php.dist:333
+#: config/registry.php:300
 msgid "My Account"
 msgstr "Moj korisnički račun"
 
-#: lib/Block/account.php:27
+#: lib/Block/Account.php:26
 msgid "My Account Information"
 msgstr "Moji korisnički podaci"
 
-#: lib/Block/fb_stream.php:3 lib/Block/fb_stream.php:105
+#: lib/Block/FbStream.php:30
 msgid "My Facebook Stream"
-msgstr ""
+msgstr "Moje Facebook novosti"
 
-#: services/portal/index.php:62
+#: services/portal/index.php:43
 msgid "My Portal"
 msgstr "Moj portal"
 
-#: services/portal/edit.php:36
+#: services/portal/edit.php:32
 msgid "My Portal Layout"
 msgstr "Izgled mojeg portala"
 
-#: templates/logintasks/logintasks.html:35
+#: templates/logintasks/logintasks.html:27 templates/logintasks/mobile.html:31
 msgid "NO, I Do NOT Agree"
 msgstr "NE, ne slažem se"
 
-#: lib/Block/vatid.php:98
+#: templates/prefs/activesync.html:48
+msgid ""
+"NOTE: WIPING A DEVICE MAY RESET IT TO FACTORY DEFAULTS. PLEASE MAKE SURE YOU "
+"REALLY WANT TO DO THIS BEFORE REQUESTING A WIPE"
+msgstr ""
+"UPOZORENJE: BRISANJE UREĐAJA MOŽE GA VRATITI NA TVORNIČKE POSTAVKE. MOLIMO "
+"RAZMISLITE ŽELITE LI TO PRIJE POKRETANJA BRISANJA"
+
+#: lib/Block/Vatid.php:113
 msgid "Name"
 msgstr "Ime"
 
@@ -2168,8 +2195,7 @@ msgstr "Ime"
 msgid "NeXT"
 msgstr "NeXT"
 
-#: templates/portal/layout.inc:97 config/prefs.php.dist:516
-#: config/prefs.php.dist:556
+#: config/prefs.php:535 config/prefs.php:572 templates/portal/layout.inc:97
 msgid "Never"
 msgstr "Nikada"
 
@@ -2177,12 +2203,11 @@ msgstr "Nikada"
 msgid "New Category"
 msgstr "Nova kategorija"
 
-#: services/facebook.php:65
-#, fuzzy
+#: services/facebook/index.php:73
 msgid "New Messages:"
-msgstr "Nova poruka za %s"
+msgstr "Nove poruke:"
 
-#: lib/Block/moon.php:44 lib/Block/moon.php:66 lib/Block/moon.php:172
+#: lib/Block/Moon.php:47 lib/Block/Moon.php:69 lib/Block/Moon.php:175
 msgid "New Moon"
 msgstr "Mlađak"
 
@@ -2198,20 +2223,20 @@ msgstr "Nova lozinka"
 msgid "New passwords don't match."
 msgstr "Nove lozinke se ne podudaraju."
 
-#: lib/Block/fortune.php:59 config/registry.php.dist:288
+#: config/registry.php:259 lib/Block/Fortune.php:59
 msgid "News"
 msgstr "Vijesti"
 
-#: templates/data/csvinfo.inc:25 templates/data/csvmap.inc:119
-#: templates/data/datemap.inc:41 templates/data/tsvinfo.inc:15
+#: templates/data/datemap.inc:43 templates/data/tsvinfo.inc:15
+#: templates/data/csvinfo.inc:21 templates/data/csvmap.inc:120
 msgid "Next"
 msgstr "Dalje"
 
-#: lib/Block/moon.php:25
+#: lib/Block/Moon.php:26
 msgid "Next 4 Phases"
 msgstr "Sljedeće 4 mijene"
 
-#: lib/Block/weatherdotcom.php:382
+#: lib/Block/Weatherdotcom.php:362
 msgid "Night"
 msgstr "Noć"
 
@@ -2223,7 +2248,7 @@ msgstr "Bez zvuka"
 msgid "No available configuration data to show differences for."
 msgstr "Nema dostupnih konfiguracijskih podataka za prikazivanje razlika."
 
-#: admin/config/diff.php:39
+#: admin/config/diff.php:44
 msgid "No change."
 msgstr "Nema promjene."
 
@@ -2231,16 +2256,16 @@ msgstr "Nema promjene."
 msgid "No icons found."
 msgstr "Ikone nisu pronađene."
 
-#: lib/Block/metar.php:121 lib/Block/sunrise.php:38
-#: lib/Block/weatherdotcom.php:133
+#: lib/Block/Sunrise.php:45 lib/Block/Metar.php:99
+#: lib/Block/Weatherdotcom.php:113
 msgid "No location is set."
 msgstr "Lokacija nije navedena."
 
-#: lib/Block/weatherdotcom.php:172
+#: lib/Block/Weatherdotcom.php:152
 msgid "No location provided."
 msgstr "Lokacija nije navedena."
 
-#: lib/Block/fortune.php:101
+#: lib/Block/Fortune.php:101
 msgid "No offensive fortunes"
 msgstr "Nema loše sreće"
 
@@ -2248,11 +2273,16 @@ msgstr "Nema loše sreće"
 msgid "No pending signups."
 msgstr "Nema prijavi na čekanju."
 
-#: admin/config/index.php:89 admin/config/index.php:121
+#: services/resetpassword.php:51
+msgid "No security question has been set. Please contact your administrator."
+msgstr ""
+"Sigurnosna provjera nije postavljena. Molimo kontaktirajte administratora."
+
+#: admin/config/index.php:144 admin/config/index.php:182
 msgid "No stable version exists yet."
 msgstr "Još ne postoji stabilna verzija."
 
-#: lib/Block/weatherdotcom.php:143
+#: lib/Block/Weatherdotcom.php:123
 msgid "No temporary directory available for cache."
 msgstr "Nema privremenih direktorija za spremanje cache memorije."
 
@@ -2261,37 +2291,36 @@ msgstr "Nema privremenih direktorija za spremanje cache memorije."
 msgid "No username specified."
 msgstr "Korisničko ime nije navedeno."
 
-#: admin/config/index.php:140
+#: admin/config/index.php:203
 msgid "No version found in original configuration. Regenerate configuration."
 msgstr ""
 "Oznaka verzije nije pronađena u izvornoj konfiguraciji. Obnovite "
 "konfiguraciju."
 
-#: admin/config/index.php:148
+#: admin/config/index.php:212
 msgid "No version found in your configuration. Regenerate configuration."
 msgstr ""
 "Oznaka verzije nije pronađena u Vašoj konfiguraciji. Obnovite konfiguraciju."
 
-#: lib/Prefs/Ui.php:411 templates/prefs/activesync.html:43
-#: templates/prefs/identityselect.html:20 templates/prefs/syncml.html:34
+#: lib/Prefs/Ui.php:383 templates/prefs/activesync.html:43
+#: templates/prefs/syncml.html:34 templates/prefs/identityselect.html:20
 msgid "None"
 msgstr "Ništa"
 
 # Nordijski
-#: config/nls.php:181
+#: config/nls.php:182
 msgid "Nordic (ISO-8859-10)"
 msgstr "Nordic (ISO-8859-10)"
 
-#: lib/Block/moon.php:30 lib/Block/moon.php:58
+#: lib/Block/Moon.php:31 lib/Block/Moon.php:61
 msgid "Northern Hemisphere"
 msgstr "Sjeverna hemisfera"
 
-#: admin/activesync.php:171 lib/Prefs/Ui.php:426
-#, fuzzy
+#: admin/activesync.php:173 lib/Prefs/Ui.php:398
 msgid "Not Provisioned"
-msgstr "Uredi dozvolu"
+msgstr "Nije postavljen"
 
-#: config/registry.php.dist:211
+#: config/registry.php:192
 msgid "Notes"
 msgstr "Bilješke"
 
@@ -2299,13 +2328,13 @@ msgstr "Bilješke"
 msgid "Nothing to browse, go back."
 msgstr "Ništa za pretražiti, vrati se natrag."
 
-#: lib/Block/feed.php:18
+#: lib/Block/Feed.php:31
 msgid "Number of articles to display"
 msgstr "Broj prikazanih članaka"
 
-#: lib/Block/twitter_timeline.php:91
+#: lib/Block/TwitterTimeline.php:75
 msgid "Number of seconds to wait to refresh"
-msgstr ""
+msgstr "Broj sekundi između osvježavanja"
 
 #: services/keyboard.php:92
 msgid "O characters"
@@ -2316,14 +2345,18 @@ msgid "Object Creator"
 msgstr "Kreator objekata"
 
 # filter uvreda, za uvrede?
-#: lib/Block/fortune.php:99
+#: lib/Block/Fortune.php:98
 msgid "Offense filter"
 msgstr "Filter uvredljivih sadržaja"
 
 # office?
-#: config/registry.php.dist:301
+#: config/registry.php:271
 msgid "Office"
 msgstr "Ured"
+
+#: themes/hordeweb1/info.php:2
+msgid "Old Horde Website"
+msgstr "Stara Horde web stranica"
 
 #: services/changepassword.php:42
 msgid "Old and new passwords must be different."
@@ -2337,7 +2370,7 @@ msgstr "Stara lozinka"
 msgid "Old password is not correct."
 msgstr "Stara lozinka je netočna."
 
-#: lib/Block/fortune.php:102
+#: lib/Block/Fortune.php:102
 msgid "Only offensive fortunes"
 msgstr "Samo loša sreća"
 
@@ -2350,7 +2383,7 @@ msgstr ""
 "Samo vlasnik ili administrator sustava mogu mijenjati vlasništvo ili "
 "vlasničke dozvole za particiju"
 
-#: lib/Block/fortune.php:60
+#: lib/Block/Fortune.php:60
 msgid "Operating System"
 msgstr "Operativni sustav"
 
@@ -2358,18 +2391,16 @@ msgstr "Operativni sustav"
 msgid "Or enter a user name:"
 msgstr "Ili unesite korisničko ime:"
 
-#: config/registry.php.dist:135
+#: config/registry.php:117
 msgid "Organizing"
-msgstr "Organiziranje"
+msgstr "Organizator"
 
 #: services/keyboard.php:124
 msgid "Other"
 msgstr "Ostalo"
 
-#: config/prefs.php.dist:467 config/prefs.php.dist:582
-#: config/prefs.php.dist:603 config/prefs.php.dist:624
-#: config/prefs.php.dist:643 config/prefs.php.dist:663
-#: config/prefs.php.dist:675
+#: config/prefs.php:488 config/prefs.php:599 config/prefs.php:619
+#: config/prefs.php:638 config/prefs.php:660 config/prefs.php:672
 msgid "Other Information"
 msgstr "Ostale informacije"
 
@@ -2385,80 +2416,81 @@ msgstr "Vlasnik"
 msgid "Owner:"
 msgstr "Vlasnik:"
 
-#: admin/phpshell.php:51
+#: admin/phpshell.php:56
 msgid "PHP"
 msgstr "PHP"
 
-#: admin/phpshell.php:71
+#: admin/phpshell.php:76
 msgid "PHP Code"
 msgstr "PHP kod"
 
-#: admin/phpshell.php:32
+#: admin/phpshell.php:37
 msgid "PHP Shell"
 msgstr "PHP ljuska"
 
-#: lib/Block/weatherdotcom_strings.php:54
+#: lib/Block/WeatherdotcomStrings.php:54
 msgid "PM Clouds"
 msgstr "Oblaci poslijepodne"
 
-#: lib/Block/weatherdotcom_strings.php:55
+#: lib/Block/WeatherdotcomStrings.php:55
 msgid "PM Drizzle"
 msgstr "Sitna kiša poslijepodne"
 
-#: lib/Block/weatherdotcom_strings.php:56
+#: lib/Block/WeatherdotcomStrings.php:56
 msgid "PM Fog"
 msgstr "Magla poslijepodne"
 
-#: lib/Block/weatherdotcom_strings.php:57
+#: lib/Block/WeatherdotcomStrings.php:57
 msgid "PM Light Rain"
 msgstr "Slaba kiša poslijepodne"
 
-#: lib/Block/weatherdotcom_strings.php:58
+#: lib/Block/WeatherdotcomStrings.php:58
 msgid "PM Light Snow"
 msgstr "Slab snijeg poslijepodne"
 
-#: lib/Block/weatherdotcom_strings.php:59
+#: lib/Block/WeatherdotcomStrings.php:59
 msgid "PM Rain"
 msgstr "Kiša poslijepodne"
 
-#: lib/Block/weatherdotcom_strings.php:60
+#: lib/Block/WeatherdotcomStrings.php:60
 msgid "PM Showers"
 msgstr "Pljuskovi poslijepodne"
 
-#: lib/Block/weatherdotcom_strings.php:61
+#: lib/Block/WeatherdotcomStrings.php:61
 msgid "PM Snow"
 msgstr "Snijeg poslijepodne"
 
-#: lib/Block/weatherdotcom_strings.php:62
+#: lib/Block/WeatherdotcomStrings.php:62
 msgid "PM Snow Showers"
 msgstr "Pljuskovi snijegai poslijepodne"
 
-#: lib/Block/weatherdotcom_strings.php:63
+#: lib/Block/WeatherdotcomStrings.php:63
 msgid "PM Sun"
 msgstr "Sunčano poslijepodne"
 
-#: lib/Block/weatherdotcom_strings.php:64
+#: lib/Block/WeatherdotcomStrings.php:64
 msgid "PM T-Showers"
 msgstr "Pljuskovi s grmljavinom poslijepodne"
 
-#: lib/Block/weatherdotcom_strings.php:65
+#: lib/Block/WeatherdotcomStrings.php:65
 msgid "PM T-Storms"
 msgstr "Oluje s grmljavinom poslijepodne"
 
-#: lib/Block/account.php:287
+#: lib/Block/Account/Localhost.php:53
 msgid "POSIX extension is missing"
 msgstr "Nedostaje ekstenzija POSIX"
 
-#: lib/Api.php:62
+#: lib/Api.php:67
 msgid "P_HP Shell"
 msgstr "P_HP ljuska"
 
-#: lib/Block/weatherdotcom_strings.php:53
+#: lib/Block/WeatherdotcomStrings.php:53
 msgid "Partly Cloudy"
 msgstr "Djelomično oblačno"
 
-#: admin/config/index.php:192 admin/user.php:35 admin/user.php:49 login.php:81
-#: templates/admin/user/update.inc:20 config/registry.php.dist:355
+#: login.php:194 admin/user.php:40 admin/user.php:54
+#: admin/config/index.php:319 config/registry.php:317
+#: templates/admin/user/update.inc:20
 msgid "Password"
 msgstr "Lozinka"
 
@@ -2466,78 +2498,75 @@ msgstr "Lozinka"
 msgid "Password changed successfully."
 msgstr "Lozinka je uspješno promijenjena."
 
-#: lib/Prefs/Ui.php:326
+#: lib/Prefs/Ui.php:302
 msgid "Password:"
 msgstr "Lozinka:"
 
-#: admin/user.php:168 admin/user.php:220
+#: admin/user.php:173 admin/user.php:233
 msgid "Passwords must match."
 msgstr "Lozinke se moraju podudarati."
 
-#: admin/sqlshell.php:100
+#: admin/sqlshell.php:110
 msgid "Paste"
 msgstr "Zalijepi"
 
 # neriješene prijave
-#: templates/admin/user/approve.inc:9 templates/admin/user/removequeued.inc:7
+#: templates/admin/user/removequeued.inc:7 templates/admin/user/approve.inc:9
 msgid "Pending Signups:"
 msgstr "Prijave na čekanju:"
 
-#: lib/Block/fortune.php:61
+#: lib/Block/Fortune.php:61
 msgid "People"
 msgstr "Ljudi"
 
 # prijavni, zadaci po prijavi?
-#: templates/logintasks/logintasks.html:30
-#, fuzzy
+#: templates/logintasks/logintasks.html:22
 msgid "Perform Login Tasks"
-msgstr "Prijavni zadaci"
+msgstr "Izvrši prijavne zadatke"
 
-#: admin/perms/delete.php:42
+#: admin/perms/delete.php:48
 #, php-format
 msgid "Permission \"%s\" not deleted."
 msgstr "Dozvola \"%s\" nije izbrisana."
 
-#: admin/perms/index.php:23
+#: admin/perms/index.php:28
 msgid "Permissions"
 msgstr "Dozvole"
 
-#: admin/perms/addchild.php:51 admin/perms/delete.php:46
-#: admin/perms/edit.php:110 admin/perms/index.php:17
+#: admin/perms/delete.php:52 admin/perms/edit.php:116 admin/perms/index.php:22
+#: admin/perms/addchild.php:57
 msgid "Permissions Administration"
 msgstr "Administracija dozvola"
 
-#: config/prefs.php.dist:213
+#: config/prefs.php:232
 msgid "Personal Information"
 msgstr "Osobne informacije"
 
-#: lib/Block/fortune.php:62
+#: lib/Block/Fortune.php:62
 msgid "Pets"
 msgstr "Ljubimci"
 
-#: config/registry.php.dist:385
+#: config/registry.php:338
 msgid "Photos"
 msgstr "Slike"
 
-#: lib/Block/fortune.php:63
+#: lib/Block/Fortune.php:63
 msgid "Platitudes"
 msgstr "Fraze"
 
-#: login.php:87
-#, fuzzy
+#: login.php:200
 msgid "Please enter a password."
-msgstr "Molimo unesite ispravno vrijeme."
+msgstr "Molimo unesite lozinku."
 
-#: login.php:86
-#, fuzzy
+#: login.php:199
 msgid "Please enter a username."
-msgstr "Molimo unesite ispravno vrijeme."
+msgstr "Molimo unesite korisničko ime."
 
 #: templates/problem/problem.inc:7
 msgid "Please provide a summary of the problem."
 msgstr "Molimo unesite sažetak problema."
 
-#: services/logintasks.php:73
+#: services/logintasks.php:80
 msgid ""
 "Please read the following text. You MUST agree with the terms to use the "
 "system."
@@ -2545,41 +2574,38 @@ msgstr ""
 "Molimo pročitajte sljedeći tekst. Kako biste koristili sustav, MORATE "
 "pristati na navedene uvjete."
 
-#: services/facebook.php:67
-#, fuzzy
+#: services/facebook/index.php:75
 msgid "Pokes:"
-msgstr "Ljubimci"
+msgstr "Bockanje:"
 
-#: admin/activesync.php:105
-#, fuzzy
+#: admin/activesync.php:107
 msgid "Policy Key"
-msgstr "Javni ključ"
+msgstr "Kontrolni ključ"
 
-#: lib/Prefs/Ui.php:432
-#, fuzzy
+#: lib/Prefs/Ui.php:404
 msgid "Policy Key:"
-msgstr "Javni ključ"
+msgstr "Kontrolni ključ:"
 
-#: lib/Block/fortune.php:64
+#: lib/Block/Fortune.php:64
 msgid "Politics"
 msgstr "Politika"
 
 # Smjerovi?
-#: services/facebook.php:101
-#, fuzzy, php-format
+#: services/facebook/index.php:109
+#, php-format
 msgid "Posted %s"
-msgstr "Izaberite %s"
+msgstr "Poslano %s"
 
 #: templates/block/twitter_tweet.html.php:26
-#, fuzzy, php-format
+#, php-format
 msgid "Posted %s via %s"
-msgstr "%d %s i %s"
+msgstr "Poslano %s putem %s"
 
 #: themes/postnuke/info.php:2
 msgid "Postnuke"
 msgstr "Postnuke"
 
-#: lib/Block/metar.php:261 lib/Block/metar.php:266
+#: lib/Block/Metar.php:239 lib/Block/Metar.php:244
 #, php-format
 msgid "Precipitation for last %d hour: "
 msgid_plural "Precipitation for last %d hours: "
@@ -2587,72 +2613,75 @@ msgstr[0] "Oborine u zadnjih %d sati: "
 msgstr[1] "Oborine u zadnja %d sata: "
 msgstr[2] "Oborine u zadnjih %d sati: "
 
-#: lib/Block/weatherdotcom.php:301
+#: lib/Block/Weatherdotcom.php:281
 msgid "Precipitation<br />chance"
 msgstr "Vjerojatnost<br />oborina"
 
-#: lib/Block/metar.php:220
+#: lib/Block/Metar.php:198
 msgid "Pressure"
 msgstr "Tlak:"
 
-#: lib/Block/metar.php:254
+#: lib/Block/Metar.php:232
 msgid "Pressure at sea level: "
 msgstr "Tlak na razini mora: "
 
-#: lib/Block/weatherdotcom.php:239
+#: lib/Block/Weatherdotcom.php:219
 msgid "Pressure: "
 msgstr "Tlak: "
+
+#: templates/admin/locks/list.html.php:11
+msgid "Principal"
+msgstr "Principal"
 
 #: services/problem.php:145
 msgid "Problem Description"
 msgstr "Opis problema"
 
-#: admin/activesync.php:171 lib/Prefs/Ui.php:425
-#, fuzzy
+#: admin/activesync.php:173 lib/Prefs/Ui.php:397
 msgid "Provisioned"
-msgstr "Dozvola"
+msgstr "Postavljeno"
 
-#: templates/prefs/facebook.html:21
+#: templates/prefs/facebook.html:20
 msgid "Publish enabled."
-msgstr ""
+msgstr "Omogućeno objavljivanje."
 
 #: themes/purple/info.php:2
 msgid "Purple Horde"
 msgstr "Purpurni Horde"
 
-#: admin/sqlshell.php:50
+#: admin/sqlshell.php:59
 msgid "Query"
 msgstr "Upit"
 
-#: lib/Block/account.php:83
+#: lib/Block/Account.php:79
 msgid "Quota"
 msgstr "Kvota"
 
-#: lib/Block/weatherdotcom_strings.php:66
+#: lib/Block/WeatherdotcomStrings.php:66
 msgid "Rain"
 msgstr "Kiša"
 
-#: lib/Block/weatherdotcom_strings.php:67
+#: lib/Block/WeatherdotcomStrings.php:67
 msgid "Rain Early"
 msgstr "Kiša ujutro"
 
-#: lib/Block/weatherdotcom_strings.php:68
+#: lib/Block/WeatherdotcomStrings.php:68
 msgid "Rain Late"
 msgstr "Kiša navečer"
 
-#: lib/Block/weatherdotcom_strings.php:69
+#: lib/Block/WeatherdotcomStrings.php:69
 msgid "Rain Shower"
 msgstr "Pljusak"
 
-#: lib/Block/weatherdotcom_strings.php:70
+#: lib/Block/WeatherdotcomStrings.php:70
 msgid "Rain and Snow"
 msgstr "Susnježica"
 
-#: lib/Block/weatherdotcom_strings.php:71
+#: lib/Block/WeatherdotcomStrings.php:71
 msgid "Rain to Snow"
 msgstr "Prijelaz kiša-snijeg"
 
-#: lib/Block/fortune.php:6
+#: lib/Block/Fortune.php:18
 msgid "Random Fortune"
 msgstr "Sretna slučajnost"
 
@@ -2666,10 +2695,9 @@ msgstr "Sretna slučajnost"
 msgid "Read"
 msgstr "Pročitaj"
 
-#: templates/prefs/facebook.html:33
-#, fuzzy
+#: templates/prefs/facebook.html:32
 msgid "Read enabled"
-msgstr "Pročitaj poruke"
+msgstr "Omogućeno čitanje"
 
 #: templates/admin/user/remove.inc:8
 #, php-format
@@ -2684,11 +2712,11 @@ msgstr ""
 "Želite li stvarno obrisati podatke o korisniku \"%s\"? Ovaj postupak se ne "
 "može opozvati."
 
-#: config/prefs.php.dist:562
+#: config/prefs.php:578
 msgid "Refresh Dynamic Menu Elements:"
 msgstr "Osvježavanje elemenata dinamičkog izbornika:"
 
-#: config/prefs.php.dist:523
+#: config/prefs.php:542
 msgid "Refresh Portal View:"
 msgstr "Osvježite pregled portala:"
 
@@ -2696,37 +2724,33 @@ msgstr "Osvježite pregled portala:"
 msgid "Refresh rate:"
 msgstr "Brzina osvježavanja:"
 
-#: admin/activesync.php:134
+#: admin/activesync.php:136
 msgid "Registered User Devices"
-msgstr ""
+msgstr "Registracija korisničkih uređaja"
 
-#: lib/Block/metar.php:321
+#: lib/Block/Metar.php:299
 msgid "Remarks"
 msgstr "Opaske"
 
-#: admin/sessions.php:39 admin/sessions.php:50
+#: admin/sessions.php:43 admin/sessions.php:59
 msgid "Remote Host:"
 msgstr "Udaljeni stroj:"
 
-#: config/prefs.php.dist:583
-msgid "Remote Servers"
-msgstr "Udaljeni poslužitelji"
-
-#: lib/Prefs/Ui.php:324
+#: lib/Prefs/Ui.php:300
 msgid "Remote URL (http://www.example.com/horde):"
 msgstr "Udaljeni URL (http://www.example.com/horde):"
 
-#: admin/activesync.php:185 templates/admin/groups/edit.inc:23
-#: templates/admin/user/approve.inc:40
-#: templates/admin/user/removequeued.inc:13 templates/prefs/activesync.html:33
+#: admin/activesync.php:187 templates/admin/groups/edit.inc:26
+#: templates/admin/user/removequeued.inc:13
+#: templates/admin/user/approve.inc:40 templates/prefs/activesync.html:33
 msgid "Remove"
 msgstr "Obriši"
 
-#: templates/data/csvmap.inc:118
+#: templates/data/csvmap.inc:119
 msgid "Remove pair"
 msgstr "Obriši par"
 
-#: admin/config/index.php:211
+#: admin/config/index.php:338
 msgid "Remove saved script from server's temporary directory."
 msgstr "Obriši spremljenu skriptu iz privremenog direktorija poslužitelja."
 
@@ -2740,92 +2764,91 @@ msgid "Remove user: %s"
 msgstr "Brisanje korisnika: %s"
 
 #: templates/block/twitter_tweet.html.php:34
-#, fuzzy
 msgid "Reply"
-msgstr "Reply-To"
+msgstr "Odgovor"
 
-#: admin/activesync.php:138
-#, fuzzy
+#: admin/activesync.php:140
 msgid "Reprovision All Devices"
-msgstr "Pristup odbijen"
+msgstr "Ponovo postavi sve uređaje"
 
-#: lib/Block/weatherdotcom.php:160
+#: lib/Block/Weatherdotcom.php:140
 msgid "Requested service could not be found."
 msgstr "Traženi servis nije pronađen."
 
-#: admin/user.php:22 templates/admin/user/update.inc:54
+#: admin/user.php:27 templates/admin/user/update.inc:64
 #: templates/prefs/rpc.html:36
 msgid "Reset"
 msgstr "Resetiraj"
 
-#: services/resetpassword.php:45
+#: services/resetpassword.php:46
 msgid "Reset Password"
 msgstr "Resetiraj lozinku"
-
-# iznova postavi lozinku?
-#: services/resetpassword.php:23
-msgid "Reset Your Password"
-msgstr "Resetirajte Vašu lozinku"
 
 #: templates/prefs/activesync.html:6
 msgid ""
 "Reset all device state. This will cause your devices to resyncronize all "
 "items."
 msgstr ""
+"Resetiraj stanje svih uređaja. Vaši uređaji će ponovo sinkronizirati sve "
+"stavke."
 
-#: admin/sqlshell.php:111
+# iznova postavi lozinku?
+#: services/resetpassword.php:24
+msgid "Reset your password"
+msgstr "Resetirajte svoju lozinku"
+
+#: admin/sqlshell.php:124
 msgid "Restore Last Query"
 msgstr "Vrati prethodni upit"
 
-#: admin/cmdshell.php:23 admin/phpshell.php:74 admin/sqlshell.php:53
+#: admin/phpshell.php:79 admin/sqlshell.php:62 admin/cmdshell.php:28
 msgid "Results"
 msgstr "Rezultati"
 
-#: services/portal/cloud_search.php:30
+#: services/portal/cloud_search.php:34
 #, php-format
 msgid "Results for %s"
 msgstr "Rezultati za %s"
 
 #: templates/prefs/end.html:7
-#, fuzzy
 msgid "Return to Main Screen"
-msgstr "Povratak na Opcije"
+msgstr "Povratak na popis postavki"
 
 #: templates/block/twitter_tweet.html.php:35
-#, fuzzy
 msgid "Retweet"
-msgstr "Resetiraj"
+msgstr "Ponovo objavi"
 
 #: templates/block/twitter_tweet.html.php:30
 #, php-format
 msgid "Retweeted by %s"
-msgstr ""
+msgstr "Ponovo objavio %s"
 
 #: services/changepassword.php:30
 msgid "Retype new password"
 msgstr "Ponovite novu lozinku"
 
-#: admin/config/config.php:33 admin/config/config.php:37
+#: admin/config/config.php:38 admin/config/config.php:47
 msgid "Revert Configuration"
 msgstr "Povrati konfiguraciju"
 
-#: lib/Block/fortune.php:65
+#: lib/Block/Fortune.php:65
 msgid "Riddles"
 msgstr "Zagonetke"
 
-#: admin/sqlshell.php:101
+#: admin/sqlshell.php:111
 msgid "Run"
 msgstr "Pokreni"
 
-#: admin/sqlshell.php:14
+# prijavni, zadaci po prijavi?
+#: templates/logintasks/mobile.html:26
+msgid "Run Login Tasks"
+msgstr "Pokreni prijavne zadatke"
+
+#: admin/sqlshell.php:43
 msgid "SQL Shell"
 msgstr "SQL ljuska"
 
-#: config/registry.php.dist:363
-msgid "SSH"
-msgstr "SSH"
-
-#: lib/Api.php:67
+#: lib/Api.php:72
 msgid "S_QL Shell"
 msgstr "S_QL ljuska"
 
@@ -2833,7 +2856,7 @@ msgstr "S_QL ljuska"
 msgid "Save"
 msgstr "Spremi"
 
-#: templates/admin/groups/edit.inc:63 templates/shares/edit.inc:330
+#: templates/admin/groups/edit.inc:70 templates/shares/edit.inc:330
 #, php-format
 msgid "Save \"%s\""
 msgstr "Spremi \"%s\""
@@ -2842,7 +2865,7 @@ msgstr "Spremi \"%s\""
 msgid "Save and Finish"
 msgstr "Snimi i izađi"
 
-#: admin/config/index.php:183
+#: admin/config/index.php:310
 msgid ""
 "Save generated configuration as a PHP script to your server's temporary "
 "directory."
@@ -2850,28 +2873,32 @@ msgstr ""
 "Spremite stvorenu konfiguraciju kao PHP skriptu u privremeni direktorij "
 "Vašeg poslužitelja."
 
-#: admin/config/scripts.php:92
-#, fuzzy, php-format
+#: admin/config/scripts.php:99
+#, php-format
 msgid "Saved configuration upgrade script to: \"%s\"."
-msgstr "Skripta za ažuriranje instalacije je spremljena na: \"%s\"."
+msgstr "Skripta za nadogradnju konfiguracije spremljena u: \"%s\"."
 
-#: lib/Block/weatherdotcom_strings.php:72
+#: lib/Block/WeatherdotcomStrings.php:72
 msgid "Scattered Showers"
 msgstr "Mjestimični pljuskovi"
 
-#: lib/Block/weatherdotcom_strings.php:73
+#: lib/Block/WeatherdotcomStrings.php:73
 msgid "Scattered T-Storms"
 msgstr "Mjestimične oluje s grmljavinom"
 
-#: lib/Block/fortune.php:66
+#: lib/Block/Fortune.php:66
 msgid "Science"
 msgstr "Znanost"
+
+#: templates/admin/locks/list.html.php:10
+msgid "Scope"
+msgstr "Opseg"
 
 #: services/help/index.php:71
 msgid "Sea_rch"
 msgstr "Pre_traga"
 
-#: services/help/index.php:134 templates/admin/user/list.inc:16
+#: services/help/index.php:130 templates/admin/user/list.inc:16
 msgid "Search"
 msgstr "Pre_traga"
 
@@ -2897,7 +2924,7 @@ msgstr "Odaberite korisnika kojeg želite dodati:"
 
 #: templates/prefs/addressbooks.html:5
 msgid "Select all fields to search when expanding addresses."
-msgstr ""
+msgstr "Označi sva polja za pretraživanje prilikom proširivanja adresa."
 
 #: services/keyboard.php:38
 msgid ""
@@ -2911,11 +2938,11 @@ msgstr ""
 msgid "Select the date and time format:"
 msgstr "Odaberite format datuma i vremena:"
 
-#: templates/data/date.inc:34 templates/data/datetime.inc:76
+#: templates/data/datetime.inc:76 templates/data/date.inc:34
 msgid "Select the date delimiter:"
 msgstr "Odaberite razdjelnik datuma:"
 
-#: templates/data/date.inc:44 templates/data/datetime.inc:86
+#: templates/data/datetime.inc:86 templates/data/date.inc:44
 msgid "Select the date format:"
 msgstr "Odaberite format datuma:"
 
@@ -2931,11 +2958,11 @@ msgstr "Odaberite razdjelnik vremena:"
 msgid "Select the time format:"
 msgstr "Odaberite format vremena:"
 
-#: config/prefs.php.dist:509
+#: config/prefs.php:528
 msgid "Select your color scheme."
 msgstr "Odaberite shemu boja."
 
-#: config/prefs.php.dist:328
+#: config/prefs.php:345
 msgid "Select your preferred language:"
 msgstr "Odaberite željeni jezik:"
 
@@ -2944,7 +2971,7 @@ msgid "Send Problem Report"
 msgstr "Pošalji izvještaj o problemu"
 
 # Osjetilo?
-#: lib/Block/metar.php:311
+#: lib/Block/Metar.php:289
 msgid "Sensor: "
 msgstr "Senzor: "
 
@@ -2952,48 +2979,40 @@ msgstr "Senzor: "
 msgid "Server Time"
 msgstr "Vrijeme na poslužitelju"
 
-#: lib/Block/weatherdotcom.php:164
+#: lib/Block/Weatherdotcom.php:144
 msgid "Server data wrong or not available."
 msgstr "Podaci s poslužitelja neispravni ili nedostupni."
 
-#: admin/sessions.php:14
+#: admin/sessions.php:19
 msgid "Session Admin"
 msgstr "Administracija sesija"
 
-#: admin/sessions.php:37
+#: admin/sessions.php:41
 msgid "Session Timestamp:"
 msgstr "Vremenska oznaka sesije:"
 
-#: lib/Api.php:57
+#: lib/Api.php:62
 msgid "Sessions"
 msgstr "Sesije"
 
-#: config/prefs.php.dist:277
-#, fuzzy
+#: config/prefs.php:297
 msgid ""
 "Set preferences to allow you to reset your password if you ever forget it."
-msgstr "Podesite opcije za resetiranje lozinke u slučaju zaboravljanja."
+msgstr "Podesite opcije za resetiranje lozinke u slučaju da ju zaboravite."
 
-#: config/prefs.php.dist:605
+#: config/prefs.php:601
 msgid "Set up integration with your Facebook account."
-msgstr ""
+msgstr "Postavi integraciju s Vašim Facebook računom."
 
-#: config/prefs.php.dist:626
+#: config/prefs.php:621
 msgid "Set up integration with your Twitter account."
-msgstr ""
+msgstr "Postavi integraciju s Vašim Twitter računom."
 
-#: config/prefs.php.dist:584
-msgid "Set up remote servers that you want to access from your portal."
-msgstr ""
-"Postavite udaljene poslužitelje kojima želite pristupiti sa Vašeg portala."
-
-#: config/prefs.php.dist:314
-#, fuzzy
+#: config/prefs.php:331
 msgid "Set your preferred language, timezone and date preferences."
-msgstr "Postavite željeni jezik, vremensku zonu i opcije datuma."
+msgstr "Odaberite željeni jezik, vremensku zonu i postavke datuma."
 
-#: config/prefs.php.dist:469
-#, fuzzy
+#: config/prefs.php:490
 msgid ""
 "Set your startup application, color scheme, page refreshing, and other "
 "display preferences."
@@ -3001,7 +3020,7 @@ msgstr ""
 "Postavite željenu početnu aplikaciju, shemu boja, osvježavanje stranice te "
 "ostale opcije prikaza."
 
-#: lib/Block/weatherdotcom.php:190
+#: lib/Block/Weatherdotcom.php:170
 msgid "Several locations possible with the parameter: "
 msgstr "Nekoliko je mogućih lokacija prema parametru: "
 
@@ -3009,7 +3028,7 @@ msgstr "Nekoliko je mogućih lokacija prema parametru: "
 msgid "Short Summary"
 msgstr "Kratki sažetak"
 
-#: config/prefs.php.dist:570
+#: config/prefs.php:585
 msgid "Should access keys be defined for most links?"
 msgstr "Trebaju li pristupne tipke biti definirane za većinu poveznica?"
 
@@ -3023,49 +3042,51 @@ msgstr "Trebaju li pristupne tipke biti definirane za većinu poveznica?"
 msgid "Show"
 msgstr "Prikaži"
 
-#: templates/prefs/app.html:21
-#, fuzzy
+#: templates/prefs/app.html:22
 msgid "Show Advanced Preferences"
-msgstr "prikaži razlike"
+msgstr "Prikaži napredne postavke"
 
-#: admin/config/index.php:173
+#: templates/sidebar/sidebar.inc:10
+msgid "Show Sidebar"
+msgstr "Prikaži bočnu traku"
+
+#: admin/config/index.php:300
 msgid ""
 "Show differences between currently saved and the newly generated "
 "configuration."
 msgstr ""
 "Prikaži razlike između trenutno spremljene i novo generirane konfiguracije."
 
-#: lib/Block/feed.php:24
+#: lib/Block/Feed.php:41
 msgid "Show extra detail?"
 msgstr "Prikaži dodatne detalje?"
 
-#: config/prefs.php.dist:491
+#: config/prefs.php:511
 msgid "Show last login time when logging in?"
 msgstr "Prikaži posljednje vrijeme prijave po prijavi na sustav?"
 
-#: lib/Block/fb_stream.php:89
-#, fuzzy
+#: lib/Block/FbStream.php:65
 msgid "Show notifications"
-msgstr "Popup obavijest"
+msgstr "Prikaži obavijesti"
 
-#: config/prefs.php.dist:530
+#: config/prefs.php:548
 #, php-format
 msgid "Show the %s Menu on the left?"
 msgstr "Prikazuj %s izbornik na lijevo?"
 
-#: lib/Block/weatherdotcom_strings.php:74
+#: lib/Block/WeatherdotcomStrings.php:74
 msgid "Showers"
 msgstr "Pljuskovi"
 
-#: lib/Block/weatherdotcom_strings.php:75
+#: lib/Block/WeatherdotcomStrings.php:75
 msgid "Showers Early"
 msgstr "Jutarnji pljuskovi"
 
-#: lib/Block/weatherdotcom_strings.php:76
+#: lib/Block/WeatherdotcomStrings.php:76
 msgid "Showers Late"
 msgstr "Večernji pljuskovi"
 
-#: lib/Block/weatherdotcom_strings.php:77
+#: lib/Block/WeatherdotcomStrings.php:77
 msgid "Showers in the Vicinity"
 msgstr "Pljuskovi u okolici"
 
@@ -3074,99 +3095,106 @@ msgid "Simplex"
 msgstr "Simplex"
 
 # prijavni, zadaci po prijavi?
-#: templates/logintasks/logintasks.html:31
-#, fuzzy
+#: templates/logintasks/logintasks.html:23 templates/logintasks/mobile.html:25
 msgid "Skip Login Tasks"
-msgstr "Prijavni zadaci"
+msgstr "Preskoči prijavne zadatke"
 
 # Republika
-#: lib/Block/iframe.php:26
+#: lib/Block/Iframe.php:35
 msgid "Small"
 msgstr "mala"
 
-#: lib/Block/weatherdotcom_strings.php:78
+#: lib/Block/WeatherdotcomStrings.php:78
 msgid "Snow"
 msgstr "Snijeg"
 
-#: lib/Block/weatherdotcom_strings.php:79
+#: lib/Block/WeatherdotcomStrings.php:79
 msgid "Snow Early"
 msgstr "Snijeg ujutro"
 
-#: lib/Block/weatherdotcom_strings.php:80
+#: lib/Block/WeatherdotcomStrings.php:80
 msgid "Snow Late"
 msgstr "Snijeg navečer"
 
-#: lib/Block/weatherdotcom_strings.php:81
+#: lib/Block/WeatherdotcomStrings.php:81
 msgid "Snow Shower"
 msgstr "Pljusak snijega"
 
-#: lib/Block/weatherdotcom_strings.php:82
+#: lib/Block/WeatherdotcomStrings.php:82
 msgid "Snow Showers"
 msgstr "Pljuskovi snijega"
 
-#: lib/Block/weatherdotcom_strings.php:83
+#: lib/Block/WeatherdotcomStrings.php:83
 msgid "Snow Showers Early"
 msgstr "Jutarnji pljuskovi snijega"
 
-#: lib/Block/weatherdotcom_strings.php:84
+#: lib/Block/WeatherdotcomStrings.php:84
 msgid "Snow Showers Late"
 msgstr "Večernji pljuskovi snijega"
 
-#: lib/Block/metar.php:273
+#: lib/Block/Metar.php:251
 msgid "Snow depth: "
 msgstr "Visina snijega: "
 
 # ekvivalent snijega u vodi?
-#: lib/Block/metar.php:277
+#: lib/Block/Metar.php:255
 msgid "Snow equivalent in water: "
 msgstr "Vodeni ekvivalent snijega: "
 
-#: lib/Block/fortune.php:67
+#: lib/Block/Fortune.php:67
 msgid "Songs & Poems"
 msgstr "Pjesme & poezija"
 
 # Južnoeuropski
-#: config/nls.php:182
+#: config/nls.php:183
 msgid "South European (ISO-8859-3)"
 msgstr "South European (ISO-8859-3)"
 
 # polutka
-#: lib/Block/moon.php:31 lib/Block/moon.php:60
+#: lib/Block/Moon.php:32 lib/Block/Moon.php:63
 msgid "Southern Hemisphere"
 msgstr "Južna hemisfera"
 
-#: config/registry.php.dist:102
+#: config/registry.php:103
 msgid "Spam"
-msgstr "Neželjena pošta"
+msgstr "Spam"
 
 #: services/keyboard.php:14
 msgid "Special Character Input"
 msgstr "Unos posebnih znakova"
 
-#: lib/Block/fortune.php:68
+#: lib/Block/Fortune.php:68
 msgid "Sports"
 msgstr "Sport"
 
-#: lib/Block/metar.php:73 lib/Block/weatherdotcom.php:68
+#: lib/Block/Metar.php:60 lib/Block/Weatherdotcom.php:61
 msgid "Standard"
 msgstr "Standard"
 
-#: lib/Block/fortune.php:69
+#: lib/Block/Fortune.php:69
 msgid "Star Trek"
 msgstr "Zvjezdane staze"
 
+#: templates/admin/locks/list.html.php:13
+msgid "Start Time"
+msgstr "Početno vrijeme"
+
 #: templates/prefs/activesync.html:2
 msgid "State Management"
-msgstr ""
+msgstr "Upravljanje stanjem"
 
-#: admin/activesync.php:112 templates/admin/config/index.html:17
-#: templates/prefs/activesync.html:22
+#: admin/activesync.php:114 templates/prefs/activesync.html:22
+#: templates/admin/config/index.html:39
 msgid "Status"
 msgstr "Status"
 
-#: services/facebook.php:144
+#: services/facebook/index.php:147
 msgid "Status unable to be set."
-msgstr ""
+msgstr "Nije uspjelo postavljanje statusa."
+
+#: templates/block/twitter-layout.html.php:24
+msgid "Stream"
+msgstr "Novosti"
 
 #: util/icon_browser.php:40
 #, php-format
@@ -3183,137 +3211,138 @@ msgstr ""
 "Zahtjev za dodavanje \"%s\" na sustav je poslan. Prijavljivanje na sustav "
 "nije moguće dok se zahtjev ne odobri."
 
-#: services/facebook.php:38
-msgid "Succesfully connected your Facebook account."
-msgstr ""
+#: services/facebook/index.php:35
+msgid "Succesfully connected your Facebook account or updated permissions."
+msgstr "Uspješno spajanje na Facebook račun ili ažuriranje dozvola."
 
-#: admin/sqlshell.php:88
+#: admin/sqlshell.php:97
 msgid "Success"
 msgstr "Uspjeh"
 
-#: admin/signup_confirm.php:85 admin/user.php:100
+#: admin/signup_confirm.php:85 admin/user.php:105
 #, php-format
 msgid "Successfully added \"%s\" to the system."
 msgstr "Uspješno dodavanje \"%s\" na sustav."
 
-#: admin/user.php:138
+#: admin/user.php:143
 #, php-format
 msgid "Successfully cleared data for user \"%s\" from the system."
 msgstr "Podaci korisnika \"%s\" su uspješno izbrisani iz sustava."
 
-#: admin/groups.php:78 admin/perms/delete.php:36
+#: admin/groups.php:65 admin/perms/delete.php:42
 #, php-format
 msgid "Successfully deleted \"%s\"."
 msgstr "Uspješno izbrisano \"%s\"."
 
-#: admin/user.php:118
+#: admin/user.php:123
 #, php-format
 msgid "Successfully removed \"%s\" from the system."
 msgstr "Uspješno obrisan \"%s\" iz sustava."
 
 # izbaciti promjene i stranicu?
-#: admin/config/config.php:40
+#: admin/config/config.php:49
 msgid "Successfully reverted configuration. Reload to see changes."
 msgstr ""
 "Uspješno povraćena konfiguracija. Za pregled promjena ponovno učitajte "
 "stranicu."
 
-#: admin/config/index.php:39
+#: admin/config/index.php:44
 msgid "Successfully saved backup configuration."
 msgstr "Uspješno spremljena pričuvna kopija konfiguracijske datoteke."
 
-#: admin/config/config.php:51
+#: admin/config/config.php:60
 #, php-format
 msgid "Successfully saved the backup configuration file %s."
 msgstr "Uspješno spremljena pričuvna kopija konfiguracijske datoteke %s."
 
-#: admin/user.php:184
+#: admin/user.php:197
 #, php-format
 msgid "Successfully updated \"%s\""
 msgstr "Uspješno ažuriran \"%s\""
 
-#: admin/config/config.php:60 admin/config/index.php:47
+#: admin/config/config.php:69 admin/config/index.php:52
+#: admin/config/index.php:98
 #, php-format
 msgid "Successfully wrote %s"
 msgstr "Uspješno zapisan %s"
 
-#: lib/Block/sunrise.php:63
+#: lib/Block/Sunrise.php:70
 msgid "Sun Rise"
 msgstr "Izlazak sunca"
 
-#: lib/Block/sunrise.php:66
+#: lib/Block/Sunrise.php:73
 msgid "Sun Set"
 msgstr "Zalazak sunca"
 
-#: config/prefs.php.dist:429
+#: config/prefs.php:451
 msgid "Sunday"
 msgstr "Nedjelja"
 
-#: lib/Block/weatherdotcom_strings.php:85
+#: lib/Block/WeatherdotcomStrings.php:85
 msgid "Sunny"
 msgstr "Sunčano"
 
-#: lib/Block/weatherdotcom.php:220
+#: lib/Block/Weatherdotcom.php:200
 msgid "Sunrise"
 msgstr "Izlazak Sunca"
 
-#: lib/Block/sunrise.php:3 lib/Block/sunrise.php:14
+#: lib/Block/Sunrise.php:13
 msgid "Sunrise/Sunset"
 msgstr "Izlazak/zalazak Sunca"
 
-#: lib/Block/weatherdotcom.php:219
+#: lib/Block/Weatherdotcom.php:199
 msgid "Sunrise: "
 msgstr "Izlazak Sunca: "
 
-#: lib/Block/weatherdotcom.php:223
+#: lib/Block/Weatherdotcom.php:203
 msgid "Sunset"
 msgstr "Zalazak Sunca"
 
-#: lib/Block/weatherdotcom.php:222
+#: lib/Block/Weatherdotcom.php:202
 msgid "Sunset: "
 msgstr "Zalazak Sunca: "
 
-#: config/prefs.php.dist:664
+#: config/prefs.php:661
 msgid "SyncML"
 msgstr "SyncML"
 
-#: lib/Block/feed.php:3
+#: lib/Block/Feed.php:18
 msgid "Syndicated Feed"
 msgstr "Kanal"
 
-#: lib/Block/weatherdotcom_strings.php:86
+#: lib/Block/WeatherdotcomStrings.php:86
 msgid "T-Showers"
 msgstr "Pljuskovi s grmljavinom"
 
-#: lib/Block/weatherdotcom_strings.php:87
+#: lib/Block/WeatherdotcomStrings.php:87
 msgid "T-Showers Early"
 msgstr "Jutarnji pljuskovi s grmljavinom"
 
-#: lib/Block/weatherdotcom_strings.php:88
+#: lib/Block/WeatherdotcomStrings.php:88
 msgid "T-Showers Late"
 msgstr "Večernji pljuskovi s grmljavinom"
 
-#: lib/Block/weatherdotcom_strings.php:89
+#: lib/Block/WeatherdotcomStrings.php:89
 msgid "T-Storm"
 msgstr "Oluja s grmljavinom"
 
-#: lib/Block/weatherdotcom_strings.php:90
+#: lib/Block/WeatherdotcomStrings.php:90
 msgid "T-Storm and Windy"
 msgstr "Oluja s grmljavinom i vjetrom"
 
-#: lib/Block/weatherdotcom_strings.php:91
+#: lib/Block/WeatherdotcomStrings.php:91
 msgid "T-Storms"
 msgstr "Oluje s grmljavinom"
 
-#: lib/Block/weatherdotcom_strings.php:92
+#: lib/Block/WeatherdotcomStrings.php:92
 msgid "T-Storms Early"
 msgstr "Oluje s grmljavinom ujutro"
 
-#: lib/Block/weatherdotcom_strings.php:93
+#: lib/Block/WeatherdotcomStrings.php:93
 msgid "T-Storms Late"
 msgstr "Oluje s grmljavinom navečer"
 
-#: lib/Block/cloud.php:3 lib/Block/cloud.php:23
+#: lib/Block/Cloud.php:13
 msgid "Tag Cloud"
 msgstr "Oblak tagova"
 
@@ -3321,7 +3350,7 @@ msgstr "Oblak tagova"
 msgid "Tango Blue"
 msgstr "Tango plava"
 
-#: config/registry.php.dist:184
+#: config/registry.php:168
 msgid "Tasks"
 msgstr "Zadaci"
 
@@ -3329,65 +3358,75 @@ msgstr "Zadaci"
 msgid "Teal"
 msgstr "Zelenkasto plava"
 
-#: lib/Block/metar.php:285
+#: lib/Block/Metar.php:263
 msgid "Temp for last hour: "
 msgstr "Temperatura zadnjih sat vremena: "
 
-#: lib/Block/metar.php:209
+#: lib/Block/Metar.php:187
 msgid "Temperature"
 msgstr "Temperatura"
 
-#: lib/Block/weatherdotcom.php:227
+#: lib/Block/Weatherdotcom.php:207
 msgid "Temperature: "
 msgstr "Temperatura: "
 
-#: lib/Block/weatherdotcom.php:296
+#: lib/Block/Weatherdotcom.php:276
 #, php-format
 msgid "Temperature<br />(%sHi%s/%sLo%s) &deg;%s"
 msgstr "Temperatura<br />(%sHi%s/%sLo%s) &deg;%s"
 
-#: lib/Prefs/Ui.php:518 services/facebook.php:31
+#: lib/Prefs/Ui.php:478 services/facebook/index.php:40
 msgid "Temporarily unable to connect with Facebook, Please try again."
-msgstr ""
+msgstr "Facebook je trenutno nedostupan. Molimo pokušajte kasnije."
 
-#: lib/Block/twitter_timeline.php:122
-#, fuzzy
+#: lib/Block/TwitterTimeline.php:104
 msgid "Temporarily unable to contact Twitter. Please try again later."
-msgstr ""
-"Došlo je do pogreške prilikom ažuriranja kontaktnih podataka. Molimo "
-"pokušajte ponovo kasnije."
+msgstr "Twitter je trenutno nedostupan. Molimo pokušajte kasnije."
 
 #: services/keyboard.php:148
 msgid "Text Area"
 msgstr "Tekstualno polje"
 
-#: config/prefs.php.dist:544
+#: config/prefs.php:561
 msgid "Text Only"
 msgstr "Samo tekst"
 
 # Sijamski
-#: config/nls.php:183
+#: config/nls.php:184
 msgid "Thai (TIS-620)"
 msgstr "Thai (TIS-620)"
 
-#: lib/Prefs/Ui.php:747
-#, fuzzy, php-format
+#: lib/Prefs/Ui.php:712
+#, php-format
 msgid "The Remote Wipe for device id %s has been cancelled."
-msgstr "Poslužitelj \"%s\" je izbrisan."
+msgstr "Automatsko brisanje za uređaj sa identifikatorom %s je poništeno."
 
-#: admin/alarms.php:81
+#: admin/alarms.php:86
 msgid "The alarm has been deleted."
 msgstr "Alarm je obrisan."
 
-#: admin/alarms.php:70
+#: admin/alarms.php:75
 msgid "The alarm has been saved."
 msgstr "Alarm je spremljen."
 
-#: config/prefs.php.dist:246
-msgid "The default e-mail address to use with this identity:"
+#: admin/config/index.php:103
+#, php-format
+msgid ""
+"The configuration for %s cannot be updated automatically. Please update the "
+"configuration manually."
 msgstr ""
+"Konfiguracija za %s se ne može automatski ažurirati. Molimo ručno ažurirajte "
+"konfiguraciju."
 
-#: lib/Block/vatid.php:76
+#: config/prefs.php:262
+msgid "The default e-mail address to use with this identity:"
+msgstr "Pretpostavljena adresa elektroničke pošte za ovaj identitet:"
+
+#: admin/locks.php:24
+msgid "The lock has been removed."
+msgstr "Zaključavanje korisnika je obrisano."
+
+#: lib/Block/Vatid.php:87
 msgid ""
 "The member state service could not be reached in time. Try again later or "
 "with a different member state."
@@ -3395,7 +3434,7 @@ msgstr ""
 "Usluge države članice nije bila dostupna na vrijeme. Pokušajte kasnije ili s "
 "drugom državom članicom."
 
-#: lib/Block/vatid.php:73
+#: lib/Block/Vatid.php:83
 msgid ""
 "The member state service is currently not available. Try again later or with "
 "a different member state."
@@ -3403,29 +3442,29 @@ msgstr ""
 "Usluga države članice trenutno nije dostupna. Pokušajte kasnije ili s drugom "
 "državom članicom."
 
-#: lib/Block/vatid.php:67
+#: lib/Block/Vatid.php:75
 msgid "The provided country code is invalid."
 msgstr "Uneseni kod zemlje nije ispravan."
 
-#: lib/Prefs/Ui.php:681
+#: lib/Prefs/Ui.php:645
 #, php-format
 msgid "The server \"%s\" has been deleted."
 msgstr "Poslužitelj \"%s\" je izbrisan."
 
-#: lib/Prefs/Ui.php:676
+#: lib/Prefs/Ui.php:640
 #, php-format
 msgid "The server \"%s\" has been saved."
 msgstr "Poslužitelj \"%s\" je spremljen."
 
-#: lib/Block/vatid.php:70
+#: lib/Block/Vatid.php:79
 msgid "The service is currently not available. Try again later."
 msgstr "Usluga trenutno nije dostupna. Pokušajte kasnije."
 
-#: lib/Block/vatid.php:79
+#: lib/Block/Vatid.php:91
 msgid "The service is currently too busy. Try again later."
 msgstr "Usluga je trenutno prezauzeta. Pokušajte kasnije."
 
-#: admin/user.php:209
+#: admin/user.php:222
 #, php-format
 msgid "The signup request for \"%s\" has been removed."
 msgstr "Zahtjev za prijavu od strane \"%s\" je obrisana."
@@ -3435,13 +3474,25 @@ msgstr "Zahtjev za prijavu od strane \"%s\" je obrisana."
 msgid "The signup request for user \"%s\" has been removed."
 msgstr "Zahtjev za korisnički račun \"%s\" je obrisan."
 
-#: lib/LoginTasks/Task/TestScriptActive.php:38
+#: lib/Prefs/Ui.php:721
+#, php-format
+msgid ""
+"The state for device id %s has been reset. It will resynchronize next time "
+"it connects to the server."
+msgstr ""
+"Resetiran je status uređaja s identifikatorom %s.  Uređaj će se ponovo "
+"sinkronizirati prilikom sljedećeg spajanja na poslužitelj."
+
+#: lib/LoginTasks/Task/AdminCheck.php:47
 msgid ""
 "The test script is currently enabled. For security reasons, disable test "
 "scripts when you are done testing (see horde/docs/INSTALL)."
 msgstr ""
+"Skripta za testiranje je trenutno omogućena. Zbog sigurnosnih razloga "
+"isključite skriptu za testiranje kad ste završili s testiranjem (vidjeti "
+"horde/docs/INSTALL)."
 
-#: admin/signup_confirm.php:60 admin/user.php:72
+#: admin/signup_confirm.php:60 admin/user.php:77
 #, php-format
 msgid "The user \"%s\" already exists."
 msgstr "Korisnik \"%s\" već postoji."
@@ -3451,48 +3502,44 @@ msgstr "Korisnik \"%s\" već postoji."
 msgid "The user \"%s\" does not exist."
 msgstr "Korisnik \"%s\" ne postoji."
 
-#: lib/Block/weatherdotcom.php:51 lib/Block/weatherdotcom.php:106
-msgid "The weather.com block is not available."
-msgstr "Weather.com blok nije dostupan."
-
-#: lib/Prefs/Ui.php:46
-#, fuzzy
-msgid "Theme directory can't be opened"
-msgstr "Direktorij za teme \"%s\" nije pronađen."
-
 #: util/icon_browser.php:28
 #, php-format
 msgid "Themes directory \"%s\" not found."
 msgstr "Direktorij za teme \"%s\" nije pronađen."
 
-#: admin/signup_confirm.php:74 admin/user.php:84 signup.php:38 signup.php:59
+#: signup.php:38 signup.php:59 admin/signup_confirm.php:74 admin/user.php:89
 #, php-format
 msgid "There was a problem adding \"%s\" to the system: %s"
 msgstr "Došlo je do problema prilikom dodavanja \"%s\" u sustav: %s"
 
-#: admin/user.php:140
+#: admin/user.php:145
 #, php-format
 msgid "There was a problem clearing data for user \"%s\" from the system: "
 msgstr ""
 "Došlo je do problema prilikom brisanja podataka iz sustava za korisnika \"%s"
 "\": "
 
-#: admin/user.php:120
+#: admin/user.php:125
 #, php-format
 msgid "There was a problem removing \"%s\" from the system: "
 msgstr "Došlo je do problema prilikom brisanja \"%s\" sa sustava: "
 
-#: admin/user.php:173
+#: admin/user.php:178
 #, php-format
 msgid "There was a problem updating \"%s\": %s"
 msgstr "Došlo je do problema s ažuriranjem \"%s\": %s"
 
-#: lib/Block/twitter_timeline.php:110 lib/Block/twitter_timeline.php:126
-#, fuzzy, php-format
-msgid "There was an error contacting Twitter: %s"
-msgstr "Došlo je do greške pri uvoženju kontaktnih informacija:"
+#: lib/Prefs/Ui.php:724
+#, php-format
+msgid "There was an error communicating with the ActiveSync server: %s"
+msgstr "Došlo je do greške pri komunikaciji s ActiveSync poslužiteljem: %s"
 
-#: admin/config/config.php:70
+#: lib/Block/TwitterTimeline.php:92 lib/Block/TwitterTimeline.php:108
+#, php-format
+msgid "There was an error contacting Twitter: %s"
+msgstr "Došlo je do greške pri spajanju na Twitter: %s"
+
+#: admin/config/config.php:80
 msgid ""
 "There was an error in the configuration form. Perhaps you left out a "
 "required field."
@@ -3500,13 +3547,20 @@ msgstr ""
 "Došlo je do pogreške u kofiguracijskoj formi. Možda ste izostavili obavezno "
 "polje."
 
-#: lib/Block/fb_stream.php:158 lib/Block/fb_stream.php:183
-#: services/facebook.php:54 services/facebook.php:71
-#, fuzzy, php-format
+#: lib/Block/FbStream.php:135 lib/Block/FbStream.php:161
+#: services/facebook/index.php:62 services/facebook/index.php:79
+#, php-format
 msgid "There was an error making the request: %s"
-msgstr "Došlo je do greške pri čitanju kontaktnih informacija."
+msgstr "Došlo je do greške prilikom zahtjeva: %s"
 
-#: lib/Api.php:284
+#: services/facebook/index.php:37
+msgid ""
+"There was an error obtaining your Facebook session. Please try again later."
+msgstr ""
+"Došlo je do greške prilikom dohvata Vaše Facebook sjednice. Molimo pokušajte "
+"kasnije."
+
+#: lib/Application.php:177
 #, php-format
 msgid ""
 "There was an error removing global data for %s. Details have been logged."
@@ -3514,27 +3568,31 @@ msgstr ""
 "Došlo je do greške prilikom brisanja globalnih podataka za %s. Detalji su "
 "zabilježeni u log."
 
-#: lib/Block/vatid.php:89
+#: services/facebook/index.php:49
+msgid "There was an error with the requested permissions"
+msgstr "Došlo je do greške sa traženim ovlastima"
+
+#: lib/Block/Vatid.php:102
 msgid "This VAT identification number is invalid."
 msgstr "Brojčana oznaka PDV-a nije ispravna."
 
-#: lib/Block/vatid.php:86
+#: lib/Block/Vatid.php:99
 msgid "This VAT identification number is valid."
 msgstr "Brojčana oznaka PDV-a je ispravna."
 
-#: lib/Block/weatherdotcom_strings.php:94
+#: lib/Block/WeatherdotcomStrings.php:94
 msgid "Thunder"
 msgstr "Grmljavina"
 
-#: config/registry.php.dist:260
+#: config/registry.php:232
 msgid "Tickets"
 msgstr "Karte"
 
-#: config/registry.php.dist:308
+#: config/registry.php:276
 msgid "Time Tracking"
 msgstr "Praćenje vremena"
 
-#: lib/Block/time.php:23
+#: lib/Block/Time.php:27
 msgid "Time format"
 msgstr "Format vremena"
 
@@ -3546,11 +3604,11 @@ msgstr "Vrijeme promjene ili nepoznato"
 msgid "Timestamps of successful synchronization sessions"
 msgstr "Vremena uspješnih sinkronizacijskih sesija"
 
-#: lib/Block/iframe.php:22
+#: lib/Block/Iframe.php:28
 msgid "Title"
 msgstr "Naziv"
 
-#: templates/data/csvmap.inc:95
+#: templates/data/csvmap.inc:96
 msgid ""
 "To exclude a particular field form the import or to correct a wrong match "
 "select a field in the lists below and hit \"Remove pair\"."
@@ -3560,105 +3618,104 @@ msgstr ""
 
 # odabir, označavanje?
 #: templates/prefs/addressbooks.html:10
-#, fuzzy
 msgid ""
 "To select multiple fields, hold down the Control (PC) or Command (Mac) while "
 "clicking."
 msgstr ""
-"Za selektiranje više jedinica, držite pritisnitu tipku Control (PC) ili "
-"Command (Mac) dok klikate mišem."
+"Za odabir više polja, držite pritisnitu tipku Control (PC) ili Command (Mac) "
+"dok klikate mišem."
 
-#: lib/Block/weatherdotcom.php:313
+#: lib/Block/Weatherdotcom.php:293
 msgid "Today"
 msgstr "Danas"
 
-#: lib/Block/weatherdotcom.php:315
+#: lib/Block/Weatherdotcom.php:295
 msgid "Tomorrow"
 msgstr "Sutra"
 
-#: lib/Block/fortune.php:70
+#: login.php:223
+msgid "Traditional"
+msgstr "Tradicionalni"
+
+#: lib/Block/Fortune.php:70
 msgid "Translations"
 msgstr "Prijevodi"
 
 # Turski
-#: config/nls.php:184
+#: config/nls.php:185
 msgid "Turkish (ISO-8859-9)"
 msgstr "Turski (ISO-8859-9)"
 
-#: lib/Block/twitter_timeline.php:166
-#, fuzzy
+#: templates/block/twitter-layout.html.php:15
 msgid "Tweet"
-msgstr "Tekst"
+msgstr "Objava"
 
-#: config/prefs.php.dist:625
-#, fuzzy
+#: config/prefs.php:620
 msgid "Twitter Integration"
-msgstr "Ostale informacije"
+msgstr "Povezivanje sa Twitterom"
 
-#: lib/Block/twitter_timeline.php:23 lib/Block/twitter_timeline.php:64
-#: lib/Block/twitter_timeline.php:74 lib/Block/twitter_timeline.php:78
-#, php-format
+#: lib/Block/TwitterTimeline.php:41
 msgid "Twitter Timeline"
-msgstr ""
+msgstr "Twitter vremenski niz"
 
-#: lib/Block/twitter_timeline.php:70
+#: lib/Block/TwitterTimeline.php:57
 #, php-format
 msgid "Twitter Timeline for %s"
-msgstr ""
+msgstr "Twitter vremenski niz za %s"
 
 #: services/keyboard.php:108
 msgid "U characters"
 msgstr "Slova U"
 
-#: lib/Block/weatherdotcom.php:273
+#: lib/Block/Weatherdotcom.php:253
 msgid "U.V. index: "
 msgstr "U.V. indeks: "
 
-#: lib/Block/iframe.php:19
+#: lib/Block/Iframe.php:23
 msgid "URL"
 msgstr "URL"
 
-#: services/twitter.php:64
+#: services/twitter/index.php:78
 #, php-format
 msgid "Unable to contact Twitter. Please try again later. Error returned: %s"
 msgstr ""
+"Spajanje na Twitter nije uspjelo. Molimo pokušajte kasnije. Vraćena greška: "
+"%s"
 
-#: admin/groups.php:82 admin/perms/delete.php:39
+#: admin/groups.php:68 admin/perms/delete.php:45
 #, php-format
 msgid "Unable to delete \"%s\": %s."
 msgstr "Nije uspjelo brisanje \"%s\"': %s."
 
-#: scripts/upgrades/2008-08-29_fix_mdb2_sequences.php:55
-#, fuzzy, php-format
-msgid "Unable to modify the sequence for %s: %s"
-msgstr "Nije uspjelo brisanje \"%s\"': %s."
-
-#: services/facebook.php:175
-#, fuzzy
+#: services/facebook/index.php:172
 msgid "Unable to set like."
-msgstr "Nije uspjelo izvršavanje programa smbclient."
+msgstr "Postavljanje oznake nije uspjelo."
 
 #: templates/prefs/end.html:4
 msgid "Undo Changes"
 msgstr "Poništi promjene"
 
-#: lib/Prefs/Ui.php:266
+#: lib/Prefs/Ui.php:242
 msgid "Unfiled"
 msgstr "Nekatalogizirano"
 
-#: config/nls.php:185
+#: config/nls.php:186
 msgid "Unicode (UTF-8)"
 msgstr "Unicode (UTF-8)"
 
-#: lib/Block/metar.php:70 lib/Block/weatherdotcom.php:64
+#: lib/Block/Metar.php:57 lib/Block/Weatherdotcom.php:57
 msgid "Units"
 msgstr "Jedinice"
 
-#: lib/Block/weatherdotcom.php:162
+#: lib/Block/Weatherdotcom.php:142
 msgid "Unknown location provided."
 msgstr "Navedena nepoznata lokacija."
 
-#: lib/Block/fb_stream.php:179 templates/admin/user/list.inc:36
+#: admin/locks.php:41
+msgid "Unlock"
+msgstr "Otključaj"
+
+#: lib/Block/FbStream.php:157 templates/admin/user/list.inc:36
 msgid "Update"
 msgstr "Ažuriraj"
 
@@ -3667,55 +3724,76 @@ msgstr "Ažuriraj"
 msgid "Update %s"
 msgstr "Ažuriraj %s"
 
-#: templates/admin/user/update.inc:53
+#: admin/config/index.php:168 admin/config/index.php:263
+#, php-format
+msgid "Update %s schema"
+msgstr "Nadogradi shemu %s"
+
+#: templates/admin/config/index.html:19
+msgid "Update all DB schemas"
+msgstr "Osvješi sve DB sheme"
+
+#: templates/admin/config/index.html:11
+msgid "Update all configurations"
+msgstr "Nadogradi sve konfiguracije"
+
+#: templates/admin/user/update.inc:63
 msgid "Update user"
 msgstr "Ažuriraj korisnika"
 
-#: admin/groups.php:144 admin/perms/edit.php:104 services/shares/edit.php:249
+#: admin/groups.php:108 admin/perms/edit.php:110 services/shares/edit.php:249
 #, php-format
 msgid "Updated \"%s\"."
 msgstr "Ažurirano \"%s\"."
 
-#: admin/config/index.php:190
+#: admin/config/index.php:118
+#, php-format
+msgid "Updated schema for %s."
+msgstr "Nadograđena shema za %s."
+
+#: admin/config/index.php:317
 msgid "Upload"
 msgstr "Prijenos (upload)"
 
-#: admin/config/index.php:198
-#, fuzzy
+#: admin/config/index.php:325
 msgid "Uploaded all application configuration files to the server."
-msgstr "Prenesene su sve sistemske datoteke aplikacije na poslužitelj."
+msgstr "Konfiguracijske datoteke svih aplikacija prenesene su na poslužitelj."
 
 # poslužitelj
-#: config/prefs.php.dist:645
+#: config/prefs.php:640
 msgid "Use if name/password is different for IMSP server."
 msgstr "Upotrijebiti ako su ime/lozinka drugačiji za IMSP poslužitelj."
 
-#: templates/admin/groups/edit.inc:22 templates/admin/groups/edit.inc:60
+#: templates/admin/groups/edit.inc:24 templates/admin/groups/edit.inc:67
+#: templates/admin/locks/list.html.php:12
 msgid "User"
 msgstr "Korisnik"
 
-#: admin/user.php:224
+#: admin/user.php:237
 msgid "User Administration"
 msgstr "Administracija korisnika"
 
-#: lib/Prefs/Ui.php:432
-#, fuzzy
+#: lib/Prefs/Ui.php:404
 msgid "User Agent:"
-msgstr "Koristiti trenutni: %s"
+msgstr "Korisnički preglednik:"
+
+#: lib/Block/Account.php:68
+msgid "User Name"
+msgstr "Korisničko ime"
 
 #: signup.php:67
 msgid "User Registration"
 msgstr "Registracija korisnika"
 
-#: admin/signup_confirm.php:18 signup.php:19
+#: signup.php:19 admin/signup_confirm.php:18
 msgid "User Registration has been disabled for this site."
 msgstr "Registracija korisnika je onemogućena na ovoj stranici."
 
-#: admin/signup_confirm.php:25 signup.php:27
+#: signup.php:27 admin/signup_confirm.php:25
 msgid "User Registration is not properly configured for this site."
 msgstr "Registracija korisnika nije ispravno podešena na ovom poslužitelju."
 
-#: lib/Block/account.php:561
+#: lib/Block/Account/Ldap.php:101
 msgid "User account not found"
 msgstr "Korisnički račun nije pronađen"
 
@@ -3723,16 +3801,17 @@ msgstr "Korisnički račun nije pronađen"
 msgid "User to add:"
 msgstr "Korisnik kojeg želite dodati:"
 
-#: admin/config/index.php:191 admin/user.php:32 admin/user.php:48 login.php:76
-#: services/resetpassword.php:29 templates/admin/user/approve.inc:22
+#: login.php:189 admin/user.php:37 admin/user.php:53
+#: admin/config/index.php:318 services/resetpassword.php:30
+#: templates/admin/user/approve.inc:22
 msgid "Username"
 msgstr "Korisničko ime"
 
-#: lib/Prefs/Ui.php:325
+#: lib/Prefs/Ui.php:301
 msgid "Username:"
 msgstr "Korisničko ime:"
 
-#: templates/admin/groups/edit.inc:53
+#: templates/admin/groups/edit.inc:60
 msgid "Users"
 msgstr "Korisnici"
 
@@ -3740,64 +3819,64 @@ msgstr "Korisnici"
 msgid "Users in the system:"
 msgstr "Korisnici na sustavu:"
 
-#: lib/Block/vatid.php:19
+#: lib/Block/Vatid.php:21
 msgid "VAT id number verification"
 msgstr "Provjera brojčane oznake PDV-a"
 
-#: lib/Block/vatid.php:42
+#: lib/Block/Vatid.php:39
 msgid "VAT identification number:"
 msgstr "Brojčana oznaka PDV-a:"
 
-#: lib/Block/vatid.php:93
+#: lib/Block/Vatid.php:107
 msgid "VAT number"
 msgstr "Broj PDV-a"
 
-#: config/registry.php.dist:122
-msgid "Vacation"
-msgstr "Godišnji odmor"
-
-#: lib/Block/weatherdotcom.php:248
+#: lib/Block/Weatherdotcom.php:228
 msgid "Variable"
 msgstr "Promijenjivom"
 
-#: config/registry.php.dist:246
+#: templates/admin/config/index.html:46
+msgid "Version Check"
+msgstr "Provjera verzije"
+
+#: config/registry.php:221
 msgid "Version Control"
 msgstr "Kontrola verzije"
 
-#: lib/Block/weatherdotcom_strings.php:101
+#: lib/Block/WeatherdotcomStrings.php:101
 msgid "Very High"
 msgstr "Vrlo visoko"
 
 # Vijetnamski
-#: config/nls.php:186
+#: config/nls.php:187
 msgid "Vietnamese (VISCII)"
 msgstr "Vietnamese (VISCII)"
 
-#: lib/Block/iframe.php:3
+#: lib/Block/Iframe.php:13
 msgid "View an external web page"
 msgstr "Pregledaj vanjsku web stranicu"
 
-#: lib/Block/metar.php:204
+#: lib/Block/Metar.php:182
 msgid "Visibility"
 msgstr "Vidljivost"
 
-#: lib/Block/weatherdotcom.php:267
+#: lib/Block/Weatherdotcom.php:247
 msgid "Visibility: "
 msgstr "Vidljivost: "
 
-#: lib/Block/account.php:98
+#: lib/Block/Account.php:96
 msgid "Warning"
 msgstr "Upozorenje"
 
-#: lib/Block/weatherdotcom.php:32
+#: lib/Block/Weatherdotcom.php:41
 msgid "Weather Forecast"
 msgstr "Vremenska prognoza"
 
-#: lib/Block/weatherdotcom.php:429
+#: lib/Block/Weatherdotcom.php:409
 msgid "Weather data provided by"
 msgstr "Podatke o vremenu pruža"
 
-#: config/registry.php.dist:369
+#: config/registry.php:322
 msgid "Web Site"
 msgstr "Web stranica"
 
@@ -3805,237 +3884,232 @@ msgstr "Web stranica"
 msgid "Welcome"
 msgstr "Dobrodošli"
 
-#: templates/login/login.inc:5 templates/login/mobile.inc:1
-#, php-format
-msgid "Welcome to %s"
-msgstr "Dobrodošli u %s"
-
-#: templates/portal/mobile.inc:1
+#: templates/portal/mobile.inc:5
 #, php-format
 msgid "Welcome, %s"
 msgstr "Dobrodošli, %s"
 
 # Zapadni
-#: config/nls.php:187
+#: config/nls.php:188
 msgid "Western (ISO-8859-1)"
 msgstr "Western (ISO-8859-1)"
 
 # Zapadni
-#: config/nls.php:188
+#: config/nls.php:189
 msgid "Western (ISO-8859-15)"
 msgstr "Western (ISO-8859-15)"
 
-#: config/prefs.php.dist:483
+#: config/prefs.php:504
 #, php-format
 msgid "What application should %s display after login?"
 msgstr "Koju aplikaciju želite da %s prikazuje nakon prijavljivanja?"
 
-#: lib/Block/twitter_timeline.php:131
+#: lib/Block/TwitterTimeline.php:113
 msgid "What are you working on now?"
-msgstr ""
+msgstr "Što trenutno radite?"
 
 # znak ograničenja, razdvojnik
 #: templates/data/csvinfo.inc:14
 msgid "What is the delimiter character?"
 msgstr "Koja je oznaka razdjelnika?"
 
-#: templates/data/csvinfo.inc:17
+#: templates/data/csvinfo.inc:16
 msgid "What is the quote character?"
 msgstr "Koji je znak za navođenje?"
 
-#: lib/Block/fb_stream.php:165
+#: lib/Block/FbStream.php:143
 msgid "What's on your mind?"
-msgstr ""
+msgstr "O čemu razmišljate?"
 
-#: config/prefs.php.dist:427
+#: config/prefs.php:454
 msgid "Which day would you like to be displayed as the first day of the week?"
 msgstr "Koji dan želite prikazivati kao prvi dan u tjednu?"
 
-#: lib/Block/moon.php:21
+#: lib/Block/Moon.php:22
 msgid "Which phases"
 msgstr "Koje mijene"
 
-#: config/prefs.php.dist:536
+#: config/prefs.php:554
 #, php-format
 msgid "Width of the %s menu on the left:"
 msgstr "Širina izbornika %s na lijevoj strani:"
 
-#: config/registry.php.dist:394
+#: config/registry.php:344
 msgid "Wiki"
 msgstr "Wiki"
 
-#: lib/Block/weatherdotcom.php:303 lib/Block/weatherdotcom_strings.php:95
+#: lib/Block/WeatherdotcomStrings.php:95 lib/Block/Weatherdotcom.php:283
 msgid "Wind"
 msgstr "Vjetar"
 
-#: lib/Block/weatherdotcom_strings.php:96
+#: lib/Block/WeatherdotcomStrings.php:96
 msgid "Wind Early"
 msgstr "Vjetar ujutro"
 
-#: lib/Block/weatherdotcom_strings.php:97
+#: lib/Block/WeatherdotcomStrings.php:97
 msgid "Wind Late"
 msgstr "Vjetar navečer"
 
-#: lib/Block/metar.php:79
+#: lib/Block/Metar.php:66
 msgid "Wind speed in knots"
 msgstr "Brzina vjetra u čvorovima"
 
-#: lib/Block/metar.php:151
+#: lib/Block/Metar.php:129
 msgid "Wind:"
 msgstr "Vjetar:"
 
-#: lib/Block/weatherdotcom.php:246
+#: lib/Block/Weatherdotcom.php:226
 msgid "Wind: "
 msgstr "Vjetar: "
 
-#: lib/Block/account.php:634
-msgid "Windows"
-msgstr "Windows"
-
-#: admin/activesync.php:181 templates/prefs/activesync.html:28
-#, fuzzy
+#: admin/activesync.php:183 templates/prefs/activesync.html:28
 msgid "Wipe"
-msgstr "Sri"
+msgstr "Obriši"
 
-#: admin/activesync.php:162 lib/Prefs/Ui.php:415
+#: admin/activesync.php:164 lib/Prefs/Ui.php:387
 msgid "Wipe is pending"
-msgstr ""
+msgstr "Čeka brisanje"
 
-#: lib/Block/fortune.php:71
+#: lib/Block/Fortune.php:71
 msgid "Wisdom"
 msgstr "Mudrost"
 
-#: lib/Block/fortune.php:72
+#: lib/Block/Fortune.php:72
 msgid "Work"
 msgstr "Posao"
 
-#: config/registry.php.dist:275
+#: config/registry.php:244
 msgid "X-Ref"
 msgstr "X-Ref"
 
-#: templates/data/date.inc:47 templates/data/date.inc:48
-#: templates/data/date.inc:49 templates/data/date.inc:50
 #: templates/data/datetime.inc:89 templates/data/datetime.inc:90
 #: templates/data/datetime.inc:91 templates/data/datetime.inc:92
+#: templates/data/date.inc:47 templates/data/date.inc:48
+#: templates/data/date.inc:49 templates/data/date.inc:50
 msgid "YY"
 msgstr "YY"
 
-#: templates/logintasks/logintasks.html:34
+#: templates/logintasks/logintasks.html:26 templates/logintasks/mobile.html:32
 msgid "Yes, I Agree"
 msgstr "Da, slažem se"
 
-#: services/facebook.php:110 services/facebook.php:169
+#: services/facebook/index.php:118 services/facebook/index.php:166
 #, php-format
 msgid "You and %d other person likes this"
 msgid_plural "You and %d other people like this"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Vama i drugoj %d osobi se ovo sviđa"
+msgstr[1] "Vama i druge %d osobe se ovo sviđa"
+msgstr[2] "Vama i drugih %d osoba se ovo sviđa"
 
-#: lib/Api.php:301
+#: lib/Api.php:248
 msgid "You are not allowed to add groups."
 msgstr "Nemate ovlasti za dodavanje grupa."
 
-#: lib/Api.php:476
+#: lib/Api.php:365
 msgid "You are not allowed to add shares."
 msgstr "Nemate ovlasti za mijenjanje particija."
 
-#: lib/Api.php:350 lib/Api.php:373 lib/Api.php:399 lib/Api.php:422
+#: lib/Api.php:291 lib/Api.php:314
 msgid "You are not allowed to change groups."
 msgstr "Nemate ovlasti za mijenjanje grupa."
 
-#: lib/Api.php:561 lib/Api.php:598 lib/Api.php:640 lib/Api.php:667
+#: lib/Api.php:446 lib/Api.php:483 lib/Api.php:517 lib/Api.php:542
 msgid "You are not allowed to change shares."
 msgstr "Nemate ovlasti za mijenjanje particija."
 
-#: lib/Api.php:327
+#: lib/Api.php:270
 msgid "You are not allowed to delete groups."
 msgstr "Nemate ovlasti za brisanje grupa."
 
-#: lib/Api.php:505
+#: lib/Api.php:390
 msgid "You are not allowed to delete shares."
 msgstr "Nemate ovlasti za brisanje particija."
 
-#: lib/Api.php:820
+#: lib/Api.php:674
 msgid "You are not allowed to list groups of shares."
 msgstr "Nemate ovlasti za popis grupa particija."
 
-#: lib/Api.php:702 lib/Api.php:744
+#: lib/Api.php:568 lib/Api.php:606
 msgid "You are not allowed to list share permissions."
 msgstr "Nemate ovlasti za popis dozvola particija."
 
-#: lib/Api.php:532
+#: lib/Api.php:415
 msgid "You are not allowed to list shares."
 msgstr "Nemate ovlasti za popis particija."
 
-#: lib/Api.php:448
+#: lib/Api.php:337
 msgid "You are not allowed to list users of groups."
 msgstr "Nemate ovlasti za popis korisnika grupa."
 
-#: lib/Api.php:786
+#: lib/Api.php:644
 msgid "You are not allowed to list users of shares."
 msgstr "Nemate ovlasti za popis korisnika particija."
 
-#: lib/Api.php:216
-msgid "You are not allowed to remove user data."
-msgstr "Nemate ovlasti za brisanje korisničkih podataka."
-
-#: lib/Block/fb_stream.php:159 lib/Block/fb_stream.php:184
-#: services/facebook.php:55 services/facebook.php:72
+#: lib/Block/FbStream.php:136 lib/Block/FbStream.php:162
+#: services/facebook/index.php:63 services/facebook/index.php:80
 #, php-format
 msgid "You can also check your Facebook settings in your %s."
-msgstr ""
+msgstr "Svoje Facebook postavke možete također provjeriti u Vašoj %s."
 
-#: lib/LoginTasks/Task/TosAgreement.php:54
+#: lib/LoginTasks/Task/TosAgreement.php:64
 msgid ""
 "You did not agree to the Terms of Service agreement, so you were not allowed "
 "to login."
 msgstr ""
+"Niste pristali na Uvjete korištenja usluge stoga Vam nije dopuštena prijava."
 
-#: login.php:278
+#: login.php:320
 msgid "You have been logged out."
 msgstr "Odjavljeni ste iz sustava."
 
-#: lib/Block/fb_stream.php:124
+#: services/facebook/index.php:47
+msgid "You have denied the requested permissions."
+msgstr "Odbili ste tražene ovlasti."
+
+#: lib/Block/FbStream.php:97
 #, php-format
 msgid ""
 "You have not properly connected your Facebook account with Horde. You should "
 "check your Facebook settings in your %s."
 msgstr ""
+"Niste ispravno povezali svoj Facebook račun sa Horde aplikacijom. Provjerite "
+"vaše Facebook postavke u Vašem %s."
 
-#: lib/Block/twitter_timeline.php:182
+#: lib/Block/TwitterTimeline.php:169
 #, php-format
 msgid ""
 "You have not properly connected your Twitter account with Horde. You should "
 "check your Twitter settings in your %s."
 msgstr ""
+"Niste ispravno povezali svoj Twitter račun sa Horde aplikacijom. Provjerite "
+"vaše Twitter postavke u Vašem %s."
 
-#: services/facebook.php:112 services/facebook.php:163
-#: services/facebook.php:171
+#: services/facebook/index.php:120 services/facebook/index.php:160
+#: services/facebook/index.php:168
 msgid "You like this"
-msgstr ""
+msgstr "Sviđa mi se"
 
 #: templates/problem/problem.inc:11
 msgid "You must describe the problem before you can send the problem report."
 msgstr "Morate unijeti opis problema prije slanja izvještaja."
 
-#: lib/Prefs/Ui.php:679
+#: lib/Prefs/Ui.php:643
 msgid "You must select an server to be deleted."
 msgstr "Odaberite poslužitelj koji želite obrisati."
 
-#: admin/user.php:134
+#: admin/user.php:139
 msgid "You must specify a username to clear out."
 msgstr "Navedite korisničko ime koje želite isprazniti."
 
-#: admin/user.php:114
+#: admin/user.php:119
 msgid "You must specify a username to remove."
 msgstr "Navedite korisničko ime koje želite obrisati."
 
-#: admin/user.php:70
+#: admin/user.php:75
 msgid "You must specify the username to add."
 msgstr "Navedite korisničko ime koje želite dodati."
 
-#: admin/user.php:164
+#: admin/user.php:169
 msgid "You must specify the username to update."
 msgstr "Navedite korisničko ime koje želite ažurirati."
 
@@ -4043,18 +4117,17 @@ msgstr "Navedite korisničko ime koje želite ažurirati."
 msgid "Your Email Address"
 msgstr "Vaša e-mail adresa"
 
-#: config/prefs.php.dist:212 config/prefs.php.dist:275
-#: config/prefs.php.dist:312 config/prefs.php.dist:439
+#: config/prefs.php:231 config/prefs.php:295 config/prefs.php:329
+#: config/prefs.php:462
 msgid "Your Information"
 msgstr "Vaši podaci"
 
-#: login.php:270
-#, fuzzy
+#: login.php:312
 msgid ""
 "Your Internet Address has changed since the beginning of your session. To "
 "protect your security, you must login again."
 msgstr ""
-"Vaša internetska adresa se promijenila od početka %s korisničke sesije. Radi "
+"Vaša internetska adresa se promijenila otkako ste započeli sa sesijom. Radi "
 "zaštite sigurnosti, iznova se prijavite."
 
 #: templates/problem/problem.inc:30
@@ -4079,43 +4152,46 @@ msgstr ""
 "Vaša metoda autentikacije ne podržava izlistavanje korisnika, ili je ta "
 "opcija iz nekog razloga onemogućena."
 
-#: login.php:274
-#, fuzzy
+#: login.php:316
 msgid ""
 "Your browser appears to have changed since the beginning of your session. To "
 "protect your security, you must login again."
 msgstr ""
-"Došlo je do promjena u vašem pregledniku otkako ste započeli sa %s sesijom. "
-"Radi zaštite sigurnosti, iznova se prijavite na sustav."
+"Došlo je do promjena u vašem pregledniku otkako ste započeli sa sesijom. "
+"Radi zaštite sigurnosti, iznova se prijavite."
 
 # opciju, značajku, osobinu, svojstvo
-#: lib/Block/iframe.php:58
+#: lib/Block/Iframe.php:67
 msgid "Your browser does not support this feature."
 msgstr "Vaš preglednik ne podržava ovu mogućnost."
 
-#: config/prefs.php.dist:337
+#: config/prefs.php:366
 msgid "Your current time zone:"
 msgstr "Vaša trenutna vremenska zona:"
 
-#: config/prefs.php.dist:236
+#: config/prefs.php:253
 msgid "Your full name:"
 msgstr "Vaše puno ime:"
 
-#: login.php:290
+#: login.php:336
+msgid "Your login has been locked."
+msgstr "Vaše korisničko ime je zaključano."
+
+#: login.php:332
 msgid "Your login has expired."
 msgstr "Vaš login je istekao."
 
-#: services/resetpassword.php:74
+#: services/resetpassword.php:79
 #, php-format
 msgid "Your new password for %s is: %s"
 msgstr "Vaša nova lozinka za %s je: %s"
 
-#: services/resetpassword.php:73
+#: services/resetpassword.php:78
 msgid "Your password has been reset"
 msgstr "Vaša je lozinka iznova postavljena"
 
 # resetirana, poništena?
-#: services/resetpassword.php:87
+#: services/resetpassword.php:92
 msgid ""
 "Your password has been reset, but couldn't be sent to you. Please contact "
 "the administrator."
@@ -4124,7 +4200,7 @@ msgstr ""
 "kontaktirajte administratora."
 
 # resetirana, poništena?
-#: services/resetpassword.php:82
+#: services/resetpassword.php:87
 msgid ""
 "Your password has been reset, check your email and log in with your new "
 "password."
@@ -4132,57 +4208,63 @@ msgstr ""
 "Vaša je lozinka iznova postavljena, provjerite svoj e-mail i prijavite se sa "
 "novom lozinkom."
 
-#: lib/Block/account.php:689 lib/Block/account.php:704
+#: lib/Block/Account/Ldap.php:212 lib/Block/Account/Ldap.php:224
 msgid "Your password has expired"
 msgstr "Vaša lozinka je istekla"
 
-#: login.php:178
+#: login.php:163
 msgid "Your password has expired."
 msgstr "Vaša lozinka je istekla."
 
-#: lib/Prefs/Ui.php:322
+#: lib/Prefs/Ui.php:298
 msgid "Your remote servers:"
 msgstr "Vaši udaljeni poslužitelji:"
 
-#: login.php:266
-#, fuzzy
+#: login.php:308
 msgid "Your session has expired. Please login again."
-msgstr "Vaša %s sesija je istekla. Molimo prijavite se iznova."
+msgstr "Vaša sjednica je istekla. Molimo prijavite se ponovo."
 
-#: lib/Block/fortune.php:73
+#: lib/Block/Fortune.php:73
 msgid "Zippy"
 msgstr "Zippy"
 
 # problemu
-#: services/problem.php:107
+#: services/problem.php:109
 msgid "[Problem Report]"
 msgstr "[Izvještaj o pogreškama]"
 
-#: admin/sessions.php:39
+#: admin/sessions.php:43
 msgid "[Unknown]"
 msgstr "[Nepoznato]"
 
-#: lib/Api.php:47
+#: lib/Api.php:52
 msgid "_Alarms"
 msgstr "_Alarmi"
 
-#: lib/Api.php:72
+#: lib/Api.php:77
 msgid "_CLI"
 msgstr "_CLI"
 
 #: lib/Api.php:27
-#, fuzzy
 msgid "_Configuration"
-msgstr "Konfiguracija"
+msgstr "_Konfiguracija"
 
 # StabloPodataka? Hijerarhija?
-#: lib/Api.php:52
+#: lib/Api.php:57
 msgid "_DataTree"
 msgstr "_DataTree"
 
 #: lib/Api.php:37
 msgid "_Groups"
 msgstr "_Grupe"
+
+#: lib/Application.php:77
+msgid "_Home"
+msgstr "_Kuća"
+
+#: lib/Api.php:47
+msgid "_Locks"
+msgstr "_Zaključani korisnici"
 
 #: lib/Api.php:42
 msgid "_Permissions"
@@ -4197,57 +4279,56 @@ msgid "attachment"
 msgstr "prilog"
 
 # bez vjetra?
-#: lib/Block/metar.php:167 lib/Block/metar.php:353
+#: lib/Block/Metar.php:145 lib/Block/Metar.php:331
 #, php-format
 msgid "calm"
 msgstr "mirno"
 
 # padati
-#: lib/Block/weatherdotcom_strings.php:102
+#: lib/Block/WeatherdotcomStrings.php:102
 msgid "falling"
 msgstr "padanje"
 
-#: lib/Block/metar.php:169 lib/Block/metar.php:355 lib/Block/metar.php:381
+#: lib/Block/Metar.php:147 lib/Block/Metar.php:333 lib/Block/Metar.php:359
 #, php-format
 msgid "from the %s (%s) at %s %s"
 msgstr "iz %s (%s) na %s %s"
 
-#: lib/Block/weatherdotcom.php:254
+#: lib/Block/Weatherdotcom.php:234
 msgid "gusting"
 msgstr "udari vjetra"
 
 # u ravnini, unutra?
-#: admin/config/diff.php:51 admin/config/diff.php:63
+#: admin/config/diff.php:56 admin/config/diff.php:68
 msgid "inline"
 msgstr "u istoj razini"
 
-#: lib/Block/fb_stream.php:124 lib/Block/fb_stream.php:159
-#: lib/Block/fb_stream.php:184 lib/Block/twitter_timeline.php:182
-#: services/facebook.php:55 services/facebook.php:72
-#, fuzzy
+#: lib/Block/TwitterTimeline.php:169 lib/Block/FbStream.php:97
+#: lib/Block/FbStream.php:136 lib/Block/FbStream.php:162
+#: services/facebook/index.php:63 services/facebook/index.php:80
 msgid "preferences"
-msgstr "Postavke"
+msgstr "postavke"
 
-#: lib/Block/weatherdotcom_strings.php:104
+#: lib/Block/WeatherdotcomStrings.php:104
 msgid "rising"
 msgstr "izlazak"
 
-#: admin/config/config.php:80
+#: admin/config/config.php:90
 msgid "show differences"
 msgstr "prikaži razlike"
 
-#: lib/Block/weatherdotcom_strings.php:103
+#: lib/Block/WeatherdotcomStrings.php:103
 msgid "steady"
 msgstr "mirno"
 
-#: admin/user.php:35 admin/user.php:49
+#: admin/user.php:40 admin/user.php:54
 msgid "type the password twice to confirm"
 msgstr "dvaput unesite lozinku za potvrdu"
 
-#: admin/config/diff.php:51 admin/config/diff.php:63
+#: admin/config/diff.php:56 admin/config/diff.php:68
 msgid "unified"
 msgstr "objedinjen"
 
-#: lib/Block/weatherdotcom.php:6
+#: lib/Block/Weatherdotcom.php:34
 msgid "weather.com"
 msgstr "weather.com"

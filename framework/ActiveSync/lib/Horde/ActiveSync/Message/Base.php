@@ -4,11 +4,12 @@
  * such as a Contact or Appointment. Encoding/Decoding logic taken from the
  * Z-Push library. Original file header and copyright notice appear below.
  *
- * @copyright 2010-2011 Horde LLC (http://www.horde.org)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package ActiveSync
  */
+
 /***********************************************
 * File      :   streamer.php
 * Project   :   Z-Push
@@ -23,7 +24,7 @@
 *
 * Created   :   01.10.2007
 *
-* � Zarafa Deutschland GmbH, www.zarafaserver.de
+* © Zarafa Deutschland GmbH, www.zarafaserver.de
 * This file is distributed under GPL-2.0.
 * Consult COPYING file for details
 ************************************************/
@@ -31,13 +32,13 @@ class Horde_ActiveSync_Message_Base
 {
 
     /* Attribute Keys */
-    const KEY_ATTRIBUTE = 1;
-    const KEY_VALUES = 2;
-    const KEY_TYPE = 3;
+    const KEY_ATTRIBUTE    = 1;
+    const KEY_VALUES       = 2;
+    const KEY_TYPE         = 3;
 
     /* Types */
-    const TYPE_DATE = 1;
-    const TYPE_HEX = 2;
+    const TYPE_DATE        = 1;
+    const TYPE_HEX         = 2;
     const TYPE_DATE_DASHES = 3;
     const TYPE_MAPI_STREAM = 4;
 
@@ -51,13 +52,13 @@ class Horde_ActiveSync_Message_Base
     /**
      * Holds property values
      *
-     * @array
+     * @var array
      */
     protected $_properties = array();
 
     /**
      * Message flags
-     * //FIXME: use accessor methods, make this protected
+     *
      * @var Horde_ActiveSync_FLAG_* constant
      */
     public $flags = false;
@@ -75,6 +76,12 @@ class Horde_ActiveSync_Message_Base
      * @var array
      */
     protected $_supported = array();
+
+    /**
+     * Existance cache, used for working with ghosted properties.
+     *
+     * @var array
+     */
     protected $_exists = array();
 
     /**
@@ -84,7 +91,7 @@ class Horde_ActiveSync_Message_Base
      *
      * @return Horde_ActiveSync_Message_Base
      */
-    public function __construct(array $options)
+    public function __construct(array $options = array())
     {
         if (!empty($options['logger'])) {
             $this->_logger = $options['logger'];
@@ -93,6 +100,13 @@ class Horde_ActiveSync_Message_Base
         }
     }
 
+    /**
+     * Accessor
+     *
+     * @param string $property  Property to get.
+     *
+     * @return mixed  The value of the requested property.
+     */
     public function __get($property)
     {
         if (!array_key_exists($property, $this->_properties)) {
@@ -109,6 +123,14 @@ class Horde_ActiveSync_Message_Base
         }
     }
 
+    /**
+     * Setter
+     *
+     * @param string $property  The property to set.
+     * @param mixed  $value     The value to set it to.
+     *
+     * @throws InvalidArgumentException
+     */
     public function __set($property, $value)
     {
         if (!array_key_exists($property, $this->_properties)) {
@@ -119,6 +141,15 @@ class Horde_ActiveSync_Message_Base
         $this->_exists[$property] = true;
     }
 
+    /**
+     * Magic caller method.
+     *
+     * @param  mixed $method  The method to call.
+     * @param  array $arg    Method arguments.
+     *
+     * @return mixed
+     * @throws BadMethodCallException
+     */
     public function __call($method, $arg)
     {
         /* Support calling set{Property}() */
@@ -142,7 +173,7 @@ class Horde_ActiveSync_Message_Base
      *
      * @param array $fields  The array of fields.
      */
-    public function setSupported($fields)
+    public function setSupported(array $fields)
     {
         $this->_supported = array();
         foreach ($fields as $field) {
@@ -162,13 +193,14 @@ class Horde_ActiveSync_Message_Base
 
     /**
      * Determines if the property specified has been ghosted by the client.
-     * A ghosted property is 1) NOT listed in the supported list and 2) NOT
+     * A ghosted property 1) IS listed in the supported list and 2) NOT
      * present in the current message. If it's IN the supported list and NOT
      * in the current message, then it IS ghosted and the server should keep
      * the field's current value when performing any change action due to this
      * message.
      *
      * @param string $property  The property to check
+     *
      * @return boolean
      */
     public function isGhosted($property)
@@ -191,7 +223,6 @@ class Horde_ActiveSync_Message_Base
      * @param Horde_ActiveSync_Wbxml_Decoder  The stream decoder
      *
      * @throws Horde_ActiveSync_Exception
-     * @return void
      */
     public function decodeStream(Horde_ActiveSync_Wbxml_Decoder &$decoder)
     {
@@ -209,15 +240,14 @@ class Horde_ActiveSync_Message_Base
                     continue;
                 }
 
-                /* Found start tag */
+                // Found start tag
                 if (!isset($this->_mapping[$entity[Horde_ActiveSync_Wbxml::EN_TAG]])) {
                     $this->_logger->debug('Tag ' . $entity[Horde_ActiveSync_Wbxml::EN_TAG] . ' unexpected in type XML type ' . get_class($this));
                     throw new Horde_ActiveSync_Exception('Unexpected tag');
                 } else {
                     $map = $this->_mapping[$entity[Horde_ActiveSync_Wbxml::EN_TAG]];
-
-                    /* Handle arrays of attribute values */
                     if (isset($map[self::KEY_VALUES])) {
+                        // Handle arrays of attribute values
                         while (1) {
                             if (!$decoder->getElementStartTag($map[self::KEY_VALUES])) {
                                 break;
@@ -228,13 +258,11 @@ class Horde_ActiveSync_Message_Base
                             } else {
                                 $decoded = $decoder->getElementContent();
                             }
-
                             if (!isset($this->$map[self::KEY_ATTRIBUTE])) {
                                 $this->$map[self::KEY_ATTRIBUTE] = array($decoded);
                             } else {
                                 array_push($this->$map[self::KEY_ATTRIBUTE], $decoded);
                             }
-
                             if (!$decoder->getElementEndTag()) {
                                 throw new Horde_ActiveSync_Exception('Missing expected wbxml end tag');
                             }
@@ -244,9 +272,9 @@ class Horde_ActiveSync_Message_Base
                             return false;
                         }
                     } else {
-                        /* Handle a simple attribute value */
+                        // Handle a simple attribute value
                         if (isset($map[self::KEY_TYPE])) {
-                            /* Complex type, decode recursively */
+                            // Complex type, decode recursively
                             if ($map[self::KEY_TYPE] == self::TYPE_DATE || $map[self::KEY_TYPE] == self::TYPE_DATE_DASHES) {
                                 $decoded = self::_parseDate($decoder->getElementContent());
                                 if (!$decoder->getElementEndTag()) {
@@ -262,7 +290,6 @@ class Horde_ActiveSync_Message_Base
                                 if ($subdecoder->decodeStream($decoder) === false) {
                                     throw new Horde_ActiveSync_Exception('Missing expected wbxml end tag');
                                 }
-
                                 $decoded = $subdecoder;
                                 if (!$decoder->getElementEndTag()) {
                                     $this->_logger->err('No end tag for ' . $entity[Horde_ActiveSync_Wbxml::EN_TAG]);
@@ -270,22 +297,21 @@ class Horde_ActiveSync_Message_Base
                                 }
                             }
                         } else {
-                            /* Simple type, just get content */
+                            // Simple type, just get content
                             $decoded = $decoder->getElementContent();
                             if ($decoded === false) {
                                 $this->_logger->err('Unable to get content for ' . $entity[Horde_ActiveSync_Wbxml::EN_TAG]);
-                                //throw new Horde_ActiveSync_Exception('Unknown parsing error.');
                             }
-
                             if (!$decoder->getElementEndTag()) {
                                 $this->_loger->err('Unable to get end tag for ' . $entity[Horde_ActiveSync_Wbxml::EN_TAG]);
                                 throw new Horde_ActiveSync_Exception('Missing expected wbxml end tag');
                             }
                         }
-                        /* $decoded now contains data object (or string) */
+                        // $decoded now contains data object (or string)
                         $this->$map[self::KEY_ATTRIBUTE] = $decoded;
                     }
                 }
+
             } elseif ($entity[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_TYPE_ENDTAG) {
                 $decoder->_ungetElement($entity);
                 break;
@@ -301,21 +327,19 @@ class Horde_ActiveSync_Message_Base
      * Output is ordered according to $_mapping
      *
      * @param Horde_ActiveSync_Wbxml_Encoder $encoder  The wbxml stream encoder
-     *
-     * @return void
      */
     public function encodeStream(Horde_ActiveSync_Wbxml_Encoder &$encoder)
     {
         foreach ($this->_mapping as $tag => $map) {
             if (isset($this->$map[self::KEY_ATTRIBUTE])) {
-                /* Variable is available */
+                // Variable is available
                 if (is_object($this->$map[self::KEY_ATTRIBUTE]) && !($this->$map[self::KEY_ATTRIBUTE] instanceof Horde_Date)) {
-                    /* Subobjects can do their own encoding */
+                    // Subobjects can do their own encoding
                     $encoder->startTag($tag);
                     $this->$map[self::KEY_ATTRIBUTE]->encodeStream($encoder);
                     $encoder->endTag();
                 } elseif (isset($map[self::KEY_VALUES]) && is_array($this->$map[self::KEY_ATTRIBUTE])) {
-                    /* Array of objects */
+                    // Array of objects
                     $encoder->startTag($tag); // Outputs array container (eg Attachments)
                     foreach ($this->$map[self::KEY_ATTRIBUTE] as $element) {
                         if (is_object($element)) {
@@ -324,11 +348,8 @@ class Horde_ActiveSync_Message_Base
                             $element->encodeStream($encoder);
                             $encoder->endTag();
                         } else {
-                            if(strlen($element) == 0) {
-                                  // Do not output empty items. Not sure if we
-                                  // should output an empty tag with
-                                  // $encoder->startTag($map[self::KEY_VALUES], false, true);
-                            } else {
+                            // Do not ever output empty items here
+                            if(strlen($element) > 0) {
                                 $encoder->startTag($map[self::KEY_VALUES]);
                                 $encoder->content($element);
                                 $encoder->endTag();
@@ -337,7 +358,7 @@ class Horde_ActiveSync_Message_Base
                     }
                     $encoder->endTag();
                 } else {
-                    /* Simple type */
+                    // Simple type
                     if (strlen($this->$map[self::KEY_ATTRIBUTE]) == 0) {
                           // Do not output empty items except for the following:
                           if ($this->_checkSendEmpty($tag)) {
@@ -364,6 +385,7 @@ class Horde_ActiveSync_Message_Base
             }
         }
     }
+
     /**
      * Checks to see if we should send an empty value.
      *
@@ -379,8 +401,8 @@ class Horde_ActiveSync_Message_Base
     /**
      * Helper method to allow default values for unset properties.
      *
-     * @param string $name  The property name
-     * @param stting $default The default value to return if $property is empty
+     * @param string $name     The property name
+     * @param stting $default  The default value to return if $property is empty
      *
      * @return mixed
      */
@@ -400,11 +422,11 @@ class Horde_ActiveSync_Message_Base
      * So we have to send a different date type depending on where it's used.
      *
      * @param Horde_Date $dt  The datetime to format (assumed to be in local tz)
-     * @param Constant $type  The type to format as (TYPE_DATE or TYPE_DATE_DASHES)
+     * @param integer $type   The type to format as (TYPE_DATE or TYPE_DATE_DASHES)
      *
      * @return string  The formatted date
      */
-    static protected function _formatDate($dt, $type)
+    static protected function _formatDate(Horde_Date $dt, $type)
     {
         if ($type == Horde_ActiveSync_Message_Base::TYPE_DATE) {
             return $dt->setTimezone('UTC')->format('Ymd\THis\Z');
@@ -416,13 +438,13 @@ class Horde_ActiveSync_Message_Base
     /**
      * Get a Horde_Date from a timestamp, ensuring it's in the correct format.
      *
-     * @param string $ts
+     * @param string $ts  The timestamp
      *
-     * @return Horde_Date
+     * @return Horde_Date  The Horde_Date
      */
     static protected function _parseDate($ts)
     {
-        if (preg_match("/(\d{4})[^0-9]*(\d{2})[^0-9]*(\d{2})T(\d{2})[^0-9]*(\d{2})[^0-9]*(\d{2})(.\d+)?Z/", $ts, $matches)) {
+        if (preg_match("/(\d{4})[^0-9]*(\d{2})[^0-9]*(\d{2})(T(\d{2})[^0-9]*(\d{2})[^0-9]*(\d{2})(.\d+)?Z){0,1}$/", $ts, $matches)) {
             return new Horde_Date($ts);
         }
 
@@ -431,7 +453,10 @@ class Horde_ActiveSync_Message_Base
 
     /**
      * Function which converts a hex entryid to a binary entryid.
-     * @param string @data the hexadecimal string
+     *
+     * @param string $data  The hexadecimal string
+     *
+     * @return string  The binary data
      */
     static private function hex2bin($data)
     {

@@ -107,7 +107,7 @@ extends PHPUnit_Extensions_Story_TestCase
     {
         switch($action) {
         case 'the Config Object will throw an exception of type':
-            $this->assertType(
+            $this->assertInstanceOf(
                 $arguments[0], $world['result']
             );
             break;

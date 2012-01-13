@@ -7,12 +7,13 @@ require_once dirname(__FILE__) . '/TestBase.php';
  * @package Turba
  * @subpackage UnitTests
  */
-class Turba_GroupTest extends Turba_TestBase {
+class Turba_ToDo_GroupTest extends Turba_TestBase {
 
     var $group;
 
     function setUp()
     {
+        $this->markTestIncomplete('Convert to use Horde_Test.');
         parent::setUp();
         $this->setUpDatabase();
 

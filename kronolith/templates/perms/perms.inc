@@ -13,8 +13,11 @@
 </tr>
 <tr><td colspan="7">&nbsp;</td></tr>
 
-<?php $owner = $share->get('owner'); ?>
-<?php $userperms = $perm->getUserPermissions(); ?>
+<?php
+$owner = $share->get('owner');
+$userperms = $perm->getUserPermissions();
+ksort($userperms);
+?>
 
 <!-- Ownership -->
 <tr valign="middle">
@@ -297,7 +300,12 @@ foreach ($userList as $user) {
   <td class="header" align="center"><?php echo _("Delegate") ?></td>
   <td class="header">&nbsp;</td>
 </tr>
-<?php $groupperms = $perm->getGroupPermissions(); foreach ($groupperms as $group => $gperm): if (!$groups->exists($group)) continue; ?>
+<?php
+$groupperms = $perm->getGroupPermissions();
+ksort($groupperms);
+foreach ($groupperms as $group => $gperm):
+    if (!$groups->exists($group)) continue;
+?>
 <tr>
   <td class="light"><?php echo htmlspecialchars($groups->getName($group)) ?><input type="hidden" name="g_names[<?php echo htmlspecialchars($group) ?>]" value="<?php echo htmlspecialchars($group) ?>" /></td>
   <td align="center">

@@ -36,7 +36,7 @@
  *        device_folders - Account's folder data
  * </pre>
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * @TODO: H5 This driver should be renamed to Horde_ActiveSync_State_Sql since the
  *        History related changes have been refactored out to a Core library.
@@ -160,6 +160,10 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
         // Load the last known sync time for this collection
         $this->_lastSyncTS = !empty($results['sync_time']) ? $results['sync_time'] : 0;
 
+        // Pre-Populate the current sync timestamp in case this is only a
+        // Client -> Server sync.
+        $this->_thisSyncTS = $this->_lastSyncTS;
+
         // Restore any state or pending changes
         $data = unserialize($results['sync_data']);
         if ($type == 'foldersync') {
@@ -259,24 +263,25 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
      * to break out state handling into different classes based on the command
      * being run (Horde_ActiveSync_State_Sync, *_FolderSync, *_Ping etc...);
      *
-     * @param string $type     The type of change (change, delete, flags or
-     *                         foldersync)
-     * @param array $change    A stat/change hash describing the change
-     * @param integer $origin  Flag to indicate the origin of the change.
-     * @param string $user     The current sync user, only needed if change
-     *                         origin is CHANGE_ORIGIN_PIM
+     * @param string $type      The type of change (change, delete, flags or
+     *                          foldersync)
+     * @param array $change     A stat/change hash describing the change
+     * @param integer $origin   Flag to indicate the origin of the change.
+     * @param string $user      The current sync user, only needed if change
+     *                          origin is CHANGE_ORIGIN_PIM
+     * @param string $clientid  PIM clientid sent when adding a new message
      *
      * @return void
      */
     public function updateState($type, array $change,
                                 $origin = Horde_ActiveSync::CHANGE_ORIGIN_NA,
-                                $user = null)
+                                $user = null, $clientid = '')
     {
         $this->_logger->debug('Updating state during ' . $type);
         if ($origin == Horde_ActiveSync::CHANGE_ORIGIN_PIM) {
             $sql = 'INSERT INTO ' . $this->_syncMapTable
-                . ' (message_uid, sync_modtime, sync_key, sync_devid, sync_folderid, sync_user) '
-                . 'VALUES (?, ?, ?, ?, ?, ?)';
+                . ' (message_uid, sync_modtime, sync_key, sync_devid, sync_folderid, sync_user, sync_clientid) '
+                . 'VALUES (?, ?, ?, ?, ?, ?, ?)';
             try {
                $this->_db->insert(
                    $sql,
@@ -285,7 +290,10 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
                        $change['mod'],
                        $this->_syncKey,
                        $this->_devId,
-                       $change['parent'], $user));
+                       $change['parent'],
+                       $user,
+                       $clientid)
+                );
             } catch (Horde_Db_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 throw new Horde_ActiveSync_Exception($e);
@@ -778,9 +786,9 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             $this->_logger->debug('[' . $this->_devId . '] Initializing message diff engine for ' . $this->_collection['id']);
             // Do nothing if it is a dummy folder
             if ($folderId != Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
-                /* First, need to see if we have exising changes left over
-                 * from a previous sync that resulted in a MORE_AVAILABLE */
-                if (!empty($this->_changes) && count($this->_changes)) {
+                // First, need to see if we have exising changes left over from
+                // a previous sync that resulted in a MORE_AVAILABLE
+                if (!empty($this->_changes)) {
                     $this->_logger->debug('[' . $this->_devId . '] Returning previously found changes.');
                     return $this->_changes;
                 }
@@ -887,7 +895,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
         if ($status == Horde_ActiveSync::RWSTATUS_PENDING) {
             // Need to clear the policykey to force a PROVISION. Clear ALL
             // entries, to ensure the device is wiped.
-            $query .= 'UPDATE ' . $this->_syncUsersTable
+            $query = 'UPDATE ' . $this->_syncUsersTable
                 . ' SET device_policykey = 0 WHERE device_id = ?';
             try {
                 $this->_db->update($query, array($devId));
@@ -952,6 +960,28 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             throw new Horde_ActiveSync_Exception($e);
         }
     }
+
+    /**
+     * Check and see that we didn't already see the incoming change from the PIM.
+     * This would happen e.g., if the PIM failed to receive the server response
+     * after successfully importing new messages.
+     *
+     * @param string $id  The client id sent during message addition.
+     *
+     * @return string The UID for the given clientid, null if none found.
+     * @throws Horde_ActiveSync_Exception
+     */
+     public function isDuplicatePIMAddition($id)
+     {
+        $sql = 'SELECT message_uid FROM ' . $this->_syncMapTable . ' WHERE sync_clientid = ? AND sync_user = ?';
+        try {
+            $uid = $this->_db->selectValue($sql, array($id, $this->_deviceInfo->user));
+
+            return $uid;
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_ActiveSync_Exception($e);
+        }
+     }
 
     /**
      * Get a timestamp from the map table for the last PIM-initiated change for
@@ -1035,11 +1065,13 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
         // Clean up all but the last 2 syncs for any given sync series, this
         // ensures that we can still respond to SYNC requests for the previous
         // key if the PIM never received the new key in a SYNC response.
-        $sql = 'SELECT sync_key FROM ' . $this->_syncStateTable . ' WHERE sync_devid = ? AND sync_folderid = ?';
-        $values = array($this->_devId,
-                        !empty($this->_collection['id']) ?
-                            $this->_collection['id'] :
-                            'foldersync');
+        $sql = 'SELECT sync_key FROM ' . $this->_syncStateTable
+            . ' WHERE sync_devid = ? AND sync_folderid = ?';
+        $values = array(
+            $this->_devId,
+            !empty($this->_collection['id']) ?
+                $this->_collection['id'] :
+                'foldersync');
 
         $results = $this->_db->selectAll($sql, $values);
         $remove = array();
@@ -1056,14 +1088,16 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             }
         }
         if (count($remove)) {
-            $sql = 'DELETE FROM ' . $this->_syncStateTable . ' WHERE sync_key IN (' . str_repeat('?,', count($remove) - 1) . '?)';
+            $sql = 'DELETE FROM ' . $this->_syncStateTable . ' WHERE sync_key IN ('
+                . str_repeat('?,', count($remove) - 1) . '?)';
             $this->_db->delete($sql, $remove);
         }
 
-        /* Also clean up the map table since this data is only needed for one
-         * SYNC cycle. Keep the same number of old keys for the same reasons as
-         * above. */
-        $sql = 'SELECT sync_key FROM ' . $this->_syncMapTable . ' WHERE sync_devid = ? AND sync_user = ?';
+        // Also clean up the map table since this data is only needed for one
+        // SYNC cycle. Keep the same number of old keys for the same reasons as
+        // above.
+        $sql = 'SELECT sync_key FROM ' . $this->_syncMapTable
+            . ' WHERE sync_devid = ? AND sync_user = ?';
         $maps = $this->_db->selectValues($sql, array($this->_devId, $this->_deviceInfo->user));
         foreach ($maps as $key) {
             if (preg_match('/^s{0,1}\{([0-9A-Za-z-]+)\}([0-9]+)$/', $key, $matches)) {
@@ -1073,9 +1107,11 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             }
         }
         if (count($remove)) {
-            $sql = 'DELETE FROM ' . $this->_syncMapTable . ' WHERE sync_key IN (' . str_repeat('?,', count($remove) - 1) . '?)';
+            $sql = 'DELETE FROM ' . $this->_syncMapTable . ' WHERE sync_key IN ('
+                . str_repeat('?,', count($remove) - 1) . '?)';
             $this->_db->delete($sql, $remove);
         }
+
         return true;
     }
 

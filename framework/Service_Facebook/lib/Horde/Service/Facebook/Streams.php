@@ -2,7 +2,7 @@
 /**
  * Open streams API
  *
- * Copyright 2009-2011 Horde LLC (http://www.horde.org)
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @category Horde
@@ -93,14 +93,34 @@ class Horde_Service_Facebook_Streams extends Horde_Service_Facebook_Base
      * http://wiki.developers.facebook.com/index.php/Stream.publish
      *
      * @param string $message       The string of the message to post.
-     * @param string $attachment    An array describing the item we are publishing
+     * @param array  $attachment    An array describing the item we are publishing
      *                              see the API docs.
-     * @param string $action_links  Array of action links.
+     * @param array  $action_links  Array of action links.
      * @param string $target_id     The id of user/page you are publishing to.
+     * @param string $uid           The id of user publishing the post.
+     * @param array  $privacy       The privacy settings for the post.
+     * - value: (string) The privacy value for the object, specify one of
+     *     EVERYONE, CUSTOM, ALL_FRIENDS, NETWORKS_FRIENDS, FRIENDS_OF_FRIENDS,
+     *     SELF.
+     * - friends: (string) For CUSTOM settings, this indicates which users can
+     *     see the object. Can be one of EVERYONE, NETWORKS_FRIENDS (when the
+     *     object can be seen by networks and friends), FRIENDS_OF_FRIENDS,
+     *     ALL_FRIENDS, SOME_FRIENDS, SELF, or NO_FRIENDS (when the object can
+     *     be seen by a network only).
+     * - networks: (string) For CUSTOM settings, specify a comma-separated list
+     *     of network IDs that can see the object, or 1 for all of a user's
+     *     networks.
+     * - allow: (string) When friends is set to SOME_FRIENDS, specify a
+     *     comma-separated list of user IDs and friend list IDs that ''can'' see
+     *     the post.
+     * - deny: (string) When friends is set to SOME_FRIENDS, specify a
+     *     comma-separated list of user IDs and friend list IDs that ''cannot''
+     *     see the post.
      *
      * @return mixed
      */
-    function publish($message = '', $attachment = '', $action_links = '', $target_id = '', $uid = '')
+    function publish($message = '', $attachment = array(), $action_links = '',
+                     $target_id = '', $uid = '', $privacy = array())
     {
         if (empty($uid) && !$session_key = $this->_facebook->auth->getSessionKey()) {
             throw new Horde_Service_Facebook_Exception(
@@ -117,7 +137,20 @@ class Horde_Service_Facebook_Streams extends Horde_Service_Facebook_Base
         if (!empty($attachment)) {
             $params['attachment'] = json_encode($attachment);
         }
-
+        if (!empty($privacy)) {
+            $privacy_object = new stdClass;
+            if (isset($privacy['value'])) {
+                $privacy_object->value = $privacy['value'];
+            } else {
+                $privacy_object->value = 'EVERYONE';
+            }
+            foreach (array('friends', 'networks', 'allow', 'deny') as $setting) {
+                if (isset($privacy[$setting])) {
+                    $privacy_object->{$setting} = $privacy[$setting];
+                }
+            }
+            $params['privacy'] = json_encode($privacy_object);
+        }
         return $this->_facebook->callMethod('Stream.publish', $params);
     }
 

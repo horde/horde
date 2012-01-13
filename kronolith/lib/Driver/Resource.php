@@ -3,7 +3,7 @@
  * The Kronolith_Driver_Resource class implements the Kronolith_Driver API for
  * storing resource calendars in a SQL backend.
  *
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -185,6 +185,23 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
         }
 
         return $result;
+    }
+
+    /**
+     * Determine if the provided calendar id represents a resource's calendar.
+     *
+     * @param string $calendar  The calendar identifier to check.
+     *
+     * @return boolean
+     */
+    public function isResourceCalendar($calendar)
+    {
+        $query = 'SELECT count(*) FROM kronolith_resources WHERE resource_calendar = ?';
+        try {
+            return $this->_db->selectValue($query, array($calendar)) > 0;
+        } catch (Horde_Db_Exception $e) {
+            throw new Kronolith_Exception($e);
+        }
     }
 
     /**

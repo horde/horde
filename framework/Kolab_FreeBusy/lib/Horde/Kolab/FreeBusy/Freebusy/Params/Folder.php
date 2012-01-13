@@ -16,7 +16,7 @@
  * This class provides the folder name requested from the free/busy system.
  *
  * Copyright 2004-2007 Klarälvdalens Datakonsult AB
- * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see

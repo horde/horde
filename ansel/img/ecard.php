@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -96,13 +96,14 @@ $vars->set('image_desc', strlen($image->caption) ? $image->caption : $image->fil
 $form = new Ansel_Form_Ecard($vars, $title);
 $renderer = new Horde_Form_Renderer();
 
-$editor = $injector->getInstance('Horde_Editor')->initialize(array('id' => 'ecard_comments'));
+$editor = $injector->getInstance('Horde_Editor');
 if ($editor->supportedByBrowser()) {
+    $editor->initialize(array('id' => 'ecard_comments'));
     $vars->set('rtemode', 1);
     $form->addHidden('', 'rtemode', 'text', false);
 }
 
 require $registry->get('templates', 'horde') . '/common-header.inc';
 $notification->notify(array('listeners' => 'status'));
-$form->renderActive($renderer, $vars, 'ecard.php', 'post', 'multipart/form-data');
+$form->renderActive($renderer, $vars, Horde::url('img/ecard.php'), 'post', 'multipart/form-data');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

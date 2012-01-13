@@ -7,9 +7,10 @@
   want to use a single Horde installation for different virtual hosts, you can
   create separate configuration files for each virtual host,
   e.g. &lt;code&gt;conf-www.example.com.php&lt;/code&gt; or
-  &lt;code&gt;prefs-mail.example.com.php&lt;/code&gt;. The global
-  configuration files are always loaded first, and virtual host specific files
-  are not required.">false</configboolean>
+  &lt;code&gt;prefs-mail.example.com.php&lt;/code&gt;. The global configuration
+  files are always loaded first, and virtual host specific files are not
+  required. If running command line scripts, you can specify the host name with
+  the environment variable SERVER_NAME.">false</configboolean>
   <configheader>PHP Settings</configheader>
   <configphp name="debug_level" desc="The value to set
   error_reporting() to.
@@ -167,6 +168,8 @@
    validate the browser string of the client (as seen by the web server) in
    the session? Doing so will help increase security by making it harder for
    an attacker to hijack the session.">true</configboolean>
+   <configboolean name="resetpassword" desc="Allow users to reset passwords and
+   provide a link on the login screen?">true</configboolean>
    <configstring name="alternate_login" desc="If this is not false, it is
    assumed to be the URL of an alternate login screen which will be used in
    place of horde's default login screen. The URL will have an &quot;app&quot;
@@ -526,13 +529,13 @@
         socket"></configstring>
        </case>
        <case name="tcp" desc="TCP/IP">
+        <configstring name="hostspec" desc="What hostname is the database server
+        running on, or what is the name of the system DSN to use?">
+        localhost</configstring>
         <configinteger name="port" required="false" desc="Port the DB is
-        running on, if non-standard">5432</configinteger>
+        running on, if non-standard"/>
        </case>
       </configswitch>
-      <configstring name="hostspec" desc="What hostname is the database server
-      running on, or what is the name of the system DSN to use?">
-      localhost</configstring>
       <configstring name="username" desc="What username do we authenticate to
       the database server as?">horde</configstring>
       <configstring name="password" required="false" desc="What password do we
@@ -940,12 +943,12 @@
     </case>
    </configswitch>
    <configheader>Group Caching</configheader>
-   <configdescription>Enabling group caching improves performance because the
+   <configdescription>GROUP CACHING HAS NOT BEEN IMPLEMENTED FOR HORDE 4 YET. Enabling group caching improves performance because the
    group backend will only be queried once per session. But it also increases
    the users' session sizes, and group changes won't take effect before the
    users log in the next time.</configdescription>
-   <configboolean name="cache" required="false" desc="Enable group
-   caching?">false</configboolean>
+   <!--<configboolean name="cache" required="false" desc="Enable group
+   caching?">false</configboolean>-->
   </configsection>
  </configtab>
 
@@ -1278,7 +1281,7 @@
       binary">-oi</configstring>
      </configsection>
     </case>
-    <case name="smtp" desc="Use a SMTP server">
+    <case name="smtp" desc="Use a SMTP server (RECOMMENDED)">
      <configsection name="params">
       <configstring name="host" required="false" desc="The server to connect
       to [localhost]"/>
@@ -1454,6 +1457,15 @@
   </configsection>
  </configtab>
 
+ <configtab name="themes" desc="Themes">
+  <configheader>Theme Settings</configheader>
+  <configboolean name="nobase64_img" required="false" desc="Always send full
+  URLs for image data? By default, Horde will send image data within the page
+  itself if the browser supports it. This eliminates the need for additional
+  server connections to grab the image data, at the expense of slightly
+  larger page sizes.">false</configboolean>
+ </configtab>
+
  <configtab name="image" desc="Image Manipulation">
   <configsection name="image">
    <configheader>Image Manipulation Settings</configheader>
@@ -1612,14 +1624,6 @@
     </configenum>
    </configsection>
   </configsection>
-
-  <configsection name="logo">
-   <configstring name="image" required="false" desc="The URL of an image for
-   the top of the Horde menu. The image should be no larger than 140 pixels
-   wide by 40 pixels high to prevent the frame from scrolling."/>
-   <configstring name="link" required="false" desc="If a logo is displayed in
-   the Horde menu, what URL (if any) should it link to?"/>
-  </configsection>
  </configtab>
 
  <configtab name="block" desc="Portal Blocks">
@@ -1631,21 +1635,6 @@
      <configspecial application="horde" name="blocks" />
     </values>
    </configmultienum>
-  </configsection>
-  <configheader>weather.com Configuration</configheader>
-  <configsection name="weatherdotcom">
-   <configdescription>
-    Use of the weather.com block requires free registration for the XML
-    feed at http://www.weather.com/services/xmloap.html.
-    After registration, an email will be returned with the Partner ID and
-    license key.&lt;br /&gt;
-    NOTE: weather.com guidelines require registration and use of the returned
-    values, but the application appears to function with any string values.
-   </configdescription>
-   <configstring name="partner_id" required="false" desc="The partner I.D.
-   from weather.com"/>
-   <configstring name="license_key" required="false" desc="The license key
-   from weather.com"/>
   </configsection>
 
   <configheader>Fortune Configuration</configheader>
@@ -1740,6 +1729,7 @@
    required="false"/>
    <configstring name="yahoomaps" desc="Yahoo Maps API Key" required="false" />
    <configstring name="cloudmade" desc="Cloudmade API Key" required="false" />
+   <configstring name="mytopo" desc="Mytopo Maps API Key" required="false" />
   </configsection>
   <configsection name="facebook">
    <configheader>Facebook Integration Settings</configheader>
@@ -1768,6 +1758,46 @@
     <case name="true" desc="Enabled">
       <configstring name="key" required="false" desc="OAuth Consumer Key:"></configstring>
       <configstring name="secret" required="false" desc="OAuth Consumer Secret:"></configstring>
+    </case>
+   </configswitch>
+  </configsection>
+  <configheader>Url Shortening</configheader>
+   <configenum name="urlshortener" desc="Should Horde use a URL shortening
+   service? This will be used when submitting URLs to social network providers.">
+    <values>
+      <value desc="None">false</value>
+      <value desc="TinyUrl">TinyUrl</value>
+    </values>
+   </configenum>
+  <configsection name="weather">
+   <configheader>Weather Services</configheader>
+   <configdescription>If you want to provide weather information to your users
+   you must select a provider and provide your API keys.</configdescription>
+   <configswitch name="provider">false
+    <case name="false" desc="None" />
+    <case name="WeatherUnderground" desc="Weather Underground - Recommended, but relatively low daily limits for free accounts.">
+      <configsection name="params">
+       <configstring name="key" desc="API Key. For information on registration and obtaining an API
+       key for this driver, see http://www.wunderground.com/weather/api/.">
+       </configstring>
+       <configinteger name="lifetime" desc="Lifetime of the cached weather information, in seconds.">21600
+       </configinteger>
+      </configsection>
+    </case>
+    <case name="Google" desc="Google Weather API - Unofficial API. Free, no registration. VERY basic forecast data.">
+      <configsection name="params">
+       <configinteger name="lifetime" desc="Lifetime of the cached weather information, in seconds.">21600
+       </configinteger>
+      </configsection>
+    </case>
+    <case name="Wwo" desc="World Weather Online API. Free, requires registration. Slighty more detailed than Google.">
+      <configsection name="params">
+        <configstring name="key" desc="API Key. For information on registration
+        and obtaining an API key for this driver, see
+        http://worldweatheronline.com"></configstring>
+       <configinteger name="lifetime" desc="Lifetime of the cached weather information, in seconds.">21600
+       </configinteger>
+      </configsection>
     </case>
    </configswitch>
   </configsection>
@@ -1942,7 +1972,10 @@
      <configsection name="logging">
       <configswitch name="type" desc="For debugging, it may be useful to send
       activesync-related log messages to a seperate log. If you want to do this,
-      set this to Custom and enter the path to the log file to use.">
+      set this to Custom and enter the path to the log file to use. Horde will
+      attempt to create device specific log files in the same directory as the
+      filepath you provide here. If it is unable to do so, all log entries will
+      be sent to the filename you provide.">
         <case name="horde" desc="Horde" />
         <case name="custom" desc="Custom">
          <configstring name="path" desc="Path to logfile" />

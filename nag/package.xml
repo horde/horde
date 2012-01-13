@@ -16,10 +16,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-08</date>
- <time>14:43:59</time>
+ <date>2011-12-13</date>
+ <time>13:24:19</time>
  <version>
-  <release>3.0.4</release>
+  <release>3.0.8</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -28,9 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix removeUserData implementation.
-* [gwr] Fix Kolab object attribute handling for tasks.
-* [gwr] Avoid including the owner name into the default share.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -60,6 +58,7 @@
    </dir> <!-- /docs -->
    <dir name="js">
     <file name="calendar.js" role="horde" />
+    <file name="task.js" role="horde" />
    </dir> <!-- /js -->
    <dir name="lib">
     <dir name="Ajax">
@@ -379,6 +378,7 @@
     <dir name="view">
      <file name="task.inc" role="horde" />
     </dir> <!-- /templates/view -->
+    <file name="javascript_defs.php" role="horde" />
     <file name="list.html.php" role="horde" />
     <file name="panel.inc" role="horde" />
     <file name="quick.inc" role="horde" />
@@ -387,10 +387,6 @@
    </dir> <!-- /templates -->
    <dir name="test">
     <dir name="Nag">
-     <dir name="Stub">
-      <file name="DbFactory.php" role="test" />
-      <file name="Registry.php" role="test" />
-     </dir> <!-- /test/Nag/Stub -->
      <dir name="Unit">
       <dir name="Driver">
        <dir name="Sql">
@@ -709,6 +705,7 @@
    <install as="UPGRADING" name="docs/UPGRADING" />
    <install as="vtodo/todo.ics" name="docs/vtodo/todo.ics" />
    <install as="nag/js/calendar.js" name="js/calendar.js" />
+   <install as="nag/js/task.js" name="js/task.js" />
    <install as="nag/lib/.htaccess" name="lib/.htaccess" />
    <install as="nag/lib/Api.php" name="lib/Api.php" />
    <install as="nag/lib/Application.php" name="lib/Application.php" />
@@ -833,6 +830,7 @@
    <install as="nag/tasklists/index.php" name="tasklists/index.php" />
    <install as="nag/tasklists/info.php" name="tasklists/info.php" />
    <install as="nag/tasks/index.php" name="tasks/index.php" />
+   <install as="nag/templates/javascript_defs.php" name="templates/javascript_defs.php" />
    <install as="nag/templates/list.html.php" name="templates/list.html.php" />
    <install as="nag/templates/panel.inc" name="templates/panel.inc" />
    <install as="nag/templates/quick.inc" name="templates/quick.inc" />
@@ -853,8 +851,6 @@
    <install as="Nag/Autoload.php" name="test/Nag/Autoload.php" />
    <install as="Nag/phpunit.xml" name="test/Nag/phpunit.xml" />
    <install as="Nag/TestCase.php" name="test/Nag/TestCase.php" />
-   <install as="Nag/Stub/DbFactory.php" name="test/Nag/Stub/DbFactory.php" />
-   <install as="Nag/Stub/Registry.php" name="test/Nag/Stub/Registry.php" />
    <install as="Nag/Unit/Driver/Base.php" name="test/Nag/Unit/Driver/Base.php" />
    <install as="Nag/Unit/Driver/KolabTest.php" name="test/Nag/Unit/Driver/KolabTest.php" />
    <install as="Nag/Unit/Driver/Sql/Base.php" name="test/Nag/Unit/Driver/Sql/Base.php" />
@@ -1056,12 +1052,69 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-08</date>
+   <date>2011-10-18</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Add missing parameters when PUTing tasks (Bug #10545).
 * [mjr] Fix removeUserData implementation.
 * [gwr] Fix Kolab object attribute handling for tasks.
 * [gwr] Avoid including the owner name into the default share.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.5</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-02</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [cjh] Nicer date/time input with fewer input fields and helper javascript.
+* [mjr] Add ability to choose which tasklists to synchronize.
+* [mjr] Fix task export to ActiveSync for tasks with no due dates or reminders.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.6</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-22</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Don&apos;t display task details of private tasks via the API (Bug #10712).
+* [jan] Use correct locale when parsing quick tasks (thpo+horde@dotrc.de, Bug #10720).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.7</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-13</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Fix setting custom alarm methods (Bug #9543).
+* [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.8</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-13</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

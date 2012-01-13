@@ -15,7 +15,7 @@
 /**
  * Basic Nag test case.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPLv2). If you did not
  * receive this file, see http://www.horde.org/licenses/gpl
@@ -82,7 +82,7 @@ extends PHPUnit_Framework_TestCase
     {
         $setup->getInjector()->setInstance(
             'Horde_Core_Factory_Db',
-            new Nag_Stub_DbFactory(
+            new Horde_Test_Stub_Factory(
                 $setup->getInjector()->getInstance('Horde_Db_Adapter')
             )
         );

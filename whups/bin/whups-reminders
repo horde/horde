@@ -1,19 +1,26 @@
 #!/usr/bin/env php
 <?php
 /**
- * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file LICENSE for license information (BSD). If you
+ * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
  *
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+if (file_exists(dirname(__FILE__) . '/../../whups/lib/Application.php')) {
+    $baseDir = dirname(__FILE__) . '/../';
+} else {
+    require_once 'PEAR/Config.php';
+    $baseDir = PEAR_Config::singleton()
+        ->get('horde_dir', null, 'pear.horde.org') . '/whups/';
+}
+require_once $baseDir . 'lib/Application.php';
 Horde_Registry::appInit('whups', array('authentication' => 'none'));
 
 // Get an instance of the Whups scheduler.
-$reminder = Horde_Scheduler::unserialize('Horde_Scheduler_Whups');
+$reminder = Horde_Scheduler::unserialize('Whups_Scheduler');
 
 // Check for and send reminders.
 $reminder->run();

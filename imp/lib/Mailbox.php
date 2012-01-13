@@ -3,7 +3,7 @@
  * The IMP_Mailbox class acts as a clearinghouse for actions related to a
  * mailbox.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -28,6 +28,8 @@
  *                       no ACL found for the mailbox.
  * @property string $basename  The basename of the mailbox (UTF-8).
  * @property string $cacheid  Cache ID for the mailbox.
+ * @property string $cacheid_date  Cache ID for the mailbox, with added date
+ *                                 information.
  * @property boolean $children  Does the element have children?
  * @property boolean $container  Is this a container element?
  * @property string $display  Display version of mailbox. Special mailboxes
@@ -79,8 +81,11 @@
  *                                      with outgoing messages?
  * @property boolean $specialvfolder  Is this a "special" virtual folder?
  * @property boolean $sub  Is this mailbox subscribed to?
- * @property array $subfolders  Returns the list of subfolders (including the
- *                              current mailbox).
+ * @property array $subfolders  Returns the list of subfolders as mailbox
+ *                              objects (including the current mailbox).
+ * @property array $subfolders_only  Returns the list of subfolders as mailbox
+ *                                   objects (NOT including the current
+ *                                   mailbox).
  * @property string $uidvalid  Returns the UIDVALIDITY string. Throws an
  *                             IMP_Exception on error.
  * @property string $value  The value of this element (i.e. IMAP mailbox
@@ -138,6 +143,13 @@ class IMP_Mailbox implements Serializable
      * @var integer
      */
     public $changed = self::CHANGED_NO;
+
+    /**
+     * Temporary data from importMbox().
+     *
+     * @var array
+     */
+    protected $_import;
 
     /**
      * Temporary cached data.  Used among all instances.
@@ -287,7 +299,7 @@ class IMP_Mailbox implements Serializable
             return $acl;
 
         case 'basename':
-            if ($this->nonimap || $this->special) {
+            if ($this->nonimap) {
                 return $this->label;
             }
 
@@ -298,7 +310,8 @@ class IMP_Mailbox implements Serializable
             return Horde_String::convertCharset($basename, 'UTF7-IMAP', 'UTF-8');
 
         case 'cacheid':
-            return $this->_getCacheID();
+        case 'cacheid_date':
+            return $this->_getCacheID($key == 'cacheid_date');
 
         case 'children':
             return $injector->getInstance('IMP_Imap_Tree')->hasChildren($this->_mbox);
@@ -572,9 +585,10 @@ class IMP_Mailbox implements Serializable
             return $injector->getInstance('IMP_Imap_Tree')->isSubscribed($this->_mbox);
 
         case 'subfolders':
-            $imaptree = $injector->getInstance('IMP_Imap_Tree');
-            $imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_NOCONTAINER | IMP_Imap_Tree::FLIST_UNSUB | IMP_Imap_Tree::FLIST_NOBASE, $this->_mbox);
-            return array_merge(array($this), iterator_to_array($imaptree));
+            return $this->get(array_merge(array($this->_mbox), $this->subfolders_only));
+
+        case 'subfolders_only':
+            return $this->get($injector->getInstance('IMP_Factory_Imap')->create()->listMailboxes($this->_mbox . $this->namespace_delimiter . '*', null, array('flat' => true)));
 
         case 'uidvalid':
             $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
@@ -619,17 +633,193 @@ class IMP_Mailbox implements Serializable
     /**
      * Create this mailbox on the server.
      *
-     * @see IMP_Folder::create().
-     *
-     * @param array $opts  See IMP_Folder::create().
+     * @param array $opts  Additional options:
+     *   - special_use: (array) An array of special-use attributes to attempt
+     *                  to add to the mailbox.
+     *                  DEFAULT: NONE
+     *   - subscribe: (boolean) Override preference value of subscribe.
      *
      * @return boolean  True on success.
      * @throws Horde_Exception
      */
     public function create(array $opts = array())
     {
-        return ($this->exists ||
-                $GLOBALS['injector']->getInstance('IMP_Folder')->create($this->_mbox, $GLOBALS['prefs']->getValue('subscribe'), $opts));
+        global $injector, $notification, $prefs, $registry;
+
+        if ($this->exists) {
+            return true;
+        }
+
+        /* Check permissions. */
+        $perms = $injector->getInstance('Horde_Core_Perms');
+        if (!$perms->hasAppPermission('create_folders')) {
+            Horde::permissionDeniedError(
+                'imp',
+                'create_folders',
+                _("You are not allowed to create folders.")
+            );
+            return false;
+        } elseif (!$perms->hasAppPermission('max_folders')) {
+            Horde::permissionDeniedError(
+                'imp',
+                'max_folders',
+                sprintf(_("You are not allowed to create more than %d folders."), $injector->getInstance('Horde_Perms')->getPermissions('max_folders', $registry->getAuth()))
+            );
+            return false;
+        }
+
+        /* Special use flags. */
+        $special_use = isset($opts['special_use'])
+            ? $opts['special_use']
+            : array();
+
+        /* Attempt to create the mailbox. */
+        try {
+            $injector->getInstance('IMP_Factory_Imap')->create()->createMailbox($this->_mbox, array('special_use' => $special_use));
+        } catch (IMP_Imap_Exception $e) {
+            if ($e->getCode() == Horde_Imap_Client_Exception::USEATTR) {
+                unset($opts['special_use']);
+                return $this->create($opts);
+            }
+
+            $e->notify(sprintf(_("The mailbox \"%s\" was not created. This is what the server said"), $this->display) . ': ' . $e->getMessage());
+            return false;
+        }
+
+        $notification->push(sprintf(_("The mailbox \"%s\" was successfully created."), $this->display), 'horde.success');
+
+        /* Subscribe, if requested. */
+        if ((!isset($opts['subscribe']) && $prefs->getValue('subscribe')) ||
+            !empty($opts['subscribe'])) {
+            $this->subscribe(true);
+        }
+
+        /* Update the mailbox tree. */
+        $injector->getInstance('IMP_Imap_Tree')->insert($this->_mbox);
+
+        return true;
+    }
+
+    /**
+     * Deletes mailbox.
+     *
+     * @param boolean $force  Delete even if fixed?
+     *
+     * @return boolean  True on success.
+     */
+    public function delete($force = false)
+    {
+        global $conf, $injector, $notification;
+
+        if ($this->vfolder) {
+            if ($this->editvfolder) {
+                $imp_search = $injector->getInstance('IMP_Search');
+                $label = $imp_search[$this->_mbox]->label;
+                unset($imp_search[$this->_mbox]);
+                $notification->push(sprintf(_("Deleted Virtual Folder \"%s\"."), $label), 'horde.success');
+                return true;
+            }
+
+            $notification->push(sprintf(_("Could not delete Virtual Folder \"%s\"."), $this->label), 'horde.error');
+            return false;
+        }
+
+        if ((!$force && $this->fixed) || !$this->access_deletembox)  {
+            $notification->push(sprintf(_("The mailbox \"%s\" may not be deleted."), $this->display), 'horde.error');
+            return false;
+        }
+
+        try {
+            $injector->getInstance('IMP_Factory_Imap')->create()->deleteMailbox($this->_mbox);
+            $notification->push(sprintf(_("The mailbox \"%s\" was successfully deleted."), $this->display), 'horde.success');
+        } catch (IMP_Imap_Exception $e) {
+            $e->notify(sprintf(_("The mailbox \"%s\" was not deleted. This is what the server said"), $this->display) . ': ' . $e->getMessage());
+            return false;
+        }
+
+        $injector->getInstance('IMP_Imap_Tree')->delete($this->_mbox);
+        $this->_onDelete(array($this->_mbox));
+
+        return true;
+    }
+
+    /**
+     * Rename this mailbox on the server. The subscription status remains the
+     * same.  All subfolders will also be renamed.
+     *
+     * @param string $new     The new mailbox name (UTF7-IMAP).
+     * @param boolean $force  Rename mailbox even if it is fixed?
+     *
+     * @return boolean  True on success
+     */
+    public function rename($new_name, $force = false)
+    {
+        global $injector, $notification;
+
+        /* Don't try to rename to an empty string. */
+        if (!strlen($new_name)) {
+            return false;
+        }
+
+        if ((!$force && $this->fixed) || !$this->access_deletembox) {
+            $notification->push(sprintf(_("The mailbox \"%s\" may not be renamed."), $this->display), 'horde.error');
+            return false;
+        }
+
+        $new_mbox = $this->get($new_name);
+        $old_list = $this->subfolders;
+
+        try {
+            $injector->getInstance('IMP_Factory_Imap')->create()->renameMailbox($this->_mbox, strval($new_mbox));
+        } catch (IMP_Imap_Exception $e) {
+            $e->notify(sprintf(_("Renaming \"%s\" to \"%s\" failed. This is what the server said"), $this->display, $new_mbox->display) . ': ' . $e->getMessage());
+            return false;
+        }
+
+        $notification->push(sprintf(_("The mailbox \"%s\" was successfully renamed to \"%s\"."), $this->display, $new_mbox->display), 'horde.success');
+
+        $injector->getInstance('IMP_Imap_Tree')->rename($this->_mbox, strval($new_mbox));
+        $this->_onDelete($old_list);
+
+        return true;
+    }
+
+    /**
+     * Subscribe/unsubscribe to an IMAP mailbox.
+     *
+     * @param boolean $sub  True to subscribe, false to unsubscribe.
+
+     * @return boolean  True on success.
+     */
+    public function subscribe($sub)
+    {
+        global $injector, $notification;
+
+        if (!$sub && $this->inbox) {
+            $notification->push(sprintf(_("You cannot unsubscribe from \"%s\"."), $this->display), 'horde.error');
+            return false;
+        }
+
+        try {
+            $injector->getInstance('IMP_Factory_Imap')->create()->subscribeMailbox($this->_mbox, $sub);
+        } catch (IMP_Imap_Exception $e) {
+            if ($sub) {
+                $e->notify(sprintf(_("You were not subscribed to \"%s\". Here is what the server said"), $this->display) . ': ' . $e->getMessage());
+            } else {
+                $e->notify(sprintf(_("You were not unsubscribed from \"%s\". Here is what the server said"), $this->display) . ': ' . $e->getMessage());
+            }
+            return false;
+        }
+
+        if ($sub) {
+            $notification->push(sprintf(_("You were successfully subscribed to \"%s\"."), $this->display), 'horde.success');
+            $injector->getInstance('IMP_Imap_Tree')->subscribe($this->_mbox);
+        } else {
+            $notification->push(sprintf(_("You were successfully unsubscribed from \"%s\"."), $this->display), 'horde.success');
+            $injector->getInstance('IMP_Imap_Tree')->unsubscribe($this->_mbox);
+        }
+
+        return true;
     }
 
     /**
@@ -702,7 +892,8 @@ class IMP_Mailbox implements Serializable
      *
      * @return array  An array with the following keys:
      *   - by: (integer) Sort type.
-     *   - dir (integer) Sort direction.
+     *   - dir:(integer) Sort direction.
+     *   - locked: (boolean) Is sort locked for the mailbox?
      */
     public function getSort($convert = false)
     {
@@ -723,7 +914,8 @@ class IMP_Mailbox implements Serializable
 
         $ob = array(
             'by' => isset($entry['b']) ? $entry['b'] : $sortby,
-            'dir' => isset($entry[self::CACHE_DISPLAY]) ? $entry[self::CACHE_DISPLAY] : $prefs->getValue('sortdir'),
+            'dir' => isset($entry['d']) ? $entry['d'] : $prefs->getValue('sortdir'),
+            'locked' => $prefs->isLocked('sortpref')
         );
 
         /* Restrict to sequence sorting only. */
@@ -949,9 +1141,9 @@ class IMP_Mailbox implements Serializable
         } else {
             if (($page != 'search.php') && (IMP::getViewMode() == 'dimp')) {
                 $anchor = is_null($uid)
-                    ? ('mbox:' . $this->_mbox)
-                    : ('msg:' . strval($this->getIndicesOb($uid)));
-                return Horde::url('index.php')->setAnchor(IMP::base64urlEncode($anchor));
+                    ? ('mbox:' . $this->form_to)
+                    : ('msg:' . $this->getIndicesOb($uid)->formTo());
+                return Horde::url('index.php')->setAnchor($anchor);
             }
 
             $url = Horde::url($page);
@@ -997,6 +1189,165 @@ class IMP_Mailbox implements Serializable
         return ($mbox == $this->_mbox);
     }
 
+    /**
+     * Imports messages from a mbox (see RFC 4155) -or- a message source
+     * (eml) file.
+     *
+     * @param string $fname  Filename containing the message data.
+     * @param string $type   The MIME type of the message data.
+     *
+     * @return mixed  False (boolean) on fail or the number of messages
+     *                imported (integer) on success.
+     * @throws IMP_Exception
+     */
+    public function importMbox($fname, $type)
+    {
+        $fd = $format = $msg = null;
+
+        if (!file_exists($fname)) {
+            return false;
+        }
+
+        switch ($type) {
+        case 'application/gzip':
+        case 'application/x-gzip':
+        case 'application/x-gzip-compressed':
+            // No need to default to Horde_Compress because it uses zlib
+            // also.
+            if (in_array('compress.zlib', stream_get_wrappers())) {
+                $fname = 'compress.zlib://' . $fname;
+            }
+            break;
+
+        case 'application/x-bzip2':
+        case 'application/x-bzip':
+            if (in_array('compress.bzip2', stream_get_wrappers())) {
+                $fname = 'compress.bzip2://' . $fname;
+            }
+            break;
+
+        case 'application/zip':
+        case 'application/x-compressed':
+        case 'application/x-zip-compressed':
+            if (in_array('zip', stream_get_wrappers())) {
+                $fname = 'zip://' . $fname;
+            } else {
+                try {
+                    $zip = Horde_Compress::factory('Zip');
+                    if ($zip->canDecompress) {
+                        $file_data = file_get_contents($fname);
+
+                        $zip_info = $zip->decompress($file_data, array(
+                            'action' => Horde_Compress_Zip::ZIP_LIST
+                        ));
+
+                        if (!empty($zip_info)) {
+                            $fd = fopen('php://temp', 'r+');
+
+                            foreach (array_keys($zip_info) as $key) {
+                                fwrite($fd, $zip->decompress($file_data, array(
+                                    'action' => Horde_Compress_Zip::ZIP_DATA,
+                                    'info' => $zip_info,
+                                    'key' => $key
+                                )));
+                            }
+
+                            rewind($fd);
+                        }
+                    }
+                } catch (Horde_Compress_Exception $e) {
+                    if ($fd) {
+                        fclose($fd);
+                        $fd = null;
+                    }
+                }
+
+                $fname = null;
+            }
+            break;
+        }
+
+        if (!is_null($fname)) {
+            $fd = fopen($fname, 'r');
+        }
+
+        if (!$fd) {
+            throw new IMP_Exception(_("The uploaded file cannot be opened"));
+        }
+
+        $this->_import = array(
+            'data' => array(),
+            'msgs' => 0,
+            'size' => 0
+        );
+
+        while (!feof($fd)) {
+            $line = fgets($fd);
+
+            /* RFC 4155 - mbox format. */
+            // TODO: Better preg for matching From line
+            // See(?) http://code.iamcal.com/php/rfc822/
+            if ((!$format || ($format == 'mbox')) &&
+                preg_match('/^From (.+@.+|- )/', $line)) {
+                $format = 'mbox';
+
+                if ($msg) {
+                    /* Send in chunks to take advantage of MULTIAPPEND (if
+                     * available). */
+                    $this->_importMbox($msg, true);
+                }
+
+                $msg = fopen('php://temp', 'r+');
+            } elseif ($msg) {
+                fwrite($msg, $line);
+            } elseif (!$format && trim($line)) {
+                /* Allow blank space at beginning of file. Anything else is
+                 * treated as message input. */
+                $format = 'eml';
+                $msg = fopen('php://temp', 'r+');
+                fwrite($msg, $line);
+            }
+        }
+        fclose($fd);
+
+        if ($msg) {
+            $this->_importMbox($msg);
+        }
+
+        return $this->_import['msgs']
+            ? $this->_import['msgs']
+            : false;
+    }
+
+    /**
+     * Helper for importMbox().
+     *
+     * @param resource $msg    Stream containing message data.
+     * @param integer $buffer  Buffer messages before sending?
+     */
+    protected function _importMbox($msg, $buffer = false)
+    {
+        $this->_import['data'][] = array('data' => $msg);
+        $this->_import['size'] += intval(ftell($msg));
+
+        /* Buffer 5 MB of messages before sending. */
+        if ($buffer && ($this->_import['size'] < 5242880)) {
+            return;
+        }
+
+        try {
+            $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->append($this->_mbox, $this->_import['data']);
+            $this->_import['msgs'] += count($this->_import['data']);
+        } catch (IMP_Imap_Exception $e) {}
+
+        foreach ($this->_import['data'] as $val) {
+            fclose($val['data']);
+        }
+
+        $this->_import['data'] = array();
+        $this->_import['size'] = 0;
+    }
+
     /* Static methods. */
 
     /**
@@ -1037,7 +1388,8 @@ class IMP_Mailbox implements Serializable
      * @return array  A list of folders, with the self::SPECIAL_* constants as
      *                keys and values containing the IMP_Mailbox objects or
      *                null if the mailbox doesn't exist (self::SPECIAL_SENT
-     *                contains an array of objects).
+     *                contains an array of objects). These mailboxes are
+     *                sorted in a logical order (see Ticket #10683).
      */
     static public function getSpecialMailboxes()
     {
@@ -1109,25 +1461,36 @@ class IMP_Mailbox implements Serializable
     /**
      * Returns a unique identifier for this mailbox's status.
      *
-     * This cache ID is guaranteed to change if messages are added/deleted from
-     * the mailbox. Additionally, if CONDSTORE is available on the remote
+     * This cache ID is guaranteed to change if messages are added/deleted
+     * from the mailbox. Additionally, if CONDSTORE is available on the remote
      * IMAP server, this ID will change if flag information changes.
      *
      * For search mailboxes, this value never changes (search mailboxes must
      * be forcibly refreshed).
      *
+     * @param boolean $date  If true, adds date information to ID.
+     *
      * @return string  The cache ID string, which will change when the
      *                 composition of this mailbox changes.
      */
-    protected function _getCacheID()
+    protected function _getCacheID($date = false)
     {
+        $date = $date
+            ? 'D' . date('mdy')
+            : '';
+
         if ($this->search) {
-            return '1';
+            return '1' . ($date ? '|' . $date : '');
         }
 
         $sortpref = $this->getSort(true);
+        $addl = array($sortpref['by'], $sortpref['dir']);
+        if ($date) {
+            $addl[] = $date;
+        }
+
         try {
-            return $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getCacheId($this->_mbox, array($sortpref['by'], $sortpref['dir']));
+            return $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getCacheId($this->_mbox, $addl);
         } catch (IMP_Imap_Exception $e) {
             /* Assume an error means that a mailbox can not be trusted. */
             return strval(new Horde_Support_Randomid());
@@ -1155,10 +1518,10 @@ class IMP_Mailbox implements Serializable
         /* Handle special container mailboxes. */
         switch ($this->_mbox) {
         case IMP_Imap_Tree::OTHER_KEY:
-            return _("Other Users' Folders");
+            return _("Other Users");
 
         case IMP_Imap_Tree::SHARED_KEY:
-            return _("Shared Folders");
+            return _("Shared");
 
         case IMP_Imap_Tree::VFOLDER_KEY:
             return _("Virtual Folders");
@@ -1233,7 +1596,7 @@ class IMP_Mailbox implements Serializable
                 strpos($this->_mbox, $key) === 0) {
                 $len = strlen($key);
                 if ((strlen($this->_mbox) == $len) || ($this->_mbox[$len] == (is_null($ns_info) ? '' : $ns_info['delimiter']))) {
-                    $out = substr_replace($out, Horde_String::convertCharset($val, 'UTF-8', 'UTF7-IMAP'), 0, $len);
+                    $out = substr_replace($this->_mbox, Horde_String::convertCharset($val, 'UTF-8', 'UTF7-IMAP'), 0, $len);
                     break;
                 }
             }
@@ -1365,6 +1728,19 @@ class IMP_Mailbox implements Serializable
         }
 
         return $info;
+    }
+
+    /**
+     * Do the necessary cleanup/cache updates when deleting mailboxes.
+     *
+     * @param array $deleted  The list of deleted mailboxes.
+     */
+    protected function _onDelete($deleted)
+    {
+        /* Clear the mailbox from the sort prefs. */
+        foreach ($this->get($deleted) as $val) {
+            $val->setSort(null, null, true);
+        }
     }
 
     /* Serializable methods. */

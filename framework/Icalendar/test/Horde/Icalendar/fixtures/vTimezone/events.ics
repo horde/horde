@@ -1,7 +1,7 @@
 BEGIN:VCALENDAR
 VERSION:2.0
 X-WR-CALNAME:Carl Thompson's Calendar
-PRODID:-//Horde LLC//Horde iCalendar Library//EN
+PRODID:-//The Horde Project//Horde iCalendar Library//EN
 METHOD:PUBLISH
 BEGIN:VEVENT
 DTSTART:20060905T130000Z

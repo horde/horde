@@ -20,7 +20,7 @@ require_once dirname(__FILE__) . '/../../../../Autoload.php';
 /**
  * Test the basic list query.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -37,7 +37,7 @@ extends Horde_Kolab_Storage_TestCase
 {
     public function testByTypeReturnsArray()
     {
-        $this->assertType('array', $this->getNullQuery()->listByType('test'));
+        $this->assertInternalType('array', $this->getNullQuery()->listByType('test'));
     }
 
     public function testListCalendarsListsCalendars()
@@ -58,7 +58,7 @@ extends Horde_Kolab_Storage_TestCase
 
     public function testTypeReturnsArray()
     {
-        $this->assertType('array', $this->getNullQuery()->listTypes());
+        $this->assertInternalType('array', $this->getNullQuery()->listTypes());
     }
 
     public function testTypeReturnsAnnotations()
@@ -84,7 +84,7 @@ extends Horde_Kolab_Storage_TestCase
 
     public function testListOwnersReturn()
     {
-        $this->assertType(
+        $this->assertInternalType(
             'array',
             $this->getAnnotatedQuery()->listOwners()
         );
@@ -128,7 +128,7 @@ extends Horde_Kolab_Storage_TestCase
 
     public function testDefaultReturn()
     {
-        $this->assertType(
+        $this->assertInternalType(
             'string',
             $this->getNamespaceQuery()->getDefault('event')
         );
@@ -182,7 +182,7 @@ extends Horde_Kolab_Storage_TestCase
 
     public function testForeignDefaultReturn()
     {
-        $this->assertType(
+        $this->assertInternalType(
             'string',
             $this->getEventQuery()->getForeignDefault(
                 'someone@example.com', 'event'
@@ -269,7 +269,7 @@ extends Horde_Kolab_Storage_TestCase
 
     public function testDataByTypeReturnsArray()
     {
-        $this->assertType('array', $this->getNullQuery()->dataByType('test'));
+        $this->assertInternalType('array', $this->getNullQuery()->dataByType('test'));
     }
 
     public function testListCalendarsListsCalendarData()
@@ -311,12 +311,12 @@ extends Horde_Kolab_Storage_TestCase
      */
     public function testMissingFolderData()
     {
-        $this->assertType('array', $this->getNullQuery()->folderData('INBOX/Calendar'));
+        $this->assertInternalType('array', $this->getNullQuery()->folderData('INBOX/Calendar'));
     }
 
     public function testFolderDataReturnsArray()
     {
-        $this->assertType('array', $this->getAnnotatedQuery()->folderData('INBOX/Calendar'));
+        $this->assertInternalType('array', $this->getAnnotatedQuery()->folderData('INBOX/Calendar'));
     }
 
     public function testFolderDataHasOwner()

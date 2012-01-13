@@ -1,0 +1,253 @@
+# Latvian translations for Sam H4 package.
+# Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Sam package.
+# Automatically generated, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Sam H4 (1.0-git)\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2011-09-20 13:49+0200\n"
+"PO-Revision-Date: 2011-10-16 15:30+0300\n"
+"Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"Language: lv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+"X-Poedit-Language: Latvian\n"
+"X-Poedit-Country: LATVIA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: config/attributes.php:215
+msgid "1: Attach the original message to the report"
+msgstr "1. Ziņojumam pievienot oriģinālo vēstuli"
+
+#: config/attributes.php:216
+msgid "2: Attach the original message as plain text to the report"
+msgstr "2. Ziņojumam pievienot oriģinālo vēstuli vienkāršā teksta formā"
+
+#: config/attributes.php:274
+msgid "Banned Files Folder"
+msgstr "Aizliegto datņu mape"
+
+#: blacklist.php:30
+msgid "Black List Manager"
+msgstr "Melnā saraksta vadība"
+
+#: lib/Application.php:64
+msgid "Blacklist"
+msgstr "Melnais saraksts"
+
+#: lib/Form/Blacklist.php:18
+msgid "Blacklist From"
+msgstr "Melnajā sarakstā no"
+
+#: lib/Form/Blacklist.php:21
+msgid "Blacklist Manager"
+msgstr "Melnā saraksta vadība"
+
+#: lib/Form/Blacklist.php:19
+msgid "Blacklist To"
+msgstr "Melnajā sarakstā līdz"
+
+#: lib/Driver/Amavisd/Sql.php:443
+#, php-format
+msgid "Cannot create recipient %s: %s"
+msgstr "Nevar izveidot jaunu saņēmēju %s: %s"
+
+#: blacklist.php:20 spam.php:25 whitelist.php:20
+#, php-format
+msgid "Cannot get options: %s"
+msgstr "Nevar nolasīt iestatījumus: %s"
+
+#: blacklist.php:63 spam.php:100 whitelist.php:63
+#, php-format
+msgid "Cannot set options: %s"
+msgstr "Nevar pielietot iestatījumus: %s"
+
+#: lib/Form/List.php:46 lib/Form/Options.php:92
+msgid "Make Settings Global"
+msgstr "Padarīt iestatījumus globālus"
+
+#: config/attributes.php:211
+msgid "Modify messages tagged as spam:"
+msgstr "Modificēt vēstules, kas atzīmētas kā mēstules:"
+
+#: lib/Sam.php:62
+#, php-format
+msgid "No \"%s\" element found in backend configuration."
+msgstr "\"%s\" elements nav atrasts palīgmoduļa konfigurācijā ."
+
+#: lib/Sam.php:59
+msgid "No backend configured for this host"
+msgstr "Nav atrodams konfigurēts palīgmodulis"
+
+#: lib/Sam.php:33
+msgid "No backends configured in backends.php"
+msgstr "backends.php nav neviens konfigurēts palīgmodulis"
+
+#: config/attributes.php:259
+msgid "Receive Bad Headers"
+msgstr "Pieņemt nepareizas galvenes"
+
+#: config/attributes.php:249
+msgid "Receive Spam"
+msgstr "Saņemt mēstules"
+
+#: config/attributes.php:244
+msgid "Receive Viruses"
+msgstr "Saņemt vīrusus"
+
+#: lib/Driver/Amavisd/Sql.php:446
+#, php-format
+msgid "Recipient created: %s"
+msgstr "Saņēmējs izveidots: %s"
+
+#: config/attributes.php:104
+msgid "Required Score"
+msgstr "Nepieciešamais reitings"
+
+#: config/attributes.php:172
+msgid "Rewrite Email Subject"
+msgstr "Pārveidot vēstules tematu"
+
+#: config/attributes.php:188
+msgid "Rewrite From: Address"
+msgstr "Pārrakstīt From: adresi"
+
+#: config/attributes.php:180
+msgid "Rewrite To: Address"
+msgstr "Pārrakstīt To: adresi"
+
+# #-#-#-#-#  horde.po (Horde 4.0.7-git)  #-#-#-#-#
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Nag 2.1.4)  #-#-#-#-#
+#
+# #-#-#-#-#  nag.po (Nag 2.1.4)  #-#-#-#-#
+#
+# #-#-#-#-#  jonah.po (Jonah H4 (1.0-git))  #-#-#-#-#
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Nag 2.1.4)  #-#-#-#-#
+#
+# #-#-#-#-#  nag.po (Nag 2.1.4)  #-#-#-#-#
+#
+# #-#-#-#-#  ansel.po (Ansel H4 (2.0-git))  #-#-#-#-#
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Nag 2.1.4)  #-#-#-#-#
+#
+# #-#-#-#-#  nag.po (Nag 2.1.4)  #-#-#-#-#
+#
+# #-#-#-#-#  folks.po (Folks H4 (0.1-git))  #-#-#-#-#
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Nag 2.1.4)  #-#-#-#-#
+#
+# #-#-#-#-#  nag.po (Nag 2.1.4)  #-#-#-#-#
+#
+# #-#-#-#-#  hermes.po (Hermes H4 (2.0-git))  #-#-#-#-#
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Nag 2.1.4)  #-#-#-#-#
+#
+# #-#-#-#-#  nag.po (Nag 2.1.4)  #-#-#-#-#
+#
+# #-#-#-#-#  trean.po (Trean H4 (1.0-git))  #-#-#-#-#
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Nag 2.1.4)  #-#-#-#-#
+#
+# #-#-#-#-#  nag.po (Nag 2.1.4)  #-#-#-#-#
+#
+# #-#-#-#-#  ulaform.po (PACKAGE VERSION)  #-#-#-#-#
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Nag 2.1.4)  #-#-#-#-#
+#
+# #-#-#-#-#  nag.po (Nag 2.1.4)  #-#-#-#-#
+#
+# #-#-#-#-#  nag.po (Nag 2.1.4)  #-#-#-#-#
+#
+# #-#-#-#-#  agora.po (Agora H4 (1.0-git))  #-#-#-#-#
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Nag 2.1.4)  #-#-#-#-#
+#
+# #-#-#-#-#  nag.po (Nag 2.1.4)  #-#-#-#-#
+#
+# #-#-#-#-#  wicked.po (Wicked H4 (2.0-git))  #-#-#-#-#
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Nag 2.1.4)  #-#-#-#-#
+#
+# #-#-#-#-#  nag.po (Nag 2.1.4)  #-#-#-#-#
+#
+# #-#-#-#-#  gollem.po (Gollem H4 (2.0-git))  #-#-#-#-#
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Nag 2.1.4)  #-#-#-#-#
+#
+# #-#-#-#-#  nag.po (Nag 2.1.4)  #-#-#-#-#
+#
+#: lib/Form/List.php:20 lib/Form/Options.php:18
+msgid "Save"
+msgstr "Saglabāt"
+
+#: config/attributes.php:239
+msgid "Skip Bad Header Checks"
+msgstr "Izlaist nepareizu galveņu pārbaudi"
+
+#: config/attributes.php:224
+msgid "Skip Virus Checks"
+msgstr "Izlaist vīrusu pārbaudi"
+
+#: config/attributes.php:264
+msgid "Spam Folder"
+msgstr "Mēstuļu mape:"
+
+#: lib/Application.php:53 lib/Form/Options.php:17 spam.php:35
+msgid "Spam Options"
+msgstr "Mēstuļu iestatījumi"
+
+#: config/attributes.php:206
+msgid "Spam Quarantine Address"
+msgstr "Mēstuļu karantīnas adrese"
+
+#: config/attributes.php:64
+msgid "Tag Level"
+msgstr "Reitinga slieksnis"
+
+#: spam.php:16
+msgid "The Spam Rules page is not enabled."
+msgstr "Mēstuļu nosacījumu lapa nav iespējota."
+
+#: blacklist.php:60
+msgid "Updated user blacklists"
+msgstr "Atsvaidzināt lietotāja melnos sarakstus"
+
+#: spam.php:97
+msgid "Updated user spam rules"
+msgstr "Atsvaidzināt lietotāja mēstuļu iestatījumus"
+
+#: whitelist.php:60
+msgid "Updated user whitelists"
+msgstr "Atsvaidzināt lietotāja baltos sarakstus"
+
+#: config/attributes.php:269
+msgid "Virus Folder"
+msgstr "Vīrusu mape"
+
+#: whitelist.php:30
+msgid "White List Manager"
+msgstr "Baltā saraksta vadība"
+
+#: lib/Application.php:59
+msgid "Whitelist"
+msgstr "Baltais saraksts"
+
+#: lib/Form/Whitelist.php:18
+msgid "Whitelist From"
+msgstr "Baltajā sarakstā no"
+
+#: lib/Form/Whitelist.php:21
+msgid "Whitelist Manager"
+msgstr "Baltā saraksta vadība"
+
+#: lib/Form/Whitelist.php:19
+msgid "Whitelist To"
+msgstr "Baltajā sarakstā līdz"

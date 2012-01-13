@@ -21,7 +21,7 @@ require_once dirname(__FILE__) . '/../../../Autoload.php';
 /**
  * Test the OWA parser.
  *
- * Copyright 2009 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  * Copyright 2011 Kolab Systems AG
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -38,6 +38,11 @@ require_once dirname(__FILE__) . '/../../../Autoload.php';
 class Horde_Kolab_FreeBusy_Unit_Freebusy_Helper_OwaTest
 extends PHPUnit_Framework_TestCase
 {
+    public function setUp()
+    {
+        date_default_timezone_set('America/Los_Angeles');
+    }
+
     public function testStringConstruction()
     {
         $owa = new Horde_Kolab_FreeBusy_Freebusy_Helper_Owa(

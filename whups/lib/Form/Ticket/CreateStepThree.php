@@ -3,7 +3,7 @@
  * This file contains all Horde_Form classes to create a new ticket.
  *
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -11,6 +11,7 @@
  * @author  Robert E. Coyle <robertecoyle@hotmail.com>
  * @package Whups
  */
+
 /**
  * @package Whups
  */
@@ -74,13 +75,28 @@ class Whups_Form_Ticket_CreateStepThree extends Horde_Form
         $this->addVariable(_("Attachment"), 'newattachment', 'file', false);
         $this->addVariable(_("Description"), 'comment', 'longtext', true);
         foreach ($attributes as $attribute_id => $attribute_value) {
-            $this->addVariable($attribute_value['human_name'],
-                               'attributes[' . $attribute_id . ']',
-                               $attribute_value['type'],
-                               $attribute_value['required'],
-                               $attribute_value['readonly'],
-                               $attribute_value['desc'],
-                               $attribute_value['params']);
+            $this->addVariable(
+                $attribute_value['human_name'],
+                'attributes[' . $attribute_id . ']',
+                $attribute_value['type'],
+                $attribute_value['required'],
+                $attribute_value['readonly'],
+                $attribute_value['desc'],
+                $attribute_value['params']);
+        }
+
+        /* Comment permissions. */
+        $groups = $GLOBALS['injector']->getInstance('Horde_Group');
+        $mygroups = $groups->listGroups($GLOBALS['registry']->getAuth());
+        if ($mygroups) {
+            foreach (array_keys($mygroups) as $gid) {
+                $grouplist[$gid] = $groups->getName($gid, true);
+            }
+            asort($grouplist);
+            $grouplist = array(0 => _("This comment is visible to everyone")) + $grouplist;
+            $this->addVariable(
+                _("Make this comment visible only to members of a group?"), 'group',
+                'enum', false, false, null, array($grouplist));
         }
     }
 

@@ -57,6 +57,21 @@ class Horde_Vfs_Smb extends Horde_Vfs_Base
     }
 
     /**
+     * Retrieves the size of a file from the VFS.
+     *
+     * @param string $path  The pathname to the file.
+     * @param string $name  The filename to retrieve.
+     *
+     * @return integer  The file size.
+     * @throws Horde_Vfs_Exception
+     */
+    public function size($path, $name)
+    {
+        $file = $this->readFile($path, $name);
+        return filesize($file);
+    }
+
+    /**
      * Retrieves a file from the VFS.
      *
      * @param string $path  The pathname to the file.
@@ -92,7 +107,6 @@ class Horde_Vfs_Smb extends Horde_Vfs_Base
         if (!($localFile = Horde_Util::getTempFile('vfs'))) {
             throw new Horde_Vfs_Exception('Unable to create temporary file.');
         }
-        register_shutdown_function(create_function('', '@unlink(\'' . addslashes($localFile) . '\');'));
 
         list($path, $name) = $this->_escapeShellCommand($path, $name);
         $cmd = array('get \"' . $name . '\" ' . $localFile);
@@ -100,6 +114,8 @@ class Horde_Vfs_Smb extends Horde_Vfs_Base
         if (!file_exists($localFile)) {
             throw new Horde_Vfs_Exception(sprintf('Unable to open VFS file "%s".', $this->_getPath($path, $name)));
         }
+
+        clearstatcache();
 
         return $localFile;
     }
@@ -538,14 +554,24 @@ class Horde_Vfs_Smb extends Horde_Vfs_Base
     protected function _execute($cmd)
     {
         $cmd = str_replace('"-U%"', '-N', $cmd);
-        exec($cmd, $out, $ret);
+        $proc = proc_open(
+            $cmd,
+            array(1 => array('pipe', 'w'), 2 => array('pipe', 'w')),
+            $pipes);
+        if (!is_resource($proc)) {
+            // This should never happen.
+            throw new Horde_Vfs_Exception('Failed to call proc_open().');
+        }
+        $out   = explode("\n", stream_get_contents($pipes[1]));
+        $error = explode("\n", stream_get_contents($pipes[2]));
+        $ret = proc_close($proc);
 
         // In some cases, (like trying to delete a nonexistant file),
         // smbclient will return success (at least on 2.2.7 version I'm
         // testing on). So try to match error strings, even after success.
         if ($ret != 0) {
             $err = '';
-            foreach ($out as $line) {
+            foreach ($error as $line) {
                 if (strpos($line, 'Usage:') === 0) {
                     $err = 'Command syntax incorrect';
                     break;

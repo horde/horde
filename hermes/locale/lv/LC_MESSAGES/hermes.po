@@ -1,5 +1,5 @@
 # Latvian translations for Hermes H4 package.
-# Copyright 2011 Horde LLC
+# Copyright 2011-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Hermes package.
 # Automatically generated, 2011.
 #
@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Hermes H4 (2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-05-18 12:23+0200\n"
-"PO-Revision-Date: 2011-07-21 16:20+0300\n"
+"PO-Revision-Date: 2011-11-04 13:34+0300\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: lv\n"
@@ -36,14 +36,9 @@ msgid " (DISABLED)"
 msgstr "(IZSLĒGTS)"
 
 #: lib/Api.php:109
-#, fuzzy, php-format
-msgid "\"%s\" is not a defined table."
-msgstr "Metode \"%s\" nav definēta"
-
-#: templates/deliverables/list.inc:4
 #, php-format
-msgid "%s Deliverables"
-msgstr ""
+msgid "\"%s\" is not a defined table."
+msgstr "Tabula \"%s\" nav definēta."
 
 #: lib/Hermes.php:434
 #, php-format
@@ -78,12 +73,6 @@ msgstr "Aktīvs?"
 #: admin.php:62 admin.php:224
 msgid "Add Job Type"
 msgstr "Pievienot darba tipu"
-
-#: config/prefs.php:30
-msgid ""
-"Add stop watch name and start and end time to the description of the time "
-"entry?"
-msgstr ""
 
 #: lib/Form/Time/Entry.php:82 templates/index/timeedit.inc:41
 msgid "Additional Notes"
@@ -164,10 +153,6 @@ msgstr "Atcelt"
 msgid "Cannot delete deliverable; it has children."
 msgstr "Nevar izdzēst notikumu: %s"
 
-#: lib/Driver/Sql.php:572
-msgid "Cannot delete deliverable; there is time entered on it."
-msgstr ""
-
 #: invoicing.php:34 lib/Admin.php:179 lib/Api.php:52
 #: lib/Form/Deliverable/ClientSelector.php:21 lib/Form/Time/Entry.php:54
 #: templates/index/search.inc:21 templates/index/search.inc:52
@@ -188,9 +173,8 @@ msgid "Combine same clients in one invoice"
 msgstr "Apvienot vienādos klientus vienā rēķinā"
 
 #: lib/Form/Export.php:29
-#, fuzzy
 msgid "Comma-Separated Variable (.csv)"
-msgstr "Ar komatu atdalītas vērtības (Microsoft Outlook)"
+msgstr "Ar komatu atdalītas vērtības (csv)"
 
 #: invoicing.php:42 lib/Api.php:58 lib/Form/Time/Entry.php:63
 #: templates/index/search.inc:29 templates/index/search.inc:53
@@ -234,11 +218,6 @@ msgstr "Dzēst darba tipu: apstiprinājums"
 msgid "Delete This Deliverable"
 msgstr "Tiks dzēsta klase!"
 
-#: scripts/purge.php:15
-#, php-format
-msgid "Deleting data that was exported/billed more than %s days ago.\n"
-msgstr ""
-
 #: lib/Driver.php:64
 #, fuzzy, php-format
 msgid "Deliverable %d not found."
@@ -276,9 +255,8 @@ msgid "Display Name"
 msgstr "Pieejamais vārds"
 
 #: config/prefs.php:20
-#, fuzzy
 msgid "Display Preferences"
-msgstr "Attēlošanas iestatījumi"
+msgstr "Ekrāna iestatījumi"
 
 #: lib/Form/Search.php:48 templates/index/search.inc:38
 msgid "Do not include entries after"
@@ -407,9 +385,8 @@ msgid "Export Time"
 msgstr "&Pieejas laiks"
 
 #: lib/Form/Search.php:58
-#, fuzzy
 msgid "Exported?"
-msgstr "Eksportēt"
+msgstr "Eksportēts?"
 
 #: config/prefs.php:12 config/prefs.php:19
 msgid "General Preferences"
@@ -433,16 +410,6 @@ msgstr "Stundas likme"
 msgid "Hours"
 msgstr "Stundas"
 
-#: lib/Admin.php:187
-msgid ""
-"ID for this client when exporting data, if different from the name displayed "
-"above."
-msgstr ""
-
-#: lib/Api.php:428
-msgid "Invalid entry: check data and retry."
-msgstr ""
-
 #: invoicing.php:116
 #, fuzzy, php-format
 msgid "Invoice for client %s successfuly created."
@@ -453,9 +420,8 @@ msgid "Invoicing"
 msgstr "Rēķini"
 
 #: invoicing.php:29
-#, fuzzy
 msgid "Invoicing system is not installed."
-msgstr "Lietotāja rokasgrāmata nav instalēta lokāli."
+msgstr "Nav uzstādīta rēķinu izrakstīšanas sistēma."
 
 #: invoicing.php:36 lib/Admin.php:20 lib/Admin.php:87 lib/Admin.php:121
 #: lib/Api.php:56 lib/Form/JobType/Add.php:15 lib/Form/Time/Entry.php:60
@@ -546,10 +512,6 @@ msgstr "Nav meklēšanai pieejamu kalendāru"
 msgid "No time to export!"
 msgstr "Ierobežot laika posmu datu eksportam:"
 
-#: time.php:32
-msgid "No timeslices were selected to submit."
-msgstr ""
-
 #: templates/index/index.inc:83 templates/index/index.inc:88
 msgid "Non-Billable"
 msgstr "Neapmaksājams"
@@ -586,10 +548,6 @@ msgstr "QuickBooks (.iif)"
 #: invoicing.php:37
 msgid "Rate"
 msgstr "Takse"
-
-#: lib/Admin.php:124
-msgid "Really delete this job type? This may cause data problems!!"
-msgstr ""
 
 # #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
 # #-#-#-#-#  lv_LV.po (Nag 2.1.4)  #-#-#-#-#
@@ -675,13 +633,6 @@ msgstr "Konfigurēt dinamiskā skata iestatījumus."
 msgid "Set start date"
 msgstr "Sākuma datums"
 
-#: lib/Admin.php:182
-#, php-format
-msgid ""
-"Should users enter descriptions of their timeslices for this client? If not, "
-"the description will automatically be \"%s\"."
-msgstr ""
-
 #: config/prefs.php:44
 msgid "Show the dynamic view by default, if the browser supports it?"
 msgstr "Rādīt dinamisko skatu pēc noklusēšanas, ja pārlūks to uztur?"
@@ -766,13 +717,6 @@ msgstr "Piezīmju grāmata \"%s\" izdzēsta."
 msgid "The job type was not deleted."
 msgstr "Piezīme izdzēsta."
 
-#: start.php:36
-#, php-format
-msgid ""
-"The stop watch \"%s\" has been started and will appear in the sidebar at the "
-"next refresh."
-msgstr ""
-
 #: entry.php:26
 #, fuzzy, php-format
 msgid "The stop watch \"%s\" has been stopped."
@@ -818,10 +762,6 @@ msgstr ""
 "Sakari ar serveri ir pārtrūkuši pirms kāda laika. Jūsu sesija ir pārtraukta, "
 "iespējams, servera īslaicīgas nepieejamības vai tīkla problēmu dēļ. Jūs "
 "neredzēsiet atsvaidzinātu informāciju kamēr saskari netiks atjaunoti."
-
-#: invoicing.php:25
-msgid "There is no submitted billable hours."
-msgstr ""
 
 #: admin.php:56
 #, fuzzy, php-format

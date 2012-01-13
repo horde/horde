@@ -2,7 +2,7 @@
 /**
  * Gollem quota script.
  *
- * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -22,10 +22,11 @@ $isPopup = $browser->hasFeature('javascript');
 /* Set up the template object. */
 $template = $injector->createInstance('Horde_Template');
 $template->setOption('gettext', true);
-$template->set('hasjs', false, true);
 if ($isPopup) {
-    $template->set('hasjs', true, true);
     $template->set('closebutton', _("Close"));
+    Horde::addInlineScript(array(
+        '$("closebutton").observe("click", function() { window.close(); })'
+    ), 'dom');
 }
 
 /* Get the quota information. */

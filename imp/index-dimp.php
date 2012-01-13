@@ -2,7 +2,7 @@
 /**
  * Dynamic display (DIMP) base page.
  *
- * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -19,8 +19,7 @@ Horde_Registry::appInit('imp', array('impmode' => 'dimp'));
 
 /* Get site specific menu items. */
 $dimp_menu = new IMP_Menu_Dimp(Horde_Menu::MASK_BASE);
-$render_sidebar = $dimp_menu->render('sidebar');
-$render_tabs = $dimp_menu->render('tabs');
+$render_sidebar = $dimp_menu->render();
 $dimp_menu->addJs();
 
 Horde::noDnsPrefetch();
@@ -37,11 +36,6 @@ IMP_Dimp::header('', array(
     array('slider2.js', 'horde'),
     array('form_ghost.js', 'horde'),
     array('toggle_quotes.js', 'horde'),
-    array('base64url.js', 'imp')
 ));
 
-echo "<body>\n";
 require IMP_TEMPLATES . '/dimp/index.inc';
-Horde::includeScriptFiles();
-Horde::outputInlineScript();
-echo "</body>\n</html>";

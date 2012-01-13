@@ -5,12 +5,12 @@
  * This file defines Horde's core API interface. Other core Horde libraries
  * can interact with IMP through this API.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@curecanti.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
@@ -57,7 +57,7 @@ class IMP_Application extends Horde_Registry_Application
 
     /**
      */
-    public $version = 'H4 (5.0.12-git)';
+    public $version = 'H4 (5.0.18-git)';
 
     /**
      * Cached values to add to the session after authentication.
@@ -290,7 +290,7 @@ class IMP_Application extends Horde_Registry_Application
             $menu->addArray(array(
                 'class' => '__noselection',
                 'icon' =>  'empty_spam.png',
-                'onclick' => 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to empty your trash folder?"), Horde_Serialize::JSON, 'UTF-8') . ')',
+                'onclick' => 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to empty your spam folder?"), Horde_Serialize::JSON, 'UTF-8') . ')',
                 'text' => _("Empty _Spam"),
                 'url' => $spam_folder->url($menu_mailbox_url)->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => $injector->getInstance('Horde_Token')->get('imp.mailbox')))
             ));
@@ -388,23 +388,28 @@ class IMP_Application extends Horde_Registry_Application
 
     /**
      * @param array $credentials  Credentials of the user. Allowed keys:
-     *                            'imp_select_view', 'imp_server_key',
-     *                            'password'.
+     *                            'imp_server_key', 'password'.
      */
     public function authAuthenticate($userId, $credentials)
     {
         $this->init();
 
+        if (isset($credentials['server'])) {
+            $server = $credentials['server'];
+        } else {
+            $server = empty($credentials['imp_server_key'])
+                ? IMP_Auth::getAutoLoginServer()
+                : $credentials['imp_server_key'];
+        }
+
         $new_session = IMP_Auth::authenticate(array(
             'password' => $credentials['password'],
-            'server' => empty($credentials['imp_server_key']) ? IMP_Auth::getAutoLoginServer() : $credentials['imp_server_key'],
+            'server' => $server,
             'userId' => $userId
         ));
 
         if ($new_session) {
-            $this->_cacheSess = array_merge($new_session, array(
-                'select_view' => empty($credentials['imp_select_view']) ? '' : $credentials['imp_select_view']
-            ));
+            $this->_cacheSess = $new_session;
         }
     }
 
@@ -614,8 +619,8 @@ class IMP_Application extends Horde_Registry_Application
     }
 
     /**
-     * Callback, called from common-template-mobile.inc that sets up the jquery
-     * mobile init hanler.
+     * Callback, called from common-template-mobile.inc that sets up the
+     * jquery mobile init hanler.
      */
     public function mobileInitCallback()
     {

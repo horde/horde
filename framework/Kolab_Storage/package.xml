@@ -11,10 +11,10 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-08-02</date>
- <time>12:55:47</time>
+ <date>2011-11-13</date>
+ <time>00:23:23</time>
  <version>
-  <release>1.1.0</release>
+  <release>1.1.1</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -23,15 +23,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [gwr] Fixed support for multiple namespaces of the same type.
-* [jan] Update Latvian translation.
-* [gwr] Added support for retrieving objects by backend id.
-* [gwr] Added a handler for active sync settings.
-* [gwr] Added preference data query.
-* [gwr] Added support for storing data query results in the cache.
-* [gwr] Added support for deleting messages by backend UID.
-* [jan] Updated Spanish translation.
-* [gwr] Added logging for data handlers.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -43,6 +35,7 @@
         <file name="list.php" role="doc" />
        </dir> <!-- /doc/Horde/Kolab/Storage/examples -->
        <file name="API.txt" role="doc" />
+       <file name="COPYING" role="doc" />
        <file name="TODO" role="doc" />
        <file name="usage.txt" role="doc" />
       </dir> <!-- /doc/Horde/Kolab/Storage -->
@@ -662,6 +655,7 @@
  <phprelease>
   <filelist>
    <install as="API.txt" name="doc/Horde/Kolab/Storage/API.txt" />
+   <install as="COPYING" name="doc/Horde/Kolab/Storage/COPYING" />
    <install as="TODO" name="doc/Horde/Kolab/Storage/TODO" />
    <install as="usage.txt" name="doc/Horde/Kolab/Storage/usage.txt" />
    <install as="examples/list.php" name="doc/Horde/Kolab/Storage/examples/list.php" />
@@ -1055,18 +1049,32 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-02</date>
+   <date>2011-11-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [gwr] Fixed support for multiple namespaces of the same type.
+* [gwr] Readd support for updating Horde_History.
+* [gwr] Fix support for multiple namespaces of the same type.
 * [jan] Update Latvian translation.
-* [gwr] Added support for retrieving objects by backend id.
-* [gwr] Added a handler for active sync settings.
-* [gwr] Added preference data query.
-* [gwr] Added support for storing data query results in the cache.
-* [gwr] Added support for deleting messages by backend UID.
-* [jan] Updated Spanish translation.
-* [gwr] Added logging for data handlers.
+* [gwr] Add support for retrieving objects by backend id.
+* [gwr] Add a handler for active sync settings.
+* [gwr] Add preference data query.
+* [gwr] Add support for storing data query results in the cache.
+* [gwr] Add support for deleting messages by backend UID.
+* [jan] Update Spanish translation.
+* [gwr] Add logging for data handlers.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-13</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

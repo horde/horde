@@ -20,7 +20,6 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
  * Prepare the test setup.
  */
 require_once 'Horde/Test/AllTests.php';
-require_once dirname(__FILE__) . '/Helpers.php';
 
 /**
  * @package    Yaml

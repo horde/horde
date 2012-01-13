@@ -2,7 +2,7 @@
 /**
  * The Vilma script to add/edit forwardes.
  *
- * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did
  * did not receive this file, see http://cvs.horde.org/co.php/vilma/LICENSE.
@@ -89,7 +89,7 @@ $renderer = new Horde_Form_Renderer();
 $template = $injector->createInstance('Horde_Template');
 
 Horde::startBuffer();
-$form->renderActive($renderer, $vars, 'editForward.php', 'post');
+$form->renderActive($renderer, $vars, Horde::url('users/editForward.php'), 'post');
 $template->set('main', Horde::endBuffer());
 
 $template->set('menu', Horde::menu());

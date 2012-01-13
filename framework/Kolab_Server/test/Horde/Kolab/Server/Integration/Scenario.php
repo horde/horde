@@ -19,7 +19,7 @@ require_once dirname(__FILE__) . '/../Autoload.php';
 /**
  * Base for PHPUnit scenarios.
  *
- * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -921,7 +921,7 @@ class Horde_Kolab_Server_Integration_Scenario extends PHPUnit_Extensions_Story_T
     public function assertError($var, $msg = null)
     {
         if (!$var instanceOf PEAR_Error) {
-            $this->assertType('Horde_Kolab_Server_Exception', $var);
+            $this->assertInstanceOf('Horde_Kolab_Server_Exception', $var);
             if (isset($msg)) {
                 $this->assertEquals($msg, $var->getMessage());
             }
@@ -1056,7 +1056,7 @@ class Horde_Kolab_Server_Integration_Scenario extends PHPUnit_Extensions_Story_T
             if ($results instanceOf Exception) {
                 $this->assertEquals('', $results->getMessage());
             } else {
-                $this->assertType($type, $results);
+                $this->assertInstanceOf($type, $results);
             }
         }
     }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2006-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -47,6 +47,26 @@ class Kronolith_Event_Holidays extends Kronolith_Event
         $this->end = new Horde_Date($this->start);
         $this->end->mday++;
         $this->id = $dhEvent->getInternalName() . '-' . $this->start->dateString();
+    }
+
+    /**
+     * Encapsulates permissions checking.
+     *
+     * @param integer $permission  The permission to check for.
+     * @param string $user         The user to check permissions for.
+     *
+     * @return boolean
+     */
+    public function hasPermission($permission, $user = null)
+    {
+        switch ($permission) {
+        case Horde_Perms::SHOW:
+        case Horde_Perms::READ:
+            return true;
+
+        default:
+            return false;
+        }
     }
 
     /**

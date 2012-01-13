@@ -1,8 +1,8 @@
 <?php
 /**
- * A class for computing three way diffs.
+ * A class for computing three way merges.
  *
- * Copyright 2007-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -10,8 +10,15 @@
  * @package Text_Diff
  * @author  Geoffrey T. Dairiki <dairiki@dairiki.org>
  */
-class Horde_Text_Diff_ThreeWay extends Horde_Text_Diff
+class Horde_Text_Diff_ThreeWay
 {
+    /**
+     * Array of changes.
+     *
+     * @var array
+     */
+    protected $_edits;
+
     /**
      * Conflict counter.
      *
@@ -29,9 +36,9 @@ class Horde_Text_Diff_ThreeWay extends Horde_Text_Diff
     public function __construct($orig, $final1, $final2)
     {
         if (extension_loaded('xdiff')) {
-            $engine = new Horde_Text_Diff_Engine_xdiff();
+            $engine = new Horde_Text_Diff_Engine_Xdiff();
         } else {
-            $engine = new Horde_Text_Diff_Engine_native();
+            $engine = new Horde_Text_Diff_Engine_Native();
         }
 
         $this->_edits = $this->_diff3($engine->diff($orig, $final1),
@@ -62,7 +69,6 @@ class Horde_Text_Diff_ThreeWay extends Horde_Text_Diff
     }
 
     /**
-     * @access private
      */
     protected function _diff3($edits1, $edits2)
     {

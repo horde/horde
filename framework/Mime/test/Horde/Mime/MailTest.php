@@ -2,9 +2,9 @@
 /**
  * Tests for the Horde_Mime_Mail class.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
- * @author     Michael Slusarz <slusarz@curecanti.org>
+ * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package    Mime
@@ -17,7 +17,7 @@
 require_once dirname(__FILE__) . '/Autoload.php';
 
 /**
- * @author     Michael Slusarz <slusarz@curecanti.org>
+ * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package    Mime
@@ -28,6 +28,7 @@ class Horde_Mime_MailTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $_SERVER['SERVER_NAME'] = 'mail.example.com';
+        setlocale(LC_ALL, 'C');
     }
 
     public function testConstructor()
@@ -42,6 +43,7 @@ class Horde_Mime_MailTest extends PHPUnit_Framework_TestCase
 
         $dummy = Horde_Mail::factory('Mock');
         $mail->send($dummy);
+        $sent = str_replace("\r\n", "\n", $dummy->sentMessages[0]);
 
         $this->assertStringMatchesFormat(
 'Subject: My Subject
@@ -52,17 +54,17 @@ User-Agent: Horde Application Framework 4
 Date: %s, %d %s %d %d:%d:%d %s
 Content-Type: text/plain; charset=iso-8859-15; format=flowed; DelSp=Yes
 MIME-Version: 1.0',
-            str_replace("\r\n", "\n", $dummy->sentMessages[0]['header_text'])
+            $sent['header_text']
         );
 
         $this->assertEquals(
             "This is\nthe body\n",
-            $dummy->sentMessages[0]['body']
+            $sent['body']
         );
 
         $this->assertEquals(
             array('recipient@example.com'),
-            $dummy->sentMessages[0]['recipients']
+            $sent['recipients']
         );
     }
 
@@ -79,6 +81,7 @@ MIME-Version: 1.0',
 
         $dummy = Horde_Mail::factory('Mock');
         $mail->send($dummy);
+        $sent = str_replace("\r\n", "\n", $dummy->sentMessages[0]);
 
         $this->assertStringMatchesFormat(
 'Subject: My Subject
@@ -89,18 +92,18 @@ User-Agent: Horde Application Framework 4
 Date: %s, %d %s %d %d:%d:%d %s%d
 Content-Type: text/plain; charset=iso-8859-15; format=flowed; DelSp=Yes
 MIME-Version: 1.0',
-            str_replace("\r\n", "\n", $dummy->sentMessages[0]['header_text'])
+            $sent['header_text']
         );
 
         $this->assertEquals(
             "This is\nthe body\n",
-            $dummy->sentMessages[0]['body']
+            $sent['body']
         );
 
         $this->assertEquals(
             array('recipient@example.com',
                   'invisible@example.com'),
-            $dummy->sentMessages[0]['recipients']
+            $sent['recipients']
         );
     }
 
@@ -117,6 +120,7 @@ MIME-Version: 1.0',
 
         $dummy = Horde_Mail::factory('Mock');
         $mail->send($dummy);
+        $sent = str_replace("\r\n", "\n", $dummy->sentMessages[0]);
 
         $this->assertStringMatchesFormat(
 'Subject: =?iso-8859-1?b?U2No9m5lcg==?= Betreff
@@ -129,18 +133,18 @@ Date: %s, %d %s %d %d:%d:%d %s%d
 Content-Type: text/plain; charset=iso-8859-1; format=flowed; DelSp=Yes
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable',
-            str_replace("\r\n", "\n", $dummy->sentMessages[0]['header_text'])
+            $sent['header_text']
         );
 
         $this->assertEquals(
             "H=FCbsche Umlaute\n  und Leerzeichen.\n",
-            $dummy->sentMessages[0]['body']
+            $sent['body']
         );
 
         $this->assertEquals(
             array('recipient@example.com',
                   'peter@example.com'),
-            $dummy->sentMessages[0]['recipients']
+            $sent['recipients']
         );
     }
 
@@ -168,6 +172,7 @@ Content-Transfer-Encoding: quoted-printable',
 
         $dummy = Horde_Mail::factory('Mock');
         $mail->send($dummy);
+        $sent = str_replace("\r\n", "\n", $dummy->sentMessages[0]);
 
         $this->assertStringMatchesFormat(
 'Subject: My Subject
@@ -178,7 +183,7 @@ User-Agent: Horde Application Framework 4
 Date: %s, %d %s %d %d:%d:%d %s%d
 Content-Type: multipart/mixed; boundary="=_%s"
 MIME-Version: 1.0',
-            str_replace("\r\n", "\n", $dummy->sentMessages[0]['header_text'])
+            $sent['header_text']
         );
 
         $this->assertStringMatchesFormat(
@@ -203,12 +208,12 @@ Content-Transfer-Encoding: base64
 WnfDtmxmIEJveGvDpG1wZmVyIGphZ2VuIFZpa3RvciBxdWVyIMO8YmVyIGRlbiBncm/Dn2VuIFN5
 bHRlciBEZWljaC4K
 --=_%s--\n",
-            $dummy->sentMessages[0]['body']
+            $sent['body']
         );
 
         $this->assertEquals(
             array('recipient@example.com'),
-            $dummy->sentMessages[0]['recipients']
+            $sent['recipients']
         );
     }
 
@@ -224,6 +229,7 @@ bHRlciBEZWljaC4K
 
         $dummy = Horde_Mail::factory('Mock');
         $mail->send($dummy);
+        $sent = str_replace("\r\n", "\n", $dummy->sentMessages[0]);
 
         $this->assertStringMatchesFormat(
 'Subject: My Subject
@@ -234,17 +240,17 @@ User-Agent: Horde Application Framework 4
 Date: %s, %d %s %d %d:%d:%d %s%d
 Content-Type: text/plain; charset=iso-8859-1; format=flowed; DelSp=Yes
 MIME-Version: 1.0',
-            str_replace("\r\n", "\n", $dummy->sentMessages[0]['header_text'])
+            $sent['header_text']
         );
 
         $this->assertEquals(
             "This is\nthe plain text body.\n",
-            $dummy->sentMessages[0]['body']
+            $sent['body']
         );
 
         $this->assertEquals(
             array('recipient@example.com'),
-            $dummy->sentMessages[0]['recipients']
+            $sent['recipients']
         );
 
         $mail = new Horde_Mime_Mail(array(
@@ -260,6 +266,7 @@ MIME-Version: 1.0',
 
         $dummy = Horde_Mail::factory('Mock');
         $mail->send($dummy);
+        $sent = str_replace("\r\n", "\n", $dummy->sentMessages[0]);
 
         $this->assertStringMatchesFormat(
 'Subject: My Subject
@@ -270,17 +277,17 @@ User-Agent: Horde Application Framework 4
 Date: %s, %d %s %d %d:%d:%d %s%d
 Content-Type: text/html; charset=iso-8859-1
 MIME-Version: 1.0',
-            str_replace("\r\n", "\n", $dummy->sentMessages[0]['header_text'])
+            $sent['header_text']
         );
 
         $this->assertEquals(
             "<h1>Header Title</h1>\n<p>This is<br />the html text body.</p>\n",
-            $dummy->sentMessages[0]['body']
+            $sent['body']
         );
 
         $this->assertEquals(
             array('recipient@example.com'),
-            $dummy->sentMessages[0]['recipients']
+            $sent['recipients']
         );
 
         $mail = new Horde_Mime_Mail(array(
@@ -293,6 +300,7 @@ MIME-Version: 1.0',
 
         $dummy = Horde_Mail::factory('Mock');
         $mail->send($dummy);
+        $sent = str_replace("\r\n", "\n", $dummy->sentMessages[0]);
 
         $this->assertStringMatchesFormat(
 'Subject: My Subject
@@ -303,7 +311,7 @@ User-Agent: Horde Application Framework 4
 Date: %s, %d %s %d %d:%d:%d %s%d
 Content-Type: multipart/alternative; boundary="=_%s"
 MIME-Version: 1.0',
-            str_replace("\r\n", "\n", $dummy->sentMessages[0]['header_text'])
+            $sent['header_text']
         );
 
         $this->assertStringMatchesFormat(
@@ -325,12 +333,12 @@ Content-Description: HTML Version of Message
 <h1>Header Title</h1>
 <p>This is<br />the html text body.</p>
 --=_%s--\n",
-            $dummy->sentMessages[0]['body']
+            $sent['body']
         );
 
         $this->assertEquals(
             array('recipient@example.com'),
-            $dummy->sentMessages[0]['recipients']
+            $sent['recipients']
         );
     }
 
@@ -353,6 +361,7 @@ Content-Description: HTML Version of Message
 
         $dummy = Horde_Mail::factory('Mock');
         $mail->send($dummy);
+        $sent = str_replace("\r\n", "\n", $dummy->sentMessages[0]);
 
         $this->assertStringMatchesFormat(
 'Subject: My Subject
@@ -363,7 +372,7 @@ User-Agent: Horde Application Framework 4
 Date: %s, %d %s %d %d:%d:%d %s%d
 Content-Type: multipart/mixed; boundary="=_%s"
 MIME-Version: 1.0',
-            str_replace("\r\n", "\n", $dummy->sentMessages[0]['header_text'])
+            $sent['header_text']
         );
 
         $this->assertStringMatchesFormat(
@@ -403,12 +412,12 @@ end
 
 
 --=_%s--\n",
-            $dummy->sentMessages[0]['body']
+            $sent['body']
         );
 
         $this->assertEquals(
             array('recipient@example.com'),
-            $dummy->sentMessages[0]['recipients']
+            $sent['recipients']
         );
     }
 
@@ -424,22 +433,24 @@ end
 
         $dummy = Horde_Mail::factory('Mock');
         $mail->send($dummy);
+        $sent1 = str_replace("\r\n", "\n", $dummy->sentMessages[0]);
 
         $mail->addHeader('To', 'recipient2@example.com');
         $mail->send($dummy);
+        $sent2 = str_replace("\r\n", "\n", $dummy->sentMessages[1]);
 
-        $hdrs1 = Horde_Mime_Headers::parseHeaders($dummy->sentMessages[0]['header_text']);
-        $hdrs2 = Horde_Mime_Headers::parseHeaders($dummy->sentMessages[1]['header_text']);
+        $hdrs1 = Horde_Mime_Headers::parseHeaders($sent1['header_text']);
+        $hdrs2 = Horde_Mime_Headers::parseHeaders($sent2['header_text']);
 
         $this->assertNotEquals($hdrs1->getValue('message-id'), $hdrs2->getValue('message-id'));
 
         $this->assertEquals(
             array('recipient@example.com'),
-            $dummy->sentMessages[0]['recipients']
+            $sent1['recipients']
         );
         $this->assertEquals(
             array('recipient2@example.com'),
-            $dummy->sentMessages[1]['recipients']
+            $sent2['recipients']
         );
     }
 
@@ -453,6 +464,7 @@ end
 
         $dummy = Horde_Mail::factory('Mock');
         $mail->send($dummy);
+        $sent = str_replace("\r\n", "\n", $dummy->sentMessages[0]);
 
         $this->assertStringMatchesFormat(
 'Subject: My Subject
@@ -462,7 +474,7 @@ User-Agent: Horde Application Framework 4
 Date: %s, %d %s %d %d:%d:%d %s%d
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed; DelSp=Yes
 MIME-Version: 1.0',
-            str_replace("\r\n", "\n", $dummy->sentMessages[0]['header_text'])
+            $sent['header_text']
         );
 
         $this->assertEquals(
@@ -476,12 +488,12 @@ cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
 id est laborum.
 
 ',
-            $dummy->sentMessages[0]['body']
+            $sent['body']
         );
 
         $this->assertEquals(
             array('recipient@example.com'),
-            $dummy->sentMessages[0]['recipients']
+            $sent['recipients']
         );
     }
 
@@ -496,15 +508,16 @@ id est laborum.
 
         $dummy = Horde_Mail::factory('Mock');
         $mail->send($dummy);
+        $sent = str_replace("\r\n", "\n", $dummy->sentMessages[0]);
 
         $this->assertEquals(
             "\n",
-            $dummy->sentMessages[0]['body']
+            $sent['body']
         );
 
         $this->assertEquals(
             array('recipient@example.com'),
-            $dummy->sentMessages[0]['recipients']
+            $sent['recipients']
         );
     }
 }

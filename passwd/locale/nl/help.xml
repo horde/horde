@@ -1,5 +1,4 @@
 <?xml version="1.0"?>
-<!-- $Horde: passwd/locale/nl_NL/help.xml,v 1.4.2.1 2008/10/09 17:12:15 jan Exp $ -->
 <help>
   <entry id="passwd-username" state="new">
     <title>Username</title>

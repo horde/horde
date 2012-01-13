@@ -3,7 +3,7 @@
  * This class provides an interface to handling CSS stylesheets for Horde
  * applications.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -89,6 +89,9 @@ class Horde_Themes_Css
             ? $opts['theme']
             : $prefs->getValue('theme');
         $css = $this->getStylesheets($theme, $opts);
+        if (!count($css)) {
+            return array();
+        }
 
         $cache_type = !empty($opts['nocache']) || empty($conf['cachecss'])
             ? 'none'
@@ -301,8 +304,12 @@ class Horde_Themes_Css
             // comments.
             $tmp = preg_replace(array('/(url\(["\']?)([^\/])/i', '/\s+/', '/\/\*.*?\*\//'), array('$1' . $path . '$2', ' ', ''), implode('', file($file['fs'], FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES)));
             if ($dataurl) {
-                $tmp = preg_replace_callback('/(background(?:-image)?:[^;}]*(?:url\(["\']?))(.*?)((?:["\']?\)))/i', array($this, '_stylesheetCallback'), $tmp);
+                $tmp = preg_replace_callback('/(background(?:-image)?:[^;}]*(?:url\(["\']?))(.*?)((?:["\']?\)))/i', array($this, '_base64Callback'), $tmp);
             }
+
+            /* Scan to grab any @import tags within the CSS file. */
+            $tmp = preg_replace_callback('/@import\s+url\(["\']?(.*?)["\']?\)/i', array($this, '_importCallback'), $tmp);
+
             $out .= $tmp;
         }
 
@@ -317,11 +324,27 @@ class Horde_Themes_Css
      *
      * @return string  The image string.
      */
-    protected function _stylesheetCallback($matches)
+    protected function _base64Callback($matches)
     {
         /* Limit data to 16 KB in stylesheets. */
         return $matches[1] . Horde::base64ImgData($matches[2], 16384) . $matches[3];
     }
 
+    /**
+     * Callback for loadCssFiles() to process import tags.
+     *
+     * @param array $matches  The list of matches from preg_replace_callback.
+     *
+     * @return string  CSS string.
+     */
+    protected function _importCallback($matches)
+    {
+        $ob = Horde_Themes_Element::fromUri($matches[1]);
+
+        return $this->loadCssFiles(array(array(
+            'fs' => $ob->fs,
+            'uri' => $ob->uri
+        )));
+    }
 
 }

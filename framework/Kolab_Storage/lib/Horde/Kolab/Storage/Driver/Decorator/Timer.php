@@ -14,7 +14,7 @@
 /**
  * A stop watch decorator for outgoing requests from the Kolab storage drivers.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -50,11 +50,10 @@ extends Horde_Kolab_Storage_Driver_Decorator_Base
      * @param mixed                      $logger The log handler. This instance
      *                                           must provide the info() method.
      */
-    public function __construct(
-        Horde_Kolab_Storage_Driver $driver,
-        Horde_Support_Timer $timer,
-        $logger
-    ) {
+    public function __construct(Horde_Kolab_Storage_Driver $driver,
+                                Horde_Support_Timer $timer,
+                                $logger)
+    {
         $this->_logger = $logger;
         $this->_timer = $timer;
         parent::__construct($driver);

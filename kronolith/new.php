@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -31,8 +31,13 @@ if ($perms->hasAppPermission('max_events') !== true &&
     $url->redirect();
 }
 
-$calendar_id = Horde_Util::getFormData('calendar', 'internal_' . Kronolith::getDefaultCalendar(Horde_Perms::EDIT));
-if ($calendar_id == 'internal_') {
+$calendar_id = Horde_Util::getFormData(
+    'calendar',
+    empty($GLOBALS['display_resource_calendars']) ?
+        'internal_' . Kronolith::getDefaultCalendar(Horde_Perms::EDIT) :
+        'resource_' . $GLOBALS['display_resource_calendars'][0]
+);
+if ($calendar_id == 'internal_' || $calendar_id == 'resource_') {
     $url->redirect();
 }
 

@@ -2,7 +2,7 @@
 /**
  * The Agora script to lock a message and prevent further posts to this thread.
  *
- * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -68,7 +68,7 @@ $view = new Agora_View();
 $view->menu = Horde::menu();
 
 Horde::startBuffer();
-$form->renderActive(null, $vars, 'lock.php', 'post');
+$form->renderActive(null, $vars, Horde::url('message/lock.php'), 'post');
 $view->formbox = Horde::endBuffer();
 
 Horde::startBuffer();

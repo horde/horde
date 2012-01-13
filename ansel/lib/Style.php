@@ -47,9 +47,11 @@ class Ansel_Style
         $properties['widgets'] = null;
         $this->widgets = array_merge(array('Actions' => array()), $widgets);
 
-        $this->_properties = array_merge(array('gallery_view' => 'Gallery',
-                                               'background' => 'none'),
-                                         $properties);
+        $this->_properties = array_merge(
+            array(
+                'gallery_view' => 'Gallery',
+                'background' => 'none'),
+            $properties);
     }
 
     /**

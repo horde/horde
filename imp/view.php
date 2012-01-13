@@ -15,6 +15,8 @@
  *   view_attach
  *   view_face
  *   view_source
+ * autodetect - (integer) If set, tries to autodetect MIME type when viewing
+ *              based on data.
  * composeCache - (string) Cache ID for compose object.
  * ctype - (string) The content-type to use instead of the content-type
  *           found in the original Horde_Mime_Part object.
@@ -24,7 +26,7 @@
  * pmode - (string) The print mode of this request ('content', 'headers').
  * zip - (boolean) Download in .zip format?
  *
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -56,7 +58,9 @@ case 'compose_attach_preview':
      * mail message data. Rather, we must use the IMP_Compose object to get
      * the necessary data for Horde_Mime_Part. */
     $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($vars->composeCache);
-    $mime = $imp_compose->buildAttachment($vars->id);
+    if (!$mime = $imp_compose->buildAttachment($vars->id)) {
+        throw new IMP_Compose(_("Could not display attachment data."));
+    }
     $mime->setMimeId($vars->id);
 
     /* Create a dummy IMP_Contents() object so we can use the view code below.
@@ -85,7 +89,7 @@ default:
 /* Run through action handlers */
 switch ($vars->actionID) {
 case 'download_all':
-    $headers = $contents->getHeaderOb();
+    $headers = $contents->getHeader();
     $zipfile = _sanitizeName($headers->getValue('subject'));
     if (empty($zipfile)) {
         $zipfile = _("attachments.zip");
@@ -172,13 +176,18 @@ case 'view_attach':
     $render_mode = ($vars->actionID == 'compose_attach_preview')
         ? IMP_Contents::RENDER_RAW_FALLBACK
         : (isset($vars->mode) ? $vars->mode : IMP_Contents::RENDER_FULL);
-    $render = $contents->renderMIMEPart($vars->id, $render_mode, array('type' => $vars->ctype));
+    $render = $contents->renderMIMEPart($vars->id, $render_mode, array(
+        'autodetect' => $vars->autodetect,
+        'type' => $vars->ctype
+    ));
 
     if (!empty($render)) {
         reset($render);
         $key = key($render);
         $browser->downloadHeaders($render[$key]['name'], $render[$key]['type'], true, strlen($render[$key]['data']));
         echo $render[$key]['data'];
+    } elseif ($vars->autodetect) {
+        echo _("Could not auto-determine data type.");
     }
     break;
 
@@ -194,7 +203,7 @@ case 'view_source':
     break;
 
 case 'save_message':
-    $mime_headers = $contents->getHeaderOb();
+    $mime_headers = $contents->getHeader();
 
     if (($subject = $mime_headers->getValue('subject'))) {
         $name = _sanitizeName($subject);
@@ -213,7 +222,7 @@ case 'save_message':
     break;
 
 case 'view_face':
-    $mime_headers = $contents->getHeaderOb();
+    $mime_headers = $contents->getHeader();
     if ($face = $mime_headers->getValue('face')) {
         $face = base64_decode($face);
         $browser->downloadHeaders(null, 'image/png', true, strlen($face));
@@ -238,7 +247,7 @@ case 'print_attach':
     $imp_ui = new IMP_Ui_Message();
     $basic_headers = $imp_ui->basicHeaders();
     unset($basic_headers['bcc'], $basic_headers['reply-to']);
-    $headerob = $contents->getHeaderOb();
+    $headerob = $contents->getHeader();
 
     $d_param = Horde_Mime::decodeParam('content-type', $render[$render_key]['type'], 'UTF-8');
 
@@ -267,9 +276,10 @@ case 'print_attach':
     }
 
     $t = $injector->createInstance('Horde_Template');
-    $t->set('headers', Horde_String::convertCharset($headers, 'UTF-8', $d_param['params']['charset']));
+    $t->set('headers', $headers);
 
-    $elt = DOMDocument::loadHTML($t->fetch(IMP_TEMPLATES . '/print/headers.html'))->getElementById('headerblock');
+    $header_dom = new Horde_Domhtml(Horde_String::convertCharset($t->fetch(IMP_TEMPLATES . '/print/headers.html'), 'UTF-8', $d_param['params']['charset']), $d_param['params']['charset']);
+    $elt = $header_dom->dom->getElementById('headerblock');
     $elt->removeAttribute('id');
 
     if ($elt->hasAttribute('class')) {
@@ -306,7 +316,7 @@ case 'print_attach':
     $bodyelt->insertBefore($doc->dom->importNode($div, true), $bodyelt->firstChild);
 
     /* Make the title the e-mail subject. */
-    $headers = $contents->getHeaderOb();
+    $headers = $contents->getHeader();
     $imp_ui_mbox = new IMP_Ui_Mailbox();
 
     $headelt = $doc->getHead();

@@ -1,5 +1,5 @@
 # Japanese translation for Horde.
-# Copyright 2004-2009 Horde Project
+# Copyright 2004-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde package.
 # Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>
 #
@@ -7,19 +7,35 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Nls\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
-"PO-Revision-Date: 2011-03-16 18:25+0900\n"
+"POT-Creation-Date: 2011-11-01 11:29+0100\n"
+"PO-Revision-Date: 2011-11-19 18:00+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+#: lib/Horde/Nls/Languages.php:10
+msgid "Abkhaz"
+msgstr "アブハジ語"
+
+#: lib/Horde/Nls/Languages.php:9
+msgid "Afar"
+msgstr "アファール語"
 
 #: lib/Horde/Nls/Countries.php:8 lib/Horde/Nls/Tld.php:16
 msgid "Afghanistan"
 msgstr "アフガニスタン"
+
+#: lib/Horde/Nls/Languages.php:12
+msgid "Afrikaans"
+msgstr "アフリカーンス語"
+
+#: lib/Horde/Nls/Languages.php:13
+msgid "Akan"
+msgstr "アーカン語"
 
 #: lib/Horde/Nls/Tld.php:29
 msgid "Aland Islands"
@@ -29,6 +45,10 @@ msgstr "オーランド諸島"
 msgid "Albania"
 msgstr "アルバニア"
 
+#: lib/Horde/Nls/Languages.php:157
+msgid "Albanian"
+msgstr "アルバニア語"
+
 #: lib/Horde/Nls/Countries.php:10 lib/Horde/Nls/Tld.php:73
 msgid "Algeria"
 msgstr "アルジェリア"
@@ -36,6 +56,10 @@ msgstr "アルジェリア"
 #: lib/Horde/Nls/Countries.php:11 lib/Horde/Nls/Tld.php:25
 msgid "American Samoa"
 msgstr "アメリカ領サモア"
+
+#: lib/Horde/Nls/Languages.php:14
+msgid "Amharic"
+msgstr "アムハラ語"
 
 #: lib/Horde/Nls/Countries.php:12 lib/Horde/Nls/Tld.php:14
 msgid "Andorra"
@@ -61,6 +85,14 @@ msgstr "南極（大陸）"
 msgid "Antigua and Barbuda"
 msgstr "アンティグア・バーブーダ"
 
+#: lib/Horde/Nls/Languages.php:16
+msgid "Arabic"
+msgstr "アラビア語"
+
+#: lib/Horde/Nls/Languages.php:15
+msgid "Aragonese"
+msgstr "アラゴン語"
+
 #: lib/Horde/Nls/Countries.php:17 lib/Horde/Nls/Tld.php:24
 msgid "Argentina"
 msgstr "アルゼンチン共和国"
@@ -68,6 +100,10 @@ msgstr "アルゼンチン共和国"
 #: lib/Horde/Nls/Countries.php:18 lib/Horde/Nls/Tld.php:20
 msgid "Armenia"
 msgstr "アルメニア共和国"
+
+#: lib/Horde/Nls/Languages.php:71
+msgid "Armenian"
+msgstr "アルメニア語"
 
 #: lib/Horde/Nls/Countries.php:19 lib/Horde/Nls/Tld.php:28
 msgid "Aruba"
@@ -81,6 +117,10 @@ msgstr "アセンション島"
 msgid "Asia/Pacific Region"
 msgstr "アジア／太平洋地域"
 
+#: lib/Horde/Nls/Languages.php:17
+msgid "Assamese"
+msgstr "アッサム語"
+
 #: lib/Horde/Nls/Countries.php:20 lib/Horde/Nls/Tld.php:27
 msgid "Australia"
 msgstr "オーストラリア"
@@ -89,9 +129,25 @@ msgstr "オーストラリア"
 msgid "Austria"
 msgstr "オーストリア共和国"
 
+#: lib/Horde/Nls/Languages.php:18
+msgid "Avaric"
+msgstr "エーバー語"
+
+#: lib/Horde/Nls/Languages.php:11
+msgid "Avestan"
+msgstr "エーバスタン語"
+
+#: lib/Horde/Nls/Languages.php:19
+msgid "Aymara"
+msgstr "イーマラ語"
+
 #: lib/Horde/Nls/Countries.php:22 lib/Horde/Nls/Tld.php:30
 msgid "Azerbaijan"
 msgstr "アゼルバイジャン共和国"
+
+#: lib/Horde/Nls/Languages.php:20
+msgid "Azerbaijani"
+msgstr "アゼルバイジャン語"
 
 #: lib/Horde/Nls/Countries.php:23 lib/Horde/Nls/Tld.php:44
 msgid "Bahamas"
@@ -101,6 +157,10 @@ msgstr "バハマ"
 msgid "Bahrain"
 msgstr "バーレーン"
 
+#: lib/Horde/Nls/Languages.php:26
+msgid "Bambara"
+msgstr "バムバラ語"
+
 #: lib/Horde/Nls/Countries.php:25 lib/Horde/Nls/Tld.php:33
 msgid "Bangladesh"
 msgstr "バングラデシュ人民共和国"
@@ -109,9 +169,21 @@ msgstr "バングラデシュ人民共和国"
 msgid "Barbados"
 msgstr "バルバドス"
 
+#: lib/Horde/Nls/Languages.php:21
+msgid "Bashkir"
+msgstr "バシュキア語"
+
+#: lib/Horde/Nls/Languages.php:50
+msgid "Basque"
+msgstr "バスク語"
+
 #: lib/Horde/Nls/Countries.php:27 lib/Horde/Nls/Tld.php:48
 msgid "Belarus"
 msgstr "ベラルーシ共和国"
+
+#: lib/Horde/Nls/Languages.php:22
+msgid "Belarusian"
+msgstr "ベラルーシ語"
 
 #: lib/Horde/Nls/Countries.php:28 lib/Horde/Nls/Tld.php:34
 msgid "Belgium"
@@ -120,6 +192,10 @@ msgstr "ベルギー"
 #: lib/Horde/Nls/Countries.php:29 lib/Horde/Nls/Tld.php:49
 msgid "Belize"
 msgstr "ベリーズ"
+
+#: lib/Horde/Nls/Languages.php:27
+msgid "Bengali"
+msgstr "ベンガル語"
 
 #: lib/Horde/Nls/Countries.php:30 lib/Horde/Nls/Tld.php:39
 msgid "Benin"
@@ -133,6 +209,14 @@ msgstr "バミューダ（諸島）"
 msgid "Bhutan"
 msgstr "ブータン王国"
 
+#: lib/Horde/Nls/Languages.php:24
+msgid "Bihari"
+msgstr "ビハリ語"
+
+#: lib/Horde/Nls/Languages.php:25
+msgid "Bislama"
+msgstr "ビスラマ語"
+
 #: lib/Horde/Nls/Countries.php:33 lib/Horde/Nls/Tld.php:42
 msgid "Bolivia"
 msgstr "ボリビア共和国"
@@ -140,6 +224,10 @@ msgstr "ボリビア共和国"
 #: lib/Horde/Nls/Countries.php:34 lib/Horde/Nls/Tld.php:31
 msgid "Bosnia and Herzegovina"
 msgstr "ボスニア・ヘルツェゴビナ"
+
+#: lib/Horde/Nls/Languages.php:30
+msgid "Bosnian"
+msgstr "ボスニア語"
 
 #: lib/Horde/Nls/Countries.php:35 lib/Horde/Nls/Tld.php:47
 msgid "Botswana"
@@ -153,6 +241,10 @@ msgstr "ブーベ島"
 msgid "Brazil"
 msgstr "ブラジル"
 
+#: lib/Horde/Nls/Languages.php:29
+msgid "Breton"
+msgstr "ブルトン語"
+
 #: lib/Horde/Nls/Countries.php:38 lib/Horde/Nls/Tld.php:118
 msgid "British Indian Ocean Territory"
 msgstr "英領インド諸島"
@@ -165,9 +257,17 @@ msgstr "ブルネイ・ダルサラーム"
 msgid "Bulgaria"
 msgstr "ブルガリア"
 
+#: lib/Horde/Nls/Languages.php:23
+msgid "Bulgarian"
+msgstr "ブルガリア語"
+
 #: lib/Horde/Nls/Countries.php:41 lib/Horde/Nls/Tld.php:35
 msgid "Burkina Faso"
 msgstr "ブルキナファソ"
+
+#: lib/Horde/Nls/Languages.php:118
+msgid "Burmese"
+msgstr "ビルマ語"
 
 #: lib/Horde/Nls/Countries.php:42 lib/Horde/Nls/Tld.php:38
 msgid "Burundi"
@@ -189,6 +289,10 @@ msgstr "カナダ"
 msgid "Cape Verde"
 msgstr "カーポベルデ共和国"
 
+#: lib/Horde/Nls/Languages.php:31
+msgid "Catalan; Valencian"
+msgstr "カタロニア語; バレンシア"
+
 #: lib/Horde/Nls/Countries.php:47 lib/Horde/Nls/Tld.php:136
 msgid "Cayman Islands"
 msgstr "ケイマン諸島"
@@ -201,6 +305,18 @@ msgstr "中央アフリカ共和国"
 msgid "Chad"
 msgstr "チャド共和国"
 
+#: lib/Horde/Nls/Languages.php:33
+msgid "Chamorro"
+msgstr "チャモロ語"
+
+#: lib/Horde/Nls/Languages.php:32
+msgid "Chechen"
+msgstr "チェチェン語"
+
+#: lib/Horde/Nls/Languages.php:129
+msgid "Chichewa; Chewa; Nyanja"
+msgstr "チェワ語；ニャンジャ語"
+
 #: lib/Horde/Nls/Countries.php:50 lib/Horde/Nls/Tld.php:58
 msgid "Chile"
 msgstr "チリ共和国"
@@ -209,9 +325,17 @@ msgstr "チリ共和国"
 msgid "China"
 msgstr "中華人民共和国"
 
+#: lib/Horde/Nls/Languages.php:191
+msgid "Chinese"
+msgstr "中国語"
+
 #: lib/Horde/Nls/Countries.php:52 lib/Horde/Nls/Tld.php:65
 msgid "Christmas Island"
 msgstr "クリスマス島"
+
+#: lib/Horde/Nls/Languages.php:38
+msgid "Chuvash"
+msgstr "チューバッシュ語"
 
 #: lib/Horde/Nls/Countries.php:53 lib/Horde/Nls/Tld.php:51
 msgid "Cocos (Keeling) Islands"
@@ -241,6 +365,14 @@ msgstr "コンゴ民主共和国"
 msgid "Cook Islands"
 msgstr "クック諸島"
 
+#: lib/Horde/Nls/Languages.php:98
+msgid "Cornish"
+msgstr "コーンウォール語"
+
+#: lib/Horde/Nls/Languages.php:34
+msgid "Corsican"
+msgstr "コルシカ語"
+
 #: lib/Horde/Nls/Countries.php:59 lib/Horde/Nls/Tld.php:62
 msgid "Costa Rica"
 msgstr "コスタリカ共和国"
@@ -248,6 +380,10 @@ msgstr "コスタリカ共和国"
 #: lib/Horde/Nls/Countries.php:60 lib/Horde/Nls/Tld.php:56
 msgid "Cote d'Ivoire"
 msgstr "コートジボワール共和国"
+
+#: lib/Horde/Nls/Languages.php:35
+msgid "Cree"
+msgstr "クリー語"
 
 #: lib/Horde/Nls/Countries.php:61
 msgid "Croatia"
@@ -257,6 +393,10 @@ msgstr "クロアチア共和国"
 msgid "Croatia/Hrvatska"
 msgstr "クロアチア共和国"
 
+#: lib/Horde/Nls/Languages.php:68
+msgid "Croatian"
+msgstr "クロアチア語"
+
 #: lib/Horde/Nls/Countries.php:62 lib/Horde/Nls/Tld.php:63
 msgid "Cuba"
 msgstr "キューバ共和国"
@@ -265,13 +405,25 @@ msgstr "キューバ共和国"
 msgid "Cyprus"
 msgstr "キプロス共和国"
 
+#: lib/Horde/Nls/Languages.php:36
+msgid "Czech"
+msgstr "チェック語"
+
 #: lib/Horde/Nls/Countries.php:64 lib/Horde/Nls/Tld.php:67
 msgid "Czech Republic"
 msgstr "チェコ共和国"
 
+#: lib/Horde/Nls/Languages.php:40
+msgid "Danish"
+msgstr "デンマーク語"
+
 #: lib/Horde/Nls/Countries.php:65 lib/Horde/Nls/Tld.php:70
 msgid "Denmark"
 msgstr "デンマーク"
+
+#: lib/Horde/Nls/Languages.php:42
+msgid "Divehi; Dhivehi; Maldivian;"
+msgstr "ディベヒ語；モルディブ語"
 
 #: lib/Horde/Nls/Countries.php:66 lib/Horde/Nls/Tld.php:69
 msgid "Djibouti"
@@ -284,6 +436,14 @@ msgstr "ドミニカ"
 #: lib/Horde/Nls/Countries.php:68 lib/Horde/Nls/Tld.php:72
 msgid "Dominican Republic"
 msgstr "ドミニカ共和国"
+
+#: lib/Horde/Nls/Languages.php:124
+msgid "Dutch"
+msgstr "オランダ語"
+
+#: lib/Horde/Nls/Languages.php:43
+msgid "Dzongkha"
+msgstr "ゾンカ語"
 
 #: lib/Horde/Nls/Tld.php:235
 msgid "East Timor"
@@ -301,6 +461,10 @@ msgstr "エジプト・アラブ共和国"
 msgid "El Salvador"
 msgstr "エルサルバドル共和国"
 
+#: lib/Horde/Nls/Languages.php:46
+msgid "English"
+msgstr "英語"
+
 #: lib/Horde/Nls/Countries.php:72 lib/Horde/Nls/Tld.php:100
 msgid "Equatorial Guinea"
 msgstr "赤道ギニア共和国"
@@ -309,9 +473,17 @@ msgstr "赤道ギニア共和国"
 msgid "Eritrea"
 msgstr "エリトリア"
 
+#: lib/Horde/Nls/Languages.php:47
+msgid "Esperanto"
+msgstr "エスペラント語"
+
 #: lib/Horde/Nls/Countries.php:74 lib/Horde/Nls/Tld.php:75
 msgid "Estonia"
 msgstr "エストニア共和国"
+
+#: lib/Horde/Nls/Languages.php:49
+msgid "Estonian"
+msgstr "エストニア語"
 
 #: lib/Horde/Nls/Countries.php:75 lib/Horde/Nls/Tld.php:80
 msgid "Ethiopia"
@@ -325,6 +497,10 @@ msgstr "ヨーロッパ"
 msgid "European Union"
 msgstr "ヨーロッパ連邦"
 
+#: lib/Horde/Nls/Languages.php:44
+msgid "Ewe"
+msgstr "アワ語"
+
 #: lib/Horde/Nls/Countries.php:76 lib/Horde/Nls/Tld.php:84
 msgid "Falkland Islands (Malvinas)"
 msgstr "フォークランド諸島（マルビナス諸島）"
@@ -333,17 +509,33 @@ msgstr "フォークランド諸島（マルビナス諸島）"
 msgid "Faroe Islands"
 msgstr "フェロー諸島"
 
+#: lib/Horde/Nls/Languages.php:55
+msgid "Faroese"
+msgstr "ファローズ語"
+
 #: lib/Horde/Nls/Countries.php:78 lib/Horde/Nls/Tld.php:83
 msgid "Fiji"
 msgstr "フィジー諸島共和国"
+
+#: lib/Horde/Nls/Languages.php:54
+msgid "Fijian"
+msgstr "フィジー語"
 
 #: lib/Horde/Nls/Countries.php:79 lib/Horde/Nls/Tld.php:82
 msgid "Finland"
 msgstr "フィンランド共和国"
 
+#: lib/Horde/Nls/Languages.php:53
+msgid "Finnish"
+msgstr "フィンランド語"
+
 #: lib/Horde/Nls/Countries.php:80 lib/Horde/Nls/Tld.php:87
 msgid "France"
 msgstr "フランス共和国"
+
+#: lib/Horde/Nls/Languages.php:56
+msgid "French"
+msgstr "フランス語"
 
 #: lib/Horde/Nls/Countries.php:81 lib/Horde/Nls/Tld.php:92
 msgid "French Guiana"
@@ -357,9 +549,17 @@ msgstr "フランス領ポリネシア"
 msgid "French Southern Territories"
 msgstr "フランス領極南諸島"
 
+#: lib/Horde/Nls/Languages.php:52
+msgid "Fula; Fulah; Pulaar; Pular"
+msgstr "フーラ語；ピュラー語"
+
 #: lib/Horde/Nls/Countries.php:84 lib/Horde/Nls/Tld.php:88
 msgid "Gabon"
 msgstr "ガボン共和国"
+
+#: lib/Horde/Nls/Languages.php:60
+msgid "Galician"
+msgstr "ガリシア語"
 
 #: lib/Horde/Nls/Countries.php:85 lib/Horde/Nls/Tld.php:97
 msgid "Gambia"
@@ -368,6 +568,14 @@ msgstr "ガンビア共和国"
 #: lib/Horde/Nls/Countries.php:86 lib/Horde/Nls/Tld.php:91
 msgid "Georgia"
 msgstr "グルジア共和国"
+
+#: lib/Horde/Nls/Languages.php:85
+msgid "Georgian"
+msgstr "グルジア語"
+
+#: lib/Horde/Nls/Languages.php:41
+msgid "German"
+msgstr "ドイツ語"
 
 #: lib/Horde/Nls/Countries.php:87 lib/Horde/Nls/Tld.php:68
 msgid "Germany"
@@ -385,6 +593,10 @@ msgstr "ジブラルタル"
 msgid "Greece"
 msgstr "ギリシャ共和国"
 
+#: lib/Horde/Nls/Languages.php:45
+msgid "Greek, Modern"
+msgstr "ギリシャ語（現代）"
+
 #: lib/Horde/Nls/Countries.php:91 lib/Horde/Nls/Tld.php:96
 msgid "Greenland"
 msgstr "グリーンランド"
@@ -400,6 +612,10 @@ msgstr "グアドループ島"
 #: lib/Horde/Nls/Countries.php:94 lib/Horde/Nls/Tld.php:104
 msgid "Guam"
 msgstr "グアム島"
+
+#: lib/Horde/Nls/Languages.php:61
+msgid "Guarani"
+msgstr "グラワニ語"
 
 #: lib/Horde/Nls/Countries.php:95 lib/Horde/Nls/Tld.php:103
 msgid "Guatemala"
@@ -417,6 +633,10 @@ msgstr "ギニア共和国"
 msgid "Guinea-Bissau"
 msgstr "ギニアビサウ共和国"
 
+#: lib/Horde/Nls/Languages.php:62
+msgid "Gujarati"
+msgstr "グジャラート語"
+
 #: lib/Horde/Nls/Countries.php:98 lib/Horde/Nls/Tld.php:106
 msgid "Guyana"
 msgstr "ガイアナ共同共和国"
@@ -425,6 +645,14 @@ msgstr "ガイアナ共同共和国"
 msgid "Haiti"
 msgstr "ハイチ共和国"
 
+#: lib/Horde/Nls/Languages.php:69
+msgid "Haitian; Haitian Creole"
+msgstr "ハイチ語；ハイチクレオール語"
+
+#: lib/Horde/Nls/Languages.php:64
+msgid "Hausa"
+msgstr "ハウサ語"
+
 #: lib/Horde/Nls/Countries.php:100
 msgid "Heard Island and McDonald Islands"
 msgstr "ハード・マクドナルド諸島"
@@ -432,6 +660,22 @@ msgstr "ハード・マクドナルド諸島"
 #: lib/Horde/Nls/Tld.php:108
 msgid "Heard and McDonald Islands"
 msgstr "ハード・マクドナルド諸島"
+
+#: lib/Horde/Nls/Languages.php:65
+msgid "Hebrew (modern)"
+msgstr "ヘブライ語（現代）"
+
+#: lib/Horde/Nls/Languages.php:72
+msgid "Herero"
+msgstr "ヘレロ語"
+
+#: lib/Horde/Nls/Languages.php:66
+msgid "Hindi"
+msgstr "ヒンディー語"
+
+#: lib/Horde/Nls/Languages.php:67
+msgid "Hiri Motu"
+msgstr "ハイリモーツ語"
 
 #: lib/Horde/Nls/Countries.php:101 lib/Horde/Nls/Tld.php:248
 msgid "Holy See (Vatican City State)"
@@ -445,6 +689,10 @@ msgstr "ホンジュラス共和国"
 msgid "Hong Kong"
 msgstr "香港"
 
+#: lib/Horde/Nls/Languages.php:70
+msgid "Hungarian"
+msgstr "ハンガリー語"
+
 #: lib/Horde/Nls/Countries.php:104 lib/Horde/Nls/Tld.php:112
 msgid "Hungary"
 msgstr "ハンガリー共和国"
@@ -453,6 +701,18 @@ msgstr "ハンガリー共和国"
 msgid "Iceland"
 msgstr "アイスランド共和国"
 
+#: lib/Horde/Nls/Languages.php:80
+msgid "Icelandic"
+msgstr "アイスランド語"
+
+#: lib/Horde/Nls/Languages.php:79
+msgid "Ido"
+msgstr "イード語"
+
+#: lib/Horde/Nls/Languages.php:76
+msgid "Igbo"
+msgstr "イボ語"
+
 #: lib/Horde/Nls/Countries.php:106 lib/Horde/Nls/Tld.php:117
 msgid "India"
 msgstr "インド"
@@ -460,6 +720,26 @@ msgstr "インド"
 #: lib/Horde/Nls/Countries.php:107 lib/Horde/Nls/Tld.php:113
 msgid "Indonesia"
 msgstr "インドネシア共和国"
+
+#: lib/Horde/Nls/Languages.php:74
+msgid "Indonesian"
+msgstr "インドネシア語"
+
+#: lib/Horde/Nls/Languages.php:73
+msgid "Interlingua"
+msgstr "国際語"
+
+#: lib/Horde/Nls/Languages.php:75
+msgid "Interlingue"
+msgstr "国際補助語"
+
+#: lib/Horde/Nls/Languages.php:82
+msgid "Inuktitut"
+msgstr "イヌクティトット語"
+
+#: lib/Horde/Nls/Languages.php:78
+msgid "Inupiaq"
+msgstr "イヌピアト語"
 
 #: lib/Horde/Nls/Countries.php:108 lib/Horde/Nls/Tld.php:120
 msgid "Iran, Islamic Republic of"
@@ -473,6 +753,10 @@ msgstr "イラク共和国"
 msgid "Ireland"
 msgstr "アイルランド"
 
+#: lib/Horde/Nls/Languages.php:58
+msgid "Irish"
+msgstr "アイルランド語"
+
 #: lib/Horde/Nls/Tld.php:116
 msgid "Isle of Man"
 msgstr "マン島"
@@ -480,6 +764,10 @@ msgstr "マン島"
 #: lib/Horde/Nls/Countries.php:111 lib/Horde/Nls/Tld.php:115
 msgid "Israel"
 msgstr "イスラエル"
+
+#: lib/Horde/Nls/Languages.php:81
+msgid "Italian"
+msgstr "イタリア語"
 
 #: lib/Horde/Nls/Countries.php:112 lib/Horde/Nls/Tld.php:122
 msgid "Italy"
@@ -493,6 +781,14 @@ msgstr "ジャマイカ"
 msgid "Japan"
 msgstr "日本"
 
+#: lib/Horde/Nls/Languages.php:83
+msgid "Japanese"
+msgstr "日本語"
+
+#: lib/Horde/Nls/Languages.php:84
+msgid "Javanese"
+msgstr "ジャワ語"
+
 #: lib/Horde/Nls/Tld.php:123
 msgid "Jersey"
 msgstr "ジャージー島"
@@ -500,6 +796,26 @@ msgstr "ジャージー島"
 #: lib/Horde/Nls/Countries.php:115 lib/Horde/Nls/Tld.php:125
 msgid "Jordan"
 msgstr "ヨルダン"
+
+#: lib/Horde/Nls/Languages.php:90
+msgid "Kalaallisut, Greenlandic"
+msgstr "カラーリット語、グリーンランド語"
+
+#: lib/Horde/Nls/Languages.php:92
+msgid "Kannada"
+msgstr "カンナダ語"
+
+#: lib/Horde/Nls/Languages.php:94
+msgid "Kanuri"
+msgstr "カヌリ語"
+
+#: lib/Horde/Nls/Languages.php:95
+msgid "Kashmiri"
+msgstr "カシミール語"
+
+#: lib/Horde/Nls/Languages.php:89
+msgid "Kazakh"
+msgstr "カザフ語"
 
 #: lib/Horde/Nls/Countries.php:116 lib/Horde/Nls/Tld.php:137
 msgid "Kazakhstan"
@@ -509,9 +825,37 @@ msgstr "カザフスタン共和国"
 msgid "Kenya"
 msgstr "ケニア共和国"
 
+#: lib/Horde/Nls/Languages.php:91
+msgid "Khmer"
+msgstr "クメール語"
+
+#: lib/Horde/Nls/Languages.php:87
+msgid "Kikuyu, Gikuyu"
+msgstr "キクユ語"
+
+#: lib/Horde/Nls/Languages.php:145
+msgid "Kinyarwanda"
+msgstr "ルワンダ語"
+
+#: lib/Horde/Nls/Languages.php:99
+msgid "Kirghiz, Kyrgyz"
+msgstr "キルギス語"
+
 #: lib/Horde/Nls/Countries.php:118 lib/Horde/Nls/Tld.php:130
 msgid "Kiribati"
 msgstr "キリバス共和国"
+
+#: lib/Horde/Nls/Languages.php:142
+msgid "Kirundi"
+msgstr "ルンディー語"
+
+#: lib/Horde/Nls/Languages.php:97
+msgid "Komi"
+msgstr "コミ語"
+
+#: lib/Horde/Nls/Languages.php:86
+msgid "Kongo"
+msgstr "コンゴ語"
 
 #: lib/Horde/Nls/Countries.php:119 lib/Horde/Nls/Tld.php:133
 msgid "Korea, Democratic People's Republic of"
@@ -521,21 +865,45 @@ msgstr "朝鮮民主主義人民共和国"
 msgid "Korea, Republic of"
 msgstr "大韓民国"
 
+#: lib/Horde/Nls/Languages.php:93
+msgid "Korean"
+msgstr "韓国語"
+
+#: lib/Horde/Nls/Languages.php:96
+msgid "Kurdish"
+msgstr "クルディスタン語"
+
 #: lib/Horde/Nls/Countries.php:121 lib/Horde/Nls/Tld.php:135
 msgid "Kuwait"
 msgstr "クウェート"
+
+#: lib/Horde/Nls/Languages.php:88
+msgid "Kwanyama, Kuanyama"
+msgstr "クワニャマ語"
 
 #: lib/Horde/Nls/Countries.php:122 lib/Horde/Nls/Tld.php:128
 msgid "Kyrgyzstan"
 msgstr "キルギス共和国"
 
+#: lib/Horde/Nls/Languages.php:105
+msgid "Lao"
+msgstr "ラオ語"
+
 #: lib/Horde/Nls/Countries.php:123 lib/Horde/Nls/Tld.php:138
 msgid "Lao People's Democratic Republic"
 msgstr "ラオス人民民主共和国"
 
+#: lib/Horde/Nls/Languages.php:100
+msgid "Latin"
+msgstr "ラテン語"
+
 #: lib/Horde/Nls/Countries.php:124 lib/Horde/Nls/Tld.php:147
 msgid "Latvia"
 msgstr "ラトビア共和国"
+
+#: lib/Horde/Nls/Languages.php:108
+msgid "Latvian"
+msgstr "ラトビア語"
 
 #: lib/Horde/Nls/Countries.php:125 lib/Horde/Nls/Tld.php:139
 msgid "Lebanon"
@@ -557,13 +925,37 @@ msgstr "大リビア・アラブ社会主義人民ジャマーヒリーヤ"
 msgid "Liechtenstein"
 msgstr "リヒテンシュタイン公国"
 
+#: lib/Horde/Nls/Languages.php:103
+msgid "Limburgish, Limburgan, Limburger"
+msgstr "リンブルフ語"
+
+#: lib/Horde/Nls/Languages.php:104
+msgid "Lingala"
+msgstr "リンガラ語"
+
 #: lib/Horde/Nls/Countries.php:130 lib/Horde/Nls/Tld.php:145
 msgid "Lithuania"
 msgstr "リトアニア共和国"
 
+#: lib/Horde/Nls/Languages.php:106
+msgid "Lithuanian"
+msgstr "リトアニア語"
+
+#: lib/Horde/Nls/Languages.php:107
+msgid "Luba-Katanga"
+msgstr "ルバ・カタンガ語"
+
+#: lib/Horde/Nls/Languages.php:102
+msgid "Luganda"
+msgstr "ルガンダ語"
+
 #: lib/Horde/Nls/Countries.php:131 lib/Horde/Nls/Tld.php:146
 msgid "Luxembourg"
 msgstr "ルクセンブルク大公国"
+
+#: lib/Horde/Nls/Languages.php:101
+msgid "Luxembourgish, Letzeburgesch"
+msgstr "ルクセンブルク語"
 
 #: lib/Horde/Nls/Countries.php:132 lib/Horde/Nls/Tld.php:159
 msgid "Macao"
@@ -573,13 +965,29 @@ msgstr "マカオ"
 msgid "Macedonia, The Former Yugoslav Republic of"
 msgstr "マケドニア旧ユーゴスラビア共和国"
 
+#: lib/Horde/Nls/Languages.php:112
+msgid "Macedonian"
+msgstr "マケドニア語"
+
 #: lib/Horde/Nls/Countries.php:134 lib/Horde/Nls/Tld.php:153
 msgid "Madagascar"
 msgstr "マダガスカル共和国"
 
+#: lib/Horde/Nls/Languages.php:109
+msgid "Malagasy"
+msgstr "マダガスカル語"
+
 #: lib/Horde/Nls/Countries.php:135 lib/Horde/Nls/Tld.php:167
 msgid "Malawi"
 msgstr "マラウイ共和国"
+
+#: lib/Horde/Nls/Languages.php:116
+msgid "Malay"
+msgstr "マレー語"
+
+#: lib/Horde/Nls/Languages.php:113
+msgid "Malayalam"
+msgstr "マラヤーラム語"
 
 #: lib/Horde/Nls/Countries.php:136 lib/Horde/Nls/Tld.php:169
 msgid "Malaysia"
@@ -597,9 +1005,29 @@ msgstr "メール"
 msgid "Malta"
 msgstr "マルタ共和国"
 
+#: lib/Horde/Nls/Languages.php:117
+msgid "Maltese"
+msgstr "マルタ語"
+
+#: lib/Horde/Nls/Languages.php:63
+msgid "Manx"
+msgstr "マン島語"
+
+#: lib/Horde/Nls/Languages.php:111
+msgid "Maori"
+msgstr "マオリ語"
+
+#: lib/Horde/Nls/Languages.php:115
+msgid "Marathi"
+msgstr "マラーティー語"
+
 #: lib/Horde/Nls/Countries.php:140 lib/Horde/Nls/Tld.php:154
 msgid "Marshall Islands"
 msgstr "マーシャル諸島共和国"
+
+#: lib/Horde/Nls/Languages.php:110
+msgid "Marshallese"
+msgstr "マーシャル語"
 
 #: lib/Horde/Nls/Countries.php:141 lib/Horde/Nls/Tld.php:161
 msgid "Martinique"
@@ -637,6 +1065,10 @@ msgstr "モナコ公国"
 msgid "Mongolia"
 msgstr "モンゴル"
 
+#: lib/Horde/Nls/Languages.php:114
+msgid "Mongolian"
+msgstr "モンゴル語"
+
 #: lib/Horde/Nls/Tld.php:152
 msgid "Montenegro"
 msgstr "モンテネグロ共和国"
@@ -661,13 +1093,26 @@ msgstr "ミャンマー連邦"
 msgid "Namibia"
 msgstr "ナミビア共和国"
 
-#: lib/Horde/Nls/Countries.php:155 lib/Horde/Nls/Tld.php:180
+#: lib/Horde/Nls/Countries.php:155 lib/Horde/Nls/Languages.php:119
+#: lib/Horde/Nls/Tld.php:180
 msgid "Nauru"
 msgstr "ナウル共和国"
+
+#: lib/Horde/Nls/Languages.php:128
+msgid "Navajo, Navaho"
+msgstr "ナバホ語"
+
+#: lib/Horde/Nls/Languages.php:123
+msgid "Ndonga"
+msgstr "ンドンガ語"
 
 #: lib/Horde/Nls/Countries.php:156 lib/Horde/Nls/Tld.php:179
 msgid "Nepal"
 msgstr "ネパール王国"
+
+#: lib/Horde/Nls/Languages.php:122
+msgid "Nepali"
+msgstr "ネパール語"
 
 #: lib/Horde/Nls/Countries.php:157 lib/Horde/Nls/Tld.php:177
 msgid "Netherlands"
@@ -705,17 +1150,67 @@ msgstr "ニウエ島"
 msgid "Norfolk Island"
 msgstr "ノーフォーク島"
 
+#: lib/Horde/Nls/Languages.php:121
+msgid "North Ndebele"
+msgstr "北ンデベレ語"
+
 #: lib/Horde/Nls/Countries.php:166 lib/Horde/Nls/Tld.php:160
 msgid "Northern Mariana Islands"
 msgstr "北マリアナ諸島"
+
+#: lib/Horde/Nls/Languages.php:149
+msgid "Northern Sami"
+msgstr "北サーミ語"
 
 #: lib/Horde/Nls/Countries.php:167 lib/Horde/Nls/Tld.php:178
 msgid "Norway"
 msgstr "ノルウェー王国"
 
+#: lib/Horde/Nls/Languages.php:126
+msgid "Norwegian"
+msgstr "ノルウェー語"
+
+#: lib/Horde/Nls/Languages.php:120
+msgid "Norwegian BokmÃ¥l"
+msgstr "ノルウェー・ブークモール語"
+
+#: lib/Horde/Nls/Languages.php:125
+msgid "Norwegian Nynorsk"
+msgstr "ノルウェー・ニーノシュク語"
+
+#: lib/Horde/Nls/Languages.php:77
+msgid "Nuosu"
+msgstr "ノス語"
+
+#: lib/Horde/Nls/Languages.php:130
+msgid "Occitan"
+msgstr "オック語"
+
+#: lib/Horde/Nls/Languages.php:131
+msgid "Ojibwe, Ojibwa"
+msgstr "オジブウェー語"
+
+#: lib/Horde/Nls/Languages.php:37
+msgid ""
+"Old Church Slavonic, Church Slavic, Church Slavonic, Old Bulgarian, Old "
+"Slavonic"
+msgstr "古代教会スラブ語、教会スラブ語、古代ブルガリア語"
+
 #: lib/Horde/Nls/Countries.php:168 lib/Horde/Nls/Tld.php:183
 msgid "Oman"
 msgstr "オマーン"
+
+#: lib/Horde/Nls/Languages.php:133
+msgid "Oriya"
+msgstr "オリヤー語"
+
+#: lib/Horde/Nls/Languages.php:132
+msgid "Oromo"
+msgstr "オロモ語"
+
+#: lib/Horde/Nls/Languages.php:134
+msgid "Ossetian, Ossetic"
+msgstr "オセット語"
 
 #: lib/Horde/Nls/Geoip.php:328
 msgid "Other"
@@ -733,9 +1228,17 @@ msgstr "パラオ共和国"
 msgid "Palestinian Territory, Occupied"
 msgstr "パレスチナ自治区"
 
+#: lib/Horde/Nls/Languages.php:136
+msgid "Pali"
+msgstr "パーリ語"
+
 #: lib/Horde/Nls/Countries.php:172 lib/Horde/Nls/Tld.php:184
 msgid "Panama"
 msgstr "パナマ共和国"
+
+#: lib/Horde/Nls/Languages.php:135
+msgid "Panjabi, Punjabi"
+msgstr "パンジャブ語"
 
 #: lib/Horde/Nls/Countries.php:173 lib/Horde/Nls/Tld.php:187
 msgid "Papua New Guinea"
@@ -744,6 +1247,14 @@ msgstr "パプアニューギニア独立国"
 #: lib/Horde/Nls/Countries.php:174 lib/Horde/Nls/Tld.php:197
 msgid "Paraguay"
 msgstr "パラグアイ共和国"
+
+#: lib/Horde/Nls/Languages.php:138
+msgid "Pashto, Pushto"
+msgstr "パシュト語"
+
+#: lib/Horde/Nls/Languages.php:51
+msgid "Persian"
+msgstr "ペルシア語"
 
 #: lib/Horde/Nls/Countries.php:175 lib/Horde/Nls/Tld.php:185
 msgid "Peru"
@@ -765,9 +1276,17 @@ msgstr "ピトケアン島"
 msgid "Poland"
 msgstr "ポーランド共和国"
 
+#: lib/Horde/Nls/Languages.php:137
+msgid "Polish"
+msgstr "ポーランド語"
+
 #: lib/Horde/Nls/Countries.php:179 lib/Horde/Nls/Tld.php:195
 msgid "Portugal"
 msgstr "ポルトガル共和国"
+
+#: lib/Horde/Nls/Languages.php:139
+msgid "Portuguese"
+msgstr "ポルトガル語"
 
 #: lib/Horde/Nls/Countries.php:180 lib/Horde/Nls/Tld.php:193
 msgid "Puerto Rico"
@@ -776,6 +1295,10 @@ msgstr "プエルトリコ"
 #: lib/Horde/Nls/Countries.php:181 lib/Horde/Nls/Tld.php:198
 msgid "Qatar"
 msgstr "カタール"
+
+#: lib/Horde/Nls/Languages.php:140
+msgid "Quechua"
+msgstr "ケチュア語"
 
 #: lib/Horde/Nls/Countries.php:182
 msgid "Reunion"
@@ -788,6 +1311,18 @@ msgstr "レユニオン島"
 #: lib/Horde/Nls/Countries.php:183 lib/Horde/Nls/Tld.php:200
 msgid "Romania"
 msgstr "ルーマニア"
+
+#: lib/Horde/Nls/Languages.php:143
+msgid "Romanian, Moldavian, Moldovan"
+msgstr "ルーマニア語、モルダビア語"
+
+#: lib/Horde/Nls/Languages.php:141
+msgid "Romansh"
+msgstr "ロマンシュ語"
+
+#: lib/Horde/Nls/Languages.php:144
+msgid "Russian"
+msgstr "ロシア語"
 
 #: lib/Horde/Nls/Countries.php:184 lib/Horde/Nls/Tld.php:202
 msgid "Russian Federation"
@@ -821,13 +1356,29 @@ msgstr "セントピンセントおよびグレナディーン諸島"
 msgid "Samoa"
 msgstr "サモア独立国"
 
+#: lib/Horde/Nls/Languages.php:154
+msgid "Samoan"
+msgstr "サモア語"
+
 #: lib/Horde/Nls/Countries.php:192 lib/Horde/Nls/Tld.php:215
 msgid "San Marino"
 msgstr "サンマリノ共和国"
 
+#: lib/Horde/Nls/Languages.php:150
+msgid "Sango"
+msgstr "サンゴ語"
+
+#: lib/Horde/Nls/Languages.php:146
+msgid "Sanskrit"
+msgstr "サンスクリット語"
+
 #: lib/Horde/Nls/Countries.php:193 lib/Horde/Nls/Tld.php:219
 msgid "Sao Tome and Principe"
 msgstr "サントメ・プリンシペ民主共和国"
+
+#: lib/Horde/Nls/Languages.php:147
+msgid "Sardinian"
+msgstr "サルディーニャ語"
 
 #: lib/Horde/Nls/Geoip.php:327
 msgid "Satellite Provider"
@@ -836,6 +1387,10 @@ msgstr "衛星通信会社"
 #: lib/Horde/Nls/Countries.php:194 lib/Horde/Nls/Tld.php:204
 msgid "Saudi Arabia"
 msgstr "サウジアラビア王国"
+
+#: lib/Horde/Nls/Languages.php:59
+msgid "Scottish Gaelic; Gaelic"
+msgstr "スコットランド・ゲール語；ゲール語"
 
 #: lib/Horde/Nls/Countries.php:195 lib/Horde/Nls/Tld.php:216
 msgid "Senegal"
@@ -849,21 +1404,45 @@ msgstr "セルビア共和国"
 msgid "Serbia and Montenegro"
 msgstr "セルビア・モンテネグロ"
 
+#: lib/Horde/Nls/Languages.php:158
+msgid "Serbian"
+msgstr "セルビア語"
+
 #: lib/Horde/Nls/Countries.php:197 lib/Horde/Nls/Tld.php:206
 msgid "Seychelles"
 msgstr "セーシェル共和国"
+
+#: lib/Horde/Nls/Languages.php:155
+msgid "Shona"
+msgstr "ショナ語"
 
 #: lib/Horde/Nls/Countries.php:198 lib/Horde/Nls/Tld.php:214
 msgid "Sierra Leone"
 msgstr "シエラレオネ共和国"
 
+#: lib/Horde/Nls/Languages.php:148
+msgid "Sindhi"
+msgstr "シンド語"
+
 #: lib/Horde/Nls/Countries.php:199 lib/Horde/Nls/Tld.php:209
 msgid "Singapore"
 msgstr "シンガポール共和国"
 
+#: lib/Horde/Nls/Languages.php:151
+msgid "Sinhala, Sinhalese"
+msgstr "シンハラ語"
+
+#: lib/Horde/Nls/Languages.php:152
+msgid "Slovak"
+msgstr "スロバキア語"
+
 #: lib/Horde/Nls/Countries.php:200 lib/Horde/Nls/Tld.php:213
 msgid "Slovakia"
 msgstr "スロバキア共和国"
+
+#: lib/Horde/Nls/Languages.php:153
+msgid "Slovene"
+msgstr "スロベニア語"
 
 #: lib/Horde/Nls/Countries.php:201 lib/Horde/Nls/Tld.php:211
 msgid "Slovenia"
@@ -872,6 +1451,10 @@ msgstr "スロベニア共和国"
 #: lib/Horde/Nls/Countries.php:202 lib/Horde/Nls/Tld.php:205
 msgid "Solomon Islands"
 msgstr "ソロモン諸島"
+
+#: lib/Horde/Nls/Languages.php:156
+msgid "Somali"
+msgstr "ソマリア語"
 
 #: lib/Horde/Nls/Countries.php:203 lib/Horde/Nls/Tld.php:217
 msgid "Somalia"
@@ -885,6 +1468,14 @@ msgstr "南アフリカ共和国"
 msgid "South Georgia and the South Sandwich Islands"
 msgstr "南ジョージア島・南サンドイッチ諸島"
 
+#: lib/Horde/Nls/Languages.php:127
+msgid "South Ndebele"
+msgstr "南ンデベレ語"
+
+#: lib/Horde/Nls/Languages.php:160
+msgid "Southern Sotho"
+msgstr "南ソト語"
+
 #: lib/Horde/Nls/Tld.php:220
 msgid "Soviet Union"
 msgstr "ソビエト連邦"
@@ -893,6 +1484,10 @@ msgstr "ソビエト連邦"
 msgid "Spain"
 msgstr "スペイン"
 
+#: lib/Horde/Nls/Languages.php:48
+msgid "Spanish; Castilian"
+msgstr "スペイン語；カスティリャ語"
+
 #: lib/Horde/Nls/Countries.php:207 lib/Horde/Nls/Tld.php:142
 msgid "Sri Lanka"
 msgstr "スリランカ民主社会主義共和国"
@@ -900,6 +1495,10 @@ msgstr "スリランカ民主社会主義共和国"
 #: lib/Horde/Nls/Countries.php:208 lib/Horde/Nls/Tld.php:207
 msgid "Sudan"
 msgstr "スーダン共和国"
+
+#: lib/Horde/Nls/Languages.php:161
+msgid "Sundanese"
+msgstr "スンダ語"
 
 #: lib/Horde/Nls/Countries.php:209 lib/Horde/Nls/Tld.php:218
 msgid "Suriname"
@@ -913,6 +1512,14 @@ msgstr "スヴァールバル、ヤンマイエン諸島"
 msgid "Svalbard and Jan Mayen Islands"
 msgstr "スヴァールバル、ヤンマイエン諸島"
 
+#: lib/Horde/Nls/Languages.php:163
+msgid "Swahili"
+msgstr "スワヒリ語"
+
+#: lib/Horde/Nls/Languages.php:159
+msgid "Swati"
+msgstr "スワジ語"
+
 #: lib/Horde/Nls/Countries.php:211 lib/Horde/Nls/Tld.php:223
 msgid "Swaziland"
 msgstr "スワジランド王国"
@@ -920,6 +1527,10 @@ msgstr "スワジランド王国"
 #: lib/Horde/Nls/Countries.php:212 lib/Horde/Nls/Tld.php:208
 msgid "Sweden"
 msgstr "スウェーデン王国"
+
+#: lib/Horde/Nls/Languages.php:162
+msgid "Swedish"
+msgstr "スウェーデン語"
 
 #: lib/Horde/Nls/Countries.php:213 lib/Horde/Nls/Tld.php:55
 msgid "Switzerland"
@@ -929,6 +1540,14 @@ msgstr "スイス連邦"
 msgid "Syrian Arab Republic"
 msgstr "シリア・アラブ共和国"
 
+#: lib/Horde/Nls/Languages.php:170
+msgid "Tagalog"
+msgstr "タガログ語"
+
+#: lib/Horde/Nls/Languages.php:177
+msgid "Tahitian"
+msgstr "タヒチ語"
+
 #: lib/Horde/Nls/Tld.php:239
 msgid "Taiwan"
 msgstr "台湾"
@@ -937,17 +1556,45 @@ msgstr "台湾"
 msgid "Taiwan, Province of China"
 msgstr "台湾（中国の一部）"
 
+#: lib/Horde/Nls/Languages.php:166
+msgid "Tajik"
+msgstr "タジク語"
+
 #: lib/Horde/Nls/Countries.php:216 lib/Horde/Nls/Tld.php:229
 msgid "Tajikistan"
 msgstr "タジキスタン共和国"
+
+#: lib/Horde/Nls/Languages.php:164
+msgid "Tamil"
+msgstr "タミール語"
 
 #: lib/Horde/Nls/Countries.php:217 lib/Horde/Nls/Tld.php:240
 msgid "Tanzania, United Republic of"
 msgstr "タンザニア連邦共和国"
 
+#: lib/Horde/Nls/Languages.php:175
+msgid "Tatar"
+msgstr "タタール語"
+
+#: lib/Horde/Nls/Languages.php:165
+msgid "Telugu"
+msgstr "テルグ語"
+
+#: lib/Horde/Nls/Languages.php:167
+msgid "Thai"
+msgstr "タイ語"
+
 #: lib/Horde/Nls/Countries.php:218 lib/Horde/Nls/Tld.php:228
 msgid "Thailand"
 msgstr "タイ王国"
+
+#: lib/Horde/Nls/Languages.php:28
+msgid "Tibetan Standard, Tibetan, Central"
+msgstr "チベット語（標準、中央）"
+
+#: lib/Horde/Nls/Languages.php:168
+msgid "Tigrinya"
+msgstr "ティグリニャ語"
 
 #: lib/Horde/Nls/Countries.php:219 lib/Horde/Nls/Tld.php:231
 msgid "Timor-Leste"
@@ -965,9 +1612,21 @@ msgstr "トケラウ諸島"
 msgid "Tonga"
 msgstr "トンガ王国"
 
+#: lib/Horde/Nls/Languages.php:172
+msgid "Tonga (Tonga Islands)"
+msgstr "トンガ王国（トンガ諸島）"
+
 #: lib/Horde/Nls/Countries.php:223 lib/Horde/Nls/Tld.php:237
 msgid "Trinidad and Tobago"
 msgstr "トリニダード・トバゴ共和国"
+
+#: lib/Horde/Nls/Languages.php:174
+msgid "Tsonga"
+msgstr "ツォンガ語"
+
+#: lib/Horde/Nls/Languages.php:171
+msgid "Tswana"
+msgstr "ツワナ語"
 
 #: lib/Horde/Nls/Countries.php:224 lib/Horde/Nls/Tld.php:233
 msgid "Tunisia"
@@ -976,6 +1635,14 @@ msgstr "チュニジア共和国"
 #: lib/Horde/Nls/Countries.php:225 lib/Horde/Nls/Tld.php:236
 msgid "Turkey"
 msgstr "トルコ共和国"
+
+#: lib/Horde/Nls/Languages.php:173
+msgid "Turkish"
+msgstr "トルコ語"
+
+#: lib/Horde/Nls/Languages.php:169
+msgid "Turkmen"
+msgstr "トルクメン語"
 
 #: lib/Horde/Nls/Countries.php:226 lib/Horde/Nls/Tld.php:232
 msgid "Turkmenistan"
@@ -989,13 +1656,25 @@ msgstr "タークス・カイコス諸島"
 msgid "Tuvalu"
 msgstr "ツバル"
 
+#: lib/Horde/Nls/Languages.php:176
+msgid "Twi"
+msgstr "トウィ語"
+
 #: lib/Horde/Nls/Countries.php:229 lib/Horde/Nls/Tld.php:242
 msgid "Uganda"
 msgstr "ウガンダ共和国"
 
+#: lib/Horde/Nls/Languages.php:178
+msgid "Uighur, Uyghur"
+msgstr "ウイグル語"
+
 #: lib/Horde/Nls/Countries.php:230 lib/Horde/Nls/Tld.php:241
 msgid "Ukraine"
 msgstr "ウクライナ"
+
+#: lib/Horde/Nls/Languages.php:179
+msgid "Ukrainian"
+msgstr "ウクライナ語"
 
 #: lib/Horde/Nls/Countries.php:231 lib/Horde/Nls/Tld.php:15
 msgid "United Arab Emirates"
@@ -1014,9 +1693,17 @@ msgstr "米国"
 msgid "United States Minor Outlying Islands"
 msgstr "米領太平洋諸島"
 
+#: lib/Horde/Nls/Languages.php:180
+msgid "Urdu"
+msgstr "ウルドゥー語"
+
 #: lib/Horde/Nls/Countries.php:235 lib/Horde/Nls/Tld.php:246
 msgid "Uruguay"
 msgstr "ウルグアイ東方共和国"
+
+#: lib/Horde/Nls/Languages.php:181
+msgid "Uzbek"
+msgstr "ウズベク語"
 
 #: lib/Horde/Nls/Countries.php:236 lib/Horde/Nls/Tld.php:247
 msgid "Uzbekistan"
@@ -1026,6 +1713,10 @@ msgstr "ウズベキスタン共和国"
 msgid "Vanuatu"
 msgstr "バヌアツ共和国"
 
+#: lib/Horde/Nls/Languages.php:182
+msgid "Venda"
+msgstr "ヴェンダ語"
+
 #: lib/Horde/Nls/Countries.php:238 lib/Horde/Nls/Tld.php:250
 msgid "Venezuela"
 msgstr "ベネズエラ・ボリバル共和国"
@@ -1033,6 +1724,10 @@ msgstr "ベネズエラ・ボリバル共和国"
 #: lib/Horde/Nls/Countries.php:239 lib/Horde/Nls/Tld.php:253
 msgid "Viet Nam"
 msgstr "ベトナム社会主義共和国"
+
+#: lib/Horde/Nls/Languages.php:183
+msgid "Vietnamese"
+msgstr "ベトナム語"
 
 #: lib/Horde/Nls/Countries.php:240 lib/Horde/Nls/Tld.php:251
 msgid "Virgin Islands, British"
@@ -1042,6 +1737,10 @@ msgstr "英領バージン諸島"
 msgid "Virgin Islands, U.S."
 msgstr "米領バージン諸島"
 
+#: lib/Horde/Nls/Languages.php:184
+msgid "VolapÃ¼k"
+msgstr "ボラピューク語"
+
 #: lib/Horde/Nls/Countries.php:242
 msgid "Wallis and Futuna"
 msgstr "ウォリス・フトゥーナ諸島"
@@ -1050,13 +1749,41 @@ msgstr "ウォリス・フトゥーナ諸島"
 msgid "Wallis and Futuna Islands"
 msgstr "ウォリス・フトゥーナ諸島"
 
+#: lib/Horde/Nls/Languages.php:185
+msgid "Walloon"
+msgstr "ワロン語"
+
+#: lib/Horde/Nls/Languages.php:39
+msgid "Welsh"
+msgstr "ウェールズ語"
+
+#: lib/Horde/Nls/Languages.php:57
+msgid "Western Frisian"
+msgstr "西フリジア語"
+
 #: lib/Horde/Nls/Countries.php:243 lib/Horde/Nls/Tld.php:77
 msgid "Western Sahara"
 msgstr "西サハラ"
 
+#: lib/Horde/Nls/Languages.php:186
+msgid "Wolof"
+msgstr "ウォロフ語"
+
+#: lib/Horde/Nls/Languages.php:187
+msgid "Xhosa"
+msgstr "コサ語"
+
 #: lib/Horde/Nls/Countries.php:244 lib/Horde/Nls/Tld.php:257
 msgid "Yemen"
 msgstr "イエメン共和国"
+
+#: lib/Horde/Nls/Languages.php:188
+msgid "Yiddish"
+msgstr "イディッシュ語"
+
+#: lib/Horde/Nls/Languages.php:189
+msgid "Yoruba"
+msgstr "ヨルバ"
 
 #: lib/Horde/Nls/Tld.php:259
 msgid "Yugoslavia"
@@ -1066,6 +1793,14 @@ msgstr "ユーゴスラビア"
 msgid "Zambia"
 msgstr "ザンビア共和国"
 
+#: lib/Horde/Nls/Languages.php:190
+msgid "Zhuang, Chuang"
+msgstr "チワン語"
+
 #: lib/Horde/Nls/Countries.php:246 lib/Horde/Nls/Tld.php:262
 msgid "Zimbabwe"
 msgstr "ジンバブエ共和国"
+
+#: lib/Horde/Nls/Languages.php:192
+msgid "Zulu"
+msgstr "ズールー語"

@@ -2,7 +2,7 @@
 /**
  * Class for interfacing with back end data storage.
  *
- * Copyright 2001-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -367,7 +367,7 @@ class Ansel_Storage
      *
      * @param Ansel_Gallery $gallery  The ansel gallery to empty.
      *
-     * @return void
+     * @throws Ansel_Exception
      */
     public function emptyGallery(Ansel_Gallery $gallery)
     {
@@ -377,7 +377,11 @@ class Ansel_Storage
             // Pretend we are a stack so we don't update the images count
             // for every image deletion, since we know the end result will
             // be zero.
-            $gallery->removeImage($image, true);
+            try {
+                $gallery->removeImage($image, true);
+            } catch (Horde_Exception_NotFound $e) {
+                throw new Ansel_Exception($e);
+            }
         }
         $gallery->set('images', 0, true);
 
@@ -386,6 +390,9 @@ class Ansel_Storage
             $GLOBALS['injector']
                 ->getInstance('Horde_Cache')
                 ->expire('Ansel_OtherGalleries' . $gallery->get('owner'));
+            $GLOBALS['injector']
+                ->getInstance('Horde_Cache')
+                ->expire('Ansel_Gallery' . $gallery->id);
         }
     }
 
@@ -1134,8 +1141,8 @@ class Ansel_Storage
             'filter' => array(
                 array(
                     'property' => 'latitude',
-                    'op' => '>',
-                    'value' => '0'))
+                    'op' => '!=',
+                    'value' => "''"))
         );
         if (!empty($gallery)) {
             $params['gallery_id'] = (int)$gallery;
@@ -1193,8 +1200,8 @@ class Ansel_Storage
             'filter' => array(
                 array(
                     'property' => 'latitude',
-                    'op' => '>',
-                    'value' => '0')
+                    'op' => '!=',
+                    'value' => "''")
                 ),
             'sort' => 'image_geotag_date DESC');
 

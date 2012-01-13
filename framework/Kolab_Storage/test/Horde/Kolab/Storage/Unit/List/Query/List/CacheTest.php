@@ -20,7 +20,7 @@ require_once dirname(__FILE__) . '/../../../../Autoload.php';
 /**
  * Test the cached list query.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -39,7 +39,7 @@ extends Horde_Kolab_Storage_TestCase
     {
         $factory = new Horde_Kolab_Storage_Factory();
         $query = $this->getCachedQueryForList($this->getNullList($factory), $factory);
-        $this->assertType('array', $query->listFolderTypeAnnotations());
+        $this->assertInternalType('array', $query->listFolderTypeAnnotations());
     }
 
     public function testAnnotationsReturnsHandlers()
@@ -55,7 +55,7 @@ extends Horde_Kolab_Storage_TestCase
     {
         $factory = new Horde_Kolab_Storage_Factory();
         $query = $this->getCachedQueryForList($this->getNullList($factory), $factory);
-        $this->assertType('array', $query->listTypes());
+        $this->assertInternalType('array', $query->listTypes());
     }
 
     public function testTypeReturnsAnnotations()
@@ -79,7 +79,7 @@ extends Horde_Kolab_Storage_TestCase
     {
         $factory = new Horde_Kolab_Storage_Factory();
         $query = $this->getCachedQueryForList($this->getNullList($factory), $factory);
-        $this->assertType('array', $query->listByType('test'));
+        $this->assertInternalType('array', $query->listByType('test'));
     }
 
     public function testListCalendarsListsCalendars()
@@ -100,7 +100,7 @@ extends Horde_Kolab_Storage_TestCase
     {
         $factory = new Horde_Kolab_Storage_Factory();
         $query = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory);
-        $this->assertType(
+        $this->assertInternalType(
             'array',
             $query->listOwners()
         );
@@ -150,7 +150,7 @@ extends Horde_Kolab_Storage_TestCase
     {
         $factory = new Horde_Kolab_Storage_Factory();
         $query = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory);
-        $this->assertType(
+        $this->assertInternalType(
             'string',
             $query->getDefault('event')
         );
@@ -218,7 +218,7 @@ extends Horde_Kolab_Storage_TestCase
     {
         $factory = new Horde_Kolab_Storage_Factory();
         $query = $this->getCachedQueryForList($this->getEventList($factory), $factory);
-        $this->assertType(
+        $this->assertInternalType(
             'string',
             $query->getForeignDefault('someone@example.com', 'event')
         );
@@ -309,7 +309,7 @@ extends Horde_Kolab_Storage_TestCase
     {
         $factory = new Horde_Kolab_Storage_Factory();
         $query = $this->getCachedQueryForList($this->getNullList($factory), $factory);
-        $this->assertType('array', $query->dataByType('test'));
+        $this->assertInternalType('array', $query->dataByType('test'));
     }
 
     public function testListCalendarsListsCalendarData()
@@ -353,14 +353,14 @@ extends Horde_Kolab_Storage_TestCase
      */
     public function testMissingFolderData()
     {
-        $this->assertType('array', $this->getNullQuery()->folderData('INBOX/Calendar'));
+        $this->assertInternalType('array', $this->getNullQuery()->folderData('INBOX/Calendar'));
     }
 
     public function testFolderDataReturnsArray()
     {
         $factory = new Horde_Kolab_Storage_Factory();
         $data = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory)->folderData('INBOX/Calendar');
-        $this->assertType('array', $data);
+        $this->assertInternalType('array', $data);
     }
 
     public function testFolderDataHasOwner()

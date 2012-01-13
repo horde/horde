@@ -64,6 +64,9 @@ Options:
         parent::setUp();
         $this->parser = $this->makeParser(80);
         $this->origColumns = isset($_ENV['COLUMNS']) ? $_ENV['COLUMNS'] : null;
+        if (!isset($_SERVER['argv'])) {
+            $_SERVER['argv'] = array('test');
+        }
     }
 
     public function tearDown()
@@ -73,6 +76,7 @@ Options:
         } else {
             $_ENV['COLUMNS'] = $this->origColumns;
         }
+        unset($_SERVER['argv']);
     }
 
     public function makeParser($columns)

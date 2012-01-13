@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -7,11 +7,12 @@
 
 var DimpMessage = {
 
-    // Variables defaulting to empty/false: mailbox, uid
+    // Variables defaulting to empty/false: mbox, uid
+
     quickreply: function(type)
     {
         var func, ob = {};
-        ob[this.mailbox] = [ this.uid ];
+        ob[this.mbox] = [ this.uid ];
 
         switch (type) {
         case 'reply':
@@ -58,12 +59,18 @@ var DimpMessage = {
         var i, id,
             r = result.response;
 
-        if (r.imp_compose) {
-            $('composeCache').setValue(r.imp_compose);
-        }
+        switch (r.type) {
+        case 'forward_redirect':
+            if (r.imp_compose) {
+                $('composeCacheRedirect').setValue(r.imp_compose);
+            }
+            break;
 
+        default:
+            if (r.imp_compose) {
+                $('composeCache').setValue(r.imp_compose);
+            }
 
-        if (r.type != 'forward_redirect') {
             if (!r.opts) {
                 r.opts = {};
             }
@@ -71,11 +78,12 @@ var DimpMessage = {
             r.opts.show_editor = (r.format == 'html');
 
             id = (r.identity === null) ? $F('identity') : r.identity;
-            i = IMP_Compose_Base.getIdentity(id, r.opts.show_editor);
+            i = ImpComposeBase.getIdentity(id, r.opts.show_editor);
 
             $('identity', 'last_identity').invoke('setValue', id);
 
-            DimpCompose.fillForm((i.id[2]) ? ("\n" + i.sig + r.body) : (r.body + "\n" + i.sig), r.header, r.opts);
+            DimpCompose.fillForm((i.id.sig_loc) ? ("\n" + i.sig + r.body) : (r.body + "\n" + i.sig), r.header, r.opts);
+            break;
         }
     },
 
@@ -109,23 +117,23 @@ var DimpMessage = {
                 if (DimpCore.base.DimpBase) {
                     DimpCore.base.focus();
                     if (id == 'button_deleted') {
-                        DimpCore.base.DimpBase.deleteMsg({ uid: this.uid, mailbox: this.mailbox });
+                        DimpCore.base.DimpBase.deleteMsg({ uid: this.uid, mailbox: this.mbox });
                     } else {
-                        DimpCore.base.DimpBase.reportSpam(id == 'button_spam', { uid: this.uid, mailbox: this.mailbox });
+                        DimpCore.base.DimpBase.reportSpam(id == 'button_spam', { uid: this.uid, mailbox: this.mbox });
                     }
                 } else {
                     tmp = {};
-                    tmp[this.mailbox] = [ this.uid ];
+                    tmp[this.mbox] = [ this.uid ];
                     if (id == 'button_deleted') {
                         DimpCore.doAction('deleteMessages', {
-                            view: this.mailbox
+                            view: this.mbox
                         }, {
                             uids: tmp
                         });
                     } else {
                         DimpCore.doAction('reportSpam', {
                             spam: Number(id == 'button_spam'),
-                            view: this.mailbox
+                            view: this.mbox
                         }, {
                             uids: tmp
                         });
@@ -157,7 +165,7 @@ var DimpMessage = {
                 break;
 
             case 'msg_view_source':
-                DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: this.uid, mailbox: this.mailbox.base64urlEncode(), actionID: 'view_source', id: 0 }, true), this.uid + '|' + this.mailbox);
+                DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: this.uid, mailbox: this.mbox, actionID: 'view_source', id: 0 }, true), this.uid + '|' + this.mbox);
                 break;
 
             case 'qreply':
@@ -168,9 +176,9 @@ var DimpMessage = {
 
             case 'send_mdn_link':
                 tmp = {};
-                tmp[this.mailbox] = [ this.uid ];
+                tmp[this.mbox] = [ this.uid ];
                 DimpCore.doAction('sendMDN', {
-                    uid: DimpCore.toRangeString(tmp)
+                    uid: DimpCore.toUIDString(tmp)
                 }, {
                     callback: function(r) {
                         if (r.response) {
@@ -183,13 +191,13 @@ var DimpMessage = {
 
             default:
                 if (elt.hasClassName('printAtc')) {
-                    DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: this.uid, mailbox: this.mailbox.base64urlEncode(), actionID: 'print_attach', id: elt.readAttribute('mimeid') }, true), this.uid + '|' + this.mailbox + '|print', IMP_JS.printWindow);
+                    DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: this.uid, mailbox: this.mbox, actionID: 'print_attach', id: elt.readAttribute('mimeid') }, true), this.uid + '|' + this.mbox + '|print', IMP_JS.printWindow);
                     e.stop();
                     return;
                 } else if (elt.hasClassName('stripAtc')) {
                     DimpCore.reloadMessage({
                         actionID: 'strip_attachment',
-                        mailbox: this.mailbox,
+                        mailbox: this.mbox,
                         id: elt.readAttribute('mimeid'),
                         uid: this.uid
                     });

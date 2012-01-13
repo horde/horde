@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2007 Maintainable Software, LLC
- * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -242,7 +242,7 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
     {
         $this->_conn->beginDbTransaction();
         $sql = "INSERT INTO unit_tests (id, integer_value) VALUES (7, 999)";
-        $this->_conn->insert($sql);
+        $this->_conn->insert($sql, null, null, 'id', 7);
         $this->_conn->commitDbTransaction();
 
         // make sure it inserted
@@ -254,10 +254,10 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
     {
         $this->_conn->beginDbTransaction();
         $sql = "INSERT INTO unit_tests (id, integer_value) VALUES (7, 999)";
-        $this->_conn->insert($sql);
+        $this->_conn->insert($sql, null, null, 'id', 7);
         $this->_conn->rollbackDbTransaction();
 
-        // make sure it inserted
+        // make sure it not inserted
         $sql = "SELECT integer_value FROM unit_tests WHERE id='7'";
         $this->assertEquals(null, $this->_conn->selectValue($sql));
     }
@@ -671,7 +671,7 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
         $this->_conn->renameTable('octopuses', 'octopi');
 
         $sql = "INSERT INTO octopi (id, url) VALUES (1, 'http://www.foreverflying.com/octopus-black7.jpg')";
-        $this->_conn->insert($sql);
+        $this->_conn->insert($sql, null, null, 'id', 1);
 
         $this->assertEquals('http://www.foreverflying.com/octopus-black7.jpg',
                 $this->_conn->selectValue("SELECT url FROM octopi WHERE id=1"));
@@ -801,6 +801,20 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
 
         $afterChange = $this->_getColumn('sports', 'is_college');
         $this->assertEquals('character varying(255)', $afterChange->getSqlType());
+
+        $table = $this->_conn->createTable('text_to_binary');
+        $table->column('data', 'text');
+        $table->end();
+        $this->_conn->insert('INSERT INTO text_to_binary (data) VALUES (?)',
+                             array("foobar"));
+
+        $this->_conn->changeColumn('text_to_binary', 'data', 'binary');
+
+        $afterChange = $this->_getColumn('text_to_binary', 'data');
+        $this->assertEquals('bytea', $afterChange->getSqlType());
+        $this->assertEquals(
+            "foobar",
+            stream_get_contents($this->_conn->selectValue('SELECT data FROM text_to_binary')));
     }
 
     public function testChangeColumnLimit()
@@ -1129,7 +1143,7 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
             $table->column('foo', 'string');
         $table->end();
 
-        $this->_conn->insert("INSERT INTO testings (id, foo) VALUES ('1', 'hello')");
+        $this->_conn->insert("INSERT INTO testings (id, foo) VALUES ('1', 'hello')", null, null, 'id', 1);
 
         $this->_conn->addColumn('testings', 'bar', 'string', array('null' => false, 'default' => 'default'));
 
@@ -1178,6 +1192,91 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
         $result = $this->_conn->addOrderByForAssocLimiting("SELECT * FROM documents ",
                                 array('order' => 'name DESC'));
         $this->assertEquals("SELECT * FROM documents ORDER BY name DESC", $result);
+    }
+
+    public function testInterval()
+    {
+        $this->assertEquals('INTERVAL \'1 DAY \'',
+                            $this->_conn->interval('1 DAY', ''));
+    }
+
+    public function testModifyDate()
+    {
+        $modifiedDate = $this->_conn->modifyDate('mystart', '+', 1, 'DAY');
+        $this->assertEquals('mystart + INTERVAL \'1 DAY\'', $modifiedDate);
+
+        $t = $this->_conn->createTable('dates');
+        $t->column('mystart', 'datetime');
+        $t->column('myend', 'datetime');
+        $t->end();
+        $this->_conn->insert(
+            'INSERT INTO dates (mystart, myend) VALUES (?, ?)',
+            array(
+                '2011-12-10 00:00:00',
+                '2011-12-11 00:00:00'
+            )
+        );
+        $this->assertEquals(
+            1,
+            $this->_conn->selectValue('SELECT COUNT(*) FROM dates WHERE '
+                                      . $modifiedDate . ' = myend')
+        );
+    }
+
+    public function testBuildClause()
+    {
+        $this->assertEquals(
+            "CASE WHEN CAST(bitmap AS VARCHAR) ~ '^-?[0-9]+$' THEN (CAST(bitmap AS INTEGER) & 2) <> 0 ELSE FALSE END",
+            $this->_conn->buildClause('bitmap', '&', 2));
+        $this->assertEquals(
+            array("CASE WHEN CAST(bitmap AS VARCHAR) ~ '^-?[0-9]+$' THEN (CAST(bitmap AS INTEGER) & ?) <> 0 ELSE FALSE END", array(2)),
+            $this->_conn->buildClause('bitmap', '&', 2, true));
+
+        $this->assertEquals(
+            "CASE WHEN CAST(bitmap AS VARCHAR) ~ '^-?[0-9]+$' THEN (CAST(bitmap AS INTEGER) | 2) <> 0 ELSE FALSE END",
+            $this->_conn->buildClause('bitmap', '|', 2));
+        $this->assertEquals(
+            array("CASE WHEN CAST(bitmap AS VARCHAR) ~ '^-?[0-9]+$' THEN (CAST(bitmap AS INTEGER) | ?) <> 0 ELSE FALSE END", array(2)),
+            $this->_conn->buildClause('bitmap', '|', 2, true));
+
+        $this->assertEquals(
+            "name ILIKE '%search%'",
+            $this->_conn->buildClause('name', 'LIKE', "search"));
+        $this->assertEquals(
+            array("name ILIKE ?", array('%search%')),
+            $this->_conn->buildClause('name', 'LIKE', "search", true));
+        $this->assertEquals(
+            "name ILIKE '%search\&replace\?%'",
+            $this->_conn->buildClause('name', 'LIKE', "search&replace?"));
+        $this->assertEquals(
+            array("name ILIKE ?", array('%search&replace?%')),
+            $this->_conn->buildClause('name', 'LIKE', "search&replace?", true));
+        $this->assertEquals(
+            "(name ILIKE 'search\&replace\?%' OR name ILIKE '% search\&replace\?%')",
+            $this->_conn->buildClause('name', 'LIKE', "search&replace?", false, array('begin' => true)));
+        $this->assertEquals(
+            array("(name ILIKE ? OR name ILIKE ?)",
+                  array('search&replace?%', '% search&replace?%')),
+            $this->_conn->buildClause('name', 'LIKE', "search&replace?", true, array('begin' => true)));
+
+        $this->assertEquals(
+            'value = 2',
+            $this->_conn->buildClause('value', '=', 2));
+        $this->assertEquals(
+            array('value = ?', array(2)),
+            $this->_conn->buildClause('value', '=', 2, true));
+        $this->assertEquals(
+            "value = 'foo'",
+            $this->_conn->buildClause('value', '=', 'foo'));
+        $this->assertEquals(
+            array('value = ?', array('foo')),
+            $this->_conn->buildClause('value', '=', 'foo', true));
+        $this->assertEquals(
+            "value = 'foo\?bar'",
+            $this->_conn->buildClause('value', '=', 'foo?bar'));
+        $this->assertEquals(
+            array('value = ?', array('foo?bar')),
+            $this->_conn->buildClause('value', '=', 'foo?bar', true));
     }
 
 
@@ -1255,12 +1354,14 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
         $tables = array(
             'binary_testings',
             'cache_table',
+            'dates',
             'my_sports',
             'octopi',
             'pk_tests',
             'schema_info',
             'sports',
             'testings',
+            'text_to_binary',
             'unit_tests',
             'users',
         );

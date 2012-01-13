@@ -15,7 +15,7 @@
  * Parses an object by relying on the MIME capabilities of the backend.
 er.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -55,9 +55,8 @@ implements  Horde_Kolab_Storage_Data_Parser
      *
      * @param Horde_Kolab_Storage_Driver $driver The backend driver.
      */
-    public function __construct(
-        Horde_Kolab_Storage_Driver $driver
-    ) {
+    public function __construct(Horde_Kolab_Storage_Driver $driver)
+    {
         $this->_driver = $driver;
     }
 

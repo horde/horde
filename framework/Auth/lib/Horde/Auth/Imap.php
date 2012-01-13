@@ -3,7 +3,7 @@
  * The Horde_Auth_Imap:: class provides an IMAP implementation of the Horde
  * authentication system.
  *
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, http://www.horde.org/licenses/lgpl21
@@ -159,7 +159,7 @@ class Horde_Auth_Imap extends Horde_Auth_Base
      * @param string $pass  Password.
      *
      * @return Horde_Imap_Client_Base  IMAP client object.
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     protected function _getOb($user, $pass)
     {
@@ -174,7 +174,11 @@ class Horde_Auth_Imap extends Horde_Auth_Base
                 'username' => $user
             );
 
-            $this->_ob[$sig] = Horde_Imap_Client::factory('Socket', $imap_config);
+            try {
+                $this->_ob[$sig] = Horde_Imap_Client::factory('Socket', $imap_config);
+            } catch (InvalidArgumentException $e) {
+                throw new Horde_Auth_Exception($e);
+            }
         }
 
         return $this->_ob[$sig];

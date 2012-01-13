@@ -16,7 +16,7 @@
  * Components_Runner_Installer:: installs a Horde component including its
  * dependencies.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -123,7 +123,13 @@ class Components_Runner_Installer
             $lines = explode("\n", file_get_contents($options['instructions']));
             $result = array();
             foreach ($lines as $line) {
-                list($id, $c_options) = explode(':', $line);
+                $trimmed = trim($line);
+                if (empty($trimmed) || preg_match('/^#/', $trimmed)) {
+                    continue;
+                }
+                preg_match('/(.*):(.*)/', $trimmed, $matches);
+                $id = $matches[1];
+                $c_options = $matches[2];
                 foreach (explode(',', $c_options) as $option) {
                     $result[trim($id)][trim($option)] = true;
                 }

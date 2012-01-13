@@ -3,7 +3,7 @@
  * The IMP_Mime_Viewer_Alternative class renders out messages from
  * multipart/alternative content types (RFC 2046 [5.1.4]).
  *
- * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -95,11 +95,8 @@ class IMP_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Base
 
             $ret[$base_id] = array(
                 'data' => '',
-                'status' => array(
-                    array(
-                        'text' => array(_("There are no alternative parts that can be displayed inline.")),
-                        'type' => 'info'
-                    )
+                'status' => new IMP_Mime_Status(
+                    _("There are no alternative parts that can be displayed inline.")
                 ),
                 'type' => 'text/html; charset=' . $this->getConfigParam('charset')
             );

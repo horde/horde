@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -34,5 +34,5 @@ $title = $form->getTitle();
 require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Nag::menu();
 Nag::status();
-echo $form->renderActive($form->getRenderer(), $vars, 'create.php', 'post');
+echo $form->renderActive($form->getRenderer(), $vars, Horde::url('tasklists/create.php'), 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

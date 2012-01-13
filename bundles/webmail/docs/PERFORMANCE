@@ -32,9 +32,10 @@ Webserver/PHP tuning
 * Consider a PHP accelerator program.  See for example `The Zend Performance
   Suite`_, the `Alternative PHP Cache`_, eAccelerator_, or XCache_.  These
   accelerators speed up access by caching the compiled PHP code, eliminating
-  the need to recompile the code for every single page load. **This is
-  probably the easiest way to improve the performance of Horde Groupware
-  Webmail Edition**.
+  the need to recompile the code for every single page load. **This is probably
+  the easiest way to improve the performance of Horde Groupware Webmail
+  Edition**. See Autoloading_ further down to get even more out of some of
+  those accelerators.
 
 * Enable PHP output compression in the Horde configuration. Do not enable
   compression in the PHP configuration (i.e. in ``php.ini``), because certain
@@ -158,22 +159,42 @@ Sending Mail
 IMAP tuning
 ===========
 
-* Consider an IMAP proxy for more persistent connections.  Some IMAP proxies
-  are up-imapproxy_ and Perdition_.  To make sense, the proxy should be
-  installed on the server running Horde Groupware Webmail Edition, and this
-  server needs enough CPU power to handle the additional load.  If using
-  up-imapproxy, make sure SELECT caching is turned off.
+* Consider an IMAP proxy to allow persistent connections.
 
-* Some IMAP servers (or IMAP mailbox store formats) perform better than
-  others.  Consider switching to a faster format if needed.
+  imapproxy_ is HIGHLY RECOMMENDED - especially versions 1.2.7rc1 and greater
+  which contains features used internally by Horde Groupware Webmail Edition to
+  speed up access to the remote server.
+
+* Use an IMAP server that supports CONDSTORE (RFC 4551) and/or QRESYNC (RFC
+  5162).
+
+  These extensions are required to properly cache data and to properly keep
+  the dynamic display synchronized. It is impossible to do otherwise, and the
+  UI experience will be limited without these extensions.
+
+  Technical information can be found here:
+
+  http://lists.horde.org/archives/imp/Week-of-Mon-20110523/052285.html
+
+* Some IMAP servers perform better than others. The Horde Project recommends
+  either Cyrus_ or Dovecot_ as these servers are actively developed, implement
+  advanced IMAP protocols, and use server-side caching to speed performance.
+
+* Consider switching to a faster mailbox storage format if needed. This may
+  also entail switching the underlying filesystem.
+
+  Further information can be found here:
+
+  http://wiki2.dovecot.org/MailboxFormat
 
 * Follow the IMAP servers' performance hints:
 
-  - Cyrus: http://asg.web.cmu.edu/cyrus/download/imapd/install-perf.html
+  - Cyrus: http://git.cyrusimap.org/cyrus-imapd/tree/doc/install-perf.html
   - Dovecot: http://wiki.dovecot.org/PerformanceTuning
 
-.. _up-imapproxy: http://www.imapproxy.org/
-.. _Perdition: http://www.vergenet.net/linux/perdition/
+.. _Cyrus: http://www.cyrusimap.org/
+.. _Dovecot: http://www.dovecot.org/
+.. _imapproxy: http://www.imapproxy.org/
 
 
 PostgreSQL tuning
@@ -200,6 +221,43 @@ MySQL tuning
     set-variable = query_cache_size=128M
 
 
+Horde tuning
+============
+
+
+Autoloading
+-----------
+
+* An easy way to improve the performance of the Horde Autoloader library, is to
+  install the Autoloader Cache extension::
+
+    pear install horde/horde_autoloader_cache
+
+  This library is not installed by default because it will unconditionally use
+  any of the following cache backends and does not allow for any further
+  configuration: `Alternative PHP Cache`_, XCache_, eAccelerator_, or the local
+  temporary filesystem.
+
+  It also doesn't detect the rare case when the file paths of any PHP class in
+  Horde changes. In this case you either need to use the provided script to
+  empty the cache::
+
+     horde-autoloader-cache-prune
+
+  or empty the cache manually, e.g. by restarting the web server or deleting
+  the cache file from the temporary directory.
+
+
+VFS
+---
+
+* Try to avoid using a SQL backend for VFS. Many databases require binary data
+  to be heavily escaped, resulting in storage sizes that are many times greater
+  than the actual size of the data, so users attaching larger files to outgoing
+  mail messages may cause PHP out-of-memory errors to occur. File system VFS
+  will normally provide much improved performance.
+
+
 Application tuning
 ==================
 
@@ -212,13 +270,15 @@ Application tuning
 Webmail tuning
 ==============
 
-* Horde Groupware Webmail Edition can use persistent caching on the server
-  side to store information about user's messages.  This results in much
-  reduced IMAP server traffic and requires the server to parse the structure
-  of every message only once.  The tradeoff is your cache backend must be able
-  to handle the potentially large amounts of cached data this option will
-  produce.
+* Horde Groupware Webmail Edition can use persistent caching on the server side
+  to store information about user's messages.  This results in much reduced
+  mail server traffic and requires the server to parse the structure of every
+  message only once.  The tradeoff is your cache backend must be able to handle
+  the potentially large amounts of cached data this option will
+  produce. However, cache storage is potentially cheap when compared to the
+  performance gained by using caching.
 
-  To use this caching, you must have a ``Cache System`` configured in Horde's
-  ``Administration/Setup`` screen and have the relevant settings enabled in
-  IMP's setup screen (``Administration/Setup/Webmail/Mailbox and Fetchmail``.
+  To use this caching, you must have a ``Cache System`` configured in Horde
+  Groupware Webmail Edition's ``Administration/Configuration`` screen and have
+  the relevant settings enabled in the Mail module's configuration screen
+  (``Administration/Configuration/Mail/Mailbox``).

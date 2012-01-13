@@ -63,11 +63,9 @@ To function properly, Gollem **REQUIRES** the following:
 Installing Gollem
 =================
 
-There are several ways to install Gollem. The recommended way to install Gollem
-is using the PEAR installer. Alternatively it can be installed from
-tarballs. Finally, if you want to run the latest development code, or get the
-latest, not yet released, fixes, you can install Gollem from Git.
-
+The **RECOMMENDED** way to install Gollem is using the PEAR installer.
+Alternatively, if you want to run the latest development code or get the
+latest not yet released fixes, you can install Gollem from Git.
 
 Installing with PEAR
 ~~~~~~~~~~~~~~~~~~~~
@@ -93,42 +91,12 @@ your PHP configuration::
 
    pear install -a horde/gollem
 
+Installing from Git
+~~~~~~~~~~~~~~~~~~~
 
-Installing from Release Tarballs
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+See::
 
-.. Important:: As of today, there are no tarballs released for Gollem 2
-               yet. Please use the `Installing with PEAR`_ method to install
-               Gollem 2.
-
-Gollem can be obtained from the Horde website and FTP server, at
-
-   http://www.horde.org/apps/gollem
-
-   ftp://ftp.horde.org/gollem/
-
-Or use the mirror closest to you:
-
-   http://www.horde.org/mirrors.php
-
-Gollem is written in PHP, and must be installed in a web-accessible directory.
-The precise location of this directory will differ from system to system.
-Conventionally, Gollem is installed directly underneath Horde in the web
-server's document tree.
-
-Since Gollem is written in PHP, there is no compilation necessary; simply
-expand the distribution where you want it to reside and rename the root
-directory of the distribution to whatever you wish to appear in the URL.  For
-example, with the Apache web server's default document root of
-``/usr/local/apache/htdocs``, you would type::
-
-   cd /usr/local/apache/htdocs/horde
-   tar zxvf /path/to/gollem-1.0.tar.gz
-   mv gollem-1.0 gollem
-
-and would then find Gollem at the URL::
-
-   http://your-server/horde/gollem/
+   http://horde.org/source/git.php
 
 
 Configuring Gollem
@@ -147,11 +115,6 @@ Configuring Gollem
    of the other methods to create the configuration file
    ``gollem/config/conf.php``.
 
-   To configure Gollem, change to the ``config/`` directory of the installed
-   distribution, and copy the ``backends.php.dist`` configuration file to
-   ``backends.php`` and edit it to your needs. You must be sure to configure an
-   appropriate backend in ``backends.php``.
-
    Documentation on the format and purpose of the other configuration files in
    the ``config/`` directory can be found in each file. You may create
    ``*.local.php`` versions of these files if you wish to customize Gollem's
@@ -168,7 +131,7 @@ The Horde Frequently Asked Questions List (FAQ), available on the Web at
 
   http://wiki.horde.org/FAQ
 
-Horde LLC runs a number of mailing lists, for individual applications
+The Horde Project runs a number of mailing lists, for individual applications
 and for issues relating to the project as a whole.  Information, archives, and
 subscription information can be found at
 

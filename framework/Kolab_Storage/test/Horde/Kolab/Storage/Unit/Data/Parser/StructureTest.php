@@ -20,7 +20,7 @@ require_once dirname(__FILE__) . '/../../../Autoload.php';
 /**
  * Test the structure based parser.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -37,7 +37,7 @@ extends Horde_Kolab_Storage_TestCase
 {
     public function testFetchArray()
     {
-        $this->assertType(
+        $this->assertInternalType(
             'array',
             $this->_getParser()->fetch(
                 'test', array(1), array('type' => 'event')
@@ -63,7 +63,7 @@ extends Horde_Kolab_Storage_TestCase
             'test', array(1,2,4), array('type' => 'event')
         );
         foreach ($objects as $object) {
-            $this->assertType('array', $object);
+            $this->assertInternalType('array', $object);
         }
     }
 

@@ -11,7 +11,7 @@
  * The Horde_SyncMl_XmlOutput class takes automatically care of creating a
  * unique CmdID for each command created.
  *
- * Copyright 2006-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2006-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -327,7 +327,7 @@ class Horde_SyncMl_XmlOutput
         $devinfoutput->characters($state->getVerDTD());
         $devinfoutput->endElement($uriDevInf , 'VerDTD');
         $devinfoutput->startElement($uriDevInf , 'Man');
-        $devinfoutput->characters('Horde LLC (http://www.horde.org/)');
+        $devinfoutput->characters('The Horde Project (http://www.horde.org/)');
         $devinfoutput->endElement($uriDevInf , 'Man');
         $devinfoutput->startElement($uriDevInf , 'DevID');
         $devinfoutput->characters(isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'localhost');
@@ -586,7 +586,7 @@ class Horde_SyncMl_XmlOutput
                     if ($device->useCdataTag()) {
                         /* Enclose data in CDATA if possible to avoid */
                         /* problems with &,< and >. */
-                        $this->output->characters('<![CDATA[' . $content . ']]>');
+                        $this->output->opaque('<![CDATA[' . $content . ']]>');
                     } else {
                         $this->output->characters($content);
                     }

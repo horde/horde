@@ -14,7 +14,7 @@
 /**
  * The cache decorator for folder lists from Kolab storage.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -56,10 +56,9 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
      * @param Horde_Kolab_Storage_Cache_List $cache The cache storing data for
      *                                              this decorator.
      */
-    public function __construct(
-        Horde_Kolab_Storage_List $list,
-        Horde_Kolab_Storage_Cache_List $cache
-    ) {
+    public function __construct(Horde_Kolab_Storage_List $list,
+                                Horde_Kolab_Storage_Cache_List $cache)
+    {
         $this->_list = $list;
         $this->_list_cache = $cache;
     }

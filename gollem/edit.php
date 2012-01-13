@@ -2,7 +2,7 @@
 /**
  * Gollem edit script.
  *
- * Copyright 2006-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2006-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -29,13 +29,13 @@ case 'save_file':
     try {
         $injector
             ->getInstance('Gollem_Vfs')
-            ->writeData($vars->filedir, $vars->filename, $vars->content);
-        $message = sprintf(_("%s successfully saved."), $vars->filename);
+            ->writeData($vars->dir, $vars->file, $vars->content);
+        $message = sprintf(_("%s successfully saved."), $vars->file);
     } catch (Horde_Vfs_Exception $e) {
-        $message = sprintf(_("Access denied to %s"), $vars->filename);
+        $message = sprintf(_("Access denied to %s"), $vars->file);
     }
     echo Horde::wrapInlineScript(array(
-        'alert("' . addslashes($message) . '")'
+        'alert(' . Horde_Serialize::serialize($message, Horde_Serialize::JSON) . ')'
     ));
     break;
 
@@ -43,10 +43,10 @@ case 'edit_file':
     try {
         $data = $injector
             ->getInstance('Gollem_Vfs')
-            ->read($vars->filedir, $vars->filename);
+            ->read($vars->dir, $vars->file);
     } catch (Horde_Vfs_Exception $e) {
         echo Horde::wrapInlineScript(array(
-            'alert("' . addslashes(sprintf(_("Access denied to %s"), $vars->filename)) . '")'
+            'alert(' . Horde_Serialize::serialize(sprintf(_("Access denied to %s"), $vars->file), Horde_Serialize::JSON) . ')'
         ));
         break;
     }
@@ -59,8 +59,11 @@ case 'edit_file':
     if ($mime_type == 'text/html') {
         $injector->getInstance('Horde_Editor')->initialize(array('id' => 'content'));
     }
+
+    Horde::addScriptFile('edit.js', 'gollem');
+
     require $registry->get('templates', 'horde') . '/common-header.inc';
-require GOLLEM_TEMPLATES . '/javascript_defs.php';
+    require GOLLEM_TEMPLATES . '/javascript_defs.php';
     Gollem::status();
     require GOLLEM_TEMPLATES . '/edit/edit.inc';
     require $registry->get('templates', 'horde') . '/common-footer.inc';

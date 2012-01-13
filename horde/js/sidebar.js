@@ -76,7 +76,7 @@ var HordeSidebar = {
         var hb = $('horde_body'),
             margin = expanded
             ? this.width
-            : $('hiddenSidebar').down().getWidth();
+            : $('hiddenSidebar').getLayout().get('margin-box-width');
 
         switch ($(document.body).getStyle('direction')) {
         case 'ltr':

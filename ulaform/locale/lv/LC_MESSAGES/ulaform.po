@@ -1,5 +1,5 @@
 # Latvian translations for Ulaform package.
-# Copyright 2011 Horde Project
+# Copyright 2011-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Ulaform package.
 # Automatically generated, 2011.
 #
@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2008-08-01 10:45+0200\n"
-"PO-Revision-Date: 2011-07-21 16:40+0300\n"
+"PO-Revision-Date: 2011-10-16 15:39+0300\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: lv\n"
@@ -22,9 +22,8 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 
 #: edit.php:82
-#, fuzzy
 msgid "-- default configured --"
-msgstr "Nav konfigurēts"
+msgstr "-- noklusētā konfigurācija --"
 
 #: edit.php:62
 msgid "-- select --"
@@ -51,14 +50,12 @@ msgid "Cc"
 msgstr "Cc"
 
 #: edit.php:45
-#, fuzzy
 msgid "Changed action driver."
-msgstr "Iztrūkst \"driver\" parametrs!"
+msgstr "Darbības dzinis mainīts."
 
 #: genhtml.php:37
-#, fuzzy
 msgid "Changed embed type."
-msgstr "Postscript 1-tipa fonts"
+msgstr "Iegultais tips mainīts."
 
 #: config/fields.php.dist:49
 msgid "Characters"
@@ -69,9 +66,9 @@ msgid "Columns"
 msgstr "Slejas"
 
 #: display.php:30
-#, fuzzy, php-format
+#, php-format
 msgid "Could not fetch form ID \"%s\". %s"
-msgstr "Nevar piekļūt adrešu grāmatai."
+msgstr "Nevar nolasīt formu ar ID \"%s\". %s"
 
 #: edit.php:56
 msgid "Create"
@@ -136,44 +133,44 @@ msgid "Enter a comma separated list of values."
 msgstr "Ievadiet ar komatu atdalītas vērtības."
 
 #: deletefield.php:57
-#, fuzzy, php-format
+#, php-format
 msgid "Error deleting field. %s."
-msgstr "Kļūda dzēšot failu '%s': %s"
+msgstr "Kļūda dzēšot lauku. %s"
 
 #: delete.php:44
-#, fuzzy, php-format
+#, php-format
 msgid "Error deleting form. %s."
-msgstr "Kļūda dzēšot failu '%s': %s"
+msgstr "Kļūda dzēšot formu. %s"
 
 #: lib/Action/template.php:63
-#, fuzzy, php-format
+#, php-format
 msgid "Error retrieving templates from \"%s\": %s"
-msgstr "Kļūda lasot no bērna: %s."
+msgstr "Kļūda nolasot veidnes no \"%s\": %s"
 
 #: fields.php:88
-#, fuzzy, php-format
+#, php-format
 msgid "Error saving field. %s."
-msgstr "Kļūda saglabājot katalogu"
+msgstr "Kļūda saglabājot lauku. %s"
 
 #: sortfields.php:46
-#, fuzzy, php-format
+#, php-format
 msgid "Error saving fields. %s."
-msgstr "Kļūda saglabājot katalogu"
+msgstr "Kļūda saglabājot laukus. %s"
 
 #: edit.php:100
-#, fuzzy, php-format
+#, php-format
 msgid "Error saving form. %s."
-msgstr "Kļūda saglabājot katalogu"
+msgstr "Kļūda saglabājot formu. %s"
 
 #: display.php:65 lib/api.php:154 lib/Block/form.php:88
-#, fuzzy, php-format
+#, php-format
 msgid "Error submitting form. %s."
-msgstr "Mazie formu varianti"
+msgstr "Kļūda iesniedzot formu. %s"
 
 #: deletefield.php:59
-#, fuzzy, php-format
+#, php-format
 msgid "Field \"%s\" deleted."
-msgstr "Iztīrīt dzēstās"
+msgstr "Lauks \"%s\" izdzēsts."
 
 #: fields.php:40
 msgid "Field Details"
@@ -225,19 +222,16 @@ msgid "Form has not been deleted."
 msgstr "Forma nav izdzēsta."
 
 #: display.php:67 lib/Block/form.php:90
-#, fuzzy
 msgid "Form submitted successfully."
-msgstr "Vēstule veiksmīgi nosūtīta."
+msgstr "Forma veiksmīgi iesniegta."
 
 #: config/fields.php.dist:135
-#, fuzzy
 msgid "Format used to display"
-msgstr "Izvēlieties vārdu attēlošanas formātu."
+msgstr "Izvēlieties attēlošanas formātu"
 
 #: config/fields.php.dist:133
-#, fuzzy
 msgid "Format used to submit"
-msgstr "Neizdevās ielādēt Kolab Format draiveri %s."
+msgstr "Izvēlieties iesniegšanas formātu"
 
 #: forms.php:38
 msgid "Forms List"
@@ -248,40 +242,33 @@ msgid "From"
 msgstr "Sūtītājs"
 
 #: fields.php:117 forms.php:29 genhtml.php:48
-#, fuzzy
 msgid "Generate HTML"
-msgstr "HTML dokuments"
+msgstr "Izveidot HTML"
 
 #: genhtml.php:42
-#, fuzzy, php-format
+#, php-format
 msgid "HTML Generation for \"%s\""
-msgstr "HTML sūtījums \"%s\""
+msgstr "HTML veidošana \"%s\""
 
 #: genhtml.php:62
 msgid "Height"
 msgstr "Augstums"
 
 #: lib/Action/template.php:35
-#, fuzzy
 msgid "Horde Template"
-msgstr "ODC veidne"
+msgstr "Horde veidne"
 
 #: fields.php:47
 msgid "Internal name"
 msgstr "Iekšējais nosaukums"
-
-#: edit.php:86
-msgid "Javascript to execute on form \"submit\":"
-msgstr ""
 
 #: fields.php:46 fields.php:124
 msgid "Label"
 msgstr "Iezīme"
 
 #: lib/Action/mailto.php:99
-#, fuzzy
 msgid "Mailto"
-msgstr "Pasts"
+msgstr "Adresāts"
 
 #: lib/Driver/sql.php:80 lib/Driver/sql.php:158
 msgid "Missing form"
@@ -312,27 +299,23 @@ msgid "No field specified."
 msgstr "Nav norādīts lauks."
 
 #: lib/Action.php:96
-#, fuzzy, php-format
+#, php-format
 msgid "No such action \"%s\" found"
-msgstr "Netika atrasta neviena skaļuma kontrole"
+msgstr "Darbība \"%s\" nav atrasta"
 
 #: lib/Driver.php:139
-#, fuzzy, php-format
+#, php-format
 msgid "No such backend \"%s\" found"
-msgstr "\"%s\" elements nav atrasts palīgmoduļa konfigurācijā ."
+msgstr "Dzinis \"%s\" nav atrasts."
 
 #: lib/Driver/sql.php:229 lib/Driver/sql.php:275
-#, fuzzy, php-format
+#, php-format
 msgid "No such form ID \"%s\"."
-msgstr "Darba tips ar ID  \"%s\" nepastāv."
+msgstr "Formas ID  \"%s\" nepastāv."
 
 #: lib/Action/template.php:24
 msgid "Not Implemented."
 msgstr "Nav ieviests."
-
-#: genhtml.php:52
-msgid "PHP using PEAR classes"
-msgstr ""
 
 #: fields.php:117
 msgid "Preview"
@@ -371,10 +354,6 @@ msgstr "Saglabāt"
 msgid "Save Field"
 msgstr "Saglabāt lauku"
 
-#: genhtml.php:53
-msgid "Select how you wish to embed the form"
-msgstr ""
-
 # #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
 # #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
 #
@@ -388,20 +367,13 @@ msgstr ""
 msgid "Select the sort order of the fields"
 msgstr "Izvēlieties lauku šķirošanas kārtību"
 
-#: fields.php:47
-msgid ""
-"Set this name if you have a particular reason to override the automatic "
-"internal naming of fields."
-msgstr ""
-
 #: lib/Block/form.php:3
 msgid "Show Form"
 msgstr "Rādīt formu"
 
 #: config/fields.php.dist:131
-#, fuzzy
 msgid "Show the date picker"
-msgstr "Krāsu pipetes informācija"
+msgstr "Rādīt datumu izvēlni"
 
 #: sortfields.php:31
 msgid "Sort Fields"
@@ -428,25 +400,9 @@ msgid "Template"
 msgstr "Veidne"
 
 #: forms.php:20
-#, fuzzy, php-format
+#, php-format
 msgid "There was an error listing forms: %s."
-msgstr "Kļūda aktivējot skriptu."
-
-#: lib/Action/mailto.php:100
-msgid ""
-"This driver allows the sending of form results via email to one or more "
-"recipients."
-msgstr ""
-
-#: lib/Action/sql.php:90
-msgid "This driver allows to insertion of form results into a database."
-msgstr ""
-
-#: lib/Action/template.php:36
-msgid ""
-"This driver fills out a template provided by any of the available "
-"applications using its template."
-msgstr ""
+msgstr "Kļūda veidojot formu sarakstu: %s."
 
 #: fields.php:65
 msgid "This field type has extra parameters."
@@ -480,14 +436,12 @@ msgstr "Jums nav tiesību piekļūt šai formai."
 
 #
 #: lib/Ulaform.php:237
-#, fuzzy
 msgid "_List Forms"
-msgstr "Skaitļu formas"
+msgstr "Formu saraksts"
 
 #: lib/Ulaform.php:238
-#, fuzzy
 msgid "_New Form"
-msgstr "&Pievienot jaunu"
+msgstr "Jauna forma"
 
 #: genhtml.php:52
 msgid "iframe"

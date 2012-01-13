@@ -2,7 +2,7 @@
 /**
  * IMP Base Class.
  *
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -124,28 +124,26 @@ class IMP
      * and &lt;/select&gt; tags are NOT included in the output.
      *
      * @param array $options  Optional parameters:
-     * <pre>
-     * 'abbrev' - (boolean) Abbreviate long mailbox names by replacing the
-     *            middle of the name with '...'?
-     *            DEFAULT: Yes
-     * 'basename' - (boolean)  Use raw basename instead of abbreviated label?
-     *              DEFAULT: false
-     * 'filter' - (array) An array of mailboxes to ignore.
-     *            DEFAULT: Display all
-     * 'heading' - (string) The label for an empty-value option at the top of
-     *             the list.
-     *             DEFAULT: ''
-     * 'inc_notepads' - (boolean) Include user's editable notepads in list?
+     *   - abbrev: (boolean) Abbreviate long mailbox names by replacing the
+     *             middle of the name with '...'?
+     *             DEFAULT: Yes
+     *   - basename: (boolean)  Use raw basename instead of abbreviated label?
+     *               DEFAULT: false
+     *   - filter: (array) An array of mailboxes to ignore.
+     *             DEFAULT: Display all
+     *   - heading: (string) The label for an empty-value option at the top of
+     *              the list.
+     *              DEFAULT: ''
+     *   - inc_notepads: (boolean) Include user's editable notepads in list?
      *                   DEFAULT: No
-     * 'inc_tasklists' - (boolean) Include user's editable tasklists in list?
-     *                   DEFAULT: No
-     * 'inc_vfolder' - (boolean) Include user's virtual folders in list?
-     *                   DEFAULT: No
-     * 'new_folder' - (boolean) Display an option to create a new folder?
-     *                DEFAULT: No
-     * 'selected' - (string) The mailbox to have selected by default.
-     *             DEFAULT: None
-     * </pre>
+     *   - inc_tasklists: (boolean) Include user's editable tasklists in list?
+     *                    DEFAULT: No
+     *   - inc_vfolder: (boolean) Include user's virtual folders in list?
+     *                  DEFAULT: No
+     *   - new_folder: (boolean) Display an option to create a new folder?
+     *                 DEFAULT: No
+     *   - selected: (string) The mailbox to have selected by default.
+     *               DEFAULT: None
      *
      * @return string  A string containing <option> elements for each mailbox
      *                 in the list.
@@ -337,6 +335,7 @@ class IMP
     static public function menu()
     {
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
+        $t->set('form_url', Horde::url('mailbox.php'));
         $t->set('forminput', Horde_Util::formInput());
         $t->set('use_folders', $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS), true);
         if ($t->get('use_folders')) {
@@ -351,7 +350,7 @@ class IMP
                 'inc_vfolder' => true,
                 'selected' => self::$mailbox
             )));
-            $t->set('flink', sprintf('%s%s<br />%s</a>', Horde::link('#'), ($menu_view != 'text') ? Horde::img('folders/open.png', _("Open Folder"), ($menu_view == 'icon') ? array('title' => _("Open Folder")) : array()) : '', ($menu_view != 'icon') ? Horde::highlightAccessKey(_("Open Fo_lder"), $ak) : ''));
+            $t->set('flink', sprintf('%s%s<br />%s</a>', Horde::link('#'), ($menu_view != 'text') ? '<span class="iconImg folderImg" title="' . htmlspecialchars(_("Open Folder")) . '"></span>' : '', ($menu_view != 'icon') ? Horde::highlightAccessKey(_("Open Fo_lder"), $ak) : ''));
         }
         $t->set('menu_string', Horde::menu(array('app' => 'imp', 'menu_ob' => true))->render());
 
@@ -595,6 +594,25 @@ class IMP
     static public function base64urlDecode($in)
     {
         return base64_decode(strtr($in, '-_', '+/'));
+    }
+
+    /**
+     * Workaround broken number_format() prior to PHP 5.4.0.
+     *
+     * @param integer $number    Number to format.
+     * @param integer $decimals  Number of decimals to display.
+     *
+     * @return string  See number_format().
+     */
+    static public function numberFormat($number, $decimals)
+    {
+        $localeinfo = Horde_Nls::getLocaleInfo();
+
+        return str_replace(
+            array('X', 'Y'),
+            array($localeinfo['decimal_point'], $localeinfo['thousands_sep']),
+            number_format($number, $decimals, 'X', 'Y')
+        );
     }
 
 }

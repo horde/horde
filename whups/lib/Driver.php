@@ -3,7 +3,7 @@
  * Base class for Whups' storage backend.
  *
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -15,7 +15,7 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package Whups
  */
-class Whups_Driver
+abstract class Whups_Driver
 {
     /**
      * @var array
@@ -48,11 +48,30 @@ class Whups_Driver
             if (substr($name, 0, 10) == 'attribute_' &&
                 $ticket->get($name) != $value) {
                 $attribute_id = (int)substr($name, 10);
+                $serialized = $this->_serializeAttribute($value);
                 $ticket->change($name, $value);
-                $this->_setAttributeValue($ticket_id, $attribute_id, $value);
-                $this->updateLog($ticket_id, $GLOBALS['registry']->getAuth(), array('attribute' => $attribute_id . ':' . $value));
+                $this->_setAttributeValue(
+                    $ticket_id,
+                    $attribute_id,
+                    $serialized);
+                $this->updateLog($ticket_id, $GLOBALS['registry']->getAuth(), array('attribute' => $attribute_id . ':' . $serialized));
             }
         }
+    }
+
+    /**
+     * Returns a serialized value, if necessary.
+     *
+     * @param mixed  The original value.
+     *
+     * @return string  The JSON encoded value if not already a string.
+     */
+    protected function _serializeAttribute($value)
+    {
+        if (!is_string($value)) {
+            return Horde_Serialize::serialize($value, Horde_Serialize::JSON);
+        }
+        return $value;
     }
 
     /**
@@ -62,32 +81,37 @@ class Whups_Driver
      *
      * @return array
      */
-    public function getHistory($ticket_id)
+    public function getHistory($ticket_id, Horde_Form $form = null)
     {
         $rows = $this->_getHistory($ticket_id);
-        $attributes = array();
+        $attributes = $attributeDetails = array();
         foreach ($rows as $row) {
             if ($row['log_type'] == 'attribute' &&
                 strpos($row['log_value'], ':')) {
                 $attributes[(int)$row['log_value']] = $row['attribute_name'];
             }
+            if ($row['log_type'] == 'type') {
+                $attributeDetails += $this->getAttributesForType($row['log_value']);
+            }
         }
 
+        $renderer = new Horde_Core_Ui_VarRenderer_Html();
         $history = array();
         foreach ($rows as $row) {
             $label = null;
-            $value = $row['log_value'];
+            $human = $value = $row['log_value'];
+            $type = $row['log_type'];
             $transaction = $row['transaction_id'];
 
             $history[$transaction]['timestamp'] = $row['timestamp'];
             $history[$transaction]['user_id'] = $row['user_id'];
             $history[$transaction]['ticket_id'] = $row['ticket_id'];
 
-            switch ($row['log_type']) {
+            switch ($type) {
             case 'comment':
                 $history[$transaction]['comment'] = $row['comment_text'];
                 $history[$transaction]['changes'][] = array(
-                    'type' => $row['log_type'],
+                    'type' => 'comment',
                     'value' => $row['log_value'],
                     'comment' => $row['comment_text']);
                 continue 2;
@@ -120,25 +144,50 @@ class Whups_Driver
                 break;
 
             default:
-                if (strpos($row['log_type'], 'attribute_') === 0) {
-                    $attribute = substr($row['log_type'], 10);
+                if (strpos($type, 'attribute_') === 0) {
+                    try {
+                        $value = Horde_Serialize::unserialize(
+                            $value, Horde_Serialize::JSON);
+                    } catch (Horde_Serialize_Exception $e) {
+                    }
+                    $attribute = substr($type, 10);
                     if (isset($attributes[$attribute])) {
                         $label = $attributes[$attribute];
+                        if ($form) {
+                            if (isset($form->attributes[$attribute])) {
+                                /* Attribute is part of the current type, so we
+                                 * have the form field in the current form. */
+                                $field = $form->attributes[$attribute];
+                            } else {
+                                /* Attribute is from a different type, create
+                                 * the form field manually. */
+                                $detail = $attributeDetails[$attribute];
+                                $field = new Horde_Form_Variable(
+                                    $detail['human_name'],
+                                    $type,
+                                    $form->getType($detail['type'],
+                                                   $detail['params']),
+                                    $detail['required'],
+                                    $detail['readonly'],
+                                    $detail['desc']);
+                            }
+                            $human = $renderer->render(
+                                $form,
+                                $field,
+                                new Horde_Variables(array($type => $value)));
+                        }
+                        $type = 'attribute';
                     } else {
                         $label = sprintf(_("Attribute %d"), $attribute);
                     }
-                    $history[$transaction]['changes'][] = array(
-                        'type' => 'attribute',
-                        'value' => $value,
-                        'label' => $label);
-                    continue 2;
                 }
                 break;
             }
 
             $history[$transaction]['changes'][] = array(
-                'type' => $row['log_type'],
+                'type' => $type,
                 'value' => $value,
+                'human' => $human,
                 'label' => $label);
         }
 
@@ -147,7 +196,7 @@ class Whups_Driver
 
     /**
      */
-    function getQueue($queueId)
+    public function getQueue($queueId)
     {
         return $GLOBALS['registry']->call('tickets/getQueueDetails',
                                           array($queueId));
@@ -155,14 +204,14 @@ class Whups_Driver
 
     /**
      */
-    function getQueues()
+    public function getQueues()
     {
         return $GLOBALS['registry']->call('tickets/listQueues');
     }
 
     /**
      */
-    function getVersionInfo($queue)
+    public function getVersionInfo($queue)
     {
         return $GLOBALS['registry']->call('tickets/listVersions',
                                           array($queue));
@@ -171,7 +220,7 @@ class Whups_Driver
     /**
      * Returns a hash of versions suitable for select lists.
      */
-    function getVersions($queue, $all = false)
+    public function getVersions($queue, $all = false)
     {
         if (empty($queue)) {
             return array();
@@ -203,7 +252,7 @@ class Whups_Driver
 
     /**
      */
-    function getVersion($version)
+    public function getVersion($version)
     {
         return $GLOBALS['registry']->call('tickets/getVersionDetails',
                                           array($version));
@@ -211,7 +260,7 @@ class Whups_Driver
 
     /**
      */
-    function getCategories()
+    public function getCategories()
     {
         return array('unconfirmed' => _("Unconfirmed"),
                      'new' => _("New"),
@@ -226,7 +275,7 @@ class Whups_Driver
      *
      * @return array  A list of attributes.
      */
-    function getAttributesForType($type = null)
+    public function getAttributesForType($type = null)
     {
         $attributes = $this->_getAttributesForType($type);
         foreach ($attributes as $id => $attribute) {
@@ -251,12 +300,19 @@ class Whups_Driver
      *
      * @return array  List of attributes.
      */
-    function getAllTicketAttributesWithNames($ticket_id)
+    public function getAllTicketAttributesWithNames($ticket_id)
     {
         $ta = $this->_getAllTicketAttributesWithNames($ticket_id);
 
         $attributes = array();
         foreach ($ta as $id => $attribute) {
+            try {
+                $value = Horde_Serialize::unserialize(
+                    $attribute['attribute_value'],
+                    Horde_Serialize::JSON);
+            } catch (Horde_Serialize_Exception $e) {
+                $value = $attribute['attribute_value'];
+            }
             $attributes[$attribute['attribute_id']] = array(
                 'id'         => $attribute['attribute_id'],
                 'human_name' => $attribute['attribute_name'],
@@ -265,7 +321,7 @@ class Whups_Driver
                 'readonly'   => false,
                 'desc'       => $attribute['attribute_description'],
                 'params'     => $attribute['attribute_params'],
-                'value'      => $attribute['attribute_value']);
+                'value'      => $value);
         }
         return $attributes;
     }
@@ -278,7 +334,7 @@ class Whups_Driver
      *
      * @param integer $queueId  The id of the queue being deleted.
      */
-    function deleteQueue($queueId)
+    public function deleteQueue($queueId)
     {
         $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
         try {
@@ -297,7 +353,7 @@ class Whups_Driver
      *
      * @param integer $reply  The id of the form reply being deleted.
      */
-    function deleteReply($reply)
+    public function deleteReply($reply)
     {
         $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
         try {
@@ -310,7 +366,7 @@ class Whups_Driver
 
     /**
      */
-    function filterTicketsByState($tickets, $state_category = array())
+    public function filterTicketsByState($tickets, $state_category = array())
     {
         /* Take a list of tickets and return only those of the specified
          * state_category. */
@@ -349,7 +405,7 @@ class Whups_Driver
      *                     - new:        (boolean, optional) Whether the passed
      *                                   ticket was just created.
      */
-    function mail(array $opts)
+    public function mail(array $opts)
     {
         global $conf, $registry, $prefs;
 
@@ -385,6 +441,9 @@ class Whups_Driver
             $mail->addHeader('From', $conf['mail']['from_addr']);
         } else {
             $mail->addHeader('From', Whups::formatUser($opts['from']));
+        }
+        if (!empty($conf['mail']['return_path'])) {
+            $mail->addHeader('Return-Path', $conf['mail']['return_path']);
         }
 
         if ($opts['ticket']) {
@@ -457,13 +516,9 @@ class Whups_Driver
                 /* Add attachments. */
                 $attachmentAdded = false;
                 if (empty($GLOBALS['conf']['mail']['link_attach'])) {
-                    /* We don't know how many attachments exactly have been added
-                     * for the last recipient, but we need to remove all of them
-                     * because the attachment list is potentially limited by
-                     * permissions. */
-                    for ($i = 0, $c = count($attachments); $i < $c; $i++) {
-                        $mail->removePart($i);
-                    }
+                    /* We need to remove all attachments because the attachment
+                     * list is potentially limited by permissions. */
+                    $mail->clearParts();
                     foreach ($mycomments as $comment) {
                         foreach ($comment['changes'] as $change) {
                             if ($change['type'] == 'attachment') {
@@ -561,7 +616,7 @@ class Whups_Driver
      *
      * @return string  The formatted comment text, if any.
      */
-    function formatComments($comments, $ticket)
+    public function formatComments($comments, $ticket)
     {
         $text = '';
         foreach ($comments as $comment) {

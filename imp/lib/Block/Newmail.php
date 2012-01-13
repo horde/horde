@@ -2,7 +2,7 @@
 /**
  * Block: show list of new mail messages.
  *
- * Copyright 2007-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -25,6 +25,19 @@ class IMP_Block_Newmail extends Horde_Core_Block
         parent::__construct($app, $params);
 
         $this->_name = _("Newest Unseen Messages");
+    }
+
+    /**
+     */
+    protected function _params()
+    {
+        return array(
+            'msgs_shown' => array(
+                'type' => 'int',
+                'name' => _("The number of unseen messages to show"),
+                'default' => 3
+            )
+        );
     }
 
     /**
@@ -56,8 +69,9 @@ class IMP_Block_Newmail extends Horde_Core_Block
             $query->envelope();
 
             try {
-                $fetch_ret = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($inbox, $query, array(
-                    'ids' => new Horde_Imap_Client_Ids(array_slice($indices, 0, $shown))
+                $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+                $fetch_ret = $imp_imap->fetch($inbox, $query, array(
+                    'ids' => $imp_imap->getIdsOb(array_slice($indices, 0, $shown))
                 ));
             } catch (IMP_Imap_Exception $e) {
                 $fetch_ret = array();

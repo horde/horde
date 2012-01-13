@@ -11,10 +11,10 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-03-07</date>
- <time>01:04:19</time>
+ <date>2011-09-15</date>
+ <time>23:12:40</time>
  <version>
-  <release>1.0.0beta1</release>
+  <release>1.0.0alpha1</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -23,10 +23,18 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* First alpha release for Horde 4.
 * [jan] Update Latvian translation.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Kolab">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/Kolab -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="Kolab">
     <file name="Translation.php" role="php">
      <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
@@ -315,6 +323,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Kolab/COPYING" />
    <install as="Kolab/Translation.php" name="Kolab/Translation.php" />
    <install as="locale/Horde_Kolab.pot" name="locale/Horde_Kolab.pot" />
    <install as="locale/ar/LC_MESSAGES/Horde_Kolab.mo" name="locale/ar/LC_MESSAGES/Horde_Kolab.mo" />
@@ -525,13 +534,14 @@ Kolab server has been dropped - Kolab 2 is now the supported backend.
     <api>1.0.0</api>
    </version>
    <stability>
-    <release>alpha</release>
-    <api>alpha</api>
+    <release>beta</release>
+    <api>beta</api>
    </stability>
-   <date>2011-03-07</date>
+   <date>2011-09-15</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First alpha release for Horde 4.
+* [jan] Update Latvian translation.
    </notes>
   </release>
  </changelog>

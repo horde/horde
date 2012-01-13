@@ -1,6 +1,6 @@
 # Slovenian translations for Beatnik packaga
 # Slovenski prevod Beatnik paketa
-# Copyright (C) 2006 Horde Project
+# Copyright 2006-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the horde package.
 # Automatically generated, 2006.
 #

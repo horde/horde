@@ -14,7 +14,7 @@
 /**
  * The basic decorator definition for Kolab folders.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -208,10 +208,9 @@ implements Horde_Kolab_Storage_Folder
      *
      * @return NULL
      */
-    public function setPermission(
-        Horde_Kolab_Storage_Folder_Permission $perms,
-        $update = true
-    ) {
+    public function setPermission(Horde_Kolab_Storage_Folder_Permission $perms,
+                                  $update = true)
+    {
         $this->_folder->setPermission($perms, $update);
     }
 

@@ -2,7 +2,7 @@
 /**
  * Chora Base Class.
  *
- * Copyright 2000-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2000-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -357,11 +357,11 @@ class Chora
     {
         $tags = array();
 
-        foreach ($lg->querySymbolicBranches() as $symb => $bra) {
+        foreach ($lg->getSymbolicBranches() as $symb => $bra) {
             $tags[] = self::url('browsefile', $where, array('onb' => $bra))->link() . htmlspecialchars($symb) . '</a>';
         }
 
-        foreach ($lg->queryTags() as $tag) {
+        foreach ($lg->getTags() as $tag) {
             $tags[] = htmlspecialchars($tag);
         }
 

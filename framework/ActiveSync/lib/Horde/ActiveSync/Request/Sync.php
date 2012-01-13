@@ -2,7 +2,7 @@
 /**
  * ActiveSync Handler for SYNC requests
  *
- * Copyright 2009-2011 Horde LLC (http://www.horde.org)
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package ActiveSync
@@ -15,14 +15,14 @@
 class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
 {
     /* Status */
-    const STATUS_SUCCESS = 1;
+    const STATUS_SUCCESS     = 1;
     const STATUS_VERSIONMISM = 2;
-    const STATUS_KEYMISM = 3;
-    const STATUS_PROTERROR = 4;
+    const STATUS_KEYMISM     = 3;
+    const STATUS_PROTERROR   = 4;
     const STATUS_SERVERERROR = 5;
 
     /* Maximum window size */
-    const MAX_WINDOW_SIZE = 512;
+    const MAX_WINDOW_SIZE    = 512;
 
     /**
      * Handle the sync request
@@ -40,15 +40,10 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             return false;
         }
 
-        // Be optimistic
         $this->_statusCode = self::STATUS_SUCCESS;
-
-        // Contains all containers requested
         $collections = array();
 
         // Start decoding request
-        // FIXME: Need to figure out the proper response structure for errors
-        // that occur this early
         if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_SYNCHRONIZE)) {
             throw new Horde_ActiveSync_Exception('Protocol error');
         }
@@ -65,6 +60,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             $collection['clientids'] = array();
             $collection['fetchids'] = array();
             $collection['windowsize'] = 100;
+            $collection['conflict'] = Horde_ActiveSync::CONFLICT_OVERWRITE_PIM;
 
             if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FOLDERTYPE)) {
                 throw new Horde_ActiveSync_Exception('Protocol error');
@@ -205,15 +201,9 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     $this->_state->setDeviceInfo($this->_device);
                 }
 
-                // compatibility mode - get folderid from the state directory
+                // Compatibility mode - get folderid from the state
                 if (!isset($collection['id'])) {
                     $collection['id'] = $this->_state->getFolderData($this->_device->id, $collection['class']);
-                }
-
-                // compatibility mode - set default conflict behavior if no
-                // conflict resolution algorithm is set
-                if (!isset($collection['conflict'])) {
-                    $collection['conflict'] = Horde_ActiveSync::CONFLICT_OVERWRITE_PIM;
                 }
 
                 try {
@@ -313,14 +303,14 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                             if (isset($appdata->read)) {
                                 $importer->importMessageReadFlag($serverid, $appdata->read);
                             } else {
-                                $importer->importMessageChange($serverid, $appdata, $this->_device);
+                                $importer->importMessageChange($serverid, $appdata, $this->_device, false);
                             }
                             $collection['importedchanges'] = true;
                         }
                         break;
                     case Horde_ActiveSync::SYNC_ADD:
                         if (isset($appdata)) {
-                            $id = $importer->importMessageChange(false, $appdata, $this->_device);
+                            $id = $importer->importMessageChange(false, $appdata, $this->_device, $clientid);
                             if ($clientid && $id) {
                                 $collection['clientids'][$clientid] = $id;
                                 $collection['importedchanges'] = true;

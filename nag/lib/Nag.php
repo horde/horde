@@ -98,7 +98,7 @@ class Nag
      *
      * @return string
      */
-    public static function secondsToString($seconds)
+    static public function secondsToString($seconds)
     {
         $hours = floor($seconds / 3600);
         $minutes = ($seconds / 60) % 60;
@@ -128,6 +128,55 @@ class Nag
                 return sprintf(_("%d minutes"), $minutes);
             }
         }
+    }
+
+    /**
+     * Parses a complete date-time string into a Horde_Date object.
+     *
+     * @param string $date       The date-time string to parse.
+     * @param boolean $withtime  Whether time is included in the string.
+     *
+     * @return Horde_Date  The parsed date.
+     * @throws Horde_Date_Exception
+     */
+    static public function parseDate($date, $withtime = true)
+    {
+        // strptime() is not available on Windows.
+        if (!function_exists('strptime')) {
+            return new Horde_Date($date);
+        }
+
+        // strptime() is locale dependent, i.e. %p is not always matching
+        // AM/PM. Set the locale to C to workaround this, but grab the
+        // locale's D_FMT before that.
+        $format = Horde_Nls::getLangInfo(D_FMT);
+        if ($withtime) {
+            $format .= ' '
+                . ($GLOBALS['prefs']->getValue('twentyFour') ? '%H:%M' : '%I:%M %p');
+        }
+        $old_locale = setlocale(LC_TIME, 0);
+        setlocale(LC_TIME, 'C');
+
+        // Try exact format match first.
+        $date_arr = strptime($date, $format);
+        setlocale(LC_TIME, $old_locale);
+
+        if (!$date_arr) {
+            // Try with locale dependent parsing next.
+            $date_arr = strptime($date, $format);
+            if (!$date_arr) {
+                // Try throwing at Horde_Date finally.
+                return new Horde_Date($date);
+            }
+        }
+
+        return new Horde_Date(
+            array('year'  => $date_arr['tm_year'] + 1900,
+                  'month' => $date_arr['tm_mon'] + 1,
+                  'mday'  => $date_arr['tm_mday'],
+                  'hour'  => $date_arr['tm_hour'],
+                  'min'   => $date_arr['tm_min'],
+                  'sec'   => $date_arr['tm_sec']));
     }
 
     /**
@@ -285,7 +334,8 @@ class Nag
         }
 
         $storage = Nag_Driver::singleton($tasklist);
-        $dateParser = Horde_Date_Parser::factory();
+        $dateParser = Horde_Date_Parser::factory(
+            array('locale' => $GLOBALS['prefs']->getValue('language')) );
 
         $quickParser = new Nag_QuickParser();
         $tasks = $quickParser->parse($text);
@@ -1570,6 +1620,37 @@ class Nag
         } else {
             return $diff;
         }
+    }
+
+    /**
+     * Returns the calendars that should be used for syncing.
+     *
+     * @return array  An array of calendar ids
+     */
+    static public function getSyncLists()
+    {
+        $cs = unserialize($GLOBALS['prefs']->getValue('sync_lists'));
+        if (!empty($cs)) {
+            // Have a pref, make sure it's still available
+            $lists = self::listTasklists(false, Horde_Perms::EDIT);
+            $cscopy = array_flip($cs);
+            foreach ($cs as $c) {
+                if (empty($lists[$c])) {
+                    unset($cscopy[$c]);
+                }
+            }
+
+            // Have at least one
+            if (count($cscopy)) {
+                return array_flip($cscopy);
+            }
+        }
+
+        if ($cs = self::getDefaultTasklist(Horde_Perms::EDIT)) {
+            return array($cs);
+        }
+
+        return array();
     }
 
 }

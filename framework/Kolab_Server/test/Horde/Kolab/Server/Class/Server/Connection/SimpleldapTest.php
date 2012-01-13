@@ -19,7 +19,7 @@ require_once dirname(__FILE__) . '/../../../LdapTestCase.php';
 /**
  * Test the handler for a simple LDAP setup without read-only slaves.
  *
- * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -50,7 +50,7 @@ extends Horde_Kolab_Server_LdapTestCase
     {
         $ldap = $this->getMock('Horde_Ldap');
         $conn = new Horde_Kolab_Server_Connection_Simpleldap($ldap);
-        $this->assertType('Horde_Ldap', $conn->getRead());
+        $this->assertInstanceOf('Horde_Ldap', $conn->getRead());
     }
 
     public function testMethodGetwriteHasResultNetldap2TheHandledConnection()

@@ -16,10 +16,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-08-02</date>
- <time>16:20:46</time>
+ <date>2011-12-13</date>
+ <time>12:26:58</time>
  <version>
-  <release>1.0.3</release>
+  <release>1.0.6</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -28,18 +28,20 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-*
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="docs">
+    <file name="CHANGES" role="doc" />
+    <file name="COPYING" role="doc" />
     <file name="RELEASE_NOTES" role="doc" />
    </dir> <!-- /docs -->
    <dir name="lib">
     <dir name="Driver">
      <file name="Base.php" role="horde" />
      <file name="FacebookEvents.php" role="horde" />
-     <file name="Weatherdotcom.php" role="horde" />
+     <file name="Weather.php" role="horde" />
     </dir> <!-- /lib/Driver -->
     <dir name="Factory">
      <file name="Driver.php" role="horde" />
@@ -56,6 +58,12 @@
       <file name="timeobjects.po" role="horde" />
      </dir> <!-- /locale/de/LC_MESSAGES -->
     </dir> <!-- /locale/de -->
+    <dir name="et">
+     <dir name="LC_MESSAGES">
+      <file name="timeobjects.mo" role="horde" />
+      <file name="timeobjects.po" role="horde" />
+     </dir> <!-- /locale/et/LC_MESSAGES -->
+    </dir> <!-- /locale/et -->
     <dir name="fi">
      <dir name="LC_MESSAGES">
       <file name="timeobjects.mo" role="horde" />
@@ -68,6 +76,18 @@
       <file name="timeobjects.po" role="horde" />
      </dir> <!-- /locale/ja/LC_MESSAGES -->
     </dir> <!-- /locale/ja -->
+    <dir name="lv">
+     <dir name="LC_MESSAGES">
+      <file name="timeobjects.mo" role="horde" />
+      <file name="timeobjects.po" role="horde" />
+     </dir> <!-- /locale/lv/LC_MESSAGES -->
+    </dir> <!-- /locale/lv -->
+    <dir name="nl">
+     <dir name="LC_MESSAGES">
+      <file name="timeobjects.mo" role="horde" />
+      <file name="timeobjects.po" role="horde" />
+     </dir> <!-- /locale/nl/LC_MESSAGES -->
+    </dir> <!-- /locale/nl -->
     <file name=".htaccess" role="horde" />
     <file name="timeobjects.pot" role="horde" />
    </dir> <!-- /locale -->
@@ -129,13 +149,18 @@
     <exclude>2.0.0</exclude>
    </package>
    <package>
-    <name>Services_Weather</name>
-    <channel>pear.php.net</channel>
+    <name>Horde_Service_Weather</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0alpha1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
    </package>
   </optional>
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="CHANGES" name="docs/CHANGES" />
+   <install as="COPYING" name="docs/COPYING" />
    <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
    <install as="timeobjects/lib/Api.php" name="lib/Api.php" />
    <install as="timeobjects/lib/Application.php" name="lib/Application.php" />
@@ -143,16 +168,22 @@
    <install as="timeobjects/lib/Exception.php" name="lib/Exception.php" />
    <install as="timeobjects/lib/Driver/Base.php" name="lib/Driver/Base.php" />
    <install as="timeobjects/lib/Driver/FacebookEvents.php" name="lib/Driver/FacebookEvents.php" />
-   <install as="timeobjects/lib/Driver/Weatherdotcom.php" name="lib/Driver/Weatherdotcom.php" />
+   <install as="timeobjects/lib/Driver/Weather.php" name="lib/Driver/Weather.php" />
    <install as="timeobjects/lib/Factory/Driver.php" name="lib/Factory/Driver.php" />
    <install as="timeobjects/locale/.htaccess" name="locale/.htaccess" />
    <install as="timeobjects/locale/timeobjects.pot" name="locale/timeobjects.pot" />
    <install as="timeobjects/locale/de/LC_MESSAGES/timeobjects.mo" name="locale/de/LC_MESSAGES/timeobjects.mo" />
    <install as="timeobjects/locale/de/LC_MESSAGES/timeobjects.po" name="locale/de/LC_MESSAGES/timeobjects.po" />
+   <install as="timeobjects/locale/et/LC_MESSAGES/timeobjects.mo" name="locale/et/LC_MESSAGES/timeobjects.mo" />
+   <install as="timeobjects/locale/et/LC_MESSAGES/timeobjects.po" name="locale/et/LC_MESSAGES/timeobjects.po" />
    <install as="timeobjects/locale/fi/LC_MESSAGES/timeobjects.mo" name="locale/fi/LC_MESSAGES/timeobjects.mo" />
    <install as="timeobjects/locale/fi/LC_MESSAGES/timeobjects.po" name="locale/fi/LC_MESSAGES/timeobjects.po" />
    <install as="timeobjects/locale/ja/LC_MESSAGES/timeobjects.mo" name="locale/ja/LC_MESSAGES/timeobjects.mo" />
    <install as="timeobjects/locale/ja/LC_MESSAGES/timeobjects.po" name="locale/ja/LC_MESSAGES/timeobjects.po" />
+   <install as="timeobjects/locale/lv/LC_MESSAGES/timeobjects.mo" name="locale/lv/LC_MESSAGES/timeobjects.mo" />
+   <install as="timeobjects/locale/lv/LC_MESSAGES/timeobjects.po" name="locale/lv/LC_MESSAGES/timeobjects.po" />
+   <install as="timeobjects/locale/nl/LC_MESSAGES/timeobjects.mo" name="locale/nl/LC_MESSAGES/timeobjects.mo" />
+   <install as="timeobjects/locale/nl/LC_MESSAGES/timeobjects.po" name="locale/nl/LC_MESSAGES/timeobjects.po" />
   </filelist>
  </phprelease>
  <changelog>
@@ -250,10 +281,53 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-02</date>
+   <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
-*
+* [mjr] Remove support for the now non-existent weatherdotcom API.
+* [mjr] Add support for Horde_Service_Weather.
+* [jan] Add Latvian translation (Jānis Eisaks &lt;jancs@dv.lv&gt;).
+* [jan] Add Estonian translation (Alar Sing &lt;alar.sing@err.ee&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.4</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-23</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* [jan] Fix retrieving driver list if Horde_Service_Weather is not installed.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.5</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-13</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* [jan] Add Dutch translation (Arjen de Korte &lt;arjen+horde@de-korte.org&gt;).
+* [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.6</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-13</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

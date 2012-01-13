@@ -14,7 +14,7 @@
 /**
  * A Horde_Injector:: based IMP_Compose:: factory.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -79,7 +79,6 @@ class IMP_Factory_Compose extends Horde_Core_Factory_Base
         foreach ($this->_instances as $key => $val) {
             switch ($val->changed) {
             case 'changed':
-                $val->changed = '';
                 $session->store($val, false, $key);
                 $cache[$key] = 1;
                 $changed = true;

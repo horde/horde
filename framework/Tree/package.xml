@@ -3,7 +3,7 @@
  <name>Horde_Tree</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Tree API</summary>
- <description>This package provides a tree view of hierarchical information. It allows for expanding/collapsing of branches and maintains their state.</description>
+ <description>A tree view of hierarchical information. It allows for expanding/collapsing of branches and maintains their state.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>

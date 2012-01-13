@@ -14,7 +14,7 @@
 /**
  * A Horde_Injector:: based Horde_Kolab_Server:: factory.
  *
- * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -189,8 +189,6 @@ class Horde_Core_Factory_KolabServer extends Horde_Core_Factory_Base
 
             $configuration['cache'] = $this->_injector->getInstance('Horde_Cache');
 
-            unset($configuration['binddn']);
-            unset($configuration['bindpw']);
             $ldap_read = new Horde_Ldap($configuration);
             if (isset($configuration['host_master'])) {
                 $configuration['hostspec'] = $configuration['host_master'];

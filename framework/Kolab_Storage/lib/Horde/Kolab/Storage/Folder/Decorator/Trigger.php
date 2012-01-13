@@ -38,10 +38,9 @@ extends Horde_Kolab_Storage_Folder_Decorator_Base
      * @param Horde_Kolab_Storage_Folder $folder The folder to be decorated.
      * @param Horde_Log_Logger           $logger The logger.
      */
-    public function __construct(
-        Horde_Kolab_Storage_Folder $folder,
-        Horde_Log_Logger $logger
-    ) {
+    public function __construct(Horde_Kolab_Storage_Folder $folder,
+                                Horde_Log_Logger $logger)
+    {
         $this->_logger = $logger;
         parent::__construct($folder);
     }
@@ -73,7 +72,6 @@ extends Horde_Kolab_Storage_Folder_Decorator_Base
                                       $e->getMessage()), 'ERR');
         }
 
-
         /** Finally trigger the folder after saving.*/
         try {
             $this->trigger();
@@ -81,8 +79,6 @@ extends Horde_Kolab_Storage_Folder_Decorator_Base
             Horde::logMessage(sprintf('Failed triggering folder %s! Error was: %s',
                                       $this->name, $e->getMessage()), 'ERR');
         }
-
-
     }
 
     /**

@@ -1,0 +1,72 @@
+# Dutch translations for Timeobjects package.
+# Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Timeobjects package.
+#
+# Automatically generated, 2011.
+# Arjen de Korte <build+horde@de-korte.org>, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: Timeobjects 1.0.5-git\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2011-12-07 19:19+0100\n"
+"PO-Revision-Date: 2011-12-07 21:32+0100\n"
+"Last-Translator: Arjen de Korte <build+horde@de-korte.org>\n"
+"Language-Team: Dutch <i18n@lists.horde.org>\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 1.2\n"
+
+#: lib/Driver/Weather.php:116
+#, php-format
+msgid ""
+"Conditions: %s\n"
+"High temperature: %d%s\n"
+"Precipitation: %s\n"
+msgstr ""
+"Conditie: %s\n"
+"Maximum temperatuur: %d%s\n"
+"Neerslag: %s\n"
+
+#: lib/Driver/Weather.php:104
+#, php-format
+msgid ""
+"Conditions: %s\n"
+"High temperature: %d%s\n"
+"Precipitation: %s\n"
+"Humidity: %d%%\n"
+"Winds: From the %s at %d%s"
+msgstr ""
+"Conditie: %s\n"
+"Maximum temperatuur: %d%s\n"
+"Neerslag: %s\n"
+"Relatieve vochtigheid: %d%%\n"
+"Wind: Uit %s met %d%s"
+
+#: lib/Api.php:34
+msgid "Facebook Events"
+msgstr "Facebook Evenementen"
+
+#: lib/Driver/Weather.php:131
+#, php-format
+msgid "Location: %s"
+msgstr "Plaats: %s"
+
+#: lib/Driver/Weather.php:100
+msgid "N/A"
+msgstr "N/B"
+
+#: lib/Driver/Weather.php:136
+#, php-format
+msgid ""
+"Sunrise: %s\n"
+"Sunset: %s\n"
+msgstr ""
+"Zonsopgang: %s\n"
+"Zonsondergang: %s\n"
+
+#: lib/Api.php:33
+msgid "Weather"
+msgstr "Weer"

@@ -20,7 +20,7 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
 /**
  * Test the basic data handler.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -195,7 +195,7 @@ extends Horde_Kolab_Storage_TestCase
 
     public function testGetObjects()
     {
-        $this->assertType(
+        $this->assertInternalType(
             'array',
             $this->getMessageStorage()
             ->getData('INBOX/Calendar')
@@ -216,7 +216,7 @@ extends Horde_Kolab_Storage_TestCase
 
     public function testGetObjectIds()
     {
-        $this->assertType(
+        $this->assertInternalType(
             'array',
             $this->getMessageStorage()->getData('INBOX/Calendar')->getObjectIds()
         );

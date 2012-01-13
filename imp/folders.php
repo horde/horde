@@ -2,7 +2,7 @@
 /**
  * Folders display for traditional (IMP) view.
  *
- * Copyright 2000-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2000-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -42,9 +42,6 @@ $folders_url = Horde::selfUrl();
 Horde::addInlineJsVars(array(
     'ImpFolders.folders_url' => strval($folders_url)
 ));
-
-/* Initialize the IMP_Folder object. */
-$imp_folder = $injector->getInstance('IMP_Folder');
 
 /* Initialize the IMP_Imap_Tree object. */
 $imaptree = $injector->getInstance('IMP_Imap_Tree');
@@ -98,8 +95,8 @@ case 'expunge_folder':
     break;
 
 case 'delete_folder':
-    if (!empty($folder_list)) {
-        $imp_folder->delete($folder_list);
+    foreach ($folder_list as $val) {
+        $val->delete();
     }
     break;
 
@@ -128,12 +125,17 @@ case 'import_mbox':
     break;
 
 case 'create_folder':
-    if ($vars->new_mailbox) {
+    if (isset($vars->new_mailbox)) {
         try {
-            $imaptree->createMailboxName(
+            $new_mbox = $imaptree->createMailboxName(
                 $folder_list[0],
                 Horde_String::convertCharset($vars->new_mailbox, 'UTF-8', 'UTF7-IMAP')
-            )->create();
+            );
+            if ($new_mbox->exists) {
+                $notification->push(sprintf(_("Mailbox \"%s\" already exists."), $new_mbox->display), 'horde.warning');
+            } else {
+                $new_mbox->create();
+            }
         } catch (Horde_Exception $e) {
             $notification->push($e);
         }
@@ -162,21 +164,19 @@ case 'rename_folder':
                 $new = $old_ns['name'] . $new;
             }
 
-            $imp_folder->rename($old_name, Horde_String::convertCharset($new, 'UTF-8', 'UTF7-IMAP'));
+            $old_name->rename(Horde_String::convertCharset($new, 'UTF-8', 'UTF7-IMAP'));
         }
     }
     break;
 
 case 'subscribe_folder':
 case 'unsubscribe_folder':
-    if (!empty($folder_list)) {
-        if ($vars->actionID == 'subscribe_folder') {
-            $imp_folder->subscribe($folder_list);
-        } else {
-            $imp_folder->unsubscribe($folder_list);
-        }
-    } else {
+    if (empty($folder_list)) {
         $notification->push(_("No folders were specified"), 'horde.message');
+    } else {
+        foreach ($folder_list as $val) {
+            $val->subscribe($vars->actionID == 'subscribe_folder');
+        }
     }
     break;
 

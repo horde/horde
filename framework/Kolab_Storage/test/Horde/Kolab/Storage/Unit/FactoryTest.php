@@ -20,7 +20,7 @@ require_once dirname(__FILE__) . '/../Autoload.php';
 /**
  * Test the factory.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -38,7 +38,7 @@ extends Horde_Kolab_Storage_TestCase
     public function testCreationFromParams()
     {
         $factory = new Horde_Kolab_Storage_Factory(array('driver' => 'mock'));
-        $this->assertType(
+        $this->assertInstanceOf(
             'Horde_Kolab_Storage',
             $factory->create()
         );
@@ -71,7 +71,7 @@ extends Horde_Kolab_Storage_TestCase
         $factory = new Horde_Kolab_Storage_Factory(
             array('driver' => 'mock')
         );
-        $this->assertType(
+        $this->assertInstanceOf(
             'Horde_Kolab_Storage_Driver_Mock',
             $factory->createDriver()
         );
@@ -82,7 +82,7 @@ extends Horde_Kolab_Storage_TestCase
         $factory = new Horde_Kolab_Storage_Factory(
             array('driver' => 'mock')
         );
-        $this->assertType(
+        $this->assertInstanceOf(
             'Horde_Kolab_Storage_Data_Parser',
             $factory->createDriver()->getParser()
         );

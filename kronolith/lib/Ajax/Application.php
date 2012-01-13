@@ -2,7 +2,7 @@
 /**
  * Defines the AJAX interface for Kronolith.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -246,8 +246,8 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
                 break;
 
             case 'offDays':
-                $event->start->mday += $value;
-                $event->end->mday += $value;
+                $event->start->mday = $event->start->mday + $value;
+                $event->end->mday = $event->end->mday + $value;
                 break;
 
             case 'offMins':
@@ -460,6 +460,10 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
             $task['methods'] = array();
         }
         unset($task['alarm_methods']);
+
+        if (!isset($task['completed'])) {
+            $task['completed'] = false;
+        }
 
         try {
             $ids = ($id && $list)
@@ -840,16 +844,21 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
         try {
             $driver = $GLOBALS['injector']->getInstance('Kronolith_Factory_Driver')->create('Ical', $params);
             $driver->open($this->_vars->url);
-            $ical = $driver->getRemoteCalendar(false);
-            $result->success = true;
-            try {
-                $name = $ical->getAttribute('X-WR-CALNAME');
-                $result->name = $name;
-            } catch (Horde_Icalendar_Exception $e) {}
-            try {
-                $desc = $ical->getAttribute('X-WR-CALDESC');
-                $result->desc = $desc;
-            } catch (Horde_Icalendar_Exception $e) {}
+            if ($driver->isCalDAV()) {
+                $result->success = true;
+                // TODO: find out how to retrieve calendar information via CalDAV.
+            } else {
+                $ical = $driver->getRemoteCalendar(false);
+                $result->success = true;
+                try {
+                    $name = $ical->getAttribute('X-WR-CALNAME');
+                    $result->name = $name;
+                } catch (Horde_Icalendar_Exception $e) {}
+                try {
+                    $desc = $ical->getAttribute('X-WR-CALDESC');
+                    $result->desc = $desc;
+                } catch (Horde_Icalendar_Exception $e) {}
+            }
         } catch (Exception $e) {
             if ($e->getCode() == 401) {
                 $result->auth = true;
@@ -924,6 +933,7 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
             $result->events = array();
             return $result;
         }
+
         try {
             $event->save();
             $end = new Horde_Date($this->_vars->view_end);
@@ -933,6 +943,8 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
             Kronolith::addEvents($events, $event,
                                  new Horde_Date($this->_vars->view_start),
                                  $end, true, true);
+
+
             /* If this is an exception, we re-add the original event as well
              * cstart and cend are the cacheStart and cacheEnd dates from the
              * client. */
@@ -982,12 +994,16 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
         // Add the exception to the original event
         if ($attributes->rstart) {
             $rstart = new Horde_Date($attributes->rstart);
+            $rstart->setTimezone($event->start->timezone);
             $rend = new Horde_Date($attributes->rend);
+            $rend->setTimezone($event->end->timezone);
         } else {
             $rstart = new Horde_Date($attributes->rday);
+            $rstart->setTimezone($event->start->timezone);
             $rstart->hour = $event->start->hour;
             $rstart->min = $event->start->min;
             $rend = $rstart->add($event->getDuration);
+            $rend->setTimezone($event->end->timezone);
             $rend->hour = $event->end->hour;
             $rend->min = $event->end->min;
         }
@@ -1000,7 +1016,7 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
         // Create new event for the exception
         $nevent = $event->getDriver()->getEvent();
         $nevent->baseid = $uid;
-        $nevent->exceptionoriginaldate = new Horde_Date($rstart->strftime('%Y-%m-%d') . 'T' . $otime . $rstart->strftime('%P'));
+        $nevent->exceptionoriginaldate = new Horde_Date($rstart->strftime('%Y-%m-%d') . 'T' . $otime);
         $nevent->creator = $event->creator;
         $nevent->title = $event->title;
         $nevent->description = $event->description;
@@ -1016,5 +1032,4 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
 
         return $nevent;
     }
-
 }

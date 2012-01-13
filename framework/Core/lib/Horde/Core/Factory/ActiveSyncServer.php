@@ -8,11 +8,24 @@ class Horde_Core_Factory_ActiveSyncServer extends Horde_Core_Factory_Injector
     public function create(Horde_Injector $injector)
     {
         global $conf;
+        $logger = false;
 
         // Logger
         if ($conf['activesync']['logging']['type'] == 'custom') {
-            $logger = new Horde_Log_Logger(new Horde_Log_Handler_Stream(fopen($conf['activesync']['logging']['path'], 'a')));
-        } else {
+            // See if we can get a device id
+            $request = $GLOBALS['injector']->getInstance('Horde_Controller_Request');
+            $get = $request->getGetVars();
+            if (!empty($get['DeviceId'])) {
+                $stream = @fopen(dirname($conf['activesync']['logging']['path']) . '/' . $get['DeviceId'] . '.txt', 'a');
+            }
+            if (!$stream) {
+                $stream = @fopen($conf['activesync']['logging']['path'], 'a');
+            }
+            if ($stream) {
+                $logger = new Horde_Log_Logger(new Horde_Log_Handler_Stream($stream));
+            }
+        }
+        if (!$logger) {
             $logger = $injector->getInstance('Horde_Log_Logger');
         }
 

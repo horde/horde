@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -16,12 +16,8 @@ if (Kronolith::showAjaxView()) {
     Horde::url('', true)->redirect();
 }
 
-if (Kronolith_Resource::isResourceCalendar($c = Horde_Util::getFormData('calendar'))) {
-    $driver = 'Resource';
-} else {
-    $driver = Horde_Util::getFormData('type');
-}
-
+$c = Horde_Util::getFormData('calendar');
+$driver = Horde_Util::getFormData('type');
 $kronolith_driver = Kronolith::getDriver($driver, $c);
 if ($eventID = Horde_Util::getFormData('eventID')) {
     try {

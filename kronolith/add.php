@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -34,6 +34,11 @@ do {
             break;
         case 'remote':
             $kronolith_calendar = $all_remote_calendars[$calendar_id];
+            break;
+        case 'resource':
+            $rid = Kronolith::getDriver('Resource')->getResourceIdByCalendar($calendar_id);
+            $kronolith_calendar = new Kronolith_Calendar_Resource(
+                array('resource' => Kronolith::getDriver('Resource')->getResource($rid)));
             break;
         default:
             break 2;

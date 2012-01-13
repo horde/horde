@@ -9,10 +9,11 @@ require_once dirname(__FILE__) . '/TestBase.php';
  * @package Turba
  * @subpackage UnitTests
  */
-class Turba_DriverTest extends Turba_TestBase {
+class Turba_ToDo_DriverTest extends Turba_TestBase {
 
     function setUp()
     {
+        $this->markTestIncomplete('Convert to use Horde_Test.');
         parent::setUp();
         $this->setUpDatabase();
     }
@@ -20,23 +21,6 @@ class Turba_DriverTest extends Turba_TestBase {
     function test_search_results_should_be_sorted_according_to_supplied_sort_order()
     {
         $this->assertSortsList(array($this, 'doSearch'));
-    }
-
-    /**
-     * This is how we are called from the addField API
-     */
-    function test_search_with_null_order_parameter_works()
-    {
-        $driver = $this->getDriver();
-        $this->fakeAuth();
-        $list = $driver->search(array(), null, 'AND');
-        $this->assertOk($list);
-        if (!$this->assertTrue(is_a($list, 'Turba_List'))) {
-            return;
-        }
-        $this->assertOk($list->reset());
-        $this->assertTrue($list->next());
-        $this->assertTrue($list->next());
     }
 
     function doSearch($order)

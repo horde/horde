@@ -3,7 +3,7 @@
  * The Horde_String:: class provides static methods for charset and locale
  * safe string manipulation.
  *
- * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -310,22 +310,22 @@ class Horde_String
             return '';
         }
 
-        /* Try iconv. */
-        if (Horde_Util::extensionExists('iconv')) {
-            $ret = @iconv_substr($string, $start, $length, $charset);
-
-            /* iconv_substr() returns false on failure. */
-            if ($ret !== false) {
-                return $ret;
-            }
-        }
-
         /* Try mbstring. */
         if (Horde_Util::extensionExists('mbstring')) {
             $ret = @mb_substr($string, $start, $length, self::_mbstringCharset($charset));
 
             /* mb_substr() returns empty string on failure. */
             if (strlen($ret)) {
+                return $ret;
+            }
+        }
+
+        /* Try iconv. */
+        if (Horde_Util::extensionExists('iconv')) {
+            $ret = @iconv_substr($string, $start, $length, $charset);
+
+            /* iconv_substr() returns false on failure. */
+            if ($ret !== false) {
                 return $ret;
             }
         }
@@ -719,6 +719,32 @@ class Horde_String
     }
 
     /**
+     * Check to see if a string is valid UTF-8.
+     *
+     * @since 1.1.0
+     *
+     * @param string $text  The text to check.
+     *
+     * @return boolean  True if valid UTF-8.
+     */
+    static public function validUtf8($text)
+    {
+        /* Regex from:
+         * http://stackoverflow.com/questions/1523460/ensuring-valid-utf-8-in-php
+         */
+        return preg_match('/^(?:
+              [\x09\x0A\x0D\x20-\x7E]            # ASCII
+            | [\xC2-\xDF][\x80-\xBF]             # non-overlong 2-byte
+            | \xE0[\xA0-\xBF][\x80-\xBF]         # excluding overlongs
+            | [\xE1-\xEC\xEE\xEF][\x80-\xBF]{2}  # straight 3-byte
+            | \xED[\x80-\x9F][\x80-\xBF]         # excluding surrogates
+            | \xF0[\x90-\xBF][\x80-\xBF]{2}      # planes 1-3
+            | [\xF1-\xF3][\x80-\xBF]{3}          # planes 4-15
+            | \xF4[\x80-\x8F][\x80-\xBF]{2}      # plane 16
+        )*$/xs', $text);
+    }
+
+    /**
      * Workaround charsets that don't work with mbstring functions.
      *
      * @param string $charset  The original charset.
@@ -732,6 +758,9 @@ class Horde_String
          * example, by various versions of Outlook to send Korean characters.
          * Use UHC (CP949) encoding instead. See, e.g.,
          * http://lists.w3.org/Archives/Public/ietf-charsets/2001AprJun/0030.html */
+        if ($charset == 'UTF-8' || $charset == 'utf-8') {
+            return $charset;
+        }
         if (in_array(self::lower($charset), array('ks_c_5601-1987', 'ks_c_5601-1989'))) {
             $charset = 'UHC';
         }

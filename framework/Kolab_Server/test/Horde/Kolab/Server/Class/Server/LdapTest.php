@@ -19,7 +19,7 @@ require_once dirname(__FILE__) . '/../../LdapTestCase.php';
 /**
  * Test the LDAP backend.
  *
- * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -34,6 +34,8 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
 {
     public function setUp()
     {
+        $this->skipIfNoLdap();
+
         $this->ldap_read  = $this->getMock('Horde_Ldap');
         $this->ldap_write = $this->getMock('Horde_Ldap');
         $connection = new Horde_Kolab_Server_Connection_Splittedldap(

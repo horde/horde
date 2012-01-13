@@ -27,7 +27,7 @@
  *
  * [base = (Element) The element to use for display positioning purposes]
  *
- * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -127,6 +127,7 @@ var KeyNavList = Class.create({
         if (!Object.isUndefined(list)) {
             this.update(list);
         } else if (this.div.visible()) {
+            this.hide();
             return;
         }
 

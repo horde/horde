@@ -1,0 +1,36 @@
+#!/usr/bin/env php
+<?php
+/**
+ * This script migrates Kronolith's share data from the SQL Horde_Share
+ * driver to the next-generation SQL Horde_Share driver.
+ *
+ * It is supposed to run at any time after migrating Kronolith to the latest DB
+ * schema version. The schema migration already migrates the data once, but
+ * this script can be used to migrate the data again, e.g. if starting to use
+ * the NG driver at a later time.
+ */
+
+if (file_exists(dirname(__FILE__) . '/../../ansel/lib/Application.php')) {
+    $baseDir = dirname(__FILE__) . '/../';
+} else {
+    require_once 'PEAR/Config.php';
+    $baseDir = PEAR_Config::singleton()
+        ->get('horde_dir', null, 'pear.horde.org') . '/ansel/';
+}
+require_once $baseDir . 'lib/Application.php';
+Horde_Registry::appInit('ansel', array('cli' => true));
+
+require_once $baseDir . 'migration/9_ansel_upgrade_sqlng.php';
+
+$db = $injector->getInstance('Horde_Db_Adapter');
+$migration = new AnselUpgradeSqlng($db);
+
+$delete = $cli->prompt('Delete existing shares from the NEW backend before migrating the OLD backend? This should be done to avoid duplicate entries or primary key collisions in the storage backend from earlier migrations.', array('y' => 'Yes', 'n' => 'No'), 'n');
+
+if ($delete == 'y' || $delete == 'Y') {
+    $db->delete('DELETE FROM ansel_sharesng');
+    $db->delete('DELETE FROM ansel_sharesng_users');
+    $db->delete('DELETE FROM ansel_sharesng_groups');
+}
+
+$migration->dataUp();

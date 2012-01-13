@@ -1,6 +1,6 @@
 <div class="modal-form">
  <?php $notification->notify(array('listeners' => 'status')) ?>
- <?php $form->renderActive($renderer, $vars, 'resetpassword.php', 'post') ?>
+ <?php $form->renderActive($renderer, $vars, Horde::url('resetpassword.php'), 'post') ?>
 </div>
 
 <?php

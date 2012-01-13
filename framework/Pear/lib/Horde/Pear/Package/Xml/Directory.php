@@ -14,7 +14,7 @@
 /**
  * Handles a directory in the contents list.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -62,10 +62,8 @@ class Horde_Pear_Package_Xml_Directory
      * @param mixed                                    $parent The parent directory
      *                                                         or the XML document.
      */
-    public function __construct(
-        Horde_Pear_Package_Xml_Element_Directory $dir,
-        $parent
-    )
+    public function __construct(Horde_Pear_Package_Xml_Element_Directory $dir,
+                                $parent)
     {
         $this->_element = $dir;
         $this->_parent = $parent;
@@ -138,10 +136,8 @@ class Horde_Pear_Package_Xml_Directory
      *
      * @return Horde_Pear_Package_Xml_Directory
      */
-    private function _create(
-        Horde_Pear_Package_Xml_Element_Directory $element,
-        Horde_Pear_Package_Xml_Directory $parent
-    )
+    private function _create(Horde_Pear_Package_Xml_Element_Directory $element,
+                             Horde_Pear_Package_Xml_Directory $parent)
     {
         return $this->_getRoot()->createDirectory($element, $parent);
     }
@@ -258,7 +254,7 @@ class Horde_Pear_Package_Xml_Directory
         while ($next === '') {
             $next = array_shift($tree);
         }
-        if (empty($tree) && empty($next)) {
+        if (empty($tree) && !strlen($next)) {
             return $this;
         }
         if (!isset($this->_subdirectories[$next])) {

@@ -14,7 +14,7 @@
 /**
  * The cache decorator for Kolab storage data handlers.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -56,14 +56,13 @@ extends Horde_Kolab_Storage_Data_Base
      * @param int                         $version  Format version of the object
      *                                              data.
      */
-    public function __construct(
-        Horde_Kolab_Storage_Folder $folder,
-        Horde_Kolab_Storage_Driver $driver,
-        Horde_Kolab_Storage_Factory $factory,
-        Horde_Kolab_Storage_Cache $cache,
-        $type = null,
-        $version = 1
-    ) {
+    public function __construct(Horde_Kolab_Storage_Folder $folder,
+                                Horde_Kolab_Storage_Driver $driver,
+                                Horde_Kolab_Storage_Factory $factory,
+                                Horde_Kolab_Storage_Cache $cache,
+                                $type = null,
+                                $version = 1)
+    {
         parent::__construct($folder, $driver, $factory, $type, $version);
         $this->_data_cache = $cache->getDataCache($this->getIdParameters());
     }
@@ -269,10 +268,9 @@ extends Horde_Kolab_Storage_Data_Base
      *
      * @return NULL
      */
-    private function _completeSynchronization(
-        Horde_Kolab_Storage_Folder_Stamp $stamp,
-        $params = array()
-    ) {
+    private function _completeSynchronization(Horde_Kolab_Storage_Folder_Stamp $stamp,
+                                              $params = array())
+    {
         $this->_data_cache->reset();
         $ids = $stamp->ids();
         $params['last_sync'] = false;

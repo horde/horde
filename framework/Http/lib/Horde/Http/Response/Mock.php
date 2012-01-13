@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2007-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://www.horde.org/licenses/bsd BSD
@@ -23,7 +23,7 @@ class Horde_Http_Response_Mock extends Horde_Http_Response_Base
     {
         $this->uri = $uri;
         $this->_stream = $stream;
-        $this->headers = $this->_parseHeaders($headers);
+        $this->_parseHeaders($headers);
     }
 
     public function getBody()

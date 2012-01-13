@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -38,7 +38,7 @@ echo '<br class="spacer" />';
 $comment = new Whups_Form_Renderer_Comment();
 $comment->begin(_("History"));
 $history = Whups::permissionsFilter(
-    $whups_driver->getHistory($ticket->getId()),
+    $whups_driver->getHistory($ticket->getId(), $form),
     'comment',
     Horde_Perms::READ);
 $chtml = array();

@@ -6,6 +6,7 @@
  */
 
 var Gollem = {
+
     toggleRow: function()
     {
         $$('table.striped tr').each(function(tr) {
@@ -91,18 +92,16 @@ var Gollem = {
         }
     },
 
-    changeDirectory: function(e)
+    changeDirectory: function(elt)
     {
-        this._prepPopup('changeDirectory', e.element());
+        this._prepPopup('changeDirectory', elt);
         $('cdfrm_fname').focus();
-        e.stop();
     },
 
-    createFolder: function(e)
+    createFolder: function(elt)
     {
-        this._prepPopup('createFolder', e.element());
+        this._prepPopup('createFolder', elt);
         $('createfrm_fname').focus();
-        e.stop();
     },
 
     _prepPopup: function(elt, elt2)
@@ -171,13 +170,14 @@ var Gollem = {
         switch (e.keyCode) {
         case Event.KEY_ESC:
             this.createFolderCancel();
-            return false;
+            e.stop();
+            break;
 
         case EVENT.KEY_RETURN:
             this.createFolderOK();
-            return false;
+            e.stop();
+            break;
         }
-        return true;
     },
 
     createFolderCancel: function()
@@ -260,13 +260,14 @@ var Gollem = {
         switch (e.keyCode) {
         case Event.KEY_ESC:
             this.renameCancel();
-            return false;
+            e.stop();
+            break;
 
         case EVENT.KEY_RETURN:
             this.renameOK();
-            return false;
+            e.stop();
+            break;
         }
-        return true;
     },
 
     changeDirectoryOK: function()
@@ -283,13 +284,14 @@ var Gollem = {
         switch (e.keyCode) {
         case Event.KEY_ESC:
             this.changeDirectoryCancel();
-            return false;
+            e.stop();
+            break;
 
         case EVENT.KEY_RETURN:
             this.changeDirectoryOK();
-            return false;
+            e.stop();
+            break;
         }
-        return true;
     },
 
     changeDirectoryCancel: function()
@@ -365,7 +367,112 @@ var Gollem = {
             new Ajax.Request(GollemVar.URI_AJAX + 'setPrefValue', { parameters: { pref: 'sortby', value: column.substring(1) } });
             new Ajax.Request(GollemVar.URI_AJAX + 'setPrefValue', { parameters: { pref: 'sortdir', value: sortDown } });
         } catch (e) {}
+    },
+
+    clickHandler: function(e)
+    {
+        if (e.isRightClick()) {
+            return;
+        }
+
+        var id, tmp,
+            elt = e.element();
+
+        while (Object.isElement(elt)) {
+            id = elt.readAttribute('id');
+
+            switch (id) {
+            case 'cdfrmcancel':
+                this.changeDirectoryCancel();
+                return;
+
+            case 'cdfrmok':
+                this.changeDirectoryOK();
+                return;
+
+            case 'changefolder':
+                this.changeDirectory(elt);
+                e.stop();
+                return;
+
+            case 'checkall':
+                this.toggleSelection();
+                break;
+
+            case 'chmodcancel':
+                this.chmodCancel();
+                break;
+
+            case 'chmodsave':
+                this.chmodSave();
+                break;
+
+            case 'createcancel':
+                this.createFolderCancel();
+                break;
+
+            case 'createfolder':
+                this.createFolder(elt);
+                e.stop();
+                return;
+
+            case 'createok':
+                this.createFolderOK();
+                break;
+
+            case 'filterapply':
+                this.applyFilter();
+                break;
+
+            case 'filterclear':
+                this.clearFilter();
+                break;
+
+            case 'renamecancel':
+                this.renameCancel();
+                break;
+
+            case 'renamesave':
+                this.renameOK();
+                break;
+
+            case 'uploadfile':
+                this.uploadFile();
+                break;
+            }
+
+            elt = elt.up();
+        }
+    },
+
+    onDomLoad: function()
+    {
+        var tmp;
+
+        this.toggleRow()
+
+        if (tmp = $('renamefrm_newname')) {
+            tmp.observe('keypress', this.renameKeyCheck.bindAsEventListener(this));
+        }
+
+        $('createfrm_fname').observe('keypress', this.createFolderKeyCheck.bindAsEventListener(this));
+        $('cdfrm_fname').observe('keypress', this.changeDirectoryKeyCheck.bindAsEventListener(this));
+
+        $('createfrm', 'cdfrm').invoke('observe', 'submit', Event.stop);
+
+        // Observe actual event since IE does not bubble change events.
+        if (tmp = $('action1')) {
+            tmp.observe('change', function() {
+                this.chooseAction(1);
+                $('action1').selectedIndex = 0;
+            }.bind(this));
+        }
+
+        if (tmp = $('file_upload_1')) {
+            tmp.observe('change', this.uploadChanged.bind(this));
+        }
     }
+
 };
 
 function table_sortCallback(tableId, column, sortDown)
@@ -376,13 +483,5 @@ function table_sortCallback(tableId, column, sortDown)
     Gollem.prefs_update_timeout = Gollem.doPrefsUpdate.bind(this, column, sortDown).delay(0.3);
 }
 
-document.observe('dom:loaded', function() {
-    var tmp;
-    Gollem.toggleRow()
-    if (tmp = $('createfolder')) {
-        tmp.observe('click', Gollem.createFolder.bindAsEventListener(Gollem));
-    }
-    if (tmp = $('changefolder')) {
-        tmp.observe('click', Gollem.changeDirectory.bindAsEventListener(Gollem));
-    }
-});
+document.observe('dom:loaded', Gollem.onDomLoad.bind(Gollem));
+document.observe('click', Gollem.clickHandler.bindAsEventListener(Gollem));

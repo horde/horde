@@ -1,0 +1,26 @@
+#!/usr/bin/env php
+<?php
+/**
+ * Script to prune the autoloader cache.
+ *
+ * Some of the caching extensions do not work when using the PHP
+ * command line interface!
+ *
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author Jan Schneider <jan@horde.org>
+ */
+
+if (extension_loaded('apc')) {
+    apc_delete('horde_autoloader_cache');
+} elseif (extension_loaded('xcache')) {
+    xcache_unset('horde_autoloader_cache');
+} elseif (extension_loaded('eaccelerator')) {
+    eaccelerator_rm('horde_autoloader_cache');
+} elseif (($tempdir = sys_get_temp_dir()) &&
+          file_exists($tempdir . '/horde_autoloader_cache')) {
+    unlink($tempdir . '/horde_autoloader_cache');
+}

@@ -3,7 +3,7 @@
  * This class provides an object-oriented representation of a MIME part
  * (defined by RFC 2045).
  *
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -1454,7 +1454,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      *                         parts consisting of base64 encoded data (since
      *                         1.1.0).
      *
-     * @return string  Size of the part, in string format.
+     * @return string  Size of the part in KB.
      */
     public function getSize($approx = false)
     {
@@ -1462,8 +1462,24 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             return 0;
         }
 
+        $kb = $bytes / 1024;
         $localeinfo = Horde_Nls::getLocaleInfo();
-        return number_format($bytes / 1024, 2, $localeinfo['decimal_point'], $localeinfo['thousands_sep']);
+
+        /* Reduce need for decimals as part size gets larger. */
+        if ($kb > 100) {
+            $decimals = 0;
+        } elseif ($kb > 10) {
+            $decimals = 1;
+        } else {
+            $decimals = 2;
+        }
+
+        // TODO: Workaround broken number_format() prior to PHP 5.4.0.
+        return str_replace(
+            array('X', 'Y'),
+            array($localeinfo['decimal_point'], $localeinfo['thousands_sep']),
+            number_format($kb, $decimals, 'X', 'Y')
+        );
     }
 
     /**
@@ -1658,7 +1674,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
          * BINARYMIME (RFC 3030) extensions? Requires Net_SMTP version
          * 1.3+. */
         $encode = self::ENCODE_7BIT;
-        if ($mailer instanceof Horde_Mail_Smtp) {
+        if ($mailer instanceof Horde_Mail_Transport_Smtp) {
             try {
                 $smtp_ext = $mailer->getSMTPObject()->getServiceExtensions();
                 if (isset($smtp_ext['8BITMIME'])) {
@@ -1671,6 +1687,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         }
 
         $msg = $this->toString(array(
+            'canonical' => true,
             'encode' => $encode,
             'headers' => false,
             'stream' => true
@@ -1678,8 +1695,16 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
 
         /* Make sure the message has a trailing newline. */
         fseek($msg, -1, SEEK_END);
-        if (fgetc($msg) != "\n") {
-            fputs($msg, "\n");
+        switch (fgetc($msg)) {
+        case "\r":
+            if (fgetc($msg) != "\n") {
+                fputs($msg, "\n");
+            }
+            break;
+
+        default:
+            fputs($msg, "\r\n");
+            break;
         }
         rewind($msg);
 
@@ -1704,7 +1729,10 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         $this->_basepart = $old_basepart;
 
         try {
-            $mailer->send(Horde_Mime::encodeAddress($email, $this->getCharset()), $headers->toArray(array('charset' => $this->getHeaderCharset())), $msg);
+            $mailer->send(Horde_Mime::encodeAddress($email, $this->getCharset()), $headers->toArray(array(
+                'canonical' => true,
+                'charset' => $this->getHeaderCharset()
+            )), $msg);
         } catch (Horde_Mail_Exception $e) {
             throw new Horde_Mime_Exception($e);
         }
@@ -2033,9 +2061,10 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      * This function can be called statically via:
      *    $data = Horde_Mime_Part::getRawPartText();
      *
-     * @param string $text  The full text of the MIME message. The text is
+     * @param mixed $text   The full text of the MIME message. The text is
      *                      assumed to be MIME data (no MIME-Version checking
-     *                      is performed).
+     *                      is performed). It can be either a stream or a
+     *                      string.
      * @param string $type  Either 'header' or 'body'.
      * @param string $id    The MIME ID.
      *
@@ -2044,27 +2073,33 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      */
     static public function getRawPartText($text, $type, $id)
     {
+        /* Mini-hack to get a blank Horde_Mime part so we can call
+         * replaceEOL(). From an API perspective, getRawPartText() should be
+         * static since it is not working on MIME part data. */
+        $part = new Horde_Mime_Part();
+        $rawtext = $part->replaceEOL($text, self::RFC_EOL);
+
         /* We need to carry around the trailing "\n" because this is needed
          * to correctly find the boundary string. */
-        list($hdr_pos, $eol) = self::_findHeader($text);
+        list($hdr_pos, $eol) = self::_findHeader($rawtext);
         $curr_pos = $hdr_pos + $eol - 1;
 
         if ($id == 0) {
             switch ($type) {
             case 'body':
-                return substr($text, $curr_pos + 1);
+                return substr($rawtext, $curr_pos + 1);
 
             case 'header':
-                return trim(substr($text, 0, $hdr_pos));
+                return trim(substr($rawtext, 0, $hdr_pos));
             }
         }
 
-        $hdr_ob = Horde_Mime_Headers::parseHeaders(trim(substr($text, 0, $hdr_pos)));
+        $hdr_ob = Horde_Mime_Headers::parseHeaders(trim(substr($rawtext, 0, $hdr_pos)));
 
         /* If this is a message/rfc822, pass the body into the next loop.
          * Don't decrement the ID here. */
         if ($hdr_ob->getValue('Content-Type', Horde_Mime_Headers::VALUE_BASE) == 'message/rfc822') {
-            return self::getRawPartText(substr($text, $curr_pos + 1), $type, $id);
+            return self::getRawPartText(substr($rawtext, $curr_pos + 1), $type, $id);
         }
 
         $base_pos = strpos($id, '.');
@@ -2081,13 +2116,13 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             throw new Horde_Mime_Exception('Could not find MIME part.');
         }
 
-        $b_find = self::_findBoundary($text, $curr_pos, $params['boundary'], $base_pos);
+        $b_find = self::_findBoundary($rawtext, $curr_pos, $params['boundary'], $base_pos);
 
         if (!isset($b_find[$base_pos])) {
             throw new Horde_Mime_Exception('Could not find MIME part.');
         }
 
-        return self::getRawPartText(substr($text, $b_find[$base_pos]['start'], $b_find[$base_pos]['length']), $type, $id);
+        return self::getRawPartText(substr($rawtext, $b_find[$base_pos]['start'], $b_find[$base_pos]['length'] - 1), $type, $id);
     }
 
     /**
@@ -2129,12 +2164,18 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         $i = 0;
         $out = array();
 
-        $search = "\n--" . $boundary;
+        $search = "--" . $boundary;
         $search_len = strlen($search);
 
         while (($pos = strpos($text, $search, $pos)) !== false) {
+            /* Boundary needs to appear at beginning of string or right after
+             * a LF. */
+            if (($pos != 0) && ($text[$pos - 1] != "\n")) {
+                continue;
+            }
+
             if (isset($out[$i])) {
-                $out[$i]['length'] = $pos - $out[$i]['start'];
+                $out[$i]['length'] = $pos - $out[$i]['start'] - 1;
             }
 
             if (!is_null($end) && ($end == $i)) {

@@ -3,7 +3,7 @@
  * Object containing data returned by the Horde_Imap_Client_Base#fetch()
  * command.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -436,6 +436,18 @@ class Horde_Imap_Client_Data_Fetch
     public function exists($type)
     {
         return isset($this->_data[$type]);
+    }
+
+    /**
+     * Does this object contain only default values for all fields?
+     *
+     * @since 1.2.0
+     *
+     * @return boolean  True if object contains default data.
+     */
+    public function isDefault()
+    {
+        return empty($this->_data);
     }
 
     /**

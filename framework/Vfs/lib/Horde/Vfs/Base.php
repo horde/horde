@@ -2,7 +2,7 @@
 /**
  * VFS API for abstracted file storage and access.
  *
- * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -237,8 +237,7 @@ abstract class Horde_Vfs_Base
      * @return string  The file data.
      * @throws Horde_Vfs_Exception
      */
-    public function readByteRange($path, $name, &$offset, $length = -1,
-                                  &$remaining)
+    public function readByteRange($path, $name, &$offset, $length, &$remaining)
     {
         throw new Horde_Vfs_Exception('Not supported.');
     }
@@ -669,18 +668,18 @@ abstract class Horde_Vfs_Base
      * @param integer $quota   The limit to apply.
      * @param integer $metric  The metric to multiply the quota into.
      */
-    public function setQuota($quota, $metric = self::QUOTA_METRIC_BYTE)
+    public function setQuota($quota, $metric = Horde_Vfs::QUOTA_METRIC_BYTE)
     {
         switch ($metric) {
-        case self::QUOTA_METRIC_KB:
+        case Horde_Vfs::QUOTA_METRIC_KB:
             $quota *= pow(2, 10);
             break;
 
-        case self::QUOTA_METRIC_MB:
+        case Horde_Vfs::QUOTA_METRIC_MB:
             $quota *= pow(2, 20);
             break;
 
-        case self::QUOTA_METRIC_GB:
+        case Horde_Vfs::QUOTA_METRIC_GB:
             $quota *= pow(2, 30);
             break;
         }

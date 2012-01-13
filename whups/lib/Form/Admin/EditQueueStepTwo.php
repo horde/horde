@@ -2,7 +2,7 @@
 /**
  * This file contains all Horde_Form classes for queue administration.
  *
- * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -90,7 +90,10 @@ class Whups_Form_Admin_EditQueueStepTwo extends Horde_Form
         if ($GLOBALS['registry']->isAdmin(array('permission' => 'whups:admin', 'permlevel' => Horde_Perms::EDIT))) {
             $permslink = array(
                 'text' => _("Edit the permissions on this queue"),
-                'url' => Horde_Util::addParameter(Horde_Util::addParameter(Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/admin/perms/edit.php'), 'category', "whups:queues:$queue"), 'autocreate', '1'));
+                'url' => Horde::url('admin/perms/edit.php', false,
+                                    array('app' => 'horde'))
+                            ->add(array('category' => 'whups:queues:' . $queue,
+                                        'autocreate' => '1')));
             $this->addVariable('', 'link', 'link', false, true, null,
                                array($permslink));
         }

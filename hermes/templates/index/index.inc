@@ -9,7 +9,6 @@
         <?php foreach ($menu->getSiteLinks() as $key => $menu_item): ?>
         <?php if ($menu_item == 'separator'): ?>
       </ul>
-      <span class="hermesSeparator">|</span>
       <ul>
         <?php else: ?>
         <li><a href="<?php echo $menu_item['url'] ?>" title="<?php echo $menu_item['text'] ?>" id="hermesMenu-<?php echo $key ?>"><img src="<?php echo $menu_item['icon_path'] . '/' . $menu_item['icon'] ?>" alt="<?php echo $menu_item['text'] ?>" /> <?php echo $menu_item['text'] ?></a></li>
@@ -27,10 +26,16 @@
       </ul>
     </div>
     <?php endif; ?>
-    <a href="#" id="hermesNotifications" class="hermesNotifications" title="<?php echo ("0 notifications") ?>"></a>
-    <span class="hermesSeparator">|</span>
-    <a href="#" id="hermesOptions"><?php echo _("Options") ?></a><?php if ($help_link) echo ' <span class="hermesSeparator">|</span> ' . $help_link; if (Horde_Menu::showService('logout')) { $ak = Horde::getAccessKey(_("_Logout")); echo ' <span class="hermesSeparator">|</span> <a href="#" accesskey="' . $ak . '" id="hermesLogout">' . Horde::highlightAccessKey(_("_Logout"), $ak) . '</a>'; } ?>
-  </div>
+    <ul>
+      <li><a href="#" id="hermesNotifications" class="hermesNotifications" title="<?php echo ("0 notifications") ?>"></a></li>
+      <li><a href="#" id="hermesOptions"><?php echo _("Options") ?></a></li>
+      <?php if ($help_link): ?>
+      <li><?php echo $help_link ?></li>
+      <?php endif ?>
+      <?php if (Horde_Menu::showService('logout')): $ak = Horde::getAccessKey(_("_Logout")); ?>
+      <li><a href="#" accesskey="<?php echo $ak ?>" id="hermesLogout"><?php echo Horde::highlightAccessKey(_("_Logout"), $ak) ?></a></li>
+      <?php endif ?>
+    </ul>  </div>
   <!-- end services -->
  <!-- begin top bar -->
  <div id="hermesBar">

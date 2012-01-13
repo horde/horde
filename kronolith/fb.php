@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -42,10 +42,11 @@ if (!$fb) {
         // the user's default_share preference, and if that's empty,
         // to their username.
         if (!$cal) {
-            $cal = 'internal_' . $prefs->getValue('default_share');
+            $cal = $prefs->getValue('default_share');
             if (!$cal) {
-                $cal = 'internal_' . $user;
+                $cal = $user;
             }
+            $cal = 'internal_' . $cal;
         }
     }
 

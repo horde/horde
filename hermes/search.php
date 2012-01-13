@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -52,12 +52,14 @@ case 'hermes_form_export':
             if ($form->isValid()) {
                 $form->getInfo($vars, $info);
                 try {
-                    $hours = $GLOBALS['injector']->getInstance('Hermes_Driver')->getHours($criteria);
+                    $hours = $GLOBALS['injector']
+                        ->getInstance('Hermes_Driver')
+                        ->getHours($criteria);
                     if (is_null($hours) || count($hours) == 0) {
                         $notification->push(_("No time to export!"), 'horde.error');
                     } else {
                         $exportHours = Hermes::makeExportHours($hours);
-                        $data = Horde_Data::factory(array('hermes', $info['format']));
+                        $data = Horde_Data::factory(array('hermes', $info['format']), array('browser' => $browser));
                         $filedata = $data->exportData($exportHours);
                         $browser->downloadHeaders($data->getFilename('export'), $data->getContentType(), false, strlen($filedata));
                         echo $filedata;
@@ -70,7 +72,7 @@ case 'hermes_form_export':
                         exit;
                     }
                 } catch (Horde_Exception $e) {
-                    $notification->push($hours, 'horde.error');
+                    $notification->push($e, 'horde.error');
                 }
             }
         }
@@ -86,7 +88,7 @@ $form = new Hermes_Form_Search($searchVars);
 require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
-$form->renderActive(new Horde_Form_Renderer(), $searchVars, 'search.php', 'post');
+$form->renderActive(new Horde_Form_Renderer(), $searchVars, Horde::url('search.php'), 'post');
 echo '<br />';
 
 if ($session->exists('hermes', 'search_criteria')) {
@@ -112,6 +114,6 @@ if ($session->exists('hermes', 'search_criteria')) {
 
 echo '<br />';
 $exportForm = new Hermes_Form_Export($vars);
-$exportForm->renderActive(new Horde_Form_Renderer(), $vars, 'search.php', 'post');
+$exportForm->renderActive(new Horde_Form_Renderer(), $vars, Horde::url('search.php'), 'post');
 
 require $registry->get('templates', 'horde') . '/common-footer.inc';

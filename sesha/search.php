@@ -28,5 +28,5 @@ $vars->set('location', array(SESHA_SEARCH_NAME));
 require $registry->get('templates', 'horde') . '/common-header.inc';
 require SESHA_TEMPLATES . '/menu.inc';
 $notification->notify(array('listeners' => 'status'));
-$form->renderActive($renderer, $vars, 'list.php', 'post');
+$form->renderActive($renderer, $vars, Horde::url('list.php'), 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

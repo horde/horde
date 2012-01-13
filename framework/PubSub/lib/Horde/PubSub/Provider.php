@@ -3,9 +3,11 @@
  * Publish-Subscribe system based on Phly_PubSub
  * (http://weierophinney.net/matthew/archives/199-A-Simple-PHP-Publish-Subscribe-System.html)
  *
+ * Copyright 2008-2011 Matthew Weier O'Phinney
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ *
  * @category  Horde
  * @package   PubSub
- * @copyright Copyright (C) 2008 - Present, Matthew Weier O'Phinney
  * @author    Matthew Weier O'Phinney <mweierophinney@gmail.com>
  * @license   New BSD {@link http://www.opensource.org/licenses/bsd-license.php}
  */

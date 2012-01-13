@@ -14,7 +14,7 @@
 /**
  * A Horde_Injector:: based Horde_Cache:: factory.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -42,6 +42,13 @@ class Horde_Core_Factory_Cache extends Horde_Core_Factory_Injector
             $driver = 'Null';
         }
 
+        $lc_driver = Horde_String::lower($driver);
+
+        if (Horde_Cli::runningFromCLI() && $lc_driver == 'xcache') {
+            $driver = 'Null';
+            $lc_driver = 'null';
+        }
+
         $params = Horde::getDriverConfig('cache', $driver);
         if (isset($GLOBALS['conf']['cache']['default_lifetime'])) {
             $params['lifetime'] = $GLOBALS['conf']['cache']['default_lifetime'];
@@ -49,7 +56,6 @@ class Horde_Core_Factory_Cache extends Horde_Core_Factory_Injector
         $params['compress'] = !empty($GLOBALS['conf']['cache']['compress']);
         $params['logger'] = $injector->getInstance('Horde_Log_Logger');
 
-        $lc_driver = Horde_String::lower($driver);
         switch ($lc_driver) {
         case 'memcache':
             $params['memcache'] = $injector->getInstance('Horde_Memcache');

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -13,7 +13,8 @@ Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
 // Make sure auth backend allows passwords to be reset.
 $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
-if (!$auth->hasCapability('resetpassword')) {
+if (empty($conf['auth']['resetpassword']) ||
+    !$auth->hasCapability('resetpassword')) {
     $notification->push(_("Cannot reset password automatically, contact your administrator."), 'horde.error');
     Horde::getServiceLink('login')->add('url', Horde_Util::getFormData('url'))->redirect();
 }

@@ -3,7 +3,7 @@
 $view = $injector->createInstance('Horde_View');
 $view->addHelper('Chora_Diff_Helper');
 
-echo $view->renderPartial('app/views/logMessage', array('collection' => array($patchset['log'])));
+echo $view->renderPartial('app/views/logMessage', array('collection' => array($patchset), 'locals' => array('hide_diff' => Horde_Util::nonInputVar('commit_page'))));
 
 echo '<ul class="commit-filelist">';
 $i = 0;
@@ -35,7 +35,7 @@ $segmentStart = microtime(true);
 $i = 0;
 foreach ($patchset['members'] as $member) {
     $i++;
-    echo $view->diff($VC->getFileObject($member['file']), $member['from'], $member['to'], "diff-$i");
+    echo $view->diff($VC->getFile($member['file']), $member['from'], $member['to'], "diff-$i");
 
     // Flush every .1 seconds to keep the page rendering.
     $now = microtime(true);

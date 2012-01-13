@@ -2,7 +2,7 @@
 /**
  * View a message in Traditional (imp) mode.
  *
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -53,8 +53,18 @@ $user_identity = $injector->getInstance('IMP_Identity');
 /* Run through action handlers. */
 $vars = Horde_Variables::getDefaultVariables();
 if ($vars->actionID) {
+    switch ($vars->actionID) {
+    case 'strip_attachment':
+        $token_name = 'imp.impcontents';
+        break;
+
+    default:
+        $token_name = 'imp.message';
+        break;
+    }
+
     try {
-        $injector->getInstance('Horde_Token')->validate($vars->message_token, 'imp.message');
+        $injector->getInstance('Horde_Token')->validate($vars->message_token, $token_name);
     } catch (Horde_Token_Exception $e) {
         $notification->push($e);
         $vars->actionID = null;
@@ -62,7 +72,7 @@ if ($vars->actionID) {
 }
 
 /* Determine if mailbox is readonly. */
-$peek = $readonly = IMP::$mailbox->readonly;
+$readonly = IMP::$mailbox->readonly;
 
 /* Get mailbox/UID of message. */
 $index_array = $imp_mailbox->getIMAPIndex();
@@ -73,6 +83,7 @@ $indices = new IMP_Indices($mailbox, $uid);
 $imp_flags = $injector->getInstance('IMP_Flags');
 $imp_hdr_ui = new IMP_Ui_Headers();
 $imp_ui = new IMP_Ui_Message();
+$peek = false;
 
 switch ($vars->actionID) {
 case 'blacklist':
@@ -221,16 +232,13 @@ try {
     $query = new Horde_Imap_Client_Fetch_Query();
     $query->flags();
     $flags_ret = $imp_imap->fetch($mailbox, $query, array(
-        'ids' => new Horde_Imap_Client_Ids($uid)
+        'ids' => $imp_imap->getIdsOb($uid)
     ));
 
     $query = new Horde_Imap_Client_Fetch_Query();
     $query->envelope();
-    $query->headerText(array(
-        'peek' => $peek
-    ));
     $fetch_ret = $imp_imap->fetch($mailbox, $query, array(
-        'ids' => new Horde_Imap_Client_Ids($uid)
+        'ids' => $imp_imap->getIdsOb($uid)
     ));
 } catch (IMP_Imap_Exception $e) {
     _returnToMailbox(null, 'message_missing');
@@ -240,7 +248,9 @@ try {
 
 $envelope = $fetch_ret[$uid]->getEnvelope();
 $flags = $flags_ret[$uid]->getFlags();
-$mime_headers = $fetch_ret[$uid]->getHeaderText(0, Horde_Imap_Client_Data_Fetch::HEADER_PARSE);
+$mime_headers = $peek
+    ? $imp_contents->getHeader()
+    : $imp_contents->getHeaderAndMarkAsSeen();
 
 /* Get the title/mailbox label of the mailbox page. */
 $page_label = IMP::$mailbox->label;
@@ -484,19 +494,18 @@ if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
 
 $n_template->set('back_to', Horde::widget($mailbox_url, sprintf(_("Back to %s"), $h_page_label), 'widget', '', '', sprintf(_("Bac_k to %s"), $h_page_label), true));
 
-$rtl = $registry->nlsconfig->curr_rtl;
 if (Horde_Util::nonInputVar('prev_url')) {
     $n_template->set('prev', Horde::link($prev_url, _("Previous Message")));
-    $n_template->set('prev_img', Horde::img($rtl ? 'nav/right.png' : 'nav/left.png', $rtl ? '>' : '<'));
+    $n_template->set('prev_img', 'navleftImg');
 } else {
-    $n_template->set('prev_img', Horde::img($rtl ? 'nav/right-grey.png' : 'nav/left-grey.png'));
+    $n_template->set('prev_img', 'navleftgreyImg');
 }
 
 if (Horde_Util::nonInputVar('next_url')) {
     $n_template->set('next', Horde::link($next_url, _("Next Message")));
-    $n_template->set('next_img', Horde::img($rtl ? 'nav/left.png' : 'nav/right.png', $rtl ? '<' : '>'));
+    $n_template->set('next_img', 'navrightImg');
 } else {
-    $n_template->set('next_img', Horde::img($rtl ? 'nav/left-grey.png' : 'nav/right-grey.png'));
+    $n_template->set('next_img', 'navrightgreyImg');
 }
 
 /* Prepare the navbar actions template. */
@@ -642,14 +651,12 @@ if (!$readonly && $strip_atc) {
 }
 
 /* Do MDN processing now. */
-$mdntext = '';
-if ($imp_ui->MDNCheck(IMP::$mailbox, $uid, $mime_headers, $vars->mdn_confirm)) {
-    $mdntext .= $imp_contents->formatStatusMsg(array(array(
-        'text' => array(
-            _("The sender of this message is requesting a Message Disposition Notification from you when you have read this message."), sprintf(_("Click %s to send the notification message."), Horde::link(htmlspecialchars($selfURL->copy()->add('mdn_confirm', 1))) . _("HERE") . '</a>')
-        )
-    )));
-}
+$mdntext = $imp_ui->MDNCheck(IMP::$mailbox, $uid, $mime_headers, $vars->mdn_confirm)
+    ? strval(new IMP_Mime_Status(array(
+        _("The sender of this message is requesting a notification from you when you have read this message."),
+        sprintf(_("Click %s to send the notification message."), Horde::link(htmlspecialchars($selfURL->copy()->add('mdn_confirm', 1))) . _("HERE") . '</a>')
+        )))
+    : '';
 
 /* Build body text. This needs to be done before we build the attachment list
  * that lives in the header. */
@@ -666,7 +673,7 @@ if ($show_parts == 'atc') {
     $show_atc = true;
 }
 
-if (count($inlineout['display_ids']) > 2) {
+if (count($inlineout['atc_parts']) > 2) {
     $a_template->set('download_all', Horde::widget($imp_contents->urlView($imp_contents->getMIMEMessage(), 'download_all'), _("Download All Attachments (in .zip file)"), 'widget', '', '', _("Download All Attachments (in .zip file)"), true));
     if ($strip_atc) {
         $a_template->set('strip_all', Horde::widget(Horde::selfUrl(true)->remove(array('actionID'))->add(array('actionID' => 'strip_all', 'message_token' => $message_token)), _("Strip All Attachments"), 'widget stripAllAtc', '', '', _("Strip All Attachments"), true));
@@ -685,29 +692,32 @@ if ($show_atc) {
 /* Show attachment information in headers? 'atc_parts' will be empty if
  * 'parts_display' pref is 'none'. */
 if (!empty($inlineout['atc_parts'])) {
-    $tmp = array();
-
     if ($show_parts == 'all') {
-        array_unshift($part_info, 'id');
-    }
+        $val = $imp_contents->getTree()->getTree(true);
+    } else {
+        $tmp = array();
 
-    foreach ($inlineout['atc_parts'] as $id) {
-        $summary = $imp_contents->getSummary($id, $contents_mask);
-        $tmp[] = '<tr>';
-        foreach ($part_info as $val) {
-            $tmp[] = '<td>' . $summary[$val] . '</td>';
+        foreach ($inlineout['atc_parts'] as $id) {
+            $summary = $imp_contents->getSummary($id, $contents_mask);
+
+            $tmp[] = '<tr>';
+            foreach ($part_info as $val) {
+                $tmp[] = '<td>' . $summary[$val] . '</td>';
+            }
+            $tmp[] = '<td>';
+            foreach ($part_info_action as $val) {
+                $tmp[] = $summary[$val];
+            }
+            $tmp[] = '</td></tr>';
         }
-        $tmp[] = '<td>';
-        foreach ($part_info_action as $val) {
-            $tmp[] = $summary[$val];
-        }
-        $tmp[] = '</td></tr>';
+
+        $val = '<table>' . implode('', $tmp) . '</table>';
     }
 
     $hdrs[] = array(
         'class' => 'msgheaderParts',
         'name' => ($show_parts == 'all') ? _("Parts") : _("Attachments"),
-        'val' => '<table>' . implode('', $tmp) . '</table>',
+        'val' => $val,
         'i' => (++$i % 2)
     );
 }

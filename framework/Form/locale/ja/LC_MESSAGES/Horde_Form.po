@@ -1,5 +1,5 @@
 # Japanese translation for Horde.
-# Copyright 2004-2009 Horde Project
+# Copyright 2004-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde package.
 # Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>
 #
@@ -7,49 +7,49 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Form\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-15 13:27+0100\n"
-"PO-Revision-Date: 2011-03-19 14:24+0900\n"
+"POT-Creation-Date: 2011-11-01 11:25+0100\n"
+"PO-Revision-Date: 2011-11-19 17:55+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: lib/Horde/Form/Type.php:2497
+#: lib/Horde/Form/Type.php:2513
 #, php-format
 msgid " (%s days ago)"
 msgstr " (%s 日前)"
 
-#: lib/Horde/Form/Type.php:2505
+#: lib/Horde/Form/Type.php:2521
 #, php-format
 msgid " (in %s days)"
 msgstr " (%s 日の内に)"
 
-#: lib/Horde/Form/Type.php:2501
+#: lib/Horde/Form/Type.php:2517
 msgid " (today)"
 msgstr " (今日)"
 
-#: lib/Horde/Form/Type.php:2503
+#: lib/Horde/Form/Type.php:2519
 msgid " (tomorrow)"
 msgstr " (明日)"
 
-#: lib/Horde/Form/Type.php:2499
+#: lib/Horde/Form/Type.php:2515
 msgid " (yesterday)"
 msgstr " (昨日)"
 
-#: lib/Horde/Form/Type.php:1438
+#: lib/Horde/Form/Type.php:1458
 #, php-format
 msgid "\"%s\" is not a valid email address."
 msgstr "\"%s\" は有効な電子メールアドレスではありません。"
 
-#: lib/Horde/Form/Type.php:2453
+#: lib/Horde/Form/Type.php:2482
 #, php-format
 msgid "%s is required"
 msgstr "%s が必要です"
 
-#: lib/Horde/Form/Type.php:2168 lib/Horde/Form/Type.php:2231
+#: lib/Horde/Form/Type.php:2188 lib/Horde/Form/Type.php:2251
 msgid "-- select --"
 msgstr "-- 選択 --"
 
@@ -65,27 +65,27 @@ msgstr "住所"
 msgid "Address Link"
 msgstr "アドレスのリンク"
 
-#: lib/Horde/Form/Type.php:1598
+#: lib/Horde/Form/Type.php:1618
 msgid "Allow multiple addresses?"
 msgstr "複数のアドレスを許可しますか？"
 
-#: lib/Horde/Form/Type.php:3446
+#: lib/Horde/Form/Type.php:3462
 msgid "Assignment columns"
 msgstr "列の割り当て"
 
-#: lib/Horde/Form/Type.php:3718
+#: lib/Horde/Form/Type.php:3722
 msgid "Category"
 msgstr "分類"
 
-#: lib/Horde/Form/Type.php:1610
+#: lib/Horde/Form/Type.php:1630
 msgid "Character to split multiple addresses with"
 msgstr "複数のアドレスを区切る文字"
 
-#: lib/Horde/Form/Type.php:3134
+#: lib/Horde/Form/Type.php:3150
 msgid "Colour selection"
 msgstr "色選択"
 
-#: lib/Horde/Form/Type.php:2050
+#: lib/Horde/Form/Type.php:2070
 msgid "Column titles"
 msgstr "列タイトル"
 
@@ -97,29 +97,29 @@ msgstr "文字の統計"
 msgid "Country drop down list"
 msgstr "国名リスト"
 
-#: lib/Horde/Form/Type.php:3561
+#: lib/Horde/Form/Type.php:3577
 msgid "Credit card number"
 msgstr "クレジットカード番号"
 
-#: lib/Horde/Form/Type.php:3616
+#: lib/Horde/Form/Type.php:3620
 msgid ""
 "DSN (see http://pear.php.net/manual/en/package.database.db.intro-dsn.php)"
 msgstr ""
 "DSN (参考 http://pear.php.net/manual/en/package.database.db.intro-dsn.php)"
 
-#: lib/Horde/Form/Type.php:3614
+#: lib/Horde/Form/Type.php:3618
 msgid "Database lookup"
 msgstr "データベース参照"
 
-#: lib/Horde/Form/Type.php:2526
+#: lib/Horde/Form/Type.php:2542
 msgid "Date"
 msgstr "日付"
 
-#: lib/Horde/Form/Type.php:3094
+#: lib/Horde/Form/Type.php:3110
 msgid "Date and time selection"
 msgstr "日付と時間の選択"
 
-#: lib/Horde/Form/Type.php:2931
+#: lib/Horde/Form/Type.php:2947
 msgid "Date selection"
 msgstr "日付の選択"
 
@@ -127,44 +127,44 @@ msgstr "日付の選択"
 msgid "Description"
 msgstr "説明"
 
-#: lib/Horde/Form/Type.php:2941 lib/Horde/Form/Type.php:3104
+#: lib/Horde/Form/Type.php:2957 lib/Horde/Form/Type.php:3120
 msgid "Display format"
 msgstr "表示形式"
 
-#: lib/Horde/Form/Type.php:2211
+#: lib/Horde/Form/Type.php:2231
 msgid "Drop down list"
 msgstr "ドロップダウンリスト"
 
-#: lib/Horde/Form/Type.php:1595
+#: lib/Horde/Form/Type.php:1615
 msgid "Email"
 msgstr "電子メール"
 
-#: lib/Horde/Form/Type.php:2066
+#: lib/Horde/Form/Type.php:2086
 msgid "Email addresses must match."
 msgstr "電子メールアドレスが一致しなければいけません。"
 
-#: lib/Horde/Form/Type.php:2093
+#: lib/Horde/Form/Type.php:2113
 msgid "Email with confirmation"
 msgstr "電子メールでの確認"
 
-#: lib/Horde/Form/Type.php:2721 lib/Horde/Form/Type.php:2935
-#: lib/Horde/Form/Type.php:3098
+#: lib/Horde/Form/Type.php:2737 lib/Horde/Form/Type.php:2951
+#: lib/Horde/Form/Type.php:3114
 msgid "End year"
 msgstr "終了年"
 
-#: lib/Horde/Form/Type.php:2048
+#: lib/Horde/Form/Type.php:2068
 msgid "Field matrix"
 msgstr "行列"
 
-#: lib/Horde/Form/Type.php:3669
+#: lib/Horde/Form/Type.php:3673
 msgid "Figlet CAPTCHA"
 msgstr "Figlet CAPTCHA"
 
-#: lib/Horde/Form/Type.php:3673
+#: lib/Horde/Form/Type.php:3677
 msgid "Figlet font"
 msgstr "Figlet フォント"
 
-#: lib/Horde/Form/Type.php:3320
+#: lib/Horde/Form/Type.php:3336
 msgid "File selection"
 msgstr "ファイル選択"
 
@@ -172,7 +172,7 @@ msgstr "ファイル選択"
 msgid "File upload"
 msgstr "ファイルアップロード"
 
-#: lib/Horde/Form/Type.php:3692
+#: lib/Horde/Form/Type.php:3696
 msgid "Font"
 msgstr "フォント"
 
@@ -180,7 +180,7 @@ msgstr "フォント"
 msgid "HTML"
 msgstr "HTML"
 
-#: lib/Horde/Form/Type.php:92 lib/Horde/Form/Type.php:3258
+#: lib/Horde/Form/Type.php:92 lib/Horde/Form/Type.php:3274
 msgid "Header"
 msgstr "ヘッダー"
 
@@ -200,15 +200,15 @@ msgstr "IP アドレス"
 msgid "IPv6 address"
 msgstr "IPv6 アドレス"
 
-#: lib/Horde/Form/Type.php:3322
+#: lib/Horde/Form/Type.php:3338
 msgid "Id"
 msgstr "Id"
 
-#: lib/Horde/Form/Type.php:3688
+#: lib/Horde/Form/Type.php:3692
 msgid "Image CAPTCHA"
 msgstr "画像 CAPTCHA"
 
-#: lib/Horde/Form/Type.php:1270
+#: lib/Horde/Form/Type.php:1290
 msgid "Image upload"
 msgstr "画像アップロード"
 
@@ -220,49 +220,49 @@ msgstr "整数"
 msgid "Integer list"
 msgstr "整数の並び"
 
-#: lib/Horde/Form/Type.php:2186 lib/Horde/Form/Type.php:2261
-#: lib/Horde/Form/Type.php:2334 lib/Horde/Form/Type.php:2413
+#: lib/Horde/Form/Type.php:2206 lib/Horde/Form/Type.php:2281
+#: lib/Horde/Form/Type.php:2354 lib/Horde/Form/Type.php:2442
 #: lib/Horde/Form/Type/tableset.php:31
 msgid "Invalid data submitted."
 msgstr "無効なデータが送信されました。"
 
-#: lib/Horde/Form/Type.php:3452
+#: lib/Horde/Form/Type.php:3468
 msgid "Left header"
 msgstr "左ヘッダー"
 
-#: lib/Horde/Form/Type.php:3448
+#: lib/Horde/Form/Type.php:3464
 msgid "Left values"
 msgstr "左辺値"
 
-#: lib/Horde/Form/Type.php:1330
+#: lib/Horde/Form/Type.php:1350
 msgid "Link"
 msgstr "リンク"
 
-#: lib/Horde/Form/Type.php:1333
+#: lib/Horde/Form/Type.php:1353
 msgid "Link URL"
 msgstr "リンク URL"
 
-#: lib/Horde/Form/Type.php:1348
+#: lib/Horde/Form/Type.php:1368
 msgid "Link access key"
 msgstr "リンクアクセスキイ"
 
-#: lib/Horde/Form/Type.php:3326
+#: lib/Horde/Form/Type.php:3342
 msgid "Link style"
 msgstr "リンクスタイル"
 
-#: lib/Horde/Form/Type.php:1339
+#: lib/Horde/Form/Type.php:1359
 msgid "Link target"
 msgstr "リンク先"
 
-#: lib/Horde/Form/Type.php:1336 lib/Horde/Form/Type.php:3324
+#: lib/Horde/Form/Type.php:1356 lib/Horde/Form/Type.php:3340
 msgid "Link text"
 msgstr "リンク文字"
 
-#: lib/Horde/Form/Type.php:1604
+#: lib/Horde/Form/Type.php:1624
 msgid "Link the email address to the compose page when displaying?"
 msgstr "メールアドレスをメール作成画面ににリンクしますか？"
 
-#: lib/Horde/Form/Type.php:1345
+#: lib/Horde/Form/Type.php:1365
 msgid "Link title attribute"
 msgstr "リンクタイトル属性"
 
@@ -270,7 +270,7 @@ msgstr "リンクタイトル属性"
 msgid "Long text"
 msgstr "長い文字列"
 
-#: lib/Horde/Form/Type.php:1276
+#: lib/Horde/Form/Type.php:1296
 msgid "Maximum file size in bytes"
 msgstr "最大ファイルサイズ（バイト）"
 
@@ -283,17 +283,21 @@ msgstr "最大長さ"
 msgid "Mobile phone number"
 msgstr "携帯電話番号"
 
-#: lib/Horde/Form/Type.php:2717
+#: lib/Horde/Form/Type.php:2733
 msgid "Month and year"
 msgstr "月と年"
 
-#: lib/Horde/Form/Type.php:2287
+#: lib/Horde/Form/Type.php:2307
 msgid "Multi-level drop down lists"
 msgstr "多段のドロップダウン・メニュー"
 
-#: lib/Horde/Form/Type.php:2344
+#: lib/Horde/Form/Type.php:2364
 msgid "Multiple selection"
 msgstr "複数選択"
+
+#: lib/Horde/Form/Type.php:2392
+msgid "Multiple selection, preserving keys"
+msgstr "複数選択、キイ保存"
 
 #: lib/Horde/Form/Type.php:213
 msgid "Number"
@@ -319,15 +323,15 @@ msgstr "行数"
 msgid "Octal"
 msgstr "8進数"
 
-#: lib/Horde/Form/Type.php:1342
+#: lib/Horde/Form/Type.php:1362
 msgid "Onclick event"
 msgstr "Onclick イベント"
 
-#: lib/Horde/Form/Type.php:2076
+#: lib/Horde/Form/Type.php:2096
 msgid "Only one email address allowed."
 msgstr "電子メールアドレスは1つだけ指定できます。"
 
-#: lib/Horde/Form/Type.php:1427
+#: lib/Horde/Form/Type.php:1447
 msgid "Only one email address is allowed."
 msgstr "電子メールアドレスは1つだけ指定できます。"
 
@@ -335,15 +339,15 @@ msgstr "電子メールアドレスは1つだけ指定できます。"
 msgid "PGP Key"
 msgstr "PGP 鍵"
 
-#: lib/Horde/Form/Type.php:2120
+#: lib/Horde/Form/Type.php:2140
 msgid "Password"
 msgstr "パスワード"
 
-#: lib/Horde/Form/Type.php:2153
+#: lib/Horde/Form/Type.php:2173
 msgid "Password with confirmation"
 msgstr "パスワードの確認"
 
-#: lib/Horde/Form/Type.php:2135
+#: lib/Horde/Form/Type.php:2155
 msgid "Passwords must match."
 msgstr "パスワードが一致しません。"
 
@@ -355,11 +359,11 @@ msgstr "GnuPGプログラムのパス"
 msgid "Phone number"
 msgstr "電話番号"
 
-#: lib/Horde/Form/Type.php:3164
+#: lib/Horde/Form/Type.php:3180
 msgid "Please choose a sound."
 msgstr "音を選択して下さい。"
 
-#: lib/Horde/Form/Type.php:2695
+#: lib/Horde/Form/Type.php:2711
 msgid "Please enter a month and a year."
 msgstr "月と年を入力してください。"
 
@@ -367,24 +371,24 @@ msgstr "月と年を入力してください。"
 msgid "Please enter a valid IP address."
 msgstr "正しいIPアドレスを入力して下さい。"
 
-#: lib/Horde/Form/Type.php:2775
+#: lib/Horde/Form/Type.php:2791
 msgid "Please enter a valid date, check the number of days in the month."
 msgstr "正しい日付を入力してください. 月の日数をチェックしてください。"
 
-#: lib/Horde/Form/Type.php:2575
+#: lib/Horde/Form/Type.php:2591
 msgid "Please enter a valid time."
 msgstr "正しい時間を入力して下さい。"
 
-#: lib/Horde/Form/Type.php:888 lib/Horde/Form/Type.php:2215
-#: lib/Horde/Form/Type.php:2291 lib/Horde/Form/Type.php:3620
+#: lib/Horde/Form/Type.php:888 lib/Horde/Form/Type.php:2235
+#: lib/Horde/Form/Type.php:2311 lib/Horde/Form/Type.php:3624
 msgid "Prompt text"
 msgstr "プロンプト"
 
-#: lib/Horde/Form/Type.php:1601
+#: lib/Horde/Form/Type.php:1621
 msgid "Protect address from spammers?"
 msgstr "スパマーからアドレスを保護しますか？"
 
-#: lib/Horde/Form/Type.php:2379
+#: lib/Horde/Form/Type.php:2408
 msgid "Radio selection"
 msgstr "ラジオボタン"
 
@@ -393,7 +397,7 @@ msgstr "ラジオボタン"
 msgid "Regex"
 msgstr "Regex"
 
-#: lib/Horde/Form/Type.php:3578
+#: lib/Horde/Form/Type.php:3594
 msgid "Relationship browser"
 msgstr "関係の表示"
 
@@ -409,11 +413,11 @@ msgstr "必要なシークレットが無効です - 悪意のある要求かも
 msgid "Reset"
 msgstr "リセット"
 
-#: lib/Horde/Form/Type.php:3454
+#: lib/Horde/Form/Type.php:3470
 msgid "Right header"
 msgstr "右ヘッダー"
 
-#: lib/Horde/Form/Type.php:3450
+#: lib/Horde/Form/Type.php:3466
 msgid "Right values"
 msgstr "右辺値"
 
@@ -421,53 +425,53 @@ msgstr "右辺値"
 msgid "S/MIME Key"
 msgstr "S/MIME 鍵"
 
-#: lib/Horde/Form/Type.php:3618
+#: lib/Horde/Form/Type.php:3622
 msgid "SQL statement for value lookups"
 msgstr "値を検索するための SQL 文"
 
-#: lib/Horde/Form/Type.php:3299
+#: lib/Horde/Form/Type.php:3315
 msgid "Select Files"
 msgstr "ファイルを選択"
 
-#: lib/Horde/Form/Type.php:2778
+#: lib/Horde/Form/Type.php:2794
 msgid "Select all date components."
 msgstr "年月日を全て選択して下さい。"
 
-#: lib/Horde/Form/Type.php:2428
+#: lib/Horde/Form/Type.php:2457
 msgid "Set"
 msgstr "セット"
 
-#: lib/Horde/Form/Type.php:3328
+#: lib/Horde/Form/Type.php:3344
 msgid "Show icon?"
 msgstr "アイコンを表示しますか？"
 
-#: lib/Horde/Form/Type.php:1274
+#: lib/Horde/Form/Type.php:1294
 msgid "Show option to keep original?"
 msgstr "オリジナルを保存するオプションを表示しますか？"
 
-#: lib/Horde/Form/Type.php:2937 lib/Horde/Form/Type.php:3100
+#: lib/Horde/Form/Type.php:2953 lib/Horde/Form/Type.php:3116
 msgid "Show picker?"
 msgstr "色選択を表示？"
 
-#: lib/Horde/Form/Type.php:2663 lib/Horde/Form/Type.php:3106
+#: lib/Horde/Form/Type.php:2679 lib/Horde/Form/Type.php:3122
 msgid "Show seconds?"
 msgstr "秒を表示しますか？"
 
-#: lib/Horde/Form/Type.php:1272
+#: lib/Horde/Form/Type.php:1292
 msgid "Show upload?"
 msgstr "アップロードを表示しますか？"
 
 #: lib/Horde/Form/Type.php:375 lib/Horde/Form/Type.php:395
-#: lib/Horde/Form/Type.php:421 lib/Horde/Form/Type.php:2348
-#: lib/Horde/Form/Type.php:3256 lib/Horde/Form/Type.php:3456
+#: lib/Horde/Form/Type.php:421 lib/Horde/Form/Type.php:2368
+#: lib/Horde/Form/Type.php:3272 lib/Horde/Form/Type.php:3472
 msgid "Size"
 msgstr "サイズ"
 
-#: lib/Horde/Form/Type.php:3252
+#: lib/Horde/Form/Type.php:3268
 msgid "Sort order selection"
 msgstr "並び順の選択"
 
-#: lib/Horde/Form/Type.php:3173
+#: lib/Horde/Form/Type.php:3189
 msgid "Sound selection"
 msgstr "音選択"
 
@@ -475,12 +479,12 @@ msgstr "音選択"
 msgid "Spacer"
 msgstr "空白"
 
-#: lib/Horde/Form/Type.php:2719 lib/Horde/Form/Type.php:2933
-#: lib/Horde/Form/Type.php:3096
+#: lib/Horde/Form/Type.php:2735 lib/Horde/Form/Type.php:2949
+#: lib/Horde/Form/Type.php:3112
 msgid "Start year"
 msgstr "開始年"
 
-#: lib/Horde/Form/Type.php:2939 lib/Horde/Form/Type.php:3102
+#: lib/Horde/Form/Type.php:2955 lib/Horde/Form/Type.php:3118
 msgid "Storage format"
 msgstr "保存形式"
 
@@ -500,28 +504,28 @@ msgstr "実行"
 msgid "Table Set"
 msgstr "表組"
 
-#: lib/Horde/Form/Type.php:371 lib/Horde/Form/Type.php:3671
-#: lib/Horde/Form/Type.php:3690
+#: lib/Horde/Form/Type.php:371 lib/Horde/Form/Type.php:3675
+#: lib/Horde/Form/Type.php:3694
 msgid "Text"
 msgstr "テキスト"
 
-#: lib/Horde/Form/Type.php:1033
+#: lib/Horde/Form/Type.php:1045
 msgid ""
 "The image file size could not be determined or it was 0 bytes. The upload "
 "may have been interrupted."
 msgstr ""
 "画像ファイルのサイズが不明かゼロです。アップロードが中断されたようです。"
 
-#: lib/Horde/Form/Type.php:1037
+#: lib/Horde/Form/Type.php:1049
 #, php-format
 msgid "The image file was larger than the maximum allowed size (%d bytes)."
 msgstr "画像ファイルがサイズ制限値(%dバイト)を越えています。"
 
-#: lib/Horde/Form/Type.php:1607
+#: lib/Horde/Form/Type.php:1627
 msgid "The name to use when linking to the compose page"
 msgstr "メール作成画面にリンクする時に使用する名前"
 
-#: lib/Horde/Form/Type.php:3646
+#: lib/Horde/Form/Type.php:3650
 msgid "The text you entered did not match the text on the screen."
 msgstr "あなたの入力した文字は画面の文字と一致しません。"
 
@@ -533,7 +537,7 @@ msgid_plural ""
 "There are too many characters in this field. You have entered %d characters; "
 msgstr[0] "文字数がこのフィールドに多過ぎます。%d の文字が入力されています。"
 
-#: lib/Horde/Form/Type.php:3477
+#: lib/Horde/Form/Type.php:3493
 msgid "This does not seem to be a valid card number."
 msgstr "これは有効なカード番号ではないようです。"
 
@@ -541,14 +545,14 @@ msgstr "これは有効なカード番号ではないようです。"
 #: lib/Horde/Form/Type.php:250 lib/Horde/Form/Type.php:277
 #: lib/Horde/Form/Type.php:342 lib/Horde/Form/Type.php:436
 #: lib/Horde/Form/Type.php:494 lib/Horde/Form/Type.php:524
-#: lib/Horde/Form/Type.php:618 lib/Horde/Form/Type.php:1018
-#: lib/Horde/Form/Type.php:2061 lib/Horde/Form/Type.php:2108
-#: lib/Horde/Form/Type.php:2130 lib/Horde/Form/Type.php:2177
-#: lib/Horde/Form/Type.php:2252 lib/Horde/Form/Type.php:2323
-#: lib/Horde/Form/Type.php:2536 lib/Horde/Form/Type.php:2578
-#: lib/Horde/Form/Type.php:2770 lib/Horde/Form/Type.php:3117
-#: lib/Horde/Form/Type.php:3156 lib/Horde/Form/Type.php:3469
-#: lib/Horde/Form/Type.php:3641 lib/Horde/Form/Type.php:3724
+#: lib/Horde/Form/Type.php:618 lib/Horde/Form/Type.php:1030
+#: lib/Horde/Form/Type.php:2081 lib/Horde/Form/Type.php:2128
+#: lib/Horde/Form/Type.php:2150 lib/Horde/Form/Type.php:2197
+#: lib/Horde/Form/Type.php:2272 lib/Horde/Form/Type.php:2343
+#: lib/Horde/Form/Type.php:2552 lib/Horde/Form/Type.php:2594
+#: lib/Horde/Form/Type.php:2786 lib/Horde/Form/Type.php:3133
+#: lib/Horde/Form/Type.php:3172 lib/Horde/Form/Type.php:3485
+#: lib/Horde/Form/Type.php:3645 lib/Horde/Form/Type.php:3728
 #: lib/Horde/Form/Variable.php:454 lib/Horde/Form/Variable.php:462
 msgid "This field is required."
 msgstr "このフィールドは必須です。"
@@ -557,7 +561,7 @@ msgstr "このフィールドは必須です。"
 msgid "This field may only contain integers."
 msgstr "このフィールドは整数でなくてはいけません。"
 
-#: lib/Horde/Form/Type.php:2544
+#: lib/Horde/Form/Type.php:2560
 msgid "This field may only contain numbers and the colon."
 msgstr "このフィールドは数字かコロンでなくてはいけません。"
 
@@ -575,7 +579,7 @@ msgstr ""
 msgid "This field must be a valid number."
 msgstr "このフィールドは数字でなければなりません。"
 
-#: lib/Horde/Form/Type.php:3125
+#: lib/Horde/Form/Type.php:3141
 msgid ""
 "This field must contain a color code in the RGB Hex format, for example "
 "'#1234af'."
@@ -585,15 +589,15 @@ msgstr "このフィールドは16進RGB表記の色コードなくてはいけ�
 msgid "This form has already been processed."
 msgstr "このフォームは既に処理されています。"
 
-#: lib/Horde/Form/Type.php:2553
+#: lib/Horde/Form/Type.php:2569
 msgid "Time"
 msgstr "時間"
 
-#: lib/Horde/Form/Type.php:2661
+#: lib/Horde/Form/Type.php:2677
 msgid "Time selection"
 msgstr "時間選択"
 
-#: lib/Horde/Form/Type.php:1299
+#: lib/Horde/Form/Type.php:1319
 msgid "True or false"
 msgstr "真か虚"
 
@@ -602,29 +606,29 @@ msgstr "真か虚"
 msgid "Value is over the maximum length of %d."
 msgstr "最大長 %d を超過しています。"
 
-#: lib/Horde/Form/Type.php:2346 lib/Horde/Form/Type.php:2381
-#: lib/Horde/Form/Type.php:2430 lib/Horde/Form/Type.php:3254
+#: lib/Horde/Form/Type.php:2366 lib/Horde/Form/Type.php:2410
+#: lib/Horde/Form/Type.php:2459 lib/Horde/Form/Type.php:3270
 #: lib/Horde/Form/Type/tableset.php:53
 msgid "Values"
 msgstr "値"
 
-#: lib/Horde/Form/Type.php:2213 lib/Horde/Form/Type.php:2289
+#: lib/Horde/Form/Type.php:2233 lib/Horde/Form/Type.php:2309
 msgid "Values to select from"
 msgstr "選択候補の値"
 
-#: lib/Horde/Form/Type.php:3458
+#: lib/Horde/Form/Type.php:3474
 msgid "Width in CSS units"
 msgstr "CSS 単位での幅"
 
-#: lib/Horde/Form/Type.php:2080
+#: lib/Horde/Form/Type.php:2100
 msgid "You did not enter a valid email address."
 msgstr "有効な電子メールアドレスではありません。"
 
-#: lib/Horde/Form/Type.php:3001
+#: lib/Horde/Form/Type.php:3017
 msgid "You must choose a date."
 msgstr "日付けを選択して下さい。"
 
-#: lib/Horde/Form/Type.php:2999
+#: lib/Horde/Form/Type.php:3015
 msgid "You must choose a time."
 msgstr "時間を選択して下さい。"
 
@@ -640,11 +644,11 @@ msgstr ""
 msgid "You must enter a valid value."
 msgstr "正しい値を入力して下さい。"
 
-#: lib/Horde/Form/Type.php:1448
+#: lib/Horde/Form/Type.php:1468
 msgid "You must enter an email address."
 msgstr "電子メールアドレスを入力して下さい。"
 
-#: lib/Horde/Form/Type.php:1446
+#: lib/Horde/Form/Type.php:1466
 msgid "You must enter at least one email address."
 msgstr "少なくとも１つの電子メールアドレスを入力して下さい。"
 

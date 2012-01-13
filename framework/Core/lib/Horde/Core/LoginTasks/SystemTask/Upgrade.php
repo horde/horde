@@ -2,7 +2,7 @@
 /**
  * Login system task for automated upgrade tasks.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -93,6 +93,10 @@ abstract class Horde_Core_LoginTasks_SystemTask_Upgrade extends Horde_LoginTasks
 
     /**
      * Perform upgrade tasks for a given version.
+     *
+     * For those running a git checkout, the system task for a given version
+     * will run continuously until that version is released. Code should
+     * be added to not convert already converted values.
      *
      * @param string $version  A version string.
      */

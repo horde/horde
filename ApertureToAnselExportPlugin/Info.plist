@@ -19,9 +19,11 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.0.0.d1</string>
+	<string>1.0.0alpha1</string>
 	<key>LSHasLocalizedDisplayName</key>
 	<true/>
+	<key>NSHumanReadableCopyright</key>
+	<string>2008-2009 Horde LLC (http://www.horde.org/)</string>
 	<key>NSPrincipalClass</key>
 	<string>ApertureToAnselExportPlugin</string>
 	<key>ProPlugDictionaryVersion</key>
@@ -48,12 +50,12 @@
 			<string>616BA321-B4C2-49DF-8FD8-2E3392D2D240</string>
 			<key>helpURL</key>
 			<string></string>
+			<key>infoString</key>
+			<string>infoString</string>
 			<key>protocolNames</key>
 			<array>
 				<string>ApertureExportPlugIn</string>
 			</array>
-			<key>infoString</key>
-			<string>infoString</string>
 			<key>uuid</key>
 			<string>C4369CA3-A511-4D33-8417-61D15CE507C4</string>
 		</dict>
@@ -69,7 +71,5 @@
 			</array>
 		</dict>
 	</array>
-	<key>NSHumanReadableCopyright</key>
-	<string>2008-2009 Horde LLC (http://www.horde.org)</string>
 </dict>
 </plist>

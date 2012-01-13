@@ -16,11 +16,11 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-08-17</date>
- <time>14:54:02</time>
+ <date>2011-12-13</date>
+ <time>11:48:34</time>
  <version>
-  <release>1.0.6</release>
-  <api>1.0.0</api>
+  <release>1.1.1</release>
+  <api>1.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -32,6 +32,13 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Crypt">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/Crypt -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Crypt">
@@ -388,6 +395,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Crypt/COPYING" />
    <install as="Horde/Crypt.php" name="lib/Horde/Crypt.php" />
    <install as="Horde/Crypt/Exception.php" name="lib/Horde/Crypt/Exception.php" />
    <install as="Horde/Crypt/Pgp.php" name="lib/Horde/Crypt/Pgp.php" />
@@ -682,7 +690,37 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-17</date>
+   <date>2011-11-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update Croatian translation.
+* [jan] Update Estonian translation.
+* [mms] Upgrade signed S/MIME output to comply with S/MIME version 3.2.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.0</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-13</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Provide signature information when decrypting a message, rather than just a boolean result.
+* [mms] Fix displaying PGP key expiration information.
+* [mms] Allow expiration date to be given to Horde_Crypt_Pgp#generateKey() (Request #5754).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

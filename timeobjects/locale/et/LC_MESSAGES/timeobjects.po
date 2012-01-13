@@ -1,0 +1,136 @@
+# Estonian translations for Timeobjects package.
+# Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Timeobjects package.
+# Automatically generated, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Timeobjects 1.0.2-git\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2011-08-02 15:24+0200\n"
+"PO-Revision-Date: 2011-08-02 15:24+0200\n"
+"Last-Translator: Alar Sing <alar.sing@err.ee>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"Language: et\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/Driver/Weatherdotcom.php:222 lib/Driver/Weatherdotcom.php:237
+#, php-format
+msgid " gusting %d%s"
+msgstr " puhangud %d%s"
+
+#: lib/Driver/Weatherdotcom.php:155
+msgid "An unknown error has occured."
+msgstr "Juhtus tundmatu viga."
+
+#: lib/Driver/Weatherdotcom.php:151
+msgid "Cache init was not completed."
+msgstr "Vahemälu initsialiseerimine ei jõudnud lõpule."
+
+#: lib/Driver/Weatherdotcom.php:211
+#, php-format
+msgid ""
+"Conditions: %s\n"
+"High temperature: %d%s\n"
+"Precipitation: %d%%\n"
+"Humidity: %d%%\n"
+"Winds: From the %s at %d%s"
+msgstr ""
+"Tingimused: %s\n"
+"Kõrgeim temperatuur: %d%s\n"
+"Sademed: %d%%\n"
+"Niiskus: %d%%\n"
+"Tuul: %s'st kuni %d%s"
+
+#: lib/Driver/Weatherdotcom.php:226
+#, php-format
+msgid ""
+"Conditions: %s\n"
+"Low temperature: %d%s\n"
+"Precipitation: %d%%\n"
+"Humidity: %d%%\n"
+"Winds: From the %s at %d%s"
+msgstr ""
+"Tingimused: %s\n"
+"Madalaim temperatuur: %d%s\n"
+"Sademed: %d%%\n"
+"Niiskus: %d%%\n"
+"Tuul: %s'st kuni %d%s"
+
+#: lib/Api.php:47
+msgid "Facebook Events"
+msgstr "Facebooki Sündmused"
+
+#: lib/Driver/Weatherdotcom.php:165
+msgid "Invalid license key."
+msgstr "Vigane litsentsivõti."
+
+#: lib/Driver/Weatherdotcom.php:159
+msgid "Invalid location provided."
+msgstr "Sisestati vigane asukoht."
+
+#: lib/Driver/Weatherdotcom.php:161
+msgid "Invalid partner id."
+msgstr "Vigane partneri ID."
+
+#: lib/Driver/Weatherdotcom.php:163
+msgid "Invalid product code."
+msgstr "Vigane tootekood."
+
+#: lib/Driver/Weatherdotcom.php:241
+#, php-format
+msgid ""
+"Location: %s\n"
+"Sunrise: %s\n"
+"Sunset: %s\n"
+"\n"
+"Day\n"
+"%s\n"
+"\n"
+"Evening\n"
+"%s"
+msgstr ""
+"Koht: %s\n"
+"Päikese tõus: %s\n"
+"Päikese loojang: %s\n"
+"\n"
+"Päeval\n"
+"%s\n"
+"\n"
+"Õhtul\n"
+"%s"
+
+#: lib/Driver/Weatherdotcom.php:153
+msgid "MetarDB is not connected."
+msgstr "MetarDB ühendus puudub."
+
+#: lib/Driver/Weatherdotcom.php:121
+msgid "No location is set."
+msgstr "Asukoht määramata."
+
+#: lib/Driver/Weatherdotcom.php:157
+msgid "No location provided."
+msgstr "Asukoht määramata."
+
+#: lib/Driver/Weatherdotcom.php:130
+msgid "No temporary directory available for cache."
+msgstr "Puhverdamiseks puudub ajutine kataloog."
+
+#: lib/Driver/Weatherdotcom.php:145
+msgid "Requested service could not be found."
+msgstr "Soovitavat teenust ei leitud."
+
+#: lib/Driver/Weatherdotcom.php:149
+msgid "Server data wrong or not available."
+msgstr "Serveri andmed on valed või puuduvad."
+
+#: lib/Driver/Weatherdotcom.php:147
+msgid "Unknown location provided."
+msgstr "Määrati tundmatu asukoht."
+
+#: lib/Api.php:39
+msgid "Weather"
+msgstr "Ilm"

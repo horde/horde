@@ -2,7 +2,7 @@
 /**
  * Login task to output last login information.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -33,19 +33,22 @@ class Horde_LoginTasks_Task_LastLogin extends Horde_LoginTasks_Task
      */
     public function execute()
     {
+        global $injector, $notification, $prefs;
+
         /* Fetch the user's last login time. */
-        $old_login = @unserialize($GLOBALS['prefs']->getValue('last_login'));
+        $old_login = @unserialize($prefs->getValue('last_login'));
 
         /* Display it, if we have a notification object and the
          * show_last_login preference is active. */
-        if (isset($GLOBALS['notification']) &&
-            $GLOBALS['prefs']->getValue('show_last_login')) {
+        if (isset($notification) && $prefs->getValue('show_last_login')) {
+            $date_format = $prefs->getValue('date_format') . ' (' . $prefs->getValue('time_format') . ')';
+
             if (empty($old_login['time'])) {
-                $GLOBALS['notification']->push(_("Last login: Never"), 'horde.message');
+                $notification->push(_("Last login: Never"), 'horde.message');
             } elseif (empty($old_login['host'])) {
-                $GLOBALS['notification']->push(sprintf(_("Last login: %s"), strftime('%c', $old_login['time'])), 'horde.message');
+                $notification->push(sprintf(_("Last login: %s"), strftime($date_format, $old_login['time'])), 'horde.message');
             } else {
-                $GLOBALS['notification']->push(sprintf(_("Last login: %s from %s"), strftime('%c', $old_login['time']), $old_login['host']), 'horde.message');
+                $notification->push(sprintf(_("Last login: %s from %s"), strftime($date_format, $old_login['time']), $old_login['host']), 'horde.message');
             }
         }
 
@@ -54,7 +57,7 @@ class Horde_LoginTasks_Task_LastLogin extends Horde_LoginTasks_Task
             ? $_SERVER['REMOTE_ADDR']
             : $_SERVER['HTTP_X_FORWARDED_FOR'];
 
-        if ($dns = $GLOBALS['injector']->getInstance('Net_DNS2_Resolver')) {
+        if ($dns = $injector->getInstance('Net_DNS2_Resolver')) {
             $ptrdname = $host;
             try {
                 if ($response = $dns->query($host, 'PTR')) {
@@ -70,7 +73,7 @@ class Horde_LoginTasks_Task_LastLogin extends Horde_LoginTasks_Task
             $ptrdname = @gethostbyaddr($host);
         }
 
-        $GLOBALS['prefs']->setValue('last_login', serialize(array(
+        $prefs->setValue('last_login', serialize(array(
             'host' => $ptrdname,
             'time' => time()
         )));

@@ -20,7 +20,7 @@ require_once dirname(__FILE__) . '/../Autoload.php';
 /**
  * Test the package contents.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -37,7 +37,7 @@ extends Horde_Pear_TestCase
 {
     public function testListPackages()
     {
-        $this->assertType(
+        $this->assertInternalType(
             'array',
             $this->getRemoteList()->listPackages()
         );
@@ -78,7 +78,7 @@ extends Horde_Pear_TestCase
     public function testNoDetails()
     {
         $this->assertFalse(
-            $this->_getNoLatest()->getLatestDetails('X')
+            $this->_getNoLatest()->getLatestDetails('X', null)
         );
     }
 
@@ -86,7 +86,7 @@ extends Horde_Pear_TestCase
     {
         $this->assertEquals(
             '1.0.0',
-            $this->_getLatest()->getLatestDetails('A')->getVersion()
+            $this->_getLatest()->getLatestDetails('A', null)->getVersion()
         );
     }
 
@@ -105,6 +105,15 @@ extends Horde_Pear_TestCase
             $this->_getRemoteDependencies()->getChannel()
         );
     }
+
+    public function testPackageXml()
+    {
+        $this->assertInstanceOf(
+            'Horde_Pear_Package_Xml',
+            $this->_getPackageXml()->getPackageXml('A', null)
+        );
+    }
+
 
     private function _getRemoteDependencies()
     {
@@ -185,6 +194,25 @@ extends Horde_Pear_TestCase
                 array(
                     'body' => $this->_getRelease(),
                     'code' => 200,
+                ),
+            )
+        );
+        return $this->createRemote($request);
+    }
+
+    private function _getPackageXml()
+    {
+        if (!class_exists('Horde_Http_Client')) {
+            $this->markTestSkipped('Horde_Http is missing!');
+        }
+        $request = new Horde_Pear_Stub_Request();
+        $request->setResponses(
+            array(
+                array(
+                    'body' => file_get_contents(
+                        dirname(__FILE__) . '/../fixture/rest/package.xml'
+                    ),
+                    'code' => 404,
                 ),
             )
         );

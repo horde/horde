@@ -8,7 +8,7 @@
  * 'paths': Hash with the locations of all necessary binaries: 'svn', 'diff'
  * </pre>
  *
- * Copyright 2000-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2000-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -17,8 +17,26 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Vcs
  */
-class Horde_Vcs_Svn extends Horde_Vcs
+class Horde_Vcs_Svn extends Horde_Vcs_Base
 {
+    /**
+     * The current driver.
+     *
+     * @var string
+     */
+    protected $_driver = 'Svn';
+
+    /**
+     * Driver features.
+     *
+     * @var array
+     */
+    protected $_features = array(
+        'deleted'   => false,
+        'patchsets' => true,
+        'branches'  => false,
+        'snapshots' => false);
+
     /**
      * SVN username.
      *
@@ -32,13 +50,6 @@ class Horde_Vcs_Svn extends Horde_Vcs
      * @var string
      */
     protected $_password = '';
-
-    /**
-     * Does driver support patchsets?
-     *
-     * @var boolean
-     */
-    protected $_patchsets = true;
 
     /**
      * Constructor.
@@ -86,7 +97,7 @@ class Horde_Vcs_Svn extends Horde_Vcs
     {
         $this->assertValidRevision($rev);
 
-        $command = $this->getCommand() . ' annotate -r ' . escapeshellarg('1:' . $rev) . ' ' . escapeshellarg($fileob->queryFullPath()) . ' 2>&1';
+        $command = $this->getCommand() . ' annotate -r ' . escapeshellarg('1:' . $rev) . ' ' . escapeshellarg($fileob->getPath()) . ' 2>&1';
         $pipe = popen($command, 'r');
         if (!$pipe) {
             throw new Horde_Vcs_Exception('Failed to execute svn annotate: ' . $command);
@@ -124,7 +135,7 @@ class Horde_Vcs_Svn extends Horde_Vcs
      */
     public function checkout($fullname, $rev)
     {
-        $this->_rep->assertValidRevision($rev);
+        $this->assertValidRevision($rev);
 
         if ($RCS = popen($this->getCommand() . ' cat -r ' . escapeshellarg($rev) . ' ' . escapeshellarg($fullname) . ' 2>&1', VC_WINDOWS ? 'rb' : 'r')) {
             return $RCS;
@@ -138,20 +149,20 @@ class Horde_Vcs_Svn extends Horde_Vcs
      */
     public function isValidRevision($rev)
     {
-        return $rev && is_numeric($rev);
+        return $rev && (string)(int)$rev == $rev;
     }
 
     /**
      * Create a range of revisions between two revision numbers.
      *
-     * @param Horde_Vcs_File $file  The desired file.
-     * @param string $r1            The initial revision.
-     * @param string $r2            The ending revision.
+     * @param Horde_Vcs_File_Svn $file  The desired file.
+     * @param string $r1                The initial revision.
+     * @param string $r2                The ending revision.
      *
      * @return array  The revision range, or empty if there is no straight
      *                line path between the revisions.
      */
-    public function getRevisionRange($file, $r1, $r2)
+    public function getRevisionRange(Horde_Vcs_File_Base $file, $r1, $r2)
     {
         // TODO
     }
@@ -159,22 +170,20 @@ class Horde_Vcs_Svn extends Horde_Vcs
     /**
      * Obtain the differences between two revisions of a file.
      *
-     * @param Horde_Vcs_File $file  The desired file.
-     * @param string $rev1          Original revision number to compare from.
-     * @param string $rev2          New revision number to compare against.
-     * @param array $opts           The following optional options:
-     * <pre>
-     * 'num' - (integer) DEFAULT: 3
-     * 'type' - (string) DEFAULT: 'unified'
-     * 'ws' - (boolean) DEFAULT: true
-     * </pre>
+     * @param Horde_Vcs_File_Svn $file  The desired file.
+     * @param string $rev1              Original revision number to compare
+     *                                  from.
+     * @param string $rev2              New revision number to compare against.
+     * @param array $opts               The following optional options:
+     *                                  - 'num': (integer) DEFAULT: 3
+     *                                  - 'type': (string) DEFAULT: 'unified'
+     *                                  - 'ws': (boolean) DEFAULT: true
      *
      * @return string|boolean  False on failure, or a string containing the
      *                         diff on success.
      */
-    protected function _diff($file, $rev1, $rev2, $opts)
+    protected function _diff(Horde_Vcs_File_Base $file, $rev1, $rev2, $opts)
     {
-        $fullName = $file->queryFullPath();
         $diff = array();
         $flags = '';
 
@@ -202,7 +211,7 @@ class Horde_Vcs_Svn extends Horde_Vcs
 
         // TODO: add options for $hr options - however these may not
         // be compatible with some diffs.
-        $command = $this->getCommand() . " diff --diff-cmd " . $this->getPath('diff') . ' -r ' . escapeshellarg($rev1 . ':' . $rev2) . ' -x ' . escapeshellarg($flags) . ' ' . escapeshellarg($file->queryFullPath()) . ' 2>&1';
+        $command = $this->getCommand() . " diff --diff-cmd " . $this->getPath('diff') . ' -r ' . escapeshellarg($rev1 . ':' . $rev2) . ' -x ' . escapeshellarg($flags) . ' ' . escapeshellarg($file->getPath()) . ' 2>&1';
 
         exec($command, $diff, $retval);
         return $diff;

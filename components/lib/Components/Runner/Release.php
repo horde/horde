@@ -14,7 +14,7 @@
 /**
  * Components_Runner_Release:: releases a new version for a package.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -112,8 +112,8 @@ class Components_Runner_Release
             $sequence[] = 'Bugs';
         }
 
-        if ($this->_doTask('freshmeat')) {
-            $sequence[] = 'Freshmeat';
+        if ($this->_doTask('freecode')) {
+            $sequence[] = 'Freecode';
         }
 
         if ($this->_doTask('next')) {

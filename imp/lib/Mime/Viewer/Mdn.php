@@ -3,7 +3,7 @@
  * The IMP_Mime_Viewer_Mdn class handles multipart/report messages that
  * that refer to message disposition notification (MDN) messages (RFC 3798).
  *
- * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -58,12 +58,8 @@ class IMP_Mime_Viewer_Mdn extends Horde_Mime_Viewer_Base
         $mdn_id = $this->_mimepart->getMimeId();
         $parts = array_keys($this->_mimepart->contentTypeMap());
 
-        $status = array(
-            array(
-                'icon' => Horde::img('info_icon.png', _("Info")),
-                'text' => array(_("A message you have sent has resulted in a return notification from the recipient."))
-            )
-        );
+        $status = new IMP_Mime_Status(_("A message you have sent has resulted in a return notification from the recipient."));
+        $status->icon('info_icon.png', _("Info"));
 
         /* RFC 3798 [3]: There are three parts to a delivery status
          * multipart/report message:
@@ -79,7 +75,7 @@ class IMP_Mime_Viewer_Mdn extends Horde_Mime_Viewer_Base
         $part2_id = Horde_Mime::mimeIdArithmetic($part1_id, 'next');
         $part = $this->getConfigParam('imp_contents')->getMIMEPart($part2_id);
         if ($part) {
-            $status[0]['text'][] = sprintf(_("Technical details can be viewed %s."), $this->getConfigParam('imp_contents')->linkViewJS($part, 'view_attach', _("HERE"), array('jstext' => _("Technical details"), 'params' => array('ctype' => 'text/plain', 'mode' => IMP_Contents::RENDER_FULL))));
+            $status->addText(sprintf(_("Technical details can be viewed %s."), $this->getConfigParam('imp_contents')->linkViewJS($part, 'view_attach', _("HERE"), array('jstext' => _("Technical details"), 'params' => array('ctype' => 'text/plain', 'mode' => IMP_Contents::RENDER_FULL)))));
         }
         $ret[$part2_id] = null;
 
@@ -87,7 +83,7 @@ class IMP_Mime_Viewer_Mdn extends Horde_Mime_Viewer_Base
         $part3_id = Horde_Mime::mimeIdArithmetic($part2_id, 'next');
         $part = $this->getConfigParam('imp_contents')->getMIMEPart($part3_id);
         if ($part) {
-            $status[0]['text'][] = sprintf(_("The text of the sent message can be viewed %s."), $this->getConfigParam('imp_contents')->linkViewJS($part, 'view_attach', _("HERE"), array('jstext' => _("The text of the sent message"), 'params' => array('ctype' => 'message/rfc822', 'mode' => IMP_Contents::RENDER_FULL))));
+            $status->addText(sprintf(_("The text of the sent message can be viewed %s."), $this->getConfigParam('imp_contents')->linkViewJS($part, 'view_attach', _("HERE"), array('jstext' => _("The text of the sent message"), 'params' => array('ctype' => 'message/rfc822', 'mode' => IMP_Contents::RENDER_FULL)))));
             foreach ($part->contentTypeMap() as $key => $val) {
                 $ret[$key] = null;
             }

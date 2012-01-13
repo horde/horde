@@ -16,7 +16,7 @@
  * The Horde_Kolab_Cli_Module_Base:: module provides the base options of the
  * Kolab CLI.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -55,8 +55,7 @@ implements Horde_Kolab_Cli_Module
                 array(
                     'action' => 'store',
                     'choices' => array('horde', 'horde-php', 'php', 'pear', 'roundcube', 'mock'),
-                    'help'   => Horde_Kolab_Cli_Translation::t(
-"The Kolab backend driver that should be used.
+                    'help'   => Horde_Kolab_Cli_Translation::t("The Kolab backend driver that should be used.
 Choices are:
 
  - horde     [IMAP]: The Horde_Imap_Client driver as pure PHP implementation.
@@ -66,7 +65,6 @@ Choices are:
  - roundcube [IMAP]: The roundcube IMAP driver
  - mock      [Mem.]: A dummy driver that uses memory."
                     ),
-                    'default' => 'horde'
                 )
             ),
             new Horde_Argv_Option(
@@ -91,7 +89,6 @@ Choices are:
                 array(
                     'action' => 'store',
                     'help'   => Horde_Kolab_Cli_Translation::t('The host that holds the data.'),
-                    'default' => 'localhost'
                 )
             ),
             new Horde_Argv_Option(
@@ -148,6 +145,14 @@ Choices are:
                 array(
                     'action' => 'store',
                     'help'   => Horde_Kolab_Cli_Translation::t('Activates the IMAP debug log. This will log the full IMAP communication - CAUTION: the "php" driver is the only driver variant that does not support this feature. For most drivers you should use "STDOUT" which will direct the debug log to your screen. For the horde, the horde-php, and the roundcube drivers you may also set this to a filename and the output will be directed there.'),
+                )
+            ),
+            new Horde_Argv_Option(
+                '-c',
+                '--config',
+                array(
+                    'action' => 'store',
+                    'help'   => Horde_Kolab_Cli_Translation::t('Path to the configuration file. Comman line parameters overwrite values from the configuration file.')
                 )
             ),
         );
@@ -221,6 +226,7 @@ Choices are:
                 );
             } else {
                 file_put_contents($options['log'], 'The Horde_Log_Logger class is not available!');
+                unset($options['log']);
             }
         }
         $world['storage'] = $this->_getStorage($options);
@@ -239,6 +245,12 @@ Choices are:
     {
         if (empty($options['driver'])) {
             return;
+        }
+        if ($options['driver'] == 'mock') {
+            $options['data'] = array(
+                'format' => 'brief',
+                'user/test' => null
+            );
         }
         $params = array(
             'driver' => $options['driver'],

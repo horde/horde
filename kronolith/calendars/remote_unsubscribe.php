@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -57,5 +57,5 @@ require $registry->get('templates', 'horde') . '/common-header.inc';
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
 echo $menu;
 $notification->notify(array('listeners' => 'status'));
-echo $form->renderActive($form->getRenderer(), $vars, 'remote_unsubscribe.php', 'post');
+echo $form->renderActive($form->getRenderer(), $vars, Horde::url('calendars/remote_unsubscribe.php'), 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

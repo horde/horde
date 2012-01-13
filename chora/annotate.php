@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2000-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2000-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -14,7 +14,7 @@ Horde_Registry::appInit('chora');
 
 /* Spawn the file object. */
 try {
-    $fl = $VC->getFileObject($where);
+    $fl = $VC->getFile($where);
 } catch (Horde_Vcs_Exception $e) {
     Chora::fatal($e);
 }
@@ -27,11 +27,11 @@ if (!$rev || !$VC->isValidRevision($rev)) {
 
 switch (Horde_Util::getFormData('actionID')) {
 case 'log':
-    $log = $fl->queryLogs($rev);
+    $log = $fl->getLog($rev);
     if (!is_null($log)) {
-        echo '<em>' . _("Author") . ':</em> ' . Chora::showAuthorName($log->queryAuthor(), true) . '<br />' .
-            '<em>' . _("Date") . ':</em> ' . Chora::formatDate($log->queryDate()) . '<br /><br />' .
-            Chora::formatLogMessage($log->queryLog());
+        echo '<em>' . _("Author") . ':</em> ' . Chora::showAuthorName($log->getAuthor(), true) . '<br />' .
+            '<em>' . _("Date") . ':</em> ' . Chora::formatDate($log->getDate()) . '<br /><br />' .
+            Chora::formatLogMessage($log->getMessage());
     }
     exit;
 }
@@ -69,7 +69,7 @@ while (list(,$line) = each($lines)) {
     if ($prevRev != $rev) {
         $style = (++$style % 2);
     }
-    $prev = $fl->queryPreviousRevision($rev);
+    $prev = $fl->getPreviousRevision($rev);
 
     $line = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($line['line'], 'space2html', array('encode' => true, 'encode_all' => true));
     include CHORA_TEMPLATES . '/annotate/line.inc';

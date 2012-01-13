@@ -3,7 +3,7 @@
  * Base class for Horde_Imap_Client package. Defines common constants and
  * provides factory for creating an IMAP client object.
  *
- * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -157,6 +157,40 @@ class Horde_Imap_Client
     const SPECIALUSE_SENT = '\\Sent';
     const SPECIALUSE_TRASH = '\\Trash';
 
+    /* Debugging constants. */
+    const DEBUG_RAW = 0;
+    const DEBUG_CLIENT = 1;
+    const DEBUG_INFO = 2;
+    const DEBUG_SERVER = 3;
+    // Time, in seconds, for a slow command.
+    const SLOW_COMMAND = 1;
+
+    /**
+     * Capability dependencies.
+     *
+     * @var array
+     */
+    static public $capability_deps = array(
+        // RFC 5162 [1]
+        'QRESYNC' => array(
+            // QRESYNC requires CONDSTORE, but the latter is implied and is
+            // not required to be listed.
+            'ENABLE'
+        ),
+        // RFC 5182 [2.1]
+        'SEARCHRES' => array(
+            'ESEARCH'
+        ),
+        // RFC 5255 [3.1]
+        'LANGUAGE' => array(
+            'NAMESPACE'
+        ),
+        // RFC 5957 [1]
+        'SORT=DISPLAY' => array(
+            'SORT'
+        )
+    );
+
     /**
      * Attempts to return a concrete Horde_Imap_Client instance based on
      * $driver.
@@ -297,6 +331,18 @@ class Horde_Imap_Client
     static public function factory($driver, $params = array())
     {
         $class = __CLASS__ . '_' . strtr(ucfirst(basename($driver)), '-', '_');
+
+        // DEPRECATED driver names
+        switch ($class) {
+        case __CLASS__ . 'Cclient':
+            $class = __CLASS__ . 'Socket';
+            break;
+
+        case __CLASS__ . 'Cclient_Pop3':
+            $class = __CLASS__ . 'Socket_Pop3';
+            break;
+        }
+
         if (class_exists($class)) {
             return new $class($params);
         }

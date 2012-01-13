@@ -2,10 +2,10 @@
 /**
  * Spam script.
  *
- * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
- * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author Jason Felice <jason.m.felice@gmail.com>
  * @author Jan Schneider <jan@horde.org>
@@ -139,5 +139,5 @@ $menu = Ingo::menu();
 require $registry->get('templates', 'horde') . '/common-header.inc';
 echo $menu;
 Ingo::status();
-$form->renderActive($renderer, $vars, 'spam.php', 'post');
+$form->renderActive($renderer, $vars, Horde::url('spam.php'), 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

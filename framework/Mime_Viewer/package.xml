@@ -10,10 +10,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-27</date>
- <time>17:19:34</time>
+ <date>2011-11-22</date>
+ <time>21:02:38</time>
  <version>
-  <release>1.0.6</release>
+  <release>1.0.9</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -26,6 +26,15 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Mime">
+      <dir name="Viewer">
+       <file name="COPYING" role="doc" />
+      </dir> <!-- /doc/Horde/Mime/Viewer -->
+     </dir> <!-- /doc/Horde/Mime -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="js">
     <dir name="syntaxhighlighter">
      <dir name="scripts">
@@ -474,6 +483,7 @@
  </usesrole>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Mime/Viewer/COPYING" />
    <install as="js/syntaxhighlighter/LGPL-LICENSE" name="js/syntaxhighlighter/LGPL-LICENSE" />
    <install as="js/syntaxhighlighter/MIT-LICENSE" name="js/syntaxhighlighter/MIT-LICENSE" />
    <install as="js/syntaxhighlighter/scripts/shAutoloader.js" name="js/syntaxhighlighter/scripts/shAutoloader.js" />
@@ -794,7 +804,47 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-27</date>
+   <date>2011-10-11</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix configuration of syntaxhighlighter viewer.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.7</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-02</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Fix iteration through child HTML nodes in the HTML viewer so that extended viewers can do things like remove nodes outright.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.8</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Add Croatian translation.
+* [jan] Add Estonian translation.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.9</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -60,8 +60,9 @@ if ($tid = $vars->get('transaction')) {
 }
 
 // Edit action.
+$title = '[#' . $id . '] ' . $ticket->get('summary');
+$editform = new Whups_Form_Ticket_Edit($vars, $ticket, sprintf(_("Update %s"), $title));
 if ($vars->get('formname') == 'whups_form_ticket_edit') {
-    $editform = new Whups_Form_Ticket_Edit($vars, $ticket);
     if ($editform->validate($vars)) {
         $editform->getInfo($vars, $info);
 
@@ -106,7 +107,6 @@ if ($vars->get('formname') == 'whups_form_ticket_edit') {
     }
 }
 
-$title = '[#' . $id . '] ' . $ticket->get('summary');
 require $registry->get('templates', 'horde') . '/common-header.inc';
 require WHUPS_TEMPLATES . '/menu.inc';
 require WHUPS_TEMPLATES . '/prevnext.inc';
@@ -114,8 +114,7 @@ require WHUPS_TEMPLATES . '/prevnext.inc';
 $tabs = Whups::getTicketTabs($vars, $id);
 echo $tabs->render('update');
 
-$form = new Whups_Form_Ticket_Edit($vars, $ticket, sprintf(_("Update %s"), $title));
-$form->renderActive($form->getRenderer(), $vars, 'update.php', 'post');
+$editform->renderActive($editform->getRenderer(), $vars, Horde::url('ticket/update.php'), 'post');
 echo '<br class="spacer" />';
 
 $form = new Whups_Form_TicketDetails($vars, $ticket, $title);

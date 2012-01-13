@@ -2,17 +2,24 @@
  Kolab_Format Development TODO List
 ====================================
 
- - Remove the use of the Horde_Date class from testing. It should be
-   no problem to get the same code coverage without using the external
-   class.
+ - Check kolab/issue4672 (Kolab_Format has encoding problems)
 
- - Do not overwrite anything from other clients.
+ - Check kolab/issue4700 (Kolab_Format problems in e-mails fetching process)
+
+ - Developer documentation
+
+ - Test coverage
+
+ - PHPdoc check
+
+ - Additional KEPs
+
+   - ...
+
+ - Do not overwrite multiple entries
+
+ - Extract Xml_* subtypes to Xml_Type_Composite_* types?
+
+ - Improved error handling? Logging strict errors?
 
  - Think about storing the data in iCal format.
-
- - Check how we deal with malformed XML data
-
- - KEP2
-
- - Look at XML parsing alternatives (stream-based)
-   http://www.ibm.com/developerworks/xml/library/x-xmlphp2.html

@@ -8,13 +8,13 @@
  * @package  Kolab_Format
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Kolab_Server
+ * @link     http://www.horde.org/libraries/Horde_Kolab_Format
  */
 
 /**
  * Kolab XML handler for IMAP folder annotations.
  *
- * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
@@ -24,40 +24,25 @@
  * @package  Kolab_Format
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Kolab_Server
+ * @link     http://www.horde.org/libraries/Horde_Kolab_Format
  */
 class Horde_Kolab_Format_Xml_Annotation extends Horde_Kolab_Format_Xml
 {
+    /**
+     * The name of the root element.
+     *
+     * @var string
+     */
+    protected $_root_name = 'annotations';
+
     /**
      * Specific data fields for the prefs object
      *
      * @var Kolab
      */
-    protected $_fields_specific;
-
-    /**
-     * Constructor
-     */
-    public function __construct($parser, $params = array())
-    {
-        $this->_root_name = 'annotations';
-
-        /**
-         * Specific preferences fields, in kolab format specification order
-         */
-        $this->_fields_specific = array(
-            'annotation' => array(
-                'type'    => self::TYPE_MULTIPLE,
-                'value'   => self::VALUE_MAYBE_MISSING,
-                'array'   => array(
-                    'type' => self::TYPE_STRING,
-                    'value' => self::VALUE_MAYBE_MISSING,
-                ),
-            ),
-        );
-
-        parent::__construct($parser, $params);
-    }
+    protected $_fields_specific = array(
+        'annotation' => 'Horde_Kolab_Format_Xml_Type_Multiple_String',
+    );
 
     /**
      * Load the groupware object based on the specifc XML values.

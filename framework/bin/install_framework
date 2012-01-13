@@ -5,7 +5,7 @@
  * the framework module.
  *
  * Copyright 2002 Wolfram Kriesing <wolfram@kriesing.de>
- * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -169,7 +169,7 @@ $pear_config = PEAR_Config::singleton();
 $pear_pkg = new PEAR_PackageFile($pear_config);
 
 if ($pkg) {
-    $pkgs = array($pkg);
+    $pkgs = array(basename($pkg) => realpath($pkg));
 } else {
     $di = new DirectoryIterator($srcDir);
     $pkgs = array();

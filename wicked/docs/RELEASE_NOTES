@@ -1,0 +1,38 @@
+<?php
+/**
+ * Release focus. Possible values (multiple possible with arrays):
+ * Horde_Release::FOCUS_INITIAL - Initial announcement
+ * Horde_Release::FOCUS_MINORFEATURE - Minor feature enhancement
+ * Horde_Release::FOCUS_MAJORFEATURE - Major feature enhancement
+ * Horde_Release::FOCUS_MINORBUG - Minor bugfixes
+ * Horde_Release::FOCUS_MAJORBUG - Major bugfixes
+ * Horde_Release::FOCUS_MINORSECURITY - Minor security fixes
+ * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
+ * Horde_Release::FOCUS_DOCS - Documentation improvements
+ */
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_INITIAL);
+
+/* Mailing list release notes. */
+$this->notes['ml']['changes'] = <<<ML
+The Horde Team is pleased to announce the final release of the Wicked wiki
+application version H4 (1.0.1).
+
+Wicked is a wiki application for the Horde Framework. It uses PEAR's Text_Wiki
+library for the actual wiki markup parsing and rendering. It supports Creole,
+Mediawiki, Tiki Wiki, and its own markup engine.
+
+The major changes compared to the Wicked version H4 (1.0) are:
+    * Improved reST renderer.
+    * Added Slovak translation.
+ML;
+
+/* Freshmeat release notes, not more than 600 characters. */
+$this->notes['fm']['changes'] = <<<FM
+Improved reST renderer.
+Added Slovak translation.
+FM;
+
+$this->notes['name'] = 'Wicked';
+$this->notes['list'] = 'horde';
+$this->notes['fm']['project'] = 'wicked';
+$this->notes['fm']['branch'] = 'Horde 4';

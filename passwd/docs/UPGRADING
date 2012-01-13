@@ -22,13 +22,22 @@ follow the instructions in INSTALL_ to install the most recent Passwd
 version using the PEAR installer.
 
 After updating to a newer Passwd version, you **always** need to update
-configurations and database schemes. Log in as an administrator, go to
-Administration => Configuration and update anything that's highlighted as
-outdated.
+configurations. Log in as an administrator, go to Administration =>
+Configuration and update anything that's highlighted as outdated.
 
 
-Upgrading Passwd from 3.0 to 4.0
-================================
+Upgrading to Passwd 4.0
+=======================
+
+
+Backend Configuration
+---------------------
+
+The 'password policy' setting in backends.php has been renamed to 'policy'.
+
+
+Upgrading to Passwd 3.1
+=======================
 
 
 Application Hooks

@@ -14,7 +14,7 @@
 /**
  * A Horde_Injector:: based IMP_Mailbox_List:: factory.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -77,7 +77,8 @@ class IMP_Factory_MailboxList extends Horde_Core_Factory_Base
                     $ob = null;
                 }
 
-                if (is_null($ob)) {
+                if (is_null($ob) ||
+                    !($ob instanceof IMP_Mailbox_List_Track)) {
                     $ob = new IMP_Mailbox_List_Track($mailbox);
                 }
                 break;

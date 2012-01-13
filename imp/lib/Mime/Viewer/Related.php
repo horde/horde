@@ -3,7 +3,7 @@
  * The IMP_Mime_Viewer_Related class handles multipart/related
  * (RFC 2387) messages.
  *
- * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -63,6 +63,7 @@ class IMP_Mime_Viewer_Related extends Horde_Mime_Viewer_Base
     protected function _IMPrender($inline)
     {
         $related_id = $this->_mimepart->getMimeId();
+        $used = array($related_id);
 
         if (!($id = $this->_init($inline))) {
             return array();
@@ -103,10 +104,14 @@ class IMP_Mime_Viewer_Related extends Horde_Mime_Viewer_Base
             }
         }
 
-        /* Fix for broken messages that don't refer to a related CID within
-         * the base part. */
-        if ($unused = $this->_mimepart->getMetadata('related_cids_unused')) {
-            foreach ($unused as $val) {
+        /* Fix for broken messages that don't refer to a related CID part
+         * within the base part. */
+        if ($cids_used = $this->_mimepart->getMetadata('related_cids_used')) {
+            $used = array_merge($used, $cids_used);
+        }
+
+        foreach (array_diff(array_keys($ret), $used) as $val) {
+            if (($val !== $id) && !Horde_Mime::isChild($id, $val)) {
                 $summary = $this->getConfigParam('imp_contents')->getSummary(
                     $val,
                     IMP_Contents::SUMMARY_SIZE |
@@ -115,18 +120,24 @@ class IMP_Mime_Viewer_Related extends Horde_Mime_Viewer_Base
                     IMP_Contents::SUMMARY_DOWNLOAD
                 );
 
-                $ret[$related_id]['status'][] = array(
-                    'icon' => Horde::img('alerts/warning.png', _("Warning")),
-                    'text' => array(
-                        _("This part contains an attachment that can not be displayed within this part:"),
-                        implode('&nbsp;', array(
-                            $summary['icon'],
-                            $summary['description'],
-                            $summary['size'],
-                            $summary['download']
-                        ))
-                    )
-                );
+                $status = new IMP_Mime_Status(array(
+                    _("This part contains an attachment that can not be displayed within this part:"),
+                    implode('&nbsp;', array(
+                        $summary['icon'],
+                        $summary['description'],
+                        $summary['size'],
+                        $summary['download']
+                    ))
+                ));
+                $status->action(IMP_Mime_Status::WARNING);
+
+                if (isset($ret[$related_id]['status']) &&
+                    !is_array($ret[$related_id]['status'])) {
+                    $ret[$related_id]['status'] = array($ret[$related_id]['status']);
+                } else {
+                    $ret[$related_id]['status'] = array();
+                }
+                $ret[$related_id]['status'][] = $status;
             }
         }
 

@@ -1,40 +1,32 @@
 <?php
-
-/**
- * Lower boundary character.
- */
-define('FIRSTCH', 0x20);
-
-/**
- * Upper boundary character.
- */
-define('LASTCH', 0x7e);
-
-/**
- * Median character.
- */
-define('TABSZ', LASTCH - FIRSTCH + 1);
-
 /**
  * The Pine class attempts to change a user's password on a in a pine password
  * file.
  *
- * WARNING: This driver has only formally been converted to Horde 4.  No
- *          testing has been done. If this doesn't work, please file bugs at
- *          bugs.horde.org.  If you really need this to work reliably, think
- *          about sponsoring development. Please let the Horde developers know
- *          if you can verify this driver to work.
- *
- * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.php.
  *
  * @author  Max Kalika <max@horde.org>
- * @since   Passwd 3.0
  * @package Passwd
  */
-class Passwd_Driver_Pine extends Passwd_Driver {
+class Passwd_Driver_Pine extends Passwd_Driver
+{
+    /**
+     * Lower boundary character.
+     */
+    const FIRSTCH = 0x20;
+
+    /**
+     * Upper boundary character.
+     */
+    const LASTCH = 0x7e;
+
+    /**
+     * Median character.
+     */
+    const TABSZ = 0x5f;
 
     /**
      * Horde_Vfs instance.
@@ -58,87 +50,92 @@ class Passwd_Driver_Pine extends Passwd_Driver {
     protected $_contents = array();
 
     /**
-     * Constructs a new Passwd_Driver_Pine object.
+     * Constructor.
      *
-     * @param array  $params    A hash containing connection parameters.
+     * @param array $params  A hash containing connection parameters.
      */
-    function __construct($params = array())
+    public function __construct($params = array())
     {
-        /* We self-encrypt here, so plaintext is needed. */
-        $this->_params['encryption'] = 'plain';
-        $this->_params['show_encryption'] = false;
+        $this->_params = array_merge(
+            array(
+                /* We self-encrypt here, so plaintext is needed. */
+                'encryption' => 'plain',
+                'show_encryption' => false,
 
-        /* Sensible FTP server parameters. */
-        $this->_params['host'] = isset($params['host']) ? $params['host'] : 'localhost';
-        $this->_params['port'] = isset($params['port']) ? $params['port'] : '21';
-        $this->_params['path'] = isset($params['path']) ? $params['path'] : '';
-        $this->_params['file'] = isset($params['file']) ? $params['file'] : '.pinepw';
+                /* Sensible FTP server parameters. */
+                'host' => 'localhost',
+                'port' => 21,
+                'path' => '',
+                'file' => '.pinepw',
 
-        /* Connect to FTP server using just-passed-in credentials?
-         * Only useful if using the composite driver and changing
-         * system (FTP) password prior to this one. */
-        $this->_params['use_new_passwd'] = isset($params['use_new_passwd']) ? $params['use_new_passwd'] : false;
+                /* Connect to FTP server using just-passed-in credentials?
+                 * Only useful if using the composite driver and changing
+                 * system (FTP) password prior to this one. */
+                'use_new_passwd' => false,
 
-        /* What host to look for on each line? */
-        $this->_params['imaphost'] = isset($params['imaphost']) ? $params['imaphost'] : 'localhost';
+                /* What host to look for on each line? */
+                'imaphost' => 'localhost'),
+            $params);
     }
 
     /**
-     * Connect to the FTP server.
+     * Connects to the FTP server.
      *
-     * @return mixed  True on success or throw a Passwd_Exception object on failure.
+     * @throws Passwd_Exception
      */
-    function _connect($user, $password)
-    {
-        if (!$this->_connected) {
-            /* Connect to the FTP server using the supplied
-             * parameters. */
-            require_once 'VFS.php';
-            // TODO: Do we need Horde_Vfs instead and can we use autoloader?
-            $params = array(
-                'username' => $user,
-                'password' => $password,
-                'hostspec' => $this->_params['host'],
-                'port' => $this->_params['port'],
-            );
-
-            try {
-                // Horde_Vfs::factory is still there but does it work that way?
-                $this->_ftp = Horde_Vfs::factory('ftp', $params);
-            } catch (Horde_Vfs_Exception $e) {
-                throw new Passwd_Exception($e); 
-            }
-            return $this->_ftp->checkCredentials();
-        }
-
-        return true;
-    }
-
-    /**
-     * Disconnect from the FTP server and clean up the connection.
-     *
-     * @return mixed  True on success or a throw a Passwd_Exception object on failure.
-     */
-    function _disconnect()
+    protected function _connect($user, $password)
     {
         if ($this->_connected) {
-            $this->_connected = false;
-            return $this->_ftp->disconnect();
+            return;
         }
 
-        return true;
+        $params = array(
+            'username' => $user,
+            'password' => $password,
+            'hostspec' => $this->_params['host'],
+            'port' => $this->_params['port'],
+        );
+
+        try {
+            $this->_ftp = Horde_Vfs::factory('ftp', $params);
+            $this->_ftp->checkCredentials();
+        } catch (Horde_Vfs_Exception $e) {
+            throw new Passwd_Exception($e); 
+        }
+
+        $this->_connected = true;
     }
 
     /**
-     * Decodes a Pine-encoded password string. The algorithm is
-     * borrowed from read_passfile() and xlate_out() functions in
-     * pine/imap.c file distributed in the Pine source archive.
+     * Disconnect from the FTP server.
+     *
+     * @throws Passwd_Exception
+     */
+    protected function _disconnect()
+    {
+        if (!$this->_connected) {
+            return;
+        }
+
+        try {
+            $this->_ftp->disconnect();
+        } catch (Horde_Vfs_Exception $e) {
+            throw new Passwd_Exception($e); 
+        }
+        $this->_connected = false;
+    }
+
+    /**
+     * Decodes a Pine-encoded password string.
+     *
+     * The algorithm is borrowed from read_passfile() and xlate_out() functions
+     * in pine/imap.c file distributed in the Pine source archive.
      *
      * @param string $string  The contents of a pine-encoded password file.
      *
      * @return array  List of lines of decoded elements.
      */
-    function _decode($string)
+    protected function _decode($string)
     {
         $list = array();
 
@@ -147,13 +144,18 @@ class Passwd_Driver_Pine extends Passwd_Driver {
             $key = $n;
             $tmp = $lines[$n];
             for ($i = 0; $i < strlen($tmp); $i++) {
-                if ((ord($tmp[$i]) >= FIRSTCH) && (ord($tmp[$i]) <= LASTCH)) {
+                if ((ord($tmp[$i]) >= self::FIRSTCH) &&
+                    (ord($tmp[$i]) <= self::LASTCH)) {
                     $xch  = ord($tmp[$i]) - ($dti = $key);
-                $xch += ($xch < FIRSTCH - TABSZ) ? 2 * TABSZ : ($xch < FIRSTCH) ? TABSZ : 0;
-                $dti  = ($xch - FIRSTCH) + $dti;
-                $dti -= ($dti >= 2 * TABSZ) ? 2 * TABSZ : ($dti >= TABSZ) ? TABSZ : 0;
-                $key  = $dti;
-                $tmp[$i] = chr($xch);
+                    $xch += ($xch < self::FIRSTCH - self::TABSZ)
+                        ? 2 * self::TABSZ
+                        : ($xch < self::FIRSTCH) ? self::TABSZ : 0;
+                    $dti  = ($xch - self::FIRSTCH) + $dti;
+                    $dti -= ($dti >= 2 * self::TABSZ)
+                        ? 2 * self::TABSZ
+                        : ($dti >= self::TABSZ) ? self::TABSZ : 0;
+                    $key  = $dti;
+                    $tmp[$i] = chr($xch);
                 }
             }
 
@@ -172,6 +174,7 @@ class Passwd_Driver_Pine extends Passwd_Driver {
 
     /**
      * Encodes an array of elements into a Pine-readable password string.
+     *
      * The algorith is borrowed from write_passfile() and xlate_in() functions
      * in pine/imap.c file distributed in the Pine source archive.
      *
@@ -179,7 +182,7 @@ class Passwd_Driver_Pine extends Passwd_Driver {
      *
      * @return array  Contents of a pine-readable password file.
      */
-    function _encode($lines)
+    protected function _encode($lines)
     {
         $string = '';
         for ($n = 0; $n < sizeof($lines); $n++) {
@@ -193,11 +196,14 @@ class Passwd_Driver_Pine extends Passwd_Driver {
             $tmp = vsprintf("%.100s\t%.100s\t%.100s\t%d%s\n", $lines[$n]);
             for ($i = 0; $i < strlen($tmp); $i++) {
                 $eti = $key;
-                if ((ord($tmp[$i]) >= FIRSTCH) && (ord($tmp[$i]) <= LASTCH)) {
-                    $eti += ord($tmp[$i]) - FIRSTCH;
-                    $eti -= ($eti >= 2 * TABSZ) ? 2 * TABSZ : ($eti >= TABSZ) ? TABSZ : 0;
+                if ((ord($tmp[$i]) >= self::FIRSTCH) &&
+                    (ord($tmp[$i]) <= self::LASTCH)) {
+                    $eti += ord($tmp[$i]) - self::FIRSTCH;
+                    $eti -= ($eti >= 2 * self::TABSZ)
+                        ? 2 * self::TABSZ
+                        : ($eti >= self::TABSZ) ? self::TABSZ : 0;
                     $key  = $eti;
-                    $tmp[$i] = chr($eti + FIRSTCH);
+                    $tmp[$i] = chr($eti + self::FIRSTCH);
                  }
             }
 
@@ -208,23 +214,29 @@ class Passwd_Driver_Pine extends Passwd_Driver {
     }
 
     /**
-     * Find out if a username and password is valid.
+     * Finds out if a username and password is valid.
      *
      * @param string $user         The userID to check.
      * @param string $oldPassword  An old password to check.
      *
-     * @return mixed  True on success or throw a Passwd_Exceptionon failure.
+     * @throws Passwd_Exception
      */
-    function _lookup($user, $oldPassword)
+    protected function _lookup($user, $oldPassword)
     {
-        $contents = $this->_ftp->read($this->_params['path'], $this->_params['file']);
+        try {
+            $contents = $this->_ftp->read($this->_params['path'],
+                                          $this->_params['file']);
+        } catch (Horde_Vfs_Exception $e) {
+            throw new Passwd_Exception($e); 
+        }
 
         $this->_contents = $this->_decode($contents);
         foreach ($this->_contents as $line) {
             if ($line[1] == $user &&
                 (($line[2] == $this->_params['imaphost']) ||
                  (!empty($line[4]) && $line[4] == $this->_params['imaphost']))) {
-                return $this->comparePasswords($line[0], $oldPassword);
+                $this->_comparePasswords($line[0], $oldPassword);
+                return;
             }
         }
 
@@ -232,14 +244,14 @@ class Passwd_Driver_Pine extends Passwd_Driver {
     }
 
     /**
-     * Modify (update) a pine password record for a user.
+     * Modifies a pine password record for a user.
      *
      * @param string $user         The user whose record we will udpate.
      * @param string $newPassword  The new password value to set.
      *
-     * @return mixed  True on success or throw a Horde_Vfs_Error on failure.
+     * @throws Passwd_Exception
      */
-    function _modify($user, $newPassword)
+    protected function _modify($user, $newPassword)
     {
         for ($i = 0; $i < sizeof($this->_contents); $i++) {
             if ($this->_contents[$i][1] == $user &&
@@ -251,35 +263,34 @@ class Passwd_Driver_Pine extends Passwd_Driver {
         }
 
         $string = $this->_encode($this->_contents);
-        return $this->_ftp->writeData($this->_params['path'], $this->_params['file'], $string);
+        try {
+            $this->_ftp->writeData($this->_params['path'],
+                                   $this->_params['file'],
+                                   $string);
+        } catch (Horde_Vfs_Exception $e) {
+            throw new Passwd_Exception($e); 
+        }
     }
 
     /**
-     * Change the user's password.
+     * Changes the user's password.
      *
      * @param string $username     The user for which to change the password.
      * @param string $oldPassword  The old (current) user password.
      * @param string $newPassword  The new user password to set.
      *
-     * @return mixed  True on success or throws a Passwd_Exception on failure.
+     * @throws Passwd_Exception
      */
-    function changePassword($username,  $oldPassword, $newPassword)
+    public function changePassword($username,  $oldPassword, $newPassword)
     {
-        try {
-            /* Connect to the ftp server. */
-            $this->_connect($username, $this->_params['use_new_passwd'] ? $newPassword : $oldPassword);
+        /* Connect to the ftp server. */
+        $this->_connect($username, $this->_params['use_new_passwd'] ? $newPassword : $oldPassword);
 
-            /* Check the current password. */
-            $this->_lookup($username, $oldPassword);
+        /* Check the current password. */
+        $this->_lookup($username, $oldPassword);
 
-            $res = $this->_modify($username, $newPassword);
+        $this->_modify($username, $newPassword);
 
-            $this->_disconnect();
-        } catch (Horde_Vfs_Exception $e) {
-            throw new Passwd_Exception($e);
-        }
-
-        return $res;
+        $this->_disconnect();
     }
-
 }

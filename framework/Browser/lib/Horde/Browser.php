@@ -8,7 +8,7 @@
  *
  * @TODO http://ajaxian.com/archives/parse-user-agent
  *
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -508,6 +508,7 @@ class Horde_Browser
                 $this->setFeature('iframes');
                 $this->setFeature('accesskey');
                 $this->setFeature('xmlhttpreq');
+                $this->setQuirk('empty_file_input_value', 0);
 
                 if (preg_match('|Chrome/([0-9.]+)|i', $agent, $version_string)) {
                     list($this->_majorVersion, $this->_minorVersion) = explode('.', $version_string[1], 2);

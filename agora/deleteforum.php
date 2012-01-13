@@ -2,7 +2,7 @@
 /**
  * The Agora script to delete a forum.
  *
- * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -74,7 +74,7 @@ $view = new Agora_View();
 $view->menu = Horde::menu();
 
 Horde::startBuffer();
-$form->renderActive(null, $vars, 'deleteforum.php', 'post');
+$form->renderActive(null, $vars, Horde::url('deleteforum.php'), 'post');
 $view->main = Horde::endBuffer();
 
 Horde::startBuffer();

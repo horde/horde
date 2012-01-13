@@ -14,7 +14,7 @@
 /**
  * The log decorator for folder lists from Kolab storage.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -50,10 +50,9 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
      *                                         must provide the debug()
      *                                         and info() methods.
      */
-    public function __construct(
-        Horde_Kolab_Storage_List $list,
-        $logger
-    ) {
+    public function __construct(Horde_Kolab_Storage_List $list,
+                                $logger)
+    {
         $this->_list = $list;
         $this->_logger = $logger;
     }

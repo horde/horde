@@ -3,7 +3,7 @@
  <name>Horde_Service_Scribd</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Scribd client</summary>
- <description>This package provides client libraries for the Scribd API.</description>
+ <description>Client libraries for the Scribd API.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>

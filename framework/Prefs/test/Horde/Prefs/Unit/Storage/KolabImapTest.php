@@ -19,7 +19,7 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
 /**
  * Test the preferences storage backend for Kolab.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -34,6 +34,9 @@ class Horde_Prefs_Unit_Storage_KolabImapTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
+        if (!class_exists('Horde_Kolab_Storage_Factory')) {
+            $this->markTestSkipped('Horde_Kolab_Storage package is missing');
+        }
         $_SESSION = array();
     }
 

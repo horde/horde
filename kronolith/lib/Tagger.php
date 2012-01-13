@@ -2,7 +2,7 @@
 /**
  * Kronolith interface to the Horde_Content tagger
  *
- * Copyright 2009-2011 Horde LLC (http://www.horde.org)
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  *
@@ -250,4 +250,34 @@ class Kronolith_Tagger
         return $GLOBALS['injector']->getInstance('Content_Tagger')->getTagCloud(
                 array('userId' => $user, 'limit' => $limit));
     }
+
+    /**
+     * Returns cloud-like information, but only for a specified set of tags.
+     *
+     * @param array $tags     An array of either tag names or ids.
+     * @param integer $limit  Limit results to this many.
+     * @param string $type    The type of resource (event, calendar, null).
+     * @param string $user    Restrict results to those tagged by $user.
+     *
+     * @return array  An array of hashes, tag_id, tag_name, and count.
+     * @throws Ansel_Exception
+     */
+    public function getTagInfo($tags = null, $limit = 500, $type = null, $user = null)
+    {
+        $filter = array(
+            'typeId' => empty($type) ? array_values($this->_type_ids) : $this->_type_ids[$type],
+            'tagIds' => $tags,
+            'limit' => $limit,
+            'userId' => $user
+        );
+
+        try {
+            return $GLOBALS['injector']
+                ->getInstance('Content_Tagger')
+                ->getTagCloud($filter);
+        } catch (Content_Exception $e) {
+            throw new Ansel_Exception($e);
+        }
+    }
+
 }

@@ -1,5 +1,5 @@
 # Estonian translations for Horde_Net_IMSP module.
-# Copyright 2010-2011 Horde LLC
+# Copyright 2010-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Net_IMSP module.
 # Automatically generated, 2010.
 #
@@ -7,20 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Net_IMSP\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2011-04-04 10:15+0200\n"
+"PO-Revision-Date: 2010-11-09 01:27+0200\n"
+"Last-Translator: Alar Sing <alar.sing@err.ee>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: IMSP/Book.php:1308
-msgid "The IMSP log could not be initialized."
-msgstr "IMSP logi algväärtustamine nurjus."
-
-#: IMSP.php:458 IMSP/Auth.php:144
-#, php-format
-msgid "Unable to load the definition of %s."
-msgstr "%s definitsiooni laadimine nurjus."
+#: lib/Horde/Imsp/Client/Socket.php:161
+msgid "Connection timed out!"
+msgstr "Ühendus aegus!"

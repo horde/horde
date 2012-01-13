@@ -3,7 +3,7 @@
  * The Horde_LoginTasks:: class provides a set of methods for dealing with
  * login tasks to run upon login to Horde applications.
  *
- * Copyright 2001-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -178,12 +178,13 @@ class Horde_LoginTasks
      * the function that should be called from the application upon login.
      *
      * @param array $opts  Options:
-     * <pre>
-     * confirmed - (array) The list of confirmed tasks.
-     * url - (string) The URL to redirect to when finished.
-     * user_confirmed - (boolean) If true, indicates that any pending actions
-     *                  have been confirmed by the user.
-     * </pre>
+     *   - confirmed: (array) The list of confirmed tasks.
+     *   - url: (string) The URL to redirect to when finished.
+     *   - user_confirmed: (boolean) If true, indicates that any pending
+     *                     actions have been confirmed by the user.
+     *
+     * @return mixed Null in case no redirection took place, the return value
+     *               from the backend redirect() call otherwise.
      */
     public function runTasks(array $opts = array())
     {
@@ -226,10 +227,10 @@ class Horde_LoginTasks
              * completed the login tasks for this application. */
             $this->_tasklist = true;
 
-            return $this->_backend->redirect($url);
-        }
-
-        if ((!$processed || $opts['user_confirmed']) &&
+            if ($opts['user_confirmed']) {
+                return $this->_backend->redirect($url);
+            }
+        } elseif ((!$processed || $opts['user_confirmed']) &&
             $this->_tasklist->needDisplay()) {
             return $this->_backend->redirect($this->getLoginTasksUrl());
         }

@@ -3,7 +3,7 @@
  * The Horde_Session:: class provides a set of methods for handling the
  * administration and contents of the Horde session variable.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -266,10 +266,8 @@ class Horde_Session
      * @param string $app    Application name.
      * @param string $name   Session variable name.
      * @param integer $mask  One of:
-     * <pre>
-     * self::TYPE_ARRAY - Return an array value.
-     * self::TYPE_OBJECT - Return an object value.
-     * </pre>
+     *   - self::TYPE_ARRAY - Return an array value.
+     *   - self::TYPE_OBJECT - Return an object value.
      *
      * @return mixed  The value or null if the value doesn't exist.
      */
@@ -318,10 +316,9 @@ class Horde_Session
      * @param string $app    Application name.
      * @param string $name   Session variable name.
      * @param mixed $value   Session variable value.
-     * <pre>
-     * self::TYPE_ARRAY - Force save as an array value.
-     * self::TYPE_OBJECT - Force save as an object value.
-     * </pre>
+     * @param integer $mask  One of:
+     *   - self::TYPE_ARRAY - Force save as an array value.
+     *   - self::TYPE_OBJECT - Force save as an object value.
      */
     public function set($app, $name, $value, $mask = 0)
     {

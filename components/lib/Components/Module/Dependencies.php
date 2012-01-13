@@ -16,7 +16,7 @@
  * Components_Module_Dependencies:: generates a dependency listing for the
  * specified package.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -80,6 +80,13 @@ extends Components_Module_Base
                     'help'   => 'Include all optional dependencies into the dependency list.'
                 )
             ),
+            new Horde_Argv_Option(
+                '--no-tree',
+                array(
+                    'action' => 'store_true',
+                    'help'   => 'Just print the dependencies of this package (YAML format) rather than generating a complete tree.'
+                )
+            ),
         );
     }
 
@@ -126,6 +133,7 @@ extends Components_Module_Base
         return array(
             '--short' => '',
             '--alldeps' => '',
+            '--no-tree' => '',
             '--allow-remote' => 'The dependency list should also resolve the dependency tree of components from remote channels.',
         );
     }

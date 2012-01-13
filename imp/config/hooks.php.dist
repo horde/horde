@@ -50,6 +50,8 @@ class IMP_Hooks
      * PREFERENCE INIT: Set preference values on login.
      *
      * See horde/config/hooks.php.dist for more information.
+     *
+     * MAKE SURE YOU ACTIVATE THE INIT HOOK IN config/prefs.local.php!
      */
 //    public function prefs_init($pref, $value, $username, $scope_ob)
 //    {
@@ -77,7 +79,12 @@ class IMP_Hooks
 //                if ($pref == 'search_fields') {
 //                    $out = array();
 //                    foreach (array_keys($sources) as $source) {
-//                        $out[$source] = array_keys($GLOBALS['registry']->call('contacts/fields', array($source)));
+//                        $out[$source] = array();
+//                        foreach ($GLOBALS['registry']->call('contacts/fields', array($source)) as $key => $val){
+//                            if ($val['search']) {
+//                                $out[$source][] = $key;
+//                            }
+//                        }
 //                    }
 //                } else {
 //                    $out = array_keys($sources);
@@ -508,6 +515,7 @@ class IMP_Hooks
      * @param string $view  Either 'imp' or 'dimp'.
      *
      * @return array  The altered array to use in the template.
+     */
 //    public function mailboxarray($msgs, $view)
 //    {
 //        // Example #1: Adds a 'foo' entry to each message element.

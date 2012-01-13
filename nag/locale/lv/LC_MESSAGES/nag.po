@@ -1,5 +1,5 @@
 # Latvian translation for Nag package.
-# Copyright 2011 Horde LLC
+# Copyright 2011-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Nag package.
 # Janis Eisaks, <jancs@dv.lv>, 2011.
 #
@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nag 2.1.4\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-07-07 08:55+0300\n"
-"PO-Revision-Date: 2011-07-21 10:26+0300\n"
+"POT-Creation-Date: 2011-12-10 21:01+0200\n"
+"PO-Revision-Date: 2011-12-10 21:15+0300\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -68,17 +68,17 @@ msgstr "%d minūte"
 msgid "%d minutes"
 msgstr "%d minūtes"
 
-#: lib/Nag.php:585
+#: lib/Nag.php:692
 #, php-format
 msgid "%s at %s"
 msgstr "%s plkst. %s"
 
-#: lib/Application.php:340 lib/Nag.php:771 lib/Block/Summary.php:147
+#: lib/Application.php:371 lib/Nag.php:870 lib/Block/Summary.php:140
 #, php-format
 msgid "%s is due in %s"
 msgstr "%s sākas pēc %s"
 
-#: lib/Application.php:341 lib/Nag.php:769 lib/Block/Summary.php:144
+#: lib/Application.php:372 lib/Nag.php:868 lib/Block/Summary.php:137
 #, php-format
 msgid "%s is due now."
 msgstr "%s jau sākas"
@@ -93,11 +93,11 @@ msgstr "%s ir nepabeigti."
 msgid "%s successfully imported"
 msgstr "%s veiksmīgi importēts"
 
-#: lib/Nag.php:536 lib/Form/Task.php:70
+#: lib/Nag.php:643 lib/Form/Task.php:64
 msgid "(highest)"
 msgstr "(augstākā)"
 
-#: lib/Nag.php:536 lib/Form/Task.php:74
+#: lib/Nag.php:643 lib/Form/Task.php:68
 msgid "(lowest)"
 msgstr "(zemākā)"
 
@@ -123,12 +123,12 @@ msgstr "Nav tiesību labot uzdevumu."
 msgid "Access denied editing task: %s"
 msgstr "Nav tiesību labot uzdevumu: %s"
 
-#: lib/Driver.php:305
+#: lib/Driver.php:307
 #, php-format
 msgid "Access denied moving the task to %s."
 msgstr "Pieeja atteikta, pārvietojot uzdevumu uz %s."
 
-#: lib/Driver.php:293
+#: lib/Driver.php:295
 #, php-format
 msgid "Access denied removing task from %s."
 msgstr "Pieeja atteikta, dzēšot uzdevumu no %s."
@@ -151,19 +151,27 @@ msgstr[0] "Pievienots %d uzdevums"
 msgstr[1] "Pievienoti %d uzdevumi"
 msgstr[2] "Pievienots %d uzdevums"
 
-#: data.php:58 templates/view/task.inc:30 lib/Form/Task.php:106
+#: data.php:58 templates/view/task.inc:30 lib/Form/Task.php:100
 msgid "Alarm"
 msgstr "Atgādinājums"
 
-#: templates/data/export.inc:34 config/prefs.php:192
+#: lib/Application.php:250
+msgid ""
+"All state removed for your ActiveSync devices. They will resynchronize next "
+"time they connect to the server."
+msgstr ""
+"Visu Jūsu ActiveSync iekārtu stāvokļi aizvākti. Tie tiks atkārtoti "
+"sinhronizēti, kad nākošo reizi pieslēgsies serverim."
+
+#: templates/data/export.inc:34 config/prefs.php:199
 msgid "All tasks"
 msgstr "Visi uzdevumi"
 
-#: lib/Block/Summary.php:93
+#: lib/Block/Summary.php:88
 msgid "Always show completed and future tasks?"
 msgstr "Vienmēr radīt izpildītos un nākošos uzdevumus?"
 
-#: lib/Block/Summary.php:88
+#: lib/Block/Summary.php:83
 msgid "Always show overdue tasks?"
 msgstr "Vienmēr rādīt iekavētos uzdevumus?"
 
@@ -172,17 +180,17 @@ msgid "An alarm must be set to specify a notification method"
 msgstr ""
 "Lai varētu norādīt paziņošanas metodi, jābūt iestatītam brīdinājuma veidam"
 
-#: config/prefs.php:116
+#: config/prefs.php:123
 msgid "Ascending"
 msgstr "Augoši"
 
 #: data.php:56 templates/view/task.inc:12 templates/list/task_headers.inc:64
-#: lib/Form/Task.php:101 config/prefs.php:60 config/prefs.php:87
-#: config/prefs.php:105
+#: lib/Form/Task.php:95 config/prefs.php:67 config/prefs.php:94
+#: config/prefs.php:112
 msgid "Assignee"
 msgstr "Atbildīgais"
 
-#: lib/Block/Summary.php:53
+#: lib/Block/Summary.php:48
 msgid "Block title"
 msgstr "Bloka nosaukums"
 
@@ -190,7 +198,7 @@ msgstr "Bloka nosaukums"
 msgid "CSV"
 msgstr "CSV"
 
-#: lib/Ui/VarRenderer/Nag.php:111 lib/Ui/VarRenderer/Nag.php:162
+#: lib/Ui/VarRenderer/Nag.php:111 lib/Ui/VarRenderer/Nag.php:161
 msgid "Calendar"
 msgstr "Kalendārs"
 
@@ -203,9 +211,9 @@ msgstr "Atcelt"
 msgid "Cat_egory"
 msgstr "Kat_egorija"
 
-#: data.php:55 templates/view/task.inc:8 lib/Form/Task.php:93
-#: lib/Form/Task.php:97 config/prefs.php:64 config/prefs.php:82
-#: config/prefs.php:100
+#: data.php:55 templates/view/task.inc:8 lib/Form/Task.php:87
+#: lib/Form/Task.php:91 config/prefs.php:71 config/prefs.php:89
+#: config/prefs.php:107
 msgid "Category"
 msgstr "Kategorija"
 
@@ -217,86 +225,92 @@ msgstr "Mainīt pieejas tiesības"
 msgid "Change your task sorting and display preferences."
 msgstr "Mainīt uzdevumu šķirošanas un attēlošanas iestatījumus."
 
-#: lib/Nag.php:966
+#: lib/Nag.php:1065
 #, php-format
 msgid "Changed alarm from %s to %s"
 msgstr "Mainīts brīdinājums no %s uz %s"
 
-#: lib/Nag.php:945
+#: lib/Nag.php:1044
 #, php-format
 msgid "Changed assignee from \"%s\" to \"%s\""
 msgstr "Mainīts atbildīgais no \"%s\" uz \"%s\""
 
-#: lib/Nag.php:930
+#: lib/Nag.php:1029
 #, php-format
 msgid "Changed category from \"%s\" to \"%s\""
 msgstr "Mainīta kategorija no \"%s\" uz \"%s\""
 
-#: lib/Nag.php:981
+#: lib/Nag.php:1080
 #, php-format
 msgid "Changed completion from %s to %s"
 msgstr "Mainīts izpildes termiņš no %s uz %s"
 
-#: lib/Nag.php:986
+#: lib/Nag.php:1085
 msgid "Changed description"
 msgstr "Manītais apraksts"
 
-#: lib/Nag.php:954
+#: lib/Nag.php:1053
 #, php-format
 msgid "Changed due date from %s to %s"
 msgstr "Mainīts izpildes datums no %s uz %s"
 
-#: lib/Nag.php:976
+#: lib/Nag.php:1075
 #, php-format
 msgid "Changed estimate from %s to %s"
 msgstr "Mainīt vērtējumu no %s līdz %s"
 
-#: lib/Nag.php:908
+#: lib/Nag.php:1007
 #, php-format
 msgid "Changed name from \"%s\" to \"%s\""
 msgstr "Mainīts nosaukums no \"%s\" uz \"%s\""
 
-#: lib/Nag.php:922
+#: lib/Nag.php:1021
 #, php-format
 msgid "Changed parent task from \"%s\" to \"%s\""
 msgstr "Mainīt galveno uzdevumu no \"%s\" uz \"%s\""
 
-#: lib/Nag.php:971
+#: lib/Nag.php:1070
 #, php-format
 msgid "Changed priority from %s to %s"
 msgstr "Manita prioritāte no %s uz %s"
 
-#: lib/Nag.php:960
+#: lib/Nag.php:1059
 #, php-format
 msgid "Changed start date from %s to %s"
 msgstr "Mainīts sākuma datums no %s uz %s"
 
-#: lib/Nag.php:914
+#: lib/Nag.php:1013
 #, php-format
 msgid "Changed task list from \"%s\" to \"%s\""
 msgstr "Uzdevumu saraksts \"%s\" mainīts uz \"%s\""
 
-#: lib/Nag.php:905
+#: lib/Nag.php:1004
 msgid "Changes made for this task:"
 msgstr "Šajā uzdevumā veiktās izmaiņas:"
 
-#: lib/Application.php:194
+#: lib/Application.php:196
 msgid "Choose how you want to receive reminders for tasks with alarms:"
 msgstr ""
 "Norādiet, kā vēlaties saņemt atgādinājumus par uzdevumiem ar brīdinājumiem:"
 
-#: config/prefs.php:161
+#: config/prefs.php:168
 msgid ""
 "Choose if you want to be notified of new, edited, and deleted tasks by email:"
 msgstr ""
 "Atzīmējiet, ja vēlaties saņemt ziņas par jauniem, mainītiem vai dzēstiem "
 "uzdevumiem pa e-pastu."
 
-#: config/prefs.php:42
+#: config/prefs.php:49
 msgid "Choose if you want to be notified of task changes and task alarms."
 msgstr ""
 "Atzīmējiet, ja vēlaties saņemt paziņojumus par uzdevumu maiņu un uzdevumu "
 "brīdinājumiem."
+
+#: config/prefs.php:42
+msgid "Choose the task lists to use for synchronization with external devices."
+msgstr ""
+"Izvēlieties uzdevumu sarakstus, kurus jāizmanto sinhronizācijai ar ārējām "
+"ierīcēm."
 
 #
 #: config/prefs.php:35
@@ -308,7 +322,7 @@ msgid "Click or copy this URL to display this task list"
 msgstr ""
 "Lai parādītu šo uzdevumu sarakstu, uzklikšķiniet vai nokopējiet šo saiti"
 
-#: templates/panel.inc:49
+#: templates/panel.inc:45
 msgid "Close"
 msgstr "Aizvērt"
 
@@ -325,7 +339,7 @@ msgid "Complete"
 msgstr "Izpildīt"
 
 #: mobile.php:114 templates/list/task_summaries.inc:10
-#: lib/Block/Summary.php:218
+#: lib/Block/Summary.php:211
 #, php-format
 msgid "Complete \"%s\""
 msgstr " \"%s\" izpildīts."
@@ -334,11 +348,11 @@ msgstr " \"%s\" izpildīts."
 msgid "Complete Task"
 msgstr "Beigt uzdevumu"
 
-#: config/prefs.php:194
+#: config/prefs.php:201
 msgid "Complete tasks"
 msgstr "Beigt uzdevumus"
 
-#: mobile.php:129 lib/Nag.php:600 lib/Block/Summary.php:216
+#: mobile.php:129 lib/Nag.php:707 lib/Block/Summary.php:209
 msgid "Completed"
 msgstr "Izpildīts"
 
@@ -362,7 +376,7 @@ msgid "Completed tasks"
 msgstr "Izpildītie uzdevumi"
 
 #: templates/view/task.inc:42 templates/list/task_headers.inc:31
-#: lib/Form/Task.php:115 config/prefs.php:85 config/prefs.php:103
+#: lib/Form/Task.php:109 config/prefs.php:92 config/prefs.php:110
 msgid "Completed?"
 msgstr "Izpildīts?"
 
@@ -374,7 +388,7 @@ msgstr "Izpildes datums"
 msgid "Completion Status"
 msgstr "Izpildes statuss"
 
-#: lib/Api.php:614
+#: lib/Api.php:659
 #, php-format
 msgid "Connection failed: %s"
 msgstr "Neizdevās pieslēgties: %s."
@@ -396,6 +410,10 @@ msgstr "Izveidot jaunu uzdevumu sarakstu"
 msgid "Created"
 msgstr "Izveidots"
 
+#: lib/Ui/VarRenderer/Nag.php:102 lib/Ui/VarRenderer/Nag.php:151
+msgid "Date"
+msgstr "Datums"
+
 #: templates/alarm/mail.html.php:13
 msgid "Date and time:"
 msgstr "Datums un laiks:"
@@ -404,11 +422,7 @@ msgstr "Datums un laiks:"
 msgid "Date:"
 msgstr "Datums:"
 
-#: lib/Ui/VarRenderer/Nag.php:100 lib/Ui/VarRenderer/Nag.php:151
-msgid "Day"
-msgstr "Diena"
-
-#: lib/Nag.php:632 lib/Ui/VarRenderer/Nag.php:193
+#: lib/Nag.php:739 lib/Ui/VarRenderer/Nag.php:191
 msgid "Day(s)"
 msgstr "Diena(s)"
 
@@ -422,7 +436,7 @@ msgstr "Jūsu pamata uzdevumu saraksts:"
 msgid "Defaults for new tasks"
 msgstr "Jauno uzdevumu iestatījumi"
 
-#: lib/Form/Task.php:105
+#: lib/Form/Task.php:99
 msgid "Delay Start Until"
 msgstr "Atlikt sākumu līdz"
 
@@ -445,7 +459,7 @@ msgid "Delete button behaviour"
 msgstr "Pogas Dzēst darbība"
 
 #
-#: task.php:115 lib/Form/Task.php:126 lib/Form/Renderer/Task.php:39
+#: task.php:115 lib/Form/Task.php:120 lib/Form/Renderer/Task.php:39
 msgid "Delete this task"
 msgstr "Dzēst šo uzdevumu"
 
@@ -454,15 +468,15 @@ msgstr "Dzēst šo uzdevumu"
 msgid "Deleted %s."
 msgstr "%s izdzēsts."
 
-#: lib/Api.php:593
+#: lib/Api.php:638
 msgid "Deleting entire tasklists is not supported."
 msgstr "Visa uzdevumu saraksta dzēšana nav iespējama."
 
-#: config/prefs.php:117
+#: config/prefs.php:124
 msgid "Descending"
 msgstr "Dilstoši"
 
-#: data.php:54 lib/Form/CreateTaskList.php:25 lib/Form/Task.php:122
+#: data.php:54 lib/Form/CreateTaskList.php:25 lib/Form/Task.php:116
 msgid "Description"
 msgstr "Apraksts"
 
@@ -480,21 +494,21 @@ msgstr "Attēlošanas iestatījumi"
 msgid "Display URL"
 msgstr "Rādīt saites"
 
-#: config/prefs.php:126
+#: config/prefs.php:133
 msgid "Do you want to confirm deleting entries?"
 msgstr "Vai vēlaties papildu apstiprinājumu, dzēšot ierakstus?"
 
-#: config/prefs.php:168
+#: config/prefs.php:175
 msgid ""
 "Don't send me a notification if I've added, changed or deleted the task?"
 msgstr ""
 "Nesūtīt man paziņojumu, ja notikumu pievienoju, mainīju vai dzēsu pašrocīgi?"
 
-#: data.php:57 templates/view/task.inc:26 lib/Form/Task.php:104
+#: data.php:57 templates/view/task.inc:26 lib/Form/Task.php:98
 msgid "Due By"
 msgstr "Izpildīt līdz"
 
-#: config/prefs.php:61 config/prefs.php:83 config/prefs.php:101
+#: config/prefs.php:68 config/prefs.php:90 config/prefs.php:108
 msgid "Due Date"
 msgstr "Izpildīt līdz"
 
@@ -506,7 +520,7 @@ msgstr "Norādīts izpildes termiņš."
 msgid "Edit"
 msgstr "Labot"
 
-#: templates/list/task_summaries.inc:37 lib/Block/Summary.php:209
+#: templates/list/task_summaries.inc:37 lib/Block/Summary.php:202
 #, php-format
 msgid "Edit \"%s\""
 msgstr "Labot \"%s\""
@@ -545,8 +559,8 @@ msgid "Error deleting task: %s"
 msgstr "Kļūda dzēšot uzdevumu: %s"
 
 #: data.php:62 templates/view/task.inc:38 templates/list/task_headers.inc:60
-#: lib/Form/Task.php:114 config/prefs.php:63 config/prefs.php:86
-#: config/prefs.php:104
+#: lib/Form/Task.php:108 config/prefs.php:70 config/prefs.php:93
+#: config/prefs.php:111
 msgid "Estimated Time"
 msgstr "Aptuvenais laiks"
 
@@ -558,11 +572,11 @@ msgstr "Eksportēt"
 msgid "Export Tasks"
 msgstr "Eksportēt uzdevumus"
 
-#: config/prefs.php:48
+#: config/prefs.php:55
 msgid "External Data"
 msgstr "Ārējie dati"
 
-#: templates/data/export.inc:36 config/prefs.php:195
+#: templates/data/export.inc:36 config/prefs.php:202
 msgid "Future tasks"
 msgstr "Nākošie uzdevumi"
 
@@ -570,11 +584,7 @@ msgstr "Nākošie uzdevumi"
 msgid "General Preferences"
 msgstr "Vispārējie iestatījumi"
 
-#: lib/Ui/VarRenderer/Nag.php:168
-msgid "Hour"
-msgstr "Stunda"
-
-#: lib/Nag.php:635 lib/Ui/VarRenderer/Nag.php:192
+#: lib/Nag.php:742 lib/Ui/VarRenderer/Nag.php:190
 msgid "Hour(s)"
 msgstr "Stunda(s)"
 
@@ -583,7 +593,7 @@ msgstr "Stunda(s)"
 msgid "Import Tasks, Step %d"
 msgstr "Uzdevumu imports, %d. solis"
 
-#: data.php:251
+#: data.php:235
 msgid "Import/Export Tasks"
 msgstr "Uzdevumu imports/eksports"
 
@@ -599,19 +609,19 @@ msgstr "Nepabeigtie uzdevumi"
 msgid "Incomplete sub tasks, complete them first"
 msgstr "Nebapeigti apakšuzdevumi, vispirms pabeidizet tos"
 
-#: templates/data/export.inc:35 config/prefs.php:193
+#: templates/data/export.inc:35 config/prefs.php:200
 msgid "Incomplete tasks"
 msgstr "Neizpildītie uzdevumi"
 
-#: lib/Api.php:293
+#: lib/Api.php:336
 msgid "Invalid tasklist file requested."
 msgstr "Pieprasīts nepareizs fails."
 
-#: lib/Api.php:428
+#: lib/Api.php:470
 msgid "Invalid tasklist name supplied."
 msgstr "Norādīts nepareizs uzdevumu saraksta nosaukums."
 
-#: lib/Api.php:309
+#: lib/Api.php:352
 msgid "Invalid tasklist requested."
 msgstr "Pieprasīts nepareizs uzdevumu saraksts."
 
@@ -648,27 +658,19 @@ msgstr "Atzīmēt kā neizpildītu"
 msgid "Maximum Number of Tasks"
 msgstr "Maksimālais uzdevumu skaits"
 
-#: lib/Ui/VarRenderer/Nag.php:169
-msgid "Minute"
-msgstr "Minūte"
-
-#: lib/Nag.php:638 lib/Ui/VarRenderer/Nag.php:192
+#: lib/Nag.php:745 lib/Ui/VarRenderer/Nag.php:190
 msgid "Minute(s)"
 msgstr "Minūte(s)"
-
-#: lib/Ui/VarRenderer/Nag.php:101 lib/Ui/VarRenderer/Nag.php:152
-msgid "Month"
-msgstr "Mēnesis"
 
 #: templates/list/header.inc:8
 msgid "More Options..."
 msgstr "Vairāk opciju..."
 
-#: lib/Api.php:1168
+#: lib/Api.php:1216
 msgid "Multiple iCalendar components found; only one vTodo is supported."
 msgstr "Atrasti vairāki iCalendar komponenti; atbalstīts ir tikai vTodo."
 
-#: templates/panel.inc:77
+#: templates/panel.inc:73
 msgid "My Task Lists:"
 msgstr "Mani uzdevumu saraksti:"
 
@@ -685,11 +687,11 @@ msgstr "Vārds"
 msgid "Na_me"
 msgstr "Vārds"
 
-#: data.php:53 lib/Form/CreateTaskList.php:23 lib/Form/Task.php:80
+#: data.php:53 lib/Form/CreateTaskList.php:23 lib/Form/Task.php:74
 msgid "Name"
 msgstr "Nosaukums"
 
-#: task.php:82 task.php:119 lib/Application.php:394
+#: task.php:82 task.php:119 lib/Application.php:425
 msgid "New Task"
 msgstr "Jauns"
 
@@ -697,11 +699,11 @@ msgstr "Jauns"
 msgid "Next"
 msgstr "Nākošais"
 
-#: config/prefs.php:156
+#: config/prefs.php:163
 msgid "No"
 msgstr "Nē"
 
-#: lib/Ui/VarRenderer/Nag.php:95
+#: lib/Ui/VarRenderer/Nag.php:97
 msgid "No delay"
 msgstr "Bez kavēšanās"
 
@@ -709,15 +711,15 @@ msgstr "Bez kavēšanās"
 msgid "No due date."
 msgstr "Nav beigu datuma."
 
-#: lib/Api.php:797 lib/Api.php:849 lib/Api.php:1175
+#: lib/Api.php:848 lib/Api.php:900 lib/Api.php:1223
 msgid "No iCalendar data was found."
 msgstr "iCalendar dati netika atrasti."
 
-#: lib/Form/Task.php:41
+#: lib/Form/Task.php:35
 msgid "No parent task"
 msgstr "Nav galvenā uzdevuma"
 
-#: lib/Nag.php:789
+#: lib/Nag.php:888
 msgid "No task lists are available to guests."
 msgstr "Nav viesiem pieejamu uzdevumu sarakstu."
 
@@ -729,15 +731,15 @@ msgstr "Nav pievienot neviens uzdevums."
 msgid "No tasks match"
 msgstr "Neatbilst neviens uzdevums"
 
-#: lib/Block/Summary.php:274
+#: lib/Block/Summary.php:265
 msgid "No tasks to display"
 msgstr "Jūsu uzdevumu saraksts ir tukšs."
 
-#: lib/Nag.php:642 lib/Ui/VarRenderer/Nag.php:208 lib/Form/Task.php:102
+#: lib/Nag.php:749 lib/Ui/VarRenderer/Nag.php:206 lib/Form/Task.php:96
 msgid "None"
 msgstr "Nav"
 
-#: lib/Nag.php:601
+#: lib/Nag.php:708
 msgid "Not Completed"
 msgstr "Nav izpildīts"
 
@@ -753,31 +755,31 @@ msgstr "Nav privāts"
 msgid "Not completed"
 msgstr "Nav izpildīts"
 
-#: lib/Api.php:652
+#: lib/Api.php:697
 msgid "Not configured"
 msgstr "Nav konfigurēts"
 
 #
-#: lib/Form/Task.php:108
+#: lib/Form/Task.php:102
 msgid "Notification"
 msgstr "Brīdinājums"
 
 #
-#: config/prefs.php:41
+#: config/prefs.php:48
 msgid "Notifications"
 msgstr "Brīdinājumi"
 
 #
-#: config/prefs.php:158
+#: config/prefs.php:165
 msgid "On all shown task lists"
 msgstr "Visos parādītajos uzdevumu sarakstos"
 
-#: config/prefs.php:159
+#: config/prefs.php:166
 msgid "On all task lists I have read access to"
 msgstr "Visos uzdevumu sarakstos, kuriem man ir lasīšanas pieeja"
 
 #
-#: config/prefs.php:157
+#: config/prefs.php:164
 msgid "On my task lists only"
 msgstr "Tikai manos uzdevumu sarakstos"
 
@@ -786,15 +788,14 @@ msgstr "Tikai manos uzdevumu sarakstos"
 msgid "P_ri"
 msgstr "Pri"
 
-#: lib/Form/Task.php:89
+#: lib/Form/Task.php:83
 msgid "Parent task"
 msgstr "Galvenais uzdevums"
 
-#: lib/Api.php:658 lib/Api.php:692 lib/Api.php:745 lib/Api.php:776
-#: lib/Api.php:895 lib/Api.php:935 lib/Api.php:950 lib/Api.php:989
-#: lib/Api.php:1027 lib/Api.php:1052 lib/Api.php:1104 lib/Api.php:1121
-#: lib/Api.php:1151 lib/Api.php:1238 lib/Api.php:1317 lib/Api.php:1371
-#: lib/Application.php:275 lib/Nag.php:285
+#: lib/Api.php:798 lib/Api.php:827 lib/Api.php:945 lib/Api.php:984
+#: lib/Api.php:999 lib/Api.php:1038 lib/Api.php:1076 lib/Api.php:1100
+#: lib/Api.php:1152 lib/Api.php:1169 lib/Api.php:1199 lib/Api.php:1285
+#: lib/Api.php:1364 lib/Api.php:1421 lib/Application.php:306 lib/Nag.php:333
 msgid "Permission Denied"
 msgstr "Pieeja liegta"
 
@@ -802,8 +803,8 @@ msgstr "Pieeja liegta"
 msgid "Portal"
 msgstr "Portāls"
 
-#: data.php:60 templates/view/task.inc:34 lib/Form/Task.php:111
-#: config/prefs.php:59 config/prefs.php:80 config/prefs.php:98
+#: data.php:60 templates/view/task.inc:34 lib/Form/Task.php:105
+#: config/prefs.php:66 config/prefs.php:87 config/prefs.php:105
 msgid "Priority"
 msgstr "Prioritāte"
 
@@ -815,7 +816,7 @@ msgstr "Privāti"
 msgid "Private Task"
 msgstr "Privāts uzdevums"
 
-#: templates/view/task.inc:16 lib/Form/Task.php:103
+#: templates/view/task.inc:16 lib/Form/Task.php:97
 msgid "Private?"
 msgstr "Privāts?"
 
@@ -838,7 +839,7 @@ msgid "Really delete this task?"
 msgstr "Tiešām dzēst šo uzdevumu?"
 
 #
-#: templates/panel.inc:95 lib/Form/EditTaskList.php:45 lib/Form/Task.php:124
+#: templates/panel.inc:91 lib/Form/EditTaskList.php:45 lib/Form/Task.php:118
 #: lib/Form/Renderer/Task.php:37
 msgid "Save"
 msgstr "Saglabāt"
@@ -849,7 +850,7 @@ msgid "Saved %s."
 msgstr "%s saglabāts."
 
 #: search.php:19 templates/search/search.inc:31 templates/list/header.inc:3
-#: lib/Application.php:426
+#: lib/Application.php:451
 msgid "Search"
 msgstr "Meklēt"
 
@@ -861,7 +862,7 @@ msgstr "Meklēt:"
 msgid "Search _Text:"
 msgstr "Meklēt tekstu:"
 
-#: templates/panel.inc:65
+#: templates/panel.inc:61
 msgid "Search for Task Lists:"
 msgstr "Meklēt uzdevumu sarakstus:"
 
@@ -874,7 +875,7 @@ msgstr "Meklēt:"
 msgid "Search: Results for \"%s\""
 msgstr "Meklēšana: \"%s\" rezultāti "
 
-#: config/prefs.php:66
+#: config/prefs.php:73
 msgid "Select the columns that should be shown in the list view:"
 msgstr "Atzīmējiet saraksta skatā rādāmās slejas:"
 
@@ -899,51 +900,59 @@ msgstr "Izvēlieties uzdevumu sarakstu(s) no kura(iem) eksportēt:"
 msgid "Select the task states to export:"
 msgstr "Izvēlieties eksportējamo uzdevumu izpildes statusu:"
 
-#: templates/panel.inc:86
+#: config/prefs.php:229
+msgid ""
+"Select the tasklists that, in addition to the default, should be used for "
+"synchronization with external devices:"
+msgstr ""
+"Izvēlieties papildu uzdevumu sarakstus jau norādītājiem pēc noklusēšanas, "
+"kurus jāizmanto sinhronizācijai ar ārējām ierīcēm:"
+
+#: templates/panel.inc:82
 msgid "Shared Task Lists:"
 msgstr "Koplietojamie uzdevumu saraksti:"
 
-#: lib/Block/Summary.php:63
+#: lib/Block/Summary.php:58
 msgid "Show action buttons?"
 msgstr "Rādīt darbību pogas?"
 
-#: config/prefs.php:197
+#: config/prefs.php:204
 msgid "Show complete, incomplete, or all tasks in the task list?"
 msgstr "Radīt izpildītos, neizpildītos vai visus uzdevumus kopējā sarakstā?"
 
-#: config/prefs.php:184
+#: config/prefs.php:191
 msgid "Show data from any of these other applications in your task list?"
 msgstr "Vai rādīt Jūsu uzdevu sarakstā datus no kāda no šiem moduļiem?"
 
-#: config/prefs.php:49
+#: config/prefs.php:56
 msgid "Show data from other applications or sources."
 msgstr "Rādīt citu moduļu vai avotu datus."
 
-#: lib/Block/Summary.php:68
+#: lib/Block/Summary.php:63
 msgid "Show due dates?"
 msgstr "Rādīt beigu datumus?"
 
-#: lib/Block/Summary.php:58
+#: lib/Block/Summary.php:53
 msgid "Show priorities?"
 msgstr "Rādīt uzdevumu prioritāti?"
 
-#: lib/Block/Summary.php:78
+#: lib/Block/Summary.php:73
 msgid "Show task alarms?"
 msgstr "Rādīt uzdevumu atgādinājumus??"
 
-#: lib/Block/Summary.php:83
+#: lib/Block/Summary.php:78
 msgid "Show task category?"
 msgstr "Rādīt uzdevumu kategorijas?"
 
-#: lib/Block/Summary.php:73
+#: lib/Block/Summary.php:68
 msgid "Show tasklist name?"
 msgstr "Rādīt uzdevumu saraksta nosaukumu?"
 
-#: lib/Block/Summary.php:104
+#: lib/Block/Summary.php:99
 msgid "Show tasks from these categories"
 msgstr "Rādīt šo kategoriju uzdevumus?"
 
-#: lib/Block/Summary.php:98
+#: lib/Block/Summary.php:93
 msgid "Show tasks from these tasklists"
 msgstr "Rādīt uzdevumus no šiem uzdevumu sarakstiem"
 
@@ -983,11 +992,11 @@ msgstr "Šķirot pēc lietotāja vārda"
 msgid "Sort by estimated time"
 msgstr "Šķirot pēc izpildes laika"
 
-#: config/prefs.php:119
+#: config/prefs.php:126
 msgid "Sort direction:"
 msgstr "Šķirošanas kārtība"
 
-#: config/prefs.php:90
+#: config/prefs.php:97
 msgid "Sort tasks by:"
 msgstr "Šķirot uzdevumus pēc:"
 
@@ -995,18 +1004,22 @@ msgstr "Šķirot uzdevumus pēc:"
 msgid "Start"
 msgstr "Sākt"
 
-#: templates/view/task.inc:22 config/prefs.php:62 config/prefs.php:84
-#: config/prefs.php:102
+#: templates/view/task.inc:22 config/prefs.php:69 config/prefs.php:91
+#: config/prefs.php:109
 msgid "Start Date"
 msgstr "Sākuma datums"
 
-#: lib/Ui/VarRenderer/Nag.php:99
+#: lib/Ui/VarRenderer/Nag.php:101
 msgid "Start date specified."
 msgstr "Norādīts sākuma datums."
 
 #: templates/tasklist_list.php:20
 msgid "Subscription URL"
 msgstr "Parakstīšanās saite"
+
+#: config/prefs.php:41
+msgid "Synchronization Preferences"
+msgstr "Sinhronizācijas iestatījumi"
 
 #: templates/tasklist_list.php:30
 msgid "System"
@@ -1037,8 +1050,8 @@ msgstr "Uzdevuma atgādinājums?"
 msgid "Task Defaults"
 msgstr "Uzdevuma iestatījumi"
 
-#: templates/tasklist_list.php:17 lib/Form/Task.php:84 config/prefs.php:58
-#: config/prefs.php:88 config/prefs.php:106
+#: templates/tasklist_list.php:17 lib/Form/Task.php:78 config/prefs.php:65
+#: config/prefs.php:95 config/prefs.php:113
 msgid "Task List"
 msgstr "Uzdevumu saraksts"
 
@@ -1059,6 +1072,7 @@ msgid "Task List Name"
 msgstr "Uzdevumu saraksta nosaukums"
 
 #: config/prefs.php:33 config/prefs.php:40 config/prefs.php:47
+#: config/prefs.php:54
 msgid "Task List and Share Preferences"
 msgstr "Uzdevumu saraksta un koplietošanas iestatījumi"
 
@@ -1071,11 +1085,11 @@ msgstr "Uzdevumu saraksta īpašnieks - %s."
 msgid "Task List owned by system."
 msgstr "Sistēmas uzdevumu saraksts."
 
-#: templates/panel.inc:59 templates/panel.inc:60
+#: templates/panel.inc:55 templates/panel.inc:56
 msgid "Task Lists"
 msgstr "Uzdevumu saraksti"
 
-#: config/prefs.php:81 config/prefs.php:99
+#: config/prefs.php:88 config/prefs.php:106
 msgid "Task Name"
 msgstr "Uzdevuma nosaukums"
 
@@ -1092,30 +1106,31 @@ msgid "Task Search"
 msgstr "Uzdevuma meklēšana"
 
 #: lib/Driver/Sql.php:89
-msgid "Task UID not found"
-msgstr "Uzdevuma UID nav atrasts"
+#, php-format
+msgid "Task UID %s not found"
+msgstr "Uzdevuma UID %s nav atrasts"
 
 #
-#: lib/Nag.php:887
+#: lib/Nag.php:986
 msgid "Task added:"
 msgstr "Uzdevums pievienots"
 
 #
-#: lib/Nag.php:991
+#: lib/Nag.php:1090
 msgid "Task deleted:"
 msgstr "Uzdevums izdzēsts: "
 
-#: lib/Nag.php:1008
+#: lib/Nag.php:1107
 msgid "Task description:"
 msgstr "Uzdevuma apraksts:"
 
-#: lib/Nag.php:733
+#: lib/Tasklists/Default.php:46
 #, php-format
 msgid "Task list of %s"
 msgstr "%s uzdevumu saraksts"
 
 #
-#: lib/Nag.php:898
+#: lib/Nag.php:997
 msgid "Task modified:"
 msgstr "Uzdevums mainīts"
 
@@ -1123,15 +1138,15 @@ msgstr "Uzdevums mainīts"
 msgid "Task not found."
 msgstr "Uzdevums nav atrasts"
 
-#: lib/Api.php:606
+#: lib/Api.php:651
 msgid "Tasklist does not exist or no permission to delete"
 msgstr "Uzdevumu saraksts neeksistē vai arī nav dzēšanas tiesību"
 
-#: lib/Api.php:434
+#: lib/Api.php:476
 msgid "Tasklist does not exist or no permission to edit"
 msgstr "Uzdevumu saraksts neeksistē vai arī nav labošanas tiesību"
 
-#: lib/Api.php:1289
+#: lib/Api.php:1336 lib/Tasklists/Kolab.php:21
 msgid "Tasks"
 msgstr "Uzdevumi"
 
@@ -1139,7 +1154,7 @@ msgstr "Uzdevumi"
 msgid "Tasks Summary"
 msgstr "Kopsavilkums"
 
-#: lib/Api.php:255
+#: lib/Api.php:298
 #, php-format
 msgid "Tasks from %s"
 msgstr "Uzdevumi no %s"
@@ -1163,24 +1178,24 @@ msgid "The current hour"
 msgstr "Šī stunda"
 
 # =====================================================================
-#: lib/Nag.php:891
+#: lib/Nag.php:990
 #, php-format
 msgid ""
 "The task \"%s\" has been added to task list \"%s\", with a due date of: %s."
 msgstr ""
 "\"%s\" uzdevums pievienots \"%s\" uzdevumu sarakstam ar izpildes termiņu: %s."
 
-#: lib/Nag.php:892
+#: lib/Nag.php:991
 #, php-format
 msgid "The task \"%s\" has been added to task list \"%s\"."
 msgstr "Uzdevums \"%s\" pievienots uzdevumu sarakstam \"%s\"."
 
-#: lib/Nag.php:995
+#: lib/Nag.php:1094
 #, php-format
 msgid "The task \"%s\" has been deleted from task list \"%s\"."
 msgstr "\"%s\" uzdevums dzēsts no \"%s\" uzdevumu saraksta."
 
-#: lib/Nag.php:901
+#: lib/Nag.php:1000
 #, php-format
 msgid "The task \"%s\" has been edited on task list \"%s\"."
 msgstr "Mainīts \"%s\" uzdevums  \"%s\" uzdevumu sarakstā."
@@ -1205,7 +1220,7 @@ msgstr "Uzdevumu saraksts \"%s\" pārsaukts par \"%s\"."
 msgid "The task list \"%s\" has been saved."
 msgstr "Uzdevumu saraksts \"%s\" saglabāts."
 
-#: config/prefs.php:108
+#: config/prefs.php:115
 msgid "Then:"
 msgstr "Tad:"
 
@@ -1228,17 +1243,22 @@ msgstr "Kļūme dzēšot %s: %s"
 msgid "There was a problem saving the task: %s."
 msgstr "Kļūme saglabājot uzdevumu: %s."
 
+#: lib/Application.php:252
+#, php-format
+msgid "There was an error communicating with the ActiveSync server: %s"
+msgstr "Kļūda sazinoties ar  ActiveSync serveri: %s"
+
 #: data.php:204
 #, php-format
 msgid "There was an error importing the data: %s"
 msgstr "Kļūda importējot datus: %s"
 
 #
-#: lib/Api.php:450 lib/Api.php:789 lib/Api.php:1160
+#: lib/Api.php:492 lib/Api.php:840 lib/Api.php:1208
 msgid "There was an error importing the iCalendar data."
 msgstr "Kļūda importējot iCalendar datus."
 
-#: lib/Application.php:250 lib/Application.php:262
+#: lib/Application.php:293
 #, php-format
 msgid "There was an error removing tasks for %s. Details have been logged."
 msgstr "Kļūda dzēšot %s uzdevumus. Sīkāka informācija reģistrēta žurnālā."
@@ -1251,6 +1271,10 @@ msgstr "Nav eksportējamu uzdevumu."
 msgid "This file format is not supported."
 msgstr "Faila formāts nav atbalstīts."
 
+#: lib/Ui/VarRenderer/Nag.php:166
+msgid "Time"
+msgstr "Laiks"
+
 #: templates/alarm/mail.plain.php:9
 msgid "Time:"
 msgstr "Laiks:"
@@ -1261,15 +1285,15 @@ msgstr ""
 "Lai parakstītos uz šo uzdevumu sarakstu no citas programmas, izmantojiet šo "
 "saiti:"
 
-#: lib/Nag.php:950
+#: lib/Nag.php:1049
 msgid "Turned privacy off"
 msgstr "Privātums atslēgts"
 
-#: lib/Nag.php:950
+#: lib/Nag.php:1049
 msgid "Turned privacy on"
 msgstr "Privātums ieslēgts"
 
-#: lib/Api.php:624
+#: lib/Api.php:669
 #, php-format
 msgid "Unable to delete tasklist \"%s\": %s"
 msgstr "Nevar izdzēst uzdevumu sarakstu \"%s\": %s"
@@ -1279,14 +1303,14 @@ msgstr "Nevar izdzēst uzdevumu sarakstu \"%s\": %s"
 msgid "Unable to load the definition of %s."
 msgstr "Nevar nolasīt %s definīciju."
 
-#: lib/Nag.php:495
+#: lib/Nag.php:602
 #, php-format
 msgid "Unable to save task list \"%s\": %s"
 msgstr "Nevar saglabāt uzdevumu sarakstu \"%s\": %s"
 
 #: templates/view/task.inc:9 templates/list/task_summaries.inc:77
-#: lib/Nag.php:1305 lib/Nag.php:1306 lib/Nag.php:1320 lib/Nag.php:1321
-#: lib/Form/Task.php:98 lib/Block/Summary.php:38 lib/Block/Summary.php:267
+#: lib/Nag.php:1404 lib/Nag.php:1405 lib/Nag.php:1419 lib/Nag.php:1420
+#: lib/Form/Task.php:92 lib/Block/Summary.php:38 lib/Block/Summary.php:258
 msgid "Unfiled"
 msgstr "Neklasificēts"
 
@@ -1294,8 +1318,8 @@ msgstr "Neklasificēts"
 msgid "Unique ID"
 msgstr "Unikāls ID"
 
-#: lib/Api.php:560 lib/Api.php:880 lib/Api.php:1012 lib/Api.php:1075
-#: lib/Api.php:1220
+#: lib/Api.php:605 lib/Api.php:931 lib/Api.php:1061 lib/Api.php:1123
+#: lib/Api.php:1268
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr "Neatbalstīts satura tips: %s "
@@ -1312,15 +1336,15 @@ msgstr "Izmantot noklusēto informēšanas metodi"
 msgid "We would like to remind you of this due task."
 msgstr "Vēlamies atgādināt par uzdevuma izpildes termiņa tuvošanos."
 
-#: lib/Nag.php:629 lib/Ui/VarRenderer/Nag.php:193
+#: lib/Nag.php:736 lib/Ui/VarRenderer/Nag.php:191
 msgid "Week(s)"
 msgstr "Nedēļa(s)"
 
-#: config/prefs.php:148
+#: config/prefs.php:155
 msgid "What do you want to be the default due time for tasks?"
 msgstr "Kādu izpildes termiņa pamatvērtību vēlaties lietot?"
 
-#: config/prefs.php:141
+#: config/prefs.php:148
 msgid ""
 "When creating a new task, how many days in the future should the default due "
 "date be (0 means today)?"
@@ -1328,7 +1352,7 @@ msgstr ""
 "Radot jaunu uzdevumu: cik dienas paredzēt uzdevuma izpildei pēc noklusēšana "
 "(0 nozīmē šodien)?"
 
-#: config/prefs.php:133
+#: config/prefs.php:140
 msgid "When creating a new task, should it default to having a due date?"
 msgstr "Radot jaunu uzdevumu: iespējot izpildes termiņu pēc noklusēšanas?"
 
@@ -1336,12 +1360,8 @@ msgstr "Radot jaunu uzdevumu: iespējot izpildes termiņu pēc noklusēšanas?"
 msgid "Which tasklist should the tasks be added to?"
 msgstr "Kuram uzdevumu sarakstam pievienot importētos uzdevumus?"
 
-#: lib/Ui/VarRenderer/Nag.php:102 lib/Ui/VarRenderer/Nag.php:153
-msgid "Year"
-msgstr "Gads"
-
 #
-#: tasklists/edit.php:26 lib/Nag.php:484
+#: tasklists/edit.php:26 lib/Nag.php:591
 msgid "You are not allowed to change this task list."
 msgstr "Jūs nedrīkstat mainīt šo uzdevumu sarakstu."
 
@@ -1351,9 +1371,14 @@ msgid "You are not allowed to create more than %d tasks."
 msgstr "Jūs nedrīksta izveidot vairāk kā %d uzdevumus."
 
 #
-#: tasklists/delete.php:27 lib/Nag.php:511
+#: tasklists/delete.php:27 lib/Nag.php:618
 msgid "You are not allowed to delete this task list."
 msgstr "Jūs nedrīkstat dzēst šo uzdevumu sarakstu."
+
+#
+#: lib/Api.php:127
+msgid "You are not allowed to retrieve this task list."
+msgstr "Jums nav atļauts saņemt šo uzdevumu sarakstu."
 
 #: view.php:48
 msgid "You do not have permission to view this tasklist."
@@ -1370,33 +1395,33 @@ msgstr ""
 "atgādinājumus ar brīdinājumiem par veicamajiem uzdevumiem. Jūs to varat "
 "mainīt, ja %spieslēdzaties uzdevumu sarakstam%s un izmaināt iestatījumus."
 
-#: lib/Nag.php:888
+#: lib/Nag.php:987
 msgid "You requested to be notified when tasks are added to your task lists."
 msgstr ""
 "Jūs pieprasījāt paziņojumu par Jūsu uzdevumu sarakstam pievienotiem jauniem "
 "uzdevumiem."
 
-#: lib/Nag.php:993
+#: lib/Nag.php:1092
 msgid ""
 "You requested to be notified when tasks are deleted from your task lists."
 msgstr ""
 "Jūs pieprasījāt paziņojumu par no Jūsu uzdevumu saraksta dzēstiem uzdevumiem."
 
-#: lib/Nag.php:899
+#: lib/Nag.php:998
 msgid "You requested to be notified when tasks are edited on your task lists."
 msgstr ""
 "Jūs pieprasījāt paziņojumu par Jūsu uzdevumu sarakstā mainītiem uzdevumiem."
 
-#: config/prefs.php:210
+#: config/prefs.php:217
 msgid "Your default task list:"
 msgstr "Jūsu pamata uzdevumu saraksts:"
 
-#: templates/panel.inc:72
+#: templates/panel.inc:68
 msgid "[Manage Task Lists]"
 msgstr "[Organizēt uzdevumu sarakstus]"
 
-#: templates/list/task_summaries.inc:47 lib/Block/Summary.php:141
-#: lib/Block/Summary.php:250
+#: templates/list/task_summaries.inc:47 lib/Block/Summary.php:134
+#: lib/Block/Summary.php:241
 msgid "[none]"
 msgstr "[nav]"
 
@@ -1472,6 +1497,10 @@ msgstr "Uzdevumu saraksts"
 msgid "am"
 msgstr "no rīta"
 
+#: lib/Ui/VarRenderer/Nag.php:165
+msgid "at"
+msgstr "Datums"
+
 #: view.php:67 view.php:76
 #, php-format
 msgid "by %s"
@@ -1481,7 +1510,7 @@ msgstr "pēc %s"
 msgid "by me"
 msgstr "pēc manis"
 
-#: lib/Nag.php:982 lib/Nag.php:983
+#: lib/Nag.php:1081 lib/Nag.php:1082
 msgid "completed"
 msgstr "izpildīts"
 
@@ -1489,20 +1518,20 @@ msgstr "izpildīts"
 msgid "iCalendar (vTodo)"
 msgstr "iCalendar (vTodo)"
 
-#: lib/Application.php:413
+#: lib/Application.php:438
 #, php-format
 msgid "in %s"
 msgstr "iekš %s"
 
-#: lib/Nag.php:955 lib/Nag.php:956
+#: lib/Nag.php:1054 lib/Nag.php:1055
 msgid "no due date"
 msgstr "nav beigu datuma"
 
-#: lib/Nag.php:923 lib/Nag.php:924
+#: lib/Nag.php:1022 lib/Nag.php:1023
 msgid "no parent"
 msgstr "nav galvenā"
 
-#: lib/Nag.php:961 lib/Nag.php:962
+#: lib/Nag.php:1060 lib/Nag.php:1061
 msgid "no start date"
 msgstr "nav sākuma datuma"
 
@@ -1510,7 +1539,7 @@ msgstr "nav sākuma datuma"
 msgid "no time"
 msgstr "nav norādīts laiks"
 
-#: lib/Nag.php:982 lib/Nag.php:983
+#: lib/Nag.php:1081 lib/Nag.php:1082
 msgid "not completed"
 msgstr "nav izpildīts"
 

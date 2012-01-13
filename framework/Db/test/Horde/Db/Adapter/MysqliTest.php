@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2007 Maintainable Software, LLC
- * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -256,18 +256,36 @@ class Horde_Db_Adapter_MysqliTest extends PHPUnit_Framework_TestCase
         // make sure it inserted
         $sql = "SELECT integer_value FROM unit_tests WHERE id='7'";
         $this->assertEquals('999', $this->_conn->selectValue($sql));
+
+        // query without transaction and with new connection (see bug #10578).
+        $sql = "INSERT INTO unit_tests (id, integer_value) VALUES (8, 1000)";
+        $this->_conn->insert($sql);
+
+        // make sure it inserted
+        $this->_conn->reconnect();
+        $sql = "SELECT integer_value FROM unit_tests WHERE id='8'";
+        $this->assertEquals('1000', $this->_conn->selectValue($sql));
     }
 
     public function testTransactionRollback()
     {
         $this->_conn->beginDbTransaction();
-         $sql = "INSERT INTO unit_tests (id, integer_value) VALUES (7, 999)";
-         $this->_conn->insert($sql);
-         $this->_conn->rollbackDbTransaction();
+        $sql = "INSERT INTO unit_tests (id, integer_value) VALUES (7, 999)";
+        $this->_conn->insert($sql);
+        $this->_conn->rollbackDbTransaction();
 
-         // make sure it inserted
-         $sql = "SELECT integer_value FROM unit_tests WHERE id='7'";
-         $this->assertEquals(null, $this->_conn->selectValue($sql));
+        // make sure it inserted
+        $sql = "SELECT integer_value FROM unit_tests WHERE id='7'";
+        $this->assertEquals(null, $this->_conn->selectValue($sql));
+
+        // query without transaction and with new connection (see bug #10578).
+        $sql = "INSERT INTO unit_tests (id, integer_value) VALUES (7, 999)";
+        $this->_conn->insert($sql);
+
+        // make sure it inserted
+        $this->_conn->reconnect();
+        $sql = "SELECT integer_value FROM unit_tests WHERE id='7'";
+        $this->assertEquals(999, $this->_conn->selectValue($sql));
     }
 
 
@@ -846,6 +864,20 @@ class Horde_Db_Adapter_MysqliTest extends PHPUnit_Framework_TestCase
 
         $afterChange = $this->_getColumn('sports', 'is_college');
         $this->assertEquals('varchar(255)', $afterChange->getSqlType());
+
+        $table = $this->_conn->createTable('text_to_binary');
+        $table->column('data', 'text');
+        $table->end();
+        $this->_conn->insert('INSERT INTO text_to_binary (data) VALUES (?)',
+                             array("foo\0bar"));
+
+        $this->_conn->changeColumn('text_to_binary', 'data', 'binary');
+
+        $afterChange = $this->_getColumn('text_to_binary', 'data');
+        $this->assertEquals('blob', $afterChange->getSqlType());
+        $this->assertEquals(
+            "foo\0bar",
+            $this->_conn->selectValue('SELECT data FROM text_to_binary'));
     }
 
     public function testChangeColumnLimit()
@@ -1250,6 +1282,91 @@ class Horde_Db_Adapter_MysqliTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("SELECT * FROM documents ORDER BY name DESC", $result);
     }
 
+    public function testInterval()
+    {
+        $this->assertEquals('INTERVAL  1 DAY',
+                            $this->_conn->interval('1 DAY', ''));
+    }
+
+    public function testModifyDate()
+    {
+        $modifiedDate = $this->_conn->modifyDate('start', '+', 1, 'DAY');
+        $this->assertEquals('start + INTERVAL \'1\' DAY', $modifiedDate);
+
+        $t = $this->_conn->createTable('dates');
+        $t->column('start', 'datetime');
+        $t->column('end', 'datetime');
+        $t->end();
+        $this->_conn->insert(
+            'INSERT INTO dates (start, end) VALUES (?, ?)',
+            array(
+                '2011-12-10 00:00:00',
+                '2011-12-11 00:00:00'
+            )
+        );
+        $this->assertEquals(
+            1,
+            $this->_conn->selectValue('SELECT COUNT(*) FROM dates WHERE '
+                                      . $modifiedDate . ' = end')
+        );
+    }
+
+    public function testBuildClause()
+    {
+        $this->assertEquals(
+            'bitmap & 2',
+            $this->_conn->buildClause('bitmap', '&', 2));
+        $this->assertEquals(
+            array('bitmap & ?', array(2)),
+            $this->_conn->buildClause('bitmap', '&', 2, true));
+
+        $this->assertEquals(
+            'bitmap | 2',
+            $this->_conn->buildClause('bitmap', '|', 2));
+        $this->assertEquals(
+            array('bitmap | ?', array(2)),
+            $this->_conn->buildClause('bitmap', '|', 2, true));
+
+        $this->assertEquals(
+            "LOWER(name) LIKE LOWER('%search%')",
+            $this->_conn->buildClause('name', 'LIKE', "search"));
+        $this->assertEquals(
+            array("LOWER(name) LIKE LOWER(?)", array('%search%')),
+            $this->_conn->buildClause('name', 'LIKE', "search", true));
+        $this->assertEquals(
+            "LOWER(name) LIKE LOWER('%search\&replace\?%')",
+            $this->_conn->buildClause('name', 'LIKE', "search&replace?"));
+        $this->assertEquals(
+            array("LOWER(name) LIKE LOWER(?)", array('%search&replace?%')),
+            $this->_conn->buildClause('name', 'LIKE', "search&replace?", true));
+        $this->assertEquals(
+            "(LOWER(name) LIKE LOWER('search\&replace\?%') OR LOWER(name) LIKE LOWER('% search\&replace\?%'))",
+            $this->_conn->buildClause('name', 'LIKE', "search&replace?", false, array('begin' => true)));
+        $this->assertEquals(
+            array("(LOWER(name) LIKE LOWER(?) OR LOWER(name) LIKE LOWER(?))",
+                  array('search&replace?%', '% search&replace?%')),
+            $this->_conn->buildClause('name', 'LIKE', "search&replace?", true, array('begin' => true)));
+
+        $this->assertEquals(
+            'value = 2',
+            $this->_conn->buildClause('value', '=', 2));
+        $this->assertEquals(
+            array('value = ?', array(2)),
+            $this->_conn->buildClause('value', '=', 2, true));
+        $this->assertEquals(
+            "value = 'foo'",
+            $this->_conn->buildClause('value', '=', 'foo'));
+        $this->assertEquals(
+            array('value = ?', array('foo')),
+            $this->_conn->buildClause('value', '=', 'foo', true));
+        $this->assertEquals(
+            "value = 'foo\?bar'",
+            $this->_conn->buildClause('value', '=', 'foo?bar'));
+        $this->assertEquals(
+            array('value = ?', array('foo?bar')),
+            $this->_conn->buildClause('value', '=', 'foo?bar', true));
+    }
+
     public function testInsertAndReadInCp1257()
     {
         list($conn,) = Horde_Db_AllTests::$connFactory->getConnection(array('charset' => 'cp1257'));
@@ -1355,12 +1472,14 @@ class Horde_Db_Adapter_MysqliTest extends PHPUnit_Framework_TestCase
             'cache_table',
             'charset_cp1257',
             'charset_utf8',
+            'dates',
             'my_sports',
             'octopi',
             'pk_tests',
             'schema_info',
             'sports',
             'testings',
+            'text_to_binary',
             'unit_tests',
             'users',
         );

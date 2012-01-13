@@ -1,5 +1,5 @@
 # Korean translations for Horde_Kolab module.
-# Copyright 2010-2011 Horde LLC
+# Copyright 2010-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Kolab module.
 # Automatically generated, 2010.
 #

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2009 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -115,6 +115,11 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
         $serverVars = $this->_request->getServerVars();
         switch ($serverVars['REQUEST_METHOD']) {
         case 'OPTIONS':
+        case 'GET':
+            if ($serverVars['REQUEST_METHOD'] == 'GET' &&
+                $this->_get['Cmd'] != 'OPTIONS') {
+                throw new Horde_Rpc_Exception('Trying to access the ActiveSync endpoint from a browser. Not Supported.');
+            }
             $this->_logger->debug('Horde_Rpc_ActiveSync::getResponse() starting for OPTIONS');
             try {
                 $this->_server->handleRequest('Options', null, null);
@@ -131,11 +136,6 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
             } catch (Horde_ActiveSync_Exception $e) {
                 $this->_handleError($e);
             }
-            break;
-
-        case 'GET':
-            // Someone trying to access the activesync url from a browser
-            throw new Horde_Rpc_Exception('Trying to access the ActiveSync endpoint from a browser. Not Supported.');
             break;
         }
     }

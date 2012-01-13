@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -25,10 +25,11 @@ $branchArgs = $onb ? array('onb' => $onb) : array();
 
 try {
     $atticFlags = (bool)$acts['sa'];
-    $dir = $VC->getDirObject($where, array('quicklog' => true, 'rev' => $onb, 'showattic' => $atticFlags));
+    $dir = $VC->getDirectory($where,
+                             array('rev' => $onb, 'showattic' => $atticFlags));
     $dir->applySort($acts['sbt'], $acts['ord']);
-    $dirList = $dir->queryDirList();
-    $fileList = $dir->queryFileList($atticFlags);
+    $dirList = $dir->getDirectories();
+    $fileList = $dir->getFiles($atticFlags);
 } catch (Horde_Vcs_Exception $e) {
     Chora::fatal($e);
 }
@@ -98,12 +99,12 @@ if ($fileList) {
     echo '<tbody>';
     foreach ($fileList as $currFile) {
         if ($conf['hide_restricted'] &&
-            Chora::isRestricted($currFile->queryName())) {
+            Chora::isRestricted($currFile->getFileName())) {
             continue;
         }
 
-        $lg = $currFile->queryLastLog();
-        $realname = $currFile->queryName();
+        $lg = $currFile->getLastLog();
+        $realname = $currFile->getFileName();
         $mimeType = Horde_Mime_Magic::filenameToMIME($realname);
         $currFile->mimeType = $mimeType;
 
@@ -112,10 +113,10 @@ if ($fileList) {
         }
 
         $icon = $injector->getInstance('Horde_Core_Factory_MimeViewer')->getIcon($mimeType);
-        $author = Chora::showAuthorName($lg->queryAuthor());
-        $filerev = $lg->queryRevision();
-        $date = $lg->queryDate();
-        $log = $lg->queryLog();
+        $author = Chora::showAuthorName($lg->getAuthor());
+        $filerev = $lg->getRevision();
+        $date = $lg->getDate();
+        $log = $lg->getMessage();
         $attic = $currFile->isDeleted();
         $fileName = $where . ($attic ? '/' . 'Attic' : '') . '/' . $realname;
         $name = $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($realname, 'space2html', array('encode' => true, 'encode_all' => true));
@@ -133,7 +134,7 @@ echo '</table>';
 if ($readmes) {
     $readmeCollection = new Chora_Readme_Collection($readmes);
     $readmeFile = $readmeCollection->chooseReadme();
-    $readmeRenderer = new Chora_Renderer_File_Html($injector->createInstance('Horde_View'), $readmeFile, $readmeFile->queryRevision());
+    $readmeRenderer = new Chora_Renderer_File_Html($injector->createInstance('Horde_View'), $readmeFile, $readmeFile->getRevision());
     echo $readmeRenderer->render();
 }
 require $registry->get('templates', 'horde') . '/common-footer.inc';

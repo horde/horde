@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2007 Maintainable Software, LLC
- * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -100,28 +100,6 @@ class Horde_Db_Adapter_Pdo_Pgsql extends Horde_Db_Adapter_Pdo_Base
         Horde_Db_Adapter_Postgresql_Column::$moneyPrecision = ($this->postgresqlVersion() >= 80300) ? 19 : 10;
 
         $this->_configureConnection();
-    }
-
-
-    /*##########################################################################
-    # Quoting
-    ##########################################################################*/
-
-    /**
-     * @return  string
-     */
-    public function quotedStringPrefix()
-    {
-        // Use escape string syntax if available. We cannot do this lazily when encountering
-        // the first string, because that could then break any transactions in progress.
-        // See: http://www.postgresql.org/docs/current/static/runtime-config-compatible.html
-        // If PostgreSQL doesn't know the standard_conforming_strings parameter then it doesn't
-        // support escape string syntax. Don't override the inherited quotedStringPrefix.
-        if ($this->supportsStandardConformingStrings()) {
-            return 'E';
-        }
-
-        return '';
     }
 
 

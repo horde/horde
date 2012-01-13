@@ -14,7 +14,7 @@
 /**
  * The base driver definition for accessing Kolab storage drivers.
  *
- * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -76,10 +76,9 @@ implements Horde_Kolab_Storage_Driver
      * @param Horde_Kolab_Storage_Factory $factory A factory for helper objects.
      * @param array $params                        Connection parameters.
      */
-    public function __construct(
-        Horde_Kolab_Storage_Factory $factory,
-        $params = array()
-    ) {
+    public function __construct(Horde_Kolab_Storage_Factory $factory,
+                                $params = array())
+    {
         $this->_factory = $factory;
         if (isset($params['backend'])) {
             $this->setBackend($params['backend']);
@@ -136,7 +135,7 @@ implements Horde_Kolab_Storage_Driver
      * @param mixed $parser The parser that should be used.
      *
      * @return NULL
-     */ 
+     */
     public function setParser(Horde_Kolab_Storage_Data_Parser $parser)
     {
         $this->_parser = $parser;

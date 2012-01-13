@@ -17,7 +17,7 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
 /**
  * Test the basic notification handler class.
  *
- * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -37,9 +37,14 @@ class Horde_Notification_Class_Notification_HandlerTest extends PHPUnit_Framewor
         $this->handler = new Horde_Notification_Handler($this->storage);
     }
 
+    public function tearDown()
+    {
+        unset($_SESSION);
+    }
+
     public function testMethodAttachHasResultNotificationlistener()
     {
-        $this->assertType(
+        $this->assertInstanceOf(
             'Horde_Notification_Listener_Audio',
             $this->handler->attach('audio')
         );
@@ -53,7 +58,7 @@ class Horde_Notification_Class_Notification_HandlerTest extends PHPUnit_Framewor
 
     public function testMethodAttachHasResultNotificationlistenerClassAsSpecifiedInParameterClass()
     {
-        $this->assertType(
+        $this->assertInstanceOf(
             'Horde_Notification_Listener_Audio',
             $this->handler->attach(
                 'MyAudio', array(), 'Horde_Notification_Listener_Audio'
@@ -168,7 +173,7 @@ class Horde_Notification_Class_Notification_HandlerTest extends PHPUnit_Framewor
         $this->handler->push('test', 'audio', array(), array('immediate' => true));
         $result = array_shift($_SESSION['test']['audio']);
         $this->assertNotNull($result);
-        $this->assertType('Horde_Notification_Event', $result);
+        $this->assertInstanceOf('Horde_Notification_Event', $result);
         $this->assertEquals(array(), $result->flags);
         $this->assertEquals('audio', $result->type);
     }
@@ -179,7 +184,7 @@ class Horde_Notification_Class_Notification_HandlerTest extends PHPUnit_Framewor
         $this->handler->push(new Exception('test'), null, array(), array('immediate' => true));
         $result = array_shift($_SESSION['test']['dummy']);
         $this->assertNotNull($result);
-        $this->assertType('Horde_Notification_Event', $result);
+        $this->assertInstanceOf('Horde_Notification_Event', $result);
         $this->assertEquals(array(), $result->flags);
         $this->assertEquals('status', $result->type);
     }
@@ -190,7 +195,7 @@ class Horde_Notification_Class_Notification_HandlerTest extends PHPUnit_Framewor
         $this->handler->push('test', null, array(), array('immediate' => true));
         $result = array_shift($_SESSION['test']['dummy']);
         $this->assertNotNull($result);
-        $this->assertType('Horde_Notification_Event', $result);
+        $this->assertInstanceOf('Horde_Notification_Event', $result);
         $this->assertEquals(array(), $result->flags);
         $this->assertEquals('status', $result->type);
     }
@@ -202,7 +207,7 @@ class Horde_Notification_Class_Notification_HandlerTest extends PHPUnit_Framewor
         $this->handler->notify();
         $result = array_shift($dummy->events);
         $this->assertNotNull($result);
-        $this->assertType('Horde_Notification_Event', $result);
+        $this->assertInstanceOf('Horde_Notification_Event', $result);
         $this->assertEquals(array(), $result->flags);
         $this->assertEquals('dummy', $result->type);
     }
@@ -214,7 +219,7 @@ class Horde_Notification_Class_Notification_HandlerTest extends PHPUnit_Framewor
         $this->handler->notify(array('listeners' => 'dummy'));
         $result = array_shift($dummy->events);
         $this->assertNotNull($result);
-        $this->assertType('Horde_Notification_Event', $result);
+        $this->assertInstanceOf('Horde_Notification_Event', $result);
         $this->assertEquals(array(), $result->flags);
         $this->assertEquals('dummy', $result->type);
     }

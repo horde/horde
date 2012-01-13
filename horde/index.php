@@ -2,7 +2,7 @@
 /**
  * Horde redirection script.
  *
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -62,12 +62,12 @@ if ($main_page) {
 
             if ($session->get('horde', 'mode') == 'smartmobile' && Horde::ajaxAvailable()) {
                 if ($registry->getApiInstance($initial_app, 'application')->mobileView) {
-                    $main_page = Horde::url($initial_app, true);
+                    $main_page = Horde::url(rtrim($initial_app, '/') . '/', true);
                 } else {
                     $main_page = Horde::getServiceLink('portal');
                 }
             } else {
-                $main_page = Horde::url($initial_app, true);
+                $main_page = Horde::url(rtrim($initial_app, '/') . '/', true);
             }
         } else {
             /* Next, try the initial horde page if it is something other than

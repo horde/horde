@@ -8,27 +8,34 @@
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Vcs
  */
-class Horde_Vcs_Rcs extends Horde_Vcs
+class Horde_Vcs_Rcs extends Horde_Vcs_Base
 {
+    /**
+     * The current driver.
+     *
+     * @var string
+     */
+    protected $_driver = 'Rcs';
+
     /**
      * TODO
      */
     public function isValidRevision($rev)
     {
-        return $rev && preg_match('/^[\d\.]+$/', $rev);
+        return $rev && preg_match('/^\d+\.(\d+\.)*\d+$/', $rev);
     }
 
     /**
      * Create a range of revisions between two revision numbers.
      *
-     * @param Horde_Vcs_File $file  The desired file.
-     * @param string $r1            The initial revision.
-     * @param string $r2            The ending revision.
+     * @param Horde_Vcs_File_Rcs $file  The desired file.
+     * @param string $r1                The initial revision.
+     * @param string $r2                The ending revision.
      *
      * @return array  The revision range, or empty if there is no straight
      *                line path between the revisions.
      */
-    public function getRevisionRange($file, $r1, $r2)
+    public function getRevisionRange(Horde_Vcs_File_Base $file, $r1, $r2)
     {
         switch ($this->cmp($r1, $r2)) {
         case 0:
@@ -58,6 +65,19 @@ class Horde_Vcs_Rcs extends Horde_Vcs
         } while (!is_null($curr) && ($this->cmp($curr, $stop) != -1));
 
         return array();
+    }
+
+    /**
+     * TODO
+     */
+    public function getFile($filename, $opts = array())
+    {
+        $filename = ltrim($filename, '/');
+        $fname = $filename . ',v';
+        if (!@is_file($this->sourceroot . '/' . $fname)) {
+            throw new Horde_Vcs_Exception(sprintf('File "%s" not found', $filename));
+        }
+        return parent::getFile($fname, $opts);
     }
 
     /**

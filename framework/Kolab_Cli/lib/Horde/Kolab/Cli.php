@@ -14,7 +14,7 @@
 /**
  * Command line tools for Kolab storage.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
@@ -55,6 +55,27 @@ class Horde_Kolab_Cli
             $parser->printHelp();
         } else {
             try {
+                if (!empty($options['config'])) {
+                    if (!file_exists($options['config'])) {
+                        throw new Horde_Kolab_Cli_Exception(
+                            sprintf(
+                                'The specified config file %s does not exist!',
+                                $options['config']
+                            )
+                        );
+                    }
+                    global $conf;
+                    include $options['config'];
+                    foreach ($conf as $key => $value) {
+                        $options->ensureValue($key, $value);
+                    }
+                }
+                if (empty($options['host'])) {
+                    $options['host'] = 'localhost';
+                }
+                if (empty($options['driver'])) {
+                    $options['driver'] = 'horde';
+                }
                 $world = array();
                 foreach ($modular->getModules() as $module) {
                     $modular->getProvider()

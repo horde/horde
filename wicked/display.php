@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -68,10 +68,10 @@ case 'export':
     if (!$page->allows(Wicked::MODE_DISPLAY)) {
         $notification->push(_("You don't have permission to view this page."),
                             'horde.error');
-        if ($page->pageName() == 'WikiHome') {
+        if ($page->pageName() == 'Wiki/Home') {
             throw new Horde_Exception(_("You don't have permission to view this page."));
         }
-        Wicked::url('WikiHome', true)->redirect();
+        Wicked::url('Wiki/Home', true)->redirect();
     }
 
     switch (Horde_Util::getGet('format')) {
@@ -118,7 +118,7 @@ default:
 }
 
 if (!$page->allows(Wicked::MODE_DISPLAY)) {
-    if ($page->pageName() == 'WikiHome') {
+    if ($page->pageName() == 'Wiki/Home') {
         Horde::fatal(_("You don't have permission to view this page."));
     }
     $notification->push(_("You don't have permission to view this page."),

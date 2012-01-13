@@ -3,7 +3,7 @@
  * Horde_Service_Twitter_Auth_* classes to abstract all auth related tasks for
  * various auth mechanisms.
  *
- * Copyright 2009-2011 Horde LLC (http://www.horde.org)
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @license  http://www.horde.org/licenses/bsd BSD

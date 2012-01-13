@@ -1,0 +1,36 @@
+DELTA
+SVNENDREP
+id: 0-3.0.r3/17
+type: file
+count: 0
+text: 3 0 4 0 d41d8cd98f00b204e9800998ecf8427e da39a3ee5e6b4b0d3255bfef95601890afd80709 2-2/_2
+cpath: /umläüte
+copyroot: 0 /
+
+PLAIN
+K 4
+dir1
+V 16
+dir 0-1.0.r1/273
+K 5
+file1
+V 16
+file 4-1.0.r2/35
+K 9
+umläüte
+V 16
+file 0-3.0.r3/17
+END
+ENDREP
+id: 0.0.r3/297
+type: dir
+pred: 0.0.r2/295
+count: 3
+text: 3 181 103 103 30398ec873f3109b3d2a52b0470741b6
+cpath: /
+copyroot: 0 /
+
+_0.0.t2-2 add-file true false /umläüte
+
+
+297 425

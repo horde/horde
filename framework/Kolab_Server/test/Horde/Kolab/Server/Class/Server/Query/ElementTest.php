@@ -19,7 +19,7 @@ require_once dirname(__FILE__) . '/../../../Autoload.php';
 /**
  * Test the LDAP query elements.
  *
- * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -115,7 +115,7 @@ class Horde_Kolab_Server_Class_Server_Query_ElementTest extends PHPUnit_Framewor
     {
         $less = new Horde_Kolab_Server_Query_Element_Less('', '');
         $not = new Horde_Kolab_Server_Query_Element_Not($less);
-        $this->assertType('array', $not->getElements());
+        $this->assertInternalType('array', $not->getElements());
     }
 
     public function testClassNotMethodConvertHasResultMixedTheConvertedElement()

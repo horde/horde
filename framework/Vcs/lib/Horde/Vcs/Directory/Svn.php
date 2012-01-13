@@ -1,37 +1,48 @@
 <?php
 /**
- * Horde_Vcs_Directory_Svn class.
+ * Subversion directory class that stores information about the files in a
+ * single directory in the repository.
  *
  * @author  Anil Madhavapeddy <anil@recoil.org>
  * @author  Michael Slusarz <slusarz@horde.org>
+ * @author  Jan Schneider <jan@horde.org>
  * @package Vcs
  */
-class Horde_Vcs_Directory_Svn extends Horde_Vcs_Directory
+class Horde_Vcs_Directory_Svn extends Horde_Vcs_Directory_Base
 {
     /**
-     * Create a Directory object to store information about the files in a
-     * single directory in the repository.
+     * Constructor.
      *
-     * @param Horde_Vcs $rep  The Repository object this directory is part of.
-     * @param string $dn      Path to the directory.
-     * @param array $opts     TODO
+     * @param Horde_Vcs_Base $rep  A repository object.
+     * @param string $dn           Path to the directory.
+     * @param array $opts          Any additional options:
+     *
+     * @throws Horde_Vcs_Exception
      */
-    public function __construct($rep, $dn, $opts = array())
+    public function __construct(Horde_Vcs_Base $rep, $dn, $opts = array())
     {
         parent::__construct($rep, $dn, $opts);
 
-        $cmd = $rep->getCommand() . ' ls ' . escapeshellarg($rep->sourceroot() . $this->queryDir()) . ' 2>&1';
+        $cmd = $rep->getCommand() . ' ls '
+            . escapeshellarg($rep->sourceroot . $this->_dirName);
 
-        $dir = popen($cmd, 'r');
+        $dir = proc_open(
+            $cmd,
+            array(1 => array('pipe', 'w'), 2 => array('pipe', 'w')),
+            $pipes);
         if (!$dir) {
             throw new Horde_Vcs_Exception('Failed to execute svn ls: ' . $cmd);
         }
+        if ($error = stream_get_contents($pipes[2])) {
+            proc_close($dir);
+            throw new Horde_Vcs_Exception($error);
+        }
 
-        /* Create two arrays - one of all the files, and the other of
-         * all the dirs. */
+        /* Create two arrays - one of all the files, and the other of all the
+         * dirs. */
         $errors = array();
-        while (!feof($dir)) {
-            $line = chop(fgets($dir, 1024));
+        while (!feof($pipes[1])) {
+            $line = chop(fgets($pipes[1], 1024));
             if (!strlen($line)) {
                 continue;
             }
@@ -41,16 +52,10 @@ class Horde_Vcs_Directory_Svn extends Horde_Vcs_Directory
             } elseif (substr($line, -1) == '/') {
                 $this->_dirs[] = substr($line, 0, -1);
             } else {
-                $this->_files[] = $rep->getFileObject($this->queryDir() . '/' . $line, array('quicklog' => !empty($opts['quicklog'])));
+                $this->_files[] = $rep->getFile($this->_dirName . '/' . $line);
             }
         }
 
-        pclose($dir);
-
-        if (empty($errors)) {
-            return true;
-        }
-
-        throw new Horde_Vcs_Exception(implode("\n", $errors));
+        proc_close($dir);
     }
 }

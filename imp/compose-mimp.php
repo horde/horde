@@ -3,22 +3,22 @@
  * Mobile (MIMP) compose display page.
  *
  * URL Parameters:
- *   'a' = (string) The action ID.
- *   'action' = (string) TODO
- *   'bcc' => (string) TODO
- *   'bcc_expand_[1-5]' => (string) TODO
- *   'cc' => (string) TODO
- *   'cc_expand_[1-5]' => (string) TODO
- *   'composeCache' = (string) TODO
- *   'from' => (string) TODO
- *   'identity' = (integer) The identity to use for composing.
- *   'message' = (string) TODO
- *   'subject' => (string) TODO
- *   'to' => (string) TODO
- *   'to_expand_[1-5]' => (string) TODO
- *   'u' => (string) Unique ID (cache buster).
+ *   - a: (string) The action ID.
+ *   - action: (string) The action ID (used on redirect page).
+ *   - bcc: (string) BCC address(es).
+ *   - bcc_expand_[1-5]: (string) Expand matches for BCC addresses.
+ *   - cc: (string) CC address(es).
+ *   - cc_expand_[1-5]: (string) Expand matches for BCC addresses.
+ *   - composeCache: (string) Compose object cache ID.
+ *   - from: (string) From address to use.
+ *   - identity: (integer) The identity to use for composing.
+ *   - message: (string) Message text.
+ *   - subject: (string) Message subject.
+ *   - to: (string) To address(es).
+ *   - to_expand_[1-5]: (string) Expand matches for To addresses.
+ *   - u: (string) Unique ID (cache buster).
  *
- * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -184,22 +184,16 @@ case 'f':
 
 // 'rc' = redirect compose
 case 'rc':
-    try {
-        $imp_contents = $imp_ui->getContents();
-    } catch (IMP_Exception $e) {
-        $notification->push($e, 'horde.error');
-        break;
-    }
-    $imp_compose->redirectMessage($imp_contents);
+    $imp_compose->redirectMessage($imp_ui->getIndices());
     $title = _("Redirect");
     break;
 
 case _("Redirect"):
     try {
-        $imp_compose->sendRedirectMessage($imp_ui->getAddressList($header['to']));
+        $num_msgs = $imp_compose->sendRedirectMessage($imp_ui->getAddressList($header['to']));
         $imp_compose->destroy('send');
 
-        $notification->push(_("Message redirected successfully."), 'horde.success');
+        $notification->push(ngettext("Message redirected successfully.", "Messages redirected successfully.", count($num_msgs)), 'horde.success');
         require IMP_BASE . '/mailbox-mimp.php';
         exit;
     } catch (Horde_Exception $e) {
@@ -252,7 +246,7 @@ case _("Send"):
     $header['replyto'] = $identity->getValue('replyto_addr');
     $header['subject'] = strval($vars->subject);
 
-    foreach ($display_hdrs as $val) {
+    foreach (array_keys($display_hdrs) as $val) {
         $header[$val] = $imp_ui->getAddressList($old_header[$val]);
     }
 
@@ -270,12 +264,7 @@ case _("Send"):
         }
         break;
 
-    case _("Save"):
-        $sig = $identity->getSignature();
-        if (!empty($sig)) {
-            $message .= "\n" . $sig;
-        }
-
+    case _("Send"):
         $options = array(
             'identity' => $identity,
             'readreceipt' => ($prefs->getValue('request_mdn') == 'always'),
@@ -284,7 +273,7 @@ case _("Send"):
         );
 
         try {
-            if ($imp_compose->buildAndSendMessage($message, $header, $options)) {
+            if ($imp_compose->buildAndSendMessage($message . $identity->getSignature(), $header, $options)) {
                 $imp_compose->destroy('send');
 
                 $notification->push(_("Message sent successfully."), 'horde.success');

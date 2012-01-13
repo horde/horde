@@ -1,25 +1,25 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
-  <entry id="hermes-job-types">
+  <entry id="hermes-job-types" state="uptodate" md5="00cf1ad269ebd34007ee18aef29a9c56">
     <title>Hermes Job Types</title>
     <para>A job type in Hermes characterizes what kind of work has been done
     in a time slice. The administrator has set a number of job types to choose
     from.</para>
   </entry>
-  <entry id="hermes-cost-objects">
+  <entry id="hermes-cost-objects" state="uptodate" md5="a47f9ed45e7657ab7577a75f8c553e65">
     <title>Hermes Cost Objects</title>
     <para>Hermes draws possible cost objects from a variety of sources, for
     example deliverable defined by the administator in Hermes, tasks from a
     todo list manager, or tickets from a ticket-tracking system.</para>
   </entry>
-  <entry id="hermes-time-format">
+  <entry id="hermes-time-format" state="uptodate" md5="a5ebafdb0a0c3adadb00184a460d9517">
     <title>Hermes Time Format</title>
     <para>Hermes does not format its times as hours and minutes, rather the
     time slices are formatted as decimal portions of an hour.</para>
   </entry>
-  <entry id="hermes-submit-slices">
+  <entry id="hermes-submit-slices" state="uptodate" md5="93d4ebd6671b084e492fddbbbedc5f0c">
     <title>Submitting Time Slices</title>
-    <para>Submitting time slices &quot;marks&quot; them as finshed. This is
+    <para>Submitting time slices "marks" them as finshed. This is
     also a sign for the administrator or bookkeeping department that they are
     ready to be further processed. As long as you didn't submit your slices,
     they are still considered due to be changed, but after submitting them you
@@ -28,12 +28,12 @@
     <para>While this cannot be easily achieved from the default time slice
     view, which shows all time slices for all clients, and the tabs simply
     group the time slices differently, this can be accomplished by using the
-    search facility. Set the &quot;Submitted?&quot; field to &quot;No&quot;
+    search facility. Set the "Submitted?" field to "No"
     and select any other criteria from the various from fields, then click
-    &quot;Search&quot;.</para>
+    "Search".</para>
     <para>On submission of the search form in that way, you are presented with
     a view just like the initial time slice view, but containing just the
     slices with the picked criteria, with all checkboxes already checked, so
-    you can just click &quot;Submit Selected Time&quot; to do so.</para>
+    you can just click "Submit Selected Time" to do so.</para>
   </entry>
 </help>
