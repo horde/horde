@@ -1549,7 +1549,8 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             $tree = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Tree')->create($name, $opts['render_type'], array_merge(array(
                 'alternate' => true,
                 'lines' => true,
-                'lines_base' => true
+                'lines_base' => true,
+                'nosession' => true
             ), $opts['render_params']));
             $parent = null;
         }
@@ -1584,6 +1585,19 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                 $params['urlattributes'] = array('mailbox' => $val->form_to);
                 break;
 
+            case 'IMP_Tree_Simplehtml':
+                $is_open = $val->is_open;
+                if ($tree->shouldToggle($val->form_to)) {
+                    if ($is_open) {
+                        $this->collapse($val);
+                    } else {
+                        $this->expand($val);
+                    }
+                    $is_open = !$is_open;
+                }
+                $label = htmlspecialchars(Horde_String::abbreviate($val->display, 30 - ($val->level * 2)));
+                break;
+
             case 'Javascript':
                 $is_open = $val->is_open;
                 $label = empty($opts['basename'])
@@ -1592,11 +1606,6 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                 $icon = $val->icon;
                 $params['icon'] = $icon->icon;
                 $params['iconopen'] = $icon->iconopen;
-                break;
-
-            case 'Simplehtml':
-                $is_open = $val->is_open;
-                $label = htmlspecialchars(Horde_String::abbreviate($val->display, 30 - ($val->level * 2)));
                 break;
             }
 
