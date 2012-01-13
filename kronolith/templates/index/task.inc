@@ -45,7 +45,6 @@
   <ul>
     <li class="activeTab"><a href="#" class="kronolithTabLink" id="kronolithTaskLinkDescription"><?php echo _("Description") ?></a></li>
     <li><a href="#" class="kronolithTabLink" id="kronolithTaskLinkReminder"><?php echo _("Reminder") ?></a></li>
-    <li><a href="#" class="kronolithTabLink" id="kronolithTaskLinkUrl"><?php echo _("URL") ?></a></li>
   </ul>
 </div>
 <br class="clear" />
@@ -74,10 +73,6 @@
   <label for="kronolithTaskAlarmDefaultOn">', '</label>',
   '<input type="radio" name="alarm_change_method" id="kronolithTaskAlarmDefaultOff" value="1" style="display:none" />') ?>
   <?php echo $taskAlarmMethods . $taskAlarmParams ?>
-</div>
-
-<div id="kronolithTaskTabUrl" class="kronolithTabsOption" style="display:none">
-  <input type="text" name="task[url]" id="taskUrl" class="kronolithLongField" value="http://" />
 </div>
 
 <div class="kronolithFormActions">
