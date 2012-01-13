@@ -365,8 +365,8 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      */
     public function getProperty($property_id)
     {
-        $result = $this->getProperties($property_id);
-        return $result[$property_id];
+        $result = $this->getProperties(array($property_id));
+        return array_shift($result);
     }
 
     /**
@@ -516,11 +516,10 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      */
     public function deleteProperty($property_id)
     {
-        $this->_connect();
         $sql = 'DELETE FROM sesha_properties WHERE property_id = ?';
         $values = array($property_id);
         try {
-            return $this->_db->query($sql, $values);
+            return $this->_db->delete($sql, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Sesha_Exception($e);
         }
