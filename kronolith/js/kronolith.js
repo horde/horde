@@ -43,6 +43,7 @@ KronolithCore = {
     macos: navigator.appVersion.indexOf('Mac') != -1,
     orstart: null,
     orend: null,
+    lastRecurType: 'None',
 
     /**
      * The location that was open before the current location.
@@ -364,7 +365,7 @@ KronolithCore = {
                     date.getYear() == this.date.getYear() &&
                     ((loc == 'year') ||
                      (loc == 'month' && date.getMonth() == this.date.getMonth()) ||
-                     (loc == 'week' && date.getRealWeek() == this.date.getRealWeek()) ||
+                     ((loc == 'week' || loc == 'workweek') && date.getRealWeek() == this.date.getRealWeek()) ||
                      ((loc == 'day'  || loc == 'agenda') && date.dateString() == this.date.dateString()))) {
                          this.setViewTitle(date, loc);
                          this.addHistory(fullloc);
@@ -805,6 +806,7 @@ KronolithCore = {
             return this.setTitle(date.toString('D'));
 
         case 'week':
+        case 'workweek':
             var dates = this.viewDates(date, view);
             return this.setTitle(dates[0].toString('d') + ' - ' + dates[1].toString('d'));
 
@@ -1844,7 +1846,7 @@ KronolithCore = {
         case 'week':
         case 'workweek':
             var storage = view + 'Sizes',
-                what = 'view' == 'week' ? 'Week' : 'Workweek',
+                what = view == 'week' ? 'Week' : 'Workweek',
                 div = _createElement(event),
                 margin = view == 'day' ? 1 : 3,
                 style = { backgroundColor: Kronolith.conf.calendars[calendar[0]][calendar[1]].bg,
@@ -3721,10 +3723,10 @@ KronolithCore = {
         switch (view) {
         case 'week':
         case 'workweek':
-            start.moveToBeginOfWeek(Kronolith.conf.week_start);
+            start.moveToBeginOfWeek(view == 'week' ? Kronolith.conf.week_start : 1);
             end.moveToEndOfWeek(Kronolith.conf.week_start);
             if (view == 'workweek') {
-                end.add(-2).days();
+                end.add(Kronolith.conf.week_start == 0 ? -1 : -2).days();
             }
             break;
         case 'month':
@@ -4612,7 +4614,14 @@ KronolithCore = {
             case 'kronolithEditRecurFuture':
                 $('kronolithEventStartDate').setValue(this.orstart);
                 $('kronolithEventEndDate').setValue(this.orend);
+                if (id == 'kronolithEditRecurCurrent') {
+                    this.toggleRecurrence('Exception');
+                } else {
+                    this.toggleRecurrence(this.lastRecurType);
+                }
                 return;
+            case 'kronolithEditRecurAll':
+                this.toggleRecurrence(this.lastRecurType);
             }
 
             // Caution, this only works if the element has definitely only a
@@ -4745,13 +4754,14 @@ KronolithCore = {
                 e.stop();
                 return;
             } else if (elt.hasClassName('kronolithEventsWeek') ||
+                       elt.hasClassName('kronolithEventsWorkweek') ||
                        elt.hasClassName('kronolithAllDayContainer')) {
                 var date = elt.retrieve('date');
                 if (elt.hasClassName('kronolithAllDayContainer')) {
                     date += 'all';
                 } else {
                     date = this.parseDate(date);
-                    date.add(Math.round((e.pointerY() - elt.cumulativeOffset().top + elt.up('.kronolithViewBody').scrollTop) / this.weekSizes.height * 2) * 30).minutes();
+                    date.add(Math.round((e.pointerY() - elt.cumulativeOffset().top + elt.up('.kronolithViewBody').scrollTop) / (elt.hasClassName('kronolithEventsWeek') ? this.weekSizes.height : this.workweekSizes.height) * 2) * 30).minutes();
                     date = date.toString('yyyyMMddHHmm');
                 }
                 this.go('event:' + date);
@@ -5822,6 +5832,7 @@ KronolithCore = {
         } else if (recur != 'None') {
             var div = $('kronolithEventRepeat' + recur),
                 length = $('kronolithEventRepeatLength');
+            this.lastRecurType = recur;
             if (!div.visible()) {
                 $('kronolithEventTabRecur').select('div').invoke('hide');
                 div.show();
@@ -5855,11 +5866,7 @@ KronolithCore = {
                 $('kronolithEventRecurCount').disable();
             }
         } else {
-            $('kronolithEventTabRecur').select('div').each(function(e) {
-                if (e.identify != 'kronolithEventRepeatType') {
-                    e.hide();
-                }
-            });
+            $('kronolithEventTabRecur').select('div').invoke('hide');
             $('kronolithEventRepeatType').show();
         }
     },
