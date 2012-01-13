@@ -20,8 +20,8 @@ class Sesha_Forms_PropertyList extends Horde_Form
         $this->setButtons(array(_("Edit Property"), _("Delete Property")));
         $properties = $sesha_driver->getProperties();
         $params = array();
-        foreach ($properties as $property_id => $property) {
-            $params[$property_id] = $property['property'];
+        foreach ($properties as $property) {
+            $params[$property['property_id']] = $property['property'];
         }
         $title = !empty($title) ? $title : _("Edit a property");
         $this->setTitle($title);
