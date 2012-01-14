@@ -265,10 +265,10 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
     {
         $sql = 'UPDATE sesha_inventory SET stock_name = ?, note = ? WHERE stock_id = ?';
 
-        $values = array($stock['stock_name'],$stock['note'], $stockid);
+        $values = array($stock['stock_name'],$stock['note'], $stock_id);
         // Perform the queries
         try { 
-            $result = $this->_db->update($sql);
+            $result = $this->_db->update($sql, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Sesha_Exception($e);
         }
