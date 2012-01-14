@@ -349,8 +349,12 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
         }
 
         array_walk($properties, array($this, '_unserializeParameters'));
+        $keyed = array();
+        foreach ($properties as $property) {
+            $keyed[$property['property_id']] = $property;
+        }
 
-        return $properties;
+        return $keyed;
     }
 
     /**
