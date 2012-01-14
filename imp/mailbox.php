@@ -644,11 +644,6 @@ if ($sortpref['by'] == Horde_Imap_Client::SORT_THREAD) {
 $mh_count = 0;
 $sortImg = ($sortpref['dir']) ? 'sortup' : 'sortdown';
 $headers = array(
-    IMP::IMAP_SORT_DATE => array(
-        'id' => 'mboxdate',
-        'stext' => _("Sort by Date"),
-        'text' => _("Dat_e")
-    ),
     Horde_Imap_Client::SORT_TO => array(
         'id' => 'mboxto',
         'stext' => _("Sort by To Address"),
@@ -668,6 +663,11 @@ $headers = array(
         'id' => 'mboxsubject',
         'stext' => _("Sort by Subject"),
         'text' => _("Sub_ject")
+    ),
+    IMP::IMAP_SORT_DATE => array(
+        'id' => 'mboxdate',
+        'stext' => _("Sort by Date"),
+        'text' => _("Dat_e")
     ),
     Horde_Imap_Client::SORT_SIZE => array(
         'id' => 'mboxsize',
