@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [rla] Converted to Horde 4 Framework
 * Initial release.
  </notes>
  <contents>
@@ -261,6 +262,7 @@
    <date>2012-01-14</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [rla] Converted to Horde 4 Framework
 * Initial release.
    </notes>
   </release>
