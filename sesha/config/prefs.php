@@ -63,6 +63,6 @@ $_prefs['list_properties'] = array(
     'desc' => _("Select properties that you would like to see in the list view (all other properties are only shown on individual item screens):")
 );
 $sesha_driver = $GLOBALS['injector']->getInstance('Sesha_Factory_Driver')->create();
-foreach ($sesha_driver->getProperties() as $property_id => $property) {
-    $_prefs['list_properties']['enum'][$property_id] = $property['property'];
+foreach ($sesha_driver->getProperties() as $property) {
+    $_prefs['list_properties']['enum'][$property['property_id']] = $property['property'];
 }
