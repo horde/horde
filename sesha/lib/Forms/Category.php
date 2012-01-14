@@ -32,8 +32,8 @@ class Sesha_Forms_Category extends Horde_Form
             throw new Sesha_Exception($e);
         }
         $a = array();
-        foreach ($allproperties as $property_id => $p) {
-            $a[$property_id] = $p['property'];
+        foreach ($allproperties as $p) {
+            $a[$p['property_id']] = $p['property'];
         }
         if (!empty($category_id)) {
             try {
