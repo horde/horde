@@ -288,7 +288,7 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
     public function getCategory($category_id)
     {
         $categories = $this->getCategories(null, $category_id);
-        return $categories[$category_id];
+        return array_shift($categories);
     }
 
     /**
