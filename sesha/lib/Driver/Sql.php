@@ -195,12 +195,10 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
 
         // Perform the search
         try {
-            return $this->_db->execute($sql, $values);
+            return $this->_db->selectOne($sql, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Sesha_Exception($e);
         }
-        // Give the user what we found
-        return $result->fetchRow(DB_FETCHMODE_ASSOC);
     }
 
     /**
