@@ -32,8 +32,8 @@ class IMP_Views_ListMessages
      *   - change: (boolean)
      *   - initial: (boolean) Is this the initial load of the view?
      *   - mbox: (string) The mailbox of the view.
-     *   - qsearch: TODO
-     *   - qsearchfield: (string) The quicksearch criteria.
+     *   - qsearch: (string) The quicksearch search string.
+     *   - qsearchfield: (string) The quicksearch search criteria.
      *   - qsearchmbox: (string) The mailbox to do the quicksearch in
      *                  (base64url encoded).
      *   - qsearchfilter: TODO

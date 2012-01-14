@@ -2002,23 +2002,19 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     protected function _viewPortData($change, $base = null)
     {
         $args = array(
-            'applyfilter' => $this->_vars->applyfilter,
-            'cache' => $this->_vars->cache,
-            'cacheid' => $this->_vars->cacheid,
             'change' => $change,
-            'initial' => $this->_vars->initial,
-            'mbox' => strval($this->_mbox),
-            'qsearch' => $this->_vars->qsearch,
-            'qsearchfield' => $this->_vars->qsearchfield,
-            'qsearchfilter' => $this->_vars->qsearchfilter,
-            'qsearchflag' => $this->_vars->qsearchflag,
-            'qsearchflagnot' => $this->_vars->qsearchflagnot,
-            'qsearchmbox' => $this->_vars->qsearchmbox,
-            'rangeslice' => $this->_vars->rangeslice,
-            'requestid' => $this->_vars->requestid,
-            'sortby' => $this->_vars->sortby,
-            'sortdir' => $this->_vars->sortdir
+            'mbox' => strval($this->_mbox)
         );
+
+        $params = array(
+            'applyfilter', 'cache', 'cacheid', 'initial', 'qsearch',
+            'qsearchfield', 'qsearchfilter', 'qsearchflag', 'qsearchflagnot',
+            'qsearchmbox', 'rangeslice', 'requestid', 'sortby', 'sortdir'
+        );
+
+        foreach ($params as $val) {
+            $args[$val] = $this->_vars->$val;
+        }
 
         if ($this->_vars->search || $args['initial']) {
             $args += array(

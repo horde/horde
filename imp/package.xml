@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-12-15</date>
- <time>22:52:28</time>
+ <date>2012-01-13</date>
+ <time>16:18:35</time>
  <version>
   <release>5.1.0</release>
   <api>5.0.0</api>
@@ -309,6 +309,7 @@
     <dir name="Tree">
      <file name="Flist.php" role="horde" />
      <file name="Jquerymobile.php" role="horde" />
+     <file name="Simplehtml.php" role="horde" />
     </dir> <!-- /lib/Tree -->
     <dir name="Ui">
      <file name="Compose.php" role="horde" />
@@ -1588,6 +1589,7 @@
    <install as="imp/lib/Sentmail/Sql.php" name="lib/Sentmail/Sql.php" />
    <install as="imp/lib/Tree/Flist.php" name="lib/Tree/Flist.php" />
    <install as="imp/lib/Tree/Jquerymobile.php" name="lib/Tree/Jquerymobile.php" />
+   <install as="imp/lib/Tree/Simplehtml.php" name="lib/Tree/Simplehtml.php" />
    <install as="imp/lib/Ui/Compose.php" name="lib/Ui/Compose.php" />
    <install as="imp/lib/Ui/Editor.php" name="lib/Ui/Editor.php" />
    <install as="imp/lib/Ui/Folder.php" name="lib/Ui/Folder.php" />
@@ -2594,9 +2596,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-12-21</date>
+   <date>2012-01-13</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix expand/collapse of folder tree in mobile view.
 * [mms] Fix regression preventing sending of MDNs.
 * [mms] Fix reporting as innocent in mobile view.
 * [mms] Fix updating log information when replying/forwarding in dynamic view.

@@ -48,7 +48,7 @@ if ($subscribe && Horde_Util::getFormData('ts')) {
 $imptree->setIteratorFilter($mask);
 $tree = $imptree->createTree('mimp_folders', array(
     'poll_info' => true,
-    'render_type' => 'Simplehtml'
+    'render_type' => 'IMP_Tree_Simplehtml'
 ));
 
 $selfurl = Horde::url('folders-mimp.php');

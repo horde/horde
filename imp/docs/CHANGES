@@ -32,6 +32,7 @@ v5.1-git
 v5.0.18-git
 -----------
 
+[mms] Fix expand/collapse of folder tree in mobile view.
 [mms] Fix regression preventing sending of MDNs.
 [mms] Fix reporting as innocent in mobile view.
 [mms] Fix updating log information when replying/forwarding in dynamic view.
