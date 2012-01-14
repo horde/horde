@@ -562,7 +562,10 @@ var DimpBase = {
                             qsearchflagnot: Number(this.search.not)
                         });
                     } else {
-                        params.set('qsearch', $F('qsearch_input'));
+                        params.update({
+                            qsearch: $F('qsearch_input'),
+                            qsearchfield: DIMP.conf.qsearchfield
+                        });
                     }
                 }
 
@@ -1117,11 +1120,12 @@ var DimpBase = {
         case 'ctx_qsearchby_recip':
         case 'ctx_qsearchby_subject':
             DIMP.conf.qsearchfield = id.substring(14);
-            this._updatePrefs('dimp_qsearch_field', DIMP.conf.qsearchfield);
             this._setQsearchText();
             if (this.isQSearch()) {
                 this.viewswitch = true;
                 this.quicksearchRun();
+            } else {
+                this._updatePrefs('dimp_qsearch_field', DIMP.conf.qsearchfield);
             }
             break;
 

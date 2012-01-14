@@ -69,13 +69,6 @@ if ($vars->actionID) {
 }
 
 switch ($vars->actionID) {
-case 'collapse_folder':
-case 'expand_folder':
-    if ($vars->folder) {
-        ($vars->actionID == 'expand_folder') ? $imaptree->expand($vars->folder) : $imaptree->collapse($vars->folder);
-    }
-    break;
-
 case 'expand_all_folders':
     $imaptree->expandAll();
     break;
