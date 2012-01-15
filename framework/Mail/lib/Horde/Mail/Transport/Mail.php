@@ -53,9 +53,7 @@ class Horde_Mail_Transport_Mail extends Horde_Mail_Transport
      * Constructor.
      *
      * @param array $params  Additional parameters:
-     * <pre>
-     * 'args' - (string) Extra arguments for the mail() function.
-     * </pre>
+     *   - args: (string) Extra arguments for the mail() function.
      */
     public function __construct(array $params = array())
     {

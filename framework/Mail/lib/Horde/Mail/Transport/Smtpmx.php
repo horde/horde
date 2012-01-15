@@ -116,28 +116,26 @@ class Horde_Mail_Transport_Smtpmx extends Horde_Mail_Transport
      * Constructor.
      *
      * @param array $params  Additional options:
-     * <pre>
-     * 'debug' - (boolean) Activate SMTP debug mode?
+     *   - debug: (boolean) Activate SMTP debug mode?
+     *            DEFAULT: false
+     *   - mailname: (string) The name of the local mail system (a valid
+     *               hostname which matches the reverse lookup)
+     *               DEFAULT: Auto-determined
+     *   - netdns: (boolean) Use PEAR:Net_DNS2 (true) or the PHP builtin
+     *             getmxrr().
+     *             DEFAULT: true
+     *   - port: (integer) Port.
+     *           DEFAULT: Auto-determined
+     *   - test: (boolean) Activate test mode?
      *           DEFAULT: false
-     * 'mailname' - (string) The name of the local mail system (a valid
-     *              hostname which matches the reverse lookup)
-     *              DEFAULT: Auto-determined
-     * 'netdns' - (boolean) Use PEAR:Net_DNS2 (true) or the PHP builtin
-     *            getmxrr().
-     *            DEFAULT: true
-     * 'port' - (integer) Port.
-     *          DEFAULT: Auto-determined
-     * 'test' - (boolean) Activate test mode?
-     *          DEFAULT: false
-     * 'timeout' - (integer) The SMTP connection timeout (in seconds).
-     *             DEFAULT: 10
-     * 'verp' - (boolean) Whether to use VERP.
-     *          If not a boolean, the string value will be used as the VERP
-     *          separators.
-     *          DEFAULT: false
-     * 'vrfy' - (boolean) Whether to use VRFY.
-     *          DEFAULT: false
-     * </pre>
+     *   - timeout: (integer) The SMTP connection timeout (in seconds).
+     *              DEFAULT: 10
+     *   - verp: (boolean) Whether to use VERP.
+     *           If not a boolean, the string value will be used as the VERP
+     *           separators.
+     *           DEFAULT: false
+     *   - vrfy: (boolean) Whether to use VRFY.
+     *           DEFAULT: false
      */
     public function __construct(array $params = array())
     {

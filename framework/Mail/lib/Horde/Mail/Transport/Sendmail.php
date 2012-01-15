@@ -69,14 +69,12 @@ class Horde_Mail_Transport_Sendmail extends Horde_Mail_Transport
      * Constructor.
      *
      * @param array $params  Additional parameters:
-     * <pre>
-     * 'sendmail_args' - (string) Any extra parameters to pass to the sendmail
-     *                   or sendmail wrapper binary.
-     *                   DEFAULT: -i
-     * 'sendmail_path' - (string) The location of the sendmail binary on the
-     *                   filesystem.
-     *                   DEFAULT: /usr/sbin/sendmail
-     * </pre>
+     *   - sendmail_args: (string) Any extra parameters to pass to the sendmail
+     *                    or sendmail wrapper binary.
+     *                    DEFAULT: -i
+     *   - sendmail_path: (string) The location of the sendmail binary on the
+     *                    filesystem.
+     *                    DEFAULT: /usr/sbin/sendmail
      */
     public function __construct(array $params = array())
     {

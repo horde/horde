@@ -72,11 +72,9 @@ class Horde_Mail_Transport_Mock extends Horde_Mail_Transport
      * Constructor.
      *
      * @param array  Optional parameters:
-     * <pre>
-     * 'preSendCallback' - (callback) Called before an email would be sent.
-     * 'postSendCallback' - (callback) Called after an email would have been
-     *                      sent.
-     * </pre>
+     *   - postSendCallback: (callback) Called after an email would have been
+     *                       sent.
+     *   - preSendCallback: (callback) Called before an email would be sent.
      */
     public function __construct(array $params = array())
     {

@@ -103,37 +103,34 @@ class Horde_Mail_Transport_Smtp extends Horde_Mail_Transport
      * Constructor.
      *
      * @param array $params  Additional parameters:
-     * <pre>
-     * 'auth' - (mixed) SMTP authentication.
-     *          This value may be set to true, false or the name of a specific
-     *          authentication method.
-     *          If the value is set to true, the Net_SMTP package will attempt
-     *          to use the best authentication method advertised by the remote
-     *          SMTP server.
-     *          DEFAULT: false.
-     * 'debug' - (boolean) Activate SMTP debug mode?
-     *           DEFAULT: false
-     * 'host' - (string) The server to connect to.
-     *          DEFAULT: localhost
-     * 'localhost' - (string) Hostname or domain that will be sent to the
-     *               remote SMTP server in the HELO / EHLO message.
-     *               DEFAULT: localhost
-     * 'password' - (string) The password to use for SMTP auth.
+     *   - auth: (mixed) SMTP authentication.
+     *           This value may be set to true, false or the name of a
+     *           specific authentication method. If the value is set to true,
+     *           the Net_SMTP package will attempt to use the best
+     *           authentication method advertised by the remote SMTP server.
+     *           DEFAULT: false.
+     *   - debug: (boolean) Activate SMTP debug mode?
+     *            DEFAULT: false
+     *   - host: (string) The server to connect to.
+     *           DEFAULT: localhost
+     *   - localhost: (string) Hostname or domain that will be sent to the
+     *                remote SMTP server in the HELO / EHLO message.
+     *                DEFAULT: localhost
+     *   - password: (string) The password to use for SMTP auth.
+     *               DEFAULT: NONE
+     *   - persist: (boolean) Should the SMTP connection persist?
+     *              DEFAULT: false
+     *   - pipelining: (boolean) Use SMTP command pipelining.
+     *                 Use SMTP command pipelining (specified in RFC 2920) if
+     *                 the SMTP server supports it. This speeds up delivery
+     *                 over high-latency connections.
+     *                 DEFAULT: false (use default value from Net_SMTP)
+     *   - port: (integer) The port to connect to.
+     *           DEFAULT: 25
+     *   - timeout: (integer) The SMTP connection timeout.
      *              DEFAULT: NONE
-     * 'persist' - (boolean) Should the SMTP connection persist?
-     *             DEFAULT: false
-     * 'pipelining' - (boolean) Use SMTP command pipelining.
-     *                Use SMTP command pipelining (specified in RFC 2920) if
-     *                the SMTP server supports it. This speeds up delivery
-     *                over high-latency connections.
-     *                DEFAULT: false (use default value from Net_SMTP)
-     * 'port' - (integer) The port to connect to.
-     *          DEFAULT: 25
-     * 'timeout' - (integer) The SMTP connection timeout.
-     *             DEFAULT: NONE
-     * 'username' - (string) The username to use for SMTP auth.
-     *              DEFAULT: NONE
-     * </pre>
+     *   - username: (string) The username to use for SMTP auth.
+     *               DEFAULT: NONE
      */
     public function __construct(array $params = array())
     {
