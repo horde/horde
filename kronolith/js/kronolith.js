@@ -1798,7 +1798,6 @@ KronolithCore = {
                     td.observe('mouseover', Horde_ToolTips.onMouseover.bindAsEventListener(Horde_ToolTips));
                     td.observe('mouseout', Horde_ToolTips.out.bind(Horde_ToolTips));
                     if (busyHours > 0) {
-                        console.log(busyHours);
                         td.addClassName(this.getHeatmapClass(busyHours));
                         busyHours = 0;
                     }
