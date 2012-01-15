@@ -363,9 +363,8 @@ $t->setOption('gettext', true);
 $t->set('action', Horde::url('search.php'));
 
 /* Determine if we are editing a search query. */
+$q_ob = IMP::$mailbox->getSearchOb();
 if ($vars->edit_query && IMP::$mailbox->search) {
-    $q_ob = IMP::$mailbox->getSearchOb();
-
     if (IMP::$mailbox->vfolder) {
         if (!IMP::$mailbox->editvfolder) {
             $notification->push(_("Built-in Virtual Folders cannot be edited."), 'horde.error');
@@ -386,18 +385,12 @@ if ($vars->edit_query && IMP::$mailbox->search) {
         $t->set('search_label', htmlspecialchars($q_ob->label));
         $js_vars['ImpSearch.prefsurl'] = strval(Horde::getServiceLink('prefs', 'imp')->add('group', 'searches')->setRaw(true));
     }
-
-    $js_vars['ImpSearch.i_criteria'] = $q_ob->criteria;
-    $js_vars['ImpSearch.i_folders'] = array(
-        'm' => IMP_Mailbox::formTo($q_ob->all ? array(IMP_Search_Query::ALLSEARCH) : $q_ob->mbox_list),
-        's' => IMP_Mailbox::formTo($q_ob->subfolder_list)
-    );
 } else {
     /* Process list of recent searches. */
     $rs = array();
     $imp_search->setIteratorFilter(IMP_Search::LIST_QUERY);
     foreach ($imp_search as $val) {
-        $rs[$val->id] = array(
+        $rs[$val->formid] = array(
             'c' => $val->criteria,
             'f' => array(
                 'm' => IMP_Mailbox::formTo($val->all ? array(IMP_Search_Query::ALLSEARCH) : array_map('strval', $val->mbox_list)),
@@ -415,6 +408,14 @@ if ($vars->edit_query && IMP::$mailbox->search) {
     $js_vars['ImpSearch.i_folders'] = array(
         'm' => $vars->subfolder ? array() : $s_mboxes,
         's' => $vars->subfolder ? $s_mboxes : array()
+    );
+}
+
+if (IMP::$mailbox->search) {
+    $js_vars['ImpSearch.i_criteria'] = $q_ob->criteria;
+    $js_vars['ImpSearch.i_folders'] = array(
+        'm' => IMP_Mailbox::formTo($q_ob->all ? array(IMP_Search_Query::ALLSEARCH) : $q_ob->mbox_list),
+        's' => IMP_Mailbox::formTo($q_ob->subfolder_list)
     );
 }
 
