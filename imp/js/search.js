@@ -337,8 +337,7 @@ var ImpSearch = {
 
     insertFolder: function(folder, checked)
     {
-        var id,
-            div = new Element('DIV', { className: 'searchId' }),
+        var div = new Element('DIV', { className: 'searchId' }),
             div2 = new Element('DIV', { className: 'searchElement' });
 
         if (folder == this.allsearch) {
@@ -372,10 +371,7 @@ var ImpSearch = {
         div.insert(div2);
         $('search_folders').insert(div);
 
-        id = div.identify();
-        this.folders.set(id, folder);
-
-        return id;
+        this.folders.set(div.identify(), folder);
     },
 
     getFolderLabel: function(folder)
