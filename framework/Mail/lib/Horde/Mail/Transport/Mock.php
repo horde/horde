@@ -124,10 +124,13 @@ class Horde_Mail_Transport_Mock extends Horde_Mail_Transport
         list(, $text_headers) = $this->prepareHeaders($headers);
 
         if (is_resource($body)) {
+            stream_filter_register('horde_eol', 'Horde_Stream_Filter_Eol');
+            stream_filter_append($body, 'horde_eol', STREAM_FILTER_READ, array('eol' => $this->sep));
+
             rewind($body);
             $body_txt = stream_get_contents($body);
         } else {
-            $body_txt = $body;
+            $body_txt = str_replace(array("\r\n", "\r", "\n"), $this->sep, $body);
         }
 
         $recipients = $this->parseRecipients($recipients);
@@ -140,7 +143,7 @@ class Horde_Mail_Transport_Mock extends Horde_Mail_Transport
         );
 
         if ($this->_postSendCallback) {
-            call_user_func_array($this->_postSendCallback, array($this, $recipients, $headers, $body));
+            call_user_func_array($this->_postSendCallback, array($this, $recipients, $headers, $body_txt));
         }
     }
 }

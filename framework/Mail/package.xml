@@ -16,8 +16,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-18</date>
- <time>12:48:59</time>
+ <date>2012-01-15</date>
+ <time>16:07:13</time>
  <version>
   <release>1.0.3</release>
   <api>1.0.0</api>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-* 
+* [mms] Fix line-endings for transport drivers that send messages using local tools/programs.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -62,6 +62,7 @@
      <dir name="Mail">
       <file name="AllTests.php" role="test" />
       <file name="ParseTest.php" role="test" />
+      <file name="SendTest.php" role="test" />
      </dir> <!-- /test/Horde/Mail -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -77,6 +78,13 @@
    </pearinstaller>
    <package>
     <name>Horde_Exception</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Stream_Filter</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0</min>
     <max>2.0.0</max>
@@ -110,6 +118,7 @@
    <install as="Horde/Mail/Transport/Smtpmx.php" name="lib/Horde/Mail/Transport/Smtpmx.php" />
    <install as="Horde/Mail/AllTests.php" name="test/Horde/Mail/AllTests.php" />
    <install as="Horde/Mail/ParseTest.php" name="test/Horde/Mail/ParseTest.php" />
+   <install as="Horde/Mail/SendTest.php" name="test/Horde/Mail/SendTest.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -223,10 +232,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-18</date>
+   <date>2012-01-15</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
-* 
+* [mms] Fix line-endings for transport drivers that send messages using local tools/programs.
    </notes>
   </release>
  </changelog>

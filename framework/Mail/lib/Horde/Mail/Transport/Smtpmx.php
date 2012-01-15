@@ -161,6 +161,9 @@ class Horde_Mail_Transport_Smtpmx extends Horde_Mail_Transport
             'verp' => false,
             'vrfy' => false
         ), $params);
+
+        /* SMTP requires CRLF line endings. */
+        $this->sep = "\r\n";
     }
 
     /**
@@ -290,7 +293,7 @@ class Horde_Mail_Transport_Smtpmx extends Horde_Mail_Transport
                 return;
             }
 
-            // Send data
+            // Send data. Net_SMTP does necessary EOL conversions.
             $res = $this->_smtp->data($body, $textHeaders);
             if ($res instanceof PEAR_Error) {
                 $this->_error('failed_send_data', array('rcpt' => $rcpt));

@@ -153,6 +153,9 @@ class Horde_Mail_Transport_Smtp extends Horde_Mail_Transport
         /* Destructor implementation to ensure that we disconnect from any
          * potentially-alive persistent SMTP connections. */
         register_shutdown_function(array($this, 'disconnect'));
+
+        /* SMTP requires CRLF line endings. */
+        $this->sep = "\r\n";
     }
 
     /**
@@ -231,7 +234,8 @@ class Horde_Mail_Transport_Smtp extends Horde_Mail_Transport
             }
         }
 
-        /* Send the message's headers and the body as SMTP data. */
+        /* Send the message's headers and the body as SMTP data. Net_SMTP does
+         * the necessary EOL conversions. */
         $res = $this->_smtp->data($body, $textHeaders);
         list(,$args) = $this->_smtp->getResponse();
 
