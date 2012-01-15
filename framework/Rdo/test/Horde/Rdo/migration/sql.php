@@ -1,6 +1,6 @@
 <?php
 
-function migrate_sql($db)
+function migrate_sql_rdo($db)
 {
     $migration = new Horde_Db_Migration_Base($db);
 
