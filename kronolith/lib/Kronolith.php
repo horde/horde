@@ -2207,7 +2207,7 @@ class Kronolith
         global $notification;
 
         if (empty($newAttendees)) {
-            return;
+            return array();
         }
 
         $parser = new Horde_Mail_Rfc822();
