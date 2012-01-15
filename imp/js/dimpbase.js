@@ -393,7 +393,10 @@ var DimpBase = {
         }
 
         this.resetSelected();
-        this.quicksearchClear(true);
+
+        if (!this.isSearch(f)) {
+            this.quicksearchClear(true);
+        }
 
         if (this.view != f) {
             $('folderName').update(DIMP.text.loading);
