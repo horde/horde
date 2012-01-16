@@ -173,7 +173,8 @@ class Turba_Driver_Kolab extends Turba_Driver
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
-    protected function _search(array $criteria, array $fields, array $blobFields = array())
+    protected function _search(array $criteria, array $fields,
+                               array $blobFields = array())
     {
         $this->connect();
 
@@ -189,7 +190,7 @@ class Turba_Driver_Kolab extends Turba_Driver
         $ids = $this->_removeDuplicated($ids);
 
         /* Now we have a list of names, get the rest. */
-        $this->_read('uid', $ids, $fields);
+        $this->_read('uid', $ids, null, $fields);
 
         Horde::logMessage(sprintf('Kolab returned %s results',
                                   count($result)), 'DEBUG');
@@ -347,16 +348,17 @@ class Turba_Driver_Kolab extends Turba_Driver
     /**
      * Reads the given data from the address book and returns the results.
      *
-     * @param string $key    The primary key field to use.
-     * @param mixed $ids     The ids of the contacts to load.
-     * @param string $owner  Only return contacts owned by this user.
-     * @param array $fields  List of fields to return.
+     * @param string $key        The primary key field to use.
+     * @param mixed $ids         The ids of the contacts to load.
+     * @param string $owner      Only return contacts owned by this user.
+     * @param array $fields      List of fields to return.
      * @param array $blobFields  Array of fields containing binary data.
      *
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
-    protected function _read($key, $ids, $owner, array $fields, array $blobFields = array())
+    protected function _read($key, $ids, $owner, array $fields,
+                             array $blobFields = array())
     {
         $this->connect();
 
