@@ -119,13 +119,12 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
             throw new Sesha_Exception("Invalid search parameters");
         }
 
-
         // Start the query
         if ($property_ids) {
-            $sql = 'SELECT DISTINCT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.property_id AS property_id, a.attribute_id AS attribute_id, a.int_datavalue AS int_datavalue, a.txt_datavalue AS txt_datavalue
+            $sql = 'SELECT DISTINCT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p1.property_id AS property_id, a.attribute_id AS attribute_id, a.int_datavalue AS int_datavalue, a.txt_datavalue AS txt_datavalue
   FROM sesha_inventory i
   LEFT JOIN sesha_inventory_properties a ON a.stock_id = i.stock_id AND a.property_id IN (?' . str_repeat(', ?', count($property_ids) - 1) . ')
-  LEFT JOIN sesha_properties p ON a.property_id = p.property_id';
+  LEFT JOIN sesha_properties p1 ON a.property_id = p1.property_id';
             $values = $property_ids;
         } else {
             $sql = 'SELECT DISTINCT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note FROM sesha_inventory i';
@@ -145,9 +144,9 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
             $whereClause[] = 'i.note like ' . $what;
         }
         if ($where & SESHA_SEARCH_PROPERTY) {
-            $sql .= ', sesha_inventory_properties p';
-            $whereClause[] = '(p.txt_datavalue LIKE ' . $what .
-                ' AND i.stock_id = p.stock_id)';
+            $sql .= ', sesha_inventory_properties p2';
+            $whereClause[] = '(p2.txt_datavalue LIKE ' . $what .
+                ' AND i.stock_id = p2.stock_id)';
         }
 
         /*
@@ -162,11 +161,11 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
         }
         $sql .= ' ORDER BY i.stock_id';
         if ($property_ids) {
-            $sql .= ', p.priority DESC';
+            $sql .= ', p1.priority DESC';
         }
 
         try {
-            $result = $this->_db->getAll($sql, $values, DB_FETCHMODE_ASSOC);
+            $result = $this->_db->selectAll($sql, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Sesha_Exception($e);
         }
