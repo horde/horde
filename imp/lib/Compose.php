@@ -3125,7 +3125,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         switch ($atc['filetype']) {
         case 'file':
             /* Delete from filesystem. */
-            @unlink($filename);
+            @unlink($atc['filename']);
             break;
 
         case 'vfs':
