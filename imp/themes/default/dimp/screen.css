@@ -155,6 +155,7 @@ div.msgDate {
 div.msgSize {
     float: left;
     margin-right: -4px;
+    width: 6%;
 }
 
 /* Message List Header and Column Header */
