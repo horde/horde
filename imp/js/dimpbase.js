@@ -1265,7 +1265,9 @@ var DimpBase = {
             if (tmp = $('oa_purge_options')) {
                 [ tmp ].invoke(tmp.select('> a').any(Element.visible) ? 'show' : 'hide');
                 if (tmp = $('oa_hide_deleted')) {
-                    if (this.viewport.getMetaData('delhide')) {
+                    if (this.isThreadSort()) {
+                        $(tmp, 'oa_show_deleted').invoke('hide');
+                    } else if (this.viewport.getMetaData('delhide')) {
                         tmp.hide();
                         $('oa_show_deleted').show();
                     } else {
