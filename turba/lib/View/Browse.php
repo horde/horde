@@ -333,7 +333,10 @@ class Turba_View_Browse
                         $errorCount = 0;
                         foreach ($keys as $sourceKey) {
                             list($objectSource, $objectKey) = explode(':', $sourceKey, 2);
-                            if (!$target->addMember($objectKey, $objectSource)) {
+                            try {
+                                $target->addMember($objectKey, $objectSource);
+                            } catch (Turba_Exception $e) {
+                                $notification->push($e, 'horde.error');
                                 $errorCount++;
                             }
                         }
@@ -397,7 +400,10 @@ class Turba_View_Browse
                                     $errorCount = 0;
                                     foreach ($keys as $sourceKey) {
                                         list($objectSource, $objectKey) = explode(':', $sourceKey, 2);
-                                        if (!$target->addMember($objectKey, $objectSource)) {
+                                        try {
+                                            $target->addMember($objectKey, $objectSource);
+                                        } catch (Turba_Exception $e) {
+                                            $notification->push($e, 'horde.error');
                                             ++$errorCount;
                                         }
                                     }
