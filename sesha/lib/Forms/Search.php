@@ -19,7 +19,7 @@ class Sesha_Forms_Search extends Horde_Form {
      *
      * @param  Horde_Variables $vars  The default variables to use.
      */
-    function __construct(&$vars)
+    function __construct($vars)
     {
         parent::__construct($vars, _("Search The Inventory"));
 
