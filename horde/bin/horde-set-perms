@@ -36,11 +36,17 @@ $owner = $cli->prompt(
     'root'
 );
 
+$ownerpars = posix_getpwnam($owner);
+$owner = $ownerpars['uid'];
+
 $group = $cli->prompt(
     'Group under which web server/PHP runs?',
     null,
     'nobody'
 );
+
+$grouppars = posix_getgrnam('$group');
+$group = $grouppars['gid'];
 
 $cli->writeln();
 
@@ -61,12 +67,12 @@ if ($cli->prompt($cli->red('Are you sure you want to alter permissions?'), array
             $octal_perms = substr(sprintf('%o', $val->getPerms()), -4);
 
             if ($val->isDir()) {
-                if ($octal_perms != 0750) {
+                if ($octal_perms != '0750') {
                     $cli->message('Changing permissions for ' . $key, 'cli.message');
                     chmod($key, 0750);
                 }
             } elseif ($val->isFile()) {
-                if ($octal_perms != 0640) {
+                if ($octal_perms != '0640') {
                     $cli->message('Changing permissions for ' . $key, 'cli.message');
                     chmod($key, 0640);
                 }
