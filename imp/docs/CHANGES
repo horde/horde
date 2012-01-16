@@ -34,6 +34,8 @@ v5.1-git
 v5.0.18-git
 -----------
 
+[mms] Fix updating context menu when a mailbox is converted into a container
+      element after being deleted.
 [mms] Fix expand/collapse of folder tree in mobile view.
 [mms] Fix regression preventing sending of MDNs.
 [mms] Fix reporting as innocent in mobile view.
