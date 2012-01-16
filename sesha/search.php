@@ -5,14 +5,14 @@
  * things.
  *
  * Copyright 2004-2007 Andrew Coleman <mercury@appisolutions.net>
+ * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
-@define('SESHA_BASE', dirname(__FILE__));
-require_once SESHA_BASE . '/lib/base.php';
-require_once SESHA_BASE . '/lib/Forms/Search.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('sesha');
 
 // Page variables.
 $title = _("Search Inventory");
@@ -21,11 +21,12 @@ $actionId = Horde_Util::getFormData('actionId');
 // Form creation.
 $vars = Horde_Variables::getDefaultVariables();
 $renderer = new Horde_Form_Renderer();
-$form = new SearchForm($vars);
+$form = new Sesha_Forms_Search($vars);
 $vars->set('location', array(SESHA_SEARCH_NAME));
 
 // Page display.
-require_once SESHA_TEMPLATES . '/common-header.inc';
-require_once SESHA_TEMPLATES . '/menu.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
+require SESHA_TEMPLATES . '/menu.inc';
+$notification->notify(array('listeners' => 'status'));
 $form->renderActive($renderer, $vars, Horde::url('list.php'), 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';
