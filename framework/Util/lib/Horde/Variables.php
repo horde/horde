@@ -81,8 +81,7 @@ class Horde_Variables implements Countable, Iterator
     {
         if (!$this->_sanitized) {
             foreach (array_keys($this->_vars) as $key) {
-                $value = $this->get($key);
-                $this->set($key, is_array($value) ? filter_var_array($value, FILTER_SANITIZE_STRING) : filter_var($value, FILTER_SANITIZE_STRING));
+                $this->$key = $this->filter($key);
             }
             $this->_sanitized = true;
         }
@@ -260,6 +259,26 @@ class Horde_Variables implements Countable, Iterator
 
         $this->_vars[$varname] = $value;
         return true;
+    }
+
+    /**
+     * Filters a form value so that it can be used in HTML output.
+     *
+     * @param string $varname  The form variable name.
+     *
+     * @return mixed  The filtered variable, or null if it doesn't exist.
+     */
+    public function filter($varname)
+    {
+        $val = $this->$varname;
+
+        if (is_null($val) || $this->_sanitized) {
+            return $val;
+        }
+
+        return is_array($val)
+            ? filter_var_array($val, FILTER_SANITIZE_STRING)
+            : filter_var($val, FILTER_SANITIZE_STRING);
     }
 
     /* Protected methods. */
