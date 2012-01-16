@@ -381,8 +381,8 @@ class IMP_Mailbox implements Serializable
             return $injector->getInstance('IMP_Search')->isVFolder($this->_mbox, true);
 
         case 'exists':
-            if ($ob = $this->getSearchOb()) {
-                return $ob->enabled;
+            if ($this->search) {
+                return ($ob = $this->getSearchOb()) && $ob->enabled;
             }
 
             $imaptree = $injector->getInstance('IMP_Imap_Tree');
@@ -977,70 +977,20 @@ class IMP_Mailbox implements Serializable
      *
      * @param boolean $convert  Convert 'by' to a Horde_Imap_Client constant?
      *
-     * @return array  An array with the following keys:
-     *   - by: (integer) Sort type.
-     *   - dir:(integer) Sort direction.
-     *   - locked: (boolean) Is sort locked for the mailbox?
+     * @return IMP_Prefs_Sort_Sortpref  Sortpref object.
      */
     public function getSort($convert = false)
     {
-        global $prefs;
-
-        $prefmbox = $this->search
+        $mbox = $this->search
             ? $this->_mbox
             : $this->pref_from;
 
-        $sortpref = @unserialize($prefs->getValue('sortpref'));
-        $entry = isset($sortpref[$prefmbox])
-            ? $sortpref[$prefmbox]
-            : array();
+        $sortob = $GLOBALS['injector']->getInstance('IMP_Prefs_Sort');
+        $ob = $sortob[$mbox];
+        $ob->convertSortby();
 
-        if (!isset($entry['b'])) {
-            $sortby = $prefs->getValue('sortby');
-        }
-
-        $ob = array(
-            'by' => isset($entry['b']) ? $entry['b'] : $sortby,
-            'dir' => isset($entry['d']) ? $entry['d'] : $prefs->getValue('sortdir'),
-            'locked' => $prefs->isLocked('sortpref')
-        );
-
-        /* Restrict to sequence sorting only. */
-        if (!$this->access_sort) {
-            $ob['by'] = Horde_Imap_Client::SORT_SEQUENCE;
-            return $ob;
-        }
-
-        switch ($ob['by']) {
-        case Horde_Imap_Client::SORT_THREAD:
-            /* Can't do threaded searches in search mailboxes. */
-            if (!$this->access_sortthread) {
-                $ob['by'] = IMP::IMAP_SORT_DATE;
-            }
-            break;
-
-        case Horde_Imap_Client::SORT_FROM:
-            /* If the preference is to sort by From Address, when we are
-             * in the Drafts or Sent folders, sort by To Address. */
-            if ($this->special_outgoing) {
-                $ob['by'] = Horde_Imap_Client::SORT_TO;
-            }
-            break;
-
-        case Horde_Imap_Client::SORT_TO:
-            if (!$this->special_outgoing) {
-                $ob['by'] = Horde_Imap_Client::SORT_FROM;
-            }
-            break;
-        }
-
-        if ($convert && ($ob['by'] == IMP::IMAP_SORT_DATE)) {
-            $ob['by'] = $prefs->getValue('sortdate');
-        }
-
-        /* Sanity check: make sure we have some sort of sort value. */
-        if (!$ob['by']) {
-            $ob['by'] = Horde_Imap_Client::SORT_ARRIVAL;
+        if ($convert && ($ob->sortby == IMP::IMAP_SORT_DATE)) {
+            $ob->sortby = $GLOBALS['prefs']->getValue('sortdate');
         }
 
         return $ob;
@@ -1055,35 +1005,24 @@ class IMP_Mailbox implements Serializable
      */
     public function setSort($by = null, $dir = null, $delete = false)
     {
-        global $injector, $prefs;
-
-        $entry = array();
-        $sortpref = @unserialize($prefs->getValue('sortpref'));
-
-        $prefmbox = $this->search
+        $mbox = $this->search
             ? $this->_mbox
             : $this->pref_from;
+        $sortob = $GLOBALS['injector']->getInstance('IMP_Prefs_Sort');
 
         if ($delete) {
-            unset($sortpref[$prefmbox]);
-        } else {
+            unset($sortob[$mbox]);
+        } elseif (!is_null($by) || !is_null($dir)) {
+            $entry = $sortob[$mbox];
+
             if (!is_null($by)) {
-                $entry['b'] = $by;
+                $entry->sortby = $by;
             }
             if (!is_null($dir)) {
-                $entry['d'] = $dir;
+                $entry->sortdir = $dir;
             }
 
-            if (!empty($entry)) {
-                // TODO: convert using pref_to?
-                $sortpref[$prefmbox] = isset($sortpref[$prefmbox])
-                    ? array_merge($sortpref[$prefmbox], $entry)
-                    : $entry;
-            }
-        }
-
-        if ($delete || !empty($entry)) {
-            $prefs->setValue('sortpref', serialize($sortpref));
+            $sortob[$mbox] = $entry;
         }
     }
 
@@ -1128,8 +1067,7 @@ class IMP_Mailbox implements Serializable
             }
 
             if (is_null($delhide)) {
-                $sortpref = $this->getSort();
-                $delhide = ($sortpref['by'] != Horde_Imap_Client::SORT_THREAD);
+                $delhide = ($this->getSort()->sortby != Horde_Imap_Client::SORT_THREAD);
             }
         }
 
@@ -1565,7 +1503,7 @@ class IMP_Mailbox implements Serializable
         }
 
         $sortpref = $this->getSort(true);
-        $addl = array($sortpref['by'], $sortpref['dir']);
+        $addl = array($sortpref->sortby, $sortpref->sortdir);
         if ($date) {
             $addl[] = $date;
         }

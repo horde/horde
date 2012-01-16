@@ -41,20 +41,7 @@ class IMP_LoginTasks_SystemTask_GarbageCollection extends Horde_LoginTasks_Syste
         }
 
         /* Purge non-existent search sorts. */
-        $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
-        $update = false;
-        $sortpref = @unserialize($GLOBALS['prefs']->getValue('sortpref'));
-
-        foreach (array_keys($sortpref) as $key) {
-            if ($imp_search->isSearchMbox($key) && !$imp_search[$key]) {
-                unset($sortpref[$key]);
-                $update = true;
-            }
-        }
-
-        if ($update) {
-            $GLOBALS['prefs']->setValue('sortpref', serialize($sortpref));
-        }
+        $GLOBALS['injector']->getInstance('IMP_Prefs_Sort')->gc();
     }
 
 }

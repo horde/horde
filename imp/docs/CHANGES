@@ -2,6 +2,7 @@
 v5.1-git
 --------
 
+[mms] Added 'mbox_sort' hook.
 [mms] Make mailbox columns the same order in traditional view as in dynamic
       view.
 [jan] Add mailbox paging to smartphone view.

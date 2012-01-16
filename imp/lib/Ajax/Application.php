@@ -1390,8 +1390,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         }
 
         if (!$change) {
-            $sort = $this->_mbox->getSort();
-            $change = ($sort['by'] == Horde_Imap_Client::SORT_THREAD);
+            $change = ($this->_mbox->getSort()->sortby == Horde_Imap_Client::SORT_THREAD);
         }
 
         $expunged = $injector->getInstance('IMP_Message')->expungeMailbox(array(strval($this->_mbox) => 1), array('list' => true));
@@ -1928,8 +1927,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     {
         /* Check if we need to update thread information. */
         if (!$changed) {
-            $sort = $this->_mbox->getSort();
-            $changed = ($sort['by'] == Horde_Imap_Client::SORT_THREAD);
+            $changed = ($this->_mbox->getSort()->sortby == Horde_Imap_Client::SORT_THREAD);
         }
 
         if ($changed) {

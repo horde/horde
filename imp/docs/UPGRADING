@@ -60,7 +60,7 @@ The following configuration options were removed::
 
 Hooks (hooks.php)
 -----------------
-The 'mbox_special' hook has been added.
+The 'mbox_sort' and 'mbox_special' hooks have been added.
 
 
 Preferences (prefs.php)

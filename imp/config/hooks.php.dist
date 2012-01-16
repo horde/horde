@@ -493,6 +493,28 @@ class IMP_Hooks
 
 
     /**
+     * Override sort preferences for a mailbox.
+     *
+     * @param IMP_Prefs_Sort_Sortpref $ob  A sortpref object.
+     */
+//    public function mbox_sort($ob)
+//    {
+//        // The sortpref object has two properties that can be set - 'sortby'
+//        // and 'sortdir'. These properties will already contain the default
+//        // values if there is no specific sort preferences defined for a
+//        // mailbox (the mailbox can be found in the 'mbox' property).
+//
+//        // Example #1: Assume that the 'sortdir' preference defaults to an
+//        // ascending sort. However, the sort direction is desired to be
+//        // descending for date searches (i.e. newest messages first).
+//        if ($ob->sortdir_default &&
+//            in_array($ob->sortby, array(Horde_Imap_Client::SORT_SEQUENCE, IMP::IMAP_SORT_DATE))) {
+//             $ob->sortdir = 1;
+//        }
+//    }
+
+
+    /**
      * Determine whether to prompt a user to send a Message Disposition
      * Notification (MDN; a/k/a read-receipt) if their preferences require
      * a prompt.  Useful if MDNs should automatically be sent for a certain

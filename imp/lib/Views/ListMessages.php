@@ -174,12 +174,12 @@ class IMP_Views_ListMessages
             $md->delhide = 1;
         }
         if ($args['initial'] || !is_null($args['sortby'])) {
-            $md->sortby = intval($sortpref['by']);
+            $md->sortby = intval($sortpref->sortby);
         }
         if ($args['initial'] || !is_null($args['sortdir'])) {
-            $md->sortdir = intval($sortpref['dir']);
+            $md->sortdir = intval($sortpref->sortdir);
         }
-        if ($args['initial'] && $sortpref['locked']) {
+        if ($args['initial'] && $sortpref->locked) {
             $md->sortlock = 1;
         }
 
@@ -393,9 +393,9 @@ class IMP_Views_ListMessages
 
         /* Get thread information. */
         if (!$is_search &&
-            ($sortpref['by'] == Horde_Imap_Client::SORT_THREAD)) {
+            ($sortpref->sortby == Horde_Imap_Client::SORT_THREAD)) {
             $imp_thread = new IMP_Imap_Thread($mailbox_list->getThreadOb());
-            $md->thread = (object)$imp_thread->getThreadTreeOb($msglist, $sortpref['dir']);
+            $md->thread = (object)$imp_thread->getThreadTreeOb($msglist, $sortpref->sortdir);
         }
 
         return $result;

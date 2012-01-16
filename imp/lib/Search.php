@@ -102,8 +102,8 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
 
         /* How do we want to sort results? */
         $sortpref = IMP_Mailbox::get($this[$id])->getSort(true);
-        if ($sortpref['by'] == Horde_Imap_Client::SORT_THREAD) {
-            $sortpref['by'] = $GLOBALS['prefs']->getValue('sortdate');
+        if ($sortpref->sortby == Horde_Imap_Client::SORT_THREAD) {
+            $sortpref->sortby = $GLOBALS['prefs']->getValue('sortdate');
         }
 
         $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
@@ -113,9 +113,9 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
                 $query->andSearch(array($ob));
             }
             $results = $imp_imap->search($mbox, $query, array(
-                'sort' => array($sortpref['by'])
+                'sort' => array($sortpref->sortby)
             ));
-            if ($sortpref['dir']) {
+            if ($sortpref->sortdir) {
                 $results['match']->reverse();
             }
             $sorted->add($mbox, $results['match']);

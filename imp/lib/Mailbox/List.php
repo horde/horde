@@ -267,11 +267,11 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
             }
         } else {
             $sortpref = $this->_mailbox->getSort(true);
-            if ($sortpref['by'] == Horde_Imap_Client::SORT_THREAD) {
+            if ($sortpref->sortby == Horde_Imap_Client::SORT_THREAD) {
                 $this->_threadob = null;
                 $threadob = $this->getThreadOb();
                 $this->_sorted = $threadob->messageList();
-                if ($sortpref['dir']) {
+                if ($sortpref->sortdir) {
                     $this->_sorted = array_reverse($this->_sorted);
                 }
             } else {
@@ -281,9 +281,9 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
                 }
                 try {
                     $res = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->search($this->_mailbox, $query, array(
-                        'sort' => array($sortpref['by'])
+                        'sort' => array($sortpref->sortby)
                     ));
-                    if ($sortpref['dir']) {
+                    if ($sortpref->sortdir) {
                         $res['match']->reverse();
                     }
                     $this->_sorted = $res['match']->ids;
@@ -499,11 +499,11 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
 
             /* Optimization: if sorting by sequence then first unseen
              * information is returned via a SELECT/EXAMINE call. */
-            if ($sortpref['by'] == Horde_Imap_Client::SORT_SEQUENCE) {
+            if ($sortpref->sortby == Horde_Imap_Client::SORT_SEQUENCE) {
                 try {
                     $res = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->status($this->_mailbox, Horde_Imap_Client::STATUS_FIRSTUNSEEN | Horde_Imap_Client::STATUS_MESSAGES);
                     if (!is_null($res['firstunseen'])) {
-                        return $sortpref['dir']
+                        return $sortpref->sortdir
                             ? ($res['messages'] - $res['firstunseen'] + 1)
                             : $res['firstunseen'];
                     }

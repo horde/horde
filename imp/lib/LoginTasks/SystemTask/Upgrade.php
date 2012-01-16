@@ -290,54 +290,17 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
      */
     protected function _upgradeSortPrefs()
     {
-        global $prefs;
+        global $injector, $prefs;
 
-        if (!$prefs->isDefault('sortpref')) {
-            $update = false;
-            $sortpref = @unserialize($prefs->getValue('sortpref'));
-            foreach ($sortpref as $key => $val) {
-                $sb = $this->_newSortbyValue($val['b']);
-                if (!is_null($sb)) {
-                    $sortpref[$key]['b'] = $sb;
-                    $update = true;
-                }
-            }
-
-            if ($update) {
-                $prefs->setValue('sortpref', serialize($sortpref));
-            }
-        }
+        $sort_ob = $injector->getInstance('IMP_Prefs_Sort');
+        $sort_ob->upgradePrefs();
 
         if (!$prefs->isDefault('sortby')) {
-            $sb = $this->_newSortbyValue($prefs->getValue('sortby'));
+            $sb = $sort_ob->newSortbyValue($prefs->getValue('sortby'));
             if (!is_null($sb)) {
                 $prefs->setValue('sortby', $sb);
             }
         }
-    }
-
-    /**
-     * Get the new sortby pref value.
-     *
-     * @param integer $sortby  The old value.
-     *
-     * @return integer  Null if no change or else the converted sort value.
-     */
-    protected function _newSortbyValue($sortby)
-    {
-        switch ($sortby) {
-        case 1: // SORTARRIVAL
-            /* Sortarrival was the same thing as sequence sort in IMP 4. */
-            return Horde_Imap_Client::SORT_SEQUENCE;
-
-        case 2: // SORTDATE
-            return IMP::IMAP_SORT_DATE;
-
-        case 161: // SORTTHREAD
-            return Horde_Imap_Client::SORT_THREAD;
-        }
-
-        return null;
     }
 
     /**
