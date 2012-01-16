@@ -23,7 +23,7 @@ class Horde_Rdo_Test_Sql_Base extends Horde_Rdo_Test_Base
     public static function setUpBeforeClass()
     {
         require_once dirname(__FILE__) . '/../migration/sql.php';
-        migrate_sql(self::$db);
+        migrate_sql_rdo(self::$db);
         // read sql file for statements
         $statements = array();
         $current_stmt = '';
