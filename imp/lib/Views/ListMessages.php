@@ -169,8 +169,8 @@ class IMP_Views_ListMessages
         /* Mail-specific viewport information. */
         $md = &$result->metadata;
         if (($args['initial'] ||
-             !is_null($args['sortby']) ||
-             !is_null($args['sortdir'])) &&
+             $args['delhide'] ||
+             !is_null($args['sortby'])) &&
             $mbox->hideDeletedMsgs(true)) {
             $md->delhide = 1;
         }

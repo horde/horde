@@ -1953,7 +1953,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         );
 
         $params = array(
-            'applyfilter', 'cache', 'cacheid', 'initial', 'qsearch',
+            'applyfilter', 'cache', 'cacheid', 'delhide', 'initial', 'qsearch',
             'qsearchfield', 'qsearchfilter', 'qsearchflag', 'qsearchflagnot',
             'qsearchmbox', 'rangeslice', 'requestid', 'sortby', 'sortdir'
         );
