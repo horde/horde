@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>sesha</name>
+ <channel>pear.horde.org</channel>
+ <summary>A simple inventory app for horde 4</summary>
+ <description>Sesha allows you to define categories with a rich set of attributes to manage your inventory stock</description>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2012-01-14</date>
+ <time>15:03:30</time>
+ <version>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0alpha1</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+ <notes>
+* [rla] Converted to Horde 4 Framework
+* Initial release.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="config">
+    <file name="conf.xml" role="horde" />
+    <file name="prefs.php" role="horde" />
+   </dir> <!-- /config -->
+   <dir name="docs">
+    <file name="CHANGES" role="doc" />
+    <file name="CREDITS" role="doc" />
+    <file name="TODO" role="doc" />
+   </dir> <!-- /docs -->
+   <dir name="lib">
+    <dir name="Driver">
+     <file name="Sql.php" role="horde" />
+    </dir> <!-- /lib/Driver -->
+    <dir name="Factory">
+     <file name="Driver.php" role="horde" />
+    </dir> <!-- /lib/Factory -->
+    <dir name="Forms">
+     <dir name="Type">
+      <file name="Client.php" role="horde" />
+     </dir> <!-- /lib/Forms/Type -->
+     <file name="Category.php" role="horde" />
+     <file name="CategoryDelete.php" role="horde" />
+     <file name="CategoryList.php" role="horde" />
+     <file name="Property.php" role="horde" />
+     <file name="PropertyDelete.php" role="horde" />
+     <file name="PropertyList.php" role="horde" />
+     <file name="Search.php" role="horde" />
+     <file name="Stock.php" role="horde" />
+    </dir> <!-- /lib/Forms -->
+    <dir name="Ui">
+     <dir name="VarRenderer">
+      <file name="Stockedit_Html.php" role="horde" />
+     </dir> <!-- /lib/Ui/VarRenderer -->
+    </dir> <!-- /lib/Ui -->
+    <file name="Api.php" role="horde" />
+    <file name="Application.php" role="horde" />
+    <file name="Driver.php" role="horde" />
+    <file name="Exception.php" role="horde" />
+    <file name="Sesha.php" role="horde" />
+   </dir> <!-- /lib -->
+   <dir name="locale">
+    <dir name="de">
+     <dir name="LC_MESSAGES">
+      <file name="sesha.mo" role="horde" />
+      <file name="sesha.po" role="horde" />
+     </dir> <!-- /locale/de/LC_MESSAGES -->
+    </dir> <!-- /locale/de -->
+    <dir name="es">
+     <dir name="LC_MESSAGES">
+      <file name="sesha.mo" role="horde" />
+      <file name="sesha.po" role="horde" />
+     </dir> <!-- /locale/es/LC_MESSAGES -->
+    </dir> <!-- /locale/es -->
+    <dir name="lt">
+     <dir name="LC_MESSAGES">
+      <file name="sesha.mo" role="horde" />
+      <file name="sesha.po" role="horde" />
+     </dir> <!-- /locale/lt/LC_MESSAGES -->
+    </dir> <!-- /locale/lt -->
+    <dir name="lv">
+     <dir name="LC_MESSAGES">
+      <file name="sesha.mo" role="horde" />
+      <file name="sesha.po" role="horde" />
+     </dir> <!-- /locale/lv/LC_MESSAGES -->
+    </dir> <!-- /locale/lv -->
+    <file name="sesha.pot" role="horde" />
+   </dir> <!-- /locale -->
+   <dir name="migration">
+    <file name="1_sesha_base_tables.php" role="horde" />
+    <file name="2_sesha_upgrade_autoincrement.php" role="horde" />
+   </dir> <!-- /migration -->
+   <dir name="templates">
+    <file name="list.html" role="horde" />
+    <file name="menu.inc" role="horde" />
+   </dir> <!-- /templates -->
+   <dir name="test">
+    <dir name="Sesha">
+     <dir name="Unit">
+      <dir name="Driver">
+       <file name="SqlTest.php" role="test" />
+      </dir> <!-- /test/Sesha/Unit/Driver -->
+     </dir> <!-- /test/Sesha/Unit -->
+     <file name="AllTests.php" role="test" />
+     <file name="Autoload.php" role="test" />
+     <file name="TestCase.php" role="test" />
+    </dir> <!-- /test/Sesha -->
+   </dir> <!-- /test -->
+   <dir name="themes">
+    <dir name="default">
+     <dir name="graphics">
+      <file name="az.png" role="horde" />
+      <file name="favicon.ico" role="horde" />
+      <file name="sesha.png" role="horde" />
+      <file name="stock.png" role="horde" />
+      <file name="za.png" role="horde" />
+     </dir> <!-- /themes/default/graphics -->
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/default -->
+   </dir> <!-- /themes -->
+   <file name="admin.php" role="horde" />
+   <file name="COPYING" role="doc" />
+   <file name="index.php" role="horde" />
+   <file name="list.php" role="horde" />
+   <file name="README" role="doc" />
+   <file name="search.php" role="horde" />
+   <file name="stock.php" role="horde" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+   <package>
+    <name>horde</name>
+    <channel>pear.horde.org</channel>
+    <min>4.0.10</min>
+    <max>5.0.0</max>
+    <exclude>5.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Auth</name>
+    <channel>pear.horde.org</channel>
+    <min>1.4.7</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Autoloader</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Core</name>
+    <channel>pear.horde.org</channel>
+    <min>1.8.3</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Db</name>
+    <channel>pear.horde.org</channel>
+    <min>1.2.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Exception</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.8</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Form</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.5</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Perms</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.6</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Prefs</name>
+    <channel>pear.horde.org</channel>
+    <min>1.1.7</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+  </required>
+ </dependencies>
+ <usesrole>
+   <role>horde</role>
+     <package>Role</package>
+   <channel>pear.horde.org</channel>
+ </usesrole>
+ <phprelease>
+  <filelist>
+   <install as="sesha/admin.php" name="admin.php" />
+   <install as="COPYING" name="COPYING" />
+   <install as="sesha/index.php" name="index.php" />
+   <install as="sesha/list.php" name="list.php" />
+   <install as="README" name="README" />
+   <install as="sesha/search.php" name="search.php" />
+   <install as="sesha/stock.php" name="stock.php" />
+   <install as="sesha/config/conf.xml" name="config/conf.xml" />
+   <install as="sesha/config/prefs.php" name="config/prefs.php" />
+   <install as="CHANGES" name="docs/CHANGES" />
+   <install as="CREDITS" name="docs/CREDITS" />
+   <install as="TODO" name="docs/TODO" />
+   <install as="sesha/lib/Api.php" name="lib/Api.php" />
+   <install as="sesha/lib/Application.php" name="lib/Application.php" />
+   <install as="sesha/lib/Driver.php" name="lib/Driver.php" />
+   <install as="sesha/lib/Exception.php" name="lib/Exception.php" />
+   <install as="sesha/lib/Sesha.php" name="lib/Sesha.php" />
+   <install as="sesha/lib/Driver/Sql.php" name="lib/Driver/Sql.php" />
+   <install as="sesha/lib/Factory/Driver.php" name="lib/Factory/Driver.php" />
+   <install as="sesha/lib/Forms/Category.php" name="lib/Forms/Category.php" />
+   <install as="sesha/lib/Forms/CategoryDelete.php" name="lib/Forms/CategoryDelete.php" />
+   <install as="sesha/lib/Forms/CategoryList.php" name="lib/Forms/CategoryList.php" />
+   <install as="sesha/lib/Forms/Property.php" name="lib/Forms/Property.php" />
+   <install as="sesha/lib/Forms/PropertyDelete.php" name="lib/Forms/PropertyDelete.php" />
+   <install as="sesha/lib/Forms/PropertyList.php" name="lib/Forms/PropertyList.php" />
+   <install as="sesha/lib/Forms/Search.php" name="lib/Forms/Search.php" />
+   <install as="sesha/lib/Forms/Stock.php" name="lib/Forms/Stock.php" />
+   <install as="sesha/lib/Forms/Type/Client.php" name="lib/Forms/Type/Client.php" />
+   <install as="sesha/lib/Ui/VarRenderer/Stockedit_Html.php" name="lib/Ui/VarRenderer/Stockedit_Html.php" />
+   <install as="sesha/locale/sesha.pot" name="locale/sesha.pot" />
+   <install as="sesha/locale/de/LC_MESSAGES/sesha.mo" name="locale/de/LC_MESSAGES/sesha.mo" />
+   <install as="sesha/locale/de/LC_MESSAGES/sesha.po" name="locale/de/LC_MESSAGES/sesha.po" />
+   <install as="sesha/locale/es/LC_MESSAGES/sesha.mo" name="locale/es/LC_MESSAGES/sesha.mo" />
+   <install as="sesha/locale/es/LC_MESSAGES/sesha.po" name="locale/es/LC_MESSAGES/sesha.po" />
+   <install as="sesha/locale/lt/LC_MESSAGES/sesha.mo" name="locale/lt/LC_MESSAGES/sesha.mo" />
+   <install as="sesha/locale/lt/LC_MESSAGES/sesha.po" name="locale/lt/LC_MESSAGES/sesha.po" />
+   <install as="sesha/locale/lv/LC_MESSAGES/sesha.mo" name="locale/lv/LC_MESSAGES/sesha.mo" />
+   <install as="sesha/locale/lv/LC_MESSAGES/sesha.po" name="locale/lv/LC_MESSAGES/sesha.po" />
+   <install as="sesha/migration/1_sesha_base_tables.php" name="migration/1_sesha_base_tables.php" />
+   <install as="sesha/migration/2_sesha_upgrade_autoincrement.php" name="migration/2_sesha_upgrade_autoincrement.php" />
+   <install as="sesha/templates/list.html" name="templates/list.html" />
+   <install as="sesha/templates/menu.inc" name="templates/menu.inc" />
+   <install as="Sesha/AllTests.php" name="test/Sesha/AllTests.php" />
+   <install as="Sesha/Autoload.php" name="test/Sesha/Autoload.php" />
+   <install as="Sesha/TestCase.php" name="test/Sesha/TestCase.php" />
+   <install as="Sesha/Unit/Driver/SqlTest.php" name="test/Sesha/Unit/Driver/SqlTest.php" />
+   <install as="sesha/themes/default/screen.css" name="themes/default/screen.css" />
+   <install as="sesha/themes/default/graphics/az.png" name="themes/default/graphics/az.png" />
+   <install as="sesha/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
+   <install as="sesha/themes/default/graphics/sesha.png" name="themes/default/graphics/sesha.png" />
+   <install as="sesha/themes/default/graphics/stock.png" name="themes/default/graphics/stock.png" />
+   <install as="sesha/themes/default/graphics/za.png" name="themes/default/graphics/za.png" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0alpha1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2012-01-14</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [rla] Converted to Horde 4 Framework
+* Initial release.
+   </notes>
+  </release>
+ </changelog>
+</package>

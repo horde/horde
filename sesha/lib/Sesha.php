@@ -68,10 +68,11 @@ class Sesha
         $list_property_ids = @unserialize($prefs->getValue('list_properties'));
 
         // Retrieve the inventory from the storage driver
+        $sesha_driver = $GLOBALS['injector']->getInstance('Sesha_Factory_Driver')->create();
         if (!is_null($what) && !is_null($where)) {
-            $inventory = $GLOBALS['backend']->searchStock($what, $where, $list_property_ids);
+            $inventory = $sesha_driver->searchStock($what, $where, $list_property_ids);
         } else {
-            $inventory = $GLOBALS['backend']->listStock($category_id, $list_property_ids);
+            $inventory = $sesha_driver->listStock($category_id, $list_property_ids);
         }
 
         // Sort the inventory if there is a sort function defined
@@ -96,7 +97,8 @@ class Sesha
      */
     function listCategories()
     {
-        return $GLOBALS['backend']->getCategories();
+        $sesha_driver = $GLOBALS['injector']->getInstance('Sesha_Factory_Driver')->create();
+        return $sesha_driver->getCategories();
     }
 
     /**
@@ -245,18 +247,17 @@ class Sesha
     function getMenu($returnType = 'object')
     {
         global $registry, $conf, $browser, $print_link, $perms;
-
-        $menu = new Horde_Menu(Horde_Menu::MASK_ALL);
-        $menu->add(Horde::applicationUrl('list.php'), _("_List Stock"), 'sesha.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
-        if (Horde_Auth::isAdmin('sesha:admin') || $perms->hasPermission('sesha:addStock', Horde_Auth::getAuth(), Horde_Perms::READ)) {
-            $menu->add(Horde::applicationUrl(Horde_Util::addParameter('stock.php', 'actionId', 'add_stock')), _("_Add Stock"), 'stock.png');
-            $menu->add(Horde::applicationUrl('admin.php'), _("Admin"), 'sesha.png');
+        $menu = new Horde_Menu();
+        $menu->add(Horde::url('list.php'), _("_List Stock"), 'sesha.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
+        if (Sesha::isAdmin(Horde_Perms::READ)|| $perms->hasPermission('sesha:addStock', Horde_Auth::getAuth(), Horde_Perms::READ)) {
+            $menu->add(Horde::url(Horde_Util::addParameter('stock.php', 'actionId', 'add_stock')), _("_Add Stock"), 'stock.png');
+            $menu->add(Horde::url('admin.php'), _("Admin"), 'sesha.png');
         }
-        $menu->add(Horde::applicationUrl('search.php'), _("_Search"), 'search.png', $registry->getImageDir('horde'));
+        $menu->add(Horde::url('search.php'), _("_Search"), 'search.png');
 
         /* Print. */
         if ($conf['menu']['print'] && isset($print_link) && $browser->hasFeature('javascript')) {
-            $menu->add("javascript:popup('$print_link'); return false;", _("_Print"), 'print.png', $registry->getImageDir('horde'));
+            $menu->add("javascript:popup('$print_link'); return false;", _("_Print"), 'print.png');
         }
 
         if ($returnType == 'object') {
@@ -266,4 +267,8 @@ class Sesha
         }
     }
 
+    public static function isAdmin($permLevel = Horde_Perms::DELETE)
+    {
+        return ($GLOBALS['registry']->isAdmin() || $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('sesha:admin', Horde_Auth::getAuth(), $permLevel));
+    }
 }

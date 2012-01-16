@@ -8,12 +8,14 @@
  * @author  Bo Daley <bo@darkwork.net>
  * @package Sesha
  */
-class CategoryForm extends Horde_Form
+class Sesha_Forms_Category extends Horde_Form
 {
-    function CategoryForm(&$vars)
+    function __construct($vars)
     {
-        parent::Horde_Form($vars);
-
+        parent::__construct($vars);
+        // This is probably wrong. The library should get the driver 
+        // or the properties passed
+        $sesha_driver = $GLOBALS['injector']->getInstance('Sesha_Factory_Driver')->create();
         $this->appendButtons(_("Save Category"));
 
         $category_id = $vars->get('category_id');
@@ -23,18 +25,25 @@ class CategoryForm extends Horde_Form
             $priorities[] = $i;
         }
 
-        $allproperties = $GLOBALS['backend']->getProperties();
+        try {
+            $allproperties = $sesha_driver->getProperties();
+        }
+        catch (Sesha_Exception $e) {
+            throw new Sesha_Exception($e);
+        }
         $a = array();
-        foreach ($allproperties as $property_id => $p) {
-            $a[$property_id] = $p['property'];
+        foreach ($allproperties as $p) {
+            $a[$p['property_id']] = $p['property'];
         }
         if (!empty($category_id)) {
-            $properties = $GLOBALS['backend']->getPropertiesForCategories($category_id);
+            try {
+                $properties = $sesha_driver->getPropertiesForCategories($category_id);
+            } catch (Sesha_Exception $e) {
+                throw new Sesha_Exception($e);
+            }
             $current = array();
-            if (!is_a($properties, 'PEAR_Error')) {
-                foreach ($properties as $s) {
-                    $current[$s['property_id']] = $s['property'];
-                }
+            foreach ($properties as $s) {
+                $current[$s['property_id']] = $s['property'];
             }
         }
 
@@ -55,53 +64,6 @@ class CategoryForm extends Horde_Form
             $mp->setDefault(array_keys($current));
         }
 
-        require_once 'Horde/Form/Action.php';
         $action = Horde_Form_Action::factory('submit');
     }
-
-}
-
-class CategoryListForm extends Horde_Form {
-
-    function CategoryListForm(&$vars)
-    {
-        parent::Horde_Form($vars);
-        $this->setButtons(array(_("Edit Category"),
-                                _("Delete Category")));
-        $categories = $GLOBALS['backend']->getCategories();
-        $params = array();
-        foreach ($categories as $category) {
-            $params[$category['category_id']] = $category['category'];
-        }
-        $title = !empty($title) ? $title : _("Edit a category");
-        $this->setTitle($title);
-
-        $this->addHidden('', 'actionID', 'text', false, false, null, array('edit_category'));
-        if (!count($params)) {
-            $fieldtype = 'invalid';
-            $params = _("No categories are currently configured. Use the form below to add one.");
-        } else {
-            $fieldtype = 'enum';
-        }
-        $this->addVariable(_("Category"), 'category_id', $fieldtype, true, false, null, array($params));
-    }
-
-}
-
-class CategoryDeleteForm extends Horde_Form {
-
-    function CategoryDeleteForm(&$vars)
-    {
-        parent::Horde_Form($vars);
-
-        $this->appendButtons(_("Delete Category"));
-        $params = array('yes' => _("Yes"),
-                        'no' => _("No"));
-        $desc = _("Really delete this category?");
-
-        $this->addHidden('', 'actionID', 'text', false, false, null, array('delete_category'));
-        $this->addHidden('', 'category_id', 'text', false, false, null);
-        $this->addVariable(_("Confirm"), 'confirm', 'enum', true, false, $desc, array($params));
-    }
-
 }

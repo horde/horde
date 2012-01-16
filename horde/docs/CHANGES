@@ -13,6 +13,7 @@ v4.1-git
 v4.0.14-git
 -----------
 
+[jan] Fix horde-set-perms (piper@hrz.uni-marburg.de, Bug #10923).
 [jan] Sort user and group names in permission screen (Request #10896).
 
 
