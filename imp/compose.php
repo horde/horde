@@ -151,7 +151,7 @@ if ($session->get('imp', 'file_upload')) {
     /* Update the attachment information. */
     foreach ($imp_compose as $key => $val) {
         if (!in_array($key, $deleteList)) {
-            $val['part']->setDescription(filter_var($vars->get('file_description_' . $key), FILTER_SANITIZE_STRING));
+            $val['part']->setDescription($vars->filter('file_description_' . $key));
             $imp_compose[$key] = $val;
         }
     }
@@ -599,7 +599,7 @@ case 'template_new':
 }
 
 /* Get the message cache ID. */
-$composeCacheID = $imp_compose->getCacheId();
+$composeCacheID = filter_var($imp_compose->getCacheId(), FILTER_SANITIZE_STRING);
 
 /* Attach autocompleters to the compose form elements. */
 if ($redirect) {
@@ -737,7 +737,7 @@ $blank_url = new Horde_Url('#');
 
 if ($redirect) {
     /* Prepare the redirect template. */
-    $t->set('cacheid', filter_var($composeCacheID, FILTER_SANITIZE_STRING));
+    $t->set('cacheid', $composeCacheID);
     $t->set('title', htmlspecialchars($title));
     $t->set('token', $injector->getInstance('Horde_Token')->get('imp.compose'));
 
@@ -771,7 +771,7 @@ if ($redirect) {
         'attachmentAction' => '',
         'compose_formToken' => Horde_Token::generateId('compose'),
         'compose_requestToken' => $injector->getInstance('Horde_Token')->get('imp.compose'),
-        'composeCache' => filter_var($composeCacheID, FILTER_SANITIZE_STRING),
+        'composeCache' => $composeCacheID,
         'mailbox' => IMP::$thismailbox->form_to,
         'oldrtemode' => $rtemode,
         'rtemode' => $rtemode,

@@ -39,7 +39,7 @@ if (!isset($vars->source) || !isset($source_list[$vars->source])) {
 }
 
 $formname = isset($vars->formname)
-    ? filter_var($vars->formname, FILTER_SANITIZE_STRING)
+    ? $vars->filter('formname')
     : 'compose';
 
 $search_params = IMP::getAddressbookSearchParams();
