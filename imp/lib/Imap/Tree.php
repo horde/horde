@@ -850,6 +850,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     protected function _setContainer(&$elt, $bool)
     {
         $this->_setAttribute($elt, self::ELT_NOSELECT, $bool);
+        $this->_addEltDiff($elt, 'c');
     }
 
     /**
