@@ -1594,7 +1594,7 @@ KronolithCore = {
 
         var day = dates[0].clone(),
                   viewDates = this.viewDates(this.date, this.view),
-                  date, more, title, busy, events, monthDay;
+                  date, more, title, events, monthDay, busyHours;
         while (!day.isAfter(dates[1])) {
             // Skip if somehow events slipped in though the view is gone.
             if (!day.between(viewDates[0], viewDates[1])) {
@@ -1634,7 +1634,7 @@ KronolithCore = {
 
             case 'year':
                 title = '';
-                busy = false;
+                busyHours = 0;
             }
 
             if (view == 'month' || view == 'agenda') {
@@ -1761,7 +1761,7 @@ KronolithCore = {
                     }
                     if (event.value.x == Kronolith.conf.status.tentative ||
                         event.value.x == Kronolith.conf.status.confirmed) {
-                        busy = true;
+                        busyHours += event.value.start.getElapsed(event.value.end) / 3600000;
                     }
                     title += '<br />';
                     return;
@@ -1797,8 +1797,9 @@ KronolithCore = {
                     td.store('nicetitle', title);
                     td.observe('mouseover', Horde_ToolTips.onMouseover.bindAsEventListener(Horde_ToolTips));
                     td.observe('mouseout', Horde_ToolTips.out.bind(Horde_ToolTips));
-                    if (busy) {
-                        td.addClassName('kronolithIsBusy');
+                    if (busyHours > 0) {
+                        td.addClassName(this.getHeatmapClass(busyHours));
+                        busyHours = 0;
                     }
                 }
             }
@@ -1807,6 +1808,11 @@ KronolithCore = {
         }
         // Workaround Firebug bug.
         Prototype.emptyFunction();
+    },
+
+    getHeatmapClass: function(hours)
+    {
+        return 'heat' + Math.min(Math.ceil(hours / 2), 6);
     },
 
     /**

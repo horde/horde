@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Add heatmap to year view (Request #10658).
 * [mjr] Implement proper editing and deleting of recurrence series and exceptions in ajax view (Request #9926).
 * [jan] Remove print buttons.
 * [jan] Add work week view to dynamic interface (rsalmon@mbpgroup.com, Request #10519).
