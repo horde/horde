@@ -44,6 +44,7 @@ $_prefs['sortdir'] = array(
 // default view
 $_prefs['sesha_default_view'] = array(
     'value' => 'list',
+    'locked' => false,
     'type' => 'enum',
     'enum' => array(
         'list' => _("List"),
