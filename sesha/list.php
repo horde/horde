@@ -42,7 +42,9 @@ $what = Horde_Util::getFormData('criteria');
 $loc = Horde_Util::getFormData('location');
 $where = null;
 if (is_array($loc)) {
-    $where = array_sum($loc);
+    foreach ($loc as $field) {
+        $where += constant($field);
+    }
 }
 if (!is_null($what) && !is_null($where)) {
     $title = _("Search Inventory");
