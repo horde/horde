@@ -2,6 +2,8 @@
 v3.1-git
 --------
 
+[mjr] Prompt to send updates when modifying an event with attendees (Request
+      #10724).
 [mjr] Add heatmap to year view (Request #10658).
 [mjr] Implement proper editing and deleting of recurrence series and exceptions
       in ajax view (Request #9926).
