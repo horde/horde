@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2012-01-17</date>
- <time>13:01:56</time>
+ <time>13:09:15</time>
  <version>
-  <release>5.0.18</release>
+  <release>5.0.19</release>
   <api>5.0.0</api>
  </version>
  <stability>
@@ -34,13 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mms] SECURITY: Fix XSS vulnerabilities on the compose page (traditional view), the contacts popup window, and with certain IMAP mailbox names.
-* [mms] Fix updating context menu when a mailbox is converted into a container element after being deleted.
-* [mms] Fix expand/collapse of folder tree in mobile view.
-* [mms] Fix regression preventing sending of MDNs.
-* [mms] Fix reporting as innocent in mobile view.
-* [mms] Fix updating log information when replying/forwarding in dynamic view.
-* [mms] Fix deleting virtual folders in dynamic view.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2658,6 +2652,19 @@
 * [mms] Fix reporting as innocent in mobile view.
 * [mms] Fix updating log information when replying/forwarding in dynamic view.
 * [mms] Fix deleting virtual folders in dynamic view.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.19</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-01-17</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
