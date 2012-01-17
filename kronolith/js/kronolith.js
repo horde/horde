@@ -4270,6 +4270,18 @@ KronolithCore = {
 
             case 'kronolithEventSave':
                 if (!elt.disabled) {
+                    if ($F('kronolithEventAttendees') && $F('kronolithEventId')) {
+                        $('kronolithEventSendUpdates').setValue(0);
+                        $('kronolithEventDiv').hide();
+                        $('kronolithUpdateDiv').show();
+                        e.stop();
+                        break;
+                    }
+                }
+            case 'kronolithEventSendUpdateYes':
+                $('kronolithEventSendUpdates').setValue(1);
+            case 'kronolithEventSendUpdateNo':
+                if (!elt.disabled) {
                     this.saveEvent();
                 }
                 e.stop();
@@ -5356,6 +5368,8 @@ KronolithCore = {
                               $('kronolithEventSaveAsNew').enable();
                               $('kronolithEventDelete').enable();
                           }
+                          $('kronolithUpdateDiv').hide();
+                          $('kronolithEventDiv').show();
                       }.bind(this));
     },
 
