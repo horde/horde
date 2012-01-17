@@ -10,15 +10,15 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-12-23</date>
- <time>11:53:24</time>
+ <date>2012-01-17</date>
+ <time>12:32:34</time>
  <version>
   <release>1.0.0</release>
-  <api>1.0.0RC2</api>
+  <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
@@ -486,11 +486,11 @@
   <release>
    <version>
     <release>1.0.0</release>
-    <api>1.0.0RC2</api></version>
+    <api>1.0.0</api></version>
    <stability>
-    <release>beta</release>
-    <api>beta</api></stability>
-   <date>2011-12-23</date>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-01-17</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * [mjr] Add snow and rain totals to wunderground driver.
