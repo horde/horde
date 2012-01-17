@@ -16,19 +16,19 @@ TurbaSearch = {
 
     updateCriteria: function()
     {
-        if (!$('turbaSearchSource')) {
+        var source_elt = $('turbaSearchSource');
+
+        if (!source_elt || !source_elt.options) {
             return;
         }
 
-        var source = $F('turbaSearchSource');
-
         $('turbaSearchCriteria').update();
-        $H(this.criteria[source]).each(function(criterion) {
+        $H(this.criteria[$F(source_elt)]).each(function(criterion) {
             $('turbaSearchCriteria').insert(new Element('option', { value: criterion.key }).insert(criterion.value.escapeHTML()));
         });
 
         if ($('vbook-form')) {
-            if (this.shareSources[source] == true) {
+            if (this.shareSources[$F(source_elt)] == true) {
                 $('vbook-form').show();
             } else {
                 $('vbook-form').hide();
