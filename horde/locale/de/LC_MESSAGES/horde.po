@@ -1747,7 +1747,7 @@ msgstr "Ort"
 
 #: templates/admin/user/update.inc:54
 msgid "Lock User"
-msgstr "Sperrender Benutzer"
+msgstr "Benutzer sperren"
 
 #: admin/locks.php:58
 msgid "Locks"
