@@ -22,7 +22,18 @@
  </stability>
  <license uri="http://www.horde.org/licenses/">OSI certified</license>
  <notes>
-* 
+Address Book Changes:
+* [jan] Set VOICE parameter when exporting phone numbers to vCard (Request #10349).
+* [jan] Fix importing vCards with empty X-ANNIVERSARY attributes (Bug #10557).
+* [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
+
+Calendar Changes:
+* [mjr] Fix bug that could cause incorrect event exceptions to be created when drag and dropping events in month view.
+* [jan] Fix page titles not always updating correctly.
+* [jan] Display event time in dynamic view if requested (Request #9866).
+* [jan] Only show end time if different from start time.
+* [jan] Fix day sorting in agenda view.
+* [jan] Sort user and group names in permission screen (Request #10896).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -91,7 +102,7 @@
    <package>
     <name>kronolith</name>
     <channel>pear.horde.org</channel>
-    <min>3.0.13</min>
+    <min>3.0.14</min>
     <max>4.0.0</max>
     <exclude>4.0.0</exclude>
    </package>
@@ -119,7 +130,7 @@
    <package>
     <name>turba</name>
     <channel>pear.horde.org</channel>
-    <min>3.0.9</min>
+    <min>3.0.11</min>
     <max>4.0.0</max>
     <exclude>4.0.0</exclude>
    </package>

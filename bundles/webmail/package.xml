@@ -22,7 +22,38 @@
  </stability>
  <license uri="http://www.horde.org/licenses/">OSI certified</license>
  <notes>
-* 
+Mail Changes:
+* [mms] SECURITY: Fix XSS vulnerabilities on the compose page (traditional view), the contacts popup window, and with certain IMAP mailbox names.
+* [mms] Fix updating context menu when a mailbox is converted into a container element after being deleted.
+* [mms] Fix expand/collapse of folder tree in mobile view.
+* [mms] Fix regression preventing sending of MDNs.
+* [mms] Fix reporting as innocent in mobile view.
+* [mms] Fix updating log information when replying/forwarding in dynamic view.
+* [mms] Fix deleting virtual folders in dynamic view.
+* [mms] Cache message headers during a page access.
+* [mms] Fix adding submailboxes to last mailbox in a level in dynamic view.
+* [mms] Fix display of numerically-named mailboxes on IMAP servers without the LIST-EXTENDED IMAP capability (Bug #10869).
+* [mms] Fix attachment detection search filter.
+* [mms] Fix editing date search elements.
+* [mms] Allow creation of the mailbox &apos;0&apos; (Bug #10866).
+* [mms] Correctly handle numeric mailbox names.
+* [mms] Fix display of mailbox names living under special mailboxes (Bug #10802).
+* [mms] Fix broken Hide/Purge Deleted links in traditional view (Bug #10860).
+* [mms] Fix issue in dynamic mailbox view with thread sorting and a reset of mailbox metadata (Bug #10835).
+* [mms] Fix message redirection regression in dynamic view (Bug #10859).
+
+Address Book Changes:
+* [jan] Set VOICE parameter when exporting phone numbers to vCard (Request #10349).
+* [jan] Fix importing vCards with empty X-ANNIVERSARY attributes (Bug #10557).
+* [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
+
+Calendar Changes:
+* [mjr] Fix bug that could cause incorrect event exceptions to be created when drag and dropping events in month view.
+* [jan] Fix page titles not always updating correctly.
+* [jan] Display event time in dynamic view if requested (Request #9866).
+* [jan] Only show end time if different from start time.
+* [jan] Fix day sorting in agenda view.
+* [jan] Sort user and group names in permission screen (Request #10896).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -102,7 +133,7 @@
    <package>
     <name>imp</name>
     <channel>pear.horde.org</channel>
-    <min>5.0.16</min>
+    <min>5.0.18</min>
     <max>6.0.0</max>
     <exclude>6.0.0</exclude>
    </package>
@@ -116,7 +147,7 @@
    <package>
     <name>kronolith</name>
     <channel>pear.horde.org</channel>
-    <min>3.0.13</min>
+    <min>3.0.14</min>
     <max>4.0.0</max>
     <exclude>4.0.0</exclude>
    </package>
@@ -144,7 +175,7 @@
    <package>
     <name>turba</name>
     <channel>pear.horde.org</channel>
-    <min>3.0.10</min>
+    <min>3.0.11</min>
     <max>4.0.0</max>
     <exclude>4.0.0</exclude>
    </package>

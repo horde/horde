@@ -10,12 +10,12 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG, Horde_Release::FOCUS_MINORFEATURE);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORSECURITY, Horde_Release::FOCUS_MINORBUG, Horde_Release::FOCUS_MINORFEATURE);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Horde Groupware
-Webmail Edition version 4.0.5.
+Webmail Edition version 4.0.6.
 
 Horde Groupware Webmail Edition is a free, enterprise ready, browser based
 communication suite. Users can read, send and organize email messages with
@@ -29,45 +29,29 @@ http://www.horde.org/apps/webmail/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/webmail/docs/INSTALL
 
-The major changes compared to the Horde Groupware Webmail Edition version 4.0.4
+The major changes compared to the Horde Groupware Webmail Edition version 4.0.5
 are:
 
 General changes:
-    * Improved weather support.
-    * Updated Dutch and Japanese translations.
     * Small bugfixes and improvements.
 
 Mail changes:
-    * Added option to edit mailbox ACLs from context menu.
-    * Allowed to redirect multiple messages from traditional view.
-    * Improved PGP support.
-
-Filters changes:
-    * Set Return-Path: in Maildrop vacation driver.
+    * Fixed XSS vulnerabilities.
 
 Calendar changes:
-    * Improved Kolab compatibility.
-    * Improved CalDAV compatibility.
+    * Display event time in dynamic view if requested.
 
-Tasks changes:
-    * Fixed setting custom alarm methods.
-
-Notes changes:
-    * Improved notes sorting.
+Address book changes:
+    * Improved vCard compatibility.
+    * Updated Japanese translation.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Added option to edit mailbox ACLs from context menu.
-Allowed to redirect multiple messages from traditional view.
-Set Return-Path: in Maildrop vacation driver.
-Improved weather support.
-Improved PGP support.
-Improved Kolab compatibility.
-Improved CalDAV compatibility.
-Improved notes sorting.
-Fixed setting custom task alarm methods.
-Updated Dutch and Japanese translations.
+Fixed XSS vulnerabilities.
+Display event time in dynamic calendar view if requested.
+Improved vCard compatibility.
+Updated Japanese translation.
 Small bugfixes and improvements.
 FM;
 

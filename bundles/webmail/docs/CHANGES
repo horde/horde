@@ -2,6 +2,112 @@
 v4.0.6-git
 ----------
 
+Mail Changes
+------------
+[mms] SECURITY: Fix XSS vulnerabilities on the compose page (traditional
+      view), the contacts popup window, and with certain IMAP mailbox names.
+[mms] Fix updating context menu when a mailbox is converted into a container
+      element after being deleted.
+[mms] Fix expand/collapse of folder tree in mobile view.
+[mms] Fix regression preventing sending of MDNs.
+[mms] Fix reporting as innocent in mobile view.
+[mms] Fix updating log information when replying/forwarding in dynamic view.
+[mms] Fix deleting virtual folders in dynamic view.
+[mms] Cache message headers during a page access.
+[mms] Fix adding submailboxes to last mailbox in a level in dynamic view.
+[mms] Fix display of numerically-named mailboxes on IMAP servers without the
+      LIST-EXTENDED IMAP capability (Bug #10869).
+[mms] Fix attachment detection search filter.
+[mms] Fix editing date search elements.
+[mms] Allow creation of the mailbox '0' (Bug #10866).
+[mms] Correctly handle numeric mailbox names.
+[mms] Fix display of mailbox names living under special mailboxes (Bug #10802).
+[mms] Fix broken Hide/Purge Deleted links in traditional view (Bug #10860).
+[mms] Fix issue in dynamic mailbox view with thread sorting and a reset of
+      mailbox metadata (Bug #10835).
+[mms] Fix message redirection regression in dynamic view (Bug #10859).
+
+Address Book Changes
+--------------------
+[jan] Set VOICE parameter when exporting phone numbers to vCard (Request
+      #10349).
+[jan] Fix importing vCards with empty X-ANNIVERSARY attributes (Bug #10557).
+[jan] Update Japanese translation (Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>).
+
+Calendar Changes
+----------------
+[mjr] Fix bug that could cause incorrect event exceptions to be created when
+      drag and dropping events in month view.
+[jan] Fix page titles not always updating correctly.
+[jan] Display event time in dynamic view if requested (Request #9866).
+[jan] Only show end time if different from start time.
+[jan] Fix day sorting in agenda view.
+[jan] Sort user and group names in permission screen (Request #10896).
+
+Library Changes
+---------------
+ActiveSync
+[mjr] Fix REMOTEWIPE functionality for a number of android and iOS devices.
+[mjr] Fix sending meeting request emails when creating a meeting.
+[mjr] Fix retrieving the body of SENDMAIL requests.
+[mjr] Fix parsing birthday strings on certain android 2.2 clients.
+[mjr] Improve support for Android device provisioning.
+[mjr] Improve support for timezones in appointments originating on the client.
+[mjr] Improve performance when working with timezones on PHP 5.3+
+
+Core
+[mjr] Fix implementation of SENDMAIL ActiveSync command. Fixes sending of
+      meeting requests from device.
+[mjr] Fix issue that caused ActiveSync failure when using device specific
+      logging in certain cases.
+[mms] Fix merging config data (Bug #10381).
+
+Date
+[mjr] Fix creating recurrence objects with a timezone other than the current
+      default.
+
+Form
+[mms] SECURITY: Fix XSS vulnerability in email validation.
+
+Icalendar
+[jan] Fix compatibility with Horde_SyncMl (Bug #10908).
+[jan] Allow to pass multiple parameter values in setAttribute() (Bug #7248).
+
+Imap_Client
+[mms] Allow multiple date searches to be specified in a single AND search query.
+[mms] Fix deleting cached mailbox when mailbox name is given as an object.
+[mms] Fix 'changedsince' and 'vanished' parameters' in the fetch() command (Bug
+      #10915).
+[mms] LIST-STATUS does not depend on LIST-EXTENDED.
+[mms] Add dependency checking for capabilities.
+
+Kolab_Format
+[gwr] Fixed datatype for birthday and anniversary contact attributes.
+[gwr] Completed missing data API v1 support.
+
+Mail
+[mms] Fix line-endings for transport drivers that send messages using local
+      tools/programs.
+
+Mime
+[jan] Improve compatibility with some broken text MIME parts (Bug #10925).
+
+Service_Weather
+[mjr] Add snow and rain totals to wunderground driver.
+[mjr] Fix using IP addresses for determining forecast location (Bug #10857)
+
+SyncMl
+[jan] Fix undefined method while synchronizing events with Funambol (Bug
+      #10908).
+[jan] Catch exceptions when changing or retrieving objects from the
+      applications.
+
+Template
+[mms] Need to cache gettext-enabled templates with language information in the
+      cache ID (Bug #10872).
+
+Util
+[mms] Add Horde_Variables#filter().
 
 
 ------
