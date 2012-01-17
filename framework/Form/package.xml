@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-08-30</date>
- <time>11:01:31</time>
+ <date>2012-01-17</date>
+ <time>12:20:00</time>
  <version>
   <release>1.0.6</release>
   <api>1.0.0</api>
@@ -32,6 +32,13 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Form">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/Form -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Form">
@@ -382,6 +389,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Form/COPYING" />
    <install as="Horde/Form.php" name="lib/Horde/Form.php" />
    <install as="Horde/Form/Action.php" name="lib/Horde/Form/Action.php" />
    <install as="Horde/Form/Renderer.php" name="lib/Horde/Form/Renderer.php" />
@@ -655,7 +663,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-30</date>
+   <date>2012-01-17</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] SECURITY: Fix XSS vulnerability in email validation.
