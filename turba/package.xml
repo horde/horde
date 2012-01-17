@@ -28,8 +28,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-12-19</date>
- <time>15:56:14</time>
+ <date>2012-01-17</date>
+ <time>13:20:59</time>
  <version>
   <release>3.0.11</release>
   <api>3.0.0</api>
@@ -1363,7 +1363,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-12-19</date>
+   <date>2012-01-17</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
 * [jan] Set VOICE parameter when exporting phone numbers to vCard (Request #10349).
