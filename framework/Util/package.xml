@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-01-16</date>
- <time>00:30:42</time>
+ <date>2012-01-17</date>
+ <time>12:36:18</time>
  <version>
   <release>1.2.0</release>
   <api>1.2.0</api>
@@ -443,7 +443,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-01-16</date>
+   <date>2012-01-17</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Add Horde_Variables#filter().
