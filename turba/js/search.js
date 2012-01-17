@@ -16,7 +16,7 @@ TurbaSearch = {
 
     updateCriteria: function()
     {
-        if (!$('turbaSearchSource').options) {
+        if (!$('turbaSearchSource')) {
             return;
         }
 
