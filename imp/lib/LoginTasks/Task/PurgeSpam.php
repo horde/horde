@@ -71,7 +71,7 @@ class IMP_LoginTasks_Task_PurgeSpam extends Horde_LoginTasks_Task
     public function describe()
     {
         return sprintf(_("All messages in your \"%s\" folder older than %s days will be permanently deleted."),
-                       IMP_Mailbox::getPref('spam_folder')->display,
+                       IMP_Mailbox::getPref('spam_folder')->display_html,
                        $GLOBALS['prefs']->getValue('purge_spam_keep'));
     }
 

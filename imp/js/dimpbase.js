@@ -1262,7 +1262,7 @@ var DimpBase = {
         case 'ctx_noactions':
         case 'ctx_vfolder':
             baseelt = e.findElement('LI');
-            $(ctx_id).down('DIV.folderName').update(baseelt.readAttribute('title'));
+            $(ctx_id).down('DIV.folderName').update(this.fullMboxDisplay(baseelt));
             break;
 
         case 'ctx_reply':
@@ -1939,6 +1939,11 @@ var DimpBase = {
         return (m_elt && m_elt.hasClassName('subfolders'))
             ? m_elt
             : null;
+    },
+
+    fullMboxDisplay: function(elt)
+    {
+        return elt.readAttribute('title').escapeHTML();
     },
 
     /* Folder list updates. */
@@ -2735,7 +2740,7 @@ var DimpBase = {
         if (r.response && params.elt) {
             switch (type) {
             case 'create':
-                this._createFolderForm(this._folderAction.bindAsEventListener(this, params.orig_elt, 'createsub'), DIMP.text.createsub_prompt.sub('%s', params.elt.readAttribute('title')));
+                this._createFolderForm(this._folderAction.bindAsEventListener(this, params.orig_elt, 'createsub'), DIMP.text.createsub_prompt.sub('%s', this.fullMboxDisplay(params.elt)));
                 break;
 
             case 'delete':
@@ -2744,7 +2749,7 @@ var DimpBase = {
                     cancel_text: DIMP.text.cancel,
                     noinput: true,
                     ok_text: DIMP.text.ok,
-                    text: DIMP.text.delete_folder.sub('%s', params.elt.readAttribute('title'))
+                    text: DIMP.text.delete_folder.sub('%s', this.fullMboxDisplay(params.elt))
                 });
                 break;
 
@@ -2754,12 +2759,12 @@ var DimpBase = {
                     cancel_text: DIMP.text.cancel,
                     noinput: true,
                     ok_text: DIMP.text.ok,
-                    text: DIMP.text.empty_folder.sub('%s', params.elt.readAttribute('title')).sub('%d', r.response)
+                    text: DIMP.text.empty_folder.sub('%s', this.fullMboxDisplay(params.elt)).sub('%d', r.response)
                 });
                 break;
 
             case 'rename':
-                this._createFolderForm(this._folderAction.bindAsEventListener(this, params.elt, 'rename'), DIMP.text.rename_prompt.sub('%s', params.elt.readAttribute('title')), params.elt.retrieve('l').unescapeHTML());
+                this._createFolderForm(this._folderAction.bindAsEventListener(this, params.elt, 'rename'), DIMP.text.rename_prompt.sub('%s', this.fullMboxDisplay(params.elt)), params.elt.retrieve('l').unescapeHTML());
                 break;
             }
         }

@@ -39,6 +39,7 @@
  * @property string $display  Display version of mailbox. Special mailboxes
  *                            are replaced with localized strings and
  *                            namespace information is removed.
+ * @property string $display_html  $display that has been HTML encoded.
  * @property boolean $drafts  Is this a Drafts mailbox?
  * @property boolean $editquery  Can this search query be edited?
  * @property boolean $editvfolder  Can this virtual folder be edited?
@@ -365,6 +366,9 @@ class IMP_Mailbox implements Serializable
                 ? $this->label
                 : $this->_getDisplay();
 
+        case 'display_html':
+            return htmlspecialchars($this->display);
+
         case 'display_notranslate':
             return $this->nonimap
                 ? $this->label
@@ -449,9 +453,6 @@ class IMP_Mailbox implements Serializable
             return $elt
                 ? $elt['c']
                 : 0;
-
-        case 'name':
-            return htmlspecialchars($this->label);
 
         case 'namespace':
             return $injector->getInstance('IMP_Imap_Tree')->isNamespace($this->_mbox);

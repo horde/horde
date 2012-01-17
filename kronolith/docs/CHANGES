@@ -18,13 +18,19 @@ v3.1-git
 
 
 -----------
-v3.0.14-git
+v3.0.15-git
 -----------
+
+
+
+-------
+v3.0.14
+-------
 
 [mjr] Fix bug that could cause incorrect event exceptions to be created when
       drag and dropping events in month view.
 [jan] Fix page titles not always updating correctly.
-[jan] Display event time in dynamic if requested (Request #9866).
+[jan] Display event time in dynamic view if requested (Request #9866).
 [jan] Only show end time if different from start time.
 [jan] Fix day sorting in agenda view.
 [jan] Sort user and group names in permission screen (Request #10896).

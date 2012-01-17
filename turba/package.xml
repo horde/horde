@@ -28,8 +28,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-21</date>
- <time>18:54:57</time>
+ <date>2011-12-19</date>
+ <time>15:56:14</time>
  <version>
   <release>3.1.0</release>
   <api>3.1.0</api>
@@ -1361,12 +1361,25 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-12-19</date>
+   <date>2012-01-17</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
 * [jan] Set VOICE parameter when exporting phone numbers to vCard (Request #10349).
 * [jan] Fix importing vCards with empty X-ANNIVERSARY attributes (Bug #10557).
 * [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.12</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-01-17</date>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nag H4 (3.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-12-21 18:23+0100\n"
+"POT-Creation-Date: 2012-01-17 12:38+0100\n"
 "PO-Revision-Date: 2011-11-01 12:54+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
@@ -573,10 +573,6 @@ msgstr "Zukünftige Aufgaben"
 msgid "General Preferences"
 msgstr "Allgemeine Einstellungen"
 
-#: mobile.php:46
-msgid "Home"
-msgstr "Pos1"
-
 #: lib/Nag.php:742 lib/Ui/VarRenderer/Nag.php:163
 msgid "Hour(s)"
 msgstr "Stunde(n)"
@@ -787,6 +783,10 @@ msgstr "Überaufgabe"
 #: lib/Api.php:1364 lib/Api.php:1421 lib/Application.php:306 lib/Nag.php:333
 msgid "Permission Denied"
 msgstr "Zugriff verweigert"
+
+#: mobile.php:46
+msgid "Portal"
+msgstr "Portal"
 
 #: config/prefs.php:66 config/prefs.php:87 config/prefs.php:105 data.php:60
 #: lib/Form/Task.php:105 templates/view/task.inc:34
@@ -1537,6 +1537,3 @@ msgstr "aufgaben.csv"
 #: data.php:125
 msgid "tasks.ics"
 msgstr "aufgaben.ics"
-
-#~ msgid "Portal"
-#~ msgstr "Portal"

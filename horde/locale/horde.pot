@@ -1,5 +1,5 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright YEAR Horde LLC (http://www.horde.org/)
+# Copyright (C) YEAR Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde 4.0.14-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-12-21 18:23+0100\n"
+"POT-Creation-Date: 2012-01-17 12:38+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,11 +36,6 @@ msgstr ""
 #: lib/Block/Account.php:80
 #, php-format
 msgid "%.2fMB used of %.2fMB allowed (%.2f%%)"
-msgstr ""
-
-#: lib/Block/Weather.php:194
-#, php-format
-msgid "%d %s"
 msgstr ""
 
 #: lib/Block/Weather.php:197
@@ -80,7 +75,7 @@ msgstr ""
 msgid "%s - Notice"
 msgstr ""
 
-#: admin/config/config.php:26 admin/config/index.php:355
+#: admin/config/config.php:26 admin/config/index.php:358
 #, php-format
 msgid "%s Configuration"
 msgstr ""
@@ -178,7 +173,7 @@ msgid ""
 "message."
 msgstr ""
 
-#: admin/config/index.php:147 admin/config/index.php:185
+#: admin/config/index.php:147 admin/config/index.php:188
 #, php-format
 msgid "A newer version (%s) exists."
 msgstr ""
@@ -314,7 +309,7 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-#: templates/shares/edit.inc:58
+#: templates/shares/edit.inc:61
 msgid "All Authenticated Users"
 msgstr ""
 
@@ -364,11 +359,11 @@ msgstr ""
 msgid "Application List"
 msgstr ""
 
-#: admin/config/index.php:225
+#: admin/config/index.php:228
 msgid "Application is ready."
 msgstr ""
 
-#: admin/config/index.php:150 admin/config/index.php:188
+#: admin/config/index.php:150 admin/config/index.php:191
 msgid "Application is up-to-date."
 msgstr ""
 
@@ -700,7 +695,7 @@ msgstr ""
 msgid "Configuration for syncing with PDAs, Smartphones and Outlook."
 msgstr ""
 
-#: admin/config/index.php:220
+#: admin/config/index.php:223
 msgid "Configuration is out of date."
 msgstr ""
 
@@ -850,15 +845,15 @@ msgstr ""
 msgid "Cyrillic/Ukrainian (KOI8-U)"
 msgstr ""
 
-#: admin/config/index.php:238 admin/config/index.php:276
+#: admin/config/index.php:241 admin/config/index.php:279
 msgid "DB access is not configured."
 msgstr ""
 
-#: admin/config/index.php:244 admin/config/index.php:283
+#: admin/config/index.php:247 admin/config/index.php:286
 msgid "DB schema is out of date."
 msgstr ""
 
-#: admin/config/index.php:249 admin/config/index.php:288
+#: admin/config/index.php:252 admin/config/index.php:291
 msgid "DB schema is ready."
 msgstr ""
 
@@ -928,13 +923,13 @@ msgid "Definitions"
 msgstr ""
 
 #: admin/groups.php:54 templates/admin/groups/delete.inc:10
-#: templates/admin/user/list.inc:34 templates/shares/edit.inc:63
-#: templates/shares/edit.inc:83 templates/shares/edit.inc:98
-#: templates/shares/edit.inc:118 templates/shares/edit.inc:134
-#: templates/shares/edit.inc:154 templates/shares/edit.inc:169
-#: templates/shares/edit.inc:193 templates/shares/edit.inc:228
-#: templates/shares/edit.inc:255 templates/shares/edit.inc:271
-#: templates/shares/edit.inc:291 templates/shares/edit.inc:320
+#: templates/admin/user/list.inc:34 templates/shares/edit.inc:66
+#: templates/shares/edit.inc:86 templates/shares/edit.inc:101
+#: templates/shares/edit.inc:121 templates/shares/edit.inc:137
+#: templates/shares/edit.inc:157 templates/shares/edit.inc:172
+#: templates/shares/edit.inc:196 templates/shares/edit.inc:231
+#: templates/shares/edit.inc:258 templates/shares/edit.inc:274
+#: templates/shares/edit.inc:299 templates/shares/edit.inc:328
 #: templates/prefs/identityselect.html:34 templates/prefs/rpc.html:35
 #: templates/prefs/syncml.html:14 templates/prefs/syncml.html:23
 msgid "Delete"
@@ -1041,12 +1036,12 @@ msgstr ""
 msgid "Don't have an account? Sign up."
 msgstr ""
 
-#: admin/config/index.php:147 admin/config/index.php:185
+#: admin/config/index.php:147 admin/config/index.php:188
 #, php-format
 msgid "Download %s"
 msgstr ""
 
-#: admin/config/index.php:306
+#: admin/config/index.php:309
 msgid "Download generated configuration as PHP script."
 msgstr ""
 
@@ -1066,13 +1061,13 @@ msgstr ""
 msgid "EU VAT identification"
 msgstr ""
 
-#: templates/shares/edit.inc:62 templates/shares/edit.inc:79
-#: templates/shares/edit.inc:97 templates/shares/edit.inc:114
-#: templates/shares/edit.inc:133 templates/shares/edit.inc:150
-#: templates/shares/edit.inc:168 templates/shares/edit.inc:189
-#: templates/shares/edit.inc:224 templates/shares/edit.inc:251
-#: templates/shares/edit.inc:270 templates/shares/edit.inc:287
-#: templates/shares/edit.inc:316
+#: templates/shares/edit.inc:65 templates/shares/edit.inc:82
+#: templates/shares/edit.inc:100 templates/shares/edit.inc:117
+#: templates/shares/edit.inc:136 templates/shares/edit.inc:153
+#: templates/shares/edit.inc:171 templates/shares/edit.inc:192
+#: templates/shares/edit.inc:227 templates/shares/edit.inc:254
+#: templates/shares/edit.inc:273 templates/shares/edit.inc:295
+#: templates/shares/edit.inc:324
 msgid "Edit"
 msgstr ""
 
@@ -1116,8 +1111,8 @@ msgid ""
 "password, e.g. 'what is the name of your pet?':"
 msgstr ""
 
-#: lib/Prefs/Ui.php:546 services/twitter/index.php:176
-#: services/twitter/index.php:199
+#: lib/Prefs/Ui.php:546 services/twitter/index.php:182
+#: services/twitter/index.php:205
 #, php-format
 msgid ""
 "Error connecting to Twitter: %s Details have been logged for the "
@@ -1363,11 +1358,11 @@ msgstr ""
 msgid "Group was not created: %s."
 msgstr ""
 
-#: admin/groups.php:224 templates/shares/edit.inc:266
+#: admin/groups.php:224 templates/shares/edit.inc:269
 msgid "Groups"
 msgstr ""
 
-#: templates/shares/edit.inc:93
+#: templates/shares/edit.inc:96
 msgid "Guest Permissions"
 msgstr ""
 
@@ -1501,7 +1496,7 @@ msgid ""
 "administrator if you need further help."
 msgstr ""
 
-#: templates/shares/edit.inc:164
+#: templates/shares/edit.inc:167
 msgid "Individual Users"
 msgstr ""
 
@@ -1821,7 +1816,7 @@ msgstr ""
 msgid "Miscellaneous"
 msgstr ""
 
-#: admin/config/index.php:197
+#: admin/config/index.php:200
 msgid "Missing configuration."
 msgstr ""
 
@@ -1965,7 +1960,7 @@ msgstr ""
 msgid "No security question has been set. Please contact your administrator."
 msgstr ""
 
-#: admin/config/index.php:144 admin/config/index.php:182
+#: admin/config/index.php:144 admin/config/index.php:185
 msgid "No stable version exists yet."
 msgstr ""
 
@@ -1973,11 +1968,11 @@ msgstr ""
 msgid "No username specified."
 msgstr ""
 
-#: admin/config/index.php:203
+#: admin/config/index.php:206
 msgid "No version found in original configuration. Regenerate configuration."
 msgstr ""
 
-#: admin/config/index.php:212
+#: admin/config/index.php:215
 msgid "No version found in your configuration. Regenerate configuration."
 msgstr ""
 
@@ -2018,7 +2013,7 @@ msgstr ""
 msgid "O characters"
 msgstr ""
 
-#: templates/shares/edit.inc:129
+#: templates/shares/edit.inc:132
 msgid "Object Creator"
 msgstr ""
 
@@ -2060,7 +2055,7 @@ msgstr ""
 msgid "Operating System"
 msgstr ""
 
-#: templates/shares/edit.inc:236
+#: templates/shares/edit.inc:239
 msgid "Or enter a user name:"
 msgstr ""
 
@@ -2081,11 +2076,11 @@ msgstr ""
 msgid "Other characters"
 msgstr ""
 
-#: templates/shares/edit.inc:30
+#: templates/shares/edit.inc:33
 msgid "Owner"
 msgstr ""
 
-#: templates/shares/edit.inc:36 templates/shares/edit.inc:45
+#: templates/shares/edit.inc:39 templates/shares/edit.inc:48
 msgid "Owner:"
 msgstr ""
 
@@ -2109,7 +2104,7 @@ msgstr ""
 msgid "P_HP Shell"
 msgstr ""
 
-#: login.php:194 admin/config/index.php:319 admin/user.php:40
+#: login.php:194 admin/config/index.php:322 admin/user.php:40
 #: admin/user.php:54 config/registry.php:322
 #: templates/admin/user/update.inc:20
 msgid "Password"
@@ -2273,13 +2268,13 @@ msgstr ""
 msgid "Random Fortune"
 msgstr ""
 
-#: templates/shares/edit.inc:61 templates/shares/edit.inc:75
-#: templates/shares/edit.inc:96 templates/shares/edit.inc:110
-#: templates/shares/edit.inc:132 templates/shares/edit.inc:146
-#: templates/shares/edit.inc:167 templates/shares/edit.inc:185
-#: templates/shares/edit.inc:220 templates/shares/edit.inc:247
-#: templates/shares/edit.inc:269 templates/shares/edit.inc:283
-#: templates/shares/edit.inc:312
+#: templates/shares/edit.inc:64 templates/shares/edit.inc:78
+#: templates/shares/edit.inc:99 templates/shares/edit.inc:113
+#: templates/shares/edit.inc:135 templates/shares/edit.inc:149
+#: templates/shares/edit.inc:170 templates/shares/edit.inc:188
+#: templates/shares/edit.inc:223 templates/shares/edit.inc:250
+#: templates/shares/edit.inc:272 templates/shares/edit.inc:291
+#: templates/shares/edit.inc:320
 msgid "Read"
 msgstr ""
 
@@ -2336,7 +2331,7 @@ msgstr ""
 msgid "Remove pair"
 msgstr ""
 
-#: admin/config/index.php:338
+#: admin/config/index.php:341
 msgid "Remove saved script from server's temporary directory."
 msgstr ""
 
@@ -2434,16 +2429,16 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: templates/admin/groups/edit.inc:70 templates/shares/edit.inc:330
+#: templates/admin/groups/edit.inc:70 templates/shares/edit.inc:338
 #, php-format
 msgid "Save \"%s\""
 msgstr ""
 
-#: templates/shares/edit.inc:331
+#: templates/shares/edit.inc:339
 msgid "Save and Finish"
 msgstr ""
 
-#: admin/config/index.php:310
+#: admin/config/index.php:313
 msgid ""
 "Save generated configuration as a PHP script to your server's temporary "
 "directory."
@@ -2474,11 +2469,11 @@ msgstr ""
 msgid "Search:"
 msgstr ""
 
-#: templates/shares/edit.inc:298 templates/shares/edit.inc:300
+#: templates/shares/edit.inc:306 templates/shares/edit.inc:308
 msgid "Select a group to add:"
 msgstr ""
 
-#: templates/shares/edit.inc:38
+#: templates/shares/edit.inc:41
 msgid "Select a new owner:"
 msgstr ""
 
@@ -2486,7 +2481,7 @@ msgstr ""
 msgid "Select a server"
 msgstr ""
 
-#: templates/shares/edit.inc:202 templates/shares/edit.inc:204
+#: templates/shares/edit.inc:205 templates/shares/edit.inc:207
 msgid "Select a user to add:"
 msgstr ""
 
@@ -2592,13 +2587,13 @@ msgstr ""
 msgid "Should access keys be defined for most links?"
 msgstr ""
 
-#: templates/shares/edit.inc:60 templates/shares/edit.inc:71
-#: templates/shares/edit.inc:95 templates/shares/edit.inc:106
-#: templates/shares/edit.inc:131 templates/shares/edit.inc:142
-#: templates/shares/edit.inc:166 templates/shares/edit.inc:181
-#: templates/shares/edit.inc:216 templates/shares/edit.inc:243
-#: templates/shares/edit.inc:268 templates/shares/edit.inc:279
-#: templates/shares/edit.inc:308
+#: templates/shares/edit.inc:63 templates/shares/edit.inc:74
+#: templates/shares/edit.inc:98 templates/shares/edit.inc:109
+#: templates/shares/edit.inc:134 templates/shares/edit.inc:145
+#: templates/shares/edit.inc:169 templates/shares/edit.inc:184
+#: templates/shares/edit.inc:219 templates/shares/edit.inc:246
+#: templates/shares/edit.inc:271 templates/shares/edit.inc:287
+#: templates/shares/edit.inc:316
 msgid "Show"
 msgstr ""
 
@@ -2610,7 +2605,7 @@ msgstr ""
 msgid "Show Sidebar"
 msgstr ""
 
-#: admin/config/index.php:300
+#: admin/config/index.php:303
 msgid ""
 "Show differences between currently saved and the newly generated "
 "configuration."
@@ -3140,7 +3135,7 @@ msgstr ""
 msgid "Update %s"
 msgstr ""
 
-#: admin/config/index.php:168 admin/config/index.php:263
+#: admin/config/index.php:168 admin/config/index.php:266
 #, php-format
 msgid "Update %s schema"
 msgstr ""
@@ -3167,11 +3162,11 @@ msgstr ""
 msgid "Updated schema for %s."
 msgstr ""
 
-#: admin/config/index.php:317
+#: admin/config/index.php:320
 msgid "Upload"
 msgstr ""
 
-#: admin/config/index.php:325
+#: admin/config/index.php:328
 msgid "Uploaded all application configuration files to the server."
 msgstr ""
 
@@ -3212,11 +3207,11 @@ msgstr ""
 msgid "User account not found"
 msgstr ""
 
-#: templates/shares/edit.inc:238
+#: templates/shares/edit.inc:241
 msgid "User to add:"
 msgstr ""
 
-#: login.php:189 admin/config/index.php:318 admin/user.php:37
+#: login.php:189 admin/config/index.php:321 admin/user.php:37
 #: admin/user.php:53 services/resetpassword.php:30
 #: templates/admin/user/approve.inc:22
 msgid "Username"

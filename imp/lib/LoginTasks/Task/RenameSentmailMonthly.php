@@ -101,7 +101,7 @@ class IMP_LoginTasks_Task_RenameSentmailMonthly extends Horde_LoginTasks_Task
         $mbox_list = array();
 
         foreach ($this->_getSentmail() as $mbox) {
-            $mbox_list[] = $mbox->display;
+            $mbox_list[] = $mbox->display_html;
         }
 
         return sprintf(_("The current sent-mail mailbox(es) \"%s\" will be renamed."), implode(', ', $mbox_list));
