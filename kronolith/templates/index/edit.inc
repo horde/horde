@@ -205,7 +205,7 @@
   <span id="kronolithEventAttendees_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
   <br class="clear" />
   <label>
-    <input type="checkbox" name="sendupdates" value="1" />
+    <input id="kronolithEventSendUpdates" type="checkbox" name="sendupdates" value="1" />
     <?php printf(_("Send invites%s to all attendees"), '</label>') ?><br />
   <div id="kronolithFBLoading" style="display:none"></div>
   <table cellspacing="0" cellpadding="0" border="0">
@@ -267,6 +267,13 @@
     <input id="kronolithEventDeleteConfirm" type="button" value="<?php echo _("Delete") ?>" class="button ko" />
   </span>
   <span class="kronolithSeparator"><?php echo _("or") ?></span> <a id="kronolithEventDeleteCancel" class="kronolithFormCancel"><?php echo _("Cancel") ?></a>
+</div>
+</div>
+<div id="kronolithUpdateDiv" style="display:none">
+<p><?php echo _("Send updates to attendees?") ?></p>
+<div class="kronolithFormActions">
+  <input id="kronolithEventSendUpdateYes" type="button" value="<?php echo _("Yes") ?>" class="button" />
+  <input id="kronolithEventSendUpdateNo" type="button" value="<?php echo _("No") ?>" class="button" />
 </div>
 </div>
 </form>
