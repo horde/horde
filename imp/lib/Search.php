@@ -597,11 +597,10 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
      * Set the current iterator filter and reset the internal pointer.
      *
      * @param integer $mask  A mask with the following possible elements:
-     * <pre>
-     * IMP_Search::LIST_FILTER
-     * IMP_Search::LIST_QUERY
-     * IMP_Search::LIST_VFOLDER
-     * </pre>
+     *   - IMP_Search::LIST_DISABLED: List even if disabled.
+     *   - IMP_Search::LIST_FILTER: List filters.
+     *   - IMP_Search::LIST_QUERY: List search queries.
+     *   - IMP_Search::LIST_VFOLDER: List virtual folders.
      */
     public function setIteratorFilter($mask = 0)
     {
