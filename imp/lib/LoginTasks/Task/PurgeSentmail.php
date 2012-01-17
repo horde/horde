@@ -82,7 +82,7 @@ class IMP_LoginTasks_Task_PurgeSentmail extends Horde_LoginTasks_Task
     {
         $mbox_list = array();
         foreach ($this->_getFolders() as $val) {
-            $mbox_list = $val->display;
+            $mbox_list = $val->display_html;
         }
 
         return sprintf(_("All messages in the folder(s) \"%s\" older than %s days will be permanently deleted."),

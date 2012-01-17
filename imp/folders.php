@@ -236,7 +236,7 @@ case 'folders_empty_mailbox_confirm':
 
             $data = array(
                 'class' => 'item' . (++$rowct % 2),
-                'name' => htmlspecialchars($val->display),
+                'name' => $val->display_html,
                 'msgs' => $elt_info ? $elt_info['messages'] : 0,
                 'val' => $val->form_to
             );
@@ -286,7 +286,7 @@ case 'mbox_size':
             $size = $imp_message->sizeMailbox($val, false);
             $data = array(
                 'class' => 'item' . (++$rowct % 2),
-                'name' => htmlspecialchars($val->display),
+                'name' => $val->display_html,
                 'size' => sprintf(_("%.2fMB"), $size / (1024 * 1024)),
                 'sort' => $size
             );

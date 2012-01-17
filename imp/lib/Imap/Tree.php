@@ -1578,7 +1578,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
             case 'IMP_Tree_Jquerymobile':
                 $is_open = true;
-                $label = htmlspecialchars($val->display);
+                $label = $val->display_html;
                 $icon = $val->icon;
                 $params['icon'] = $icon->icon;
                 $params['special'] = $val->special;

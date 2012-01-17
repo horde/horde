@@ -136,7 +136,6 @@ $isPopup = ($prefs->getValue('compose_popup') || $vars->popup);
 
 /* Determine the composition type - text or HTML.
    $rtemode is null if browser does not support it. */
-$rtemode = null;
 if ($session->get('imp', 'rteavail')) {
     if ($prefs->isLocked('compose_html')) {
         $rtemode = $prefs->getValue('compose_html');
@@ -145,7 +144,8 @@ if ($session->get('imp', 'rteavail')) {
         if (is_null($rtemode)) {
             $rtemode = $prefs->getValue('compose_html');
         } else {
-            $oldrtemode = $vars->oldrtemode;
+            $rtemode = intval($rtemode);
+            $oldrtemode = intval($vars->oldrtemode);
             $get_sig = false;
         }
     }
@@ -161,7 +161,7 @@ if ($session->get('imp', 'file_upload')) {
     /* Update the attachment information. */
     foreach ($imp_compose as $key => $val) {
         if (!in_array($key, $deleteList)) {
-            $val['part']->setDescription($vars->get('file_description_' . $key));
+            $val['part']->setDescription(filter_var($vars->get('file_description_' . $key), FILTER_SANITIZE_STRING));
             $imp_compose[$key] = $val;
         }
     }
@@ -310,7 +310,7 @@ case 'reply_list':
     $title .= ' ' . $header['subject'];
 
     if (!is_null($rtemode)) {
-        $rtemode = $rtemode || $format == 'html';
+        $rtemode = ($rtemode || ($format == 'html'));
     }
     break;
 
@@ -706,7 +706,7 @@ if ($prefs->getValue('use_pgp') &&
 
 /* Define some variables used in the javascript code. */
 $js_vars = array(
-    'ImpComposeBase.editor_on' => intval($rtemode),
+    'ImpComposeBase.editor_on' => $rtemode,
     'ImpCompose.auto_save' => intval($prefs->getValue('auto_save_drafts')),
     'ImpCompose.cancel_url' => $cancel_url,
     'ImpCompose.cursor_pos' => ($rtemode ? null : $prefs->getValue('compose_cursor')),
@@ -728,7 +728,7 @@ $blank_url = new Horde_Url('#');
 
 if ($redirect) {
     /* Prepare the redirect template. */
-    $t->set('cacheid', $composeCacheID);
+    $t->set('cacheid', filter_var($composeCacheID, FILTER_SANITIZE_STRING));
     $t->set('title', htmlspecialchars($title));
     $t->set('token', $injector->getInstance('Horde_Token')->get('imp.compose'));
 
@@ -762,7 +762,7 @@ if ($redirect) {
         'attachmentAction' => '',
         'compose_formToken' => Horde_Token::generateId('compose'),
         'compose_requestToken' => $injector->getInstance('Horde_Token')->get('imp.compose'),
-        'composeCache' => $composeCacheID,
+        'composeCache' => filter_var($composeCacheID, FILTER_SANITIZE_STRING),
         'mailbox' => IMP::$thismailbox->form_to,
         'oldrtemode' => $rtemode,
         'rtemode' => $rtemode,
@@ -939,7 +939,7 @@ if ($redirect) {
             $t->set('ssm_folders', IMP::flistSelect($ssm_folder_options));
         } else {
             if ($sent_mail_folder) {
-                $sent_mail_folder = '&quot;' . $sent_mail_folder->display . '&quot;';
+                $sent_mail_folder = '&quot;' . $sent_mail_folder->display_html . '&quot;';
             }
             $t->set('ssm_folder', $sent_mail_folder);
             $t->set('ssm_folders', false);

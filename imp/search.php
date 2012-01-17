@@ -502,7 +502,7 @@ Horde::addInlineJsVars(array_merge($js_vars, array(
 
 if ($dimp_view) {
     if (!$vars->edit_query) {
-        $t->set('return_mailbox_val', sprintf(_("Return to %s"), htmlspecialchars($default_mailbox->display)));
+        $t->set('return_mailbox_val', sprintf(_("Return to %s"), $default_mailbox->display_html));
     }
 } else {
     $menu = IMP::menu();

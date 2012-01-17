@@ -589,7 +589,7 @@ class IMP_Prefs_Ui
             'basename' => true,
             'selected' => $folder
         )));
-        $t->set('current', sprintf(_("Current access to %s"), $folder->display));
+        $t->set('current', sprintf(_("Current access to %s"), $folder->display_html));
         $t->set('folder', $folder->form_to);
         $t->set('hasacl', count($curr_acl));
 

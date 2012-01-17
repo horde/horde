@@ -1455,7 +1455,7 @@ class Horde_Form_Type_email extends Horde_Form_Type {
                 continue;
             }
             if (!$this->validateEmailAddress($email)) {
-                $message = sprintf(Horde_Form_Translation::t("\"%s\" is not a valid email address."), $email);
+                $message = sprintf(Horde_Form_Translation::t("\"%s\" is not a valid email address."), htmlspecialchars($email));
                 return false;
             }
             ++$nonEmpty;

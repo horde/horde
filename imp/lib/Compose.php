@@ -183,7 +183,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      *   - priority: (string) The message priority ('high', 'normal', 'low').
      *   - readreceipt: (boolean) Add return receipt headers?
      *
-     * @return string  Notification text on success.
+     * @return string  Notification text on success (not HTML encoded).
      *
      * @throws IMP_Compose_Exception
      */
@@ -277,7 +277,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      *
      * @param string $data  The text of the draft message.
      *
-     * @return string  Status string.
+     * @return string  Status string (not HTML escaped).
      *
      * @throws IMP_Compose_Exception
      */
