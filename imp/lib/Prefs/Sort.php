@@ -98,7 +98,7 @@ class IMP_Prefs_Sort implements ArrayAccess, Iterator
      */
     protected function _save()
     {
-        $GLOBALS['prefs']->setValue(serialize($this->_sortpref));
+        $GLOBALS['prefs']->setValue(self::SORTPREF, serialize($this->_sortpref));
     }
 
     /* ArrayAccess methods. */
