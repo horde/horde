@@ -2,6 +2,7 @@
 v5.1-git
 --------
 
+[mms] Improved date searching to search by range.
 [mms] Added 'mbox_sort' hook.
 [mms] Make mailbox columns the same order in traditional view as in dynamic
       view.

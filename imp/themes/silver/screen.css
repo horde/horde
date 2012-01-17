@@ -105,13 +105,13 @@ span.trashImg {
     background-image: url("graphics/folders/trash.png");
 }
 
-.closeImg, .searchuiDelete {
+.closeImg {
     background-image: url("graphics/close.png");
 }
 .calendarImg {
     background-image: url("graphics/calendar.png");
 }
-.deleteImg {
+.deleteImg, .searchuiDelete {
     background-image: url("graphics/delete.png");
 }
 .reloadImg {

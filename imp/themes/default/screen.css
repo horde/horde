@@ -270,17 +270,26 @@ div.partsTreeDiv span span:last-child {
     margin-right: 3px;
     vertical-align: text-top;
 }
-.searchElement .calendarPopup {
-    margin-left: 3px;
-}
 .searchElement .searchuiDelete {
     padding-left: 6px;
     vertical-align: text-top;
 }
 
+.searchElement span.beginDate, .searchElement span.endDate {
+    border: 1px grey dotted;
+    margin: 0 6px;
+    padding: 1px 2px;
+}
+.searchElement span.beginDate > span, .searchElement span.endDate > span {
+    padding-right: 4px;
+}
+.searchElement .calendarImg, .searchElement .closeImg {
+    margin-right: 0;
+}
 .calendarImg {
     background-image: url("graphics/calendar.png");
 }
+
 .searchuiFoldersActions {
     font-size: 90%;
     margin-left: 10px;
@@ -727,10 +736,10 @@ span.mimePartInfoSize {
 .saveImgAtc {
     background-image: url("graphics/gallery.png");
 }
-.deleteImg {
+.deleteImg, .searchuiDelete {
     background-image: url("graphics/delete.png");
 }
-.closeImg, .searchuiDelete {
+.closeImg {
     background-image: url("graphics/close.png");
 }
 .reloadImg {

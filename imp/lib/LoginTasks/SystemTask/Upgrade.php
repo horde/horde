@@ -51,6 +51,7 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
             $this->_upgradeComposeCursor();
             $this->_upgradeMailboxPrefs();
             $this->_upgradeStationeryToTemplates();
+            $this->_upgradeVirtualFolders51();
             break;
         }
     }
@@ -535,6 +536,57 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
                     array('subject' => $val['n']),
                     $val['c']
                 );
+            }
+        }
+    }
+
+    /**
+     * Upgrade IMP 5.0.x virtual folders.
+     */
+    protected function _upgradeVirtualFolders51()
+    {
+        $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
+        $imp_search->setIteratorFilter(IMP_Search::LIST_VFOLDER | IMP_Search::LIST_DISABLED);
+
+        foreach ($imp_search as $key => $val) {
+            $replace = false;
+            $tmp = $val->query;
+
+            foreach (array_keys($tmp) as $key2) {
+                if ($tmp[$key2] instanceof IMP_Search_Element_Date) {
+                    $criteria = $tmp[$key2]->getCriteria();
+
+                    switch ($criteria->t) {
+                    case IMP_Search_Element_Date::DATE_ON:
+                        $ob = new IMP_Search_Element_Daterange(
+                            new DateTime('@' . $criteria->d),
+                            new DateTime('@' . $criteria->d)
+                        );
+                        break;
+
+                    case IMP_Search_Element_Date::DATE_BEFORE:
+                        $ob = new IMP_Search_Element_Daterange(
+                            null,
+                            new DateTime('@' . $criteria->d)
+                        );
+                        break;
+
+                    case IMP_Search_Element_Date::DATE_SINCE:
+                        $ob = new IMP_Search_Element_Daterange(
+                            new DateTime('@' . $criteria->d),
+                            null
+                        );
+                        break;
+                    }
+
+                    $tmp[$key2] = $ob;
+                    $replace = true;
+                }
+            }
+
+            if ($replace) {
+                $val->replace($tmp);
+                $imp_search[$key] = $val;
             }
         }
     }

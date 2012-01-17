@@ -56,9 +56,9 @@ var ImpSearch = {
                 this.insertFilter('bulk', crit);
                 break;
 
-            case 'IMP_Search_Element_Date':
+            case 'IMP_Search_Element_Daterange':
                 // JS Date() requires timestamp in ms; PHP value is in secs
-                this.insertDate(this.data.constants.date.index(crit.t), new Date(crit.d * 1000));
+                this.insertDate(crit.b ? new Date(crit.b * 1000) : 0, crit.e ? new Date(crit.e * 1000) : 0, crit.n);
                 break;
 
             case 'IMP_Search_Element_Flag':
@@ -231,26 +231,53 @@ var ImpSearch = {
         tmp[1].activate();
     },
 
-    insertDate: function(id, data)
+    insertDate: function(begin, end, not)
     {
-        if (!data) {
-            data = new Date();
-        }
+        var elt1, elt2, tmp, tmp2;
 
-        var tmp = [
-                new Element('EM').insert(this.getCriteriaLabel(id)),
-                new Element('SPAN').insert(new Element('SPAN')).insert(new Element('A', { href: '#', className: 'calendarPopup', title: this.text.dateselection }).insert(new Element('SPAN', { className: 'iconImg searchuiImg calendarImg' })))
-            ];
-        this.replaceDate(this.insertCriteria(tmp), id, data);
+        elt1 = new Element('SPAN').insert(
+            new Element('SPAN')
+        ).insert(
+            new Element('A', { href: '#', className: 'dateReset', title: this.text.datereset }).insert(
+                new Element('SPAN', { className: 'iconImg searchuiImg closeImg' })
+            )
+        ).insert(
+            new Element('A', { href: '#', className: 'calendarPopup', title: this.text.dateselection }).insert(
+                new Element('SPAN', { className: 'iconImg searchuiImg calendarImg' })
+            )
+        );
+        elt2 = elt1.clone(true);
+
+        tmp = [
+            new Element('EM').insert(this.getCriteriaLabel('date_range')),
+            elt1.addClassName('beginDate'),
+            new Element('SPAN').insert(this.text.to),
+            elt2.addClassName('endDate'),
+            new Element('SPAN', { className: 'notMatch' }).insert(new Element('INPUT', { checked: Boolean(not), className: 'checkbox', type: 'checkbox' })).insert(this.text.not_match)
+        ];
+
+        tmp2 = this.insertCriteria(tmp);
+        this.updateDate(tmp2, elt1, begin);
+        this.updateDate(tmp2, elt2, end);
     },
 
-    replaceDate: function(id, type, d)
+    updateDate: function(id, elt, data)
     {
-        $(id).down('SPAN SPAN').update(this.data.months[d.getMonth()] + ' ' + d.getDate() + ', ' + (d.getYear() + 1900));
-        // Need to store date information at all times in criteria, since we
-        // have no other way to track this information (there is no form
-        // field for this type).
-        this.criteria[id] = { t: type, v: d };
+        if (data) {
+            elt.down('SPAN').update(this.data.months[data.getMonth()] + ' ' + data.getDate() + ', ' + (data.getYear() + 1900));
+            elt.down('A.dateReset').show();
+        } else {
+            elt.down('SPAN').update('-----');
+            elt.down('A.dateReset').hide();
+        }
+
+        // Need to store date information at all times in criteria, since
+        // there is no other way to track this information (there is no
+        // form field for this type).
+        if (!this.criteria[id]) {
+            this.criteria[id] = { t: 'date_range' };
+        }
+        this.criteria[id][elt.hasClassName('beginDate') ? 'b' : 'e'] = data;
     },
 
     insertWithin: function(id, data)
@@ -441,6 +468,11 @@ var ImpSearch = {
                 break;
 
             case 'date':
+                if (!this.criteria[c].b && !this.criteria[c].e) {
+                    alert(this.text.need_date);
+                    return;
+                }
+                this.criteria[c].n = Number(Boolean($F($(c).down('INPUT[type=checkbox]'))));
                 data.push(this.criteria[c]);
                 break;
 
@@ -543,6 +575,16 @@ var ImpSearch = {
                     Horde_Calendar.open(elt.identify(), this.criteria[elt.up('DIV.searchId').identify()].v);
                     e.stop();
                     return;
+                } else if (elt.hasClassName('closeImg') &&
+                           (elt.up('SPAN.beginDate') ||
+                            elt.up('SPAN.endDate'))) {
+                    this.updateDate(
+                        elt.up('DIV.searchId').identify(),
+                        elt.up('SPAN'),
+                        0
+                    );
+                    e.stop();
+                    return;
                 }
                 break;
             }
@@ -586,7 +628,7 @@ var ImpSearch = {
                 break;
 
             case 'date':
-                this.insertDate(val);
+                this.insertDate();
                 break;
 
             case 'within':
@@ -613,8 +655,11 @@ var ImpSearch = {
 
     calendarSelectHandler: function(e)
     {
-        var id = e.findElement('DIV.searchId').identify();
-        this.replaceDate(id, this.criteria[id].t, e.memo);
+        this.updateDate(
+            e.findElement('DIV.searchId').identify(),
+            e.element().up('SPAN'),
+            e.memo
+        );
     },
 
     showUnsubCallback: function(r)
@@ -641,7 +686,6 @@ var ImpSearch = {
             document.observe('change', ImpSearch.changeHandler.bindAsEventListener(ImpSearch));
         }
 
-        this.data.constants.date = $H(this.data.constants.date);
         this.data.constants.within = $H(this.data.constants.within);
 
         if (this.i_recent) {
