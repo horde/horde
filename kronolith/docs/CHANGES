@@ -1,6 +1,6 @@
------------
-v3.0.14-git
------------
+-------
+v3.0.14
+-------
 
 [mjr] Fix bug that could cause incorrect event exceptions to be created when
       drag and dropping events in month view.
