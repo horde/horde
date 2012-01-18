@@ -10,8 +10,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-11</date>
- <time>13:33:45</time>
+ <date>2012-01-18</date>
+ <time>16:17:51</time>
  <version>
   <release>1.0.5</release>
   <api>1.0.0</api>
@@ -616,7 +616,7 @@ Initial packaging
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-10-11</date>
+   <date>2012-01-18</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Update capabilities for recent Blackberry devices.
