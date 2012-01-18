@@ -1404,7 +1404,7 @@ class IMP_Prefs_Ui
                 $t->set('infopublic', Horde::link($smime_url->copy()->add('actionID', 'info_personal_public_key'), _("Information on Personal Public Certificate"), null, 'info_key'));
 
                 if ($passphrase = $GLOBALS['injector']->getInstance('IMP_Crypt_Smime')->getPassphrase()) {
-                    $t->set('passphrase', Horde::link($ui->selfUrl(array('special' => true))->add('unset_smime_passphrase', 1), _("Unload Passphrase")) . _("Unload Passphrase"));
+                    $t->set('passphrase', Horde::link($ui->selfUrl(array('special' => true, 'token' => true))->add('unset_smime_passphrase', 1), _("Unload Passphrase")) . _("Unload Passphrase"));
                 } else {
                     $imple = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('imp', 'PassphraseDialog'), array(
                         'reloadurl' => $ui->selfUrl()->setRaw(true),
