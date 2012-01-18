@@ -205,7 +205,13 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * Exception wrapper - logs an error message before (optionally) throwing
      * exception.
      *
-     * @param mixed $msg            Error message/error object.
+     * Server debug information, if present, will be stored in the 'details'
+     * property of the exception object.
+     *
+     * @param mixed $msg            Error message/error object. If an array,
+     *                              the first entry is used as the exception
+     *                              message and the second entry is taken
+     *                              to be server debug information.
      * @param integer|string $code  Error code. If string, will convert from
      *                              the Exception constant of the same name.
      *                              If 'NO_SUPPORT', throws a non-supported
@@ -218,12 +224,23 @@ abstract class Horde_Imap_Client_Base implements Serializable
      */
     protected function _exception($msg, $code = 0, $logonly = false)
     {
+        if (is_array($msg)) {
+            $details = $msg[1];
+            $msg = $msg[0];
+        } else {
+            $details = null;
+        }
+
         if (is_integer($code)) {
             $e = new Horde_Imap_Client_Exception($msg, $code);
         } elseif ($code == 'NO_SUPPORT') {
             $e = new Horde_Imap_Client_Exception_NoSupportExtension($msg);
         } else {
             $e = new Horde_Imap_Client_Exception($msg, constant('Horde_Imap_Client_Exception::'));
+        }
+
+        if (!is_null($details)) {
+            $e->details = $details;
         }
 
         if (is_callable($this->_params['log'])) {
