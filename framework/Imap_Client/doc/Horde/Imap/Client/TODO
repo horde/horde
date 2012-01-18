@@ -29,6 +29,10 @@ TODO for 2.0
 
       The return array keys should be returned in UTF-8, not UTF7-IMAP.
 
+  - Horde_Imap_Client_Exception
+
+      Remove deprecated constants.
+
   - Horde_Imap_Client#factory()
 
       Remove Cclient mappings.

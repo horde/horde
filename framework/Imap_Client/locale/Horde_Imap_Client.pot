@@ -1,0 +1,151 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Horde_Imap_Client package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Imap_Client \n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2012-01-17 18:09-0700\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: lib/Horde/Imap/Client/Auth/DigestMD5.php:149
+msgid "Authentication failure."
+msgstr ""
+
+#: lib/Horde/Imap/Client/Socket.php:4157
+#, php-format
+msgid "Bad IMAP request: %s"
+msgstr ""
+
+#: lib/Horde/Imap/Client/Socket.php:870
+#, php-format
+msgid "Could not open mailbox \"%s\"."
+msgstr ""
+
+#: lib/Horde/Imap/Client/Socket.php:308
+msgid "Could not open secure TLS connection to the IMAP server."
+msgstr ""
+
+#: lib/Horde/Imap/Client/Socket/Pop3.php:191
+#: lib/Horde/Imap/Client/Socket/Pop3.php:200
+msgid "Could not open secure connection to the POP3 server."
+msgstr ""
+
+#: lib/Horde/Imap/Client/Socket.php:459
+#, php-format
+msgid "Error connecting to IMAP server: [%u] %s"
+msgstr ""
+
+#: lib/Horde/Imap/Client/Socket/Pop3.php:271
+#, php-format
+msgid "Error connecting to POP3 server: [%u] %s."
+msgstr ""
+
+#: lib/Horde/Imap/Client/Utf7imap.php:117
+#: lib/Horde/Imap/Client/Utf7imap.php:142
+#: lib/Horde/Imap/Client/Utf7imap.php:146
+#: lib/Horde/Imap/Client/Utf7imap.php:205
+#: lib/Horde/Imap/Client/Utf7imap.php:222
+#: lib/Horde/Imap/Client/Utf7imap.php:226
+#: lib/Horde/Imap/Client/Utf7imap.php:234
+#: lib/Horde/Imap/Client/Utf7imap.php:240
+msgid "Error converting UTF7-IMAP string."
+msgstr ""
+
+#: lib/Horde/Imap/Client/Socket.php:3886
+#, php-format
+msgid "IMAP Server closed the connection: %s"
+msgstr ""
+
+#: lib/Horde/Imap/Client/Socket.php:4160
+#, php-format
+msgid "IMAP error: %s"
+msgstr ""
+
+#: lib/Horde/Imap/Client/Socket.php:4024
+msgid "IMAP read error or IMAP connection timed out."
+msgstr ""
+
+#: lib/Horde/Imap/Client/Socket.php:3971
+msgid "IMAP server closed the connection unexpectedly."
+msgstr ""
+
+#: lib/Horde/Imap/Client/Socket.php:424
+msgid "IMAP server denied authentication."
+msgstr ""
+
+#: lib/Horde/Imap/Client/Socket.php:3505
+#, php-format
+msgid "Invalid METADATA entry: \"%s\"."
+msgstr ""
+
+#: lib/Horde/Imap/Client/Socket.php:3581
+#, php-format
+msgid "Invalid METADATA value type \"%s\"."
+msgstr ""
+
+#: lib/Horde/Imap/Client/Socket.php:1688 lib/Horde/Imap/Client/Socket.php:2587
+#: lib/Horde/Imap/Client/Socket.php:2608 lib/Horde/Imap/Client/Socket.php:3090
+msgid "Mailbox does not support mod-sequences."
+msgstr ""
+
+#: lib/Horde/Imap/Client/Socket.php:348
+msgid "No supported IMAP authentication method could be found."
+msgstr ""
+
+#: lib/Horde/Imap/Client/Socket/Pop3.php:1103
+#, php-format
+msgid "POP3 Error: %s"
+msgstr ""
+
+#: lib/Horde/Imap/Client/Socket/Pop3.php:1047
+msgid "POP3 Server closed the connection unexpectedly."
+msgstr ""
+
+#: lib/Horde/Imap/Client/Socket/Pop3.php:236
+msgid "POP3 server denied authentication."
+msgstr ""
+
+#: lib/Horde/Imap/Client/Socket.php:299
+msgid "Server does not support TLS connections."
+msgstr ""
+
+#: lib/Horde/Imap/Client/Socket/Pop3.php:191
+msgid "Server does not support secure connections."
+msgstr ""
+
+#: lib/Horde/Imap/Client/Socket.php:477
+#, php-format
+msgid "Server rejected connection: %s"
+msgstr ""
+
+#: lib/Horde/Imap/Client/Socket.php:488
+msgid "The IMAP server does not support IMAP4rev1 (RFC 3501)."
+msgstr ""
+
+#: lib/Horde/Imap/Client/Socket.php:3785
+#, php-format
+msgid ""
+"Unexpected response from IMAP server while waiting for a continuation "
+"request: %s"
+msgstr ""
+
+#: lib/Horde/Imap/Client/Socket.php:558
+#: lib/Horde/Imap/Client/Socket/Pop3.php:318
+msgid "Unexpected response from server when authenticating."
+msgstr ""
+
+#: lib/Horde/Imap/Client/Socket.php:599
+#: lib/Horde/Imap/Client/Socket/Pop3.php:355
+#, php-format
+msgid "Unknown authentication method: %s"
+msgstr ""

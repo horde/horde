@@ -2,6 +2,11 @@
 <br class="clear" />
 <?php endif; ?>
 <br />
+<?php if (empty($this->duplicates)): ?>
+<h3>
+ <?php echo $this->h(_("No duplicates found.")) ?>
+</h3>
+<?php else: ?>
 <?php foreach ($this->duplicates as $field => $duplicates): ?>
 <h3><?php echo $this->h(sprintf(_("Duplicates of %s"), $this->attributes[$field]['label'])) ?></h3>
 <table class="horde-table horde-block-links sortable">
@@ -21,3 +26,4 @@
   </tbody>
 </table>
 <?php endforeach; ?>
+<?php endif; ?>

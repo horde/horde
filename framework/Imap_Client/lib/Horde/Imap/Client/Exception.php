@@ -19,12 +19,6 @@ class Horde_Imap_Client_Exception extends Horde_Exception_Wrapped
     // Unspecified error (default)
     const UNSPECIFIED = 0;
 
-    // The given Horde_Imap_Client driver does not exist on the system.
-    const DRIVER_NOT_FOUND = 1;
-
-    // The function called is not supported in POP3.
-    const POP3_NOTSUPPORTED = 2;
-
     // There was an unrecoverable error in UTF7IMAP -> UTF8 conversion.
     const UTF7IMAP_CONVERSION = 3;
 
@@ -40,10 +34,6 @@ class Horde_Imap_Client_Exception extends Horde_Exception_Wrapped
     // The server could not decode the MIME part (see RFC 3516)
     const UNKNOWNCTE = 7;
 
-    // The server does not support the IMAP extensions needed for this
-    // operation
-    const NOSUPPORTIMAPEXT = 8;
-
     // The comparator specified by setComparator() was not recognized by the
     // IMAP server
     const BADCOMPARATOR = 9;
@@ -58,17 +48,11 @@ class Horde_Imap_Client_Exception extends Horde_Exception_Wrapped
     // Thrown if read error for server response.
     const SERVER_READERROR = 12;
 
-    // Thrown on CATENATE if a bad IMAP URL is found.
-    const CATENATE_BADURL = 13;
-
     // Thrown on CATENATE if the message was too big.
     const CATENATE_TOOBIG = 14;
 
     // Thrown on CREATE if special-use attribute is not supported.
     const USEATTR = 15;
-
-    // Bad search request.
-    const BADSEARCH = 16;
 
     // The user did not have permissions to carry out the operation.
     const NOPERM = 17;
@@ -101,11 +85,14 @@ class Horde_Imap_Client_Exception extends Horde_Exception_Wrapped
 
     // Setting metadata failed because it does not support private
     // annotations on one of the specified mailboxes.
-    const METADATA_TOOMANY = 24;
+    const METADATA_TOOMANY = 25;
 
     // Setting metadata failed because the server does not support private
     // annotations on one of the specified mailboxes.
-    const METADATA_NOPRIVATE = 24;
+    const METADATA_NOPRIVATE = 26;
+
+    // Invalid metadata entry.
+    const METADATA_INVALID = 27;
 
 
     // Login failures
@@ -146,5 +133,19 @@ class Horde_Imap_Client_Exception extends Horde_Exception_Wrapped
 
     // Permanent error indicated by server.
     const POP3_PERM_ERROR = 301;
+
+
+    // Unsupported feature error codes
+
+    // Function/feature is not supported on this server.
+    const NOT_SUPPORTED = 400;
+
+
+    // Deprecated
+    const DRIVER_NOT_FOUND = 1;
+    const POP3_NOTSUPPORTED = 2;
+    const NOSUPPORTIMAPEXT = 8;
+    const CATENATE_BADURL = 13;
+    const BADSEARCH = 16;
 
 }

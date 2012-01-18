@@ -135,15 +135,12 @@ abstract class Horde_Imap_Client_Base implements Serializable
     protected $_utilsClass = 'Horde_Imap_Client_Utils';
 
     /**
-     * Constructs a new Horde_Imap_Client_Base object.
+     * Constructor.
      *
      * @see Horde_Imap_Client::factory()
      *
      * @param array $params  A hash containing configuration parameters.
      *                       See Horde_Imap_Client::factory().
-     *
-     * @throws Horde_Imap_Client_Exception
-     * @throws InvalidArgumentException
      */
     public function __construct(array $params = array())
     {
@@ -194,8 +191,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * Get encryption key.
      *
      * @return string  The encryption key.
-     *
-     * @throws Horde_Imap_Client_Exception
      */
     protected function _getEncryptKey()
     {
@@ -203,7 +198,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
             return call_user_func($this->_params['encryptKey']);
         }
 
-        $this->_exception('encryptKey parameter is not a valid callback.');
+        throw new InvalidArgumentException('encryptKey parameter is not a valid callback.');
     }
 
     /**
@@ -213,18 +208,23 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * @param mixed $msg            Error message/error object.
      * @param integer|string $code  Error code. If string, will convert from
      *                              the Exception constant of the same name.
+     *                              If 'NO_SUPPORT', throws a non-supported
+     *                              extension exception.
      * @param boolean $logonly      If true, log only and don't throw
      *                              exception.
      *
      * @throws Horde_Imap_Client_Exception
+     * @throws Horde_Imap_Client_Exception_NoSupportExtension
      */
     protected function _exception($msg, $code = 0, $logonly = false)
     {
-        if (!is_integer($code)) {
-            $code = constant('Horde_Imap_Client_Exception::' . $code);
+        if (is_integer($code)) {
+            $e = new Horde_Imap_Client_Exception($msg, $code);
+        } elseif ($code == 'NO_SUPPORT') {
+            $e = new Horde_Imap_Client_Exception_NoSupportExtension($msg);
+        } else {
+            $e = new Horde_Imap_Client_Exception($msg, constant('Horde_Imap_Client_Exception::'));
         }
-
-        $e = new Horde_Imap_Client_Exception($msg, $code);
 
         if (is_callable($this->_params['log'])) {
             call_user_func($this->_params['log'], $e);
@@ -396,7 +396,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
             try {
                 $secret = new Horde_Secret();
                 return $secret->read($this->_getEncryptKey(), $this->_params['password']);
-            } catch (Horde_Imap_Client_Exception $e) {
+            } catch (Exception $e) {
                 return null;
             }
         }
@@ -640,22 +640,16 @@ abstract class Horde_Imap_Client_Base implements Serializable
             if (!empty($this->_params['id'])) {
                 try {
                     $this->sendID();
-                } catch (Horde_Imap_Client_Exception $e) {
-                    // Ignore if server doesn't support ID
-                    if ($e->getCode() != Horde_Imap_Client_Exception::NOSUPPORTIMAPEXT) {
-                        throw $e;
-                    }
+                } catch (Horde_Imap_Client_Exception_NoSupportExtension $e) {
+                    // Ignore if server doesn't support ID extension.
                 }
             }
 
             if (!empty($this->_params['comparator'])) {
                 try {
                     $this->setComparator();
-                } catch (Horde_Imap_Client_Exception $e) {
+                } catch (Horde_Imap_Client_Exception_NoSupportExtension $e) {
                     // Ignore if server doesn't support I18NLEVEL=2
-                    if ($e->getCode() != Horde_Imap_Client_Exception::NOSUPPORTIMAPEXT) {
-                        throw $e;
-                    }
                 }
             }
 
@@ -702,11 +696,12 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *                     this information instead.
      *
      * @throws Horde_Imap_Client_Exception
+     * @throws Horde_Imap_Client_Exception_NoSupportExtension
      */
     public function sendID($info = null)
     {
         if (!$this->queryCapability('ID')) {
-            $this->_exception('The IMAP server does not support the ID extension.', 'NOSUPPORTIMAPEXT');
+            $this->_exception('The IMAP server does not support the ID extension.', 'NO_SUPPORT');
         }
 
         $this->_sendID(is_null($info) ? (empty($this->_params['id']) ? array() : $this->_params['id']) : $info);
@@ -732,7 +727,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
     public function getID()
     {
         if (!$this->queryCapability('ID')) {
-            $this->_exception('The IMAP server does not support the ID extension.', 'NOSUPPORTIMAPEXT');
+            $this->_exception('The IMAP server does not support the ID extension.', 'NO_SUPPORT');
         }
 
         return $this->_getID();
@@ -1913,7 +1908,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
          * FUZZY searching. */
         if (in_array(Horde_Imap_Client::SEARCH_RESULTS_RELEVANCY, $options['results']) &&
             !in_array('SEARCH=FUZZY', $options['_query']['exts_used'])) {
-            $this->_exception('Cannot specify RELEVANCY results if not doing a FUZZY search.', 'BADSEARCH');
+            throw new InvalidArgumentException('Cannot specify RELEVANCY results if not doing a FUZZY search.');
         }
 
         /* Optimization - if query is just for a count of either RECENT or
@@ -2025,6 +2020,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *                            the default comparator.
      *
      * @throws Horde_Imap_Client_Exception
+     * @throws Horde_Imap_Client_Exception_NoSupportExtension
      */
     public function setComparator($comparator = null)
     {
@@ -2039,7 +2035,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         $i18n = $this->queryCapability('I18NLEVEL');
         if (empty($i18n) || (max($i18n) < 2)) {
-            $this->_exception('The IMAP server does not support changing SEARCH/SORT comparators.', 'NOSUPPORTIMAPEXT');
+            $this->_exception('The IMAP server does not support changing SEARCH/SORT comparators.', 'NO_SUPPORT');
         }
 
         $this->_setComparator($comp);
@@ -2235,16 +2231,19 @@ abstract class Horde_Imap_Client_Base implements Serializable
         } elseif ($options['ids']->search_res &&
                   !$this->queryCapability('SEARCHRES')) {
             /* SEARCHRES requires server support. */
-            $this->_exception('Server does not support saved searches.');
+            $this->_exception('Server does not support saved searches.', 'NO_SUPPORT');
         }
 
         /* The 'vanished' modifier requires QRESYNC, 'changedsince', and IDs
          * that are not sequence numbers. */
-        if (!empty($options['vanished']) &&
-            (!$qresync ||
-             $options['ids']->sequence ||
-             empty($options['changedsince']))) {
-            $this->_exception('The vanished FETCH modifier is missing a pre-requisite.');
+        if (!empty($options['vanished'])) {
+            if (!$qresync) {
+                $this->_exception('Server does not support the QRESYNC extension.', 'NO_SUPPORT');
+            } elseif ($options['ids']->sequence) {
+                throw new InvalidArgumentException('The vanished FETCH modifier requires UIDs.');
+            } elseif (empty($options['changedsince'])) {
+                throw new InvalidArgumentException('The vanished FETCH modifier requires the changedsince parameter.');
+            }
         }
 
         $this->openMailbox($mailbox, Horde_Imap_Client::OPEN_AUTO);
@@ -2551,12 +2550,12 @@ abstract class Horde_Imap_Client_Base implements Serializable
             return $this->getIdsOb();
         } elseif ($options['ids']->search_res &&
                   !$this->queryCapability('SEARCHRES')) {
-            $this->_exception('Server does not support saved searches.');
+            $this->_exception('Server does not support saved searches.', 'NO_SUPPORT');
         }
 
         if (!empty($options['unchangedsince']) &&
             !isset($this->_init['enabled']['CONDSTORE'])) {
-            $this->_exception('Server does not support the CONDSTORE extension.', 'NOSUPPORTIMAPEXT');
+            $this->_exception('Server does not support the CONDSTORE extension.', 'NO_SUPPORT');
         }
 
         return $this->_store($options);
@@ -2610,7 +2609,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
             return array();
         } elseif ($options['ids']->search_res &&
                   !$this->queryCapability('SEARCHRES')) {
-            $this->_exception('Server does not support saved searches.');
+            $this->_exception('Server does not support saved searches.', 'NO_SUPPORT');
         }
 
         return $this->_copy(Horde_Imap_Client_Mailbox::get($dest, null), $options);
@@ -2653,7 +2652,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $this->login();
 
         if (!$this->queryCapability('QUOTA')) {
-            $this->_exception('Server does not support the QUOTA extension.', 'NOSUPPORTIMAPEXT');
+            $this->_exception('Server does not support the QUOTA extension.', 'NO_SUPPORT');
         }
 
         if (isset($options['messages']) || isset($options['storage'])) {
@@ -2692,7 +2691,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $this->login();
 
         if (!$this->queryCapability('QUOTA')) {
-            $this->_exception('Server does not support the QUOTA extension.', 'NOSUPPORTIMAPEXT');
+            $this->_exception('Server does not support the QUOTA extension.', 'NO_SUPPORT');
         }
 
         return $this->_getQuota(Horde_Imap_Client_Mailbox::get($root, null));
@@ -2730,7 +2729,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $this->login();
 
         if (!$this->queryCapability('QUOTA')) {
-            $this->_exception('Server does not support the QUOTA extension.', 'NOSUPPORTIMAPEXT');
+            $this->_exception('Server does not support the QUOTA extension.', 'NO_SUPPORT');
         }
 
         return $this->_getQuotaRoot(Horde_Imap_Client_Mailbox::get($mailbox, null));
@@ -2800,7 +2799,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $this->login();
 
         if (!$this->queryCapability('ACL')) {
-            $this->_exception('Server does not support the ACL extension.', 'NOSUPPORTIMAPEXT');
+            $this->_exception('Server does not support the ACL extension.', 'NO_SUPPORT');
         }
 
         if (!empty($options['rights'])) {
@@ -2856,7 +2855,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $this->login();
 
         if (!$this->queryCapability('ACL')) {
-            $this->_exception('Server does not support the ACL extension.', 'NOSUPPORTIMAPEXT');
+            $this->_exception('Server does not support the ACL extension.', 'NO_SUPPORT');
         }
 
         return $this->_listACLRights(
@@ -2895,7 +2894,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $this->login();
 
         if (!$this->queryCapability('ACL')) {
-            $this->_exception('Server does not support the ACL extension.', 'NOSUPPORTIMAPEXT');
+            $this->_exception('Server does not support the ACL extension.', 'NO_SUPPORT');
         }
 
         return $this->_getMyACLRights(Horde_Imap_Client_Mailbox::get($mailbox, null));
@@ -3736,7 +3735,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
                     if ($exception) {
                         $message .= ' ' . $exception->getMessage();
                     }
-                    $this->_exception($message, 'CATENATE_BADURL');
+                    throw new InvalidArgumentException($message);
                 } else {
                     $this->_prepareAppendData($part, $stream);
                 }

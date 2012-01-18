@@ -108,7 +108,7 @@ class Horde_Imap_Client_Search_Query implements Serializable
      *            to IMAP2 search criteria).
      *   - query: (array) The IMAP search string.
      *
-     * @throws Horde_Imap_Client_Exception
+     * @throws Horde_Imap_Client_Exception_NoSupportExtension
      */
     public function build($exts = array())
     {
@@ -298,7 +298,7 @@ class Horde_Imap_Client_Search_Query implements Serializable
 
         if (!empty($ptr['modseq'])) {
             if (!is_null($exts) && !isset($exts['CONDSTORE'])) {
-                throw new Horde_Imap_Client_Exception('IMAP Server does not support CONDSTORE.', Horde_Imap_Client_Exception::NOSUPPORTIMAPEXT);
+                throw new Horde_Imap_Client_Exception_NoSupportExtension('IMAP Server does not support CONDSTORE.');
             }
 
             $exts_used[] = 'CONDSTORE';
@@ -319,7 +319,7 @@ class Horde_Imap_Client_Search_Query implements Serializable
 
         if (isset($ptr['prevsearch'])) {
             if (!is_null($exts) && !isset($exts['SEARCHRES'])) {
-                throw new Horde_Imap_Client_Exception('IMAP Server does not support SEARCHRES.', Horde_Imap_Client_Exception::NOSUPPORTIMAPEXT);
+                throw new Horde_Imap_Client_Exception_NoSupportExtension('IMAP Server does not support SEARCHRES.');
             }
 
             $exts_used[] = 'SEARCHRES';
@@ -379,14 +379,14 @@ class Horde_Imap_Client_Search_Query implements Serializable
      *
      * @param boolean $add  Add the fuzzy modifier?
      *
-     * @throws Horde_Imap_Client_Exception
+     * @throws Horde_Imap_Client_Exception_NoSupport_Extension
      */
     protected function _addFuzzy($add)
     {
         if ($add) {
             if (!isset($this->_temp['exts']['SEARCH']) ||
                 !in_array('FUZZY', $this->_temp['exts']['SEARCH'])) {
-                throw new Horde_Imap_Client_Exception('IMAP Server does not support SEARCH=FUZZY.', Horde_Imap_Client_Exception::NOSUPPORTIMAPEXT);
+                throw new Horde_Imap_Client_Exception_NoSupportExtension('IMAP Server does not support SEARCH=FUZZY.');
             }
             $this->_temp['cmds'][] = 'FUZZY';
             $this->_temp['exts_used'][] = 'SEARCH=FUZZY';

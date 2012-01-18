@@ -325,8 +325,6 @@ class Horde_Imap_Client
      * </ul>
      *
      * @return Horde_Imap_Client_Base  The newly created instance.
-     *
-     * @throws Horde_Imap_Client_Exception
      */
     static public function factory($driver, $params = array())
     {
@@ -347,7 +345,7 @@ class Horde_Imap_Client
             return new $class($params);
         }
 
-        throw new Horde_Imap_Client_Exception('Driver ' . $driver . ' not found', Horde_Imap_Client_Exception::DRIVER_NOT_FOUND);
+        throw new RuntimeException('Driver ' . $driver . ' not found');
     }
 
 }
