@@ -10,6 +10,29 @@
 
 This lists the API changes between minor releases of the package.
 
+Upgrading To 1.4.0
+==================
+
+Several exception codes have been deprecated:
+
+  - DRIVER_NOT_FOUND
+  - CATENATE_BADURL
+  - BADSEARCH
+
+These are coding errors, not run-time errors, so SPL Exceptions are thrown
+instead of Horde_Imap_Client_Exceptions with these codes.
+
+These exception codes have also been deprecated:
+
+  - NOSUPPORTIMAPEXT
+  - POP3_NOTSUPPORTED
+
+Instead, a Horde_Imap_Client_Exception_NoSupportExtension will be thrown. This
+class is an extension of Horde_Imap_Client_Exception, so current try/catch
+statements will automatically catch these exceptions.
+
+Horde_Imap_Client_Exception messages are now translated.
+
 
 Upgrading To 1.3.0
 ==================

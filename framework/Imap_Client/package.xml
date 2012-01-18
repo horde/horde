@@ -11,10 +11,10 @@
   <active>yes</active>
  </lead>
  <date>2012-01-17</date>
- <time>12:25:15</time>
+ <time>18:09:46</time>
  <version>
-  <release>1.3.3</release>
-  <api>1.2.0</api>
+  <release>1.4.0</release>
+  <api>1.4.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -22,7 +22,10 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix METADATA_TOOMANY and METADATA_NOPRIVATE exception codes.
+* [mms] All user-directed exception messages are now translated.
+* [mms] Added Horde_Imap_Client_Exception_NoSupportExtension.
+* [mms] Incorrect method calls now throw SPL errors instead of Horde_Imap_Client_Exceptions.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -56,6 +59,9 @@
         <file name="Fetch.php" role="php" />
         <file name="Thread.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Data -->
+       <dir name="Exception">
+        <file name="NoSupportExtension.php" role="php" />
+       </dir> <!-- /lib/Horde/Imap/Client/Exception -->
        <dir name="Fetch">
         <file name="Query.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Fetch -->
@@ -79,6 +85,7 @@
        <file name="Mailbox.php" role="php" />
        <file name="Socket.php" role="php" />
        <file name="Sort.php" role="php" />
+       <file name="Translation.php" role="php" />
        <file name="Utf7imap.php" role="php" />
        <file name="Utils.php" role="php" />
       </dir> <!-- /lib/Horde/Imap/Client -->
@@ -86,6 +93,9 @@
      </dir> <!-- /lib/Horde/Imap -->
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="locale">
+    <file name="Horde_Imap_Client.pot" role="data" />
+   </dir> <!-- /locale -->
    <dir name="test">
     <dir name="Horde">
      <dir name="Imap">
@@ -199,6 +209,7 @@
    <install as="Horde/Imap/Client/Mailbox.php" name="lib/Horde/Imap/Client/Mailbox.php" />
    <install as="Horde/Imap/Client/Socket.php" name="lib/Horde/Imap/Client/Socket.php" />
    <install as="Horde/Imap/Client/Sort.php" name="lib/Horde/Imap/Client/Sort.php" />
+   <install as="Horde/Imap/Client/Translation.php" name="lib/Horde/Imap/Client/Translation.php" />
    <install as="Horde/Imap/Client/Utf7imap.php" name="lib/Horde/Imap/Client/Utf7imap.php" />
    <install as="Horde/Imap/Client/Utils.php" name="lib/Horde/Imap/Client/Utils.php" />
    <install as="Horde/Imap/Client/Auth/DigestMD5.php" name="lib/Horde/Imap/Client/Auth/DigestMD5.php" />
@@ -210,11 +221,13 @@
    <install as="Horde/Imap/Client/Data/Fetch.php" name="lib/Horde/Imap/Client/Data/Fetch.php" />
    <install as="Horde/Imap/Client/Data/Thread.php" name="lib/Horde/Imap/Client/Data/Thread.php" />
    <install as="Horde/Imap/Client/Data/Fetch/Pop3.php" name="lib/Horde/Imap/Client/Data/Fetch/Pop3.php" />
+   <install as="Horde/Imap/Client/Exception/NoSupportExtension.php" name="lib/Horde/Imap/Client/Exception/NoSupportExtension.php" />
    <install as="Horde/Imap/Client/Fetch/Query.php" name="lib/Horde/Imap/Client/Fetch/Query.php" />
    <install as="Horde/Imap/Client/Ids/Pop3.php" name="lib/Horde/Imap/Client/Ids/Pop3.php" />
    <install as="Horde/Imap/Client/Search/Query.php" name="lib/Horde/Imap/Client/Search/Query.php" />
    <install as="Horde/Imap/Client/Socket/Pop3.php" name="lib/Horde/Imap/Client/Socket/Pop3.php" />
    <install as="Horde/Imap/Client/Utils/Pop3.php" name="lib/Horde/Imap/Client/Utils/Pop3.php" />
+   <install as="locale/Horde_Imap_Client.pot" name="locale/Horde_Imap_Client.pot" />
    <install as="Horde/Imap/Client/AclTest.php" name="test/Horde/Imap/Client/AclTest.php" />
    <install as="Horde/Imap/Client/AllTests.php" name="test/Horde/Imap/Client/AllTests.php" />
    <install as="Horde/Imap/Client/AuthTest.php" name="test/Horde/Imap/Client/AuthTest.php" />
@@ -662,15 +675,18 @@
   </release>
   <release>
    <version>
-    <release>1.3.3</release>
-    <api>1.2.0</api></version>
+    <release>1.4.0</release>
+    <api>1.4.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2012-01-17</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix METADATA_TOOMANY and METADATA_NOPRIVATE exception codes.
+* [mms] All user-directed exception messages are now translated.
+* [mms] Added Horde_Imap_Client_Exception_NoSupportExtension.
+* [mms] Incorrect method calls now throw SPL errors instead of Horde_Imap_Client_Exceptions.
    </notes>
   </release>
  </changelog>

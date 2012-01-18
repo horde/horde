@@ -146,7 +146,7 @@ class Horde_Imap_Client_Auth_DigestMD5
 
         // Required directives.
         if (!isset($tokens['nonce']) || !isset($tokens['algorithm'])) {
-            throw new Horde_Imap_Client_Exception('Missing required DIGEST-MD5 directives.');
+            throw new Horde_Imap_Client_Exception(Horde_Imap_Client_Translation::t("Authentication failure."), 'SERVER_CONNECT');
         }
 
         return $tokens;
