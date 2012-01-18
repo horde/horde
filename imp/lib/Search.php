@@ -391,12 +391,26 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
      * @param string $id         The mailbox ID.
      * @param boolean $editable  Is this an editable (i.e. not built-in)
      *                           search query?
+     *
+     * @return boolean  True if a search query.
      */
     public function isQuery($id, $editable = false)
     {
         return (isset($this->_search['query'][$this->_strip($id)]) &&
-                (!$editable ||
-                 !in_array($this[$id]->id, array(self::BASIC_SEARCH, self::DIMP_FILTERSEARCH, self::DIMP_QUICKSEARCH))));
+                (!$editable || !$this->isSystemQuery($id)));
+    }
+
+    /**
+     * Is a mailbox a system (built-in) search query?
+     *
+     * @param string $id  The mailbox ID.
+     *
+     * @return boolean  True if a system search query.
+     */
+    public function isSystemQuery($id)
+    {
+        return (isset($this->_search['query'][$this->_strip($id)]) &&
+                in_array($this[$id]->id, array(self::BASIC_SEARCH, self::DIMP_FILTERSEARCH, self::DIMP_QUICKSEARCH)));
     }
 
     /**

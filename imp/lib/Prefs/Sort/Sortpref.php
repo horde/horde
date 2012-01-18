@@ -66,7 +66,11 @@ class IMP_Prefs_Sort_Sortpref
 
         switch ($name) {
         case 'locked':
-            return $prefs->isLocked(IMP_Prefs_Sort::SORTPREF);
+            return $this->_mbox->search
+                /* For now, only allow sorting in search mailboxes guaranteed
+                 * to consist of a single mailbox. */
+                ? !$this->_mbox->systemquery
+                : $prefs->isLocked(IMP_Prefs_Sort::SORTPREF);
 
         case 'mbox':
             return $this->_mbox;

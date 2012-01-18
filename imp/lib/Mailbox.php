@@ -94,6 +94,7 @@
  * @property array $subfolders_only  Returns the list of subfolders as mailbox
  *                                   objects (NOT including the current
  *                                   mailbox).
+ * @property boolean $systemquery  Is this a system (built-in) search query?
  * @property boolean $templates  Is this a Templates mailbox?
  * @property boolean $trash  Is this a Trash mailbox?
  * @property string $uidvalid  Returns the UIDVALIDITY string. Throws an
@@ -651,6 +652,9 @@ class IMP_Mailbox implements Serializable
 
         case 'subfolders_only':
             return $this->get($injector->getInstance('IMP_Factory_Imap')->create()->listMailboxes($this->_mbox . $this->namespace_delimiter . '*', null, array('flat' => true)));
+
+        case 'systemquery':
+            return $injector->getInstance('IMP_Search')->isSystemQuery($this->_mbox);
 
         case 'templates':
             $special = $this->getSpecialMailboxes();
