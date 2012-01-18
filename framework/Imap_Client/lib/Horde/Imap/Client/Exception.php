@@ -2,6 +2,9 @@
 /**
  * Exception handler for the Horde_Imap_Client package.
  *
+ * Additional server debug information MAY be found in the $details
+ * property.
+ *
  * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -83,8 +86,8 @@ class Horde_Imap_Client_Exception extends Horde_Exception_Wrapped
     // in the exception message string.
     const METADATA_MAXSIZE = 24;
 
-    // Setting metadata failed because it does not support private
-    // annotations on one of the specified mailboxes.
+    // Setting metadata failed because the maximum number of allowed
+    // annotations has already been reached.
     const METADATA_TOOMANY = 25;
 
     // Setting metadata failed because the server does not support private

@@ -268,7 +268,10 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         if ($this->_stream === false) {
             $this->_stream = null;
             $this->_isSecure = false;
-            $this->_exception(sprintf(Horde_Imap_Client_Translation::t("Error connecting to POP3 server: [%u] %s."), $error_number, $error_string), 'SERVER_CONNECT');
+            $this->_exception(array(
+                Horde_Imap_Client_Translation::t("Error connecting to POP3 server."),
+                sprintf("[%u] %s.", $error_number, $error_string)
+            ), 'SERVER_CONNECT');
         }
 
         stream_set_timeout($this->_stream, $this->_params['timeout']);
@@ -1100,7 +1103,10 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                 $errtext = '[No error message provided by server]';
             }
 
-            $this->_exception(sprintf(Horde_Imap_Client_Translation::t("POP3 Error: %s"), $errtext), $errcode);
+            $this->_exception(array(
+                Horde_Imap_Client_Translation::t("POP3 error reported by server."),
+                $errtext
+            ), $errcode);
 
         case '.':
             $ob['response'] = 'END';

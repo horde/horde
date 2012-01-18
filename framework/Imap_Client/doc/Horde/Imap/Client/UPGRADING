@@ -31,7 +31,9 @@ Instead, a Horde_Imap_Client_Exception_NoSupportExtension will be thrown. This
 class is an extension of Horde_Imap_Client_Exception, so current try/catch
 statements will automatically catch these exceptions.
 
-Horde_Imap_Client_Exception messages are now translated.
+Horde_Imap_Client_Exception messages are now translated.  Additionally, debug
+information from the server MAY be available in the 'details' property of the
+Exception object rather than being added to the error message.
 
 
 Upgrading To 1.3.0
