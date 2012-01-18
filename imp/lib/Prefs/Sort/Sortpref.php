@@ -122,7 +122,7 @@ class IMP_Prefs_Sort_Sortpref
             case Horde_Imap_Client::SORT_THREAD:
                 /* Can't do threaded searches in search mailboxes. */
                 if (!$this->_mbox->access_sortthread) {
-                    $this->_sortby = IMP::IMAP_SORT_DATE;
+                    $this->_sortby = Horde_Imap_Client::SORT_SUBJECT;
                 }
                 break;
 
