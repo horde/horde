@@ -1279,9 +1279,14 @@
       <configstring name="sendmail_args" required="false" desc="Any extra
       parameters to pass to the sendmail or sendmail wrapper
       binary">-oi</configstring>
+      <configstring name="sendmail_eol" required="false" desc="The end-of-line
+      (EOL) sequence to use when piping the message to the sendmail binary.
+      It is not possible to reliably auto-configure sendmail, so if your
+      messages are being sent incorrectly, you should adjust this value (if
+      blank, the system default is used)."></configstring>
      </configsection>
     </case>
-    <case name="smtp" desc="Use a SMTP server (RECOMMENDED)">
+    <case name="smtp" desc="Use a SMTP server (HIGHLY RECOMMENDED)">
      <configsection name="params">
       <configstring name="host" required="false" desc="The server to connect
       to [localhost]"/>
