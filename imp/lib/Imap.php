@@ -408,61 +408,7 @@ class IMP_Imap implements Serializable
             $result = call_user_func_array(array($this->ob, $method), $params);
         } catch (Horde_Imap_Client_Exception $e) {
             $error = new IMP_Imap_Exception($e);
-
-            switch ($e->getCode()) {
-            case Horde_Imap_Client_Exception::DISCONNECT:
-                $error->notify(_("Unexpectedly disconnected from the mail server."));
-                break;
-
-            case Horde_Imap_Client_Exception::SERVER_READERROR:
-                $error->notify(_("Error when communicating with the mail server."));
-                break;
-
-            case Horde_Imap_Client_Exception::MAILBOX_NOOPEN:
-                if (strcasecmp($method, 'openMailbox') === 0) {
-                    $error->notify(sprintf(_("Could not open mailbox \"%s\"."), IMP_Mailbox::get(reset($params)))->label);
-                } else {
-                    $error->notify(_("Could not open mailbox."));
-                }
-                break;
-
-            case Horde_Imap_Client_Exception::CATENATE_TOOBIG:
-                $error->notify(_("Could not save message data because it is too large."));
-                break;
-
-            case Horde_Imap_Client_Exception::NOPERM:
-                $error->notify(_("You do not have adequate permissions to carry out this operation."));
-                break;
-
-            case Horde_Imap_Client_Exception::INUSE:
-            case Horde_Imap_Client_Exception::POP3_TEMP_ERROR:
-                $error->notify(_("There was a temporary issue when attempting this operation. Please try again later."));
-                break;
-
-            case Horde_Imap_Client_Exception::CORRUPTION:
-            case Horde_Imap_Client_Exception::POP3_PERM_ERROR:
-                $error->notify(_("The mail server is reporting corrupt data in your mailbox. Details have been logged for the administrator."));
-                break;
-
-            case Horde_Imap_Client_Exception::LIMIT:
-                $error->notify(_("The mail server has denied the request. Details have been logged for the administrator."));
-                break;
-
-            case Horde_Imap_Client_Exception::OVERQUOTA:
-                $error->notify(_("The operation failed because you have exceeded your quota on the mail server."));
-                break;
-
-            case Horde_Imap_Client_Exception::ALREADYEXISTS:
-                $error->notify(_("The object could not be created because it already exists."));
-                break;
-
-            case Horde_Imap_Client_Exception::NONEXISTENT:
-                $error->notify(_("The object could not be deleted because it does not exist."));
-                break;
-            }
-
             $error->log();
-
             throw $error;
         }
 
