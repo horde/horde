@@ -73,13 +73,8 @@ $subject = '';
 $page_label = IMP::$mailbox->label;
 
 if ($mode == 'thread') {
-    $threadob = $imp_mailbox->getThreadOb();
-    $index_array = $imp_mailbox->getIMAPIndex();
-    $thread = $threadob->getThread($index_array['uid']);
-
-    $imp_thread = new IMP_Imap_Thread($threadob);
-    $threadtree = $imp_thread->getThreadImageTree($thread, false);
-    $imp_indices = IMP::$mailbox->getIndicesOb($thread);
+    $index = $imp_mailbox->getIMAPIndex();
+    $imp_indices = $imp_mailbox->getFullThread($index['uid'], $index['mailbox']);
 }
 
 $charset = 'UTF-8';
@@ -137,7 +132,10 @@ foreach ($imp_indices as $ob) {
         $curr_msg['link'] .= ' | ' . Horde::widget(IMP::$mailbox->url('message.php', $idx, $ob->mbox), _("Go to Message"), 'widget', '', '', _("Go to Message"), true);
         $curr_msg['link'] .= ' | ' . Horde::widget(IMP::$mailbox->url('mailbox.php')->add(array('start' => $imp_mailbox->getArrayIndex($idx))), sprintf(_("Back to %s"), $page_label), 'widget', '', '', sprintf(_("Bac_k to %s"), $page_label));
 
-        $curr_tree['subject'] = (($mode == 'thread') ? $threadtree[$idx] : null) . ' ' . Horde::link('#i' . $idx) . Horde_String::truncate($subject_header, 60) . '</a> (' . $addr . ')';
+        $curr_tree['subject'] = ($mode == 'thread')
+            ? $imp_mailbox[$imp_mailbox->getArrayIndex($fetch_res[$idx]->getUid(), $ob->mbox) + 1]['t']->img
+            : ' ';
+        $curr_tree['subject'] .= Horde::link('#i' . $idx) . Horde_String::truncate($subject_header, 60) . '</a> (' . $addr . ')';
 
         $msgs[] = $curr_msg;
         $tree[] = $curr_tree;

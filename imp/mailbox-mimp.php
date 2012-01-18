@@ -146,20 +146,12 @@ $curr_time = time();
 $curr_time -= $curr_time % 60;
 $msgs = array();
 $sortpref = IMP::$mailbox->getSort();
+$thread_sort = ($sortpref->sortby == Horde_Imap_Client::SORT_THREAD);
 
 $imp_ui = new IMP_Ui_Mailbox(IMP::$mailbox);
 
 /* Build the array of message information. */
 $mbox_info = $imp_mailbox->getMailboxArray(range($pageOb['begin'], $pageOb['end']), array('headers' => true));
-
-/* Get thread information. */
-if ($sortpref->sortby == Horde_Imap_Client::SORT_THREAD) {
-    $imp_thread = new IMP_Imap_Thread($imp_mailbox->getThreadOb());
-    $threadtree = $imp_thread->getThreadTextTree($mbox_info['uids'][strval(IMP::$mailbox)], $sortpref->sortdir);
-} else {
-    $imp_thread = null;
-    $threadtree = array();
-}
 
 while (list(,$ob) = each($mbox_info['overview'])) {
     /* Initialize the header fields. */
@@ -191,9 +183,12 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     $msg['subject'] = Horde_String::truncate($msg['subject'], 50);
 
     /* Thread display. */
-    $msg['thread'] = empty($threadtree[$ob['uid']])
-        ? ''
-        : str_replace(' ', '&nbsp;', $threadtree[$ob['uid']]);
+    if ($sort_thread) {
+        $t_ob =  $imp_mailbox[$ob['idx']]['t'];
+        $msg['thread'] = str_replace(' ', '&nsbp;', ($sortpref->sortdir ? $t_ob->reverse_txt : $t_ob->txt));
+    } else {
+        $msg['thread'] = '';
+    }
 
     /* Generate the target link. */
     if (IMP::$mailbox->templates) {
@@ -249,8 +244,8 @@ foreach ($hdr_list as $key => $val) {
 }
 
 /* Add thread header entry. */
-if (!$search_mbox && !$sortpref->locked && IMP::$mailbox->access_sortthread) {
-    if (is_null($imp_thread)) {
+if (!$sortpref->locked && IMP::$mailbox->access_sortthread) {
+    if ($sortpref->sortby == Horde_Imap_Client::SORT_THREAD) {
         $t->set('hdr_subject_minor', $t->get('hdr_thread'));
     } else {
         $t->set('hdr_subject_minor', $t->get('hdr_subject'));

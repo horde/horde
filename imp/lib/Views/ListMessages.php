@@ -392,10 +392,16 @@ class IMP_Views_ListMessages
         $result->data = $this->_getOverviewData($mbox, array_keys($data));
 
         /* Get thread information. */
-        if (!$is_search &&
-            ($sortpref->sortby == Horde_Imap_Client::SORT_THREAD)) {
-            $imp_thread = new IMP_Imap_Thread($mailbox_list->getThreadOb());
-            $md->thread = (object)$imp_thread->getThreadTreeOb($msglist, $sortpref->sortdir);
+        if ($sortpref->sortby == Horde_Imap_Client::SORT_THREAD) {
+            $thread = new stdClass;
+            foreach ($msglist as $key => $val) {
+                $tmp = $mailbox_list[$key]['t'];
+                $thread->$val = $sortpref->sortdir
+                    ? $tmp->reverse_raw
+                    : $tmp->raw;
+            }
+
+            $md->thread = $thread;
         }
 
         return $result;
