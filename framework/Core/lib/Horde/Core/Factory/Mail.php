@@ -14,7 +14,7 @@ class Horde_Core_Factory_Mail extends Horde_Core_Factory_Injector
             ? $GLOBALS['conf']['mailer']['params']
             : array();
 
-        if (($transport == 'smtp') &&
+        if ((strcasecmp($transport, 'smtp') == 0) &&
             $params['auth'] &&
             empty($params['username'])) {
             $params['username'] = $GLOBALS['registry']->getAuth();
