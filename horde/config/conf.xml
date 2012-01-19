@@ -514,11 +514,9 @@
      <configsection name="params">
       <configenum name="phptype" desc="The name of the database">mysql
        <values>
-        <value desc="Microsoft SQL Server">mssql</value>
         <value desc="MySQL">mysql</value>
         <value desc="MySQL (mysqli)">mysqli</value>
         <value desc="ODBC">odbc</value>
-        <value desc="Oracle 8">oci8</value>
         <value desc="PostgreSQL">pgsql</value>
        </values>
       </configenum>
@@ -602,10 +600,8 @@
       </configenum>
       <configenum name="phptype" desc="The name of the database">mysql
        <values>
-        <value desc="Microsoft SQL Server">mssql</value>
         <value desc="MySQL">mysql</value>
         <value desc="ODBC">odbc</value>
-        <value desc="Oracle 8">oci8</value>
         <value desc="PostgreSQL">pgsql</value>
        </values>
       </configenum>
