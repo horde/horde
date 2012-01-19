@@ -13,7 +13,7 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Imap_Client
  */
-class Horde_Imap_Client_Data_Thread implements Countable
+class Horde_Imap_Client_Data_Thread implements Countable, Serializable
 {
     /**
      * Internal thread data structure.
@@ -147,6 +147,25 @@ class Horde_Imap_Client_Data_Thread implements Countable
     public function count()
     {
         return count($this->_thread);
+    }
+
+    /* Serializable methods. */
+
+    /**
+     */
+    public function serialize()
+    {
+        return json_encode(array(
+            $this->_thread,
+            $this->_type
+        ));
+    }
+
+    /**
+     */
+    public function unserialize($data)
+    {
+        list($this->_thread, $this->_type) = json_decode($data, true);
     }
 
 }
