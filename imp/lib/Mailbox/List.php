@@ -301,7 +301,7 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
                     $sorted = array_reverse($sorted);
                 }
             } else {
-                $res = $imp_imap->search($mbox, $query, array(
+                $res = $imp_imap->search($mbox, $val, array(
                     'sort' => array($sortpref->sortby)
                 ));
                 if ($sortpref->sortdir) {
@@ -311,7 +311,7 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
             }
 
             $this->_sorted = array_merge($this->_sorted, $sorted);
-            if ($imp_search) {
+            if ($imp_search && count($sorted)) {
                 $this->_sortedMbox = array_merge($this->_sortedMbox, array_fill(0, count($sorted), $mbox));
             }
         }
