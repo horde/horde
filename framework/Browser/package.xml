@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Update capabilities for recent Blackberry devices.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -619,7 +619,7 @@ Initial packaging
    <date>2011-10-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Update capabilities for recent Blackberry devices.
    </notes>
   </release>
  </changelog>

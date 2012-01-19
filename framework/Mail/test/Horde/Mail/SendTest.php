@@ -20,7 +20,8 @@ class Horde_Mail_SendTest extends PHPUnit_Framework_TestCase
         $headers = array(
             'To: <test2@example.com>',
             'Subject: Test',
-            'X-Test: ' . $body
+            'X-Test: Line 1\r\n\tLine 2\n\tLine 3\r\tLine 4',
+            'X-Truncated-Header: ' . $body
         );
 
         $ob->send($recipients, $headers, $body);
@@ -30,6 +31,17 @@ class Horde_Mail_SendTest extends PHPUnit_Framework_TestCase
         }
 
         if (preg_match("/(?<=\r)\n/", $ob->sentMessages[0]['body'])) {
+            $this->fail("Unexpected EOL in body.");
+        }
+
+        $ob->sep = "\r\n";
+        $ob->send($recipients, $headers, $body);
+
+        if (preg_match("/(?<!\r)\n/", $ob->sentMessages[1]['header_text'])) {
+            $this->fail("Unexpected EOL in headers.");
+        }
+
+        if (preg_match("/(?<!\r)\n/", $ob->sentMessages[1]['body'])) {
             $this->fail("Unexpected EOL in body.");
         }
     }

@@ -679,13 +679,21 @@ class Horde_Browser
             $this->setBrowser('imode');
             $this->setFeature('images', false);
             $this->setMobile(true);
-        } elseif (strpos($agent, 'BlackBerry') !== false) {
+        } elseif (preg_match('|BlackBerry.*?/([0-9.]+)|', $agent, $version)) {
+            list($this->_majorVersion, $this->_minorVersion) = explode('.', $version[1]);
             $this->setBrowser('blackberry');
             $this->setFeature('html', false);
             $this->setFeature('javascript', false);
             $this->setFeature('hdml');
             $this->setFeature('wml');
             $this->setMobile(true);
+            if ($this->_majorVersion >= 5 ||
+                ($this->_majorVersion == 4 && $this->_minorVersion >= 6)) {
+                $this->setFeature('iframes');
+                $this->setFeature('javascript', 1.5);
+                $this->setFeature('dom');
+                $this->setFeature('xmlhttpreq');
+            }
         } elseif (strpos($agent, 'MOT-') !== false) {
             $this->setBrowser('motorola');
             $this->setFeature('html', false);
