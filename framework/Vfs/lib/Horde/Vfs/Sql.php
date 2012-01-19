@@ -415,14 +415,7 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
         $path = $this->_convertPath($path);
 
         try {
-            // Fix for Oracle not differentiating between '' and NULL.
-            if (!strlen($path) &&
-                ($this->_db->adapterName() == 'Oracle' ||
-                 $this->_db->adapterName() == 'PDO_Oracle')) {
-                $where = 'vfs_path IS NULL';
-            } else {
-                $where = 'vfs_path = ' . $this->_db->quote($path);
-            }
+            $where = 'vfs_path = ' . $this->_db->quote($path);
 
             $length_op = $this->_getFileSizeOp();
             $sql = sprintf('SELECT vfs_name, vfs_type, %s(vfs_data) length, vfs_modified, vfs_owner FROM %s WHERE %s',
@@ -782,10 +775,6 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
     protected function _getFileSizeOp()
     {
         switch ($this->_db->adapterName()) {
-        case 'Oracle':
-        case 'PDO_Oracle':
-            return 'LENGTHB';
-
         case 'PostgreSQL':
         case 'PDO_PostgreSQL':
             return 'OCTET_LENGTH';

@@ -69,8 +69,7 @@ class Ulaform_Action_Sql extends Ulaform_Action {
             case 'image':
                 if (count($form_data[$field['field_name']])) {
                     $data = file_get_contents($form_data[$field['field_name']]['file']);
-                    if (Horde_String::lower($this->_db->adapterName()) == 'mssql' ||
-                        Horde_String::lower($this->_db->adapterName()) == 'pgsql') {
+                    if (Horde_String::lower($this->_db->adapterName()) == 'pgsql') {
                         $data = bin2hex($data);
                     }
                     $columns[] = $field['field_name'];
