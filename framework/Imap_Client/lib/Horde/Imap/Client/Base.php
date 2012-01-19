@@ -2179,7 +2179,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *                with the key being either the UID (default) or the
      *                message sequence number (if 'sequence' is true). Values
      *                of each entry:
-     *   - b (base): (integer) [OPTIONAL] The ID of the base message. Is not
+     *   - b (base): (integer) [OPTIONAL] The ID of the base message. If not
      *               set, this is the only message in the thread.
      *               DEFAULT: Only message in thread
      *   - l (level): (integer) [OPTIONAL] The thread level of this
