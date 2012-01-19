@@ -2,6 +2,9 @@
 v5.1-git
 --------
 
+[mms] Hide deleted now works with threaded mailboxes.
+[mms] Threaded sorts now work in all search mailboxes (Request #9700).
+[mms] Improved threading performance.
 [mms] Improved date searching to search by range.
 [mms] Added 'mbox_sort' hook.
 [mms] Make mailbox columns the same order in traditional view as in dynamic

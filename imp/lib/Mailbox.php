@@ -313,8 +313,7 @@ class IMP_Mailbox implements Serializable
              * implementation. We will always prefer REFERENCES, but will
              * fallback to ORDEREDSUBJECT if the server doesn't support THREAD
              * sorting. */
-            return ($injector->getInstance('IMP_Factory_Imap')->create()->imap &&
-                    !$this->search);
+            return $injector->getInstance('IMP_Factory_Imap')->create()->imap;
 
         case 'acl':
             if (isset($this->_cache[self::CACHE_ACL])) {

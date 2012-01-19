@@ -272,7 +272,7 @@ $thread_sort = ($sortpref->sortby == Horde_Imap_Client::SORT_THREAD);
 /* Determine if we are going to show the Hide/Purge Deleted Message links. */
 if (!$prefs->getValue('use_trash') && !IMP::$mailbox->vinbox) {
     $showdelete = array(
-        'hide' => !$thread_sort,
+        'hide' => true,
         'purge' => IMP::$mailbox->access_expunge
     );
 } else {
@@ -634,14 +634,6 @@ if ($pageOb['msgcount']) {
 /* Define some variables now so we don't have to keep redefining in the
    foreach () loop or the templates. */
 $lastMbox = '';
-$messages = $threadlevel = array();
-
-/* Get thread object, if necessary. */
-if ($thread_sort) {
-    $imp_thread = new IMP_Imap_Thread($imp_mailbox->getThreadOb());
-    $threadtree = $imp_thread->getThreadImageTree($mbox_info['uids'][strval(IMP::$mailbox)], $sortpref->sortdir);
-}
-
 $mh_count = 0;
 $sortImg = $sortpref->sortdir
     ? 'sortup'
@@ -900,8 +892,9 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     }
 
     /* Set up threading tree now. */
-    if ($thread_sort && !empty($threadtree[$ob['uid']])) {
-        $msg['subject'] = $threadtree[$ob['uid']] . ' ' . $msg['subject'];
+    if ($thread_sort) {
+        $t_ob =  $imp_mailbox[$ob['idx']]['t'];
+        $msg['subject'] = ($sortpref->sortdir ? $t_ob->reverse_img : $t_ob->img) . ' ' . $msg['subject'];
     }
 
     $msgs[$ob['uid']] = $msg;

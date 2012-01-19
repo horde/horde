@@ -81,50 +81,6 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
     }
 
     /**
-     * Run a search.
-     *
-     * @param object $ob  An optional search query to add (via 'AND') to the
-     *                    active search (Horde_Imap_Client_Search_Query).
-     * @param string $id  The search query id.
-     *
-     * @return IMP_Indices  An indices object.
-     * @throws IMP_Imap_Exception
-     */
-    public function runSearch($ob, $id)
-    {
-        $id = $this->_strip($id);
-        $mbox = '';
-        $sorted = new IMP_Indices();
-
-        if (!($query_list = $this[$id]->query)) {
-            return $sorted;
-        }
-
-        /* How do we want to sort results? */
-        $sortpref = IMP_Mailbox::get($this[$id])->getSort(true);
-        if ($sortpref->sortby == Horde_Imap_Client::SORT_THREAD) {
-            $sortpref->sortby = $GLOBALS['prefs']->getValue('sortdate');
-        }
-
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
-
-        foreach ($query_list as $mbox => $query) {
-            if (!empty($ob)) {
-                $query->andSearch(array($ob));
-            }
-            $results = $imp_imap->search($mbox, $query, array(
-                'sort' => array($sortpref->sortby)
-            ));
-            if ($sortpref->sortdir) {
-                $results['match']->reverse();
-            }
-            $sorted->add($mbox, $results['match']);
-        }
-
-        return $sorted;
-    }
-
-    /**
      * Creates the IMAP search query in the IMP session.
      *
      * @param array $criteria  The search criteria array.

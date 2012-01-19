@@ -120,7 +120,6 @@ class IMP_Prefs_Sort_Sortpref
         if ($this->_mbox->access_sort) {
             switch ($this->sortby) {
             case Horde_Imap_Client::SORT_THREAD:
-                /* Can't do threaded searches in search mailboxes. */
                 if (!$this->_mbox->access_sortthread) {
                     $this->_sortby = Horde_Imap_Client::SORT_SUBJECT;
                 }
