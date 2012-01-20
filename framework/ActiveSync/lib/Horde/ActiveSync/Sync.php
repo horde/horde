@@ -114,10 +114,13 @@ class Horde_ActiveSync_Sync
      * @return void
      */
     public function init(Horde_ActiveSync_State_Base &$stateMachine,
-                         Horde_ActiveSync_Connector_Exporter $exporter,
+                         Horde_ActiveSync_Connector_Exporter $exporter = null,
                          array $collection = array())
     {
         $this->_stateMachine = &$stateMachine;
+
+        // We might not need an exporter, like e.g., when we are handling a PING
+        // request the changes are never exported.
         $this->_exporter = $exporter;
         $this->_folderId = !empty($collection['id']) ? $collection['id'] : false;
         $this->_changes = $stateMachine->getChanges();
