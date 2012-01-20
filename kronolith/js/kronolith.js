@@ -44,6 +44,8 @@ KronolithCore = {
     orstart: null,
     orend: null,
     lastRecurType: 'None',
+    uatts: null,
+    ucb: null,
 
     /**
      * The location that was open before the current location.
@@ -4279,9 +4281,20 @@ KronolithCore = {
                     }
                 }
             case 'kronolithEventSendUpdateYes':
-                $('kronolithEventSendUpdates').setValue(1);
+                if (this.uatts) {
+                    this.uatts.u = true;
+                } else {
+                    $('kronolithEventSendUpdates').setValue(1);
+                }
             case 'kronolithEventSendUpdateNo':
-                if (!elt.disabled) {
+                if (this.uatts) {
+                    this.doDragDropUpdate(this.uatts, this.ucb);
+                    this.uatts = null;
+                    this.ucb = null;
+                    this.closeRedBox();
+                    $('kronolithUpdateDiv').hide();
+                    $('kronolithEventDiv').show();
+                } else if (!elt.disabled) {
                     this.saveEvent();
                 }
                 e.stop();
@@ -4993,53 +5006,62 @@ KronolithCore = {
             attributes.set('cstart', this.cacheStart);
             attributes.set('cend', this.cacheEnd);
         }
-        this.doAction('updateEvent',
-                      {
-                          cal: cal,
-                          id: eventid,
-                          view: this.view,
-                          sig: sig,
-                          view_start: start,
-                          view_end: end,
-                          att: Object.toJSON(attributes)
-                      },
-                      function(r) {
-                          if (r.response.events) {
-                              // Check if this is the still the result of the
-                              // most current request.
-                              if (r.response.sig == this.eventsLoading[r.response.cal]) {
-                                  var days;
-                                  if ((this.view == 'month' &&
-                                       Kronolith.conf.max_events) ||
-                                      this.view == 'week' ||
-                                      this.view == 'workweek' ||
-                                      this.view == 'day') {
-                                      days = this.findEventDays(cal, eventid);
-                                  }
-                                  this.removeEvent(cal, eventid);
-                                  if (days && days.length) {
-                                      this.reRender(days);
-                                  }
-                              }
-                              $H(r.response.events).each(function(days) {
-                                  $H(days.value).each(function(event) {
-                                      if (event.value.c.startsWith('tasks/')) {
-                                          var tasklist = event.value.c.substr(6),
-                                              task = event.key.substr(6),
-                                              taskObject;
-                                          if (this.tcache.get('incomplete') &&
-                                              this.tcache.get('incomplete').get(tasklist) &&
-                                              this.tcache.get('incomplete').get(tasklist).get(task)) {
-                                              taskObject = this.tcache.get('incomplete').get(tasklist).get(task);
-                                              taskObject.due = Date.parse(event.value.s);
-                                              this.tcache.get('incomplete').get(tasklist).set(task, taskObject);
-                                          }
-                                      }
-                                  }, this);
-                              }, this);
+        var uatts = {
+            cal: cal,
+            id: eventid,
+            view: this.view,
+            sig: sig,
+            view_start: start,
+            view_end: end,
+            att: Object.toJSON(attributes)
+        },
+        callback = function(r) {
+          if (r.response.events) {
+              // Check if this is the still the result of the
+              // most current request.
+              if (r.response.sig == this.eventsLoading[r.response.cal]) {
+                  var days;
+                  if ((this.view == 'month' &&
+                       Kronolith.conf.max_events) ||
+                      this.view == 'week' ||
+                      this.view == 'workweek' ||
+                      this.view == 'day') {
+                      days = this.findEventDays(cal, eventid);
+                  }
+                  this.removeEvent(cal, eventid);
+                  if (days && days.length) {
+                      this.reRender(days);
+                  }
+              }
+              $H(r.response.events).each(function(days) {
+                  $H(days.value).each(function(event) {
+                      if (event.value.c.startsWith('tasks/')) {
+                          var tasklist = event.value.c.substr(6),
+                              task = event.key.substr(6),
+                              taskObject;
+                          if (this.tcache.get('incomplete') &&
+                              this.tcache.get('incomplete').get(tasklist) &&
+                              this.tcache.get('incomplete').get(tasklist).get(task)) {
+                              taskObject = this.tcache.get('incomplete').get(tasklist).get(task);
+                              taskObject.due = Date.parse(event.value.s);
+                              this.tcache.get('incomplete').get(tasklist).set(task, taskObject);
                           }
-                          this.loadEventsCallback(r, false);
-                      }.bind(this));
+                      }
+                  }, this);
+              }, this);
+          }
+          this.loadEventsCallback(r, false);
+      }.bind(this);
+
+      if (event.value.mt) {
+          $('kronolithEventDiv').hide();
+          $('kronolithUpdateDiv').show();
+          RedBox.showHtml($('kronolithEventDialog').show());
+          this.uatts = uatts;
+          this.ucb = callback;
+      } else {
+          this.doDragDropUpdate(uatts, callback);
+      }
     },
 
     onDragStart: function(e)
@@ -5176,29 +5198,40 @@ KronolithCore = {
             attributes.set('cstart', this.cacheStart);
             attributes.set('cend', this.cacheEnd);
         }
-
         element.retrieve('drags').invoke('destroy');
+        var uatts = {
+            cal: event.value.calendar,
+            id: event.key,
+            view: this.view,
+            sig: sig,
+            view_start: start,
+            view_end: end,
+            att: Object.toJSON(attributes)
+        },
+        callback = function(r) {
+            // Check if this is the still the result of the most current
+            // request.
+            if (r.response.events &&
+                r.response.sig == this.eventsLoading[r.response.cal]) {
+                this.removeEvent(event.value.calendar, event.key);
+            }
+            this.loadEventsCallback(r, false);
+        }.bind(this);
 
-        this.doAction(
-            'updateEvent',
-            {
-                cal: event.value.calendar,
-                id: event.key,
-                view: this.view,
-                sig: sig,
-                view_start: start,
-                view_end: end,
-                att: Object.toJSON(attributes)
-            },
-            function(r) {
-                // Check if this is the still the result of the most current
-                // request.
-                if (r.response.events &&
-                    r.response.sig == this.eventsLoading[r.response.cal]) {
-                    this.removeEvent(event.value.calendar, event.key);
-                }
-                this.loadEventsCallback(r, false);
-            }.bind(this));
+        if (event.value.mt) {
+            $('kronolithEventDiv').hide();
+            $('kronolithUpdateDiv').show();
+            RedBox.showHtml($('kronolithEventDialog').show());
+            this.uatts = uatts;
+            this.ucb = callback;
+        } else {
+            this.doDragDropUpdate(uatts, callback);
+        }
+    },
+
+    doDragDropUpdate: function(att, cb)
+    {
+        this.doAction('updateEvent', att, cb);
     },
 
     editEvent: function(calendar, id, date, title)

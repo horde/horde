@@ -1800,7 +1800,8 @@ abstract class Kronolith_Event
      * - ed: formatted end date
      * - et: formatted end time
      * - at: attendees
-     * - tg: tag list
+     * - tg: tag list,
+     * - mt: meeting (Boolean true if event has attendees, false otherwise).
      *
      * @param boolean $allDay      If not null, overrides whether the event is
      *                             an all-day event.
@@ -1823,6 +1824,8 @@ abstract class Kronolith_Event
         $json->pe = $this->hasPermission(Horde_Perms::EDIT);
         $json->pd = $this->hasPermission(Horde_Perms::DELETE);
         $json->l = $this->location;
+        $json->mt = !empty($this->attendees);
+
         if ($this->icon) {
             $json->ic = $this->icon;
         }

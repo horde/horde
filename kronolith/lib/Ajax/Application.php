@@ -299,6 +299,7 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
      *      -rday:      A new start value for a series instance (used when
      *                  dragging on the month view where only the date can
      *                  change, and not the start/end times).
+     *      -u:         Send update to attendees.
      *</pre>
      */
     public function updateEvent()
@@ -366,8 +367,12 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
             }
         }
 
-        // @todo: What about iTip notifications?
-        return $this->_saveEvent($event, ($oevent->recurs() ? $oevent : null), $attributes);
+        $result = $this->_saveEvent($event, ($oevent->recurs() ? $oevent : null), $attributes);
+        if ($this->_vars->u) {
+            Kronolith::sendITipNotifications($event, $GLOBALS['notification'], Kronolith::ITIP_REQUEST);
+        }
+
+        return $result;
     }
 
     /**
