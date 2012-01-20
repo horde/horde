@@ -263,9 +263,16 @@ Drag = Class.create({
         // that if possible because it will prevent any event handlers further
         // up the DOM tree from firing.
         if (Prototype.Browser.IE) {
-            document.observe('selectstart', Event.stop);
+            document.observe('selectstart', this.onSelectStart.bindAsEventListener(this));
         } else if (Prototype.Browser.Gecko) {
             this.element.setStyle({ MozUserSelect: 'none' });
+        }
+    },
+
+    onSelectStart: function(e)
+    {
+        if (this.wasMoved) {
+            e.stop();
         }
     },
 
@@ -470,6 +477,7 @@ Drag = Class.create({
 
         this.element.fire(this.wasMoved ? 'DragDrop2:end' : 'DragDrop2:mouseup', Object.clone(e));
 
+        this.wasMoved = false;
         tmp = null;
     },
 
