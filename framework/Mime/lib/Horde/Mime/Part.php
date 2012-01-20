@@ -670,7 +670,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
     public function getCharset()
     {
         $charset = $this->getContentTypeParameter('charset');
-        if (is_null($charset)) {
+        if (is_null($charset) && $this->getPrimaryType() != 'text') {
             return null;
         }
 
@@ -678,7 +678,8 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
 
         if ($this->getPrimaryType() == 'text') {
             $d_charset = Horde_String::lower(self::$defaultCharset);
-            if (($d_charset != 'us-ascii') && ($charset == 'us-ascii')) {
+            if ($d_charset != 'us-ascii' &&
+                (!$charset || $charset == 'us-ascii')) {
                 return $d_charset;
             }
         }

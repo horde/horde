@@ -5,8 +5,14 @@ v3.1-git
 
 
 -----------
-v3.0.11-git
+v3.0.12-git
 -----------
+
+
+
+-------
+v3.0.11
+-------
 
 [jan] Set VOICE parameter when exporting phone numbers to vCard (Request
       #10349).

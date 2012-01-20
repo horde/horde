@@ -1457,13 +1457,15 @@ div.kronolithEvent {
     cursor: pointer;
     overflow: hidden;
     position: absolute;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
 }
 img.kronolithEventIcon {
     float: left;
     margin: 0 2px 2px 0;
 }
-#kronolithViewDay div.kronolithEvent, 
-#kronolithViewWeek div.kronolithEvent, 
+#kronolithViewDay div.kronolithEvent,
+#kronolithViewWeek div.kronolithEvent,
 #kronolithViewWorkweek div.kronolithEvent {
     position: absolute;
     opacity: .8;
@@ -1474,8 +1476,7 @@ img.kronolithEventIcon {
 }
 #kronolithViewMonth div.kronolithEvent,
 #kronolithViewDay .kronolithViewHead div.kronolithEvent,
-#kronolithViewWeek .kronolithViewHead div.kronolithEvent, 
-#kronolithViewWorkweek .kronolithViewHead div.kronolithEvent {
+#kronolithViewWeek .kronolithViewHead div.kronolithEvent {
     position: relative;
     width: auto;
     line-height: 15px;
@@ -1489,15 +1490,18 @@ img.kronolithEventIcon {
 #kronolithViewWeek div.kronolithEvent {
     font-size: 90%;
 }
+#kronolithViewMonth div.kronolithEvent {
+    max-height: 2.6em;
+}
 #kronolithViewDay .kronolithViewHead div.kronolithEvent,
-#kronolithViewWeek .kronolithViewHead div.kronolithEvent, 
+#kronolithViewWeek .kronolithViewHead div.kronolithEvent,
 #kronolithViewWorkweek .kronolithViewHead div.kronolithEvent {
     white-space: nowrap;
 }
 #kronolithViewDay .kronolithViewHead div.kronolithEvent {
     float: left;
 }
-#kronolithViewWeek .kronolithViewHead div.kronolithEvent, 
+#kronolithViewWeek .kronolithViewHead div.kronolithEvent,
 #kronolithViewWorkweek .kronolithViewHead div.kronolithEvent {
     margin-right: 10%;
 }
@@ -1620,6 +1624,26 @@ li.panel-tags {
 .fburl .fixed {
     padding-top: 3px;
 }
+
+.kronolithMinical .heat1 {
+    background-color: #faf374;
+}
+.kronolithMinical .heat2 {
+    background-color: #fad374;
+}
+.kronolithMinical .heat3 {
+    background-color: #fab374
+}
+.kronolithMinical .heat4 {
+    background-color: #fa9374;
+}
+.kronolithMinical .heat5 {
+    background-color: #fa7347;
+}
+.kronolithMinical .heat6 {
+    background-color: #fa5347;
+}
+
 
 @media print {
     .rowEven td, .rowOdd td {

@@ -81,18 +81,12 @@ class Turba_Object_Group extends Turba_Object
 
         // If the contact is from a different source, store its source
         // id as well.
-        if ($sourceId == $this->getSource()) {
-            $members[] = $contactId;
-        } else {
-            $members[] = $sourceId . ':' . $contactId;
-        }
+        $members[] = ($sourceId == $this->getSource())
+            ? $contactId
+            : $sourceId . ':' . $contactId;
 
         // Remove duplicates.
-        $members = array_unique($members);
-
-        $this->attributes['__members'] = serialize($members);
-
-        return true;
+        $this->attributes['__members'] = serialize(array_unique($members));
     }
 
     /**

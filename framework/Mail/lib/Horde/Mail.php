@@ -68,4 +68,5 @@ class Horde_Mail
 
         throw new Horde_Mail_Exception('Unable to find class for transport ' . $transport);
     }
+
 }

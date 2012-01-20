@@ -330,20 +330,19 @@ class Turba_Driver_Sql extends Turba_Driver
     }
 
     /**
-     * Reads the given data from the SQL database and returns the
-     * results.
+     * Reads the given data from the SQL database and returns the results.
      *
-     * @param string $key         The primary key field to use.
-     * @param mixed $ids          The ids of the contacts to load.
-     * @param string $owner       Only return contacts owned by this user.
-     * @param array $fields       List of fields to return.
-     * @param array $blob_fields  List of fields that contain binary data.
+     * @param string $key        The primary key field to use.
+     * @param mixed $ids         The ids of the contacts to load.
+     * @param string $owner      Only return contacts owned by this user.
+     * @param array $fields      List of fields to return.
+     * @param array $blobFields  Array of fields containing binary data.
      *
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
     protected function _read($key, $ids, $owner, array $fields,
-                             array $blob_fields = array())
+                             array $blobFields = array())
     {
         $values = array();
 
@@ -374,7 +373,7 @@ class Turba_Driver_Sql extends Turba_Driver
             . $this->_params['table'] . ' WHERE ' . $where;
 
         try {
-            return $this->_parseRead($blob_fields, $this->_db->selectAll($query, $values));
+            return $this->_parseRead($blobFields, $this->_db->selectAll($query, $values));
         } catch (Horde_Db_Exception $e) {
             throw new Turba_Exception($e);
         }

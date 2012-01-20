@@ -28,7 +28,6 @@ class IMP_Tree_Jquerymobile extends Horde_Tree_Jquerymobile
                             $expanded = true, $params = array(),
                             $extra_right = array(), $extra_left = array())
     {
-        $params['url'] = '#';
         parent::addNode($id, $parent, $label, $indent, $expanded, $params, $extra_right, $extra_left);
     }
 

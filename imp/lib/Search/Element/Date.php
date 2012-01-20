@@ -2,6 +2,8 @@
 /**
  * This class handles date-related search queries.
  *
+ * @deprecated  Use IMP_Search_Element_Daterange instead.
+ *
  * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

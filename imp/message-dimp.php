@@ -217,8 +217,9 @@ $t->set('status', Horde::endBuffer());
 
 IMP_Dimp::header($show_msg_result['title'], $scripts);
 
-echo $t->fetch(IMP_TEMPLATES . '/dimp/message/message.html');
-
+Horde::startBuffer();
 Horde::includeScriptFiles();
 Horde::outputInlineScript();
-echo "</body>\n</html>";
+$t->set('script', Horde::endBuffer());
+
+echo $t->fetch(IMP_TEMPLATES . '/dimp/message/message.html');

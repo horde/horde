@@ -2,6 +2,18 @@
 v5.1-git
 --------
 
+[mms] Hide deleted now works with threaded mailboxes.
+[mms] Threaded sorts now work in all search mailboxes (Request #9700).
+[mms] Improved threading performance.
+[mms] Improved date searching to search by range.
+[mms] Added 'mbox_sort' hook.
+[mms] Make mailbox columns the same order in traditional view as in dynamic
+      view.
+[jan] Add mailbox paging to smartphone view.
+[jan] Add copy and move to smartphone view.
+[jan] Add deleting messages to smartphone view.
+[jan] Add reply, forward and redirect to smartphone view.
+[jan] Add compose functionality to smartphone view.
 [mms] Accurately track changes to virtual folders in dynamic folder tree (Bug
       #10886).
 [mms] Traditional mode now requires javascript on the browser.
@@ -24,9 +36,21 @@ v5.1-git
 
 
 -----------
-v5.0.18-git
+v5.0.19-git
 -----------
 
+
+
+-------
+v5.0.18
+-------
+
+[mms] SECURITY: Fix XSS vulnerabilities on the compose page (traditional
+      view), the contacts popup window, and with certain IMAP mailbox names.
+[mms] Fix updating context menu when a mailbox is converted into a container
+      element after being deleted.
+[mms] Fix expand/collapse of folder tree in mobile view.
+[mms] Fix regression preventing sending of MDNs.
 [mms] Fix reporting as innocent in mobile view.
 [mms] Fix updating log information when replying/forwarding in dynamic view.
 [mms] Fix deleting virtual folders in dynamic view.

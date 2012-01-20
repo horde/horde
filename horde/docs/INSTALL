@@ -420,17 +420,9 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
    extensions, see the PEAR installation section above.
 
 
-The following non-PHP prerequisites are **RECOMMENDED**, or are **REQUIRED**
-if you use a specific Horde application (as noted in [brackets]):
+The following non-PHP prerequisites are **RECOMMENDED**.
 
-1. Sendmail or equivalent.
-
-   Horde uses sendmail, or a program that implements the ``sendmail(8)`` API
-   (as included with postfix, qmail, and exim, among others). If your system
-   does not already have a full mail transport with a sendmail interface, you
-   can configure Horde to speak directly with a remote SMTP server.
-
-2. aspell - Spelling Checker
+1. aspell - Spelling Checker
 
    Aspell, a comand-line program, is used as Horde's spell-checking engine.
    You must install and configure aspell to use Horde's spell-check feature.
@@ -440,6 +432,22 @@ if you use a specific Horde application (as noted in [brackets]):
    You can obtain aspell from:
 
       http://aspell.sourceforge.net/
+
+
+The following non-PHP prerequisites are optional.
+
+1. Sendmail.
+
+   It is highly **RECOMMENDED** that Horde be configured to use SMTP for
+   sending e-mails.
+
+   Alternatively, Horde can use the local sendmail program, or a program that
+   implements the ``sendmail(8)`` API (as included with postfix, qmail, and
+   exim, among others). However, local use of sendmail binaries to send mail
+   is discouraged due to authentication/permission issues (since Horde will
+   invoke the sendmail binary as the web/PHP user), and because it is not
+   possible to reliably auto-configure sendmail since there is no unified
+   API across platforms/sendmail variants.
 
 
 Installing Horde

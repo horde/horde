@@ -360,6 +360,14 @@ $this->applications = array(
         'status' => 'hidden'
     ),
 
+    'sesha' => array(
+        'name' => _("Inventory"),
+            // Uncomment this line if you want Sesha to provide queue and version
+            // names instead of Whups:
+            // 'provides' => array('tickets/listQueues', 'tickets/getQueueDetails', 'tickets/listVersions', 'tickets/getVersionDetails'),
+        'menu_parent' => 'office',
+    ),
+
     'timeobjects' => array(
         'status' => 'hidden',
         'provides' => 'timeobjects'

@@ -2,6 +2,7 @@
 v1.0-git
 --------
 
+[rla] Converted to Horde 4 Framework
 [jan] Add Latvian translation (Jānis Eisaks).
 [cjh] Add sort priorities to categories.
 [cjh] Add a preference for showing properties on the Stock List.

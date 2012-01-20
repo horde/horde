@@ -5,8 +5,22 @@
 <input id="kronolithEventLocationLon" type="hidden" name="lon" />
 <input id="kronolithEventLocationLat" type="hidden" name="lat" />
 <input id="kronolithEventMapZoom" type="hidden" name="zoom" />
+<input id="kronolithEventRecurStart" type="hidden" />
+<input id="kronolithEventRecurEnd" type="hidden" />
+<input id="kronolithEventRecurOStart" type="hidden" name="rstart" />
+<input id="kronolithEventRecurOEnd" type="hidden" name="rend" />
 
 <div id="kronolithEventDiv">
+  <div id="kronolithEventEditRecur" style="display:none;">
+    <div class="kronolithDialogWarning">
+      <?php echo _("This is a recurring event") ?>
+    </div>
+    <?php echo sprintf(_("Edit the %s Entire Series %s, the %s Current Event %s or this and all %s Future Events %s?"),
+    '<label for="kronolithEditRecurAll"><input type="radio" name="recur_edit" value="all" id="kronolithEditRecurAll" checked="checked" />', '</label>',
+    '<label for="kronolithEditRecurCurrent"><input type="radio" name="recur_edit" value="current" id="kronolithEditRecurCurrent" />', '</label>',
+    '<label for="kronolithEditRecurFuture"><input type="radio" name="recur_edit" value="future" id="kronolithEditRecurFuture" />', '</label>'
+    ); ?>
+  </div>
 <div>
   <label for="kronolithEventTitle">
     <?php echo _("Event title") ?>:<br />
@@ -191,7 +205,7 @@
   <span id="kronolithEventAttendees_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
   <br class="clear" />
   <label>
-    <input type="checkbox" name="sendupdates" value="1" />
+    <input id="kronolithEventSendUpdates" type="checkbox" name="sendupdates" value="1" />
     <?php printf(_("Send invites%s to all attendees"), '</label>') ?><br />
   <div id="kronolithFBLoading" style="display:none"></div>
   <table cellspacing="0" cellpadding="0" border="0">
@@ -244,8 +258,22 @@
 <div id="kronolithDeleteDiv" style="display:none">
 <p><?php echo _("Permanently delete this event?") ?></p>
 <div class="kronolithFormActions">
-  <input id="kronolithEventDeleteConfirm" type="button" value="<?php echo _("Delete") ?>" class="button ko" />
+  <span id="kronolithRecurDelete" style="display:none">
+    <input id="kronolithRecurDeleteAll" type="button" value="<?php echo _("Delete All") ?>" class="button" />
+    <input id="kronolithRecurDeleteCurrent" type="button" value="<?php echo _("Delete This Event Only") ?>" class="button" />
+    <input id="kronolithRecurDeleteFuture" type="button" value="<?php echo _("Delete This and Future Events") ?>" class="button" />
+  </span>
+  <span id="kronolithNoRecurDelete" style="display:none">
+    <input id="kronolithEventDeleteConfirm" type="button" value="<?php echo _("Delete") ?>" class="button ko" />
+  </span>
   <span class="kronolithSeparator"><?php echo _("or") ?></span> <a id="kronolithEventDeleteCancel" class="kronolithFormCancel"><?php echo _("Cancel") ?></a>
+</div>
+</div>
+<div id="kronolithUpdateDiv" style="display:none">
+<p><?php echo _("Send updates to attendees?") ?></p>
+<div class="kronolithFormActions">
+  <input id="kronolithEventSendUpdateYes" type="button" value="<?php echo _("Yes") ?>" class="button" />
+  <input id="kronolithEventSendUpdateNo" type="button" value="<?php echo _("No") ?>" class="button" />
 </div>
 </div>
 </form>

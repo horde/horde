@@ -71,6 +71,9 @@ if ($vars->actionID) {
     }
 }
 
+/* Determine if mailbox is readonly. */
+$readonly = IMP::$mailbox->readonly;
+
 /* Get mailbox/UID of message. */
 $index_array = $imp_mailbox->getIMAPIndex();
 $mailbox = $index_array['mailbox'];
@@ -430,7 +433,7 @@ foreach ($flag_parse as $val) {
 $h_page_label = htmlspecialchars($page_label);
 $header_label = $h_page_label;
 if (IMP::$mailbox->search) {
-    $header_label .= ' [' . Horde::link(Horde::url('mailbox.php')->add('mailbox', IMP::base64urlEncode($mailbox))) . $mailbox->display . '</a>]';
+    $header_label .= ' [' . Horde::link(Horde::url('mailbox.php')->add('mailbox', IMP::base64urlEncode($mailbox))) . $mailbox->display_html . '</a>]';
 }
 
 /* Prepare the navbar top template. */
@@ -647,7 +650,10 @@ if (!$readonly && $strip_atc) {
 
 /* Do MDN processing now. */
 $mdntext = $imp_ui->MDNCheck(IMP::$mailbox, $uid, $mime_headers, $vars->mdn_confirm)
-    ? strval(new IMP_Mime_Status(_("The sender of this message is requesting a Message Disposition Notification from you when you have read this message."), sprintf(_("Click %s to send the notification message."), Horde::link(htmlspecialchars($selfURL->copy()->add('mdn_confirm', 1))) . _("HERE") . '</a>')))
+    ? strval(new IMP_Mime_Status(array(
+        _("The sender of this message is requesting a notification from you when you have read this message."),
+        sprintf(_("Click %s to send the notification message."), Horde::link(htmlspecialchars($selfURL->copy()->add('mdn_confirm', 1))) . _("HERE") . '</a>')
+        )))
     : '';
 
 /* Build body text. This needs to be done before we build the attachment list

@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-12-15</date>
- <time>22:52:28</time>
+ <date>2012-01-19</date>
+ <time>00:25:13</time>
  <version>
   <release>5.1.0</release>
   <api>5.0.0</api>
@@ -34,6 +34,17 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Hide deleted now works with threaded mailboxes.
+* [mms] Threaded sorts now work in all search mailboxes (Request #9700).
+* [mms] Improved threading performance.
+* [mms] Improved date searching to search by range.
+* [mms] Added &apos;mbox_sort&apos; hook.
+* [mms] Make mailbox columns the same order in traditional view as in dynamic view.
+* [jan] Add mailbox paging to smartphone view.
+* [jan] Add copy and move to smartphone view.
+* [jan] Add deleting messages to smartphone view.
+* [jan] Add reply and forward to smartphone view.
+* [jan] Add compose functionality to smartphone view.
 * [mms] Accurately track changes to virtual folders in dynamic folder tree (Bug #10886).
 * [mms] Traditional mode now requires javascript on the browser.
 * [mms] Converted stationery to the Templates special mailbox (Request #9296).
@@ -172,7 +183,6 @@
      <file name="Acl.php" role="horde" />
      <file name="Exception.php" role="horde" />
      <file name="PermanentFlags.php" role="horde" />
-     <file name="Thread.php" role="horde" />
      <file name="Tree.php" role="horde" />
     </dir> <!-- /lib/Imap -->
     <dir name="Indices">
@@ -198,10 +208,14 @@
     </dir> <!-- /lib/LoginTasks -->
     <dir name="Mailbox">
      <dir name="List">
+      <file name="Thread.php" role="horde" />
       <file name="Track.php" role="horde" />
      </dir> <!-- /lib/Mailbox/List -->
      <file name="List.php" role="horde" />
     </dir> <!-- /lib/Mailbox -->
+    <dir name="Mbox">
+     <file name="Parse.php" role="horde" />
+    </dir> <!-- /lib/Mbox -->
     <dir name="Menu">
      <file name="Dimp.php" role="horde" />
     </dir> <!-- /lib/Menu -->
@@ -246,7 +260,11 @@
      </dir> <!-- /lib/Notification/Listener -->
     </dir> <!-- /lib/Notification -->
     <dir name="Prefs">
+     <dir name="Sort">
+      <file name="Sortpref.php" role="horde" />
+     </dir> <!-- /lib/Prefs/Sort -->
      <file name="Identity.php" role="horde" />
+     <file name="Sort.php" role="horde" />
      <file name="Ui.php" role="horde" />
     </dir> <!-- /lib/Prefs -->
     <dir name="Quota">
@@ -267,6 +285,7 @@
       <file name="Bulk.php" role="horde" />
       <file name="Contacts.php" role="horde" />
       <file name="Date.php" role="horde" />
+      <file name="Daterange.php" role="horde" />
       <file name="Flag.php" role="horde" />
       <file name="Header.php" role="horde" />
       <file name="Mailinglist.php" role="horde" />
@@ -304,6 +323,7 @@
     <dir name="Tree">
      <file name="Flist.php" role="horde" />
      <file name="Jquerymobile.php" role="horde" />
+     <file name="Simplehtml.php" role="horde" />
     </dir> <!-- /lib/Tree -->
     <dir name="Ui">
      <file name="Compose.php" role="horde" />
@@ -724,12 +744,15 @@
      </dir> <!-- /templates/mimp/message -->
     </dir> <!-- /templates/mimp -->
     <dir name="mobile">
+     <file name="compose.html.php" role="horde" />
+     <file name="confirm.html.php" role="horde" />
      <file name="folders.html.php" role="horde" />
      <file name="head.html.php" role="horde" />
      <file name="javascript_defs.php" role="horde" />
      <file name="mailbox.html.php" role="horde" />
      <file name="message.html.php" role="horde" />
      <file name="notice.html.php" role="horde" />
+     <file name="target.html.php" role="horde" />
     </dir> <!-- /templates/mobile -->
     <dir name="pgp">
      <file name="import_key.html" role="horde" />
@@ -779,6 +802,8 @@
     <dir name="Imp">
      <dir name="fixtures">
       <file name="maildirsize" role="test" />
+      <file name="test.eml" role="test" />
+      <file name="test.mbox" role="test" />
      </dir> <!-- /test/Imp/fixtures -->
      <dir name="Stub">
       <file name="HtmlViewer.php" role="test" />
@@ -791,6 +816,7 @@
        </dir> <!-- /test/Imp/Unit/Mime/Viewer -->
       </dir> <!-- /test/Imp/Unit/Mime -->
       <file name="ComposeTest.php" role="test" />
+      <file name="MboxParseTest.php" role="test" />
       <file name="QuotaTest.php" role="test" />
      </dir> <!-- /test/Imp/Unit -->
      <file name="AllTests.php" role="test" />
@@ -1211,7 +1237,7 @@
    <package>
     <name>Horde_Imap_Client</name>
     <channel>pear.horde.org</channel>
-    <min>1.2.0</min>
+    <min>1.4.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -1330,7 +1356,7 @@
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.2.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -1495,7 +1521,6 @@
    <install as="imp/lib/Imap/Acl.php" name="lib/Imap/Acl.php" />
    <install as="imp/lib/Imap/Exception.php" name="lib/Imap/Exception.php" />
    <install as="imp/lib/Imap/PermanentFlags.php" name="lib/Imap/PermanentFlags.php" />
-   <install as="imp/lib/Imap/Thread.php" name="lib/Imap/Thread.php" />
    <install as="imp/lib/Imap/Tree.php" name="lib/Imap/Tree.php" />
    <install as="imp/lib/Indices/Form.php" name="lib/Indices/Form.php" />
    <install as="imp/lib/LoginTasks/SystemTask/GarbageCollection.php" name="lib/LoginTasks/SystemTask/GarbageCollection.php" />
@@ -1511,7 +1536,9 @@
    <install as="imp/lib/LoginTasks/Task/RecoverDraft.php" name="lib/LoginTasks/Task/RecoverDraft.php" />
    <install as="imp/lib/LoginTasks/Task/RenameSentmailMonthly.php" name="lib/LoginTasks/Task/RenameSentmailMonthly.php" />
    <install as="imp/lib/Mailbox/List.php" name="lib/Mailbox/List.php" />
+   <install as="imp/lib/Mailbox/List/Thread.php" name="lib/Mailbox/List/Thread.php" />
    <install as="imp/lib/Mailbox/List/Track.php" name="lib/Mailbox/List/Track.php" />
+   <install as="imp/lib/Mbox/Parse.php" name="lib/Mbox/Parse.php" />
    <install as="imp/lib/Menu/Dimp.php" name="lib/Menu/Dimp.php" />
    <install as="imp/lib/Mime/Status.php" name="lib/Mime/Status.php" />
    <install as="imp/lib/Mime/Viewer/Alternative.php" name="lib/Mime/Viewer/Alternative.php" />
@@ -1540,7 +1567,9 @@
    <install as="imp/lib/Notification/Handler/Decorator/NewmailNotify.php" name="lib/Notification/Handler/Decorator/NewmailNotify.php" />
    <install as="imp/lib/Notification/Listener/AjaxStatus.php" name="lib/Notification/Listener/AjaxStatus.php" />
    <install as="imp/lib/Prefs/Identity.php" name="lib/Prefs/Identity.php" />
+   <install as="imp/lib/Prefs/Sort.php" name="lib/Prefs/Sort.php" />
    <install as="imp/lib/Prefs/Ui.php" name="lib/Prefs/Ui.php" />
+   <install as="imp/lib/Prefs/Sort/Sortpref.php" name="lib/Prefs/Sort/Sortpref.php" />
    <install as="imp/lib/Quota/Base.php" name="lib/Quota/Base.php" />
    <install as="imp/lib/Quota/Command.php" name="lib/Quota/Command.php" />
    <install as="imp/lib/Quota/Hook.php" name="lib/Quota/Hook.php" />
@@ -1559,6 +1588,7 @@
    <install as="imp/lib/Search/Element/Bulk.php" name="lib/Search/Element/Bulk.php" />
    <install as="imp/lib/Search/Element/Contacts.php" name="lib/Search/Element/Contacts.php" />
    <install as="imp/lib/Search/Element/Date.php" name="lib/Search/Element/Date.php" />
+   <install as="imp/lib/Search/Element/Daterange.php" name="lib/Search/Element/Daterange.php" />
    <install as="imp/lib/Search/Element/Flag.php" name="lib/Search/Element/Flag.php" />
    <install as="imp/lib/Search/Element/Header.php" name="lib/Search/Element/Header.php" />
    <install as="imp/lib/Search/Element/Mailinglist.php" name="lib/Search/Element/Mailinglist.php" />
@@ -1583,6 +1613,7 @@
    <install as="imp/lib/Sentmail/Sql.php" name="lib/Sentmail/Sql.php" />
    <install as="imp/lib/Tree/Flist.php" name="lib/Tree/Flist.php" />
    <install as="imp/lib/Tree/Jquerymobile.php" name="lib/Tree/Jquerymobile.php" />
+   <install as="imp/lib/Tree/Simplehtml.php" name="lib/Tree/Simplehtml.php" />
    <install as="imp/lib/Ui/Compose.php" name="lib/Ui/Compose.php" />
    <install as="imp/lib/Ui/Editor.php" name="lib/Ui/Editor.php" />
    <install as="imp/lib/Ui/Folder.php" name="lib/Ui/Folder.php" />
@@ -1758,12 +1789,15 @@
    <install as="imp/templates/mimp/mailbox/search.html" name="templates/mimp/mailbox/search.html" />
    <install as="imp/templates/mimp/message/message.html" name="templates/mimp/message/message.html" />
    <install as="imp/templates/mimp/message/part.html" name="templates/mimp/message/part.html" />
+   <install as="imp/templates/mobile/compose.html.php" name="templates/mobile/compose.html.php" />
+   <install as="imp/templates/mobile/confirm.html.php" name="templates/mobile/confirm.html.php" />
    <install as="imp/templates/mobile/folders.html.php" name="templates/mobile/folders.html.php" />
    <install as="imp/templates/mobile/head.html.php" name="templates/mobile/head.html.php" />
    <install as="imp/templates/mobile/javascript_defs.php" name="templates/mobile/javascript_defs.php" />
    <install as="imp/templates/mobile/mailbox.html.php" name="templates/mobile/mailbox.html.php" />
    <install as="imp/templates/mobile/message.html.php" name="templates/mobile/message.html.php" />
    <install as="imp/templates/mobile/notice.html.php" name="templates/mobile/notice.html.php" />
+   <install as="imp/templates/mobile/target.html.php" name="templates/mobile/target.html.php" />
    <install as="imp/templates/pgp/import_key.html" name="templates/pgp/import_key.html" />
    <install as="imp/templates/prefs/acl.html" name="templates/prefs/acl.html" />
    <install as="imp/templates/prefs/composetemplates.html" name="templates/prefs/composetemplates.html" />
@@ -1793,8 +1827,11 @@
    <install as="Imp/Autoload.php" name="test/Imp/Autoload.php" />
    <install as="Imp/phpunit.xml" name="test/Imp/phpunit.xml" />
    <install as="Imp/fixtures/maildirsize" name="test/Imp/fixtures/maildirsize" />
+   <install as="Imp/fixtures/test.eml" name="test/Imp/fixtures/test.eml" />
+   <install as="Imp/fixtures/test.mbox" name="test/Imp/fixtures/test.mbox" />
    <install as="Imp/Stub/HtmlViewer.php" name="test/Imp/Stub/HtmlViewer.php" />
    <install as="Imp/Unit/ComposeTest.php" name="test/Imp/Unit/ComposeTest.php" />
+   <install as="Imp/Unit/MboxParseTest.php" name="test/Imp/Unit/MboxParseTest.php" />
    <install as="Imp/Unit/QuotaTest.php" name="test/Imp/Unit/QuotaTest.php" />
    <install as="Imp/Unit/Mime/Viewer/HtmlTest.php" name="test/Imp/Unit/Mime/Viewer/HtmlTest.php" />
    <install as="Imp/Unit/Mime/Viewer/ItipTest.php" name="test/Imp/Unit/Mime/Viewer/ItipTest.php" />
@@ -2589,12 +2626,29 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-12-21</date>
+   <date>2012-01-17</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] SECURITY: Fix XSS vulnerabilities on the compose page (traditional view), the contacts popup window, and with certain IMAP mailbox names.
+* [mms] Fix updating context menu when a mailbox is converted into a container element after being deleted.
+* [mms] Fix expand/collapse of folder tree in mobile view.
+* [mms] Fix regression preventing sending of MDNs.
 * [mms] Fix reporting as innocent in mobile view.
 * [mms] Fix updating log information when replying/forwarding in dynamic view.
 * [mms] Fix deleting virtual folders in dynamic view.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.19</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-01-17</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

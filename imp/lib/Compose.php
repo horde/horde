@@ -183,7 +183,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      *   - priority: (string) The message priority ('high', 'normal', 'low').
      *   - readreceipt: (boolean) Add return receipt headers?
      *
-     * @return string  Notification text on success.
+     * @return string  Notification text on success (not HTML encoded).
      *
      * @throws IMP_Compose_Exception
      */
@@ -277,7 +277,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      *
      * @param string $data  The text of the draft message.
      *
-     * @return string  Status string.
+     * @return string  Status string (not HTML escaped).
      *
      * @throws IMP_Compose_Exception
      */
@@ -2832,27 +2832,20 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         ), $options);
 
         if (!empty($options['html']) &&
-            $GLOBALS['session']->get('imp', 'rteavail')) {
-            $body_id = $contents->findBody('html');
-            if (!is_null($body_id)) {
-                switch ($options['imp_msg']) {
-                case self::COMPOSE:
-                case self::REPLY:
-                    $check_id = '2';
-                    break;
+            $GLOBALS['session']->get('imp', 'rteavail') &&
+            (($body_id = $contents->findBody('html')) !== null)) {
+            if (($contents->getMIMEMessage()->getType() != 'multipart/mixed') &&
+                in_array($options['imp_msg'], array(self::COMPOSE, self::REPLY))) {
+                $check_id = '2';
+            } else {
+                $check_id = '1';
+            }
 
-                case self::FORWARD:
-                default:
-                    $check_id = '1';
-                    break;
-                }
-
-                if ((strval($body_id) == $check_id) ||
-                    Horde_Mime::isChild($check_id, $body_id)) {
-                    $mode = 'html';
-                } else {
-                    $body_id = null;
-                }
+            if ((strval($body_id) == $check_id) ||
+                Horde_Mime::isChild($check_id, $body_id)) {
+                $mode = 'html';
+            } else {
+                $body_id = null;
             }
         }
 

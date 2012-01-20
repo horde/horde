@@ -648,7 +648,8 @@ class Turba_Driver implements Countable
             $key = $ob->getValue('__key');
 
             // Calculate the age of the time object
-            if ($start->year == $end->year) {
+            if ($start->year == $end->year ||
+                $end->year == 9999) {
                 $age = $start->year - $t_object->year;
             } elseif ($t_object->month <= $end->month) {
                 // t_object must be in later year
@@ -1059,7 +1060,7 @@ class Turba_Driver implements Countable
                 if ($fields &&
                     (!isset($fields['TEL']) ||
                      (isset($fields['TEL']->Params['TYPE']) &&
-                      !isset($fields['TEL']->Params['TYPE']->ValEnum['HOME'])))) {
+                      !array_key_exists('HOME', explode(',', $fields['TEL']->Params['TYPE']->ValEnum))))) {
                     break;
                 }
                 if ($version == '2.1') {
@@ -1073,7 +1074,7 @@ class Turba_Driver implements Countable
                 if ($fields &&
                     (!isset($fields['TEL']) ||
                      (isset($fields['TEL']->Params['TYPE']) &&
-                      !isset($fields['TEL']->Params['TYPE']->ValEnum['WORK'])))) {
+                      !array_key_exists('WORK', explode(',', $fields['TEL']->Params['TYPE']->ValEnum))))) {
                     break;
                 }
                 if ($version == '2.1') {
@@ -1087,7 +1088,7 @@ class Turba_Driver implements Countable
                 if ($fields &&
                     (!isset($fields['TEL']) ||
                      (isset($fields['TEL']->Params['TYPE']) &&
-                      !isset($fields['TEL']->Params['TYPE']->ValEnum['CELL'])))) {
+                      !array_key_exists('CELL', explode(',', $fields['TEL']->Params['TYPE']->ValEnum))))) {
                     break;
                 }
                 if ($version == '2.1') {
@@ -1104,7 +1105,7 @@ class Turba_Driver implements Countable
                         break;
                     }
                     if (!isset($fields['TEL']->Params['TYPE']) ||
-                        isset($fields['TEL']->Params['TYPE']->ValEnum['CELL'])) {
+                        array_key_exists('CELL', explode(',', $fields['TEL']->Params['TYPE']->ValEnum))) {
                         if ($version == '2.1') {
                             $parameters['CELL'] = null;
                             $parameters['VOICE'] = null;
@@ -1113,7 +1114,7 @@ class Turba_Driver implements Countable
                         }
                     }
                     if (!isset($fields['TEL']->Params['TYPE']) ||
-                        isset($fields['TEL']->Params['TYPE']->ValEnum['HOME'])) {
+                        array_key_exists('HOME', explode(',', $fields['TEL']->Params['TYPE']->ValEnum))) {
                         if ($version == '2.1') {
                             $parameters['HOME'] = null;
                             $parameters['VOICE'] = null;
@@ -1141,7 +1142,7 @@ class Turba_Driver implements Countable
                         break;
                     }
                     if (!isset($fields['TEL']->Params['TYPE']) ||
-                        isset($fields['TEL']->Params['TYPE']->ValEnum['CELL'])) {
+                        array_key_exists('CELL', explode(',', $fields['TEL']->Params['TYPE']->ValEnum))) {
                         if ($version == '2.1') {
                             $parameters['CELL'] = null;
                             $parameters['VOICE'] = null;
@@ -2849,16 +2850,17 @@ class Turba_Driver implements Countable
     /**
      * Reads the given data from the address book and returns the results.
      *
-     * @param string $key    The primary key field to use.
-     * @param mixed $ids     The ids of the contacts to load.
-     * @param string $owner  Only return contacts owned by this user.
-     * @param array $fields  List of fields to return.
+     * @param string $key        The primary key field to use.
+     * @param mixed $ids         The ids of the contacts to load.
+     * @param string $owner      Only return contacts owned by this user.
+     * @param array $fields      List of fields to return.
      * @param array $blobFields  Array of fields containing binary data.
      *
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
-    protected function _read($key, $ids, $owner, array $fields, array $blobFields = array())
+    protected function _read($key, $ids, $owner, array $fields,
+                             array $blobFields = array())
     {
         throw new Turba_Exception(_("Reading contacts is not available."));
     }

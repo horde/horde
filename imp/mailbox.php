@@ -267,11 +267,12 @@ $mbox_info = $imp_mailbox->getMailboxArray(range($pageOb['begin'], $pageOb['end'
 
 /* Determine sorting preferences. */
 $sortpref = IMP::$mailbox->getSort();
+$thread_sort = ($sortpref->sortby == Horde_Imap_Client::SORT_THREAD);
 
 /* Determine if we are going to show the Hide/Purge Deleted Message links. */
 if (!$prefs->getValue('use_trash') && !IMP::$mailbox->vinbox) {
     $showdelete = array(
-        'hide' => ($sortpref['by'] != Horde_Imap_Client::SORT_THREAD),
+        'hide' => true,
         'purge' => IMP::$mailbox->access_expunge
     );
 } else {
@@ -342,9 +343,9 @@ if (isset($filter_url)) {
 }
 
 /* Set the folder for the sort links. */
-$sort_url = $sortpref['locked']
+$sort_url = $sortpref->locked
     ? null
-    : $mailbox_imp_url->copy()->add('sortdir', ($sortpref['dir']) ? 0 : 1);
+    : $mailbox_imp_url->copy()->add('sortdir', $sortpref->sortdir ? 0 : 1);
 
 /* Determine if we are showing previews. */
 $preview_tooltip = $show_preview
@@ -583,7 +584,7 @@ if ($pageOb['msgcount']) {
         );
     }
 
-    if ($sort_url && ($sortpref['by'] != Horde_Imap_Client::SORT_SEQUENCE)) {
+    if ($sort_url && ($sortpref->sortby != Horde_Imap_Client::SORT_SEQUENCE)) {
         $mboxactions[] = array(
             'v' => Horde::widget($sort_url->copy()->remove('sortdir')->add(array('sortby' => Horde_Imap_Client::SORT_SEQUENCE, 'actionID' => 'change_sort', 'mailbox_token' => $mailbox_token)), _("Clear Sort"), 'widget', '', '', _("Clear Sort"))
         );
@@ -633,22 +634,11 @@ if ($pageOb['msgcount']) {
 /* Define some variables now so we don't have to keep redefining in the
    foreach () loop or the templates. */
 $lastMbox = '';
-$messages = $threadlevel = array();
-
-/* Get thread object, if necessary. */
-if ($sortpref['by'] == Horde_Imap_Client::SORT_THREAD) {
-    $imp_thread = new IMP_Imap_Thread($imp_mailbox->getThreadOb());
-    $threadtree = $imp_thread->getThreadImageTree($mbox_info['uids'][strval(IMP::$mailbox)], $sortpref['dir']);
-}
-
 $mh_count = 0;
-$sortImg = ($sortpref['dir']) ? 'sortup' : 'sortdown';
+$sortImg = $sortpref->sortdir
+    ? 'sortup'
+    : 'sortdown';
 $headers = array(
-    IMP::IMAP_SORT_DATE => array(
-        'id' => 'mboxdate',
-        'stext' => _("Sort by Date"),
-        'text' => _("Dat_e")
-    ),
     Horde_Imap_Client::SORT_TO => array(
         'id' => 'mboxto',
         'stext' => _("Sort by To Address"),
@@ -669,6 +659,11 @@ $headers = array(
         'stext' => _("Sort by Subject"),
         'text' => _("Sub_ject")
     ),
+    IMP::IMAP_SORT_DATE => array(
+        'id' => 'mboxdate',
+        'stext' => _("Sort by Date"),
+        'text' => _("Dat_e")
+    ),
     Horde_Imap_Client::SORT_SIZE => array(
         'id' => 'mboxsize',
         'stext' => _("Sort by Message Size"),
@@ -686,12 +681,11 @@ if (IMP::$mailbox->special_outgoing) {
 /* Determine which of Subject/Thread to emphasize. */
 if (!IMP::$mailbox->access_sortthread || !$sort_url) {
     unset($headers[Horde_Imap_Client::SORT_THREAD]);
-    if (!$sort_url &&
-        ($sortpref['by'] == Horde_Imap_Client::SORT_THREAD)) {
-        $sortpref['by'] = Horde_Imap_Client::SORT_SUBJECT;
+    if (!$sort_url && $thread_sort) {
+        $sortpref->sortby = Horde_Imap_Client::SORT_SUBJECT;
     }
 } else {
-    if ($sortpref['by'] == Horde_Imap_Client::SORT_THREAD) {
+    if ($thread_sort) {
         $extra = Horde_Imap_Client::SORT_SUBJECT;
         $standard = Horde_Imap_Client::SORT_THREAD;
     } else {
@@ -708,19 +702,19 @@ if (!IMP::$mailbox->access_sortthread || !$sort_url) {
 
 foreach ($headers as $key => $val) {
     $ptr = &$headers[$key];
-    $ptr['class'] = ($sortpref['by'] == $key) ? 'selected' : 'item';
-
-    if ($sortpref['by'] == $key) {
+    if ($sortpref->sortby == $key) {
         $csl_icon = '<span class="iconImg ' . $sortImg . '"></span>';
         $ptr['change_sort_link'] = $sort_url
             ? Horde::link($sort_url->copy()->add(array('sortby' => $key, 'actionID' => 'change_sort', 'mailbox_token' => $mailbox_token)), $val['stext'], null, null, null, $val['stext']) . $csl_icon . '</a>'
             : $csl_icon;
+        $ptr['class'] = 'selected';
     } else {
         $ptr['change_sort_link'] = null;
+        $ptr['class'] = 'item';
     }
 
     if ($sort_url) {
-        $tmp = ($sortpref['by'] == $key)
+        $tmp = ($sortpref->sortby == $key)
             ? $sort_url
             : $mailbox_imp_url;
         $ptr['change_sort_widget'] = Horde::widget($tmp->copy()->add(array(
@@ -771,7 +765,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
             $mbox = IMP_Mailbox::get($ob['mailbox']);
 
             $folder_link = $mailbox_url->copy()->add('mailbox', IMP::base64urlEncode($ob['mailbox']));
-            $folder_link = Horde::link($folder_link, sprintf(_("View messages in %s"), $mbox->display), 'smallheader') . $mbox->display . '</a>';
+            $folder_link = Horde::link($folder_link, sprintf(_("View messages in %s"), $mbox->display), 'smallheader') . $mbox->display_html . '</a>';
             if (is_null($search_template)) {
                 $search_template = $injector->createInstance('Horde_Template');
             }
@@ -898,10 +892,9 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     }
 
     /* Set up threading tree now. */
-    if ($sortpref['by'] == Horde_Imap_Client::SORT_THREAD) {
-        if (!empty($threadtree[$ob['uid']])) {
-            $msg['subject'] = $threadtree[$ob['uid']] . ' ' . $msg['subject'];
-        }
+    if ($thread_sort) {
+        $t_ob =  $imp_mailbox[$ob['idx']]['t'];
+        $msg['subject'] = ($sortpref->sortdir ? $t_ob->reverse_img : $t_ob->img) . ' ' . $msg['subject'];
     }
 
     $msgs[$ob['uid']] = $msg;

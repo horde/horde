@@ -900,23 +900,6 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             throw new Kronolith_Exception($e);
         }
 
-        /* Handle any database specific initialization code to run. */
-        try {
-            switch ($this->_db->adapterName()) {
-            case 'Oracle':
-                $query = "ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS'";
-                $this->_db->execute($query);
-                break;
-
-            case 'PDO_PostgreSQL':
-                $query = "SET datestyle TO 'iso'";
-                $this->_db->execute($query);
-                break;
-            }
-
-        } catch (Horde_Db_Exception $e) {
-            throw new Kronolith_Exception($e);
-        }
         $this->_params = array_merge(array(
             'table' => 'kronolith_events'
         ), $this->_params);

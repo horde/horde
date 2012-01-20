@@ -33,20 +33,17 @@ class Turba_Driver_Prefs extends Turba_Driver
     /**
      * Reads the given data from the preferences and returns the result's
      * fields.
-     *
-     * @param array $criteria  Search criteria.
-     * @param mixed $ids       Data identifier(s).
-     * @param array $fields    List of fields to return.
-     *
-     * @return  Hash containing the search results.
      */
-    protected function _read(array $criteria, $ids, array $fields)
+    protected function _read($key, $ids, $owner, array $fields,
+                             array $blobFields = array())
     {
         $book = $this->_getAddressBook();
+
         $results = array();
         if (!is_array($ids)) {
             $ids = array($ids);
         }
+
         foreach ($ids as $id) {
             if (isset($book[$id])) {
                 $results[] = $book[$id];

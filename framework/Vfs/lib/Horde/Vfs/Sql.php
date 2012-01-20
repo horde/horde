@@ -212,7 +212,7 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
         try {
             $sql = sprintf('SELECT vfs_id FROM %s WHERE vfs_path %s AND vfs_name = ?',
                            $this->_params['table'],
-                           (!strlen($path) && $this->_db->dbsyntax == 'oci8') ? ' IS NULL' : ' = ' . $this->_db->quote($path));
+                           ' = ' . $this->_db->quote($path));
             $values = array($name);
             $id = $this->_db->selectValue($sql, $values);
         } catch (Horde_Db_Exception $e) {
@@ -264,7 +264,7 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
         try {
             $sql = sprintf('DELETE FROM %s WHERE vfs_type = ? AND vfs_path %s AND vfs_name = ?',
                            $this->_params['table'],
-                           (!strlen($path) && $this->_db->dbsyntax == 'oci8') ? ' IS NULL' : ' = ' . $this->_db->quote($path));
+                           ' = ' . $this->_db->quote($path));
             $values = array(self::FILE, $name);
             $result = $this->_db->delete($sql, $values);
         } catch (Horde_Db_Exception $e) {
@@ -369,7 +369,7 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
         try {
             $sql = sprintf('DELETE FROM %s WHERE vfs_path %s',
                            $this->_params['table'],
-                           (!strlen($folderPath) && $this->_db->dbsyntax == 'oci8') ? ' IS NULL' : ' LIKE ' . $this->_db->quote($this->_getNativePath($folderPath, '%')));
+                           ' LIKE ' . $this->_db->quote($this->_getNativePath($folderPath, '%')));
             $this->_db->delete($sql);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Vfs_Exception('Unable to delete VFS recursively: ' . $e->getMessage());
@@ -379,7 +379,7 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
         try {
             $sql = sprintf('DELETE FROM %s WHERE vfs_path %s',
                            $this->_params['table'],
-                           (!strlen($path) && $this->_db->dbsyntax == 'oci8') ? ' IS NULL' : ' = ' . $this->_db->quote($folderPath));
+                           ' = ' . $this->_db->quote($folderPath));
             $this->_db->delete($sql);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Vfs_Exception('Unable to delete VFS directory: ' . $e->getMessage());
@@ -389,7 +389,7 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
         try {
             $sql = sprintf('DELETE FROM %s WHERE vfs_path %s AND vfs_name = ?',
                            $this->_params['table'],
-                           (!strlen($path) && $this->_db->dbsyntax == 'oci8') ? ' IS NULL' : ' = ' . $this->_db->quote($path));
+                           ' = ' . $this->_db->quote($path));
             $values = array($name);
             $this->_db->delete($sql, $values);
         } catch (Horde_Db_Exception $e) {
@@ -415,14 +415,7 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
         $path = $this->_convertPath($path);
 
         try {
-            // Fix for Oracle not differentiating between '' and NULL.
-            if (!strlen($path) &&
-                ($this->_db->adapterName() == 'Oracle' ||
-                 $this->_db->adapterName() == 'PDO_Oracle')) {
-                $where = 'vfs_path IS NULL';
-            } else {
-                $where = 'vfs_path = ' . $this->_db->quote($path);
-            }
+            $where = 'vfs_path = ' . $this->_db->quote($path);
 
             $length_op = $this->_getFileSizeOp();
             $sql = sprintf('SELECT vfs_name, vfs_type, %s(vfs_data) length, vfs_modified, vfs_owner FROM %s WHERE %s',
@@ -782,10 +775,6 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
     protected function _getFileSizeOp()
     {
         switch ($this->_db->adapterName()) {
-        case 'Oracle':
-        case 'PDO_Oracle':
-            return 'LENGTHB';
-
         case 'PostgreSQL':
         case 'PDO_PostgreSQL':
             return 'OCTET_LENGTH';

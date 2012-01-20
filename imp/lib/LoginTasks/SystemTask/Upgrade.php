@@ -51,6 +51,7 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
             $this->_upgradeComposeCursor();
             $this->_upgradeMailboxPrefs();
             $this->_upgradeStationeryToTemplates();
+            $this->_upgradeVirtualFolders51();
             break;
         }
     }
@@ -290,54 +291,17 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
      */
     protected function _upgradeSortPrefs()
     {
-        global $prefs;
+        global $injector, $prefs;
 
-        if (!$prefs->isDefault('sortpref')) {
-            $update = false;
-            $sortpref = @unserialize($prefs->getValue('sortpref'));
-            foreach ($sortpref as $key => $val) {
-                $sb = $this->_newSortbyValue($val['b']);
-                if (!is_null($sb)) {
-                    $sortpref[$key]['b'] = $sb;
-                    $update = true;
-                }
-            }
-
-            if ($update) {
-                $prefs->setValue('sortpref', serialize($sortpref));
-            }
-        }
+        $sort_ob = $injector->getInstance('IMP_Prefs_Sort');
+        $sort_ob->upgradePrefs();
 
         if (!$prefs->isDefault('sortby')) {
-            $sb = $this->_newSortbyValue($prefs->getValue('sortby'));
+            $sb = $sort_ob->newSortbyValue($prefs->getValue('sortby'));
             if (!is_null($sb)) {
                 $prefs->setValue('sortby', $sb);
             }
         }
-    }
-
-    /**
-     * Get the new sortby pref value.
-     *
-     * @param integer $sortby  The old value.
-     *
-     * @return integer  Null if no change or else the converted sort value.
-     */
-    protected function _newSortbyValue($sortby)
-    {
-        switch ($sortby) {
-        case 1: // SORTARRIVAL
-            /* Sortarrival was the same thing as sequence sort in IMP 4. */
-            return Horde_Imap_Client::SORT_SEQUENCE;
-
-        case 2: // SORTDATE
-            return IMP::IMAP_SORT_DATE;
-
-        case 161: // SORTTHREAD
-            return Horde_Imap_Client::SORT_THREAD;
-        }
-
-        return null;
     }
 
     /**
@@ -572,6 +536,57 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
                     array('subject' => $val['n']),
                     $val['c']
                 );
+            }
+        }
+    }
+
+    /**
+     * Upgrade IMP 5.0.x virtual folders.
+     */
+    protected function _upgradeVirtualFolders51()
+    {
+        $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
+        $imp_search->setIteratorFilter(IMP_Search::LIST_VFOLDER | IMP_Search::LIST_DISABLED);
+
+        foreach ($imp_search as $key => $val) {
+            $replace = false;
+            $tmp = $val->query;
+
+            foreach (array_keys($tmp) as $key2) {
+                if ($tmp[$key2] instanceof IMP_Search_Element_Date) {
+                    $criteria = $tmp[$key2]->getCriteria();
+
+                    switch ($criteria->t) {
+                    case IMP_Search_Element_Date::DATE_ON:
+                        $ob = new IMP_Search_Element_Daterange(
+                            new DateTime('@' . $criteria->d),
+                            new DateTime('@' . $criteria->d)
+                        );
+                        break;
+
+                    case IMP_Search_Element_Date::DATE_BEFORE:
+                        $ob = new IMP_Search_Element_Daterange(
+                            null,
+                            new DateTime('@' . $criteria->d)
+                        );
+                        break;
+
+                    case IMP_Search_Element_Date::DATE_SINCE:
+                        $ob = new IMP_Search_Element_Daterange(
+                            new DateTime('@' . $criteria->d),
+                            null
+                        );
+                        break;
+                    }
+
+                    $tmp[$key2] = $ob;
+                    $replace = true;
+                }
+            }
+
+            if ($replace) {
+                $val->replace($tmp);
+                $imp_search[$key] = $val;
             }
         }
     }

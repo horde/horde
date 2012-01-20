@@ -10,7 +10,6 @@
         <li><a id="kronolithTasksIncomplete"><?php echo _("Incomplete") ?></a></li>
         <li><a id="kronolithTasksFuture"><?php echo _("Future") ?></a></li>
       </ul>
-      <a class="kronolithPrint" onclick="print()" title="<?php echo _("Print") ?>"><span><?php echo _("Print") ?></span></a>
     </span>
   </caption>
   <tbody id="kronolithViewTasksBody">

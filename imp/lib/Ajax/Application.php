@@ -728,7 +728,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     public function moveMessages()
     {
         $indices = new IMP_Indices_Form($this->_vars->uid);
-        if (!$this->_vars->mboxto || !count($indices)) {
+        if ((!$this->_vars->mboxto && !$this->_vars->newmbox) ||
+            !count($indices)) {
             return false;
         }
 
@@ -738,9 +739,17 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             return false;
         }
 
-        $mbox = IMP_Mailbox::formFrom($this->_vars->mboxto);
+        if ($this->_vars->newmbox) {
+            $mbox = IMP_Mailbox::prefFrom($this->_vars->newmbox);
+            $newMbox = true;
+        } else {
+            $mbox = IMP_Mailbox::formFrom($this->_vars->mboxto);
+            $newMbox = false;
+        }
 
-        $result = $GLOBALS['injector']->getInstance('IMP_Message')->copy($mbox, 'move', $indices);
+        $result = $GLOBALS['injector']
+            ->getInstance('IMP_Message')
+            ->copy($mbox, 'move', $indices, array('create' => $newMbox));
 
         if ($result) {
             $result = $this->_generateDeleteResult($indices, $change);
@@ -769,13 +778,24 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     public function copyMessages()
     {
         $indices = new IMP_Indices_Form($this->_vars->uid);
-        if (!$this->_vars->mboxto || !count($indices)) {
+        if ((!$this->_vars->mboxto && !$this->_vars->newmbox) ||
+            !count($indices)) {
             return false;
         }
 
-        $mbox = IMP_Mailbox::formFrom($this->_vars->mboxto);
+        if ($this->_vars->newmbox) {
+            $mbox = IMP_Mailbox::prefFrom($this->_vars->newmbox);
+            $newMbox = true;
+        } else {
+            $mbox = IMP_Mailbox::formFrom($this->_vars->mboxto);
+            $newMbox = false;
+        }
 
-        if ($result = $GLOBALS['injector']->getInstance('IMP_Message')->copy($mbox, 'copy', $indices)) {
+        $result = $GLOBALS['injector']
+            ->getInstance('IMP_Message')
+            ->copy($mbox, 'copy', $indices, array('create' => $newMbox));
+
+        if ($result) {
             $this->_queue->poll($mbox);
         } else {
             $result = $this->_checkUidvalidity();
@@ -1370,8 +1390,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         }
 
         if (!$change) {
-            $sort = $this->_mbox->getSort();
-            $change = ($sort['by'] == Horde_Imap_Client::SORT_THREAD);
+            $change = ($this->_mbox->getSort()->sortby == Horde_Imap_Client::SORT_THREAD);
         }
 
         $expunged = $injector->getInstance('IMP_Message')->expungeMailbox(array(strval($this->_mbox) => 1), array('list' => true));
@@ -1653,8 +1672,10 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             }
         }
 
-        $result->mbox = $imp_compose->getMetadata('mailbox')->form_to;
-        $result->uid = $imp_compose->getMetadata('uid');
+        if ($reply_mbox = $imp_compose->getMetadata('mailbox')) {
+            $result->mbox = $reply_mbox->form_to;
+            $result->uid = $imp_compose->getMetadata('uid');
+        }
 
         $imp_compose->destroy('send');
 
@@ -1906,8 +1927,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     {
         /* Check if we need to update thread information. */
         if (!$changed) {
-            $sort = $this->_mbox->getSort();
-            $changed = ($sort['by'] == Horde_Imap_Client::SORT_THREAD);
+            $changed = ($this->_mbox->getSort()->sortby == Horde_Imap_Client::SORT_THREAD);
         }
 
         if ($changed) {
@@ -1980,23 +2000,19 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     protected function _viewPortData($change, $base = null)
     {
         $args = array(
-            'applyfilter' => $this->_vars->applyfilter,
-            'cache' => $this->_vars->cache,
-            'cacheid' => $this->_vars->cacheid,
             'change' => $change,
-            'initial' => $this->_vars->initial,
-            'mbox' => strval($this->_mbox),
-            'qsearch' => $this->_vars->qsearch,
-            'qsearchfield' => $this->_vars->qsearchfield,
-            'qsearchfilter' => $this->_vars->qsearchfilter,
-            'qsearchflag' => $this->_vars->qsearchflag,
-            'qsearchflagnot' => $this->_vars->qsearchflagnot,
-            'qsearchmbox' => $this->_vars->qsearchmbox,
-            'rangeslice' => $this->_vars->rangeslice,
-            'requestid' => $this->_vars->requestid,
-            'sortby' => $this->_vars->sortby,
-            'sortdir' => $this->_vars->sortdir
+            'mbox' => strval($this->_mbox)
         );
+
+        $params = array(
+            'applyfilter', 'cache', 'cacheid', 'delhide', 'initial', 'qsearch',
+            'qsearchfield', 'qsearchfilter', 'qsearchflag', 'qsearchflagnot',
+            'qsearchmbox', 'rangeslice', 'requestid', 'sortby', 'sortdir'
+        );
+
+        foreach ($params as $val) {
+            $args[$val] = $this->_vars->$val;
+        }
 
         if ($this->_vars->search || $args['initial']) {
             $args += array(

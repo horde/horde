@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ansel 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-12-21 18:23+0100\n"
+"POT-Creation-Date: 2012-01-17 12:38+0100\n"
 "PO-Revision-Date: 2011-11-21 18:29+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -69,7 +69,7 @@ msgid_plural "%d photos"
 msgstr[0] "%d Foto"
 msgstr[1] "%d Fotos"
 
-#: lib/View/Upload.php:264
+#: lib/View/Upload.php:248
 #, php-format
 msgid "%d photo was uploaded."
 msgid_plural "%d photos were uploaded."
@@ -266,7 +266,7 @@ msgstr "Hinzufügen"
 msgid "Add Content"
 msgstr "Inhalt hinzufügen"
 
-#: lib/View/Upload.php:73
+#: lib/View/Upload.php:81
 msgid "Add Images"
 msgstr "Bilder hinzufügen"
 
@@ -278,7 +278,7 @@ msgstr "Foto Hinzufügen"
 msgid "Add a custom face range"
 msgstr "Ein Gesicht manuell hinzufügen"
 
-#: lib/View/Upload.php:76
+#: lib/View/Upload.php:84
 msgid "Add files to the upload queue and click the start button."
 msgstr ""
 "Fügen Sie Dateien zur Uploadliste hinzu und klicken Sie auf den Start-Knopf."
@@ -407,7 +407,7 @@ msgstr "Unbekannter Dateityp \"%s\" kann nicht verarbeitet werden."
 
 #: disclamer.php:30 disclamer.php:33 faces/claim.php:34 faces/report.php:37
 #: faces/savecustom.php:28 lib/Ajax/Imple/EditCaption.php:45
-#: lib/Form/Upload.php:30 lib/View/Upload.php:265 report.php:43
+#: lib/Form/Upload.php:30 lib/View/Upload.php:249 report.php:43
 #: templates/faces/custom.inc:52 templates/faces/define.inc:38
 #: templates/gallery/delete_confirmation.inc:13
 #: templates/image/crop_image.inc:92 templates/image/edit_image.inc:8
@@ -542,11 +542,11 @@ msgstr "Kopiere"
 msgid "Copyright infringement"
 msgstr "Copyrightverletzung"
 
-#: lib/View/Upload.php:457
+#: lib/View/Upload.php:494
 msgid "Could not extract image data from zip archive."
 msgstr "Bilderdaten konnten nicht aus dem ZIP-Archiv gelesen werden."
 
-#: lib/View/Upload.php:443
+#: lib/View/Upload.php:480
 msgid "Could not open zip archive."
 msgstr "ZIP-Archiv konnte nicht geöffnet werden."
 
@@ -849,7 +849,7 @@ msgstr "Datei %s"
 msgid "File not found."
 msgstr "Datei nicht gefunden."
 
-#: lib/View/Upload.php:77
+#: lib/View/Upload.php:85
 msgid "File size error."
 msgstr "Ungültige Dateigröße."
 
@@ -857,7 +857,7 @@ msgstr "Ungültige Dateigröße."
 msgid "File to upload"
 msgstr "Hochzuladende Datei"
 
-#: lib/View/Upload.php:78
+#: lib/View/Upload.php:86
 msgid "File type error."
 msgstr "Ungültiger Dateityp."
 
@@ -1024,10 +1024,6 @@ msgstr "Galerien gruppieren nach"
 #: lib/Block/RecentlyAddedGeodata.php:34
 msgid "Height of map (width automatically adjusts to block)"
 msgstr "Höhe der Karte (Breite passt sich automatisch an den Block an)"
-
-#: templates/mobile/galleries.html.php:4
-msgid "Home"
-msgstr "Pos1"
 
 #: config/prefs.php:162 lib/Form/Watermark.php:43
 msgid "Horizontal Alignment"
@@ -1515,6 +1511,10 @@ msgstr "Polaroid-Vorschau (Weißer Hintergrund)"
 #: lib/ImageGenerator/PolaroidThumb.php:15
 msgid "Polaroids"
 msgstr "Polaroids"
+
+#: templates/mobile/galleries.html.php:4
+msgid "Portal"
+msgstr "Portal"
 
 #: templates/image/crop_image.inc:149
 msgid "Portrait"
@@ -2016,7 +2016,7 @@ msgstr "AGB-Verletzung"
 msgid "The file \"%s\" doesn't exist."
 msgstr "Die Datei \"%s\" existiert nicht."
 
-#: image.php:221 lib/Api.php:337 lib/View/Upload.php:220
+#: image.php:221 lib/Api.php:337 lib/View/Upload.php:204
 msgid "The file you uploaded does not appear to be a valid photo."
 msgstr ""
 "Die Datei, die Sie hochgeladen haben, scheint kein gültiges Foto zu sein."
@@ -2067,7 +2067,7 @@ msgstr ""
 msgid "The slug \"%s\" already exists."
 msgstr "Der Kurzname \"%s\" existiert bereits."
 
-#: lib/View/Upload.php:192
+#: lib/View/Upload.php:176
 msgid ""
 "The uploaded file appears to be empty. It may not exist on your computer."
 msgstr ""
@@ -2098,7 +2098,7 @@ msgstr "Beim Löschen von %s ist ein Problem aufgetreten: %s"
 msgid "There was a problem deleting photos: %s"
 msgstr "Beim Löschen der Fotos ist ein Problem aufgetreten: %s"
 
-#: lib/View/Upload.php:238
+#: lib/View/Upload.php:222
 #, php-format
 msgid "There was a problem saving the photo: %s"
 msgstr "Beim Speichern des Fotos ist ein Problem aufgetreten: %s"
@@ -2107,7 +2107,7 @@ msgstr "Beim Speichern des Fotos ist ein Problem aufgetreten: %s"
 msgid "There was a problem uploading the photo."
 msgstr "Beim Hochladen des Fotos ist ein Fehler aufgetreten."
 
-#: lib/View/Upload.php:189
+#: lib/View/Upload.php:173
 #, php-format
 msgid "There was a problem uploading the photo: %s"
 msgstr "Beim Hochladen des Fotos ist ein Fehler aufgetreten: %s"
@@ -2130,7 +2130,7 @@ msgstr "Beim Bearbeiten der Daten ist ein Fehler aufgetreten: %s"
 msgid "There was an error fetching tags: %s"
 msgstr "Beim Lesen der Tags ist ein Fehler aufgetreten: %s"
 
-#: lib/View/Upload.php:366
+#: lib/View/Upload.php:403
 #, php-format
 msgid "There was an error processing the uploaded archive: %s"
 msgstr ""
@@ -2227,7 +2227,7 @@ msgstr "Ort von %s aktualisieren"
 msgid "Updated %s."
 msgstr "%s wurde aktualisiert."
 
-#: faces/search/image.php:18 lib/Form/Upload.php:30 lib/View/Upload.php:72
+#: faces/search/image.php:18 lib/Form/Upload.php:30 lib/View/Upload.php:80
 msgid "Upload"
 msgstr "Hochladen"
 
@@ -2240,11 +2240,11 @@ msgstr "Fotos nach %s hochladen"
 msgid "Upload face photo"
 msgstr "Foto mit Gesicht hochladen"
 
-#: lib/View/Upload.php:170 lib/Widget/Actions.php:71
+#: lib/View/Upload.php:147 lib/Widget/Actions.php:71
 msgid "Upload photos"
 msgstr "Fotos hochladen"
 
-#: lib/View/Upload.php:74
+#: lib/View/Upload.php:82
 msgid "Upload to gallery"
 msgstr "In Galerie hochladen"
 
@@ -2286,7 +2286,7 @@ msgstr "%s anzeigen"
 msgid "View All Results"
 msgstr "Alle Ergebnisse anszeigen"
 
-#: lib/View/Upload.php:75
+#: lib/View/Upload.php:83
 msgid "View Gallery"
 msgstr "Galerie anzeigen"
 
@@ -2371,7 +2371,7 @@ msgstr "Sie dürfen diese Fotos nicht bearbeiten."
 msgid "You are not authorized to upload photos to this gallery."
 msgstr "Sie dürfen keine Fotos in diese Galerie hochladen."
 
-#: lib/View/Upload.php:266
+#: lib/View/Upload.php:250
 msgid "You did not select any photos to upload."
 msgstr "Sie haben keine Fotos zum Hochladen ausgewählt."
 
@@ -2528,6 +2528,3 @@ msgstr "Benutzereinstellungen"
 #: templates/image/resize_image.inc:67
 msgid "width"
 msgstr "Breite"
-
-#~ msgid "Portal"
-#~ msgstr "Portal"

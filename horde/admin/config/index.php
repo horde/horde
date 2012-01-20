@@ -166,7 +166,10 @@ foreach ($a as $app) {
     $db_link = $self_url
         ->add(array('app' => $app, 'action' => 'schema'))
         ->link(array('title' => sprintf(_("Update %s schema"), $app)));
-    $apps[$i]['sort'] = $registry->get('name', $app) . ' (' . $app . ')';
+    $apps[$i]['sort'] = $app;
+    if ($name = $registry->get('name', $app)) {
+        $apps[$i]['sort'] = $name . ' (' . $apps[$i]['sort'] . ')';
+    }
     if (file_exists($path . '/conf.xml')) {
         $apps[$i]['name'] = $conf_link . $apps[$i]['sort'] . '</a>';
     } else {

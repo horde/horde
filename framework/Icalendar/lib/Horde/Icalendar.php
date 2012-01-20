@@ -1266,7 +1266,7 @@ class Horde_Icalendar
      *
      * @return TODO
      */
-    protected function _parseDateTime($text, $tzid = false)
+    public function _parseDateTime($text, $tzid = false)
     {
         $dateParts = explode('T', $text);
         if (count($dateParts) != 2 && !empty($text)) {
@@ -1354,7 +1354,7 @@ class Horde_Icalendar
      *
      * @return array TODO
      */
-    protected function _parseDate($text)
+    public function _parseDate($text)
     {
         $parts = explode('T', $text);
         if (count($parts) == 2) {

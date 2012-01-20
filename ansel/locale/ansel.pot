@@ -1,5 +1,5 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright YEAR Horde LLC (http://www.horde.org/)
+# Copyright (C) YEAR Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Ansel package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ansel H4 (2.0.1-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-12-21 18:23+0100\n"
+"POT-Creation-Date: 2012-01-17 12:38+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -69,7 +69,7 @@ msgid_plural "%d photos"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/View/Upload.php:264
+#: lib/View/Upload.php:248
 #, php-format
 msgid "%d photo was uploaded."
 msgid_plural "%d photos were uploaded."
@@ -264,7 +264,7 @@ msgstr ""
 msgid "Add Content"
 msgstr ""
 
-#: lib/View/Upload.php:73
+#: lib/View/Upload.php:81
 msgid "Add Images"
 msgstr ""
 
@@ -276,7 +276,7 @@ msgstr ""
 msgid "Add a custom face range"
 msgstr ""
 
-#: lib/View/Upload.php:76
+#: lib/View/Upload.php:84
 msgid "Add files to the upload queue and click the start button."
 msgstr ""
 
@@ -402,7 +402,7 @@ msgstr ""
 
 #: disclamer.php:30 disclamer.php:33 faces/claim.php:34 faces/report.php:37
 #: faces/savecustom.php:28 lib/Ajax/Imple/EditCaption.php:45
-#: lib/Form/Upload.php:30 lib/View/Upload.php:265 report.php:43
+#: lib/Form/Upload.php:30 lib/View/Upload.php:249 report.php:43
 #: templates/faces/custom.inc:52 templates/faces/define.inc:38
 #: templates/gallery/delete_confirmation.inc:13
 #: templates/image/crop_image.inc:92 templates/image/edit_image.inc:8
@@ -530,11 +530,11 @@ msgstr ""
 msgid "Copyright infringement"
 msgstr ""
 
-#: lib/View/Upload.php:457
+#: lib/View/Upload.php:494
 msgid "Could not extract image data from zip archive."
 msgstr ""
 
-#: lib/View/Upload.php:443
+#: lib/View/Upload.php:480
 msgid "Could not open zip archive."
 msgstr ""
 
@@ -827,7 +827,7 @@ msgstr ""
 msgid "File not found."
 msgstr ""
 
-#: lib/View/Upload.php:77
+#: lib/View/Upload.php:85
 msgid "File size error."
 msgstr ""
 
@@ -835,7 +835,7 @@ msgstr ""
 msgid "File to upload"
 msgstr ""
 
-#: lib/View/Upload.php:78
+#: lib/View/Upload.php:86
 msgid "File type error."
 msgstr ""
 
@@ -1001,10 +1001,6 @@ msgstr ""
 
 #: lib/Block/RecentlyAddedGeodata.php:34
 msgid "Height of map (width automatically adjusts to block)"
-msgstr ""
-
-#: templates/mobile/galleries.html.php:4
-msgid "Home"
 msgstr ""
 
 #: config/prefs.php:162 lib/Form/Watermark.php:43
@@ -1477,6 +1473,10 @@ msgstr ""
 
 #: lib/ImageGenerator/PolaroidThumb.php:15
 msgid "Polaroids"
+msgstr ""
+
+#: templates/mobile/galleries.html.php:4
+msgid "Portal"
 msgstr ""
 
 #: templates/image/crop_image.inc:149
@@ -1972,7 +1972,7 @@ msgstr ""
 msgid "The file \"%s\" doesn't exist."
 msgstr ""
 
-#: image.php:221 lib/Api.php:337 lib/View/Upload.php:220
+#: image.php:221 lib/Api.php:337 lib/View/Upload.php:204
 msgid "The file you uploaded does not appear to be a valid photo."
 msgstr ""
 
@@ -2020,7 +2020,7 @@ msgstr ""
 msgid "The slug \"%s\" already exists."
 msgstr ""
 
-#: lib/View/Upload.php:192
+#: lib/View/Upload.php:176
 msgid ""
 "The uploaded file appears to be empty. It may not exist on your computer."
 msgstr ""
@@ -2049,7 +2049,7 @@ msgstr ""
 msgid "There was a problem deleting photos: %s"
 msgstr ""
 
-#: lib/View/Upload.php:238
+#: lib/View/Upload.php:222
 #, php-format
 msgid "There was a problem saving the photo: %s"
 msgstr ""
@@ -2058,7 +2058,7 @@ msgstr ""
 msgid "There was a problem uploading the photo."
 msgstr ""
 
-#: lib/View/Upload.php:189
+#: lib/View/Upload.php:173
 #, php-format
 msgid "There was a problem uploading the photo: %s"
 msgstr ""
@@ -2081,7 +2081,7 @@ msgstr ""
 msgid "There was an error fetching tags: %s"
 msgstr ""
 
-#: lib/View/Upload.php:366
+#: lib/View/Upload.php:403
 #, php-format
 msgid "There was an error processing the uploaded archive: %s"
 msgstr ""
@@ -2173,7 +2173,7 @@ msgstr ""
 msgid "Updated %s."
 msgstr ""
 
-#: faces/search/image.php:18 lib/Form/Upload.php:30 lib/View/Upload.php:72
+#: faces/search/image.php:18 lib/Form/Upload.php:30 lib/View/Upload.php:80
 msgid "Upload"
 msgstr ""
 
@@ -2186,11 +2186,11 @@ msgstr ""
 msgid "Upload face photo"
 msgstr ""
 
-#: lib/View/Upload.php:170 lib/Widget/Actions.php:71
+#: lib/View/Upload.php:147 lib/Widget/Actions.php:71
 msgid "Upload photos"
 msgstr ""
 
-#: lib/View/Upload.php:74
+#: lib/View/Upload.php:82
 msgid "Upload to gallery"
 msgstr ""
 
@@ -2232,7 +2232,7 @@ msgstr ""
 msgid "View All Results"
 msgstr ""
 
-#: lib/View/Upload.php:75
+#: lib/View/Upload.php:83
 msgid "View Gallery"
 msgstr ""
 
@@ -2309,7 +2309,7 @@ msgstr ""
 msgid "You are not authorized to upload photos to this gallery."
 msgstr ""
 
-#: lib/View/Upload.php:266
+#: lib/View/Upload.php:250
 msgid "You did not select any photos to upload."
 msgstr ""
 

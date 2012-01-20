@@ -53,7 +53,7 @@
  * @author   Richard Heyes <richard@phpguru.org>
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @category Horde
- * @license  BSD
+ * @license  http://www.horde.org/licenses/bsd New BSD License
  * @package  Mail
  */
 class Horde_Mail_Rfc822
@@ -119,17 +119,15 @@ class Horde_Mail_Rfc822
      *
      * @param string $address  The address(es) to validate.
      * @param array $opts      Additional options:
-     * <pre>
-     * 'default_domain' - (string) Default domain/host etc.
-     *                    DEFAULT: localhost
-     * 'limit' - (integer) TODO
-     *           DEFAULT: NONE
-     * 'nest_groups' - (boolean) Whether to return the structure with groups
-     *                 nested for easier viewing.
-     *                 DEFAULT: true
-     * 'validate' - (boolean) Whether to validate atoms.
-     *              DEFAULT: true
-     * </pre>
+     *   - default_domain: (string) Default domain/host etc.
+     *                     DEFAULT: localhost
+     *   - limit: (integer) TODO
+     *            DEFAULT: NONE
+     *   - nest_groups: (boolean) Whether to return the structure with groups
+     *                  nested for easier viewing.
+     *                  DEFAULT: true
+     *   - validate: (boolean) Whether to validate atoms.
+     *               DEFAULT: true
      *
      * @return array  A structured array of addresses.
      * @throws Horde_Mail_Exception

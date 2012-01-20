@@ -45,7 +45,7 @@ class IMP_Dimp
     }
 
     /**
-     * Output everything up to but not including the <body> tag.
+     * Output everything up to, and including, the <body> tag.
      *
      * @param string $title   The title of the page.
      * @param array $scripts  Any additional scripts that need to be loaded.

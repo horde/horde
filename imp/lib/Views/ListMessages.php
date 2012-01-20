@@ -32,8 +32,8 @@ class IMP_Views_ListMessages
      *   - change: (boolean)
      *   - initial: (boolean) Is this the initial load of the view?
      *   - mbox: (string) The mailbox of the view.
-     *   - qsearch: TODO
-     *   - qsearchfield: (string) The quicksearch criteria.
+     *   - qsearch: (string) The quicksearch search string.
+     *   - qsearchfield: (string) The quicksearch search criteria.
      *   - qsearchmbox: (string) The mailbox to do the quicksearch in
      *                  (base64url encoded).
      *   - qsearchfilter: TODO
@@ -168,18 +168,18 @@ class IMP_Views_ListMessages
         /* Mail-specific viewport information. */
         $md = &$result->metadata;
         if (($args['initial'] ||
-             !is_null($args['sortby']) ||
-             !is_null($args['sortdir'])) &&
+             $args['delhide'] ||
+             !is_null($args['sortby'])) &&
             $mbox->hideDeletedMsgs(true)) {
             $md->delhide = 1;
         }
         if ($args['initial'] || !is_null($args['sortby'])) {
-            $md->sortby = intval($sortpref['by']);
+            $md->sortby = intval($sortpref->sortby);
         }
         if ($args['initial'] || !is_null($args['sortdir'])) {
-            $md->sortdir = intval($sortpref['dir']);
+            $md->sortdir = intval($sortpref->sortdir);
         }
-        if ($args['initial'] && $sortpref['locked']) {
+        if ($args['initial'] && $sortpref->locked) {
             $md->sortlock = 1;
         }
 
@@ -291,7 +291,7 @@ class IMP_Views_ListMessages
             }
             $rownum = $mailbox_list->getArrayIndex(reset($uid_search));
         } elseif (!empty($args['search_uid'])) {
-            $rownum = $mailbox_list->getArrayIndex($args['search_uid'], $args['search_mbox']);
+            $rownum = $mailbox_list->getArrayIndex($args['search_uid'], $mbox);
         } else {
             /* If this is the initial request for a mailbox, figure out the
              * starting location based on user's preferences. */
@@ -392,10 +392,16 @@ class IMP_Views_ListMessages
         $result->data = $this->_getOverviewData($mbox, array_keys($data));
 
         /* Get thread information. */
-        if (!$is_search &&
-            ($sortpref['by'] == Horde_Imap_Client::SORT_THREAD)) {
-            $imp_thread = new IMP_Imap_Thread($mailbox_list->getThreadOb());
-            $md->thread = (object)$imp_thread->getThreadTreeOb($msglist, $sortpref['dir']);
+        if ($sortpref->sortby == Horde_Imap_Client::SORT_THREAD) {
+            $thread = new stdClass;
+            foreach ($msglist as $key => $val) {
+                $tmp = $mailbox_list[$key]['t'];
+                $thread->$val = $sortpref->sortdir
+                    ? $tmp->reverse_raw
+                    : $tmp->raw;
+            }
+
+            $md->thread = $thread;
         }
 
         return $result;

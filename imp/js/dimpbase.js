@@ -324,7 +324,10 @@ var DimpBase = {
             vs = this.viewport.getSelection(),
             view = vs.getBuffer().getView();
 
-        if (vs.size()) {
+        if (this.isQSearch()) {
+            // Quicksearch is not saved after page reload.
+            this.setHash('mbox', this.search.mbox);
+        } else if (vs.size()) {
             if (this.isSearch()) {
                 msg = {};
                 msg[this.view] = vs.get('uid');
@@ -435,7 +438,10 @@ var DimpBase = {
         }
 
         this.resetSelected();
-        this.quicksearchClear(true);
+
+        if (!this.isSearch(f)) {
+            this.quicksearchClear(true);
+        }
 
         if (this.view != f) {
             $('folderName').update(DIMP.text.loading);
@@ -793,6 +799,12 @@ var DimpBase = {
 
             this.resetSelectAll();
             this.setMsgHash();
+        }.bindAsEventListener(this));
+
+        container.observe('ViewPort:endRangeFetch', function(e) {
+            if (this.view == e.memo) {
+                this.loadingImg('viewport', false);
+            }
         }.bindAsEventListener(this));
 
         container.observe('ViewPort:fetch', function(e) {
@@ -1250,7 +1262,7 @@ var DimpBase = {
         case 'ctx_noactions':
         case 'ctx_vfolder':
             baseelt = e.findElement('LI');
-            $(ctx_id).down('DIV.folderName').update(baseelt.readAttribute('title'));
+            $(ctx_id).down('DIV.folderName').update(this.fullMboxDisplay(baseelt));
             break;
 
         case 'ctx_reply':
@@ -1302,7 +1314,9 @@ var DimpBase = {
             if (tmp = $('oa_purge_options')) {
                 [ tmp ].invoke(tmp.select('> a').any(Element.visible) ? 'show' : 'hide');
                 if (tmp = $('oa_hide_deleted')) {
-                    if (this.viewport.getMetaData('delhide')) {
+                    if (this.isThreadSort()) {
+                        $(tmp, 'oa_show_deleted').invoke('hide');
+                    } else if (this.viewport.getMetaData('delhide')) {
                         tmp.hide();
                         $('oa_show_deleted').show();
                     } else {
@@ -1925,6 +1939,11 @@ var DimpBase = {
         return (m_elt && m_elt.hasClassName('subfolders'))
             ? m_elt
             : null;
+    },
+
+    fullMboxDisplay: function(elt)
+    {
+        return elt.readAttribute('title').escapeHTML();
     },
 
     /* Folder list updates. */
@@ -2721,7 +2740,7 @@ var DimpBase = {
         if (r.response && params.elt) {
             switch (type) {
             case 'create':
-                this._createFolderForm(this._folderAction.bindAsEventListener(this, params.orig_elt, 'createsub'), DIMP.text.createsub_prompt.sub('%s', params.elt.readAttribute('title')));
+                this._createFolderForm(this._folderAction.bindAsEventListener(this, params.orig_elt, 'createsub'), DIMP.text.createsub_prompt.sub('%s', this.fullMboxDisplay(params.elt)));
                 break;
 
             case 'delete':
@@ -2730,7 +2749,7 @@ var DimpBase = {
                     cancel_text: DIMP.text.cancel,
                     noinput: true,
                     ok_text: DIMP.text.ok,
-                    text: DIMP.text.delete_folder.sub('%s', params.elt.readAttribute('title'))
+                    text: DIMP.text.delete_folder.sub('%s', this.fullMboxDisplay(params.elt))
                 });
                 break;
 
@@ -2740,12 +2759,12 @@ var DimpBase = {
                     cancel_text: DIMP.text.cancel,
                     noinput: true,
                     ok_text: DIMP.text.ok,
-                    text: DIMP.text.empty_folder.sub('%s', params.elt.readAttribute('title')).sub('%d', r.response)
+                    text: DIMP.text.empty_folder.sub('%s', this.fullMboxDisplay(params.elt)).sub('%d', r.response)
                 });
                 break;
 
             case 'rename':
-                this._createFolderForm(this._folderAction.bindAsEventListener(this, params.elt, 'rename'), DIMP.text.rename_prompt.sub('%s', params.elt.readAttribute('title')), params.elt.retrieve('l').unescapeHTML());
+                this._createFolderForm(this._folderAction.bindAsEventListener(this, params.elt, 'rename'), DIMP.text.rename_prompt.sub('%s', this.fullMboxDisplay(params.elt)), params.elt.retrieve('l').unescapeHTML());
                 break;
             }
         }

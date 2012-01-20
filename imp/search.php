@@ -76,16 +76,8 @@ $criteria = array(
         'label' => _("Entire Message"),
         'type' => 'text'
     ),
-    'date_on' => array(
-        'label' => _("Date Equals (=)"),
-        'type' => 'date'
-    ),
-    'date_until' => array(
-        'label' => _("Date Until (<)"),
-        'type' => 'date'
-    ),
-    'date_since' => array(
-        'label' => _("Date Since (>=)"),
+    'date_range' => array(
+        'label' => _("Date"),
         'type' => 'date'
     ),
     'older' => array(
@@ -129,11 +121,6 @@ $filters = array(
 
 /* Define some constants. */
 $constants = array(
-    'date' => array(
-        'date_on' => IMP_Search_Element_Date::DATE_ON,
-        'date_until' => IMP_Search_Element_Date::DATE_BEFORE,
-        'date_since' => IMP_Search_Element_Date::DATE_SINCE
-    ),
     'within' => array(
         'd' => IMP_Search_Element_Within::INTERVAL_DAYS,
         'm' => IMP_Search_Element_Within::INTERVAL_MONTHS,
@@ -220,12 +207,11 @@ if ($vars->criteria_form) {
             );
             break;
 
-        case 'date_on':
-        case 'date_until':
-        case 'date_since':
-            $c_list[] = new IMP_Search_Element_Date(
-                new DateTime($val->v),
-                $constants['date'][$val->t]
+        case 'date_range':
+            $c_list[] = new IMP_Search_Element_Daterange(
+                $val->b ? new DateTime($val->b) : 0,
+                $val->e ? new DateTime($val->e) : 0,
+                $val->n
             );
             break;
 
@@ -363,9 +349,8 @@ $t->setOption('gettext', true);
 $t->set('action', Horde::url('search.php'));
 
 /* Determine if we are editing a search query. */
+$q_ob = IMP::$mailbox->getSearchOb();
 if ($vars->edit_query && IMP::$mailbox->search) {
-    $q_ob = IMP::$mailbox->getSearchOb();
-
     if (IMP::$mailbox->vfolder) {
         if (!IMP::$mailbox->editvfolder) {
             $notification->push(_("Built-in Virtual Folders cannot be edited."), 'horde.error');
@@ -386,18 +371,12 @@ if ($vars->edit_query && IMP::$mailbox->search) {
         $t->set('search_label', htmlspecialchars($q_ob->label));
         $js_vars['ImpSearch.prefsurl'] = strval(Horde::getServiceLink('prefs', 'imp')->add('group', 'searches')->setRaw(true));
     }
-
-    $js_vars['ImpSearch.i_criteria'] = $q_ob->criteria;
-    $js_vars['ImpSearch.i_folders'] = array(
-        'm' => IMP_Mailbox::formTo($q_ob->all ? array(IMP_Search_Query::ALLSEARCH) : $q_ob->mbox_list),
-        's' => IMP_Mailbox::formTo($q_ob->subfolder_list)
-    );
 } else {
     /* Process list of recent searches. */
     $rs = array();
     $imp_search->setIteratorFilter(IMP_Search::LIST_QUERY);
     foreach ($imp_search as $val) {
-        $rs[$val->id] = array(
+        $rs[$val->formid] = array(
             'c' => $val->criteria,
             'f' => array(
                 'm' => IMP_Mailbox::formTo($val->all ? array(IMP_Search_Query::ALLSEARCH) : array_map('strval', $val->mbox_list)),
@@ -415,6 +394,14 @@ if ($vars->edit_query && IMP::$mailbox->search) {
     $js_vars['ImpSearch.i_folders'] = array(
         'm' => $vars->subfolder ? array() : $s_mboxes,
         's' => $vars->subfolder ? $s_mboxes : array()
+    );
+}
+
+if (IMP::$mailbox->search) {
+    $js_vars['ImpSearch.i_criteria'] = $q_ob->criteria;
+    $js_vars['ImpSearch.i_folders'] = array(
+        'm' => IMP_Mailbox::formTo($q_ob->all ? array(IMP_Search_Query::ALLSEARCH) : $q_ob->mbox_list),
+        's' => IMP_Mailbox::formTo($q_ob->subfolder_list)
     );
 }
 
@@ -483,23 +470,26 @@ Horde::addInlineJsVars(array_merge($js_vars, array(
     'ImpSearch.text' => array(
         'and' => _("and"),
         'customhdr' => _("Custom Header:"),
+        'datereset' => _("Date Reset"),
         'dateselection' => _("Date Selection"),
         'flag' => _("Flag:"),
         'loading' => _("Loading..."),
         'need_criteria' => _("Please select at least one search criteria."),
+        'need_date' => _("Need at least one date in the date range search."),
         'need_folder' => _("Please select at least one folder to search."),
         'need_label' => _("Saved searches require a label."),
         'not_match' => _("Do NOT Match"),
         'or' => _("OR"),
         'search_all' => _("Search All Mailboxes"),
         'search_term' => _("Search Term:"),
-        'subfolder_search' => _("Search all subfolders?")
+        'subfolder_search' => _("Search all subfolders?"),
+        'to' => _("to")
     )
 )), array('onload' => 'dom'));
 
 if ($dimp_view) {
     if (!$vars->edit_query) {
-        $t->set('return_mailbox_val', sprintf(_("Return to %s"), htmlspecialchars($default_mailbox->display)));
+        $t->set('return_mailbox_val', sprintf(_("Return to %s"), $default_mailbox->display_html));
     }
 } else {
     $menu = IMP::menu();

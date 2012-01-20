@@ -5,13 +5,14 @@
  * things.
  *
  * Copyright 2004-2007 Andrew Coleman <mercury@appisolutions.net>
+ * Copyright 2004-2011 Horde LLC (http://www.horde.org)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
-require_once 'Horde/Template.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('sesha');
 
 // Page variables
 $title = _("Current Inventory");
@@ -27,10 +28,13 @@ if (!is_null($sortdir)) {
 }
 
 // Set the category if possible
-$categories = Sesha::listCategories();
-if (is_a($categories, 'PEAR_Error')) {
+try {
+    $categories = Sesha::listCategories();
+} catch (Sesha_Exception $e) {
+    $notification->push(_("There are no categories"), 'horde.warning');
     $categories = array();
 }
+
 $category_id = Horde_Util::getFormData('category_id');
 
 // Search variables
@@ -38,7 +42,9 @@ $what = Horde_Util::getFormData('criteria');
 $loc = Horde_Util::getFormData('location');
 $where = null;
 if (is_array($loc)) {
-    $where = array_sum($loc);
+    foreach ($loc as $field) {
+        $where += constant($field);
+    }
 }
 if (!is_null($what) && !is_null($where)) {
     $title = _("Search Inventory");
@@ -49,19 +55,20 @@ if (!is_null($what) && !is_null($where)) {
 }
 
 // Get the inventory
-$inventory = Sesha::listStock($sortby, $sortdir, $category_id, $what, $where);
-if (is_a($inventory, 'PEAR_Error')) {
-    Horde::fatal($inventory, __FILE__, __LINE__);
+try {
+    $inventory = Sesha::listStock($sortby, $sortdir, $category_id, $what, $where);
+} catch (Sesha_Exception $e) {
+    throw new Horde_Exception($e);
 }
 
 // Properties being displayed
-$properties = $GLOBALS['backend']->getProperties(@unserialize($prefs->getValue('list_properties')));
-if (is_a($properties, 'PEAR_Error')) {
-    Horde::fatal($properties, __FILE__, __LINE__);
-}
+try {
+    $properties = $GLOBALS['injector']->getInstance('Sesha_Factory_Driver')->create()->getProperties(@unserialize($prefs->getValue('list_properties')));
+} catch (Sesha_Exception $e) {
 
+}
 // Start page display.
-require SESHA_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require SESHA_TEMPLATES . '/menu.inc';
 
 Horde::addScriptFile('prototype.js', 'horde', true);
@@ -69,10 +76,10 @@ Horde::addScriptFile('tables.js', 'horde', true);
 
 $sortby = $prefs->getValue('sortby');
 $sortdir = $prefs->getValue('sortdir');
-$isAdminEdit = Horde_Auth::isAdmin('sesha:admin');
-$itemEditImg = Horde::img('edit.png', _("Edit Item"), '', $registry->getImageDir('horde'));
-$isAdminDelete = Horde_Auth::isAdmin('sesha:admin', Horde_Perms::DELETE);
-$adminDeleteImg = Horde::img('delete.png', _("Delete Item"), '', $registry->getImageDir('horde'));
+$isAdminEdit = Sesha::isAdmin(Horde_Perms::EDIT);
+$itemEditImg = Horde::img('edit.png', _("Edit Item"));
+$isAdminDelete = Sesha::isAdmin(Horde_Perms::DELETE);
+$adminDeleteImg = Horde::img('delete.png', _("Delete Item"));
 
 $item_count = count($inventory) == 1
     ? _("1 Item")
@@ -84,7 +91,7 @@ foreach ($categories as $id => $category) {
 
 $prefs_url = Horde::url($registry->get('webroot', 'horde') . '/services/prefs/', true);
 $sortdirclass = $sortdir ? 'sortup' : 'sortdown';
-$baseurl = Horde::applicationUrl('list.php');
+$baseurl = Horde::url('list.php');
 $column_headers = array(
     array('id' => 's' . SESHA_SORT_STOCKID,
           'class' => $sortby == SESHA_SORT_STOCKID ? ' class="' . $sortdirclass . '"' : '',
@@ -111,7 +118,7 @@ $column_headers[] = array(
 );
 
 $property_ids = array_keys($properties);
-$stock_url = Horde::applicationUrl('stock.php');
+$stock_url = Horde::url('stock.php');
 $stock = array();
 foreach ($inventory as $row) {
     $url = Horde_Util::addParameter($stock_url, 'stock_id', $row['stock_id']);
@@ -148,7 +155,7 @@ $t = new Horde_Template();
 $t->setOption('gettext', true);
 $t->set('header', $table_header);
 $t->set('count', $item_count);
-$t->set('form_url', Horde::applicationUrl('list.php'));
+$t->set('form_url', Horde::url('list.php'));
 $t->set('form_input', Horde_Util::pformInput());
 $t->set('categories', $categories);
 $t->set('prefs_url', $prefs_url);

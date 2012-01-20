@@ -63,12 +63,7 @@ default:
 }
 ?>
 <title><?php echo htmlspecialchars($page_title) ?></title>
-<?php if ($imp_view == 'mimp'): ?>
-</head>
-<body>
-<?php elseif ($imp_view == 'dimp'): ?>
-</head>
-<?php else: ?>
+<?php if ($imp_view == 'imp'): ?>
 <?php if ($mailbox_url = Horde_Util::nonInputVar('mailbox_url')): ?>
 <link href="<?php echo $mailbox_url ?>" rel="Up" />
 <?php elseif (!Horde_Util::nonInputVar('login_page')): ?>
@@ -91,8 +86,8 @@ default:
 <?php endif; ?>
 <?php if (!Horde_Util::nonInputVar('login_page')): ?>
 <link href="<?php echo Horde::url('search.php') ?>" rel="search" />
-<?php endif ?>
-</head>
-
-<body>
 <?php endif; ?>
+<?php endif; ?>
+
+</head>
+<body>

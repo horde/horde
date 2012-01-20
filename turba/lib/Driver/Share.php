@@ -137,22 +137,21 @@ class Turba_Driver_Share extends Turba_Driver
     }
 
     /**
-     * Reads the given data from the address book and returns the
-     * results.
+     * Reads the given data from the address book and returns the results.
      *
-     * @param string $key    The primary key field to use.
-     * @param mixed $ids     The ids of the contacts to load.
-     * @param string $owner  Only return contacts owned by this user.
-     * @param array $fields  List of fields to return.
+     * @param string $key        The primary key field to use.
+     * @param mixed $ids         The ids of the contacts to load.
+     * @param string $owner      Only return contacts owned by this user.
+     * @param array $fields      List of fields to return.
      * @param array $blobFields  Array of fields containing binary data.
      *
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
     protected function _read($key, $ids, $owner, array $fields,
-                             array $blob_fields = array())
+                             array $blobFields = array())
     {
-        return $this->_driver->_read($key, $ids, $owner, $fields, $blob_fields);
+        return $this->_driver->_read($key, $ids, $owner, $fields, $blobFields);
     }
 
     /**

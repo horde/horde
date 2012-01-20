@@ -14,6 +14,8 @@ var ImpCompose = {
 
     confirmCancel: function(e)
     {
+        e.stop();
+
         if (window.confirm(IMP.text.compose_cancel)) {
             this.display_unload_warning = false;
             if (this.popup) {
@@ -25,8 +27,6 @@ var ImpCompose = {
             } else {
                 window.location = this.cancel_url;
             }
-        } else {
-            e.stop();
         }
     },
 

@@ -111,6 +111,10 @@
  *   Fired when a fetch AJAX response is completed.
  *   params: (string) Current view.
  *
+ * ViewPort:endRangeFetch
+ *   Fired when a fetch rangeslice AJAX response is completed.
+ *   params: (string) Current view.
+ *
  * ViewPort:fetch
  *   Fired when a non-background AJAX response is sent.
  *   params: (string) Current view.
@@ -817,7 +821,7 @@ var ViewPort = Class.create({
 
         if (r.rangelist) {
             this.select(this.createSelection('uid', r.rangelist, r.view));
-            this.opts.container.fire('ViewPort:endFetch', r.view);
+            this.opts.container.fire('ViewPort:endRangeFetch', r.view);
         }
 
         if (!Object.isUndefined(r.cacheid)) {
