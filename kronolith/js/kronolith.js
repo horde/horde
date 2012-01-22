@@ -5754,6 +5754,7 @@ KronolithCore = {
 
         var tr = new Element('tr'), response, i;
         this.freeBusy.set(attendee.l, [ tr ]);
+        attendee.r = attendee.r || 1;
         switch (attendee.r) {
             case 1: response = 'None'; break;
             case 2: response = 'Accepted'; break;
