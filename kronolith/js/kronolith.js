@@ -5644,6 +5644,25 @@ KronolithCore = {
             $('kronolithEventStartDate').observe('change', this.attendeeStartDateHandler);
         }
 
+        /* Resources */
+        if (this.ResourceStartDateHandler) {
+            $('kronolithEventStartDate').stopObserving('change', this.attendeeResourceDateHandler);
+        }
+        if (!Object.isUndefined(ev.rs)) {
+            var rs = $H(ev.rs);
+            this.resourceAc.reset(rs.values().pluck('name'));
+            rs.each(function(r) { this.addResource(r.value, r.key) }.bind(this));
+            if (this.fbLoading) {
+                $('kronolithResourceFBLoading').show();
+            }
+            this.resourceStartDateHandler = function() {
+                rs.each(function(r) {
+                    this.insertFreeBusy(r.name);
+                }, this);
+            }.bind(this);
+            $('kronolithEventStartDate').observe('change', this.resourceStartDateHandler);
+        }
+
         /* Tags */
         this.eventTagAc.reset(ev.tg);
 
@@ -5750,22 +5769,27 @@ KronolithCore = {
         $('kronolithEventAttendeesList').down('tbody').insert(tr);
     },
 
-    addResource: function(resource)
+    addResource: function(resource, id)
     {
-        var v;
-        this.resourceACCache.choices.each(function(i) {
-            if (i.name == resource) {
-                v = i.code;
-                throw $break;
-            } else {
-                v = false;
-            }
-        }.bind(this));
+        var v, response = 1;
+        if (!id) {
+            this.resourceACCache.choices.each(function(i) {
+                if (i.name == resource) {
+                    v = i.code;
+                    throw $break;
+                } else {
+                    v = false;
+                }
+            }.bind(this));
+        } else {
+            v = id;
+            resource = resource.name;
+            response = resource.resposne;
+        }
 
         var att = {
             'resource': v
         },
-        response = 1,
         tr, i;
 
         if (att.resource) {

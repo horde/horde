@@ -1800,6 +1800,7 @@ abstract class Kronolith_Event
      * - ed: formatted end date
      * - et: formatted end time
      * - at: attendees
+     * - rs:  resources
      * - tg: tag list,
      * - mt: meeting (Boolean true if event has attendees, false otherwise).
      *
@@ -1882,6 +1883,9 @@ abstract class Kronolith_Event
                     $attendees[] = $attendee;
                 }
                 $json->at = $attendees;
+            }
+            if ($this->_resources) {
+                $json->rs = $this->_resources;
             }
             if ($this->methods) {
                 $json->m = $this->methods;
@@ -2267,7 +2271,8 @@ abstract class Kronolith_Event
 
         // Resources
         $resources = $session->get('kronolith', 'resources', Horde_Session::TYPE_ARRAY);
-        if (!is_null($newresources = Horde_Util::getFormData('resources'))) {
+        $newresources = Horde_Util::getFormData('resources');
+        if (!empty($newresources)) {
             foreach (explode(',', $newresources) as $id) {
                 $resources[$id] = array(
                     'attendance' => Kronolith::PART_REQUIRED,
