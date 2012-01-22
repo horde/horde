@@ -5645,8 +5645,8 @@ KronolithCore = {
         }
 
         /* Resources */
-        if (this.ResourceStartDateHandler) {
-            $('kronolithEventStartDate').stopObserving('change', this.attendeeResourceDateHandler);
+        if (this.resourceStartDateHandler) {
+            $('kronolithEventStartDate').stopObserving('change', this.resourceStartDateHandler);
         }
         if (!Object.isUndefined(ev.rs)) {
             var rs = $H(ev.rs);
@@ -5655,9 +5655,11 @@ KronolithCore = {
             if (this.fbLoading) {
                 $('kronolithResourceFBLoading').show();
             }
+
+            // @TODO: Need to repoll the backend for new fb data.
             this.resourceStartDateHandler = function() {
                 rs.each(function(r) {
-                    this.insertFreeBusy(r.name);
+                    this.insertFreeBusy(r.value.name);
                 }, this);
             }.bind(this);
             $('kronolithEventStartDate').observe('change', this.resourceStartDateHandler);
