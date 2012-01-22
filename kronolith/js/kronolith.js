@@ -5882,6 +5882,9 @@ KronolithCore = {
             tr = this.freeBusy.get(attendee)[0],
             td = tr.select('td')[1],
             div = td.down('div');
+        if (!fb) {
+            return;
+        }
         if (!td.getWidth()) {
             this.insertFreeBusy.bind(this, attendee).defer();
             return;
