@@ -746,7 +746,12 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
             try {
                 $resource = Kronolith::getDriver('Resource')
                     ->getResource($this->_vars->resource);
-                $result->fb = $resource->getFreeBusy(null, null, true, true);
+                try {
+                    $result->fb = $resource->getFreeBusy(null, null, true, true);
+                } catch (Horde_Exception $e) {
+                    // Resource groups can't provide FB information.
+                    $result->fb = null;
+                }
             } catch (Exception $e) {
                 $GLOBALS['notification']->push($e->getMessage(), 'horde.warning');
             }
