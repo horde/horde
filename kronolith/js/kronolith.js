@@ -5788,7 +5788,12 @@ KronolithCore = {
             resource = resource.name;
             response = resource.resposne;
         }
-
+        switch (response) {
+            case 1: response = 'None'; break;
+            case 2: response = 'Accepted'; break;
+            case 3: response = 'Declined'; break;
+            case 4: response = 'Tentative'; break;
+        }
         var att = {
             'resource': v,
             'start': Date.parse($F('kronolithEventStartDate')).toISOString()
