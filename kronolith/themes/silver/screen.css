@@ -65,17 +65,17 @@ a#kronolithNotifications {
 .kronolithDialogWarning {
     background-image: url('graphics/alerts/warning.png');
 }
-.kronolithAttendeeNone {
+#kronolithEventTabAttendees td.kronolithAttendeeNone {
     background-image: url("graphics/attendee-none.png");
 }
-.kronolithAttendeeAccepted {
+#kronolithEventTabAttendees td.kronolithAttendeeAccepted {
     background-image: url("graphics/attendee-accepted.png");
 }
-.kronolithAttendeeDeclined {
+#kronolithEventTabAttendees td.kronolithAttendeeDeclined {
     background-image: url("graphics/attendee-declined.png");
     text-decoration: line-through;
 }
-.kronolithAttendeeTentative {
+#kronolithEventTabAttendees td.kronolithAttendeeTentative {
     background-image: url("graphics/attendee-tentative.png");
 }
 #kronolithMinicalNext, .kronolithNext {
