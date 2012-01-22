@@ -5759,29 +5759,25 @@ KronolithCore = {
         },
         rtext = $A($('kronolithEventResources').options).detect(function(i) {
             return i.value == att.resource;
-        });
+        }),
+        response = 1,
+        tr, i;
 
         if (att.resource) {
             this.fbLoading++;
             this.doAction('getFreeBusy', att, this.addResourceCallback.curry(rtext.text).bind(this));
         }
-       var tr = new Element('tr'), response, i;
+        tr = new Element('tr');
         this.freeBusy.set(rtext.text, [ tr ]);
-        // switch (attendee.r) {
-        //     case 1: response = 'None'; break;
-        //     case 2: response = 'Accepted'; break;
-        //     case 3: response = 'Declined'; break;
-        //     case 4: response = 'Tentative'; break;
-        // }
-        //var response = 'None';
         tr.insert(new Element('td')
-                  .writeAttribute('title', rtext.text)
-                  .addClassName('kronolithAttendee' + response)
-                  .insert(rtext.text.escapeHTML()));
+            .writeAttribute('title', rtext.text)
+            .addClassName('kronolithAttendee' + response)
+            .insert(rtext.text.escapeHTML()));
         for (i = 0; i < 24; i++) {
             tr.insert(new Element('td', { className: 'kronolithFBUnknown' }));
         }
         $('kronolithEventResourcesList').down('tbody').insert(tr);
+        rtext.remove();
     },
 
     addResourceCallback: function(resource, r)
