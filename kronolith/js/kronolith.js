@@ -5813,19 +5813,21 @@ KronolithCore = {
         if (att.resource) {
             this.fbLoading++;
             this.doAction('getFreeBusy', att, this.addResourceCallback.curry(resource).bind(this));
+            tr = new Element('tr');
+            this.freeBusy.set(resource, [ tr ]);
+            tr.insert(new Element('td')
+                .writeAttribute('title', resource)
+                .addClassName('kronolithAttendee' + response)
+                .insert(resource.escapeHTML()));
+            for (i = 0; i < 24; i++) {
+                tr.insert(new Element('td', { className: 'kronolithFBUnknown' }));
+            }
+            $('kronolithEventResourcesList').down('tbody').insert(tr);
+            this.resourceACCache.map.set(resource, v);
+            $('kronolithEventResourceIds').value = this.resourceACCache.map.values();
+        } else {
+            this.showNotifications([{ type: 'horde.error', message: Kronolith.text.unknown_resource + ': ' + resource }]);
         }
-        tr = new Element('tr');
-        this.freeBusy.set(resource, [ tr ]);
-        tr.insert(new Element('td')
-            .writeAttribute('title', resource)
-            .addClassName('kronolithAttendee' + response)
-            .insert(resource.escapeHTML()));
-        for (i = 0; i < 24; i++) {
-            tr.insert(new Element('td', { className: 'kronolithFBUnknown' }));
-        }
-        $('kronolithEventResourcesList').down('tbody').insert(tr);
-        this.resourceACCache.map.set(resource, v);
-        $('kronolithEventResourceIds').value = this.resourceACCache.map.values();
     },
 
     removeResource: function(resource)
