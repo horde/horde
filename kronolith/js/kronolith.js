@@ -46,6 +46,7 @@ KronolithCore = {
     lastRecurType: 'None',
     uatts: null,
     ucb: null,
+    resourceACCache: { choices: {}, map: $H() },
 
     /**
      * The location that was open before the current location.
@@ -4227,10 +4228,6 @@ KronolithCore = {
                 e.stop();
                 return;
 
-            case 'kronolithEventAddResource':
-                this.addResource();
-                e.stop();
-                break;
             case 'kronolithEventAllday':
                 this.toggleAllDay();
                 break;
@@ -5277,6 +5274,7 @@ KronolithCore = {
         this.resetMap();
         this.attendeesAc.reset();
         this.eventTagAc.reset();
+        this.resourceAc.reset();
         $('kronolithEventAttendeesList').select('tr').invoke('remove');
         if (Kronolith.conf.maps.driver) {
             $('kronolithEventMapLink').hide();
@@ -5465,14 +5463,14 @@ KronolithCore = {
 
     getResourceListCallback: function(r)
     {
-        $('kronolithEventResources').update();
-        if (!r.response) {
-            return;
-        }
-        r.response.each(function(resource) {
-            var t = new Element('option', { 'value': resource.id }).update(resource.name.escapeHTML());
-            $('kronolithEventResources').insert(t);
-        });
+        // $('kronolithEventResources').update();
+        // if (!r.response) {
+        //     return;
+        // }
+        // r.response.each(function(resource) {
+        //     var t = new Element('option', { 'value': resource.id }).update(resource.name.escapeHTML());
+        //     $('kronolithEventResources').insert(t);
+        // });
     },
 
     /**
@@ -5752,32 +5750,49 @@ KronolithCore = {
         $('kronolithEventAttendeesList').down('tbody').insert(tr);
     },
 
-    addResource: function()
+    addResource: function(resource)
     {
+        var v;
+        this.resourceACCache.choices.each(function(i) {
+            if (i.name == resource) {
+                v = i.code;
+                throw $break;
+            } else {
+                v = false;
+            }
+        }.bind(this));
+
         var att = {
-            'resource': $F('kronolithEventResources')
+            'resource': v
         },
-        rtext = $A($('kronolithEventResources').options).detect(function(i) {
-            return i.value == att.resource;
-        }),
         response = 1,
         tr, i;
 
         if (att.resource) {
             this.fbLoading++;
-            this.doAction('getFreeBusy', att, this.addResourceCallback.curry(rtext.text).bind(this));
+            this.doAction('getFreeBusy', att, this.addResourceCallback.curry(resource).bind(this));
         }
         tr = new Element('tr');
-        this.freeBusy.set(rtext.text, [ tr ]);
+        this.freeBusy.set(resource, [ tr ]);
         tr.insert(new Element('td')
-            .writeAttribute('title', rtext.text)
+            .writeAttribute('title', resource)
             .addClassName('kronolithAttendee' + response)
-            .insert(rtext.text.escapeHTML()));
+            .insert(resource.escapeHTML()));
         for (i = 0; i < 24; i++) {
             tr.insert(new Element('td', { className: 'kronolithFBUnknown' }));
         }
         $('kronolithEventResourcesList').down('tbody').insert(tr);
-        rtext.remove();
+        this.resourceACCache.map.set(resource, v);
+        $('kronolithEventResourceIds').value = this.resourceACCache.map.values();
+    },
+
+    removeResource: function(resource)
+    {
+        var row = this.freeBusy.get(resource)[0];
+        row.purge();
+        row.remove();
+        delete this.resourceACCache.map.unset(resource);
+        $('kronolithEventResourceIds').value = this.resourceACCache.map.values();
     },
 
     addResourceCallback: function(resource, r)
