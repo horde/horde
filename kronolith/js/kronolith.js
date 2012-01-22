@@ -5275,7 +5275,6 @@ KronolithCore = {
         this.attendeesAc.reset();
         this.eventTagAc.reset();
         this.resourceAc.reset();
-        $('kronolithEventAttendeesList').select('tr').invoke('remove');
         if (Kronolith.conf.maps.driver) {
             $('kronolithEventMapLink').hide();
         }
