@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2012-01-22</date>
- <time>00:54:30</time>
+ <time>13:50:37</time>
  <version>
   <release>3.1.0</release>
   <api>3.1.0</api>
@@ -34,6 +34,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Implement resource scheduling in dynamic view (Request #9774).
+* [mjr] Fix issue that could cause incorrect freebusy data to be displayed in certain circumstances.
 * [mjr] Prompt to send updates when modifying an event with attendees (Request #10724).
 * [mjr] Add heatmap to year view (Request #10658).
 * [mjr] Implement proper editing and deleting of recurrence series and exceptions in ajax view (Request #9926).

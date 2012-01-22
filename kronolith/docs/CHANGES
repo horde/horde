@@ -2,6 +2,9 @@
 v3.1-git
 --------
 
+[mjr] Implement resource scheduling in dynamic view (Request #9774).
+[mjr] Fix issue that could cause incorrect freebusy data to be displayed in
+      certain circumstances.
 [mjr] Prompt to send updates when modifying an event with attendees (Request
       #10724).
 [mjr] Add heatmap to year view (Request #10658).
