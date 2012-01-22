@@ -2266,7 +2266,17 @@ abstract class Kronolith_Event
         $this->attendees = $attendees;
 
         // Resources
-        $this->_resources = $session->get('kronolith', 'resources', Horde_Session::TYPE_ARRAY);
+        $resources = $session->get('kronolith', 'resources', Horde_Session::TYPE_ARRAY);
+        if (!is_null($newresources = Horde_Util::getFormData('resources'))) {
+            foreach (explode(',', $newresources) as $id) {
+                $resources[$id] = array(
+                    'attendance' => Kronolith::PART_REQUIRED,
+                    'response'   => Kronolith::RESPONSE_NONE,
+                    'name'       => Kronolith::getDriver('Resource')->getResource($id)->get('name')
+                );
+            }
+        }
+        $this->_resources = $resources;
 
         // Event start.
         $allDay = Horde_Util::getFormData('whole_day');
