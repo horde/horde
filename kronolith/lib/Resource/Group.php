@@ -151,7 +151,11 @@ class Kronolith_Resource_Group extends Kronolith_Resource_Base
      */
     public function addEvent($event)
     {
-        throw new Horde_Exception('Events should be added to the Single resource object, not directly to the Group object.');
+        if (!empty($this->_selectedResource)) {
+            $this->_selectedResource->addEvent($event);
+        } else {
+            throw new Horde_Exception('Events should be added to the Single resource object, not directly to the Group object.');
+        }
     }
 
     /**
