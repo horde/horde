@@ -268,7 +268,7 @@ class Kronolith_FreeBusy
      *
      * @return object  A simple object representation.
      */
-    function toJson(Horde_Icalendar_Vfreebusy $fb)
+    public static function toJson(Horde_Icalendar_Vfreebusy $fb)
     {
         $json = new stdClass;
         $start = $fb->getStart();
