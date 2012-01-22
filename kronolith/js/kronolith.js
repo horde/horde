@@ -5333,6 +5333,15 @@ KronolithCore = {
             this.toggleRecurrence('None');
             $('kronolithEventEditRecur').hide();
             this.enableAlarm('Event', Kronolith.conf.default_alarm);
+            // Need to clear any existing handler for new events, as they are
+            // bound to the attendees of the last edited event. @TODO: figure
+            // out how to attach a similar event for new events.
+            if (this.attendeeStartDateHandler) {
+                $('kronolithEventStartDate').stopObserving('change', this.attendeeStartDateHandler);
+            }
+            if (this.resourceStartDateHandler) {
+                $('kronolithEventStartDate').stopObserving('change', this.resourceStartDateHandler);
+            }
             this.redBoxLoading = true;
             RedBox.showHtml($('kronolithEventDialog').show());
         }
@@ -5923,6 +5932,7 @@ KronolithCore = {
             left = from.getHours() + from.getMinutes() / 60;
             div.insert(new Element('div', { className: 'kronolithFBBusy' }).setStyle({ zIndex: 1, top: 0, left: (left * width) + 'px', width: (((to.getHours() + to.getMinutes() / 60) - left) * width) + 'px' }));
         });
+
     },
 
     /**
