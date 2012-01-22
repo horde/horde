@@ -5784,6 +5784,7 @@ KronolithCore = {
     {
         var v, response = 1;
         if (!id) {
+            // User entered
             this.resourceACCache.choices.each(function(i) {
                 if (i.name == resource) {
                     v = i.code;
@@ -5793,10 +5794,12 @@ KronolithCore = {
                 }
             }.bind(this));
         } else {
+            // Populating from an edit event action
             v = id;
             response = resource.response;
             resource = resource.name;
         }
+
         switch (response) {
             case 1: response = 'None'; break;
             case 2: response = 'Accepted'; break;
