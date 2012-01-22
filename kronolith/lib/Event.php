@@ -2286,7 +2286,6 @@ abstract class Kronolith_Event
 
         // Check if we need to remove any resources
         $delete = array_diff_assoc($existingResources, $this->_resources);
-        Horde::debug($delete);
         foreach ($delete as $key => $value) {
             Kronolith::getDriver('Resource')
                 ->getResource($key)
