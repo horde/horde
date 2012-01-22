@@ -247,9 +247,10 @@ class Sesha
     function getMenu($returnType = 'object')
     {
         global $registry, $conf, $browser, $print_link, $perms;
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
         $menu = new Horde_Menu();
         $menu->add(Horde::url('list.php'), _("_List Stock"), 'sesha.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
-        if (Sesha::isAdmin(Horde_Perms::READ)|| $perms->hasPermission('sesha:addStock', Horde_Auth::getAuth(), Horde_Perms::READ)) {
+        if (Sesha::isAdmin(Horde_Perms::READ)|| $perms->hasPermission('sesha:addStock', $GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
             $menu->add(Horde::url(Horde_Util::addParameter('stock.php', 'actionId', 'add_stock')), _("_Add Stock"), 'stock.png');
             $menu->add(Horde::url('admin.php'), _("Admin"), 'sesha.png');
         }
@@ -269,6 +270,6 @@ class Sesha
 
     public static function isAdmin($permLevel = Horde_Perms::DELETE)
     {
-        return ($GLOBALS['registry']->isAdmin() || $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('sesha:admin', Horde_Auth::getAuth(), $permLevel));
+        return ($GLOBALS['registry']->isAdmin() || $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('sesha:admin', $GLOBALS['registry']->getAuth(), $permLevel));
     }
 }
