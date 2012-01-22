@@ -932,19 +932,22 @@ div.kronolithFormActions {
 #kronolithResourceACBox {
     line-height: 100%;
 }
-#kronolithEventTabAttendees td.kronolithAttendeeNone {
+#kronolithEventTabAttendees td.kronolithAttendeeNone ,
+#kronolithEventTabResources td.kronolithAttendeeNone {
     background-image: url("graphics/attendee-none.png");
     background-position: 0 center;
     background-repeat: no-repeat;
     padding-left: 18px;
 }
-#kronolithEventTabAttendees td.kronolithAttendeeAccepted {
+#kronolithEventTabAttendees td.kronolithAttendeeAccepted,
+#kronolithEventTabResources td.kronolithAttendeeAccepted {
     background-image: url("graphics/attendee-accepted.png");
     background-position: 0 center;
     background-repeat: no-repeat;
     padding-left: 18px;
 }
-#kronolithEventTabAttendees td.kronolithAttendeeDeclined {
+#kronolithEventTabAttendees td.kronolithAttendeeDeclined,
+#kronolithEventTabResources td.kronolithAttendeeDeclined {
     background-image: url("graphics/attendee-declined.png");
     text-decoration: line-through;
     background-position: 0 center;
