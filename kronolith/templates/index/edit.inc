@@ -231,9 +231,11 @@
 </div>
 
 <div id="kronolithEventTabResources" class="kronolithTabsOption" style="display:none">
+  <input type="hidden" name="resources" id="kronolithEventResourceIds" />
   <label for="kronolithEventResources"><?php echo _("Add resources") ?>:</label><br />
-  <select id="kronolithEventResources" name="resources"></select> <a class="button" id="kronolithEventAddResource"><?php echo _("Add Resource") ?></a>
-  <br /><br />
+  <input id="kronolithEventResources" />
+  <span id="kronolithEventResources_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
+  <br class="clear" /><br />
   <div id="kronolithResourceFBLoading" style="display:none"></div>
   <table cellspacing="0" cellpadding="0" border="0">
     <thead>

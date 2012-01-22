@@ -137,6 +137,19 @@ $injector->getInstance('Horde_Core_Factory_Imple')->create(
     )
 );
 
+$injector->getInstance('Horde_Core_Factory_Imple')->create(
+    array('kronolith', 'ResourceAutoCompleter'),
+    array(
+        'box' => 'kronolithResourceACBox',
+        'onAdd' => 'KronolithCore.addResource.bind(KronolithCore)',
+        'onRemove' => 'KronolithCore.removeResource.bind(KronolithCore)',
+        'pretty' => true,
+        'triggerContainer' => 'kronolithResourceACTriggerContainer',
+        'triggerId' => 'kronolithEventResources',
+        'var' => 'KronolithCore.resourceAc'
+    )
+);
+
 if ($conf['maps']['driver']) {
     Kronolith::initEventMap($conf['maps']);
 }
