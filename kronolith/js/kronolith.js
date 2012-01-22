@@ -46,7 +46,7 @@ KronolithCore = {
     lastRecurType: 'None',
     uatts: null,
     ucb: null,
-    resourceACCache: { choices: {}, map: $H() },
+    resourceACCache: { choices: [], map: $H() },
 
     /**
      * The location that was open before the current location.
