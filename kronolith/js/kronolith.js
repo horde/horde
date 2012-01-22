@@ -5804,8 +5804,7 @@ KronolithCore = {
             case 4: response = 'Tentative'; break;
         }
         var att = {
-            'resource': v,
-            'start': Date.parse($F('kronolithEventStartDate')).toISOString()
+            'resource': v
         },
         tr, i;
 

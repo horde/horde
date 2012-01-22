@@ -746,10 +746,7 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
             try {
                 $resource = Kronolith::getDriver('Resource')
                     ->getResource($this->_vars->resource);
-                $start = new Horde_Date($this->_vars->start);
-                $end = clone($start);
-                $end->mday++;
-                $result->fb = $resource->getFreeBusy($start->timestamp(), $end->timestamp(), true, true);
+                $result->fb = $resource->getFreeBusy(null, null, true, true);
             } catch (Exception $e) {
                 $GLOBALS['notification']->push($e->getMessage(), 'horde.warning');
             }
