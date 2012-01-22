@@ -930,27 +930,30 @@ div.kronolithFormActions {
 #kronolithEventACBox, #kronolithCalendarinternalACBox, #kronolithAttendeesACBox {
     line-height: 100%;
 }
-
-#kronolithEventTabAttendees td.kronolithAttendeeNone,
-#kronolithEventTabAttendees td.kronolithAttendeeAccepted,
-#kronolithEventTabAttendees td.kronolithAttendeeDeclined,
-#kronolithEventTabAttendees td.kronolithAttendeeTentative {
+#kronolithEventTabAttendees td.kronolithAttendeeNone {
+    background-image: url("graphics/attendee-none.png");
     background-position: 0 center;
     background-repeat: no-repeat;
     padding-left: 18px;
 }
-.kronolithAttendeeNone {
-    background-image: url("graphics/attendee-none.png");
-}
-.kronolithAttendeeAccepted {
+#kronolithEventTabAttendees td.kronolithAttendeeAccepted {
     background-image: url("graphics/attendee-accepted.png");
+    background-position: 0 center;
+    background-repeat: no-repeat;
+    padding-left: 18px;
 }
-.kronolithAttendeeDeclined {
+#kronolithEventTabAttendees td.kronolithAttendeeDeclined {
     background-image: url("graphics/attendee-declined.png");
     text-decoration: line-through;
+    background-position: 0 center;
+    background-repeat: no-repeat;
+    padding-left: 18px;
 }
-.kronolithAttendeeTentative {
+#kronolithEventTabAttendees td.kronolithAttendeeTentative {
     background-image: url("graphics/attendee-tentative.png");
+    background-position: 0 center;
+    background-repeat: no-repeat;
+    padding-left: 18px;
 }
 
 /* Map */
