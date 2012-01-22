@@ -5788,7 +5788,8 @@ KronolithCore = {
         }
 
         var att = {
-            'resource': v
+            'resource': v,
+            'start': Date.parse($F('kronolithEventStartDate')).toISOString()
         },
         tr, i;
 
