@@ -95,6 +95,7 @@
     <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkRecur"><?php echo _("Repeat") ?></a></li>
     <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkUrl"><?php echo _("URL") ?></a></li>
     <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkAttendees"><?php echo _("Attendees") ?></a></li>
+    <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkResources"><?php echo _("Resources") ?></a></li>
     <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkTags"><?php echo _("Tags") ?></a></li>
     <?php if ($GLOBALS['conf']['maps']['driver']): ?>
     <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkMap"><?php echo _("Map") ?></a></li>
@@ -224,6 +225,29 @@
 	<tr id="kronolithNoAttendees">
 	  <td><em><?php echo _("No attendees defined") ?></em></td>
 	</tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div id="kronolithEventTabResources" class="kronolithTabsOption" style="display:none">
+  <label for="kronolithEventResources"><?php echo _("Add resources") ?>:</label><br />
+  <select id="kronolithEventResources" name="resources"></select> <a class="button" id="kronolithEventAddResource"><?php echo _("Add Resource") ?></a>
+  <br /><br />
+  <div id="kronolithResourceFBLoading" style="display:none"></div>
+  <table cellspacing="0" cellpadding="0" border="0">
+    <thead>
+      <tr>
+        <th><?php echo _("Availability") ?></th>
+        <?php for ($i = 0; $i < 24; $i++): ?>
+        <th<?php if ($i < 8 || $i > 19) echo ' class="night"' ?>><?php echo $i ?>h</th>
+        <?php endfor; ?>
+      </tr>
+    </thead>
+  </table>
+  <div id="kronolithEventResourcesList">
+    <table cellspacing="0" cellpadding="0" border="0">
+      <tbody>
       </tbody>
     </table>
   </div>

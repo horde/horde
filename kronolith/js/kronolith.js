@@ -4227,6 +4227,10 @@ KronolithCore = {
                 e.stop();
                 return;
 
+            case 'kronolithEventAddResource':
+                this.addResource();
+                e.stop();
+                break;
             case 'kronolithEventAllday':
                 this.toggleAllDay();
                 break;
@@ -5301,6 +5305,7 @@ KronolithCore = {
             $('kronolithEventTopTags').update();
         } else {
             // This is a new event.
+            this.doAction('getResourceList', null, this.getResourceListCallback);
             this.doAction('listTopTags', null, this.topTagsCallback.curry('kronolithEventTopTags', 'kronolithEventTag'));
             var d;
             if (date) {
@@ -5456,6 +5461,18 @@ KronolithCore = {
             t.insert(new Element('span', { className: tagclass }).update(tag.escapeHTML()));
         });
         $(update).update(t);
+    },
+
+    getResourceListCallback: function(r)
+    {
+        $('kronolithEventResources').update();
+        if (!r.response) {
+            return;
+        }
+        r.response.each(function(resource) {
+            var t = new Element('option', { 'value': resource.id }).update(resource.name.escapeHTML());
+            $('kronolithEventResources').insert(t);
+        });
     },
 
     /**
@@ -5733,6 +5750,51 @@ KronolithCore = {
             tr.insert(new Element('td', { className: 'kronolithFBUnknown' }));
         }
         $('kronolithEventAttendeesList').down('tbody').insert(tr);
+    },
+
+    addResource: function()
+    {
+        var att = {
+            'resource': $F('kronolithEventResources')
+        },
+        rtext = $A($('kronolithEventResources').options).detect(function(i) {
+            return i.value == att.resource;
+        });
+
+        if (att.resource) {
+            this.fbLoading++;
+            this.doAction('getFreeBusy', att, this.addResourceCallback.curry(rtext.text).bind(this));
+        }
+       var tr = new Element('tr'), response, i;
+        this.freeBusy.set(rtext.text, [ tr ]);
+        // switch (attendee.r) {
+        //     case 1: response = 'None'; break;
+        //     case 2: response = 'Accepted'; break;
+        //     case 3: response = 'Declined'; break;
+        //     case 4: response = 'Tentative'; break;
+        // }
+        //var response = 'None';
+        tr.insert(new Element('td')
+                  .writeAttribute('title', rtext.text)
+                  .addClassName('kronolithAttendee' + response)
+                  .insert(rtext.text.escapeHTML()));
+        for (i = 0; i < 24; i++) {
+            tr.insert(new Element('td', { className: 'kronolithFBUnknown' }));
+        }
+        $('kronolithEventResourcesList').down('tbody').insert(tr);
+    },
+
+    addResourceCallback: function(resource, r)
+    {
+        this.fbLoading--;
+        if (!this.fbLoading) {
+            $('kronolithResourceFBLoading').hide();
+        }
+        if (Object.isUndefined(r.response.fb)) {
+            return;
+        }
+        this.freeBusy.get(resource)[1] = r.response.fb;
+        this.insertFreeBusy(resource);
     },
 
     /**
