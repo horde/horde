@@ -2287,9 +2287,17 @@ abstract class Kronolith_Event
         // Check if we need to remove any resources
         $delete = array_diff_assoc($existingResources, $this->_resources);
         foreach ($delete as $key => $value) {
-            Kronolith::getDriver('Resource')
-                ->getResource($key)
-                ->removeEvent($this);
+            // Resource might be declined, in which case it won't have the event
+            // on it's calendar.
+            if ($value['response'] != Kronolith::RESPONSE_DECLINED) {
+                try {
+                    Kronolith::getDriver('Resource')
+                        ->getResource($key)
+                        ->removeEvent($this);
+                } catch (Kronolith_Exception $e) {
+                    $GLOBALS['notification']->push('foo', 'horde.error');
+                }
+            }
         }
 
         // Event start.
