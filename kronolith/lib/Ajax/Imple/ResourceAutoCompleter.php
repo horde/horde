@@ -45,6 +45,7 @@ class Kronolith_Ajax_Imple_ResourceAutoCompleter extends Horde_Core_Ajax_Imple_A
             $ret['raw_params']['onAdd'] = $this->_params['onAdd'];
             $ret['raw_params']['onRemove'] = $this->_params['onRemove'];
         }
+        $ret['raw_params']['requireSelection'] = true;
         if (empty($this->_params['pretty'])) {
             $ret['ajax'] = 'ResourceAutoCompleter';
         } else {
