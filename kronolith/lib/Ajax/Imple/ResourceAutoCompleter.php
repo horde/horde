@@ -77,9 +77,11 @@ class Kronolith_Ajax_Imple_ResourceAutoCompleter extends Horde_Core_Ajax_Imple_A
         $resources = Kronolith::getDriver('Resource')
             ->listResources(Horde_Perms::READ, array(), 'name');
         foreach ($resources as $r) {
-            $return[] = array(
-                'name' => $r->get('name'),
-                'code' => $r->getId());
+            if (strpos(Horde_String::lower($r->get('name')), Horde_String::lower($input)) !== false) {
+                $return[] = array(
+                    'name' => $r->get('name'),
+                    'code' => $r->getId());
+            }
         }
 
         return $return;
