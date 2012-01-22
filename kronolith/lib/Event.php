@@ -2270,6 +2270,7 @@ abstract class Kronolith_Event
         $this->attendees = $attendees;
 
         // Resources
+        $existingResources = $this->_resources;
         $resources = $session->get('kronolith', 'resources', Horde_Session::TYPE_ARRAY);
         $newresources = Horde_Util::getFormData('resources');
         if (!empty($newresources)) {
@@ -2282,6 +2283,15 @@ abstract class Kronolith_Event
             }
         }
         $this->_resources = $resources;
+
+        // Check if we need to remove any resources
+        $delete = array_diff_assoc($existingResources, $this->_resources);
+        Horde::debug($delete);
+        foreach ($delete as $key => $value) {
+            Kronolith::getDriver('Resource')
+                ->getResource($key)
+                ->removeEvent($this);
+        }
 
         // Event start.
         $allDay = Horde_Util::getFormData('whole_day');
