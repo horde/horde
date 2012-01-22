@@ -5794,8 +5794,8 @@ KronolithCore = {
             }.bind(this));
         } else {
             v = id;
+            response = resource.response;
             resource = resource.name;
-            response = resource.resposne;
         }
         switch (response) {
             case 1: response = 'None'; break;
@@ -5807,7 +5807,6 @@ KronolithCore = {
             'resource': v
         },
         tr, i;
-
         if (att.resource) {
             this.fbLoading++;
             this.doAction('getFreeBusy', att, this.addResourceCallback.curry(resource).bind(this));
