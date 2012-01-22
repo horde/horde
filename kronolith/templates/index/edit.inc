@@ -221,11 +221,7 @@
   </table>
   <div id="kronolithEventAttendeesList">
     <table cellspacing="0" cellpadding="0" border="0">
-      <tbody>
-	<tr id="kronolithNoAttendees">
-	  <td><em><?php echo _("No attendees defined") ?></em></td>
-	</tr>
-      </tbody>
+      <tbody></tbody>
     </table>
   </div>
 </div>
@@ -249,8 +245,7 @@
   </table>
   <div id="kronolithEventResourcesList">
     <table cellspacing="0" cellpadding="0" border="0">
-      <tbody>
-      </tbody>
+      <tbody></tbody>
     </table>
   </div>
 </div>
