@@ -5884,23 +5884,32 @@ KronolithCore = {
         if (!fb) {
             return;
         }
+
         if (!td.getWidth()) {
             this.insertFreeBusy.bind(this, attendee).defer();
             return;
         }
-        tr.select('td').each(function(td, i) {
-            if (i != 0) {
-                td.className = 'kronolithFBFree';
-            }
-            i++;
-        });
+
         if (div) {
             div.purge();
             div.remove();
         }
         var start = Date.parseExact($F('kronolithEventStartDate'), Kronolith.conf.date_format),
             end = start.clone().add(1).days(),
-            width = td.getWidth();
+            width = td.getWidth(),
+            fbs = this.parseDate(fb.s),
+            fbe = this.parseDate(fb.e);
+
+        if (end.isBefore(fbs) || start.isAfter(fbe)) {
+            return;
+        }
+
+        tr.select('td').each(function(td, i) {
+            if (i != 0) {
+                td.className = 'kronolithFBFree';
+            }
+            i++;
+        });
         div = new Element('div').setStyle({ position: 'relative', height: td.offsetHeight + 'px' });
         td.insert(div);
         $H(fb.b).each(function(busy) {
