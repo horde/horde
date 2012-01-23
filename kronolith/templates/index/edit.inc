@@ -9,6 +9,7 @@
 <input id="kronolithEventRecurEnd" type="hidden" />
 <input id="kronolithEventRecurOStart" type="hidden" name="rstart" />
 <input id="kronolithEventRecurOEnd" type="hidden" name="rend" />
+<input type="hidden" name="isajax" value="1" />
 
 <div id="kronolithEventDiv">
   <div id="kronolithEventEditRecur" style="display:none;">
