@@ -19,12 +19,14 @@ if ($own_source == $ob->getSource() && $own_id == $ob->getValue('__key')) {
 
 $edit_url = $vcard_url = '&nbsp;';
 if ($ob->hasValue('__key')) {
-    $vcard_url = Horde::url('vcard.php')->add(array(
-        'source' => $ob->getSource(),
-        'key' => $ob->getValue('__key')
-    ));
-    $vcard_url = Horde::link(Horde::url($vcard_url), _("Download vCard"))
-        . '<span class="iconImg vcardImg"></span></a>';
+    if (!$ob->isGroup()) {
+        $vcard_url = Horde::url('vcard.php')->add(array(
+            'source' => $ob->getSource(),
+            'key' => $ob->getValue('__key')
+        ));
+        $vcard_url = Horde::link(Horde::url($vcard_url), _("Download vCard"))
+            . '<span class="iconImg vcardImg"></span></a>';
+    }
 
     $cell = Horde::link($ob->url()) . $link_text . '</a>';
     if ($ob->hasPermission(Horde_Perms::EDIT)) {
