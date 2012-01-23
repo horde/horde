@@ -23,8 +23,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-12-13</date>
- <time>11:38:22</time>
+ <date>2012-01-23</date>
+ <time>13:37:32</time>
  <version>
   <release>1.4.8</release>
   <api>1.4.0</api>
@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Add Spanish translation (Manuel P. Ayala &lt;mayala@unex.es&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -88,6 +88,12 @@
       <file name="Horde_Auth.po" role="data" />
      </dir> <!-- /locale/de/LC_MESSAGES -->
     </dir> <!-- /locale/de -->
+    <dir name="es">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Auth.mo" role="data" />
+      <file name="Horde_Auth.po" role="data" />
+     </dir> <!-- /locale/es/LC_MESSAGES -->
+    </dir> <!-- /locale/es -->
     <dir name="et">
      <dir name="LC_MESSAGES">
       <file name="Horde_Auth.mo" role="data" />
@@ -273,6 +279,8 @@
    <install as="locale/Horde_Auth.pot" name="locale/Horde_Auth.pot" />
    <install as="locale/de/LC_MESSAGES/Horde_Auth.mo" name="locale/de/LC_MESSAGES/Horde_Auth.mo" />
    <install as="locale/de/LC_MESSAGES/Horde_Auth.po" name="locale/de/LC_MESSAGES/Horde_Auth.po" />
+   <install as="locale/es/LC_MESSAGES/Horde_Auth.mo" name="locale/es/LC_MESSAGES/Horde_Auth.mo" />
+   <install as="locale/es/LC_MESSAGES/Horde_Auth.po" name="locale/es/LC_MESSAGES/Horde_Auth.po" />
    <install as="locale/et/LC_MESSAGES/Horde_Auth.mo" name="locale/et/LC_MESSAGES/Horde_Auth.mo" />
    <install as="locale/et/LC_MESSAGES/Horde_Auth.po" name="locale/et/LC_MESSAGES/Horde_Auth.po" />
    <install as="locale/ja/LC_MESSAGES/Horde_Auth.mo" name="locale/ja/LC_MESSAGES/Horde_Auth.mo" />
@@ -649,10 +657,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-12-13</date>
+   <date>2012-01-23</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Add Spanish translation (Manuel P. Ayala &lt;mayala@unex.es&gt;).
    </notes>
   </release>
  </changelog>

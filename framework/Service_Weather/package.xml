@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-01-17</date>
- <time>12:33:49</time>
+ <date>2012-01-23</date>
+ <time>13:37:10</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-* 
+* [jan] Add Spanish translation (Manuel P. Ayala &lt;mayala@unex.es&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -79,6 +79,12 @@
       <file name="Horde_Service_Weather.po" role="data" />
      </dir> <!-- /locale/en_US/LC_MESSAGES -->
     </dir> <!-- /locale/en_US -->
+    <dir name="es">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Service_Weather.mo" role="data" />
+      <file name="Horde_Service_Weather.po" role="data" />
+     </dir> <!-- /locale/es/LC_MESSAGES -->
+    </dir> <!-- /locale/es -->
     <dir name="ja">
      <dir name="LC_MESSAGES">
       <file name="Horde_Service_Weather.mo" role="data" />
@@ -303,6 +309,8 @@
    <install as="locale/de/LC_MESSAGES/Horde_Service_Weather.mo" name="locale/de/LC_MESSAGES/Horde_Service_Weather.mo" />
    <install as="locale/de/LC_MESSAGES/Horde_Service_Weather.po" name="locale/de/LC_MESSAGES/Horde_Service_Weather.po" />
    <install as="locale/en_US/LC_MESSAGES/Horde_Service_Weather.po" name="locale/en_US/LC_MESSAGES/Horde_Service_Weather.po" />
+   <install as="locale/es/LC_MESSAGES/Horde_Service_Weather.mo" name="locale/es/LC_MESSAGES/Horde_Service_Weather.mo" />
+   <install as="locale/es/LC_MESSAGES/Horde_Service_Weather.po" name="locale/es/LC_MESSAGES/Horde_Service_Weather.po" />
    <install as="locale/ja/LC_MESSAGES/Horde_Service_Weather.mo" name="locale/ja/LC_MESSAGES/Horde_Service_Weather.mo" />
    <install as="locale/ja/LC_MESSAGES/Horde_Service_Weather.po" name="locale/ja/LC_MESSAGES/Horde_Service_Weather.po" />
    <install as="locale/lv/LC_MESSAGES/Horde_Service_Weather.mo" name="locale/lv/LC_MESSAGES/Horde_Service_Weather.mo" />
@@ -503,10 +511,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-01-17</date>
+   <date>2012-01-23</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
-* 
+* [jan] Add Spanish translation (Manuel P. Ayala &lt;mayala@unex.es&gt;).
    </notes>
   </release>
  </changelog>

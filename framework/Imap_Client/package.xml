@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-01-17</date>
- <time>18:09:46</time>
+ <date>2012-01-23</date>
+ <time>13:37:28</time>
  <version>
   <release>1.4.0</release>
   <api>1.4.0</api>
@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Add Spanish translation (Manuel P. Ayala &lt;mayala@unex.es&gt;).
 * [mms] Implement more efficient serialization for Thread data objects.
 * [mms] Move server debug information from exception error message to &apos;details&apos; property of exception object.
 * [mms] Fix METADATA_TOOMANY and METADATA_NOPRIVATE exception codes.
@@ -96,6 +97,12 @@
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
    <dir name="locale">
+    <dir name="es">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Imap_Client.mo" role="data" />
+      <file name="Horde_Imap_Client.po" role="data" />
+     </dir> <!-- /locale/es/LC_MESSAGES -->
+    </dir> <!-- /locale/es -->
     <file name="Horde_Imap_Client.pot" role="data" />
    </dir> <!-- /locale -->
    <dir name="test">
@@ -230,6 +237,8 @@
    <install as="Horde/Imap/Client/Socket/Pop3.php" name="lib/Horde/Imap/Client/Socket/Pop3.php" />
    <install as="Horde/Imap/Client/Utils/Pop3.php" name="lib/Horde/Imap/Client/Utils/Pop3.php" />
    <install as="locale/Horde_Imap_Client.pot" name="locale/Horde_Imap_Client.pot" />
+   <install as="locale/es/LC_MESSAGES/Horde_Imap_Client.mo" name="locale/es/LC_MESSAGES/Horde_Imap_Client.mo" />
+   <install as="locale/es/LC_MESSAGES/Horde_Imap_Client.po" name="locale/es/LC_MESSAGES/Horde_Imap_Client.po" />
    <install as="Horde/Imap/Client/AclTest.php" name="test/Horde/Imap/Client/AclTest.php" />
    <install as="Horde/Imap/Client/AllTests.php" name="test/Horde/Imap/Client/AllTests.php" />
    <install as="Horde/Imap/Client/AuthTest.php" name="test/Horde/Imap/Client/AuthTest.php" />
@@ -682,9 +691,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-01-17</date>
+   <date>2012-01-23</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Add Spanish translation (Manuel P. Ayala &lt;mayala@unex.es&gt;).
 * [mms] Implement more efficient serialization for Thread data objects.
 * [mms] Move server debug information from exception error message to &apos;details&apos; property of exception object.
 * [mms] Fix METADATA_TOOMANY and METADATA_NOPRIVATE exception codes.

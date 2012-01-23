@@ -1,31 +1,41 @@
-# Spanish translations for Horde_Token module.
-# Copyright 2010-2012 Horde LLC (http://www.horde.org/)
-# This file is distributed under the same license as the Horde_Token module.
-# Automatically generated, 2010.
+# Spanish translations for Horde_Token package.
+# Copyright (C) 2012 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Horde_Token package.
+# Automatically generated, 2012.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde_Token\n"
+"Project-Id-Version: Horde_Token \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-15 13:27+0100\n"
-"PO-Revision-Date: 2010-12-01 10:19+0100\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"PO-Revision-Date: 2012-01-17 12:38+0100\n"
+"Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
+"<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
-"Language: \n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Token/Base.php:187
+#: lib/Horde/Token/Base.php:167
+#, php-format
+msgid ""
+"This request cannot be completed because the link you followed or the form "
+"you submitted was only valid for %s minutes. Please try again now."
+msgstr ""
+"Esta solicitud no se puede completar porque el vínculo que ha seguido o el "
+"formulario que envió sólo eran válidos durante %s minutos. Vuelva a probar."
+
+#: lib/Horde/Token/Base.php:191
 msgid "This token has been used before!"
-msgstr "Esta ficha ya ha sido utilizada antes"
+msgstr "¡Este testigo ya se ha usado antes!"
 
-#: lib/Horde/Token/Base.php:182
+#: lib/Horde/Token/Base.php:187
 msgid "This token is invalid!"
-msgstr "¡Este elemento no es válido!"
+msgstr "¡Este testigo no es válido!"
 
-#: lib/Horde/Token/Base.php:159
+#: lib/Horde/Token/Base.php:161
 msgid ""
 "We cannot verify that this request was really sent by you. It could be a "
 "malicious request. If you intended to perform this action, you can retry it "

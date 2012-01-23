@@ -1,17 +1,18 @@
-# Spanish translations for Horde_Image module.
-# Copyright 2010-2012 Horde LLC (http://www.horde.org/)
-# This file is distributed under the same license as the Horde_Image module.
-# Automatically generated, 2010.
+# Spanish translations for Horde_Image package.
+# Copyright (C) 2012 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Horde_Image package.
+# Automatically generated, 2012.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde_Image\n"
+"Project-Id-Version: Horde_Image \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"PO-Revision-Date: 2012-01-17 12:38+0100\n"
+"Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
+"<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
-"Language: \n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -71,11 +72,11 @@ msgstr "10s"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:324
 msgid "1st curtain sync"
-msgstr ""
+msgstr "Sincroniz. de 1er obturador"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:321
 msgid "2nd(rear)-curtain sync used"
-msgstr ""
+msgstr "Usada sincroniz. de 2º obturador (trasero)"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:429
 msgid "2s"
@@ -87,7 +88,7 @@ msgstr "2x"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:88
 msgid "3-area-focusing (High speed)"
-msgstr ""
+msgstr "Enfoque-3-puntos (Alta velocidad)"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:192
 msgid "4x"
@@ -95,7 +96,7 @@ msgstr "4x"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:82
 msgid "9-area-focusing"
-msgstr ""
+msgstr "Enfoque-9-puntos"
 
 #: lib/Horde/Image/Exif.php:301
 msgid "90 deg CCW"
@@ -119,15 +120,15 @@ msgstr "AE buena"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:256
 msgid "AF non D"
-msgstr ""
+msgstr "AF no D"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:150
 msgid "AI Focus"
-msgstr ""
+msgstr "Foco AI"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:149
 msgid "AI Servo"
-msgstr ""
+msgstr "Servo AI"
 
 #: lib/Horde/Image/Exif.php:262
 msgid "Action"
@@ -177,7 +178,7 @@ msgstr "Automático seleccionado"
 
 #: lib/Horde/Image/Exif.php:251
 msgid "Auto bracket"
-msgstr ""
+msgstr "Auto disparador"
 
 #: lib/Horde/Image/Exif.php:249
 msgid "Auto exposure"
@@ -193,11 +194,11 @@ msgstr "Automático, botón de enfoque"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:281
 msgid "Auto-DEP"
-msgstr ""
+msgstr "PC-Automática"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:279
 msgid "Av"
-msgstr ""
+msgstr "Av"
 
 #: lib/Horde/Image/Exif.php:379
 msgid "Average"
@@ -234,7 +235,7 @@ msgstr "Por"
 
 #: lib/Horde/Image/Exif.php:90
 msgid "Camera Make"
-msgstr ""
+msgstr "Fabricante"
 
 #: lib/Horde/Image/Exif.php:91
 msgid "Camera Model"
@@ -299,11 +300,11 @@ msgstr "Color"
 
 #: lib/Horde/Image/Exif.php:467
 msgid "Color Sequential Area Sensor"
-msgstr ""
+msgstr "Sensor superficial de color secuencial"
 
 #: lib/Horde/Image/Exif.php:469
 msgid "Color Sequential Linear Sensor"
-msgstr ""
+msgstr "Sensor lineal de color secuencial"
 
 #: lib/Horde/Image/Exif.php:114
 msgid "Color Space"
@@ -359,15 +360,15 @@ msgstr "Blanco frío fluorescente"
 msgid "Copyright"
 msgstr "Copyright"
 
-#: lib/Horde/Image/Exif/Bundled.php:269
+#: lib/Horde/Image/Exif/Bundled.php:285
 msgid "Couldnt Find IFD1"
 msgstr "No se pudo encontrar IFD1"
 
-#: lib/Horde/Image/Exif/Bundled.php:315
+#: lib/Horde/Image/Exif/Bundled.php:331
 msgid "Couldnt Find InteroperabilityIFD"
 msgstr "No se pudo encontrar interoperabilidadIFB"
 
-#: lib/Horde/Image/Exif/Bundled.php:232
+#: lib/Horde/Image/Exif/Bundled.php:248
 msgid "Couldnt Find SubIFD"
 msgstr "No se pudo encontrar SubIFD"
 
@@ -436,7 +437,7 @@ msgstr "Exposición"
 
 #: lib/Horde/Image/Exif.php:108
 msgid "Exposure Bias"
-msgstr ""
+msgstr "Ajuste de exposición"
 
 #: lib/Horde/Image/Exif.php:109
 msgid "Exposure Mode"
@@ -593,17 +594,17 @@ msgstr "Opciones ISO"
 
 #: lib/Horde/Image/Exif.php:410
 msgid "ISO studio tungsten"
-msgstr ""
+msgstr "Incandescente de estudio ISO"
 
-#: lib/Horde/Image/Exif/Bundled.php:288
+#: lib/Horde/Image/Exif/Bundled.php:304
 msgid "Illegal size for IFD1"
 msgstr "El tamaño para IFD1 es ilegal"
 
-#: lib/Horde/Image/Exif/Bundled.php:334
+#: lib/Horde/Image/Exif/Bundled.php:350
 msgid "Illegal size for InteroperabilityIFD"
 msgstr "El tamaño para InteroperabilityIFD es ilegal"
 
-#: lib/Horde/Image/Exif/Bundled.php:251
+#: lib/Horde/Image/Exif/Bundled.php:267
 msgid "Illegal size for SubIFD"
 msgstr "El tamaño para SubIFD es ilegal"
 
@@ -659,9 +660,9 @@ msgstr "Latitud"
 msgid "Left"
 msgstr "Izquierda"
 
-#: lib/Horde/Image/Exif.php:127
-msgid "Lens"
-msgstr "Lentes"
+#: lib/Horde/Image/Exif.php:126
+msgid "Lens Id"
+msgstr "Id de objetivo"
 
 #: lib/Horde/Image/Exif.php:120
 msgid "Light source"
@@ -853,7 +854,7 @@ msgstr "Cámara activa"
 
 #: lib/Horde/Image/Exif.php:464
 msgid "One Chip Color Area Sensor"
-msgstr ""
+msgstr "Sensor superficial de color monochip"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:148
 msgid "One-Shot"
@@ -1089,11 +1090,11 @@ msgstr "Deportes"
 
 #: lib/Horde/Image/Exif.php:381
 msgid "Spot"
-msgstr ""
+msgstr "Puntual"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:97
 msgid "Spot-focusing"
-msgstr ""
+msgstr "Enfoque puntual"
 
 #: lib/Horde/Image/Exif.php:481 lib/Horde/Image/Exif/Parser/Panasonic.php:143
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:387
@@ -1121,21 +1122,21 @@ msgstr "Soleado"
 msgid "Superfine"
 msgstr "Superfina"
 
-#: lib/Horde/Image/Exif/Bundled.php:53
+#: lib/Horde/Image/Exif/Bundled.php:69
 msgid "The file could not be opened."
 msgstr "No se ha podido abrir el archivo."
 
 #: lib/Horde/Image/Exif.php:466
 msgid "Three Chip Color Area Sensor"
-msgstr ""
+msgstr "Sensor superficial de color de tres chips"
 
 #: lib/Horde/Image/Exif.php:468
 msgid "Trilinear Sensor"
-msgstr ""
+msgstr "Sensor trilineal"
 
 #: lib/Horde/Image/Exif.php:394 lib/Horde/Image/Exif/Parser/Canon.php:367
 msgid "Tungsten"
-msgstr "Tungsteno"
+msgstr "Incandescente"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:278
 msgid "Tv"
@@ -1143,7 +1144,7 @@ msgstr "Tv"
 
 #: lib/Horde/Image/Exif.php:465
 msgid "Two Chip Color Area Sensor"
-msgstr ""
+msgstr "Sensor superficial de color de dos chips"
 
 #: lib/Horde/Image/Exif.php:476
 msgid "Uncalibrated"
@@ -1319,7 +1320,7 @@ msgstr "Otra fuente de luz"
 msgid "sRGB"
 msgstr "sRGB"
 
-#: lib/Horde/Image/Exif/Bundled.php:800
+#: lib/Horde/Image/Exif/Bundled.php:816
 #, php-format
 msgid "version %d"
 msgstr "versión %d"

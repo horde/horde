@@ -1,17 +1,18 @@
-# Spanish translations for Horde_Kolab_FreeBusy module.
-# Copyright 2010-2012 Horde LLC (http://www.horde.org/)
-# This file is distributed under the same license as the Horde_Kolab_FreeBusy module.
-# Automatically generated, 2010.
+# Spanish translations for Horde_Kolab_FreeBusy package.
+# Copyright (C) 2012 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Horde_Kolab_FreeBusy package.
+# Automatically generated, 2012.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde_Kolab_FreeBusy\n"
+"Project-Id-Version: Horde_Kolab_FreeBusy \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"PO-Revision-Date: 2012-01-17 12:38+0100\n"
+"Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
+"<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
-"Language: \n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,15 +20,15 @@ msgstr ""
 
 #: lib/Horde/Kolab/FreeBusy/View.php:229
 msgid "401 Unauthorized"
-msgstr "401 Unauthorized"
+msgstr "401 Sin autorización"
 
 #: lib/Horde/Kolab/FreeBusy/View.php:208
 msgid "404 Not Found"
-msgstr "404 Not Found"
+msgstr "404 No encontrado"
 
 #: lib/Horde/Kolab/FreeBusy/View.php:246
 msgid "500 Server Error"
-msgstr "500 Server Error"
+msgstr "500 Error del servidor"
 
 #: lib/Horde/Kolab/FreeBusy/View.php:246
 msgid "Error"
@@ -42,25 +43,15 @@ msgstr "Errores:"
 msgid "Failed regenerating calendar %s: %s"
 msgstr "Fallo al regenerar la agenda %s: %s"
 
-#: lib/Horde/Kolab/FreeBusy/Imap.php:128
-#, php-format
-msgid "Folder %s does not exist!"
-msgstr "¡La carpeta %s no existe!"
-
-#: lib/Horde/Kolab/FreeBusy/Imap.php:135
-#, php-format
-msgid "Folder %s has type \"%s\" not \"event\"!"
-msgstr "¡La carpeta %s es de tipo \"%s\" no \"acontecimiento\"!"
-
-#: lib/Horde/Kolab/FreeBusy/Driver/Base.php:183
+#: lib/Horde/Kolab/FreeBusy/Driver/Base.php:93
 #, php-format
 msgid "Invalid authentication for user %s!"
-msgstr "Autentificación inválidad para el usuario %s!"
+msgstr "¡Autentificación inválida del usuario %s!"
 
-#: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Base.php:218
+#: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Base.php:321
 #, php-format
 msgid "No such account %s!"
-msgstr "No existe la cuenta %s!"
+msgstr "¡No existe la cuenta %s!"
 
 #: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Kolab.php:82
 #, php-format
@@ -71,42 +62,43 @@ msgstr "La carpeta %s no existe"
 msgid "Not found"
 msgstr "No encontrado"
 
-#: lib/Horde/Kolab/FreeBusy/Driver/Base.php:179
+#: lib/Horde/Kolab/FreeBusy/Driver/Base.php:89
 msgid "Please authenticate!"
-msgstr "Por favor, autentifiquese!"
+msgstr "¡Autentifíquese!"
 
 #: lib/Horde/Kolab/FreeBusy/Report.php:32
 msgid "Starting to regenerate the free/busy cache..."
-msgstr "Se ha comenzando a regenerar la cache de disponibilidad de tiempo..."
+msgstr "Empezando a regenerar la caché de disponibilidad de tiempo..."
 
 #: lib/Horde/Kolab/FreeBusy/Report.php:61
 msgid "Successfully regenerated all calendar caches!"
-msgstr "Se han regenrado correctamente todas las caches de las agendas"
+msgstr "¡Se han regenerado correctamente todas las cachés de agendas!"
 
 #: lib/Horde/Kolab/FreeBusy/Report.php:38
 #, php-format
 msgid "Successfully regenerated calendar \"%s\"!"
-msgstr "Se ha regenerado correctamente la agenda \"%s\"!"
+msgstr "¡Se ha regenerado correctamente la agenda \"%s\"!"
 
 #: lib/Horde/Kolab/FreeBusy/View.php:206
 #, php-format
 msgid "The requested URL %s was not found on this server."
-msgstr "La URL solicitada %s no se ha encotrado en este servidor."
+msgstr "La URL %s solicitada no se encontró en este servidor."
 
 #: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Kolab.php:197
 msgid "Unable to determine owner of the free/busy data!"
 msgstr ""
-"Imposible determinar el propietario de los datos de disponibilidad de tiempo!"
+"¡Imposible determinar el propietario de los datos de disponibilidad de "
+"tiempo!"
 
-#: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Base.php:295
+#: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Base.php:398
 #, php-format
 msgid "Unable to read free/busy information from %s"
-msgstr "No se ha podido leer la información de disponibilidad de tiempo de %s."
+msgstr "No se ha podido leer la información de disponibilidad de tiempo de %s"
 
 #: lib/Horde/Kolab/FreeBusy/View.php:229
 msgid "Unauthorized"
-msgstr "No autorizado"
+msgstr "Sin autorización"
 
 #: lib/Horde/Kolab/FreeBusy/View.php:230
 msgid "You are not authorized to access the requested URL."
-msgstr "No está autorizado para acceder a la URL solicitada."
+msgstr "Carece de autorización para acceder a la URL solicitada."

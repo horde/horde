@@ -1,18 +1,18 @@
-# Spanish translations for lmd package.
-# Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+# Spanish translations for Ingo H4 package.
+# Copyright (C) 2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Ingo package.
-# Automatically generated, 2011.
+# Automatically generated, 2012.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Ingo H4 (2.0.1-git)\n"
+"Project-Id-Version: Ingo H4 (2.0.8-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-05-18 12:23+0200\n"
-"PO-Revision-Date: 2011-04-14 17:07+0200\n"
+"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"PO-Revision-Date: 2012-01-17 12:38+0100\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
 "<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
-"Language: \n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -79,7 +79,7 @@ msgstr "Aplicar filtros"
 msgid "Are you sure you want to delete this rule?"
 msgstr "¿Está seguro de que desea eliminar esta regla?"
 
-#: config/prefs.php:27
+#: config/prefs.php:24
 msgid "Automatically activate the script after each change?"
 msgstr "¿Activar automáticamente el guión tras cada cambio?"
 
@@ -122,7 +122,7 @@ msgstr "Direcciones incluidas en la lista negra"
 msgid "Body"
 msgstr "Cuerpo"
 
-#: filters.php:225 rule.php:331
+#: filters.php:225 rule.php:336
 msgid "Case Sensitive"
 msgstr "Distinguir may./min."
 
@@ -130,7 +130,7 @@ msgstr "Distinguir may./min."
 msgid "Cc"
 msgstr "Cc"
 
-#: blacklist.php:63 forward.php:49 rule.php:151 spam.php:88 vacation.php:71
+#: blacklist.php:63 forward.php:49 rule.php:156 spam.php:88 vacation.php:71
 #: whitelist.php:32
 msgid "Changes saved."
 msgstr "Se han guardado los cambios."
@@ -153,11 +153,11 @@ msgstr "Copiar %s"
 msgid "Copy of %s"
 msgstr "Copia de %s"
 
-#: lib/Ingo.php:165
+#: lib/Ingo.php:167
 msgid "Could not validate IMAP mailbox."
 msgstr "No se pudo validar el buzón IMAP."
 
-#: lib/Ingo.php:118
+#: lib/Ingo.php:121
 msgid "Create new folder"
 msgstr "Crear carpeta"
 
@@ -395,7 +395,7 @@ msgstr ""
 "Actividad del filtro: Se ha trasladado el mensaje \"%s\" de \"%s\" a la "
 "carpeta \"%s\"."
 
-#: rule.php:199
+#: rule.php:204
 msgid "Filter not found."
 msgstr "No se encontró el filtro."
 
@@ -576,18 +576,19 @@ msgstr "Mis direcciones de correo:"
 msgid "New Rule"
 msgstr "Nueva regla"
 
-#: lib/Ingo.php:316
+#: lib/Ingo.php:318
 #, php-format
 msgid "No \"%s\" element found in backend configuration."
-msgstr "No se ha encontrado un elemento \"%s\" en la configuración del motor."
+msgstr ""
+"No se ha encontrado un elemento \"%s\" en la configuración del soporte."
 
-#: lib/Ingo.php:308
+#: lib/Ingo.php:310
 msgid "No backend configured for this host"
-msgstr "No se ha configurado un motor para este servidor"
+msgstr "No se ha configurado un soporte para este servidor"
 
-#: lib/Ingo.php:281
+#: lib/Ingo.php:283
 msgid "No backends configured in backends.php"
-msgstr "No se han configurado motores en backends.php"
+msgstr "No se han configurado soportes en backends.php"
 
 #: templates/filters/filter-none.inc:3
 #, php-format
@@ -639,7 +640,7 @@ msgstr "Participante (De, Para, etc.)"
 msgid "Permission Denied"
 msgstr "Permiso denegado"
 
-#: lib/Ingo.php:133
+#: lib/Ingo.php:136
 msgid "Please enter the name of the new folder:"
 msgstr "Introduzca el nombre de la nueva carpeta:"
 
@@ -671,7 +672,7 @@ msgstr "Rechazar con motivo..."
 msgid ""
 "Removing user data is not supported with the current filter storage backend."
 msgstr ""
-"El motor de almacenamiento de filtros actual no soporta la eliminación de "
+"El soporte de almacenamiento de filtros actual no soporta la eliminación de "
 "datos de usuario."
 
 #: config/fields.php:56
@@ -770,15 +771,15 @@ msgstr "Guión"
 msgid "Script Updating"
 msgstr "Actualización de guión"
 
-#: lib/Ingo.php:261
+#: lib/Ingo.php:263
 msgid "Script not updated."
 msgstr "No se ha actualizado el guión."
 
-#: lib/Ingo.php:231
+#: lib/Ingo.php:233
 msgid "Script successfully activated."
 msgstr "Se ha activado correctamente el guión."
 
-#: lib/Ingo.php:230
+#: lib/Ingo.php:232
 msgid "Script successfully deactivated."
 msgstr "Se ha desactivado correctamente el guión."
 
@@ -786,7 +787,7 @@ msgstr "Se ha desactivado correctamente el guión."
 msgid "Seen"
 msgstr "Leído"
 
-#: rule.php:228
+#: rule.php:233
 msgid "Select a field"
 msgstr "Seleccione un campo"
 
@@ -794,15 +795,15 @@ msgstr "Seleccione un campo"
 msgid "Select ruleset to display:"
 msgstr "Seleccione reglas a mostrar:"
 
-#: rule.php:356 templates/blacklist/blacklist.inc:22
+#: rule.php:361 templates/blacklist/blacklist.inc:22
 msgid "Select target folder"
 msgstr "Seleccione carpeta destino"
 
-#: lib/Ingo.php:114
+#: lib/Ingo.php:117
 msgid "Select target folder:"
 msgstr "Seleccione carpeta destino:"
 
-#: rule.php:265
+#: rule.php:270
 msgid "Self-Defined Header"
 msgstr "Cabecera Auto-Definida"
 
@@ -877,15 +878,15 @@ msgstr "La dirección \"%s\" se ha añadido a su lista negra."
 msgid "The address \"%s\" has been added to your whitelist."
 msgstr "La dirección \"%s\" se ha añadido a su lista blanca."
 
-#: lib/Ingo.php:225
+#: lib/Ingo.php:227
 msgid "The driver said: "
 msgstr "El controlador dijo: "
 
-#: lib/Ingo.php:224
+#: lib/Ingo.php:226
 msgid "There was an error activating the script."
 msgstr "Se produjo un error al activar el guión."
 
-#: lib/Ingo.php:223
+#: lib/Ingo.php:225
 msgid "There was an error deactivating the script."
 msgstr "Se produjo un error al desactivar el guión."
 
@@ -921,7 +922,7 @@ msgid "Vacation is not supported in the current filtering driver."
 msgstr ""
 "El controlador de filtrado actual no soporta notificaciones de ausencia."
 
-#: rule.php:362
+#: rule.php:367
 msgid "Value"
 msgstr "Valor"
 
@@ -963,7 +964,7 @@ msgstr "X-Spam-Score"
 msgid "X-Spam-Status"
 msgstr "X-Spam-Status"
 
-#: filters.php:73 rule.php:186
+#: filters.php:73 rule.php:191
 #, php-format
 msgid "You are not allowed to create more than %d rules."
 msgstr "Carece de permisos para crear más de %d reglas."
@@ -977,11 +978,11 @@ msgstr "Carece de permisos para crear o modificar reglas personalizadas."
 msgid "You cannot create empty conditions. Please fill in a value for \"%s\"."
 msgstr "No puede crear condiciones vacías. Rellene un valor para \"%s\"."
 
-#: filters.php:50 rule.php:163
+#: filters.php:50 rule.php:168
 msgid "You do not have permission to delete filter rules."
 msgstr "Carece de permisos para eliminar reglas de filtrado."
 
-#: filters.php:44 filters.php:114 filters.php:124 rule.php:51 rule.php:176
+#: filters.php:44 filters.php:114 filters.php:124 rule.php:51 rule.php:181
 msgid "You do not have permission to edit filter rules."
 msgstr "Carece de permisos para modificar reglas de filtrado."
 

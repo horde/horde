@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [mjr] Add missing getChanges API method.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -913,7 +913,7 @@
    <date>2011-12-13</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [mjr] Add missing getChanges API method.
    </notes>
   </release>
  </changelog>
