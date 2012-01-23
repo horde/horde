@@ -471,6 +471,7 @@ abstract class Kronolith_Event
         foreach ($this->getResources() as $id => $resourceData) {
             /* Get the resource and protect against infinite recursion in case
              * someone is silly enough to add a resource to it's own event.*/
+
             $resource = Kronolith::getDriver('Resource')->getResource($id);
             $rcal = $resource->get('calendar');
             if ($rcal == $this->calendar) {
@@ -2184,7 +2185,7 @@ abstract class Kronolith_Event
 
     public function readForm()
     {
-        global $prefs, $cManager, $session;
+        global $prefs, $session;
 
         // Event owner.
         $targetcalendar = Horde_Util::getFormData('targetcalendar');
