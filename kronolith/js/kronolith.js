@@ -5865,8 +5865,7 @@ KronolithCore = {
     /**
      * Updates rows with free/busy information in the attendees table.
      *
-     * @todo Update when changing dates; only show free time for fb times we
-     *       actually received.
+     * @todo Update when changing dates;
      *
      * @param string attendee  An attendee display name as the free/busy
      *                         identifier.
