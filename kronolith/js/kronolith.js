@@ -5302,7 +5302,6 @@ KronolithCore = {
             $('kronolithEventTopTags').update();
         } else {
             // This is a new event.
-            this.doAction('getResourceList', null, this.getResourceListCallback);
             this.doAction('listTopTags', null, this.topTagsCallback.curry('kronolithEventTopTags', 'kronolithEventTag'));
             var d;
             if (date) {
@@ -5467,18 +5466,6 @@ KronolithCore = {
             t.insert(new Element('span', { className: tagclass }).update(tag.escapeHTML()));
         });
         $(update).update(t);
-    },
-
-    getResourceListCallback: function(r)
-    {
-        // $('kronolithEventResources').update();
-        // if (!r.response) {
-        //     return;
-        // }
-        // r.response.each(function(resource) {
-        //     var t = new Element('option', { 'value': resource.id }).update(resource.name.escapeHTML());
-        //     $('kronolithEventResources').insert(t);
-        // });
     },
 
     /**
