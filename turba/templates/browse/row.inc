@@ -29,13 +29,23 @@ if ($ob->hasValue('__key')) {
     }
 
     $cell = Horde::link($ob->url()) . $link_text . '</a>';
+
     if ($ob->hasPermission(Horde_Perms::EDIT)) {
-        $edit_url = Horde::url('contact.php')->add(array(
-            'view' => 'EditContact',
-            'source' => $ob->getSource(),
-            'key' => $ob->getValue('__key'),
-            'url' => Horde::selfUrl(true, false, true)
-        ));
+        if ($ob->isGroup()) {
+            $edit_url = Horde::url('edit.php')->add(array(
+                'actionID' => 'groupedit',
+                'source' => $ob->getSource(),
+                'objectkeys[]' => ($ob->getSource() . ':' . $ob->getValue('__key'))
+            ));
+        } else {
+            $edit_url = Horde::url('contact.php')->add(array(
+                'key' => $ob->getValue('__key'),
+                'source' => $ob->getSource(),
+                'url' => Horde::selfUrl(true, false, true),
+                'view' => 'EditContact'
+            ));
+        }
+
         $edit_url = Horde::link(Horde::url($edit_url), _("Edit"))
             . '<span class="iconImg editImg"></span></a>';
     }
