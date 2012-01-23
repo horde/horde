@@ -125,7 +125,7 @@ class Kronolith_Resource_Group extends Kronolith_Resource_Base
 
                             // Not free, continue to the next resource
                             $conflict = true;
-                            break;
+                            break 2;
                          }
                     }
                 }
