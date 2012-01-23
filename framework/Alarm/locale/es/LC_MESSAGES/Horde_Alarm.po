@@ -1,17 +1,18 @@
-# Spanish translations for Horde_Alarm module.
-# Copyright 2010-2012 Horde LLC (http://www.horde.org/)
-# This file is distributed under the same license as the Horde_Alarm module.
-# Automatically generated, 2010.
+# Spanish translations for Horde_Alarm package.
+# Copyright (C) 2012 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Horde_Alarm package.
+# Automatically generated, 2012.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde_Alarm\n"
+"Project-Id-Version: Horde_Alarm \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-05 13:52+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"PO-Revision-Date: 2012-01-17 12:38+0100\n"
+"Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
+"<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
-"Language: \n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,11 +22,11 @@ msgstr ""
 msgid "Desktop notification (with certain browsers)"
 msgstr "Notificación en el escritorio (con ciertos navegadores)"
 
-#: lib/Horde/Alarm/Handler/Mail.php:121
+#: lib/Horde/Alarm/Handler/Mail.php:129
 msgid "Email"
 msgstr "Correo"
 
-#: lib/Horde/Alarm/Handler/Mail.php:141
+#: lib/Horde/Alarm/Handler/Mail.php:149
 msgid "Email address (optional)"
 msgstr "Dirección de correo (opcional)"
 

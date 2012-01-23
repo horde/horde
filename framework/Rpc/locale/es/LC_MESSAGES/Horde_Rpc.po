@@ -1,17 +1,18 @@
-# Spanish translations for Horde_Rpc module.
-# Copyright 2010-2012 Horde LLC (http://www.horde.org/)
-# This file is distributed under the same license as the Horde_Rpc module.
-# Automatically generated, 2010.
+# Spanish translations for Horde_Rpc package.
+# Copyright (C) 2012 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Horde_Rpc package.
+# Automatically generated, 2012.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde_Rpc\n"
+"Project-Id-Version: Horde_Rpc \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-15 13:27+0100\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"PO-Revision-Date: 2012-01-17 12:38+0100\n"
+"Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
+"<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
-"Language: \n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,7 +21,7 @@ msgstr ""
 #: lib/Horde/Rpc/Webdav.php:352
 #, php-format
 msgid "Error deleting from path %s; must be [app]/[path]"
-msgstr "Error al borrar en la vía %s; tiene que ser [app]/[path]"
+msgstr "Error al borrar en la ruta %s; tiene que ser [aplicación]/[ruta]"
 
 #: lib/Horde/Rpc/Phpgw.php:80 lib/Horde/Rpc/Phpgw.php:81
 #: lib/Horde/Rpc/Soap.php:185 lib/Horde/Rpc/Soap.php:193
@@ -39,14 +40,14 @@ msgstr "No se ha podido responder a la solicitud. Código de error devuelto: "
 #: lib/Horde/Rpc/Webdav.php:417
 #, php-format
 msgid "Unable to create directory %s; must be [app]/[path]"
-msgstr "Incapaz de crear el directorio %s; tiene que ser [app]/[path]"
+msgstr "Incapaz de crear el directorio %s; tiene que ser [aplicación]/[ruta]"
 
 #: lib/Horde/Rpc/Webdav.php:452
 #, php-format
 msgid ""
 "Unable to rename %s; must be [app]/[path] and within the same application."
 msgstr ""
-"No se puede renombrar %s; debe ser [app]/[path] y dentro de la misma "
+"No se puede renombrar %s; debe ser [aplicación]/[iruta] y dentro de la misma "
 "aplicación."
 
 #: lib/Horde/Rpc/Phpgw.php:99

@@ -1,15 +1,16 @@
 # Spanish translations for Horde_Browser package.
-# Copyright 2011-2012 Horde LLC
+# Copyright (C) 2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Browser package.
-# Automatically generated, 2011.
+# Automatically generated, 2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Browser \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-24 16:00+0100\n"
-"PO-Revision-Date: 2011-03-24 16:00+0100\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2012-01-23 12:13+0100\n"
+"PO-Revision-Date: 2012-01-17 12:38+0100\n"
+"Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
+"<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -17,27 +18,27 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Browser.php:1026
+#: lib/Horde/Browser.php:1035
 msgid "File uploads not supported."
 msgstr "La carga de archivos no está soportada."
 
-#: lib/Horde/Browser.php:1043
+#: lib/Horde/Browser.php:1052
 msgid "No file uploaded"
 msgstr "No se ha cargado ningún archivo"
 
-#: lib/Horde/Browser.php:1053
+#: lib/Horde/Browser.php:1062
 msgid ""
 "The uploaded file appears to be empty. It may not exist on your computer."
 msgstr ""
 "Parece que el archivo cargado está vacío. Puede que no existe en su "
 "ordenador."
 
-#: lib/Horde/Browser.php:1050
+#: lib/Horde/Browser.php:1059
 #, php-format
 msgid "There was a problem with the file upload: No %s was uploaded."
 msgstr "Se produjo un problema con la carga del archivo: No se cargó %s."
 
-#: lib/Horde/Browser.php:1058
+#: lib/Horde/Browser.php:1067
 #, php-format
 msgid ""
 "There was a problem with the file upload: The %s was larger than the maximum "
@@ -46,7 +47,7 @@ msgstr ""
 "Se produjo un problema con la carga del archivo. El %s era más grande que el "
 "tamaño máximo permitido (%d bytes)."
 
-#: lib/Horde/Browser.php:1060
+#: lib/Horde/Browser.php:1069
 #, php-format
 msgid ""
 "There was a problem with the file upload: The %s was only partially uploaded."
