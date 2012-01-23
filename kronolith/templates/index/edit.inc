@@ -206,9 +206,6 @@
   <input id="kronolithEventAttendees" name="attendees" />
   <span id="kronolithEventAttendees_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
   <br class="clear" />
-  <label>
-    <input id="kronolithEventSendUpdates" type="checkbox" name="sendupdates" value="1" />
-    <?php printf(_("Send invites%s to all attendees"), '</label>') ?><br />
   <div id="kronolithFBLoading" style="display:none"></div>
   <table cellspacing="0" cellpadding="0" border="0">
     <thead>
