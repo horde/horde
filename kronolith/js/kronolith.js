@@ -46,6 +46,7 @@ KronolithCore = {
     lastRecurType: 'None',
     uatts: null,
     ucb: null,
+    resourceACCache: { choices: [], map: $H() },
 
     /**
      * The location that was open before the current location.
@@ -5273,7 +5274,7 @@ KronolithCore = {
         this.resetMap();
         this.attendeesAc.reset();
         this.eventTagAc.reset();
-        $('kronolithEventAttendeesList').select('tr').invoke('remove');
+        this.resourceAc.reset();
         if (Kronolith.conf.maps.driver) {
             $('kronolithEventMapLink').hide();
         }
@@ -5331,6 +5332,15 @@ KronolithCore = {
             this.toggleRecurrence('None');
             $('kronolithEventEditRecur').hide();
             this.enableAlarm('Event', Kronolith.conf.default_alarm);
+            // Need to clear any existing handler for new events, as they are
+            // bound to the attendees of the last edited event. @TODO: figure
+            // out how to attach a similar event for new events.
+            if (this.attendeeStartDateHandler) {
+                $('kronolithEventStartDate').stopObserving('change', this.attendeeStartDateHandler);
+            }
+            if (this.resourceStartDateHandler) {
+                $('kronolithEventStartDate').stopObserving('change', this.resourceStartDateHandler);
+            }
             this.redBoxLoading = true;
             RedBox.showHtml($('kronolithEventDialog').show());
         }
@@ -5629,6 +5639,27 @@ KronolithCore = {
             $('kronolithEventStartDate').observe('change', this.attendeeStartDateHandler);
         }
 
+        /* Resources */
+        if (this.resourceStartDateHandler) {
+            $('kronolithEventStartDate').stopObserving('change', this.resourceStartDateHandler);
+        }
+        if (!Object.isUndefined(ev.rs)) {
+            var rs = $H(ev.rs);
+            this.resourceAc.reset(rs.values().pluck('name'));
+            rs.each(function(r) { this.addResource(r.value, r.key) }.bind(this));
+            if (this.fbLoading) {
+                $('kronolithResourceFBLoading').show();
+            }
+
+            // @TODO: Need to repoll the backend for new fb data.
+            this.resourceStartDateHandler = function() {
+                rs.each(function(r) {
+                    this.insertFreeBusy(r.value.name);
+                }, this);
+            }.bind(this);
+            $('kronolithEventStartDate').observe('change', this.resourceStartDateHandler);
+        }
+
         /* Tags */
         this.eventTagAc.reset(ev.tg);
 
@@ -5719,6 +5750,7 @@ KronolithCore = {
 
         var tr = new Element('tr'), response, i;
         this.freeBusy.set(attendee.l, [ tr ]);
+        attendee.r = attendee.r || 1;
         switch (attendee.r) {
             case 1: response = 'None'; break;
             case 2: response = 'Accepted'; break;
@@ -5733,6 +5765,78 @@ KronolithCore = {
             tr.insert(new Element('td', { className: 'kronolithFBUnknown' }));
         }
         $('kronolithEventAttendeesList').down('tbody').insert(tr);
+    },
+
+    addResource: function(resource, id)
+    {
+        var v, response = 1;
+        if (!id) {
+            // User entered
+            this.resourceACCache.choices.each(function(i) {
+                if (i.name == resource) {
+                    v = i.code;
+                    throw $break;
+                } else {
+                    v = false;
+                }
+            }.bind(this));
+        } else {
+            // Populating from an edit event action
+            v = id;
+            response = resource.response;
+            resource = resource.name;
+        }
+
+        switch (response) {
+            case 1: response = 'None'; break;
+            case 2: response = 'Accepted'; break;
+            case 3: response = 'Declined'; break;
+            case 4: response = 'Tentative'; break;
+        }
+        var att = {
+            'resource': v
+        },
+        tr, i;
+        if (att.resource) {
+            this.fbLoading++;
+            this.doAction('getFreeBusy', att, this.addResourceCallback.curry(resource).bind(this));
+            tr = new Element('tr');
+            this.freeBusy.set(resource, [ tr ]);
+            tr.insert(new Element('td')
+                .writeAttribute('title', resource)
+                .addClassName('kronolithAttendee' + response)
+                .insert(resource.escapeHTML()));
+            for (i = 0; i < 24; i++) {
+                tr.insert(new Element('td', { className: 'kronolithFBUnknown' }));
+            }
+            $('kronolithEventResourcesList').down('tbody').insert(tr);
+            this.resourceACCache.map.set(resource, v);
+            $('kronolithEventResourceIds').value = this.resourceACCache.map.values();
+        } else {
+            this.showNotifications([{ type: 'horde.error', message: Kronolith.text.unknown_resource + ': ' + resource }]);
+        }
+    },
+
+    removeResource: function(resource)
+    {
+        var row = this.freeBusy.get(resource)[0];
+        row.purge();
+        row.remove();
+        delete this.resourceACCache.map.unset(resource);
+        $('kronolithEventResourceIds').value = this.resourceACCache.map.values();
+    },
+
+    addResourceCallback: function(resource, r)
+    {
+        this.fbLoading--;
+        if (!this.fbLoading) {
+            $('kronolithResourceFBLoading').hide();
+        }
+        if (Object.isUndefined(r.response.fb)) {
+            return;
+        }
+        this.freeBusy.get(resource)[1] = r.response.fb;
+        this.insertFreeBusy(resource);
     },
 
     /**
@@ -5761,8 +5865,7 @@ KronolithCore = {
     /**
      * Updates rows with free/busy information in the attendees table.
      *
-     * @todo Update when changing dates; only show free time for fb times we
-     *       actually received.
+     * @todo Update when changing dates;
      *
      * @param string attendee  An attendee display name as the free/busy
      *                         identifier.
@@ -5777,23 +5880,35 @@ KronolithCore = {
             tr = this.freeBusy.get(attendee)[0],
             td = tr.select('td')[1],
             div = td.down('div');
+        if (!fb) {
+            return;
+        }
+
         if (!td.getWidth()) {
             this.insertFreeBusy.bind(this, attendee).defer();
             return;
         }
-        tr.select('td').each(function(td, i) {
-            if (i != 0) {
-                td.className = 'kronolithFBFree';
-            }
-            i++;
-        });
+
         if (div) {
             div.purge();
             div.remove();
         }
         var start = Date.parseExact($F('kronolithEventStartDate'), Kronolith.conf.date_format),
             end = start.clone().add(1).days(),
-            width = td.getWidth();
+            width = td.getWidth(),
+            fbs = this.parseDate(fb.s),
+            fbe = this.parseDate(fb.e);
+
+        if (end.isBefore(fbs) || start.isAfter(fbe)) {
+            return;
+        }
+
+        tr.select('td').each(function(td, i) {
+            if (i != 0) {
+                td.className = 'kronolithFBFree';
+            }
+            i++;
+        });
         div = new Element('div').setStyle({ position: 'relative', height: td.offsetHeight + 'px' });
         td.insert(div);
         $H(fb.b).each(function(busy) {
@@ -5815,6 +5930,7 @@ KronolithCore = {
             left = from.getHours() + from.getMinutes() / 60;
             div.insert(new Element('div', { className: 'kronolithFBBusy' }).setStyle({ zIndex: 1, top: 0, left: (left * width) + 'px', width: (((to.getHours() + to.getMinutes() / 60) - left) * width) + 'px' }));
         });
+
     },
 
     /**

@@ -174,7 +174,6 @@ a.newEvent img {
     background: #fff760;
 }
 
-/* Free/busy */
 .kronolithFBLegend {
     font-size: 90%;
     padding-right: 10px;
@@ -893,56 +892,62 @@ div.kronolithFormActions {
     position: relative;
     line-height: 150%;
 }
-#kronolithEventTabAttendees table {
+#kronolithEventTabAttendees table, #kronolithEventTabResources table {
     border-collapse: collapse;
     table-layout: fixed;
     width: 100%;
 }
-#kronolithEventTabAttendees td, #kronolithEventTabAttendees th {
+#kronolithEventTabAttendees td, #kronolithEventTabAttendees th,
+#kronolithEventTabResources td, #kronolithEventTabResources th {
     border: 1px solid #999;
     padding: 1px;
     width: 22px;
     font-size: 85%;
     line-height: 140%;
 }
-#kronolithEventTabAttendees td:first-child, #kronolithEventTabAttendees th:first-child {
+#kronolithEventTabAttendees td:first-child, #kronolithEventTabAttendees th:first-child,
+#kronolithEventTabResources td:first-child, #kronolithEventTabResources th:first-child {
     width: auto;
     overflow: hidden;
 }
-#kronolithEventTabAttendees th {
+#kronolithEventTabAttendees th, #kronolithEventTabResources th {
     text-align: center;
 }
-#kronolithEventTabAttendees th:first-child {
+#kronolithEventTabAttendees th:first-child, #kronolithEventTabResources th:first-child {
     text-align: left;
 }
-#kronolithEventTabAttendees th.night {
+#kronolithEventTabAttendees th.night, #kronolithEventTabResources th.night {
     background-color: #ccc;
 }
 
-#kronolithEventAttendeesList {
+#kronolithEventAttendeesList, #kronolithEventResourcesList {
     max-height: 150px;
     overflow-y: auto;
 }
-#kronolithEventTabAttendees td div {
+#kronolithEventTabAttendees td div, #kronolithEventTabResources td div {
     margin: 0;
     height: 100%;
 }
-#kronolithEventACBox, #kronolithCalendarinternalACBox, #kronolithAttendeesACBox {
+#kronolithEventACBox, #kronolithCalendarinternalACBox, #kronolithAttendeesACBox,
+#kronolithResourceACBox {
     line-height: 100%;
 }
-#kronolithEventTabAttendees td.kronolithAttendeeNone {
+#kronolithEventTabAttendees td.kronolithAttendeeNone ,
+#kronolithEventTabResources td.kronolithAttendeeNone {
     background-image: url("graphics/attendee-none.png");
     background-position: 0 center;
     background-repeat: no-repeat;
     padding-left: 18px;
 }
-#kronolithEventTabAttendees td.kronolithAttendeeAccepted {
+#kronolithEventTabAttendees td.kronolithAttendeeAccepted,
+#kronolithEventTabResources td.kronolithAttendeeAccepted {
     background-image: url("graphics/attendee-accepted.png");
     background-position: 0 center;
     background-repeat: no-repeat;
     padding-left: 18px;
 }
-#kronolithEventTabAttendees td.kronolithAttendeeDeclined {
+#kronolithEventTabAttendees td.kronolithAttendeeDeclined,
+#kronolithEventTabResources td.kronolithAttendeeDeclined {
     background-image: url("graphics/attendee-declined.png");
     text-decoration: line-through;
     background-position: 0 center;

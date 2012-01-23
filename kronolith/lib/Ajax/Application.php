@@ -725,16 +725,38 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
     }
 
     /**
-     * TODO
+     * Return fb information for the requested attendee or resource.
+     *
+     * Uses the following request parameters:
+     *<pre>
+     *  -email:    The attendee's email address.
+     *  -resource: The resource id.
+     *</pre>
      */
     public function getFreeBusy()
     {
         $result = new stdClass;
-        try {
-            $result->fb = Kronolith_FreeBusy::get($this->_vars->email, true);
-        } catch (Exception $e) {
-            $GLOBALS['notification']->push($e->getMessage(), 'horde.warning');
+        if ($this->_vars->email) {
+            try {
+                $result->fb = Kronolith_FreeBusy::get($this->_vars->email, true);
+            } catch (Exception $e) {
+                $GLOBALS['notification']->push($e->getMessage(), 'horde.warning');
+            }
+        } elseif ($this->_vars->resource) {
+            try {
+                $resource = Kronolith::getDriver('Resource')
+                    ->getResource($this->_vars->resource);
+                try {
+                    $result->fb = $resource->getFreeBusy(null, null, true, true);
+                } catch (Horde_Exception $e) {
+                    // Resource groups can't provide FB information.
+                    $result->fb = null;
+                }
+            } catch (Exception $e) {
+                $GLOBALS['notification']->push($e->getMessage(), 'horde.warning');
+            }
         }
+
         return $result;
     }
 
@@ -1036,6 +1058,23 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
     public function saveCalPref()
     {
         return false;
+    }
+
+    /**
+     * Return a list of available resources.
+     *
+     * @return array  A hash of resource_id => resource sorted by resource name.
+     */
+    public function getResourceList()
+    {
+        $data = array();
+        $resources = Kronolith::getDriver('Resource')
+            ->listResources(Horde_Perms::READ, array(), 'name');
+        foreach ($resources as $resource) {
+            $data[] = $resource->toJson();
+        }
+
+        return $data;
     }
 
     /**

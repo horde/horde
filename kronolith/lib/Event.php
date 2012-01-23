@@ -471,6 +471,7 @@ abstract class Kronolith_Event
         foreach ($this->getResources() as $id => $resourceData) {
             /* Get the resource and protect against infinite recursion in case
              * someone is silly enough to add a resource to it's own event.*/
+
             $resource = Kronolith::getDriver('Resource')->getResource($id);
             $rcal = $resource->get('calendar');
             if ($rcal == $this->calendar) {
@@ -1800,6 +1801,7 @@ abstract class Kronolith_Event
      * - ed: formatted end date
      * - et: formatted end time
      * - at: attendees
+     * - rs:  resources
      * - tg: tag list,
      * - mt: meeting (Boolean true if event has attendees, false otherwise).
      *
@@ -1882,6 +1884,9 @@ abstract class Kronolith_Event
                     $attendees[] = $attendee;
                 }
                 $json->at = $attendees;
+            }
+            if ($this->_resources) {
+                $json->rs = $this->_resources;
             }
             if ($this->methods) {
                 $json->m = $this->methods;
@@ -2180,7 +2185,7 @@ abstract class Kronolith_Event
 
     public function readForm()
     {
-        global $prefs, $cManager, $session;
+        global $prefs, $session;
 
         // Event owner.
         $targetcalendar = Horde_Util::getFormData('targetcalendar');
@@ -2264,9 +2269,6 @@ abstract class Kronolith_Event
             }
         }
         $this->attendees = $attendees;
-
-        // Resources
-        $this->_resources = $session->get('kronolith', 'resources', Horde_Session::TYPE_ARRAY);
 
         // Event start.
         $allDay = Horde_Util::getFormData('whole_day');
@@ -2529,6 +2531,52 @@ abstract class Kronolith_Event
 
         // Convert to local timezone.
         $this->setTimezone(false);
+
+        // Resources
+        $existingResources = $this->_resources;
+        if (Horde_Util::getFormData('isajax', false)) {
+            $resources = array();
+        } else {
+            $resources = $session->get('kronolith', 'resources', Horde_Session::TYPE_ARRAY);
+        }
+        $newresources = Horde_Util::getFormData('resources');
+        if (!empty($newresources)) {
+            foreach (explode(',', $newresources) as $id) {
+                try {
+                    $resource = Kronolith::getDriver('Resource')->getResource($id);
+                } catch (Kronolith_Exception $e) {
+                    $GLOBALS['notification']->push($e->getMessage(), 'horde.error');
+                    continue;
+                }
+                if (!($resource instanceof Kronolith_Resource_Group) ||
+                    $resource->isFree($this)) {
+                    $resources[$resource->getId()] = array(
+                        'attendance' => Kronolith::PART_REQUIRED,
+                        'response'   => Kronolith::RESPONSE_NONE,
+                        'name'       => $resource->get('name')
+                    );
+                } else {
+                    $GLOBALS['notification']->push(_("No resources from this group were available"), 'horde.error');
+                }
+            }
+        }
+        $this->_resources = $resources;
+
+        // Check if we need to remove any resources
+        $delete = array_diff_assoc($existingResources, $this->_resources);
+        foreach ($delete as $key => $value) {
+            // Resource might be declined, in which case it won't have the event
+            // on it's calendar.
+            if ($value['response'] != Kronolith::RESPONSE_DECLINED) {
+                try {
+                    Kronolith::getDriver('Resource')
+                        ->getResource($key)
+                        ->removeEvent($this);
+                } catch (Kronolith_Exception $e) {
+                    $GLOBALS['notification']->push('foo', 'horde.error');
+                }
+            }
+        }
 
         // Tags.
         $this->tags = Horde_Util::getFormData('tags', $this->tags);
