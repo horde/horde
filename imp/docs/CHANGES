@@ -2,6 +2,8 @@
 v5.0.19-git
 -----------
 
+[mms] Fix message advancing when deleting messages in traditional view when
+      deleted messages are visible in the mailbox.
 
 
 -------

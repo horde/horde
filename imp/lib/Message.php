@@ -268,7 +268,8 @@ class IMP_Message
                             )
                         );
                     } elseif (!empty($opts['mailboxob']) &&
-                              $opts['mailboxob']->isBuilt()) {
+                              $opts['mailboxob']->isBuilt() &&
+                              $ob->mbox->hideDeletedMsgs()) {
                         $opts['mailboxob']->removeMsgs($imp_indices);
                     }
                 } catch (IMP_Imap_Exception $e) {}
