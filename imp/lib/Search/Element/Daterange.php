@@ -52,46 +52,31 @@ class IMP_Search_Element_Daterange extends IMP_Search_Element
      */
     public function createQuery($mbox, $queryob)
     {
-        if (empty($this->_date->b)) {
-            // Cast to timestamp - see PHP Bug #40171/Horde Bug #9513
-            $date = new DateTime('@' . ($this->_data->b));
+        if ($this->_date->b == $this->_date->e) {
             $queryob->dateSearch(
-                $date,
-                Horde_Imap_Client_Search_Query::DATE_SINCE,
-                true,
-                $this->_data->n
-            );
-        } elseif (empty($this->_date->e)) {
-            $date = new DateTime('@' . ($this->_data->e + 86400));
-            $queryob->dateSearch(
-                $date,
-                Horde_Imap_Client_Search_Query::DATE_BEFORE,
-                true,
-                $this->_data->n
-            );
-        } elseif ($this->_date->b == $this->_date->e) {
-            $date = new DateTime('@' . ($this->_data->b));
-            $queryob->dateSearch(
-                $date,
+                // Cast to timestamp - see PHP Bug #40171/Horde Bug #9513
+                new DateTime('@' . ($this->_data->b)),
                 Horde_Imap_Client_Search_Query::DATE_ON,
                 true,
                 $this->_data->n
             );
         } else {
-            $date1 = new DateTime('@' . ($this->_data->b));
-            $date2 = new DateTime('@' . ($this->_data->e + 86400));
-            $queryob->dateSearch(
-                $date1,
-                Horde_Imap_Client_Search_Query::DATE_SINCE,
-                true,
-                $this->_data->n
-            );
-            $queryob->dateSearch(
-                $date2,
-                Horde_Imap_Client_Search_Query::DATE_BEFORE,
-                true,
-                $this->_data->n
-            );
+            if (!empty($this->_date->b)) {
+                $queryob->dateSearch(
+                    new DateTime('@' . ($this->_data->b)),
+                    Horde_Imap_Client_Search_Query::DATE_SINCE,
+                    true,
+                    $this->_data->n
+                );
+            }
+            if (!empty($this->_date->e)) {
+                $queryob->dateSearch(
+                    new DateTime('@' . ($this->_data->e + 86400)),
+                    Horde_Imap_Client_Search_Query::DATE_BEFORE,
+                    true,
+                    $this->_data->n
+                );
+            }
         }
 
         return $queryob;
@@ -101,14 +86,14 @@ class IMP_Search_Element_Daterange extends IMP_Search_Element
      */
     public function queryText()
     {
-        if (empty($this->_date->b)) {
+        if (empty($this->_date->e)) {
             return sprintf(
                 _("After '%s'"),
                 strftime('%x', $this->_data->b)
             );
         }
 
-        if (empty($this->_date->e)) {
+        if (empty($this->_date->b)) {
             return sprintf(
                 _("Before '%s'"),
                 strftime('%x', $this->_data->e)
