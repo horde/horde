@@ -3260,10 +3260,9 @@ var DimpBase = {
         $('foldersLoading').show();
         $('foldersSidebar').hide();
 
-        Object.values(this.mboxes).each(function(elt) {
+        [ Object.values(this.mboxes), Object.values(this.smboxes) ].flatten().compact().each(function(elt) {
             this.deleteFolderElt(elt, true);
         }, this);
-        this.smboxes = {};
 
         this._listFolders({ reload: 1, mboxes: this.view });
     },
