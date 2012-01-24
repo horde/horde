@@ -20,34 +20,20 @@ if ($own_source == $ob->getSource() && $own_id == $ob->getValue('__key')) {
 $edit_url = $vcard_url = '&nbsp;';
 if ($ob->hasValue('__key')) {
     if (!$ob->isGroup()) {
-        $vcard_url = Horde::url('vcard.php')->add(array(
+        $vcard_url = Horde::link(Horde::url('vcard.php')->add(array(
             'source' => $ob->getSource(),
             'key' => $ob->getValue('__key')
-        ));
-        $vcard_url = Horde::link(Horde::url($vcard_url), _("Download vCard"))
-            . '<span class="iconImg vcardImg"></span></a>';
+        ), _("Download vCard"))) . '<span class="iconImg vcardImg"></span></a>';
     }
 
     $cell = Horde::link($ob->url()) . $link_text . '</a>';
 
     if ($ob->hasPermission(Horde_Perms::EDIT)) {
-        if ($ob->isGroup()) {
-            $edit_url = Horde::url('edit.php')->add(array(
-                'actionID' => 'groupedit',
-                'source' => $ob->getSource(),
-                'objectkeys[]' => ($ob->getSource() . ':' . $ob->getValue('__key'))
-            ));
-        } else {
-            $edit_url = Horde::url('contact.php')->add(array(
-                'key' => $ob->getValue('__key'),
-                'source' => $ob->getSource(),
-                'url' => Horde::selfUrl(true, false, true),
-                'view' => 'EditContact'
-            ));
-        }
-
-        $edit_url = Horde::link(Horde::url($edit_url), _("Edit"))
-            . '<span class="iconImg editImg"></span></a>';
+        $edit_url = Horde::link(Horde::url('edit.php')->add(array(
+            'key' => $ob->getValue('__key'),
+            'source' => $ob->getSource(),
+            'url' => Horde::selfUrl(true, false, true)
+        ), _("Edit"))) . '<span class="iconImg editImg"></span></a>';
     }
 } else {
     $cell = $link_text;
