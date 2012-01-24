@@ -40,19 +40,23 @@ class Turba_Form_EditContactGroup extends Turba_Form_EditContact
     {
         parent::renderActive($renderer, $vars, $action, $method);
 
-        /* Read the columns to display from the preferences. */
-        $source = $vars->get('source');
-        $sources = Turba::getColumns();
-
         $results = new Turba_List($vars->get('objectkeys'));
-        $listView = new Turba_View_List(
-            $results,
-            array(
-                'Group' => true
-            ),
-            isset($sources[$source]) ? $sources[$source] : array()
-        );
-        echo '<br />' . $listView->getPage($numDisplayed);
+
+        /* Don't show listview if only 1 entry. */
+        if (count($results) > 1) {
+            /* Read the columns to display from the preferences. */
+            $source = $vars->get('source');
+            $sources = Turba::getColumns();
+
+            $listView = new Turba_View_List(
+                $results,
+                array(
+                    'Group' => true
+                ),
+                isset($sources[$source]) ? $sources[$source] : array()
+            );
+            echo '<br />' . $listView->getPage($numDisplayed);
+        }
     }
 
     public function execute()
