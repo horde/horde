@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Fix purging moved messages from dynamic mailbox view if deleted messages are visible in the mailbox (Bug #10916).
 * [mms] Fix message advancing when deleting messages in traditional view when deleted messages are visible in the mailbox.
  </notes>
  <contents>
@@ -2664,6 +2665,7 @@
    <date>2012-01-17</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix purging moved messages from dynamic mailbox view if deleted messages are visible in the mailbox (Bug #10916).
 * [mms] Fix message advancing when deleting messages in traditional view when deleted messages are visible in the mailbox.
    </notes>
   </release>

@@ -768,7 +768,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $result = $GLOBALS['injector']->getInstance('IMP_Message')->copy($mbox, 'move', $indices);
 
         if ($result) {
-            $result = $this->_generateDeleteResult($indices, $change);
+            $result = $this->_generateDeleteResult($indices, $change, true);
             $this->_queue->poll($mbox);
         } else {
             $result = $this->_checkUidvalidity();
