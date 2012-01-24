@@ -3117,6 +3117,10 @@ var DimpBase = {
         }
 
         if (f_node) {
+            tmp2 = f_node.previous();
+            if (tmp2.hasClassName('subfolders')) {
+                f_node = tmp2;
+            }
             f_node.insert({ before: li });
         } else {
             parent_e.insert(li);
@@ -3194,7 +3198,7 @@ var DimpBase = {
 
     changeFolder: function(ob)
     {
-        var mdiv, oldexpand;
+        var tmp;
 
         if (this.smboxes[ob.m]) {
             // The case of children being added to a special folder is
@@ -3205,16 +3209,15 @@ var DimpBase = {
             return;
         }
 
-        mdiv = this.getMboxElt(ob.m).down('DIV');
-        oldexpand = mdiv && mdiv.hasClassName('col');
+        tmp = this.getMboxElt(ob.m).down('SPAN');
 
         this.deleteFolderElt(ob.m, !ob.ch);
         if (ob.co && this.view == ob.m) {
             this.go();
         }
         this.createFolder(ob);
-        if (ob.ch && oldexpand) {
-            mdiv.removeClassName('exp').addClassName('col');
+        if (ob.ch && tmp && tmp.hasClassName('col')) {
+            this.getMboxElt(ob.m).down('SPAN').removeClassName('exp').addClassName('col');
         }
     },
 
