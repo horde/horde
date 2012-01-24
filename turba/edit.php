@@ -82,7 +82,8 @@ try {
     $url->unique()->redirect();
 } catch (Turba_Exception $e) {}
 
-$title = sprintf(_("Edit \"%s\""), $contact->getValue('name'));
+$title = sprintf($contact->isGroup() ? _("Edit Group \"%s\"") : _("Edit \"%s\""), $contact->getValue('name'));
+
 require $registry->get('templates', 'horde') . '/common-header.inc';
 require TURBA_TEMPLATES . '/menu.inc';
 $form->setTitle($title);

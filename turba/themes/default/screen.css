@@ -31,6 +31,14 @@
     margin: 1em 0 0 0;
 }
 
+div.editGroupMembers {
+    font-weight: bold;
+    padding: 8px 2px;
+}
+div.editGroupMembers span.iconImg {
+    margin-right: 4px;
+}
+
 /* Images */
 .editImg {
     background-image: url("graphics/edit.png");

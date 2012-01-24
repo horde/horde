@@ -752,7 +752,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             ->copy($mbox, 'move', $indices, array('create' => $newMbox));
 
         if ($result) {
-            $result = $this->_generateDeleteResult($indices, $change);
+            $result = $this->_generateDeleteResult($indices, $change, true);
             $this->_queue->poll($mbox);
         } else {
             $result = $this->_checkUidvalidity();

@@ -23,10 +23,9 @@ class Turba_View_EditContact
 
     public function getTitle()
     {
-        if (!$this->contact) {
-            return _("Not Found");
-        }
-        return sprintf(_("Edit %s"), $this->contact->getValue('name'));
+        return $this->contact
+            ? sprintf($this->contact->isGroup() ? _("Edit Group \"%s\"") : _("Edit \"%s\""), $this->contact->getValue('name'))
+            : _("Not Found");
     }
 
     public function html($active = true)
