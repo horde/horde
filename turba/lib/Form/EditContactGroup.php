@@ -16,6 +16,7 @@ class Turba_Form_EditContactGroup extends Turba_Form_EditContact
         $objectkeys = $vars->get('objectkeys');
         $source = $vars->get('source');
         $key = $vars->get('key');
+
         if (count($objectkeys) == 1) {
             /* Only one contact. */
             $this->setButtons(_("Finish"));
@@ -42,10 +43,15 @@ class Turba_Form_EditContactGroup extends Turba_Form_EditContact
         /* Read the columns to display from the preferences. */
         $source = $vars->get('source');
         $sources = Turba::getColumns();
-        $columns = isset($sources[$source]) ? $sources[$source] : array();
 
         $results = new Turba_List($vars->get('objectkeys'));
-        $listView = new Turba_View_List($results, array('Group' => true), $columns);
+        $listView = new Turba_View_List(
+            $results,
+            array(
+                'Group' => true
+            ),
+            isset($sources[$source]) ? $sources[$source] : array()
+        );
         echo '<br />' . $listView->getPage($numDisplayed);
     }
 
