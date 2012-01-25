@@ -1320,6 +1320,72 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     }
 
     /**
+     * AJAX action: Get resume data.
+     *
+     * See the list of variables needed for _checkUidvalidity(). Additional
+     * variables used:
+     *   - imp_compose: (string) The IMP_Compose cache identifier.
+     *   - type: (string) Resume type, on of 'editasnew', 'resume', 'template'
+     *           'template_edit'.
+     *   - uid: (string) Indices of the messages to forward (IMAP sequence
+     *          string; mailboxes are base64url encoded).
+     *
+     * @since IMP 5.1
+     *
+     * @return mixed  False on failure, or an object with the following
+     *                entries:
+     *   - body: (string) The body text of the message.
+     *   - format: (string) Either 'text' or 'html'.
+     *   - header: (array) The headers of the message.
+     *   - identity: (integer) The identity ID to use for this message.
+     *   - priority: (string) The message priority.
+     *   - readreceipt: (boolean) Add return receipt headers?
+     *   - imp_compose: (string) The IMP_Compose cache identifier.
+     *   - type: (string) The input 'type' value.
+     *   - ViewPort: (object) See _viewPortData().
+     */
+    public function getResumeData()
+    {
+        try {
+            list($imp_compose, $imp_contents) = $this->_initCompose();
+            $indices_ob = new IMP_Indices($imp_contents->getMailbox(), $imp_contents->getUid());
+
+            switch ($this->_vars->type) {
+            case 'editasnew':
+                $resume = $imp_compose->editAsNew($indices_ob);
+                break;
+
+            case 'resume':
+                $resume = $imp_compose->resumeDraft($indices_ob);
+                break;
+
+            case 'template':
+                $resume = $imp_compose->useTemplate($indices_ob);
+                break;
+
+            case 'template_edit':
+                $resume = $imp_compose->editTemplate($indices_ob);
+                break;
+            }
+
+            $result = new stdClass;
+            $result->header = $resume['header'];
+            $result->body = $resume['msg'];
+            $result->format = $resume['mode'];
+            $result->identity = $resume['identity'];
+            $result->priority = $resume['priority'];
+            $result->readreceipt = $resume['readreceipt'];
+            $result->type = $this->_vars->type;
+            $result->imp_compose = $imp_compose->getCacheId();
+        } catch (Horde_Exception $e) {
+            $GLOBALS['notification']->push($e);
+            $result = $this->_checkUidvalidity();
+        }
+
+        return $result;
+    }
+
+    /**
      * AJAX action: Cancel compose.
      *
      * Variables used:

@@ -447,6 +447,9 @@ var ImpMobile = {
                 $('#imp-message-redirect').attr(
                     'href',
                     '#compose?type=forward_redirect' + args);
+                $('#imp-message-resume').attr(
+                    'href',
+                    '#compose?type=editasnew' + args);
             }
 
             if (ImpMobile.readOnly) {
@@ -495,7 +498,7 @@ var ImpMobile = {
         }
 
         var type = match[1], mailbox = match[2], uid = match[3],
-            func, cache, o = {};
+            func, cache, o = {}, params = {};
         o[mailbox] = [ uid ];
 
         $('#imp-compose-form').show();
@@ -524,16 +527,25 @@ var ImpMobile = {
             func = 'getRedirectData';
             cache = '#imp-redirect-cache';
             break;
+
+        case 'editasnew':
+        case 'resume':
+        case 'template':
+        case 'template_edit':
+            func = 'getResumeData';
+            cache = '#imp-compose-cache';
+            params.type = type;
+            break;
         }
 
         options.dataUrl = url.href;
         HordeMobile.doAction(
             func,
-            {
+            $.extend(params, {
                 type: type,
                 imp_compose: $(cache).val(),
                 uid: ImpMobile.toRangeString(o)
-            },
+            }),
             function(r) { ImpMobile.composeLoaded(r, options); });
     },
 
