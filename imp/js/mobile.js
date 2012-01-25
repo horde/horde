@@ -218,7 +218,7 @@ var ImpMobile = {
      */
     mailboxLoaded: function(r)
     {
-        var list = $('#imp-mailbox-list'), c, l;
+        var list = $('#imp-mailbox-list'), c, l, url;
         if (r && r.ViewPort) {
             ImpMobile.mailbox  = r.ViewPort.view;
             ImpMobile.data     = r.ViewPort.data;
@@ -226,15 +226,19 @@ var ImpMobile = {
             ImpMobile.readOnly = r.ViewPort.metadata.readonly;
             $.each(r.ViewPort.data, function(key, data) {
                 c = 'imp-message';
+                url = '#message?view=' + data.mbox + '&uid=' + data.uid;
                 if (data.flag) {
                     $.each(data.flag, function(k, flag) {
                         c += ' imp-message-' + flag.substr(1);
+                        if (flag == '\\draft') {
+                            url = '#compose?type=resume&mbox=' + data.mbox + '&uid=' + data.uid;
+                        }
                     });
                 }
                 list.append(
                     $('<li class="' + c + '">').append(
                         $('<h3>').append(
-                            $('<a href="#message?view=' + data.mbox + '&uid=' + data.uid + '">').html(data.subject))).append(
+                            $('<a href="' + url + '">').html(data.subject))).append(
                         $('<div class="ui-grid-a">').append(
                             $('<div class="ui-block-a">').append(
                                 $('<p>').text(data.from))).append(

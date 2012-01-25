@@ -2,7 +2,7 @@
 v5.1-git
 --------
 
-[jan] Add "edit as new" to smartphone view.
+[jan] Add resume and "edit as new" to smartphone view.
 [mms] Hide deleted now works with threaded mailboxes.
 [mms] Threaded sorts now work in all search mailboxes (Request #9700).
 [mms] Improved threading performance.
