@@ -11,6 +11,11 @@ var ImpMobile = {
     // Vars used and defaulting to null/false:
     //
     // /**
+    //  * The current mailbox.
+    //  */
+    // mailbox,
+    //
+    // /**
     //  * Whether the current mailbox is read-only.
     //  */
     // readOnly,
@@ -34,6 +39,11 @@ var ImpMobile = {
     //  * One-time callback after the mailbox has been loaded.
     //  */
     // mailboxCallback,
+    //
+    // /**
+    //  * Search parameters for the viewPort Ajax request.
+    //  */
+    // search,
 
     /**
      * The currently loaded list of message data, keys are UIDs, values are
@@ -182,7 +192,8 @@ var ImpMobile = {
         var match = /\?mbox=(.*)&from=(.*)/.exec(url.hash) ||
                     /\?mbox=(.*)/.exec(url.hash),
             mailbox = match[1], from = 1 * (match[2] || 1),
-            title = $('#imp-mailbox-' + mailbox).text();
+            title = $('#imp-mailbox-' + mailbox).text(),
+            params = {};
         if ($.mobile.activePage &&
             $.mobile.activePage.attr('id') == 'mailbox') {
             // Need to update history manually, because jqm exits too early
@@ -199,15 +210,22 @@ var ImpMobile = {
         $('#imp-mailbox-list').empty();
         $('#imp-mailbox-navtop,#imp-mailbox-navbottom').hide();
         ImpMobile.from = from;
+        if (mailbox != IMP.conf.qsearchid) {
+            delete ImpMobile.search;
+            $('#imp-search-input').val('');
+        }
+        if (ImpMobile.search) {
+            params = ImpMobile.search;
+        }
         HordeMobile.doAction(
             'viewPort',
-            {
+            $.extend(params, {
                 view: mailbox,
                 slice: from + ':' + (from + 24),
                 requestid: 1,
                 sortby: IMP.conf.sort.date.v,
                 sortdir: 1
-            },
+            }),
             ImpMobile.mailboxLoaded);
     },
 
@@ -224,6 +242,10 @@ var ImpMobile = {
             ImpMobile.data     = r.ViewPort.data;
             ImpMobile.messages = r.ViewPort.rowlist;
             ImpMobile.readOnly = r.ViewPort.metadata.readonly;
+            if (r.ViewPort.metadata.slabel) {
+                document.title = r.ViewPort.metadata.slabel;
+                $('#imp-mailbox-header').text(r.ViewPort.metadata.slabel);
+            }
             $.each(r.ViewPort.data, function(key, data) {
                 c = 'imp-message';
                 url = '#message?view=' + data.mbox + '&uid=' + data.uid;
@@ -987,6 +1009,15 @@ var ImpMobile = {
                         : 'sendMessage';
                     ImpMobile.uniqueSubmit(action);
                 }
+                return;
+
+            case 'imp-search-submit':
+                ImpMobile.search = {
+                    qsearch: $('#imp-search-input').val(),
+                    qsearchfield: $('#imp-search-by').val(),
+                    qsearchmbox: ImpMobile.mailbox,
+                };
+                $.mobile.changePage('#mailbox?mbox=' + IMP.conf.qsearchid);
                 return;
             }
 

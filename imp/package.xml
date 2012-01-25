@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-01-19</date>
- <time>00:25:13</time>
+ <date>2012-01-25</date>
+ <time>22:33:19</time>
  <version>
   <release>5.1.0</release>
   <api>5.0.0</api>
@@ -34,8 +34,6 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mms] Fix purging moved messages from dynamic mailbox view if deleted messages are visible in the mailbox (Bug #10916).
-* [mms] Fix message advancing when deleting messages in traditional view when deleted messages are visible in the mailbox.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -731,6 +729,7 @@
      <file name="mailbox.html.php" role="horde" />
      <file name="message.html.php" role="horde" />
      <file name="notice.html.php" role="horde" />
+     <file name="search.html.php" role="horde" />
      <file name="target.html.php" role="horde" />
     </dir> <!-- /templates/mobile -->
     <dir name="pgp">
@@ -1776,6 +1775,7 @@
    <install as="imp/templates/mobile/mailbox.html.php" name="templates/mobile/mailbox.html.php" />
    <install as="imp/templates/mobile/message.html.php" name="templates/mobile/message.html.php" />
    <install as="imp/templates/mobile/notice.html.php" name="templates/mobile/notice.html.php" />
+   <install as="imp/templates/mobile/search.html.php" name="templates/mobile/search.html.php" />
    <install as="imp/templates/mobile/target.html.php" name="templates/mobile/target.html.php" />
    <install as="imp/templates/pgp/import_key.html" name="templates/pgp/import_key.html" />
    <install as="imp/templates/prefs/acl.html" name="templates/prefs/acl.html" />

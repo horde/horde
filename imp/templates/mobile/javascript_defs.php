@@ -46,6 +46,7 @@ $code['conf'] = array_filter(array(
     'flags_o' => array_keys($flags),
     'mailbox_return' => $GLOBALS['prefs']->getValue('mailbox_return'),
     'pop3' => intval($GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->pop3),
+    'qsearchid' => IMP_Mailbox::formTo(IMP_Search::MBOX_PREFIX . IMP_Search::DIMP_QUICKSEARCH),
     'refresh_time' => intval($GLOBALS['prefs']->getValue('refresh_time')),
     'sort' => array(
         'sequence' => array(
