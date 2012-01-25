@@ -1019,6 +1019,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
                 'uid' => $idx
             ));
             $msg->view = $this->_vars->view;
+            $msg->save_as = (string)$msg->save_as;
 
             if ($this->_vars->preview) {
                 $result->preview = $msg;
