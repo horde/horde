@@ -129,10 +129,6 @@ div#quota {
 .mboxheader {
     clear: left;
 }
-#msgLoading, #viewportLoading, #sendingImg {
-    position: absolute;
-    margin: 10px 0 0 10px;
-}
 
 /* Columns */
 div.msgStatus {

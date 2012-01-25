@@ -285,14 +285,14 @@ var DimpBase = {
             }
             this.highlightSidebar();
             this.setTitle(DIMP.text.search);
-            this.iframeContent(type, DimpCore.addURLParam(DIMP.conf.URI_SEARCH, data));
+            this.iframeContent(type, HordeCore.addURLParam(DIMP.conf.URI_SEARCH, data));
             break;
 
         case 'prefs':
             this.highlightSidebar('appprefs');
             this.setHash(type);
             this.setTitle(DIMP.text.prefs);
-            this.iframeContent(type, DimpCore.addURLParam(DIMP.conf.URI_PREFS_IMP, data));
+            this.iframeContent(type, HordeCore.addURLParam(DIMP.conf.URI_PREFS_IMP, data));
             break;
 
         case 'portal':
@@ -403,7 +403,7 @@ var DimpBase = {
     {
         var container = $('dimpmain_iframe'), iframe;
         if (!container) {
-            DimpCore.showNotifications([ { type: 'horde.error', message: 'Bad portal!' } ]);
+            HordeCore.notify('Bad portal!', 'horde.error');
             return;
         }
 
@@ -414,10 +414,12 @@ var DimpBase = {
     // r = ViewPort row data
     msgWindow: function(r)
     {
-        var url = DIMP.conf.URI_MESSAGE;
-        url += (url.include('?') ? '&' : '?') +
-               $H({ mailbox: r.mbox, uid: r.uid }).toQueryString();
-        DimpCore.popupWindow(url, 'msgview' + r.mbox + r.uid);
+        HordeCore.popupWindow(DIMP.conf.URI_MESSAGE, {
+            mailbox: r.mbox,
+            uid: r.uid
+        }, {
+            name: 'msgview' + r.mbox + r.uid
+        });
     },
 
     composeMailbox: function(type)
@@ -479,7 +481,7 @@ var DimpBase = {
 
         this.viewport = new ViewPort({
             // Mandatory config
-            ajax_url: DIMP.conf.URI_AJAX + 'viewPort',
+            ajax_url: HordeCoreConf.URI_AJAX + 'viewPort',
             container: container,
             onContent: function(r, mode) {
                 var bg, re, u,
@@ -576,7 +578,7 @@ var DimpBase = {
             }.bind(this),
 
             // Optional config
-            ajax_opts: Object.clone(DimpCore.doActionOpts),
+            ajax_opts: HordeCore.doActionOpts(),
             empty_msg: this.emptyMsg.bind(this),
             list_class: 'msglist',
             list_header: $('msglistHeaderContainer').remove(),
@@ -589,7 +591,7 @@ var DimpBase = {
             // Callbacks
             onAjaxFailure: function() {
                 if ($('dimpmain_folder').visible()) {
-                    DimpCore.showNotifications([ { type: 'horde.error', message: DIMP.text.listmsg_timeout } ]);
+                    HordeCore.notify(DIMP.text.listmsg_timeout, 'horde.error');
                 }
                 this.loadingImg('viewport', false);
             }.bind(this),
@@ -620,10 +622,10 @@ var DimpBase = {
                 }
                 params.set('view', view);
 
-                DimpCore.addRequestParams(params);
+                HordeCore.addRequestParams(params);
             }.bind(this),
             onAjaxResponse: function(o, h) {
-                DimpCore.doActionComplete(o);
+                HordeCore.doActionComplete(o);
             },
             onContentOffset: function(offset) {
                 if (this.uid) {
@@ -862,7 +864,7 @@ var DimpBase = {
 
         container.observe('ViewPort:wait', function() {
             if ($('dimpmain_folder').visible()) {
-                DimpCore.showNotifications([ { type: 'horde.warning', message: DIMP.text.listmsg_wait } ]);
+                HordeCore.notify(DIMP.text.listmsg_wait, 'horde.warning');
             }
         });
     },
@@ -940,7 +942,7 @@ var DimpBase = {
         case 'ctx_folder_export_zip':
             tmp = e.findElement('LI');
 
-            this.viewaction = DimpCore.redirect.bind(DimpCore, DimpCore.addURLParam(DIMP.conf.URI_VIEW, {
+            this.viewaction = HordeCore.redirect.bind(HordeCore, HordeCore.addURLParam(DIMP.conf.URI_VIEW, {
                 actionID: 'download_mbox',
                 mailbox: tmp.retrieve('mbox'),
                 zip: Number(id == 'ctx_folder_export_zip')
@@ -966,7 +968,7 @@ var DimpBase = {
                       ),
                 form_id: 'mbox_import',
                 form_opts: {
-                    action: DIMP.conf.URI_AJAX + 'importMailbox',
+                    action: HordeCoreConf.URI_AJAX + 'importMailbox',
                     className: 'RBForm',
                     enctype: 'multipart/form-data',
                     method: 'post',
@@ -1066,7 +1068,14 @@ var DimpBase = {
 
         case 'ctx_message_source':
             this.viewport.getSelected().get('dataob').each(function(v) {
-                DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: v.uid, mailbox: v.mbox, actionID: 'view_source', id: 0 }, true), v.uid + '|' + v.view);
+                HordeCore.popupWindow(DIMP.conf.URI_VIEW, {
+                    actionID: 'view_source',
+                    id: 0,
+                    mailbox: v.mbox,
+                    uid: v.uid
+                }, {
+                    name: v.uid + '|' + v.view
+                });
             }, this);
             break;
 
@@ -1605,7 +1614,7 @@ var DimpBase = {
         if (r.error || vs.size() != 1) {
             if (!bg) {
                 if (r.error) {
-                    DimpCore.showNotifications([ { type: r.errortype, message: r.error } ]);
+                    HordeCore.notify(r.error, r.errortype);
                 }
                 this.clearPreviewPane();
             }
@@ -2515,7 +2524,7 @@ var DimpBase = {
                 return;
 
             case 'alertsloglink':
-                DimpCore.Growler.toggleLog();
+                HordeCore.Growler.toggleLog();
                 break;
 
             case 'applyfilterlink':
@@ -2532,7 +2541,7 @@ var DimpBase = {
 
             case 'applogout':
                 elt.down('A').update('[' + DIMP.text.onlogout + ']');
-                DimpCore.logout();
+                HordeCore.logout();
                 e.stop();
                 return;
 
@@ -2609,11 +2618,18 @@ var DimpBase = {
                 return;
 
             case 'ctx_preview_save':
-                DimpCore.redirect(this.pp.save_as);
+                HordeCore.redirect(this.pp.save_as);
                 return;
 
             case 'ctx_preview_viewsource':
-                DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: this.pp.uid, mailbox: this.pp.mbox, actionID: 'view_source', id: 0 }, true), this.pp.uid + '|' + this.pp.mbox);
+                HordeCore.popupWindow(DIMP.conf.URI_VIEW, {
+                    actionID: 'view_source',
+                    id: 0,
+                    mailbox: this.pp.mbox,
+                    uid: this.pp.uid
+                }, {
+                    name: this.pp.uid + '|' + this.pp.mbox
+                });
                 break;
 
             case 'ctx_preview_allparts':
@@ -2675,7 +2691,15 @@ var DimpBase = {
 
             default:
                 if (elt.hasClassName('printAtc')) {
-                    DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: this.pp.uid, mailbox: this.pp.mbox, actionID: 'print_attach', id: elt.readAttribute('mimeid') }, true), this.pp.uid + '|' + this.pp.mbox + '|print', IMP_JS.printWindow);
+                    HordeCore.popupWindow(DIMP.conf.URI_VIEW, {
+                        actionID: 'print_attach',
+                        id: elt.readAttribute('mimeid'),
+                        mailbox: this.pp.mbox,
+                        uid: this.pp.uid
+                    }, {
+                        name: this.pp.uid + '|' + this.pp.mbox + '|print',
+                        onload: IMP_JS.printWindow
+                    });
                     e.stop();
                     return;
                 } else if (elt.hasClassName('stripAtc')) {
@@ -2719,7 +2743,7 @@ var DimpBase = {
                 }
             }
 
-            DimpCore.doActionComplete({ responseJSON: r });
+            HordeCore.doActionComplete({ responseJSON: r });
         }
     },
 
@@ -3465,7 +3489,11 @@ var DimpBase = {
 
     loadingImg: function(id, show)
     {
-        DimpCore.loadingImg(id + 'Loading', id == 'viewport' ? $('msgSplitPane').down('DIV.msglist') : 'previewPane', show);
+        HordeCore.loadingImg(
+            id + 'Loading',
+            (id == 'viewport') ? $('msgSplitPane').down('DIV.msglist') : 'previewPane',
+            show
+        );
     },
 
     // p = (element) Parent element
@@ -3646,9 +3674,12 @@ var DimpBase = {
             this._toggleHeaders($('th_expand'));
         }
 
-        /* Remove unavailable menu items. */
         if (!$('GrowlerLog')) {
             $('alertsloglink').remove();
+        } else {
+            document.observe('Growler:toggled', function(e) {
+                $('alertsloglink').down('A').update(e.memo.visible ? DIMP.text.hidealog : DIMP.text.showalog);
+            });
         }
 
         /* Check for new mail. */
@@ -3677,7 +3708,7 @@ var DimpBase = {
         /* Make sure loading images are closed. */
         this.loadingImg('msg', false);
         this.loadingImg('viewport', false);
-        DimpCore.showNotifications([ { type: 'horde.error', message: DIMP.text.ajax_error } ]);
+        HordeCore.notify(HordeCoreText.ajax_error, 'horde.error');
         parentfunc(r, e);
     }
 
@@ -3759,14 +3790,14 @@ document.observe('IMPDialog:onClick', function(e) {
 }.bindAsEventListener(DimpBase));
 
 /* Route AJAX responses through ViewPort. */
-DimpCore.onDoActionComplete = function(r) {
-    if (DimpBase.viewport) {
-        DimpBase.viewport.parseJSONResponse(r);
+document.observe('HordeCore:doActionComplete', function(e) {
+    if (this.viewport) {
+        this.viewport.parseJSONResponse(e.memo);
     }
-    DimpBase.mailboxCallback(r);
-    DimpBase.flagCallback(r);
-    DimpBase.pollCallback(r);
-};
+    this.mailboxCallback(e.memo);
+    this.flagCallback(e.memo);
+    this.pollCallback(e.memo);
+}.bindAsEventListener(DimpBase));
 
 /* Click handler. */
 DimpCore.clickHandler = DimpCore.clickHandler.wrap(DimpBase.clickHandler.bind(DimpBase));
@@ -3776,7 +3807,7 @@ DimpCore.contextOnClick = DimpCore.contextOnClick.wrap(DimpBase.contextOnClick.b
 DimpCore.contextOnShow = DimpCore.contextOnShow.wrap(DimpBase.contextOnShow.bind(DimpBase));
 
 /* Extend AJAX exception handling. */
-DimpCore.doActionOpts.onException = DimpCore.doActionOpts.onException.wrap(DimpBase.onAjaxException.bind(DimpBase));
+HordeCore.onException = HordeCore.onException.wrap(DimpBase.onAjaxException.bind(DimpBase));
 
 /* Initialize onload handler. */
 document.observe('dom:loaded', DimpBase.onDomLoad.bind(DimpBase));

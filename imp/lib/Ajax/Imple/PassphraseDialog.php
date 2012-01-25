@@ -172,7 +172,7 @@ class IMP_Ajax_Imple_PassphraseDialog extends Horde_Core_Ajax_Imple
             $result->error = $e->getMessage();
         }
 
-        return Horde::prepareResponse($result);
+        return new Horde_Core_Ajax_Response_Raw($result);
     }
 
     /**

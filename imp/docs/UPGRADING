@@ -81,6 +81,7 @@ your preference backend::
    dimp_splitbar
    dimp_splitbar_vert
    dimp_toggle_headers
+   dynamic_view
    sig_first
    stationery
 

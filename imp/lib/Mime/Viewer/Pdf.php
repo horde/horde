@@ -81,8 +81,8 @@ class IMP_Mime_Viewer_Pdf extends Horde_Mime_Viewer_Pdf
         $status = new IMP_Mime_Status(_("This is a thumbnail of a PDF file attachment."));
         $status->icon('mime/image.png');
 
-        switch (IMP::getViewMode()) {
-        case 'mimp':
+        switch ($GLOBALS['registry']->getView()) {
+        case Horde_Registry::VIEW_MINIMAL:
             $status->addText(Horde::link($this->getConfigParam('imp_contents')->urlView($this->_mimepart, 'view_attach')) . $this->_outputImgTag() . '</a>');
             break;
 

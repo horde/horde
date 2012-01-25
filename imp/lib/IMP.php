@@ -64,32 +64,6 @@ class IMP
     static public $uid = '';
 
     /**
-     * Returns the current view mode for IMP.
-     *
-     * @return string  Either 'dimp', 'imp', 'mimp', or 'mobile'.
-     */
-    static public function getViewMode()
-    {
-        return ($view = $GLOBALS['session']->get('imp', 'view'))
-            ? $view
-            : 'imp';
-    }
-
-    /**
-     * Determines if we should display the ajax view based on a combination of
-     * user prefs and browser capabilities.
-     *
-     * @return boolean  A boolean indicating if we should show the ajax view.
-     */
-    static public function showAjaxView()
-    {
-        global $prefs, $session;
-
-        $mode = $session->get('horde', 'mode');
-        return ($mode == 'dynamic' || ($prefs->getValue('dynamic_view') && $mode == 'auto')) && Horde::ajaxAvailable();
-    }
-
-    /**
      * Adds a contact to the user defined address book.
      *
      * @param string $newAddress  The contact's email address.
@@ -247,23 +221,23 @@ class IMP
         $uid = isset($args['uid'])
             ? $args['uid']
             : null;
-        $view = self::getViewMode();
+        $view = $GLOBALS['registry']->getView();
 
-        if ($simplejs || ($view == 'dimp')) {
+        if ($simplejs || ($view == Horde_Registry::VIEW_DYNAMIC)) {
             $args['popup'] = 1;
 
-            $url = ($view == 'dimp')
+            $url = ($view == Horde_Registry::VIEW_DYNAMIC)
                 ? 'compose-dimp.php'
                 : 'compose.php';
             $raw = true;
             $callback = array(__CLASS__, 'composeLinkSimpleCallback');
-        } elseif (($view != 'mimp') &&
+        } elseif (($view != Horde_Registry::VIEW_MINIMAL) &&
                   $GLOBALS['prefs']->getValue('compose_popup') &&
                   $GLOBALS['browser']->hasFeature('javascript')) {
             $url = 'compose.php';
             $callback = array(__CLASS__, 'composeLinkJsCallback');
         } else {
-            $url = ($view == 'mimp')
+            $url = ($view == Horde_Registry::VIEW_MINIMAL)
                 ? 'compose-mimp.php'
                 : 'compose.php';
         }

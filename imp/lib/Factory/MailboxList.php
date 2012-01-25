@@ -60,17 +60,17 @@ class IMP_Factory_MailboxList extends Horde_Core_Factory_Base
     public function create($mailbox, $indices = null)
     {
         $mbox_key = strval($mailbox);
-        $mode = IMP::getViewMode();
+        $mode = $GLOBALS['registry']->getView();
 
         if (!isset($this->_instances[$mbox_key])) {
             switch ($mode) {
-            case 'dimp':
-            case 'mobile':
+            case Horde_Registry::VIEW_DYNAMIC:
+            case Horde_Registry::VIEW_SMARTMOBILE:
                 $ob = new IMP_Mailbox_List($mailbox);
                 break;
 
-            case 'imp':
-            case 'mimp':
+            case Horde_Registry::VIEW_BASIC:
+            case Horde_Registry::VIEW_MINIMAL:
                 try {
                     $ob = $GLOBALS['session']->get('imp', self::STORAGE_KEY . $mailbox);
                 } catch (Exception $e) {
@@ -88,8 +88,8 @@ class IMP_Factory_MailboxList extends Horde_Core_Factory_Base
         }
 
         switch ($mode) {
-        case 'imp':
-        case 'mimp':
+        case Horde_Registry::VIEW_BASIC:
+        case Horde_Registry::VIEW_MINIMAL:
             /* 'checkcache' needs to be set before setIndex(). */
             $this->_instances[$mbox_key]->checkcache = is_null($indices);
             $this->_instances[$mbox_key]->setIndex($indices);
@@ -104,9 +104,9 @@ class IMP_Factory_MailboxList extends Horde_Core_Factory_Base
      */
     public function shutdown()
     {
-        switch (IMP::getViewMode()) {
-        case 'imp':
-        case 'mimp':
+        switch ($GLOBALS['registry']->getView()) {
+        case Horde_Registry::VIEW_BASIC:
+        case Horde_Registry::VIEW_MINIMAL:
             /* Cache mailbox information if viewing in standard (IMP) message
              * mode. Needed to keep navigation consistent when moving through
              * the message list, and to ensure messages aren't marked as

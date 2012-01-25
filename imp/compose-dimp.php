@@ -36,6 +36,11 @@ Horde_Registry::appInit('imp', array(
     'timezone' => true
 ));
 
+$horde_ajax = $injector->getInstance('Horde_Core_Ajax');
+$horde_ajax->init(array(
+    'app' => 'imp'
+));
+
 $vars = Horde_Variables::getDefaultVariables();
 
 /* The headers of the message. */
@@ -305,7 +310,6 @@ $scripts = array(
     array('compose-dimp.js', 'imp'),
     array('contextsensitive.js', 'horde'),
     array('md5.js', 'horde'),
-    array('popup.js', 'horde'),
     array('textarearesize.js', 'horde')
 );
 
@@ -319,7 +323,7 @@ Horde::startBuffer();
 IMP::status();
 $t->set('status', Horde::endBuffer());
 
-IMP_Dimp::header($title, $scripts);
+IMP_Dimp::init('compose', $title, $scripts);
 
 Horde::startBuffer();
 Horde::includeScriptFiles();

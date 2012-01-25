@@ -1,23 +1,26 @@
 <?php
 /**
- * Handle Horde_Core_Ajax_Imple:: requests.
+ * Handle Imple requests (Horde_Core_Ajax_Imple).
  *
  * Mandatory components:
- * 'imple'
+ *   - imple: (string) Imple name.
  *
  * Optional components:
- * 'impleApp'
- * 'sessionWrite'
- * 'post' - name of POST variable that contains any values required to be sent
- *          by POST. Format is the same as imple (/var1=value/var2=value)
+ *   - impleApp: (string) App of Imple.
+ *   - sessionWrite: (boolean) ?
+ *   - post: (string) Name of POST variable that contains any values required
+ *           to be sent by POST. Format is the same as imple
+ *           (/var1=value/var2=value)
  *
  * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Horde
  */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
@@ -29,8 +32,7 @@ if (!($path = Horde_Util::getFormData('imple'))) {
 $path = explode('/', ltrim($path, '/'));
 $impleName = array_shift($path);
 
-$args = array();
-$post = array();
+$args = $post = array();
 
 foreach ($path as $pair) {
     if (strpos($pair, '=') === false) {
@@ -82,4 +84,7 @@ $ct = empty($_SERVER['Content-Type'])
     ? (is_string($result) ? 'plain' : 'json')
     : $_SERVER['Content-Type'];
 
-Horde::sendHTTPResponse($result, $ct);
+$response = ($result instanceof Horde_Core_Ajax_Response)
+    ? $result
+    : new Horde_Core_Ajax_Response_Raw($result);
+$response->sendAndExit($ct);

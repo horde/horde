@@ -131,25 +131,25 @@ class IMP_Application extends Horde_Registry_Application
 
         $redirect = false;
 
-        switch (IMP::getViewMode()) {
-        case 'dimp':
+        switch ($GLOBALS['registry']->getView()) {
+        case Horde_Registry::VIEW_BASIC:
+            $redirect = (!empty($this->initParams['impmode']) &&
+                         ($this->initParams['impmode'] != 'imp'));
+            break;
+
+        case Horde_Registry::VIEW_DYNAMIC:
             $redirect = (!empty($this->initParams['impmode']) &&
                          ($this->initParams['impmode'] != 'dimp'));
             break;
 
-        case 'mimp':
+        case Horde_Registry::VIEW_MINIMAL:
             $redirect = (empty($this->initParams['impmode']) ||
                          ($this->initParams['impmode'] != 'mimp'));
             break;
 
-        case 'mobile':
+        case Horde_Registry::VIEW_SMARTMOBILE:
             $redirect = (!empty($this->initParams['impmode']) &&
                          ($this->initParams['impmode'] != 'mobile'));
-            break;
-
-        case 'imp':
-            $redirect = (!empty($this->initParams['impmode']) &&
-                         ($this->initParams['impmode'] != 'imp'));
             break;
         }
 
@@ -626,7 +626,10 @@ class IMP_Application extends Horde_Registry_Application
     {
         Horde::addScriptFile('mobile.js');
         require IMP_TEMPLATES . '/mobile/javascript_defs.php';
-        $response = Horde::prepareResponse(null, true);
+
+        // TODO: Needed to trigger notifications to be output by Smartmobile
+        // Status listener?
+        new Horde_Core_Ajax_Response(null, true);
 
         /* Inline script. */
         Horde::addInlineScript(
@@ -635,8 +638,7 @@ class IMP_Application extends Horde_Registry_Application
     $.mobile.page.prototype.options.backBtnText = "' . _("Back") .'";
     $.mobile.dialog.prototype.options.closeBtnText = "' . _("Close") .'";
     $.mobile.loadingMessage = "' . _("loading") . '";
-});
-window.setTimeout(function(){HordeMobile.showNotifications(' . Horde_Serialize::serialize(isset($response->msgs) ? $response->msgs : array(), Horde_Serialize::JSON) . ') }, 0);'
+});'
         );
     }
 

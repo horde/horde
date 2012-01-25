@@ -1547,7 +1547,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             $parent = null;
         }
 
-        $mailbox_page = (IMP::getViewMode() == 'mimp')
+        $mailbox_page = ($GLOBALS['registry']->getViewMode() == Horde_Registry::VIEW_MINIMAL)
             ? 'mailbox-mimp.php'
             : 'mailbox.php';
 

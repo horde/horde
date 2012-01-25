@@ -395,12 +395,12 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
             )));
             $ret[$base_id]['status'][] = $status2;
         } else {
-            switch (IMP::getViewMode()) {
-            case 'imp':
+            switch ($GLOBALS['registry']->getView()) {
+            case Horde_Registry::VIEW_BASIC:
                 $status->addText(Horde::link(IMP::selfUrl()->add(array('pgp_verify_msg' => 1))) . _("Click HERE to verify the message.") . '</a>');
                 break;
 
-            case 'dimp':
+            case Horde_Registry::VIEW_DYNAMIC:
                 $status->addText(Horde::link('#', '', 'pgpVerifyMsg') . _("Click HERE to verify the message.") . '</a>');
                 break;
             }

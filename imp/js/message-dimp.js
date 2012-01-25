@@ -110,12 +110,12 @@ var DimpMessage = {
             case 'button_deleted':
             case 'button_ham':
             case 'button_spam':
-                if (DimpCore.base.DimpBase) {
-                    DimpCore.base.focus();
+                if (HordeCore.base.DimpBase) {
+                    HordeCore.base.focus();
                     if (id == 'button_deleted') {
-                        DimpCore.base.DimpBase.deleteMsg({ uid: this.uid, mailbox: this.mbox });
+                        HordeCore.base.DimpBase.deleteMsg({ uid: this.uid, mailbox: this.mbox });
                     } else {
-                        DimpCore.base.DimpBase.reportSpam(id == 'button_spam', { uid: this.uid, mailbox: this.mbox });
+                        HordeCore.base.DimpBase.reportSpam(id == 'button_spam', { uid: this.uid, mailbox: this.mbox });
                     }
                 } else {
                     tmp = {};
@@ -161,7 +161,14 @@ var DimpMessage = {
                 break;
 
             case 'msg_view_source':
-                DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: this.uid, mailbox: this.mbox, actionID: 'view_source', id: 0 }, true), this.uid + '|' + this.mbox);
+                HordeCore.popupWindow(DIMP.conf.URI_VIEW, {
+                    actionID: 'view_source',
+                    id: 0,
+                    mailbox: this.mbox,
+                    uid: this.uid
+                }, {
+                    name: this.uid + '|' + this.mbox
+                });
                 break;
 
             case 'msg_all_parts':
@@ -193,7 +200,15 @@ var DimpMessage = {
 
             default:
                 if (elt.hasClassName('printAtc')) {
-                    DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: this.uid, mailbox: this.mbox, actionID: 'print_attach', id: elt.readAttribute('mimeid') }, true), this.uid + '|' + this.mbox + '|print', IMP_JS.printWindow);
+                    HordeCore.popupWindow(DIMP.conf.URI_VIEW, {
+                        actionID: 'print_attach',
+                        id: elt.readAttribute('mimeid'),
+                        mailbox: this.mbox,
+                        uid: this.uid
+                    }, {
+                        name: this.uid + '|' + this.mbox + '|print',
+                        onload: IMP_JS.printWindow
+                    });
                     e.stop();
                     return;
                 } else if (elt.hasClassName('stripAtc')) {
@@ -257,7 +272,6 @@ var DimpMessage = {
 
     onDomLoad: function()
     {
-        DimpCore.growler_log = false;
         DimpCore.init();
 
         if (DIMP.conf.disable_compose) {
@@ -284,15 +298,15 @@ var DimpMessage = {
             DimpCore.updateMsgLog(this.log);
         }
 
-        if (DimpCore.base.DimpBase) {
+        if (HordeCore.base.DimpBase) {
             if (this.strip) {
-                DimpCore.base.DimpBase.poll();
+                HordeCore.base.DimpBase.poll();
             } else if (this.poll) {
-                DimpCore.base.DimpBase.pollCallback({ poll: this.poll });
+                HordeCore.base.DimpBase.pollCallback({ poll: this.poll });
             }
 
             if (this.flag) {
-                DimpCore.base.DimpBase.flagCallback({ flag: this.flag });
+                HordeCore.base.DimpBase.flagCallback({ flag: this.flag });
             }
         }
 

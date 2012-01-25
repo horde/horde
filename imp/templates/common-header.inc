@@ -1,15 +1,15 @@
 <?php
 
-$imp_view = IMP::getViewMode();
+$view_mode = $GLOBALS['registry']->getView();
 
 /* Do this include here so that the generated script can be added with any
  * other scripts already added. */
-switch ($imp_view) {
-case 'dimp':
+switch ($view_mode) {
+case Horde_Registry::VIEW_DYNAMIC:
     include IMP_TEMPLATES . '/dimp/javascript_defs.php';
     break;
 
-case 'mimp':
+case Horde_Registry::VIEW_MINIMAL:
     // Nothing
     break;
 
@@ -34,8 +34,8 @@ if (!empty($title)) {
 
 Horde::outputMetaTags();
 
-switch ($imp_view) {
-case 'dimp':
+switch ($view_mode) {
+case Horde_Registry::VIEW_DYNAMIC:
     Horde::includeStylesheetFiles(array(
         'sub' => 'dimp'
     ));
@@ -46,7 +46,7 @@ case 'dimp':
     Horde::includeFavicon();
     break;
 
-case 'mimp':
+case Horde_Registry::VIEW_MINIMAL:
     Horde::includeStylesheetFiles(array(
         'nohorde' => true,
         'sub' => 'mimp',
@@ -63,7 +63,7 @@ default:
 }
 ?>
 <title><?php echo htmlspecialchars($page_title) ?></title>
-<?php if ($imp_view == 'imp'): ?>
+<?php if ($view_mode == Horde_Registry::VIEW_BASIC): ?>
 <?php if ($mailbox_url = Horde_Util::nonInputVar('mailbox_url')): ?>
 <link href="<?php echo $mailbox_url ?>" rel="Up" />
 <?php elseif (!Horde_Util::nonInputVar('login_page')): ?>

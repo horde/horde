@@ -86,7 +86,7 @@ class IMP_Ui_Compose
         $menu_view = $GLOBALS['prefs']->getValue('menu_view');
         $spell_img = '<span class="iconImg spellcheckImg"></span>';
 
-        if (IMP::getViewMode() == 'imp') {
+        if ($GLOBALS['registry']->getView() == Horde_Registry::VIEW_BASIC) {
             $br = '<br />';
             $id = 'IMP';
         } else {

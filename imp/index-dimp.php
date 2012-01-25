@@ -23,7 +23,7 @@ $render_sidebar = $dimp_menu->render();
 $dimp_menu->addJs();
 
 Horde::noDnsPrefetch();
-IMP_Dimp::header('', array(
+IMP_Dimp::init('main', '', array(
     array('dimpbase.js', 'imp'),
     array('dialog.js', 'imp'),
     array('imp.js', 'imp'),
@@ -33,7 +33,6 @@ IMP_Dimp::header('', array(
     array('contextsensitive.js', 'horde'),
     array('dragdrop2.js', 'horde'),
     array('form_ghost.js', 'horde'),
-    array('popup.js', 'horde'),
     array('redbox.js', 'horde'),
     array('slider2.js', 'horde'),
     array('toggle_quotes.js', 'horde'),

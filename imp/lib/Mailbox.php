@@ -1169,12 +1169,14 @@ class IMP_Mailbox implements Serializable
             $url = clone $page;
         } else {
             if ($page != 'search.php') {
-                if (IMP::getViewMode() == 'dimp') {
+                switch ($GLOBALS['registry']->getView()) {
+                case Horde_Registry::VIEW_DYNAMIC:
                     $anchor = is_null($uid)
                         ? ('mbox:' . $this->form_to)
                         : ('msg:' . $this->getIndicesOb($uid)->formTo());
                     return Horde::url('index.php')->setAnchor($anchor);
-                } elseif (IMP::getViewMode() == 'mobile') {
+
+                case Horde_Registry::VIEW_SMARTMOBILE:
                     $anchor = is_null($uid)
                         ? ('mbox=' . $this->form_to)
                         : ('msg=' . $this->getIndicesOb($uid)->formTo());

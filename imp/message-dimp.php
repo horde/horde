@@ -76,7 +76,10 @@ foreach (array('from', 'to', 'cc', 'bcc', 'replyTo', 'log', 'uid', 'mbox') as $v
 $ajax_queue = $injector->getInstance('IMP_Ajax_Queue');
 $ajax_queue->poll(IMP::$mailbox);
 
-foreach ($ajax_queue->generate() as $key => $val) {
+$response = new Horde_Core_Ajax_Response();
+$ajax_queue->add($response);
+
+foreach ($response as $key => $val) {
     $js_vars['DimpMessage.' . $key] = $val;
 }
 
@@ -111,8 +114,7 @@ if (!$disable_compose) {
     $scripts = array_merge($scripts, array(
         array('compose-base.js', 'imp'),
         array('compose-dimp.js', 'imp'),
-        array('md5.js', 'horde'),
-        array('popup.js', 'horde')
+        array('md5.js', 'horde')
     ));
 
     if (!($prefs->isLocked('default_encrypt')) &&
@@ -215,7 +217,7 @@ Horde::startBuffer();
 IMP::status();
 $t->set('status', Horde::endBuffer());
 
-IMP_Dimp::header($show_msg_result['title'], $scripts);
+IMP_Dimp::init('message', $show_msg_result['title'], $scripts);
 
 Horde::startBuffer();
 Horde::includeScriptFiles();

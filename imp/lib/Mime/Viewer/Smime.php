@@ -304,12 +304,12 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
                 $status->addText($e->getMessage());
             }
         } else {
-            switch (IMP::getViewMode()) {
-            case 'imp':
+            switch ($GLOBALS['registry']->getView()) {
+            case Horde_Registry::VIEW_BASIC:
                 $status->addText(Horde::link(IMP::selfUrl()->add('smime_verify_msg', 1)) . _("Click HERE to verify the data.") . '</a>');
                 break;
 
-            case 'dimp':
+            case Horde_Registry::VIEW_DYNAMIC:
                 $status->addText(Horde::link('#', '', 'smimeVerifyMsg') . _("Click HERE to verify the data.") . '</a>');
                 break;
             }

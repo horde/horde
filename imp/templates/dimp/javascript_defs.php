@@ -51,8 +51,6 @@ try {
 /* Variables used in core javascript files. */
 $code['conf'] = array_filter(array(
     // URL variables
-    'URI_AJAX' => Horde::getServiceLink('ajax', 'imp')->url,
-    'URI_SNOOZE' => (string)Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/snooze.php', true, -1),
     'URI_COMPOSE' => strval(Horde::url('compose-dimp.php')->setRaw(true)->add('ajaxui', 1)),
     'URI_DIMP' => strval(Horde::url('index-dimp.php')),
     'URI_MESSAGE' => strval(Horde::url('message-dimp.php')->setRaw(true)->add('ajaxui', 1)),
@@ -64,8 +62,6 @@ $code['conf'] = array_filter(array(
     'FLAG_DELETED' => Horde_Imap_Client::FLAG_DELETED,
     'FLAG_DRAFT' => Horde_Imap_Client::FLAG_DRAFT,
     'FLAG_SEEN' => Horde_Imap_Client::FLAG_SEEN,
-
-    'SESSION_ID' => defined('SID') ? SID : '',
 
     // Other variables
     'acl' => $acl,
@@ -87,19 +83,9 @@ $code['conf'] = array_filter(array(
     'name' => $GLOBALS['registry']->get('name', 'imp'),
     'poll_alter' => intval(!$GLOBALS['prefs']->isLocked('nav_poll') && !$GLOBALS['prefs']->getValue('nav_poll_all')),
     'pop3' => intval($GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->pop3),
-    'popup_height' => 610,
-    'popup_width' => 820,
     'qsearchid' => IMP_Mailbox::formTo(IMP_Search::MBOX_PREFIX . IMP_Search::DIMP_QUICKSEARCH),
     'refresh_time' => intval($GLOBALS['prefs']->getValue('refresh_time')),
     'sidebar_width' => max(intval($GLOBALS['prefs']->getValue('sidebar_width')), 150),
-    'snooze' => array(
-        '0' => _("select..."),
-        '5' => _("5 minutes"),
-        '15' => _("15 minutes"),
-        '60' => _("1 hour"),
-        '360' => _("6 hours"),
-        '1440' => _("1 day")
-    ),
     'sort' => array(
         'from' => array(
             'c' => 'msgFrom',
@@ -141,9 +127,6 @@ $code['conf'] = array_filter(array(
 
 /* Gettext strings used in core javascript files. */
 $code['text'] = array(
-    'ajax_error' => _("Error when communicating with the server."),
-    'ajax_recover' => _("The connection to the server has been restored."),
-    'ajax_timeout' => _("There has been no contact with the server for several minutes. The server may be temporarily unavailable or network problems may be interrupting your session. You will not see any updates until the connection is restored."),
     'allparts_label' => _("All Message Parts"),
     'badaddr' => _("Invalid Address"),
     'badsubject' => _("Invalid Subject"),
@@ -156,7 +139,6 @@ $code['text'] = array(
     'delete_folder' => _("Permanently delete %s?"),
     'download_folder' => _("All messages in this mailbox will be downloaded into one MBOX file. This may take some time. Are you sure you want to continue?"),
     'empty_folder' => _("Permanently delete all %d messages in %s?"),
-    'growlerinfo' => _("This is the notification log"),
     'hidealog' => Horde::highlightAccessKey(_("Hide Alerts _Log"), Horde::getAccessKey(_("Alerts _Log"), true)),
     'import_mbox' => _("Mbox or .eml file:"),
     'listmsg_wait' => _("The server is still generating the message list."),
@@ -166,17 +148,14 @@ $code['text'] = array(
     'messages' => _("Messages"),
     'messagetitle' => _("%d - %d of %d Messages"),
     'moveto' => _("Move %s to %s"),
-    'noalerts' => _("No Alerts"),
     'nomessages' => _("No Messages"),
     'ok' => _("Ok"),
     'onlogout' => _("Logging Out..."),
-    'popup_block' => _("A popup window could not be opened. Your browser may be blocking popups."),
     'portal' => _("Portal"),
     'prefs' => _("User Options"),
     'rename_prompt' => _("Rename %s to:"),
     'search' => _("Search"),
     'selected' => _("selected"),
-    'snooze' => sprintf(_("You can snooze it for %s or %s dismiss %s it entirely"), '#{time}', '#{dismiss_start}', '#{dismiss_end}'),
     'verify' => _("Verifying..."),
     'vfolder' => _("Virtual Folder: %s"),
     'vp_empty' => _("There are no messages in this mailbox."),

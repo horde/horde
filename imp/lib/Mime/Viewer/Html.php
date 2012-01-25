@@ -59,8 +59,8 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
     {
         $data = $this->_IMPrender(true);
 
-        switch (IMP::getViewMode()) {
-        case 'mimp':
+        switch ($GLOBALS['registry']->getView()) {
+        case Horde_Registry::VIEW_MINIMAL:
             $data['status'] = new IMP_Mime_Status(array(
                 _("This message part contains HTML data, but this data can not be displayed inline."),
                 $this->getConfigParam('imp_contents')->linkView($this->_mimepart, 'view_attach', _("View HTML data in new window."))
@@ -124,7 +124,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
         /* Don't do IMP DOM processing if in mimp mode or converting to
          * text. */
-        $convert_text = (IMP::getViewMode() == 'mimp') ||
+        $convert_text = ($GLOBALS['registry']->getView() == Horde_Registry::VIEW_MINIMAL) ||
                         Horde_Util::getFormData('convert_text');
         if (!$inline || $convert_text) {
             $this->_imptmp = null;
@@ -174,7 +174,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
         /* Sanitize the HTML. */
         $data = $this->_cleanHTML($data, array(
-            'noprefetch' => ($inline && (IMP::getViewMode() != 'mimp')),
+            'noprefetch' => ($inline && ($GLOBALS['registry']->getView() != Horde_Registry::VIEW_MINIMAL)),
             'phishing' => $inline
         ));
 

@@ -45,26 +45,29 @@ class IMP_Dimp
     }
 
     /**
-     * Output everything up to, and including, the <body> tag.
+     * Initialize the JS browser environment and output everything up to, and
+     * including, the <body> tag.
      *
+     * @param string $page    The dimp page.
      * @param string $title   The title of the page.
      * @param array $scripts  Any additional scripts that need to be loaded.
      *                        Each entry contains the three elements necessary
      *                        for a Horde::addScriptFile() call.
      */
-    static public function header($title, $scripts = array())
+    static public function init($page, $title, $scripts = array())
     {
+        $GLOBALS['injector']->getInstance('Horde_Core_Ajax')->init(array(
+            'app' => 'imp',
+            'growler_log' => ($page == 'main')
+        ));
+
         // Need to include script files before we start output
         $core_scripts = array(
-            array('effects.js', 'horde'),
-            array('sound.js', 'horde'),
-            array('horde.js', 'horde'),
             array('dimpcore.js', 'imp'),
-            array('indices.js', 'imp'),
-            array('growler.js', 'horde')
+            array('indices.js', 'imp')
         );
         foreach (array_merge($core_scripts, $scripts) as $val) {
-            call_user_func_array(array('Horde', 'addScriptFile'), $val);
+            Horde::addScriptFile($val[0], $val[1]);
         }
 
         $page_title = $GLOBALS['registry']->get('name');

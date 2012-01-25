@@ -28,15 +28,12 @@ foreach ($GLOBALS['injector']->getInstance('IMP_Flags')->getList() as $val) {
 /* Variables used in core javascript files. */
 $code['conf'] = array_filter(array(
     // URL variables
-    'URI_AJAX' => Horde::getServiceLink('ajax', 'imp')->url,
     'URI_COMPOSE' => strval(Horde::url('compose-dimp.php')->setRaw(true)->add('ajaxui', 1)),
     'URI_DIMP' => strval(Horde::url('index-dimp.php')),
     'URI_MESSAGE' => strval(Horde::url('message-dimp.php')->setRaw(true)->add('ajaxui', 1)),
     'URI_PREFS_IMP' => strval(Horde::getServiceLink('prefs', 'imp')->setRaw(true)->add('ajaxui', 1)),
     'URI_SEARCH' => strval(Horde::url('search.php')),
     'URI_VIEW' => strval(Horde::url('view.php')),
-
-    'SESSION_ID' => defined('SID') ? SID : '',
 
     // Other variables
     'allow_folders' => $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS),

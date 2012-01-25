@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2012-01-25</date>
- <time>22:33:19</time>
+ <time>23:21:13</time>
  <version>
   <release>5.1.0</release>
   <api>5.0.0</api>
@@ -235,10 +235,7 @@
        <file name="NewmailNotify.php" role="horde" />
       </dir> <!-- /lib/Notification/Handler/Decorator -->
      </dir> <!-- /lib/Notification/Handler -->
-     <dir name="Listener">
-      <file name="AjaxStatus.php" role="horde" />
-     </dir> <!-- /lib/Notification/Listener -->
-    </dir> <!-- /lib/Notification -->
+     </dir> <!-- /lib/Notification -->
     <dir name="Prefs">
      <dir name="Sort">
       <file name="Sortpref.php" role="horde" />
@@ -895,7 +892,6 @@
       <file name="info_icon.png" role="horde" />
       <file name="key_down.png" role="horde" />
       <file name="key_up.png" role="horde" />
-      <file name="loading.gif" role="horde" />
       <file name="locked.png" role="horde" />
       <file name="logo.png" role="horde" />
       <file name="logout.png" role="horde" />
@@ -1134,7 +1130,7 @@
    <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
-    <min>4.0.0</min>
+    <min>4.1.0</min>
     <max>5.0.0</max>
     <exclude>5.0.0</exclude>
    </package>
@@ -1546,7 +1542,6 @@
    <install as="imp/lib/Notification/Event/Status.php" name="lib/Notification/Event/Status.php" />
    <install as="imp/lib/Notification/Handler/Decorator/ImapAlerts.php" name="lib/Notification/Handler/Decorator/ImapAlerts.php" />
    <install as="imp/lib/Notification/Handler/Decorator/NewmailNotify.php" name="lib/Notification/Handler/Decorator/NewmailNotify.php" />
-   <install as="imp/lib/Notification/Listener/AjaxStatus.php" name="lib/Notification/Listener/AjaxStatus.php" />
    <install as="imp/lib/Prefs/Identity.php" name="lib/Prefs/Identity.php" />
    <install as="imp/lib/Prefs/Sort.php" name="lib/Prefs/Sort.php" />
    <install as="imp/lib/Prefs/Ui.php" name="lib/Prefs/Ui.php" />
@@ -1872,7 +1867,6 @@
    <install as="imp/themes/default/graphics/info_icon.png" name="themes/default/graphics/info_icon.png" />
    <install as="imp/themes/default/graphics/key_down.png" name="themes/default/graphics/key_down.png" />
    <install as="imp/themes/default/graphics/key_up.png" name="themes/default/graphics/key_up.png" />
-   <install as="imp/themes/default/graphics/loading.gif" name="themes/default/graphics/loading.gif" />
    <install as="imp/themes/default/graphics/locked.png" name="themes/default/graphics/locked.png" />
    <install as="imp/themes/default/graphics/logo.png" name="themes/default/graphics/logo.png" />
    <install as="imp/themes/default/graphics/logout.png" name="themes/default/graphics/logout.png" />

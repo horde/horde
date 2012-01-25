@@ -18,8 +18,8 @@ Horde_Registry::appInit('imp', array(
     'impmode' => 'imp'
 ));
 
-/* This is an IMP-only script. */
-if (IMP::getViewMode() != 'imp') {
+/* This is a basic-view only script. */
+if ($registry->getView() != Horde_Registry::VIEW_BASIC) {
     exit;
 }
 

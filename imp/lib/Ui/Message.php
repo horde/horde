@@ -315,7 +315,7 @@ class IMP_Ui_Message
 
         $add_link = null;
         $addr_array = array();
-        $mimp_view = IMP::getViewMode() == 'mimp';
+        $mimp_view = ($registry->getView() == Horde_Registry::VIEW_MINIMAL);
 
         /* Set up the add address icon link if contact manager is
          * available. */
@@ -384,7 +384,7 @@ class IMP_Ui_Message
             }
         }
 
-        if (IMP::getViewMode() == 'mimp') {
+        if ($mimp_view) {
             return implode(', ', $addr_array);
         }
 

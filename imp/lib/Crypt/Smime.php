@@ -515,7 +515,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
 
         /* Need to use regular status notification - AJAX notifications won't
          * show in popup windows. */
-        if (IMP::getViewMode() == 'dimp') {
+        if ($GLOBALS['registry']->getView() == Horde_Registry::VIEW_DYNAMIC) {
             $GLOBALS['notification']->detach('status');
             $GLOBALS['notification']->attach('status');
         }
