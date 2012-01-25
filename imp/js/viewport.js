@@ -607,7 +607,7 @@ var ViewPort = Class.create({
 
     _fetchBufferDo: function(opts)
     {
-        var llist, lrows, rlist, tmp, type, value,
+        var llist, lrows, rlist, tmp, value,
             view = (opts.view || this.view),
             b = this._getBuffer(view),
             params = $H(opts.params),
@@ -622,10 +622,7 @@ var ViewPort = Class.create({
 
         // Determine if we are querying via offset or a search query
         if (opts.search || opts.initial || opts.purge) {
-            /* If this is an initial request, 'type' will be set correctly
-             * further down in the code. */
             if (opts.search) {
-                type = 'search';
                 value = opts.search;
                 params.set('search', Object.toJSON(value));
             }
@@ -647,7 +644,6 @@ var ViewPort = Class.create({
         }
 
         if (!opts.search) {
-            type = 'rownum';
             value = opts.offset + 1;
 
             // llist: keys - request_ids; vals - loading rownums
