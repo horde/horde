@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Use separate database connection for SQL session handler (Bug #10906).
 * [mms] Fix parsing DB config when using splitread database setup.
  </notes>
  <contents>
@@ -1708,6 +1709,7 @@
    <date>2011-12-23</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Use separate database connection for SQL session handler (Bug #10906).
 * [mms] Fix parsing DB config when using splitread database setup.
    </notes>
   </release>
