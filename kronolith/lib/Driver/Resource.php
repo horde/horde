@@ -129,7 +129,7 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
             $members = $rg->get('members');
             unset($members[array_search($resource->getId(), $members)]);
             $rg->set('members', $members);
-            $this->save($rg);
+            $rg->save();
         }
 
         $query = 'DELETE FROM ' . $this->_params['table'] . ' WHERE calendar_id = ?';
