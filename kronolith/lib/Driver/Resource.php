@@ -122,6 +122,16 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
             throw new Kronolith_Exception(_("Resource not valid."));
         }
 
+        // Get group memberships and remove from group.
+        $groups = $this->getGroupMemberships($resource->getId());
+        foreach ($groups as $id) {
+            $rg = $this->getResource($id);
+            $members = $rg->get('members');
+            unset($members[array_search($resource->getId(), $members)]);
+            $rg->set('members', $members);
+            $this->save($rg);
+        }
+
         $query = 'DELETE FROM ' . $this->_params['table'] . ' WHERE calendar_id = ?';
         try {
             $this->_db->delete($query, array($resource->get('calendar')));
