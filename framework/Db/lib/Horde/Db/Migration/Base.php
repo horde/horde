@@ -71,11 +71,11 @@ class Horde_Db_Migration_Base
             if (is_array($arg)) {
                 $vals = array();
                 foreach ($arg as $key => $value) {
-                    $vals[] = "$key => " . var_export($value, true);
+                    $vals[] = var_export($key, true) . ' => ' . var_export($value, true);
                 }
                 $a[] = 'array(' . implode(', ', $vals) . ')';
             } else {
-                $a[] = $arg;
+                $a[] = var_export($arg, true);
             }
         }
         $this->say("$method(" . implode(", ", $a) . ")");
