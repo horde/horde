@@ -109,6 +109,7 @@ class Horde_SessionHandler_Storage_Sql extends Horde_SessionHandler_Storage
     {
         if (!$this->_db->isActive()) {
             $this->_db->reconnect();
+            $this->_db->beginDbTransaction();
         }
 
         /* Check if session exists. */
