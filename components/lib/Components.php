@@ -66,7 +66,7 @@ class Components
 
         try {
             $ran = false;
-            foreach ($modular->getModules() as $module) {
+            foreach (clone $modular->getModules() as $module) {
                 $ran |= $modular->getProvider()->getModule($module)->handle($config);
             }
         } catch (Components_Exception $e) {
