@@ -60,16 +60,18 @@ class Kronolith
      */
     static public function header()
     {
+        $GLOBALS['injector']->getInstance('Horde_Core_Ajax')->init(array(
+            'app' => 'kronolith',
+            'growler_log' => true
+        ));
+
         // Need to include script files before we start output
         $datejs = str_replace('_', '-', $GLOBALS['language']) . '.js';
         if (!file_exists($GLOBALS['registry']->get('jsfs', 'horde') . '/date/' . $datejs)) {
             $datejs = 'en-US.js';
         }
-        Horde::addScriptFile('effects.js', 'horde');
-        Horde::addScriptFile('sound.js', 'horde');
-        Horde::addScriptFile('horde.js', 'horde');
+
         Horde::addScriptFile('dragdrop2.js', 'kronolith');
-        Horde::addScriptFile('growler.js', 'horde');
         Horde::addScriptFile('redbox.js', 'horde');
         Horde::addScriptFile('tooltips.js', 'horde');
         Horde::addScriptFile('colorpicker.js', 'horde');
@@ -128,11 +130,8 @@ class Kronolith
 
         /* Variables used in core javascript files. */
         $code['conf'] = array(
-            'URI_AJAX' => (string)Horde::getServiceLink('ajax', 'kronolith'),
-            'URI_SNOOZE' => (string)Horde::url($registry->get('webroot', 'horde') . '/services/snooze.php', true, -1),
             'URI_CALENDAR_EXPORT' => (string)Horde::url('data.php', true)->add(array('actionID' => 'export', 'all_events' => 1, 'exportID' => Horde_Data::EXPORT_ICALENDAR, 'exportCal' => 'internal_')),
             'URI_EVENT_EXPORT' => str_replace(array('%23', '%7B', '%7D'), array('#', '{', '}'), Horde::url('event.php', true)->add(array('view' => 'ExportEvent', 'eventID' => '#{id}', 'calendar' => '#{calendar}', 'type' => '#{type}'))),
-            'SESSION_ID' => defined('SID') ? SID : '',
             'images' => array(
                 'attendees' => (string)Horde_Themes::img('attendees-fff.png'),
                 'alarm'     => (string)Horde_Themes::img('alarm-fff.png'),
@@ -147,7 +146,6 @@ class Kronolith
             'use_iframe' => !empty($GLOBALS['conf']['menu']['apps_iframe']),
             'name' => $registry->get('name'),
             'has_tasks' => (bool)$has_tasks,
-            'is_ie6' => ($GLOBALS['browser']->isBrowser('msie') && ($GLOBALS['browser']->getMajor() < 7)),
             'login_view' => $prefs->getValue('defaultview') == 'workweek' ? 'week' : $prefs->getValue('defaultview'),
             'default_calendar' => 'internal|' . self::getDefaultCalendar(Horde_Perms::EDIT),
             'week_start' => (int)$prefs->getValue('week_start_monday'),
@@ -175,13 +173,7 @@ class Kronolith
                              'read' => Horde_Perms::READ,
                              'edit' => Horde_Perms::EDIT,
                              'delete' => Horde_Perms::DELETE,
-                             'delegate' => self::PERMS_DELEGATE),
-            'snooze' => array('0' => _("select..."),
-                              '5' => _("5 minutes"),
-                              '15' => _("15 minutes"),
-                              '60' => _("1 hour"),
-                              '360' => _("6 hours"),
-                              '1440' => _("1 day")),
+                             'delegate' => self::PERMS_DELEGATE)
         );
         if (!empty($GLOBALS['conf']['logo']['link'])) {
             $code['conf']['URI_HOME'] = $GLOBALS['conf']['logo']['link'];
@@ -251,15 +243,9 @@ class Kronolith
 
         /* Gettext strings used in core javascript files. */
         $code['text'] = array(
-            'ajax_error' => _("Error when communicating with the server."),
-            'ajax_timeout' => _("There has been no contact with the server for several minutes. The server may be temporarily unavailable or network problems may be interrupting your session. You will not see any updates until the connection is restored."),
-            'ajax_recover' => _("The connection to the server has been restored."),
             'alarm' => _("Alarm:"),
-            'snooze' => sprintf(_("You can snooze it for %s or %s dismiss %s it entirely"), '#{time}', '#{dismiss_start}', '#{dismiss_end}'),
-            'noalerts' => _("No Notifications"),
-            'alerts' => sprintf(_("%s notifications"), '#{count}'),
+            'alerts' => _("Notifications"),
             'hidelog' => _("Hide Notifications"),
-            'growlerinfo' => _("This is the notification backlog"),
             'agenda' => _("Agenda"),
             'tasks' => _("Tasks"),
             'searching' => sprintf(_("Events matching \"%s\""), '#{term}'),
@@ -3181,19 +3167,6 @@ class Kronolith
             $css = ' style="' . $css . '"';
         }
         return $css;
-    }
-
-    /**
-     * Returns whether to display the ajax view.
-     *
-     * return boolean  True if the ajax view should be displayed.
-     */
-    static public function showAjaxView()
-    {
-        global $prefs, $session;
-
-        $mode = $session->get('horde', 'mode');
-        return ($mode == 'dynamic' || ($prefs->getValue('dynamic_view') && $mode == 'auto')) && Horde::ajaxAvailable();
     }
 
     /**

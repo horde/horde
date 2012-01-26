@@ -10,7 +10,10 @@ function sbarToggle()
         body.addClassName('rightPanel');
     }
 
-    new Ajax.Request(KronolithVar.URI_AJAX + 'setPrefValue', { parameters: { pref: 'show_panel', value: pref_value } });
+    HordeCore.doAction('setPrefValue', {
+        pref: 'show_panel'
+        value: pref_value
+    });
 }
 
 document.observe('dom:loaded', function() {
