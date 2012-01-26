@@ -21,6 +21,11 @@ var ImpMobile = {
     // readOnly,
     //
     // /**
+    //  * The number of messages in the current mailbox.
+    //  */
+    // totalrows,
+    //
+    // /**
     //  * UID of the currently displayed message.
     //  */
     // uid,
@@ -238,10 +243,11 @@ var ImpMobile = {
     {
         var list = $('#imp-mailbox-list'), c, l, url;
         if (r && r.ViewPort) {
-            ImpMobile.mailbox  = r.ViewPort.view;
-            ImpMobile.data     = r.ViewPort.data;
-            ImpMobile.messages = r.ViewPort.rowlist;
-            ImpMobile.readOnly = r.ViewPort.metadata.readonly;
+            ImpMobile.mailbox   = r.ViewPort.view;
+            ImpMobile.totalrows = r.ViewPort.totalrows;
+            ImpMobile.data      = r.ViewPort.data;
+            ImpMobile.messages  = r.ViewPort.rowlist;
+            ImpMobile.readOnly  = r.ViewPort.metadata.readonly;
             if (r.ViewPort.metadata.slabel) {
                 document.title = r.ViewPort.metadata.slabel;
                 $('#imp-mailbox-header').text(r.ViewPort.metadata.slabel);
@@ -403,8 +409,13 @@ var ImpMobile = {
             if (typeof dir == 'object') {
                 dir = dir.type == 'swipeleft' ? 1 : -1;
             }
-            $.mobile.changePage('#mailbox?mbox=' + ImpMobile.mailbox
-                                + '&from=' + (ImpMobile.from + dir * 25));
+            var page = Math.min(Math.max(ImpMobile.from,
+                                         ImpMobile.totalrows - 24),
+                                Math.max(1, ImpMobile.from + dir * 25));
+            if (page != ImpMobile.from) {
+                $.mobile.changePage('#mailbox?mbox=' + ImpMobile.mailbox
+                                    + '&from=' + page);
+            }
             break;
         }
     },
