@@ -780,7 +780,6 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
 
         switch ($this->_vars->type) {
         case 'internal':
-            $tagger = Kronolith::getTagger();
             $info = array();
             foreach (array('name', 'color', 'description', 'tags') as $key) {
                 $info[$key] = $this->_vars->$key;
@@ -795,7 +794,6 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
                 try {
                     $calendar = Kronolith::addShare($info);
                     Kronolith::readPermsForm($calendar);
-                    $tagger->tag($result->calendar, $this->_vars->tags, $calendar->get('owner'), 'calendar');
                     if ($calendar->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::SHOW)) {
                         $wrapper = new Kronolith_Calendar_Internal(array('share' => $calendar));
                         $result->saved = true;
@@ -825,7 +823,6 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
                     $result->saved = true;
                     $result->calendar = $wrapper->toHash();
                 }
-                $tagger->replaceTags($calendar->getName(), $this->_vars->tags, $calendar->get('owner'), 'calendar');
             } catch (Exception $e) {
                 $GLOBALS['notification']->push($e, 'horde.error');
                 return $result;
