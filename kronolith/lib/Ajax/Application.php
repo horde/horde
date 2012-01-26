@@ -927,6 +927,36 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
             $result->saved = true;
             $result->calendar = $wrapper->toHash();
             break;
+
+       case 'resource':
+            if (!$GLOBALS['registry']->isAdmin()) {
+                return;
+            }
+            foreach (array('name', 'description', 'response_type') as $key) {
+                $info[$key] = $this->_vars->$key;
+            }
+
+            if (!$calendar_id) {
+                // New resource
+                // @TODO: Groups.
+                $resource = Kronolith_Resource::addResource(new Kronolith_Resource_Single($info));
+            } else {
+                try {
+                    $rdriver = Kronolith::getDriver('Resource');
+                    $resource = $rdriver->getResource($rdriver->getResourceIdByCalendar($calendar_id));
+                    foreach (array('name', 'description', 'response_type', 'email') as $key) {
+                        $resource->set($key, $this->_vars->$key);
+                    }
+                    $resource->save();
+                } catch (Kronolith_Exception $e) {
+                    $GLOBALS['notification']->push($e->getMessage(), 'horde.error');
+                    return $result;
+                }
+            }
+             $wrapper = new Kronolith_Calendar_Resource(array('resource' => $resource));
+             $result->calendar = $wrapper->toHash();
+             $result->saved = true;
+             $result->id = $resource->get('calendar');
         }
 
         return $result;
