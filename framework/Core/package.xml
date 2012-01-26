@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Fix issue with autocompletion that would cause it to fail in certain circumstances (Bug #10904).
 * [mms] Remove trailing semicolon when replacing @import statements.
 * [mjr] Fix issue that could cause failure of ActiveSync due to incorrect packing of binary data.
 * [jan] Use separate database connection for SQL session handler (Bug #10906).
@@ -1711,6 +1712,7 @@
    <date>2011-12-23</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Fix issue with autocompletion that would cause it to fail in certain circumstances (Bug #10904).
 * [mms] Remove trailing semicolon when replacing @import statements.
 * [mjr] Fix issue that could cause failure of ActiveSync due to incorrect packing of binary data.
 * [jan] Use separate database connection for SQL session handler (Bug #10906).
