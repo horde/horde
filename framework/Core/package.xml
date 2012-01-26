@@ -40,11 +40,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Fix issue with autocompletion that would cause it to fail in certain circumstances (Bug #10904).
-* [mms] Remove trailing semicolon when replacing @import statements.
-* [mjr] Fix issue that could cause failure of ActiveSync due to incorrect packing of binary data.
-* [jan] Use separate database connection for SQL session handler (Bug #10906).
-* [mms] Fix parsing DB config when using splitread database setup.
+* [mjr] Allow restricting pretty autocompleter to available choices.
+* [mms] Add language detection to AJAX spellchecker if no language is selected by the user (Request #7137).
+* [mms] Add Horde_Core_Block_Layout_View::getStylesheets().
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
