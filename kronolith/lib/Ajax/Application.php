@@ -929,9 +929,6 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
             break;
 
        case 'resource':
-            if (!$GLOBALS['registry']->isAdmin()) {
-                return;
-            }
             foreach (array('name', 'description', 'response_type') as $key) {
                 $info[$key] = $this->_vars->$key;
             }
@@ -939,11 +936,19 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
             if (!$calendar_id) {
                 // New resource
                 // @TODO: Groups.
+                if (!$GLOBALS['registry']->isAdmin()) {
+                    $GLOBALS['notification']->push(_("You are not allowed to create new resources."), 'horde.error');
+                    return $result;
+                }
                 $resource = Kronolith_Resource::addResource(new Kronolith_Resource_Single($info));
             } else {
                 try {
                     $rdriver = Kronolith::getDriver('Resource');
                     $resource = $rdriver->getResource($rdriver->getResourceIdByCalendar($calendar_id));
+                    if (!($resource->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT))) {
+                        $GLOBALS['notification']->push(_("You are not allowed to edit this resource."), 'horde.error');
+                        return $result;
+                    }
                     foreach (array('name', 'description', 'response_type', 'email') as $key) {
                         $resource->set($key, $this->_vars->$key);
                     }
