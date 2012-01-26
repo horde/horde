@@ -366,6 +366,15 @@ if ($browser->isMobile() &&
         );
     }
 
+    /* Show notifications. */
+    $response = Horde::prepareResponse(null, true);
+    if (!empty($response->msgs)) {
+        Horde::addInlineScript(
+            'window.setTimeout(function(){HordeMobile.showNotifications('
+            . Horde_Serialize::serialize($response->msgs, Horde_Serialize::JSON)
+            . ');},0);');
+    }
+
     require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
     require $registry->get('templates', 'horde') . '/login/mobile.inc';
     require $registry->get('templates', 'horde') . '/common-footer-mobile.inc';
