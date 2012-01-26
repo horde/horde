@@ -1214,6 +1214,12 @@ KronolithCore = {
             }, this);
         }
 
+        if (Kronolith.conf.calendars.resource) {
+            $H(Kronolith.conf.calendars.resource).each(function(cal) {
+               this.insertCalendarInList('resource', cal.key, cal.value);
+            }, this);
+        }
+
         $H(Kronolith.conf.calendars.external).each(function(cal) {
             var parts = cal.key.split('/'), api = parts.shift();
             if (!ext.get(api)) {
@@ -1257,6 +1263,8 @@ KronolithCore = {
             return personal
                 ? $('kronolithMyCalendars')
                 : $('kronolithSharedCalendars');
+        case 'resource':
+            return $('kronolithResourceCalendars');
         case 'tasklists':
             return personal
                 ? $('kronolithMyTasklists')
