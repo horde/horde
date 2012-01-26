@@ -1018,8 +1018,24 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
             }
             $GLOBALS['notification']->push(sprintf(_("You have been unsubscribed from \"%s\" (%s)."), $deleted['name'], $deleted['url']), 'horde.success');
             break;
-        }
 
+        case 'resource':
+            try {
+                $rdriver = Kronolith::getDriver('Resource');
+                $resource = $rdriver->getResource($rdriver->getResourceIdByCalendar($calendar_id));
+                if (!($resource->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE))) {
+                    $GLOBALS['notification']->push(_("You are not allowed to delete this resource."), 'horde.error');
+                    return $result;
+                }
+                $name = $resource->get('name');
+                $rdriver->delete($resource);
+            } catch (Kronolith_Exception $e) {
+                $GLOBALS['notification']->push($e->getMessage(), 'horde.error');
+                return $result;
+            }
+
+            $GLOBALS['notification']->push(sprintf(_("The resource \"%s\" has been deleted."), $name), 'horde.success');
+        }
         $result->deleted = true;
 
         return $result;
