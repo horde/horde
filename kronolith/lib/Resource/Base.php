@@ -174,6 +174,11 @@ abstract class Kronolith_Resource_Base
         }
     }
 
+    public function toJson()
+    {
+        return $this->_params;
+    }
+
     /**
      * Determine if event is free for specified time
      *
