@@ -34,32 +34,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Add basic search to smartphone view.
-* [jan] Add resume and &quot;edit as new&quot; to smartphone view.
-* [mms] Hide deleted now works with threaded mailboxes.
-* [mms] Threaded sorts now work in all search mailboxes (Request #9700).
-* [mms] Improved threading performance.
-* [mms] Improved date searching to search by range.
-* [mms] Added 'mbox_sort' hook.
-* [mms] Make mailbox columns the same order in traditional view as in dynamic view.
-* [jan] Add mailbox paging to smartphone view.
-* [jan] Add copy and move to smartphone view.
-* [jan] Add deleting messages to smartphone view.
-* [jan] Add reply, forward and redirect to smartphone view.
-* [jan] Add compose functionality to smartphone view.
-* [mms] Accurately track changes to virtual folders in dynamic folder tree (Bug #10886).
-* [mms] Traditional mode now requires javascript on the browser.
-* [mms] Added 'mbox_special' hook (Request #10801; rsalmon@mbpgroup.com).
-* [mms] Converted stationery to the Templates special mailbox (Request #9296).
-* [mms] Hide inactive buttons in dynamic view instead of dimming them.
-* [mms] Added config option to limit size of messages with linked attachments (Request #6247).
-* [mms] Allow expiration date to be provided when creating personal PGP key (Request #5754).
-* [mms] Always use Horde default for sending charset unless reply_charset preference is active.
-* [mms] Add ability to view all message parts in dynamic view (Request #9827).
-* [mms] Remove signature from compose UI; signature is now added automatically when sending (Request #10487).
-* [mms] Fix accessing mailboxes containing ampersands (Bug #10093).
-* [mms] Size of sidebar now saved in dynamic view
-* [mms] Browser-specific UI elements in dynamic view now saved in browser storage (Ticket #10723).
+* [mms] Fix purging moved messages from dynamic mailbox view if deleted messages are visible in the mailbox (Bug #10916).
+* [mms] Fix message advancing when deleting messages in traditional view when deleted messages are visible in the mailbox.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
