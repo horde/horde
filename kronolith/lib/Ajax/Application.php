@@ -962,6 +962,7 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
              $result->calendar = $wrapper->toHash();
              $result->saved = true;
              $result->id = $resource->get('calendar');
+             $GLOBALS['notification']->push(sprintf(_("The resource \"%s\" has been saved."), $resource->get('name'), 'horde.success'));
         }
 
         return $result;
