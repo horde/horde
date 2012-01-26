@@ -927,6 +927,42 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
             $result->saved = true;
             $result->calendar = $wrapper->toHash();
             break;
+
+       case 'resource':
+            foreach (array('name', 'description', 'response_type') as $key) {
+                $info[$key] = $this->_vars->$key;
+            }
+
+            if (!$calendar_id) {
+                // New resource
+                // @TODO: Groups.
+                if (!$GLOBALS['registry']->isAdmin()) {
+                    $GLOBALS['notification']->push(_("You are not allowed to create new resources."), 'horde.error');
+                    return $result;
+                }
+                $resource = Kronolith_Resource::addResource(new Kronolith_Resource_Single($info));
+            } else {
+                try {
+                    $rdriver = Kronolith::getDriver('Resource');
+                    $resource = $rdriver->getResource($rdriver->getResourceIdByCalendar($calendar_id));
+                    if (!($resource->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT))) {
+                        $GLOBALS['notification']->push(_("You are not allowed to edit this resource."), 'horde.error');
+                        return $result;
+                    }
+                    foreach (array('name', 'description', 'response_type', 'email') as $key) {
+                        $resource->set($key, $this->_vars->$key);
+                    }
+                    $resource->save();
+                } catch (Kronolith_Exception $e) {
+                    $GLOBALS['notification']->push($e->getMessage(), 'horde.error');
+                    return $result;
+                }
+            }
+             $wrapper = new Kronolith_Calendar_Resource(array('resource' => $resource));
+             $result->calendar = $wrapper->toHash();
+             $result->saved = true;
+             $result->id = $resource->get('calendar');
+             $GLOBALS['notification']->push(sprintf(_("The resource \"%s\" has been saved."), $resource->get('name'), 'horde.success'));
         }
 
         return $result;
@@ -982,8 +1018,24 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
             }
             $GLOBALS['notification']->push(sprintf(_("You have been unsubscribed from \"%s\" (%s)."), $deleted['name'], $deleted['url']), 'horde.success');
             break;
-        }
 
+        case 'resource':
+            try {
+                $rdriver = Kronolith::getDriver('Resource');
+                $resource = $rdriver->getResource($rdriver->getResourceIdByCalendar($calendar_id));
+                if (!($resource->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE))) {
+                    $GLOBALS['notification']->push(_("You are not allowed to delete this resource."), 'horde.error');
+                    return $result;
+                }
+                $name = $resource->get('name');
+                $rdriver->delete($resource);
+            } catch (Kronolith_Exception $e) {
+                $GLOBALS['notification']->push($e->getMessage(), 'horde.error');
+                return $result;
+            }
+
+            $GLOBALS['notification']->push(sprintf(_("The resource \"%s\" has been deleted."), $name), 'horde.success');
+        }
         $result->deleted = true;
 
         return $result;

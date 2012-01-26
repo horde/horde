@@ -93,9 +93,35 @@ class Kronolith_Calendar_Resource extends Kronolith_Calendar
      */
     public function display()
     {
-        // @TODO Will have to revisit this when reosource management is
-        // added to dynamic view.
-        return false;
+        return in_array($this->_resource->get('calendar'), $GLOBALS['display_calendars']);
     }
 
+    /**
+     * Returns a hash representing this calendar.
+     *
+     * @return array  A simple hash.
+     */
+    public function toHash()
+    {
+        $id = $this->_resource->getId();
+        $owner = $GLOBALS['registry']->isAdmin();
+        $hash = parent::toHash();
+
+        $hash['name']  = $this->name();
+        $hash['owner'] = $owner;
+        $hash['show']  = $this->display();
+        $hash['edit']  = $this->hasPermission(Horde_Perms::EDIT);
+        $hash['sub']   = null;
+        $hash['feed']  = null;
+        $hash['embed'] = null;
+        $hash['response_type'] = $this->_resource->get('response_type');
+        if ($owner) {
+            $hash['perms'] = array(
+                'type' => 'matrix',
+                'default' => 0,
+                'guest' => 0,
+                'creator' => 0);
+        }
+        return $hash;
+    }
 }

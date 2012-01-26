@@ -147,11 +147,6 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
         return $this->get('response_type');
     }
 
-    public function toJson()
-    {
-        return $this->_params;
-    }
-
     /**
      * Utility function to copy select event properties from $from to $to in
      * order to add an event to the resource calendar.

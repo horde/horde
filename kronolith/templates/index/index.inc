@@ -146,6 +146,14 @@
   </div>
   <?php endif; ?>
 
+  <h3>
+    <?php if ($registry->isAdmin()): ?>
+    <a href="#" id="kronolithAddresource" class="kronolithAdd" title="<?php echo _("Add Resource") ?>">+</a>
+    <?php endif; ?>
+    <span><?php echo _("Resources") ?></span>
+  </h3>
+  <div id="kronolithResourceCalendars" class="kronolithCalendars"></div>
+
   <div id="kronolithExternalCalendars"></div>
   <?php endif ?>
 

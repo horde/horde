@@ -218,6 +218,15 @@ class Kronolith
             }
         }
 
+        // Resources
+        $resources = Kronolith::getDriver('Resource')->listResources();
+        foreach ($resources as $resource) {
+            if ($resource->get('type') != Kronolith_Resource::TYPE_GROUP) {
+                $rcal = new Kronolith_calendar_Resource(array('resource' => $resource));
+                $code['conf']['calendars']['resource'][$resource->get('calendar')] = $rcal->toHash();
+            }
+        }
+
         // Timeobjects
         foreach ($GLOBALS['all_external_calendars'] as $id => $calendar) {
             if ($calendar->api() == 'tasks') {

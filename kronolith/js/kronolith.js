@@ -1214,6 +1214,12 @@ KronolithCore = {
             }, this);
         }
 
+        if (Kronolith.conf.calendars.resource) {
+            $H(Kronolith.conf.calendars.resource).each(function(cal) {
+               this.insertCalendarInList('resource', cal.key, cal.value);
+            }, this);
+        }
+
         $H(Kronolith.conf.calendars.external).each(function(cal) {
             var parts = cal.key.split('/'), api = parts.shift();
             if (!ext.get(api)) {
@@ -1257,6 +1263,8 @@ KronolithCore = {
             return personal
                 ? $('kronolithMyCalendars')
                 : $('kronolithSharedCalendars');
+        case 'resource':
+            return $('kronolithResourceCalendars');
         case 'tasklists':
             return personal
                 ? $('kronolithMyTasklists')
@@ -2913,7 +2921,7 @@ KronolithCore = {
         this.quickClose();
 
         var type = calendar.split('|')[0], cal = calendar.split('|')[1];
-        if (!$w('internal tasklists remote holiday').include(type)) {
+        if (!$w('internal tasklists remote holiday resource').include(type)) {
             return;
         }
 
@@ -3078,6 +3086,9 @@ KronolithCore = {
                 $('kronolithCalendarremoteUsername').setValue(info.user);
                 $('kronolithCalendarremotePassword').setValue(info.password);
                 break;
+            case 'resource':
+                $('kronolithCalendarresourceDescription').setValue(info.desc);
+                $('kronolithCalendarresourceResponseType').setValue(info.response_type);
             }
         }
 
