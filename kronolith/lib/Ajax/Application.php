@@ -613,7 +613,6 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
                 try {
                     $calendar = Kronolith::addShare($info);
                     Kronolith::readPermsForm($calendar);
-                    $tagger->tag($result->calendar, $this->_vars->tags, $calendar->get('owner'), 'calendar');
                     if ($calendar->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::SHOW)) {
                         $wrapper = new Kronolith_Calendar_Internal(array('share' => $calendar));
                         $result->saved = true;
