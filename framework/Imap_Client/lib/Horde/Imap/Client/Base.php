@@ -236,7 +236,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         } elseif ($code == 'NO_SUPPORT') {
             $e = new Horde_Imap_Client_Exception_NoSupportExtension($msg);
         } else {
-            $e = new Horde_Imap_Client_Exception($msg, constant('Horde_Imap_Client_Exception::'));
+            $e = new Horde_Imap_Client_Exception($msg, constant('Horde_Imap_Client_Exception::' . $code));
         }
 
         if (!is_null($details)) {
