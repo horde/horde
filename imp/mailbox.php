@@ -83,7 +83,7 @@ if ($actionID && ($actionID != 'message_missing')) {
  * the RECENT flag. */
 if (!$search_mbox) {
     try {
-        $imp_imap->ob->openMailbox(IMP::$mailbox, Horde_Imap_Client::OPEN_READWRITE);
+        $imp_imap->openMailbox(IMP::$mailbox, Horde_Imap_Client::OPEN_READWRITE);
     } catch (IMP_Imap_Exception $e) {
         $actionID = null;
     }
