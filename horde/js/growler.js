@@ -40,6 +40,10 @@
  *   Fired on TODO
  *   params: NONE
  *
+ * Growler:linkClick
+ *   Fired on click of a link in a Growler message.
+ *   params: The link
+ *
  * Growler:toggled
  *   Fired on toggling of the backlog
  *   params: The state after the toggling
@@ -199,6 +203,15 @@
             }
 
             this.growler.wrap(document.body);
+
+            if (!opts.noclick) {
+                this.growler.observe('click', function(e) {
+                    if (e.element().match('A')) {
+                        e.stop();
+                        this.growler.fire('Growler:linkClick', e);
+                    }
+                });
+            }
         },
 
         growl: function(msg, options)
