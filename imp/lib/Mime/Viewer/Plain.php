@@ -248,7 +248,8 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
 
             case Horde_Crypt_Pgp::ARMOR_MESSAGE:
                 $part = new Horde_Mime_Part();
-                $part->setType('multipart/signed');
+                $part->setType('multipart/encrypted');
+                $part->setMetadata('imp-pgp-armor', true);
                 // TODO: add micalg parameter
                 $part->setContentTypeParameter('protocol', 'application/pgp-encrypted');
 

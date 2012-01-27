@@ -288,6 +288,12 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
             self::$_cache[$mid][$base_id]['status'][] = $status2;
         }
 
+        /* Force armor data as text/plain data. */
+        if ($this->_mimepart->getMetadata('imp-pgp-armor')) {
+            $decrypted_data->message = "Content-Type: text/plain\n\n" .
+                                       $decrypted_data->message;
+        }
+
         return Horde_Mime_Part::parseMessage($decrypted_data->message, array('forcemime' => true));
     }
 
