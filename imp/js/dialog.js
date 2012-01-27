@@ -129,7 +129,7 @@ var IMPDialog = {
     {
         r = r.responseJSON;
 
-        if (r.response.success) {
+        if (r.success) {
             this._close();
             this.noreload = false;
             RedBox.getWindowContents().fire('IMPDialog:success', this.type);
@@ -140,8 +140,8 @@ var IMPDialog = {
                     location.reload();
                 }
             }
-        } else if (r.response.error) {
-            alert(r.response.error);
+        } else if (r.error) {
+            alert(r.error);
         }
     }
 
