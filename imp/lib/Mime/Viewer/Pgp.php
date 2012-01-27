@@ -24,6 +24,11 @@
  */
 class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
 {
+    /* Metadata constants. */
+    const PGP_ARMOR = 'imp-pgp-armor';
+    const PGP_SIG = 'imp-pgp-signature';
+    const PGP_CHARSET = 'imp-pgp-charset';
+
     /**
      * This driver's display capabilities.
      *
@@ -289,7 +294,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
         }
 
         /* Force armor data as text/plain data. */
-        if ($this->_mimepart->getMetadata('imp-pgp-armor')) {
+        if ($this->_mimepart->getMetadata(self::PGP_ARMOR)) {
             $decrypted_data->message = "Content-Type: text/plain\n\n" .
                                        $decrypted_data->message;
         }
@@ -383,8 +388,8 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
 
             try {
                 $imp_pgp = $GLOBALS['injector']->getInstance('IMP_Crypt_Pgp');
-                $sig_result = $sig_part->getMetadata('imp-pgp-signature')
-                    ? $imp_pgp->verifySignature($sig_part->getContents(array('canonical' => true)), $this->_address, null, $sig_part->getMetadata('imp-pgp-charset'))
+                $sig_result = $sig_part->getMetadata(self::PGP_SIG)
+                    ? $imp_pgp->verifySignature($sig_part->getContents(array('canonical' => true)), $this->_address, null, $sig_part->getMetadata(self::PGP_CHARSET))
                     : $imp_pgp->verifySignature($sig_part->replaceEOL($this->getConfigParam('imp_contents')->getBodyPart($signed_id, array('mimeheaders' => true)), Horde_Mime_Part::RFC_EOL), $this->_address, $sig_part->getContents());
 
                 $status2->action(IMP_Mime_Status::SUCCESS);
@@ -436,7 +441,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
     {
         return (($mode == 'raw') &&
                 ($this->_mimepart->getType() == 'application/pgp-signature') &&
-                $this->_mimepart->getMetadata('imp-pgp-signature'))
+                $this->_mimepart->getMetadata(self::PGP_SIG))
             ? true
             : parent::canRender($mode);
     }

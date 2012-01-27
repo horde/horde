@@ -249,7 +249,7 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
             case Horde_Crypt_Pgp::ARMOR_MESSAGE:
                 $part = new Horde_Mime_Part();
                 $part->setType('multipart/encrypted');
-                $part->setMetadata('imp-pgp-armor', true);
+                $part->setMetadata(IMP_Mime_Viewer_Pgp::PGP_ARMOR, true);
                 // TODO: add micalg parameter
                 $part->setContentTypeParameter('protocol', 'application/pgp-encrypted');
 
@@ -291,8 +291,8 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
                     // the entire armored text to verify correctly. Use a
                     // IMP-specific content-type parameter to clue the PGP
                     // driver into this fact.
-                    $part2->setMetadata('imp-pgp-signature', true);
-                    $part2->setMetadata('imp-pgp-charset', $charset);
+                    $part2->setMetadata(IMP_Mime_Viewer_Pgp::PGP_SIG, true);
+                    $part2->setMetadata(IMP_Mime_Viewer_Pgp::PGP_CHARSET, $charset);
 
                     $part->addPart($part1);
                     $part->addPart($part2);
