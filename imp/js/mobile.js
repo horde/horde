@@ -252,7 +252,7 @@ var ImpMobile = {
                 document.title = r.ViewPort.metadata.slabel;
                 $('#imp-mailbox-header').text(r.ViewPort.metadata.slabel);
             }
-            $.each(r.ViewPort.data, function(key, data) {
+            $.each(r.ViewPort.data || [], function(key, data) {
                 c = 'imp-message';
                 url = '#message?view=' + data.mbox + '&uid=' + data.uid;
                 if (data.flag) {
