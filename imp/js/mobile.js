@@ -434,8 +434,8 @@ var ImpMobile = {
                 ham = spam = 'show', spambar;
 
             ImpMobile.uid = data.uid;
-            document.title = data.title;
             $('#imp-message-title').html(data.title);
+            document.title = $('#imp-message-title').text();
             $('#imp-message-subject').html(data.subject);
             $('#imp-message-from').text(data.from[0].personal || data.from[0].inner);
             $('#imp-message-body').html(data.msgtext);
