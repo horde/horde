@@ -222,7 +222,12 @@ class IMP_Message
                             $opts['mailboxob']->removeMsgs($imp_indices);
                         }
                     } catch (IMP_Imap_Exception $e) {
-                        // @todo Check for overquota error.
+                        if ($e->getCode() == Horde_Imap_Client_Exception::OVERQUOTA) {
+                            $notification->push(_("You are over your quota, so your messages will be permanently deleted instead of moved to the Trash mailbox."), 'horde.warning');
+                            $opts['nuke'] = true;
+                            return $this->delete(new IMP_Indices($ob->mbox, $ob->uids), $opts);
+                        }
+
                         return false;
                     }
                 }

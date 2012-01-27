@@ -2,6 +2,8 @@
 v5.1-git
 --------
 
+[mms] Workaround overquota error when deleting messages and using Trash
+      mailbox.
 [jan] Add basic search to smartphone view.
 [jan] Add resume and "edit as new" to smartphone view.
 [mms] Hide deleted now works with threaded mailboxes.
