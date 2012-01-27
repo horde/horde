@@ -21,11 +21,6 @@ var ImpMobile = {
     // readOnly,
     //
     // /**
-    //  * Whether the current mailbox is the spam folder.
-    //  */
-    // spam,
-    //
-    // /**
     //  * The number of messages in the current mailbox.
     //  */
     // totalrows,
@@ -233,7 +228,6 @@ var ImpMobile = {
                 view: mailbox,
                 slice: from + ':' + (from + 24),
                 requestid: 1,
-                initial: 1,
                 sortby: IMP.conf.sort.date.v,
                 sortdir: 1
             }),
@@ -254,7 +248,6 @@ var ImpMobile = {
             ImpMobile.data      = r.ViewPort.data;
             ImpMobile.messages  = r.ViewPort.rowlist;
             ImpMobile.readOnly  = r.ViewPort.metadata.readonly;
-            ImpMobile.spam      = r.ViewPort.metadata.spam;
             if (r.ViewPort.metadata.slabel) {
                 document.title = r.ViewPort.metadata.slabel;
                 $('#imp-mailbox-header').text(r.ViewPort.metadata.slabel);
@@ -515,7 +508,7 @@ var ImpMobile = {
                     'href',
                     '#target?action=copy' + args);
             }
-            if (ImpMobile.spam) {
+            if (ImpMobile.mailbox == IMP.conf.spam_folder) {
                 if (!IMP.conf.spam_spammbox) {
                     spam = 'hide';
                 }
