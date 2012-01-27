@@ -2,6 +2,7 @@
 v5.1-git
 --------
 
+[jan] Add reporting as spam/innocent to smartphone view.
 [mms] Workaround overquota error when deleting messages and using Trash
       mailbox.
 [jan] Add basic search to smartphone view.

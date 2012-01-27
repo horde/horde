@@ -21,6 +21,11 @@ var ImpMobile = {
     // readOnly,
     //
     // /**
+    //  * Whether the current mailbox is the spam folder.
+    //  */
+    // spam,
+    //
+    // /**
     //  * The number of messages in the current mailbox.
     //  */
     // totalrows,
@@ -228,6 +233,7 @@ var ImpMobile = {
                 view: mailbox,
                 slice: from + ':' + (from + 24),
                 requestid: 1,
+                initial: 1,
                 sortby: IMP.conf.sort.date.v,
                 sortdir: 1
             }),
@@ -248,6 +254,7 @@ var ImpMobile = {
             ImpMobile.data      = r.ViewPort.data;
             ImpMobile.messages  = r.ViewPort.rowlist;
             ImpMobile.readOnly  = r.ViewPort.metadata.readonly;
+            ImpMobile.spam      = r.ViewPort.metadata.spam;
             if (r.ViewPort.metadata.slabel) {
                 document.title = r.ViewPort.metadata.slabel;
                 $('#imp-mailbox-header').text(r.ViewPort.metadata.slabel);
@@ -430,7 +437,8 @@ var ImpMobile = {
         if (r && r.message && !r.message.error) {
             var data = r.message,
                 headers = $('#imp-message-headers tbody'),
-                args = '&mbox=' + data.mbox + '&uid=' + data.uid;
+                args = '&mbox=' + data.mbox + '&uid=' + data.uid,
+                ham = spam = 'show', spambar;
 
             ImpMobile.uid = data.uid;
             document.title = data.title;
@@ -506,6 +514,31 @@ var ImpMobile = {
                 $('#imp-message-copy').attr(
                     'href',
                     '#target?action=copy' + args);
+            }
+            if (ImpMobile.spam) {
+                if (!IMP.conf.spam_spammbox) {
+                    spam = 'hide';
+                }
+            } else if (IMP.conf.ham_spammbox) {
+                ham = 'hide';
+            }
+
+            if ($('#imp-message-ham')) {
+                $.fn[ham].call($('#imp-message-ham'));
+                $('#imp-message-ham').attr(
+                    'href',
+                    '#confirm?action=ham' + args);
+                spambar = $('#imp-message-ham').parent();
+            }
+            if ($('#imp-message-spam')) {
+                $.fn[spam].call($('#imp-message-spam'));
+                $('#imp-message-spam').attr(
+                    'href',
+                    '#confirm?action=spam' + args);
+                spambar = $('#imp-message-spam').parent();
+            }
+            if (spambar) {
+                spambar.controlgroup('refresh');
             }
 
             if (data.js) {
@@ -857,6 +890,22 @@ var ImpMobile = {
                         {});
                 });
             break;
+
+        case 'spam':
+        case 'ham':
+            HordeMobile.doAction(
+                'reportSpam',
+                {
+                    uid: ImpMobile.toUIDString(o),
+                    view: mailbox,
+                    spam: Number(match[1] == 'spam')
+                },
+                function() {
+                    ImpMobile.toMailbox(
+                        $.mobile.path.parseUrl('#mailbox?mbox=' + mailbox),
+                        {});
+                });
+            break;
         }
 
         $('#confirm').dialog('close');
@@ -997,6 +1046,11 @@ var ImpMobile = {
                 if (!elt.hasClass('ui-disabled')) {
                     ImpMobile.navigate(id == 'imp-message-prev' ? -1 : 1);
                 }
+                return;
+
+            case 'imp-message-spam':
+            case 'imp-message-ham':
+                ImpMobile.reportSpam(id == 'imp-message-spam');
                 return;
 
             case 'imp-mailbox-prev1':
