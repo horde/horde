@@ -236,12 +236,11 @@ class Horde_Injector implements Horde_Injector_Scope
         // Do we have an instance?
         if (!$this->hasInstance($interface)) {
             // Do we have a binding for this interface? If so then we don't
-            // ask our parent
-            if (!isset($this->_bindings[$interface])) {
+            // ask our parent.
+            if (!isset($this->_bindings[$interface]) &&
                 // Does our parent have an instance?
-                if ($instance = $this->_parentInjector->getInstance($interface)) {
-                    return $instance;
-                }
+                ($instance = $this->_parentInjector->getInstance($interface))) {
+                return $instance;
             }
 
             // We have to make our own instance
