@@ -1,23 +1,5 @@
 <?php
 
-$view_mode = $GLOBALS['registry']->getView();
-
-/* Do this include here so that the generated script can be added with any
- * other scripts already added. */
-switch ($view_mode) {
-case Horde_Registry::VIEW_DYNAMIC:
-    include IMP_TEMPLATES . '/dimp/javascript_defs.php';
-    break;
-
-case Horde_Registry::VIEW_MINIMAL:
-    // Nothing
-    break;
-
-default:
-    include IMP_TEMPLATES . '/imp/javascript_defs.php';
-    break;
-}
-
 if (isset($GLOBALS['language'])) {
     header('Content-type: text/html; charset=UTF-8');
     header('Vary: Accept-Language');
@@ -28,24 +10,13 @@ if (isset($GLOBALS['language'])) {
 echo (!empty($GLOBALS['language']) ? '<html lang="' . strtr($GLOBALS['language'], '_', '-') . '">' : '<html>') . '<head>';
 
 $page_title = $GLOBALS['registry']->get('name');
-if (!empty($title)) {
-    $page_title .= ' :: ' . $title;
+if (!empty(IMP::$title)) {
+    $page_title .= ' :: ' . IMP::$title;
 }
 
 Horde::outputMetaTags();
 
 switch ($view_mode) {
-case Horde_Registry::VIEW_DYNAMIC:
-    Horde::includeStylesheetFiles(array(
-        'sub' => 'dimp'
-    ));
-    if (!in_array(basename($_SERVER['PHP_SELF']), array('compose-dimp.php', 'index-dimp.php', 'message-dimp.php'))) {
-        Horde::includeScriptFiles();
-        Horde::outputInlineScript();
-    }
-    Horde::includeFavicon();
-    break;
-
 case Horde_Registry::VIEW_MINIMAL:
     Horde::includeStylesheetFiles(array(
         'nohorde' => true,

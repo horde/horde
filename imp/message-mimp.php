@@ -159,7 +159,7 @@ if (($vars->a == 'pa') &&
 
     $t->set('self_link', $self_link);
 
-    require IMP_TEMPLATES . '/common-header.inc';
+    IMP::header($title);
     echo $t->fetch(IMP_TEMPLATES . '/mimp/message/part.html');
 
     exit;
@@ -351,6 +351,6 @@ $t->set('title', ($status ? $status . ' ' : '') . sprintf(_("(Message %d of %d)"
 
 Horde::noDnsPrefetch();
 
-require IMP_TEMPLATES . '/common-header.inc';
+IMP::header($title);
 IMP::status();
 echo $t->fetch(IMP_TEMPLATES . '/mimp/message/message.html');

@@ -510,8 +510,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      */
     public function importKeyDialog($target, $reload)
     {
-        $title = _("Import S/MIME Key");
-        require IMP_TEMPLATES . '/common-header.inc';
+        IMP::header(_("Import S/MIME Key"));
 
         /* Need to use regular status notification - AJAX notifications won't
          * show in popup windows. */

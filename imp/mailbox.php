@@ -391,7 +391,7 @@ Horde::addScriptFile('mailbox.js', 'imp');
 
 $menu = IMP::menu();
 Horde::metaRefresh($prefs->getValue('refresh_time'), $refresh_url);
-require IMP_TEMPLATES . '/common-header.inc';
+IMP::header($title);
 echo $menu;
 IMP::status();
 IMP::quota();

@@ -1094,7 +1094,7 @@ if ($showmenu) {
 Horde::addScriptFile('compose-base.js', 'imp');
 Horde::addScriptFile('compose.js', 'imp');
 Horde::addScriptFile('md5.js', 'horde');
-require IMP_TEMPLATES . '/common-header.inc';
+IMP::header($title);
 Horde::addInlineJsVars($js_vars);
 if (!$redirect) {
     Horde::addInlineScript($imp_ui->identityJs());

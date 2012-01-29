@@ -64,6 +64,30 @@ class IMP
     static public $uid = '';
 
     /**
+     * Initialize the JS browser environment and output everything up to, and
+     * including, the <body> tag.
+     *
+     * @param string $title  The title of the page.
+     */
+    static public function header($title)
+    {
+        switch ($GLOBALS['registry']->getView()) {
+        case Horde_Registry::VIEW_BASIC:
+            require IMP_TEMPLATES . '/imp/javascript_defs.php';
+            require IMP_TEMPLATES . '/common-header.inc';
+            break;
+
+        case Horde_Registry::VIEW_DYNAMIC:
+            $GLOBALS['injector']->getInstance('IMP_Ajax')->header();
+            break;
+
+        default:
+            require IMP_TEMPLATES . '/common-header.inc';
+            break;
+        }
+    }
+
+    /**
      * Adds a contact to the user defined address book.
      *
      * @param string $newAddress  The contact's email address.

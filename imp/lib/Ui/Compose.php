@@ -220,7 +220,7 @@ class IMP_Ui_Compose
         $menu = new Horde_Menu(Horde_Menu::MASK_NONE);
         $menu->add(Horde::url('compose.php'), _("New Message"), 'compose.png');
         $menu->add(new Horde_Url(''), _("Close this window"), 'close.png', null, null, 'window.close();');
-        require IMP_TEMPLATES . '/common-header.inc';
+        IMP::header();
         $success_template = $GLOBALS['injector']->createInstance('Horde_Template');
         $success_template->set('menu', $menu->render());
         echo $success_template->fetch(IMP_TEMPLATES . '/imp/compose/success.html');

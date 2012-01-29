@@ -141,9 +141,7 @@ if ($conf['maps']['driver']) {
     Kronolith::initEventMap($conf['maps']);
 }
 
-Kronolith::header();
-
-echo "<body class=\"kronolithAjax\">\n";
+$injector->getInstance('Kronolith_Ajax')->header();
 
 require KRONOLITH_TEMPLATES . '/index/index.inc';
 Horde::includeScriptFiles();

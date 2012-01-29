@@ -398,6 +398,6 @@ if ($session->get('imp', 'file_upload')) {
     } catch (Horde_Exception_HookNotSet $e) {}
 }
 
-require IMP_TEMPLATES . '/common-header.inc';
+IMP::header($title);
 IMP::status();
 echo $t->fetch(IMP_TEMPLATES . '/mimp/compose/compose.html');

@@ -59,14 +59,6 @@ try {
     exit;
 }
 
-$scripts = array(
-    array('contextsensitive.js', 'horde'),
-    array('textarearesize.js', 'horde'),
-    array('toggle_quotes.js', 'horde'),
-    array('message-dimp.js', 'imp'),
-    array('imp.js', 'imp')
-);
-
 foreach (array('from', 'to', 'cc', 'bcc', 'replyTo', 'log', 'uid', 'mbox') as $val) {
     if (!empty($show_msg_result[$val])) {
         $js_vars['DimpMessage.' . $val] = $show_msg_result[$val];
@@ -110,19 +102,6 @@ if (!$disable_compose) {
     $imp_ui->attachSpellChecker();
 
     $js_out = array_merge($js_out, $compose_result['js']);
-
-    $scripts = array_merge($scripts, array(
-        array('compose-base.js', 'imp'),
-        array('compose-dimp.js', 'imp'),
-        array('md5.js', 'horde')
-    ));
-
-    if (!($prefs->isLocked('default_encrypt')) &&
-        ($prefs->getValue('use_pgp') || $prefs->getValue('use_smime'))) {
-        $scripts[] = array('dialog.js', 'imp');
-        $scripts[] = array('redbox.js', 'horde');
-    }
-
     $js_onload = $compose_result['jsonload'];
 }
 
@@ -217,7 +196,7 @@ Horde::startBuffer();
 IMP::status();
 $t->set('status', Horde::endBuffer());
 
-IMP_Dimp::init('message', $show_msg_result['title'], $scripts);
+$injector->getInstance('IMP_Ajax')->header('message', $show_msg_result['title']);
 
 Horde::startBuffer();
 Horde::includeScriptFiles();

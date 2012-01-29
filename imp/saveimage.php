@@ -56,8 +56,7 @@ $t->set('image_img', Horde::img('mime/image.png', _("Image")));
 /* Build the list of galleries. */
 $t->set('gallerylist', $registry->images->selectGalleries(array('perm' => Horde_Perms::EDIT)));
 
-$title = _("Save Image");
-require IMP_TEMPLATES . '/common-header.inc';
+IMP::header(_("Save Image"));
 IMP::status();
 echo $t->fetch(IMP_TEMPLATES . '/saveimage/saveimage.html');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

@@ -676,8 +676,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      */
     public function importKeyDialog($target, $reload)
     {
-        $title = _("Import PGP Key");
-        require IMP_TEMPLATES . '/common-header.inc';
+        IMP::header(_("Import PGP Key"));
 
         /* Need to use regular status notification - AJAX notifications won't
          * show in popup windows. */

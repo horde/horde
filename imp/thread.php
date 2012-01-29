@@ -168,11 +168,10 @@ $template->set('messages', $msgs);
 $template->set('tree', $tree);
 
 /* Output page. */
-$title = ($mode == 'thread') ? _("Thread View") : _("Multiple Message View");
 Horde::addScriptFile('stripe.js', 'horde');
 Horde::noDnsPrefetch();
 $menu = IMP::menu();
-require IMP_TEMPLATES . '/common-header.inc';
+IMP::header($mode == 'thread' ? _("Thread View") : _("Multiple Message View"));
 echo $menu;
 IMP::status();
 echo $template->fetch(IMP_TEMPLATES . '/imp/thread/thread.html');

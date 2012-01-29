@@ -20,7 +20,7 @@ class Horde_Core_Ajax
      *
      * @var boolean
      */
-    protected $_init = false;
+    static protected $_init = false;
 
     /**
      * Initialize the HordeCore browser framework.
@@ -35,7 +35,7 @@ class Horde_Core_Ajax
     {
         global $registry;
 
-        if ($this->_init) {
+        if (self::$_init) {
             return;
         }
 
@@ -92,7 +92,61 @@ class Horde_Core_Ajax
             'var HordeCoreText' => $js_text
         ), array('top' => true));
 
-        $this->_init = true;
+        self::$_init = true;
+    }
+
+    /**
+     * Initialize the JS browser environment and output everything up to, and
+     * including, the <body> tag.
+     *
+     * @param array $opts  Configuration options:
+     *   - bodyid: (string) An ID to use for the BODY tag.
+     *   - css: (array) Arguments to pass to Horde::includeStylesheetFiles().
+     *   - inlinescript: (boolean) Output inline scripts?
+     *   - title: (string) The title of the page.
+     */
+    public function header(array $opts = array())
+    {
+        $this->init();
+
+        if (isset($GLOBALS['language'])) {
+            header('Content-type: text/html; charset=UTF-8');
+            header('Vary: Accept-Language');
+        }
+
+        print '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">' . "\n";
+
+        if (empty($GLOBALS['language'])) {
+            print '<html>';
+        } else {
+            print '<html lang="' . strtr($GLOBALS['language'], '_', '-') . '">';
+        }
+
+        print '<head>';
+
+        Horde::outputMetaTags();
+        Horde::includeStylesheetFiles(isset($opts['css']) ? $opts['css'] : array());
+        if (!empty($opts['inlinescript'])) {
+            Horde::includeScriptFiles();
+            Horde::outputInlineScript();
+        }
+        Horde::includeFavicon();
+
+        $page_title = $GLOBALS['registry']->get('name');
+        if (!empty($opts['title'])) {
+            $page_title .= ' :: ' . $opts['title'];
+        }
+
+        print '<title>' . htmlspecialchars($page_title) . '</title>' .
+            '</head><body' .
+            (empty($opts['bodyid']) ? '' : ' id="' . $opts['bodyid'] . '"') .
+            '>';
+
+        // Send what we have currently output so the browser can start
+        // loading CSS/JS. See:
+        // http://developer.yahoo.com/performance/rules.html#flush
+        echo Horde::endBuffer();
+        flush();
     }
 
 }

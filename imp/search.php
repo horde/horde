@@ -495,8 +495,7 @@ if ($dimp_view) {
     $menu = IMP::menu();
 }
 
-$title = _("Search");
-require IMP_TEMPLATES . '/common-header.inc';
+IMP::header(_("Search"));
 if (!$dimp_view) {
     echo $menu;
 }
