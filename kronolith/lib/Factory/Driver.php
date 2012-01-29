@@ -1,6 +1,6 @@
 <?php
 /**
- * Horde_Injector based factory for Kronolith_Driver
+ * Horde_Injector based factory for Kronolith_Driver.
  */
 class Kronolith_Factory_Driver extends Horde_Core_Factory_Base
 {
@@ -14,8 +14,8 @@ class Kronolith_Factory_Driver extends Horde_Core_Factory_Base
     /**
      * Return the driver instance.
      *
-     * @param string $driver  The storage backend to use
-     * @param array $params   Driver params
+     * @param string $driver  The storage backend to use.
+     * @param array $params   Driver params.
      *
      * @return Kronolith_Driver
      * @throws Kronolith_Exception

@@ -1,18 +1,24 @@
 <?php
 /**
+ * Kronolith base library.
+ *
  * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @package Kronolith
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @package  Kronolith
  */
 
 /**
  * The Kronolith:: class provides functionality common to all of Kronolith.
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Kronolith
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @package  Kronolith
  */
 class Kronolith
 {

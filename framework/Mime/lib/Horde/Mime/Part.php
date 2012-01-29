@@ -374,13 +374,11 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      * @param mixed $contents  The part body. Either a string or a stream
      *                         resource, or an array containing both.
      * @param array $options   Additional options:
-     * <pre>
-     * 'encoding' - (string) The encoding of $contents.
-     *              DEFAULT: Current transfer encoding value.
-     * 'usestream' - (boolean) If $contents is a stream, should we directly
-     *               use that stream?
-     *               DEFAULT: $contents copied to a new stream.
-     * </pre>
+     *   - encoding: (string) The encoding of $contents.
+     *               DEFAULT: Current transfer encoding value.
+     *   - usestream: (boolean) If $contents is a stream, should we directly
+     *                use that stream?
+     *                DEFAULT: $contents copied to a new stream.
      */
     public function setContents($contents, $options = array())
     {
@@ -402,13 +400,11 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      *
      * @param mixed $contents   The part body. Either a string or a stream
      *                          resource, or an array containing both.
-     * <pre>
-     * 'encoding' - (string) The encoding of $contents.
-     *              DEFAULT: Current transfer encoding value.
-     * 'usestream' - (boolean) If $contents is a stream, should we directly
-     *               use that stream?
-     *               DEFAULT: $contents copied to a new stream.
-     * </pre>
+     *   - encoding: (string) The encoding of $contents.
+     *               DEFAULT: Current transfer encoding value.
+     *   - usestream: (boolean) If $contents is a stream, should we directly
+     *                use that stream?
+     *                DEFAULT: $contents copied to a new stream.
      */
     public function appendContents($contents, $options = array())
     {
@@ -440,14 +436,12 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      * Return the body of the part.
      *
      * @param array $options  Additional options:
-     * <pre>
-     * 'canonical' - (boolean) Returns the contents in strict RFC 822 &
-     *               2045 output - namely, all newlines end with the
-     *               canonical <CR><LF> sequence.
-     *               DEFAULT: No
-     * 'stream' - (boolean) Return the body as a stream resource.
-     *            DEFAULT: No
-     * </pre>
+     *   - canonical: (boolean) Returns the contents in strict RFC 822 &
+     *                2045 output - namely, all newlines end with the
+     *                canonical <CR><LF> sequence.
+     *                DEFAULT: No
+     *   - stream: (boolean) Return the body as a stream resource.
+     *             DEFAULT: No
      *
      * @return mixed  The body text of the part, or a stream resource if
      *                'stream' is true.
@@ -802,10 +796,8 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      *
      * @param string $encoding  The transfer encoding to use.
      * @param array $options    Additional options:
-     * <pre>
-     * 'send' - (boolean) If true, use $encoding as the sending encoding.
-     *          DEFAULT: $encoding is used to change the base encoding.
-     * </pre>
+     *   - send: (boolean) If true, use $encoding as the sending encoding.
+     *           DEFAULT: $encoding is used to change the base encoding.
      */
     public function setTransferEncoding($encoding, $options = array())
     {
@@ -1014,12 +1006,11 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      * for the part.
      *
      * @param array $options  Additional options:
-     * <pre>
-     * 'encode' - (integer) A mask of allowable encodings.
-     *            DEFAULT: See self::_getTransferEncoding()
-     * 'headers' - (Horde_Mime_Headers) The object to add the MIME headers to.
-     *             DEFAULT: Add headers to a new object
-     * </pre>
+     *   - encode: (integer) A mask of allowable encodings.
+     *             DEFAULT: See self::_getTransferEncoding()
+     *   - headers: (Horde_Mime_Headers) The object to add the MIME headers
+     *              to.
+     *              DEFAULT: Add headers to a new object
      *
      * @return Horde_Mime_Headers  A Horde_Mime_Headers object.
      */
@@ -1103,26 +1094,24 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      * Return the entire part in MIME format.
      *
      * @param array $options  Additional options:
-     * <pre>
-     * 'canonical' - (boolean) Returns the encoded part in strict RFC 822 &
-     *               2045 output - namely, all newlines end with the canonical
-     *               <CR><LF> sequence.
-     *               DEFAULT: false
-     * 'defserver' - (string) The default server to use when creating the
-     *               header string.
-     *               DEFAULT: none
-     * 'encode' - (integer) A mask of allowable encodings.
-     *            DEFAULT: self::ENCODE_7BIT
-     * 'headers' - (mixed) Include the MIME headers? If true, create a new
-     *             headers object. If a Horde_Mime_Headers object, add MIME
-     *             headers to this object. If a string, use the string
-     *             verbatim.
-     *             DEFAULT: true
-     * 'id' - (string) Return only this MIME ID part.
-     *        DEFAULT: Returns the base part.
-     * 'stream' - (boolean) Return a stream resource.
-     *            DEFAULT: false
-     * </pre>
+     *   - canonical: (boolean) Returns the encoded part in strict RFC 822 &
+     *                2045 output - namely, all newlines end with the
+     *                canonical <CR><LF> sequence.
+     *                DEFAULT: false
+     *   - defserver: (string) The default server to use when creating the
+     *                header string.
+     *                DEFAULT: none
+     *   - encode: (integer) A mask of allowable encodings.
+     *             DEFAULT: self::ENCODE_7BIT
+     *   - headers: (mixed) Include the MIME headers? If true, create a new
+     *              headers object. If a Horde_Mime_Headers object, add MIME
+     *              headers to this object. If a string, use the string
+     *              verbatim.
+     *              DEFAULT: true
+     *   - id: (string) Return only this MIME ID part.
+     *         DEFAULT: Returns the base part.
+     *   - stream: (boolean) Return a stream resource.
+     *             DEFAULT: false
      *
      * @return mixed  The MIME string (returned as a resource if $stream is
      *                true).
@@ -1772,14 +1761,12 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      * @param array $data     The data to write. Either a stream resource or
      *                        a string.
      * @param array $options  Additional options:
-     * <pre>
-     * error - (boolean) Catch errors when writing to the stream. Throw an
-     *         ErrorException if an error is found.
-     *         DEFAULT: false
-     * filter - (array) Filter(s) to apply to the string. Keys are the
-     *          filter names, values are filter params.
-     * fp - (resource) Use this stream instead of creating a new one.
-     * </pre>
+     *   - error: (boolean) Catch errors when writing to the stream. Throw an
+     *            ErrorException if an error is found.
+     *            DEFAULT: false
+     *   - filter: (array) Filter(s) to apply to the string. Keys are the
+     *             filter names, values are filter params.
+     *   - fp: (resource) Use this stream instead of creating a new one.
      *
      * @return resource  The stream resource.
      * @throws ErrorException
@@ -1932,12 +1919,10 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      *
      * @param string $text    The text of the MIME message.
      * @param array $options  Additional options:
-     * <pre>
-     * 'forcemime' - (boolean) If true, the message data is assumed to be
-     *               MIME data. If not, a MIME-Version header must exist (RFC
-     *               2045 [4]) to be parsed as a MIME message.
-     *               DEFAULT: false
-     * </pre>
+     *   - forcemime: (boolean) If true, the message data is assumed to be
+     *                MIME data. If not, a MIME-Version header must exist (RFC
+     *                2045 [4]) to be parsed as a MIME message.
+     *                DEFAULT: false
      *
      * @return Horde_Mime_Part  A MIME Part object.
      * @throws Horde_Mime_Exception

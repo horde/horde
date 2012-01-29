@@ -2,16 +2,22 @@
 /**
  * Turba Base Class.
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @author  Jon Parise <jon@horde.org>
- * @package Turba
+ * Copyright 2000-2012 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file LICENSE for license information (ASL).  If you did
+ * did not receive this file, see http://www.horde.org/licenses/apache.
+ *
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Jon Parise <jon@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Turba
  */
 class Turba
 {
-    /**
-     *  The virtual path to use for VFS data.
-     */
+    /* The virtual path to use for VFS data. */
     const VFS_PATH = '.horde/turba/documents';
+
 
     /**
      * Returns the source entries from config/backends.php that have been
@@ -109,7 +115,9 @@ class Turba
     }
 
     /**
-     * Returns the sort order selected by the user
+     * Returns the sort order selected by the user.
+     *
+     * @return array  TODO
      */
     static public function getPreferredSortOrder()
     {
@@ -117,7 +125,12 @@ class Turba
     }
 
     /**
-     * Retrieves a column's field name
+     * Retrieves a column's field name.
+     *
+     * @param integer $i      TODO
+     * @param array $columns  TODO
+     *
+     * @return string  TODO
      */
     static public function getColumnName($i, $columns)
     {
@@ -125,6 +138,7 @@ class Turba
     }
 
     /**
+     * TODO
      */
     static public function getColumns()
     {

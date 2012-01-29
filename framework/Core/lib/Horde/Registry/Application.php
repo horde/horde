@@ -175,7 +175,7 @@ class Horde_Registry_Application
      * @param string $user   The user to retreive alarms for. All users if
      *                       null.
      *
-     * @return array  An array of UIDs
+     * @return array  An array of UIDs.
      */
     public function listAlarms($time, $user = null)
     {
