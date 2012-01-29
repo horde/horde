@@ -160,9 +160,13 @@ class Horde_Registry_Application
      * Modifies the global notification handler.
      *
      * @param Horde_Notification_Handler $handler  A notification handler.
+     *
+     * @return boolean  Return true if the notification handler has been
+     *                  modified.
      */
     public function setupNotification(Horde_Notification_Handler $handler)
     {
+        return false;
     }
 
 

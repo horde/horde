@@ -342,6 +342,8 @@ class IMP_Application extends Horde_Registry_Application
         $handler->addDecorator(new IMP_Notification_Handler_Decorator_ImapAlerts());
         $handler->addDecorator(new IMP_Notification_Handler_Decorator_NewmailNotify());
         $handler->addType('status', 'imp.*', 'IMP_Notification_Event_Status');
+
+        return true;
     }
 
     /* Horde_Core_Auth_Application methods. */
