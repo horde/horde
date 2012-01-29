@@ -13,7 +13,7 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
-$apps = $registry->listApps(array('notoolbar', 'active', 'admin', 'inactive', 'hidden'), true);
+$apps = $registry->listAllApps();
 ksort($apps);
 
 $url = new Horde_Url('icon_browser.php');
