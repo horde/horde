@@ -93,9 +93,8 @@ class Chora_Application extends Horde_Registry_Application
         /* Use the value of the 'rt' form value for the sourceroot. If not
          * present, use the last sourceroot used as the default value if the
          * user has that preference. Otherwise, use default sourceroot. */
+        $last_sourceroot = $GLOBALS['prefs']->getValue('last_sourceroot');
         if (is_null($acts['rt'])) {
-            $last_sourceroot = $GLOBALS['prefs']->getValue('last_sourceroot');
-
             if (!empty($last_sourceroot) &&
                 !empty($sourceroots[$last_sourceroot]) &&
                 is_array($sourceroots[$last_sourceroot])) {
@@ -120,6 +119,11 @@ class Chora_Application extends Horde_Registry_Application
 
         $sourcerootopts = $sourceroots[$acts['rt']];
         $sourceroot = $acts['rt'];
+
+        /* Store last repository viewed */
+        if ($acts['rt'] != $last_sourceroot) {
+            $GLOBALS['prefs']->setValue('last_sourceroot', $acts['rt']);
+        }
 
         // Cache.
         $cache = empty($conf['caching'])
@@ -146,9 +150,6 @@ class Chora_Application extends Horde_Registry_Application
 
         /* Location relative to the sourceroot. */
         $where = preg_replace(array('|^/|', '|\.\.|'), '', $where);
-
-        /* Store last repository viewed */
-        $GLOBALS['prefs']->setValue('last_sourceroot', $acts['rt']);
 
         $fullname = $sourcerootopts['location'] . (substr($sourcerootopts['location'], -1) == '/' ? '' : '/') . $where;
 
