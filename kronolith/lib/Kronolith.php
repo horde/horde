@@ -1751,8 +1751,6 @@ class Kronolith
     /**
      * Returns whether the current user has certain permissions on a calendar.
      *
-     * @since Kronolith 3.0.6
-     *
      * @param string $calendar  A calendar id.
      * @param integer $perm     A Horde_Perms permission mask.
      *
@@ -3136,8 +3134,6 @@ class Kronolith
     /**
      * Sorts an event list.
      *
-     * @since Kronolith 3.0.5
-     *
      * @param array $days  A list of days with events.
      *
      * @return array  The sorted day list.
@@ -3239,8 +3235,6 @@ class Kronolith
 
     /**
      * Remove all events owned by the specified user in all calendars.
-     *
-     * @since  Kronolith 3.0.10
      *
      * @param string $user  The user name to delete events for.
      *
