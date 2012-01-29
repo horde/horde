@@ -49,13 +49,6 @@ class Kronolith
     const PERMS_DELEGATE = 1024;
 
     /**
-     * Driver singleton instances.
-     *
-     * @var array
-     */
-    static private $_instances = array();
-
-    /**
      * @var Kronolith_Tagger
      */
     static private $_tagger;
@@ -2946,80 +2939,18 @@ class Kronolith
      */
     static public function getDriver($driver = null, $calendar = null)
     {
-        switch ($driver) {
-        case 'internal':
-            $driver = '';
-            break;
-        case 'external':
-        case 'tasklists':
-            $driver = 'Horde';
-            break;
-        case 'remote':
-            $driver = 'Ical';
-            break;
-        case 'holiday':
-            $driver = 'Holidays';
-            break;
-        case 'resource':
-            $driver = 'Resource';
-            break;
-        }
-
-        if (empty($driver)) {
-            $driver = Horde_String::ucfirst($GLOBALS['conf']['calendar']['driver']);
-        }
-
-        if (!isset(self::$_instances[$driver])) {
-            switch ($driver) {
-            case 'Sql':
-            case 'Resource':
-                $params = Horde::getDriverConfig('calendar', 'sql');
-                if ($params['driverconfig'] != 'Horde') {
-                    $customParams = $params;
-                    unset($customParams['driverconfig'], $customParams['table'], $customParams['utc']);
-                    $params['db'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create('kronolith', $customParams);
-                } else {
-                    $params['db'] = $GLOBALS['injector']->getInstance('Horde_Db_Adapter');
-                }
-                break;
-
-            case 'Kolab':
-                $params['storage'] = $GLOBALS['injector']->getInstance('Horde_Kolab_Storage');
-                break;
-
-            case 'Ical':
-            case 'Mock':
-                $params = array();
-                break;
-
-            case 'Horde':
-                $params['registry'] = $GLOBALS['registry'];
-                break;
-
-            case 'Holidays':
-                if (empty($GLOBALS['conf']['holidays']['enable'])) {
-                    throw new Kronolith_Exception(_("Holidays are disabled"));
-                }
-                $params['language'] = $GLOBALS['language'];
-                break;
-
-            default:
-                throw new Kronolith_Exception('No calendar driver specified');
-                break;
-            }
-
-            self::$_instances[$driver] = $GLOBALS['injector']->getInstance('Kronolith_Factory_Driver')->create($driver, $params);
-        }
+        $driver = $GLOBALS['injector']->getInstance('Kronolith_Factory_Driver')->create($driver);
 
         if (!is_null($calendar)) {
-            self::$_instances[$driver]->open($calendar);
+            $driver->open($calendar);
+
             /* Remote calendar parameters are per calendar. */
             if ($driver == 'Ical') {
-                self::$_instances[$driver]->setParams(self::getRemoteParams($calendar));
+                $driver->setParams(self::getRemoteParams($calendar));
             }
         }
 
-        return self::$_instances[$driver];
+        return $driver;
     }
 
     /**
