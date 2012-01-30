@@ -25,7 +25,7 @@ class Horde_Core_Notification_Listener_DynamicStatus extends Horde_Notification_
     public function notify($events, $options = array())
     {
         Horde::addInlineScript(array(
-            'HordeCore.showNotifications(' . Horde_Serialize::serialize($events, Horde_Serialize::JSON) . ')'
+            'if (window.HordeCore || parent.HordeCore) { (window.HordeCore || parent.HordeCore).showNotifications(' . Horde_Serialize::serialize($events, Horde_Serialize::JSON) . ') }'
         ), 'dom');
     }
 
