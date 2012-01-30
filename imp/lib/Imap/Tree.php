@@ -1066,7 +1066,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         $this->_initPollList();
 
         foreach (IMP_Mailbox::get($id) as $val) {
-            if ($val->nonimap || $val->container) {
+            if ($val->nonimap || $this->isContainer($val)) {
                 continue;
             }
 
@@ -1553,6 +1553,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
         foreach ($this as $val) {
             $after = '';
+            $elt = $this->getElement($val);
             $params = array();
 
             switch ($opts['render_type']) {
@@ -1578,7 +1579,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                 break;
 
             case 'IMP_Tree_Simplehtml':
-                $is_open = $val->is_open;
+                $is_open = $this->isOpen($val);
                 if ($tree->shouldToggle($val->form_to)) {
                     if ($is_open) {
                         $this->collapse($val);
@@ -1587,11 +1588,11 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                     }
                     $is_open = !$is_open;
                 }
-                $label = htmlspecialchars(Horde_String::abbreviate($val->display, 30 - ($val->level * 2)));
+                $label = htmlspecialchars(Horde_String::abbreviate($val->display, 30 - ($elt['c'] * 2)));
                 break;
 
             case 'Javascript':
-                $is_open = $val->is_open;
+                $is_open = $this->isOpen($val);
                 $label = empty($opts['basename'])
                     ? htmlspecialchars($val->abbrev_label)
                     : htmlspecialchars($val->basename);
@@ -1618,11 +1619,11 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                 }
             }
 
-            if ($val->container) {
+            if ($this->isContainer($val)) {
                 $params['container'] = true;
             } else {
                 $params['url'] = $val->url($mailbox_page);
-                if ($this->_showunsub && !$val->sub) {
+                if ($this->_showunsub && !$this->isSubscribed($val)) {
                     $params['class'] = 'folderunsub';
                 }
             }
@@ -1634,7 +1635,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             if ($val->vfolder) {
                 $checkbox .= ' disabled="disabled"';
 
-                if (!empty($opts['editvfolder']) && $val->container) {
+                if (!empty($opts['editvfolder']) && $this->isContainer($val)) {
                     $after = '&nbsp[' .
                         Horde::getServiceLink('prefs', 'imp')->add('group', 'searches')->link(array('title' => _("Edit Virtual Folder"))) . _("Edit") . '</a>'.
                         ']';
@@ -1643,9 +1644,9 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
             $tree->addNode(
                 $val->form_to,
-                ($val->level) ? IMP_Mailbox::get($val->parent)->form_to : $parent,
+                ($elt['c']) ? $val->parent->form_to : $parent,
                 $label,
-                $val->level,
+                $elt['c'],
                 isset($opts['open']) ? $opts['open'] : $is_open,
                 $params,
                 $after,
@@ -1777,7 +1778,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
         $ob = new stdClass;
 
-        if ($elt->children) {
+        if ($this->hasChildren($elt)) {
             $ob->ch = 1;
         }
         $ob->m = $elt->form_to;
@@ -1799,11 +1800,11 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         if ($elt->vfolder) {
             $ob->v = $elt->editvfolder ? 2 : 1;
         }
-        if (!$elt->sub) {
+        if (!$this->isSubscribed($elt)) {
             $ob->un = 1;
         }
 
-        if ($elt->container) {
+        if ($this->isContainer($elt)) {
             $ob->cl = 'exp';
             $ob->co = 1;
             if ($elt->nonimap) {
@@ -1819,7 +1820,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
             if ($elt->special) {
                 $ob->s = 1;
-            } elseif (empty($ob->v) && $elt->children) {
+            } elseif (empty($ob->v) && $this->hasChildren($elt)) {
                 $ob->cl = 'exp';
             }
         }
@@ -2063,14 +2064,14 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     protected function _activeElt($elt, $child_check = false)
     {
         /* Skip invisible elements. */
-        if ($elt->invisible) {
+        if ($this->isInvisible($elt)) {
             return false;
         }
 
         $c = &$this->_cache['filter'];
 
         /* Skip virtual folders unless told to display them. */
-        if ($elt->vfolder && !($c['mask'] & self::FLIST_VFOLDER)) {
+        if (!($c['mask'] & self::FLIST_VFOLDER) && $elt->vfolder) {
             return false;
         }
 
@@ -2090,7 +2091,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
             /* If expanded is requested, we assume it overrides nochildren. */
             if ($c['mask'] & self::FLIST_EXPANDED) {
-                return $elt->is_open;
+                return $this->isOpen($elt);
             }
 
             if ($c['mask'] & self::FLIST_NOCHILDREN) {
@@ -2099,12 +2100,12 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         } else {
             /* Checks done when determining whether to mark current element as
              * valid. */
-            if ($elt->container) {
+            if ($this->isContainer($elt)) {
                 if (($c['mask'] & self::FLIST_NOCONTAINER) ||
-                    !$elt->children) {
+                    !$this->hasChildren($elt)) {
                     return false;
                 }
-            } elseif (!$this->_showunsub && !$elt->sub) {
+            } elseif (!$this->_showunsub && !$this->isSubscribed($elt)) {
                 return false;
             }
         }
