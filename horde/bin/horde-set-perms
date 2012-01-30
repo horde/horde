@@ -50,35 +50,39 @@ $group = $grouppars['gid'];
 
 $cli->writeln();
 
-if ($cli->prompt($cli->red('Are you sure you want to alter permissions?'), array('y' => 'Yes', 'n' => 'No'), 'n') == 'y') {
-    $it = new RecursiveIteratorIterator(
-        new RecursiveDirectoryIterator(realpath(HORDE_BASE)),
-        RecursiveIteratorIterator::SELF_FIRST);
-    foreach ($it as $key => $val) {
-        if ($val->getFilename() != '..' ) {
-            if ($val->getOwner() != $owner) {
-                $cli->message('Changing owner for ' . $key, 'cli.message');
-                chown($key, $owner);
-            }
+if (!$cli->prompt($cli->red('Are you sure you want to alter permissions?'), array('y' => 'Yes', 'n' => 'No'), 'n') == 'y') {
+    exit 0;
+}
 
-            if ($val->getGroup() != $group) {
-                $cli->message('Changing group for ' . $key, 'cli.message');
-                chgrp($key, $group);
-            }
+$it = new RecursiveIteratorIterator(
+    new RecursiveDirectoryIterator(realpath(HORDE_BASE)),
+    RecursiveIteratorIterator::SELF_FIRST);
 
-            $octal_perms = substr(sprintf('%o', $val->getPerms()), -4);
+foreach ($it as $key => $val) {
+    if ($val->getFilename() == '..' ) {
+        continue;
+    }
 
-            if ($val->isDir()) {
-                if ($octal_perms != '0750') {
-                    $cli->message('Changing permissions for ' . $key, 'cli.message');
-                    chmod($key, 0750);
-                }
-            } elseif ($val->isFile()) {
-                if ($octal_perms != '0640') {
-                    $cli->message('Changing permissions for ' . $key, 'cli.message');
-                    chmod($key, 0640);
-                }
-            }
+    if ($val->getOwner() != $owner) {
+        $cli->message('Changing owner for ' . $key, 'cli.message');
+        chown($key, $owner);
+    }
+
+    if ($val->getGroup() != $group) {
+        $cli->message('Changing group for ' . $key, 'cli.message');
+        chgrp($key, $group);
+    }
+
+    $octal_perms = substr(sprintf('%o', $val->getPerms()), -4);
+    if ($val->isDir()) {
+        if ($octal_perms != '0750') {
+            $cli->message('Changing permissions for ' . $key, 'cli.message');
+            chmod($key, 0750);
+        }
+    } elseif ($val->isFile()) {
+        if ($octal_perms != '0640') {
+            $cli->message('Changing permissions for ' . $key, 'cli.message');
+            chmod($key, 0640);
         }
     }
 }
