@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Tweak policy defaults. Minor compatibility improvements for WAP-Provisioning-XML strings.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -549,7 +549,7 @@
    <date>2012-01-30</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Tweak policy defaults. Minor compatibility improvements for WAP-Provisioning-XML strings.
    </notes>
   </release>
  </changelog>
