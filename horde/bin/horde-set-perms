@@ -51,9 +51,11 @@ $group = $grouppars['gid'];
 $cli->writeln();
 
 if ($cli->prompt($cli->red('Are you sure you want to alter permissions?'), array('y' => 'Yes', 'n' => 'No'), 'n') == 'y') {
-    $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(realpath(HORDE_BASE)));
+    $it = new RecursiveIteratorIterator(
+        new RecursiveDirectoryIterator(realpath(HORDE_BASE)),
+        RecursiveIteratorIterator::SELF_FIRST);
     foreach ($it as $key => $val) {
-        if (!$it->isDot()) {
+        if ($val->getFilename() != '..' ) {
             if ($val->getOwner() != $owner) {
                 $cli->message('Changing owner for ' . $key, 'cli.message');
                 chown($key, $owner);
