@@ -148,13 +148,12 @@ class Horde_Core_Prefs_Ui_Widgets
      */
     static public function addressbooks($data)
     {
-        global $prefs, $registry;
+        global $registry;
 
         $selected = $unselected = array();
         $out = '';
 
-        if (!$registry->hasMethod('contacts/sources') ||
-            $prefs->isLocked('search_sources')) {
+        if (!$registry->hasMethod('contacts/sources')) {
             return;
         }
 
