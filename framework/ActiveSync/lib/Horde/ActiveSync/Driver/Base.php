@@ -589,7 +589,7 @@ abstract class Horde_ActiveSync_Driver_Base
             . '</characteristic>';
 
         if ($this->_policies['pin']) {
-            $xml = '<characteristic type="Registry">'
+            $xml .= '<characteristic type="Registry">'
             .   '<characteristic type="HKLM\Comm\Security\Policy\LASSD\AE\{50C13377-C66D-400C-889E-C316FC4AB374}">'
             .        '<parm name="AEFrequencyType" value="' . (!empty($this->_policies['inactivity']) ? 1 : 0) . '"/>'
             .        (!empty($this->_policies['AEFrequencyValue']) ? '<parm name="AEFrequencyValue" value="' . $this->_policies['inactivity'] . '"/>' : '')
