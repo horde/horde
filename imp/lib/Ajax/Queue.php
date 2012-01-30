@@ -70,7 +70,9 @@ class IMP_Ajax_Queue
         }
 
         /* Add folder tree information. */
-        $out = $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->getAjaxResponse();
+        $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
+        $imptree->setIteratorFilter(IMP_Imap_Tree::FLIST_NOSPECIALMBOXES);
+        $out = $imptree->getAjaxResponse();
         if (!empty($out)) {
             $res['mailbox'] = $out;
         }

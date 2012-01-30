@@ -616,7 +616,6 @@ class IMP_Mailbox implements Serializable
             $special = $this->getSpecialMailboxes();
 
             switch ($this->_mbox) {
-            case 'INBOX':
             case $special[self::SPECIAL_COMPOSETEMPLATES]:
             case $special[self::SPECIAL_DRAFTS]:
             case $special[self::SPECIAL_SPAM]:
