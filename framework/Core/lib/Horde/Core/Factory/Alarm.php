@@ -111,38 +111,23 @@ class Horde_Core_Factory_Alarm extends Horde_Core_Factory_Base
     {
         global $registry, $session;
 
-        if ($session->exists('horde', 'alarm_loaded') &&
-            (time() - $session->get('horde', 'alarm_loaded')) < $this->_ttl) {
+        if ($this->_ttl &&
+            $session->exists('horde', 'alarm_loaded') &&
+            ((time() - $session->get('horde', 'alarm_loaded')) < $this->_ttl)) {
             return;
         }
 
         foreach ($registry->listApps(null, false, Horde_Perms::READ) as $app) {
             /* Preload alarms that happen in the next ttl seconds. */
-            if ($preload) {
-                try {
-                    $alarms = $registry->callAppMethod($app, 'listAlarms', array('args' => array(time() + $this->_ttl, $user), 'noperms' => true));
-                } catch (Horde_Exception $e) {
-                    continue;
-                }
-            } else {
-                $alarms = array();
-            }
+            $time = $preload
+                ? time() + $this->_ttl
+                : time();
 
-            /* Load current alarms if no preloading requested or if this
-             * is the first call in this session. */
-            if (!$preload || !$session->get('horde', 'alarm_loaded')) {
-                try {
-                    $app_alarms = $registry->callAppMethod($app, 'listAlarms', array('args' => array(time(), $user), 'noperms' => true));
-                } catch (Horde_Exception $e) {
-                    Horde::logMessage($e);
-                    $app_alarms = array();
+            try {
+                foreach ($registry->callAppMethod($app, 'listAlarms', array('args' => array($time, $user), 'noperms' => true)) as $alarm) {
+                    $this->_alarm->set($alarm, true);
                 }
-                $alarms = array_merge($alarms, $app_alarms);
-            }
-
-            foreach ($alarms as $alarm) {
-                $this->_alarm->set($alarm, true);
-            }
+            } catch (Horde_Exception $e) {}
         }
 
         $session->set('horde', 'alarm_loaded', time());
