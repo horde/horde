@@ -1018,7 +1018,7 @@ class Turba_Driver implements Countable
                 if ($fields &&
                     (!isset($fields['LABEL']) ||
                      (isset($fields['LABEL']->Params['TYPE']) &&
-                      !isset($fields['LABEL']->Params['TYPE']->ValEnum['HOME'])))) {
+                      !$this->_hasValEnum($fields['LABEL']->Params['TYPE']->ValEnum, 'HOME')))) {
                     break;
                 }
                 if ($version == '2.1') {
@@ -1032,7 +1032,7 @@ class Turba_Driver implements Countable
                 if ($fields &&
                     (!isset($fields['LABEL']) ||
                      (isset($fields['LABEL']->Params['TYPE']) &&
-                      !isset($fields['LABEL']->Params['TYPE']->ValEnum['WORK'])))) {
+                      !$this->_hasValEnum($fields['LABEL']->Params['TYPE']->ValEnum, 'WORK')))) {
                     break;
                 }
                 if ($version == '2.1') {
@@ -1060,7 +1060,7 @@ class Turba_Driver implements Countable
                 if ($fields &&
                     (!isset($fields['TEL']) ||
                      (isset($fields['TEL']->Params['TYPE']) &&
-                      !isset($fields['TEL']->Params['TYPE']->ValEnum['HOME'])))) {
+                      !$this->_hasValEnum($fields['TEL']->Params['TYPE']->ValEnum, 'HOME')))) {
                     break;
                 }
                 if ($version == '2.1') {
@@ -1074,7 +1074,7 @@ class Turba_Driver implements Countable
                 if ($fields &&
                     (!isset($fields['TEL']) ||
                      (isset($fields['TEL']->Params['TYPE']) &&
-                      !isset($fields['TEL']->Params['TYPE']->ValEnum['WORK'])))) {
+                      !$this->_hasValEnum($fields['TEL']->Params['TYPE']->ValEnum, 'WORK')))) {
                     break;
                 }
                 if ($version == '2.1') {
@@ -1088,7 +1088,7 @@ class Turba_Driver implements Countable
                 if ($fields &&
                     (!isset($fields['TEL']) ||
                      (isset($fields['TEL']->Params['TYPE']) &&
-                      !isset($fields['TEL']->Params['TYPE']->ValEnum['CELL'])))) {
+                      !$this->_hasValEnum($fields['TEL']->Params['TYPE']->ValEnum, 'CELL')))) {
                     break;
                 }
                 if ($version == '2.1') {
@@ -1105,7 +1105,7 @@ class Turba_Driver implements Countable
                         break;
                     }
                     if (!isset($fields['TEL']->Params['TYPE']) ||
-                        isset($fields['TEL']->Params['TYPE']->ValEnum['CELL'])) {
+                        $this->_hasValEnum($fields['TEL']->Params['TYPE']->ValEnum, 'CELL')) {
                         if ($version == '2.1') {
                             $parameters['CELL'] = null;
                             $parameters['VOICE'] = null;
@@ -1114,7 +1114,7 @@ class Turba_Driver implements Countable
                         }
                     }
                     if (!isset($fields['TEL']->Params['TYPE']) ||
-                        isset($fields['TEL']->Params['TYPE']->ValEnum['HOME'])) {
+                        $this->_hasValEnum($fields['TEL']->Params['TYPE']->ValEnum, 'HOME')) {
                         if ($version == '2.1') {
                             $parameters['HOME'] = null;
                             $parameters['VOICE'] = null;
@@ -1142,7 +1142,7 @@ class Turba_Driver implements Countable
                         break;
                     }
                     if (!isset($fields['TEL']->Params['TYPE']) ||
-                        isset($fields['TEL']->Params['TYPE']->ValEnum['CELL'])) {
+                        $this->_hasValEnum($fields['TEL']->Params['TYPE']->ValEnum, 'CELL')) {
                         if ($version == '2.1') {
                             $parameters['CELL'] = null;
                             $parameters['VOICE'] = null;
@@ -1151,7 +1151,7 @@ class Turba_Driver implements Countable
                         }
                     }
                     if (!isset($fields['TEL']->Params['TYPE']) ||
-                        isset($fields['TEL']->Params['TYPE']->ValEnum['WORK'])) {
+                        $this->_hasValEnum($fields['TEL']->Params['TYPE']->ValEnum, 'WORK')) {
                         if ($version == '2.1') {
                             $parameters['WORK'] = null;
                             $parameters['VOICE'] = null;
@@ -1176,7 +1176,7 @@ class Turba_Driver implements Countable
                 if ($fields &&
                     (!isset($fields['TEL']) ||
                      (isset($fields['TEL']->Params['TYPE']) &&
-                      !isset($fields['TEL']->Params['TYPE']->ValEnum['VIDEO'])))) {
+                      !$this->_hasValEnum($fields['TEL']->Params['TYPE']->ValEnum, 'VIDEO')))) {
                     break;
                 }
                 if ($version == '2.1') {
@@ -1193,7 +1193,7 @@ class Turba_Driver implements Countable
                         break;
                     }
                     if (!isset($fields['TEL']->Params['TYPE']) ||
-                        isset($fields['TEL']->Params['TYPE']->ValEnum['VIDEO'])) {
+                        $this->_hasValEnum($fields['TEL']->Params['TYPE']->ValEnum, 'VIDEO')) {
                         if ($version == '2.1') {
                             $parameters['VIDEO'] = null;
                         } else {
@@ -1201,7 +1201,7 @@ class Turba_Driver implements Countable
                         }
                     }
                     if (!isset($fields['TEL']->Params['TYPE']) ||
-                        isset($fields['TEL']->Params['TYPE']->ValEnum['HOME'])) {
+                        $this->_hasValEnum($fields['TEL']->Params['TYPE']->ValEnum, 'HOME')) {
                         if ($version == '2.1') {
                             $parameters['HOME'] = null;
                         } else {
@@ -1228,7 +1228,7 @@ class Turba_Driver implements Countable
                         break;
                     }
                     if (!isset($fields['TEL']->Params['TYPE']) ||
-                        isset($fields['TEL']->Params['TYPE']->ValEnum['VIDEO'])) {
+                        $this->_hasValEnum($fields['TEL']->Params['TYPE']->ValEnum, 'VIDEO')) {
                         if ($version == '2.1') {
                             $parameters['VIDEO'] = null;
                         } else {
@@ -1236,7 +1236,7 @@ class Turba_Driver implements Countable
                         }
                     }
                     if (!isset($fields['TEL']->Params['TYPE']) ||
-                        isset($fields['TEL']->Params['TYPE']->ValEnum['WORK'])) {
+                        $this->_hasValEnum($fields['TEL']->Params['TYPE']->ValEnum, 'WORK')) {
                         if ($version == '2.1') {
                             $parameters['WORK'] = null;
                         } else {
@@ -1266,7 +1266,7 @@ class Turba_Driver implements Countable
                 if ($fields &&
                     (!isset($fields['X-SIP']) ||
                      (isset($fields['X-SIP']->Params['TYPE']) &&
-                      !isset($fields['X-SIP']->Params['TYPE']->ValEnum['POC'])))) {
+                      !$this->_hasValEnum($fields['X-SIP']->Params['TYPE']->ValEnum, 'POC')))) {
                     break;
                 }
                 if ($version == '2.1') {
@@ -1280,7 +1280,7 @@ class Turba_Driver implements Countable
                 if ($fields &&
                     (!isset($fields['X-SIP']) ||
                      (isset($fields['X-SIP']->Params['TYPE']) &&
-                      !isset($fields['X-SIP']->Params['TYPE']->ValEnum['VOIP'])))) {
+                      !$this->_hasValEnum($fields['X-SIP']->Params['TYPE']->ValEnum, 'VOIP')))) {
                     break;
                 }
                 if ($version == '2.1') {
@@ -1294,7 +1294,7 @@ class Turba_Driver implements Countable
                 if ($fields &&
                     (!isset($fields['X-SIP']) ||
                      (isset($fields['X-SIP']->Params['TYPE']) &&
-                      !isset($fields['X-SIP']->Params['TYPE']->ValEnum['SWIS'])))) {
+                      !$this->_hasValEnum($fields['X-SIP']->Params['TYPE']->ValEnum, 'SWIS')))) {
                     break;
                 }
                 if ($version == '2.1') {
@@ -1315,7 +1315,7 @@ class Turba_Driver implements Countable
                 if ($fields &&
                     (!isset($fields['TEL']) ||
                      (isset($fields['TEL']->Params['TYPE']) &&
-                      !isset($fields['TEL']->Params['TYPE']->ValEnum['FAX'])))) {
+                      !$this->_hasValEnum($fields['TEL']->Params['TYPE']->ValEnum, 'FAX')))) {
                     break;
                 }
                 if ($version == '2.1') {
@@ -1332,7 +1332,7 @@ class Turba_Driver implements Countable
                         break;
                     }
                     if (!isset($fields['TEL']->Params['TYPE']) ||
-                        isset($fields['TEL']->Params['TYPE']->ValEnum['FAX'])) {
+                        $this->_hasValEnum($fields['TEL']->Params['TYPE']->ValEnum, 'FAX')) {
                         if ($version == '2.1') {
                             $parameters['FAX'] = null;
                         } else {
@@ -1340,7 +1340,7 @@ class Turba_Driver implements Countable
                         }
                     }
                     if (!isset($fields['TEL']->Params['TYPE']) ||
-                        isset($fields['TEL']->Params['TYPE']->ValEnum['HOME'])) {
+                        $this->_hasValEnum($fields['TEL']->Params['TYPE']->ValEnum, 'HOME')) {
                         if ($version == '2.1') {
                             $parameters['HOME'] = null;
                         } else {
@@ -1367,7 +1367,7 @@ class Turba_Driver implements Countable
                         break;
                     }
                     if (!isset($fields['TEL']->Params['TYPE']) ||
-                        isset($fields['TEL']->Params['TYPE']->ValEnum['FAX'])) {
+                        $this->_hasValEnum($fields['TEL']->Params['TYPE']->ValEnum, 'FAX')) {
                         if ($version == '2.1') {
                             $parameters['FAX'] = null;
                         } else {
@@ -1375,7 +1375,7 @@ class Turba_Driver implements Countable
                         }
                     }
                     if (!isset($fields['TEL']->Params['TYPE']) ||
-                        isset($fields['TEL']->Params['TYPE']->ValEnum['WORK'])) {
+                        $this->_hasValEnum($fields['TEL']->Params['TYPE']->ValEnum, 'WORK')) {
                         if ($version == '2.1') {
                             $parameters['WORK'] = null;
                         } else {
@@ -1404,7 +1404,7 @@ class Turba_Driver implements Countable
                 if ($fields &&
                     (!isset($fields['TEL']) ||
                      (isset($fields['TEL']->Params['TYPE']) &&
-                      !isset($fields['TEL']->Params['TYPE']->ValEnum['PAGER'])))) {
+                      !$this->_hasValEnum($fields['TEL']->Params['TYPE']->ValEnum, 'PAGER')))) {
                     break;
                 }
                 if ($version == '2.1') {
@@ -1435,7 +1435,7 @@ class Turba_Driver implements Countable
                 if ($fields &&
                     (!isset($fields['EMAIL']) ||
                      (isset($fields['EMAIL']->Params['TYPE']) &&
-                      !isset($fields['EMAIL']->Params['TYPE']->ValEnum['HOME'])))) {
+                      !$this->_hasValEnum($fields['EMAIL']->Params['TYPE']->ValEnum, 'HOME')))) {
                     break;
                 }
                 if ($version == '2.1') {
@@ -1453,7 +1453,7 @@ class Turba_Driver implements Countable
                 if ($fields &&
                     (!isset($fields['EMAIL']) ||
                      (isset($fields['EMAIL']->Params['TYPE']) &&
-                      !isset($fields['EMAIL']->Params['TYPE']->ValEnum['WORK'])))) {
+                      !$this->_hasValEnum($fields['EMAIL']->Params['TYPE']->ValEnum, 'WORK')))) {
                     break;
                 }
                 if ($version == '2.1') {
@@ -1535,7 +1535,7 @@ class Turba_Driver implements Countable
                 if ($fields &&
                     (!isset($fields['URL']) ||
                      (isset($fields['URL']->Params['TYPE']) &&
-                      !isset($fields['URL']->Params['TYPE']->ValEnum['HOME'])))) {
+                      !$this->_hasValEnum($fields['URL']->Params['TYPE']->ValEnum, 'HOME')))) {
                     break;
                 }
                 if ($version == '2.1') {
@@ -1549,7 +1549,7 @@ class Turba_Driver implements Countable
                 if ($fields &&
                     (!isset($fields['URL']) ||
                      (isset($fields['URL']->Params['TYPE']) &&
-                      !isset($fields['URL']->Params['TYPE']->ValEnum['WORK'])))) {
+                      !$this->_hasValEnum($fields['URL']->Params['TYPE']->ValEnum, 'WORK')))) {
                     break;
                 }
                 if ($version == '2.1') {
@@ -1588,7 +1588,7 @@ class Turba_Driver implements Countable
                 if ($fields &&
                     (!isset($fields['GEO']) ||
                      (isset($fields['GEO']->Params['TYPE']) &&
-                      !isset($fields['GEO']->Params['TYPE']->ValEnum['HOME'])))) {
+                      !$this->_hasValEnum($fields['GEO']->Params['TYPE']->ValEnum, 'HOME')))) {
                     break;
                 }
                 if (isset($hash['homeLongitude'])) {
@@ -1610,7 +1610,7 @@ class Turba_Driver implements Countable
                 if ($fields &&
                     (!isset($fields['GEO']) ||
                      (isset($fields['GEO']->Params['TYPE']) &&
-                      !isset($fields['GEO']->Params['TYPE']->ValEnum['HOME'])))) {
+                      !$this->_hasValEnum($fields['GEO']->Params['TYPE']->ValEnum, 'HOME')))) {
                     break;
                 }
                 if (isset($hash['workLongitude'])) {
@@ -1642,7 +1642,7 @@ class Turba_Driver implements Countable
                     (!isset($fields[$name]) ||
                      (isset($params['TYPE']) &&
                       isset($fields[$name]->Params['TYPE']) &&
-                      !isset($fields[$name]->Params['TYPE']->ValEnum[$params['TYPE']])))) {
+                      !$this->_hasValEnum($fields[$name]->Params['TYPE']->ValEnum, $params['TYPE'])))) {
                     break;
                 }
                 $vcard->setAttribute($name,
@@ -1764,7 +1764,7 @@ class Turba_Driver implements Countable
         if ((!$fields ||
              (isset($fields['ADR']) &&
               (!isset($fields['ADR']->Params['TYPE']) ||
-               isset($fields['ADR']->Params['TYPE']->ValEnum['HOME'])))) &&
+               $this->_hasValEnum($fields['ADR']->Params['TYPE']->ValEnum, 'HOME')))) &&
             (!empty($hash['homeAddress']) ||
              !empty($hash['homeStreet']) ||
              !empty($hash['homePOBox']) ||
@@ -1817,7 +1817,7 @@ class Turba_Driver implements Countable
         if ((!$fields ||
              (isset($fields['ADR']) &&
               (!isset($fields['ADR']->Params['TYPE']) ||
-               isset($fields['ADR']->Params['TYPE']->ValEnum['WORK'])))) &&
+               $this->_hasValEnum($fields['ADR']->Params['TYPE']->ValEnum, 'WORK')))) &&
             (!empty($hash['workAddress']) ||
              !empty($hash['workStreet']) ||
              !empty($hash['workPOBox']) ||
@@ -1868,6 +1868,25 @@ class Turba_Driver implements Countable
         }
 
         return $vcard;
+    }
+
+    /**
+     * Returns whether a ValEnum entry from a DevInf object contains a certain
+     * type.
+     *
+     * @param array $valEnum  A ValEnum hash.
+     * @param string $type    A requested attribute type.
+     *
+     * @return boolean  True if $type exists in $valEnum.
+     */
+    protected function _hasValEnum($valEnum, $type)
+    {
+        foreach (array_keys($valEnum) as $key) {
+            if (array_key_exists($type, explode(',', $key))) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
