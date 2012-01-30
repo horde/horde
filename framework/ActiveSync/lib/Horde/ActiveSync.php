@@ -244,6 +244,7 @@ class Horde_ActiveSync
     const GAL_MOBILEPHONE               = 'GAL:MobilePhone';
     const GAL_EMAILADDRESS              = 'GAL:EmailAddress';
 
+    const PROVISIONING_LOOSE            = 'loose';
     /**
      * Logger
      *
