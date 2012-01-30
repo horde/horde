@@ -160,9 +160,13 @@ class Horde_Registry_Application
      * Modifies the global notification handler.
      *
      * @param Horde_Notification_Handler $handler  A notification handler.
+     *
+     * @return boolean  Return true if the notification handler has been
+     *                  modified.
      */
     public function setupNotification(Horde_Notification_Handler $handler)
     {
+        return false;
     }
 
 
@@ -175,7 +179,7 @@ class Horde_Registry_Application
      * @param string $user   The user to retreive alarms for. All users if
      *                       null.
      *
-     * @return array  An array of UIDs
+     * @return array  An array of UIDs.
      */
     public function listAlarms($time, $user = null)
     {

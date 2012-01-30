@@ -153,11 +153,9 @@ class Horde_Mime_Address
      *
      * Object array format for the address "John Doe <john_doe@example.com>"
      * is:
-     * <pre>
-     * 'personal' = Personal name ("John Doe")
-     * 'mailbox' = The user's mailbox ("john_doe")
-     * 'host' = The host the mailbox is on ("example.com")
-     * </pre>
+     *   - host: The host the mailbox is on ("example.com")
+     *   - mailbox: The user's mailbox ("john_doe")
+     *   - personal: Personal name ("John Doe")
      *
      * @param array $ob    The address object to be turned into a string.
      * @param array $opts  Additional options:
@@ -364,15 +362,13 @@ class Horde_Mime_Address
      *
      * @param string $address  The address string.
      * @param array $options   Additional options:
-     * <pre>
-     * 'defserver' - (string) The default domain to append to mailboxes.
-     *               DEFAULT: No domain appended.
-     * 'nestgroups' - (boolean) Nest the groups? (Will appear under the
-     *                'groupname' key)
-     *                DEFAULT: No.
-     * 'validate' - (boolean) Validate the address(es)?
-     *              DEFAULT: No.
-     * </pre>
+     *   - defserver: (string) The default domain to append to mailboxes.
+     *                DEFAULT: No domain appended.
+     *   - nestgroups: (boolean) Nest the groups? (Will appear under the
+     *                 'groupname' key)
+     *                 DEFAULT: No.
+     *   - validate: (boolean) Validate the address(es)?
+     *               DEFAULT: No.
      *
      * @return array  A list of arrays with the possible keys: 'mailbox',
      *                'host', 'personal', 'adl', 'groupname', and 'comment'.

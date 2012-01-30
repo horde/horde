@@ -843,16 +843,12 @@ class Horde_Registry
      *
      * @return array  List of all apps registered with Horde.
      */
-    public function listAllApps($filter = null)
+    public function listAllApps()
     {
         // Default to all installed (but possibly not configured) applications.
-        if (is_null($filter)) {
-            $filter = array(
-                'active', 'admin', 'noadmin', 'hidden', 'inactive', 'notoolbar'
-            );
-        }
-
-        return $this->listApps($filter, false, null);
+        return $this->listApps(array(
+            'active', 'admin', 'noadmin', 'hidden', 'inactive', 'notoolbar'
+        ), false, null);
     }
 
     /**

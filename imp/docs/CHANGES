@@ -3,6 +3,9 @@ v5.1-git
 --------
 
 [mms] Moved AJAX core features to Horde_Core package.
+[jan] Add reporting as spam/innocent to smartphone view.
+[mms] Workaround overquota error when deleting messages and using Trash
+      mailbox.
 [jan] Add basic search to smartphone view.
 [jan] Add resume and "edit as new" to smartphone view.
 [mms] Hide deleted now works with threaded mailboxes.
@@ -42,6 +45,8 @@ v5.1-git
 v5.0.19-git
 -----------
 
+[mms] Fix regression in displaying PGP Armored signed/encrypted messages (Bug
+      #10926).
 [mms] Catch IMAP server connection errors in traditional mailbox view.
 [mms] Fix purging moved messages from dynamic mailbox view if deleted messages
       are visible in the mailbox (Bug #10916).

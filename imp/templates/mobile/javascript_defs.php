@@ -41,6 +41,7 @@ $code['conf'] = array_filter(array(
     'flags' => $flags,
     /* Needed to maintain flag ordering. */
     'flags_o' => array_keys($flags),
+    'ham_spammbox' => !empty($GLOBALS['conf']['notspam']['spamfolder']),
     'mailbox_return' => $GLOBALS['prefs']->getValue('mailbox_return'),
     'pop3' => intval($GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->pop3),
     'qsearchid' => IMP_Mailbox::formTo(IMP_Search::MBOX_PREFIX . IMP_Search::DIMP_QUICKSEARCH),
@@ -75,15 +76,21 @@ $code['conf'] = array_filter(array(
             'v' => Horde_Imap_Client::SORT_SIZE
         )
     ),
+    'spam_folder' => IMP_Mailbox::formTo($GLOBALS['prefs']->getValue('spam_folder')),
+    'spam_spammbox' => !empty($GLOBALS['conf']['spam']['spamfolder']),
 ));
 
 /* Gettext strings used in core javascript files. */
 $code['text'] = array(
     'confirm' => array(
         'text' => array(
-            'delete' => _("Are you sure you want to delete this message?")),
+            'delete' => _("Are you sure you want to delete this message?"),
+            'spam'   => _("Are you sure you wish to report this message as spam?"),
+            'ham'    => _("Are you sure you wish to report this message as innocent?")),
         'action' => array(
-            'delete' => _("Delete")),
+            'delete' => _("Delete"),
+            'spam'   => _("Report as Spam"),
+            'ham'    => _("Report as Innocent")),
     ),
     'copy' => _("Copy"),
     'more_messages' => _("%d more messages..."),

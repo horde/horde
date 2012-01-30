@@ -219,7 +219,7 @@ abstract class Horde_Core_Ajax_Application
         if ($this->_defaultDomain) {
             $params['default_domain'] = $this->_defaultDomain;
         }
-        $res = $rfc822->parseAddressList($this->_vars->email, $params);
+        $res = $rfc822->parseAddressList(Horde_Mime::encodeAddress($this->_vars->email, 'UTF-8', $this->_defaultDomain), $params);
         if (!count($res)) {
             throw new Horde_Exception(Horde_Core_Translation::t("No valid email address found"));
         }

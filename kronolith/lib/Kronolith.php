@@ -1,18 +1,24 @@
 <?php
 /**
+ * Kronolith base library.
+ *
  * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @package Kronolith
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @package  Kronolith
  */
 
 /**
  * The Kronolith:: class provides functionality common to all of Kronolith.
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Kronolith
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @package  Kronolith
  */
 class Kronolith
 {
@@ -41,13 +47,6 @@ class Kronolith
 
     /** The event can be delegated. */
     const PERMS_DELEGATE = 1024;
-
-    /**
-     * Driver singleton instances.
-     *
-     * @var array
-     */
-    static private $_instances = array();
 
     /**
      * @var Kronolith_Tagger
@@ -932,109 +931,99 @@ class Kronolith
 
     /**
      * Initial app setup code.
+     *
+     * Globals defined:
+     *   - all_calendars
+     *   - all_remote_calendars
+     *   - display_calendars
+     *   - display_holidays
+     *   - display_external_calendars
+     *   - display_remote_calendars
+     *   - display_resource_calendars
      */
     static public function initialize()
     {
+        global $conf, $prefs, $registry, $session;
+
         /* Store the request timestamp if it's not already present. */
         if (!isset($_SERVER['REQUEST_TIME'])) {
             $_SERVER['REQUEST_TIME'] = time();
-        }
-
-        /* Fetch display preferences. */
-        $GLOBALS['display_calendars'] = @unserialize($GLOBALS['prefs']->getValue('display_cals'));
-        $GLOBALS['display_remote_calendars'] = @unserialize($GLOBALS['prefs']->getValue('display_remote_cals'));
-        $GLOBALS['display_external_calendars'] = @unserialize($GLOBALS['prefs']->getValue('display_external_cals'));
-        $GLOBALS['display_holidays'] = @unserialize($GLOBALS['prefs']->getValue('holiday_drivers'));
-
-        if (!is_array($GLOBALS['display_calendars'])) {
-            $GLOBALS['display_calendars'] = array();
-        }
-        if (!is_array($GLOBALS['display_remote_calendars'])) {
-            $GLOBALS['display_remote_calendars'] = array();
-        }
-        if (!is_array($GLOBALS['display_external_calendars'])) {
-            $GLOBALS['display_external_calendars'] = array();
-        }
-        if (!is_array($GLOBALS['display_holidays']) ||
-            empty($GLOBALS['conf']['holidays']['enable'])) {
-            $GLOBALS['display_holidays'] = array();
         }
 
         /* Update preferences for which calendars to display. If the
          * user doesn't have any selected calendars to view then fall
          * back to an available calendar. An empty string passed in this
          * parameter will clear any existing session value.*/
-        if (($calendarId = Horde_Util::getFormData('display_cal')) !== null) {
-            $GLOBALS['session']->set('kronolith', 'display_cal', $calendarId);
+        if (($calId = Horde_Util::getFormData('display_cal')) !== null) {
+            $session->set('kronolith', 'display_cal', $calId);
+        } else {
+            $calId = $session->get('kronolith', 'display_cal');
         }
 
-        if (strlen($GLOBALS['session']->get('kronolith', 'display_cal'))) {
+        if (strlen($calId)) {
             /* Specifying a value for display_cal is always to make sure
              * that only the specified calendars are shown. Use the
-             * "toggle_calendar" argument  to toggle the state of a single
+             * "toggle_calendar" argument to toggle the state of a single
              * calendar. */
             $GLOBALS['display_calendars'] = array();
             $GLOBALS['display_remote_calendars'] = array();
             $GLOBALS['display_external_calendars'] = array();
             $GLOBALS['display_resource_calendars'] = array();
             $GLOBALS['display_holidays'] = array();
-            $calendars = $GLOBALS['session']->get('kronolith', 'display_cal');
-            if (!is_array($calendars)) {
-                $calendars = array($calendars);
+
+            if (strncmp($calId, 'remote_', 7) === 0) {
+                $GLOBALS['display_remote_calendars'][] = substr($calId, 7);
+            } elseif (strncmp($calId, 'external_', 9) === 0) {
+                $GLOBALS['display_external_calendars'][] = substr($calId, 9);
+            } elseif (strncmp($calId, 'resource_', 9) === 0) {
+                $GLOBALS['display_resource_calendars'][] = substr($calId, 9);
+            } elseif (strncmp($calId, 'holidays_', 9) === 0) {
+                $GLOBALS['display_holidays'][] = substr($calId, 9);
+            } else {
+                $GLOBALS['display_calendars'][] = (strncmp($calId, 'internal_', 9) === 0)
+                    ? substr($calId, 9)
+                    : $calId;
             }
-            foreach ($calendars as $calendarId) {
-                if (strncmp($calendarId, 'remote_', 7) === 0) {
-                    $calendarId = substr($calendarId, 7);
-                    if (!in_array($calendarId, $GLOBALS['display_remote_calendars'])) {
-                        $GLOBALS['display_remote_calendars'][] = $calendarId;
-                    }
-                } elseif (strncmp($calendarId, 'external_', 9) === 0) {
-                    $calendarId = substr($calendarId, 9);
-                    if (!in_array($calendarId, $GLOBALS['display_external_calendars'])) {
-                        $GLOBALS['display_external_calendars'][] = $calendarId;
-                    }
-                } elseif (strncmp($calendarId, 'resource_', 9) === 0) {
-                    $calendarId = substr($calendarId, 9);
-                    if (!in_array($calendarId, $GLOBALS['display_resource_calendars'])) {
-                        $GLOBALS['display_resource_calendars'][] = $calendarId;
-                    }
-                } elseif (strncmp($calendarId, 'holidays_', 9) === 0) {
-                    $calendarId = substr($calendarId, 9);
-                    if (!in_array($calendarId, $GLOBALS['display_holidays'])) {
-                        $GLOBALS['display_holidays'][] = $calendarId;
-                    }
-                } else {
-                    if (strncmp($calendarId, 'internal_', 9) === 0) {
-                        $calendarId = substr($calendarId, 9);
-                    }
-                    if (!in_array($calendarId, $GLOBALS['display_calendars'])) {
-                        $GLOBALS['display_calendars'][] = $calendarId;
-                    }
-                }
+        } else {
+            /* Fetch display preferences. */
+            $display_prefs = array(
+                'display_cals' => 'display_calendars',
+                'display_remote_cals' => 'display_remote_calendars',
+                'display_external_cals' => 'display_external_calendars',
+                'holiday_drivers' => 'display_holidays'
+            );
+            foreach ($display_prefs as $key => $val) {
+                $pref_val = @unserialize($prefs->getValue($key));
+                $GLOBALS[$val] = is_array($pref_val)
+                    ? $pref_val
+                    : array();
+            }
+
+            if (empty($conf['holidays']['enable'])) {
+                $GLOBALS['display_holidays'] = array();
             }
         }
 
         /* Check for single "toggle" calendars. */
-        if (($calendarId = Horde_Util::getFormData('toggle_calendar')) !== null) {
-            if (strncmp($calendarId, 'remote_', 7) === 0) {
-                $calendarId = substr($calendarId, 7);
-                if (in_array($calendarId, $GLOBALS['display_remote_calendars'])) {
-                    $key = array_search($calendarId, $GLOBALS['display_remote_calendars']);
+        if (($calId = Horde_Util::getFormData('toggle_calendar')) !== null) {
+            if (strncmp($calId, 'remote_', 7) === 0) {
+                $calId = substr($calId, 7);
+                if (($key = array_search($calId, $GLOBALS['display_remote_calendars'])) === false) {
+                    $GLOBALS['display_remote_calendars'][] = $calId;
+                } else {
                     unset($GLOBALS['display_remote_calendars'][$key]);
-                } else {
-                    $GLOBALS['display_remote_calendars'][] = $calendarId;
                 }
-            } elseif ((strncmp($calendarId, 'external_', 9) === 0 &&
-                       $calendarId = substr($calendarId, 9)) ||
-                      (strncmp($calendarId, 'tasklists_', 10) === 0 &&
-                       $calendarId = substr($calendarId, 10))) {
-                if (in_array($calendarId, $GLOBALS['display_external_calendars'])) {
-                    $key = array_search($calendarId, $GLOBALS['display_external_calendars']);
+            } elseif ((strncmp($calId, 'external_', 9) === 0 &&
+                       ($calId = substr($calId, 9))) ||
+                      (strncmp($calId, 'tasklists_', 10) === 0 &&
+                       ($calId = substr($calId, 10)))) {
+                if (($key = array_search($calId, $GLOBALS['display_external_calendars'])) === false) {
+                    $GLOBALS['display_external_calendars'][] = $calId;
+                } else {
                     unset($GLOBALS['display_external_calendars'][$key]);
-                } else {
-                    $GLOBALS['display_external_calendars'][] = $calendarId;
                 }
-                if (strpos($calendarId, 'tasks/') === 0) {
+
+                if (strpos($calId, 'tasks/') === 0) {
                     $tasklists = array();
                     foreach ($GLOBALS['display_external_calendars'] as $id) {
                         if (strpos($id, 'tasks/') === 0) {
@@ -1042,28 +1031,23 @@ class Kronolith
                         }
                     }
                     try {
-                        $GLOBALS['registry']->tasks->setDisplayedTasklists($tasklists);
-                    } catch (Horde_Exception $e) {
-                    }
+                        $registry->tasks->setDisplayedTasklists($tasklists);
+                    } catch (Horde_Exception $e) {}
                 }
-            } elseif (strncmp($calendarId, 'holiday_', 8) === 0) {
-                $calendarId = substr($calendarId, 8);
-                if (in_array($calendarId, $GLOBALS['display_holidays'])) {
-                    $key = array_search($calendarId, $GLOBALS['display_holidays']);
+            } elseif (strncmp($calId, 'holiday_', 8) === 0) {
+                $calId = substr($calId, 8);
+                if (($key = array_search($calId, $GLOBALS['display_holidays'])) === false) {
+                    $GLOBALS['display_holidays'][] = $calId;
+                } else {
                     unset($GLOBALS['display_holidays'][$key]);
-                } else {
-                    $GLOBALS['display_holidays'][] = $calendarId;
                 }
+            } elseif (($key = array_search($calId, $GLOBALS['display_calendars'])) === false) {
+                $GLOBALS['display_calendars'][] = $calId;
             } else {
-                if (in_array($calendarId, $GLOBALS['display_calendars'])) {
-                    $key = array_search($calendarId, $GLOBALS['display_calendars']);
-                    unset($GLOBALS['display_calendars'][$key]);
-                } else {
-                    $GLOBALS['display_calendars'][] = $calendarId;
-                }
+                unset($GLOBALS['display_calendars'][$key]);
             }
 
-            $GLOBALS['prefs']->setValue('display_cals', serialize($GLOBALS['display_calendars']));
+            $prefs->setValue('display_cals', serialize($GLOBALS['display_calendars']));
         }
 
         /* Make sure all shares exists now to save on checking later. */
@@ -1071,25 +1055,19 @@ class Kronolith
         foreach (self::listInternalCalendars() as $id => $calendar) {
             $GLOBALS['all_calendars'][$id] = new Kronolith_Calendar_Internal(array('share' => $calendar));
         }
-        $calendar_keys = array_values($GLOBALS['display_calendars']);
-        $GLOBALS['display_calendars'] = array();
-        foreach ($calendar_keys as $id) {
-            if (isset($GLOBALS['all_calendars'][$id])) {
-                $GLOBALS['display_calendars'][] = $id;
-            }
-        }
+        $GLOBALS['display_calendars'] = array_intersect($GLOBALS['display_calendars'], array_keys($GLOBALS['all_calendars']));
 
         /* Make sure all the remote calendars still exist. */
-        $_temp = $GLOBALS['display_remote_calendars'];
-        $GLOBALS['display_remote_calendars'] = array();
-        $GLOBALS['all_remote_calendars'] = array();
+        $tmp = $GLOBALS['display_remote_calendars'];
+        $GLOBALS['all_remote_calendars'] = $GLOBALS['display_remote_calendars'] = array();
         $calendars = @unserialize($GLOBALS['prefs']->getValue('remote_cals'));
         if (!is_array($calendars)) {
             $calendars = array();
         }
+
         foreach ($calendars as $calendar) {
             $GLOBALS['all_remote_calendars'][$calendar['url']] = new Kronolith_Calendar_Remote($calendar);
-            if (in_array($calendar['url'], $_temp)) {
+            if (in_array($calendar['url'], $tmp)) {
                 $GLOBALS['display_remote_calendars'][] = $calendar['url'];
             }
         }
@@ -1250,60 +1228,57 @@ class Kronolith
      * Initialize the event map.
      *
      * @param array $params Parameters to pass the the map
-     *
-     * @return void
      */
     static public function initEventMap($params)
     {
-        // Add the apikeys
+        $apikeys = array();
+
         if (!empty($params['providers'])) {
             /* It is safe to put configuration specific to horde driver inside
-            this block since horde driver *must* contain a provider array */
+             * this block since horde driver *must* contain a provider
+             * array. */
 
             // Language specific file needed?
             $language = str_replace('_', '-', $GLOBALS['language']);
             if (!file_exists($GLOBALS['registry']->get('jsfs', 'horde') . '/map/lang/' . $language . '.js')) {
                 $language = 'en-US';
             }
+
             $params['conf'] = array(
-                'markerImage' => (string)Horde_Themes::img('map/marker.png'),
-                'markerBackground' => (string)Horde_Themes::img('map/marker-shadow.png'),
-                'useMarkerLayer' => true,
                 'language' => $language,
+                'markerImage' => strval(Horde_Themes::img('map/marker.png')),
+                'markerBackground' => strval(Horde_Themes::img('map/marker-shadow.png')),
+                'useMarkerLayer' => true
             );
 
-            foreach ($params['providers'] as $layer) {
-                switch ($layer) {
-                case 'Google':
-                    $params['conf']['apikeys']['google'] = $GLOBALS['conf']['api']['googlemaps'];
-                    break;
-                case 'Yahoo':
-                    $params['conf']['apikeys']['yahoo'] = $GLOBALS['conf']['api']['yahoomaps'];
-                    break;
-                case 'Cloudmade':
-                    $params['conf']['apikeys']['cloudmade'] = $GLOBALS['conf']['api']['cloudmade'];
-                    break;
-                }
-            }
+            $apikeys = $params['providers'];
         }
 
         if (!empty($params['geocoder'])) {
-            switch ($params['geocoder']) {
-            case 'Google':
-                $params['conf']['apikeys']['google'] = $GLOBALS['conf']['api']['googlemaps'];
-                break;
-            case 'Yahoo':
-                $params['conf']['apikeys']['yahoo'] = $GLOBALS['conf']['api']['yahoomaps'];
-                break;
+            $apikeys = $params['geocoder'];
+        }
+
+        foreach ($apikeys as $val) {
+            switch ($val) {
             case 'Cloudmade':
                 $params['conf']['apikeys']['cloudmade'] = $GLOBALS['conf']['api']['cloudmade'];
                 break;
+
+            case 'Google':
+                $params['conf']['apikeys']['google'] = $GLOBALS['conf']['api']['googlemaps'];
+                break;
+
+            case 'Yahoo':
+                $params['conf']['apikeys']['yahoo'] = $GLOBALS['conf']['api']['yahoomaps'];
+                break;
             }
         }
+
         $params['jsuri'] = $GLOBALS['registry']->get('jsuri', 'horde') . '/map/';
         Horde::addScriptFile('map/map.js', 'horde');
-        $js = 'HordeMap.initialize(' . Horde_Serialize::serialize($params, HORDE_SERIALIZE::JSON) . ');';
-        Horde::addinlineScript($js);
+        Horde::addinlineScript(
+            'HordeMap.initialize(' . Horde_Serialize::serialize($params, HORDE_SERIALIZE::JSON) . ');'
+        );
     }
 
     /**
@@ -1557,7 +1532,8 @@ class Kronolith
      *
      * @return array  The calendar list.
      */
-    static public function listInternalCalendars($owneronly = false, $permission = Horde_Perms::SHOW)
+    static public function listInternalCalendars($owneronly = false,
+                                                 $permission = Horde_Perms::SHOW)
     {
         if ($owneronly && !$GLOBALS['registry']->getAuth()) {
             return array();
@@ -1737,8 +1713,6 @@ class Kronolith
 
     /**
      * Returns whether the current user has certain permissions on a calendar.
-     *
-     * @since Kronolith 3.0.6
      *
      * @param string $calendar  A calendar id.
      * @param integer $perm     A Horde_Perms permission mask.
@@ -2926,80 +2900,18 @@ class Kronolith
      */
     static public function getDriver($driver = null, $calendar = null)
     {
-        switch ($driver) {
-        case 'internal':
-            $driver = '';
-            break;
-        case 'external':
-        case 'tasklists':
-            $driver = 'Horde';
-            break;
-        case 'remote':
-            $driver = 'Ical';
-            break;
-        case 'holiday':
-            $driver = 'Holidays';
-            break;
-        case 'resource':
-            $driver = 'Resource';
-            break;
-        }
-
-        if (empty($driver)) {
-            $driver = Horde_String::ucfirst($GLOBALS['conf']['calendar']['driver']);
-        }
-
-        if (!isset(self::$_instances[$driver])) {
-            switch ($driver) {
-            case 'Sql':
-            case 'Resource':
-                $params = Horde::getDriverConfig('calendar', 'sql');
-                if ($params['driverconfig'] != 'Horde') {
-                    $customParams = $params;
-                    unset($customParams['driverconfig'], $customParams['table'], $customParams['utc']);
-                    $params['db'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create('kronolith', $customParams);
-                } else {
-                    $params['db'] = $GLOBALS['injector']->getInstance('Horde_Db_Adapter');
-                }
-                break;
-
-            case 'Kolab':
-                $params['storage'] = $GLOBALS['injector']->getInstance('Horde_Kolab_Storage');
-                break;
-
-            case 'Ical':
-            case 'Mock':
-                $params = array();
-                break;
-
-            case 'Horde':
-                $params['registry'] = $GLOBALS['registry'];
-                break;
-
-            case 'Holidays':
-                if (empty($GLOBALS['conf']['holidays']['enable'])) {
-                    throw new Kronolith_Exception(_("Holidays are disabled"));
-                }
-                $params['language'] = $GLOBALS['language'];
-                break;
-
-            default:
-                throw new Kronolith_Exception('No calendar driver specified');
-                break;
-            }
-
-            self::$_instances[$driver] = $GLOBALS['injector']->getInstance('Kronolith_Factory_Driver')->create($driver, $params);
-        }
+        $driver = $GLOBALS['injector']->getInstance('Kronolith_Factory_Driver')->create($driver);
 
         if (!is_null($calendar)) {
-            self::$_instances[$driver]->open($calendar);
+            $driver->open($calendar);
+
             /* Remote calendar parameters are per calendar. */
             if ($driver == 'Ical') {
-                self::$_instances[$driver]->setParams(self::getRemoteParams($calendar));
+                $driver->setParams(self::getRemoteParams($calendar));
             }
         }
 
-        return self::$_instances[$driver];
+        return $driver;
     }
 
     /**
@@ -3172,8 +3084,6 @@ class Kronolith
     /**
      * Sorts an event list.
      *
-     * @since Kronolith 3.0.5
-     *
      * @param array $days  A list of days with events.
      *
      * @return array  The sorted day list.
@@ -3275,8 +3185,6 @@ class Kronolith
 
     /**
      * Remove all events owned by the specified user in all calendars.
-     *
-     * @since  Kronolith 3.0.10
      *
      * @param string $user  The user name to delete events for.
      *

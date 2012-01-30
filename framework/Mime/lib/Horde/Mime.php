@@ -397,13 +397,11 @@ class Horde_Mime
      * @param string $val      The parameter value.
      * @param string $charset  The charset the text should be encoded with.
      * @param array $opts      Additional options:
-     * <pre>
-     * 'escape' - (boolean) If true, escape param values as described in
-     *            RFC 2045 [Appendix A].
-     *            DEFAULT: false
-     * 'lang' - (string) The language to use when encoding.
-     *          DEFAULT: None specified
-     * </pre>
+     *   - escape: (boolean) If true, escape param values as described in
+     *             RFC 2045 [Appendix A].
+     *             DEFAULT: false
+     *   - lang: (string) The language to use when encoding.
+     *           DEFAULT: None specified
      *
      * @return array  The encoded parameter string.
      */
@@ -483,10 +481,8 @@ class Horde_Mime
      * @param string $charset  The charset the text should be decoded to.
      *
      * @return array  An array with the following entries:
-     * <pre>
-     * 'params' - (array) The header's parameter values.
-     * 'val' - (string) The header's "base" value.
-     * </pre>
+     *   - params: (array) The header's parameter values.
+     *   - val: (string) The header's "base" value.
      */
     static public function decodeParam($type, $data, $charset)
     {
@@ -612,25 +608,21 @@ class Horde_Mime
      *
      * @param string $id      The MIME ID string.
      * @param string $action  One of the following:
-     * <pre>
-     * 'down' - ID of child. Note: down will first traverse to "$id.0" if
-     *          given an ID *NOT* of the form "$id.0". If given an ID of the
-     *          form "$id.0", down will traverse to "$id.1". This behavior
-     *          can be avoided if 'norfc822' option is set.
-     * 'next' - ID of next sibling.
-     * 'prev' - ID of previous sibling.
-     * 'up' - ID of parent. Note: up will first traverse to "$id.0" if
-     *        given an ID *NOT* of the form "$id.0". If given an ID of the
-     *        form "$id.0", down will traverse to "$id". This behavior can be
-     *        avoided if 'norfc822' option is set.
-     * </pre>
+     *   - down: ID of child. Note: down will first traverse to "$id.0" if
+     *           given an ID *NOT* of the form "$id.0". If given an ID of the
+     *           form "$id.0", down will traverse to "$id.1". This behavior
+     *           can be avoided if 'norfc822' option is set.
+     *   - next: ID of next sibling.
+     *   - prev: ID of previous sibling.
+     *   - up: ID of parent. Note: up will first traverse to "$id.0" if
+     *         given an ID *NOT* of the form "$id.0". If given an ID of the
+     *         form "$id.0", down will traverse to "$id". This behavior can be
+     *         avoided if 'norfc822' option is set.
      * @param array $options  Additional options:
-     * <pre>
-     * 'count' - (integer) How many levels to traverse.
-     *           DEFAULT: 1
-     * 'norfc822' - (boolean) Don't traverse rfc822 sub-levels
-     *              DEFAULT: false
-     * </pre>
+     *   - count: (integer) How many levels to traverse.
+     *            DEFAULT: 1
+     *   - norfc822: (boolean) Don't traverse rfc822 sub-levels
+     *               DEFAULT: false
      *
      * @return mixed  The resulting ID string, or null if that ID can not
      *                exist.
@@ -706,11 +698,9 @@ class Horde_Mime
      *
      * @return array  A list of arrays, with each array corresponding to
      *                a file in the input and containing the following keys:
-     * <pre>
-     * 'data' - (string) Unencoded data.
-     * 'name' - (string) Filename.
-     * 'perms' - (string) Octal permissions.
-     * </pre>
+     *   - data: (string) Unencoded data.
+     *   - name: (string) Filename.
+     *   - perms: (string) Octal permissions.
      */
     static public function uudecode($input)
     {

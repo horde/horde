@@ -42,6 +42,8 @@
  <notes>
 * [mms] Added AJAX core features.
 * [mms] Added view determination to Horde_Registry.
+* [mms] Performance improvements to Alarm checking.
+* [mms] Performance improvements when initializing Notification system.
 * [mjr] Allow restricting pretty autocompleter to available choices.
 * [mms] Add language detection to AJAX spellchecker if no language is selected by the user (Request #7137).
 * [mms] Add Horde_Core_Block_Layout_View::getStylesheets().

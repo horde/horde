@@ -21,6 +21,11 @@ var ImpMobile = {
     // readOnly,
     //
     // /**
+    //  * The number of messages in the current mailbox.
+    //  */
+    // totalrows,
+    //
+    // /**
     //  * UID of the currently displayed message.
     //  */
     // uid,
@@ -238,15 +243,16 @@ var ImpMobile = {
     {
         var list = $('#imp-mailbox-list'), c, l, url;
         if (r && r.ViewPort) {
-            ImpMobile.mailbox  = r.ViewPort.view;
-            ImpMobile.data     = r.ViewPort.data;
-            ImpMobile.messages = r.ViewPort.rowlist;
-            ImpMobile.readOnly = r.ViewPort.metadata.readonly;
+            ImpMobile.mailbox   = r.ViewPort.view;
+            ImpMobile.totalrows = r.ViewPort.totalrows;
+            ImpMobile.data      = r.ViewPort.data;
+            ImpMobile.messages  = r.ViewPort.rowlist;
+            ImpMobile.readOnly  = r.ViewPort.metadata.readonly;
             if (r.ViewPort.metadata.slabel) {
                 document.title = r.ViewPort.metadata.slabel;
                 $('#imp-mailbox-header').text(r.ViewPort.metadata.slabel);
             }
-            $.each(r.ViewPort.data, function(key, data) {
+            $.each(r.ViewPort.data || [], function(key, data) {
                 c = 'imp-message';
                 url = '#message?view=' + data.mbox + '&uid=' + data.uid;
                 if (data.flag) {
@@ -403,8 +409,13 @@ var ImpMobile = {
             if (typeof dir == 'object') {
                 dir = dir.type == 'swipeleft' ? 1 : -1;
             }
-            $.mobile.changePage('#mailbox?mbox=' + ImpMobile.mailbox
-                                + '&from=' + (ImpMobile.from + dir * 25));
+            var page = Math.min(Math.max(ImpMobile.from,
+                                         ImpMobile.totalrows - 24),
+                                Math.max(1, ImpMobile.from + dir * 25));
+            if (page != ImpMobile.from) {
+                $.mobile.changePage('#mailbox?mbox=' + ImpMobile.mailbox
+                                    + '&from=' + page);
+            }
             break;
         }
     },
@@ -419,7 +430,8 @@ var ImpMobile = {
         if (r && r.message && !r.message.error) {
             var data = r.message,
                 headers = $('#imp-message-headers tbody'),
-                args = '&mbox=' + data.mbox + '&uid=' + data.uid;
+                args = '&mbox=' + data.mbox + '&uid=' + data.uid,
+                ham = spam = 'show', spambar;
 
             ImpMobile.uid = data.uid;
             document.title = data.title;
@@ -495,6 +507,31 @@ var ImpMobile = {
                 $('#imp-message-copy').attr(
                     'href',
                     '#target?action=copy' + args);
+            }
+            if (ImpMobile.mailbox == IMP.conf.spam_folder) {
+                if (!IMP.conf.spam_spammbox) {
+                    spam = 'hide';
+                }
+            } else if (IMP.conf.ham_spammbox) {
+                ham = 'hide';
+            }
+
+            if ($('#imp-message-ham')) {
+                $.fn[ham].call($('#imp-message-ham'));
+                $('#imp-message-ham').attr(
+                    'href',
+                    '#confirm?action=ham' + args);
+                spambar = $('#imp-message-ham').parent();
+            }
+            if ($('#imp-message-spam')) {
+                $.fn[spam].call($('#imp-message-spam'));
+                $('#imp-message-spam').attr(
+                    'href',
+                    '#confirm?action=spam' + args);
+                spambar = $('#imp-message-spam').parent();
+            }
+            if (spambar) {
+                spambar.controlgroup('refresh');
             }
 
             if (data.js) {
@@ -846,6 +883,22 @@ var ImpMobile = {
                         {});
                 });
             break;
+
+        case 'spam':
+        case 'ham':
+            HordeMobile.doAction(
+                'reportSpam',
+                {
+                    uid: ImpMobile.toUIDString(o),
+                    view: mailbox,
+                    spam: Number(match[1] == 'spam')
+                },
+                function() {
+                    ImpMobile.toMailbox(
+                        $.mobile.path.parseUrl('#mailbox?mbox=' + mailbox),
+                        {});
+                });
+            break;
         }
 
         $('#confirm').dialog('close');
@@ -986,6 +1039,11 @@ var ImpMobile = {
                 if (!elt.hasClass('ui-disabled')) {
                     ImpMobile.navigate(id == 'imp-message-prev' ? -1 : 1);
                 }
+                return;
+
+            case 'imp-message-spam':
+            case 'imp-message-ham':
+                ImpMobile.reportSpam(id == 'imp-message-spam');
                 return;
 
             case 'imp-mailbox-prev1':
