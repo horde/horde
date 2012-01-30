@@ -2,7 +2,7 @@
 v2.0.2-git
 ----------
 
-[jan] Fixencoding of auto-completion results (Bug #10945).
+[jan] Fix encoding of auto-completion results (Bug #10945).
 
 
 ------

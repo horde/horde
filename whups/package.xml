@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
  <notes>
-* [jan] Fixencoding of auto-completion results (Bug #10945).
+* [jan] Fix encoding of auto-completion results (Bug #10945).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -999,7 +999,7 @@
    <date>2011-12-13</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
    <notes>
-* [jan] Fixencoding of auto-completion results (Bug #10945).
+* [jan] Fix encoding of auto-completion results (Bug #10945).
    </notes>
   </release>
  </changelog>
