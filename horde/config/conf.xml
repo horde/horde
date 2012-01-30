@@ -2066,7 +2066,7 @@
          <case name="false" desc="No" />
          <case name="true" desc="Yes">
           <configinteger name="wipethreshold" desc="How many unlock attempts
-          before device should get wiped? Set to 0 to disable this policy?">10
+          before device should get wiped? Set to 0 to disable this policy.">10
           </configinteger>
           <configinteger name="codewordfrequency" desc="How many unlock attempts
           before validating that an actual person is using the device is able to
