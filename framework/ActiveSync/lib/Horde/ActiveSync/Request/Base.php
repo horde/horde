@@ -44,7 +44,7 @@ abstract class Horde_ActiveSync_Request_Base
 
     /**
      * Whether we require provisioned devices.
-     * Valid values are true, false, or loose.
+     * Valid values are true, false, or Horde_ActiveSync::PROVISIONING_LOOSE.
      * Loose allows devices that don't know about provisioning to continue to
      * function, but requires devices that are capable to be provisioned.
      *
@@ -152,7 +152,8 @@ abstract class Horde_ActiveSync_Request_Base
          $this->_device = $this->_state->loadDeviceInfo($this->_device->id, $this->_driver->getUser());
 
          // Use looseprovisioning?
-         if (empty($sentKey) && $this->_hasBrokenProvisioning() && $this->_provisioning == 'loose') {
+         if (empty($sentKey) && $this->_hasBrokenProvisioning() &&
+             $this->_provisioning == Horde_ActiveSync::PROVISIONING_LOOSE) {
             $sentKey = null;
          }
 
@@ -164,8 +165,8 @@ abstract class Horde_ActiveSync_Request_Base
 
             /* Loose provsioning should allow a blank key */
             if ((empty($storedKey) || $storedKey != $sentKey) &&
-               ($this->_provisioning !== 'loose' ||
-               ($this->_provisioning === 'loose' && !is_null($sentKey)))) {
+               ($this->_provisioning !== Horde_ActiveSync::PROVISIONING_LOOSE ||
+               ($this->_provisioning === Horde_ActiveSync::PROVISIONING_LOOSE && !is_null($sentKey)))) {
 
                     Horde_ActiveSync::provisioningRequired();
                     return false;
@@ -199,7 +200,8 @@ abstract class Horde_ActiveSync_Request_Base
      * are broken and versions that are not both use the same User-Agent string
      * (Android/0.3 for both 2.1, 2.2 and even 2.3). We err on the side
      * of device compatibility at the expense of not being able to provision
-     * some non-broken android devices when provisioning is set to 'loose'.
+     * some non-broken android devices when provisioning is set to
+     * Horde_ActiveSync::PROVISIONING_LOOSE.
      *
      * @TODO This should be added to a device object, once we implement
      * Horde_ActiveSync_Device API.

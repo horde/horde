@@ -10,10 +10,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-01-02</date>
- <time>10:39:48</time>
+ <date>2012-01-30</date>
+ <time>12:58:34</time>
  <version>
-  <release>1.2.2</release>
+  <release>1.2.3</release>
   <api>1.2.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix issue that could cause PING failure in certain server environments.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -531,10 +531,25 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-01-02</date>
+   <date>2012-01-30</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Allow disabling of certain policies.
+* [mjr] Honor PROVISIONING_LOOSE if the device supports PROVISIONING, but not all of our requested policies.
 * [mjr] Fix issue that could cause PING failure in certain server environments.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.3</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-01-30</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

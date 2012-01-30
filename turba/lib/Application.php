@@ -244,6 +244,7 @@ class Turba_Application extends Horde_Registry_Application
                     $unselected[$val] = $GLOBALS['cfgSources'][$val]['title'];
                 }
             }
+            ksort($sorted);
 
             foreach ($sorted as $val) {
                 $selected[$val] = $GLOBALS['cfgSources'][$val]['title'];

@@ -40,7 +40,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-*
+* [jan] Fix address book sorting in preferences (Bug #10897).
+* [mms] Improved navigation when editing group entries.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1379,6 +1380,7 @@
    <date>2012-01-17</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
+* [jan] Fix address book sorting in preferences (Bug #10897).
 * [mms] Improved navigation when editing group entries.
    </notes>
   </release>

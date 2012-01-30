@@ -860,6 +860,9 @@
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
+   <extension>
+    <name>session</name>
+   </extension>
   </required>
   <optional>
    <package>

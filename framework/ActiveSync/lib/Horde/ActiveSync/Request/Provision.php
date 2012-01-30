@@ -104,21 +104,7 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
 
             // Check to be sure that we *need* to PROVISION
             if ($this->_provisioning === false) {
-                $policyStatus = self::STATUS_NOTDEFINED;
-                $this->_encoder->startWBXML();
-                $this->_encoder->startTag(Horde_ActiveSync::PROVISION_PROVISION);
-                $this->_encoder->startTag(Horde_ActiveSync::PROVISION_STATUS);
-                $this->_encoder->content($status);
-                $this->_encoder->endTag();
-                $this->_encoder->startTag(Horde_ActiveSync::PROVISION_POLICIES);
-                $this->_encoder->startTag(Horde_ActiveSync::PROVISION_POLICY);
-                $this->_encoder->startTag(Horde_ActiveSync::PROVISION_STATUS);
-                $this->_encoder->content($policyStatus);
-                $this->_encoder->endTag();
-                $this->_encoder->endTag();
-                $this->_encoder->endTag();
-                $this->_encoder->endTag();
-
+                $this->_sendNoProvisionNeededResponse($status);
                 return true;
             }
 
@@ -132,6 +118,14 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
                     return $this->_globalError(self::STATUS_PROTERROR);
                 }
                 if ($this->_decoder->getElementContent() != self::STATUS_SUCCESS) {
+                    $this->_logger->err('Policy not accepted by device: ' . $this->_device->id);
+
+                    if ($this->_provisioning == Horde_ActiveSync::PROVISIONING_LOOSE) {
+                        // Loose provisioning, don't error out, just don't reqiure provision.
+                        $this->_sendNoProvisionNeededResponse($status);
+                        return true;
+                    }
+
                     $policyStatus = self::STATUS_POLICYCORRUPT;
                 }
 
@@ -227,6 +221,23 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
         $this->_encoder->endTag();         //provision
 
         return true;
+    }
+
+    private function _sendNoProvisionNeededResponse($status)
+    {
+        $this->_encoder->startWBXML();
+        $this->_encoder->startTag(Horde_ActiveSync::PROVISION_PROVISION);
+        $this->_encoder->startTag(Horde_ActiveSync::PROVISION_STATUS);
+        $this->_encoder->content($status);
+        $this->_encoder->endTag();
+        $this->_encoder->startTag(Horde_ActiveSync::PROVISION_POLICIES);
+        $this->_encoder->startTag(Horde_ActiveSync::PROVISION_POLICY);
+        $this->_encoder->startTag(Horde_ActiveSync::PROVISION_STATUS);
+        $this->_encoder->content(Horde_ActivSync::STATUS_NOTDEFINED);
+        $this->_encoder->endTag();
+        $this->_encoder->endTag();
+        $this->_encoder->endTag();
+        $this->_encoder->endTag();
     }
 
     private function _globalError($status)
