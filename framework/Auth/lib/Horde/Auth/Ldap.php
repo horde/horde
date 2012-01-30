@@ -469,10 +469,11 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
         $params = array(
             'scope' => $this->_params['scope']
         );
-        $uidfilter = Horde_Ldap_Filter::create($this->_params['uid'], 'equals', $userId);
-        $classfilter = Horde_Ldap_Filter::build(array('filter' => $this->_params['filter']));
 
         try {
+            $uidfilter = Horde_Ldap_Filter::create($this->_params['uid'], 'equals', $userId);
+            $classfilter = Horde_Ldap_Filter::build(array('filter' => $this->_params['filter']));
+
             $search = $this->_ldap->search(
                 $this->_params['basedn'],
                 Horde_Ldap_Filter::combine('and', array($uidfilter, $classfilter)),
@@ -480,14 +481,15 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
             if ($search->count() < 1) {
                 return false;
             }
-            if ($search->count() > 1) {
+            if ($search->count() > 1 && $this->_logger) {
                 $this->_logger->log('Multiple LDAP entries with user identifier ' . $userId, 'WARN');
             }
             return true;
-        } catch (Horde_Auth_Exception $e) {
-            $this->_logger->log('Error searching LDAP user: ' . $e->__toString(), 'ERR');
+        } catch (Horde_Ldap_Exception $e) {
+            if ($this->_logger) {
+                $this->_logger->log('Error searching LDAP user: ' . $e->getMessage(), 'ERR');
+            }
             return false;
         }
     }
-
 }
