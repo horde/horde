@@ -35,8 +35,16 @@ class Horde_Core_Factory_Alarm extends Horde_Core_Factory_Base
     protected $_alarm;
 
     /**
-     * Return a Horde_Alarm instance
+     * TTL value.
      *
+     * @var integer
+     */
+    protected $_ttl;
+
+    /**
+     * Return a Horde_Alarm instance.
+     *
+     * @return Horde_Alarm
      */
     public function create()
     {
@@ -55,6 +63,10 @@ class Horde_Core_Factory_Alarm extends Horde_Core_Factory_Base
 
         $params['logger'] = $this->_injector->getInstance('Horde_Log_Logger');
         $params['loader'] = array($this, 'load');
+
+        $this->_ttl = isset($params['ttl'])
+            ? $params['ttl']
+            : 300;
 
         $class = 'Horde_Alarm_' . $driver;
         $this->_alarm = new $class($params);
@@ -97,27 +109,18 @@ class Horde_Core_Factory_Alarm extends Horde_Core_Factory_Base
      */
     public function load($user = null, $preload = true)
     {
-        global $session;
-
-        $driver = empty($GLOBALS['conf']['alarms']['driver'])
-            ? 'Null'
-            : $GLOBALS['conf']['alarms']['driver'];
-        $params = Horde::getDriverConfig('alarms', $driver);
-
-        if (!isset($params['ttl'])) {
-            $params['ttl'] = 0;
-        }
+        global $registry, $session;
 
         if ($session->exists('horde', 'alarm_loaded') &&
-            (time() - $session->get('horde', 'alarm_loaded')) < $params['ttl']) {
+            (time() - $session->get('horde', 'alarm_loaded')) < $this->_ttl) {
             return;
         }
 
-        foreach ($GLOBALS['registry']->listApps(null, false, Horde_Perms::READ) as $app) {
+        foreach ($registry->listApps(null, false, Horde_Perms::READ) as $app) {
             /* Preload alarms that happen in the next ttl seconds. */
             if ($preload) {
                 try {
-                    $alarms = $GLOBALS['registry']->callAppMethod($app, 'listAlarms', array('args' => array(time() + $params['ttl'], $user), 'noperms' => true));
+                    $alarms = $registry->callAppMethod($app, 'listAlarms', array('args' => array(time() + $this->_ttl, $user), 'noperms' => true));
                 } catch (Horde_Exception $e) {
                     continue;
                 }
@@ -129,7 +132,7 @@ class Horde_Core_Factory_Alarm extends Horde_Core_Factory_Base
              * is the first call in this session. */
             if (!$preload || !$session->get('horde', 'alarm_loaded')) {
                 try {
-                    $app_alarms = $GLOBALS['registry']->callAppMethod($app, 'listAlarms', array('args' => array(time(), $user), 'noperms' => true));
+                    $app_alarms = $registry->callAppMethod($app, 'listAlarms', array('args' => array(time(), $user), 'noperms' => true));
                 } catch (Horde_Exception $e) {
                     Horde::logMessage($e);
                     $app_alarms = array();
