@@ -586,26 +586,31 @@ abstract class Horde_ActiveSync_Driver_Base
         $xml = '<wap-provisioningdoc><characteristic type="SecurityPolicy">'
             . '<parm name="4131" value="' . ($this->_policies['pin'] ? 0 : 1) . '"/>'
             . '<parm name="4133" value="' . ($this->_policies['computerunlock'] ? 1 : 0) . '"/>'
-            . '</characteristic>'
-            . '<characteristic type="Registry">'
+            . '</characteristic>';
+
+        if ($this->_policies['pin']) {
+            $xml = '<characteristic type="Registry">'
             .   '<characteristic type="HKLM\Comm\Security\Policy\LASSD\AE\{50C13377-C66D-400C-889E-C316FC4AB374}">'
             .        '<parm name="AEFrequencyType" value="' . (!empty($this->_policies['inactivity']) ? 1 : 0) . '"/>'
             .        (!empty($this->_policies['AEFrequencyValue']) ? '<parm name="AEFrequencyValue" value="' . $this->_policies['inactivity'] . '"/>' : '')
             .    '</characteristic>';
 
-        if (!empty($this->_policies['wipethreshold'])) {
-            $xml .= '<characteristic type="HKLM\Comm\Security\Policy\LASSD"><parm name="DeviceWipeThreshold" value="' . $this->_policies['wipethreshold'] . '"/></characteristic>';
+            if (!empty($this->_policies['wipethreshold'])) {
+                $xml .= '<characteristic type="HKLM\Comm\Security\Policy\LASSD"><parm name="DeviceWipeThreshold" value="' . $this->_policies['wipethreshold'] . '"/></characteristic>';
+            }
+            if (!empty($this->_policies['codewordfrequency'])) {
+                $xml .= '<characteristic type="HKLM\Comm\Security\Policy\LASSD"><parm name="CodewordFrequency" value="' . $this->_policies['codewordfrequency'] . '"/></characteristic>';
+            }
+            if (!empty($this->_policies['minimumlength'])) {
+                $xml .= '<characteristic type="HKLM\Comm\Security\Policy\LASSD\LAP\lap_pw"><parm name="MinimumPasswordLength" value="' . $this->_policies['minimumlength'] . '"/></characteristic>';
+            }
+            if ($this->_policies['complexity'] === false) {
+                $xml .= '<characteristic type="HKLM\Comm\Security\Policy\LASSD\LAP\lap_pw"><parm name="PasswordComplexity" value="' . $this->_policies['complexity'] . '"/></characteristic>';
+            }
+            $xml .= '</characteristic>';
         }
-        if (!empty($this->_policies['codewordfrequency'])) {
-            $xml .= '<characteristic type="HKLM\Comm\Security\Policy\LASSD"><parm name="CodewordFrequency" value="' . $this->_policies['codewordfrequency'] . '"/></characteristic>';
-        }
-        if (!empty($this->_policies['minimumlength'])) {
-            $xml .= '<characteristic type="HKLM\Comm\Security\Policy\LASSD\LAP\lap_pw"><parm name="MinimumPasswordLength" value="' . $this->_policies['minimumlength'] . '"/></characteristic>';
-        }
-        if ($this->_policies['complexity'] === false) {
-            $xml .= '<characteristic type="HKLM\Comm\Security\Policy\LASSD\LAP\lap_pw"><parm name="PasswordComplexity" value="' . $this->_policies['complexity'] . '"/></characteristic>';
-        }
-        $xml .= '</characteristic></wap-provisioningdoc>';
+
+        $xml .= '</wap-provisioningdoc>';
 
         return $xml;
     }
