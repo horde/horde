@@ -431,38 +431,25 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
          * slice requested, and need to be sorted logically. */
         $suppress = array();
         if ($initreload) {
-            foreach (IMP_Mailbox::getSpecialMailboxes() as $val) {
-                if (is_array($val)) {
-                    $tmp = array();
-                    foreach ($val as $val2) {
-                        $tmp[strval($val2)] = $val2->abbrev_label;
-                    }
-                    asort($tmp, SORT_LOCALE_STRING);
-                    $mboxes = IMP_Mailbox::get(array_keys($tmp));
-                } else {
-                    $mboxes = array($val);
-                }
+            foreach (IMP_Mailbox::getSpecialMailboxesSort() as $val) {
+                if ($tmp = $imptree[strval($val)]) {
+                    $folder_list[strval($val)] = $tmp;
 
-                foreach ($mboxes as $val2) {
-                    if ($tmp = $imptree[strval($val2)]) {
-                        $folder_list[strval($val2)] = $tmp;
-
-                        /* Hack: We need to NOT send a container element if
-                         * all child elements are special mailboxes. */
-                        if ($val2->level &&
-                            ($parent = $val2->parent) &&
-                            isset($folder_list[strval($parent)])) {
-                            $not_special = false;
-                            foreach ($parent->subfolders_only as $val3) {
-                                if (!$val3->special) {
-                                    $not_special = true;
-                                    break;
-                                }
+                    /* Hack: We need to NOT send a container element if all
+                     * child elements are special mailboxes. */
+                    if ($val->level &&
+                        ($parent = $val->parent) &&
+                        isset($folder_list[strval($parent)])) {
+                        $not_special = false;
+                        foreach ($parent->subfolders_only as $val2) {
+                            if (!$val2->special) {
+                                $not_special = true;
+                                break;
                             }
+                        }
 
-                            if (!$not_special) {
-                                $suppress[] = strval($parent);
-                            }
+                        if (!$not_special) {
+                            $suppress[] = strval($parent);
                         }
                     }
                 }
