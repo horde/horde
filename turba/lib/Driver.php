@@ -1060,7 +1060,7 @@ class Turba_Driver implements Countable
                 if ($fields &&
                     (!isset($fields['TEL']) ||
                      (isset($fields['TEL']->Params['TYPE']) &&
-                      !array_key_exists('HOME', explode(',', $fields['TEL']->Params['TYPE']->ValEnum))))) {
+                      !isset($fields['TEL']->Params['TYPE']->ValEnum['HOME'])))) {
                     break;
                 }
                 if ($version == '2.1') {
@@ -1074,7 +1074,7 @@ class Turba_Driver implements Countable
                 if ($fields &&
                     (!isset($fields['TEL']) ||
                      (isset($fields['TEL']->Params['TYPE']) &&
-                      !array_key_exists('WORK', explode(',', $fields['TEL']->Params['TYPE']->ValEnum))))) {
+                      !isset($fields['TEL']->Params['TYPE']->ValEnum['WORK'])))) {
                     break;
                 }
                 if ($version == '2.1') {
@@ -1088,7 +1088,7 @@ class Turba_Driver implements Countable
                 if ($fields &&
                     (!isset($fields['TEL']) ||
                      (isset($fields['TEL']->Params['TYPE']) &&
-                      !array_key_exists('CELL', explode(',', $fields['TEL']->Params['TYPE']->ValEnum))))) {
+                      !isset($fields['TEL']->Params['TYPE']->ValEnum['CELL'])))) {
                     break;
                 }
                 if ($version == '2.1') {
@@ -1105,7 +1105,7 @@ class Turba_Driver implements Countable
                         break;
                     }
                     if (!isset($fields['TEL']->Params['TYPE']) ||
-                        array_key_exists('CELL', explode(',', $fields['TEL']->Params['TYPE']->ValEnum))) {
+                        isset($fields['TEL']->Params['TYPE']->ValEnum['CELL'])) {
                         if ($version == '2.1') {
                             $parameters['CELL'] = null;
                             $parameters['VOICE'] = null;
@@ -1114,7 +1114,7 @@ class Turba_Driver implements Countable
                         }
                     }
                     if (!isset($fields['TEL']->Params['TYPE']) ||
-                        array_key_exists('HOME', explode(',', $fields['TEL']->Params['TYPE']->ValEnum))) {
+                        isset($fields['TEL']->Params['TYPE']->ValEnum['HOME'])) {
                         if ($version == '2.1') {
                             $parameters['HOME'] = null;
                             $parameters['VOICE'] = null;
@@ -1142,7 +1142,7 @@ class Turba_Driver implements Countable
                         break;
                     }
                     if (!isset($fields['TEL']->Params['TYPE']) ||
-                        array_key_exists('CELL', explode(',', $fields['TEL']->Params['TYPE']->ValEnum))) {
+                        isset($fields['TEL']->Params['TYPE']->ValEnum['CELL'])) {
                         if ($version == '2.1') {
                             $parameters['CELL'] = null;
                             $parameters['VOICE'] = null;
