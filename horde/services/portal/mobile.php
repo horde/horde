@@ -29,9 +29,7 @@ foreach ($registry->listApps() as $app) {
     }
 }
 
-// TODO: Is this needed? As of now I think so - in order to trigger status
-// so that the SmartmobileStatus listener outputs the notifications.
-new Horde_Core_Ajax_Response(null, true);
+$notification->notify(array('listeners' => 'status'));
 
 $title = _("Welcome");
 

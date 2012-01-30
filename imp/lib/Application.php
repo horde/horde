@@ -629,9 +629,7 @@ class IMP_Application extends Horde_Registry_Application
         Horde::addScriptFile('mobile.js');
         require IMP_TEMPLATES . '/mobile/javascript_defs.php';
 
-        // TODO: Needed to trigger notifications to be output by Smartmobile
-        // Status listener?
-        new Horde_Core_Ajax_Response(null, true);
+        $GLOBALS['notification']->notify(array('listeners' => 'status'));
 
         /* Inline script. */
         Horde::addInlineScript(
