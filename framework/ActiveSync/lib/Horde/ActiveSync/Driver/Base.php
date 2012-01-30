@@ -92,7 +92,7 @@ abstract class Horde_ActiveSync_Driver_Base
         'computerunlock' => true,
         'inactivity' => 5,
         'wipethreshold' => 10,
-        'codewordfrequency' => 5,
+        'codewordfrequency' => 0,
         'minimumlength' => 5,
         'complexity' => 2,
         );
