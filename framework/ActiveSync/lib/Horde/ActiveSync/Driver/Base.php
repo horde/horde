@@ -89,7 +89,7 @@ abstract class Horde_ActiveSync_Driver_Base
      */
     protected $_policies = array(
         'pin' => true,
-        'use_extended' => true,
+        'extended_policies' => true,
         'inactivity' => 5,
         'wipethreshold' => 10,
         'codewordfrequency' => 0,
@@ -586,7 +586,7 @@ abstract class Horde_ActiveSync_Driver_Base
             . '<parm name="4131" value="' . ($this->_policies['pin'] ? 0 : 1) . '"/>'
             . '</characteristic>';
 
-        if ($this->_policies['pin'] && $this->_policies['use_extended']) {
+        if ($this->_policies['pin'] && $this->_policies['extended_policies']) {
             $xml .= '<characteristic type="Registry">'
             .   '<characteristic type="HKLM\Comm\Security\Policy\LASSD\AE\{50C13377-C66D-400C-889E-C316FC4AB374}">'
             .        '<parm name="AEFrequencyType" value="' . (!empty($this->_policies['inactivity']) ? 1 : 0) . '"/>'
