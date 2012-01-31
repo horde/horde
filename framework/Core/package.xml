@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-12-23</date>
- <time>10:48:08</time>
+ <date>2012-01-31</date>
+ <time>11:27:56</time>
  <version>
   <release>1.8.4</release>
   <api>1.8.0</api>
@@ -1712,7 +1712,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-12-23</date>
+   <date>2012-01-31</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Fix issue with autocompletion that would cause it to fail in certain circumstances (Bug #10904).
