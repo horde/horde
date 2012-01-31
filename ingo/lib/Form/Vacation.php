@@ -10,14 +10,28 @@
  */
 class Ingo_Form_Vacation extends Ingo_Form_Base
 {
+    /**
+     * The start date field.
+     *
+     * @var Horde_Form_Variable
+     */
+    protected $_start;
+
+    /**
+     * The end date field.
+     *
+     * @var Horde_Form_Variable
+     */
+    protected $_end;
+
     public function __construct($vars, $title = '', $name = null)
     {
         parent::__construct($vars, $title, $name);
 
         $this->setSection('basic', _("Basic Settings"));
-        $v = $this->addVariable(_("Start of vacation:"), 'start', 'monthdayyear', '');
-        $v->setHelp('vacation-period');
-        $this->addVariable(_("End of vacation:"), 'end', 'monthdayyear', '');
+        $this->_start = $this->addVariable(_("Start of vacation:"), 'start', 'monthdayyear', '');
+        $this->_start->setHelp('vacation-period');
+        $this->_end = $this->addVariable(_("End of vacation:"), 'end', 'monthdayyear', '');
         $v = $this->addVariable(_("Subject of vacation message:"), 'subject', 'text', false);
         $v->setHelp('vacation-subject');
         $v = $this->addVariable(_("Reason:"), 'reason', 'longtext', false, false, null, array(10, 40));
@@ -33,5 +47,29 @@ class Ingo_Form_Vacation extends Ingo_Form_Base
         $v = $this->addVariable(_("Number of days between vacation replies:"), 'days', 'int', false);
         $v->setHelp('vacation-days');
         $this->setButtons(_("Save"));
+    }
+
+    /**
+     * Additional validate of start and end date fields.
+     */
+    public function validate($vars = null, $canAutoFill = false)
+    {
+        $valid = true;
+        if (!parent::validate($vars, $canAutoFill)) {
+            $valid = false;
+        }
+
+        $this->_start->getInfo($vars, $start);
+        $this->_end->getInfo($vars, $end);
+        if ($start && $end && $end < $start) {
+            $valid = false;
+            $this->_errors['end'] = _("Vacation end date is prior to start.");
+        }
+        if ($end && $end < mktime(0, 0, 0)) {
+            $valid = false;
+            $this->_errors['end'] = _("Vacation end date is prior to today.");
+        }
+
+        return $valid;
     }
 }
