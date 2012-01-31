@@ -2038,25 +2038,38 @@
         the device.">false
          <case name="false" desc="No" />
          <case name="true" desc="Yes">
-          <configinteger name="wipethreshold" desc="How many unlock attempts
-          before device should get wiped? Set to 0 to disable this policy.">10
-          </configinteger>
-          <configinteger name="codewordfrequency" desc="How many unlock attempts
-          before validating that an actual person is using the device is able to
-          read and write. This should typically be half of thewipethreshold
-          setting above. Set to 0 to disable this policy.">5</configinteger>
-          <configinteger name="minimumlength" desc="Minimum PIN
-          size">5</configinteger>
-          <configenum name="complexity" desc="PIN/Password complexity. Some
-          devices may be able to ONLY support numeric PINs.">
-           <values>
-            <value desc="Require alphanumeric">0</value>
-            <value desc="Allow only numeric">1</value>
-            <value desc="Allow any">2</value>
-         </values>
-        </configenum>
-        <configinteger name="inactivity" desc="Number of minutes of inactivity
-        before device should lock.">3</configinteger>
+          <configswitch name="extended_policies" desc="Enable extended policies
+          for restricting PINs and auto wiping device? Some devices may not
+          support this. If you experience problems with provisioning devices,
+          disable this feature.">true
+           <case name="true" desc="Enable">
+            <configinteger name="wipethreshold" desc="How many unlock attempts
+            before device should get wiped? Set to 0 to disable this policy. Also
+            be sure to set this higher than the number of attempts before the
+            device displays a warning. Some devices have this hard coded at 5,
+            others will honor the codewordfrequency setting (below).">10
+            </configinteger>
+            <configinteger name="codewordfrequency" desc="How many unlock attempts
+            before validating that an actual person is using the device is able to
+            read and write. This should typically be half of thewipethreshold
+            setting above. Set to 0 to disable this policy. Note that not all
+            devices will honor this setting and will use a hard coded value.">5
+            </configinteger>
+            <configinteger name="minimumlength" desc="Minimum PIN
+            size">5</configinteger>
+            <configenum name="complexity" desc="PIN/Password complexity. Some
+            devices may be able to ONLY support numeric PINs.">
+             <values>
+              <value desc="Require alphanumeric">0</value>
+              <value desc="Allow only numeric">1</value>
+              <value desc="Allow any">2</value>
+            </values>
+            </configenum>
+            <configinteger name="inactivity" desc="Number of minutes of inactivity
+            before device should lock.">3</configinteger>
+           </case>
+          <case name="false" desc="Disable" />
+          </configswitch>
          </case>
         </configswitch>
        </case>
@@ -2065,25 +2078,38 @@
         the device.">false
          <case name="false" desc="No" />
          <case name="true" desc="Yes">
-          <configinteger name="wipethreshold" desc="How many unlock attempts
-          before device should get wiped? Set to 0 to disable this policy.">10
-          </configinteger>
-          <configinteger name="codewordfrequency" desc="How many unlock attempts
-          before validating that an actual person is using the device is able to
-          read and write. This should typically be half of thewipethreshold
-          setting above. Set to 0 to disable this policy.">5</configinteger>
-          <configinteger name="minimumlength" desc="Minimum PIN
-          size">5</configinteger>
-          <configenum name="complexity" desc="PIN/Password complexity. Some
-          devices may be able to ONLY support numeric PINs.">
-           <values>
-            <value desc="Require alphanumeric">0</value>
-            <value desc="Allow only numeric">1</value>
-            <value desc="Allow any">2</value>
-           </values>
-          </configenum>
-          <configinteger name="inactivity" desc="Number of minutes of
-          inactivity before device should lock.">3</configinteger>
+           <configswitch name="extended_policies" desc="Enable extended policies
+          for restricting PINs and auto wiping device? Some devices may not
+          support this. If you experience problems with provisioning devices,
+          disable this feature.">true
+           <case name="true" desc="Enable">
+            <configinteger name="wipethreshold" desc="How many unlock attempts
+            before device should get wiped? Set to 0 to disable this policy. Also
+            be sure to set this higher than the number of attempts before the
+            device displays a warning. Some devices have this hard coded at 5,
+            others will honor the codewordfrequency setting (below).">10
+            </configinteger>
+            <configinteger name="codewordfrequency" desc="How many unlock attempts
+            before validating that an actual person is using the device is able to
+            read and write. This should typically be half of thewipethreshold
+            setting above. Set to 0 to disable this policy. Note that not all
+            devices will honor this setting and will use a hard coded value.">5
+            </configinteger>
+            <configinteger name="minimumlength" desc="Minimum PIN
+            size">5</configinteger>
+            <configenum name="complexity" desc="PIN/Password complexity. Some
+            devices may be able to ONLY support numeric PINs.">
+             <values>
+              <value desc="Require alphanumeric">0</value>
+              <value desc="Allow only numeric">1</value>
+              <value desc="Allow any">2</value>
+            </values>
+            </configenum>
+            <configinteger name="inactivity" desc="Number of minutes of inactivity
+            before device should lock.">3</configinteger>
+           </case>
+          <case name="false" desc="Disable" />
+          </configswitch>
          </case>
         </configswitch>
        </case>
