@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-12-13</date>
- <time>13:14:45</time>
+ <date>2012-01-30</date>
+ <time>23:31:35</time>
  <version>
   <release>2.1.0</release>
   <api>2.1.0</api>
@@ -73,6 +73,11 @@
     <dir name="Exception">
      <file name="Pear.php" role="horde" />
     </dir> <!-- /lib/Exception -->
+    <dir name="Factory">
+     <file name="Script.php" role="horde" />
+     <file name="Storage.php" role="horde" />
+     <file name="Transport.php" role="horde" />
+    </dir> <!-- /lib/Factory -->
     <dir name="LoginTasks">
      <dir name="SystemTask">
       <file name="Upgrade.php" role="horde" />
@@ -421,6 +426,9 @@
    </dir> <!-- /templates -->
    <dir name="themes">
     <dir name="default">
+     <dir name="block">
+      <file name="screen.css" role="horde" />
+     </dir> <!-- /themes/default/block -->
      <dir name="graphics">
       <file name="blacklist.png" role="horde" />
       <file name="copy.png" role="horde" />
@@ -437,6 +445,9 @@
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/default -->
     <dir name="silver">
+     <dir name="block">
+      <file name="screen.css" role="horde" />
+     </dir> <!-- /themes/silver/block -->
      <dir name="graphics">
       <file name="blacklist.png" role="horde" />
       <file name="copy.png" role="horde" />
@@ -624,6 +635,9 @@
    <install as="ingo/lib/Transport.php" name="lib/Transport.php" />
    <install as="ingo/lib/Block/Overview.php" name="lib/Block/Overview.php" />
    <install as="ingo/lib/Exception/Pear.php" name="lib/Exception/Pear.php" />
+   <install as="ingo/lib/Factory/Script.php" name="lib/Factory/Script.php" />
+   <install as="ingo/lib/Factory/Storage.php" name="lib/Factory/Storage.php" />
+   <install as="ingo/lib/Factory/Transport.php" name="lib/Factory/Transport.php" />
    <install as="ingo/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
    <install as="ingo/lib/Script/Imap.php" name="lib/Script/Imap.php" />
    <install as="ingo/lib/Script/Maildrop.php" name="lib/Script/Maildrop.php" />
@@ -786,6 +800,7 @@
    <install as="ingo/templates/script/script.inc" name="templates/script/script.inc" />
    <install as="ingo/templates/whitelist/whitelist.inc" name="templates/whitelist/whitelist.inc" />
    <install as="ingo/themes/default/screen.css" name="themes/default/screen.css" />
+   <install as="ingo/themes/default/block/screen.css" name="themes/default/block/screen.css" />
    <install as="ingo/themes/default/graphics/blacklist.png" name="themes/default/graphics/blacklist.png" />
    <install as="ingo/themes/default/graphics/copy.png" name="themes/default/graphics/copy.png" />
    <install as="ingo/themes/default/graphics/disable.png" name="themes/default/graphics/disable.png" />
@@ -797,6 +812,7 @@
    <install as="ingo/themes/default/graphics/spam.png" name="themes/default/graphics/spam.png" />
    <install as="ingo/themes/default/graphics/vacation.png" name="themes/default/graphics/vacation.png" />
    <install as="ingo/themes/default/graphics/whitelist.png" name="themes/default/graphics/whitelist.png" />
+   <install as="ingo/themes/silver/block/screen.css" name="themes/silver/block/screen.css" />
    <install as="ingo/themes/silver/graphics/blacklist.png" name="themes/silver/graphics/blacklist.png" />
    <install as="ingo/themes/silver/graphics/copy.png" name="themes/silver/graphics/copy.png" />
    <install as="ingo/themes/silver/graphics/disable.png" name="themes/silver/graphics/disable.png" />
