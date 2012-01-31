@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-01-23</date>
- <time>13:37:28</time>
+ <date>2012-01-31</date>
+ <time>11:54:43</time>
  <version>
   <release>1.4.0</release>
   <api>1.4.0</api>
@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Add German translation.
 * [jan] Add Spanish translation (Manuel P. Ayala &lt;mayala@unex.es&gt;).
 * [mms] Implement more efficient serialization for Thread data objects.
 * [mms] Move server debug information from exception error message to &apos;details&apos; property of exception object.
@@ -97,6 +98,11 @@
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
    <dir name="locale">
+    <dir name="de">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Imap_Client.po" role="data" />
+     </dir> <!-- /locale/de/LC_MESSAGES -->
+    </dir> <!-- /locale/de -->
     <dir name="es">
      <dir name="LC_MESSAGES">
       <file name="Horde_Imap_Client.mo" role="data" />
@@ -237,6 +243,7 @@
    <install as="Horde/Imap/Client/Socket/Pop3.php" name="lib/Horde/Imap/Client/Socket/Pop3.php" />
    <install as="Horde/Imap/Client/Utils/Pop3.php" name="lib/Horde/Imap/Client/Utils/Pop3.php" />
    <install as="locale/Horde_Imap_Client.pot" name="locale/Horde_Imap_Client.pot" />
+   <install as="locale/de/LC_MESSAGES/Horde_Imap_Client.po" name="locale/de/LC_MESSAGES/Horde_Imap_Client.po" />
    <install as="locale/es/LC_MESSAGES/Horde_Imap_Client.mo" name="locale/es/LC_MESSAGES/Horde_Imap_Client.mo" />
    <install as="locale/es/LC_MESSAGES/Horde_Imap_Client.po" name="locale/es/LC_MESSAGES/Horde_Imap_Client.po" />
    <install as="Horde/Imap/Client/AclTest.php" name="test/Horde/Imap/Client/AclTest.php" />
@@ -691,9 +698,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-01-23</date>
+   <date>2012-01-31</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Add German translation.
 * [jan] Add Spanish translation (Manuel P. Ayala &lt;mayala@unex.es&gt;).
 * [mms] Implement more efficient serialization for Thread data objects.
 * [mms] Move server debug information from exception error message to &apos;details&apos; property of exception object.
