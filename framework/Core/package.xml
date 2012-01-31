@@ -29,9 +29,9 @@
   <active>yes</active>
  </developer>
  <date>2012-01-31</date>
- <time>11:27:56</time>
+ <time>11:29:04</time>
  <version>
-  <release>1.8.4</release>
+  <release>1.8.5</release>
   <api>1.8.0</api>
  </version>
  <stability>
@@ -40,11 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Fix issue with autocompletion that would cause it to fail in certain circumstances (Bug #10904).
-* [mms] Remove trailing semicolon when replacing @import statements.
-* [mjr] Fix issue that could cause failure of ActiveSync due to incorrect packing of binary data.
-* [jan] Use separate database connection for SQL session handler (Bug #10906).
-* [mms] Fix parsing DB config when using splitread database setup.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1720,6 +1716,19 @@
 * [mjr] Fix issue that could cause failure of ActiveSync due to incorrect packing of binary data.
 * [jan] Use separate database connection for SQL session handler (Bug #10906).
 * [mms] Fix parsing DB config when using splitread database setup.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.8.5</release>
+    <api>1.8.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-01-31</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
