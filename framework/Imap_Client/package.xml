@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2012-01-31</date>
- <time>12:42:46</time>
+ <time>12:51:37</time>
  <version>
   <release>1.4.1</release>
   <api>1.4.0</api>
@@ -95,6 +95,7 @@
    <dir name="locale">
     <dir name="de">
      <dir name="LC_MESSAGES">
+      <file name="Horde_Imap_Client.mo" role="data" />
       <file name="Horde_Imap_Client.po" role="data" />
      </dir> <!-- /locale/de/LC_MESSAGES -->
     </dir> <!-- /locale/de -->
@@ -238,6 +239,7 @@
    <install as="Horde/Imap/Client/Socket/Pop3.php" name="lib/Horde/Imap/Client/Socket/Pop3.php" />
    <install as="Horde/Imap/Client/Utils/Pop3.php" name="lib/Horde/Imap/Client/Utils/Pop3.php" />
    <install as="locale/Horde_Imap_Client.pot" name="locale/Horde_Imap_Client.pot" />
+   <install as="locale/de/LC_MESSAGES/Horde_Imap_Client.mo" name="locale/de/LC_MESSAGES/Horde_Imap_Client.mo" />
    <install as="locale/de/LC_MESSAGES/Horde_Imap_Client.po" name="locale/de/LC_MESSAGES/Horde_Imap_Client.po" />
    <install as="locale/es/LC_MESSAGES/Horde_Imap_Client.mo" name="locale/es/LC_MESSAGES/Horde_Imap_Client.mo" />
    <install as="locale/es/LC_MESSAGES/Horde_Imap_Client.po" name="locale/es/LC_MESSAGES/Horde_Imap_Client.po" />
