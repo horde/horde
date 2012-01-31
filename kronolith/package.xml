@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2012-01-31</date>
- <time>12:29:37</time>
+ <time>12:31:38</time>
  <version>
-  <release>3.0.15</release>
+  <release>3.0.16</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -34,8 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Search complete names and addresses when auto-completing attendees.
-* [jan] Fix syntax error in migration script (Bug #10902).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2049,6 +2048,19 @@
    <notes>
 * [jan] Search complete names and addresses when auto-completing attendees.
 * [jan] Fix syntax error in migration script (Bug #10902).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.16</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-01-31</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
