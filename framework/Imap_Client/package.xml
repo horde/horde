@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2012-01-31</date>
- <time>11:56:29</time>
+ <time>12:42:46</time>
  <version>
   <release>1.4.1</release>
   <api>1.4.0</api>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix translations when installed through PEAR.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -82,7 +82,9 @@
        <file name="Mailbox.php" role="php" />
        <file name="Socket.php" role="php" />
        <file name="Sort.php" role="php" />
-       <file name="Translation.php" role="php" />
+       <file name="Translation.php" role="php">
+         <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+       </file>
        <file name="Utf7imap.php" role="php" />
        <file name="Utils.php" role="php" />
       </dir> <!-- /lib/Horde/Imap/Client -->
@@ -714,7 +716,7 @@
    <date>2012-01-31</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix translations when installed through PEAR.
    </notes>
   </release>
  </changelog>
