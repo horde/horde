@@ -585,7 +585,6 @@ abstract class Horde_ActiveSync_Driver_Base
     {
         $xml = '<wap-provisioningdoc><characteristic type="SecurityPolicy">'
             . '<parm name="4131" value="' . ($this->_policies['pin'] ? 0 : 1) . '"/>'
-            . '<parm name="4133" value="' . ($this->_policies['computerunlock'] ? 1 : 0) . '"/>'
             . '</characteristic>';
 
         if ($this->_policies['pin']) {
