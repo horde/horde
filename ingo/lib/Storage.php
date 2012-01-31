@@ -2,12 +2,16 @@
 /**
  * Ingo_Storage:: defines an API to store the various filter rules.
  *
+ * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @author  Jan Schneider <jan@horde.org>
- * @package Ingo
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
  */
 class Ingo_Storage
 {
@@ -224,12 +228,10 @@ class Ingo_Storage
      *
      * @param integer $action  The ACTION_* value.
      *
-     * @return stdClass  Object with the following values:
-     * <pre>
-     * 'flags' => (boolean) Does this action allow flags to be set?
-     * 'label' => (string) The label for this action.
-     * 'type'  => (string) Either 'folder', 'text', or empty.
-     * </pre>
+     * @return object  Object with the following values:
+     *   - flags: (boolean) Does this action allow flags to be set?
+     *   - label: (string) The label for this action.
+     *   - type: (string) Either 'folder', 'text', or empty.
      */
     public function getActionInfo($action)
     {
@@ -293,11 +295,9 @@ class Ingo_Storage
      *
      * @param string $action  The test string.
      *
-     * @return stdClass  Object with the following values:
-     * <pre>
-     * 'label' => (string) The label for this action.
-     * 'type'  => (string) Either 'int', 'none', or 'text'.
-     * </pre>
+     * @return object  Object with the following values:
+     *   - label: (string) The label for this action.
+     *   - type: (string) Either 'int', 'none', or 'text'.
      */
     public function getTestInfo($test)
     {
