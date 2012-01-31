@@ -2,6 +2,7 @@
 v2.0.8-git
 ----------
 
+[mms] Application initialization should only be done on first access.
 
 
 ------

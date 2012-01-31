@@ -50,7 +50,6 @@ class Ingo
     {
         global $prefs, $session;
 
-        $session->remove('ingo');
         if ($session->exists('ingo', 'script_generate')) {
             return;
         }
