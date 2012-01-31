@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-07-27</date>
- <time>16:35:55</time>
+ <date>2012-01-31</date>
+ <time>12:03:59</time>
  <version>
   <release>1.0.3</release>
   <api>1.0.0</api>
@@ -47,6 +47,7 @@
        <file name="xmlrpc.php" role="doc" />
        <file name="xmlrpc.pl" role="doc" />
       </dir> <!-- /doc/Horde/Rpc/examples -->
+      <file name="COPYING" role="doc" />
      </dir> <!-- /doc/Horde/Rpc -->
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
@@ -442,6 +443,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Rpc/COPYING" />
    <install as="examples/soap.php" name="doc/Horde/Rpc/examples/soap.php" />
    <install as="examples/soap.pl" name="doc/Horde/Rpc/examples/soap.pl" />
    <install as="examples/xmlrpc.php" name="doc/Horde/Rpc/examples/xmlrpc.php" />
@@ -660,7 +662,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-27</date>
+   <date>2012-01-31</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix WebDAV access to application resources.
