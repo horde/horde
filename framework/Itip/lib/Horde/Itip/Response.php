@@ -144,6 +144,7 @@ class Horde_Itip_Response
         $message->setContents(
             $this->getIcalendar($type, $options)->exportvCalendar()
         );
+        $message->setEOL("\r\n");
         $message->setName('event-reply.ics');
         $message->setContentTypeParameter('METHOD', 'REPLY');
 
