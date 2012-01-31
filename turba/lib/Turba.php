@@ -296,15 +296,15 @@ class Turba
 
                 if (self::$_cache['useRegistry']) {
                     try {
-                        $tmp = $GLOBALS['registry']->call('mail/batchCompose', array($addresses));
+                        $tmp = $GLOBALS['registry']->call('mail/batchCompose', array(array($addr)));
                     } catch (Horde_Exception $e) {
                         $self::$_cache['useRegistry'] = false;
                     }
                 }
 
-                if (is_null($tmp)) {
-                    $tmp = 'mailto:' . urlencode($addr);
-                }
+                $tmp = empty($tmp)
+                    ? 'mailto:' . urlencode($addr)
+                    : reset($tmp);
 
                 $out[] = Horde::link($tmp) . htmlspecialchars($addr) . '</a>';
             }
