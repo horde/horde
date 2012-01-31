@@ -791,35 +791,38 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
                 }
                 $events = $registry->call('calendar/listEvents', array($start, $vevent_end, $calendars, false));
 
-                if (count($events)) {
-                    $html .= '<h2 class="smallheader">' . _("Possible Conflicts") . '</h2><table id="itipconflicts">';
-                    // TODO: Check if there are too many events to show.
-                    foreach ($events as $calendar) {
-                        foreach ($calendar as $event) {
-                            if ($event->status == Kronolith::STATUS_CANCELLED ||
-                                $event->status == Kronolith::STATUS_FREE) {
+                // TODO: Check if there are too many events to show.
+                $conflicts = '';
+                foreach ($events as $calendar) {
+                    foreach ($calendar as $event) {
+                        if ($event->status == Kronolith::STATUS_CANCELLED ||
+                            $event->status == Kronolith::STATUS_FREE) {
+                            continue;
+                        }
+                        if ($vevent_allDay || $event->isAllDay()) {
+                            $conflicts .= '<tr class="itipcollision">';
+                        } else {
+                            if ($event->end->compareDateTime($time_span_start) <= -1 ||
+                                $event->start->compareDateTime($time_span_end) >= 1) {
                                 continue;
                             }
-                            if ($vevent_allDay || $event->isAllDay()) {
-                                $html .= '<tr class="itipcollision">';
+                            if ($event->end->compareDateTime($vevent_start) <= -1 ||
+                                $event->start->compareDateTime($vevent_end) >= 1) {
+                                $conflicts .= '<tr class="itipnearcollision">';
                             } else {
-                                if ($event->end->compareDateTime($time_span_start) <= -1 ||
-                                    $event->start->compareDateTime($time_span_end) >= 1) {
-                                    continue;
-                                }
-                                if ($event->end->compareDateTime($vevent_start) <= -1 ||
-                                    $event->start->compareDateTime($vevent_end) >= 1) {
-                                    $html .= '<tr class="itipnearcollision">';
-                                } else {
-                                    $html .= '<tr class="itipcollision">';
-                                }
+                                $conflicts .= '<tr class="itipcollision">';
                             }
-
-                            $html .= '<td>'. $event->getTitle() . '</td><td>'
-                                . $event->getTimeRange() . '</td></tr>';
                         }
+
+                        $conflicts .= '<td>'. $event->getTitle() . '</td><td>'
+                            . $event->getTimeRange() . '</td></tr>';
                     }
-                    $html .= '</table>';
+                }
+                if ($conflicts) {
+                    $html .= '<h2 class="smallheader">'
+                      . _("Possible Conflicts")
+                      . '</h2><table id="itipconflicts">'
+                      . $conflicts . '</table>';
                 }
             } catch (Horde_Exception $e) {}
         }
