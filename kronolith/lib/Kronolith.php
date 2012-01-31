@@ -221,7 +221,7 @@ class Kronolith
         $resources = Kronolith::getDriver('Resource')->listResources();
         foreach ($resources as $resource) {
             if ($resource->get('type') != Kronolith_Resource::TYPE_GROUP) {
-                $rcal = new Kronolith_calendar_Resource(array('resource' => $resource));
+                $rcal = new Kronolith_Calendar_Resource(array('resource' => $resource));
                 $code['conf']['calendars']['resource'][$resource->get('calendar')] = $rcal->toHash();
             }
         }
