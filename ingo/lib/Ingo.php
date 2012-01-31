@@ -158,10 +158,8 @@ class Ingo
     static public function activateScript($script, $deactivate = false,
                                           $additional = array())
     {
-        $transport = self::getTransport();
-
         try {
-            $transport->setScriptActive($script, $additional);
+            $GLOBALS['injector']->getInstance('Ingo_Transport')->setScriptActive($script, $additional);
         } catch (Ingo_Exception $e) {
             $msg = $deactivate
               ? _("There was an error deactivating the script.")
@@ -267,29 +265,6 @@ class Ingo
         }
 
         return $backend;
-    }
-
-    /**
-     * Returns an instance of the configured transport driver.
-     *
-     * @return Ingo_Transport  The configured driver.
-     * @throws Ingo_Exception
-     */
-    static public function getTransport()
-    {
-        global $registry, $session;
-
-        $params = $session->get('ingo', 'backend/params');
-
-        // Set authentication parameters.
-        if (($hordeauth = $session->get('ingo', 'backend/hordeauth')) ||
-            !isset($params['username']) ||
-            !isset($params['password'])) {
-            $params['username'] = $registry->getAuth(($hordeauth === 'full') ? null : 'bare');
-            $params['password'] = $registry->getAuthCredential('password');
-        }
-
-        return Ingo_Transport::factory($GLOBALS['session']->get('ingo', 'backend/transport'), $params);
     }
 
     /**

@@ -52,7 +52,8 @@ class Ingo_Application extends Horde_Registry_Application
     {
         /* Add Ingo-specific factories. */
         $factories = array(
-            'Ingo_Script' => 'Ingo_Factory_Script'
+            'Ingo_Script' => 'Ingo_Factory_Script',
+            'Ingo_Transport' => 'Ingo_Factory_Transport'
         );
 
         foreach ($factories as $key => $val) {
@@ -63,7 +64,7 @@ class Ingo_Application extends Horde_Registry_Application
         $this->_createSession();
 
         // Create shares if necessary.
-        if (Ingo::getTransport()->supportShares()) {
+        if ($GLOBALS['injector']->getInstance('Ingo_Transport')->supportShares()) {
             $GLOBALS['ingo_shares'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
             $GLOBALS['all_rulesets'] = Ingo::listRulesets();
 

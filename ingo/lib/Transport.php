@@ -15,13 +15,13 @@
 class Ingo_Transport
 {
     /**
-     * Driver specific parameters
+     * Congifuration parameters.
      *
      * @var array
      */
     protected $_params = array(
-        'username' => null,
-        'password' => null
+        'password' => null,
+        'username' => null
     );
 
     /**
@@ -29,33 +29,14 @@ class Ingo_Transport
      *
      * @var boolean
      */
-    protected $_support_shares = false;
-
-    /**
-     * Attempts to return a concrete instance based on $driver.
-     *
-     * @param string $driver  The type of concrete subclass to return.
-     * @param array $params   A hash containing any additional configuration
-     *                        or connection parameters a subclass might need.
-     *
-     * @return Ingo_Transport  The newly created concrete instance.
-     * @throws Ingo_Exception
-     */
-    static public function factory($driver, $params = array())
-    {
-        $class = __CLASS__ . '_' . ucfirst(basename($driver));
-
-        if (class_exists($class)) {
-            return new $class($params);
-        }
-
-        throw new Ingo_Exception('Could not load driver.');
-    }
+    protected $_supportShares = false;
 
     /**
      * Constructor.
+     *
+     * @param array $params  Configuration parameters.
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
         $this->_params = array_merge($this->_params, $params);
     }
@@ -81,7 +62,7 @@ class Ingo_Transport
      */
     public function supportShares()
     {
-        return ($this->_support_shares &&
+        return ($this->_supportShares &&
                 $GLOBALS['session']->get('ingo', 'backend/shares'));
     }
 
