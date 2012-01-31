@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix line breaks of iTip responses when using quoted-printable encoding (Bug #10888).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -641,7 +641,7 @@
    <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix line breaks of iTip responses when using quoted-printable encoding (Bug #10888).
    </notes>
   </release>
  </changelog>
