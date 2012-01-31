@@ -2329,7 +2329,7 @@ class Turba_Driver implements Countable
         // address fields.
         if (!empty($hash['commonAddress'])) {
             if (!isset($hash['commonStreet'])) {
-                $hash['commonStreet'] = $hash['commonHome']
+                $hash['commonStreet'] = $hash['commonHome'];
             }
             foreach (array('Address', 'Street', 'POBox', 'Extended', 'City', 'Province', 'PostalCode', 'Country') as $field) {
                 $hash['home' . $field] = $hash['common' . $field];
