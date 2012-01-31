@@ -602,7 +602,7 @@ abstract class Horde_ActiveSync_Driver_Base
             if (!empty($this->_policies['minimumlength'])) {
                 $xml .= '<characteristic type="HKLM\Comm\Security\Policy\LASSD\LAP\lap_pw"><parm name="MinimumPasswordLength" value="' . $this->_policies['minimumlength'] . '"/></characteristic>';
             }
-            if ($this->_policies['complexity'] === false) {
+            if ($this->_policies['complexity'] !== false) {
                 $xml .= '<characteristic type="HKLM\Comm\Security\Policy\LASSD\LAP\lap_pw"><parm name="PasswordComplexity" value="' . $this->_policies['complexity'] . '"/></characteristic>';
             }
             $xml .= '</characteristic>';
