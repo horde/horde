@@ -1654,18 +1654,7 @@ class Turba_Driver implements Countable
 
         // No explicit firstname/lastname in data source: we have to guess.
         if (!isset($hash['lastname']) && isset($hash['name'])) {
-            if (($pos = strpos($hash['name'], ',')) !== false) {
-                // Assume Last, First
-                $hash['lastname'] = Horde_String::substr($hash['name'], 0, $pos);
-                $hash['firstname'] = trim(Horde_String::substr($hash['name'], $pos + 1));
-            } elseif (($pos = Horde_String::rpos($hash['name'], ' ')) !== false) {
-                // Assume everything after last space as lastname
-                $hash['lastname'] = trim(Horde_String::substr($hash['name'], $pos + 1));
-                $hash['firstname'] = Horde_String::substr($hash['name'], 0, $pos);
-            } else {
-                $hash['lastname'] = $hash['name'];
-                $hash['firstname'] = '';
-            }
+            $this->_guessName($hash);
         }
 
         $a = array(
@@ -2329,6 +2318,9 @@ class Turba_Driver implements Countable
     {
         $message = new Horde_ActiveSync_Message_Contact(array('logger' => $GLOBALS['injector']->getInstance('Horde_Log_Logger')));
         $hash = $object->getAttributes();
+        if (!isset($hash['lastname']) && isset($hash['name'])) {
+            $this->_guessName($hash);
+        }
         $haveDecodeHook = Horde::hookExists('decode_attribute', 'turba');
         foreach ($hash as $field => $value) {
             if ($haveDecodeHook) {
@@ -2976,6 +2968,27 @@ class Turba_Driver implements Countable
         }
 
         return $this->_count;
+    }
+
+    /**
+     * Helper function for guessing name parts from a single name string.
+     *
+     * @param array $hash  The attributes array.
+     */
+    protected function _guessName(&$hash)
+    {
+        if (($pos = strpos($hash['name'], ',')) !== false) {
+            // Assume Last, First
+            $hash['lastname'] = Horde_String::substr($hash['name'], 0, $pos);
+            $hash['firstname'] = trim(Horde_String::substr($hash['name'], $pos + 1));
+        } elseif (($pos = Horde_String::rpos($hash['name'], ' ')) !== false) {
+            // Assume everything after last space as lastname
+            $hash['lastname'] = trim(Horde_String::substr($hash['name'], $pos + 1));
+            $hash['firstname'] = Horde_String::substr($hash['name'], 0, $pos);
+        } else {
+            $hash['lastname'] = $hash['name'];
+            $hash['firstname'] = '';
+        }
     }
 
 }
