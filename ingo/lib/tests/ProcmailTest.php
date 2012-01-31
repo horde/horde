@@ -24,10 +24,10 @@ class Ingo_ProcmailTest extends Ingo_TestBase {
         $GLOBALS['conf']['spam'] = array('enabled' => true,
                                          'char' => '*',
                                          'header' => 'X-Spam-Level');
-        $GLOBALS['ingo_storage'] = Ingo_Storage::factory(
-            'mock',
-            array('maxblacklist' => 3,
-                  'maxwhitelist' => 3));
+        $GLOBALS['ingo_storage'] = new Ingo_Storage_Mock(array(
+            'maxblacklist' => 3,
+            'maxwhitelist' => 3
+        ));
         $GLOBALS['ingo_script'] = new Ingo_Script_Procmail(array(
             'path_style' => 'mbox',
             'spam_compare' => 'string',

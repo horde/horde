@@ -20,6 +20,7 @@ if (!in_array(Ingo_Storage::ACTION_FORWARD, $session->get('ingo', 'script_catego
 }
 
 /* Get the forward object and rule. */
+$ingo_storage = $injector->getInstance('Ingo_Factory_Storage')->create();
 $forward = $ingo_storage->retrieve(Ingo_Storage::ACTION_FORWARD);
 $filters = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
 $fwd_id = $filters->findRuleId(Ingo_Storage::ACTION_FORWARD);

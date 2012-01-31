@@ -47,6 +47,7 @@ if (!in_array(Ingo_Storage::ACTION_SPAM, $session->get('ingo', 'script_categorie
 }
 
 /* Get the spam object and rule. */
+$ingo_storage = $injector->getInstance('Ingo_Factory_Storage')->create();
 $spam = $ingo_storage->retrieve(Ingo_Storage::ACTION_SPAM);
 $filters = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
 $spam_id = $filters->findRuleId(Ingo_Storage::ACTION_SPAM);

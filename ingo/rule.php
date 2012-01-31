@@ -39,6 +39,7 @@ if (empty($availActions)) {
 $ingo_fields = Horde::loadConfiguration('fields.php', 'ingo_fields', 'ingo');
 
 /* Get the current rules. */
+$ingo_storage = $injector->getInstance('Ingo_Factory_Storage')->create();
 $filters = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
 
 /* Run through action handlers. */

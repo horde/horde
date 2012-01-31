@@ -56,13 +56,6 @@ class Ingo_Storage
     const TYPE_BODY = 3;
 
     /**
-     * Driver specific parameters.
-     *
-     * @var array
-     */
-    protected $_params = array();
-
-    /**
      * Cached rule objects.
      *
      * @var array
@@ -70,40 +63,20 @@ class Ingo_Storage
     protected $_cache = array();
 
     /**
-     * Attempts to return a concrete Ingo_Storage instance based on $driver.
+     * Configuration parameters.
      *
-     * @param string $driver  The type of concrete Ingo_Storage subclass to
-     *                        return.  This is based on the storage driver
-     *                        ($driver).  The code is dynamically included.
-     * @param array $params   A hash containing any additional configuration or
-     *                        connection parameters a subclass might need.
-     *
-     * @return mixed  The newly created concrete Ingo_Storage instance, or
-     *                false on an error.
+     * @var array
      */
-    static public function factory($driver = null, $params = null)
-    {
-        if (is_null($driver)) {
-            $driver = $GLOBALS['conf']['storage']['driver'];
-        }
-
-        $driver = basename($driver);
-
-        if (is_null($params)) {
-            $params = Horde::getDriverConfig('storage', $driver);
-        }
-
-        $class = 'Ingo_Storage_' . ucfirst($driver);
-        return class_exists($class)
-            ? new $class($params)
-            : false;
-    }
+    protected $_params = array();
 
     /**
      * Constructor.
+     *
+     * @params array $params  Configuration parameters.
      */
-    public function __construct()
+    public function __construct(array $params = array())
     {
+        $this->_params = $params;
         register_shutdown_function(array($this, 'shutdown'));
     }
 
@@ -142,12 +115,10 @@ class Ingo_Storage
                     'ob' => $cached ? $cached : $this->_retrieve($field, $readonly)
                 );
             }
-            $ob = $this->_cache[$field]['ob'];
-        } else {
-            $ob = $this->_retrieve($field, $readonly);
+            return $this->_cache[$field]['ob'];
         }
 
-        return $ob;
+        return $this->_retrieve($field, $readonly);
     }
 
     /**

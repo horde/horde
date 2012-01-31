@@ -21,6 +21,7 @@ if (!in_array(Ingo_Storage::ACTION_BLACKLIST, $session->get('ingo', 'script_cate
 }
 
 /* Get the blacklist object. */
+$ingo_storage = $injector->getInstance('Ingo_Factory_Storage')->create();
 try {
     $blacklist = $ingo_storage->retrieve(Ingo_Storage::ACTION_BLACKLIST);
 } catch (Ingo_Exception $e) {

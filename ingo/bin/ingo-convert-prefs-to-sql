@@ -32,11 +32,8 @@ Horde_Registry::appInit('ingo', array('cli' => true));
 if ($conf['storage']['driver'] != 'sql') {
     $cli->fatal('You need to configure an SQL storage backend in Ingo\'s configuration', __FILE__, __LINE__);
 }
-$prefs_storage = Ingo_Storage::factory('prefs');
-$sql_storage = Ingo_Storage::factory('sql');
-if (is_a($sql_storage, 'PEAR_Error')) {
-    $cli->fatal($sql_storage, __FILE__, __LINE__);
-}
+$prefs_storage = $injector->getInstance('Ingo_Factory_Storage')->create('Prefs');
+$sql_storage = $injector->getInstance('Ingo_Factory_Storage')->create('Sql');
 
 /* Rules to convert. */
 $rules = array(Ingo_Storage::ACTION_FILTERS,

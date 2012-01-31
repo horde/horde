@@ -20,6 +20,7 @@ if (!in_array(Ingo_Storage::ACTION_VACATION, $session->get('ingo', 'script_categ
 }
 
 /* Get vacation object and rules. */
+$ingo_storage = $injector->getInstance('Ingo_Factory_Storage')->create();
 $vacation = $ingo_storage->retrieve(Ingo_Storage::ACTION_VACATION);
 $filters = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
 $vac_id = $filters->findRuleId(Ingo_Storage::ACTION_VACATION);

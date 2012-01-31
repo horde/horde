@@ -47,7 +47,6 @@ class Ingo_Application extends Horde_Registry_Application
      * Global variables defined:
      *   - all_rulesets
      *   - ingo_shares
-     *   - ingo_storage
      */
     protected function _init()
     {
@@ -59,9 +58,6 @@ class Ingo_Application extends Horde_Registry_Application
         foreach ($factories as $key => $val) {
             $GLOBALS['injector']->bindFactory($key, $val, 'create');
         }
-
-        // Load the Ingo_Storage driver.
-        $GLOBALS['ingo_storage'] = Ingo_Storage::factory();
 
         // Create the session.
         $this->_createSession();
@@ -227,7 +223,7 @@ class Ingo_Application extends Horde_Registry_Application
     {
         /* Remove all filters/rules owned by the user. */
         try {
-            $GLOBALS['ingo_storage']->removeUserData($user);
+            $GLOBALS['injector']->getInstance('Ingo_Factory_Storage')->create()->removeUserData($user);
         } catch (Ingo_Exception $e) {
             Horde::logMessage($e, 'ERR');
             throw $e;

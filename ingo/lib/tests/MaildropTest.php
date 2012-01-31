@@ -21,10 +21,10 @@ class Ingo_MaildropTest extends Ingo_TestBase {
 
     function setUp()
     {
-        $GLOBALS['ingo_storage'] = Ingo_Storage::factory(
-            'mock',
-            array('maxblacklist' => 3,
-                  'maxwhitelist' => 3));
+        $GLOBALS['ingo_storage'] = new Ingo_Storage_Mock(array(
+            'maxblacklist' => 3,
+            'maxwhitelist' => 3
+        ));
         $GLOBALS['ingo_script'] = new Ingo_Script_Maildrop(array(
             'path_style' => 'mbox',
             'spam_compare' => 'string',

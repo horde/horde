@@ -30,7 +30,7 @@ class Ingo_Block_Overview extends Horde_Core_Block
     protected function _content()
     {
         /* Get list of filters */
-        $filters = $GLOBALS['ingo_storage']->retrieve(Ingo_Storage::ACTION_FILTERS);
+        $filters = $GLOBALS['injector']->getInstance('Ingo_Factory_Storage')->create()->retrieve(Ingo_Storage::ACTION_FILTERS);
         $html = '<table class="ingoBlockSummary">';
 
         foreach ($filters->getFilterList() as $filter) {
