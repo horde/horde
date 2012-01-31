@@ -260,7 +260,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         $imp_search = $injector->getInstance('IMP_Search');
         $imp_search->setIteratorFilter(IMP_Search::LIST_VFOLDER);
         foreach ($imp_search as $val) {
-            $this->insertVfolder($val);
+            $this->insert($val);
         }
 
         $this->track = $old_track;
@@ -459,24 +459,29 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     }
 
     /**
-     * Insert a folder/mailbox into the tree.
+     * Insert a mailbox/virtual folder into the tree.
      *
      * @param mixed $id  The name of the folder (or a list of folder names)
-     *                   to add.
+     *                   to add. Can also be a virtual folder object.
      */
     public function insert($id)
     {
-        if (is_array($id)) {
-            /* We want to add from the BASE of the tree up for efficiency
-             * sake. */
-            $this->_sortList($id);
-        } else {
+        if (!is_array($id)) {
             $id = array($id);
         }
 
-        /* Process Virtual Folders here. */
-        reset($id);
-        while (list($key, $val) = each($id)) {
+        $to_insert = array();
+
+        foreach ($id as $val) {
+            /* Convert virtual folders to internal representation. */
+            if ($val instanceof IMP_Search_Vfolder) {
+                if (!$val->enabled) {
+                    continue;
+                }
+                $val = self::VFOLDER_KEY . $this->_delimiter . $val;
+            }
+
+            /* Virtual Folders. */
             if (strpos($val, self::VFOLDER_KEY) === 0) {
                 if (!isset($this->_tree[$val])) {
                     if (!isset($this->_tree[self::VFOLDER_KEY])) {
@@ -488,27 +493,23 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                     $elt['v'] = Horde_String::substr($val, Horde_String::length(self::VFOLDER_KEY) + Horde_String::length($this->_delimiter));
                     $this->_insertElt($elt);
                 }
-
-                unset($id[$key]);
+            } else {
+                $to_insert[] = $val;
             }
         }
 
-        if (!empty($id)) {
-            try {
-                $this->_insert($GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->listMailboxes($id, Horde_Imap_Client::MBOX_ALL, array('attributes' => true, 'delimiter' => true, 'sort' => true)));
-            } catch (IMP_Imap_Exception $e) {}
-        }
-    }
+        if (!empty($to_insert)) {
+            /* We want to add from the BASE of the tree up for efficiency
+             * sake. */
+            $this->_sortList($to_insert);
 
-    /**
-     * Insert a virtual folder into the tree.
-     *
-     * @param IMP_Search_Vfolder $ob  The virtual folder to insert.
-     */
-    public function insertVfolder($ob)
-    {
-        if ($ob->enabled) {
-            $this->insert(self::VFOLDER_KEY . $this->_delimiter . $ob);
+            try {
+                $this->_insert($GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->listMailboxes($to_insert, Horde_Imap_Client::MBOX_ALL, array(
+                    'attributes' => true,
+                    'delimiter' => true,
+                    'sort' => true
+                )));
+            } catch (IMP_Imap_Exception $e) {}
         }
     }
 
@@ -1298,6 +1299,10 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      */
     protected function _sortList(&$mbox, $base = false)
     {
+        if (count($mbox) < 2) {
+            return;
+        }
+
         if (!$base) {
             Horde_Imap_Client_Sort::sortMailboxes($mbox, array('delimiter' => $this->_delimiter));
             return;
