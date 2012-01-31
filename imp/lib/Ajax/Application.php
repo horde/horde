@@ -432,7 +432,9 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
          * slice requested, and need to be sorted logically. */
         if ($initreload) {
             foreach (IMP_Mailbox::getSpecialMailboxesSort() as $val) {
-                $imptree->addEltDiff($val);
+                if ($imptree[$val]) {
+                    $imptree->addEltDiff($val);
+                }
             }
 
             /* Poll all mailboxes on initial display. */
