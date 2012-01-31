@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] More improvements to security policies and device compatibility.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -562,7 +562,7 @@
    <date>2012-01-30</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] More improvements to security policies and device compatibility.
    </notes>
   </release>
  </changelog>
