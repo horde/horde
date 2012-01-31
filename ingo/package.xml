@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-01-30</date>
- <time>23:31:35</time>
+ <date>2012-01-31</date>
+ <time>19:19:01</time>
  <version>
   <release>2.1.0</release>
   <api>2.1.0</api>
@@ -78,6 +78,12 @@
      <file name="Storage.php" role="horde" />
      <file name="Transport.php" role="horde" />
     </dir> <!-- /lib/Factory -->
+    <dir name="Form">
+     <file name="Base.php" role="horde" />
+     <file name="Forward.php" role="horde" />
+     <file name="Spam.php" role="horde" />
+     <file name="Vacation.php" role="horde" />
+    </dir> <!-- /lib/Form -->
     <dir name="LoginTasks">
      <dir name="SystemTask">
       <file name="Upgrade.php" role="horde" />
@@ -638,6 +644,10 @@
    <install as="ingo/lib/Factory/Script.php" name="lib/Factory/Script.php" />
    <install as="ingo/lib/Factory/Storage.php" name="lib/Factory/Storage.php" />
    <install as="ingo/lib/Factory/Transport.php" name="lib/Factory/Transport.php" />
+   <install as="ingo/lib/Form/Base.php" name="lib/Form/Base.php" />
+   <install as="ingo/lib/Form/Forward.php" name="lib/Form/Forward.php" />
+   <install as="ingo/lib/Form/Spam.php" name="lib/Form/Spam.php" />
+   <install as="ingo/lib/Form/Vacation.php" name="lib/Form/Vacation.php" />
    <install as="ingo/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
    <install as="ingo/lib/Script/Imap.php" name="lib/Script/Imap.php" />
    <install as="ingo/lib/Script/Maildrop.php" name="lib/Script/Maildrop.php" />
@@ -1036,7 +1046,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-12-13</date>
+   <date>2012-01-31</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * [mms] Application initialization should only be done on first access.
