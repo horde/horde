@@ -546,6 +546,9 @@ class Kronolith
          * timezone into account. */
         $convert = $event->timezone &&
             $event->getDriver()->supportsTimezones();
+        if ($convert) {
+            $timezone = date_default_timezone_get();
+        }
 
         if ($event->recurs() && $showRecurrence) {
             /* Recurring Event. */
@@ -602,7 +605,6 @@ class Kronolith
             }
 
             if ($convert) {
-                $timezone = date_default_timezone_get();
                 $event->recurrence->start->setTimezone($event->timezone);
                 if ($event->recurrence->hasRecurEnd()) {
                     $event->recurrence->recurEnd->setTimezone($event->timezone);
@@ -612,11 +614,11 @@ class Kronolith
             /* Add all recurrences of the event. */
             $next = $event->recurrence->nextRecurrence($next);
             if ($convert) {
-              /* Resetting after the nextRecurrence() call, because we
-               * need to test if the next recurrence in the event's
-               * timezone actually matches the interval we check in
-               * the local timezone. This is done on each
-               * nextRecurrence() further below. */
+                /* Resetting after the nextRecurrence() call, because
+                 * we need to test if the next recurrence in the
+                 * event's timezone actually matches the interval we
+                 * check in the local timezone. This is done on each
+                 * nextRecurrence() further below. */
                 $next->setTimezone($timezone);
             }
             while ($next !== false && $next->compareDate($endDate) <= 0) {
