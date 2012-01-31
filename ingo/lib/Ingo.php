@@ -195,7 +195,7 @@ class Ingo
     {
         if ($GLOBALS['session']->get('ingo', 'script_generate')) {
             try {
-                $ingo_script = self::loadIngoScript();
+                $ingo_script = $GLOBALS['injector']->getInstance('Ingo_Script');
 
                 /* Generate and activate the script. */
                 self::activateScript($ingo_script->generate(),
@@ -267,20 +267,6 @@ class Ingo
         }
 
         return $backend;
-    }
-
-    /**
-     * Loads a Ingo_Script:: backend and checks for errors.
-     *
-     * @return Ingo_Script  Script object on success.
-     * @throws Ingo_Exception
-     */
-    static public function loadIngoScript()
-    {
-        return Ingo_Script::factory(
-            $GLOBALS['session']->get('ingo', 'backend/script'),
-            $GLOBALS['session']->get('ingo', 'backend/scriptparams', Horde_Session::TYPE_ARRAY)
-        );
     }
 
     /**

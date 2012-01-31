@@ -74,7 +74,7 @@ class Ingo_Api extends Horde_Registry_Api
     public function canApplyFilters()
     {
         try {
-            return Ingo::loadIngoScript()->performAvailable();
+            return $GLOBALS['injector']->getInstance('Ingo_Script')->performAvailable();
         } catch (Ingo_Exception $e) {
             return false;
         }
@@ -84,28 +84,22 @@ class Ingo_Api extends Horde_Registry_Api
      * Perform the filtering specified in the rules.
      *
      * @param array $params  The parameter array:
-     * <pre>
-     * filter_seen
-     * mailbox
-     * show_filter_msg
-     * </pre>
+     *   - filter_seen
+     *   - mailbox
+     *   - show_filter_msg
      *
      * @return boolean  True if filtering was performed, false if not.
      */
-    public function applyFilters($params = array())
+    public function applyFilters(array $params = array())
     {
         try {
-            $ingo_script = Ingo::loadIngoScript();
+            return $GLOBALS['injector']->getInstance('Ingo_Script')->perform(array_merge(array(
+                'filter_seen' => $GLOBALS['prefs']->getValue('filter_seen'),
+                'show_filter_msg' => $GLOBALS['prefs']->getValue('show_filter_msg')
+            ), $params));
         } catch (Ingo_Exception $e) {
             return false;
         }
-
-        $params = array_merge(array(
-            'filter_seen' => $GLOBALS['prefs']->getValue('filter_seen'),
-            'show_filter_msg' => $GLOBALS['prefs']->getValue('show_filter_msg')
-        ), $params);
-
-        return $ingo_script->perform($params);
     }
 
     /**

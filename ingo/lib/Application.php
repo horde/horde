@@ -51,6 +51,15 @@ class Ingo_Application extends Horde_Registry_Application
      */
     protected function _init()
     {
+        /* Add Ingo-specific factories. */
+        $factories = array(
+            'Ingo_Script' => 'Ingo_Factory_Script'
+        );
+
+        foreach ($factories as $key => $val) {
+            $GLOBALS['injector']->bindFactory($key, $val, 'create');
+        }
+
         // Load the Ingo_Storage driver.
         $GLOBALS['ingo_storage'] = Ingo_Storage::factory();
 
@@ -104,7 +113,7 @@ class Ingo_Application extends Horde_Registry_Application
      */
     protected function _createSession()
     {
-        global $prefs, $session;
+        global $injector, $prefs, $session;
 
         if ($session->exists('ingo', 'script_generate')) {
             return;
@@ -118,7 +127,7 @@ class Ingo_Application extends Horde_Registry_Application
             }
         }
 
-        $ingo_script = Ingo::loadIngoScript();
+        $ingo_script = $injector->getInstance('Ingo_Script');
         $session->set('ingo', 'script_generate', $ingo_script->generateAvailable());
 
         /* Disable categories as specified in preferences */

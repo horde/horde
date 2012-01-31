@@ -26,7 +26,7 @@ if (!$perms->hasAppPermission('allow_rules')) {
 }
 
 /* Load the Ingo_Script:: driver. */
-$ingo_script = Ingo::loadIngoScript();
+$ingo_script = $injector->getInstance('Ingo_Script');
 
 /* Redirect if no rules are available. */
 $availActions = $ingo_script->availableActions();

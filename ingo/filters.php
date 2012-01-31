@@ -17,7 +17,7 @@ Horde_Registry::appInit('ingo');
 $filters = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
 
 /* Load the Ingo_Script:: driver. */
-$ingo_script = Ingo::loadIngoScript();
+$ingo_script = $injector->getInstance('Ingo_Script');
 
 /* Determine if we need to show the on-demand settings. */
 $on_demand = $ingo_script->performAvailable();

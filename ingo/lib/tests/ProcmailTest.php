@@ -28,12 +28,12 @@ class Ingo_ProcmailTest extends Ingo_TestBase {
             'mock',
             array('maxblacklist' => 3,
                   'maxwhitelist' => 3));
-        $GLOBALS['ingo_script'] = Ingo_Script::factory(
-            'procmail',
-            array('path_style' => 'mbox',
-                  'spam_compare' => 'string',
-                  'spam_header' => 'X-Spam-Level',
-                  'spam_char' => '*'));
+        $GLOBALS['ingo_script'] = new Ingo_Script_Procmail(array(
+            'path_style' => 'mbox',
+            'spam_compare' => 'string',
+            'spam_header' => 'X-Spam-Level',
+            'spam_char' => '*'
+        ));
     }
 
     function testForwardKeep()
