@@ -44,6 +44,7 @@ v5.1-git
 v5.0.19-git
 -----------
 
+[mms] Fix deleting messages from Virtual Trash.
 [mms] Fix regression in displaying PGP Armored signed/encrypted messages (Bug
       #10926).
 [mms] Catch IMAP server connection errors in traditional mailbox view.
