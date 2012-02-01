@@ -350,7 +350,12 @@ var ViewPort = Class.create({
     // view = ID of view
     deleteView: function(view)
     {
+        if (this.view == view) {
+            return false;
+        }
+
         delete this.views[view];
+        return true;
     },
 
     // rownum = (integer) Row number
