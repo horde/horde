@@ -139,7 +139,7 @@ $imp_flags = $injector->getInstance('IMP_Flags');
 $imp_search = $injector->getInstance('IMP_Search');
 $vars = Horde_Variables::getDefaultVariables();
 
-$dimp_view = (IMP::getViewMode() == 'dimp');
+$dimp_view = ($registry->getView() == Horde_Registry::VIEW_DYNAMIC);
 $js_vars = array();
 
 if (isset($vars->mailbox_list)) {
@@ -495,8 +495,7 @@ if ($dimp_view) {
     $menu = IMP::menu();
 }
 
-$title = _("Search");
-require IMP_TEMPLATES . '/common-header.inc';
+IMP::header(_("Search"));
 if (!$dimp_view) {
     echo $menu;
 }

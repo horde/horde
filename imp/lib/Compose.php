@@ -402,7 +402,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      */
     protected function _resumeDraft($indices, $addheaders)
     {
-        global $injector, $prefs;
+        global $injector, $prefs, $registry;
 
         try {
             $contents = $injector->getInstance('IMP_Factory_Contents')->create($indices);
@@ -426,7 +426,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             $imp_draft = self::COMPOSE;
         }
 
-        if (IMP::getViewMode() == 'mimp') {
+        if ($registry->getView() == Horde_Registry::VIEW_MINIMAL) {
             $compose_html = false;
         } elseif ($prefs->getValue('compose_html')) {
             $compose_html = true;
@@ -1873,7 +1873,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      */
     protected function _msgTextFormat($opts, $pref_name)
     {
-        if (IMP::getViewMode() == 'mimp') {
+        if ($GLOBALS['registry']->getView() == Horde_Registry::VIEW_MINIMAL) {
             $compose_html = $force_html = false;
         } elseif (!empty($opts['format'])) {
             $compose_html = $force_html = ($opts['format'] == 'html');

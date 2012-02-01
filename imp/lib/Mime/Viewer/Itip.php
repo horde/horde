@@ -425,9 +425,10 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
                 $GLOBALS['notification']->push($msg[1], 'horde.' . $msg[0], isset($msg[2]) ? $msg[2] : array());
             }
 
+            $response = new Horde_Core_Ajax_Response(null, true);
             return array(
                 $mime_id => array(
-                    'data' => Horde_String::convertCharset(Horde::escapeJson(Horde::prepareResponse(null, true), array('charset' => $this->getConfigParam('charset'))), $this->getConfigParam('charset'), 'UTF-8'),
+                    'data' => Horde_String::convertCharset(Horde::escapeJson($response->jsonData(), array('charset' => $this->getConfigParam('charset'))), $this->getConfigParam('charset'), 'UTF-8'),
                     'name' => null,
                     'type' => 'application/json'
                 )
@@ -435,9 +436,9 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
         }
 
         // Create the HTML to display the iCal file.
-        if (!$full && (IMP::getViewMode() != 'imp')) {
+        if (!$full && ($registry->getView() != Horde_Registry::VIEW_BASIC)) {
             $url = $this->getConfigParam('imp_contents')->urlView($this->_mimepart, 'view_attach', array('params' => array('ajax' => 1, 'mode' => IMP_Contents::RENDER_INLINE)));
-            $onsubmit = ' onsubmit="DimpCore.submitForm(\'impMimeViewerItip\');return false"';
+            $onsubmit = ' onsubmit="HordeCore.submitForm(\'impMimeViewerItip\');return false"';
         } else {
             $url = IMP::selfUrl();
             $onsubmit = '';

@@ -726,7 +726,7 @@ var ImpMobile = {
                 if (d.action == 'saveDraft') {
                     if (!DIMP.conf_compose.qreply &&
                         ImpMobile.baseAvailable()) {
-                        DimpCore.base.DimpCore.showNotifications(r.msgs);
+                        HordeCore.showNotifications(r.msgs, { base: true });
                         r.msgs = [];
                     }
                     if (DIMP.conf_compose.close_draft) {
@@ -737,26 +737,26 @@ var ImpMobile = {
 
             case 'sendMessage':
                 if (d.flag) {
-                    //DimpCore.base.DimpBase.flagCallback(d);
+                    //HordeCore.base.DimpBase.flagCallback(d);
                 }
 
                 if (d.mailbox) {
-                    //DimpCore.base.DimpBase.mailboxCallback(r);
+                    //HordeCore.base.DimpBase.mailboxCallback(r);
                 }
 
                 if (d.draft_delete) {
-                    //DimpCore.base.DimpBase.poll();
+                    //HordeCore.base.DimpBase.poll();
                 }
 
                 if (d.log) {
-                    //DimpCore.base.DimpBase.updateMsgLog(d.log, { uid: d.uid, mailbox: d.mbox });
+                    //HordeCore.base.DimpBase.updateMsgLog(d.log, { uid: d.uid, mailbox: d.mbox });
                 }
 
                 return ImpMobile.closeCompose();
 
             case 'redirectMessage':
                 if (d.log) {
-                    //DimpCore.base.DimpBase.updateMsgLog(d.log, { uid: d.uid, mailbox: d.mbox });
+                    //HordeCore.base.DimpBase.updateMsgLog(d.log, { uid: d.uid, mailbox: d.mbox });
                 }
                 return ImpMobile.closeCompose();
 
@@ -1090,7 +1090,7 @@ var ImpMobile = {
     onDocumentReady: function()
     {
         // Set up HordeMobile.
-        HordeMobile.urls.ajax = IMP.conf.URI_AJAX;
+        HordeMobile.urls.ajax = HordeCoreConf.URI_AJAX;
         $(document).bind('vclick', ImpMobile.clickHandler);
         $(document).bind('swipeleft', ImpMobile.navigate);
         $(document).bind('swiperight', ImpMobile.navigate);

@@ -156,10 +156,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 
     <div id="msgSplitPane"></div>
 
-    <span id="viewportLoading" class="loadingImg" style="display:none"></span>
-
     <div id="previewPane" style="display:none">
-     <span id="msgLoading" class="loadingImg" style="display:none"></span>
      <div id="previewInfo" style="display:none"></div>
      <div id="previewMsg" style="display:none">
       <div class="msgHeaders">

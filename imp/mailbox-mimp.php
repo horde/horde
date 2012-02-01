@@ -97,7 +97,7 @@ case 's':
     $t->set('title', $title);
     $t->set('url', $mailbox_url);
 
-    require_once IMP_TEMPLATES . '/common-header.inc';
+    IMP::header($title);
     IMP::status();
     echo $t->fetch(IMP_TEMPLATES . '/mimp/mailbox/search.html');
     exit;
@@ -286,6 +286,6 @@ try {
     }
 } catch (Horde_Exception_HookNotSet $e) {}
 
-require_once IMP_TEMPLATES . '/common-header.inc';
+IMP::header($title);
 IMP::status();
 echo $t->fetch(IMP_TEMPLATES . '/mimp/mailbox/mailbox.html');

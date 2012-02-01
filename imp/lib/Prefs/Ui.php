@@ -187,12 +187,6 @@ class IMP_Prefs_Ui
                 }
                 break;
 
-            case 'dynamic_view':
-                if (!empty($conf['user']['force_view'])) {
-                    $ui->suppress[] = $val;
-                }
-                break;
-
             case 'empty_trash_menu':
             case 'purge_trash_interval':
             case 'purge_trash_keep':
@@ -549,16 +543,6 @@ class IMP_Prefs_Ui
             if (!empty($maildomain)) {
                 $session->set('imp', 'maildomain', $maildomain);
             }
-        }
-
-        if ($prefs->isDirty('dynamic_view')) {
-            $session->set(
-                'imp',
-                'view',
-                ($prefs->getValue('dynamic_view') && $session->get('horde', 'mode') != 'traditional')
-                    ? 'dimp'
-                    : ($browser->isMobile() ? 'mimp' : 'imp')
-            );
         }
 
         if ($prefs->isDirty('subscribe') || $prefs->isDirty('tree_view')) {
@@ -1242,14 +1226,14 @@ class IMP_Prefs_Ui
      */
     protected function _searchesManagement()
     {
-        global $injector, $prefs;
+        global $injector, $prefs, $registry;
 
         $t = $injector->createInstance('Horde_Template');
         $t->setOption('gettext', true);
 
         $imp_search = $injector->getInstance('IMP_Search');
         $fout = $mailboxids = $vout = array();
-        $view_mode = IMP::getViewMode();
+        $view_mode = $registry->getView();
 
         $imp_search->setIteratorFilter(IMP_Search::LIST_VFOLDER | IMP_Search::LIST_DISABLED);
         $vfolder_locked = $prefs->isLocked('vfolder');
@@ -1260,11 +1244,11 @@ class IMP_Prefs_Ui
             }
 
             $editable = !$vfolder_locked && $imp_search->isVFolder($val, true);
-            $m_url = ($val->enabled && ($view_mode == 'imp'))
+            $m_url = ($val->enabled && ($view_mode == Horde_Registry::VIEW_BASIC))
                 ? $val->mbox_ob->url('mailbox.php')->link(array('class' => 'vfolderenabled'))
                 : null;
 
-            if ($view_mode == 'dimp') {
+            if ($view_mode == Horde_Registry::VIEW_DYNAMIC) {
                 $mailboxids['enable_' . $key] = $val->formid;
             }
 
@@ -1290,7 +1274,7 @@ class IMP_Prefs_Ui
 
             $editable = !$filter_locked && $imp_search->isFilter($val, true);
 
-            if ($editable && ($view_mode == 'dimp')) {
+            if ($editable && ($view_mode == Horde_Registry::VIEW_DYNAMIC)) {
                 $mailboxids['enable_' . $key] = $val->formid;
             }
 

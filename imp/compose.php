@@ -24,12 +24,12 @@ $vars = Horde_Variables::getDefaultVariables();
 
 /* Mailto link handler: redirect based on current view. */
 if ($vars->actionID == 'mailto_link') {
-    switch (IMP::getViewMode()) {
-    case 'dimp':
+    switch ($registry->getView()) {
+    case Horde_Registry::VIEW_DYNAMIC:
         require IMP_BASE . '/compose-dimp.php';
         exit;
 
-    case 'mimp':
+    case Horde_Registry::VIEW_MINIMAL:
         require IMP_BASE . '/compose-mimp.php';
         exit;
     }
@@ -477,8 +477,9 @@ case 'send_message':
             $request = new stdClass;
             $request->requestToken = $injector->getInstance('Horde_Token')->get('imp.compose');
             $request->formToken = Horde_Token::generateId('compose');
-            Horde::sendHTTPResponse(Horde::prepareResponse($request), 'json');
-            exit;
+
+            $response = new Horde_Core_Ajax_Response_Raw($request);
+            $response->sendAndExit('json');
         }
 
         break;
@@ -1093,7 +1094,7 @@ if ($showmenu) {
 Horde::addScriptFile('compose-base.js', 'imp');
 Horde::addScriptFile('compose.js', 'imp');
 Horde::addScriptFile('md5.js', 'horde');
-require IMP_TEMPLATES . '/common-header.inc';
+IMP::header($title);
 Horde::addInlineJsVars($js_vars);
 if (!$redirect) {
     Horde::addInlineScript($imp_ui->identityJs());

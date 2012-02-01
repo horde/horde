@@ -246,9 +246,8 @@ case 'folders_empty_mailbox_confirm':
             break;
         }
 
-        $title = _("Folder Actions - Confirmation");
         $menu = IMP::menu();
-        require IMP_TEMPLATES . '/common-header.inc';
+        IMP::header(_("Folder Actions - Confirmation"));
         echo $menu;
 
         $template = $injector->createInstance('Horde_Template');
@@ -269,9 +268,8 @@ case 'mbox_size':
     if (!empty($folder_list)) {
         Horde::addScriptFile('tables.js', 'horde');
 
-        $title = _("Folder Sizes");
         $menu = IMP::menu();
-        require IMP_TEMPLATES . '/common-header.inc';
+        IMP::header(_("Folder Sizes"));
         echo $menu;
         IMP::status();
         IMP::quota();
@@ -320,9 +318,8 @@ $folders_url_ob->add('folders_token', $folders_token);
 
 if ($session->get('imp', 'file_upload') &&
     ($vars->actionID == 'import_mbox')) {
-    $title = _("Folder Navigator");
     $menu = IMP::menu();
-    require IMP_TEMPLATES . '/common-header.inc';
+    IMP::header(_("Folder Navigator"));
     echo $menu;
     IMP::status();
     IMP::quota();
@@ -400,10 +397,9 @@ Horde::addInlineJsVars(array(
     '-ImpFolders.mbox_expand' => intval($prefs->getValue('nav_expanded') == 2)
 ));
 
-$title = _("Folder Navigator");
 $menu = IMP::menu();
 Horde::metaRefresh($refresh_time, Horde::url('folders.php', true));
-require IMP_TEMPLATES . '/common-header.inc';
+IMP::header(_("Folder Navigator"));
 echo $menu;
 IMP::status();
 IMP::quota();

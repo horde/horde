@@ -67,6 +67,6 @@ $t->set('menu', $injector->getInstance('IMP_Ui_Mimp')->getMenu('folders', $menu)
 $t->set('title', $title);
 $t->set('tree', $tree->getTree(true));
 
-require_once IMP_TEMPLATES . '/common-header.inc';
+IMP::header($title);
 IMP::status();
 echo $t->fetch(IMP_TEMPLATES . '/mimp/folders/folders.html');

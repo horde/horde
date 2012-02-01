@@ -40,6 +40,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Added AJAX core features.
+* [mms] Added view determination to Horde_Registry.
 * [mms] Performance improvements when initializing Alarm system.
 * [mms] Performance improvements to Alarm checking.
 * [mms] Performance improvements when initializing Notification system.
@@ -61,6 +63,7 @@
     <file name="alarmprefs.js" role="horde" />
     <file name="autocomplete.js" role="horde" />
     <file name="calendar.js" role="horde" />
+    <file name="hordecore.js" role="horde" />
     <file name="hordetree.js" role="horde" />
     <file name="identityselect.js" role="horde" />
     <file name="liquidmetal.js" role="horde" />
@@ -91,8 +94,12 @@
         <file name="SpellChecker.php" role="php" />
         <file name="WeatherLocationAutoCompleter.php" role="php" />
        </dir> <!-- /lib/Horde/Core/Ajax/Imple -->
+       <dir name="Response">
+        <file name="Raw.php" role="php" />
+       </dir> <!-- /lib/Horde/Core/Ajax/Response -->
        <file name="Application.php" role="php" />
        <file name="Imple.php" role="php" />
+       <file name="Response.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Ajax -->
       <dir name="Auth">
        <dir name="Signup">
@@ -230,6 +237,10 @@
          <file name="Hordelog.php" role="php" />
         </dir> <!-- /lib/Horde/Core/Notification/Handler/Decorator -->
        </dir> <!-- /lib/Horde/Core/Notification/Handler -->
+       <dir name="Listener">
+        <file name="DynamicStatus.php" role="php" />
+        <file name="SmartmobileStatus.php" role="php" />
+       </dir> <!-- /lib/Horde/Core/Notification/Listener -->
        <dir name="Storage">
         <file name="Session.php" role="php" />
        </dir> <!-- /lib/Horde/Core/Notification/Storage -->
@@ -285,6 +296,7 @@
        <file name="VarRenderer.php" role="php" />
        <file name="Widget.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Ui -->
+      <file name="Ajax.php" role="php" />
       <file name="Block.php" role="php" />
       <file name="Browser.php" role="php" />
       <file name="Bundle.php" role="php" />
@@ -1060,6 +1072,7 @@
    <install as="js/alarmprefs.js" name="js/alarmprefs.js" />
    <install as="js/autocomplete.js" name="js/autocomplete.js" />
    <install as="js/calendar.js" name="js/calendar.js" />
+   <install as="js/hordecore.js" name="js/hordecore.js" />
    <install as="js/hordetree.js" name="js/hordetree.js" />
    <install as="js/identityselect.js" name="js/identityselect.js" />
    <install as="js/liquidmetal.js" name="js/liquidmetal.js" />
@@ -1079,6 +1092,7 @@
    <install as="Horde/Session.php" name="lib/Horde/Session.php" />
    <install as="Horde/Themes.php" name="lib/Horde/Themes.php" />
    <install as="Horde/Config/Form.php" name="lib/Horde/Config/Form.php" />
+   <install as="Horde/Core/Ajax.php" name="lib/Horde/Core/Ajax.php" />
    <install as="Horde/Core/Block.php" name="lib/Horde/Core/Block.php" />
    <install as="Horde/Core/Browser.php" name="lib/Horde/Core/Browser.php" />
    <install as="Horde/Core/Bundle.php" name="lib/Horde/Core/Bundle.php" />
@@ -1091,10 +1105,12 @@
    <install as="Horde/Core/ActiveSync/Driver.php" name="lib/Horde/Core/ActiveSync/Driver.php" />
    <install as="Horde/Core/Ajax/Application.php" name="lib/Horde/Core/Ajax/Application.php" />
    <install as="Horde/Core/Ajax/Imple.php" name="lib/Horde/Core/Ajax/Imple.php" />
+   <install as="Horde/Core/Ajax/Response.php" name="lib/Horde/Core/Ajax/Response.php" />
    <install as="Horde/Core/Ajax/Imple/AutoCompleter.php" name="lib/Horde/Core/Ajax/Imple/AutoCompleter.php" />
    <install as="Horde/Core/Ajax/Imple/SpellChecker.php" name="lib/Horde/Core/Ajax/Imple/SpellChecker.php" />
    <install as="Horde/Core/Ajax/Imple/WeatherLocationAutoCompleter.php" name="lib/Horde/Core/Ajax/Imple/WeatherLocationAutoCompleter.php" />
    <install as="Horde/Core/Ajax/Imple/Geocoder/Geonames.php" name="lib/Horde/Core/Ajax/Imple/Geocoder/Geonames.php" />
+   <install as="Horde/Core/Ajax/Response/Raw.php" name="lib/Horde/Core/Ajax/Response/Raw.php" />
    <install as="Horde/Core/Auth/Application.php" name="lib/Horde/Core/Auth/Application.php" />
    <install as="Horde/Core/Auth/Composite.php" name="lib/Horde/Core/Auth/Composite.php" />
    <install as="Horde/Core/Auth/Imsp.php" name="lib/Horde/Core/Auth/Imsp.php" />
@@ -1190,6 +1206,8 @@
    <install as="Horde/Core/Notification/Event/Status.php" name="lib/Horde/Core/Notification/Event/Status.php" />
    <install as="Horde/Core/Notification/Handler/Decorator/Base.php" name="lib/Horde/Core/Notification/Handler/Decorator/Base.php" />
    <install as="Horde/Core/Notification/Handler/Decorator/Hordelog.php" name="lib/Horde/Core/Notification/Handler/Decorator/Hordelog.php" />
+   <install as="Horde/Core/Notification/Listener/DynamicStatus.php" name="lib/Horde/Core/Notification/Listener/DynamicStatus.php" />
+   <install as="Horde/Core/Notification/Listener/SmartmobileStatus.php" name="lib/Horde/Core/Notification/Listener/SmartmobileStatus.php" />
    <install as="Horde/Core/Notification/Storage/Session.php" name="lib/Horde/Core/Notification/Storage/Session.php" />
    <install as="Horde/Core/Perms/Ui.php" name="lib/Horde/Core/Perms/Ui.php" />
    <install as="Horde/Core/Prefs/Identity.php" name="lib/Horde/Core/Prefs/Identity.php" />

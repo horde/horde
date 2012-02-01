@@ -25,7 +25,6 @@
  *   - showunsub: (boolean) Show unsusubscribed mailboxes on the folders
  *                screen.
  *   - tasklistavail: (boolean) Is listing of tasklists available?
- *   - view: (string) Either 'dimp', 'imp', 'mimp', or 'mobile'.
  *
  * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
@@ -295,15 +294,8 @@ class IMP_Auth
         $result = new stdClass;
         $result->mbox = $mbox;
 
-        switch (IMP::getViewMode()) {
-        case 'dimp':
-            if (is_null($mbox)) {
-                $result->mbox = IMP_Mailbox::get('INBOX');
-            }
-            $page = 'index-dimp.php';
-            break;
-
-        case 'imp':
+        switch ($GLOBALS['registry']->getView()) {
+        case Horde_Registry::VIEW_BASIC:
             if (is_null($mbox)) {
                 $page = 'folders.php';
             } else {
@@ -312,7 +304,14 @@ class IMP_Auth
             }
             break;
 
-        case 'mimp':
+        case Horde_Registry::VIEW_DYNAMIC:
+            if (is_null($mbox)) {
+                $result->mbox = IMP_Mailbox::get('INBOX');
+            }
+            $page = 'index-dimp.php';
+            break;
+
+        case Horde_Registry::VIEW_MINIMAL:
             if (is_null($mbox)) {
                 $page = 'folders-mimp.php';
             } else {
@@ -321,7 +320,7 @@ class IMP_Auth
             }
             break;
 
-        case 'mobile':
+        case Horde_Registry::VIEW_SMARTMOBILE:
             // TODO: Folders for mobile page?
             if (is_null($mbox)) {
                 $result->mbox = IMP_Mailbox::get('INBOX');
@@ -429,51 +428,6 @@ class IMP_Auth
         if ($conf['notepad']['use_notepad'] &&
             $registry->hasMethod('notes/listNotepads')) {
             $session->set('imp', 'notepadavail', true);
-        }
-
-        /* Determine View */
-        $mode = $session->get('horde', 'mode');
-        if (!IMP::showAjaxView() && !$mode == 'smartmobile') {
-            if ($browser->hasFeature('javascript')) {
-                if ($mode == 'dynamic' ||
-                    ($mode == 'auto' && $prefs->getValue('dynamic_view'))) {
-                    $notification->push(_("Your browser is too old to display the dynamic mode. Using traditional mode instead."), 'horde.warning');
-                }
-            } else {
-                $notification->push(_("Your browser does not support javascript. Using mobile mode instead."), 'horde.warning');
-            }
-            $session->set('imp', 'view', 'imp');
-        } else {
-            /* Map to IMP view */
-            switch($mode) {
-            case 'auto':
-            case 'dynamic':
-            case 'traditional':
-                $impview = IMP::showAjaxView() ? 'dimp' : 'imp';
-                break;
-
-            case 'smartmobile':
-                $impview = Horde::ajaxAvailable() ? 'mobile' : 'mimp';
-                break;
-
-            case 'mobile':
-                $impview = 'mimp';
-                break;
-            }
-
-            $session->set('imp', 'view', $impview);
-        }
-
-        /* Indicate that notifications should use AJAX mode. */
-        if ($session->get('imp', 'view') == 'dimp') {
-            $session->set(
-                'horde',
-                'notification_override',
-                array(
-                    IMP_BASE . '/lib/Notification/Listener/AjaxStatus.php',
-                    'IMP_Notification_Listener_AjaxStatus'
-                )
-            );
         }
 
         /* Is the HTML editor available? */

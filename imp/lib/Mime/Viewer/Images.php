@@ -33,7 +33,7 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
     {
         /* For mimp - allow rendering of attachments inline (on the view
          * parts page). */
-        return (($mode == 'inline') && (IMP::getViewMode() == 'mimp'))
+        return (($mode == 'inline') && ($GLOBALS['registry']->getView() == Horde_Registry::VIEW_MINIMAL))
             ? true
             : parent::canRender($mode);
     }
@@ -90,7 +90,7 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
             } else {
                 /* For mimp - allow rendering of attachments inline (on the
                  * view parts page). */
-                $showimg = (IMP::getViewMode() == 'mimp');
+                $showimg = ($GLOBALS['registry']->getView() == Horde_Registry::VIEW_MINIMAL);
             }
 
             if (!$showimg) {
@@ -112,8 +112,8 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
         $status = new IMP_Mime_Status(_("Your browser does not support inline display of this image type."));
 
         /* See if we can convert to an inline browser viewable form. */
-        switch (IMP::getViewMode()) {
-        case 'mimp':
+        switch ($GLOBALS['registry']->getView()) {
+        case Horde_Registry::VIEW_MINIMAL:
             // Do nothing.
             break;
 
@@ -151,8 +151,8 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
         $status = new IMP_Mime_Status(_("This is a thumbnail of an image attachment."));
         $status->icon('mime/image.png');
 
-        switch (IMP::getViewMode()) {
-        case 'mimp':
+        switch ($GLOBALS['registry']->getView()) {
+        case Horde_Registry::VIEW_MINIMAL:
             $status->addText(Horde::link($this->getConfigParam('imp_contents')->urlView($this->_mimepart, 'view_attach')) . $this->_outputImgTag('view_thumbnail', _("View Attachment")) . '</a>');
             break;
 

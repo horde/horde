@@ -36,6 +36,11 @@ Horde_Registry::appInit('imp', array(
     'timezone' => true
 ));
 
+$horde_ajax = $injector->getInstance('Horde_Core_Ajax');
+$horde_ajax->init(array(
+    'app' => 'imp'
+));
+
 $vars = Horde_Variables::getDefaultVariables();
 
 /* The headers of the message. */
@@ -300,26 +305,11 @@ if ($vars->type != 'redirect') {
 }
 Horde::addInlineScript($compose_result['jsonload'], 'dom');
 
-$scripts = array(
-    array('compose-base.js', 'imp'),
-    array('compose-dimp.js', 'imp'),
-    array('contextsensitive.js', 'horde'),
-    array('md5.js', 'horde'),
-    array('popup.js', 'horde'),
-    array('textarearesize.js', 'horde')
-);
-
-if (!($prefs->isLocked('default_encrypt')) &&
-    ($prefs->getValue('use_pgp') || $prefs->getValue('use_smime'))) {
-    $scripts[] = array('dialog.js', 'imp');
-    $scripts[] = array('redbox.js', 'horde');
-}
-
 Horde::startBuffer();
 IMP::status();
 $t->set('status', Horde::endBuffer());
 
-IMP_Dimp::header($title, $scripts);
+$injector->getInstance('IMP_Ajax')->header('compose', $title);
 
 Horde::startBuffer();
 Horde::includeScriptFiles();

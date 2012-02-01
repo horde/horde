@@ -1515,20 +1515,3 @@ $_prefs['smime_private_key'] = array(
 $_prefs['smime_additional_cert'] = array(
     'value' => ''
 );
-
-
-
-// *** View Preferences ***
-$prefGroups['views'] = array(
-    'column' => _("Other"),
-    'label' => _("Views"),
-    'desc' => _("Configure view preferences."),
-    'members' => array('dynamic_view')
-);
-
-// Show dynamic view?
-$_prefs['dynamic_view'] = array(
-   'value' => 1,
-   'type' => 'checkbox',
-   'desc' => _("Show the dynamic view by default, if the browser supports it?")
-);

@@ -29,6 +29,12 @@ class Horde_Registry
     const PERMISSION_DENIED = 3;
     const HOOK_FATAL = 4;
 
+    /* View types. @since 2.0.0 */
+    const VIEW_BASIC = 1;
+    const VIEW_DYNAMIC = 2;
+    const VIEW_MINIMAL = 3;
+    const VIEW_SMARTMOBILE = 4;
+
     /**
      * Hash storing information on each registry-aware application.
      *
@@ -456,15 +462,28 @@ class Horde_Registry
         $this->_runner = $injector->getInstance('Horde_Queue_Runner');
 
         /* Initialize notification object. Always attach status listener by
-         * default. Default status listener can be overriden through the
+         * default.
+         *
+         * Default status listener can be overriden through the
          * 'notification_override' session variable. */
         $GLOBALS['notification'] = $injector->getInstance('Horde_Notification');
-        if (Horde_Util::getFormData('ajaxui') &&
-            ($override = $session->get('horde', 'notification_override'))) {
-            require_once $override[0];
-            $GLOBALS['notification']->attach('status', null, $override[1]);
-        } else {
-            $GLOBALS['notification']->attach('status');
+        switch ($this->getView()) {
+        case self::VIEW_DYNAMIC:
+            $GLOBALS['notification']->attach('status', null, 'Horde_Core_Notification_Listener_DynamicStatus');
+            break;
+
+        case self::VIEW_SMARTMOBILE:
+            $GLOBALS['notification']->attach('status', null, 'Horde_Core_Notification_Listener_SmartmobileStatus');
+            break;
+
+        default:
+            if ($override = $session->get('horde', 'notification_override')) {
+                require_once $override[0];
+                $GLOBALS['notification']->attach('status', null, $override[1]);
+            } else {
+                $GLOBALS['notification']->attach('status');
+            }
+            break;
         }
 
         register_shutdown_function(array($this, 'shutdown'));
@@ -1646,6 +1665,34 @@ class Horde_Registry
         } catch (Horde_Exception $e) {
             return false;
         }
+    }
+
+    /**
+     * Set current view.
+     *
+     * @since 2.0.0
+     *
+     * @param integer $view  The view type.
+     */
+    public function setView($view = self::VIEW_BASIC)
+    {
+        $GLOBALS['session']->set('horde', 'view', $view);
+    }
+
+    /**
+     * Get current view.
+     *
+     * @since 2.0.0
+     *
+     * @return integer  The view type.
+     */
+    public function getView()
+    {
+        global $session;
+
+        return $session->exists('horde', 'view')
+            ? $session->get('horde', 'view')
+            : self::VIEW_BASIC;
     }
 
     /**

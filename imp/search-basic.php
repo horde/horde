@@ -18,8 +18,8 @@ Horde_Registry::appInit('imp', array(
     'impmode' => 'imp'
 ));
 
-/* This is an IMP-only script. */
-if (IMP::getViewMode() != 'imp') {
+/* This is a basic-view only script. */
+if ($registry->getView() != Horde_Registry::VIEW_BASIC) {
     exit;
 }
 
@@ -112,9 +112,8 @@ $t->set('mbox', IMP::$mailbox->form_to);
 $t->set('search_title', sprintf(_("Search %s"), IMP::$mailbox->display_html));
 $t->set('flist', $flag_set);
 
-$title = _("Search");
 $menu = IMP::menu();
-require IMP_TEMPLATES . '/common-header.inc';
+IMP::header(_("Search"));
 echo $menu;
 IMP::status();
 

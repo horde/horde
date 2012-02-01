@@ -62,7 +62,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     /**
      * Determines the HTTP response output type.
      *
-     * @see Horde::sendHTTPResponse().
+     * @see Horde_Core_Ajax_Response::send().
      *
      * @return string  The output type.
      */
@@ -79,27 +79,13 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
     /**
      * May add the following entries to the output object:
-     *   - flag: (array) See IMP_Ajax_Queue::generate().
-     *   - poll: (array) See IMP_Ajax_Queue::generate().
-     *   - quota: (array) See IMP_Ajax_Queue::generate().
+     *   - flag: (array) See IMP_Ajax_Queue::add().
+     *   - poll: (array) See IMP_Ajax_Queue::add().
+     *   - quota: (array) See IMP_Ajax_Queue::add().
      */
-    public function doAction()
+    protected function _send(Horde_Core_Ajax_Response $response)
     {
-        $res = parent::doAction();
-
-        if (is_object($res)) {
-            foreach ($this->_queue->generate() as $key => $val) {
-                if (isset($res->$key)) {
-                    foreach (get_object_vars($res) as $key2 => $val2) {
-                        $val->$key2 = $val2;
-                    }
-                }
-
-                $res->$key = $val;
-            }
-        }
-
-        return $res;
+        $this->_queue->add($response);
     }
 
     /**

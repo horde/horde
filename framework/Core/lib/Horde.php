@@ -588,6 +588,8 @@ HTML;
     /**
      * Returns a response object with added notification information.
      *
+     * @deprecated  Use Horde_Core_Ajax_Response#__construct() instead.
+     *
      * @param mixed $data      The 'response' data.
      * @param boolean $notify  If true, adds notification info to object.
      *
@@ -613,6 +615,8 @@ HTML;
 
     /**
      * Send response data to browser.
+     *
+     * @deprecated  Use Horde_Core_Ajax_Response#send() instead.
      *
      * @param mixed $data  The data to serialize and send to the browser.
      * @param string $ct   The content-type to send the data with.  Either
@@ -2212,7 +2216,8 @@ HTML;
     {
         global $browser;
 
-        return $browser->hasFeature('xmlhttpreq') &&
+        return $browser->hasFeature('javascript') &&
+            $browser->hasFeature('xmlhttpreq') &&
             (!$browser->isBrowser('msie') || $browser->getMajor() >= 7) &&
             (!$browser->hasFeature('issafari') || $browser->getMajor() >= 2);
     }

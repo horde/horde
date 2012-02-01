@@ -190,11 +190,11 @@ a.newEvent img {
     background: #28b22b;
     color: #fff;
 }
-.kronolithAjax .kronolithFBFree {
+#kronolithAjax .kronolithFBFree {
     /*position: static;*/
     position: relative;
 }
-.kronolithAjax .kronolithFBBusy {
+#kronolithAjax .kronolithFBBusy {
     /*position: static;*/
     position: absolute;
 }
@@ -352,7 +352,7 @@ table#calendar-list td {
 html, body {
     height: 100%;
 }
-body.kronolithAjax {
+#kronolithAjax {
     overflow: hidden;
 }
 

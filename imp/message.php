@@ -737,7 +737,7 @@ if (!empty($conf['tasklist']['use_notepad']) || !empty($conf['tasklist']['use_ta
 $menu = IMP::menu();
 Horde::noDnsPrefetch();
 
-require IMP_TEMPLATES . '/common-header.inc';
+IMP::header($title);
 
 if (!empty($conf['maillog']['use_maillog'])) {
     IMP_Maillog::displayLog($envelope->message_id);
