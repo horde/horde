@@ -117,7 +117,24 @@ class Horde_Core_Factory_Alarm extends Horde_Core_Factory_Base
             return;
         }
 
-        foreach ($registry->listApps(null, false, Horde_Perms::READ) as $app) {
+        /* Cache alarm handler application method existence. */
+        $cache = $session->get('horde', 'factory_alarm');
+
+        if (is_null($cache)) {
+            $save = array();
+            $changed = ($registry->getAuth() !== false);
+
+            try {
+                $apps = $registry->listApps(null, false, Horde_Perms::READ);
+            } catch (Horde_Exception $e) {
+                $apps = array();
+            }
+        } else {
+            $apps = $cache;
+            $changed = false;
+        }
+
+        foreach ($apps as $app) {
             /* Preload alarms that happen in the next ttl seconds. */
             $time = $preload
                 ? time() + $this->_ttl
@@ -125,9 +142,16 @@ class Horde_Core_Factory_Alarm extends Horde_Core_Factory_Base
 
             try {
                 foreach ($registry->callAppMethod($app, 'listAlarms', array('args' => array($time, $user), 'noperms' => true)) as $alarm) {
-                    $this->_alarm->set($alarm, true);
+                    if ($alarm !== false) {
+                        $this->_alarm->set($alarm, true);
+                        $save[] = $app;
+                    }
                 }
             } catch (Horde_Exception $e) {}
+        }
+
+        if ($changed) {
+            $session->set('horde', 'factory_alarm', $save);
         }
 
         $session->set('horde', 'alarm_loaded', time());
