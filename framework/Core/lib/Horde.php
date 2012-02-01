@@ -567,11 +567,9 @@ HTML;
             break;
 
         case 'portal':
-            if ($GLOBALS['session']->get('horde', 'mode') == 'smartmobile' && self::ajaxAvailable()) {
-                return self::url('services/portal/mobile.php', false, $opts);
-            } else {
-                return self::url('services/portal/', false, $opts);
-            }
+            return ($GLOBALS['registry']->getView() == Horde_Registry::VIEW_SMARTMOBILE)
+                ? self::url('services/portal/mobile.php', false, $opts)
+                : self::url('services/portal/', false, $opts);
             break;
 
         case 'problem':

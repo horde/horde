@@ -59,13 +59,10 @@ if ($main_page) {
         if (!empty($initial_app) &&
             $initial_app != 'horde' &&
             $registry->hasPermission($initial_app)) {
-
-            if ($session->get('horde', 'mode') == 'smartmobile' && Horde::ajaxAvailable()) {
-                if ($registry->getApiInstance($initial_app, 'application')->mobileView) {
-                    $main_page = Horde::url(rtrim($initial_app, '/') . '/', true);
-                } else {
-                    $main_page = Horde::getServiceLink('portal');
-                }
+            if ($registry->getView() == Horde_Registry::VIEW_SMARTMOBILE) {
+                $main_page = $registry->getApiInstance($initial_app, 'application')->mobileView
+                    ? Horde::url(rtrim($initial_app, '/') . '/', true)
+                    : Horde::getServiceLink('portal');
             } else {
                 $main_page = Horde::url(rtrim($initial_app, '/') . '/', true);
             }
@@ -73,7 +70,7 @@ if ($main_page) {
             /* Next, try the initial horde page if it is something other than
              * index.php or login.php, since that would lead to inifinite
              * loops. */
-            if ($session->get('horde', 'mode') == 'smartmobile' && Horde::ajaxAvailable()) {
+            if ($registry->getView() == Horde_Registry::VIEW_SMARTMOBILE) {
                 $main_page = Horde::getServiceLink('portal');
             } elseif (!empty($registry->applications['horde']['initial_page']) &&
                 !in_array($registry->applications['horde']['initial_page'], array('index.php', 'login.php'))) {
