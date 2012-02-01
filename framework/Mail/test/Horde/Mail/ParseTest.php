@@ -256,4 +256,37 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testLimit()
+    {
+        $email = array_fill(0, 10, 'A <example.com>');
+
+        $parser = new Horde_Mail_Rfc822();
+        $ob = $parser->parseAddressList(
+            implode(', ', $email),
+            array(
+                'limit' => 5
+            )
+        );
+
+        $this->assertEquals(
+            5,
+            count($ob)
+        );
+    }
+
+    public function testLargeParse()
+    {
+        $email = array_fill(0, 1000, 'A <foo@example.com>, "A B" <foo@example.com>, foo@example.com, Group: A <foo@example.com>;, Group2: "A B" <foo@example.com>;');
+
+        $parser = new Horde_Mail_Rfc822();
+        $ob = $parser->parseAddressList(
+            implode(', ', $email)
+        );
+
+        $this->assertEquals(
+            5000,
+            count($ob)
+        );
+    }
+
 }
