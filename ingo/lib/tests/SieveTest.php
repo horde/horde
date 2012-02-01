@@ -24,17 +24,17 @@ class Ingo_SieveTest extends Ingo_TestBase {
         $GLOBALS['conf']['spam'] = array('enabled' => true,
                                          'char' => '*',
                                          'header' => 'X-Spam-Level');
-        $GLOBALS['ingo_storage'] = Ingo_Storage::factory(
-            'mock',
-            array('maxblacklist' => 3,
-                  'maxwhitelist' => 3));
-        $GLOBALS['ingo_script'] = Ingo_Script::factory(
-            'sieve',
-            array('spam_compare' => 'string',
-                  'spam_header' => 'X-Spam-Level',
-                  'spam_char' => '*',
-                  'date_format' => '%x',
-                  'time_format' => '%R'));
+        $GLOBALS['ingo_storage'] = new Ingo_Storage_Mock(array(
+            'maxblacklist' => 3,
+            'maxwhitelist' => 3
+        ));
+        $GLOBALS['ingo_script'] = new Ingo_Script_Sieve(array(
+            'spam_compare' => 'string',
+            'spam_header' => 'X-Spam-Level',
+            'spam_char' => '*',
+            'date_format' => '%x',
+            'time_format' => '%R'
+        ));
     }
 
     function testForwardKeep()

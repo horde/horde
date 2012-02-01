@@ -14,10 +14,11 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('ingo');
 
 /* Get the list of filter rules. */
+$ingo_storage = $injector->getInstance('Ingo_Factory_Storage')->create();
 $filters = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
 
 /* Load the Ingo_Script:: driver. */
-$ingo_script = Ingo::loadIngoScript();
+$ingo_script = $injector->getInstance('Ingo_Script');
 
 /* Determine if we need to show the on-demand settings. */
 $on_demand = $ingo_script->performAvailable();

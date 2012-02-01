@@ -2,12 +2,16 @@
 /**
  * Ingo_Storage:: defines an API to store the various filter rules.
  *
+ * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @author  Jan Schneider <jan@horde.org>
- * @package Ingo
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
  */
 class Ingo_Storage
 {
@@ -52,13 +56,6 @@ class Ingo_Storage
     const TYPE_BODY = 3;
 
     /**
-     * Driver specific parameters.
-     *
-     * @var array
-     */
-    protected $_params = array();
-
-    /**
      * Cached rule objects.
      *
      * @var array
@@ -66,40 +63,20 @@ class Ingo_Storage
     protected $_cache = array();
 
     /**
-     * Attempts to return a concrete Ingo_Storage instance based on $driver.
+     * Configuration parameters.
      *
-     * @param string $driver  The type of concrete Ingo_Storage subclass to
-     *                        return.  This is based on the storage driver
-     *                        ($driver).  The code is dynamically included.
-     * @param array $params   A hash containing any additional configuration or
-     *                        connection parameters a subclass might need.
-     *
-     * @return mixed  The newly created concrete Ingo_Storage instance, or
-     *                false on an error.
+     * @var array
      */
-    static public function factory($driver = null, $params = null)
-    {
-        if (is_null($driver)) {
-            $driver = $GLOBALS['conf']['storage']['driver'];
-        }
-
-        $driver = basename($driver);
-
-        if (is_null($params)) {
-            $params = Horde::getDriverConfig('storage', $driver);
-        }
-
-        $class = 'Ingo_Storage_' . ucfirst($driver);
-        return class_exists($class)
-            ? new $class($params)
-            : false;
-    }
+    protected $_params = array();
 
     /**
      * Constructor.
+     *
+     * @params array $params  Configuration parameters.
      */
-    public function __construct()
+    public function __construct(array $params = array())
     {
+        $this->_params = $params;
         register_shutdown_function(array($this, 'shutdown'));
     }
 
@@ -138,12 +115,10 @@ class Ingo_Storage
                     'ob' => $cached ? $cached : $this->_retrieve($field, $readonly)
                 );
             }
-            $ob = $this->_cache[$field]['ob'];
-        } else {
-            $ob = $this->_retrieve($field, $readonly);
+            return $this->_cache[$field]['ob'];
         }
 
-        return $ob;
+        return $this->_retrieve($field, $readonly);
     }
 
     /**
@@ -224,12 +199,10 @@ class Ingo_Storage
      *
      * @param integer $action  The ACTION_* value.
      *
-     * @return stdClass  Object with the following values:
-     * <pre>
-     * 'flags' => (boolean) Does this action allow flags to be set?
-     * 'label' => (string) The label for this action.
-     * 'type'  => (string) Either 'folder', 'text', or empty.
-     * </pre>
+     * @return object  Object with the following values:
+     *   - flags: (boolean) Does this action allow flags to be set?
+     *   - label: (string) The label for this action.
+     *   - type: (string) Either 'folder', 'text', or empty.
      */
     public function getActionInfo($action)
     {
@@ -293,11 +266,9 @@ class Ingo_Storage
      *
      * @param string $action  The test string.
      *
-     * @return stdClass  Object with the following values:
-     * <pre>
-     * 'label' => (string) The label for this action.
-     * 'type'  => (string) Either 'int', 'none', or 'text'.
-     * </pre>
+     * @return object  Object with the following values:
+     *   - label: (string) The label for this action.
+     *   - type: (string) Either 'int', 'none', or 'text'.
      */
     public function getTestInfo($test)
     {

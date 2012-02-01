@@ -369,7 +369,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $initreload = ($this->_vars->initial || $this->_vars->reload);
         $result = new stdClass;
 
-        $mask = IMP_Imap_Tree::FLIST_VFOLDER;
+        $mask = IMP_Imap_Tree::FLIST_VFOLDER | IMP_Imap_Tree::FLIST_NOSPECIALMBOXES;
         if ($this->_vars->unsub) {
             $mask |= IMP_Imap_Tree::FLIST_UNSUB;
         }
@@ -395,71 +395,37 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         $imptree->showUnsubscribed($this->_vars->unsub);
 
-        $folder_list = array();
         if (!empty($this->_vars->mboxes)) {
-            foreach (IMP_Mailbox::formFrom(Horde_Serialize::unserialize($this->_vars->mboxes, Horde_Serialize::JSON)) as $val) {
+            $mboxes = IMP_Mailbox::formFrom(Horde_Serialize::unserialize($this->_vars->mboxes, Horde_Serialize::JSON));
+            if ($initreload) {
+                $mboxes = array_merge(array('INBOX'), array_diff($mboxes, array('INBOX')));
+            }
+
+            foreach ($mboxes as $val) {
                 $imptree->setIteratorFilter($mask, $val);
-                $folder_list += iterator_to_array($imptree);
+                foreach ($imptree as $val2) {
+                    $imptree->addEltDiff($val2);
+                }
 
                 if (!$initreload) {
                     $imptree->expand($val);
                 }
-            }
-
-            if ($initreload && empty($folder_list)) {
-                $imptree->setIteratorFilter($mask, 'INBOX');
-                $folder_list += iterator_to_array($imptree);
             }
         }
 
         /* Add special mailboxes explicitly to the initial folder list, since
          * they are ALWAYS displayed, may appear outside of the folder
          * slice requested, and need to be sorted logically. */
-        $suppress = array();
         if ($initreload) {
-            foreach (IMP_Mailbox::getSpecialMailboxes() as $val) {
-                if (is_array($val)) {
-                    $tmp = array();
-                    foreach ($val as $val2) {
-                        $tmp[strval($val2)] = $val2->abbrev_label;
-                    }
-                    asort($tmp, SORT_LOCALE_STRING);
-                    $mboxes = IMP_Mailbox::get(array_keys($tmp));
-                } else {
-                    $mboxes = array($val);
-                }
-
-                foreach ($mboxes as $val2) {
-                    if ($tmp = $imptree[strval($val2)]) {
-                        $folder_list[strval($val2)] = $tmp;
-
-                        /* Hack: We need to NOT send a container element if
-                         * all child elements are special mailboxes. */
-                        if ($val2->level &&
-                            ($parent = $val2->parent) &&
-                            isset($folder_list[strval($parent)])) {
-                            $not_special = false;
-                            foreach ($parent->subfolders_only as $val3) {
-                                if (!$val3->special) {
-                                    $not_special = true;
-                                    break;
-                                }
-                            }
-
-                            if (!$not_special) {
-                                $suppress[] = strval($parent);
-                            }
-                        }
-                    }
+            foreach (IMP_Mailbox::getSpecialMailboxesSort() as $val) {
+                if ($imptree[$val]) {
+                    $imptree->addEltDiff($val);
                 }
             }
-        }
 
-        $result->mailbox = $imptree->getAjaxResponse(array(
-            'mboxes' => $folder_list,
-            'poll' => true,
-            'suppress' => $suppress
-        ));
+            /* Poll all mailboxes on initial display. */
+            $this->_queue->poll($imptree->getPollList());
+        }
 
         $this->_queue->quota();
 

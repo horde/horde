@@ -20,6 +20,7 @@ if (!in_array(Ingo_Storage::ACTION_FORWARD, $session->get('ingo', 'script_catego
 }
 
 /* Get the forward object and rule. */
+$ingo_storage = $injector->getInstance('Ingo_Factory_Storage')->create();
 $forward = $ingo_storage->retrieve(Ingo_Storage::ACTION_FORWARD);
 $filters = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
 $fwd_id = $filters->findRuleId(Ingo_Storage::ACTION_FORWARD);
@@ -32,12 +33,7 @@ if ($vars->submitbutton == _("Return to Rules List")) {
 }
 
 /* Build form. */
-$form = new Horde_Form($vars);
-$v = $form->addVariable(_("Keep a copy of messages in this account?"), 'keep_copy', 'boolean', false);
-$v->setHelp('forward-keepcopy');
-$v = $form->addVariable(_("Address(es) to forward to:"), 'addresses', 'longtext', false, false, null, array(5, 40));
-$v->setHelp('forward-addresses');
-$form->setButtons(_("Save"));
+$form = new Ingo_Form_Forward($vars);
 
 /* Perform requested actions. */
 if ($form->validate($vars)) {
@@ -69,12 +65,7 @@ if ($form->validate($vars)) {
 }
 
 /* Add buttons depending on the above actions. */
-if (empty($fwd_rule['disable'])) {
-    $form->appendButtons(_("Save and Disable"));
-} else {
-    $form->appendButtons(_("Save and Enable"));
-}
-$form->appendButtons(_("Return to Rules List"));
+$form->setCustomButtons($fwd_rule['disable']);
 
 /* Set default values. */
 if (!$form->isSubmitted()) {

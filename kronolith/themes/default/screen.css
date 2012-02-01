@@ -1079,6 +1079,9 @@ table.kronolithView td.kronolithFirstCol {
     height: 100%;
     overflow: hidden;
 }
+#kronolithViewDay .kronolithAllDayContainer {
+    overflow: auto;
+}
 
 /* Main view header row */
 #kronolithViewMonthHead {

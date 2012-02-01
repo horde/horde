@@ -21,6 +21,7 @@ if (!in_array(Ingo_Storage::ACTION_WHITELIST, $session->get('ingo', 'script_cate
     Horde::url('filters.php', true)->redirect();
 }
 
+$ingo_storage = $injector->getInstance('Ingo_Factory_Storage')->create();
 $whitelist = $ingo_storage->retrieve(Ingo_Storage::ACTION_WHITELIST);
 
 /* Perform requested actions. */

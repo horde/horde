@@ -5,10 +5,6 @@
  */
 class Horde_Core_Factory_Notification extends Horde_Core_Factory_Injector
 {
-    /* Cache constants. */
-    const CACHE_SKIP = 1;
-    const CACHE_RUN = 2;
-
     /**
      * Singleton instance.
      *
@@ -38,43 +34,33 @@ class Horde_Core_Factory_Notification extends Horde_Core_Factory_Injector
         $this->_notify->addDecorator(new Horde_Notification_Handler_Decorator_Alarm($injector->getInstance('Horde_Core_Factory_Alarm'), $auth));
         $this->_notify->addDecorator(new Horde_Core_Notification_Handler_Decorator_Hordelog());
 
-        /* Cache notification handler application method existence.
-         * Logic: keep track of list of applications previously seen. Skip
-         * further checks of the same application if we are authenticated and
-         * no setupNotification handler exists for the app. */
-        $cache = $session->get('horde', 'factory_notification', Horde_Session::TYPE_ARRAY);
-        $changed = false;
+        /* Cache notification handler application method existence. */
+        $cache = $session->get('horde', 'factory_notification');
 
-        try {
-            $apps = $registry->listApps(null, false, Horde_Perms::READ);
-        } catch (Horde_Exception $e) {
-            $apps = array();
+        if (is_null($cache)) {
+            $save = array();
+            $changed = ($auth !== false);
+
+            try {
+                $apps = $registry->listApps(null, false, Horde_Perms::READ);
+            } catch (Horde_Exception $e) {
+                $apps = array();
+            }
+        } else {
+            $apps = $cache;
+            $changed = false;
         }
 
         foreach ($apps as $app) {
-            if ((!isset($cache[$app]) || ($cache[$app] == self::CACHE_RUN)) &&
-                $registry->isAuthenticated(array('app' => $app, 'notransparent' => true))) {
-                try {
-                    $result = $registry->callAppMethod($app, 'setupNotification', array('args' => array($this->_notify), 'noperms' => true));
-                    $cache[$app] = self::CACHE_SKIP;
-                } catch (Exception $e) {
-                    $result = false;
+            try {
+                if ($registry->callAppMethod($app, 'setupNotification', array('args' => array($this->_notify), 'noperms' => true)) && $changed) {
+                    $save[] = $app;
                 }
-
-                if ($result) {
-                    if (!isset($cache[$app])) {
-                        $cache[$app] = self::CACHE_RUN;
-                        $changed = true;
-                    }
-                } else {
-                    $cache[$app] = self::CACHE_SKIP;
-                    $changed = true;
-                }
-            }
+            } catch (Exception $e) {}
         }
 
-        if ($changed && ($auth !== false)) {
-            $session->set('horde', 'factory_notification', $cache);
+        if ($changed) {
+            $session->set('horde', 'factory_notification', $save);
         }
 
         return $this->_notify;

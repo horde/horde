@@ -3116,7 +3116,7 @@ var DimpBase = {
             parent_e = $('specialfolders');
 
             /* Create a dummy container element in 'normalfolders' section. */
-            if (ob.ch & !ob.sup) {
+            if (ob.ch) {
                 div.removeClassName('exp').addClassName(ob.cl || 'folderImg');
 
                 tmp = Object.clone(ob);

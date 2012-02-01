@@ -616,7 +616,6 @@ class IMP_Mailbox implements Serializable
             $special = $this->getSpecialMailboxes();
 
             switch ($this->_mbox) {
-            case 'INBOX':
             case $special[self::SPECIAL_COMPOSETEMPLATES]:
             case $special[self::SPECIAL_DRAFTS]:
             case $special[self::SPECIAL_SPAM]:
@@ -1401,8 +1400,7 @@ class IMP_Mailbox implements Serializable
      * @return array  A list of folders, with the self::SPECIAL_* constants as
      *                keys and values containing the IMP_Mailbox objects or
      *                null if the mailbox doesn't exist (self::SPECIAL_SENT
-     *                contains an array of objects). These mailboxes are
-     *                sorted in a logical order (see Ticket #10683).
+     *                contains an array of objects).
      */
     static public function getSpecialMailboxes()
     {
@@ -1428,6 +1426,29 @@ class IMP_Mailbox implements Serializable
         }
 
         return self::$_temp[self::CACHE_SPECIALMBOXES];
+    }
+
+    /**
+     * Return the list of sorted special mailboxes.
+     *
+     * @return array  The list of sorted special mailboxes (IMP_Mailbox
+     *                objects).
+     */
+    static public function getSpecialMailboxesSort()
+    {
+        $tmp = array();
+
+        foreach (self::getSpecialMailboxes() as $val) {
+            if (!is_array($val)) {
+                $val = array($val);
+            }
+            foreach ($val as $val2) {
+                $tmp[strval($val2)] = $val2->abbrev_label;
+            }
+        }
+
+        asort($tmp, SORT_LOCALE_STRING);
+        return self::get(array_keys($tmp));
     }
 
     /**

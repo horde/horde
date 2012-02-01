@@ -47,6 +47,7 @@ if (!in_array(Ingo_Storage::ACTION_SPAM, $session->get('ingo', 'script_categorie
 }
 
 /* Get the spam object and rule. */
+$ingo_storage = $injector->getInstance('Ingo_Factory_Storage')->create();
 $spam = $ingo_storage->retrieve(Ingo_Storage::ACTION_SPAM);
 $filters = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
 $spam_id = $filters->findRuleId(Ingo_Storage::ACTION_SPAM);
@@ -58,17 +59,8 @@ if ($vars->submitbutton == _("Return to Rules List")) {
 }
 
 /* Build form. */
-$form = new Horde_Form($vars);
+$form = new Ingo_Form_Spam($vars);
 $renderer = new Horde_Form_Renderer(array('varrenderer_driver' => array('ingo', 'ingo'), 'encode_title' => false));
-
-$v = $form->addVariable(_("Spam Level:"), 'level', 'int', false, false, _("Messages with a likely spam score greater than or equal to this number will be treated as spam."));
-$v->setHelp('spam-level');
-
-$folder_var = $form->addVariable(_("Folder to receive spam:"), 'folder', 'ingo_folders', false);
-$folder_var->setHelp('spam-folder');
-$form->addHidden('', 'actionID', 'text', false);
-
-$form->setButtons(_("Save"));
 
 /* Perform requested actions. */
 if ($form->validate($vars)) {
@@ -111,15 +103,10 @@ if ($form->validate($vars)) {
 }
 
 /* Add buttons depending on the above actions. */
-if (empty($spam_rule['disable'])) {
-    $form->appendButtons(_("Save and Disable"));
-} else {
-    $form->appendButtons(_("Save and Enable"));
-}
-$form->appendButtons(_("Return to Rules List"));
+$form->setCustomButtons($spam_rule['disable']);
 
 /* Set default values. */
-$folder_var->type->setFolder($spam->getSpamFolder());
+$form->folder_var->type->setFolder($spam->getSpamFolder());
 if (!$form->isSubmitted()) {
     $vars->level = $spam->getSpamLevel();
     $vars->folder = $spam->getSpamFolder();

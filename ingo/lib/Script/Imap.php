@@ -119,7 +119,8 @@ class Ingo_Script_Imap extends Ingo_Script
         }
 
         /* Grab the rules list. */
-        $filters = $GLOBALS['ingo_storage']->retrieve(Ingo_Storage::ACTION_FILTERS);
+        $ingo_storage = $GLOBALS['injector']->getInstance('Ingo_Factory_Storage')->create();
+        $filters = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
 
         /* Parse through the rules, one-by-one. */
         foreach ($filters->getFilterList() as $rule) {
@@ -138,11 +139,11 @@ class Ingo_Script_Imap extends Ingo_Script
                 $bl_folder = null;
 
                 if ($rule['action'] == Ingo_Storage::ACTION_BLACKLIST) {
-                    $blacklist = $GLOBALS['ingo_storage']->retrieve(Ingo_Storage::ACTION_BLACKLIST);
+                    $blacklist = $ingo_storage->retrieve(Ingo_Storage::ACTION_BLACKLIST);
                     $addr = $blacklist->getBlacklist();
                     $bl_folder = $blacklist->getBlacklistFolder();
                 } else {
-                    $whitelist = $GLOBALS['ingo_storage']->retrieve(Ingo_Storage::ACTION_WHITELIST);
+                    $whitelist = $ingo_storage->retrieve(Ingo_Storage::ACTION_WHITELIST);
                     $addr = $whitelist->getWhitelist();
                 }
 

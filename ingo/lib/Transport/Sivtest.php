@@ -19,7 +19,7 @@ class Ingo_Transport_Sivtest extends Ingo_Transport_Timsieved
     /**
      * Constructor.
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
         $default_params = array(
             'hostspec'   => 'localhost',
@@ -32,9 +32,9 @@ class Ingo_Transport_Sivtest extends Ingo_Transport_Timsieved
             'socket'     => '',
         );
 
-        parent::__construct(array_merge($default_params, $params));
+        $this->_supportShares = false;
 
-        $this->_support_shares = false;
+        parent::__construct(array_merge($default_params, $params));
     }
 
     /**

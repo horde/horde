@@ -24,10 +24,8 @@ class Ingo_Transport_Timsieved extends Ingo_Transport
     /**
      * Constructor.
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
-        $this->_support_shares = true;
-
         $default_params = array(
             'hostspec'   => 'localhost',
             'logintype'  => 'PLAIN',
@@ -37,6 +35,8 @@ class Ingo_Transport_Timsieved extends Ingo_Transport
             'usetls'     => true,
             'debug'      => false
         );
+
+        $this->_supportShares = true;
 
         parent::__construct(array_merge($default_params, $params));
     }

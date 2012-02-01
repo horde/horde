@@ -2,12 +2,16 @@
 /**
  * Ingo base class.
  *
+ * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
- * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @author  Jan Schneider <jan@horde.org>
- * @package Ingo
+ * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
  */
 class Ingo
 {
@@ -30,69 +34,8 @@ class Ingo
     static private $_shareCache = null;
 
     /**
-     * Create an ingo session.
-     *
-     * Creates the $ingo session variable with the following entries:
-     * <pre>
-     * 'backend' (array) - The backend configuration to use.
-     * 'change' (integer) - The timestamp of the last time the rules were
-     *                      altered.
-     * 'storage' (array) - Used by Ingo_Storage:: for caching data.
-     * 'script_categories' (array) - The list of available categories for the
-     *                               Ingo_Script driver in use.
-     * 'script_generate' (boolean) - Is the Ingo_Script::generate() call
-     *                               available?
-     * </pre>
-     *
-     * @throws Ingo_Exception
-     */
-    static public function createSession()
-    {
-        global $prefs, $session;
-
-        $session->remove('ingo');
-        if ($session->exists('ingo', 'script_generate')) {
-            return;
-        }
-
-        /* getBackend() and loadIngoScript() will both throw Exceptions, so
-         * do these first as errors are fatal. */
-        foreach (self::getBackend() as $key => $val) {
-            if ($val) {
-                $session->set('ingo', 'backend/' . $key, $val);
-            }
-        }
-
-        $ingo_script = self::loadIngoScript();
-        $session->set('ingo', 'script_generate', $ingo_script->generateAvailable());
-
-        /* Disable categories as specified in preferences */
-        $categories = array_flip(
-            array_merge($ingo_script->availableActions(),
-                        $ingo_script->availableCategories()));
-        if ($prefs->isLocked('blacklist')) {
-            unset($categories[Ingo_Storage::ACTION_BLACKLIST]);
-        }
-        if ($prefs->isLocked('whitelist')) {
-            unset($categories[Ingo_Storage::ACTION_WHITELIST]);
-        }
-        if ($prefs->isLocked('vacation')) {
-            unset($categories[Ingo_Storage::ACTION_VACATION]);
-        }
-        if ($prefs->isLocked('forward')) {
-            unset($categories[Ingo_Storage::ACTION_FORWARD]);
-        }
-        if ($prefs->isLocked('spam')) {
-            unset($categories[Ingo_Storage::ACTION_SPAM]);
-        }
-        $categories = array_flip($categories);
-
-        /* Set the list of categories this driver supports. */
-        $session->set('ingo', 'script_categories', $categories);
-    }
-
-    /**
      * Generates a folder widget.
+     *
      * If an application is available that provides a folderlist method
      * then a &lt;select&gt; input is created. Otherwise a simple text field
      * is returned.
@@ -109,7 +52,6 @@ class Ingo
         global $conf, $registry;
 
         if ($registry->hasMethod('mail/folderlist')) {
-            $createfolder = $registry->hasMethod('mail/createFolder');
             try {
                 $mailboxes = $registry->call('mail/folderlist');
 
@@ -117,7 +59,7 @@ class Ingo
                     '<option value="">' . _("Select target folder:") . '</option>' .
                     '<option disabled="disabled">- - - - - - - - - -</option>';
 
-                if ($createfolder) {
+                if ($registry->hasMethod('mail/createFolder')) {
                     $text .= '<option class="flistCreate" value="">' . _("Create new folder") . '</option>' .
                         '<option disabled="disabled">- - - - - - - - - -</option>';
                 }
@@ -155,6 +97,7 @@ class Ingo
     static public function validateFolder(Horde_Variables $vars, $name)
     {
         $new_id = $name . '_new';
+
         if (isset($vars->$new_id)) {
             if ($GLOBALS['registry']->hasMethod('mail/createFolder') &&
                 $GLOBALS['registry']->call('mail/createFolder', array(Horde_String::convertCharset($vars->$new_id, 'UTF-8', 'UTF7-IMAP')))) {
@@ -179,11 +122,10 @@ class Ingo
         if (empty($GLOBALS['ingo_shares'])) {
             $baseuser = ($full ||
                         ($GLOBALS['session']->get('ingo', 'backend/hordeauth') === 'full'));
-            $user = $GLOBALS['registry']->getAuth($baseuser ? null : 'bare');
-        } else {
-            list(, $user) = explode(':', $GLOBALS['session']->get('ingo', 'current_share'), 2);
+            return $GLOBALS['registry']->getAuth($baseuser ? null : 'bare');
         }
 
+        list(, $user) = explode(':', $GLOBALS['session']->get('ingo', 'current_share'), 2);
         return $user;
     }
 
@@ -216,12 +158,10 @@ class Ingo
     static public function activateScript($script, $deactivate = false,
                                           $additional = array())
     {
-        $transport = self::getTransport();
-
         try {
-            $transport->setScriptActive($script, $additional);
+            $GLOBALS['injector']->getInstance('Ingo_Transport')->setScriptActive($script, $additional);
         } catch (Ingo_Exception $e) {
-            $msg = ($deactivate)
+            $msg = $deactivate
               ? _("There was an error deactivating the script.")
               : _("There was an error activating the script.");
             $GLOBALS['notification']->push($msg . ' ' . _("The driver said: ") . $e->getMessage(), 'horde.error');
@@ -253,7 +193,7 @@ class Ingo
     {
         if ($GLOBALS['session']->get('ingo', 'script_generate')) {
             try {
-                $ingo_script = self::loadIngoScript();
+                $ingo_script = $GLOBALS['injector']->getInstance('Ingo_Script');
 
                 /* Generate and activate the script. */
                 self::activateScript($ingo_script->generate(),
@@ -328,43 +268,6 @@ class Ingo
     }
 
     /**
-     * Loads a Ingo_Script:: backend and checks for errors.
-     *
-     * @return Ingo_Script  Script object on success.
-     * @throws Ingo_Exception
-     */
-    static public function loadIngoScript()
-    {
-        return Ingo_Script::factory(
-            $GLOBALS['session']->get('ingo', 'backend/script'),
-            $GLOBALS['session']->get('ingo', 'backend/scriptparams', Horde_Session::TYPE_ARRAY)
-        );
-    }
-
-    /**
-     * Returns an instance of the configured transport driver.
-     *
-     * @return Ingo_Transport  The configured driver.
-     * @throws Ingo_Exception
-     */
-    static public function getTransport()
-    {
-        global $registry, $session;
-
-        $params = $session->get('ingo', 'backend/params');
-
-        // Set authentication parameters.
-        if (($hordeauth = $session->get('ingo', 'backend/hordeauth')) ||
-            !isset($params['username']) ||
-            !isset($params['password'])) {
-            $params['username'] = $registry->getAuth(($hordeauth === 'full') ? null : 'bare');
-            $params['password'] = $registry->getAuthCredential('password');
-        }
-
-        return Ingo_Transport::factory($GLOBALS['session']->get('ingo', 'backend/transport'), $params);
-    }
-
-    /**
      * Returns all rulesets a user has access to, according to several
      * parameters/permission levels.
      *
@@ -417,7 +320,7 @@ class Ingo
     static public function filterEmptyAddress($address)
     {
         $address = trim($address);
-        return !empty($address) && ($address != '@');
+        return (!empty($address) && ($address != '@'));
     }
 
     /**
@@ -460,7 +363,9 @@ class Ingo
      */
     static public function status()
     {
-        $GLOBALS['notification']->notify(array('listeners' => array('status', 'audio')));
+        $GLOBALS['notification']->notify(array(
+            'listeners' => array('status', 'audio')
+        ));
     }
 
 }

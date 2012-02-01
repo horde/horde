@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-01-25</date>
- <time>23:20:54</time>
+ <date>2012-01-31</date>
+ <time>11:29:04</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -42,6 +42,7 @@
  <notes>
 * [mms] Added AJAX core features.
 * [mms] Added view determination to Horde_Registry.
+* [mms] Performance improvements when initializing Alarm system.
 * [mms] Performance improvements to Alarm checking.
 * [mms] Performance improvements when initializing Notification system.
 * [mjr] Allow restricting pretty autocompleter to available choices.
@@ -872,6 +873,9 @@
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
+   <extension>
+    <name>session</name>
+   </extension>
   </required>
   <optional>
    <package>
@@ -1744,7 +1748,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-12-23</date>
+   <date>2012-01-31</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Fix issue with autocompletion that would cause it to fail in certain circumstances (Bug #10904).
@@ -1752,6 +1756,19 @@
 * [mjr] Fix issue that could cause failure of ActiveSync due to incorrect packing of binary data.
 * [jan] Use separate database connection for SQL session handler (Bug #10906).
 * [mms] Fix parsing DB config when using splitread database setup.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.8.5</release>
+    <api>1.8.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-01-31</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

@@ -3,20 +3,25 @@
  * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
- * @license  http://www.horde.org/licenses/bsd BSD
  * @category Horde
+ * @license  http://www.horde.org/licenses/bsd BSD
  * @package  Support
  */
 
 /**
  * @author   Chuck Hagenbuch <chuck@horde.org>
- * @license  http://www.horde.org/licenses/bsd BSD
  * @category Horde
+ * @license  http://www.horde.org/licenses/bsd BSD
  * @package  Support
  */
 class Horde_Support_StringStream implements Horde_Stream_Wrapper_StringStream
 {
+    /* Wrapper name. */
+    const WNAME = 'horde-string';
+
     /**
+     * String data.
+     *
      * @var string
      */
     protected $_string;
@@ -39,8 +44,16 @@ class Horde_Support_StringStream implements Horde_Stream_Wrapper_StringStream
      */
     public function fopen()
     {
-        $context = stream_context_create(array('horde-string' => array('string' => $this)));
-        return fopen('horde-string://' . spl_object_hash($this), 'rb', false, $context);
+        return fopen(
+            self::WNAME . '://' . spl_object_hash($this),
+            'rb',
+            false,
+            stream_context_create(array(
+                self::WNAME => array(
+                    'string' => $this
+                )
+            ))
+        );
     }
 
     /**
@@ -50,19 +63,26 @@ class Horde_Support_StringStream implements Horde_Stream_Wrapper_StringStream
      */
     public function getFileObject()
     {
-        $context = stream_context_create(array('horde-string' => array('string' => $this)));
-        return new SplFileObject('horde-string://' . spl_object_hash($this), 'rb', false, $context);
+        return new SplFileObject(
+            self::WNAME . '://' . spl_object_hash($this),
+            'rb',
+            false,
+            stream_context_create(array(
+                self::WNAME => array(
+                    'string' => $this
+                )
+            ))
+        );
     }
 
     /**
-     * Install the horde-string stream wrapper if it isn't already registered.
+     * Install the stream wrapper if it isn't already registered.
      */
     public function installWrapper()
     {
-        if (!in_array('horde-string', stream_get_wrappers())) {
-            if (!stream_wrapper_register('horde-string', 'Horde_Stream_Wrapper_String')) {
-                throw new Exception('Unable to register horde-string stream wrapper');
-            }
+        if (!in_array(self::WNAME, stream_get_wrappers()) &&
+            !stream_wrapper_register(self::WNAME, 'Horde_Stream_Wrapper_String')) {
+            throw new Exception('Unable to register stream wrapper.');
         }
     }
 
@@ -75,4 +95,5 @@ class Horde_Support_StringStream implements Horde_Stream_Wrapper_StringStream
     {
         return $this->_string;
     }
+
 }

@@ -137,7 +137,11 @@ class Whups_Application extends Horde_Registry_Application
         foreach ($ui->getChangeablePrefs() as $val) {
             switch ($val) {
             case 'sourceselect':
-                Horde_Core_Prefs_Ui_Widgets::addressbooksInit();
+                if ($GLOBALS['prefs']->isLocked('search_sources')) {
+                    $ui->suppress[] = $val;
+                } else {
+                    Horde_Core_Prefs_Ui_Widgets::addressbooksInit();
+                }
                 break;
             }
         }
