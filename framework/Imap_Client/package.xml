@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix objects where the password is not being encrypted (Bug #10950).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -731,7 +731,7 @@
    <date>2012-01-31</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix objects where the password is not being encrypted (Bug #10950).
    </notes>
   </release>
  </changelog>
