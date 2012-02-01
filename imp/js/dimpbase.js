@@ -3237,7 +3237,7 @@ var DimpBase = {
         [ DragDrop.Drags.getDrag(m), DragDrop.Drops.getDrop(m) ].compact().invoke('destroy');
         this._removeMouseEvents(m_elt);
         if (this.viewport) {
-            this.viewport.deleteView(m);
+            this.viewport.deleteView(m_elt.retrieve('mbox'));
         }
         delete this.mboxes[m_elt.retrieve('mbox')];
         m_elt.remove();
