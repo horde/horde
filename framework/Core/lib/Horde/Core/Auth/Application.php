@@ -50,7 +50,7 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
      *
      * @var string
      */
-    protected $_mode = 'auto';
+    protected $_view = 'auto';
 
     /**
      * Available capabilities.
@@ -129,7 +129,7 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
 
         /* Remember the user's mode choice, if applicable. */
         if (!empty($credentials['mode'])) {
-            $this->_mode = $credentials['mode'];
+            $this->_view = $credentials['mode'];
         }
 
         return $this->_setAuth();
@@ -638,8 +638,8 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
         ));
 
         /* Only set the view mode on initial authentication */
-        if (!$GLOBALS['session']->exists('horde', 'mode')) {
-            $this->_setMode();
+        if (!$GLOBALS['session']->exists('horde', 'view')) {
+            $this->_setView();
         }
         if ($this->_base &&
             isset($GLOBALS['notification']) &&
@@ -658,11 +658,11 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
      * checked by applications, and overridden if desired. Also sets a cookie
      * to remember the last view selection if applicable.
      */
-    protected function _setMode()
+    protected function _setView()
     {
         global $conf, $browser, $notification, $prefs, $registry;
 
-        $mode = $this->_mode;
+        $mode = $this->_view;
 
         if (empty($conf['user']['force_view'])) {
             if (empty($conf['user']['select_view'])) {
@@ -730,7 +730,7 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
             'traditional' => Horde_Registry::VIEW_BASIC
         );
 
-        $this->_mode = $mode;
+        $this->_view = $mode;
         $registry->setView($registry_map[$mode]);
     }
 
