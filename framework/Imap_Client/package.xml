@@ -10,10 +10,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-01-31</date>
- <time>12:52:40</time>
+ <date>2012-02-01</date>
+ <time>11:44:12</time>
  <version>
-  <release>1.4.2</release>
+  <release>1.4.3</release>
   <api>1.4.0</api>
  </version>
  <stability>
@@ -728,7 +728,20 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-01-31</date>
+   <date>2012-02-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Fix objects where the password is not being encrypted (Bug #10950).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.4.3</release>
+    <api>1.4.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-02-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

@@ -601,6 +601,9 @@ class Horde_Browser
             default:
                 $this->setFeature('javascript', 1);
                 $this->setQuirk('buggy_compression');
+                if ($this->_majorVersion >= 10) {
+                    $this->setFeature('utf', true);
+                }
                 break;
             }
         } elseif (preg_match('|Lynx/([0-9]+)|', $agent, $version)) {
