@@ -17,13 +17,6 @@
 class Horde_Mime_Address
 {
     /**
-     * RFC 822 parser instance.
-     *
-     * @var Horde_Mail_Rfc822
-     */
-    static protected $_rfc822;
-
-    /**
      * Builds an RFC compliant email address.
      *
      * @param string $mailbox   Mailbox name.
@@ -342,7 +335,9 @@ class Horde_Mime_Address
         $addressList = array();
 
         try {
-            $from = self::parseAddressList($address, array('defserver' => $defserver));
+            $from = self::parseAddressList($address, array(
+                'defserver' => $defserver
+            ));
         } catch (Horde_Mime_Exception $e) {
             return $multiple ? array() : '';
         }
@@ -361,7 +356,7 @@ class Horde_Mime_Address
      * lists.
      *
      * @param string $address  The address string.
-     * @param array $options   Additional options:
+     * @param array $opts      Additional options:
      *   - defserver: (string) The default domain to append to mailboxes.
      *                DEFAULT: No domain appended.
      *   - nestgroups: (boolean) Nest the groups? (Will appear under the
@@ -374,31 +369,23 @@ class Horde_Mime_Address
      *                'host', 'personal', 'adl', 'groupname', and 'comment'.
      * @throws Horde_Mime_Exception
      */
-    static public function parseAddressList($address, $options = array())
+    static public function parseAddressList($address, array $opts = array())
     {
-        if (!self::$_rfc822) {
-            self::$_rfc822 = new Horde_Mail_Rfc822();
-        }
-
-        $options = array_merge(array(
+        $opts = array_merge(array(
             'defserver' => null,
             'nestgroups' => false,
             'validate' => false
-        ), $options);
+        ), $opts);
+
+        $rfc822 = new Horde_Mail_Rfc822();
 
         try {
-            $ret = self::$_rfc822->parseAddressList($address, array(
-                'default_domain' => $options['defserver'],
-                'nest_groups' => $options['nestgroups'],
-                'validate' => $options['validate']
+            $ret = $rfc822->parseAddressList($address, array(
+                'default_domain' => $opts['defserver'],
+                'nest_groups' => $opts['nestgroups'],
+                'validate' => $opts['validate']
             ));
         } catch (Horde_Mail_Exception $e) {
-            /* Need to explicitly check for this error response - this
-             * is thrown by the validate method for perfectly valid empty
-             * groups pursuant to RFC 5322. */
-            if ($e->getMessage() == 'Empty group.') {
-                return array();
-            }
             throw new Horde_Mime_Exception($e);
         }
 

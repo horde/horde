@@ -21,7 +21,7 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
 
         $this->assertTrue(is_array($result) &&
             is_object($result[0]) &&
-            ($result[0]->personal == '"Test Student"') &&
+            ($result[0]->personal == 'Test Student') &&
             ($result[0]->mailbox == "test") &&
             ($result[0]->host == "mydomain.com") &&
             is_array($result[0]->comment) &&
@@ -122,7 +122,7 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
         $this->assertInternalType('array', $result[0]->addresses);
 
         $this->assertInternalType('object', $result[0]->addresses[0]);
-        $this->assertEquals($result[0]->addresses[0]->personal, '"Richard"');
+        $this->assertEquals($result[0]->addresses[0]->personal, 'Richard');
         $this->assertInternalType('array', $result[0]->addresses[0]->comment);
         $this->assertEquals($result[0]->addresses[0]->comment[0], 'A comment');
         $this->assertEquals($result[0]->addresses[0]->mailbox, 'richard');
@@ -153,7 +153,7 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($result[0]->personal, '');
         $this->assertInternalType('array', $result[0]->comment);
         $this->assertEquals($result[0]->comment, array());
-        $this->assertEquals($result[0]->mailbox, '"Jon Parise"');
+        $this->assertEquals($result[0]->mailbox, 'Jon Parise');
         $this->assertEquals($result[0]->host, 'php.net');
 
         /* An invalid address with spaces in the local part. */
@@ -197,25 +197,21 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
             $ob = $parser->parseAddressList(
                 'ß <test@example.com>',
                 array(
-                    'default_domain' => 'example.com',
-                    'validate' => true
+                    'default_domain' => 'example.com'
                 )
             );
 
             $this->fail('Expecting Exception.');
         } catch (Horde_Mail_Exception $e) {}
 
-        try {
-            $ob = $parser->parseAddressList(
-                '"ß" <test@example.com>',
-                array(
-                    'default_domain' => 'example.com',
-                    'validate' => true
-                )
-            );
-        } catch (Horde_Mail_Exception $e) {
-            $this->fail('Unexpected Exception.');
-        }
+        /* This technically shouldn't validate, but the parser is very liberal
+         * about accepting characters within quotes. */
+        $ob = $parser->parseAddressList(
+            '"ß" <test@example.com>',
+            array(
+                'default_domain' => 'example.com'
+            )
+        );
     }
 
     public function testBug10534()
@@ -226,6 +222,37 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             0,
             count($ob)
+        );
+    }
+
+    public function testNoValidation()
+    {
+        $parser = new Horde_Mail_Rfc822();
+        $ob = $parser->parseAddressList(
+            '"ß" <test@example.com>',
+            array(
+                'default_domain' => 'example.com',
+                'validate' => false
+            )
+        );
+
+        $this->assertEquals(
+            'ß',
+            $ob[0]->personal
+        );
+
+        $parser = new Horde_Mail_Rfc822();
+        $ob = $parser->parseAddressList(
+            'ß ß <test@example.com>',
+            array(
+                'default_domain' => 'example.com',
+                'validate' => false
+            )
+        );
+
+        $this->assertEquals(
+            'ß ß',
+            $ob[0]->personal
         );
     }
 

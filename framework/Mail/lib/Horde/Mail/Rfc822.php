@@ -1,10 +1,11 @@
 <?php
 /**
- * RFC 822 Email address list validation Utility
+ * RFC 822 Email parser/validator.
  *
  * LICENSE:
  *
  * Copyright (c) 2001-2010, Richard Heyes
+ * Copyright (c) 2011-2012, Horde LLC
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -32,26 +33,28 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
+ *
+ * RFC822 parsing code adapted from message-address.c and rfc822-parser.c
+ *   (Dovecot 2.1rc5)
+ *   Original code released under LGPL-2.1
+ *   Copyright (c) 2002-2011 Timo Sirainen <tss@iki.fi>
+ *
  * @category    Horde
  * @package     Mail
  * @author      Richard Heyes <richard@phpguru.org>
  * @author      Chuck Hagenbuch <chuck@horde.org
+ * @author      Michael Slusarz <slusarz@horde.org>
  * @copyright   2001-2010 Richard Heyes
+ * @copyright   2011-2012 Horde LLC
  * @license     http://www.horde.org/licenses/bsd New BSD License
  */
 
 /**
- * RFC 822 Email address list validation Utility
- *
- * What is it?
- *
- * This class will take an address string, and parse it into it's consituent
- * parts, be that either addresses, groups, or combinations. Nested groups
- * are not supported. The structure it returns is pretty straight forward,
- * and is similar to that provided by the imap_rfc822_parse_adrlist().
+ * RFC 822 Email parser/validator.
  *
  * @author   Richard Heyes <richard@phpguru.org>
  * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/bsd New BSD License
  * @package  Mail
@@ -61,833 +64,661 @@ class Horde_Mail_Rfc822
     /**
      * The number of groups that have been found in the address list.
      *
+     * @deprecated
+     *
      * @var integer
      */
     public $num_groups = 0;
 
     /**
-     * The default domain to use for unqualified addresses.
+     * The address string to parse.
      *
      * @var string
      */
-    protected $default_domain = 'localhost';
+    protected $_data;
 
     /**
-     * Should we return a nested array showing groups, or flatten everything?
-     *
-     * @var boolean
-     */
-    protected $nestGroups = true;
-
-    /**
-     * Whether or not to validate atoms for non-ascii characters.
-     *
-     * @var boolean
-     */
-    protected $validate = true;
-
-    /**
-     * The array of raw addresses built up as we parse.
-     *
-     * @var array
-     */
-    protected $addresses = array();
-
-    /**
-     * The current error message, if any.
-     *
-     * @var string
-     */
-    protected $error = null;
-
-    /**
-     * An internal counter/pointer.
+     * Length of the address string.
      *
      * @var integer
      */
-    protected $index = null;
+    protected $_datalen;
 
     /**
-    * A limit after which processing stops
-    *
-    * @var integer
-    */
-    protected $limit = null;
+     * Comment cache.
+     *
+     * @var string
+     */
+    protected $_comments = array();
+
+    /**
+     * Configuration parameters.
+     *
+     * @var array
+     */
+    protected $_params = array(
+        'default_domain' => 'localhost',
+        'limit' => 0,
+        'nest_groups' => true,
+        'validate' => true
+    );
+
+    /**
+     * Data pointer.
+     *
+     * @var integer
+     */
+    protected $_ptr;
+
+    /**
+     * Structured data to return.
+     *
+     * @var array
+     */
+    protected $_structure;
 
     /**
      * Starts the whole process.
      *
      * @param string $address  The address(es) to validate.
-     * @param array $opts      Additional options:
+     * @param array $params    Optional parameters:
      *   - default_domain: (string) Default domain/host etc.
      *                     DEFAULT: localhost
-     *   - limit: (integer) TODO
-     *            DEFAULT: NONE
+     *   - limit: (integer) Stop processing after this many addresses.
+     *            DEFAULT: No limit (0)
      *   - nest_groups: (boolean) Whether to return the structure with groups
      *                  nested for easier viewing.
      *                  DEFAULT: true
-     *   - validate: (boolean) Whether to validate atoms.
+     *   - validate: (boolean) Strict validation of personal part data?  If
+     *               false, allows non-ASCII characters and non-quoted strings
+     *               in the personal data.
      *               DEFAULT: true
      *
-     * @return array  A structured array of addresses.
+     * @return array  A structured array of addresses. Each value is a
+     *                Horde_Mail_Rfc822_Address object (or, if 'nest_groups'
+     *                is true, the value can also be a Horde_Mail_Rfc822_Group
+     *                object).
+     *
      * @throws Horde_Mail_Exception
      */
-    public function parseAddressList($address = null, array $opts = array())
+    public function parseAddressList($address, array $params = array())
     {
-        if (isset($opts['default_domain'])) {
-            $this->default_domain = $opts['default_domain'];
-        }
-        if (isset($opts['nest_groups'])) {
-            $this->nestGroups = $opts['nest_groups'];
-        }
-        if (isset($opts['validate'])) {
-            $this->validate = $opts['validate'];
-        }
-        if (isset($opts['limit'])) {
-            $this->limit = $opts['limit'];
-        }
-
-        $this->addresses = $structure = array();
-        $this->error = $this->index = null;
-
-        // Unfold any long lines in $address.
-        $address = preg_replace(array('/\r?\n/', '/\r\n(\t| )+/'), array("\r\n", ' '), $address);
-
-        while ($address = $this->_splitAddresses($address));
-
-        if ($address === false || isset($this->error)) {
-            throw new Horde_Mail_Exception($this->error);
-        }
-
-        // Validate each address individually.  If we encounter an invalid
-        // address, stop iterating and return an error immediately.
-        foreach ($this->addresses as $address) {
-            $valid = $this->_validateAddress($address);
-
-            if ($valid === false || isset($this->error)) {
-                throw new Horde_Mail_Exception($this->error);
-            }
-
-            if (!$this->nestGroups) {
-                $structure = array_merge($structure, $valid);
-            } else {
-                $structure[] = $valid;
+        foreach (array_keys($this->_params) as $key) {
+            if (isset($params[$key])) {
+                $this->_params[$key] = $params[$key];
             }
         }
 
-        return $structure;
+        $this->_data = $address;
+        $this->_datalen = strlen($address);
+        $this->_ptr = 0;
+        $this->_structure = array();
+
+        $this->_parseAddressList();
+
+        return $this->_structure;
     }
 
     /**
-     * Splits an address into separate addresses.
-     *
-     * @param string $address  The addresses to split.
-     *
-     * @return boolean  Success or failure.
+     * address-list = (address *("," address)) / obs-addr-list
      */
-    protected function _splitAddresses($address)
+    protected function _parseAddressList()
     {
-        if (!empty($this->limit) &&
-            (count($this->addresses) == $this->limit)) {
-            return '';
-        }
+        $limit = empty($this->_params['limit'])
+            ? null
+            : $this->_params['limit'];
 
-        if ($this->_isGroup($address) && !isset($this->error)) {
-            $split_char = ';';
-            $is_group = true;
-        } elseif (!isset($this->error)) {
-            $split_char = ',';
-            $is_group = false;
-        } elseif (isset($this->error)) {
-            return false;
-        }
+        while (($this->_curr() !== false) &&
+               (is_null($limit) || ($limit-- > 0))) {
+            $this->_parseAddress();
 
-        // Split the string based on the above ten or so lines.
-        $parts = explode($split_char, $address);
-        $string = $this->_splitCheck($parts, $split_char);
-
-        if ($is_group) {
-            // If $string does not contain a colon outside of
-            // brackets/quotes etc then something's fubar.
-
-            // First check there's a colon at all:
-            if (strpos($string, ':') === false) {
-                $this->error = 'Invalid address: ' . $string;
-                return false;
-            }
-
-            // Now check it's outside of brackets/quotes:
-            if (!$this->_splitCheck(explode(':', $string), ':')) {
-                return false;
-            }
-
-            // We must have a group at this point, so increase the counter:
-            ++$this->num_groups;
-        }
-
-        $string = trim($string);
-        if (!strlen($string)) {
-            return '';
-        }
-
-        // $string now contains the first full address/group.
-        // Add to the addresses array.
-        $this->addresses[] = array(
-            'address' => trim($string),
-            'group'   => $is_group
-        );
-
-        // Remove the now stored address from the initial line, the +1
-        // is to account for the explode character.
-        $address = trim(substr($address, strlen($string) + 1));
-
-        // If the next char is a comma and this was a group, then
-        // there are more addresses, otherwise, if there are any more
-        // chars, then there is another address.
-        if ($is_group && substr($address, 0, 1) == ','){
-            return trim(substr($address, 1));
-        } elseif (strlen($address) > 0) {
-            return $address;
-        } else {
-            return '';
-        }
-
-        // If you got here then something's off
-        return false;
-    }
-
-    /**
-     * Checks for a group at the start of the string.
-     *
-     * @param string $address  The address to check.
-     *
-     * @return boolean  Is there a group at the start of the string?
-     */
-    protected function _isGroup($address)
-    {
-        // First comma not in quotes, angles or escaped:
-        $string = $this->_splitCheck(explode(',', $address), ',');
-
-        // Now we have the first address, we can reliably check for a
-        // group by searching for a colon that's not escaped or in
-        // quotes or angle brackets.
-        if (count($parts = explode(':', $string)) > 1) {
-            $string2 = $this->_splitCheck($parts, ':');
-            return ($string2 !== $string);
-        }
-
-        return false;
-    }
-
-    /**
-     * A common function that will check an exploded string.
-     *
-     * @param array $parts  The exploded string.
-     * @param string $char  The char that was exploded on.
-     *
-     * @return mixed  False if the string contains unclosed quotes/brackets,
-     *                or the string on success.
-     */
-    protected function _splitCheck($parts, $char)
-    {
-        $string = $parts[0];
-
-        for ($i = 0; $i < count($parts); ++$i) {
-            if ($this->_hasUnclosedQuotes($string) ||
-                $this->_hasUnclosedBrackets($string, '<>') ||
-                $this->_hasUnclosedBrackets($string, '[]') ||
-                $this->_hasUnclosedBrackets($string, '()') ||
-                (substr($string, -1) == '\\')) {
-                if (!isset($parts[$i + 1])) {
-                    $this->error = 'Invalid address spec. Unclosed bracket or quotes';
-                    return false;
-                }
-
-                $string = $string . $char . $parts[$i + 1];
-            } else {
-                $this->index = $i;
-                break;
-            }
-        }
-
-        return $string;
-    }
-
-    /**
-     * Checks if a string has unclosed quotes or not.
-     *
-     * @param string $string  The string to check.
-     *
-     * @return boolean  True if there are unclosed quotes inside the string,
-     *                  false otherwise.
-     */
-    protected function _hasUnclosedQuotes($string)
-    {
-        $string = trim($string);
-        $iMax = strlen($string);
-        $in_quote = false;
-        $i = $slashes = 0;
-
-        for (; $i < $iMax; ++$i) {
-            switch ($string[$i]) {
-            case '\\':
-                ++$slashes;
+            switch ($this->_curr()) {
+            case ',':
+                $this->_rfc822SkipLwsp(true);
                 break;
 
-            case '"':
-                if ($slashes % 2 == 0) {
-                    $in_quote = !$in_quote;
-                }
-                // Fall through to default action below.
+            case false:
+                // No-op
+                break;
 
             default:
-                $slashes = 0;
-                break;
+                throw new Horde_Mail_Exception('Error when parsing address list.');
             }
         }
-
-        return $in_quote;
     }
 
     /**
-     * Checks if a string has an unclosed brackets or not. IMPORTANT:
-     * This function handles both angle brackets and square brackets;
-     *
-     * @param string $string  The string to check.
-     * @param string $chars   The characters to check for.
-     *
-     * @return boolean  True if there are unclosed brackets inside the string,
-     *                  false otherwise.
+     * address = mailbox / group
      */
-    protected function _hasUnclosedBrackets($string, $chars)
+    protected function _parseAddress()
     {
-        $num_angle_start = substr_count($string, $chars[0]);
-        $num_angle_end = substr_count($string, $chars[1]);
+        $start = $this->_ptr;
+        if (!$this->_parseGroup()) {
+            $this->_ptr = $start;
+            if ($mbox = $this->_parseMailbox()) {
+                $this->_structure[] = $mbox;
+            }
+        }
+    }
 
-        $num_angle_start = $this->_hasUnclosedBracketsSub($string, $num_angle_start, $chars[0]);
-        $num_angle_end = $this->_hasUnclosedBracketsSub($string, $num_angle_end, $chars[1]);
+    /**
+     * group           = display-name ":" [mailbox-list / CFWS] ";" [CFWS]
+     * display-name    = phrase
+     *
+     * @return boolean  True if a group was parsed.
+     *
+     * @throws Horde_Mail_Exception
+     */
+    protected function _parseGroup()
+    {
+        $this->_rfc822ParsePhrase($groupname);
 
-        if ($num_angle_start < $num_angle_end) {
-            $this->error = 'Invalid address spec. Unmatched quote or bracket (' . $chars . ')';
+        if ($this->_curr(true) != ':') {
             return false;
         }
 
-        return ($num_angle_start > $num_angle_end);
-    }
-
-    /**
-     * Sub function that is used only by hasUnclosedBrackets().
-     *
-     * @param string $string  The string to check.
-     * @param integer $num    The number of occurences.
-     * @param string $char    The character to count.
-     *
-     * @return integer The number of occurences of $char in $string, adjusted for backslashes.
-     */
-    protected function _hasUnclosedBracketsSub($string, $num, $char)
-    {
-        $parts = explode($char, $string);
-
-        for ($i = 0, $p = count($parts); $i < $p; ++$i) {
-            if ((substr($parts[$i], -1) == '\\') ||
-                $this->_hasUnclosedQuotes($parts[$i])) {
-                --$num;
-            }
-
-            if (isset($parts[$i + 1])) {
-                $parts[$i + 1] = $parts[$i] . $char . $parts[$i + 1];
-            }
-        }
-
-        return $num;
-    }
-
-    /**
-     * Function to begin checking the address.
-     *
-     * @param string $address  The address to validate.
-     *
-     * @return mixed  False on failure, or a structured array of address
-     *                information on success.
-     */
-    protected function _validateAddress($address)
-    {
-        $is_group = false;
         $addresses = array();
 
-        if ($address['group']) {
-            $is_group = true;
+        $this->_rfc822SkipLwsp();
 
-            // Get the group part of the name
-            $parts = explode(':', $address['address']);
-            $groupname = $this->_splitCheck($parts, ':');
-            $structure = array();
+        while (($chr = $this->_curr()) !== false) {
+            if ($chr == ';') {
+                $this->_curr(true);
 
-            // And validate the group part of the name.
-            if (!$this->_validatePhrase($groupname)){
-                $this->error = 'Group name did not validate.';
-                return false;
-            } else {
-                // Don't include groups if we are not nesting
-                // them. This avoids returning invalid addresses.
-                if ($this->nestGroups) {
-                    $structure = new stdClass;
-                    $structure->groupname = $groupname;
+                if (!empty($addresses)) {
+                    if ($this->_params['nest_groups']) {
+                        $tmp = new Horde_Mail_Rfc822_Group();
+                        $tmp->addresses = $addresses;
+                        $tmp->groupname = $groupname;
+                        $this->_structure[] = $tmp;
+                    } else {
+                        $this->_structure = array_merge($this->_structure, $addresses);
+                    }
                 }
+
+                return true;
             }
 
-            $address['address'] = ltrim(substr($address['address'], strlen($groupname . ':')));
-        }
+            /* mailbox-list = (mailbox *("," mailbox)) / obs-mbox-list */
+            $addresses[] = $this->_parseMailbox();
 
-        // If a group then split on comma and put into an array.
-        // Otherwise, Just put the whole address in an array.
-        if ($is_group) {
-            while (strlen($address['address']) > 0) {
-                $parts = explode(',', $address['address']);
-                $addresses[] = $this->_splitCheck($parts, ',');
-                $address['address'] = trim(substr($address['address'], strlen(end($addresses) . ',')));
-            }
-        } else {
-            $addresses[] = $address['address'];
-        }
+            switch ($this->_curr()) {
+            case ',':
+                $this->_rfc822SkipLwsp(true);
+                break;
 
-        // Check that $addresses is set, if address like this:
-        // Groupname:;
-        // Then errors were appearing.
-        if (!count($addresses)){
-            $this->error = 'Empty group.';
-            return false;
-        }
+            case ';':
+                // No-op
+                break;
 
-        // Trim the whitespace from all of the address strings.
-        array_map('trim', $addresses);
-
-        // Validate each mailbox.
-        // Format could be one of: name <geezer@domain.com>
-        //                         geezer@domain.com
-        //                         geezer
-        // ... or any other format valid by RFC 822.
-        for ($i = 0; $i < count($addresses); $i++) {
-            if (!$this->validateMailbox($addresses[$i])) {
-                if (empty($this->error)) {
-                    $this->error = 'Validation failed for: ' . $addresses[$i];
-                }
-                return false;
+            default:
+                break 2;
             }
         }
 
-        // Nested format
-        if ($this->nestGroups) {
-            if ($is_group) {
-                $structure->addresses = $addresses;
-            } else {
-                $structure = $addresses[0];
-            }
-
-        // Flat format
-        } else {
-            $structure = $is_group
-                ? array_merge($structure, $addresses)
-                : $addresses;
-        }
-
-        return $structure;
+        throw new Horde_Mail_Exception('Error when parsing group.');
     }
 
     /**
-     * Function to validate a phrase.
+     * mailbox = name-addr / addr-spec
      *
-     * @param string $phrase  The phrase to check.
-     *
-     * @return boolean  Success or failure.
+     * @return mixed  Mailbox object if mailbox was parsed, or false.
      */
-    protected function _validatePhrase($phrase)
+    protected function _parseMailbox()
     {
-        // Splits on one or more Tab or space.
-        $parts = preg_split('/[ \\x09]+/', $phrase, -1, PREG_SPLIT_NO_EMPTY);
+        $this->_comments = array();
+        $start = $this->_ptr;
 
-        $phrase_parts = array();
-        while (count($parts) > 0) {
-            $phrase_parts[] = $this->_splitCheck($parts, ' ');
-            for ($i = 0; $i < $this->index + 1; ++$i) {
-                array_shift($parts);
-            }
+        if (!($ob = $this->_parseNameAddr())) {
+            $this->_comments = array();
+            $this->_ptr = $start;
+            $ob = $this->_parseAddrSpec();
         }
 
-        foreach ($phrase_parts as $part) {
-            // If quoted string:
-            if (substr($part, 0, 1) == '"') {
-                if (!$this->_validateQuotedString($part)) {
-                    return false;
+        if ($ob) {
+            $ob->comment = $this->_comments;
+        }
+
+        return $ob;
+    }
+
+    /**
+     * name-addr    = [display-name] angle-addr
+     * display-name = phrase
+     *
+     * @return mixed  Mailbox object, or false.
+     */
+    protected function _parseNameAddr()
+    {
+        $this->_rfc822ParsePhrase($personal);
+
+        if ($ob = $this->_parseAngleAddr()) {
+            $ob->personal = $personal;
+            return $ob;
+        }
+
+        return false;
+    }
+
+    /**
+     * addr-spec = local-part "@" domain
+     *
+     * @return mixed  Mailbox object.
+     *
+     * @throws Horde_Mail_Exception
+     */
+    protected function _parseAddrSpec()
+    {
+        $ob = new Horde_Mail_Rfc822_Address();
+        $ob->mailbox = $this->_parseLocalPart();
+        $ob->host = $this->_params['default_domain'];
+
+        if ($this->_curr() == '@') {
+            $this->_rfc822ParseDomain($host);
+            $ob->host = $host;
+        }
+
+        return $ob;
+    }
+
+    /**
+     * local-part      = dot-atom / quoted-string / obs-local-part
+     * obs-local-part  = word *("." word)
+     *
+     * @return string  The local part.
+     *
+     * @throws Horde_Mail_Exception
+     */
+    protected function _parseLocalPart()
+    {
+        if (($curr = $this->_curr()) === false) {
+            throw new Horde_Mail_Exception('Error when parsing local part.');
+        }
+
+        if ($curr == '"') {
+            $this->_rfc822ParseQuotedString($str);
+        } else {
+            $this->_rfc822ParseDotAtom($str);
+        }
+
+        return $str;
+    }
+
+    /**
+     * "<" [ "@" route ":" ] local-part "@" domain ">"
+     *
+     * @return mixed  Mailbox object, or false.
+     *
+     * @throws Horde_Mail_Exception
+     */
+    protected function _parseAngleAddr()
+    {
+        if ($this->_curr() != '<') {
+            return false;
+        }
+
+        $route = null;
+        $this->_rfc822SkipLwsp(true);
+
+        if ($this->_curr() == '@') {
+            $route = $this->_parseDomainList();
+            if ($this->_curr() != ':') {
+                throw new Horde_Mail_Exception('Invalid route.');
+            }
+
+            $this->_rfc822SkipLwsp(true);
+        }
+
+        $ob = $this->_parseAddrSpec();
+
+        if ($this->_curr() != '>') {
+            throw new Horde_Mail_Exception('Error when parsing angle address.');
+        }
+
+        $this->_rfc822SkipLwsp(true);
+
+        if ($route) {
+            $ob->route = $route;
+        }
+
+        return $ob;
+    }
+
+    /**
+     * obs-domain-list = "@" domain *(*(CFWS / "," ) [CFWS] "@" domain)
+     *
+     * @return array  Routes.
+     *
+     * @throws Horde_Mail_Exception
+     */
+    protected function _parseDomainList()
+    {
+        $route = array();
+
+        while ($this->_curr() !== false) {
+            $route[] = '@' . $this->_rfc822ParseDomain();
+
+            $this->_rfc822SkipLwsp();
+            if ($this->_curr() != ',') {
+                return $route;
+            }
+            $this->_curr(true);
+        }
+
+        throw new Horde_Mail_Exception('Invalid domain list.');
+    }
+
+    /* RFC 822 parsing methods. */
+
+    /**
+     * phrase     = 1*word / obs-phrase
+     * word       = atom / quoted-string
+     * obs-phrase = word *(word / "." / CFWS)
+     *
+     * @param string &$phrase  The phrase data.
+     *
+     * @throws Horde_Mail_Exception
+     */
+    protected function _rfc822ParsePhrase(&$phrase)
+    {
+        $curr = $this->_curr();
+        if (($curr === false) || ($curr == '.')) {
+            throw new Horde_Mail_Exception('Error when parsing a group.');
+        }
+
+        while (($curr = $this->_curr()) !== false) {
+            if ($curr == '"') {
+                $this->_rfc822ParseQuotedString($phrase);
+            } else {
+                $this->_rfc822ParseAtomOrDot($phrase);
+            }
+
+            $chr = $this->_curr();
+            if (!$this->_rfc822IsAtext($chr) &&
+                ($chr != '"') &&
+                ($chr != '.')) {
+                break;
+            }
+
+            $phrase .= ' ';
+        }
+
+        $this->_rfc822SkipLwsp();
+    }
+
+    /**
+     * @param string &$phrase  The quoted string data.
+     *
+     * @throws Horde_Mail_Exception
+     */
+    protected function _rfc822ParseQuotedString(&$str)
+    {
+        if ($this->_curr(true) != '"') {
+            throw new Horde_Mail_Exception('Error when parsing a quoted string.');
+        }
+
+        while (($chr = $this->_curr(true)) !== false) {
+            switch ($chr) {
+            case '"':
+                $this->_rfc822SkipLwsp();
+                return;
+
+            case "\n";
+                /* Folding whitespace, remove the (CR)LF. */
+                if ($str[strlen($str) - 1] == "\r") {
+                    $str = substr($str, 0, -1);
                 }
                 continue;
+
+            case '\\':
+                if (($chr = $this->_curr(true)) === false) {
+                    break 2;
+                }
+                break;
             }
 
-            // Otherwise it's an atom:
-            if (!$this->_validateAtom($part)) {
-                return false;
+            $str .= $chr;
+        }
+
+        /* Missing trailing '"', or partial quoted character. */
+        throw new Horde_Mail_Exception('Error when parsing a quoted string.');
+    }
+
+    /**
+     * dot-atom        = [CFWS] dot-atom-text [CFWS]
+     * dot-atom-text   = 1*atext *("." 1*atext)
+     *
+     * atext           = ; Any character except controls, SP, and specials.
+     *
+     * For RFC-822 compatibility allow LWSP around '.'
+     *
+     * @throws Horde_Mail_Exception
+     */
+    protected function _rfc822ParseDotAtom(&$str)
+    {
+        $curr = $this->_curr();
+        if (($curr === false) || !$this->_rfc822IsAtext($curr)) {
+            throw new Horde_Mail_Exception('Error when parsing dot-atom.');
+        }
+
+        while (($chr = $this->_curr()) !== false) {
+            if ($this->_rfc822IsAtext($chr)) {
+                $str .= $chr;
+                $this->_curr(true);
+            } else {
+                $this->_rfc822SkipLwsp();
+
+                if ($this->_curr() != '.') {
+                    return;
+                }
+                $str .= '.';
+
+                $this->_rfc822SkipLwsp(true);
             }
         }
-
-        return true;
     }
 
     /**
-     * Function to validate an atom which from rfc822 is:
-     * atom = 1*<any CHAR except specials, SPACE and CTLs>
+     * atom  = [CFWS] 1*atext [CFWS]
+     * atext = ; Any character except controls, SP, and specials.
      *
-     * If validation ($this->validate) has been turned off, then
-     * validateAtom() doesn't actually check anything. This is so that you
-     * can split a list of addresses up before encoding personal names
-     * (umlauts, etc.), for example.
+     * This method doesn't just silently skip over WS.
      *
-     * @param string $atom  The string to check.
+     * @param string &$str  The atom/dot data.
      *
-     * @return boolean  Success or failure.
+     * @throws Horde_Mail_Exception
      */
-    protected function _validateAtom($atom)
+    protected function _rfc822ParseAtomOrDot(&$str)
     {
-        if (!$this->validate) {
-            // Validation has been turned off; assume the atom is okay.
-            return true;
-        }
+        while (($chr = $this->_curr()) !== false) {
+            if (($chr != '.') &&
+                (($this->_params['validate'] && !$this->_rfc822IsAtext($chr)) ||
+                 (!$this->_params['validate'] && ($chr == '<')))) {
+                $this->_rfc822SkipLwsp();
+                if (!$this->_params['validate']) {
+                    $str = trim($str);
+                }
+                return;
+            }
 
-        // Check for any char from ASCII 0 - ASCII 127
-        if (!preg_match('/^[\\x00-\\x7E]+$/i', $atom, $matches)) {
-            return false;
+            $str .= $chr;
+            $this->_curr(true);
         }
-
-        // Check for specials:
-        if (preg_match('/[][()<>@,;\\:". ]/', $atom)) {
-            return false;
-        }
-
-        // Check for control characters (ASCII 0-31):
-        if (preg_match('/[\\x00-\\x1F]+/', $atom)) {
-            return false;
-        }
-
-        return true;
     }
 
     /**
-     * Function to validate quoted string, which is:
-     * quoted-string = <"> *(qtext/quoted-pair) <">
+     * domain          = dot-atom / domain-literal / obs-domain
+     * domain-literal  = [CFWS] "[" *([FWS] dcontent) [FWS] "]" [CFWS]
+     * obs-domain      = atom *("." atom)
      *
-     * @param string $qstring  The string to check
+     * @param string &$str  The domain string.
      *
-     * @return boolean  Success or failure.
+     * @throws Horde_Mail_Exception
      */
-    protected function _validateQuotedString($qstring)
+    protected function _rfc822ParseDomain(&$str)
     {
-        // Leading and trailing "
-        $qstring = substr($qstring, 1, -1);
+        if ($this->_curr(true) != '@') {
+            throw new Horde_Mail_Exception('Error when parsing domain.');
+        }
 
-        // Perform check, removing quoted characters first.
-        return !preg_match('/[\x0D\\\\"]/', preg_replace('/\\\\./', '', $qstring));
+        $this->_rfc822SkipLwsp();
+
+        if ($this->_curr() == '[') {
+            $this->_rfc822ParseDomainLiteral($str);
+        } else {
+            $this->_rfc822ParseDotAtom($str);
+        }
     }
 
     /**
-     * Function to validate a mailbox, which is:
-     * mailbox =   addr-spec         ; simple address
-     *           / phrase route-addr ; name and route-addr
+     * domain-literal  = [CFWS] "[" *([FWS] dcontent) [FWS] "]" [CFWS]
+     * dcontent        = dtext / quoted-pair
+     * dtext           = NO-WS-CTL /     ; Non white space controls
+     *           %d33-90 /       ; The rest of the US-ASCII
+     *           %d94-126        ;  characters not including "[",
+     *                   ;  "]", or "\"
      *
-     * @param string &$mailbox  The string to check.
+     * @param string &$str  The domain string.
      *
-     * @return boolean  Success or failure.
+     * @throws Horde_Mail_Exception
+     */
+    protected function _rfc822ParseDomainLiteral(&$str)
+    {
+        if ($this->_curr(true) != '[') {
+            throw new Horde_Mail_Exception('Error parsing domain literal.');
+        }
+
+        while (($chr = $this->_curr(true)) !== false) {
+            switch ($chr) {
+            case '\\':
+                if (($chr = $this->_curr(true)) === false) {
+                    break 2;
+                }
+                break;
+
+            case ']':
+                $this->_rfc822SkipLwsp();
+                return;
+            }
+
+            $str .= $chr;
+        }
+
+        throw new Horde_Mail_Exception('Error parsing domain literal.');
+    }
+
+    /**
+     * @param boolean $advance  Advance cursor?
+     *
+     * @throws Horde_Mail_Exception
+     */
+    protected function _rfc822SkipLwsp($advance = false)
+    {
+        if ($advance) {
+            $this->_curr(true);
+        }
+
+        while (($chr = $this->_curr()) !== false) {
+            switch ($chr) {
+            case ' ':
+            case "\n":
+            case "\r":
+            case "\t":
+                $this->_curr(true);
+                continue;
+
+            case '(':
+                $this->_rfc822SkipComment();
+                break;
+
+            default:
+                return;
+            }
+        }
+    }
+
+    /**
+     * @throws Horde_Mail_Exception
+     */
+    protected function _rfc822SkipComment()
+    {
+        if ($this->_curr(true) != '(') {
+            throw new Horde_Mail_Exception('Error when parsing a comment.');
+        }
+
+        $comment = '';
+        $level = 1;
+
+        while (($chr = $this->_curr(true)) !== false) {
+            switch ($chr) {
+            case '(':
+                ++$level;
+                continue;
+
+            case ')':
+                if (--$level == 0) {
+                    $this->_comments[] = $comment;
+                    return;
+                }
+                break;
+
+            case '\\':
+                if (($chr = $this->_curr(true)) === false) {
+                    break 2;
+                }
+                break;
+            }
+
+            $comment .= $chr;
+        }
+
+        throw new Horde_Mail_Exception('Error when parsing a comment.');
+    }
+
+    /**
+     * Check if data is an atom.
+     *
+     * @param string $chr  The character to check.
+     *
+     * @return boolean  True if an atom.
+     */
+    protected function _rfc822IsAtext($chr)
+    {
+        return is_null($chr)
+            ? false
+            : !strcspn($chr, '!#$%&\'*+-./0123456789=?ABCDEFGHIJKLMNOPQRSTUVWXYZ^_`abcdefghijklmnopqrstuvwxyz{|}~');
+    }
+
+    /* Helper methods. */
+
+    /**
+     * Return current character.
+     *
+     * @param boolean $advance  If true, advance the cursor.
+     *
+     * @return string  The current character (false if EOF reached).
+     */
+    protected function _curr($advance = false)
+    {
+        return ($this->_ptr == $this->_datalen)
+            ? false
+            : $this->_data[$advance ? $this->_ptr++ : $this->_ptr];
+    }
+
+    /* Other public methods. */
+
+    /**
+     * @deprecated  Always returns true
      */
     public function validateMailbox(&$mailbox)
     {
-        $comment = $phrase = '';
-        $comments = array();
-
-        // Catch any RFC822 comments and store them separately.
-        $_mailbox = $mailbox;
-        while (strlen(trim($_mailbox)) > 0) {
-            $parts = explode('(', $_mailbox);
-            $before_comment = $this->_splitCheck($parts, '(');
-            if ($before_comment == $_mailbox) {
-                break;
-            }
-
-            // First char should be a (.
-            $comment = substr(str_replace($before_comment, '', $_mailbox), 1);
-            $parts = explode(')', $comment);
-            $comment = $this->_splitCheck($parts, ')');
-            $comments[] = $comment;
-
-            // +2 is for the brackets
-            $_mailbox = substr($_mailbox, strpos($_mailbox, '('.$comment)+strlen($comment)+2);
-        }
-
-        foreach ($comments as $comment) {
-            $mailbox = str_replace("($comment)", '', $mailbox);
-        }
-
-        $mailbox = trim($mailbox);
-
-        // Check for name + route-addr
-        if ((substr($mailbox, -1) == '>') &&
-            (substr($mailbox, 0, 1) != '<')) {
-            $parts = explode('<', $mailbox);
-            $name = $this->_splitCheck($parts, '<');
-
-            $phrase = trim($name);
-            $route_addr = trim(substr($mailbox, strlen($name.'<'), -1));
-
-            if (($this->_validatePhrase($phrase) === false) ||
-                (($route_addr = $this->_validateRouteAddr($route_addr)) === false)) {
-                return false;
-            }
-
-        // Only got addr-spec
-        } else {
-            // First snip angle brackets if present.
-            $addr_spec = ((substr($mailbox, 0, 1) == '<') && (substr($mailbox, -1) == '>'))
-                ? substr($mailbox, 1, -1)
-                : $mailbox;
-
-            if (($addr_spec = $this->_validateAddrSpec($addr_spec)) === false) {
-                return false;
-            }
-        }
-
-        // Construct the object that will be returned.
-        $mbox = new stdClass();
-
-        // Add the phrase (even if empty) and comments
-        $mbox->personal = $phrase;
-        $mbox->comment  = isset($comments)
-            ? $comments
-            : array();
-
-        if (isset($route_addr)) {
-            $mbox->mailbox = $route_addr['local_part'];
-            $mbox->host = $route_addr['domain'];
-            $route_addr['adl'] !== '' ? $mbox->adl = $route_addr['adl'] : '';
-        } else {
-            $mbox->mailbox = $addr_spec['local_part'];
-            $mbox->host = $addr_spec['domain'];
-        }
-
-        $mailbox = $mbox;
-
         return true;
     }
 
     /**
-     * This function validates a route-addr which is:
-     * route-addr = "<" [route] addr-spec ">"
-     *
-     * Angle brackets have already been removed at the point of entering
-     * this function.
-     *
-     * @param string $route_addr  The string to check.
-     *
-     * @return mixed  False on failure, or an array containing validated
-     *                address/route information on success.
-     */
-    protected function _validateRouteAddr($route_addr)
-    {
-        // Check for colon.
-        if (strpos($route_addr, ':') !== false) {
-            $parts = explode(':', $route_addr);
-            $route = $this->_splitCheck($parts, ':');
-        } else {
-            $route = $route_addr;
-        }
-
-        // If $route is same as $route_addr then the colon was in
-        // quotes or brackets or, of course, non existent.
-        if ($route === $route_addr){
-            unset($route);
-            $addr_spec = $route_addr;
-            if (($addr_spec = $this->_validateAddrSpec($addr_spec)) === false) {
-                return false;
-            }
-        } else {
-            // Validate route part.
-            if (($route = $this->_validateRoute($route)) === false) {
-                return false;
-            }
-
-            $addr_spec = substr($route_addr, strlen($route . ':'));
-
-            // Validate addr-spec part.
-            if (($addr_spec = $this->_validateAddrSpec($addr_spec)) === false) {
-                return false;
-            }
-        }
-
-        $return['adl'] = isset($route)
-            ? $route
-            : '';
-
-        return array_merge($return, $addr_spec);
-    }
-
-    /**
-     * Function to validate a route, which is:
-     * route = 1#("@" domain) ":"
-     *
-     * @param string $route  The string to check.
-     *
-     * @return mixed  False on failure, or the validated $route on success.
-     */
-    protected function _validateRoute($route)
-    {
-        // Split on comma.
-        $domains = explode(',', trim($route));
-
-        foreach ($domains as $domain) {
-            $domain = str_replace('@', '', trim($domain));
-            if (!$this->_validateDomain($domain)) {
-                return false;
-            }
-        }
-
-        return $route;
-    }
-
-    /**
-     * Function to validate a domain, though this is not quite what
-     * you expect of a strict internet domain.
-     *
-     * domain = sub-domain *("." sub-domain)
-     *
-     * @param string $domain  The string to check.
-     *
-     * @return mixed  False on failure, or the validated domain on success.
-     */
-    protected function _validateDomain($domain)
-    {
-        // Note the different use of $subdomains and $sub_domains
-        $subdomains = explode('.', $domain);
-
-        while (count($subdomains) > 0) {
-            $sub_domains[] = $this->_splitCheck($subdomains, '.');
-            for ($i = 0; $i < $this->index + 1; ++$i) {
-                array_shift($subdomains);
-            }
-        }
-
-        foreach ($sub_domains as $sub_domain) {
-            if (!$this->_validateSubdomain(trim($sub_domain))) {
-                return false;
-            }
-        }
-
-        // Managed to get here, so return input.
-        return $domain;
-    }
-
-    /**
-     * Function to validate a subdomain:
-     *   subdomain = domain-ref / domain-literal
-     *
-     * @param string $subdomain  The string to check.
-     *
-     * @return boolean  Success or failure.
-     */
-    protected function _validateSubdomain($subdomain)
-    {
-        return !((preg_match('|^\[(.*)]$|', $subdomain, $arr) &&
-                 !$this->_validateDliteral($arr[1])) ||
-                 !$this->_validateAtom($subdomain));
-    }
-
-    /**
-     * Function to validate a domain literal:
-     *   domain-literal =  "[" *(dtext / quoted-pair) "]"
-     *
-     * @param string $dliteral  The string to check.
-     *
-     * @return boolean  Success or failure.
-     */
-    protected function _validateDliteral($dliteral)
-    {
-        return !preg_match('/(.)[][\x0D\\\\]/', $dliteral, $matches) &&
-               ($matches[1] != '\\');
-    }
-
-    /**
-     * Function to validate an addr-spec.
-     *
-     * addr-spec = local-part "@" domain
-     *
-     * @param string $addr_spec  The string to check.
-     *
-     * @return mixed  False on failure, or the validated addr-spec on success.
-     */
-    protected function _validateAddrSpec($addr_spec)
-    {
-        $addr_spec = trim($addr_spec);
-
-        // Split on @ sign if there is one.
-        if (strpos($addr_spec, '@') !== false) {
-            $parts      = explode('@', $addr_spec);
-            $local_part = $this->_splitCheck($parts, '@');
-            $domain     = substr($addr_spec, strlen($local_part . '@'));
-
-        // No @ sign so assume the default domain.
-        } else {
-            $local_part = $addr_spec;
-            $domain     = $this->default_domain;
-        }
-
-        if ((($local_part = $this->_validateLocalPart($local_part)) === false) ||
-            (($domain     = $this->_validateDomain($domain)) === false)) {
-            return false;
-        }
-
-        // Got here so return successful.
-        return array(
-            'domain' => $domain,
-            'local_part' => $local_part
-        );
-    }
-
-    /**
-     * Function to validate the local part of an address:
-     *   local-part = word *("." word)
-     *
-     * @param string $local_part  TODO
-     *
-     * @return mixed  False on failure, or the validated local part on
-     *                success.
-     */
-    protected function _validateLocalPart($local_part)
-    {
-        $parts = explode('.', $local_part);
-        $words = array();
-
-        // Split the local_part into words.
-        while (count($parts) > 0){
-            $words[] = $this->_splitCheck($parts, '.');
-            for ($i = 0; $i < $this->index + 1; ++$i) {
-                array_shift($parts);
-            }
-        }
-
-        // Validate each word.
-        foreach ($words as $word) {
-            // If this word contains an unquoted space, it is invalid. (6.2.4)
-            if ((strpos($word, ' ') && ($word[0] !== '"')) ||
-                ($this->_validatePhrase(trim($word)) === false)) {
-                return false;
-            }
-        }
-
-        // Managed to get here, so return the input.
-        return $local_part;
-    }
-
-    /**
-     * Returns an approximate count of how many addresses are in the
-     * given string. This is APPROXIMATE as it only splits based on a
-     * comma which has no preceding backslash. Could be useful as
-     * large amounts of addresses will end up producing *large*
-     * structures when used with parseAddressList().
+     * Returns an approximate count of how many addresses are in the string.
+     * This is APPROXIMATE as it only splits based on a comma which has no
+     * preceding backslash.
      *
      * @param string $data  Addresses to count.
      *
@@ -899,22 +730,23 @@ class Horde_Mail_Rfc822
     }
 
     /**
-     * This is a email validating function separate to the rest of the
-     * class. It simply validates whether an email is of the common
-     * internet form: <user>@<domain>. This can be sufficient for most
-     * people. Optional stricter mode can be utilised which restricts
-     * mailbox characters allowed to alphanumeric, full stop, hyphen
-     * and underscore.
+     * Validates whether an email is of the common internet form:
+     * <user>@<domain>. This can be sufficient for most people.
+     *
+     * Optional stricter mode can be utilized which restricts mailbox
+     * characters allowed to: alphanumeric, full stop, hyphen, and underscore.
      *
      * @param string $data     Address to check.
-     * @param boolean $strict  Optional stricter mode.
+     * @param boolean $strict  Strict check?
      *
      * @return mixed  False if it fails, an indexed array username/domain if
      *                it matches.
      */
     public function isValidInetAddress($data, $strict = false)
     {
-        $regex = $strict ? '/^([.0-9a-z_+-]+)@(([0-9a-z-]+\.)+[0-9a-z]{2,})$/i' : '/^([*+!.&#$|\'\\%\/0-9a-z^_`{}=?~:-]+)@(([0-9a-z-]+\.)+[0-9a-z]{2,})$/i';
+        $regex = $strict
+            ? '/^([.0-9a-z_+-]+)@(([0-9a-z-]+\.)+[0-9a-z]{2,})$/i'
+            : '/^([*+!.&#$|\'\\%\/0-9a-z^_`{}=?~:-]+)@(([0-9a-z-]+\.)+[0-9a-z]{2,})$/i';
 
         return preg_match($regex, trim($data), $matches)
             ? array($matches[1], $matches[2])

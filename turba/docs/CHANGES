@@ -8,6 +8,8 @@ v3.1-git
 v3.0.12-git
 -----------
 
+[mjr] Implement more flexible ActiveSync synchronization of names and
+      addresses.
 [jan] Fix address book sorting in preferences (Bug #10897).
 [mms] Improved navigation when editing group entries.
 

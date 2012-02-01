@@ -34,8 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Search complete names and addresses when auto-completing attendees.
-* [jan] Fix syntax error in migration script (Bug #10902).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2030,11 +2029,24 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-01-17</date>
+   <date>2012-01-31</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Search complete names and addresses when auto-completing attendees.
 * [jan] Fix syntax error in migration script (Bug #10902).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.16</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-01-31</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

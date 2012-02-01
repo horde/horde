@@ -23,10 +23,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-01-23</date>
- <time>13:37:32</time>
+ <date>2012-01-31</date>
+ <time>11:25:07</time>
  <version>
-  <release>1.4.8</release>
+  <release>1.4.9</release>
   <api>1.4.0</api>
  </version>
  <stability>
@@ -35,8 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Add optimized exists() implementation to LDAP driver (Marco Ferrante &lt;marco@csita.unige.it&gt;, Request #10944).
-* [jan] Add Spanish translation (Manuel P. Ayala &lt;mayala@unex.es&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -658,11 +657,24 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-01-23</date>
+   <date>2012-01-31</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Add optimized exists() implementation to LDAP driver (Marco Ferrante &lt;marco@csita.unige.it&gt;, Request #10944).
 * [jan] Add Spanish translation (Manuel P. Ayala &lt;mayala@unex.es&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.4.9</release>
+    <api>1.4.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-01-31</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

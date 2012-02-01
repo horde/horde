@@ -89,7 +89,7 @@ abstract class Horde_ActiveSync_Driver_Base
      */
     protected $_policies = array(
         'pin' => true,
-        'computerunlock' => true,
+        'extended_policies' => true,
         'inactivity' => 5,
         'wipethreshold' => 10,
         'codewordfrequency' => 0,
@@ -569,7 +569,6 @@ abstract class Horde_ActiveSync_Driver_Base
      * by the backend.
      *
      * 4131 (Enforce password on device) 0: enabled 1: disabled
-     * 4133 (Unlock from computer) 0: disabled 1: enabled
      * AEFrequencyType 0: no inactivity time 1: inactivity time is set
      * AEFrequencyValue inactivity time in minutes
      * DeviceWipeThreshold after how many wrong password to device should get wiped
@@ -585,10 +584,9 @@ abstract class Horde_ActiveSync_Driver_Base
     {
         $xml = '<wap-provisioningdoc><characteristic type="SecurityPolicy">'
             . '<parm name="4131" value="' . ($this->_policies['pin'] ? 0 : 1) . '"/>'
-            . '<parm name="4133" value="' . ($this->_policies['computerunlock'] ? 1 : 0) . '"/>'
             . '</characteristic>';
 
-        if ($this->_policies['pin']) {
+        if ($this->_policies['pin'] && $this->_policies['extended_policies']) {
             $xml .= '<characteristic type="Registry">'
             .   '<characteristic type="HKLM\Comm\Security\Policy\LASSD\AE\{50C13377-C66D-400C-889E-C316FC4AB374}">'
             .        '<parm name="AEFrequencyType" value="' . (!empty($this->_policies['inactivity']) ? 1 : 0) . '"/>'
@@ -604,7 +602,7 @@ abstract class Horde_ActiveSync_Driver_Base
             if (!empty($this->_policies['minimumlength'])) {
                 $xml .= '<characteristic type="HKLM\Comm\Security\Policy\LASSD\LAP\lap_pw"><parm name="MinimumPasswordLength" value="' . $this->_policies['minimumlength'] . '"/></characteristic>';
             }
-            if ($this->_policies['complexity'] === false) {
+            if ($this->_policies['complexity'] !== false) {
                 $xml .= '<characteristic type="HKLM\Comm\Security\Policy\LASSD\LAP\lap_pw"><parm name="PasswordComplexity" value="' . $this->_policies['complexity'] . '"/></characteristic>';
             }
             $xml .= '</characteristic>';

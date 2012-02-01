@@ -10,10 +10,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-01-23</date>
- <time>13:37:28</time>
+ <date>2012-01-31</date>
+ <time>12:52:40</time>
  <version>
-  <release>1.4.0</release>
+  <release>1.4.2</release>
   <api>1.4.0</api>
  </version>
  <stability>
@@ -22,13 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Add Spanish translation (Manuel P. Ayala &lt;mayala@unex.es&gt;).
-* [mms] Implement more efficient serialization for Thread data objects.
-* [mms] Move server debug information from exception error message to &apos;details&apos; property of exception object.
-* [mms] Fix METADATA_TOOMANY and METADATA_NOPRIVATE exception codes.
-* [mms] All user-directed exception messages are now translated.
-* [mms] Added Horde_Imap_Client_Exception_NoSupportExtension.
-* [mms] Incorrect method calls now throw SPL errors instead of Horde_Imap_Client_Exceptions.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -88,7 +82,9 @@
        <file name="Mailbox.php" role="php" />
        <file name="Socket.php" role="php" />
        <file name="Sort.php" role="php" />
-       <file name="Translation.php" role="php" />
+       <file name="Translation.php" role="php">
+         <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+       </file>
        <file name="Utf7imap.php" role="php" />
        <file name="Utils.php" role="php" />
       </dir> <!-- /lib/Horde/Imap/Client -->
@@ -97,6 +93,12 @@
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
    <dir name="locale">
+    <dir name="de">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Imap_Client.mo" role="data" />
+      <file name="Horde_Imap_Client.po" role="data" />
+     </dir> <!-- /locale/de/LC_MESSAGES -->
+    </dir> <!-- /locale/de -->
     <dir name="es">
      <dir name="LC_MESSAGES">
       <file name="Horde_Imap_Client.mo" role="data" />
@@ -237,6 +239,8 @@
    <install as="Horde/Imap/Client/Socket/Pop3.php" name="lib/Horde/Imap/Client/Socket/Pop3.php" />
    <install as="Horde/Imap/Client/Utils/Pop3.php" name="lib/Horde/Imap/Client/Utils/Pop3.php" />
    <install as="locale/Horde_Imap_Client.pot" name="locale/Horde_Imap_Client.pot" />
+   <install as="locale/de/LC_MESSAGES/Horde_Imap_Client.mo" name="locale/de/LC_MESSAGES/Horde_Imap_Client.mo" />
+   <install as="locale/de/LC_MESSAGES/Horde_Imap_Client.po" name="locale/de/LC_MESSAGES/Horde_Imap_Client.po" />
    <install as="locale/es/LC_MESSAGES/Horde_Imap_Client.mo" name="locale/es/LC_MESSAGES/Horde_Imap_Client.mo" />
    <install as="locale/es/LC_MESSAGES/Horde_Imap_Client.po" name="locale/es/LC_MESSAGES/Horde_Imap_Client.po" />
    <install as="Horde/Imap/Client/AclTest.php" name="test/Horde/Imap/Client/AclTest.php" />
@@ -691,9 +695,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-01-23</date>
+   <date>2012-01-31</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Add German translation.
 * [jan] Add Spanish translation (Manuel P. Ayala &lt;mayala@unex.es&gt;).
 * [mms] Implement more efficient serialization for Thread data objects.
 * [mms] Move server debug information from exception error message to &apos;details&apos; property of exception object.
@@ -701,6 +706,32 @@
 * [mms] All user-directed exception messages are now translated.
 * [mms] Added Horde_Imap_Client_Exception_NoSupportExtension.
 * [mms] Incorrect method calls now throw SPL errors instead of Horde_Imap_Client_Exceptions.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.4.1</release>
+    <api>1.4.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-01-31</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix translations when installed through PEAR.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.4.2</release>
+    <api>1.4.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-01-31</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

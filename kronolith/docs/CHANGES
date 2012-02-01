@@ -21,8 +21,14 @@ v3.1-git
 
 
 -----------
-v3.0.15-git
+v3.0.16-git
 -----------
+
+
+
+-------
+v3.0.15
+-------
 
 [jan] Search complete names and addresses when auto-completing attendees.
 [jan] Fix syntax error in migration script (Bug #10902).

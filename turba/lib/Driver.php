@@ -1654,18 +1654,7 @@ class Turba_Driver implements Countable
 
         // No explicit firstname/lastname in data source: we have to guess.
         if (!isset($hash['lastname']) && isset($hash['name'])) {
-            if (($pos = strpos($hash['name'], ',')) !== false) {
-                // Assume Last, First
-                $hash['lastname'] = Horde_String::substr($hash['name'], 0, $pos);
-                $hash['firstname'] = trim(Horde_String::substr($hash['name'], $pos + 1));
-            } elseif (($pos = Horde_String::rpos($hash['name'], ' ')) !== false) {
-                // Assume everything after last space as lastname
-                $hash['lastname'] = trim(Horde_String::substr($hash['name'], $pos + 1));
-                $hash['firstname'] = Horde_String::substr($hash['name'], 0, $pos);
-            } else {
-                $hash['lastname'] = $hash['name'];
-                $hash['firstname'] = '';
-            }
+            $this->_guessName($hash);
         }
 
         $a = array(
@@ -2329,6 +2318,31 @@ class Turba_Driver implements Countable
     {
         $message = new Horde_ActiveSync_Message_Contact(array('logger' => $GLOBALS['injector']->getInstance('Horde_Log_Logger')));
         $hash = $object->getAttributes();
+        if (!isset($hash['lastname']) && isset($hash['name'])) {
+            $this->_guessName($hash);
+        }
+
+        // Ensure we have at least a good guess as to separate address fields.
+        // Not ideal, but EAS does not have a single "address" field so we must
+        // map "common" to either home or work. I choose home since
+        // work/non-personal installs will be more likely to have separated
+        // address fields.
+        if (!empty($hash['commonAddress'])) {
+            if (!isset($hash['commonStreet'])) {
+                $hash['commonStreet'] = $hash['commonHome'];
+            }
+            foreach (array('Address', 'Street', 'POBox', 'Extended', 'City', 'Province', 'PostalCode', 'Country') as $field) {
+                $hash['home' . $field] = $hash['common' . $field];
+            }
+        } else {
+            if (isset($hash['homeAddress']) && !isset($hash['homeStreet'])) {
+                $hash['homeStreet'] = $hash['homeAddress'];
+            }
+            if (isset($hash['workAddress']) && !isset($hash['workStreet'])) {
+                $hash['workStreet'] = $hash['workAddress'];
+            }
+        }
+
         $haveDecodeHook = Horde::hookExists('decode_attribute', 'turba');
         foreach ($hash as $field => $value) {
             if ($haveDecodeHook) {
@@ -2379,8 +2393,6 @@ class Turba_Driver implements Countable
                 break;
 
             case 'homeStreet':
-                /* Address (TODO: check for a single home/workAddress field
-                 * instead) */
                 $message->homestreet = $hash['homeStreet'];
                 break;
 
@@ -2976,6 +2988,27 @@ class Turba_Driver implements Countable
         }
 
         return $this->_count;
+    }
+
+    /**
+     * Helper function for guessing name parts from a single name string.
+     *
+     * @param array $hash  The attributes array.
+     */
+    protected function _guessName(&$hash)
+    {
+        if (($pos = strpos($hash['name'], ',')) !== false) {
+            // Assume Last, First
+            $hash['lastname'] = Horde_String::substr($hash['name'], 0, $pos);
+            $hash['firstname'] = trim(Horde_String::substr($hash['name'], $pos + 1));
+        } elseif (($pos = Horde_String::rpos($hash['name'], ' ')) !== false) {
+            // Assume everything after last space as lastname
+            $hash['lastname'] = trim(Horde_String::substr($hash['name'], $pos + 1));
+            $hash['firstname'] = Horde_String::substr($hash['name'], 0, $pos);
+        } else {
+            $hash['lastname'] = $hash['name'];
+            $hash['firstname'] = '';
+        }
     }
 
 }
