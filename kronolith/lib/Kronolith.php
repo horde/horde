@@ -2846,6 +2846,16 @@ class Kronolith
     }
 
     /**
+     * Returns whether to display the ajax view.
+     *
+     * return boolean  True if the ajax view should be displayed.
+     */
+    static public function showAjaxView()
+    {
+        return $GLOBALS['registry']->getView() == Horde_Registry::VIEW_DYNAMIC;
+    }
+
+    /**
      * Sorts an event list.
      *
      * @param array $days  A list of days with events.
