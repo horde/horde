@@ -1647,6 +1647,7 @@ class IMP_Mailbox implements Serializable
             }
         }
 
+        $out = Horde_String::convertCharset($out, 'UTF7-IMAP', 'UTF-8');
         $this->_cache[self::CACHE_DISPLAY] = $out;
         $this->_changed = self::CHANGED_YES;
 
