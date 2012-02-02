@@ -80,4 +80,26 @@ class Horde_Mail_Rfc822_Address
         }
     }
 
+    /**
+     * Write an address given information in this part.
+     *
+     * @since 1.1.0
+     *
+     * @param array $opts  Optional arguments:
+     *   - idn: (boolean) See Horde_Mime_Address#writeAddress().
+     *
+     * @return string  The correctly escaped/quoted address.
+     */
+    public function writeAddress(array $opts = array())
+    {
+        return Horde_Mime_Address::writeAddress(
+            $this->mailbox,
+            $this->host,
+            $this->personal,
+            array(
+                'idn' => (isset($opts['idn']) ? $opts['idn'] : null)
+            )
+        );
+    }
+
 }

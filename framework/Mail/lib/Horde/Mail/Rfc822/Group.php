@@ -37,4 +37,26 @@ class Horde_Mail_Rfc822_Group
      */
     public $groupname = '';
 
+    /**
+     * Write a group address given information in this part.
+     *
+     * @since 1.1.0
+     *
+     * @param array $opts  Optional arguments:
+     *   - idn: (boolean) See Horde_Mime_Address#writeAddress().
+     *
+     * @return string  The correctly escaped/quoted address.
+     */
+    public function writeAddress()
+    {
+        $addr = array();
+        foreach ($this->addresses as $val) {
+            $addr[] = $val->writeAddress(array(
+                'idn' => (isset($opts['idn']) ? $opts['idn'] : null)
+            ));
+        }
+
+        return Horde_Mime_Address::writeGroupAddress($ob->groupname, $addr);
+    }
+
 }

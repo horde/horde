@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
+* [mms] Add writeAddress() methods to Rfc822 result objects.
 * [mms] Add Horde_Mail_Rfc822_Address-&gt;full_address property.
 * [mms] Improved parser for e-mail addresses (Request #10949).
  </notes>
@@ -83,6 +84,13 @@
    </pearinstaller>
    <package>
     <name>Horde_Exception</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Mime</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0</min>
     <max>2.0.0</max>
@@ -255,6 +263,7 @@
    <date>2012-01-31</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
+* [mms] Add writeAddress() methods to Rfc822 result objects.
 * [mms] Add Horde_Mail_Rfc822_Address-&gt;full_address property.
 * [mms] Improved parser for e-mail addresses (Request #10949).
    </notes>
