@@ -319,4 +319,17 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testEmailInDisplayPart()
+    {
+        $parser = new Horde_Mail_Rfc822();
+        $ob = $parser->parseAddressList(
+            'Foo Bar <foobar@example.com>, "bad_email@example.com, Baz" <baz@example.com>, "Qux" <qux@example.com>'
+        );
+
+        $this->assertEquals(
+            3,
+            count($ob)
+        );
+    }
+
 }
