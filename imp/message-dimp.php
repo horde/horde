@@ -41,16 +41,12 @@ case 'strip_attachment':
     break;
 }
 
-$args = array(
-    'headers' => array_diff(array_keys($imp_ui->basicHeaders()), array('subject')),
-    'mailbox' => IMP::$mailbox,
-    'preview' => false,
-    'uid' => $uid
-);
-
-$show_msg = new IMP_Views_ShowMessage();
+$show_msg = new IMP_Views_ShowMessage(IMP::$mailbox, $uid);
 try {
-    $show_msg_result = $show_msg->showMessage($args);
+    $show_msg_result = $show_msg->showMessage(array(
+        'headers' => array_diff(array_keys($imp_ui->basicHeaders()), array('subject')),
+        'preview' => false
+    ));
 } catch (IMP_Exception $e) {
     IMP::status();
     echo Horde::wrapInlineScript(array(

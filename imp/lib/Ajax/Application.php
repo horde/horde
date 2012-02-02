@@ -959,11 +959,9 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
                 throw new IMP_Exception(_("Could not open mailbox."));
             }
 
-            $show_msg = new IMP_Views_ShowMessage();
+            $show_msg = new IMP_Views_ShowMessage($mbox, $idx);
             $msg = (object)$show_msg->showMessage(array(
-                'mailbox' => $mbox,
-                'preview' => $this->_vars->preview,
-                'uid' => $idx
+                'preview' => $this->_vars->preview
             ));
             $msg->view = $this->_vars->view;
             $msg->save_as = (string)$msg->save_as;
