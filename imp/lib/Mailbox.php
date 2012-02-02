@@ -1641,13 +1641,12 @@ class IMP_Mailbox implements Serializable
                 strpos($this->_mbox, $key) === 0) {
                 $len = strlen($key);
                 if ((strlen($this->_mbox) == $len) || ($this->_mbox[$len] == (is_null($ns_info) ? '' : $ns_info['delimiter']))) {
-                    $out = substr_replace($this->_mbox, Horde_String::convertCharset($val, 'UTF-8', 'UTF7-IMAP'), 0, $len);
+                    $out = substr_replace($this->_mbox, $val, 0, $len);
                     break;
                 }
             }
         }
 
-        $out = Horde_String::convertCharset($out, 'UTF7-IMAP', 'UTF-8');
         $this->_cache[self::CACHE_DISPLAY] = $out;
         $this->_changed = self::CHANGED_YES;
 
