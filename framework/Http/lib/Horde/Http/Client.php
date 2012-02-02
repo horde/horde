@@ -199,16 +199,25 @@ class Horde_Http_Client
      */
     public function __set($name, $value)
     {
-        if (strpos($name, '.') === false) {
-            $this->{'_' . $name} = $value;
-        } else {
-            list($object, $objectkey) = explode('.', $name, 2);
-            if ($object == 'request') {
-                $this->$object->$objectkey = $value;
-            } elseif ($object == 'client') {
-                $objectKey = '_' . $objectKey;
-                $this->$objectKey = $value;
+        if ((strpos($name, '.') === false)) {
+            if (isset($this->{'_' . $name})) {
+                $this->{'_' . $name} = $value;
+                return true;
+            } else {
+                throw new Horde_Http_Exception('unknown parameter: "' . $name . '"');
             }
         }
+
+        list($object, $objectkey) = explode('.', $name, 2);
+        if ($object == 'request') {
+            $this->$object->$objectkey = $value;
+            return true;
+        } elseif ($object == 'client') {
+            $objectKey = '_' . $objectKey;
+            $this->$objectKey = $value;
+            return true;
+        }
+
+        throw new Horde_Http_Exception('unknown parameter: "' . $name . '"');
     }
 }

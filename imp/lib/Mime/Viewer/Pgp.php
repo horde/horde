@@ -299,7 +299,9 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
                                        $decrypted_data->message;
         }
 
-        return Horde_Mime_Part::parseMessage($decrypted_data->message, array('forcemime' => true));
+        return Horde_Mime_Part::parseMessage($decrypted_data->message, array(
+            'forcemime' => true
+        ));
     }
 
     /**

@@ -211,7 +211,9 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
 
         self::$_cache[$base_id]['wrap'] = 'mimePartWrapValid';
 
-        $new_part = Horde_Mime_Part::parseMessage($decrypted_data, array('forcemime' => true));
+        $new_part = Horde_Mime_Part::parseMessage($decrypted_data, array(
+            'forcemime' => true
+        ));
 
         $hdrs = $this->getConfigParam('imp_contents')->getHeader();
         $new_part->setMetadata('imp-smime-from', $hdrs->getValue('from'));
@@ -250,7 +252,11 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
         if ($this->getConfigParam('imp_contents')->isEmbedded($base_id)) {
             $hdrs = new Horde_Mime_Headers();
             $hdrs->addHeader('From', $this->_mimepart->getMetadata('imp-smime-from'));
-            $stream = $this->_mimepart->toString(array('headers' => $hdrs, 'stream' => true));
+
+            $stream = $this->_mimepart->toString(array(
+                'headers' => $hdrs,
+                'stream' => true
+            ));
         } else {
             $stream = $this->_getPartStream($base_id);
         }

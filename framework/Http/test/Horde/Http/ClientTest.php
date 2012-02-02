@@ -38,4 +38,16 @@ class Horde_Http_ClientTest extends Horde_Test_Case
         $client->{'request.timeout'} = 10;
         $this->assertEquals(10, $request->timeout);
     }
+
+    /**
+     * @expectedException Horde_Http_Exception
+     */
+    public function testSetUnknownOption()
+    {
+        $request = new Horde_Http_Request_Mock();
+        $client = new Horde_Http_Client(
+            array('request' => $request)
+        );
+        $client->timeout = 10;
+    }
 }

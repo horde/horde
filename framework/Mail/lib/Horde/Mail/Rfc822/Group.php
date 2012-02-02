@@ -21,7 +21,7 @@
  * @license   http://www.horde.org/licenses/bsd New BSD License
  * @package   Mail
  */
-class Horde_Mail_Rfc822_Group
+class Horde_Mail_Rfc822_Group implements ArrayAccess
 {
     /**
      * List of group e-mail address objects.
@@ -36,5 +36,68 @@ class Horde_Mail_Rfc822_Group
      * @var string
      */
     public $groupname = '';
+
+    /**
+     * Write a group address given information in this part.
+     *
+     * @since 1.1.0
+     *
+     * @param array $opts  Optional arguments:
+     *   - idn: (boolean) See Horde_Mime_Address#writeAddress().
+     *
+     * @return string  The correctly escaped/quoted address.
+     */
+    public function writeAddress()
+    {
+        $addr = array();
+        foreach ($this->addresses as $val) {
+            $addr[] = $val->writeAddress(array(
+                'idn' => (isset($opts['idn']) ? $opts['idn'] : null)
+            ));
+        }
+
+        return Horde_Mime_Address::writeGroupAddress($ob->groupname, $addr);
+    }
+
+    /* ArrayAccess methods. TODO: Here for BC purposes. Remove for 2.0. */
+
+    /**
+     */
+    public function offsetExists($offset)
+    {
+        switch ($offset) {
+        case 'addresses':
+        case 'groupname':
+            return true;
+
+        default:
+            return false;
+        }
+    }
+
+    /**
+     */
+    public function offsetGet($offset)
+    {
+        return $this->offsetExists($offset)
+            ? $this->$offset
+            : null;
+    }
+
+    /**
+     */
+    public function offsetSet($offset, $value)
+    {
+        if ($this->offsetExists($offset)) {
+            $this->$offset = $value;
+        }
+    }
+
+    /**
+     */
+    public function offsetUnset($offset)
+    {
+        /* Don't allow undsetting of values. */
+    }
 
 }

@@ -289,4 +289,34 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testArrayAccess()
+    {
+        $parser = new Horde_Mail_Rfc822();
+        $ob = $parser->parseAddressList(
+            'A <test@example.com>',
+            array(
+                'default_domain' => 'example.com',
+                'validate' => false
+            )
+        );
+
+        $this->assertEquals(
+            'A',
+            $ob[0]['personal']
+        );
+
+        $this->assertEquals(
+            'example.com',
+            $ob[0]['host']
+        );
+
+        $this->assertTrue(
+            isset($ob[0]['mailbox'])
+        );
+
+        $this->assertFalse(
+            isset($ob[0]['bar'])
+        );
+    }
+
 }
