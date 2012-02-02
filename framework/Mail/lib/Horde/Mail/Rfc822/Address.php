@@ -70,6 +70,13 @@ class Horde_Mail_Rfc822_Address
             return empty($route)
                 ? ''
                 : implode(',', $route);
+
+        case 'full_address':
+            // @since 1.1.0
+            // Return the full mailbox@host address.
+            return is_null($this->host)
+                ? $this->mailbox
+                : $this->mailbox . '@' . $this->host;
         }
     }
 
