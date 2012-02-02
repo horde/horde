@@ -416,7 +416,7 @@ var DimpCore = {
             cnt = alist.size();
 
         if (cnt > 15) {
-            tmp = $('largeaddrspan').clone(true).writeAttribute('id', 'largeaddrspan_active');
+            tmp = $('largeaddrspan').clone(true).addClassName('largeaddrspan_active');
             elt.insert(tmp);
             base = tmp.down('.dispaddrlist');
             tmp = tmp.down('.largeaddrlist');
@@ -501,33 +501,25 @@ var DimpCore = {
         var elt = e.element(), id, tmp;
 
         while (Object.isElement(elt)) {
-            id = elt.readAttribute('id');
-
-            switch (id) {
-            case 'largeaddrspan_active':
+            // CSS class based matching
+            if (elt.hasClassName('unblockImageLink')) {
+                IMP_JS.unblockImages(e);
+            } else if (elt.hasClassName('largeaddrspan_active')) {
                 tmp = elt.down();
                 if (!tmp.next().visible() ||
                     e.element().hasClassName('largeaddrlist')) {
                     [ tmp.down(), tmp.down(1), tmp.next() ].invoke('toggle');
                 }
-                break;
-
-            default:
-                // CSS class based matching
-                if (elt.hasClassName('unblockImageLink')) {
-                    IMP_JS.unblockImages(e);
-                } else if (elt.hasClassName('pgpVerifyMsg')) {
-                    elt.replace(DIMP.text.verify);
-                    DimpCore.reloadMessage({ pgp_verify_msg: 1 });
-                    e.stop();
-                    return;
-                } else if (elt.hasClassName('smimeVerifyMsg')) {
-                    elt.replace(DIMP.text.verify);
-                    DimpCore.reloadMessage({ smime_verify_msg: 1 });
-                    e.stop();
-                    return;
-                }
-                break;
+            } else if (elt.hasClassName('pgpVerifyMsg')) {
+                elt.replace(DIMP.text.verify);
+                DimpCore.reloadMessage({ pgp_verify_msg: 1 });
+                e.stop();
+                return;
+            } else if (elt.hasClassName('smimeVerifyMsg')) {
+                elt.replace(DIMP.text.verify);
+                DimpCore.reloadMessage({ smime_verify_msg: 1 });
+                e.stop();
+                return;
             }
 
             elt = elt.up();
