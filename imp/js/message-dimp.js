@@ -307,8 +307,11 @@ var DimpMessage = {
         if (DIMP.conf.disable_compose) {
             $('reply_link', 'forward_link').compact().invoke('up', 'SPAN').concat([ $('ctx_contacts_new') ]).compact().invoke('remove');
         } else {
-            DimpCore.addPopdownButton('reply_link', 'replypopdown');
-            DimpCore.addPopdownButton('forward_link', 'forwardpopdown');
+            DimpCore.addPopdownButton('reply_link', 'reply');
+            DimpCore.addPopdownButton('forward_link', 'forward');
+            if (!this.reply_list) {
+                $('ctx_reply_reply_list').hide();
+            }
         }
 
         /* Set up address linking. */

@@ -60,6 +60,7 @@ foreach (array('from', 'to', 'cc', 'bcc', 'replyTo', 'log', 'uid', 'mbox', 'addr
         $js_vars['DimpMessage.' . $val] = $show_msg_result[$val];
     }
 }
+$js_vars['DimpMessage.reply_list'] = $show_msg_result['list_info']['exists'];
 
 $ajax_queue = $injector->getInstance('IMP_Ajax_Queue');
 $ajax_queue->poll(IMP::$mailbox);
@@ -184,8 +185,6 @@ $t->set('msgtext', $show_msg_result['msgtext']);
 
 if (!$disable_compose) {
     $t->set('html', $compose_result['html']);
-    $t->set('reply_list', $show_msg_result['list_info']['exists']);
-    $t->set('forward_select', !$prefs->isLocked('forward_default'));
 }
 
 Horde::startBuffer();
@@ -198,5 +197,9 @@ Horde::startBuffer();
 Horde::includeScriptFiles();
 Horde::outputInlineScript();
 $t->set('script', Horde::endBuffer());
+
+Horde::startBuffer();
+require IMP_TEMPLATES . '/dimp/common.inc';
+$t->set('common', Horde::endBuffer());
 
 echo $t->fetch(IMP_TEMPLATES . '/dimp/message/message.html');
