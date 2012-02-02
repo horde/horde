@@ -127,19 +127,19 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
         }
 
         try {
-            $ob = $this->_getAddrList($address);
-        } catch (Horde_Mime_Exception $e) {
+            $ob = IMP::parseAddressList($address);
+        } catch (Horde_Mail_Exception $e) {
             throw new Horde_Exception (_("Your From address is not a valid email address. This can be fixed in your Personal Information preferences page."));
         }
 
         if (empty($name)) {
-            $name = empty($ob[0]['personal'])
+            $name = is_null($ob[0]->personal)
                 ? $this->getFullname($ident)
-                : $ob[0]['personal'];
+                : $ob[0]->personal;
         }
 
-        $from = Horde_Mime_Address::writeAddress($ob[0]['mailbox'], $ob[0]['host'], $name);
-
+        $ob[0]->personal = $name;
+        $from = $ob[0]->writeAddress();
         $this->_cached['froms'][$ident] = $from;
 
         return $from;
@@ -335,8 +335,8 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
                 $bcc = array($bcc);
             }
             try {
-                return $this->_getAddrList(implode(', ', $bcc));
-            } catch (Horde_Mime_Exception $e) {
+                return IMP::parseAddressList(implode(', ', $bcc));
+            } catch (Horde_Mail_Exception $e) {
                 return array();
             }
         }
@@ -367,21 +367,16 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
             : array($addresses);
 
         try {
-            $addr_list = $this->_getAddrList(implode(', ', $addresses));
-        } catch (Horde_Mime_Exception $e) {
+            $addr_list = IMP::parseAddressList(implode(', ', $addresses));
+        } catch (Horde_Mail_Exception $e) {
             return null;
         }
 
         foreach ($addr_list as $address) {
-            if (empty($address['mailbox'])) {
+            if (is_null($address->mailbox)) {
                 continue;
             }
-
-            $find_address = $address['mailbox'];
-            if (!empty($address['host'])) {
-                $find_address .= '@' . $address['host'];
-            }
-            $find_address = Horde_String::lower($find_address);
+            $find_address = Horde_String::lower($address->full_address);
 
             /* Search 'tieto' addresses first. */
             /* Check for this address explicitly. */
@@ -390,9 +385,9 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
             }
 
             /* If we didn't find the address, check for the domain. */
-            if (!empty($address['host']) &&
-                isset($this->_cached['tie_addresses']['@' . $address['host']])) {
-                return $this->_cached['tie_addresses']['@' . $address['host']];
+            if (!is_null($address->host) &&
+                isset($this->_cached['tie_addresses']['@' . $address->host])) {
+                return $this->_cached['tie_addresses']['@' . $address->host];
             }
 
             /* Next, search all from addresses. */
@@ -564,20 +559,6 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
         return $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS)
             ? $this->getValue('save_sent_mail', $ident)
             : false;
-    }
-
-    /**
-     * Return a domain-appropriate address list.
-     *
-     * @param string $in  The input string.
-     *
-     * @return array  See Horde_Mime_Address::parseAddressList().
-     */
-    protected function _getAddrList($in)
-    {
-        return Horde_Mime_Address::parseAddressList($in, array(
-            'defserver' => $GLOBALS['session']->get('imp', 'maildomain')
-        ));
     }
 
 }

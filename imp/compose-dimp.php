@@ -55,8 +55,9 @@ foreach (array('to', 'cc', 'bcc', 'subject') as $val) {
 /* Check for personal information for 'to' address. */
 if (isset($header['to']) &&
     isset($vars->toname) &&
-    ($tmp = Horde_Mime_Address::parseAddressList($header['to']))) {
-    $header['to'] = Horde_Mime_Address::writeAddress($tmp[0]['mailbox'], $tmp[0]['host'], $vars->toname);
+    ($tmp = IMP::parseAddressList($header['to']))) {
+    $tmp[0]->personal = $vars->toname;
+    $header['to'] = $tmp[0]->writeAddress();
 }
 
 $fillform_opts = array(

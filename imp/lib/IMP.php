@@ -616,4 +616,24 @@ class IMP
         );
     }
 
+    /**
+     * Wrapper around Horde_Mail_Rfc822#parseAddressList().
+     *
+     * @param string $str  The address string.
+     * @param array $opts  Options to override the default.
+     *
+     * @return array  See Horde_Mail_Rfc822#parseAddressList().
+     *
+     * @throws Horde_Mail_Exception
+     */
+    static public function parseAddressList($str, array $opts = array())
+    {
+        $rfc822 = new Horde_Mail_Rfc822();
+        return $rfc822->parseAddressList($str, array_merge(array(
+            'default_domain' => $GLOBALS['session']->get('imp', 'maildomain'),
+            'nest_groups' => false,
+            'validate' => false
+        ), $opts));
+    }
+
 }

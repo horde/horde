@@ -300,11 +300,9 @@ case 'reply_list':
     case IMP_Compose::REPLY_LIST:
         if ($vars->actionID == 'reply_auto') {
             $replyauto_list = true;
-
-            $hdr_ob = $contents->getHeader();
-            $addr_ob = Horde_Mime_Address::parseAddressList($hdr_ob->getValue('list-id'));
-            if (isset($addr_ob[0]['personal'])) {
-                $replyauto_list_id = $addr_ob[0]['personal'];
+            if (($addr_ob = IMP::parseAddressList($contents->getHeader()->getValue('list-id'))) &&
+                !is_null($addr_ob[0]->personal)) {
+                $replyauto_list_id = $addr_ob[0]->personal;
             }
         }
 

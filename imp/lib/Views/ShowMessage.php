@@ -15,39 +15,6 @@
 class IMP_Views_ShowMessage
 {
     /**
-     * Builds a list of addresses from header information.
-     *
-     * @param array $addrlist  The list of addresses from
-     *                         Horde_Mime_Address::parseAddressList().
-     *
-     * @return array  Array with the following keys: inner, personal, raw.
-     */
-    private function _buildAddressList($addrlist)
-    {
-        if (empty($addrlist) || !is_array($addrlist)) {
-            return;
-        }
-
-        $addr_array = array();
-
-        foreach (Horde_Mime_Address::getAddressesFromObject($addrlist, array('charset' => 'UTF-8')) as $ob) {
-            if (!empty($ob['inner'])) {
-                try {
-                    $tmp = array('raw' => Horde::callHook('dimp_addressformatting', array($ob), 'imp'));
-                } catch (Horde_Exception_HookNotSet $e) {
-                    $tmp = array('inner' => $ob['inner']);
-                    if (!empty($ob['personal'])) {
-                        $tmp['personal'] = $ob['personal'];
-                    }
-                }
-                $addr_array[] = $tmp;
-            }
-        }
-
-        return $addr_array;
-    }
-
-    /**
      * Create the object used to display the message.
      *
      * @param array $args  Configuration parameters:
@@ -141,9 +108,29 @@ class IMP_Views_ShowMessage
         foreach (array('from', 'to', 'cc', 'bcc', 'reply-to') as $val) {
             if (isset($headers_list[$val]) &&
                 (!$preview || ($val != 'reply-to'))) {
-                $tmp = $this->_buildAddressList(($val == 'reply-to') ? $envelope->reply_to : $envelope->$val);
-                if (!empty($tmp)) {
-                    $result[$val] = $tmp;
+                $addrlist = ($val == 'reply-to')
+                    ? $envelope->reply_to
+                    : $envelope->$val;
+                $addr_array = array();
+
+                if (!empty($addrlist)) {
+                    foreach (Horde_Mime_Address::getAddressesFromObject($addrlist, array('charset' => 'UTF-8')) as $ob) {
+                        if (!empty($ob['inner'])) {
+                            try {
+                                $tmp = array('raw' => Horde::callHook('dimp_addressformatting', array($ob), 'imp'));
+                            } catch (Horde_Exception_HookNotSet $e) {
+                                $tmp = array('inner' => $ob['inner']);
+                                if (!empty($ob['personal'])) {
+                                    $tmp['personal'] = $ob['personal'];
+                                }
+                            }
+                            $addr_array[] = $tmp;
+                        }
+                    }
+                }
+
+                if (!empty($addr_array)) {
+                    $result[$val] = $addr_array;
                 } elseif ($val == 'to') {
                     $result[$val] = array(array('raw' => _("Undisclosed Recipients")));
                 }

@@ -1240,14 +1240,14 @@
    <package>
     <name>Horde_Mail</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.1.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Mime</name>
     <channel>pear.horde.org</channel>
-    <min>1.4.0</min>
+    <min>1.5.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
