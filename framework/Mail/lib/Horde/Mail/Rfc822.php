@@ -533,7 +533,7 @@ class Horde_Mail_Rfc822
         while (($chr = $this->_curr()) !== false) {
             if (($chr != '.') &&
                 (($this->_params['validate'] && !$this->_rfc822IsAtext($chr)) ||
-                 (!$this->_params['validate'] && ($chr == '<')))) {
+                 (!$this->_params['validate'] && !strcspn($chr, '<:')))) {
                 $this->_rfc822SkipLwsp();
                 if (!$this->_params['validate']) {
                     $str = trim($str);
