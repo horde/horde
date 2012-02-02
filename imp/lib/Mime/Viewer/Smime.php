@@ -284,7 +284,9 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
                     }
                 }
 
-                $status->addText(sprintf(_("Sender: %s"), htmlspecialchars($email)));
+                if (strlen($email)) {
+                    $status->addText(sprintf(_("Sender: %s"), htmlspecialchars($email)));
+                }
 
                 if (!empty($sig_result->cert) &&
                     isset($sig_result->email) &&
