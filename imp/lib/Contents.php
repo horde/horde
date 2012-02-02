@@ -1220,7 +1220,7 @@ class IMP_Contents
     public function isEmbedded($mime_id)
     {
         foreach ($this->_embedded as $val) {
-            if (Horde_Mime::isChild($val, $mime_id)) {
+            if (($mime_id == $val) || Horde_Mime::isChild($val, $mime_id)) {
                 return true;
             }
         }
