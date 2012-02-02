@@ -562,7 +562,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             ));
             $response = base64_decode($ob['line']);
             if (strpos($response, 'rspauth=') === false) {
-                $this->_exception(Horde_Imap_Client_Exception::t("Unexpected response from server when authenticating."), 'SERVER_CONNECT');
+                $this->_exception(Horde_Imap_Client_Translation::t("Unexpected response from server when authenticating."), 'SERVER_CONNECT');
             }
             $this->_sendLine('', array(
                 'notag' => true
@@ -603,7 +603,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             break;
 
         default:
-            $this->_exception(sprintf(Horde_Imap_Client_Exception::t("Unknown authentication method: %s"), $method), 'SERVER_CONNECT');
+            $this->_exception(sprintf(Horde_Imap_Client_Translation::t("Unknown authentication method: %s"), $method), 'SERVER_CONNECT');
         }
     }
 

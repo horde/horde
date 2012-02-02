@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix several faulty translation strings (Bug #10958).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -744,7 +744,7 @@
    <date>2012-02-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix several faulty translation strings (Bug #10958).
    </notes>
   </release>
  </changelog>
