@@ -115,6 +115,11 @@ if ($logout_reason) {
     Horde::logMessage($entry, 'NOTICE');
     $registry->clearAuth();
 
+    /* Reset notification handler now, since it may still be using a status
+     * handler that is no longer valid. */
+    $notification->detach('status');
+    $notification->attach('status');
+
     /* Redirect the user on logout if redirection is enabled and this is an
      * an intended logout. */
     if (($logout_reason == Horde_Auth::REASON_LOGOUT) &&
