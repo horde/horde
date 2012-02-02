@@ -23,7 +23,10 @@ class Horde_Mime_Address
      * @param string $host      Domain name of mailbox's host.
      * @param string $personal  Personal name phrase.
      * @param array $opts       Additional options:
-     *   - idn: (boolean) Decode IDN domain names (Punycode/RFC 3490).
+     *   - idn: (boolean) If true, decode IDN domain names (Punycode/RFC 3490).
+     *          If false, convert domain names into IDN if necessary (@since
+     *          1.5.0).
+     *          If null, does no conversion.
      *          Requires the idn or intl PHP module.
      *          DEFAULT: true
      *
@@ -40,10 +43,20 @@ class Horde_Mime_Address
         }
 
         $host = ltrim($host, '@');
-        if ((!isset($opts['idn']) || !$opts['idn']) &&
-            (stripos($host, 'xn--') === 0) &&
-            function_exists('idn_to_utf8')) {
-            $host = idn_to_utf8($host);
+        if (isset($opts['idn'])) {
+            switch ($opts['idn']) {
+            case true:
+                if (function_exists('idn_to_utf8')) {
+                    $host = idn_to_utf8($host);
+                }
+                break;
+
+            case false:
+                if (function_exists('idn_to_ascii')) {
+                    $host = idn_to_ascii($host);
+                }
+                break;
+            }
         }
 
         $address .= self::encode($mailbox, 'address') . '@' . $host;
