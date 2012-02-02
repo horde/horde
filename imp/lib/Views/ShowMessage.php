@@ -147,32 +147,7 @@ class IMP_Views_ShowMessage
         foreach (array('from', 'to', 'cc', 'bcc', 'reply-to') as $val) {
             if (isset($headers_list[$val]) &&
                 (!$preview || ($val != 'reply-to'))) {
-                $addrlist = ($val == 'reply-to')
-                    ? $envelope->reply_to
-                    : $envelope->$val;
-                $addr_array = array();
-
-                if (!empty($addrlist)) {
-                    foreach (Horde_Mime_Address::getAddressesFromObject($addrlist, array('charset' => 'UTF-8')) as $ob) {
-                        if (!empty($ob['inner'])) {
-                            try {
-                                $tmp = array('raw' => Horde::callHook('dimp_addressformatting', array($ob), 'imp'));
-                            } catch (Horde_Exception_HookNotSet $e) {
-                                $tmp = array('inner' => $ob['inner']);
-                                if (!empty($ob['personal'])) {
-                                    $tmp['personal'] = $ob['personal'];
-                                }
-                            }
-                            $addr_array[] = $tmp;
-                        }
-                    }
-                }
-
-                if (!empty($addr_array)) {
-                    $result[$val] = $addr_array;
-                } elseif ($val == 'to') {
-                    $result[$val] = array(array('raw' => _("Undisclosed Recipients")));
-                }
+                $result = array_merge($result, $this->getAddressHeader($val));
                 if ($preview) {
                     unset($headers_list[$val]);
                 }
@@ -366,6 +341,56 @@ class IMP_Views_ShowMessage
         }
 
         return $result;
+    }
+
+    /**
+     * Return data to build an address header.
+     *
+     * @param string $header  The address header.
+     * @param integer $limit  Limit display to this many addresses.  If null,
+     *                        shows all addresses.
+     *
+     * @return array  The address list used by DimpCore.buildAddressLinks().
+     */
+    public function getAddressHeader($header, $limit = null)
+    {
+        $addrlist = ($header == 'reply-to')
+            ? $this->_envelope->reply_to
+            : $this->_envelope->$header;
+        $addr_array = $out = array();
+
+        if (!empty($addrlist)) {
+            foreach (Horde_Mime_Address::getAddressesFromObject($addrlist, array('charset' => 'UTF-8')) as $ob) {
+                if (!is_null($limit) && (--$limit < 0)) {
+                    $out['addr_limit'][$header] = count($addrlist);
+                    break;
+                }
+
+                if (empty($ob['inner'])) {
+                    continue;
+                }
+
+                try {
+                    $tmp = array(
+                        'raw' => Horde::callHook('dimp_addressformatting', array($ob), 'imp')
+                    );
+                } catch (Horde_Exception_HookNotSet $e) {
+                    $tmp = array('inner' => $ob['inner']);
+                    if (!empty($ob['personal'])) {
+                        $tmp['personal'] = $ob['personal'];
+                    }
+                }
+                $addr_array[] = $tmp;
+            }
+        }
+
+        if (!empty($addr_array)) {
+            $out[$header] = $addr_array;
+        } elseif ($header == 'to') {
+            $out[$header] = array(array('raw' => _("Undisclosed Recipients")));
+        }
+
+        return $out;
     }
 
 }
