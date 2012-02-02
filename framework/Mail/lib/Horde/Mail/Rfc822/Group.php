@@ -21,7 +21,7 @@
  * @license   http://www.horde.org/licenses/bsd New BSD License
  * @package   Mail
  */
-class Horde_Mail_Rfc822_Group
+class Horde_Mail_Rfc822_Group implements ArrayAccess
 {
     /**
      * List of group e-mail address objects.
@@ -57,6 +57,47 @@ class Horde_Mail_Rfc822_Group
         }
 
         return Horde_Mime_Address::writeGroupAddress($ob->groupname, $addr);
+    }
+
+    /* ArrayAccess methods. TODO: Here for BC purposes. Remove for 2.0. */
+
+    /**
+     */
+    public function offsetExists($offset)
+    {
+        switch ($offset) {
+        case 'addresses':
+        case 'groupname':
+            return true;
+
+        default:
+            return false;
+        }
+    }
+
+    /**
+     */
+    public function offsetGet($offset)
+    {
+        return $this->offsetExists($offset)
+            ? $this->$offset
+            : null;
+    }
+
+    /**
+     */
+    public function offsetSet($offset, $value)
+    {
+        if ($this->offsetExists($offset)) {
+            $this->$offset = $value;
+        }
+    }
+
+    /**
+     */
+    public function offsetUnset($offset)
+    {
+        /* Don't allow undsetting of values. */
     }
 
 }

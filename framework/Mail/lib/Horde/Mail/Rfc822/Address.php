@@ -21,7 +21,7 @@
  * @license   http://www.horde.org/licenses/bsd New BSD License
  * @package   Mail
  */
-class Horde_Mail_Rfc822_Address
+class Horde_Mail_Rfc822_Address implements ArrayAccess
 {
     /**
      * Comments associated with the personal phrase.
@@ -77,6 +77,9 @@ class Horde_Mail_Rfc822_Address
             return is_null($this->host)
                 ? $this->mailbox
                 : $this->mailbox . '@' . $this->host;
+
+        default:
+            return null;
         }
     }
 
@@ -100,6 +103,48 @@ class Horde_Mail_Rfc822_Address
                 'idn' => (isset($opts['idn']) ? $opts['idn'] : null)
             )
         );
+    }
+
+    /* ArrayAccess methods. TODO: Here for BC purposes. Remove for 2.0. */
+
+    /**
+     */
+    public function offsetExists($offset)
+    {
+        return (bool)$this->$offset;
+    }
+
+    /**
+     */
+    public function offsetGet($offset)
+    {
+        return $this->$offset;
+    }
+
+    /**
+     */
+    public function offsetSet($offset, $value)
+    {
+        if (property_exists($this, $offset)) {
+            $this->$offset = $value;
+        }
+    }
+
+    /**
+     */
+    public function offsetUnset($offset)
+    {
+        if (property_exists($this, $offset)) {
+            switch ($offset) {
+            case 'comment':
+                $this->comment = array();
+                break;
+
+            default:
+                $this->$offset = null;
+                break;
+            }
+        }
     }
 
 }
