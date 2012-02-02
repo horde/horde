@@ -4466,7 +4466,7 @@ KronolithCore = {
                 break;
 
             case 'kronolithNotifications':
-                this.Growler.toggleLog();
+                HordeCore.Growler.toggleLog();
                 break;
 
             case 'kronolithEventDialog':
