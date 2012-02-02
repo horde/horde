@@ -30,7 +30,8 @@ if (!empty($title)) {
 
 Horde::outputMetaTags();
 $appOb = $GLOBALS['registry']->getApiInstance($GLOBALS['registry']->getApp(), 'application');
-if ((strpos($GLOBALS['session']->get('horde', 'mode'), 'mobile') === false) || empty($appOb->mobileView)) {
+if (!in_array($GLOBALS['registry']->getView(), array(Horde_Registry::VIEW_MINIMAL, Horde_Registry::VIEW_SMARTMOBILE)) ||
+    empty($appOb->mobileView)) {
     Horde::includeFavicon();
     Horde::includeStylesheetFiles();
     Horde::includeScriptFiles();

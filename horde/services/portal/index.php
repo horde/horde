@@ -12,7 +12,7 @@ require_once dirname(__FILE__) . '/../../lib/Application.php';
 Horde_Registry::appInit('horde');
 
 // Make sure we don't need the mobile view.
-if ($session->get('horde', 'mode') == 'smartmobile' && Horde::ajaxAvailable()) {
+if ($registry->getView() == Horde_Registry::VIEW_SMARTMOBILE) {
     Horde::getServiceLink('portal')->redirect();
     exit;
 }

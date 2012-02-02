@@ -334,21 +334,27 @@ class Horde_Mime_Address
     {
         $addressList = array();
 
+        $rfc822 = new Horde_Mail_Rfc822();
         try {
-            $from = self::parseAddressList($address, array(
-                'defserver' => $defserver
+            $from = $rfc822->parseAddressList($address, array(
+                'default_domain' => $defserver,
+                'validate' => false
             ));
         } catch (Horde_Mime_Exception $e) {
-            return $multiple ? array() : '';
+            return $multiple
+                ? array()
+                : '';
         }
 
         foreach ($from as $entry) {
-            if (!empty($entry['mailbox'])) {
-                $addressList[] = $entry['mailbox'] . (isset($entry['host']) ? '@' . $entry['host'] : '');
+            if ($entry->mailbox) {
+                $addressList[] = $entry->mailbox . ($entry->host ? '@' . $entry->host : '');
             }
         }
 
-        return $multiple ? $addressList : array_pop($addressList);
+        return $multiple
+            ? $addressList
+            : array_pop($addressList);
     }
 
     /**

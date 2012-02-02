@@ -112,12 +112,16 @@ Horde::addScriptFile('logintasks.js', 'horde');
 $bodyId = 'services_logintasks';
 $bodyClass = 'modal-form';
 
-if ($session->get('horde', 'mode') == 'smartmobile' && Horde::ajaxAvailable()) {
+switch ($registry->getView()) {
+case Horde_Registry::VIEW_SMARTMOBILE:
     require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
     echo $template->fetch(HORDE_TEMPLATES . '/logintasks/mobile.html');
     require $registry->get('templates', 'horde') . '/common-footer-mobile.inc';
-} else {
+    break;
+
+default:
     require HORDE_TEMPLATES . '/common-header.inc';
     echo $template->fetch(HORDE_TEMPLATES . '/logintasks/logintasks.html');
     require HORDE_TEMPLATES . '/common-footer.inc';
+    break;
 }
