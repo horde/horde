@@ -1871,7 +1871,7 @@ class Turba_Driver implements Countable
     protected function _hasValEnum($valEnum, $type)
     {
         foreach (array_keys($valEnum) as $key) {
-            if (array_key_exists($type, explode(',', $key))) {
+            if (in_array($type, explode(',', $key))) {
                 return true;
             }
         }
