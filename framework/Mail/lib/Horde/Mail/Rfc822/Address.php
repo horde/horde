@@ -31,28 +31,30 @@ class Horde_Mail_Rfc822_Address
     public $comment = array();
 
     /**
-     * TODO
+     * Hostname of the address.
      *
      * @var string
      */
     public $host = null;
 
     /**
-     * TODO
+     * Local-part of the address.
      *
      * @var string
      */
     public $mailbox = null;
 
     /**
-     * Personal part of the name.
+     * Personal part of the address.
      *
      * @var string
      */
     public $personal = null;
 
     /**
-     * TODO
+     * Routing information (obsoleted by RFC 2822 [4.4]).
+     *
+     * @deprecated
      *
      * @var array
      */
