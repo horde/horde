@@ -135,6 +135,30 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
 
         return $this->_cache[$className];
     }
+
+    /**
+     * Prunes the autoloader cache.
+     *
+     * @return boolean  True if pruning succeeded.
+     */
+    public function prune()
+    {
+        if (extension_loaded('apc')) {
+            return apc_delete($this->_cachekey);
+        }
+        if (extension_loaded('xcache')) {
+            return xcache_unset($this->_cachekey);
+        }
+        if (extension_loaded('eaccelerator')) {
+            /* Undocumented, unknown return value. */
+            eaccelerator_rm($this->_cachekey);
+            return true;
+        }
+        if ($this->_tempdir) {
+            return unlink($this->_tempdir . '/' . $this->_cachekey);
+        }
+        return false;
+    }
 }
 
 spl_autoload_unregister(array($__autoloader, 'loadClass'));

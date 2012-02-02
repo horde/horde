@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix horde-autoloader-cache-prune script.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -152,7 +152,7 @@
    <date>2011-12-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix horde-autoloader-cache-prune script.
    </notes>
   </release>
  </changelog>
