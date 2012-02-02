@@ -2,6 +2,7 @@
 v3.1-git
 --------
 
+[jan] Delay calendar list loading to speed up initial display.
 [mjr] Implement resource scheduling in dynamic view (Request #9774).
 [mjr] Fix issue that could cause incorrect freebusy data to be displayed in
       certain circumstances.

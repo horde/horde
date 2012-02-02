@@ -166,7 +166,6 @@
   <div id="kronolithRemoteCalendars" class="kronolithCalendars">
   </div>
 
-  <?php if ($GLOBALS['all_holidays']): ?>
   <h3>
     <a href="#" id="kronolithAddholiday" class="kronolithAdd" title="<?php echo _("Add Holidays") ?>">+</a>
     <span><?php echo _("Holidays") ?></span>
@@ -174,7 +173,6 @@
 
   <div id="kronolithHolidayCalendars" class="kronolithCalendars">
   </div>
-  <?php endif ?>
 
   </div>
 </div>

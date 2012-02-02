@@ -42,6 +42,71 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
     }
 
     /**
+     * Returns a list of all calendars.
+     */
+    public function listCalendars()
+    {
+        Kronolith::initialize();
+        $result = new stdClass;
+
+        // Calendars. Do some twisting to sort own calendar before shared
+        // calendars.
+        foreach (array(true, false) as $my) {
+            foreach ($GLOBALS['all_calendars'] as $id => $calendar) {
+                $owner = ($auth_name && ($calendar->owner() == $auth_name));
+                if (($my && $owner) || (!$my && !$owner)) {
+                    $result->calendars['internal'][$id] = $calendar->toHash();
+                }
+            }
+
+            // Tasklists
+            if (Kronolith::hasApiPermission('tasks')) {
+                foreach ($GLOBALS['registry']->tasks->listTasklists($my, Horde_Perms::SHOW) as $id => $tasklist) {
+                    if (isset($GLOBALS['all_external_calendars']['tasks/' . $id])) {
+                        $owner = ($auth_name &&
+                                  ($tasklist->get('owner') == $auth_name));
+                        if (($my && $owner) || (!$my && !$owner)) {
+                            $result->calendars['tasklists']['tasks/' . $id] =
+                                $GLOBALS['all_external_calendars']['tasks/' . $id]->toHash();
+                        }
+                    }
+                }
+            }
+        }
+
+        // Resources
+        foreach (Kronolith::getDriver('Resource')->listResources() as $resource) {
+            if ($resource->get('type') != Kronolith_Resource::TYPE_GROUP) {
+                $rcal = new Kronolith_Calendar_Resource(array(
+                    'resource' => $resource
+                ));
+                $result->calendars['resource'][$resource->get('calendar')] = $rcal->toHash();
+            }
+        }
+
+        // Timeobjects
+        foreach ($GLOBALS['all_external_calendars'] as $id => $calendar) {
+            if (($calendar->api() != 'tasks') &&
+                (empty($GLOBALS['conf']['share']['hidden']) ||
+                 in_array($id, $GLOBALS['display_external_calendars']))) {
+                $result->calendars['external'][$id] = $calendar->toHash();
+            }
+        }
+
+        // Remote calendars
+        foreach ($GLOBALS['all_remote_calendars'] as $url => $calendar) {
+            $result->calendars['remote'][$url] = $calendar->toHash();
+        }
+
+        // Holidays
+        foreach ($GLOBALS['all_holidays'] as $id => $calendar) {
+            $result->calendars['holiday'][$id] = $calendar->toHash();
+        }
+
+        return $result;
+    }
+
+    /**
      * TODO
      */
     public function listEvents()

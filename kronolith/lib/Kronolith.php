@@ -709,11 +709,6 @@ class Kronolith
     {
         global $conf, $prefs, $registry, $session;
 
-        /* Store the request timestamp if it's not already present. */
-        if (!isset($_SERVER['REQUEST_TIME'])) {
-            $_SERVER['REQUEST_TIME'] = time();
-        }
-
         /* Update preferences for which calendars to display. If the
          * user doesn't have any selected calendars to view then fall
          * back to an available calendar. An empty string passed in this

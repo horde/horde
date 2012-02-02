@@ -69,11 +69,18 @@ class Kronolith_Application extends Horde_Registry_Application
         /* Create a share instance. */
         $GLOBALS['kronolith_shares'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
 
-        Kronolith::initialize();
+        /* Store the request timestamp if it's not already present. */
+        if (!isset($_SERVER['REQUEST_TIME'])) {
+            $_SERVER['REQUEST_TIME'] = time();
+        }
 
         $GLOBALS['linkTags'] = array();
-        foreach ($GLOBALS['display_calendars'] as $calendar) {
-            $GLOBALS['linkTags'][] = '<link href="' . Kronolith::feedUrl($calendar) . '" rel="alternate" type="application/atom+xml" />';
+
+        if ($GLOBALS['registry']->getView() != Horde_Registry::VIEW_DYNAMIC) {
+            Kronolith::initialize();
+            foreach ($GLOBALS['display_calendars'] as $calendar) {
+                $GLOBALS['linkTags'][] = '<link href="' . Kronolith::feedUrl($calendar) . '" rel="alternate" type="application/atom+xml" />';
+            }
         }
     }
 

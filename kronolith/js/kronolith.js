@@ -1040,11 +1040,16 @@ KronolithCore = {
             this.insertCalendarInList('remote', cal.key, cal.value);
         }, this);
 
-        $H(Kronolith.conf.calendars.holiday).each(function(cal) {
-            if (cal.value.show) {
-               this.insertCalendarInList('holiday', cal.key, cal.value);
-            }
-        }, this);
+        if (Kronolith.conf.calendars.holiday) {
+            $H(Kronolith.conf.calendars.holiday).each(function(cal) {
+                if (cal.value.show) {
+                   this.insertCalendarInList('holiday', cal.key, cal.value);
+                }
+            }, this);
+        } else {
+            $('kronolithAddholiday').up().hide();
+            $('kronolithHolidayCalendars').hide();
+        }
     },
 
     /**
@@ -6323,6 +6328,8 @@ KronolithCore = {
     {
         var dateFields, timeFields;
 
+        HordeCore.doAction('listCalendars', {}, { callback: this.initialize.bind(this) })
+
         RedBox.onDisplay = function() {
             this.redBoxLoading = false;
         }.bind(this);
@@ -6371,19 +6378,7 @@ KronolithCore = {
             $(field).observe(Prototype.Browser.Gecko ? 'DOMMouseScroll' : 'mousewheel', this.scrollTimeField.bindAsEventListener(this, field));
         }, this);
 
-        this.updateCalendarList();
         this.updateMinical(this.date);
-
-        /* Initialize the starting page. */
-        var tmp = location.hash;
-        if (!tmp.empty() && tmp.startsWith('#')) {
-            tmp = (tmp.length == 1) ? '' : tmp.substring(1);
-        }
-        if (!tmp.empty()) {
-            this.go(decodeURIComponent(tmp));
-        } else {
-            this.go(Kronolith.conf.login_view);
-        }
 
         $('kronolithMenu').select('div.kronolithCalendars div').each(function(s) {
             s.observe('mouseover', s.addClassName.curry('kronolithCalOver'));
@@ -6402,9 +6397,6 @@ KronolithCore = {
             Horde_ToolTips.detach(button);
             Horde_ToolTips.attach(button);
         }.bindAsEventListener(this));
-
-        /* Start polling. */
-        new PeriodicalExecuter(HordeCore.doAction.bind(HordeCore, 'poll'), 60);
 
         /* Catch notification actions. */
         document.observe('HordeCore:showNotifications', function(e) {
@@ -6427,6 +6419,26 @@ KronolithCore = {
                 break;
             }
         });
+    },
+
+    initialize: function(r)
+    {
+        Kronolith.conf.calendars = r.response.calendars;
+        this.updateCalendarList();
+
+        /* Initialize the starting page. */
+        var tmp = location.hash;
+        if (!tmp.empty() && tmp.startsWith('#')) {
+            tmp = (tmp.length == 1) ? '' : tmp.substring(1);
+        }
+        if (!tmp.empty()) {
+            this.go(decodeURIComponent(tmp));
+        } else {
+            this.go(Kronolith.conf.login_view);
+        }
+
+        /* Start polling. */
+        new PeriodicalExecuter(HordeCore.doAction.bind(HordeCore, 'poll'), 60);
     }
 
 };

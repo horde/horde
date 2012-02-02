@@ -142,59 +142,6 @@ class Kronolith_Ajax extends Horde_Core_Ajax
         /* Make sure this value is not optimized out by array_filter(). */
         $this->_jsvars['conf']['week_start'] = intval($prefs->getValue('week_start_monday'));
 
-        // Calendars. Do some twisting to sort own calendar before shared
-        // calendars.
-        foreach (array(true, false) as $my) {
-            foreach ($all_calendars as $id => $calendar) {
-                $owner = ($auth_name && ($calendar->owner() == $auth_name));
-                if (($my && $owner) || (!$my && !$owner)) {
-                    $this->_jsvars['conf']['calendars']['internal'][$id] = $calendar->toHash();
-                }
-            }
-
-            // Tasklists
-            if ($has_tasks) {
-                foreach ($registry->tasks->listTasklists($my, Horde_Perms::SHOW) as $id => $tasklist) {
-                    if (isset($all_external_calendars['tasks/' . $id])) {
-                        $owner = ($auth_name &&
-                                  ($tasklist->get('owner') == $auth_name));
-                        if (($my && $owner) || (!$my && !$owner)) {
-                            $this->_jsvars['conf']['calendars']['tasklists']['tasks/' . $id] = $all_external_calendars['tasks/' . $id]->toHash();
-                        }
-                    }
-                }
-            }
-        }
-
-        // Resources
-        foreach (Kronolith::getDriver('Resource')->listResources() as $resource) {
-            if ($resource->get('type') != Kronolith_Resource::TYPE_GROUP) {
-                $rcal = new Kronolith_Calendar_Resource(array(
-                    'resource' => $resource
-                ));
-                $this->_jsvars['conf']['calendars']['resource'][$resource->get('calendar')] = $rcal->toHash();
-            }
-        }
-
-        // Timeobjects
-        foreach ($all_external_calendars as $id => $calendar) {
-            if (($calendar->api() != 'tasks') &&
-                (empty($conf['share']['hidden']) ||
-                 in_array($id, $display_external_calendars))) {
-                $this->_jsvars['conf']['calendars']['external'][$id] = $calendar->toHash();
-            }
-        }
-
-        // Remote calendars
-        foreach ($all_remote_calendars as $url => $calendar) {
-            $this->_jsvars['conf']['calendars']['remote'][$url] = $calendar->toHash();
-        }
-
-        // Holidays
-        foreach ($all_holidays as $id => $calendar) {
-            $this->_jsvars['conf']['calendars']['holiday'][$id] = $calendar->toHash();
-        }
-
         /* Gettext strings. */
         $this->_jsvars['text'] = array(
             'alarm' => _("Alarm:"),
