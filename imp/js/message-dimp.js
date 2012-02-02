@@ -83,6 +83,36 @@ var DimpMessage = {
         }
     },
 
+    updateAddressHeader: function(e)
+    {
+        var tmp = {};
+        tmp[this.mbox] = [ this.uid ];
+
+        DimpCore.doAction('addressHeader', {
+            header: e.element().up('TR').identify().substring(9).toLowerCase()
+        }, {
+            callback: this._updateAddressHeaderCallback.bind(this),
+            uids: tmp
+        });
+    },
+    _updateAddressHeaderCallback: function(r)
+    {
+        var resp = r.response;
+
+        $H(r.response.hdr_data).each(function(d) {
+            this.updateHeader(d.key, d.value, 0);
+        }, this);
+    },
+
+    updateHeader: function(hdr, data, limit)
+    {
+        // Can't use capitalize() here.
+        var elt = $('msgHeader' + hdr.charAt(0).toUpperCase() + hdr.substring(1));
+        if (elt) {
+            elt.down('TD', 1).replace(DimpCore.buildAddressLinks(data, elt.down('TD', 1).clone(false), limit));
+        }
+    },
+
     /* Click handlers. */
     clickHandler: function(parentfunc, e)
     {
@@ -284,13 +314,11 @@ var DimpMessage = {
         /* Set up address linking. */
         [ 'from', 'to', 'cc', 'bcc', 'replyTo' ].each(function(a) {
             if (this[a]) {
-                // Can't use capitalize() here.
-                var elt = $('msgHeader' + a.charAt(0).toUpperCase() + a.substring(1));
-                if (elt) {
-                    elt.down('TD', 1).replace(DimpCore.buildAddressLinks(this[a], elt.down('TD', 1).clone(false)));
-                }
+                this.updateHeader(a, this[a], this.addr_limit && this.addr_limit[a] ? this.addr_limit[a] : 0);
+                delete this[a];
             }
         }, this);
+        delete this.addr_limit;
 
         /* Add message information. */
         if (this.log) {
@@ -327,3 +355,6 @@ DimpCore.clickHandler = DimpCore.clickHandler.wrap(DimpMessage.clickHandler.bind
 /* Attach event handlers. */
 document.observe('dom:loaded', DimpMessage.onDomLoad.bind(DimpMessage));
 Event.observe(window, 'resize', DimpMessage.resizeWindow.bind(DimpMessage));
+
+/* DimpCore handlers. */
+document.observe('DimpCore:updateAddressHeader', DimpMessage.updateAddressHeader.bindAsEventListener(DimpMessage));

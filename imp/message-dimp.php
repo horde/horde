@@ -55,7 +55,7 @@ try {
     exit;
 }
 
-foreach (array('from', 'to', 'cc', 'bcc', 'replyTo', 'log', 'uid', 'mbox') as $val) {
+foreach (array('from', 'to', 'cc', 'bcc', 'replyTo', 'log', 'uid', 'mbox', 'addr_limit') as $val) {
     if (!empty($show_msg_result[$val])) {
         $js_vars['DimpMessage.' . $val] = $show_msg_result[$val];
     }

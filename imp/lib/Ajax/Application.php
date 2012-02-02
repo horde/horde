@@ -1034,6 +1034,39 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     }
 
     /**
+     * AJAX action: Return a list of address objects used to build an address
+     * header for a message.
+     *
+     * See the list of variables needed for _changed() and
+     * _checkUidvalidity().  Additional variables used:
+     *   - header: (integer) If set, return preview data. Otherwise, return
+     *              full data.
+     *   - uid: (string) Index of the messages to display (IMAP sequence
+     *          string; mailbox is base64url encoded) - must be single index.
+     *
+     * @return mixed  On error will return null.
+     *                Otherwise an object with the following entries:
+     *   - hdr_data: (object) Contains header names as keys and lists of
+     *               address objects as values.
+     */
+    public function addressHeader()
+    {
+        $indices = new IMP_Indices_Form($this->_vars->uid);
+        list($mbox, $idx) = $indices->getSingle();
+
+        if (!$idx) {
+            throw new IMP_Exception(_("Requested message not found."));
+        }
+
+        $show_msg = new IMP_Views_ShowMessage($mbox, $idx);
+
+        $result = new stdClass;
+        $result->hdr_data = (object)$show_msg->getAddressHeader($this->_vars->header, null);
+
+        return $result;
+    }
+
+    /**
      * AJAX action: Convert HTML to text (compose data).
      *
      * Variables used:

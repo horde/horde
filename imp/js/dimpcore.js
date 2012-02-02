@@ -158,7 +158,7 @@ var DimpCore = {
     },
 
     /* Add dropdown menus to addresses. */
-    buildAddressLinks: function(alist, elt)
+    buildAddressLinks: function(alist, elt, limit)
     {
         var base, tmp,
             cnt = alist.size();
@@ -168,7 +168,10 @@ var DimpCore = {
             elt.insert(tmp);
             base = tmp.down('.dispaddrlist');
             tmp = tmp.down('.largeaddrlist');
-            tmp.setText(tmp.getText().replace('%d', cnt));
+            tmp.setText(tmp.getText().replace('%d', limit ? limit : cnt));
+            if (limit) {
+                base.down('.largeaddrlistlimit').show();
+            }
         } else {
             base = elt;
         }
@@ -191,6 +194,10 @@ var DimpCore = {
                 base.insert(', ');
             }
         }, this);
+
+        if (limit) {
+            base.insert(', [...]');
+        }
 
         return elt;
     },
@@ -248,10 +255,15 @@ var DimpCore = {
             if (elt.hasClassName('unblockImageLink')) {
                 IMP_JS.unblockImages(e);
             } else if (elt.hasClassName('largeaddrspan_active')) {
-                tmp = elt.down();
-                if (!tmp.next().visible() ||
-                    e.element().hasClassName('largeaddrlist')) {
-                    [ tmp.down(), tmp.down(1), tmp.next() ].invoke('toggle');
+                if (e.element().hasClassName('largeaddrlistlimit')) {
+                    e.element().hide();
+                    elt.up('TD').fire('DimpCore:updateAddressHeader');
+                } else {
+                    tmp = elt.down();
+                    if (!tmp.next().visible() ||
+                        e.element().hasClassName('largeaddrlist')) {
+                        [ tmp.down(), tmp.down(1), tmp.next() ].invoke('toggle');
+                    }
                 }
             } else if (elt.hasClassName('pgpVerifyMsg')) {
                 elt.replace(DIMP.text.verify);

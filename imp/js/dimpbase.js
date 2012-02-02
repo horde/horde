@@ -1604,7 +1604,6 @@ var DimpBase = {
         var bg, ppuid, tmp,
             pm = $('previewMsg'),
             r = resp.response.preview,
-            t = $('msgHeadersContent').down('THEAD'),
             vs = this.viewport.getSelection();
 
         bg = (!this.pp ||
@@ -1644,14 +1643,14 @@ var DimpBase = {
         [ $('msgHeadersColl').select('.date'), $('msgHeaderDate').select('.date') ].flatten().invoke('update', r.localdate);
 
         // Add from/to/cc/bcc headers
-        [ 'from', 'to', 'cc', 'bcc' ].each(function(a) {
-            if (r[a]) {
-                (a == 'from' ? pm.select('.' + a) : [ t.down('.' + a) ]).each(function(elt) {
-                    elt.replace(DimpCore.buildAddressLinks(r[a], elt.clone(false)));
-                });
+        [ 'from', 'to', 'cc', 'bcc' ].each(function(h) {
+            if (r[h]) {
+                this.updateHeader(h, r[h], r.addr_limit && r.addr_limit[h] ? r.addr_limit[h] : 0);
+                $('msgHeader' + h.capitalize()).show();
+            } else {
+                $('msgHeader' + h.capitalize()).hide();
             }
-            [ $('msgHeader' + a.capitalize()) ].invoke(r[a] ? 'show' : 'hide');
-        });
+        }, this);
 
         // Add attachment information
         if (r.atc_label) {
@@ -1717,6 +1716,35 @@ var DimpBase = {
             base.down('SPAN.mimePartInfoDescrip A').getText().gsub(':', '-') + ':' +
             window.location.origin + e.element().readAttribute('href')
         );
+    },
+
+    updateAddressHeader: function(e)
+    {
+        this.loadingImg('msg', true);
+        DimpCore.doAction('addressHeader', {
+            header: $w(e.element().className).first()
+        }, {
+            callback: this._updateAddressHeaderCallback.bind(this),
+            uids: this.viewport.createSelection('dataob', this.pp)
+        });
+    },
+
+    _updateAddressHeaderCallback: function(r)
+    {
+        var resp = r.response;
+
+        this.loadingImg('msg', false);
+
+        $H(r.response.hdr_data).each(function(d) {
+            this.updateHeader(d.key, d.value, 0);
+        }, this);
+    },
+
+    updateHeader: function(hdr, data, limit)
+    {
+        (hdr == 'from' ? $('previewMsg').select('.' + hdr) : [ $('msgHeadersContent').down('THEAD').down('.' + hdr) ]).each(function(elt) {
+            elt.replace(DimpCore.buildAddressLinks(data, elt.clone(false), limit));
+        });
     },
 
     _stripAttachmentCallback: function(r)
@@ -3811,3 +3839,6 @@ HordeCore.onException = HordeCore.onException.wrap(DimpBase.onAjaxException.bind
 
 /* Initialize onload handler. */
 document.observe('dom:loaded', DimpBase.onDomLoad.bind(DimpBase));
+
+/* DimpCore handlers. */
+document.observe('DimpCore:updateAddressHeader', DimpBase.updateAddressHeader.bindAsEventListener(DimpBase));

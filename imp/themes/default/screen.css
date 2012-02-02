@@ -586,12 +586,12 @@ span.spellcheckPopdownImg {
 }
 
 /* Large addresslist display. */
-.largeaddrlist {
+.largeaddrlist, .largeaddrlistlimit {
     cursor: pointer;
     background: #aaa;
     margin-right: 5px;
 }
-.largeaddrlist:hover {
+.largeaddrlist:hover, .largeaddrlistlimit:hover {
     text-decoration: underline;
 }
 

@@ -87,6 +87,8 @@ class IMP_Views_ShowMessage
      *   - preview: (boolean) Is this the preview view?
      *
      * @return array  Array with the following keys:
+     *   - addr_limit: Address field hit the limit; this indicates the total
+     *                 number of addresses.
      *   - atc_download: The download all link
      *   - atc_label: The label to use for Attachments
      *   - atc_list: The list (HTML code) of attachments
@@ -352,7 +354,7 @@ class IMP_Views_ShowMessage
      *
      * @return array  The address list used by DimpCore.buildAddressLinks().
      */
-    public function getAddressHeader($header, $limit = null)
+    public function getAddressHeader($header, $limit = 50)
     {
         $addrlist = ($header == 'reply-to')
             ? $this->_envelope->reply_to

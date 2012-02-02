@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Truncate large address lists (50+) by default in dynamic message views.
 * [mms] Fix regression where passphrase prompt would not appear for S/MIME encrypted messages.
 * [mms] Fix regression in verifying signed &amp; encrypted S/MIME messages (Bug #10947).
 * [mms] Fix reloading the folder list in the dynamic view (Bug #10769).
