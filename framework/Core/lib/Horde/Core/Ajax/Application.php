@@ -145,6 +145,22 @@ abstract class Horde_Core_Ajax_Application
     }
 
     /**
+     * Sends a notification to the browser indicating that the user's session
+     * has timed out.
+     */
+    public function sessionTimeout()
+    {
+        $msg = new stdClass;
+        $msg->message = strval($this->getSessionLogoutUrl());
+        $msg->type = 'horde.ajaxtimeout';
+
+        $response = new Horde_Core_Ajax_Response(new stdClass);
+        $response->notifications = array($msg);
+        $this->_send($response);
+        $response->sendAndExit('json');
+    }
+
+    /**
      * Logs the user off the Horde session.
      *
      * This needs to be done here (server), rather than on the browser,
