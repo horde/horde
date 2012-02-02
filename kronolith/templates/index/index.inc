@@ -102,7 +102,11 @@
     <input id="kronolithSearchButton" type="button" value="<?php echo _("Go") ?>" />
   </form>
 
-  <div id="kronolithMenuCalendars">
+  <div id="kronolithLoadingCalendars">
+    <?php echo _("Loading calendars...") ?>
+  </div>
+
+  <div id="kronolithMenuCalendars" style="display:none">
   <h3 id="kronolithCalendarsFirst">
     <?php if ($GLOBALS['registry']->getAuth() && !$prefs->isLocked('default_share')): ?>
     <a href="#" id="kronolithAddinternal" class="kronolithAdd" title="<?php echo _("New Calendar") ?>">+</a>

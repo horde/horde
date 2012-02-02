@@ -641,7 +641,7 @@ a#kronolithNotifications:hover {
 	padding: 1px 2px;
 	border: 0;
 }
-#kronolithMenuCalendars {
+#kronolithMenuCalendars, #kronolithLoadingCalendars {
     position: absolute;
     top: 245px;
     bottom: 0;

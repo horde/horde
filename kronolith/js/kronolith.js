@@ -6425,6 +6425,8 @@ KronolithCore = {
     {
         Kronolith.conf.calendars = r.response.calendars;
         this.updateCalendarList();
+        $('kronolithLoadingCalendars').hide();
+        $('kronolithMenuCalendars').show();
 
         /* Initialize the starting page. */
         var tmp = location.hash;
