@@ -1119,8 +1119,6 @@ class Horde_Crypt_Smime extends Horde_Crypt
                 break;
 
             default:
-                // Unknown
-                $result[] = array('UNKNOWN', dechex($data));
                 $data = '';
                 break;
             }
