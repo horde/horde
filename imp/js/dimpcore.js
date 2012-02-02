@@ -302,7 +302,7 @@ var DimpCore = {
             break;
 
         case 'ctx_contacts_add':
-            this.doAction('addContact', { name: baseelt.retrieve('personal'), email: baseelt.retrieve('email') }, {}, true);
+            this.doAction('addContact', { name: baseelt.retrieve('personal'), email: baseelt.retrieve('email') });
             break;
         }
     },
