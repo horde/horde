@@ -2,6 +2,8 @@
 v5.0.19-git
 -----------
 
+[mms] Fix regression where passphrase prompt would not appear for S/MIME
+      encrypted messages.
 [mms] Fix regression in verifying signed & encrypted S/MIME messages (Bug
       #10947).
 [mms] Fix reloading the folder list in the dynamic view (Bug #10769).
