@@ -520,10 +520,12 @@ var DimpCore = {
                     elt.replace(DIMP.text.verify);
                     DimpCore.reloadMessage({ pgp_verify_msg: 1 });
                     e.stop();
+                    return;
                 } else if (elt.hasClassName('smimeVerifyMsg')) {
                     elt.replace(DIMP.text.verify);
                     DimpCore.reloadMessage({ smime_verify_msg: 1 });
                     e.stop();
+                    return;
                 }
                 break;
             }
