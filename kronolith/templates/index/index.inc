@@ -147,6 +147,7 @@
   <div class="kronolithDialogInfo"><?php echo _("No items to display") ?></div>
   <div id="kronolithSharedTasklists" class="kronolithCalendars">
   </div>
+  <?php endif ?>
 
   <h3>
     <?php if ($registry->isAdmin()): ?>
@@ -157,7 +158,6 @@
   <div id="kronolithResourceCalendars" class="kronolithCalendars"></div>
 
   <div id="kronolithExternalCalendars"></div>
-  <?php endif ?>
 
   <h3>
     <a href="#" id="kronolithAddremote" class="kronolithAdd" title="<?php echo _("Add Remote Calendar") ?>">+</a>
