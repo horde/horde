@@ -37,12 +37,14 @@ class Horde_Support_TimerTest extends PHPUnit_Framework_TestCase
 
     /**
      * test getting the finish time before starting the timer
-     * @expectedException Exception
      */
     public function testNotStartedYetThrowsException()
     {
         $t = new Horde_Support_Timer();
-        $t->pop();
+        try {
+            $t->pop();
+            $this->fail('Expected Exception');
+        } catch (Exception $e) {}
     }
 
 }

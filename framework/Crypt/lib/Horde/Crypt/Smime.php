@@ -1,7 +1,6 @@
 <?php
 /**
- * Horde_Crypt_Smime:: provides a framework for Horde applications to
- * interact with the OpenSSL library and implement S/MIME.
+ * Library to interact with the OpenSSL library and implement S/MIME.
  *
  * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
  *
@@ -16,54 +15,6 @@
  */
 class Horde_Crypt_Smime extends Horde_Crypt
 {
-    /**
-     * Object Identifers to name array.
-     *
-     * @var array
-     */
-    protected $_oids = array(
-        '2.5.4.3' => 'CommonName',
-        '2.5.4.4' => 'Surname',
-        '2.5.4.6' => 'Country',
-        '2.5.4.7' => 'Location',
-        '2.5.4.8' => 'StateOrProvince',
-        '2.5.4.9' => 'StreetAddress',
-        '2.5.4.10' => 'Organisation',
-        '2.5.4.11' => 'OrganisationalUnit',
-        '2.5.4.12' => 'Title',
-        '2.5.4.20' => 'TelephoneNumber',
-        '2.5.4.42' => 'GivenName',
-
-        '2.5.29.14' => 'id-ce-subjectKeyIdentifier',
-
-        '2.5.29.14' => 'id-ce-subjectKeyIdentifier',
-        '2.5.29.15' => 'id-ce-keyUsage',
-        '2.5.29.17' => 'id-ce-subjectAltName',
-        '2.5.29.19' => 'id-ce-basicConstraints',
-        '2.5.29.31' => 'id-ce-CRLDistributionPoints',
-        '2.5.29.32' => 'id-ce-certificatePolicies',
-        '2.5.29.35' => 'id-ce-authorityKeyIdentifier',
-        '2.5.29.37' => 'id-ce-extKeyUsage',
-
-        '1.2.840.113549.1.9.1' => 'Email',
-        '1.2.840.113549.1.1.1' => 'RSAEncryption',
-        '1.2.840.113549.1.1.2' => 'md2WithRSAEncryption',
-        '1.2.840.113549.1.1.4' => 'md5withRSAEncryption',
-        '1.2.840.113549.1.1.5' => 'SHA-1WithRSAEncryption',
-        '1.2.840.10040.4.3' => 'id-dsa-with-sha-1',
-
-        '1.3.6.1.5.5.7.3.2' => 'id_kp_clientAuth',
-
-        '2.16.840.1.113730.1.1' => 'netscape-cert-type',
-        '2.16.840.1.113730.1.2' => 'netscape-base-url',
-        '2.16.840.1.113730.1.3' => 'netscape-revocation-url',
-        '2.16.840.1.113730.1.4' => 'netscape-ca-revocation-url',
-        '2.16.840.1.113730.1.7' => 'netscape-cert-renewal-url',
-        '2.16.840.1.113730.1.8' => 'netscape-ca-policy-url',
-        '2.16.840.1.113730.1.12' => 'netscape-ssl-server-name',
-        '2.16.840.1.113730.1.13' => 'netscape-comment',
-    );
-
     /**
      * Verify a passphrase for a given private key.
      *
@@ -482,649 +433,139 @@ class Horde_Crypt_Smime extends Horde_Crypt
     }
 
     /**
-     * Convert a PEM format certificate to readable HTML version
+     * Convert a PEM format certificate to readable HTML version.
      *
-     * @param string $cert   PEM format certificate
+     * @param string $cert   PEM format certificate.
      *
      * @return string  HTML detailing the certificate.
      */
     public function certToHTML($cert)
     {
-        /* Common Fields */
         $fieldnames = array(
-            'Email' => Horde_Crypt_Translation::t("Email Address"),
-            'CommonName' => Horde_Crypt_Translation::t("Common Name"),
-            'Organisation' => Horde_Crypt_Translation::t("Organisation"),
-            'OrganisationalUnit' => Horde_Crypt_Translation::t("Organisational Unit"),
-            'Country' => Horde_Crypt_Translation::t("Country"),
-            'StateOrProvince' => Horde_Crypt_Translation::t("State or Province"),
-            'Location' => Horde_Crypt_Translation::t("Location"),
-            'StreetAddress' => Horde_Crypt_Translation::t("Street Address"),
-            'TelephoneNumber' => Horde_Crypt_Translation::t("Telephone Number"),
-            'Surname' => Horde_Crypt_Translation::t("Surname"),
-            'GivenName' => Horde_Crypt_Translation::t("Given Name")
+            /* Common Fields */
+            'description' => Horde_Crypt_Translation::t("Description"),
+            'emailAddress' => Horde_Crypt_Translation::t("Email Address"),
+            'commonName' => Horde_Crypt_Translation::t("Common Name"),
+            'organizationName' => Horde_Crypt_Translation::t("Organisation"),
+            'organizationalUnitName' => Horde_Crypt_Translation::t("Organisational Unit"),
+            'countryName' => Horde_Crypt_Translation::t("Country"),
+            'stateOrProvinceName' => Horde_Crypt_Translation::t("State or Province"),
+            'localityName' => Horde_Crypt_Translation::t("Location"),
+            'streetAddress' => Horde_Crypt_Translation::t("Street Address"),
+            'telephoneNumber' => Horde_Crypt_Translation::t("Telephone Number"),
+            'surname' => Horde_Crypt_Translation::t("Surname"),
+            'givenName' => Horde_Crypt_Translation::t("Given Name"),
+
+            /* X590v3 Extensions */
+            'exendedtKeyUsage' => Horde_Crypt_Translation::t("X509v3 Extended Key Usage"),
+            'basicConstraints' => Horde_Crypt_Translation::t("X509v3 Basic Constraints"),
+            'subjectAltName' => Horde_Crypt_Translation::t("X509v3 Subject Alternative Name"),
+            'subjectKeyIdentifier' => Horde_Crypt_Translation::t("X509v3 Subject Key Identifier"),
+            'certificatePolicies' => Horde_Crypt_Translation::t("Certificate Policies"),
+            'crlDistributionPoints' => Horde_Crypt_Translation::t("CRL Distribution Points"),
+            'keyUsage' => Horde_Crypt_Translation::t("Key Usage")
         );
 
-        /* Netscape Extensions */
-        $fieldnames += array(
-            'netscape-cert-type' => Horde_Crypt_Translation::t("Netscape certificate type"),
-            'netscape-base-url' => Horde_Crypt_Translation::t("Netscape Base URL"),
-            'netscape-revocation-url' => Horde_Crypt_Translation::t("Netscape Revocation URL"),
-            'netscape-ca-revocation-url' => Horde_Crypt_Translation::t("Netscape CA Revocation URL"),
-            'netscape-cert-renewal-url' => Horde_Crypt_Translation::t("Netscape Renewal URL"),
-            'netscape-ca-policy-url' => Horde_Crypt_Translation::t("Netscape CA policy URL"),
-            'netscape-ssl-server-name' => Horde_Crypt_Translation::t("Netscape SSL server name"),
-            'netscape-comment' => Horde_Crypt_Translation::t("Netscape certificate comment")
-        );
-
-        /* X590v3 Extensions */
-        $fieldnames += array(
-            'id-ce-extKeyUsage' => Horde_Crypt_Translation::t("X509v3 Extended Key Usage"),
-            'id-ce-basicConstraints' => Horde_Crypt_Translation::t("X509v3 Basic Constraints"),
-            'id-ce-subjectAltName' => Horde_Crypt_Translation::t("X509v3 Subject Alternative Name"),
-            'id-ce-subjectKeyIdentifier' => Horde_Crypt_Translation::t("X509v3 Subject Key Identifier"),
-            'id-ce-certificatePolicies' => Horde_Crypt_Translation::t("Certificate Policies"),
-            'id-ce-CRLDistributionPoints' => Horde_Crypt_Translation::t("CRL Distribution Points"),
-            'id-ce-keyUsage' => Horde_Crypt_Translation::t("Key Usage")
-        );
-
-        $cert_details = $this->parseCert($cert);
-        if (!is_array($cert_details)) {
-            return '<pre class="fixed">' . Horde_Crypt_Translation::t("Unable to extract certificate details") . '</pre>';
-        }
-        $certificate = $cert_details['certificate'];
+        $details = $this->parseCert($cert);
 
         $text = '<pre class="fixed">';
 
         /* Subject (a/k/a Certificate Owner) */
-        if (isset($certificate['subject'])) {
-            $text .= "<strong>" . Horde_Crypt_Translation::t("Certificate Owner") . ":</strong>\n";
+        $text .= "<strong>" . Horde_Crypt_Translation::t("Certificate Owner") . ":</strong>\n";
 
-            foreach ($certificate['subject'] as $key => $value) {
-                if (isset($fieldnames[$key])) {
-                    $text .= sprintf("&nbsp;&nbsp;%s: %s\n", $fieldnames[$key], $value);
-                } else {
-                    $text .= sprintf("&nbsp;&nbsp;*%s: %s\n", $key, $value);
-                }
-            }
-            $text .= "\n";
+        foreach ($details['subject'] as $key => $value) {
+            $text .= isset($fieldnames[$key])
+                ? sprintf("&nbsp;&nbsp;%s: %s\n", $fieldnames[$key], $value)
+                : sprintf("&nbsp;&nbsp;*%s: %s\n", $key, $value);
         }
+        $text .= "\n";
 
         /* Issuer */
-        if (isset($certificate['issuer'])) {
-            $text .= "<strong>" . Horde_Crypt_Translation::t("Issuer") . ":</strong>\n";
+        $text .= "<strong>" . Horde_Crypt_Translation::t("Issuer") . ":</strong>\n";
 
-            foreach ($certificate['issuer'] as $key => $value) {
-                if (isset($fieldnames[$key])) {
-                    $text .= sprintf("&nbsp;&nbsp;%s: %s\n", $fieldnames[$key], $value);
-                } else {
-                    $text .= sprintf("&nbsp;&nbsp;*%s: %s\n", $key, $value);
-                }
-            }
-            $text .= "\n";
+        foreach ($details['issuer'] as $key => $value) {
+            $text .= isset($fieldnames[$key])
+                ? sprintf("&nbsp;&nbsp;%s: %s\n", $fieldnames[$key], $value)
+                : sprintf("&nbsp;&nbsp;*%s: %s\n", $key, $value);
         }
+        $text .= "\n";
 
         /* Dates  */
-        $text .= "<strong>" . Horde_Crypt_Translation::t("Validity") . ":</strong>\n";
-        $text .= sprintf("&nbsp;&nbsp;%s: %s\n", Horde_Crypt_Translation::t("Not Before"), strftime("%x %X", $certificate['validity']['notbefore']));
-        $text .= sprintf("&nbsp;&nbsp;%s: %s\n", Horde_Crypt_Translation::t("Not After"), strftime("%x %X", $certificate['validity']['notafter']));
-        $text .= "\n";
-
-        /* Certificate Owner - Public Key Info */
-        $text .= "<strong>" . Horde_Crypt_Translation::t("Public Key Info") . ":</strong>\n";
-        $text .= sprintf("&nbsp;&nbsp;%s: %s\n", Horde_Crypt_Translation::t("Public Key Algorithm"), $certificate['subjectPublicKeyInfo']['algorithm']);
-        if ($certificate['subjectPublicKeyInfo']['algorithm'] == 'rsaEncryption') {
-            if (Horde_Util::extensionExists('bcmath')) {
-                $modulus = $certificate['subjectPublicKeyInfo']['subjectPublicKey']['modulus'];
-                $modulus_hex = '';
-                while ($modulus != '0') {
-                    $modulus_hex = dechex(bcmod($modulus, '16')) . $modulus_hex;
-                    $modulus = bcdiv($modulus, '16', 0);
-                }
-
-                if ((strlen($modulus_hex) > 64) &&
-                    (strlen($modulus_hex) < 128)) {
-                    str_pad($modulus_hex, 128, '0', STR_PAD_RIGHT);
-                } elseif ((strlen($modulus_hex) > 128) &&
-                          (strlen($modulus_hex) < 256)) {
-                    str_pad($modulus_hex, 256, '0', STR_PAD_RIGHT);
-                }
-
-                $text .= "&nbsp;&nbsp;" . sprintf(Horde_Crypt_Translation::t("RSA Public Key (%d bit)"), strlen($modulus_hex) * 4) . ":\n";
-
-                $modulus_str = '';
-
-                for ($i = 0, $m_len = strlen($modulus_hex); $i < $m_len; $i += 2) {
-                    if (($i % 32) == 0) {
-                        $modulus_str .= "\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-                    }
-                    $modulus_str .= substr($modulus_hex, $i, 2) . ':';
-                }
-
-                $text .= sprintf("&nbsp;&nbsp;&nbsp;&nbsp;%s: %s\n", Horde_Crypt_Translation::t("Modulus"), $modulus_str);
-            }
-
-            $text .= sprintf("&nbsp;&nbsp;&nbsp;&nbsp;%s: %s\n", Horde_Crypt_Translation::t("Exponent"), $certificate['subjectPublicKeyInfo']['subjectPublicKey']['publicExponent']);
-        }
-        $text .= "\n";
+        $text .= "<strong>" . Horde_Crypt_Translation::t("Validity") . ":</strong>\n" .
+            sprintf("&nbsp;&nbsp;%s: %s\n", Horde_Crypt_Translation::t("Not Before"), strftime("%x %X", $details['validity']['notbefore']->getTimestamp())) .
+            sprintf("&nbsp;&nbsp;%s: %s\n", Horde_Crypt_Translation::t("Not After"), strftime("%x %X", $details['validity']['notafter']->getTimestamp())) .
+            "\n";
 
         /* X509v3 extensions */
-        if (isset($certificate['extensions'])) {
+        if (!empty($details['extensions'])) {
             $text .= "<strong>" . Horde_Crypt_Translation::t("X509v3 extensions") . ":</strong>\n";
 
-            foreach ($certificate['extensions'] as $key => $value) {
-                if (is_array($value)) {
-                    $value = Horde_Crypt_Translation::t("Unsupported Extension");
-                }
-                if (isset($fieldnames[$key])) {
-                    $text .= sprintf("&nbsp;&nbsp;%s:\n&nbsp;&nbsp;&nbsp;&nbsp;%s\n", $fieldnames[$key], wordwrap($value, 40, "\n&nbsp;&nbsp;&nbsp;&nbsp;"));
-                } else {
-                    $text .= sprintf("&nbsp;&nbsp;%s:\n&nbsp;&nbsp;&nbsp;&nbsp;%s\n", $key, wordwrap($value, 60, "\n&nbsp;&nbsp;&nbsp;&nbsp;"));
-                }
+            foreach ($details['extensions'] as $key => $value) {
+                $text .= isset($fieldnames[$key])
+                    ? sprintf("&nbsp;&nbsp;%s:\n&nbsp;&nbsp;&nbsp;&nbsp;%s\n", $fieldnames[$key], trim($value))
+                    : sprintf("&nbsp;&nbsp;*%s:\n&nbsp;&nbsp;&nbsp;&nbsp;%s\n", $key, trim($value));
             }
 
             $text .= "\n";
         }
 
         /* Certificate Details */
-        $text .= "<strong>" . Horde_Crypt_Translation::t("Certificate Details") . ":</strong>\n";
-        $text .= sprintf("&nbsp;&nbsp;%s: %d\n", Horde_Crypt_Translation::t("Version"), $certificate['version']);
-        $text .= sprintf("&nbsp;&nbsp;%s: %d\n", Horde_Crypt_Translation::t("Serial Number"), $certificate['serialNumber']);
+        $text .= "<strong>" . Horde_Crypt_Translation::t("Certificate Details") . ":</strong>\n" .
+            sprintf("&nbsp;&nbsp;%s: %d\n", Horde_Crypt_Translation::t("Version"), $details['version']) .
+            sprintf("&nbsp;&nbsp;%s: %d\n", Horde_Crypt_Translation::t("Serial Number"), $details['serialNumber']);
 
-        foreach ($cert_details['fingerprints'] as $hash => $fingerprint) {
-            $label = sprintf(Horde_Crypt_Translation::t("%s Fingerprint"), Horde_String::upper($hash));
-            $text .= sprintf("&nbsp;&nbsp;%s:\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%s\n", $label, rtrim(chunk_split($fingerprint, 2, ':'), ':'));
-        }
-        $text .= sprintf("&nbsp;&nbsp;%s: %s\n", Horde_Crypt_Translation::t("Signature Algorithm"), $cert_details['signatureAlgorithm']);
-        $text .= sprintf("&nbsp;&nbsp;%s:", Horde_Crypt_Translation::t("Signature"));
-
-        $sig_str = '';
-        for ($i = 0, $s_len = strlen($cert_details['signature']); $i < $s_len; ++$i) {
-            if (($i % 16) == 0) {
-                $sig_str .= "\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-            }
-            $sig_str .= sprintf("%02x:", ord($cert_details['signature'][$i]));
-        }
-
-        return $text . $sig_str . "\n</pre>";
+        return $text . "\n</pre>";
     }
 
     /**
      * Extract the contents of a PEM format certificate to an array.
      *
-     * @param string $cert  PEM format certificate
+     * @param string $cert  PEM format certificate.
      *
-     * @return mixed  Array containing all extractable information about
-     *                the certificate. Returns false on error.
+     * @return array  All extractable information about the certificate.
      */
     public function parseCert($cert)
     {
-        $cert_split = preg_split('/(-----((BEGIN)|(END)) CERTIFICATE-----)/', $cert);
-        $raw_cert = base64_decode(isset($cert_split[1]) ? $cert_split[1] : $cert);
+        $data = openssl_x509_parse($cert, false);
 
-        $cert_data = $this->_parseASN($raw_cert);
-        if (!is_array($cert_data) ||
-            ($cert_data[0] == 'UNKNOWN') ||
-            ($cert_data[1][0] == 'UNKNOWN') ||
-            /* Bug #8751: Check for required number of fields. The ASN
-             * parsing code doesn't seem to be able to handle v1 data - it
-             * combines the version and serial number fields.
-             * openssl_x509_parse() works, but doesn't have a stable API.
-             * Since v1 is such an old standard anyway, best just to abort
-             * here. */
-            !isset($cert_data[1][0][1][6])) {
-            return false;
-        }
-
-        $cert_details = array(
-            'fingerprints' => array(
-                'md5' => hash('md5', $raw_cert),
-                'sha-1' => hash('sha1', $raw_cert)
+        $details = array(
+            'extensions' => $data['extensions'],
+            'issuer' => $data['issuer'],
+            'serialNumber' => $data['serialNumber'],
+            'subject' => $data['subject'],
+            'validity' => array(
+                'notafter' => new DateTime('@' . $data['validTo_time_t']),
+                'notbefore' => new DateTime('@' . $data['validFrom_time_t'])
             ),
-            'certificate' => array(
-                'extensions' => array(),
-                'version' => $cert_data[1][0][1][0][1] + 1,
-                'serialNumber' => $cert_data[1][0][1][1][1],
-                'signature' => $cert_data[1][0][1][2][1][0][1],
-                'issuer' => $cert_data[1][0][1][3][1],
-                'validity' => $cert_data[1][0][1][4][1],
-                'subject' => @$cert_data[1][0][1][5][1],
-                'subjectPublicKeyInfo' => $cert_data[1][0][1][6][1]
-            ),
-            'signatureAlgorithm' => $cert_data[1][1][1][0][1],
-            'signature' => $cert_data[1][2][1]
+            'version' => $data['version']
         );
 
-        // issuer
-        $issuer = array();
-        foreach ($cert_details['certificate']['issuer'] as $value) {
-            $issuer[$value[1][1][0][1]] = $value[1][1][1][1];
-        }
-        $cert_details['certificate']['issuer'] = $issuer;
+        // Add additional fields for BC purposes.
+        $details['certificate'] = $details;
 
-        // subject
-        $subject = array();
-        foreach ($cert_details['certificate']['subject'] as $value) {
-            $subject[$value[1][1][0][1]] = $value[1][1][1][1];
-        }
-        $cert_details['certificate']['subject'] = $subject;
-
-        // validity
-        $vals = $cert_details['certificate']['validity'];
-        $cert_details['certificate']['validity'] = array();
-        $cert_details['certificate']['validity']['notbefore'] = $vals[0][1];
-        $cert_details['certificate']['validity']['notafter'] = $vals[1][1];
-        foreach ($cert_details['certificate']['validity'] as $key => $val) {
-            $year = substr($val, 0, 2);
-            $month = substr($val, 2, 2);
-            $day = substr($val, 4, 2);
-            $hour = substr($val, 6, 2);
-            $minute = substr($val, 8, 2);
-            if (($val[11] == '-') || ($val[9] == '+')) {
-                // handle time zone offset here
-                $seconds = 0;
-            } elseif (Horde_String::upper($val[11]) == 'Z') {
-                $seconds = 0;
-            } else {
-                $seconds = substr($val, 10, 2);
-                if (($val[11] == '-') || ($val[9] == '+')) {
-                    // TODO: handle time zone offset here
+        $bc_changes = array(
+            'emailAddress' => 'Email',
+            'commonName' => 'CommonName',
+            'organizationName' => 'Organisation',
+            'organizationalUnitName' => 'OrganisationalUnit',
+            'countryName' => 'Country',
+            'stateOrProvinceName' => 'StateOrProvince',
+            'localityName' => 'Location',
+            'streetAddress' => 'StreetAddress',
+            'telephoneNumber' => 'TelephoneNumber',
+            'surname' => 'Surname',
+            'givenName' => 'GivenName'
+        );
+        foreach (array('issuer', 'subject') as $val) {
+            foreach (array_keys($details[$val]) as $key) {
+                if (isset($bc_changes[$key])) {
+                    $details['certificate'][$val][$bc_changes[$key]] = $details[$val][$key];
+                    unset($details['certificate'][$val][$key]);
                 }
             }
-            $cert_details['certificate']['validity'][$key] = mktime ($hour, $minute, $seconds, $month, $day, $year);
         }
 
-        // Split the Public Key into components.
-        $subjectPublicKeyInfo = array();
-        $subjectPublicKeyInfo['algorithm'] = $cert_details['certificate']['subjectPublicKeyInfo'][0][1][0][1];
-        if ($subjectPublicKeyInfo['algorithm'] == 'rsaEncryption') {
-            $subjectPublicKey = $this->_parseASN($cert_details['certificate']['subjectPublicKeyInfo'][1][1]);
-            $subjectPublicKeyInfo['subjectPublicKey']['modulus'] = $subjectPublicKey[1][0][1];
-            $subjectPublicKeyInfo['subjectPublicKey']['publicExponent'] = $subjectPublicKey[1][1][1];
-        }
-        $cert_details['certificate']['subjectPublicKeyInfo'] = $subjectPublicKeyInfo;
-
-        if (isset($cert_data[1][0][1][7]) &&
-            is_array($cert_data[1][0][1][7][1])) {
-            foreach ($cert_data[1][0][1][7][1] as $ext) {
-                $oid = $ext[1][0][1];
-                $cert_details['certificate']['extensions'][$oid] = $ext[1][1];
-            }
-        }
-
-        $i = 9;
-
-        while (isset($cert_data[1][0][1][$i]) &&
-               is_array($cert_data[1][0][1][$i][1])) {
-            $oid = $cert_data[1][0][1][$i][1][0][1];
-            $cert_details['certificate']['extensions'][$oid] = $cert_data[1][0][1][$i][1][1];
-            ++$i;
-        }
-
-        foreach ($cert_details['certificate']['extensions'] as $oid => $val) {
-            switch ($oid) {
-            case 'netscape-base-url':
-            case 'netscape-revocation-url':
-            case 'netscape-ca-revocation-url':
-            case 'netscape-cert-renewal-url':
-            case 'netscape-ca-policy-url':
-            case 'netscape-ssl-server-name':
-            case 'netscape-comment':
-                $val = $this->_parseASN($val[1]);
-                $cert_details['certificate']['extensions'][$oid] = $val[1];
-                break;
-
-            case 'id-ce-subjectAltName':
-                $val = $this->_parseASN($val[1]);
-                $cert_details['certificate']['extensions'][$oid] = '';
-                foreach ($val[1] as $name) {
-                    if (!empty($cert_details['certificate']['extensions'][$oid])) {
-                        $cert_details['certificate']['extensions'][$oid] .= ', ';
-                    }
-                    $cert_details['certificate']['extensions'][$oid] .= $name[1];
-                }
-                break;
-
-            case 'netscape-cert-type':
-                $val = $this->_parseASN($val[1]);
-                $val = ord($val[1]);
-                $newVal = '';
-
-                if ($val & 0x80) {
-                    $newVal .= empty($newVal) ? 'SSL client' : ', SSL client';
-                }
-                if ($val & 0x40) {
-                    $newVal .= empty($newVal) ? 'SSL server' : ', SSL server';
-                }
-                if ($val & 0x20) {
-                    $newVal .= empty($newVal) ? 'S/MIME' : ', S/MIME';
-                }
-                if ($val & 0x10) {
-                    $newVal .= empty($newVal) ? 'Object Signing' : ', Object Signing';
-                }
-                if ($val & 0x04) {
-                    $newVal .= empty($newVal) ? 'SSL CA' : ', SSL CA';
-                }
-                if ($val & 0x02) {
-                    $newVal .= empty($newVal) ? 'S/MIME CA' : ', S/MIME CA';
-                }
-                if ($val & 0x01) {
-                    $newVal .= empty($newVal) ? 'Object Signing CA' : ', Object Signing CA';
-                }
-
-                $cert_details['certificate']['extensions'][$oid] = $newVal;
-                break;
-
-            case 'id-ce-extKeyUsage':
-                $val = $this->_parseASN($val[1]);
-                $val = $val[1];
-
-                $newVal = '';
-                if ($val[0][1] != 'sequence') {
-                    $val = array($val);
-                } else {
-                    $val = $val[1][1];
-                }
-                foreach ($val as $usage) {
-                    if ($usage[1] == 'id_kp_clientAuth') {
-                        $newVal .= empty($newVal) ? 'TLS Web Client Authentication' : ', TLS Web Client Authentication';
-                    } else {
-                        $newVal .= empty($newVal) ? $usage[1] : ', ' . $usage[1];
-                    }
-                }
-                $cert_details['certificate']['extensions'][$oid] = $newVal;
-                break;
-
-            case 'id-ce-subjectKeyIdentifier':
-                $val = $this->_parseASN($val[1]);
-                $val = $val[1];
-
-                $newVal = '';
-
-                for ($i = 0, $v_len = strlen($val); $i < $v_len; ++$i) {
-                    $newVal .= sprintf("%02x:", ord($val[$i]));
-                }
-                $cert_details['certificate']['extensions'][$oid] = $newVal;
-                break;
-
-            case 'id-ce-authorityKeyIdentifier':
-                $val = $this->_parseASN($val[1]);
-                if ($val[0] == 'string') {
-                    $val = $val[1];
-
-                    $newVal = '';
-                    for ($i = 0, $v_len = strlen($val); $i < $v_len; ++$i) {
-                        $newVal .= sprintf("%02x:", ord($val[$i]));
-                    }
-                    $cert_details['certificate']['extensions'][$oid] = $newVal;
-                } else {
-                    $cert_details['certificate']['extensions'][$oid] = Horde_Crypt_Translation::t("Unsupported Extension");
-                }
-                break;
-
-            case 'id-ce-basicConstraints':
-            case 'default':
-                $cert_details['certificate']['extensions'][$oid] = Horde_Crypt_Translation::t("Unsupported Extension");
-                break;
-            }
-        }
-
-        return $cert_details;
-    }
-
-    /**
-     * Attempt to parse ASN.1 formated data.
-     *
-     * @param string $data  ASN.1 formated data
-     *
-     * @return array  Array contained the extracted values.
-     */
-    protected function _parseASN($data)
-    {
-        $result = array();
-
-        while (strlen($data) > 1) {
-            $class = ord($data[0]);
-            switch ($class) {
-            case 0x30:
-                // Sequence
-                $len = ord($data[1]);
-                $bytes = 0;
-                if ($len & 0x80) {
-                    $bytes = $len & 0x0f;
-                    $len = 0;
-                    for ($i = 0; $i < $bytes; $i++) {
-                        $len = ($len << 8) | ord($data[$i + 2]);
-                    }
-                }
-                $sequence_data = substr($data, 2 + $bytes, $len);
-                $data = substr($data, 2 + $bytes + $len);
-
-                $values = $this->_parseASN($sequence_data);
-                if (!is_array($values) || is_string($values[0])) {
-                    $values = array($values);
-                }
-                $sequence_values = array();
-                $i = 0;
-                foreach ($values as $val) {
-                    if ($val[0] == 'extension') {
-                        $sequence_values['extensions'][] = $val;
-                    } else {
-                        $sequence_values[$i++] = $val;
-                    }
-                }
-                $result[] = array('sequence', $sequence_values);
-                break;
-
-            case 0x31:
-                // Set of
-                $len = ord($data[1]);
-                $bytes = 0;
-                if ($len & 0x80) {
-                    $bytes = $len & 0x0f;
-                    $len = 0;
-                    for ($i = 0; $i < $bytes; $i++) {
-                        $len = ($len << 8) | ord($data[$i + 2]);
-                    }
-                }
-                $sequence_data = substr($data, 2 + $bytes, $len);
-                $data = substr($data, 2 + $bytes + $len);
-                $result[] = array('set', $this->_parseASN($sequence_data));
-                break;
-
-            case 0x01:
-                // Boolean type
-                $boolean_value = (ord($data[2]) == 0xff);
-                $data = substr($data, 3);
-                $result[] = array('boolean', $boolean_value);
-                break;
-
-            case 0x02:
-                // Integer type
-                $len = ord($data[1]);
-                $integer_data = substr($data, 2, $len);
-                $data = substr($data, 2 + $len);
-
-                $value = 0;
-                if ($len <= 4) {
-                    /* Method works fine for small integers */
-                    for ($i = 0, $i_len = strlen($integer_data); $i < $i_len; ++$i) {
-                        $value = ($value << 8) | ord($integer_data[$i]);
-                    }
-                } else {
-                    /* Method works for arbitrary length integers */
-                    if (Horde_Util::extensionExists('bcmath')) {
-                        for ($i = 0, $i_len = strlen($integer_data); $i < $i_len; ++$i) {
-                            $value = bcadd(bcmul($value, 256), ord($integer_data[$i]));
-                        }
-                    } else {
-                        $value = -1;
-                    }
-                }
-                $result[] = array('integer(' . $len . ')', $value);
-                break;
-
-            case 0x03:
-                // Bitstring type
-                $len = ord($data[1]);
-                $bytes = 0;
-                if ($len & 0x80) {
-                    $bytes = $len & 0x0f;
-                    $len = 0;
-                    for ($i = 0; $i < $bytes; $i++) {
-                        $len = ($len << 8) | ord($data[$i + 2]);
-                    }
-                }
-                $bitstring_data = substr($data, 3 + $bytes, $len);
-                $data = substr($data, 2 + $bytes + $len);
-                $result[] = array('bit string', $bitstring_data);
-                break;
-
-            case 0x04:
-                // Octetstring type
-                $len = ord($data[1]);
-                $bytes = 0;
-                if ($len & 0x80) {
-                    $bytes = $len & 0x0f;
-                    $len = 0;
-                    for ($i = 0; $i < $bytes; $i++) {
-                        $len = ($len << 8) | ord($data[$i + 2]);
-                    }
-                }
-                $octectstring_data = substr($data, 2 + $bytes, $len);
-                $data = substr($data, 2 + $bytes + $len);
-                $result[] = array('octet string', $octectstring_data);
-                break;
-
-            case 0x05:
-                // Null type
-                $data = substr($data, 2);
-                $result[] = array('null', null);
-                break;
-
-            case 0x06:
-                // Object identifier type
-                $len = ord($data[1]);
-                $bytes = 0;
-                if ($len & 0x80) {
-                    $bytes = $len & 0x0f;
-                    $len = 0;
-                    for ($i = 0; $i < $bytes; $i++) {
-                        $len = ($len << 8) | ord($data[$i + 2]);
-                    }
-                }
-                $oid_data = substr($data, 2 + $bytes, $len);
-                $data = substr($data, 2 + $bytes + $len);
-
-                // Unpack the OID
-                $plain  = floor(ord($oid_data[0]) / 40);
-                $plain .= '.' . ord($oid_data[0]) % 40;
-
-                $value = 0;
-                $i = 1;
-                $o_len = strlen($oid_data);
-
-                while ($i < $o_len) {
-                    $value = $value << 7;
-                    $value = $value | (ord($oid_data[$i]) & 0x7f);
-
-                    if (!(ord($oid_data[$i]) & 0x80)) {
-                        $plain .= '.' . $value;
-                        $value = 0;
-                    }
-                    $i++;
-                }
-
-                if (isset($this->_oids[$plain])) {
-                    $result[] = array('oid', $this->_oids[$plain]);
-                } else {
-                    $result[] = array('oid', $plain);
-                }
-
-                break;
-
-            case 0x12:
-            case 0x13:
-            case 0x14:
-            case 0x15:
-            case 0x16:
-            case 0x81:
-            case 0x80:
-                // Character string type
-                $len = ord($data[1]);
-                $bytes = 0;
-                if ($len & 0x80) {
-                    $bytes = $len & 0x0f;
-                    $len = 0;
-                    for ($i = 0; $i < $bytes; $i++) {
-                        $len = ($len << 8) | ord($data[$i + 2]);
-                    }
-                }
-                $string_data = substr($data, 2 + $bytes, $len);
-                $data = substr($data, 2 + $bytes + $len);
-                $result[] = array('string', $string_data);
-                break;
-
-            case 0x17:
-                // Time types
-                $len = ord($data[1]);
-                $bytes = 0;
-                if ($len & 0x80) {
-                    $bytes = $len & 0x0f;
-                    $len = 0;
-                    for ($i = 0; $i < $bytes; $i++) {
-                        $len = ($len << 8) | ord($data[$i + 2]);
-                    }
-                }
-                $time_data = substr($data, 2 + $bytes, $len);
-                $data = substr($data, 2 + $bytes + $len);
-                $result[] = array('utctime', $time_data);
-                break;
-
-            case 0x82:
-                // X509v3 extensions?
-                $len = ord($data[1]);
-                $bytes = 0;
-                if ($len & 0x80) {
-                    $bytes = $len & 0x0f;
-                    $len = 0;
-                    for ($i = 0; $i < $bytes; $i++) {
-                        $len = ($len << 8) | ord($data[$i + 2]);
-                    }
-                }
-                $sequence_data = substr($data, 2 + $bytes, $len);
-                $data = substr($data, 2 + $bytes + $len);
-                $result[] = array('extension', 'X509v3 extensions');
-                $result[] = $this->_parseASN($sequence_data);
-                break;
-
-            case 0xa0:
-            case 0xa3:
-                // Extensions
-                $extension_data = substr($data, 0, 2);
-                $data = substr($data, 2);
-                $result[] = array('extension', dechex($extension_data));
-                break;
-
-            case 0xe6:
-                $extension_data = substr($data, 0, 1);
-                $data = substr($data, 1);
-                $result[] = array('extension', dechex($extension_data));
-                break;
-
-            case 0xa1:
-                $extension_data = substr($data, 0, 1);
-                $data = substr($data, 6);
-                $result[] = array('extension', dechex($extension_data));
-                break;
-
-            default:
-                $data = '';
-                break;
-            }
-        }
-
-        return (count($result) > 1) ? $result : array_pop($result);
+        return $details;
     }
 
     /**
