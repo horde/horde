@@ -113,7 +113,9 @@ var DimpCompose = {
             opts: opts
         };
 
-        $(opts.label).insert({ after: new Element('SPAN', { className: 'iconImg popdownImg' }).observe('click', function(e) { if (!this.disabled) { this.knl[id].knl.show(); this.knl[id].knl.ignoreClick(e); e.stop(); } }.bindAsEventListener(this)) });
+        $(opts.label).insert({ after:
+            new Element('SPAN', { className: 'iconImg popdownImg dimpOptionPopdown' }).store('popdown_id', id)
+        });
     },
 
     setPopdownLabel: function(id, s, l)
@@ -917,7 +919,7 @@ var DimpCompose = {
 
         var elt = e.element(),
             orig = elt,
-            atc_num, id;
+            atc_num, id, tmp;
 
         while (Object.isElement(elt)) {
             id = elt.readAttribute('id');
@@ -1025,6 +1027,16 @@ var DimpCompose = {
                 DimpCore.doAction('getReplyData', { headeronly: 1, imp_compose: $F('composeCache'), type: 'reply' }, { callback: this.swapToAddressCallback.bind(this) });
                 e.stop();
                 return;
+
+            case 'writemsg':
+                if (!this.disabled &&
+                    e.element().hasClassName('dimpOptionPopdown')) {
+                    tmp = e.element().retrieve('popdown_id');
+                    this.knl[tmp].knl.show();
+                    this.knl[tmp].knl.ignoreClick(e);
+                    e.stop();
+                }
+                break;
             }
 
             elt = elt.up();
