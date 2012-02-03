@@ -48,6 +48,7 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
     {
         Kronolith::initialize();
         $result = new stdClass;
+        $auth_name = $GLOBALS['registry']->getAuth();
 
         // Calendars. Do some twisting to sort own calendar before shared
         // calendars.
