@@ -2,6 +2,8 @@
 v3.0.12-git
 -----------
 
+[jan] Fix SyncML compatibility with work/home phone numbers and newer Funambol
+      clients (Bug #10912).
 [mjr] Implement more flexible ActiveSync synchronization of names and
       addresses.
 [jan] Fix address book sorting in preferences (Bug #10897).
