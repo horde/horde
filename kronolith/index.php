@@ -7,7 +7,7 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-Horde_Registry::appInit('kronolith');
+Horde_Registry::appInit('kronolith', array('nodynamicinit' => true));
 
 /* Determine View */
 switch ($registry->getView()) {

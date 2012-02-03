@@ -76,8 +76,9 @@ class Kronolith_Application extends Horde_Registry_Application
 
         $GLOBALS['linkTags'] = array();
 
-        Kronolith::initialize();
-        if ($GLOBALS['registry']->getView() != Horde_Registry::VIEW_DYNAMIC) {
+        if ($GLOBALS['registry']->getView() != Horde_Registry::VIEW_DYNAMIC ||
+            empty($this->initParams['nodynamicinit'])) {
+            Kronolith::initialize();
             foreach ($GLOBALS['display_calendars'] as $calendar) {
                 $GLOBALS['linkTags'][] = '<link href="' . Kronolith::feedUrl($calendar) . '" rel="alternate" type="application/atom+xml" />';
             }
