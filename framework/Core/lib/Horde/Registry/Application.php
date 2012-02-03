@@ -184,7 +184,7 @@ class Horde_Registry_Application
      */
     public function listAlarms($time, $user = null)
     {
-        return array(false);
+        return false;
     }
 
 

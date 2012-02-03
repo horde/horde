@@ -141,8 +141,8 @@ class Horde_Core_Factory_Alarm extends Horde_Core_Factory_Base
                 : time();
 
             try {
-                foreach ($registry->callAppMethod($app, 'listAlarms', array('args' => array($time, $user), 'noperms' => true)) as $alarm) {
-                    if ($alarm !== false) {
+                if (($alarm_list = $registry->callAppMethod($app, 'listAlarms', array('args' => array($time, $user), 'noperms' => true))) !== false) {
+                    foreach ($alarm_list as $alarm) {
                         $this->_alarm->set($alarm, true);
                         $save[] = $app;
                     }
