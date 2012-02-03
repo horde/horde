@@ -19,10 +19,10 @@
     </case>
     <case name="false" desc="No" />
    </configswitch>
+   <configboolean name="allow_view_source" desc="If true, there will be a
+   link when viewing a message allowing the user to view the raw contents of
+   the message.">true</configboolean>
   </configsection>
-  <configboolean name="allow_view_source" desc="If true, there will be a
-  link when viewing a message allowing the user to view the raw contents of
-  the message.">true</configboolean>
  </configtab>
 
  <configtab name="server" desc="Server">
