@@ -297,7 +297,7 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
         $return = array();
         foreach ($params as $field => $value) {
             if ($field == 'resource_name' || $field == 'resource_description') {
-               $value = $this->convertFromDriver($value);
+                $value = $this->convertFromDriver($value);
             } elseif ($field == 'resource_members') {
                 $value = @unserialize($value);
             }
