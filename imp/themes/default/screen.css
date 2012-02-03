@@ -630,6 +630,18 @@ td.addressTr span.loadingImg {
     padding: 0 0 0 16px;
 }
 
+/* Key import popup. */
+.importKeyTable {
+    border-collapse: collapse;
+}
+.importKeyHowto {
+    padding: 8px;
+}
+.importKeyOr {
+    color: red !important;
+    font-weight: bold;
+}
+
 /* Inline display (Horde_Mime_Viewer) styles. */
 .mimeStatusMessageTable {
     margin-bottom: 3px;
