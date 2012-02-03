@@ -31,6 +31,7 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
     {
         parent::__construct($app, $vars, $action);
         $this->_defaultDomain = empty($GLOBALS['conf']['storage']['default_domain']) ? null : $GLOBALS['conf']['storage']['default_domain'];
+        Kronolith::initialize();
     }
 
     /**
