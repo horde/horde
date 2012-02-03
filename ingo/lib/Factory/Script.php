@@ -51,7 +51,7 @@ class Ingo_Factory_Script extends Horde_Core_Factory_Injector
             ($params['spam_compare'] == 'string')) {
             $params['spam_char'] = $conf['spam']['char'];
         }
-        if (strcasecmp($script, 'Sieve') === 0) {
+        if (strcasecmp($driver, 'Sieve') === 0) {
             if (!isset($params['date_format'])) {
                 $params['date_format'] = $prefs->getValue('date_format');
             }
