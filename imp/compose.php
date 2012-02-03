@@ -784,10 +784,6 @@ if ($redirect) {
         $hidden[$val] = htmlspecialchars($vars->$val);
     }
 
-    if ($browser->hasQuirk('broken_multipart_form')) {
-        $hidden['msie_formdata_is_broken'] = '';
-    }
-
     $hidden_val = array();
     foreach ($hidden as $key => $val) {
         $hidden_val[] = array('n' => $key, 'v' => $val);

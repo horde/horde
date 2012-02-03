@@ -689,7 +689,6 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->setOption('gettext', true);
         $t->set('selfurl', Horde::url('pgp.php'));
-        $t->set('broken_mp_form', $GLOBALS['browser']->hasQuirk('broken_multipart_form'));
         $t->set('reload', htmlspecialchars($reload));
         $t->set('target', $target);
         $t->set('forminput', Horde_Util::formInput());
