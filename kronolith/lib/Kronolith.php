@@ -1014,7 +1014,7 @@ class Kronolith
         }
 
         if (!empty($params['geocoder'])) {
-            $apikeys = $params['geocoder'];
+            $apikeys[] = $params['geocoder'];
         }
 
         foreach ($apikeys as $val) {
