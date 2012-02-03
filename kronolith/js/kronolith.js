@@ -6328,7 +6328,16 @@ KronolithCore = {
     {
         var dateFields, timeFields;
 
-        HordeCore.doAction('listCalendars', {}, { callback: this.initialize.bind(this) })
+        /* Initialize the starting page. */
+        var tmp = location.hash;
+        if (!tmp.empty() && tmp.startsWith('#')) {
+            tmp = (tmp.length == 1) ? '' : tmp.substring(1);
+        }
+        if (tmp.empty()) {
+            this.updateView(this.date, Kronolith.conf.login_view);
+            $('kronolithView' + Kronolith.conf.login_view.capitalize()).show();
+        }
+        HordeCore.doAction('listCalendars', {}, { callback: this.initialize.bind(this, tmp) })
 
         RedBox.onDisplay = function() {
             this.redBoxLoading = false;
@@ -6421,7 +6430,7 @@ KronolithCore = {
         });
     },
 
-    initialize: function(r)
+    initialize: function(location, r)
     {
         Kronolith.conf.calendars = r.response.calendars;
         this.updateCalendarList();
@@ -6429,12 +6438,8 @@ KronolithCore = {
         $('kronolithMenuCalendars').show();
 
         /* Initialize the starting page. */
-        var tmp = location.hash;
-        if (!tmp.empty() && tmp.startsWith('#')) {
-            tmp = (tmp.length == 1) ? '' : tmp.substring(1);
-        }
-        if (!tmp.empty()) {
-            this.go(decodeURIComponent(tmp));
+        if (!location.empty()) {
+            this.go(decodeURIComponent(location));
         } else {
             this.go(Kronolith.conf.login_view);
         }
