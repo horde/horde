@@ -450,6 +450,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 
 <div class="context" id="ctx_sortopts" style="display:none;">
  <a id="oa_sort_from"><span class="iconImg"></span><?php echo _("From") ?></a>
+ <a id="oa_sort_to"><span class="iconImg"></span><?php echo _("To") ?></a>
  <a id="oa_sort_subject"><span class="iconImg"></span><?php echo _("Subject") ?></a>
  <a id="oa_sort_thread"><span class="iconImg"></span><?php echo _("Thread") ?></a>
  <a id="oa_sort_date"><span class="iconImg"></span><?php echo _("Date") ?></a>

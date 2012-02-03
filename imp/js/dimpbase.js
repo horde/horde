@@ -1086,6 +1086,7 @@ var DimpBase = {
 
         case 'oa_sort_date':
         case 'oa_sort_from':
+        case 'oa_sort_to':
         case 'oa_sort_sequence':
         case 'oa_sort_size':
         case 'oa_sort_subject':
@@ -1292,6 +1293,10 @@ var DimpBase = {
                     return true;
                 }
             }, this);
+
+            tmp = this.viewport.getMetaData('special');
+            [ $('oa_sort_from') ].invoke(tmp ? 'hide' : 'show');
+            [ $('oa_sort_to') ].invoke(tmp ? 'show' : 'hide');
             break;
 
         case 'ctx_qsearchby':
