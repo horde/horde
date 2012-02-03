@@ -288,7 +288,9 @@ class Horde_ActiveSync_Timezone
         if (!empty($offsets['stdyear'])) {
             $this->_startDate = new Horde_Date($offsets['stdyear'] . '-01-01');
         } else {
-            $this->_startDate = new Horde_Date(time());
+            $start = new Horde_Date(time());
+            $start->year--;
+            $this->_startDate = $start;
         }
     }
 
