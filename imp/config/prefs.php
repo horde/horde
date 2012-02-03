@@ -1379,7 +1379,7 @@ $_prefs['conflict_interval'] = array(
 $prefGroups['pgp'] = array(
     'column' => _("Other"),
     'label' => _("PGP"),
-    'desc' => sprintf(_("Control PGP support for %s."), $GLOBALS['registry']->get('name')),
+    'desc' => _("Configure PGP encryption support."),
     'members' => array(
         'pgpmanagement'
     )
@@ -1459,7 +1459,7 @@ $_prefs['pgp_private_key'] = array(
 $prefGroups['smime'] = array(
     'column' => _("Other"),
     'label' => _("S/MIME"),
-    'desc' => sprintf(_("Control S/MIME support for %s."), $GLOBALS['registry']->get('name')),
+    'desc' => _("Configure S/MIME encryption support."),
     'members' => array(
         'smimemanagement'
     )
