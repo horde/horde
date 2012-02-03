@@ -633,12 +633,16 @@ td.addressTr span.loadingImg {
 /* Key import popup. */
 .importKeyTable {
     border-collapse: collapse;
+    width: 100%;
 }
 .importKeyHowto {
     padding: 8px;
 }
 .importKeyOr {
     color: red !important;
+    font-weight: bold;
+}
+.importKeyText, .importKeyUpload {
     font-weight: bold;
 }
 

@@ -30,14 +30,14 @@
   <td class="item leftAlign">
    <table>
     <tr>
-     <td class="item leftAlign"><label for="import_key"><strong>
+     <td class="item leftAlign importKeyText"><label for="import_key">
 <if:import_public_key>
       <gettext>Import Public Key:</gettext>
 </if:import_public_key>
 <if:import_personal_key>
       <gettext>Import Personal Keys:</gettext>
 </if:import_personal_key>
-     </strong></label></td>
+     </label></td>
     </tr>
     <tr>
      <td class="item leftAlign">
@@ -59,7 +59,7 @@
    <table>
     <tr>
      <td class="item leftAlign">
-      <label for="upload_key"><strong><gettext>Upload:</gettext></strong></label>&nbsp;
+      <label for="upload_key" class="importKeyUpload"><gettext>Upload:</gettext></label>
       <input id="upload_key" name="upload_key" type="file" size="40" />
      </td>
     </tr>
