@@ -166,8 +166,10 @@ class Horde_Support_ConsistentHashTest extends PHPUnit_Framework_TestCase
     {
         $h = new Horde_Support_ConsistentHash(array('t'));
 
-        $this->setExpectedException('Exception');
-        $nodes = $h->getNodes('resource', 2);
+        try {
+            $h->getNodes('resource', 2);
+            $this->fail('Expected Exception');
+        } catch (Exception $e) {}
     }
 
     public function testGetNodesWrapsToBeginningOfCircle()
