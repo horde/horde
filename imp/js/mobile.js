@@ -726,7 +726,7 @@ var ImpMobile = {
                 if (d.action == 'saveDraft') {
                     if (!DIMP.conf_compose.qreply &&
                         ImpMobile.baseAvailable()) {
-                        HordeCore.showNotifications(r.msgs, { base: true });
+                        HordeMobile.showNotifications(r.msgs, { base: true });
                         r.msgs = [];
                     }
                     if (DIMP.conf_compose.close_draft) {
@@ -1090,7 +1090,7 @@ var ImpMobile = {
     onDocumentReady: function()
     {
         // Set up HordeMobile.
-        HordeMobile.urls.ajax = HordeCoreConf.URI_AJAX;
+        HordeMobile.urls.ajax = IMP.conf.URI_AJAX;
         $(document).bind('vclick', ImpMobile.clickHandler);
         $(document).bind('swipeleft', ImpMobile.navigate);
         $(document).bind('swiperight', ImpMobile.navigate);
