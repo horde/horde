@@ -206,6 +206,7 @@ abstract class Horde_ActiveSync_Request_Base
      * @TODO This should be added to a device object, once we implement
      * Horde_ActiveSync_Device API.
      *
+     * @return boolean
      */
     protected function _hasBrokenProvisioning()
     {
@@ -213,6 +214,13 @@ abstract class Horde_ActiveSync_Request_Base
             if (preg_match('@EAS[/-]{0,1}([.0-9]{2,})@', $this->_device->userAgent, $matches)) {
                 return ($matches[1] < 1.2);
             }
+            return true;
+        }
+
+        // WP7 not only doesn't support all EAS 2.5 security poliices, it flat
+        // out refuses to notify the server of a partial acceptance and just
+        // completely fails.
+        if (strpos($this->_device->userAgent, 'MSFT-WP/7') !== false) {
             return true;
         }
 

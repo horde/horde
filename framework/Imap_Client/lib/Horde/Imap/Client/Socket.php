@@ -2876,7 +2876,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
             // This is disposition information.
             if (isset($data[++$i]) && is_array($data[$i])) {
-                $ob->setDisposition($data[$i][0]);
+                $ob->setDisposition($this->_tokenToString($data[$i][0]));
 
                 foreach ($this->_parseStructureParams($data[$i][1], 'content-disposition') as $key => $val) {
                     $ob->setDispositionParameter($key, $val);
@@ -2886,7 +2886,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             // This is language information. It is either a single value or
             // a list of values.
             if (isset($data[++$i])) {
-                $ob->setLanguage($data[$i]);
+                $ob->setLanguage($this->_tokenToString($data[$i]));
             }
 
             // Ignore: location (RFC 2557)
@@ -2900,11 +2900,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
 
             if ($data[3] != 'NIL') {
-                $ob->setContentId($data[3]);
+                $ob->setContentId($this->_tokenToString($data[3]));
             }
 
             if ($data[4] != 'NIL') {
-                $ob->setDescription(Horde_Mime::decode($data[4], 'UTF-8'));
+                $ob->setDescription(Horde_Mime::decode($this->_tokenToString($data[4]), 'UTF-8'));
             }
 
             if ($data[5] != 'NIL') {
@@ -2951,7 +2951,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             // This is language information. It is either a single value or
             // a list of values.
             if (isset($data[++$i])) {
-                $ob->setLanguage($data[$i]);
+                $ob->setLanguage($this->_tokenToString($data[$i]));
             }
 
             // Ignore: location (RFC 2557)
@@ -2974,19 +2974,30 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         if (is_array($data)) {
             for ($i = 0; isset($data[$i]); $i += 2) {
-                if (is_resource($data[$i + 1])) {
-                    rewind($data[$i + 1]);
-                    $entry = stream_get_contents($data[$i + 1]);
-                } else {
-                    $entry = $data[$i + 1];
-                }
-                $params[strtolower($data[$i])] = $entry;
+                $params[strtolower($data[$i])] = $this->_tokenToString($data[$i + 1]);
             }
         }
 
         $ret = Horde_Mime::decodeParam($type, $params, 'UTF-8');
 
         return $ret['params'];
+    }
+
+    /**
+     * Helper function to ensure that token data is a string.
+     *
+     * @param mixed $data  The token item.
+     *
+     * @return string  The string value.
+     */
+    protected function _tokenToString($data)
+    {
+        if (is_resource($data)) {
+            rewind($data);
+            return stream_get_contents($data);
+        }
+
+        return $data;
     }
 
     /**

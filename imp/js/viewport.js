@@ -464,7 +464,7 @@ var ViewPort = Class.create({
         if (nowait) {
             this._onResize(size);
         } else {
-            this.resizefunc = this._onResize.bind(this, size).delay(0.1);
+            this.resizefunc = this._onResize.bind(this, size).defer();
         }
     },
 

@@ -580,14 +580,17 @@ class Horde_Browser
                 $this->setFeature('xmlhttpreq');
                 $this->setFeature('cite');
                 if (preg_match('|rv:(.*)\)|', $agent, $revision)) {
-                    if ($revision[1] >= 1) {
+                    if (version_compare($revision[1], '1', '>=')) {
                         $this->setFeature('iframes');
                     }
-                    if ($revision[1] >= 1.3) {
+                    if (version_compare($revision[1], '1.3', '>=')) {
                         $this->setFeature('rte');
                     }
                     if (version_compare($revision[1], '1.8.1', '>=')) {
                         $this->setFeature('dataurl');
+                    }
+                    if (version_compare($revision[1], '10.0', '>=')) {
+                        $this->setFeature('utf');
                     }
                 }
                 break;
@@ -601,9 +604,6 @@ class Horde_Browser
             default:
                 $this->setFeature('javascript', 1);
                 $this->setQuirk('buggy_compression');
-                if ($this->_majorVersion >= 10) {
-                    $this->setFeature('utf', true);
-                }
                 break;
             }
         } elseif (preg_match('|Lynx/([0-9]+)|', $agent, $version)) {

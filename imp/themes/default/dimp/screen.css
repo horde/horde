@@ -245,7 +245,7 @@ div.contextMenu div.msCheck, div.contextMenu div.msCheckOn {
 /* Rows (vertical mode) */
 div.vpRowVert {
     height: auto;
-    padding-top: .25em;
+    padding-top: 1px;
     border-bottom: thin solid gainsboro;
 }
 div.vpRowVert div {
