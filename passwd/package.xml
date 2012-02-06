@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [rla] Don&apos;t pass too many parameters from backends.php to Horde_Db (Fix for [#10963] problem with PostgreSQL)
 * [jan] Make expect driver locale independent (Bug #9166).
 * [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
  </notes>
@@ -623,6 +624,7 @@
    <date>2011-11-02</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [rla] Don&apos;t pass too many parameters from backends.php to Horde_Db (Fix for [#10963] problem with PostgreSQL)
 * [jan] Make expect driver locale independent (Bug #9166).
 * [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
    </notes>
