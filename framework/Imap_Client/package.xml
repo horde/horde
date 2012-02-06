@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2012-02-06</date>
- <time>00:54:01</time>
+ <time>00:55:05</time>
  <version>
-  <release>1.4.3</release>
+  <release>1.4.4</release>
   <api>1.4.0</api>
  </version>
  <stability>
@@ -22,8 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Workaround non-ASCII data in bodystructure return from IMAP server.
-* [mms] Fix several faulty translation strings (Bug #10958).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -747,6 +746,19 @@
    <notes>
 * [mms] Workaround non-ASCII data in bodystructure return from IMAP server.
 * [mms] Fix several faulty translation strings (Bug #10958).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.4.4</release>
+    <api>1.4.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-02-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
