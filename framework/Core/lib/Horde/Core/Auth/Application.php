@@ -660,7 +660,7 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
      */
     protected function _setView()
     {
-        global $conf, $browser, $notification, $prefs, $registry;
+        global $conf, $browser, $notification, $prefs, $registry, $session;
 
         $mode = $this->_view;
 
@@ -732,6 +732,9 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
 
         $this->_view = $mode;
         $registry->setView($registry_map[$mode]);
+
+        // TODO/DEPRECATED: BC for H4.0 apps
+        $session->set('horde', 'mode', $mode);
     }
 
 }
