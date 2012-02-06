@@ -1110,8 +1110,8 @@ class Turba_Api extends Horde_Registry_Api
      * @param boolean $forceSource  Whether to use the specified sources, even
      *                              if they have been disabled in the
      *                              preferences?
-     * @param array $returnFields   Only return these fields. Returns all fields
-     *                              if empty.
+     * @param array $returnFields   Only return these fields. Returns all
+     *                              fields if empty.
      *
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
@@ -1120,14 +1120,18 @@ class Turba_Api extends Horde_Registry_Api
                            $fields = array(), $matchBegin = false,
                            $forceSource = false, $returnFields = array())
     {
-        global $cfgSources, $attributes, $prefs;
+        global $attributes, $cfgSources, $injector, $prefs;
 
-        if (!isset($cfgSources) || !is_array($cfgSources) || !count($cfgSources)) {
+        if (!isset($cfgSources) ||
+            !is_array($cfgSources) ||
+            !count($cfgSources)) {
             return array();
         }
 
         if (!is_array($names)) {
-            $names = is_null($names) ? array() : array($names);
+            $names = is_null($names)
+                ? array()
+                : array($names);
         }
 
         if (!$forceSource) {
@@ -1148,8 +1152,7 @@ class Turba_Api extends Horde_Registry_Api
         // Read the columns to display from the preferences.
         $sort_columns = Turba::getColumns();
 
-        $results = array();
-        $seen = array();
+        $results = $seen = array();
         foreach ($sources as $source) {
             // Skip invalid sources.
             if (!isset($cfgSources[$source])) {
@@ -1162,13 +1165,14 @@ class Turba_Api extends Horde_Registry_Api
                     continue;
                 }
 
-            $driver = $GLOBALS['injector']
+            $driver = $injector
                 ->getInstance('Turba_Factory_Driver')
                 ->create($source);
 
             // Determine the name of the column to sort by.
             $columns = isset($sort_columns[$source])
-                ? $sort_columns[$source] : array();
+                ? $sort_columns[$source]
+                : array();
 
             foreach ($names as $name) {
                 $trimname = trim($name);
@@ -1179,13 +1183,19 @@ class Turba_Api extends Horde_Registry_Api
                             $criteria[$field] = $trimname;
                         }
                     }
-                    if (count($criteria) == 0) {
+                    if (!count($criteria)) {
                         $criteria['name'] = $trimname;
                     }
                 }
 
                 $search = $driver->search(
-                    $criteria, Turba::getPreferredSortOrder(), 'OR', $returnFields, array(), $matchBegin);
+                    $criteria,
+                    Turba::getPreferredSortOrder(),
+                    'OR',
+                    $returnFields,
+                    array(),
+                    $matchBegin
+                );
                 if (!($search instanceof Turba_List)) {
                     continue;
                 }
@@ -1202,7 +1212,7 @@ class Turba_Api extends Horde_Registry_Api
                             if (!$ob->getValue($key) ||
                                 !isset($attributes[$key]) ||
                                 $attributes[$key]['type'] != 'email') {
-                                    continue;
+                                continue;
                             }
                             $email_val = $ob->getValue($key);
 
@@ -1220,39 +1230,37 @@ class Turba_Api extends Horde_Registry_Api
                             }
                         }
 
-                        if ($ob->hasValue('name') ||
-                            !isset($ob->driver->alternativeName)) {
-                            $display_name = Turba::formatName($ob);
-                        } else {
-                            $display_name = $ob->getValue($ob->driver->alternativeName);
+                        $display_name = ($ob->hasValue('name') || !isset($ob->driver->alternativeName))
+                            ? Turba::formatName($ob)
+                            : $ob->getValue($ob->driver->alternativeName);
+
+                        if (!isset($results[$name])) {
+                            $results[$name] = array();
                         }
+
                         if (count($email)) {
-                            for ($i = 0; $i < count($email); $i++) {
-                                $seen_key = trim(Horde_String::lower($display_name)) . '/' . trim(Horde_String::lower($email[$i]));
+                            foreach ($email as $val) {
+                                $seen_key = trim(Horde_String::lower($display_name)) . '/' . trim(Horde_String::lower($val));
                                 if (!empty($seen[$seen_key])) {
                                     continue;
                                 }
                                 $seen[$seen_key] = true;
-                                if (!isset($results[$name])) {
-                                    $results[$name] = array();
-                                }
-                                $results[$name][] = array_merge($att,
-                                    array('id' => $att['__key'],
+                                $results[$name][] = array_merge($att, array(
+                                    'id' => $att['__key'],
                                     'name' => $display_name,
-                                    'email' => $email[$i],
+                                    'email' => $val,
                                     '__type' => 'Object',
-                                    'source' => $source));
+                                    'source' => $source)
+                                );
                             }
                         } else {
-                            if (!isset($results[$name])) {
-                                $results[$name] = array();
-                            }
-                            $results[$name][] = array_merge($att,
-                                array('id' => $att['__key'],
+                            $results[$name][] = array_merge($att, array(
+                                'id' => $att['__key'],
                                 'name' => $display_name,
                                 'email' => null,
                                 '__type' => 'Object',
-                                'source' => $source));
+                                'source' => $source)
+                            );
                         }
                     } else {
                         /* Is a distribution list. */
@@ -1275,25 +1283,25 @@ class Turba_Api extends Horde_Registry_Api
                                     if (empty($value)) {
                                         continue;
                                     }
-                                    if (!is_array($value)) {
-                                        $seen_key = trim(Horde_String::lower($ob->getValue('name')))
-                                            . trim(Horde_String::lower($value));
-                                    } else {
-                                        $seen_key = trim(Horde_String::lower($ob->getValue('name')))
-                                            . trim(Horde_String::lower($value['load']['file']));
-                                    }
+
+                                    $seen_key = is_array($value)
+                                        ? trim(Horde_String::lower($ob->getValue('name'))) . trim(Horde_String::lower($value['load']['file']))
+                                        : trim(Horde_String::lower($ob->getValue('name'))) . trim(Horde_String::lower($value));
+
                                     if (isset($attributes[$key]) &&
                                         $attributes[$key]['type'] == 'email' &&
                                         empty($seeninlist[$seen_key])) {
-                                            $emails[] = $value;
-                                            $seeninlist[$seen_key] = true;
-                                        }
+                                        $emails[] = $value;
+                                        $seeninlist[$seen_key] = true;
+                                    }
                                 }
                             }
-                            $results[$name][] = array('name' => $listName,
+                            $results[$name][] = array(
+                                'name' => $listName,
                                 'email' => implode(', ', $emails),
                                 'id' => $listatt['__key'],
-                                'source' => $source);
+                                'source' => $source
+                            );
                         }
                     }
                 }
