@@ -150,14 +150,15 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
 
         // 'smime-type' must be 'enveloped-data' or 'signed-data'
         switch ($this->_mimepart->getContentTypeParameter('smime-type')) {
-        case 'enveloped-data':
-            return $this->_parseEnvelopedData();
-
         case 'signed-data':
             return $this->_parseSignedData();
 
+        case 'enveloped-data':
         default:
-            return null;
+            /* Thunderbird bug: it doesn't include the smime-type parameter
+             * for 'enveloped-data'. So do explicit check for enveloped
+             * data. */
+            return $this->_parseEnvelopedData();
         }
     }
 
