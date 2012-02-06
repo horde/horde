@@ -2862,7 +2862,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
             // The first string entry after an array entry gives us the
             // subpart type.
-            $ob->setType('multipart/' . $data[$i]);
+            $ob->setType('multipart/' . $this->_tokenToString($data[$i]));
 
             // After the subtype is further extension information. This
             // information MAY not appear for BODYSTRUCTURE requests.
@@ -2893,7 +2893,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             // There can be further information returned in the future, but
             // for now we are done.
         } else {
-            $ob->setType($data[0] . '/' . $data[1]);
+            $ob->setType($this->_tokenToString($data[0]) . '/' . $this->_tokenToString($data[1]));
 
             foreach ($this->_parseStructureParams($data[2], 'content-type') as $key => $val) {
                 $ob->setContentTypeParameter($key, $val);
@@ -2908,7 +2908,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
 
             if ($data[5] != 'NIL') {
-                $ob->setTransferEncoding($data[5]);
+                $ob->setTransferEncoding($this->_tokenToString($data[5]));
             }
 
             if ($data[6] != 'NIL') {

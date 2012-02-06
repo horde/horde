@@ -91,11 +91,25 @@ class Passwd_Factory_Driver extends Horde_Core_Factory_Base
             case 'Passwd_Driver_Vpopmail':
                 if (!($backend['params']['db'] instanceof Horde_Db_Adapter)) {
                     try {
+                        if (empty($backend['params']['db'])) {
+                        /* PostGreSQL doesn't like mixing db params with other stuff */
+                        /* Assume we have a custom db setup if database key is present */
+                            if (empty($backend['params']['database'])) {
+                                $commParams['database']   = $backend['params']['database'];
+                                $commParams['phptype']    = $backend['params']['phptype'];
+                                $commParams['username']   = $backend['params']['username'];
+                                $commParams['password']   = $backend['params']['password'];
+                                $commParams['persistent'] = empty($backend['params']['persistent']) ? false  : $backend['params']['persistent'];
+                                $commParams['hostspec']   = empty($backend['params']['hostspec']) ? '127.0.0.1'  : $backend['params']['hostspec'];
+                                $commParams['protocol']   = empty($backend['params']['protocol']) ? 'tcp'  : $backend['params']['protocol'];
+                                $commParams['charset']    = empty($backend['params']['charset']) ? 'utf-8'  : $backend['params']['charset'];
+                            }
+                        }
                         $backend['params']['db'] = empty($backend['params'])
                             ? $this->_injector->getInstance('Horde_Db_Adapter')
                             : $this->_injector
                                 ->getInstance('Horde_Core_Factory_Db')
-                                ->create('passwd', $backend['params']);
+                                ->create('passwd', $connParams);
                     } catch (Horde_Db_Exception $e) {
                         throw new Passwd_Exception($e);
                     }
