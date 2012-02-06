@@ -649,7 +649,6 @@ var DimpBase = {
                     $('search_label').update(tmp.escapeHTML());
                 }
                 [ $('search_edit') ].invoke(this.search || this.viewport.getMetaData('noedit') ? 'hide' : 'show');
-                $('searchbar').show();
             } else {
                 this.setFolderLabel(this.view);
             }
@@ -664,13 +663,20 @@ var DimpBase = {
             if (this.viewswitch) {
                 this.viewswitch = false;
 
-                if (!this.isSearch()) {
-                    $('filter').show();
-                    $('searchbar').hide();
-                } else {
+                if (this.isSearch()) {
                     $('filter').hide();
                     if (!this.search || !this.search.qsearch) {
                         $('qsearch').hide();
+                    }
+                    if (!$('searchbar').visible()) {
+                        $('searchbar').show();
+                        this.viewport.onResize(true);
+                    }
+                } else {
+                    $('filter').show();
+                    if ($('searchbar').visible()) {
+                        $('searchbar').hide();
+                        this.viewport.onResize(true);
                     }
                 }
 
