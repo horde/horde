@@ -35,8 +35,9 @@ class Horde_Core_Factory_Alarm extends Horde_Core_Factory_Base
     protected $_alarm;
 
     /**
-     * Return a Horde_Alarm instance
+     * Return a Horde_Alarm instance.
      *
+     * @return Horde_Alarm
      */
     public function create()
     {
@@ -63,10 +64,7 @@ class Horde_Core_Factory_Alarm extends Horde_Core_Factory_Base
 
         /* Add those handlers that need configuration and can't be auto-loaded
          * through Horde_Alarms::handlers(). */
-        $handler_params = array(
-            'notification' => $this->_injector->getInstance('Horde_Core_Factory_Notification')
-        );
-        $this->_alarm->addHandler('notify', new Horde_Alarm_Handler_Notify($handler_params));
+        $this->_alarm->addHandler('notify', new Horde_Core_Alarm_Handler_Notify());
 
         $handler_params = array(
             'js_notify' => array('Horde', 'addInlineScript'),

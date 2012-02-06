@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-01-31</date>
- <time>11:29:04</time>
+ <date>2012-02-06</date>
+ <time>15:31:51</time>
  <version>
   <release>1.8.5</release>
   <api>1.8.0</api>
@@ -89,6 +89,11 @@
        <file name="Application.php" role="php" />
        <file name="Imple.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Ajax -->
+      <dir name="Alarm">
+       <dir name="Handler">
+        <file name="Notify.php" role="php" />
+       </dir> <!-- /lib/Horde/Core/Alarm/Handler -->
+      </dir> <!-- /lib/Horde/Core/Alarm -->
       <dir name="Auth">
        <dir name="Signup">
         <file name="Base.php" role="php" />
@@ -1076,6 +1081,7 @@
    <install as="Horde/Core/Ajax/Imple/SpellChecker.php" name="lib/Horde/Core/Ajax/Imple/SpellChecker.php" />
    <install as="Horde/Core/Ajax/Imple/WeatherLocationAutoCompleter.php" name="lib/Horde/Core/Ajax/Imple/WeatherLocationAutoCompleter.php" />
    <install as="Horde/Core/Ajax/Imple/Geocoder/Geonames.php" name="lib/Horde/Core/Ajax/Imple/Geocoder/Geonames.php" />
+   <install as="Horde/Core/Alarm/Handler/Notify.php" name="lib/Horde/Core/Alarm/Handler/Notify.php" />
    <install as="Horde/Core/Auth/Application.php" name="lib/Horde/Core/Auth/Application.php" />
    <install as="Horde/Core/Auth/Composite.php" name="lib/Horde/Core/Auth/Composite.php" />
    <install as="Horde/Core/Auth/Imsp.php" name="lib/Horde/Core/Auth/Imsp.php" />
@@ -1725,7 +1731,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-01-31</date>
+   <date>2012-02-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
