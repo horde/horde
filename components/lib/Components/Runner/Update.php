@@ -60,7 +60,10 @@ class Components_Runner_Update
     public function run()
     {
         $arguments = $this->_config->getArguments();
-        $options = $this->_config->getOptions();
+        $options = array_merge(array(
+            'new_api' => false,
+            'new_version' => false
+        ), $this->_config->getOptions());
 
         if (!empty($options['updatexml'])
             || (isset($arguments[0]) && $arguments[0] == 'update')) {
