@@ -357,7 +357,7 @@ class Horde_Mime_Address
                 'default_domain' => $defserver,
                 'validate' => false
             ));
-        } catch (Horde_Mime_Exception $e) {
+        } catch (Horde_Mail_Exception $e) {
             return $multiple
                 ? array()
                 : '';
