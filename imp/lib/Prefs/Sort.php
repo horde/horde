@@ -1,6 +1,6 @@
 <?php
 /**
- * This class manages the sortby preference.
+ * This class manages the sortpref preference.
  *
  * Copyright 2012 Horde LLC (http://www.horde.org/)
  *
@@ -110,11 +110,7 @@ class IMP_Prefs_Sort implements ArrayAccess, Iterator
 
     public function offsetGet($offset)
     {
-        $ob = new IMP_Prefs_Sort_Sortpref(
-            $offset,
-            isset($this->_sortpref[$offset]['b']) ? $this->_sortpref[$offset]['b'] : null,
-            isset($this->_sortpref[$offset]['d']) ? $this->_sortpref[$offset]['d'] : null
-        );
+        $ob = $this->_offsetGet($offset);
 
         try {
             Horde::callHook('mbox_sort', array($ob), 'imp');
@@ -124,20 +120,38 @@ class IMP_Prefs_Sort implements ArrayAccess, Iterator
     }
 
     /**
+     */
+    protected function _offsetGet($offset)
+    {
+        return new IMP_Prefs_Sort_Sortpref(
+            $offset,
+            isset($this->_sortpref[$offset]['b']) ? $this->_sortpref[$offset]['b'] : null,
+            isset($this->_sortpref[$offset]['d']) ? $this->_sortpref[$offset]['d'] : null
+        );
+    }
+
+    /**
      * Alter a sortpref entry.
      *
-     * @param string $offset                  The mailbox name.
-     * @param IMP_Prefs_Sort_Sortpref $value  The sortpref object.
-     *
-     * @throws InvalidArgumentException
+     * @param string $offset  The mailbox name.
+     * @param array $value    An array with two possible keys: 'by' and 'dir'.
      */
     public function offsetSet($offset, $value)
     {
-        if (!($value instanceof IMP_Prefs_Sort_Sortpref)) {
-            throw new InvalidArgumentException('$value must be a sortpref object.');
+        if (empty($value)) {
+            return;
         }
 
-        $this->_sortpref[$offset] = $value->toArray();
+        $ob = $this->_offsetGet($offset);
+
+        if (isset($value['by'])) {
+            $ob->sortby = $value['by'];
+        }
+        if (isset($value['dir'])) {
+            $ob->sortdir = $value['dir'];
+        }
+
+        $this->_sortpref[$offset] = $ob->toArray();
         $this->_save();
     }
 

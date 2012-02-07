@@ -1015,17 +1015,15 @@ class IMP_Mailbox implements Serializable
 
         if ($delete) {
             unset($sortob[$mbox]);
-        } elseif (!is_null($by) || !is_null($dir)) {
-            $entry = $sortob[$mbox];
-
+        } else {
+            $change = array();
             if (!is_null($by)) {
-                $entry->sortby = $by;
+                $change['by'] = $by;
             }
             if (!is_null($dir)) {
-                $entry->sortdir = $dir;
+                $change['dir'] = $dir;
             }
-
-            $sortob[$mbox] = $entry;
+            $sortob[$mbox] = $change;
         }
     }
 
