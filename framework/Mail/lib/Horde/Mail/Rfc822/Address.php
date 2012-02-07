@@ -85,6 +85,16 @@ class Horde_Mail_Rfc822_Address implements ArrayAccess
     }
 
     /**
+     * String representation of object.
+     *
+     * @return string  Returns the full e-mail address.
+     */
+    public function __toString()
+    {
+        return $this->writeAddress();
+    }
+
+    /**
      * Write an address given information in this part.
      *
      * @param array $opts  Optional arguments:
