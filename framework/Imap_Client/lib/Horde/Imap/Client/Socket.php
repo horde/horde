@@ -3010,7 +3010,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     protected function _parseEnvelope($data)
     {
         $addr_structure = array(
-            'personal', 'adl', 'mailbox', 'host'
+            'personal', 'route', 'mailbox', 'host'
         );
         $env_data = array(
             0 => 'date',
@@ -3029,45 +3029,33 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         $ret = new Horde_Imap_Client_Data_Envelope();
 
-        foreach ($env_data as $key => $val) {
-            if (isset($data[$key])) {
-                if (is_resource($data[$key])) {
-                    rewind($data[$key]);
-                    $entry = stream_get_contents($data[$key]);
-                } else {
-                    $entry = $data[$key];
-                }
-
+        foreach ($data as $key => $val) {
+            if (isset($env_data[$key])) {
+                // These entries are text fields.
+                $entry = $this->_tokenToString($data[$key]);
                 if (strcasecmp($entry, 'NIL') !== 0) {
-                    $ret->$val = $entry;
+                    $ret->$env_data[$key] = $entry;
                 }
-            }
-        }
-
-        // These entries are address structures.
-        foreach ($env_data_array as $key => $val) {
-            if (is_array($data[$key])) {
+            } elseif (isset($env_data_array[$key])) {
+                // These entries are address structures.
                 $tmp = array();
-                reset($data[$key]);
 
-                while (list(,$a_val) = each($data[$key])) {
-                    $tmp_addr = array();
+                foreach ($data[$key] as $a_val) {
+                    $tmp_addr = new Horde_Mail_Rfc822_Address();
+
                     foreach ($addr_structure as $add_key => $add_val) {
-                        if (is_resource($a_val[$add_key])) {
-                            rewind($a_val[$add_key]);
-                            $entry = stream_get_contents($a_val[$add_key]);
-                        } else {
-                            $entry = $a_val[$add_key];
-                        }
-
+                        $entry = $this->_tokenToString($a_val[$add_key]);
                         if (strcasecmp($entry, 'NIL') !== 0) {
-                            $tmp_addr[$add_val] = $entry;
+                            $tmp_addr->$add_val = ($add_val == 'route')
+                                ? array($entry)
+                                : $entry;
                         }
                     }
+
                     $tmp[] = $tmp_addr;
                 }
 
-                $ret->$val = $tmp;
+                $ret->$env_data_array[$key] = $tmp;
             }
         }
 
