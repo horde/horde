@@ -130,8 +130,9 @@ class Horde_Mail_Rfc822
      *                  nested for easier viewing.
      *                  DEFAULT: true
      *   - validate: (boolean) Strict validation of personal part data?  If
-     *               false, allows non-ASCII characters and non-quoted strings
-     *               in the personal data.
+     *               false, attempts to allow non-ASCII characters and
+     *               non-quoted strings in the personal data, and will
+     *               silently abort if an unparseable address is found.
      *               DEFAULT: true
      *
      * @return array  A structured array of addresses. Each value is a
@@ -170,7 +171,14 @@ class Horde_Mail_Rfc822
 
         while (($this->_curr() !== false) &&
                (is_null($limit) || ($limit-- > 0))) {
-            $this->_parseAddress();
+           try {
+                $this->_parseAddress();
+           } catch (Horde_Mail_Exception $e) {
+               if ($this->_params['validate']) {
+                   throw $e;
+               }
+               ++$this->_ptr;
+           }
 
             switch ($this->_curr()) {
             case ',':
@@ -182,7 +190,10 @@ class Horde_Mail_Rfc822
                 break;
 
             default:
-                throw new Horde_Mail_Exception('Error when parsing address list.');
+               if ($this->_params['validate']) {
+                    throw new Horde_Mail_Exception('Error when parsing address list.');
+               }
+               break;
             }
         }
     }
