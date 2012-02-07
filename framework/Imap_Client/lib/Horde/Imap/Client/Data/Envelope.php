@@ -193,9 +193,7 @@ class Horde_Imap_Client_Data_Envelope implements Serializable
             if (!empty($value)) {
                 $this->_data[$name] = array();
                 foreach ($value as $val) {
-                    $val->personal = Horde_Mime_Headers::sanityCheck($name, $val->personal, array(
-                        'encode' => true
-                    ));
+                    $val->personal = Horde_Mime_Headers::sanityCheck($name, $val->personal);
                     $this->_data[$name][] = $val;
                 }
             }
