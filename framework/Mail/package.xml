@@ -17,7 +17,7 @@
   <active>yes</active>
  </lead>
  <date>2012-02-06</date>
- <time>22:59:56</time>
+ <time>23:07:37</time>
  <version>
   <release>1.1.0</release>
   <api>1.1.0</api>
@@ -38,6 +38,7 @@
      <dir name="Mail">
       <file name="COPYING" role="doc" />
       <file name="TODO" role="doc" />
+      <file name="UPGRADING" role="doc" />
      </dir> <!-- /doc/Horde/Mail -->
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
@@ -120,6 +121,7 @@
   <filelist>
    <install as="COPYING" name="doc/Horde/Mail/COPYING" />
    <install as="TODO" name="doc/Horde/Mail/TODO" />
+   <install as="UPGRADING" name="doc/Horde/Mail/UPGRADING" />
    <install as="Horde/Mail.php" name="lib/Horde/Mail.php" />
    <install as="Horde/Mail/Exception.php" name="lib/Horde/Mail/Exception.php" />
    <install as="Horde/Mail/Rfc822.php" name="lib/Horde/Mail/Rfc822.php" />
