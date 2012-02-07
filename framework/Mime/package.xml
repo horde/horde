@@ -29,7 +29,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] A false value for 'idn' in Horde_Mime_Address#writeAddress() now causes the domain name to be converted TO punycode, if necessary.
+* [mms] Support Horde_Mail_Rfc822_Address objects.
+* [mms] A false value for &apos;idn&apos; in Horde_Mime_Address#writeAddress() now causes the domain name to be converted TO punycode, if necessary.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

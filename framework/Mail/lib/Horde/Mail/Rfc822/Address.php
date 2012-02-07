@@ -2,6 +2,8 @@
 /**
  * Object representation of a RFC 822 e-mail address.
  *
+ * @since 1.1.0
+ *
  * Copyright 2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (BSD). If you
@@ -72,11 +74,17 @@ class Horde_Mail_Rfc822_Address implements ArrayAccess
                 : implode(',', $route);
 
         case 'full_address':
-            // @since 1.1.0
             // Return the full mailbox@host address.
             return is_null($this->host)
                 ? $this->mailbox
                 : $this->mailbox . '@' . $this->host;
+
+        case 'personal_decoded':
+            // DEPRECATED
+            return Horde_Mime::decode($this->personal, 'UTF-8');
+
+        case 'personal_encoded':
+            return Horde_Mime::encode($this->personal, 'UTF-8');
 
         default:
             return null;
@@ -84,9 +92,17 @@ class Horde_Mail_Rfc822_Address implements ArrayAccess
     }
 
     /**
-     * Write an address given information in this part.
+     * String representation of object.
      *
-     * @since 1.1.0
+     * @return string  Returns the full e-mail address.
+     */
+    public function __toString()
+    {
+        return $this->writeAddress();
+    }
+
+    /**
+     * Write an address given information in this part.
      *
      * @param array $opts  Optional arguments:
      *   - idn: (boolean) See Horde_Mime_Address#writeAddress().

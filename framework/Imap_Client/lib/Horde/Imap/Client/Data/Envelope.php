@@ -15,9 +15,13 @@
  * @property array $bcc                        Bcc address(es).
  * @property array $bcc_decoded                Bcc address(es) (MIME decoded).
  *                                             (Since 1.1.0)
+ * @property array $bcc_group                  Bcc address(es) with group
+ *                                             objects. (Since 1.5.0)
  * @property array $cc                         Cc address(es).
  * @property array $cc_decoded                 Cc address(es) (MIME decoded).
  *                                             (Since 1.1.0)
+ * @property array $cc_group                   Cc address(es) with group
+ *                                             objects. (Since 1.5.0)
  * @property Horde_Imap_Client_DateTime $date  IMAP internal date.
  * @property array $from                       From address(es).
  * @property array $from_decoded               From address(es) (MIME decoded).
@@ -27,8 +31,7 @@
  * @property string $message_id                Message-ID of the message.
  * @property array $reply_to                   Reply-to address(es).
  * @property array $reply_to_decoded           Reply-to address(es) (MIME
- *                                             decoded).
- *                                             (Since 1.1.0)
+ *                                             decoded). (Since 1.1.0)
  * @property array $sender                     Sender address.
  * @property array $sender_decoded             Sender address (MIME decoded).
  *                                             (Since 1.1.0)
@@ -38,10 +41,12 @@
  * @property array $to                         To address(es).
  * @property array $to_decoded                 To address(es) (MIME decoded).
  *                                             (Since 1.1.0)
+ * @property array $to_group                   To address(es) with group
+ *                                             objects. (Since 1.5.0)
  *
- * For array properties, the value will be an array of arrays. Each of the
- * the underlying arrays corresponds to a single address and contains
- * these keys: 'personal', 'adl', 'mailbox', and 'host'.
+ * For array (address) properties, the values will be
+ * Horde_Mail_Rfc822_Address objects (since 1.4.4; the object is fully BC
+ * with the former array return).
  */
 class Horde_Imap_Client_Data_Envelope
 {
@@ -101,9 +106,33 @@ class Horde_Imap_Client_Data_Envelope
         case 'reply_to_decoded':
         case 'sender_decoded':
         case 'to_decoded':
+            $out = array();
             $tmp = $this->__get(substr($name, 0, strrpos($name, '_')));
-            foreach (array_keys($tmp) as $key) {
-                $tmp[$key]['personal'] = Horde_Mime::decode($tmp[$key]['personal'], 'UTF-8');
+            foreach ($tmp as $val) {
+                if ($val instanceof Horde_Mail_Rfc822_Group) {
+                    foreach ($val->addresses as $val2) {
+                        $val2->personal = $val2->personal_decode;
+                        $out[] = $val2;
+                    }
+                } else {
+                    $val->personal = $val->personal_decode;
+                    $out[] = $val;
+                }
+            }
+            return $tmp;
+
+        case 'bcc_group':
+        case 'cc_group':
+        case 'to_group':
+            $tmp = $this->__get(substr($name, 0, strpos($name, '_')));
+            foreach ($tmp as $val) {
+                if ($val instanceof Horde_Mail_Rfc822_Group) {
+                    foreach ($val->addresses as $val2) {
+                        $val2->personal = $val2->personal_decode;
+                    }
+                } else {
+                    $val->personal = $val->personal_decode;
+                }
             }
             return $tmp;
 
@@ -127,18 +156,10 @@ class Horde_Imap_Client_Data_Envelope
         case 'reply_to':
         case 'sender':
         case 'to':
-            $save = array();
-
-            if (is_array($value)) {
-                foreach ($value as $val) {
-                    $save[] = (array)$val;
-                }
-            }
-
             switch ($name) {
             case 'from':
                 foreach (array('reply_to', 'sender') as $val) {
-                    if ($save == $this->$val) {
+                    if ($value == $this->$val) {
                         unset($this->_data[$val]);
                     }
                 }
@@ -146,19 +167,20 @@ class Horde_Imap_Client_Data_Envelope
 
             case 'reply_to':
             case 'sender':
-                if ($save == $this->from) {
+                if ($value == $this->from) {
                     unset($this->_data[$name]);
-                    $save = array();
+                    $value = array();
                 }
                 break;
             }
 
-            if (!empty($save)) {
+            if (!empty($value)) {
                 $this->_data[$name] = array();
-                foreach ($save as $val) {
-                    $this->_data[$name][] = Horde_Mime_Headers::sanityCheck($name, $val, array(
+                foreach ($value as $val) {
+                    $val->personal = Horde_Mime_Headers::sanityCheck($name, $val->personal, array(
                         'encode' => true
                     ));
+                    $this->_data[$name][] = $val;
                 }
             }
             break;

@@ -2,6 +2,8 @@
 /**
  * Object representation of a RFC 822 e-mail group.
  *
+ * @since 1.1.0
+ *
  * Copyright 2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (BSD). If you
@@ -38,9 +40,34 @@ class Horde_Mail_Rfc822_Group implements ArrayAccess
     public $groupname = '';
 
     /**
-     * Write a group address given information in this part.
+     * String representation of object.
      *
-     * @since 1.1.0
+     * @return string  Returns the full e-mail address.
+     */
+    public function __toString()
+    {
+        return $this->writeAddress();
+    }
+
+    /**
+     */
+    public function __get($name)
+    {
+        switch ($name) {
+        case 'groupname_decoded':
+            // DEPRECATED
+            return Horde_Mime::decode($this->groupname, 'UTF-8');
+
+        case 'groupname_encoded':
+            return Horde_Mime::encode($this->groupname, 'UTF-8');
+
+        default:
+            return null;
+        }
+    }
+
+    /**
+     * Write a group address given information in this part.
      *
      * @param array $opts  Optional arguments:
      *   - idn: (boolean) See Horde_Mime_Address#writeAddress().
