@@ -30,7 +30,36 @@ class IMP_Hooks
      */
 //     public function preauthenticate($userId, $credentials)
 //     {
-//         return true;
+//         switch ($credentials['authMethod']) {
+//         case 'admin':
+//             return true;
+//
+//         case 'authenticate':
+//             // Example: Load-balance - pick IMAP server based on first
+//             // letter in username. Server entries 'server_[a-z]' must
+//             // be defined in config/backends.local.php.
+//
+//             // $credentials['server'] = 'server_' . substr($userId, 0, 1);
+//             // return array(
+//             //     'credentials' => $credentials,
+//             //     'userId' => $userId
+//             // );
+//
+//             return true;
+//
+//         case 'transparent':
+//             // Example: Always login as 'demo' user, with password 'demo'.
+//
+//             // return array(
+//             //     'credentials' => array(
+//             //         'password' => 'demo',
+//             //         'transparent' => true
+//             //     ),
+//             //     'userId' => 'demo'
+//             // );
+//
+//             return true;
+//         }
 //     }
 
 
