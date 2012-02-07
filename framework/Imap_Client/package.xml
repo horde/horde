@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Do case-insensitive check for NIL in IMAP data.
 * [mms] Correctly support RFC 822 groups in envelope data.
 * [mms] Envelope address data now returned as Horde_Mail_Rfc822_Address objects.
 * [mms] Other places where bodystructure may return literals.
@@ -767,6 +768,7 @@
    <date>2012-02-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Do case-insensitive check for NIL in IMAP data.
 * [mms] Correctly support RFC 822 groups in envelope data.
 * [mms] Envelope address data now returned as Horde_Mail_Rfc822_Address objects.
 * [mms] Other places where bodystructure may return literals.

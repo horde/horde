@@ -238,7 +238,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         // Per RFC 2342, response from NAMESPACE command is:
         // (PERSONAL NAMESPACES) (OTHER_USERS NAMESPACE) (SHARED NAMESPACES)
         foreach ($namespace_array as $i => $val) {
-            if (!is_array($data[$i]) && (strtoupper($data[$i]) == 'NIL')) {
+            if (is_string($data[$i]) && (strcasecmp($data[$i], 'NIL') === 0)) {
                 continue;
             }
             reset($data[$i]);
@@ -693,7 +693,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $d = reset($data);
         if (is_array($d)) {
             for ($i = 0; isset($d[$i]); $i += 2) {
-                if ($d[$i + 1] != 'NIL') {
+                if (strcasecmp($d[$i + 1], 'NIL') !== 0) {
                     $this->_temp['id'][$d[$i]] = $d[$i + 1];
                 }
             }
@@ -2772,12 +2772,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
                         if (!strlen($tag)) {
                             // BODY[] request
-                            if ($data[++$i] != 'NIL') {
+                            if (strcasecmp($data[++$i], 'NIL') !== 0) {
                                 $ob->setFullMsg($data[$i]);
                             }
                         } elseif (is_numeric(substr($tag, -1))) {
                             // BODY[MIMEID] request
-                            if ($data[++$i] != 'NIL') {
+                            if (strcasecmp($data[++$i], 'NIL') !== 0) {
                                 $ob->setBodyPart($tag, $data[$i]);
                             }
                         } else {
@@ -2789,7 +2789,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                                 $tag = substr($tag, $last_dot + 1);
                             }
 
-                            if ($data[++$i] != 'NIL') {
+                            if (strcasecmp($data[++$i], 'NIL') !== 0) {
                                 switch ($tag) {
                                 case 'HEADER':
                                     $ob->setHeaderText($mime_id, $data[$i]);
@@ -2899,19 +2899,19 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $ob->setContentTypeParameter($key, $val);
             }
 
-            if ($data[3] != 'NIL') {
+            if (strcasecmp($data[3], 'NIL') !== 0) {
                 $ob->setContentId($this->_tokenToString($data[3]));
             }
 
-            if ($data[4] != 'NIL') {
+            if (strcasecmp($data[4], 'NIL') !== 0) {
                 $ob->setDescription(Horde_Mime::decode($this->_tokenToString($data[4]), 'UTF-8'));
             }
 
-            if ($data[5] != 'NIL') {
+            if (strcasecmp($data[5], 'NIL') !== 0) {
                 $ob->setTransferEncoding($this->_tokenToString($data[5]));
             }
 
-            if ($data[6] != 'NIL') {
+            if (strcasecmp($data[6], 'NIL') !== 0) {
                 $ob->setBytes($data[6]);
             }
 
