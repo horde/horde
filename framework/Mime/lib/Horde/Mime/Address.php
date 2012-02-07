@@ -260,6 +260,8 @@ class Horde_Mime_Address
     /**
      * Return the list of addresses for a header object.
      *
+     * @todo Replace with built-in Horde_Mail_Rfc822_Address function.
+     *
      * @param array $obs   An array of header objects.
      * @param array $opts  Additional options:
      *   - charset: (string) The local charset.
@@ -301,11 +303,13 @@ class Horde_Mime_Address
                 continue;
             }
 
-            $ob = array_merge(array(
-                'host' => '',
-                'mailbox' => '',
-                'personal' => ''
-            ), $ob);
+            if (is_array($ob)) {
+                $ob = array_merge(array(
+                    'host' => '',
+                    'mailbox' => '',
+                    'personal' => ''
+                ), $ob);
+            }
 
             /* Ensure we're working with initialized values. */
             if (!empty($ob['personal'])) {
