@@ -4056,8 +4056,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                       empty($this->_params['debug_literal'])) {
                 $this->writeDebug('[LITERAL DATA - ' . $old_len . ' bytes]' . "\n", Horde_Imap_Client::DEBUG_SERVER);
             } elseif ($stream) {
-                rewind($data);
-                $this->writeDebug(rtrim(stream_get_contents($data)) . "\n", Horde_Imap_Client::DEBUG_SERVER);
+                $this->writeDebug(rtrim($this->_tokenToString($data)) . "\n", Horde_Imap_Client::DEBUG_SERVER);
             } else {
                 $this->writeDebug(rtrim($data) . "\n", Horde_Imap_Client::DEBUG_SERVER);
             }
