@@ -13,8 +13,8 @@
  <date>2012-02-06</date>
  <time>00:55:05</time>
  <version>
-  <release>1.4.4</release>
-  <api>1.4.0</api>
+  <release>1.5.0</release>
+  <api>1.5.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Correctly support RFC 822 groups in envelope data.
 * [mms] Envelope address data now returned as Horde_Mail_Rfc822_Address objects.
 * [mms] Other places where bodystructure may return literals.
  </notes>
@@ -758,14 +759,15 @@
   </release>
   <release>
    <version>
-    <release>1.4.4</release>
-    <api>1.4.0</api></version>
+    <release>1.5.0</release>
+    <api>1.5.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2012-02-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Correctly support RFC 822 groups in envelope data.
 * [mms] Envelope address data now returned as Horde_Mail_Rfc822_Address objects.
 * [mms] Other places where bodystructure may return literals.
    </notes>

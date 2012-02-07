@@ -3038,24 +3038,45 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 }
             } elseif (isset($env_data_array[$key])) {
                 // These entries are address structures.
+                $group = null;
                 $tmp = array();
 
                 foreach ($data[$key] as $a_val) {
-                    $tmp_addr = new Horde_Mail_Rfc822_Address();
+                    // RFC 3501 [7.4.2]: Group entry when host is NIL.
+                    // Group end when mailbox is NIL; otherwise, this is
+                    // mailbox name.
+                    $entry = $this->_tokenToString($a_val[3]);
+                    if (strcasecmp($entry, 'NIL') === 0) {
+                        $group = new Horde_Mail_Rfc822_Group();
 
-                    foreach ($addr_structure as $add_key => $add_val) {
-                        $entry = $this->_tokenToString($a_val[$add_key]);
-                        if (strcasecmp($entry, 'NIL') !== 0) {
-                            $tmp_addr->$add_val = ($add_val == 'route')
-                                ? array($entry)
-                                : $entry;
+                        $entry = $this->_tokenToString($a_val[2]);
+                        if (strcasecmp($entry, 'NIL') === 0) {
+                            $group = null;
+                        } else {
+                            $group->groupname = $entry;
+                            $tmp[] = $group;
+                        }
+                    } else {
+                        $addr = new Horde_Mail_Rfc822_Address();
+
+                        foreach ($addr_structure as $add_key => $add_val) {
+                            $entry = $this->_tokenToString($a_val[$add_key]);
+                            if (strcasecmp($entry, 'NIL') !== 0) {
+                                $addr->$add_val = ($add_val == 'route')
+                                    ? array($entry)
+                                    : $entry;
+                            }
+                        }
+
+                        if ($group) {
+                            $group->addresses[] = $addr;
+                        } else {
+                            $tmp[] = $tmp_addr;
                         }
                     }
 
-                    $tmp[] = $tmp_addr;
+                    $ret->$env_data_array[$key] = $tmp;
                 }
-
-                $ret->$env_data_array[$key] = $tmp;
             }
         }
 

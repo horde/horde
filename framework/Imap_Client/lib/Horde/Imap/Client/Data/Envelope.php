@@ -15,9 +15,13 @@
  * @property array $bcc                        Bcc address(es).
  * @property array $bcc_decoded                Bcc address(es) (MIME decoded).
  *                                             (Since 1.1.0)
+ * @property array $bcc_group                  Bcc address(es) with group
+ *                                             objects. (Since 1.5.0)
  * @property array $cc                         Cc address(es).
  * @property array $cc_decoded                 Cc address(es) (MIME decoded).
  *                                             (Since 1.1.0)
+ * @property array $cc_group                   Cc address(es) with group
+ *                                             objects. (Since 1.5.0)
  * @property Horde_Imap_Client_DateTime $date  IMAP internal date.
  * @property array $from                       From address(es).
  * @property array $from_decoded               From address(es) (MIME decoded).
@@ -27,8 +31,7 @@
  * @property string $message_id                Message-ID of the message.
  * @property array $reply_to                   Reply-to address(es).
  * @property array $reply_to_decoded           Reply-to address(es) (MIME
- *                                             decoded).
- *                                             (Since 1.1.0)
+ *                                             decoded). (Since 1.1.0)
  * @property array $sender                     Sender address.
  * @property array $sender_decoded             Sender address (MIME decoded).
  *                                             (Since 1.1.0)
@@ -38,6 +41,8 @@
  * @property array $to                         To address(es).
  * @property array $to_decoded                 To address(es) (MIME decoded).
  *                                             (Since 1.1.0)
+ * @property array $to_group                   To address(es) with group
+ *                                             objects. (Since 1.5.0)
  *
  * For array (address) properties, the values will be
  * Horde_Mail_Rfc822_Address objects (since 1.4.4; the object is fully BC
@@ -101,9 +106,33 @@ class Horde_Imap_Client_Data_Envelope
         case 'reply_to_decoded':
         case 'sender_decoded':
         case 'to_decoded':
+            $out = array();
             $tmp = $this->__get(substr($name, 0, strrpos($name, '_')));
-            foreach (array_keys($tmp) as $key) {
-                $tmp[$key]->personal = Horde_Mime::decode($tmp[$key]->personal, 'UTF-8');
+            foreach ($tmp as $val) {
+                if ($val instanceof Horde_Mail_Rfc822_Group) {
+                    foreach ($val->addresses as $val2) {
+                        $val2->personal = $val2->personal_decode;
+                        $out[] = $val2;
+                    }
+                } else {
+                    $val->personal = $val->personal_decode;
+                    $out[] = $val;
+                }
+            }
+            return $tmp;
+
+        case 'bcc_group':
+        case 'cc_group':
+        case 'to_group':
+            $tmp = $this->__get(substr($name, 0, strpos($name, '_')));
+            foreach ($tmp as $val) {
+                if ($val instanceof Horde_Mail_Rfc822_Group) {
+                    foreach ($val->addresses as $val2) {
+                        $val2->personal = $val2->personal_decode;
+                    }
+                } else {
+                    $val->personal = $val->personal_decode;
+                }
             }
             return $tmp;
 
