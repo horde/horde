@@ -3030,18 +3030,20 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $ret = new Horde_Imap_Client_Data_Envelope();
 
         foreach ($data as $key => $val) {
+            if (is_string($val) &&
+                (strcasecmp($val, 'NIL') === 0)) {
+                continue;
+            }
+
             if (isset($env_data[$key])) {
                 // These entries are text fields.
-                $entry = $this->_tokenToString($data[$key]);
-                if (strcasecmp($entry, 'NIL') !== 0) {
-                    $ret->$env_data[$key] = $entry;
-                }
+                $ret->$env_data[$key] = $this->_tokenToString($val);
             } elseif (isset($env_data_array[$key])) {
                 // These entries are address structures.
                 $group = null;
                 $tmp = array();
 
-                foreach ($data[$key] as $a_val) {
+                foreach ($val as $a_val) {
                     // RFC 3501 [7.4.2]: Group entry when host is NIL.
                     // Group end when mailbox is NIL; otherwise, this is
                     // mailbox name.
