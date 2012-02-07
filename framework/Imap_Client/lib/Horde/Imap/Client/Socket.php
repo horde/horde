@@ -238,12 +238,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         // Per RFC 2342, response from NAMESPACE command is:
         // (PERSONAL NAMESPACES) (OTHER_USERS NAMESPACE) (SHARED NAMESPACES)
         foreach ($namespace_array as $i => $val) {
-            if (!is_array($data[$i]) && (strtoupper($data[$i]) == 'NIL')) {
+            if (($entry = $this->_getString($data[$i], true)) === null) {
                 continue;
             }
             reset($data[$i]);
             while (list(,$v) = each($data[$i])) {
-                $ob = Horde_Imap_Client_Mailbox::get($v[0], true);
+                $ob = Horde_Imap_Client_Mailbox::get($this->_getString($v[0]), true);
 
                 $c[$ob->utf7imap] = array(
                     'delimiter' => $v[1],
@@ -693,8 +693,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $d = reset($data);
         if (is_array($d)) {
             for ($i = 0; isset($d[$i]); $i += 2) {
-                if ($d[$i + 1] != 'NIL') {
-                    $this->_temp['id'][$d[$i]] = $d[$i + 1];
+                if (($id = $this->_getString($d[$i + 1])) !== null) {
+                    $this->_temp['id'][$this->_getString($d[$i])] = $id;
                 }
             }
         }
@@ -2772,13 +2772,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
                         if (!strlen($tag)) {
                             // BODY[] request
-                            if ($data[++$i] != 'NIL') {
-                                $ob->setFullMsg($data[$i]);
+                            if (($tmp = $this->_getString($data[++$i], true)) !== null) {
+                                $ob->setFullMsg($tmp);
                             }
                         } elseif (is_numeric(substr($tag, -1))) {
                             // BODY[MIMEID] request
-                            if ($data[++$i] != 'NIL') {
-                                $ob->setBodyPart($tag, $data[$i]);
+                            if (($tmp = $this->_getString($data[++$i], true)) !== null) {
+                                $ob->setBodyPart($tag, $tmp);
                             }
                         } else {
                             // BODY[HEADER|TEXT|MIME] request
@@ -2789,7 +2789,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                                 $tag = substr($tag, $last_dot + 1);
                             }
 
-                            if ($data[++$i] != 'NIL') {
+                            if (($tmp = $this->_getString($data[++$i], true)) !== null) {
                                 switch ($tag) {
                                 case 'HEADER':
                                     $ob->setHeaderText($mime_id, $data[$i]);
@@ -2862,7 +2862,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
             // The first string entry after an array entry gives us the
             // subpart type.
-            $ob->setType('multipart/' . $this->_tokenToString($data[$i]));
+            $ob->setType('multipart/' . $this->_getString($data[$i]));
 
             // After the subtype is further extension information. This
             // information MAY not appear for BODYSTRUCTURE requests.
@@ -2876,7 +2876,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
             // This is disposition information.
             if (isset($data[++$i]) && is_array($data[$i])) {
-                $ob->setDisposition($this->_tokenToString($data[$i][0]));
+                $ob->setDisposition($this->_getString($data[$i][0]));
 
                 foreach ($this->_parseStructureParams($data[$i][1], 'content-disposition') as $key => $val) {
                     $ob->setDispositionParameter($key, $val);
@@ -2886,34 +2886,32 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             // This is language information. It is either a single value or
             // a list of values.
             if (isset($data[++$i])) {
-                $ob->setLanguage($this->_tokenToString($data[$i]));
+                $ob->setLanguage($this->_getString($data[$i]));
             }
 
             // Ignore: location (RFC 2557)
             // There can be further information returned in the future, but
             // for now we are done.
         } else {
-            $ob->setType($this->_tokenToString($data[0]) . '/' . $this->_tokenToString($data[1]));
+            $ob->setType($this->_getString($data[0]) . '/' . $this->_getString($data[1]));
 
             foreach ($this->_parseStructureParams($data[2], 'content-type') as $key => $val) {
                 $ob->setContentTypeParameter($key, $val);
             }
 
-            if ($data[3] != 'NIL') {
-                $ob->setContentId($this->_tokenToString($data[3]));
+            if (($tmp = $this->_getString($data[3], true)) !== null) {
+                $ob->setContentId($tmp);
             }
 
-            if ($data[4] != 'NIL') {
-                $ob->setDescription(Horde_Mime::decode($this->_tokenToString($data[4]), 'UTF-8'));
+            if (($tmp = $this->_getString($data[4], true)) !== null) {
+                $ob->setDescription(Horde_Mime::decode($tmp, 'UTF-8'));
             }
 
-            if ($data[5] != 'NIL') {
-                $ob->setTransferEncoding($this->_tokenToString($data[5]));
+            if (($tmp = $this->_getString($data[5], true)) !== null) {
+                $ob->setTransferEncoding($tmp);
             }
 
-            if ($data[6] != 'NIL') {
-                $ob->setBytes($data[6]);
-            }
+            $ob->setBytes($data[6]);
 
             // If the type is 'message/rfc822' or 'text/*', several extra
             // fields are included
@@ -2951,7 +2949,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             // This is language information. It is either a single value or
             // a list of values.
             if (isset($data[++$i])) {
-                $ob->setLanguage($this->_tokenToString($data[$i]));
+                $ob->setLanguage($this->_getString($data[$i]));
             }
 
             // Ignore: location (RFC 2557)
@@ -2974,7 +2972,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         if (is_array($data)) {
             for ($i = 0; isset($data[$i]); $i += 2) {
-                $params[strtolower($data[$i])] = $this->_tokenToString($data[$i + 1]);
+                $params[strtolower($data[$i])] = $this->_getString($data[$i + 1]);
             }
         }
 
@@ -2984,20 +2982,28 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     }
 
     /**
-     * Helper function to ensure that token data is a string.
+     * Helper function to validate/parse string data.
      *
-     * @param mixed $data  The token item.
+     * @param mixed $data       The token item.
+     * @param boolean $nstring  True if this element is an nstring.
      *
-     * @return string  The string value.
+     * @return string  The string value, or null if this is an nstring and the
+     *                 data value is NIL.
      */
-    protected function _tokenToString($data)
+    protected function _getString($data, $nstring = false)
     {
+        if (is_array($data)) {
+            return array_map(array($this, '_getString'), $data, array_fill(0, count($data), $nstring));
+        }
+
         if (is_resource($data)) {
             rewind($data);
             return stream_get_contents($data);
         }
 
-        return $data;
+        return ($nstring && (strcasecmp($data, 'NIL') === 0))
+            ? null
+            : $data;
     }
 
     /**
@@ -3015,56 +3021,53 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $env_data = array(
             0 => 'date',
             1 => 'subject',
-            8 => 'in_reply_to',
-            9 => 'message_id'
-        );
-        $env_data_array = array(
             2 => 'from',
             3 => 'sender',
             4 => 'reply_to',
             5 => 'to',
             6 => 'cc',
-            7 => 'bcc'
+            7 => 'bcc',
+            8 => 'in_reply_to',
+            9 => 'message_id'
         );
 
         $ret = new Horde_Imap_Client_Data_Envelope();
 
         foreach ($data as $key => $val) {
-            if (isset($env_data[$key])) {
+            if (!isset($env_data[$key]) ||
+                ($val = $this->_getString($val, true)) === null) {
+                continue;
+            }
+
+            if (is_string($val)) {
                 // These entries are text fields.
-                $entry = $this->_tokenToString($data[$key]);
-                if (strcasecmp($entry, 'NIL') !== 0) {
-                    $ret->$env_data[$key] = $entry;
-                }
-            } elseif (isset($env_data_array[$key])) {
+                $ret->$env_data[$key] = $val;
+            } else {
                 // These entries are address structures.
                 $group = null;
                 $tmp = array();
 
-                foreach ($data[$key] as $a_val) {
+                foreach ($val as $a_val) {
                     // RFC 3501 [7.4.2]: Group entry when host is NIL.
                     // Group end when mailbox is NIL; otherwise, this is
                     // mailbox name.
-                    $entry = $this->_tokenToString($a_val[3]);
-                    if (strcasecmp($entry, 'NIL') === 0) {
+                    if (is_null($a_val[3])) {
                         $group = new Horde_Mail_Rfc822_Group();
 
-                        $entry = $this->_tokenToString($a_val[2]);
-                        if (strcasecmp($entry, 'NIL') === 0) {
+                        if (is_null($a_val[2])) {
                             $group = null;
                         } else {
-                            $group->groupname = $entry;
+                            $group->groupname = $a_val[2];
                             $tmp[] = $group;
                         }
                     } else {
                         $addr = new Horde_Mail_Rfc822_Address();
 
                         foreach ($addr_structure as $add_key => $add_val) {
-                            $entry = $this->_tokenToString($a_val[$add_key]);
-                            if (strcasecmp($entry, 'NIL') !== 0) {
+                            if (!is_null($a_val[$add_key])) {
                                 $addr->$add_val = ($add_val == 'route')
-                                    ? array($entry)
-                                    : $entry;
+                                    ? array($a_val[$add_key])
+                                    : $a_val[$add_key];
                             }
                         }
 
@@ -3075,7 +3078,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                         }
                     }
 
-                    $ret->$env_data_array[$key] = $tmp;
+                    $ret->$env_data[$key] = $tmp;
                 }
             }
         }
@@ -4065,7 +4068,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                       empty($this->_params['debug_literal'])) {
                 $this->writeDebug('[LITERAL DATA - ' . $old_len . ' bytes]' . "\n", Horde_Imap_Client::DEBUG_SERVER);
             } elseif ($stream) {
-                $this->writeDebug(rtrim($this->_tokenToString($data)) . "\n", Horde_Imap_Client::DEBUG_SERVER);
+                $this->writeDebug(rtrim($this->_getString($data)) . "\n", Horde_Imap_Client::DEBUG_SERVER);
             } else {
                 $this->writeDebug(rtrim($data) . "\n", Horde_Imap_Client::DEBUG_SERVER);
             }
