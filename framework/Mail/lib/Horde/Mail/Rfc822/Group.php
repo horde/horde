@@ -50,6 +50,23 @@ class Horde_Mail_Rfc822_Group implements ArrayAccess
     }
 
     /**
+     */
+    public function __get($name)
+    {
+        switch ($name) {
+        case 'groupname_decoded':
+            // DEPRECATED
+            return Horde_Mime::decode($this->groupname, 'UTF-8');
+
+        case 'groupname_encoded':
+            return Horde_Mime::encode($this->groupname, 'UTF-8');
+
+        default:
+            return null;
+        }
+    }
+
+    /**
      * Write a group address given information in this part.
      *
      * @param array $opts  Optional arguments:

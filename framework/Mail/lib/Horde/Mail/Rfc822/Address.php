@@ -79,6 +79,13 @@ class Horde_Mail_Rfc822_Address implements ArrayAccess
                 ? $this->mailbox
                 : $this->mailbox . '@' . $this->host;
 
+        case 'personal_decoded':
+            // DEPRECATED
+            return Horde_Mime::decode($this->personal, 'UTF-8');
+
+        case 'personal_encoded':
+            return Horde_Mime::encode($this->personal, 'UTF-8');
+
         default:
             return null;
         }
