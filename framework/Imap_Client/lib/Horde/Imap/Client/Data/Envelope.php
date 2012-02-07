@@ -48,7 +48,7 @@
  * Horde_Mail_Rfc822_Address objects (since 1.4.4; the object is fully BC
  * with the former array return).
  */
-class Horde_Imap_Client_Data_Envelope
+class Horde_Imap_Client_Data_Envelope implements Serializable
 {
     /**
      * Internal data array.
@@ -234,6 +234,31 @@ class Horde_Imap_Client_Data_Envelope
         }
 
         return isset($this->_data[$name]);
+    }
+
+    /* Serializable methods. */
+
+    /**
+     */
+    public function serialize()
+    {
+        // For 1st serialzable version, we can rely on storage format change
+        // instead of explicit VERSION number.
+        return serialize(array(
+            'd' => $this->_data
+        ));
+    }
+
+    /**
+     */
+    public function unserialize($data)
+    {
+        $data = @unserialize($data);
+        if (!is_array($data) || !isset($data['d'])) {
+            throw new Exception('Cache version change');
+        }
+
+        $this->_data = $data['d'];
     }
 
 }
