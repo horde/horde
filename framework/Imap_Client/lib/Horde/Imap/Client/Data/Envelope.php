@@ -87,7 +87,11 @@ class Horde_Imap_Client_Data_Envelope
                             $out[] = clone $val2;
                         }
                     } else {
-                        $out[] = clone $val;
+                        if (is_object($val)) {
+                            $out[] = clone $val;
+                        } else {
+                            $out[] = $val;
+                        }
                     }
                 }
                 return $out;
