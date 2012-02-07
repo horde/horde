@@ -75,7 +75,10 @@ class IMP_Ajax_Queue
         $imptree->setIteratorFilter(IMP_Imap_Tree::FLIST_NOSPECIALMBOXES);
         $out = $imptree->getAjaxResponse();
         if (!empty($out)) {
-            $response->data->mailbox = $out;
+            if (!isset($response->data->mailbox)) {
+                $response->data->mailbox = array();
+            }
+            $response->data->mailbox = array_merge($out, $response->data->mailbox);
         }
 
         /* Add poll information. */
