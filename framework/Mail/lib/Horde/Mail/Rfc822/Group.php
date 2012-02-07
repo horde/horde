@@ -2,6 +2,8 @@
 /**
  * Object representation of a RFC 822 e-mail group.
  *
+ * @since 1.1.0
+ *
  * Copyright 2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (BSD). If you
@@ -39,8 +41,6 @@ class Horde_Mail_Rfc822_Group implements ArrayAccess
 
     /**
      * Write a group address given information in this part.
-     *
-     * @since 1.1.0
      *
      * @param array $opts  Optional arguments:
      *   - idn: (boolean) See Horde_Mime_Address#writeAddress().
