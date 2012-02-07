@@ -91,7 +91,7 @@ class Passwd_Factory_Driver extends Horde_Core_Factory_Base
             case 'Passwd_Driver_Vpopmail':
                 if (!($backend['params']['db'] instanceof Horde_Db_Adapter)) {
                     try {
-                        if (empty($backend['params']['db'])) {
+                        if (!empty($backend['params']['db'])) {
                         /* PostGreSQL doesn't like mixing db params with other stuff */
                         /* Assume we have a custom db setup if database key is present */
                             if (empty($backend['params']['database'])) {
@@ -109,7 +109,7 @@ class Passwd_Factory_Driver extends Horde_Core_Factory_Base
                             ? $this->_injector->getInstance('Horde_Db_Adapter')
                             : $this->_injector
                                 ->getInstance('Horde_Core_Factory_Db')
-                                ->create('passwd', $connParams);
+                                ->create('passwd', $commParams);
                     } catch (Horde_Db_Exception $e) {
                         throw new Passwd_Exception($e);
                     }

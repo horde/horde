@@ -75,9 +75,28 @@ class Horde_Imap_Client_Data_Envelope
     public function __get($name)
     {
         if (isset($this->_data[$name])) {
-            return is_object($this->_data[$name])
-                ? clone $this->_data[$name]
-                : $this->_data[$name];
+            switch ($name) {
+            case 'bcc':
+            case 'cc':
+            case 'to':
+                // These entries may have group data.
+                $out = array();
+                foreach ($this->_data[$name] as $val) {
+                    if ($val instanceof Horde_Mail_Rfc822_Group) {
+                        foreach ($val->addresses as $val2) {
+                            $out[] = clone $val2;
+                        }
+                    } else {
+                        $out[] = clone $val;
+                    }
+                }
+                return $out;
+
+            default:
+                return is_object($this->_data[$name])
+                    ? clone $this->_data[$name]
+                    : $this->_data[$name];
+            }
         }
 
         switch ($name) {
@@ -106,25 +125,22 @@ class Horde_Imap_Client_Data_Envelope
         case 'reply_to_decoded':
         case 'sender_decoded':
         case 'to_decoded':
-            $out = array();
             $tmp = $this->__get(substr($name, 0, strrpos($name, '_')));
+            // Groups have already been trimmed.
             foreach ($tmp as $val) {
-                if ($val instanceof Horde_Mail_Rfc822_Group) {
-                    foreach ($val->addresses as $val2) {
-                        $val2->personal = $val2->personal_decode;
-                        $out[] = $val2;
-                    }
-                } else {
-                    $val->personal = $val->personal_decode;
-                    $out[] = $val;
-                }
+                $tmp->personal = $tmp->personal_decode;
             }
             return $tmp;
 
         case 'bcc_group':
         case 'cc_group':
         case 'to_group':
-            $tmp = $this->__get(substr($name, 0, strpos($name, '_')));
+            $entry = substr($name, 0, strpos($name, '_'));
+            if (!isset($this->_data[$entry])) {
+                return array();
+            }
+
+            $tmp = clone $this->_data[$entry];
             foreach ($tmp as $val) {
                 if ($val instanceof Horde_Mail_Rfc822_Group) {
                     foreach ($val->addresses as $val2) {

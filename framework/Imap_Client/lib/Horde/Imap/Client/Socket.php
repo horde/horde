@@ -3071,7 +3071,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                         if ($group) {
                             $group->addresses[] = $addr;
                         } else {
-                            $tmp[] = $tmp_addr;
+                            $tmp[] = $addr;
                         }
                     }
 
