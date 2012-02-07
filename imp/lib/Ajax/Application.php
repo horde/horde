@@ -1620,7 +1620,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *   - action: (string) The AJAX action string
      *   - draft_delete: (integer) If set, remove auto-saved drafts.
      *   - encryptjs: (array) Javascript to run after encryption failure.
-     *   - flag: (array) See IMP_Ajax_Queue::generate().
+     *   - flag: (array) See IMP_Ajax_Queue::add().
      *   - identity: (integer) If set, this is the identity that is tied to
      *               the current recipient address.
      *   - log: (array) Maillog information
