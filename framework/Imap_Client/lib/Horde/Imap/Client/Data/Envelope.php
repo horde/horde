@@ -242,8 +242,8 @@ class Horde_Imap_Client_Data_Envelope implements Serializable
      */
     public function serialize()
     {
-        // For 1st serialzable version, we can rely on storage format change
-        // instead of explicit VERSION number.
+        // For first serializable version, we can rely on storage format
+        // change to identify instead of explicit VERSION number.
         return serialize(array(
             'd' => $this->_data
         ));
