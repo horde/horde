@@ -13,7 +13,7 @@ $prefGroups['view'] = array(
     'label' => _("User Interface"),
     'desc' => _("Select confirmation preferences, how to display the different views and choose default view."),
     'members' => array(
-        'confirm_delete', 'defaultview', 'max_events',
+        'dynamic_view', 'confirm_delete', 'defaultview', 'max_events',
         'time_between_days', 'week_start_monday', 'day_hour_start',
         'day_hour_end', 'day_hour_force', 'slots_per_hour', 'show_icons',
         'show_time', 'show_location', 'show_fb_legend',
@@ -73,6 +73,13 @@ $prefGroups['addressbooks'] = array(
     'label' => _("Address Books"),
     'desc' => _("Select address book sources for adding and searching for addresses."),
     'members' => array('display_contact', 'sourceselect'),
+);
+
+// Show dynamic view?
+$_prefs['dynamic_view'] = array(
+   'value' => 1,
+   'type' => 'checkbox',
+   'desc' => _("Show the dynamic view by default, if the browser supports it?")
 );
 
 // confirm deletion of events which don't recur?

@@ -2847,7 +2847,7 @@ class Kronolith
      */
     static public function showAjaxView()
     {
-        return $GLOBALS['registry']->getView() == Horde_Registry::VIEW_DYNAMIC;
+        return $GLOBALS['registry']->getView() == Horde_Registry::VIEW_DYNAMIC && $GLOBALS['prefs']->getValue('dynamic_view');
     }
 
     /**
