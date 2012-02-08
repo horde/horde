@@ -111,7 +111,7 @@
     <?php if ($GLOBALS['registry']->getAuth() && !$prefs->isLocked('default_share')): ?>
     <a href="#" id="kronolithAddinternal" class="kronolithAdd" title="<?php echo _("New Calendar") ?>">+</a>
     <?php endif; ?>
-    <span class="kronolithToggleCollapse" title="<?php echo _("Collaps") ?>"><?php echo _("My Calendars") ?></span>
+    <span class="kronolithToggleCollapse" title="<?php echo _("Collapse") ?>"><?php echo _("My Calendars") ?></span>
   </h3>
 
   <div id="kronolithMyCalendars" class="kronolithCalendars"></div>
@@ -121,7 +121,7 @@
     <?php if ($GLOBALS['registry']->getAuth() && !$prefs->isLocked('default_share')): ?>
     <a href="#" id="kronolithAddtasklists" class="kronolithAdd" title="<?php echo _("New Task List") ?>">+</a>
     <?php endif; ?>
-    <span class="kronolithToggleCollapse" title="<?php echo _("Collaps") ?>"><?php echo _("My Task Lists") ?></span>
+    <span class="kronolithToggleCollapse" title="<?php echo _("Collapse") ?>"><?php echo _("My Task Lists") ?></span>
   </h3>
 
   <div id="kronolithMyTasklists" class="kronolithCalendars"></div>

@@ -148,6 +148,7 @@ class Kronolith_Ajax extends Horde_Core_Ajax
             'alarm' => _("Alarm:"),
             'alerts' => _("Notifications"),
             'allday' => _("All day"),
+            'collapse' => _("Collapse"),
             'delete_calendar' => _("Are you sure you want to delete this calendar and all the events in it?"),
             'delete_tasklist' => _("Are you sure you want to delete this task list and all the tasks in it?"),
             'expand' => _("Expand"),

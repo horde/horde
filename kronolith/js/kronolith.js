@@ -4544,12 +4544,14 @@ KronolithCore = {
 
             case 'kronolithToggleCollapse':
                 elt.up().next().blindUp();
+                elt.title = Kronolith.text.expand;
                 elt.removeClassName('kronolithToggleCollapse');
                 elt.addClassName('kronolithToggleExpand');
                 return;
 
             case 'kronolithToggleExpand':
                 elt.up().next().blindDown();
+                elt.title = Kronolith.text.collapse;
                 elt.removeClassName('kronolithToggleExpand');
                 elt.addClassName('kronolithToggleCollapse');
                 return;
