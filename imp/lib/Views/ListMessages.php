@@ -173,10 +173,10 @@ class IMP_Views_ListMessages
             $mbox->hideDeletedMsgs(true)) {
             $md->delhide = 1;
         }
-        if ($args['initial'] || !is_null($args['sortby'])) {
+        if ($args['initial'] ||
+            !is_null($args['sortby']) ||
+            !is_null($args['sortdir'])) {
             $md->sortby = intval($sortpref->sortby);
-        }
-        if ($args['initial'] || !is_null($args['sortdir'])) {
             $md->sortdir = intval($sortpref->sortdir);
         }
         if ($args['initial'] && $sortpref->locked) {
