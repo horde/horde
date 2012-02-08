@@ -2,6 +2,9 @@
 v5.1-git
 --------
 
+[mms] S/MIME certificate import from message data no longer requires popup
+      window.
+[mms] PGP key import from message attachment no longer requires popup window.
 [mms] Improve PGP key import screen.
 [mms] Truncate large address lists (50+) by default in dynamic message views.
 [mms] Moved AJAX core features to Horde_Core package.

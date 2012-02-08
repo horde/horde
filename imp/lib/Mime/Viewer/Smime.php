@@ -242,7 +242,8 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
             return null;
         }
 
-        if ($this->getConfigParam('imp_contents')->isEmbedded($base_id)) {
+        $imp_contents = $this->getConfigParam('imp_contents');
+        if ($imp_contents->isEmbedded($base_id)) {
             $hdrs = new Horde_Mime_Headers();
             $hdrs->addHeader('From', $this->_mimepart->getMetadata('imp-smime-from'));
 
@@ -291,13 +292,18 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
                     isset($sig_result->email) &&
                     $GLOBALS['registry']->hasMethod('contacts/addField') &&
                     $GLOBALS['prefs']->getValue('add_source')) {
-                    $status_out = '[' . $this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', _("View Certificate"), array('params' => array('mode' => IMP_Contents::RENDER_INLINE, 'view_smime_key' => 1))) . ']';
                     try {
                         $this->_impsmime->getPublicKey($sig_result->email);
                     } catch (Horde_Exception $e) {
-                        $status_out .= ' [' . Horde::link('#', '', null, null, $this->_impsmime->savePublicKeyURL($this->getConfigParam('imp_contents')->getMailbox(), $this->getConfigParam('imp_contents')->getUid(), $base_id) . ' return false;') . _("Save Certificate in your Address Book") . '</a>]';
+                        $imple = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('imp', 'ImportEncryptKey'), array(
+                            'mailbox' => $imp_contents->getMailbox(),
+                            'mime_id' => $base_id,
+                            'type' => 'smime',
+                            'uid' => $imp_contents->getUid()
+                        ));
+                        $status->addText(Horde::link('#', '', '', '', '', '', '', array('id' => $imple->getImportId())) . _("Save the certificate to your Address Book.") . '</a>');
                     }
-                    $status->addText($status_out);
+                    $status->addText($imp_contents->linkViewJS($this->_mimepart, 'view_attach', _("View certificate details."), array('params' => array('mode' => IMP_Contents::RENDER_INLINE, 'view_smime_key' => 1))));
                 }
             } catch (Horde_Exception $e) {
                 $status->action(IMP_Mime_Status::ERROR);
@@ -320,7 +326,7 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
             return;
         }
 
-        $subpart = $this->getConfigParam('imp_contents')->getMIMEPart($sig_id);
+        $subpart = $imp_contents->getMIMEPart($sig_id);
         if (empty($subpart)) {
             try {
                 $msg_data = $this->_impsmime->extractSignedContents($raw_text);

@@ -508,26 +508,6 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
     }
 
     /**
-     * Generates the javascript code for saving public keys.
-     *
-     * @param string $mailbox  The mailbox of the message.
-     * @param integer $uid     The UID of the message.
-     * @param string $id       The MIME ID of the message.
-     *
-     * @return string  The URL for saving public keys.
-     */
-    public function savePublicKeyUrl($mailbox, $uid, $id)
-    {
-        $params = array(
-            'actionID' => 'save_attachment_public_key',
-            'mailbox' => $mailbox,
-            'uid' => $uid,
-            'mime_id' => $id
-        );
-        return Horde::popupJs(Horde::url('pgp.php'), array('params' => $params, 'height' => 200, 'width' => 450));
-    }
-
-    /**
      * Provide the list of parameters needed for signing a message.
      *
      * @return array  The list of parameters needed by encrypt().

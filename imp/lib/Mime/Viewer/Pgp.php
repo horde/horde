@@ -327,7 +327,15 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
         if ($GLOBALS['prefs']->getValue('use_pgp') &&
             $GLOBALS['prefs']->getValue('add_source') &&
             $GLOBALS['registry']->hasMethod('contacts/addField')) {
-            $status->addText(Horde::link('#', '', '', '', $imp_pgp->savePublicKeyURL($this->getConfigParam('imp_contents')->getMailbox(), $this->getConfigParam('imp_contents')->getUid(), $mime_id) . 'return false;') . _("Save the key to your address book.") . '</a>');
+            // TODO: Check for key existence.
+            $imp_contents = $this->getConfigParam('imp_contents');
+            $imple = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('imp', 'ImportEncryptKey'), array(
+                'mailbox' => $imp_contents->getMailbox(),
+                'mime_id' => $mime_id,
+                'type' => 'pgp',
+                'uid' => $imp_contents->getUid()
+            ));
+            $status->addText(Horde::link('#', '', '', '', '', '', '', array('id' => $imple->getImportId())) . _("Save the key to your address book.") . '</a>');
         }
         $status->addText($this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', _("View the raw text of the Public Key."), array('jstext' => _("View Public Key"), 'params' => array('mode' => IMP_Contents::RENDER_INLINE, 'rawpgpkey' => 1))));
 

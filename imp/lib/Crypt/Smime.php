@@ -365,26 +365,6 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
     }
 
     /**
-     * Generates the javascript code for saving public keys.
-     *
-     * @param string $mailbox  The mailbox of the message.
-     * @param integer $uid     The UID of the message.
-     * @param string $id       The MIME ID of the message.
-     *
-     * @return string  The URL for saving public keys.
-     */
-    public function savePublicKeyURL($mailbox, $uid, $id)
-    {
-        $params = array(
-            'actionID' => 'save_attachment_public_key',
-            'mailbox' => $mailbox,
-            'uid' => $uid,
-            'mime_id' => $id
-        );
-        return Horde::popupJs(Horde::url('smime.php'), array('params' => $params, 'height' => 200, 'width' => 450));
-    }
-
-    /**
      * Encrypt a MIME_Part using S/MIME using IMP defaults.
      *
      * @param MIME_Part $mime_part  The MIME_Part object to encrypt.

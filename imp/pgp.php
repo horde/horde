@@ -113,21 +113,4 @@ case 'view_personal_private_key':
 case 'info_personal_private_key':
     $imp_pgp->printKeyInfo($imp_pgp->getPersonalPrivateKey());
     break;
-
-case 'save_attachment_public_key':
-    /* Retrieve the key from the message. */
-    $contents = $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($vars->mailbox, $vars->uid));
-    $mime_part = $contents->getMIMEPart($vars->mime_id);
-    if (empty($mime_part)) {
-        throw new IMP_Exception('Cannot retrieve public key from message.');
-    }
-
-    /* Add the public key to the storage system. */
-    try {
-        $imp_pgp->addPublicKey($mime_part->getContents());
-        echo Horde::wrapInlineScript(array('window.close();'));
-    } catch (Horde_Exception $e) {
-        $notification->push($e, $key_info->getCode());
-    }
-    break;
 }

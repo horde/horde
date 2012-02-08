@@ -77,6 +77,11 @@ class IMP_Ajax extends Horde_Core_Ajax
             Horde::addScriptFile('redbox.js', 'horde');
             Horde::addScriptFile('slider2.js', 'horde');
             Horde::addScriptFile('toggle_quotes.js', 'horde');
+
+            if ($prefs->getValue('use_pgp') ||
+                $prefs->getValue('use_smime')) {
+                Horde::addScriptFile('importencryptkey.js', 'imp');
+            }
             break;
 
         case 'message':
@@ -84,6 +89,11 @@ class IMP_Ajax extends Horde_Core_Ajax
             Horde::addScriptFile('imp.js', 'imp');
             Horde::addScriptFile('textarearesize.js', 'horde');
             Horde::addScriptFile('toggle_quotes.js', 'horde');
+
+            if ($prefs->getValue('use_pgp') ||
+                $prefs->getValue('use_smime')) {
+                Horde::addScriptFile('importencryptkey.js', 'imp');
+            }
 
             if (IMP::canCompose()) {
                 Horde::addScriptFile('compose-base.js', 'imp');
