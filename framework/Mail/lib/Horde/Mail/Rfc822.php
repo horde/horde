@@ -707,7 +707,7 @@ class Horde_Mail_Rfc822
      */
     protected function _curr($advance = false)
     {
-        return ($this->_ptr == $this->_datalen)
+        return ($this->_ptr >= $this->_datalen)
             ? false
             : $this->_data[$advance ? $this->_ptr++ : $this->_ptr];
     }
