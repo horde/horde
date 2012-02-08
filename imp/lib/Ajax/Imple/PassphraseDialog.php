@@ -25,15 +25,13 @@ class IMP_Ajax_Imple_PassphraseDialog extends Horde_Core_Ajax_Imple
      * Constructor.
      *
      * @param array $params  Configuration parameters.
-     * <pre>
-     * 'id' - [OPTIONAL] The DOM ID to attach to.
-     * 'onload' - (boolean) [OPTIONAL] If set, will trigger action on page
+     *   - id: - [OPTIONAL] The DOM ID to attach to.
+     *   - onload: (boolean) [OPTIONAL] If set, will trigger action on page
      *            load.
-     * 'params' - (array) [OPTIONAL] Any additional parameters to pass.
-     * 'reloadurl' - (Horde_Url) [OPTIONAL] Reload using this URL instead of
-     *               refreshing the page.
-     * 'type' - (string) The dialog type.
-     * </pre>
+     *   - params: (array) [OPTIONAL] Any additional parameters to pass.
+     *   - reloadurl: (Horde_Url) [OPTIONAL] Reload using this URL instead of
+     *              refreshing the page.
+     *   - type: (string) The dialog type.
      */
     public function __construct($params)
     {
@@ -104,19 +102,15 @@ class IMP_Ajax_Imple_PassphraseDialog extends Horde_Core_Ajax_Imple
      * Perform the given action.
      *
      * Variables required in form input:
-     * <pre>
-     * 'dialog_input' - (string) Input from the dialog screen.
-     * 'symmetricid' - (string) The symmetric ID to process.
-     * </pre>
+     *   - dialog_input: (string) Input from the dialog screen.
+     *   - symmetricid: (string) The symmetric ID to process.
      *
      * @param array $args  Not used.
      * @param array $post  Not used.
      *
      * @return object  An object with the following entries:
-     * <pre>
-     * 'error' - (string) An error message.
-     * 'success' - (integer) 1 on success, 0 on failure.
-     * </pre>
+     *   - error: (string) An error message.
+     *   - success: (integer) 1 on success, 0 on failure.
      */
     public function handle($args, $post)
     {
