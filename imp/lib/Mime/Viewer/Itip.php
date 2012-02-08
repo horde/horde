@@ -362,14 +362,17 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
                     $vCal->addComponent($vfb_reply);
 
                     $message = _("Attached is a reply to a calendar request you sent.");
-                    $body = new Horde_Mime_Part('text/plain',
-                                          Horde_String::wrap($message, 76),
-                                          $charset);
+                    $body = new Horde_Mime_Part();
+                    $body->setType('text/plain');
+                    $body->setCharset($charset);
+                    $body->setContents(Horde_String::wrap($message, 76));
 
-                    $ics = new Horde_Mime_Part('text/calendar', $vCal->exportvCalendar());
+                    $ics = new Horde_Mime_Part();
+                    $ics->setType('text/calendar');
+                    $ics->setCharset($charset);
+                    $ics->setContents($vCal->exportvCalendar());
                     $ics->setName('icalendar.ics');
                     $ics->setContentTypeParameter('METHOD', 'REPLY');
-                    $ics->setCharset($charset);
 
                     $mime = new Horde_Mime_Part();
                     $mime->addPart($body);
