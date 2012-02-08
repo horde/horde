@@ -22,13 +22,6 @@ class IMP_Ajax_Imple_PassphraseDialog extends Horde_Core_Ajax_Imple
     static protected $_passphraseId = 0;
 
     /**
-     * The passphrase ID used by this instance.
-     *
-     * @var string
-     */
-    protected $_domid;
-
-    /**
      * Constructor.
      *
      * @param array $params  Configuration parameters.
@@ -47,8 +40,6 @@ class IMP_Ajax_Imple_PassphraseDialog extends Horde_Core_Ajax_Imple
         if (!isset($params['id'])) {
             $params['id'] = 'imp_passphrase_' . ++self::$_passphraseId;
         }
-
-        $this->_domid = $params['id'];
 
         parent::__construct($params);
     }
@@ -103,7 +94,7 @@ class IMP_Ajax_Imple_PassphraseDialog extends Horde_Core_Ajax_Imple
         $js = 'IMPDialog.display(' . Horde::escapeJson($js_params, array('urlencode' => true)) . ');';
 
         if (empty($this->_params['onload'])) {
-            $js = '$("' . $this->_domid . '").observe("click", function(e) { ' . $js . 'e.stop(); })';
+            $js = '$("' . $this->_params['id'] . '").observe("click", function(e) { ' . $js . 'e.stop(); })';
         }
 
         Horde::addInlineScript(array($js), 'dom');
@@ -182,7 +173,7 @@ class IMP_Ajax_Imple_PassphraseDialog extends Horde_Core_Ajax_Imple
      */
     public function getPassphraseId()
     {
-        return $this->_domid;
+        return $this->_params['id'];
     }
 
 }
