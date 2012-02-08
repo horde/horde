@@ -111,41 +111,41 @@
     <?php if ($GLOBALS['registry']->getAuth() && !$prefs->isLocked('default_share')): ?>
     <a href="#" id="kronolithAddinternal" class="kronolithAdd" title="<?php echo _("New Calendar") ?>">+</a>
     <?php endif; ?>
-    <span><?php echo _("My Calendars") ?></span>
+    <span class="kronolithToggleCollapse" title="<?php echo _("Collaps") ?>"><?php echo _("My Calendars") ?></span>
   </h3>
 
-  <div id="kronolithMyCalendars" class="kronolithCalendars">
-  </div>
+  <div id="kronolithMyCalendars" class="kronolithCalendars"></div>
 
   <?php if (Kronolith::hasApiPermission('tasks')): ?>
   <h3>
     <?php if ($GLOBALS['registry']->getAuth() && !$prefs->isLocked('default_share')): ?>
     <a href="#" id="kronolithAddtasklists" class="kronolithAdd" title="<?php echo _("New Task List") ?>">+</a>
     <?php endif; ?>
-    <span><?php echo _("My Task Lists") ?></span>
+    <span class="kronolithToggleCollapse" title="<?php echo _("Collaps") ?>"><?php echo _("My Task Lists") ?></span>
   </h3>
 
-  <div id="kronolithMyTasklists" class="kronolithCalendars">
-  </div>
+  <div id="kronolithMyTasklists" class="kronolithCalendars"></div>
   <?php endif; ?>
 
   <h3>
     <!-- to be added when searching for shared calendars is implemented <a href="#" id="kronolithAddinternalshared" class="kronolithAdd">+</a>-->
-    <span><?php echo _("Shared Calendars") ?></span>
+    <span class="kronolithToggleExpand" title="<?php echo _("Expand") ?>"><?php echo _("Shared Calendars") ?></span>
   </h3>
 
-  <div class="kronolithDialogInfo"><?php echo _("No items to display") ?></div>
-  <div id="kronolithSharedCalendars" class="kronolithCalendars">
+  <div style="display:none">
+    <div class="kronolithDialogInfo"><?php echo _("No items to display") ?></div>
+    <div id="kronolithSharedCalendars" class="kronolithCalendars"></div>
   </div>
 
   <?php if (Kronolith::hasApiPermission('tasks')): ?>
   <h3>
     <!-- to be added when searching for shared calendars is implemented <a href="#" id="kronolithAddtasklistsshared" class="kronolithAdd">+</a>-->
-    <span><?php echo _("Shared Task Lists") ?></span>
+    <span class="kronolithToggleExpand" title="<?php echo _("Expand") ?>"><?php echo _("Shared Task Lists") ?></span>
   </h3>
 
-  <div class="kronolithDialogInfo"><?php echo _("No items to display") ?></div>
-  <div id="kronolithSharedTasklists" class="kronolithCalendars">
+  <div style="display:none">
+    <div class="kronolithDialogInfo"><?php echo _("No items to display") ?></div>
+    <div id="kronolithSharedTasklists" class="kronolithCalendars"></div>
   </div>
   <?php endif ?>
 
@@ -153,28 +153,28 @@
     <?php if ($registry->isAdmin()): ?>
     <a href="#" id="kronolithAddresource" class="kronolithAdd" title="<?php echo _("Add Resource") ?>">+</a>
     <?php endif; ?>
-    <span><?php echo _("Resources") ?></span>
+    <span class="kronolithToggleExpand" title="<?php echo _("Expand") ?>"><?php echo _("Resources") ?></span>
   </h3>
-  <div id="kronolithResourceCalendars" class="kronolithCalendars"></div>
+  <div id="kronolithResourceCalendars" class="kronolithCalendars" style="display:none"></div>
 
   <div id="kronolithExternalCalendars"></div>
 
   <h3>
     <a href="#" id="kronolithAddremote" class="kronolithAdd" title="<?php echo _("Add Remote Calendar") ?>">+</a>
-    <span><?php echo _("Remote Calendars") ?></span>
+    <span class="kronolithToggleExpand" title="<?php echo _("Expand") ?>"><?php echo _("Remote Calendars") ?></span>
   </h3>
 
-  <div class="kronolithDialogInfo"><?php echo _("No items to display") ?></div>
-  <div id="kronolithRemoteCalendars" class="kronolithCalendars">
+  <div style="display:none">
+    <div class="kronolithDialogInfo"><?php echo _("No items to display") ?></div>
+    <div id="kronolithRemoteCalendars" class="kronolithCalendars"></div>
   </div>
 
   <h3>
     <a href="#" id="kronolithAddholiday" class="kronolithAdd" title="<?php echo _("Add Holidays") ?>">+</a>
-    <span><?php echo _("Holidays") ?></span>
+    <span class="kronolithToggleExpand" title="<?php echo _("Expand") ?>"><?php echo _("Holidays") ?></span>
   </h3>
 
-  <div id="kronolithHolidayCalendars" class="kronolithCalendars">
-  </div>
+  <div id="kronolithHolidayCalendars" class="kronolithCalendars" style="display:none"></div>
 
   </div>
 </div>

@@ -652,8 +652,7 @@ a#kronolithNotifications:hover {
 }
 #kronolithMenu h3 {
     position: relative;
-    margin-top: 10px;
-    margin-bottom: 2px;
+    margin: 10px 0 2px 0;
     font-size: 100%;
     font-weight: bold;
     border-bottom: 1px #999 dotted;
@@ -686,6 +685,19 @@ a#kronolithNotifications:hover {
 }
 #kronolithMenu div#kronolithHolidayCalendars {
     margin-bottom: 0;
+}
+.kronolithToggleCollapse,
+.kronolithToggleExpand {
+    padding-left: 16px;
+    background-repeat: no-repeat;
+    background-position: left center;
+    cursor: pointer;
+}
+.kronolithToggleCollapse {
+    background-image: url("graphics/down.png");
+}
+.kronolithToggleExpand {
+    background-image: url("graphics/right.png");
 }
 #kronolithMenu a.kronolithAdd {
     position: absolute;

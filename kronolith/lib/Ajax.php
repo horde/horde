@@ -150,6 +150,7 @@ class Kronolith_Ajax extends Horde_Core_Ajax
             'allday' => _("All day"),
             'delete_calendar' => _("Are you sure you want to delete this calendar and all the events in it?"),
             'delete_tasklist' => _("Are you sure you want to delete this task list and all the tasks in it?"),
+            'expand' => _("Expand"),
             'external_category' => _("Other events"),
             'fix_form_values' => _("Please enter correct values in the form first."),
             'geocode_error' => _("Unable to locate requested address"),

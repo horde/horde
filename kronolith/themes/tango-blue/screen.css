@@ -36,6 +36,12 @@
 #kronolithNotifications.kronolithClose {
     background-image: url("graphics/close.png")
 }
+.kronolithToggleCollapse {
+    background-image: url("graphics/down.png");
+}
+.kronolithToggleExpand {
+    background-image: url("graphics/right.png");
+}
 .kronolithPrint span {
     background-image: url("graphics/print.png");
 }

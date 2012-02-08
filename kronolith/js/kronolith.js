@@ -1029,8 +1029,9 @@ KronolithCore = {
         ext.each(function(api) {
             extContainer
                 .insert(new Element('h3')
-                        .insert({ bottom: extNames.get(api.key).escapeHTML() }))
-                .insert(new Element('div', { id: 'kronolithExternalCalendar' + api.key, className: 'kronolithCalendars' }));
+                        .insert(new Element('span', { className: 'kronolithToggleExpand', title: Kronolith.text.expand })
+                                .insert({ bottom: extNames.get(api.key).escapeHTML() })))
+                .insert(new Element('div', { id: 'kronolithExternalCalendar' + api.key, className: 'kronolithCalendars', style: 'display:none' }));
             api.value.each(function(cal) {
                 this.insertCalendarInList('external', api.key + '/' + cal.key, cal.value, $('kronolithExternalCalendar' + api.key));
             }, this);
@@ -4539,6 +4540,18 @@ KronolithCore = {
             case 'kronolithAdd':
                 this.go('calendar:' + id.replace(/kronolithAdd/, ''));
                 e.stop();
+                return;
+
+            case 'kronolithToggleCollapse':
+                elt.up().next().blindUp();
+                elt.removeClassName('kronolithToggleCollapse');
+                elt.addClassName('kronolithToggleExpand');
+                return;
+
+            case 'kronolithToggleExpand':
+                elt.up().next().blindDown();
+                elt.removeClassName('kronolithToggleExpand');
+                elt.addClassName('kronolithToggleCollapse');
                 return;
 
             case 'kronolithTabLink':

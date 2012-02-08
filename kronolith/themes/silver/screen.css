@@ -59,6 +59,12 @@ a#kronolithNotifications {
 #kronolithMenu a.kronolithAdd {
     background-image: url("graphics/plus.png");
 }
+.kronolithToggleCollapse {
+    background-image: url("graphics/down.png");
+}
+.kronolithToggleExpand {
+    background-image: url("graphics/right.png");
+}
 .kronolithDialogInfo {
     background-image: url("graphics/alerts/message.png");
 }
