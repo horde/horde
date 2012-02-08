@@ -307,119 +307,17 @@ class Hermes
     }
 
     /**
-     * Output everything for the AJAX interface up to but not including the
-     * <body> tag.
-     */
-    public static function header()
-    {
-        // Need to include script files before we start output
-        $datejs = str_replace('_', '-', $GLOBALS['language']) . '.js';
-        if (!file_exists($GLOBALS['registry']->get('jsfs', 'horde') . '/date/' . $datejs)) {
-            $datejs = 'en-US.js';
-        }
-        Horde::addScriptFile('effects.js', 'horde');
-        Horde::addScriptFile('horde.js', 'horde');
-        Horde::addScriptFile('growler.js', 'horde');
-        Horde::addScriptFile('redbox.js', 'horde');
-        Horde::addScriptFile('tooltips.js', 'horde');
-        Horde::addScriptFile('date/' . $datejs, 'horde');
-        Horde::addScriptFile('date/date.js', 'horde');
-        Horde::addScriptFile('quickfinder.js', 'horde');
-        Horde::addScriptFile('hermes.js', 'hermes');
-        Horde_Core_Ui_JsCalendar::init(array('short_weekdays' => true));
-
-        if (isset($GLOBALS['language'])) {
-            header('Content-type: text/html; charset=UTF-8');
-            header('Vary: Accept-Language');
-        }
-
-        echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">' . "\n" .
-             (!empty($GLOBALS['language']) ? '<html lang="' . strtr($GLOBALS['language'], '_', '-') . '"' : '<html') . ">\n".
-             "<head>\n" .
-             '<title>' . htmlspecialchars($GLOBALS['registry']->get('name')) . "</title>\n";
-
-        Horde::includeFavicon();
-        echo Horde::wrapInlineScript(self::includeJSVars());
-        Horde::includeStylesheetFiles();
-
-        echo "</head>\n";
-
-        // Send what we have currently output so the browser can start
-        // loading CSS/JS. See:
-        // http://developer.yahoo.com/performance/rules.html#flush
-        echo Horde::endBuffer();
-        flush();
-    }
-
-    public static function includeJSVars()
-    {
-        global $prefs, $registry;
-
-        $hermes_webroot = $registry->get('webroot');
-        $horde_webroot = $registry->get('webroot', 'horde');
-        $has_tasks = $registry->hasInterface('tasks');
-        $app_urls = array();
-        if (isset($GLOBALS['conf']['menu']['apps']) &&
-            is_array($GLOBALS['conf']['menu']['apps'])) {
-            foreach ($GLOBALS['conf']['menu']['apps'] as $app) {
-                $app_urls[$app] = (string)Horde::url($registry->getInitialPage($app), true)->add('ajaxui', 1);
-            }
-        }
-
-        /* Variables used in core javascript files. */
-        $code['conf'] = array(
-            'URI_AJAX' => (string)Horde::getServiceLink('ajax', 'hermes'),
-            'SESSION_ID' => defined('SID') ? SID : '',
-            'images' => array(
-                'timerlog' => (string)Horde_Themes::img('log.png'),
-                'timerplay' => (string)Horde_Themes::img('play.png'),
-                'timerpause' => (string)Horde_Themes::img('pause.png')
-            ),
-            'user' => $GLOBALS['registry']->convertUsername($GLOBALS['registry']->getAuth(), false),
-            'prefs_url' => (string)Horde::getServiceLink('prefs', 'hermes')->setRaw(true)->add('ajaxui', 1),
-            'app_urls' => $app_urls,
-            'name' => $registry->get('name'),
-            'login_view' => 'time',
-            'date_format' => str_replace(array('%e', '%d', '%a', '%A', '%m', '%h', '%b', '%B', '%y', '%Y'),
-                             array('d', 'dd', 'ddd', 'dddd', 'MM', 'MMM', 'MMM', 'MMMM', 'yy', 'yyyy'),
-                             Horde_Nls::getLangInfo(D_FMT)),
-            'client_name_field' => $GLOBALS['conf']['client']['field']
-        );
-        if (!empty($GLOBALS['conf']['logo']['link'])) {
-            $code['conf']['URI_HOME'] = $GLOBALS['conf']['logo']['link'];
-        }
-
-        /* Gettext strings used in core javascript files. */
-        $code['text'] = array(
-            'ajax_error' => _("Error when communicating with the server."),
-            'ajax_timeout' => _("There has been no contact with the server for several minutes. The server may be temporarily unavailable or network problems may be interrupting your session. You will not see any updates until the connection is restored."),
-            'ajax_recover' => _("The connection to the server has been restored."),
-            'noalerts' => _("No Notifications"),
-            'alerts' => sprintf(_("%s notifications"), '#{count}'),
-            'hidelog' => _("Hide Notifications"),
-            'growlerinfo' => _("This is the notification backlog"),
-            'more' => _("more..."),
-            'prefs' => _("Preferences"),
-            'wrong_auth' => _("The authentication information you specified wasn't accepted."),
-            'fix_form_values' => _("Please enter correct values in the form first."),
-        );
-
-        return Horde::addInlineJsVars(array(
-            'var Hermes' => $code
-        ), array('ret_vars' => true));
-    }
-
-    /**
      * Returns whether to display the ajax view.
      *
      * return boolean  True if the ajax view should be displayed.
      */
     public static function showAjaxView()
     {
-        global $prefs, $session;
+        global $prefs, $registry;
 
-        $mode = $session->get('horde', 'mode');
-        return ($mode == 'dynamic' || ($prefs->getValue('dynamic_view') && $mode == 'auto')) && Horde::ajaxAvailable();
+        $mode = $registry->getView();
+        return ($mode == Horde_Registry::VIEW_DYNAMIC && $prefs->getValue('dynamic_view')
+                ($prefs->getValue('dynamic_view') && $mode == 'auto')) && Horde::ajaxAvailable();
     }
 
     /**
