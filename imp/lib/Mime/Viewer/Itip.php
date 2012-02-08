@@ -118,15 +118,15 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
                 // vEvent cancellation.
                 if ($registry->hasMethod('calendar/delete')) {
                     $guid = $components[$key]->getAttribute('UID');
-                    $deleteParams = array('guid' => $guid);
+                    $recurrenceId = null;
+
                     try {
-                        $instance = $components[$key]->getAttribute('RECURRENCE-ID');
-                    } catch (Horde_Icalendar_Exception $e) {
                         // This is a cancellation of a recurring event instance.
-                        $deleteParams['recurrenceId'] = $instance;
-                    }
+                        $recurrenceId = $components[$key]->getAttribute('RECURRENCE-ID');
+                    } catch (Horde_Icalendar_Exception $e) {}
+
                     try {
-                        $registry->call('calendar/delete', $deleteParams);
+                        $registry->call('calendar/delete', array('guid' => $guid), $recurrenceId);
                         $msgs[] = array('success', _("Event successfully deleted."));
                     } catch (Horde_Exception $e) {
                         $msgs[] = array('error', _("There was an error deleting the event:") . ' ' . $e->getMessage());
@@ -300,21 +300,12 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
                     } catch (Horde_Itip_Exception $e) {
                         $msgs[] = array('error', sprintf(_("Error sending reply: %s."), $e->getMessage()));
                     }
-
-                    // Send the reply.
                 } else {
                     $msgs[] = array('warning', _("This action is not supported."));
                 }
                 break;
 
             case 'send':
-                // vEvent refresh.
-                if (isset($components[$key]) &&
-                    $components[$key]->getType() == 'vEvent') {
-                    $vEvent = $components[$key];
-                }
-
-                // vTodo refresh.
             case 'reply':
             case 'reply2m':
                 // vfreebusy request.
@@ -371,14 +362,17 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
                     $vCal->addComponent($vfb_reply);
 
                     $message = _("Attached is a reply to a calendar request you sent.");
-                    $body = new Horde_Mime_Part('text/plain',
-                                          Horde_String::wrap($message, 76),
-                                          $charset);
+                    $body = new Horde_Mime_Part();
+                    $body->setType('text/plain');
+                    $body->setCharset($charset);
+                    $body->setContents(Horde_String::wrap($message, 76));
 
-                    $ics = new Horde_Mime_Part('text/calendar', $vCal->exportvCalendar());
+                    $ics = new Horde_Mime_Part();
+                    $ics->setType('text/calendar');
+                    $ics->setCharset($charset);
+                    $ics->setContents($vCal->exportvCalendar());
                     $ics->setName('icalendar.ics');
                     $ics->setContentTypeParameter('METHOD', 'REPLY');
-                    $ics->setCharset($charset);
 
                     $mime = new Horde_Mime_Part();
                     $mime->addPart($body);

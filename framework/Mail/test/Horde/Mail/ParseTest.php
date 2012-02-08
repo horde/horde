@@ -140,7 +140,7 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
         $this->assertInternalType('array', $result[0]->addresses[2]->comment);
         $this->assertEquals($result[0]->addresses[2]->comment, array());
         $this->assertEquals($result[0]->addresses[2]->mailbox, 'Barney');
-        $this->assertEquals($result[0]->addresses[2]->host, 'localhost');
+        $this->assertNull($result[0]->addresses[2]->host);
 
         /* A valid address with spaces in the local part. */
         $address = '<"Jon Parise"@php.net>';
@@ -332,7 +332,7 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testBadValidation()
+    public function testValidation()
     {
         $parser = new Horde_Mail_Rfc822();
         $ob = $parser->parseAddressList(
@@ -346,6 +346,29 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
             1,
             count($ob)
         );
+    }
+
+    public function testBadCharactersInEmail()
+    {
+        $address = 'fooççç@example.com';
+
+        $parser = new Horde_Mail_Rfc822();
+        $ob = $parser->parseAddressList(
+            $address,
+            array(
+                'validate' => false
+            )
+        );
+
+        $this->assertEquals(
+            1,
+            count($ob)
+        );
+
+        try {
+            $parser->parseAddressList($address);
+            $this->fail('Expected Exception.');
+        } catch (Horde_Mail_Exception $e) {}
     }
 
 }

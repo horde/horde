@@ -96,12 +96,7 @@ class Horde_Mail_Rfc822
      *
      * @var array
      */
-    protected $_params = array(
-        'default_domain' => 'localhost',
-        'limit' => 0,
-        'nest_groups' => true,
-        'validate' => true
-    );
+    protected $_params = array();
 
     /**
      * Data pointer.
@@ -144,11 +139,12 @@ class Horde_Mail_Rfc822
      */
     public function parseAddressList($address, array $params = array())
     {
-        foreach (array_keys($this->_params) as $key) {
-            if (isset($params[$key])) {
-                $this->_params[$key] = $params[$key];
-            }
-        }
+        $this->_params = array_merge(array(
+            'default_domain' => 'localhost',
+            'limit' => 0,
+            'nest_groups' => true,
+            'validate' => true
+        ), $params);
 
         $this->_data = $address;
         $this->_datalen = strlen($address);
@@ -349,7 +345,7 @@ class Horde_Mail_Rfc822
         if ($curr == '"') {
             $this->_rfc822ParseQuotedString($str);
         } else {
-            $this->_rfc822ParseDotAtom($str);
+            $this->_rfc822ParseDotAtom($str, '@');
         }
 
         return $str;
@@ -503,17 +499,20 @@ class Horde_Mail_Rfc822
      *
      * For RFC-822 compatibility allow LWSP around '.'
      *
+     * @param string &$str      The atom/dot data.
+     * @param string $validate  Use these characters as delimiter.
+     *
      * @throws Horde_Mail_Exception
      */
-    protected function _rfc822ParseDotAtom(&$str)
+    protected function _rfc822ParseDotAtom(&$str, $validate = null)
     {
         $curr = $this->_curr();
-        if (($curr === false) || !$this->_rfc822IsAtext($curr)) {
+        if (($curr === false) || !$this->_rfc822IsAtext($curr, $validate)) {
             throw new Horde_Mail_Exception('Error when parsing dot-atom.');
         }
 
         while (($chr = $this->_curr()) !== false) {
-            if ($this->_rfc822IsAtext($chr)) {
+            if ($this->_rfc822IsAtext($chr, $validate)) {
                 $str .= $chr;
                 $this->_curr(true);
             } else {
@@ -542,9 +541,7 @@ class Horde_Mail_Rfc822
     protected function _rfc822ParseAtomOrDot(&$str)
     {
         while (($chr = $this->_curr()) !== false) {
-            if (($chr != '.') &&
-                (($this->_params['validate'] && !$this->_rfc822IsAtext($chr)) ||
-                 (!$this->_params['validate'] && !strcspn($chr, '<:')))) {
+            if (($chr != '.') && !$this->_rfc822IsAtext($chr, '<:')) {
                 $this->_rfc822SkipLwsp();
                 if (!$this->_params['validate']) {
                     $str = trim($str);
@@ -689,15 +686,21 @@ class Horde_Mail_Rfc822
     /**
      * Check if data is an atom.
      *
-     * @param string $chr  The character to check.
+     * @param string $chr       The character to check.
+     * @param string $validate  If in non-validate mode, use these characters
+     *                          as the non-atom delimiters.
      *
      * @return boolean  True if an atom.
      */
-    protected function _rfc822IsAtext($chr)
+    protected function _rfc822IsAtext($chr, $validate = null)
     {
-        return is_null($chr)
-            ? false
-            : !strcspn($chr, '!#$%&\'*+-./0123456789=?ABCDEFGHIJKLMNOPQRSTUVWXYZ^_`abcdefghijklmnopqrstuvwxyz{|}~');
+        if (is_null($chr)) {
+            return false;
+        }
+
+        return ($this->_params['validate'] || is_null($validate))
+            ? !strcspn($chr, '!#$%&\'*+-./0123456789=?ABCDEFGHIJKLMNOPQRSTUVWXYZ^_`abcdefghijklmnopqrstuvwxyz{|}~')
+            : strcspn($chr, $validate);
     }
 
     /* Helper methods. */
@@ -711,7 +714,7 @@ class Horde_Mail_Rfc822
      */
     protected function _curr($advance = false)
     {
-        return ($this->_ptr == $this->_datalen)
+        return ($this->_ptr >= $this->_datalen)
             ? false
             : $this->_data[$advance ? $this->_ptr++ : $this->_ptr];
     }
