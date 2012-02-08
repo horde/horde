@@ -204,55 +204,20 @@ class Horde_Browser
      * @var array
      */
     protected $_features = array(
-        'html'       => true,
-        'hdml'       => false,
-        'wml'        => false,
-        'images'     => true,
-        'iframes'    => false,
         'frames'     => true,
-        'tables'     => true,
+        'html'       => true,
+        'images'     => true,
         'java'       => true,
         'javascript' => true,
-        'dom'        => false,
-        'utf'        => false,
-        'rte'        => false,
-        'homepage'   => false,
-        'accesskey'  => false,
-        'optgroup'   => false,
-        'xmlhttpreq' => false,
-        'cite'       => false,
-        // RFC 2397
-        'dataurl' => false,
-        // Webkit browsers
-        'ischrome'    => false,
-        'iskonqueror' => false,
-        'issafari'    => false,
+        'tables'     => true
     );
 
     /**
-     * Quirks
+     * Quirks.
      *
      * @var array
      */
-    protected $_quirks = array(
-        'avoid_popup_windows'        => false,
-        'break_disposition_header'   => false,
-        'break_disposition_filename' => false,
-        'broken_multipart_form'      => false,
-        'buggy_compression'          => false,
-        'cache_same_url'             => false,
-        'cache_ssl_downloads'        => false,
-        'double_linebreak_textarea'  => false,
-        'empty_file_input_value'     => false,
-        'must_cache_forms'           => false,
-        'no_filename_spaces'         => false,
-        'no_hidden_overflow_tables'  => false,
-        'ow_gui_1.3'                 => false,
-        'png_transparency'           => false,
-        'scrollbar_in_way'           => false,
-        'scroll_tds'                 => false,
-        'windowed_controls'          => false,
-    );
+    protected $_quirks = array();
 
     /**
      * List of viewable image MIME subtypes.
@@ -850,12 +815,33 @@ class Horde_Browser
     /**
      * Sets unique behavior for the current browser.
      *
-     * @param string $quirk  The behavior to set.
+     * @param string $quirk  The behavior to set. Quirks:
+     *   - avoid_popup_windows
+     *   - break_disposition_header
+     *   - break_disposition_filename
+     *   - broken_multipart_form
+     *   - buggy_compression
+     *   - cache_same_url
+     *   - cache_ssl_downloads
+     *   - double_linebreak_textarea
+     *   - empty_file_input_value
+     *   - must_cache_forms
+     *   - no_filename_spaces
+     *   - no_hidden_overflow_tables
+     *   - ow_gui_1.3
+     *   - png_transparency
+     *   - scrollbar_in_way
+     *   - scroll_tds
+     *   - windowed_controls
      * @param string $value  Special behavior parameter.
      */
     public function setQuirk($quirk, $value = true)
     {
-        $this->_quirks[$quirk] = $value;
+        if ($value) {
+            $this->_quirks[$quirk] = $value;
+        } else {
+            unset($this->_quirks[$quirk]);
+        }
     }
 
     /**
@@ -887,12 +873,37 @@ class Horde_Browser
     /**
      * Sets capabilities for the current browser.
      *
-     * @param string $feature  The capability to set.
+     * @param string $feature  The capability to set. Features:
+     *   - accesskey
+     *   - cite
+     *   - dataurl
+     *   - dom
+     *   - frames
+     *   - hdml
+     *   - html
+     *   - homepage
+     *   - iframes
+     *   - images
+     *   - ischrome
+     *   - iskonqueror
+     *   - issafari
+     *   - java
+     *   - javascript
+     *   - optgroup
+     *   - rte
+     *   - tables
+     *   - utf
+     *   - wml
+     *   - xmlhttpreq
      * @param string $value    Special capability parameter.
      */
     public function setFeature($feature, $value = true)
     {
-        $this->_features[$feature] = $value;
+        if ($value) {
+            $this->_features[$feature] = $value;
+        } else {
+            unset($this->_features[$feature]);
+        }
     }
 
     /**
