@@ -307,20 +307,6 @@ class Hermes
     }
 
     /**
-     * Returns whether to display the ajax view.
-     *
-     * return boolean  True if the ajax view should be displayed.
-     */
-    public static function showAjaxView()
-    {
-        global $prefs, $registry;
-
-        $mode = $registry->getView();
-        return ($mode == Horde_Registry::VIEW_DYNAMIC && $prefs->getValue('dynamic_view')
-                ($prefs->getValue('dynamic_view') && $mode == 'auto')) && Horde::ajaxAvailable();
-    }
-
-    /**
      * Create a new timer and save it to storage.
      *
      * @param string $description  The timer description.
