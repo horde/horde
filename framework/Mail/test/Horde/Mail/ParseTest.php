@@ -332,4 +332,43 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testValidation()
+    {
+        $parser = new Horde_Mail_Rfc822();
+        $ob = $parser->parseAddressList(
+            '"Tek-Diária - Newsletter" <foo@example.com>',
+            array(
+                'validate' => false
+            )
+        );
+
+        $this->assertEquals(
+            1,
+            count($ob)
+        );
+    }
+
+    public function testBadCharactersInEmail()
+    {
+        $address = 'fooççç@example.com';
+
+        $parser = new Horde_Mail_Rfc822();
+        $ob = $parser->parseAddressList(
+            $address,
+            array(
+                'validate' => false
+            )
+        );
+
+        $this->assertEquals(
+            1,
+            count($ob)
+        );
+
+        try {
+            $parser->parseAddressList($address);
+            $this->fail('Expected Exception.');
+        } catch (Horde_Mail_Exception $e) {}
+    }
+
 }
