@@ -638,8 +638,8 @@ a#kronolithNotifications:hover {
     width: 153px;
 }
 #kronolithMenu .button {
-	padding: 1px 2px;
-	border: 0;
+    padding: 1px 2px;
+    border: 0;
 }
 #kronolithMenuCalendars, #kronolithLoadingCalendars {
     position: absolute;
@@ -664,7 +664,7 @@ a#kronolithNotifications:hover {
     top: 10px;
 }
 #kronolithSearchButton {
-    background: transparent url('graphics/search.png');
+    background: transparent url("graphics/search.png");
     border: none;
     width: 16px;
     height: 16px;
@@ -790,7 +790,7 @@ a.kronolithFormCancel {
     text-decoration: underline;
 }
 .kronolithDialogInfo {
-    background: transparent url('graphics/alerts/message.png') 0 0 no-repeat;
+    background: transparent url("graphics/alerts/message.png") 0 0 no-repeat;
     padding-left: 20px;
     font-style: italic;
 }
@@ -799,7 +799,7 @@ a.kronolithFormCancel {
     background-image: none;
 }
 .kronolithDialogWarning {
-    background: transparent url('graphics/alerts/warning.png') 0 0 no-repeat;
+    background: transparent url("graphics/alerts/warning.png") 0 0 no-repeat;
     padding-left: 20px;
 }
 .kronolithDialogWarning strong {
@@ -1161,7 +1161,7 @@ table.kronolithView td.kronolithFirstCol {
     display: block;
     width: 16px;
     height: 16px;
-    background-image: url('graphics/print.png');
+    background-image: url("graphics/print.png");
     text-indent: -10000px;
     overflow: hidden;
 }
@@ -1370,7 +1370,7 @@ table.kronolithView td.kronolithFirstCol {
     margin-left: 2px;
     width: 16px;
     height: 16px;
-    background-image: url('graphics/new_task.png');
+    background-image: url("graphics/new_task.png");
 }
 
 /* Tab sets */

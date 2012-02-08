@@ -54,16 +54,16 @@ a#kronolithNotifications {
     background-image: url("graphics/close.png"), url("graphics/menu-active.png")
 }
 #kronolithSearchButton {
-    background-image: url('graphics/search.png');
+    background-image: url("graphics/search.png");
 }
 #kronolithMenu a.kronolithAdd {
     background-image: url("graphics/plus.png");
 }
 .kronolithDialogInfo {
-    background-image: url('graphics/alerts/message.png');
+    background-image: url("graphics/alerts/message.png");
 }
 .kronolithDialogWarning {
-    background-image: url('graphics/alerts/warning.png');
+    background-image: url("graphics/alerts/warning.png");
 }
 #kronolithEventTabAttendees td.kronolithAttendeeNone,
 #kronolithEventTabResources td.kronolithAttendeeNone {
@@ -88,10 +88,10 @@ a#kronolithNotifications {
     background-image: url("graphics/left.png");
 }
 .kronolithPrint span {
-    background-image: url('graphics/print.png');
+    background-image: url("graphics/print.png");
 }
 .kronolithAddTask .kronolithAddTaskIcon {
-    background-image: url('graphics/new_task.png');
+    background-image: url("graphics/new_task.png");
 }
 
 /* Navigation bar. */
