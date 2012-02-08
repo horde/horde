@@ -93,14 +93,6 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
             return $this->_outputSmimeKey();
         }
 
-        if (is_null($this->_impsmime)) {
-            $this->_impsmime = false;
-        } else {
-            /* We need to insert JavaScript code now if S/MIME support is
-             * active. */
-            Horde::addScriptFile('imp.js', 'imp');
-        }
-
         $id = $this->_mimepart->getMimeId();
 
         switch ($this->_mimepart->getType()) {
