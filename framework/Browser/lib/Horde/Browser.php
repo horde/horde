@@ -1,7 +1,6 @@
 <?php
 /**
- * The Horde_Browser class provides capability information for the current
- * web client.
+ * This provides capability information for the current web client.
  *
  * Browser identification is performed by examining the HTTP_USER_AGENT
  * environment variable provided by the web server.
@@ -16,6 +15,7 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Jon Parise <jon@horde.org>
  * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL
  * @package  Browser
  */
 class Horde_Browser
@@ -204,55 +204,20 @@ class Horde_Browser
      * @var array
      */
     protected $_features = array(
-        'html'       => true,
-        'hdml'       => false,
-        'wml'        => false,
-        'images'     => true,
-        'iframes'    => false,
         'frames'     => true,
-        'tables'     => true,
+        'html'       => true,
+        'images'     => true,
         'java'       => true,
         'javascript' => true,
-        'dom'        => false,
-        'utf'        => false,
-        'rte'        => false,
-        'homepage'   => false,
-        'accesskey'  => false,
-        'optgroup'   => false,
-        'xmlhttpreq' => false,
-        'cite'       => false,
-        // RFC 2397
-        'dataurl' => false,
-        // Webkit browsers
-        'ischrome'    => false,
-        'iskonqueror' => false,
-        'issafari'    => false,
+        'tables'     => true
     );
 
     /**
-     * Quirks
+     * Quirks.
      *
      * @var array
      */
-    protected $_quirks = array(
-        'avoid_popup_windows'        => false,
-        'break_disposition_header'   => false,
-        'break_disposition_filename' => false,
-        'broken_multipart_form'      => false,
-        'buggy_compression'          => false,
-        'cache_same_url'             => false,
-        'cache_ssl_downloads'        => false,
-        'double_linebreak_textarea'  => false,
-        'empty_file_input_value'     => false,
-        'must_cache_forms'           => false,
-        'no_filename_spaces'         => false,
-        'no_hidden_overflow_tables'  => false,
-        'ow_gui_1.3'                 => false,
-        'png_transparency'           => false,
-        'scrollbar_in_way'           => false,
-        'scroll_tds'                 => false,
-        'windowed_controls'          => false,
-    );
+    protected $_quirks = array();
 
     /**
      * List of viewable image MIME subtypes.
@@ -397,17 +362,6 @@ class Horde_Browser
             default:
             case 9:
             case 8:
-                $this->setFeature('javascript', 1.4);
-                $this->setFeature('dom');
-                $this->setFeature('iframes');
-                $this->setFeature('utf');
-                $this->setFeature('rte');
-                $this->setFeature('homepage');
-                $this->setFeature('accesskey');
-                $this->setFeature('optgroup');
-                $this->setFeature('dataurl', 32768);
-                break;
-
             case 7:
                 $this->setFeature('javascript', 1.4);
                 $this->setFeature('dom');
@@ -417,6 +371,10 @@ class Horde_Browser
                 $this->setFeature('homepage');
                 $this->setFeature('accesskey');
                 $this->setFeature('optgroup');
+                if ($this->_majorVersion != 7) {
+                    $this->setFeature('cite');
+                    $this->setFeature('dataurl', ($this->_majorVersion == 8) ? 32768 : true);
+                }
                 break;
 
             case 6:
@@ -569,6 +527,7 @@ class Horde_Browser
 
             list($this->_majorVersion, $this->_minorVersion) = explode('.', $version[1]);
             switch ($this->_majorVersion) {
+            default:
             case 5:
                 if ($this->getPlatform() == 'win') {
                     $this->setQuirk('break_disposition_filename');
@@ -601,7 +560,9 @@ class Horde_Browser
                 break;
 
             case 3:
-            default:
+            case 2:
+            case 1:
+            case 0:
                 $this->setFeature('javascript', 1);
                 $this->setQuirk('buggy_compression');
                 break;
@@ -850,12 +811,33 @@ class Horde_Browser
     /**
      * Sets unique behavior for the current browser.
      *
-     * @param string $quirk  The behavior to set.
+     * @param string $quirk  The behavior to set. Quirks:
+     *   - avoid_popup_windows
+     *   - break_disposition_header
+     *   - break_disposition_filename
+     *   - broken_multipart_form
+     *   - buggy_compression
+     *   - cache_same_url
+     *   - cache_ssl_downloads
+     *   - double_linebreak_textarea
+     *   - empty_file_input_value
+     *   - must_cache_forms
+     *   - no_filename_spaces
+     *   - no_hidden_overflow_tables
+     *   - ow_gui_1.3
+     *   - png_transparency
+     *   - scrollbar_in_way
+     *   - scroll_tds
+     *   - windowed_controls
      * @param string $value  Special behavior parameter.
      */
     public function setQuirk($quirk, $value = true)
     {
-        $this->_quirks[$quirk] = $value;
+        if ($value) {
+            $this->_quirks[$quirk] = $value;
+        } else {
+            unset($this->_quirks[$quirk]);
+        }
     }
 
     /**
@@ -887,12 +869,37 @@ class Horde_Browser
     /**
      * Sets capabilities for the current browser.
      *
-     * @param string $feature  The capability to set.
+     * @param string $feature  The capability to set. Features:
+     *   - accesskey
+     *   - cite
+     *   - dataurl
+     *   - dom
+     *   - frames
+     *   - hdml
+     *   - html
+     *   - homepage
+     *   - iframes
+     *   - images
+     *   - ischrome
+     *   - iskonqueror
+     *   - issafari
+     *   - java
+     *   - javascript
+     *   - optgroup
+     *   - rte
+     *   - tables
+     *   - utf
+     *   - wml
+     *   - xmlhttpreq
      * @param string $value    Special capability parameter.
      */
     public function setFeature($feature, $value = true)
     {
-        $this->_features[$feature] = $value;
+        if ($value) {
+            $this->_features[$feature] = $value;
+        } else {
+            unset($this->_features[$feature]);
+        }
     }
 
     /**
@@ -940,13 +947,9 @@ class Horde_Browser
      */
     public function getHTTPProtocol()
     {
-        if (isset($_SERVER['SERVER_PROTOCOL'])) {
-            if (($pos = strrpos($_SERVER['SERVER_PROTOCOL'], '/'))) {
-                return substr($_SERVER['SERVER_PROTOCOL'], $pos + 1);
-            }
-        }
-
-        return null;
+        return (isset($_SERVER['SERVER_PROTOCOL']) && ($pos = strrpos($_SERVER['SERVER_PROTOCOL'], '/')))
+            ? substr($_SERVER['SERVER_PROTOCOL'], $pos + 1)
+            : null;
     }
 
     /**
@@ -970,51 +973,51 @@ class Horde_Browser
      */
     public static function allowFileUploads()
     {
-        if (ini_get('file_uploads')) {
-            if (($dir = ini_get('upload_tmp_dir')) &&
-                !is_writable($dir)) {
-                return 0;
-            }
-            $filesize = ini_get('upload_max_filesize');
-            switch (strtolower(substr($filesize, -1, 1))) {
-            case 'k':
-                $filesize = intval(floatval($filesize) * 1024);
-                break;
-
-            case 'm':
-                $filesize = intval(floatval($filesize) * 1024 * 1024);
-                break;
-
-            case 'g':
-                $filesize = intval(floatval($filesize) * 1024 * 1024 * 1024);
-                break;
-
-            default:
-                $filesize = intval($filesize);
-                break;
-            }
-            $postsize = ini_get('post_max_size');
-            switch (strtolower(substr($postsize, -1, 1))) {
-            case 'k':
-                $postsize = intval(floatval($postsize) * 1024);
-                break;
-
-            case 'm':
-                $postsize = intval(floatval($postsize) * 1024 * 1024);
-                break;
-
-            case 'g':
-                $postsize = intval(floatval($postsize) * 1024 * 1024 * 1024);
-                break;
-
-            default:
-                $postsize = intval($postsize);
-                break;
-            }
-            return min($filesize, $postsize);
-        } else {
+        if (!ini_get('file_uploads') ||
+            (!($dir = ini_get('upload_tmp_dir'))) ||
+            !is_writable($dir)) {
             return 0;
         }
+
+        $filesize = ini_get('upload_max_filesize');
+        switch (strtolower(substr($filesize, -1, 1))) {
+        case 'k':
+            $filesize = intval(floatval($filesize) * 1024);
+            break;
+
+        case 'm':
+            $filesize = intval(floatval($filesize) * 1024 * 1024);
+            break;
+
+        case 'g':
+            $filesize = intval(floatval($filesize) * 1024 * 1024 * 1024);
+            break;
+
+        default:
+            $filesize = intval($filesize);
+            break;
+        }
+
+        $postsize = ini_get('post_max_size');
+        switch (strtolower(substr($postsize, -1, 1))) {
+        case 'k':
+            $postsize = intval(floatval($postsize) * 1024);
+            break;
+
+        case 'm':
+            $postsize = intval(floatval($postsize) * 1024 * 1024);
+            break;
+
+        case 'g':
+            $postsize = intval(floatval($postsize) * 1024 * 1024 * 1024);
+            break;
+
+        default:
+            $postsize = intval($postsize);
+            break;
+        }
+
+        return min($filesize, $postsize);
     }
 
     /**
