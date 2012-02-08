@@ -526,6 +526,7 @@ class Horde_Browser
 
             list($this->_majorVersion, $this->_minorVersion) = explode('.', $version[1]);
             switch ($this->_majorVersion) {
+            default:
             case 5:
                 if ($this->getPlatform() == 'win') {
                     $this->setQuirk('break_disposition_filename');
@@ -558,7 +559,9 @@ class Horde_Browser
                 break;
 
             case 3:
-            default:
+            case 2:
+            case 1:
+            case 0:
                 $this->setFeature('javascript', 1);
                 $this->setQuirk('buggy_compression');
                 break;
