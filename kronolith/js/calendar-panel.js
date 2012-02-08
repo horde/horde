@@ -11,7 +11,7 @@ function sbarToggle()
     }
 
     HordeCore.doAction('setPrefValue', {
-        pref: 'show_panel'
+        pref: 'show_panel',
         value: pref_value
     });
 }
