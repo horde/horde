@@ -140,7 +140,7 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
         $this->assertInternalType('array', $result[0]->addresses[2]->comment);
         $this->assertEquals($result[0]->addresses[2]->comment, array());
         $this->assertEquals($result[0]->addresses[2]->mailbox, 'Barney');
-        $this->assertEquals($result[0]->addresses[2]->host, 'localhost');
+        $this->assertNull($result[0]->addresses[2]->host);
 
         /* A valid address with spaces in the local part. */
         $address = '<"Jon Parise"@php.net>';

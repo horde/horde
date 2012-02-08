@@ -96,12 +96,7 @@ class Horde_Mail_Rfc822
      *
      * @var array
      */
-    protected $_params = array(
-        'default_domain' => 'localhost',
-        'limit' => 0,
-        'nest_groups' => true,
-        'validate' => true
-    );
+    protected $_params = array();
 
     /**
      * Data pointer.
@@ -144,11 +139,12 @@ class Horde_Mail_Rfc822
      */
     public function parseAddressList($address, array $params = array())
     {
-        foreach (array_keys($this->_params) as $key) {
-            if (isset($params[$key])) {
-                $this->_params[$key] = $params[$key];
-            }
-        }
+        $this->_params = array_merge(array(
+            'default_domain' => 'localhost',
+            'limit' => 0,
+            'nest_groups' => true,
+            'validate' => true
+        ), $params);
 
         $this->_data = $address;
         $this->_datalen = strlen($address);
