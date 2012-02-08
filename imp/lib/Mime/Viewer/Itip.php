@@ -300,21 +300,12 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
                     } catch (Horde_Itip_Exception $e) {
                         $msgs[] = array('error', sprintf(_("Error sending reply: %s."), $e->getMessage()));
                     }
-
-                    // Send the reply.
                 } else {
                     $msgs[] = array('warning', _("This action is not supported."));
                 }
                 break;
 
             case 'send':
-                // vEvent refresh.
-                if (isset($components[$key]) &&
-                    $components[$key]->getType() == 'vEvent') {
-                    $vEvent = $components[$key];
-                }
-
-                // vTodo refresh.
             case 'reply':
             case 'reply2m':
                 // vfreebusy request.
