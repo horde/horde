@@ -1,7 +1,6 @@
 <?php
 /**
- * The Horde_Browser class provides capability information for the current
- * web client.
+ * This provides capability information for the current web client.
  *
  * Browser identification is performed by examining the HTTP_USER_AGENT
  * environment variable provided by the web server.
@@ -16,6 +15,7 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Jon Parise <jon@horde.org>
  * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL
  * @package  Browser
  */
 class Horde_Browser
