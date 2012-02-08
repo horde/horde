@@ -454,9 +454,7 @@ class Horde_Release
      */
     public function checkOutFramework($mod_version, $directory)
     {
-        if ($this->_options['module'] == 'horde' &&
-            ($this->_options['branch'] == 'HEAD' ||
-             strstr($this->_options['branch'], 'FRAMEWORK'))) {
+        if ($this->_options['module'] == 'horde') {
             if ($this->_options['branch'] == 'HEAD') {
                 print "Checking out HEAD for framework\n";
             } else {
