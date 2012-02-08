@@ -940,13 +940,9 @@ class Horde_Browser
      */
     public function getHTTPProtocol()
     {
-        if (isset($_SERVER['SERVER_PROTOCOL'])) {
-            if (($pos = strrpos($_SERVER['SERVER_PROTOCOL'], '/'))) {
-                return substr($_SERVER['SERVER_PROTOCOL'], $pos + 1);
-            }
-        }
-
-        return null;
+        return (isset($_SERVER['SERVER_PROTOCOL']) && ($pos = strrpos($_SERVER['SERVER_PROTOCOL'], '/')))
+            ? substr($_SERVER['SERVER_PROTOCOL'], $pos + 1)
+            : null;
     }
 
     /**
@@ -970,51 +966,51 @@ class Horde_Browser
      */
     public static function allowFileUploads()
     {
-        if (ini_get('file_uploads')) {
-            if (($dir = ini_get('upload_tmp_dir')) &&
-                !is_writable($dir)) {
-                return 0;
-            }
-            $filesize = ini_get('upload_max_filesize');
-            switch (strtolower(substr($filesize, -1, 1))) {
-            case 'k':
-                $filesize = intval(floatval($filesize) * 1024);
-                break;
-
-            case 'm':
-                $filesize = intval(floatval($filesize) * 1024 * 1024);
-                break;
-
-            case 'g':
-                $filesize = intval(floatval($filesize) * 1024 * 1024 * 1024);
-                break;
-
-            default:
-                $filesize = intval($filesize);
-                break;
-            }
-            $postsize = ini_get('post_max_size');
-            switch (strtolower(substr($postsize, -1, 1))) {
-            case 'k':
-                $postsize = intval(floatval($postsize) * 1024);
-                break;
-
-            case 'm':
-                $postsize = intval(floatval($postsize) * 1024 * 1024);
-                break;
-
-            case 'g':
-                $postsize = intval(floatval($postsize) * 1024 * 1024 * 1024);
-                break;
-
-            default:
-                $postsize = intval($postsize);
-                break;
-            }
-            return min($filesize, $postsize);
-        } else {
+        if (!ini_get('file_uploads') ||
+            (!($dir = ini_get('upload_tmp_dir'))) ||
+            !is_writable($dir)) {
             return 0;
         }
+
+        $filesize = ini_get('upload_max_filesize');
+        switch (strtolower(substr($filesize, -1, 1))) {
+        case 'k':
+            $filesize = intval(floatval($filesize) * 1024);
+            break;
+
+        case 'm':
+            $filesize = intval(floatval($filesize) * 1024 * 1024);
+            break;
+
+        case 'g':
+            $filesize = intval(floatval($filesize) * 1024 * 1024 * 1024);
+            break;
+
+        default:
+            $filesize = intval($filesize);
+            break;
+        }
+
+        $postsize = ini_get('post_max_size');
+        switch (strtolower(substr($postsize, -1, 1))) {
+        case 'k':
+            $postsize = intval(floatval($postsize) * 1024);
+            break;
+
+        case 'm':
+            $postsize = intval(floatval($postsize) * 1024 * 1024);
+            break;
+
+        case 'g':
+            $postsize = intval(floatval($postsize) * 1024 * 1024 * 1024);
+            break;
+
+        default:
+            $postsize = intval($postsize);
+            break;
+        }
+
+        return min($filesize, $postsize);
     }
 
     /**
