@@ -371,7 +371,8 @@ class Horde_Browser
                 $this->setFeature('homepage');
                 $this->setFeature('accesskey');
                 $this->setFeature('optgroup');
-                if ($this->_majorVersion !== 7) {
+                if ($this->_majorVersion != 7) {
+                    $this->setFeature('cite');
                     $this->setFeature('dataurl', ($this->_majorVersion == 8) ? 32768 : true);
                 }
                 break;
