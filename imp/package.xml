@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-01-25</date>
- <time>23:21:13</time>
+ <date>2012-02-08</date>
+ <time>00:37:38</time>
  <version>
   <release>5.1.0</release>
   <api>5.0.0</api>
@@ -83,6 +83,7 @@
     <file name="folderprefs.js" role="horde" />
     <file name="folders.js" role="horde" />
     <file name="imp.js" role="horde" />
+    <file name="importencryptkey.js" role="horde" />
     <file name="indices.js" role="horde" />
     <file name="jstorage.js" role="horde" />
     <file name="login.js" role="horde" />
@@ -101,6 +102,7 @@
     <dir name="Ajax">
      <dir name="Imple">
       <file name="ContactAutoCompleter.php" role="horde" />
+      <file name="ImportEncryptKey.php" role="horde" />
       <file name="PassphraseDialog.php" role="horde" />
      </dir> <!-- /lib/Ajax/Imple -->
      <file name="Application.php" role="horde" />
@@ -325,6 +327,7 @@
      <file name="ShowMessage.php" role="horde" />
     </dir> <!-- /lib/Views -->
     <file name=".htaccess" role="horde" />
+    <file name="Ajax.php" role="horde" />
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Auth.php" role="horde" />
@@ -658,8 +661,8 @@
      <dir name="message">
       <file name="message.html" role="horde" />
      </dir> <!-- /templates/dimp/message -->
+     <file name="common.inc" role="horde" />
      <file name="index.inc" role="horde" />
-     <file name="javascript_defs.php" role="horde" />
     </dir> <!-- /templates/dimp -->
     <dir name="imp">
      <dir name="compose">
@@ -1420,6 +1423,7 @@
    <install as="imp/js/folderprefs.js" name="js/folderprefs.js" />
    <install as="imp/js/folders.js" name="js/folders.js" />
    <install as="imp/js/imp.js" name="js/imp.js" />
+   <install as="imp/js/importencryptkey.js" name="js/importencryptkey.js" />
    <install as="imp/js/indices.js" name="js/indices.js" />
    <install as="imp/js/jstorage.js" name="js/jstorage.js" />
    <install as="imp/js/login.js" name="js/login.js" />
@@ -1434,6 +1438,7 @@
    <install as="imp/js/signaturehtml.js" name="js/signaturehtml.js" />
    <install as="imp/js/viewport.js" name="js/viewport.js" />
    <install as="imp/lib/.htaccess" name="lib/.htaccess" />
+   <install as="imp/lib/Ajax.php" name="lib/Ajax.php" />
    <install as="imp/lib/Api.php" name="lib/Api.php" />
    <install as="imp/lib/Application.php" name="lib/Application.php" />
    <install as="imp/lib/Auth.php" name="lib/Auth.php" />
@@ -1457,6 +1462,7 @@
    <install as="imp/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
    <install as="imp/lib/Ajax/Queue.php" name="lib/Ajax/Queue.php" />
    <install as="imp/lib/Ajax/Imple/ContactAutoCompleter.php" name="lib/Ajax/Imple/ContactAutoCompleter.php" />
+   <install as="imp/lib/Ajax/Imple/ImportEncryptKey.php" name="lib/Ajax/Imple/ImportEncryptKey.php" />
    <install as="imp/lib/Ajax/Imple/PassphraseDialog.php" name="lib/Ajax/Imple/PassphraseDialog.php" />
    <install as="imp/lib/Block/Newmail.php" name="lib/Block/Newmail.php" />
    <install as="imp/lib/Block/Summary.php" name="lib/Block/Summary.php" />
@@ -1731,8 +1737,8 @@
    <install as="imp/migration/2_imp_autoincrement_sentmail.php" name="migration/2_imp_autoincrement_sentmail.php" />
    <install as="imp/templates/.htaccess" name="templates/.htaccess" />
    <install as="imp/templates/common-header.inc" name="templates/common-header.inc" />
+   <install as="imp/templates/dimp/common.inc" name="templates/dimp/common.inc" />
    <install as="imp/templates/dimp/index.inc" name="templates/dimp/index.inc" />
-   <install as="imp/templates/dimp/javascript_defs.php" name="templates/dimp/javascript_defs.php" />
    <install as="imp/templates/dimp/compose/compose-base.html" name="templates/dimp/compose/compose-base.html" />
    <install as="imp/templates/dimp/compose/compose.html" name="templates/dimp/compose/compose.html" />
    <install as="imp/templates/dimp/message/message.html" name="templates/dimp/message/message.html" />
