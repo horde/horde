@@ -2,6 +2,7 @@
 v5.1-git
 --------
 
+[mms] Rewritten vCal/iCal attachment viewer/handler.
 [mms] S/MIME certificate import from message data no longer requires popup
       window.
 [mms] PGP key import from message attachment no longer requires popup window.

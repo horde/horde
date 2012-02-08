@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-02-08</date>
- <time>00:37:38</time>
+ <date>2012-02-09</date>
+ <time>00:36:23</time>
  <version>
   <release>5.1.0</release>
   <api>5.0.0</api>
@@ -85,6 +85,7 @@
     <file name="imp.js" role="horde" />
     <file name="importencryptkey.js" role="horde" />
     <file name="indices.js" role="horde" />
+    <file name="itiprequest.js" role="horde" />
     <file name="jstorage.js" role="horde" />
     <file name="login.js" role="horde" />
     <file name="mailbox-dimp.js" role="horde" />
@@ -103,6 +104,7 @@
      <dir name="Imple">
       <file name="ContactAutoCompleter.php" role="horde" />
       <file name="ImportEncryptKey.php" role="horde" />
+      <file name="ItipRequest.php" role="horde" />
       <file name="PassphraseDialog.php" role="horde" />
      </dir> <!-- /lib/Ajax/Imple -->
      <file name="Application.php" role="horde" />
@@ -713,6 +715,12 @@
      </dir> <!-- /templates/imp/thread -->
      <file name="javascript_defs.php" role="horde" />
     </dir> <!-- /templates/imp -->
+    <dir name="itip">
+     <file name="base.html" role="horde" />
+     <file name="vevent.html" role="horde" />
+     <file name="vfreebusy.html" role="horde" />
+     <file name="vtodo.html" role="horde" />
+    </dir> <!-- /templates/itip -->
     <dir name="mimp">
      <dir name="compose">
       <file name="compose.html" role="horde" />
@@ -1425,6 +1433,7 @@
    <install as="imp/js/imp.js" name="js/imp.js" />
    <install as="imp/js/importencryptkey.js" name="js/importencryptkey.js" />
    <install as="imp/js/indices.js" name="js/indices.js" />
+   <install as="imp/js/itiprequest.js" name="js/itiprequest.js" />
    <install as="imp/js/jstorage.js" name="js/jstorage.js" />
    <install as="imp/js/login.js" name="js/login.js" />
    <install as="imp/js/mailbox-dimp.js" name="js/mailbox-dimp.js" />
@@ -1463,6 +1472,7 @@
    <install as="imp/lib/Ajax/Queue.php" name="lib/Ajax/Queue.php" />
    <install as="imp/lib/Ajax/Imple/ContactAutoCompleter.php" name="lib/Ajax/Imple/ContactAutoCompleter.php" />
    <install as="imp/lib/Ajax/Imple/ImportEncryptKey.php" name="lib/Ajax/Imple/ImportEncryptKey.php" />
+   <install as="imp/lib/Ajax/Imple/ItipRequest.php" name="lib/Ajax/Imple/ItipRequest.php" />
    <install as="imp/lib/Ajax/Imple/PassphraseDialog.php" name="lib/Ajax/Imple/PassphraseDialog.php" />
    <install as="imp/lib/Block/Newmail.php" name="lib/Block/Newmail.php" />
    <install as="imp/lib/Block/Summary.php" name="lib/Block/Summary.php" />
@@ -1771,6 +1781,10 @@
    <install as="imp/templates/imp/search/search-basic.html" name="templates/imp/search/search-basic.html" />
    <install as="imp/templates/imp/search/search.html" name="templates/imp/search/search.html" />
    <install as="imp/templates/imp/thread/thread.html" name="templates/imp/thread/thread.html" />
+   <install as="imp/templates/itip/base.html" name="templates/itip/base.html" />
+   <install as="imp/templates/itip/vevent.html" name="templates/itip/vevent.html" />
+   <install as="imp/templates/itip/vfreebusy.html" name="templates/itip/vfreebusy.html" />
+   <install as="imp/templates/itip/vtodo.html" name="templates/itip/vtodo.html" />
    <install as="imp/templates/mimp/compose/compose.html" name="templates/mimp/compose/compose.html" />
    <install as="imp/templates/mimp/folders/folders.html" name="templates/mimp/folders/folders.html" />
    <install as="imp/templates/mimp/mailbox/mailbox.html" name="templates/mimp/mailbox/mailbox.html" />

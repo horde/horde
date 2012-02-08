@@ -800,15 +800,15 @@ span.mimePartInfoSize {
 }
 
 /* iTip styles. */
-#itipconflicts {
+.itipconflicts {
     border-spacing: 0;
 }
-#itipconflicts tr.itipcollision {
+.itipconflicts tr.itipcollision {
     background-color: #f00;
     color: #fff;
 }
 
-#itipconflicts tr.itipnearcollision {
+.itipconflicts tr.itipnearcollision {
     background-color: #ee0;
 }
 

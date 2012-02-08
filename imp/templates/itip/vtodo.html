@@ -1,0 +1,58 @@
+<h2 class="header"><tag:desc /></h2>
+
+<if:priority>
+<p>
+ <strong><gettext>Priority</gettext>:</strong>
+ <tag:priority />
+</p>
+</if:priority>
+<p>
+ <strong><gettext>Summary</gettext>:</strong>
+<if:summary>
+ <tag:summary />
+<else:summary>
+ <em><tag:summary_error /></em>
+</else:summary></if:summary>
+</p>
+<if:desc2>
+<p>
+ <strong><gettext>Description</gettext>:</strong>
+ <tag:desc2 />
+</p>
+</if:desc2>
+
+<if:attendees>
+<h2 class="smallheader"><gettext>Attendees</gettext></h2>
+
+<table>
+ <thead class="leftAlign">
+  <tr>
+   <th><gettext>Name</gettext></th>
+   <th><gettext>Role</gettext></th>
+   <th><gettext>Status</gettext></th>
+  </tr>
+ </thead>
+ <tbody>
+<loop:attendees>
+  <tr>
+   <td><tag:attendees.attendee /></td>
+   <td><tag:attendees.role /></td>
+   <td><tag:attendees.status /></td>
+  </tr>
+</loop:attendees>
+ </tbody>
+</table>
+</if:attendees>
+
+<if:options>
+<h2 class="smallheader"><gettext>Actions</gettext></h2>
+
+<label for="action_<tag:options_id />" class="hidden"><gettext>Actions</gettext></label>
+<select id="action_<tag:options_id />" name="itip_action[<tag:options_id />]"
+ <option value="">-- <gettext>Select</gettext> --</option>
+<loop:options>
+ <option value="<tag:options.k />"><tag:options.v /></option>
+</loop:options>
+</select>
+<input type="submit" class="button" value="<gettext>Go</gettext>" />
+</if:options>
