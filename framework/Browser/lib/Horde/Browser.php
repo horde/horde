@@ -362,17 +362,6 @@ class Horde_Browser
             default:
             case 9:
             case 8:
-                $this->setFeature('javascript', 1.4);
-                $this->setFeature('dom');
-                $this->setFeature('iframes');
-                $this->setFeature('utf');
-                $this->setFeature('rte');
-                $this->setFeature('homepage');
-                $this->setFeature('accesskey');
-                $this->setFeature('optgroup');
-                $this->setFeature('dataurl', 32768);
-                break;
-
             case 7:
                 $this->setFeature('javascript', 1.4);
                 $this->setFeature('dom');
@@ -382,6 +371,9 @@ class Horde_Browser
                 $this->setFeature('homepage');
                 $this->setFeature('accesskey');
                 $this->setFeature('optgroup');
+                if ($this->_majorVersion !== 7) {
+                    $this->setFeature('dataurl', ($this->_majorVersion == 8) ? 32768 : true);
+                }
                 break;
 
             case 6:
