@@ -1453,7 +1453,7 @@
    <configheader>OpenSSL Settings</configheader>
    <configstring name="cafile" required="false" desc="The location of the root
    certificates bundle, e.g. /etc/ssl/certs. See
-   http://www.php.net/manual/en/ref.openssl.php#openssl.cert.verification for
+   http://www.php.net/manual/en/openssl.cert.verification.php for
    details."/>
    <configstring name="path" required="false" desc="The location of the OpenSSL
    binary on your system, e.g. /usr/bin/openssl. This program is REQUIRED to
