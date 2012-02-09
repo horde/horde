@@ -21,8 +21,7 @@ var IMPImportEncryptKey = {
 
     clickHandler: function(e)
     {
-        var data,
-            id = e.element().readAttribute('id');
+        var id = e.element().readAttribute('id');
 
         if (this.handles[id]) {
             new Ajax.Request(this.uri, {
