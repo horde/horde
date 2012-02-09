@@ -700,10 +700,8 @@ a#kronolithNotifications:hover {
     background-image: url("graphics/right.png");
 }
 #kronolithMenu a.kronolithAdd {
-    position: absolute;
-    right: 0;
+    float: right;
     width: 16px;
-    padding-right: 8px;
     background: transparent url("graphics/plus.png") no-repeat right center;
     text-indent: -10000px;
     cursor: pointer;
