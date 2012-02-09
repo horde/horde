@@ -90,7 +90,7 @@ class IMP_Ajax_Imple_ImportEncryptKey extends Horde_Core_Ajax_Imple
      */
     public function handle($args, $post)
     {
-        global $injector, $notification, $registry;
+        global $injector, $notification;
 
         $result = 0;
         $vars = Horde_Variables::getDefaultVariables();
