@@ -1099,7 +1099,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                     $obs = Horde_Mime_Address::parseAddressList($email, array(
                         'defserver' => $GLOBALS['session']->get('imp', 'maildomain'),
                         'nestgroups' => true,
-                        'validate' => true
+                        'validate' => !empty($opts['validate'])
                     ));
                 } catch (Horde_Mime_Exception $e) {
                     throw new IMP_Compose_Exception(sprintf(_("Invalid e-mail address: %s."), $email));
