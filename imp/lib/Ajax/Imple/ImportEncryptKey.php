@@ -92,7 +92,6 @@ class IMP_Ajax_Imple_ImportEncryptKey extends Horde_Core_Ajax_Imple
     {
         global $injector, $notification, $registry;
 
-        $dynamic_view = ($registry->getView() == Horde_Registry::VIEW_DYNAMIC);
         $result = 0;
         $vars = Horde_Variables::getDefaultVariables();
 
@@ -108,9 +107,7 @@ class IMP_Ajax_Imple_ImportEncryptKey extends Horde_Core_Ajax_Imple
             switch ($vars->type) {
             case 'pgp':
                 $injector->getInstance('IMP_Crypt_Pgp')->addPublicKey($mime_part->getContents());
-                if ($dynamic_view) {
-                    $notification->push(_("Successfully added public key from message."), 'horde.success');
-                }
+                $notification->push(_("Successfully added public key from message."), 'horde.success');
                 break;
 
             case 'smime':
@@ -122,20 +119,16 @@ class IMP_Ajax_Imple_ImportEncryptKey extends Horde_Core_Ajax_Imple
                 $imp_smime = $injector->getInstance('IMP_Crypt_Smime');
                 $sig_result = $imp_smime->verifySignature($raw_text);
                 $imp_smime->addPublicKey($sig_result->cert);
-                if ($dynamic_view) {
-                    $notification->push(_("Successfully added certificate from message."), 'horde.success');
-                }
+                $notification->push(_("Successfully added certificate from message."), 'horde.success');
                 break;
             }
 
             $result = 1;
         } catch (Exception $e) {
-            if ($dynamic_view) {
-                $notification->push($e, 'horde.error');
-            }
+            $notification->push($e, 'horde.error');
         }
 
-        $resp = new Horde_Core_Ajax_Response($result, $dynamic_view);
+        $resp = new Horde_Core_Ajax_Response($result, true);
         return $resp->jsonData();
     }
 
