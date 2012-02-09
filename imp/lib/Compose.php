@@ -562,7 +562,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 
         /* We need at least one recipient & RFC 2822 requires that no 8-bit
          * characters can be in the address fields. */
-        $recip = $this->recipientList($header);
+        $recip = $this->recipientList($header, array('validate' => true));
         $header = array_merge($header, $recip['header']);
 
         /* Check for correct identity usage. */
@@ -964,6 +964,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         /* Validate the recipient addresses. */
         try {
             $email = Horde_Mime::encodeAddress($email, $charset, $mdomain);
+            /* If we have come this far, the original email list SHOULD be
+             * correct since it would have already been passed through
+             * recipientList(). But keep this doomsday check in, just to make
+             * absolute sure we are not sending to the invalid/wrong
+             * address. */
             Horde_Mime_Address::parseAddressList($email, array(
                 'defserver' => $mdomain,
                 'validate' => true
@@ -1058,11 +1063,12 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      * Cleans up and returns the recipient list. Encodes all e-mail addresses
      * with IDN domains.
      *
-     * @param array $hdr       An array of MIME headers.  Recipients will be
-     *                         extracted from the 'to', 'cc', and 'bcc'
-     *                         entries.
-     * @param boolean $exceed  Test if user has exceeded the allowed
-     *                         number of recipients?
+     * @param array $hdr   An array of MIME headers.  Recipients will be
+     *                     extracted from the 'to', 'cc', and 'bcc' entries.
+     * @param array $opts  Additional options:
+     *   - noexceed: (boolean) Don't test if user has exceeded the allowed
+     *               number of recipients.
+     *   - validate: (boolean) Validate e-mail addresses?
      *
      * @return array  An array with the following entries:
      *   - list: (array) Recipient addresses.
@@ -1072,7 +1078,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      * @throws Horde_Exception
      * @throws IMP_Compose_Exception
      */
-    public function recipientList($hdr, $exceed = true)
+    public function recipientList($hdr, array $opts = array())
     {
         $addrlist = $header = array();
 
@@ -1085,13 +1091,15 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             $tmp = array();
 
             foreach ($arr as $email) {
-                if (empty($email)) {
+                if (!strlen($email)) {
                     continue;
                 }
 
                 try {
                     $obs = Horde_Mime_Address::parseAddressList($email, array(
-                        'defserver' => $GLOBALS['session']->get('imp', 'maildomain')
+                        'defserver' => $GLOBALS['session']->get('imp', 'maildomain'),
+                        'nestgroups' => true,
+                        'validate' => true
                     ));
                 } catch (Horde_Mime_Exception $e) {
                     throw new IMP_Compose_Exception(sprintf(_("Invalid e-mail address: %s."), $email));
@@ -1123,7 +1131,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 
         /* Count recipients if necessary. We need to split email groups
          * because the group members count as separate recipients. */
-        if ($exceed &&
+        if (empty($opts['noexceed']) &&
             !$GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('max_recipients', array('opts' => array('value' => count($addrlist))))) {
             Horde::permissionDeniedError('imp', 'max_recipients');
             throw new IMP_Compose_Exception(sprintf(_("You are not allowed to send messages to more than %d recipients."), $GLOBALS['injector']->getInstance('Horde_Perms')->getPermissions('imp:max_recipients', $GLOBALS['registry']->getAuth())));
@@ -1938,7 +1946,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      */
     public function sendRedirectMessage($to)
     {
-        $recip = $this->recipientList(array('to' => $to));
+        $recip = $this->recipientList(array('to' => $to), array('validate' => true));
         $recipients = implode(', ', $recip['list']);
 
         $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
