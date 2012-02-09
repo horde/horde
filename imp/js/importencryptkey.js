@@ -34,7 +34,8 @@ var IMPImportEncryptKey = {
     _onSuccess: function(elt, r)
     {
         if (r.responseJSON.response) {
-            elt.hide().fire('IMPImportEncryptKey:success');
+            elt.up('TR').remove();
+            elt.fire('IMPImportEncryptKey:success');
         }
         if (HordeCore &&
             HordeCore.showNotifications &&
