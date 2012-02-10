@@ -111,6 +111,10 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
       http://httpd.apache.org/
       http://www.lighttpd.net/
 
+   If your web server supports .htaccess files, you need to configure your web
+   server to allow the ``php_value`` and ``SetEnv`` directives to be
+   changed in .htaccess files.
+
 2. PHP 5.2.0 or above.
 
    PHP is the interpreted language in which Horde is written.
@@ -515,10 +519,10 @@ the PEAR installation you just created, e.g.::
    /var/www/horde/pear/pear -c /var/www/horde/pear.conf channel-discover \
        pear.horde.org
 
-Finally update the .htaccess file in ``/var/www/horde/`` or configure your web
-server in some other way to point PHP's ``include_path`` setting to the PEAR
-installation and the ``PHP_PEAR_SYSCONF_DIR`` environment variable to the web
-root::
+If your web server does not support .htaccess files, you need to configure your
+web server in some other way to point PHP's ``include_path`` setting to the
+PEAR installation and the ``PHP_PEAR_SYSCONF_DIR`` environment variable to the
+web root::
 
    php_value include_path /var/www/horde/pear/php
    SetEnv PHP_PEAR_SYSCONF_DIR /var/www/horde
