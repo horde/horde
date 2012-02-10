@@ -70,6 +70,7 @@ class Horde_Mail_Rfc822_Group implements ArrayAccess
      * Write a group address given information in this part.
      *
      * @param array $opts  Optional arguments:
+     *   - encode: (boolean) Encode the groupname/personal parts?
      *   - idn: (boolean) See Horde_Mime_Address#writeAddress().
      *
      * @return string  The correctly escaped/quoted address.
@@ -79,11 +80,12 @@ class Horde_Mail_Rfc822_Group implements ArrayAccess
         $addr = array();
         foreach ($this->addresses as $val) {
             $addr[] = $val->writeAddress(array(
+                'encode' => !empty($opts['encode']),
                 'idn' => (isset($opts['idn']) ? $opts['idn'] : null)
             ));
         }
 
-        return Horde_Mime_Address::writeGroupAddress($ob->groupname, $addr);
+        return Horde_Mime_Address::writeGroupAddress(empty($opts['encode']) ? $ob->groupname : Horde_Mime::encode($ob->groupname, 'UTF-8'), $addr);
     }
 
     /* ArrayAccess methods. TODO: Here for BC purposes. Remove for 2.0. */

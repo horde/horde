@@ -105,6 +105,7 @@ class Horde_Mail_Rfc822_Address implements ArrayAccess
      * Write an address given information in this part.
      *
      * @param array $opts  Optional arguments:
+     *   - encode: (boolean) Encode the personal part?
      *   - idn: (boolean) See Horde_Mime_Address#writeAddress().
      *
      * @return string  The correctly escaped/quoted address.
@@ -114,7 +115,7 @@ class Horde_Mail_Rfc822_Address implements ArrayAccess
         return Horde_Mime_Address::writeAddress(
             $this->mailbox,
             $this->host,
-            $this->personal,
+            empty($opts['encode']) ? $this->personal : Horde_Mime::encode($this->personal, 'UTF-8'),
             array(
                 'idn' => (isset($opts['idn']) ? $opts['idn'] : null)
             )
