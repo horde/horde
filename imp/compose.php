@@ -279,7 +279,9 @@ case 'reply_list':
         if ($vars->actionID == 'reply_auto') {
             try {
                 $recip_list = $imp_compose->recipientList($header);
-                $replyauto_all = count($recip_list['list']);
+                if (!empty($recip_list['list'])) {
+                    $replyauto_all = count($recip_list['list']);
+                }
             } catch (IMP_Compose_Exception $e) {}
         }
 
@@ -688,18 +690,17 @@ if ($prefs->getValue('use_pgp') &&
     $default_encrypt = $prefs->getValue('default_encrypt');
     if (!$vars->compose_formToken &&
         in_array($default_encrypt, array(IMP_Crypt_Pgp::ENCRYPT, IMP_Crypt_Pgp::SIGNENC))) {
-        try {
-            $addrs = $imp_compose->recipientList($header);
-            if (!empty($addrs['list'])) {
-                $imp_pgp = $injector->getInstance('IMP_Crypt_Pgp');
+        $addrs = $imp_compose->recipientList($header);
+        if (!empty($addrs['list'])) {
+            $imp_pgp = $injector->getInstance('IMP_Crypt_Pgp');
+            try {
                 foreach ($addrs['list'] as $val) {
-                    $imp_pgp->getPublicKey($val);
+                    $imp_pgp->getPublicKey(strval($val));
                 }
+            } catch (Horde_Exception $e) {
+                $notification->push(_("PGP encryption cannot be used by default as public keys cannot be found for all recipients."), 'horde.warning');
+                $encrypt_options = ($default_encrypt == IMP_Crypt_Pgp::ENCRYPT) ? IMP::ENCRYPT_NONE : IMP_Crypt_Pgp::SIGN;
             }
-        } catch (IMP_Compose_Exception $e) {
-        } catch (Horde_Exception $e) {
-            $notification->push(_("PGP encryption cannot be used by default as public keys cannot be found for all recipients."), 'horde.warning');
-            $encrypt_options = ($default_encrypt == IMP_Crypt_Pgp::ENCRYPT) ? IMP::ENCRYPT_NONE : IMP_Crypt_Pgp::SIGN;
         }
     }
 }
