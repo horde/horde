@@ -40,7 +40,8 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
         'inline' => true,
         /* This driver *does* render raw data, but only for
          * application/pgp-signature parts that have been processed by the
-         * text/plain driver. This is handled via the canRender() function. */
+         * text/plain driver and for displaying raw pgp keys. Altering this
+         * value is handled via the canRender() function. */
         'raw' => false
     );
 
@@ -70,6 +71,9 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
     static protected $_cache = array();
 
     /**
+     * Return the full rendered version of the Horde_Mime_Part object.
+     *
+     * @return array  See parent::render().
      */
     protected function _render()
     {
