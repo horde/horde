@@ -260,7 +260,7 @@ class Horde_Mime
             ));
         }
 
-        $text = '';
+        $text = array();
         foreach ($addresses as $addr) {
             $addrobs = empty($addr['groupname'])
                 ? array($addr)
@@ -280,14 +280,12 @@ class Horde_Mime
                 $addrlist[] = Horde_Mime_Address::writeAddress($val['mailbox'], $val['host'], $personal);
             }
 
-            if (empty($addr['groupname'])) {
-                $text .= reset($addrlist) . ', ';
-            } else {
-                $text .= Horde_Mime_Address::writeGroupAddress($addr['groupname'], $addrlist) . ' ';
-            }
+            $text[] = empty($addr['groupname'])
+                ? reset($addrlist)
+                : Horde_Mime_Address::writeGroupAddress($addr['groupname'], $addrlist);
         }
 
-        return rtrim($text, ' ,');
+        return implode(', ', $text);
     }
 
     /**
