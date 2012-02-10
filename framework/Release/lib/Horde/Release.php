@@ -509,13 +509,13 @@ class Horde_Release
 
         if (!$this->_options['noftp']) {
             print "Uploading $this->_tarballName to $user@ftp.horde.org:/horde/ftp/pub/$module/\n";
-            system("scp -P 35$identity $this->_tarballName $user@ftp.horde.org:/horde/ftp/pub/$module/");
+            system("scp $identity $this->_tarballName $user@ftp.horde.org:/horde/ftp/pub/$module/");
             if ($this->_makeDiff) {
                 print "Uploading $this->_patchName.gz to $user@ftp.horde.org:/horde/ftp/pub/$module/patches/\n";
-                system("scp -P 35$identity $this->_patchName.gz $user@ftp.horde.org:/horde/ftp/pub/$module/patches/");
+                system("scp $identity $this->_patchName.gz $user@ftp.horde.org:/horde/ftp/pub/$module/patches/");
             }
             print "Executing $chmod\n";
-            system("ssh -p 35 -l $user$identity ftp.horde.org '$chmod'");
+            system("ssh -l $user$identity ftp.horde.org '$chmod'");
         } else {
             print "NOT uploading $this->_tarballName to ftp.horde.org:/horde/ftp/pub/$module/\n";
             if ($this->_makeDiff) {
