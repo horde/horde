@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Don&apos;t start transaction more than once in SQL driver (Bug #10978).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -323,7 +323,7 @@ Initial release as a PEAR package
    <date>2012-01-31</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Don&apos;t start transaction more than once in SQL driver (Bug #10978).
    </notes>
   </release>
  </changelog>
