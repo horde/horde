@@ -191,29 +191,20 @@ case 'view_attach':
     }
     break;
 
+case 'save_message':
 case 'view_source':
     $msg = $contents->fullMessageText(array('stream' => true));
     fseek($msg, 0, SEEK_END);
-    $browser->downloadHeaders('Message Source', 'text/plain', true, ftell($msg));
-    rewind($msg);
-    while (!feof($msg)) {
-        echo fread($msg, 8192);
-    }
-    fclose($msg);
-    break;
 
-case 'save_message':
-    $mime_headers = $contents->getHeader();
-
-    if (($subject = $mime_headers->getValue('subject'))) {
-        $name = _sanitizeName($subject);
+    if ($vars->actionID == 'save_message') {
+        $name = ($subject = $contents->getHeader()->getValue('subject'))
+            ? _sanitizeName($subject)
+            : 'saved_message';
+        $browser->downloadHeaders($name . '.eml', 'message/rfc822', false, ftell($msg));
     } else {
-        $name = 'saved_message';
+        $browser->downloadHeaders(_("Message Source"), 'text/plain', true, ftell($msg));
     }
 
-    $msg = $contents->fullMessageText(array('stream' => true));
-    fseek($msg, 0, SEEK_END);
-    $browser->downloadHeaders($name . '.eml', 'message/rfc822', false, ftell($msg));
     rewind($msg);
     while (!feof($msg)) {
         echo fread($msg, 8192);
