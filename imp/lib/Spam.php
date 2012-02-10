@@ -145,7 +145,8 @@ class IMP_Spam
 
                     /* Send the message. */
                     try {
-                        $imp_compose->sendMessage(IMP::parseAddressList($to), $spam_headers, $mime, 'UTF-8');
+                        $recip_list = $imp_compose->recipientList($to);
+                        $imp_compose->sendMessage($recip_list['list'], $spam_headers, $mime, 'UTF-8');
                         $report_flag = true;
                     } catch (IMP_Compose_Exception $e) {
                         $e->log();
