@@ -456,7 +456,7 @@ class IMP_Prefs_Ui
             return $this->_updateFlagManagement($ui);
 
         case 'initialpageselect':
-            return $prefs->setValue('initial_page', IMP_Mailbox::formFrom($ui->vars->initial_page));
+            return $prefs->setValue('initial_page', strval(IMP_Mailbox::formFrom($ui->vars->initial_page)));
 
         case 'newmail_soundselect':
             return $prefs->setValue('newmail_audio', $ui->vars->newmail_audio);
