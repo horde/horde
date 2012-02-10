@@ -6,23 +6,13 @@
  *
  * This file is part of CSSTidy.
  *
- * CSSTidy is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * CSSTidy is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with CSSTidy; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- *
- * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @package csstidy
- * @author Florian Schmitz (floele at gmail dot com) 2005-2006
+ * @author   Florian Schmitz (floele at gmail dot com) 2005-2006
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @package  Text_Filter_Csstidy
  */
 
 /**
@@ -43,13 +33,16 @@ require('class.csstidy_optimise.php');
 /**
  * CSS Parser class
  *
- * This class represents a CSS parser which reads CSS code and saves it in an array.
- * In opposite to most other CSS parsers, it does not use regular expressions and
- * thus has full CSS2 support and a higher reliability.
+ * This class represents a CSS parser which reads CSS code and saves it in an
+ * array. In opposite to most other CSS parsers, it does not use regular
+ * expressions and thus has full CSS2 support and a higher reliability.
+ *
  * Additional to that it applies some optimisations and fixes to the CSS code.
- * An online version should be available here: http://cdburnerxp.se/cssparse/css_optimiser.php
- * @package csstidy
- * @author Florian Schmitz (floele at gmail dot com) 2005-2006
+ *
+ * @author   Florian Schmitz (floele at gmail dot com) 2005-2006
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @package  Text_Filter_Csstidy
  */
 class csstidy {
 
