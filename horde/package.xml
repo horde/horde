@@ -40,7 +40,6 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Configure PEAR environment in .htaccess file (Request #10323).
 * [mjr] Added more atomic control over ActiveSync security policies for better device compatibility.
 * [mms] Add &apos;sendmail_eol&apos; configuration parameter.
 * [jan] Fix horde-set-perms (piper@hrz.uni-marburg.de, Bug #10923).
@@ -121,10 +120,7 @@
     <dir name="registry.d">
      <file name="README" role="horde" />
     </dir> <!-- /config/registry.d -->
-    <file name=".htaccess" role="horde">
-      <tasks:replace from="@php_dir@" to="php_dir" type="pear-config" />
-      <tasks:replace from="@horde_dir@" to="horde_dir" type="pear-config" />
-    </file>
+    <file name=".htaccess" role="horde" />
     <file name="conf.php.dist" role="horde" />
     <file name="conf.xml" role="horde" />
     <file name="hooks.php.dist" role="horde" />

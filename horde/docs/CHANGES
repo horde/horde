@@ -2,7 +2,6 @@
 v4.1-git
 --------
 
-[jan] Configure PEAR environment in .htaccess file (Request #10323).
 [mms] AJAX core features now contained within Horde_Core.
 [mms] E-mail sending charset now defaults to UTF-8.
 [mms] Add post-install script for the Horde application
