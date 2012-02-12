@@ -1520,15 +1520,16 @@ class Horde_Registry
             $this->pushApp($app);
         }
 
-        if ($this->getAuth()) {
-            if (isset($prefs) && ($prefs->getUser() == $this->getAuth())) {
+        $user = $this->getAuth();
+        if ($user) {
+            if (isset($prefs) && ($prefs->getUser() == $user)) {
                 $prefs->retrieve($app);
                 return;
             }
 
             $opts = array(
                 'password' => $this->getAuthCredential('password'),
-                'user' => $this->getAuth()
+                'user' => $user,
             );
         } else {
             /* If there is no logged in user, return an empty Horde_Prefs
@@ -2180,7 +2181,8 @@ class Horde_Registry
         }
 
         $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-        return @unserialize($secret->read($secret->getKey('auth'), $session->get('horde', 'auth_app/' . $app)));
+        $data = $secret->read($secret->getKey('auth'), $session->get('horde', 'auth_app/' . $app));
+        return unserialize($data);
     }
 
     /**
