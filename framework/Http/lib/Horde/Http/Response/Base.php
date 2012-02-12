@@ -134,5 +134,4 @@ abstract class Horde_Http_Response_Base
     {
         return isset($this->headers[$header]) ? $this->headers[$header] : null;
     }
-
 }
