@@ -51,6 +51,7 @@ v5.1-git
 v5.0.19-git
 -----------
 
+[mms] Fix saving initial_page preference.
 [mms] Workaround broken Thunderbird encrypted S/MIME messages.
 [mms] Fix regression where passphrase prompt would not appear for S/MIME
       encrypted messages.

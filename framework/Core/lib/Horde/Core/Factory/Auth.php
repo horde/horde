@@ -107,8 +107,14 @@ class Horde_Core_Factory_Auth extends Horde_Core_Factory_Base
         $lc_driver = Horde_String::lower($driver);
         switch ($lc_driver) {
         case 'horde_core_auth_composite':
-            $params['admin_driver'] = $this->_create($params['admin_driver']['driver'], $params['admin_driver']['params']);
-            $params['auth_driver'] = $this->_create($params['auth_driver']['driver'], $params['auth_driver']['params']);
+            // Both of these params are required, but we need to skip if
+            // non-existent to return a useful error message later.
+            if (!empty($params['admin_driver'])) {
+                $params['admin_driver'] = $this->_create($params['admin_driver']['driver'], $params['admin_driver']['params']);
+            }
+            if (!empty($params['auth_driver'])) {
+                $params['auth_driver'] = $this->_create($params['auth_driver']['driver'], $params['auth_driver']['params']);
+            }
             break;
 
         case 'cyrsql':

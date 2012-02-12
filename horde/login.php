@@ -272,7 +272,7 @@ if (!empty($conf['auth']['alternate_login'])) {
         $url->add('app', $vars->app);
     }
     if (!isset($_COOKIE[session_name()])) {
-        $url->add(session_name(), session_id);
+        $url->add(session_name(), session_id());
     }
 
     if (empty($url_in)) {

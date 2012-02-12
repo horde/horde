@@ -2233,8 +2233,9 @@ class Horde_Registry
         }
 
         $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-        $data = $secret->read($secret->getKey('auth'), $session->get('horde', 'auth_app/' . $app));
-        return unserialize($data);
+        $data = $secret->read($secret->getKey('auth'),
+                              $session->get('horde', 'auth_app/' . $app));
+        return @unserialize($data);
     }
 
     /**
