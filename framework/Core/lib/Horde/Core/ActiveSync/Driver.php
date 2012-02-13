@@ -26,9 +26,16 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     /**
      * Horde connector instance
      *
-     * @var Horde_ActiveSync_Driver_Horde_Connector_Registry
+     * @var Horde_Core_ActiveSync_Connector
      */
     private $_connector;
+
+    /**
+     * Authentication object
+     *
+     * @var Horde_Auth_Base
+     */
+     private $_auth;
 
     /**
      * Const'r
