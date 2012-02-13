@@ -393,4 +393,12 @@ class Horde_Core_ActiveSync_Connector
         }
     }
 
+    /**
+     * Clear the authentication and destroy the current session.
+     */
+    public function clearAuth()
+    {
+        $this->_registry->clearAuth(true);
+    }
+
 }
