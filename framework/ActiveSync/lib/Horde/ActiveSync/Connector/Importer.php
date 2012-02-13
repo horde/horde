@@ -114,13 +114,13 @@ class Horde_ActiveSync_Connector_Importer
             }
         }
 
-        /* Tell the backend about the change */
+        // Tell the backend about the change
         if (!$stat = $this->_backend->changeMessage($this->_folderId, $id, $message, $device)) {
             return false;
         }
         $stat['parent'] = $this->_folderId;
 
-        /* Record the state of the message */
+        // Record the state of the message
         $this->_state->updateState(
             Horde_ActiveSync::CHANGE_TYPE_CHANGE,
             $stat,
@@ -141,16 +141,14 @@ class Horde_ActiveSync_Connector_Importer
      */
     public function importMessageDeletion($id)
     {
-        /* Do nothing if it is in a dummy folder */
         if ($this->_folderId == Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
             return true;
         }
 
-        /* Check for conflict */
         $conflict = $this->_isConflict(
             Horde_ActiveSync::CHANGE_TYPE_DELETE, $this->_folderId, $id);
 
-        /* Update client state */
+        // Update client state
         $change = array();
         $change['id'] = $id;
         $change['mod'] = time();
@@ -161,14 +159,14 @@ class Horde_ActiveSync_Connector_Importer
             Horde_ActiveSync::CHANGE_ORIGIN_PIM,
             $this->_backend->getUser());
 
-        /* If server wins the conflict, don't import change - it will be
-         * detected on next sync and sent back to PIM (since we updated the PIM
-         * state). */
+        // If server wins the conflict, don't import change - it will be
+        // detected on next sync and sent back to PIM (since we updated the PIM
+        // state).
         if ($conflict && $this->_flags == Horde_ActiveSync::CONFLICT_OVERWRITE_PIM) {
             return true;
         }
 
-        /* Tell backend about the deletion */
+        // Tell backend about the deletion
         $this->_backend->deleteMessage($this->_folderId, $id);
 
         return true;
