@@ -541,7 +541,7 @@ class Horde_Mail_Rfc822
     protected function _rfc822ParseAtomOrDot(&$str)
     {
         while (($chr = $this->_curr()) !== false) {
-            if (($chr != '.') && !$this->_rfc822IsAtext($chr, '<:')) {
+            if (($chr != '.') && !$this->_rfc822IsAtext($chr, ',<:')) {
                 $this->_rfc822SkipLwsp();
                 if (!$this->_params['validate']) {
                     $str = trim($str);
