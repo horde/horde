@@ -933,13 +933,23 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
                         }
                     }
                 } else {
-                    // No known PIM originated changes
                     $this->_logger->debug('[' . $this->_devId . '] No PIM changes present, returning all messages.');
                     $this->_changes = $changes;
                 }
             } else {
-                $this->_logger->debug('[' . $this->_devId . '] Syncing Email folder, not checking for PIM changes');
-                $this->_changes = $changes;
+                $this->_logger->debug('[' . $this->_devId . '] Syncing Email folder, checking for PIM initiated flag changes.');
+                if ($this->_havePIMChanges()) {
+                    foreach ($changes as $change) {
+                        if ($this->_isPIMFlagChange($change['id'], $change['flag'])) {
+                            $this->_logger->debug(
+                                sprintf("[%s] Ignoring PIM initiated flag change for %s", $this->_devId, $change['id']));
+                        } else {
+                            $this->_changes[] = $change;
+                        }
+                    }
+                } else {
+                    $this->_changes = $changes;
+                }
             }
         } else {
             $this->_logger->debug('[' . $this->_devId . '] Initializing folder diff engine');
@@ -1166,6 +1176,14 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
         }
 
         return !empty($this->_lastSyncTS) ? $this->_lastSyncTS : 0;
+    }
+
+    protected function _isPIMFlagChange($id, $flag)
+    {
+        $sql = 'SELECT sync_flag FROM ' . $this->_syncStateTable
+            . ' WHERE sync_folder_id = ? AND sync_devid = ? AND message_uid = ?';
+        $value =
+        $value =
     }
 
     protected function _getLastEmailState($id, $ts)
