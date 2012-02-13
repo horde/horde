@@ -82,47 +82,28 @@ class Horde_ActiveSync_Connector_Importer
     /**
      * Import a message change from the wbxml stream
      *
-     * @param mixed $id                                A server message id or
-     *                                                 false if a new message
+     * @param string|boolean $id                       A server message id or
+     *                                                 false if a new message.
      * @param Horde_ActiveSync_Message_Base $message   A message object
      * @param StdClass $device                         A device descriptor
      * @param integer $clientid                        Client id sent from PIM
      *                                                 on message addition.
      *
-     * @return mixed The server message id or false
+     * @return string|boolean The server message id or false
      */
     public function importMessageChange($id, $message, $device, $clientid)
     {
-        /* do nothing if it is in a dummy folder */
         if ($this->_folderId == Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
             return false;
         }
 
-        /* Changing an existing object */
+        // Changing an existing object
         if ($id) {
-            /* Check for conflicts */
             $conflict = $this->_isConflict(
                 Horde_ActiveSync::CHANGE_TYPE_CHANGE,
                 $this->_folderId,
                 $id);
 
-            /* Update client state before we attempt to save changes, so we
-             * have a record of the change. This way, if the server change fails
-             * the server copy will be re-sync'd back to the PIM, maintaining
-             * at least some sort of consistency. */
-            $change = array();
-            $change['id'] = $id;
-            // mod is 0 to force a re-synch in the case of server failure. This
-            // is updated after the change succeeds in the next updateState()
-            $change['mod'] = 0;
-            $change['parent'] = $this->_folderId;
-            $change['flags'] = (isset($message->read)) ? $message->read : 0;
-            $this->_state->updateState(
-                Horde_ActiveSync::CHANGE_TYPE_CHANGE,
-                $change,
-                Horde_ActiveSync::CHANGE_ORIGIN_NA);
-
-            /* If this is a conflict, see if the server wins */
             if ($conflict && $this->_flags == Horde_ActiveSync::CONFLICT_OVERWRITE_PIM) {
                 return $id;
             }
