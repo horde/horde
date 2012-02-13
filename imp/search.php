@@ -8,7 +8,7 @@
  * ---------------
  *   - criteria_form: (string) JSON representation of the search query.
  *   - edit_query: (integer) If true, edit a search query (contained in
- *                 IMP::$mailbox).
+ *                 IMP::mailbox()).
  *   - edit_query_filter: (string) The name of the filter being edited.
  *   - edit_query_vfolder: (string) The name of the virtual folder being
  *                         edited.
@@ -16,7 +16,7 @@
  *                   the query. Hash containing 2 keys: mbox & subfolder.
  *                   Both values are base64url encoded.
  *   - mailbox_list: (array) A list of mailboxes to process (base64url
- *                   encoded) If empty, uses IMP::$mailbox.
+ *                   encoded) If empty, uses IMP::mailbox().
  *   - search_label: (string) The label to use when saving the search.
  *   - search_type: (string) The type of saved search ('filter', 'vfolder').
  *                  If empty, the search should not be saved.
@@ -150,8 +150,8 @@ if (isset($vars->mailbox_list)) {
         $default_mailbox = IMP_Mailbox::formFrom($vars->mailbox_list);
         $search_mailbox = array($default_mailbox);
     }
-} elseif (IMP::$mailbox) {
-    $default_mailbox = IMP::$mailbox;
+} elseif (IMP::mailbox()) {
+    $default_mailbox = IMP::mailbox();
     $search_mailbox = array($default_mailbox);
 } else {
     $default_mailbox = IMP_Mailbox::get('INBOX');
@@ -349,22 +349,22 @@ $t->setOption('gettext', true);
 $t->set('action', Horde::url('search.php'));
 
 /* Determine if we are editing a search query. */
-$q_ob = IMP::$mailbox->getSearchOb();
-if ($vars->edit_query && IMP::$mailbox->search) {
-    if (IMP::$mailbox->vfolder) {
-        if (!IMP::$mailbox->editvfolder) {
+$q_ob = IMP::mailbox()->getSearchOb();
+if ($vars->edit_query && IMP::mailbox()->search) {
+    if (IMP::mailbox()->vfolder) {
+        if (!IMP::mailbox()->editvfolder) {
             $notification->push(_("Built-in Virtual Folders cannot be edited."), 'horde.error');
             Horde::getServiceLink('prefs', 'imp')->add('group', 'searches')->redirect();
         }
         $t->set('edit_query', true);
-        $t->set('edit_query_vfolder', IMP::$mailbox->formTo);
+        $t->set('edit_query_vfolder', IMP::mailbox()->formTo);
     } elseif ($imp_search->isFilter($q_ob)) {
         if (!$imp_search->isFilter($q_ob, true)) {
             $notification->push(_("Built-in Filters cannot be edited."), 'horde.error');
             Horde::getServiceLink('prefs', 'imp')->add('group', 'searches')->redirect();
         }
         $t->set('edit_query', true);
-        $t->set('edit_query_filter', IMP::$mailbox->formTo);
+        $t->set('edit_query_filter', IMP::mailbox()->formTo);
     }
 
     if ($t->get('edit_query')) {
@@ -397,7 +397,7 @@ if ($vars->edit_query && IMP::$mailbox->search) {
     );
 }
 
-if (IMP::$mailbox->search) {
+if (IMP::mailbox()->search) {
     $js_vars['ImpSearch.i_criteria'] = $q_ob->criteria;
     $js_vars['ImpSearch.i_folders'] = array(
         'm' => IMP_Mailbox::formTo($q_ob->all ? array(IMP_Search_Query::ALLSEARCH) : $q_ob->mbox_list),

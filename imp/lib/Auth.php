@@ -288,7 +288,7 @@ class IMP_Auth
                 $mbox = IMP_Mailbox::get('INBOX');
             }
 
-            IMP::setCurrentMailboxInfo($mbox);
+            IMP::setMailboxInfo($mbox);
         }
 
         $result = new stdClass;

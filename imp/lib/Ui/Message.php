@@ -429,7 +429,7 @@ class IMP_Ui_Message
      */
     public function moveAfterAction()
     {
-        return (!IMP::$mailbox->hideDeletedMsgs() &&
+        return (!IMP::mailbox()->hideDeletedMsgs() &&
                 !$GLOBALS['prefs']->getValue('use_trash'));
     }
 

@@ -69,20 +69,20 @@ case 'compose_attach_preview':
     break;
 
 case 'download_mbox':
-    if (empty(IMP::$thismailbox)) {
+    if (!IMP::mailbox(true)) {
         exit;
     }
 
     // Exception will be displayed as fatal error.
-    $injector->getInstance('IMP_Ui_Folder')->downloadMbox(array(strval(IMP::$thismailbox)), $vars->zip);
+    $injector->getInstance('IMP_Ui_Folder')->downloadMbox(array(strval(IMP::mailbox(true))), $vars->zip);
     break;
 
 default:
-    if (empty(IMP::$thismailbox) || empty(IMP::$uid)) {
+    if (!IMP::mailbox(true) || !IMP::uid()) {
         exit;
     }
 
-    $contents = $injector->getInstance('IMP_Factory_Contents')->create(IMP::$thismailbox->getIndicesOb(IMP::$uid));
+    $contents = $injector->getInstance('IMP_Factory_Contents')->create(IMP::mailbox(true)->getIndicesOb(IMP::uid()));
     break;
 }
 

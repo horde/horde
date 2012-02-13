@@ -221,7 +221,7 @@ case 'resume':
 case 'template':
 case 'template_edit':
     try {
-        $indices_ob = IMP::$mailbox->getIndicesOb(IMP::$uid);
+        $indices_ob = IMP::mailbox()->getIndicesOb(IMP::uid());
 
         switch ($vars->type) {
         case 'editasnew':

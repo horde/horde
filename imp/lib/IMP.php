@@ -43,25 +43,11 @@ class IMP
     static public $newUrl = null;
 
     /**
-     * The current active mailbox (may be search mailbox).
+     * Current mailbox/UID information.
      *
-     * @var IMP_Mailbox
+     * @var array
      */
-    static public $mailbox;
-
-    /**
-     * The real IMAP mailbox of the current index.
-     *
-     * @var IMP_Mailbox
-     */
-    static public $thismailbox;
-
-    /**
-     * The IMAP UID.
-     *
-     * @var integer
-     */
-    static public $uid = '';
+    static private $_mboxinfo;
 
     /**
      * Initialize the JS browser environment and output everything up to, and
@@ -85,6 +71,68 @@ class IMP
             require IMP_TEMPLATES . '/common-header.inc';
             break;
         }
+    }
+
+    /**
+     * Returns mailbox info for the current page.
+     *
+     * @param boolean $base  If true, return base mailbox info. If false,
+     *                       return mailbox for UID.
+     *
+     * @return IMP_Mailbox  Mailbox object.
+     */
+    static public function mailbox($base = true)
+    {
+        if (!isset(self::$_mboxinfo)) {
+            $self::setMailboxInfo();
+        }
+
+        return self::$_mboxinfo[$base ? 'mailbox' : 'thismailbox'];
+    }
+
+    /**
+     * Returns UID info for the current page.
+     *
+     * @return string  UID.
+     */
+    static public function uid()
+    {
+        if (!isset(self::$_mboxinfo)) {
+            $this->setMailboxInfo();
+        }
+
+        return self::$_mboxinfo['uid'];
+    }
+
+    /**
+     * Sets mailbox/index information for current page load.
+     *
+     * @param boolean $mbox  Use this mailbox, instead of form data.
+     */
+    static public function setMailboxInfo($mbox = null)
+    {
+        if (is_null($mbox)) {
+            $mbox = Horde_Util::getFormData('mailbox');
+            $mailbox = is_null($mbox)
+                ? IMP_Mailbox::get('INBOX')
+                : IMP_Mailbox::formFrom($mbox);
+
+            $mbox = Horde_Util::getFormData('thismailbox');
+            $thismailbox = is_null($mbox)
+                ? $mailbox
+                : IMP_Mailbox::formFrom($mbox);
+
+            $uid = Horde_Util::getFormData('uid');
+        } else {
+            $mailbox = $thismailbox = IMP_Mailbox::get($mbox);
+            $uid = null;
+        }
+
+        self::$_mboxinfo = array(
+            'mailbox' => $mailbox,
+            'thismailbox' => $thismailbox,
+            'uid' => $uid
+        );
     }
 
     /**
@@ -493,32 +541,6 @@ class IMP
         }
 
         return $output;
-    }
-
-    /**
-     * Sets mailbox/index information for current page load. This information
-     * is accessible via IMP::$mailbox, IMP::$thismailbox, and IMP::$uid.
-     *
-     * @param boolean $mbox  Use this mailbox, instead of form data.
-     */
-    static public function setCurrentMailboxInfo($mbox = null)
-    {
-        if (is_null($mbox)) {
-            $mbox = Horde_Util::getFormData('mailbox');
-            self::$mailbox = is_null($mbox)
-                ? IMP_Mailbox::get('INBOX')
-                : IMP_Mailbox::formFrom($mbox);
-
-            $mbox = Horde_Util::getFormData('thismailbox');
-            self::$thismailbox = is_null($mbox)
-                ? self::$mailbox
-                : IMP_Mailbox::formFrom($mbox);
-
-            self::$uid = Horde_Util::getFormData('uid');
-        } else {
-            self::$mailbox = self::$thismailbox = IMP_Mailbox::get($mbox);
-            self::$uid = null;
-        }
     }
 
     /**

@@ -109,7 +109,7 @@ case 'd':
 case 'en':
 case 't':
     try {
-        $indices_ob = IMP::$thismailbox->getIndicesOb(IMP::$uid);
+        $indices_ob = IMP::mailbox(true)->getIndicesOb(IMP::uid());
 
         switch ($vars->a) {
         case 'd':

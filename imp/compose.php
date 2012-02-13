@@ -217,7 +217,7 @@ case 'editasnew':
 case 'template':
 case 'template_edit':
     try {
-        $indices_ob = IMP::$thismailbox->getIndicesOb(IMP::$uid);
+        $indices_ob = IMP::mailbox(true)->getIndicesOb(IMP::uid());
 
         switch ($vars->actionID) {
         case 'editasnew':
@@ -770,7 +770,7 @@ if ($redirect) {
         'compose_formToken' => Horde_Token::generateId('compose'),
         'compose_requestToken' => $injector->getInstance('Horde_Token')->get('imp.compose'),
         'composeCache' => $composeCacheID,
-        'mailbox' => IMP::$thismailbox->form_to,
+        'mailbox' => IMP::mailbox(true)->form_to,
         'oldrtemode' => $rtemode,
         'rtemode' => $rtemode,
         'user' => $registry->getAuth()

@@ -127,8 +127,6 @@ class IMP_Application extends Horde_Registry_Application
         // Always use Windows-1252 in place of ISO-8859-1 for MIME decoding.
         Horde_Mime::$decodeWindows1252 = true;
 
-        IMP::setCurrentMailboxInfo();
-
         if ($GLOBALS['registry']->initialApp == 'imp') {
             switch ($GLOBALS['registry']->getView()) {
             case Horde_Registry::VIEW_BASIC:
