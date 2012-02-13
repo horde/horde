@@ -84,7 +84,7 @@ class IMP
     static public function mailbox($base = true)
     {
         if (!isset(self::$_mboxinfo)) {
-            $self::setMailboxInfo();
+            self::setMailboxInfo();
         }
 
         return self::$_mboxinfo[$base ? 'mailbox' : 'thismailbox'];
@@ -98,7 +98,7 @@ class IMP
     static public function uid()
     {
         if (!isset(self::$_mboxinfo)) {
-            $this->setMailboxInfo();
+            self::setMailboxInfo();
         }
 
         return self::$_mboxinfo['uid'];
