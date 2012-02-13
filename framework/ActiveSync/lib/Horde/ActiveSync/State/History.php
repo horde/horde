@@ -145,7 +145,6 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
      * @param string $id        The folder id this state represents. If empty
      *                          assumed to be a foldersync state.
      *
-     * @return void
      * @throws Horde_ActiveSync_Exception
      */
     public function loadState($syncKey, $type = null, $id = null)
@@ -316,6 +315,8 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
      * from a FOLDERSYNC command, update state accordingly. Yet another reason
      * to break out state handling into different classes based on the command
      * being run (Horde_ActiveSync_State_Sync, *_FolderSync, *_Ping etc...);
+     *
+     *  @TODO: Deal with PIM generated folder changes (mail only)
      *
      * @param string $type      The type of change (change, delete, flags or
      *                          foldersync)
