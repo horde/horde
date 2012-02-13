@@ -129,32 +129,32 @@ class IMP_Application extends Horde_Registry_Application
 
         IMP::setCurrentMailboxInfo();
 
-        $redirect = false;
+        if ($GLOBALS['registry']->initialApp == 'imp') {
+            switch ($GLOBALS['registry']->getView()) {
+            case Horde_Registry::VIEW_BASIC:
+                $redirect = (!empty($this->initParams['impmode']) &&
+                             ($this->initParams['impmode'] != 'imp'));
+                break;
 
-        switch ($GLOBALS['registry']->getView()) {
-        case Horde_Registry::VIEW_BASIC:
-            $redirect = (!empty($this->initParams['impmode']) &&
-                         ($this->initParams['impmode'] != 'imp'));
-            break;
+            case Horde_Registry::VIEW_DYNAMIC:
+                $redirect = (!empty($this->initParams['impmode']) &&
+                             ($this->initParams['impmode'] != 'dimp'));
+                break;
 
-        case Horde_Registry::VIEW_DYNAMIC:
-            $redirect = (!empty($this->initParams['impmode']) &&
-                         ($this->initParams['impmode'] != 'dimp'));
-            break;
+            case Horde_Registry::VIEW_MINIMAL:
+                $redirect = (empty($this->initParams['impmode']) ||
+                             ($this->initParams['impmode'] != 'mimp'));
+                break;
 
-        case Horde_Registry::VIEW_MINIMAL:
-            $redirect = (empty($this->initParams['impmode']) ||
-                         ($this->initParams['impmode'] != 'mimp'));
-            break;
+            case Horde_Registry::VIEW_SMARTMOBILE:
+                $redirect = (!empty($this->initParams['impmode']) &&
+                             ($this->initParams['impmode'] != 'mobile'));
+                break;
+            }
 
-        case Horde_Registry::VIEW_SMARTMOBILE:
-            $redirect = (!empty($this->initParams['impmode']) &&
-                         ($this->initParams['impmode'] != 'mobile'));
-            break;
-        }
-
-        if ($redirect && ($GLOBALS['registry']->initialApp == 'imp')) {
-            IMP_Auth::getInitialPage()->url->redirect();
+            if (!empty($redirect)) {
+                IMP_Auth::getInitialPage()->url->redirect();
+            }
         }
     }
 
