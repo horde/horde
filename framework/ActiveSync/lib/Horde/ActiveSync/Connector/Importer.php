@@ -175,12 +175,12 @@ class Horde_ActiveSync_Connector_Importer
     /**
      * Import a change in 'read' flags .. This can never conflict
      *
-     * @param string $id  Server message id
-     * @param ??  $flags  The read flags to set
+     * @param string $id        Server message id
+     * @param string $flags     The read flags to set
+     * @param string $clientid  The clientid
      */
-    public function importMessageReadFlag($id, $flags)
+    public function importMessageReadFlag($id, $flags, $clientid)
     {
-        /* Do nothing if it is a dummy folder */
         if ($this->_folderId == Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
             return true;
         }
@@ -189,12 +189,14 @@ class Horde_ActiveSync_Connector_Importer
         $change = array();
         $change['id'] = $id;
         $change['flags'] = $flags;
+        $change['parent'] = $this->_folderId;
         $this->_state->updateState(
             Horde_ActiveSync::CHANGE_TYPE_FLAGS,
             $change,
-            Horde_ActiveSync::CHANGE_ORIGIN_NA);
+            Horde_ActiveSync::CHANGE_ORIGIN_PIM,
+            $this->_backend->getUser(),
+            $clientid);
 
-        /* Tell backend */
         // @TODO: These methods should be passed a Folder object.
         $this->_backend->setReadFlag($this->_folderId, $id, $flags);
 
