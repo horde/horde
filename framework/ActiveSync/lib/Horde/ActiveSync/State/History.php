@@ -1152,20 +1152,15 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
      * Get the timestamp for the last successful sync for the current collection
      * or specified syncKey.
      *
-     * @param string $syncKey  The (optional) syncKey to check.
-     *
      * @return integer  The timestamp of the last successful sync or 0 if none
      */
-    protected function _getLastSyncTS($syncKey = 0)
+    protected function _getLastSyncTS()
     {
         $sql = 'SELECT MAX(sync_time) FROM ' . $this->_syncStateTable . ' WHERE sync_folderid = ? AND sync_devid = ?';
-        $values = array($this->_collection['id'], $this->_devId);
-        if (!empty($syncKey)) {
-            $sql .= ' AND sync_key = ?';
-            array_push($values, $syncKey);
-        }
+
         try {
-            $this->_lastSyncTS = $this->_db->selectValue($sql, $values);
+            $this->_lastSyncTS = $this->_db->selectValue(
+                $sql, array($this->_collection['id'], $this->_devId));
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
