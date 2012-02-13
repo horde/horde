@@ -335,25 +335,41 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
         $this->_logger->debug('Updating state during ' . $type);
         if ($origin == Horde_ActiveSync::CHANGE_ORIGIN_PIM) {
             $sql = 'INSERT INTO ' . $this->_syncMapTable
-                . ' (message_uid, sync_modtime, sync_key, sync_devid, sync_folderid, sync_user, sync_clientid) '
-                . 'VALUES (?, ?, ?, ?, ?, ?, ?)';
-            try {
-               $this->_db->insert(
-                   $sql,
-                   array(
-                       $change['id'],
-                       $change['mod'],
-                       $this->_syncKey,
-                       $this->_devId,
-                       $change['parent'],
-                       $user,
-                       $clientid)
+                . ' (message_uid, sync_modtime, sync_key, sync_devid,'
+                . ' sync_folderid, sync_user, sync_clientid, sync_flag)'
+                . ' VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+
+            // Determine if we are changing only a flag, or some other change
+            if ($type == Horde_ActiveSync::CHANGE_TYPE_FLAGS) {
+                $params = array(
+                    $change['id'],
+                    0,
+                    $this->_syncKey,
+                    $this->_devId,
+                    $change['parent'],
+                    $user,
+                    $clientid,
+                    $change['flags']
                 );
+            } else {
+                $params = array(
+                   $change['id'],
+                   $change['mod'],
+                   $this->_syncKey,
+                   $this->_devId,
+                   $change['parent'],
+                   $user,
+                   $clientid,
+                   0);
+            }
+
+            // Store the incoming change.
+            try {
+               $this->_db->insert($sql, $params);
             } catch (Horde_Db_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 throw new Horde_ActiveSync_Exception($e);
             }
-            // @TODO: Deal with PIM generated folder changes (mail only)
         } else {
             // When sending server changes, $this->_changes will contain all
             // changes. Need to track which ones are sent since we might not
