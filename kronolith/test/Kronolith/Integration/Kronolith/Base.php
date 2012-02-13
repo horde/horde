@@ -61,8 +61,8 @@ class Kronolith_Integration_Kronolith_Base extends Kronolith_TestCase
 
     public function tearDown()
     {
-        foreach ($GLOBALS['kronolith_shares']->listShares('test@example.com') as $share) {
-            $GLOBALS['kronolith_shares']->removeShare($share);
+        foreach ($GLOBALS['injector']->getInstance('Kronolith_Shares')->listShares('test@example.com') as $share) {
+            $GLOBALS['injector']->getInstance('Kronolith_Shares')->removeShare($share);
         }
         $GLOBALS['injector']->setInstance('Kronolith_Factory_Calendars', null);
         parent::tearDown();
@@ -79,7 +79,7 @@ class Kronolith_Integration_Kronolith_Base extends Kronolith_TestCase
     {
         $GLOBALS['conf']['share']['auto_create'] = true;
         Kronolith::initialize();
-        $shares = $GLOBALS['kronolith_shares']->listShares('test@example.com');
+        $shares = $GLOBALS['injector']->getInstance('Kronolith_Shares')->listShares('test@example.com');
         $default = array_pop($shares);
         $this->assertEquals(
             $this->default_name,
@@ -98,7 +98,7 @@ class Kronolith_Integration_Kronolith_Base extends Kronolith_TestCase
     {
         $GLOBALS['conf']['share']['auto_create'] = true;
         Kronolith::initialize();
-        $shares = $GLOBALS['kronolith_shares']->listShares('test@example.com');
+        $shares = $GLOBALS['injector']->getInstance('Kronolith_Shares')->listShares('test@example.com');
         $default = array_pop($shares);
         $this->assertTrue(
             $default->hasPermission(

@@ -25,13 +25,13 @@ class Kronolith_FreeBusy
                                     $endstamp = null, $returnObj = false,
                                     $user = null)
     {
-        global $kronolith_shares;
-
         if (!is_array($calendars)) {
             $calendars = array($calendars);
         }
 
         if (!$user) {
+            $kronolith_shares = $GLOBALS['injector']->getInstance('Kronolith_Shares');
+
             /* Find a share and retrieve owner. */
             foreach ($calendars as $calendar) {
                 if (strpos($calendar, 'internal_') !== 0) {

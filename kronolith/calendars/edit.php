@@ -23,7 +23,7 @@ if (!$GLOBALS['registry']->getAuth()) {
 }
 
 try {
-    $calendar = $kronolith_shares->getShare($vars->get('c'));
+    $calendar = $injector->getInstance('Kronolith_Shares')->getShare($vars->get('c'));
 } catch (Exception $e) {
     $notification->push($e, 'horde.error');
     Horde::url('calendars/', true)->redirect();

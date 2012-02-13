@@ -174,7 +174,7 @@ case 'export':
 
         $calNames = array();
         foreach (array_keys($calIds) as $calId) {
-            $share = $kronolith_shares->getShare($calId);
+            $share = $injector->getInstance('Kronolith_Shares')->getShare($calId);
             $calNames[] = $share->get('name');
         }
 

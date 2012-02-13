@@ -26,7 +26,7 @@ class Kronolith_View_ExportEvent
 
         if ($event->calendarType == 'internal') {
             try {
-                $share = $GLOBALS['kronolith_shares']->getShare($event->calendar);
+                $share = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($event->calendar);
                 $iCal->setAttribute('X-WR-CALNAME', $share->get('name'));
             } catch (Exception $e) {
             }

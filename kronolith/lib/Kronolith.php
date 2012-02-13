@@ -1298,9 +1298,11 @@ class Kronolith
             return array();
         }
 
+        $kronolith_shares = $GLOBALS['injector']->getInstance('Kronolith_Shares');
+
         if ($owneronly || empty($GLOBALS['conf']['share']['hidden'])) {
             try {
-                $calendars = $GLOBALS['kronolith_shares']->listShares(
+                $calendars = $kronolith_shares->listShares(
                     $GLOBALS['registry']->getAuth(),
                     array('perm' => $permission,
                           'attributes' => $owneronly ? $GLOBALS['registry']->getAuth() : null,
@@ -1311,7 +1313,7 @@ class Kronolith
             }
         } else {
             try {
-                $calendars = $GLOBALS['kronolith_shares']->listShares(
+                $calendars = $kronolith_shares->listShares(
                     $GLOBALS['registry']->getAuth(),
                     array('perm' => $permission,
                           'attributes' => $GLOBALS['registry']->getAuth(),
@@ -1324,7 +1326,7 @@ class Kronolith
             if (is_array($display_calendars)) {
                 foreach ($display_calendars as $id) {
                     try {
-                        $calendar = $GLOBALS['kronolith_shares']->getShare($id);
+                        $calendar = $kronolith_shares->getShare($id);
                         if ($calendar->hasPermission($GLOBALS['registry']->getAuth(), $permission)) {
                             $calendars[$id] = $calendar;
                         }
@@ -1481,7 +1483,7 @@ class Kronolith
     static public function hasPermission($calendar, $perm)
     {
         try {
-            $share = $GLOBALS['kronolith_shares']->getShare($calendar);
+            $share = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($calendar);
             if (!$share->hasPermission($GLOBALS['registry']->getAuth(), $perm)) {
                 throw new Horde_Exception_NotFound();
             }
@@ -1501,8 +1503,10 @@ class Kronolith
      */
     static public function addShare($info)
     {
+        $kronolith_shares = $GLOBALS['injector']->getInstance('Kronolith_Shares');
+
         try {
-            $calendar = $GLOBALS['kronolith_shares']->newShare($GLOBALS['registry']->getAuth(), strval(new Horde_Support_Randomid()), $info['name']);
+            $calendar = $kronolith_shares->newShare($GLOBALS['registry']->getAuth(), strval(new Horde_Support_Randomid()), $info['name']);
         } catch (Horde_Share_Exception $e) {
             throw new Kronolith_Exception($e);
         }
@@ -1516,7 +1520,7 @@ class Kronolith
         $tagger->tag($calendar->getName(), $info['tags'], $calendar->get('owner'), 'calendar');
 
         try {
-            $GLOBALS['kronolith_shares']->addShare($calendar);
+            $kronolith_shares->addShare($calendar);
         } catch (Horde_Share_Exception $e) {
             throw new Kronolith_Exception($e);
         }
@@ -1583,7 +1587,7 @@ class Kronolith
 
         // Remove share and all groups/permissions.
         try {
-            $result = $GLOBALS['kronolith_shares']->removeShare($calendar);
+            $result = $GLOBALS['injector']->getInstance('Kronolith_Shares')->removeShare($calendar);
         } catch (Horde_Share_Exception $e) {
             throw new Kronolith_Exception($e);
         }
@@ -2117,7 +2121,7 @@ class Kronolith
         // need the Content-ID.
         $image = self::getImagePart('big_invitation.png');
 
-        $share = $GLOBALS['kronolith_shares']->getShare($event->calendar);
+        $share = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($event->calendar);
         $view = new Horde_View(array('templatePath' => KRONOLITH_TEMPLATES . '/itip'));
         new Horde_View_Helper_Text($view);
         $view->identity = $ident;
@@ -2255,7 +2259,7 @@ class Kronolith
         $calendar = $event->calendar;
         $recipients = array();
         try {
-            $share = $GLOBALS['kronolith_shares']->getShare($calendar);
+            $share = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($calendar);
         } catch (Horde_Share_Exception $e) {
             throw new Kronolith_Exception($e);
         }
@@ -2910,7 +2914,7 @@ class Kronolith
             $id = $driver->getResourceIdByCalendar($target);
             return $driver->getResource($id);
         } else {
-            return $GLOBALS['kronolith_shares']->getShare($target);
+            return $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($target);
         }
     }
 
@@ -2968,7 +2972,7 @@ class Kronolith
         }
 
         try {
-            $shares = $GLOBALS['kronolith_shares']->listShares(
+            $shares = $GLOBALS['injector']->getInstance('Kronolith_Shares')->listShares(
                 $user, array('perm' => Horde_Perms::EDIT));
         } catch (Horde_Share_Exception $e) {
             Horde::logMessage($shares, 'ERR');

@@ -122,7 +122,7 @@ class Kronolith_Api extends Horde_Registry_Api
 
         } elseif (count($parts) == 1) {
             // This request is for all calendars owned by the requested user
-            $calendars = $GLOBALS['kronolith_shares']->listShares(
+            $calendars = $GLOBALS['injector']->getInstance('Kronolith_Shares')->listShares(
                 $GLOBALS['registry']->getAuth(),
                 array('perm' => Horde_Perms::SHOW,
                       'attributes' => $parts[0]));
@@ -405,8 +405,9 @@ class Kronolith_Api extends Horde_Registry_Api
             try {
                 Kronolith::getDriver()->delete($calendarId);
                 // Remove share and all groups/permissions.
-                $share = $GLOBALS['kronolith_shares']->getShare($calendarId);
-                $result = $GLOBALS['kronolith_shares']->removeShare($share);
+                $kronolith_shares = $GLOBALS['injector']->getInstance('Kronolith_Shares');
+                $share = $kronolith_shares->getShare($calendarId);
+                $result = $kronolith_shares->removeShare($share);
             } catch (Exception $e) {
                 throw new Kronolith_Exception(sprintf(_("Unable to delete calendar \"%s\": %s"), $calendarId, $e->getMessage()));
             }
@@ -765,8 +766,6 @@ class Kronolith_Api extends Horde_Registry_Api
      */
     public function export($uid, $contentType)
     {
-        global $kronolith_shares;
-
         $event = Kronolith::getDriver()->getByUID($uid);
         if (!$event->hasPermission(Horde_Perms::READ)) {
             throw new Horde_Exception_PermissionDenied();
@@ -777,7 +776,7 @@ class Kronolith_Api extends Horde_Registry_Api
         case 'text/x-vcalendar':
             $version = '1.0';
         case 'text/calendar':
-            $share = $kronolith_shares->getShare($event->calendar);
+            $share = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($event->calendar);
 
             $iCal = new Horde_Icalendar($version);
             $iCal->setAttribute('X-WR-CALNAME', $share->get('name'));
@@ -812,8 +811,6 @@ class Kronolith_Api extends Horde_Registry_Api
      */
     public function exportCalendar($calendar, $contentType)
     {
-        global $kronolith_shares;
-
         if (!Kronolith::hasPermission($calendar, Horde_Perms::READ)) {
             throw new Horde_Exception_PermissionDenied();
         }
@@ -826,7 +823,7 @@ class Kronolith_Api extends Horde_Registry_Api
         case 'text/x-vcalendar':
             $version = '1.0';
         case 'text/calendar':
-            $share = $kronolith_shares->getShare($calendar);
+            $share = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($calendar);
 
             $iCal = new Horde_Icalendar($version);
             $iCal->setAttribute('X-WR-CALNAME', $share->get('name'));
@@ -1267,7 +1264,7 @@ class Kronolith_Api extends Horde_Registry_Api
             $uid = $calendar . ':' . $event;
         }
 
-        return $GLOBALS['kronolith_shares']->getShare($calendar)->lock($GLOBALS['injector']->getInstance('Horde_Lock'), $uid);
+        return $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($calendar)->lock($GLOBALS['injector']->getInstance('Horde_Lock'), $uid);
     }
 
     /**
@@ -1284,7 +1281,7 @@ class Kronolith_Api extends Horde_Registry_Api
             throw new Horde_Exception_PermissionDenied();
         }
 
-        return $GLOBALS['kronolith_shares']->getShare($calendar)->unlock($GLOBALS['injector']->getInstance('Horde_Lock'), $lockid);
+        return $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($calendar)->unlock($GLOBALS['injector']->getInstance('Horde_Lock'), $lockid);
     }
 
     /**
@@ -1303,7 +1300,7 @@ class Kronolith_Api extends Horde_Registry_Api
         if (!empty($event)) {
             $uid = $calendar . ':' . $event;
         }
-        return $GLOBALS['kronolith_shares']->getShare($calendar)->checkLocks($GLOBALS['injector']->getInstance('Horde_Lock'), $uid);
+        return $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($calendar)->checkLocks($GLOBALS['injector']->getInstance('Horde_Lock'), $uid);
     }
 
     /**
