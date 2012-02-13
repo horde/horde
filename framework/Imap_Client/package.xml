@@ -10,11 +10,11 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-02-12</date>
- <time>18:59:22</time>
+ <date>2012-02-06</date>
+ <time>00:55:05</time>
  <version>
-  <release>1.4.5</release>
-  <api>1.4.0</api>
+  <release>1.5.0</release>
+  <api>1.5.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -22,7 +22,10 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Do case-insensitive check for NIL in IMAP data.
+* [mms] Correctly support RFC 822 groups in envelope data.
+* [mms] Envelope address data now returned as Horde_Mail_Rfc822_Address objects.
+* [mms] Other places where bodystructure may return literals.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -152,6 +155,13 @@
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Mail</name>
+    <channel>pear.horde.org</channel>
+    <min>1.1.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -741,7 +751,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-02-01</date>
+   <date>2012-02-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Workaround non-ASCII data in bodystructure return from IMAP server.
@@ -763,15 +773,18 @@
   </release>
   <release>
    <version>
-    <release>1.4.5</release>
-    <api>1.4.0</api></version>
+    <release>1.5.0</release>
+    <api>1.5.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-02-12</date>
+   <date>2012-02-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Do case-insensitive check for NIL in IMAP data.
+* [mms] Correctly support RFC 822 groups in envelope data.
+* [mms] Envelope address data now returned as Horde_Mail_Rfc822_Address objects.
+* [mms] Other places where bodystructure may return literals.
    </notes>
   </release>
  </changelog>
