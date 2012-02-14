@@ -1697,9 +1697,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                 break;
 
             case self::REPLY_LIST:
-                $addr_ob = IMP::parseAddressList($h->getValue('list-id'));
-                if (!is_null($addr_ob[0]->personal)) {
-                    $ret['reply_list_id'] = $addr_ob[0]->personal;
+                if (($list_parse = $GLOBALS['injector']->getInstance('IMP_Parse_Listid')->parseListId($h->getValue('list-id'))) &&
+                    isset($list_parse->phrase)) {
+                    $ret['reply_list_id'] = $list_parse->phrase;
                 }
                 break;
             }

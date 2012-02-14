@@ -300,9 +300,9 @@ case 'reply_list':
     case IMP_Compose::REPLY_LIST:
         if ($vars->actionID == 'reply_auto') {
             $replyauto_list = true;
-            if (($addr_ob = IMP::parseAddressList($contents->getHeader()->getValue('list-id'))) &&
-                !is_null($addr_ob[0]->personal)) {
-                $replyauto_list_id = $addr_ob[0]->personal;
+            if (($parse_list = $injector->getInstance('IMP_Parse_Listid')->parseListId($contents->getHeader()->getValue('list-id'))) &&
+                isset($parse_list->phrase)) {
+                $replyauto_list_id = $parse_list->phrase;
             }
         }
 
