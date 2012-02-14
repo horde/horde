@@ -27,7 +27,7 @@ if ($addressbook_id == $GLOBALS['registry']->getAuth()) {
 }
 
 try {
-    $addressbook = $turba_shares->getShare($addressbook_id);
+    $addressbook = $injector->getInstance('Turba_Shares')->getShare($addressbook_id);
 } catch (Horde_Share_Exception $e) {
     $notification->push($e, 'horde.error');
     Horde::url('addressbooks/', true)->redirect();

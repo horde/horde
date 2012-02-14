@@ -219,7 +219,7 @@ class Turba_Driver_Share extends Turba_Driver
     public function removeUserData($user)
     {
         $this->_deleteAll();
-        $GLOBALS['turba_shares']->removeShare($this->_share);
+        $GLOBALS['injector']->getInstance('Turba_Shares')->removeShare($this->_share);
         unset($this->_share);
     }
 

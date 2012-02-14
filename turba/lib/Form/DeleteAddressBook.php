@@ -62,7 +62,7 @@ class Turba_Form_DeleteAddressBook extends Horde_Form
 
         // Address book successfully deleted from backend, remove the share.
         try {
-            $GLOBALS['turba_shares']->removeShare($this->_addressbook);
+            $GLOBALS['injector']->getInstance('Turba_Shares')->removeShare($this->_addressbook);
         } catch (Horde_Share_Exception $e) {
             Horde::logMessage($e->getMessage(), 'ERR');
             throw new Turba_Exception($e);

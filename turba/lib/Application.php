@@ -50,10 +50,18 @@ class Turba_Application extends Horde_Registry_Application
      *   $cfgSources   - TODO
      *   $copymove_source_options - TODO
      *   $copymoveSources - TODO
-     *   $turba_shares - TODO
      */
     protected function _init()
     {
+        /* Add IMP-specific factories. */
+        $factories = array(
+            'Turba_Shares' => 'Turba_Factory_Shares'
+        );
+
+        foreach ($factories as $key => $val) {
+            $GLOBALS['injector']->bindFactory($key, $val, 'create');
+        }
+
         // Turba source and attribute configuration.
         $attributes = Horde::loadConfiguration('attributes.php', 'attributes', 'turba');
         $cfgSources = Turba::availableSources();
@@ -67,7 +75,6 @@ class Turba_Application extends Horde_Registry_Application
             if (!empty($cfg['use_shares'])) {
                 // Create a share instance.
                 $GLOBALS['session']->set('turba', 'has_share', true);
-                $GLOBALS['turba_shares'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
                 $cfgSources = Turba::getConfigFromShares($cfgSources);
                 break;
             }
@@ -441,7 +448,8 @@ class Turba_Application extends Horde_Registry_Application
             return;
         }
 
-        $shares = $GLOBALS['turba_shares']->listShares(
+        $turba_shares = $GLOBALS['injector']->getInstance('Turba_Shares');
+        $shares = $turba_shares->listShares(
             $user,
             array('perm' => Horde_Perms::EDIT,
                   'attributes' => $user));
@@ -468,7 +476,7 @@ class Turba_Application extends Horde_Registry_Application
         /* Get a list of all shares this user has perms to and remove the
          * perms. */
         try {
-            $shares = $GLOBALS['turba_shares']->listShares($user);
+            $shares = $turba_shares->listShares($user);
             foreach ($shares as $share) {
                 $share->removeUser($user);
             }

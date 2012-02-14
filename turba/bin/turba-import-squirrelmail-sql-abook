@@ -39,7 +39,7 @@ include TURBA_BASE . '/config/backends.php';
 
 // Loop through SquirrelMail address books.
 $handle = $db->select('SELECT owner, nickname, firstname, lastname, email, label FROM address ORDER BY owner');
-$turba_shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
+$turba_shares = $GLOBALS['injector']->getInstance('Turba_Shares');
 $user = null;
 $count = 0;
 foreach ($handle as $row) {

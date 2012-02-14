@@ -110,7 +110,7 @@ class Turba_Driver_Kolab extends Turba_Driver
      */
     private function _getDataForAddressbook($addressbook)
     {
-        $share = $GLOBALS['turba_shares']->getShare($addressbook);
+        $share = $GLOBALS['injector']->getInstance('Turba_Shares')->getShare($addressbook);
         $this->setContactOwner($share->get('owner'));
         return $this->_kolab->getData($share->get('folder'), 'contact');
     }

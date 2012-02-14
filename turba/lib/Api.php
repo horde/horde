@@ -261,7 +261,7 @@ class Turba_Api extends Horde_Registry_Api
                     // No backends are configured to provide shares
                     return array();
                 }
-                $addressbooks = $GLOBALS['turba_shares']->listShares(
+                $addressbooks = $GLOBALS['injector']->getInstance('Turba_Shares')->listShares(
                     $parts[0],
                     array('perm' => Horde_Perms::READ,
                           'attributes' => $parts[0]));
