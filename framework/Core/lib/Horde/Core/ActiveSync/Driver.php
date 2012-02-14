@@ -368,7 +368,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 return array();
             }
             foreach ($messageList as $message) {
-                $messages[] = $this->_statMailMessage($message);
+                $messages[] = $this->statMailMessage($message);
             }
             break;
 
@@ -958,7 +958,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *
      * @return array
      */
-    private function _statMailMessage($folderid, $id)
+    public function statMailMessage($folderid, $id)
     {
         $folder = $this->getFolder($folderid);
         $messages = $this->_connector->mail_getMessages($folder, array($id));
@@ -1030,7 +1030,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
                 default:
                     try {
-                        return $this->_statMailMessage($folderid, $id);
+                        return $this->statMailMessage($folderid, $id);
                     } catch (Horde_ActiveSync_Exception $e) {
                         $this->_endBuffer();
                         return false;

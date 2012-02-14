@@ -940,7 +940,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
                 $this->_logger->debug('[' . $this->_devId . '] Syncing Email folder, checking for PIM initiated flag changes.');
                 if ($this->_havePIMChanges()) {
                     foreach ($changes as $change) {
-                        $stat = $this->_backend->_statMailMessage($this->_collection['id'], $change['id']);
+                        $stat = $this->_backend->statMailMessage($this->_collection['id'], $change['id']);
                         if ($this->_isPIMFlagChange($change['id'], $stat['flags'])) {
                             $this->_logger->debug(
                                 sprintf("[%s] Ignoring PIM initiated flag change for %s", $this->_devId, $change['id']));
