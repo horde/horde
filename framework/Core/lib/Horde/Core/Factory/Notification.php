@@ -52,10 +52,15 @@ class Horde_Core_Factory_Notification extends Horde_Core_Factory_Injector
         }
 
         foreach ($apps as $app) {
-            try {
-                if ($registry->callAppMethod($app, 'setupNotification', array('args' => array($this->_notify), 'noperms' => true)) && $changed) {
-                    $save[] = $app;
+            if ($changed) {
+                if ($registry->appMethodDefined($app, 'setupNotification')) {
+                    continue;
                 }
+                $save[] = $app;
+            }
+
+            try {
+                $registry->callAppMethod($app, 'setupNotification', array('args' => array($this->_notify), 'noperms' => true));
             } catch (Exception $e) {}
         }
 
