@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add Horde_Registry#appMethodDefined().
 * [mms] Added AJAX core features.
 * [mms] Added view determination to Horde_Registry.
 * [mms] Performance improvements when initializing Alarm system.

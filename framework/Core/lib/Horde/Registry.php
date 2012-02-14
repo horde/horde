@@ -1123,6 +1123,26 @@ class Horde_Registry
     }
 
     /**
+     * Is an application method defined (i.e. it extends the default method)?
+     *
+     * @since 2.0.0
+     *
+     * @param string $app   The application to check.
+     * @param string $name  The method name to check.
+     *
+     * @return boolean  True if method is defined.
+     */
+    public function appMethodDefined($app, $name)
+    {
+        try {
+            $method = new ReflectionMethod($this->getApiInstance($app, 'application'), $name);
+            return ($method->getDeclaringClass()->name != 'Horde_Registry_Application');
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
+    /**
      * Returns the link corresponding to the default package that provides the
      * functionality requested by the $method parameter.
      *
