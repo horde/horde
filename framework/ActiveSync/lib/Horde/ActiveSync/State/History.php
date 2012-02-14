@@ -130,6 +130,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
         $this->_syncMapTable = $params['maptable'];
         $this->_syncDeviceTable = $params['devicetable'];
         $this->_syncUsersTable = $params['userstable'];
+        $this->_syncMailMapTable = 'horde_activesync_mailmap';
 
         $this->_db = $params['db'];
     }
@@ -334,24 +335,24 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
     {
         $this->_logger->debug('Updating state during ' . $type);
         if ($origin == Horde_ActiveSync::CHANGE_ORIGIN_PIM) {
-            $sql = 'INSERT INTO ' . $this->_syncMapTable
-                . ' (message_uid, sync_modtime, sync_key, sync_devid,'
-                . ' sync_folderid, sync_user, sync_clientid, sync_flag)'
-                . ' VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
-
-            // Determine if we are changing only a flag, or some other change
             if ($type == Horde_ActiveSync::CHANGE_TYPE_FLAGS) {
+                $sql = 'INSERT INTO ' . $this->_syncMailMapTable
+                    . ' (message_uid, sync_key, sync_devid,'
+                    . ' sync_folderid, sync_user, sync_read)'
+                    . ' VALUES (?, ?, ?, ?, ?, ?)';
                 $params = array(
                     $change['id'],
-                    0,
                     $this->_syncKey,
                     $this->_devId,
                     $change['parent'],
                     $user,
-                    0,
                     $change['flags']
                 );
             } else {
+                $sql = 'INSERT INTO ' . $this->_syncMapTable
+                    . ' (message_uid, sync_modtime, sync_key, sync_devid,'
+                    . ' sync_folderid, sync_user, sync_clientid)'
+                    . ' VALUES (?, ?, ?, ?, ?, ?, ?)';
                 $params = array(
                    $change['id'],
                    $change['mod'],
@@ -359,8 +360,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
                    $this->_devId,
                    $change['parent'],
                    $user,
-                   $clientid,
-                   0);
+                   $clientid);
             }
 
             // Store the incoming change.
@@ -1183,7 +1183,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
 
     protected function _isPIMFlagChange($id, $flag)
     {
-        $sql = 'SELECT sync_flag FROM ' . $this->_syncMapTable
+        $sql = 'SELECT sync_read FROM ' . $this->_syncMailMapTable
             . ' WHERE sync_folderid = ? AND sync_devid = ? AND message_uid = ?';
 
         try {
