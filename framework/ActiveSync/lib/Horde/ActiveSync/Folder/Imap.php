@@ -59,15 +59,6 @@ class Horde_ActiveSync_Folder_Imap
     /**
      * Const'r
      *
-     * @var array $status  The folder status array. Should contain:
-     *<pre>
-     *
-     * </pre>
-     * @var array $messages  An array of messages. Each entry contains:
-     *<pre>
-     *   -uid  The message UID
-     *   -seen The message's seen status.
-     *</pre>
      */
     public function __construct(
         $serverid,
