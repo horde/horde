@@ -81,6 +81,8 @@ class Kronolith_Application extends Horde_Registry_Application
                 }
             }
         }
+
+        Kronolith::initialize();
     }
 
     /**
