@@ -219,7 +219,7 @@ var DragDrop = {
 
             case 'selectstart':
                 if (this.drag) {
-                    this.drag._selectStart(e);
+                    e.stop();
                 }
                 break;
             }
@@ -294,13 +294,6 @@ Drag = Class.create({
         // up the DOM tree from firing.
         if (Prototype.Browser.Gecko) {
             this.element.setStyle({ MozUserSelect: 'none' });
-        }
-    },
-
-    _selectStart: function(e)
-    {
-        if (this.wasMoved) {
-            e.stop();
         }
     },
 
