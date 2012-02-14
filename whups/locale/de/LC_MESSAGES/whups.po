@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Whups 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-12-21 18:23+0100\n"
-"PO-Revision-Date: 2011-09-20 14:12+0200\n"
+"PO-Revision-Date: 2012-02-14 11:44+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@horde.org>\n"
 "Language: de\n"
@@ -1192,7 +1192,7 @@ msgstr "Nur über Ticketänderungen durch andere Benutzer benachrichtigen?"
 
 #: config/prefs.php:125
 msgid "Only notify me of ticket changes with comments?"
-msgstr "Nur über Ticketänderungen durch andere Benutzer benachrichtigen?"
+msgstr "Nur über Ticketänderungen mit Kommentaren benachrichtigen?"
 
 #: queue/rss.php:40
 msgid "Open"
