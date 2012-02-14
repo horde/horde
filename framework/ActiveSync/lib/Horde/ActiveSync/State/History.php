@@ -348,7 +348,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
                     $this->_devId,
                     $change['parent'],
                     $user,
-                    $clientid,
+                    0,
                     $change['flags']
                 );
             } else {

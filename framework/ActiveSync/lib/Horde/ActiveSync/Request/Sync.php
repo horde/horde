@@ -306,7 +306,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                             // Currently, 'read' is only sent by the PDA when it
                             // is ONLY setting the read flag.
                             if (isset($appdata->read)) {
-                                $importer->importMessageReadFlag($serverid, $appdata->read, $clientid);
+                                $importer->importMessageReadFlag($serverid, $appdata->read, $this->_device->id);
                             } else {
                                 $importer->importMessageChange($serverid, $appdata, $this->_device, false);
                             }
