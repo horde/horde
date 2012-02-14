@@ -917,11 +917,11 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             $this->_logger->debug('[' . $this->_devId . '] Found '
                 . count($changes) . ' message changes, checking for PIM initiated changes.');
 
+            $this->_changes = array();
             if ($this->_collection['class'] !== Horde_ActiveSync::CLASS_EMAIL) {
                 // If we have PIM originated changes, need to stat them to avoid
                 // mirroring back the change.
                 if ($this->_havePIMChanges()) {
-                    $this->_changes = array();
                     foreach ($changes as $change) {
                         $stat = $this->_backend->statMessage($folderId, $change['id']);
                         $ts = $this->_getPIMChangeTS($change['id']);
@@ -940,7 +940,8 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
                 $this->_logger->debug('[' . $this->_devId . '] Syncing Email folder, checking for PIM initiated flag changes.');
                 if ($this->_havePIMChanges()) {
                     foreach ($changes as $change) {
-                        if ($this->_isPIMFlagChange($change['id'], $change['flag'])) {
+                        $stat = $this->_backend->_statMailMessage($this->_collection['id'], $change['id']);
+                        if ($this->_isPIMFlagChange($change['id'], $stat['flags'])) {
                             $this->_logger->debug(
                                 sprintf("[%s] Ignoring PIM initiated flag change for %s", $this->_devId, $change['id']));
                         } else {
@@ -1180,10 +1181,17 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
 
     protected function _isPIMFlagChange($id, $flag)
     {
-        $sql = 'SELECT sync_flag FROM ' . $this->_syncStateTable
-            . ' WHERE sync_folder_id = ? AND sync_devid = ? AND message_uid = ?';
-        $value =
-        $value =
+        $sql = 'SELECT sync_flag FROM ' . $this->_syncMapTable
+            . ' WHERE sync_folderid = ? AND sync_devid = ? AND message_uid = ?';
+
+        try {
+            $mflag = $this->_db->selectValue($sql, array($this->_collection['id'], $this->_devId, $id));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_ActiveSync_Exception($e);
+        }
+
+        Horde::debug(array($mflag, $flag));
+        return $mflag == $flag;
     }
 
     protected function _getLastEmailState($id, $ts)
