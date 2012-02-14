@@ -121,24 +121,30 @@
 	</para>
 </entry>
 
-<entry id="embed" state="uptodate" md5="26010b7eee676f42a5d74082a96d01cc">
+<entry id="embed" state="uptodate" md5="795e60a6e3f367b06e3e51181ac1c465">
   <title>Incrustado</title>
   <para>Puede incrustar vistas reducidas de sus agendas en sitios web externos. Puede incrustar las mismas vistas que puede colocar en la página portal de Horde. Los siguientes son ejemplos del código utilizado para incrustar cada vista en un blog o sitio web externo. Evidentemente tendrá que modificar el código con la dirección adecuada del servidor y el nombre de la agenda. El parámetro 'container' es arbitrario, pero tiene que coincidir con el id DOM del elemento div y ser único en el conjunto de la página en que lo esté incrustando.</para>
   <para>Para incrustar una vista reducida mensual del mes actual:</para>
-    <i>&lt;div id="kronocalendar"&gt;&lt;/div&gt;&lt;script
-    src="http://hostname.example.com/horde/horde/services/imple.php?imple=Embed/
-    impleApp=kronolith/container=kronocalendar/view=month/calendar=calendar_name"
-    type="text/javascript"&gt;&lt;/script&gt;</i>
+  <raw>
+    &lt;div id="kronocalendar"&gt;&lt;/div&gt;&lt;script
+    src="http://servidor.ejemplo.com/horde/horde/services/imple.php?imple=Embed/
+    impleApp=kronolith/container=kronocalendar/view=month/calendar=nombre_agenda"
+    type="text/javascript"&gt;&lt;/script&gt;
+  </raw>
   <para>Para incrustar una vista de acontecimientos pendientes (observe los parámetros 'months' y 'maxevents'):</para>
-    <i>&lt;div id="kronolist"&gt;&lt;/div&gt;&lt;script
-    src="http://hostname.example.com/horde/horde/services/imple.php?imple=Embed/
-    impleApp=kronolith/view=monthlist/calendar=calendar_name/container=kronolist
-    /months=2/maxevents=10" type="text/javascript"&gt;&lt;/script&gt;</i>
+  <raw>
+    &lt;div id="kronolist"&gt;&lt;/div&gt;&lt;script
+    src="http://servidor.ejemplo.com/horde/horde/services/imple.php?imple=Embed/
+    impleApp=kronolith/view=monthlist/calendar=nombre_agenda/container=kronolist
+    /months=2/maxevents=10" type="text/javascript"&gt;&lt;/script&gt;
+  </raw>
   <para>Para incrustar una vista resumen:</para>
-    <i>&lt;div id="kronosummary"&gt;
+  <raw>
+    &lt;div id="kronosummary"&gt;
     &lt;/div&gt;&lt;script type="text/javascript"
-    src="http://hostname.example.com/horde/horde/services/imple.php?imple=Embed/
-    impleApp=kronolith/container=kronosummary/view=summary/calendar=calendar_name
-    "&gt;&lt;/script&gt;</i>
+    src="http://servidor.ejemplo.com/horde/horde/services/imple.php?imple=Embed/
+    impleApp=kronolith/container=kronosummary/view=summary/calendar=nombre_agenda
+    "&gt;&lt;/script&gt;
+  </raw>
 </entry>
 </help>

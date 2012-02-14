@@ -18,10 +18,8 @@ class Ingo_Transport_Vfs extends Ingo_Transport
      *
      * @param array $params  A hash containing driver parameters.
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
-        $this->_support_shares = true;
-
         $default_params = array(
             'hostspec' => 'localhost',
             'port'     => 21,
@@ -30,6 +28,8 @@ class Ingo_Transport_Vfs extends Ingo_Transport
             'vfs_path' => '',
             'vfs_forward_path' => '',
         );
+
+        $this->_supportShares = true;
 
         parent::__construct(array_merge($default_params, $params));
     }

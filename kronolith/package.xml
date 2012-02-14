@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-01-17</date>
- <time>13:18:43</time>
+ <date>2012-01-22</date>
+ <time>13:50:37</time>
  <version>
   <release>3.1.0</release>
   <api>3.1.0</api>
@@ -34,14 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Prompt to send updates when modifying an event with attendees (Request #10724).
-* [mjr] Add heatmap to year view (Request #10658).
-* [mjr] Implement proper editing and deleting of recurrence series and exceptions in ajax view (Request #9926).
-* [jan] Remove print buttons.
-* [jan] Add work week view to dynamic interface (rsalmon@mbpgroup.com, Request #10519).
-* [jan] Support importing of iCalendar events with non-local timezones (Request #7156).
-* [jan] Include timezone information when exporting events to iCalendar (Request #7156).
-* [jan] Allow to set individual timezones for each event (Request #10727).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -100,6 +93,7 @@
      <dir name="Imple">
       <file name="ContactAutoCompleter.php" role="horde" />
       <file name="Embed.php" role="horde" />
+      <file name="ResourceAutoCompleter.php" role="horde" />
       <file name="TagActions.php" role="horde" />
       <file name="TagAutoCompleter.php" role="horde" />
      </dir> <!-- /lib/Ajax/Imple -->
@@ -467,6 +461,7 @@
     <file name="17_kronolith_upgrade_sqlnghierarchical.php" role="horde" />
     <file name="18_kronolith_upgrade_categoriestotags.php" role="horde" />
     <file name="19_kronolith_upgrade_addmysqlgeo.php" role="horde" />
+    <file name="20_kronolith_upgrade_timezone.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="resources">
     <dir name="groups">
@@ -539,6 +534,7 @@
      <file name="task.inc" role="horde" />
      <file name="tasks.inc" role="horde" />
      <file name="week.inc" role="horde" />
+     <file name="workweek.inc" role="horde" />
      <file name="year.inc" role="horde" />
     </dir> <!-- /templates/index -->
     <dir name="itip">
@@ -650,9 +646,6 @@
     <dir name="bluewhite">
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/bluewhite -->
-    <dir name="burntorange">
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/burntorange -->
     <dir name="default">
      <dir name="graphics">
       <dir name="alerts">
@@ -731,15 +724,6 @@
      <file name="screen.css" role="horde" />
      <file name="webkit.css" role="horde" />
     </dir> <!-- /themes/default -->
-    <dir name="fadetogreen">
-     <dir name="graphics">
-      <file name="headerbox.png" role="horde" />
-     </dir> <!-- /themes/fadetogreen/graphics -->
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/fadetogreen -->
-    <dir name="mozilla">
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/mozilla -->
     <dir name="silver">
      <dir name="graphics">
       <dir name="alerts">
@@ -806,9 +790,6 @@
      <file name="ie8.css" role="horde" />
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/silver -->
-    <dir name="simplex">
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/simplex -->
     <dir name="tango-blue">
      <dir name="graphics">
       <dir name="alerts">
@@ -1214,6 +1195,7 @@
    <install as="kronolith/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
    <install as="kronolith/lib/Ajax/Imple/ContactAutoCompleter.php" name="lib/Ajax/Imple/ContactAutoCompleter.php" />
    <install as="kronolith/lib/Ajax/Imple/Embed.php" name="lib/Ajax/Imple/Embed.php" />
+   <install as="kronolith/lib/Ajax/Imple/ResourceAutoCompleter.php" name="lib/Ajax/Imple/ResourceAutoCompleter.php" />
    <install as="kronolith/lib/Ajax/Imple/TagActions.php" name="lib/Ajax/Imple/TagActions.php" />
    <install as="kronolith/lib/Ajax/Imple/TagAutoCompleter.php" name="lib/Ajax/Imple/TagAutoCompleter.php" />
    <install as="kronolith/lib/Block/Month.php" name="lib/Block/Month.php" />
@@ -1384,6 +1366,7 @@
    <install as="kronolith/migration/17_kronolith_upgrade_sqlnghierarchical.php" name="migration/17_kronolith_upgrade_sqlnghierarchical.php" />
    <install as="kronolith/migration/18_kronolith_upgrade_categoriestotags.php" name="migration/18_kronolith_upgrade_categoriestotags.php" />
    <install as="kronolith/migration/19_kronolith_upgrade_addmysqlgeo.php" name="migration/19_kronolith_upgrade_addmysqlgeo.php" />
+   <install as="kronolith/migration/20_kronolith_upgrade_timezone.php" name="migration/20_kronolith_upgrade_timezone.php" />
    <install as="kronolith/resources/create.php" name="resources/create.php" />
    <install as="kronolith/resources/delete.php" name="resources/delete.php" />
    <install as="kronolith/resources/edit.php" name="resources/edit.php" />
@@ -1432,6 +1415,7 @@
    <install as="kronolith/templates/index/task.inc" name="templates/index/task.inc" />
    <install as="kronolith/templates/index/tasks.inc" name="templates/index/tasks.inc" />
    <install as="kronolith/templates/index/week.inc" name="templates/index/week.inc" />
+   <install as="kronolith/templates/index/workweek.inc" name="templates/index/workweek.inc" />
    <install as="kronolith/templates/index/year.inc" name="templates/index/year.inc" />
    <install as="kronolith/templates/itip/notification.html.php" name="templates/itip/notification.html.php" />
    <install as="kronolith/templates/itip/notification.plain.php" name="templates/itip/notification.plain.php" />
@@ -1489,7 +1473,6 @@
    <install as="Kronolith/Stub/Tagger.php" name="test/Kronolith/Stub/Tagger.php" />
    <install as="Kronolith/Stub/Types.php" name="test/Kronolith/Stub/Types.php" />
    <install as="kronolith/themes/bluewhite/screen.css" name="themes/bluewhite/screen.css" />
-   <install as="kronolith/themes/burntorange/screen.css" name="themes/burntorange/screen.css" />
    <install as="kronolith/themes/default/embed.css" name="themes/default/embed.css" />
    <install as="kronolith/themes/default/ie7.css" name="themes/default/ie7.css" />
    <install as="kronolith/themes/default/ie8.css" name="themes/default/ie8.css" />
@@ -1562,9 +1545,6 @@
    <install as="kronolith/themes/default/graphics/alerts/message.png" name="themes/default/graphics/alerts/message.png" />
    <install as="kronolith/themes/default/graphics/alerts/success.png" name="themes/default/graphics/alerts/success.png" />
    <install as="kronolith/themes/default/graphics/alerts/warning.png" name="themes/default/graphics/alerts/warning.png" />
-   <install as="kronolith/themes/fadetogreen/screen.css" name="themes/fadetogreen/screen.css" />
-   <install as="kronolith/themes/fadetogreen/graphics/headerbox.png" name="themes/fadetogreen/graphics/headerbox.png" />
-   <install as="kronolith/themes/mozilla/screen.css" name="themes/mozilla/screen.css" />
    <install as="kronolith/themes/silver/ie7.css" name="themes/silver/ie7.css" />
    <install as="kronolith/themes/silver/ie8.css" name="themes/silver/ie8.css" />
    <install as="kronolith/themes/silver/screen.css" name="themes/silver/screen.css" />
@@ -1625,7 +1605,6 @@
    <install as="kronolith/themes/silver/graphics/alerts/message.png" name="themes/silver/graphics/alerts/message.png" />
    <install as="kronolith/themes/silver/graphics/alerts/success.png" name="themes/silver/graphics/alerts/success.png" />
    <install as="kronolith/themes/silver/graphics/alerts/warning.png" name="themes/silver/graphics/alerts/warning.png" />
-   <install as="kronolith/themes/simplex/screen.css" name="themes/simplex/screen.css" />
    <install as="kronolith/themes/tango-blue/screen.css" name="themes/tango-blue/screen.css" />
    <install as="kronolith/themes/tango-blue/graphics/addressbook_browse.png" name="themes/tango-blue/graphics/addressbook_browse.png" />
    <install as="kronolith/themes/tango-blue/graphics/alarm-000.png" name="themes/tango-blue/graphics/alarm-000.png" />
@@ -2050,7 +2029,21 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-01-17</date>
+   <date>2012-01-31</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Search complete names and addresses when auto-completing attendees.
+* [jan] Fix syntax error in migration script (Bug #10902).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.16</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-01-31</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * 

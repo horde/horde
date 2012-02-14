@@ -586,12 +586,12 @@ span.spellcheckPopdownImg {
 }
 
 /* Large addresslist display. */
-.largeaddrlist {
+.largeaddrlist, .largeaddrlistlimit {
     cursor: pointer;
     background: #aaa;
     margin-right: 5px;
 }
-.largeaddrlist:hover {
+.largeaddrlist:hover, .largeaddrlistlimit:hover {
     text-decoration: underline;
 }
 
@@ -626,19 +626,24 @@ span.arrowExpanded {
 }
 
 /* Loading graphic */
-span.loadingImg {
-    z-index: 1000;
-    border: 1px #e0e0e0 solid;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-    background: #fff url("graphics/loading.gif") no-repeat center;
-    padding: 3px;
-    width: 16px;
-    height: 16px;
-}
 td.addressTr span.loadingImg {
     padding: 0 0 0 16px;
+}
+
+/* Key import popup. */
+.importKeyTable {
+    border-collapse: collapse;
+    width: 100%;
+}
+.importKeyHowto {
+    padding: 8px;
+}
+.importKeyOr {
+    color: red !important;
+    font-weight: bold;
+}
+.importKeyText, .importKeyUpload {
+    font-weight: bold;
 }
 
 /* Inline display (Horde_Mime_Viewer) styles. */
@@ -795,15 +800,15 @@ span.mimePartInfoSize {
 }
 
 /* iTip styles. */
-#itipconflicts {
+.itipconflicts {
     border-spacing: 0;
 }
-#itipconflicts tr.itipcollision {
+.itipconflicts tr.itipcollision {
     background-color: #f00;
     color: #fff;
 }
 
-#itipconflicts tr.itipnearcollision {
+.itipconflicts tr.itipnearcollision {
     background-color: #ee0;
 }
 

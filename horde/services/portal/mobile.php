@@ -7,7 +7,10 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author Chuck Hagenbuch <chuck@horde.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Horde
  */
 
 require_once dirname(__FILE__) . '/../../lib/Application.php';
@@ -26,14 +29,7 @@ foreach ($registry->listApps() as $app) {
     }
 }
 
-/* Show notifications. */
-$response = Horde::prepareResponse(null, true);
-if (!empty($response->msgs)) {
-    Horde::addInlineScript(
-        'window.setTimeout(function(){HordeMobile.showNotifications('
-        . Horde_Serialize::serialize($response->msgs, Horde_Serialize::JSON)
-        . ');},0);');
-}
+$notification->notify(array('listeners' => 'status'));
 
 $title = _("Welcome");
 

@@ -23,7 +23,7 @@ $sesha_driver = $GLOBALS['injector']->getInstance('Sesha_Factory_Driver')->creat
 $actionId = Horde_Util::getFormData('actionId');
 $stock_id = Horde_Util::getFormData('stock_id');
 $active = Sesha::isAdmin(Horde_Perms::READ) ||
-    $perms->hasPermission('sesha:addStock', Horde_Auth::getAuth(), Horde_Perms::READ);
+    $perms->hasPermission('sesha:addStock', $registry->getAuth(), Horde_Perms::READ);
 
 $baseUrl = $registry->get('webroot', 'sesha');
 

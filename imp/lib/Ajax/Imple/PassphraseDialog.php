@@ -22,33 +22,22 @@ class IMP_Ajax_Imple_PassphraseDialog extends Horde_Core_Ajax_Imple
     static protected $_passphraseId = 0;
 
     /**
-     * The passphrase ID used by this instance.
-     *
-     * @var string
-     */
-    protected $_domid;
-
-    /**
      * Constructor.
      *
      * @param array $params  Configuration parameters.
-     * <pre>
-     * 'id' - [OPTIONAL] The DOM ID to attach to.
-     * 'onload' - (boolean) [OPTIONAL] If set, will trigger action on page
+     *   - id: - [OPTIONAL] The DOM ID to attach to.
+     *   - onload: (boolean) [OPTIONAL] If set, will trigger action on page
      *            load.
-     * 'params' - (array) [OPTIONAL] Any additional parameters to pass.
-     * 'reloadurl' - (Horde_Url) [OPTIONAL] Reload using this URL instead of
-     *               refreshing the page.
-     * 'type' - (string) The dialog type.
-     * </pre>
+     *   - params: (array) [OPTIONAL] Any additional parameters to pass.
+     *   - reloadurl: (Horde_Url) [OPTIONAL] Reload using this URL instead of
+     *              refreshing the page.
+     *   - type: (string) The dialog type.
      */
     public function __construct($params)
     {
         if (!isset($params['id'])) {
             $params['id'] = 'imp_passphrase_' . ++self::$_passphraseId;
         }
-
-        $this->_domid = $params['id'];
 
         parent::__construct($params);
     }
@@ -103,7 +92,7 @@ class IMP_Ajax_Imple_PassphraseDialog extends Horde_Core_Ajax_Imple
         $js = 'IMPDialog.display(' . Horde::escapeJson($js_params, array('urlencode' => true)) . ');';
 
         if (empty($this->_params['onload'])) {
-            $js = '$("' . $this->_domid . '").observe("click", function(e) { ' . $js . 'e.stop(); })';
+            $js = '$("' . $this->_params['id'] . '").observe("click", function(e) { ' . $js . 'e.stop(); })';
         }
 
         Horde::addInlineScript(array($js), 'dom');
@@ -113,25 +102,25 @@ class IMP_Ajax_Imple_PassphraseDialog extends Horde_Core_Ajax_Imple
      * Perform the given action.
      *
      * Variables required in form input:
-     * <pre>
-     * 'dialog_input' - (string) Input from the dialog screen.
-     * 'symmetricid' - (string) The symmetric ID to process.
-     * </pre>
+     *   - dialog_input: (string) Input from the dialog screen.
+     *   - symmetricid: (string) The symmetric ID to process.
      *
      * @param array $args  Not used.
      * @param array $post  Not used.
      *
      * @return object  An object with the following entries:
-     * <pre>
-     * 'error' - (string) An error message.
-     * 'success' - (integer) 1 on success, 0 on failure.
-     * </pre>
+     *   - error: (string) An error message.
+     *   - success: (integer) 1 on success, 0 on failure.
      */
     public function handle($args, $post)
     {
+        global $injector, $notification, $registry;
+
         $result = new stdClass;
         $result->success = 0;
 
+        $dynamic_view = ($registry->getView() == Horde_Registry::VIEW_DYNAMIC);
+        $error = $success = null;
         $vars = Horde_Variables::getDefaultVariables();
 
         try {
@@ -141,38 +130,47 @@ class IMP_Ajax_Imple_PassphraseDialog extends Horde_Core_Ajax_Imple
             case 'pgpPersonal':
             case 'pgpSymmetric':
                 if ($vars->dialog_input) {
-                    $imp_pgp = $GLOBALS['injector']->getInstance('IMP_Crypt_Pgp');
+                    $imp_pgp = $injector->getInstance('IMP_Crypt_Pgp');
                     if ((($vars->type == 'pgpPersonal') &&
                          $imp_pgp->storePassphrase('personal', $vars->dialog_input)) ||
                         (($vars->type == 'pgpSymmetric') &&
                          $imp_pgp->storePassphrase('symmetric', $vars->dialog_input, $vars->symmetricid))) {
                         $result->success = 1;
+                        $success = _("PGP passhprase stored in session.");
                     } else {
-                        $result->error = _("Invalid passphrase entered.");
+                        $error = _("Invalid passphrase entered.");
                     }
                 } else {
-                    $result->error = _("No passphrase entered.");
+                    $error = _("No passphrase entered.");
                 }
                 break;
 
             case 'smimePersonal':
                 if ($vars->dialog_input) {
-                    $imp_smime = $GLOBALS['injector']->getInstance('IMP_Crypt_Smime');
+                    $imp_smime = $injector->getInstance('IMP_Crypt_Smime');
                     if ($imp_smime->storePassphrase($vars->dialog_input)) {
                         $result->success = 1;
+                        $success = _("S/MIME passhprase stored in session.");
                     } else {
-                        $result->error = _("Invalid passphrase entered.");
+                        $error = _("Invalid passphrase entered.");
                     }
                 } else {
-                    $result->error = _("No passphrase entered.");
+                    $error = _("No passphrase entered.");
                 }
                 break;
             }
         } catch (Horde_Exception $e) {
-            $result->error = $e->getMessage();
+            $error = $e->getMessage();
         }
 
-        return Horde::prepareResponse($result);
+        if ($dynamic_view) {
+            $notification->push(is_null($error) ? $success : $error, is_null($error) ? 'horde.success' : 'horde.error');
+        } elseif (!is_null($error)) {
+            $result->error = $error;
+        }
+
+        $resp = new Horde_Core_Ajax_Response($result, $dynamic_view);
+        return $resp->jsonData();
     }
 
     /**
@@ -182,7 +180,7 @@ class IMP_Ajax_Imple_PassphraseDialog extends Horde_Core_Ajax_Imple
      */
     public function getPassphraseId()
     {
-        return $this->_domid;
+        return $this->_params['id'];
     }
 
 }

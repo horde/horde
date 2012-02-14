@@ -179,7 +179,7 @@ class Kronolith_Tagger
             if (empty($filter['user'])) {
                 // @TODO: No way to get only the system shares the current
                 // user can see?
-                $calendars = $GLOBALS['kronolith_shares']->listSystemShares();
+                $calendars = $GLOBALS['injector']->getInstance('Kronolith_Shares')->listSystemShares();
                 $args['calendarId'] = array();
                 foreach ($calendars as $name => $share) {
                     if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {

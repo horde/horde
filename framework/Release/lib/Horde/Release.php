@@ -454,9 +454,7 @@ class Horde_Release
      */
     public function checkOutFramework($mod_version, $directory)
     {
-        if ($this->_options['module'] == 'horde' &&
-            ($this->_options['branch'] == 'HEAD' ||
-             strstr($this->_options['branch'], 'FRAMEWORK'))) {
+        if ($this->_options['module'] == 'horde') {
             if ($this->_options['branch'] == 'HEAD') {
                 print "Checking out HEAD for framework\n";
             } else {
@@ -511,13 +509,13 @@ class Horde_Release
 
         if (!$this->_options['noftp']) {
             print "Uploading $this->_tarballName to $user@ftp.horde.org:/horde/ftp/pub/$module/\n";
-            system("scp -P 35$identity $this->_tarballName $user@ftp.horde.org:/horde/ftp/pub/$module/");
+            system("scp $identity $this->_tarballName $user@ftp.horde.org:/horde/ftp/pub/$module/");
             if ($this->_makeDiff) {
                 print "Uploading $this->_patchName.gz to $user@ftp.horde.org:/horde/ftp/pub/$module/patches/\n";
-                system("scp -P 35$identity $this->_patchName.gz $user@ftp.horde.org:/horde/ftp/pub/$module/patches/");
+                system("scp $identity $this->_patchName.gz $user@ftp.horde.org:/horde/ftp/pub/$module/patches/");
             }
             print "Executing $chmod\n";
-            system("ssh -p 35 -l $user$identity ftp.horde.org '$chmod'");
+            system("ssh -l $user$identity ftp.horde.org '$chmod'");
         } else {
             print "NOT uploading $this->_tarballName to ftp.horde.org:/horde/ftp/pub/$module/\n";
             if ($this->_makeDiff) {
@@ -637,10 +635,6 @@ class Horde_Release
             }
         }
         $mailer->append("\n\n" .
-            'Or, for quicker access, download from your nearest mirror:' .
-            "\n\n" .
-            '    http://www.horde.org/mirrors.php' .
-            "\n\n" .
             'MD5 sums for the packages are as follows:' .
             "\n\n" .
             '    ' . $this->_tarballMD5[0] . "\n" .

@@ -24,7 +24,7 @@ var DimpCompose = {
         if (window.confirm(DIMP.text_compose.cancel)) {
             if (!DIMP.conf_compose.qreply &&
                 this.baseAvailable()) {
-                DimpCore.base.focus();
+                HordeCore.base.focus();
             }
 
             cc = (sbd && sbd.visible())
@@ -40,8 +40,8 @@ var DimpCompose = {
     updateDraftsMailbox: function()
     {
         if (this.baseAvailable() &&
-            DimpCore.base.DimpBase.view == DIMP.conf_compose.drafts_mbox) {
-            DimpCore.base.DimpBase.poll();
+            HordeCore.base.DimpBase.view == DIMP.conf_compose.drafts_mbox) {
+            HordeCore.base.DimpBase.poll();
         }
     },
 
@@ -50,9 +50,9 @@ var DimpCompose = {
         if (DIMP.conf_compose.qreply) {
             this.closeQReply();
         } else if (this.is_popup) {
-            DimpCore.closePopup();
+            HordeCore.closePopup();
         } else {
-            DimpCore.redirect(DIMP.conf.URI_DIMP);
+            HordeCore.redirect(DIMP.conf.URI_DIMP);
         }
     },
 
@@ -113,7 +113,9 @@ var DimpCompose = {
             opts: opts
         };
 
-        $(opts.label).insert({ after: new Element('SPAN', { className: 'iconImg popdownImg' }).observe('click', function(e) { if (!this.disabled) { this.knl[id].knl.show(); this.knl[id].knl.ignoreClick(e); e.stop(); } }.bindAsEventListener(this)) });
+        $(opts.label).insert({ after:
+            new Element('SPAN', { className: 'iconImg popdownImg dimpOptionPopdown' }).store('popdown_id', id)
+        });
     },
 
     setPopdownLabel: function(id, s, l)
@@ -250,7 +252,7 @@ var DimpCompose = {
                 if (d.action == 'saveDraft') {
                     if (!DIMP.conf_compose.qreply &&
                         this.baseAvailable()) {
-                        DimpCore.base.DimpCore.showNotifications(r.msgs);
+                        HordeCore.showNotifications(r.msgs, { base: true });
                         r.msgs = [];
                     }
                     if (DIMP.conf_compose.close_draft) {
@@ -261,31 +263,31 @@ var DimpCompose = {
 
             case 'saveTemplate':
                 if (this.baseAvailable() &&
-                    DimpCore.base.DimpBase.view == DIMP.conf_compose.templates_mbox) {
-                    DimpCore.base.DimpBase.poll();
+                    HordeCore.base.DimpBase.view == DIMP.conf_compose.templates_mbox) {
+                    HordeCore.base.DimpBase.poll();
                 }
                 return this.closeCompose();
 
             case 'sendMessage':
                 if (this.baseAvailable()) {
                     if (d.flag) {
-                        DimpCore.base.DimpBase.flagCallback(d);
+                        HordeCore.base.DimpBase.flagCallback(d);
                     }
 
                     if (d.mailbox) {
-                        DimpCore.base.DimpBase.mailboxCallback(r);
+                        HordeCore.base.DimpBase.mailboxCallback(r);
                     }
 
                     if (d.draft_delete) {
-                        DimpCore.base.DimpBase.poll();
+                        HordeCore.base.DimpBase.poll();
                     }
 
                     if (d.log) {
-                        DimpCore.base.DimpBase.updateMsgLog(d.log, { uid: d.uid, mbox: d.mbox });
+                        HordeCore.base.DimpBase.updateMsgLog(d.log, { uid: d.uid, mbox: d.mbox });
                     }
 
                     if (!DIMP.conf_compose.qreply) {
-                        DimpCore.base.DimpCore.showNotifications(r.msgs);
+                        HordeCore.showNotifications(r.msgs, { base: true });
                         r.msgs = [];
                     }
                 }
@@ -295,7 +297,7 @@ var DimpCompose = {
                 if (this.baseAvailable()) {
                     if (d.log) {
                         d.log.each(function(l) {
-                            DimpCore.base.DimpBase.updateMsgLog(l.log, {
+                            HordeCore.base.DimpBase.updateMsgLog(l.log, {
                                 mbox: l.mbox,
                                 uid: l.uid
                             });
@@ -303,7 +305,7 @@ var DimpCompose = {
                     }
 
                     if (!DIMP.conf_compose.qreply) {
-                        DimpCore.base.DimpCore.showNotifications(r.msgs);
+                        HordeCore.showNotifications(r.msgs, { base: true });
                         r.msgs = [];
                     }
                 }
@@ -342,7 +344,7 @@ var DimpCompose = {
     {
         if (this.disabled) {
             this.setDisabled(false);
-            DimpCore.doActionOpts.onFailure(t, o);
+            HordeCore.onFailure(t, o);
         }
     },
 
@@ -353,11 +355,11 @@ var DimpCompose = {
         this.disabled = disable;
 
         if (redirect.visible()) {
-            DimpCore.loadingImg('sendingImg', 'redirect', disable);
+            HordeCore.loadingImg('sendingImg', 'redirect', disable);
             DimpCore.toggleButtons(redirect.select('DIV.dimpActions A'), disable);
             redirect.setStyle({ cursor: disable ? 'wait': null });
         } else {
-            DimpCore.loadingImg('sendingImg', 'composeMessageParent', disable);
+            HordeCore.loadingImg('sendingImg', 'composeMessageParent', disable);
             DimpCore.toggleButtons($('compose').select('DIV.dimpActions A'), disable);
             [ $('compose') ].invoke(disable ? 'disable' : 'enable');
             if (DIMP.SpellChecker) {
@@ -493,7 +495,7 @@ var DimpCompose = {
             this.skip_spellcheck = true;
             this.uniqueSubmit(this.sc_submit);
         } else {
-            DimpCore.showNotifications([ { type: 'horde.message', message: DIMP.text_compose.spell_noerror } ]);
+            HordeCore.notify(DIMP.text_compose.spell_noerror, 'horde.message');
             this._onSpellCheckAfter();
         }
     },
@@ -866,7 +868,9 @@ var DimpCompose = {
     {
         var sf = $('submit_frame'),
             doc = sf.contentDocument || sf.contentWindow.document;
-        DimpCore.doActionComplete({ responseJSON: doc.body.innerHTML.evalJSON(true) }, this.uniqueSubmitCallback.bind(this));
+        HordeCore.doActionComplete({
+            responseJSON: doc.body.innerHTML.evalJSON(true)
+        }, this.uniqueSubmitCallback.bind(this));
     },
 
     toggleCC: function(type)
@@ -892,7 +896,7 @@ var DimpCompose = {
         var uri = DIMP.conf_compose.URI_ABOOK;
 
         if (params) {
-            uri = DimpCore.addURLParam(uri, params);
+            uri = HordeCore.addURLParam(uri, params);
         }
 
         window.open(uri, 'contacts', 'toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=300,left=100,top=100');
@@ -901,9 +905,9 @@ var DimpCompose = {
     baseAvailable: function()
     {
         return (this.is_popup &&
-                DimpCore.base &&
-                !Object.isUndefined(DimpCore.base.DimpBase) &&
-                !DimpCore.base.closed);
+                HordeCore.base &&
+                !Object.isUndefined(HordeCore.base.DimpBase) &&
+                !HordeCore.base.closed);
     },
 
     /* Click observe handler. */
@@ -915,7 +919,7 @@ var DimpCompose = {
 
         var elt = e.element(),
             orig = elt,
-            atc_num, id;
+            atc_num, id, tmp;
 
         while (Object.isElement(elt)) {
             id = elt.readAttribute('id');
@@ -987,7 +991,13 @@ var DimpCompose = {
                     this.removeAttach([ orig.up() ]);
                 } else if (orig.match('SPAN.attachName')) {
                     atc_num = orig.up('LI').retrieve('atc_id');
-                    DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { composeCache: $F('composeCache'), actionID: 'compose_attach_preview', id: atc_num }), $F('composeCache') + '|' + atc_num);
+                    HordeCore.popupWindow(DIMP.conf.URI_VIEW, {
+                        actionID: 'compose_attach_preview',
+                        composeCache: $F('composeCache'),
+                        id: atc_num
+                    }, {
+                        name: $F('composeCache') + '|' + atc_num
+                    });
                 }
                 break;
 
@@ -1017,6 +1027,16 @@ var DimpCompose = {
                 DimpCore.doAction('getReplyData', { headeronly: 1, imp_compose: $F('composeCache'), type: 'reply' }, { callback: this.swapToAddressCallback.bind(this) });
                 e.stop();
                 return;
+
+            case 'writemsg':
+                if (!this.disabled &&
+                    e.element().hasClassName('dimpOptionPopdown')) {
+                    tmp = e.element().retrieve('popdown_id');
+                    this.knl[tmp].knl.show();
+                    this.knl[tmp].knl.ignoreClick(e);
+                    e.stop();
+                }
+                break;
             }
 
             elt = elt.up();
@@ -1068,10 +1088,9 @@ var DimpCompose = {
     {
         var tmp;
 
-        DimpCore.growler_log = false;
         DimpCore.init();
 
-        this.is_popup = !Object.isUndefined(DimpCore.base);
+        this.is_popup = !Object.isUndefined(HordeCore.base);
 
         /* Initialize redirect elements. */
         if (DIMP.conf_compose.redirect) {

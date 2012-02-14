@@ -2,6 +2,18 @@
 v5.1-git
 --------
 
+[mms] Rewritten vCal/iCal attachment viewer/handler.
+[mms] S/MIME certificate import from message data no longer requires popup
+      window.
+[mms] PGP key import from message attachment no longer requires popup window.
+[mms] Improve PGP key import screen.
+[mms] Truncate large address lists (50+) by default in dynamic message views.
+[mms] Moved AJAX core features to Horde_Core package.
+[jan] Add reporting as spam/innocent to smartphone view.
+[mms] Workaround overquota error when deleting messages and using Trash
+      mailbox.
+[jan] Add basic search to smartphone view.
+[jan] Add resume and "edit as new" to smartphone view.
 [mms] Hide deleted now works with threaded mailboxes.
 [mms] Threaded sorts now work in all search mailboxes (Request #9700).
 [mms] Improved threading performance.
@@ -17,7 +29,7 @@ v5.1-git
 [mms] Accurately track changes to virtual folders in dynamic folder tree (Bug
       #10886).
 [mms] Traditional mode now requires javascript on the browser.
-[mms] Added 'mbox_special' hook (Request #10801; rsalmon@mbpgroup.com).
+[mms] Added 'mbox_special' hook (rsalmon@mbpgroup.com, Request #10801).
 [mms] Converted stationery to the Templates special mailbox (Request #9296).
 [mms] Hide inactive buttons in dynamic view instead of dimming them.
 [mms] Added config option to limit size of messages with linked attachments
@@ -30,7 +42,7 @@ v5.1-git
 [mms] Remove signature from compose UI; signature is now added automatically
       when sending (Request #10487).
 [mms] Fix accessing mailboxes containing ampersands (Bug #10093).
-[mms] Size of sidebar now saved in dynamic view
+[mms] Size of sidebar now saved in dynamic view.
 [mms] Browser-specific UI elements in dynamic view now saved in browser storage
       (Ticket #10723).
 
@@ -39,6 +51,21 @@ v5.1-git
 v5.0.19-git
 -----------
 
+[mms] Fix saving initial_page preference.
+[mms] Workaround broken Thunderbird encrypted S/MIME messages.
+[mms] Fix regression where passphrase prompt would not appear for S/MIME
+      encrypted messages.
+[mms] Fix regression in verifying signed & encrypted S/MIME messages (Bug
+      #10947).
+[mms] Fix reloading the folder list in the dynamic view (Bug #10769).
+[mms] Fix deleting messages from Virtual Trash.
+[mms] Fix regression in displaying PGP Armored signed/encrypted messages (Bug
+      #10926).
+[mms] Catch IMAP server connection errors in traditional mailbox view.
+[mms] Fix purging moved messages from dynamic mailbox view if deleted messages
+      are visible in the mailbox (Bug #10916).
+[mms] Fix message advancing when deleting messages in traditional view when
+      deleted messages are visible in the mailbox.
 
 
 -------

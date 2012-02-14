@@ -180,7 +180,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 $this->_params['password'] = $secret->write($encrypt_key, $this->_params['password']);
                 $this->_params['_passencrypt'] = true;
             }
-        } catch (Horde_Imap_Client_Exception $e) {}
+        } catch (Exception $e) {}
 
         $this->changed = true;
 
@@ -236,7 +236,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         } elseif ($code == 'NO_SUPPORT') {
             $e = new Horde_Imap_Client_Exception_NoSupportExtension($msg);
         } else {
-            $e = new Horde_Imap_Client_Exception($msg, constant('Horde_Imap_Client_Exception::'));
+            $e = new Horde_Imap_Client_Exception($msg, constant('Horde_Imap_Client_Exception::' . $code));
         }
 
         if (!is_null($details)) {

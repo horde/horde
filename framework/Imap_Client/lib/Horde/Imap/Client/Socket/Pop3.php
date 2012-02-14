@@ -318,7 +318,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                 'debug' => '[DIGEST-MD5 Response]'
             ));
             if (stripos(base64_decode(substr($sresponse['line'], 2)), 'rspauth=') === false) {
-                $this->_exception(Horde_Imap_Client_Exception::t("Unexpected response from server when authenticating."), 'SERVER_CONNECT');
+                $this->_exception(Horde_Imap_Client_Translation::t("Unexpected response from server when authenticating."), 'SERVER_CONNECT');
             }
 
             /* POP3 doesn't use protocol's third step. */
@@ -355,7 +355,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             break;
 
         default:
-            $this->_exception(sprintf(Horde_Imap_Client_Exception::t("Unknown authentication method: %s"), $method), 'SERVER_CONNECT');
+            $this->_exception(sprintf(Horde_Imap_Client_Translation::t("Unknown authentication method: %s"), $method), 'SERVER_CONNECT');
         }
     }
 

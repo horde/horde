@@ -365,26 +365,6 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
     }
 
     /**
-     * Generates the javascript code for saving public keys.
-     *
-     * @param string $mailbox  The mailbox of the message.
-     * @param integer $uid     The UID of the message.
-     * @param string $id       The MIME ID of the message.
-     *
-     * @return string  The URL for saving public keys.
-     */
-    public function savePublicKeyURL($mailbox, $uid, $id)
-    {
-        $params = array(
-            'actionID' => 'save_attachment_public_key',
-            'mailbox' => $mailbox,
-            'uid' => $uid,
-            'mime_id' => $id
-        );
-        return Horde::popupJs(Horde::url('smime.php'), array('params' => $params, 'height' => 200, 'width' => 450));
-    }
-
-    /**
      * Encrypt a MIME_Part using S/MIME using IMP defaults.
      *
      * @param MIME_Part $mime_part  The MIME_Part object to encrypt.
@@ -510,12 +490,11 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      */
     public function importKeyDialog($target, $reload)
     {
-        $title = _("Import S/MIME Key");
-        require IMP_TEMPLATES . '/common-header.inc';
+        IMP::header(_("Import S/MIME Key"));
 
         /* Need to use regular status notification - AJAX notifications won't
          * show in popup windows. */
-        if (IMP::getViewMode() == 'dimp') {
+        if ($GLOBALS['registry']->getView() == Horde_Registry::VIEW_DYNAMIC) {
             $GLOBALS['notification']->detach('status');
             $GLOBALS['notification']->attach('status');
         }
@@ -524,7 +503,6 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->setOption('gettext', true);
         $t->set('selfurl', Horde::url('smime.php'));
-        $t->set('broken_mp_form', $GLOBALS['browser']->hasQuirk('broken_multipart_form'));
         $t->set('reload', htmlspecialchars($reload));
         $t->set('target', $target);
         $t->set('forminput', Horde_Util::formInput());

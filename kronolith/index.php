@@ -7,22 +7,19 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-Horde_Registry::appInit('kronolith');
+Horde_Registry::appInit('kronolith', array('nodynamicinit' => true));
 
 /* Determine View */
-$mode = $session->get('horde', 'mode');
-
-/* Load mobile? */
-if ($mode == 'smartmobile' || $mode == 'mobile') {
+switch ($registry->getView()) {
+case Horde_Registry::VIEW_MINIMAL:
+case Horde_Registry::VIEW_SMARTMOBILE:
     include KRONOLITH_BASE . '/mobile.php';
     exit;
-}
 
-/* Traditional? */
-if (!Kronolith::showAjaxView()) {
-    if ($mode == 'dynamic' || ($mode == 'auto' && $prefs->getValue('dynamic_view'))) {
-        $notification->push(_("Your browser is too old to display the dynamic mode. Using traditional mode instead."), 'horde.warning');
-        $session->set('horde', 'mode', 'traditional');
+case Horde_Registry::VIEW_BASIC:
+case Horde_Registry::VIEW_DYNAMIC:
+    if ($prefs->getValue('dynamic_view')) {
+        break;
     }
     include KRONOLITH_BASE . '/' . $prefs->getValue('defaultview') . '.php';
     exit;
@@ -36,12 +33,6 @@ if ($help_link) {
 }
 $today = new Horde_Date($_SERVER['REQUEST_TIME']);
 $ampm = !$prefs->getValue('twentyFour');
-
-/* Suppress menus in prefs screen and indicate that notifications should use
- * the ajax mode. */
-$session->set('horde', 'notification_override',
-              array(KRONOLITH_BASE . '/lib/Notification/Listener/AjaxStatus.php',
-                    'Kronolith_Notification_Listener_AjaxStatus'));
 
 $eventAlarmMethods = $eventAlarmParams = $taskAlarmMethods = $taskAlarmParams = '';
 foreach ($injector->getInstance('Horde_Alarm')->handlers() as $method => $handler) {
@@ -137,13 +128,24 @@ $injector->getInstance('Horde_Core_Factory_Imple')->create(
     )
 );
 
+$injector->getInstance('Horde_Core_Factory_Imple')->create(
+    array('kronolith', 'ResourceAutoCompleter'),
+    array(
+        'box' => 'kronolithResourceACBox',
+        'onAdd' => 'KronolithCore.addResource.bind(KronolithCore)',
+        'onRemove' => 'KronolithCore.removeResource.bind(KronolithCore)',
+        'pretty' => true,
+        'triggerContainer' => 'kronolithResourceACTriggerContainer',
+        'triggerId' => 'kronolithEventResources',
+        'var' => 'KronolithCore.resourceAc'
+    )
+);
+
 if ($conf['maps']['driver']) {
     Kronolith::initEventMap($conf['maps']);
 }
 
-Kronolith::header();
-
-echo "<body class=\"kronolithAjax\">\n";
+$injector->getInstance('Kronolith_Ajax')->header();
 
 require KRONOLITH_TEMPLATES . '/index/index.inc';
 Horde::includeScriptFiles();

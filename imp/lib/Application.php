@@ -127,34 +127,32 @@ class IMP_Application extends Horde_Registry_Application
         // Always use Windows-1252 in place of ISO-8859-1 for MIME decoding.
         Horde_Mime::$decodeWindows1252 = true;
 
-        IMP::setCurrentMailboxInfo();
+        if ($GLOBALS['registry']->initialApp == 'imp') {
+            switch ($GLOBALS['registry']->getView()) {
+            case Horde_Registry::VIEW_BASIC:
+                $redirect = (!empty($this->initParams['impmode']) &&
+                             ($this->initParams['impmode'] != 'imp'));
+                break;
 
-        $redirect = false;
+            case Horde_Registry::VIEW_DYNAMIC:
+                $redirect = (!empty($this->initParams['impmode']) &&
+                             ($this->initParams['impmode'] != 'dimp'));
+                break;
 
-        switch (IMP::getViewMode()) {
-        case 'dimp':
-            $redirect = (!empty($this->initParams['impmode']) &&
-                         ($this->initParams['impmode'] != 'dimp'));
-            break;
+            case Horde_Registry::VIEW_MINIMAL:
+                $redirect = (empty($this->initParams['impmode']) ||
+                             ($this->initParams['impmode'] != 'mimp'));
+                break;
 
-        case 'mimp':
-            $redirect = (empty($this->initParams['impmode']) ||
-                         ($this->initParams['impmode'] != 'mimp'));
-            break;
+            case Horde_Registry::VIEW_SMARTMOBILE:
+                $redirect = (!empty($this->initParams['impmode']) &&
+                             ($this->initParams['impmode'] != 'mobile'));
+                break;
+            }
 
-        case 'mobile':
-            $redirect = (!empty($this->initParams['impmode']) &&
-                         ($this->initParams['impmode'] != 'mobile'));
-            break;
-
-        case 'imp':
-            $redirect = (!empty($this->initParams['impmode']) &&
-                         ($this->initParams['impmode'] != 'imp'));
-            break;
-        }
-
-        if ($redirect && ($GLOBALS['registry']->initialApp == 'imp')) {
-            IMP_Auth::getInitialPage()->url->redirect();
+            if (!empty($redirect)) {
+                IMP_Auth::getInitialPage()->url->redirect();
+            }
         }
     }
 
@@ -342,6 +340,8 @@ class IMP_Application extends Horde_Registry_Application
         $handler->addDecorator(new IMP_Notification_Handler_Decorator_ImapAlerts());
         $handler->addDecorator(new IMP_Notification_Handler_Decorator_NewmailNotify());
         $handler->addType('status', 'imp.*', 'IMP_Notification_Event_Status');
+
+        return true;
     }
 
     /* Horde_Core_Auth_Application methods. */
@@ -626,7 +626,8 @@ class IMP_Application extends Horde_Registry_Application
     {
         Horde::addScriptFile('mobile.js');
         require IMP_TEMPLATES . '/mobile/javascript_defs.php';
-        $response = Horde::prepareResponse(null, true);
+
+        $GLOBALS['notification']->notify(array('listeners' => 'status'));
 
         /* Inline script. */
         Horde::addInlineScript(
@@ -635,8 +636,7 @@ class IMP_Application extends Horde_Registry_Application
     $.mobile.page.prototype.options.backBtnText = "' . _("Back") .'";
     $.mobile.dialog.prototype.options.closeBtnText = "' . _("Close") .'";
     $.mobile.loadingMessage = "' . _("loading") . '";
-});
-window.setTimeout(function(){HordeMobile.showNotifications(' . Horde_Serialize::serialize(isset($response->msgs) ? $response->msgs : array(), Horde_Serialize::JSON) . ') }, 0);'
+});'
         );
     }
 

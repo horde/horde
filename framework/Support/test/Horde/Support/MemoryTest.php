@@ -56,13 +56,13 @@ class Horde_Support_MemoryTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($end[3] >= 0);
     }
 
-    /**
-     * @expectedException Exception
-     */
     public function testNotPushedThrowsException()
     {
         $t = new Horde_Support_Memory();
-        $t->pop();
+        try {
+            $t->pop();
+            $this->fail('Expected Exception');
+        } catch (Exception $e) {}
     }
 
 }

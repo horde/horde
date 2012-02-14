@@ -49,7 +49,7 @@ class Kronolith_Ajax_Imple_TagActions extends Horde_Core_Ajax_Imple
 
         // Check perms only calendar owners may tag a calendar, only event
         // creator can tag an event.
-        $cal = $GLOBALS['kronolith_shares']->getShare($post['resource']);
+        $cal = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($post['resource']);
         $cal_owner = $cal->get('owner');
         if($post['type'] == 'event') {
             $event = Kronolith::getDriver()->getByUID($post['resource']);
@@ -101,7 +101,7 @@ class Kronolith_Ajax_Imple_TagActions extends Horde_Core_Ajax_Imple
         $html = '';
 
         if ($type == 'calendar') {
-            $cal = $GLOBALS['kronolith_shares']->getShare($id);
+            $cal = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($id);
             $hasEdit = $cal->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT);
         } elseif ($type == 'event') {
             $event = Kronolith::getDriver()->getByUID($id);

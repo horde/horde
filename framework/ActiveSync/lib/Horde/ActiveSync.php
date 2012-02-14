@@ -215,6 +215,8 @@ class Horde_ActiveSync
     const CLASS_CALENDAR = 'Calendar';
     const CLASS_TASKS = 'Tasks';
 
+    const PROVISIONING_LOOSE            = 'loose';
+
     /**
      * Logger
      *

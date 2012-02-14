@@ -62,7 +62,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     /**
      * Determines the HTTP response output type.
      *
-     * @see Horde::sendHTTPResponse().
+     * @see Horde_Core_Ajax_Response::send().
      *
      * @return string  The output type.
      */
@@ -79,27 +79,13 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
     /**
      * May add the following entries to the output object:
-     *   - flag: (array) See IMP_Ajax_Queue::generate().
-     *   - poll: (array) See IMP_Ajax_Queue::generate().
-     *   - quota: (array) See IMP_Ajax_Queue::generate().
+     *   - flag: (array) See IMP_Ajax_Queue::add().
+     *   - poll: (array) See IMP_Ajax_Queue::add().
+     *   - quota: (array) See IMP_Ajax_Queue::add().
      */
-    public function doAction()
+    protected function _send(Horde_Core_Ajax_Response $response)
     {
-        $res = parent::doAction();
-
-        if (is_object($res)) {
-            foreach ($this->_queue->generate() as $key => $val) {
-                if (isset($res->$key)) {
-                    foreach (get_object_vars($res) as $key2 => $val2) {
-                        $val->$key2 = $val2;
-                    }
-                }
-
-                $res->$key = $val;
-            }
-        }
-
-        return $res;
+        $this->_queue->add($response);
     }
 
     /**
@@ -383,7 +369,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $initreload = ($this->_vars->initial || $this->_vars->reload);
         $result = new stdClass;
 
-        $mask = IMP_Imap_Tree::FLIST_VFOLDER;
+        $mask = IMP_Imap_Tree::FLIST_VFOLDER | IMP_Imap_Tree::FLIST_NOSPECIALMBOXES;
         if ($this->_vars->unsub) {
             $mask |= IMP_Imap_Tree::FLIST_UNSUB;
         }
@@ -409,71 +395,37 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         $imptree->showUnsubscribed($this->_vars->unsub);
 
-        $folder_list = array();
         if (!empty($this->_vars->mboxes)) {
-            foreach (IMP_Mailbox::formFrom(Horde_Serialize::unserialize($this->_vars->mboxes, Horde_Serialize::JSON)) as $val) {
+            $mboxes = IMP_Mailbox::formFrom(Horde_Serialize::unserialize($this->_vars->mboxes, Horde_Serialize::JSON));
+            if ($initreload) {
+                $mboxes = array_merge(array('INBOX'), array_diff($mboxes, array('INBOX')));
+            }
+
+            foreach ($mboxes as $val) {
                 $imptree->setIteratorFilter($mask, $val);
-                $folder_list += iterator_to_array($imptree);
+                foreach ($imptree as $val2) {
+                    $imptree->addEltDiff($val2);
+                }
 
                 if (!$initreload) {
                     $imptree->expand($val);
                 }
-            }
-
-            if ($initreload && empty($folder_list)) {
-                $imptree->setIteratorFilter($mask, 'INBOX');
-                $folder_list += iterator_to_array($imptree);
             }
         }
 
         /* Add special mailboxes explicitly to the initial folder list, since
          * they are ALWAYS displayed, may appear outside of the folder
          * slice requested, and need to be sorted logically. */
-        $suppress = array();
         if ($initreload) {
-            foreach (IMP_Mailbox::getSpecialMailboxes() as $val) {
-                if (is_array($val)) {
-                    $tmp = array();
-                    foreach ($val as $val2) {
-                        $tmp[strval($val2)] = $val2->abbrev_label;
-                    }
-                    asort($tmp, SORT_LOCALE_STRING);
-                    $mboxes = IMP_Mailbox::get(array_keys($tmp));
-                } else {
-                    $mboxes = array($val);
-                }
-
-                foreach ($mboxes as $val2) {
-                    if ($tmp = $imptree[strval($val2)]) {
-                        $folder_list[strval($val2)] = $tmp;
-
-                        /* Hack: We need to NOT send a container element if
-                         * all child elements are special mailboxes. */
-                        if ($val2->level &&
-                            ($parent = $val2->parent) &&
-                            isset($folder_list[strval($parent)])) {
-                            $not_special = false;
-                            foreach ($parent->subfolders_only as $val3) {
-                                if (!$val3->special) {
-                                    $not_special = true;
-                                    break;
-                                }
-                            }
-
-                            if (!$not_special) {
-                                $suppress[] = strval($parent);
-                            }
-                        }
-                    }
+            foreach (IMP_Mailbox::getSpecialMailboxesSort() as $val) {
+                if ($imptree[$val]) {
+                    $imptree->addEltDiff($val);
                 }
             }
-        }
 
-        $result->mailbox = $imptree->getAjaxResponse(array(
-            'mboxes' => $folder_list,
-            'poll' => true,
-            'suppress' => $suppress
-        ));
+            /* Poll all mailboxes on initial display. */
+            $this->_queue->poll($imptree->getPollList());
+        }
 
         $this->_queue->quota();
 
@@ -752,7 +704,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             ->copy($mbox, 'move', $indices, array('create' => $newMbox));
 
         if ($result) {
-            $result = $this->_generateDeleteResult($indices, $change);
+            $result = $this->_generateDeleteResult($indices, $change, true);
             $this->_queue->poll($mbox);
         } else {
             $result = $this->_checkUidvalidity();
@@ -1007,13 +959,12 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
                 throw new IMP_Exception(_("Could not open mailbox."));
             }
 
-            $show_msg = new IMP_Views_ShowMessage();
+            $show_msg = new IMP_Views_ShowMessage($mbox, $idx);
             $msg = (object)$show_msg->showMessage(array(
-                'mailbox' => $mbox,
-                'preview' => $this->_vars->preview,
-                'uid' => $idx
+                'preview' => $this->_vars->preview
             ));
             $msg->view = $this->_vars->view;
+            $msg->save_as = (string)$msg->save_as;
 
             if ($this->_vars->preview) {
                 $result->preview = $msg;
@@ -1078,6 +1029,39 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $result->preview->uid = $idx;
             $result->preview->view = $this->_vars->view;
         }
+
+        return $result;
+    }
+
+    /**
+     * AJAX action: Return a list of address objects used to build an address
+     * header for a message.
+     *
+     * See the list of variables needed for _changed() and
+     * _checkUidvalidity().  Additional variables used:
+     *   - header: (integer) If set, return preview data. Otherwise, return
+     *              full data.
+     *   - uid: (string) Index of the messages to display (IMAP sequence
+     *          string; mailbox is base64url encoded) - must be single index.
+     *
+     * @return mixed  On error will return null.
+     *                Otherwise an object with the following entries:
+     *   - hdr_data: (object) Contains header names as keys and lists of
+     *               address objects as values.
+     */
+    public function addressHeader()
+    {
+        $indices = new IMP_Indices_Form($this->_vars->uid);
+        list($mbox, $idx) = $indices->getSingle();
+
+        if (!$idx) {
+            throw new IMP_Exception(_("Requested message not found."));
+        }
+
+        $show_msg = new IMP_Views_ShowMessage($mbox, $idx);
+
+        $result = new stdClass;
+        $result->hdr_data = (object)$show_msg->getAddressHeader($this->_vars->header, null);
 
         return $result;
     }
@@ -1317,6 +1301,72 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $ob->type = $this->_vars->type;
 
         return $ob;
+    }
+
+    /**
+     * AJAX action: Get resume data.
+     *
+     * See the list of variables needed for _checkUidvalidity(). Additional
+     * variables used:
+     *   - imp_compose: (string) The IMP_Compose cache identifier.
+     *   - type: (string) Resume type, on of 'editasnew', 'resume', 'template'
+     *           'template_edit'.
+     *   - uid: (string) Indices of the messages to forward (IMAP sequence
+     *          string; mailboxes are base64url encoded).
+     *
+     * @since IMP 5.1
+     *
+     * @return mixed  False on failure, or an object with the following
+     *                entries:
+     *   - body: (string) The body text of the message.
+     *   - format: (string) Either 'text' or 'html'.
+     *   - header: (array) The headers of the message.
+     *   - identity: (integer) The identity ID to use for this message.
+     *   - priority: (string) The message priority.
+     *   - readreceipt: (boolean) Add return receipt headers?
+     *   - imp_compose: (string) The IMP_Compose cache identifier.
+     *   - type: (string) The input 'type' value.
+     *   - ViewPort: (object) See _viewPortData().
+     */
+    public function getResumeData()
+    {
+        try {
+            list($imp_compose, $imp_contents) = $this->_initCompose();
+            $indices_ob = new IMP_Indices($imp_contents->getMailbox(), $imp_contents->getUid());
+
+            switch ($this->_vars->type) {
+            case 'editasnew':
+                $resume = $imp_compose->editAsNew($indices_ob);
+                break;
+
+            case 'resume':
+                $resume = $imp_compose->resumeDraft($indices_ob);
+                break;
+
+            case 'template':
+                $resume = $imp_compose->useTemplate($indices_ob);
+                break;
+
+            case 'template_edit':
+                $resume = $imp_compose->editTemplate($indices_ob);
+                break;
+            }
+
+            $result = new stdClass;
+            $result->header = $resume['header'];
+            $result->body = $resume['msg'];
+            $result->format = $resume['mode'];
+            $result->identity = $resume['identity'];
+            $result->priority = $resume['priority'];
+            $result->readreceipt = $resume['readreceipt'];
+            $result->type = $this->_vars->type;
+            $result->imp_compose = $imp_compose->getCacheId();
+        } catch (Horde_Exception $e) {
+            $GLOBALS['notification']->push($e);
+            $result = $this->_checkUidvalidity();
+        }
+
+        return $result;
     }
 
     /**
@@ -1570,7 +1620,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *   - action: (string) The AJAX action string
      *   - draft_delete: (integer) If set, remove auto-saved drafts.
      *   - encryptjs: (array) Javascript to run after encryption failure.
-     *   - flag: (array) See IMP_Ajax_Queue::generate().
+     *   - flag: (array) See IMP_Ajax_Queue::add().
      *   - identity: (integer) If set, this is the identity that is tied to
      *               the current recipient address.
      *   - log: (array) Maillog information

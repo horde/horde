@@ -61,7 +61,7 @@ class IMP_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Base
 
         $base_ids = $display_ids = $ret = array();
 
-        $prefer_plain = ((IMP::getViewMode() == 'mimp') ||
+        $prefer_plain = (($GLOBALS['registry']->getView() == Horde_Registry::VIEW_MINIMAL) ||
                          ($GLOBALS['prefs']->getValue('alternative_display') == 'text'));
 
         /* Look for a displayable part. RFC: show the LAST choice that can be

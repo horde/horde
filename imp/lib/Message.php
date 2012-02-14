@@ -222,7 +222,12 @@ class IMP_Message
                             $opts['mailboxob']->removeMsgs($imp_indices);
                         }
                     } catch (IMP_Imap_Exception $e) {
-                        // @todo Check for overquota error.
+                        if ($e->getCode() == Horde_Imap_Client_Exception::OVERQUOTA) {
+                            $notification->push(_("You are over your quota, so your messages will be permanently deleted instead of moved to the Trash mailbox."), 'horde.warning');
+                            $opts['nuke'] = true;
+                            return $this->delete(new IMP_Indices($ob->mbox, $ob->uids), $opts);
+                        }
+
                         return false;
                     }
                 }
@@ -245,10 +250,10 @@ class IMP_Message
                 $expunge_now = false;
                 $del_flags = array(Horde_Imap_Client::FLAG_DELETED);
 
-                if (!$imp_imap->access(IMP_Imap::ACCESS_TRASH) ||
+                if ($use_vtrash ||
+                    !$imp_imap->access(IMP_Imap::ACCESS_TRASH) ||
                     !empty($opts['nuke']) ||
-                    ($use_trash && ($ob->mbox == $trash)) ||
-                    $ob->mbox->vtrash) {
+                    ($use_trash && ($ob->mbox == $trash))) {
                     /* Purge messages immediately. */
                     $expunge_now = !$no_expunge;
                 } elseif ($mark_seen) {
@@ -268,7 +273,8 @@ class IMP_Message
                             )
                         );
                     } elseif (!empty($opts['mailboxob']) &&
-                              $opts['mailboxob']->isBuilt()) {
+                              $opts['mailboxob']->isBuilt() &&
+                              $ob->mbox->hideDeletedMsgs()) {
                         $opts['mailboxob']->removeMsgs($imp_indices);
                     }
                 } catch (IMP_Imap_Exception $e) {}

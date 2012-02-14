@@ -115,6 +115,11 @@ if ($logout_reason) {
     Horde::logMessage($entry, 'NOTICE');
     $registry->clearAuth();
 
+    /* Reset notification handler now, since it may still be using a status
+     * handler that is no longer valid. */
+    $notification->detach('status');
+    $notification->attach('status');
+
     /* Redirect the user on logout if redirection is enabled and this is an
      * an intended logout. */
     if (($logout_reason == Horde_Auth::REASON_LOGOUT) &&
@@ -267,7 +272,7 @@ if (!empty($conf['auth']['alternate_login'])) {
         $url->add('app', $vars->app);
     }
     if (!isset($_COOKIE[session_name()])) {
-        $url->add(session_name(), session_id);
+        $url->add(session_name(), session_id());
     }
 
     if (empty($url_in)) {
@@ -364,6 +369,15 @@ if ($browser->isMobile() &&
             'type' => 'select',
             'value' => $tmp
         );
+    }
+
+    /* Show notifications. */
+    $response = Horde::prepareResponse(null, true);
+    if (!empty($response->msgs)) {
+        Horde::addInlineScript(
+            'window.setTimeout(function(){HordeMobile.showNotifications('
+            . Horde_Serialize::serialize($response->msgs, Horde_Serialize::JSON)
+            . ');},0);');
     }
 
     require $registry->get('templates', 'horde') . '/common-header-mobile.inc';

@@ -502,7 +502,7 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
 
         foreach ($special_mboxes as $val) {
             if (!$prefs->isDefault($val)) {
-                $old_pref = IMP_Mailbox::prefFrom($val);
+                $old_pref = IMP_Mailbox::getPref($val);
                 $mbox = IMP_Mailbox::get(Horde_String::convertCharset(strval($old_pref), 'UTF7-IMAP', 'UTF-8'));
                 $prefs->setValue($val, $mbox->pref_to);
             }

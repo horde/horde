@@ -129,10 +129,6 @@ div#quota {
 .mboxheader {
     clear: left;
 }
-#msgLoading, #viewportLoading, #sendingImg {
-    position: absolute;
-    margin: 10px 0 0 10px;
-}
 
 /* Columns */
 div.msgStatus {
@@ -249,7 +245,7 @@ div.contextMenu div.msCheck, div.contextMenu div.msCheckOn {
 /* Rows (vertical mode) */
 div.vpRowVert {
     height: auto;
-    padding-top: .25em;
+    padding-top: 1px;
     border-bottom: thin solid gainsboro;
 }
 div.vpRowVert div {

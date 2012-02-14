@@ -37,10 +37,7 @@ try {
     if ($action != 'logOut') {
         /* Handle session timeouts when they come from an AJAX request. */
         if ($e->getCode() == Horde_Registry::AUTH_FAILURE) {
-            $ajax = $injector->getInstance('Horde_Core_Factory_Ajax')->create($app, Horde_Variables::getDefaultVariables());
-            $notification->push($ajax->getSessionLogoutUrl(), 'horde.ajaxtimeout', array('content.raw'));
-            Horde::sendHTTPResponse(Horde::prepareResponse(null, $ajax->notify), $ajax->responseType());
-            exit;
+            $ajax = $injector->getInstance('Horde_Core_Factory_Ajax')->create($app, Horde_Variables::getDefaultVariables())->sessionTimeout();
         }
 
         $registry->authenticateFailure($app, $e);
@@ -57,17 +54,16 @@ Horde::startBuffer();
 
 $ajax = $injector->getInstance('Horde_Core_Factory_Ajax')->create($app, Horde_Variables::getDefaultVariables(), $action);
 try {
-    $result = $ajax->doAction();
+    $ajax->doAction();
 } catch (Exception $e) {
     $notification->push($e->getMessage(), 'horde.error');
-    $result = null;
 }
 
 // Clear the output buffer that we started above, and log any unexpected
 // output at a DEBUG level.
 if ($out = Horde::endBuffer()) {
-    Horde::logMessage('Unexpected output: ' . $out, 'DEBUG');
+    Horde::logMessage('Unexpected output when creating AJAX reponse: ' . $out, 'DEBUG');
 }
 
 // Send the final result.
-Horde::sendHTTPResponse(Horde::prepareResponse($result, $ajax->notify), $ajax->responseType());
+$ajax->send();

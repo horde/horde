@@ -16,8 +16,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-02</date>
- <time>13:28:51</time>
+ <date>2012-02-07</date>
+ <time>13:07:38</time>
  <version>
   <release>4.0.1</release>
   <api>4.0.0</api>
@@ -28,6 +28,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [rla] Don&apos;t pass too many parameters from backends.php to Horde_Db (Bug #10963).
+* [jan] Make expect driver locale independent (Bug #9166).
 * [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
  </notes>
  <contents>
@@ -619,9 +621,11 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-02</date>
+   <date>2012-02-07</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [rla] Don&apos;t pass too many parameters from backends.php to Horde_Db (Bug #10963).
+* [jan] Make expect driver locale independent (Bug #9166).
 * [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
    </notes>
   </release>

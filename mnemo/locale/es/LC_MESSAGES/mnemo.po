@@ -1,18 +1,18 @@
-# Spanish translations for lmd package.
-# Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+# Spanish translations for Mnemo H4 package.
+# Copyright (C) 2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Mnemo package.
-# Automatically generated, 2011.
+# Automatically generated, 2012.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Mnemo H4 (3.0.1-git)\n"
+"Project-Id-Version: Mnemo H4 (3.0.5-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-05-18 12:23+0200\n"
-"PO-Revision-Date: 2011-04-14 17:07+0200\n"
+"POT-Creation-Date: 2012-01-23 12:09+0100\n"
+"PO-Revision-Date: 2012-01-17 12:38+0100\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
 "<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
-"Language: \n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -63,7 +63,7 @@ msgstr "CSV"
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: data.php:49 templates/view/memo.inc:26
+#: data.php:49 templates/view/memo.inc:24
 msgid "Category"
 msgstr "Categoría"
 
@@ -99,7 +99,7 @@ msgstr "Crear libreta"
 msgid "Create a new Notepad"
 msgstr "Crear una libreta"
 
-#: templates/view/memo.inc:32
+#: templates/view/memo.inc:30
 msgid "Created"
 msgstr "Creado"
 
@@ -107,7 +107,7 @@ msgstr "Creado"
 msgid "Date"
 msgstr "Fecha"
 
-#: templates/memo/memo.inc:23 templates/view/memo.inc:54
+#: templates/memo/memo.inc:23 templates/view/memo.inc:52
 msgid "Decrypt"
 msgstr "Descifrar"
 
@@ -124,7 +124,7 @@ msgid "Default sorting direction:"
 msgstr "Sentido de clasificación por omisión:"
 
 #: lib/Form/DeleteNotepad.php:34 notepads/index.php:35
-#: templates/notepad_list.php:31 templates/view/memo.inc:16
+#: templates/notepad_list.php:31 templates/view/memo.inc:15
 msgid "Delete"
 msgstr "Eliminar"
 
@@ -162,7 +162,7 @@ msgid "Do you want to confirm deleting entries?"
 msgstr "¿Quiere confirmar la eliminación de entradas?"
 
 #: notepads/index.php:33 templates/notepad_list.php:27
-#: templates/view/memo.inc:13
+#: templates/view/memo.inc:12
 msgid "Edit"
 msgstr "Modificar"
 
@@ -226,7 +226,7 @@ msgstr "Importar/Exportar notas"
 msgid "In: "
 msgstr "Entrada: "
 
-#: templates/view/memo.inc:39
+#: templates/view/memo.inc:37
 msgid "Last Modified"
 msgstr "Última modificación"
 
@@ -250,7 +250,7 @@ msgstr "Fecha de modificación"
 msgid "More Options..."
 msgstr "Más opciones..."
 
-#: lib/Api.php:378
+#: lib/Api.php:364
 msgid "Multiple iCalendar components found; only one vNote is supported."
 msgstr ""
 "Se encontraron multiples componentes iCalendar; sólo se soporta una vNote."
@@ -259,7 +259,7 @@ msgstr ""
 msgid "My Notepads:"
 msgstr "Mis libretas:"
 
-#: list.php:29 stickies.php:29
+#: list.php:29
 msgid "My Notes"
 msgstr "Mis notas"
 
@@ -267,7 +267,7 @@ msgstr "Mis notas"
 msgid "Name"
 msgstr "Nombre"
 
-#: lib/Application.php:133 memo.php:92 memo.php:138
+#: lib/Application.php:128 memo.php:92 memo.php:138
 msgid "New Note"
 msgstr "Añadir"
 
@@ -275,7 +275,7 @@ msgstr "Añadir"
 msgid "Next"
 msgstr "Siguiente"
 
-#: lib/Api.php:222 lib/Api.php:371
+#: lib/Api.php:208 lib/Api.php:357
 msgid "No iCalendar data was found."
 msgstr "No se encontraron datos iCalendar."
 
@@ -336,7 +336,7 @@ msgstr "Libreta"
 msgid "Notepad List"
 msgstr "Lista de notas"
 
-#: lib/Mnemo.php:530
+#: lib/Notepads/Default.php:65
 #, php-format
 msgid "Notepad of %s"
 msgstr "Libreta de %s"
@@ -344,6 +344,10 @@ msgstr "Libreta de %s"
 #: templates/panel.inc:33 templates/panel.inc:34
 msgid "Notepads"
 msgstr "Libretas"
+
+#: lib/Notepads/Kolab.php:38
+msgid "Notes"
+msgstr "Notas"
 
 #: lib/Block/Summary.php:12
 msgid "Notes Summary"
@@ -353,8 +357,8 @@ msgstr "Resumen de notas"
 msgid "Ok"
 msgstr "Aceptar"
 
-#: lib/Api.php:105 lib/Api.php:138 lib/Api.php:170 lib/Api.php:201
-#: lib/Api.php:286 lib/Api.php:331 lib/Api.php:354
+#: lib/Api.php:73 lib/Api.php:124 lib/Api.php:156 lib/Api.php:187
+#: lib/Api.php:272 lib/Api.php:317 lib/Api.php:340
 msgid "Permission Denied"
 msgstr "Permiso denegado"
 
@@ -371,7 +375,7 @@ msgstr ""
 "¿Eliminar definitivamente la libreta \"%s\"? Ésto no se puede deshacer y "
 "todos los datos de esta libreta se eliminarán permanentemente."
 
-#: templates/view/memo.inc:16
+#: templates/view/memo.inc:15
 msgid "Really delete this note?"
 msgstr "¿Eliminar realmente esta nota?"
 
@@ -380,16 +384,16 @@ msgstr "¿Eliminar realmente esta nota?"
 msgid "Save"
 msgstr "Guardar"
 
-#: templates/view/memo.inc:11
+#: templates/view/memo.inc:10
 msgid "Save as PDF"
 msgstr "Guardar como PDF"
 
-#: lib/Application.php:166 search.php:22 templates/list/header.inc:4
+#: lib/Application.php:154 search.php:22 templates/list/header.inc:4
 #: templates/search/search.inc:4 templates/search/search.inc:27
 msgid "Search"
 msgstr "Buscar"
 
-#: list.php:52 notes/index.php:38 stickies.php:52
+#: list.php:52 notes/index.php:38
 msgid "Search Results"
 msgstr "Resultados de la búsqueda"
 
@@ -492,15 +496,15 @@ msgstr "Las contraseñas no coinciden."
 msgid "There was an error importing the data: %s"
 msgstr "Se produjo un error al importar los datos: %s"
 
-#: lib/Api.php:216 lib/Api.php:365
+#: lib/Api.php:202 lib/Api.php:351
 msgid "There was an error importing the iCalendar data."
 msgstr "Se produjo un error al importar los datos iCalendar."
 
-#: lib/Api.php:53 lib/Api.php:65
+#: lib/Application.php:202
 #, php-format
 msgid "There was an error removing notes for %s. Details have been logged."
 msgstr ""
-"Se produjo un error al eliminar las notass de %s. Se han registrado los "
+"Se produjo un error al eliminar las notas de %s. Se han registrado los "
 "detalles."
 
 #: memo.php:245
@@ -541,17 +545,17 @@ msgstr ""
 msgid "This note has been encrypted, please provide the password below"
 msgstr "Esta nota se ha cifrado, introduzca la contrasela a continuación"
 
-#: lib/Api.php:280 lib/Driver/Kolab.php:293 lib/Driver/Sql.php:344
+#: lib/Api.php:266 lib/Driver/Kolab.php:292 lib/Driver/Sql.php:344
 msgid "This note has been encrypted."
 msgstr "Esta nota se ha cifrado."
 
-#: lib/Block/Summary.php:116 lib/Mnemo.php:275 lib/Mnemo.php:276
-#: lib/Mnemo.php:290 lib/Mnemo.php:291 templates/list/memo_summaries.inc:20
-#: templates/view/memo.inc:27
+#: lib/Block/Summary.php:116 lib/Mnemo.php:310 lib/Mnemo.php:311
+#: lib/Mnemo.php:325 lib/Mnemo.php:326 templates/list/memo_summaries.inc:20
+#: templates/view/memo.inc:25
 msgid "Unfiled"
 msgstr "Sin categoría"
 
-#: lib/Api.php:249 lib/Api.php:305 lib/Api.php:388
+#: lib/Api.php:235 lib/Api.php:291 lib/Api.php:374
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr "Tipo de contenido no soportado: %s"
@@ -606,11 +610,11 @@ msgstr "_Categoría"
 msgid "_Category:"
 msgstr "_Categoría"
 
-#: templates/view/memo.inc:16
+#: templates/view/memo.inc:15
 msgid "_Delete"
 msgstr "_Eliminar"
 
-#: templates/view/memo.inc:13
+#: templates/view/memo.inc:12
 msgid "_Edit"
 msgstr "Mo_dificar"
 
@@ -634,17 +638,13 @@ msgstr "_Listar"
 msgid "_New Note"
 msgstr "_Añadir"
 
-#: templates/memo/memo.inc:21 templates/view/memo.inc:52
+#: templates/memo/memo.inc:21 templates/view/memo.inc:50
 msgid "_Password"
 msgstr "Contrase_ña"
 
 #: templates/memo/memo.inc:89
 msgid "_Password:"
 msgstr "Contrase_ña"
-
-#: lib/Application.php:86
-msgid "_Print"
-msgstr "Im_primir"
 
 #: templates/memo/memo.inc:93
 msgid "_Repeat:"
@@ -667,7 +667,7 @@ msgstr "por %s"
 msgid "by me"
 msgstr "por mi"
 
-#: lib/Application.php:153
+#: lib/Application.php:141
 #, php-format
 msgid "in %s"
 msgstr "a %s"

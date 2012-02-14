@@ -93,9 +93,9 @@ class Horde_Support_BacktraceTest extends PHPUnit_Framework_TestCase
         $backtrace = new Horde_Support_Backtrace(array_slice($this->instanceMethod(), 0, 4));
         $file = __FILE__;
         $this->assertEquals("1. Horde_Support_BacktraceTest->testToString()
-2. Horde_Support_BacktraceTest->instanceMethod() $file:94
-3. Horde_Support_BacktraceTest::staticMethod() $file:34
-4. backtraceTestFunction() $file:39
+2. Horde_Support_BacktraceTest->instanceMethod() $file:93
+3. Horde_Support_BacktraceTest::staticMethod() $file:33
+4. backtraceTestFunction() $file:38
 ",
                             (string)$backtrace);
     }

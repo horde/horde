@@ -43,50 +43,96 @@ class IMP
     static public $newUrl = null;
 
     /**
-     * The current active mailbox (may be search mailbox).
+     * Current mailbox/UID information.
      *
-     * @var IMP_Mailbox
+     * @var array
      */
-    static public $mailbox;
+    static private $_mboxinfo;
 
     /**
-     * The real IMAP mailbox of the current index.
+     * Initialize the JS browser environment and output everything up to, and
+     * including, the <body> tag.
      *
-     * @var IMP_Mailbox
+     * @param string $title  The title of the page.
      */
-    static public $thismailbox;
-
-    /**
-     * The IMAP UID.
-     *
-     * @var integer
-     */
-    static public $uid = '';
-
-    /**
-     * Returns the current view mode for IMP.
-     *
-     * @return string  Either 'dimp', 'imp', 'mimp', or 'mobile'.
-     */
-    static public function getViewMode()
+    static public function header($title)
     {
-        return ($view = $GLOBALS['session']->get('imp', 'view'))
-            ? $view
-            : 'imp';
+        switch ($GLOBALS['registry']->getView()) {
+        case Horde_Registry::VIEW_BASIC:
+            require IMP_TEMPLATES . '/imp/javascript_defs.php';
+            require IMP_TEMPLATES . '/common-header.inc';
+            break;
+
+        case Horde_Registry::VIEW_DYNAMIC:
+            $GLOBALS['injector']->getInstance('IMP_Ajax')->header();
+            break;
+
+        default:
+            require IMP_TEMPLATES . '/common-header.inc';
+            break;
+        }
     }
 
     /**
-     * Determines if we should display the ajax view based on a combination of
-     * user prefs and browser capabilities.
+     * Returns mailbox info for the current page.
      *
-     * @return boolean  A boolean indicating if we should show the ajax view.
+     * @param boolean $base  If true, return base mailbox info. If false,
+     *                       return mailbox for UID.
+     *
+     * @return IMP_Mailbox  Mailbox object.
      */
-    static public function showAjaxView()
+    static public function mailbox($base = true)
     {
-        global $prefs, $session;
+        if (!isset(self::$_mboxinfo)) {
+            self::setMailboxInfo();
+        }
 
-        $mode = $session->get('horde', 'mode');
-        return ($mode == 'dynamic' || ($prefs->getValue('dynamic_view') && $mode == 'auto')) && Horde::ajaxAvailable();
+        return self::$_mboxinfo[$base ? 'mailbox' : 'thismailbox'];
+    }
+
+    /**
+     * Returns UID info for the current page.
+     *
+     * @return string  UID.
+     */
+    static public function uid()
+    {
+        if (!isset(self::$_mboxinfo)) {
+            self::setMailboxInfo();
+        }
+
+        return self::$_mboxinfo['uid'];
+    }
+
+    /**
+     * Sets mailbox/index information for current page load.
+     *
+     * @param boolean $mbox  Use this mailbox, instead of form data.
+     */
+    static public function setMailboxInfo($mbox = null)
+    {
+        if (is_null($mbox)) {
+            $mbox = Horde_Util::getFormData('mailbox');
+            $mailbox = is_null($mbox)
+                ? IMP_Mailbox::get('INBOX')
+                : IMP_Mailbox::formFrom($mbox);
+
+            $mbox = Horde_Util::getFormData('thismailbox');
+            $thismailbox = is_null($mbox)
+                ? $mailbox
+                : IMP_Mailbox::formFrom($mbox);
+
+            $uid = Horde_Util::getFormData('uid');
+        } else {
+            $mailbox = $thismailbox = IMP_Mailbox::get($mbox);
+            $uid = null;
+        }
+
+        self::$_mboxinfo = array(
+            'mailbox' => $mailbox,
+            'thismailbox' => $thismailbox,
+            'uid' => $uid
+        );
     }
 
     /**
@@ -247,23 +293,23 @@ class IMP
         $uid = isset($args['uid'])
             ? $args['uid']
             : null;
-        $view = self::getViewMode();
+        $view = $GLOBALS['registry']->getView();
 
-        if ($simplejs || ($view == 'dimp')) {
+        if ($simplejs || ($view == Horde_Registry::VIEW_DYNAMIC)) {
             $args['popup'] = 1;
 
-            $url = ($view == 'dimp')
+            $url = ($view == Horde_Registry::VIEW_DYNAMIC)
                 ? 'compose-dimp.php'
                 : 'compose.php';
             $raw = true;
             $callback = array(__CLASS__, 'composeLinkSimpleCallback');
-        } elseif (($view != 'mimp') &&
+        } elseif (($view != Horde_Registry::VIEW_MINIMAL) &&
                   $GLOBALS['prefs']->getValue('compose_popup') &&
                   $GLOBALS['browser']->hasFeature('javascript')) {
             $url = 'compose.php';
             $callback = array(__CLASS__, 'composeLinkJsCallback');
         } else {
-            $url = ($view == 'mimp')
+            $url = ($view == Horde_Registry::VIEW_MINIMAL)
                 ? 'compose-mimp.php'
                 : 'compose.php';
         }
@@ -498,32 +544,6 @@ class IMP
     }
 
     /**
-     * Sets mailbox/index information for current page load. This information
-     * is accessible via IMP::$mailbox, IMP::$thismailbox, and IMP::$uid.
-     *
-     * @param boolean $mbox  Use this mailbox, instead of form data.
-     */
-    static public function setCurrentMailboxInfo($mbox = null)
-    {
-        if (is_null($mbox)) {
-            $mbox = Horde_Util::getFormData('mailbox');
-            self::$mailbox = is_null($mbox)
-                ? IMP_Mailbox::get('INBOX')
-                : IMP_Mailbox::formFrom($mbox);
-
-            $mbox = Horde_Util::getFormData('thismailbox');
-            self::$thismailbox = is_null($mbox)
-                ? self::$mailbox
-                : IMP_Mailbox::formFrom($mbox);
-
-            self::$uid = Horde_Util::getFormData('uid');
-        } else {
-            self::$mailbox = self::$thismailbox = IMP_Mailbox::get($mbox);
-            self::$uid = null;
-        }
-    }
-
-    /**
      * Return a selfURL that has had index/mailbox/actionID information
      * removed/altered based on an action that has occurred on the present
      * page.
@@ -616,6 +636,26 @@ class IMP
             array($localeinfo['decimal_point'], $localeinfo['thousands_sep']),
             number_format($number, $decimals, 'X', 'Y')
         );
+    }
+
+    /**
+     * Wrapper around Horde_Mail_Rfc822#parseAddressList().
+     *
+     * @param string $str  The address string.
+     * @param array $opts  Options to override the default.
+     *
+     * @return array  See Horde_Mail_Rfc822#parseAddressList().
+     *
+     * @throws Horde_Mail_Exception
+     */
+    static public function parseAddressList($str, array $opts = array())
+    {
+        $rfc822 = new Horde_Mail_Rfc822();
+        return $rfc822->parseAddressList($str, array_merge(array(
+            'default_domain' => $GLOBALS['session']->get('imp', 'maildomain'),
+            'nest_groups' => false,
+            'validate' => false
+        ), $opts));
     }
 
 }

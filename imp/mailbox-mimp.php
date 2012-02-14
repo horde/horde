@@ -38,10 +38,10 @@ $t = $injector->createInstance('Horde_Template');
 $t->setOption('gettext', true);
 
 /* Determine if mailbox is readonly. */
-$readonly = IMP::$mailbox->readonly;
+$readonly = IMP::mailbox()->readonly;
 
 /* Get the base URL for this page. */
-$mailbox_url = IMP::$mailbox->url('mailbox-mimp.php');
+$mailbox_url = IMP::mailbox()->url('mailbox-mimp.php');
 
 /* Perform message actions (via advanced UI). */
 switch ($vars->checkbox) {
@@ -80,24 +80,24 @@ case 'm':
 
 // 'e' = expunge mailbox
 case 'e':
-    $injector->getInstance('IMP_Message')->expungeMailbox(array(strval(IMP::$mailbox) => 1));
+    $injector->getInstance('IMP_Message')->expungeMailbox(array(strval(IMP::mailbox()) => 1));
     break;
 
 // 'c' = change sort
 case 'c':
-    IMP::$mailbox->setSort($vars->sb, $vars->sd);
+    IMP::mailbox()->setSort($vars->sb, $vars->sd);
     break;
 
 // 's' = search
 case 's':
-    $title = sprintf(_("Search %s"), IMP::$mailbox->label);
+    $title = sprintf(_("Search %s"), IMP::mailbox()->label);
 
-    $t->set('mailbox', IMP::$mailbox->form_to);
+    $t->set('mailbox', IMP::mailbox()->form_to);
     $t->set('menu', $imp_ui_mimp->getMenu('search'));
     $t->set('title', $title);
     $t->set('url', $mailbox_url);
 
-    require_once IMP_TEMPLATES . '/common-header.inc';
+    IMP::header($title);
     IMP::status();
     echo $t->fetch(IMP_TEMPLATES . '/mimp/mailbox/search.html');
     exit;
@@ -107,23 +107,23 @@ case 'ds':
     if (!empty($vars->search) && $imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
         /* Create the search query and reset the global mailbox variable. */
         $q_ob = $imp_search->createQuery(array(new IMP_Search_Element_Text($vars->search, false)), array(
-            'mboxes' => array(IMP::$mailbox)
+            'mboxes' => array(IMP::mailbox())
         ));
-        IMP::setCurrentMailboxInfo(strval($q_ob));
+        IMP::setMailboxInfo($q_ob);
 
         /* Need to re-calculate these values. */
-        $readonly = IMP::$mailbox->readonly;
-        $mailbox_url = IMP::$mailbox->url('mailbox-mimp.php');
+        $readonly = IMP::mailbox()->readonly;
+        $mailbox_url = IMP::mailbox()->url('mailbox-mimp.php');
     }
     break;
 }
 
 /* Build the list of messages in the mailbox. */
-$imp_mailbox = IMP::$mailbox->getListOb();
+$imp_mailbox = IMP::mailbox()->getListOb();
 $pageOb = $imp_mailbox->buildMailboxPage($vars->p, $vars->s);
 
 /* Generate page title. */
-$title = IMP::$mailbox->label;
+$title = IMP::mailbox()->label;
 
 /* Modify title for display on page. */
 if ($pageOb['msgcount']) {
@@ -145,10 +145,10 @@ $t->set('title', $title);
 $curr_time = time();
 $curr_time -= $curr_time % 60;
 $msgs = array();
-$sortpref = IMP::$mailbox->getSort();
+$sortpref = IMP::mailbox()->getSort();
 $thread_sort = ($sortpref->sortby == Horde_Imap_Client::SORT_THREAD);
 
-$imp_ui = new IMP_Ui_Mailbox(IMP::$mailbox);
+$imp_ui = new IMP_Ui_Mailbox(IMP::mailbox());
 
 /* Build the array of message information. */
 $mbox_info = $imp_mailbox->getMailboxArray(range($pageOb['begin'], $pageOb['end']), array('headers' => true));
@@ -191,19 +191,19 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     }
 
     /* Generate the target link. */
-    if (IMP::$mailbox->templates) {
+    if (IMP::mailbox()->templates) {
         $compose = 't';
-    } elseif (IMP::$mailbox->draft ||
+    } elseif (IMP::mailbox()->draft ||
               in_array(Horde_Imap_Client::FLAG_DRAFT, $ob['flags'])) {
         $compose = 'd';
     } else {
-        $msg['target'] = IMP::$mailbox->url('message-mimp.php', $ob['uid'], $ob['mailbox']);
+        $msg['target'] = IMP::mailbox()->url('message-mimp.php', $ob['uid'], $ob['mailbox']);
     }
 
     if (!isset($msg['target'])) {
         $msg['target'] = IMP::composeLink(array(), array(
             'a' => $compose,
-            'thismailbox' => IMP::$mailbox,
+            'thismailbox' => IMP::mailbox(),
             'uid' => $ob['uid'],
             'bodypart' => 1
         ));
@@ -215,12 +215,12 @@ $t->set('msgs', $msgs);
 
 $mailbox = $mailbox_url->copy()->add('p', $pageOb['page']);
 $menu = array(array(_("Refresh"), $mailbox));
-$search_mbox = $imp_search->isSearchMbox(IMP::$mailbox);
+$search_mbox = $imp_search->isSearchMbox(IMP::mailbox());
 
 /* Determine if we are going to show the Purge Deleted link. */
 if (!$prefs->getValue('use_trash') &&
-    !$imp_search->isVinbox(IMP::$mailbox) &&
-    IMP::$mailbox->access_expunge) {
+    !$imp_search->isVinbox(IMP::mailbox()) &&
+    IMP::mailbox()->access_expunge) {
     $menu[] = array(_("Purge Deleted"), $mailbox->copy()->add('a', 'e'));
 }
 
@@ -244,7 +244,7 @@ foreach ($hdr_list as $key => $val) {
 }
 
 /* Add thread header entry. */
-if (!$sortpref->locked && IMP::$mailbox->access_sortthread) {
+if (!$sortpref->locked && IMP::mailbox()->access_sortthread) {
     if ($sortpref->sortby == Horde_Imap_Client::SORT_THREAD) {
         $t->set('hdr_subject_minor', $t->get('hdr_thread'));
     } else {
@@ -256,7 +256,7 @@ if (!$sortpref->locked && IMP::$mailbox->access_sortthread) {
 /* Add search link. */
 if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
     if ($search_mbox) {
-        $mboxes = $imp_search[IMP::$mailbox]->mboxes;
+        $mboxes = $imp_search[strval(IMP::mailbox())]->mboxes;
         $orig_mbox = IMP_Mailbox::get(reset($mboxes));
         $menu[] = array(sprintf(_("New Search in %s"), $orig_mbox->label), $orig_mbox->url('mailbox-mimp.php')->add('a', 's'));
     } else {
@@ -280,12 +280,12 @@ $t->set('menu', $imp_ui_mimp->getMenu('mailbox', $menu));
 try {
     if (Horde::callHook('mimp_advanced', array('checkbox'), 'imp')) {
         $t->set('checkbox', $mailbox_url->copy()->add('p', $pageOb['page']));
-        $t->set('delete', IMP::$mailbox->access_deletemsgs);
+        $t->set('delete', IMP::mailbox()->access_deletemsgs);
         $t->set('forminput', Horde_Util::formInput());
         $t->set('mt', $injector->getInstance('Horde_Token')->get('imp.message-mimp'));
     }
 } catch (Horde_Exception_HookNotSet $e) {}
 
-require_once IMP_TEMPLATES . '/common-header.inc';
+IMP::header($title);
 IMP::status();
 echo $t->fetch(IMP_TEMPLATES . '/mimp/mailbox/mailbox.html');

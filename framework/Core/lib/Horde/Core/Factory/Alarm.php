@@ -35,8 +35,16 @@ class Horde_Core_Factory_Alarm extends Horde_Core_Factory_Base
     protected $_alarm;
 
     /**
-     * Return a Horde_Alarm instance
+     * TTL value.
      *
+     * @var integer
+     */
+    protected $_ttl;
+
+    /**
+     * Return a Horde_Alarm instance.
+     *
+     * @return Horde_Alarm
      */
     public function create()
     {
@@ -56,6 +64,10 @@ class Horde_Core_Factory_Alarm extends Horde_Core_Factory_Base
         $params['logger'] = $this->_injector->getInstance('Horde_Log_Logger');
         $params['loader'] = array($this, 'load');
 
+        $this->_ttl = isset($params['ttl'])
+            ? $params['ttl']
+            : 300;
+
         $class = 'Horde_Alarm_' . $driver;
         $this->_alarm = new $class($params);
         $this->_alarm->initialize();
@@ -63,10 +75,7 @@ class Horde_Core_Factory_Alarm extends Horde_Core_Factory_Base
 
         /* Add those handlers that need configuration and can't be auto-loaded
          * through Horde_Alarms::handlers(). */
-        $handler_params = array(
-            'notification' => $this->_injector->getInstance('Horde_Core_Factory_Notification')
-        );
-        $this->_alarm->addHandler('notify', new Horde_Alarm_Handler_Notify($handler_params));
+        $this->_alarm->addHandler('notify', new Horde_Core_Alarm_Handler_Notify());
 
         $handler_params = array(
             'js_notify' => array('Horde', 'addInlineScript'),
@@ -97,49 +106,49 @@ class Horde_Core_Factory_Alarm extends Horde_Core_Factory_Base
      */
     public function load($user = null, $preload = true)
     {
-        global $session;
+        global $registry, $session;
 
-        $driver = empty($GLOBALS['conf']['alarms']['driver'])
-            ? 'Null'
-            : $GLOBALS['conf']['alarms']['driver'];
-        $params = Horde::getDriverConfig('alarms', $driver);
-
-        if (!isset($params['ttl'])) {
-            $params['ttl'] = 0;
-        }
-
-        if ($session->exists('horde', 'alarm_loaded') &&
-            (time() - $session->get('horde', 'alarm_loaded')) < $params['ttl']) {
+        if ($this->_ttl &&
+            $session->exists('horde', 'alarm_loaded') &&
+            ((time() - $session->get('horde', 'alarm_loaded')) < $this->_ttl)) {
             return;
         }
 
-        foreach ($GLOBALS['registry']->listApps(null, false, Horde_Perms::READ) as $app) {
+        /* Cache alarm handler application method existence. */
+        $cache = $session->get('horde', 'factory_alarm');
+
+        if (is_null($cache)) {
+            $save = array();
+            $changed = ($registry->getAuth() !== false);
+
+            try {
+                $apps = $registry->listApps(null, false, Horde_Perms::READ);
+            } catch (Horde_Exception $e) {
+                $apps = array();
+            }
+        } else {
+            $apps = $cache;
+            $changed = false;
+        }
+
+        foreach ($apps as $app) {
             /* Preload alarms that happen in the next ttl seconds. */
-            if ($preload) {
-                try {
-                    $alarms = $GLOBALS['registry']->callAppMethod($app, 'listAlarms', array('args' => array(time() + $params['ttl'], $user), 'noperms' => true));
-                } catch (Horde_Exception $e) {
-                    continue;
-                }
-            } else {
-                $alarms = array();
-            }
+            $time = $preload
+                ? time() + $this->_ttl
+                : time();
 
-            /* Load current alarms if no preloading requested or if this
-             * is the first call in this session. */
-            if (!$preload || !$session->get('horde', 'alarm_loaded')) {
-                try {
-                    $app_alarms = $GLOBALS['registry']->callAppMethod($app, 'listAlarms', array('args' => array(time(), $user), 'noperms' => true));
-                } catch (Horde_Exception $e) {
-                    Horde::logMessage($e);
-                    $app_alarms = array();
+            try {
+                if (($alarm_list = $registry->callAppMethod($app, 'listAlarms', array('args' => array($time, $user), 'noperms' => true))) !== false) {
+                    foreach ($alarm_list as $alarm) {
+                        $this->_alarm->set($alarm, true);
+                        $save[] = $app;
+                    }
                 }
-                $alarms = array_merge($alarms, $app_alarms);
-            }
+            } catch (Horde_Exception $e) {}
+        }
 
-            foreach ($alarms as $alarm) {
-                $this->_alarm->set($alarm, true);
-            }
+        if ($changed) {
+            $session->set('horde', 'factory_alarm', $save);
         }
 
         $session->set('horde', 'alarm_loaded', time());

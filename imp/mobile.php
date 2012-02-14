@@ -43,6 +43,9 @@ if ($view->allowFolders) {
 
 $view->portal = Horde::getServiceLink('portal', 'horde')->setRaw(false);
 $view->logout = Horde::getServiceLink('logout')->setRaw(false);
+$view->canSearch = $imp_imap->access(IMP_Imap::ACCESS_SEARCH);
+$view->canSpam = !empty($conf['spam']['reporting']);
+$view->canHam = !empty($conf['notspam']['reporting']);
 
 $view->canCompose = IMP::canCompose();
 if ($view->canCompose) {
@@ -72,6 +75,9 @@ echo $view->render('mailbox.html.php');
 echo $view->render('message.html.php');
 if (IMP::canCompose()) {
     echo $view->render('compose.html.php');
+}
+if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
+    echo $view->render('search.html.php');
 }
 echo $view->render('notice.html.php');
 echo $view->render('confirm.html.php');

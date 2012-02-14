@@ -10,8 +10,8 @@
   <email>wrobel@pardus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-10-30</date>
- <time>08:30:09</time>
+ <date>2012-01-23</date>
+ <time>13:37:17</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Add Spanish translation (Manuel P. Ayala &lt;mayala@unex.es&gt;).
 * [jan] Add Latvian translation (Jānis Eisaks &lt;jancs@dv.lv&gt;).
 * [jan] Add Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
 * Initial release.
@@ -49,6 +50,7 @@
       <dir name="Recipient">
        <file name="Base.php" role="php" />
        <file name="Blogger.php" role="php" />
+       <file name="Facebook.php" role="php" />
        <file name="Mail.php" role="php" />
        <file name="Mock.php" role="php" />
        <file name="Twitter.php" role="php" />
@@ -68,6 +70,24 @@
       <file name="Horde_Push.po" role="data" />
      </dir> <!-- /locale/de/LC_MESSAGES -->
     </dir> <!-- /locale/de -->
+    <dir name="es">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Push.mo" role="data" />
+      <file name="Horde_Push.po" role="data" />
+     </dir> <!-- /locale/es/LC_MESSAGES -->
+    </dir> <!-- /locale/es -->
+    <dir name="ja">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Push.mo" role="data" />
+      <file name="Horde_Push.po" role="data" />
+     </dir> <!-- /locale/ja/LC_MESSAGES -->
+    </dir> <!-- /locale/ja -->
+    <dir name="lv">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Push.mo" role="data" />
+      <file name="Horde_Push.po" role="data" />
+     </dir> <!-- /locale/lv/LC_MESSAGES -->
+    </dir> <!-- /locale/lv -->
     <file name="Horde_Push.pot" role="data" />
    </dir> <!-- /locale -->
    <dir name="test">
@@ -197,12 +217,19 @@
    <install as="Horde/Push/Factory/Recipients.php" name="lib/Horde/Push/Factory/Recipients.php" />
    <install as="Horde/Push/Recipient/Base.php" name="lib/Horde/Push/Recipient/Base.php" />
    <install as="Horde/Push/Recipient/Blogger.php" name="lib/Horde/Push/Recipient/Blogger.php" />
+   <install as="Horde/Push/Recipient/Facebook.php" name="lib/Horde/Push/Recipient/Facebook.php" />
    <install as="Horde/Push/Recipient/Mail.php" name="lib/Horde/Push/Recipient/Mail.php" />
    <install as="Horde/Push/Recipient/Mock.php" name="lib/Horde/Push/Recipient/Mock.php" />
    <install as="Horde/Push/Recipient/Twitter.php" name="lib/Horde/Push/Recipient/Twitter.php" />
    <install as="locale/Horde_Push.pot" name="locale/Horde_Push.pot" />
    <install as="locale/de/LC_MESSAGES/Horde_Push.mo" name="locale/de/LC_MESSAGES/Horde_Push.mo" />
    <install as="locale/de/LC_MESSAGES/Horde_Push.po" name="locale/de/LC_MESSAGES/Horde_Push.po" />
+   <install as="locale/es/LC_MESSAGES/Horde_Push.mo" name="locale/es/LC_MESSAGES/Horde_Push.mo" />
+   <install as="locale/es/LC_MESSAGES/Horde_Push.po" name="locale/es/LC_MESSAGES/Horde_Push.po" />
+   <install as="locale/ja/LC_MESSAGES/Horde_Push.mo" name="locale/ja/LC_MESSAGES/Horde_Push.mo" />
+   <install as="locale/ja/LC_MESSAGES/Horde_Push.po" name="locale/ja/LC_MESSAGES/Horde_Push.po" />
+   <install as="locale/lv/LC_MESSAGES/Horde_Push.mo" name="locale/lv/LC_MESSAGES/Horde_Push.mo" />
+   <install as="locale/lv/LC_MESSAGES/Horde_Push.po" name="locale/lv/LC_MESSAGES/Horde_Push.po" />
    <install as="Horde/Push/AllTests.php" name="test/Horde/Push/AllTests.php" />
    <install as="Horde/Push/Autoload.php" name="test/Horde/Push/Autoload.php" />
    <install as="Horde/Push/phpunit.xml" name="test/Horde/Push/phpunit.xml" />
@@ -233,9 +260,10 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-10-30</date>
+   <date>2012-01-23</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Add Spanish translation (Manuel P. Ayala &lt;mayala@unex.es&gt;).
 * [jan] Add Latvian translation (Jānis Eisaks &lt;jancs@dv.lv&gt;).
 * [jan] Add Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
 * Initial release.

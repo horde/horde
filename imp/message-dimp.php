@@ -19,19 +19,19 @@ Horde_Registry::appInit('imp', array('impmode' => 'dimp'));
 
 $vars = Horde_Variables::getDefaultVariables();
 
-if (!IMP::$uid || !IMP::$mailbox) {
+if (!IMP::uid() || !IMP::mailbox()) {
     exit;
 }
 
 $imp_ui = new IMP_Ui_Message();
 $js_onload = $js_vars = array();
-$readonly = IMP::$mailbox->readonly;
-$uid = IMP::$uid;
+$readonly = IMP::mailbox()->readonly;
+$uid = IMP::uid();
 
 switch ($vars->actionID) {
 case 'strip_attachment':
     try {
-        $indices = $injector->getInstance('IMP_Message')->stripPart(IMP::$mailbox->getIndicesOb($uid), $vars->id);
+        $indices = $injector->getInstance('IMP_Message')->stripPart(IMP::mailbox()->getIndicesOb($uid), $vars->id);
         $js_vars['-DimpMessage.strip'] = 1;
         list(,$uid) = $indices->getSingle();
         $notification->push(_("Attachment successfully stripped."), 'horde.success');
@@ -41,16 +41,12 @@ case 'strip_attachment':
     break;
 }
 
-$args = array(
-    'headers' => array_diff(array_keys($imp_ui->basicHeaders()), array('subject')),
-    'mailbox' => IMP::$mailbox,
-    'preview' => false,
-    'uid' => $uid
-);
-
-$show_msg = new IMP_Views_ShowMessage();
+$show_msg = new IMP_Views_ShowMessage(IMP::mailbox(), $uid);
 try {
-    $show_msg_result = $show_msg->showMessage($args);
+    $show_msg_result = $show_msg->showMessage(array(
+        'headers' => array_diff(array_keys($imp_ui->basicHeaders()), array('subject')),
+        'preview' => false
+    ));
 } catch (IMP_Exception $e) {
     IMP::status();
     echo Horde::wrapInlineScript(array(
@@ -59,24 +55,20 @@ try {
     exit;
 }
 
-$scripts = array(
-    array('contextsensitive.js', 'horde'),
-    array('textarearesize.js', 'horde'),
-    array('toggle_quotes.js', 'horde'),
-    array('message-dimp.js', 'imp'),
-    array('imp.js', 'imp')
-);
-
-foreach (array('from', 'to', 'cc', 'bcc', 'replyTo', 'log', 'uid', 'mbox') as $val) {
+foreach (array('from', 'to', 'cc', 'bcc', 'replyTo', 'log', 'uid', 'mbox', 'addr_limit') as $val) {
     if (!empty($show_msg_result[$val])) {
         $js_vars['DimpMessage.' . $val] = $show_msg_result[$val];
     }
 }
+$js_vars['DimpMessage.reply_list'] = $show_msg_result['list_info']['exists'];
 
 $ajax_queue = $injector->getInstance('IMP_Ajax_Queue');
-$ajax_queue->poll(IMP::$mailbox);
+$ajax_queue->poll(IMP::mailbox());
 
-foreach ($ajax_queue->generate() as $key => $val) {
+$response = new Horde_Core_Ajax_Response();
+$ajax_queue->add($response);
+
+foreach ($response as $key => $val) {
     $js_vars['DimpMessage.' . $key] = $val;
 }
 
@@ -87,7 +79,7 @@ $disable_compose = !IMP::canCompose();
 
 if (!$disable_compose) {
     $compose_args = array(
-        'folder' => IMP::$mailbox,
+        'folder' => IMP::mailbox(),
         'messageCache' => '',
         'popup' => false,
         'qreply' => true,
@@ -107,20 +99,6 @@ if (!$disable_compose) {
     $imp_ui->attachSpellChecker();
 
     $js_out = array_merge($js_out, $compose_result['js']);
-
-    $scripts = array_merge($scripts, array(
-        array('compose-base.js', 'imp'),
-        array('compose-dimp.js', 'imp'),
-        array('md5.js', 'horde'),
-        array('popup.js', 'horde')
-    ));
-
-    if (!($prefs->isLocked('default_encrypt')) &&
-        ($prefs->getValue('use_pgp') || $prefs->getValue('use_smime'))) {
-        $scripts[] = array('dialog.js', 'imp');
-        $scripts[] = array('redbox.js', 'horde');
-    }
-
     $js_onload = $compose_result['jsonload'];
 }
 
@@ -150,7 +128,7 @@ $t->set('forward_button', IMP_Dimp::actionButton(array(
 )));
 
 if (!empty($conf['spam']['reporting']) &&
-    (!$conf['spam']['spamfolder'] || !IMP::$mailbox->spam)) {
+    (!$conf['spam']['spamfolder'] || !IMP::mailbox()->spam)) {
     $t->set('spam_button', IMP_Dimp::actionButton(array(
         'icon' => 'Spam',
         'id' => 'button_spam',
@@ -159,7 +137,7 @@ if (!empty($conf['spam']['reporting']) &&
 }
 
 if (!empty($conf['notspam']['reporting']) &&
-    (!$conf['notspam']['spamfolder'] || IMP::$mailbox->spam)) {
+    (!$conf['notspam']['spamfolder'] || IMP::mailbox()->spam)) {
     $t->set('ham_button', IMP_Dimp::actionButton(array(
         'icon' => 'Ham',
         'id' => 'button_ham',
@@ -167,7 +145,7 @@ if (!empty($conf['notspam']['reporting']) &&
     )));
 }
 
-if (IMP::$mailbox->access_deletemsgs) {
+if (IMP::mailbox()->access_deletemsgs) {
     $t->set('delete_button', IMP_Dimp::actionButton(array(
         'icon' => 'Delete',
         'id' => 'button_deleted',
@@ -207,19 +185,21 @@ $t->set('msgtext', $show_msg_result['msgtext']);
 
 if (!$disable_compose) {
     $t->set('html', $compose_result['html']);
-    $t->set('reply_list', $show_msg_result['list_info']['exists']);
-    $t->set('forward_select', !$prefs->isLocked('forward_default'));
 }
 
 Horde::startBuffer();
 IMP::status();
 $t->set('status', Horde::endBuffer());
 
-IMP_Dimp::header($show_msg_result['title'], $scripts);
+$injector->getInstance('IMP_Ajax')->header('message', $show_msg_result['title']);
 
 Horde::startBuffer();
 Horde::includeScriptFiles();
 Horde::outputInlineScript();
 $t->set('script', Horde::endBuffer());
+
+Horde::startBuffer();
+require IMP_TEMPLATES . '/dimp/common.inc';
+$t->set('common', Horde::endBuffer());
 
 echo $t->fetch(IMP_TEMPLATES . '/dimp/message/message.html');

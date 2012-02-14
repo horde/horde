@@ -1,26 +1,51 @@
-# Spanish translations for Horde_Data module.
-# Copyright 2010-2012 Horde LLC (http://www.horde.org/)
-# This file is distributed under the same license as the Horde_Data module.
-# Automatically generated, 2010.
+# Spanish translations for Horde_Data package.
+# Copyright (C) 2012 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Horde_Data package.
+# Automatically generated, 2012.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde_Data\n"
+"Project-Id-Version: Horde_Data \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2012-01-23 12:14+0100\n"
+"PO-Revision-Date: 2012-01-17 12:38+0100\n"
+"Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
+"<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
-"Language: \n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: lib/Horde/Data/Csv.php:98
+msgid "Cannot open file."
+msgstr "No se puede abrir el archivo."
+
 #: lib/Horde/Data/Tsv.php:222
 msgid "TSV file"
 msgstr "Archivo TSV"
 
-#: lib/Horde/Data/Base.php:281
+#: lib/Horde/Data/Base.php:279
 msgid "The file contained no data."
-msgstr "El archivo no contiene datos."
+msgstr "El archivo no tenía datos."
+
+#: lib/Horde/Data/Base.php:339
+msgid "The uploaded data was lost since the previous step."
+msgstr "Se perdieron los datos cargados desde el paso anterior."
+
+#: lib/Horde/Data/Csv.php:230 lib/Horde/Data/Tsv.php:228
+msgid "The uploaded file could not be saved."
+msgstr "No se pudo guardar el archivo cargado"
+
+#: lib/Horde/Data/Imc.php:32
+msgid "There was an error importing the iCalendar data."
+msgstr "Se produjo un error al importar los datos iCalendar."
+
+#: lib/Horde/Data/Base.php:286
+msgid ""
+"You didn\\'t map any fields from the imported file to the corresponding "
+"fields."
+msgstr ""
+"No ha mapeado ningún campo del archivo importado con sus campos "
+"correspondientes."

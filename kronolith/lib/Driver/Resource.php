@@ -57,12 +57,12 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
     /**
      * Save or update a Kronolith_Resource
      *
-     * @param Kronolith_Resource $resource
+     * @param Kronolith_Resource_Base $resource
      *
      * @return Kronolith_Resource object
      * @throws Kronolith_Exception
      */
-    public function save($resource)
+    public function save(Kronolith_Resource_Base $resource)
     {
         if ($resource->getId()) {
             $query = 'UPDATE kronolith_resources SET resource_name = ?, '
@@ -116,10 +116,20 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
      *
      * @throws Kronolith_Exception
      */
-    public function delete($resource)
+    public function delete(Kronolith_Resource_Base $resource)
     {
-        if (!($resource instanceof Kronolith_Resource_Base) || !$resource->getId()) {
+        if (!$resource->getId()) {
             throw new Kronolith_Exception(_("Resource not valid."));
+        }
+
+        // Get group memberships and remove from group.
+        $groups = $this->getGroupMemberships($resource->getId());
+        foreach ($groups as $id) {
+            $rg = $this->getResource($id);
+            $members = $rg->get('members');
+            unset($members[array_search($resource->getId(), $members)]);
+            $rg->set('members', $members);
+            $rg->save();
         }
 
         $query = 'DELETE FROM ' . $this->_params['table'] . ' WHERE calendar_id = ?';
@@ -135,7 +145,7 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
     /**
      * Obtain a Kronolith_Resource by the resource's id
      *
-     * @param int $id  The key for the Kronolith_Resource
+     * @param integer $id  The key for the Kronolith_Resource
      *
      * @return Kronolith_Resource_Base
      * @throws Kronolith_Exception
@@ -217,7 +227,7 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
      * @return an array of Kronolith_Resource objects.
      * @throws Kronolith_Exception
      */
-    public function listResources($perms = Horde_Perms::READ, $filter = array(), $orderby = null)
+    public function listResources($perms = Horde_Perms::READ, array $filter = array(), $orderby = null)
     {
         if (($perms & (Horde_Perms::EDIT | Horde_Perms::DELETE)) &&
             !$GLOBALS['registry']->isAdmin()) {
@@ -258,7 +268,7 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
      *
      * @param integer $resource_id  The resource id to check for.
      *
-     * @return array of group ids.
+     * @return array  An array of group ids.
      * @throws Kronolith_Exception
      */
     public function getGroupMemberships($resource_id)
@@ -280,14 +290,14 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
      *
      * @param array $params  The key/values to convert.
      *
-     * @return An array of converted values.
+     * @return array  An array of converted values.
      */
-    protected function _fromDriver($params)
+    protected function _fromDriver(array $params)
     {
         $return = array();
         foreach ($params as $field => $value) {
             if ($field == 'resource_name' || $field == 'resource_description') {
-               $value = $this->convertFromDriver($value);
+                $value = $this->convertFromDriver($value);
             } elseif ($field == 'resource_members') {
                 $value = @unserialize($value);
             }
@@ -303,7 +313,7 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
      *
      * @param Kronolith_Event $event  The event to update
      */
-    protected function _updateTags($event)
+    protected function _updateTags(Kronolith_Event $event)
     {
         // noop
     }
@@ -313,7 +323,7 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
      *
      * @param Kronolith_Event $event  The event to save tags to storage for.
      */
-    protected function _addTags($event)
+    protected function _addTags(Kronolith_Event $event)
     {
         // noop
     }

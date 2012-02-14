@@ -36,6 +36,11 @@ Horde_Registry::appInit('imp', array(
     'timezone' => true
 ));
 
+$horde_ajax = $injector->getInstance('Horde_Core_Ajax');
+$horde_ajax->init(array(
+    'app' => 'imp'
+));
+
 $vars = Horde_Variables::getDefaultVariables();
 
 /* The headers of the message. */
@@ -50,8 +55,9 @@ foreach (array('to', 'cc', 'bcc', 'subject') as $val) {
 /* Check for personal information for 'to' address. */
 if (isset($header['to']) &&
     isset($vars->toname) &&
-    ($tmp = Horde_Mime_Address::parseAddressList($header['to']))) {
-    $header['to'] = Horde_Mime_Address::writeAddress($tmp[0]['mailbox'], $tmp[0]['host'], $vars->toname);
+    ($tmp = IMP::parseAddressList($header['to']))) {
+    $tmp[0]->personal = $vars->toname;
+    $header['to'] = $tmp[0]->writeAddress();
 }
 
 $fillform_opts = array(
@@ -215,7 +221,7 @@ case 'resume':
 case 'template':
 case 'template_edit':
     try {
-        $indices_ob = IMP::$mailbox->getIndicesOb(IMP::$uid);
+        $indices_ob = IMP::mailbox()->getIndicesOb(IMP::uid());
 
         switch ($vars->type) {
         case 'editasnew':
@@ -300,26 +306,11 @@ if ($vars->type != 'redirect') {
 }
 Horde::addInlineScript($compose_result['jsonload'], 'dom');
 
-$scripts = array(
-    array('compose-base.js', 'imp'),
-    array('compose-dimp.js', 'imp'),
-    array('contextsensitive.js', 'horde'),
-    array('md5.js', 'horde'),
-    array('popup.js', 'horde'),
-    array('textarearesize.js', 'horde')
-);
-
-if (!($prefs->isLocked('default_encrypt')) &&
-    ($prefs->getValue('use_pgp') || $prefs->getValue('use_smime'))) {
-    $scripts[] = array('dialog.js', 'imp');
-    $scripts[] = array('redbox.js', 'horde');
-}
-
 Horde::startBuffer();
 IMP::status();
 $t->set('status', Horde::endBuffer());
 
-IMP_Dimp::header($title, $scripts);
+$injector->getInstance('IMP_Ajax')->header('compose', $title);
 
 Horde::startBuffer();
 Horde::includeScriptFiles();

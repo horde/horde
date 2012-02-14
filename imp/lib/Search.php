@@ -155,7 +155,7 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
             /* This will overwrite previous value, if it exists. */
             $this->_search['vfolders'][$ob->id] = $ob;
             $this->setVFolders($this->_search['vfolders']);
-            $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->insertVfolder($ob);
+            $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->insert($ob);
             break;
         }
 
@@ -473,7 +473,7 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
                     $this->setVFolders($this->_search['vfolders']);
 
                     $imaptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
-                    $imaptree->delete($id);
+                    $imaptree->delete($value);
                     $imaptree->insert($value);
                 }
                 return;
@@ -494,12 +494,13 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
 
         foreach (array_keys($this->_search) as $val) {
             if (isset($this->_search[$val][$id])) {
+                $value = $this->_search[$val][$id];
                 unset($this->_search[$val][$id]);
                 $this->changed = true;
 
                 if ($val == 'vfolders') {
                     $this->setVFolders($this->_search['vfolders']);
-                    $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->delete($id);
+                    $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->delete($value);
                 }
                 break;
             }

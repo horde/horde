@@ -34,7 +34,7 @@ class IMP_Factory_Imaptree extends Horde_Core_Factory_Injector
      */
     public function create(Horde_Injector $injector)
     {
-        global $session;
+        global $registry, $session;
 
         $instance = null;
 
@@ -62,7 +62,7 @@ class IMP_Factory_Imaptree extends Horde_Core_Factory_Injector
             $instance = new IMP_Imap_Tree();
         }
 
-        if (IMP::getViewMode() == 'dimp') {
+        if ($registry->getView() == Horde_Registry::VIEW_DYNAMIC) {
             $instance->track = true;
         }
 

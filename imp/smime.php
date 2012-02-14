@@ -99,34 +99,4 @@ case 'process_import_personal_certs':
         $imp_smime->importKeyDialog('process_import_personal_certs', $vars->reload);
     }
     break;
-
-case 'save_attachment_public_key':
-    /* Retrieve the key from the message. */
-    $contents = $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($vars->mailbox, $vars->uid));
-    $mime_part = $contents->getMIMEPart($vars->mime_id);
-    if (empty($mime_part)) {
-        $imp_smime->textWindowOutput('', _("Cannot retrieve public key from message."));
-        break;
-    }
-
-    /* Add the public key to the storage system. */
-    try {
-        $stream = $vars->mime_id
-            ? $contents->getBodyPart($vars->mime_id, array('mimeheaders' => true, 'stream' => true))
-            : $contents->fullMessageText();
-        $raw_text = $mime_part->replaceEOL($stream, Horde_Mime_Part::RFC_EOL);
-    } catch (Horde_Exception $e) {
-        $imp_smime->textWindowOutput('', _("No certificate found."));
-        break;
-    }
-
-    try {
-        $sig_result = $imp_smime->verifySignature($raw_text);
-        $imp_smime->addPublicKey($sig_result->cert);
-    } catch (Horde_Exception $e) {
-        $imp_smime->textWindowOutput('', $e->getMessage());
-        break;
-    }
-    echo Horde::wrapInlineScript(array('window.close();'));
-    break;
 }

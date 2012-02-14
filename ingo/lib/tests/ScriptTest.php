@@ -129,7 +129,7 @@ class ScriptTester {
     function _setupStorage()
     {
         $GLOBALS['session']->set('ingo', 'change', 0);
-        $GLOBALS['ingo_storage'] = Ingo_Storage::factory('mock', array());
+        $GLOBALS['ingo_storage'] = new Ingo_Storage_Mock();
         foreach ($this->rules as $ob) {
             $GLOBALS['ingo_storage']->store($ob);
         }
@@ -153,11 +153,12 @@ class ScriptTester_imap extends ScriptTester {
 
         $GLOBALS['notification'] = new Ingo_Test_Notification;
 
-        $params = array('api' => $this->api,
-                        'spam_compare' => 'string',
-                        'spam_header' => 'X-Spam-Level',
-                        'spam_char' => '*');
-        $this->imap = Ingo_Script::factory('imap', $params);
+        $this->imap = new Ingo_Script_Imap(array(
+            'api' => $this->api,
+            'spam_compare' => 'string',
+            'spam_header' => 'X-Spam-Level',
+            'spam_char' => '*'
+        ));
     }
 
     function _run()
@@ -309,14 +310,14 @@ class ScriptTester_sieve extends ScriptTester {
 
     function _writeSieveScript()
     {
-        $params = array('date_format' => '%x',
-                        'time_format' => '%R',
-                        'spam_compare' => 'string',
-                        'spam_header' => 'X-Spam-Level',
-                        'spam_char' => '*');
-
         $this->_setupStorage();
-        $script = Ingo_Script::factory('sieve', $params);
+        $script = new Ingo_Script_Sieve(array(
+            'date_format' => '%x',
+            'time_format' => '%R',
+            'spam_compare' => 'string',
+            'spam_header' => 'X-Spam-Level',
+            'spam_char' => '*'
+        ));
 
         $this->sieve = tempnam('/tmp', 'sieve');
         $fh = fopen($this->sieve, 'w');

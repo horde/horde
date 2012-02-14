@@ -24,12 +24,12 @@ $vars = Horde_Variables::getDefaultVariables();
 
 /* Mailto link handler: redirect based on current view. */
 if ($vars->actionID == 'mailto_link') {
-    switch (IMP::getViewMode()) {
-    case 'dimp':
+    switch ($registry->getView()) {
+    case Horde_Registry::VIEW_DYNAMIC:
         require IMP_BASE . '/compose-dimp.php';
         exit;
 
-    case 'mimp':
+    case Horde_Registry::VIEW_MINIMAL:
         require IMP_BASE . '/compose-mimp.php';
         exit;
     }
@@ -217,7 +217,7 @@ case 'editasnew':
 case 'template':
 case 'template_edit':
     try {
-        $indices_ob = IMP::$thismailbox->getIndicesOb(IMP::$uid);
+        $indices_ob = IMP::mailbox(true)->getIndicesOb(IMP::uid());
 
         switch ($vars->actionID) {
         case 'editasnew':
@@ -287,10 +287,10 @@ case 'reply_list':
 
     case IMP_Compose::REPLY_ALL:
         if ($vars->actionID == 'reply_auto') {
-            try {
-                $recip_list = $imp_compose->recipientList($header);
+            $recip_list = $imp_compose->recipientList($header);
+            if (!empty($recip_list['list'])) {
                 $replyauto_all = count($recip_list['list']);
-            } catch (IMP_Compose_Exception $e) {}
+            }
         }
 
         $vars->actionID = 'reply_all';
@@ -300,11 +300,9 @@ case 'reply_list':
     case IMP_Compose::REPLY_LIST:
         if ($vars->actionID == 'reply_auto') {
             $replyauto_list = true;
-
-            $hdr_ob = $contents->getHeader();
-            $addr_ob = Horde_Mime_Address::parseAddressList($hdr_ob->getValue('list-id'));
-            if (isset($addr_ob[0]['personal'])) {
-                $replyauto_list_id = $addr_ob[0]['personal'];
+            if (($addr_ob = IMP::parseAddressList($contents->getHeader()->getValue('list-id'))) &&
+                !is_null($addr_ob[0]->personal)) {
+                $replyauto_list_id = $addr_ob[0]->personal;
             }
         }
 
@@ -477,8 +475,9 @@ case 'send_message':
             $request = new stdClass;
             $request->requestToken = $injector->getInstance('Horde_Token')->get('imp.compose');
             $request->formToken = Horde_Token::generateId('compose');
-            Horde::sendHTTPResponse(Horde::prepareResponse($request), 'json');
-            exit;
+
+            $response = new Horde_Core_Ajax_Response_Raw($request);
+            $response->sendAndExit('json');
         }
 
         break;
@@ -697,18 +696,17 @@ if ($prefs->getValue('use_pgp') &&
     $default_encrypt = $prefs->getValue('default_encrypt');
     if (!$vars->compose_formToken &&
         in_array($default_encrypt, array(IMP_Crypt_Pgp::ENCRYPT, IMP_Crypt_Pgp::SIGNENC))) {
-        try {
-            $addrs = $imp_compose->recipientList($header);
-            if (!empty($addrs['list'])) {
-                $imp_pgp = $injector->getInstance('IMP_Crypt_Pgp');
+        $addrs = $imp_compose->recipientList($header);
+        if (!empty($addrs['list'])) {
+            $imp_pgp = $injector->getInstance('IMP_Crypt_Pgp');
+            try {
                 foreach ($addrs['list'] as $val) {
-                    $imp_pgp->getPublicKey($val);
+                    $imp_pgp->getPublicKey(strval($val));
                 }
+            } catch (Horde_Exception $e) {
+                $notification->push(_("PGP encryption cannot be used by default as public keys cannot be found for all recipients."), 'horde.warning');
+                $encrypt_options = ($default_encrypt == IMP_Crypt_Pgp::ENCRYPT) ? IMP::ENCRYPT_NONE : IMP_Crypt_Pgp::SIGN;
             }
-        } catch (IMP_Compose_Exception $e) {
-        } catch (Horde_Exception $e) {
-            $notification->push(_("PGP encryption cannot be used by default as public keys cannot be found for all recipients."), 'horde.warning');
-            $encrypt_options = ($default_encrypt == IMP_Crypt_Pgp::ENCRYPT) ? IMP::ENCRYPT_NONE : IMP_Crypt_Pgp::SIGN;
         }
     }
 }
@@ -772,7 +770,7 @@ if ($redirect) {
         'compose_formToken' => Horde_Token::generateId('compose'),
         'compose_requestToken' => $injector->getInstance('Horde_Token')->get('imp.compose'),
         'composeCache' => $composeCacheID,
-        'mailbox' => IMP::$thismailbox->form_to,
+        'mailbox' => IMP::mailbox(true)->form_to,
         'oldrtemode' => $rtemode,
         'rtemode' => $rtemode,
         'user' => $registry->getAuth()
@@ -783,10 +781,6 @@ if ($redirect) {
     }
     foreach (array('page', 'start', 'popup', 'template_mode') as $val) {
         $hidden[$val] = htmlspecialchars($vars->$val);
-    }
-
-    if ($browser->hasQuirk('broken_multipart_form')) {
-        $hidden['msie_formdata_is_broken'] = '';
     }
 
     $hidden_val = array();
@@ -1093,7 +1087,7 @@ if ($showmenu) {
 Horde::addScriptFile('compose-base.js', 'imp');
 Horde::addScriptFile('compose.js', 'imp');
 Horde::addScriptFile('md5.js', 'horde');
-require IMP_TEMPLATES . '/common-header.inc';
+IMP::header($title);
 Horde::addInlineJsVars($js_vars);
 if (!$redirect) {
     Horde::addInlineScript($imp_ui->identityJs());

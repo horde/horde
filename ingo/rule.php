@@ -26,7 +26,7 @@ if (!$perms->hasAppPermission('allow_rules')) {
 }
 
 /* Load the Ingo_Script:: driver. */
-$ingo_script = Ingo::loadIngoScript();
+$ingo_script = $injector->getInstance('Ingo_Script');
 
 /* Redirect if no rules are available. */
 $availActions = $ingo_script->availableActions();
@@ -39,6 +39,7 @@ if (empty($availActions)) {
 $ingo_fields = Horde::loadConfiguration('fields.php', 'ingo_fields', 'ingo');
 
 /* Get the current rules. */
+$ingo_storage = $injector->getInstance('Ingo_Factory_Storage')->create();
 $filters = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
 
 /* Run through action handlers. */

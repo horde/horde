@@ -91,11 +91,18 @@ class Passwd_Factory_Driver extends Horde_Core_Factory_Base
             case 'Passwd_Driver_Vpopmail':
                 if (!($backend['params']['db'] instanceof Horde_Db_Adapter)) {
                     try {
-                        $backend['params']['db'] = empty($backend['params'])
-                            ? $this->_injector->getInstance('Horde_Db_Adapter')
-                            : $this->_injector
+                        if (empty($backend['params'])) {
+                            $backend['params']['db'] = $this->_injector
+                                ->getInstance('Horde_Db_Adapter');
+                        } else {
+                            $params = $backend['params'];
+                            unset($params['table'], $params['user_col'],
+                                  $params['pass_col'], $params['encryption'],
+                                  $params['show_encryption']);
+                            $backend['params']['db'] = $this->_injector
                                 ->getInstance('Horde_Core_Factory_Db')
-                                ->create('passwd', $backend['params']);
+                                ->create('passwd', $params);
+                        }
                     } catch (Horde_Db_Exception $e) {
                         throw new Passwd_Exception($e);
                     }

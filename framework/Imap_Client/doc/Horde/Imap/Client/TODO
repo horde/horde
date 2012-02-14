@@ -29,6 +29,11 @@ TODO for 2.0
 
       The return array keys should be returned in UTF-8, not UTF7-IMAP.
 
+  - Horde_Imap_Client_Data_Envelope
+      The *_decoded properties should be removed.  The addresses should be
+      stored MIME decoded within the Address objects - MIME [en|de]coding
+      should be done exclusively in there.
+
   - Horde_Imap_Client_Exception
 
       Remove deprecated constants.

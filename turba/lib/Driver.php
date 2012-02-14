@@ -1018,7 +1018,7 @@ class Turba_Driver implements Countable
                 if ($fields &&
                     (!isset($fields['LABEL']) ||
                      (isset($fields['LABEL']->Params['TYPE']) &&
-                      !isset($fields['LABEL']->Params['TYPE']->ValEnum['HOME'])))) {
+                      !$this->_hasValEnum($fields['LABEL']->Params['TYPE']->ValEnum, 'HOME')))) {
                     break;
                 }
                 if ($version == '2.1') {
@@ -1032,7 +1032,7 @@ class Turba_Driver implements Countable
                 if ($fields &&
                     (!isset($fields['LABEL']) ||
                      (isset($fields['LABEL']->Params['TYPE']) &&
-                      !isset($fields['LABEL']->Params['TYPE']->ValEnum['WORK'])))) {
+                      !$this->_hasValEnum($fields['LABEL']->Params['TYPE']->ValEnum, 'WORK')))) {
                     break;
                 }
                 if ($version == '2.1') {
@@ -1060,7 +1060,7 @@ class Turba_Driver implements Countable
                 if ($fields &&
                     (!isset($fields['TEL']) ||
                      (isset($fields['TEL']->Params['TYPE']) &&
-                      !array_key_exists('HOME', explode(',', $fields['TEL']->Params['TYPE']->ValEnum))))) {
+                      !$this->_hasValEnum($fields['TEL']->Params['TYPE']->ValEnum, 'HOME')))) {
                     break;
                 }
                 if ($version == '2.1') {
@@ -1074,7 +1074,7 @@ class Turba_Driver implements Countable
                 if ($fields &&
                     (!isset($fields['TEL']) ||
                      (isset($fields['TEL']->Params['TYPE']) &&
-                      !array_key_exists('WORK', explode(',', $fields['TEL']->Params['TYPE']->ValEnum))))) {
+                      !$this->_hasValEnum($fields['TEL']->Params['TYPE']->ValEnum, 'WORK')))) {
                     break;
                 }
                 if ($version == '2.1') {
@@ -1088,7 +1088,7 @@ class Turba_Driver implements Countable
                 if ($fields &&
                     (!isset($fields['TEL']) ||
                      (isset($fields['TEL']->Params['TYPE']) &&
-                      !array_key_exists('CELL', explode(',', $fields['TEL']->Params['TYPE']->ValEnum))))) {
+                      !$this->_hasValEnum($fields['TEL']->Params['TYPE']->ValEnum, 'CELL')))) {
                     break;
                 }
                 if ($version == '2.1') {
@@ -1105,7 +1105,7 @@ class Turba_Driver implements Countable
                         break;
                     }
                     if (!isset($fields['TEL']->Params['TYPE']) ||
-                        array_key_exists('CELL', explode(',', $fields['TEL']->Params['TYPE']->ValEnum))) {
+                        $this->_hasValEnum($fields['TEL']->Params['TYPE']->ValEnum, 'CELL')) {
                         if ($version == '2.1') {
                             $parameters['CELL'] = null;
                             $parameters['VOICE'] = null;
@@ -1114,7 +1114,7 @@ class Turba_Driver implements Countable
                         }
                     }
                     if (!isset($fields['TEL']->Params['TYPE']) ||
-                        array_key_exists('HOME', explode(',', $fields['TEL']->Params['TYPE']->ValEnum))) {
+                        $this->_hasValEnum($fields['TEL']->Params['TYPE']->ValEnum, 'HOME')) {
                         if ($version == '2.1') {
                             $parameters['HOME'] = null;
                             $parameters['VOICE'] = null;
@@ -1142,7 +1142,7 @@ class Turba_Driver implements Countable
                         break;
                     }
                     if (!isset($fields['TEL']->Params['TYPE']) ||
-                        array_key_exists('CELL', explode(',', $fields['TEL']->Params['TYPE']->ValEnum))) {
+                        $this->_hasValEnum($fields['TEL']->Params['TYPE']->ValEnum, 'CELL')) {
                         if ($version == '2.1') {
                             $parameters['CELL'] = null;
                             $parameters['VOICE'] = null;
@@ -1151,7 +1151,7 @@ class Turba_Driver implements Countable
                         }
                     }
                     if (!isset($fields['TEL']->Params['TYPE']) ||
-                        isset($fields['TEL']->Params['TYPE']->ValEnum['WORK'])) {
+                        $this->_hasValEnum($fields['TEL']->Params['TYPE']->ValEnum, 'WORK')) {
                         if ($version == '2.1') {
                             $parameters['WORK'] = null;
                             $parameters['VOICE'] = null;
@@ -1176,7 +1176,7 @@ class Turba_Driver implements Countable
                 if ($fields &&
                     (!isset($fields['TEL']) ||
                      (isset($fields['TEL']->Params['TYPE']) &&
-                      !isset($fields['TEL']->Params['TYPE']->ValEnum['VIDEO'])))) {
+                      !$this->_hasValEnum($fields['TEL']->Params['TYPE']->ValEnum, 'VIDEO')))) {
                     break;
                 }
                 if ($version == '2.1') {
@@ -1193,7 +1193,7 @@ class Turba_Driver implements Countable
                         break;
                     }
                     if (!isset($fields['TEL']->Params['TYPE']) ||
-                        isset($fields['TEL']->Params['TYPE']->ValEnum['VIDEO'])) {
+                        $this->_hasValEnum($fields['TEL']->Params['TYPE']->ValEnum, 'VIDEO')) {
                         if ($version == '2.1') {
                             $parameters['VIDEO'] = null;
                         } else {
@@ -1201,7 +1201,7 @@ class Turba_Driver implements Countable
                         }
                     }
                     if (!isset($fields['TEL']->Params['TYPE']) ||
-                        isset($fields['TEL']->Params['TYPE']->ValEnum['HOME'])) {
+                        $this->_hasValEnum($fields['TEL']->Params['TYPE']->ValEnum, 'HOME')) {
                         if ($version == '2.1') {
                             $parameters['HOME'] = null;
                         } else {
@@ -1228,7 +1228,7 @@ class Turba_Driver implements Countable
                         break;
                     }
                     if (!isset($fields['TEL']->Params['TYPE']) ||
-                        isset($fields['TEL']->Params['TYPE']->ValEnum['VIDEO'])) {
+                        $this->_hasValEnum($fields['TEL']->Params['TYPE']->ValEnum, 'VIDEO')) {
                         if ($version == '2.1') {
                             $parameters['VIDEO'] = null;
                         } else {
@@ -1236,7 +1236,7 @@ class Turba_Driver implements Countable
                         }
                     }
                     if (!isset($fields['TEL']->Params['TYPE']) ||
-                        isset($fields['TEL']->Params['TYPE']->ValEnum['WORK'])) {
+                        $this->_hasValEnum($fields['TEL']->Params['TYPE']->ValEnum, 'WORK')) {
                         if ($version == '2.1') {
                             $parameters['WORK'] = null;
                         } else {
@@ -1266,7 +1266,7 @@ class Turba_Driver implements Countable
                 if ($fields &&
                     (!isset($fields['X-SIP']) ||
                      (isset($fields['X-SIP']->Params['TYPE']) &&
-                      !isset($fields['X-SIP']->Params['TYPE']->ValEnum['POC'])))) {
+                      !$this->_hasValEnum($fields['X-SIP']->Params['TYPE']->ValEnum, 'POC')))) {
                     break;
                 }
                 if ($version == '2.1') {
@@ -1280,7 +1280,7 @@ class Turba_Driver implements Countable
                 if ($fields &&
                     (!isset($fields['X-SIP']) ||
                      (isset($fields['X-SIP']->Params['TYPE']) &&
-                      !isset($fields['X-SIP']->Params['TYPE']->ValEnum['VOIP'])))) {
+                      !$this->_hasValEnum($fields['X-SIP']->Params['TYPE']->ValEnum, 'VOIP')))) {
                     break;
                 }
                 if ($version == '2.1') {
@@ -1294,7 +1294,7 @@ class Turba_Driver implements Countable
                 if ($fields &&
                     (!isset($fields['X-SIP']) ||
                      (isset($fields['X-SIP']->Params['TYPE']) &&
-                      !isset($fields['X-SIP']->Params['TYPE']->ValEnum['SWIS'])))) {
+                      !$this->_hasValEnum($fields['X-SIP']->Params['TYPE']->ValEnum, 'SWIS')))) {
                     break;
                 }
                 if ($version == '2.1') {
@@ -1315,7 +1315,7 @@ class Turba_Driver implements Countable
                 if ($fields &&
                     (!isset($fields['TEL']) ||
                      (isset($fields['TEL']->Params['TYPE']) &&
-                      !isset($fields['TEL']->Params['TYPE']->ValEnum['FAX'])))) {
+                      !$this->_hasValEnum($fields['TEL']->Params['TYPE']->ValEnum, 'FAX')))) {
                     break;
                 }
                 if ($version == '2.1') {
@@ -1332,7 +1332,7 @@ class Turba_Driver implements Countable
                         break;
                     }
                     if (!isset($fields['TEL']->Params['TYPE']) ||
-                        isset($fields['TEL']->Params['TYPE']->ValEnum['FAX'])) {
+                        $this->_hasValEnum($fields['TEL']->Params['TYPE']->ValEnum, 'FAX')) {
                         if ($version == '2.1') {
                             $parameters['FAX'] = null;
                         } else {
@@ -1340,7 +1340,7 @@ class Turba_Driver implements Countable
                         }
                     }
                     if (!isset($fields['TEL']->Params['TYPE']) ||
-                        isset($fields['TEL']->Params['TYPE']->ValEnum['HOME'])) {
+                        $this->_hasValEnum($fields['TEL']->Params['TYPE']->ValEnum, 'HOME')) {
                         if ($version == '2.1') {
                             $parameters['HOME'] = null;
                         } else {
@@ -1367,7 +1367,7 @@ class Turba_Driver implements Countable
                         break;
                     }
                     if (!isset($fields['TEL']->Params['TYPE']) ||
-                        isset($fields['TEL']->Params['TYPE']->ValEnum['FAX'])) {
+                        $this->_hasValEnum($fields['TEL']->Params['TYPE']->ValEnum, 'FAX')) {
                         if ($version == '2.1') {
                             $parameters['FAX'] = null;
                         } else {
@@ -1375,7 +1375,7 @@ class Turba_Driver implements Countable
                         }
                     }
                     if (!isset($fields['TEL']->Params['TYPE']) ||
-                        isset($fields['TEL']->Params['TYPE']->ValEnum['WORK'])) {
+                        $this->_hasValEnum($fields['TEL']->Params['TYPE']->ValEnum, 'WORK')) {
                         if ($version == '2.1') {
                             $parameters['WORK'] = null;
                         } else {
@@ -1404,7 +1404,7 @@ class Turba_Driver implements Countable
                 if ($fields &&
                     (!isset($fields['TEL']) ||
                      (isset($fields['TEL']->Params['TYPE']) &&
-                      !isset($fields['TEL']->Params['TYPE']->ValEnum['PAGER'])))) {
+                      !$this->_hasValEnum($fields['TEL']->Params['TYPE']->ValEnum, 'PAGER')))) {
                     break;
                 }
                 if ($version == '2.1') {
@@ -1435,7 +1435,7 @@ class Turba_Driver implements Countable
                 if ($fields &&
                     (!isset($fields['EMAIL']) ||
                      (isset($fields['EMAIL']->Params['TYPE']) &&
-                      !isset($fields['EMAIL']->Params['TYPE']->ValEnum['HOME'])))) {
+                      !$this->_hasValEnum($fields['EMAIL']->Params['TYPE']->ValEnum, 'HOME')))) {
                     break;
                 }
                 if ($version == '2.1') {
@@ -1453,7 +1453,7 @@ class Turba_Driver implements Countable
                 if ($fields &&
                     (!isset($fields['EMAIL']) ||
                      (isset($fields['EMAIL']->Params['TYPE']) &&
-                      !isset($fields['EMAIL']->Params['TYPE']->ValEnum['WORK'])))) {
+                      !$this->_hasValEnum($fields['EMAIL']->Params['TYPE']->ValEnum, 'WORK')))) {
                     break;
                 }
                 if ($version == '2.1') {
@@ -1535,7 +1535,7 @@ class Turba_Driver implements Countable
                 if ($fields &&
                     (!isset($fields['URL']) ||
                      (isset($fields['URL']->Params['TYPE']) &&
-                      !isset($fields['URL']->Params['TYPE']->ValEnum['HOME'])))) {
+                      !$this->_hasValEnum($fields['URL']->Params['TYPE']->ValEnum, 'HOME')))) {
                     break;
                 }
                 if ($version == '2.1') {
@@ -1549,7 +1549,7 @@ class Turba_Driver implements Countable
                 if ($fields &&
                     (!isset($fields['URL']) ||
                      (isset($fields['URL']->Params['TYPE']) &&
-                      !isset($fields['URL']->Params['TYPE']->ValEnum['WORK'])))) {
+                      !$this->_hasValEnum($fields['URL']->Params['TYPE']->ValEnum, 'WORK')))) {
                     break;
                 }
                 if ($version == '2.1') {
@@ -1588,7 +1588,7 @@ class Turba_Driver implements Countable
                 if ($fields &&
                     (!isset($fields['GEO']) ||
                      (isset($fields['GEO']->Params['TYPE']) &&
-                      !isset($fields['GEO']->Params['TYPE']->ValEnum['HOME'])))) {
+                      !$this->_hasValEnum($fields['GEO']->Params['TYPE']->ValEnum, 'HOME')))) {
                     break;
                 }
                 if (isset($hash['homeLongitude'])) {
@@ -1610,7 +1610,7 @@ class Turba_Driver implements Countable
                 if ($fields &&
                     (!isset($fields['GEO']) ||
                      (isset($fields['GEO']->Params['TYPE']) &&
-                      !isset($fields['GEO']->Params['TYPE']->ValEnum['HOME'])))) {
+                      !$this->_hasValEnum($fields['GEO']->Params['TYPE']->ValEnum, 'HOME')))) {
                     break;
                 }
                 if (isset($hash['workLongitude'])) {
@@ -1642,7 +1642,7 @@ class Turba_Driver implements Countable
                     (!isset($fields[$name]) ||
                      (isset($params['TYPE']) &&
                       isset($fields[$name]->Params['TYPE']) &&
-                      !isset($fields[$name]->Params['TYPE']->ValEnum[$params['TYPE']])))) {
+                      !$this->_hasValEnum($fields[$name]->Params['TYPE']->ValEnum, $params['TYPE'])))) {
                     break;
                 }
                 $vcard->setAttribute($name,
@@ -1654,18 +1654,7 @@ class Turba_Driver implements Countable
 
         // No explicit firstname/lastname in data source: we have to guess.
         if (!isset($hash['lastname']) && isset($hash['name'])) {
-            if (($pos = strpos($hash['name'], ',')) !== false) {
-                // Assume Last, First
-                $hash['lastname'] = Horde_String::substr($hash['name'], 0, $pos);
-                $hash['firstname'] = trim(Horde_String::substr($hash['name'], $pos + 1));
-            } elseif (($pos = Horde_String::rpos($hash['name'], ' ')) !== false) {
-                // Assume everything after last space as lastname
-                $hash['lastname'] = trim(Horde_String::substr($hash['name'], $pos + 1));
-                $hash['firstname'] = Horde_String::substr($hash['name'], 0, $pos);
-            } else {
-                $hash['lastname'] = $hash['name'];
-                $hash['firstname'] = '';
-            }
+            $this->_guessName($hash);
         }
 
         $a = array(
@@ -1764,7 +1753,7 @@ class Turba_Driver implements Countable
         if ((!$fields ||
              (isset($fields['ADR']) &&
               (!isset($fields['ADR']->Params['TYPE']) ||
-               isset($fields['ADR']->Params['TYPE']->ValEnum['HOME'])))) &&
+               $this->_hasValEnum($fields['ADR']->Params['TYPE']->ValEnum, 'HOME')))) &&
             (!empty($hash['homeAddress']) ||
              !empty($hash['homeStreet']) ||
              !empty($hash['homePOBox']) ||
@@ -1817,7 +1806,7 @@ class Turba_Driver implements Countable
         if ((!$fields ||
              (isset($fields['ADR']) &&
               (!isset($fields['ADR']->Params['TYPE']) ||
-               isset($fields['ADR']->Params['TYPE']->ValEnum['WORK'])))) &&
+               $this->_hasValEnum($fields['ADR']->Params['TYPE']->ValEnum, 'WORK')))) &&
             (!empty($hash['workAddress']) ||
              !empty($hash['workStreet']) ||
              !empty($hash['workPOBox']) ||
@@ -1868,6 +1857,25 @@ class Turba_Driver implements Countable
         }
 
         return $vcard;
+    }
+
+    /**
+     * Returns whether a ValEnum entry from a DevInf object contains a certain
+     * type.
+     *
+     * @param array $valEnum  A ValEnum hash.
+     * @param string $type    A requested attribute type.
+     *
+     * @return boolean  True if $type exists in $valEnum.
+     */
+    protected function _hasValEnum($valEnum, $type)
+    {
+        foreach (array_keys($valEnum) as $key) {
+            if (in_array($type, explode(',', $key))) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -2310,6 +2318,31 @@ class Turba_Driver implements Countable
     {
         $message = new Horde_ActiveSync_Message_Contact(array('logger' => $GLOBALS['injector']->getInstance('Horde_Log_Logger')));
         $hash = $object->getAttributes();
+        if (!isset($hash['lastname']) && isset($hash['name'])) {
+            $this->_guessName($hash);
+        }
+
+        // Ensure we have at least a good guess as to separate address fields.
+        // Not ideal, but EAS does not have a single "address" field so we must
+        // map "common" to either home or work. I choose home since
+        // work/non-personal installs will be more likely to have separated
+        // address fields.
+        if (!empty($hash['commonAddress'])) {
+            if (!isset($hash['commonStreet'])) {
+                $hash['commonStreet'] = $hash['commonHome'];
+            }
+            foreach (array('Address', 'Street', 'POBox', 'Extended', 'City', 'Province', 'PostalCode', 'Country') as $field) {
+                $hash['home' . $field] = $hash['common' . $field];
+            }
+        } else {
+            if (isset($hash['homeAddress']) && !isset($hash['homeStreet'])) {
+                $hash['homeStreet'] = $hash['homeAddress'];
+            }
+            if (isset($hash['workAddress']) && !isset($hash['workStreet'])) {
+                $hash['workStreet'] = $hash['workAddress'];
+            }
+        }
+
         $haveDecodeHook = Horde::hookExists('decode_attribute', 'turba');
         foreach ($hash as $field => $value) {
             if ($haveDecodeHook) {
@@ -2360,8 +2393,6 @@ class Turba_Driver implements Countable
                 break;
 
             case 'homeStreet':
-                /* Address (TODO: check for a single home/workAddress field
-                 * instead) */
                 $message->homestreet = $hash['homeStreet'];
                 break;
 
@@ -2957,6 +2988,27 @@ class Turba_Driver implements Countable
         }
 
         return $this->_count;
+    }
+
+    /**
+     * Helper function for guessing name parts from a single name string.
+     *
+     * @param array $hash  The attributes array.
+     */
+    protected function _guessName(&$hash)
+    {
+        if (($pos = strpos($hash['name'], ',')) !== false) {
+            // Assume Last, First
+            $hash['lastname'] = Horde_String::substr($hash['name'], 0, $pos);
+            $hash['firstname'] = trim(Horde_String::substr($hash['name'], $pos + 1));
+        } elseif (($pos = Horde_String::rpos($hash['name'], ' ')) !== false) {
+            // Assume everything after last space as lastname
+            $hash['lastname'] = trim(Horde_String::substr($hash['name'], $pos + 1));
+            $hash['firstname'] = Horde_String::substr($hash['name'], 0, $pos);
+        } else {
+            $hash['lastname'] = $hash['name'];
+            $hash['firstname'] = '';
+        }
     }
 
 }

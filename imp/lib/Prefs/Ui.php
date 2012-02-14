@@ -187,12 +187,6 @@ class IMP_Prefs_Ui
                 }
                 break;
 
-            case 'dynamic_view':
-                if (!empty($conf['user']['force_view'])) {
-                    $ui->suppress[] = $val;
-                }
-                break;
-
             case 'empty_trash_menu':
             case 'purge_trash_interval':
             case 'purge_trash_keep':
@@ -305,7 +299,11 @@ class IMP_Prefs_Ui
                 break;
 
             case 'sourceselect':
-                Horde_Core_Prefs_Ui_Widgets::addressbooksInit();
+                if ($prefs->isLocked('search_sources')) {
+                    $ui->suppress[] = $val;
+                } else {
+                    Horde_Core_Prefs_Ui_Widgets::addressbooksInit();
+                }
                 break;
 
             case 'spamselect':
@@ -469,7 +467,7 @@ class IMP_Prefs_Ui
             return $this->_updateFlagManagement($ui);
 
         case 'initialpageselect':
-            return $prefs->setValue('initial_page', IMP_Mailbox::formFrom($ui->vars->initial_page));
+            return $prefs->setValue('initial_page', strval(IMP_Mailbox::formFrom($ui->vars->initial_page)));
 
         case 'newmail_soundselect':
             return $prefs->setValue('newmail_audio', $ui->vars->newmail_audio);
@@ -545,16 +543,6 @@ class IMP_Prefs_Ui
             if (!empty($maildomain)) {
                 $session->set('imp', 'maildomain', $maildomain);
             }
-        }
-
-        if ($prefs->isDirty('dynamic_view')) {
-            $session->set(
-                'imp',
-                'view',
-                ($prefs->getValue('dynamic_view') && $session->get('horde', 'mode') != 'traditional')
-                    ? 'dimp'
-                    : ($browser->isMobile() ? 'mimp' : 'imp')
-            );
         }
 
         if ($prefs->isDirty('subscribe') || $prefs->isDirty('tree_view')) {
@@ -1095,7 +1083,7 @@ class IMP_Prefs_Ui
                 if ($GLOBALS['session']->get('imp', 'file_upload')) {
                     $t->set('import_pgp_private', true);
                     Horde::addInlineScript(array(
-                        '$("import_pgp_personal").observe("click", function(e) { ' . Horde::popupJs($pgp_url, array('params' => array('actionID' => 'import_personal_public_key', 'reload' => $GLOBALS['session']->store($ui->selfUrl()->setRaw(true), false)), 'height' => 275, 'width' => 750, 'urlencode' => true)) . '; e.stop(); })'
+                        '$("import_pgp_personal").observe("click", function(e) { ' . Horde::popupJs($pgp_url, array('params' => array('actionID' => 'import_personal_key', 'reload' => $GLOBALS['session']->store($ui->selfUrl()->setRaw(true), false)), 'height' => 275, 'width' => 750, 'urlencode' => true)) . '; e.stop(); })'
                     ), 'dom');
                 }
 
@@ -1238,14 +1226,14 @@ class IMP_Prefs_Ui
      */
     protected function _searchesManagement()
     {
-        global $injector, $prefs;
+        global $injector, $prefs, $registry;
 
         $t = $injector->createInstance('Horde_Template');
         $t->setOption('gettext', true);
 
         $imp_search = $injector->getInstance('IMP_Search');
         $fout = $mailboxids = $vout = array();
-        $view_mode = IMP::getViewMode();
+        $view_mode = $registry->getView();
 
         $imp_search->setIteratorFilter(IMP_Search::LIST_VFOLDER | IMP_Search::LIST_DISABLED);
         $vfolder_locked = $prefs->isLocked('vfolder');
@@ -1256,11 +1244,11 @@ class IMP_Prefs_Ui
             }
 
             $editable = !$vfolder_locked && $imp_search->isVFolder($val, true);
-            $m_url = ($val->enabled && ($view_mode == 'imp'))
+            $m_url = ($val->enabled && ($view_mode == Horde_Registry::VIEW_BASIC))
                 ? $val->mbox_ob->url('mailbox.php')->link(array('class' => 'vfolderenabled'))
                 : null;
 
-            if ($view_mode == 'dimp') {
+            if ($view_mode == Horde_Registry::VIEW_DYNAMIC) {
                 $mailboxids['enable_' . $key] = $val->formid;
             }
 
@@ -1286,7 +1274,7 @@ class IMP_Prefs_Ui
 
             $editable = !$filter_locked && $imp_search->isFilter($val, true);
 
-            if ($editable && ($view_mode == 'dimp')) {
+            if ($editable && ($view_mode == Horde_Registry::VIEW_DYNAMIC)) {
                 $mailboxids['enable_' . $key] = $val->formid;
             }
 

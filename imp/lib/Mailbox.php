@@ -616,7 +616,6 @@ class IMP_Mailbox implements Serializable
             $special = $this->getSpecialMailboxes();
 
             switch ($this->_mbox) {
-            case 'INBOX':
             case $special[self::SPECIAL_COMPOSETEMPLATES]:
             case $special[self::SPECIAL_DRAFTS]:
             case $special[self::SPECIAL_SPAM]:
@@ -1016,17 +1015,15 @@ class IMP_Mailbox implements Serializable
 
         if ($delete) {
             unset($sortob[$mbox]);
-        } elseif (!is_null($by) || !is_null($dir)) {
-            $entry = $sortob[$mbox];
-
+        } else {
+            $change = array();
             if (!is_null($by)) {
-                $entry->sortby = $by;
+                $change['by'] = $by;
             }
             if (!is_null($dir)) {
-                $entry->sortdir = $dir;
+                $change['dir'] = $dir;
             }
-
-            $sortob[$mbox] = $entry;
+            $sortob[$mbox] = $change;
         }
     }
 
@@ -1169,12 +1166,14 @@ class IMP_Mailbox implements Serializable
             $url = clone $page;
         } else {
             if ($page != 'search.php') {
-                if (IMP::getViewMode() == 'dimp') {
+                switch ($GLOBALS['registry']->getView()) {
+                case Horde_Registry::VIEW_DYNAMIC:
                     $anchor = is_null($uid)
                         ? ('mbox:' . $this->form_to)
                         : ('msg:' . $this->getIndicesOb($uid)->formTo());
                     return Horde::url('index.php')->setAnchor($anchor);
-                } elseif (IMP::getViewMode() == 'mobile') {
+
+                case Horde_Registry::VIEW_SMARTMOBILE:
                     $anchor = is_null($uid)
                         ? ('mbox=' . $this->form_to)
                         : ('msg=' . $this->getIndicesOb($uid)->formTo());
@@ -1399,8 +1398,7 @@ class IMP_Mailbox implements Serializable
      * @return array  A list of folders, with the self::SPECIAL_* constants as
      *                keys and values containing the IMP_Mailbox objects or
      *                null if the mailbox doesn't exist (self::SPECIAL_SENT
-     *                contains an array of objects). These mailboxes are
-     *                sorted in a logical order (see Ticket #10683).
+     *                contains an array of objects).
      */
     static public function getSpecialMailboxes()
     {
@@ -1426,6 +1424,29 @@ class IMP_Mailbox implements Serializable
         }
 
         return self::$_temp[self::CACHE_SPECIALMBOXES];
+    }
+
+    /**
+     * Return the list of sorted special mailboxes.
+     *
+     * @return array  The list of sorted special mailboxes (IMP_Mailbox
+     *                objects).
+     */
+    static public function getSpecialMailboxesSort()
+    {
+        $tmp = array();
+
+        foreach (self::getSpecialMailboxes() as $val) {
+            if (!is_array($val)) {
+                $val = array($val);
+            }
+            foreach ($val as $val2) {
+                $tmp[strval($val2)] = $val2->abbrev_label;
+            }
+        }
+
+        asort($tmp, SORT_LOCALE_STRING);
+        return self::get(array_keys($tmp));
     }
 
     /**
@@ -1618,7 +1639,7 @@ class IMP_Mailbox implements Serializable
                 strpos($this->_mbox, $key) === 0) {
                 $len = strlen($key);
                 if ((strlen($this->_mbox) == $len) || ($this->_mbox[$len] == (is_null($ns_info) ? '' : $ns_info['delimiter']))) {
-                    $out = substr_replace($this->_mbox, Horde_String::convertCharset($val, 'UTF-8', 'UTF7-IMAP'), 0, $len);
+                    $out = substr_replace($this->_mbox, $val, 0, $len);
                     break;
                 }
             }

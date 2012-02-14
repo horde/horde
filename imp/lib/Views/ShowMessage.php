@@ -15,36 +15,67 @@
 class IMP_Views_ShowMessage
 {
     /**
-     * Builds a list of addresses from header information.
+     * Contents object.
      *
-     * @param array $addrlist  The list of addresses from
-     *                         Horde_Mime_Address::parseAddressList().
-     *
-     * @return array  Array with the following keys: inner, personal, raw.
+     * @var IMP_Contents
      */
-    private function _buildAddressList($addrlist)
+    protected $_contents;
+
+    /**
+     * Envelope object.
+     *
+     * @var Horde_Imap_Client_Data_Envelope
+     */
+    protected $_envelope;
+
+    /**
+     * Mailbox.
+     *
+     * @var IMP_Mailbox
+     */
+    protected $_mbox;
+
+    /**
+     * UID.
+     *
+     * @var string
+     */
+    protected $_uid;
+
+    /**
+     * Constructor.
+     *
+     * @param IMP_Mailbox $mbox  The mailbox of the message.
+     * @param integer $uid       The UID of the message.
+     */
+    public function __construct(IMP_Mailbox $mbox, $uid)
     {
-        if (empty($addrlist) || !is_array($addrlist)) {
-            return;
-        }
+        global $injector;
 
-        $addr_array = array();
+        /* Get envelope/header information. We don't use flags in this
+         * view. */
+        try {
+            $query = new Horde_Imap_Client_Fetch_Query();
+            $query->envelope();
 
-        foreach (Horde_Mime_Address::getAddressesFromObject($addrlist, array('charset' => 'UTF-8')) as $ob) {
-            if (!empty($ob['inner'])) {
-                try {
-                    $tmp = array('raw' => Horde::callHook('dimp_addressformatting', array($ob), 'imp'));
-                } catch (Horde_Exception_HookNotSet $e) {
-                    $tmp = array('inner' => $ob['inner']);
-                    if (!empty($ob['personal'])) {
-                        $tmp['personal'] = $ob['personal'];
-                    }
-                }
-                $addr_array[] = $tmp;
+            $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+            $fetch_ret = $imp_imap->fetch($mbox, $query, array(
+                'ids' => $imp_imap->getIdsOb($uid)
+            ));
+
+            if (!isset($fetch_ret[$uid])) {
+                throw new Exception();
             }
+
+            $imp_contents = $injector->getInstance('IMP_Factory_Contents')->create($mbox->getIndicesOb($uid));
+        } catch (Exception $e) {
+            throw new IMP_Exception(_("Requested message not found."));
         }
 
-        return $addr_array;
+        $this->_contents = $imp_contents;
+        $this->_envelope = $fetch_ret[$uid]->getEnvelope();
+        $this->_mbox = $mbox;
+        $this->_uid = $uid;
     }
 
     /**
@@ -53,11 +84,11 @@ class IMP_Views_ShowMessage
      * @param array $args  Configuration parameters:
      *   - headers: (array) The headers desired in the returned headers array
      *              (only used with non-preview view).
-     *   - mailbox: (IMP_Mailbox) The mailbox of the message.
      *   - preview: (boolean) Is this the preview view?
-     *   - uid: (integer) The UID of the message.
      *
      * @return array  Array with the following keys:
+     *   - addr_limit: Address field hit the limit; this indicates the total
+     *                 number of addresses.
      *   - atc_download: The download all link
      *   - atc_label: The label to use for Attachments
      *   - atc_list: The list (HTML code) of attachments
@@ -85,40 +116,17 @@ class IMP_Views_ShowMessage
     public function showMessage($args)
     {
         $preview = !empty($args['preview']);
-        $mailbox = $args['mailbox'];
-        $uid = $args['uid'];
 
         $result = array(
             'js' => array(),
-            'mbox' => $mailbox->form_to,
-            'uid' => $uid
+            'mbox' => $this->_mbox->form_to,
+            'uid' => $this->_uid
         );
 
         /* Set the current time zone. */
         $GLOBALS['registry']->setTimeZone();
 
-        /* Get envelope/header information. We don't use flags in this
-         * view. */
-        try {
-            $query = new Horde_Imap_Client_Fetch_Query();
-            $query->envelope();
-
-            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
-            $fetch_ret = $imp_imap->fetch($mailbox, $query, array(
-                'ids' => $imp_imap->getIdsOb($uid)
-            ));
-
-            if (!isset($fetch_ret[$uid])) {
-                throw new Exception();
-            }
-
-            $imp_contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($mailbox->getIndicesOb($uid));
-        } catch (Exception $e) {
-            throw new IMP_Exception(_("Requested message not found."));
-        }
-
-        $envelope = $fetch_ret[$uid]->getEnvelope();
-        $mime_headers = $imp_contents->getHeaderAndMarkAsSeen();
+        $mime_headers = $this->_contents->getHeaderAndMarkAsSeen();
         $headers = array();
 
         /* Initialize variables. */
@@ -141,12 +149,7 @@ class IMP_Views_ShowMessage
         foreach (array('from', 'to', 'cc', 'bcc', 'reply-to') as $val) {
             if (isset($headers_list[$val]) &&
                 (!$preview || ($val != 'reply-to'))) {
-                $tmp = $this->_buildAddressList(($val == 'reply-to') ? $envelope->reply_to : $envelope->$val);
-                if (!empty($tmp)) {
-                    $result[$val] = $tmp;
-                } elseif ($val == 'to') {
-                    $result[$val] = array(array('raw' => _("Undisclosed Recipients")));
-                }
+                $result = array_merge($result, $this->getAddressHeader($val));
                 if ($preview) {
                     unset($headers_list[$val]);
                 }
@@ -158,7 +161,7 @@ class IMP_Views_ShowMessage
             if ($val = $mime_headers->getValue($head)) {
                 if ($head == 'date') {
                     /* Add local time to date header. */
-                    $val = htmlspecialchars($imp_ui->getLocalTime($envelope->date));
+                    $val = htmlspecialchars($imp_ui->getLocalTime($this->_envelope->date));
                     if ($preview) {
                         $result['localdate'] = $val;
                     }
@@ -186,7 +189,7 @@ class IMP_Views_ShowMessage
 
         /* Grab maillog information. */
         if (!empty($GLOBALS['conf']['maillog']['use_maillog']) &&
-            ($tmp = IMP_Dimp::getMsgLogInfo($envelope->message_id))) {
+            ($tmp = IMP_Dimp::getMsgLogInfo($this->_envelope->message_id))) {
             $result['log'] = $tmp;
         }
 
@@ -244,7 +247,7 @@ class IMP_Views_ShowMessage
         }
 
         /* Do MDN processing now. */
-        if ($imp_ui->MDNCheck($mailbox, $uid, $mime_headers)) {
+        if ($imp_ui->MDNCheck($this->_mbox, $this->_uid, $mime_headers)) {
             $status = new IMP_Mime_Status(array(
                 _("The sender of this message is requesting notification from you when you have read this message."),
                 sprintf(_("Click %s to send the notification message."), Horde::link('#', '', '', '', '', '', '', array('id' => 'send_mdn_link')) . _("HERE") . '</a>')
@@ -255,7 +258,7 @@ class IMP_Views_ShowMessage
 
         /* Build body text. This needs to be done before we build the
          * attachment list. */
-        $inlineout = $imp_contents->getInlineOutput(array(
+        $inlineout = $this->_contents->getInlineOutput(array(
             'mask' => $contents_mask,
             'part_info_display' => $part_info_display,
             'show_parts' => $show_parts
@@ -273,7 +276,7 @@ class IMP_Views_ShowMessage
                 ? _("Parts")
                 : sprintf(ngettext("%d Attachment", "%d Attachments", count($inlineout['atc_parts'])), count($inlineout['atc_parts']));
             if (count($inlineout['atc_parts']) > 2) {
-                $result['atc_download'] = Horde::link($imp_contents->urlView($imp_contents->getMIMEMessage(), 'download_all')) . '[' . _("Save All") . ']</a>';
+                $result['atc_download'] = Horde::link($this->_contents->urlView($this->_contents->getMIMEMessage(), 'download_all')) . '[' . _("Save All") . ']</a>';
             }
         }
 
@@ -286,7 +289,7 @@ class IMP_Views_ShowMessage
             }
 
             foreach ($inlineout['atc_parts'] as $id) {
-                $summary = $imp_contents->getSummary($id, $contents_mask);
+                $summary = $this->_contents->getSummary($id, $contents_mask);
                 $tmp .= '<tr>';
                 foreach ($part_info as $val) {
                     $tmp .= '<td' .
@@ -299,7 +302,7 @@ class IMP_Views_ShowMessage
             $result['atc_list'] = $tmp;
         }
 
-        $result['save_as'] = Horde::downloadUrl(htmlspecialchars_decode($result['subject']), array_merge(array('actionID' => 'save_message'), $mailbox->urlParams($uid)));
+        $result['save_as'] = Horde::downloadUrl(htmlspecialchars_decode($result['subject']), array_merge(array('actionID' => 'save_message'), $this->_mbox->urlParams($this->_uid)));
 
         if ($preview) {
             try {
@@ -331,14 +334,65 @@ class IMP_Views_ShowMessage
         }
 
         /* Add changed flag information. */
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
         if ($imp_imap->imap) {
-            $status = $imp_imap->status($mailbox, Horde_Imap_Client::STATUS_PERMFLAGS);
+            $status = $imp_imap->status($this->_mbox, Horde_Imap_Client::STATUS_PERMFLAGS);
             if (in_array(Horde_Imap_Client::FLAG_SEEN, $status['permflags'])) {
-                $GLOBALS['injector']->getInstance('IMP_Ajax_Queue')->flag(array(Horde_Imap_Client::FLAG_SEEN), true, $mailbox->getIndicesOb($uid));
+                $GLOBALS['injector']->getInstance('IMP_Ajax_Queue')->flag(array(Horde_Imap_Client::FLAG_SEEN), true, $this->_mbox->getIndicesOb($this->_uid));
             }
         }
 
         return $result;
+    }
+
+    /**
+     * Return data to build an address header.
+     *
+     * @param string $header  The address header.
+     * @param integer $limit  Limit display to this many addresses.  If null,
+     *                        shows all addresses.
+     *
+     * @return array  The address list used by DimpCore.buildAddressLinks().
+     */
+    public function getAddressHeader($header, $limit = 50)
+    {
+        $addrlist = ($header == 'reply-to')
+            ? $this->_envelope->reply_to
+            : $this->_envelope->$header;
+        $addr_array = $out = array();
+
+        if (!empty($addrlist)) {
+            foreach (Horde_Mime_Address::getAddressesFromObject($addrlist, array('charset' => 'UTF-8')) as $ob) {
+                if (!is_null($limit) && (--$limit < 0)) {
+                    $out['addr_limit'][$header] = count($addrlist);
+                    break;
+                }
+
+                if (empty($ob['inner'])) {
+                    continue;
+                }
+
+                try {
+                    $tmp = array(
+                        'raw' => Horde::callHook('dimp_addressformatting', array($ob), 'imp')
+                    );
+                } catch (Horde_Exception_HookNotSet $e) {
+                    $tmp = array('inner' => $ob['inner']);
+                    if (!empty($ob['personal'])) {
+                        $tmp['personal'] = $ob['personal'];
+                    }
+                }
+                $addr_array[] = $tmp;
+            }
+        }
+
+        if (!empty($addr_array)) {
+            $out[$header] = $addr_array;
+        } elseif ($header == 'to') {
+            $out[$header] = array(array('raw' => _("Undisclosed Recipients")));
+        }
+
+        return $out;
     }
 
 }

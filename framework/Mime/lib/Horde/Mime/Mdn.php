@@ -124,27 +124,23 @@ class Horde_Mime_Mdn
      * @param boolean $sending  Was this MDN sent as a result of a manual
      *                          action on part of the user?
      * @param string $type      The type of action performed by the user.
-     * <pre>
-     * Per RFC 3798 [3.2.6.2] the following types are valid:
-     * 'displayed'
-     * 'deleted'
-     * </pre>
+     *                          Per RFC 3798 [3.2.6.2] the following types are
+     *                          valid:
+     *                            - deleted
+     *                            - displayed
      * @param string $name      The name of the local server.
      * @param Mail $mailer      A Mail driver.
      * @param array $opts       Additional options:
-     * <pre>
-     * 'charset' - (string) Default charset.
-     *             DEFAULT: NONE
-     * 'from_addr' - (string) From address.
-     *               DEFAULT: NONE
-     * </pre>
-     * @param array $mod        The list of modifications.
-     * <pre>
-     * Per RFC 3798 [3.2.6.3] the following modifications are valid:
-     * 'error'
-     * </pre>
+     *   - charset: (string) Default charset.
+     *              DEFAULT: NONE
+     *   - from_addr: (string) From address.
+     *                DEFAULT: NONE
+     * @param array $mod        The list of modifications. Per RFC 3798
+     *                          [3.2.6.3] the following modifications are
+     *                          valid:
+     *                            - error
      * @param array $err        If $mod is 'error', the additional
-     *                          information to provide.  Key is the type of
+     *                          information to provide. Key is the type of
      *                          modification, value is the text.
      *
      * @throws Horde_Mime_Exception

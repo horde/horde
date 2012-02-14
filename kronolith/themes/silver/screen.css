@@ -54,28 +54,37 @@ a#kronolithNotifications {
     background-image: url("graphics/close.png"), url("graphics/menu-active.png")
 }
 #kronolithSearchButton {
-    background-image: url('graphics/search.png');
+    background-image: url("graphics/search.png");
 }
 #kronolithMenu a.kronolithAdd {
     background-image: url("graphics/plus.png");
 }
+.kronolithToggleCollapse {
+    background-image: url("graphics/down.png");
+}
+.kronolithToggleExpand {
+    background-image: url("graphics/right.png");
+}
 .kronolithDialogInfo {
-    background-image: url('graphics/alerts/message.png');
+    background-image: url("graphics/alerts/message.png");
 }
 .kronolithDialogWarning {
-    background-image: url('graphics/alerts/warning.png');
+    background-image: url("graphics/alerts/warning.png");
 }
-.kronolithAttendeeNone {
+#kronolithEventTabAttendees td.kronolithAttendeeNone,
+#kronolithEventTabResources td.kronolithAttendeeNone {
     background-image: url("graphics/attendee-none.png");
 }
-.kronolithAttendeeAccepted {
+#kronolithEventTabAttendees td.kronolithAttendeeAccepted,
+#kronolithEventTabResources td.kronolithAttendeeAccepted {
     background-image: url("graphics/attendee-accepted.png");
 }
-.kronolithAttendeeDeclined {
+#kronolithEventTabAttendees td.kronolithAttendeeDeclined,
+#kronolithEventTabResources td.kronolithAttendeeDeclined {
     background-image: url("graphics/attendee-declined.png");
     text-decoration: line-through;
 }
-.kronolithAttendeeTentative {
+#kronolithEventTabAttendees td.kronolithAttendeeTentative {
     background-image: url("graphics/attendee-tentative.png");
 }
 #kronolithMinicalNext, .kronolithNext {
@@ -85,10 +94,10 @@ a#kronolithNotifications {
     background-image: url("graphics/left.png");
 }
 .kronolithPrint span {
-    background-image: url('graphics/print.png');
+    background-image: url("graphics/print.png");
 }
 .kronolithAddTask .kronolithAddTaskIcon {
-    background-image: url('graphics/new_task.png');
+    background-image: url("graphics/new_task.png");
 }
 
 /* Navigation bar. */

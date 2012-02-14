@@ -150,6 +150,233 @@ $_prefs['filter'] = array(
 
 
 
+// *** Filter Preferences ***
+
+$prefGroups['filters'] = array(
+    'column' => _("General"),
+    'label' => _("Filters"),
+    'desc' => _("Create filtering rules to organize your incoming mail, sort it into folders, and delete spam."),
+    'members' => array(
+        'filters_link', 'filters_blacklist_link', 'filters_whitelist_link',
+        'filter_on_login', 'filter_on_display', 'filter_any_mailbox',
+        'filter_menuitem'
+    )
+);
+
+$_prefs['filters_link'] = array(
+    'type' => 'link',
+    'img' => 'filters.png',
+    'desc' => _("Edit your Filter Rules"),
+    'help' => 'filter-edit-rules'
+);
+
+$_prefs['filters_blacklist_link'] = array(
+    'type' => 'link',
+    'img' => 'filters.png',
+    'desc' => _("Edit your Blacklist"),
+    'help' => 'filter-edit-blacklist'
+);
+
+$_prefs['filters_whitelist_link'] = array(
+    'type' => 'link',
+    'img' => 'filters.png',
+    'desc' => _("Edit your Whitelist"),
+    'help' => 'filter-edit-whitelist'
+);
+
+// run filters on login?
+$_prefs['filter_on_login'] = array(
+    'value' => 0,
+    'type' => 'checkbox',
+    'desc' => _("Apply filter rules upon logging on?"),
+    'help' => 'filter-on-login'
+);
+
+// run filters with INBOX display?
+$_prefs['filter_on_display'] = array(
+    'value' => 0,
+    'type' => 'checkbox',
+    'desc' => _("Apply filter rules whenever Inbox is displayed?"),
+    'help' => 'filter-on-display'
+);
+
+// Allow filters to be applied to any mailbox?
+$_prefs['filter_any_mailbox'] = array(
+    'value' => 0,
+    'type' => 'checkbox',
+    'desc' => _("Allow filter rules to be applied in any mailbox?"),
+    'help' => 'filter-any-mailbox'
+);
+
+// show filter icon on the menubar?
+$_prefs['filter_menuitem'] = array(
+    'value' => 0,
+    'type' => 'checkbox',
+    'desc' => _("Show the filter icon on the menubar?"),
+    'help' => 'filter-menuitem'
+);
+
+
+
+// *** Event Request Preferences ***
+
+$prefGroups['events'] = array(
+    'column' => _("General"),
+    'label' => _("Event Requests"),
+    'desc' => _("Configure how event or meeting requests should be handled."),
+    'members' => array('conflict_interval')
+);
+
+// Amount of minutes to consider a event as a non-conflicting one in iTip
+$_prefs['conflict_interval'] = array(
+    'value' => 30,
+    'type' => 'number',
+    'desc' => _("Minutes needed to consider a event as a non-conflicting one in iTip")
+);
+
+
+
+// *** PGP Preferences ***
+
+$prefGroups['pgp'] = array(
+    'column' => _("General"),
+    'label' => _("PGP"),
+    'desc' => _("Configure PGP encryption support."),
+    'members' => array(
+        'pgpmanagement'
+    )
+);
+
+// These preferences MUST appear on the same page.
+$_prefs['pgpmanagement'] = array(
+    'value' => array(
+        'use_pgp', 'use_pgp_text', 'pgp_attach_pubkey', 'pgp_scan_body',
+        'pgp_verify', 'pgp_reply_pubkey', 'pgppublickey', 'pgpprivatekey'
+    ),
+    'type' => 'container'
+);
+
+// Activate PGP support?
+$_prefs['use_pgp'] = array(
+    'value' => 0,
+    'type' => 'checkbox',
+    'desc' => _("Enable PGP functionality?"),
+    'help' => 'pgp-overview'
+);
+
+$_prefs['use_pgp_text'] = array(
+    'value' => '<div class="prefsPgpWarning">' . _("PGP support requires popup windows to be used.  If your browser is currently set to disable popup windows, you must change this setting or else the PGP features will not work correctly.") . '</div>',
+    'type' => 'rawhtml'
+);
+
+$_prefs['pgp_attach_pubkey'] = array(
+    'value' => 0,
+    'type' => 'checkbox',
+    'desc' => _("Should your PGP public key to be attached to your messages by default?"),
+    'help' => 'pgp-option-attach-pubkey'
+);
+
+$_prefs['pgp_scan_body'] = array(
+    'value' => 0,
+    'type' => 'checkbox',
+    'desc' => _("Should the body of text/plain messages be scanned for PGP data?"),
+    'help' => 'pgp-option-scan-body'
+);
+
+$_prefs['pgp_verify'] = array(
+    'value' => 1,
+    'type' => 'checkbox',
+    'desc' => _("Should PGP signed messages automatically be verified when viewed?"),
+    'help' => 'pgp-option-verify'
+);
+
+$_prefs['pgp_reply_pubkey'] = array(
+    'value' => 1,
+    'advanced' => true,
+    'type' => 'checkbox',
+    'desc' => _("Check for valid recipient PGP public keys while replying?"),
+    'help' => 'pgp-option-reply-pubkey'
+);
+
+$_prefs['pgppublickey'] = array(
+    'type' => 'special'
+);
+
+$_prefs['pgp_public_key'] = array(
+    'value' => ''
+);
+
+$_prefs['pgpprivatekey'] = array(
+    'type' => 'special'
+);
+
+$_prefs['pgp_private_key'] = array(
+    'value' => ''
+);
+
+
+
+// *** S/MIME Preferences ***
+
+$prefGroups['smime'] = array(
+    'column' => _("General"),
+    'label' => _("S/MIME"),
+    'desc' => _("Configure S/MIME encryption support."),
+    'members' => array(
+        'smimemanagement'
+    )
+);
+
+// These preferences MUST appear on the same page.
+$_prefs['smimemanagement'] = array(
+    'value' => array(
+        'use_smime', 'use_smime_text', 'smime_verify', 'smimepublickey',
+        'smimeprivatekey'
+    ),
+    'type' => 'container'
+);
+
+// Activate S/MIME support?
+$_prefs['use_smime'] = array(
+    'value' => 0,
+    'type' => 'checkbox',
+    'desc' => _("Enable S/MIME functionality?"),
+    'help' => 'smime-overview'
+);
+
+$_prefs['use_smime_text'] = array(
+    'value' => '<div class="prefsSmimeWarning">' . _("S/MIME support requires popup windows to be used.  If your browser is currently set to disable popup windows, you must change this setting or else the S/MIME features will not work correctly.") . '</div>',
+    'type' => 'rawhtml'
+);
+
+$_prefs['smime_verify'] = array(
+    'value' => 1,
+    'type' => 'checkbox',
+    'desc' => _("Should S/MIME signed messages automatically be verified when viewed?"),
+    'help' => 'smime-option-verify'
+);
+
+// S/MIME public key management widget
+$_prefs['smimepublickey'] = array(
+    'type' => 'special'
+);
+
+$_prefs['smime_public_key'] = array(
+    'value' => ''
+);
+
+// S/MIME private key management widget
+$_prefs['smimeprivatekey'] = array(
+    'type' => 'special'
+);
+
+$_prefs['smime_private_key'] = array(
+    'value' => ''
+);
+
+$_prefs['smime_additional_cert'] = array(
+    'value' => ''
+);
 // *** Compose Preferences ***
 
 $prefGroups['compose'] = array(
@@ -556,6 +783,77 @@ $_prefs['purge_sentmail_keep'] = array(
     'type' => 'number',
     'desc' => _("Purge messages in sent mail folder(s) older than this amount of days."),
     'help' => 'prefs-purge_sentmail_keep'
+);
+
+
+
+// *** Addressbook Preferences ***
+
+$prefGroups['addressbooks'] = array(
+    'column' => _("Compose"),
+    'label' => _("Address Books"),
+    'desc' => _("Select address book sources for adding and searching for addresses."),
+   'members' => array(
+        'save_recipients', 'display_contact', 'sourceselect', 'add_source'
+    )
+);
+
+// Should recipients of outgoing messages be added automatically to
+// the address book?
+$_prefs['save_recipients'] = array(
+    'value' => 0,
+    'type' => 'checkbox',
+    'desc' => _("Save recipients automatically to the default address book?")
+);
+
+// By default, display all contacts in the address book when loading
+// the contacts screen.  If your default address book is large and
+// slow to display, you may want to disable and lock this preference.
+$_prefs['display_contact'] = array(
+    'value' => 1,
+    'type' => 'checkbox',
+    'desc' => _("List all contacts when loading the contacts screen? (if disabled, you will only see contacts that you search for explicitly)")
+);
+
+// address book selection widget
+$_prefs['sourceselect'] = array(
+    'type' => 'special'
+);
+
+// Address book(s) to use when expanding addresses
+// Refer to turba/config/sources.php for possible source values
+//
+// You can provide default values this way:
+//   'value' => json_encode(array('source_one', 'source_two'))
+$_prefs['search_sources'] = array(
+    'value' => ''
+);
+
+// Field(s) to use when expanding addresses
+// Refer to turba/config/sources.php for possible source and field values
+//
+// If you want to provide a default value, this field depends on the
+// search_sources preference. For example:
+//   'value' => json_encode(array(
+//       'source_one' => array('field_one', 'field_two'),
+//       'source_two' => array('field_three')
+//   ))
+// will search the fields 'field_one' and 'field_two' in source_one and
+// 'field_three' in source_two.
+$_prefs['search_fields'] = array(
+    'value' => ''
+);
+
+// Address book to use for adding addresses.
+// If NOT using shared address books in Turba, you can put a $cfgSources array
+// element name in the value field. See the preference hook example in
+// config/hooks.php.dist if using shared address books.
+$_prefs['add_source'] = array(
+//  'value' => 'localsql',
+    'value' => '',
+    'type' => 'enum',
+    'enum' => array(),
+    'desc' => _("Choose the address book to use when adding addresses.")
 );
 
 
@@ -975,7 +1273,7 @@ $_prefs['show_all_flags'] = array(
 // *** Mailbox Display Preferences ***
 
 $prefGroups['mboxdisplay'] = array(
-    'column' => _("Other"),
+    'column' => _("Mailbox"),
     'label' => _("Mailbox Display"),
     'desc' => _("Change display preferences for viewing the listing of messages in a mailbox."),
     'members' => array(
@@ -1159,7 +1457,7 @@ $_prefs['mimp_preview_msg'] = array(
 // *** Folder Display Preferences ***
 
 $prefGroups['folderdisplay'] = array(
-    'column' => _("Other"),
+    'column' => _("Mailbox"),
     'label' => _("Folder Display"),
     'desc' => _("Change folder navigation display preferences."),
     'members' => array(
@@ -1213,322 +1511,4 @@ $_prefs['expanded_folders'] = array(
 // list of folders to poll for new mail
 $_prefs['nav_poll'] = array(
     'value' => ''
-);
-
-
-
-// *** Filter Preferences ***
-
-$prefGroups['filters'] = array(
-    'column' => _("Other"),
-    'label' => _("Filters"),
-    'desc' => _("Create filtering rules to organize your incoming mail, sort it into folders, and delete spam."),
-    'members' => array(
-        'filters_link', 'filters_blacklist_link', 'filters_whitelist_link',
-        'filter_on_login', 'filter_on_display', 'filter_any_mailbox',
-        'filter_menuitem'
-    )
-);
-
-$_prefs['filters_link'] = array(
-    'type' => 'link',
-    'img' => 'filters.png',
-    'desc' => _("Edit your Filter Rules"),
-    'help' => 'filter-edit-rules'
-);
-
-$_prefs['filters_blacklist_link'] = array(
-    'type' => 'link',
-    'img' => 'filters.png',
-    'desc' => _("Edit your Blacklist"),
-    'help' => 'filter-edit-blacklist'
-);
-
-$_prefs['filters_whitelist_link'] = array(
-    'type' => 'link',
-    'img' => 'filters.png',
-    'desc' => _("Edit your Whitelist"),
-    'help' => 'filter-edit-whitelist'
-);
-
-// run filters on login?
-$_prefs['filter_on_login'] = array(
-    'value' => 0,
-    'type' => 'checkbox',
-    'desc' => _("Apply filter rules upon logging on?"),
-    'help' => 'filter-on-login'
-);
-
-// run filters with INBOX display?
-$_prefs['filter_on_display'] = array(
-    'value' => 0,
-    'type' => 'checkbox',
-    'desc' => _("Apply filter rules whenever Inbox is displayed?"),
-    'help' => 'filter-on-display'
-);
-
-// Allow filters to be applied to any mailbox?
-$_prefs['filter_any_mailbox'] = array(
-    'value' => 0,
-    'type' => 'checkbox',
-    'desc' => _("Allow filter rules to be applied in any mailbox?"),
-    'help' => 'filter-any-mailbox'
-);
-
-// show filter icon on the menubar?
-$_prefs['filter_menuitem'] = array(
-    'value' => 0,
-    'type' => 'checkbox',
-    'desc' => _("Show the filter icon on the menubar?"),
-    'help' => 'filter-menuitem'
-);
-
-
-
-// *** Addressbook Preferences ***
-
-$prefGroups['addressbooks'] = array(
-    'column' => _("Other"),
-    'label' => _("Address Books"),
-    'desc' => _("Select address book sources for adding and searching for addresses."),
-   'members' => array(
-        'save_recipients', 'display_contact', 'sourceselect', 'add_source'
-    )
-);
-
-// Should recipients of outgoing messages be added automatically to
-// the address book?
-$_prefs['save_recipients'] = array(
-    'value' => 0,
-    'type' => 'checkbox',
-    'desc' => _("Save recipients automatically to the default address book?")
-);
-
-// By default, display all contacts in the address book when loading
-// the contacts screen.  If your default address book is large and
-// slow to display, you may want to disable and lock this preference.
-$_prefs['display_contact'] = array(
-    'value' => 1,
-    'type' => 'checkbox',
-    'desc' => _("List all contacts when loading the contacts screen? (if disabled, you will only see contacts that you search for explicitly)")
-);
-
-// address book selection widget
-$_prefs['sourceselect'] = array(
-    'type' => 'special'
-);
-
-// Address book(s) to use when expanding addresses
-// Refer to turba/config/sources.php for possible source values
-//
-// You can provide default values this way:
-//   'value' => json_encode(array('source_one', 'source_two'))
-$_prefs['search_sources'] = array(
-    'value' => ''
-);
-
-// Field(s) to use when expanding addresses
-// Refer to turba/config/sources.php for possible source and field values
-//
-// If you want to provide a default value, this field depends on the
-// search_sources preference. For example:
-//   'value' => json_encode(array(
-//       'source_one' => array('field_one', 'field_two'),
-//       'source_two' => array('field_three')
-//   ))
-// will search the fields 'field_one' and 'field_two' in source_one and
-// 'field_three' in source_two.
-$_prefs['search_fields'] = array(
-    'value' => ''
-);
-
-// Address book to use for adding addresses.
-// If NOT using shared address books in Turba, you can put a $cfgSources array
-// element name in the value field. See the preference hook example in
-// config/hooks.php.dist if using shared address books.
-$_prefs['add_source'] = array(
-//  'value' => 'localsql',
-    'value' => '',
-    'type' => 'enum',
-    'enum' => array(),
-    'desc' => _("Choose the address book to use when adding addresses.")
-);
-
-
-
-// *** Event Request Preferences ***
-
-$prefGroups['events'] = array(
-    'column' => _("Other"),
-    'label' => _("Event Requests"),
-    'desc' => _("Configure how event or meeting requests should be handled."),
-    'members' => array('conflict_interval')
-);
-
-// Amount of minutes to consider a event as a non-conflicting one in iTip
-$_prefs['conflict_interval'] = array(
-    'value' => 30,
-    'type' => 'number',
-    'desc' => _("Minutes needed to consider a event as a non-conflicting one in iTip")
-);
-
-
-
-// *** PGP Preferences ***
-
-$prefGroups['pgp'] = array(
-    'column' => _("Other"),
-    'label' => _("PGP"),
-    'desc' => sprintf(_("Control PGP support for %s."), $GLOBALS['registry']->get('name')),
-    'members' => array(
-        'pgpmanagement'
-    )
-);
-
-// These preferences MUST appear on the same page.
-$_prefs['pgpmanagement'] = array(
-    'value' => array(
-        'use_pgp', 'use_pgp_text', 'pgp_attach_pubkey', 'pgp_scan_body',
-        'pgp_verify', 'pgp_reply_pubkey', 'pgppublickey', 'pgpprivatekey'
-    ),
-    'type' => 'container'
-);
-
-// Activate PGP support?
-$_prefs['use_pgp'] = array(
-    'value' => 0,
-    'type' => 'checkbox',
-    'desc' => _("Enable PGP functionality?"),
-    'help' => 'pgp-overview'
-);
-
-$_prefs['use_pgp_text'] = array(
-    'value' => '<div class="prefsPgpWarning">' . _("PGP support requires popup windows to be used.  If your browser is currently set to disable popup windows, you must change this setting or else the PGP features will not work correctly.") . '</div>',
-    'type' => 'rawhtml'
-);
-
-$_prefs['pgp_attach_pubkey'] = array(
-    'value' => 0,
-    'type' => 'checkbox',
-    'desc' => _("Should your PGP public key to be attached to your messages by default?"),
-    'help' => 'pgp-option-attach-pubkey'
-);
-
-$_prefs['pgp_scan_body'] = array(
-    'value' => 0,
-    'type' => 'checkbox',
-    'desc' => _("Should the body of text/plain messages be scanned for PGP data?"),
-    'help' => 'pgp-option-scan-body'
-);
-
-$_prefs['pgp_verify'] = array(
-    'value' => 1,
-    'type' => 'checkbox',
-    'desc' => _("Should PGP signed messages automatically be verified when viewed?"),
-    'help' => 'pgp-option-verify'
-);
-
-$_prefs['pgp_reply_pubkey'] = array(
-    'value' => 1,
-    'advanced' => true,
-    'type' => 'checkbox',
-    'desc' => _("Check for valid recipient PGP public keys while replying?"),
-    'help' => 'pgp-option-reply-pubkey'
-);
-
-$_prefs['pgppublickey'] = array(
-    'type' => 'special'
-);
-
-$_prefs['pgp_public_key'] = array(
-    'value' => ''
-);
-
-$_prefs['pgpprivatekey'] = array(
-    'type' => 'special'
-);
-
-$_prefs['pgp_private_key'] = array(
-    'value' => ''
-);
-
-
-
-// *** S/MIME Preferences ***
-
-$prefGroups['smime'] = array(
-    'column' => _("Other"),
-    'label' => _("S/MIME"),
-    'desc' => sprintf(_("Control S/MIME support for %s."), $GLOBALS['registry']->get('name')),
-    'members' => array(
-        'smimemanagement'
-    )
-);
-
-// These preferences MUST appear on the same page.
-$_prefs['smimemanagement'] = array(
-    'value' => array(
-        'use_smime', 'use_smime_text', 'smime_verify', 'smimepublickey',
-        'smimeprivatekey'
-    ),
-    'type' => 'container'
-);
-
-// Activate S/MIME support?
-$_prefs['use_smime'] = array(
-    'value' => 0,
-    'type' => 'checkbox',
-    'desc' => _("Enable S/MIME functionality?"),
-    'help' => 'smime-overview'
-);
-
-$_prefs['use_smime_text'] = array(
-    'value' => '<div class="prefsSmimeWarning">' . _("S/MIME support requires popup windows to be used.  If your browser is currently set to disable popup windows, you must change this setting or else the S/MIME features will not work correctly.") . '</div>',
-    'type' => 'rawhtml'
-);
-
-$_prefs['smime_verify'] = array(
-    'value' => 1,
-    'type' => 'checkbox',
-    'desc' => _("Should S/MIME signed messages automatically be verified when viewed?"),
-    'help' => 'smime-option-verify'
-);
-
-// S/MIME public key management widget
-$_prefs['smimepublickey'] = array(
-    'type' => 'special'
-);
-
-$_prefs['smime_public_key'] = array(
-    'value' => ''
-);
-
-// S/MIME private key management widget
-$_prefs['smimeprivatekey'] = array(
-    'type' => 'special'
-);
-
-$_prefs['smime_private_key'] = array(
-    'value' => ''
-);
-
-$_prefs['smime_additional_cert'] = array(
-    'value' => ''
-);
-
-
-
-// *** View Preferences ***
-$prefGroups['views'] = array(
-    'column' => _("Other"),
-    'label' => _("Views"),
-    'desc' => _("Configure view preferences."),
-    'members' => array('dynamic_view')
-);
-
-// Show dynamic view?
-$_prefs['dynamic_view'] = array(
-   'value' => 1,
-   'type' => 'checkbox',
-   'desc' => _("Show the dynamic view by default, if the browser supports it?")
 );

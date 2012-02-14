@@ -2,6 +2,11 @@
 v3.1-git
 --------
 
+[jan] Make calendar lists collapsible (Request #10865).
+[jan] Delay calendar list loading to speed up initial display.
+[mjr] Implement resource scheduling in dynamic view (Request #9774).
+[mjr] Fix issue that could cause incorrect freebusy data to be displayed in
+      certain circumstances.
 [mjr] Prompt to send updates when modifying an event with attendees (Request
       #10724).
 [mjr] Add heatmap to year view (Request #10658).
@@ -18,9 +23,17 @@ v3.1-git
 
 
 -----------
-v3.0.15-git
+v3.0.16-git
 -----------
 
+
+
+-------
+v3.0.15
+-------
+
+[jan] Search complete names and addresses when auto-completing attendees.
+[jan] Fix syntax error in migration script (Bug #10902).
 
 
 -------

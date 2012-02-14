@@ -12,11 +12,11 @@ class Kronolith_FreeBusy
      * hour, as well.
      *
      * @param string|array $calendars  The calendar to view free/busy slots for.
-     * @param integer $startstamp     The start of the time period to retrieve.
-     * @param integer $endstamp       The end of the time period to retrieve.
-     * @param boolean $returnObj      Default false. Return a vFreebusy object
-     *                                instead of text.
-     * @param string $user            Set organizer to this user.
+     * @param integer $startstamp      The start of the time period to retrieve.
+     * @param integer $endstamp        The end of the time period to retrieve.
+     * @param boolean $returnObj       Default false. Return a vFreebusy object
+     *                                 instead of text.
+     * @param string $user             Set organizer to this user.
      *
      * @return string  The free/busy text.
      * @throws Horde_Exception
@@ -25,13 +25,13 @@ class Kronolith_FreeBusy
                                     $endstamp = null, $returnObj = false,
                                     $user = null)
     {
-        global $kronolith_shares;
-
         if (!is_array($calendars)) {
             $calendars = array($calendars);
         }
 
         if (!$user) {
+            $kronolith_shares = $GLOBALS['injector']->getInstance('Kronolith_Shares');
+
             /* Find a share and retrieve owner. */
             foreach ($calendars as $calendar) {
                 if (strpos($calendar, 'internal_') !== 0) {
@@ -268,7 +268,7 @@ class Kronolith_FreeBusy
      *
      * @return object  A simple object representation.
      */
-    function toJson(Horde_Icalendar_Vfreebusy $fb)
+    public static function toJson(Horde_Icalendar_Vfreebusy $fb)
     {
         $json = new stdClass;
         $start = $fb->getStart();

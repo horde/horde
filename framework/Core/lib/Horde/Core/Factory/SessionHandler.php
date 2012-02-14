@@ -54,7 +54,8 @@ class Horde_Core_Factory_SessionHandler extends Horde_Core_Factory_Injector
             break;
 
         case 'sql':
-            $params['db'] = $injector->getInstance('Horde_Db_Adapter');
+            $factory = $injector->getInstance('Horde_Core_Factory_Db');
+            $params['db'] = $factory->createDb($factory->getConfig('sessionhandler'));
             break;
         }
 

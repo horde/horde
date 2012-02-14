@@ -579,7 +579,7 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
 
         if ($this->_mailbox->search) {
             if (is_null($mbox)) {
-                $mbox = IMP::$thismailbox;
+                $mbox = IMP::mailbox(true);
             }
 
             /* Need to compare both mbox name and message UID to obtain the

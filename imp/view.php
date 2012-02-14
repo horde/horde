@@ -69,20 +69,20 @@ case 'compose_attach_preview':
     break;
 
 case 'download_mbox':
-    if (empty(IMP::$thismailbox)) {
+    if (!IMP::mailbox(true)) {
         exit;
     }
 
     // Exception will be displayed as fatal error.
-    $injector->getInstance('IMP_Ui_Folder')->downloadMbox(array(strval(IMP::$thismailbox)), $vars->zip);
+    $injector->getInstance('IMP_Ui_Folder')->downloadMbox(array(strval(IMP::mailbox(true))), $vars->zip);
     break;
 
 default:
-    if (empty(IMP::$thismailbox) || empty(IMP::$uid)) {
+    if (!IMP::mailbox(true) || !IMP::uid()) {
         exit;
     }
 
-    $contents = $injector->getInstance('IMP_Factory_Contents')->create(IMP::$thismailbox->getIndicesOb(IMP::$uid));
+    $contents = $injector->getInstance('IMP_Factory_Contents')->create(IMP::mailbox(true)->getIndicesOb(IMP::uid()));
     break;
 }
 
@@ -191,29 +191,20 @@ case 'view_attach':
     }
     break;
 
+case 'save_message':
 case 'view_source':
     $msg = $contents->fullMessageText(array('stream' => true));
     fseek($msg, 0, SEEK_END);
-    $browser->downloadHeaders('Message Source', 'text/plain', true, ftell($msg));
-    rewind($msg);
-    while (!feof($msg)) {
-        echo fread($msg, 8192);
-    }
-    fclose($msg);
-    break;
 
-case 'save_message':
-    $mime_headers = $contents->getHeader();
-
-    if (($subject = $mime_headers->getValue('subject'))) {
-        $name = _sanitizeName($subject);
+    if ($vars->actionID == 'save_message') {
+        $name = ($subject = $contents->getHeader()->getValue('subject'))
+            ? _sanitizeName($subject)
+            : 'saved_message';
+        $browser->downloadHeaders($name . '.eml', 'message/rfc822', false, ftell($msg));
     } else {
-        $name = 'saved_message';
+        $browser->downloadHeaders(_("Message Source"), 'text/plain', true, ftell($msg));
     }
 
-    $msg = $contents->fullMessageText(array('stream' => true));
-    fseek($msg, 0, SEEK_END);
-    $browser->downloadHeaders($name . '.eml', 'message/rfc822', false, ftell($msg));
     rewind($msg);
     while (!feof($msg)) {
         echo fread($msg, 8192);

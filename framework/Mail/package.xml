@@ -16,11 +16,11 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-01-17</date>
- <time>12:28:04</time>
+ <date>2012-02-06</date>
+ <time>23:07:37</time>
  <version>
-  <release>1.0.4</release>
-  <api>1.0.0</api>
+  <release>1.1.0</release>
+  <api>1.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -28,7 +28,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-* 
+* [mms] Created Horde_Mail_Rfc822_Address and Horde_Mail_Rfc822_Group objects to represent e-mail addresses.
+* [mms] Improved parser for e-mail addresses (Request #10949).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -36,12 +37,18 @@
     <dir name="Horde">
      <dir name="Mail">
       <file name="COPYING" role="doc" />
+      <file name="TODO" role="doc" />
+      <file name="UPGRADING" role="doc" />
      </dir> <!-- /doc/Horde/Mail -->
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Mail">
+      <dir name="Rfc822">
+       <file name="Address.php" role="php" />
+       <file name="Group.php" role="php" />
+      </dir> <!-- /lib/Horde/Mail/Rfc822 -->
       <dir name="Transport">
        <file name="Mail.php" role="php" />
        <file name="Mock.php" role="php" />
@@ -84,6 +91,13 @@
     <exclude>2.0.0</exclude>
    </package>
    <package>
+    <name>Horde_Mime</name>
+    <channel>pear.horde.org</channel>
+    <min>1.5.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
     <name>Horde_Stream_Filter</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0</min>
@@ -106,10 +120,14 @@
  <phprelease>
   <filelist>
    <install as="COPYING" name="doc/Horde/Mail/COPYING" />
+   <install as="TODO" name="doc/Horde/Mail/TODO" />
+   <install as="UPGRADING" name="doc/Horde/Mail/UPGRADING" />
    <install as="Horde/Mail.php" name="lib/Horde/Mail.php" />
    <install as="Horde/Mail/Exception.php" name="lib/Horde/Mail/Exception.php" />
    <install as="Horde/Mail/Rfc822.php" name="lib/Horde/Mail/Rfc822.php" />
    <install as="Horde/Mail/Transport.php" name="lib/Horde/Mail/Transport.php" />
+   <install as="Horde/Mail/Rfc822/Address.php" name="lib/Horde/Mail/Rfc822/Address.php" />
+   <install as="Horde/Mail/Rfc822/Group.php" name="lib/Horde/Mail/Rfc822/Group.php" />
    <install as="Horde/Mail/Transport/Mail.php" name="lib/Horde/Mail/Transport/Mail.php" />
    <install as="Horde/Mail/Transport/Mock.php" name="lib/Horde/Mail/Transport/Mock.php" />
    <install as="Horde/Mail/Transport/Null.php" name="lib/Horde/Mail/Transport/Null.php" />
@@ -240,15 +258,16 @@
   </release>
   <release>
    <version>
-    <release>1.0.4</release>
-    <api>1.0.0</api></version>
+    <release>1.1.0</release>
+    <api>1.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-01-17</date>
+   <date>2012-02-06</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
-* 
+* [mms] Created Horde_Mail_Rfc822_Address and Horde_Mail_Rfc822_Group objects to represent e-mail addresses.
+* [mms] Improved parser for e-mail addresses (Request #10949).
    </notes>
   </release>
  </changelog>

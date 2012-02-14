@@ -987,15 +987,21 @@ abstract class Horde_Db_Adapter_Base_Schema
      *
      * @since Horde_Db 1.2.0
      *
-     * @param string $reference  The reference date - this is a column referenced in the SELECT.
+     * @param string $reference  The reference date - this is a column
+     *                           referenced in the SELECT.
      * @param string $operator   Add or subtract time? (+/-)
-     * @param string $amount     The shift amount (number of days if $interval is DAY, etc).
-     * @param string $interval   The interval (SECOND, MINUTE, HOUR, DAY, MONTH, YEAR).
+     * @param integer $amount    The shift amount (number of days if $interval
+     *                           is DAY, etc).
+     * @param string $interval   The interval (SECOND, MINUTE, HOUR, DAY,
+     *                           MONTH, YEAR).
      *
      * @return string  The generated INTERVAL clause.
      */
     public function modifyDate($reference, $operator, $amount, $interval)
     {
+        if (!is_int($amount)) {
+            throw new InvalidArgumentException('$amount parameter must be an integer');
+        }
         return sprintf('%s %s INTERVAL \'%s\' %s',
                        $reference,
                        $operator,

@@ -122,40 +122,9 @@
    <tag:html />
   </div>
  </div>
-
- <div class="context" id="ctx_replypopdown" style="display:none">
-  <a id="ctx_reply_reply"><span class="iconImg"></span><gettext>To Sender</gettext></a>
-  <a id="ctx_reply_reply_all"><span class="iconImg"></span><gettext>To All</gettext></a>
-<if:reply_list>
-  <a id="ctx_reply_reply_list"><span class="iconImg"></span><gettext>To List</gettext></a>
-</if:reply_list>
- </div>
-
- <div class="context" id="ctx_forwardpopdown" style="display:none;">
-<if:forward_select>
-  <a id="ctx_forward_attach"><span class="iconImg"></span><gettext>As Attachment</gettext></a>
-  <a id="ctx_forward_body"><span class="iconImg"></span><gettext>In Body Text</gettext></a>
-  <a id="ctx_forward_both"><span class="iconImg"></span><gettext>Attachment and Body Text</gettext></a>
-  <div class="sep"></div>
-</if:forward_select>
-  <a id="ctx_forward_redirect"><span class="iconImg"></span><gettext>Redirect</gettext></a>
- </div>
 </if:html>
 
- <div class="context" id="ctx_contacts" style="display:none">
-  <a id="ctx_contacts_new"><span class="iconImg"></span><gettext>New Message</gettext></a>
-  <a id="ctx_contacts_add"><span class="iconImg"></span><gettext>Add to Address Book</gettext></a>
- </div>
-
- <div style="display:none">
-  <span id="largeaddrspan">
-   <span class="largeaddrtoggle">
-    <span class="largeaddrlist">[<gettext>Show Addresses - %d recipients</gettext>]</span>
-    <span class="largeaddrlist" style="display:none">[<gettext>Hide Addresses</gettext>]</span>
-   </span>
-   <span class="dispaddrlist" style="display:none"></span>
-  </span>
- </div>
+ <tag:common />
 
  <tag:script />
 

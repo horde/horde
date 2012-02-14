@@ -15,9 +15,10 @@ class Ingo_Transport_Null extends Ingo_Transport
     /**
      * Constructor.
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
-        $this->_support_shares = true;
+        $this->_supportShares = true;
+
         parent::__construct($params);
     }
 

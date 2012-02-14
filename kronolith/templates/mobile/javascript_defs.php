@@ -8,8 +8,6 @@ $has_tasks = Kronolith::hasApiPermission('tasks');
 /* Variables used in core javascript files. */
 $code['conf'] = array(
     'URI_AJAX' => (string)Horde::getServiceLink('ajax', 'kronolith'),
-    'URI_SNOOZE' => (string)Horde::url($registry->get('webroot', 'horde') . '/services/snooze.php', true, -1),
-    'SESSION_ID' => defined('SID') ? SID : '',
     'images' => array(
         'attendees' => (string)Horde_Themes::img('attendees-fff.png'),
         'alarm'     => (string)Horde_Themes::img('alarm-fff.png'),
@@ -44,13 +42,7 @@ $code['conf'] = array(
                      'read' => Horde_Perms::READ,
                      'edit' => Horde_Perms::EDIT,
                      'delete' => Horde_Perms::DELETE,
-                     'delegate' => Kronolith::PERMS_DELEGATE),
-    'snooze' => array('0' => _("select..."),
-                      '5' => _("5 minutes"),
-                      '15' => _("15 minutes"),
-                      '60' => _("1 hour"),
-                      '360' => _("6 hours"),
-                      '1440' => _("1 day")),
+                     'delegate' => Kronolith::PERMS_DELEGATE)
 );
 if ($has_tasks) {
     $code['conf']['tasks'] = $registry->tasks->ajaxDefaults();

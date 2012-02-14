@@ -83,6 +83,36 @@ var DimpMessage = {
         }
     },
 
+    updateAddressHeader: function(e)
+    {
+        var tmp = {};
+        tmp[this.mbox] = [ this.uid ];
+
+        DimpCore.doAction('addressHeader', {
+            header: e.element().up('TR').identify().substring(9).toLowerCase()
+        }, {
+            callback: this._updateAddressHeaderCallback.bind(this),
+            uids: tmp
+        });
+    },
+    _updateAddressHeaderCallback: function(r)
+    {
+        var resp = r.response;
+
+        $H(r.response.hdr_data).each(function(d) {
+            this.updateHeader(d.key, d.value, 0);
+        }, this);
+    },
+
+    updateHeader: function(hdr, data, limit)
+    {
+        // Can't use capitalize() here.
+        var elt = $('msgHeader' + hdr.charAt(0).toUpperCase() + hdr.substring(1));
+        if (elt) {
+            elt.down('TD', 1).replace(DimpCore.buildAddressLinks(data, elt.down('TD', 1).clone(false), limit));
+        }
+    },
+
     /* Click handlers. */
     clickHandler: function(parentfunc, e)
     {
@@ -110,12 +140,12 @@ var DimpMessage = {
             case 'button_deleted':
             case 'button_ham':
             case 'button_spam':
-                if (DimpCore.base.DimpBase) {
-                    DimpCore.base.focus();
+                if (HordeCore.base.DimpBase) {
+                    HordeCore.base.focus();
                     if (id == 'button_deleted') {
-                        DimpCore.base.DimpBase.deleteMsg({ uid: this.uid, mailbox: this.mbox });
+                        HordeCore.base.DimpBase.deleteMsg({ uid: this.uid, mailbox: this.mbox });
                     } else {
-                        DimpCore.base.DimpBase.reportSpam(id == 'button_spam', { uid: this.uid, mailbox: this.mbox });
+                        HordeCore.base.DimpBase.reportSpam(id == 'button_spam', { uid: this.uid, mailbox: this.mbox });
                     }
                 } else {
                     tmp = {};
@@ -161,7 +191,14 @@ var DimpMessage = {
                 break;
 
             case 'msg_view_source':
-                DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: this.uid, mailbox: this.mbox, actionID: 'view_source', id: 0 }, true), this.uid + '|' + this.mbox);
+                HordeCore.popupWindow(DIMP.conf.URI_VIEW, {
+                    actionID: 'view_source',
+                    id: 0,
+                    mailbox: this.mbox,
+                    uid: this.uid
+                }, {
+                    name: this.uid + '|' + this.mbox
+                });
                 break;
 
             case 'msg_all_parts':
@@ -193,7 +230,15 @@ var DimpMessage = {
 
             default:
                 if (elt.hasClassName('printAtc')) {
-                    DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: this.uid, mailbox: this.mbox, actionID: 'print_attach', id: elt.readAttribute('mimeid') }, true), this.uid + '|' + this.mbox + '|print', IMP_JS.printWindow);
+                    HordeCore.popupWindow(DIMP.conf.URI_VIEW, {
+                        actionID: 'print_attach',
+                        id: elt.readAttribute('mimeid'),
+                        mailbox: this.mbox,
+                        uid: this.uid
+                    }, {
+                        name: this.uid + '|' + this.mbox + '|print',
+                        onload: IMP_JS.printWindow
+                    });
                     e.stop();
                     return;
                 } else if (elt.hasClassName('stripAtc')) {
@@ -257,26 +302,26 @@ var DimpMessage = {
 
     onDomLoad: function()
     {
-        DimpCore.growler_log = false;
         DimpCore.init();
 
         if (DIMP.conf.disable_compose) {
             $('reply_link', 'forward_link').compact().invoke('up', 'SPAN').concat([ $('ctx_contacts_new') ]).compact().invoke('remove');
         } else {
-            DimpCore.addPopdownButton('reply_link', 'replypopdown');
-            DimpCore.addPopdownButton('forward_link', 'forwardpopdown');
+            DimpCore.addPopdownButton('reply_link', 'reply');
+            DimpCore.addPopdownButton('forward_link', 'forward');
+            if (!this.reply_list) {
+                $('ctx_reply_reply_list').hide();
+            }
         }
 
         /* Set up address linking. */
         [ 'from', 'to', 'cc', 'bcc', 'replyTo' ].each(function(a) {
             if (this[a]) {
-                // Can't use capitalize() here.
-                var elt = $('msgHeader' + a.charAt(0).toUpperCase() + a.substring(1));
-                if (elt) {
-                    elt.down('TD', 1).replace(DimpCore.buildAddressLinks(this[a], elt.down('TD', 1).clone(false)));
-                }
+                this.updateHeader(a, this[a], this.addr_limit && this.addr_limit[a] ? this.addr_limit[a] : 0);
+                delete this[a];
             }
         }, this);
+        delete this.addr_limit;
 
         /* Add message information. */
         if (this.log) {
@@ -284,15 +329,15 @@ var DimpMessage = {
             DimpCore.updateMsgLog(this.log);
         }
 
-        if (DimpCore.base.DimpBase) {
+        if (HordeCore.base.DimpBase) {
             if (this.strip) {
-                DimpCore.base.DimpBase.poll();
+                HordeCore.base.DimpBase.poll();
             } else if (this.poll) {
-                DimpCore.base.DimpBase.pollCallback({ poll: this.poll });
+                HordeCore.base.DimpBase.pollCallback({ poll: this.poll });
             }
 
             if (this.flag) {
-                DimpCore.base.DimpBase.flagCallback({ flag: this.flag });
+                HordeCore.base.DimpBase.flagCallback({ flag: this.flag });
             }
         }
 
@@ -313,3 +358,6 @@ DimpCore.clickHandler = DimpCore.clickHandler.wrap(DimpMessage.clickHandler.bind
 /* Attach event handlers. */
 document.observe('dom:loaded', DimpMessage.onDomLoad.bind(DimpMessage));
 Event.observe(window, 'resize', DimpMessage.resizeWindow.bind(DimpMessage));
+
+/* DimpCore handlers. */
+document.observe('DimpCore:updateAddressHeader', DimpMessage.updateAddressHeader.bindAsEventListener(DimpMessage));

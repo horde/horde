@@ -677,7 +677,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
         /* Add tags again, but as the share owner (replaceTags removes ALL tags). */
         try {
-            $cal = $GLOBALS['kronolith_shares']->getShare($event->calendar);
+            $cal = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($event->calendar);
         } catch (Horde_Share_Exception $e) {
             throw new Kronolith_Exception($e);
         }
@@ -698,7 +698,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         /* Add tags again, but as the share owner (replaceTags removes ALL
          * tags). */
         try {
-            $cal = $GLOBALS['kronolith_shares']->getShare($event->calendar);
+            $cal = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($event->calendar);
         } catch (Horde_Share_Exception $e) {
             Horde::logMessage($e->getMessage(), 'ERR');
             throw new Kronolith_Exception($e);

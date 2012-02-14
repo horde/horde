@@ -43,7 +43,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     /**
      * Horde connector instance
      *
-     * @var Horde_ActiveSync_Driver_Horde_Connector_Registry
+     * @var Horde_Core_ActiveSync_Connector
      */
     private $_connector;
 
@@ -59,16 +59,23 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *
      * @var array
      */
-     private $_folders = array();
+    private $_folders = array();
 
-     /**
-      * Email folder cache
-      *
-      * @var array
-      */
-      private $_emailFolders = array();
+    /**
+     * Email folder cache
+     *
+     * @var array
+     */
+    private $_emailFolders = array();
 
-      private $_specialFolders = array();
+    private $_specialFolders = array();
+
+    /**
+     * Authentication object
+     *
+     * @var Horde_Auth_Base
+     */
+     private $_auth;
 
     /**
      * Const'r
@@ -131,6 +138,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function logOff()
     {
+        $this->_connector->clearAuth();
         $this->_logger->info('User ' . $this->_user . ' logged off');
         return true;
     }
@@ -538,7 +546,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $message = $this->_connector->calendar_export($id);
                 // Nokia MfE requires the optional UID element.
                 if (!$message->getUid()) {
-                    $message->setUid(pack("H*", $id));
+                    $message->setUid($id);
                 }
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());

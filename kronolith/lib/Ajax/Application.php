@@ -42,6 +42,72 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
     }
 
     /**
+     * Returns a list of all calendars.
+     */
+    public function listCalendars()
+    {
+        Kronolith::initialize();
+        $result = new stdClass;
+        $auth_name = $GLOBALS['registry']->getAuth();
+
+        // Calendars. Do some twisting to sort own calendar before shared
+        // calendars.
+        foreach (array(true, false) as $my) {
+            foreach ($GLOBALS['all_calendars'] as $id => $calendar) {
+                $owner = ($auth_name && ($calendar->owner() == $auth_name));
+                if (($my && $owner) || (!$my && !$owner)) {
+                    $result->calendars['internal'][$id] = $calendar->toHash();
+                }
+            }
+
+            // Tasklists
+            if (Kronolith::hasApiPermission('tasks')) {
+                foreach ($GLOBALS['registry']->tasks->listTasklists($my, Horde_Perms::SHOW) as $id => $tasklist) {
+                    if (isset($GLOBALS['all_external_calendars']['tasks/' . $id])) {
+                        $owner = ($auth_name &&
+                                  ($tasklist->get('owner') == $auth_name));
+                        if (($my && $owner) || (!$my && !$owner)) {
+                            $result->calendars['tasklists']['tasks/' . $id] =
+                                $GLOBALS['all_external_calendars']['tasks/' . $id]->toHash();
+                        }
+                    }
+                }
+            }
+        }
+
+        // Resources
+        foreach (Kronolith::getDriver('Resource')->listResources() as $resource) {
+            if ($resource->get('type') != Kronolith_Resource::TYPE_GROUP) {
+                $rcal = new Kronolith_Calendar_Resource(array(
+                    'resource' => $resource
+                ));
+                $result->calendars['resource'][$resource->get('calendar')] = $rcal->toHash();
+            }
+        }
+
+        // Timeobjects
+        foreach ($GLOBALS['all_external_calendars'] as $id => $calendar) {
+            if (($calendar->api() != 'tasks') &&
+                (empty($GLOBALS['conf']['share']['hidden']) ||
+                 in_array($id, $GLOBALS['display_external_calendars']))) {
+                $result->calendars['external'][$id] = $calendar->toHash();
+            }
+        }
+
+        // Remote calendars
+        foreach ($GLOBALS['all_remote_calendars'] as $url => $calendar) {
+            $result->calendars['remote'][$url] = $calendar->toHash();
+        }
+
+        // Holidays
+        foreach ($GLOBALS['all_holidays'] as $id => $calendar) {
+            $result->calendars['holiday'][$id] = $calendar->toHash();
+        }
+
+        return $result;
+    }
+
+    /**
      * TODO
      */
     public function listEvents()
@@ -299,6 +365,7 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
      *      -rday:      A new start value for a series instance (used when
      *                  dragging on the month view where only the date can
      *                  change, and not the start/end times).
+     *      -u:         Send update to attendees.
      *</pre>
      */
     public function updateEvent()
@@ -366,8 +433,12 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
             }
         }
 
-        // @todo: What about iTip notifications?
-        return $this->_saveEvent($event, ($oevent->recurs() ? $oevent : null), $attributes);
+        $result = $this->_saveEvent($event, ($oevent->recurs() ? $oevent : null), $attributes);
+        if ($this->_vars->u) {
+            Kronolith::sendITipNotifications($event, $GLOBALS['notification'], Kronolith::ITIP_REQUEST);
+        }
+
+        return $result;
     }
 
     /**
@@ -720,16 +791,38 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
     }
 
     /**
-     * TODO
+     * Return fb information for the requested attendee or resource.
+     *
+     * Uses the following request parameters:
+     *<pre>
+     *  -email:    The attendee's email address.
+     *  -resource: The resource id.
+     *</pre>
      */
     public function getFreeBusy()
     {
         $result = new stdClass;
-        try {
-            $result->fb = Kronolith_FreeBusy::get($this->_vars->email, true);
-        } catch (Exception $e) {
-            $GLOBALS['notification']->push($e->getMessage(), 'horde.warning');
+        if ($this->_vars->email) {
+            try {
+                $result->fb = Kronolith_FreeBusy::get($this->_vars->email, true);
+            } catch (Exception $e) {
+                $GLOBALS['notification']->push($e->getMessage(), 'horde.warning');
+            }
+        } elseif ($this->_vars->resource) {
+            try {
+                $resource = Kronolith::getDriver('Resource')
+                    ->getResource($this->_vars->resource);
+                try {
+                    $result->fb = $resource->getFreeBusy(null, null, true, true);
+                } catch (Horde_Exception $e) {
+                    // Resource groups can't provide FB information.
+                    $result->fb = null;
+                }
+            } catch (Exception $e) {
+                $GLOBALS['notification']->push($e->getMessage(), 'horde.warning');
+            }
         }
+
         return $result;
     }
 
@@ -753,7 +846,6 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
 
         switch ($this->_vars->type) {
         case 'internal':
-            $tagger = Kronolith::getTagger();
             $info = array();
             foreach (array('name', 'color', 'description', 'tags') as $key) {
                 $info[$key] = $this->_vars->$key;
@@ -768,7 +860,6 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
                 try {
                     $calendar = Kronolith::addShare($info);
                     Kronolith::readPermsForm($calendar);
-                    $tagger->tag($result->calendar, $this->_vars->tags, $calendar->get('owner'), 'calendar');
                     if ($calendar->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::SHOW)) {
                         $wrapper = new Kronolith_Calendar_Internal(array('share' => $calendar));
                         $result->saved = true;
@@ -785,7 +876,7 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
 
             // Update a calendar.
             try {
-                $calendar = $GLOBALS['kronolith_shares']->getShare($calendar_id);
+                $calendar = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($calendar_id);
                 $original_name = $calendar->get('name');
                 $original_owner = $calendar->get('owner');
                 Kronolith::updateShare($calendar, $info);
@@ -798,7 +889,6 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
                     $result->saved = true;
                     $result->calendar = $wrapper->toHash();
                 }
-                $tagger->replaceTags($calendar->getName(), $this->_vars->tags, $calendar->get('owner'), 'calendar');
             } catch (Exception $e) {
                 $GLOBALS['notification']->push($e, 'horde.error');
                 return $result;
@@ -903,6 +993,42 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
             $result->saved = true;
             $result->calendar = $wrapper->toHash();
             break;
+
+       case 'resource':
+            foreach (array('name', 'description', 'response_type') as $key) {
+                $info[$key] = $this->_vars->$key;
+            }
+
+            if (!$calendar_id) {
+                // New resource
+                // @TODO: Groups.
+                if (!$GLOBALS['registry']->isAdmin()) {
+                    $GLOBALS['notification']->push(_("You are not allowed to create new resources."), 'horde.error');
+                    return $result;
+                }
+                $resource = Kronolith_Resource::addResource(new Kronolith_Resource_Single($info));
+            } else {
+                try {
+                    $rdriver = Kronolith::getDriver('Resource');
+                    $resource = $rdriver->getResource($rdriver->getResourceIdByCalendar($calendar_id));
+                    if (!($resource->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT))) {
+                        $GLOBALS['notification']->push(_("You are not allowed to edit this resource."), 'horde.error');
+                        return $result;
+                    }
+                    foreach (array('name', 'description', 'response_type', 'email') as $key) {
+                        $resource->set($key, $this->_vars->$key);
+                    }
+                    $resource->save();
+                } catch (Kronolith_Exception $e) {
+                    $GLOBALS['notification']->push($e->getMessage(), 'horde.error');
+                    return $result;
+                }
+            }
+             $wrapper = new Kronolith_Calendar_Resource(array('resource' => $resource));
+             $result->calendar = $wrapper->toHash();
+             $result->saved = true;
+             $result->id = $resource->get('calendar');
+             $GLOBALS['notification']->push(sprintf(_("The resource \"%s\" has been saved."), $resource->get('name'), 'horde.success'));
         }
 
         return $result;
@@ -919,7 +1045,7 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
         switch ($this->_vars->type) {
         case 'internal':
             try {
-                $calendar = $GLOBALS['kronolith_shares']->getShare($calendar_id);
+                $calendar = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($calendar_id);
             } catch (Exception $e) {
                 $GLOBALS['notification']->push($e, 'horde.error');
                 return $result;
@@ -958,8 +1084,24 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
             }
             $GLOBALS['notification']->push(sprintf(_("You have been unsubscribed from \"%s\" (%s)."), $deleted['name'], $deleted['url']), 'horde.success');
             break;
-        }
 
+        case 'resource':
+            try {
+                $rdriver = Kronolith::getDriver('Resource');
+                $resource = $rdriver->getResource($rdriver->getResourceIdByCalendar($calendar_id));
+                if (!($resource->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE))) {
+                    $GLOBALS['notification']->push(_("You are not allowed to delete this resource."), 'horde.error');
+                    return $result;
+                }
+                $name = $resource->get('name');
+                $rdriver->delete($resource);
+            } catch (Kronolith_Exception $e) {
+                $GLOBALS['notification']->push($e->getMessage(), 'horde.error');
+                return $result;
+            }
+
+            $GLOBALS['notification']->push(sprintf(_("The resource \"%s\" has been deleted."), $name), 'horde.success');
+        }
         $result->deleted = true;
 
         return $result;
@@ -1031,6 +1173,23 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
     public function saveCalPref()
     {
         return false;
+    }
+
+    /**
+     * Return a list of available resources.
+     *
+     * @return array  A hash of resource_id => resource sorted by resource name.
+     */
+    public function getResourceList()
+    {
+        $data = array();
+        $resources = Kronolith::getDriver('Resource')
+            ->listResources(Horde_Perms::READ, array(), 'name');
+        foreach ($resources as $resource) {
+            $data[] = $resource->toJson();
+        }
+
+        return $data;
     }
 
     /**

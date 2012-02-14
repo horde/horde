@@ -174,7 +174,7 @@ case 'export':
 
         $calNames = array();
         foreach (array_keys($calIds) as $calId) {
-            $share = $kronolith_shares->getShare($calId);
+            $share = $injector->getInstance('Kronolith_Shares')->getShare($calId);
             $calNames[] = $share->get('name');
         }
 
@@ -334,10 +334,7 @@ if (is_array($next_step)) {
 }
 
 if (Horde_Util::getFormData('import_ajax')) {
-    $stack = $notification->notify(array('listeners' => 'status', 'raw' => true));
-    if ($stack) {
-        Horde::addInlineScript('window.parent.KronolithCore.showNotifications(' . Horde_Serialize::serialize($stack, Horde_Serialize::JSON) . ');');
-    }
+    new Horde_Core_Ajax_Response(null, true);
     Horde::addInlineScript('window.parent.$(window.name).remove();');
     Horde::outputInlineScript();
     exit;

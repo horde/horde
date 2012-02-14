@@ -308,7 +308,7 @@ class Horde_Themes_Css
             }
 
             /* Scan to grab any @import tags within the CSS file. */
-            $tmp = preg_replace_callback('/@import\s+url\(["\']?(.*?)["\']?\)/i', array($this, '_importCallback'), $tmp);
+            $tmp = preg_replace_callback('/@import\s+url\(["\']?(.*?)["\']?\)(?:\s*;\s*)*/i', array($this, '_importCallback'), $tmp);
 
             $out .= $tmp;
         }

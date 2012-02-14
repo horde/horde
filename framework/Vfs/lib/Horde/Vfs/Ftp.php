@@ -39,6 +39,13 @@
 class Horde_Vfs_Ftp extends Horde_Vfs_Base
 {
     /**
+     * Hash containing connection parameters.
+     *
+     * @var array
+     */
+    protected $_params = array('port' => 21);
+
+    /**
      * List of additional credentials required for this VFS backend.
      *
      * @var array

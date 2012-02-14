@@ -99,8 +99,8 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
 
         $text = IMP::filterText($text);
 
-        /* Done processing if in mimp mode. */
-        if (IMP::getViewMode() == 'mimp') {
+        /* Done processing if in minimal mode. */
+        if ($GLOBALS['registry']->getView() == Horde_Registry::VIEW_MINIMAL) {
             return array(
                 $mime_id => array(
                     'data' => $text,
@@ -134,7 +134,7 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
             if ($inline) {
                 $filters['highlightquotes'] = array(
                     'hideBlocks' => $hideBlocks,
-                    'noJS' => (IMP::getViewMode() == 'dimp')
+                    'noJS' => ($GLOBALS['registry']->getView() == Horde_Registry::VIEW_DYNAMIC)
                 );
             } else {
                 $filters['Horde_Text_Filter_Highlightquotes'] = array(
@@ -248,7 +248,8 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
 
             case Horde_Crypt_Pgp::ARMOR_MESSAGE:
                 $part = new Horde_Mime_Part();
-                $part->setType('multipart/signed');
+                $part->setType('multipart/encrypted');
+                $part->setMetadata(IMP_Mime_Viewer_Pgp::PGP_ARMOR, true);
                 // TODO: add micalg parameter
                 $part->setContentTypeParameter('protocol', 'application/pgp-encrypted');
 
@@ -290,8 +291,8 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
                     // the entire armored text to verify correctly. Use a
                     // IMP-specific content-type parameter to clue the PGP
                     // driver into this fact.
-                    $part2->setMetadata('imp-pgp-signature', true);
-                    $part2->setMetadata('imp-pgp-charset', $charset);
+                    $part2->setMetadata(IMP_Mime_Viewer_Pgp::PGP_SIG, true);
+                    $part2->setMetadata(IMP_Mime_Viewer_Pgp::PGP_CHARSET, $charset);
 
                     $part->addPart($part1);
                     $part->addPart($part2);

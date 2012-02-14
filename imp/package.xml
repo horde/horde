@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-01-19</date>
- <time>00:25:13</time>
+ <date>2012-02-09</date>
+ <time>00:36:23</time>
  <version>
   <release>5.1.0</release>
   <api>5.0.0</api>
@@ -34,29 +34,16 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mms] Hide deleted now works with threaded mailboxes.
-* [mms] Threaded sorts now work in all search mailboxes (Request #9700).
-* [mms] Improved threading performance.
-* [mms] Improved date searching to search by range.
-* [mms] Added &apos;mbox_sort&apos; hook.
-* [mms] Make mailbox columns the same order in traditional view as in dynamic view.
-* [jan] Add mailbox paging to smartphone view.
-* [jan] Add copy and move to smartphone view.
-* [jan] Add deleting messages to smartphone view.
-* [jan] Add reply and forward to smartphone view.
-* [jan] Add compose functionality to smartphone view.
-* [mms] Accurately track changes to virtual folders in dynamic folder tree (Bug #10886).
-* [mms] Traditional mode now requires javascript on the browser.
-* [mms] Converted stationery to the Templates special mailbox (Request #9296).
-* [mms] Hide inactive buttons in dynamic view instead of dimming them.
-* [mms] Added config option to limit size of messages with linked attachments (Request #6247).
-* [mms] Allow expiration date to be provided when creating personal PGP key (Request #5754).
-* [mms] Always use Horde default for sending charset unless reply_charset preference is active.
-* [mms] Add ability to view all message parts in dynamic view (Request #9827).
-* [mms] Remove signature from compose UI; signature is now added automatically when sending (Request #10487).
-* [mms] Fix accessing mailboxes containing ampersands (Bug #10093).
-* [mms] Size of sidebar now saved in dynamic view
-* [mms] Browser-specific UI elements in dynamic view now saved in browser storage (Ticket #10723).
+* [mms] Fix saving initial_page preference.
+* [mms] Workaround broken Thunderbird encrypted S/MIME messages.
+* [mms] Fix regression where passphrase prompt would not appear for S/MIME encrypted messages.
+* [mms] Fix regression in verifying signed &amp; encrypted S/MIME messages (Bug #10947).
+* [mms] Fix reloading the folder list in the dynamic view (Bug #10769).
+* [mms] Fix deleting messages from Virtual Trash.
+* [mms] Fix regression in displaying PGP Armored signed/encrypted messages (Bug #10926).
+* [mms] Catch IMAP server connection errors in traditional mailbox view.
+* [mms] Fix purging moved messages from dynamic mailbox view if deleted messages are visible in the mailbox (Bug #10916).
+* [mms] Fix message advancing when deleting messages in traditional view when deleted messages are visible in the mailbox.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -97,7 +84,9 @@
     <file name="folderprefs.js" role="horde" />
     <file name="folders.js" role="horde" />
     <file name="imp.js" role="horde" />
+    <file name="importencryptkey.js" role="horde" />
     <file name="indices.js" role="horde" />
+    <file name="itiprequest.js" role="horde" />
     <file name="jstorage.js" role="horde" />
     <file name="login.js" role="horde" />
     <file name="mailbox-dimp.js" role="horde" />
@@ -115,6 +104,8 @@
     <dir name="Ajax">
      <dir name="Imple">
       <file name="ContactAutoCompleter.php" role="horde" />
+      <file name="ImportEncryptKey.php" role="horde" />
+      <file name="ItipRequest.php" role="horde" />
       <file name="PassphraseDialog.php" role="horde" />
      </dir> <!-- /lib/Ajax/Imple -->
      <file name="Application.php" role="horde" />
@@ -255,10 +246,7 @@
        <file name="NewmailNotify.php" role="horde" />
       </dir> <!-- /lib/Notification/Handler/Decorator -->
      </dir> <!-- /lib/Notification/Handler -->
-     <dir name="Listener">
-      <file name="AjaxStatus.php" role="horde" />
-     </dir> <!-- /lib/Notification/Listener -->
-    </dir> <!-- /lib/Notification -->
+     </dir> <!-- /lib/Notification -->
     <dir name="Prefs">
      <dir name="Sort">
       <file name="Sortpref.php" role="horde" />
@@ -342,6 +330,7 @@
      <file name="ShowMessage.php" role="horde" />
     </dir> <!-- /lib/Views -->
     <file name=".htaccess" role="horde" />
+    <file name="Ajax.php" role="horde" />
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Auth.php" role="horde" />
@@ -675,8 +664,8 @@
      <dir name="message">
       <file name="message.html" role="horde" />
      </dir> <!-- /templates/dimp/message -->
+     <file name="common.inc" role="horde" />
      <file name="index.inc" role="horde" />
-     <file name="javascript_defs.php" role="horde" />
     </dir> <!-- /templates/dimp -->
     <dir name="imp">
      <dir name="compose">
@@ -727,6 +716,12 @@
      </dir> <!-- /templates/imp/thread -->
      <file name="javascript_defs.php" role="horde" />
     </dir> <!-- /templates/imp -->
+    <dir name="itip">
+     <file name="base.html" role="horde" />
+     <file name="vevent.html" role="horde" />
+     <file name="vfreebusy.html" role="horde" />
+     <file name="vtodo.html" role="horde" />
+    </dir> <!-- /templates/itip -->
     <dir name="mimp">
      <dir name="compose">
       <file name="compose.html" role="horde" />
@@ -752,6 +747,7 @@
      <file name="mailbox.html.php" role="horde" />
      <file name="message.html.php" role="horde" />
      <file name="notice.html.php" role="horde" />
+     <file name="search.html.php" role="horde" />
      <file name="target.html.php" role="horde" />
     </dir> <!-- /templates/mobile -->
     <dir name="pgp">
@@ -914,7 +910,6 @@
       <file name="info_icon.png" role="horde" />
       <file name="key_down.png" role="horde" />
       <file name="key_up.png" role="horde" />
-      <file name="loading.gif" role="horde" />
       <file name="locked.png" role="horde" />
       <file name="logo.png" role="horde" />
       <file name="logout.png" role="horde" />
@@ -1153,7 +1148,7 @@
    <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
-    <min>4.0.0</min>
+    <min>4.1.0</min>
     <max>5.0.0</max>
     <exclude>5.0.0</exclude>
    </package>
@@ -1258,14 +1253,14 @@
    <package>
     <name>Horde_Mail</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.1.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Mime</name>
     <channel>pear.horde.org</channel>
-    <min>1.4.0</min>
+    <min>1.5.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -1437,7 +1432,9 @@
    <install as="imp/js/folderprefs.js" name="js/folderprefs.js" />
    <install as="imp/js/folders.js" name="js/folders.js" />
    <install as="imp/js/imp.js" name="js/imp.js" />
+   <install as="imp/js/importencryptkey.js" name="js/importencryptkey.js" />
    <install as="imp/js/indices.js" name="js/indices.js" />
+   <install as="imp/js/itiprequest.js" name="js/itiprequest.js" />
    <install as="imp/js/jstorage.js" name="js/jstorage.js" />
    <install as="imp/js/login.js" name="js/login.js" />
    <install as="imp/js/mailbox-dimp.js" name="js/mailbox-dimp.js" />
@@ -1451,6 +1448,7 @@
    <install as="imp/js/signaturehtml.js" name="js/signaturehtml.js" />
    <install as="imp/js/viewport.js" name="js/viewport.js" />
    <install as="imp/lib/.htaccess" name="lib/.htaccess" />
+   <install as="imp/lib/Ajax.php" name="lib/Ajax.php" />
    <install as="imp/lib/Api.php" name="lib/Api.php" />
    <install as="imp/lib/Application.php" name="lib/Application.php" />
    <install as="imp/lib/Auth.php" name="lib/Auth.php" />
@@ -1474,6 +1472,8 @@
    <install as="imp/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
    <install as="imp/lib/Ajax/Queue.php" name="lib/Ajax/Queue.php" />
    <install as="imp/lib/Ajax/Imple/ContactAutoCompleter.php" name="lib/Ajax/Imple/ContactAutoCompleter.php" />
+   <install as="imp/lib/Ajax/Imple/ImportEncryptKey.php" name="lib/Ajax/Imple/ImportEncryptKey.php" />
+   <install as="imp/lib/Ajax/Imple/ItipRequest.php" name="lib/Ajax/Imple/ItipRequest.php" />
    <install as="imp/lib/Ajax/Imple/PassphraseDialog.php" name="lib/Ajax/Imple/PassphraseDialog.php" />
    <install as="imp/lib/Block/Newmail.php" name="lib/Block/Newmail.php" />
    <install as="imp/lib/Block/Summary.php" name="lib/Block/Summary.php" />
@@ -1565,7 +1565,6 @@
    <install as="imp/lib/Notification/Event/Status.php" name="lib/Notification/Event/Status.php" />
    <install as="imp/lib/Notification/Handler/Decorator/ImapAlerts.php" name="lib/Notification/Handler/Decorator/ImapAlerts.php" />
    <install as="imp/lib/Notification/Handler/Decorator/NewmailNotify.php" name="lib/Notification/Handler/Decorator/NewmailNotify.php" />
-   <install as="imp/lib/Notification/Listener/AjaxStatus.php" name="lib/Notification/Listener/AjaxStatus.php" />
    <install as="imp/lib/Prefs/Identity.php" name="lib/Prefs/Identity.php" />
    <install as="imp/lib/Prefs/Sort.php" name="lib/Prefs/Sort.php" />
    <install as="imp/lib/Prefs/Ui.php" name="lib/Prefs/Ui.php" />
@@ -1749,8 +1748,8 @@
    <install as="imp/migration/2_imp_autoincrement_sentmail.php" name="migration/2_imp_autoincrement_sentmail.php" />
    <install as="imp/templates/.htaccess" name="templates/.htaccess" />
    <install as="imp/templates/common-header.inc" name="templates/common-header.inc" />
+   <install as="imp/templates/dimp/common.inc" name="templates/dimp/common.inc" />
    <install as="imp/templates/dimp/index.inc" name="templates/dimp/index.inc" />
-   <install as="imp/templates/dimp/javascript_defs.php" name="templates/dimp/javascript_defs.php" />
    <install as="imp/templates/dimp/compose/compose-base.html" name="templates/dimp/compose/compose-base.html" />
    <install as="imp/templates/dimp/compose/compose.html" name="templates/dimp/compose/compose.html" />
    <install as="imp/templates/dimp/message/message.html" name="templates/dimp/message/message.html" />
@@ -1783,6 +1782,10 @@
    <install as="imp/templates/imp/search/search-basic.html" name="templates/imp/search/search-basic.html" />
    <install as="imp/templates/imp/search/search.html" name="templates/imp/search/search.html" />
    <install as="imp/templates/imp/thread/thread.html" name="templates/imp/thread/thread.html" />
+   <install as="imp/templates/itip/base.html" name="templates/itip/base.html" />
+   <install as="imp/templates/itip/vevent.html" name="templates/itip/vevent.html" />
+   <install as="imp/templates/itip/vfreebusy.html" name="templates/itip/vfreebusy.html" />
+   <install as="imp/templates/itip/vtodo.html" name="templates/itip/vtodo.html" />
    <install as="imp/templates/mimp/compose/compose.html" name="templates/mimp/compose/compose.html" />
    <install as="imp/templates/mimp/folders/folders.html" name="templates/mimp/folders/folders.html" />
    <install as="imp/templates/mimp/mailbox/mailbox.html" name="templates/mimp/mailbox/mailbox.html" />
@@ -1797,6 +1800,7 @@
    <install as="imp/templates/mobile/mailbox.html.php" name="templates/mobile/mailbox.html.php" />
    <install as="imp/templates/mobile/message.html.php" name="templates/mobile/message.html.php" />
    <install as="imp/templates/mobile/notice.html.php" name="templates/mobile/notice.html.php" />
+   <install as="imp/templates/mobile/search.html.php" name="templates/mobile/search.html.php" />
    <install as="imp/templates/mobile/target.html.php" name="templates/mobile/target.html.php" />
    <install as="imp/templates/pgp/import_key.html" name="templates/pgp/import_key.html" />
    <install as="imp/templates/prefs/acl.html" name="templates/prefs/acl.html" />
@@ -1890,7 +1894,6 @@
    <install as="imp/themes/default/graphics/info_icon.png" name="themes/default/graphics/info_icon.png" />
    <install as="imp/themes/default/graphics/key_down.png" name="themes/default/graphics/key_down.png" />
    <install as="imp/themes/default/graphics/key_up.png" name="themes/default/graphics/key_up.png" />
-   <install as="imp/themes/default/graphics/loading.gif" name="themes/default/graphics/loading.gif" />
    <install as="imp/themes/default/graphics/locked.png" name="themes/default/graphics/locked.png" />
    <install as="imp/themes/default/graphics/logo.png" name="themes/default/graphics/logo.png" />
    <install as="imp/themes/default/graphics/logout.png" name="themes/default/graphics/logout.png" />
@@ -2648,7 +2651,16 @@
    <date>2012-01-17</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mms] Fix saving initial_page preference.
+* [mms] Workaround broken Thunderbird encrypted S/MIME messages.
+* [mms] Fix regression where passphrase prompt would not appear for S/MIME encrypted messages.
+* [mms] Fix regression in verifying signed &amp; encrypted S/MIME messages (Bug #10947).
+* [mms] Fix reloading the folder list in the dynamic view (Bug #10769).
+* [mms] Fix deleting messages from Virtual Trash.
+* [mms] Fix regression in displaying PGP Armored signed/encrypted messages (Bug #10926).
+* [mms] Catch IMAP server connection errors in traditional mailbox view.
+* [mms] Fix purging moved messages from dynamic mailbox view if deleted messages are visible in the mailbox (Bug #10916).
+* [mms] Fix message advancing when deleting messages in traditional view when deleted messages are visible in the mailbox.
    </notes>
   </release>
  </changelog>

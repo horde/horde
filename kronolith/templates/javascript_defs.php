@@ -7,11 +7,11 @@ $currentDate = Kronolith::currentDate();
 
 /* Variables used in core javascript files. */
 $var = array(
-    'URI_AJAX' => Horde::getServiceLink('ajax', 'kronolith')->url,
     'calendar_info_url' => (string)Horde::url('calendars/info.php', true),
     'page_title' => $GLOBALS['registry']->get('name') . ' :: ',
     'twentyFour' => intval($GLOBALS['prefs']->getValue('twentyFour')),
     'view_url' => (string)Horde::url('view.php'),
+    'URI_AJAX' => Horde::getServiceLink('ajax', 'kronolith')->url
 );
 
 /* Gettext strings used in core javascript files. */

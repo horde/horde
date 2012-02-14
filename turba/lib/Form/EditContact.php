@@ -90,4 +90,22 @@ class Turba_Form_EditContact extends Turba_Form_ContactBase
         return true;
     }
 
+    /**
+     */
+    public function renderActive($renderer, $vars, $action, $method)
+    {
+        parent::renderActive($renderer, $vars, $action, $method);
+
+        if ($this->_contact->isGroup()) {
+            $edit_url = Horde::url('browse.php')->add(array(
+                'key' => $this->_contact->getValue('__key'),
+                'source' => $this->_contact->getSource()
+            ));
+
+            echo '<div class="editGroupMembers">' .
+                Horde::link($edit_url) . '<span class="iconImg groupImg"></span>' . _("Edit/View Group Members") . '</a>' .
+                '</div>';
+        }
+    }
+
 }

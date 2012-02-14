@@ -2,17 +2,20 @@
 v4.1-git
 --------
 
+[mms] AJAX core features now contained within Horde_Core.
 [mms] E-mail sending charset now defaults to UTF-8.
 [mms] Add post-install script for the Horde application
 [mms] Portal blocks can now load just the CSS necessary to display an
       application's blocks.
-[jan] Show notifications directly after logging into Smartphone mode.
+[jan] Show notifications during logging into Smartphone mode.
 
 
 -----------
 v4.0.14-git
 -----------
 
+[mjr] Added more atomic control over ActiveSync security policies for better
+      device compatibility.
 [mms] Add 'sendmail_eol' configuration parameter.
 [jan] Fix horde-set-perms (piper@hrz.uni-marburg.de, Bug #10923).
 [jan] Sort user and group names in permission screen (Request #10896).

@@ -1,0 +1,12 @@
+TODO for 2.0
+============
+
+  - Horde_Mail_Rfc822_Address
+
+      Store personal data MIME unencoded in object.
+      Remove personal_decoded (same as personal).
+
+  - Horde_Mail_Rfc822_Group
+
+      Store groupname data MIME unencoded in object.
+      Remove groupname_decoded (same as groupname).

@@ -28,7 +28,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Improved parsing of S/MIME certificate information (Bug #10956).
+* [mms] Silently ignore unknown data when parsing S/MIME certificates.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -387,11 +388,6 @@
     <name>openssl</name>
    </extension>
   </required>
-  <optional>
-   <extension>
-    <name>bcmath</name>
-   </extension>
-  </optional>
  </dependencies>
  <phprelease>
   <filelist>
@@ -723,7 +719,8 @@ Initial release as a PEAR package
    <date>2011-12-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Improved parsing of S/MIME certificate information (Bug #10956).
+* [mms] Silently ignore unknown data when parsing S/MIME certificates.
    </notes>
   </release>
  </changelog>

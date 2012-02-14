@@ -17,12 +17,9 @@
 class Horde_Core_Auth_Application extends Horde_Auth_Base
 {
     /**
-     * Authentication failure reasons (additions to Horde_Auth:: reasons).
-     *
-     * <pre>
-     * REASON_BROWSER - A browser change was detected
-     * REASON_SESSIONIP - Logout due to change of IP address during session
-     * </pre>
+     * Authentication failure reasons (additions to Horde_Auth:: reasons):
+     *   - REASON_BROWSER: A browser change was detected
+     *   - REASON_SESSIONIP: Logout due to change of IP address during session
      */
     const REASON_BROWSER = 100;
     const REASON_SESSIONIP = 101;
@@ -49,12 +46,11 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
     protected $_base;
 
     /**
-     * The view mode, used to determine if we show dynamic, mobile, traditional
-     * views.
+     * The view mode.
      *
      * @var string
      */
-    protected $_mode = 'auto';
+    protected $_view = 'auto';
 
     /**
      * Available capabilities.
@@ -77,11 +73,9 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
      * Constructor.
      *
      * @param array $params  Required parameters:
-     * <pre>
-     * 'app' - (string) The application which is providing authentication.
-     * 'base' - (Horde_Auth_Base) The base Horde_Auth driver. Only needed if
-     *          'app' is 'horde'.
-     * </pre>
+     *   - app: (string) The application which is providing authentication.
+     *   - base: (Horde_Auth_Base) The base Horde_Auth driver. Only needed if
+     *           'app' is 'horde'.
      *
      * @throws InvalidArgumentException
      */
@@ -133,9 +127,9 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
             return false;
         }
 
-        /* Remember the user's mode choice, if applicable */
+        /* Remember the user's mode choice, if applicable. */
         if (!empty($credentials['mode'])) {
-            $this->_mode = $credentials['mode'];
+            $this->_view = $credentials['mode'];
         }
 
         return $this->_setAuth();
@@ -437,12 +431,10 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
      *
      * @param mixed $name  The credential value to get. If null, will return
      *                     the entire credential list. Valid names:
-     * <pre>
-     * 'change' - (boolean) Do credentials need to be changed?
-     * 'credentials' - (array) The credentials needed to authenticate.
-     * 'expire' - (integer) UNIX timestamp of the credential expiration date.
-     * 'userId' - (string) The user ID.
-     * </pre>
+     *   - change: (boolean) Do credentials need to be changed?
+     *   - credentials: (array) The credentials needed to authenticate.
+     *   - expire: (integer) UNIX timestamp of the credential expiration date.
+     *   - userId: (string) The user ID.
      *
      * @return mixed  Return the credential information, or null if the
      *                credential doesn't exist.
@@ -646,8 +638,8 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
         ));
 
         /* Only set the view mode on initial authentication */
-        if (!$GLOBALS['session']->get('horde', 'mode')) {
-            $this->_setMode();
+        if (!$GLOBALS['session']->exists('horde', 'view')) {
+            $this->_setView();
         }
         if ($this->_base &&
             isset($GLOBALS['notification']) &&
@@ -663,34 +655,86 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
 
     /**
      * Sets the default global view mode in the horde session. This can be
-     * checked by applications, and  overridden if desired. Also sets a cookie
+     * checked by applications, and overridden if desired. Also sets a cookie
      * to remember the last view selection if applicable.
      */
-    protected function _setMode()
+    protected function _setView()
     {
-        global $conf, $browser, $prefs, $registry;
+        global $conf, $browser, $notification, $prefs, $registry, $session;
+
+        $mode = $this->_view;
 
         if (empty($conf['user']['force_view'])) {
             if (empty($conf['user']['select_view'])) {
-                // No value from login form, try to detect.
-                // THIS IS A HACK. DO PROPER SMARTPHONE DETECTION.
-                if ($browser->isMobile()) {
-                    $this->_mode = $browser->getBrowser() == 'webkit' ? 'smartmobile' : 'mobile';
-                }
+                $mode = 'auto';
             } else {
-                setcookie('default_horde_view', $this->_mode, time() + 30 * 86400, $conf['cookie']['path'], $conf['cookie']['domain']);
-                if ($browser->isMobile() && $this->_mode == 'auto') {
-                    $this->_mode = $browser->getBrowser() == 'webkit' ? 'smartmobile' : 'mobile';
-                }
+                setcookie('default_horde_view', $mode, time() + 30 * 86400, $conf['cookie']['path'], $conf['cookie']['domain']);
             }
         } else {
             // Forcing mode as per config.
-            $this->_mode = $conf['user']['force_view'];
+            $mode = $conf['user']['force_view'];
         }
 
-        // Set it in the session.
-        $GLOBALS['session']->set('horde', 'mode', $this->_mode);
+        /* $mode now contains the user's preference for view based on the
+         * login screen parameters and configuration. */
+        switch ($mode) {
+        case 'auto':
+            if (Horde::ajaxAvailable()) {
+                $mode = $browser->isMobile()
+                    // THIS IS A HACK. DO PROPER SMARTPHONE DETECTION.
+                    ? (($browser->getBrowser() == 'webkit') ? 'smartmobile' : 'mobile')
+                    : 'dynamic';
+            } else {
+                $mode = $browser->isMobile()
+                    ? 'mobile'
+                    : 'traditional';
+            }
+            break;
+
+            case 'dynamic':
+                if (!Horde::ajaxAvailable()) {
+                    if ($browser->hasFeature('javascript')) {
+                        $notification->push(_("Your browser is too old to display the dynamic mode. Using traditional mode instead."), 'horde.warning');
+                        $mode = 'traditional';
+                    } else {
+                        $notification->push(_("Your browser is too old to display the dynamic mode. Using mobile mode instead."), 'horde.warning');
+                        $mode = 'mobile';
+                    }
+                }
+                break;
+
+            case 'smartmobile':
+                if (!Horde::ajaxAvailable()) {
+                    $notification->push(_("Your browser is too old to display the dynamic mode. Using mobile mode instead."), 'horde.warning');
+                    $mode = 'mobile';
+                }
+                break;
+
+            case 'traditional':
+                if (!$browser->hasFeature('javascript')) {
+                    $notification->push(_("Your browser does not support javascript. Using mobile mode instead."), 'horde.warning');
+                    $mode = 'mobile';
+                }
+                break;
+
+            case 'mobile':
+            default:
+                $mode = 'mobile';
+                break;
+        }
+
+        $registry_map = array(
+            'dynamic' => Horde_Registry::VIEW_DYNAMIC,
+            'mobile' => Horde_Registry::VIEW_MINIMAL,
+            'smartmobile' => Horde_Registry::VIEW_SMARTMOBILE,
+            'traditional' => Horde_Registry::VIEW_BASIC
+        );
+
+        $this->_view = $mode;
+        $registry->setView($registry_map[$mode]);
+
+        // TODO/DEPRECATED: BC for H4.0 apps
+        $session->set('horde', 'mode', $mode);
     }
 
 }
-

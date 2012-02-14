@@ -81,7 +81,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      */
     public function addPersonalPublicKey($public_key)
     {
-        $GLOBALS['prefs']->setValue('pgp_public_key', (is_array($public_key)) ? implode('', $public_key) : $public_key);
+        $GLOBALS['prefs']->setValue('pgp_public_key', trim(is_array($public_key) ? implode('', $public_key) : $public_key));
     }
 
     /**
@@ -92,7 +92,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      */
     public function addPersonalPrivateKey($private_key)
     {
-        $GLOBALS['prefs']->setValue('pgp_private_key', (is_array($private_key)) ? implode('', $private_key) : $private_key);
+        $GLOBALS['prefs']->setValue('pgp_private_key', trim(is_array($private_key) ? implode('', $private_key) : $private_key));
     }
 
     /**
@@ -508,26 +508,6 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
     }
 
     /**
-     * Generates the javascript code for saving public keys.
-     *
-     * @param string $mailbox  The mailbox of the message.
-     * @param integer $uid     The UID of the message.
-     * @param string $id       The MIME ID of the message.
-     *
-     * @return string  The URL for saving public keys.
-     */
-    public function savePublicKeyUrl($mailbox, $uid, $id)
-    {
-        $params = array(
-            'actionID' => 'save_attachment_public_key',
-            'mailbox' => $mailbox,
-            'uid' => $uid,
-            'mime_id' => $id
-        );
-        return Horde::popupJs(Horde::url('pgp.php'), array('params' => $params, 'height' => 200, 'width' => 450));
-    }
-
-    /**
      * Provide the list of parameters needed for signing a message.
      *
      * @return array  The list of parameters needed by encrypt().
@@ -676,46 +656,29 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      */
     public function importKeyDialog($target, $reload)
     {
-        $title = _("Import PGP Key");
-        require IMP_TEMPLATES . '/common-header.inc';
+        global $injector, $notification, $registry;
+
+        IMP::header(_("Import PGP Key"));
 
         /* Need to use regular status notification - AJAX notifications won't
          * show in popup windows. */
-        if (IMP::getViewMode() == 'dimp') {
-            $GLOBALS['notification']->detach('status');
-            $GLOBALS['notification']->attach('status');
+        if ($registry->getView() == Horde_Registry::VIEW_DYNAMIC) {
+            $notification->detach('status');
+            $notification->attach('status');
         }
         IMP::status();
 
-        $t = $GLOBALS['injector']->createInstance('Horde_Template');
+        $t = $injector->createInstance('Horde_Template');
         $t->setOption('gettext', true);
+
         $t->set('selfurl', Horde::url('pgp.php'));
-        $t->set('broken_mp_form', $GLOBALS['browser']->hasQuirk('broken_multipart_form'));
         $t->set('reload', htmlspecialchars($reload));
         $t->set('target', $target);
         $t->set('forminput', Horde_Util::formInput());
         $t->set('import_public_key', $target == 'process_import_public_key');
-        $t->set('import_personal_public_key', $target == 'process_import_personal_public_key');
-        $t->set('import_personal_private_key', $target == 'process_import_personal_private_key');
+        $t->set('import_personal_key', $target == 'process_import_personal_key');
+
         echo $t->fetch(IMP_TEMPLATES . '/pgp/import_key.html');
-    }
-
-    /**
-     * Attempt to import a key from form/uploaded data.
-     *
-     * @param string $key  Key string.
-     *
-     * @return string  The key contents.
-     * @throws Horde_Browser_Exception
-     */
-    public function getImportKey($key)
-    {
-        if (!empty($key)) {
-            return $key;
-        }
-
-        $GLOBALS['browser']->wasFileUploaded('upload_key', _("key"));
-        return file_get_contents($_FILES['upload_key']['tmp_name']);
     }
 
     /**
@@ -735,6 +698,43 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
             'opener.location.href="' . $href . '";',
             'window.close();'
         ));
+    }
+
+    /**
+     * Extracts public/private keys from armor data.
+     *
+     * @param string $data  Armor text.
+     *
+     * @return array  Array with these keys:
+     *   - public: (array) Array of public keys.
+     *   - private: (array) Array of private keys.
+     */
+    public function getKeys($data)
+    {
+        $out = array(
+            'public' => array(),
+            'private' => array()
+        );
+
+        foreach ($this->parsePGPData($data) as $val) {
+            switch ($val['type']) {
+            case Horde_Crypt_Pgp::ARMOR_PUBLIC_KEY:
+            case Horde_Crypt_Pgp::ARMOR_PRIVATE_KEY:
+                $key = implode("\n", $val['data']);
+                if ($key_info = $this->pgpPacketInformation($key)) {
+                    if (($val['type'] == Horde_Crypt_Pgp::ARMOR_PUBLIC_KEY) &&
+                        !empty($key_info['public_key'])) {
+                        $out['public'][] = $key;
+                    } elseif (($val['type'] == Horde_Crypt_Pgp::ARMOR_PRIVATE_KEY) &&
+                        !empty($key_info['secret_key'])) {
+                        $out['private'][] = $key;
+                    }
+                }
+                break;
+            }
+        }
+
+        return $out;
     }
 
 }

@@ -47,9 +47,6 @@ class Kronolith_Application extends Horde_Registry_Application
     public $version = 'H4 (3.1-git)';
 
     /**
-     * Global variables defined:
-     * - $kronolith_shares: TODO
-     * - $linkTags: <link> tags for common-header.inc.
      */
     protected function _init()
     {
@@ -62,18 +59,27 @@ class Kronolith_Application extends Horde_Registry_Application
         }
 
         $GLOBALS['injector']->bindFactory('Kronolith_Geo', 'Kronolith_Factory_Geo', 'create');
+        $GLOBALS['injector']->bindFactory('Kronolith_Shares', 'Kronolith_Factory_Shares', 'create');
 
-        /* Set the timezone variable, if available. */
-        $GLOBALS['registry']->setTimeZone();
+        /* Only do if kronolith is current app. */
+        if ($GLOBALS['registry']->initialApp == 'kronolith') {
+            /* Set the timezone variable, if available. */
+            $GLOBALS['registry']->setTimeZone();
 
-        /* Create a share instance. */
-        $GLOBALS['kronolith_shares'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
+            /* Store the request timestamp if it's not already present. */
+            if (!isset($_SERVER['REQUEST_TIME'])) {
+                $_SERVER['REQUEST_TIME'] = time();
+            }
 
-        Kronolith::initialize();
-
-        $GLOBALS['linkTags'] = array();
-        foreach ($GLOBALS['display_calendars'] as $calendar) {
-            $GLOBALS['linkTags'][] = '<link href="' . Kronolith::feedUrl($calendar) . '" rel="alternate" type="application/atom+xml" />';
+            $GLOBALS['linkTags'] = array();
+            if ($GLOBALS['registry']->getView() != Horde_Registry::VIEW_DYNAMIC ||
+                !$GLOBALS['prefs']->getValue('dynamic_view') ||
+                empty($this->initParams['nodynamicinit'])) {
+                Kronolith::initialize();
+                foreach ($GLOBALS['display_calendars'] as $calendar) {
+                    $GLOBALS['linkTags'][] = '<link href="' . Kronolith::feedUrl($calendar) . '" rel="alternate" type="application/atom+xml" />';
+                }
+            }
         }
     }
 
@@ -218,7 +224,11 @@ class Kronolith_Application extends Horde_Registry_Application
                 break;
 
             case 'sourceselect':
-                Horde_Core_Prefs_Ui_Widgets::addressbooksInit();
+                if ($prefs->isLocked('search_sources')) {
+                    $ui->suppress[] = $val;
+                } else {
+                    Horde_Core_Prefs_Ui_Widgets::addressbooksInit();
+                }
                 break;
             }
         }
@@ -456,11 +466,12 @@ class Kronolith_Application extends Horde_Registry_Application
 
         // Get the shares owned by the user being deleted.
         try {
-            $shares = $GLOBALS['kronolith_shares']->listShares(
+            $kronolith_shares = $GLOBALS['injector']->getInstance('Kronolith_Shares');
+            $shares = $kronolith_shares->listShares(
                 $user,
                 array('attributes' => $user));
             foreach ($shares as $share) {
-                $GLOBALS['kronolith_shares']->removeShare($share);
+                $kronolith_shares->removeShare($share);
             }
         } catch (Exception $e) {
             Horde::logMessage($e, 'NOTICE');
@@ -470,7 +481,7 @@ class Kronolith_Application extends Horde_Registry_Application
         /* Get a list of all shares this user has perms to and remove the
          * perms */
         try {
-            $shares = $GLOBALS['kronolith_shares']->listShares($user);
+            $shares = $kronolith_shares->listShares($user);
             foreach ($shares as $share) {
                 $share->removeUser($user);
             }
@@ -647,16 +658,20 @@ class Kronolith_Application extends Horde_Registry_Application
         }
 
         $group = $GLOBALS['injector']->getInstance('Horde_Group');
+        $kronolith_shares = $GLOBALS['injector']->getInstance('Kronolith_Shares');
+
         $alarm_list = array();
         $time = new Horde_Date($time);
-        $calendars = is_null($user) ? array_keys($GLOBALS['kronolith_shares']->listAllShares()) : $GLOBALS['display_calendars'];
+        $calendars = is_null($user)
+            ? array_keys($kronolith_shares->listAllShares())
+            : $GLOBALS['display_calendars'];
         $alarms = Kronolith::listAlarms($time, $calendars, true);
         foreach ($alarms as $calendar => $cal_alarms) {
             if (!$cal_alarms) {
                 continue;
             }
             try {
-                $share = $GLOBALS['kronolith_shares']->getShare($calendar);
+                $share = $kronolith_shares->getShare($calendar);
             } catch (Exception $e) {
                 continue;
             }

@@ -90,4 +90,14 @@ class Horde_Mime_AddressTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testAddrArray2String()
+    {
+        $str = 'Foo Bar <foobar@example.com>, "bad_email@example.com, Baz" <baz@example.com>, Qux <qux@example.com>';
+        $ob = Horde_Mime_Address::parseAddressList($str);
+        $this->assertEquals(
+            $str,
+            Horde_Mime_Address::addrArray2String($ob)
+        );
+    }
+
 }

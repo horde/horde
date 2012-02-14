@@ -75,7 +75,6 @@ class IMP_Mime_Status
         }
     }
 
-
     /**
      * Adds text line(s) to the output.
      *

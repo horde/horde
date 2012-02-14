@@ -58,7 +58,8 @@
  * authentication occurs.
  *
  * If there is no active session, $userId and $credentials will be the values
- * provided by the base Horde authentication driver.
+ * provided by the base Horde authentication driver. ($userId will often
+ * be empty in this situation.)
  * For all other apps, $userId and $credentials will be the values of the
  * currently logged on Horde user.
  *

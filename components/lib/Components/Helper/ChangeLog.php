@@ -48,7 +48,7 @@ class Components_Helper_ChangeLog
     }
 
     /**
-     * Update CHANGES file.
+     * Update package.xml file.
      *
      * @param string                 $log     The log entry.
      * @param Horde_Pear_Package_Xml $xml     The package xml handler.

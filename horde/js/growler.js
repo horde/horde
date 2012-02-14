@@ -2,29 +2,30 @@
  * Growler.js - Display 'Growl'-like notifications.
  *
  * Notice Options (passed to 'Growler.growl()'):
- * 'className' - (string) An optional additional CSS class to apply to notice.
- * 'header' - (string) The title that is displayed for the notice.
- * 'life' - (float) The number of seconds in which the notice remains visible.
- * 'log' - (boolean) If true, will log the entry.
- * 'opacity' - (float) The default opacity of the notifications.
- * 'speedin' - (float) The speed in seconds in which the notice is shown.
- * 'speedout' - (float) The speed in seconds in which the notice is hidden.
- * 'sticky' - (boolean) Determines if the notice should always remain visible
- *            until closed by the user.
+ *   - className: (string) An optional additional CSS class to apply to notice.
+ *   - header: (string) The title that is displayed for the notice.
+ *   - life: (float) The number of seconds in which the notice remains visible.
+ *   - log: (boolean) If true, will log the entry.
+ *   - opacity: (float) The default opacity of the notifications.
+ *   - speedin: (float) The speed in seconds in which the notice is shown.
+ *   - speedout: (float) The speed in seconds in which the notice is hidden.
+ *   - sticky: (boolean) Determines if the notice should always remain visible
+ *             until closed by the user.
  *
  * Growler Options (passed to 'new Growler()'):
- * 'location' - (string) The location of the growler notices. This can be:
- *   tr (top-right)
- *   br (bottom-right)
- *   tl (top-left)
- *   bl (bottom-left)
- *   tc (top-center)
- *   bc (bottom-center)
- * 'log' - (boolean) Enable logging.
- * 'noalerts' - (string) The localized string to display when no log entries
+ *   - info: (string) The localized string to display as an information message
+ *           at the top of the log.
+ *   - location: (string) The location of the growler notices. This can be:
+ *     - tr: top-right
+ *     - br: bottom-right
+ *     - tl: top-left
+ *     - bl: bottom-left
+ *     - tc: top-center
+ *     - bc: bottom-center
+ *   - log: (boolean) Enable logging.
+ *   - noalerts: (string) The localized string to display when no log entries
  *              are present.
- * 'info' - (string) The localized string to display as an information message
- *          at the top of the log.
+ *   - noclick: (boolean) Don't check for clicks on Growler elements.
  *
  * Custom Events:
  * --------------
@@ -38,6 +39,10 @@
  * Growler:destroyed
  *   Fired on TODO
  *   params: NONE
+ *
+ * Growler:linkClick
+ *   Fired on click of a link in a Growler message.
+ *   params: The link
  *
  * Growler:toggled
  *   Fired on toggling of the backlog
@@ -198,6 +203,15 @@
             }
 
             this.growler.wrap(document.body);
+
+            if (!opts.noclick) {
+                this.growler.observe('click', function(e) {
+                    if (e.element().match('A')) {
+                        e.stop();
+                        this.growler.fire('Growler:linkClick', e);
+                    }
+                });
+            }
         },
 
         growl: function(msg, options)

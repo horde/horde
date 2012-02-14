@@ -6,8 +6,10 @@
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
- * @author  Brent J. Nordquist <bjn@horde.org>
- * @package Ingo
+ * @author   Brent J. Nordquist <bjn@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
  */
 class Ingo_Script
 {
@@ -103,65 +105,25 @@ class Ingo_Script
     protected $_scriptfile = false;
 
     /**
-     * Attempts to return a concrete instance based on $script.
-     *
-     * @param string $script  The type of subclass to return.
-     * @param array $params   Hash containing additional paramters to be
-     *                        passed to the subclass' constructor.
-     *
-     * @return Ingo_Script  The newly created concrete instance.
-     * @throws Ingo_Exception
-     */
-    static public function factory($script, $params = array())
-    {
-        $script = Horde_String::ucfirst(basename($script));
-        $class = __CLASS__ . '_' . $script;
-
-        if (!isset($params['spam_compare'])) {
-            $params['spam_compare'] = $GLOBALS['conf']['spam']['compare'];
-        }
-        if (!isset($params['spam_header'])) {
-            $params['spam_header'] = $GLOBALS['conf']['spam']['header'];
-        }
-        if (!isset($params['spam_char']) && $params['spam_compare'] == 'string') {
-            $params['spam_char'] = $GLOBALS['conf']['spam']['char'];
-        }
-        if ($script == 'Sieve') {
-            if (!isset($params['date_format'])) {
-                $params['date_format'] = $GLOBALS['prefs']->getValue('date_format');;
-            }
-            if (!isset($params['time_format'])) {
-                // %R and %r don't work on Windows, but who runs a Sieve
-                // backend on a Windows server?
-                $params['time_format'] = $GLOBALS['prefs']->getValue('twentyFour') ? '%R' : '%r';
-            }
-        }
-
-        if (class_exists($class)) {
-            return new $class($params);
-        }
-
-        throw new Ingo_Exception(sprintf(_("Unable to load the definition of %s."), $class));
-    }
-
-    /**
      * Constructor.
      *
      * @param array $params  A hash containing parameters needed.
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
+        global $registry;
+
         $this->_params = $params;
 
         /* Determine if ingo should handle the blacklist. */
-        $key = array_search(Ingo_Storage::ACTION_BLACKLIST, $this->_categories);
-        if ($key !== false && ($GLOBALS['registry']->hasMethod('mail/blacklistFrom') != 'ingo')) {
+        if ((($key = array_search(Ingo_Storage::ACTION_BLACKLIST, $this->_categories)) !== false) &&
+            ($registry->hasMethod('mail/blacklistFrom') != 'ingo')) {
             unset($this->_categories[$key]);
         }
 
         /* Determine if ingo should handle the whitelist. */
-        $key = array_search(Ingo_Storage::ACTION_WHITELIST, $this->_categories);
-        if ($key !== false && ($GLOBALS['registry']->hasMethod('mail/whitelistFrom') != 'ingo')) {
+        if ((($key = array_search(Ingo_Storage::ACTION_WHITELIST, $this->_categories)) !== false) &&
+            ($registry->hasMethod('mail/whitelistFrom') != 'ingo')) {
             unset($this->_categories[$key]);
         }
     }

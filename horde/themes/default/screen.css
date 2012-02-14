@@ -1528,6 +1528,21 @@ form.inplaceeditor-form {
     color: #999;
 }
 
+/* Loading image. */
+span.loadingImg {
+    background: #fff url("graphics/loading.gif") no-repeat center;
+    border: 1px #e0e0e0 solid;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    height: 16px;
+    margin: 10px 0 0 10px;
+    padding: 3px;
+    position: absolute;
+    width: 16px;
+    z-index: 1000;
+}
+
 /* Print CSS. */
 @media print {
     body, .header, .smallheader {

@@ -5,9 +5,16 @@ v3.1-git
 
 
 ----------
-v3.0.5-git
+v3.0.6-git
 ----------
 
+
+
+------
+v3.0.5
+------
+
+[mjr] Add missing getChanges API method.
 
 
 ------

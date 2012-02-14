@@ -9,6 +9,8 @@
 <input id="kronolithEventRecurEnd" type="hidden" />
 <input id="kronolithEventRecurOStart" type="hidden" name="rstart" />
 <input id="kronolithEventRecurOEnd" type="hidden" name="rend" />
+<input type="hidden" name="isajax" value="1" />
+<input type="hidden" id="kronolithEventSendUpdates" name="sendupdates" value="0" />
 
 <div id="kronolithEventDiv">
   <div id="kronolithEventEditRecur" style="display:none;">
@@ -95,6 +97,9 @@
     <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkRecur"><?php echo _("Repeat") ?></a></li>
     <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkUrl"><?php echo _("URL") ?></a></li>
     <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkAttendees"><?php echo _("Attendees") ?></a></li>
+    <?php if (count(Kronolith::getDriver('Resource')->listResources())):?>
+    <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkResources"><?php echo _("Resources") ?></a></li>
+    <?php endif; ?>
     <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkTags"><?php echo _("Tags") ?></a></li>
     <?php if ($GLOBALS['conf']['maps']['driver']): ?>
     <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkMap"><?php echo _("Map") ?></a></li>
@@ -204,9 +209,6 @@
   <input id="kronolithEventAttendees" name="attendees" />
   <span id="kronolithEventAttendees_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
   <br class="clear" />
-  <label>
-    <input id="kronolithEventSendUpdates" type="checkbox" name="sendupdates" value="1" />
-    <?php printf(_("Send invites%s to all attendees"), '</label>') ?><br />
   <div id="kronolithFBLoading" style="display:none"></div>
   <table cellspacing="0" cellpadding="0" border="0">
     <thead>
@@ -220,11 +222,31 @@
   </table>
   <div id="kronolithEventAttendeesList">
     <table cellspacing="0" cellpadding="0" border="0">
-      <tbody>
-	<tr id="kronolithNoAttendees">
-	  <td><em><?php echo _("No attendees defined") ?></em></td>
-	</tr>
-      </tbody>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+
+<div id="kronolithEventTabResources" class="kronolithTabsOption" style="display:none">
+  <input type="hidden" name="resources" id="kronolithEventResourceIds" />
+  <label for="kronolithEventResources"><?php echo _("Add resources") ?>:</label><br />
+  <input id="kronolithEventResources" />
+  <span id="kronolithEventResources_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
+  <br class="clear" /><br />
+  <div id="kronolithResourceFBLoading" style="display:none"></div>
+  <table cellspacing="0" cellpadding="0" border="0">
+    <thead>
+      <tr>
+        <th><?php echo _("Availability") ?></th>
+        <?php for ($i = 0; $i < 24; $i++): ?>
+        <th<?php if ($i < 8 || $i > 19) echo ' class="night"' ?>><?php echo $i ?>h</th>
+        <?php endfor; ?>
+      </tr>
+    </thead>
+  </table>
+  <div id="kronolithEventResourcesList">
+    <table cellspacing="0" cellpadding="0" border="0">
+      <tbody></tbody>
     </table>
   </div>
 </div>
