@@ -969,10 +969,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             'mod' => $envelope->date,
             'flags' => 0
         );
-
-        if (array_search('/seen', $message->getFlags())) {
-            $stat['flags'] = 1;
-        }
+        // $message is Horde_ActiveSync_Message_Mail object.
+        $stat['flags'] = $message->read;
 
         return $stat;
     }
