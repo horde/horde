@@ -938,7 +938,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
                 }
             } else {
                 $this->_logger->debug('[' . $this->_devId . '] Syncing Email folder, checking for PIM initiated flag changes.');
-                if ($this->_havePIMChanges()) {
+                if ($this->_havePIMChanges(Horde_ActiveSync::CLASS_EMAIL)) {
                     foreach ($changes as $change) {
                         $stat = $this->_backend->statMailMessage($this->_collection['id'], $change['id']);
                         if ($this->_isPIMFlagChange($change['id'], $stat['flags'])) {
@@ -1146,16 +1146,23 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
      * having to stat every message change we send to the PIM if there are no
      * PIM generated changes for this sync period.
      *
+     * @param string $class  The collection class to check for.
+     *
      * @TODO: Optimize to only check for changes in a specific collection.
      *
      * @return boolean
      * @throws Horde_ActiveSync_Exception
      */
-    protected function _havePIMChanges()
+    protected function _havePIMChanges($class = null)
     {
-        $sql = 'SELECT COUNT(*) FROM ' . $this->_syncMapTable . ' WHERE sync_devid = ? AND sync_user = ?';
+        $table = $class == Horde_ActiveSync::CLASS_EMAIL ?
+            $this->_syncMailMapTable :
+            $this->_syncMapTable;
+        $sql = 'SELECT COUNT(*) FROM ' . $table
+            . ' WHERE sync_devid = ? AND sync_user = ?';
         try {
-            return (bool)$this->_db->selectValue($sql, array($this->_devId, $this->_deviceInfo->user));
+            return (bool)$this->_db->selectValue(
+                $sql, array($this->_devId, $this->_deviceInfo->user));
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
@@ -1184,10 +1191,16 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
     protected function _isPIMFlagChange($id, $flag)
     {
         $sql = 'SELECT sync_read FROM ' . $this->_syncMailMapTable
-            . ' WHERE sync_folderid = ? AND sync_devid = ? AND message_uid = ?';
+            . ' WHERE sync_folderid = ? AND sync_devid = ? AND message_uid = ?'
+            . ' AND sync_user = ?';
 
         try {
-            $mflag = $this->_db->selectValue($sql, array($this->_collection['id'], $this->_devId, $id));
+            $mflag = $this->_db->selectValue(
+                $sql,
+                array(
+                    $this->_collection['id'],
+                    $this->_devId, $id,
+                    $this->_deviceInfo->user));
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
