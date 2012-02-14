@@ -371,4 +371,22 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
         } catch (Horde_Mail_Exception $e) {}
     }
 
+    public function testParsingNonValidateAddressWithBareAddressAtFront()
+    {
+        $address = 'test@example.com, Foo <test2@example.com>';
+
+        $parser = new Horde_Mail_Rfc822();
+        $ob = $parser->parseAddressList(
+            $address,
+            array(
+                'validate' => false
+            )
+        );
+
+        $this->assertEquals(
+            2,
+            count($ob)
+        );
+    }
+
 }

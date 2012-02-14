@@ -412,6 +412,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                         isset($this->_imptmp['cid'][$val])) {
                         $this->_imptmp['cid_used'][] = $this->_imptmp['cid'][$val];
                         $val = $this->getConfigParam('imp_contents')->urlView(null, 'view_attach', array('params' => array(
+                            'ctype' => 'image/*',
                             'id' => $this->_imptmp['cid'][$val],
                             'imp_img_view' => 'data'
                         )));
