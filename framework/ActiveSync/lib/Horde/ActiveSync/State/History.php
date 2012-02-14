@@ -365,7 +365,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
 
             // Store the incoming change.
             try {
-               $this->_db->insert($sql, $params);
+                $this->_db->insert($sql, $params);
             } catch (Horde_Db_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 throw new Horde_ActiveSync_Exception($e);
@@ -1146,6 +1146,8 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
      * having to stat every message change we send to the PIM if there are no
      * PIM generated changes for this sync period.
      *
+     * @TODO: Optimize to only check for changes in a specific collection.
+     *
      * @return boolean
      * @throws Horde_ActiveSync_Exception
      */
@@ -1190,7 +1192,6 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             throw new Horde_ActiveSync_Exception($e);
         }
 
-        Horde::debug(array($mflag, $flag));
         return $mflag == $flag;
     }
 
