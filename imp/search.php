@@ -462,6 +462,7 @@ Horde::addInlineJsVars(array_merge($js_vars, array(
         'constants' => $constants,
         'dimp' => $dimp_view,
         'folder_list' => $folder_list,
+        'inbox' => IMP_Mailbox::get('INBOX')->form_to,
         'months' => Horde_Core_Ui_JsCalendar::months(),
         'searchmbox' => $default_mailbox->form_to,
         'types' => $types

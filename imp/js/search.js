@@ -386,7 +386,7 @@ var ImpSearch = {
             div2.insert(
                 new Element('EM').insert(this.getFolderLabel(folder).escapeHTML())
             ).insert(
-                new Element('SPAN', { className: 'subfolders' }).insert(new Element('INPUT', { className: 'checkbox', type: 'checkbox' }).setValue(checked)).insert(this.text.subfolder_search)
+                new Element('SPAN', { className: 'subfolders' }).insert(new Element('INPUT', { className: 'checkbox', type: 'checkbox' }).setValue(checked)).insert(this.text.subfolder_search).setStyle(folder == this.data.inbox ? { display: 'none' } : {})
             ).insert(
                 new Element('A', { href: '#', className: 'iconImg searchuiImg searchuiDelete' })
             );
