@@ -2090,7 +2090,7 @@ var DimpBase = {
         }
     },
 
-    onDrag: function(e)
+    onDragStart: function(e)
     {
         if (e.element().hasClassName('folder')) {
             var d = e.memo;
@@ -3623,7 +3623,7 @@ DimpBase._folderDropConfig = {
 };
 
 /* Drag/drop listeners. */
-document.observe('DragDrop2:drag', DimpBase.onDrag.bindAsEventListener(DimpBase));
+document.observe('DragDrop2:start', DimpBase.onDragStart.bindAsEventListener(DimpBase));
 document.observe('DragDrop2:drop', DimpBase.folderDropHandler.bindAsEventListener(DimpBase));
 document.observe('DragDrop2:end', DimpBase.onDragEnd.bindAsEventListener(DimpBase));
 document.observe('DragDrop2:mousedown', DimpBase.onDragMouseDown.bindAsEventListener(DimpBase));
