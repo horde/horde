@@ -57,7 +57,7 @@ class IMP
      */
     static public function header($title)
     {
-        switch ($GLOBALS['registry']->getView()) {
+        switch ($view_mode = $GLOBALS['registry']->getView()) {
         case Horde_Registry::VIEW_BASIC:
             require IMP_TEMPLATES . '/imp/javascript_defs.php';
             require IMP_TEMPLATES . '/common-header.inc';
