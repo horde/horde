@@ -133,7 +133,7 @@ class Horde_Core_Factory_Alarm extends Horde_Core_Factory_Base
 
         foreach ($apps as $app) {
             if ($changed) {
-                if ($registry->appMethodDefined($app, 'listAlarms')) {
+                if (!$registry->appMethodDefined($app, 'listAlarms')) {
                     continue;
                 }
                 $save[] = $app;

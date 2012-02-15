@@ -53,7 +53,7 @@ class Horde_Core_Factory_Notification extends Horde_Core_Factory_Injector
 
         foreach ($apps as $app) {
             if ($changed) {
-                if ($registry->appMethodDefined($app, 'setupNotification')) {
+                if (!$registry->appMethodDefined($app, 'setupNotification')) {
                     continue;
                 }
                 $save[] = $app;
