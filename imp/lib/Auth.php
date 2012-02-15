@@ -431,7 +431,6 @@ class IMP_Auth
         }
 
         /* Is the HTML editor available? */
-        $imp_ui = new IMP_Ui_Compose();
         $session->set('imp', 'rteavail', $injector->getInstance('Horde_Editor')->supportedByBrowser());
 
         self::_logMessage(true, $imp_imap);
