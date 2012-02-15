@@ -86,7 +86,7 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
             $contents = $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices(IMP_Mailbox::formFrom($vars->mailbox), $vars->uid));
             $mime_part = $contents->getMIMEPart($vars->mime_id);
             if (empty($mime_part)) {
-                throw new IMP_Exception(_("Cannot retrieve public key from message."));
+                throw new IMP_Exception(_("Cannot retrieve calendar data from message."));
             } elseif (!$vCal->parsevCalendar($mime_part->getContents(), 'VCALENDAR', $mime_part->getCharset())) {
                 throw new IMP_Exception(_("The calendar data is invalid"));
             }
