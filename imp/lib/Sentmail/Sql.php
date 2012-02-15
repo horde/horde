@@ -1,6 +1,6 @@
 <?php
 /**
- * IMP_Sentmail implementation for SQL databases.
+ * Sentmail driver implementation for SQL databases.
  *
  * The table structure is as follows:
  * <pre>
@@ -32,7 +32,7 @@
  * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
-class IMP_Sentmail_Sql extends IMP_Sentmail_Base
+class IMP_Sentmail_Sql extends IMP_Sentmail
 {
     /**
      * Handle for the current database connection.
@@ -43,11 +43,9 @@ class IMP_Sentmail_Sql extends IMP_Sentmail_Base
 
     /**
      * @param array $params  Parameters:
-     * <pre>
-     * db - (Horde_Db_Adapter) [REQUIRED] The DB instance.
-     * table - (string) The name of the sentmail table.
-     *         DEFAULT: 'imp_sentmail'
-     * </pre>
+     *   - db: (Horde_Db_Adapter) [REQUIRED] The DB instance.
+     *   - table: (string) The name of the sentmail table.
+     *            DEFAULT: 'imp_sentmail'
      */
     public function __construct(array $params = array())
     {

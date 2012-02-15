@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Sentmail_Null:: class is a null logging implementation.
+ * A null implementation of the sentmail driver.
  *
  * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
@@ -12,7 +12,7 @@
  * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
-class IMP_Sentmail_Null extends IMP_Sentmail_Base
+class IMP_Sentmail_Null extends IMP_Sentmail
 {
     /**
      */

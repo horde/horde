@@ -1,19 +1,19 @@
 <?php
 /**
- * The IMP_Sentmail:: class contains all functions related to handling
- * logging of sent mail and retrieving sent mail statistics.
+ * The abstract class that all sentmail implementations inherit from.
  *
- * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Jan Schneider <jan@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
-class IMP_Sentmail
+abstract class IMP_Sentmail
 {
     /* Action constants. */
     const NEWMSG = 'new';
@@ -23,26 +23,97 @@ class IMP_Sentmail
     const MDN = 'mdn';
 
     /**
-     * Attempts to return a concrete instance based on $driver.
+     * Hash containing configuration parameters.
      *
-     * @param string $driver  The type of the concrete subclass to return.
-     *                        The class name is based on the storage driver
-     *                        ($driver).
-     * @param array $params   A hash containing any additional configuration
-     *                        or connection parameters a subclass might need.
+     * @var array
+     */
+    protected $_params = array();
+
+    /**
+     * Constructor.
      *
-     * @return IMP_Sentmail_Driver  The newly created concrete instance.
+     * @param array $params  Configuration parameters the driver needs.
+     *
      * @throws IMP_Exception
      */
-    static public function factory($driver, $params = array())
+    public function __construct(array $params = array())
     {
-        $class = __CLASS__ . '_' . ucfirst(basename($driver));
+        $this->_params = array_merge($this->_params, $params);
+    }
 
-        if (class_exists($class)) {
-            return new $class($params);
+    /**
+     * Logs an attempt to send a message.
+     *
+     * @param integer $action           Why the message was sent (IMP_Sentmail
+     *                                  constant).
+     * @param string $message_id        The Message-ID.
+     * @param string|array $recipients  The list of message recipients.
+     * @param boolean $success          Whether the attempt was successful.
+     */
+    public function log($action, $message_id, $recipients, $success = true)
+    {
+        if (!is_array($recipients)) {
+            $recipients = array($recipients);
         }
 
-        throw new IMP_Exception(__CLASS__ . ': Driver not found: ' . $driver);
+        foreach ($recipients as $addresses) {
+            $addresses = Horde_Mime_Address::bareAddress($addresses, $GLOBALS['session']->get('imp', 'maildomain'), true);
+            foreach ($addresses as $recipient) {
+                $this->_log($action, $message_id, $recipient, $success);
+            }
+        }
     }
+
+    /**
+     * Garbage collect log entries.
+     */
+    public function gc()
+    {
+        $this->_deleteOldEntries(time() - ((isset($this->_params['threshold']) ? $this->_params['threshold'] : 0) * 86400));
+    }
+
+    /**
+     * Logs an attempt to send a message per recipient.
+     *
+     * @param integer $action     Why the message was sent (IMP_Sentmail
+     *                            constant).
+     * @param string $message_id  The Message-ID.
+     * @param string $recipients  A message recipient.
+     * @param boolean $success    Whether the attempt was successful.
+     */
+    abstract protected function _log($action, $message_id, $recipient,
+                                     $success);
+
+    /**
+     * Returns the favourite recipients.
+     *
+     * @param integer $limit  Return this number of recipients.
+     * @param mixed $filter   A list of messages types that should be
+     *                        returned. Null returns all message types.
+     *
+     * @return array  A list with the $limit most favourite recipients.
+     * @throws IMP_Exception
+     */
+    abstract public function favouriteRecipients($limit, $filter = null);
+
+    /**
+     * Returns the number of recipients within a certain time period.
+     *
+     * @param integer $hours  Time period in hours.
+     * @param boolean $user   Return the number of recipients for the current
+     *                        user?
+     *
+     * @return integer  The number of recipients in the given time period.
+     * @throws IMP_Exception
+     */
+    abstract public function numberOfRecipients($hours, $user = false);
+
+    /**
+     * Deletes all log entries older than a certain date.
+     *
+     * @param integer $before  Unix timestamp before that all log entries
+     *                         should be deleted.
+     */
+    abstract protected function _deleteOldEntries($before);
 
 }

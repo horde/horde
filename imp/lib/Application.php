@@ -233,7 +233,7 @@ class IMP_Application extends Horde_Registry_Application
         case 'max_timelimit':
             if (isset($opts['value'])) {
                 $sentmail = $GLOBALS['injector']->getInstance('IMP_Sentmail');
-                if (!($sentmail instanceof IMP_Sentmail_Base)) {
+                if (!($sentmail instanceof IMP_Sentmail)) {
                     Horde::logMessage('The permission for the maximum number of recipients per time period has been enabled, but no backend for the sent-mail logging has been configured for IMP.', 'ERR');
                     return true;
                 }
