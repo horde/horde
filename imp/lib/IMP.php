@@ -76,18 +76,18 @@ class IMP
     /**
      * Returns mailbox info for the current page.
      *
-     * @param boolean $base  If true, return base mailbox info. If false,
-     *                       return mailbox for UID.
+     * @param boolean $uidmbox  If true, return mailbox associated with UID.
+     *                          Otherwise, return master mailbox.
      *
      * @return IMP_Mailbox  Mailbox object.
      */
-    static public function mailbox($base = true)
+    static public function mailbox($uidmbox = false)
     {
         if (!isset(self::$_mboxinfo)) {
             self::setMailboxInfo();
         }
 
-        return self::$_mboxinfo[$base ? 'mailbox' : 'thismailbox'];
+        return self::$_mboxinfo[$uidmbox ? 'thismailbox' : 'mailbox'];
     }
 
     /**
