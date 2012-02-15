@@ -36,7 +36,7 @@ class Imp_Unit_QuotaTest extends PHPUnit_Framework_TestCase
 {
     public function testMaildir()
     {
-        $quota = IMP_Quota::factory('Maildir', array(
+        $quota = new IMP_Quota_Maildir(array(
             'path' => dirname(__FILE__) . '/../fixtures',
             'username' => 'foo'
         ));

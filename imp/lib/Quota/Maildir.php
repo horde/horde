@@ -13,7 +13,7 @@
  * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
-class IMP_Quota_Maildir extends IMP_Quota_Base
+class IMP_Quota_Maildir extends IMP_Quota
 {
     /**
      * Constructor.
