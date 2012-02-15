@@ -1855,7 +1855,7 @@ var DimpBase = {
             txt = sel + ' ' + DIMP.text.messages;
             break;
         }
-        $('previewInfo').update(txt + ' ' + DIMP.text.selected + '.').show();
+        $('previewInfo').update(txt + ' ' + DIMP.text.selected + '.').show().highlight({ queue: 'end' });
 
         delete this.pp;
     },
