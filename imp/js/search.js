@@ -664,12 +664,19 @@ var ImpSearch = {
 
     showUnsubCallback: function(r)
     {
-        var resp;
+        var resp, sfa, vals;
 
         if (r.responseJSON.response) {
             resp = r.responseJSON.response;
             this.data.folder_list = resp.folder_list;
-            $('search_folders_add').update(resp.tree);
+            sfa = $('search_folders_add');
+            vals = sfa.select('[disabled]').pluck('value');
+            sfa.update(resp.tree);
+            vals.each(function(v) {
+                if (v.length) {
+                    this.disableFolder(true, v);
+                }
+            }, this);
         }
     },
 
