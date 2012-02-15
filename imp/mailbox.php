@@ -723,7 +723,7 @@ foreach ($headers as $key => $val) {
             'sortby' => $key
         )), $val['stext'], 'widget', null, null, $val['text']);
     } else {
-        $ptr['change_sort_widget'] = Horde::highlightAccessKey($val['text']);
+        $ptr['change_sort_widget'] = Horde::stripAccessKey($val['text']);
     }
 }
 
