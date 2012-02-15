@@ -63,10 +63,6 @@ class IMP
             require IMP_TEMPLATES . '/common-header.inc';
             break;
 
-        case Horde_Registry::VIEW_DYNAMIC:
-            $GLOBALS['injector']->getInstance('IMP_Ajax')->header();
-            break;
-
         default:
             require IMP_TEMPLATES . '/common-header.inc';
             break;
