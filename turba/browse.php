@@ -32,7 +32,6 @@ $params = array(
     'registry' => &$registry,
     'browse_source_count' => $browse_source_count,
     'browse_source_options' => $browse_source_options,
-    'copymove_source_options' => $copymove_source_options,
     'copymoveSources' => $copymoveSources,
     'addSources' => $addSources,
     'cfgSources' => $cfgSources,

@@ -48,7 +48,6 @@ class Turba_Application extends Horde_Registry_Application
      *   $browse_source_count - TODO
      *   $browse_source_options - TODO
      *   $cfgSources   - TODO
-     *   $copymove_source_options - TODO
      *   $copymoveSources - TODO
      */
     protected function _init()
@@ -115,22 +114,8 @@ class Turba_Application extends Horde_Registry_Application
         $GLOBALS['session']->set('turba', 'source', $default_source);
         $GLOBALS['default_source'] = $default_source;
 
-        /* Only set $add_source_options if there is at least one editable
-         * address book that is not the current address book. */
-        $addSources = Turba::getAddressBooks(Horde_Perms::EDIT, array('require_add' => true));
-        $copymove_source_options = '';
-        $copymoveSources = $addSources;
-        unset($copymoveSources[$default_source]);
-        foreach ($copymoveSources as $key => $curSource) {
-            if ($key != $default_source) {
-                $copymove_source_options .= '<option value="' . htmlspecialchars($key) . '">' .
-                    htmlspecialchars($curSource['title']) . '</option>';
-            }
-        }
-
-        $GLOBALS['addSources'] = $addSources;
-        $GLOBALS['copymove_source_options'] = $copymove_source_options;
-        $GLOBALS['copymoveSources'] = $copymoveSources;
+        $GLOBALS['addSources'] = Turba::getAddressBooks(Horde_Perms::EDIT, array('require_add' => true));
+        $GLOBALS['copymoveSources'] = array_diff($GLOBALS['addSources'], array($default_source));
     }
 
     /**
