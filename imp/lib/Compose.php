@@ -694,6 +694,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             if (!is_null($identity_search) &&
                 ($opts['identity']->getDefault() != $identity_search)) {
                 $this->_metadata['identity_check'] = true;
+                $this->changed = 'changed';
+
                 $e = new IMP_Compose_Exception(_("Recipient address does not match the currently selected identity."));
                 $e->tied_identity = $identity_search;
                 throw $e;
