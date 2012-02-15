@@ -54,6 +54,7 @@
  */
 
 var Slider2 = Class.create({
+
     value: 0,
 
     initialize: function(track, options)
@@ -87,10 +88,10 @@ var Slider2 = Class.create({
             this._initScroll();
         }
 
-        this.eventMU = this._endDrag.bindAsEventListener(this);
-        this.eventMM = this._update.bindAsEventListener(this);
-
         [ this.handle, this.track ].invoke('observe', 'mousedown', this._startDrag.bindAsEventListener(this));
+
+        document.observe('mouseup', this._endDrag.bindAsEventListener(this));
+        document.observe('mousemove', this._update.bindAsEventListener(this));
     },
 
     _initScroll: function()
@@ -121,9 +122,6 @@ var Slider2 = Class.create({
             this.curroffsets = this.track.cumulativeOffset();
             this.offsetY = e.pointerY() - hoffsets[1] + this.sbup.offsetHeight;
             this.active = true;
-
-            document.observe('mouseup', this.eventMU);
-            document.observe('mousemove', this.eventMM);
         }
 
         e.stop();
@@ -147,9 +145,6 @@ var Slider2 = Class.create({
         if (this.active && this.dragging) {
             this._updateFinished();
             e.stop();
-
-            document.stopObserving('mouseup', this.eventMU);
-            document.stopObserving('mousemove', this.eventMM);
         }
         this.active = this.dragging = false;
     },
