@@ -397,7 +397,7 @@ class IMP
             $t->set('ak', $ak);
             $t->set('flist', self::flistSelect(array(
                 'inc_vfolder' => true,
-                'selected' => self::$mailbox
+                'selected' => self::mailbox()
             )));
             $t->set('flink', sprintf('%s%s<br />%s</a>', Horde::link('#'), ($menu_view != 'text') ? '<span class="iconImg folderImg" title="' . htmlspecialchars(_("Open Folder")) . '"></span>' : '', ($menu_view != 'icon') ? Horde::highlightAccessKey(_("Open Fo_lder"), $ak) : ''));
         }
