@@ -149,6 +149,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             'URI_PORTAL' => strval($registry->getServiceLink('portal')->setRaw(true)),
             'URI_PREFS_IMP' => strval($registry->getServiceLink('prefs', 'imp')->setRaw(true)),
             'URI_SEARCH' => strval(Horde::url('search.php')),
+            'URI_THREAD' => strval(Horde::url('thread.php')),
 
             // IMAP Flags
             'FLAG_DELETED' => Horde_Imap_Client::FLAG_DELETED,
@@ -424,7 +425,8 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         $context['ctx_preview'] = array(
             'save' => _("Save"),
             'viewsource' => _("View Source"),
-            'allparts' => _("All Parts")
+            'allparts' => _("All Parts"),
+            'thread' => _("View Thread")
         );
 
         if (empty($conf['user']['allow_view_source'])) {

@@ -1386,6 +1386,7 @@ var DimpBase = {
 
         case 'ctx_preview':
             [ $('ctx_preview_allparts') ].invoke(this.pp.hide_all ? 'hide' : 'show');
+            [ $('ctx_preview_thread') ].invoke(this.viewport.getMetaData('nothread') ? 'hide' : 'show');
             break;
 
         case 'ctx_template':
@@ -2709,6 +2710,15 @@ var DimpBase = {
             HordeCore.popupWindow(DimpCore.conf.URI_VIEW, {
                 actionID: 'view_source',
                 id: 0,
+                mailbox: this.pp.mbox,
+                uid: this.pp.uid
+            }, {
+                name: this.pp.uid + '|' + this.pp.mbox
+            });
+            break;
+
+        case 'ctx_preview_thread':
+            HordeCore.popupWindow(DimpCore.conf.URI_THREAD, {
                 mailbox: this.pp.mbox,
                 uid: this.pp.uid
             }, {

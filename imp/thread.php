@@ -1,6 +1,7 @@
 <?php
 /**
  * Message thread display.
+ * Usable in both basic and dynamic views.
  *
  * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
  *
@@ -15,7 +16,6 @@
 
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('imp', array(
-    'impmode' => Horde_Registry::VIEW_BASIC,
     'timezone' => true
 ));
 
@@ -34,7 +34,8 @@ $imp_mailbox = IMP::mailbox()->getListOb(IMP::mailbox(true)->getIndicesOb(IMP::u
 $error = false;
 if ($mode == 'thread') {
     /* THREAD MODE: Make sure we have a valid index. */
-    if (!$imp_mailbox->isValidIndex()) {
+    if (($imp_mailbox instanceof IMP_Mailbox_List_Track) &&
+        !$imp_mailbox->isValidIndex()) {
         $error = true;
     }
 } else {
@@ -73,8 +74,12 @@ $subject = '';
 $page_label = IMP::mailbox()->label;
 
 if ($mode == 'thread') {
-    $index = $imp_mailbox->getIMAPIndex();
-    $imp_indices = $imp_mailbox->getFullThread($index['uid'], $index['mailbox']);
+    if ($imp_mailbox instanceof IMP_Mailbox_List_Track) {
+        $index = $imp_mailbox->getIMAPIndex();
+        $imp_indices = $imp_mailbox->getFullThread($index['uid'], $index['mailbox']);
+    } else {
+        $imp_indices = $imp_mailbox->getFullThread(IMP::uid(), IMP::mailbox(true));
+    }
 }
 
 $charset = 'UTF-8';
@@ -129,8 +134,13 @@ foreach ($imp_indices as $ob) {
         } else {
             $curr_msg['link'] = Horde::widget(array('url' => '#display', 'title' => _("Back to Multiple Message View Index"), 'nocheck' => true));
         }
-        $curr_msg['link'] .= ' | ' . Horde::widget(array('url' => IMP::mailbox()->url('message.php', $idx, $ob->mbox), 'title' => _("Go to Message"), 'nocheck' => true));
-        $curr_msg['link'] .= ' | ' . Horde::widget(array('url' => IMP::mailbox()->url('mailbox.php')->add(array('start' => $imp_mailbox->getArrayIndex($idx))), 'title' => sprintf(_("Bac_k to %s"), $page_label)));
+
+        switch ($registry->getView()) {
+        case $registry::VIEW_BASIC:
+            $curr_msg['link'] .= ' | ' . Horde::widget(array('url' => IMP::mailbox()->url('message.php', $idx, $ob->mbox), 'title' => _("Go to Message"), 'nocheck' => true)) .
+                ' | ' . Horde::widget(array('url' => IMP::mailbox()->url('mailbox.php')->add(array('start' => $imp_mailbox->getArrayIndex($idx))), 'title' => sprintf(_("Bac_k to %s"), $page_label)));
+            break;
+        }
 
         $curr_tree['subject'] = ($mode == 'thread')
             ? $imp_mailbox->getThreadOb($imp_mailbox->getArrayIndex($fetch_res[$idx]->getUid(), $ob->mbox) + 1)->img
@@ -146,25 +156,28 @@ foreach ($imp_indices as $ob) {
 $injector->getInstance('IMP_Message')->flag(array(Horde_Imap_Client::FLAG_SEEN), $imp_indices);
 
 $view = new Horde_View(array(
-    'templatePath' => IMP_TEMPLATES . '/basic/thread'
+    'templatePath' => IMP_TEMPLATES . '/thread'
 ));
 
 if ($mode == 'thread') {
     $view->subject = $subject;
     $view->thread = true;
 
-    $uid_list = $imp_indices[strval(IMP::mailbox())];
-    $delete_link = IMP::mailbox()->url('mailbox.php')->add(array(
-        'actionID' => 'delete_messages',
-        'indices' => strval($imp_indices),
-        'mailbox_token' => $injector->getInstance('Horde_Token')->get('imp.mailbox'),
-        'start' => $imp_mailbox->getArrayIndex(end($uid_list))
-    ));
-
-    $view->delete = Horde::link($delete_link, _("Delete Thread"), null, null, null, null, null, array('id' => 'threaddelete'));
-    $page_output->addInlineScript(array(
-        '$("threaddelete").observe("click", function(e) { if (!window.confirm(' . Horde_Serialize::serialize(_("Are you sure you want to delete all messages in this thread?"), Horde_Serialize::JSON, $charset) . ')) { e.stop(); } })'
-    ), true);
+    switch ($registry->getView()) {
+    case $registry::VIEW_BASIC:
+        $uid_list = $imp_indices[strval(IMP::mailbox())];
+        $delete_link = IMP::mailbox()->url('mailbox.php')->add(array(
+            'actionID' => 'delete_messages',
+            'indices' => strval($imp_indices),
+            'mailbox_token' => $injector->getInstance('Horde_Token')->get('imp.mailbox'),
+            'start' => $imp_mailbox->getArrayIndex(end($uid_list))
+        ));
+        $view->delete = Horde::link($delete_link, _("Delete Thread"), null, null, null, null, null, array('id' => 'threaddelete'));
+        $page_output->addInlineScript(array(
+            '$("threaddelete").observe("click", function(e) { if (!window.confirm(' . Horde_Serialize::serialize(_("Are you sure you want to delete all messages in this thread?"), Horde_Serialize::JSON, $charset) . ')) { e.stop(); } })'
+        ), true);
+        break;
+    }
 } else {
     $view->subject = sprintf(_("%d Messages"), count($msgs));
 }
@@ -175,7 +188,17 @@ $view->tree = $tree;
 $page_output->addScriptFile('stripe.js', 'horde');
 $page_output->noDnsPrefetch();
 
-IMP::header($mode == 'thread' ? _("Thread View") : _("Multiple Message View"));
+switch ($registry->getView()) {
+case $registry::VIEW_DYNAMIC:
+    $page_output->topbar = $page_output->sidebar = false;
+    IMP::header(_("Thread View"));
+    break;
+
+default:
+    IMP::header($mode == 'thread' ? _("Thread View") : _("Multiple Message View"));
+    break;
+}
+
 IMP::status();
 echo $view->render('thread');
 $page_output->footer();
