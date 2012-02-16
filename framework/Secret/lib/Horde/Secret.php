@@ -46,13 +46,11 @@ class Horde_Secret
      * Constructor.
      *
      * @param array $params  Configuration parameters:
-     * <pre>
-     * 'cookie_domain' - (string) The cookie domain.
-     * 'cookie_expire' - (integer) The cookie expiration time (in seconds).
-     * 'cookie_path' - (string) The cookie path.
-     * 'cookie_ssl' - (boolean) Only transmit cookie securely?
-     * 'session_name' - (string) The cookie session name.
-     * </pre>
+     *   - cookie_domain: (string) The cookie domain.
+     *   - cookie_expire: (integer) The cookie expiration time (in seconds).
+     *   - cookie_path: (string) The cookie path.
+     *   - cookie_ssl: (boolean) Only transmit cookie securely?
+     *   - session_name: (string) The cookie session name.
      */
     public function __construct($params = array())
     {
