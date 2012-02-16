@@ -16,12 +16,11 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('turba');
 
-$source = Horde_Util::getFormData('source');
-$key = Horde_Util::getFormData('key');
-$driver = $injector->getInstance('Turba_Factory_Driver')->create($source);
+$vars = Horde_Variables::getDefaultVariables();
+$driver = $injector->getInstance('Turba_Factory_Driver')->create($vars->source);
 
 try {
-    $object = $driver->getObject($key);
+    $object = $driver->getObject($vars->key);
     $object->deleteFiles();
 } catch (Turba_Exception $e) {
     $notification->push($e, 'horde.error');
@@ -29,9 +28,10 @@ try {
 }
 
 try {
-    $driver->delete($key);
-    $url = ($url = Horde_Util::getFormData('url'))
-        ? new Horde_Url($url)
+    $driver->delete($vars->key);
+    $notification->push(sprintf(_("Deleted contact: %s"), $object->getValue('name')), 'horde.success');
+    $url = strlen($vars->url)
+        ? new Horde_Url($vars->url)
         : Horde::url($prefs->getValue('initial_page'), true);
     $url->redirect();
 } catch (Turba_Exception $e) {
