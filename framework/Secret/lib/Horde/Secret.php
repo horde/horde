@@ -68,12 +68,10 @@ class Horde_Secret
      */
     public function write($key, $message)
     {
-        $message = (string)$message;
-        if (strlen($key) && strlen($message)) {
-            return $this->_getCipherOb($key)->encrypt($message);
-        } else {
-            return '';
-        }
+        $message = strval($message);
+        return (strlen($key) && strlen($message))
+            ? $this->_getCipherOb($key)->encrypt($message)
+            : '';
     }
 
     /**
@@ -87,12 +85,10 @@ class Horde_Secret
      */
     public function read($key, $ciphertext)
     {
-        $ciphertext = (string)$ciphertext;
-        if (strlen($key) && strlen($ciphertext)) {
-            return rtrim($this->_getCipherOb($key)->decrypt($ciphertext), "\0");
-        } else {
-            return '';
-        }
+        $ciphertext = strval($ciphertext);
+        return (strlen($key) && strlen($ciphertext))
+            ? rtrim($this->_getCipherOb($key)->decrypt($ciphertext), "\0")
+            : '';
     }
 
     /**
@@ -108,12 +104,12 @@ class Horde_Secret
         if (!is_string($key)) {
             throw new Horde_Secret_Exception('Key must be a string', 2);
         }
+
         if (strlen($key) > 56) {
             throw new Horde_Secret_Exception('Key must be less than 56 characters and non-zero. Supplied key length: ' . strlen($key), 3);
         }
 
         $idx = hash('md5', $key);
-
         if (!isset($this->_cipherCache[$idx])) {
             if (!class_exists('Crypt_Blowfish')) {
                 throw new Horde_Secret_Exception('Crypt_Blowfish library not found.');
