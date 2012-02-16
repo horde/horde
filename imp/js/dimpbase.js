@@ -104,6 +104,7 @@ var DimpBase = {
         } else {
             this.viewport.select($A($R(1, this.viewport.getMetaData('total_rows'))));
             DimpCore.toggleCheck(tmp, true);
+            $('previewInfo').highlight({ queue: 'end', keepBackgroundImage: true, duration: 2.0 })
         }
     },
 
@@ -1855,7 +1856,7 @@ var DimpBase = {
             txt = sel + ' ' + DIMP.text.messages;
             break;
         }
-        $('previewInfo').update(txt + ' ' + DIMP.text.selected + '.').show().highlight({ queue: 'end' });
+        $('previewInfo').update(txt + ' ' + DIMP.text.selected + '.').show();
 
         delete this.pp;
     },
