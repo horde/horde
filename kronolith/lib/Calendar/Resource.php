@@ -1,6 +1,6 @@
 <?php
 /**
- * Kronolith_Calendar_Internal defines an API for single internal (share)
+ * Kronolith_Calendar_Resource defines an API for single internal resource
  * calendars.
  *
  * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
@@ -93,7 +93,7 @@ class Kronolith_Calendar_Resource extends Kronolith_Calendar
      */
     public function display()
     {
-        // @TODO Will have to revisit this when reosource management is
+        // @TODO Will have to revisit this when resource management is
         // added to dynamic view.
         return false;
     }
