@@ -568,7 +568,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         if (!$this->getMetadata('identity_check') &&
             (count($recip['list']) === 1) &&
             isset($opts['identity'])) {
-            $identity_search = $opts['identity']->getMatchingIdentity($recip['list'], false);
+            $identity_search = $opts['identity']->getMatchingIdentity($recip['recips'], false);
             if (!is_null($identity_search) &&
                 ($opts['identity']->getDefault() != $identity_search)) {
                 $this->_metadata['identity_check'] = true;
