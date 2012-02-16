@@ -145,6 +145,10 @@ var HordeCore = {
             return this.base.HordeCore.showNotifications(msgs);
         }
 
+        if (!this.Growler) {
+            return this.showNotifications.bind(this, msgs, opts).defer();
+        }
+
         msgs.find(function(m) {
             if (!Object.isString(m.message)) {
                 return;

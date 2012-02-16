@@ -3,6 +3,9 @@
  * Provides a method to display Growler messages using the HordeCore
  * javascript notification framework.
  *
+ * This code should only be reached on non-AJAX pages while using the dynamic
+ * view mode.
+ *
  * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -24,9 +27,12 @@ class Horde_Core_Notification_Listener_DynamicStatus extends Horde_Notification_
      */
     public function notify($events, $options = array())
     {
-        Horde::addInlineScript(array(
-            'if (window.HordeCore || parent.HordeCore) { (window.HordeCore || parent.HordeCore).showNotifications(' . Horde_Serialize::serialize($events, Horde_Serialize::JSON) . ') }'
-        ), 'dom');
+        if (!empty($events)) {
+            $GLOBALS['injector']->getInstance('Horde_Core_Ajax')->initGrowler();
+            Horde::addInlineScript(array(
+                'if (window.HordeCore || parent.HordeCore) { (window.HordeCore || parent.HordeCore).showNotifications(' . Horde_Serialize::serialize($events, Horde_Serialize::JSON) . ') }'
+            ), 'dom');
+        }
     }
 
 }
