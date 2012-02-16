@@ -686,7 +686,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 
         }
 
-        $recipients = implode(', ', $recip['list']);
+        $recipients = implode(', ', $recip['recips']);
         $sent_saved = true;
 
         if ($this->_replytype) {
@@ -1079,10 +1079,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      *   - header: (array) Contains the cleaned up 'to', 'cc', and 'bcc'
      *             header strings.
      *   - list: (array) Recipient addresses (address objects).
+     *   - recips: (array) List of recipient addresses (string).
      */
     public function recipientList($hdr)
     {
-        $addrlist = $header = array();
+        $addrlist = $header = $recips = array();
 
         foreach (array('to', 'cc', 'bcc') as $key) {
             if (!isset($hdr[$key])) {
@@ -1112,23 +1113,24 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                         $group_addresses = array();
                         foreach ($ob['addresses'] as $ad) {
                             $addrlist[] = $ad;
-                            $group_addresses[] = Horde_Mime_Address::writeAddress($ad['mailbox'], trim($ad['host']), isset($ad['personal']) ? $ad['personal'] : '');
+                            $recips[] = $group_addresses[] = Horde_Mime_Address::writeAddress($ad['mailbox'], trim($ad['host']), isset($ad['personal']) ? $ad['personal'] : '');
                         }
 
                         $tmp[] = Horde_Mime_Address::writeGroupAddress($ob['groupname'], $group_addresses) . ' ';
                     } else {
                         $addrlist[] = $ob;
-                        $tmp[] = Horde_Mime_Address::writeAddress($ob['mailbox'], trim($ob['host']), isset($ob['personal']) ? $ob['personal'] : '') . ', ';
+                        $recips[] = $tmp[] = Horde_Mime_Address::writeAddress($ob['mailbox'], trim($ob['host']), isset($ob['personal']) ? $ob['personal'] : '');
                     }
                 }
             }
 
-            $header[$key] = rtrim(implode('', $tmp), ' ,');
+            $header[$key] = implode(', ', $tmp);
         }
 
         return array(
             'header' => $header,
-            'list' => $addrlist
+            'list' => $addrlist,
+            'recips' => $recips
         );
     }
 
