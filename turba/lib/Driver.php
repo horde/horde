@@ -516,7 +516,7 @@ class Turba_Driver implements Countable
                                     $strict_fields, $match_begin);
 
         if (count($return_fields)) {
-            $return_fields_pre = array_unique(array_merge(array('__key', '__type', '__owner', 'name'), $return_fields));
+            $return_fields_pre = array_unique(array_merge(array('__key', '__type', '__owner', '__members', 'name'), $return_fields));
             $return_fields = array();
             foreach ($return_fields_pre as $field) {
                 $result = $this->toDriver($field);
