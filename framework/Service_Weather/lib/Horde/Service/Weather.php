@@ -25,6 +25,7 @@ class Horde_Service_Weather
     const FORECAST_3DAY = 3;
     const FORECAST_5DAY = 5;
     const FORECAST_7DAY = 7;
+    const FORECAST_10DAY = 10;
 
     /** Standard forecast summary **/
     const FORECAST_TYPE_STANDARD = 1;

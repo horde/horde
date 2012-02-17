@@ -168,7 +168,8 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
          return array(
             3 => Horde_Service_Weather::FORECAST_3DAY,
             5 => Horde_Service_Weather::FORECAST_5DAY,
-            7 => Horde_Service_Weather::FORECAST_7DAY
+            7 => Horde_Service_Weather::FORECAST_7DAY,
+            10 => Horde_Service_Weather::FORECAST_10DAY
          );
      }
 
@@ -211,7 +212,7 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
      * a bit of request time/traffic for a smaller number of requests to obtain
      * information for e.g., a typical weather portal display.
      */
-    protected function _getCommonElements($location, $length = 7)
+    protected function _getCommonElements($location, $length = Horde_Service_Weather::FORECAST_7DAY)
     {
         if (!empty($this->_current) && $location == $this->_lastLocation) {
             return;
@@ -219,10 +220,17 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
 
         $this->_lastLocation = $location;
 
-        if ($length < 7) {
+        switch ($length) {
+        case Horde_Service_Weather::FORECAST_3DAY:
+        case Horde_Service_Weather::FORECAST_5DAY:
             $l = 'forecast';
-        } else {
+            break;
+        case Horde_Service_Weather::FORECAST_7DAY:
             $l = 'forecast7day';
+            break;
+        case Horde_Service_Weather::FORECAST_10DAY:
+            $l = 'forecast10day';
+            break;
         }
         $url = self::API_URL . '/api/' . $this->_apiKey
             . '/geolookup/conditions/' . $l . '/astronomy/q/' . $location . '.json';
