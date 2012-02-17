@@ -3,7 +3,7 @@
  * This file contains the Horde_Service_Weather_Period class for abstracting
  * access to a single forecast period from Wwo.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @license  http://www.horde.org/licenses/bsd BSD
@@ -13,20 +13,6 @@
 
 /**
  * Horde_Service_Weather_Period_Wwo
- *
- * Provides information for the following properties:
- *<pre>
- *  conditions             Condition description.
- *  icon_url               URL to an appropriate icon provided by the provider.
- *  icon                   Name of a Horde_Service_Weather icon.
- *  high                   High temperature.
- *  low                    Low  temperature.
- *  date                   Period date.
- *  humidity               The predicted humidity
- *  wind_degrees           Wind direction, in degrees
- *  wind_direction         Ordinal wind direction
- *  wind_speed             Wind speed, in requested units.
- *</pre>
  *
  * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @category Horde
@@ -59,7 +45,9 @@ class Horde_Service_Weather_Period_Wwo extends Horde_Service_Weather_Period_Base
         case 'humidity':
         case 'precipitation_percent':
         case 'wind_gust':
-            return null;
+        case 'snow_total':
+        case 'rain_total':
+            return false;
 
         case 'conditions':
             return Horde_Service_Weather_Translation::t($this->_properties->weatherDesc[0]->value);

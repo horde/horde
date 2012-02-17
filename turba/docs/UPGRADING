@@ -32,6 +32,10 @@ outdated.
 Upgrading Turba from 2.x to 3.x
 ===============================
 
+.. Important:: These upgrade instructions assume that you are upgrading from
+               at least Turba 2.2.  If you have an older version of Turba,
+               you must upgrade to at least Turba 2.2 before attempting to
+               install Turba 3.
 
 Configuration files
 -------------------

@@ -243,7 +243,7 @@ Example for `LGPL`_'ed Horde code::
      * The Horde_Foo class provides an API for various foo
      * techniques that can be used by Horde applications.
      *
-     * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
+     * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
      *
      * See the enclosed file COPYING for license information (LGPL). If you
      * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -264,7 +264,7 @@ Example for `GPL`_'ed application code::
      * The App_Bar class contains all functions related to handling
      * bars in App.
      *
-     * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
+     * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
      *
      * See the enclosed file COPYING for license information (GPL). If you
      * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -575,6 +575,41 @@ localized.
 Throwing exceptions is expensive, so use them carefully for logic flow. You
 should cache results of Horde::callHook() calls for example, if you expect them
 to not exist.
+
+
+Exceptions in Framework Packages
+================================
+
+Exceptions thrown in packages can be divided into two categories: code/logic
+exceptions and execution exceptions.
+
+Code/Logic Exceptions
+---------------------
+
+These are exceptions that should be thrown when there is an issue with the
+programming logic - e.g. the environment was not properly set up by an
+application, or a required parameter was not provided.
+
+These type of exceptions should throw one of the SPL Exceptions (e.g.
+BadFunctionCallException, LogicException, RuntimeException), NOT a package
+exception.  This ensures that errors will normally cause a fatal error, rather
+than potentially being caught and ignored by the calling code.  As such, there
+is no need to document the exception in phpdoc.  Further, the exception
+messages should not be translated, as these messages are intended for
+developers not users.
+
+Execution Exceptions
+--------------------
+
+These are exceptions that are thrown due to an error encountered while
+performing the action requested by the calling code.
+
+Any package that throws at least one execution Exception should define a
+Horde_PackageName_Exception class that extends Horde_Exception.  Execution
+exceptions should use this class when throwing an error.  Any method that
+throws this kind of exception should document it in the phpdoc using the
+@throws keyword.  These messages should be translated, as they potentially
+could be displayed to the user at the application level.
 
 
 Existence checking

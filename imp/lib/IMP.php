@@ -2,7 +2,7 @@
 /**
  * IMP Base Class.
  *
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -335,6 +335,7 @@ class IMP
     static public function menu()
     {
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
+        $t->set('form_url', Horde::url('mailbox.php'));
         $t->set('forminput', Horde_Util::formInput());
         $t->set('use_folders', $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS), true);
         if ($t->get('use_folders')) {

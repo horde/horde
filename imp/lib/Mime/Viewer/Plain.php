@@ -3,7 +3,7 @@
  * The IMP_Mime_Viewer_Plain class renders out text/plain MIME parts
  * with URLs made into hyperlinks.
  *
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -73,7 +73,6 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
             return array(
                 $mime_id => array(
                     'data' => '',
-                    'status' => array(),
                     'type' => 'text/html; charset=' . $charset
                 )
             );
@@ -105,7 +104,6 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
             return array(
                 $mime_id => array(
                     'data' => $text,
-                    'status' => array(),
                     'type' => $type
                 )
             );
@@ -127,7 +125,7 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
                 (($show == 'hidden') ||
                  (($show == 'thread') && (basename(Horde::selfUrl()) == 'thread.php')));
             if (!$hideBlocks && in_array($show, array('list', 'listthread'))) {
-                $header = $this->getConfigParam('imp_contents')->getHeaderOb();
+                $header = $this->getConfigParam('imp_contents')->getHeader();
                 $imp_ui = new IMP_Ui_Message();
                 $list_info = $imp_ui->getListInformation($header);
                 $hideBlocks = $list_info['exists'];
@@ -171,7 +169,6 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
         return array(
             $mime_id => array(
                 'data' => "<div class=\"fixed leftAlign\">\n" . $text . '</div>',
-                'status' => array(),
                 'type' => $type
             )
         );
@@ -251,7 +248,8 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
 
             case Horde_Crypt_Pgp::ARMOR_MESSAGE:
                 $part = new Horde_Mime_Part();
-                $part->setType('multipart/signed');
+                $part->setType('multipart/encrypted');
+                $part->setMetadata(IMP_Mime_Viewer_Pgp::PGP_ARMOR, true);
                 // TODO: add micalg parameter
                 $part->setContentTypeParameter('protocol', 'application/pgp-encrypted');
 
@@ -293,8 +291,8 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
                     // the entire armored text to verify correctly. Use a
                     // IMP-specific content-type parameter to clue the PGP
                     // driver into this fact.
-                    $part2->setMetadata('imp-pgp-signature', true);
-                    $part2->setMetadata('imp-pgp-charset', $charset);
+                    $part2->setMetadata(IMP_Mime_Viewer_Pgp::PGP_SIG, true);
+                    $part2->setMetadata(IMP_Mime_Viewer_Pgp::PGP_CHARSET, $charset);
 
                     $part->addPart($part1);
                     $part->addPart($part2);

@@ -3,7 +3,7 @@
  * Base class for Kronolith resources. Partially presents a Horde_Share_Object
  * interface.
  *
- * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -95,7 +95,7 @@ abstract class Kronolith_Resource_Base
      */
     public function hasPermission($user, $permission = Horde_Perms::READ, $restrict = null)
     {
-        if (($perms & (Horde_Perms::EDIT | Horde_Perms::DELETE)) &&
+        if (($permission & (Horde_Perms::EDIT | Horde_Perms::DELETE)) &&
             !$GLOBALS['registry']->isAdmin()) {
             return false;
         }

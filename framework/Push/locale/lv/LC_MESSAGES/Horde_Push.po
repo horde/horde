@@ -1,0 +1,30 @@
+# Latvian translations for Horde_Push package.
+# Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Horde_Push package.
+# Automatically generated, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Push\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2011-10-30 08:23+0100\n"
+"PO-Revision-Date: 2011-11-04 13:28+0300\n"
+"Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"Language: lv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+"X-Poedit-Language: Latvian\n"
+"X-Poedit-Country: LATVIA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: lib/Horde/Push/Cli.php:63
+msgid "A comma delimited list of recipients."
+msgstr "Ar komatiem atdalītu adresātu saraksts."
+
+#: lib/Horde/Push/Cli.php:47
+msgid "Path to the configuration file."
+msgstr "Ceļš līdz konfigurācijas failam."

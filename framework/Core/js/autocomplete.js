@@ -16,7 +16,7 @@
  * TODO: options = autoSelect, frequency, minChars, onSelect, onShow, onType,
  *                 paramName, tokens
  *
- * Copyright 2007-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -117,14 +117,16 @@ Autocompleter.Base = Class.create({
             re = new RegExp(this.getToken(), "i");
 
             choices.each(function(n) {
-                var m = n.match(re),
-                    out = { l: '', v: n };
+                var out = { l: '', v: n },
+                m = n.match(re);
 
-                n.match(re).each(function(m) {
-                    var idx = n.indexOf(m);
-                    out.l += n.substr(0, idx).escapeHTML() + '<strong>' + m.escapeHTML() + '</strong>';
-                    n = n.substr(idx + m.length);
-                });
+                if (m) {
+                    m.each(function(m) {
+                        var idx = n.indexOf(m);
+                        out.l += n.substr(0, idx).escapeHTML() + '<strong>' + m.escapeHTML() + '</strong>';
+                        n = n.substr(idx + m.length);
+                    });
+                }
 
                 if (n.length) {
                     out.l += n.escapeHTML();

@@ -21,6 +21,9 @@ class Horde_Crypt_PgpTest extends PHPUnit_Framework_TestCase
             $this->markTestSkipped('GPG binary not found at /usr/bin/gpg.');
         }
 
+        @date_default_timezone_set('GMT');
+        putenv('LANGUAGE=C');
+
         $this->_pgp = Horde_Crypt::factory('Pgp', array(
             'program' => '/usr/bin/gpg',
             'temp' => Horde_Util::getTempDir()
@@ -32,8 +35,6 @@ class Horde_Crypt_PgpTest extends PHPUnit_Framework_TestCase
 
     public function testBug6601()
     {
-        @date_default_timezone_set('GMT');
-
         $data = file_get_contents(dirname(__FILE__) . '/fixtures/bug_6601.asc');
 
         $this->assertEquals(

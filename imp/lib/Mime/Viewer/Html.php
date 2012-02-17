@@ -3,7 +3,7 @@
  * The IMP_Mime_Viewer_Html class renders out HTML text with an effort
  * to remove potentially malicious code.
  *
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -60,18 +60,16 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         /* Non-javascript browsers can't handle IFRAME resizing, so it isn't
          * possible to view inline. */
         if (!$this->getConfigParam('browser')->hasFeature('javascript')) {
+            $status = new IMP_Mime_Status(array(
+                _("This message part contains HTML data, but this data can not be displayed inline."),
+                $this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', _("View HTML data in new window."))
+            ));
+            $status->icon('mime/html.png');
+
             return array(
                 $this->_mimepart->getMimeId() => array(
                     'data' => '',
-                    'status' => array(
-                        array(
-                            'icon' => Horde::img('mime/html.png'),
-                            'text' => array(
-                                _("This message part contains HTML data, but this data can not be displayed inline."),
-                                $this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', _("View HTML data in new window.")),
-                            )
-                        )
-                    ),
+                    'status' => $status,
                     'type' => 'text/html; charset=' . $this->getConfigParam('charset')
                 )
             );
@@ -107,19 +105,17 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             return array();
         }
 
+        $status = new IMP_Mime_Status(array(
+            _("This message part contains HTML data, but inline HTML display is disabled."),
+            $this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', _("View HTML data in new window.")),
+            $this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', _("Convert HTML data to plain text and view in new window."), array('params' => array('convert_text' => 1)))
+        ));
+        $status->icon('mime/html.png');
+
         return array(
             $this->_mimepart->getMimeId() => array(
                 'data' => '',
-                'status' => array(
-                    array(
-                        'icon' => Horde::img('mime/html.png', _("HTML data")),
-                        'text' => array(
-                            _("This message part contains HTML data, but inline HTML display is disabled."),
-                            $this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', _("View HTML data in new window.")),
-                            $this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', _("Convert HTML data to plain text and view in new window."), array('params' => array('convert_text' => 1)))
-                        )
-                    )
-                ),
+                'status' => $status,
                 'type' => 'text/html; charset=' . $this->getConfigParam('charset')
             )
         );
@@ -193,13 +189,10 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
         $status = array();
         if ($this->_phishWarn) {
-            $status[] = array(
-                'class' => 'mimestatuswarning',
-                'text' => array(
-                    sprintf(_("%s: This message may not be from whom it claims to be. Beware of following any links in it or of providing the sender with any personal information."), _("Warning")),
+            $status[] = new IMP_Mime_Status(array(
+                sprintf(_("%s: This message may not be from whom it claims to be. Beware of following any links in it or of providing the sender with any personal information."), _("Warning")),
                 _("The links that caused this warning have this background color:") . ' <span style="' . $this->_phishCss . '">' . _("EXAMPLE") . '</span>'
-                )
-            );
+            ));
         }
 
         /* We are done processing if in mimp mode, or we are converting to
@@ -212,29 +205,26 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             // Filter bad language.
             return array(
                 'data' => IMP::filterText($data),
-                'status' => array(),
                 'type' => 'text/plain; charset=' . $this->getConfigParam('charset')
             );
         }
 
         if ($this->_imptmp['imgblock']) {
-            $status[] = array(
-                'icon' => Horde::img('mime/image.png'),
-                'text' => array(
-                    _("Images have been blocked in this message part."),
-                    Horde::link('#', '', 'unblockImageLink') . _("Show Images?") . '</a>'
-                )
-            );
+            $tmp = new IMP_Mime_Status(array(
+                _("Images have been blocked in this message part."),
+                Horde::link('#', '', 'unblockImageLink') . _("Show Images?") . '</a>'
+            ));
+            $tmp->icon('mime/image.png');
+            $status[] = $tmp;
         } elseif ($this->_imptmp['cssblock']) {
             /* This is a bit less intuitive for end users, so hide within
              * image blocking if possible. */
-            $status[] = array(
-                'icon' => Horde::img('mime/image.png'),
-                'text' => array(
-                    _("Message styling has been suppressed in this message part since the style data lives on a remote server."),
-                    Horde::link('#', '', 'unblockImageLink') . _("Load Styling?") . '</a>'
-                )
-            );
+            $tmp = new IMP_Mime_Status(array(
+                _("Message styling has been suppressed in this message part since the style data lives on a remote server."),
+                Horde::link('#', '', 'unblockImageLink') . _("Load Styling?") . '</a>'
+            ));
+            $tmp->icon('mime/image.png');
+            $status[] = $tmp;
         }
 
         $filters = array();
@@ -280,7 +270,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             return false;
         }
 
-        $from = Horde_Mime_Address::bareAddress($this->getConfigParam('imp_contents')->getHeaderOb()->getValue('from'));
+        $from = Horde_Mime_Address::bareAddress($this->getConfigParam('imp_contents')->getHeader()->getValue('from'));
 
         if ($GLOBALS['prefs']->getValue('html_image_addrbook') &&
             $GLOBALS['registry']->hasMethod('contacts/getField')) {
@@ -431,6 +421,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                         isset($this->_imptmp['cid'][$val])) {
                         $this->_imptmp['cid_used'][] = $this->_imptmp['cid'][$val];
                         $val = $this->getConfigParam('imp_contents')->urlView(null, 'view_attach', array('params' => array(
+                            'ctype' => 'image/*',
                             'id' => $this->_imptmp['cid'][$val],
                             'imp_img_view' => 'data'
                         )));

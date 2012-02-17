@@ -1,5 +1,5 @@
 # German translations for Horde_Core module.
-# Copyright (C) 2010-2011 Horde Project
+# Copyright 2010-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Core module.
 # Jan Schneider <jan@horde.org>, 2010-2011.
 #
@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Core\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-11-21 18:18+0100\n"
+"POT-Creation-Date: 2012-01-17 12:38+0100\n"
 "PO-Revision-Date: 2011-04-04 10:36+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -27,7 +27,7 @@ msgstr " (Zugriffstaste %s)"
 msgid "\"%s\" group driver not found."
 msgstr "\"%s\"-Gruppen-Treiber nicht gefunden."
 
-#: lib/Horde/Registry.php:1204 lib/Horde/Registry.php:1687
+#: lib/Horde/Registry.php:1204 lib/Horde/Registry.php:1713
 #, php-format
 msgid "\"%s\" is not configured in the Horde Registry."
 msgstr "\"%s\" ist in der Horde Registry nicht konfiguriert."
@@ -50,11 +50,6 @@ msgid "%d day until your password expires."
 msgid_plural "%d days until your password expires."
 msgstr[0] "In %d Tag wird Ihr Passwort ungültig."
 msgstr[1] "In %d Tagen wird Ihr Passwort ungültig."
-
-#: lib/Horde/Registry.php:1309
-#, php-format
-msgid "%s is not authorized for %s."
-msgstr "%s ist für %s nicht autorisiert."
 
 #: lib/Horde/Core/Perms/Ui.php:347 lib/Horde/Core/Perms/Ui.php:407
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:815
@@ -162,7 +157,7 @@ msgstr "Adresse"
 msgid "Address Book"
 msgstr "Adressbuch"
 
-#: lib/Horde/Core/Sidebar.php:118
+#: lib/Horde/Core/Sidebar.php:117
 msgid "Administration"
 msgstr "Administration"
 
@@ -388,7 +383,7 @@ msgstr "Fr"
 msgid "Friday"
 msgstr "Freitag"
 
-#: lib/Horde/Core/Prefs/Ui.php:650 lib/Horde/Core/Sidebar.php:139
+#: lib/Horde/Core/Prefs/Ui.php:650 lib/Horde/Core/Sidebar.php:138
 msgid "Global Preferences"
 msgstr "Allgemeine Einstellungen"
 
@@ -457,11 +452,11 @@ msgstr "Juni"
 msgid "Keep original?"
 msgstr "Original beibehalten?"
 
-#: lib/Horde/Core/Sidebar.php:168
+#: lib/Horde/Core/Sidebar.php:167
 msgid "Log in"
 msgstr "Anmelden"
 
-#: lib/Horde/Core/Sidebar.php:161
+#: lib/Horde/Core/Sidebar.php:160
 msgid "Log out"
 msgstr "Abmelden"
 
@@ -628,7 +623,7 @@ msgstr "Foto"
 msgid "Postal Address"
 msgstr "Postadresse"
 
-#: lib/Horde/Core/Sidebar.php:128
+#: lib/Horde/Core/Sidebar.php:127
 msgid "Preferences"
 msgstr "Benutzereinstellungen"
 
@@ -642,7 +637,7 @@ msgstr "Benutzereinstellungen für %s"
 msgid "Preferred Address"
 msgstr "Bevorzugte Adresse"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1509
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1517
 msgid "Preview"
 msgstr "Vorschau"
 
@@ -798,7 +793,7 @@ msgstr "Die Datei %s sollte einen %s Eintrag enthalten."
 msgid "The file %s should contain some %s settings."
 msgstr "Die Datei %s sollte einige %s Einträge enthalten."
 
-#: lib/Horde/Registry.php:2353
+#: lib/Horde/Registry.php:2379
 #, php-format
 msgid "The following applications encountered errors removing user data: %s"
 msgstr ""
@@ -975,11 +970,11 @@ msgid_plural "You are not allowed to create more than %d blocks."
 msgstr[0] "Sie dürfen nicht mehr als %d Block erstellen."
 msgstr[1] "Sie dürfen nicht mehr als %d Blöcke erstellen."
 
-#: lib/Horde/Registry.php:2320
+#: lib/Horde/Registry.php:2346
 msgid "You are not allowed to remove user data."
 msgstr "Sie dürfen keine Benutzerdaten löschen."
 
-#: lib/Horde/Registry.php:1899
+#: lib/Horde/Registry.php:1925
 msgid "You are not authenticated."
 msgstr "Sie sind nicht angemeldet."
 

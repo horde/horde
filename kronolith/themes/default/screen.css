@@ -927,27 +927,30 @@ div.kronolithFormActions {
 #kronolithEventACBox, #kronolithCalendarinternalACBox, #kronolithAttendeesACBox {
     line-height: 100%;
 }
-
-#kronolithEventTabAttendees td.kronolithAttendeeNone,
-#kronolithEventTabAttendees td.kronolithAttendeeAccepted,
-#kronolithEventTabAttendees td.kronolithAttendeeDeclined,
-#kronolithEventTabAttendees td.kronolithAttendeeTentative {
+#kronolithEventTabAttendees td.kronolithAttendeeNone {
+    background-image: url("graphics/attendee-none.png");
     background-position: 0 center;
     background-repeat: no-repeat;
     padding-left: 18px;
 }
-.kronolithAttendeeNone {
-    background-image: url("graphics/attendee-none.png");
-}
-.kronolithAttendeeAccepted {
+#kronolithEventTabAttendees td.kronolithAttendeeAccepted {
     background-image: url("graphics/attendee-accepted.png");
+    background-position: 0 center;
+    background-repeat: no-repeat;
+    padding-left: 18px;
 }
-.kronolithAttendeeDeclined {
+#kronolithEventTabAttendees td.kronolithAttendeeDeclined {
     background-image: url("graphics/attendee-declined.png");
     text-decoration: line-through;
+    background-position: 0 center;
+    background-repeat: no-repeat;
+    padding-left: 18px;
 }
-.kronolithAttendeeTentative {
+#kronolithEventTabAttendees td.kronolithAttendeeTentative {
     background-image: url("graphics/attendee-tentative.png");
+    background-position: 0 center;
+    background-repeat: no-repeat;
+    padding-left: 18px;
 }
 
 /* Map */
@@ -1067,6 +1070,9 @@ table.kronolithView td.kronolithFirstCol {
 .kronolithAllDayContainer {
     height: 100%;
     overflow: hidden;
+}
+#kronolithViewDay .kronolithAllDayContainer {
+    overflow: auto;
 }
 
 /* Main view header row */
@@ -1449,6 +1455,8 @@ div.kronolithEvent {
     cursor: pointer;
     overflow: hidden;
     position: absolute;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
 }
 img.kronolithEventIcon {
     float: left;
@@ -1478,6 +1486,9 @@ img.kronolithEventIcon {
 #kronolithViewWeek div.kronolithEvent {
     font-size: 90%;
 }
+#kronolithViewMonth div.kronolithEvent {
+    max-height: 2.6em;
+}
 #kronolithViewDay .kronolithViewHead div.kronolithEvent,
 #kronolithViewWeek .kronolithViewHead div.kronolithEvent {
     white-space: nowrap;
@@ -1486,7 +1497,7 @@ img.kronolithEventIcon {
     float: left;
 }
 #kronolithViewWeek .kronolithViewHead div.kronolithEvent {
-    margin-right: 10%;
+    margin-right: 2%;
 }
 div.kronolithEvent .kronolithDragger {
     position: absolute;

@@ -1,5 +1,5 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Horde Project
+# Copyright (C) YEAR Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Mime package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Mime \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-11-21 18:18+0100\n"
+"POT-Creation-Date: 2012-01-17 12:38+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,31 +30,31 @@ msgstr ""
 msgid "Invalid character in e-mail address: %s."
 msgstr ""
 
-#: lib/Horde/Mime/Headers.php:528
+#: lib/Horde/Mime/Headers.php:527
 msgid "List-Archive"
 msgstr ""
 
-#: lib/Horde/Mime/Headers.php:523
+#: lib/Horde/Mime/Headers.php:522
 msgid "List-Help"
 msgstr ""
 
-#: lib/Horde/Mime/Headers.php:530
+#: lib/Horde/Mime/Headers.php:529
 msgid "List-Id"
 msgstr ""
 
-#: lib/Horde/Mime/Headers.php:526
+#: lib/Horde/Mime/Headers.php:525
 msgid "List-Owner"
 msgstr ""
 
-#: lib/Horde/Mime/Headers.php:527
+#: lib/Horde/Mime/Headers.php:526
 msgid "List-Post"
 msgstr ""
 
-#: lib/Horde/Mime/Headers.php:525
+#: lib/Horde/Mime/Headers.php:524
 msgid "List-Subscribe"
 msgstr ""
 
-#: lib/Horde/Mime/Headers.php:524
+#: lib/Horde/Mime/Headers.php:523
 msgid "List-Unsubscribe"
 msgstr ""
 

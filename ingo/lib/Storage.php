@@ -3,7 +3,7 @@
  * Ingo_Storage:: defines an API to store the various filter rules.
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
- * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author  Michael Slusarz <slusarz@horde.org>
  * @author  Jan Schneider <jan@horde.org>

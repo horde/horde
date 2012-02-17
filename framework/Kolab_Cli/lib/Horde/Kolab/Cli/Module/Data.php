@@ -14,7 +14,7 @@
 /**
  * The Horde_Kolab_Cli_Module_Data:: class handles Kolab data.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -146,7 +146,7 @@ implements Horde_Kolab_Cli_Module
             break;
         case 'stamp':
             $cli->writeln(
-                (string) $world['storage']->getData($folder_name)->getStamp()
+                (string)$world['storage']->getData($folder_name)->getStamp()
             );
             break;
         case 'complete':
@@ -170,7 +170,7 @@ implements Horde_Kolab_Cli_Module
         case 'ids':
             $data = $world['storage']->getData($folder_name, $arguments[3]);
             foreach ($data->getObjectIds() as $id) {
-                $cli->writeln((string) $id);
+                $cli->writeln((string)$id);
             }
             break;
         case 'objects':
@@ -227,7 +227,7 @@ implements Horde_Kolab_Cli_Module
             break;
         case 'backendid':
             $data = $world['storage']->getData($folder_name, $arguments[3]);
-            $cli->writeln((string) $data->getBackendId($arguments[4]));
+            $cli->writeln((string)$data->getBackendId($arguments[4]));
             break;
         default:
             $cli->message(

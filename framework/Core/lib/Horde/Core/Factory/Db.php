@@ -14,7 +14,7 @@
 /**
  * A Horde_Injector:: based factory for creating Horde_Db_Adapter objects.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -123,11 +123,9 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
     {
         // Split read?
         if (!empty($config['splitread'])) {
-            unset($config['splitread']);
-            $write_db = $this->createDb($config);
-            $config = array_merge($config, $config['read']);
-            $read_db = $this->createDb($config);
-            return new Horde_Db_Adapter_SplitRead($read_db, $write_db);
+            $read_config = $config['read'];
+            unset($config['read'], $config['splitread']);
+            return new Horde_Db_Adapter_SplitRead($this->createDb(array_merge($config, $read_config)), $this->createDb($config));
         }
 
         if (!isset($config['adapter'])) {

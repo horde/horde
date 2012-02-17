@@ -3,7 +3,7 @@
  * ActiveSync Server - ported from ZPush
  *
  * Refactoring and other changes are
- * Copyright 2009-2011 Horde LLC (http://www.horde.org)
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package ActiveSync
@@ -115,135 +115,136 @@
 class Horde_ActiveSync
 {
     /* Conflict resolution */
-    const CONFLICT_OVERWRITE_SERVER = 0;
-    const CONFLICT_OVERWRITE_PIM = 1;
+    const CONFLICT_OVERWRITE_SERVER     = 0;
+    const CONFLICT_OVERWRITE_PIM        = 1;
 
-    const BACKEND_DISCARD_DATA = 1;
+    const BACKEND_DISCARD_DATA          = 1;
 
     /* TRUNCATION Constants */
-    const TRUNCATION_HEADERS = 0;
-    const TRUNCATION_512B = 1;
-    const TRUNCATION_1K = 2;
-    const TRUNCATION_5K = 4;
-    const TRUNCATION_SEVEN = 7;
-    const TRUNCATION_ALL = 9;
+    const TRUNCATION_HEADERS            = 0;
+    const TRUNCATION_512B               = 1;
+    const TRUNCATION_1K                 = 2;
+    const TRUNCATION_5K                 = 4;
+    const TRUNCATION_SEVEN              = 7;
+    const TRUNCATION_ALL                = 9;
 
     /* Request related constants that are used in multiple places */
     /* FOLDERHIERARCHY */
-    const FOLDERHIERARCHY_FOLDERS = 'FolderHierarchy:Folders';
-    const FOLDERHIERARCHY_FOLDER = 'FolderHierarchy:Folder';
-    const FOLDERHIERARCHY_DISPLAYNAME = 'FolderHierarchy:DisplayName';
+    const FOLDERHIERARCHY_FOLDERS       = 'FolderHierarchy:Folders';
+    const FOLDERHIERARCHY_FOLDER        = 'FolderHierarchy:Folder';
+    const FOLDERHIERARCHY_DISPLAYNAME   = 'FolderHierarchy:DisplayName';
     const FOLDERHIERARCHY_SERVERENTRYID = 'FolderHierarchy:ServerEntryId';
-    const FOLDERHIERARCHY_PARENTID = 'FolderHierarchy:ParentId';
-    const FOLDERHIERARCHY_TYPE = 'FolderHierarchy:Type';
-    const FOLDERHIERARCHY_RESPONSE = 'FolderHierarchy:Response';
-    const FOLDERHIERARCHY_STATUS = 'FolderHierarchy:Status';
-    const FOLDERHIERARCHY_CONTENTCLASS = 'FolderHierarchy:ContentClass';
-    const FOLDERHIERARCHY_CHANGES = 'FolderHierarchy:Changes';
-    const FOLDERHIERARCHY_ADD = 'FolderHierarchy:Add';
-    const FOLDERHIERARCHY_REMOVE = 'FolderHierarchy:Remove';
-    const FOLDERHIERARCHY_UPDATE = 'FolderHierarchy:Update';
-    const FOLDERHIERARCHY_SYNCKEY = 'FolderHierarchy:SyncKey';
-    const FOLDERHIERARCHY_FOLDERCREATE = 'FolderHierarchy:FolderCreate';
-    const FOLDERHIERARCHY_FOLDERDELETE = 'FolderHierarchy:FolderDelete';
-    const FOLDERHIERARCHY_FOLDERUPDATE = 'FolderHierarchy:FolderUpdate';
-    const FOLDERHIERARCHY_FOLDERSYNC = 'FolderHierarchy:FolderSync';
-    const FOLDERHIERARCHY_COUNT = 'FolderHierarchy:Count';
-    const FOLDERHIERARCHY_VERSION = 'FolderHierarchy:Version';
+    const FOLDERHIERARCHY_PARENTID      = 'FolderHierarchy:ParentId';
+    const FOLDERHIERARCHY_TYPE          = 'FolderHierarchy:Type';
+    const FOLDERHIERARCHY_RESPONSE      = 'FolderHierarchy:Response';
+    const FOLDERHIERARCHY_STATUS        = 'FolderHierarchy:Status';
+    const FOLDERHIERARCHY_CONTENTCLASS  = 'FolderHierarchy:ContentClass';
+    const FOLDERHIERARCHY_CHANGES       = 'FolderHierarchy:Changes';
+    const FOLDERHIERARCHY_ADD           = 'FolderHierarchy:Add';
+    const FOLDERHIERARCHY_REMOVE        = 'FolderHierarchy:Remove';
+    const FOLDERHIERARCHY_UPDATE        = 'FolderHierarchy:Update';
+    const FOLDERHIERARCHY_SYNCKEY       = 'FolderHierarchy:SyncKey';
+    const FOLDERHIERARCHY_FOLDERCREATE  = 'FolderHierarchy:FolderCreate';
+    const FOLDERHIERARCHY_FOLDERDELETE  = 'FolderHierarchy:FolderDelete';
+    const FOLDERHIERARCHY_FOLDERUPDATE  = 'FolderHierarchy:FolderUpdate';
+    const FOLDERHIERARCHY_FOLDERSYNC    = 'FolderHierarchy:FolderSync';
+    const FOLDERHIERARCHY_COUNT         = 'FolderHierarchy:Count';
+    const FOLDERHIERARCHY_VERSION       = 'FolderHierarchy:Version';
 
     /* SYNC */
-    const SYNC_SYNCHRONIZE = 'Synchronize';
-    const SYNC_REPLIES = 'Replies';
-    const SYNC_ADD = 'Add';
-    const SYNC_MODIFY = 'Modify';
-    const SYNC_REMOVE = 'Remove';
-    const SYNC_FETCH = 'Fetch';
-    const SYNC_SYNCKEY = 'SyncKey';
-    const SYNC_CLIENTENTRYID = 'ClientEntryId';
-    const SYNC_SERVERENTRYID = 'ServerEntryId';
-    const SYNC_STATUS = 'Status';
-    const SYNC_FOLDER = 'Folder';
-    const SYNC_FOLDERTYPE = 'FolderType';
-    const SYNC_VERSION = 'Version';
-    const SYNC_FOLDERID = 'FolderId';
-    const SYNC_GETCHANGES = 'GetChanges';
-    const SYNC_MOREAVAILABLE = 'MoreAvailable';
-    const SYNC_WINDOWSIZE = 'WindowSize';
-    const SYNC_COMMANDS = 'Commands';
-    const SYNC_OPTIONS = 'Options';
-    const SYNC_FILTERTYPE = 'FilterType';
-    const SYNC_TRUNCATION = 'Truncation';
-    const SYNC_RTFTRUNCATION = 'RtfTruncation';
-    const SYNC_CONFLICT = 'Conflict';
-    const SYNC_FOLDERS = 'Folders';
-    const SYNC_DATA = 'Data';
-    const SYNC_DELETESASMOVES = 'DeletesAsMoves';
-    const SYNC_NOTIFYGUID = 'NotifyGUID';
-    const SYNC_SUPPORTED = 'Supported';
-    const SYNC_SOFTDELETE = 'SoftDelete';
-    const SYNC_MIMESUPPORT = 'MIMESupport';
-    const SYNC_MIMETRUNCATION = 'MIMETruncation';
+    const SYNC_SYNCHRONIZE              = 'Synchronize';
+    const SYNC_REPLIES                  = 'Replies';
+    const SYNC_ADD                      = 'Add';
+    const SYNC_MODIFY                   = 'Modify';
+    const SYNC_REMOVE                   = 'Remove';
+    const SYNC_FETCH                    = 'Fetch';
+    const SYNC_SYNCKEY                  = 'SyncKey';
+    const SYNC_CLIENTENTRYID            = 'ClientEntryId';
+    const SYNC_SERVERENTRYID            = 'ServerEntryId';
+    const SYNC_STATUS                   = 'Status';
+    const SYNC_FOLDER                   = 'Folder';
+    const SYNC_FOLDERTYPE               = 'FolderType';
+    const SYNC_VERSION                  = 'Version';
+    const SYNC_FOLDERID                 = 'FolderId';
+    const SYNC_GETCHANGES               = 'GetChanges';
+    const SYNC_MOREAVAILABLE            = 'MoreAvailable';
+    const SYNC_WINDOWSIZE               = 'WindowSize';
+    const SYNC_COMMANDS                 = 'Commands';
+    const SYNC_OPTIONS                  = 'Options';
+    const SYNC_FILTERTYPE               = 'FilterType';
+    const SYNC_TRUNCATION               = 'Truncation';
+    const SYNC_RTFTRUNCATION            = 'RtfTruncation';
+    const SYNC_CONFLICT                 = 'Conflict';
+    const SYNC_FOLDERS                  = 'Folders';
+    const SYNC_DATA                     = 'Data';
+    const SYNC_DELETESASMOVES           = 'DeletesAsMoves';
+    const SYNC_NOTIFYGUID               = 'NotifyGUID';
+    const SYNC_SUPPORTED                = 'Supported';
+    const SYNC_SOFTDELETE               = 'SoftDelete';
+    const SYNC_MIMESUPPORT              = 'MIMESupport';
+    const SYNC_MIMETRUNCATION           = 'MIMETruncation';
 
     /* PROVISION */
-    const PROVISION_PROVISION =  'Provision:Provision';
-    const PROVISION_POLICIES =  'Provision:Policies';
-    const PROVISION_POLICY =  'Provision:Policy';
-    const PROVISION_POLICYTYPE =  'Provision:PolicyType';
-    const PROVISION_POLICYKEY =  'Provision:PolicyKey';
-    const PROVISION_DATA =  'Provision:Data';
-    const PROVISION_STATUS =  'Provision:Status';
-    const PROVISION_REMOTEWIPE =  'Provision:RemoteWipe';
-    const PROVISION_EASPROVISIONDOC =  'Provision:EASProvisionDoc';
+    const PROVISION_PROVISION           =  'Provision:Provision';
+    const PROVISION_POLICIES            =  'Provision:Policies';
+    const PROVISION_POLICY              =  'Provision:Policy';
+    const PROVISION_POLICYTYPE          =  'Provision:PolicyType';
+    const PROVISION_POLICYKEY           =  'Provision:PolicyKey';
+    const PROVISION_DATA                =  'Provision:Data';
+    const PROVISION_STATUS              =  'Provision:Status';
+    const PROVISION_REMOTEWIPE          =  'Provision:RemoteWipe';
+    const PROVISION_EASPROVISIONDOC     =  'Provision:EASProvisionDoc';
 
     /* Flags */
-    const FLAG_NEWMESSAGE = 'NewMessage';
+    const FLAG_NEWMESSAGE               = 'NewMessage';
 
     /* Folder types */
-    const FOLDER_TYPE_OTHER =  1;
-    const FOLDER_TYPE_INBOX =  2;
-    const FOLDER_TYPE_DRAFTS =  3;
-    const FOLDER_TYPE_WASTEBASKET =  4;
-    const FOLDER_TYPE_SENTMAIL =  5;
-    const FOLDER_TYPE_OUTBOX =  6;
-    const FOLDER_TYPE_TASK =  7;
-    const FOLDER_TYPE_APPOINTMENT =  8;
-    const FOLDER_TYPE_CONTACT =  9;
-    const FOLDER_TYPE_NOTE =  10;
-    const FOLDER_TYPE_JOURNAL =  11;
-    const FOLDER_TYPE_USER_MAIL =  12;
-    const FOLDER_TYPE_USER_APPOINTMENT =  13;
-    const FOLDER_TYPE_USER_CONTACT =  14;
-    const FOLDER_TYPE_USER_TASK =  15;
-    const FOLDER_TYPE_USER_JOURNAL =  16;
-    const FOLDER_TYPE_USER_NOTE =  17;
-    const FOLDER_TYPE_UNKNOWN =  18;
-    const FOLDER_TYPE_RECIPIENT_CACHE =  19;
-    const FOLDER_TYPE_DUMMY =  '__dummy.Folder.Id__';
+    const FOLDER_TYPE_OTHER             =  1;
+    const FOLDER_TYPE_INBOX             =  2;
+    const FOLDER_TYPE_DRAFTS            =  3;
+    const FOLDER_TYPE_WASTEBASKET       =  4;
+    const FOLDER_TYPE_SENTMAIL          =  5;
+    const FOLDER_TYPE_OUTBOX            =  6;
+    const FOLDER_TYPE_TASK              =  7;
+    const FOLDER_TYPE_APPOINTMENT       =  8;
+    const FOLDER_TYPE_CONTACT           =  9;
+    const FOLDER_TYPE_NOTE              =  10;
+    const FOLDER_TYPE_JOURNAL           =  11;
+    const FOLDER_TYPE_USER_MAIL         =  12;
+    const FOLDER_TYPE_USER_APPOINTMENT  =  13;
+    const FOLDER_TYPE_USER_CONTACT      =  14;
+    const FOLDER_TYPE_USER_TASK         =  15;
+    const FOLDER_TYPE_USER_JOURNAL      =  16;
+    const FOLDER_TYPE_USER_NOTE         =  17;
+    const FOLDER_TYPE_UNKNOWN           =  18;
+    const FOLDER_TYPE_RECIPIENT_CACHE   =  19;
+    const FOLDER_TYPE_DUMMY             =  '__dummy.Folder.Id__';
 
     /** Origin of changes **/
-    const CHANGE_ORIGIN_PIM = 0;
-    const CHANGE_ORIGIN_SERVER = 1;
-    const CHANGE_ORIGIN_NA = 3;
+    const CHANGE_ORIGIN_PIM             = 0;
+    const CHANGE_ORIGIN_SERVER          = 1;
+    const CHANGE_ORIGIN_NA              = 3;
 
     /** Remote wipe **/
-    const RWSTATUS_NA = 0;
-    const RWSTATUS_OK = 1;
-    const RWSTATUS_PENDING = 2;
-    const RWSTATUS_WIPED = 3;
+    const RWSTATUS_NA                   = 0;
+    const RWSTATUS_OK                   = 1;
+    const RWSTATUS_PENDING              = 2;
+    const RWSTATUS_WIPED                = 3;
 
     /** GAL **/
-    const GAL_DISPLAYNAME = 'GAL:DisplayName';
-    const GAL_PHONE = 'GAL:Phone';
-    const GAL_OFFICE = 'GAL:Office';
-    const GAL_TITLE = 'GAL:Title';
-    const GAL_COMPANY = 'GAL:Company';
-    const GAL_ALIAS = 'GAL:Alias';
-    const GAL_FIRSTNAME = 'GAL:FirstName';
-    const GAL_LASTNAME = 'GAL:LastName';
-    const GAL_HOMEPHONE = 'GAL:HomePhone';
-    const GAL_MOBILEPHONE = 'GAL:MobilePhone';
-    const GAL_EMAILADDRESS = 'GAL:EmailAddress';
+    const GAL_DISPLAYNAME               = 'GAL:DisplayName';
+    const GAL_PHONE                     = 'GAL:Phone';
+    const GAL_OFFICE                    = 'GAL:Office';
+    const GAL_TITLE                     = 'GAL:Title';
+    const GAL_COMPANY                   = 'GAL:Company';
+    const GAL_ALIAS                     = 'GAL:Alias';
+    const GAL_FIRSTNAME                 = 'GAL:FirstName';
+    const GAL_LASTNAME                  = 'GAL:LastName';
+    const GAL_HOMEPHONE                 = 'GAL:HomePhone';
+    const GAL_MOBILEPHONE               = 'GAL:MobilePhone';
+    const GAL_EMAILADDRESS              = 'GAL:EmailAddress';
 
+    const PROVISIONING_LOOSE            = 'loose';
     /**
      * Logger
      *
@@ -279,6 +280,9 @@ class Horde_ActiveSync
         // Wbxml handlers
         $this->_encoder = $encoder;
         $this->_decoder = $decoder;
+
+        // Read the initial Wbxml header
+        $this->_decoder->readWbxmlHeader();
 
         // The http request
         $this->_request = $request;
@@ -338,16 +342,11 @@ class Horde_ActiveSync
             return true;
         }
 
-        // Delete/Update are all handled by Create as well
-        //if ($cmd == 'FolderDelete' || $cmd == 'FolderUpdate') {
-        //    $cmd == 'FolderCreate';
-        //}
+        $state = $this->_driver->getStateObject();
 
-        // Check that this device is known, if not create the record.
         if (is_null($devId)) {
             throw new Horde_ActiveSync_Exception('Device failed to send device id.');
         }
-        $state = $this->_driver->getStateObject();
         // Does device exist AND does the user have an account on the device?
         if (!empty($devId) && !$state->deviceExists($devId, $this->_driver->getUser())) {
             // Device might exist, but with a new (additional) user account

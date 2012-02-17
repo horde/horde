@@ -2,7 +2,7 @@
 /**
  * SyncML Backend for the Horde Application framework.
  *
- * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -327,7 +327,7 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
                 $this->normalize($databaseURI) . '/export',
                 array('guid' => $suid, 'contentType' => $contentType, 'dummy' => null, 'fields' => $fields));
         } catch (Horde_Exception $e) {
-            PEAR::raiseError($e->getMessage());
+            return PEAR::raiseError($e->getMessage());
         }
     }
 
@@ -350,13 +350,13 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
 
         $database = $this->normalize($databaseURI);
 
-        $suid = $registry->call(
-            $database . '/import',
-            array($content,
-                  $contentType,
-                  Horde_SyncMl_Backend::getParameter($databaseURI, 'source')));
+        try {
+            $suid = $registry->call(
+                $database . '/import',
+                array($content,
+                      $contentType,
+                      Horde_SyncMl_Backend::getParameter($databaseURI, 'source')));
 
-        if (!is_a($suid, 'PEAR_Error')) {
             $this->logMessage(
                 "Added to server db $database client id $cuid -> server id $suid", 'DEBUG');
             $ts = $registry->call(
@@ -372,9 +372,10 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
             if ($this->_backendMode == Horde_SyncMl_Backend::MODE_SERVER) {
                 $this->createUidMap($database, $cuid, $suid, $ts);
             }
-        } else {
+        } catch (Horde_Exception $e) {
             // Failed import. Maybe the entry is already there. Check if a
             // guid is returned:
+            /* Not working with exceptions
             if ($suid->getDebugInfo()) {
                 $suid = $suid->getDebugInfo();
                 $this->logMessage(
@@ -383,6 +384,7 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
                     $this->createUidMap($database, $cuid, $suid, 0);
                 }
             }
+            */
 
         }
 
@@ -420,10 +422,11 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
         }
 
         // Entry exists: replace current one.
-        $ok = $registry->call($database . '/replace',
-                              array($suid, $content, $contentType));
-        if (is_a($ok, 'PEAR_Error')) {
-            return $ok;
+        try {
+            $ok = $registry->call($database . '/replace',
+                                  array($suid, $content, $contentType));
+        } catch (Horde_Exception $e) {
+            return PEAR::raiseError($e->getMessage());
         }
         $this->logMessage(
             "Replaced in server db $database client id $cuid -> server id $suid", 'DEBUG');
@@ -459,16 +462,21 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
         // Find server ID for this entry:
         // Only server needs to do a cuid<->suid map
         if ($this->_backendMode == Horde_SyncMl_Backend::MODE_SERVER) {
-            $suid = $this->_getSuid($database, $cuid);
+            try {
+                $suid = $this->_getSuid($database, $cuid);
+            } catch (Horde_Exception $e) {
+                return false;
+            }
         } else {
             $suid = $cuid;
         }
-        if (is_a($suid, 'PEAR_Error')) {
+        if (empty($suid) || is_a($suid, 'PEAR_Error')) {
             return false;
         }
 
-        $r = $registry->call($database. '/delete', array($suid));
-        if (is_a($r, 'PEAR_Error')) {
+        try {
+            $registry->call($database. '/delete', array($suid));
+        } catch (Horde_Exception $e) {
             return false;
         }
 

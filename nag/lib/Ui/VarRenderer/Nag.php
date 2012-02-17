@@ -23,59 +23,32 @@ class Horde_Core_Ui_VarRenderer_Nag extends Horde_Core_Ui_VarRenderer_Html
     {
         $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
         $varvalue = $var->getValue($vars);
-        if (isset($varvalue['on'])) {
-            // Submitted form.
-            $methods = array();
-            $types = $vars->get('task_alarms');
-            if (!empty($varvalue['on']) && !empty($types)) {
-                foreach ($types as $type) {
-                    $methods[$type] = array();
-                    switch ($type){
-                        case 'notify':
-                            $methods[$type]['sound'] = $vars->get('task_alarms_sound');
-                            break;
-                        case 'mail':
-                            $methods[$type]['email'] = $vars->get('task_alarms_email');
-                            break;
-                        case 'popup':
-                            break;
-                    }
-                }
-            }
-        } else {
-            // Prefilled form.
-            $methods = $varvalue;
-        }
+        $on = !empty($varvalue) &&
+            (!isset($varvalue['on']) || !empty($varvalue['on']));
 
         printf('<input id="%soff" type="radio" class="radio" name="%s[on]" value="0"%s %s/><label for="%soff">&nbsp;%s</label><br />',
                $varname,
                $varname,
-               !empty($methods) ? '' : ' checked="checked"',
+               $on ? '' : ' checked="checked"',
                $this->_getActionScripts($form, $var),
                $varname,
                _("Use default notification method"));
         printf('<input type="radio" class="radio" name="%s[on]" value="1"%s %s/><label for="%soff">&nbsp;%s</label>',
                $varname,
-               !empty($methods) ? ' checked="checked"' : '',
+               $on ? ' checked="checked"' : '',
                $this->_getActionScripts($form, $var),
                $varname,
                _("Use custom notification method"));
 
-        if (!empty($methods)) {
+        if ($on) {
             echo '<br />';
-
-            global $registry, $prefs;
-            $pref = 'task_alarms';
-            $_prefs = array($pref => array('desc' => ''));
-            $helplink = '';
-            $original_value = $prefs->getValue($pref);
-            if (!empty($methods)) {
-                $prefs->setValue($pref, serialize($methods));
+            Horde_Core_Prefs_Ui_Widgets::alarmInit();
+            $params = array('pref' => 'task_alarms', 'label' => '');
+            if ((!empty($varvalue) && !isset($varvalue['on'])) ||
+                $form->isSubmitted()) {
+                $params['value'] = $varvalue;
             }
-            include $GLOBALS['registry']->get('templates', 'horde') . '/prefs/alarm.inc';
-            if (!empty($methods)) {
-                $prefs->setValue($pref, $original_value);
-            }
+            echo Horde_Core_Prefs_Ui_Widgets::alarm($params);
         }
     }
 

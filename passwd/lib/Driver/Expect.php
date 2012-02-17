@@ -3,7 +3,7 @@
  * The Passwd_expect class provides an expect implementation of the passwd
  * system.
  *
- * Copyright 2000-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2000-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.php.
@@ -35,7 +35,8 @@ class Passwd_Driver_Expect extends Passwd_Driver
         $log = Horde::getTempFile('passwd');
 
         // Open expect script for writing.
-        $prog = $this->_params['program'] . ' -f ' . $this->_params['script']
+        $prog = 'LANG=C LC_ALL=C ' . $this->_params['program']
+            . ' -f ' . $this->_params['script']
             . ' -- ' . $this->_params['params'] . ' -log ' . $log;
 
         $exp = @popen($prog, 'w');

@@ -10,11 +10,11 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-12-10</date>
- <time>15:29:29</time>
+ <date>2012-01-30</date>
+ <time>17:37:03</time>
  <version>
-  <release>1.1.10</release>
-  <api>1.1.0</api>
+  <release>1.2.4</release>
+  <api>1.2.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -22,8 +22,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Increase field length for sync_data to support syncing large collections (Bug: 10822).
-* [jan] Fix tests to work with PHPUnit 3.6.
+* [mjr] Added WP7 devices to the list of devices with broken provisioning.
+* [mjr] Fix issue that could cause improper timezone handling in events passed from device to server in the beginning of a calendar year (Bug #10960).
+* [mjr] More improvements to security policies and device compatibility.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -108,12 +109,14 @@
      <dir name="ActiveSync">
       <dir name="fixtures">
        <file name="appointment.wbxml" role="test" />
+       <file name="dst.wbxml" role="test" />
        <file name="FolderSyncRequest.txt" role="test" />
+       <file name="recurrence.wbxml" role="test" />
+       <file name="simpleexception.wbxml" role="test" />
       </dir> <!-- /test/Horde/ActiveSync/fixtures -->
       <file name="AllTests.php" role="test" />
       <file name="AppointmentTest.php" role="test" />
       <file name="ContactTest.php" role="test" />
-      <file name="FileStateTest.php" role="test" />
       <file name="FolderSyncTest.php" role="test" />
       <file name="HordeDriverTest.php" role="test" />
       <file name="TimezoneTest.php" role="test" />
@@ -171,7 +174,7 @@
    <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
-    <min>1.1.3</min>
+    <min>1.2.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -226,13 +229,15 @@
    <install as="Horde/ActiveSync/AllTests.php" name="test/Horde/ActiveSync/AllTests.php" />
    <install as="Horde/ActiveSync/AppointmentTest.php" name="test/Horde/ActiveSync/AppointmentTest.php" />
    <install as="Horde/ActiveSync/ContactTest.php" name="test/Horde/ActiveSync/ContactTest.php" />
-   <install as="Horde/ActiveSync/FileStateTest.php" name="test/Horde/ActiveSync/FileStateTest.php" />
    <install as="Horde/ActiveSync/FolderSyncTest.php" name="test/Horde/ActiveSync/FolderSyncTest.php" />
    <install as="Horde/ActiveSync/HordeDriverTest.php" name="test/Horde/ActiveSync/HordeDriverTest.php" />
    <install as="Horde/ActiveSync/TimezoneTest.php" name="test/Horde/ActiveSync/TimezoneTest.php" />
    <install as="Horde/ActiveSync/{137c3bb0-838d-499a-9f0e-fb6c0761da51}1" name="test/Horde/ActiveSync/{137c3bb0-838d-499a-9f0e-fb6c0761da51}1" />
    <install as="Horde/ActiveSync/fixtures/appointment.wbxml" name="test/Horde/ActiveSync/fixtures/appointment.wbxml" />
+   <install as="Horde/ActiveSync/fixtures/dst.wbxml" name="test/Horde/ActiveSync/fixtures/dst.wbxml" />
    <install as="Horde/ActiveSync/fixtures/FolderSyncRequest.txt" name="test/Horde/ActiveSync/fixtures/FolderSyncRequest.txt" />
+   <install as="Horde/ActiveSync/fixtures/recurrence.wbxml" name="test/Horde/ActiveSync/fixtures/recurrence.wbxml" />
+   <install as="Horde/ActiveSync/fixtures/simpleexception.wbxml" name="test/Horde/ActiveSync/fixtures/simpleexception.wbxml" />
   </filelist>
  </phprelease>
  <changelog>
@@ -471,11 +476,97 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-12-10</date>
+   <date>2011-12-13</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* [mjr] Increase field length for sync_data to support syncing large collections (Bug: 10822).
+* [mjr] Increase field length for sync_data to support syncing large collections (Bug #10822).
 * [jan] Fix tests to work with PHPUnit 3.6.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.11</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-13</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Improve support for Android device provisioning.
+* [mjr] Improve support for timezones in appointments originating on the client.
+* [mjr] Improve performance when working with timezones on PHP 5.3+
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.0</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-23</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix sending meeting request emails when creating a meeting.
+* [mjr] Fix retrieving the body of SENDMAIL requests.
+* [mjr] Fix parsing birthday strings on certain android 2.2 clients.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.1</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-01-02</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix REMOTEWIPE functionality for a number of android and iOS devices.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.2</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-01-30</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Allow disabling of certain policies.
+* [mjr] Honor PROVISIONING_LOOSE if the device supports PROVISIONING, but not all of our requested policies.
+* [mjr] Fix issue that could cause PING failure in certain server environments.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.3</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-01-30</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Tweak policy defaults. Minor compatibility improvements for WAP-Provisioning-XML strings.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.4</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-01-30</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Added WP7 devices to the list of devices with broken provisioning.
+* [mjr] Fix issue that could cause improper timezone handling in events passed from device to server in the beginning of a calendar year (Bug #10960).
+* [mjr] More improvements to security policies and device compatibility.
    </notes>
   </release>
  </changelog>

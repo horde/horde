@@ -3,7 +3,7 @@
  * This class contains code related to generating and handling a mailbox
  * message list.
  *
- * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -620,7 +620,7 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
     }
 
     /**
-     * Returns the current sorted array without the given messages.
+     * Removes messages from the mailbox.
      *
      * @param mixed $indices  An IMP_Indices object or true to remove all
      *                        messages in the mailbox.

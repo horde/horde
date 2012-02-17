@@ -1,4 +1,10 @@
 <?php
+/**
+ * List of strings needed to translate for Wunderground. Never loaded, so
+ * use of _ shortcut here is fine.
+ *
+ * @package Service_Weather
+ */
 // Conditions
 _("Drizzle");
 _("Rain");

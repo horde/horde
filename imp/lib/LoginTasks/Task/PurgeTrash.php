@@ -2,7 +2,7 @@
 /**
  * Login tasks module that purges old messages in the Trash folder.
  *
- * Copyright 2001-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -73,7 +73,7 @@ class IMP_LoginTasks_Task_PurgeTrash extends Horde_LoginTasks_Task
     public function describe()
     {
         return sprintf(_("All messages in your \"%s\" folder older than %s days will be permanently deleted."),
-                       IMP_Mailbox::getPref('trash_folder')->display,
+                       IMP_Mailbox::getPref('trash_folder')->display_html,
                        $GLOBALS['prefs']->getValue('purge_trash_keep'));
     }
 

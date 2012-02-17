@@ -20,7 +20,7 @@ require_once dirname(__FILE__) . '/../Autoload.php';
 /**
  * Test the contact XML format.
  *
- * Copyright 2007-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -54,32 +54,6 @@ extends Horde_Kolab_Format_TestCase
         $xml     = $contact->save($object);
         $expect  = file_get_contents(dirname(__FILE__)
                                      . '/../fixtures/contact_mail.xml');
-        $this->assertEquals(
-            $this->removeLastModification($expect),
-            $this->removeLastModification($xml)
-        );
-    }
-
-    public function testPgp()
-    {
-        $contact = $this->_getContact();
-        $object  = array(
-            'uid' => '1',
-            'name' => array(
-                'full-name' => 'User Name',
-            ),
-            'pgp-publickey' => 'PGP Test Key',
-            'email' => array(
-                array(
-                    'smtp-address' => 'user@example.org',
-                    'display-name' => 'User Name'
-                )
-            ),
-            'creation-date' => new DateTime('1970-01-01T00:00:00Z')
-        );
-        $xml     = $contact->save($object);
-        $expect  = file_get_contents(dirname(__FILE__)
-                                     . '/../fixtures/contact_pgp.xml');
         $this->assertEquals(
             $this->removeLastModification($expect),
             $this->removeLastModification($xml)

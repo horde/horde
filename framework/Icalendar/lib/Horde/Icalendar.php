@@ -7,7 +7,7 @@
 /**
  * Class representing iCalendar files.
  *
- * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -733,14 +733,16 @@ class Horde_Icalendar
 
                 // Geo fields.
                 case 'GEO':
-                    if ($this->_oldFormat) {
-                        $floats = explode(',', $value);
-                        $value = array('latitude' => floatval($floats[1]),
-                                       'longitude' => floatval($floats[0]));
-                    } else {
-                        $floats = explode(';', $value);
-                        $value = array('latitude' => floatval($floats[0]),
-                                       'longitude' => floatval($floats[1]));
+                    if ($value) {
+                        if ($this->_oldFormat) {
+                            $floats = explode(',', $value);
+                            $value = array('latitude' => floatval($floats[1]),
+                                           'longitude' => floatval($floats[0]));
+                        } else {
+                            $floats = explode(';', $value);
+                            $value = array('latitude' => floatval($floats[0]),
+                                           'longitude' => floatval($floats[1]));
+                        }
                     }
                     $this->setAttribute($tag, $value, $params);
                     break;
@@ -885,29 +887,35 @@ class Horde_Icalendar
                     if ($param_value === null) {
                         $params_str .= ";$param_name";
                     } else {
-                        $len = strlen($param_value);
-                        $safe_value = '';
-                        $quote = false;
-                        for ($i = 0; $i < $len; ++$i) {
-                            $ord = ord($param_value[$i]);
-                            // Accept only valid characters.
-                            if ($ord == 9 || $ord == 32 || $ord == 33 ||
-                                ($ord >= 35 && $ord <= 126) ||
-                                $ord >= 128) {
-                                $safe_value .= $param_value[$i];
-                                // Characters above 128 do not need to be
-                                // quoted as per RFC2445 but Outlook requires
-                                // this.
-                                if ($ord == 44 || $ord == 58 || $ord == 59 ||
+                        if (!is_array($param_value)) {
+                            $param_value = array($param_value);
+                        }
+                        foreach ($param_value as &$one_param_value) {
+                            $len = strlen($one_param_value);
+                            $safe_value = '';
+                            $quote = false;
+                            for ($i = 0; $i < $len; ++$i) {
+                                $ord = ord($one_param_value[$i]);
+                                // Accept only valid characters.
+                                if ($ord == 9 || $ord == 32 || $ord == 33 ||
+                                    ($ord >= 35 && $ord <= 126) ||
                                     $ord >= 128) {
-                                    $quote = true;
+                                    $safe_value .= $one_param_value[$i];
+                                    // Characters above 128 do not need to be
+                                    // quoted as per RFC2445 but Outlook requires
+                                    // this.
+                                    if ($ord == 44 || $ord == 58 || $ord == 59 ||
+                                        $ord >= 128) {
+                                        $quote = true;
+                                    }
                                 }
                             }
+                            if ($quote) {
+                                $safe_value = '"' . $safe_value . '"';
+                            }
+                            $one_param_value = $safe_value;
                         }
-                        if ($quote) {
-                            $safe_value = '"' . $safe_value . '"';
-                        }
-                        $params_str .= ";$param_name=$safe_value";
+                        $params_str .= ";$param_name=" . implode(',', $param_value);
                     }
                 }
             }
@@ -1258,7 +1266,7 @@ class Horde_Icalendar
      *
      * @return TODO
      */
-    protected function _parseDateTime($text, $tzid = false)
+    public function _parseDateTime($text, $tzid = false)
     {
         $dateParts = explode('T', $text);
         if (count($dateParts) != 2 && !empty($text)) {
@@ -1346,7 +1354,7 @@ class Horde_Icalendar
      *
      * @return array TODO
      */
-    protected function _parseDate($text)
+    public function _parseDate($text)
     {
         $parts = explode('T', $text);
         if (count($parts) == 2) {

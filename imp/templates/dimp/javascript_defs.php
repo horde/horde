@@ -2,7 +2,7 @@
 /**
  * DIMP base JS file.
  *
- * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -200,7 +200,7 @@ if ($compose_page) {
         'cc' => intval($GLOBALS['prefs']->getValue('compose_cc')),
         'close_draft' => intval($GLOBALS['prefs']->getValue('close_draft')),
         'compose_cursor' => ($compose_cursor ? $compose_cursor : 'top'),
-        'drafts_mbox' => strval(IMP_Mailbox::getPref('drafts_folder')),
+        'drafts_mbox' => IMP_Mailbox::getPref('drafts_folder')->form_to,
         'rte_avail' => intval($GLOBALS['browser']->hasFeature('rte')),
         'spellcheck' => intval($GLOBALS['prefs']->getValue('compose_spellcheck')),
     ));

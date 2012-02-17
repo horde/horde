@@ -3,7 +3,7 @@
  * The Horde_String:: class provides static methods for charset and locale
  * safe string manipulation.
  *
- * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -758,6 +758,9 @@ class Horde_String
          * example, by various versions of Outlook to send Korean characters.
          * Use UHC (CP949) encoding instead. See, e.g.,
          * http://lists.w3.org/Archives/Public/ietf-charsets/2001AprJun/0030.html */
+        if ($charset == 'UTF-8' || $charset == 'utf-8') {
+            return $charset;
+        }
         if (in_array(self::lower($charset), array('ks_c_5601-1987', 'ks_c_5601-1989'))) {
             $charset = 'UHC';
         }

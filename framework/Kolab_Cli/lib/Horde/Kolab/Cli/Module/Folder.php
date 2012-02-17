@@ -14,7 +14,7 @@
 /**
  * The Horde_Kolab_Cli_Module_Folder:: class handles single folders.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -194,7 +194,7 @@ implements Horde_Kolab_Cli_Module
             );
             $cli->writeln(
                 $list->getQuery(Horde_Kolab_Storage_List::QUERY_SHARE)
-                ->getDescription($folder_name)
+                    ->getDescription($folder_name)
             );
             break;
         case 'setdesc':

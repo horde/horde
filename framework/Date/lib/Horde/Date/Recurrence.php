@@ -2,7 +2,7 @@
 /**
  * This file contains the Horde_Date_Recurrence class and according constants.
  *
- * Copyright 2007-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -352,7 +352,7 @@ class Horde_Date_Recurrence
         }
 
         // Make sure $after and $this->start are in the same TZ
-        $after->setTimeZone($this->start->timezone);
+        $after->setTimezone($this->start->timezone);
         if ($this->start->compareDateTime($after) >= 0) {
             return clone $this->start;
         }
@@ -385,6 +385,7 @@ class Horde_Date_Recurrence
 
             $start_week = Horde_Date_Utils::firstDayOfWeek($this->start->format('W'),
                                                            $this->start->year);
+            $start_week->timezone = $this->start->timezone;
             $start_week->hour = $this->start->hour;
             $start_week->min  = $this->start->min;
             $start_week->sec  = $this->start->sec;
@@ -402,6 +403,7 @@ class Horde_Date_Recurrence
             }
 
             $after_week = Horde_Date_Utils::firstDayOfWeek($week, $theYear);
+            $after_week->timezone = $this->start->timezone;
             $after_week_end = clone $after_week;
             $after_week_end->mday += 7;
 

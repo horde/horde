@@ -2,7 +2,7 @@
 /**
  * Abstract class that Data drivers extend.
  *
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -67,8 +67,6 @@ abstract class Horde_Data_Base
      * cleanup - (callback) A callback to call at cleanup time.
      * vars - (Horde_Variables) Form data.
      * </pre>
-     *
-     * @throws InvalidArgumentException
      */
     public function __construct(array $params = array())
     {
@@ -121,7 +119,7 @@ abstract class Horde_Data_Base
     public function getNewline()
     {
         if (!isset($this->_browser)) {
-            throw new Horde_Data_Exception('Missing browser parameter.');
+            throw new LogicException('Missing browser parameter.');
         }
 
         switch ($this->_browser->getPlatform()) {
@@ -269,7 +267,7 @@ abstract class Horde_Data_Base
         switch ($action) {
         case Horde_Data::IMPORT_FILE:
             if (!isset($this->_browser)) {
-                throw new Horde_Data_Exception('Missing browser parameter.');
+                throw new LogicException('Missing browser parameter.');
             }
             /* Sanitize uploaded file. */
             try {
@@ -285,7 +283,7 @@ abstract class Horde_Data_Base
 
         case Horde_Data::IMPORT_MAPPED:
             if (!$this->_vars->dataKeys || !$this->_vars->appKeys) {
-                throw new Horde_Data_Exception('You didn\'t map any fields from the imported file to the corresponding fields.');
+                throw new Horde_Data_Exception(Horde_Data_Translation::t("You didn\'t map any fields from the imported file to the corresponding fields."));
             }
             $dataKeys = explode("\t", $this->_vars->dataKeys);
             $appKeys = explode("\t", $this->_vars->appKeys);
@@ -338,7 +336,7 @@ abstract class Horde_Data_Base
             }
 
             if (!$session->exists('horde', 'import_data/data')) {
-                throw new Horde_Data_Exception('The uploaded data was lost since the previous step.');
+                throw new Horde_Data_Exception(Horde_Data_Translation::t("The uploaded data was lost since the previous step."));
             }
 
             /* Build the result data set as an associative array. */

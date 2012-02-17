@@ -2,7 +2,7 @@
 /**
  * Folders display for traditional (IMP) view.
  *
- * Copyright 2000-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2000-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -69,13 +69,6 @@ if ($vars->actionID) {
 }
 
 switch ($vars->actionID) {
-case 'collapse_folder':
-case 'expand_folder':
-    if ($vars->folder) {
-        ($vars->actionID == 'expand_folder') ? $imaptree->expand($vars->folder) : $imaptree->collapse($vars->folder);
-    }
-    break;
-
 case 'expand_all_folders':
     $imaptree->expandAll();
     break;
@@ -125,12 +118,17 @@ case 'import_mbox':
     break;
 
 case 'create_folder':
-    if ($vars->new_mailbox) {
+    if (isset($vars->new_mailbox)) {
         try {
-            $imaptree->createMailboxName(
+            $new_mbox = $imaptree->createMailboxName(
                 $folder_list[0],
                 Horde_String::convertCharset($vars->new_mailbox, 'UTF-8', 'UTF7-IMAP')
-            )->create();
+            );
+            if ($new_mbox->exists) {
+                $notification->push(sprintf(_("Mailbox \"%s\" already exists."), $new_mbox->display), 'horde.warning');
+            } else {
+                $new_mbox->create();
+            }
         } catch (Horde_Exception $e) {
             $notification->push($e);
         }
@@ -238,7 +236,7 @@ case 'folders_empty_mailbox_confirm':
 
             $data = array(
                 'class' => 'item' . (++$rowct % 2),
-                'name' => htmlspecialchars($val->display),
+                'name' => $val->display_html,
                 'msgs' => $elt_info ? $elt_info['messages'] : 0,
                 'val' => $val->form_to
             );
@@ -288,7 +286,7 @@ case 'mbox_size':
             $size = $imp_message->sizeMailbox($val, false);
             $data = array(
                 'class' => 'item' . (++$rowct % 2),
-                'name' => htmlspecialchars($val->display),
+                'name' => $val->display_html,
                 'size' => sprintf(_("%.2fMB"), $size / (1024 * 1024)),
                 'sort' => $size
             );

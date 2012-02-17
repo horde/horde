@@ -225,7 +225,11 @@ var ContextSensitive = Class.create({
      */
     trigger: function(target, leftclick, x, y)
     {
-        var ctx, el, offset, offsets, voffsets;
+        var ctx, def_ctx, el, offset, offsets, tmp, voffsets;
+
+        if (!Object.isElement(target)) {
+            return false;
+        }
 
         [ target ].concat(target.ancestors()).find(function(n) {
             ctx = this.validElement(n.id, leftclick);
@@ -237,10 +241,11 @@ var ContextSensitive = Class.create({
         if (!ctx ||
             ctx.disable ||
             !(el = $(ctx.ctx)) ||
-            (leftclick && target == this.baseelt) ||
-            this.currentmenu() == ctx.ctx) {
+            (leftclick && target == this.baseelt)) {
+            tmp = target.up('.contextMenu');
+            def_ctx = tmp && this.current.include(tmp.readAttribute('id'));
             this.close();
-            return false;
+            return def_ctx;
         }
 
         this.close();

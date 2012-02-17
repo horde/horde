@@ -16,7 +16,7 @@
  * Components_Runner_Update:: updates the package.xml of a Horde
  * component.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -60,7 +60,10 @@ class Components_Runner_Update
     public function run()
     {
         $arguments = $this->_config->getArguments();
-        $options = $this->_config->getOptions();
+        $options = array_merge(array(
+            'new_api' => false,
+            'new_version' => false
+        ), $this->_config->getOptions());
 
         if (!empty($options['updatexml'])
             || (isset($arguments[0]) && $arguments[0] == 'update')) {

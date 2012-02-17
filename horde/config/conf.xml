@@ -951,12 +951,12 @@
     </case>
    </configswitch>
    <configheader>Group Caching</configheader>
-   <configdescription>Enabling group caching improves performance because the
+   <configdescription>GROUP CACHING HAS NOT BEEN IMPLEMENTED FOR HORDE 4 YET. Enabling group caching improves performance because the
    group backend will only be queried once per session. But it also increases
    the users' session sizes, and group changes won't take effect before the
    users log in the next time.</configdescription>
-   <configboolean name="cache" required="false" desc="Enable group
-   caching?">false</configboolean>
+   <!--<configboolean name="cache" required="false" desc="Enable group
+   caching?">false</configboolean>-->
   </configsection>
  </configtab>
 
@@ -1287,9 +1287,14 @@
       <configstring name="sendmail_args" required="false" desc="Any extra
       parameters to pass to the sendmail or sendmail wrapper
       binary">-oi</configstring>
+      <configstring name="sendmail_eol" required="false" desc="The end-of-line
+      (EOL) sequence to use when piping the message to the sendmail binary.
+      It is not possible to reliably auto-configure sendmail, so if your
+      messages are being sent incorrectly, you should adjust this value (if
+      blank, the system default is used)."></configstring>
      </configsection>
     </case>
-    <case name="smtp" desc="Use a SMTP server (RECOMMENDED)">
+    <case name="smtp" desc="Use a SMTP server (HIGHLY RECOMMENDED)">
      <configsection name="params">
       <configstring name="host" required="false" desc="The server to connect
       to [localhost]"/>
@@ -1456,7 +1461,7 @@
    <configheader>OpenSSL Settings</configheader>
    <configstring name="cafile" required="false" desc="The location of the root
    certificates bundle, e.g. /etc/ssl/certs. See
-   http://www.php.net/manual/en/ref.openssl.php#openssl.cert.verification for
+   http://www.php.net/manual/en/openssl.cert.verification.php for
    details."/>
    <configstring name="path" required="false" desc="The location of the OpenSSL
    binary on your system, e.g. /usr/bin/openssl. This program is REQUIRED to
@@ -2000,18 +2005,19 @@
       correctly. If you plan on synching Android devices, you should make sure
       that this range is wide enough to allow Android's default of 470 seconds.
       </configdescription>
-      <configswitch name="deviceping" desc="Allow devices to manage the heartbeat or
-      force Horde to use a specific heartbeat for every device?">true
+      <configswitch name="deviceping" desc="Allow devices to manage the
+      heartbeat or force Horde to use a specific heartbeat for every
+      device?">true
        <case name="true" desc="Device managed heartbeat">
-        <configinteger name="heartbeatmin" desc="The minimum number of seconds to
-        wait before sending results. This value must be greater then zero.">60
-        </configinteger>
-        <configinteger name="heartbeatmax" desc="The maximum number of seconds to
-        wait before sending results. Note this value must not be greater then 3540
-        (59 minutes).">2700</configinteger>
+        <configinteger name="heartbeatmin" desc="The minimum number of seconds
+        to wait before sending results. This value must be greater then zero.">
+        60</configinteger>
+        <configinteger name="heartbeatmax" desc="The maximum number of seconds
+        to wait before sending results. Note this value must not be greater then
+        3540 (59 minutes).">2700</configinteger>
         <configinteger name="heartbeatdefault" desc="If the client does not
-        request a heartbeat interval, this interval will be used by default.">480
-        </configinteger>
+        request a heartbeat interval, this interval will be used by default.">
+        480</configinteger>
        </case>
        <case name="false" desc="Forced heartbeat">
         <configinteger name="forcedheartbeat" desc="The number of seconds to
@@ -2041,15 +2047,16 @@
          <case name="false" desc="No" />
          <case name="true" desc="Yes">
           <configinteger name="wipethreshold" desc="How many unlock attempts
-          before device should get wiped?">10</configinteger>
-          <configinteger name="codewordfrequency" desc="How many unlock
-          attempts before validating that an actual person is using the device
-          is able to read and write. This should typically be half of the
-          wipethreshold setting above.">5</configinteger>
+          before device should get wiped? Set to 0 to disable this policy.">10
+          </configinteger>
+          <configinteger name="codewordfrequency" desc="How many unlock attempts
+          before validating that an actual person is using the device is able to
+          read and write. This should typically be half of thewipethreshold
+          setting above. Set to 0 to disable this policy.">5</configinteger>
           <configinteger name="minimumlength" desc="Minimum PIN
           size">5</configinteger>
           <configenum name="complexity" desc="PIN/Password complexity. Some
-          devices may be able to ONLY support numeric PINS.">
+          devices may be able to ONLY support numeric PINs.">
            <values>
             <value desc="Require alphanumeric">0</value>
             <value desc="Allow only numeric">1</value>
@@ -2067,15 +2074,16 @@
          <case name="false" desc="No" />
          <case name="true" desc="Yes">
           <configinteger name="wipethreshold" desc="How many unlock attempts
-          before device should get wiped?">10</configinteger>
-          <configinteger name="codewordfrequency" desc="How many unlock
-          attempts before validating that an actual person is using the device
-          is able to read and write. This should typically be half of the
-          wipethreshold setting above.">5</configinteger>
+          before device should get wiped? Set to 0 to disable this policy.">10
+          </configinteger>
+          <configinteger name="codewordfrequency" desc="How many unlock attempts
+          before validating that an actual person is using the device is able to
+          read and write. This should typically be half of thewipethreshold
+          setting above. Set to 0 to disable this policy.">5</configinteger>
           <configinteger name="minimumlength" desc="Minimum PIN
           size">5</configinteger>
           <configenum name="complexity" desc="PIN/Password complexity. Some
-          devices may be able to ONLY support numeric PINS.">
+          devices may be able to ONLY support numeric PINs.">
            <values>
             <value desc="Require alphanumeric">0</value>
             <value desc="Allow only numeric">1</value>

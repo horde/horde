@@ -1,0 +1,44 @@
+======================
+ Upgrading Horde_Mail
+======================
+
+:Contact: dev@lists.horde.org
+
+.. contents:: Contents
+.. section-numbering::
+
+
+This lists the API changes between minor releases of the package.
+
+
+Upgrading To 1.1.0
+==================
+
+New Objects
+-----------
+
+Horde_Mail_Rfc822::parseAddressList() now returns an array of
+Horde_Mail_Rfc822_Address objects (and Horde_Mail_Rfc822_Group objects, if
+nest_groups is true).
+
+These objects are backward compatible with the former array representation.
+They also include additional functionality.
+
+  - Horde_Mail_Rfc822_Address
+
+    Anything other than accessing these properties is a new feature available
+    only since 1.1.0:
+
+    - adl
+    - comment
+    - host
+    - mailbox
+    - personal
+
+  - Horde_Mail_Rfc822_Group
+
+    Anything other than accessing these properties is a new feature available
+    only since 1.1.0:
+
+    - addresses
+    - groupname

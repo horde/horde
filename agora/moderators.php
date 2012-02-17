@@ -2,7 +2,7 @@
 /**
  * The Agora script to display a list of forums.
  *
- * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -78,7 +78,7 @@ $view = new Agora_View();
 $view->menu = Horde::menu();
 
 Horde::startBuffer();
-$form->renderActive(null, null, 'moderators.php', 'post');
+$form->renderActive(null, null, Horde::url('moderators.php'), 'post');
 $view->formbox = Horde::endBuffer();
 
 Horde::startBuffer();

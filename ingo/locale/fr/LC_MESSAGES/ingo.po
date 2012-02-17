@@ -1,6 +1,6 @@
 # translation of fr_FR.po to french
 # French translation for Ingo
-# Copyright 2003-2011 Horde LLC
+# Copyright 2003-2012 Horde LLC
 # This file is distributed under the same license as the ingo package.
 #
 # AIDE Florent <faide@alphacent.com>, 2003.
@@ -9,12 +9,13 @@
 # Laurent Foucher <laurent.foucher@iut-tlse3.fr>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: fr_FR\n"
+"Project-Id-Version: Ingo H4\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-06-14 08:24+0200\n"
-"PO-Revision-Date: 2011-05-16 08:32+0100\n"
+"POT-Creation-Date: 2011-09-20 13:49+0200\n"
+"PO-Revision-Date: 2012-01-16 11:13+0100\n"
 "Last-Translator: Laurent Foucher <laurent.foucher@iut-tlse3.fr>\n"
 "Language-Team: Français <i18n@lists.horde.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -30,11 +31,11 @@ msgstr " ou"
 
 #: templates/blacklist/blacklist.inc:16
 msgid "Action for blacklisted addresses:"
-msgstr "Action pour les adresses en liste noire:"
+msgstr "Action pour les adresses en liste noire :"
 
 #: templates/script/activate.inc:10
 msgid "Activate Script"
-msgstr "Activer ce script "
+msgstr "Activer ce script"
 
 #: lib/Transport/Ldap.php:222
 #, php-format
@@ -81,15 +82,15 @@ msgstr "Appliquer les filtres"
 msgid "Are you sure you want to delete this rule?"
 msgstr "Êtes-vous certain de vouloir supprimer cette règle ?"
 
-#: config/prefs.php:26
+#: config/prefs.php:24
 msgid "Automatically activate the script after each change?"
-msgstr "Mettre à jour le script automatiquement après chaque changement ?"
+msgstr "Mettre à jour le script automatiquement après chaque modification ?"
 
 #: vacation.php:36
 msgid "Basic Settings"
 msgstr "Paramètres de base"
 
-#: config/fields.php:51
+#: config/fields.php:52
 msgid "Bcc"
 msgstr "Bcc"
 
@@ -120,19 +121,19 @@ msgstr "La liste noire n'est pas supportée dans le filtre actuel."
 msgid "Blacklisted Addresses"
 msgstr "Adresses en liste Noire"
 
-#: config/fields.php:104
+#: config/fields.php:105
 msgid "Body"
 msgstr "Corps"
 
-#: filters.php:225 rule.php:331
+#: filters.php:225 rule.php:336
 msgid "Case Sensitive"
 msgstr "Tenir compte de la casse"
 
-#: config/fields.php:47
+#: config/fields.php:48
 msgid "Cc"
 msgstr "Cc"
 
-#: blacklist.php:63 forward.php:49 rule.php:151 spam.php:88 vacation.php:71
+#: blacklist.php:63 forward.php:49 rule.php:156 spam.php:88 vacation.php:71
 #: whitelist.php:32
 msgid "Changes saved."
 msgstr "Changements enregistrés."
@@ -155,11 +156,11 @@ msgstr "Copier %s"
 msgid "Copy of %s"
 msgstr "Copie de %s"
 
-#: lib/Ingo.php:165
+#: lib/Ingo.php:167
 msgid "Could not validate IMAP mailbox."
 msgstr "Impossible de valider la boîte aux lettres IMAP"
 
-#: lib/Ingo.php:118
+#: lib/Ingo.php:121
 msgid "Create new folder"
 msgstr "Créer un nouveau dossier"
 
@@ -204,7 +205,7 @@ msgstr "Déposer dans ma Boite de réception et rediriger vers"
 msgid "Deliver to folder..."
 msgstr "Placer dans le dossier"
 
-#: config/fields.php:87
+#: config/fields.php:88
 msgid "Destination (To, Cc, Bcc, etc.)"
 msgstr "Destination (A, Cc, Bcc, etc)"
 
@@ -399,7 +400,7 @@ msgstr ""
 "Activité du filtre : le message « %s » de « %s » a été déplacé vers le "
 "dossier « %s ». "
 
-#: rule.php:199
+#: rule.php:204
 msgid "Filter not found."
 msgstr "Filtre non trouvé"
 
@@ -422,7 +423,7 @@ msgstr "Transfert"
 
 #: lib/Script/Sieve.php:234
 msgid "Forward Keep Action"
-msgstr ""
+msgstr "Garder l'action de transfert"
 
 #: forward.php:18
 msgid "Forward is not supported in the current filtering driver."
@@ -431,13 +432,13 @@ msgstr "La redirection n'est pas supportée dans le pilote de filtres courant"
 #: lib/Script/Maildrop.php:247 lib/Script/Procmail.php:298
 #: lib/Script/Sieve.php:244
 msgid "Forwards"
-msgstr "Transmettre"
+msgstr "Transferts"
 
 #: forward.php:93
 msgid "Forwards Edit"
-msgstr "Éditer la redirection"
+msgstr "Éditer les transferts"
 
-#: config/fields.php:43
+#: config/fields.php:44
 msgid "From"
 msgstr "De"
 
@@ -492,7 +493,7 @@ msgstr "Plus petit que"
 msgid "Less than or equal to"
 msgstr "Plus petit ou égale à"
 
-#: config/fields.php:63
+#: config/fields.php:64
 msgid "List-ID"
 msgstr "List-ID"
 
@@ -573,23 +574,23 @@ msgstr "Monter la règle"
 
 #: vacation.php:46
 msgid "My email addresses:"
-msgstr "Mes adresses courriel :"
+msgstr "Mes adresses de courriel :"
 
 #: lib/Storage/Filters.php:90 templates/filters/filter-none.inc:3
 #: templates/filters/footer.inc:6
 msgid "New Rule"
 msgstr "Nouvelle règle"
 
-#: lib/Ingo.php:316
+#: lib/Ingo.php:318
 #, php-format
 msgid "No \"%s\" element found in backend configuration."
 msgstr "Le paramètre \"%s\" n'est pas spécifié dans la configuration."
 
-#: lib/Ingo.php:308
+#: lib/Ingo.php:310
 msgid "No backend configured for this host"
 msgstr "Pas de Backend configuré pour ce serveur"
 
-#: lib/Ingo.php:281
+#: lib/Ingo.php:283
 msgid "No backends configured in backends.php"
 msgstr "Pas de Backend configuré dans backend.php"
 
@@ -627,7 +628,7 @@ msgstr "Nombre de jours entre les messages d'absence :"
 msgid "Only flag the message"
 msgstr "Seulement marquer le message"
 
-#: config/prefs.php:13
+#: config/prefs.php:14
 msgid "Other Preferences"
 msgstr "Autres options"
 
@@ -635,7 +636,7 @@ msgstr "Autres options"
 msgid "Overview"
 msgstr "Vue d'ensemble"
 
-#: config/fields.php:95
+#: config/fields.php:96
 msgid "Participant (From, To, etc.)"
 msgstr "Participants (De, A, etc)"
 
@@ -643,11 +644,11 @@ msgstr "Participants (De, A, etc)"
 msgid "Permission Denied"
 msgstr "Autorisation rejetée"
 
-#: lib/Ingo.php:133
+#: lib/Ingo.php:136
 msgid "Please enter the name of the new folder:"
 msgstr "Veuilez saisir le nom du nouveau dossier :"
 
-#: config/prefs.php:15
+#: config/prefs.php:16
 msgid "Preferences about script updating."
 msgstr "Options de mise à jour des scripts."
 
@@ -655,7 +656,7 @@ msgstr "Options de mise à jour des scripts."
 msgid "Reason:"
 msgstr "Raison :"
 
-#: config/fields.php:67
+#: config/fields.php:68
 msgid "Received"
 msgstr "Reçu"
 
@@ -678,11 +679,11 @@ msgstr ""
 "La suppression de données utilisateur n'est pas supportée avec la "
 "configuration actuelle."
 
-#: config/fields.php:55
+#: config/fields.php:56
 msgid "Resent-From"
 msgstr "Renvoyé depuis"
 
-#: config/fields.php:59
+#: config/fields.php:60
 msgid "Resent-To"
 msgstr "Renvoyé vers"
 
@@ -769,19 +770,19 @@ msgstr "Sauvegarder et Activer"
 msgid "Script"
 msgstr "Script"
 
-#: config/prefs.php:14
+#: config/prefs.php:15
 msgid "Script Updating"
 msgstr "Mise à jour du script"
 
-#: lib/Ingo.php:261
+#: lib/Ingo.php:263
 msgid "Script not updated."
 msgstr "Script non mis à jour."
 
-#: lib/Ingo.php:231
+#: lib/Ingo.php:233
 msgid "Script successfully activated."
 msgstr "Script activé avec succès."
 
-#: lib/Ingo.php:230
+#: lib/Ingo.php:232
 msgid "Script successfully deactivated."
 msgstr "Script désactivé avec succès."
 
@@ -789,7 +790,7 @@ msgstr "Script désactivé avec succès."
 msgid "Seen"
 msgstr "Vu"
 
-#: rule.php:228
+#: rule.php:233
 msgid "Select a field"
 msgstr "Choisissez un champ"
 
@@ -797,19 +798,19 @@ msgstr "Choisissez un champ"
 msgid "Select ruleset to display:"
 msgstr "Sélectionner les règles à afficher :"
 
-#: rule.php:356 templates/blacklist/blacklist.inc:22
+#: rule.php:361 templates/blacklist/blacklist.inc:22
 msgid "Select target folder"
 msgstr "Choisissez un dossier cible"
 
-#: lib/Ingo.php:114
+#: lib/Ingo.php:117
 msgid "Select target folder:"
 msgstr "Choisissez un dossier cible :"
 
-#: rule.php:265
+#: rule.php:270
 msgid "Self-Defined Header"
 msgstr "En-tête auto-définissable"
 
-#: config/fields.php:39
+#: config/fields.php:40
 msgid "Sender"
 msgstr "Expéditeur"
 
@@ -831,11 +832,11 @@ msgstr ""
 "Le filtrage simple du spam n'est pas supporté avec le pilote de filtrage "
 "actuel."
 
-#: config/fields.php:99
+#: config/fields.php:100
 msgid "Size"
 msgstr "Taille"
 
-#: config/fields.php:91
+#: config/fields.php:92
 msgid "Source (From, Reply-to, etc.)"
 msgstr "Source (De, Réponse à, etc)"
 
@@ -860,7 +861,7 @@ msgstr "Début d'abscence :"
 msgid "Stop checking if this rule matches?"
 msgstr "Arreter la vérification lorsque la règle correspond ?"
 
-#: config/fields.php:35
+#: config/fields.php:36
 msgid "Subject"
 msgstr "Sujet"
 
@@ -882,19 +883,19 @@ msgstr "L'adresse \"%s\" a été ajoutée à votre liste noire."
 msgid "The address \"%s\" has been added to your whitelist."
 msgstr "L'adresse \"%s\" a été ajoutée à votre liste blanche."
 
-#: lib/Ingo.php:225
+#: lib/Ingo.php:227
 msgid "The driver said: "
 msgstr "Message du pilote (driver) :"
 
-#: lib/Ingo.php:224
+#: lib/Ingo.php:226
 msgid "There was an error activating the script."
 msgstr "Une erreur s'est produite lors de l'activation du script."
 
-#: lib/Ingo.php:223
+#: lib/Ingo.php:225
 msgid "There was an error deactivating the script."
 msgstr "Une erreur s'est produite lors de la désactivation du script."
 
-#: config/fields.php:31
+#: config/fields.php:32
 msgid "To"
 msgstr "à"
 
@@ -925,7 +926,7 @@ msgstr "Éditer absence"
 msgid "Vacation is not supported in the current filtering driver."
 msgstr "Absence n'est pas supportée par le pilote de filtre actuel."
 
-#: rule.php:362
+#: rule.php:367
 msgid "Value"
 msgstr "Valeur"
 
@@ -951,23 +952,23 @@ msgstr "Liste blanche n'est pas supportée pas le pilote de filtre courant."
 msgid "Whitelisted Addresses"
 msgstr "Adresse en liste blanche"
 
-#: config/fields.php:83
+#: config/fields.php:84
 msgid "X-Priority"
 msgstr "X-Priority"
 
-#: config/fields.php:71
+#: config/fields.php:72
 msgid "X-Spam-Level"
 msgstr "X-Spam-Level"
 
-#: config/fields.php:75
+#: config/fields.php:76
 msgid "X-Spam-Score"
 msgstr "Score de pourriel (X-Spam-Score)"
 
-#: config/fields.php:79
+#: config/fields.php:80
 msgid "X-Spam-Status"
 msgstr "X-Spam-Status"
 
-#: filters.php:73 rule.php:186
+#: filters.php:73 rule.php:191
 #, php-format
 msgid "You are not allowed to create more than %d rules."
 msgstr "Vous n'êtes pas autorisés à créer plus de %d règles."
@@ -984,11 +985,11 @@ msgstr ""
 "Vous ne pouvez créer des conditions vides. Merci de saisir une valeur pour "
 "\"%s\"."
 
-#: filters.php:50 rule.php:163
+#: filters.php:50 rule.php:168
 msgid "You do not have permission to delete filter rules."
 msgstr "Vous n'avez pas la permission de supprimer les règles de filtrage."
 
-#: filters.php:44 filters.php:114 filters.php:124 rule.php:51 rule.php:176
+#: filters.php:44 filters.php:114 filters.php:124 rule.php:51 rule.php:181
 msgid "You do not have permission to edit filter rules."
 msgstr "Vous n'avez pas la permission d'éditer les règles de filtrage."
 

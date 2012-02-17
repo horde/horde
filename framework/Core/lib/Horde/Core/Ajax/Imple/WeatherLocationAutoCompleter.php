@@ -2,7 +2,7 @@
 /**
  * Attach the auto completer to a javascript element.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -26,7 +26,7 @@ class Horde_Core_Ajax_Imple_WeatherLocationAutoCompleter extends Horde_Core_Ajax
                   ->add('blockid', 'horde_block_weather');
         Horde::addInlineScript(
             array(
-                'if (!window.weatherupdate) { window.weatherupdate = {}; }',
+                'window.weatherupdate = window.weatherupdate || {};',
                 'window.weatherupdate["' . $this->_params['instance'] . '"] = {
                     value: false,
                     choices: {},
@@ -37,10 +37,15 @@ class Horde_Core_Ajax_Imple_WeatherLocationAutoCompleter extends Horde_Core_Ajax
                         } else {
                             v = $F("location' . $this->_params['instance'] . '");
                         }
+                        $("' . $js_params['indicator'] . '").toggle();
                         new Ajax.Updater(
                             "weathercontent' . $this->_params['instance'] . '",
                             "' . strval($updateurl) . '",
-                            { evalScripts: true, parameters: { location: v } }
+                            {
+                                evalScripts: true,
+                                parameters: { location: v },
+                                onComplete: function() { $("' . $js_params['indicator'] . '").toggle(); }
+                            }
                         );
 
                         this.value = false;
@@ -48,6 +53,7 @@ class Horde_Core_Ajax_Imple_WeatherLocationAutoCompleter extends Horde_Core_Ajax
                 }',
                 '$("button' . $this->_params['instance'] . '").observe("click", function(e) {
                     window.weatherupdate["' . $this->_params['instance'] . '"].update();
+                    e.stop();
                 });'
             ),
             'dom'

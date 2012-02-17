@@ -1,5 +1,5 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Horde Project
+# Copyright (C) YEAR Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Agora package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Agora H4 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-09-20 13:49+0200\n"
+"POT-Creation-Date: 2012-01-17 12:38+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -85,7 +85,7 @@ msgstr ""
 msgid "Ascending"
 msgstr ""
 
-#: lib/Driver.php:1561
+#: lib/Driver.php:1562
 msgid "Attachment"
 msgstr ""
 
@@ -103,7 +103,7 @@ msgid ""
 "Avatars must be smaller than %s by %s pixels and less than %sKb in size."
 msgstr ""
 
-#: ban.php:51 lib/Driver.php:1507
+#: ban.php:51 lib/Driver.php:1508
 msgid "Ban"
 msgstr ""
 
@@ -121,7 +121,7 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: lib/Driver.php:1937
+#: lib/Driver.php:1938
 msgid "Cannot create a forum with an empty name."
 msgstr ""
 
@@ -182,7 +182,7 @@ msgstr ""
 msgid "Create"
 msgstr ""
 
-#: lib/Driver.php:1557
+#: lib/Driver.php:1558
 msgid "Current attachment"
 msgstr ""
 
@@ -215,7 +215,7 @@ msgid "Default threads view sort:"
 msgstr ""
 
 #: ban.php:48 deleteforum.php:40 deleteforum.php:58 lib/Api.php:600
-#: lib/Api.php:605 lib/Driver.php:913 lib/Driver.php:1836
+#: lib/Api.php:605 lib/Driver.php:913 lib/Driver.php:1837
 #: messages/delete.php:42 messages/delete.php:47 messages/index.php:116
 #: moderate.php:35 moderate.php:64 moderators.php:58
 msgid "Delete"
@@ -226,11 +226,11 @@ msgstr ""
 msgid "Delete \"%s\" and all replies?"
 msgstr ""
 
-#: deleteforum.php:37 lib/Driver.php:1505
+#: deleteforum.php:37 lib/Driver.php:1506
 msgid "Delete Forum"
 msgstr ""
 
-#: lib/Driver.php:1836
+#: lib/Driver.php:1837
 msgid "Delete forum"
 msgstr ""
 
@@ -238,7 +238,7 @@ msgstr ""
 msgid "Delete message"
 msgstr ""
 
-#: lib/Driver.php:1556
+#: lib/Driver.php:1557
 msgid "Delete the existing attachment?"
 msgstr ""
 
@@ -268,11 +268,11 @@ msgstr ""
 msgid "Display graphical emoticons?"
 msgstr ""
 
-#: lib/Driver.php:909 lib/Driver.php:1829 messages/index.php:113
+#: lib/Driver.php:909 lib/Driver.php:1830 messages/index.php:113
 msgid "Edit"
 msgstr ""
 
-#: editforum.php:34 lib/Driver.php:1502
+#: editforum.php:34 lib/Driver.php:1503
 msgid "Edit Forum"
 msgstr ""
 
@@ -289,7 +289,7 @@ msgstr ""
 msgid "Edit a comment"
 msgstr ""
 
-#: lib/Driver.php:1829
+#: lib/Driver.php:1830
 msgid "Edit forum"
 msgstr ""
 
@@ -311,7 +311,7 @@ msgstr ""
 msgid "Forum"
 msgstr ""
 
-#: lib/Api.php:577 lib/Driver.php:1728
+#: lib/Api.php:577 lib/Driver.php:1729
 #, php-format
 msgid "Forum %s does not exist."
 msgstr ""
@@ -350,7 +350,7 @@ msgstr ""
 msgid "Forums in %s"
 msgstr ""
 
-#: lib/Driver.php:1538
+#: lib/Driver.php:1539
 msgid "From"
 msgstr ""
 
@@ -435,7 +435,7 @@ msgstr ""
 msgid "Merge \"%s\" with another thread"
 msgstr ""
 
-#: lib/Driver.php:1551
+#: lib/Driver.php:1552
 msgid "Message"
 msgstr ""
 
@@ -473,7 +473,7 @@ msgstr ""
 msgid "Messages Awaiting Moderation"
 msgstr ""
 
-#: lib/Driver.php:1850
+#: lib/Driver.php:1851
 msgid "Moderate"
 msgstr ""
 
@@ -505,7 +505,7 @@ msgstr ""
 msgid "New Forum"
 msgstr ""
 
-#: lib/Driver.php:1824
+#: lib/Driver.php:1825
 msgid "New Post"
 msgstr ""
 
@@ -598,7 +598,7 @@ msgstr ""
 msgid "Parent forum"
 msgstr ""
 
-#: lib/Driver.php:1520
+#: lib/Driver.php:1521
 msgid "Post"
 msgstr ""
 
@@ -616,7 +616,7 @@ msgstr ""
 msgid "Post a Reply to \"%s\""
 msgstr ""
 
-#: lib/Driver.php:1496 lib/Driver.php:1824
+#: lib/Driver.php:1497 lib/Driver.php:1825
 msgid "Post message"
 msgstr ""
 
@@ -637,7 +637,7 @@ msgstr ""
 msgid "Posts"
 msgstr ""
 
-#: lib/Driver.php:1543
+#: lib/Driver.php:1544
 msgid "Quote"
 msgstr ""
 
@@ -657,7 +657,7 @@ msgstr ""
 msgid "Require all keywords?"
 msgstr ""
 
-#: lib/Driver.php:1520
+#: lib/Driver.php:1521
 msgid "Save"
 msgstr ""
 
@@ -744,7 +744,7 @@ msgstr ""
 msgid "Sort direction"
 msgstr ""
 
-#: lib/Driver.php:1565 lib/Form/Message.php:22
+#: lib/Driver.php:1566 lib/Form/Message.php:22
 msgid "Spam protection"
 msgstr ""
 
@@ -767,8 +767,8 @@ msgstr ""
 
 #: config/prefs.php:129 config/prefs.php:174 config/prefs.php:258
 #: lib/Api.php:296 lib/Block/Thread.php:78 lib/Block/Threads.php:119
-#: lib/Comments.php:67 lib/Comments.php:82 lib/Driver.php:1545
-#: lib/Driver.php:1548 messages/index.php:139 moderate.php:57 owner.php:56
+#: lib/Comments.php:67 lib/Comments.php:82 lib/Driver.php:1546
+#: lib/Driver.php:1549 messages/index.php:139 moderate.php:57 owner.php:56
 #: threads.php:54
 msgid "Subject"
 msgstr ""
@@ -914,7 +914,7 @@ msgstr ""
 msgid "Yes, and don't thread them"
 msgstr ""
 
-#: lib/Driver.php:1710
+#: lib/Driver.php:1711
 #, php-format
 msgid "You don't have permission to access messages in forum %s."
 msgstr ""
@@ -991,7 +991,7 @@ msgstr ""
 msgid "by"
 msgstr ""
 
-#: lib/Driver.php:1654
+#: lib/Driver.php:1655
 msgid "download"
 msgstr ""
 
@@ -999,12 +999,12 @@ msgstr ""
 msgid "on: "
 msgstr ""
 
-#: lib/Driver.php:1655
+#: lib/Driver.php:1656
 #, php-format
 msgid "size: %s"
 msgstr ""
 
-#: lib/Driver.php:1655
+#: lib/Driver.php:1656
 #, php-format
 msgid "type: %s"
 msgstr ""

@@ -2,7 +2,7 @@
 /**
  * Horde_Variables:: class. Provides OO-way to access form variables.
  *
- * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -16,18 +16,11 @@
 class Horde_Variables implements Countable, Iterator
 {
     /**
-     * Array of form variables.
-     *
-     * @var array
-     */
-    protected $_vars;
-
-    /**
      * The list of expected variables.
      *
      * @var array
      */
-    protected $_expectedVariables = array();
+    protected $_expected = array();
 
     /**
      * Has the input been sanitized?
@@ -35,6 +28,13 @@ class Horde_Variables implements Countable, Iterator
      * @var boolean
      */
     protected $_sanitized = false;
+
+    /**
+     * Array of form variables.
+     *
+     * @var array
+     */
+    protected $_vars;
 
     /**
      * Returns a Horde_Variables object populated with the form input.
@@ -51,7 +51,8 @@ class Horde_Variables implements Countable, Iterator
     /**
      * Constructor.
      *
-     * @param array $vars       TODO
+     * @param array $vars       The list of form variables (if null, defaults
+     *                          to PHP's $_REQUEST value).
      * @param string $sanitize  Sanitize the input variables?
      */
     public function __construct($vars = array(), $sanitize = false)
@@ -62,7 +63,7 @@ class Horde_Variables implements Countable, Iterator
         }
 
         if (isset($vars['_formvars'])) {
-            $this->_expectedVariables = @unserialize($vars['_formvars']);
+            $this->_expected = @unserialize($vars['_formvars']);
             unset($vars['_formvars']);
         }
 
@@ -80,8 +81,7 @@ class Horde_Variables implements Countable, Iterator
     {
         if (!$this->_sanitized) {
             foreach (array_keys($this->_vars) as $key) {
-                $value = $this->get($key);
-                $this->set($key, is_array($value) ? filter_var_array($value, FILTER_SANITIZE_STRING) : filter_var($value, FILTER_SANITIZE_STRING));
+                $this->$key = $this->filter($key);
             }
             $this->_sanitized = true;
         }
@@ -90,13 +90,11 @@ class Horde_Variables implements Countable, Iterator
     /**
      * Alias of isset().
      *
-     * @param string $varname  The form variable name.
-     *
-     * @return boolean  Does $varname form variable exist?
+     * @see __isset()
      */
     public function exists($varname)
     {
-        return $this->__isset($varname);
+        return isset($this->$varname);
     }
 
     /**
@@ -108,9 +106,9 @@ class Horde_Variables implements Countable, Iterator
      */
     public function __isset($varname)
     {
-        return count($this->_expectedVariables)
-            ? $this->_exists($this->_expectedVariables, $varname)
-            : $this->_exists($this->_vars, $varname);
+        return count($this->_expected)
+            ? $this->_getExists($this->_expected, $varname, $value)
+            : $this->_getExists($this->_vars, $varname, $value);
     }
 
     /**
@@ -119,7 +117,7 @@ class Horde_Variables implements Countable, Iterator
      * @param string $varname  The form variable name.
      * @param string $default  The default form variable value.
      *
-     * @return mixed  The form variable, or null if it doesn't exist.
+     * @return mixed  The form variable, or $default if it doesn't exist.
      */
     public function get($varname, $default = null)
     {
@@ -142,7 +140,14 @@ class Horde_Variables implements Countable, Iterator
     }
 
     /**
-     * TODO
+     * Given a variable name, returns the value and sets a variable indicating
+     * whether the value exists in the form data.
+     *
+     * @param string $varname   The form variable name.
+     * @param boolean &$exists  Reference to variable that will indicate
+     *                          whether $varname existed in form data.
+     *
+     * @return mixed  The form variable, or null if it doesn't exist.
      */
     public function getExists($varname, &$exists)
     {
@@ -153,12 +158,11 @@ class Horde_Variables implements Countable, Iterator
     /**
      * Sets the value of a given form variable.
      *
-     * @param string $varname  The form variable name.
-     * @param mixed $value     The value to set.
+     * @see __set()
      */
     public function set($varname, $value)
     {
-        $this->__set($varname, $value);
+        $this->$varname = $value;
     }
 
     /**
@@ -171,9 +175,7 @@ class Horde_Variables implements Countable, Iterator
     {
         $keys = array();
 
-        if (!Horde_Array::getArrayParts($varname, $base, $keys)) {
-            $this->_vars[$varname] = $value;
-        } else {
+        if (Horde_Array::getArrayParts($varname, $base, $keys)) {
             array_unshift($keys, $base);
             $place = &$this->_vars;
             $i = count($keys);
@@ -187,17 +189,19 @@ class Horde_Variables implements Countable, Iterator
             }
 
             $place = $value;
+        } else {
+            $this->_vars[$varname] = $value;
         }
     }
 
     /**
      * Deletes a given form variable.
      *
-     * @param string $varname  The form variable name.
+     * @see __unset()
      */
     public function remove($varname)
     {
-        return $this->__unset($varname);
+        unset($this->$varname);
     }
 
     /**
@@ -209,7 +213,9 @@ class Horde_Variables implements Countable, Iterator
     {
         Horde_Array::getArrayParts($varname, $base, $keys);
 
-        if (!is_null($base)) {
+        if (is_null($base)) {
+            unset($this->_vars[$varname]);
+        } else {
             $ptr = &$this->_vars[$base];
             $end = count($keys) - 1;
             foreach ($keys as $key => $val) {
@@ -222,8 +228,6 @@ class Horde_Variables implements Countable, Iterator
                     $ptr = &$ptr[$val];
                 }
             }
-        } else {
-            unset($this->_vars[$varname]);
         }
     }
 
@@ -235,7 +239,7 @@ class Horde_Variables implements Countable, Iterator
     public function merge($vars)
     {
         foreach ($vars as $varname => $value) {
-            $this->set($varname, $value);
+            $this->$varname = $value;
         }
     }
 
@@ -258,32 +262,40 @@ class Horde_Variables implements Countable, Iterator
     }
 
     /**
-     * Find out whether or not $varname was set in $array.
+     * Filters a form value so that it can be used in HTML output.
      *
-     * @param array $array     The array to search in (usually either
-     *                         $this->_vars or $this->_expectedVariables).
-     * @param string $varname  The name of the variable to look for.
+     * @since Horde_Util 1.2.0
      *
-     * @return boolean  Whether or not the variable was set (or, if we've
-     *                  checked $this->_expectedVariables, should have been
-     *                  set).
+     * @param string $varname  The form variable name.
+     *
+     * @return mixed  The filtered variable, or null if it doesn't exist.
      */
-    protected function _exists($array, $varname)
+    public function filter($varname)
     {
-        return $this->_getExists($array, $varname, $value);
+        $val = $this->$varname;
+
+        if (is_null($val) || $this->_sanitized) {
+            return $val;
+        }
+
+        return is_array($val)
+            ? filter_var_array($val, FILTER_SANITIZE_STRING)
+            : filter_var($val, FILTER_SANITIZE_STRING);
     }
+
+    /* Protected methods. */
 
     /**
      * Fetch the requested variable ($varname) into $value, and return
      * whether or not the variable was set in $array.
      *
-     * @param array $array     See _exists().
-     * @param string $varname  See _exists().
+     * @param array $array     The array to search in (usually either
+     *                         $this->_vars or $this->_expected).
+     * @param string $varname  The name of the variable to look for.
      * @param mixed &$value    $varname's value gets assigned to this variable.
      *
      * @return boolean  Whether or not the variable was set (or, if we've
-     *                  checked $this->_expectedVariables, should have been
-     *                  set).
+     *                  checked $this->_expected, should have been set).
      */
     protected function _getExists($array, $varname, &$value)
     {
@@ -309,7 +321,9 @@ class Horde_Variables implements Countable, Iterator
             return true;
         }
 
-        $value = isset($array[$varname]) ? $array[$varname] : null;
+        $value = isset($array[$varname])
+            ? $array[$varname]
+            : null;
 
         return !is_null($value);
     }

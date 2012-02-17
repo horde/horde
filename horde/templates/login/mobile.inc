@@ -15,7 +15,7 @@ $(function() {
 
 <div data-role="content" style="max-width:480px; margin:0 auto;">
 
-<form action="login.php" method="post" data-ajax="false">
+<form action="<?php echo Horde::url('login.php') ?>" method="post" data-ajax="false">
   <input type="hidden" name="anchor_string" value="<?php echo htmlspecialchars(strval($vars->anchor_string)) ?>">
   <input type="hidden" name="app" value="<?php echo htmlspecialchars($vars->app) ?>">
   <input type="hidden" name="url" value="<?php echo htmlspecialchars($vars->url) ?>">

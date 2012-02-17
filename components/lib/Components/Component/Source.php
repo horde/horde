@@ -14,7 +14,7 @@
 /**
  * Represents a source component.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -188,15 +188,20 @@ class Components_Component_Source extends Components_Component_Base
         $log, Components_Helper_ChangeLog $helper, $options
     )
     {
-        $file = $helper->packageXml(
-            $log, $this->getPackageXml(), $this->_getPackageXmlPath(), $options
-        );
-        if ($file && !empty($options['commit'])) {
-            $options['commit']->add($file, $this->_directory);
+        if (empty($options['nopackage'])) {
+            $file = $helper->packageXml(
+                $log, $this->getPackageXml(), $this->_getPackageXmlPath(), $options
+            );
+            if ($file && !empty($options['commit'])) {
+                $options['commit']->add($file, $this->_directory);
+            }
         }
-        $file = $helper->changes($log, $this->_directory, $options);
-        if ($file && !empty($options['commit'])) {
-            $options['commit']->add($file, $this->_directory);
+
+        if (empty($options['nochanges'])) {
+            $file = $helper->changes($log, $this->_directory, $options);
+            if ($file && !empty($options['commit'])) {
+                $options['commit']->add($file, $this->_directory);
+            }
         }
     }
 

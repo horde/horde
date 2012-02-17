@@ -3,7 +3,7 @@
  * This class provides a parser which can construct an SQL WHERE clause from a
  * Google-like search expression.
  *
- * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
  *
  * The expression recognizes boolean "AND", "OR", and "NOT" (providing no
  * operator between keywords implies "AND"), like so:

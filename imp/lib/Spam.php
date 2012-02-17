@@ -3,7 +3,7 @@
  * The IMP_Spam:: class contains functions related to reporting spam
  * messages in IMP.
  *
- * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -145,7 +145,8 @@ class IMP_Spam
 
                     /* Send the message. */
                     try {
-                        $imp_compose->sendMessage($to, $spam_headers, $mime, 'UTF-8');
+                        $recip_list = $imp_compose->recipientList(array('to' => $to));
+                        $imp_compose->sendMessage($recip_list['list'], $spam_headers, $mime, 'UTF-8');
                         $report_flag = true;
                     } catch (IMP_Compose_Exception $e) {
                         $e->log();
@@ -164,7 +165,7 @@ class IMP_Spam
 
         /* Report what we've done. */
         if ($report_count == 1) {
-            $hdrs = $imp_contents->getHeaderOb();
+            $hdrs = $imp_contents->getHeader();
             if ($subject = $hdrs->getValue('subject')) {
                 $subject = Horde_String::truncate($subject, 30);
             } elseif ($from = $hdrs->getValue('from')) {

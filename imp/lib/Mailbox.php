@@ -3,7 +3,7 @@
  * The IMP_Mailbox class acts as a clearinghouse for actions related to a
  * mailbox.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -35,6 +35,7 @@
  * @property string $display  Display version of mailbox. Special mailboxes
  *                            are replaced with localized strings and
  *                            namespace information is removed.
+ * @property string $display_html  $display that has been HTML encoded.
  * @property boolean $drafts  Is this a Drafts mailbox?
  * @property boolean $editquery  Can this search query be edited?
  * @property boolean $editvfolder  Can this virtual folder be edited?
@@ -324,6 +325,9 @@ class IMP_Mailbox implements Serializable
                 ? $this->label
                 : $this->_getDisplay();
 
+        case 'display_html':
+            return htmlspecialchars($this->display);
+
         case 'display_notranslate':
             return $this->nonimap
                 ? $this->label
@@ -397,9 +401,6 @@ class IMP_Mailbox implements Serializable
             return $elt
                 ? $elt['c']
                 : 0;
-
-        case 'name':
-            return htmlspecialchars($this->label);
 
         case 'namespace':
             return $injector->getInstance('IMP_Imap_Tree')->isNamespace($this->_mbox);
@@ -710,6 +711,19 @@ class IMP_Mailbox implements Serializable
     public function delete($force = false)
     {
         global $conf, $injector, $notification;
+
+        if ($this->vfolder) {
+            if ($this->editvfolder) {
+                $imp_search = $injector->getInstance('IMP_Search');
+                $label = $imp_search[$this->_mbox]->label;
+                unset($imp_search[$this->_mbox]);
+                $notification->push(sprintf(_("Deleted Virtual Folder \"%s\"."), $label), 'horde.success');
+                return true;
+            }
+
+            $notification->push(sprintf(_("Could not delete Virtual Folder \"%s\"."), $this->label), 'horde.error');
+            return false;
+        }
 
         if ((!$force && $this->fixed) || !$this->access_deletembox)  {
             $notification->push(sprintf(_("The mailbox \"%s\" may not be deleted."), $this->display), 'horde.error');
@@ -1583,7 +1597,7 @@ class IMP_Mailbox implements Serializable
                 strpos($this->_mbox, $key) === 0) {
                 $len = strlen($key);
                 if ((strlen($this->_mbox) == $len) || ($this->_mbox[$len] == (is_null($ns_info) ? '' : $ns_info['delimiter']))) {
-                    $out = substr_replace($out, Horde_String::convertCharset($val, 'UTF-8', 'UTF7-IMAP'), 0, $len);
+                    $out = substr_replace($this->_mbox, Horde_String::convertCharset($val, 'UTF-8', 'UTF7-IMAP'), 0, $len);
                     break;
                 }
             }

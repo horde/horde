@@ -149,33 +149,30 @@
     Iegult ir iespējams tādus pašus skatus, kā Horde portāla lapā. Zemāk redzami 
     koda piemēri, ar kuriem tas paveicams. Protams, Jums ir jānorāda pareiza servera 
     adrese un kalendāra nosaukums. Parametrs 'container' nav obligāts, taču tam 
-    jāatbilst gan div elementa DOM id, gan jābūt unikālam visā lapā, kurā vēlaties 
-    iegult kalendāra skatu.
+    jāatbilst gan div elementa DOM id, gan jābūt unikālam visā lapā, kurā vēlaties iegult kalendāra skatu.
   </para>
   <para>
     Lai iegultu šā mēneša mazo Mēneša skatu:
   </para>
-  <raw> 
-    &lt;div id="kronocalendar"&gt;&lt;/div&gt;&lt;script
+    <i>&lt;div id="kronocalendar"&gt;&lt;/div&gt;&lt;script
     src="http://hostname.example.com/horde/kronolith/imple.php?imple=Embed
     /container=kronocalendar/view=month/calendar=calendar_name"
-    type="text/javascript"&gt;&lt;/script&gt;
-    </raw>
+    type="text/javascript"&gt;&lt;/script&gt;</i>
   <para>
     Lai iegultu tuvojošos notikumu sarakstu (pievērsiet uzmanību 'mēnešu' un 'max.skaits'
     parametriem):
   </para>
-    <raw>&lt;div id="kronolist"&gt;&lt;/div&gt;&lt;script
+    <i>&lt;div id="kronolist"&gt;&lt;/div&gt;&lt;script
     src="http://hostname.example.com/horde/kronolith/imple.php?imple=Embed
     /view=monthlist/calendar=calendar_name/container=kronolist/months=2/
-    maxevents=10" type="text/javascript"&gt;&lt;/script&gt;</raw>
+    maxevents=10" type="text/javascript"&gt;&lt;/script&gt;</i>
   <para>
     Lai iegultu kopskatu:
   </para>
-    <raw>&lt;div id="kronosummary"&gt;
+    <i>&lt;div id="kronosummary"&gt;
     &lt;/div&gt;&lt;script type="text/javascript"
     src="http://hostname.example.com/horde/kronolith/imple.php?imple=Embed
     /container=kronosummary/view=summary/calendar=calendar_name
-    "&gt;&lt;/script&gt;</raw>
+    "&gt;&lt;/script&gt;</i>
 </entry>
 </help>

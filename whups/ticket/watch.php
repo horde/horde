@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -64,10 +64,10 @@ require WHUPS_TEMPLATES . '/ticket/watchers.inc';
 
 $r = new Horde_Form_Renderer();
 
-$addform->renderActive($r, $vars, 'watch.php', 'post');
+$addform->renderActive($r, $vars, Horde::url('ticket/watch.php'), 'post');
 echo '<br class="spacer" />';
 
-$delform->renderActive($r, $vars, 'watch.php', 'post');
+$delform->renderActive($r, $vars, Horde::url('ticket/watch.php'), 'post');
 echo '<br class="spacer" />';
 
 $form = new Whups_Form_TicketDetails($vars, $ticket, '[#' . $id . '] ' . $ticket->get('summary'));

@@ -18,7 +18,7 @@
  *   - to_expand_[1-5]: (string) Expand matches for To addresses.
  *   - u: (string) Unique ID (cache buster).
  *
- * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -193,7 +193,7 @@ case _("Redirect"):
         $num_msgs = $imp_compose->sendRedirectMessage($imp_ui->getAddressList($header['to']));
         $imp_compose->destroy('send');
 
-        $notification->push(ngettext("Message redirected successfully.", "Messages redirected successfully.", $num_msgs), 'horde.success');
+        $notification->push(ngettext("Message redirected successfully.", "Messages redirected successfully.", count($num_msgs)), 'horde.success');
         require IMP_BASE . '/mailbox-mimp.php';
         exit;
     } catch (Horde_Exception $e) {
@@ -265,11 +265,6 @@ case _("Send"):
         break;
 
     case _("Send"):
-        $sig = $identity->getSignature();
-        if (!empty($sig)) {
-            $message .= "\n" . $sig;
-        }
-
         $options = array(
             'identity' => $identity,
             'readreceipt' => ($prefs->getValue('request_mdn') == 'always'),
@@ -278,7 +273,7 @@ case _("Send"):
         );
 
         try {
-            if ($imp_compose->buildAndSendMessage($message, $header, $options)) {
+            if ($imp_compose->buildAndSendMessage($message . $identity->getSignature(), $header, $options)) {
                 $imp_compose->destroy('send');
 
                 $notification->push(_("Message sent successfully."), 'horde.success');

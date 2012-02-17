@@ -3,7 +3,7 @@
  * This class provides an interface to handling CSS stylesheets for Horde
  * applications.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -308,7 +308,7 @@ class Horde_Themes_Css
             }
 
             /* Scan to grab any @import tags within the CSS file. */
-            $tmp = preg_replace_callback('/@import\s+url\(["\']?(.*?)["\']?\)/i', array($this, '_importCallback'), $tmp);
+            $tmp = preg_replace_callback('/@import\s+url\(["\']?(.*?)["\']?\)(?:\s*;\s*)*/i', array($this, '_importCallback'), $tmp);
 
             $out .= $tmp;
         }

@@ -2,7 +2,7 @@
 /**
  * This class contains functions related to handling the headers of MIME data.
  *
- * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -648,6 +648,8 @@ class Horde_Mime_Headers implements Serializable
      * Perform sanity checking on a raw header (e.g. handle 8-bit characters).
      * This function can be called statically:
      *   $headers = Horde_Mime_Headers::sanityCheck().
+     *
+     * @since Horde_Mime 1.4.0
      *
      * @param string $header  The header.
      * @param string $data    The header data.

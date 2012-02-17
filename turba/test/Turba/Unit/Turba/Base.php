@@ -13,9 +13,14 @@
  */
 
 /**
+ * Prepare the test setup.
+ */
+require_once dirname(__FILE__) . '/../../TestCase.php';
+
+/**
  * Test the core Turba class with various backends.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/apache.

@@ -13,7 +13,7 @@ if ($memo_id):
 
 <?php if ($actionID == 'modify_memo' && $show_passphrase): ?>
  <div class="notePassword">
-  <form action="memo.php" name="passphrase" method="post">
+  <form action="<?php echo Horde::url('memo.php') ?>" name="passphrase" method="post">
    <?php echo Horde_Util::formInput() ?>
    <input type="hidden" name="actionID" value="modify_memo" />
    <input type="hidden" name="memolist" value="<?php echo $memolist_id ?>" />
@@ -41,7 +41,7 @@ if ($memo_id):
  }
  </script>
  <?php echo $cManager->getJavaScript('memo', 'memo_category') ?>
- <form method="post" name="memo" action="memo.php">
+ <form method="post" name="memo" action="<?php echo Horde::url('memo.php') ?>">
  <?php Horde_Util::pFormInput() ?>
  <input type="hidden" name="actionID" value="save_memo" />
  <input type="hidden" name="memo" value="<?php echo htmlspecialchars($memo_id) ?>" />

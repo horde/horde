@@ -4,7 +4,7 @@
  * between Horde applications and keeping track of application
  * configuration information.
  *
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -1306,7 +1306,7 @@ class Horde_Registry
                 }
 
                 Horde::logMessage(sprintf('%s does not have READ permission for %s', $this->getAuth() ? 'User ' . $this->getAuth() : 'Guest user', $app), 'DEBUG');
-                throw new Horde_Exception(sprintf(Horde_Core_Translation::t('%s is not authorized for %s.'), $this->getAuth() ? 'User ' . $this->getAuth() : 'Guest user', $this->applications[$app]['name']), self::PERMISSION_DENIED);
+                throw new Horde_Exception(sprintf('%s is not authorized for %s.', $this->getAuth() ? 'User ' . $this->getAuth() : 'Guest user', $this->applications[$app]['name']), self::PERMISSION_DENIED);
             }
         }
 
@@ -1472,7 +1472,33 @@ class Horde_Registry
 
         $GLOBALS['conf'] = ($app == 'horde')
             ? $this->_confCache['horde']
-            : Horde_Array::replaceRecursive($this->_confCache['horde'], $this->_confCache[$app]);
+            : $this->_mergeConfig($this->_confCache['horde'], $this->_confCache[$app]);
+    }
+
+    /**
+     * Merge configurations between two applications.
+     * See Bug #10381 for more information.
+     *
+     * @param array $a1  Horde configuration.
+     * @param array $a2  App configuration.
+     *
+     * @return array  Merged configuration.
+     */
+    protected function _mergeConfig(array $a1, array $a2)
+    {
+        foreach ($a2 as $key => $val) {
+            if (isset($a1[$key]) &&
+                is_array($a1[$key])) {
+                reset($a1[$key]);
+                $a1[$key] = is_int(key($a1[$key]))
+                    ? $val
+                    : $this->_mergeConfig($a1[$key], $val);
+            } else {
+                $a1[$key] = $val;
+            }
+        }
+
+        return $a1;
     }
 
     /**
@@ -1494,15 +1520,16 @@ class Horde_Registry
             $this->pushApp($app);
         }
 
-        if ($this->getAuth()) {
-            if (isset($prefs) && ($prefs->getUser() == $this->getAuth())) {
+        $user = $this->getAuth();
+        if ($user) {
+            if (isset($prefs) && ($prefs->getUser() == $user)) {
                 $prefs->retrieve($app);
                 return;
             }
 
             $opts = array(
                 'password' => $this->getAuthCredential('password'),
-                'user' => $this->getAuth()
+                'user' => $user,
             );
         } else {
             /* If there is no logged in user, return an empty Horde_Prefs
@@ -2154,7 +2181,9 @@ class Horde_Registry
         }
 
         $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-        return @unserialize($secret->read($secret->getKey('auth'), $session->get('horde', 'auth_app/' . $app)));
+        $data = $secret->read($secret->getKey('auth'),
+                              $session->get('horde', 'auth_app/' . $app));
+        return @unserialize($data);
     }
 
     /**

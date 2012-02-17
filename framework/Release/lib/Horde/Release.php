@@ -3,7 +3,7 @@
  * Class to make an "official" Horde or application release.
  *
  * Copyright 1999 Mike Hardy
- * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
  *
  * @category Horde
  * @package  Release
@@ -17,7 +17,7 @@
  * Class to make an "official" Horde or application release.
  *
  * Copyright 1999 Mike Hardy
- * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -454,9 +454,7 @@ class Horde_Release
      */
     public function checkOutFramework($mod_version, $directory)
     {
-        if ($this->_options['module'] == 'horde' &&
-            ($this->_options['branch'] == 'HEAD' ||
-             strstr($this->_options['branch'], 'FRAMEWORK'))) {
+        if ($this->_options['module'] == 'horde') {
             if ($this->_options['branch'] == 'HEAD') {
                 print "Checking out HEAD for framework\n";
             } else {
@@ -637,10 +635,6 @@ class Horde_Release
             }
         }
         $mailer->append("\n\n" .
-            'Or, for quicker access, download from your nearest mirror:' .
-            "\n\n" .
-            '    http://www.horde.org/mirrors.php' .
-            "\n\n" .
             'MD5 sums for the packages are as follows:' .
             "\n\n" .
             '    ' . $this->_tarballMD5[0] . "\n" .

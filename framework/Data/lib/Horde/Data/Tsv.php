@@ -2,7 +2,7 @@
 /**
  * Horde_Data implementation for tab-separated data (TSV).
  *
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -116,7 +116,7 @@ class Horde_Data_Tsv extends Horde_Data_Base
     public function exportFile($filename, $data, $header = false)
     {
         if (!isset($this->_browser)) {
-            throw new Horde_Data_Exception('Missing browser parameter.');
+            throw new LogicException('Missing browser parameter.');
         }
 
         $export = $this->exportData($data, $header);
@@ -225,7 +225,7 @@ class Horde_Data_Tsv extends Horde_Data_Base
             }
             $file_name = Horde_Util::getTempFile('import', false);
             if (!move_uploaded_file($_FILES['import_file']['tmp_name'], $file_name)) {
-                throw new Horde_Data_Exception('The uploaded file could not be saved.');
+                throw new Horde_Data_Exception(Horde_Data_Translation::t("The uploaded file could not be saved."));
             }
             $session->set('horde', 'import_data/file_name', $file_name);
 

@@ -4,7 +4,7 @@
  * SQL dialects and quoting.
  *
  * Copyright 2007 Maintainable Software, LLC
- * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -889,6 +889,33 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
     public function interval($interval, $precision)
     {
         return 'INTERVAL \'' . $interval . ' ' . $precision . '\'';
+    }
+
+    /**
+     * Generates a modified date for SELECT queries.
+     *
+     * @since Horde_Db 1.2.0
+     *
+     * @param string $reference  The reference date - this is a column
+     *                           referenced in the SELECT.
+     * @param string $operator   Add or subtract time? (+/-)
+     * @param integer $amount    The shift amount (number of days if $interval
+     *                           is DAY, etc).
+     * @param string $interval   The interval (SECOND, MINUTE, HOUR, DAY,
+     *                           MONTH, YEAR).
+     *
+     * @return string  The generated INTERVAL clause.
+     */
+    public function modifyDate($reference, $operator, $amount, $interval)
+    {
+        if (!is_int($amount)) {
+            throw new InvalidArgumentException('$amount parameter must be an integer');
+        }
+        return sprintf('%s %s INTERVAL \'%s %s\'',
+                       $reference,
+                       $operator,
+                       $amount,
+                       $interval);
     }
 
     /**

@@ -51,9 +51,11 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
         $this->assertEquals(array('dir1'), $dir->getDirectories());
         $files = $dir->getFiles();
         $this->assertInternalType('array', $files);
-        $this->assertEquals(1, count($files));
+        $this->assertEquals(2, count($files));
         $this->assertInstanceOf('Horde_Vcs_File_Git', $files[0]);
-        $this->assertEquals(1, count($dir->getFiles(true)));
+        $this->assertEquals('file1', $files[0]->getFileName());
+        $this->assertEquals('umläüte', $files[1]->getFileName());
+        $this->assertEquals(2, count($dir->getFiles(true)));
         $this->assertEquals(array('branch1', 'master'), $dir->getBranches());
 
         $dir = $this->vcs->getDirectory('dir1');
@@ -97,7 +99,7 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
         $this->assertEquals(array('tag1' => '160a468250615b713a7e33d34243530afc4682a9'),
                                   $file->getTags());
         $this->assertEquals(
-            array('master' => '160a468250615b713a7e33d34243530afc4682a9',
+            array('master' => '2d701be7faf94a5fad1942eb763b6c5c6cae540f',
                   'branch1' => 'da46ee2e478c6d3a9963eaafcd8f43e83d630526'),
             $file->getBranches());
         $this->assertFalse($file->isDeleted());
@@ -111,7 +113,7 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
 
         $file = $this->vcs->getFile('file1', array('branch' => 'branch1'));
         $this->assertEquals(
-            array('master' => '160a468250615b713a7e33d34243530afc4682a9',
+            array('master' => '2d701be7faf94a5fad1942eb763b6c5c6cae540f',
                   //FIXME? 'branch1' => 'da46ee2e478c6d3a9963eaafcd8f43e83d630526'),
                   'branch1' => 'branch1'),
             $file->getBranches());
@@ -149,7 +151,7 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
         $this->assertEquals(array('tag1' => '160a468250615b713a7e33d34243530afc4682a9'),
                                   $file->getTags());
         $this->assertEquals(
-            array('master' => '160a468250615b713a7e33d34243530afc4682a9',
+            array('master' => '2d701be7faf94a5fad1942eb763b6c5c6cae540f',
                   'branch1' => 'da46ee2e478c6d3a9963eaafcd8f43e83d630526'),
             $file->getBranches());
         $this->assertFalse($file->isDeleted());
@@ -176,6 +178,26 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
             $this->fail('Expected Horde_Vcs_Exception');
         } catch (Horde_Vcs_Exception $e) {
         }
+
+        /* Test unicode file. */
+        $file = $this->vcs->getFile('umläüte');
+        $this->assertInstanceOf('Horde_Vcs_File_Git', $file);
+        $this->assertEquals('umläüte', $file->getFileName());
+        $this->assertEquals('umläüte', $file->getSourcerootPath());
+        $this->assertEquals('umläüte', $file->getPath());
+        $this->assertEquals(
+            '2d701be7faf94a5fad1942eb763b6c5c6cae540f',
+            $file->getRevision());
+        $this->assertNull(
+            $file->getPreviousRevision('160a468250615b713a7e33d34243530afc4682a9'));
+        $this->assertNull(
+             $file->getPreviousRevision('da46ee2e478c6d3a9963eaafcd8f43e83d630526'));
+        $this->assertEquals(1, $file->revisionCount());
+        //$this->assertEquals(array(), $file->getTags());
+        //$this->assertEquals(
+        //    array('master' => '2d701be7faf94a5fad1942eb763b6c5c6cae540f'),
+        //    $file->getBranches());
+        $this->assertFalse($file->isDeleted());
     }
 
     public function testLog()
@@ -301,6 +323,16 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
             array('da46ee2e478c6d3a9963eaafcd8f43e83d630526',
                   'd8561cd227c800ee5b0720701c8b6b77e6f6db4a'),
             array_keys($logs));
+
+        $logs = $this->vcs->getFile('umläüte')->getLog();
+        $this->assertInternalType('array', $logs);
+        $this->assertEquals(
+            array('2d701be7faf94a5fad1942eb763b6c5c6cae540f'),
+            array_keys($logs));
+        $this->assertInstanceOf(
+            'Horde_Vcs_Log_Git',
+            $logs['2d701be7faf94a5fad1942eb763b6c5c6cae540f']);
+
     }
 
     public function testLastLog()

@@ -1,5 +1,5 @@
 # Russian translations for Passwd package
-# Copyright 2005-2009 Horde LLC
+# Copyright 2005-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Passwd package.
 # Automatically generated, 2005.
 #

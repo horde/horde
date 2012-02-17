@@ -22,10 +22,10 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-22</date>
- <time>23:07:50</time>
+ <date>2012-01-17</date>
+ <time>13:09:15</time>
  <version>
-  <release>5.0.16</release>
+  <release>5.0.19</release>
   <api>5.0.0</api>
  </version>
  <stability>
@@ -34,21 +34,17 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mms] Workaround broken PGP signed data contained within encrypted parts (Bug #10809).
-* [mms] Fix signature verification display for combined encrypted/signed PGP messages.
-* [mms] Add option to edit ACLs when right-clicking mailbox in dynamic view (Request #8060).
-* [mms] Allow multiple messages to be redirected from traditional view mailbox page (Request #2084).
-* [mms] Add ability to quickly add unsubscribed mailboxes to available search mailboxes in advanced search (Request #10832).
-* [mms] Don&apos;t list parent mailboxes after child mailboxes (Bug #10802).
-* [jan] Update Dutch translation (Pieterjan Heyse &lt;pieterjan.heyse@scheppers-wetteren.be&gt;).
-* [mms] Fix setting compose message body on IE 9 in dynamic view.
-* [mms] Redirect to login page if IMAP credentials are lost somehow during the session.
-* [mms] Fix &apos;server&apos; credential in preauthenticate hook.
-* [jan] Fix updating events from attendee responses (Bug #10772).
-* [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
-* [mms] Correctly apply default mail_domain value in all places it is needed.
-* [mms] Correctly save mail_domain value if changed in preferences UI.
-* [mms] Purge browser cache daily in dynamic view; updates time stamps to proper format (Request #9773).
+* [mms] Improve drag performance of elements in dynamic view.
+* [mms] Fix saving initial_page preference.
+* [mms] Workaround broken Thunderbird encrypted S/MIME messages.
+* [mms] Fix regression where passphrase prompt would not appear for S/MIME encrypted messages.
+* [mms] Fix regression in verifying signed &amp; encrypted S/MIME messages (Bug #10947).
+* [mms] Fix reloading the folder list in the dynamic view (Bug #10769).
+* [mms] Fix deleting messages from Virtual Trash.
+* [mms] Fix regression in displaying PGP Armored signed/encrypted messages (Bug #10926).
+* [mms] Catch IMAP server connection errors in traditional mailbox view.
+* [mms] Fix purging moved messages from dynamic mailbox view if deleted messages are visible in the mailbox (Bug #10916).
+* [mms] Fix message advancing when deleting messages in traditional view when deleted messages are visible in the mailbox.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -231,6 +227,7 @@
       <file name="Video.php" role="horde" />
       <file name="Zip.php" role="horde" />
      </dir> <!-- /lib/Mime/Viewer -->
+     <file name="Status.php" role="horde" />
     </dir> <!-- /lib/Mime -->
     <dir name="Notification">
      <dir name="Event">
@@ -305,6 +302,7 @@
     <dir name="Tree">
      <file name="Flist.php" role="horde" />
      <file name="Jquerymobile.php" role="horde" />
+     <file name="Simplehtml.php" role="horde" />
     </dir> <!-- /lib/Tree -->
     <dir name="Ui">
      <file name="Compose.php" role="horde" />
@@ -315,6 +313,7 @@
      <file name="Mailbox.php" role="horde" />
      <file name="Message.php" role="horde" />
      <file name="Mimp.php" role="horde" />
+     <file name="Search.php" role="horde" />
     </dir> <!-- /lib/Ui -->
     <dir name="Views">
      <file name="Compose.php" role="horde" />
@@ -1561,6 +1560,7 @@
    <install as="imp/lib/Mailbox/List.php" name="lib/Mailbox/List.php" />
    <install as="imp/lib/Mailbox/List/Track.php" name="lib/Mailbox/List/Track.php" />
    <install as="imp/lib/Menu/Dimp.php" name="lib/Menu/Dimp.php" />
+   <install as="imp/lib/Mime/Status.php" name="lib/Mime/Status.php" />
    <install as="imp/lib/Mime/Viewer/Alternative.php" name="lib/Mime/Viewer/Alternative.php" />
    <install as="imp/lib/Mime/Viewer/Appledouble.php" name="lib/Mime/Viewer/Appledouble.php" />
    <install as="imp/lib/Mime/Viewer/Audio.php" name="lib/Mime/Viewer/Audio.php" />
@@ -1630,6 +1630,7 @@
    <install as="imp/lib/Sentmail/Sql.php" name="lib/Sentmail/Sql.php" />
    <install as="imp/lib/Tree/Flist.php" name="lib/Tree/Flist.php" />
    <install as="imp/lib/Tree/Jquerymobile.php" name="lib/Tree/Jquerymobile.php" />
+   <install as="imp/lib/Tree/Simplehtml.php" name="lib/Tree/Simplehtml.php" />
    <install as="imp/lib/Ui/Compose.php" name="lib/Ui/Compose.php" />
    <install as="imp/lib/Ui/Editor.php" name="lib/Ui/Editor.php" />
    <install as="imp/lib/Ui/Folder.php" name="lib/Ui/Folder.php" />
@@ -1638,6 +1639,7 @@
    <install as="imp/lib/Ui/Mailbox.php" name="lib/Ui/Mailbox.php" />
    <install as="imp/lib/Ui/Message.php" name="lib/Ui/Message.php" />
    <install as="imp/lib/Ui/Mimp.php" name="lib/Ui/Mimp.php" />
+   <install as="imp/lib/Ui/Search.php" name="lib/Ui/Search.php" />
    <install as="imp/lib/Views/Compose.php" name="lib/Views/Compose.php" />
    <install as="imp/lib/Views/ListMessages.php" name="lib/Views/ListMessages.php" />
    <install as="imp/lib/Views/ShowMessage.php" name="lib/Views/ShowMessage.php" />
@@ -2599,9 +2601,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-22</date>
+   <date>2011-12-13</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Use locale based folder sorting.
 * [mms] Workaround broken PGP signed data contained within encrypted parts (Bug #10809).
 * [mms] Fix signature verification display for combined encrypted/signed PGP messages.
 * [mms] Add option to edit ACLs when right-clicking mailbox in dynamic view (Request #8060).
@@ -2617,6 +2620,71 @@
 * [mms] Correctly apply default mail_domain value in all places it is needed.
 * [mms] Correctly save mail_domain value if changed in preferences UI.
 * [mms] Purge browser cache daily in dynamic view; updates time stamps to proper format (Request #9773).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.17</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-21</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mms] Cache message headers during a page access.
+* [mms] Fix adding submailboxes to last mailbox in a level in dynamic view.
+* [mms] Fix display of numerically-named mailboxes on IMAP servers without the LIST-EXTENDED IMAP capability (Bug #10869).
+* [mms] Fix attachment detection search filter.
+* [mms] Fix editing date search elements.
+* [mms] Allow creation of the mailbox &apos;0&apos; (Bug #10866).
+* [mms] Correctly handle numeric mailbox names.
+* [mms] Fix display of mailbox names living under special mailboxes (Bug #10802).
+* [mms] Fix broken Hide/Purge Deleted links in traditional view (Bug #10860).
+* [mms] Fix issue in dynamic mailbox view with thread sorting and a reset of mailbox metadata (Bug #10835).
+* [mms] Fix message redirection regression in dynamic view (Bug #10859).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.18</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-01-17</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mms] SECURITY: Fix XSS vulnerabilities on the compose page (traditional view), the contacts popup window, and with certain IMAP mailbox names.
+* [mms] Fix updating context menu when a mailbox is converted into a container element after being deleted.
+* [mms] Fix expand/collapse of folder tree in mobile view.
+* [mms] Fix regression preventing sending of MDNs.
+* [mms] Fix reporting as innocent in mobile view.
+* [mms] Fix updating log information when replying/forwarding in dynamic view.
+* [mms] Fix deleting virtual folders in dynamic view.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.19</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-01-17</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mms] Improve drag performance of elements in dynamic view.
+* [mms] Fix saving initial_page preference.
+* [mms] Workaround broken Thunderbird encrypted S/MIME messages.
+* [mms] Fix regression where passphrase prompt would not appear for S/MIME encrypted messages.
+* [mms] Fix regression in verifying signed &amp; encrypted S/MIME messages (Bug #10947).
+* [mms] Fix reloading the folder list in the dynamic view (Bug #10769).
+* [mms] Fix deleting messages from Virtual Trash.
+* [mms] Fix regression in displaying PGP Armored signed/encrypted messages (Bug #10926).
+* [mms] Catch IMAP server connection errors in traditional mailbox view.
+* [mms] Fix purging moved messages from dynamic mailbox view if deleted messages are visible in the mailbox (Bug #10916).
+* [mms] Fix message advancing when deleting messages in traditional view when deleted messages are visible in the mailbox.
    </notes>
   </release>
  </changelog>

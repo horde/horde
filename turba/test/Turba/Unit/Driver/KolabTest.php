@@ -15,12 +15,12 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../Autoload.php';
+require_once dirname(__FILE__) . '/Base.php';
 
 /**
  * Test the Kolab driver.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -32,8 +32,7 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
  * @link       http://www.horde.org/apps/turba
  * @license    http://www.horde.org/licenses/apache Apache-like
  */
-class Turba_Unit_Driver_KolabTest
-extends Turba_Unit_Driver_Base
+class Turba_Unit_Driver_KolabTest extends Turba_Unit_Driver_Base
 {
     protected $backupGlobals = false;
 

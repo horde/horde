@@ -11,7 +11,7 @@
  *                   constant).
  * 'url' - The url to redirect to after auth.
  *
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -267,7 +267,7 @@ if (!empty($conf['auth']['alternate_login'])) {
         $url->add('app', $vars->app);
     }
     if (!isset($_COOKIE[session_name()])) {
-        $url->add(session_name(), session_id);
+        $url->add(session_name(), session_id());
     }
 
     if (empty($url_in)) {

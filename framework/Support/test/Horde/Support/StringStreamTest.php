@@ -1,9 +1,10 @@
 <?php
 /**
+ * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ *
  * @category   Horde
  * @package    Support
  * @subpackage UnitTests
- * @copyright  2008-2009 Horde LLC (http://www.horde.org/)
  * @license    http://www.horde.org/licenses/bsd
  */
 
@@ -13,20 +14,15 @@
 require_once dirname(__FILE__) . '/Autoload.php';
 
 /**
- * @group      support
  * @category   Horde
  * @package    Support
  * @subpackage UnitTests
- * @copyright  2008-2009 Horde LLC (http://www.horde.org/)
  * @license    http://www.horde.org/licenses/bsd
  */
 class Horde_Support_StringStreamTest extends PHPUnit_Framework_TestCase
 {
     public function testMemoryUsage()
     {
-        $dummy = '';
-        $dummy = new Horde_Support_StringStream($dummy);
-
         $bytes = 1024 * 1024;
         $string = str_repeat('*', $bytes);
         $memoryUsage = memory_get_usage();

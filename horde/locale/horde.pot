@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Horde Project
+# Copyright (C) YEAR Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde 4.0.12-git\n"
+"Project-Id-Version: Horde 4.0.14-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-11-21 18:18+0100\n"
+"POT-Creation-Date: 2012-01-17 12:38+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,10 +17,6 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-
-#: lib/Block/Weather.php:277
-msgid " at "
-msgstr ""
 
 #: admin/groups.php:33
 #, php-format
@@ -42,7 +38,7 @@ msgstr ""
 msgid "%.2fMB used of %.2fMB allowed (%.2f%%)"
 msgstr ""
 
-#: lib/Block/Weather.php:158
+#: lib/Block/Weather.php:197
 #, php-format
 msgid "%d %s and %s"
 msgstr ""
@@ -69,7 +65,7 @@ msgstr[1] ""
 msgid "%d to %d of %d"
 msgstr ""
 
-#: lib/Block/Weather.php:196
+#: lib/Block/Weather.php:237
 #, php-format
 msgid "%d-day forecast"
 msgstr ""
@@ -79,7 +75,7 @@ msgstr ""
 msgid "%s - Notice"
 msgstr ""
 
-#: admin/config/config.php:26 admin/config/index.php:355
+#: admin/config/config.php:26 admin/config/index.php:358
 #, php-format
 msgid "%s Configuration"
 msgstr ""
@@ -105,10 +101,6 @@ msgstr ""
 msgid ""
 "%s is ready to perform the tasks below. Select each operation to run at this "
 "time."
-msgstr ""
-
-#: lib/Block/Weather.php:280
-msgid ", gusting "
 msgstr ""
 
 #: lib/Block/Metar.php:161 lib/Block/Metar.php:166
@@ -173,7 +165,15 @@ msgid ""
 "syncronization attempt."
 msgstr ""
 
-#: admin/config/index.php:147 admin/config/index.php:185
+#: config/hooks.php:80
+#, php-format
+msgid ""
+"A message has been sent to \"%s\" to verify that this is really your "
+"address. The new email address is activated as soon as you confirm this "
+"message."
+msgstr ""
+
+#: admin/config/index.php:147 admin/config/index.php:188
 #, php-format
 msgid "A newer version (%s) exists."
 msgstr ""
@@ -309,7 +309,7 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-#: templates/shares/edit.inc:58
+#: templates/shares/edit.inc:61
 msgid "All Authenticated Users"
 msgstr ""
 
@@ -359,11 +359,11 @@ msgstr ""
 msgid "Application List"
 msgstr ""
 
-#: admin/config/index.php:225
+#: admin/config/index.php:228
 msgid "Application is ready."
 msgstr ""
 
-#: admin/config/index.php:150 admin/config/index.php:188
+#: admin/config/index.php:150 admin/config/index.php:191
 msgid "Application is up-to-date."
 msgstr ""
 
@@ -552,6 +552,10 @@ msgstr ""
 msgid "Change"
 msgstr ""
 
+#: lib/Block/Weather.php:120
+msgid "Change Location"
+msgstr ""
+
 #: services/changepassword.php:23
 msgid "Change Your Password"
 msgstr ""
@@ -671,7 +675,7 @@ msgstr ""
 msgid "Computers"
 msgstr ""
 
-#: lib/Block/Weather.php:209
+#: lib/Block/Weather.php:250
 msgid "Condition"
 msgstr ""
 
@@ -691,7 +695,7 @@ msgstr ""
 msgid "Configuration for syncing with PDAs, Smartphones and Outlook."
 msgstr ""
 
-#: admin/config/index.php:220
+#: admin/config/index.php:223
 msgid "Configuration is out of date."
 msgstr ""
 
@@ -706,6 +710,10 @@ msgstr ""
 
 #: templates/admin/user/update.inc:28
 msgid "Confirm Password"
+msgstr ""
+
+#: config/hooks.php:59
+msgid "Confirm new email address"
 msgstr ""
 
 #: services/changepassword.php:25 services/resetpassword.php:26
@@ -821,8 +829,8 @@ msgstr ""
 msgid "Current Weather"
 msgstr ""
 
-#: lib/Block/Weather.php:189
-msgid "Current condition: "
+#: lib/Block/Weather.php:230
+msgid "Current condition"
 msgstr ""
 
 #: config/nls.php:175
@@ -837,15 +845,15 @@ msgstr ""
 msgid "Cyrillic/Ukrainian (KOI8-U)"
 msgstr ""
 
-#: admin/config/index.php:238 admin/config/index.php:276
+#: admin/config/index.php:241 admin/config/index.php:279
 msgid "DB access is not configured."
 msgstr ""
 
-#: admin/config/index.php:244 admin/config/index.php:283
+#: admin/config/index.php:247 admin/config/index.php:286
 msgid "DB schema is out of date."
 msgstr ""
 
-#: admin/config/index.php:249 admin/config/index.php:288
+#: admin/config/index.php:252 admin/config/index.php:291
 msgid "DB schema is ready."
 msgstr ""
 
@@ -885,7 +893,7 @@ msgstr ""
 msgid "Date: %s; time: %s"
 msgstr ""
 
-#: lib/Block/Weather.php:204
+#: lib/Block/Weather.php:245
 msgid "Day"
 msgstr ""
 
@@ -915,13 +923,13 @@ msgid "Definitions"
 msgstr ""
 
 #: admin/groups.php:54 templates/admin/groups/delete.inc:10
-#: templates/admin/user/list.inc:34 templates/shares/edit.inc:63
-#: templates/shares/edit.inc:83 templates/shares/edit.inc:98
-#: templates/shares/edit.inc:118 templates/shares/edit.inc:134
-#: templates/shares/edit.inc:154 templates/shares/edit.inc:169
-#: templates/shares/edit.inc:193 templates/shares/edit.inc:228
-#: templates/shares/edit.inc:255 templates/shares/edit.inc:271
-#: templates/shares/edit.inc:291 templates/shares/edit.inc:320
+#: templates/admin/user/list.inc:34 templates/shares/edit.inc:66
+#: templates/shares/edit.inc:86 templates/shares/edit.inc:101
+#: templates/shares/edit.inc:121 templates/shares/edit.inc:137
+#: templates/shares/edit.inc:157 templates/shares/edit.inc:172
+#: templates/shares/edit.inc:196 templates/shares/edit.inc:231
+#: templates/shares/edit.inc:258 templates/shares/edit.inc:274
+#: templates/shares/edit.inc:299 templates/shares/edit.inc:328
 #: templates/prefs/identityselect.html:34 templates/prefs/rpc.html:35
 #: templates/prefs/syncml.html:14 templates/prefs/syncml.html:23
 msgid "Delete"
@@ -994,8 +1002,8 @@ msgstr ""
 msgid "Dew Point for last hour: "
 msgstr ""
 
-#: lib/Block/Weather.php:143
-msgid "Dew point: "
+#: lib/Block/Weather.php:180
+msgid "Dew point"
 msgstr ""
 
 #: templates/prefs/facebook.html:10 templates/prefs/facebook.html:21
@@ -1012,7 +1020,7 @@ msgstr ""
 msgid "Display Preferences"
 msgstr ""
 
-#: lib/Block/Weather.php:74
+#: lib/Block/Weather.php:87
 msgid "Display detailed forecast"
 msgstr ""
 
@@ -1028,12 +1036,12 @@ msgstr ""
 msgid "Don't have an account? Sign up."
 msgstr ""
 
-#: admin/config/index.php:147 admin/config/index.php:185
+#: admin/config/index.php:147 admin/config/index.php:188
 #, php-format
 msgid "Download %s"
 msgstr ""
 
-#: admin/config/index.php:306
+#: admin/config/index.php:309
 msgid "Download generated configuration as PHP script."
 msgstr ""
 
@@ -1053,13 +1061,13 @@ msgstr ""
 msgid "EU VAT identification"
 msgstr ""
 
-#: templates/shares/edit.inc:62 templates/shares/edit.inc:79
-#: templates/shares/edit.inc:97 templates/shares/edit.inc:114
-#: templates/shares/edit.inc:133 templates/shares/edit.inc:150
-#: templates/shares/edit.inc:168 templates/shares/edit.inc:189
-#: templates/shares/edit.inc:224 templates/shares/edit.inc:251
-#: templates/shares/edit.inc:270 templates/shares/edit.inc:287
-#: templates/shares/edit.inc:316
+#: templates/shares/edit.inc:65 templates/shares/edit.inc:82
+#: templates/shares/edit.inc:100 templates/shares/edit.inc:117
+#: templates/shares/edit.inc:136 templates/shares/edit.inc:153
+#: templates/shares/edit.inc:171 templates/shares/edit.inc:192
+#: templates/shares/edit.inc:227 templates/shares/edit.inc:254
+#: templates/shares/edit.inc:273 templates/shares/edit.inc:295
+#: templates/shares/edit.inc:324
 msgid "Edit"
 msgstr ""
 
@@ -1103,8 +1111,8 @@ msgid ""
 "password, e.g. 'what is the name of your pet?':"
 msgstr ""
 
-#: lib/Prefs/Ui.php:546 services/twitter/index.php:176
-#: services/twitter/index.php:199
+#: lib/Prefs/Ui.php:546 services/twitter/index.php:182
+#: services/twitter/index.php:205
 #, php-format
 msgid ""
 "Error connecting to Twitter: %s Details have been logged for the "
@@ -1204,7 +1212,7 @@ msgstr ""
 msgid "Fields to search"
 msgstr ""
 
-#: config/registry.php:305
+#: config/registry.php:310
 msgid "File Manager"
 msgstr ""
 
@@ -1232,7 +1240,7 @@ msgstr ""
 msgid "Forecast (TAF)"
 msgstr ""
 
-#: lib/Block/Weather.php:68
+#: lib/Block/Weather.php:81
 msgid ""
 "Forecast Days (note that the returned forecast returns both day and night; a "
 "large number here could result in a wide block)"
@@ -1242,7 +1250,7 @@ msgstr ""
 msgid "Forgot your password?"
 msgstr ""
 
-#: config/registry.php:333
+#: config/registry.php:338
 msgid "Forms"
 msgstr ""
 
@@ -1262,7 +1270,7 @@ msgstr ""
 msgid "Fortunes 2"
 msgstr ""
 
-#: config/registry.php:327
+#: config/registry.php:332
 msgid "Forums"
 msgstr ""
 
@@ -1274,8 +1282,14 @@ msgstr ""
 msgid "Friends enabled"
 msgstr ""
 
-#: lib/Block/Weather.php:167 lib/Block/Weather.php:276
-msgid "From the "
+#: lib/Block/Weather.php:207
+#, php-format
+msgid "From the %s (%s &deg;) at %s %s"
+msgstr ""
+
+#: lib/Block/Weather.php:316
+#, php-format
+msgid "From the %s at %s %s"
 msgstr ""
 
 #: templates/problem/problem.inc:48
@@ -1344,11 +1358,11 @@ msgstr ""
 msgid "Group was not created: %s."
 msgstr ""
 
-#: admin/groups.php:224 templates/shares/edit.inc:266
+#: admin/groups.php:224 templates/shares/edit.inc:269
 msgid "Groups"
 msgstr ""
 
-#: templates/shares/edit.inc:93
+#: templates/shares/edit.inc:96
 msgid "Guest Permissions"
 msgstr ""
 
@@ -1416,12 +1430,8 @@ msgstr ""
 msgid "How many seconds before we check for new articles?"
 msgstr ""
 
-#: lib/Block/Metar.php:203 lib/Block/Weather.php:212
+#: lib/Block/Metar.php:203 lib/Block/Weather.php:219 lib/Block/Weather.php:258
 msgid "Humidity"
-msgstr ""
-
-#: lib/Block/Weather.php:178
-msgid "Humidity: "
 msgstr ""
 
 #: lib/Block/Fortune.php:48
@@ -1486,7 +1496,7 @@ msgid ""
 "administrator if you need further help."
 msgstr ""
 
-#: templates/shares/edit.inc:164
+#: templates/shares/edit.inc:167
 msgid "Individual Users"
 msgstr ""
 
@@ -1496,10 +1506,6 @@ msgstr ""
 
 #: config/registry.php:249
 msgid "Information"
-msgstr ""
-
-#: lib/Block/Weather.php:246
-msgid "Information no longer available."
 msgstr ""
 
 #: templates/admin/groups/edit.inc:42
@@ -1555,7 +1561,7 @@ msgstr ""
 msgid "Kids"
 msgstr ""
 
-#: themes/kolab/info.php:7
+#: config/registry.php:300 themes/kolab/info.php:7
 msgid "Kolab"
 msgstr ""
 
@@ -1664,15 +1670,16 @@ msgstr ""
 msgid "Loading..."
 msgstr ""
 
-#: lib/Block/Weather.php:118
-msgid "Local time: "
+#: lib/Block/Weather.php:159
+#, php-format
+msgid "Local time: %s %s"
 msgstr ""
 
 #: config/prefs.php:330
 msgid "Locale and Time"
 msgstr ""
 
-#: lib/Block/Metar.php:51 lib/Block/Sunrise.php:23 lib/Block/Weather.php:54
+#: lib/Block/Metar.php:51 lib/Block/Sunrise.php:23 lib/Block/Weather.php:67
 msgid "Location"
 msgstr ""
 
@@ -1735,7 +1742,7 @@ msgstr ""
 msgid "Mail"
 msgstr ""
 
-#: config/registry.php:350
+#: config/registry.php:355
 msgid "Mail Admin"
 msgstr ""
 
@@ -1793,7 +1800,7 @@ msgstr ""
 msgid "Metar Weather"
 msgstr ""
 
-#: lib/Block/Metar.php:61 lib/Block/Weather.php:63
+#: lib/Block/Metar.php:61 lib/Block/Weather.php:76
 msgid "Metric"
 msgstr ""
 
@@ -1809,7 +1816,7 @@ msgstr ""
 msgid "Miscellaneous"
 msgstr ""
 
-#: admin/config/index.php:197
+#: admin/config/index.php:200
 msgid "Missing configuration."
 msgstr ""
 
@@ -1837,7 +1844,7 @@ msgstr ""
 msgid "Mozilla"
 msgstr ""
 
-#: config/registry.php:300
+#: config/registry.php:305
 msgid "My Account"
 msgstr ""
 
@@ -1857,8 +1864,8 @@ msgstr ""
 msgid "My Portal Layout"
 msgstr ""
 
-#: lib/Block/Weather.php:146 lib/Block/Weather.php:264
-#: lib/Block/Weather.php:271 lib/Block/Weather.php:285
+#: lib/Block/Weather.php:306 lib/Block/Weather.php:310
+#: lib/Block/Weather.php:326
 msgid "N/A"
 msgstr ""
 
@@ -1953,7 +1960,7 @@ msgstr ""
 msgid "No security question has been set. Please contact your administrator."
 msgstr ""
 
-#: admin/config/index.php:144 admin/config/index.php:182
+#: admin/config/index.php:144 admin/config/index.php:185
 msgid "No stable version exists yet."
 msgstr ""
 
@@ -1961,11 +1968,11 @@ msgstr ""
 msgid "No username specified."
 msgstr ""
 
-#: admin/config/index.php:203
+#: admin/config/index.php:206
 msgid "No version found in original configuration. Regenerate configuration."
 msgstr ""
 
-#: admin/config/index.php:212
+#: admin/config/index.php:215
 msgid "No version found in your configuration. Regenerate configuration."
 msgstr ""
 
@@ -2006,7 +2013,7 @@ msgstr ""
 msgid "O characters"
 msgstr ""
 
-#: templates/shares/edit.inc:129
+#: templates/shares/edit.inc:132
 msgid "Object Creator"
 msgstr ""
 
@@ -2048,7 +2055,7 @@ msgstr ""
 msgid "Operating System"
 msgstr ""
 
-#: templates/shares/edit.inc:236
+#: templates/shares/edit.inc:239
 msgid "Or enter a user name:"
 msgstr ""
 
@@ -2069,11 +2076,11 @@ msgstr ""
 msgid "Other characters"
 msgstr ""
 
-#: templates/shares/edit.inc:30
+#: templates/shares/edit.inc:33
 msgid "Owner"
 msgstr ""
 
-#: templates/shares/edit.inc:36 templates/shares/edit.inc:45
+#: templates/shares/edit.inc:39 templates/shares/edit.inc:48
 msgid "Owner:"
 msgstr ""
 
@@ -2097,8 +2104,8 @@ msgstr ""
 msgid "P_HP Shell"
 msgstr ""
 
-#: login.php:194 admin/config/index.php:319 admin/user.php:40
-#: admin/user.php:54 config/registry.php:317
+#: login.php:194 admin/config/index.php:322 admin/user.php:40
+#: admin/user.php:54 config/registry.php:322
 #: templates/admin/user/update.inc:20
 msgid "Password"
 msgstr ""
@@ -2153,7 +2160,7 @@ msgstr ""
 msgid "Pets"
 msgstr ""
 
-#: config/registry.php:338
+#: config/registry.php:343
 msgid "Photos"
 msgstr ""
 
@@ -2216,20 +2223,17 @@ msgid_plural "Precipitation for last %d hours: "
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/Block/Weather.php:210
-msgid "Precipitation<br />chance"
+#: lib/Block/Weather.php:254
+#, php-format
+msgid "Precipitation%schance"
 msgstr ""
 
-#: lib/Block/Metar.php:198
+#: lib/Block/Metar.php:198 lib/Block/Weather.php:191
 msgid "Pressure"
 msgstr ""
 
 #: lib/Block/Metar.php:232
 msgid "Pressure at sea level: "
-msgstr ""
-
-#: lib/Block/Weather.php:156
-msgid "Pressure: "
 msgstr ""
 
 #: templates/admin/locks/list.html.php:11
@@ -2264,13 +2268,13 @@ msgstr ""
 msgid "Random Fortune"
 msgstr ""
 
-#: templates/shares/edit.inc:61 templates/shares/edit.inc:75
-#: templates/shares/edit.inc:96 templates/shares/edit.inc:110
-#: templates/shares/edit.inc:132 templates/shares/edit.inc:146
-#: templates/shares/edit.inc:167 templates/shares/edit.inc:185
-#: templates/shares/edit.inc:220 templates/shares/edit.inc:247
-#: templates/shares/edit.inc:269 templates/shares/edit.inc:283
-#: templates/shares/edit.inc:312
+#: templates/shares/edit.inc:64 templates/shares/edit.inc:78
+#: templates/shares/edit.inc:99 templates/shares/edit.inc:113
+#: templates/shares/edit.inc:135 templates/shares/edit.inc:149
+#: templates/shares/edit.inc:170 templates/shares/edit.inc:188
+#: templates/shares/edit.inc:223 templates/shares/edit.inc:250
+#: templates/shares/edit.inc:272 templates/shares/edit.inc:291
+#: templates/shares/edit.inc:320
 msgid "Read"
 msgstr ""
 
@@ -2327,7 +2331,7 @@ msgstr ""
 msgid "Remove pair"
 msgstr ""
 
-#: admin/config/index.php:338
+#: admin/config/index.php:341
 msgid "Remove saved script from server's temporary directory."
 msgstr ""
 
@@ -2425,16 +2429,16 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: templates/admin/groups/edit.inc:70 templates/shares/edit.inc:330
+#: templates/admin/groups/edit.inc:70 templates/shares/edit.inc:338
 #, php-format
 msgid "Save \"%s\""
 msgstr ""
 
-#: templates/shares/edit.inc:331
+#: templates/shares/edit.inc:339
 msgid "Save and Finish"
 msgstr ""
 
-#: admin/config/index.php:310
+#: admin/config/index.php:313
 msgid ""
 "Save generated configuration as a PHP script to your server's temporary "
 "directory."
@@ -2465,11 +2469,11 @@ msgstr ""
 msgid "Search:"
 msgstr ""
 
-#: templates/shares/edit.inc:298 templates/shares/edit.inc:300
+#: templates/shares/edit.inc:306 templates/shares/edit.inc:308
 msgid "Select a group to add:"
 msgstr ""
 
-#: templates/shares/edit.inc:38
+#: templates/shares/edit.inc:41
 msgid "Select a new owner:"
 msgstr ""
 
@@ -2477,7 +2481,7 @@ msgstr ""
 msgid "Select a server"
 msgstr ""
 
-#: templates/shares/edit.inc:202 templates/shares/edit.inc:204
+#: templates/shares/edit.inc:205 templates/shares/edit.inc:207
 msgid "Select a user to add:"
 msgstr ""
 
@@ -2570,8 +2574,9 @@ msgid ""
 "display preferences."
 msgstr ""
 
-#: lib/Block/Weather.php:99
-msgid "Several locations possible with the parameter: "
+#: lib/Block/Weather.php:136
+#, php-format
+msgid "Several locations possible with the parameter: %s"
 msgstr ""
 
 #: templates/problem/problem.inc:38
@@ -2582,13 +2587,13 @@ msgstr ""
 msgid "Should access keys be defined for most links?"
 msgstr ""
 
-#: templates/shares/edit.inc:60 templates/shares/edit.inc:71
-#: templates/shares/edit.inc:95 templates/shares/edit.inc:106
-#: templates/shares/edit.inc:131 templates/shares/edit.inc:142
-#: templates/shares/edit.inc:166 templates/shares/edit.inc:181
-#: templates/shares/edit.inc:216 templates/shares/edit.inc:243
-#: templates/shares/edit.inc:268 templates/shares/edit.inc:279
-#: templates/shares/edit.inc:308
+#: templates/shares/edit.inc:63 templates/shares/edit.inc:74
+#: templates/shares/edit.inc:98 templates/shares/edit.inc:109
+#: templates/shares/edit.inc:134 templates/shares/edit.inc:145
+#: templates/shares/edit.inc:169 templates/shares/edit.inc:184
+#: templates/shares/edit.inc:219 templates/shares/edit.inc:246
+#: templates/shares/edit.inc:271 templates/shares/edit.inc:287
+#: templates/shares/edit.inc:316
 msgid "Show"
 msgstr ""
 
@@ -2600,7 +2605,7 @@ msgstr ""
 msgid "Show Sidebar"
 msgstr ""
 
-#: admin/config/index.php:300
+#: admin/config/index.php:303
 msgid ""
 "Show differences between currently saved and the newly generated "
 "configuration."
@@ -2667,7 +2672,7 @@ msgstr ""
 msgid "Sports"
 msgstr ""
 
-#: lib/Block/Metar.php:60 lib/Block/Weather.php:62
+#: lib/Block/Metar.php:60 lib/Block/Weather.php:75
 msgid "Standard"
 msgstr ""
 
@@ -2772,7 +2777,7 @@ msgstr ""
 msgid "Sunday"
 msgstr ""
 
-#: lib/Block/Weather.php:126
+#: lib/Block/Weather.php:165 lib/Block/Weather.php:166
 msgid "Sunrise"
 msgstr ""
 
@@ -2780,16 +2785,8 @@ msgstr ""
 msgid "Sunrise/Sunset"
 msgstr ""
 
-#: lib/Block/Weather.php:125
-msgid "Sunrise: "
-msgstr ""
-
-#: lib/Block/Weather.php:130
+#: lib/Block/Weather.php:168 lib/Block/Weather.php:169
 msgid "Sunset"
-msgstr ""
-
-#: lib/Block/Weather.php:129
-msgid "Sunset: "
 msgstr ""
 
 #: config/prefs.php:661
@@ -2820,17 +2817,13 @@ msgstr ""
 msgid "Temp for last hour: "
 msgstr ""
 
-#: lib/Block/Metar.php:187
+#: lib/Block/Metar.php:187 lib/Block/Weather.php:175
 msgid "Temperature"
 msgstr ""
 
-#: lib/Block/Weather.php:138
-msgid "Temperature: "
-msgstr ""
-
-#: lib/Block/Weather.php:205
+#: lib/Block/Weather.php:246
 #, php-format
-msgid "Temperature<br />(%sHi%s/%sLo%s) &deg;%s"
+msgid "Temperature%s(%sHi%s/%sLo%s)"
 msgstr ""
 
 #: lib/Prefs/Ui.php:478 services/facebook/index.php:40
@@ -3054,11 +3047,11 @@ msgid ""
 "clicking."
 msgstr ""
 
-#: lib/Block/Weather.php:227
+#: lib/Block/Weather.php:278
 msgid "Today"
 msgstr ""
 
-#: lib/Block/Weather.php:229
+#: lib/Block/Weather.php:280
 msgid "Tomorrow"
 msgstr ""
 
@@ -3125,7 +3118,7 @@ msgstr ""
 msgid "Unicode (UTF-8)"
 msgstr ""
 
-#: lib/Block/Metar.php:57 lib/Block/Weather.php:59
+#: lib/Block/Metar.php:57 lib/Block/Weather.php:72
 msgid "Units"
 msgstr ""
 
@@ -3142,7 +3135,7 @@ msgstr ""
 msgid "Update %s"
 msgstr ""
 
-#: admin/config/index.php:168 admin/config/index.php:263
+#: admin/config/index.php:168 admin/config/index.php:266
 #, php-format
 msgid "Update %s schema"
 msgstr ""
@@ -3169,11 +3162,11 @@ msgstr ""
 msgid "Updated schema for %s."
 msgstr ""
 
-#: admin/config/index.php:317
+#: admin/config/index.php:320
 msgid "Upload"
 msgstr ""
 
-#: admin/config/index.php:325
+#: admin/config/index.php:328
 msgid "Uploaded all application configuration files to the server."
 msgstr ""
 
@@ -3214,11 +3207,11 @@ msgstr ""
 msgid "User account not found"
 msgstr ""
 
-#: templates/shares/edit.inc:238
+#: templates/shares/edit.inc:241
 msgid "User to add:"
 msgstr ""
 
-#: login.php:189 admin/config/index.php:318 admin/user.php:37
+#: login.php:189 admin/config/index.php:321 admin/user.php:37
 #: admin/user.php:53 services/resetpassword.php:30
 #: templates/admin/user/approve.inc:22
 msgid "Username"
@@ -3264,27 +3257,23 @@ msgstr ""
 msgid "View an external web page"
 msgstr ""
 
-#: lib/Block/Metar.php:182
+#: lib/Block/Metar.php:182 lib/Block/Weather.php:224
 msgid "Visibility"
-msgstr ""
-
-#: lib/Block/Weather.php:183
-msgid "Visibility: "
 msgstr ""
 
 #: lib/Block/Account.php:96
 msgid "Warning"
 msgstr ""
 
-#: lib/Block/Weather.php:38
+#: lib/Block/Weather.php:54
 msgid "Weather"
 msgstr ""
 
-#: lib/Block/Weather.php:300 lib/Block/Weather.php:308
+#: lib/Block/Weather.php:338 lib/Block/Weather.php:346
 msgid "Weather data provided by"
 msgstr ""
 
-#: config/registry.php:322
+#: config/registry.php:327
 msgid "Web Site"
 msgstr ""
 
@@ -3339,11 +3328,11 @@ msgstr ""
 msgid "Width of the %s menu on the left:"
 msgstr ""
 
-#: config/registry.php:344
+#: config/registry.php:349
 msgid "Wiki"
 msgstr ""
 
-#: lib/Block/Weather.php:212
+#: lib/Block/Weather.php:204 lib/Block/Weather.php:262
 msgid "Wind"
 msgstr ""
 
@@ -3353,10 +3342,6 @@ msgstr ""
 
 #: lib/Block/Metar.php:129
 msgid "Wind:"
-msgstr ""
-
-#: lib/Block/Weather.php:165
-msgid "Wind: "
 msgstr ""
 
 #: admin/activesync.php:183 templates/prefs/activesync.html:28
@@ -3473,6 +3458,18 @@ msgstr ""
 msgid ""
 "You have not properly connected your Twitter account with Horde. You should "
 "check your Twitter settings in your %s."
+msgstr ""
+
+#: config/hooks.php:45
+#, php-format
+msgid ""
+"You have requested to add the email address \"%s\" to the list of your "
+"personal email addresses.\n"
+"\n"
+"Go to the following link to confirm that this is really your address:\n"
+"%s\n"
+"\n"
+"If you don't know what this message means, you can delete it."
 msgstr ""
 
 #: services/facebook/index.php:120 services/facebook/index.php:160
@@ -3647,10 +3644,6 @@ msgstr ""
 msgid "_Users"
 msgstr ""
 
-#: lib/Block/Weather.php:168
-msgid "at"
-msgstr ""
-
 #: services/problem.php:56
 msgid "attachment"
 msgstr ""
@@ -3665,7 +3658,7 @@ msgstr ""
 msgid "from the %s (%s) at %s %s"
 msgstr ""
 
-#: lib/Block/Weather.php:171
+#: lib/Block/Weather.php:213 lib/Block/Weather.php:321
 msgid "gusting"
 msgstr ""
 
@@ -3691,6 +3684,6 @@ msgstr ""
 msgid "unified"
 msgstr ""
 
-#: lib/Block/Weather.php:31
+#: lib/Block/Weather.php:33
 msgid "weather"
 msgstr ""

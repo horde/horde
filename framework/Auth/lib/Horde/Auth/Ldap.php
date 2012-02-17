@@ -6,7 +6,7 @@
  * 'preauthenticate' hook should return LDAP connection information in the
  * 'ldap' credentials key.
  *
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, http://www.horde.org/licenses/lgpl21
@@ -453,5 +453,43 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
             }
         } catch (Horde_Ldap_Exception $e) {}
         return $this->_sort($userlist, $sort);
+    }
+
+    /**
+     * Checks if $userId exists in the LDAP backend system.
+     *
+     * @author Marco Ferrante, University of Genova (I)
+     *
+     * @param string $userId  User ID for which to check
+     *
+     * @return boolean  Whether or not $userId already exists.
+     */
+    public function exists($userId)
+    {
+        $params = array(
+            'scope' => $this->_params['scope']
+        );
+
+        try {
+            $uidfilter = Horde_Ldap_Filter::create($this->_params['uid'], 'equals', $userId);
+            $classfilter = Horde_Ldap_Filter::build(array('filter' => $this->_params['filter']));
+
+            $search = $this->_ldap->search(
+                $this->_params['basedn'],
+                Horde_Ldap_Filter::combine('and', array($uidfilter, $classfilter)),
+                $params);
+            if ($search->count() < 1) {
+                return false;
+            }
+            if ($search->count() > 1 && $this->_logger) {
+                $this->_logger->log('Multiple LDAP entries with user identifier ' . $userId, 'WARN');
+            }
+            return true;
+        } catch (Horde_Ldap_Exception $e) {
+            if ($this->_logger) {
+                $this->_logger->log('Error searching LDAP user: ' . $e->getMessage(), 'ERR');
+            }
+            return false;
+        }
     }
 }

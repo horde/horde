@@ -1,18 +1,18 @@
-<?xml version='1.0'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
 
-<entry id="beatnik-overview">
+<entry id="beatnik-overview" state="uptodate" md5="0fefa1688de625798ca5af1ac632903b">
     <title>Beatnik Overview</title>
 
     <heading>What is Beatnik?</heading>
     <para>Beatnik manages DNS records in a convenient web interface.</para>
 </entry>
 
-<entry id="record-types">
+<entry id="record-types" state="uptodate" md5="e99d8402a2d684cb47d627613bf85905">
     <title>Record Types</title>
 </entry>
 
-<entry id="record-fields">
+<entry id="record-fields" state="uptodate" md5="78baaff582a35e6bd2e421eab3cdc4de">
     <title>Record Fields</title>
 
     <heading>Timestamp</heading>

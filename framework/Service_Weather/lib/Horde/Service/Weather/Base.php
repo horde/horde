@@ -3,7 +3,7 @@
  * This file contains the Horde_Service_Weather_Base class for abstracting
  * access to various weather providers.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @license  http://www.horde.org/licenses/bsd BSD
@@ -179,14 +179,20 @@ abstract class Horde_Service_Weather_Base
      * Returns a mapping of units for each UNIT type.
      *
      */
-    public function getUnits($type = Horde_Service_Weather::UNITS_STANDARD)
+    public function getUnits($type = null)
     {
+        if (empty($type)) {
+            $type = $this->units;
+        }
+
         if ($type == Horde_Service_Weather::UNITS_STANDARD) {
             return array(
                 'temp' => Horde_Service_Weather_Translation::t('F'),
                 'wind' => Horde_Service_Weather_Translation::t('mph'),
                 'pres' => Horde_Service_Weather_Translation::t('inches'),
-                'vis' => Horde_Service_Weather_Translation::t('miles')
+                'vis' => Horde_Service_Weather_Translation::t('miles'),
+                'rain' => Horde_Service_Weather_Translation::t('inches'),
+                'snow' => Horde_Service_Weather_Translation::t('inches'),
             );
         }
 
@@ -194,7 +200,9 @@ abstract class Horde_Service_Weather_Base
             'temp' => Horde_Service_Weather_Translation::t('C'),
             'wind' => Horde_Service_Weather_Translation::t('kph'),
             'pres' => Horde_Service_Weather_Translation::t('millibars'),
-            'vis' => Horde_Service_Weather_Translation::t('km')
+            'vis' => Horde_Service_Weather_Translation::t('km'),
+            'rain' => Horde_Service_Weather_Translation::t('millimeters'),
+            'snow' => Horde_Service_Weather_Translation::t('centimeters'),
         );
 
     }
@@ -211,4 +219,44 @@ abstract class Horde_Service_Weather_Base
         }
         return $this->_station;
     }
+
+    /**
+     * Check if an IP address is a globally unique address and not in RFC1918 or
+     * RFC3330 address space.
+     *
+     * @param  string $ip  The IPv4 IP address to check.
+     *
+     * @return boolean  True if the IP address is globally unique.
+     * @link http://tools.ietf.org/html/rfc3330
+     * @link http://www.faqs.org/rfcs/rfc1918.html
+     */
+    protected function _ipIsUnique($ip)
+    {
+        // Make sure it's sane
+        $parts = explode('.', $ip);
+        if (count($parts) != 4) {
+            return false;
+        }
+
+        // zero config IPs RFC3330
+        if ($parts[0] == 169 && $parts[1] == 254) {
+            return false;
+        }
+
+        // reserved RFC 1918
+        if ($parts[0] == 10 ||
+            ($parts[0] == 192 && $parts[1] == 168) ||
+            ($parts[0] == 172 && ($parts[1] >= 16 && $parts[1] <= 31))) {
+
+            return false;
+        }
+
+        // Loopback
+        if ($parts[0] == 127) {
+            return false;
+        }
+
+        return true;
+    }
+
 }

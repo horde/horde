@@ -2,10 +2,10 @@
 /**
  * Turba contact.php.
  *
- * Copyright 2000-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2000-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
- * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
@@ -100,6 +100,7 @@ if ($own_source == $source && $own_id == $contact->getValue('__key')) {
 }
 
 $title = $view->getTitle();
+
 Horde::addScriptFile('contact_tabs.js', 'turba');
 require $registry->get('templates', 'horde') . '/common-header.inc';
 require TURBA_TEMPLATES . '/menu.inc';

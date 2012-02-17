@@ -2,7 +2,7 @@
 /**
  * ActiveSync Handler for SendMail requests
  *
- * Copyright 2009-2011 Horde LLC (http://www.horde.org)
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package ActiveSync
@@ -14,7 +14,6 @@
  */
 class Horde_ActiveSync_Request_SendMail extends Horde_ActiveSync_Request_Base
 {
-
     /**
      *
      * @param $protocolversion
@@ -27,7 +26,7 @@ class Horde_ActiveSync_Request_SendMail extends Horde_ActiveSync_Request_Base
         // All that happens here is that we receive an rfc822 message on stdin
         // and just forward it to the backend. We provide no output except for
         // an OK http reply
-        $rfc822 = $this->_request->getBody();
+        $rfc822 = file_get_contents('php://input');//$this->_request->getBody();
 
         return $this->_driver->sendMail($rfc822);
     }

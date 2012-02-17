@@ -3,7 +3,7 @@
  * This class provides an object-oriented representation of a MIME part
  * (defined by RFC 2045).
  *
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -670,7 +670,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
     public function getCharset()
     {
         $charset = $this->getContentTypeParameter('charset');
-        if (is_null($charset)) {
+        if (is_null($charset) && $this->getPrimaryType() != 'text') {
             return null;
         }
 
@@ -678,7 +678,8 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
 
         if ($this->getPrimaryType() == 'text') {
             $d_charset = Horde_String::lower(self::$defaultCharset);
-            if (($d_charset != 'us-ascii') && ($charset == 'us-ascii')) {
+            if ($d_charset != 'us-ascii' &&
+                (!$charset || $charset == 'us-ascii')) {
                 return $d_charset;
             }
         }

@@ -4,7 +4,7 @@
  * the body in a message.
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
- * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author  Michael Menge <michael.menge@zdv.uni-tuebingen.de>
  * @package Ingo

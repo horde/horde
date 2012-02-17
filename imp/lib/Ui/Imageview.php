@@ -3,7 +3,7 @@
  * This class is designed to provide a place to store common code shared among
  * various MIME Viewers relating to image viewing preferences.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -35,7 +35,7 @@ class IMP_Ui_Imageview
             return false;
         }
 
-        $from = Horde_Mime_Address::bareAddress($contents->getHeaderOb()->getValue('from'));
+        $from = Horde_Mime_Address::bareAddress($contents->getHeader()->getValue('from'));
         if ($prefs->getValue('image_addrbook') &&
             $registry->hasMethod('contacts/getField')) {
             $params = IMP::getAddressbookSearchParams();

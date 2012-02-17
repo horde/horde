@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -42,7 +42,7 @@ if ($command = trim(Horde_Util::getFormData('cmd'))) {
 }
 ?>
 
-<form action="cmdshell.php" method="post">
+<form action="<?php echo Horde::url('admin/cmdshell.php') ?>" method="post">
 <?php Horde_Util::pformInput() ?>
 <label for="cmd" class="hidden"><?php echo _("Command") ?></label>
 <h1 class="header"><?php echo $title ?></h1>

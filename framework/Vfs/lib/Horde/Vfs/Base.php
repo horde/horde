@@ -2,7 +2,7 @@
 /**
  * VFS API for abstracted file storage and access.
  *
- * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -237,8 +237,7 @@ abstract class Horde_Vfs_Base
      * @return string  The file data.
      * @throws Horde_Vfs_Exception
      */
-    public function readByteRange($path, $name, &$offset, $length = -1,
-                                  &$remaining)
+    public function readByteRange($path, $name, &$offset, $length, &$remaining)
     {
         throw new Horde_Vfs_Exception('Not supported.');
     }

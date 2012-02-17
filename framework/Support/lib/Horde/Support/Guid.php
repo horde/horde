@@ -1,25 +1,15 @@
 <?php
 /**
- * @category   Horde
- * @package    Support
- * @copyright  2009-2010 Horde LLC (http://www.horde.org/)
- * @license    http://www.horde.org/licenses/bsd
- */
-
-/**
  * Class for generating GUIDs. Usage:
  *
  * <code>
- *  <?php
- *
- *  $uid = (string)new Horde_Support_Guid([$opts = array()]);
- *
- *  ?>
+ * $uid = (string)new Horde_Support_Guid([$opts = array()]);
  * </code>
+ *
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
  * @category   Horde
  * @package    Support
- * @copyright  2009-2010 Horde LLC (http://www.horde.org/)
  * @license    http://www.horde.org/licenses/bsd
  */
 class Horde_Support_Guid

@@ -1,5 +1,5 @@
 # German translations for Gollem.
-# Copyright 2001-2011 Horde LLC
+# Copyright 2001-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Gollem package.
 # Jan Schneider <jan@horde.org>, 2001-2010.
 #
@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gollem 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-11-21 18:18+0100\n"
+"POT-Creation-Date: 2012-01-17 12:38+0100\n"
 "PO-Revision-Date: 2011-10-11 11:57+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
@@ -54,8 +54,8 @@ msgstr "%s wurde erfolgreich eingefügt."
 msgid "Access denied to %s"
 msgstr "Zugriff auf %s verweigert"
 
-#: lib/Gollem.php:48 lib/Gollem.php:295 lib/Gollem.php:344 lib/Gollem.php:366
-#: lib/Gollem.php:386
+#: lib/Gollem.php:48 lib/Gollem.php:299 lib/Gollem.php:348 lib/Gollem.php:370
+#: lib/Gollem.php:390
 #, php-format
 msgid "Access denied to folder \"%s\"."
 msgstr "Zugriff auf Verzeichnis \"%s\" verweigert."
@@ -141,7 +141,7 @@ msgstr "Verzeichnis wechseln"
 msgid "Change Permissions"
 msgstr "Rechte Ändern"
 
-#: lib/Gollem.php:588
+#: lib/Gollem.php:592
 msgid "Change Server"
 msgstr "Server wechseln"
 
@@ -291,7 +291,7 @@ msgstr "Dateianzeige-Einstellungen"
 msgid "File received: %s"
 msgstr "Datei hochgeladen: %s"
 
-#: lib/Api.php:124
+#: lib/Api.php:122
 msgid "Files must be written inside a VFS backend."
 msgstr "Dateien müssen innerhalb eines VFS-Backends gespeichert werden."
 
@@ -307,7 +307,7 @@ msgstr "Filter:"
 msgid "Folder removed: "
 msgstr "Verzeichnis gelöscht: "
 
-#: lib/Api.php:155 lib/Api.php:186
+#: lib/Api.php:153 lib/Api.php:184
 msgid "Folders must be created inside a VFS backend."
 msgstr "Ordner müssen innerhalb eines VFS-Backends angelegt werden."
 
@@ -319,7 +319,7 @@ msgstr "Gehe zu:"
 msgid "Group"
 msgstr "Gruppe"
 
-#: lib/Api.php:405
+#: lib/Api.php:403
 #, php-format
 msgid "Invalid backend requested: %s"
 msgstr "Ungültiges Backend: %s"
@@ -396,7 +396,7 @@ msgstr "Zugriff auf %s verweigert: %s"
 msgid "Permission denied to folder \"%s\": %s"
 msgstr "Zugriff auf Verzeichnis \"%s\" verweigert: %s"
 
-#: lib/Api.php:413
+#: lib/Api.php:411
 msgid "Permission denied to this backend."
 msgstr "Zugriff auf dieses Backend verweigert."
 
@@ -432,11 +432,11 @@ msgstr "Aktualisiere"
 msgid "Rename"
 msgstr "Umbenennen"
 
-#: lib/Api.php:200
+#: lib/Api.php:198
 msgid "Renaming across backends is not supported."
 msgstr "Umbenennen über verschiedene Backends hinweg wird nicht unterstützt."
 
-#: lib/Api.php:194
+#: lib/Api.php:192
 msgid "Renaming of backends is not allowed."
 msgstr "Das Umbenennen von Backends ist nicht erlaubt."
 
@@ -472,7 +472,7 @@ msgstr "Versteckte Dateien anzeigen?"
 msgid "Size"
 msgstr "Größe"
 
-#: lib/Api.php:229
+#: lib/Api.php:227
 msgid "The application folder can not be deleted."
 msgstr "Der Anwendungsordner kann nicht gelöscht werden."
 
@@ -517,7 +517,7 @@ msgstr ""
 msgid "Type"
 msgstr "Typ"
 
-#: lib/Api.php:409
+#: lib/Api.php:407
 msgid "Unable to create Gollem session"
 msgstr "Gollemsession konnte nicht gestartet werden"
 
@@ -536,7 +536,7 @@ msgstr "Die Datei \"%s\" konnte nicht gelöscht werden: %s"
 msgid "Unable to delete folder %s: %s"
 msgstr "Das Verzeichnis \"%s\" konnte nicht gelöscht werden: %s"
 
-#: lib/Gollem.php:552 lib/Gollem.php:562
+#: lib/Gollem.php:556 lib/Gollem.php:566
 #, php-format
 msgid "Up to %s"
 msgstr "Hoch nach %s"
@@ -567,7 +567,7 @@ msgstr ""
 "Sie müssen mindestens ein Backend konfiguriert haben, bevor Sie Rechte "
 "festlegen können."
 
-#: lib/Gollem.php:586 lib/Gollem.php:589
+#: lib/Gollem.php:590 lib/Gollem.php:593
 msgid "_Change Server"
 msgstr "Server _wechseln"
 

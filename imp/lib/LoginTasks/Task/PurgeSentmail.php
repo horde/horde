@@ -2,7 +2,7 @@
 /**
  * Login tasks module that purges old messages in the sent-mail folder.
  *
- * Copyright 2001-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -82,7 +82,7 @@ class IMP_LoginTasks_Task_PurgeSentmail extends Horde_LoginTasks_Task
     {
         $mbox_list = array();
         foreach ($this->_getFolders() as $val) {
-            $mbox_list = $val->display;
+            $mbox_list = $val->display_html;
         }
 
         return sprintf(_("All messages in the folder(s) \"%s\" older than %s days will be permanently deleted."),

@@ -1,6 +1,14 @@
 ----------
-v2.0.1-git
+v2.0.2-git
 ----------
+
+[jan] Fix deleting queries (Bug #10985).
+[jan] Fix encoding of auto-completion results (Bug #10945).
+
+
+------
+v2.0.1
+------
 
 [jan] Fix some CLI scripts if run from a PEAR installation (Bug #10839).
 [jan] Automatically create parent permissions when adding the first restricted

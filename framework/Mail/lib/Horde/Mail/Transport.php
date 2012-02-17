@@ -55,7 +55,7 @@ abstract class Horde_Mail_Transport
      *
      * @var string
      */
-    public $sep = "\r\n";
+    public $sep = PHP_EOL;
 
     /**
      * Configuration parameters.

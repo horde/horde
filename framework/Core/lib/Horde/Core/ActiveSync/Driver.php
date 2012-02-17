@@ -3,7 +3,7 @@
  * Horde backend. Provides the communication between horde data and
  * ActiveSync server.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Core
@@ -12,8 +12,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 {
     /** Constants **/
     const APPOINTMENTS_FOLDER = 'Calendar';
-    const CONTACTS_FOLDER = 'Contacts';
-    const TASKS_FOLDER = 'Tasks';
+    const CONTACTS_FOLDER     = 'Contacts';
+    const TASKS_FOLDER        = 'Tasks';
+    const FOLDER_INBOX        = 'Inbox';
 
     /**
      * Cache message stats
@@ -140,6 +141,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $folders[] = $this->statFolder(self::TASKS_FOLDER);
         }
 
+        // HACK to allow email setup to complete enough to allow invitation
+        // emails.
+        $folders[] = $this->statFolder(self::FOLDER_INBOX);
+
         if ($errors = Horde::endBuffer()) {
             $this->_logger->err('Unexpected output: ' . $errors);
         }
@@ -173,6 +178,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             break;
         case self::TASKS_FOLDER:
             $folder->type = Horde_ActiveSync::FOLDER_TYPE_TASK;
+            break;
+        case self::FOLDER_INBOX:
+            $folder->type = Horde_ActiveSync::FOLDER_TYPE_INBOX;
             break;
         default:
             return false;
@@ -400,7 +408,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $message = $this->_connector->calendar_export($id);
                 // Nokia MfE requires the optional UID element.
                 if (!$message->getUid()) {
-                    $message->setUid(pack("H*", $id));
+                    $message->setUid($id);
                 }
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
@@ -682,33 +690,43 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     public function sendMail($rfc822, $forward = false, $reply = false, $parent = false)
     {
         $headers = Horde_Mime_Headers::parseHeaders($rfc822);
-        $part = Horde_Mime_Part::parseMessage($rfc822);
+        $message = Horde_Mime_Part::parseMessage($rfc822);
+
+        // Message requests do not contain the From, since it is assumed to
+        // be from the user of the AS account.
+        $ident = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Identity')
+            ->create($this->_user);
+        $name = $ident->getValue('fullname');
+        $from_addr = $ident->getValue('from_addr');
 
         $mail = new Horde_Mime_Mail();
         $mail->addHeaders($headers->toArray());
+        $mail->addHeader('From', $name . '<' . $from_addr . '>');
 
-        $body_id = $part->findBody();
+        $body_id = $message->findBody();
         if ($body_id) {
-            $body = $part->getPart($body_id);
-            $body = $body->getContents();
+            $part = $message->getPart($body_id);
+            $body = $part->getContents();
             $mail->setBody($body);
         } else {
             $mail->setBody('No body?');
         }
-        foreach ($part->contentTypeMap() as $id => $type) {
-            $mail->addPart($type, $part->getPart($id)->toString());
+
+        foreach ($message->contentTypeMap() as $id => $type) {
+            $mail->addPart($type, $message->getPart($id)->toString());
         }
 
-        $mail->send($this->_params['mail']);
+        $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
 
         return true;
     }
 
     /**
      *
-     * @param string $folderid  The folder id
-     * @param string $id        The message id
-     * @param mixed $hint       @TODO: Figure out what, exactly, this does :)
+     * @param string  $folderid  The folder id
+     * @param string  $id        The message id
+     * @param boolean $hint      Use the cached data, if available?
      *
      * @return message stat hash
      */
@@ -719,11 +737,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $statKey = $folderid . $id;
         $mod = false;
 
-        if ($hint !== false && isset($this->_modCache[$statKey])) {
+        if ($hint && isset($this->_modCache[$statKey])) {
             $mod = $this->_modCache[$statKey];
-        } elseif (is_int($hint)) {
-            $mod = $hint;
-            $this->_modCache[$statKey] = $mod;
         } else {
             try {
                 switch ($folderid) {

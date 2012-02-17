@@ -479,7 +479,7 @@ class Horde_Vfs_SqlFile extends Horde_Vfs_File
      *
      * @throws Horde_Vfs_Exception
      */
-    function _recursiveCopy($path, $name, $dest)
+    protected function _recursiveCopy($path, $name, $dest)
     {
         $this->createFolder($dest, $name);
 
@@ -487,7 +487,7 @@ class Horde_Vfs_SqlFile extends Horde_Vfs_File
         foreach ($file_list as $file) {
             $this->copy($this->_getSQLNativePath($path, $name), $file['name'], $this->_getSQLNativePath($dest, $name));
         }
-     }
+    }
 
     /**
      * Store a files information within the database.

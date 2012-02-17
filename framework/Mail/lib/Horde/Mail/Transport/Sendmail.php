@@ -69,14 +69,12 @@ class Horde_Mail_Transport_Sendmail extends Horde_Mail_Transport
      * Constructor.
      *
      * @param array $params  Additional parameters:
-     * <pre>
-     * 'sendmail_args' - (string) Any extra parameters to pass to the sendmail
-     *                   or sendmail wrapper binary.
-     *                   DEFAULT: -i
-     * 'sendmail_path' - (string) The location of the sendmail binary on the
-     *                   filesystem.
-     *                   DEFAULT: /usr/sbin/sendmail
-     * </pre>
+     *   - sendmail_args: (string) Any extra parameters to pass to the sendmail
+     *                    or sendmail wrapper binary.
+     *                    DEFAULT: -i
+     *   - sendmail_path: (string) The location of the sendmail binary on the
+     *                    filesystem.
+     *                    DEFAULT: /usr/sbin/sendmail
      */
     public function __construct(array $params = array())
     {
@@ -148,12 +146,15 @@ class Horde_Mail_Transport_Sendmail extends Horde_Mail_Transport
         fputs($mail, $text_headers . $this->sep . $this->sep);
 
         if (is_resource($body)) {
+            stream_filter_register('horde_eol', 'Horde_Stream_Filter_Eol');
+            stream_filter_append($body, 'horde_eol', STREAM_FILTER_READ, array('eol' => $this->sep));
+
             rewind($body);
             while (!feof($body)) {
                 fputs($mail, fread($body, 8192));
             }
         } else {
-            fputs($mail, $body);
+            fputs($mail, str_replace(array("\r\n", "\r", "\n"), $this->sep, $body));
         }
         $result = pclose($mail);
 

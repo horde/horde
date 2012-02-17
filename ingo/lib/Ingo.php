@@ -3,7 +3,7 @@
  * Ingo base class.
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
- * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
  * @author  Jan Schneider <jan@horde.org>
@@ -50,7 +50,6 @@ class Ingo
     {
         global $prefs, $session;
 
-        $session->remove('ingo');
         if ($session->exists('ingo', 'script_generate')) {
             return;
         }
@@ -428,6 +427,7 @@ class Ingo
     static public function menu()
     {
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
+        $t->set('form_url', Horde::url('filters.php'));
         $t->set('forminput', Horde_Util::formInput());
 
         if (!empty($GLOBALS['ingo_shares']) &&

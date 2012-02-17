@@ -15,7 +15,7 @@
 /**
  * Test the file based virtual file system.
  *
- * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -40,6 +40,19 @@ class Horde_Vfs_FileTest extends PHPUnit_Framework_TestCase
         ));
     }
 
+    public function testDeleteUnusalFileNames()
+    {
+        putenv('LANG=en_US.UTF-8');
+        $file = '高&执&行&力&的&打&造.txt';
+        $dir = '.horde/foo';
+        $path = sys_get_temp_dir() . '/vfsfiletest/' . $dir . '/' . $file;
+        $this->_vfs->writeData($dir, $file, 'some content');
+        $this->assertFileExists($path);
+        $this->assertStringEqualsFile($path, 'some content');
+        $this->_vfs->delete($dir, $file);
+        $this->assertThat(true, $this->logicalNot($this->fileExists($path)));
+    }
+
     /**
      */
     public function testBug10583()
@@ -47,5 +60,4 @@ class Horde_Vfs_FileTest extends PHPUnit_Framework_TestCase
         // Should not throw exception.
         $this->_vfs->listFolders();
     }
-
 }

@@ -1,5 +1,5 @@
 # Latvian translations for Horde_Image package.
-# Copyright 2011 Horde LLC
+# Copyright 2011-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Image package.
 # Automatically generated, 2011.
 #
@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Horde_Image\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-02-02 16:17+0100\n"
-"PO-Revision-Date: 2011-10-24 20:30+0300\n"
+"PO-Revision-Date: 2011-11-07 16:55+0300\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: lv\n"
@@ -248,9 +248,8 @@ msgid "Color"
 msgstr "Krāsa"
 
 #: lib/Horde/Image/Exif.php:114
-#, fuzzy
 msgid "Color Space"
-msgstr "Krāsu režīms:"
+msgstr "Krāsu gamma"
 
 #: lib/Horde/Image/Exif.php:432
 #, fuzzy
@@ -318,7 +317,6 @@ msgstr "Izveidot"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:370
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:131
-#, fuzzy
 msgid "Custom"
 msgstr "Izvēles"
 
@@ -532,9 +530,8 @@ msgid "Image Stabilization"
 msgstr "Attēla stabilizācija"
 
 #: lib/Horde/Image/Exif.php:72
-#, fuzzy
 msgid "Image Title"
-msgstr "Attēla faila formāts"
+msgstr "Attēla nosaukums"
 
 #: lib/Horde/Image/Exif.php:71
 #, fuzzy

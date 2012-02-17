@@ -2,7 +2,7 @@
 /**
  * DIMP Base Class - provides dynamic view functions.
  *
- * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -45,7 +45,7 @@ class IMP_Dimp
     }
 
     /**
-     * Output everything up to but not including the <body> tag.
+     * Output everything up to, and including, the <body> tag.
      *
      * @param string $title   The title of the page.
      * @param array $scripts  Any additional scripts that need to be loaded.

@@ -2,14 +2,14 @@
 /**
  * Login system task for automated upgrade tasks.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (ASL). If you
- * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.horde.org/licenses/asl.php ASL
+ * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
  */
 class Ingo_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask_Upgrade

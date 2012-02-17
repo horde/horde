@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright 2001-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
- * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @package Mnemo
  */
@@ -70,7 +70,7 @@ class Mnemo
      * @see Mnemo_Driver::listMemos()
      */
     public static function listMemos($sortby = self::SORT_DESC,
-                       $sortdir = self::SORT_ASCEND)
+                                     $sortdir = self::SORT_ASCEND)
     {
         global $conf, $display_notepads;
         $memos = array();
@@ -279,7 +279,7 @@ class Mnemo
      */
     protected static function _sortByDesc($a, $b)
     {
-        return strcasecmp($a['desc'], $b['desc']);
+        return strcoll($a['desc'], $b['desc']);
     }
 
     /**
@@ -293,7 +293,7 @@ class Mnemo
      */
     protected static function _rsortByDesc($a, $b)
     {
-        return strcasecmp($b['desc'], $a['desc']);
+        return strcoll($b['desc'], $a['desc']);
     }
 
     /**
@@ -307,8 +307,8 @@ class Mnemo
      */
     protected static function _sortByCategory($a, $b)
     {
-        return strcasecmp($a['category'] ? $a['category'] : _("Unfiled"),
-                          $b['category'] ? $b['category'] : _("Unfiled"));
+        return strcoll($a['category'] ? $a['category'] : _("Unfiled"),
+                       $b['category'] ? $b['category'] : _("Unfiled"));
     }
 
     /**
@@ -322,8 +322,8 @@ class Mnemo
      */
     protected static function _rsortByCategory($a, $b)
     {
-        return strcasecmp($b['category'] ? $b['category'] : _("Unfiled"),
-                          $a['category'] ? $a['category'] : _("Unfiled"));
+        return strcoll($b['category'] ? $b['category'] : _("Unfiled"),
+                       $a['category'] ? $a['category'] : _("Unfiled"));
     }
 
     /**
@@ -350,7 +350,7 @@ class Mnemo
             $bowner = $bshare->get('name');
         }
 
-        return strcasecmp($aowner, $bowner);
+        return strcoll($aowner, $bowner);
     }
 
     /**
@@ -377,7 +377,7 @@ class Mnemo
             $bowner = $bshare->get('name');
         }
 
-        return strcasecmp($bowner, $aowner);
+        return strcoll($bowner, $aowner);
     }
 
     /**

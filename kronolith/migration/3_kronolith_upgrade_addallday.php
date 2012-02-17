@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -21,7 +21,7 @@ class KronolithUpgradeAddAllDay extends Horde_Db_Migration_Base
         $cols = $t->getColumns();
         if (!in_array('event_allday', array_keys($cols))) {
             $this->addColumn('kronolith_events', 'event_allday', 'integer', array('default' => 0));
-            $this->execute('UPDATE kronolith_events SET event_allday = 1 WHERE event_start + ' . $this->interval('DAY', 1) . ' = event_end');
+            $this->execute('UPDATE kronolith_events SET event_allday = 1 WHERE ' . $this->modifyDate('event_start', '+', 1, 'DAY') . ' = event_end');
         }
     }
 

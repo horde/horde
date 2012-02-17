@@ -4,7 +4,7 @@
  * Allows translation between abstracted search criteria and a generated IMAP
  * search criteria string suitable for sending to a remote IMAP server.
  *
- * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -17,7 +17,7 @@
 class Horde_Imap_Client_Search_Query implements Serializable
 {
     /* Serialized version. */
-    const VERSION = 2;
+    const VERSION = 3;
 
     /* Constants for dateSearch() */
     const DATE_BEFORE = 'BEFORE';
@@ -108,7 +108,7 @@ class Horde_Imap_Client_Search_Query implements Serializable
      *            to IMAP2 search criteria).
      *   - query: (array) The IMAP search string.
      *
-     * @throws Horde_Imap_Client_Exception
+     * @throws Horde_Imap_Client_Exception_NoSupportExtension
      */
     public function build($exts = array())
     {
@@ -247,7 +247,7 @@ class Horde_Imap_Client_Search_Query implements Serializable
         }
 
         if (!empty($ptr['date'])) {
-            foreach ($ptr['date'] as $key => $val) {
+            foreach ($ptr['date'] as $val) {
                 $this->_addFuzzy(!empty($val['fuzzy']));
 
                 if (!empty($val['not'])) {
@@ -256,12 +256,12 @@ class Horde_Imap_Client_Search_Query implements Serializable
                     $imap4 = true;
                 }
 
-                if ($key == 'header') {
+                if (empty($val['header'])) {
+                    $cmds[] = $val['range'];
+                } else {
                     $cmds[] = 'SENT' . $val['range'];
                     // 'SENT*' searches were not in IMAP2
                     $imap4 = true;
-                } else {
-                    $cmds[] = $val['range'];
                 }
                 $cmds[] = $val['date'];
             }
@@ -298,7 +298,7 @@ class Horde_Imap_Client_Search_Query implements Serializable
 
         if (!empty($ptr['modseq'])) {
             if (!is_null($exts) && !isset($exts['CONDSTORE'])) {
-                throw new Horde_Imap_Client_Exception('IMAP Server does not support CONDSTORE.', Horde_Imap_Client_Exception::NOSUPPORTIMAPEXT);
+                throw new Horde_Imap_Client_Exception_NoSupportExtension('IMAP Server does not support CONDSTORE.');
             }
 
             $exts_used[] = 'CONDSTORE';
@@ -319,7 +319,7 @@ class Horde_Imap_Client_Search_Query implements Serializable
 
         if (isset($ptr['prevsearch'])) {
             if (!is_null($exts) && !isset($exts['SEARCHRES'])) {
-                throw new Horde_Imap_Client_Exception('IMAP Server does not support SEARCHRES.', Horde_Imap_Client_Exception::NOSUPPORTIMAPEXT);
+                throw new Horde_Imap_Client_Exception_NoSupportExtension('IMAP Server does not support SEARCHRES.');
             }
 
             $exts_used[] = 'SEARCHRES';
@@ -379,14 +379,14 @@ class Horde_Imap_Client_Search_Query implements Serializable
      *
      * @param boolean $add  Add the fuzzy modifier?
      *
-     * @throws Horde_Imap_Client_Exception
+     * @throws Horde_Imap_Client_Exception_NoSupport_Extension
      */
     protected function _addFuzzy($add)
     {
         if ($add) {
             if (!isset($this->_temp['exts']['SEARCH']) ||
                 !in_array('FUZZY', $this->_temp['exts']['SEARCH'])) {
-                throw new Horde_Imap_Client_Exception('IMAP Server does not support SEARCH=FUZZY.', Horde_Imap_Client_Exception::NOSUPPORTIMAPEXT);
+                throw new Horde_Imap_Client_Exception_NoSupportExtension('IMAP Server does not support SEARCH=FUZZY.');
             }
             $this->_temp['cmds'][] = 'FUZZY';
             $this->_temp['exts_used'][] = 'SEARCH=FUZZY';
@@ -550,8 +550,7 @@ class Horde_Imap_Client_Search_Query implements Serializable
     }
 
     /**
-     * Search for messages within a date range. Only one internal date and
-     * one RFC 2822 date can be specified per query.
+     * Search for messages within a date range.
      *
      * @param mixed $date    DateTime or Horde_Date object.
      * @param string $range  Either:
@@ -569,13 +568,13 @@ class Horde_Imap_Client_Search_Query implements Serializable
     public function dateSearch($date, $range, $header = true, $not = false,
                                array $opts = array())
     {
-        $type = $header ? 'header' : 'internal';
         if (!isset($this->_search['date'])) {
             $this->_search['date'] = array();
         }
-        $this->_search['date'][$header ? 'header' : 'internal'] = array_filter(array(
+        $this->_search['date'][] = array_filter(array(
             'date' => $date->format('d-M-Y'),
             'fuzzy' => !empty($opts['fuzzy']),
+            'header' => $header,
             'range' => $range,
             'not' => $not
         ));

@@ -3,7 +3,7 @@
  * This class outputs information on the duration of the video data, if that
  * information was provided in the original message.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -44,17 +44,13 @@ class IMP_Mime_Viewer_Video extends Horde_Mime_Viewer_Default
             return array();
         }
 
+        $status = new IMP_Mime_Status(sprintf(_("This video file is reported to be %d minutes, %d seconds in length."), floor($duration / 60), $duration % 60));
+        $status->icon('mime/video.png');
+
         return array(
             $this->_mimepart->getMimeId() => array(
                 'data' => '',
-                'status' => array(
-                    array(
-                        'icon' => Horde::img('mime/video.png'),
-                        'text' => array(
-                            sprintf(_("This video file is reported to be %d minutes, %d seconds in length."), floor($duration / 60), $duration % 60)
-                        )
-                    )
-                ),
+                'status' => $status,
                 'type' => 'text/html; charset=UTF-8'
             )
         );

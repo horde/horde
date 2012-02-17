@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2007 Maintainable Software, LLC
- * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -1178,6 +1178,45 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
         $result = $this->_conn->addOrderByForAssocLimiting('SELECT * FROM documents ',
                                 array('order' => 'name DESC'));
         $this->assertEquals('SELECT * FROM documents ORDER BY name DESC', $result);
+    }
+
+    public function testModifyDate()
+    {
+        $modifiedDate = $this->_conn->modifyDate('start', '+', 1, 'DAY');
+        $this->assertEquals('datetime(start, \'+1 days\')', $modifiedDate);
+
+        $t = $this->_conn->createTable('dates');
+        $t->column('start', 'datetime');
+        $t->column('end', 'datetime');
+        $t->end();
+        $this->_conn->insert(
+            'INSERT INTO dates (start, end) VALUES (?, ?)',
+            array(
+                '2011-12-10 00:00:00',
+                '2011-12-11 00:00:00'
+            )
+        );
+        $this->assertEquals(
+            1,
+            $this->_conn->selectValue('SELECT COUNT(*) FROM dates WHERE '
+                                      . $modifiedDate . ' = end')
+        );
+
+        $this->assertEquals(
+            'datetime(start, \'+2 seconds\')',
+            $this->_conn->modifyDate('start', '+', 2, 'SECOND'));
+        $this->assertEquals(
+            'datetime(start, \'+3 minutes\')',
+            $this->_conn->modifyDate('start', '+', 3, 'MINUTE'));
+        $this->assertEquals(
+            'datetime(start, \'+4 hours\')',
+            $this->_conn->modifyDate('start', '+', 4, 'HOUR'));
+        $this->assertEquals(
+            'datetime(start, \'-2 months\')',
+            $this->_conn->modifyDate('start', '-', 2, 'MONTH'));
+        $this->assertEquals(
+            'datetime(start, \'-3 years\')',
+            $this->_conn->modifyDate('start', '-', 3, 'YEAR'));
     }
 
     public function testBuildClause()

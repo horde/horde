@@ -2,7 +2,7 @@
 /**
  * The Agora script to delete a message.
  *
- * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -80,7 +80,7 @@ $notification->notify(array('listeners' => 'status'));
 $view->notify = Horde::endBuffer();
 
 Horde::startBuffer();
-$form->renderActive(null, $vars, 'delete.php', 'post');
+$form->renderActive(null, $vars, Horde::url('message/delete.php'), 'post');
 $view->formbox = Horde::endBuffer();
 
 require $registry->get('templates', 'horde') . '/common-header.inc';

@@ -1,7 +1,7 @@
 /**
  * compose.js - Javascript code used in the DIMP compose view.
  *
- * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -279,7 +279,7 @@ var DimpCompose = {
                     }
 
                     if (d.log) {
-                        DimpCore.base.DimpBase.updateMsgLog(d.log, { uid: d.uid, mailbox: d.mbox });
+                        DimpCore.base.DimpBase.updateMsgLog(d.log, { uid: d.uid, mbox: d.mbox });
                     }
 
                     if (!DIMP.conf_compose.qreply) {
@@ -292,7 +292,12 @@ var DimpCompose = {
             case 'redirectMessage':
                 if (this.baseAvailable()) {
                     if (d.log) {
-                        DimpCore.base.DimpBase.updateMsgLog(d.log, { uid: d.uid, mailbox: d.mbox });
+                        d.log.each(function(l) {
+                            DimpCore.base.DimpBase.updateMsgLog(l.log, {
+                                mbox: l.mbox,
+                                uid: l.uid
+                            });
+                        });
                     }
 
                     if (!DIMP.conf_compose.qreply) {

@@ -7,15 +7,15 @@
  * Facebook API, unless the user allows the Horde application to access it -
  * and even then, it's a proxied email address.
  *
- * Copyright 2009-2011 Horde LLC (http://www.horde.org)
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you did
- * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author   Michael J. Rubinsky <mrubinsk@horde.org>
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde
- * @license  http://www.horde.org/licenses/asl.php ASL
+ * @license  http://www.horde.org/licenses/apache ASL
  * @package  Turba
  */
 class Turba_Driver_Facebook extends Turba_Driver
@@ -116,17 +116,19 @@ class Turba_Driver_Facebook extends Turba_Driver
     }
 
     /**
-     * Reads the given data from the API method and returns the result's
-     * fields.
+     * Reads the given data from the address book and returns the results.
      *
-     * @param array $criteria  Search criteria.
-     * @param mixed $ids       Data identifier.
-     * @param string $owner    Restrict contacts to those owned by this user.
-     * @param array $fields    List of fields to return.
+     * @param string $key        The primary key field to use.
+     * @param mixed $ids         The ids of the contacts to load.
+     * @param string $owner      Only return contacts owned by this user.
+     * @param array $fields      List of fields to return.
+     * @param array $blobFields  Array of fields containing binary data.
      *
      * @return array  Hash containing the search results.
+     * @throws Turba_Exception
      */
-    protected function _read(array $criteria, $ids, $owner, array $fields)
+    protected function _read($key, $ids, $owner, array $fields,
+                             array $blobFields = array())
     {
         return $this->_getEntry($ids, $fields);
     }

@@ -2,7 +2,7 @@
 /**
  * Horde web configuration script.
  *
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -166,7 +166,10 @@ foreach ($a as $app) {
     $db_link = $self_url
         ->add(array('app' => $app, 'action' => 'schema'))
         ->link(array('title' => sprintf(_("Update %s schema"), $app)));
-    $apps[$i]['sort'] = $registry->get('name', $app) . ' (' . $app . ')';
+    $apps[$i]['sort'] = $app;
+    if ($name = $registry->get('name', $app)) {
+        $apps[$i]['sort'] = $name . ' (' . $apps[$i]['sort'] . ')';
+    }
     if (file_exists($path . '/conf.xml')) {
         $apps[$i]['name'] = $conf_link . $apps[$i]['sort'] . '</a>';
     } else {
@@ -328,7 +331,7 @@ if ($session->get('horde', 'config/')) {
     }
     /* Render the form. */
     Horde::startBuffer();
-    $ftpform->renderActive(new Horde_Form_Renderer(), $vars, 'index.php', 'post');
+    $ftpform->renderActive(new Horde_Form_Renderer(), $vars, Horde::url('admin/config/index.php'), 'post');
     $ftpform = Horde::endBuffer();
 }
 

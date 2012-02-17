@@ -9,7 +9,7 @@
  * information, such as state information or notifications to an application on
  * the recipient device.
  *
- * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.

@@ -8,7 +8,7 @@
  * Session variables set (stored in 'horde_prefs'):
  * 'advanced' - (boolean) If true, display advanced prefs.
  *
- * Copyright 2001-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -231,24 +231,20 @@ class Horde_Core_Prefs_Ui
         if (!empty($this->vars->show_advanced) ||
             !empty($this->vars->show_basic)) {
             $GLOBALS['session']->set('horde', 'prefs_advanced', !empty($this->vars->show_advanced));
-        }
-
-        if (!$this->vars->actionID ||
-            !$this->group ||
-            !$this->groupIsEditable($this->group)) {
+        } elseif (!$this->vars->actionID ||
+                  !$this->group ||
+                  !$this->groupIsEditable($this->group)) {
             return;
-        }
-
-        if (isset($this->vars->prefs_return)) {
+        } elseif (isset($this->vars->prefs_return)) {
             $this->group = $this->vars->actionID = '';
             return;
-        }
-
-        try {
-            $GLOBALS['injector']->getInstance('Horde_Token')->validate($this->vars->horde_prefs_token, 'horde.prefs');
-        } catch (Horde_Token_Exception $e) {
-            $GLOBALS['notification']->push($e);
-            return;
+        } else {
+            try {
+                $GLOBALS['injector']->getInstance('Horde_Token')->validate($this->vars->horde_prefs_token, 'horde.prefs');
+            } catch (Horde_Token_Exception $e) {
+                $GLOBALS['notification']->push($e);
+                return;
+            }
         }
 
         switch ($this->vars->actionID) {

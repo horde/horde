@@ -3,7 +3,7 @@
  * The Horde_Test:: class provides functions used in the test scripts
  * used in the various applications (test.php).
  *
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -109,9 +109,9 @@ class Horde_Test
             'error' => 'For best results make sure the iconv extension is linked against GNU libiconv.',
             'function' => '_checkIconvImplementation'
         ),
-        'idn' => array(
-            'descrip' => 'Internationalized Domain Names Support (PECL extension)',
-            'error' => 'Horde requires the idn module to handle Internationalized Domain Names.'
+        'intl' => array(
+            'descrip' => 'Internationalization Support',
+            'error' => 'Horde requires the intl module to handle Internationalized Domain Names. This module can either be compiled with PHP 5.3.0+ (requires <code>--enable-intl</code>) or can be installed via PECL.'
         ),
         'imagick' => array(
             'descrip' => 'Imagick Library',

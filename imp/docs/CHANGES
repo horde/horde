@@ -1,7 +1,64 @@
 -----------
-v5.0.16-git
+v5.0.19-git
 -----------
 
+[mms] Improve drag performance of elements in dynamic view.
+[mms] Fix saving initial_page preference.
+[mms] Workaround broken Thunderbird encrypted S/MIME messages.
+[mms] Fix regression where passphrase prompt would not appear for S/MIME
+      encrypted messages.
+[mms] Fix regression in verifying signed & encrypted S/MIME messages (Bug
+      #10947).
+[mms] Fix reloading the folder list in the dynamic view (Bug #10769).
+[mms] Fix deleting messages from Virtual Trash.
+[mms] Fix regression in displaying PGP Armored signed/encrypted messages (Bug
+      #10926).
+[mms] Catch IMAP server connection errors in traditional mailbox view.
+[mms] Fix purging moved messages from dynamic mailbox view if deleted messages
+      are visible in the mailbox (Bug #10916).
+[mms] Fix message advancing when deleting messages in traditional view when
+      deleted messages are visible in the mailbox.
+
+
+-------
+v5.0.18
+-------
+
+[mms] SECURITY: Fix XSS vulnerabilities on the compose page (traditional
+      view), the contacts popup window, and with certain IMAP mailbox names.
+[mms] Fix updating context menu when a mailbox is converted into a container
+      element after being deleted.
+[mms] Fix expand/collapse of folder tree in mobile view.
+[mms] Fix regression preventing sending of MDNs.
+[mms] Fix reporting as innocent in mobile view.
+[mms] Fix updating log information when replying/forwarding in dynamic view.
+[mms] Fix deleting virtual folders in dynamic view.
+
+
+-------
+v5.0.17
+-------
+
+[mms] Cache message headers during a page access.
+[mms] Fix adding submailboxes to last mailbox in a level in dynamic view.
+[mms] Fix display of numerically-named mailboxes on IMAP servers without the
+      LIST-EXTENDED IMAP capability (Bug #10869).
+[mms] Fix attachment detection search filter.
+[mms] Fix editing date search elements.
+[mms] Allow creation of the mailbox '0' (Bug #10866).
+[mms] Correctly handle numeric mailbox names.
+[mms] Fix display of mailbox names living under special mailboxes (Bug #10802).
+[mms] Fix broken Hide/Purge Deleted links in traditional view (Bug #10860).
+[mms] Fix issue in dynamic mailbox view with thread sorting and a reset of
+      mailbox metadata (Bug #10835).
+[mms] Fix message redirection regression in dynamic view (Bug #10859).
+
+
+-------
+v5.0.16
+-------
+
+[jan] Use locale based folder sorting.
 [mms] Workaround broken PGP signed data contained within encrypted parts (Bug
       #10809).
 [mms] Fix signature verification display for combined encrypted/signed PGP

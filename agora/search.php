@@ -2,7 +2,7 @@
 /**
  * The Agora search page.
  *
- * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -65,7 +65,7 @@ $notification->notify(array('listeners' => 'status'));
 $view->notify = Horde::endBuffer();
 
 Horde::startBuffer();
-$form->renderActive(null, $vars, 'search.php', 'get');
+$form->renderActive(null, $vars, Horde::url('search.php'), 'get');
 $view->searchForm = Horde::endBuffer();
 
 $title = _("Search Forums");

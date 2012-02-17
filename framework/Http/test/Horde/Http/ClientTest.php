@@ -1,9 +1,10 @@
 <?php
 /**
+ * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
+ *
  * @category   Horde
  * @package    Http
  * @subpackage UnitTests
- * @copyright  2007-2011 Horde LLC (http://www.horde.org/)
  * @license    http://www.horde.org/licenses/bsd
  */
 
@@ -13,11 +14,11 @@
 require_once dirname(__FILE__) . '/Autoload.php';
 
 /**
- * @group      support
+ * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
+ *
  * @category   Horde
  * @package    Http
  * @subpackage UnitTests
- * @copyright  2007-2011 Horde LLC (http://www.horde.org/)
  * @license    http://www.horde.org/licenses/bsd
  */
 class Horde_Http_ClientTest extends Horde_Test_Case
@@ -36,5 +37,17 @@ class Horde_Http_ClientTest extends Horde_Test_Case
         );
         $client->{'request.timeout'} = 10;
         $this->assertEquals(10, $request->timeout);
+    }
+
+    /**
+     * @expectedException Horde_Http_Exception
+     */
+    public function testSetUnknownOption()
+    {
+        $request = new Horde_Http_Request_Mock();
+        $client = new Horde_Http_Client(
+            array('request' => $request)
+        );
+        $client->timeout = 10;
     }
 }

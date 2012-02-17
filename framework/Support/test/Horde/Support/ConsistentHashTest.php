@@ -1,9 +1,10 @@
 <?php
 /**
+ * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ *
  * @category   Horde
  * @package    Support
  * @subpackage UnitTests
- * @copyright  2008-2010 Horde LLC (http://www.horde.org/)
  * @license    http://www.horde.org/licenses/bsd
  */
 
@@ -16,7 +17,6 @@ require_once dirname(__FILE__) . '/Autoload.php';
  * @category   Horde
  * @package    Support
  * @subpackage UnitTests
- * @copyright  2008-2010 Horde LLC (http://www.horde.org/)
  * @license    http://www.horde.org/licenses/bsd
  */
 class Horde_Support_ConsistentHashTest extends PHPUnit_Framework_TestCase
@@ -166,8 +166,10 @@ class Horde_Support_ConsistentHashTest extends PHPUnit_Framework_TestCase
     {
         $h = new Horde_Support_ConsistentHash(array('t'));
 
-        $this->setExpectedException('Exception');
-        $nodes = $h->getNodes('resource', 2);
+        try {
+            $h->getNodes('resource', 2);
+            $this->fail('Expected Exception');
+        } catch (Exception $e) {}
     }
 
     public function testGetNodesWrapsToBeginningOfCircle()

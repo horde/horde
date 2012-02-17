@@ -4,7 +4,7 @@
  * script-generation subclasses.
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
- * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author  Brent J. Nordquist <bjn@horde.org>
  * @package Ingo

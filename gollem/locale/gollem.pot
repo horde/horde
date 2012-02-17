@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Horde Project
+# Copyright (C) YEAR Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Gollem package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Gollem H4 (2.0.1-git)\n"
+"Project-Id-Version: Gollem H4 (2.0.2-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-11-21 18:18+0100\n"
+"POT-Creation-Date: 2012-01-17 12:38+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -52,8 +52,8 @@ msgstr ""
 msgid "Access denied to %s"
 msgstr ""
 
-#: lib/Gollem.php:48 lib/Gollem.php:295 lib/Gollem.php:344 lib/Gollem.php:366
-#: lib/Gollem.php:386
+#: lib/Gollem.php:48 lib/Gollem.php:299 lib/Gollem.php:348 lib/Gollem.php:370
+#: lib/Gollem.php:390
 #, php-format
 msgid "Access denied to folder \"%s\"."
 msgstr ""
@@ -138,7 +138,7 @@ msgstr ""
 msgid "Change Permissions"
 msgstr ""
 
-#: lib/Gollem.php:588
+#: lib/Gollem.php:592
 msgid "Change Server"
 msgstr ""
 
@@ -284,7 +284,7 @@ msgstr ""
 msgid "File received: %s"
 msgstr ""
 
-#: lib/Api.php:124
+#: lib/Api.php:122
 msgid "Files must be written inside a VFS backend."
 msgstr ""
 
@@ -300,7 +300,7 @@ msgstr ""
 msgid "Folder removed: "
 msgstr ""
 
-#: lib/Api.php:155 lib/Api.php:186
+#: lib/Api.php:153 lib/Api.php:184
 msgid "Folders must be created inside a VFS backend."
 msgstr ""
 
@@ -312,7 +312,7 @@ msgstr ""
 msgid "Group"
 msgstr ""
 
-#: lib/Api.php:405
+#: lib/Api.php:403
 #, php-format
 msgid "Invalid backend requested: %s"
 msgstr ""
@@ -389,7 +389,7 @@ msgstr ""
 msgid "Permission denied to folder \"%s\": %s"
 msgstr ""
 
-#: lib/Api.php:413
+#: lib/Api.php:411
 msgid "Permission denied to this backend."
 msgstr ""
 
@@ -425,11 +425,11 @@ msgstr ""
 msgid "Rename"
 msgstr ""
 
-#: lib/Api.php:200
+#: lib/Api.php:198
 msgid "Renaming across backends is not supported."
 msgstr ""
 
-#: lib/Api.php:194
+#: lib/Api.php:192
 msgid "Renaming of backends is not allowed."
 msgstr ""
 
@@ -465,7 +465,7 @@ msgstr ""
 msgid "Size"
 msgstr ""
 
-#: lib/Api.php:229
+#: lib/Api.php:227
 msgid "The application folder can not be deleted."
 msgstr ""
 
@@ -505,7 +505,7 @@ msgstr ""
 msgid "Type"
 msgstr ""
 
-#: lib/Api.php:409
+#: lib/Api.php:407
 msgid "Unable to create Gollem session"
 msgstr ""
 
@@ -524,7 +524,7 @@ msgstr ""
 msgid "Unable to delete folder %s: %s"
 msgstr ""
 
-#: lib/Gollem.php:552 lib/Gollem.php:562
+#: lib/Gollem.php:556 lib/Gollem.php:566
 #, php-format
 msgid "Up to %s"
 msgstr ""
@@ -553,7 +553,7 @@ msgstr ""
 msgid "You need at least one backend defined to set permissions."
 msgstr ""
 
-#: lib/Gollem.php:586 lib/Gollem.php:589
+#: lib/Gollem.php:590 lib/Gollem.php:593
 msgid "_Change Server"
 msgstr ""
 

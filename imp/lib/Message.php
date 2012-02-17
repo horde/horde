@@ -6,7 +6,7 @@
  * and other pages.
  *
  * Copyright 2000-2001 Chris Hyde <chris@jeks.net>
- * Copyright 2000-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2000-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -245,10 +245,10 @@ class IMP_Message
                 $expunge_now = false;
                 $del_flags = array(Horde_Imap_Client::FLAG_DELETED);
 
-                if (!$imp_imap->access(IMP_Imap::ACCESS_TRASH) ||
+                if ($use_vtrash ||
+                    !$imp_imap->access(IMP_Imap::ACCESS_TRASH) ||
                     !empty($opts['nuke']) ||
-                    ($use_trash && ($ob->mbox == $trash)) ||
-                    $ob->mbox->vtrash) {
+                    ($use_trash && ($ob->mbox == $trash))) {
                     /* Purge messages immediately. */
                     $expunge_now = !$no_expunge;
                 } elseif ($mark_seen) {
@@ -267,6 +267,10 @@ class IMP_Message
                                 'mailboxob' => empty($opts['mailboxob']) ? null : $opts['mailboxob']
                             )
                         );
+                    } elseif (!empty($opts['mailboxob']) &&
+                              $opts['mailboxob']->isBuilt() &&
+                              $ob->mbox->hideDeletedMsgs()) {
+                        $opts['mailboxob']->removeMsgs($imp_indices);
                     }
                 } catch (IMP_Imap_Exception $e) {}
 
@@ -325,7 +329,7 @@ class IMP_Message
                 $imp_contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($ob->mbox->getIndicesOb($uid));
 
                 /* Fetch the message headers. */
-                $imp_headers = $imp_contents->getHeaderOb();
+                $imp_headers = $imp_contents->getHeader();
                 $subject = $imp_headers->getValue('subject');
 
                 /* Re-flow the message for prettier formatting. */
@@ -563,8 +567,8 @@ class IMP_Message
                     'flags' => $flags,
                     'internaldate' => $res[$uid]->getImapDate()
                 )
-            ));
-            $new_uid = reset($new_uid->ids);
+            ))->ids;
+            $new_uid = reset($new_uid);
         } catch (IMP_Imap_Exception $e) {
             throw new IMP_Exception(_("An error occured while attempting to strip the attachment."));
         }

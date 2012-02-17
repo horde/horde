@@ -5,7 +5,7 @@
  * methods that vCard and iCalendar implementation can share and rely
  * on.
  *
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -29,7 +29,7 @@ class Horde_Data_Imc extends Horde_Data_Base
     {
         $this->_iCal = new Horde_Icalendar();
         if (!$this->_iCal->parsevCalendar($text)) {
-            throw new Horde_Data_Exception('There was an error importing the iCalendar data.');
+            throw new Horde_Data_Exception(Horde_Data_Translation::t("There was an error importing the iCalendar data."));
         }
 
         return $this->_iCal->getComponents();
@@ -68,7 +68,7 @@ class Horde_Data_Imc extends Horde_Data_Base
     public function exportFile($filename, $data)
     {
         if (!isset($this->_browser)) {
-            throw new Horde_Data_Exception('Missing browser parameter.');
+            throw new LogicException('Missing browser parameter.');
         }
 
         $export = $this->exportData($data);

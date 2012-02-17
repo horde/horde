@@ -2,7 +2,7 @@
 /**
  * Defines the AJAX interface for Kronolith.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -246,8 +246,8 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
                 break;
 
             case 'offDays':
-                $event->start->mday += $value;
-                $event->end->mday += $value;
+                $event->start->mday = $event->start->mday + $value;
+                $event->end->mday = $event->end->mday + $value;
                 break;
 
             case 'offMins':
@@ -598,7 +598,6 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
 
         switch ($this->_vars->type) {
         case 'internal':
-            $tagger = Kronolith::getTagger();
             $info = array();
             foreach (array('name', 'color', 'description', 'tags') as $key) {
                 $info[$key] = $this->_vars->$key;
@@ -613,7 +612,6 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
                 try {
                     $calendar = Kronolith::addShare($info);
                     Kronolith::readPermsForm($calendar);
-                    $tagger->tag($result->calendar, $this->_vars->tags, $calendar->get('owner'), 'calendar');
                     if ($calendar->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::SHOW)) {
                         $wrapper = new Kronolith_Calendar_Internal(array('share' => $calendar));
                         $result->saved = true;
@@ -643,7 +641,6 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
                     $result->saved = true;
                     $result->calendar = $wrapper->toHash();
                 }
-                $tagger->replaceTags($calendar->getName(), $this->_vars->tags, $calendar->get('owner'), 'calendar');
             } catch (Exception $e) {
                 $GLOBALS['notification']->push($e, 'horde.error');
                 return $result;
@@ -933,6 +930,7 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
             $result->events = array();
             return $result;
         }
+
         try {
             $event->save();
             $end = new Horde_Date($this->_vars->view_end);
@@ -942,6 +940,8 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
             Kronolith::addEvents($events, $event,
                                  new Horde_Date($this->_vars->view_start),
                                  $end, true, true);
+
+
             /* If this is an exception, we re-add the original event as well
              * cstart and cend are the cacheStart and cacheEnd dates from the
              * client. */
@@ -991,12 +991,16 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
         // Add the exception to the original event
         if ($attributes->rstart) {
             $rstart = new Horde_Date($attributes->rstart);
+            $rstart->setTimezone($event->start->timezone);
             $rend = new Horde_Date($attributes->rend);
+            $rend->setTimezone($event->end->timezone);
         } else {
             $rstart = new Horde_Date($attributes->rday);
+            $rstart->setTimezone($event->start->timezone);
             $rstart->hour = $event->start->hour;
             $rstart->min = $event->start->min;
             $rend = $rstart->add($event->getDuration);
+            $rend->setTimezone($event->end->timezone);
             $rend->hour = $event->end->hour;
             $rend->min = $event->end->min;
         }

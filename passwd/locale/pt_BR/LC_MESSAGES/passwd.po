@@ -1,5 +1,5 @@
 # Portuguese-Brazil translation for Horde Passwd.
-# Copyright 2002-2009 Horde LLC.
+# Copyright 2002-2012 Horde LLC (http://www.horde.org/)
 # Darci Antonio Tartari <dtartari@portoriogrande.com.br>, 2002.
 # Fabio de Almeida <fabiodealmeida@gmail.com>, 2005.
 #

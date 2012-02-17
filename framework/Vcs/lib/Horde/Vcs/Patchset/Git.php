@@ -2,7 +2,7 @@
 /**
  * Git patchset class.
  *
- * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -56,7 +56,7 @@ class Horde_Vcs_Patchset_Git extends Horde_Vcs_Patchset_Base
             );
 
             foreach ($log->getFiles() as $file) {
-                $from = $log->queryParent();
+                $from = $log->getParent();
                 $to = $rev;
 
                 switch ($file['status']) {

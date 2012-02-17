@@ -122,6 +122,14 @@ class Horde_Service_Weather_GoogleTest extends PHPUnit_Framework_TestCase
         $weather->units = Horde_Service_Weather::UNITS_METRIC;
         $this->assertEquals(14, $dayTwo->high);
         $this->assertEquals(9, $dayTwo->low);
+
+        // Test unsupported
+        $this->assertEquals(false, $dayOne->rain_total);
+        $this->assertEquals(false, $dayOne->snow_total);
+
+        // Test unknown throws exception
+        $this->setExpectedException('Horde_Service_Weather_Exception_InvalidProperty');
+        $this->assertEquals(false, $dayOne->foobar);
     }
 
     private function _getStub($fixture, $language = 'en')

@@ -8,23 +8,23 @@
  * @package    Mnemo
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.horde.org/licenses/asl.php
+ * @license    http://www.horde.org/licenses/apache
  * @link       http://www.horde.org/apps/mnemo
  */
 
 /**
  * Basic Mnemo test case.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
- * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @category   Horde
  * @package    Mnemo
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.horde.org/licenses/asl.php
+ * @license    http://www.horde.org/licenses/apache
  * @link       http://www.horde.org/apps/mnemo
  */
 class Mnemo_TestCase

@@ -111,6 +111,10 @@
  *   Fired when a fetch AJAX response is completed.
  *   params: (string) Current view.
  *
+ * ViewPort:endRangeFetch
+ *   Fired when a fetch rangeslice AJAX response is completed.
+ *   params: (string) Current view.
+ *
  * ViewPort:fetch
  *   Fired when a non-background AJAX response is sent.
  *   params: (string) Current view.
@@ -203,8 +207,8 @@
  *   VP_rownum: (integer) The row number of the row.
  *
  *
- * Scroll bars use ars styled using these CSS class names:
- * -------------------------------------------------------
+ * Scroll bars are styled using these CSS class names:
+ * ---------------------------------------------------
  * vpScroll - The scroll bar container.
  * vpScrollUp - The UP arrow.
  * vpScrollCursor - The cursor used to slide within the bounds.
@@ -214,7 +218,7 @@
  * Requires prototypejs 1.6+, scriptaculous 1.8+ (effects.js only), and
  * Horde's dragdrop2.js and slider2.js.
  *
- * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -346,7 +350,12 @@ var ViewPort = Class.create({
     // view = ID of view
     deleteView: function(view)
     {
+        if (this.view == view) {
+            return false;
+        }
+
         delete this.views[view];
+        return true;
     },
 
     // rownum = (integer) Row number
@@ -411,9 +420,14 @@ var ViewPort = Class.create({
                 this.remove.bind(this, vs).defer();
             } else {
                 this.isbusy = true;
-                this._remove(vs);
-                if (vs.getBuffer().getView() == this.view) {
-                    this.requestContentRefresh(this.currentOffset());
+                try {
+                    this._remove(vs);
+                    if (vs.getBuffer().getView() == this.view) {
+                        this.requestContentRefresh(this.currentOffset());
+                    }
+                } catch (e) {
+                    this.isbusy = false;
+                    throw e;
                 }
                 this.isbusy = false;
             }
@@ -450,7 +464,7 @@ var ViewPort = Class.create({
         if (nowait) {
             this._onResize(size);
         } else {
-            this.resizefunc = this._onResize.bind(this, size).delay(0.1);
+            this.resizefunc = this._onResize.bind(this, size).defer();
         }
     },
 
@@ -583,11 +597,21 @@ var ViewPort = Class.create({
     _fetchBuffer: function(opts)
     {
         if (this.isbusy) {
-            return this._fetchBuffer.bind(this, opts).defer();
+            this._fetchBuffer.bind(this, opts).defer();
+        } else {
+            this.isbusy = true;
+            try {
+                this._fetchBufferDo(opts);
+            } catch (e) {
+                this.isbusy = false;
+                throw e;
+            }
+            this.isbusy = false;
         }
+    },
 
-        this.isbusy = true;
-
+    _fetchBufferDo: function(opts)
+    {
         var llist, lrows, rlist, tmp, type, value,
             view = (opts.view || this.view),
             b = this._getBuffer(view),
@@ -648,7 +672,6 @@ var ViewPort = Class.create({
                 if (!this.active_req && !opts.background) {
                     this.active_req = llist.keys().numericSort().last();
                 }
-                this.isbusy = false;
                 return;
             }
 
@@ -658,7 +681,6 @@ var ViewPort = Class.create({
             rlist = $A($R(tmp.start, tmp.end)).diff(b.getAllRows());
 
             if (!rlist.size()) {
-                this.isbusy = false;
                 return;
             }
 
@@ -682,8 +704,6 @@ var ViewPort = Class.create({
         }
 
         this._ajaxRequest(params, { noslice: true, view: view });
-
-        this.isbusy = false;
     },
 
     // rownum = (integer) Row number
@@ -806,7 +826,7 @@ var ViewPort = Class.create({
 
         if (r.rangelist) {
             this.select(this.createSelection('uid', r.rangelist, r.view));
-            this.opts.container.fire('ViewPort:endFetch', r.view);
+            this.opts.container.fire('ViewPort:endRangeFetch', r.view);
         }
 
         if (!Object.isUndefined(r.cacheid)) {
@@ -819,10 +839,20 @@ var ViewPort = Class.create({
     {
         if (this.isbusy) {
             this._ajaxResponse.bind(this, r).defer();
-            return;
+        } else {
+            this.isbusy = true;
+            try {
+                this._ajaxResponseDo(r);
+            } catch (e) {
+                this.isbusy = false;
+                throw e;
+            }
+            this.isbusy = false;
         }
+    },
 
-        this.isbusy = true;
+    _ajaxResponseDo: function(r)
+    {
         this._clearWait();
 
         var callback, offset, tmp,
@@ -879,8 +909,6 @@ var ViewPort = Class.create({
             // viewport incorrectly.
             buffer.setMetaData({ offset: Number(r.rownum) - 1 }, true);
         }
-
-        this.isbusy = false;
     },
 
     // offset = (integer) Offset of row to display
@@ -1484,23 +1512,23 @@ ViewPort_Buffer = Class.create({
         }, this);
 
         if (opts.mdreset) {
-            this.usermdata = $H(md);
-        } else {
-            $H(md).each(function(pair) {
-                if (Object.isString(pair.value) ||
-                    Object.isNumber(pair.value) ||
-                    Object.isArray(pair.value)) {
-                    this.usermdata.set(pair.key, pair.value);
-                } else {
-                    var val = this.usermdata.get(pair.key);
-                    if (val) {
-                        val.update($H(pair.value));
-                    } else {
-                        this.usermdata.set(pair.key, $H(pair.value));
-                    }
-                }
-            }, this);
+            this.usermdata = $H();
         }
+
+        $H(md).each(function(pair) {
+            if (Object.isString(pair.value) ||
+                Object.isNumber(pair.value) ||
+                Object.isArray(pair.value)) {
+                this.usermdata.set(pair.key, pair.value);
+            } else {
+                var val = this.usermdata.get(pair.key);
+                if (val) {
+                    val.update($H(pair.value));
+                } else {
+                    this.usermdata.set(pair.key, $H(pair.value));
+                }
+            }
+        }, this);
     },
 
     // offset = (integer) Offset of the beginning of the slice.

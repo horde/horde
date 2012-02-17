@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -49,7 +49,7 @@ $view = new Ansel_View_Upload(
 if (!$prefs->getValue('force_old_uploader', 'false')) {
     $view->run();
 }
-$nojs = $view->handleNoJs();
+$nojs = $view->handleLegacy();
 
 $title = _("Add Photo");
 require $registry->get('templates', 'horde') . '/common-header.inc';

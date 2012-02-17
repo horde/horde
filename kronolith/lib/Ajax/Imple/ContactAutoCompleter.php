@@ -2,7 +2,7 @@
 /**
  * Attach the contact auto completer to a javascript element.
  *
- * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -68,6 +68,8 @@ class Kronolith_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Ajax_Imple_Au
      * Uses the Registry to expand names and return error information for
      * any address that is either not valid or fails to expand.
      *
+     * This function will not search if the address string is empty.
+     *
      * @param string $addrString  The name(s) or address(es) to expand.
      *
      * @return array  All matching addresses.
@@ -79,11 +81,10 @@ class Kronolith_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Ajax_Imple_Au
         }
 
         $search = reset(array_filter(array_map('trim', Horde_Mime_Address::explode($addrString, ',;'))));
-
         $searchpref = Kronolith::getAddressbookSearchParams();
 
         try {
-            $res = $GLOBALS['registry']->call('contacts/search', array($search, $searchpref['sources'], $searchpref['fields'], true));
+            $res = $GLOBALS['registry']->call('contacts/search', array($search, $searchpref['sources'], $searchpref['fields']));
         } catch (Horde_Exception $e) {
             Horde::logMessage($e, 'ERR');
             return array();
@@ -109,7 +110,12 @@ class Kronolith_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Ajax_Imple_Au
             }
         }
 
-        return $search;
-    }
+        $sort_list = array();
+        foreach ($search as $val) {
+            $sort_list[$val] = levenshtein($addrString, $val);
+        }
+        asort($sort_list, SORT_NUMERIC);
 
+        return array_keys($sort_list);
+    }
 }

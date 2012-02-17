@@ -2,7 +2,7 @@
 /**
  * RCS log class.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -77,7 +77,7 @@ class Horde_Vcs_Log_Rcs extends Horde_Vcs_Log_Base
 
         /* Assume the rest of the lines are the log message */
         $this->_log = implode("\n", $raw);
-        $this->_tags = $this->_file->queryRevsym($this->_rev);
+        $this->_tags = $this->_file->getRevisionSymbol($this->_rev);
 
         $this->_setSymbolicBranches();
 

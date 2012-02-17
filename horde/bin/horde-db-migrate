@@ -3,9 +3,12 @@
 /**
  * Database migration script.
  *
- * Usage: horde-db-migrate [--options] [(application|directory) [(up|down|version)]]
+ * Usage: horde-db-migrate
+ *        [--config=filename]
+ *        [--debug]
+ *        [(application|directory) [(up|down|version)]]
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -30,7 +33,7 @@ Horde_Registry::appInit('horde', array(
 // Parse command line arguments.
 $parser = new Horde_Argv_Parser(
     array(
-        'usage' => '%prog [--options] [(application|directory) [(up|down|version)]]',
+        'usage' => "%prog\n\t[--config=filename]\n\t[--debug]\n\t[(application|directory) [(up|down|version)]]",
         'optionList' => array(
             new Horde_Argv_Option(
                 '-c',

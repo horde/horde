@@ -5,7 +5,7 @@
  * This file defines Horde's core API interface. Other core Horde libraries
  * can interact with Wicked through this API.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -36,7 +36,7 @@ class Wicked_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = 'H4 (1.0.1-git)';
+    public $version = 'H4 (1.0.2-git)';
 
     /**
      * Global variables defined:

@@ -3,7 +3,7 @@
  *
  * Provides the javascript class to accompany the Horde_Form assign field.
  *
- * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.

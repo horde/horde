@@ -17,7 +17,7 @@
  *             (requires 'to' parameter also).
  *   - uids: UIDs of message to forward (only used when forwarding a message).
  *
- * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -197,7 +197,7 @@ case 'forward_both':
 
 case 'forward_redirect':
     try {
-        $imp_compose->redirectMessage($imp_ui->getIndices());
+        $imp_compose->redirectMessage($imp_ui->getIndices($vars));
         $get_sig = false;
         $title = _("Redirect");
         $vars->type = 'redirect';
@@ -303,7 +303,10 @@ IMP::status();
 $t->set('status', Horde::endBuffer());
 
 IMP_Dimp::header($title, $scripts);
-echo $t->fetch(IMP_TEMPLATES . '/dimp/compose/compose-base.html');
+
+Horde::startBuffer();
 Horde::includeScriptFiles();
 Horde::outputInlineScript();
-echo "</body>\n</html>";
+$t->set('script', Horde::endBuffer());
+
+echo $t->fetch(IMP_TEMPLATES . '/dimp/compose/compose-base.html');

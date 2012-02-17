@@ -1,9 +1,10 @@
 <?php
 /**
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ *
  * @category   Horde
  * @package    Support
  * @subpackage UnitTests
- * @copyright  2011 Horde LLC (http://www.horde.org/)
  * @license    http://www.horde.org/licenses/bsd
  */
 
@@ -13,11 +14,9 @@
 require_once dirname(__FILE__) . '/Autoload.php';
 
 /**
- * @group      support
  * @category   Horde
  * @package    Support
  * @subpackage UnitTests
- * @copyright  2011 Horde LLC (http://www.horde.org/)
  * @license    http://www.horde.org/licenses/bsd
  */
 class Horde_Support_MemoryTest extends PHPUnit_Framework_TestCase
@@ -57,13 +56,13 @@ class Horde_Support_MemoryTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($end[3] >= 0);
     }
 
-    /**
-     * @expectedException Exception
-     */
     public function testNotPushedThrowsException()
     {
         $t = new Horde_Support_Memory();
-        $t->pop();
+        try {
+            $t->pop();
+            $this->fail('Expected Exception');
+        } catch (Exception $e) {}
     }
 
 }

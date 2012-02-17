@@ -2,7 +2,7 @@
 /**
  * Horde Kronolith driver for the Kolab IMAP Server.
  *
- * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -380,9 +380,11 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
             $event->uid = $this->_data->generateUID();
         }
         if (!$edit) {
-            $this->_data->create($event->toKolab());
+            $object = $event->toKolab();
+            $this->_data->create($object);
         } else {
-            $this->_data->modify($event->toKolab());
+            $object = $event->toKolab();
+            $this->_data->modify($object);
         }
 
         /* Deal with tags */
@@ -477,32 +479,26 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
     {
         $result = $this->synchronize();
 
-        if (!$this->_data->objectUidExists($eventId)) {
+        if (!$this->_data->objectIdExists($eventId)) {
             throw new Kronolith_Exception(sprintf(_("Event not found: %s"), $eventId));
         }
 
         $event = $this->getEvent($eventId);
-        if ($this->_data->delete($eventId)) {
-            // Notify about the deleted event.
-            if (!$silent) {
-                Kronolith::sendNotification($event, 'delete');
-            }
+        $this->_data->delete($eventId);
 
-            /* Log the deletion of this item in the history log. */
-            try {
-                $GLOBALS['injector']->getInstance('Horde_History')->log('kronolith:' . $event->calendar . ':' . $event->uid, array('action' => 'delete'), true);
-            } catch (Exception $e) {
-                Horde::logMessage($e, 'ERR');
-            }
-
-            if (is_callable('Kolab', 'triggerFreeBusyUpdate')) {
-                //Kolab::triggerFreeBusyUpdate($this->_data->parseFolder($event->calendar));
-            }
-
-            unset($this->_events_cache[$eventId]);
-        } else {
-            throw new Kronolith_Exception(sprintf(_("Cannot delete event: %s"), $eventId));
+        // Notify about the deleted event.
+        if (!$silent) {
+            Kronolith::sendNotification($event, 'delete');
         }
+
+        /* Log the deletion of this item in the history log. */
+        try {
+            $GLOBALS['injector']->getInstance('Horde_History')->log('kronolith:' . $event->calendar . ':' . $event->uid, array('action' => 'delete'), true);
+        } catch (Exception $e) {
+            Horde::logMessage($e, 'ERR');
+        }
+
+        unset($this->_events_cache[$eventId]);
     }
 
 }

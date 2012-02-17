@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -105,5 +105,5 @@ if ($editor->supportedByBrowser()) {
 
 require $registry->get('templates', 'horde') . '/common-header.inc';
 $notification->notify(array('listeners' => 'status'));
-$form->renderActive($renderer, $vars, 'ecard.php', 'post', 'multipart/form-data');
+$form->renderActive($renderer, $vars, Horde::url('img/ecard.php'), 'post', 'multipart/form-data');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

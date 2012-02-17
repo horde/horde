@@ -28,10 +28,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-12-06</date>
- <time>10:56:59</time>
+ <date>2012-02-06</date>
+ <time>15:31:51</time>
  <version>
-  <release>1.8.2</release>
+  <release>1.8.5</release>
   <api>1.8.0</api>
  </version>
  <stability>
@@ -89,6 +89,11 @@
        <file name="Application.php" role="php" />
        <file name="Imple.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Ajax -->
+      <dir name="Alarm">
+       <dir name="Handler">
+        <file name="Notify.php" role="php" />
+       </dir> <!-- /lib/Horde/Core/Alarm/Handler -->
+      </dir> <!-- /lib/Horde/Core/Alarm -->
       <dir name="Auth">
        <dir name="Signup">
         <file name="Base.php" role="php" />
@@ -580,9 +585,13 @@
        <file name="KolabServerTest.php" role="test" />
        <file name="KolabSessionTest.php" role="test" />
       </dir> <!-- /test/Horde/Core/Factory -->
+      <dir name="Stub">
+       <file name="Registry.php" role="test" />
+      </dir> <!-- /test/Horde/Core/Stub -->
       <file name="AllTests.php" role="test" />
       <file name="Autoload.php" role="test" />
       <file name="phpunit.xml" role="test" />
+      <file name="RegistryTest.php" role="test" />
       <file name="UrlTest.php" role="test" />
      </dir> <!-- /test/Horde/Core -->
     </dir> <!-- /test/Horde -->
@@ -849,6 +858,9 @@
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
+   <extension>
+    <name>session</name>
+   </extension>
   </required>
   <optional>
    <package>
@@ -1069,6 +1081,7 @@
    <install as="Horde/Core/Ajax/Imple/SpellChecker.php" name="lib/Horde/Core/Ajax/Imple/SpellChecker.php" />
    <install as="Horde/Core/Ajax/Imple/WeatherLocationAutoCompleter.php" name="lib/Horde/Core/Ajax/Imple/WeatherLocationAutoCompleter.php" />
    <install as="Horde/Core/Ajax/Imple/Geocoder/Geonames.php" name="lib/Horde/Core/Ajax/Imple/Geocoder/Geonames.php" />
+   <install as="Horde/Core/Alarm/Handler/Notify.php" name="lib/Horde/Core/Alarm/Handler/Notify.php" />
    <install as="Horde/Core/Auth/Application.php" name="lib/Horde/Core/Auth/Application.php" />
    <install as="Horde/Core/Auth/Composite.php" name="lib/Horde/Core/Auth/Composite.php" />
    <install as="Horde/Core/Auth/Imsp.php" name="lib/Horde/Core/Auth/Imsp.php" />
@@ -1280,10 +1293,12 @@
    <install as="Horde/Core/AllTests.php" name="test/Horde/Core/AllTests.php" />
    <install as="Horde/Core/Autoload.php" name="test/Horde/Core/Autoload.php" />
    <install as="Horde/Core/phpunit.xml" name="test/Horde/Core/phpunit.xml" />
+   <install as="Horde/Core/RegistryTest.php" name="test/Horde/Core/RegistryTest.php" />
    <install as="Horde/Core/UrlTest.php" name="test/Horde/Core/UrlTest.php" />
    <install as="Horde/Core/Factory/GroupTest.php" name="test/Horde/Core/Factory/GroupTest.php" />
    <install as="Horde/Core/Factory/KolabServerTest.php" name="test/Horde/Core/Factory/KolabServerTest.php" />
    <install as="Horde/Core/Factory/KolabSessionTest.php" name="test/Horde/Core/Factory/KolabSessionTest.php" />
+   <install as="Horde/Core/Stub/Registry.php" name="test/Horde/Core/Stub/Registry.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -1670,7 +1685,53 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-12-06</date>
+   <date>2011-12-13</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Allow separate ActiveSync logs per device.
+* [jan] Make the lifetime of cached weather information configurable (Arjen de Korte, Request #10848).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.8.3</release>
+    <api>1.8.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-23</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Fix implementation of SENDMAIL ActiveSync command. Fixes sending of meeting requests from device.
+* [mjr] Fix issue that caused ActiveSync failure when using device specific logging in certain cases.
+* [mms] Fix merging config data (Bug #10381).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.8.4</release>
+    <api>1.8.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-01-31</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Fix issue with autocompletion that would cause it to fail in certain circumstances (Bug #10904).
+* [mms] Remove trailing semicolon when replacing @import statements.
+* [mjr] Fix issue that could cause failure of ActiveSync due to incorrect packing of binary data.
+* [jan] Use separate database connection for SQL session handler (Bug #10906).
+* [mms] Fix parsing DB config when using splitread database setup.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.8.5</release>
+    <api>1.8.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-02-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

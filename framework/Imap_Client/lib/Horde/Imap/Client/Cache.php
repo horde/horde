@@ -4,7 +4,7 @@
  *
  * Requires the horde/Cache package.
  *
- * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -143,8 +143,6 @@ class Horde_Imap_Client_Cache
      *   </ul>
      *  </li>
      * </ul>
-     *
-     * @throws InvalidArgumentException
      */
     public function __construct(array $params = array())
     {
@@ -251,8 +249,6 @@ class Horde_Imap_Client_Cache
      *                key (if found) and the fields as values (will be
      *                undefined if not found). If $uids is empty, returns the
      *                full list of cached UIDs.
-     *
-     * @throws Horde_Imap_Client_Exception
      */
     public function get($mailbox, $uids = array(), $fields = array(),
                         $uidvalid = null)
@@ -387,8 +383,6 @@ class Horde_Imap_Client_Cache
      *
      * @param string $mailbox  An IMAP mailbox string.
      * @param array $uids      The list of message UIDs to delete.
-     *
-     * @throws Horde_Imap_Client_Exception
      */
     public function deleteMsgs($mailbox, $uids)
     {
@@ -440,6 +434,8 @@ class Horde_Imap_Client_Cache
      */
     public function deleteMailbox($mbox)
     {
+        $mbox = strval($mbox);
+
         $this->_loadSliceMap($mbox);
         foreach (array_keys(array_flip($this->_slicemap[$mbox]['slice'])) as $slice) {
             $this->_cache->expire($this->_getCID($mbox, $slice));
@@ -459,8 +455,6 @@ class Horde_Imap_Client_Cache
      * @param string $mailbox    The mailbox to load.
      * @param array $uids        The UIDs to load.
      * @param integer $uidvalid  The IMAP uidvalidity value of the mailbox.
-     *
-     * @throws Horde_Imap_Client_Exception
      */
     protected function _loadMailbox($mailbox, $uids, $uidvalid = null)
     {
@@ -541,8 +535,6 @@ class Horde_Imap_Client_Cache
      * @param boolean $set     Set the slice information in $_slicemap?
      *
      * @return array  UIDs as the keys, the slice number as the value.
-     *
-     * @throws Horde_Imap_Client_Exception
      */
     protected function _getCacheSlices($mailbox, $uids, $set = false)
     {

@@ -23,7 +23,7 @@
 	<key>LSHasLocalizedDisplayName</key>
 	<true/>
 	<key>NSHumanReadableCopyright</key>
-	<string>2008-2009 Horde LLC (http://www.horde.org)</string>
+	<string>2008-2009 Horde LLC (http://www.horde.org/)</string>
 	<key>NSPrincipalClass</key>
 	<string>ApertureToAnselExportPlugin</string>
 	<key>ProPlugDictionaryVersion</key>

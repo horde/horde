@@ -124,7 +124,7 @@ class Nag_Form_Task extends Horde_Form
 
     public function renderActive()
     {
-        return parent::renderActive(new Nag_Form_Renderer_Task(array('varrenderer_driver' => array('nag', 'nag')), $this->delete), $this->_vars, 'task.php', 'post');
+        return parent::renderActive(new Nag_Form_Renderer_Task(array('varrenderer_driver' => array('nag', 'nag')), $this->delete), $this->_vars, Horde::url('task.php'), 'post');
     }
 
 }

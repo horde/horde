@@ -2,7 +2,7 @@
 /**
  * RCS file class.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -278,7 +278,7 @@ class Horde_Vcs_File_Rcs extends Horde_Vcs_File_Base
     /**
      * TODO
      */
-    public function queryRevsym($rev)
+    public function getRevisionSymbol($rev)
     {
         return isset($this->_revsym[$rev])
             ? $this->_revsym[$rev]

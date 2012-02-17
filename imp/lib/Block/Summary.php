@@ -2,7 +2,7 @@
 /**
  * Block: show folder summary.
  *
- * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -74,7 +74,7 @@ class IMP_Block_Summary extends Horde_Core_Block
                  !empty($status[$mbox_str]['unseen']))) {
                 $mbox_status = $status[$mbox_str];
 
-                $label = $mbox->url('mailbox.php')->link() . $mbox->display . '</a>';
+                $label = $mbox->url('mailbox.php')->link() . $mbox->display_html . '</a>';
                 if (!empty($mbox_status['unseen'])) {
                     $label = '<strong>' . $label . '</strong>';
                     $anyUnseen = true;

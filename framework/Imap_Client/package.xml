@@ -10,11 +10,11 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-12-06</date>
- <time>01:47:13</time>
+ <date>2012-02-06</date>
+ <time>00:55:05</time>
  <version>
-  <release>1.3.0</release>
-  <api>1.2.0</api>
+  <release>1.5.0</release>
+  <api>1.5.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -22,8 +22,10 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Work around broken headers in IMAP envelope data.
-* [mms] Remove Cclient drivers.
+* [mms] Do case-insensitive check for NIL in IMAP data.
+* [mms] Correctly support RFC 822 groups in envelope data.
+* [mms] Envelope address data now returned as Horde_Mail_Rfc822_Address objects.
+* [mms] Other places where bodystructure may return literals.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -57,6 +59,9 @@
         <file name="Fetch.php" role="php" />
         <file name="Thread.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Data -->
+       <dir name="Exception">
+        <file name="NoSupportExtension.php" role="php" />
+       </dir> <!-- /lib/Horde/Imap/Client/Exception -->
        <dir name="Fetch">
         <file name="Query.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Fetch -->
@@ -80,6 +85,9 @@
        <file name="Mailbox.php" role="php" />
        <file name="Socket.php" role="php" />
        <file name="Sort.php" role="php" />
+       <file name="Translation.php" role="php">
+         <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+       </file>
        <file name="Utf7imap.php" role="php" />
        <file name="Utils.php" role="php" />
       </dir> <!-- /lib/Horde/Imap/Client -->
@@ -87,6 +95,21 @@
      </dir> <!-- /lib/Horde/Imap -->
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="locale">
+    <dir name="de">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Imap_Client.mo" role="data" />
+      <file name="Horde_Imap_Client.po" role="data" />
+     </dir> <!-- /locale/de/LC_MESSAGES -->
+    </dir> <!-- /locale/de -->
+    <dir name="es">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Imap_Client.mo" role="data" />
+      <file name="Horde_Imap_Client.po" role="data" />
+     </dir> <!-- /locale/es/LC_MESSAGES -->
+    </dir> <!-- /locale/es -->
+    <file name="Horde_Imap_Client.pot" role="data" />
+   </dir> <!-- /locale -->
    <dir name="test">
     <dir name="Horde">
      <dir name="Imap">
@@ -132,6 +155,13 @@
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Mail</name>
+    <channel>pear.horde.org</channel>
+    <min>1.1.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -200,6 +230,7 @@
    <install as="Horde/Imap/Client/Mailbox.php" name="lib/Horde/Imap/Client/Mailbox.php" />
    <install as="Horde/Imap/Client/Socket.php" name="lib/Horde/Imap/Client/Socket.php" />
    <install as="Horde/Imap/Client/Sort.php" name="lib/Horde/Imap/Client/Sort.php" />
+   <install as="Horde/Imap/Client/Translation.php" name="lib/Horde/Imap/Client/Translation.php" />
    <install as="Horde/Imap/Client/Utf7imap.php" name="lib/Horde/Imap/Client/Utf7imap.php" />
    <install as="Horde/Imap/Client/Utils.php" name="lib/Horde/Imap/Client/Utils.php" />
    <install as="Horde/Imap/Client/Auth/DigestMD5.php" name="lib/Horde/Imap/Client/Auth/DigestMD5.php" />
@@ -211,11 +242,17 @@
    <install as="Horde/Imap/Client/Data/Fetch.php" name="lib/Horde/Imap/Client/Data/Fetch.php" />
    <install as="Horde/Imap/Client/Data/Thread.php" name="lib/Horde/Imap/Client/Data/Thread.php" />
    <install as="Horde/Imap/Client/Data/Fetch/Pop3.php" name="lib/Horde/Imap/Client/Data/Fetch/Pop3.php" />
+   <install as="Horde/Imap/Client/Exception/NoSupportExtension.php" name="lib/Horde/Imap/Client/Exception/NoSupportExtension.php" />
    <install as="Horde/Imap/Client/Fetch/Query.php" name="lib/Horde/Imap/Client/Fetch/Query.php" />
    <install as="Horde/Imap/Client/Ids/Pop3.php" name="lib/Horde/Imap/Client/Ids/Pop3.php" />
    <install as="Horde/Imap/Client/Search/Query.php" name="lib/Horde/Imap/Client/Search/Query.php" />
    <install as="Horde/Imap/Client/Socket/Pop3.php" name="lib/Horde/Imap/Client/Socket/Pop3.php" />
    <install as="Horde/Imap/Client/Utils/Pop3.php" name="lib/Horde/Imap/Client/Utils/Pop3.php" />
+   <install as="locale/Horde_Imap_Client.pot" name="locale/Horde_Imap_Client.pot" />
+   <install as="locale/de/LC_MESSAGES/Horde_Imap_Client.mo" name="locale/de/LC_MESSAGES/Horde_Imap_Client.mo" />
+   <install as="locale/de/LC_MESSAGES/Horde_Imap_Client.po" name="locale/de/LC_MESSAGES/Horde_Imap_Client.po" />
+   <install as="locale/es/LC_MESSAGES/Horde_Imap_Client.mo" name="locale/es/LC_MESSAGES/Horde_Imap_Client.mo" />
+   <install as="locale/es/LC_MESSAGES/Horde_Imap_Client.po" name="locale/es/LC_MESSAGES/Horde_Imap_Client.po" />
    <install as="Horde/Imap/Client/AclTest.php" name="test/Horde/Imap/Client/AclTest.php" />
    <install as="Horde/Imap/Client/AllTests.php" name="test/Horde/Imap/Client/AllTests.php" />
    <install as="Horde/Imap/Client/AuthTest.php" name="test/Horde/Imap/Client/AuthTest.php" />
@@ -625,11 +662,129 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-22</date>
+   <date>2011-12-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Work around broken headers in IMAP envelope data.
 * [mms] Remove Cclient drivers.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.3.1</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-21</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] LIST-STATUS does not depend on LIST-EXTENDED.
+* [mms] Add dependency checking for capabilities.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.3.2</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-01-17</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Allow multiple date searches to be specified in a single AND search query.
+* [mms] Fix deleting cached mailbox when mailbox name is given as an object.
+* [mms] Fix &apos;changedsince&apos; and &apos;vanished&apos; parameters&apos; in the fetch() command (Bug #10915).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.4.0</release>
+    <api>1.4.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-01-31</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Add German translation.
+* [jan] Add Spanish translation (Manuel P. Ayala &lt;mayala@unex.es&gt;).
+* [mms] Implement more efficient serialization for Thread data objects.
+* [mms] Move server debug information from exception error message to &apos;details&apos; property of exception object.
+* [mms] Fix METADATA_TOOMANY and METADATA_NOPRIVATE exception codes.
+* [mms] All user-directed exception messages are now translated.
+* [mms] Added Horde_Imap_Client_Exception_NoSupportExtension.
+* [mms] Incorrect method calls now throw SPL errors instead of Horde_Imap_Client_Exceptions.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.4.1</release>
+    <api>1.4.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-01-31</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix translations when installed through PEAR.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.4.2</release>
+    <api>1.4.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-02-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Fix objects where the password is not being encrypted (Bug #10950).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.4.3</release>
+    <api>1.4.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-02-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Workaround non-ASCII data in bodystructure return from IMAP server.
+* [mms] Fix several faulty translation strings (Bug #10958).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.4.4</release>
+    <api>1.4.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-02-12</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Re-release of 1.4.3 due to broken PEAR .tgz package.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.5.0</release>
+    <api>1.5.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-02-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Do case-insensitive check for NIL in IMAP data.
+* [mms] Correctly support RFC 822 groups in envelope data.
+* [mms] Envelope address data now returned as Horde_Mail_Rfc822_Address objects.
+* [mms] Other places where bodystructure may return literals.
    </notes>
   </release>
  </changelog>

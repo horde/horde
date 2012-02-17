@@ -2,7 +2,7 @@
 /**
  * Dynamic (dimp) message list logic.
  *
- * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -32,9 +32,11 @@ class IMP_Views_ListMessages
      *   - change: (boolean)
      *   - initial: (boolean) Is this the initial load of the view?
      *   - mbox: (string) The mailbox of the view.
+     *   - qsearch: (boolean) Is this a quicksearch?
+     *   - qsearchfield: (string) The quicksearch search criteria.
      *   - qsearchmbox: (string) The mailbox to do the quicksearch in
      *                  (base64url encoded).
-     *   - qsearchfilter
+     *   - qsearchfilter: TODO
      *
      * @return array  TODO
      */
@@ -66,15 +68,15 @@ class IMP_Views_ListMessages
 
                     $is_search = true;
                 } elseif (strlen($args['qsearch'])) {
-                    $field = $GLOBALS['prefs']->getValue('dimp_qsearch_field');
+                    $GLOBALS['prefs']->setValue('dimp_qsearch_field', $args['qsearchfield']);
                     $is_search = true;
 
-                    switch ($field) {
+                    switch ($args['qsearchfield']) {
                     case 'all':
                     case 'body':
                         $c_list[] = new IMP_Search_Element_Text(
                             $args['qsearch'],
-                            ($field == 'body')
+                            ($args['qsearchfield'] == 'body')
                         );
                         break;
 
@@ -82,7 +84,7 @@ class IMP_Views_ListMessages
                     case 'subject':
                         $c_list[] = new IMP_Search_Element_Header(
                             $args['qsearch'],
-                            $field
+                            $args['qsearchfield']
                         );
                     break;
 
@@ -167,8 +169,8 @@ class IMP_Views_ListMessages
         /* Mail-specific viewport information. */
         $md = &$result->metadata;
         if (($args['initial'] ||
-             !is_null($args['sortby']) ||
-             !is_null($args['sortdir'])) &&
+             $args['delhide'] ||
+             !is_null($args['sortby'])) &&
             $mbox->hideDeletedMsgs(true)) {
             $md->delhide = 1;
         }
@@ -266,10 +268,16 @@ class IMP_Views_ListMessages
         /* Get the cached list. */
         $cached = array();
         if (!empty($args['cache'])) {
-            $cached = $imp_imap->getUtils()->fromSequenceString($args['cache']);
-            $cached = $is_search
-                ? array_flip($cached)
-                : array_flip(reset($cached));
+            foreach ($imp_imap->getUtils()->fromSequenceString($args['cache']) as $key => $uids) {
+                $key = IMP_Mailbox::formFrom($key);
+
+                foreach ($uids as $val) {
+                    $cached[] = $is_search
+                        ? $this->searchUid($key, $val)
+                        : $val;
+                }
+            }
+            $cached = array_flip($cached);
         }
 
         if (!empty($args['search_unseen'])) {
@@ -282,14 +290,14 @@ class IMP_Views_ListMessages
             }
             $rownum = $mailbox_list->getArrayIndex(reset($uid_search));
         } elseif (!empty($args['search_uid'])) {
-            $rownum = $mailbox_list->getArrayIndex($args['search_uid'], $args['search_mbox']);
-        } else {
-            /* If this is the initial request for a mailbox, figure out the
-             * starting location based on user's preferences. */
-            $rownum = $initial
+            $rownum = $mailbox_list->getArrayIndex($args['search_uid'], $mbox);
+        }
+
+        /* If this is the initial request for a mailbox, figure out the
+         * starting location based on user's preferences. */
+        $rownum = ($initial || (isset($rownum) && is_null($rownum)))
                 ? intval($mailbox_list->mailboxStart($msgcount))
                 : null;
-        }
 
         /* Determine the row slice to process. */
         if (is_null($rownum)) {

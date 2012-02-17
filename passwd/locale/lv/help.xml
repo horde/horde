@@ -1,41 +1,41 @@
-<?xml version='1.0'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
-  <entry id="passwd-username">
+  <entry id="passwd-username" state="uptodate" md5="2890a9812d76074ffb3e35957eea967d">
     <title>Username</title>
     <para>Enter your username here (if it is not already prefilled). Not all
     installations support this.</para>
   </entry>
-  <entry id="passwd-old-password">
+  <entry id="passwd-old-password" state="uptodate" md5="5e55cb125b5778caaf1a51afca92ab59">
     <title>Old password</title>
     <para>Enter your current, working login password here. You must correctly
     enter your current login password, or you cannot change your
     password.</para>
   </entry>
-  <entry id="passwd-new-password">
+  <entry id="passwd-new-password" state="uptodate" md5="8fe6f2254a9d10984fa8ba876f148b53">
     <title>New password</title>
     <para>Enter the new password, that is what you want to change your
     password to. Note that the password entered must meet some minimum
     standards (sufficient length, not match your username, have a combination
     of letters and other characters, etc) or you will get an error.</para>
   </entry>
-  <entry id="passwd-confirm-password">
+  <entry id="passwd-confirm-password" state="uptodate" md5="38caae4b775cceda60bbc3c183a78fcb">
     <title>Confirm new password</title>
     <para>Enter the new password a second time in the Confirm New Password
     area. This is to make sure you don't make a typo or other mistake and
     lock you out of your account.</para>
   </entry>
-  <entry id="passwd-server">
+  <entry id="passwd-server" state="uptodate" md5="164edb880db7297eb259816ea42c0f8f">
     <title>Change password on</title>
     <para>Select the server or application in which you want to change the
     password. Not all installations support this.</para>
   </entry>
-  <entry id="Change-your-password">
+  <entry id="Change-your-password" state="uptodate" md5="186993a347a9ad4d9cd2cbeead7f6e4e">
     <title>Change password</title>
     <para>Press the "Change your password" button at the bottom of the form
     to submit your password request change to the system. This button tells
     the system to actually change your password.</para>
   </entry>
-  <entry id="reset">
+  <entry id="reset" state="uptodate" md5="87302fbc89b897c8d78445eb3e624d5e">
     <title>Reset</title>
     <para>Use the Reset button at the bottom of the form to clear any form
     data that you have entered and start over.</para>

@@ -2,14 +2,14 @@
 /**
  * Turba directory driver implementation for an IMSP server.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you did
- * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author   Michael Rubinsky <mrubinsk@horde.org>
  * @category Horde
- * @license  http://www.horde.org/licenses/asl.php ASL
+ * @license  http://www.horde.org/licenses/apache ASL
  * @package  Turba
  */
 class Turba_Driver_Imsp extends Turba_Driver
@@ -132,19 +132,20 @@ class Turba_Driver_Imsp extends Turba_Driver
     }
 
     /**
-     * Reads the given data from the IMSP server and returns the
-     * results.
+     * Reads the given data from the address book and returns the results.
      *
-     * @param string $key    The primary key field to use (always 'name' for
-     *                       IMSP).
-     * @param mixed $ids     The ids of the contacts to load.
-     * @param string $owner  Only return contacts owned by this user.
-     * @param array $fields  List of fields to return.
+     * @param string $key        The primary key field to use (always 'name'
+                                 for IMSP).
+     * @param mixed $ids         The ids of the contacts to load.
+     * @param string $owner      Only return contacts owned by this user.
+     * @param array $fields      List of fields to return.
+     * @param array $blobFields  Array of fields containing binary data.
      *
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
-    protected function _read($key, $ids, $owner, $fields)
+    protected function _read($key, $ids, $owner, array $fields,
+                             array $blobFields = array())
     {
         $results = array();
 

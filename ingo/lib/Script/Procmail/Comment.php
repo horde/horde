@@ -5,10 +5,10 @@
  * cleaner as it provides a generate() function and can be added to the
  * recipe list the same way as a recipe can be.
  *
- * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
- * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author  Ben Chavet <ben@horde.org>
  * @package Ingo

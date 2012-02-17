@@ -2,7 +2,7 @@
 /**
  * Login tasks module that renames sent-mail mailboxes every month.
  *
- * Copyright 2001-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -101,7 +101,7 @@ class IMP_LoginTasks_Task_RenameSentmailMonthly extends Horde_LoginTasks_Task
         $mbox_list = array();
 
         foreach ($this->_getSentmail() as $mbox) {
-            $mbox_list[] = $mbox->display;
+            $mbox_list[] = $mbox->display_html;
         }
 
         return sprintf(_("The current sent-mail mailbox(es) \"%s\" will be renamed."), implode(', ', $mbox_list));

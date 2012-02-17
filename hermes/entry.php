@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -90,5 +90,5 @@ $title = $vars->exists('id') ? _("Edit Time") : _("New Time");
 require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
-$form->renderActive(new Horde_Form_Renderer(), $vars, 'entry.php', 'post');
+$form->renderActive(new Horde_Form_Renderer(), $vars, Horde::url('entry.php'), 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

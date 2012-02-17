@@ -1,10 +1,10 @@
 /**
  * Provides the javascript for the search.php script (basic view).
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
- * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author Jan Schneider <jan@horde.org>
  */
@@ -16,19 +16,19 @@ TurbaSearch = {
 
     updateCriteria: function()
     {
-        if (!$('turbaSearchSource').options) {
+        var source_elt = $('turbaSearchSource');
+
+        if (!source_elt || !source_elt.options) {
             return;
         }
 
-        var source = $F('turbaSearchSource');
-
         $('turbaSearchCriteria').update();
-        $H(this.criteria[source]).each(function(criterion) {
+        $H(this.criteria[$F(source_elt)]).each(function(criterion) {
             $('turbaSearchCriteria').insert(new Element('option', { value: criterion.key }).insert(criterion.value.escapeHTML()));
         });
 
         if ($('vbook-form')) {
-            if (this.shareSources[source] == true) {
+            if (this.shareSources[$F(source_elt)] == true) {
                 $('vbook-form').show();
             } else {
                 $('vbook-form').hide();

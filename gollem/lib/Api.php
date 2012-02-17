@@ -5,7 +5,7 @@
  * This file defines Gollem's external API interface. Other applications
  * can interact with Gollem through this API.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -41,11 +41,9 @@ class Gollem_Api extends Horde_Registry_Api
         if ($path == '') {
             // We are at the root of gollem.  Return a set of folders, one for
             // each backend available.
-            foreach ($backends as $backend => $curBackend) {
-                if (Gollem::checkPermissions('backend', Horde_Perms::SHOW, $backend)) {
-                    $results['gollem/' . $backend]['name'] = $curBackend['name'];
-                    $results['gollem/' . $backend]['browseable'] = true;
-                }
+            foreach (Gollem_Auth::getBackend() as $backend => $curBackend) {
+                $results['gollem/' . $backend]['name'] = $curBackend['name'];
+                $results['gollem/' . $backend]['browseable'] = true;
             }
         } else {
             $backend_key = $this->_getBackend($path);

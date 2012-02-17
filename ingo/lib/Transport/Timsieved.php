@@ -3,10 +3,10 @@
  * Ingo_Transport_Timsieved implements the Sieve_Driver api to allow scripts
  * to be installed and set active via a Cyrus timsieved server.
  *
- * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
- * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
  * @author  Jan Schneider <jan@horde.org>

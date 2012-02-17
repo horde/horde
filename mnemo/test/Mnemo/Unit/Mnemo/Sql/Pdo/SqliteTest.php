@@ -9,7 +9,7 @@
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @link       http://www.horde.org/apps/mnemo
- * @license    http://www.horde.org/licenses/asl.php
+ * @license    http://www.horde.org/licenses/apache
  */
 
 /**
@@ -20,17 +20,17 @@ require_once dirname(__FILE__) . '/../../../../Autoload.php';
 /**
  * Test the core Mnemo driver with a sqlite DB.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
- * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @category   Horde
  * @package    Mnemo
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @link       http://www.horde.org/apps/mnemo
- * @license    http://www.horde.org/licenses/asl.php
+ * @license    http://www.horde.org/licenses/apache
  */
 class Mnemo_Unit_Mnemo_Sql_Pdo_SqliteTest extends Mnemo_Unit_Mnemo_Sql_Base
 {

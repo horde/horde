@@ -2,7 +2,7 @@
 /**
  * Traditional (imp) mailbox display page.
  *
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -83,7 +83,7 @@ if ($actionID && ($actionID != 'message_missing')) {
  * the RECENT flag. */
 if (!$search_mbox) {
     try {
-        $imp_imap->ob->openMailbox(IMP::$mailbox, Horde_Imap_Client::OPEN_READWRITE);
+        $imp_imap->openMailbox(IMP::$mailbox, Horde_Imap_Client::OPEN_READWRITE);
     } catch (IMP_Imap_Exception $e) {
         $actionID = null;
     }
@@ -717,7 +717,7 @@ foreach ($headers as $key => $val) {
             'sortby' => $key
         )), $val['stext'], 'widget', null, null, $val['text']);
     } else {
-        $ptr['change_sort_widget'] = Horde::highlightAccessKey($val['text']);
+        $ptr['change_sort_widget'] = Horde::stripAccessKey($val['text']);
     }
 }
 
@@ -759,7 +759,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
             $mbox = IMP_Mailbox::get($ob['mailbox']);
 
             $folder_link = $mailbox_url->copy()->add('mailbox', IMP::base64urlEncode($ob['mailbox']));
-            $folder_link = Horde::link($folder_link, sprintf(_("View messages in %s"), $mbox->display), 'smallheader') . $mbox->display . '</a>';
+            $folder_link = Horde::link($folder_link, sprintf(_("View messages in %s"), $mbox->display), 'smallheader') . $mbox->display_html . '</a>';
             if (is_null($search_template)) {
                 $search_template = $injector->createInstance('Horde_Template');
             }
@@ -852,7 +852,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     switch ($fromlinkstyle) {
     case 0:
         if (!$getfrom['error']) {
-            $msg['from'] = Horde::link(IMP::composeLink(array(), array('actionID' => 'mailto', 'thismailbox' => $ob['mailbox'], 'uid' => $ob['uid'], 'mailto' => $getfrom['to'])), sprintf(_("New Message to %s"), $msg['fullfrom'])) . $msg['from'] . '</a>';
+            $msg['from'] = call_user_func_array(array('Horde', $preview_tooltip ? 'linkTooltip' : 'link'), IMP::composeLink(array(), array('actionID' => 'mailto', 'thismailbox' => $ob['mailbox'], 'uid' => $ob['uid'], 'mailto' => $getfrom['to'])), sprintf(_("New Message to %s"), $msg['fullfrom']));
         }
         break;
 

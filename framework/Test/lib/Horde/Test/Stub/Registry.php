@@ -14,7 +14,7 @@
 /**
  * A test replacement for Horde_Registry.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -121,5 +121,28 @@ class Horde_Test_Stub_Registry
     public function getApp()
     {
         return $this->_app;
+    }
+
+    /**
+     * Determine if an interface is implemented by an active application.
+     *
+     * @param string $interface  The interface to check for.
+     *
+     * @return mixed  The application implementing $interface if we have it,
+     *                false if the interface is not implemented.
+     */
+    public function hasInterface($interface)
+    {
+        return false;
+    }
+
+    /**
+     * Returns all available registry APIs.
+     *
+     * @return array  The API list.
+     */
+    public function listAPIs()
+    {
+        return array();
     }
 }

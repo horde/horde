@@ -3,7 +3,7 @@
  * This Ulaform script allows for the fields in a form to be sorted in
  * a specific order, using the standard Horde_Form sorter field.
  *
- * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -46,7 +46,7 @@ if ($formname) {
 /* Render the form. */
 $view = new Horde_View(array('templatePath' => ULAFORM_TEMPLATES));
 Horde::startBuffer();
-$sortform->renderActive(new Horde_Form_Renderer(), $vars, 'sortfields.php', 'post');
+$sortform->renderActive(new Horde_Form_Renderer(), $vars, Horde::url('sortfields.php'), 'post');
 $view->main = Horde::endBuffer();
 
 require $registry->get('templates', 'horde') . '/common-header.inc';

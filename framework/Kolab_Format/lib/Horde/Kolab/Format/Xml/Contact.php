@@ -56,8 +56,8 @@ class Horde_Kolab_Format_Xml_Contact extends Horde_Kolab_Format_Xml
         'assistant'         => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
         'nick-name'         => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
         'spouse-name'       => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
-        'birthday'          => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
-        'anniversary'       => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
+        'birthday'          => 'Horde_Kolab_Format_Xml_Type_Date',
+        'anniversary'       => 'Horde_Kolab_Format_Xml_Type_Date',
         'picture'           => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
         'children'          => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
         'gender'            => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
@@ -68,10 +68,5 @@ class Horde_Kolab_Format_Xml_Contact extends Horde_Kolab_Format_Xml
         'preferred-address' => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
         'latitude'          => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
         'longitude'         => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
-        // Horde specific fields
-        'pgp-publickey'     => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
-        // Support for broken clients
-        'website'           => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
-        'im-adress'         => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
     );
 }

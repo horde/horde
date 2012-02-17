@@ -1,7 +1,276 @@
 ----------
-v4.0.5-git
+v4.0.7-git
 ----------
 
+
+
+------
+v4.0.6
+------
+
+Mail Changes
+------------
+[mms] SECURITY: Fix XSS vulnerabilities on the compose page (traditional
+      view), the contacts popup window, and with certain IMAP mailbox names.
+[mms] Fix updating context menu when a mailbox is converted into a container
+      element after being deleted.
+[mms] Fix expand/collapse of folder tree in mobile view.
+[mms] Fix regression preventing sending of MDNs.
+[mms] Fix reporting as innocent in mobile view.
+[mms] Fix updating log information when replying/forwarding in dynamic view.
+[mms] Fix deleting virtual folders in dynamic view.
+[mms] Cache message headers during a page access.
+[mms] Fix adding submailboxes to last mailbox in a level in dynamic view.
+[mms] Fix display of numerically-named mailboxes on IMAP servers without the
+      LIST-EXTENDED IMAP capability (Bug #10869).
+[mms] Fix attachment detection search filter.
+[mms] Fix editing date search elements.
+[mms] Allow creation of the mailbox '0' (Bug #10866).
+[mms] Correctly handle numeric mailbox names.
+[mms] Fix display of mailbox names living under special mailboxes (Bug #10802).
+[mms] Fix broken Hide/Purge Deleted links in traditional view (Bug #10860).
+[mms] Fix issue in dynamic mailbox view with thread sorting and a reset of
+      mailbox metadata (Bug #10835).
+[mms] Fix message redirection regression in dynamic view (Bug #10859).
+
+Address Book Changes
+--------------------
+[jan] Set VOICE parameter when exporting phone numbers to vCard (Request
+      #10349).
+[jan] Fix importing vCards with empty X-ANNIVERSARY attributes (Bug #10557).
+[jan] Update Japanese translation (Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>).
+
+Calendar Changes
+----------------
+[mjr] Fix bug that could cause incorrect event exceptions to be created when
+      drag and dropping events in month view.
+[jan] Fix page titles not always updating correctly.
+[jan] Display event time in dynamic view if requested (Request #9866).
+[jan] Only show end time if different from start time.
+[jan] Fix day sorting in agenda view.
+[jan] Sort user and group names in permission screen (Request #10896).
+
+Library Changes
+---------------
+ActiveSync
+[mjr] Fix REMOTEWIPE functionality for a number of android and iOS devices.
+[mjr] Fix sending meeting request emails when creating a meeting.
+[mjr] Fix retrieving the body of SENDMAIL requests.
+[mjr] Fix parsing birthday strings on certain android 2.2 clients.
+[mjr] Improve support for Android device provisioning.
+[mjr] Improve support for timezones in appointments originating on the client.
+[mjr] Improve performance when working with timezones on PHP 5.3+
+
+Core
+[mjr] Fix implementation of SENDMAIL ActiveSync command. Fixes sending of
+      meeting requests from device.
+[mjr] Fix issue that caused ActiveSync failure when using device specific
+      logging in certain cases.
+[mms] Fix merging config data (Bug #10381).
+
+Date
+[mjr] Fix creating recurrence objects with a timezone other than the current
+      default.
+
+Form
+[mms] SECURITY: Fix XSS vulnerability in email validation.
+
+Icalendar
+[jan] Fix compatibility with Horde_SyncMl (Bug #10908).
+[jan] Allow to pass multiple parameter values in setAttribute() (Bug #7248).
+
+Imap_Client
+[mms] Allow multiple date searches to be specified in a single AND search query.
+[mms] Fix deleting cached mailbox when mailbox name is given as an object.
+[mms] Fix 'changedsince' and 'vanished' parameters' in the fetch() command (Bug
+      #10915).
+[mms] LIST-STATUS does not depend on LIST-EXTENDED.
+[mms] Add dependency checking for capabilities.
+
+Kolab_Format
+[gwr] Fixed datatype for birthday and anniversary contact attributes.
+[gwr] Completed missing data API v1 support.
+
+Mail
+[mms] Fix line-endings for transport drivers that send messages using local
+      tools/programs.
+
+Mime
+[jan] Improve compatibility with some broken text MIME parts (Bug #10925).
+
+Service_Weather
+[mjr] Add snow and rain totals to wunderground driver.
+[mjr] Fix using IP addresses for determining forecast location (Bug #10857)
+
+SyncMl
+[jan] Fix undefined method while synchronizing events with Funambol (Bug
+      #10908).
+[jan] Catch exceptions when changing or retrieving objects from the
+      applications.
+
+Template
+[mms] Need to cache gettext-enabled templates with language information in the
+      cache ID (Bug #10872).
+
+Util
+[mms] Add Horde_Variables#filter().
+
+
+------
+v4.0.5
+------
+
+[jan] Update Dutch translation (Arjen de Korte <build+horde@de-korte.org>,
+      Pieterjan Heyse <pieterjan.heyse@scheppers-wetteren.be>).
+[jan] Update Japanese translation (Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>).
+
+Horde Changes
+-------------
+[jan] Make the lifetime of cached weather information configurable (Arjen de
+      Korte, Request #10848).
+[mjr] Improve layout of weather block.
+
+Mail Changes
+------------
+[jan] Use locale based folder sorting.
+[mms] Workaround broken PGP signed data contained within encrypted parts (Bug
+      #10809).
+[mms] Fix signature verification display for combined encrypted/signed PGP
+      messages.
+[mms] Add option to edit ACLs when right-clicking mailbox in dynamic view
+      (Request #8060).
+[mms] Allow multiple messages to be redirected from traditional view mailbox
+      page (Request #2084).
+[mms] Add ability to quickly add unsubscribed mailboxes to available search
+      mailboxes in advanced search (Request #10832).
+[mms] Don't list parent mailboxes after child mailboxes (Bug #10802).
+[mms] Fix setting compose message body on IE 9 in dynamic view.
+[mms] Redirect to login page if IMAP credentials are lost somehow during the
+      session.
+[mms] Fix 'server' credential in preauthenticate hook.
+[jan] Fix updating events from attendee responses (Bug #10772).
+[mms] Correctly apply default mail_domain value in all places it is needed.
+[mms] Correctly save mail_domain value if changed in preferences UI.
+[mms] Purge browser cache daily in dynamic view; updates time stamps to proper
+      format (Request #9773).
+
+Filters Changes
+---------------
+[jan] Set Return-Path: in Maildrop vacation driver (rsalmon@mbpgroup.com, Bug
+      #10568).
+
+Calendar Changes
+----------------
+[jan] Hide disabled calendar sections (Bug #9815).
+[gwr] Fixed recurrence handling with the Kolab backend.
+[gwr] Fixed naming of the default calendar for the Kolab backend.
+[gwr] Fixed deleting events with the Kolab backend.
+[gwr] Fixed migrations for SQLite as database backend.
+[mjr] Fix keyboard navigation of time entry fields in dynamic view (Bug
+      #10799).
+[mjr] Fix parsing display_cal variables for internal calendar links on various
+      blocks and embedded imples (Bug #10767).
+[mjr] Fix adding events directly to a resource's calendar (Bug #10827).
+[mjr] Fix regression introduced in 3.0.12 that broke checking a Resource's
+      availability in certain cases (Bug #10806).
+[jan] Don't fail on empty CalDAV calendars (christof@buergi.lugs.ch, Bug
+      #10739).
+[jan] Check permissions when building application drop down
+      (sberthelot@emisfr.com, Bug #10811).
+[gwr] Fix saving Kolab events.
+
+Tasks Changes
+-------------
+[jan] Fix setting custom alarm methods (Bug #9543).
+
+Notes Changes
+-------------
+[jan] Use locale based sorting.
+[jan] Fix remembering the expansion state of the notepads panel (Bug #10797).
+
+Library Changes
+---------------
+
+ActiveSync
+[mjr] Increase field length for sync_data to support syncing large collections
+      (Bug #10822).
+[jan] Fix tests to work with PHPUnit 3.6.
+
+Alarm
+[jan] Catch exceptions from Horde_Mime when sending alarm messages (Bug #10388).
+
+Auth
+[jan] Add Latvian translation (Jānis Eisaks <jancs@dv.lv>).
+
+Core
+[mjr] Allow separate ActiveSync logs per device.
+[jan] Make the lifetime of cached weather information configurable (Arjen de
+      Korte, Request #10848).
+[gwr] Fixed hiding menu entries that should not be displayed to admin.
+[gwr] Fixed Kolab anonymous bind.
+
+Crypt
+[mms] Provide signature information when decrypting a message, rather than just
+      a boolean result.
+[mms] Fix displaying PGP key expiration information.
+[mms] Allow expiration date to be given to Horde_Crypt_Pgp#generateKey()
+      (Request #5754).
+
+Data
+[mjr] Allow applications to extend Horde_Data_Base objects.
+
+Date
+[mjr] Fix issue with creating Horde_Date from DateTime object with explicit
+      timezone set.
+[gwr] Fix the parsing of recurrence hash data.
+
+Date_Parser
+[jan] Correctly parse "nacht" in German (Bug #10511).
+
+Db
+[gwr] Alternative API to support modified dates with SQLite as well.
+[mjr] Add support for mediumtext and longtext field types.
+
+Imap_Client
+[mms] Work around broken headers in IMAP envelope data.
+[mms] Remove Cclient drivers.
+
+Mime
+[mms] Allow Horde_Mime_Part::getRawPartText() to accept stream input.
+[mms] Workaround incoming message data to Horde_Mime_Part::getRawPartText()
+      that contains varying EOL characters (Bug #10809).
+[mms] Fix detection of MIME boundaries at beginning of string (Bug #10809).
+[mms] Abstract charset detection code out into
+      Horde_Mime_Headers::sanityCheck().
+[mms] Improved detection of charsets in broken (8-bit) MIME headers.
+[mms] Fix for broken 8BITMIME/BINARYMIME SMTP capability detection
+      (christof@buergi.lugs.ch, Bug #10820).
+
+Prefs
+[jan] Catch exceptions from storage writing during shutdown.
+[jan] Use binary column type for preference values (Bug #10803).
+
+Service_Weather
+[mjr] Use longer cache lifetime for non-changing values (Request #10851).
+[mjr] Export available detailed forecast fields for each driver (Bug #10813).
+[mjr] Fix returning correct units when requesting the same location twice, but
+      with different units (Bug #10804).
+[mjr] Fix returning localized text from Wwo driver (Bug #10804).
+[mjr] Fix obtaining forecast periods individually..
+[mjr] Fix obtaining certain properties from Google driver.
+[mjr] Fix making requests when not using a cache.
+[mjr] Fix path to locale directory.
+[mjr] Fix setting units (Bug #10792).
+
+Text_Filter
+[mms] Fix unnecessary use of POSIX collating element in Linkurls filter
+      (jr@yaina.de, Bug #10828).
+
+Token
+[jan] Fix translation (Bug #10831).
+
+Util
+[mms] Add Horde_String::validUtf8().
 
 
 ------
@@ -132,7 +401,6 @@ Tasks Changes
 
 Library Changes
 ---------------
-
 [jan] Fix tests to work with PHPUnit 3.6.
 [jan] Make unit tests Windows compatible.
 [jan] Skip Kolab tests if Horde_Kolab_Storage is not installed.
@@ -232,8 +500,8 @@ Imap_Client
 [mms] API CHANGE: Deprecate Horde_Imap_Client_Cache::singleton().
 [mms] Fix client-side Cc/From/To sorting (Bug #10503).
 [mms] Improved IMAP debug logging.
-[mms] Fix search charset determination for servers that support SORT &amp;
-      ESORT (Bug #10479).
+[mms] Fix search charset determination for servers that support SORT & ESORT
+      (Bug #10479).
 [mms] Improved phpdoc documentation.
 [mms] API CHANGE: Add shortcuts to get MIME decoded envelope information.
 [mms] Automatically authenticate to server when using a command that requires

@@ -82,7 +82,7 @@ if ($form->validate()) {
 /* Render the form. */
 $renderer = new Horde_Core_Form_Renderer_Html();
 //$renderer->setButtons(_("Add user"), _("Reset"));
-$renderer->renderActive($form, 'test.php', 'post');
+$renderer->renderActive($form, Horde::url('test.php'), 'post');
 
 ?>
 </body>

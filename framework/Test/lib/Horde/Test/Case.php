@@ -15,7 +15,7 @@
 /**
  * Basic Horde test case helper.
  *
- * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -47,6 +47,7 @@ class Horde_Test_Case extends PHPUnit_Framework_TestCase
      * file from the same directory as the test case.
      *
      * @param string $env     An environment variable name.
+     * @param string $path    The path to use.
      * @param array $default  Some default values that are merged into the
      *                        configuration if specified as a json hash.
      *

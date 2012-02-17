@@ -2,7 +2,7 @@
 /**
  * @package Alarm
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -18,9 +18,9 @@
 class Horde_Alarm_Handler_Notify extends Horde_Alarm_Handler
 {
     /**
-     * A notification handler.
+     * A notification handler injector.
      *
-     * @var Horde_Core_Factory_Notification
+     * @var object
      */
     protected $_notification;
 
@@ -36,8 +36,10 @@ class Horde_Alarm_Handler_Notify extends Horde_Alarm_Handler
      *
      * @param array $params  Any parameters that the handler might need.
      *                       Required parameter:
-     *                       - notification: A notification factory that
-     *                                       implements create().
+     *   - notification: (object) A factory that implements create() and
+     *                   returns a Notification object.
+     *
+     * @throws Horde_Alarm_Exception
      */
     public function __construct(array $params = null)
     {

@@ -4,7 +4,7 @@
  * and provides an option to import the data into a calendar source,
  * if one is available.
  *
- * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -88,7 +88,6 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
             return array(
                 $mime_id => array(
                     'data' => '<h1>' . _("The calendar data is invalid") . '</h1>' . '<pre>' . htmlspecialchars($data) . '</pre>',
-                    'status' => array(),
                     'type' => 'text/html; charset=' . $charset
                 )
             );
@@ -119,15 +118,15 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
                 // vEvent cancellation.
                 if ($registry->hasMethod('calendar/delete')) {
                     $guid = $components[$key]->getAttribute('UID');
-                    $deleteParams = array('guid' => $guid);
+                    $recurrenceId = null;
+
                     try {
-                        $instance = $components[$key]->getAttribute('RECURRENCE-ID');
-                    } catch (Horde_Icalendar_Exception $e) {
                         // This is a cancellation of a recurring event instance.
-                        $deleteParams['recurrenceId'] = $instance;
-                    }
+                        $recurrenceId = $components[$key]->getAttribute('RECURRENCE-ID');
+                    } catch (Horde_Icalendar_Exception $e) {}
+
                     try {
-                        $registry->call('calendar/delete', $deleteParams);
+                        $registry->call('calendar/delete', array('guid' => $guid), $recurrenceId);
                         $msgs[] = array('success', _("Event successfully deleted."));
                     } catch (Horde_Exception $e) {
                         $msgs[] = array('error', _("There was an error deleting the event:") . ' ' . $e->getMessage());
@@ -142,7 +141,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
                 if ($registry->hasMethod('calendar/updateAttendee')) {
                     try {
                         $sender = $this->getConfigParam('imp_contents')
-                            ->getHeaderOb()
+                            ->getHeader()
                             ->getValue('From');
                         $event = $registry->call('calendar/updateAttendee', array('response' => $components[$key], 'sender' => Horde_Mime_Address::bareAddress($sender)));
                         $msgs[] = array('success', _("Respondent Status Updated."));
@@ -301,21 +300,12 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
                     } catch (Horde_Itip_Exception $e) {
                         $msgs[] = array('error', sprintf(_("Error sending reply: %s."), $e->getMessage()));
                     }
-
-                    // Send the reply.
                 } else {
                     $msgs[] = array('warning', _("This action is not supported."));
                 }
                 break;
 
             case 'send':
-                // vEvent refresh.
-                if (isset($components[$key]) &&
-                    $components[$key]->getType() == 'vEvent') {
-                    $vEvent = $components[$key];
-                }
-
-                // vTodo refresh.
             case 'reply':
             case 'reply2m':
                 // vfreebusy request.
@@ -372,14 +362,17 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
                     $vCal->addComponent($vfb_reply);
 
                     $message = _("Attached is a reply to a calendar request you sent.");
-                    $body = new Horde_Mime_Part('text/plain',
-                                          Horde_String::wrap($message, 76),
-                                          $charset);
+                    $body = new Horde_Mime_Part();
+                    $body->setType('text/plain');
+                    $body->setCharset($charset);
+                    $body->setContents(Horde_String::wrap($message, 76));
 
-                    $ics = new Horde_Mime_Part('text/calendar', $vCal->exportvCalendar());
+                    $ics = new Horde_Mime_Part();
+                    $ics->setType('text/calendar');
+                    $ics->setCharset($charset);
+                    $ics->setContents($vCal->exportvCalendar());
                     $ics->setName('icalendar.ics');
                     $ics->setContentTypeParameter('METHOD', 'REPLY');
-                    $ics->setCharset($charset);
 
                     $mime = new Horde_Mime_Part();
                     $mime->addPart($body);
@@ -429,7 +422,6 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
             return array(
                 $mime_id => array(
                     'data' => Horde_String::convertCharset(Horde::escapeJson(Horde::prepareResponse(null, true), array('charset' => $this->getConfigParam('charset'))), $this->getConfigParam('charset'), 'UTF-8'),
-                    'status' => array(),
                     'name' => null,
                     'type' => 'application/json'
                 )
@@ -475,7 +467,6 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
         return array(
             $mime_id => array(
                 'data' => $html,
-                'status' => array(),
                 'type' => 'text/html; charset=' . $charset
             )
         );
@@ -497,7 +488,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
             break;
 
         case 'REQUEST':
-            $hdrs = $this->getConfigParam('imp_contents')->getHeaderOb();
+            $hdrs = $this->getConfigParam('imp_contents')->getHeader();
             $sender = $hdrs->getValue('From');
             $desc = _("%s requests your free/busy information.");
             break;
@@ -652,7 +643,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
             break;
 
         case 'REPLY':
-            $hdrs = $this->getConfigParam('imp_contents')->getHeaderOb();
+            $hdrs = $this->getConfigParam('imp_contents')->getHeader();
             $desc = _("%s has replied to the invitation to \"%s\".");
             $sender = $hdrs->getValue('From');
             if ($registry->hasMethod('calendar/updateAttendee')) {
@@ -794,35 +785,38 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
                 }
                 $events = $registry->call('calendar/listEvents', array($start, $vevent_end, $calendars, false));
 
-                if (count($events)) {
-                    $html .= '<h2 class="smallheader">' . _("Possible Conflicts") . '</h2><table id="itipconflicts">';
-                    // TODO: Check if there are too many events to show.
-                    foreach ($events as $calendar) {
-                        foreach ($calendar as $event) {
-                            if ($event->status == Kronolith::STATUS_CANCELLED ||
-                                $event->status == Kronolith::STATUS_FREE) {
+                // TODO: Check if there are too many events to show.
+                $conflicts = '';
+                foreach ($events as $calendar) {
+                    foreach ($calendar as $event) {
+                        if ($event->status == Kronolith::STATUS_CANCELLED ||
+                            $event->status == Kronolith::STATUS_FREE) {
+                            continue;
+                        }
+                        if ($vevent_allDay || $event->isAllDay()) {
+                            $conflicts .= '<tr class="itipcollision">';
+                        } else {
+                            if ($event->end->compareDateTime($time_span_start) <= -1 ||
+                                $event->start->compareDateTime($time_span_end) >= 1) {
                                 continue;
                             }
-                            if ($vevent_allDay || $event->isAllDay()) {
-                                $html .= '<tr class="itipcollision">';
+                            if ($event->end->compareDateTime($vevent_start) <= -1 ||
+                                $event->start->compareDateTime($vevent_end) >= 1) {
+                                $conflicts .= '<tr class="itipnearcollision">';
                             } else {
-                                if ($event->end->compareDateTime($time_span_start) <= -1 ||
-                                    $event->start->compareDateTime($time_span_end) >= 1) {
-                                    continue;
-                                }
-                                if ($event->end->compareDateTime($vevent_start) <= -1 ||
-                                    $event->start->compareDateTime($vevent_end) >= 1) {
-                                    $html .= '<tr class="itipnearcollision">';
-                                } else {
-                                    $html .= '<tr class="itipcollision">';
-                                }
+                                $conflicts .= '<tr class="itipcollision">';
                             }
-
-                            $html .= '<td>'. $event->getTitle() . '</td><td>'
-                                . $event->getTimeRange() . '</td></tr>';
                         }
+
+                        $conflicts .= '<td>'. $event->getTitle() . '</td><td>'
+                            . $event->getTimeRange() . '</td></tr>';
                     }
-                    $html .= '</table>';
+                }
+                if ($conflicts) {
+                    $html .= '<h2 class="smallheader">'
+                      . _("Possible Conflicts")
+                      . '</h2><table id="itipconflicts">'
+                      . $conflicts . '</table>';
                 }
             } catch (Horde_Exception $e) {}
         }

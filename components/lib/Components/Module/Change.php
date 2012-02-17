@@ -14,7 +14,7 @@
 /**
  * Components_Module_Change:: records a change log entry.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -42,11 +42,19 @@ extends Components_Module_Base
     {
         return array(
             new Horde_Argv_Option(
-                '-n',
-                '--changed',
+                '',
+                '--nochanges',
                 array(
-                    'action' => 'store',
-                    'help'   => 'Store CHANGED as change log entry.'
+                    'action' => 'store_true',
+                    'help'   => 'Don\'t add entry to CHANGES.'
+                )
+            ),
+            new Horde_Argv_Option(
+                '',
+                '--nopackage',
+                array(
+                    'action' => 'store_true',
+                    'help'   => 'Don\'t add entry to package.xml.'
                 )
             ),
         );
@@ -109,6 +117,8 @@ commit message by using "git add ..." before.';
     {
         return array(
             '--commit' => 'Commit the change log entries to git (using the change log entry as commit message).',
+            '--nochanges' => '',
+            '--nopackage' => '',
             '--pretend' => ''
         );
     }

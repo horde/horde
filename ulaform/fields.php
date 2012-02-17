@@ -4,7 +4,7 @@
  * It recognises what extra parameters need to be instered for a particular
  * field and adjusts the form accordingly.
  *
- * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -106,7 +106,7 @@ $view->actions = $actions;
 
 /* Render the form. */
 Horde::startBuffer();
-$fieldform->renderActive(new Horde_Form_Renderer(), $vars, 'fields.php', 'post');
+$fieldform->renderActive(new Horde_Form_Renderer(), $vars, Horde::url('fields.php'), 'post');
 $view->inputform = Horde::endBuffer();
 
 /* Set up the field list. */

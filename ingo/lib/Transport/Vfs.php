@@ -2,10 +2,10 @@
 /**
  * Ingo_Transport_Vfs implements an Ingo storage driver using Horde VFS.
  *
- * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
- * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author  Brent J. Nordquist <bjn@horde.org>
  * @author  Jan Schneider <jan@horde.org>

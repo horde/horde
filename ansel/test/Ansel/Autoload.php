@@ -8,7 +8,7 @@
  * @package    Ansel
  * @subpackage UnitTests
  * @author     Michael J Rubinsky <mrubinsk@horde.org>
- * @license    http://www.horde.org/licenses/asl.php
+ * @license    http://www.horde.org/licenses/gpl GPL-2.0
  * @link       http://www.horde.org/apps/mnemo
  */
 

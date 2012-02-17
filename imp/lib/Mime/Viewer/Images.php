@@ -3,7 +3,7 @@
  * The IMP_Mime_Viewer_Images class allows display of images attached
  * to a message.
  *
- * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -102,7 +102,6 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
             return array(
                 $this->_mimepart->getMimeId() => array(
                     'data' => $this->_outputImgTag('data', $this->_mimepart->getName(true)),
-                    'status' => array(),
                     'type' => 'text/html; charset=' . $this->getConfigParam('charset')
                 )
             );
@@ -110,7 +109,7 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
 
         /* The browser cannot view this image. Inform the user of this and
          * ask user if we should convert to another image type. */
-        $status = array(_("Your browser does not support inline display of this image type."));
+        $status = new IMP_Mime_Status(_("Your browser does not support inline display of this image type."));
 
         /* See if we can convert to an inline browser viewable form. */
         if ($GLOBALS['browser']->hasFeature('javascript')) {
@@ -118,18 +117,14 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
             if ($img &&
                 $GLOBALS['browser']->isViewable($img->getContentType())) {
                 $convert_link = $this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', _("HERE"), array('params' => array('imp_img_view' => 'view_convert')));
-                $status[] = sprintf(_("Click %s to convert the image file into a format your browser can attempt to view."), $convert_link);
+                $status->addText(sprintf(_("Click %s to convert the image file into a format your browser can attempt to view."), $convert_link));
             }
         }
 
         return array(
             $this->_mimepart->getMimeId() => array(
                 'data' => '',
-                'status' => array(
-                    array(
-                        'text' => $status
-                    )
-                ),
+                'status' => $status,
                 'type' => 'text/html; charset=' . $this->getConfigParam('charset')
             )
         );
@@ -147,23 +142,19 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
             return array();
         }
 
-        $status = array(_("This is a thumbnail of an image attachment."));
+        $status = new IMP_Mime_Status(_("This is a thumbnail of an image attachment."));
+        $status->icon('mime/image.png');
 
         if ($GLOBALS['browser']->hasFeature('javascript')) {
-            $status[] = $this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', $this->_outputImgTag('view_thumbnail', _("View Attachment")), null, null, null);
+            $status->addText($this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', $this->_outputImgTag('view_thumbnail', _("View Attachment")), null, null, null));
         } else {
-            $status[] = Horde::link($this->getConfigParam('imp_contents')->urlView($this->_mimepart, 'view_attach')) . $this->_outputImgTag('view_thumbnail', _("View Attachment")) . '</a>';
+            $status->addText(Horde::link($this->getConfigParam('imp_contents')->urlView($this->_mimepart, 'view_attach')) . $this->_outputImgTag('view_thumbnail', _("View Attachment")) . '</a>');
         }
 
         return array(
             $this->_mimepart->getMimeId() => array(
                 'data' => '',
-                'status' => array(
-                    array(
-                        'icon' => Horde::img('mime/image.png'),
-                        'text' => $status
-                    )
-                ),
+                'status' => $status,
                 'type' => 'text/html; charset=' . $this->getConfigParam('charset')
             )
         );
@@ -212,7 +203,6 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
         return array(
             $this->_mimepart->getMimeId() => array(
                 'data' => $data,
-                'status' => array(),
                 'type' => $type
             )
         );

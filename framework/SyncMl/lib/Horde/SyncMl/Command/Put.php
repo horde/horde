@@ -11,7 +11,7 @@
  * The data is stored in a Horde_SyncMl_DeviceInfo object which is defined in
  * Device.php and then stored in Horde_SyncMl_Device as an attribute.
  *
- * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.

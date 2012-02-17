@@ -4,7 +4,7 @@
  * Script to automatically create a new Horde application based on a database
  * table definition.
  *
- * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
  *
  * For license info, see COPYING, for more information and a user guide see
  * README.

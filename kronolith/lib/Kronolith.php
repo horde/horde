@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -152,6 +152,7 @@ class Kronolith
                                          array('d', 'dd', 'ddd', 'dddd', 'MM', 'MMM', 'MMM', 'MMMM', 'yy', 'yyyy'),
                                          Horde_Nls::getLangInfo(D_FMT)),
             'time_format' => $prefs->getValue('twentyFour') ? 'HH:mm' : 'hh:mm tt',
+            'show_time' => self::viewShowTime(),
             'default_alarm' => (int)$prefs->getValue('default_alarm'),
             'status' => array('tentative' => self::STATUS_TENTATIVE,
                               'confirmed' => self::STATUS_CONFIRMED,
@@ -247,6 +248,7 @@ class Kronolith
             'hidelog' => _("Hide Notifications"),
             'growlerinfo' => _("This is the notification backlog"),
             'agenda' => _("Agenda"),
+            'tasks' => _("Tasks"),
             'searching' => sprintf(_("Events matching \"%s\""), '#{term}'),
             'allday' => _("All day"),
             'more' => _("more..."),
@@ -618,7 +620,11 @@ class Kronolith
                 if ($startDate &&
                     $event->start->compareDateTime($startDate) < 0) {
                     /* It started before the beginning of the period. */
-                    $eventStart = clone $startDate;
+                    if ($event->recurs()) {
+                        $eventStart = $event->recurrence->nextRecurrence($startDate);
+                    } else {
+                        $eventStart = clone $startDate;
+                    }
                 } else {
                     $eventStart = clone $event->start;
                 }
@@ -1148,17 +1154,14 @@ class Kronolith
         }
         $GLOBALS['prefs']->setValue('display_external_cals', serialize($GLOBALS['display_external_calendars']));
 
-        /* If an authenticated doesn't own a calendar, create it. */
+        /* If an authenticated user doesn't own a calendar, create it. */
         if (!empty($GLOBALS['conf']['share']['auto_create']) &&
             $GLOBALS['registry']->getAuth() &&
             !count(self::listInternalCalendars(true))) {
-            $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
-            $share = $GLOBALS['kronolith_shares']->newShare(
-                $GLOBALS['registry']->getAuth(),
-                strval(new Horde_Support_Randomid()),
-                sprintf(_("Calendar of %s"), $identity->getName())
-            );
-            $GLOBALS['kronolith_shares']->addShare($share);
+            $calendars = $GLOBALS['injector']->getInstance('Kronolith_Factory_Calendars')
+                ->create();
+            
+            $share = $calendars->createDefaultShare();
             $GLOBALS['all_calendars'][$share->getName()] = new Kronolith_Calendar_Internal(array('share' => $share));
             $GLOBALS['display_calendars'][] = $share->getName();
 
@@ -2204,7 +2207,7 @@ class Kronolith
         global $notification;
 
         if (empty($newAttendees)) {
-            return;
+            return array();
         }
 
         $parser = new Horde_Mail_Rfc822();

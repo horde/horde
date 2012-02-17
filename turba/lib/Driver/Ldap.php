@@ -2,15 +2,15 @@
 /**
  * Turba directory driver implementation for PHP's LDAP extension.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you did
- * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Jon Parise <jon@csh.rit.edu>
  * @category Horde
- * @license  http://www.horde.org/licenses/asl.php ASL
+ * @license  http://www.horde.org/licenses/apache ASL
  * @package  Turba
  */
 class Turba_Driver_Ldap extends Turba_Driver
@@ -193,18 +193,19 @@ class Turba_Driver_Ldap extends Turba_Driver
     }
 
     /**
-     * Reads the LDAP directory for a given element and returns
-     * the results.
+     * Reads the LDAP directory for a given element and returns the results.
      *
-     * @param string $key    The primary key field to use.
-     * @param mixed $ids     The ids of the contacts to load.
-     * @param string $owner  Only return contacts owned by this user.
-     * @param array $fields  List of fields to return.
+     * @param string $key        The primary key field to use.
+     * @param mixed $ids         The ids of the contacts to load.
+     * @param string $owner      Only return contacts owned by this user.
+     * @param array $fields      List of fields to return.
+     * @param array $blobFields  Array of fields containing binary data.
      *
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
-    protected function _read($key, $ids, $owner, array $fields, array $blobFields = array())
+    protected function _read($key, $ids, $owner, array $fields,
+                             array $blobFields = array())
     {
         /* Only DN. */
         if ($key != 'dn') {

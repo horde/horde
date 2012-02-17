@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2001-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -69,7 +69,7 @@ $notification->notify(array('listeners' => 'status'));
 ?>
 <h1 class="header"><?php echo htmlspecialchars($title) ?></h1>
 <div class="instructions">
- <form action="sort.php" method="post">
+ <form action="<?php echo Horde::url('gallery/sort.php') ?>" method="post">
   <?php echo Horde_Util::formInput() ?>
   <input type="hidden" name="gallery" value="<?php echo (int)$galleryId ?>" />
   <input type="hidden" name="action" value="Sort" />

@@ -4,10 +4,12 @@
  * Contains code written by the Z-Push project. Original file header preserved
  * below.
  *
- * @copyright 2010-2011 Horde LLC (http://www.horde.org)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package ActiveSync
  */
+
 /**
  * File      :   streamimporter.php
  * Project   :   Z-Push
@@ -15,7 +17,7 @@
  *
  * Created   :   01.10.2007
  *
- * � Zarafa Deutschland GmbH, www.zarafaserver.de
+ * © Zarafa Deutschland GmbH, www.zarafaserver.de
  * This file is distributed under GPL-2.0.
  * Consult COPYING file for details
  */
@@ -82,7 +84,7 @@ class Horde_ActiveSync_Connector_Exporter
     /**
      * Send a message change over the wbxml stream
      *
-     * @param string $id                              Thenuid of the message
+     * @param string $id                              The uid of the message
      * @param Horde_ActiveSync_Message_Base $message  The message object
      *
      * @return boolean

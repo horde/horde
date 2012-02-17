@@ -3,7 +3,7 @@
  * This class builds the menu entries for use within IMP's dynamic view
  * (dimp).
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -52,7 +52,8 @@ class IMP_Menu_Dimp extends Horde_Menu
         foreach ($this->_menu as $k => $m) {
             // FIXME: solve the ajax view detection properly.
             if (empty($GLOBALS['conf']['menu']['apps_iframe']) ||
-                $GLOBALS['registry']->hasAjaxView($m['icon']->app)) {
+                (($m['icon'] instanceof Horde_Themes_Image) &&
+                 $GLOBALS['registry']->hasAjaxView($m['icon']->app))) {
                 $href = ' href="' . htmlspecialchars($m['url']) . '"';
             } else {
                 $href = '';

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -127,7 +127,7 @@ case 'send_problem_report':
                             $_SERVER['REMOTE_ADDR'],
                             preg_replace('/^.*<([^>]+)>.*$/', '$1', $conf['problems']['email']),
                             preg_replace('/^.*<([^>]+)>.*$/', '$1', $email)),
-                    __FILE__, __LINE__, 'INFO');
+                    'INFO');
 
                 /* Return to previous page and exit this script. */
                 _returnToPage();

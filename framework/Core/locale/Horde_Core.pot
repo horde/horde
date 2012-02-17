@@ -1,5 +1,5 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Horde Project
+# Copyright (C) YEAR Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Core package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Core \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-11-21 18:18+0100\n"
+"POT-Creation-Date: 2012-01-17 12:38+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,7 +28,7 @@ msgstr ""
 msgid "\"%s\" group driver not found."
 msgstr ""
 
-#: lib/Horde/Registry.php:1204 lib/Horde/Registry.php:1687
+#: lib/Horde/Registry.php:1204 lib/Horde/Registry.php:1713
 #, php-format
 msgid "\"%s\" is not configured in the Horde Registry."
 msgstr ""
@@ -51,11 +51,6 @@ msgid "%d day until your password expires."
 msgid_plural "%d days until your password expires."
 msgstr[0] ""
 msgstr[1] ""
-
-#: lib/Horde/Registry.php:1309
-#, php-format
-msgid "%s is not authorized for %s."
-msgstr ""
 
 #: lib/Horde/Core/Perms/Ui.php:347 lib/Horde/Core/Perms/Ui.php:407
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:815
@@ -156,7 +151,7 @@ msgstr ""
 msgid "Address Book"
 msgstr ""
 
-#: lib/Horde/Core/Sidebar.php:118
+#: lib/Horde/Core/Sidebar.php:117
 msgid "Administration"
 msgstr ""
 
@@ -380,7 +375,7 @@ msgstr ""
 msgid "Friday"
 msgstr ""
 
-#: lib/Horde/Core/Prefs/Ui.php:650 lib/Horde/Core/Sidebar.php:139
+#: lib/Horde/Core/Prefs/Ui.php:650 lib/Horde/Core/Sidebar.php:138
 msgid "Global Preferences"
 msgstr ""
 
@@ -449,11 +444,11 @@ msgstr ""
 msgid "Keep original?"
 msgstr ""
 
-#: lib/Horde/Core/Sidebar.php:168
+#: lib/Horde/Core/Sidebar.php:167
 msgid "Log in"
 msgstr ""
 
-#: lib/Horde/Core/Sidebar.php:161
+#: lib/Horde/Core/Sidebar.php:160
 msgid "Log out"
 msgstr ""
 
@@ -619,7 +614,7 @@ msgstr ""
 msgid "Postal Address"
 msgstr ""
 
-#: lib/Horde/Core/Sidebar.php:128
+#: lib/Horde/Core/Sidebar.php:127
 msgid "Preferences"
 msgstr ""
 
@@ -633,7 +628,7 @@ msgstr ""
 msgid "Preferred Address"
 msgstr ""
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1509
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1517
 msgid "Preview"
 msgstr ""
 
@@ -786,7 +781,7 @@ msgstr ""
 msgid "The file %s should contain some %s settings."
 msgstr ""
 
-#: lib/Horde/Registry.php:2353
+#: lib/Horde/Registry.php:2379
 #, php-format
 msgid "The following applications encountered errors removing user data: %s"
 msgstr ""
@@ -949,11 +944,11 @@ msgid_plural "You are not allowed to create more than %d blocks."
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/Horde/Registry.php:2320
+#: lib/Horde/Registry.php:2346
 msgid "You are not allowed to remove user data."
 msgstr ""
 
-#: lib/Horde/Registry.php:1899
+#: lib/Horde/Registry.php:1925
 msgid "You are not authenticated."
 msgstr ""
 

@@ -1,7 +1,7 @@
 /**
  * jQuery Mobile UI application logic.
  *
- * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -44,7 +44,7 @@ var ImpMobile = {
                 slice: '1:25',
                 requestid: 1,
                 sortby: IMP.conf.sort.date.v,
-                sortdir: 1,
+                sortdir: 1
             },
             ImpMobile.mailboxLoaded);
     },
@@ -109,7 +109,7 @@ var ImpMobile = {
             'showMessage',
             {
                 uid: this.toUIDString(o),
-                view: mailbox,
+                view: mailbox
             },
             ImpMobile.messageLoaded);
     },

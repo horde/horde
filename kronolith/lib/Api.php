@@ -549,7 +549,7 @@ class Kronolith_Api extends Horde_Registry_Api
                 foreach ($uids as $uid) {
                     try {
                         $event = Kronolith::getDriver()->getByUID($uid);
-                    } catch (Kronolith_Exception $e) {
+                    } catch (Exception $e) {
                         continue;
                     }
                     if (empty($event->baseid)) {
@@ -566,7 +566,7 @@ class Kronolith_Api extends Horde_Registry_Api
                 foreach ($uids as $uid) {
                     try {
                         $event = Kronolith::getDriver()->getByUID($uid);
-                    } catch (Kronolith_Exception $e) {
+                    } catch (Exception $e) {
                         continue;
                     }
                     if (empty($event->baseid)) {

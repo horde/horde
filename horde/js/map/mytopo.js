@@ -3,7 +3,7 @@
  * in obtaining an api key, though it seems that the public key they use on
  * their browse page works. (mytopoz63g9R)
  *
- * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

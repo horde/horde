@@ -45,7 +45,7 @@
  *
  * -----
  *
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -260,7 +260,7 @@ class Horde_Mime
             ));
         }
 
-        $text = '';
+        $text = array();
         foreach ($addresses as $addr) {
             $addrobs = empty($addr['groupname'])
                 ? array($addr)
@@ -280,14 +280,12 @@ class Horde_Mime
                 $addrlist[] = Horde_Mime_Address::writeAddress($val['mailbox'], $val['host'], $personal);
             }
 
-            if (empty($addr['groupname'])) {
-                $text .= reset($addrlist) . ', ';
-            } else {
-                $text .= Horde_Mime_Address::writeGroupAddress($addr['groupname'], $addrlist) . ' ';
-            }
+            $text[] = empty($addr['groupname'])
+                ? reset($addrlist)
+                : Horde_Mime_Address::writeGroupAddress($addr['groupname'], $addrlist);
         }
 
-        return rtrim($text, ' ,');
+        return implode(', ', $text);
     }
 
     /**

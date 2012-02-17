@@ -14,7 +14,7 @@
 /**
  * A Horde_Injector:: based Horde_Core_Ajax_Application:: factory.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -35,8 +35,9 @@ class Horde_Core_Factory_Alarm extends Horde_Core_Factory_Base
     protected $_alarm;
 
     /**
-     * Return a Horde_Alarm instance
+     * Return a Horde_Alarm instance.
      *
+     * @return Horde_Alarm
      */
     public function create()
     {
@@ -63,10 +64,7 @@ class Horde_Core_Factory_Alarm extends Horde_Core_Factory_Base
 
         /* Add those handlers that need configuration and can't be auto-loaded
          * through Horde_Alarms::handlers(). */
-        $handler_params = array(
-            'notification' => $this->_injector->getInstance('Horde_Core_Factory_Notification')
-        );
-        $this->_alarm->addHandler('notify', new Horde_Alarm_Handler_Notify($handler_params));
+        $this->_alarm->addHandler('notify', new Horde_Core_Alarm_Handler_Notify());
 
         $handler_params = array(
             'js_notify' => array('Horde', 'addInlineScript'),

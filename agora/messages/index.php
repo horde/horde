@@ -2,7 +2,7 @@
 /**
  * Thread display script
  *
- * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -204,7 +204,7 @@ if (!$messages->hasPermission(Horde_Perms::EDIT)) {
     $vars->set('message_body_old', $reply['body']);
     $form = $messages->getForm($vars, sprintf(_("Post a Reply to \"%s\""), $reply['message_subject']));
     Horde::startBuffer();
-    $form->renderActive(null, null, 'edit.php', 'post', null, false);
+    $form->renderActive(null, null, Horde::url('message/edit.php'), 'post', null, false);
     $view->form = Horde::endBuffer();
 }
 

@@ -2,7 +2,7 @@
 /**
  * Dynamic (dimp) message display logic.
  *
- * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -101,9 +101,6 @@ class IMP_Views_ShowMessage
         try {
             $query = new Horde_Imap_Client_Fetch_Query();
             $query->envelope();
-            $query->headerText(array(
-                'peek' => false
-            ));
 
             $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
             $fetch_ret = $imp_imap->fetch($mailbox, $query, array(
@@ -114,14 +111,13 @@ class IMP_Views_ShowMessage
                 throw new Exception();
             }
 
-            /* Parse MIME info and create the body of the message. */
             $imp_contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($mailbox->getIndicesOb($uid));
         } catch (Exception $e) {
             throw new IMP_Exception(_("Requested message not found."));
         }
 
         $envelope = $fetch_ret[$uid]->getEnvelope();
-        $mime_headers = $fetch_ret[$uid]->getHeaderText(0, Horde_Imap_Client_Data_Fetch::HEADER_PARSE);
+        $mime_headers = $imp_contents->getHeaderAndMarkAsSeen();
         $headers = array();
 
         /* Initialize variables. */
@@ -248,12 +244,12 @@ class IMP_Views_ShowMessage
 
         /* Do MDN processing now. */
         if ($imp_ui->MDNCheck($mailbox, $uid, $mime_headers)) {
-            $result['msgtext'] .= $imp_contents->formatStatusMsg(array(array(
-                'id' => 'sendMdnMessage',
-                'text' => array(
-                    _("The sender of this message is requesting a Message Disposition Notification from you when you have read this message."), sprintf(_("Click %s to send the notification message."), Horde::link('#', '', '', '', '', '', '', array('id' => 'send_mdn_link')) . _("HERE") . '</a>')
-                )
-            )));
+            $status = new IMP_Mime_Status(array(
+                _("The sender of this message is requesting notification from you when you have read this message."),
+                sprintf(_("Click %s to send the notification message."), Horde::link('#', '', '', '', '', '', '', array('id' => 'send_mdn_link')) . _("HERE") . '</a>')
+            ));
+            $status->domid('sendMdnMessage');
+            $result['msgtext'] .= strval($status);
         }
 
         /* Build body text. This needs to be done before we build the

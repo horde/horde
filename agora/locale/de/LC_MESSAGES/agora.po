@@ -1,5 +1,5 @@
 # German translations for Agora.
-# Copyright 2003-2011 Horde LLC
+# Copyright 2003-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Agora package.
 # Jan Schneider <jan@horde.org>, 2003-2010.
 #
@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Agora 1.0\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-09-20 13:49+0200\n"
+"POT-Creation-Date: 2011-12-21 18:23+0100\n"
 "PO-Revision-Date: 2011-02-02 17:35+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -96,7 +96,7 @@ msgstr "Freigeben"
 msgid "Ascending"
 msgstr "Aufsteigend"
 
-#: lib/Driver.php:1561
+#: lib/Driver.php:1562
 msgid "Attachment"
 msgstr "Anhang"
 
@@ -114,7 +114,7 @@ msgid ""
 "Avatars must be smaller than %s by %s pixels and less than %sKb in size."
 msgstr "Avatare müssen kleiner als %s mal %s Pixel und kleiner als %sKB sein."
 
-#: ban.php:51 lib/Driver.php:1507
+#: ban.php:51 lib/Driver.php:1508
 msgid "Ban"
 msgstr "Verbannen"
 
@@ -132,7 +132,7 @@ msgstr "Text"
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: lib/Driver.php:1937
+#: lib/Driver.php:1938
 msgid "Cannot create a forum with an empty name."
 msgstr "Foren mit leeren Namen können nicht erstellt werden."
 
@@ -193,7 +193,7 @@ msgstr "Die Kommandozeilenparameter konnten nicht gelesen werden."
 msgid "Create"
 msgstr "Erstellen"
 
-#: lib/Driver.php:1557
+#: lib/Driver.php:1558
 msgid "Current attachment"
 msgstr "Aktueller Anhang"
 
@@ -226,7 +226,7 @@ msgid "Default threads view sort:"
 msgstr "Standard-Sortierreihenfolge der Themen:"
 
 #: ban.php:48 deleteforum.php:40 deleteforum.php:58 lib/Api.php:600
-#: lib/Api.php:605 lib/Driver.php:913 lib/Driver.php:1836
+#: lib/Api.php:605 lib/Driver.php:913 lib/Driver.php:1837
 #: messages/delete.php:42 messages/delete.php:47 messages/index.php:116
 #: moderate.php:35 moderate.php:64 moderators.php:58
 msgid "Delete"
@@ -237,11 +237,11 @@ msgstr "Löschen"
 msgid "Delete \"%s\" and all replies?"
 msgstr "\"%s\" und alle Antworten löschen?"
 
-#: deleteforum.php:37 lib/Driver.php:1505
+#: deleteforum.php:37 lib/Driver.php:1506
 msgid "Delete Forum"
 msgstr "Forum löschen"
 
-#: lib/Driver.php:1836
+#: lib/Driver.php:1837
 msgid "Delete forum"
 msgstr "Forum löschen"
 
@@ -249,7 +249,7 @@ msgstr "Forum löschen"
 msgid "Delete message"
 msgstr "Beitrag löschen"
 
-#: lib/Driver.php:1556
+#: lib/Driver.php:1557
 msgid "Delete the existing attachment?"
 msgstr "Den aktuellen Anhang löschen?"
 
@@ -279,11 +279,11 @@ msgstr "Kompletten Beitragstext in der Themenliste anzeigen?"
 msgid "Display graphical emoticons?"
 msgstr "Emoticons anzeigen?"
 
-#: lib/Driver.php:909 lib/Driver.php:1829 messages/index.php:113
+#: lib/Driver.php:909 lib/Driver.php:1830 messages/index.php:113
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: editforum.php:34 lib/Driver.php:1502
+#: editforum.php:34 lib/Driver.php:1503
 msgid "Edit Forum"
 msgstr "Forum bearbeiten"
 
@@ -300,7 +300,7 @@ msgstr "Beitrag in \"%s\" bearbeiten"
 msgid "Edit a comment"
 msgstr "Kommentar bearbeiten"
 
-#: lib/Driver.php:1829
+#: lib/Driver.php:1830
 msgid "Edit forum"
 msgstr "Forum bearbeiten"
 
@@ -322,7 +322,7 @@ msgstr "Flach"
 msgid "Forum"
 msgstr "Forum"
 
-#: lib/Api.php:577 lib/Driver.php:1728
+#: lib/Api.php:577 lib/Driver.php:1729
 #, php-format
 msgid "Forum %s does not exist."
 msgstr "Das Forum %s existiert nicht."
@@ -361,7 +361,7 @@ msgstr "Forenansicht"
 msgid "Forums in %s"
 msgstr "Foren in %s"
 
-#: lib/Driver.php:1538
+#: lib/Driver.php:1539
 msgid "From"
 msgstr "Von"
 
@@ -448,7 +448,7 @@ msgstr "Zusammenfügen"
 msgid "Merge \"%s\" with another thread"
 msgstr "\"%s\" mit anderem Thema zusammenfügen"
 
-#: lib/Driver.php:1551
+#: lib/Driver.php:1552
 msgid "Message"
 msgstr "Beitrag"
 
@@ -486,7 +486,7 @@ msgstr "Beiträge"
 msgid "Messages Awaiting Moderation"
 msgstr "Zu moderierende Beiträge"
 
-#: lib/Driver.php:1850
+#: lib/Driver.php:1851
 msgid "Moderate"
 msgstr "Mäßig"
 
@@ -518,7 +518,7 @@ msgstr "Meine Informationen"
 msgid "New Forum"
 msgstr "Neues Forum"
 
-#: lib/Driver.php:1824
+#: lib/Driver.php:1825
 msgid "New Post"
 msgstr "Neuer Beitrag"
 
@@ -615,7 +615,7 @@ msgstr "Seite %d"
 msgid "Parent forum"
 msgstr "Übergeordnetes Forum"
 
-#: lib/Driver.php:1520
+#: lib/Driver.php:1521
 msgid "Post"
 msgstr "Abschicken"
 
@@ -633,7 +633,7 @@ msgstr "Neuen Beitrag in \"%s\" erstellen"
 msgid "Post a Reply to \"%s\""
 msgstr "Antwort auf \"%s\" schreiben"
 
-#: lib/Driver.php:1496 lib/Driver.php:1824
+#: lib/Driver.php:1497 lib/Driver.php:1825
 msgid "Post message"
 msgstr "Neuer Beitrag"
 
@@ -654,7 +654,7 @@ msgstr "Geschrieben von %s am %s"
 msgid "Posts"
 msgstr "Beiträge"
 
-#: lib/Driver.php:1543
+#: lib/Driver.php:1544
 msgid "Quote"
 msgstr "Zitieren"
 
@@ -674,7 +674,7 @@ msgstr "Missbrauch melden"
 msgid "Require all keywords?"
 msgstr "Nach allen Wörtern suchen?"
 
-#: lib/Driver.php:1520
+#: lib/Driver.php:1521
 msgid "Save"
 msgstr "Speichern"
 
@@ -764,7 +764,7 @@ msgstr "Sortieren nach %s"
 msgid "Sort direction"
 msgstr "Sortierrichtung"
 
-#: lib/Driver.php:1565 lib/Form/Message.php:22
+#: lib/Driver.php:1566 lib/Form/Message.php:22
 msgid "Spam protection"
 msgstr "Spamschutz"
 
@@ -787,8 +787,8 @@ msgstr "Unterforen"
 
 #: config/prefs.php:129 config/prefs.php:174 config/prefs.php:258
 #: lib/Api.php:296 lib/Block/Thread.php:78 lib/Block/Threads.php:119
-#: lib/Comments.php:67 lib/Comments.php:82 lib/Driver.php:1545
-#: lib/Driver.php:1548 messages/index.php:139 moderate.php:57 owner.php:56
+#: lib/Comments.php:67 lib/Comments.php:82 lib/Driver.php:1546
+#: lib/Driver.php:1549 messages/index.php:139 moderate.php:57 owner.php:56
 #: threads.php:54
 msgid "Subject"
 msgstr "Betreff"
@@ -938,7 +938,7 @@ msgstr "Ja, Antworten zulassen"
 msgid "Yes, and don't thread them"
 msgstr "Ja, ohne einzurücken"
 
-#: lib/Driver.php:1710
+#: lib/Driver.php:1711
 #, php-format
 msgid "You don't have permission to access messages in forum %s."
 msgstr "Sie haben nicht genügend Rechte, um Beiträge im Forum %s anzuzeigen."
@@ -1018,7 +1018,7 @@ msgstr "_Themen"
 msgid "by"
 msgstr "von"
 
-#: lib/Driver.php:1654
+#: lib/Driver.php:1655
 msgid "download"
 msgstr "Herunterladen"
 
@@ -1026,12 +1026,12 @@ msgstr "Herunterladen"
 msgid "on: "
 msgstr "am: "
 
-#: lib/Driver.php:1655
+#: lib/Driver.php:1656
 #, php-format
 msgid "size: %s"
 msgstr "Größe: %s"
 
-#: lib/Driver.php:1655
+#: lib/Driver.php:1656
 #, php-format
 msgid "type: %s"
 msgstr "Typ: %s"

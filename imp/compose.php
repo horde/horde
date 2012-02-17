@@ -2,7 +2,7 @@
 /**
  * Compose script for traditional (IMP) view.
  *
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -136,7 +136,6 @@ $isPopup = ($prefs->getValue('compose_popup') || $vars->popup);
 
 /* Determine the composition type - text or HTML.
    $rtemode is null if browser does not support it. */
-$rtemode = null;
 if ($session->get('imp', 'rteavail')) {
     if ($prefs->isLocked('compose_html')) {
         $rtemode = $prefs->getValue('compose_html');
@@ -145,7 +144,8 @@ if ($session->get('imp', 'rteavail')) {
         if (is_null($rtemode)) {
             $rtemode = $prefs->getValue('compose_html');
         } else {
-            $oldrtemode = $vars->oldrtemode;
+            $rtemode = intval($rtemode);
+            $oldrtemode = intval($vars->oldrtemode);
             $get_sig = false;
         }
     }
@@ -161,7 +161,7 @@ if ($session->get('imp', 'file_upload')) {
     /* Update the attachment information. */
     foreach ($imp_compose as $key => $val) {
         if (!in_array($key, $deleteList)) {
-            $val['part']->setDescription($vars->get('file_description_' . $key));
+            $val['part']->setDescription(filter_var($vars->get('file_description_' . $key), FILTER_SANITIZE_STRING));
             $imp_compose[$key] = $val;
         }
     }
@@ -199,7 +199,7 @@ case 'mailto':
         break;
     }
 
-    $imp_headers = $contents->getHeaderOb();
+    $imp_headers = $contents->getHeader();
     $header['to'] = '';
     if ($vars->mailto) {
         $header['to'] = $imp_headers->getValue('to');
@@ -279,7 +279,9 @@ case 'reply_list':
         if ($vars->actionID == 'reply_auto') {
             try {
                 $recip_list = $imp_compose->recipientList($header);
-                $replyauto_all = count($recip_list['list']);
+                if (!empty($recip_list['list'])) {
+                    $replyauto_all = count($recip_list['list']);
+                }
             } catch (IMP_Compose_Exception $e) {}
         }
 
@@ -291,7 +293,7 @@ case 'reply_list':
         if ($vars->actionID == 'reply_auto') {
             $replyauto_list = true;
 
-            $hdr_ob = $contents->getHeaderOb();
+            $hdr_ob = $contents->getHeader();
             $addr_ob = Horde_Mime_Address::parseAddressList($hdr_ob->getValue('list-id'));
             if (isset($addr_ob[0]['personal'])) {
                 $replyauto_list_id = $addr_ob[0]['personal'];
@@ -310,7 +312,7 @@ case 'reply_list':
     $title .= ' ' . $header['subject'];
 
     if (!is_null($rtemode)) {
-        $rtemode = $rtemode || $format == 'html';
+        $rtemode = ($rtemode || ($format == 'html'));
     }
     break;
 
@@ -363,13 +365,13 @@ case 'redirect_send':
         $imp_compose->destroy('send');
         if ($isPopup) {
             if ($prefs->getValue('compose_confirm')) {
-                $notification->push(ngettext("Message redirected successfully.", "Messages redirected successfully", $num_msgs), 'horde.success');
+                $notification->push(ngettext("Message redirected successfully.", "Messages redirected successfully", count($num_msgs)), 'horde.success');
                 $imp_ui->popupSuccess();
             } else {
                 echo Horde::wrapInlineScript(array('window.close();'));
             }
         } else {
-            $notification->push(ngettext("Message redirected successfully.", "Messages redirected successfully", $num_msgs), 'horde.success');
+            $notification->push(ngettext("Message redirected successfully.", "Messages redirected successfully", count($num_msgs)), 'horde.success');
             $imp_ui->mailboxReturnUrl()->redirect();
         }
         exit;
@@ -688,25 +690,24 @@ if ($prefs->getValue('use_pgp') &&
     $default_encrypt = $prefs->getValue('default_encrypt');
     if (!$vars->compose_formToken &&
         in_array($default_encrypt, array(IMP_Crypt_Pgp::ENCRYPT, IMP_Crypt_Pgp::SIGNENC))) {
-        try {
-            $addrs = $imp_compose->recipientList($header);
-            if (!empty($addrs['list'])) {
-                $imp_pgp = $injector->getInstance('IMP_Crypt_Pgp');
+        $addrs = $imp_compose->recipientList($header);
+        if (!empty($addrs['list'])) {
+            $imp_pgp = $injector->getInstance('IMP_Crypt_Pgp');
+            try {
                 foreach ($addrs['list'] as $val) {
-                    $imp_pgp->getPublicKey($val);
+                    $imp_pgp->getPublicKey(strval($val));
                 }
+            } catch (Horde_Exception $e) {
+                $notification->push(_("PGP encryption cannot be used by default as public keys cannot be found for all recipients."), 'horde.warning');
+                $encrypt_options = ($default_encrypt == IMP_Crypt_Pgp::ENCRYPT) ? IMP::ENCRYPT_NONE : IMP_Crypt_Pgp::SIGN;
             }
-        } catch (IMP_Compose_Exception $e) {
-        } catch (Horde_Exception $e) {
-            $notification->push(_("PGP encryption cannot be used by default as public keys cannot be found for all recipients."), 'horde.warning');
-            $encrypt_options = ($default_encrypt == IMP_Crypt_Pgp::ENCRYPT) ? IMP::ENCRYPT_NONE : IMP_Crypt_Pgp::SIGN;
         }
     }
 }
 
 /* Define some variables used in the javascript code. */
 $js_vars = array(
-    'ImpComposeBase.editor_on' => intval($rtemode),
+    'ImpComposeBase.editor_on' => $rtemode,
     'ImpCompose.auto_save' => intval($prefs->getValue('auto_save_drafts')),
     'ImpCompose.cancel_url' => $cancel_url,
     'ImpCompose.cursor_pos' => ($rtemode ? null : $prefs->getValue('compose_cursor')),
@@ -728,7 +729,7 @@ $blank_url = new Horde_Url('#');
 
 if ($redirect) {
     /* Prepare the redirect template. */
-    $t->set('cacheid', $composeCacheID);
+    $t->set('cacheid', filter_var($composeCacheID, FILTER_SANITIZE_STRING));
     $t->set('title', htmlspecialchars($title));
     $t->set('token', $injector->getInstance('Horde_Token')->get('imp.compose'));
 
@@ -762,7 +763,7 @@ if ($redirect) {
         'attachmentAction' => '',
         'compose_formToken' => Horde_Token::generateId('compose'),
         'compose_requestToken' => $injector->getInstance('Horde_Token')->get('imp.compose'),
-        'composeCache' => $composeCacheID,
+        'composeCache' => filter_var($composeCacheID, FILTER_SANITIZE_STRING),
         'mailbox' => IMP::$thismailbox->form_to,
         'oldrtemode' => $rtemode,
         'rtemode' => $rtemode,
@@ -939,7 +940,7 @@ if ($redirect) {
             $t->set('ssm_folders', IMP::flistSelect($ssm_folder_options));
         } else {
             if ($sent_mail_folder) {
-                $sent_mail_folder = '&quot;' . $sent_mail_folder->display . '&quot;';
+                $sent_mail_folder = '&quot;' . $sent_mail_folder->display_html . '&quot;';
             }
             $t->set('ssm_folder', $sent_mail_folder);
             $t->set('ssm_folders', false);

@@ -3,9 +3,6 @@
  * The Horde_Form_Type_nag_method class provides a form field for editing
  * notification methods for a task alarm.
  *
- * @TODO: Need to refactor these to be named as Nag_Form_Type... once Horde_Form
- *        is refactored and no longer needs
- *
  * @author  Alfonso Marin <almarin@um.es>
  * @package Nag
  */

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://cvs.horde.org/co.php/jonah/LICENSE.
@@ -131,7 +131,7 @@ $share_template = new Horde_Template();
 
 // Buffer the form and notifications and send to the template
 Horde::startBuffer();
-$form->renderActive(null, $vars, 'share.php', 'post');
+$form->renderActive(null, $vars, Horde::url('stories/share.php'), 'post');
 $share_template->set('main', Horde::endBuffer());
 
 Horde::startBuffer();

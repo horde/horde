@@ -1,5 +1,5 @@
 # Turba 0.0.3 Italian translation.
-# Copyright (C) 2001 Paola Carpenter.
+# Copyright 2001 Paola Carpenter.
 # Paola Carpenter <pcarpenter@infvic.it>; Giovanni Meneghetti <gmeneghetti@infvic.it>, 2001.
 # Copyright (c) 2003 Sergio G. Caredda.
 # Sergio G. Caredda <scaredda@tiscali.it>, 2003.

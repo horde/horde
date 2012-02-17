@@ -15,7 +15,7 @@
 /**
  * Basic Kronolith test case.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you did
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -35,52 +35,127 @@ extends PHPUnit_Framework_TestCase
         return new Horde_Injector(new Horde_Injector_TopLevel());
     }
 
-    protected function getKolabDriver()
+    static protected function createSqlPdoSqlite(Horde_Test_Setup $setup)
     {
-        $GLOBALS['registry'] = new Kronolith_Stub_Registry();
-        $GLOBALS['injector'] = $this->getInjector();
-        $kolab_factory = new Horde_Kolab_Storage_Factory(
+        $setup->setup(array('Horde_Db_Adapter' => array('factory' => 'Db')));
+        $GLOBALS['injector']->bindImplementation('Kronolith_Geo', 'Kronolith_Geo_Sql');
+    }
+
+    static protected function createBasicKronolithSetup(Horde_Test_Setup $setup)
+    {
+        $setup->setup(
             array(
-                'driver' => 'mock',
-                'queryset' => array('list' => array('queryset' => 'horde')),
-                'params' => array(
-                    'username' => 'test@example.com',
-                    'host' => 'localhost',
-                    'port' => 143,
-                    'data' => array(
-                        'user/test' => array(
-                            'permissions' => array('anyone' => 'alrid')
-                        )
-                    )
-                )
+                '_PARAMS' => array(
+                    'user' => 'test@example.com',
+                    'app' => 'kronolith'
+                ),
+                'Horde_Alarm' => 'Alarm',
+                'Horde_Cache' => 'Cache',
+                'Horde_Group' => 'Group',
+                'Horde_History' => 'History',
+                'Horde_Prefs' => 'Prefs',
+                'Horde_Perms' => 'Perms',
+                'Horde_Registry' => 'Registry',
+                'Horde_Session' => 'Session',
             )
         );
-        $this->storage = $kolab_factory->create();
-        $GLOBALS['injector']->setInstance('Horde_Kolab_Storage', $this->storage);
-        $GLOBALS['injector']->setInstance('Horde_History', new Horde_History_Mock('test@example.com'));
-        $GLOBALS['injector']->setInstance('Horde_Group', new Horde_Group_Mock());
-        $GLOBALS['prefs'] = new Horde_Prefs('kronolith', new Horde_Prefs_Storage_Null('test'));
+        $setup->makeGlobal(
+            array(
+                'injector' => 'Horde_Injector',
+                'prefs' => 'Horde_Prefs',
+                'registry' => 'Horde_Registry',
+                'session' => 'Horde_Session',
+            )
+        );
+        $GLOBALS['injector']->setInstance('Content_Tagger', new Content_Tagger());
+        $GLOBALS['injector']->setInstance('Content_Types_Manager', new Content_Types_Manager());
+        $GLOBALS['conf']['prefs']['driver'] = 'Null';
+        $GLOBALS['conf']['sql']['charset'] = 'utf-8';
+        $GLOBALS['conf']['sql']['driverconfig'] = 'Horde';
+    }
+
+    static protected function createSqlShares(Horde_Test_Setup $setup)
+    {
+        $setup->getInjector()->setInstance(
+            'Horde_Core_Factory_Db',
+            new Horde_Test_Stub_Factory(
+                $setup->getInjector()->getInstance('Horde_Db_Adapter')
+            )
+        );
+        $setup->setup(
+            array(
+                'Horde_Share_Base' => 'Share',
+            )
+        );
+        $setup->makeGlobal(
+            array(
+                'kronolith_shares' => 'Horde_Share_Base',
+            )
+        );
+        $GLOBALS['injector']->setInstance(
+            'Horde_Core_Factory_Share',
+            new Kronolith_Stub_ShareFactory($GLOBALS['kronolith_shares'])
+        );
+        $GLOBALS['conf']['storage']['driver'] = 'sql';
+        $GLOBALS['conf']['calendars']['driver'] = 'default';
+    }
+
+    static protected function createKolabShares(Horde_Test_Setup $setup)
+    {
+        $setup->setup(
+            array(
+                'Horde_Kolab_Storage' => array(
+                    'factory' => 'KolabStorage',
+                    'params' => array(
+                        'imapuser' => 'test',
+                    )
+                ),
+                'Horde_Share_Base' => array(
+                    'factory' => 'Share',
+                    'method' => 'Kolab',
+                ),
+            )
+        );
+        $setup->makeGlobal(
+            array(
+                'kronolith_shares' => 'Horde_Share_Base',
+            )
+        );
+        $GLOBALS['injector']->setInstance(
+            'Horde_Core_Factory_Share',
+            new Kronolith_Stub_ShareFactory($GLOBALS['kronolith_shares'])
+        );
         $GLOBALS['conf']['storage']['driver'] = 'kolab';
-        $GLOBALS['kronolith_shares'] = new Horde_Share_Kolab(
-            'kronolith', 'test@example.com', new Horde_Perms_Null(), new Horde_Group_Mock()
+        $GLOBALS['conf']['calendars']['driver'] = 'kolab';
+    }
+    static protected function createKolabSetup()
+    {
+        $setup = new Horde_Test_Setup();
+        self::createBasicKronolithSetup($setup);
+        self::createKolabShares($setup);
+        self::_createDefaultShares();
+       
+        return $setup;
+    }
+
+    static protected function _createDefaultShares()
+    {
+        $share = self::_createShare(
+            'Calendar of Tester', 'test@example.com'
         );
-        $GLOBALS['kronolith_shares']->setStorage($this->storage);
-        $this->share = $GLOBALS['kronolith_shares']->newShare(
-            'test@example.com',
-            strval(new Horde_Support_Randomid()),
-            "Calendar of Tester"
+        $other_share = self::_createShare(
+            'Other calendar of Tester', 'test@example.com'
         );
-        $GLOBALS['kronolith_shares']->addShare($this->share);
-        $this->other_share = $GLOBALS['kronolith_shares']->newShare(
-            'test@example.com',
-            strval(new Horde_Support_Randomid()),
-            "Other Notepad of Tester"
+        return array($share, $other_share);
+    }
+
+    static private function _createShare($name, $owner)
+    {
+        $share = $GLOBALS['kronolith_shares']->newShare(
+            $owner, strval(new Horde_Support_Randomid()), $name
         );
-        $GLOBALS['kronolith_shares']->addShare($this->other_share);
-        $GLOBALS['all_calendars'] = array();
-        foreach (Kronolith::listInternalCalendars() as $id => $calendar) {
-            $GLOBALS['all_calendars'][$id] = new Kronolith_Calendar_Internal(array('share' => $calendar));
-        }
-        return Kronolith::getDriver('Kolab', $this->share->getName());
+        $GLOBALS['kronolith_shares']->addShare($share);
+        $GLOBALS['all_calendars'][$share->getName()] = new Kronolith_Calendar_Internal(array('share' => $share));
+        return $share;
     }
 }

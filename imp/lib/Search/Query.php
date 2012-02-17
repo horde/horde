@@ -2,7 +2,7 @@
 /**
  * This class provides a data structure for a search query.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -14,6 +14,7 @@
  *
  * @property boolean $all  Does this query search all mailboxes?
  * @property boolean $canEdit  Can this query be edited?
+ * @property string $formid  The mailbox ID to use in forms.
  * @property string $id  The query ID.
  * @property string $label  The query label.
  * @property array $mboxes  The list of mailboxes to query. This list
@@ -173,6 +174,9 @@ class IMP_Search_Query implements Serializable
                 );
             }
             return $out;
+
+        case 'formid':
+            return $this->mbox_ob->form_to;
 
         case 'id':
             return $this->_id;

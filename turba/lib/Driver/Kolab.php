@@ -2,16 +2,16 @@
 /**
  * Horde Turba driver for the Kolab IMAP Server.
  *
- * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
- * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @author   Stuart Binge <omicron@mighty.co.za>
  * @category Horde
- * @license  http://www.horde.org/licenses/asl.php ASL
+ * @license  http://www.horde.org/licenses/apache ASL
  * @package  Turba
  */
 class Turba_Driver_Kolab extends Turba_Driver
@@ -173,7 +173,8 @@ class Turba_Driver_Kolab extends Turba_Driver
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
-    protected function _search(array $criteria, array $fields, array $blobFields = array())
+    protected function _search(array $criteria, array $fields,
+                               array $blobFields = array())
     {
         $this->connect();
 
@@ -189,7 +190,7 @@ class Turba_Driver_Kolab extends Turba_Driver
         $ids = $this->_removeDuplicated($ids);
 
         /* Now we have a list of names, get the rest. */
-        $this->_read('uid', $ids, $fields);
+        $this->_read('uid', $ids, null, $fields);
 
         Horde::logMessage(sprintf('Kolab returned %s results',
                                   count($result)), 'DEBUG');
@@ -347,16 +348,17 @@ class Turba_Driver_Kolab extends Turba_Driver
     /**
      * Reads the given data from the address book and returns the results.
      *
-     * @param string $key    The primary key field to use.
-     * @param mixed $ids     The ids of the contacts to load.
-     * @param string $owner  Only return contacts owned by this user.
-     * @param array $fields  List of fields to return.
+     * @param string $key        The primary key field to use.
+     * @param mixed $ids         The ids of the contacts to load.
+     * @param string $owner      Only return contacts owned by this user.
+     * @param array $fields      List of fields to return.
      * @param array $blobFields  Array of fields containing binary data.
      *
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
-    protected function _read($key, $ids, $owner, array $fields, array $blobFields = array())
+    protected function _read($key, $ids, $owner, array $fields,
+                             array $blobFields = array())
     {
         $this->connect();
 

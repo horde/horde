@@ -2,7 +2,7 @@
 /**
  * This class provides an LDAP driver for the Horde group system.
  *
- * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -388,6 +388,7 @@ class Horde_Group_Ldap extends Horde_Group_Base
             }
             $filter = Horde_Ldap_Filter::create($this->_params['memberuid'],
                                                 'equals', $user);
+            $filter = Horde_Ldap_Filter::combine('and', array($this->_filter, $filter));
             $search = $this->_ldap->search($this->_params['basedn'], $filter,
                                            array($attr));
         } catch (Horde_Ldap_Exception $e) {

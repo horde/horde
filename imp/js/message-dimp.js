@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -82,7 +82,7 @@ var DimpMessage = {
 
             $('identity', 'last_identity').invoke('setValue', id);
 
-            DimpCompose.fillForm((i.id[2]) ? ("\n" + i.sig + r.body) : (r.body + "\n" + i.sig), r.header, r.opts);
+            DimpCompose.fillForm((i.id.sig_loc) ? ("\n" + i.sig + r.body) : (r.body + "\n" + i.sig), r.header, r.opts);
             break;
         }
     },

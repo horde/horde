@@ -3,7 +3,7 @@
  * The IMP_Ui_Compose:: class is designed to provide a place to store common
  * code shared among IMP's various UI views for the compose page.
  *
- * Copyright 2006-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2006-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -292,7 +292,7 @@ class IMP_Ui_Compose
                 // Save in sent mail folder by default?
                 'smf_save' => (bool)$identity->saveSentmail($ident),
                 // Sent mail display name
-                'smf_display' => $smf ? $smf->display : '',
+                'smf_display' => $smf ? $smf->display_html : '',
                 // Bcc addresses to add
                 'bcc' => Horde_Mime_Address::addrArray2String($identity->getBccAddresses($ident), array('charset' => 'UTF-8'))
             );

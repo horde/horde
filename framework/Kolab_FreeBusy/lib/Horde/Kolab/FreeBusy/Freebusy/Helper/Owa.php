@@ -15,7 +15,7 @@
 /**
  * Parser for the Outlook web access XML format.
  *
- * Copyright 2009 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  * Copyright 2011 Kolab Systems AG
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not

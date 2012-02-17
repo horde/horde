@@ -2,7 +2,7 @@
 /**
  * Tests for the Horde_Mime_Address class.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
@@ -87,6 +87,16 @@ class Horde_Mime_AddressTest extends PHPUnit_Framework_TestCase
                 'addr2@example.com'
             ),
             Horde_Mime_Address::explode($str)
+        );
+    }
+
+    public function testAddrArray2String()
+    {
+        $str = 'Foo Bar <foobar@example.com>, "bad_email@example.com, Baz" <baz@example.com>, Qux <qux@example.com>';
+        $ob = Horde_Mime_Address::parseAddressList($str);
+        $this->assertEquals(
+            $str,
+            Horde_Mime_Address::addrArray2String($ob)
         );
     }
 

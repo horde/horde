@@ -3,7 +3,7 @@
  * Class to encapsulate a single gallery. Implemented as an extension of
  * the Horde_Share_Object class.
  *
- * Copyright 2001-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -1086,14 +1086,15 @@ class Ansel_Gallery implements Serializable
             $value = serialize($value);
         }
 
+        if ($attribute == 'view_mode' && $this->get('view_mode') != $value) {
+            //$mode = isset($attributes['attribute_view_mode']) ? $attributes['attribute_view_mode'] : 'Normal';
+            $this->_setModeHelper($value);
+        }
+
         try {
             $this->_share->set($attribute, $value, $update);
         } catch (Horde_Share_Exception $e) {
             throw new Ansel_Exception($e);
-        }
-        if ($attribute == 'view_mode' && $this->get('view_mode') != $value) {
-            //$mode = isset($attributes['attribute_view_mode']) ? $attributes['attribute_view_mode'] : 'Normal';
-            $this->_setModeHelper($value);
         }
     }
 

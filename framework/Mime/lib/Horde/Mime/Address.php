@@ -3,7 +3,7 @@
  * The Horde_Mime_Address:: class provides methods for dealing with email
  * address standards (RFC 822/2822/3490/5322).
  *
- * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -17,24 +17,18 @@
 class Horde_Mime_Address
 {
     /**
-     * RFC 822 parser instance.
-     *
-     * @var Horde_Mail_Rfc822
-     */
-    static protected $_rfc822;
-
-    /**
      * Builds an RFC compliant email address.
      *
      * @param string $mailbox   Mailbox name.
      * @param string $host      Domain name of mailbox's host.
      * @param string $personal  Personal name phrase.
-     * @param array $opts  Additional options:
-     * <pre>
-     * 'idn' - (boolean) Decode IDN domain names (Punycode/RFC 3490).
-     *         Requires the PECL idn module.
-     *         DEFAULT: true
-     * </pre>
+     * @param array $opts       Additional options:
+     *   - idn: (boolean) If true, decode IDN domain names (Punycode/RFC 3490).
+     *          If false, convert domain names into IDN if necessary (@since
+     *          1.5.0).
+     *          If null, does no conversion.
+     *          Requires the idn or intl PHP module.
+     *          DEFAULT: true
      *
      * @return string  The correctly escaped and quoted
      *                 "$personal <$mailbox@$host>" string.
@@ -49,10 +43,20 @@ class Horde_Mime_Address
         }
 
         $host = ltrim($host, '@');
-        if ((!isset($opts['idn']) || !$opts['idn']) &&
-            (stripos($host, 'xn--') === 0) &&
-            function_exists('idn_to_utf8')) {
-            $host = idn_to_utf8($host);
+        if (isset($opts['idn'])) {
+            switch ($opts['idn']) {
+            case true:
+                if (function_exists('idn_to_utf8')) {
+                    $host = idn_to_utf8($host);
+                }
+                break;
+
+            case false:
+                if (function_exists('idn_to_ascii')) {
+                    $host = idn_to_ascii($host);
+                }
+                break;
+            }
         }
 
         $address .= self::encode($mailbox, 'address') . '@' . $host;
@@ -155,26 +159,22 @@ class Horde_Mime_Address
      *
      * Object array format for the address "John Doe <john_doe@example.com>"
      * is:
-     * <pre>
-     * 'personal' = Personal name ("John Doe")
-     * 'mailbox' = The user's mailbox ("john_doe")
-     * 'host' = The host the mailbox is on ("example.com")
-     * </pre>
+     *   - host: The host the mailbox is on ("example.com")
+     *   - mailbox: The user's mailbox ("john_doe")
+     *   - personal: Personal name ("John Doe")
      *
      * @param array $ob    The address object to be turned into a string.
      * @param array $opts  Additional options:
-     * <pre>
-     * 'charset' - (string) The local charset.
-     *             DEFAULT: NONE
-     * 'filter' - (mixed) A user@example.com style bare address to ignore.
-     *            Either single string or an array of strings. If the address
-     *            matches $filter, an empty string will be returned.
-     *            DEFAULT: No filter
-     * 'idn' - (boolean) Convert IDN domain names (Punycode/RFC 3490) into
-     *         the local charset.
-     *         Requires the PECL idn module.
-     *         DEFAULT: true
-     * </pre>
+     *   - charset: (string) The local charset.
+     *              DEFAULT: NONE
+     *   - filter: (mixed) A user@example.com style bare address to ignore.
+     *             Either single string or an array of strings. If the address
+     *             matches $filter, an empty string will be returned.
+     *             DEFAULT: No filter
+     *   - idn: (boolean) Convert IDN domain names (Punycode/RFC 3490) into
+     *          the local charset.
+     *          Requires the idn or intl PHP module.
+     *          DEFAULT: true
      *
      * @return string  The formatted address.
      */
@@ -226,17 +226,15 @@ class Horde_Mime_Address
      *
      * @param array $addresses  The array of address objects.
      * @param array $opts       Additional options:
-     * <pre>
-     * 'charset' - (string) The local charset.
-     *             DEFAULT: NONE
-     * 'filter' - (mixed) A user@example.com style bare address to ignore.
-     *            Either single string or an array of strings.
-     *            DEFAULT: No filter
-     * 'idn' - (boolean) Convert IDN domain names (Punycode/RFC 3490) into
-     *         the local charset.
-     *         Requires the PECL idn module.
-     *         DEFAULT: true
-     * </pre>
+     *   - charset: (string) The local charset.
+     *              DEFAULT: NONE
+     *   - filter: (mixed) A user@example.com style bare address to ignore.
+     *             Either single string or an array of strings.
+     *             DEFAULT: No filter
+     *   - idn: (boolean) Convert IDN domain names (Punycode/RFC 3490) into
+     *          the local charset.
+     *          Requires the idn or intl PHP module.
+     *          DEFAULT: true
      *
      * @return string  All of the addresses in a comma-delimited string.
      *                 Returns the empty string on error/no addresses found.
@@ -262,29 +260,27 @@ class Horde_Mime_Address
     /**
      * Return the list of addresses for a header object.
      *
+     * @todo Replace with built-in Horde_Mail_Rfc822_Address function.
+     *
      * @param array $obs   An array of header objects.
      * @param array $opts  Additional options:
-     * <pre>
-     * 'charset' - (string) The local charset.
-     *             DEFAULT: NONE
-     * 'filter' - (mixed) A user@example.com style bare address to ignore.
-     *            Either single string or an array of strings.
-     *            DEFAULT: No filter
-     * 'idn' - (boolean) Convert IDN domain names (Punycode/RFC 3490) into
-     *         the local charset.
-     *         Requires the PECL idn module.
-     *         DEFAULT: true
-     * </pre>
+     *   - charset: (string) The local charset.
+     *              DEFAULT: NONE
+     *   - filter: (mixed) A user@example.com style bare address to ignore.
+     *             Either single string or an array of strings.
+     *             DEFAULT: No filter
+     *   - idn: (boolean) Convert IDN domain names (Punycode/RFC 3490) into
+     *          the local charset.
+     *          Requires the idn or intl PHP module.
+     *          DEFAULT: true
      *
      * @return array  An array of address information. Array elements:
-     * <pre>
-     * 'address' - (string) Full address
-     * 'display' - (string) A displayable version of the address
-     * 'groupname' - (string) The group name.
-     * 'host' - (string) Hostname
-     * 'inner' - (string) Trimmed, bare address
-     * 'personal' - (string) Personal string
-     * </pre>
+     *   - address: (string) Full address
+     *   - display: (string) A displayable version of the address
+     *   - groupname: (string) The group name.
+     *   - host: (string) Hostname
+     *   - inner: (string) Trimmed, bare address
+     *   - personal: (string) Personal string
      */
     static public function getAddressesFromObject($obs, $opts = array())
     {
@@ -307,11 +303,13 @@ class Horde_Mime_Address
                 continue;
             }
 
-            $ob = array_merge(array(
-                'host' => '',
-                'mailbox' => '',
-                'personal' => ''
-            ), $ob);
+            if (is_array($ob)) {
+                $ob = array_merge(array(
+                    'host' => '',
+                    'mailbox' => '',
+                    'personal' => ''
+                ), $ob);
+            }
 
             /* Ensure we're working with initialized values. */
             if (!empty($ob['personal'])) {
@@ -354,7 +352,9 @@ class Horde_Mime_Address
         $addressList = array();
 
         try {
-            $from = self::parseAddressList($address, array('defserver' => $defserver));
+            $from = self::parseAddressList($address, array(
+                'defserver' => $defserver
+            ));
         } catch (Horde_Mime_Exception $e) {
             return $multiple ? array() : '';
         }
@@ -373,46 +373,36 @@ class Horde_Mime_Address
      * lists.
      *
      * @param string $address  The address string.
-     * @param array $options   Additional options:
-     * <pre>
-     * 'defserver' - (string) The default domain to append to mailboxes.
-     *               DEFAULT: No domain appended.
-     * 'nestgroups' - (boolean) Nest the groups? (Will appear under the
-     *                'groupname' key)
-     *                DEFAULT: No.
-     * 'validate' - (boolean) Validate the address(es)?
-     *              DEFAULT: No.
-     * </pre>
+     * @param array $opts   Additional options:
+     *   - defserver: (string) The default domain to append to mailboxes.
+     *                DEFAULT: No domain appended.
+     *   - nestgroups: (boolean) Nest the groups? (Will appear under the
+     *                 'groupname' key)
+     *                 DEFAULT: No.
+     *   - validate: (boolean) Validate the address(es)?
+     *               DEFAULT: No.
      *
      * @return array  A list of arrays with the possible keys: 'mailbox',
      *                'host', 'personal', 'adl', 'groupname', and 'comment'.
      * @throws Horde_Mime_Exception
      */
-    static public function parseAddressList($address, $options = array())
+    static public function parseAddressList($address, array $opts = array())
     {
-        if (!self::$_rfc822) {
-            self::$_rfc822 = new Horde_Mail_Rfc822();
-        }
-
-        $options = array_merge(array(
+        $opts = array_merge(array(
             'defserver' => null,
             'nestgroups' => false,
             'validate' => false
-        ), $options);
+        ), $opts);
+
+        $rfc822 = new Horde_Mail_Rfc822();
 
         try {
-            $ret = self::$_rfc822->parseAddressList($address, array(
-                'default_domain' => $options['defserver'],
-                'nest_groups' => $options['nestgroups'],
-                'validate' => $options['validate']
+            $ret = $rfc822->parseAddressList($address, array(
+                'default_domain' => $opts['defserver'],
+                'nest_groups' => $opts['nestgroups'],
+                'validate' => $opts['validate']
             ));
         } catch (Horde_Mail_Exception $e) {
-            /* Need to explicitly check for this error response - this
-             * is thrown by the validate method for perfectly valid empty
-             * groups pursuant to RFC 5322. */
-            if ($e->getMessage() == 'Empty group.') {
-                return array();
-            }
             throw new Horde_Mime_Exception($e);
         }
 

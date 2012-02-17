@@ -758,6 +758,15 @@ div.prefsError {
 #googlesearch {
     padding: .3em;
 }
+table.horde-block-weather {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid transparent;
+}
+table.horde-block-weather td {
+    border: 1px solid #ddd;
+    text-align:center;
+}
 
 /* Help styles. */
 body.help_about, body.help_entry {

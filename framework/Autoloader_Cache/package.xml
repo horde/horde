@@ -10,19 +10,19 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-12-06</date>
- <time>10:53:36</time>
+ <date>2011-12-21</date>
+ <time>18:59:25</time>
  <version>
-  <release>1.0.0</release>
-  <api>1.0.0RC2</api>
+  <release>1.0.1</release>
+  <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Include server name and file path in cache key to allow multiple Horde installations.
+* [jan] Fix horde-autoloader-cache-prune script.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -118,15 +118,41 @@
   </release>
   <release>
    <version>
-    <release>1.0.0</release>
-    <api>1.0.0RC2</api></version>
+    <release>1.0.0RC3</release>
+    <api>1.0.0RC3</api></version>
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2011-12-06</date>
+   <date>2011-12-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Include server name and file path in cache key to allow multiple Horde installations.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-21</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First stable release.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-21</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix horde-autoloader-cache-prune script.
    </notes>
   </release>
  </changelog>
