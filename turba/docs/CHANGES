@@ -8,6 +8,8 @@ v3.1-git
 v3.0.12-git
 -----------
 
+[mjr] Ensure contact lists are always populated with their members (Bug
+      #10961).
 [jan] Fix SyncML compatibility with work/home phone numbers and newer Funambol
       clients (Bug #10912).
 [mjr] Implement more flexible ActiveSync synchronization of names and
