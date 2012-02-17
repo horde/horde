@@ -576,8 +576,9 @@ class Kronolith_Api extends Horde_Registry_Api
             } else {
                 $changes['modify'] = array_keys(array_flip(array_merge($changes['modify'], $uids)));
             }
-            /* No way to figure out if this was an exception, so we must include all */
-            $changes['delete'] = array_keys(array_flip(array_merge($changes['delete'], $this->listBy('delete', $start, $c, $end))));
+            // No way to figure out if this was an exception, so we must include all
+            $changes['delete'] = array_keys(
+                array_flip(array_merge($changes['delete'], $this->listBy('delete', $start, $c, $end))));
         }
 
         return $changes;
