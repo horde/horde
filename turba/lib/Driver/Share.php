@@ -218,6 +218,10 @@ class Turba_Driver_Share extends Turba_Driver
      */
     public function removeUserData($user)
     {
+        // Make sure we are being called by an admin.
+        if (!$GLOBALS['registry']->isAdmin()) {
+            throw new Horde_Exception_PermissionDenied(_("Permission denied"));
+        }
         $this->_deleteAll();
         $GLOBALS['turba_shares']->removeShare($this->_share);
         unset($this->_share);
