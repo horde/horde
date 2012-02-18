@@ -758,14 +758,21 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      */
     public function delete($calendar)
     {
-        $query = 'DELETE FROM ' . $this->_params['table'] . ' WHERE calendar_id = ?';
-        $values = array($calendar);
-
-        try {
-            $this->_db->delete($query, $values);
-        } catch (Horde_Db_Exception $e) {
-            throw new Kronolith_Exception($e);
+        $oldCalendar = $this->calendar;
+        $this->open($calendar);
+        $events = $this->listEvents(null, null, false, false, false);
+        $uids = array();
+        foreach ($events as $dayevents) {
+            foreach ($dayevents as $event) {
+                $uids[] = $event->uid;
+            }
         }
+        foreach ($uids as $uid) {
+            $event = $this->getByUID($uid, array($calendar));
+            $this->deleteEvent($event->id);
+        }
+
+        $this->open($oldCalendar);
     }
 
     /**
