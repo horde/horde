@@ -224,9 +224,9 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
 
         switch ($length) {
         case Horde_Service_Weather::FORECAST_3DAY:
-        case Horde_Service_Weather::FORECAST_5DAY:
             $l = 'forecast';
             break;
+        case Horde_Service_Weather::FORECAST_5DAY:
         case Horde_Service_Weather::FORECAST_7DAY:
             $l = 'forecast7day';
             break;
@@ -254,6 +254,7 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
         $station->name = $results->current_observation->display_location->full;
         $this->_station = $station;
         $this->_forecast = $this->_parseForecast($results->forecast);
+        $this->_forecast->limitLength($length);
         $this->link = $results->current_observation->image->link;
         $this->title = $results->current_observation->image->title;
     }

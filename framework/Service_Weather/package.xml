@@ -13,8 +13,8 @@
  <date>2012-01-31</date>
  <time>12:11:58</time>
  <version>
-  <release>1.0.2</release>
-  <api>1.0.0</api>
+  <release>1.1.0</release>
+  <api>1.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -22,6 +22,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
+* [mjr] WeatherUnderground had done away with the 5 day forecast. Emulate it with a 7 day forecast and limitLength call.
+* [mjr] Allow setting a limit to the number of forecast days that are returned, regardless of the reqested forecast length.
 * [mjr] Fix requesting different forecast lengths for the same location in the same request.
 * [mjr] Add 10 day forecast support for WeatherUnderground.
  </notes>
@@ -520,14 +522,16 @@
   </release>
   <release>
    <version>
-    <release>1.0.2</release>
-    <api>1.0.0</api></version>
+    <release>1.1.0</release>
+    <api>1.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2012-01-31</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
+* [mjr] WeatherUnderground had done away with the 5 day forecast. Emulate it with a 7 day forecast and limitLength call.
+* [mjr] Allow setting a limit to the number of forecast days that are returned, regardless of the reqested forecast length.
 * [mjr] Fix requesting different forecast lengths for the same location in the same request.
 * [mjr] Add 10 day forecast support for WeatherUnderground.
    </notes>
