@@ -1160,7 +1160,7 @@ class Kronolith
             !count(self::listInternalCalendars(true))) {
             $calendars = $GLOBALS['injector']->getInstance('Kronolith_Factory_Calendars')
                 ->create();
-            
+
             $share = $calendars->createDefaultShare();
             $GLOBALS['all_calendars'][$share->getName()] = new Kronolith_Calendar_Internal(array('share' => $share));
             $GLOBALS['display_calendars'][] = $share->getName();
