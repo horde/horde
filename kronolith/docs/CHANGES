@@ -2,6 +2,7 @@
 v3.0.16-git
 -----------
 
+[mjr] Correctly deal with deleted calendars in sync clients (Bug #10969).
 
 
 -------
