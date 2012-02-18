@@ -33,12 +33,10 @@ class TimeObjects_Factory_Driver
                 throw new TimeObjects_Exception('Horde_Services_Facebook is not installed');
             }
             break;
+        default:
+            throw new TimeObjects_Exception(sprintf('Unable to load the definition of %s', $class));
         }
 
-        if (class_exists($class)) {
-            return new $class($params);
-        }
-
-        throw new TimeObjects_Exception(sprintf('Unable to load the definition of %s', $class));
+        return new $class($params);
     }
 }
