@@ -187,7 +187,7 @@ class Components_Helper_Website
 
 
         $data_file = $destination . '/config/components.d/' . strtolower($component->getName()) . '.json';
-        if (true || empty($options['pretend'])) {
+        if (empty($options['pretend'])) {
             $data = $component->getData();
             $data->hasDocuments = !empty($doc_files);
             file_put_contents($data_file, json_encode($data));

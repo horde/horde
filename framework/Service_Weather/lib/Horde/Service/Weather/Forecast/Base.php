@@ -50,6 +50,12 @@
      */
     protected $_type;
 
+    /**
+     * Maximum forecast length to return. Defaults to sufficiently high number
+     * to ensure all available days returned by default.
+     */
+    protected $_maxDays = 20;
+
 
     /**
      * Advertise how detailed the forecast period is.
@@ -82,7 +88,7 @@
 
     public function getIterator()
     {
-        return new ArrayIterator($this->_periods);
+        return new ArrayIterator(array_slice($this->_periods, 0, $this->_maxDays));
     }
 
     public function getForecastDay($day)
@@ -93,6 +99,18 @@
     public function getForecastTime()
     {
         return false;
+    }
+
+    /**
+     * Limit the returned number of forecast days. Used for emulating a smaller
+     * forecast length than the provider supports or for using one, longer
+     * request to supply two different forecast length requests.
+     *
+     * @param integer $days  The number of days to return.
+     */
+    public function limitLength($days)
+    {
+        $this->_maxDays = $days;
     }
 
  }
