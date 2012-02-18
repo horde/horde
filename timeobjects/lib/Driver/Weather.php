@@ -36,7 +36,7 @@ class TimeObjects_Driver_Weather extends TimeObjects_Driver_Base
      */
     public function ensure()
     {
-        if (empty($conf['weather']['provider']) || empty($this->_location)) {
+        if (empty($GLOBALS['conf']['weather']['provider']) || empty($this->_location)) {
             return false;
         }
         try {
