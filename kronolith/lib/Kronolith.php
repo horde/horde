@@ -1665,6 +1665,7 @@ class Kronolith
      */
     static public function getSyncCalendars()
     {
+        $haveRemoved = false;
         $cs = unserialize($GLOBALS['prefs']->getValue('sync_calendars'));
         if (!empty($cs)) {
             // Have a pref, make sure it's still available
@@ -1673,13 +1674,14 @@ class Kronolith
             foreach ($cs as $c) {
                 if (empty($calendars[$c])) {
                     unset($cscopy[$c]);
+                    $haveRemoved = true;
                 }
             }
-
-            // Have at least one
-            if (count($cscopy)) {
-                return array_flip($cscopy);
+            if ($haveRemoved) {
+                $GLOBALS['prefs']->setValue('sync_calendars', serialize(array_flip($cscopy)));
             }
+
+            return $cs;
         }
 
         if ($cs = self::getDefaultCalendar(Horde_Perms::EDIT, true)) {
