@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
+* [mjr] Fix requesting different forecast lengths for the same location in the same request.
 * [mjr] Add 10 day forecast support for WeatherUnderground.
  </notes>
  <contents>
@@ -527,6 +528,7 @@
    <date>2012-01-31</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
+* [mjr] Fix requesting different forecast lengths for the same location in the same request.
 * [mjr] Add 10 day forecast support for WeatherUnderground.
    </notes>
   </release>
