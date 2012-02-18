@@ -502,10 +502,11 @@ class Kronolith_Api extends Horde_Registry_Api
     public function listBy($action, $timestamp, $calendar = null, $end = null)
     {
         if (empty($calendar)) {
-            $cs = Kronolith::getSyncCalendars();
+            $cs = Kronolith::getSyncCalendars($action == 'delete');
             $results = array();
             foreach ($cs as $c) {
-                $results = array_merge($results, $this->listBy($action, $timestamp, $c, $end));
+                $results = array_merge(
+                    $results, $this->listBy($action, $timestamp, $c, $end));
             }
             return $results;
         }
@@ -513,7 +514,9 @@ class Kronolith_Api extends Horde_Registry_Api
         if (!empty($end)) {
             $filter[] = array('op' => '<', 'field' => 'ts', 'value' => $end);
         }
-        $histories = $GLOBALS['injector']->getInstance('Horde_History')->getByTimestamp('>', $timestamp, $filter, 'kronolith:' . $calendar);
+        $histories = $GLOBALS['injector']
+            ->getInstance('Horde_History')
+            ->getByTimestamp('>', $timestamp, $filter, 'kronolith:' . $calendar);
 
         // Strip leading kronolith:username:.
         return preg_replace('/^([^:]*:){2}/', '', array_keys($histories));

@@ -1661,26 +1661,31 @@ class Kronolith
     /**
      * Returns the calendars that should be used for syncing.
      *
+     * @param boolean $prune  Remove calendar ids from the sync list that no
+     *                        longer exist. The values are pruned *after* the
+     *                        results are passed back to the client to give
+     *                        sync clients a chance to remove their entries.
+     *
      * @return array  An array of calendar ids
      */
-    static public function getSyncCalendars()
+    static public function getSyncCalendars($prune = false)
     {
         $haveRemoved = false;
         $cs = unserialize($GLOBALS['prefs']->getValue('sync_calendars'));
         if (!empty($cs)) {
-            // Have a pref, make sure it's still available
-            $calendars = self::listInternalCalendars(true, Horde_Perms::EDIT);
-            $cscopy = array_flip($cs);
-            foreach ($cs as $c) {
-                if (empty($calendars[$c])) {
-                    unset($cscopy[$c]);
-                    $haveRemoved = true;
+            if ($prune) {
+                $calendars = self::listInternalCalendars(true, Horde_Perms::EDIT);
+                $cscopy = array_flip($cs);
+                foreach ($cs as $c) {
+                    if (empty($calendars[$c])) {
+                        unset($cscopy[$c]);
+                        $haveRemoved = true;
+                    }
+                }
+                if ($haveRemoved) {
+                    $GLOBALS['prefs']->setValue('sync_calendars', serialize(array_flip($cscopy)));
                 }
             }
-            if ($haveRemoved) {
-                $GLOBALS['prefs']->setValue('sync_calendars', serialize(array_flip($cscopy)));
-            }
-
             return $cs;
         }
 
