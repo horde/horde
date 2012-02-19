@@ -67,7 +67,6 @@ class Kronolith_Ajax extends Horde_Core_Ajax
     protected function _addBaseVars()
     {
         global $conf, $injector, $prefs, $registry;
-        global $all_calendars, $all_external_calendars, $all_holidays, $all_remote_calendars, $display_external_calendars;
 
         $auth_name = $registry->getAuth();
         $has_tasks = Kronolith::hasApiPermission('tasks');
