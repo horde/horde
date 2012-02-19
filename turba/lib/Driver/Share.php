@@ -223,7 +223,9 @@ class Turba_Driver_Share extends Turba_Driver
             throw new Horde_Exception_PermissionDenied(_("Permission denied"));
         }
         $this->_deleteAll();
-        $GLOBALS['injector']->getInstance('Turba_Shares')->removeShare($this->_share);
+        $GLOBALS['injector']
+            ->getInstance('Turba_Shares')
+            ->removeShare($this->_share);
         unset($this->_share);
     }
 
