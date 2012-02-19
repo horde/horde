@@ -281,16 +281,22 @@ class Nag_Driver_Sql extends Nag_Driver
     /**
      * Deletes all tasks from the backend.
      *
+     * @return array  An array of uids that have been removed.
      * @throws Nag_Exception
      */
-    public function deleteAll()
+    protected function _deleteAll()
     {
         // Get the list of ids so we can notify History.
         $query = sprintf('SELECT task_uid FROM %s WHERE task_owner = ?',
             $this->_params['table']);
 
         $values = array($this->_tasklist);
-        $ids = $this->_db->selectValues($query, $values);
+
+        try {
+            $ids = $this->_db->selectValues($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Nag_Exception($e->getMessage());
+        }
 
         // Deletion
         $query = sprintf('DELETE FROM %s WHERE task_owner = ?',
@@ -301,18 +307,7 @@ class Nag_Driver_Sql extends Nag_Driver
             throw new Nag_Exception($e->getMessage());
         }
 
-        // Update History.
-        $history = $GLOBALS['injector']->getInstance('Horde_History');
-        try {
-            foreach ($ids as $id) {
-                $history->log(
-                    'nag:' . $this->_tasklist . ':' . $id,
-                    array('action' => 'delete'),
-                    true);
-            }
-        } catch (Exception $e) {
-            Horde::logMessage($e, 'ERR');
-        }
+        return $ids;
     }
 
     /**

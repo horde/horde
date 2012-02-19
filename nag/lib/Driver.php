@@ -408,6 +408,29 @@ class Nag_Driver
     }
 
     /**
+     * Deletes all tasks for the current task list.
+     *
+     * @throws Nag_Exception
+     */
+    public function deleteAll()
+    {
+        $ids = $this->_deleteAll();
+
+        // Update History.
+        $history = $GLOBALS['injector']->getInstance('Horde_History');
+        try {
+            foreach ($ids as $id) {
+                $history->log(
+                    'nag:' . $this->_tasklist . ':' . $id,
+                    array('action' => 'delete'),
+                    true);
+            }
+        } catch (Exception $e) {
+            Horde::logMessage($e, 'ERR');
+        }
+    }
+
+    /**
      * Retrieves tasks from the database.
      *
      * @throws Nag_Exception
