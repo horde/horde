@@ -495,11 +495,12 @@ class Turba_Driver_Kolab extends Turba_Driver
     /**
      * Deletes all contacts from a specific address book.
      *
-     * @return boolean  True if the operation worked.
+     * @return array  An array of UIDs that have been deleted.
      */
     protected function _deleteAll($sourceName = null)
     {
         $this->connect();
+        $uids = array_keys($this->_contacts_cache);
 
         /* Delete contacts */
         $result = $this->_getData()->deleteAll();
@@ -508,6 +509,8 @@ class Turba_Driver_Kolab extends Turba_Driver
         //@todo: group support
         //$result = $this->_store->setObjectType('distribution-list');
         //$result = $this->_store->deleteAll();
+
+        return $uids;
     }
 
     /**
