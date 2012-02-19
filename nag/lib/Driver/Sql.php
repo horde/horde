@@ -285,15 +285,33 @@ class Nag_Driver_Sql extends Nag_Driver
      */
     public function deleteAll()
     {
-        $query = sprintf('DELETE FROM %s WHERE task_owner = ?',
-                         $this->_params['table']);
-        $values = array($this->_tasklist);
+        // Get the list of ids so we can notify History.
+        $query = sprintf('SELECT task_uid FROM %s WHERE task_owner = ?',
+            $this->_params['table']);
 
-        /* Attempt the delete query. */
+        $values = array($this->_tasklist);
+        $ids = $this->_db->selectValues($query, $values);
+
+        // Deletion
+        $query = sprintf('DELETE FROM %s WHERE task_owner = ?',
+            $this->_params['table']);
         try {
             $this->_db->delete($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Nag_Exception($e->getMessage());
+        }
+
+        // Update History.
+        $history = $GLOBALS['injector']->getInstance('Horde_History');
+        try {
+            foreach ($ids as $id) {
+                $history->log(
+                    'nag:' . $this->_tasklist . ':' . $id,
+                    array('action' => 'delete'),
+                    true);
+            }
+        } catch (Exception $e) {
+            Horde::logMessage($e, 'ERR');
         }
     }
 
