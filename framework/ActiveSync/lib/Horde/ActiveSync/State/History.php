@@ -1271,20 +1271,25 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
         // Also clean up the map table since this data is only needed for one
         // SYNC cycle. Keep the same number of old keys for the same reasons as
         // above.
-        $sql = 'SELECT sync_key FROM ' . $this->_syncMapTable
-            . ' WHERE sync_devid = ? AND sync_user = ?';
-        $maps = $this->_db->selectValues($sql, array($this->_devId, $this->_deviceInfo->user));
-        foreach ($maps as $key) {
-            if (preg_match('/^s{0,1}\{([0-9A-Za-z-]+)\}([0-9]+)$/', $key, $matches)) {
-                if ($matches[1] == $guid && $matches[2] < $n) {
-                    $remove[] = $key;
+        foreach (array($this->_syncMapTable, $this->_syncMailMapTable) as $table) {
+            $remove = array();
+            $sql = 'SELECT sync_key FROM ' . $table
+                . ' WHERE sync_devid = ? AND sync_user = ?';
+            $maps = $this->_db->selectValues(
+                $sql,
+                array($this->_devId, $this->_deviceInfo->user));
+            foreach ($maps as $key) {
+                if (preg_match('/^s{0,1}\{([0-9A-Za-z-]+)\}([0-9]+)$/', $key, $matches)) {
+                    if ($matches[1] == $guid && $matches[2] < $n) {
+                        $remove[] = $key;
+                    }
                 }
             }
-        }
-        if (count($remove)) {
-            $sql = 'DELETE FROM ' . $this->_syncMapTable . ' WHERE sync_key IN ('
-                . str_repeat('?,', count($remove) - 1) . '?)';
-            $this->_db->delete($sql, $remove);
+            if (count($remove)) {
+                $sql = 'DELETE FROM ' . $table . ' WHERE sync_key IN ('
+                    . str_repeat('?,', count($remove) - 1) . '?)';
+                $this->_db->delete($sql, $remove);
+            }
         }
 
         return true;
