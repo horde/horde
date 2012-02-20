@@ -970,6 +970,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     {
         $folder = $this->getFolder($folderid);
         $messages = $this->_connector->mail_getMessages($folder, array($id));
+        if (!count($messages)) {
+            // Message gone.
+            return false;
+        }
         $message = array_pop($messages);
         $envelope = $message->getEnvelope();
         $stat = array(
