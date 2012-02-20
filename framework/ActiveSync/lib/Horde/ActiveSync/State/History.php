@@ -937,14 +937,16 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
                     $this->_changes = $changes;
                 }
             } else {
-                $this->_logger->debug('[' . $this->_devId . '] Syncing Email folder, checking for PIM initiated flag changes.');
+                $this->_logger->debug('[' . $this->_devId . '] This is an Email folder, checking for PIM initiated flag changes.');
                 if ($this->_havePIMChanges(Horde_ActiveSync::CLASS_EMAIL)) {
                     foreach ($changes as $change) {
                         $stat = $this->_backend->statMailMessage($this->_collection['id'], $change['id']);
-                        if ($this->_isPIMFlagChange($change['id'], $stat['flags'])) {
+                        if ($stat && $this->_isPIMFlagChange($change['id'], $stat['flags'])) {
                             $this->_logger->debug(
                                 sprintf("[%s] Ignoring PIM initiated flag change for %s", $this->_devId, $change['id']));
                         } else {
+                            // @TODO: Need to catch device-deleted messages,
+                            // device moved messages etc...
                             $this->_changes[] = $change;
                         }
                     }
