@@ -1,0 +1,25 @@
+TODO for 2.0
+============
+
+- Implement Horde_ActiveSync_Folders for all collections, not just IMAP. These
+  object shuttle state back and forth from backend driver to ActiveSync classes
+  and are responsible for reporting changes from server.
+
+  Folder contains *all* device state that the backend driver would need to
+  generate a diff. Driver is responsible for providing all backend state data.
+
+  So for mail, backend populates Folder with IMAP UIDS and flags, along with
+  modseq values etc...
+
+  The folder object is stored in the State driver's storage.
+
+  For non-email folders, in Horde at least, Folder would only need to contain
+  unsync'd changes etc...
+
+- Monolithic state handling?
+  Need to be able to tell PING state about SYNC state's synckey to more
+  efficiently know the proper last_syncts values. So, the collection's PING
+  state will *always* be loaded (for both SYNC and PING requests) and we can
+  save the current SYNC syncKey into the colletion's PING state. NOTE: This
+  might be unneccessary once we implement EAS 12.0 or 12.1
+
