@@ -507,7 +507,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         foreach ($changes['add'] as $add) {
             $results[] = array(
                 'id' => $add,
-                'type' => 'change',
+                'type' => Horde_ActiveSync::CHANGE_TYPE_CHANGE,
                 'flags' => Horde_ActiveSync::FLAG_NEWMESSAGE);
         }
 
@@ -515,14 +515,14 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         foreach ($changes['modify'] as $change) {
             $results[] = array(
                 'id' => $change,
-                'type' => 'change');
+                'type' => Horde_ActiveSync::CHANGE_TYPE_FLAGS);
         }
 
         // Server Deletions
         foreach ($changes['delete'] as $deleted) {
             $results[] = array(
                 'id' => $deleted,
-                'type' => 'delete');
+                'type' => Horde_ActiveSync::CHANGE_TYPE_DELETE);
         }
         $this->_endBuffer();
 
