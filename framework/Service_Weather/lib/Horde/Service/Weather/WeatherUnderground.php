@@ -168,7 +168,8 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
          return array(
             3 => Horde_Service_Weather::FORECAST_3DAY,
             5 => Horde_Service_Weather::FORECAST_5DAY,
-            7 => Horde_Service_Weather::FORECAST_7DAY
+            7 => Horde_Service_Weather::FORECAST_7DAY,
+            10 => Horde_Service_Weather::FORECAST_10DAY
          );
      }
 
@@ -211,18 +212,32 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
      * a bit of request time/traffic for a smaller number of requests to obtain
      * information for e.g., a typical weather portal display.
      */
-    protected function _getCommonElements($location, $length = 7)
+    protected function _getCommonElements($location, $length = Horde_Service_Weather::FORECAST_10DAY)
     {
-        if (!empty($this->_current) && $location == $this->_lastLocation) {
+        if (!empty($this->_current) && $location == $this->_lastLocation
+            && $this->_lastLength >= $length) {
+
+            if ($this->_lastLength > $length) {
+                $this->_forecast->limitLength($length);
+            }
+
             return;
         }
 
+        $this->_lastLength = $length;
         $this->_lastLocation = $location;
 
-        if ($length < 7) {
+        switch ($length) {
+        case Horde_Service_Weather::FORECAST_3DAY:
             $l = 'forecast';
-        } else {
+            break;
+        case Horde_Service_Weather::FORECAST_5DAY:
+        case Horde_Service_Weather::FORECAST_7DAY:
             $l = 'forecast7day';
+            break;
+        case Horde_Service_Weather::FORECAST_10DAY:
+            $l = 'forecast10day';
+            break;
         }
         $url = self::API_URL . '/api/' . $this->_apiKey
             . '/geolookup/conditions/' . $l . '/astronomy/q/' . $location . '.json';
@@ -244,6 +259,7 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
         $station->name = $results->current_observation->display_location->full;
         $this->_station = $station;
         $this->_forecast = $this->_parseForecast($results->forecast);
+        $this->_forecast->limitLength($length);
         $this->link = $results->current_observation->image->link;
         $this->title = $results->current_observation->image->title;
     }

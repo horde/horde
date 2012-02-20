@@ -6,11 +6,16 @@
 class Horde_Core_Factory_Weather extends Horde_Core_Factory_Injector
 {
     /**
+     *
+     * @throws Horde_Exception
      */
     public function create(Horde_Injector $injector)
     {
         global $conf, $injector;
 
+        if (empty($conf['weather']['provider'])) {
+            throw new Horde_Exception(_("Weather support not configured."));
+        }
         // Parameters for all driver types
         $params = array(
             'http_client' => $injector->createInstance('Horde_Core_Factory_HttpClient')->create(),
@@ -40,7 +45,7 @@ class Horde_Core_Factory_Weather extends Horde_Core_Factory_Injector
             $class = 'Horde_Service_Weather_' . $driver;
             $driver = new $class($params);
         } catch (InvalidArgumentException $e) {
-            throw new TimeObjects_Exception($e);
+            throw new Horde_Exception($e);
         }
 
         return $driver;

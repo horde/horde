@@ -412,7 +412,9 @@ class Turba_Application extends Horde_Registry_Application
             if (empty($source['use_shares'])) {
                 // Shares not enabled for this source
                 try {
-                    $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($source);
+                    $driver = $GLOBALS['injector']
+                        ->getInstance('Turba_Factory_Driver')
+                        ->create($source);
                 } catch (Turba_Exception $e) {
                     Horde::logMessage($e, 'ERR');
                 }
@@ -443,7 +445,9 @@ class Turba_Application extends Horde_Registry_Application
         foreach ($shares as $share) {
             $config = Turba::getSourceFromShare($share);
             try {
-                $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($config);
+                $driver = $GLOBALS['injector']
+                    ->getInstance('Turba_Factory_Driver')
+                    ->create($config);
             } catch (Turba_Exception $e) {
                 continue;
             }

@@ -45,7 +45,7 @@ abstract class Components_Component_Base implements Components_Component
      * Constructor.
      *
      * @param Components_Config            $config  The configuration for the
-                                                    current job.
+     *                                              current job.
      * @param Components_Component_Factory $factory Generator for additional
      *                                              helpers.
      */
