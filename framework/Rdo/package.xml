@@ -23,7 +23,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [rla] fix [#11012] Horde_Rdo calls non-existing Horde_Db method for lazy fields
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -215,7 +215,7 @@ Major improvements including inflection, eager or lazy loading of relationships 
    <date>2011-10-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [rla] fix [#11012] Horde_Rdo calls non-existing Horde_Db method for lazy fields
    </notes>
   </release>
  </changelog>
