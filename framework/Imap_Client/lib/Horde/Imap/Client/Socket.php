@@ -380,10 +380,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 unset($t['referralcount']);
             } catch (Horde_Imap_Client_Exception $e) {
                 $success = false;
-                if (!empty($this->_init['authmethod'])) {
-                    $this->_setInit('authmethod');
-                    return $this->login();
-                }
             }
 
             unset($this->_temp['in_login']);
@@ -422,7 +418,19 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
         }
 
-        $this->_exception($t['loginerrmsg'], $t['loginerr']);
+        $err_msg = $t['loginerrmsg'];
+        $err_code = $t['loginerr'];
+
+        /* Try again from scratch if authentication failed in an established,
+         * previously-authenticated object. */
+        if (!empty($this->_init['authmethod'])) {
+            $this->_setInit('authmethod');
+            try {
+                return $this->login();
+            } catch (Horde_Imap_Client_Exception $e) {}
+        }
+
+        $this->_exception($err_msg, $err_code);
     }
 
     /**
