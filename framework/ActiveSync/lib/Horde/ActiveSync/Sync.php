@@ -202,6 +202,7 @@ class Horde_ActiveSync_Sync
                     }
 
                     // copy the flag to the message
+                    // @TODO: Rename this to ->new or ->status or *anything* other than flags!!
                     $message->flags = (isset($change['flags'])) ? $change['flags'] : 0;
                     if ($flags & Horde_ActiveSync::BACKEND_DISCARD_DATA || $this->_exporter->messageChange($change['id'], $message) == true) {
                         $this->_stateMachine->updateState(
