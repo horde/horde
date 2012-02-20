@@ -4,13 +4,6 @@
  * Contains code written by the Z-Push project. Original file header preserved
  * below.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
- *
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
- * @package ActiveSync
- */
-
-/**
  * File      :   streamimporter.php
  * Project   :   Z-Push
  * Descr     :   Stream import classes
@@ -20,6 +13,18 @@
  * © Zarafa Deutschland GmbH, www.zarafaserver.de
  * This file is distributed under GPL-2.0.
  * Consult COPYING file for details
+ *
+ * @copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * @author Michael J Rubinsky <mrubinsk@horde.org>
+ * @package ActiveSync
+ */
+
+/**
+ * Horde_ActiveSync_Connector_Exporter:: Outputs necessary wbxml to device.
+ *
+ * @copyright 2010 - 2012 Horde LLC (http://www.horde.org)
+ * @author Michael J Rubinsky <mrubinsk@horde.org>
+ * @package ActiveSync
  */
 class Horde_ActiveSync_Connector_Exporter
 {
@@ -75,7 +80,9 @@ class Horde_ActiveSync_Connector_Exporter
      *
      * @return Horde_ActiveSync_Connector_Exporter
      */
-    public function __construct($encoder = null, $class = null)
+    public function __construct(
+        Horde_ActiveSync_Wbxml_Encoder $encoder = null,
+        $class = null)
     {
         $this->_encoder = $encoder;
         $this->_class = $class;
@@ -89,29 +96,29 @@ class Horde_ActiveSync_Connector_Exporter
      *
      * @return boolean
      */
-    public function messageChange($id, $message)
+    public function messageChange($id, Horde_ActiveSync_Message_Base $message)
     {
-        /* Just ignore any messages that are not from this collection */
+        // Just ignore any messages that are not from this collection
         if ($message->getClass() != $this->_class) {
             return true;
         }
 
-        /* Prevent sending the same object twice in one request */
+        // Prevent sending the same object twice in one request
         if (in_array($id, $this->_seenObjects)) {
         	return true;
         }
 
-        /* Remember this message */
+        // Remember this message
         $this->_seenObjects[] = $id;
 
-        /* Specify if this is an ADD or a MODIFY change? */
+        // Specify if this is an ADD or a MODIFY change?
         if ($message->flags === false || $message->flags === Horde_ActiveSync::FLAG_NEWMESSAGE) {
             $this->_encoder->startTag(Horde_ActiveSync::SYNC_ADD);
         } else {
             $this->_encoder->startTag(Horde_ActiveSync::SYNC_MODIFY);
         }
 
-        /* Send the message */
+        // Send the message
         $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
         $this->_encoder->content($id);
         $this->_encoder->endTag();
@@ -151,8 +158,8 @@ class Horde_ActiveSync_Connector_Exporter
      */
     public function messageReadFlag($id, $flags)
     {
-        /* This only applies to mail folders */
-        if ($this->_class != "syncmail") {
+        // This only applies to mail folders
+        if ($this->_class != Horde_ActiveSync::CLASS_EMAIL) {
             return true;
         }
 
@@ -162,7 +169,7 @@ class Horde_ActiveSync_Connector_Exporter
         $this->_encoder->content($id);
         $this->_encoder->endTag();
         $this->_encoder->startTag(Horde_ActiveSync::SYNC_DATA);
-        $this->_encoder->startTag(SYNC_POOMMAIL_READ);
+        $this->_encoder->startTag(Horde_ActiveSync_Message_Mail::POOMMAIL_READ, false, true);
         $this->_encoder->content($flags);
         $this->_encoder->endTag();
         $this->_encoder->endTag();
@@ -184,13 +191,13 @@ class Horde_ActiveSync_Connector_Exporter
     }
 
     /**
-     * Add a folder change to the cache. (used during FolderSync Requests).
+     * Add a folder change to the cache (used during FolderSync requests).
      *
      * @param Horde_ActiveSync_Message_Folder $folder
      *
      * @return boolean
      */
-    public function folderChange($folder)
+    public function folderChange(Horde_ActiveSync_Message_Folder $folder)
     {
         array_push($this->changed, $folder);
         $this->count++;
@@ -212,4 +219,5 @@ class Horde_ActiveSync_Connector_Exporter
 
         return true;
     }
+
 }
