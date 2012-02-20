@@ -104,7 +104,7 @@ extends Components_Module_Base
      */
     public function getHelp($action)
     {
-        return 'This module generates the required set of data to publish information about this component on www.horde.org.';
+        return 'This module generates the required set of data to publish information about this component on www.horde.org. The operation will only work with an already relased package! Make sure you enter the name of the package on the PEAR server rather than using a local path and ensure you added the "--allow-remote" flag as well.';
     }
 
     /**
@@ -118,6 +118,7 @@ extends Components_Module_Base
             '--destination' => 'The documentation for the component will be written to the location specified as DESTINATION. The module will assume DESTINATION is a checkout of the "horde-web" git repository.',
             '--html-generator' => '',
             '--pretend' => '',
+            '--allow-remote' => '',
         );
     }
 

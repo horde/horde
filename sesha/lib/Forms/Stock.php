@@ -104,4 +104,3 @@ class Sesha_Forms_Stock extends Horde_Form {
         $categoryVar->setOption('trackchange', true);
     }
 }
-

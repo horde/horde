@@ -2768,14 +2768,12 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     {
         $body_id = null;
         $mode = 'text';
-        $options = array_merge(array(
-            'imp_msg' => self::COMPOSE
-        ), $options);
 
         if (!empty($options['html']) &&
             $GLOBALS['session']->get('imp', 'rteavail') &&
             (($body_id = $contents->findBody('html')) !== null)) {
             if (($contents->getMIMEMessage()->getType() != 'multipart/mixed') &&
+                isset($options['imp_msg']) &&
                 in_array($options['imp_msg'], array(self::COMPOSE, self::REPLY))) {
                 $check_id = '2';
             } else {
