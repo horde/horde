@@ -91,8 +91,7 @@ abstract class Horde_Rdo_Base implements IteratorAggregate
             $query->setFields($field)
                   ->addTest($mapper->primaryKey, '=', $this->{$mapper->primaryKey});
             list($sql, $params) = $query->getQuery();
-            $queryRes = $mapper->adapter->selectOne($sql, $params);
-            $this->_fields[$field] = $queryRes[$field];
+            $this->_fields[$field] = $mapper->adapter->selectValue($sql, $params);;
             return $this->_fields[$field];
         } elseif (isset($mapper->lazyRelationships[$field])) {
             $rel = $mapper->lazyRelationships[$field];
