@@ -75,8 +75,13 @@ class Horde_ActiveSync_Folder_Imap
 
     public function setChanges($messages)
     {
-        $this->_added = array_diff($messages, $this->_messages);
-        $this->_changed = array_diff($messages, $this->_added);
+        foreach ($messages as $uid) {
+            if ($uid >= $this->uidnext()) {
+                $this->_added[] = $uid;
+            } else {
+                $this->_changed[] = $uid;
+            }
+        }
     }
 
     public function setRemoved($message_ids)
@@ -100,11 +105,15 @@ class Horde_ActiveSync_Folder_Imap
      */
     public function updateState()
     {
-        $this->_messages = array_diff($this->_messages, $this->_removed);
-        $this->_removed = array();
-        foreach ($this->_added as $add) {
-            $this->_messages[] = $add;
+        // If we support modseq, do not bother keeping a cache of messages,
+        // since we do not need them.
+        if (!$this->modseq()) {
+            $this->_messages = array_diff($this->_messages, $this->_removed);
+            foreach ($this->_added as $add) {
+                $this->_messages[] = $add;
+            }
         }
+        $this->_removed = array();
         $this->_added = array();
         $this->_changed = array();
     }
@@ -211,6 +220,5 @@ class Horde_ActiveSync_Folder_Imap
             join(', ', $this->_removed)
         );
     }
-
 
 }

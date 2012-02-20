@@ -488,7 +488,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         } else {
             // Email request.
             try {
-                $folderId = $this->_connector->mail_getMessageList(
+                $folderId = &$this->_connector->mail_getMessageList(
                     $folderId,
                     array('sincedate' => (int)$cutoffdate));
             } catch (Horde_Exception $e) {

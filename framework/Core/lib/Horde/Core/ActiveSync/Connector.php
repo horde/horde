@@ -408,25 +408,39 @@ class Horde_Core_ActiveSync_Connector
          $modseq = $status['highestmodseq'];
 
         // If we have a modseq, start getting deltas.
-        if ($folder->modseq() &&  $folder->modseq() < $modseq) {
-            $query = new Horde_Imap_Client_Search_Query();
-            if ($options['sincedate']) {
-                $query->dateSearch(
-                    new Horde_Date($options['sincedate']),
-                    Horde_Imap_Client_Search_Query::DATE_SINCE);
-            }
-            // Don't include \deleted, since EAS 2.5 doesn't support it.
-            $query->flag(Horde_Imap_Client::FLAG_DELETED, false);
-
-            $results = $imap->search($mbox, $query);
-            $folder->setRemoved(array_diff($folder->ids()->ids, $results['match']->ids));
-
+        if ($folder->modseq() && $folder->modseq() < $modseq) {
             // Get changed messages and new messages.
+
+            // Use this if we don't care about /deleted flags
             $query = new Horde_Imap_Client_Fetch_Query();
             $messages = $imap->fetch($mbox, $query, array(
                 'changedsince' => $folder->modseq()
             ));
             $folder->setChanges(array_keys($messages));
+
+            // $query = new Horde_Imap_Client_Search_Query();
+            // if ($options['sincedate']) {
+            //     $query->dateSearch(
+            //         new Horde_Date($options['sincedate']),
+            //         Horde_Imap_Client_Search_Query::DATE_SINCE);
+            // }
+            // $query->modseq($folder->modseq());
+            // $query->flag(Horde_Imap_Client::FLAG_DELETED, false);
+            // $messages = $imap->search($mbox, $query);
+            // $folder->setChanges($messages);
+
+            $query = new Horde_Imap_Client_Fetch_Query();
+            // Get deleted.
+            // @TODO: Docs say 'vanished' should only return the expunged messages
+            //        but this returns expunged *and* the results returned by just
+            //        'changedsince'. Awaiting confirmation from Michael S. about
+            //        this behaviour.
+            $deleted = $imap->fetch($mbox, $query, array(
+                'changedsince' => $folder->modseq(),
+                'vanished' => true));
+            $folder->setRemoved(
+                array_diff(array_keys($deleted), array_keys($messages)));
+
         } elseif (!$folder->modseq()) {
             // No modseq value, pull the entire list
             $query = new Horde_Imap_Client_Search_Query();
@@ -438,7 +452,6 @@ class Horde_Core_ActiveSync_Connector
             $query->flag(Horde_Imap_Client::FLAG_DELETED, false);
             $results = $imap->search($mbox, $query);
             $folder->setChanges($results['match']->ids);
-            $folder->setStatus($status);
         }
 
         $folder->setStatus($status);
