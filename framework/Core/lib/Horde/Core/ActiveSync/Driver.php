@@ -886,8 +886,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     private function _getMailFolders()
     {
-        $this->_logger->debug('Horde_ActiveSync_Driver_Horde::_getMailFolders()');
         if (empty($this->_mailFolders)) {
+            $this->_logger->debug('Polling Horde_ActiveSync_Driver_Horde::_getMailFolders()');
             $folders = array();
             $imap_folders = $this->_connector->mail_folderlist();
             foreach ($imap_folders as $imap_name => $folder) {
