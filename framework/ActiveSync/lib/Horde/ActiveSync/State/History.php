@@ -1206,6 +1206,9 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
+        if ($mflag === false) {
+            return false;
+        }
 
         return $mflag == $flag;
     }
