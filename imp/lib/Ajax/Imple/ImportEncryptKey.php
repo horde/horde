@@ -86,7 +86,6 @@ class IMP_Ajax_Imple_ImportEncryptKey extends Horde_Core_Ajax_Imple
      *
      * @return object  An object with the following entries:
      *   - success: (integer) 1 on success, 0 on failure.
-     *   - successmsg: (string) Success message to print to page.
      */
     public function handle($args, $post)
     {
