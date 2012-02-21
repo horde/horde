@@ -251,34 +251,6 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
     }
 
     /**
-     * Determine whether the sender appears in an available addressbook.
-     *
-     * @return boolean  Does the sender appear in an addressbook?
-     */
-    protected function _inAddressBook()
-    {
-        if (!$this->getConfigParam('imp_contents')) {
-            return false;
-        }
-
-        $from = Horde_Mime_Address::bareAddress($this->getConfigParam('imp_contents')->getHeader()->getValue('from'));
-
-        if ($GLOBALS['prefs']->getValue('html_image_addrbook') &&
-            $GLOBALS['registry']->hasMethod('contacts/getField')) {
-            $params = IMP::getAddressbookSearchParams();
-            try {
-                if ($GLOBALS['registry']->call('contacts/getField', array($from, '__key', $params['sources'], false, true))) {
-                    return true;
-                }
-            } catch (Horde_Exception $e) {}
-        }
-
-        /* Check admin defined e-mail list. */
-        $safe_addrs = $this->getConfigParam('safe_addrs');
-        return (!empty($safe_addrs) && in_array($from, $safe_addrs));
-    }
-
-    /**
      * Process emails text filter callback.
      *
      * @param array $args   List of arguments to pass to the compose script.
