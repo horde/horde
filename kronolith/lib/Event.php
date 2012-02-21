@@ -844,6 +844,7 @@ abstract class Kronolith_Event
             }
             if ($exdates) {
                 $vEvent->setAttribute('EXDATE', $exdates);
+                $vEvent->setAttribute('EXDATE', $exdates, array("VALUE" => "DATE"));
             }
         }
         array_unshift($vEvents, $vEvent);
