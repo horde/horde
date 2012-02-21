@@ -69,6 +69,7 @@ class IMP_Ajax extends Horde_Core_Ajax
             Horde::addScriptFile('dimpbase.js', 'imp');
             Horde::addScriptFile('dialog.js', 'imp');
             Horde::addScriptFile('imp.js', 'imp');
+            Horde::addScriptFile('imageunblock.js', 'imp');
             Horde::addScriptFile('itiprequest.js', 'imp');
             Horde::addScriptFile('jstorage.js', 'imp');
             Horde::addScriptFile('mailbox-dimp.js', 'imp');
@@ -88,6 +89,7 @@ class IMP_Ajax extends Horde_Core_Ajax
         case 'message':
             Horde::addScriptFile('message-dimp.js', 'imp');
             Horde::addScriptFile('imp.js', 'imp');
+            Horde::addScriptFile('imageunblock.js', 'imp');
             Horde::addScriptFile('itiprequest.js', 'imp');
             Horde::addScriptFile('textarearesize.js', 'horde');
             Horde::addScriptFile('toggle_quotes.js', 'horde');

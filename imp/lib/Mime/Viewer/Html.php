@@ -130,8 +130,9 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             $this->_imptmp = null;
         } else {
             if ($inline) {
+                $contents = $this->getConfigParam('imp_contents');
                 $imgview = new IMP_Ui_Imageview();
-                $blockimg = !$imgview->showInlineImage($this->getConfigParam('imp_contents'));
+                $blockimg = !$imgview->showInlineImage($contents);
             } else {
                 $blockimg = false;
             }
@@ -156,7 +157,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             /* Search for inlined data that we can display (multipart/related
              * parts) - see RFC 2392. */
             $this->_imptmp['cid'] = array();
-            if (($related_part = $this->getConfigParam('imp_contents')->findMimeType($this->_mimepart->getMimeId(), 'multipart/related')) &&
+            if (($related_part = $contents->findMimeType($this->_mimepart->getMimeId(), 'multipart/related')) &&
                 ($related_cids = $related_part->getMetadata('related_cids'))) {
                 $cid_replace = array();
 
@@ -201,9 +202,14 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         }
 
         if ($inline && $this->_imptmp['imgblock']) {
+            $imple = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('imp', 'ImageUnblock'), array(
+                'mailbox' => $contents->getMailbox(),
+                'uid' => $contents->getUid()
+            ));
             $tmp = new IMP_Mime_Status(array(
                 _("Images have been blocked in this message part."),
-                Horde::link('#', '', 'unblockImageLink') . _("Show Images?") . '</a>'
+                Horde::link('#', '', 'unblockImageLink') . _("Show Images?") . '</a>',
+                Horde::link('#', '', '', '', '', '', '', array('id' => $imple->getDomId())) . _("Always show images from this sender?") . '</a>'
             ));
             $tmp->icon('mime/image.png');
             $status[] = $tmp;

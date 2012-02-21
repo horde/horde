@@ -2,6 +2,8 @@
 v5.1-git
 --------
 
+[mms] Allow identifying addresses to always display images for without
+      requiring to add them to the addressbook.
 [mms] Disable text selection in dynamic view for everything but
       compose/message bodies.
 [mms] Rewritten vCal/iCal attachment viewer/handler.
