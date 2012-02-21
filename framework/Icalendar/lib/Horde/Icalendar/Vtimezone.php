@@ -68,11 +68,31 @@ class Horde_Icalendar_Vtimezone extends Horde_Icalendar
         }
 
         try {
+            $rdates = $child->getAttribute('RDATE');
+        } catch (Horde_Icalendar_Exception $e) {
+            $rdates = false;
+        }
+
+        try {
             $rrules = $child->getAttribute('RRULE');
         } catch (Horde_Icalendar_Exception $e) {
             if (!is_int($switch_time)) {
                 return false;
             }
+
+            if ($rdates !== false) {
+                $rdate_match = false;
+                foreach ($rdates as $rdate) {
+                    $t = getdate($rdate);
+                    if ($t['year'] == $year) {
+                        $rdate_match = true;
+                    }
+                }
+                if (!$rdate_match) {
+                    return false;
+                }
+            }
+
             // Convert this timestamp from local time to UTC for
             // comparison (All dates are compared as if they are UTC).
             $t = getdate($switch_time);
