@@ -721,7 +721,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             foreach ($recip['list'] as $val) {
                 $send_msgs[] = array(
                     'base' => $this->_createMimeMessage(array($val), $body, $msg_options),
-                    'recipients' => array($val)
+                    'recipientob' => array($val),
+                    'recipients' => Horde_Mime_Address::addrObject2String($val)
                 );
             }
 
@@ -735,7 +736,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             $save_msg = $this->_createMimeMessage($recip['list'], $body, $msg_options);
             $send_msgs[] = array(
                 'base' => $save_msg,
-                'recipients' => $recip['list']
+                'recipientob' => $recip['list'],
+                'recipients' => $recip['recips']
             );
         }
 
@@ -796,8 +798,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             }
 
             try {
-                $this->_prepSendMessageAssert($val['recipients'], $headers, $val['base']);
-                $this->sendMessage($val['recipients'], $headers, $val['base']);
+                $this->_prepSendMessageAssert($val['recipientob'], $headers, $val['base']);
+                $this->sendMessage($val['recipientob'], $headers, $val['base']);
 
                 /* Store history information. */
                 $sentmail->log($senttype, $headers->getValue('message-id'), $val['recipients'], true);

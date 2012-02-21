@@ -119,13 +119,16 @@ class IMP_Application extends Horde_Registry_Application
         }
 
         // Set default message character set.
-        if ($def_charset = $GLOBALS['prefs']->getValue('default_msg_charset')) {
-            Horde_Mime_Part::$defaultCharset = $def_charset;
-            Horde_Mime_Headers::$defaultCharset = $def_charset;
-        }
+        if ($GLOBALS['registry']->getAuth()) {
+            if ($def_charset = $GLOBALS['prefs']->getValue('default_msg_charset')) {
+                Horde_Mime_Part::$defaultCharset = $def_charset;
+                Horde_Mime_Headers::$defaultCharset = $def_charset;
+            }
 
-        // Always use Windows-1252 in place of ISO-8859-1 for MIME decoding.
-        Horde_Mime::$decodeWindows1252 = true;
+            // Always use Windows-1252 in place of ISO-8859-1 for MIME
+            // decoding.
+            Horde_Mime::$decodeWindows1252 = true;
+        }
 
         if ($GLOBALS['registry']->initialApp == 'imp') {
             switch ($GLOBALS['registry']->getView()) {
