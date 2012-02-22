@@ -16,8 +16,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-11-22</date>
- <time>21:24:39</time>
+ <date>2012-02-22</date>
+ <time>13:27:33</time>
  <version>
   <release>1.0.0</release>
   <api>1.0.0</api>
@@ -187,7 +187,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-22</date>
+   <date>2012-02-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Remove reference to mirrors.
