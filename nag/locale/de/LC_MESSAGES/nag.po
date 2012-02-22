@@ -1,14 +1,14 @@
 # German translations for Nag.
 # Copyright 2001-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Nag package.
-# Jan Schneider <jan@horde.org>, 2001-2010.
+# Jan Schneider <jan@horde.org>, 2001-2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Nag H4 (3.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-01-17 12:38+0100\n"
-"PO-Revision-Date: 2011-11-01 12:54+0100\n"
+"POT-Creation-Date: 2012-02-22 11:20+0100\n"
+"PO-Revision-Date: 2012-02-22 12:21+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
 "Language: de\n"
@@ -173,6 +173,10 @@ msgid "An alarm must be set to specify a notification method"
 msgstr ""
 "Um eine Benachrichtigungsmethode auswählen zu können, muss erst ein Alarm "
 "gesetzt werden."
+
+#: mobile.php:46
+msgid "Applications"
+msgstr "Anwendungen"
 
 #: config/prefs.php:123
 msgid "Ascending"
@@ -783,10 +787,6 @@ msgstr "Überaufgabe"
 #: lib/Api.php:1364 lib/Api.php:1421 lib/Application.php:306 lib/Nag.php:333
 msgid "Permission Denied"
 msgstr "Zugriff verweigert"
-
-#: mobile.php:46
-msgid "Portal"
-msgstr "Portal"
 
 #: config/prefs.php:66 config/prefs.php:87 config/prefs.php:105 data.php:60
 #: lib/Form/Task.php:105 templates/view/task.inc:34

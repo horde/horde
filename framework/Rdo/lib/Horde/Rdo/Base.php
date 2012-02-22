@@ -89,7 +89,7 @@ abstract class Horde_Rdo_Base implements IteratorAggregate
             // @TODO Support composite primary keys
             $query = new Horde_Rdo_Query($mapper);
             $query->setFields($field)
-                  ->addTest($mapper->primaryKey, '=', $this->{$mapper->primaryKey});
+                   ->addTest($mapper->primaryKey, '=', $this->{$mapper->primaryKey});
             list($sql, $params) = $query->getQuery();
             $this->_fields[$field] = $mapper->adapter->selectValue($sql, $params);;
             return $this->_fields[$field];
@@ -121,7 +121,7 @@ abstract class Horde_Rdo_Base implements IteratorAggregate
             if (isset($rel['query'])) {
                 $query = $this->_fillPlaceholders($rel['query']);
                 $this->_fields[$field] = $m->findOne($query);
-            } elseif(!empty($this->{$rel['foreignKey']})) {
+            } elseif (!empty($this->{$rel['foreignKey']})) {
                 $this->_fields[$field] = $m->findOne($this->{$rel['foreignKey']});
                 if (empty($this->_fields[$field])) {
                     throw new Horde_Rdo_Exception('The referenced object with key ' . $this->{$rel['foreignKey']} . ' does not exist. Your data is inconsistent');

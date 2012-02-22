@@ -1,5 +1,5 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Horde Project
+# Copyright (C) YEAR Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Sesha package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Sesha H4 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-01-17 22:00+0000\n"
+"POT-Creation-Date: 2012-02-22 11:20+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -54,7 +54,7 @@ msgstr ""
 msgid "Add a property"
 msgstr ""
 
-#: lib/Sesha.php:254
+#: lib/Sesha.php:255
 msgid "Admin"
 msgstr ""
 
@@ -500,18 +500,18 @@ msgstr ""
 msgid "You do not have sufficient permissions to delete."
 msgstr ""
 
-#: lib/Sesha.php:253
+#: lib/Sesha.php:254
 msgid "_Add Stock"
 msgstr ""
 
-#: lib/Sesha.php:251
+#: lib/Sesha.php:252
 msgid "_List Stock"
 msgstr ""
 
-#: lib/Sesha.php:260
+#: lib/Sesha.php:261
 msgid "_Print"
 msgstr ""
 
-#: lib/Sesha.php:256
+#: lib/Sesha.php:257
 msgid "_Search"
 msgstr ""

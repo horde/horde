@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Service_Weather \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"POT-Creation-Date: 2012-02-22 11:20+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,7 +37,7 @@ msgstr ""
 msgid "Blowing snow"
 msgstr ""
 
-#: lib/Horde/Service/Weather/Base.php:200
+#: lib/Horde/Service/Weather/Base.php:207
 msgid "C"
 msgstr ""
 
@@ -100,7 +100,7 @@ msgstr ""
 msgid "East"
 msgstr ""
 
-#: lib/Horde/Service/Weather/Base.php:190
+#: lib/Horde/Service/Weather/Base.php:197
 msgid "F"
 msgstr ""
 
@@ -824,7 +824,7 @@ msgstr ""
 msgid "Widespread Dust"
 msgstr ""
 
-#: lib/Horde/Service/Weather/Base.php:205
+#: lib/Horde/Service/Weather/Base.php:212
 msgid "centimeters"
 msgstr ""
 
@@ -833,33 +833,33 @@ msgstr ""
 msgid "falling"
 msgstr ""
 
-#: lib/Horde/Service/Weather/Base.php:192
-#: lib/Horde/Service/Weather/Base.php:194
-#: lib/Horde/Service/Weather/Base.php:195
+#: lib/Horde/Service/Weather/Base.php:199
+#: lib/Horde/Service/Weather/Base.php:201
+#: lib/Horde/Service/Weather/Base.php:202
 msgid "inches"
 msgstr ""
 
-#: lib/Horde/Service/Weather/Base.php:203
+#: lib/Horde/Service/Weather/Base.php:210
 msgid "km"
 msgstr ""
 
-#: lib/Horde/Service/Weather/Base.php:201
+#: lib/Horde/Service/Weather/Base.php:208
 msgid "kph"
 msgstr ""
 
-#: lib/Horde/Service/Weather/Base.php:193
+#: lib/Horde/Service/Weather/Base.php:200
 msgid "miles"
 msgstr ""
 
-#: lib/Horde/Service/Weather/Base.php:202
+#: lib/Horde/Service/Weather/Base.php:209
 msgid "millibars"
 msgstr ""
 
-#: lib/Horde/Service/Weather/Base.php:204
+#: lib/Horde/Service/Weather/Base.php:211
 msgid "millimeters"
 msgstr ""
 
-#: lib/Horde/Service/Weather/Base.php:191
+#: lib/Horde/Service/Weather/Base.php:198
 msgid "mph"
 msgstr ""
 

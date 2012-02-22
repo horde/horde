@@ -1674,7 +1674,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     foreach ($vanished as $val) {
                         $ob = new $this->_fetchDataClass();
                         $ob->setUid($val);
-                        $this->_temp['fetchresp']->uid[] = $ob;
+                        $this->_temp['fetchresp']->uid[$val] = $ob;
                     }
                 }
             }
