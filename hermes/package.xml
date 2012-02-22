@@ -32,7 +32,7 @@
   <release>alpha</release>
   <api>alpha</api>
  </stability>
- <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
+ <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
  <notes>
 * [jan] Add Latvian translation (Jānis Eisaks &lt;jancs@dv.lv&gt;).
 * [mjr] Allow pausing and restarting timers.
@@ -608,7 +608,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
 * [jan] Add Latvian translation (Jānis Eisaks &lt;jancs@dv.lv&gt;).
 * [mjr] Allow pausing and restarting timers.
@@ -626,7 +626,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-07-13</date>
-   <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
 * Initial release.
    </notes>

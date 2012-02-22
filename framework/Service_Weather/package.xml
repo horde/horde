@@ -20,7 +20,7 @@
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+ <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
 * 
  </notes>
@@ -448,7 +448,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-11-21</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * Initial release.
    </notes>
@@ -461,7 +461,7 @@
     <release>beta</release>
     <api>beta</api></stability>
    <date>2011-12-06</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [jan] Add Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
 * [mjr] Export available detailed forecast fields for each driver (Bug #10813).
@@ -483,7 +483,7 @@
     <release>beta</release>
     <api>beta</api></stability>
    <date>2011-12-13</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mjr] Use longer cache lifetime for non-changing values (Request #10851).
    </notes>
@@ -496,7 +496,7 @@
     <release>beta</release>
     <api>beta</api></stability>
    <date>2011-12-21</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mjr] Fix using IP addresses for determining forecast location (Bug #10857)
    </notes>
@@ -509,7 +509,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2012-01-17</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mjr] Add snow and rain totals to wunderground driver.
    </notes>
@@ -522,7 +522,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2012-01-31</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [jan] Add Spanish translation (Manuel P. Ayala &lt;mayala@unex.es&gt;).
    </notes>
@@ -535,7 +535,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2012-02-22</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mjr] WeatherUnderground had done away with the 5 day forecast. Emulate it with a 7 day forecast and limitLength call.
 * [mjr] Allow setting a limit to the number of forecast days that are returned, regardless of the reqested forecast length.
@@ -551,7 +551,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2012-02-22</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * 
    </notes>
