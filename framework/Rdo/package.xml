@@ -11,8 +11,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-11</date>
- <time>14:01:13</time>
+ <date>2012-02-22</date>
+ <time>13:23:53</time>
  <version>
   <release>1.1.1</release>
   <api>1.1.0</api>
@@ -68,7 +68,27 @@
    <dir name="test">
     <dir name="Horde">
      <dir name="Rdo">
+      <dir name="fixtures">
+       <file name="unit_tests.sql" role="test" />
+      </dir> <!-- /test/Horde/Rdo/fixtures -->
+      <dir name="Objects">
+       <file name="RelatedThing.php" role="test" />
+       <file name="RelatedThingMapper.php" role="test" />
+       <file name="SomeEagerBaseObject.php" role="test" />
+       <file name="SomeEagerBaseObjectMapper.php" role="test" />
+       <file name="SomeLazyBaseObject.php" role="test" />
+       <file name="SomeLazyBaseObjectMapper.php" role="test" />
+      </dir> <!-- /test/Horde/Rdo/Objects -->
+      <dir name="Sql">
+       <dir name="Pdo">
+        <file name="SqliteTest.php" role="test" />
+       </dir> <!-- /test/Horde/Rdo/Sql/Pdo -->
+       <file name="Base.php" role="test" />
+      </dir> <!-- /test/Horde/Rdo/Sql -->
       <file name="AllTests.php" role="test" />
+      <file name="Autoload.php" role="test" />
+      <file name="Base.php" role="test" />
+      <file name="phpunit.xml" role="test" />
      </dir> <!-- /test/Horde/Rdo -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -116,6 +136,18 @@
    <install as="Horde/Rdo/Query.php" name="lib/Horde/Rdo/Query.php" />
    <install as="Horde/Rdo/Query/Literal.php" name="lib/Horde/Rdo/Query/Literal.php" />
    <install as="Horde/Rdo/AllTests.php" name="test/Horde/Rdo/AllTests.php" />
+   <install as="Horde/Rdo/Autoload.php" name="test/Horde/Rdo/Autoload.php" />
+   <install as="Horde/Rdo/Base.php" name="test/Horde/Rdo/Base.php" />
+   <install as="Horde/Rdo/phpunit.xml" name="test/Horde/Rdo/phpunit.xml" />
+   <install as="Horde/Rdo/fixtures/unit_tests.sql" name="test/Horde/Rdo/fixtures/unit_tests.sql" />
+   <install as="Horde/Rdo/Objects/RelatedThing.php" name="test/Horde/Rdo/Objects/RelatedThing.php" />
+   <install as="Horde/Rdo/Objects/RelatedThingMapper.php" name="test/Horde/Rdo/Objects/RelatedThingMapper.php" />
+   <install as="Horde/Rdo/Objects/SomeEagerBaseObject.php" name="test/Horde/Rdo/Objects/SomeEagerBaseObject.php" />
+   <install as="Horde/Rdo/Objects/SomeEagerBaseObjectMapper.php" name="test/Horde/Rdo/Objects/SomeEagerBaseObjectMapper.php" />
+   <install as="Horde/Rdo/Objects/SomeLazyBaseObject.php" name="test/Horde/Rdo/Objects/SomeLazyBaseObject.php" />
+   <install as="Horde/Rdo/Objects/SomeLazyBaseObjectMapper.php" name="test/Horde/Rdo/Objects/SomeLazyBaseObjectMapper.php" />
+   <install as="Horde/Rdo/Sql/Base.php" name="test/Horde/Rdo/Sql/Base.php" />
+   <install as="Horde/Rdo/Sql/Pdo/SqliteTest.php" name="test/Horde/Rdo/Sql/Pdo/SqliteTest.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -212,7 +244,7 @@ Major improvements including inflection, eager or lazy loading of relationships 
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-10-11</date>
+   <date>2012-02-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [rla] Fix issue with retrieving lazy fields (Bug #11012).
