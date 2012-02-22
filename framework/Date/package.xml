@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Update Spanish translation.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -720,7 +720,7 @@
    <date>2011-12-23</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Update Spanish translation.
    </notes>
   </release>
  </changelog>
