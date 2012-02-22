@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-02-18</date>
- <time>12:51:41</time>
+ <date>2012-02-22</date>
+ <time>13:30:44</time>
  <version>
   <release>1.1.0</release>
   <api>1.1.0</api>
@@ -537,7 +537,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-02-18</date>
+   <date>2012-02-22</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * [mjr] WeatherUnderground had done away with the 5 day forecast. Emulate it with a 7 day forecast and limitLength call.
