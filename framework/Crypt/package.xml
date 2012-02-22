@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-12-13</date>
- <time>11:48:34</time>
+ <date>2012-02-22</date>
+ <time>13:02:13</time>
  <version>
   <release>1.1.1</release>
   <api>1.1.0</api>
@@ -716,7 +716,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-12-13</date>
+   <date>2012-02-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Improved parsing of S/MIME certificate information (Bug #10956).
