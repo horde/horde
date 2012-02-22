@@ -124,7 +124,7 @@ abstract class Horde_Mail_Transport
                 $addresses = $parser->parseAddressList($value, array(
                     'nest_groups' => false,
                 ));
-                $from = $addresses[0]->mailbox . '@' . $addresses[0]->host;
+                $from = $addresses[0]->full_address;
 
                 // Reject envelope From: addresses with spaces.
                 if (strstr($from, ' ')) {
@@ -187,10 +187,9 @@ abstract class Horde_Mail_Transport
         ));
 
         $recipients = array();
-        if (is_array($addresses)) {
-            foreach ($addresses as $ob) {
-                $recipients[] = $ob->mailbox . '@' . $ob->host;
-            }
+
+        foreach ($addresses as $ob) {
+            $recipients[] = $ob->full_address;
         }
 
         return $recipients;
