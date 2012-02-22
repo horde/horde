@@ -1,6 +1,6 @@
 <?php
 /**
- * Horde_ActiveSync_Folder_Imap
+ * Horde_ActiveSync_Folder_Collection
  *
  * PHP Version 5
  *
@@ -11,8 +11,8 @@
  * @package   ActiveSync
  */
 /**
-  * The class contains functionality for maintaining state for a single IMAP
-  * folder, and generating server deltas.
+  * The class contains functionality for maintaining state for a generic
+  * collection folder. This would include Appointments, Contacts, and Tasks.
   *
   * @license   http://www.horde.org/licenses/gpl GPLv2
   * @copyright 2012 Horde LLC (http://www.horde.org/)
@@ -21,38 +21,19 @@
   * @package   ActiveSync
   */
 
-class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base
+class Horde_ActiveSync_Folder_Imap
 {
-    /** The UID validity status */
-    const UIDVALIDITY = 'uidvalidity';
-
-    /** The next UID status */
-    const UIDNEXT     = 'uidnext';
-
-    /** The MODSEQ value */
-    const MODSEQ      = 'highestmodseq';
-
     /**
-     * The folder status.
+     * The folder's current internal property state.
      *
      * @var array
      */
     protected $_status = array();
 
     /**
-     * The folder's current message list.
-     * An array of UIDs.
+     * The server id for this folder.
      *
-     * @var array
-     */
-    protected $_messages = array();
-
-    protected $_added = array();
-    protected $_changed = array();
-    protected $_removed = array();
-
-    /**
-     * The server id for this folder
+     * @var string
      */
     protected $_serverid;
 
