@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-* 
+* [mms] Fix failing unit tests.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -285,7 +285,7 @@
    <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
-* 
+* [mms] Fix failing unit tests.
    </notes>
   </release>
  </changelog>
