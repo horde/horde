@@ -12,7 +12,7 @@
  * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
-class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
+class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializable
 {
     /* The virtual path to use for VFS data. */
     const VFS_ATTACH_PATH = '.horde/imp/compose';
@@ -3250,31 +3250,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         return count($this->_cache);
     }
 
-    /* Iterator methods. */
+    /* IteratorAggregate method. */
 
-    public function current()
+    public function getIterator()
     {
-        return current($this->_cache);
-    }
-
-    public function key()
-    {
-        return key($this->_cache);
-    }
-
-    public function next()
-    {
-        next($this->_cache);
-    }
-
-    public function rewind()
-    {
-        reset($this->_cache);
-    }
-
-    public function valid()
-    {
-        return (key($this->_cache) !== null);
+        return new ArrayIterator($this->_cache);
     }
 
     /* Serializable methods. */

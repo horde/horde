@@ -12,7 +12,7 @@
  * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
-class IMP_Prefs_Sort implements ArrayAccess, Iterator
+class IMP_Prefs_Sort implements ArrayAccess, IteratorAggregate
 {
     /* Preference name in backend. */
     const SORTPREF = 'sortpref';
@@ -163,33 +163,11 @@ class IMP_Prefs_Sort implements ArrayAccess, Iterator
         }
     }
 
-    /* Iterator methods. */
+    /* IteratorAggregate method. */
 
-    public function current()
+    public function getIterator()
     {
-        return ($key = key($this->_sortpref))
-            ? $this[$key]
-            : false;
-    }
-
-    public function key()
-    {
-        return key($this->_sortpref);
-    }
-
-    public function next()
-    {
-        next($this->_sortpref);
-    }
-
-    public function rewind()
-    {
-        reset($this->_sortpref);
-    }
-
-    public function valid()
-    {
-        return (key($this->_sortpref) !== null);
+        return new ArrayIterator($this->_sortpref);
     }
 
 }
