@@ -12,7 +12,7 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Imap_Client
  */
-class Horde_Imap_Client_Data_Acl extends Horde_Imap_Client_Data_AclCommon implements ArrayAccess, Iterator, Serializable
+class Horde_Imap_Client_Data_Acl extends Horde_Imap_Client_Data_AclCommon implements ArrayAccess, IteratorAggregate, Serializable
 {
     /**
      * ACL rights.
@@ -122,41 +122,11 @@ class Horde_Imap_Client_Data_Acl extends Horde_Imap_Client_Data_AclCommon implem
         $this->_rights = array_values(array_diff($this->_rights, array($offset)));
     }
 
-    /* Iterator methods. */
+    /* IteratorAggregate method. */
 
-    /**
-     */
-    public function current()
+    public function getIterator()
     {
-        return current($this->_rights);
-    }
-
-    /**
-     */
-    public function key()
-    {
-        return key($this->_rights);
-    }
-
-    /**
-     */
-    public function next()
-    {
-        next($this->_rights);
-    }
-
-    /**
-     */
-    public function rewind()
-    {
-        reset($this->_rights);
-    }
-
-    /**
-     */
-    public function valid()
-    {
-        return (key($this->_rights) !== null);
+        return new ArrayIterator($this->_rights);
     }
 
     /* Serializable methods. */
