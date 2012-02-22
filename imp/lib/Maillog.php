@@ -221,14 +221,16 @@ class IMP_Maillog
             }
 
             if ($msg) {
-                $ret[] = array(
+                $ret[$entry['ts']] = array(
                     'action' => $entry['action'],
                     'msg' => @sprintf($msg, strftime($df . ' ' . $tf, $entry['ts']))
                 );
             }
         }
 
-        return $ret;
+        ksort($ret);
+
+        return array_values($ret);
     }
 
     /**
