@@ -1,12 +1,12 @@
 <?php
 /**
- * Horde_ActiveSync_State_History
+ * Horde_ActiveSync_State_Sql
  *
  * PHP Version 5
  *
  * @license   http://www.horde.org/licenses/gpl GPLv2
  * @copyright 2010-2012 Horde LLC (http://www.horde.org/)
- * @author    Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @link      http://pear.horde.org/index.php?package=ActiveSync
  * @package   ActiveSync
  */
@@ -56,17 +56,13 @@
  *                           combonation.
  * </pre>
  *
- * @TODO: H5 This driver should be renamed to Horde_ActiveSync_State_Sql since the
- *        History related changes have been refactored out to a Core library.
- *
- *
  * @license   http://www.horde.org/licenses/gpl GPLv2
  * @copyright 2010-2012 Horde LLC (http://www.horde.org/)
- * @author    Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @link      http://pear.horde.org/index.php?package=ActiveSync
  * @package   ActiveSync
  */
-class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
+class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
 {
     /**
      * The timestamp for the last syncKey
