@@ -562,6 +562,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         /* We need at least one recipient & RFC 2822 requires that no 8-bit
          * characters can be in the address fields. */
         $recip = $this->recipientList($header);
+        if (!count($recip['list'])) {
+            throw new IMP_Compose_Exception(_("Need at least one message recipient."));
+        }
         $header = array_merge($header, $recip['header']);
 
         /* Check for correct identity usage. */
