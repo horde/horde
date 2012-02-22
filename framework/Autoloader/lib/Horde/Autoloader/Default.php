@@ -19,7 +19,9 @@ class Horde_Autoloader_Default extends Horde_Autoloader
     public function __construct()
     {
         foreach (array_reverse(explode(PATH_SEPARATOR, get_include_path())) as $path) {
-            if ($path == '.') { continue; }
+            if ($path == '.') {
+                continue;
+            }
             $path = realpath($path);
             if ($path) {
                 $this->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Default($path));

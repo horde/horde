@@ -31,8 +31,8 @@ class Horde_Autoloader_ClassPathMapper_Application implements Horde_Autoloader_C
     public function addMapping($classSuffix, $subDir)
     {
         $this->_mappings[$classSuffix] = $subDir;
-        $this->_classMatchRegex = '/^' . self::NAME_SEGMENT . '_' . self::NAME_SEGMENT . '_' .
-            '(' . implode('|', array_keys($this->_mappings)) . ')$/';
+        $this->_classMatchRegex = '/^' . self::NAME_SEGMENT . '_' . self::NAME_SEGMENT . '_('
+	  . implode('|', array_keys($this->_mappings)) . ')$/';
     }
 
     public function mapToPath($className)
