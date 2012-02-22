@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Use configured filter when listing groups (Jesse Sandberg &lt;jesse.sandberg@verkkokauppa.com&gt;, Bug #10975).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -359,7 +359,7 @@ Initial release as a PEAR package
    <date>2011-11-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Use configured filter when listing groups (Jesse Sandberg &lt;jesse.sandberg@verkkokauppa.com&gt;, Bug #10975).
    </notes>
   </release>
  </changelog>
