@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-02</date>
- <time>11:01:45</time>
+ <date>2012-02-22</date>
+ <time>13:09:00</time>
  <version>
   <release>1.1.1</release>
   <api>1.1.0</api>
@@ -302,7 +302,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-02</date>
+   <date>2012-02-22</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * [cjh] Fix infinite loop on unknown parameters being set.
