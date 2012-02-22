@@ -99,7 +99,7 @@ abstract class Horde_ActiveSync_Driver_Base
      *                       the concrete driver may need.
      *  <pre>
      *     -logger       Horde_Log_Logger instance
-     *     -state_basic  A Horde_ActiveSync_State_Base object.
+     *     -state        A Horde_ActiveSync_State_Base object.
      *  </pre>
      *
      * @return Horde_ActiveSync_Driver
@@ -107,8 +107,8 @@ abstract class Horde_ActiveSync_Driver_Base
     public function __construct($params = array())
     {
         $this->_params = $params;
-        if (empty($params['state_basic']) ||
-            !($params['state_basic'] instanceof Horde_ActiveSync_State_Base)) {
+        if (empty($params['state']) ||
+            !($params['state'] instanceof Horde_ActiveSync_State_Base)) {
 
             throw new InvalidArgumentException('Missing required state object');
         }
@@ -122,7 +122,7 @@ abstract class Horde_ActiveSync_Driver_Base
             $this->_logger = new Horde_Support_Stub;
         }
 
-        $this->_stateDriver = $params['state_basic'];
+        $this->_stateDriver = $params['state'];
         $this->_stateDriver->setLogger($this->_logger);
         $this->_stateDriver->setBackend($this);
 
