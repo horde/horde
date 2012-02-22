@@ -107,12 +107,6 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
      *
      * @param array  $params   Must contain:
      *      'db'  - Horde_Db
-     *      'syncStateTable'    - Name of table for storing syncstate
-     *      'syncDeviceTable'   - Name of table for storing device and ping data
-     *      'syncMapTable'      - Name of table for remembering what changes
-     *                            are due to PIM import so we don't mirror the
-     *                            changes back to the PIM on next Sync
-     *      'syncUsersTable'    - Name of table for mapping users to devices.
      *
      * @return Horde_ActiveSync_StateMachine_File
      */
@@ -123,13 +117,10 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             throw new InvalidArgumentException('Missing or invalid Horde_Db parameter.');
         }
 
-        // @TODO Horde 5 - no need to *require* these to be passed, the
-        // tables are created by migrations from within this package so we
-        // can assume table names here.
-        $this->_syncStateTable = $params['statetable'];
-        $this->_syncMapTable = $params['maptable'];
-        $this->_syncDeviceTable = $params['devicetable'];
-        $this->_syncUsersTable = $params['userstable'];
+        $this->_syncStateTable = 'horde_activesync_state';
+        $this->_syncMapTable = 'horde_activesync_map';
+        $this->_syncDeviceTable = 'horde_activesync_device';
+        $this->_syncUsersTable = 'horde_activesync_device_users';
         $this->_syncMailMapTable = 'horde_activesync_mailmap';
 
         $this->_db = $params['db'];

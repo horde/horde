@@ -192,7 +192,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * Return an array of the server's folder objects.
      *
      * @return array  An array of Horde_ActiveSync_Message_Folder objects.
-     * @since TODO
+     * @since 2.0
      */
     public function getFolders()
     {
