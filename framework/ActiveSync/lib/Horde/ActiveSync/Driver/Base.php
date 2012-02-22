@@ -1,6 +1,9 @@
 <?php
 /**
- * ActiveSync backends.
+ * Base ActiveSync Driver backend. Provides communication with the actual
+ * server backend that ActiveSync will be syncing devices with. This is an
+ * abstract class, servers must implement their own backend to provide
+ * the needed data.
  *
  * @license   http://www.horde.org/licenses/gpl GPLv2
  * @copyright 2010-2012 Horde LLC (http://www.horde.org/)
@@ -83,11 +86,11 @@ abstract class Horde_ActiveSync_Driver_Base
         );
 
     /**
-     * The state object for this request. Needs to be injected into this class.
+     * The state driver for this request. Needs to be injected into this class.
      *
      * @var Horde_ActiveSync_State_Base
      */
-    protected $_stateObject;
+    protected $_stateDriver;
 
     /**
      * Const'r
@@ -119,9 +122,9 @@ abstract class Horde_ActiveSync_Driver_Base
             $this->_logger = new Horde_Support_Stub;
         }
 
-        $this->_stateObject = $params['state_basic'];
-        $this->_stateObject->setLogger($this->_logger);
-        $this->_stateObject->setBackend($this);
+        $this->_stateDriver = $params['state_basic'];
+        $this->_stateDriver->setLogger($this->_logger);
+        $this->_stateDriver->setBackend($this);
 
         /* Override any security policies */
         if (!empty($params['policies'])) {
@@ -134,7 +137,7 @@ abstract class Horde_ActiveSync_Driver_Base
      */
     public function __destruct()
     {
-        unset($this->_stateObject);
+        unset($this->_stateDriver);
     }
 
     /**
@@ -374,9 +377,9 @@ abstract class Horde_ActiveSync_Driver_Base
      */
     public function &getStateObject($collection = array())
     {
-        $this->_stateObject->init($collection);
-        $this->_stateObject->setLogger($this->_logger);
-        return $this->_stateObject;
+        $this->_stateDriver->init($collection);
+        $this->_stateDriver->setLogger($this->_logger);
+        return $this->_stateDriver;
     }
 
     /**
