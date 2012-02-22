@@ -288,10 +288,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * folder is the name, we use that as the 'mod' value.
      *
      * @param string $id     The folder id
-     * @param mixed $parent  The parent folder (or 0 if none). @since TODO
+     * @param mixed $parent  The parent folder (or 0 if none). @since 2.0
      * @param mixed $mod     Modification indicator. For folders, this is the
      *                       name of the folder, since that's the only thing
-     *                       that can change. @since TODO
+     *                       that can change. @since 2.0
      * @return a stat hash
      */
     public function statFolder($id, $parent = 0, $mod = null)
@@ -304,89 +304,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $folder['parent'] = $parent;
 
         return $folder;
-    }
-
-    /**
-     * Get the message list of specified folder
-     *
-     * @deprecated  Should use self::getServerChanges()
-     * @see framework/ActiveSync/lib/Horde/ActiveSync/Driver/Horde_ActiveSync_Driver_Base#getMessageList($folderId, $cutOffDate)
-     */
-    public function getMessageList($folderid, $cutoffdate)
-    {
-        $this->_logger->debug('Horde::getMessageList(' . $folderid . ', ' . $cutoffdate . ')');
-
-        ob_start();
-        $messages = array();
-        $folder = $this->getFolder($folderid);
-        switch ($folder->type) {
-        case Horde_ActiveSync::FOLDER_TYPE_APPOINTMENT:
-            $startstamp = (int)$cutoffdate;
-            $endstamp = time() + 32140800; //60 * 60 * 24 * 31 * 12 == one year
-
-            try {
-                $events = $this->_connector->calendar_listUids($startstamp, $endstamp);
-            } catch (Horde_Exception $e) {
-                $this->_logger->err($e->getMessage());
-                $this->_endBuffer();
-                return array();
-            }
-            foreach ($events as $uid) {
-                $messages[] = $this->_smartStatMessage($folderid, $uid, false);
-            }
-            break;
-
-        case Horde_ActiveSync::FOLDER_TYPE_CONTACT:
-            try {
-                $contacts = $this->_connector->contacts_listUids();
-            } catch (Horde_Exception $e) {
-                $this->_logger->err($e->getMessage());
-                $this->_endBuffer();
-                return array();
-            }
-
-            foreach ($contacts as $contact) {
-                $messages[] = $this->_smartStatMessage($folderid, $contact, false);
-            }
-            break;
-
-        case Horde_ActiveSync::FOLDER_TYPE_TASK:
-            try {
-                $tasks = $this->_connector->tasks_listUids();
-            } catch (Horde_Exception $e) {
-                $this->_logger->err($e->getMessage());
-                $this->_endBuffer();
-                return array();
-            }
-            foreach ($tasks as $task) {
-                $messages[] = $this->_smartStatMessage($folderid, $task, false);
-            }
-            break;
-
-        case Horde_ActiveSync::FOLDER_TYPE_INBOX:
-        case Horde_ActiveSync::FOLDER_TYPE_SENTMAIL:
-        case Horde_ActiveSync::FOLDER_TYPE_WASTEBASKET:
-        case Horde_ActiveSync::FOLDER_TYPE_DRAFTS:
-        case Horde_ActiveSync::FOLDER_TYPE_USER_MAIL:
-            try {
-                $messageList = $this->_connector->mail_getMessageList($folder);
-            } catch (Horde_Exception $e) {
-                $this->_logger->err($e->getMessage());
-                $this->_endBuffer();
-                return array();
-            }
-            foreach ($messageList as $message) {
-                $messages[] = $this->statMailMessage($message);
-            }
-            break;
-
-        default:
-            $this->_endBuffer();
-            return array();
-        }
-        $this->_endBuffer();
-
-        return $messages;
     }
 
     /**

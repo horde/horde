@@ -48,6 +48,9 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
      */
     public function testGetMessageList()
     {
+        // Need to rewrite for getServerChanges() instead of getServerList()
+        $this->markTestIncomplete();
+
         // Events fixture - only need the uid property for this test
         $e1 = new stdClass();
         $e1->uid = '20080112030603.249j42k3k068@test.theupstairsroom.com';
