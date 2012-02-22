@@ -375,7 +375,7 @@ abstract class Horde_ActiveSync_Driver_Base
      *
      * @param array $collection
      */
-    public function &getStateObject($collection = array())
+    public function &getStateDriver($collection = array())
     {
         $this->_stateDriver->init($collection);
         $this->_stateDriver->setLogger($this->_logger);

@@ -79,9 +79,9 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     protected $_thisSyncTS = 0;
 
     /**
-     * Local cache of state.
+     * Local cache of folder state.
      *
-     * @var mixed  array|Horde_ActiveSync_Folder_Imap
+     * @var Horde_ActiveSync_Folder_Base
      */
     protected $_state;
 
@@ -113,17 +113,17 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             throw new InvalidArgumentException('Missing or invalid Horde_Db parameter.');
         }
 
-        $this->_syncStateTable = 'horde_activesync_state';
-        $this->_syncMapTable = 'horde_activesync_map';
-        $this->_syncDeviceTable = 'horde_activesync_device';
-        $this->_syncUsersTable = 'horde_activesync_device_users';
+        $this->_syncStateTable   = 'horde_activesync_state';
+        $this->_syncMapTable     = 'horde_activesync_map';
+        $this->_syncDeviceTable  = 'horde_activesync_device';
+        $this->_syncUsersTable   = 'horde_activesync_device_users';
         $this->_syncMailMapTable = 'horde_activesync_mailmap';
 
         $this->_db = $params['db'];
     }
 
     /**
-     * Load the sync state
+     * Load and initialize the sync state
      *
      * @param string $syncKey   The synckey of the state to load. If empty will
      *                          force a reset of the state for the class

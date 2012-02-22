@@ -74,11 +74,11 @@ class Horde_ActiveSync_Sync
     protected $_flags;
 
     /**
-     * The statemachine
+     * The stateDriver
      *
-     * @var Horde_ActiveSynce_StateMachine_Base
+     * @var Horde_ActiveSynce_State_Base
      */
-    protected $_state;
+    protected $_stateDriver;
 
     /**
      * The change streamer
@@ -107,23 +107,23 @@ class Horde_ActiveSync_Sync
     /**
      * Initialize the sync
      *
-     * @param Horde_ActiveSync_State_Base $stateMachine      The state machine
+     * @param Horde_ActiveSync_State_Base $stateDriver       The state driver
      * @param Horde_ActiveSync_Connector_Exporter $exporter  The exporter object
      * @param array $collection                              Collection data
      *
      * @return void
      */
-    public function init(Horde_ActiveSync_State_Base &$stateMachine,
+    public function init(Horde_ActiveSync_State_Base &$stateDriver,
                          Horde_ActiveSync_Connector_Exporter $exporter = null,
                          array $collection = array())
     {
-        $this->_stateMachine = &$stateMachine;
+        $this->_stateDriver = &$stateDriver;
 
         // We might not need an exporter, like e.g., when we are handling a PING
         // request the changes are never exported.
         $this->_exporter = $exporter;
         $this->_folderId = !empty($collection['id']) ? $collection['id'] : false;
-        $this->_changes = $stateMachine->getChanges();
+        $this->_changes = $stateDriver->getChanges();
         $this->_truncation = !empty($collection['truncation']) ? $collection['truncation'] : 0;
     }
 
@@ -133,7 +133,7 @@ class Horde_ActiveSync_Sync
     }
 
     /**
-     * Sends the next change in the set and updates the stateMachine if
+     * Sends the next change in the set and updates the stateDriver if
      * successful
      *
      * @param integer $flags  A Horde_ActiveSync:: flag constant
@@ -161,7 +161,7 @@ class Horde_ActiveSync_Sync
                     if ($flags & Horde_ActiveSync::BACKEND_DISCARD_DATA ||
                         $this->_exporter->folderChange($folder)) {
 
-                        $this->_stateMachine->updateState(
+                        $this->_stateDriver->updateState(
                             Horde_ActiveSync::CHANGE_TYPE_FOLDERSYNC, $stat);
                     }
                     break;
@@ -169,7 +169,7 @@ class Horde_ActiveSync_Sync
                     if ($flags & Horde_ActiveSync::BACKEND_DISCARD_DATA ||
                         $this->_exporter->folderDeletion($change['id'])) {
 
-                        $this->_stateMachine->updateState(
+                        $this->_stateDriver->updateState(
                             Horde_ActiveSync::CHANGE_TYPE_FOLDERSYNC, $change);
                     }
                     break;
@@ -205,28 +205,28 @@ class Horde_ActiveSync_Sync
                     // @TODO: Rename this to ->new or ->status or *anything* other than flags!!
                     $message->flags = (isset($change['flags'])) ? $change['flags'] : 0;
                     if ($flags & Horde_ActiveSync::BACKEND_DISCARD_DATA || $this->_exporter->messageChange($change['id'], $message) == true) {
-                        $this->_stateMachine->updateState(
+                        $this->_stateDriver->updateState(
                             Horde_ActiveSync::CHANGE_TYPE_CHANGE, $change);
                     }
                     break;
 
                 case Horde_ActiveSync::CHANGE_TYPE_DELETE:
                     if ($flags & Horde_ActiveSync::BACKEND_DISCARD_DATA || $this->_exporter->messageDeletion($change['id']) == true) {
-                        $this->_stateMachine->updateState(
+                        $this->_stateDriver->updateState(
                             Horde_ActiveSync::CHANGE_TYPE_DELETE, $change);
                     }
                     break;
 
                 case Horde_ActiveSync::CHANGE_TYPE_FLAGS:
                     if ($flags & Horde_ActiveSync::BACKEND_DISCARD_DATA || $this->_exporter->messageReadFlag($change['id'], $change['flags']) == true) {
-                        $this->_stateMachine->updateState(
+                        $this->_stateDriver->updateState(
                             Horde_ActiveSync::CHANGE_TYPE_FLAGS, $change);
                     }
                     break;
 
                 case Horde_ActiveSync::CHANGE_TYPE_MOVE:
                     if ($flags & Horde_ActiveSync::BACKEND_DISCARD_DATA || $this->_exporter->messageMove($change['id'], $change['parent']) == true) {
-                        $this->_stateMachine->updateState(
+                        $this->_stateDriver->updateState(
                             Horde_ActiveSync::CHANGE_TYPE_MOVE, $change);
                     }
                     break;

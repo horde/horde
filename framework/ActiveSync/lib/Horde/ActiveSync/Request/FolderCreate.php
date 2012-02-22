@@ -1,7 +1,7 @@
 <?php
 /**
  * Handle FolderCreate requests.
- * 
+ *
  * Logic adapted from Z-Push, original copyright notices below.
  *
  * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
@@ -96,14 +96,14 @@ class Horde_ActiveSync_Request_FolderCreate extends Horde_ActiveSync_Request_Bas
 
         // Get state of hierarchy
         try {
-            $syncstate = $this->_stateMachine->loadState($synckey);
-            $newsynckey = $this->_stateMachine->getNewSyncKey($synckey);
+            $syncstate = $this->_stateDriver->loadState($synckey);
+            $newsynckey = $this->_stateDriver->getNewSyncKey($synckey);
         } catch (Horde_ActiveSync_Exception $e) {
             // @TODO - send error status keymism when refactored.
         }
 
         // additional information about already seen folders
-        $seenfolders = unserialize($this->_stateMachine->loadState('s' . $synckey));
+        $seenfolders = unserialize($this->_stateDriver->loadState('s' . $synckey));
         if (!$seenfolders) {
             $seenfolders = array();
         }
@@ -178,9 +178,9 @@ class Horde_ActiveSync_Request_FolderCreate extends Horde_ActiveSync_Request_Bas
 
         $this->_encoder->endTag();
         // Save the sync state for the next time
-        $this->_stateMachine->setState($newsynckey, $importer->GetState());
-        $this->_stateMachine->setState('s' . $newsynckey, serialize($seenfolders));
-        $this->_stateMachine->save();
+        $this->_stateDriver->setState($newsynckey, $importer->GetState());
+        $this->_stateDriver->setState('s' . $newsynckey, serialize($seenfolders));
+        $this->_stateDriver->save();
 
         return true;
     }

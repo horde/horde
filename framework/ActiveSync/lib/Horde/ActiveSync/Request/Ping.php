@@ -46,11 +46,11 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
         if ($lifetime !== 0 && $lifetime < $this->_ping_settings['heartbeatmin']) {
             $this->_statusCode = self::STATUS_HBOUTOFBOUNDS;
             $lifetime = $this->_ping_settings['heartbeatmin'];
-            $this->_state->setHeartbeatInterval($lifetime);
+            $this->_stateDriver->setHeartbeatInterval($lifetime);
         } elseif ($lifetime > $this->_ping_settings['heartbeatmax']) {
             $this->_statusCode = self::STATUS_HBOUTOFBOUNDS;
             $lifetime = $this->_ping_settings['heartbeatmax'];
-            $this->_state->setHeartbeatInterval($lifetime);
+            $this->_stateDriver->setHeartbeatInterval($lifetime);
         }
 
         return $lifetime;
@@ -82,14 +82,14 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
         $this->_statusCode = self::STATUS_NOCHANGES;
 
         // Initialize the state machine
-        $this->_state = &$this->_driver->getStateObject();
-        $this->_state->loadDeviceInfo($this->_device->id, $this->_driver->getUser());
+        $this->_stateDriver = &$this->_driver->getStateObject();
+        $this->_stateDriver->loadDeviceInfo($this->_device->id, $this->_driver->getUser());
 
         // See if we have an existing PING state. Need to do this here, before
         // we read in the PING request since the PING request is allowed to omit
         // sections if they have been sent previously
-        $collections = array_values($this->_state->initPingState($this->_device));
-        $lifetime = $this->_checkHeartbeat($this->_state->getHeartbeatInterval());
+        $collections = array_values($this->_stateDriver->initPingState($this->_device));
+        $lifetime = $this->_checkHeartbeat($this->_stateDriver->getHeartbeatInterval());
 
         // Build the $collections array if we receive request from PIM
         if ($this->_decoder->getElementStartTag(self::PING)) {
@@ -100,7 +100,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
             if ($lifetime == 0) {
                 $lifetime = $this->_ping_settings['heartbeatdefault'];
             }
-            $this->_state->setHeartbeatInterval($lifetime);
+            $this->_stateDriver->setHeartbeatInterval($lifetime);
 
             if ($this->_decoder->getElementStartTag(self::FOLDERS)) {
                 $collections = array();
@@ -132,7 +132,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                 return false;
             }
 
-            $this->_state->addPingCollections($collections);
+            $this->_stateDriver->addPingCollections($collections);
         } else {
             $this->_logger->debug(sprintf('Reusing PING state: %s', print_r($collections, true)));
         }
@@ -151,7 +151,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                 // Check the remote wipe status and request a foldersync if
                 // we want the device wiped.
                 if ($this->_provisioning === true) {
-                    $rwstatus = $this->_state->getDeviceRWStatus($this->_device->id);
+                    $rwstatus = $this->_stateDriver->getDeviceRWStatus($this->_device->id);
                     if ($rwstatus == Horde_ActiveSync::RWSTATUS_PENDING || $rwstatus == Horde_ActiveSync::RWSTATUS_WIPED) {
                         $this->_statusCode = self::STATUS_FOLDERSYNCREQD;
                         break;
@@ -169,7 +169,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                     $collection['synckey'] = $this->_device->id;
                     $sync = $this->_driver->getSyncObject();
                     try {
-                        $this->_state->loadPingCollectionState($collection);
+                        $this->_stateDriver->loadPingCollectionState($collection);
                     } catch (Horde_ActiveSync_Exception_InvalidRequest $e) {
                         // @TODO: I *love* standards that nobody follows. This
                         // really should throw an exception and return a HTTP 400
@@ -196,7 +196,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                         break;
                     }
                     try {
-                        $sync->init($this->_state, null, $collection);
+                        $sync->init($this->_stateDriver, null, $collection);
                     } catch (Horde_ActiveSync_Exception $e) {
                         /* Stop ping if exporter cannot be configured */
                         $this->_logger->err('Ping error: Exporter can not be configured. ' . $e->getMessage() . ' Waiting 30 seconds before ping is retried.');
@@ -252,7 +252,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
         }
         $this->_encoder->endTag();
 
-        $this->_state->savePingState();
+        $this->_stateDriver->savePingState();
 
         return true;
     }

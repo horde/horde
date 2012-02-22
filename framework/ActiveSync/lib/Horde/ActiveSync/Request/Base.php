@@ -67,11 +67,11 @@ abstract class Horde_ActiveSync_Request_Base
     protected $_statusCode = 0;
 
     /**
-     * State object
+     * State driver
      *
      * @var Horde_ActiveSync_State_Base
      */
-    protected $_state;
+    protected $_stateDriver;
 
     /**
      * ActiveSync server
@@ -130,7 +130,7 @@ abstract class Horde_ActiveSync_Request_Base
         $this->_provisioning = $provisioning;
 
         /* Get the state object */
-        $this->_state = &$driver->getStateObject();
+        $this->_stateDriver = &$driver->getStateObject();
 
         /* Device info */
         $this->_device = $device;
@@ -149,7 +149,7 @@ abstract class Horde_ActiveSync_Request_Base
             . ' Key: ' . $sentKey
             . ' User: ' . $this->_driver->getUser());
 
-         $this->_device = $this->_state->loadDeviceInfo($this->_device->id, $this->_driver->getUser());
+         $this->_device = $this->_stateDriverDriver->loadDeviceInfo($this->_device->id, $this->_driver->getUser());
 
          // Use looseprovisioning?
          if (empty($sentKey) && $this->_hasBrokenProvisioning() &&
@@ -243,7 +243,7 @@ abstract class Horde_ActiveSync_Request_Base
         // to avoid having 2 device entries for every android client.
         if ($this->_device->id == 'validate') {
             $this->_logger->debug('[' . $this->_device->id . '] Removing state for bogus VALIDATE device.');
-            $this->_state->removeState(null, 'validate');
+            $this->_stateDriver->removeState(null, 'validate');
         }
     }
 
