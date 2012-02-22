@@ -3,7 +3,7 @@
 /**
  * Script to prune the autoloader cache.
  *
- * The (external) server name has to bi specified in the SERVER_NAME
+ * The (external) server name has to be specified in the SERVER_NAME
  * environment variable:
  * <code>
  * SERVER_NAME=www.example.com horde-autoloader-cache-prune
