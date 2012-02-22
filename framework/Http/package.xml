@@ -29,6 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
+* [cjh] Fix infinite loop on unknown parameters being set.
 * [cjh] Return real data for HTTP 4xx and 5xx responses when using fopen().
 * [cjh] Fix setting PUT data in the Peclhttp Horde_Http_Request class.
  </notes>
@@ -304,6 +305,7 @@
    <date>2011-11-02</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
+* [cjh] Fix infinite loop on unknown parameters being set.
 * [cjh] Return real data for HTTP 4xx and 5xx responses when using fopen().
 * [cjh] Fix setting PUT data in the Peclhttp Horde_Http_Request class.
    </notes>
