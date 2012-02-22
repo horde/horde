@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Updated German translation.
 * [jan] Updated Spanish translation.
  </notes>
  <contents>
@@ -750,6 +751,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2011-12-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Updated German translation.
 * [jan] Updated Spanish translation.
    </notes>
   </release>
