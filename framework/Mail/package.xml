@@ -16,8 +16,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-02-06</date>
- <time>23:07:37</time>
+ <date>2012-02-22</date>
+ <time>13:16:34</time>
  <version>
   <release>1.1.0</release>
   <api>1.1.0</api>
@@ -68,6 +68,7 @@
     <dir name="Horde">
      <dir name="Mail">
       <file name="AllTests.php" role="test" />
+      <file name="ObjectTest.php" role="test" />
       <file name="ParseTest.php" role="test" />
       <file name="SendTest.php" role="test" />
      </dir> <!-- /test/Horde/Mail -->
@@ -135,6 +136,7 @@
    <install as="Horde/Mail/Transport/Smtp.php" name="lib/Horde/Mail/Transport/Smtp.php" />
    <install as="Horde/Mail/Transport/Smtpmx.php" name="lib/Horde/Mail/Transport/Smtpmx.php" />
    <install as="Horde/Mail/AllTests.php" name="test/Horde/Mail/AllTests.php" />
+   <install as="Horde/Mail/ObjectTest.php" name="test/Horde/Mail/ObjectTest.php" />
    <install as="Horde/Mail/ParseTest.php" name="test/Horde/Mail/ParseTest.php" />
    <install as="Horde/Mail/SendTest.php" name="test/Horde/Mail/SendTest.php" />
   </filelist>
@@ -263,7 +265,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-02-06</date>
+   <date>2012-02-22</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * [mms] Created Horde_Mail_Rfc822_Address and Horde_Mail_Rfc822_Group objects to represent e-mail addresses.
