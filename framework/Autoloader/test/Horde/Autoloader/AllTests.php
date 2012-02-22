@@ -1,7 +1,15 @@
 <?php
 /**
+ * All tests for the Autoloader:: package.
+ *
+ * PHP version 5
+ *
+ * @category   Horde
  * @package    Autoloader
  * @subpackage UnitTests
+ * @author     Chuck Hagenbuch <chuck@horde.org>
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @link       http://www.horde.org/libraries/Horde_Autoloader
  */
 
 /**
@@ -17,8 +25,14 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 require_once 'Horde/Test/AllTests.php';
 
 /**
+ * All tests for the Autoloader:: package.
+ *
+ * @category   Horde
  * @package    Autoloader
  * @subpackage UnitTests
+ * @author     Chuck Hagenbuch <chuck@horde.org>
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @link       http://www.horde.org/libraries/Horde_Autoloader
  */
 class Horde_Autoloader_AllTests extends Horde_Test_AllTests
 {
