@@ -18,9 +18,9 @@
   <active>yes</active>
  </lead>
  <date>2012-02-22</date>
- <time>13:20:10</time>
+ <time>13:20:25</time>
  <version>
-  <release>1.5.0</release>
+  <release>1.5.1</release>
   <api>1.5.0</api>
  </version>
  <stability>
@@ -29,8 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Support Horde_Mail_Rfc822_Address objects.
-* [mms] A false value for &apos;idn&apos; in Horde_Mime_Address#writeAddress() now causes the domain name to be converted TO punycode, if necessary.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -871,6 +870,19 @@
    <notes>
 * [mms] Support Horde_Mail_Rfc822_Address objects.
 * [mms] A false value for &apos;idn&apos; in Horde_Mime_Address#writeAddress() now causes the domain name to be converted TO punycode, if necessary.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.5.1</release>
+    <api>1.5.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-02-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
