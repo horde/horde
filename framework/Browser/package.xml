@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Update dataurl and cite capabilities for Internet Explorer.
 * [jan] Update utf capability for Firefox 10+.
  </notes>
  <contents>
@@ -632,6 +633,7 @@ Initial packaging
    <date>2012-01-18</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Update dataurl and cite capabilities for Internet Explorer.
 * [jan] Update utf capability for Firefox 10+.
    </notes>
   </release>
