@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-* 
+* [cjh] Fix setting PUT data in the Peclhttp Horde_Http_Request class.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -303,7 +303,7 @@
    <date>2011-11-02</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
-* 
+* [cjh] Fix setting PUT data in the Peclhttp Horde_Http_Request class.
    </notes>
   </release>
  </changelog>
