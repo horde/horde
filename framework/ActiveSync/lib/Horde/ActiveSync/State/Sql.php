@@ -143,8 +143,9 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         }
         if (empty($syncKey)) {
             $this->_state = $this->_collection['class'] == Horde_ActiveSync::CLASS_EMAIL
-                ? new Horde_ActiveSync_Folder_Imap($this->_collection['id'])
-                : array();
+                ? new Horde_ActiveSync_Folder_Imap($this->_collection['id'], Horde_ActiveSync::CLASS_EMAIL)
+                : new Horde_ActiveSync_Folder_Collection($this->_collection['id'], $this->_collection['class']));
+
             $this->_resetDeviceState($id);
             return;
         }
@@ -182,6 +183,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
 
         // Restore any state or pending changes
         $data = unserialize($results['sync_data']);
+        // @TODO: Convert from previous state data format.
         $pending = unserialize($results['sync_pending']);
 
 
@@ -196,8 +198,8 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             $this->_state = ($data !== false
                 ? $data
                 : ($this->_collection['class'] == Horde_ActiveSync::CLASS_EMAIL
-                    ? new Horde_ActiveSync_Folder_Imap($this->_collection['id'])
-                    : array())
+                    ? new Horde_ActiveSync_Folder_Imap($this->_collection['id'], Horde_ActiveSync::CLASS_EMAIL)
+                    : new Horde_ActiveSync_Folder_Collection($this->_collection['id'], $this->_collection['class']))
             );
 
 
@@ -392,24 +394,25 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                         $this->_state[] = $stat;
                         $this->_state = array_values($this->_state);
                     }
-
-                    if ($this->_collection['class'] != Horde_ActiveSync::CLASS_EMAIL) {
-                        // Track the UIDs sent to the PIM.
-                        foreach ($this->_state as $fi => $state) {
-                            if ($state['id'] == $value['id']) {
-                                unset($this->_state[$fi]);
-                                break;
-                            }
-                        }
-                        // @TODO - can we just use the entire $value here?
-                        $stat = array(
-                            'id' => $value['id'],
-                            'mod' => $value['mod'],
-                            'flags' => $value['flags']
-                        );
-                        $this->_state[] = $stat;
-                        $this->_state = array_values($this->_state);
-                    }
+                    // @TODO: This makes NO sense. Probably a merge artifact. Remove
+                    // after tested.
+                    // if ($this->_collection['class'] != Horde_ActiveSync::CLASS_EMAIL) {
+                    //     // Track the UIDs sent to the PIM.
+                    //     foreach ($this->_state as $fi => $state) {
+                    //         if ($state['id'] == $value['id']) {
+                    //             unset($this->_state[$fi]);
+                    //             break;
+                    //         }
+                    //     }
+                    //     // @TODO - can we just use the entire $value here?
+                    //     $stat = array(
+                    //         'id' => $value['id'],
+                    //         'mod' => $value['mod'],
+                    //         'flags' => $value['flags']
+                    //     );
+                    //     $this->_state[] = $stat;
+                    //     $this->_state = array_values($this->_state);
+                    // }
                     unset($this->_changes[$key]);
                     break;
                 }
@@ -880,81 +883,76 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         $this->_thisSyncTS = time();
 
         if (!empty($this->_collection['id'])) {
-            $folderId = $this->_collection['id'];
-            $this->_logger->debug('[' . $this->_devId . '] Initializing message diff engine for ' . $this->_collection['id']);
-            if ($folderId != Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
-
-                // @TODO HACK: We need to refactor out the need to always check
-                //             the collection class and overwrite the _state in
-                //             H5 we will use a Folder State class for each
-                //             folder collection.
-                if ($this->_collection['class'] == Horde_Activesync::CLASS_EMAIL) {
-                    // Email SYNC - use the Horde_ActiveSync_Folder_Imap object.
-                    $folderId = &$this->_state;
-                }
-
-                // Any exising changes left over?
+            $this->_logger->debug(sprintf(
+                "[%s] Initializing message diff engine for %s",
+                $this->_devId,
+                $this->_collection['id']));
+            if ($this->_collection['id'] != Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
+                $folder = &$this->_state;
                 if (!empty($this->_changes)) {
-                    $this->_logger->debug('[' . $this->_devId . '] Returning previously found changes.');
+                    $this->_logger->debug(sprintf(
+                        "[%s] Returning previously found changes.",
+                        $this->_devId));
                     return $this->_changes;
                 }
 
                 // No existing changes, poll the backend
                 $changes = $this->_backend->getServerChanges(
-                    $folderId,
+                    $folder,
                     (int)$this->_lastSyncTS,
                     (int)$this->_thisSyncTS,
                     $cutoffdate);
 
-                if ($this->_collection['class'] == Horde_Activesync::CLASS_EMAIL) {
-                    // Email SYNC - use the Horde_ActiveSync_Folder_Imap object.
-                    $this->_logger->debug('Updating state for CLASS_EMAIL: ' . (string)$this->_state);
-                    $this->_state->updateState();
-                }
+                // @TODO: Need to test this.
+                $this->_state->updateState();
             }
 
-            $this->_logger->debug('[' . $this->_devId . '] Found '
-                . count($changes) . ' message changes, checking for PIM initiated changes.');
+            $this->_logger->debug(sprintf(
+                "[%s] Found %n message changes, checking for PIM initiated changes.",
+                $this->_devId,
+                count($changes));
 
             $this->_changes = array();
-            if ($this->_collection['class'] !== Horde_ActiveSync::CLASS_EMAIL) {
-                // If we have PIM originated changes, need to stat them to avoid
-                // mirroring back the change.
-                if ($this->_havePIMChanges()) {
-                    foreach ($changes as $change) {
-                        $stat = $this->_backend->statMessage($folderId, $change['id']);
-                        $ts = $this->_getPIMChangeTS($change['id']);
-                        if ($ts && $ts >= $stat['mod']) {
-                            $this->_logger->debug('[' . $this->_devId . '] Ignoring PIM initiated change for '
-                                . $change['id'] . '(PIM TS: ' . $ts . ' Stat TS: ' . $stat['mod']);
-                        } else {
-                            $this->_changes[] = $change;
-                        }
-                    }
-                } else {
-                    $this->_logger->debug('[' . $this->_devId . '] No PIM changes present, returning all messages.');
-                    $this->_changes = $changes;
-                }
-            } else {
-                $this->_logger->debug('[' . $this->_devId . '] This is an Email folder, checking for PIM initiated flag changes.');
-                if ($this->_havePIMChanges(Horde_ActiveSync::CLASS_EMAIL)) {
+            if ($this->_havePIMChanges($this->_collection['class'])) {
+                switch ($this->_collection['class']) {
+                case Horde_ActiveSync::CLASS_EMAIL:
                     foreach ($changes as $change) {
                         $stat = $this->_backend->statMailMessage($this->_collection['id'], $change['id']);
                         if ($stat && $this->_isPIMFlagChange($change['id'], $stat['flags'])) {
-                            $this->_logger->debug(
-                                sprintf("[%s] Ignoring PIM initiated flag change for %s", $this->_devId, $change['id']));
+                            $this->_logger->debug(sprintf(
+                                "[%s] Ignoring PIM initiated flag change for %s",
+                                $this->_devId,
+                                $change['id']));
                         } else {
                             // @TODO: Need to catch device-deleted messages,
                             // device moved messages etc...
                             $this->_changes[] = $change;
                         }
                     }
-                } else {
-                    $this->_changes = $changes;
+                default:
+                    foreach ($changes as $change) {
+                        $stat = $this->_backend->statMessage($folderId, $change['id']);
+                        $ts = $this->_getPIMChangeTS($change['id']);
+                        if ($ts && $ts >= $stat['mod']) {
+                            $this->_logger->debug(sprintf(
+                                "[%s] Ignoring PIM initiated change for %s (PIM TS: %s Stat TS: %s",
+                                $this->_devId,
+                                $change['id'], $ts, $stat['mod']));
+                        } else {
+                            $this->_changes[] = $change;
+                        }
+                    }
                 }
+            } else {
+                $this->_logger->debug(sprintf(
+                    "[%s] No PIM changes present, returning all messages.",
+                    $this->_devId));
+                $this->_changes = $changes;
             }
         } else {
-            $this->_logger->debug('[' . $this->_devId . '] Initializing folder diff engine');
+            $this->_logger->debug(sprintf(
+                "[%s] Initializing folder diff engine",
+                $this->_devId));
             $folderlist = $this->_backend->getFolderList();
             if ($folderlist === false) {
                 return false;

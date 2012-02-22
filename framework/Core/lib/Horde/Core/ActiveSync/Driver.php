@@ -310,10 +310,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * Get a list of server changes that occured during the specified time
      * period.
      *
-     * @param mixed   $folderId    The server id of the collection to check, or
-     *                             a Horde_ActiveSyncFolder_Imap. @TODO Let this
-     *                             take a Horde_ActiveSync_Folder_Base obejct in
-     *                             Horde 5.
+     * @param Horde_ActiveSync_Folder_Base $folder
+     *      The ActiveSync folder object to request changes for.
      * @param integer $from_ts     The starting timestamp
      * @param integer $to_ts       The ending timestamp
      * @param integer $cutoffdate  The earliest date to retrieve back to
@@ -321,10 +319,11 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * @return array A list of messge uids that have changed in the specified
      *               time period.
      */
-    public function getServerChanges($folderId, $from_ts, $to_ts, $cutoffdate)
+    public function getServerChanges($folder, $from_ts, $to_ts, $cutoffdate)
     {
         $this->_logger->debug(
-            sprintf("Horde_ActiveSync_Driver_Horde::getServerChanges(%s, $from_ts, $to_ts, $cutoffdate)", (string)$folderId));
+            sprintf("Horde_ActiveSync_Driver_Horde::getServerChanges(%s, $from_ts, $to_ts, $cutoffdate)",
+                    (string)$folder));
 
         $changes = array(
             'add' => array(),
@@ -333,89 +332,86 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         );
 
         ob_start();
-        if (!($folderId instanceof Horde_ActiveSync_Folder_Imap)) {
-            $folder = $this->getFolder($folderId);
-
-            switch ($folder->type) {
-            case Horde_ActiveSync::FOLDER_TYPE_APPOINTMENT:
-                if ($from_ts == 0) {
-                    // Can't use History if it's a first sync
-                    $startstamp = (int)$cutoffdate;
-                    $endstamp = time() + 32140800; //60 * 60 * 24 * 31 * 12 == one year
-                    try {
-                        $changes['add'] = $this->_connector->calendar_listUids($startstamp, $endstamp);
-                    } catch (Horde_Exception $e) {
-                        $this->_logger->err($e->getMessage());
-                        $this->_endBuffer();
-                        return array();
-                    }
-                } else {
-                    try {
-                        $changes = $this->_connector->getChanges('calendar', $from_ts, $to_ts);
-                    } catch (Horde_Exception $e) {
-                        $this->_logger->err($e->getMessage());
-                        $this->_endBuffer();
-                        return array();
-                    }
+        switch ($folder->class()) {
+        case Horde_ActiveSync::CLASS_CALENDAR
+            if ($from_ts == 0) {
+                // Can't use History if it's a first sync
+                $startstamp = (int)$cutoffdate;
+                $endstamp = time() + 32140800; //60 * 60 * 24 * 31 * 12 == one year
+                try {
+                    $changes['add'] = $this->_connector->calendar_listUids($startstamp, $endstamp);
+                } catch (Horde_Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                    $this->_endBuffer();
+                    return array();
                 }
-                break;
-
-            case Horde_ActiveSync::FOLDER_TYPE_CONTACT:
-                // Can't use History for first sync
-                if ($from_ts == 0) {
-                    try {
-                        $changes['add'] = $this->_connector->contacts_listUids();
-                    } catch (Horde_Exception $e) {
-                        $this->_logger->err($e->getMessage());
-                        $this->_endBuffer();
-                        return array();
-                    }
-                    $edits = $deletes = array();
-                } else {
-                    try {
-                        $changes = $this->_connector->getChanges('contacts', $from_ts, $to_ts);
-                    } catch (Horde_Exception $e) {
-                        $this->_logger->err($e->getMessage());
-                        $this->_endBuffer();
-                        return array();
-                    }
-                }
-                break;
-
-            case Horde_ActiveSync::FOLDER_TYPE_TASK:
-                // Can't use History for first sync
-                if ($from_ts == 0) {
-                    try {
-                        $changes['add'] = $this->_connector->tasks_listUids();
-                    } catch (Horde_Exception $e) {
-                        $this->_logger->err($e->getMessage());
-                        $this->_endBuffer();
-                        return array();
-                    }
-                } else {
-                    try {
-                        $changes = $this->_connector->getChanges('tasks', $from_ts, $to_ts);
-                    } catch (Horde_Exception $e) {
-                        $this->_logger->err($e->getMessage());
-                        $this->_endBuffer();
-                        return array();
-                    }
+            } else {
+                try {
+                    $changes = $this->_connector->getChanges('calendar', $from_ts, $to_ts);
+                } catch (Horde_Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                    $this->_endBuffer();
+                    return array();
                 }
             }
-        } else {
+            break;
+
+        case Horde_ActiveSync::CLASS_CONTACT:
+            // Can't use History for first sync
+            if ($from_ts == 0) {
+                try {
+                    $changes['add'] = $this->_connector->contacts_listUids();
+                } catch (Horde_Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                    $this->_endBuffer();
+                    return array();
+                }
+                $edits = $deletes = array();
+            } else {
+                try {
+                    $changes = $this->_connector->getChanges('contacts', $from_ts, $to_ts);
+                } catch (Horde_Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                    $this->_endBuffer();
+                    return array();
+                }
+            }
+            break;
+
+        case Horde_ActiveSync::CLASS_TASK:
+            // Can't use History for first sync
+            if ($from_ts == 0) {
+                try {
+                    $changes['add'] = $this->_connector->tasks_listUids();
+                } catch (Horde_Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                    $this->_endBuffer();
+                    return array();
+                }
+            } else {
+                try {
+                    $changes = $this->_connector->getChanges('tasks', $from_ts, $to_ts);
+                } catch (Horde_Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                    $this->_endBuffer();
+                    return array();
+                }
+            }
+            break;
+        case Horde_ActiveSync::CLASS_EMAIL:
             // Email request.
             try {
-                $folderId = &$this->_connector->mail_getMessageList(
-                    $folderId,
+                $folder = &$this->_connector->mail_getMessageList(
+                    $folder,
                     array('sincedate' => (int)$cutoffdate));
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 $this->_endBuffer();
                 return array();
             }
-            $changes['add'] = $folderId->added();
-            $changes['delete'] = $folderId->removed();
-            $changes['modify'] = $folderId->changed();
+            $changes['add'] = $folder->added();
+            $changes['delete'] = $folder->removed();
+            $changes['modify'] = $folder->changed();
         }
 
         $results = array();

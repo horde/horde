@@ -462,7 +462,7 @@ class Horde_Core_ActiveSync_Connector
     /**
      * Return AS mail messages, from the given IMAP UIDs.
      *
-     * @param Horde_ActiveSync_Folder_Imap  $folder  The mailbox folder.
+     * @param Horde_ActiveSync_Message_Folder $folder  The mailbox folder.
      * @param array $messages                        List of IMAP message UIDs
      * @param array $options                         Additional Options:
      *   -truncation:  (integer)  Truncate body of email to this length.
