@@ -535,22 +535,6 @@ abstract class Horde_ActiveSync_Driver_Base
     }
 
     /**
-     * If this driver can check for changes in an alternate way for PING then
-     * for SYNC, this method is used to do so. Also, alterPing() should return
-     * true in this case.
-     *
-     * @param string $folderid  The folder id
-     * @param array $syncstate  The syncstate
-     *
-     * @deprecated - This will probably be removed.
-     * @return array  An array of changes, the same as retunred from getChanges
-     */
-    public function alterPingChanges($folderid, &$syncstate)
-    {
-        return array();
-    }
-
-    /**
      * Build a <wap-provisioningdoc> for the given security settings provided
      * by the backend.
      *
@@ -597,33 +581,6 @@ abstract class Horde_ActiveSync_Driver_Base
         $xml .= '</wap-provisioningdoc>';
 
         return $xml;
-    }
-
-    /**
-     * Truncate an UTF-8 encoded sting correctly
-     *
-     * If it's not possible to truncate properly, an empty string is returned
-     *
-     * @deprecated  Use Horde_String::substr() instead.
-     *
-     * @param string $string  The string to truncate
-     * @param string $length  The length of the returned string
-     *
-     * @return string  The truncated string
-     */
-    static public function truncate($string, $length)
-    {
-        if (strlen($string) <= $length) {
-            return $string;
-        }
-        while($length >= 0) {
-            if ((ord($string[$length]) < 0x80) || (ord($string[$length]) >= 0xC0)) {
-                return substr($string, 0, $length);
-            }
-            $length--;
-        }
-
-        return "";
     }
 
 }
