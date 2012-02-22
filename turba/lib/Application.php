@@ -379,6 +379,11 @@ class Turba_Application extends Horde_Registry_Application
     }
 
     /**
+     * Returns values for <configspecial> configuration settings.
+     *
+     * @param string $what  Either 'client-fields' or 'sources'.
+     *
+     * @return array  The values for the requested configuration setting.
      */
     public function configSpecialValues($what)
     {
