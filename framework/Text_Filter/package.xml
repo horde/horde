@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Merge upstream updates to JsMin filter.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -753,7 +753,7 @@ Initial release as a PEAR package
    <date>2011-12-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Merge upstream updates to JsMin filter.
    </notes>
   </release>
  </changelog>
