@@ -260,8 +260,6 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             $pending = '';
         } elseif ($this->_type == Horde_ActiveSync::REQUEST_TYPE_SYNC) {
             $pending = (isset($this->_changes) ? serialize(array_values($this->_changes)) : '');
-            // $this->_state should contain the IMAP UIDs on the device when
-            // syncing Horde_ActiveSync::CLASS_EMAIL
             $data = (isset($this->_state) ? serialize($this->_state) : '');
         } else {
             $pending = '';
@@ -308,8 +306,18 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      *
      * @param string $type      The type of change (change, delete, flags or
      *                          foldersync)
-     * @param array $change     A stat/change hash describing the change
+     * @param array $change     A stat/change hash describing the change.
+     *  Contains:
+     *    'id'      - The message uid the change applies to
+     *    'parent'  - The parent of the message, normally the folder id.
+     *    'flags'   - If this is a flag change, the state of the read flag.
+     *    'mod'     - The modtime of this change for collections that use it.
+     *
      * @param integer $origin   Flag to indicate the origin of the change.
+     *  Either:
+     *    Horde_ActiveSync::CHANGE_ORIGIN_NA  - Not applicapble/not important
+     *    Horde_ActiveSync::CHANGE_ORIGIN_PIM - Change originated from PIM
+     *
      * @param string $user      The current sync user, only needed if change
      *                          origin is CHANGE_ORIGIN_PIM
      * @param string $clientid  PIM clientid sent when adding a new message
@@ -322,7 +330,10 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     {
         $this->_logger->debug('Updating state during ' . $type);
         if ($origin == Horde_ActiveSync::CHANGE_ORIGIN_PIM) {
+            // This is an incoming change from the PIM, store it so we
+            // don't mirror it back to device.
             if ($type == Horde_ActiveSync::CHANGE_TYPE_FLAGS) {
+                // This is a mail sync changing only a read flag.
                 $sql = 'INSERT INTO ' . $this->_syncMailMapTable
                     . ' (message_uid, sync_key, sync_devid,'
                     . ' sync_folderid, sync_user, sync_read)'
@@ -349,8 +360,6 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                    $user,
                    $clientid);
             }
-
-            // Store the incoming change.
             try {
                 $this->_db->insert($sql, $params);
             } catch (Horde_Db_Exception $e) {
@@ -358,15 +367,17 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 throw new Horde_ActiveSync_Exception($e);
             }
         } else {
-            // When sending server changes, $this->_changes will contain all
-            // changes. Need to track which ones are sent since we might not
-            // send all of them.
+            // We are sending server changes; $this->_changes will contain all
+            // changes so we need to track which ones are sent since not all
+            // may be sent. We need to store the leftovers for sending next
+            // request.
             foreach ($this->_changes as $key => $value) {
                 if ($value['id'] == $change['id']) {
                     if ($type == Horde_ActiveSync::CHANGE_TYPE_FOLDERSYNC) {
                         foreach ($this->_state as $fi => $state) {
                             if ($state['id'] == $value['id']) {
                                 unset($this->_state[$fi]);
+                                break;
                             }
                         }
                         // Only save what we need. Note that 'mod' is eq to the
@@ -455,7 +466,8 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     }
 
     /**
-     * Get the folder data for a specific device
+     * Get the folder data for a specific device. Used only from very old
+     * devices...and this is probably currently broken.
      *
      * @param object $device  The device object
      * @param string $class   The folder class to fetch (Calendar, Contacts etc.)
@@ -951,7 +963,10 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 (empty($this->_state) ? array() : $this->_state),
                 $folderlist);
 
-            $this->_logger->debug('[' . $this->_devId . '] Found ' . count($this->_changes) . ' folder changes');
+            $this->_logger->debug(sprintf(
+                "[%s] Found %n folder changes.",
+                $this->_devId,
+                count($this->_changes)));
         }
 
         return $this->_changes;
@@ -1097,7 +1112,8 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      */
      public function isDuplicatePIMAddition($id)
      {
-        $sql = 'SELECT message_uid FROM ' . $this->_syncMapTable . ' WHERE sync_clientid = ? AND sync_user = ?';
+        $sql = 'SELECT message_uid FROM ' . $this->_syncMapTable
+            . ' WHERE sync_clientid = ? AND sync_user = ?';
         try {
             $uid = $this->_db->selectValue($sql, array($id, $this->_deviceInfo->user));
 
@@ -1119,9 +1135,11 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      */
     protected function _getPIMChangeTS($uid)
     {
-        $sql = 'SELECT sync_modtime FROM ' . $this->_syncMapTable . ' WHERE message_uid = ? AND sync_devid = ? AND sync_user = ?';
+        $sql = 'SELECT sync_modtime FROM ' . $this->_syncMapTable
+            . ' WHERE message_uid = ? AND sync_devid = ? AND sync_user = ?';
         try {
-            return $this->_db->selectValue($sql, array($uid, $this->_devId, $this->_deviceInfo->user));
+            return $this->_db->selectValue(
+                $sql, array($uid, $this->_devId, $this->_deviceInfo->user));
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
@@ -1165,7 +1183,8 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      */
     protected function _getLastSyncTS()
     {
-        $sql = 'SELECT MAX(sync_time) FROM ' . $this->_syncStateTable . ' WHERE sync_folderid = ? AND sync_devid = ?';
+        $sql = 'SELECT MAX(sync_time) FROM ' . $this->_syncStateTable
+            . ' WHERE sync_folderid = ? AND sync_devid = ?';
 
         try {
             $this->_lastSyncTS = $this->_db->selectValue(

@@ -5,30 +5,35 @@
  * state accordingly.
  *
  * Some code adapted from the Z-Push project. Original file header below.
+ * File      :   diffbackend.php
+ * Project   :   Z-Push
+ * Descr     :   We do a standard differential
+ *               change detection by sorting both
+ *               lists of items by their unique id,
+ *               and then traversing both arrays
+ *               of items at once. Changes can be
+ *               detected by comparing items at
+ *               the same position in both arrays.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ *  Created   :   01.10.2007
  *
+ * © Zarafa Deutschland GmbH, www.zarafaserver.de
+ * This file is distributed under GPL-2.0.
+ * Consult COPYING file for details
+ *
+ * @copyright 2010-2012 Horde LLC (http://www.horde.org/)
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package ActiveSync
  */
-
-/***********************************************
-* File      :   diffbackend.php
-* Project   :   Z-Push
-* Descr     :   We do a standard differential
-*               change detection by sorting both
-*               lists of items by their unique id,
-*               and then traversing both arrays
-*               of items at once. Changes can be
-*               detected by comparing items at
-*               the same position in both arrays.
-*
-* Created   :   01.10.2007
-*
-* © Zarafa Deutschland GmbH, www.zarafaserver.de
-* This file is distributed under GPL-2.0.
-* Consult COPYING file for details
-************************************************/
+/**
+ * Horde_ActiveSync_Sync
+ *
+ * Handles the actual synchronization with the device.
+ *
+ * @copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @package ActiveSync
+ */
 class Horde_ActiveSync_Sync
 {
     /**
