@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nag H4 (3.0.8-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"POT-Creation-Date: 2012-02-22 11:20+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -169,6 +169,10 @@ msgstr ""
 
 #: lib/Form/Type/NagMethod.php:42
 msgid "An alarm must be set to specify a notification method"
+msgstr ""
+
+#: mobile.php:46
+msgid "Applications"
 msgstr ""
 
 #: config/prefs.php:123
@@ -761,10 +765,6 @@ msgstr ""
 #: lib/Api.php:1152 lib/Api.php:1169 lib/Api.php:1199 lib/Api.php:1285
 #: lib/Api.php:1364 lib/Api.php:1421 lib/Application.php:306 lib/Nag.php:333
 msgid "Permission Denied"
-msgstr ""
-
-#: mobile.php:46
-msgid "Portal"
 msgstr ""
 
 #: config/prefs.php:66 config/prefs.php:87 config/prefs.php:105 data.php:60
