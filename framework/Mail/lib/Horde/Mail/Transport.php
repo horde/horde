@@ -117,10 +117,9 @@ abstract class Horde_Mail_Transport
             ? $headers['_raw']
             : null;
 
-        $parser = new Horde_Mail_Rfc822();
-
         foreach ($headers as $key => $value) {
             if (strcasecmp($key, 'From') === 0) {
+                $parser = new Horde_Mail_Rfc822();
                 $addresses = $parser->parseAddressList($value, array(
                     'nest_groups' => false,
                 ));
