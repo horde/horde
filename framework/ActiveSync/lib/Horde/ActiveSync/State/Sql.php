@@ -79,13 +79,6 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     protected $_thisSyncTS = 0;
 
     /**
-     * Local cache of folder state.
-     *
-     * @var Horde_ActiveSync_Folder_Base
-     */
-    protected $_state;
-
-    /**
      * DB handle
      *
      * @var Horde_Db_Adapter
@@ -548,7 +541,10 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      */
     public function loadDeviceInfo($devId, $user)
     {
-        $this->_logger->debug('[' . $devId . '] loadDeviceInfo: ' . $user);
+        $this->_logger->debug(sprintf(
+            "[%s] loadDeviceInfo: %s",
+            $devId,
+            $user));
 
         // See if we already have this device, for this user loaded
         if ($this->_devId == $devId && !empty($this->_deviceInfo) &&
@@ -774,7 +770,10 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         // Load any existing state
         // @TODO: I'm almost positive we need to key these by 'id', not 'class'
         // but this is what z-push did so...
-        $this->_logger->debug('[' . $this->_devId . '] Attempting to load PING state for: ' . $pingCollection['class']);
+        $this->_logger->debug(sprintf(
+            "[%s] Attempting to load PING state for: %s",
+            $this->_devId,
+            $pingCollection['class']));
 
         if (!empty($this->_pingState['collections'][$pingCollection['class']])) {
             $this->_collection = $this->_pingState['collections'][$pingCollection['class']];
@@ -794,13 +793,16 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             }
         } else {
             // Initialize the collection's state.
-            $this->_logger->info('[' . $this->_devId . '] Empty state for '. $pingCollection['class']);
+            $this->_logger->info(sprintf(
+                "[%s] Found empty state for %s",
+                $this->_devID,
+                $pingCollection['class']));
 
-            // Init members for the getChanges call
+            // Init members for the getChanges call.
             $this->_collection = $pingCollection;
             $this->_collection['synckey'] = $this->_devId;
 
-            // If we are here, then the pingstate was empty so prime it..
+            // The PING state was empty, need to prime it.
             $this->_pingState['collections'][$this->_collection['class']] = $this->_collection;
             $this->savePingState();
 

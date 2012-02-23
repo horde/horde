@@ -71,7 +71,6 @@ abstract class Horde_ActiveSync_State_Base
      *   'conflict'   - Conflicts
      *   'truncation' - Truncation
      *
-     *
      * @var array
      */
     protected $_collection;
@@ -91,9 +90,16 @@ abstract class Horde_ActiveSync_State_Base
     protected $_devId;
 
     /**
-     * Device info cache
+     * Device info structure. Contains the following properties:
+     *  'rwstatus'   - Device RemoteWipe status.
+     *  'deviceType' - The device type.
+     *  'userAgent'  - The device's userAgent string.
+     *  'id'         - Device id.
+     *  'user'       - The user associated with the current account.
+     *  'supported'  - The SUPPORTED response for the device's collections.
+     *  'policykey'  - The device's current POLICYKEY.
      *
-     * @var object
+     * @var StdClass
      */
     protected $_deviceInfo;
 
@@ -101,7 +107,7 @@ abstract class Horde_ActiveSync_State_Base
      * Local cache for changes to *send* to PIM
      * (Will remain null until getChanges() is called)
      *
-     * @var
+     * @var array
      */
     protected $_changes;
 
