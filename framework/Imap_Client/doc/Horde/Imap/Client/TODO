@@ -15,6 +15,8 @@ TODO for 2.0
 
       Remove fetch_vanished_res temporary variable in Socket.php.
 
+      Remove 'fetch_res' parameter.
+
   - Horde_Imap_Client_Base#getNamespaces()
 
       The array keys, 'name' key, and 'translation' key in the return array

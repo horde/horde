@@ -2232,7 +2232,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *                   mod-sequence fetch criteria to the fetch command.
      *                   DEFAULT: Mod-sequence values are ignored.
      *   - fetch_res: (array) A partial results array to have fetch results
-     *                added to.
+     *                added to. [DEPRECATED]
      *   - ids: (Horde_Imap_Client_Ids) A list of messages to fetch data from.
      *          DEFAULT: All messages in $mailbox will be fetched.
      *   - vanished: (boolean) Only return messages from the UID set parameter
@@ -2240,6 +2240,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *               is larger than the specified mod-sequence. This option
      *               requires the QRESYNC IMAP extension and requires
      *               'changedsince' to be set, and requires 'ids' to be UIDs.
+     *               [DEPRECATED]
      *               DEFAULT: Vanished search ignored.
      *
      * @return array  An array of fetch results. The array consists of
