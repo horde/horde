@@ -332,8 +332,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         );
 
         ob_start();
-        switch ($folder->class()) {
-        case Horde_ActiveSync::CLASS_CALENDAR
+        switch ($folder->collectionClass()) {
+        case Horde_ActiveSync::CLASS_CALENDAR:
             if ($from_ts == 0) {
                 // Can't use History if it's a first sync
                 $startstamp = (int)$cutoffdate;
@@ -356,7 +356,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
             break;
 
-        case Horde_ActiveSync::CLASS_CONTACT:
+        case Horde_ActiveSync::CLASS_CONTACTS:
             // Can't use History for first sync
             if ($from_ts == 0) {
                 try {
@@ -378,7 +378,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
             break;
 
-        case Horde_ActiveSync::CLASS_TASK:
+        case Horde_ActiveSync::CLASS_TASKS:
             // Can't use History for first sync
             if ($from_ts == 0) {
                 try {
