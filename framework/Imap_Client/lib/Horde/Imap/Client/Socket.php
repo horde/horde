@@ -1671,10 +1671,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $this->_deleteMsgs($this->_temp['mailbox']['name'], $vanished);
 
                 if (!empty($this->_temp['fetch_vanished'])) {
+                    $this->_temp['fetch_vanished_res'] = $this->_newFetchResult();
                     foreach ($vanished as $val) {
                         $ob = new $this->_fetchDataClass();
                         $ob->setUid($val);
-                        $this->_temp['fetchresp']->uid[$val] = $ob;
+                        $this->_temp['fetch_vanished_res']->uid[$val] = $this->_temp['fetchresp']->uid[$val] = $ob;
                     }
                 }
             }
@@ -2647,7 +2648,16 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             'fetch' => $fr
         ));
 
-        unset($t['fetchcmd'], $t['fetch_vanished']);
+        /* If we are grabbing vanished information, we don't want to return
+         * FETCH information, only the vanished IDs. We need to do this switch
+         * here because _parseResponse() will process the full FETCH results
+         * and update the cache. */
+        if (!empty($this->_temp['fetch_vanished'])) {
+            $fr = $t['fetch_vanished_res'];
+            unset($t['fetch_vanished'], $t['fetch_vanished_res']);
+        }
+
+        unset($t['fetchcmd']);
 
         return $options['ids']->sequence
             ? $fr->seq

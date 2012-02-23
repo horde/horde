@@ -8,10 +8,12 @@ TODO for 2.0
 
   - Horde_Imap_Client_Base#fetch()
 
-      Move 'vanished' parameter to a separate method.  Tt does not return
+      Move 'vanished' parameter to a separate method.  It does not return
       true data objects like the other options - it should instead return a
       list of UIDs only - so it doesn't really fit in a fetch() call, even
       though the underlying IMAP command used is FETCH.
+
+      Remove fetch_vanished_res temporary variable in Socket.php.
 
   - Horde_Imap_Client_Base#getNamespaces()
 
