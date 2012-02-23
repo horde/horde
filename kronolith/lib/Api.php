@@ -456,7 +456,10 @@ class Kronolith_Api extends Horde_Registry_Api
         $results = array();
         foreach ($calendars as $calendar) {
             if (!Kronolith::hasPermission($calendar, Horde_Perms::READ)) {
-                throw new Horde_Exception_PermissionDenied();
+                Horde::logMessage(sprintf(
+                    _("Permission Denied or Calendar Not Found: %s - skipping."),
+                    $calendar));
+                continue;
             }
             try {
                 $driver->open($calendar);
