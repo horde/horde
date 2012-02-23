@@ -37,7 +37,7 @@ abstract class Horde_ActiveSync_State_Base
      *
      * @var array
      */
-    protected $_stateCache;
+    protected $_folder;
 
     /**
      * The syncKey for the current request.

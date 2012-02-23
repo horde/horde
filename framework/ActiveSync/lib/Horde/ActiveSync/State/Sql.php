@@ -188,14 +188,14 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
 
 
         if ($type == Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC) {
-            $this->_state = ($data !== false) ? $data : array();
+            $this->_folder = ($data !== false) ? $data : array();
             $this->_logger->debug(
                 sprintf('[%s] Loading FOLDERSYNC state: %s',
                 $this->_devId,
-                print_r($this->_state, true)));
+                print_r($this->_folder, true)));
 
         } elseif ($type == Horde_ActiveSync::REQUEST_TYPE_SYNC) {
-            $this->_state = ($data !== false
+            $this->_folder = ($data !== false
                 ? $data
                 : ($this->_collection['class'] == Horde_ActiveSync::CLASS_EMAIL
                     ? new Horde_ActiveSync_Folder_Imap($this->_collection['id'], Horde_ActiveSync::CLASS_EMAIL)
@@ -206,7 +206,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             $this->_logger->debug(sprintf(
                 '[%s] Loaded previous state data: %s',
                 $this->_devId,
-                print_r($this->_state, true))
+                print_r($this->_folder, true))
             );
 
             $this->_changes = ($pending !== false) ? $pending : null;
@@ -258,11 +258,11 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
 
         // Prepare state and pending data
         if ($this->_type == Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC) {
-            $data = (isset($this->_state) ? serialize($this->_state) : '');
+            $data = (isset($this->_folder) ? serialize($this->_folder) : '');
             $pending = '';
         } elseif ($this->_type == Horde_ActiveSync::REQUEST_TYPE_SYNC) {
             $pending = (isset($this->_changes) ? serialize(array_values($this->_changes)) : '');
-            $data = (isset($this->_state) ? serialize($this->_state) : '');
+            $data = (isset($this->_folder) ? serialize($this->_folder) : '');
         } else {
             $pending = '';
             $data = '';
@@ -376,9 +376,9 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             foreach ($this->_changes as $key => $value) {
                 if ($value['id'] == $change['id']) {
                     if ($type == Horde_ActiveSync::CHANGE_TYPE_FOLDERSYNC) {
-                        foreach ($this->_state as $fi => $state) {
+                        foreach ($this->_folder as $fi => $state) {
                             if ($state['id'] == $value['id']) {
-                                unset($this->_state[$fi]);
+                                unset($this->_folder[$fi]);
                                 break;
                             }
                         }
@@ -391,8 +391,8 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                            'mod' => $folder->displayname,
                            'parent' => (empty($value['parent']) ? 0 : $value['parent'])
                         );
-                        $this->_state[] = $stat;
-                        $this->_state = array_values($this->_state);
+                        $this->_folder[] = $stat;
+                        $this->_folder = array_values($this->_folder);
                     }
                     // @TODO: This makes NO sense. Probably a merge artifact. Remove
                     // after tested.
@@ -507,11 +507,11 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      */
     public function getKnownFolders()
     {
-        if (!isset($this->_state)) {
+        if (!isset($this->_folder)) {
             throw new Horde_ActiveSync_Exception('Sync state not loaded');
         }
         $folders = array();
-        foreach ($this->_state as $folder) {
+        foreach ($this->_folder as $folder) {
             $folders[] = $folder['id'];
         }
 
@@ -888,7 +888,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 $this->_devId,
                 $this->_collection['id']));
             if ($this->_collection['id'] != Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
-                $folder = &$this->_state;
+                $folder = &$this->_folder;
                 if (!empty($this->_changes)) {
                     $this->_logger->debug(sprintf(
                         "[%s] Returning previously found changes.",
@@ -904,7 +904,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                     $cutoffdate);
 
                 // @TODO: Need to test this.
-                $this->_state->updateState();
+                $this->_folder->updateState();
             }
 
             $this->_logger->debug(sprintf(
@@ -958,7 +958,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 return false;
             }
             $this->_changes = $this->_getDiff(
-                (empty($this->_state) ? array() : $this->_state),
+                (empty($this->_folder) ? array() : $this->_folder),
                 $folderlist);
 
             $this->_logger->debug(sprintf(
