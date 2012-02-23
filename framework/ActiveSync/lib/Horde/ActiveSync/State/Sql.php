@@ -784,16 +784,18 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             if (!$this->_lastSyncTS = $this->_getLastSyncTS()) {
                 throw new Horde_ActiveSync_Exception_StateGone('Previous syncstate has been removed.');
             }
-            $this->_logger->debug('[' . $this->_devId . '] Obtained last sync time for ' . $pingCollection['class'] . ' - ' . $this->_lastSyncTS);
-
-            if ($this->_collection['class'] == Horde_ActiveSync::CLASS_EMAIL) {
-                // @TODO: This is not ideal at all. This is a hack to load
-                //        the state object into memory. We use the timestamp
-                //        since it's the only data we have (we don't have
-                //        synckey since we are PINGing) This MUST be cleaned up.
-                $this->_logger->debug('PINGing EMAIL folder, load SYNC state.');
-                $this->_state = $this->_getLastEmailState($this->_collection['id'], $this->_lastSyncTS);
-            }
+            $this->_logger->debug(sprintf(
+                "[%s] Obtained last SYNC time for %s - %s",
+                $this->_devId,
+                $pingCollection['class'],
+                $this->_lastSyncTS));
+            $this->_logger->debug(sprintf(
+                "[%s] PING for %s folder, loading last known SYNC state.",
+                $this->_devId,
+                $pingCollection['id']));
+            $this->_folder = $this->_getLastState(
+                $this->_collection['id'],
+                $this->_lastSyncTS);
         } else {
             // Initialize the collection's state.
             $this->_logger->info(sprintf(
@@ -1222,7 +1224,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         return $mflag == $flag;
     }
 
-    protected function _getLastEmailState($id, $ts)
+    protected function _getLastState($id, $ts)
     {
         $sql = 'SELECT sync_data FROM ' . $this->_syncStateTable
             . ' WHERE sync_folderid = ? AND sync_time = ?';
