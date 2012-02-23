@@ -2,16 +2,15 @@
 /**
  * ActiveSync Handler for PING requests
  *
+ * Contains portions of code from ZPush
+ * Zarafa Deutschland GmbH, www.zarafaserver.de
+ *
  * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author Michael J Rubinsky <mrubinsk@horde.org>
  * @package ActiveSync
  */
-/**
- * Zarafa Deutschland GmbH, www.zarafaserver.de
- * This file is distributed under GPL-2.0.
- * Consult COPYING file for details
- */
+
 class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
 {
     const STATUS_NOCHANGES = 1;
@@ -57,7 +56,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
     }
 
     /**
-     * Handle a PING command from the PIM. Ping is sent periodically by the PIM
+     * Handle a PING command from the PIM. PING is sent periodically by the PIM
      * to tell the server what folders we are interested in monitoring for
      * changes. If no changes are detected by the server during the 'heartbeat'
      * interval, the server sends back a status of 1 to indicate heartbeat
@@ -99,6 +98,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                 $lifetime = $this->_checkHeartbeat($this->_decoder->getElementContent());
                 $this->_decoder->getElementEndTag();
             }
+            // @TODO: Isn't this supposed to be overridable?
             if ($lifetime == 0) {
                 $lifetime = $this->_ping_settings['heartbeatdefault'];
             }
@@ -116,10 +116,11 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                         $collection['class'] = $this->_decoder->getElementContent();
                         $this->_decoder->getElementEndTag();
                     }
-
                     $this->_decoder->getElementEndTag();
                     // Ensure we only PING each collection once
-                    $collections = array_merge($collections, array($collection['id'] => $collection));
+                    $collections = array_merge(
+                        $collections,
+                        array($collection['id'] => $collection));
                 }
                 $collections = array_values($collections);
 
@@ -128,12 +129,10 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                     return false;
                 }
             }
-
             if (!$this->_decoder->getElementEndTag()) {
                 $this->_statusCode = self::STATUS_PROTERROR;
                 return false;
             }
-
             $this->_stateDriver->addPingCollections($collections);
         } else {
             $this->_logger->debug(sprintf('Reusing PING state: %s', print_r($collections, true)));
@@ -173,7 +172,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                     try {
                         $this->_stateDriver->loadPingCollectionState($collection);
                     } catch (Horde_ActiveSync_Exception_InvalidRequest $e) {
-                        // @TODO: I *love* standards that nobody follows. This
+                        // I *love* standards that nobody follows. This
                         // really should throw an exception and return a HTTP 400
                         // response since this is explicitly forbidden by the
                         // specification. Some clients, e.g., TouchDown, send
@@ -183,25 +182,37 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                         // a SYNC next time it's pinged. We also use continue
                         // here instead of break to make sure we give all
                         // collections a change to report changes before we fail
-                        $this->_logger->err('PING terminating: ' . $e->getMessage());
+                        $this->_logger->err(sprintf(
+                            "[%s] PING terminating: %s",
+                            $this->_device->id,
+                            $e->getMessage()));
                         $expire = time();
                         continue;
                     } catch (Horde_ActiveSync_Exception_StateGone $e) {
-                        $this->_logger->err('PING terminating, forcing a SYNC: ' . $e->getMessage());
+                        $this->_logger->err(sprintf(
+                            "[%s] PING terminating, forcing a SYNC: %s",
+                            $this->_device->id,
+                            $e->getMessage()));
                         $this->_statusCode = self::STATUS_NEEDSYNC;
                         $dataavailable = true;
                         $changes[$collection['id']] = 1;
                         continue;
                     } catch (Horde_ActiveSync_Exception $e) {
-                        $this->_logger->err('PING terminating: ' . $e->getMessage());
+                        $this->_logger->err(sprintf(
+                            "[%s] PING terminating: %s",
+                            $this->_device->id,
+                            $e->getMessage()));
                         $this->_statusCode = self::STATUS_SERVERERROR;
                         break;
                     }
                     try {
                         $sync->init($this->_stateDriver, null, $collection);
                     } catch (Horde_ActiveSync_Exception $e) {
-                        /* Stop ping if exporter cannot be configured */
-                        $this->_logger->err('Ping error: Exporter can not be configured. ' . $e->getMessage() . ' Waiting 30 seconds before ping is retried.');
+                        // Stop ping if exporter cannot be configured
+                        // @TODO: We should limit this to N number of tries too.
+                        $this->_logger->err(sprintf(
+                            "[%s] PING error: Exporter can not be configured: %s Waiting 30 seconds before PING is retried.",
+                            $e->getMessage()));
                         sleep(30);
                         break;
                     }
@@ -219,7 +230,9 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                 }
 
                 if ($dataavailable) {
-                    $this->_logger->info('[' . $this->_device->id . '] Changes available');
+                    $this->_logger->info(sprintf(
+                        "[%s] Changes available!",
+                        $this->_device->id));
                     break;
                 }
 
@@ -228,15 +241,15 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
         }
 
         // Prepare for response
-        $this->_logger->info('[' . $this->_device->id . '] Sending response for PING.');
+        $this->_logger->info(sprintf(
+            "[%s] Sending response for PING.",
+            $this->_device->id));
+
         $this->_encoder->StartWBXML();
-
         $this->_encoder->startTag(self::PING);
-
         $this->_encoder->startTag(self::STATUS);
         $this->_encoder->content($this->_statusCode);
         $this->_encoder->endTag();
-
         if ($this->_statusCode == self::STATUS_HBOUTOFBOUNDS) {
             $this->_encoder->startTag(self::HEARTBEATINTERVAL);
             $this->_encoder->content($lifetime);
@@ -253,7 +266,6 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
             $this->_encoder->endTag();
         }
         $this->_encoder->endTag();
-
         $this->_stateDriver->savePingState();
 
         return true;
