@@ -135,10 +135,13 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             $id = Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC;
         }
         if (empty($syncKey)) {
-            $this->_state = $this->_collection['class'] == Horde_ActiveSync::CLASS_EMAIL
-                ? new Horde_ActiveSync_Folder_Imap($this->_collection['id'], Horde_ActiveSync::CLASS_EMAIL)
-                : new Horde_ActiveSync_Folder_Collection($this->_collection['id'], $this->_collection['class']));
-
+            if ($type == Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC) {
+                $this->_folder = array();
+            } else {
+                $this->_folder = ($this->_collection['class'] == Horde_ActiveSync::CLASS_EMAIL) ?
+                    new Horde_ActiveSync_Folder_Imap($this->_collection['id'], Horde_ActiveSync::CLASS_EMAIL) :
+                    new Horde_ActiveSync_Folder_Collection($this->_collection['id'], $this->_collection['class']);
+            }
             $this->_resetDeviceState($id);
             return;
         }
