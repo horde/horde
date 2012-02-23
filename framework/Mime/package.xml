@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Don&apos;t add personal part to e-mail address if it is identical to the address itself.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -882,7 +882,7 @@
    <date>2012-02-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Don&apos;t add personal part to e-mail address if it is identical to the address itself.
    </notes>
   </release>
  </changelog>

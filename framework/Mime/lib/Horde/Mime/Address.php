@@ -36,12 +36,6 @@ class Horde_Mime_Address
     static public function writeAddress($mailbox, $host, $personal = '',
                                         $opts = array())
     {
-        $address = '';
-
-        if (strlen($personal)) {
-            $address .= self::encode($personal, 'personal') . ' <';
-        }
-
         $host = ltrim($host, '@');
         if (isset($opts['idn'])) {
             switch ($opts['idn']) {
@@ -59,13 +53,11 @@ class Horde_Mime_Address
             }
         }
 
-        $address .= self::encode($mailbox, 'address') . '@' . $host;
+        $address = self::encode($mailbox, 'address') . '@' . $host;
 
-        if (strlen($personal)) {
-            $address .= '>';
-        }
-
-        return $address;
+        return (strlen($personal) && ($personal != $address))
+            ? self::encode($personal, 'personal') . ' <' . $address . '>'
+            : $address;
     }
 
     /**
