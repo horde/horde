@@ -68,7 +68,7 @@ abstract class Horde_ActiveSync_Folder_Base
         return $this->_serverid;
     }
 
-    public function class()
+    public function collectionClass()
     {
         return $this->_class;
     }
