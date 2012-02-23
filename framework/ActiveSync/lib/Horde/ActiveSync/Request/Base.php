@@ -149,7 +149,7 @@ abstract class Horde_ActiveSync_Request_Base
             . ' Key: ' . $sentKey
             . ' User: ' . $this->_driver->getUser());
 
-         $this->_device = $this->_stateDriverDriver->loadDeviceInfo($this->_device->id, $this->_driver->getUser());
+         $this->_device = $this->_stateDriver->loadDeviceInfo($this->_device->id, $this->_driver->getUser());
 
          // Use looseprovisioning?
          if (empty($sentKey) && $this->_hasBrokenProvisioning() &&
