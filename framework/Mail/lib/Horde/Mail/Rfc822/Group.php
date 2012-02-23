@@ -70,7 +70,7 @@ class Horde_Mail_Rfc822_Group implements ArrayAccess
      * Write a group address given information in this part.
      *
      * @param array $opts  Optional arguments:
-     *   - encode: (boolean) Encode the groupname/personal parts?
+     *   - encode: (boolean) MIME encode the groupname/personal parts?
      *   - idn: (boolean) See Horde_Mime_Address#writeAddress().
      *
      * @return string  The correctly escaped/quoted address.
@@ -126,7 +126,7 @@ class Horde_Mail_Rfc822_Group implements ArrayAccess
      */
     public function offsetUnset($offset)
     {
-        /* Don't allow undsetting of values. */
+        /* Don't allow unsetting of values. */
     }
 
 }

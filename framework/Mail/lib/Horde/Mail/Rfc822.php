@@ -1,6 +1,6 @@
 <?php
 /**
- * RFC 822 Email parser/validator.
+ * RFC 822/2822/3490/5322 Email parser/validator.
  *
  * LICENSE:
  *
@@ -50,7 +50,7 @@
  */
 
 /**
- * RFC 822 Email parser/validator.
+ * RFC 822/2822/3490/5322 Email parser/validator.
  *
  * @author   Richard Heyes <richard@phpguru.org>
  * @author   Chuck Hagenbuch <chuck@horde.org>

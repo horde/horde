@@ -1,6 +1,6 @@
 <?php
 /**
- * Fetch query object for use with Horde_Imap_Client_Base#query().
+ * Fetch query object for use with Horde_Imap_Client_Base#fetch().
  *
  * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
