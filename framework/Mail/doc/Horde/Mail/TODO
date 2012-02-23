@@ -6,6 +6,17 @@ TODO for 2.0
       Store personal data MIME unencoded in object.
       Remove personal_decoded (same as personal).
 
+  - Horde_Mail_Rfc822_List
+
+      Use this object to store a list of addresses instead of an array.
+      Allows us to:
+
+        - Add methods like counting the number of addresses and groups.
+        - Deprecate the 'nest_groups' parameter to parseAddressList(), since
+          the internal Iterator can be configured to skip groups.
+        - Add unique() method that would filter duplicate addresses.
+        - Add filtering mechanism to limit results.
+
   - Horde_Mail_Rfc822_Group
 
       Store groupname data MIME unencoded in object.
