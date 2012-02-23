@@ -3029,7 +3029,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 
         $sort_list = array();
         foreach ($addr_list as $val) {
-            $sort_list[$val] = levenshtein($addrString, $val);
+            // Silence error if string is more than 255 characters.
+            $sort_list[$val] = @levenshtein($addrString, $val);
         }
         asort($sort_list, SORT_NUMERIC);
 
