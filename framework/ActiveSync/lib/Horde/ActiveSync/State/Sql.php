@@ -917,7 +917,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             $this->_logger->debug(sprintf(
                 "[%s] Found %n message changes, checking for PIM initiated changes.",
                 $this->_devId,
-                count($changes));
+                count($changes)));
 
             $this->_changes = array();
             if ($this->_havePIMChanges($this->_collection['class'])) {
