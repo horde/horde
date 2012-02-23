@@ -33,45 +33,15 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base
     const MODSEQ      = 'highestmodseq';
 
     /**
-     * The folder status.
-     *
-     * @var array
-     */
-    protected $_status = array();
-
-    /**
      * The folder's current message list.
      * An array of UIDs.
      *
      * @var array
      */
     protected $_messages = array();
-
     protected $_added = array();
     protected $_changed = array();
     protected $_removed = array();
-
-    /**
-     * The server id for this folder
-     */
-    protected $_serverid;
-
-    /**
-     * Const'r
-     *
-     */
-    public function __construct(
-        $serverid,
-        array $status = array())
-    {
-        $this->_serverid = $serverid;
-        $this->_status = $status;
-    }
-
-    public function serverid()
-    {
-        return $this->_serverid;
-    }
 
     public function setChanges($messages)
     {
@@ -92,11 +62,6 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base
     public function setMessages($messages)
     {
         $this->_messages = $messages;
-    }
-
-    public function setStatus(array $status)
-    {
-        $this->_status = $status;
     }
 
     /**
@@ -189,7 +154,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base
      */
     public function serialize()
     {
-        return serialize(array($this->_status, $this->_messages));
+        return serialize(array($this->_status, $this->_messages, $this->_serverid, $this->_class));
     }
 
     /**
@@ -199,7 +164,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base
      */
     public function unserialize($data)
     {
-        list($this->_status, $this->_messages) = @unserialize($data);
+        list($this->_status, $this->_messages, $this->_servierid, $this->_class) = @unserialize($data);
     }
 
     /**
