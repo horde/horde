@@ -72,18 +72,20 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
         $now = time();
         parent::handle();
 
-        $this->_logger->info('[' . $this->_device->id . '] PING received at timestamp: ' . $now . '.');
+        $this->_logger->info(sprintf(
+            "[%s] PING received at timestamp: %s.",
+            $this->_device->id,
+            $now));
 
         // Get the settings for the server
         $this->_ping_settings = $this->_driver->getHeartbeatConfig();
         $timeout = $this->_ping_settings['waitinterval'];
-
-        // Glass half full kinda guy... */
         $this->_statusCode = self::STATUS_NOCHANGES;
 
         // Initialize the state machine
-        $this->_stateDriver = &$this->_driver->getStateObject();
-        $this->_stateDriver->loadDeviceInfo($this->_device->id, $this->_driver->getUser());
+        $this->_stateDriver = &$this->_driver->getStateDriver();
+        $this->_stateDriver->loadDeviceInfo(
+            $this->_device->id, $this->_driver->getUser());
 
         // See if we have an existing PING state. Need to do this here, before
         // we read in the PING request since the PING request is allowed to omit

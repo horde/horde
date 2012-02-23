@@ -314,7 +314,7 @@ class Horde_ActiveSync
             return true;
         }
 
-        $state = $this->_driver->getStateObject();
+        $state = $this->_driver->getStateDriver();
 
         if (is_null($devId)) {
             throw new Horde_ActiveSync_Exception('Device failed to send device id.');

@@ -130,7 +130,7 @@ abstract class Horde_ActiveSync_Request_Base
         $this->_provisioning = $provisioning;
 
         /* Get the state object */
-        $this->_stateDriver = &$driver->getStateObject();
+        $this->_stateDriver = &$driver->getStateDriver();
 
         /* Device info */
         $this->_device = $device;
@@ -159,7 +159,7 @@ abstract class Horde_ActiveSync_Request_Base
 
         // Don't attempt if we don't care
         if ($this->_provisioning !== false) {
-            $state = $this->_driver->getStateObject();
+            $state = $this->_driver->getStateDriver();
             $storedKey = $state->getPolicyKey($this->_device->id);
             $this->_logger->debug('[' . $this->_device->id . '] Stored key: ' . $storedKey);
 
