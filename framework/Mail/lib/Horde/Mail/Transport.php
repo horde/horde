@@ -215,4 +215,20 @@ abstract class Horde_Mail_Transport
         return $headers;
     }
 
+    /**
+     * Normalizes EOLs in string data.
+     *
+     * @param string $data  Data.
+     *
+     * @return string  Normalized data.
+     */
+    protected function _normalizeEOL($data)
+    {
+        return strtr($data, array(
+            "\r\n" => $this->sep,
+            "\r" => $this->sep,
+            "\n" => $this->sep
+        ));
+    }
+
 }
