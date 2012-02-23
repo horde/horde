@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [mms] Workaround unexpected return from PHP_EOL in Mail transport drivers.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -281,7 +281,7 @@
    <date>2012-02-22</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [mms] Workaround unexpected return from PHP_EOL in Mail transport drivers.
    </notes>
   </release>
  </changelog>
