@@ -1584,7 +1584,7 @@ class IMP_Prefs_Ui
     {
         $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
 
-        $js = array();
+        $js = array(-1 => $GLOBALS['prefs']->getValue('signature_html'));
         foreach (array_keys($identity->getAll('id')) as $key) {
             $js[$key] = $identity->getValue('signature_html', $key);
         };
