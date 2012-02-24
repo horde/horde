@@ -646,7 +646,7 @@ class IMP
      */
     static public function parseAddressList($str, array $opts = array())
     {
-        $rfc822 = new Horde_Mail_Rfc822();
+        $rfc822 = $GLOBALS['injector']->getInstance('Horde_Mail_Rfc822');
         return $rfc822->parseAddressList($str, array_merge(array(
             'default_domain' => $GLOBALS['session']->get('imp', 'maildomain'),
             'nest_groups' => false,
