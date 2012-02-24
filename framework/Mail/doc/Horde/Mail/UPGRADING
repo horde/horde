@@ -21,6 +21,12 @@ Method API additions
 
     The first argument can now be an array of addresses.
 
+  - Horde_Mail_Rfc822_Group#__construct()
+
+    The constructor now takes 2 optional arguments: groupname and group
+    addresses.
+
+
 New Methods
 -----------
 

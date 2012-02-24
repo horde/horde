@@ -40,6 +40,30 @@ class Horde_Mail_Rfc822_Group implements ArrayAccess
     public $groupname = '';
 
     /**
+     * Constructor.
+     *
+     * @param string $groupname  If set, used as the group name. (Since 1.2.0)
+     * @param string $addresses  If set, addresses is parsed and used as the
+     *                           list of group addresses. (Since 1.2.0)
+     *                           Addresses are not verified; sub-groups are
+     *                           eliminated.
+     */
+    public function __construct($groupname = null, $addresses = null)
+    {
+        if (!is_null($groupname)) {
+            $this->groupname = $groupname;
+        }
+
+        if (!is_null($addresses)) {
+            $rfc822 = new Horde_Mail_Rfc822();
+            $this->addresses = $rfc822->parseAddressList($addresses, array(
+                'nest_groups' => false,
+                'validate' => false
+            ));
+        }
+    }
+
+    /**
      * String representation of object.
      *
      * @return string  Returns the full e-mail address.
