@@ -33,7 +33,7 @@ class Horde_Mail_Rfc822_Group extends Horde_Mail_Rfc822_Object implements ArrayA
     public $addresses = array();
 
     /**
-     * Comments associated with the personal phrase.
+     * Group name.
      *
      * @var string
      */
@@ -89,7 +89,7 @@ class Horde_Mail_Rfc822_Group extends Horde_Mail_Rfc822_Object implements ArrayA
      *
      * @return string  The correctly escaped/quoted address.
      */
-    public function writeAddress()
+    public function writeAddress(array $opts = array())
     {
         $addr = array();
         foreach ($this->addresses as $val) {
@@ -99,7 +99,13 @@ class Horde_Mail_Rfc822_Group extends Horde_Mail_Rfc822_Object implements ArrayA
             ));
         }
 
-        return Horde_Mime_Address::writeGroupAddress(empty($opts['encode']) ? $ob->groupname : Horde_Mime::encode($ob->groupname, 'UTF-8'), $addr);
+        $groupname = empty($opts['encode'])
+            ? $this->groupname
+            : $this->groupname_encoded;
+        $rfc822 = new Horde_Mail_Rfc822();
+
+        return $rfc822->encode($groupname, 'address') . ':' .
+            (empty($addr) ? '' : (' ' . implode(', ', $addr)) . ';');
     }
 
     /* ArrayAccess methods. TODO: Here for BC purposes. Remove for 2.0. */
