@@ -1022,6 +1022,7 @@ var DimpBase = {
             this.composeMailbox(id == 'ctx_message_forward' ? 'forward_auto' : 'reply_auto');
             break;
 
+        case 'ctx_forward_editasnew':
         case 'ctx_message_editasnew':
             this.composeMailbox('editasnew');
             break;
