@@ -11,6 +11,8 @@
  <a id="ctx_forward_both"><span class="iconImg"></span><?php echo _("Attachment and Body Text") ?></a>
  <div class="sep"></div>
 <?php endif; ?>
+ <a id="ctx_forward_editasnew"><span class="iconImg"></span><?php echo _("Edit as New") ?></a>
+ <div class="sep"></div>
  <a id="ctx_forward_redirect"><span class="iconImg"></span><?php echo _("Redirect") ?></a>
 </div>
 
