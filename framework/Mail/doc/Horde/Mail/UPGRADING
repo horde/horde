@@ -19,7 +19,8 @@ Method API additions
 
   - Horde_Mail_Rfc822#parseAddressList()
 
-    The first argument can now be an array of addresses.
+    The first argument can now be a Horde_Mail_Rfc822_Object or an array of
+    address strings and/or Horde_Mail_Rfc822_Objects.
 
   - Horde_Mail_Rfc822_Group#__construct()
 
@@ -31,6 +32,16 @@ New Methods
 -----------
 
   - Horde_Mail_Rfc822#encode()
+
+
+New Objects
+-----------
+
+  - Horde_Mail_Rfc822_Object
+
+    Horde_Mail_Rfc822_Address and Horde_Mail_Rfc822_Group now extend this
+    class.  Allows for easier determination if an object contains RFC 822
+    element information.
 
 
 Upgrading To 1.1

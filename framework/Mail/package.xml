@@ -28,6 +28,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
+* [mms] Horde_Mail_Rfc822#parseAddressList() now accepts Horde_Mail_Rfc822_Objects within the first argument.
+* [mms] The address and group objects now extend the base Horde_Mail_Rfc822_Object class.
 * [mms] Add optional arguments to the Horde_Mail_Rfc822_Group constructor.
 * [mms] First argument to Horde_Mail_Rfc822#parseAddressList() can now be an array of addresses.
 * [mms] Add Horde_Mail_Rfc822#encode().
@@ -284,6 +286,8 @@
    <date>2012-02-22</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
+* [mms] Horde_Mail_Rfc822#parseAddressList() now accepts Horde_Mail_Rfc822_Objects within the first argument.
+* [mms] The address and group objects now extend the base Horde_Mail_Rfc822_Object class.
 * [mms] Add optional arguments to the Horde_Mail_Rfc822_Group constructor.
 * [mms] First argument to Horde_Mail_Rfc822#parseAddressList() can now be an array of addresses.
 * [mms] Add Horde_Mail_Rfc822#encode().

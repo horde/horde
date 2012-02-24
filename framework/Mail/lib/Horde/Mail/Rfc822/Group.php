@@ -23,7 +23,7 @@
  * @license   http://www.horde.org/licenses/bsd New BSD License
  * @package   Mail
  */
-class Horde_Mail_Rfc822_Group implements ArrayAccess
+class Horde_Mail_Rfc822_Group extends Horde_Mail_Rfc822_Object implements ArrayAccess
 {
     /**
      * List of group e-mail address objects.
@@ -61,16 +61,6 @@ class Horde_Mail_Rfc822_Group implements ArrayAccess
                 'validate' => false
             ));
         }
-    }
-
-    /**
-     * String representation of object.
-     *
-     * @return string  Returns the full e-mail address.
-     */
-    public function __toString()
-    {
-        return $this->writeAddress();
     }
 
     /**

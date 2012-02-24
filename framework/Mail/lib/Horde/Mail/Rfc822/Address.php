@@ -23,7 +23,7 @@
  * @license   http://www.horde.org/licenses/bsd New BSD License
  * @package   Mail
  */
-class Horde_Mail_Rfc822_Address implements ArrayAccess
+class Horde_Mail_Rfc822_Address extends Horde_Mail_Rfc822_Object implements ArrayAccess
 {
     /**
      * Comments associated with the personal phrase.
@@ -89,16 +89,6 @@ class Horde_Mail_Rfc822_Address implements ArrayAccess
         default:
             return null;
         }
-    }
-
-    /**
-     * String representation of object.
-     *
-     * @return string  Returns the full e-mail address.
-     */
-    public function __toString()
-    {
-        return $this->writeAddress();
     }
 
     /**

@@ -116,8 +116,9 @@ class Horde_Mail_Rfc822
      * Starts the whole process.
      *
      * @param mixed $address   The address(es) to validate. Either a string
-     *                         (since 1.0.0) or an array of addresses (since
-     *                         1.2.0).
+     *                         (since 1.0.0), a Horde_Mail_Rfc822_Object (since
+     *                         1.2.0), or an array of strings and/or
+     *                         Horde_Mail_Rfc822_Objects (since 1.2.0).
      * @param array $params    Optional parameters:
      *   - default_domain: (string) Default domain/host etc.
      *                     DEFAULT: localhost
@@ -148,20 +149,28 @@ class Horde_Mail_Rfc822
             'validate' => true
         ), $params);
 
-        if (is_array($address)) {
-            $tmp = array();
-            foreach ($address as $val) {
-                $tmp[] = rtrim(trim($val), ',');
-            }
-            $address = implode(',', $tmp);
-        }
-
-        $this->_data = $address;
-        $this->_datalen = strlen($address);
-        $this->_ptr = 0;
         $this->_structure = array();
 
-        $this->_parseAddressList();
+        if (!is_array($address)) {
+            $address = array($address);
+        }
+
+        $tmp = array();
+        foreach ($address as $val) {
+            if ($val instanceof Horde_Mail_Rfc822_Object) {
+                $this->_structure[] = $val;
+            } else {
+                $tmp[] = rtrim(trim($val), ',');
+            }
+        }
+
+        if (!empty($tmp)) {
+            $this->_data = implode(',', $tmp);
+            $this->_datalen = strlen($this->_data);
+            $this->_ptr = 0;
+
+            $this->_parseAddressList();
+        }
 
         return $this->_structure;
     }
