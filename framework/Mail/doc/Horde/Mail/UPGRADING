@@ -14,6 +14,13 @@ This lists the API changes between minor releases of the package.
 Upgrading To 1.2
 ================
 
+Method API additions
+--------------------
+
+  - Horde_Mail_Rfc822#parseAddressList()
+
+    The first argument can now be an array of addresses.
+
 New Methods
 -----------
 

@@ -115,7 +115,9 @@ class Horde_Mail_Rfc822
     /**
      * Starts the whole process.
      *
-     * @param string $address  The address(es) to validate.
+     * @param mixed $address   The address(es) to validate. Either a string
+     *                         (since 1.0.0) or an array of addresses (since
+     *                         1.2.0).
      * @param array $params    Optional parameters:
      *   - default_domain: (string) Default domain/host etc.
      *                     DEFAULT: localhost
@@ -145,6 +147,14 @@ class Horde_Mail_Rfc822
             'nest_groups' => true,
             'validate' => true
         ), $params);
+
+        if (is_array($address)) {
+            $tmp = array();
+            foreach ($address as $val) {
+                $tmp[] = rtrim(trim($val), ',');
+            }
+            $address = implode(',', $tmp);
+        }
 
         $this->_data = $address;
         $this->_datalen = strlen($address);
