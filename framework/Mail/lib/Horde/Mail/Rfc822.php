@@ -156,6 +156,51 @@ class Horde_Mail_Rfc822
         return $this->_structure;
     }
 
+   /**
+     * Quotes and escapes the given string if necessary using rules contained
+     * in RFC 2822 [3.2.5].
+     *
+     * @since 1.2.0
+     *
+     * @param string $str   The string to be quoted and escaped.
+     * @param string $type  Either 'address', or 'personal'.
+     *
+     * @return string  The correctly quoted and escaped string.
+     */
+    public function encode($str, $type = 'address')
+    {
+        // Excluded (in ASCII): 0-8, 10-31, 34, 40-41, 44, 58-60, 62, 64,
+        // 91-93, 127
+        $filter = "\0\1\2\3\4\5\6\7\10\12\13\14\15\16\17\20\21\22\23\24\25\26\27\30\31\32\33\34\35\36\37\"(),:;<>@[\\]\177";
+
+        switch ($type) {
+        case 'personal':
+            // RFC 2822 [3.4]: Period not allowed in display name
+            $filter .= '.';
+            break;
+
+        case 'address':
+        default:
+            // RFC 2822 [3.4.1]: (HTAB, SPACE) not allowed in address
+            $filter .= "\11\40";
+            break;
+        }
+
+        // Strip double quotes if they are around the string already.
+        // If quoted, we know that the contents are already escaped, so
+        // unescape now.
+        $str = trim($str);
+        if ($str && ($str[0] == '"') && (substr($str, -1) == '"')) {
+            $str = stripslashes(substr($str, 1, -1));
+        }
+
+        return (strcspn($str, $filter) != strlen($str))
+            ? '"' . addcslashes($str, '\\"') . '"'
+            : $str;
+    }
+
+    /* RFC 822 parsing methods. */
+
     /**
      * address-list = (address *("," address)) / obs-addr-list
      */

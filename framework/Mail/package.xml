@@ -19,8 +19,8 @@
  <date>2012-02-22</date>
  <time>13:16:47</time>
  <version>
-  <release>1.1.1</release>
-  <api>1.1.0</api>
+  <release>1.2.0</release>
+  <api>1.2.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
+* [mms] Add Horde_Mail_Rfc822#encode().
 * [mms] Workaround unexpected return from PHP_EOL in Mail transport drivers.
  </notes>
  <contents>
@@ -273,14 +274,15 @@
   </release>
   <release>
    <version>
-    <release>1.1.1</release>
-    <api>1.1.0</api></version>
+    <release>1.2.0</release>
+    <api>1.2.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2012-02-22</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
+* [mms] Add Horde_Mail_Rfc822#encode().
 * [mms] Workaround unexpected return from PHP_EOL in Mail transport drivers.
    </notes>
   </release>

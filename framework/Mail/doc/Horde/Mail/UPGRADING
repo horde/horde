@@ -11,8 +11,17 @@
 This lists the API changes between minor releases of the package.
 
 
-Upgrading To 1.1.0
-==================
+Upgrading To 1.2
+================
+
+New Methods
+-----------
+
+  - Horde_Mail_Rfc822#encode()
+
+
+Upgrading To 1.1
+================
 
 New Objects
 -----------
