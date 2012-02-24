@@ -169,7 +169,7 @@ class Horde_ActiveSync_Connector_Exporter
         $this->_encoder->content($id);
         $this->_encoder->endTag();
         $this->_encoder->startTag(Horde_ActiveSync::SYNC_DATA);
-        $this->_encoder->startTag(Horde_ActiveSync_Message_Mail::POOMMAIL_READ, false, true);
+        $this->_encoder->startTag(Horde_ActiveSync_Message_Mail::POOMMAIL_READ);
         $this->_encoder->content($flags);
         $this->_encoder->endTag();
         $this->_encoder->endTag();
