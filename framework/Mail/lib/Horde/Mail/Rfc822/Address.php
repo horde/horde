@@ -63,6 +63,30 @@ class Horde_Mail_Rfc822_Address extends Horde_Mail_Rfc822_Object implements Arra
     public $route = array();
 
     /**
+     * Constructor.
+     *
+     * @param string $addresses  If set, address is parsed and used as the
+     *                           object address (since 1.2.0). Address is not
+     *                           validated; first e-mail address parsed is
+     *                           used.
+     */
+    public function __construct($address = null)
+    {
+        if (!is_null($address)) {
+            $rfc822 = new Horde_Mail_Rfc822();
+            $addr = $rfc822->parseAddressList($address, array(
+                'nest_groups' => false,
+                'validate' => false
+            ));
+            if (count($addr)) {
+                foreach ($addr[0] as $key => $val) {
+                    $this->$key = $val;
+                }
+            }
+        }
+    }
+
+    /**
      */
     public function __get($name)
     {

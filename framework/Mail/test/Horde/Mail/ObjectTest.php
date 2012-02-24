@@ -42,4 +42,26 @@ class Horde_Mail_ObjectTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testAddressConstructor()
+    {
+        $address = 'Test <test@example.com>';
+
+        $addr_ob = new Horde_Mail_Rfc822_Address($address);
+
+        $this->assertEquals(
+            'Test',
+            $addr_ob->personal
+        );
+
+        $this->assertEquals(
+            'test',
+            $addr_ob->mailbox
+        );
+
+        $this->assertEquals(
+            'example.com',
+            $addr_ob->host
+        );
+    }
+
 }
