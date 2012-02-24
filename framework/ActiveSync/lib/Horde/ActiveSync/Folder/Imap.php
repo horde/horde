@@ -42,8 +42,9 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base
     protected $_added = array();
     protected $_changed = array();
     protected $_removed = array();
+    protected $_flags = array();
 
-    public function setChanges($messages)
+    public function setChanges($messages, $flags)
     {
         foreach ($messages as $uid) {
             if ($uid >= $this->uidnext()) {
@@ -52,6 +53,8 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base
                 $this->_changed[] = $uid;
             }
         }
+
+        $this->_flags = $flags;
     }
 
     public function setRemoved($message_ids)
@@ -81,6 +84,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base
         $this->_removed = array();
         $this->_added = array();
         $this->_changed = array();
+        $this->_flags = array();
     }
 
     /**
@@ -125,6 +129,11 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base
     public function messages()
     {
         return $this->_messages;
+    }
+
+    public function flags()
+    {
+        return $this->_flags;
     }
 
     public function ids()

@@ -425,10 +425,24 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         }
 
         // Server changes
-        foreach ($changes['modify'] as $change) {
-            $results[] = array(
-                'id' => $change,
-                'type' => Horde_ActiveSync::CHANGE_TYPE_FLAGS);
+        // For CLASS_EMAIL, all changes are a change in read status. Might have
+        // to revist this after 12.0 is implemented?
+        if ($folder->collectionClass() == Horde_ActiveSync::CLASS_EMAIL) {
+            $flags = $folder->flags();
+            foreach ($changes['modify'] as $uid) {
+                $results[] = array(
+                    'id' => $uid,
+                    'type' => Horde_ActiveSync::CHANGE_TYPE_FLAGS,
+                    'flags' => $flags[$uid]['read']
+                );
+            }
+        } else {
+            foreach ($changes['modify'] as $change) {
+                $results[] = array(
+                    'id' => $change,
+                    'type' => Horde_ActiveSync::CHANGE_TYPE_CHANGE
+                );
+            }
         }
 
         // Server Deletions

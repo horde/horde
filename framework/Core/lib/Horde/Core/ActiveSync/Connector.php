@@ -413,23 +413,31 @@ class Horde_Core_ActiveSync_Connector
 
             // Use this if we don't care about /deleted flags
             $query = new Horde_Imap_Client_Fetch_Query();
+            //$query->uid();
+            $query->modseq();
+            $query->flags();
             $messages = $imap->fetch($mbox, $query, array(
                 'changedsince' => $folder->modseq()
             ));
-            $folder->setChanges(array_keys($messages));
-
-            // $query = new Horde_Imap_Client_Search_Query();
-            // if ($options['sincedate']) {
-            //     $query->dateSearch(
-            //         new Horde_Date($options['sincedate']),
-            //         Horde_Imap_Client_Search_Query::DATE_SINCE);
-            // }
-            // $query->modseq($folder->modseq());
-            // $query->flag(Horde_Imap_Client::FLAG_DELETED, false);
-            // $messages = $imap->search($mbox, $query);
-            // $folder->setChanges($messages);
-
+            // Need to make sure there were no further changes after the
+            // modseq reported above. This would happen if a change occurs after
+            // the $imap->status() call. This would lead to duplicate fetches
+            // on the next sync, since we have the older modseq value.
+            // We also currently ignore messages with /deleted set since EAS
+            // 2.5 doesn't support showing deleted messages.
+            $changes = array();
+            foreach ($messages as $uid => $message) {
+                if ($message->getModSeq() <= $modseq &&
+                    array_search('\deleted', $message->getFlags()) === false) {
+                    $changes[] = $uid;
+                    $flags[$uid] = array(
+                        'read' => (array_search('\seen', $message->getFlags()) !== false) ? 1 : 0
+                    );
+                }
+            }
+            $folder->setChanges($changes, $flags);
             $query = new Horde_Imap_Client_Fetch_Query();
+
             // Get deleted.
             // @TODO: Docs say 'vanished' should only return the expunged messages
             //        but this returns expunged *and* the results returned by just
@@ -438,6 +446,7 @@ class Horde_Core_ActiveSync_Connector
             $deleted = $imap->fetch($mbox, $query, array(
                 'changedsince' => $folder->modseq(),
                 'vanished' => true));
+
             $folder->setRemoved(
                 array_diff(array_keys($deleted), array_keys($messages)));
 
