@@ -218,6 +218,25 @@ class Horde_Mail_Rfc822
             : $str;
     }
 
+    /**
+     * If an email address has no personal information, get rid of any angle
+     * brackets (<>) around it.
+     *
+     * @since 1.2.0
+     *
+     * @param string $address  The address to trim.
+     *
+     * @return string  The trimmed address.
+     */
+    public function trimAddress($address)
+    {
+        $address = trim($address);
+
+        return (($address[0] == '<') && (substr($address, -1) == '>'))
+            ? substr($address, 1, -1)
+            : $address;
+    }
+
     /* RFC 822 parsing methods. */
 
     /**
