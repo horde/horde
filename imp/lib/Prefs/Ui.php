@@ -1544,6 +1544,7 @@ class IMP_Prefs_Ui
 
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->setOption('gettext', true);
+        $t->set('signature', htmlspecialchars($GLOBALS['prefs']->getValue('signature_html')));
 
         return $t->fetch(IMP_TEMPLATES . '/prefs/signaturehtml.html');
     }

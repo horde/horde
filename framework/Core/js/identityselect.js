@@ -18,6 +18,11 @@ var HordeIdentitySelect = {
         if (id < 0) {
             identity.up('FORM').reset();
             identity.setValue(id);
+            // This is a hotfix that cannot be properly solved without BC
+            // breakage.
+            if (CKEDITOR && CKEDITOR.instances['signature_html']) {
+                CKEDITOR.instances['signature_html'].setData($('signature_html').getValue());
+            }
             return;
         }
 

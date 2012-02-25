@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix setting default values for HTML signatures.
 * [mjr] Added more atomic control over ActiveSync security policies for better device compatibility.
 * [mms] Add &apos;sendmail_eol&apos; configuration parameter.
 * [jan] Fix horde-set-perms (piper@hrz.uni-marburg.de, Bug #10923).
@@ -4648,6 +4649,7 @@
    <date>2011-12-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix setting default values for HTML signatures.
 * [mjr] Added more atomic control over ActiveSync security policies for better device compatibility.
 * [mms] Add &apos;sendmail_eol&apos; configuration parameter.
 * [jan] Fix horde-set-perms (piper@hrz.uni-marburg.de, Bug #10923).
