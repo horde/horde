@@ -55,6 +55,7 @@ v5.1-git
 v5.0.19-git
 -----------
 
+[jan] Fix setting default values for identity preferences.
 [mms] Improve drag performance of elements in dynamic view.
 [mms] Fix saving initial_page preference.
 [mms] Workaround broken Thunderbird encrypted S/MIME messages.

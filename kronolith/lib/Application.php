@@ -707,7 +707,7 @@ class Kronolith_Application extends Horde_Registry_Application
                             if ($alarm) {
                                 $alarm_list[] = $alarm;
                             }
-                        }
+                    }
                 }
             }
         }
