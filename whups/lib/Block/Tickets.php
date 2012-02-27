@@ -61,13 +61,15 @@ class Whups_Block_Tickets extends Horde_Core_Block
 
         Whups::sortTickets($tickets);
         foreach ($tickets as $ticket) {
-            $link = Horde::link(Whups::urlFor('ticket', $ticket['id'], true));
-            $html .= '<tr><td>' . $link . htmlspecialchars($ticket['id']) . '</a></td>';
             foreach (Whups::getSearchResultColumns('block', $this->_params['columns']) as $column) {
-                if ($column == 'id') {
-                    continue;
+                $thevalue = Whups::formatColumn($ticket, $column);
+                $sortval = '';
+                if ($column == 'timestamp' || $column == 'due' ||
+                    substr($column, 0, 5) == 'date_') {
+                    $sortval = (strlen($thevalue) ? ' sortval="' . $thevalue . '"' : '');
                 }
-                $html .= '<td>' . htmlspecialchars($ticket[$column]) . '</td>';
+
+                $html .= '<td' . $sortval . '>' . (strlen($thevalue) ? $thevalue : '&nbsp;') . '</td>';
             }
             $html .= '</tr>';
         }

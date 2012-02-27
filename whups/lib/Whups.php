@@ -794,6 +794,39 @@ class Whups
     }
 
     /**
+     * Formats a ticket property for a tabular ticket listing.
+     *
+     * @param array $info    A ticket information hash.
+     * @param string $value  The column/property to format.
+     *
+     * @return string  The formatted property.
+     */
+    static public function formatColumn($info, $value)
+    {
+        $url = Whups::urlFor('ticket', $info['id']);
+        $thevalue = isset($info[$value]) ? $info[$value] : '';
+
+        if ($value == 'timestamp' || $value == 'due' ||
+            substr($value, 0, 5) == 'date_') {
+            require_once 'Horde/Form/Type.php';
+            $thevalue = Horde_Form_Type_date::getFormattedTime(
+                $thevalue,
+                $GLOBALS['prefs']->getValue('report_time_format'),
+                false);
+        } elseif ($value == 'user_id_requester') {
+            $thevalue = $info['requester_formatted'];
+        } elseif ($value == 'id' || $value == 'summary') {
+            $thevalue = Horde::link($url) . '<strong>' . htmlspecialchars($thevalue) . '</strong></a>';
+        } elseif ($value == 'owners') {
+            if (!empty($info['owners_formatted'])) {
+                $thevalue = implode(', ', $info['owners_formatted']);
+            }
+        }
+
+        return $thevalue;
+    }
+
+    /**
      * Returns the set of columns and their associated parameter from the
      * backend that should be displayed to the user.
      *
@@ -820,6 +853,7 @@ class Whups
             _("Created")   => 'timestamp',
             _("Updated")   => 'date_updated',
             _("Assigned")  => 'date_assigned',
+            _("Due")       => 'due',
             _("Resolved")  => 'date_resolved',
         );
 
