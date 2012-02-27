@@ -164,11 +164,10 @@ class Turba_View_List implements Countable
      * @global $prefs
      * @global $session
      * @global $default_source
-     * @global $copymove_source_options
      */
     public function display()
     {
-        global $prefs, $session, $default_source, $copymove_source_options;
+        global $prefs, $session, $default_source;
 
         $driver = $GLOBALS['injector']
             ->getInstance('Turba_Factory_Driver')
@@ -237,6 +236,13 @@ class Turba_View_List implements Countable
         }
 
         if ($numDisplayed) {
+            $copymove_source_options = '';
+            foreach ($GLOBALS['copymoveSources'] as $key => $curSource) {
+                if ($key != $GLOBALS['default_source']) {
+                    $copymove_source_options .= '<option value="' . htmlspecialchars($key) . '">' . htmlspecialchars($curSource['title']) . '</option>';
+                }
+            }
+
             require TURBA_TEMPLATES . '/browse/actions.inc';
             require TURBA_TEMPLATES . '/list/' . $pagerHeader;
             echo $listHtml;

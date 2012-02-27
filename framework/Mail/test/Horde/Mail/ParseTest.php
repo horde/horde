@@ -371,4 +371,53 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
         } catch (Horde_Mail_Exception $e) {}
     }
 
+    public function testParsingNonValidateAddressWithBareAddressAtFront()
+    {
+        $address = 'test@example.com, Foo <test2@example.com>';
+
+        $parser = new Horde_Mail_Rfc822();
+        $ob = $parser->parseAddressList(
+            $address,
+            array(
+                'validate' => false
+            )
+        );
+
+        $this->assertEquals(
+            2,
+            count($ob)
+        );
+    }
+
+    public function testParsingIDNHost()
+    {
+        if (!extension_loaded('intl')) {
+            $this->markTestSkipped('Intl module is not available.');
+        }
+
+        $email = 'Aäb <test@üexample.com>';
+
+        $parser = new Horde_Mail_Rfc822();
+        $ob = $parser->parseAddressList(
+            $email,
+            array(
+                'validate' => false
+            )
+        );
+
+        $this->assertEquals(
+            1,
+            count($ob)
+        );
+        $this->assertEquals(
+            'üexample.com',
+            $ob[0]->host
+        );
+
+        try {
+            $parser->parseAddressList($email);
+            $this->fail('Expected Exception');
+        } catch (Exception $e) {}
+    }
+
 }

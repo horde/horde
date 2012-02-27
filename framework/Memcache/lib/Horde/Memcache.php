@@ -343,8 +343,8 @@ class Horde_Memcache implements Serializable
     {
         /* Lock will automatically expire after 10 seconds. */
         while ($this->_memcache->add($this->_key($key . '_l'), 1, 0, 10) === false) {
-            /* Wait 0.005 secs before attempting again. */
-            usleep(5000);
+            /* Wait 0.1 secs before attempting again. */
+            usleep(100000);
         }
     }
 

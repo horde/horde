@@ -57,14 +57,10 @@ class IMP
      */
     static public function header($title)
     {
-        switch ($GLOBALS['registry']->getView()) {
+        switch ($view_mode = $GLOBALS['registry']->getView()) {
         case Horde_Registry::VIEW_BASIC:
             require IMP_TEMPLATES . '/imp/javascript_defs.php';
             require IMP_TEMPLATES . '/common-header.inc';
-            break;
-
-        case Horde_Registry::VIEW_DYNAMIC:
-            $GLOBALS['injector']->getInstance('IMP_Ajax')->header();
             break;
 
         default:
@@ -76,18 +72,18 @@ class IMP
     /**
      * Returns mailbox info for the current page.
      *
-     * @param boolean $base  If true, return base mailbox info. If false,
-     *                       return mailbox for UID.
+     * @param boolean $uidmbox  If true, return mailbox associated with UID.
+     *                          Otherwise, return master mailbox.
      *
      * @return IMP_Mailbox  Mailbox object.
      */
-    static public function mailbox($base = true)
+    static public function mailbox($uidmbox = false)
     {
         if (!isset(self::$_mboxinfo)) {
             self::setMailboxInfo();
         }
 
-        return self::$_mboxinfo[$base ? 'mailbox' : 'thismailbox'];
+        return self::$_mboxinfo[$uidmbox ? 'thismailbox' : 'mailbox'];
     }
 
     /**
@@ -397,7 +393,7 @@ class IMP
             $t->set('ak', $ak);
             $t->set('flist', self::flistSelect(array(
                 'inc_vfolder' => true,
-                'selected' => self::$mailbox
+                'selected' => self::mailbox()
             )));
             $t->set('flink', sprintf('%s%s<br />%s</a>', Horde::link('#'), ($menu_view != 'text') ? '<span class="iconImg folderImg" title="' . htmlspecialchars(_("Open Folder")) . '"></span>' : '', ($menu_view != 'icon') ? Horde::highlightAccessKey(_("Open Fo_lder"), $ak) : ''));
         }
@@ -650,7 +646,7 @@ class IMP
      */
     static public function parseAddressList($str, array $opts = array())
     {
-        $rfc822 = new Horde_Mail_Rfc822();
+        $rfc822 = $GLOBALS['injector']->getInstance('Horde_Mail_Rfc822');
         return $rfc822->parseAddressList($str, array_merge(array(
             'default_domain' => $GLOBALS['session']->get('imp', 'maildomain'),
             'nest_groups' => false,

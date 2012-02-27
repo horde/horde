@@ -590,7 +590,7 @@ class Turba
         }
 
         try {
-            return $GLOBALS['turba_shares']->listShares(
+            return $GLOBALS['injector']->getInstance('Turba_Shares')->listShares(
                 $GLOBALS['registry']->getAuth(),
                 array(
                     'attributes' => $owneronly ? $GLOBALS['registry']->getAuth() : null,
@@ -624,7 +624,9 @@ class Turba
 
         /* Generate the new share. */
         try {
-            $share = $GLOBALS['turba_shares']->newShare($GLOBALS['registry']->getAuth(), $share_name, $name);
+            $turba_shares = $injector->getInstance('Turba_Shares');
+
+            $share = $turba_shares->newShare($GLOBALS['registry']->getAuth(), $share_name, $name);
 
             /* Now any other params. */
             foreach ($params as $key => $value) {
@@ -633,7 +635,7 @@ class Turba
                 }
                 $share->set($key, $value);
             }
-            $GLOBALS['turba_shares']->addShare($share);
+            $turba_shares->addShare($share);
             $result = $share->save();
         } catch (Horde_Share_Exception $e) {
             Horde::logMessage($e, 'ERR');

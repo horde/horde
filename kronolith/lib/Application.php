@@ -70,15 +70,14 @@ class Kronolith_Application extends Horde_Registry_Application
             if (!isset($_SERVER['REQUEST_TIME'])) {
                 $_SERVER['REQUEST_TIME'] = time();
             }
-
-            $GLOBALS['linkTags'] = array();
-            if ($GLOBALS['registry']->getView() != Horde_Registry::VIEW_DYNAMIC ||
-                !$GLOBALS['prefs']->getValue('dynamic_view') ||
-                empty($this->initParams['nodynamicinit'])) {
-                Kronolith::initialize();
-                foreach ($GLOBALS['display_calendars'] as $calendar) {
-                    $GLOBALS['linkTags'][] = '<link href="' . Kronolith::feedUrl($calendar) . '" rel="alternate" type="application/atom+xml" />';
-                }
+        }
+        $GLOBALS['linkTags'] = array();
+        if ($GLOBALS['registry']->getView() != Horde_Registry::VIEW_DYNAMIC ||
+            !$GLOBALS['prefs']->getValue('dynamic_view') ||
+            empty($this->initParams['nodynamicinit'])) {
+            Kronolith::initialize();
+            foreach ($GLOBALS['display_calendars'] as $calendar) {
+                $GLOBALS['linkTags'][] = '<link href="' . Kronolith::feedUrl($calendar) . '" rel="alternate" type="application/atom+xml" />';
             }
         }
     }
@@ -708,7 +707,7 @@ class Kronolith_Application extends Horde_Registry_Application
                             if ($alarm) {
                                 $alarm_list[] = $alarm;
                             }
-                        }
+                    }
                 }
             }
         }

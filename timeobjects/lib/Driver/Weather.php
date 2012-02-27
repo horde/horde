@@ -36,7 +36,7 @@ class TimeObjects_Driver_Weather extends TimeObjects_Driver_Base
      */
     public function ensure()
     {
-        if (empty($this->_location)) {
+        if (empty($GLOBALS['conf']['weather']['provider']) || empty($this->_location)) {
             return false;
         }
         try {
@@ -69,10 +69,10 @@ class TimeObjects_Driver_Weather extends TimeObjects_Driver_Base
         }
 
         $weather = $this->_create();
-
+        $lengths = $weather->getSupportedForecastLengths();
         try {
             $units = $weather->getUnits($weather->units);
-            $forecast = $weather->getForecast($this->_location, Horde_Service_Weather::FORECAST_7DAY);
+            $forecast = $weather->getForecast($this->_location, max(array_keys($lengths)));
             $current = $weather->getCurrentConditions($this->_location);
         } catch (Horde_Service_Weather_Exception $e) {
             throw new Timeobjects_Exception($e);

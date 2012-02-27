@@ -119,13 +119,16 @@ class IMP_Application extends Horde_Registry_Application
         }
 
         // Set default message character set.
-        if ($def_charset = $GLOBALS['prefs']->getValue('default_msg_charset')) {
-            Horde_Mime_Part::$defaultCharset = $def_charset;
-            Horde_Mime_Headers::$defaultCharset = $def_charset;
-        }
+        if ($GLOBALS['registry']->getAuth()) {
+            if ($def_charset = $GLOBALS['prefs']->getValue('default_msg_charset')) {
+                Horde_Mime_Part::$defaultCharset = $def_charset;
+                Horde_Mime_Headers::$defaultCharset = $def_charset;
+            }
 
-        // Always use Windows-1252 in place of ISO-8859-1 for MIME decoding.
-        Horde_Mime::$decodeWindows1252 = true;
+            // Always use Windows-1252 in place of ISO-8859-1 for MIME
+            // decoding.
+            Horde_Mime::$decodeWindows1252 = true;
+        }
 
         if ($GLOBALS['registry']->initialApp == 'imp') {
             switch ($GLOBALS['registry']->getView()) {
@@ -233,7 +236,7 @@ class IMP_Application extends Horde_Registry_Application
         case 'max_timelimit':
             if (isset($opts['value'])) {
                 $sentmail = $GLOBALS['injector']->getInstance('IMP_Sentmail');
-                if (!($sentmail instanceof IMP_Sentmail_Base)) {
+                if (!($sentmail instanceof IMP_Sentmail)) {
                     Horde::logMessage('The permission for the maximum number of recipients per time period has been enabled, but no backend for the sent-mail logging has been configured for IMP.', 'ERR');
                     return true;
                 }
@@ -340,8 +343,6 @@ class IMP_Application extends Horde_Registry_Application
         $handler->addDecorator(new IMP_Notification_Handler_Decorator_ImapAlerts());
         $handler->addDecorator(new IMP_Notification_Handler_Decorator_NewmailNotify());
         $handler->addType('status', 'imp.*', 'IMP_Notification_Event_Status');
-
-        return true;
     }
 
     /* Horde_Core_Auth_Application methods. */

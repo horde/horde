@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde 4.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"POT-Creation-Date: 2012-02-22 11:20+0100\n"
 "PO-Revision-Date: 2011-12-21 18:50+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
@@ -178,17 +178,6 @@ msgid ""
 msgstr ""
 "Eine Geräte-Löschung wurde gestartet. Das Gerät wird während der nächsten "
 "Synchronisation gelöscht."
-
-#: config/hooks.php:80
-#, php-format
-msgid ""
-"A message has been sent to \"%s\" to verify that this is really your "
-"address. The new email address is activated as soon as you confirm this "
-"message."
-msgstr ""
-"Eine Nachricht wurde an \"%s\" verschickt, um zu überprüfen, ob es sich "
-"dabei wirklich um Ihre Adresse handelt. Die neue E-Mail-Adresse wird "
-"aktiviert, sobald Sie diese Nachricht bestätigen."
 
 #: admin/config/index.php:147 admin/config/index.php:188
 #, php-format
@@ -742,10 +731,6 @@ msgstr "%s konfigurieren"
 #: templates/admin/user/update.inc:28
 msgid "Confirm Password"
 msgstr "Passwort bestätigen"
-
-#: config/hooks.php:59
-msgid "Confirm new email address"
-msgstr "Bestätigung der neuen E-Mail-Adresse"
 
 #: services/changepassword.php:25 services/resetpassword.php:26
 msgid "Continue"
@@ -1602,6 +1587,10 @@ msgstr "Ungültiger Hash."
 #: admin/perms/addchild.php:29
 msgid "Invalid parent permission."
 msgstr "Ungültiges Überrecht."
+
+#: config/registry.php:364
+msgid "Inventory"
+msgstr "Inventar"
 
 #: config/nls.php:180
 msgid "Japanese (ISO-2022-JP)"
@@ -3606,26 +3595,6 @@ msgid ""
 msgstr ""
 "Sie haben Ihr Twitter-Konto nicht richtig mit Horde verbunden. Sie sollten "
 "Ihre Twitter-Einstellungen in Ihren %s überprüfen."
-
-#: config/hooks.php:45
-#, php-format
-msgid ""
-"You have requested to add the email address \"%s\" to the list of your "
-"personal email addresses.\n"
-"\n"
-"Go to the following link to confirm that this is really your address:\n"
-"%s\n"
-"\n"
-"If you don't know what this message means, you can delete it."
-msgstr ""
-"Sie möchten die E-Mail-Adresse \"%s\" zu der Liste Ihrer persönlichen "
-"Adressen hinzufügen.\n"
-"\n"
-"Gehen Sie zu dem folgenden Link, um zu bestätigen, dass dies wirklich Ihre "
-"Adresse ist:\n"
-"%s\n"
-"\n"
-"Wenn Sie mit diese Nachricht nichts anfangen können, bitte löschen."
 
 #: services/facebook/index.php:120 services/facebook/index.php:160
 #: services/facebook/index.php:168

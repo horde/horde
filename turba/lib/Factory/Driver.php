@@ -74,8 +74,8 @@ class Turba_Factory_Driver extends Horde_Core_Factory_Base
                     $srcConfig['params']['db'] = empty($srcConfig['params']['sql'])
                         ? $this->_injector->getInstance('Horde_Db_Adapter')
                         : $this->_injector->getInstance('Horde_Core_Factory_Db')->create('turba', $srcConfig['params']['sql']);
-                    $srcConfig['charset'] = isset($srcConfig['params']['charset'])
-                        ? $srcConfig['params']['charset']
+                    $srcConfig['params']['charset'] = isset($srcConfig['params']['sql']['charset'])
+                        ? $srcConfig['params']['sql']['charset']
                         : 'UTF-8';
                 } catch (Horde_Db_Exception $e) {
                     throw new Turba_Exception($e);
@@ -89,6 +89,11 @@ class Turba_Factory_Driver extends Horde_Core_Factory_Base
             case 'Turba_Driver_Facebook':
                 $srcConfig['params']['storage'] = $this->_injector->getInstance('Horde_Service_Facebook');
                 break;
+            }
+
+            /* Make sure charset exists. */
+            if (!isset($srcConfig['params']['charset'])) {
+                $srcConfig['params']['charset'] = 'UTF-8';
             }
 
             $driver = new $class($srcName, $srcConfig['params']);

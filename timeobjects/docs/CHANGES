@@ -2,6 +2,10 @@
 v1.0.6-git
 ----------
 
+[mjr] Always provide the longest forecast length available for weather
+      forecast data.
+[mjr] No longer attempt to create a Horde_Service_Weather provider if we do not
+      have one configured.
 
 
 ------

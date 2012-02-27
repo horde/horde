@@ -658,8 +658,8 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
             $this->_sortedMbox = array_values($this->_sortedMbox);
         }
 
-        if (isset($this->_thread[$ob->mbox])) {
-            unset($this->_thread[$ob->mbox], $this->_threadui[$ob->mbox]);
+        if (isset($this->_thread[strval($ob->mbox)])) {
+            unset($this->_thread[strval($ob->mbox)], $this->_threadui[strval($ob->mbox)]);
         }
 
         return true;

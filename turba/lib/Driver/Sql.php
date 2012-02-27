@@ -446,6 +446,9 @@ class Turba_Driver_Sql extends Turba_Driver
     /**
      * Deletes all contacts from a specific address book.
      *
+     * @param string $sourceName  The source to remove all contacts from.
+     *
+     * @return array  An array of UIDs
      * @throws Turba_Exception
      */
     protected function _deleteAll($sourceName = null)
@@ -460,7 +463,8 @@ class Turba_Driver_Sql extends Turba_Driver
             : array($sourceName);
 
         /* Need a list of UIDs so we can notify History */
-        $query = 'SELECT '. $this->map['__uid'] . ' FROM ' . $this->_params['table'] . ' WHERE owner_id = ?';
+        $query = 'SELECT '. $this->map['__uid'] . ' FROM '
+            . $this->_params['table'] . ' WHERE owner_id = ?';
 
         try {
             $ids = $this->_db->selectValues($query, $values);
@@ -477,20 +481,7 @@ class Turba_Driver_Sql extends Turba_Driver
             throw new Turba_Exception($e);
         }
 
-        /* Update Horde_History */
-        $history = $GLOBALS['injector']->getInstance('Horde_History');
-        try {
-            foreach ($ids as $id) {
-                // This is slightly hackish, but it saves us from having to
-                // create and save an array of Turba_Objects before we delete
-                // them, just to be able to calculate this using
-                // Turba_Object#getGuid
-                $guid = 'turba:' . $this->getName() . ':' . $id;
-                $history->log($guid, array('action' => 'delete'), true);
-            }
-        } catch (Exception $e) {
-            Horde::logMessage($e, 'ERR');
-        }
+        return $ids;
     }
 
     /**

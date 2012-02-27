@@ -281,20 +281,33 @@ class Nag_Driver_Sql extends Nag_Driver
     /**
      * Deletes all tasks from the backend.
      *
+     * @return array  An array of uids that have been removed.
      * @throws Nag_Exception
      */
-    public function deleteAll()
+    protected function _deleteAll()
     {
-        $query = sprintf('DELETE FROM %s WHERE task_owner = ?',
-                         $this->_params['table']);
+        // Get the list of ids so we can notify History.
+        $query = sprintf('SELECT task_uid FROM %s WHERE task_owner = ?',
+            $this->_params['table']);
+
         $values = array($this->_tasklist);
 
-        /* Attempt the delete query. */
+        try {
+            $ids = $this->_db->selectValues($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Nag_Exception($e->getMessage());
+        }
+
+        // Deletion
+        $query = sprintf('DELETE FROM %s WHERE task_owner = ?',
+            $this->_params['table']);
         try {
             $this->_db->delete($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Nag_Exception($e->getMessage());
         }
+
+        return $ids;
     }
 
     /**

@@ -41,6 +41,13 @@
 class IMP_Auth
 {
     /**
+     * Password.
+     *
+     * @var string
+     */
+    static private $_password;
+
+    /**
      * Authenticate to the mail server.
      *
      * @param array $credentials  An array of login credentials. If empty,
@@ -85,6 +92,7 @@ class IMP_Auth
 
             try {
                 $imp_imap->createImapObject($credentials['userId'], $credentials['password'], $credentials['server']);
+                self::$_password = $credentials['password'];
             } catch (IMP_Imap_Exception $e) {
                 self::_logMessage(false, $imp_imap);
                 throw $e->authException();
@@ -431,8 +439,10 @@ class IMP_Auth
         }
 
         /* Is the HTML editor available? */
-        $imp_ui = new IMP_Ui_Compose();
         $session->set('imp', 'rteavail', $injector->getInstance('Horde_Editor')->supportedByBrowser());
+
+        /* Bug #10680: Secret key may have changed between initial login. */
+        $imp_imap->ob->setParam('password', self::$_password);
 
         self::_logMessage(true, $imp_imap);
     }

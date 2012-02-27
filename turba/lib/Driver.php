@@ -516,7 +516,7 @@ class Turba_Driver implements Countable
                                     $strict_fields, $match_begin);
 
         if (count($return_fields)) {
-            $return_fields_pre = array_unique(array_merge(array('__key', '__type', '__owner', 'name'), $return_fields));
+            $return_fields_pre = array_unique(array_merge(array('__key', '__type', '__owner', '__members', 'name'), $return_fields));
             $return_fields = array();
             foreach ($return_fields_pre as $field) {
                 $result = $this->toDriver($field);
@@ -899,7 +899,22 @@ class Turba_Driver implements Countable
             throw new Turba_Exception('Not supported');
         }
 
-        $this->_deleteAll($sourceName);
+        $ids = $this->_deleteAll($sourceName);
+
+        // Update Horde_History
+        $history = $GLOBALS['injector']->getInstance('Horde_History');
+        try {
+            foreach ($ids as $id) {
+                // This is slightly hackish, but it saves us from having to
+                // create and save an array of Turba_Objects before we delete
+                // them, just to be able to calculate this using
+                // Turba_Object#getGuid
+                $guid = 'turba:' . $this->getName() . ':' . $id;
+                $history->log($guid, array('action' => 'delete'), true);
+            }
+        } catch (Exception $e) {
+            Horde::logMessage($e, 'ERR');
+        }
     }
 
     /**

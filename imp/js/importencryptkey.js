@@ -21,6 +21,10 @@ var IMPImportEncryptKey = {
 
     clickHandler: function(e)
     {
+        if (!Object.isElement(e.element())) {
+            return false;
+        }
+
         var id = e.element().readAttribute('id');
 
         if (this.handles[id]) {

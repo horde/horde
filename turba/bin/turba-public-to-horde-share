@@ -64,6 +64,7 @@ if (!$sourceKey) {
 }
 
 // Create the new share.
+$turba_shares = $injector->getInstance('Turba_Shares');
 $owner_uid = strval(new Horde_Support_Randomid());
 $share = $turba_shares->newShare($GLOBALS['registry']->getAuth(), $sourceKey . ':' . $owner_uid, $title);
 $share->set('owner', $owner);

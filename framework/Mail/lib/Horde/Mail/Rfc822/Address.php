@@ -22,8 +22,15 @@
  * @category  Horde
  * @license   http://www.horde.org/licenses/bsd New BSD License
  * @package   Mail
+ *
+ * @property string $adl  ADL data (DEPRECATED).
+ * @property string $encoded  The full MIME/IDN encoded address. (Since 1.2.0)
+ * @property string $full_address  The full mailbox@host address.
+ * @property string $personal_decoded  The MIME decoded personal part.
+ *                                     (DEPRECATED)
+ * @property string $personal_encoded  The MIME encoded personal part.
  */
-class Horde_Mail_Rfc822_Address implements ArrayAccess
+class Horde_Mail_Rfc822_Address extends Horde_Mail_Rfc822_Object implements ArrayAccess
 {
     /**
      * Comments associated with the personal phrase.
@@ -63,6 +70,30 @@ class Horde_Mail_Rfc822_Address implements ArrayAccess
     public $route = array();
 
     /**
+     * Constructor.
+     *
+     * @param string $addresses  If set, address is parsed and used as the
+     *                           object address (since 1.2.0). Address is not
+     *                           validated; first e-mail address parsed is
+     *                           used.
+     */
+    public function __construct($address = null)
+    {
+        if (!is_null($address)) {
+            $rfc822 = new Horde_Mail_Rfc822();
+            $addr = $rfc822->parseAddressList($address, array(
+                'nest_groups' => false,
+                'validate' => false
+            ));
+            if (count($addr)) {
+                foreach ($addr[0] as $key => $val) {
+                    $this->$key = $val;
+                }
+            }
+        }
+    }
+
+    /**
      */
     public function __get($name)
     {
@@ -72,6 +103,13 @@ class Horde_Mail_Rfc822_Address implements ArrayAccess
             return empty($route)
                 ? ''
                 : implode(',', $route);
+
+        case 'encoded':
+            // Returns the full MIME/IDN encoded address.
+            return $this->writeAddress(array(
+                'encode' => true,
+                'idn' => false
+            ));
 
         case 'full_address':
             // Return the full mailbox@host address.
@@ -92,34 +130,50 @@ class Horde_Mail_Rfc822_Address implements ArrayAccess
     }
 
     /**
-     * String representation of object.
-     *
-     * @return string  Returns the full e-mail address.
-     */
-    public function __toString()
-    {
-        return $this->writeAddress();
-    }
-
-    /**
      * Write an address given information in this part.
      *
      * @param array $opts  Optional arguments:
-     *   - encode: (boolean) Encode the personal part?
-     *   - idn: (boolean) See Horde_Mime_Address#writeAddress().
+     *   - encode: (boolean) MIME encode the personal part?
+     *   - idn: (boolean) If true, decode IDN domain names (Punycode/RFC 3490).
+     *          If false, convert domain names into IDN if necessary (@since
+     *          1.5.0).
+     *          If null, does no conversion.
+     *          Requires the idn or intl PHP module.
+     *          DEFAULT: true
      *
      * @return string  The correctly escaped/quoted address.
      */
     public function writeAddress(array $opts = array())
     {
-        return Horde_Mime_Address::writeAddress(
-            $this->mailbox,
-            $this->host,
-            empty($opts['encode']) ? $this->personal : Horde_Mime::encode($this->personal, 'UTF-8'),
-            array(
-                'idn' => (isset($opts['idn']) ? $opts['idn'] : null)
-            )
-        );
+        $host = ltrim($this->host, '@');
+
+        if (!array_key_exists('idn', $opts)) {
+            $opts['idn'] = true;
+        }
+
+        switch ($opts['idn']) {
+        case true:
+            if (function_exists('idn_to_utf8')) {
+                $host = idn_to_utf8($host);
+            }
+            break;
+
+        case false:
+            if (function_exists('idn_to_ascii')) {
+                $host = idn_to_ascii($host);
+            }
+            break;
+        }
+
+        $rfc822 = new Horde_Mail_Rfc822();
+        $address = $rfc822->encode($this->mailbox, 'address') . '@' . $host;
+        $personal = empty($opts['encode'])
+             ? $this->personal
+             : $this->personal_encoded;
+
+        return (strlen($personal) && ($personal != $address))
+            ? $rfc822->encode($personal, 'personal') . ' <' . $address . '>'
+            : $address;
     }
 
     /* ArrayAccess methods. TODO: Here for BC purposes. Remove for 2.0. */

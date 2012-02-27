@@ -40,6 +40,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Use local member storage when no session is available (Bug # 9733).
+* [mms] Add Horde_Registry#appMethodDefined().
 * [mms] Added AJAX core features.
 * [mms] Added view determination to Horde_Registry.
 * [mms] Performance improvements when initializing Alarm system.
@@ -325,6 +327,9 @@
      <dir name="Script">
       <file name="Files.php" role="php" />
      </dir> <!-- /lib/Horde/Script -->
+     <dir name="Session">
+      <file name="Null.php" role="php" />
+     </dir> <!-- /lib/Horde/Session -->
      <dir name="Themes">
       <file name="Cache.php" role="php" />
       <file name="Css.php" role="php" />
@@ -1250,6 +1255,7 @@
    <install as="Horde/Registry/Caller.php" name="lib/Horde/Registry/Caller.php" />
    <install as="Horde/Registry/Nlsconfig.php" name="lib/Horde/Registry/Nlsconfig.php" />
    <install as="Horde/Script/Files.php" name="lib/Horde/Script/Files.php" />
+   <install as="Horde/Session/Null.php" name="lib/Horde/Session/Null.php" />
    <install as="Horde/Themes/Cache.php" name="lib/Horde/Themes/Cache.php" />
    <install as="Horde/Themes/Css.php" name="lib/Horde/Themes/Css.php" />
    <install as="Horde/Themes/Element.php" name="lib/Horde/Themes/Element.php" />
@@ -1774,7 +1780,7 @@
    <date>2012-02-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+*
    </notes>
   </release>
  </changelog>

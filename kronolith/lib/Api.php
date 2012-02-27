@@ -457,7 +457,10 @@ class Kronolith_Api extends Horde_Registry_Api
         $results = array();
         foreach ($calendars as $calendar) {
             if (!Kronolith::hasPermission($calendar, Horde_Perms::READ)) {
-                throw new Horde_Exception_PermissionDenied();
+                Horde::logMessage(sprintf(
+                    _("Permission Denied or Calendar Not Found: %s - skipping."),
+                    $calendar));
+                continue;
             }
             try {
                 $driver->open($calendar);
@@ -503,10 +506,11 @@ class Kronolith_Api extends Horde_Registry_Api
     public function listBy($action, $timestamp, $calendar = null, $end = null)
     {
         if (empty($calendar)) {
-            $cs = Kronolith::getSyncCalendars();
+            $cs = Kronolith::getSyncCalendars($action == 'delete');
             $results = array();
             foreach ($cs as $c) {
-                $results = array_merge($results, $this->listBy($action, $timestamp, $c, $end));
+                $results = array_merge(
+                    $results, $this->listBy($action, $timestamp, $c, $end));
             }
             return $results;
         }
@@ -514,7 +518,9 @@ class Kronolith_Api extends Horde_Registry_Api
         if (!empty($end)) {
             $filter[] = array('op' => '<', 'field' => 'ts', 'value' => $end);
         }
-        $histories = $GLOBALS['injector']->getInstance('Horde_History')->getByTimestamp('>', $timestamp, $filter, 'kronolith:' . $calendar);
+        $histories = $GLOBALS['injector']
+            ->getInstance('Horde_History')
+            ->getByTimestamp('>', $timestamp, $filter, 'kronolith:' . $calendar);
 
         // Strip leading kronolith:username:.
         return preg_replace('/^([^:]*:){2}/', '', array_keys($histories));
@@ -577,8 +583,9 @@ class Kronolith_Api extends Horde_Registry_Api
             } else {
                 $changes['modify'] = array_keys(array_flip(array_merge($changes['modify'], $uids)));
             }
-            /* No way to figure out if this was an exception, so we must include all */
-            $changes['delete'] = array_keys(array_flip(array_merge($changes['delete'], $this->listBy('delete', $start, $c, $end))));
+            // No way to figure out if this was an exception, so we must include all
+            $changes['delete'] = array_keys(
+                array_flip(array_merge($changes['delete'], $this->listBy('delete', $start, $c, $end))));
         }
 
         return $changes;
@@ -616,6 +623,7 @@ class Kronolith_Api extends Horde_Registry_Api
      *                             <pre>
      *                             text/calendar
      *                             text/x-vcalendar
+     *                             activesync
      *                             </pre>
      * @param string $calendar     What calendar should the event be added to?
      *
@@ -758,6 +766,7 @@ class Kronolith_Api extends Horde_Registry_Api
      *                                            this is specified in rfc2445)
      *                             text/x-vcalendar (old VCALENDAR 1.0 format.
      *                                              Still in wide use)
+     *                             activesync (Horde_ActiveSync_Message_Appointment)
      *                            </pre>
      *
      * @return string  The requested data.
@@ -804,6 +813,7 @@ class Kronolith_Api extends Horde_Registry_Api
      *                                            this is specified in rfc2445)
      *                             text/x-vcalendar (old VCALENDAR 1.0 format.
      *                                              Still in wide use)
+     *                             activesync (Horde_ActiveSync_Message_Appointment)
      *                             </pre>
      *
      * @return string  The iCalendar representation of the calendar.
@@ -924,6 +934,7 @@ class Kronolith_Api extends Horde_Registry_Api
      *                             text/calendar
      *                             text/x-vcalendar
      *                             (Ignored if content is Horde_Icalendar_Vevent)
+     *                             activesync (Horde_ActiveSync_Message_Appointment)
      *
      * @throws Kronolith_Exception
      */

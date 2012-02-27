@@ -26,8 +26,9 @@
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
+ <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
  <notes>
+* [jan] Fix deleting queries (Bug #10985).
 * [jan] Fix encoding of auto-completion results (Bug #10945).
  </notes>
  <contents>
@@ -916,7 +917,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-09-27</date>
-   <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
 * First alpha release for Horde 4.
    </notes>
@@ -929,7 +930,7 @@
     <release>beta</release>
     <api>beta</api></stability>
    <date>2011-10-11</date>
-   <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
 * [jan] Don&apos;t create stray update and assign permission (Bug #10624).
 * [jan] Add script to convert backends to UTF-8.
@@ -949,7 +950,7 @@
     <release>beta</release>
     <api>beta</api></stability>
    <date>2011-10-18</date>
-   <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
 * [jan] Support more complex attributes types (Bug #9947).
 * [jan] Fix displaying form errors from updating tickets.
@@ -966,7 +967,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-10-27</date>
-   <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
 * [jan] Fix rendering of attributes if a ticket&apos;s type has changed.
    </notes>
@@ -979,7 +980,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-12-13</date>
-   <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
 * [jan] Fix some CLI scripts if run from a PEAR installation (Bug #10839).
 * [jan] Automatically create parent permissions when adding the first restricted comment.
@@ -997,8 +998,9 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-12-13</date>
-   <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
+* [jan] Fix deleting queries (Bug #10985).
 * [jan] Fix encoding of auto-completion results (Bug #10945).
    </notes>
   </release>

@@ -86,7 +86,7 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
             $contents = $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices(IMP_Mailbox::formFrom($vars->mailbox), $vars->uid));
             $mime_part = $contents->getMIMEPart($vars->mime_id);
             if (empty($mime_part)) {
-                throw new IMP_Exception(_("Cannot retrieve public key from message."));
+                throw new IMP_Exception(_("Cannot retrieve calendar data from message."));
             } elseif (!$vCal->parsevCalendar($mime_part->getContents(), 'VCALENDAR', $mime_part->getCharset())) {
                 throw new IMP_Exception(_("The calendar data is invalid"));
             }
@@ -111,7 +111,7 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
                     } catch (Horde_Icalendar_Exception $e) {}
 
                     try {
-                        $registry->call('calendar/delete', array('guid' => $guid), $recurrenceId);
+                        $registry->call('calendar/delete', array($guid, $recurrenceId));
                         $notification->push(_("Event successfully deleted."), 'horde.success');
                         $result = 1;
                     } catch (Horde_Exception $e) {
@@ -128,8 +128,8 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
                     try {
                         $sender = $contents->getHeader()->getValue('From');
                         $registry->call('calendar/updateAttendee', array(
-                            'response' => $components[$key],
-                            'sender' => Horde_Mime_Address::bareAddress($sender)
+                            $components[$key],
+                            Horde_Mime_Address::bareAddress($sender)
                         ));
                         $notification->push(_("Respondent Status Updated."), 'horde.success');
                         $result = 1;
@@ -165,9 +165,9 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
                     if ($success && $registry->hasMethod('calendar/replace')) {
                         try {
                             $registry->call('calendar/replace', array(
-                                'content' => $components[$key],
-                                'contentType' => $mime_part->getType(),
-                                'uid' => $guid
+                                $guid,
+                                $components[$key],
+                                $mime_part->getType()
                             ));
                             $url = Horde::url($registry->link('calendar/show', array('uid' => $guid)));
                             $notification->push(
@@ -190,8 +190,8 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
                         // Import into calendar.
                         try {
                             $guid = $registry->call('calendar/import', array(
-                                'content' => $components[$key],
-                                'contentType' => $mime_part->getType()
+                                $components[$key],
+                                $mime_part->getType()
                             ));
                             $url = Horde::url($registry->link('calendar/show', array('uid' => $guid)));
                             $notification->push(
@@ -361,8 +361,8 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
                     }
 
                     $vfb_reply = $registry->call('calendar/getFreeBusy', array(
-                        'endStamp' => $endStamp,
-                        'startStamp' => $startStamp
+                        $startStamp,
+                        $endStamp
                     ));
 
                     // Find out who we are and update status.

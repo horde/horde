@@ -95,15 +95,6 @@ class IMP_Prefs_Ui
                 $ui->suppress[] = 'signature_html_select';
             }
             break;
-
-        case 'traditional':
-            if (!isset($cprefs['preview_enabled'])) {
-                $ui->suppress[] = 'traditional_mailbox';
-            }
-            if (!isset($cprefs['compose_popup'])) {
-                $ui->suppress[] = 'traditional_compose';
-            }
-            break;
         }
 
         foreach ($cprefs as $val) {
@@ -272,6 +263,7 @@ class IMP_Prefs_Ui
             case 'preview_show_unread':
             case 'preview_show_tooltip':
             case 'preview_strip_nl':
+            case 'preview_enabled':
                 if (!$prefs->getValue('preview_enabled')) {
                     $ui->suppress[] = $val;
                 }
@@ -316,6 +308,13 @@ class IMP_Prefs_Ui
                 /* Set the timezone on this page so the output uses the
                  * configured time zone's time, not the system's time zone. */
                 $registry->setTimeZone();
+                break;
+
+            case 'traditional_mailbox':
+                if (!$prefs->getValue('preview_enabled') &&
+                    $prefs->isLocked('preview_enabled')) {
+                    $ui->suppress[] = $val;
+                }
                 break;
 
             case 'trashselect':
@@ -1585,7 +1584,7 @@ class IMP_Prefs_Ui
     {
         $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
 
-        $js = array();
+        $js = array(-1 => $GLOBALS['prefs']->getValue('signature_html'));
         foreach (array_keys($identity->getAll('id')) as $key) {
             $js[$key] = $identity->getValue('signature_html', $key);
         };
@@ -1596,6 +1595,7 @@ class IMP_Prefs_Ui
 
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->setOption('gettext', true);
+        $t->set('signature', htmlspecialchars($GLOBALS['prefs']->getValue('signature_html')));
 
         return $t->fetch(IMP_TEMPLATES . '/prefs/signaturehtml.html');
     }

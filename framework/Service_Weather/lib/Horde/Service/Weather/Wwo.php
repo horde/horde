@@ -167,10 +167,12 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
      */
     protected function _getCommonElements($location, $length = Horde_Service_Weather::FORECAST_5DAY)
     {
-        if (!empty($this->_current) && $location == $this->_lastLocation) {
+        if (!empty($this->_current) && $location == $this->_lastLocation
+            && $this->_lastLength == $length) {
             return;
         }
 
+        $this->_lastLength = $length;
         $this->_lastLocation = $location;
 
         $url = new Horde_Url(self::API_URL);

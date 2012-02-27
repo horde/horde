@@ -106,11 +106,6 @@ class Turba_TestCase extends PHPUnit_Framework_TestCase
                 'Horde_Share_Base' => 'Share',
             )
         );
-        $setup->makeGlobal(
-            array(
-                'turba_shares' => 'Horde_Share_Base',
-            )
-        );
         $GLOBALS['cfgSources']['test']['type'] = 'Sql';
         $GLOBALS['cfgSources']['test']['title'] = 'SQL';
         $GLOBALS['cfgSources']['test']['map'] = self::_getSqlMap();
@@ -132,11 +127,6 @@ class Turba_TestCase extends PHPUnit_Framework_TestCase
                 ),
             )
         );
-        $setup->makeGlobal(
-            array(
-                'turba_shares' => 'Horde_Share_Base',
-            )
-        );
         $setup->getInjector()->setInstance(
             'Horde_Core_Factory_Share',
             new Horde_Test_Stub_Factory(
@@ -151,8 +141,7 @@ class Turba_TestCase extends PHPUnit_Framework_TestCase
     static protected function tearDownShares()
     {
         unset(
-            $GLOBALS['cfgSources'],
-            $GLOBALS['turba_shares']
+            $GLOBALS['cfgSources']
         );
     }
 
@@ -201,10 +190,11 @@ class Turba_TestCase extends PHPUnit_Framework_TestCase
 
     static private function _createShare($name, $owner)
     {
-        $share = $GLOBALS['turba_shares']->newShare(
+        $turba_shares = $injector->getInstance('Turba_Shares');
+        $share = $turba_shares->newShare(
             $owner, strval(new Horde_Support_Randomid()), $name
         );
-        $GLOBALS['turba_shares']->addShare($share);
+        $turba_shares->addShare($share);
         return $share;
     }
 

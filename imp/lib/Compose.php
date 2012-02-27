@@ -12,7 +12,7 @@
  * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
-class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
+class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializable
 {
     /* The virtual path to use for VFS data. */
     const VFS_ATTACH_PATH = '.horde/imp/compose';
@@ -684,6 +684,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         /* We need at least one recipient & RFC 2822 requires that no 8-bit
          * characters can be in the address fields. */
         $recip = $this->recipientList($header);
+        if (!count($recip['list'])) {
+            throw new IMP_Compose_Exception(_("Need at least one message recipient."));
+        }
         $header = array_merge($header, $recip['header']);
 
         /* Check for correct identity usage. */
@@ -694,6 +697,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             if (!is_null($identity_search) &&
                 ($opts['identity']->getDefault() != $identity_search)) {
                 $this->_metadata['identity_check'] = true;
+                $this->changed = 'changed';
+
                 $e = new IMP_Compose_Exception(_("Recipient address does not match the currently selected identity."));
                 $e->tied_identity = $identity_search;
                 throw $e;
@@ -1697,9 +1702,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                 break;
 
             case self::REPLY_LIST:
-                $addr_ob = IMP::parseAddressList($h->getValue('list-id'));
-                if (!is_null($addr_ob[0]->personal)) {
-                    $ret['reply_list_id'] = $addr_ob[0]->personal;
+                if (($list_parse = $GLOBALS['injector']->getInstance('IMP_Parse_Listid')->parseListId($h->getValue('list-id'))) &&
+                    isset($list_parse->phrase)) {
+                    $ret['reply_list_id'] = $list_parse->phrase;
                 }
                 break;
             }
@@ -2773,7 +2778,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         if (!empty($options['html']) &&
             $GLOBALS['session']->get('imp', 'rteavail') &&
             (($body_id = $contents->findBody('html')) !== null)) {
-            if (($contents->getMIMEMessage()->getType() != 'multipart/mixed') &&
+            $mime_message = $contents->getMIMEMessage();
+            if (($mime_message->getPrimaryType() == 'multipart') &&
+                ($mime_message->getSubType() != 'mixed') &&
                 in_array($options['imp_msg'], array(self::COMPOSE, self::REPLY))) {
                 $check_id = '2';
             } else {
@@ -3126,7 +3133,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 
         $sort_list = array();
         foreach ($addr_list as $val) {
-            $sort_list[$val] = levenshtein($addrString, $val);
+            // Silence error if string is more than 255 characters.
+            $sort_list[$val] = @levenshtein($addrString, $val);
         }
         asort($sort_list, SORT_NUMERIC);
 
@@ -3250,31 +3258,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         return count($this->_cache);
     }
 
-    /* Iterator methods. */
+    /* IteratorAggregate method. */
 
-    public function current()
+    public function getIterator()
     {
-        return current($this->_cache);
-    }
-
-    public function key()
-    {
-        return key($this->_cache);
-    }
-
-    public function next()
-    {
-        next($this->_cache);
-    }
-
-    public function rewind()
-    {
-        reset($this->_cache);
-    }
-
-    public function valid()
-    {
-        return (key($this->_cache) !== null);
+        return new ArrayIterator($this->_cache);
     }
 
     /* Serializable methods. */

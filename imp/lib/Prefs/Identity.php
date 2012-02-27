@@ -33,6 +33,16 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
     );
 
     /**
+     * Identity preferences added by IMP.
+     *
+     * @var array
+     */
+    protected $_impPrefs = array(
+        'replyto_addr', 'alias_addr', 'tieto_addr', 'bcc_addr', 'signature',
+        'signature_html', 'save_sent_mail', 'sent_mail_folder'
+    );
+
+    /**
      * Reads all the user's identities from the prefs object or builds
      * a new identity from the standard values given in prefs.php.
      *
@@ -40,16 +50,12 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
      */
     public function __construct($params)
     {
-        parent::__construct($params);
-
         $this->_prefnames['properties'] = array_merge(
             $this->_prefnames['properties'],
-            array(
-                'replyto_addr', 'alias_addr', 'tieto_addr', 'bcc_addr',
-                'signature', 'signature_html', 'save_sent_mail',
-                'sent_mail_folder'
-            )
+            $this->_impPrefs
         );
+
+        parent::__construct($params);
     }
 
     /**
@@ -61,11 +67,18 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
      */
     public function verify($identity = null)
     {
-        parent::verify($identity);
-
         if (!isset($identity)) {
             $identity = $this->_default;
         }
+
+        /* Fill missing IMP preferences with default values. */
+        foreach ($this->_impPrefs as $pref) {
+            if (!isset($this->_identities[$identity][$pref])) {
+                $this->_identities[$identity][$pref] = $this->_prefs->getValue($pref);
+            }
+        }
+
+        parent::verify($identity);
 
         /* Prepare email validator */
         require_once 'Horde/Form.php';

@@ -866,10 +866,10 @@ $prefGroups['viewing'] = array(
     'desc' => _("Configure how messages are displayed."),
     'members' => array(
         'filtering', 'strip_attachments', 'alternative_display',
-        'image_replacement', 'image_addrbook', 'highlight_text',
-        'highlight_simple_markup', 'show_quoteblocks', 'dim_signature',
-        'emoticons', 'parts_display', 'mail_hdr', 'default_msg_charset',
-        'send_mdn', 'mimp_message', 'mimp_download_confirm', 'mimp_inline_all'
+        'image_replacement', 'highlight_text', 'highlight_simple_markup',
+        'show_quoteblocks', 'dim_signature', 'emoticons', 'parts_display',
+        'mail_hdr', 'default_msg_charset', 'send_mdn', 'mimp_message',
+        'mimp_download_confirm', 'mimp_inline_all'
     )
 );
 
@@ -907,13 +907,12 @@ $_prefs['image_replacement'] = array(
     'help' => 'prefs-image_replacement'
 );
 
-// By default, automatically show images in inline messages if the sender is
-// in the user's addressbook?
-$_prefs['image_addrbook'] = array(
-    'value' => 1,
-    'type' => 'checkbox',
-    'desc' => _("Automatically show images in messages when the sender is in my address book?"),
-    'help' => 'prefs-image_addrbook'
+// List of e-mail addresses to allow images from (in addition to e-mail
+// addresses contained in the user's addressbooks.
+// You can provide default values this way:
+//   'value' => json_encode(array('foo@example.com', 'foo2@example.com'))
+$_prefs['image_replacement_addrs'] = array(
+    'value' => '[]'
 );
 
 // should we try to mark different conversations with different colors?

@@ -96,6 +96,23 @@ class Horde_Core_Ajax
     }
 
     /**
+     * Only initialize the code needed to output Growler notifications, if
+     * needed.
+     */
+    public function initGrowler()
+    {
+        if (!self::$_init) {
+            Horde::addScriptFile('hordecore.js', 'horde');
+            Horde::addScriptFile('effects.js', 'horde');
+            Horde::addScriptFile('growler.js', 'horde');
+
+            Horde::addInlineJsVars(array(
+                'var HordeCoreConf' => array()
+            ));
+        }
+    }
+
+    /**
      * Initialize the JS browser environment and output everything up to, and
      * including, the <body> tag.
      *

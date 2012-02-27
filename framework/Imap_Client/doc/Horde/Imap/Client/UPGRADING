@@ -24,6 +24,10 @@ Address properties (array return values) returned from
 Horde_Imap_Client_Data_Envelope are now Horde_Mail_Rfc822_Address objects.
 These objects behave identical to the arrays that were returned previously.
 
+The following methods have been added:
+
+  - Horde_Imap_Client_Base#setParam()
+
 
 Upgrading To 1.4.0
 ==================

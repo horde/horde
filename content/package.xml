@@ -26,7 +26,7 @@
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+ <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
 * 
  </notes>
@@ -261,7 +261,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-03-09</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * First alpha release for Horde 4.
    </notes>
@@ -276,7 +276,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * First beta release for Horde 4.
    </notes>
@@ -291,7 +291,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-23</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * First release candidate for Horde 4.
    </notes>
@@ -306,7 +306,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-30</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * Second release candidate for Horde 4.
 * [jan] Rename all scripts to be prefixed with content- (Request #9647).
@@ -322,7 +322,7 @@
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * First stable release for Horde 4.
 * [jan] Fix case-insensitive filtering of duplicate tags (Bug #9617).
@@ -336,7 +336,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-05</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mjr] Enforce that object and type names are always taken as a string (Bug #10171).
 * [mjr] Updated unit tests to new test structure.
@@ -351,7 +351,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-11</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mjr] Fix broken tag cloud queries due to missing GROUP BY fields (Bug #10419)
 * [mjr] Prevent tagging with empty strings.
@@ -365,7 +365,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-10-14</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mjr] Honor the limit and radius parameters.
 * [mjr] Fix getObjects method when passing object_id (Bug# 10439).
@@ -381,7 +381,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-10-14</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * 
    </notes>

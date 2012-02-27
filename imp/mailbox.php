@@ -723,7 +723,7 @@ foreach ($headers as $key => $val) {
             'sortby' => $key
         )), $val['stext'], 'widget', null, null, $val['text']);
     } else {
-        $ptr['change_sort_widget'] = Horde::highlightAccessKey($val['text']);
+        $ptr['change_sort_widget'] = Horde::stripAccessKey($val['text']);
     }
 }
 
@@ -866,7 +866,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     switch ($fromlinkstyle) {
     case 0:
         if (!$getfrom['error']) {
-            $msg['from'] = Horde::link(IMP::composeLink(array(), array('actionID' => 'mailto', 'thismailbox' => $ob['mailbox'], 'uid' => $ob['uid'], 'mailto' => $getfrom['to'])), sprintf(_("New Message to %s"), $msg['fullfrom'])) . $msg['from'] . '</a>';
+            $msg['from'] = call_user_func_array(array('Horde', $preview_tooltip ? 'linkTooltip' : 'link'), IMP::composeLink(array(), array('actionID' => 'mailto', 'thismailbox' => $ob['mailbox'], 'uid' => $ob['uid'], 'mailto' => $getfrom['to'])), sprintf(_("New Message to %s"), $msg['fullfrom']));
         }
         break;
 

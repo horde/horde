@@ -231,24 +231,20 @@ class Horde_Core_Prefs_Ui
         if (!empty($this->vars->show_advanced) ||
             !empty($this->vars->show_basic)) {
             $GLOBALS['session']->set('horde', 'prefs_advanced', !empty($this->vars->show_advanced));
-        }
-
-        if (!$this->vars->actionID ||
-            !$this->group ||
-            !$this->groupIsEditable($this->group)) {
+        } elseif (!$this->vars->actionID ||
+                  !$this->group ||
+                  !$this->groupIsEditable($this->group)) {
             return;
-        }
-
-        if (isset($this->vars->prefs_return)) {
+        } elseif (isset($this->vars->prefs_return)) {
             $this->group = $this->vars->actionID = '';
             return;
-        }
-
-        try {
-            $GLOBALS['injector']->getInstance('Horde_Token')->validate($this->vars->horde_prefs_token, 'horde.prefs');
-        } catch (Horde_Token_Exception $e) {
-            $GLOBALS['notification']->push($e);
-            return;
+        } else {
+            try {
+                $GLOBALS['injector']->getInstance('Horde_Token')->validate($this->vars->horde_prefs_token, 'horde.prefs');
+            } catch (Horde_Token_Exception $e) {
+                $GLOBALS['notification']->push($e);
+                return;
+            }
         }
 
         switch ($this->vars->actionID) {
@@ -816,6 +812,15 @@ class Horde_Core_Prefs_Ui
         }
 
         $entry = $js = array();
+
+        $tmp = array();
+        foreach ($members as $member) {
+            $tmp[] = $this->_generateEntry(
+                $member,
+                $GLOBALS['prefs']->getDefault($member));
+        }
+        $js[-1] = $tmp;
+
         foreach ($identities as $key => $val) {
             $entry[] = array(
                 'i' => $key,
@@ -825,31 +830,9 @@ class Horde_Core_Prefs_Ui
 
             $tmp = array();
             foreach ($members as $member) {
-                $val = $identity->getValue($member, $key);
-                switch ($this->prefs[$member]['type']) {
-                case 'checkbox':
-                case 'number':
-                    $val2 = intval($val);
-                    break;
-
-                case 'textarea':
-                    if (is_array($val)) {
-                        $val = implode("\n", $val);
-                    }
-                    // Fall-through
-
-                default:
-                    $val2 = $val;
-                }
-
-                // [0] = pref name
-                // [1] = pref type
-                // [2] = pref value
-                $tmp[] = array(
+                $tmp[] = $this->_generateEntry(
                     $member,
-                    $this->prefs[$member]['type'],
-                    $val2
-                );
+                    $identity->getValue($member, $key));
             }
             $js[] = $tmp;
         }
@@ -860,6 +843,42 @@ class Horde_Core_Prefs_Ui
         ));
 
         return $t->fetch(HORDE_TEMPLATES . '/prefs/identityselect.html');
+    }
+
+    /**
+     * Generates an entry hash for an identity's preference value.
+     *
+     * @param string $member  A preference name.
+     * @param mixed $val      A preference value.
+     *
+     * @return array  An array with preference name, type, and value.
+     */
+    protected function _generateEntry($member, $val)
+    {
+        switch ($this->prefs[$member]['type']) {
+        case 'checkbox':
+        case 'number':
+            $val2 = intval($val);
+            break;
+
+        case 'textarea':
+            if (is_array($val)) {
+                $val = implode("\n", $val);
+            }
+            // Fall-through
+
+        default:
+            $val2 = $val;
+        }
+
+        // [0] = pref name
+        // [1] = pref type
+        // [2] = pref value
+        return array(
+            $member,
+            $this->prefs[$member]['type'],
+            $val2
+        );
     }
 
     /**

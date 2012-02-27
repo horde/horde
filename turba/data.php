@@ -48,30 +48,14 @@ function _emptyAttributeFilter($var)
  */
 function _getBareEmail($address, $allow_multi = false)
 {
-    // Empty values are still empty.
-    if (!$address) {
-        return $address;
-    }
-
     $rfc822 = new Horde_Mail_Rfc822();
-
-    // Split multiple email addresses
-    if ($allow_multi) {
-        $addrs = Horde_Mime_Address::explode($address);
-    } else {
-        $addrs = array($address);
+    try {
+        return Horde_Mime_Address::addrArray2String($rfc822->parseAddressList($address, array(
+            'limit' => $allow_multi ? 0 : 1
+        )));
+    } catch (Horde_Mail_Exception $e) {
+        return '';
     }
-
-    $result = array();
-    foreach ($addrs as $addr) {
-        $addr = trim($addr);
-
-        if ($rfc822->validateMailbox($addr)) {
-            $result[] = Horde_Mime_Address::writeAddress($addr->mailbox, $addr->host);
-        }
-    }
-
-    return implode(', ', $result);
 }
 
 require_once dirname(__FILE__) . '/lib/Application.php';

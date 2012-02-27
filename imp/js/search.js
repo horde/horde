@@ -200,7 +200,7 @@ var ImpSearch = {
         var tmp = [
             new Element('EM').insert(this.getCriteriaLabel(id)),
             new Element('INPUT', { type: 'text', size: 25 }).setValue(text),
-            new Element('SPAN', { className: 'notMatch' }).insert(new Element('INPUT', { checked: Boolean(not), className: 'checkbox', type: 'checkbox' })).insert(this.text.not_match)
+            new Element('SPAN', { className: 'notMatch' }).insert(new Element('INPUT', { className: 'checkbox', type: 'checkbox' }).setValue(not)).insert(this.text.not_match)
         ];
         this.criteria[this.insertCriteria(tmp)] = { t: id };
         tmp[1].activate();
@@ -214,7 +214,7 @@ var ImpSearch = {
             new Element('EM').insert(this.text.customhdr),
             new Element('INPUT', { type: 'text', size: 25 }).setValue(text.h),
             new Element('SPAN').insert(new Element('EM').insert(this.text.search_term + ' ')).insert(new Element('INPUT', { type: 'text', size: 25 }).setValue(text.s)),
-            new Element('SPAN').insert(new Element('INPUT', { checked: Boolean(not), className: 'checkbox', type: 'checkbox' })).insert(this.text.not_match)
+            new Element('SPAN').insert(new Element('INPUT', { className: 'checkbox', type: 'checkbox' }).setValue(not)).insert(this.text.not_match)
         ];
         this.criteria[this.insertCriteria(tmp)] = { t: 'customhdr' };
         tmp[1].activate();
@@ -253,7 +253,7 @@ var ImpSearch = {
             elt1.addClassName('beginDate'),
             new Element('SPAN').insert(this.text.to),
             elt2.addClassName('endDate'),
-            new Element('SPAN', { className: 'notMatch' }).insert(new Element('INPUT', { checked: Boolean(not), className: 'checkbox', type: 'checkbox' })).insert(this.text.not_match)
+            new Element('SPAN', { className: 'notMatch' }).insert(new Element('INPUT', { className: 'checkbox', type: 'checkbox' }).setValue(not)).insert(this.text.not_match)
         ];
 
         tmp2 = this.insertCriteria(tmp);
@@ -296,7 +296,7 @@ var ImpSearch = {
     {
         var tmp = [
             new Element('EM').insert(this.getCriteriaLabel(id)),
-            new Element('SPAN').insert(new Element('INPUT', { checked: Boolean(not), className: 'checkbox', type: 'checkbox' })).insert(this.text.not_match)
+            new Element('SPAN').insert(new Element('INPUT', { className: 'checkbox', type: 'checkbox' }).setValue(not)).insert(this.text.not_match)
         ];
         this.criteria[this.insertCriteria(tmp)] = { t: id };
     },
@@ -306,7 +306,7 @@ var ImpSearch = {
         var tmp = [
             new Element('EM').insert(this.text.flag),
             new Element('SPAN', { className: 'searchFlag' }).insert(this.getCriteriaLabel(id).slice(0, -2)),
-            new Element('SPAN', { className: 'notMatch' }).insert(new Element('INPUT', { checked: Boolean(not), className: 'checkbox', type: 'checkbox' })).insert(this.text.not_match)
+            new Element('SPAN', { className: 'notMatch' }).insert(new Element('INPUT', { className: 'checkbox', type: 'checkbox' }).setValue(not)).insert(this.text.not_match)
         ];
         this.criteria[this.insertCriteria(tmp)] = { t: id };
     },
@@ -386,7 +386,7 @@ var ImpSearch = {
             div2.insert(
                 new Element('EM').insert(this.getFolderLabel(folder).escapeHTML())
             ).insert(
-                new Element('SPAN', { className: 'subfolders' }).insert(new Element('INPUT', { checked: checked, className: 'checkbox', type: 'checkbox' })).insert(this.text.subfolder_search)
+                new Element('SPAN', { className: 'subfolders' }).insert(new Element('INPUT', { className: 'checkbox', type: 'checkbox' }).setValue(checked)).insert(this.text.subfolder_search).setStyle(folder == this.data.inbox ? { display: 'none' } : {})
             ).insert(
                 new Element('A', { href: '#', className: 'iconImg searchuiImg searchuiDelete' })
             );
@@ -664,12 +664,19 @@ var ImpSearch = {
 
     showUnsubCallback: function(r)
     {
-        var resp;
+        var resp, sfa, vals;
 
         if (r.responseJSON.response) {
             resp = r.responseJSON.response;
             this.data.folder_list = resp.folder_list;
-            $('search_folders_add').update(resp.tree);
+            sfa = $('search_folders_add');
+            vals = sfa.select('[disabled]').pluck('value');
+            sfa.update(resp.tree);
+            vals.each(function(v) {
+                if (v.length) {
+                    this.disableFolder(true, v);
+                }
+            }, this);
         }
     },
 
