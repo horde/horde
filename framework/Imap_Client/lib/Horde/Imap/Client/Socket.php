@@ -3033,8 +3033,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _parseEnvelope($data)
     {
+        // 'route', the 2nd element, is deprecated by RFC 2822.
         $addr_structure = array(
-            'personal', 'route', 'mailbox', 'host'
+            0 => 'personal',
+            2 => 'mailbox',
+            3 => 'host'
         );
         $env_data = array(
             0 => 'date',
@@ -3083,9 +3086,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
                         foreach ($addr_structure as $add_key => $add_val) {
                             if (!is_null($a_val[$add_key])) {
-                                $addr->$add_val = ($add_val == 'route')
-                                    ? array($a_val[$add_key])
-                                    : $a_val[$add_key];
+                                $addr->$add_val = $a_val[$add_key];
                             }
                         }
 
