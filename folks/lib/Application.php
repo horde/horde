@@ -23,7 +23,7 @@ class Folks_Application extends Horde_Registry_Application
 
     /**
      */
-    public $version = 'H4 (0.1-git)';
+    public $version = 'H5 (0.1-git)';
 
     /**
      * Global variables defined:

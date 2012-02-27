@@ -29,7 +29,7 @@ Administration => Configuration and update anything that's highlighted as
 outdated.
 
 
-Upgrading IMP From 5.0 To 5.1
+Upgrading IMP From 5.x To 6.x
 =============================
 
 Traditional mode now requires javascript support on the browser. If not
