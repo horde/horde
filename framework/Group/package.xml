@@ -17,8 +17,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-02-22</date>
- <time>13:06:54</time>
+ <date>2012-02-27</date>
+ <time>15:05:27</time>
  <version>
   <release>1.0.6</release>
   <api>1.0.0</api>
@@ -44,7 +44,6 @@
     <dir name="Horde">
      <dir name="Group">
       <file name="Base.php" role="php" />
-      <file name="Contactlists.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="Kolab.php" role="php" />
       <file name="Ldap.php" role="php" />
@@ -133,7 +132,6 @@
   <filelist>
    <install as="COPYING" name="doc/Horde/Group/COPYING" />
    <install as="Horde/Group/Base.php" name="lib/Horde/Group/Base.php" />
-   <install as="Horde/Group/Contactlists.php" name="lib/Horde/Group/Contactlists.php" />
    <install as="Horde/Group/Exception.php" name="lib/Horde/Group/Exception.php" />
    <install as="Horde/Group/Kolab.php" name="lib/Horde/Group/Kolab.php" />
    <install as="Horde/Group/Ldap.php" name="lib/Horde/Group/Ldap.php" />
@@ -369,7 +367,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-02-22</date>
+   <date>2012-02-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

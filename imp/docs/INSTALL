@@ -1,5 +1,5 @@
 ====================
- Installing IMP 5.0
+ Installing IMP 6.0
 ====================
 
 :Contact: imp@lists.horde.org
@@ -25,7 +25,7 @@ To function properly, IMP **requires** the following:
    for web applications written in PHP. You must install Horde before
    installing IMP.
 
-   .. Important:: IMP 5.0 requires version 4.0+ of the Horde Framework -
+   .. Important:: IMP 6.0 requires version 5.0+ of the Horde Framework -
                   earlier versions of Horde will not work.
 
    .. Important:: Be sure to have completed all of the steps in the

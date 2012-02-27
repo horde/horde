@@ -1140,7 +1140,7 @@ HermesCore = {
             }
         });
 
-        HordeCore.doAction('listTimers', [], this.listTimersCallback.bind(this));
+        HordeCore.doAction('listTimers', [], { 'callback': this.listTimersCallback.bind(this) });
         Event.observe(window, 'resize', this.onResize.bind(this));
         new PeriodicalExecuter(HordeCore.doAction.bind(this, 'poll'), 60);
     }

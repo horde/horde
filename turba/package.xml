@@ -31,12 +31,12 @@
  <date>2011-12-19</date>
  <time>15:56:14</time>
  <version>
-  <release>3.1.0</release>
-  <api>3.1.0</api>
+  <release>4.0.0</release>
+  <api>4.0.0</api>
  </version>
  <stability>
-  <release>stable</release>
-  <api>stable</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
@@ -623,9 +623,9 @@
    <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
-    <min>4.0.0</min>
-    <max>5.0.0</max>
-    <exclude>5.0.0</exclude>
+    <min>5.0.0</min>
+    <max>6.0.0</max>
+    <exclude>6.0.0</exclude>
    </package>
    <package>
     <name>Horde_Auth</name>

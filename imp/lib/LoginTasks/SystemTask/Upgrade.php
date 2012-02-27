@@ -22,7 +22,7 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
      */
     protected $_versions = array(
         '5.0',
-        '5.1'
+        '6.0'
     );
 
     /**
@@ -47,7 +47,7 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
             $this->_upgradeVirtualFolders();
             break;
 
-        case '5.1':
+        case '6.0':
             $this->_upgradeComposeCursor();
             $this->_upgradeMailboxPrefs();
             $this->_upgradeStationeryToTemplates();
