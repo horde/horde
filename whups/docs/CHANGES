@@ -8,6 +8,7 @@ v3.0-git
 v2.0.2-git
 ----------
 
+[jan] Fix saving portal blocks.
 [jan] Fix deleting queries (Bug #10985).
 [jan] Fix encoding of auto-completion results (Bug #10945).
 
