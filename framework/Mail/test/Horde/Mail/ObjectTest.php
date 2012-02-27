@@ -64,4 +64,35 @@ class Horde_Mail_ObjectTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testEncodedAddressWithIDNHost()
+    {
+        if (!extension_loaded('intl')) {
+            $this->markTestSkipped('Intl module is not available.');
+        }
+
+        $ob = new Horde_Mail_Rfc822_Address();
+        $ob->personal = 'Aäb';
+        $ob->mailbox = 'test';
+        $ob->host = 'üexample.com';
+
+        $this->assertEquals(
+            '=?utf-8?b?QcOkYg==?= <test@xn--example-m2a.com>',
+            $ob->encoded
+        );
+    }
+
+    public function testDecodedAddressWithIDNHost()
+    {
+        $ob = new Horde_Mail_Rfc822_Address();
+        $ob->personal = '=?utf-8?b?QcOkYg==?=';
+        $ob->mailbox = 'test';
+        $ob->host = 'xn--example-m2a.com';
+
+        // Personal part is NOT MIME decoded by default for BC.
+        $this->assertEquals(
+            '=?utf-8?b?QcOkYg==?= <test@üexample.com>',
+            strval($ob)
+        );
+    }
+
 }
