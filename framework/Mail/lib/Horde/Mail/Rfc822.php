@@ -1,6 +1,6 @@
 <?php
 /**
- * RFC 822 Email parser/validator.
+ * RFC 822/2822/3490/5322 Email parser/validator.
  *
  * LICENSE:
  *
@@ -50,7 +50,7 @@
  */
 
 /**
- * RFC 822 Email parser/validator.
+ * RFC 822/2822/3490/5322 Email parser/validator.
  *
  * @author   Richard Heyes <richard@phpguru.org>
  * @author   Chuck Hagenbuch <chuck@horde.org>
@@ -115,7 +115,10 @@ class Horde_Mail_Rfc822
     /**
      * Starts the whole process.
      *
-     * @param string $address  The address(es) to validate.
+     * @param mixed $address   The address(es) to validate. Either a string
+     *                         (since 1.0.0), a Horde_Mail_Rfc822_Object (since
+     *                         1.2.0), or an array of strings and/or
+     *                         Horde_Mail_Rfc822_Objects (since 1.2.0).
      * @param array $params    Optional parameters:
      *   - default_domain: (string) Default domain/host etc.
      *                     DEFAULT: localhost
@@ -146,15 +149,95 @@ class Horde_Mail_Rfc822
             'validate' => true
         ), $params);
 
-        $this->_data = $address;
-        $this->_datalen = strlen($address);
-        $this->_ptr = 0;
         $this->_structure = array();
 
-        $this->_parseAddressList();
+        if (!is_array($address)) {
+            $address = array($address);
+        }
+
+        $tmp = array();
+        foreach ($address as $val) {
+            if ($val instanceof Horde_Mail_Rfc822_Object) {
+                $this->_structure[] = $val;
+            } else {
+                $tmp[] = rtrim(trim($val), ',');
+            }
+        }
+
+        if (!empty($tmp)) {
+            $this->_data = implode(',', $tmp);
+            $this->_datalen = strlen($this->_data);
+            $this->_ptr = 0;
+
+            $this->_parseAddressList();
+        }
 
         return $this->_structure;
     }
+
+   /**
+     * Quotes and escapes the given string if necessary using rules contained
+     * in RFC 2822 [3.2.5].
+     *
+     * @since 1.2.0
+     *
+     * @param string $str   The string to be quoted and escaped.
+     * @param string $type  Either 'address', or 'personal'.
+     *
+     * @return string  The correctly quoted and escaped string.
+     */
+    public function encode($str, $type = 'address')
+    {
+        // Excluded (in ASCII): 0-8, 10-31, 34, 40-41, 44, 58-60, 62, 64,
+        // 91-93, 127
+        $filter = "\0\1\2\3\4\5\6\7\10\12\13\14\15\16\17\20\21\22\23\24\25\26\27\30\31\32\33\34\35\36\37\"(),:;<>@[\\]\177";
+
+        switch ($type) {
+        case 'personal':
+            // RFC 2822 [3.4]: Period not allowed in display name
+            $filter .= '.';
+            break;
+
+        case 'address':
+        default:
+            // RFC 2822 [3.4.1]: (HTAB, SPACE) not allowed in address
+            $filter .= "\11\40";
+            break;
+        }
+
+        // Strip double quotes if they are around the string already.
+        // If quoted, we know that the contents are already escaped, so
+        // unescape now.
+        $str = trim($str);
+        if ($str && ($str[0] == '"') && (substr($str, -1) == '"')) {
+            $str = stripslashes(substr($str, 1, -1));
+        }
+
+        return (strcspn($str, $filter) != strlen($str))
+            ? '"' . addcslashes($str, '\\"') . '"'
+            : $str;
+    }
+
+    /**
+     * If an email address has no personal information, get rid of any angle
+     * brackets (<>) around it.
+     *
+     * @since 1.2.0
+     *
+     * @param string $address  The address to trim.
+     *
+     * @return string  The trimmed address.
+     */
+    public function trimAddress($address)
+    {
+        $address = trim($address);
+
+        return (($address[0] == '<') && (substr($address, -1) == '>'))
+            ? substr($address, 1, -1)
+            : $address;
+    }
+
+    /* RFC 822 parsing methods. */
 
     /**
      * address-list = (address *("," address)) / obs-addr-list

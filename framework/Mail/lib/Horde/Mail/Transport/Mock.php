@@ -128,7 +128,7 @@ class Horde_Mail_Transport_Mock extends Horde_Mail_Transport
             rewind($body);
             $body_txt = stream_get_contents($body);
         } else {
-            $body_txt = str_replace(array("\r\n", "\r", "\n"), $this->sep, $body);
+            $body_txt = $this->_normalizeEOL($body);
         }
 
         $recipients = $this->parseRecipients($recipients);

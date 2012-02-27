@@ -23,7 +23,7 @@
  * @license   http://www.horde.org/licenses/bsd New BSD License
  * @package   Mail
  */
-class Horde_Mail_Rfc822_Group implements ArrayAccess
+class Horde_Mail_Rfc822_Group extends Horde_Mail_Rfc822_Object implements ArrayAccess
 {
     /**
      * List of group e-mail address objects.
@@ -33,20 +33,34 @@ class Horde_Mail_Rfc822_Group implements ArrayAccess
     public $addresses = array();
 
     /**
-     * Comments associated with the personal phrase.
+     * Group name.
      *
      * @var string
      */
     public $groupname = '';
 
     /**
-     * String representation of object.
+     * Constructor.
      *
-     * @return string  Returns the full e-mail address.
+     * @param string $groupname  If set, used as the group name. (Since 1.2.0)
+     * @param string $addresses  If set, addresses is parsed and used as the
+     *                           list of group addresses. (Since 1.2.0)
+     *                           Addresses are not verified; sub-groups are
+     *                           eliminated.
      */
-    public function __toString()
+    public function __construct($groupname = null, $addresses = null)
     {
-        return $this->writeAddress();
+        if (!is_null($groupname)) {
+            $this->groupname = $groupname;
+        }
+
+        if (!is_null($addresses)) {
+            $rfc822 = new Horde_Mail_Rfc822();
+            $this->addresses = $rfc822->parseAddressList($addresses, array(
+                'nest_groups' => false,
+                'validate' => false
+            ));
+        }
     }
 
     /**
@@ -70,12 +84,12 @@ class Horde_Mail_Rfc822_Group implements ArrayAccess
      * Write a group address given information in this part.
      *
      * @param array $opts  Optional arguments:
-     *   - encode: (boolean) Encode the groupname/personal parts?
+     *   - encode: (boolean) MIME encode the groupname/personal parts?
      *   - idn: (boolean) See Horde_Mime_Address#writeAddress().
      *
      * @return string  The correctly escaped/quoted address.
      */
-    public function writeAddress()
+    public function writeAddress(array $opts = array())
     {
         $addr = array();
         foreach ($this->addresses as $val) {
@@ -85,7 +99,13 @@ class Horde_Mail_Rfc822_Group implements ArrayAccess
             ));
         }
 
-        return Horde_Mime_Address::writeGroupAddress(empty($opts['encode']) ? $ob->groupname : Horde_Mime::encode($ob->groupname, 'UTF-8'), $addr);
+        $groupname = empty($opts['encode'])
+            ? $this->groupname
+            : $this->groupname_encoded;
+        $rfc822 = new Horde_Mail_Rfc822();
+
+        return $rfc822->encode($groupname, 'address') . ':' .
+            (empty($addr) ? '' : (' ' . implode(', ', $addr)) . ';');
     }
 
     /* ArrayAccess methods. TODO: Here for BC purposes. Remove for 2.0. */
@@ -126,7 +146,7 @@ class Horde_Mail_Rfc822_Group implements ArrayAccess
      */
     public function offsetUnset($offset)
     {
-        /* Don't allow undsetting of values. */
+        /* Don't allow unsetting of values. */
     }
 
 }

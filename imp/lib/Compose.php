@@ -684,6 +684,9 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
         /* We need at least one recipient & RFC 2822 requires that no 8-bit
          * characters can be in the address fields. */
         $recip = $this->recipientList($header);
+        if (!count($recip['list'])) {
+            throw new IMP_Compose_Exception(_("Need at least one message recipient."));
+        }
         $header = array_merge($header, $recip['header']);
 
         /* Check for correct identity usage. */
@@ -3130,7 +3133,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
 
         $sort_list = array();
         foreach ($addr_list as $val) {
-            $sort_list[$val] = levenshtein($addrString, $val);
+            // Silence error if string is more than 255 characters.
+            $sort_list[$val] = @levenshtein($addrString, $val);
         }
         asort($sort_list, SORT_NUMERIC);
 

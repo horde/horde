@@ -131,7 +131,7 @@ abstract class Horde_Mail_Transport
                     return false;
                 }
 
-                $lines[] = $key . ': ' . $value;
+                $lines[] = $key . ': ' . $this->_normalizeEOL($value);
             } elseif (!$raw && (strcasecmp($key, 'Received') === 0)) {
                 $received = array();
                 if (!is_array($value)) {
@@ -139,7 +139,7 @@ abstract class Horde_Mail_Transport
                 }
 
                 foreach ($value as $line) {
-                    $received[] = $key . ': ' . $line;
+                    $received[] = $key . ': ' . $this->_normalizeEOL($line);
                 }
 
                 // Put Received: headers at the top.  Spam detectors often
@@ -152,7 +152,7 @@ abstract class Horde_Mail_Transport
                 if (is_array($value)) {
                     $value = implode(', ', $value);
                 }
-                $lines[] = $key . ': ' . $value;
+                $lines[] = $key . ': ' . $this->_normalizeEOL($value);
             }
         }
 
@@ -213,6 +213,22 @@ abstract class Horde_Mail_Transport
         }
 
         return $headers;
+    }
+
+    /**
+     * Normalizes EOLs in string data.
+     *
+     * @param string $data  Data.
+     *
+     * @return string  Normalized data.
+     */
+    protected function _normalizeEOL($data)
+    {
+        return strtr($data, array(
+            "\r\n" => $this->sep,
+            "\r" => $this->sep,
+            "\n" => $this->sep
+        ));
     }
 
 }

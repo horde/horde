@@ -125,7 +125,7 @@ class Horde_Mail_Transport_Mail extends Horde_Mail_Transport
             $body = $body_str;
         } else {
             // Convert EOL characters in body.
-            $body = str_replace(array("\r\n", "\r", "\n"), $this->sep, $body);
+            $body = $this->_normalizeEOL($body);
         }
 
         // We only use mail()'s optional fifth parameter if the additional
