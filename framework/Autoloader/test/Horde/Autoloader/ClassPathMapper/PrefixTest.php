@@ -18,6 +18,7 @@ class Horde_Autoloader_ClassPathMapper_PrefixTest extends PHPUnit_Framework_Test
             array('App',         'dir/App.php'),
             array('App_Foo',     'dir/Foo.php'),
             array('App_Foo_Bar', 'dir/Foo/Bar.php'),
+            array('Other', false),
         );
     }
 

@@ -54,4 +54,9 @@ class Horde_Autoloader_ClassPathMapper_ApplicationTest extends PHPUnit_Framework
     {
         $this->assertNull($this->_mapper->mapToPath($invalidClassName));
     }
+
+    public function testToString()
+    {
+        $this->assertEquals('Horde_Autoloader_ClassPathMapper_Application /^([0-9A-Z][0-9A-Za-z]+)+_([0-9A-Z][0-9A-Za-z]+)+_(Suffix)$/ [app/]', (string) $this->_mapper);
+    }
 }
