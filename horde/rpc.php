@@ -119,9 +119,15 @@ try {
     header('HTTP/1.1 501 Not Implemented');
 }
 
-/* Let the backend check authentication. By default, we look for HTTP
- * basic authentication against Horde, but backends can override this
- * as needed. */
+// Let the backend check authentication. By default, we look for HTTP
+// basic authentication against Horde, but backends can override this
+// as needed. Must reset the authentication arguement since we delegate
+// auth to the RPC server.
+$GLOBALS['registry']->setAuthenticationRequirement(
+    (array_key_exists($params, 'requireAuthorization') && $params['requireAuthorization'] === false)
+     ? 'none'
+     : 'Authenticate');
+
 try {
     $server->authorize();
 } catch (Horde_Rpc_Exception $e) {
@@ -130,6 +136,8 @@ try {
     echo $e->getMessage();
     exit;
 }
+
+
 /* Get the server's response. We call $server->getInput() to allow
  * backends to handle input processing differently. */
 if (is_null($input)) {
