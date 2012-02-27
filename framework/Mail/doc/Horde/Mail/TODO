@@ -3,7 +3,10 @@ TODO for 2.0
 
   - Horde_Mail_Rfc822_Address
 
+      Store hostnames IDN decoded in object.
       Store personal data MIME unencoded in object.
+      Rework idn option to writeAddress().
+      Remove adl.
       Remove personal_decoded (same as personal).
 
   - Horde_Mail_Rfc822_List

@@ -16,6 +16,9 @@
  */
 class Horde_Imap_Client_Cache
 {
+    /** Cache structure version. */
+    const VERSION = 1;
+
     /**
      * Singleton instances.
      *
@@ -435,8 +438,17 @@ class Horde_Imap_Client_Cache
     public function deleteMailbox($mbox)
     {
         $mbox = strval($mbox);
-
         $this->_loadSliceMap($mbox);
+        $this->_deleteMailbox($mbox);
+    }
+
+    /**
+     * Delete a mailbox from the cache.
+     *
+     * @param string $mbox  The mailbox to delete.
+     */
+    protected function _deleteMailbox($mbox)
+    {
         foreach (array_keys(array_flip($this->_slicemap[$mbox]['slice'])) as $slice) {
             $this->_cache->expire($this->_getCID($mbox, $slice));
         }
@@ -618,12 +630,16 @@ class Horde_Imap_Client_Cache
         }
 
         if (isset($this->_slicemap[$mailbox])) {
-            $ptr = &$this->_slicemap[$mailbox]['data']['uidvalid'];
-            if (is_null($ptr)) {
-                $ptr = $uidvalid;
+            $ptr = &$this->_slicemap[$mailbox];
+            if (!isset($ptr['version']) ||
+                ($ptr['version'] != self::VERSION)) {
+                $this->_deleteMailbox($mailbox);
+            } elseif (is_null($ptr['data']['uidvalid'])) {
+                $ptr['data']['uidvalid'] = $uidvalid;
                 return;
-            } elseif (!is_null($uidvalid) && ($ptr != $uidvalid)) {
-                $this->deleteMailbox($mailbox);
+            } elseif (!is_null($uidvalid) &&
+                ($ptr['data']['uidvalid'] != $uidvalid)) {
+                $this->_deleteMailbox($mailbox);
             } else {
                 return;
             }
@@ -638,7 +654,9 @@ class Horde_Imap_Client_Cache
             // UIDs to delete
             'delete' => array(),
             // The slice list.
-            'slice' => array()
+            'slice' => array(),
+            // Data version.
+            'version' => self::VERSION
         );
     }
 

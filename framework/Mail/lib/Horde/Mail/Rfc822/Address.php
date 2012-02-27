@@ -22,6 +22,13 @@
  * @category  Horde
  * @license   http://www.horde.org/licenses/bsd New BSD License
  * @package   Mail
+ *
+ * @property string $adl  ADL data (DEPRECATED).
+ * @property string $encoded  The full MIME/IDN encoded address. (Since 1.2.0)
+ * @property string $full_address  The full mailbox@host address.
+ * @property string $personal_decoded  The MIME decoded personal part.
+ *                                     (DEPRECATED)
+ * @property string $personal_encoded  The MIME encoded personal part.
  */
 class Horde_Mail_Rfc822_Address extends Horde_Mail_Rfc822_Object implements ArrayAccess
 {
@@ -97,6 +104,13 @@ class Horde_Mail_Rfc822_Address extends Horde_Mail_Rfc822_Object implements Arra
                 ? ''
                 : implode(',', $route);
 
+        case 'encoded':
+            // Returns the full MIME/IDN encoded address.
+            return $this->writeAddress(array(
+                'encode' => true,
+                'idn' => false
+            ));
+
         case 'full_address':
             // Return the full mailbox@host address.
             return is_null($this->host)
@@ -132,20 +146,23 @@ class Horde_Mail_Rfc822_Address extends Horde_Mail_Rfc822_Object implements Arra
     public function writeAddress(array $opts = array())
     {
         $host = ltrim($this->host, '@');
-        if (isset($opts['idn'])) {
-            switch ($opts['idn']) {
-            case true:
-                if (function_exists('idn_to_utf8')) {
-                    $host = idn_to_utf8($host);
-                }
-                break;
 
-            case false:
-                if (function_exists('idn_to_ascii')) {
-                    $host = idn_to_ascii($host);
-                }
-                break;
+        if (!array_key_exists('idn', $opts)) {
+            $opts['idn'] = true;
+        }
+
+        switch ($opts['idn']) {
+        case true:
+            if (function_exists('idn_to_utf8')) {
+                $host = idn_to_utf8($host);
             }
+            break;
+
+        case false:
+            if (function_exists('idn_to_ascii')) {
+                $host = idn_to_ascii($host);
+            }
+            break;
         }
 
         $rfc822 = new Horde_Mail_Rfc822();
