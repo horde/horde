@@ -16,6 +16,13 @@
 class IMP_Ui_Imageview
 {
     /**
+     * List of safe addresses.
+     *
+     * @var array
+     */
+    protected $_safeAddrs;
+
+    /**
      * Show inline images in messages?
      *
      * @param IMP_Contents $contents  The contents object containing the
@@ -23,9 +30,9 @@ class IMP_Ui_Imageview
      *
      * @return boolean  True if inline image should be shown.
      */
-    public function showInlineImage($contents)
+    public function showInlineImage(IMP_Contents $contents)
     {
-        global $injector, $prefs, $registry;
+        global $prefs, $registry;
 
         if (!$prefs->getValue('image_replacement')) {
             return true;
@@ -36,8 +43,7 @@ class IMP_Ui_Imageview
         }
 
         $from = Horde_Mime_Address::bareAddress($contents->getHeader()->getValue('from'));
-        if ($prefs->getValue('image_addrbook') &&
-            $registry->hasMethod('contacts/getField')) {
+        if ($registry->hasMethod('contacts/getField')) {
             $params = IMP::getAddressbookSearchParams();
             try {
                 if ($registry->call('contacts/getField', array($from, '__key', $params['sources'], false, true))) {
@@ -46,9 +52,31 @@ class IMP_Ui_Imageview
             } catch (Horde_Exception $e) {}
         }
 
-        /* Check admin defined e-mail list. */
-        list(, $config) = $injector->getInstance('Horde_Core_Factory_MimeViewer')->getViewerConfig('image/*', 'imp');
-        return (!empty($config['safe_addrs']) && in_array($from, $config['safe_addrs']));
+        /* Check safe address list. */
+        $this->_initSafeAddrList();
+        return in_array($from, $this->_safeAddrs);
+    }
+
+    /**
+     */
+    protected function _initSafeAddrList()
+    {
+        if (!isset($this->_safeAddrs)) {
+            $this->_safeAddrs = json_decode($GLOBALS['prefs']->getValue('image_replacement_addrs'));
+            if (empty($this->_safeAddrs)) {
+                $this->_safeAddrs = array();
+            }
+        }
+    }
+
+    /**
+     */
+    public function addSafeAddress($address)
+    {
+        $this->_initSafeAddrList();
+        $this->_safeAddrs[] = $address;
+        $this->_safeAddrs = array_keys(array_flip($this->_safeAddrs));
+        $GLOBALS['prefs']->setValue('image_replacement_addrs', json_encode($this->_safeAddrs));
     }
 
 }

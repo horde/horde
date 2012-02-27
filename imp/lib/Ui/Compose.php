@@ -186,7 +186,7 @@ class IMP_Ui_Compose
         }
 
         return (is_null($vars) || !isset($vars->uids))
-            ? IMP::$thismailbox->getIndicesOb(IMP::$uid)
+            ? IMP::mailbox(true)->getIndicesOb(IMP::uid())
             : new IMP_Indices_Form($vars->uids);
     }
 

@@ -261,7 +261,7 @@ class Turba_Api extends Horde_Registry_Api
                     // No backends are configured to provide shares
                     return array();
                 }
-                $addressbooks = $GLOBALS['turba_shares']->listShares(
+                $addressbooks = $GLOBALS['injector']->getInstance('Turba_Shares')->listShares(
                     $parts[0],
                     array('perm' => Horde_Perms::READ,
                           'attributes' => $parts[0]));
@@ -1926,41 +1926,35 @@ class Turba_Api extends Horde_Registry_Api
      * Returns all contact groups.
      *
      * @return array  A list of group hashes.
-     * @throws Horde_Exception
+     * @throws Turba_Exception
      */
     public function getGroupObjects()
     {
-        $listEntries = array();
-        $sources = $this->getSourcesConfig(array('type' => 'sql'));
-        foreach ($sources as $key => $source) {
+        $ret = array();
+
+        foreach ($this->getSourcesConfig(array('type' => 'sql')) as $key => $source) {
             if (empty($source['map']['__type'])) {
                 continue;
             }
 
-            $db[$key] =  empty($source['params']['sql'])
-                    ? $GLOBALS['injector']->getInstance('Horde_Db_Adapter')
-                    : $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create('turba', $source['params']['sql']);
-
-            $sql = 'SELECT ' . $source['map']['__key'] . ' id,'
-                . $source['map']['__members'] . ' members,'
-                . $source['map']['email'] . ' email,'
-                . $source['map'][$source['list_name_field']]
-                . ' name FROM ' . $source['params']['table'] . ' WHERE '
-                . $source['map']['__type'] . ' = \'Group\'';
+            list($db, $sql) = $this->_getGroupObject($source, 'Group');
 
             try {
-                $results = $db[$key]->selectAll($sql);
+                $results = $db->selectAll($sql);
             } catch (Horde_Db_Exception $e) {
                 Horde::logMessage($e);
-                throw new Horde_Exception_Wrapped($e);
+                throw new Turba_Exception($e);
             }
 
             foreach ($results as $row) {
-                $listEntries[$key . ':' . $row['id']] = $row;
+                /* name is a reserved word in Postgresql (at a minimum). */
+                $row['name'] = $row['lname'];
+                unset($row['lname']);
+                $ret[$key . ':' . $row['id']] = $row;
             }
         }
 
-        return $listEntries;
+        return $ret;
     }
 
     /**
@@ -1993,12 +1987,12 @@ class Turba_Api extends Horde_Registry_Api
      * @param string $gid  The group identifier.
      *
      * @return array  A hash defining the group.
-     * @throws Horde_Exception
+     * @throws Turba_Exception
      */
     public function getGroupObject($gid)
     {
-        if (empty($gid) || strpos($gid, ':') === false) {
-            throw new Horde_Exception(sprintf('Unsupported group id: %s', $gid));
+        if (empty($gid) || (strpos($gid, ':') === false)) {
+            throw new Turba_Exception(sprintf('Unsupported group id: %s', $gid));
         }
 
         $sources = $this->getSourcesConfig(array('type' => 'sql'));
@@ -2006,21 +2000,35 @@ class Turba_Api extends Horde_Registry_Api
         if (empty($sources[$source])) {
             return array();
         }
-        $db = empty($sources[$source]['params']['sql'])
-            ? $GLOBALS['injector']->getInstance('Horde_Db_Adapter')
-            : $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create('turba', $sources[$source]['params']['sql']);
-        $sql = 'SELECT ' . $sources[$source]['map']['__members'] . ' members,'
-            . $sources[$source]['map']['email'] . ' email,'
-            . $sources[$source]['map'][$sources[$source]['list_name_field']]
-            . ' name FROM ' . $sources[$source]['params']['table'] . ' WHERE '
-            . $sources[$source]['map']['__key'] . ' = ' . $db->quoteString($id);
+
+        list($db, $sql) = $this->_getGroupObject($sources[$source], $id);
 
         try {
-            return $db->selectOne($sql);
+            $ret = $db->selectOne($sql);
+            $ret['name'] = $ret['lname'];
+            unset($ret['lname']);
+            return $ret;
         } catch (Horde_Db_Exception $e) {
             Horde::logMessage($e);
-            throw new Horde_Exception_Wrapped($e);
+            throw new Turba_Exception($e);
         }
+    }
+
+    /**
+     */
+    protected function _getGroupObject($source, $key)
+    {
+        $db = empty($source['params']['sql'])
+            ? $GLOBALS['injector']->getInstance('Horde_Db_Adapter')
+            : $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create('turba', $source['params']['sql']);
+
+        $sql = 'SELECT ' . $source['map']['__members'] . ' members,'
+            . $source['map']['email'] . ' email,'
+            . $source['map'][$source['list_name_field']]
+            . ' lname FROM ' . $source['params']['table'] . ' WHERE '
+            . $source['map']['__key'] . ' = ' . $db->quoteString($key);
+
+        return array($db, $sql);
     }
 
     /**

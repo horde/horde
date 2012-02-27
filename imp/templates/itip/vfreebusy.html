@@ -1,0 +1,27 @@
+<h1 class="header"><tag:desc /></h1>
+
+<if:start>
+<p>
+ <strong><gettext>Start</gettext>:</strong>
+ <tag:start />
+</p>
+</if:start>
+<if:end>
+<p>
+ <strong><gettext>End</gettext>:</strong>
+ <tag:end />
+ </p>
+</if:end>
+
+<if:options>
+<h2 class="smallheader"><gettext>Actions</gettext></h2>
+
+<label for="action_<tag:options_id />" class="hidden"><gettext>Actions</gettext></label>
+<select id="action_<tag:options_id />" name="itip_action[<tag:options_id />]"
+ <option value="">-- <gettext>Select</gettext> --</option>
+<loop:options>
+ <option value="<tag:options.k />"><tag:options.v /></option>
+</loop:options>
+</select>
+<input type="submit" class="button" value="<gettext>Go</gettext>" />
+</if:options>

@@ -129,7 +129,7 @@ var IMPDialog = {
     {
         r = r.responseJSON;
 
-        if (r.success) {
+        if (r.success || (r.response && r.response.success)) {
             this._close();
             this.noreload = false;
             RedBox.getWindowContents().fire('IMPDialog:success', this.type);
@@ -140,6 +140,12 @@ var IMPDialog = {
                     location.reload();
                 }
             }
+        }
+
+        if (r.msgs && window.HordeCore) {
+            window.HordeCore.showNotifications(r.msgs);
+        } else if (r.msgs && parent.HordeCore) {
+            parent.HordeCore.showNotifications(r.msgs);
         } else if (r.error) {
             alert(r.error);
         }

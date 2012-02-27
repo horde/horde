@@ -10,10 +10,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-01-30</date>
- <time>17:37:03</time>
+ <date>2012-02-22</date>
+ <time>12:34:01</time>
  <version>
-  <release>1.2.4</release>
+  <release>1.2.5</release>
   <api>1.2.0</api>
  </version>
  <stability>
@@ -22,9 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Added WP7 devices to the list of devices with broken provisioning.
-* [mjr] Fix issue that could cause improper timezone handling in events passed from device to server in the beginning of a calendar year (Bug #10960).
-* [mjr] More improvements to security policies and device compatibility.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -561,12 +559,25 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-01-30</date>
+   <date>2012-02-22</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Added WP7 devices to the list of devices with broken provisioning.
 * [mjr] Fix issue that could cause improper timezone handling in events passed from device to server in the beginning of a calendar year (Bug #10960).
 * [mjr] More improvements to security policies and device compatibility.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.5</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-02-22</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

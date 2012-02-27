@@ -1,6 +1,6 @@
 <?php
 /**
- * RFC 822 Email parser/validator.
+ * RFC 822/2822/3490/5322 Email parser/validator.
  *
  * LICENSE:
  *
@@ -50,7 +50,7 @@
  */
 
 /**
- * RFC 822 Email parser/validator.
+ * RFC 822/2822/3490/5322 Email parser/validator.
  *
  * @author   Richard Heyes <richard@phpguru.org>
  * @author   Chuck Hagenbuch <chuck@horde.org>
@@ -96,12 +96,7 @@ class Horde_Mail_Rfc822
      *
      * @var array
      */
-    protected $_params = array(
-        'default_domain' => 'localhost',
-        'limit' => 0,
-        'nest_groups' => true,
-        'validate' => true
-    );
+    protected $_params = array();
 
     /**
      * Data pointer.
@@ -120,7 +115,10 @@ class Horde_Mail_Rfc822
     /**
      * Starts the whole process.
      *
-     * @param string $address  The address(es) to validate.
+     * @param mixed $address   The address(es) to validate. Either a string
+     *                         (since 1.0.0), a Horde_Mail_Rfc822_Object (since
+     *                         1.2.0), or an array of strings and/or
+     *                         Horde_Mail_Rfc822_Objects (since 1.2.0).
      * @param array $params    Optional parameters:
      *   - default_domain: (string) Default domain/host etc.
      *                     DEFAULT: localhost
@@ -144,21 +142,102 @@ class Horde_Mail_Rfc822
      */
     public function parseAddressList($address, array $params = array())
     {
-        foreach (array_keys($this->_params) as $key) {
-            if (isset($params[$key])) {
-                $this->_params[$key] = $params[$key];
+        $this->_params = array_merge(array(
+            'default_domain' => 'localhost',
+            'limit' => 0,
+            'nest_groups' => true,
+            'validate' => true
+        ), $params);
+
+        $this->_structure = array();
+
+        if (!is_array($address)) {
+            $address = array($address);
+        }
+
+        $tmp = array();
+        foreach ($address as $val) {
+            if ($val instanceof Horde_Mail_Rfc822_Object) {
+                $this->_structure[] = $val;
+            } else {
+                $tmp[] = rtrim(trim($val), ',');
             }
         }
 
-        $this->_data = $address;
-        $this->_datalen = strlen($address);
-        $this->_ptr = 0;
-        $this->_structure = array();
+        if (!empty($tmp)) {
+            $this->_data = implode(',', $tmp);
+            $this->_datalen = strlen($this->_data);
+            $this->_ptr = 0;
 
-        $this->_parseAddressList();
+            $this->_parseAddressList();
+        }
 
         return $this->_structure;
     }
+
+   /**
+     * Quotes and escapes the given string if necessary using rules contained
+     * in RFC 2822 [3.2.5].
+     *
+     * @since 1.2.0
+     *
+     * @param string $str   The string to be quoted and escaped.
+     * @param string $type  Either 'address', or 'personal'.
+     *
+     * @return string  The correctly quoted and escaped string.
+     */
+    public function encode($str, $type = 'address')
+    {
+        // Excluded (in ASCII): 0-8, 10-31, 34, 40-41, 44, 58-60, 62, 64,
+        // 91-93, 127
+        $filter = "\0\1\2\3\4\5\6\7\10\12\13\14\15\16\17\20\21\22\23\24\25\26\27\30\31\32\33\34\35\36\37\"(),:;<>@[\\]\177";
+
+        switch ($type) {
+        case 'personal':
+            // RFC 2822 [3.4]: Period not allowed in display name
+            $filter .= '.';
+            break;
+
+        case 'address':
+        default:
+            // RFC 2822 [3.4.1]: (HTAB, SPACE) not allowed in address
+            $filter .= "\11\40";
+            break;
+        }
+
+        // Strip double quotes if they are around the string already.
+        // If quoted, we know that the contents are already escaped, so
+        // unescape now.
+        $str = trim($str);
+        if ($str && ($str[0] == '"') && (substr($str, -1) == '"')) {
+            $str = stripslashes(substr($str, 1, -1));
+        }
+
+        return (strcspn($str, $filter) != strlen($str))
+            ? '"' . addcslashes($str, '\\"') . '"'
+            : $str;
+    }
+
+    /**
+     * If an email address has no personal information, get rid of any angle
+     * brackets (<>) around it.
+     *
+     * @since 1.2.0
+     *
+     * @param string $address  The address to trim.
+     *
+     * @return string  The trimmed address.
+     */
+    public function trimAddress($address)
+    {
+        $address = trim($address);
+
+        return (($address[0] == '<') && (substr($address, -1) == '>'))
+            ? substr($address, 1, -1)
+            : $address;
+    }
+
+    /* RFC 822 parsing methods. */
 
     /**
      * address-list = (address *("," address)) / obs-addr-list
@@ -349,7 +428,7 @@ class Horde_Mail_Rfc822
         if ($curr == '"') {
             $this->_rfc822ParseQuotedString($str);
         } else {
-            $this->_rfc822ParseDotAtom($str);
+            $this->_rfc822ParseDotAtom($str, '@');
         }
 
         return $str;
@@ -503,17 +582,20 @@ class Horde_Mail_Rfc822
      *
      * For RFC-822 compatibility allow LWSP around '.'
      *
+     * @param string &$str      The atom/dot data.
+     * @param string $validate  Use these characters as delimiter.
+     *
      * @throws Horde_Mail_Exception
      */
-    protected function _rfc822ParseDotAtom(&$str)
+    protected function _rfc822ParseDotAtom(&$str, $validate = null)
     {
         $curr = $this->_curr();
-        if (($curr === false) || !$this->_rfc822IsAtext($curr)) {
+        if (($curr === false) || !$this->_rfc822IsAtext($curr, $validate)) {
             throw new Horde_Mail_Exception('Error when parsing dot-atom.');
         }
 
         while (($chr = $this->_curr()) !== false) {
-            if ($this->_rfc822IsAtext($chr)) {
+            if ($this->_rfc822IsAtext($chr, $validate)) {
                 $str .= $chr;
                 $this->_curr(true);
             } else {
@@ -542,9 +624,7 @@ class Horde_Mail_Rfc822
     protected function _rfc822ParseAtomOrDot(&$str)
     {
         while (($chr = $this->_curr()) !== false) {
-            if (($chr != '.') &&
-                (($this->_params['validate'] && !$this->_rfc822IsAtext($chr)) ||
-                 (!$this->_params['validate'] && !strcspn($chr, '<:')))) {
+            if (($chr != '.') && !$this->_rfc822IsAtext($chr, ',<:')) {
                 $this->_rfc822SkipLwsp();
                 if (!$this->_params['validate']) {
                     $str = trim($str);
@@ -689,15 +769,21 @@ class Horde_Mail_Rfc822
     /**
      * Check if data is an atom.
      *
-     * @param string $chr  The character to check.
+     * @param string $chr       The character to check.
+     * @param string $validate  If in non-validate mode, use these characters
+     *                          as the non-atom delimiters.
      *
      * @return boolean  True if an atom.
      */
-    protected function _rfc822IsAtext($chr)
+    protected function _rfc822IsAtext($chr, $validate = null)
     {
-        return is_null($chr)
-            ? false
-            : !strcspn($chr, '!#$%&\'*+-./0123456789=?ABCDEFGHIJKLMNOPQRSTUVWXYZ^_`abcdefghijklmnopqrstuvwxyz{|}~');
+        if (is_null($chr)) {
+            return false;
+        }
+
+        return ($this->_params['validate'] || is_null($validate))
+            ? !strcspn($chr, '!#$%&\'*+-./0123456789=?ABCDEFGHIJKLMNOPQRSTUVWXYZ^_`abcdefghijklmnopqrstuvwxyz{|}~')
+            : strcspn($chr, $validate);
     }
 
     /* Helper methods. */
@@ -711,7 +797,7 @@ class Horde_Mail_Rfc822
      */
     protected function _curr($advance = false)
     {
-        return ($this->_ptr == $this->_datalen)
+        return ($this->_ptr >= $this->_datalen)
             ? false
             : $this->_data[$advance ? $this->_ptr++ : $this->_ptr];
     }

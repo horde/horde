@@ -20,7 +20,7 @@
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+ <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
 * 
  </notes>
@@ -111,7 +111,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-06</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * Avoid errors when a child node doesn&apos;t exist.
    </notes>
@@ -126,7 +126,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-03-08</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * First alpha release for Horde 4.
    </notes>
@@ -141,7 +141,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * First beta release for Horde 4.
    </notes>
@@ -156,7 +156,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-22</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * First release candidate for Horde 4.
    </notes>
@@ -171,7 +171,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-29</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * Second release candidate for Horde 4.
    </notes>
@@ -186,7 +186,7 @@
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * First stable release for Horde 4.
    </notes>
@@ -199,7 +199,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-11-08</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [jan] Fix tests to work with PHPUnit 3.6.
    </notes>
@@ -212,7 +212,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-11-08</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * 
    </notes>

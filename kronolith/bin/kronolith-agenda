@@ -31,7 +31,8 @@ function send_agendas()
         $runtime = time();
     }
 
-    $calendars = $GLOBALS['kronolith_shares']->listAllShares();
+    $kronolith_shares = $GLOBALS['injector']->getInstance('Kronolith_Shares');
+    $calendars = $kronolith_shares->listAllShares();
 
     // If there are no calendars to check, we're done.
     if (!count($calendars)) {
@@ -51,7 +52,7 @@ function send_agendas()
     $users = array();
     foreach (array_keys($calendars) as $calendarId) {
         try {
-            $calendar = $GLOBALS['kronolith_shares']->getShare($calendarId);
+            $calendar = $kronolith_shares->getShare($calendarId);
         } catch (Exception $e) {
             continue;
         }
@@ -99,7 +100,7 @@ function send_agendas()
         // If we found an email address, generate the agenda.
         switch ($agenda_calendars) {
         case 'owner':
-            $calendars = $GLOBALS['kronolith_shares']->listShares(
+            $calendars = $kronolith_shares->listShares(
                 $user,
                 array('perm' => Horde_Perms::SHOW,
                       'attributes' => $user));
@@ -107,7 +108,7 @@ function send_agendas()
             break;
 
         case 'read':
-            $calendars = $GLOBALS['kronolith_shares']->listShares(
+            $calendars = $kronolith_shares->listShares(
                 $user,
                 array('perm' => Horde_Perms::READ));
             $calendars = array_keys($calendars);
@@ -117,7 +118,7 @@ function send_agendas()
         default:
             $calendars = array();
             $shown_calendars = unserialize($prefs->getValue('display_cals'));
-            $cals = $GLOBALS['kronolith_shares']->listShares(
+            $cals = $kronolith_shares->listShares(
                 $user,
                 array('perm' => Horde_Perms::SHOW));
             foreach (array_keys($cals) as $calId) {

@@ -876,7 +876,7 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
 
             // Update a calendar.
             try {
-                $calendar = $GLOBALS['kronolith_shares']->getShare($calendar_id);
+                $calendar = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($calendar_id);
                 $original_name = $calendar->get('name');
                 $original_owner = $calendar->get('owner');
                 Kronolith::updateShare($calendar, $info);
@@ -1045,7 +1045,7 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
         switch ($this->_vars->type) {
         case 'internal':
             try {
-                $calendar = $GLOBALS['kronolith_shares']->getShare($calendar_id);
+                $calendar = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($calendar_id);
             } catch (Exception $e) {
                 $GLOBALS['notification']->push($e, 'horde.error');
                 return $result;

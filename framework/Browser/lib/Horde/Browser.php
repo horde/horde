@@ -974,8 +974,8 @@ class Horde_Browser
     public static function allowFileUploads()
     {
         if (!ini_get('file_uploads') ||
-            (!($dir = ini_get('upload_tmp_dir'))) ||
-            !is_writable($dir)) {
+            (($dir = ini_get('upload_tmp_dir')) &&
+             !is_writable($dir))) {
             return 0;
         }
 

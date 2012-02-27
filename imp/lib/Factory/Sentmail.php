@@ -31,12 +31,13 @@ class IMP_Factory_Sentmail extends Horde_Core_Factory_Injector
      * Return the IMP_Sentmail instance.
      *
      * @return IMP_Sentmail  The singleton instance.
+     * @throws IMP_Exception
      */
     public function create(Horde_Injector $injector)
     {
         $driver = empty($GLOBALS['conf']['sentmail']['driver'])
             ? 'Null'
-            : $GLOBALS['conf']['sentmail']['driver'];
+            : ucfirst($GLOBALS['conf']['sentmail']['driver']);
         $params = Horde::getDriverConfig('sentmail', $driver);
 
         if (strcasecmp($driver, 'Sql') === 0) {
@@ -45,7 +46,12 @@ class IMP_Factory_Sentmail extends Horde_Core_Factory_Injector
             $driver = 'Null';
         }
 
-        return IMP_Sentmail::factory($driver, $params);
+        $class = 'IMP_Sentmail_' . $driver;
+        if (class_exists($class)) {
+            return new $class($params);
+        }
+
+        throw new IMP_Exception('Sentmail driver not found: ' . $class);
     }
 
 }

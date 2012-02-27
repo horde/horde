@@ -10,10 +10,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-02-06</date>
- <time>00:55:05</time>
+ <date>2012-02-22</date>
+ <time>13:12:49</time>
  <version>
-  <release>1.5.0</release>
+  <release>1.5.1</release>
   <api>1.5.0</api>
  </version>
  <stability>
@@ -22,10 +22,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Do case-insensitive check for NIL in IMAP data.
-* [mms] Correctly support RFC 822 groups in envelope data.
-* [mms] Envelope address data now returned as Horde_Mail_Rfc822_Address objects.
-* [mms] Other places where bodystructure may return literals.
+* [mms] Fix accessing STATUS information for mailboxes with non 7-bit characters.
+* [mms] Fix &apos;vanished&apos; return from fetch().
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -760,18 +758,47 @@
   </release>
   <release>
    <version>
+    <release>1.4.4</release>
+    <api>1.4.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-02-12</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Re-release of 1.4.3 due to broken PEAR .tgz package.
+   </notes>
+  </release>
+  <release>
+   <version>
     <release>1.5.0</release>
     <api>1.5.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-02-06</date>
+   <date>2012-02-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add Horde_Imap_Client_Base#setParam() (Bug #10680).
+* [mms] Return correct authentication error if authentication fails after the original login (Bug #11007).
 * [mms] Do case-insensitive check for NIL in IMAP data.
 * [mms] Correctly support RFC 822 groups in envelope data.
 * [mms] Envelope address data now returned as Horde_Mail_Rfc822_Address objects.
 * [mms] Other places where bodystructure may return literals.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.5.1</release>
+    <api>1.5.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-02-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Fix accessing STATUS information for mailboxes with non 7-bit characters.
+* [mms] Fix &apos;vanished&apos; return from fetch().
    </notes>
   </release>
  </changelog>

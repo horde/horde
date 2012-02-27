@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ingo 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-09-20 13:49+0200\n"
+"POT-Creation-Date: 2012-02-22 11:20+0100\n"
 "PO-Revision-Date: 2011-04-21 11:13+0200\n"
 "Last-Translator: Jan Schneider\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -152,11 +152,11 @@ msgstr "%s kopieren"
 msgid "Copy of %s"
 msgstr "Kopie von %s"
 
-#: lib/Ingo.php:167
+#: lib/Ingo.php:166
 msgid "Could not validate IMAP mailbox."
 msgstr "Ungültiger IMAP-Ordner."
 
-#: lib/Ingo.php:121
+#: lib/Ingo.php:120
 msgid "Create new folder"
 msgstr "Neuen Ordner erstellen"
 
@@ -578,16 +578,16 @@ msgstr "Meine E-Mail-Adressen:"
 msgid "New Rule"
 msgstr "Neue Regel"
 
-#: lib/Ingo.php:318
+#: lib/Ingo.php:317
 #, php-format
 msgid "No \"%s\" element found in backend configuration."
 msgstr "\"%s\" in der Backendkonfiguration nicht angegeben."
 
-#: lib/Ingo.php:310
+#: lib/Ingo.php:309
 msgid "No backend configured for this host"
 msgstr "Keine Backendkonfiguration für diesen Host angegeben"
 
-#: lib/Ingo.php:283
+#: lib/Ingo.php:282
 msgid "No backends configured in backends.php"
 msgstr "Keine Backends in backends.php konfiguriert"
 
@@ -641,7 +641,7 @@ msgstr "Beteiligter (Von, An etc.)"
 msgid "Permission Denied"
 msgstr "Zugriff verweigert"
 
-#: lib/Ingo.php:136
+#: lib/Ingo.php:135
 msgid "Please enter the name of the new folder:"
 msgstr "Bitte geben Sie den Namen für den neuen Ordner an:"
 
@@ -771,15 +771,15 @@ msgstr "Skript"
 msgid "Script Updating"
 msgstr "Skript-Aktualisierung"
 
-#: lib/Ingo.php:263
+#: lib/Ingo.php:262
 msgid "Script not updated."
 msgstr "Skript nicht aktualisiert."
 
-#: lib/Ingo.php:233
+#: lib/Ingo.php:232
 msgid "Script successfully activated."
 msgstr "Skript erfolgreich aktiviert."
 
-#: lib/Ingo.php:232
+#: lib/Ingo.php:231
 msgid "Script successfully deactivated."
 msgstr "Skript erfolgreich deaktiviert."
 
@@ -799,7 +799,7 @@ msgstr "Filtersatz auswählen:"
 msgid "Select target folder"
 msgstr "Zielordner auswählen"
 
-#: lib/Ingo.php:117
+#: lib/Ingo.php:116
 msgid "Select target folder:"
 msgstr "Zielordner auswählen:"
 
@@ -879,15 +879,15 @@ msgstr "Die Adresse \"%s\" wurde zu Ihrer Ausschlussliste hinzugefügt."
 msgid "The address \"%s\" has been added to your whitelist."
 msgstr "Die Adresse \"%s\" wurde zu Ihrer Positivliste hinzugefügt."
 
-#: lib/Ingo.php:227
+#: lib/Ingo.php:226
 msgid "The driver said: "
 msgstr "Antwort des Treibers: "
 
-#: lib/Ingo.php:226
+#: lib/Ingo.php:225
 msgid "There was an error activating the script."
 msgstr "Beim Aktivieren des Skripts ist ein Fehler aufgetreten."
 
-#: lib/Ingo.php:225
+#: lib/Ingo.php:224
 msgid "There was an error deactivating the script."
 msgstr "Beim Deaktivieren des Skripts ist ein Fehler aufgetreten."
 

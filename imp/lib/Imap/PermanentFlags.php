@@ -13,7 +13,7 @@
  * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
-class IMP_Imap_PermanentFlags implements Iterator
+class IMP_Imap_PermanentFlags implements IteratorAggregate
 {
     /* IMAP flag indicating flags can be created in mailbox. */
     const CREATE = "\\*";
@@ -67,31 +67,11 @@ class IMP_Imap_PermanentFlags implements Iterator
                 (!$this->_nocreate || in_array($flag, $this->_set)));
     }
 
-    /* Iterator methods. */
+    /* IteratorAggregate method. */
 
-    public function current()
+    public function getIterator()
     {
-        return current($this->_set);
-    }
-
-    public function key()
-    {
-        return key($this->_set);
-    }
-
-    public function next()
-    {
-        next($this->_set);
-    }
-
-    public function rewind()
-    {
-        reset($this->_set);
-    }
-
-    public function valid()
-    {
-        return !is_null(key($this->_set));
+        return new ArrayIterator($this->_set);
     }
 
 }

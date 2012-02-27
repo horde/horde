@@ -748,13 +748,6 @@
     </para>
 </entry>
 
-<entry id="prefs-image_addrbook">
-    <title>Preferences: Image Replacement/Addressbook Show</title>
-    <para>
-    If blocking images for inline messages, should they be displayed automatically if the sender appears in your addressbook?
-    </para>
-</entry>
-
 <entry id="prefs-mailbox_start">
     <title>Preferences: Mailbox Start Page</title>
     <para>

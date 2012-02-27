@@ -1,5 +1,5 @@
 # Latvian translations for Horde package.
-# Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+# Copyright 2011 Horde LLC
 # This file is distributed under the same license as the Horde package.
 # Automatically generated, 2011.
 #
@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde 4.0.7-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-12-10 21:01+0200\n"
-"PO-Revision-Date: 2011-12-10 21:16+0300\n"
+"POT-Creation-Date: 2012-02-02 10:27+0200\n"
+"PO-Revision-Date: 2012-02-02 16:27+0300\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: lv\n"
@@ -21,7 +21,8 @@ msgstr ""
 "X-Poedit-Country: LATVIA\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-#: lib/Block/Weather.php:319
+#: lib/Block/Weatherdotcom.php:240 lib/Block/Weatherdotcom.php:343
+#: lib/Block/Weatherdotcom.php:389
 msgid " at "
 msgstr "plkst."
 
@@ -45,7 +46,12 @@ msgstr "\"%s\" nav izveidots: %s"
 msgid "%.2fMB used of %.2fMB allowed (%.2f%%)"
 msgstr "izmantoti %.2fMB no atļautajiem %.2fMB  (%.2f%%)"
 
-#: lib/Block/Weather.php:200
+#: lib/Block/Weather.php:194
+#, php-format
+msgid "%d %s"
+msgstr "%d %s"
+
+#: lib/Block/Weather.php:197 lib/Block/Weatherdotcom.php:221
 #, php-format
 msgid "%d %s and %s"
 msgstr "%d %s un %s"
@@ -73,7 +79,7 @@ msgstr[2] "%d personām tas patīk"
 msgid "%d to %d of %d"
 msgstr "%d līdz %d no %d"
 
-#: lib/Block/Weather.php:238
+#: lib/Block/Weather.php:237 lib/Block/Weatherdotcom.php:268
 #, php-format
 msgid "%d-day forecast"
 msgstr "%d-dienas prognoze"
@@ -113,7 +119,7 @@ msgstr ""
 "%s ir gatavs veikt zemāk uzskaitītos uzdevumus. Atzīmējiet operācijas, kuras "
 "vēlaties veikt šoreiz."
 
-#: lib/Block/Weather.php:322
+#: lib/Block/Weatherdotcom.php:347 lib/Block/Weatherdotcom.php:392
 msgid ", gusting "
 msgstr ", brāzmas "
 
@@ -200,6 +206,54 @@ msgid ""
 msgstr ""
 "Attālināti ierosināta iekārtas %s datu tīrīšana. Iekārta tiks iztīrīta "
 "nākošās sinhronizācijas laikā."
+
+#: lib/Block/WeatherdotcomStrings.php:7
+msgid "AM Clouds"
+msgstr "No rīta mākoņais"
+
+#: lib/Block/WeatherdotcomStrings.php:8
+msgid "AM Drizzle"
+msgstr "No rīta smidzinas"
+
+#: lib/Block/WeatherdotcomStrings.php:9
+msgid "AM Fog"
+msgstr "No rīta miglains"
+
+#: lib/Block/WeatherdotcomStrings.php:10
+msgid "AM Light Rain"
+msgstr "No rīta neliels lietus"
+
+#: lib/Block/WeatherdotcomStrings.php:11
+msgid "AM Light Snow"
+msgstr "No rīta nedaudz snigs"
+
+#: lib/Block/WeatherdotcomStrings.php:12
+msgid "AM Rain"
+msgstr "No rīta lietus"
+
+#: lib/Block/WeatherdotcomStrings.php:13
+msgid "AM Showers"
+msgstr "No rīta lietus"
+
+#: lib/Block/WeatherdotcomStrings.php:14
+msgid "AM Snow"
+msgstr "No rīta snigs"
+
+#: lib/Block/WeatherdotcomStrings.php:15
+msgid "AM Snow Showers"
+msgstr "No rīta sniegputenis"
+
+#: lib/Block/WeatherdotcomStrings.php:16
+msgid "AM Sun"
+msgstr "No rīta saulains"
+
+#: lib/Block/WeatherdotcomStrings.php:17
+msgid "AM T-Showers"
+msgstr "No rīta pērkona lietus"
+
+#: lib/Block/WeatherdotcomStrings.php:18
+msgid "AM T-Storms"
+msgstr "No rīta viesuļvētras"
 
 #: templates/data/datetime.inc:110 templates/data/time.inc:29
 msgid "AM/PM"
@@ -362,6 +416,10 @@ msgstr "Alternatīvais IMSP lietotāja vārds"
 #: services/resetpassword.php:32
 msgid "Alternate email address"
 msgstr "Alternatīvā e-pasta adrese"
+
+#: lib/Block/Weatherdotcom.php:150
+msgid "An unknown error has occured."
+msgstr "Radusies nezināma kļūda."
 
 #: services/resetpassword.php:49
 msgid "Answer"
@@ -531,9 +589,17 @@ msgstr "Pārlūks:"
 msgid "Burnt Orange"
 msgstr "Dedzināts oranžais"
 
+#: lib/Block/Weatherdotcom.php:146
+msgid "Cache init was not completed."
+msgstr "Keša inicializācija nav pabeigta."
+
 #: config/registry.php:144
 msgid "Calendar"
 msgstr "Kalendārs"
+
+#: lib/Block/Weatherdotcom.php:230
+msgid "Calm"
+msgstr "Mierīgs"
 
 #: themes/camouflage/info.php:2
 msgid "Camouflage"
@@ -573,7 +639,7 @@ msgstr "Central European (ISO-8859-2)"
 msgid "Change"
 msgstr "Mainīt"
 
-#: lib/Block/Weather.php:121
+#: lib/Block/Weather.php:120
 msgid "Change Location"
 msgstr "Mainīt atrašanās vietu"
 
@@ -630,6 +696,10 @@ msgstr "Izvēlieties datumu attēlošanas veidu (pilnā formāta):"
 msgid "Choose how to display times:"
 msgstr "Izvēlieties laika attēlošanas veidu:"
 
+#: lib/Block/WeatherdotcomStrings.php:19
+msgid "Clear"
+msgstr "Skaidrs"
+
 #: admin/sqlshell.php:122
 msgid "Clear Query"
 msgstr "Notīrīt vaicājumu"
@@ -646,6 +716,14 @@ msgstr "Izdzēst lietotāju"
 #: templates/admin/user/list.inc:37
 msgid "Clear user data"
 msgstr "Notīrīt lietotāja datus"
+
+#: lib/Block/WeatherdotcomStrings.php:20
+msgid "Clearing Early"
+msgstr "No rīta skaidrosies"
+
+#: lib/Block/WeatherdotcomStrings.php:21
+msgid "Clearing Late"
+msgstr "Vakarā skaidrosies"
 
 #: templates/prefs/addressbooks.html:3
 msgid ""
@@ -670,6 +748,18 @@ msgstr "Aizvērt logu"
 #: lib/Block/Metar.php:217
 msgid "Clouds"
 msgstr "Mākōni"
+
+#: lib/Block/WeatherdotcomStrings.php:22
+msgid "Clouds Early"
+msgstr "No rīta mākoņains"
+
+#: lib/Block/WeatherdotcomStrings.php:23
+msgid "Clouds Late"
+msgstr "Vakarā mākoņains"
+
+#: lib/Block/WeatherdotcomStrings.php:24
+msgid "Cloudy"
+msgstr "Mākoņains"
 
 #: admin/sessions.php:35
 msgid "Collapse"
@@ -700,7 +790,7 @@ msgstr "Komentāri: %d"
 msgid "Computers"
 msgstr "Datori"
 
-#: lib/Block/Weather.php:251
+#: lib/Block/Weather.php:250 lib/Block/Weatherdotcom.php:280
 msgid "Condition"
 msgstr "Nosacījums"
 
@@ -861,7 +951,11 @@ msgstr "Pašreizējais laiks"
 msgid "Current Weather"
 msgstr "Šā brīža laika apstākļi"
 
-#: lib/Block/Weather.php:231
+#: lib/Block/Weather.php:230
+msgid "Current condition"
+msgstr "Šībrīža apstākļi"
+
+#: lib/Block/Weatherdotcom.php:259
 msgid "Current condition: "
 msgstr "Šībrīža apstākļi:"
 
@@ -925,7 +1019,8 @@ msgstr "Saņemšanas datums"
 msgid "Date: %s; time: %s"
 msgstr "Datums: %s; laiks: %s"
 
-#: lib/Block/Weather.php:246
+#: lib/Block/Weather.php:245 lib/Block/Weatherdotcom.php:275
+#: lib/Block/Weatherdotcom.php:304
 msgid "Day"
 msgstr "Diena"
 
@@ -1035,7 +1130,11 @@ msgstr "Rasas punkts"
 msgid "Dew Point for last hour: "
 msgstr "Rasas punkts pēdējā stundā:"
 
-#: lib/Block/Weather.php:181
+#: lib/Block/Weather.php:178
+msgid "Dew point"
+msgstr "Rasas punkts"
+
+#: lib/Block/Weatherdotcom.php:211
 msgid "Dew point: "
 msgstr "Rasas punkts"
 
@@ -1053,7 +1152,7 @@ msgstr "Rādīt 24 h laiku?"
 msgid "Display Preferences"
 msgstr "Attēlošanas iestatījumi"
 
-#: lib/Block/Weather.php:90
+#: lib/Block/Weather.php:87 lib/Block/Weatherdotcom.php:79
 msgid "Display detailed forecast"
 msgstr "Parādīt detalizētu prognozi"
 
@@ -1077,6 +1176,10 @@ msgstr "Lejupielādēt %s"
 #: admin/config/index.php:306
 msgid "Download generated configuration as PHP script."
 msgstr "Lejuplādēt ģenerēto konfigurāciju kā PHP skriptu."
+
+#: lib/Block/WeatherdotcomStrings.php:25
+msgid "Drizzle"
+msgstr "Smidzinās"
 
 #: lib/Block/Fortune.php:41
 msgid "Drugs"
@@ -1241,6 +1344,10 @@ msgstr "Facebook integrācija"
 msgid "Fade to Green"
 msgstr "Pakāpeniski zaļš"
 
+#: lib/Block/WeatherdotcomStrings.php:26
+msgid "Fair"
+msgstr "Skaidrs"
+
 #: lib/Block/Feed.php:56
 msgid "Feed"
 msgstr "Plūsma"
@@ -1253,11 +1360,23 @@ msgstr "Feed adrese"
 msgid "Feels Like"
 msgstr "Komforts"
 
+#: lib/Block/Weatherdotcom.php:215
+msgid "Feels like: "
+msgstr "Komforts:"
+
+#: lib/Block/WeatherdotcomStrings.php:27
+msgid "Few Showers"
+msgstr "Dažas lietusgāzes"
+
+#: lib/Block/WeatherdotcomStrings.php:28
+msgid "Few Snow Showers"
+msgstr "Atsevišķi puteņi"
+
 #: templates/prefs/addressbooks.html:17
 msgid "Fields to search"
 msgstr "Meklēt laukos:"
 
-#: config/registry.php:305
+#: config/registry.php:310
 msgid "File Manager"
 msgstr "Faili"
 
@@ -1277,6 +1396,22 @@ msgstr "Pirmā puse"
 msgid "First Quarter"
 msgstr "Pirmais ceturksnis"
 
+#: lib/Block/WeatherdotcomStrings.php:29
+msgid "Fog"
+msgstr "Migla"
+
+#: lib/Block/WeatherdotcomStrings.php:30
+msgid "Fog Early"
+msgstr "No rīta miglains"
+
+#: lib/Block/WeatherdotcomStrings.php:31
+msgid "Fog Late"
+msgstr "Vakarā miglains"
+
+#: lib/Block/WeatherdotcomStrings.php:32
+msgid "Foggy"
+msgstr "Miglains"
+
 #: lib/Block/Fortune.php:44
 msgid "Food"
 msgstr "Pārtika"
@@ -1285,7 +1420,7 @@ msgstr "Pārtika"
 msgid "Forecast (TAF)"
 msgstr "Prognoze (TAF)"
 
-#: lib/Block/Weather.php:84
+#: lib/Block/Weather.php:81 lib/Block/Weatherdotcom.php:67
 msgid ""
 "Forecast Days (note that the returned forecast returns both day and night; a "
 "large number here could result in a wide block)"
@@ -1297,7 +1432,7 @@ msgstr ""
 msgid "Forgot your password?"
 msgstr "Aizmirsāt paroli?"
 
-#: config/registry.php:333
+#: config/registry.php:338
 msgid "Forms"
 msgstr "Formas"
 
@@ -1317,9 +1452,13 @@ msgstr "Aforismi"
 msgid "Fortunes 2"
 msgstr "Fortunes 2"
 
-#: config/registry.php:327
+#: config/registry.php:332
 msgid "Forums"
 msgstr "Forumi"
+
+#: lib/Block/WeatherdotcomStrings.php:33
+msgid "Freezing Drizzle"
+msgstr "Sasalstošs lietutiņš"
 
 #: services/facebook/index.php:76
 msgid "Friend Requests:"
@@ -1329,9 +1468,20 @@ msgstr "Draugu pieprasījumi:"
 msgid "Friends enabled"
 msgstr "Draugi iespējoti"
 
-#: lib/Block/Weather.php:209 lib/Block/Weather.php:318
+#: lib/Block/Weatherdotcom.php:232 lib/Block/Weatherdotcom.php:342
+#: lib/Block/Weatherdotcom.php:388
 msgid "From the "
 msgstr "No"
+
+#: lib/Block/Weather.php:207
+#, php-format
+msgid "From the %s (%s &deg;) at %s %s"
+msgstr "no %s (%s &deg;) plkst. %s %s"
+
+#: lib/Block/Weather.php:317
+#, php-format
+msgid "From the %s at %s %s"
+msgstr "No %s plkst. %s %s"
 
 #: templates/problem/problem.inc:48
 msgid "Full Description"
@@ -1407,6 +1557,18 @@ msgstr "Grupas"
 msgid "Guest Permissions"
 msgstr "Viesa pieejas tiesības"
 
+#: lib/Block/WeatherdotcomStrings.php:34
+msgid "Haze"
+msgstr "Tveice"
+
+#: lib/Block/WeatherdotcomStrings.php:35
+msgid "Heavy Rain"
+msgstr "Lietusgāze"
+
+#: lib/Block/WeatherdotcomStrings.php:36
+msgid "Heavy T-Storm"
+msgstr "Spēcīgs pērkona lietus"
+
 #: config/nls.php:179
 msgid "Hebrew (ISO-8859-8-I)"
 msgstr "Hebrew (ISO-8859-8-I)"
@@ -1451,6 +1613,10 @@ msgstr "Slēpt rezultātus"
 msgid "Hide Sidebar"
 msgstr "Slēpt sānjoslu"
 
+#: lib/Block/WeatherdotcomStrings.php:100
+msgid "High"
+msgstr "Augsta"
+
 #: lib/Block/Account.php:73
 msgid "Home Directory"
 msgstr "Mājas mape"
@@ -1471,11 +1637,12 @@ msgstr "Cik daudz lauku (sleju) šeit ir?"
 msgid "How many seconds before we check for new articles?"
 msgstr "Cik sekundes līdz nākošajam jaunu rakstu pieprasījumam?"
 
-#: lib/Block/Metar.php:203 lib/Block/Weather.php:254
+#: lib/Block/Metar.php:203 lib/Block/Weather.php:219 lib/Block/Weather.php:258
+#: lib/Block/Weatherdotcom.php:283
 msgid "Humidity"
 msgstr "Gaisa mitrums"
 
-#: lib/Block/Weather.php:220
+#: lib/Block/Weatherdotcom.php:243
 msgid "Humidity: "
 msgstr "Gaisa mitrums:"
 
@@ -1559,7 +1726,7 @@ msgstr "Iespējot bezgalīgā sesija."
 msgid "Information"
 msgstr "Iinformācija"
 
-#: lib/Block/Weather.php:288
+#: lib/Block/Weatherdotcom.php:312
 msgid "Information no longer available."
 msgstr "Informācija vairs nav pieejama."
 
@@ -1592,9 +1759,29 @@ msgstr "Nederīga aplikācija."
 msgid "Invalid hash."
 msgstr "Nepareizs hash."
 
+#: lib/Block/Weatherdotcom.php:160
+msgid "Invalid license key."
+msgstr "Nederīga licences atslēga."
+
+#: lib/Block/Weatherdotcom.php:154
+msgid "Invalid location provided."
+msgstr "Norādīta nesoša atrašanās vieta."
+
 #: admin/perms/addchild.php:29
 msgid "Invalid parent permission."
 msgstr "Nederīgas augstākā līmeņa tiesības."
+
+#: lib/Block/Weatherdotcom.php:156
+msgid "Invalid partner id."
+msgstr "Nepareizs partnera ID."
+
+#: lib/Block/Weatherdotcom.php:158
+msgid "Invalid product code."
+msgstr "Nepareizs produkta kods."
+
+#: lib/Block/WeatherdotcomStrings.php:37
+msgid "Isolated T-Storms"
+msgstr "Atsevišķas viesuļvētras"
 
 #: config/nls.php:180
 msgid "Japanese (ISO-2022-JP)"
@@ -1616,7 +1803,7 @@ msgstr "Atslēgvārds"
 msgid "Kids"
 msgstr "Bērni"
 
-#: themes/kolab/info.php:7
+#: config/registry.php:300 themes/kolab/info.php:7
 msgid "Kolab"
 msgstr "Kolab"
 
@@ -1682,6 +1869,46 @@ msgstr "Likumi"
 msgid "Light Blue"
 msgstr "Gaišzils"
 
+#: lib/Block/WeatherdotcomStrings.php:38
+msgid "Light Drizzle"
+msgstr "Smidzinās"
+
+#: lib/Block/WeatherdotcomStrings.php:39
+msgid "Light Rain"
+msgstr "Neliels lietus"
+
+#: lib/Block/WeatherdotcomStrings.php:40
+msgid "Light Rain Early"
+msgstr "No rīta neliels lietus"
+
+#: lib/Block/WeatherdotcomStrings.php:41
+msgid "Light Rain Late"
+msgstr "Vakarā neliels lietus"
+
+#: lib/Block/WeatherdotcomStrings.php:42
+msgid "Light Rain Shower"
+msgstr "Neliela lietugāze"
+
+#: lib/Block/WeatherdotcomStrings.php:43
+msgid "Light Rain with Thunder"
+msgstr "Neliels lietus ar pērkonu"
+
+#: lib/Block/WeatherdotcomStrings.php:44
+msgid "Light Snow"
+msgstr "Nedaudz snigs"
+
+#: lib/Block/WeatherdotcomStrings.php:45
+msgid "Light Snow Early"
+msgstr "No rīta nedaudz snigs"
+
+#: lib/Block/WeatherdotcomStrings.php:46
+msgid "Light Snow Late"
+msgstr "Vakarā nedaudz snigs"
+
+#: lib/Block/WeatherdotcomStrings.php:47
+msgid "Light Snow Shower"
+msgstr "Nelies sniegputenis"
+
 #: services/facebook/index.php:113
 msgid "Like"
 msgstr "Līdzīgs"
@@ -1725,15 +1952,21 @@ msgstr "Literatūra"
 msgid "Loading..."
 msgstr "Lasa..."
 
-#: lib/Block/Weather.php:155
+#: lib/Block/Weatherdotcom.php:195
 msgid "Local time: "
 msgstr "Vietējais laiks:"
+
+#: lib/Block/Weather.php:158
+#, php-format
+msgid "Local time: %s %s"
+msgstr "Vietējais laiks: %s %s"
 
 #: config/prefs.php:330
 msgid "Locale and Time"
 msgstr "Lokāle un laiks"
 
-#: lib/Block/Metar.php:51 lib/Block/Sunrise.php:23 lib/Block/Weather.php:70
+#: lib/Block/Metar.php:51 lib/Block/Sunrise.php:23 lib/Block/Weather.php:67
+#: lib/Block/Weatherdotcom.php:52
 msgid "Location"
 msgstr "Atrašanās vieta"
 
@@ -1774,6 +2007,10 @@ msgstr "Pieslēdzities Twitter un autorizējiet <tag:app_name /> aplikāciju"
 msgid "Love"
 msgstr "Mīlestība"
 
+#: lib/Block/WeatherdotcomStrings.php:98
+msgid "Low"
+msgstr "Zems"
+
 #: themes/luc/info.php:2
 msgid "Loyola"
 msgstr "Loyola"
@@ -1797,7 +2034,7 @@ msgstr "Magic"
 msgid "Mail"
 msgstr "Pasts"
 
-#: config/registry.php:350
+#: config/registry.php:355
 msgid "Mail Admin"
 msgstr "Pasta admins"
 
@@ -1856,7 +2093,12 @@ msgstr "Izvēlnes režīms:"
 msgid "Metar Weather"
 msgstr "Metar Weather"
 
-#: lib/Block/Metar.php:61 lib/Block/Weather.php:79
+#: lib/Block/Weatherdotcom.php:148
+msgid "MetarDB is not connected."
+msgstr "MetarDb nav pievienota."
+
+#: lib/Block/Metar.php:61 lib/Block/Weather.php:76
+#: lib/Block/Weatherdotcom.php:62
 msgid "Metric"
 msgstr "Metriskās"
 
@@ -1876,6 +2118,10 @@ msgstr "Dažādi"
 msgid "Missing configuration."
 msgstr "Nav atrodama konfigurācija."
 
+#: lib/Block/WeatherdotcomStrings.php:48
+msgid "Mist"
+msgstr "Dūmaka"
+
 #: login.php:235
 msgid "Mobile"
 msgstr "Mobilais"
@@ -1888,6 +2134,10 @@ msgstr "Mobilais (viedtālrunis)"
 msgid "Mode"
 msgstr "Mode"
 
+#: lib/Block/WeatherdotcomStrings.php:99
+msgid "Moderate"
+msgstr "Mērens"
+
 #: config/prefs.php:452
 msgid "Monday"
 msgstr "Pirmdiena"
@@ -1896,11 +2146,27 @@ msgstr "Pirmdiena"
 msgid "Moon Phases"
 msgstr "Mēness fāzes"
 
+#: lib/Block/WeatherdotcomStrings.php:49
+msgid "Mostly Clear"
+msgstr "Pamatā skaidrs"
+
+#: lib/Block/WeatherdotcomStrings.php:50
+msgid "Mostly Cloudy"
+msgstr "Pamatā mākoņains"
+
+#: lib/Block/WeatherdotcomStrings.php:51
+msgid "Mostly Cloudy and Windy"
+msgstr "Pamatā mākoņains un vējains"
+
+#: lib/Block/WeatherdotcomStrings.php:52
+msgid "Mostly Sunny"
+msgstr "Pamatā saulains"
+
 #: themes/mozilla/info.php:2
 msgid "Mozilla"
 msgstr "Mozilla"
 
-#: config/registry.php:300
+#: config/registry.php:305
 msgid "My Account"
 msgstr "Man konts"
 
@@ -1919,6 +2185,11 @@ msgstr "Mans portāls"
 #: services/portal/edit.php:32
 msgid "My Portal Layout"
 msgstr "Mans portāla izkārtojums"
+
+#: lib/Block/Weather.php:181 lib/Block/Weather.php:307
+#: lib/Block/Weather.php:311 lib/Block/Weather.php:327
+msgid "N/A"
+msgstr "Nav"
 
 #: templates/logintasks/logintasks.html:27 templates/logintasks/mobile.html:31
 msgid "NO, I Do NOT Agree"
@@ -1982,6 +2253,10 @@ msgstr "Turpināt"
 msgid "Next 4 Phases"
 msgstr "Nākošās 4 fāzes"
 
+#: lib/Block/Weatherdotcom.php:362
+msgid "Night"
+msgstr "Naktī"
+
 #: templates/prefs/alarm.html:32
 msgid "No Sound"
 msgstr "Nav skaņas"
@@ -1999,8 +2274,13 @@ msgid "No icons found."
 msgstr "Ikonas nav atrastas."
 
 #: lib/Block/Metar.php:99 lib/Block/Sunrise.php:45
+#: lib/Block/Weatherdotcom.php:113
 msgid "No location is set."
 msgstr "Nav iestatīta atrašanās vieta."
+
+#: lib/Block/Weatherdotcom.php:152
+msgid "No location provided."
+msgstr "Atrašanās vieta nav norādīta."
 
 #: lib/Block/Fortune.php:101
 msgid "No offensive fortunes"
@@ -2017,6 +2297,10 @@ msgstr "Nav norādīts drošības jautājums. Sazinieties ar savu administratoru
 #: admin/config/index.php:144 admin/config/index.php:182
 msgid "No stable version exists yet."
 msgstr "Stabila versija pagaidām nepastāv."
+
+#: lib/Block/Weatherdotcom.php:123
+msgid "No temporary directory available for cache."
+msgstr "Nav pieejamas pagaidu katalogs kešatmiņai."
 
 #: admin/signup_confirm.php:57
 msgid "No username specified."
@@ -2155,6 +2439,54 @@ msgstr "PHP kods"
 msgid "PHP Shell"
 msgstr "PHP čaula"
 
+#: lib/Block/WeatherdotcomStrings.php:54
+msgid "PM Clouds"
+msgstr "Pēcpusdienā mākoņains"
+
+#: lib/Block/WeatherdotcomStrings.php:55
+msgid "PM Drizzle"
+msgstr "Pēcpusdienā smidzinas"
+
+#: lib/Block/WeatherdotcomStrings.php:56
+msgid "PM Fog"
+msgstr "Pēcpusdienā migla"
+
+#: lib/Block/WeatherdotcomStrings.php:57
+msgid "PM Light Rain"
+msgstr "Pēcpusdienā neliels lietus"
+
+#: lib/Block/WeatherdotcomStrings.php:58
+msgid "PM Light Snow"
+msgstr "Pēcpusdienā nedaudz snigs"
+
+#: lib/Block/WeatherdotcomStrings.php:59
+msgid "PM Rain"
+msgstr "Pēcpusdienā lietus"
+
+#: lib/Block/WeatherdotcomStrings.php:60
+msgid "PM Showers"
+msgstr "Pēcpusdienā lietus"
+
+#: lib/Block/WeatherdotcomStrings.php:61
+msgid "PM Snow"
+msgstr "Pēcpusdienā snigs"
+
+#: lib/Block/WeatherdotcomStrings.php:62
+msgid "PM Snow Showers"
+msgstr "Pēcpusdienā sniegputenis"
+
+#: lib/Block/WeatherdotcomStrings.php:63
+msgid "PM Sun"
+msgstr "Pēcpusdienā saulains"
+
+#: lib/Block/WeatherdotcomStrings.php:64
+msgid "PM T-Showers"
+msgstr "Pēcpusdienā pērkona lietus"
+
+#: lib/Block/WeatherdotcomStrings.php:65
+msgid "PM T-Storms"
+msgstr "Pēcpusdienā viesuļvētra"
+
 #: lib/Block/Account/Localhost.php:53
 msgid "POSIX extension is missing"
 msgstr "POSIX paplašinājums nav atrodams"
@@ -2163,8 +2495,12 @@ msgstr "POSIX paplašinājums nav atrodams"
 msgid "P_HP Shell"
 msgstr "P_HP čaula"
 
+#: lib/Block/WeatherdotcomStrings.php:53
+msgid "Partly Cloudy"
+msgstr "Daļēji mākoņains"
+
 #: login.php:194 admin/user.php:40 admin/user.php:54
-#: admin/config/index.php:319 config/registry.php:317
+#: admin/config/index.php:319 config/registry.php:322
 #: templates/admin/user/update.inc:20
 msgid "Password"
 msgstr "Parole"
@@ -2219,7 +2555,7 @@ msgstr "Personīgā informācija"
 msgid "Pets"
 msgstr "Mājdzīvnieki"
 
-#: config/registry.php:338
+#: config/registry.php:343
 msgid "Photos"
 msgstr "Foto"
 
@@ -2285,11 +2621,16 @@ msgstr[0] "Nokrišņi pēdējā %d stundā:"
 msgstr[1] "Nokrišņi pēdējās %d stundās:"
 msgstr[2] "Nokrišņi pēdējās %d stundās:"
 
-#: lib/Block/Weather.php:252
+#: lib/Block/Weather.php:254
+#, php-format
+msgid "Precipitation%schance"
+msgstr "Nokrišņu%siespējamība"
+
+#: lib/Block/Weatherdotcom.php:281
 msgid "Precipitation<br />chance"
 msgstr "Nokrišņi<br />iespējamība"
 
-#: lib/Block/Metar.php:198
+#: lib/Block/Metar.php:198 lib/Block/Weather.php:191
 msgid "Pressure"
 msgstr "Spiediens"
 
@@ -2297,7 +2638,7 @@ msgstr "Spiediens"
 msgid "Pressure at sea level: "
 msgstr "Spiediens jūras līmenī:"
 
-#: lib/Block/Weather.php:194
+#: lib/Block/Weatherdotcom.php:219
 msgid "Pressure: "
 msgstr "Spiediens:"
 
@@ -2333,6 +2674,30 @@ msgstr "Vaicājums"
 #: lib/Block/Account.php:79
 msgid "Quota"
 msgstr "Kvota"
+
+#: lib/Block/WeatherdotcomStrings.php:66
+msgid "Rain"
+msgstr "Lietus"
+
+#: lib/Block/WeatherdotcomStrings.php:67
+msgid "Rain Early"
+msgstr "No rīta lietus"
+
+#: lib/Block/WeatherdotcomStrings.php:68
+msgid "Rain Late"
+msgstr "Vakarā lietus"
+
+#: lib/Block/WeatherdotcomStrings.php:69
+msgid "Rain Shower"
+msgstr "Lietusgāze"
+
+#: lib/Block/WeatherdotcomStrings.php:70
+msgid "Rain and Snow"
+msgstr "Lietus ar sniegu"
+
+#: lib/Block/WeatherdotcomStrings.php:71
+msgid "Rain to Snow"
+msgstr "Lietus ar sniegu"
 
 #: lib/Block/Fortune.php:18
 msgid "Random Fortune"
@@ -2426,6 +2791,10 @@ msgstr "Atbildēt"
 #: admin/activesync.php:140
 msgid "Reprovision All Devices"
 msgstr "Nodrošināt visas iekārtas"
+
+#: lib/Block/Weatherdotcom.php:140
+msgid "Requested service could not be found."
+msgstr "Pieprasītais pakalpojums nav atrasts."
 
 #: admin/user.php:27 templates/admin/user/update.inc:64
 #: templates/prefs/rpc.html:36
@@ -2531,6 +2900,14 @@ msgstr ""
 msgid "Saved configuration upgrade script to: \"%s\"."
 msgstr "Konfigurācijas uzlabojuma skripts saglabāts : \"%s\"."
 
+#: lib/Block/WeatherdotcomStrings.php:72
+msgid "Scattered Showers"
+msgstr "Vietām lietusgāzes"
+
+#: lib/Block/WeatherdotcomStrings.php:73
+msgid "Scattered T-Storms"
+msgstr "Vietām viesuļvētras"
+
 #: lib/Block/Fortune.php:66
 msgid "Science"
 msgstr "Zinātne"
@@ -2623,6 +3000,10 @@ msgstr "Sensors:"
 msgid "Server Time"
 msgstr "Servera laiks"
 
+#: lib/Block/Weatherdotcom.php:144
+msgid "Server data wrong or not available."
+msgstr "Servera dati ir nepareizi vai arī nepieejami."
+
 #: admin/sessions.php:19
 msgid "Session Admin"
 msgstr "Sesiju vadība"
@@ -2660,9 +3041,14 @@ msgstr ""
 "Iestatiet starta aplikāciju, krāsu shēmu, lapu atjaunošanas biežumu un citus "
 "ekrāna iestatījumus."
 
-#: lib/Block/Weather.php:137
+#: lib/Block/Weatherdotcom.php:170
 msgid "Several locations possible with the parameter: "
 msgstr "Šim parametram iespējamas vairākas atrašanās vietas:"
+
+#: lib/Block/Weather.php:136
+#, php-format
+msgid "Several locations possible with the parameter: %s"
+msgstr "Šim parametram iespējamas vairākas atrašanās vietas: %s"
 
 #: templates/problem/problem.inc:38
 msgid "Short Summary"
@@ -2714,6 +3100,22 @@ msgstr "Rādīt paziņojumus"
 msgid "Show the %s Menu on the left?"
 msgstr "Rādīt kreisās puses  %s izvēlni?"
 
+#: lib/Block/WeatherdotcomStrings.php:74
+msgid "Showers"
+msgstr "Lietusgāzes"
+
+#: lib/Block/WeatherdotcomStrings.php:75
+msgid "Showers Early"
+msgstr "No rīta lietusgāzes"
+
+#: lib/Block/WeatherdotcomStrings.php:76
+msgid "Showers Late"
+msgstr "Vakarā lietusgāzes"
+
+#: lib/Block/WeatherdotcomStrings.php:77
+msgid "Showers in the Vicinity"
+msgstr "Lietusgāzes tuvumā"
+
 #: themes/simplex/info.php:2
 msgid "Simplex"
 msgstr "Simplex"
@@ -2725,6 +3127,34 @@ msgstr "Izlaist pieslēgšanās uzdevumus"
 #: lib/Block/Iframe.php:35
 msgid "Small"
 msgstr "Mazs"
+
+#: lib/Block/WeatherdotcomStrings.php:78
+msgid "Snow"
+msgstr "Snigs"
+
+#: lib/Block/WeatherdotcomStrings.php:79
+msgid "Snow Early"
+msgstr "No rīta snigs"
+
+#: lib/Block/WeatherdotcomStrings.php:80
+msgid "Snow Late"
+msgstr "Vakarā snigs"
+
+#: lib/Block/WeatherdotcomStrings.php:81
+msgid "Snow Shower"
+msgstr "Putenis"
+
+#: lib/Block/WeatherdotcomStrings.php:82
+msgid "Snow Showers"
+msgstr "Sniegputenis"
+
+#: lib/Block/WeatherdotcomStrings.php:83
+msgid "Snow Showers Early"
+msgstr "No rīta sniegputenis"
+
+#: lib/Block/WeatherdotcomStrings.php:84
+msgid "Snow Showers Late"
+msgstr "Vakarā sniegputenis"
 
 #: lib/Block/Metar.php:251
 msgid "Snow depth: "
@@ -2758,7 +3188,8 @@ msgstr "Īpašo simbolu ievade"
 msgid "Sports"
 msgstr "Sports"
 
-#: lib/Block/Metar.php:60 lib/Block/Weather.php:78
+#: lib/Block/Metar.php:60 lib/Block/Weather.php:75
+#: lib/Block/Weatherdotcom.php:61
 msgid "Standard"
 msgstr "Standarta"
 
@@ -2866,7 +3297,12 @@ msgstr "Saule riet"
 msgid "Sunday"
 msgstr "Svētdiena"
 
-#: lib/Block/Weather.php:164
+#: lib/Block/WeatherdotcomStrings.php:85
+msgid "Sunny"
+msgstr "Saulains"
+
+#: lib/Block/Weather.php:163 lib/Block/Weather.php:164
+#: lib/Block/Weatherdotcom.php:200
 msgid "Sunrise"
 msgstr "Saullēkts"
 
@@ -2874,15 +3310,16 @@ msgstr "Saullēkts"
 msgid "Sunrise/Sunset"
 msgstr "Saullēkts/saulriets"
 
-#: lib/Block/Weather.php:163
+#: lib/Block/Weatherdotcom.php:199
 msgid "Sunrise: "
 msgstr "Saullēkts:"
 
-#: lib/Block/Weather.php:168
+#: lib/Block/Weather.php:166 lib/Block/Weather.php:167
+#: lib/Block/Weatherdotcom.php:203
 msgid "Sunset"
 msgstr "Saulriets"
 
-#: lib/Block/Weather.php:167
+#: lib/Block/Weatherdotcom.php:202
 msgid "Sunset: "
 msgstr "Saulriets:"
 
@@ -2893,6 +3330,38 @@ msgstr "SyncML"
 #: lib/Block/Feed.php:18
 msgid "Syndicated Feed"
 msgstr "Sindicētā plūsma"
+
+#: lib/Block/WeatherdotcomStrings.php:86
+msgid "T-Showers"
+msgstr "Pērkona lietus"
+
+#: lib/Block/WeatherdotcomStrings.php:87
+msgid "T-Showers Early"
+msgstr "No rīta pērkona lietus"
+
+#: lib/Block/WeatherdotcomStrings.php:88
+msgid "T-Showers Late"
+msgstr "Vakarā pērkona lietus"
+
+#: lib/Block/WeatherdotcomStrings.php:89
+msgid "T-Storm"
+msgstr "Viesuļvētra"
+
+#: lib/Block/WeatherdotcomStrings.php:90
+msgid "T-Storm and Windy"
+msgstr "Viesuļvētra un vējains"
+
+#: lib/Block/WeatherdotcomStrings.php:91
+msgid "T-Storms"
+msgstr "Viesuļvētra"
+
+#: lib/Block/WeatherdotcomStrings.php:92
+msgid "T-Storms Early"
+msgstr "No rīta viesuļvētras"
+
+#: lib/Block/WeatherdotcomStrings.php:93
+msgid "T-Storms Late"
+msgstr "Vakarā viesuļvētras"
 
 #: lib/Block/Cloud.php:13
 msgid "Tag Cloud"
@@ -2914,15 +3383,20 @@ msgstr "Krīklis"
 msgid "Temp for last hour: "
 msgstr "Temp. pēdējā stundā:"
 
-#: lib/Block/Metar.php:187
+#: lib/Block/Metar.php:187 lib/Block/Weather.php:173
 msgid "Temperature"
 msgstr "Temperatūra"
 
-#: lib/Block/Weather.php:176
+#: lib/Block/Weather.php:246
+#, php-format
+msgid "Temperature%s(%sHi%s/%sLo%s)"
+msgstr "Temperatūra%s(%sMaks%s/%sMin%s)"
+
+#: lib/Block/Weatherdotcom.php:207
 msgid "Temperature: "
 msgstr "Temperatūra:"
 
-#: lib/Block/Weather.php:247
+#: lib/Block/Weatherdotcom.php:276
 #, php-format
 msgid "Temperature<br />(%sHi%s/%sLo%s) &deg;%s"
 msgstr "Temperatūra<br />(%sMaks%s/%sMin%s) &deg;%s"
@@ -3123,6 +3597,10 @@ msgstr "PVN maksātāja numurs nav derīgs."
 msgid "This VAT identification number is valid."
 msgstr "PVN maksātāja numurs ir derīgs."
 
+#: lib/Block/WeatherdotcomStrings.php:94
+msgid "Thunder"
+msgstr "Pērkons"
+
 #: config/registry.php:232
 msgid "Tickets"
 msgstr "Biļetes"
@@ -3164,11 +3642,11 @@ msgstr ""
 "Lai iezīmētu vairākus objektus, klikšķinot turiet nospiestu Control (PC) vai "
 "Command (MAC) pogu."
 
-#: lib/Block/Weather.php:269
+#: lib/Block/Weather.php:279 lib/Block/Weatherdotcom.php:293
 msgid "Today"
 msgstr "Šodiena"
 
-#: lib/Block/Weather.php:271
+#: lib/Block/Weather.php:281 lib/Block/Weatherdotcom.php:295
 msgid "Tomorrow"
 msgstr "Rītdiena"
 
@@ -3205,6 +3683,10 @@ msgstr "%s Twitter skrejošā rinda"
 msgid "U characters"
 msgstr "U zīmes"
 
+#: lib/Block/Weatherdotcom.php:253
+msgid "U.V. index: "
+msgstr "U.V. indekss: "
+
 #: lib/Block/Iframe.php:23
 msgid "URL"
 msgstr "URL"
@@ -3235,9 +3717,14 @@ msgstr "Neklasificēts"
 msgid "Unicode (UTF-8)"
 msgstr "Unicode (UTF-8)"
 
-#: lib/Block/Metar.php:57 lib/Block/Weather.php:75
+#: lib/Block/Metar.php:57 lib/Block/Weather.php:72
+#: lib/Block/Weatherdotcom.php:57
 msgid "Units"
 msgstr "Vienības"
+
+#: lib/Block/Weatherdotcom.php:142
+msgid "Unknown location provided."
+msgstr "Norādīta nezināma atrašanās vieta."
 
 #: admin/locks.php:41
 msgid "Unlock"
@@ -3358,6 +3845,10 @@ msgstr "PVN identifikācijas numurs:"
 msgid "VAT number"
 msgstr "PVN numurs"
 
+#: lib/Block/Weatherdotcom.php:228
+msgid "Variable"
+msgstr "Mainīgs"
+
 #: templates/admin/config/index.html:46
 msgid "Version Check"
 msgstr "Versijas pārbaude"
@@ -3365,6 +3856,10 @@ msgstr "Versijas pārbaude"
 #: config/registry.php:221
 msgid "Version Control"
 msgstr "Versiju kontrole"
+
+#: lib/Block/WeatherdotcomStrings.php:101
+msgid "Very High"
+msgstr "Ļoti augsts"
 
 #: config/nls.php:187
 msgid "Vietnamese (VISCII)"
@@ -3374,11 +3869,11 @@ msgstr "Vietnamese (VISCII)"
 msgid "View an external web page"
 msgstr "apskatīt ārējo tīmekļa lapu"
 
-#: lib/Block/Metar.php:182
+#: lib/Block/Metar.php:182 lib/Block/Weather.php:224
 msgid "Visibility"
 msgstr "Redzamība"
 
-#: lib/Block/Weather.php:225
+#: lib/Block/Weatherdotcom.php:247
 msgid "Visibility: "
 msgstr "Redzamība:"
 
@@ -3390,11 +3885,16 @@ msgstr "Brīdinājums"
 msgid "Weather"
 msgstr "Laika apstākļi"
 
-#: lib/Block/Weather.php:342 lib/Block/Weather.php:350
+#: lib/Block/Weatherdotcom.php:41
+msgid "Weather Forecast"
+msgstr "Laika prognoze"
+
+#: lib/Block/Weather.php:339 lib/Block/Weather.php:347
+#: lib/Block/Weatherdotcom.php:409
 msgid "Weather data provided by"
 msgstr "Laika ziņu avots - "
 
-#: config/registry.php:322
+#: config/registry.php:327
 msgid "Web Site"
 msgstr "Vietne"
 
@@ -3449,13 +3949,22 @@ msgstr "Kuras fāzes"
 msgid "Width of the %s menu on the left:"
 msgstr "Kreisās %s izvēlnes platums:"
 
-#: config/registry.php:344
+#: config/registry.php:349
 msgid "Wiki"
 msgstr "Wiki"
 
-#: lib/Block/Weather.php:254
+#: lib/Block/Weather.php:204 lib/Block/Weather.php:262
+#: lib/Block/Weatherdotcom.php:283 lib/Block/WeatherdotcomStrings.php:95
 msgid "Wind"
 msgstr "Vējš"
+
+#: lib/Block/WeatherdotcomStrings.php:96
+msgid "Wind Early"
+msgstr "No rīta vējains"
+
+#: lib/Block/WeatherdotcomStrings.php:97
+msgid "Wind Late"
+msgstr "Vakarā vējains"
 
 #: lib/Block/Metar.php:66
 msgid "Wind speed in knots"
@@ -3465,7 +3974,7 @@ msgstr "Vēja ātrums mezglos"
 msgid "Wind:"
 msgstr "Vējš:"
 
-#: lib/Block/Weather.php:207
+#: lib/Block/Weatherdotcom.php:226
 msgid "Wind: "
 msgstr "Vējš: "
 
@@ -3777,10 +4286,6 @@ msgstr "Tiesības"
 msgid "_Users"
 msgstr "Lietotāji"
 
-#: lib/Block/Weather.php:210
-msgid "at"
-msgstr "Datums"
-
 #: services/problem.php:56
 msgid "attachment"
 msgstr "pielikums"
@@ -3790,12 +4295,17 @@ msgstr "pielikums"
 msgid "calm"
 msgstr "mierīgs"
 
+#: lib/Block/WeatherdotcomStrings.php:102
+msgid "falling"
+msgstr "krīt"
+
 #: lib/Block/Metar.php:147 lib/Block/Metar.php:333 lib/Block/Metar.php:359
 #, php-format
 msgid "from the %s (%s) at %s %s"
 msgstr "no %s (%s) plkst. %s %s"
 
-#: lib/Block/Weather.php:213
+#: lib/Block/Weather.php:213 lib/Block/Weather.php:322
+#: lib/Block/Weatherdotcom.php:234
 msgid "gusting"
 msgstr "brāzmas"
 
@@ -3809,9 +4319,17 @@ msgstr "iekļautais"
 msgid "preferences"
 msgstr "iestatījumi"
 
+#: lib/Block/WeatherdotcomStrings.php:104
+msgid "rising"
+msgstr "ceļas"
+
 #: admin/config/config.php:90
 msgid "show differences"
 msgstr "rādīt atškirības"
+
+#: lib/Block/WeatherdotcomStrings.php:103
+msgid "steady"
+msgstr "nemainīgs"
 
 #: admin/user.php:40 admin/user.php:54
 msgid "type the password twice to confirm"
@@ -3824,3 +4342,7 @@ msgstr "vienots"
 #: lib/Block/Weather.php:33
 msgid "weather"
 msgstr "Laika apstākļi"
+
+#: lib/Block/Weatherdotcom.php:34
+msgid "weather.com"
+msgstr "weather.com"

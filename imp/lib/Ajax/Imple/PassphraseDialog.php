@@ -114,9 +114,13 @@ class IMP_Ajax_Imple_PassphraseDialog extends Horde_Core_Ajax_Imple
      */
     public function handle($args, $post)
     {
+        global $injector, $notification, $registry;
+
         $result = new stdClass;
         $result->success = 0;
 
+        $dynamic_view = ($registry->getView() == Horde_Registry::VIEW_DYNAMIC);
+        $error = $success = null;
         $vars = Horde_Variables::getDefaultVariables();
 
         try {
@@ -126,38 +130,47 @@ class IMP_Ajax_Imple_PassphraseDialog extends Horde_Core_Ajax_Imple
             case 'pgpPersonal':
             case 'pgpSymmetric':
                 if ($vars->dialog_input) {
-                    $imp_pgp = $GLOBALS['injector']->getInstance('IMP_Crypt_Pgp');
+                    $imp_pgp = $injector->getInstance('IMP_Crypt_Pgp');
                     if ((($vars->type == 'pgpPersonal') &&
                          $imp_pgp->storePassphrase('personal', $vars->dialog_input)) ||
                         (($vars->type == 'pgpSymmetric') &&
                          $imp_pgp->storePassphrase('symmetric', $vars->dialog_input, $vars->symmetricid))) {
                         $result->success = 1;
+                        $success = _("PGP passhprase stored in session.");
                     } else {
-                        $result->error = _("Invalid passphrase entered.");
+                        $error = _("Invalid passphrase entered.");
                     }
                 } else {
-                    $result->error = _("No passphrase entered.");
+                    $error = _("No passphrase entered.");
                 }
                 break;
 
             case 'smimePersonal':
                 if ($vars->dialog_input) {
-                    $imp_smime = $GLOBALS['injector']->getInstance('IMP_Crypt_Smime');
+                    $imp_smime = $injector->getInstance('IMP_Crypt_Smime');
                     if ($imp_smime->storePassphrase($vars->dialog_input)) {
                         $result->success = 1;
+                        $success = _("S/MIME passhprase stored in session.");
                     } else {
-                        $result->error = _("Invalid passphrase entered.");
+                        $error = _("Invalid passphrase entered.");
                     }
                 } else {
-                    $result->error = _("No passphrase entered.");
+                    $error = _("No passphrase entered.");
                 }
                 break;
             }
         } catch (Horde_Exception $e) {
-            $result->error = $e->getMessage();
+            $error = $e->getMessage();
         }
 
-        return new Horde_Core_Ajax_Response_Raw($result);
+        if ($dynamic_view) {
+            $notification->push(is_null($error) ? $success : $error, is_null($error) ? 'horde.success' : 'horde.error');
+        } elseif (!is_null($error)) {
+            $result->error = $error;
+        }
+
+        $resp = new Horde_Core_Ajax_Response($result, $dynamic_view);
+        return $resp->jsonData();
     }
 
     /**

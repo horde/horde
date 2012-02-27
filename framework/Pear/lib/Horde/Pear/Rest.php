@@ -62,7 +62,7 @@ class Horde_Pear_Rest
     public function __construct($client, $url)
     {
         $this->_client = $client;
-        $this->_url = $url;
+        $this->_url = 'http://' . $url;
     }
 
     /**

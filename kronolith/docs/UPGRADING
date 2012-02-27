@@ -32,14 +32,6 @@ outdated.
 Upgrading Kronolith from 3.0 to 3.1
 ===================================
 
-Preferences
------------
-
-The following preferences have been removed:
-
-   dynamic_view
-
-
 
 Upgrading Kronolith from 2.3.x to 3.x
 =====================================

@@ -126,9 +126,13 @@ class Turba_Data_Ldif extends Horde_Data_Base
             $lines = preg_split('/\r?\n/', $record);
             $hash = array();
             foreach ($lines as $line) {
-                list($key, $delimiter, $value) = preg_split('/(:[:<]?) */', $line, 2, PREG_SPLIT_DELIM_CAPTURE);
-                if (in_array($key, $this->_mozillaAttr)) {
-                    $hash[$key] = ($delimiter == '::' ? base64_decode($value) : $value);
+                // [0] = key, [1] = delimiter, [2] = value
+                $res = preg_split('/(:[:<]?) */', $line, 2, PREG_SPLIT_DELIM_CAPTURE);
+                if ((count($res) == 3) &&
+                    in_array($res[0], $this->_mozillaAttr)) {
+                    $hash[$res[0]] = ($res[1] == '::')
+                        ? base64_decode($res[2])
+                        : $res[2];
                 }
             }
             $data[] = $hash;

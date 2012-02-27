@@ -11,8 +11,46 @@
 This lists the API changes between minor releases of the package.
 
 
-Upgrading To 1.1.0
-==================
+Upgrading To 1.2
+================
+
+Method API additions
+--------------------
+
+  - Horde_Mail_Rfc822#parseAddressList()
+
+    The first argument can now be a Horde_Mail_Rfc822_Object or an array of
+    address strings and/or Horde_Mail_Rfc822_Objects.
+
+  - Horde_Mail_Rfc822_Address#__construct()
+
+    The constructor now takes 1 optional argument: address.
+
+  - Horde_Mail_Rfc822_Group#__construct()
+
+    The constructor now takes 2 optional arguments: groupname and group
+    addresses.
+
+
+New Methods
+-----------
+
+  - Horde_Mail_Rfc822#encode()
+  - Horde_Mail_Rfc822#trimAddress()
+
+
+New Objects
+-----------
+
+  - Horde_Mail_Rfc822_Object
+
+    Horde_Mail_Rfc822_Address and Horde_Mail_Rfc822_Group now extend this
+    class.  Allows for easier determination if an object contains RFC 822
+    element information.
+
+
+Upgrading To 1.1
+================
 
 New Objects
 -----------

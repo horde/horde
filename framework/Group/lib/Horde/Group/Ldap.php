@@ -388,6 +388,7 @@ class Horde_Group_Ldap extends Horde_Group_Base
             }
             $filter = Horde_Ldap_Filter::create($this->_params['memberuid'],
                                                 'equals', $user);
+            $filter = Horde_Ldap_Filter::combine('and', array($this->_filter, $filter));
             $search = $this->_ldap->search($this->_params['basedn'], $filter,
                                            array($attr));
         } catch (Horde_Ldap_Exception $e) {

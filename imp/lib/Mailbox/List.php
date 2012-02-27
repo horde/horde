@@ -579,7 +579,7 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
 
         if ($this->_mailbox->search) {
             if (is_null($mbox)) {
-                $mbox = IMP::$thismailbox;
+                $mbox = IMP::mailbox(true);
             }
 
             /* Need to compare both mbox name and message UID to obtain the
@@ -658,8 +658,8 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
             $this->_sortedMbox = array_values($this->_sortedMbox);
         }
 
-        if (isset($this->_thread[$ob->mbox])) {
-            unset($this->_thread[$ob->mbox], $this->_threadui[$ob->mbox]);
+        if (isset($this->_thread[strval($ob->mbox)])) {
+            unset($this->_thread[strval($ob->mbox)], $this->_threadui[strval($ob->mbox)]);
         }
 
         return true;

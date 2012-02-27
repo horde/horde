@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mnemo 2.1.2\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-10-21 16:36+0300\n"
+"POT-Creation-Date: 2012-02-02 10:27+0200\n"
 "PO-Revision-Date: 2011-07-21 10:26+0300\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -68,7 +68,7 @@ msgstr "CSV"
 msgid "Cancel"
 msgstr "Atcelt"
 
-#: data.php:49 templates/view/memo.inc:26
+#: data.php:49 templates/view/memo.inc:24
 msgid "Category"
 msgstr "Kategorija"
 
@@ -107,7 +107,7 @@ msgid "Create a new Notepad"
 msgstr "Izveidot jaunu Piezīmju grāmatu"
 
 #
-#: templates/view/memo.inc:32
+#: templates/view/memo.inc:30
 msgid "Created"
 msgstr "Izveidota"
 
@@ -116,7 +116,7 @@ msgid "Date"
 msgstr "Datums"
 
 #
-#: templates/view/memo.inc:54 templates/memo/memo.inc:23
+#: templates/view/memo.inc:52 templates/memo/memo.inc:23
 msgid "Decrypt"
 msgstr "Atšifrēt"
 
@@ -133,7 +133,7 @@ msgstr "Noklusētais šķirošanas kritērijs:"
 msgid "Default sorting direction:"
 msgstr "Noklusētā šķirošanas kārtība:"
 
-#: templates/notepad_list.php:31 templates/view/memo.inc:16
+#: templates/notepad_list.php:31 templates/view/memo.inc:15
 #: notepads/index.php:35 lib/Form/DeleteNotepad.php:34
 msgid "Delete"
 msgstr "Dzēst"
@@ -173,7 +173,7 @@ msgid "Do you want to confirm deleting entries?"
 msgstr "Vai vēlaties apstiprināt ierakstu dzēšanu?"
 
 #
-#: templates/notepad_list.php:27 templates/view/memo.inc:13
+#: templates/notepad_list.php:27 templates/view/memo.inc:12
 #: notepads/index.php:33
 msgid "Edit"
 msgstr "Labot"
@@ -242,7 +242,7 @@ msgid "In: "
 msgstr "Kur:"
 
 #
-#: templates/view/memo.inc:39
+#: templates/view/memo.inc:37
 msgid "Last Modified"
 msgstr "Pēdējās izmaiņas"
 
@@ -270,7 +270,7 @@ msgstr "Pēdējo izmaiņu datums"
 msgid "More Options..."
 msgstr "Vairāk opciju..."
 
-#: lib/Api.php:346
+#: lib/Api.php:364
 msgid "Multiple iCalendar components found; only one vNote is supported."
 msgstr "Atrasti vairāki iCalendar komponenti; atbalstīts ir tikai viens vNote."
 
@@ -296,7 +296,7 @@ msgstr "Jauna piezīme"
 msgid "Next"
 msgstr "Nākamais"
 
-#: lib/Api.php:190 lib/Api.php:339
+#: lib/Api.php:208 lib/Api.php:357
 msgid "No iCalendar data was found."
 msgstr "iCalendar dati netika atrasti."
 
@@ -388,8 +388,8 @@ msgid "Ok"
 msgstr "Ok"
 
 #
-#: lib/Api.php:73 lib/Api.php:106 lib/Api.php:138 lib/Api.php:169
-#: lib/Api.php:254 lib/Api.php:299 lib/Api.php:322
+#: lib/Api.php:73 lib/Api.php:124 lib/Api.php:156 lib/Api.php:187
+#: lib/Api.php:272 lib/Api.php:317 lib/Api.php:340
 msgid "Permission Denied"
 msgstr "Pieeja liegta"
 
@@ -407,7 +407,7 @@ msgstr ""
 "rezultātā visas piezīmes šajā piezīmju grāmatā tiks izdzēstas."
 
 #
-#: templates/view/memo.inc:16
+#: templates/view/memo.inc:15
 msgid "Really delete this note?"
 msgstr "Tiešām dzēst šo piezīmi?"
 
@@ -416,7 +416,7 @@ msgstr "Tiešām dzēst šo piezīmi?"
 msgid "Save"
 msgstr "Saglabāt"
 
-#: templates/view/memo.inc:11
+#: templates/view/memo.inc:10
 msgid "Save as PDF"
 msgstr "Saglabāt kā PDF"
 
@@ -537,7 +537,7 @@ msgid "There was an error importing the data: %s"
 msgstr "Kļūda importējot datus: %s"
 
 #
-#: lib/Api.php:184 lib/Api.php:333
+#: lib/Api.php:202 lib/Api.php:351
 msgid "There was an error importing the iCalendar data."
 msgstr "Kļūda importējot iCalendar datus."
 
@@ -586,17 +586,17 @@ msgstr ""
 msgid "This note has been encrypted, please provide the password below"
 msgstr "Šī piezīme ir šifrēta, lūdzu ievadiet paroli"
 
-#: lib/Api.php:248 lib/Driver/Kolab.php:292 lib/Driver/Sql.php:344
+#: lib/Api.php:266 lib/Driver/Kolab.php:292 lib/Driver/Sql.php:344
 msgid "This note has been encrypted."
 msgstr "Piezīme ir nošifrēta."
 
-#: templates/view/memo.inc:27 templates/list/memo_summaries.inc:20
+#: templates/view/memo.inc:25 templates/list/memo_summaries.inc:20
 #: lib/Mnemo.php:310 lib/Mnemo.php:311 lib/Mnemo.php:325 lib/Mnemo.php:326
 #: lib/Block/Summary.php:116
 msgid "Unfiled"
 msgstr "Neklasificēts"
 
-#: lib/Api.php:217 lib/Api.php:273 lib/Api.php:356
+#: lib/Api.php:235 lib/Api.php:291 lib/Api.php:374
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr "Neatbalstīts satura tips: %s"
@@ -658,12 +658,12 @@ msgid "_Category:"
 msgstr "Kategorija:"
 
 #
-#: templates/view/memo.inc:16
+#: templates/view/memo.inc:15
 msgid "_Delete"
 msgstr "Dzēst"
 
 #
-#: templates/view/memo.inc:13
+#: templates/view/memo.inc:12
 msgid "_Edit"
 msgstr "Labot"
 
@@ -690,7 +690,7 @@ msgstr "Piezīmju saraksts"
 msgid "_New Note"
 msgstr "Jauna piezīme"
 
-#: templates/view/memo.inc:52 templates/memo/memo.inc:21
+#: templates/view/memo.inc:50 templates/memo/memo.inc:21
 msgid "_Password"
 msgstr "Parole"
 

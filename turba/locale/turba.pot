@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Turba H4 (3.0.11-git)\n"
+"Project-Id-Version: Turba H4 (3.0.12-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"POT-Creation-Date: 2012-02-22 11:20+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -108,7 +108,7 @@ msgid_plural "Added or updated %d contacts, but at least one contact failed:"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/Driver.php:2878
+#: lib/Driver.php:2909
 msgid "Adding contacts is not available."
 msgstr ""
 
@@ -138,7 +138,7 @@ msgstr ""
 msgid "Address book successfully purged."
 msgstr ""
 
-#: lib/Application.php:259
+#: lib/Application.php:260
 msgid "Address books that will not be displayed:"
 msgstr ""
 
@@ -154,7 +154,7 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-#: lib/Application.php:373
+#: lib/Application.php:374
 msgid ""
 "All state removed for your ActiveSync devices. They will resynchronize next "
 "time they connect to the server."
@@ -206,7 +206,7 @@ msgstr ""
 msgid "Birthdays"
 msgstr ""
 
-#: contact.php:111 templates/browse/row.inc:10
+#: contact.php:112 templates/browse/row.inc:10
 msgid "Blank name"
 msgstr ""
 
@@ -268,7 +268,7 @@ msgstr ""
 msgid "Choose an address book"
 msgstr ""
 
-#: lib/Application.php:253
+#: lib/Application.php:254
 msgid "Choose which address books to display, and in what order:"
 msgstr ""
 
@@ -384,7 +384,7 @@ msgstr ""
 msgid "Copy"
 msgstr ""
 
-#: templates/search/duplicate/list.html.php:11
+#: templates/search/duplicate/list.html.php:16
 msgid "Count"
 msgstr ""
 
@@ -400,7 +400,7 @@ msgstr ""
 msgid "Create a new Address Book"
 msgstr ""
 
-#: lib/View/List.php:466
+#: lib/View/List.php:476
 msgid "Create a new Contact List in:"
 msgstr ""
 
@@ -413,15 +413,25 @@ msgid "De_lete"
 msgstr ""
 
 #: addressbooks/index.php:42 lib/Form/DeleteAddressBook.php:33
-#: lib/View/DeleteContact.php:61 templates/addressbook_list.php:35
+#: lib/View/DeleteContact.php:60 templates/addressbook_list.php:35
 #: templates/browse/actions.inc:3
 #: templates/search/duplicate/contact_header.html.php:22
 msgid "Delete"
 msgstr ""
 
-#: lib/Form/DeleteAddressBook.php:28 lib/View/DeleteContact.php:30
+#: lib/View/DeleteContact.php:28
+#, php-format
+msgid "Delete \"%s\""
+msgstr ""
+
+#: lib/Form/DeleteAddressBook.php:28
 #, php-format
 msgid "Delete %s"
+msgstr ""
+
+#: lib/View/DeleteContact.php:28
+#, php-format
+msgid "Delete Group \"%s\""
 msgstr ""
 
 #: lib/Api.php:414
@@ -433,7 +443,7 @@ msgstr ""
 msgid "Delete failed: (%s) %s"
 msgstr ""
 
-#: lib/Driver.php:2891
+#: lib/Driver.php:2922
 msgid "Deleting contacts is not available."
 msgstr ""
 
@@ -469,7 +479,7 @@ msgstr ""
 msgid "Duplicate Search"
 msgstr ""
 
-#: templates/search/duplicate/list.html.php:6
+#: templates/search/duplicate/list.html.php:11
 #, php-format
 msgid "Duplicates of %s"
 msgstr ""
@@ -481,19 +491,28 @@ msgstr ""
 
 #: addressbooks/index.php:40 templates/addressbook_list.php:31
 #: templates/browse/actions.inc:6 templates/browse/column_headers.inc:11
-#: templates/browse/row.inc:37
+#: templates/browse/row.inc:36
 #: templates/search/duplicate/contact_header.html.php:29
 msgid "Edit"
 msgstr ""
 
-#: edit.php:90
+#: edit.php:85 lib/View/EditContact.php:27
 #, php-format
 msgid "Edit \"%s\""
 msgstr ""
 
-#: lib/Form/EditAddressBook.php:30 lib/View/EditContact.php:29
+#: lib/Form/EditAddressBook.php:30
 #, php-format
 msgid "Edit %s"
+msgstr ""
+
+#: edit.php:85 lib/View/EditContact.php:27
+#, php-format
+msgid "Edit Group \"%s\""
+msgstr ""
+
+#: lib/Form/EditContact.php:106
+msgid "Edit/View Group Members"
 msgstr ""
 
 #: config/attributes.php:276
@@ -607,9 +626,9 @@ msgstr ""
 msgid "Find"
 msgstr ""
 
-#: lib/Form/EditContactGroup.php:21 lib/Form/EditContactGroup.php:25
-#: lib/Form/EditContactGroup.php:29 lib/Form/EditContactGroup.php:34
-#: lib/Form/EditContactGroup.php:69
+#: lib/Form/EditContactGroup.php:22 lib/Form/EditContactGroup.php:26
+#: lib/Form/EditContactGroup.php:30 lib/Form/EditContactGroup.php:35
+#: lib/Form/EditContactGroup.php:79
 msgid "Finish"
 msgstr ""
 
@@ -629,7 +648,7 @@ msgstr ""
 msgid "Gender"
 msgstr ""
 
-#: templates/browse/row.inc:56
+#: templates/browse/row.inc:54
 msgid "Group"
 msgstr ""
 
@@ -907,12 +926,12 @@ msgstr ""
 msgid "Name:"
 msgstr ""
 
-#: add.php:71 lib/Application.php:496
+#: add.php:71 lib/Application.php:502
 msgid "New Contact"
 msgstr ""
 
-#: lib/Form/EditContactGroup.php:24 lib/Form/EditContactGroup.php:33
-#: lib/Form/EditContactGroup.php:83 templates/data/import.inc:46
+#: lib/Form/EditContactGroup.php:25 lib/Form/EditContactGroup.php:34
+#: lib/Form/EditContactGroup.php:93 templates/data/import.inc:46
 msgid "Next"
 msgstr ""
 
@@ -947,7 +966,11 @@ msgstr ""
 msgid "No contacts match the current filter."
 msgstr ""
 
-#: lib/View/List.php:235
+#: templates/search/duplicate/list.html.php:7
+msgid "No duplicates found."
+msgstr ""
+
+#: lib/View/List.php:245
 msgid "No matching contacts"
 msgstr ""
 
@@ -959,16 +982,16 @@ msgstr ""
 msgid "No vCard data was found."
 msgstr ""
 
-#: lib/Application.php:407 templates/list/numPager.inc:8
+#: lib/Application.php:413 templates/list/numPager.inc:8
 msgid "None"
 msgstr ""
 
-#: lib/View/Contact.php:26 lib/View/DeleteContact.php:28
-#: lib/View/EditContact.php:27
+#: lib/View/Contact.php:26 lib/View/DeleteContact.php:29
+#: lib/View/EditContact.php:28
 msgid "Not Found"
 msgstr ""
 
-#: deletefile.php:18 edit.php:44
+#: deletefile.php:18 edit.php:46
 msgid "Not found"
 msgstr ""
 
@@ -1049,12 +1072,12 @@ msgstr ""
 msgid "Pager"
 msgstr ""
 
-#: lib/View/DeleteContact.php:60
+#: lib/View/DeleteContact.php:59
 msgid "Permanently delete this contact?"
 msgstr ""
 
 #: deletefile.php:32 lib/Api.php:665 lib/Api.php:1633 lib/Driver.php:859
-#: lib/Driver/Sql.php:645
+#: lib/Driver/Share.php:223 lib/Driver/Sql.php:645
 msgid "Permission denied"
 msgstr ""
 
@@ -1078,8 +1101,8 @@ msgstr ""
 msgid "Please name the new contact list:"
 msgstr ""
 
-#: lib/Form/EditContactGroup.php:28 lib/Form/EditContactGroup.php:32
-#: lib/Form/EditContactGroup.php:76
+#: lib/Form/EditContactGroup.php:29 lib/Form/EditContactGroup.php:33
+#: lib/Form/EditContactGroup.php:86
 msgid "Previous"
 msgstr ""
 
@@ -1101,7 +1124,7 @@ msgstr ""
 msgid "Read failed: (%s) %s"
 msgstr ""
 
-#: lib/Driver.php:2865
+#: lib/Driver.php:2896
 msgid "Reading contacts is not available."
 msgstr ""
 
@@ -1116,7 +1139,7 @@ msgstr ""
 msgid "Remove from this list"
 msgstr ""
 
-#: lib/Driver.php:2916
+#: lib/Driver.php:2947
 msgid ""
 "Removing user data is not supported in the current address book storage "
 "driver."
@@ -1157,18 +1180,18 @@ msgstr ""
 msgid "Save search as a virtual address book?"
 msgstr ""
 
-#: lib/Driver.php:2904
+#: lib/Driver.php:2935
 msgid "Saving contacts is not available."
 msgstr ""
 
-#: config/prefs.php:109 lib/Application.php:539
+#: config/prefs.php:109 lib/Application.php:545
 #: templates/block/minisearch.inc:20 templates/browse/header.inc:3
 #: templates/search/advanced.html.php:5 templates/search/basic.html.php:25
-#: templates/search/duplicate.html.php:12
+#: templates/search/duplicate.html.php:11
 msgid "Search"
 msgstr ""
 
-#: templates/search/duplicate.html.php:1
+#: templates/search/duplicate.html.php:2
 msgid "Search duplicates in:"
 msgstr ""
 
@@ -1185,11 +1208,11 @@ msgstr ""
 msgid "Search for: "
 msgstr ""
 
-#: lib/Driver.php:2847
+#: lib/Driver.php:2878
 msgid "Searching is not available."
 msgstr ""
 
-#: templates/browse/row.inc:47
+#: templates/browse/row.inc:45
 msgid "Select contact"
 msgstr ""
 
@@ -1273,7 +1296,7 @@ msgstr ""
 msgid "Show Lists"
 msgstr ""
 
-#: lib/View/List.php:312 lib/View/List.php:318
+#: lib/View/List.php:321 lib/View/List.php:327
 msgid "Sort Direction"
 msgstr ""
 
@@ -1416,8 +1439,8 @@ msgstr ""
 msgid "The import can be finished despite the warnings."
 msgstr ""
 
-#: lib/View/Contact.php:37 lib/View/DeleteContact.php:38
-#: lib/View/EditContact.php:37
+#: lib/View/Contact.php:37 lib/View/DeleteContact.php:37
+#: lib/View/EditContact.php:36
 msgid "The requested contact was not found."
 msgstr ""
 
@@ -1450,7 +1473,7 @@ msgid ""
 "for further help."
 msgstr ""
 
-#: lib/Application.php:375
+#: lib/Application.php:376
 #, php-format
 msgid "There was an error communicating with the ActiveSync server: %s"
 msgstr ""
@@ -1482,7 +1505,7 @@ msgstr ""
 msgid "There was an error importing the iCalendar data."
 msgstr ""
 
-#: lib/Application.php:433 lib/Application.php:463 lib/Application.php:476
+#: lib/Application.php:439 lib/Application.php:469 lib/Application.php:482
 #, php-format
 msgid "There was an error removing an address book for %s"
 msgstr ""
@@ -1497,7 +1520,7 @@ msgstr ""
 msgid "There were no addresses to export."
 msgstr ""
 
-#: lib/Application.php:254
+#: lib/Application.php:255
 msgid "These address books will display in this order:"
 msgstr ""
 
@@ -1657,7 +1680,7 @@ msgstr ""
 msgid "You didn't mark a contact as your own yet."
 msgstr ""
 
-#: edit.php:61 lib/View/DeleteContact.php:44 lib/View/EditContact.php:43
+#: edit.php:63 lib/View/DeleteContact.php:43 lib/View/EditContact.php:42
 #: view.php:36
 msgid "You do not have permission to view this contact."
 msgstr ""
@@ -1688,11 +1711,11 @@ msgstr ""
 msgid "You must select a target contact list."
 msgstr ""
 
-#: edit.php:28 lib/Turba.php:677
+#: edit.php:29 lib/Turba.php:677
 msgid "You must select at least one contact first."
 msgstr ""
 
-#: edit.php:64 lib/View/DeleteContact.php:47 lib/View/EditContact.php:46
+#: edit.php:66 lib/View/DeleteContact.php:46 lib/View/EditContact.php:45
 msgid "You only have permission to view this contact."
 msgstr ""
 
@@ -1794,7 +1817,7 @@ msgstr ""
 msgid "female"
 msgstr ""
 
-#: lib/Application.php:509
+#: lib/Application.php:515
 #, php-format
 msgid "in %s"
 msgstr ""

@@ -424,15 +424,16 @@ class Horde_Registry
         }
 
         /* Start a session. */
-        $GLOBALS['session'] = $session = new Horde_Session();
         if ($session_flags & self::SESSION_NONE ||
             (PHP_SAPI == 'cli') ||
             (((PHP_SAPI == 'cgi') || (PHP_SAPI == 'cgi-fcgi')) &&
              empty($_SERVER['SERVER_NAME']))) {
             /* Never start a session if the session flags include
                SESSION_NONE. */
-            $session->setup(false, $args['session_cache_limiter']);
+            $GLOBALS['session'] = $session = new Horde_Session_Null();
+            //$session->setup(false, $args['session_cache_limiter']);
         } else {
+            $GLOBALS['session'] = $session = new Horde_Session();
             $session->setup(true, $args['session_cache_limiter']);
             if ($session_flags & self::SESSION_READONLY) {
                 /* Close the session immediately so no changes can be made but
@@ -1123,6 +1124,26 @@ class Horde_Registry
     }
 
     /**
+     * Is an application method defined (i.e. it extends the default method)?
+     *
+     * @since 2.0.0
+     *
+     * @param string $app   The application to check.
+     * @param string $name  The method name to check.
+     *
+     * @return boolean  True if method is defined.
+     */
+    public function appMethodDefined($app, $name)
+    {
+        try {
+            $method = new ReflectionMethod($this->getApiInstance($app, 'application'), $name);
+            return ($method->getDeclaringClass()->name != 'Horde_Registry_Application');
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
+    /**
      * Returns the link corresponding to the default package that provides the
      * functionality requested by the $method parameter.
      *
@@ -1544,15 +1565,16 @@ class Horde_Registry
             $this->pushApp($app);
         }
 
-        if ($this->getAuth()) {
-            if (isset($prefs) && ($prefs->getUser() == $this->getAuth())) {
+        $user = $this->getAuth();
+        if ($user) {
+            if (isset($prefs) && ($prefs->getUser() == $user)) {
                 $prefs->retrieve($app);
                 return;
             }
 
             $opts = array(
                 'password' => $this->getAuthCredential('password'),
-                'user' => $this->getAuth()
+                'user' => $user,
             );
         } else {
             /* If there is no logged in user, return an empty Horde_Prefs
@@ -2232,7 +2254,9 @@ class Horde_Registry
         }
 
         $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-        return @unserialize($secret->read($secret->getKey('auth'), $session->get('horde', 'auth_app/' . $app)));
+        $data = $secret->read($secret->getKey('auth'),
+                              $session->get('horde', 'auth_app/' . $app));
+        return @unserialize($data);
     }
 
     /**

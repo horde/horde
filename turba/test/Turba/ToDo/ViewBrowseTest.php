@@ -38,7 +38,6 @@ class Turba_ToDo_ViewBrowseTest extends Turba_TestBase {
                                    'registry' => $GLOBALS['registry'],
                                    'browse_source_count' => 1,
                                    'browse_source_options' => "My Address Book",
-                                   'copymove_source_options' => null,
                                    'copymoveSources' => array(),
                                    'addSources' => $cfgSources,
                                    'cfgSources' => $cfgSources,

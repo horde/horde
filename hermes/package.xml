@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-12-05</date>
- <time>20:14:09</time>
+ <date>2012-02-07</date>
+ <time>21:35:42</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -32,7 +32,7 @@
   <release>alpha</release>
   <api>alpha</api>
  </stability>
- <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
+ <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
  <notes>
 * [jan] Add Latvian translation (Jānis Eisaks &lt;jancs@dv.lv&gt;).
 * [mjr] Allow pausing and restarting timers.
@@ -106,6 +106,7 @@
       <file name="Upgrade.php" role="horde" />
      </dir> <!-- /lib/LoginTasks/SystemTask -->
     </dir> <!-- /lib/LoginTasks -->
+    <file name="Ajax.php" role="horde" />
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Driver.php" role="horde" />
@@ -459,6 +460,7 @@
    <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
    <install as="TODO" name="docs/TODO" />
    <install as="hermes/js/hermes.js" name="js/hermes.js" />
+   <install as="hermes/lib/Ajax.php" name="lib/Ajax.php" />
    <install as="hermes/lib/Api.php" name="lib/Api.php" />
    <install as="hermes/lib/Application.php" name="lib/Application.php" />
    <install as="hermes/lib/Driver.php" name="lib/Driver.php" />
@@ -608,7 +610,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
 * [jan] Add Latvian translation (Jānis Eisaks &lt;jancs@dv.lv&gt;).
 * [mjr] Allow pausing and restarting timers.
@@ -626,7 +628,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-07-13</date>
-   <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
 * Initial release.
    </notes>

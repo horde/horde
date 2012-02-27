@@ -16,80 +16,35 @@ HermesCore = {
     today: null,
     redBoxLoading: false,
 
-    doActionOpts: {
-        onException: function(parentfunc, r, e)
-        {
-            /* Make sure loading images are closed. */
-            this.loading--;
-            if (!this.loading) {
-                $('hermesLoading').hide();
-            }
-            this.closeRedBox();
-            this.showNotifications([ {type: 'horde.error', message: Hermes.text.ajax_error} ]);
-            this.debug('onException', e);
-        }.bind(this),
-
-        onFailure: function(t, o) {
-            HermesCore.debug('onFailure', t);
-            HermesCore.showNotifications([ {type: 'horde.error', message: Hermes.text.ajax_error} ]);
-        },
-        evalJS: false,
-        evalJSON: true
+    onException: function(parentfunc, r, e)
+    {
+        /* Make sure loading images are closed. */
+        this.loading--;
+        if (!this.loading) {
+            $('hermesLoading').hide();
+        }
+        this.closeRedBox();
+        HordeCore.notify(HordeCoreText.ajax_error, 'horde.error');
+        parentfunc(r, e);
     },
 
-    /* 'action' -> if action begins with a '*', the exact string will be used
-     *  instead of sending the action to the ajax handler. */
-    doAction: function(action, params, callback, opts)
+    setTitle: function(title)
     {
-        // poll?
-        if (action == 'poll') {
-            callback = this.pollCallback.bind(this);
-        }
-        opts = Object.extend(this.doActionOpts, opts || {});
-        params = $H(params);
-        action = action.startsWith('*')
-            ? action.substring(1)
-            : Hermes.conf.URI_AJAX + action;
-        if (Hermes.conf.SESSION_ID) {
-            params.update(Hermes.conf.SESSION_ID.toQueryParams());
-        }
-        opts.parameters = params.toQueryString();
-        opts.onComplete = function(t, o) {this.doActionComplete(t, callback);}.bind(this);
-        new Ajax.Request(action, opts);
+        document.title = Hermes.conf.name + ' :: ' + title;
+        return title;
     },
 
-    doActionComplete: function(request, callback)
+    // url = (string) URL to redirect to
+    // hash = (boolean) If true, url is treated as hash information to alter
+    //        on the current page
+    redirect: function(url, hash)
     {
-        this.inAjaxCallback = true;
-
-        if (!request.responseJSON) {
-            if (++this.server_error == 3) {
-                this.showNotifications([ {type: 'horde.error', message: Hermes.text.ajax_timeout} ]);
-            }
-            this.inAjaxCallback = false;
-            return;
+        if (hash) {
+            window.location.hash = escape(url);
+            window.location.reload();
+        } else {
+            HordeCore.redirect(url);
         }
-
-        var r = request.responseJSON;
-        if (!r.msgs) {
-            r.msgs = [];
-        }
-
-        if (r.response && Object.isFunction(callback)) {
-            try {
-                callback(r);
-            } catch (e) {
-                this.debug('doActionComplete', e);
-            }
-        }
-
-        if (this.server_error >= 3) {
-            r.msgs.push({type: 'horde.success', message: Hermes.text.ajax_recover});
-        }
-        this.server_error = 0;
-
-        this.showNotifications(r.msgs);
-        this.inAjaxCallback = false;
     },
 
     go: function(fullloc, data)
@@ -100,6 +55,7 @@ HermesCore = {
         }
         var locParts = fullloc.split(':');
         var loc = locParts.shift();
+
         if (this.inPrefs && loc != 'prefs') {
             this.redirect(fullloc, true);
             return;
@@ -107,7 +63,9 @@ HermesCore = {
         if (this.openLocation == fullloc) {
             return;
         }
+
         this.viewLoading.push([ fullloc, data ]);
+
         switch (loc) {
         case 'time':
         case 'search':
@@ -153,9 +111,9 @@ HermesCore = {
             this.closeView('iframe');
             var app = locParts.shift();
             if (data) {
-                this.iframeContent(data);
+                this.loadPage(data);
             } else if (Hermes.conf.app_urls[app]) {
-                this.iframeContent(Hermes.conf.app_urls[app]);
+                this.loadPage(Hermes.conf.app_urls[app]);
             }
             this.view = 'iframe';
             this.loadNextView();
@@ -286,7 +244,7 @@ HermesCore = {
                 e.stop();
                 return;
             case 'hermesLogout':
-                this.logout();
+                HordeCore.logout();
                 e.stop();
                 return;
             case 'hermesTimeFormCollapse':
@@ -306,6 +264,9 @@ HermesCore = {
                 this.newTimer();
                 e.stop();
                 return;
+            case 'hermesNotifications':
+                HordeCore.Growler.toggleLog();
+                break;
             }
 
             switch (elt.className) {
@@ -412,12 +373,13 @@ HermesCore = {
         // Manually update the client list, and wait for the callback to continue
         // TODO: Cache the deliverable list for each client to avoid hitting
         //       the server for each edit.
-        this.doAction('listDeliverables',
+        HordeCore.doAction('listDeliverables',
               { 'c': $F('hermesTimeFormClient') },
-              function(r) {
-                this.listDeliverablesCallback(r);
-                $('hermesTimeFormCostobject').setValue(slice.co);
-              }.bind(this)
+              { 'callback': function(r) {
+                    this.listDeliverablesCallback(r);
+                    $('hermesTimeFormCostobject').setValue(slice.co);
+                }.bind(this)
+              }
         );
         d = this.parseDate(slice.d);
         $('hermesTimeFormStartDate').setValue(d.toString(Hermes.conf.date_format));
@@ -433,7 +395,10 @@ HermesCore = {
     {
         $('hermesLoading').show();
         sid = slice.retrieve('sid');
-        this.doAction('deleteSlice', {'id': sid}, this.deletesliceCallback.curry(slice, sid).bind(this));
+        HordeCore.doAction('deleteSlice',
+            { 'id': sid },
+            { 'callback': this.deletesliceCallback.curry(slice, sid).bind(this) }
+        );
     },
 
     deletesliceCallback: function(elt, sid, r)
@@ -499,9 +464,9 @@ HermesCore = {
     clientChangeHandler: function(e)
     {
         $('hermesLoading').show();
-        this.doAction('listDeliverables',
-                      {'c': $F('hermesTimeFormClient')},
-                      this.listDeliverablesCallback.bind(this)
+        HordeCore.doAction('listDeliverables',
+            { 'c': $F('hermesTimeFormClient') },
+            { 'callback': this.listDeliverablesCallback.bind(this) }
         );
     },
 
@@ -527,16 +492,22 @@ HermesCore = {
             !$F('hermesTimeFormHours'),
             !$F('hermesTimeFormJobtype')) {
 
-            alert(Hermes.text.fix_form_values);
+            HordeCore.notify(Hermes.text.fix_form_values, 'horde.warning');
             return;
         }
         $('hermesLoading').show();
         params = $H($('hermesTimeForm').serialize({ hash: true }));
         // New or Edit?
         if ($F('hermesTimeFormId') > 0) {
-            this.doAction('updateSlice', params, this.editTimeCallback.curry($F('hermesTimeFormId')).bind(this));
+            HordeCore.doAction('updateSlice',
+                params,
+                { 'callback': this.editTimeCallback.curry($F('hermesTimeFormId')).bind(this) }
+            );
         } else {
-            this.doAction('enterTime', params, this.saveTimeCallback.bind(this));
+            HordeCore.doAction('enterTime',
+                params,
+                { 'callback': this.saveTimeCallback.bind(this) }
+            );
         }
         $('hermesTimeSaveAsNew').hide();
     },
@@ -567,7 +538,10 @@ HermesCore = {
 
     newTimer: function()
     {
-        this.doAction('addTimer', { 'desc': $F('hermesTimerTitle') }, this.newTimerCallback.bind(this));
+        HordeCore.doAction('addTimer',
+            { 'desc': $F('hermesTimerTitle') },
+            { 'callback': this.newTimerCallback.bind(this) }
+        );
     },
 
     newTimerCallback: function(r)
@@ -616,19 +590,28 @@ HermesCore = {
     stopTimer: function(elt)
     {
         var t = elt.up().retrieve('tid');
-        this.doAction('stopTimer', { 't': t }, this.closeTimerCallback.curry(elt).bind(this));
+        HordeCore.doAction('stopTimer',
+            { 't': t },
+            { 'callback': this.closeTimerCallback.curry(elt).bind(this) }
+        );
     },
 
     pauseTimer: function(elt)
     {
         var t = elt.up().retrieve('tid');
-        this.doAction('pauseTimer', { 't': t }, this.pauseTimerCallback.curry(elt).bind(this));
+        HordeCore.doAction('pauseTimer',
+            { 't': t },
+            { 'callback': this.pauseTimerCallback.curry(elt).bind(this) }
+        );
     },
 
     playTimer: function(elt)
     {
         var t = elt.up().retrieve('tid');
-        this.doAction('startTimer', { 't': t }, this.playTimerCallback.curry(elt).bind(this));
+        HordeCore.doAction('startTimer',
+            { 't': t },
+            { 'callback': this.playTimerCallback.curry(elt).bind(this) }
+        );
     },
 
     closeTimerCallback: function(elt, r)
@@ -666,9 +649,10 @@ HermesCore = {
             sliceIds.push(s.up().retrieve('sid'));
             slices.push(s.up());
         }.bind(this));
-        this.doAction('submitSlices',
-                      { 'items': sliceIds.join(':') },
-                      this.submitSlicesCallback.curry(slices).bind(this));
+        HordeCore.doAction('submitSlices',
+            { 'items': sliceIds.join(':') },
+            { 'callback': this.submitSlicesCallback.curry(slices).bind(this) }
+        );
     },
 
     submitSlicesCallback: function(ids, r)
@@ -706,7 +690,10 @@ HermesCore = {
     {
         $('hermesLoading').show();
         this.slices = [];
-        this.doAction('getTimeSlices', { "e": Hermes.conf.user, "s": false }, this.loadSlicesCallback.bind(this));
+        HordeCore.doAction('getTimeSlices',
+            { 'e': Hermes.conf.user, 's': false },
+            { 'callback': this.loadSlicesCallback.bind(this) }
+        );
     },
 
     /**
@@ -831,6 +818,15 @@ HermesCore = {
         this.buildTimeTable();
     },
 
+    loadPage: function(loc)
+    {
+        if (Hermes.conf.use_iframe) {
+            this.iframeContent(loc);
+        } else {
+            window.location.assign(loc);
+        }
+    },
+
     /**
      * Loads an external page into the iframe view.
      *
@@ -845,53 +841,11 @@ HermesCore = {
             iframe = $('hermesIframe');
         }
         iframe.observe('load', function() {
-            view.appear({duration: this.effectDur, queue: 'end'});
+            view.appear({ duration: this.effectDur, queue: 'end' });
             iframe.stopObserving('load');
         }.bind(this));
-        iframe.src = loc;
+        iframe.src = HordeCore.addURLParam(loc, { ajaxui: 1 });
         this.view = 'iframe';
-    },
-
-    setTitle: function(title)
-    {
-        document.title = Hermes.conf.name + ' :: ' + title;
-        return title;
-    },
-
-    logout: function(url)
-    {
-        this.is_logout = true;
-        this.redirect(url || (Hermes.conf.URI_AJAX + 'logOut'));
-    },
-
-    // url = (string) URL to redirect to
-    // hash = (boolean) If true, url is treated as hash information to alter
-    //        on the current page
-    redirect: function(url, hash)
-    {
-        if (hash) {
-            window.location.hash = escape(url);
-            window.location.reload();
-        } else {
-            window.location.assign(this.addURLParam(url));
-        }
-    },
-
-    addURLParam: function(url, params)
-    {
-        var q = url.indexOf('?');
-        params = $H(params);
-
-        if (Hermes.conf.SESSION_ID) {
-            params.update(Hermes.conf.SESSION_ID.toQueryParams());
-        }
-
-        if (q != -1) {
-            params.update(url.toQueryParams());
-            url = url.substring(0, q);
-        }
-
-        return params.size() ? (url + '?' + params.toQueryString()) : url;
     },
 
     /**
@@ -911,132 +865,6 @@ HermesCore = {
                 queue: 'end'
             });
             this.view = null;
-        }
-    },
-
-    showNotifications: function(msgs)
-    {
-        if (!msgs.size() || this.is_logout) {
-            return;
-        }
-
-        msgs.find(function(m) {
-            switch (m.type) {
-            case 'horde.ajaxtimeout':
-                this.logout(m.message);
-                return true;
-
-            case 'horde.alarm':
-                var alarm = m.flags.alarm;
-                // Only show one instance of an alarm growl.
-                if (this.alarms.include(alarm.id)) {
-                    break;
-                }
-
-                this.alarms.push(alarm.id);
-
-                var message = alarm.title.escapeHTML();
-                if (alarm.params && alarm.params.notify) {
-                    if (alarm.params.notify.ajax) {
-                        message = new Element('a')
-                            .insert(message)
-                            .observe('click', function(e) {
-                                this.Growler.ungrowl(e.findElement('div'));
-                                this.go(alarm.params.notify.ajax);
-                            }.bindAsEventListener(this));
-                    } else if (alarm.params.notify.url) {
-                        message = new Element('a', {href: alarm.params.notify.url})
-                            .insert(message);
-                    }
-                    if (alarm.params.notify.sound) {
-                        Sound.play(alarm.params.notify.sound);
-                    }
-                }
-                message = new Element('div')
-                    .insert(message);
-                if (alarm.params && alarm.params.notify &&
-                    alarm.params.notify.subtitle) {
-                    message.insert(new Element('br')).insert(alarm.params.notify.subtitle);
-                }
-                if (alarm.user) {
-                    var select = '<select>';
-                    $H(Hermes.conf.snooze).each(function(snooze) {
-                        select += '<option value="' + snooze.key + '">' + snooze.value + '</option>';
-                    });
-                    select += '</select>';
-                    message.insert('<br /><br />' + Hermes.text.snooze.interpolate({time: select, dismiss_start: '<input type="button" value="', dismiss_end: '" class="button ko" />'}));
-                }
-                var growl = this.Growler.growl(message, {
-                    className: 'horde-alarm',
-                    life: 8,
-                    log: false,
-                    sticky: true
-                });
-                growl.store('alarm', alarm.id);
-
-                document.observe('Growler:destroyed', function(e) {
-                    var id = e.element().retrieve('alarm');
-                    if (id) {
-                        this.alarms = this.alarms.without(id);
-                    }
-                }.bindAsEventListener(this));
-
-                if (alarm.user) {
-                    message.down('select').observe('change', function(e) {
-                        if (e.element().getValue()) {
-                            this.Growler.ungrowl(growl);
-                            new Ajax.Request(
-                                Hermes.conf.URI_SNOOZE,
-                                {parameters: {alarm: alarm.id,
-                                                snooze: e.element().getValue()}});
-                        }
-                    }.bindAsEventListener(this))
-                    .observe('click', function(e) {
-                        e.stop();
-                    });
-                    message.down('input[type=button]').observe('click', function(e) {
-                        new Ajax.Request(
-                            Hermes.conf.URI_SNOOZE,
-                            {parameters: {alarm: alarm.id,
-                                            snooze: -1}});
-                    }.bindAsEventListener(this));
-                }
-                break;
-
-            case 'horde.error':
-            case 'horde.warning':
-            case 'horde.message':
-            case 'horde.success':
-                this.Growler.growl(
-                    m.flags && m.flags.include('content.raw')
-                        ? m.message.replace(new RegExp('<a href="([^"]+)"'), '<a href="#" onclick="HermesCore.iframeContent(\'$1\')"')
-                        : m.message.escapeHTML(),
-                    {
-                        className: m.type.replace('.', '-'),
-                        life: 8,
-                        log: true,
-                        sticky: m.type == 'horde.error'
-                    });
-                var notify = $('hermesNotifications'),
-                    className = m.type.replace(/\./, '-'),
-                    order = 'horde-error,horde-warning,horde-message,horde-success,hermesNotifications',
-                    open = notify.hasClassName('hermesClose');
-                notify.removeClassName('hermesClose');
-                if (order.indexOf(notify.className) > order.indexOf(className)) {
-                    notify.className = className;
-                }
-                if (open) {
-                    notify.addClassName('hermesClose');
-                }
-                break;
-            }
-        }, this);
-    },
-
-    debug: function(label, e)
-    {
-        if (!this.is_logout && window.console && window.console.error) {
-            window.console.error(label, Prototype.Browser.Gecko ? e : $H(e).inspect());
         }
     },
 
@@ -1249,8 +1077,10 @@ HermesCore = {
     /* Onload function. */
     onDomLoad: function()
     {
-        document.observe('click', HermesCore.clickHandler.bindAsEventListener(HermesCore));
-        $('hermesTimeFormClient').observe('change', HermesCore.clientChangeHandler.bindAsEventListener(HermesCore));
+        document.observe('click',
+            HermesCore.clickHandler.bindAsEventListener(HermesCore));
+        $('hermesTimeFormClient').observe('change',
+            HermesCore.clientChangeHandler.bindAsEventListener(HermesCore));
 
         RedBox.onDisplay = function() {
             this.redBoxLoading = false;
@@ -1266,7 +1096,6 @@ HermesCore = {
 
         /* Initialize the starting page. */
         var tmp = location.hash;
-
         if (!tmp.empty() && tmp.startsWith('#')) {
             tmp = (tmp.length == 1) ? '' : tmp.substring(1);
         }
@@ -1276,33 +1105,49 @@ HermesCore = {
             this.go(Hermes.conf.login_view);
         }
 
-        /* Add Growler notifications. */
-        this.Growler = new Growler({
-            log: true,
-            location: 'br',
-            noalerts: Hermes.text.noalerts,
-            info: Hermes.text.growlerinfo
-        });
-        this.Growler.growlerlog.observe('Growler:toggled', function(e) {
+        document.observe('Growler:toggled', function(e) {
             var button = $('hermesNotifications');
             if (e.memo.visible) {
                 button.title = Hermes.text.hidelog;
                 button.addClassName('hermesClose');
             } else {
-                button.title = Hermes.text.alerts.interpolate({count: this.growls});
+                button.title = Hermes.text.alerts;
                 button.removeClassName('hermesClose');
             }
             Horde_ToolTips.detach(button);
             Horde_ToolTips.attach(button);
         }.bindAsEventListener(this));
 
-        this.doAction('listTimers', [], this.listTimersCallback.bind(this));
+        /* Catch notification actions. */
+        document.observe('HordeCore:showNotifications', function(e) {
+            switch (e.memo.type) {
+            case 'horde.error':
+            case 'horde.warning':
+            case 'horde.message':
+            case 'horde.success':
+                var notify = $('hermesNotifications'),
+                    className = e.memo.type.replace(/\./, '-'),
+                    order = 'horde-error,horde-warning,horde-message,horde-success,hermesNotifications',
+                    open = notify.hasClassName('hermesClose');
+                notify.removeClassName('hermesClose');
+                if (order.indexOf(notify.className) > order.indexOf(className)) {
+                    notify.className = className;
+                }
+                if (open) {
+                    notify.addClassName('hermesClose');
+                }
+                break;
+            }
+        });
 
-        /* Start polling. */
-        new PeriodicalExecuter(this.doAction.bind(this, 'poll'), 120);
-        document.observe('Horde_Calendar:select', HermesCore.datePickerHandler.bindAsEventListener(HermesCore));
+        HordeCore.doAction('listTimers', [], this.listTimersCallback.bind(this));
         Event.observe(window, 'resize', this.onResize.bind(this));
+        new PeriodicalExecuter(HordeCore.doAction.bind(this, 'poll'), 60);
     }
 
 };
+
 document.observe('dom:loaded', HermesCore.onDomLoad.bind(HermesCore));
+document.observe('Horde_Calendar:select', HermesCore.datePickerHandler.bindAsEventListener(HermesCore));
+HordeCore.onException = HordeCore.onException.wrap(HermesCore.onException.bind(HermesCore));
+

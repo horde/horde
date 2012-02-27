@@ -4,23 +4,13 @@
  *
  * This file is part of CSSTidy.
  *
- * CSSTidy is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * CSSTidy is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with CSSTidy; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- *
- * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @package csstidy
- * @author Florian Schmitz (floele at gmail dot com) 2005
+ * @author   Florian Schmitz (floele at gmail dot com) 2005
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @package  Text_Filter_Csstidy
  */
 
 define('AT_START',    1);

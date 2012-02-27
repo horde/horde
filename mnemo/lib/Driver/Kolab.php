@@ -233,11 +233,15 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
     /**
      * Delete all notes from the current notepad
      *
-     * @return NULL
+     * @return array  An array of uids that have been removed.
      */
-    function deleteAll()
+    protected function _deleteAll()
     {
+        $this->_retrieve();
+        $ids = array_keys($this->_memos);
         $this->_getData()->deleteAll();
+
+        return $ids;
     }
 
     /**

@@ -217,7 +217,7 @@ case 'editasnew':
 case 'template':
 case 'template_edit':
     try {
-        $indices_ob = IMP::$thismailbox->getIndicesOb(IMP::$uid);
+        $indices_ob = IMP::mailbox(true)->getIndicesOb(IMP::uid());
 
         switch ($vars->actionID) {
         case 'editasnew':
@@ -287,10 +287,10 @@ case 'reply_list':
 
     case IMP_Compose::REPLY_ALL:
         if ($vars->actionID == 'reply_auto') {
-            try {
-                $recip_list = $imp_compose->recipientList($header);
+            $recip_list = $imp_compose->recipientList($header);
+            if (!empty($recip_list['list'])) {
                 $replyauto_all = count($recip_list['list']);
-            } catch (IMP_Compose_Exception $e) {}
+            }
         }
 
         $vars->actionID = 'reply_all';
@@ -300,9 +300,9 @@ case 'reply_list':
     case IMP_Compose::REPLY_LIST:
         if ($vars->actionID == 'reply_auto') {
             $replyauto_list = true;
-            if (($addr_ob = IMP::parseAddressList($contents->getHeader()->getValue('list-id'))) &&
-                !is_null($addr_ob[0]->personal)) {
-                $replyauto_list_id = $addr_ob[0]->personal;
+            if (($parse_list = $injector->getInstance('IMP_Parse_Listid')->parseListId($contents->getHeader()->getValue('list-id'))) &&
+                isset($parse_list->phrase)) {
+                $replyauto_list_id = $parse_list->phrase;
             }
         }
 
@@ -696,18 +696,17 @@ if ($prefs->getValue('use_pgp') &&
     $default_encrypt = $prefs->getValue('default_encrypt');
     if (!$vars->compose_formToken &&
         in_array($default_encrypt, array(IMP_Crypt_Pgp::ENCRYPT, IMP_Crypt_Pgp::SIGNENC))) {
-        try {
-            $addrs = $imp_compose->recipientList($header);
-            if (!empty($addrs['list'])) {
-                $imp_pgp = $injector->getInstance('IMP_Crypt_Pgp');
+        $addrs = $imp_compose->recipientList($header);
+        if (!empty($addrs['list'])) {
+            $imp_pgp = $injector->getInstance('IMP_Crypt_Pgp');
+            try {
                 foreach ($addrs['list'] as $val) {
-                    $imp_pgp->getPublicKey($val);
+                    $imp_pgp->getPublicKey(strval($val));
                 }
+            } catch (Horde_Exception $e) {
+                $notification->push(_("PGP encryption cannot be used by default as public keys cannot be found for all recipients."), 'horde.warning');
+                $encrypt_options = ($default_encrypt == IMP_Crypt_Pgp::ENCRYPT) ? IMP::ENCRYPT_NONE : IMP_Crypt_Pgp::SIGN;
             }
-        } catch (IMP_Compose_Exception $e) {
-        } catch (Horde_Exception $e) {
-            $notification->push(_("PGP encryption cannot be used by default as public keys cannot be found for all recipients."), 'horde.warning');
-            $encrypt_options = ($default_encrypt == IMP_Crypt_Pgp::ENCRYPT) ? IMP::ENCRYPT_NONE : IMP_Crypt_Pgp::SIGN;
         }
     }
 }
@@ -771,7 +770,7 @@ if ($redirect) {
         'compose_formToken' => Horde_Token::generateId('compose'),
         'compose_requestToken' => $injector->getInstance('Horde_Token')->get('imp.compose'),
         'composeCache' => $composeCacheID,
-        'mailbox' => IMP::$thismailbox->form_to,
+        'mailbox' => IMP::mailbox(true)->form_to,
         'oldrtemode' => $rtemode,
         'rtemode' => $rtemode,
         'user' => $registry->getAuth()

@@ -88,7 +88,9 @@ class Horde_SessionHandler_Storage_Sql extends Horde_SessionHandler_Storage
     {
         /* Begin a transaction. */
         // TODO: Rowlocking in Mysql
-        $this->_db->beginDbTransaction();
+        if (!$this->_db->transactionStarted()) {
+            $this->_db->beginDbTransaction();
+        }
 
         /* Build query. */
         $query = sprintf('SELECT session_data FROM %s WHERE session_id = ?',

@@ -1609,7 +1609,6 @@ if (PEAR::isError($options) && $args[0] == $_SERVER['PHP_SELF']) {
     array_shift($args);
     $options = Console_Getopt::getopt($args, 'b:dht', array('base=', 'debug', 'help', 'test'));
 }
-$script->options = $options;
 
 if (PEAR::isError($options)) {
     $c->message('Argument error: ' . str_replace('Console_Getopt:', '', $options->getMessage()), 'cli.error');
@@ -1617,6 +1616,8 @@ if (PEAR::isError($options)) {
     $script->usage();
     $script->footer();
 }
+
+$script->options = $options;
 
 /* Back to old error reporting */
 error_reporting($old_error_reporting);

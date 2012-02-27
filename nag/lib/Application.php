@@ -255,12 +255,16 @@ class Nag_Application extends Horde_Registry_Application
     }
 
     /**
+     * Remove all data for the specified user.
+     *
+     * @param string $user  The user to remove.
+     * @throws Nag_Exception
      */
     public function removeUserData($user)
     {
-        /* Get the shares for later deletion */
         try {
-            $shares = $GLOBALS['nag_shares']->listShares($user, array('attributes' => $user));
+            $shares = $GLOBALS['nag_shares']
+                ->listShares($user, array('attributes' => $user));
         } catch (Horde_Share_Exception $e) {
             Horde::logMessage($e, 'ERR');
             throw new Nag_Exception($e);

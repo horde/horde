@@ -21,8 +21,11 @@ var IMPImportEncryptKey = {
 
     clickHandler: function(e)
     {
-        var data,
-            id = e.element().readAttribute('id');
+        if (!Object.isElement(e.element())) {
+            return false;
+        }
+
+        var id = e.element().readAttribute('id');
 
         if (this.handles[id]) {
             new Ajax.Request(this.uri, {
@@ -35,7 +38,8 @@ var IMPImportEncryptKey = {
     _onSuccess: function(elt, r)
     {
         if (r.responseJSON.response) {
-            elt.hide().fire('IMPImportEncryptKey:success');
+            elt.up('TR').remove();
+            elt.fire('IMPImportEncryptKey:success');
         }
         if (HordeCore &&
             HordeCore.showNotifications &&

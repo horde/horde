@@ -677,7 +677,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
         /* Add tags again, but as the share owner (replaceTags removes ALL tags). */
         try {
-            $cal = $GLOBALS['kronolith_shares']->getShare($event->calendar);
+            $cal = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($event->calendar);
         } catch (Horde_Share_Exception $e) {
             throw new Kronolith_Exception($e);
         }
@@ -698,7 +698,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         /* Add tags again, but as the share owner (replaceTags removes ALL
          * tags). */
         try {
-            $cal = $GLOBALS['kronolith_shares']->getShare($event->calendar);
+            $cal = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($event->calendar);
         } catch (Horde_Share_Exception $e) {
             Horde::logMessage($e->getMessage(), 'ERR');
             throw new Kronolith_Exception($e);
@@ -758,14 +758,21 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      */
     public function delete($calendar)
     {
-        $query = 'DELETE FROM ' . $this->_params['table'] . ' WHERE calendar_id = ?';
-        $values = array($calendar);
-
-        try {
-            $this->_db->delete($query, $values);
-        } catch (Horde_Db_Exception $e) {
-            throw new Kronolith_Exception($e);
+        $oldCalendar = $this->calendar;
+        $this->open($calendar);
+        $events = $this->listEvents(null, null, false, false, false);
+        $uids = array();
+        foreach ($events as $dayevents) {
+            foreach ($dayevents as $event) {
+                $uids[] = $event->uid;
+            }
         }
+        foreach ($uids as $uid) {
+            $event = $this->getByUID($uid, array($calendar));
+            $this->deleteEvent($event->id);
+        }
+
+        $this->open($oldCalendar);
     }
 
     /**

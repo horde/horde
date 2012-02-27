@@ -43,25 +43,11 @@ class IMP
     static public $newUrl = null;
 
     /**
-     * The current active mailbox (may be search mailbox).
+     * Current mailbox/UID information.
      *
-     * @var IMP_Mailbox
+     * @var array
      */
-    static public $mailbox;
-
-    /**
-     * The real IMAP mailbox of the current index.
-     *
-     * @var IMP_Mailbox
-     */
-    static public $thismailbox;
-
-    /**
-     * The IMAP UID.
-     *
-     * @var integer
-     */
-    static public $uid = '';
+    static private $_mboxinfo;
 
     /**
      * Initialize the JS browser environment and output everything up to, and
@@ -71,20 +57,78 @@ class IMP
      */
     static public function header($title)
     {
-        switch ($GLOBALS['registry']->getView()) {
+        switch ($view_mode = $GLOBALS['registry']->getView()) {
         case Horde_Registry::VIEW_BASIC:
             require IMP_TEMPLATES . '/imp/javascript_defs.php';
             require IMP_TEMPLATES . '/common-header.inc';
-            break;
-
-        case Horde_Registry::VIEW_DYNAMIC:
-            $GLOBALS['injector']->getInstance('IMP_Ajax')->header();
             break;
 
         default:
             require IMP_TEMPLATES . '/common-header.inc';
             break;
         }
+    }
+
+    /**
+     * Returns mailbox info for the current page.
+     *
+     * @param boolean $uidmbox  If true, return mailbox associated with UID.
+     *                          Otherwise, return master mailbox.
+     *
+     * @return IMP_Mailbox  Mailbox object.
+     */
+    static public function mailbox($uidmbox = false)
+    {
+        if (!isset(self::$_mboxinfo)) {
+            self::setMailboxInfo();
+        }
+
+        return self::$_mboxinfo[$uidmbox ? 'thismailbox' : 'mailbox'];
+    }
+
+    /**
+     * Returns UID info for the current page.
+     *
+     * @return string  UID.
+     */
+    static public function uid()
+    {
+        if (!isset(self::$_mboxinfo)) {
+            self::setMailboxInfo();
+        }
+
+        return self::$_mboxinfo['uid'];
+    }
+
+    /**
+     * Sets mailbox/index information for current page load.
+     *
+     * @param boolean $mbox  Use this mailbox, instead of form data.
+     */
+    static public function setMailboxInfo($mbox = null)
+    {
+        if (is_null($mbox)) {
+            $mbox = Horde_Util::getFormData('mailbox');
+            $mailbox = is_null($mbox)
+                ? IMP_Mailbox::get('INBOX')
+                : IMP_Mailbox::formFrom($mbox);
+
+            $mbox = Horde_Util::getFormData('thismailbox');
+            $thismailbox = is_null($mbox)
+                ? $mailbox
+                : IMP_Mailbox::formFrom($mbox);
+
+            $uid = Horde_Util::getFormData('uid');
+        } else {
+            $mailbox = $thismailbox = IMP_Mailbox::get($mbox);
+            $uid = null;
+        }
+
+        self::$_mboxinfo = array(
+            'mailbox' => $mailbox,
+            'thismailbox' => $thismailbox,
+            'uid' => $uid
+        );
     }
 
     /**
@@ -349,7 +393,7 @@ class IMP
             $t->set('ak', $ak);
             $t->set('flist', self::flistSelect(array(
                 'inc_vfolder' => true,
-                'selected' => self::$mailbox
+                'selected' => self::mailbox()
             )));
             $t->set('flink', sprintf('%s%s<br />%s</a>', Horde::link('#'), ($menu_view != 'text') ? '<span class="iconImg folderImg" title="' . htmlspecialchars(_("Open Folder")) . '"></span>' : '', ($menu_view != 'icon') ? Horde::highlightAccessKey(_("Open Fo_lder"), $ak) : ''));
         }
@@ -496,32 +540,6 @@ class IMP
     }
 
     /**
-     * Sets mailbox/index information for current page load. This information
-     * is accessible via IMP::$mailbox, IMP::$thismailbox, and IMP::$uid.
-     *
-     * @param boolean $mbox  Use this mailbox, instead of form data.
-     */
-    static public function setCurrentMailboxInfo($mbox = null)
-    {
-        if (is_null($mbox)) {
-            $mbox = Horde_Util::getFormData('mailbox');
-            self::$mailbox = is_null($mbox)
-                ? IMP_Mailbox::get('INBOX')
-                : IMP_Mailbox::formFrom($mbox);
-
-            $mbox = Horde_Util::getFormData('thismailbox');
-            self::$thismailbox = is_null($mbox)
-                ? self::$mailbox
-                : IMP_Mailbox::formFrom($mbox);
-
-            self::$uid = Horde_Util::getFormData('uid');
-        } else {
-            self::$mailbox = self::$thismailbox = IMP_Mailbox::get($mbox);
-            self::$uid = null;
-        }
-    }
-
-    /**
      * Return a selfURL that has had index/mailbox/actionID information
      * removed/altered based on an action that has occurred on the present
      * page.
@@ -628,7 +646,7 @@ class IMP
      */
     static public function parseAddressList($str, array $opts = array())
     {
-        $rfc822 = new Horde_Mail_Rfc822();
+        $rfc822 = $GLOBALS['injector']->getInstance('Horde_Mail_Rfc822');
         return $rfc822->parseAddressList($str, array_merge(array(
             'default_domain' => $GLOBALS['session']->get('imp', 'maildomain'),
             'nest_groups' => false,

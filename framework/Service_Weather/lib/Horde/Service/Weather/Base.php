@@ -104,6 +104,13 @@ abstract class Horde_Service_Weather_Base
     protected $_lastLocation;
 
     /**
+     * Last requested forecast length.
+     *
+     * @var integer
+     */
+    protected $_lastLength;
+
+    /**
      * Constructor.
      *
      * @param array $params  Parameters:

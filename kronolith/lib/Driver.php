@@ -389,7 +389,7 @@ class Kronolith_Driver
      * Stub for child class to override if it can implement.
      *
      * @todo Remove in Kronolith 4.0
-     * @deprecated  Now lives in Kronolith::
+     * @deprecated  Now lives in Kronolith_Application::
      * @throws Kronolith_Exception
      */
     public function removeUserData($user)

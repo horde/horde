@@ -3,6 +3,8 @@
  * The Horde_Mime_Address:: class provides methods for dealing with email
  * address standards (RFC 822/2822/3490/5322).
  *
+ * @deprecated Replaced by Horde_Mail_Rfc822 classes.
+ *
  * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -36,12 +38,6 @@ class Horde_Mime_Address
     static public function writeAddress($mailbox, $host, $personal = '',
                                         $opts = array())
     {
-        $address = '';
-
-        if (strlen($personal)) {
-            $address .= self::encode($personal, 'personal') . ' <';
-        }
-
         $host = ltrim($host, '@');
         if (isset($opts['idn'])) {
             switch ($opts['idn']) {
@@ -59,13 +55,11 @@ class Horde_Mime_Address
             }
         }
 
-        $address .= self::encode($mailbox, 'address') . '@' . $host;
+        $address = self::encode($mailbox, 'address') . '@' . $host;
 
-        if (strlen($personal)) {
-            $address .= '>';
-        }
-
-        return $address;
+        return (strlen($personal) && ($personal != $address))
+            ? self::encode($personal, 'personal') . ' <' . $address . '>'
+            : $address;
     }
 
     /**
@@ -377,6 +371,8 @@ class Horde_Mime_Address
     /**
      * Parses a list of email addresses into its parts. Handles distribution
      * lists.
+     *
+     * @deprecated
      *
      * @param string $address  The address string.
      * @param array $opts      Additional options:

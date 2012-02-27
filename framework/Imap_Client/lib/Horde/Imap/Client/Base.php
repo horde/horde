@@ -171,19 +171,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         $this->_params = $params;
-
-        // Encrypt password.
-        try {
-            $encrypt_key = $this->_getEncryptKey();
-            if (strlen($encrypt_key)) {
-                $secret = new Horde_Secret();
-                $this->_params['password'] = $secret->write($encrypt_key, $this->_params['password']);
-                $this->_params['_passencrypt'] = true;
-            }
-        } catch (Exception $e) {}
+        $this->setParam('password', $this->_params['password']);
 
         $this->changed = true;
-
         $this->_initOb();
     }
 
@@ -421,6 +411,36 @@ abstract class Horde_Imap_Client_Base implements Serializable
         return isset($this->_params[$key])
             ? $this->_params[$key]
             : null;
+    }
+
+    /**
+     * Sets a configuration parameter value.
+     *
+     * @since 1.5.0
+     *
+     * @param string $key   The param key.
+     * @param mixed $value  The param value.
+     */
+    public function setParam($key, $val)
+    {
+        switch ($key) {
+        case 'password':
+            // Encrypt password.
+            try {
+                $encrypt_key = $this->_getEncryptKey();
+                if (strlen($encrypt_key)) {
+                    $secret = new Horde_Secret();
+                    $val = $secret->write($encrypt_key, $val);
+                    $this->_params['_passencrypt'] = true;
+                }
+            } catch (Exception $e) {
+                $this->_params['_passencrypt'] = false;
+            }
+            break;
+        }
+
+        $this->_params[$key] = $val;
+        $this->changed = true;
     }
 
     /**
@@ -2212,7 +2232,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *                   mod-sequence fetch criteria to the fetch command.
      *                   DEFAULT: Mod-sequence values are ignored.
      *   - fetch_res: (array) A partial results array to have fetch results
-     *                added to.
+     *                added to. [DEPRECATED]
      *   - ids: (Horde_Imap_Client_Ids) A list of messages to fetch data from.
      *          DEFAULT: All messages in $mailbox will be fetched.
      *   - vanished: (boolean) Only return messages from the UID set parameter
@@ -2220,6 +2240,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *               is larger than the specified mod-sequence. This option
      *               requires the QRESYNC IMAP extension and requires
      *               'changedsince' to be set, and requires 'ids' to be UIDs.
+     *               [DEPRECATED]
      *               DEFAULT: Vanished search ignored.
      *
      * @return array  An array of fetch results. The array consists of

@@ -81,12 +81,7 @@ $mime_drivers = array(
         ),
 
         /* Display images inline that are less than this size (in bytes). */
-        'inlinesize' => 262144,
-
-        /* A list of from e-mail addresses that are considered "safe" for
-         * purposes of image blocking (if image blocking is enabled in the
-         * preferences). */
-        'safe_addrs' => array()
+        'inlinesize' => 262144
     ),
 
     /* Enriched text display. */

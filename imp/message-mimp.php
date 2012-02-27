@@ -29,9 +29,9 @@ Horde_Registry::appInit('imp', array(
 $vars = Horde_Variables::getDefaultVariables();
 
 /* Make sure we have a valid index. */
-$imp_mailbox = IMP::$mailbox->getListOb(IMP::$thismailbox->getIndicesOb(IMP::$uid));
+$imp_mailbox = IMP::mailbox()->getListOb(IMP::mailbox(true)->getIndicesOb(IMP::uid()));
 if (!$imp_mailbox->isValidIndex()) {
-    IMP::$mailbox->url('mailbox-mimp.php')->add('a', 'm')->redirect();
+    IMP::mailbox()->url('mailbox-mimp.php')->add('a', 'm')->redirect();
 }
 
 $imp_ui_mimp = $injector->getInstance('IMP_Ui_Mimp');
@@ -85,7 +85,7 @@ if ($msg_delete && $imp_ui->moveAfterAction()) {
  * case. */
 if (!$imp_mailbox->isValidIndex() ||
     ($msg_delete && $prefs->getValue('mailbox_return'))) {
-    IMP::$mailbox->url('mailbox-mimp.php')->add('s', $msg_index)->redirect();
+    IMP::mailbox()->url('mailbox-mimp.php')->add('s', $msg_index)->redirect();
 }
 
 /* Now that we are done processing the messages, get the index and
@@ -131,8 +131,8 @@ $msgindex = $imp_mailbox->getMessageIndex();
 $msgcount = count($imp_mailbox);
 
 /* Generate the mailbox link. */
-$mailbox_link = IMP::$mailbox->url('mailbox-mimp.php')->add('s', $msgindex);
-$self_link = IMP::$mailbox->url('message-mimp.php', $uid, $mailbox);
+$mailbox_link = IMP::mailbox()->url('mailbox-mimp.php')->add('s', $msgindex);
+$self_link = IMP::mailbox()->url('message-mimp.php', $uid, $mailbox);
 
 /* Initialize Horde_Template. */
 $t = $injector->createInstance('Horde_Template');
@@ -258,7 +258,7 @@ $compose_params = array(
 );
 
 $menu = array();
-if (IMP::$mailbox->access_deletemsgs) {
+if (IMP::mailbox()->access_deletemsgs) {
     $menu[] = in_array(Horde_Imap_Client::FLAG_DELETED, $flags)
         ? array(_("Undelete"), $self_link->copy()->add('a', 'u'))
         : array(_("Delete"), $self_link->copy()->add(array('a' => 'd', 'mt' => $injector->getInstance('Horde_Token')->get('imp.message-mimp'))));
@@ -284,13 +284,13 @@ if (IMP::canCompose()) {
 
 /* Generate previous/next links. */
 if ($prev_msg = $imp_mailbox->getIMAPIndex(-1)) {
-    $menu[] = array(_("Previous Message"), IMP::$mailbox->url('message-mimp.php', $prev_msg['uid'], $prev_msg['mailbox']));
+    $menu[] = array(_("Previous Message"), IMP::mailbox()->url('message-mimp.php', $prev_msg['uid'], $prev_msg['mailbox']));
 }
 if ($next_msg = $imp_mailbox->getIMAPIndex(1)) {
-    $menu[] = array(_("Next Message"), IMP::$mailbox->url('message-mimp.php', $next_msg['uid'], $next_msg['mailbox']));
+    $menu[] = array(_("Next Message"), IMP::mailbox()->url('message-mimp.php', $next_msg['uid'], $next_msg['mailbox']));
 }
 
-$menu[] = array(sprintf(_("To %s"), IMP::$mailbox->label), $mailbox_link);
+$menu[] = array(sprintf(_("To %s"), IMP::mailbox()->label), $mailbox_link);
 
 if ($conf['spam']['reporting'] &&
     ($conf['spam']['spamfolder'] || !$mailbox->spam)) {

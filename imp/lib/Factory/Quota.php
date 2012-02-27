@@ -57,9 +57,9 @@ class IMP_Factory_Quota extends Horde_Core_Factory_Injector
         switch (Horde_String::lower($driver)) {
         case 'imap':
             $params['imap_ob'] = $imap_ob;
-            $params['mbox'] = IMP::$mailbox->search
+            $params['mbox'] = IMP::mailbox()->search
                 ? 'INBOX'
-                : IMP::$mailbox;
+                : IMP::mailbox();
             break;
 
         case 'sql':
@@ -69,7 +69,12 @@ class IMP_Factory_Quota extends Horde_Core_Factory_Injector
 
         $params['username'] = $imap_ob->getParam('username');
 
-        return IMP_Quota::factory($driver, $params);
+        $class = 'IMP_Quota_' . ucfirst($driver);
+        if (class_exists($class)) {
+            return new $class($params);
+        }
+
+        throw new IMP_Exception('Could not create quota instance: ' . $class);
     }
 
 }

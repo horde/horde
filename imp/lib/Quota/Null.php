@@ -12,7 +12,7 @@
  * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
-class IMP_Quota_Null extends IMP_Quota_Base
+class IMP_Quota_Null extends IMP_Quota
 {
     /**
      * Get quota information (used/allocated), in bytes.

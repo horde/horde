@@ -104,6 +104,7 @@ var DimpBase = {
         } else {
             this.viewport.select($A($R(1, this.viewport.getMetaData('total_rows'))));
             DimpCore.toggleCheck(tmp, true);
+            $('previewInfo').highlight({ queue: 'end', keepBackgroundImage: true, duration: 2.0 })
         }
     },
 
@@ -1066,6 +1067,7 @@ var DimpBase = {
             this.composeMailbox(id == 'ctx_message_forward' ? 'forward_auto' : 'reply_auto');
             break;
 
+        case 'ctx_forward_editasnew':
         case 'ctx_message_editasnew':
         case 'ctx_message_template':
         case 'ctx_message_template_edit':
@@ -1669,8 +1671,6 @@ var DimpBase = {
             tmp = $('partlist');
             tmp.previous().update(new Element('SPAN', { className: 'atcLabel' }).insert(r.atc_label)).insert(r.atc_download);
             if (r.atc_list) {
-                $('partlist_col').show();
-                $('partlist_exp').hide();
                 tmp.update(new Element('TABLE').insert(r.atc_list));
             }
         } else {
@@ -2220,7 +2220,7 @@ var DimpBase = {
         }
     },
 
-    onDrag: function(e)
+    onDragStart: function(e)
     {
         if (e.element().hasClassName('folder')) {
             var d = e.memo;
@@ -3809,7 +3809,7 @@ DimpBase._folderDropConfig = {
 };
 
 /* Drag/drop listeners. */
-document.observe('DragDrop2:drag', DimpBase.onDrag.bindAsEventListener(DimpBase));
+document.observe('DragDrop2:start', DimpBase.onDragStart.bindAsEventListener(DimpBase));
 document.observe('DragDrop2:drop', DimpBase.folderDropHandler.bindAsEventListener(DimpBase));
 document.observe('DragDrop2:end', DimpBase.onDragEnd.bindAsEventListener(DimpBase));
 document.observe('DragDrop2:mousedown', DimpBase.onDragMouseDown.bindAsEventListener(DimpBase));

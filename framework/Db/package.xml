@@ -33,7 +33,7 @@
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+ <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
 * 
  </notes>
@@ -335,7 +335,7 @@
     <api>beta</api>
    </stability>
    <date>2011-02-01</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * Initial release
    </notes>
@@ -350,7 +350,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-03-08</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * First alpha release for Horde 4.
 * Add support for adding autoincrement to a column.
@@ -366,7 +366,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * Drop schema table when migrating down to schema version 0.
 * Don&apos;t try to create schema tables if they exist, to avoid irritating log entries.
@@ -382,7 +382,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-22</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * First release candidate for Horde 4.
    </notes>
@@ -397,7 +397,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-29</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * Second release candidate for Horde 4.
 * [jan] Don&apos;t throw exception when setting port number while using localhost in PDO MySQL driver (Bug #9738).
@@ -414,7 +414,7 @@
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * First stable release for Horde 4.
 * [jan] Add buildClause() from obsolete Horde_Sql.
@@ -428,7 +428,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-04-20</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [jan] Fix migration detection on Windows.
 * [jan] Fix setting incorrect charset in PDO drivers.
@@ -442,7 +442,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-07-05</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [jan] Convert host parameter from "localhost" to "127.0.0.1" in MySQL drivers (Request #9738).
 * [gwr] Renamed migration helper to avoid namespace clash with a similar tool from the horde base package.
@@ -457,7 +457,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-07-27</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [jan] Correctly format float values independently from the current locale (Bug #10371).
    </notes>
@@ -470,7 +470,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-30</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [jan] Fix migrations from primary keys that have not been created with Horde_Db in PostgreSQL.
 * [jan] Fix autoincrementKey sequences not incrementing after manually inserting key values in PostgreSQL.
@@ -485,7 +485,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-31</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [jan] Fix determination of last insert id on PostgreSQL up to 8.1.
    </notes>
@@ -498,7 +498,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-09-20</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [jan] Add methods to add and drop primary keys (Request #10469).
 * [gwr] Fix usage of Horde_Exception_Wrapped.
@@ -513,7 +513,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-10-11</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [jan] More flexible conversion of charset names to native MySQL names.
 * [jan] Correctly escape binding characters in buildClause() (Bug #10610).
@@ -530,7 +530,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-11-22</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mms] Greatly reduce memory usage when working with binary data in PostgreSQL 9.0+ (Bug #10774).
 * [mms] Cache postgresql version.
@@ -545,7 +545,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-12-13</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [gwr] Alternative API to support modified dates with SQLite as well.
 * [mjr] Add support for mediumtext and longtext field types.
@@ -559,7 +559,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-12-13</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * 
    </notes>

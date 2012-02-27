@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ingo H4 (2.0.8-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"POT-Creation-Date: 2012-02-22 11:20+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -152,11 +152,11 @@ msgstr ""
 msgid "Copy of %s"
 msgstr ""
 
-#: lib/Ingo.php:167
+#: lib/Ingo.php:166
 msgid "Could not validate IMAP mailbox."
 msgstr ""
 
-#: lib/Ingo.php:121
+#: lib/Ingo.php:120
 msgid "Create new folder"
 msgstr ""
 
@@ -558,16 +558,16 @@ msgstr ""
 msgid "New Rule"
 msgstr ""
 
-#: lib/Ingo.php:318
+#: lib/Ingo.php:317
 #, php-format
 msgid "No \"%s\" element found in backend configuration."
 msgstr ""
 
-#: lib/Ingo.php:310
+#: lib/Ingo.php:309
 msgid "No backend configured for this host"
 msgstr ""
 
-#: lib/Ingo.php:283
+#: lib/Ingo.php:282
 msgid "No backends configured in backends.php"
 msgstr ""
 
@@ -621,7 +621,7 @@ msgstr ""
 msgid "Permission Denied"
 msgstr ""
 
-#: lib/Ingo.php:136
+#: lib/Ingo.php:135
 msgid "Please enter the name of the new folder:"
 msgstr ""
 
@@ -749,15 +749,15 @@ msgstr ""
 msgid "Script Updating"
 msgstr ""
 
-#: lib/Ingo.php:263
+#: lib/Ingo.php:262
 msgid "Script not updated."
 msgstr ""
 
-#: lib/Ingo.php:233
+#: lib/Ingo.php:232
 msgid "Script successfully activated."
 msgstr ""
 
-#: lib/Ingo.php:232
+#: lib/Ingo.php:231
 msgid "Script successfully deactivated."
 msgstr ""
 
@@ -777,7 +777,7 @@ msgstr ""
 msgid "Select target folder"
 msgstr ""
 
-#: lib/Ingo.php:117
+#: lib/Ingo.php:116
 msgid "Select target folder:"
 msgstr ""
 
@@ -856,15 +856,15 @@ msgstr ""
 msgid "The address \"%s\" has been added to your whitelist."
 msgstr ""
 
-#: lib/Ingo.php:227
+#: lib/Ingo.php:226
 msgid "The driver said: "
 msgstr ""
 
-#: lib/Ingo.php:226
+#: lib/Ingo.php:225
 msgid "There was an error activating the script."
 msgstr ""
 
-#: lib/Ingo.php:225
+#: lib/Ingo.php:224
 msgid "There was an error deactivating the script."
 msgstr ""
 

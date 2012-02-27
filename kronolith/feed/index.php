@@ -26,7 +26,7 @@ Horde_Registry::appInit('kronolith', array('authentication' => 'none', 'session_
 
 $calendar = Horde_Util::getFormData('c');
 try {
-    $share = $kronolith_shares->getShare($calendar);
+    $share = $injector->getInstance('Kronolith_Shares')->getShare($calendar);
 } catch (Exception $e) {
     _no_access(404, 'Not Found',
                sprintf(_("The requested feed (%s) was not found on this server."),

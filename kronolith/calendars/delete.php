@@ -24,7 +24,7 @@ if (Kronolith::showAjaxView()) {
 }
 
 try {
-    $calendar = $kronolith_shares->getShare($calendar_id);
+    $calendar = $injector->getInstance('Kronolith_Shares')->getShare($calendar_id);
 } catch (Exception $e) {
     $notification->push($e, 'horde.error');
     Horde::url('calendars/', true)->redirect();

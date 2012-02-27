@@ -156,7 +156,6 @@ abstract class Horde_Core_Ajax_Application
 
         $response = new Horde_Core_Ajax_Response(new stdClass);
         $response->notifications = array($msg);
-        $this->_send($response);
         $response->sendAndExit('json');
     }
 

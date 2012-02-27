@@ -58,6 +58,14 @@ The following configuration options were removed::
    $conf['dimp']['viewport']['viewport_wait']
 
 
+MIME Viewer Options (mime_drivers.php)
+--------------------------------------
+
+The 'safe_addrs' option has been removed from the Images driver config.
+To set the default list of e-mail addresses that should be considered "safe",
+the 'image_replacement_addrs' preference can now be used.
+
+
 Hooks (hooks.php)
 -----------------
 The 'mbox_sort' and 'mbox_special' hooks have been added.
@@ -82,13 +90,14 @@ your preference backend::
    dimp_splitbar_vert
    dimp_toggle_headers
    dynamic_view
+   image_addrbook
    sig_first
    stationery
 
 The 'cursor_compose' preference removed the 'sig' option. Existing preferences
 will automatically be converted to 'bottom'.
 
-The 'reply_charset' preference was added.
+The 'image_replacement_addrs' and 'reply_charset' preferences were added.
 
 
 
