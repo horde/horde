@@ -27,9 +27,7 @@ class Horde_Mail_ObjectTest extends PHPUnit_Framework_TestCase
         $address = 'Fooã <test@example.com>';
 
         $parser = new Horde_Mail_Rfc822();
-        $result = $parser->parseAddressList($address, array(
-            'validate' => false
-        ));
+        $result = $parser->parseAddressList($address);
 
         $this->assertEquals(
             $address,
@@ -42,9 +40,7 @@ class Horde_Mail_ObjectTest extends PHPUnit_Framework_TestCase
         );
 
         $email = 'ß <test@example.com>';
-        $result = $parser->parseAddressList($email, array(
-            'validate' => false
-        ));
+        $result = $parser->parseAddressList($email);
 
         $this->assertEquals(
             '=?utf-8?b?w58=?= <test@example.com>',
@@ -52,9 +48,7 @@ class Horde_Mail_ObjectTest extends PHPUnit_Framework_TestCase
         );
 
         $email2 = 'ß X <test@example.com>';
-        $result = $parser->parseAddressList($email2, array(
-            'validate' => false
-        ));
+        $result = $parser->parseAddressList($email2);
 
         $this->assertEquals(
             '=?utf-8?b?w58=?= X <test@example.com>',
@@ -62,9 +56,7 @@ class Horde_Mail_ObjectTest extends PHPUnit_Framework_TestCase
         );
 
         $email3 = '"ß X" <test@example.com>';
-        $result = $parser->parseAddressList($email3, array(
-            'validate' => false
-        ));
+        $result = $parser->parseAddressList($email3);
 
         $this->assertEquals(
             '=?utf-8?b?w58=?= X <test@example.com>',
@@ -119,9 +111,8 @@ class Horde_Mail_ObjectTest extends PHPUnit_Framework_TestCase
         $ob->mailbox = 'test';
         $ob->host = 'xn--example-m2a.com';
 
-        // Personal part is NOT MIME decoded by default for BC.
         $this->assertEquals(
-            '=?utf-8?b?QcOkYg==?= <test@üexample.com>',
+            'Aäb <test@üexample.com>',
             strval($ob)
         );
     }
@@ -136,8 +127,19 @@ class Horde_Mail_ObjectTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             'John Doe <john@example.com>, Group: peter@example.com, jane@example.com;',
-            implode(', ', array_map('strval', $result))
+            strval($result)
         );
+    }
+
+    public function testValid()
+    {
+        $ob = new Horde_Mail_Rfc822_Address();
+
+        $this->assertFalse($ob->valid);
+
+        $ob->mailbox = 'test';
+
+        $this->assertTrue($ob->valid);
     }
 
 }

@@ -62,15 +62,6 @@
 class Horde_Mail_Rfc822
 {
     /**
-     * The number of groups that have been found in the address list.
-     *
-     * @deprecated
-     *
-     * @var integer
-     */
-    public $num_groups = 0;
-
-    /**
      * The address string to parse.
      *
      * @var string
@@ -92,6 +83,13 @@ class Horde_Mail_Rfc822
     protected $_comments = array();
 
     /**
+     * List object to return in parseAddressList().
+     *
+     * @var Horde_Mail_Rfc822_List
+     */
+    protected $_listob;
+
+    /**
      * Configuration parameters.
      *
      * @var array
@@ -106,50 +104,40 @@ class Horde_Mail_Rfc822
     protected $_ptr;
 
     /**
-     * Structured data to return.
-     *
-     * @var array
-     */
-    protected $_structure;
-
-    /**
      * Starts the whole process.
      *
-     * @param mixed $address   The address(es) to validate. Either a string
-     *                         (since 1.0.0), a Horde_Mail_Rfc822_Object (since
-     *                         1.2.0), or an array of strings and/or
-     *                         Horde_Mail_Rfc822_Objects (since 1.2.0).
+     * @param mixed $address   The address(es) to validate. Either a string,
+     *                         a Horde_Mail_Rfc822_Object, or an array of
+     *                         strings and/or Horde_Mail_Rfc822_Objects.
      * @param array $params    Optional parameters:
-     *   - default_domain: (string) Default domain/host etc.
-     *                     DEFAULT: localhost
+     *   - default_domain: (string) Default domain/host.
+     *                     DEFAULT: None
+     *   - group: (boolean) Return a GroupList object instead of a List object?
+     *            DEFAULT: false
      *   - limit: (integer) Stop processing after this many addresses.
      *            DEFAULT: No limit (0)
-     *   - nest_groups: (boolean) Whether to return the structure with groups
-     *                  nested for easier viewing.
-     *                  DEFAULT: true
-     *   - validate: (boolean) Strict validation of personal part data?  If
-     *               false, attempts to allow non-ASCII characters and
-     *               non-quoted strings in the personal data, and will
-     *               silently abort if an unparseable address is found.
-     *               DEFAULT: true
+     *   - validate: (boolean) Strict validation of personal part data? If
+     *               true, throws an Exception on error. If false, attempts
+     *               to allow non-ASCII characters and non-quoted strings in
+     *               the personal data, and will silently abort if an
+     *               unparseable address is found.
+     *               DEFAULT: false
      *
-     * @return array  A structured array of addresses. Each value is a
-     *                Horde_Mail_Rfc822_Address object (or, if 'nest_groups'
-     *                is true, the value can also be a Horde_Mail_Rfc822_Group
-     *                object).
+     * @return Horde_Mail_Rfc822_List  A list object.
      *
      * @throws Horde_Mail_Exception
      */
     public function parseAddressList($address, array $params = array())
     {
         $this->_params = array_merge(array(
-            'default_domain' => 'localhost',
+            'default_domain' => null,
             'limit' => 0,
-            'nest_groups' => true,
-            'validate' => true
+            'validate' => false
         ), $params);
 
-        $this->_structure = array();
+        $this->_listob = empty($this->_params['group'])
+            ? new Horde_Mail_Rfc822_List()
+            : new Horde_Mail_Rfc822_GroupList();
 
         if (!is_array($address)) {
             $address = array($address);
@@ -158,7 +146,7 @@ class Horde_Mail_Rfc822
         $tmp = array();
         foreach ($address as $val) {
             if ($val instanceof Horde_Mail_Rfc822_Object) {
-                $this->_structure[] = $val;
+                $this->_listob->add($val);
             } else {
                 $tmp[] = rtrim(trim($val), ',');
             }
@@ -172,14 +160,12 @@ class Horde_Mail_Rfc822
             $this->_parseAddressList();
         }
 
-        return $this->_structure;
+        return $this->_listob;
     }
 
    /**
      * Quotes and escapes the given string if necessary using rules contained
      * in RFC 2822 [3.2.5].
-     *
-     * @since 1.2.0
      *
      * @param string $str   The string to be quoted and escaped.
      * @param string $type  Either 'address', or 'personal'.
@@ -221,8 +207,6 @@ class Horde_Mail_Rfc822
     /**
      * If an email address has no personal information, get rid of any angle
      * brackets (<>) around it.
-     *
-     * @since 1.2.0
      *
      * @param string $address  The address to trim.
      *
@@ -286,7 +270,7 @@ class Horde_Mail_Rfc822
         if (!$this->_parseGroup()) {
             $this->_ptr = $start;
             if ($mbox = $this->_parseMailbox()) {
-                $this->_structure[] = $mbox;
+                $this->_listob->add($mbox);
             }
         }
     }
@@ -307,7 +291,7 @@ class Horde_Mail_Rfc822
             return false;
         }
 
-        $addresses = array();
+        $addresses = new Horde_Mail_Rfc822_GroupList();
 
         $this->_rfc822SkipLwsp();
 
@@ -315,22 +299,15 @@ class Horde_Mail_Rfc822
             if ($chr == ';') {
                 $this->_curr(true);
 
-                if (!empty($addresses)) {
-                    if ($this->_params['nest_groups']) {
-                        $tmp = new Horde_Mail_Rfc822_Group();
-                        $tmp->addresses = $addresses;
-                        $tmp->groupname = $groupname;
-                        $this->_structure[] = $tmp;
-                    } else {
-                        $this->_structure = array_merge($this->_structure, $addresses);
-                    }
+                if (count($addresses)) {
+                    $this->_listob->add(new Horde_Mail_Rfc822_Group($groupname, $addresses));
                 }
 
                 return true;
             }
 
             /* mailbox-list = (mailbox *("," mailbox)) / obs-mbox-list */
-            $addresses[] = $this->_parseMailbox();
+            $addresses->add($this->_parseMailbox());
 
             switch ($this->_curr()) {
             case ',':
@@ -401,7 +378,9 @@ class Horde_Mail_Rfc822
     {
         $ob = new Horde_Mail_Rfc822_Address();
         $ob->mailbox = $this->_parseLocalPart();
-        $ob->host = $this->_params['default_domain'];
+        if (!is_null($this->_params['default_domain'])) {
+            $this->host = $this->_params['default_domain'];
+        }
 
         if ($this->_curr() == '@') {
             $this->_rfc822ParseDomain($host);
@@ -447,11 +426,11 @@ class Horde_Mail_Rfc822
             return false;
         }
 
-        $route = null;
         $this->_rfc822SkipLwsp(true);
 
         if ($this->_curr() == '@') {
-            $route = $this->_parseDomainList();
+            // Route information is ignored.
+            $this->_parseDomainList();
             if ($this->_curr() != ':') {
                 throw new Horde_Mail_Exception('Invalid route.');
             }
@@ -466,10 +445,6 @@ class Horde_Mail_Rfc822
         }
 
         $this->_rfc822SkipLwsp(true);
-
-        if ($route) {
-            $ob->route = $route;
-        }
 
         return $ob;
     }
@@ -657,7 +632,7 @@ class Horde_Mail_Rfc822
         if ($this->_curr() == '[') {
             $this->_rfc822ParseDomainLiteral($str);
         } else {
-            $this->_rfc822ParseDotAtom($str, ';,>');
+            $this->_rfc822ParseDotAtom($str, ';,> ');
         }
     }
 
@@ -803,14 +778,6 @@ class Horde_Mail_Rfc822
     }
 
     /* Other public methods. */
-
-    /**
-     * @deprecated  Always returns true
-     */
-    public function validateMailbox(&$mailbox)
-    {
-        return true;
-    }
 
     /**
      * Returns an approximate count of how many addresses are in the string.

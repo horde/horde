@@ -16,28 +16,19 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-02-24</date>
- <time>01:54:36</time>
+ <date>2012-02-29</date>
+ <time>17:29:46</time>
  <version>
-  <release>1.2.0</release>
-  <api>1.2.0</api>
+  <release>2.0.0</release>
+  <api>2.0.0</api>
  </version>
  <stability>
-  <release>stable</release>
-  <api>stable</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [mms] Added Horde_Mail_Rfc822_Address#encoded property.
-* [mms] Better support for IDN hosts in non-validate address parsing mode (Bug #11021).
-* [mms] Added Horde_Mail_Rfc822#trimAddress().
-* [mms] Add optional arguments to the Horde_Mail_Rfc822_Group constructor.
-* [mms] Horde_Mail_Rfc822#parseAddressList() now accepts Horde_Mail_Rfc822_Objects within the first argument.
-* [mms] The address and group objects now extend the base Horde_Mail_Rfc822_Object class.
-* [mms] Add optional arguments to the Horde_Mail_Rfc822_Group constructor.
-* [mms] First argument to Horde_Mail_Rfc822#parseAddressList() can now be an array of addresses.
-* [mms] Add Horde_Mail_Rfc822#encode().
-* [mms] Workaround unexpected return from PHP_EOL in Mail transport drivers.
+* [mms] Implement new 2.0 API. See UPGRADING for full details of changes.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -45,7 +36,6 @@
     <dir name="Horde">
      <dir name="Mail">
       <file name="COPYING" role="doc" />
-      <file name="TODO" role="doc" />
       <file name="UPGRADING" role="doc" />
      </dir> <!-- /doc/Horde/Mail -->
     </dir> <!-- /doc/Horde -->
@@ -56,6 +46,8 @@
       <dir name="Rfc822">
        <file name="Address.php" role="php" />
        <file name="Group.php" role="php" />
+       <file name="GroupList.php" role="php" />
+       <file name="List.php" role="php" />
        <file name="Object.php" role="php" />
       </dir> <!-- /lib/Horde/Mail/Rfc822 -->
       <dir name="Transport">
@@ -70,7 +62,6 @@
       <file name="Rfc822.php" role="php" />
       <file name="Transport.php" role="php" />
      </dir> <!-- /lib/Horde/Mail -->
-     <file name="Mail.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
    <dir name="test">
@@ -78,6 +69,7 @@
      <dir name="Mail">
       <file name="AllTests.php" role="test" />
       <file name="GroupTest.php" role="test" />
+      <file name="ListTest.php" role="test" />
       <file name="ObjectTest.php" role="test" />
       <file name="ParseTest.php" role="test" />
       <file name="SendTest.php" role="test" />
@@ -131,14 +123,14 @@
  <phprelease>
   <filelist>
    <install as="COPYING" name="doc/Horde/Mail/COPYING" />
-   <install as="TODO" name="doc/Horde/Mail/TODO" />
    <install as="UPGRADING" name="doc/Horde/Mail/UPGRADING" />
-   <install as="Horde/Mail.php" name="lib/Horde/Mail.php" />
    <install as="Horde/Mail/Exception.php" name="lib/Horde/Mail/Exception.php" />
    <install as="Horde/Mail/Rfc822.php" name="lib/Horde/Mail/Rfc822.php" />
    <install as="Horde/Mail/Transport.php" name="lib/Horde/Mail/Transport.php" />
    <install as="Horde/Mail/Rfc822/Address.php" name="lib/Horde/Mail/Rfc822/Address.php" />
    <install as="Horde/Mail/Rfc822/Group.php" name="lib/Horde/Mail/Rfc822/Group.php" />
+   <install as="Horde/Mail/Rfc822/GroupList.php" name="lib/Horde/Mail/Rfc822/GroupList.php" />
+   <install as="Horde/Mail/Rfc822/List.php" name="lib/Horde/Mail/Rfc822/List.php" />
    <install as="Horde/Mail/Rfc822/Object.php" name="lib/Horde/Mail/Rfc822/Object.php" />
    <install as="Horde/Mail/Transport/Mail.php" name="lib/Horde/Mail/Transport/Mail.php" />
    <install as="Horde/Mail/Transport/Mock.php" name="lib/Horde/Mail/Transport/Mock.php" />
@@ -148,6 +140,7 @@
    <install as="Horde/Mail/Transport/Smtpmx.php" name="lib/Horde/Mail/Transport/Smtpmx.php" />
    <install as="Horde/Mail/AllTests.php" name="test/Horde/Mail/AllTests.php" />
    <install as="Horde/Mail/GroupTest.php" name="test/Horde/Mail/GroupTest.php" />
+   <install as="Horde/Mail/ListTest.php" name="test/Horde/Mail/ListTest.php" />
    <install as="Horde/Mail/ObjectTest.php" name="test/Horde/Mail/ObjectTest.php" />
    <install as="Horde/Mail/ParseTest.php" name="test/Horde/Mail/ParseTest.php" />
    <install as="Horde/Mail/SendTest.php" name="test/Horde/Mail/SendTest.php" />
@@ -291,7 +284,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-02-24</date>
+   <date>2012-02-27</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mms] Added Horde_Mail_Rfc822_Address#encoded property.

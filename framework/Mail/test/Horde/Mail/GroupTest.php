@@ -41,4 +41,15 @@ class Horde_Mail_GroupTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testValid()
+    {
+        $group_ob = new Horde_Mail_Rfc822_Group();
+
+        $this->assertTrue($group_ob->valid);
+
+        $group_ob->groupname = '';
+
+        $this->assertFalse($group_ob->valid);
+    }
+
 }
