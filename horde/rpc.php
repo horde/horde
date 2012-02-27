@@ -121,7 +121,7 @@ try {
 
 // Let the backend check authentication. By default, we look for HTTP
 // basic authentication against Horde, but backends can override this
-// as needed. Must reset the authentication arguement since we delegate
+// as needed. Must reset the authentication argument since we delegate
 // auth to the RPC server.
 $GLOBALS['registry']->setAuthenticationSetting(
     (array_key_exists($params, 'requireAuthorization') && $params['requireAuthorization'] === false)
