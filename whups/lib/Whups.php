@@ -797,23 +797,18 @@ class Whups
      * Returns the set of columns and their associated parameter from the
      * backend that should be displayed to the user.
      *
-     * The results can depend on the current user preferences and which search
-     * function was executed.
+     * The results can depend on the current user preferences, which search
+     * function was executed, and the $columns parameter.
      *
      * @param integer $search_type  The type of search that was executed.
      *                              Currently only 'block' is supported.
+     * @param array $columns        The columns to return, overriding the
+     *                              defaults for some $search_type.
      */
-    static public function getSearchResultColumns($search_type = null)
+    static public function getSearchResultColumns($search_type = null,
+                                                  $columns = null)
     {
-        if ($search_type == 'block') {
-            return array(
-                _("Id")       => 'id',
-                _("Summary")  => 'summary',
-                _("Priority") => 'priority_name',
-                _("State")    => 'state_name');
-        }
-
-        return array(
+        $all = array(
             _("Id")        => 'id',
             _("Summary")   => 'summary',
             _("State")     => 'state_name',
@@ -827,6 +822,23 @@ class Whups
             _("Assigned")  => 'date_assigned',
             _("Resolved")  => 'date_resolved',
         );
+
+        if ($search_type != 'block') {
+            return $all;
+        }
+
+        if (is_null($columns)) {
+            $columns = array('summary', 'priority_name', 'state_name');
+        }
+
+        $result = array(_("Id") => 'id');
+        foreach ($columns as $param) {
+            if (($label = array_search($param, $all)) !== false) {
+                $result[$label] = $param;
+            }
+        }
+
+        return $result;
     }
 
     /**

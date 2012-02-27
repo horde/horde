@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-12-13</date>
- <time>13:32:24</time>
+ <date>2012-02-27</date>
+ <time>16:33:52</time>
  <version>
   <release>2.0.2</release>
   <api>2.0.0</api>
@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
  <notes>
+* [jan] Make columns of portal block configurable (Request #10986).
 * [jan] Fix saving portal blocks.
 * [jan] Fix deleting queries (Bug #10985).
 * [jan] Fix encoding of auto-completion results (Bug #10945).
@@ -86,6 +87,7 @@
      <file name="Query.php" role="horde" />
      <file name="Queuecontents.php" role="horde" />
      <file name="Queuesummary.php" role="horde" />
+     <file name="Tickets.php" role="horde" />
      <file name="Unassigned.php" role="horde" />
     </dir> <!-- /lib/Block -->
     <dir name="Driver">
@@ -430,9 +432,6 @@
      </dir> <!-- /themes/hordeweb/graphics -->
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/hordeweb -->
-    <dir name="hordeweb1">
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/hordeweb1 -->
     <dir name="silver">
      <dir name="graphics">
       <file name="admin.png" role="horde" />
@@ -711,6 +710,7 @@
    <install as="whups/lib/Block/Query.php" name="lib/Block/Query.php" />
    <install as="whups/lib/Block/Queuecontents.php" name="lib/Block/Queuecontents.php" />
    <install as="whups/lib/Block/Queuesummary.php" name="lib/Block/Queuesummary.php" />
+   <install as="whups/lib/Block/Tickets.php" name="lib/Block/Tickets.php" />
    <install as="whups/lib/Block/Unassigned.php" name="lib/Block/Unassigned.php" />
    <install as="whups/lib/Driver/Sql.php" name="lib/Driver/Sql.php" />
    <install as="whups/lib/Factory/Driver.php" name="lib/Factory/Driver.php" />
@@ -883,7 +883,6 @@
    <install as="whups/themes/hordeweb/graphics/reports.png" name="themes/hordeweb/graphics/reports.png" />
    <install as="whups/themes/hordeweb/graphics/search.png" name="themes/hordeweb/graphics/search.png" />
    <install as="whups/themes/hordeweb/graphics/whups.png" name="themes/hordeweb/graphics/whups.png" />
-   <install as="whups/themes/hordeweb1/screen.css" name="themes/hordeweb1/screen.css" />
    <install as="whups/themes/silver/screen.css" name="themes/silver/screen.css" />
    <install as="whups/themes/silver/graphics/admin.png" name="themes/silver/graphics/admin.png" />
    <install as="whups/themes/silver/graphics/az.png" name="themes/silver/graphics/az.png" />
@@ -998,9 +997,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-12-13</date>
+   <date>2012-02-27</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
+* [jan] Make columns of portal block configurable (Request #10986).
 * [jan] Fix saving portal blocks.
 * [jan] Fix deleting queries (Bug #10985).
 * [jan] Fix encoding of auto-completion results (Bug #10945).
