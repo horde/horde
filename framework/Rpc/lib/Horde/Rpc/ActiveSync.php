@@ -5,7 +5,7 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author   Michael J Rubinsky <mrubinsk@horde.org>
  *
  * @category Horde
  * @package  Rpc
@@ -27,22 +27,22 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
     private $_server;
 
     /**
-     * ActiveSync's backend target (the datastore it syncs the PDA with)
+     * The backend data driver.
      *
-     * @var Horde_ActiveSync_Driver
+     * @var Horde_ActiveSync_Driver_Base
      */
     private $_backend;
 
     /**
      * Constructor.
-     * Parameters in addition to Horde_Rpc's:
-     *   (required) 'backend'      = Horde_ActiveSync_Driver
-     *   (required) 'server'       = Horde_ActiveSync
-     *   (optional) 'provisioning' = Require device provisioning?
      *
      * @param Horde_Controller_Request_Http  The request object.
-     * @param array $config  A hash containing any additional configuration or
-     *                       connection parameters this class might need.
+     *
+     * @param array $params  A hash containing any additional configuration or
+     *                       connection parameters this class might need:
+     *   'backend'      = Horde_ActiveSync_Driver_Base [REQUIRED]
+     *   'server'       = Horde_ActiveSync [REQUIRED]
+     *   'provisioning' = Require device provisioning? [OPTIONAL]
      */
     public function __construct(Horde_Controller_Request_Http $request, array $params = array())
     {
@@ -50,6 +50,7 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
 
         // Check for requirements
         $this->_get = $request->getGetVars();
+
         if ($request->getMethod() == 'POST' &&
             (empty($this->_get['Cmd']) || empty($this->_get['DeviceId']) || empty($this->_get['DeviceType']))) {
 
@@ -105,12 +106,9 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
      * Sends an RPC request to the server and returns the result.
      *
      * @param string $request  PHP input stream (ignored).
-     *
-     * @return void
      */
     public function getResponse($request)
     {
-        /* Not sure about this, but it's what zpush did so... */
         ob_start(null, 1048576);
         $serverVars = $this->_request->getServerVars();
         switch ($serverVars['REQUEST_METHOD']) {
@@ -118,7 +116,8 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
         case 'GET':
             if ($serverVars['REQUEST_METHOD'] == 'GET' &&
                 $this->_get['Cmd'] != 'OPTIONS') {
-                throw new Horde_Rpc_Exception('Trying to access the ActiveSync endpoint from a browser. Not Supported.');
+                throw new Horde_Rpc_Exception(
+                    Horde_Rpc_Translation::t('Trying to access the ActiveSync endpoint from a browser. Not Supported.'));
             }
             $this->_logger->debug('Horde_Rpc_ActiveSync::getResponse() starting for OPTIONS');
             try {
@@ -133,8 +132,14 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
             $this->_logger->debug('Horde_Rpc_ActiveSync::getResponse() starting for ' . $this->_get['Cmd']);
             try {
                 $this->_server->handleRequest($this->_get['Cmd'], $this->_get['DeviceId']);
+            } catch (Horde_ActiveSync_Exception_Invalid_Request $e) {
+               $this->_logger->err('Returning HTTP 400');
+               $this->_handleError($e);
+               header('HTTP/1.1 400 Invalid Request ' . $e->getMessage());
             } catch (Horde_ActiveSync_Exception $e) {
+                $this->_logger->err('Returning HTTP 500');
                 $this->_handleError($e);
+                header('HTTP/1.1 500');
             }
             break;
         }
@@ -156,9 +161,6 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
         $data = ob_get_contents();
         ob_end_clean();
 
-        // TODO: Figure this out...Z-Push had two possible paths for outputting
-        // to the client, 1) if the ob reached it's capacity, and here...but
-        // it didn't originally output the Content-Type header
         header('Content-Type: application/vnd.ms-sync.wbxml');
         header('Content-Length: ' . $len);
         echo $data;
@@ -169,13 +171,7 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
      * authentication in different ways. The base class implementation
      * checks for HTTP Authentication against the Horde auth setup.
      *
-     * @TODO should the realm be configurable - since Horde is only one of the
-     * possible backends?
-     *
      * @return boolean  Returns true if authentication is successful.
-     *                  Should send appropriate "not authorized" headers
-     *                  or other response codes/body if auth fails,
-     *                  and take care of exiting.
      */
     public function authorize()
     {
@@ -238,7 +234,6 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
         $this->_logger->err('Error in communicating with ActiveSync server: ' . $m);
         $this->_logger->err($trace);
         $this->_logger->err('Buffer contents: ' . $buffer);
-        throw new Horde_Rpc_Exception($e);
     }
 
 }
