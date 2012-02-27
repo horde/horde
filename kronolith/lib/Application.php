@@ -53,24 +53,17 @@ class Kronolith_Application extends Horde_Registry_Application
         /* For now, autoloading the Content_* classes depend on there being a
          * registry entry for the 'content' application that contains at least
          * the fileroot entry. */
-        $GLOBALS['injector']->getInstance('Horde_Autoloader')->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^Content_/', $GLOBALS['registry']->get('fileroot', 'content') . '/lib/'));
+        $GLOBALS['injector']->getInstance('Horde_Autoloader')
+            ->addClassPathMapper(
+                new Horde_Autoloader_ClassPathMapper_Prefix('/^Content_/', $GLOBALS['registry']->get('fileroot', 'content') . '/lib/'));
+
         if (!class_exists('Content_Tagger')) {
-            throw new Horde_Exception('The Content_Tagger class could not be found. Make sure the Content application is installed.');
+            throw new Horde_Exception(_("The Content_Tagger class could not be found. Make sure the Content application is installed."));
         }
 
         $GLOBALS['injector']->bindFactory('Kronolith_Geo', 'Kronolith_Factory_Geo', 'create');
         $GLOBALS['injector']->bindFactory('Kronolith_Shares', 'Kronolith_Factory_Shares', 'create');
 
-        /* Only do if kronolith is current app. */
-        if ($GLOBALS['registry']->initialApp == 'kronolith') {
-            /* Set the timezone variable, if available. */
-            $GLOBALS['registry']->setTimeZone();
-
-            /* Store the request timestamp if it's not already present. */
-            if (!isset($_SERVER['REQUEST_TIME'])) {
-                $_SERVER['REQUEST_TIME'] = time();
-            }
-        }
         $GLOBALS['linkTags'] = array();
         if ($GLOBALS['registry']->getView() != Horde_Registry::VIEW_DYNAMIC ||
             !$GLOBALS['prefs']->getValue('dynamic_view') ||
@@ -79,6 +72,17 @@ class Kronolith_Application extends Horde_Registry_Application
             foreach ($GLOBALS['display_calendars'] as $calendar) {
                 $GLOBALS['linkTags'][] = '<link href="' . Kronolith::feedUrl($calendar) . '" rel="alternate" type="application/atom+xml" />';
             }
+        }
+    }
+
+    public function authAuthenticateCallback()
+    {
+        /* Set the timezone variable, if available. */
+        $GLOBALS['registry']->setTimeZone();
+
+        /* Store the request timestamp if it's not already present. */
+        if (!isset($_SERVER['REQUEST_TIME'])) {
+            $_SERVER['REQUEST_TIME'] = time();
         }
     }
 
