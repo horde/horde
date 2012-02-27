@@ -123,7 +123,7 @@ try {
 // basic authentication against Horde, but backends can override this
 // as needed. Must reset the authentication arguement since we delegate
 // auth to the RPC server.
-$GLOBALS['registry']->setAuthenticationRequirement(
+$GLOBALS['registry']->setAuthenticationSetting(
     (array_key_exists($params, 'requireAuthorization') && $params['requireAuthorization'] === false)
      ? 'none'
      : 'Authenticate');
