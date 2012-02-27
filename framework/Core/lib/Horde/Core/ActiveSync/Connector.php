@@ -439,16 +439,10 @@ class Horde_Core_ActiveSync_Connector
             $query = new Horde_Imap_Client_Fetch_Query();
 
             // Get deleted.
-            // @TODO: Docs say 'vanished' should only return the expunged messages
-            //        but this returns expunged *and* the results returned by just
-            //        'changedsince'. Awaiting confirmation from Michael S. about
-            //        this behaviour.
             $deleted = $imap->fetch($mbox, $query, array(
                 'changedsince' => $folder->modseq(),
                 'vanished' => true));
-
-            $folder->setRemoved(
-                array_diff(array_keys($deleted), array_keys($messages)));
+            $folder->setRemoved(array_keys($deleted));
 
         } elseif (!$folder->modseq()) {
             // No modseq value, pull the entire list
