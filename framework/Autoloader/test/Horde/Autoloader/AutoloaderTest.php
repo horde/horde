@@ -1,4 +1,27 @@
 <?php
+/**
+ * Tests the Autoloader.
+ *
+ * PHP version 5
+ *
+ * @category   Horde
+ * @package    Autoloader
+ * @subpackage UnitTests
+ * @author     Chuck Hagenbuch <chuck@horde.org>
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @link       http://www.horde.org/libraries/Horde_Autoloader
+ */
+
+/**
+ * Tests the Autoloader.
+ *
+ * @category   Horde
+ * @package    Autoloader
+ * @subpackage UnitTests
+ * @author     Chuck Hagenbuch <chuck@horde.org>
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @link       http://www.horde.org/libraries/Horde_Autoloader
+ */
 class Horde_Autoloader_AutoloaderTest extends PHPUnit_Framework_TestCase
 {
     private $_autoloader;
@@ -95,7 +118,7 @@ class Horde_Autoloader_AutoloaderTest extends PHPUnit_Framework_TestCase
     }
 }
 
-class Horde_Autoloader_TestHarness extends Horde_Autoloader
+class Horde_Autoloader_TestHarness extends Horde_Autoloader_Base
 {
     private $_includeResponse;
     private $_fileExistsResponse;

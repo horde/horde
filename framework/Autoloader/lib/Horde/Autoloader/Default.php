@@ -14,7 +14,7 @@ require_once 'Horde/Autoloader.php';
 require_once 'Horde/Autoloader/ClassPathMapper.php';
 require_once 'Horde/Autoloader/ClassPathMapper/Default.php';
 
-class Horde_Autoloader_Default extends Horde_Autoloader
+class Horde_Autoloader_Default extends Horde_Autoloader_Base
 {
     public function __construct()
     {
