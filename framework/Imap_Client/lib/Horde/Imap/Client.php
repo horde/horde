@@ -71,13 +71,6 @@ class Horde_Imap_Client
     /* Fuzzy sort criteria defined in RFC 6203 */
     const SEARCH_RESULTS_RELEVANCY = 6;
 
-    /* DEPRECATED: Use SEARCH_RESULTS_* instead. */
-    const SORT_RESULTS_COUNT = 1;
-    const SORT_RESULTS_MATCH = 2;
-    const SORT_RESULTS_MAX = 3;
-    const SORT_RESULTS_MIN = 4;
-    const SORT_RESULTS_SAVE = 5;
-
     /* Constants for thread() */
     const THREAD_ORDEREDSUBJECT = 1;
     const THREAD_REFERENCES = 2;
@@ -127,7 +120,7 @@ class Horde_Imap_Client
     const ACL_DELETEMSGS = 't';
     const ACL_EXPUNGE = 'e';
     const ACL_ADMINISTER = 'a';
-    // Deprecated constants (RFC 2086 [3]; RFC 4314 [2.1.1])
+    // Old constants (RFC 2086 [3]; RFC 4314 [2.1.1])
     const ACL_CREATE = 'c';
     const ACL_DELETE = 'd';
 
@@ -330,19 +323,10 @@ class Horde_Imap_Client
     {
         $class = __CLASS__ . '_' . strtr(ucfirst(basename($driver)), '-', '_');
 
-        // DEPRECATED driver names
-        switch ($class) {
-        case __CLASS__ . 'Cclient':
-            $class = __CLASS__ . 'Socket';
-            break;
-
-        case __CLASS__ . 'Cclient_Pop3':
-            $class = __CLASS__ . 'Socket_Pop3';
-            break;
-        }
-
         if (class_exists($class)) {
             return new $class($params);
+        } elseif (class_exists($driver)) {
+            return new $driver($params);
         }
 
         throw new RuntimeException('Driver ' . $driver . ' not found');

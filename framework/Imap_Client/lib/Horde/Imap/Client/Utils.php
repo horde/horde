@@ -415,8 +415,6 @@ class Horde_Imap_Client_Utils
     /**
      * Parses a client command array to create a server command string.
      *
-     * @since 1.2.0
-     *
      * @param string $out         The unprocessed command string.
      * @param callback $callback  A callback function to use if literal data
      *                            is found. Two arguments are passed: the

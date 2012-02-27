@@ -13,16 +13,16 @@
  <date>2012-02-28</date>
  <time>21:49:18</time>
  <version>
-  <release>1.5.2</release>
-  <api>1.5.0</api>
+  <release>2.0.0</release>
+  <api>2.0.0</api>
  </version>
  <stability>
-  <release>stable</release>
-  <api>stable</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Clear imapproxy status when logging out.
+* [mms] Implement new 2.0 API. See UPGRADING for full details of changes.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
