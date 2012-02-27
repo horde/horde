@@ -67,15 +67,6 @@ class Horde_Mime_MimeTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testBug4834()
-    {
-        // Bug #4834: Wrong encoding of email lists with groups.
-        $addr = '"John Doe" <john@example.com>, Group: peter@example.com, jane@example.com;';
-        $expect = 'John Doe <john@example.com>, Group: peter@example.com, jane@example.com;';
-
-        $this->assertEquals(Horde_Mime::encodeAddress($addr, 'us-ascii'), $expect);
-    }
-
     public function testRfc2231()
     {
         // Horde_Mime RFC 2231 & workaround for broken MUA's
@@ -93,35 +84,6 @@ class Horde_Mime_MimeTest extends PHPUnit_Framework_TestCase
         Horde_Mime::$brokenRFC2231 = false;
         unset($expected['test']);
         $this->assertEquals(Horde_Mime::encodeParam($pname, $str, 'UTF-8'), $expected);
-    }
-
-    public function testEncodeAddress()
-    {
-        $email = 'ß <test@example.com>';
-
-        $this->assertEquals(
-            '=?utf-8?b?w58=?= <test@example.com>',
-            Horde_Mime::encodeAddress($email, 'UTF-8')
-        );
-
-        $this->assertEquals(
-            '=?utf-8?b?w58=?= <test@example.com>',
-            Horde_Mime::encodeAddress($email, 'UTF-8', 'example.com')
-        );
-
-        $email2 = 'ß X <test@example.com>';
-
-        $this->assertEquals(
-            '=?utf-8?b?w58=?= X <test@example.com>',
-            Horde_Mime::encodeAddress($email2, 'UTF-8', 'example.com')
-        );
-
-        $email3 = '"ß X" <test@example.com>';
-
-        $this->assertEquals(
-            '=?utf-8?b?w58=?= X <test@example.com>',
-            Horde_Mime::encodeAddress($email3, 'UTF-8', 'example.com')
-        );
     }
 
     public function testDecode()
