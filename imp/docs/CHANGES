@@ -2,6 +2,7 @@
 v6.0-git
 --------
 
+[mms] Add 'Edit As New' to Forward button dropdown menu in dynamic view.
 [mms] Allow identifying addresses to always display images for without
       requiring to add them to the addressbook.
 [mms] Disable text selection in dynamic view for everything but
