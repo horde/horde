@@ -11,6 +11,7 @@
  * @package  Autoloader
  */
 require_once 'Horde/Autoloader.php';
+require_once 'Horde/Autoloader/Base.php';
 require_once 'Horde/Autoloader/ClassPathMapper.php';
 require_once 'Horde/Autoloader/ClassPathMapper/Default.php';
 
