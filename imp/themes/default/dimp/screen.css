@@ -1068,7 +1068,7 @@ span.dimpactionFilter {
 #ctx_message_whitelist span.iconImg, #oa_whitelist span.iconImg {
     background-image: url("../graphics/whitelist.png");
 }
-#ctx_message_editasnew span.iconImg, #ctx_contacts_new span.iconImg {
+#ctx_message_editasnew span.iconImg, #ctx_contacts_new span.iconImg, #ctx_forward_editasnew span.iconImg {
     background-image: url("../graphics/compose.png");
 }
 #ctx_contacts_add span.iconImg {

@@ -155,7 +155,7 @@ span.dimpactionFilter {
 #ctx_message_source span.iconImg, #msg_view_source span.iconImg {
     background-image: url("../graphics/message_source.png");
 }
-#ctx_message_editasnew span.iconImg, #ctx_contacts_new span.iconImg {
+#ctx_message_editasnew span.iconImg, #ctx_contacts_new span.iconImg, #ctx_forward_editasnew span.iconImg {
     background-image: url("../graphics/compose.png");
 }
 #ctx_contacts_add span.iconImg {
