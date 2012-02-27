@@ -493,13 +493,16 @@ class Horde_Registry
     /**
      * (Re)set the authentication parameter. Useful for requests, such as Rpc
      * requests where we actually don't perform authentication until later in
-     * the request, but still need Horde bootstrapped early in the request.
+     * the request, but still need Horde bootstrapped early in the request. Also
+     * clears the local app/api cache since applications will probably already
+     * have been initialized during Notification polling.
      *
      * @param string $authentication  The authentication setting. @see Horde_Registry::appInit
      */
     public function setAuthenticationSetting($authentication)
     {
         $this->_args['authentication'] = $authentication;
+        $this->_obCache = array();
     }
 
     /**

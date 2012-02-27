@@ -926,13 +926,6 @@ class Kronolith
                  in_array(substr($id, 6), $_tasklists)) ||
                 in_array($id, $_temp)) {
                 $GLOBALS['display_external_calendars'][] = $id;
-            } else {
-                /* Convert Kronolith 2 preferences.
-                 * @todo: remove in Kronolith 3.1. */
-                list(,$oldid,) = explode('/', $id);
-                if (in_array($calendar->api() . '/' . $oldid, $_temp)) {
-                    $GLOBALS['display_external_calendars'][] = $calendarId;
-                }
             }
         }
         $GLOBALS['prefs']->setValue('display_external_cals', serialize($GLOBALS['display_external_calendars']));
