@@ -48,6 +48,7 @@
        <file name="Default.php" role="php" />
        <file name="Prefix.php" role="php" />
       </dir> <!-- /lib/Horde/Autoloader/ClassPathMapper -->
+      <file name="Base.php" role="php" />
       <file name="ClassPathMapper.php" role="php" />
       <file name="Default.php" role="php" />
      </dir> <!-- /lib/Horde/Autoloader -->
@@ -83,6 +84,7 @@
   <filelist>
    <install as="COPYING" name="doc/Horde/Autoloader/COPYING" />
    <install as="Horde/Autoloader.php" name="lib/Horde/Autoloader.php" />
+   <install as="Horde/Autoloader/Base.php" name="lib/Horde/Autoloader/Base.php" />
    <install as="Horde/Autoloader/ClassPathMapper.php" name="lib/Horde/Autoloader/ClassPathMapper.php" />
    <install as="Horde/Autoloader/Default.php" name="lib/Horde/Autoloader/Default.php" />
    <install as="Horde/Autoloader/ClassPathMapper/Application.php" name="lib/Horde/Autoloader/ClassPathMapper/Application.php" />
