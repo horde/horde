@@ -95,6 +95,45 @@ class Horde_Autoloader_AutoloaderTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($this->_autoloader->loadClass('The_Class_Name'));
     }
 
+    public function testRegistering()
+    {
+        $this->_autoloader->registerAutoloader();
+        $this->assertContains(
+            array($this->_autoloader, 'loadClass'), spl_autoload_functions()
+        );
+        spl_autoload_unregister(array($this->_autoloader, 'loadClass'));
+    }
+
+    public function testRealFixture()
+    {
+        $autoloader = new Horde_Autoloader_Base();
+        $autoloader->addClassPathMapper(
+            new Horde_Autoloader_ClassPathMapper_Default(
+                dirname(__FILE__) . '/fixtures'
+            )
+        );
+        $autoloader->registerAutoloader();
+        $this->assertTrue(
+            class_exists('HordeAutoloaderTestFixture')
+        );
+        spl_autoload_unregister(array($autoloader, 'loadClass'));
+    }
+
+    public function testAutoloadStashing()
+    {
+        $autoloader = new Horde_Autoloader_Base();
+        $autoloader->addClassPathMapper(
+            new Horde_Autoloader_ClassPathMapper_Default(
+                dirname(__FILE__) . '/fixtures'
+            )
+        );
+        $autoloader->registerAutoloader();
+        $this->assertTrue(
+            class_exists('HordeAutoloaderTestFixture')
+        );
+        spl_autoload_unregister(array($autoloader, 'loadClass'));
+    }
+
     private function _getSuccessfulMapperMock()
     {
         $mapper = $this->getMock('Horde_Autoloader_ClassPathMapper', array('mapToPath'));
