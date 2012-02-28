@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2012-02-28</date>
- <time>12:26:55</time>
+ <time>12:27:17</time>
  <version>
-  <release>1.0.6</release>
+  <release>1.0.7</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -28,8 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [mjr] Always provide the longest forecast length available for weather forecast data.
-* [mjr] No longer attempt to create a Horde_Service_Weather provider if we do not have one configured.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -330,6 +329,19 @@
    <notes>
 * [mjr] Always provide the longest forecast length available for weather forecast data.
 * [mjr] No longer attempt to create a Horde_Service_Weather provider if we do not have one configured.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.7</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-02-28</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
