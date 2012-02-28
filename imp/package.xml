@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2012-02-28</date>
- <time>12:42:46</time>
+ <time>12:44:42</time>
  <version>
-  <release>5.0.19</release>
+  <release>5.0.20</release>
   <api>5.0.0</api>
  </version>
  <stability>
@@ -34,18 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Fix setting default values for identity preferences.
-* [mms] Improve drag performance of elements in dynamic view.
-* [mms] Fix saving initial_page preference.
-* [mms] Workaround broken Thunderbird encrypted S/MIME messages.
-* [mms] Fix regression where passphrase prompt would not appear for S/MIME encrypted messages.
-* [mms] Fix regression in verifying signed &amp; encrypted S/MIME messages (Bug #10947).
-* [mms] Fix reloading the folder list in the dynamic view (Bug #10769).
-* [mms] Fix deleting messages from Virtual Trash.
-* [mms] Fix regression in displaying PGP Armored signed/encrypted messages (Bug #10926).
-* [mms] Catch IMAP server connection errors in traditional mailbox view.
-* [mms] Fix purging moved messages from dynamic mailbox view if deleted messages are visible in the mailbox (Bug #10916).
-* [mms] Fix message advancing when deleting messages in traditional view when deleted messages are visible in the mailbox.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2687,6 +2676,19 @@
 * [mms] Catch IMAP server connection errors in traditional mailbox view.
 * [mms] Fix purging moved messages from dynamic mailbox view if deleted messages are visible in the mailbox (Bug #10916).
 * [mms] Fix message advancing when deleting messages in traditional view when deleted messages are visible in the mailbox.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.20</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-02-28</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
