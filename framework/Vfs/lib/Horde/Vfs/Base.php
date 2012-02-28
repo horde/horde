@@ -430,7 +430,7 @@ abstract class Horde_Vfs_Base
                 continue;
             }
             if (!$this->isFolder($cur, $dir)) {
-                $result = $this->createFolder($cur, $dir);
+                $this->createFolder($cur, $dir);
             }
             if ($cur != '/') {
                 $cur .= '/';
