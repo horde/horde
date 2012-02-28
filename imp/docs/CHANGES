@@ -1,6 +1,6 @@
------------
-v5.0.19-git
------------
+-------
+v5.0.19
+-------
 
 [jan] Fix setting default values for identity preferences.
 [mms] Improve drag performance of elements in dynamic view.
