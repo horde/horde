@@ -1,6 +1,6 @@
-----------
-v1.0.6-git
-----------
+------
+v1.0.6
+------
 
 [mjr] Always provide the longest forecast length available for weather
       forecast data.
