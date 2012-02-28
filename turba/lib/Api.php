@@ -1196,9 +1196,12 @@ class Turba_Api extends Horde_Registry_Api
                     array(),
                     $matchBegin
                 );
+
                 if (!($search instanceof Turba_List)) {
                     continue;
                 }
+
+                $rfc822 = new Horde_Mail_Rfc822();
 
                 while ($ob = $search->next()) {
                     if (!$ob->isGroup()) {
@@ -1207,7 +1210,9 @@ class Turba_Api extends Horde_Registry_Api
                         foreach ($ob->driver->getCriteria() as $info_key => $info_val) {
                             $att[$info_key] = $ob->getValue($info_key);
                         }
-                        $email = array();
+
+                        $email = new Horde_Mail_Rfc822_List();
+
                         foreach (array_keys($att) as $key) {
                             if (!$ob->getValue($key) ||
                                 !isset($attributes[$key]) ||
@@ -1217,17 +1222,9 @@ class Turba_Api extends Horde_Registry_Api
                             $email_val = $ob->getValue($key);
 
                             // Multiple addresses support
-                            if (isset($attributes[$key]['params'])
-                                && is_array($attributes[$key]['params'])
-                                && !empty($attributes[$key]['params']['allow_multi'])) {
-                                $addrs = Horde_Mime_Address::explode($email_val);
-                            } else {
-                                $addrs = array($email_val);
-                            }
-
-                            foreach ($addrs as $addr) {
-                                $email[] = trim($addr);
-                            }
+                            $email->add($rfc822->parseAddressList($email_val, array(
+                                'limit' => (isset($attributes[$key]['params']) && is_array($attributes[$key]['params']) && !empty($attributes[$key]['params']['allow_multi'])) ? 0 : 1
+                            )));
                         }
 
                         $display_name = ($ob->hasValue('name') || !isset($ob->driver->alternativeName))
@@ -1248,7 +1245,7 @@ class Turba_Api extends Horde_Registry_Api
                                 $results[$name][] = array_merge($att, array(
                                     'id' => $att['__key'],
                                     'name' => $display_name,
-                                    'email' => $val,
+                                    'email' => $val->bare_address,
                                     '__type' => 'Object',
                                     'source' => $source)
                                 );
