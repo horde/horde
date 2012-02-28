@@ -1,6 +1,6 @@
------------
-v4.0.14-git
------------
+-------
+v4.0.14
+-------
 
 [mjr] Add more atomic control over ActiveSync security policies for better
       device compatibility.
