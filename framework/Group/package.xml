@@ -17,8 +17,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-02-27</date>
- <time>15:05:27</time>
+ <date>2012-02-28</date>
+ <time>01:41:29</time>
  <version>
   <release>1.0.6</release>
   <api>1.0.0</api>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Remove Contactlists driver.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -80,7 +80,6 @@
       <file name="Autoload.php" role="test" />
       <file name="Base.php" role="test" />
       <file name="conf.php.dist" role="test" />
-      <file name="ContactlistTest.php" role="test" />
       <file name="LdapTest.php" role="test" />
       <file name="MockTest.php" role="test" />
      </dir> <!-- /test/Horde/Group -->
@@ -143,7 +142,6 @@
    <install as="Horde/Group/Autoload.php" name="test/Horde/Group/Autoload.php" />
    <install as="Horde/Group/Base.php" name="test/Horde/Group/Base.php" />
    <install as="Horde/Group/conf.php.dist" name="test/Horde/Group/conf.php.dist" />
-   <install as="Horde/Group/ContactlistTest.php" name="test/Horde/Group/ContactlistTest.php" />
    <install as="Horde/Group/LdapTest.php" name="test/Horde/Group/LdapTest.php" />
    <install as="Horde/Group/MockTest.php" name="test/Horde/Group/MockTest.php" />
    <install as="Horde/Group/Sql/Base.php" name="test/Horde/Group/Sql/Base.php" />
@@ -367,10 +365,10 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-02-27</date>
+   <date>2012-02-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Remove Contactlists driver.
    </notes>
   </release>
  </changelog>
