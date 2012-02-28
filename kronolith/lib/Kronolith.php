@@ -1987,76 +1987,51 @@ class Kronolith
      */
     static public function parseAttendees($newAttendees)
     {
-        global $notification;
+        global $injector, $notification;
 
         if (empty($newAttendees)) {
             return array();
         }
 
-        $parser = new Horde_Mail_Rfc822();
+        $parser = $injector->getInstance('Horde_Mail_Rfc822');
         $attendees = array();
 
-        foreach (Horde_Mime_Address::explode($newAttendees) as $newAttendee) {
-            // Parse the address without validation to see what we can get out
-            // of it. We allow email addresses (john@example.com), email
-            // address with user information (John Doe <john@example.com>),
-            // and plain names (John Doe).
-            try {
-                $newAttendeeParsed = $parser->parseAddressList($newAttendee, array(
-                    'default_domain' => null,
-                    'nest_groups' => false,
-                    'validate' => false
-                ));
-                $error = (!isset($newAttendeeParsed[0]) || !isset($newAttendeeParsed[0]->mailbox));
-            } catch (Horde_Mail_Exception $e) {
-                $error = true;
-            }
+        /* Parse the address without validation to see what we can get out
+         * of it. We allow email addresses (john@example.com), email
+         * address with user information (John Doe <john@example.com>),
+         * and plain names (John Doe). */
+        $result = $parser->parseAddressList($newAttendee);
+        $result->setIteratorFilter(Horde_Mail_Rfc822_List::HIDE_GROUPS);
 
-            // If we can't even get a mailbox out of the address, then it is
-            // likely unuseable. Reject it entirely.
-            if ($error) {
+        foreach ($result as $newAttendee) {
+            if (!$newAttendee->valid) {
+                // If we can't even get a mailbox out of the address, then it
+                // is likely unuseable. Reject it entirely.
                 $notification->push(
                     sprintf(_("Unable to recognize \"%s\" as an email address."), $newAttendee),
-                    'horde.error');
+                    'horde.error'
+                );
                 continue;
             }
 
-            // Loop through any addresses we found.
-            foreach ($newAttendeeParsed as $newAttendeeParsedPart) {
-                // If there is only a mailbox part, then it is just a local
-                // name.
-                if (empty($newAttendeeParsedPart->host)) {
-                    $attendees[] = array(
-                        'attendance' => self::PART_REQUIRED,
-                        'response'   => self::RESPONSE_NONE,
-                        'name'       => $newAttendee,
-                    );
+            // If there is only a mailbox part, then it is just a local name.
+            if (!is_null($newAttendee->host)) {
+                // Build a full email address again and validate it.
+                try {
+                    $parser->parseAddressList($newAttendee->writeAddress(true));
+                } catch (Horde_Mail_Exception $e) {
+                    $notification->push($e, 'horde.error');
                     continue;
                 }
-
-                // Build a full email address again and validate it.
-                $name = empty($newAttendeeParsedPart->personal)
-                    ? ''
-                    : $newAttendeeParsedPart->personal;
-
-                try {
-                    $newAttendeeParsedPartNew = Horde_Mime::encodeAddress(Horde_Mime_Address::writeAddress($newAttendeeParsedPart->mailbox, $newAttendeeParsedPart->host, $name), 'UTF-8');
-                    $newAttendeeParsedPartValidated = $parser->parseAddressList($newAttendeeParsedPartNew, array(
-                        'default_domain' => null
-                    ));
-
-                    $email = $newAttendeeParsedPart->mailbox . '@'
-                        . $newAttendeeParsedPart->host;
-                    // Avoid overwriting existing attendees with the default
-                    // values.
-                    $attendees[Horde_String::lower($email)] = array(
-                        'attendance' => self::PART_REQUIRED,
-                        'response'   => self::RESPONSE_NONE,
-                        'name'       => $name);
-                } catch (Horde_Mime_Exception $e) {
-                    $notification->push($e, 'horde.error');
-                }
             }
+
+            // Avoid overwriting existing attendees with the default
+            // values.
+            $attendees[$newAttendee->bare_address] = array(
+                'attendance' => self::PART_REQUIRED,
+                'response'   => self::RESPONSE_NONE,
+                'name'       => strval($newAttendee)
+            );
         }
 
         return $attendees;
@@ -2070,10 +2045,7 @@ class Kronolith
     static public function attendeeList()
     {
         /* Attendees */
-        $attendees = array();
-        foreach ($GLOBALS['session']->get('kronolith', 'attendees', Horde_Session::TYPE_ARRAY) as $email => $attendee) {
-            $attendees[] = empty($attendee['name']) ? $email : Horde_Mime_Address::trimAddress($attendee['name'] . (strpos($email, '@') === false ? '' : ' <' . $email . '>'));
-        }
+        $attendees = self::getAttendeeEmailList($GLOBALS['session']->get('kronolith', 'attendees', Horde_Session::TYPE_ARRAY))->addresses;
 
         /* Resources */
         foreach ($GLOBALS['session']->get('kronolith', 'resources', Horde_Session::TYPE_ARRAY) as $resource) {
@@ -2170,12 +2142,8 @@ class Kronolith
             }
 
             if ($event->attendees) {
-                $attendees = array();
-                foreach ($event->attendees as $mail => $attendee) {
-                    $attendees[] = empty($attendee['name']) ? $mail : Horde_Mime_Address::trimAddress($attendee['name'] . (strpos($mail, '@') === false ? '' : ' <' . $mail . '>'));
-                }
+                $view->attendees = strval(self::getAttendeeEmailList($event->attendees));
                 $view->organizer = $GLOBALS['registry']->convertUserName($event->creator, false);
-                $view->attendees = $attendees;
             }
 
             if ($action == self::ITIP_REQUEST) {
@@ -2213,7 +2181,12 @@ class Kronolith
 
             $multipart = self::buildMimeMessage($view, 'notification', $image);
             $multipart->addPart($ics);
-            $recipient = empty($status['name']) ? $email : Horde_Mime_Address::trimAddress($status['name'] . ' <' . $email . '>');
+
+            $recipient = new Horde_Mail_Rfc822_Address($email);
+            if (!empty($status['name'])) {
+                $recipient->personal = $status['name'];
+            }
+
             $mail = new Horde_Mime_Mail(
                 array('Subject' => $view->subject,
                       'To' => $recipient,
@@ -2302,11 +2275,13 @@ class Kronolith
             if (strpos($email, '@') === false) {
                 continue;
             }
-            list($mailbox, $host) = explode('@', $email);
             if (!isset($addresses[$vals['lang']][$vals['tf']][$vals['df']])) {
                 $addresses[$vals['lang']][$vals['tf']][$vals['df']] = array();
             }
-            $addresses[$vals['lang']][$vals['tf']][$vals['df']][] = Horde_Mime_Address::writeAddress($mailbox, $host, $identity->getValue('fullname'));
+
+            $tmp = new Horde_Mail_Rfc822_Address($email);
+            $tmp->personal = $identity->getValue('fullname');
+            $addresses[$vals['lang']][$vals['tf']][$vals['df']][] = strval($tmp);
         }
 
         if (!$addresses) {
@@ -2993,6 +2968,28 @@ class Kronolith
                 $driver->deleteEvent($event->id);
             }
         }
+    }
+
+    /**
+     * TODO
+     *
+     * @param array $attendees
+     *
+     * @return Horde_Mail_Rfc822_List
+     */
+    static public function getAttendeeEmailList($attendees)
+    {
+        $a_list = new Horde_Mail_Rfc822_List();
+
+        foreach ($this->attendees as $mail => $attendee) {
+            $tmp = new Horde_Mail_Rfc822_Address($mail);
+            if (!empty($attendee['name'])) {
+                $tmp->personal = $attendee['name'];
+            }
+            $a_list->add($tmp);
+        }
+
+        return $a_list;
     }
 
 }

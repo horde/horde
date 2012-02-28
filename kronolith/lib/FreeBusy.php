@@ -162,11 +162,11 @@ class Kronolith_FreeBusy
             throw new Kronolith_Exception($e);
         }
 
-        if (!count($res)) {
+        if (!($tmp = $res[0])) {
             throw new Kronolith_Exception(_("No valid email address found"));
         }
 
-        $email = Horde_Mime_Address::writeAddress($res[0]->mailbox, $res[0]->host);
+        $email = $tmp->bare_address;
 
         /* Check if we can retrieve a VFB from the Free/Busy URL, if one is
          * set. */

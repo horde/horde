@@ -617,13 +617,11 @@ abstract class Kronolith_Event
             $email = Kronolith::getUserEmail($this->creator);
             $params = array();
             if ($v1) {
+                $tmp = new Horde_Mail_Rfc822_Address($email);
                 if (!empty($name)) {
-                    if (!empty($email)) {
-                        $email = ' <' . $email . '>';
-                    }
-                    $email = $name . $email;
-                    $email = Horde_Mime_Address::trimAddress($email);
+                    $tmp->personal = $name;
                 }
+                $email = strval($tmp);
             } else {
                 if (!empty($name)) {
                     $params['CN'] = $name;
@@ -756,13 +754,11 @@ abstract class Kronolith_Event
                 $email = '';
             }
             if ($v1) {
+                $tmp = new Horde_Mail_Rfc822_Address($email);
                 if (!empty($status['name'])) {
-                    if (!empty($email)) {
-                        $email = ' <' . $email . '>';
-                    }
-                    $email = $status['name'] . $email;
-                    $email = Horde_Mime_Address::trimAddress($email);
+                    $tmp->personal = $status['name'];
                 }
+                $email = strval($tmp);
             } else {
                 if (!empty($status['name'])) {
                     $params['CN'] = $status['name'];
@@ -1117,7 +1113,8 @@ abstract class Kronolith_Event
             for ($i = 0; $i < count($attendee); ++$i) {
                 $attendee[$i] = str_replace(array('MAILTO:', 'mailto:'), '',
                                             $attendee[$i]);
-                $email = Horde_Mime_Address::bareAddress($attendee[$i]);
+                $tmp = new Horde_Mail_Rfc822_Address($attendee[$i]);
+                $email = $tmp->bare_address;
                 // Default according to rfc2445:
                 $attendance = Kronolith::PART_REQUIRED;
                 // vCalendar 2.0 style:
@@ -1740,11 +1737,7 @@ abstract class Kronolith_Event
                 $view->prefsUrl = Horde::url(Horde::getServiceLink('prefs', 'kronolith'), true)->remove(session_name());
             }
             if ($this->attendees) {
-                $attendees = array();
-                foreach ($this->attendees as $mail => $attendee) {
-                    $attendees[] = empty($attendee['name']) ? $mail : Horde_Mime_Address::trimAddress($attendee['name'] . (strpos($mail, '@') === false ? '' : ' <' . $mail . '>'));
-                }
-                $view->attendees = $attendees;
+                $view->attendees = Kronolith::getAttendeeEmailList($this->attendees)->addresses;
             }
 
             $methods['mail']['mimepart'] = Kronolith::buildMimeMessage($view, 'mail', $image);
@@ -1875,13 +1868,17 @@ abstract class Kronolith_Event
             if ($this->attendees) {
                 $attendees = array();
                 foreach ($this->attendees as $email => $info) {
-                    $attendee = array('a' => (int)$info['attendance'],
-                                      'r' => (int)$info['response'],
-                                      'l' => empty($info['name']) ? $email : Horde_Mime_Address::trimAddress($info['name'] . (strpos($email, '@') === false ? '' : ' <' . $email . '>')));
-                    if (strpos($email, '@') !== false) {
-                        $attendee['e'] = $email;
+                    $tmp = new Horde_Mail_Rfc822_Address($email);
+                    if (!empty($info['name'])) {
+                        $tmp->personal = $info['name'];
                     }
-                    $attendees[] = $attendee;
+
+                    $attendees[] = array(
+                        'a' => intval($info['attendance']),
+                        'e' => $tmp->bare_address,
+                        'r' => intval($info['response']),
+                        'l' => strval($tmp)
+                    );
                 }
                 $json->at = $attendees;
             }

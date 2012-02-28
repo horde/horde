@@ -1098,19 +1098,18 @@ class Kronolith_Api extends Horde_Registry_Api
 
         $found = false;
         $error = _("No attendees have been updated because none of the provided email addresses have been found in the event's attendees list.");
+        $rfc822 = $GLOBALS['injector']->getInstance('Horde_Mail_Rfc822');
         $sender_lcase = Horde_String::lower($sender);
+
         foreach ($atnames as $index => $attendee) {
             if ($response->getAttribute('VERSION') < 2) {
-                $addresses = Horde_Mime_Address::parseAddressList($attendee);
-                if (!count($addresses)) {
+                $addr_ob = new Horde_Mail_Rfc822_Address($attendee);
+                if (!$addr_ob->valid) {
                     continue;
                 }
-                $attendee = $addresses[0]['mailbox'];
-                if (isset($addresses[0]['host'])) {
-                    $attendee .= '@' . $addresses[0]['host'];
-                }
-                $attendee = Horde_String::lower($attendee);
-                $name = isset($addresses[0]['personal']) ? $addresses[0]['personal'] : null;
+
+                $attendee = Horde_String::lower($addr_ob->bare_address);
+                $name = $addr_ob->personal;
             } else {
                 $attendee = str_replace('mailto:', '', Horde_String::lower($attendee));
                 $name = isset($atparms[$index]['CN']) ? $atparms[$index]['CN'] : null;
