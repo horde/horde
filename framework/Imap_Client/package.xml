@@ -22,7 +22,6 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Added Horde_Mail_Rfc822_Address#encoded property.
 * [mms] Workaround PHP bug when using serialized Envelope data created by Horde_Imap_Client &lt; 1.5.0 (Bug #11026).
 * [mms] Fix accessing STATUS information for mailboxes with non 7-bit characters.
 * [mms] Fix &apos;vanished&apos; return from fetch().
@@ -799,7 +798,6 @@
    <date>2012-02-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [mms] Added Horde_Mail_Rfc822_Address#encoded property.
 * [mms] Workaround PHP bug when using serialized Envelope data created by Horde_Imap_Client &lt; 1.5.0 (Bug #11026).
 * [mms] Fix accessing STATUS information for mailboxes with non 7-bit characters.
 * [mms] Fix &apos;vanished&apos; return from fetch().
