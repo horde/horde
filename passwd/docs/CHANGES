@@ -1,6 +1,6 @@
-----------
-v4.0.1-git
-----------
+------
+v4.0.1
+------
 
 [rla] Don't pass too many parameters from backends.php to Horde_Db (Bug #10963).
 [jan] Make expect driver locale independent (Bug #9166).

@@ -16,8 +16,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-02-07</date>
- <time>13:07:38</time>
+ <date>2012-02-28</date>
+ <time>12:45:26</time>
  <version>
   <release>4.0.1</release>
   <api>4.0.0</api>
@@ -621,7 +621,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-02-07</date>
+   <date>2012-02-28</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [rla] Don&apos;t pass too many parameters from backends.php to Horde_Db (Bug #10963).
