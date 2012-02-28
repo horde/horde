@@ -3069,7 +3069,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             } else {
                 // These entries are address structures.
                 $group = null;
-                $tmp = array();
+                $tmp = new Horde_Mail_Rfc822_List();
 
                 foreach ($val as $a_val) {
                     // RFC 3501 [7.4.2]: Group entry when host is NIL.
@@ -3082,7 +3082,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                             $group = null;
                         } else {
                             $group->groupname = $a_val[2];
-                            $tmp[] = $group;
+                            $tmp->add($group);
                         }
                     } else {
                         $addr = new Horde_Mail_Rfc822_Address();
@@ -3094,9 +3094,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                         }
 
                         if ($group) {
-                            $group->addresses[] = $addr;
+                            $group->addresses->add($addr);
                         } else {
-                            $tmp[] = $addr;
+                            $tmp->add($addr);
                         }
                     }
 
