@@ -229,19 +229,19 @@ abstract class Horde_Core_Ajax_Application
      */
     public function parseEmailAddress()
     {
-        $rfc822 = new Horde_Mail_Rfc822();
-        $params = array();
-        if ($this->_defaultDomain) {
-            $params['default_domain'] = $this->_defaultDomain;
-        }
-        $res = $rfc822->parseAddressList(Horde_Mime::encodeAddress($this->_vars->email, 'UTF-8', $this->_defaultDomain), $params);
-        if (!count($res)) {
+        $ob = new Horde_Mail_Rfc822_Address($this->_vars->email);
+        if (is_null($ob->mailbox)) {
             throw new Horde_Exception(Horde_Core_Translation::t("No valid email address found"));
         }
 
-        return (object)array(
-            'email' => Horde_Mime_Address::writeAddress($res[0]->mailbox, $res[0]->host)
-        );
+        if ($this->_defaultDomain) {
+            $ob->host = $this->_defaultDomain;
+        }
+
+        $ret = new stdClass;
+        $ret->email = $ob->bare_address;
+
+        return $ret;
     }
 
     /**
