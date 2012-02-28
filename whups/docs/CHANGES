@@ -1,6 +1,6 @@
-----------
-v2.0.2-git
-----------
+------
+v2.0.2
+------
 
 [jan] Fix saving portal blocks.
 [jan] Fix deleting queries (Bug #10985).
