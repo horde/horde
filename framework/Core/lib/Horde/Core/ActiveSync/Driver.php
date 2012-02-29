@@ -48,13 +48,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     private $_connector;
 
     /**
-     * Imap client
-     *
-     * @var Horde_Imap_Client_Socket
-     */
-    private $_imap;
-
-    /**
      * Folder cache
      *
      * @var array
@@ -98,11 +91,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
         if (empty($this->_params['auth']) || !($this->_params['auth'] instanceof Horde_Auth_Base)) {
             throw new InvalidArgumentException('Missing required Auth object');
-        }
-
-        if (!empty($this->_params['imap'])) {
-            $this->_imap = $this->_params['imap'];
-            unset($this->_params['imap']);
         }
 
         $this->_connector = $params['connector'];
