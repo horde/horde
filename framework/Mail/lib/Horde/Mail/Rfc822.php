@@ -428,7 +428,7 @@ class Horde_Mail_Rfc822
         if ($curr == '"') {
             $this->_rfc822ParseQuotedString($str);
         } else {
-            $this->_rfc822ParseDotAtom($str, '@');
+            $this->_rfc822ParseDotAtom($str, ',;@');
         }
 
         return $str;
@@ -657,7 +657,7 @@ class Horde_Mail_Rfc822
         if ($this->_curr() == '[') {
             $this->_rfc822ParseDomainLiteral($str);
         } else {
-            $this->_rfc822ParseDotAtom($str, ',>');
+            $this->_rfc822ParseDotAtom($str, ';,>');
         }
     }
 
