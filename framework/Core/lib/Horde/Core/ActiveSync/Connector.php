@@ -50,6 +50,16 @@ class Horde_Core_ActiveSync_Connector
     }
 
     /**
+     * Set a logger for this object.
+     *
+     * @var Horde_Log_Logger $logger  The logger.
+     */
+    public function setLogger($logger)
+    {
+        $this->_logger = $logger;
+    }
+
+    /**
      * Get a list of events from horde's calendar api
      *
      * @param integer $startstamp    The start of time period.

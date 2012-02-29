@@ -110,6 +110,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         unset($this->_params['connector']);
         unset($this->_params['auth']);
 
+        // Pass the logger along.
+        $this->_connector->setLogger($this->_logger);
+
         // Build the displaymap
         $this->_displayMap = array(
             self::APPOINTMENTS_FOLDER_UID => Horde_ActiveSync_Translation::t('Calendar'),
