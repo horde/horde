@@ -21,5 +21,5 @@
 require_once 'Horde/Autoloader/Default.php';
 require_once 'Horde/Autoloader/CacheDefault.php';
 
-$__autoloader = new Horde_Autoloader_Cache();
+$__autoloader = new Horde_Autoloader_Cache(new Horde_Autoloader_IncludePaths());
 $__autoloader->registerAutoloader();

@@ -27,13 +27,20 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://www.horde.org/libraries/Horde_Autoloader_Cache
  */
-class Horde_Autoloader_Cache extends Horde_Autoloader_Default
+class Horde_Autoloader_Cache implements Horde_Autoloader
 {
     /* Cache types. */
     const APC = 1;
     const XCACHE = 2;
     const EACCELERATOR = 3;
     const TEMPFILE = 4;
+
+    /**
+     * The autoloader that is being cached by this decorator.
+     *
+     * @var Horde_Autoloader
+     */
+    protected $_autoloader;
 
     /**
      * Map of all classes already looked up.
@@ -75,10 +82,12 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
      *
      * Tries all supported cache backends and tries to retrieved the cached
      * class map.
+     *
+     * @param Horde_Autoloader $autoloader The autoloader that is being decorated.
      */
-    public function __construct()
+    public function __construct($autoloader)
     {
-        parent::__construct();
+        $this->_autoloader = $autoloader;
 
         if (isset($_SERVER['SERVER_NAME'])) {
             $this->_cachekey .= '|' . $_SERVER['SERVER_NAME'];
@@ -148,7 +157,7 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
             $this->_cache = array();
         }
         if (!array_key_exists($className, $this->_cache)) {
-            $this->_cache[$className] = parent::mapToPath($className);
+            $this->_cache[$className] = $this->_autoloader->mapToPath($className);
             $this->_changed = true;
         }
 
