@@ -238,6 +238,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      * @param boolean $showunsub  Show unsubscribed mailboxes?
      *
      * @return array  See Horde_Imap_Client_Base::listMailboxes().
+     * @throws IMP_Imap_Exception
      */
     protected function _getList($showunsub)
     {
@@ -252,16 +253,12 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             $searches[] = $val . '*';
         }
 
-        try {
-            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
-            $result = $imp_imap->listMailboxes($searches, $showunsub ? Horde_Imap_Client::MBOX_ALL : Horde_Imap_Client::MBOX_SUBSCRIBED_EXISTS, array('attributes' => true, 'delimiter' => true, 'sort' => true));
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+        $result = $imp_imap->listMailboxes($searches, $showunsub ? Horde_Imap_Client::MBOX_ALL : Horde_Imap_Client::MBOX_SUBSCRIBED_EXISTS, array('attributes' => true, 'delimiter' => true, 'sort' => true));
 
-            /* INBOX must always appear. */
-            if (empty($result['INBOX'])) {
-                $result = $imp_imap->listMailboxes('INBOX', Horde_Imap_Client::MBOX_ALL, array('attributes' => true, 'delimiter' => true)) + $result;
-            }
-        } catch (IMP_Imap_Exception $e) {
-            $result = array();
+        /* INBOX must always appear. */
+        if (empty($result['INBOX'])) {
+            $result = $imp_imap->listMailboxes('INBOX', Horde_Imap_Client::MBOX_ALL, array('attributes' => true, 'delimiter' => true)) + $result;
         }
 
         $tmp = array();
