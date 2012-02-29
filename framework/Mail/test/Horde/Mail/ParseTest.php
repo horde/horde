@@ -258,7 +258,7 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
 
     public function testLimit()
     {
-        $email = array_fill(0, 10, 'A <example.com>');
+        $email = array_fill(0, 10, 'A <foo@example.com>');
 
         $parser = new Horde_Mail_Rfc822();
         $ob = $parser->parseAddressList(
@@ -270,6 +270,23 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             5,
+            count($ob)
+        );
+    }
+
+    public function testMissingMailboxInNonValidateMode()
+    {
+        $email = 'A <example.com>';
+
+        $parser = new Horde_Mail_Rfc822();
+        $ob = $parser->parseAddressList($email, array(
+            'validate' => false
+        ));
+
+        /* This can't work even in non-validate mode; since there is no hope
+         * that something like encoding will fix in the future. */
+        $this->assertEquals(
+            0,
             count($ob)
         );
     }
