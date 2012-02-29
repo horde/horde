@@ -1,5 +1,4 @@
 <?php
-<?php
 /**
  * Handler for Sync requests.
  *

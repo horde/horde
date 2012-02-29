@@ -1,5 +1,13 @@
 <?php
 /**
+ * Horde_ActiveSync_Connector_Importer:: Class for importing message changes
+ * from the PIM to the backend.
+ *
+ * @copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * @author Michael J Rubinsky <mrubinsk@horde.org>
+ * @package ActiveSync
+ */
+/**
  * Connector class for importing ActiveSync messages from the wbxml input stream.
  *
  * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
@@ -208,11 +216,14 @@ class Horde_ActiveSync_Connector_Importer
      * @param string $id  The message id
      * @param  $newfolder
      *
-     * @return boolean
+     * @return array
      */
     public function importMessageMove($id, $newfolder)
     {
-        return true;
+        // @TODO:: Do we need to update state? I think the next sync will
+        // take care of it??
+        return $this->_backend->moveMessage($this->_folderId, $id, $newfolder);
+
     }
 
     /**
