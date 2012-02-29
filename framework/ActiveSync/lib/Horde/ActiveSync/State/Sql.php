@@ -936,6 +936,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                             $this->_changes[] = $change;
                         }
                     }
+                    break;
                 default:
                     foreach ($changes as $change) {
                         $stat = $this->_backend->statMessage($folderId, $change['id']);
