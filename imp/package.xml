@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mms] Fix updating the compose address fields when using the contacts popup and a search is done in that popup.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2688,7 +2688,7 @@
    <date>2012-02-28</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mms] Fix updating the compose address fields when using the contacts popup and a search is done in that popup.
    </notes>
   </release>
  </changelog>

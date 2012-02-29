@@ -2,6 +2,8 @@
 v5.0.20-git
 -----------
 
+[mms] Fix updating the compose address fields when using the contacts popup and
+      a search is done in that popup.
 
 
 -------
