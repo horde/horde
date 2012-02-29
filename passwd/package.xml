@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Fix preparing multiple backends (Bug #11023).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -637,7 +637,7 @@
    <date>2012-02-28</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Fix preparing multiple backends (Bug #11023).
    </notes>
   </release>
  </changelog>
