@@ -160,11 +160,14 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function getWasteBasket()
     {
-        $this->_logger->debug('Horde::getWasteBasket()');
+        if (empty($this->_specialFolders)) {
+            $this->_specialFolders = $this->_connector->mail_getSpecialFolders();
+        }
         if (!empty($this->_specialFolders[self::SPECIAL_TRASH])) {
+            $this->_logger->debug('Horde::getWasteBasket(): ' . $this->_specialFolders[self::SPECIAL_TRASH]);
             return $this->_specialFolders[self::SPECIAL_TRASH];
         }
-
+        $this->_logger->debug('Horde::getWasteBasket(): FALSE');
         return false;
     }
 
