@@ -155,13 +155,15 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * permanent. If it returns a valid mailbox, deletions are treated as moves
      * to this mailbox.
      *
-     * @TODO
-     *
-     * @see framework/ActiveSync/lib/Horde/ActiveSync/Driver/Horde_ActiveSync_Driver_Base#getWasteBasket()
+     * @return string|boolean  Returns name of the trash folder, or false
+     *                         if not using a trash folder.
      */
     public function getWasteBasket()
     {
         $this->_logger->debug('Horde::getWasteBasket()');
+        if (!empty($this->_specialFolders[self::SPECIAL_TRASH])) {
+            return $this->_specialFolders[self::SPECIAL_TRASH];
+        }
 
         return false;
     }
@@ -584,6 +586,33 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
         $this->_endBuffer();
     }
+
+    /**
+     * Move message
+     *
+     * @param string $folderid     Existing folder id
+     * @param string $id           Message UID
+     * @param string $newfolderid  The new folder id
+     *
+     * @return boolean
+     */
+    public function moveMessage($folderid, $id, $newfolderid)
+    {
+        $this->_logger->debug('Horde::moveMessage(' . implode(',', array($folderid, $id, $newfolderid)));
+        ob_start();
+        switch ($folderid) {
+        case self::APPOINTMENTS_FOLDER_UID:
+        case self::CONTACTS_FOLDER_UID:
+        case self::TASKS_FOLDER_UID:
+            $this->_endBuffer();
+            throw new Horde_Exception('Not supported');
+        default:
+            $this->_connector->mail_moveMessage($folderid, $id, $newfolderid);
+        }
+        return true;
+        $this->_endBuffer();
+    }
+
 
     /**
      * Add/Edit a message

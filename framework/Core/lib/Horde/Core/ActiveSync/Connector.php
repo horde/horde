@@ -510,6 +510,40 @@ class Horde_Core_ActiveSync_Connector
     }
 
     /**
+     * Move a mail message
+     *
+     * @param string $folderid     The existing folderid.
+     * @param string $id           The message UID of the message to move.
+     * @param string $newfolderid  The folder id to move $id to.
+     *
+     * @return array  An hash of oldUID => newUIDs. If the server does not
+     *                support UIDPLUS, then this is a best guess and might fail
+     *                on busy folders.
+     */
+    public function mail_moveMessage($folderid, $id, $newfolderid)
+    {
+        $imap = $this->_registry->mail->imapOb();
+        $from = new Horde_Imap_Client_Mailbox($folderid);
+        $to = new Horde_Imap_Client_Mailbox($newfolderid);
+        if (!$imap->queryCapability('UIDPLUS')) {
+            $status = $imap->status($to, Horde_Imap_Client::STATUS_UIDNEXT);
+            $uidnext = $status[Horde_Imap_Client::STATUS_UIDNEXT];
+        }
+        $ids = new Horde_Imap_Client_Ids(array($id));
+        try {
+            $results = $imap->copy($from, $to, array('ids' => $ids, 'move' => true));
+        } catch (Horde_Imap_Client_Exception $e) {
+            throw new Horde_Exception($e);
+        }
+
+        if (is_array($results)) {
+            return $results;
+        }
+
+        return array($id => $uidnext);
+    }
+
+    /**
      * Return AS mail messages, from the given IMAP UIDs.
      *
      * @param Horde_ActiveSync_Message_Folder $folder  The mailbox folder.
