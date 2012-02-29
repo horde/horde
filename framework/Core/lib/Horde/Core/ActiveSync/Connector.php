@@ -535,12 +535,33 @@ class Horde_Core_ActiveSync_Connector
         } catch (Horde_Imap_Client_Exception $e) {
             throw new Horde_Exception($e);
         }
-
         if (is_array($results)) {
             return $results;
         }
 
         return array($id => $uidnext);
+    }
+
+    /**
+     * Permanently delete a mail message.
+     *
+     * @param array $uids     The message UIDs
+     * @param string $folder  The folder id.
+     */
+    public function mail_deleteMessages($uids, $folder)
+    {
+        $imap = $this->_registry->mail->imapOb();
+        $mbox = new Horde_Imap_Client_Mailbox($folder);
+        $ids = new Horde_Imap_Client_Ids($uids);
+        try {
+            $imap->store($mbox, array(
+                'ids' => $ids,
+                'add' => array('\deleted'))
+            );
+            $imap->expunge($mbox, array('ids' => $ids));
+        } catch (Horde_Imap_Client_Exception $e) {
+            throw new Horde_Exception($e);
+        }
     }
 
     /**

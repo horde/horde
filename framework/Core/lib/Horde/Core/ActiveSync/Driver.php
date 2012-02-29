@@ -577,11 +577,18 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $this->_connector->tasks_delete($id);
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
-                $this->_endBuffer();
             }
             break;
         default:
-            $this->_endBuffer();
+            // Must be mail folder
+            if (!is_array($id)) {
+                $id = array($id);
+            }
+            try {
+                $this->_connector->mail_deleteMessages($id, $folderid);
+            } catch (Horde_Exception $e) {
+                $this->_logger->err($e->getMessage());
+            }
         }
 
         $this->_endBuffer();
