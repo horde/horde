@@ -6,8 +6,6 @@
  */
 
 var ImpContacts = {
-    // The following variables are defined in contacts.php:
-    //   formfield, formname, to_only
 
     _passAddresses: function()
     {
@@ -68,7 +66,9 @@ var ImpContacts = {
             return;
         }
 
-        if (!parent.opener.document[this.formname]) {
+        var formname = $F('formname');
+
+        if (!parent.opener.document[formname]) {
             alert(IMP.text.contacts_called);
             window.close();
             return;
@@ -80,11 +80,11 @@ var ImpContacts = {
             f = address.substring(0, pos);
             address = address.substring(pos + 2, address.length)
 
-            if (this.formfield) {
-                field = parent.opener.document[this.formname][this.formfield];
+            if ($F('formfield')) {
+                field = parent.opener.document[formname][$F('formfield')];
             } else if (f == 'to' ||
-                      (!this.to_only && (f == 'cc' || f == 'bcc'))) {
-                field = parent.opener.document[this.formname][f];
+                      (!$F('to_only') && (f == 'cc' || f == 'bcc'))) {
+                field = parent.opener.document[formname][f];
             }
 
             if (!field) {

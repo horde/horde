@@ -38,6 +38,9 @@ if (!isset($vars->source) || !isset($source_list[$vars->source])) {
     $vars->source = key($source_list);
 }
 
+$formfield = isset($vars->formfield)
+    ? $vars->filter('formfield')
+    : '';
 $formname = isset($vars->formname)
     ? $vars->filter('formname')
     : 'compose';
@@ -73,6 +76,7 @@ $template = $injector->createInstance('Horde_Template');
 $template->setOption('gettext', true);
 
 $template->set('action', Horde::url('contacts.php')->unique());
+$template->set('formfield', $formfield);
 $template->set('formname', $formname);
 $template->set('formInput', Horde_Util::formInput());
 $template->set('search', htmlspecialchars($vars->search));
@@ -101,17 +105,8 @@ foreach ($addresses as $addr) {
     }
 }
 $template->set('a_list', $a_list);
-$template->set('cc', intval(!$vars->to_only));
+$template->set('to_only', intval($vars->to_only));
 $template->set('sa', $selected_addresses);
-
-$js = array(
-    'ImpContacts.formname' => $formname,
-    'ImpContacts.to_only' => intval($vars->to_only)
-);
-if (isset($vars->formfield)) {
-    $js['ImpContacts.formfield'] = $vars->formfield;
-}
-Horde::addInlineJsVars($js);
 
 /* Display the form. */
 Horde::addScriptFile('contacts.js', 'imp');

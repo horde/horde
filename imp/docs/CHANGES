@@ -53,8 +53,16 @@ v6.0-git
 
 
 -----------
-v5.0.19-git
+v5.0.20-git
 -----------
+
+[mms] Fix updating the compose address fields when using the contacts popup and
+      a search is done in that popup.
+
+
+-------
+v5.0.19
+-------
 
 [jan] Fix setting default values for identity preferences.
 [mms] Improve drag performance of elements in dynamic view.

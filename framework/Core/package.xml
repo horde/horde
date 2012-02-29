@@ -29,7 +29,7 @@
   <active>yes</active>
  </developer>
  <date>2012-02-06</date>
- <time>15:39:46</time>
+ <time>15:31:51</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -1777,7 +1777,24 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-02-06</date>
+   <date>2012-02-28</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix setting default values for HTML signatures.
+* [mjr] Throw exception if no weather service configured (Bug #11005).
+* [mms] Fix viewable prefs when toggling from Hide-&gt;Show Advanced.
+* [mms] Better error message when missing required parameters (Bug #10979).
+* [mms] Add Horde_Core_Alarm_Handler_Notify class.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.8.6</release>
+    <api>1.8.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-02-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 *

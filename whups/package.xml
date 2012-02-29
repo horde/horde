@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-02-27</date>
- <time>16:33:52</time>
+ <date>2011-12-13</date>
+ <time>13:32:24</time>
  <version>
   <release>3.0.0</release>
   <api>3.0.0</api>
@@ -996,7 +996,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-02-27</date>
+   <date>2011-12-13</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
 * [jan] Fix saving portal blocks.

@@ -233,8 +233,15 @@ class Horde_Imap_Client_Cache
      */
     protected function _getCID($mailbox, $slice)
     {
-        /* Cache ID = prefix | username | mailbox | hostspec | port | slice */
-        return implode('|', array('horde_imap_client', $this->_params['username'], $mailbox, $this->_params['hostspec'], $this->_params['port'], $slice));
+        return implode('|', array(
+            'horde_imap_client',
+            $this->_params['username'],
+            $mailbox,
+            $this->_params['hostspec'],
+            $this->_params['port'],
+            $slice,
+            self::VERSION
+        ));
     }
 
     /**
@@ -631,10 +638,7 @@ class Horde_Imap_Client_Cache
 
         if (isset($this->_slicemap[$mailbox])) {
             $ptr = &$this->_slicemap[$mailbox];
-            if (!isset($ptr['version']) ||
-                ($ptr['version'] != self::VERSION)) {
-                $this->_deleteMailbox($mailbox);
-            } elseif (is_null($ptr['data']['uidvalid'])) {
+            if (is_null($ptr['data']['uidvalid'])) {
                 $ptr['data']['uidvalid'] = $uidvalid;
                 return;
             } elseif (!is_null($uidvalid) &&
@@ -654,9 +658,7 @@ class Horde_Imap_Client_Cache
             // UIDs to delete
             'delete' => array(),
             // The slice list.
-            'slice' => array(),
-            // Data version.
-            'version' => self::VERSION
+            'slice' => array()
         );
     }
 

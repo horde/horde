@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-01-19</date>
- <time>00:24:04</time>
+ <date>2011-12-13</date>
+ <time>12:48:26</time>
  <version>
   <release>5.0.0</release>
   <api>5.0.0</api>
@@ -4624,10 +4624,9 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-12-13</date>
+   <date>2012-02-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [jan] Fix setting default values for HTML signatures.
 * [mjr] Added more atomic control over ActiveSync security policies for better device compatibility.
 * [mms] Add &apos;sendmail_eol&apos; configuration parameter.
 * [jan] Fix horde-set-perms (piper@hrz.uni-marburg.de, Bug #10923).

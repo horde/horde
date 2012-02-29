@@ -28,8 +28,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-12-19</date>
- <time>15:56:14</time>
+ <date>2012-01-17</date>
+ <time>13:22:43</time>
  <version>
   <release>4.0.0</release>
   <api>4.0.0</api>
@@ -1380,7 +1380,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-01-17</date>
+   <date>2012-02-28</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
 * [mjr] Ensure contact lists are always populated with their members (Bug #10961).
