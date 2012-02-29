@@ -606,7 +606,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function moveMessage($folderid, $id, $newfolderid)
     {
-        $this->_logger->debug('Horde::moveMessage(' . implode(',', array($folderid, $id, $newfolderid)));
+        $this->_logger->debug('Horde::moveMessage(' . implode(',', array($folderid, $id, $newfolderid)) . ')');
         ob_start();
         switch ($folderid) {
         case self::APPOINTMENTS_FOLDER_UID:
