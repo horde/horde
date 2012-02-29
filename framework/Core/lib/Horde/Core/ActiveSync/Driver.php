@@ -151,7 +151,11 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     }
 
     /**
-     * Get the wastebasket folder
+     * Get the wastebasket folder. If this returns false, imap deletions are
+     * permanent. If it returns a valid mailbox, deletions are treated as moves
+     * to this mailbox.
+     *
+     * @TODO
      *
      * @see framework/ActiveSync/lib/Horde/ActiveSync/Driver/Horde_ActiveSync_Driver_Base#getWasteBasket()
      */
