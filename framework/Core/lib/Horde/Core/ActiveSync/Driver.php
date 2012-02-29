@@ -891,26 +891,28 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $value = array($value);
             }
             foreach ($value as $mailbox) {
-                switch ($key) {
-                case self::SPECIAL_SENT:
-                    if ($sid == $mailbox->basename) {
-                        $folder->type = Horde_ActiveSync::FOLDER_TYPE_SENTMAIL;
-                        return $folder;
-                    }
-                    break;
-                case self::SPECIAL_TRASH:
-                    if ($sid == $mailbox->basename) {
-                        $folder->type = Horde_ActiveSync::FOLDER_TYPE_WASTEBASKET;
-                        return $folder;
-                    }
-                    break;
+                if (!is_null($mailbox)) {
+                    switch ($key) {
+                    case self::SPECIAL_SENT:
+                        if ($sid == $mailbox->basename) {
+                            $folder->type = Horde_ActiveSync::FOLDER_TYPE_SENTMAIL;
+                            return $folder;
+                        }
+                        break;
+                    case self::SPECIAL_TRASH:
+                        if ($sid == $mailbox->basename) {
+                            $folder->type = Horde_ActiveSync::FOLDER_TYPE_WASTEBASKET;
+                            return $folder;
+                        }
+                        break;
 
-                case self::SPECIAL_DRAFTS:
-                    if ($sid == $mailbox->basename) {
-                        $folder->type = Horde_ActiveSync::FOLDER_TYPE_DRAFTS;
-                        return $folder;
+                    case self::SPECIAL_DRAFTS:
+                        if ($sid == $mailbox->basename) {
+                            $folder->type = Horde_ActiveSync::FOLDER_TYPE_DRAFTS;
+                            return $folder;
+                        }
+                        break;
                     }
-                    break;
                 }
             }
         }
