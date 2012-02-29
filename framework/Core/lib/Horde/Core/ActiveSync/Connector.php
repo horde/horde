@@ -418,21 +418,25 @@ class Horde_Core_ActiveSync_Connector
             Horde_Imap_Client::STATUS_HIGHESTMODSEQ |
             Horde_Imap_Client::STATUS_UIDVALIDITY |
             Horde_Imap_Client::STATUS_UIDNEXT
-         );
-         $modseq = $status['highestmodseq'];
+        );
 
-        // If we have a modseq, start getting deltas.
-        if ($folder->modseq() && $folder->modseq() < $modseq) {
-            // Get changed messages and new messages.
+        // If we don't support QRESYNC, don't bother with modseq.
+        if ($qresync = $imap->queryCapability('QRESYNC')) {
+            $modseq = $status['highestmodseq'];
+        } else {
+            $modseq = $status[Horde_Imap_Client::STATUS_HIGHESTMODSEQ] = 0;
+        }
 
-            // Use this if we don't care about /deleted flags
+        $this->_logger->debug('IMAP status: ' . print_r($status, true));
+        if ($qresync && $folder->modseq() > 0 && $folder->modseq() < $modseq) {
+            // If we are here, we support QRESYNC and have known changes
             $query = new Horde_Imap_Client_Fetch_Query();
-            //$query->uid();
             $query->modseq();
             $query->flags();
             $messages = $imap->fetch($mbox, $query, array(
                 'changedsince' => $folder->modseq()
             ));
+
             // Need to make sure there were no further changes after the
             // modseq reported above. This would happen if a change occurs after
             // the $imap->status() call. This would lead to duplicate fetches
@@ -457,9 +461,9 @@ class Horde_Core_ActiveSync_Connector
                 'changedsince' => $folder->modseq(),
                 'vanished' => true));
             $folder->setRemoved(array_keys($deleted));
-
-        } elseif (!$folder->modseq()) {
-            // No modseq value, pull the entire list
+        } elseif ($folder->modseq() == 0) {
+            // This is either an initial priming or we don't support QRESYNC
+            // Either way, we need the full message uid list.
             $query = new Horde_Imap_Client_Search_Query();
             if ($options['sincedate']) {
                 $query->dateSearch(
