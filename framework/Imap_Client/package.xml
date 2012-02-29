@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-02-22</date>
- <time>13:12:49</time>
+ <date>2012-02-28</date>
+ <time>21:49:04</time>
  <version>
   <release>1.5.1</release>
   <api>1.5.0</api>
@@ -795,7 +795,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-02-22</date>
+   <date>2012-02-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Workaround PHP bug when using serialized Envelope data created by Horde_Imap_Client &lt; 1.5.0 (Bug #11026).
