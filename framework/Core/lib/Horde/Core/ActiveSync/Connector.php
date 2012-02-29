@@ -26,12 +26,16 @@ class Horde_Core_ActiveSync_Connector
     private $_registry;
 
     /**
+     * The logger
+     *
+     * @var Horde_Log_Logger
+     */
+
+    /**
      * Const'r
      *
      * @param array $params  Configuration parameters. Requires:
-     * <pre>
-     *   -registry An instance of Horde_Registry
-     * </pre>
+     *     - registry: An instance of Horde_Registry
      *
      * @return Horde_ActiveSync_Driver_Horde_Connector_Registry
      * @throws InvalidArgumentException
@@ -387,8 +391,8 @@ class Horde_Core_ActiveSync_Connector
      *
      * @param Horde_ActiveSync_Folder_Imap $folder  The mailbox folder.
      * @param array $options                        Additional Options:
-     *   -sincedate  (integer)  Timestamp of earliest message to retrieve.
-     *                          DEFAULT: 0 (Don't filter)
+     *   - sincedate:  Timestamp of earliest message to retrieve.
+     *                 DEFAULT: 0 (Don't filter)
      *
      * @return Horde_ActiveSync_Folder_Imap  The folder object representing this
      *                                       IMAP folder.
