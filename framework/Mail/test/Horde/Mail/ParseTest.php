@@ -387,6 +387,11 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
             2,
             count($ob)
         );
+
+        $this->assertEquals(
+            'example.com',
+            $ob[0]->host
+        );
     }
 
     public function testParsingIDNHost()
