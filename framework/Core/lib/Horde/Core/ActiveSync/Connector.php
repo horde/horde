@@ -471,10 +471,39 @@ class Horde_Core_ActiveSync_Connector
                     Horde_Imap_Client_Search_Query::DATE_SINCE);
             }
             $query->flag(Horde_Imap_Client::FLAG_DELETED, false);
-            $results = $imap->search($mbox, $query);
-            $folder->setChanges($results['match']->ids);
-        }
+            $results = $imap->search(
+                $mbox,
+                $query,
+                array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_MATCH, Horde_Imap_Client::SEARCH_RESULTS_MIN)));
 
+            if ($qresync && $modseq > 0) {
+                // Support QRESYNC, but this is initial priming - set the results.
+                $folder->setChanges($results['match']->ids);
+                $status[Horde_ActiveSync_Folder_Imap::MINUID] = $results['min'];
+            } else {
+                // No QRESYNC, perform some magic.
+                $uids = $folder->messages();
+                $deleted = array_diff($uids, $results['match']);
+                $changed = array_diff($uids, $deleted);
+                // All changes in AS are a change in /seen. Get the flags only
+                // for the messages we think have been changed and set them in
+                // the folder. We don't care about what state the flag is in
+                // on the device currently. We will assume that all flag changes
+                // from the server are authoritative. There is no other sane way
+                // to do this without killing the server.
+                $query = new Horde_Imap_Client_Fetch_Query();
+                $query->flags();
+                $messages = $imap->fetch($mbox, $query, array('uids' => $changed));
+                $flags = array();
+                foreach ($messages as $uid => $message) {
+                    $flags[$uid] = array(
+                        'read' => (array_search('\seen', $message->getFlags()) !== false) ? 1 : 0
+                    );
+                }
+                $folder->setChanges($changed, $flags);
+                $folder->setRemoved($deleted);
+            }
+        }
         $folder->setStatus($status);
 
         return $folder;
