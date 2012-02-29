@@ -274,6 +274,36 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testMissingAddressWhenParsingGroupInNonValidateMode()
+    {
+        $email = 'Group: foo@example.com, A;';
+
+        $parser = new Horde_Mail_Rfc822();
+        $ob = $parser->parseAddressList($email, array(
+            'validate' => false
+        ));
+
+        $this->assertEquals(
+            2,
+            count($ob[0]->addresses)
+        );
+    }
+
+    public function testParseGroupWhenNotValidating()
+    {
+        $email = 'Group: foo@example.com, foo2@example.com;';
+
+        $parser = new Horde_Mail_Rfc822();
+        $ob = $parser->parseAddressList($email, array(
+            'validate' => false
+        ));
+
+        $this->assertEquals(
+            2,
+            count($ob[0]->addresses)
+        );
+    }
+
     public function testLargeParse()
     {
         $email = array_fill(0, 1000, 'A <foo@example.com>, "A B" <foo@example.com>, foo@example.com, Group: A <foo@example.com>;, Group2: "A B" <foo@example.com>;');
