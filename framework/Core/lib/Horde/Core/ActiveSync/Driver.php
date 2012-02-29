@@ -562,7 +562,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $this->_connector->calendar_delete($id);
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
-                $this->_endBuffer();
             }
             break;
 
@@ -571,7 +570,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $this->_connector->contacts_delete($id);
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
-                $this->_endBuffer();
             }
             break;
 
