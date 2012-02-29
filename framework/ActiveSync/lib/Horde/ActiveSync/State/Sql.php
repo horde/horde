@@ -330,7 +330,8 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         if ($origin == Horde_ActiveSync::CHANGE_ORIGIN_PIM) {
             // This is an incoming change from the PIM, store it so we
             // don't mirror it back to device.
-            if ($type == Horde_ActiveSync::CHANGE_TYPE_FLAGS) {
+            switch ($type) {
+            case Horde_ActiveSync::CHANGE_TYPE_FLAGS:
                 // This is a mail sync changing only a read flag.
                 $sql = 'INSERT INTO ' . $this->_syncMailMapTable
                     . ' (message_uid, sync_key, sync_devid,'
@@ -344,7 +345,10 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                     $user,
                     $change['flags']
                 );
-            } else {
+                break;
+
+            case Horde_ActiveSync::CHANGE_TYPE_CHANGE:
+            case Horde_ActiveSync::CHANGE_TYPE_DELETE:
                 $sql = 'INSERT INTO ' . $this->_syncMapTable
                     . ' (message_uid, sync_modtime, sync_key, sync_devid,'
                     . ' sync_folderid, sync_user, sync_clientid)'
@@ -357,6 +361,10 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                    $change['parent'],
                    $user,
                    $clientid);
+                break;
+            default:
+                // We only care if it's an imported
+                return;
             }
             try {
                 $this->_db->insert($sql, $params);
