@@ -54,7 +54,7 @@ if (strpos('@php_dir@', '@php_dir') === 0) {
 }
 
 @include 'Horde/Autoloader/Default.php';
-if (!class_exists('Horde_Autoloader_Default')) {
+if (!class_exists('Horde_Autoloader_IncludePath')) {
    die('The "Horde_Autoloader" PEAR package is unavailable. Install it with "pear install Horde_Autoloader" first!' . "\n");
 }
 

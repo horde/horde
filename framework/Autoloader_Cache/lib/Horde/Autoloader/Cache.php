@@ -1,13 +1,32 @@
 <?php
 /**
- * Decorator for Horde_Autoloader that implements caching of class-file-maps.
+ * Decorator for Horde_Autoloader that implements caching of
+ * class-file-maps.
  *
- * @author   Jan Schneider <jan@horde.org>
+ * PHP 5
+ *
  * @category Horde
  * @package  Autoloader_Cache
+ * @author   Jan Schneider <jan@horde.org>
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @link     http://www.horde.org/libraries/Horde_Autoloader_Cache
  */
-require_once 'Horde/Autoloader/Default.php';
 
+/**
+ * Decorator for Horde_Autoloader that implements caching of
+ * class-file-maps.
+ *
+ * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you did not
+ * receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @category Horde
+ * @package  Autoloader_Cache
+ * @author   Jan Schneider <jan@horde.org>
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @link     http://www.horde.org/libraries/Horde_Autoloader_Cache
+ */
 class Horde_Autoloader_Cache extends Horde_Autoloader_Default
 {
     /* Cache types. */
@@ -24,7 +43,7 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
     protected $_cache = array();
 
     /**
-     * THe cache type.
+     * The cache type.
      *
      * @var array
      */
@@ -160,7 +179,3 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
         return false;
     }
 }
-
-spl_autoload_unregister(array($__autoloader, 'loadClass'));
-$__autoloader = new Horde_Autoloader_Cache();
-$__autoloader->registerAutoloader();

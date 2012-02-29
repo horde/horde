@@ -43,7 +43,7 @@ if (file_exists(HORDE_BASE . '/config/horde.local.php')) {
 /* Set up autoload paths for core Horde libs (located in lib/). This can't
  * be defined in Horde_Autoloader since the current directory path can not be
  * determined there. */
-if (!@include_once 'Horde/Autoloader/Cache.php') {
+if (!@include_once 'Horde/Autoloader/CacheDefault.php') {
     require_once 'Horde/Autoloader/Default.php';
 }
 $__autoloader->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^Horde(?:$|_)/i', $dirname));
