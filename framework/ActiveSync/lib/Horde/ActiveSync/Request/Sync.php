@@ -127,7 +127,13 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             }
 
             if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_DELETESASMOVES)) {
-                $collection['deletesasmoves'] = true;
+                if ($collection['deletesasmoves'] = $this->_decoder->getElementContent()) {
+                    if(!$decoder->getElementEndTag()) {
+                        throw new Horde_ActiveSync_Exception('Protocol Error');
+                    }
+                } else {
+                    $collection['deletesasmoves'] = true;
+                }
             }
 
             if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_GETCHANGES)) {
