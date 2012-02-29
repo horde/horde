@@ -77,7 +77,7 @@ class Horde_Session_Null extends Horde_Session
      */
     public function destroy()
     {
-        $this->_clean();
+        $this->clean();
     }
 
     /**
