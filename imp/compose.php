@@ -743,7 +743,7 @@ if ($redirect) {
             'id' => 'redirect_abook',
             'title' => _("Address Book")
         )) . Horde::img('addressbook_browse.png') . '<br />' . _("Address Book") . '</a>');
-        $js_vars['ImpCompose.redirect_contacts'] = strval(Horde::url('contacts.php')->add(array('formname' => 'redirect', 'to_only' => 1))->setRaw(true));
+        $js_vars['ImpCompose.redirect_contacts'] = strval(Horde::url('contacts.php')->add(array('to_only' => 1))->setRaw(true));
     }
 
     $t->set('to', Horde::label('to', _("To")));

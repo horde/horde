@@ -1,5 +1,5 @@
 /**
- * Provides the javascript for the contacts.php script (standard view).
+ * Provides the javascript for the contacts.php script.
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -66,46 +66,19 @@ var ImpContacts = {
             return;
         }
 
-        var formname = $F('formname');
-
-        if (!parent.opener.document[formname]) {
-            alert(IMP.text.contacts_called);
-            window.close();
-            return;
-        }
-
         $('selected_addresses').childElements().each(function(s) {
-            var address = s.value, f, field = null, pos, v;
-            pos = address.indexOf(':');
-            f = address.substring(0, pos);
-            address = address.substring(pos + 2, address.length)
+            var pos,
+                address = s.value;
 
-            if ($F('formfield')) {
-                field = parent.opener.document[formname][$F('formfield')];
-            } else if (f == 'to' ||
-                      (!$F('to_only') && (f == 'cc' || f == 'bcc'))) {
-                field = parent.opener.document[formname][f];
-            }
+            if (!address.empty()) {
+                pos = address.indexOf(':');
 
-            if (!field) {
-                return;
+                $(parent.opener.document).fire('ImpContacts:update', {
+                    field: address.substring(0, pos),
+                    value: address.substring(pos + 2, address.length)
+                });
             }
-
-            // Always delimit with commas.
-            if (field.value.length) {
-                v = field.value.replace(/, +/g, ',').split(',').findAll(function(s) { return s; });
-                field.value = v.join(', ');
-                if (field.value.lastIndexOf(';') != field.value.length - 1) {
-                    field.value += ',';
-                }
-                field.value += ' ' + address;
-            } else {
-                field.value = address;
-            }
-            if (address.lastIndexOf(';') != address.length - 1) {
-                field.value += ', ';
-            }
-        }, this);
+        });
 
         window.close();
     },

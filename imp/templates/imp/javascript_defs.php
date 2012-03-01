@@ -38,9 +38,8 @@ $code = array(
         'no' => _("No"),
 
         /* Strings used in contacts.js */
-        'contacts_select' => _("You must select an address first."),
         'contacts_closed' => _("The message being composed has been closed."),
-        'contacts_called' => _("This window must be called from a compose window."),
+        'contacts_select' => _("You must select an address first."),
 
         /* Strings used in folders.js */
         'folders_select' => _("Please select a folder before you perform this action."),

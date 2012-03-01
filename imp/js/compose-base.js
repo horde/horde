@@ -110,6 +110,26 @@ var ImpComposeBase = {
         }
 
         $('last_identity').setValue(id);
+    },
+
+    updateAddressField: function(elt, address)
+    {
+        var v;
+
+        if (elt.value.length) {
+            v = elt.value.replace(/, +/g, ',').split(',').findAll(function(s) { return s; });
+            elt.value = v.join(', ');
+            if (elt.value.lastIndexOf(';') != elt.value.length - 1) {
+                elt.value += ',';
+            }
+            elt.value += ' ' + address;
+        } else {
+            elt.value = address;
+        }
+
+        if (address.lastIndexOf(';') != address.length - 1) {
+            elt.value += ', ';
+        }
     }
 
 };
