@@ -40,6 +40,11 @@ class Horde_Vfs_FileTest extends PHPUnit_Framework_TestCase
         ));
     }
 
+    static public function tearDownAfterClass()
+    {
+        system('rm -r ' . sys_get_temp_dir() . '/vfsfiletest');
+    }
+
     public function testDeleteUnusalFileNames()
     {
         putenv('LANG=en_US.UTF-8');
