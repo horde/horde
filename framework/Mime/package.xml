@@ -17,19 +17,19 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-02-22</date>
- <time>13:20:25</time>
+ <date>2012-02-29</date>
+ <time>22:40:16</time>
  <version>
-  <release>1.5.1</release>
-  <api>1.5.0</api>
+  <release>2.0.0</release>
+  <api>2.0.0</api>
  </version>
  <stability>
-  <release>stable</release>
-  <api>stable</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Don&apos;t add personal part to e-mail address if it is identical to the address itself.
+* [mms] Implement new 2.0 API. See UPGRADING for full details of changes.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -37,13 +37,13 @@
     <dir name="Horde">
      <dir name="Mime">
       <file name="COPYING" role="doc" />
+      <file name="UPGRADING" role="doc" />
      </dir> <!-- /doc/Horde/Mime -->
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Mime">
-      <file name="Address.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="Headers.php" role="php" />
       <file name="Magic.php" role="php" />
@@ -328,7 +328,6 @@
        <file name="sample_msg.txt" role="test" />
        <file name="uudecode.txt" role="test" />
       </dir> <!-- /test/Horde/Mime/fixtures -->
-      <file name="AddressTest.php" role="test" />
       <file name="AllTests.php" role="test" />
       <file name="Autoload.php" role="test" />
       <file name="HeadersTest.php" role="test" />
@@ -434,8 +433,8 @@
  <phprelease>
   <filelist>
    <install as="COPYING" name="doc/Horde/Mime/COPYING" />
+   <install as="UPGRADING" name="doc/Horde/Mime/UPGRADING" />
    <install as="Horde/Mime.php" name="lib/Horde/Mime.php" />
-   <install as="Horde/Mime/Address.php" name="lib/Horde/Mime/Address.php" />
    <install as="Horde/Mime/Exception.php" name="lib/Horde/Mime/Exception.php" />
    <install as="Horde/Mime/Headers.php" name="lib/Horde/Mime/Headers.php" />
    <install as="Horde/Mime/Magic.php" name="lib/Horde/Mime/Magic.php" />
@@ -531,7 +530,6 @@
    <install as="locale/zh_CN/LC_MESSAGES/Horde_Mime.po" name="locale/zh_CN/LC_MESSAGES/Horde_Mime.po" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Mime.mo" name="locale/zh_TW/LC_MESSAGES/Horde_Mime.mo" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Mime.po" name="locale/zh_TW/LC_MESSAGES/Horde_Mime.po" />
-   <install as="Horde/Mime/AddressTest.php" name="test/Horde/Mime/AddressTest.php" />
    <install as="Horde/Mime/AllTests.php" name="test/Horde/Mime/AllTests.php" />
    <install as="Horde/Mime/Autoload.php" name="test/Horde/Mime/Autoload.php" />
    <install as="Horde/Mime/HeadersTest.php" name="test/Horde/Mime/HeadersTest.php" />
@@ -879,7 +877,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-02-22</date>
+   <date>2012-02-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Don&apos;t add personal part to e-mail address if it is identical to the address itself.

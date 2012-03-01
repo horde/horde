@@ -325,8 +325,6 @@ class Horde_Mime_Mail
     /**
      * Removes all (additional) message parts but leaves the body parts
      * untouched.
-     *
-     * @since Horde_Mime 1.2.0
      */
     public function clearParts()
     {

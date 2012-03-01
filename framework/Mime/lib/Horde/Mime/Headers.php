@@ -321,11 +321,8 @@ class Horde_Mime_Headers implements Serializable
         } else {
             // Fields defined in RFC 2822 that contain address information
             if (in_array($lcHeader, $this->addressFields())) {
-                try {
-                    $value = Horde_Mime::decodeAddrString($value, empty($options['charset']) ? 'UTF-8' : $options['charset']);
-                } catch (Horde_Mime_Exception $e) {
-                    $value = '';
-                }
+                $rfc822 = new Horde_Mail_Rfc822();
+                $value = Horde_String::convertCharset(strval($rfc822->parseAddressList($value)), 'UTF-8', empty($options['charset']) ? 'UTF-8' : $options['charset']);
             } else {
                 $value = Horde_Mime::decode($value, empty($options['charset']) ? 'UTF-8' : $options['charset']);
             }
@@ -645,8 +642,6 @@ class Horde_Mime_Headers implements Serializable
      * Perform sanity checking on a raw header (e.g. handle 8-bit characters).
      * This function can be called statically:
      *   $headers = Horde_Mime_Headers::sanityCheck().
-     *
-     * @since Horde_Mime 1.4.0
      *
      * @param string $header  The header.
      * @param string $data    The header data.

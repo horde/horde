@@ -235,57 +235,6 @@ class Horde_Mime
     }
 
     /**
-     * Encodes a string containing email addresses according to RFC 2047.
-     *
-     * This differs from encode() because it keeps email addresses legal, only
-     * encoding the personal information.
-     *
-     * @param mixed $addresses   The email addresses to encode (either a
-     *                           string or an array of addresses).
-     * @param string $charset    The character set of the text.
-     * @param string $defserver  The default domain to append to mailboxes.
-     *
-     * @return string  The text, encoded only if it contains non-ASCII
-     *                 characters.
-     * @throws Horde_Mime_Exception
-     */
-    static public function encodeAddress($addresses, $charset,
-                                         $defserver = null)
-    {
-        $rfc822 = new Horde_Mail_Rfc822();
-        $addresses = $rfc822->parseAddressList($addresses, array(
-            'defserver' => $defserver
-        ));
-
-        $text = array();
-        foreach ($addresses as $addr) {
-            $addrobs = empty($addr['groupname'])
-                ? array($addr)
-                : $addr['addresses'];
-            $addrlist = array();
-
-            foreach ($addrobs as $val) {
-                if (empty($val['personal'])) {
-                    $personal = '';
-                } else {
-                    if (($val['personal'][0] == '"') &&
-                        (substr($val['personal'], -1) == '"')) {
-                        $val['personal'] = stripslashes(substr($val['personal'], 1, -1));
-                    }
-                    $personal = self::encode($val['personal'], $charset);
-                }
-                $addrlist[] = Horde_Mime_Address::writeAddress($val['mailbox'], $val['host'], $personal);
-            }
-
-            $text[] = empty($addr['groupname'])
-                ? reset($addrlist)
-                : Horde_Mime_Address::writeGroupAddress($addr['groupname'], $addrlist);
-        }
-
-        return implode(', ', $text);
-    }
-
-    /**
      * Decodes an RFC 2047-encoded string.
      *
      * @param string $string      The text to decode.
@@ -359,29 +308,6 @@ class Horde_Mime
         }
 
         return $out . substr($string, $old_pos);
-    }
-
-    /**
-     * Decodes an RFC 2047-encoded address string.
-     *
-     * @param string $string      The text to decode.
-     * @param string $to_charset  The charset that the text should be decoded
-     *                            to.
-     *
-     * @return string  The decoded text.
-     * @throws Horde_Mime_Exception
-     */
-    static public function decodeAddrString($string, $to_charset)
-    {
-        $addr_list = array();
-        foreach (Horde_Mime_Address::parseAddressList($string) as $ob) {
-            $ob['personal'] = isset($ob['personal'])
-                ? self::decode($ob['personal'], $to_charset)
-                : '';
-            $addr_list[] = $ob;
-        }
-
-        return Horde_Mime_Address::addrArray2String($addr_list);
     }
 
     /**

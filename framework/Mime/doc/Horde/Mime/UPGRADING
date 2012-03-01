@@ -1,0 +1,25 @@
+======================
+ Upgrading Horde_Mime
+======================
+
+:Contact: dev@lists.horde.org
+
+.. contents:: Contents
+.. section-numbering::
+
+
+This lists the API changes between releases of the package.
+
+
+Upgrading to 2.0
+================
+
+  - Horde_Mime
+
+    The decodeAddrString() method has been removed.
+    The encodeAddress() method has been removed.
+
+  - Horde_Mime_Address
+
+    This class has been removed. Equivalent functionality can now be found
+    in the Horde_Mail class.
