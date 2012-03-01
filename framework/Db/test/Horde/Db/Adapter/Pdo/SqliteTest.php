@@ -314,8 +314,8 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
 
     public function testQuoteBinary()
     {
-        // Test string is foo\0bar - should be 7 bytes long
-        $original = base64_decode('Zm9vAGJhcg==');
+        // Test string is foo\0ba'r - should be 8 bytes long
+        $original = base64_decode('Zm9vAGJhJ3I=');
 
         $table = $this->_conn->createTable('binary_testings');
             $table->column('data', 'binary', array('null' => false));
