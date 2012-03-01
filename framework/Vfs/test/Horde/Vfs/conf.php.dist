@@ -1,0 +1,26 @@
+<?php
+$conf['vfs']['sql']['mysql']['adapter'] = 'mysql';
+$conf['vfs']['sql']['mysql']['host'] = 'localhost';
+$conf['vfs']['sql']['mysql']['username'] = '';
+$conf['vfs']['sql']['mysql']['password'] = '';
+$conf['vfs']['sql']['mysql']['dbname'] = 'test';
+$conf['vfs']['sql']['mysql']['charset'] = 'utf-8';
+$conf['vfs']['sql']['mysqli']['adapter'] = 'mysqli';
+$conf['vfs']['sql']['mysqli']['host'] = 'localhost';
+$conf['vfs']['sql']['mysqli']['username'] = '';
+$conf['vfs']['sql']['mysqli']['password'] = '';
+$conf['vfs']['sql']['mysqli']['dbname'] = 'test';
+$conf['vfs']['sql']['mysqli']['charset'] = 'utf-8';
+$conf['vfs']['sql']['pdo_mysql']['adapter'] = 'pdo_mysql';
+$conf['vfs']['sql']['pdo_mysql']['host'] = 'localhost';
+$conf['vfs']['sql']['pdo_mysql']['username'] = '';
+$conf['vfs']['sql']['pdo_mysql']['password'] = '';
+$conf['vfs']['sql']['pdo_mysql']['dbname'] = 'test';
+$conf['vfs']['sql']['pdo_mysql']['charset'] = 'utf-8';
+$conf['vfs']['sql']['pdo_pgsql']['adapter'] = 'pdo_pgsql';
+$conf['vfs']['sql']['pdo_pgsql']['username'] = '';
+$conf['vfs']['sql']['pdo_pgsql']['password'] = '';
+$conf['vfs']['sql']['pdo_pgsql']['dbname'] = 'test';
+$conf['vfs']['sql']['pdo_pgsql']['charset'] = 'utf-8';
+$conf['vfs']['sql']['pdo_sqlite']['adapter'] = 'pdo_sqlite';
+$conf['vfs']['sql']['pdo_sqlite']['database'] = ':memory:';
