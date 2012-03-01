@@ -56,8 +56,9 @@ v6.0-git
 v5.0.20-git
 -----------
 
-[mms] Fix updating the compose address fields when using the contacts popup and
-      a search is done in that popup.
+[mms] Fix regression in displaying From address on mailbox page in traditional
+      view.
+[mms] Fix updating the compose address fields when using the contacts popup.
 
 
 -------

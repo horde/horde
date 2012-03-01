@@ -3,9 +3,6 @@
  * Contacts selection page.
  *
  * URL parameters:
- *   - formfield: (string) Overrides the form field to fill on closing the
- *                window.
- *   - formname: (string) Name of the calling form (defaults to 'compose').
  *   - sa: (string) List of selected addresses.
  *   - search: (string) Search term (defaults to '' which lists everyone).
  *   - searched: (boolean) Indicates we have already searched at least once.
@@ -38,13 +35,6 @@ if (!isset($vars->source) || !isset($source_list[$vars->source])) {
     $vars->source = key($source_list);
 }
 
-$formfield = isset($vars->formfield)
-    ? $vars->filter('formfield')
-    : '';
-$formname = isset($vars->formname)
-    ? $vars->filter('formname')
-    : 'compose';
-
 $search_params = IMP::getAddressbookSearchParams();
 $apiargs = array(
     'addresses' => array($vars->search),
@@ -76,8 +66,6 @@ $template = $injector->createInstance('Horde_Template');
 $template->setOption('gettext', true);
 
 $template->set('action', Horde::url('contacts.php')->unique());
-$template->set('formfield', $formfield);
-$template->set('formname', $formname);
 $template->set('formInput', Horde_Util::formInput());
 $template->set('search', htmlspecialchars($vars->search));
 if (count($source_list) > 1) {

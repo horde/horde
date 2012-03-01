@@ -8,6 +8,7 @@ v5.0-git
 v4.0.2-git
 ----------
 
+[jan] Fix preparing multiple backends (Bug #11023).
 
 
 ------

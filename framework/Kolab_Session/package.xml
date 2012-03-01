@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix enabling TLS encryption (Bug #11034).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -284,7 +284,7 @@
    <date>2011-08-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix enabling TLS encryption (Bug #11034).
    </notes>
   </release>
  </changelog>

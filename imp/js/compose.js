@@ -378,6 +378,11 @@ var ImpCompose = {
         if (this.display_unload_warning) {
             return IMP.text.compose_discard;
         }
+    },
+
+    onContactsUpdate: function(e)
+    {
+        ImpComposeBase.updateAddressField($(e.memo.field), e.memo.value);
     }
 
 };
@@ -387,6 +392,9 @@ document.observe('dom:loaded', ImpCompose.onDomLoad.bind(ImpCompose));
 
 /* Warn before closing the window. */
 Event.observe(window, 'beforeunload', ImpCompose.onBeforeUnload.bind(ImpCompose));
+
+/* Attach event handlers. */
+document.observe('ImpContacts:update', ImpCompose.onContactsUpdate.bindAsEventListener(ImpCompose));
 
 /* Catch dialog actions. */
 document.observe('IMPDialog:success', function(e) {
