@@ -68,6 +68,27 @@ class Horde_Vfs_Test_Base extends Horde_Test_Case
         $this->assertFileEquals(__FILE__, self::$vfs->readFile('test/dir3', 'file2', __FILE__));
     }
 
+    protected function _size()
+    {
+        $this->assertEquals(8, self::$vfs->size('test', 'file1'));
+        $this->assertEquals(10, self::$vfs->size('test/dir1', 'file1'));
+        $this->assertEquals(10, self::$vfs->size('test/dir3', 'file1'));
+        $this->assertEquals(filesize(__FILE__), self::$vfs->size('test/dir1', 'file2'));
+        $this->assertEquals(filesize(__FILE__), self::$vfs->size('test/dir3', 'file2', __FILE__));
+    }
+
+    protected function _folderSize()
+    {
+        $this->assertEquals(28 + 2 * filesize(__FILE__), self::$vfs->getFolderSize('test'));
+        $this->assertEquals(10 + filesize(__FILE__), self::$vfs->getFolderSize('test/dir1'));
+        $this->assertEquals(10 + filesize(__FILE__), self::$vfs->getFolderSize('test/dir3'));
+    }
+
+    protected function _vfsSize()
+    {
+        $this->assertEquals(28 + 2 * filesize(__FILE__), self::$vfs->getVFSSize());
+    }
+
     protected function _listFolder()
     {
         $this->assertEquals(array('test'), array_keys(self::$vfs->listFolder('')));
