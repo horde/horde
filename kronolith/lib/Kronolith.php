@@ -259,7 +259,7 @@ class Kronolith
         }
 
         /* Sort events. */
-        $results = Kronolith::sortEvents($results);
+        $results = self::sortEvents($results);
 
         return $results;
     }
@@ -2884,7 +2884,7 @@ class Kronolith
      */
     static public function getInternalCalendar($target)
     {
-        if (Kronolith::getDriver('Resource')->isResourceCalendar($target)) {
+        if (self::getDriver('Resource')->isResourceCalendar($target)) {
             $driver = self::getDriver('Resource');
             $id = $driver->getResourceIdByCalendar($target);
             return $driver->getResource($id);
@@ -2955,7 +2955,7 @@ class Kronolith
         }
 
         foreach (array_keys($shares) as $calendar) {
-            $driver = Kronolith::getDriver(null, $calendar);
+            $driver = self::getDriver(null, $calendar);
             $events = $driver->listEvents(null, null, false, false, false);
             $uids = array();
             foreach ($events as $dayevents) {
