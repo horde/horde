@@ -2085,24 +2085,22 @@ class Horde_Form_Type_emailConfirm extends Horde_Form_Type {
         if ($value['original'] != $value['confirm']) {
             $message = Horde_Form_Translation::t("Email addresses must match.");
             return false;
-        } else {
-            try {
-                $parsed_email = Horde_Mime_Address::parseAddressList($value['original'], array('validate' => true));
-            } catch (Horde_Mime_Exception $e) {
-                $message = $e->getMessage();
-                return false;
-            }
-            if (count($parsed_email) > 1) {
-                $message = Horde_Form_Translation::t("Only one email address allowed.");
-                return false;
-            }
-            if (empty($parsed_email[0]->mailbox)) {
-                $message = Horde_Form_Translation::t("You did not enter a valid email address.");
-                return false;
-            }
         }
 
-        return true;
+        $addr_ob = $GLOBALS['injector']->getInstance('Horde_Mail_Rfc822')->parseAddressList($value['original']);
+
+        switch (count($addr_ob)) {
+        case 0:
+            $message = Horde_Form_Translation::t("You did not enter a valid email address.");
+            return false;
+
+        case 1:
+            return true;
+
+        default:
+            $message = Horde_Form_Translation::t("Only one email address allowed.");
+            return false;
+        }
     }
 
     /**
