@@ -1837,13 +1837,12 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             'from' => $identity->getFromLine(null, $this->_vars->from)
         );
 
-        $imp_ui = $injector->getInstance('IMP_Ui_Compose');
-        $headers['to'] = $imp_ui->getAddressList($this->_vars->to);
+        $headers['to'] = $this->_vars->to;
         if ($prefs->getValue('compose_cc')) {
-            $headers['cc'] = $imp_ui->getAddressList($this->_vars->cc);
+            $headers['cc'] = $this->_vars->cc;
         }
         if ($prefs->getValue('compose_bcc')) {
-            $headers['bcc'] = $imp_ui->getAddressList($this->_vars->bcc);
+            $headers['bcc'] = $this->_vars->bcc;
         }
         $headers['subject'] = $this->_vars->subject;
 

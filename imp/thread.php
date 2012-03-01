@@ -110,12 +110,12 @@ foreach ($imp_indices as $ob) {
         if (IMP::mailbox()->special_outgoing) {
             $curr_msg['addr_to'] = true;
             $curr_msg['addr'] = _("To:") . ' ' . $imp_ui->buildAddressLinks($envelope->to, Horde::selfUrl(true));
-            $addr = _("To:") . ' ' . htmlspecialchars(Horde_Mime_Address::addrObject2String(reset($envelope->to), array('charset' => $charset)), ENT_COMPAT, $charset);
+            $addr = _("To:") . ' ' . htmlspecialchars(strval($envelope->to[0]), ENT_COMPAT, $charset);
         } else {
             $from = $envelope->from;
             $curr_msg['addr_to'] = false;
             $curr_msg['addr'] = $imp_ui->buildAddressLinks($from, Horde::selfUrl(true));
-            $addr = htmlspecialchars(Horde_Mime_Address::addrObject2String(reset($from), array('charset' => $charset)), ENT_COMPAT, $charset);
+            $addr = htmlspecialchars(strval($from), ENT_COMPAT, $charset);
         }
 
         $subject_header = htmlspecialchars($envelope->subject, ENT_COMPAT, $charset);

@@ -524,15 +524,18 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
     /**
      * Provide the list of parameters needed for encrypting a message.
      *
-     * @param array $addresses   The e-mail address of the keys to use for
-     *                           encryption.
-     * @param string $symmetric  If true, the symmetric password to use for
-     *                           encrypting. If null, uses the personal key.
+     * @param Horde_Mail_Rfc822_List $addresses  The e-mail address of the
+     *                                           keys to use for encryption.
+     * @param string $symmetric                  If true, the symmetric
+     *                                           password to use for
+     *                                           encrypting. If null, uses the
+     *                                           personal key.
      *
      * @return array  The list of parameters needed by encrypt().
      * @throws Horde_Crypt_Exception
      */
-    protected function _encryptParameters($addresses, $symmetric)
+    protected function _encryptParameters(Horde_Mail_Rfc822_List $addresses,
+                                          $symmetric)
     {
         if (!is_null($symmetric)) {
             return array(
@@ -544,11 +547,9 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
         $addr_list = array();
 
         foreach ($addresses as $val) {
-            $addrOb = Horde_Mime_Address::bareAddress($val, $GLOBALS['session']->get('imp', 'maildomain'), true);
-            $key_addr = array_pop($addrOb);
-
             /* Get the public key for the address. */
-            $addr_list[$key_addr] = $this->getPublicKey($key_addr);
+            $bare_addr = $val->bare_address;
+            $addr_list[$bare_addr] = $this->getPublicKey($bare_addr);
         }
 
         return array('recips' => $addr_list);
@@ -570,17 +571,19 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
     /**
      * Encrypt a Horde_Mime_Part using PGP using IMP default parameters.
      *
-     * @param Horde_Mime_Part $mime_part  The object to encrypt.
-     * @param array $addresses            The e-mail address of the keys to
-     *                                    use for encryption.
-     * @param string $symmetric           If true, the symmetric password to
-     *                                    use for encrypting. If null, uses
-     *                                    the personal key.
+     * @param Horde_Mime_Part $mime_part         The object to encrypt.
+     * @param Horde_Mail_Rfc822_List $addresses  The e-mail address of the
+     *                                           keys to use for encryption.
+     * @param string $symmetric                  If true, the symmetric
+     *                                           password to use for
+     *                                           encrypting. If null, uses the
+     *                                           personal key.
      *
      * @return Horde_Mime_Part  See Horde_Crypt_Pgp::encryptMimePart().
      * @throws Horde_Crypt_Exception
      */
-    public function impEncryptMimePart($mime_part, $addresses,
+    public function impEncryptMimePart($mime_part,
+                                       Horde_Mail_Rfc822_List $addresses,
                                        $symmetric = null)
     {
         return $this->encryptMimePart($mime_part, $this->_encryptParameters($addresses, $symmetric));
@@ -590,17 +593,20 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      * Sign and Encrypt a Horde_Mime_Part using PGP using IMP default
      * parameters.
      *
-     * @param Horde_Mime_Part $mime_part  The object to sign and encrypt.
-     * @param array $addresses            The e-mail address of the keys to
-     *                                    use for encryption.
-     * @param string $symmetric           If true, the symmetric password to
-     *                                    use for encrypting. If null, uses
-     *                                    the personal key.
+     * @param Horde_Mime_Part $mime_part         The object to sign and
+     *                                           encrypt.
+     * @param Horde_Mail_Rfc822_List $addresses  The e-mail address of the
+     *                                           keys to use for encryption.
+     * @param string $symmetric                  If true, the symmetric
+     *                                           password to use for
+     *                                           encrypting. If null, uses the
+     *                                           personal key.
      *
      * @return Horde_Mime_Part  See Horde_Crypt_Pgp::signAndencryptMimePart().
      * @throws Horde_Crypt_Exception
      */
-    public function impSignAndEncryptMimePart($mime_part, $addresses,
+    public function impSignAndEncryptMimePart($mime_part,
+                                              Horde_Mail_Rfc822_List $addresses,
                                               $symmetric = null)
     {
         return $this->signAndEncryptMimePart($mime_part, $this->_signParameters(), $this->_encryptParameters($addresses, $symmetric));

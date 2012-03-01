@@ -208,10 +208,9 @@ class IMP_Flags implements ArrayAccess, Serializable
      *            by the IMAP server.
      *   - headers: (Horde_Mime_Headers) Determines message information
      *              from a headers object.
-     *   - personal: (mixed) Personal message info. Either an array of To
-     *               addresses as returned by
-     *               Horde_Mime_Address::getAddressesFromObject() or the
-     *               identity that matched the address list.
+     *   - personal: (mixed) Personal message info. Either a list of To
+     *               addresses (Horde_Mail_Rfc822_List object) or the identity
+     *               that matched the address list.
      *
      * @return array  A list of IMP_Flag_Base objects.
      */

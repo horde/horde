@@ -42,13 +42,10 @@ $apiargs = array(
     'fields' => $search_params['fields']
 );
 
-$addresses = array();
+$a_list = array();
 if ($vars->searched || $prefs->getValue('display_contact')) {
-    $results = $registry->call('contacts/search', $apiargs);
-    foreach ($results as $r) {
-        /* The results list returns an array for each source searched. Make
-         * it all one array instead. */
-        $addresses = array_merge($addresses, $r);
+    foreach (IMP_Compose::parseContactsSearch($registry->call('contacts/search', $apiargs)) as $val) {
+        $a_list[] = htmlspecialchars(strval($val), ENT_QUOTES, 'UTF-8');
     }
 }
 
@@ -79,19 +76,6 @@ if (count($source_list) > 1) {
     $template->set('source_list', key($source_list));
 }
 
-$a_list = array();
-foreach ($addresses as $addr) {
-    if (!empty($addr['email'])) {
-        if (strpos($addr['email'], ',') !== false) {
-            $a_list[] = @htmlspecialchars(Horde_Mime_Address::encode($addr['name'], 'personal') . ': ' . $addr['email'] . ';', ENT_QUOTES, 'UTF-8');
-        } else {
-            $mbox_host = explode('@', $addr['email']);
-            if (isset($mbox_host[1])) {
-                $a_list[] = @htmlspecialchars(Horde_Mime_Address::writeAddress($mbox_host[0], $mbox_host[1], $addr['name']), ENT_QUOTES, 'UTF-8');
-            }
-        }
-    }
-}
 $template->set('a_list', $a_list);
 $template->set('to_only', intval($vars->to_only));
 $template->set('sa', $selected_addresses);

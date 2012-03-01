@@ -647,11 +647,29 @@ class IMP
     static public function parseAddressList($str, array $opts = array())
     {
         $rfc822 = $GLOBALS['injector']->getInstance('Horde_Mail_Rfc822');
-        return $rfc822->parseAddressList($str, array_merge(array(
+        $res = $rfc822->parseAddressList($str, array_merge(array(
             'default_domain' => $GLOBALS['session']->get('imp', 'maildomain'),
-            'nest_groups' => false,
             'validate' => false
         ), $opts));
+        $res->setIteratorFilter(Horde_Mail_Rfc822_List::HIDE_GROUPS);
+        return $res;
+    }
+
+    /**
+     * Shortcut method to get the bare address of an e-mail string.
+     *
+     * @param string $str              The address string.
+     * @param boolean $default_domain  Append default domain, if needed?
+     *
+     * @return string  The bare address.
+     */
+    static public function bareAddress($str, $default_domain = false)
+    {
+        $ob = new Horde_Mail_Rfc822_Address($str);
+        if ($default_domain && is_null($ob->host)) {
+            $ob->host = $GLOBALS['session']->get('imp', 'maildomain');
+        }
+        return $ob->bare_address;
     }
 
 }

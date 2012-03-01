@@ -140,7 +140,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
         /* Determine the address of the sender. */
         if (is_null($this->_address)) {
             $headers = $this->getConfigParam('imp_contents')->getHeader();
-            $this->_address = Horde_Mime_Address::bareAddress($headers->getValue('from'));
+            $this->_address = IMP::bareAddress($headers->getValue('from'));
         }
 
         switch ($this->_mimepart->getType()) {

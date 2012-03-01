@@ -73,7 +73,7 @@ if (count($ids)) {
             'description' => isset($ob['preview']) ? $ob['preview'] : '',
             'url' => Horde::url($mailbox->url('message.php', $ob['uid'], $mailbox), true, array('append_session' => -1)),
             'fromAddr' => $from_addr['fullfrom'],
-            'toAddr' => Horde_Mime_Address::addrArray2String($ob['envelope']->to, array('charset' => 'UTF-8'))
+            'toAddr' => strval($ob['envelope']->to)
         ));
     }
 }

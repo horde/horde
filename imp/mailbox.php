@@ -815,7 +815,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     $flag_parse = $imp_flags->parse(array(
         'flags' => $ob['flags'],
         'headers' => $ob['headers'],
-        'personal' => Horde_Mime_Address::getAddressesFromObject($ob['envelope']->to, array('charset' => 'UTF-8'))
+        'personal' => $ob['envelope']->to
     ));
 
     $css_class = $subject_flags = array();

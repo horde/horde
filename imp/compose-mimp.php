@@ -141,7 +141,7 @@ case 't':
 case _("Expand Names"):
     foreach (array_keys($display_hdrs) as $val) {
         if (($val == 'to') || ($vars->action != 'rc')) {
-            $res = $imp_ui->expandAddresses($header[$val], $imp_compose);
+            $res = $imp_ui->expandAddresses($header[$val]);
             if (is_string($res)) {
                 $header[$val] = $res;
             } else {
@@ -206,7 +206,7 @@ case 'rc':
 
 case _("Redirect"):
     try {
-        $num_msgs = $imp_compose->sendRedirectMessage($imp_ui->getAddressList($header['to']));
+        $num_msgs = $imp_compose->sendRedirectMessage($header['to']);
         $imp_compose->destroy('send');
 
         $notification->push(ngettext("Message redirected successfully.", "Messages redirected successfully.", count($num_msgs)), 'horde.success');
@@ -263,7 +263,7 @@ case _("Send"):
     $header['subject'] = strval($vars->subject);
 
     foreach (array_keys($display_hdrs) as $val) {
-        $header[$val] = $imp_ui->getAddressList($old_header[$val]);
+        $header[$val] = $old_header[$val];
     }
 
     switch ($vars->a) {

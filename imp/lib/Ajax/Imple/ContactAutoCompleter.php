@@ -69,7 +69,7 @@ class IMP_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Ajax_Imple_AutoComp
                 Horde::addInlineScript(array_merge(array(
                     'if (!window.IMP) window.IMP = {}'
                 ), Horde::addInlineJsVars(array(
-                    'IMP.ac_list' => $addrlist
+                    'IMP.ac_list' => $addrlist->addresses
                 ), array('ret_vars' => true))));
                 self::$_listOutput = true;
             }
@@ -95,7 +95,7 @@ class IMP_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Ajax_Imple_AutoComp
             return array();
         }
 
-        return IMP_Compose::expandAddresses($input, array('levenshtein' => true));
+        return IMP_Compose::expandAddresses($input);
     }
 
 }
