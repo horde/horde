@@ -87,6 +87,31 @@ class Horde_Vfs_Test_Sql_Base extends Horde_Vfs_Test_Base
      * @depends testWrite
      * @depends testWriteData
      */
+    public function testCopy()
+    {
+        $this->_copy();
+    }
+
+    /**
+     * @depends testCopy
+     */
+    public function testRename()
+    {
+        $this->_rename();
+    }
+
+    /**
+     * @depends testRename
+     */
+    public function testMove()
+    {
+        $this->_move();
+    }
+
+    /**
+     * @depends testWrite
+     * @depends testWriteData
+     */
     public function testListFolder()
     {
         $this->_listFolder();

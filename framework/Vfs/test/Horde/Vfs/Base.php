@@ -89,6 +89,30 @@ class Horde_Vfs_Test_Base extends Horde_Test_Case
         $this->assertEquals(28 + 2 * filesize(__FILE__), self::$vfs->getVFSSize());
     }
 
+    protected function _copy()
+    {
+        self::$vfs->copy('test/dir1', 'file1', 'test/dir4', true);
+        $this->assertTrue(self::$vfs->exists('test/dir1', 'file1'));
+        $this->assertTrue(self::$vfs->exists('test/dir4', 'file1'));
+    }
+
+    protected function _rename()
+    {
+        self::$vfs->rename('test/dir4', 'file1', 'test/dir4', 'file2');
+        $this->assertFalse(self::$vfs->exists('test/dir4', 'file1'));
+        $this->assertTrue(self::$vfs->exists('test/dir4', 'file2'));
+        self::$vfs->rename('test/dir4', 'file2', 'test/dir3', 'file3');
+        $this->assertFalse(self::$vfs->exists('test/dir4', 'file2'));
+        $this->assertTrue(self::$vfs->exists('test/dir3', 'file3'));
+    }
+
+    protected function _move()
+    {
+        self::$vfs->move('test/dir3', 'file3', 'test/dir2');
+        $this->assertFalse(self::$vfs->exists('test/dir3', 'file3'));
+        $this->assertTrue(self::$vfs->exists('test/dir2', 'file3'));
+    }
+
     protected function _listFolder()
     {
         $this->assertEquals(array('test'), array_keys(self::$vfs->listFolder('')));
