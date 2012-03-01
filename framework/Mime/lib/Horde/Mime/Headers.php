@@ -95,11 +95,14 @@ class Horde_Mime_Headers implements Serializable
             foreach (array_keys($val) as $key) {
                 if (in_array($header, $address_keys) ) {
                     /* Address encoded headers. */
-                    try {
-                        $text = Horde_Mime::encodeAddress(Horde_String::convertCharset($val[$key], 'UTF-8', $charset), $charset, empty($options['defserver']) ? null : $options['defserver']);
-                    } catch (Horde_Mime_Exception $e) {
-                        $text = $val[$key];
-                    }
+                    $rfc822 = new Horde_Mail_Rfc822();
+                    $tmp = $rfc822->parseAddressList($val[$key], array(
+                        'default_domain' => empty($options['defserver']) ? null : $options['defserver']
+                    ));
+                    $text = $tmp->writeAddress(array(
+                        'encode' => $charset,
+                        'idn' => true
+                    ));
                 } elseif (in_array($header, $mime) && !empty($ob['p'])) {
                     /* MIME encoded headers (RFC 2231). */
                     $text = $val[$key];
@@ -565,18 +568,12 @@ class Horde_Mime_Headers implements Serializable
      *
      * @param string $field  The header to return as an object.
      *
-     * @return array  The object for the field requested.
-     * @see Horde_Mime_Address::parseAddressList()
+     * @return Horde_Mail_Rfc822_List  The object for the requested field.
      */
     public function getOb($field)
     {
-        $val = $this->getValue($field);
-        if (!is_null($val)) {
-            try {
-                return Horde_Mime_Address::parseAddressList($val);
-            } catch (Horde_Mime_Exception $e) {}
-        }
-        return array();
+        $rfc822 = new Horde_Mail_Rfc822();
+        return $rfc822->parseAddressList($this->getValue($field));
     }
 
     /**
@@ -684,7 +681,11 @@ class Horde_Mime_Headers implements Serializable
             } else {
                 $header = Horde_String::lower($header);
                 if (in_array($header, self::addressFields())) {
-                    $data = Horde_Mime::encodeAddress($tmp, $charset);
+                    $rfc822 = new Horde_Mail_Rfc822();
+                    $data = $rfc822->parseAddressList($val[$key])->writeAddress(array(
+                        'encode' => $charset,
+                        'idn' => true
+                    ));
                 } elseif (in_array($header, self::mimeParamFields())) {
                     $res = Horde_Mime::decodeParam($header, $tmp, 'UTF-8');
                     $data = $res['val'];

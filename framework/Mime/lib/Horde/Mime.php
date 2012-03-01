@@ -252,13 +252,10 @@ class Horde_Mime
     static public function encodeAddress($addresses, $charset,
                                          $defserver = null)
     {
-        if (!is_array($addresses)) {
-            $addresses = trim($addresses);
-            $addresses = Horde_Mime_Address::parseAddressList($addresses, array(
-                'defserver' => $defserver,
-                'nestgroups' => true
-            ));
-        }
+        $rfc822 = new Horde_Mail_Rfc822();
+        $addresses = $rfc822->parseAddressList($addresses, array(
+            'defserver' => $defserver
+        ));
 
         $text = array();
         foreach ($addresses as $addr) {

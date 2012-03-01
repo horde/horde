@@ -49,9 +49,9 @@ class Horde_Mime_Mail
     /**
      * The message recipients.
      *
-     * @var array
+     * @var Horde_Mail_Rfc822_List
      */
-    protected $_recipients = array();
+    protected $_recipients;
 
     /**
      * Bcc recipients.
@@ -120,6 +120,8 @@ class Horde_Mime_Mail
         }
 
         $this->addHeaders($params);
+
+        $this->clearRecipients();
     }
 
     /**
@@ -344,7 +346,7 @@ class Horde_Mime_Mail
      */
     public function addRecipients($recipients)
     {
-        $this->_recipients = array_merge($this->_recipients, $this->_buildRecipients($recipients));
+        $this->_recipients->add($recipients);
     }
 
     /**
@@ -357,7 +359,7 @@ class Horde_Mime_Mail
      */
     public function removeRecipients($recipients)
     {
-        $this->_recipients = array_diff($this->_recipients, $this->_buildRecipients($recipients));
+        $this->_recipients->remove($recipients);
     }
 
     /**
@@ -365,44 +367,7 @@ class Horde_Mime_Mail
      */
     public function clearRecipients()
     {
-        $this->_recipients = array();
-    }
-
-    /**
-     * Builds a recipients list.
-     *
-     * @param string|array  List of recipients, either as a comma separated
-     *                      list or as an array of email addresses.
-     *
-     * @return array  Normalized list of recipients.
-     * @throws Horde_Mime_Exception
-     */
-    protected function _buildRecipients($recipients)
-    {
-        if (is_string($recipients)) {
-            $recipients = Horde_Mime_Address::explode($recipients, ',');
-        }
-        $recipients = array_filter(array_map('trim', $recipients));
-
-        $addrlist = array();
-        foreach ($recipients as $email) {
-            if (!empty($email)) {
-                $unique = Horde_Mime_Address::bareAddress($email);
-                if ($unique) {
-                    $addrlist[$unique] = $email;
-                } else {
-                    $addrlist[$email] = $email;
-                }
-            }
-        }
-
-        foreach (Horde_Mime_Address::bareAddress(implode(', ', $addrlist), null, true) as $val) {
-            if (Horde_Mime::is8bit($val)) {
-                throw new Horde_Mime_Exception(sprintf(Horde_Mime_Translation::t("Invalid character in e-mail address: %s."), $val));
-            }
-        }
-
-        return $addrlist;
+        $this->_recipients = new Horde_Mail_Rfc822_List();
     }
 
     /**
@@ -477,24 +442,23 @@ class Horde_Mime_Mail
         $basepart->setHeaderCharset($this->_charset);
 
         /* Build recipients. */
-        $recipients = $this->_recipients;
+        $recipients = clone $this->_recipients;
         foreach (array('to', 'cc') as $header) {
-            $value = $this->_headers->getValue($header, Horde_Mime_Headers::VALUE_BASE);
-            if (is_null($value)) {
-                continue;
-            }
-            $value = Horde_Mime::encodeAddress($value, $this->_charset);
-            $recipients = array_merge($recipients, $this->_buildRecipients($value));
+            $recipients->add($this->_headers->getOb($header));
         }
         if ($this->_bcc) {
-            $recipients = array_merge($recipients, $this->_buildRecipients(Horde_Mime::encodeAddress($this->_bcc, $this->_charset)));
+            $recipients->add($this->_bcc);
         }
 
         /* Trick Horde_Mime_Part into re-generating the message headers. */
         $this->_headers->removeHeader('MIME-Version');
 
         /* Send message. */
-        $basepart->send(implode(', ', $recipients), $this->_headers, $mailer);
+        $recipients->unique();
+        $basepart->send($recipients->writeAddress(array(
+            'encode' => $this->_charset,
+            'idn' => true
+        )), $this->_headers, $mailer);
     }
 
 }
