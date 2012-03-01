@@ -67,7 +67,7 @@ abstract class Horde_Vfs_Base
         $this->setParams(array(
             'user' => '',
             'vfs_quotalimit' => -1,
-            'vfs_quotaroot' => '/'
+            'vfs_quotaroot' => ''
         ));
         $this->setParams($params);
     }
