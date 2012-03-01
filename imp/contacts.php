@@ -44,7 +44,8 @@ $apiargs = array(
 
 $a_list = array();
 if ($vars->searched || $prefs->getValue('display_contact')) {
-    foreach (IMP_Compose::parseContactsSearch($registry->call('contacts/search', $apiargs)) as $val) {
+    $ajax = new IMP_Ajax_Imple_ContactAutoCompleter();
+    foreach ($ajax->parseContactsSearch($registry->call('contacts/search', $apiargs)) as $val) {
         $a_list[] = htmlspecialchars(strval($val), ENT_QUOTES, 'UTF-8');
     }
 }

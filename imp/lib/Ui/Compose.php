@@ -32,6 +32,7 @@ class IMP_Ui_Compose
         $addr_list = IMP::parseAddressList($input, array(
             'default_domain' => null
         ));
+
         if (!($size = count($addr_list))) {
             return '';
         }
@@ -44,7 +45,8 @@ class IMP_Ui_Compose
         }
 
         /* "Search" string will be in mailbox element. */
-        $res = IMP_Compose::expandAddresses($search->mailbox);
+        $imple = new IMP_Ajax_Imple_ContactAutoCompleter();
+        $res = $imp->getAddressList($search->mailbox);
 
         switch (count($res)) {
         case 0:
