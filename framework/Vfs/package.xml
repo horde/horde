@@ -14,7 +14,7 @@
 * SSH2/SFTP
 * IMAP (Kolab)
 
-Reading, writing and listing of files are all supported, and there are both object-based and array-based interfaces to directory listings.</description>
+Reading, writing and listing of files are all supported.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -27,19 +27,19 @@ Reading, writing and listing of files are all supported, and there are both obje
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-08</date>
- <time>22:45:28</time>
+ <date>2012-03-01</date>
+ <time>15:07:55</time>
  <version>
-  <release>1.0.9</release>
-  <api>1.0.0</api>
+  <release>2.0.0alpha1</release>
+  <api>2.0.0</api>
  </version>
  <stability>
-  <release>stable</release>
-  <api>stable</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Remove Horde_Vfs_Browser, Horde_Vfs_ListItem, Horde_Vfs_Object classes.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -57,16 +57,13 @@ Reading, writing and listing of files are all supported, and there are both obje
     <dir name="Horde">
      <dir name="Vfs">
       <file name="Base.php" role="php" />
-      <file name="Browser.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="File.php" role="php" />
       <file name="Ftp.php" role="php" />
       <file name="Gc.php" role="php" />
       <file name="Horde.php" role="php" />
       <file name="Kolab.php" role="php" />
-      <file name="ListItem.php" role="php" />
       <file name="Musql.php" role="php" />
-      <file name="Object.php" role="php" />
       <file name="Smb.php" role="php" />
       <file name="Sql.php" role="php" />
       <file name="SqlFile.php" role="php" />
@@ -450,16 +447,13 @@ Reading, writing and listing of files are all supported, and there are both obje
    <install as="COPYING" name="doc/Horde/Vfs/COPYING" />
    <install as="Horde/Vfs.php" name="lib/Horde/Vfs.php" />
    <install as="Horde/Vfs/Base.php" name="lib/Horde/Vfs/Base.php" />
-   <install as="Horde/Vfs/Browser.php" name="lib/Horde/Vfs/Browser.php" />
    <install as="Horde/Vfs/Exception.php" name="lib/Horde/Vfs/Exception.php" />
    <install as="Horde/Vfs/File.php" name="lib/Horde/Vfs/File.php" />
    <install as="Horde/Vfs/Ftp.php" name="lib/Horde/Vfs/Ftp.php" />
    <install as="Horde/Vfs/Gc.php" name="lib/Horde/Vfs/Gc.php" />
    <install as="Horde/Vfs/Horde.php" name="lib/Horde/Vfs/Horde.php" />
    <install as="Horde/Vfs/Kolab.php" name="lib/Horde/Vfs/Kolab.php" />
-   <install as="Horde/Vfs/ListItem.php" name="lib/Horde/Vfs/ListItem.php" />
    <install as="Horde/Vfs/Musql.php" name="lib/Horde/Vfs/Musql.php" />
-   <install as="Horde/Vfs/Object.php" name="lib/Horde/Vfs/Object.php" />
    <install as="Horde/Vfs/Smb.php" name="lib/Horde/Vfs/Smb.php" />
    <install as="Horde/Vfs/Sql.php" name="lib/Horde/Vfs/Sql.php" />
    <install as="Horde/Vfs/SqlFile.php" name="lib/Horde/Vfs/SqlFile.php" />
@@ -928,15 +922,15 @@ Added a class for providing garbage collection; removed all Horde dependancies.
   </release>
   <release>
    <version>
-    <release>1.0.9</release>
-    <api>1.0.0</api></version>
+    <release>2.0.0alpha1</release>
+    <api>2.0.0</api></version>
    <stability>
-    <release>stable</release>
-    <api>stable</api></stability>
-   <date>2011-11-08</date>
+    <release>alpha</release>
+    <api>alpha</api></stability>
+   <date>2012-03-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Remove Horde_Vfs_Browser, Horde_Vfs_ListItem, Horde_Vfs_Object classes.
    </notes>
   </release>
  </changelog>
