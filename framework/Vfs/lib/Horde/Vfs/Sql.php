@@ -94,15 +94,18 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
     public function getFolderSize($path = null, $name = null)
     {
         try {
-            $where = is_null($path)
-                ? null
-                : sprintf('WHERE vfs_path LIKE %s', ((!strlen($path)) ? '""' : $this->_db->quote($this->_convertPath($path) . '%')));
-            $length_op = $this->_getFileSizeOp();
+            $where = null;
+            $params = array();
+            if (strlen($path)) {
+                $where = 'WHERE vfs_path = ? OR vfs_path LIKE ?';
+                $path = $this->_convertPath($path);
+                $params = array($path, $path . '/%');
+            }
             $sql = sprintf('SELECT SUM(%s(vfs_data)) FROM %s %s',
-                           $length_op,
+                           $this->_getFileSizeOp(),
                            $this->_params['table'],
                            $where);
-            $size = $this->_db->selectValue($sql);
+            $size = $this->_db->selectValue($sql, $params);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Vfs_Exception($e);
         }
