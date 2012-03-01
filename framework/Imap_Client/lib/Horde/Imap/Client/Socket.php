@@ -1154,7 +1154,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
             foreach ($pattern as $val) {
                 $val_utf8 = Horde_Imap_Client_Utf7imap::Utf7ImapToUtf8($val);
-                if (!empty($t['status'][$val_utf8])) {
+                if (isset($t['listresponse'][$val_utf8]) &&
+                    isset($t['status'][$val_utf8])) {
                     $t['listresponse'][$val_utf8]['status'] = $t['status'][$val_utf8];
                 }
             }
