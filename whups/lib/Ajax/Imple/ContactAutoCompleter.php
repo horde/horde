@@ -61,21 +61,19 @@ class Whups_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Ajax_Imple_AutoCo
      *
      * This function will not search if the address string is empty.
      *
-     * @param string $addrString  The name(s) or address(es) to expand.
+     * @param string $str  The name(s) or address(es) to expand.
      *
      * @return array  All matching addresses.
      */
-    protected function _getAddressList($addrString = '')
+    protected function _getAddressList($str = '')
     {
-        if (!preg_match('|[^\s]|', $addrString)) {
+        $str = trim($str);
+        if (!strlen($str)) {
             return array();
         }
-
-        $search = reset(array_filter(array_map('trim', Horde_Mime_Address::explode($addrString, ',;'))));
         $searchpref = Whups::getAddressbookSearchParams();
-
         try {
-            $res = $GLOBALS['registry']->call('contacts/search', array($search, $searchpref['sources'], $searchpref['fields']));
+            $res = $GLOBALS['registry']->call('contacts/search', array($str, $searchpref['sources'], $searchpref['fields']));
         } catch (Horde_Exception $e) {
             Horde::logMessage($e, 'ERR');
             return array();
@@ -87,23 +85,24 @@ class Whups_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Ajax_Imple_AutoCo
 
         /* The first key of the result will be the search term. The matching
          * entries are stored underneath this key. */
-        $search = array();
+        $search = new Horde_Mail_Rfc822_List();
         foreach (reset($res) as $val) {
             if (!empty($val['email'])) {
                 if (strpos($val['email'], ',') !== false) {
-                    $search[] = Horde_Mime_Address::encode($val['name'], 'personal') . ': ' . $val['email'] . ';';
+                    $search->add(new Horde_Mail_Rfc822_Group($val['name'], $val['email']));
                 } else {
-                    $mbox_host = explode('@', $val['email']);
-                    if (isset($mbox_host[1])) {
-                        $search[] = Horde_Mime_Address::writeAddress($mbox_host[0], $mbox_host[1], $val['name']);
+                    $addr_ob = new Horde_Mail_Rfc822_Address($val['email']);
+                    if (!is_null($addr_ob->host)) {
+                        $addr_ob->personal = $val['name'];
+                        $search->add($addr_ob);
                     }
                 }
             }
         }
 
         $sort_list = array();
-        foreach ($search as $val) {
-            $sort_list[$val] = levenshtein($addrString, $val);
+        foreach ($search->addresses as $val) {
+            $sort_list[$val] = @levenshtein($str, $val);
         }
         asort($sort_list, SORT_NUMERIC);
 

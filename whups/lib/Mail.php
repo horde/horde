@@ -109,7 +109,8 @@ class Whups_Mail
 
         // Try to determine the Horde user for creating the ticket.
         if (empty($auth_user)) {
-            $auth_user = self::_findAuthUser(Horde_Mime_Address::bareAddress($from));
+            $tmp = new Horde_Mail_Rfc822_Address($from);
+            $auth_user = self::_findAuthUser($tmp->bare_address);
         }
         $author = $auth_user;
 
