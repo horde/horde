@@ -97,11 +97,12 @@ case 'send_problem_report':
         } else {
             /* Add user's name to the email address if provided. */
             if ($name) {
-                @list($mailbox, $host) = @explode('@', $email, 2);
-                if (empty($host)) {
-                    $host = $conf['problems']['maildomain'];
+                $addr_ob = new Horde_Mail_Rfc822_Address($email);
+                if (is_null($addr_ob->host)) {
+                    $addr_ob->host = $conf['problems']['maildomain'];
                 }
-                $email = Horde_Mime_Address::writeAddress($mailbox, $host, $name);
+                $addr_ob->personal = $name;
+                $email = $addr_ob->writeAddress(true);
             }
 
             $mail = new Horde_Mime_Mail(array(
