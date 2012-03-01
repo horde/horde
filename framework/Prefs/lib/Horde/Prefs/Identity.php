@@ -329,8 +329,11 @@ class Horde_Prefs_Identity
         }
 
         try {
-            Horde_Mime_Address::parseAddressList($this->getValue($this->_prefnames['from_addr'], $identity), array('validate' => true));
-        } catch (Horde_Mime_Exception $e) {
+            $rfc822 = new Horde_Mail_Rfc822();
+            $rfc822->parseAddressList($this->getValue($this->_prefnames['from_addr'], $identity), array(
+                'validate' => true
+            ));
+        } catch (Horde_Mail_Exception $e) {
             throw new Horde_Prefs_Exception($e);
         }
     }
