@@ -26,6 +26,45 @@ class Horde_Vfs_Test_Sql_Base extends Horde_Vfs_Test_Base
         $this->_listEmpty();
     }
 
+    public function testCreateFolder()
+    {
+        $this->_createFolderStructure();
+    }
+
+    /**
+     * @depends testCreateFolder
+     */
+    public function testWriteData()
+    {
+        $this->_writeData();
+    }
+
+    /**
+     * @depends testCreateFolder
+     */
+    public function testWrite()
+    {
+        $this->_write();
+    }
+
+    /**
+     * @depends testWrite
+     * @depends testWriteData
+     */
+    public function testRead()
+    {
+        $this->_read();
+    }
+
+    /**
+     * @depends testWrite
+     * @depends testWriteData
+     */
+    public function testListFolder()
+    {
+        $this->_listFolder();
+    }
+
     public static function setUpBeforeClass()
     {
         $logger = new Horde_Log_Logger(new Horde_Log_Handler_Stream(STDOUT));
