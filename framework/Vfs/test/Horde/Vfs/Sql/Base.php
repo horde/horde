@@ -151,6 +151,14 @@ class Horde_Vfs_Test_Sql_Base extends Horde_Vfs_Test_Base
     }
 
     /**
+     * @depends testMove
+     */
+    public function testQuota()
+    {
+        $this->_quota();
+    }
+
+    /**
      * @depends testWrite
      * @depends testWriteData
      */

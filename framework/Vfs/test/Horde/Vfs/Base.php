@@ -264,15 +264,52 @@ class Horde_Vfs_Test_Base extends Horde_Test_Case
         $content = array_keys(self::$vfs->listFolder('test/dir2'));
         sort($content);
         $this->assertEquals(array('dir2_1', 'file1', 'file2'), $content);
-        self::$vfs->emptyFolder('test', 'dir2');
+        self::$vfs->emptyFolder('test/dir2');
         $this->assertFalse(self::$vfs->exists('test/dir2', 'file1'));
         $this->assertFalse(self::$vfs->exists('test/dir2', 'file2'));
         $this->assertFalse(self::$vfs->exists('test/dir2', 'dir2_1'));
+        $this->assertTrue(self::$vfs->exists('test', 'dir2'));
         $this->assertEquals(array(), self::$vfs->listFolder('test/dir2'));
+    }
+
+    /**
+     * Structure after test:
+     * test/
+     *   dir1/
+     *     file1: content1_1
+     *     file2: __FILE__
+     *   dir2/
+     *   file1: content1
+     * file2: 1
+     */
+    protected function _quota()
+    {
+        $used = 18 + filesize(__FILE__);
+        self::$vfs->setQuota(18 + filesize(__FILE__) + 10);
+        try {
+            self::$vfs->writeData('', 'file1', '12345678901');
+            $this->fail('Writing over quota should throw an exception');
+        } catch (Horde_Vfs_Exception $e) {
+        }
+        self::$vfs->writeData('', 'file1', '1234567890');
+        $this->assertTrue(self::$vfs->exists('', 'file1'));
+        $this->assertEquals(array('limit' => $used + 10, 'usage' => $used + 10),
+                            self::$vfs->getQuota());
+        try {
+            self::$vfs->writeData('', 'file2', '1');
+            $this->fail('Writing over quota should throw an exception');
+        } catch (Horde_Vfs_Exception $e) {
+        }
+        self::$vfs->deleteFile('', 'file1');
+        $this->assertFalse(self::$vfs->exists('', 'file1'));
+        $this->assertEquals(array('limit' => $used + 10, 'usage' => $used),
+                            self::$vfs->getQuota());
+        self::$vfs->writeData('', 'file2', '1');
     }
 
     protected function _listFolder()
     {
+        $this->markTestSkipped();
         $this->assertEquals(array('test'), array_keys(self::$vfs->listFolder('')));
         $this->assertEquals(array('test'), array_keys(self::$vfs->listFolder('/')));
     }
