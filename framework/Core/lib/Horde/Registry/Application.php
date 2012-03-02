@@ -61,6 +61,13 @@ class Horde_Registry_Application
     protected $_app;
 
     /**
+     * Cached values to add to the session after authentication.
+     *
+     * @var array
+     */
+    protected $_sessVars = array();
+
+    /**
      * Constructor.
      *
      * Global constants defined:
@@ -81,14 +88,14 @@ class Horde_Registry_Application
     }
 
     /**
-     * Application-specific code to run if application auth fails.
-     * Called from Horde_Registry::appInit().
-     *
-     * @param Horde_Exception $e  The exception object.
+     * Code to run on successful authentication.
      */
-    public function appInitFailure($e)
+    public function authenticated()
     {
+        $this->updateSessVars();
+        $this->_authenticated();
     }
+
 
     /* Initialization methods. */
 
@@ -108,7 +115,7 @@ class Horde_Registry_Application
      *
      * @throws Horde_Exception
      */
-    public function authenticated()
+    protected function _authenticated()
     {
     }
 
@@ -120,6 +127,16 @@ class Horde_Registry_Application
      * @throws Horde_Exception
      */
     public function init()
+    {
+    }
+
+    /**
+     * Application-specific code to run if application auth fails.
+     * Called from Horde_Registry::appInit().
+     *
+     * @param Horde_Exception $e  The exception object.
+     */
+    public function appInitFailure($e)
     {
     }
 
@@ -229,6 +246,8 @@ class Horde_Registry_Application
 
     /**
      * Tries to authenticate with the server and create a session.
+     * Any session variables you want added should be set by calling
+     * _addSessVars() internally within this method.
      *
      * @param string $userId      The username of the user.
      * @param array $credentials  Credentials of the user.
@@ -243,6 +262,8 @@ class Horde_Registry_Application
     /**
      * Tries to transparently authenticate with the server and create a
      * session.
+     * Any session variables you want added should be set by calling
+     * _addSessVars() internally within this method.
      *
      * @param Horde_Core_Auth_Application $auth_ob  The authentication object.
      *
@@ -336,6 +357,31 @@ class Horde_Registry_Application
     public function authResetPassword($userId)
     {
         return '';
+    }
+
+    /**
+     * Add session variables to the session.
+     *
+     * @param array $vars  Array of session variables to add to the session,
+     *                     once it becomes available.
+     */
+    final protected function _addSessVars($vars)
+    {
+        if (!empty($vars)) {
+            $this->_sessVars = array_merge($this->_sessVars, $vars);
+            register_shutdown_function(array($this, 'updateSessVars'));
+        }
+    }
+
+    /**
+     * Updates cached session variable information into the active session.
+     */
+    final public function updateSessVars()
+    {
+        foreach ($this->_sessVars as $key => $val) {
+            $GLOBALS['session']->set($this->_app, $key, $val);
+        }
+        $this->_sessVars = array();
     }
 
 
