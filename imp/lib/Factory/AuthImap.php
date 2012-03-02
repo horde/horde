@@ -44,7 +44,7 @@ class IMP_Factory_AuthImap extends Horde_Core_Factory_Injector
 
         $params = array_merge(
             $params,
-            (isset($aparams['params']) ? $aparams['params'] : array()),
+            isset($aparams['params']) ? $aparams['params'] : array(),
             array(
                 'default_user' => $GLOBALS['registry']->getAuth(),
                 'logger' => $injector->getInstance('Horde_Log_Logger')
