@@ -410,13 +410,13 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
     }
 
     /**
-     * Return a list of the contents of a folder.
+     * Returns an an unsorted file list of the specified directory.
      *
-     * @param string $path       The directory path.
-     * @param mixed $filter      String/hash of items to filter based on
-     *                           filename.
-     * @param boolean $dotfiles  Show dotfiles?
-     * @param boolean $dironly   Show directories only?
+     * @param string $path          The path of the directory.
+     * @param string|array $filter  Regular expression(s) to filter
+     *                              file/directory name on.
+     * @param boolean $dotfiles     Show dotfiles?
+     * @param boolean $dironly      Show only directories?
      *
      * @return array  File list.
      * @throws Horde_Vfs_Exception
