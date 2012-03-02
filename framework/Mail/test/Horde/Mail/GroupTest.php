@@ -52,4 +52,13 @@ class Horde_Mail_GroupTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($group_ob->valid);
     }
 
+    public function testEmptyGroupCount()
+    {
+        $group_ob = new Horde_Mail_Rfc822_Group('Group');
+        $this->assertEquals(
+            0,
+            count($group_ob)
+        );
+    }
+
 }

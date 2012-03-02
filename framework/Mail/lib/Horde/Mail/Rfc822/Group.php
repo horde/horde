@@ -25,7 +25,7 @@
  * @property boolean $valid  Returns true if there is enough information in
  *                           object to create a valid address.
  */
-class Horde_Mail_Rfc822_Group extends Horde_Mail_Rfc822_Object
+class Horde_Mail_Rfc822_Group extends Horde_Mail_Rfc822_Object implements Countable
 {
     /**
      * List of group e-mail address objects.
@@ -117,6 +117,18 @@ class Horde_Mail_Rfc822_Group extends Horde_Mail_Rfc822_Object
     public function match($ob)
     {
         return $this->addresses->match($ob);
+    }
+
+    /* Countable methods. */
+
+    /**
+     * Address count.
+     *
+     * @return integer  The number of addresses.
+     */
+    public function count()
+    {
+        return count($this->addresses);
     }
 
 }

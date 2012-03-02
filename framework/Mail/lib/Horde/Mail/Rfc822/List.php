@@ -371,7 +371,7 @@ class Horde_Mail_Rfc822_List extends Horde_Mail_Rfc822_Object implements ArrayAc
     {
         if (is_null($this->_ptr['subidx'])) {
             $curr = $this->current();
-            if ($curr instanceof Horde_Mail_Rfc822_Group) {
+            if (($curr instanceof Horde_Mail_Rfc822_Group) && count($curr)) {
                 $this->_ptr['subidx'] = 0;
             } else {
                 ++$this->_ptr['idx'];
@@ -383,16 +383,13 @@ class Horde_Mail_Rfc822_List extends Horde_Mail_Rfc822_Object implements ArrayAc
             $curr = $this->current();
         }
 
-        if (is_null($curr)) {
-            return null;
+        if (!is_null($curr)) {
+            if (!empty($this->_filter) && $this->_iteratorFilter($curr)) {
+                $this->next();
+            } else {
+                ++$this->_ptr['key'];
+            }
         }
-
-        if (!empty($this->_filter) && $this->_iteratorFilter($curr)) {
-            return $this->next();
-        }
-
-        ++$this->_ptr['key'];
-        return $curr;
     }
 
     public function rewind()
@@ -428,7 +425,8 @@ class Horde_Mail_Rfc822_List extends Horde_Mail_Rfc822_Object implements ArrayAc
                 return;
             }
 
-            if ($this->next() === null) {
+            $this->next();
+            if (!$this->valid()) {
                 throw new OutOfBoundsException('Position not found.');
             }
         }

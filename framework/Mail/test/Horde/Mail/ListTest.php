@@ -462,4 +462,22 @@ class Horde_Mail_ListTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($ob[1] instanceof Horde_Mail_Rfc822_Address);
     }
 
+    public function testIterateEmptyArray()
+    {
+        $ob = new Horde_Mail_Rfc822_List();
+
+        foreach ($ob as $val) {
+            $this->fail('Nothing to iterate.');
+        }
+
+        $ob = new Horde_Mail_Rfc822_List(
+            new Horde_Mail_Rfc822_Group()
+        );
+        $ob->setIteratorFilter(Horde_Mail_Rfc822_List::HIDE_GROUPS);
+
+        foreach ($ob as $val) {
+            $this->fail('Nothing to iterate.');
+        }
+    }
+
 }
