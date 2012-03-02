@@ -193,7 +193,6 @@ abstract class Horde_Vfs_Base
         if (!($localFile = Horde_Util::getTempFile('vfs'))) {
             throw new Horde_Vfs_Exception('Unable to create temporary file.');
         }
-        register_shutdown_function(create_function('', 'unlink(\'' . addslashes($localFile) . '\');'));
 
         if (is_callable(array($this, 'readStream'))) {
             // Use a stream from the VFS if possible, to avoid reading all data
