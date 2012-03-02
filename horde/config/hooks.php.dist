@@ -119,24 +119,14 @@
  * thrown from this hook will cause a fatal error.
  *
  *
- * Application Switching Hooks
- * ===========================
- * These hooks are called every time an application is switched to.
- * They may be called MULTIPLE times per page access.
- * Actions that only need to be done once per login should use the
- * appinitialized hook instead.
+ * Application Initialization Hook
+ * ===============================
  *
  * pushapp
  * -------
- * This hook is called before an application is switched to.
+ * This hook is called the first time an application is pushed onto the stack.
  * It is passed no parameters and expects no return value.
  * Any Exception thrown in this hook will cause a fatal error.
- *
- * pushapp_post
- * ------------
- * This hook is called after an application is successfully switched to.
- * It is passed no parameters and expects no return value.
- * Any Exception thrown in this hook is ignored.
  *
  *
  * AJAX Hooks

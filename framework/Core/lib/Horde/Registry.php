@@ -1352,17 +1352,6 @@ class Horde_Registry
             }
         }
 
-        /* Call pre-push hook. */
-        if (Horde::hookExists('pushapp', $app)) {
-            try {
-                Horde::callHook('pushapp', array(), $app);
-            } catch (Horde_Exception $e) {
-                $e->setCode(self::HOOK_FATAL);
-                $this->popApp();
-                throw $e;
-            }
-        }
-
         /* Push application on the stack. */
         $this->_appStack[] = $app;
 
@@ -1387,29 +1376,28 @@ class Horde_Registry
         if (!isset($this->_appsinit[$app])) {
             try {
                 $this->callAppMethod($app, 'init');
-                $this->_appsinit[$app] = true;
             } catch (Horde_Exception $e) {
                 $this->popApp();
                 $this->applications[$app]['status'] = 'inactive';
                 Horde::logMessage($e);
                 throw $e;
             }
+
+            if (Horde::hookExists('pushapp', $app)) {
+                try {
+                    Horde::callHook('pushapp', array(), $app);
+                } catch (Horde_Exception $e) {
+                    $e->setCode(self::HOOK_FATAL);
+                    $this->popApp();
+                    throw $e;
+                }
+            }
+
+            $this->_appsinit[$app] = true;
         }
 
         /* Call first initialization hook. */
-        if (isset($this->_hookinit[$app])) {
-            unset($this->_hookinit[$app]);
-            try {
-                Horde::callHook('appinitialized', array(), $app);
-            } catch (Horde_Exception_HookNotSet $e) {}
-        }
-
-        /* Call post-push hook. */
-        if (Horde::hookExists('pushapp_post', $app)) {
-            try {
-                Horde::callHook('pushapp_post', array(), $app);
-            } catch (Exception $e) {}
-        }
+        $this->_appInitHook($app);
 
         /* Do login tasks. */
         if ($checkPerms &&
@@ -2335,12 +2323,25 @@ class Horde_Registry
         $injector->getInstance('Horde_Core_Factory_Prefs')->clearCache();
         $this->loadPrefs();
 
-        unset($this->_hookinit['horde']);
-        try {
-            Horde::callHook('appinitialized', array(), 'horde');
-        } catch (Horde_Exception_HookNotSet $e) {}
+        $this->_hookinit['horde'] = true;
+        $this->_appInitHook('horde');
 
         $this->setLanguageEnvironment(isset($options['language']) ? $this->preferredLang($options['language']) : null, $app);
+    }
+
+    /**
+     * Hook called on first authentication to an application.
+     *
+     * @param string $app  Application name.
+     */
+    protected function _appInitHook($app)
+    {
+        if (isset($this->_hookinit[$app])) {
+            unset($this->_hookinit[$app]);
+            try {
+                Horde::callHook('appinitialized', array(), $app);
+            } catch (Horde_Exception_HookNotSet $e) {}
+        }
     }
 
     /**

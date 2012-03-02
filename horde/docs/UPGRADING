@@ -33,6 +33,15 @@ update anything that's highlighted as outdated.
 Upgrading Horde from 4.x to 5.x
 ===============================
 
+Hooks (hooks.php)
+-----------------
+
+The pushapp_post hook was removed.
+
+The behavior of the pushapp hook has changed - it is now called a maximum of
+one time per page access for an application.  See ``config/hooks.php.dist`` for
+further details.
+
 
 Preferences (prefs.php)
 -----------------------
