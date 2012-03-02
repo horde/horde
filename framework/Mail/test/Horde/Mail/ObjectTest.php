@@ -39,6 +39,11 @@ class Horde_Mail_ObjectTest extends PHPUnit_Framework_TestCase
             $result[0]->writeAddress(array('encode' => true))
         );
 
+        $this->assertEquals(
+            '=?iso-8859-1?b?Rm9v4w==?= <test@example.com>',
+            $result[0]->writeAddress(array('encode' => 'iso-8859-1'))
+        );
+
         $email = 'ß <test@example.com>';
         $result = $parser->parseAddressList($email);
 
@@ -62,7 +67,6 @@ class Horde_Mail_ObjectTest extends PHPUnit_Framework_TestCase
             '=?utf-8?b?w58=?= X <test@example.com>',
             $result[0]->writeAddress(array('encode' => true))
         );
-
     }
 
     public function testAddressConstructor()

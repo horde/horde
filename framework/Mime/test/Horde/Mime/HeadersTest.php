@@ -73,4 +73,20 @@ class Horde_Mime_HeadersTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testHeaderCharsetConversion()
+    {
+        $hdrs = new Horde_Mime_Headers();
+        $hdrs->addHeader('To', 'Empfänger <recipient@example.com>');
+
+        $hdr_array = $hdrs->toArray(array(
+            'charset' => 'iso-8859-1'
+        ));
+
+        $this->assertEquals(
+            '=?iso-8859-1?b?RW1wZuRuZ2Vy?= <recipient@example.com>',
+            $hdr_array['To']
+        );
+
+    }
+
 }
