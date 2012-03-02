@@ -420,18 +420,6 @@ class IMP_Imap implements Serializable
             IMP_Mailbox::get($params[0])->expire();
             break;
 
-        case 'getNamespaces':
-            // Workaround deprecated UTF7-IMAP return.
-            // TODO: Remove once Horde_Imap_Client 2.0+ is required.
-            $tmp = array();
-            foreach ($result as $key => $val) {
-                $key = Horde_Imap_Client_Mailbox::get($key, true);
-                $val['name'] = $key;
-                $tmp[strval($key)] = $val;
-            }
-            $result = $tmp;
-            break;
-
         case 'login':
             if (!$this->_login) {
                 /* Check for POP3 UIDL support. */
@@ -457,16 +445,6 @@ class IMP_Imap implements Serializable
 
         case 'setACL':
             IMP_Mailbox::get($params[0])->expire(IMP_Mailbox::CACHE_ACL);
-            break;
-
-        case 'statusMultiple':
-            // Workaround deprecated UTF7-IMAP return.
-            // TODO: Remove once Horde_Imap_Client 2.0+ is required.
-            $tmp = array();
-            foreach ($result as $key => $val) {
-                $tmp[strval(Horde_Imap_Client_Mailbox::get($key, true))] = $val;
-            }
-            $result = $tmp;
             break;
         }
 

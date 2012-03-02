@@ -337,7 +337,7 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
      * Get the list of unseen messages in the mailbox (IMAP UNSEEN flag, with
      * UNDELETED if we're hiding deleted messages).
      *
-     * @param integer $results  A Horde_Imap_Client::SORT_RESULTS_* constant
+     * @param integer $results  A Horde_Imap_Client::SEARCH_RESULTS_* constant
      *                          that indicates the desired return type.
      * @param boolean $uid      Return UIDs instead of sequence numbers (for
      *                          $results queries that return message lists).
@@ -353,7 +353,7 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
      * Do a search on a mailbox in the most efficient way available.
      *
      * @param string $type      The search type - either 'recent' or 'unseen'.
-     * @param integer $results  A Horde_Imap_Client::SORT_RESULTS_* constant
+     * @param integer $results  A Horde_Imap_Client::SEARCH_RESULTS_* constant
      *                          that indicates the desired return type.
      * @param boolean $uid      Return UIDs instead of sequence numbers (for
      *                          $results queries that return message lists).
@@ -362,7 +362,7 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
      */
     protected function _msgFlagSearch($type, $results, $uid)
     {
-        $count = ($results == Horde_Imap_Client::SORT_RESULTS_COUNT);
+        $count = ($results == Horde_Imap_Client::SEARCH_RESULTS_COUNT);
 
         if ($this->_mailbox->search || empty($this->_sorted)) {
             if ($count &&
@@ -535,7 +535,7 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
                 return 1;
             }
 
-            $unseen_msgs = $this->unseenMessages(Horde_Imap_Client::SORT_RESULTS_MIN, true);
+            $unseen_msgs = $this->unseenMessages(Horde_Imap_Client::SEARCH_RESULTS_MIN, true);
             return empty($unseen_msgs['min'])
                 ? 1
                 : ($this->getArrayIndex($unseen_msgs['min']) + 1);
@@ -545,7 +545,7 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
                 return 1;
             }
 
-            $unseen_msgs = $this->unseenMessages(Horde_Imap_Client::SORT_RESULTS_MAX, true);
+            $unseen_msgs = $this->unseenMessages(Horde_Imap_Client::SEARCH_RESULTS_MAX, true);
             return empty($unseen_msgs['max'])
                 ? 1
                 : ($this->getArrayIndex($unseen_msgs['max']) + 1);

@@ -285,7 +285,7 @@ class IMP_Views_ListMessages
             /* Do an unseen search.  We know what messages the browser
              * doesn't have based on $cached. Thus, search for the first
              * unseen message not located in $cached. */
-            $unseen_search = $mailbox_list->unseenMessages(Horde_Imap_Client::SORT_RESULTS_MATCH, true);
+            $unseen_search = $mailbox_list->unseenMessages(Horde_Imap_Client::SEARCH_RESULTS_MATCH, true);
             if (!($uid_search = array_diff($unseen_search['match']->ids, array_keys($cached)))) {
                 return $result;
             }

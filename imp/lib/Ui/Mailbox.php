@@ -190,15 +190,14 @@ class IMP_Ui_Mailbox
     /**
      * Formats the subject header.
      *
-     * @param string $subject     The MIME encoded subject header.
+     * @param string $subject     The subject header.
      * @param string $htmlspaces  HTML-ize spaces?
      *
      * @return string  The formatted subject header.
      */
     public function getSubject($subject, $htmlspaces = false)
     {
-        $subject = Horde_Mime::decode($subject, 'UTF-8');
-        if (empty($subject)) {
+        if (!strlen($subject)) {
             return _("[No Subject]");
         }
 

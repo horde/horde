@@ -355,7 +355,7 @@ if (!$preview_tooltip) {
     $strip_preview = $prefs->getValue('preview_strip_nl');
 }
 
-$unread = $imp_mailbox->unseenMessages(Horde_Imap_Client::SORT_RESULTS_COUNT);
+$unread = $imp_mailbox->unseenMessages(Horde_Imap_Client::SEARCH_RESULTS_COUNT);
 
 Horde::addInlineJsVars(array(
     'ImpMailbox.unread' => intval($unread)

@@ -129,7 +129,7 @@ $title = IMP::mailbox()->label;
 if ($pageOb['msgcount']) {
     $title .= ' (';
     if ($imp_imap->access(IMP_Imap::ACCESS_UNSEEN)) {
-        $unseen = $imp_mailbox->unseenMessages(Horde_Imap_Client::SORT_RESULTS_COUNT);
+        $unseen = $imp_mailbox->unseenMessages(Horde_Imap_Client::SEARCH_RESULTS_COUNT);
         $title .= sprintf(_("%d unseen"), $unseen) . '/';
     }
     $title .= sprintf(_("%d total"), $pageOb['msgcount']) . ')';

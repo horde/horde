@@ -52,7 +52,7 @@ $imp_mailbox = $mailbox->getListOb();
 $total_num = count($imp_mailbox);
 $unseen_num = $mailbox->vinbox
     ? $total_num
-    : $imp_mailbox->unseenMessages(Horde_Imap_Client::SORT_RESULTS_COUNT);
+    : $imp_mailbox->unseenMessages(Horde_Imap_Client::SEARCH_RESULTS_COUNT);
 
 $query = new Horde_Imap_Client_Search_Query();
 if ($new_mail) {
