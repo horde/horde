@@ -111,9 +111,9 @@ class Horde_Mime_Headers implements Serializable
                         }
                     }
                 } else {
-                    $text = $charset
-                        ? Horde_Mime::encode(Horde_String::convertCharset($val[$key], 'UTF-8', $charset), $charset)
-                        : $val[$key];
+                    $text = is_null($charset)
+                        ? $val[$key]
+                        : Horde_Mime::encode($val[$key], $charset);
                 }
 
                 if (empty($options['nowrap'])) {
@@ -689,7 +689,7 @@ class Horde_Mime_Headers implements Serializable
                         }
                     }
                 } else {
-                    $data = Horde_Mime::encode($tmp, 'UTF-8');
+                    $data = Horde_Mime::encode($tmp);
                 }
             }
         }

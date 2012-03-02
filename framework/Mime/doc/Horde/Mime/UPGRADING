@@ -16,8 +16,15 @@ Upgrading to 2.0
 
   - Horde_Mime
 
-    The decodeAddrString() method has been removed.
-    The encodeAddress() method has been removed.
+    The decodeAddrString() and encodeAddress() methods have been removed.
+    Equivalent functionality can now be found in the Horde_Mail package
+    (version 2.0.0+).
+
+    - encode()
+
+      The first parameter ($text) now requires a UTF-8 string.
+      The second parameter ($charset) is now optional and indicates the
+      charset to MIME encode to.
 
   - Horde_Mime_Address
 

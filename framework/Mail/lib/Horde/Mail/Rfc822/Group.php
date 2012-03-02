@@ -88,7 +88,7 @@ class Horde_Mail_Rfc822_Group extends Horde_Mail_Rfc822_Object
             return $this->_groupname;
 
         case 'groupname_encoded':
-            return Horde_Mime::encode($this->_groupname, 'UTF-8');
+            return Horde_Mime::encode($this->_groupname);
 
         case 'valid':
             return (bool)strlen($this->_groupname);
@@ -105,7 +105,7 @@ class Horde_Mail_Rfc822_Group extends Horde_Mail_Rfc822_Object
         $addr = $this->addresses->writeAddress($opts);
         $groupname = empty($opts['encode'])
             ? $this->groupname
-            : Horde_Mime::encode($this->_groupname, $opts['encode']);
+            : Horde_Mime::encode($this->groupname, $opts['encode']);
         $rfc822 = new Horde_Mail_Rfc822();
 
         return $rfc822->encode($groupname, 'address') . ':' .

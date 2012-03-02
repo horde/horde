@@ -106,21 +106,22 @@ class Horde_Mime
     }
 
     /**
-     * Encodes a string containing non-ASCII characters according to RFC 2047.
+     * MIME encodes a string (RFC 2047).
      *
-     * @param string $text     The text to encode.
-     * @param string $charset  The character set of the text.
+     * @param string $text     The text to encode (UTF-8).
+     * @param string $charset  The character set to encode to.
      *
-     * @return string  The text, encoded only if it contains non-ASCII
-     *                 characters.
+     * @return string  The MIME encoded string.
      */
-    static public function encode($text, $charset)
+    static public function encode($text, $charset = 'UTF-8')
     {
         $charset = Horde_String::lower($charset);
 
-        if (($charset == 'us-ascii') || !self::is8bit($text, $charset)) {
+        if (!self::is8bit($text, $charset)) {
             return $text;
         }
+
+        $text = Horde_String::convertCharset($text, 'UTF-8', $text);
 
         /* Get the list of elements in the string. */
         $size = preg_match_all('/([^\s]+)([\s]*)/', $text, $matches, PREG_SET_ORDER);
@@ -145,13 +146,12 @@ class Horde_Mime
     }
 
     /**
-     * Internal recursive function to RFC 2047 encode a string.
+     * Internal helper function to MIME encode a string.
      *
      * @param string $text     The text to encode.
      * @param string $charset  The character set of the text.
      *
-     * @return string  The text, encoded only if it contains non-ASCII
-     *                 characters.
+     * @return string  The MIME encoded text.
      */
     static protected function _encode($text, $charset)
     {

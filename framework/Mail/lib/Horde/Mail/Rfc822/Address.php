@@ -123,7 +123,7 @@ class Horde_Mail_Rfc822_Address extends Horde_Mail_Rfc822_Object
             return $this->_personal;
 
         case 'personal_encoded':
-            return Horde_Mime::encode($this->personal, 'UTF-8');
+            return Horde_Mime::encode($this->personal);
 
         case 'valid':
             return (bool)strlen($this->mailbox);
