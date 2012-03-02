@@ -1668,9 +1668,9 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
                 break;
 
             case self::REPLY_LIST:
-                if (($list_parse = $GLOBALS['injector']->getInstance('IMP_Parse_Listid')->parseListId($h->getValue('list-id'))) &&
-                    isset($list_parse->phrase)) {
-                    $ret['reply_list_id'] = $list_parse->phrase;
+                if (($list_parse = $GLOBALS['injector']->getInstance('Horde_ListHeaders')->parse('list-id', $h->getValue('list-id'))) &&
+                    !is_null($list_parse->label)) {
+                    $ret['reply_list_id'] = $list_parse->label;
                 }
                 break;
             }

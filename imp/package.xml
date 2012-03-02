@@ -1246,6 +1246,13 @@
     <exclude>2.0.0</exclude>
    </package>
    <package>
+    <name>Horde_ListHeaders</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
     <name>Horde_LoginTasks</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0</min>

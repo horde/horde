@@ -189,8 +189,8 @@ class IMP_Ui_Message
         $ret = array();
 
         foreach (array_keys($headers->listHeaders()) as $val) {
-            if (($data = $headers->getValue($val))) {
-                $ret[$val] = $this->parseListHeaders($data);
+            if ($data = $headers->getValue($val)) {
+                $ret[$val] = $this->parseListHeaders($val, $data);
             }
         }
 
@@ -200,70 +200,37 @@ class IMP_Ui_Message
     /**
      * Parse the information in mailing list headers.
      *
+     * @param string $id    The header ID.
      * @param string $data  The header text to process.
-     * @param array $opts   Additional options:
-     * <pre>
-     * 'email' - (boolean) Only return e-mail values.
-     *           DEFAULT: false
-     * 'raw' - (boolean) Should the raw URL be returned instead of linking
-     *                   the header value?
-     *                   DEFAULT: false
-     * </pre>
      *
      * @return string  The header value.
      */
-    public function parseListHeaders($data, $opts = array())
+    public function parseListHeaders($id, $data)
     {
         $output = '';
+        $parser = $GLOBALS['injector']->getInstance('Horde_ListHeaders');
+        $text_filter = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter');
 
-        /* Split the incoming data by the ',' character. */
-        foreach (explode(',', $data) as $orig_entry) {
-            /* Get the data inside of the brackets. If there is no brackets,
-             * then return the raw text. */
-            // TODO: Do formal parsing
-             if (!($list_parse = $GLOBALS['injector']->getInstance('IMP_Parse_Listid')->parseListId($orig_entry))) {
-                return $orig_entry;
-            }
-
-            /* Remove all whitespace from between brackets (RFC 2369 [2]). */
-            $entry = $list_parse->id;
-            $match = preg_replace("/\s+/", '', $entry);
-
-            /* Determine if there are any comments. */
-            preg_match("/(\(.+\))/", $entry, $comments);
-
+        foreach ($parser->parse($id, $data) as $val) {
             /* RFC 2369 [2] states that we should only show the *FIRST* URL
              * that appears in a header that we can adequately handle. */
-            if (stristr($match, 'mailto:') !== false) {
-                $match = substr($match, strpos($match, ':') + 1);
-                if (!empty($opts['raw'])) {
-                    return $match;
+            if (stripos($val->url, 'mailto:') === 0) {
+                $url = substr($val->url, 7);
+                $output = Horde::link(IMP::composeLink($url)) . $url . '</a>';
+                foreach ($val->comments as $val2) {
+                    $output .= '&nbsp;(' . $val2 . ')';
                 }
-                $output = Horde::link(IMP::composeLink($match)) . $match . '</a>';
-                if (!empty($comments[1])) {
-                    $output .= '&nbsp;' . $comments[1];
-                }
-
-                return $output;
-            } elseif ($url = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($match, 'linkurls')) {
-                if (!empty($opts['email'])) {
-                    continue;
-                }
-
-                if (!empty($opts['raw'])) {
-                    return $match;
-                }
-
+                break;
+            } elseif ($url = $text_filter->filter($val, 'linkurls')) {
                 $output = $url;
-                if (!empty($comments[1])) {
-                    $output .= '&nbsp;' . $comments[1];
+                foreach ($val->comments as $val2) {
+                    $output .= '&nbsp;(' . $val2 . ')';
                 }
-
-                return $output;
-            } else {
-                /* Use this entry unless we can find a better one. */
-                $output = $match;
+                break;
             }
+
+            /* Use this entry unless we can find a better one. */
+            $output = $match;
         }
 
         return $output;
@@ -285,9 +252,15 @@ class IMP_Ui_Message
 
             /* See if the List-Post header provides an e-mail address for the
              * list. */
-            if (($val = $headers->getValue('list-post')) &&
-                ($val != 'NO')) {
-                $ret['reply_list'] = $this->parseListHeaders($val, array('email' => true, 'raw' => true));
+            if ($val = $headers->getValue('list-post')) {
+                foreach ($GLOBALS['injector']->getInstance('Horde_ListHeaders')->parse('list-post', $val) as $val2) {
+                    if ($val2 instanceof Horde_ListHeaders_NoPost) {
+                        break;
+                    } elseif (stripos($val2->url, 'mailto:') === 0) {
+                        $ret['reply_list'] = substr($val2->url, 7);
+                        break;
+                    }
+                }
             }
         }
 
