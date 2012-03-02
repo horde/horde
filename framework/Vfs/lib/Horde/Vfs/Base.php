@@ -516,9 +516,12 @@ abstract class Horde_Vfs_Base
             return $list;
         }
 
+        if (strlen($path)) {
+            $path .= '/';
+        }
         foreach ($list as $name => $values) {
             if ($values['type'] == '**dir') {
-                $list[$name]['subdirs'] = $this->listFolder($path . '/' . $name, $filter, $dotfiles, $dironly, $recursive);
+                $list[$name]['subdirs'] = $this->listFolder($path . $name, $filter, $dotfiles, $dironly, $recursive);
             }
         }
 
