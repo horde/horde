@@ -30,6 +30,28 @@ class Horde_Core_ActiveSync_Connector
      *
      * @var Horde_Log_Logger
      */
+    private $_logger;
+
+    /**
+     * Local cache of imap object.
+     *
+     * @var Horde_Imap_Client_Base
+     */
+    private $_imap;
+
+    /**
+     * Local cache of folderlist
+     *
+     * @var array
+     */
+    private $_folderlist;
+
+    /**
+     * Local cache of special mailbox list
+     *
+     * @var array
+     */
+    private $_specialMailboxes;
 
     /**
      * Const'r
@@ -392,7 +414,7 @@ class Horde_Core_ActiveSync_Connector
      */
     public function mail_folderList()
     {
-        return $this->_registry->mail->folderlist();
+        return $this->_getFolderlist();
     }
 
     /**
@@ -411,7 +433,7 @@ class Horde_Core_ActiveSync_Connector
         Horde_ActiveSync_Folder_Imap $folder,
         $options = array())
     {
-        $imap = $this->_registry->mail->imapOb();
+        $imap = $this->_getImapOb();
         $mbox = new Horde_Imap_Client_Mailbox($folder->serverid());
 
         $status = $imap->status($mbox,
@@ -522,7 +544,7 @@ class Horde_Core_ActiveSync_Connector
      */
     public function mail_moveMessage($folderid, $id, $newfolderid)
     {
-        $imap = $this->_registry->mail->imapOb();
+        $imap = $this->_getImapOb();
         $from = new Horde_Imap_Client_Mailbox($folderid);
         $to = new Horde_Imap_Client_Mailbox($newfolderid);
         if (!$imap->queryCapability('UIDPLUS')) {
@@ -550,7 +572,7 @@ class Horde_Core_ActiveSync_Connector
      */
     public function mail_deleteMessages($uids, $folder)
     {
-        $imap = $this->_registry->mail->imapOb();
+        $imap = $this->_getImapOb();
         $mbox = new Horde_Imap_Client_Mailbox($folder);
         $ids = new Horde_Imap_Client_Ids($uids);
         try {
@@ -579,7 +601,7 @@ class Horde_Core_ActiveSync_Connector
     public function mail_getMessages(
         Horde_ActiveSync_Message_Folder $folder, array $messages, array $options = array())
     {
-        $imap = $this->_registry->mail->imapOb();
+        $imap = $this->_getImapOb();
         $query = new Horde_Imap_Client_Fetch_Query();
         $query->structure();
         $query->uid;
@@ -600,16 +622,12 @@ class Horde_Core_ActiveSync_Connector
 
     public function mail_getSpecialFolders()
     {
-        if ($this->_registry->hasMethod('mail/getSpecialMailboxes')) {
-            return $this->_registry->mail->getSpecialMailboxes();
-        }
-
-        return array();
+        return $this->_getSpecialMailboxes();
     }
 
     public function mail_setReadFlag($mbox, $uid, $flag)
     {
-        $imap = $this->_registry->mail->imapOb();
+        $imap = $this->_getImapOb();
         $mbox = new Horde_Imap_Client_Mailbox($mbox);
         $options = array(
             'ids' => new Horde_Imap_Client_Ids(array($uid)),
@@ -642,7 +660,7 @@ class Horde_Core_ActiveSync_Connector
         $id = $part->findBody();
         $body = $part->getPart($id);
         $charset = $body->getCharset();
-        $imap = $this->_registry->mail->imapOb();
+        $imap = $this->_getImapOb();
         $query = new Horde_Imap_Client_Fetch_Query();
         $query->envelope();
         $query->flags();
@@ -719,6 +737,52 @@ class Horde_Core_ActiveSync_Connector
     public function clearAuth()
     {
         $this->_registry->clearAuth(true);
+    }
+
+    /**
+     * Helper for getting an imap object.
+     *
+     * @return Horde_Imap_Client_Base
+     */
+    protected function _getImapOb()
+    {
+        if (!empty($this->_imap)) {
+            return $this->_imap;
+        }
+        $this->_imap = $this->_registry->mail->imapOb();
+
+        return $this->_imap;
+    }
+
+    /**
+     * Helper for getting a list of special mailboxes.
+     *
+     * @return array
+     */
+    protected function _getSpecialMailboxes()
+    {
+        if (!empty($this->_specialMailboxes)) {
+            return $this->_specialMailboxes;
+        }
+        $this->_specialMailboxes = $this->_registry->mail->getSpecialMailboxes();
+
+        return $this->_specialMailboxes;
+    }
+
+    /**
+     * Helper for getting folderlist.
+     *
+     * @var array
+     */
+    protected function _getFolderlist()
+    {
+        if (!empty($this->_folderlist)) {
+            return $this->_folderlist;
+        }
+
+        $this->_folderlist = $this->_registry->mail->folderlist();
+
+        return $this->_folderlist;
     }
 
 }
