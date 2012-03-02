@@ -39,8 +39,6 @@ Reading, writing and listing of files are all supported.</description>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix several issues with quota calculation.
-* [jan] Fix recursive listFolder() on base directory.
 * [jan] Remove Horde_Vfs_Browser, Horde_Vfs_ListItem, Horde_Vfs_Object classes.
  </notes>
  <contents>
@@ -924,6 +922,21 @@ Added a class for providing garbage collection; removed all Horde dependancies.
   </release>
   <release>
    <version>
+    <release>1.0.9</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-08</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix several issues with quota calculation.
+* [jan] Fix recursive listFolder() on base directory.
+* [jan] Fix calculating folder sizes with similar folder names in SQL driver.
+   </notes>
+  </release>
+  <release>
+   <version>
     <release>2.0.0alpha1</release>
     <api>2.0.0</api></version>
    <stability>
@@ -932,8 +945,6 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    <date>2012-03-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [jan] Fix several issues with quota calculation.
-* [jan] Fix recursive listFolder() on base directory.
 * [jan] Remove Horde_Vfs_Browser, Horde_Vfs_ListItem, Horde_Vfs_Object classes.
    </notes>
   </release>
