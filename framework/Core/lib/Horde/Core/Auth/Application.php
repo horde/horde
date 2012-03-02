@@ -641,6 +641,7 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
         if (!$GLOBALS['session']->exists('horde', 'view')) {
             $this->_setView();
         }
+
         if ($this->_base &&
             isset($GLOBALS['notification']) &&
             ($expire = $this->_base->getCredential('expire'))) {

@@ -82,7 +82,7 @@ class Horde_Registry
      *
      * @var array
      */
-    protected $_appsinit = array();
+    protected $_appsInit = array();
 
     /**
      * The list of applications initialized during this access.
@@ -499,7 +499,9 @@ class Horde_Registry
      * clears the local app/api cache since applications will probably already
      * have been initialized during Notification polling.
      *
-     * @param string $authentication  The authentication setting. @see Horde_Registry::appInit
+     * @see appInit()
+     *
+     * @param string $authentication  The authentication setting.
      */
     public function setAuthenticationSetting($authentication)
     {
@@ -1327,9 +1329,9 @@ class Horde_Registry
         }
         $autoloader->addClassPathMapper($applicationMapper);
 
-        $checkPerms = (!isset($options['check_perms']) ||
+        $checkPerms = ((!isset($options['check_perms']) ||
                        !empty($options['check_perms'])) &&
-            $this->_args['authentication'] != 'none';
+                       ($this->_args['authentication'] != 'none'));
 
         /* If permissions checking is requested, return an error if the
          * current user does not have read perms to the application being
@@ -1373,7 +1375,7 @@ class Horde_Registry
         }
 
         /* Initialize application. */
-        if (!isset($this->_appsinit[$app])) {
+        if (!isset($this->_appsInit[$app])) {
             try {
                 $this->callAppMethod($app, 'init');
             } catch (Horde_Exception $e) {
@@ -1393,7 +1395,7 @@ class Horde_Registry
                 }
             }
 
-            $this->_appsinit[$app] = true;
+            $this->_appsInit[$app] = true;
         }
 
         /* Call first initialization hook. */
