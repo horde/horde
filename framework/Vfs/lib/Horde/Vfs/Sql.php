@@ -265,10 +265,9 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
         $path = $this->_convertPath($path);
 
         try {
-            $sql = sprintf('DELETE FROM %s WHERE vfs_type = ? AND vfs_path %s AND vfs_name = ?',
-                           $this->_params['table'],
-                           (!strlen($path) && $this->_db->dbsyntax == 'oci8') ? ' IS NULL' : ' = ' . $this->_db->quote($path));
-            $values = array(self::FILE, $name);
+            $sql = sprintf('DELETE FROM %s WHERE vfs_type = ? AND vfs_path = ? AND vfs_name = ?',
+                           $this->_params['table']);
+            $values = array(self::FILE, $path, $name);
             $result = $this->_db->delete($sql, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Vfs_Exception($e);
@@ -367,6 +366,11 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
             }
         }
 
+        /* Remember the size of the folder. */
+        if (!is_null($this->_vfsSize)) {
+            $size = $this->getFolderSize($folderPath);
+        }
+
         /* First delete everything below the folder, so if error we get no
          * orphans. */
         try {
@@ -375,6 +379,7 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
                            (!strlen($folderPath) && $this->_db->dbsyntax == 'oci8') ? ' IS NULL' : ' LIKE ' . $this->_db->quote($this->_getNativePath($folderPath, '%')));
             $this->_db->delete($sql);
         } catch (Horde_Db_Exception $e) {
+            $this->_vfsSize = null;
             throw new Horde_Vfs_Exception('Unable to delete VFS recursively: ' . $e->getMessage());
         }
 
@@ -385,6 +390,7 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
                            (!strlen($path) && $this->_db->dbsyntax == 'oci8') ? ' IS NULL' : ' = ' . $this->_db->quote($folderPath));
             $this->_db->delete($sql);
         } catch (Horde_Db_Exception $e) {
+            $this->_vfsSize = null;
             throw new Horde_Vfs_Exception('Unable to delete VFS directory: ' . $e->getMessage());
         }
 
@@ -396,7 +402,13 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
             $values = array($name);
             $this->_db->delete($sql, $values);
         } catch (Horde_Db_Exception $e) {
+            $this->_vfsSize = null;
             throw new Horde_Vfs_Exception('Unable to delete VFS directory: ' . $e->getMessage());
+        }
+
+        /* Update VFS size. */
+        if (!is_null($this->_vfsSize)) {
+            $this->_vfsSize -= $size;
         }
     }
 

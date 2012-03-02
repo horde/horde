@@ -51,7 +51,7 @@ abstract class Horde_Vfs_Base
     );
 
     /**
-     * The current size, in bytes, of the VFS item.
+     * The current size, in bytes, of the VFS tree.
      *
      * @var integer
      */
@@ -317,7 +317,7 @@ abstract class Horde_Vfs_Base
         if ($this->isFolder($path, $name)) {
             $this->_copyRecursive($path, $name, $dest);
         } else {
-            return $this->writeData($dest, $name, $this->read($path, $name), $autocreate);
+            $this->writeData($dest, $name, $this->read($path, $name), $autocreate);
         }
     }
 
@@ -734,7 +734,8 @@ abstract class Horde_Vfs_Base
      */
     protected function _checkQuotaWrite($mode, $data)
     {
-        if ($this->_params['vfs_quotalimit'] == -1) {
+        if ($this->_params['vfs_quotalimit'] == -1 &&
+            is_null($this->_vfsSize)) {
             return;
         }
 
@@ -748,9 +749,12 @@ abstract class Horde_Vfs_Base
         }
 
         $vfssize = $this->getVFSSize();
-        if (($vfssize + $filesize) > $this->_params['vfs_quotalimit']) {
+        if ($this->_params['vfs_quotalimit'] > -1 &&
+            ($vfssize + $filesize) > $this->_params['vfs_quotalimit']) {
             throw new Horde_Vfs_Exception('Unable to write VFS file, quota will be exceeded.');
-        } elseif ($this->_vfsSize !== 0) {
+        }
+
+        if (!is_null($this->_vfsSize)) {
             $this->_vfsSize += $filesize;
         }
     }
@@ -765,8 +769,7 @@ abstract class Horde_Vfs_Base
      */
     protected function _checkQuotaDelete($path, $name)
     {
-        if (($this->_params['vfs_quotalimit'] != -1) &&
-            !empty($this->_vfsSize)) {
+        if (!is_null($this->_vfsSize)) {
             $this->_vfsSize -= $this->size($path, $name);
         }
     }
