@@ -35,7 +35,7 @@ abstract class Horde_ActiveSync_State_Base
     /**
      * Caches the current state(s) in memory
      *
-     * @var array
+     * @var Horde_ActiveSync_Folder_Base
      */
     protected $_folder;
 
