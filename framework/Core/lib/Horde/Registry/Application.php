@@ -9,17 +9,11 @@
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Core
  */
 class Horde_Registry_Application
 {
-    /**
-     * Does this application support an ajax view?
-     *
-     * @var boolean
-     */
-    public $ajaxView = false;
-
     /**
      * The list of available authentication capabilities handled by this
      * application.
@@ -30,18 +24,22 @@ class Horde_Registry_Application
     public $auth = array();
 
     /**
+     * List of features supported by this application.
+     *
+     * @var array
+     */
+    public $features = array(
+        'dynamicView' => false,
+        'minimalView' => false,
+        'smartmobileView' => false
+    );
+
+    /**
      * The init params used.
      *
      * @var array
      */
     public $initParams = array();
-
-    /**
-     * Does this application support a mobile view?
-     *
-     * @var boolean
-     */
-    public $mobileView = false;
 
     /**
      * The application's version.

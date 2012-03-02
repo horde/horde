@@ -36,11 +36,10 @@ class Kronolith_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $ajaxView = true;
-
-    /**
-     */
-    public $mobileView = true;
+    public $features = array(
+        'dynamicView' => true,
+        'minimalView' => true
+    );
 
     /**
      */

@@ -9,7 +9,8 @@
  */
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('nag');
-if ($session->get('horde', 'mode') == 'smartmobile' && Horde::ajaxAvailable()) {
+
+if ($registry->getView() == Horde_Registry::VIEW_SMARTMOBILE) {
     require dirname(__FILE__) . '/mobile.php';
 } else {
     require dirname(__FILE__) . '/list.php';

@@ -60,7 +60,7 @@ if ($main_page) {
             $initial_app != 'horde' &&
             $registry->hasPermission($initial_app)) {
             if ($registry->getView() == Horde_Registry::VIEW_SMARTMOBILE) {
-                $main_page = $registry->getApiInstance($initial_app, 'application')->mobileView
+                $main_page = $registry->hasView(Horde_Registry::VIEW_MINIMAL, $initial_app)
                     ? Horde::url(rtrim($initial_app, '/') . '/', true)
                     : Horde::getServiceLink('portal');
             } else {

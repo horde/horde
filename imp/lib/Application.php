@@ -39,7 +39,11 @@ class IMP_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $ajaxView = true;
+    public $features = array(
+        'dynamicView' => true,
+        'minimalView' => true,
+        'smartmobileView' => true
+    );
 
     /**
      */
@@ -50,10 +54,6 @@ class IMP_Application extends Horde_Registry_Application
         'remove',
         'transparent'
     );
-
-    /**
-     */
-    public $mobileView = true;
 
     /**
      */

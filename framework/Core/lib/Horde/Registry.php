@@ -1661,13 +1661,14 @@ class Horde_Registry
     }
 
     /**
-     * Does the given application have a mobile view?
+     * Does the given application have an ajax view?
      *
-     * @param string $app  The application to check.
+     * @param integer $view  The view type (VIEW_* constant).
+     * @param string $app    The application to check.
      *
-     * @return boolean  Whether app has mobile view.
+     * @return boolean  Whether app has an ajax view.
      */
-    public function hasMobileView($app = null)
+    public function hasView($view, $app = null)
     {
         if (empty($app)) {
             $app = $this->getApp();
