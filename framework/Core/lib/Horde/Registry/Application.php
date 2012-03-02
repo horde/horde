@@ -34,7 +34,9 @@ class Horde_Registry_Application
         'minimalView' => false,
         'smartmobileView' => false,
         // Notification Handler
-        'notificationHandler' => false
+        'notificationHandler' => false,
+        // Alarm Handler
+        'alarmHandler' => false
     );
 
     /**
