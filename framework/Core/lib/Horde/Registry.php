@@ -28,6 +28,7 @@ class Horde_Registry
     const NOT_ACTIVE = 2;
     const PERMISSION_DENIED = 3;
     const HOOK_FATAL = 4;
+    const INITCALLBACK_FATAL = 5;
 
     /* View types. */
     const VIEW_BASIC = 1;
@@ -57,13 +58,6 @@ class Horde_Registry
     public $nlsconfig;
 
     /**
-     * Stack of in-use applications.
-     *
-     * @var array
-     */
-    protected $_appStack = array();
-
-    /**
      * The list of external services.
      *
      * @var array
@@ -78,18 +72,18 @@ class Horde_Registry
     protected $_apiList = array();
 
     /**
-     * The list of applications initialized during this access.
+     * Stack of in-use applications.
      *
      * @var array
      */
-    protected $_appsInit = array();
+    protected $_appStack = array();
 
     /**
      * The list of applications initialized during this access.
      *
      * @var array
      */
-    protected $_hookinit = array();
+    protected $_appsInit = array();
 
     /**
      * The arguments that have been passed when instantiating the registry.
@@ -1299,6 +1293,7 @@ class Horde_Registry
      *         Horde_Registry::NOT_ACTIVE
      *         Horde_Registry::PERMISSION_DENIED
      *         Horde_Registry::HOOK_FATAL
+     *         Horde_Registry::INITCALLBACK_FATAL
      */
     public function pushApp($app, $options = array())
     {
@@ -1374,32 +1369,36 @@ class Horde_Registry
             $this->setLanguageEnvironment(null, $app);
         }
 
+        /* Run authenticated hooks, if necessary. */
+        if ($GLOBALS['session']->get('horde', 'auth_app_init/' . $app)) {
+            try {
+                $error = self::INITCALLBACK_FATAL;
+                $this->callAppMethod($app, 'authenticated');
+
+                $error = self::HOOK_FATAL;
+                Horde::callHook('appauthenticated', array(), $app);
+            } catch (Exception $e) {
+                $this->_pushAppError($e, $error);
+            }
+
+            $GLOBALS['session']->remove('horde', 'auth_app_init/' . $app);
+            unset($this->_appsInit[$app]);
+        }
+
         /* Initialize application. */
         if (!isset($this->_appsInit[$app])) {
             try {
+                $error = self::INITCALLBACK_FATAL;
                 $this->callAppMethod($app, 'init');
-            } catch (Horde_Exception $e) {
-                $this->popApp();
-                $this->applications[$app]['status'] = 'inactive';
-                Horde::logMessage($e);
-                throw $e;
-            }
 
-            if (Horde::hookExists('pushapp', $app)) {
-                try {
-                    Horde::callHook('pushapp', array(), $app);
-                } catch (Horde_Exception $e) {
-                    $e->setCode(self::HOOK_FATAL);
-                    $this->popApp();
-                    throw $e;
-                }
+                $error = self::HOOK_FATAL;
+                Horde::callHook('pushapp', array(), $app);
+            } catch (Exception $e) {
+                $this->_pushAppError($e, $error);
             }
 
             $this->_appsInit[$app] = true;
         }
-
-        /* Call first initialization hook. */
-        $this->_appInitHook($app);
 
         /* Do login tasks. */
         if ($checkPerms &&
@@ -1409,6 +1408,33 @@ class Horde_Registry
         }
 
         return true;
+    }
+
+    /**
+     * Process Exceptions thrown when pushing app on stack.
+     *
+     * @param Exception $e    The thrown Exception.
+     * @param integer $error  The pushApp() error type.
+     *
+     * @throws Horde_Exception
+     */
+    protected function _pushAppError(Exception $e, $error)
+    {
+        if ($e instanceof Horde_Exception_HookNotSet) {
+            return;
+        }
+
+        $e->setCode($error);
+
+        /* Hook errors are already logged. */
+        if ($error == self::INITCALLBACK_FATAL) {
+            Horde::logMessage($e);
+        }
+
+        $this->applications[$this->getApp()]['status'] = 'inactive';
+        $this->popApp();
+
+        throw new Horde_Exception($e);
     }
 
     /**
@@ -2217,6 +2243,7 @@ class Horde_Registry
         }
 
         $session->set('horde', 'auth_app/' . $app, $entry);
+        $session->set('horde', 'auth_app_init/' . $app, true);
     }
 
     /**
@@ -2297,8 +2324,6 @@ class Horde_Registry
             ? 'horde'
             : $options['app'];
 
-        $this->_hookinit[$app] = true;
-
         if ($this->getAuth() == $authId) {
             /* Store app credentials - base Horde session already exists. */
             $this->setAuthCredential($credentials, null, $app);
@@ -2325,25 +2350,7 @@ class Horde_Registry
         $injector->getInstance('Horde_Core_Factory_Prefs')->clearCache();
         $this->loadPrefs();
 
-        $this->_hookinit['horde'] = true;
-        $this->_appInitHook('horde');
-
         $this->setLanguageEnvironment(isset($options['language']) ? $this->preferredLang($options['language']) : null, $app);
-    }
-
-    /**
-     * Hook called on first authentication to an application.
-     *
-     * @param string $app  Application name.
-     */
-    protected function _appInitHook($app)
-    {
-        if (isset($this->_hookinit[$app])) {
-            unset($this->_hookinit[$app]);
-            try {
-                Horde::callHook('appinitialized', array(), $app);
-            } catch (Horde_Exception_HookNotSet $e) {}
-        }
     }
 
     /**

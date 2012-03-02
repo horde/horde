@@ -649,8 +649,6 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
             $GLOBALS['notification']->push(sprintf(Horde_Core_Translation::ngettext("%d day until your password expires.", "%d days until your password expires.", $toexpire), $toexpire), 'horde.warning');
         }
 
-        $registry->callAppMethod($this->_app, 'authenticated', array('noperms' => true));
-
         return true;
     }
 

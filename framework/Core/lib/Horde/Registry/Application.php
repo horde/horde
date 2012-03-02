@@ -96,6 +96,8 @@ class Horde_Registry_Application
     /**
      * Code to run on successful authentication. This will be called once
      * per session, and the entire Horde framework will be available.
+     *
+     * @throws Horde_Exception
      */
     public function authenticated()
     {
@@ -105,6 +107,8 @@ class Horde_Registry_Application
      * Code run when the application is pushed on the stack for the first
      * time in a page access. The entire Horde framework will be available,
      * but the user may not be authenticated.
+     *
+     * @throws Horde_Exception
      */
     public function init()
     {
