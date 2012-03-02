@@ -342,15 +342,14 @@ class Horde_Vfs_Smb extends Horde_Vfs_Base
     }
 
     /**
-     * Returns an unsorted file list.
+     * Returns a file list of the directory passed in.
      *
-     * @param string $path       The path of the directory to get the file list
-     *                           for.
-     * @param mixed $filter      Hash of items to filter based on filename.
-     * @param boolean $dotfiles  Show dotfiles? This is irrelevant with
-     *                           smbclient.
-     * @param boolean $dironly   Show directories only?
-     * @param boolean $recursive  Return all directory levels recursively?
+     * @param string $path          The path of the directory.
+     * @param string|array $filter  Regular expression(s) to filter
+     *                              file/directory name on.
+     * @param boolean $dotfiles     Show dotfiles?
+     * @param boolean $dironly      Show only directories?
+     * @param boolean $recursive    Return all directory levels recursively?
      *
      * @return array  File list.
      * @throws Horde_Vfs_Exception
@@ -420,7 +419,7 @@ class Horde_Vfs_Smb extends Horde_Vfs_Base
     }
 
     /**
-     * Returns a sorted list of folders in specified directory.
+     * Returns a sorted list of folders in the specified directory.
      *
      * @param string $path         The path of the directory to get the
      *                             directory list for.

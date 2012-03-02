@@ -496,11 +496,12 @@ abstract class Horde_Vfs_Base
     /**
      * Returns a file list of the directory passed in.
      *
-     * @param string $path        The path of the directory.
-     * @param mixed $filter       String/hash to filter file/dirname on.
-     * @param boolean $dotfiles   Show dotfiles?
-     * @param boolean $dironly    Show only directories?
-     * @param boolean $recursive  Return all directory levels recursively?
+     * @param string $path          The path of the directory.
+     * @param string|array $filter  Regular expression(s) to filter
+     *                              file/directory name on.
+     * @param boolean $dotfiles     Show dotfiles?
+     * @param boolean $dironly      Show only directories?
+     * @param boolean $recursive    Return all directory levels recursively?
      *
      * @return array  File list.
      * @throws Horde_Vfs_Exception
@@ -527,10 +528,11 @@ abstract class Horde_Vfs_Base
      *
      * @abstract
      *
-     * @param string $path       The path of the directory.
-     * @param mixed $filter      String/hash to filter file/dirname on.
-     * @param boolean $dotfiles  Show dotfiles?
-     * @param boolean $dironly   Show only directories?
+     * @param string $path          The path of the directory.
+     * @param string|array $filter  Regular expression(s) to filter
+     *                              file/directory name on.
+     * @param boolean $dotfiles     Show dotfiles?
+     * @param boolean $dironly      Show only directories?
      *
      * @return array  File list.
      * @throws Horde_Vfs_Exception
@@ -552,11 +554,13 @@ abstract class Horde_Vfs_Base
     }
 
     /**
-     * Returns whether or not a filename matches any filter element.
+     * Returns whether or not a file or directory name matches an filter
+     * element.
      *
-     * @param mixed $filter     String/hash to build the regular expression
-     *                          from.
-     * @param string $filename  String containing the filename to match.
+     * @param string|array $filter  Regular expression(s) to build the filter
+     *                              from.
+     * @param string $filename      String containing the file/directory name
+     *                              to match.
      *
      * @return boolean  True on match, false on no match.
      */
@@ -594,10 +598,11 @@ abstract class Horde_Vfs_Base
      *
      * @abstract
      *
-     * @param string $path         The path of the directory to get the
-     *                             directory list for.
-     * @param mixed $filter        Hash of items to filter based on folderlist.
-     * @param boolean $dotfolders  Include dotfolders?
+     * @param string $path          The path of the directory to get the
+     *                              directory list for.
+     * @param string|array $filter  Regular expression(s) to filter directory
+     *                              names on.
+     * @param boolean $dotfolders   Include dotfolders?
      *
      * @return array  Folder list.
      * @throws Horde_Vfs_Exception

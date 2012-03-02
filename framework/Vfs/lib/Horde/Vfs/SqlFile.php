@@ -331,13 +331,13 @@ class Horde_Vfs_SqlFile extends Horde_Vfs_File
     }
 
     /**
-     * Return a list of the contents of a folder.
+     * Returns an unsorted file list of the specified directory.
      *
-     * @param string $path       The directory path.
-     * @param mixed $filter      String/hash of items to filter based on
-     *                           filename.
-     * @param boolean $dotfiles  Show dotfiles?
-     * @param boolean $dironly   Show directories only?
+     * @param string $path          The path of the directory.
+     * @param string|array $filter  Regular expression(s) to filter
+     *                              file/directory name on.
+     * @param boolean $dotfiles     Show dotfiles?
+     * @param boolean $dironly      Show only directories?
      *
      * @return array  File list.
      * @throws Horde_Vfs_Exception
@@ -403,13 +403,13 @@ class Horde_Vfs_SqlFile extends Horde_Vfs_File
     }
 
     /**
-     * Returns a sorted list of folders in specified directory.
+     * Returns a sorted list of folders in the specified directory.
      *
-     * @param string $path         The path of the directory to get the
-     *                             directory list for.
-     * @param mixed $filter        String/hash of items to filter based on
-     *                             folderlist.
-     * @param boolean $dotfolders  Include dotfolders?
+     * @param string $path          The path of the directory to get the
+     *                              directory list for.
+     * @param string|array $filter  Regular expression(s) to filter directory
+     *                              names on.
+     * @param boolean $dotfolders   Include dotfolders?
      *
      * @return array  Folder list.
      * @throws Horde_Vfs_Exception
