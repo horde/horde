@@ -96,10 +96,9 @@ class Horde_Mime_Headers implements Serializable
                 if (in_array($header, $address_keys) ) {
                     /* Address encoded headers. */
                     $rfc822 = new Horde_Mail_Rfc822();
-                    $tmp = $rfc822->parseAddressList($val[$key], array(
+                    $text = $rfc822->parseAddressList($val[$key], array(
                         'default_domain' => empty($options['defserver']) ? null : $options['defserver']
-                    ));
-                    $text = $tmp->writeAddress(array(
+                    ))->writeAddress(array(
                         'encode' => $charset,
                         'idn' => true
                     ));
