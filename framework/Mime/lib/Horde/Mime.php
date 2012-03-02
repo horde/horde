@@ -111,17 +111,16 @@ class Horde_Mime
      * @param string $text     The text to encode (UTF-8).
      * @param string $charset  The character set to encode to.
      *
-     * @return string  The MIME encoded string.
+     * @return string  The MIME encoded string (US-ASCII).
      */
     static public function encode($text, $charset = 'UTF-8')
     {
         $charset = Horde_String::lower($charset);
+        $text = Horde_String::convertCharset($text, 'UTF-8', $charset);
 
         if (!self::is8bit($text, $charset)) {
             return $text;
         }
-
-        $text = Horde_String::convertCharset($text, 'UTF-8', $text);
 
         /* Get the list of elements in the string. */
         $size = preg_match_all('/([^\s]+)([\s]*)/', $text, $matches, PREG_SET_ORDER);
