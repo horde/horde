@@ -117,7 +117,7 @@ class Horde_Kolab_Session_Imap extends Horde_Kolab_Session_Abstract
                 'username' => $user_id,
                 'password' => $password,
                 'port'     => $port,
-                'secure'   => true
+                'secure'   => 'tls'
             )
         );
 

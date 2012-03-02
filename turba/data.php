@@ -38,26 +38,6 @@ function _emptyAttributeFilter($var)
     return true;
 }
 
-/**
- * Static function to make a given email address rfc822 compliant.
- *
- * @param string $address  An email address.
- * @param boolean $allow_multi  Allow multiple email addresses.
- *
- * @return string  The RFC822-formatted email address.
- */
-function _getBareEmail($address, $allow_multi = false)
-{
-    $rfc822 = new Horde_Mail_Rfc822();
-    try {
-        return Horde_Mime_Address::addrArray2String($rfc822->parseAddressList($address, array(
-            'limit' => $allow_multi ? 0 : 1
-        )));
-    } catch (Horde_Mail_Exception $e) {
-        return '';
-    }
-}
-
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('turba');
 
@@ -454,7 +434,15 @@ if (is_array($next_step)) {
                     if ($attributes[$field]['type'] == 'email') {
                         $allow_multi = is_array($attributes[$field]['params']) &&
                             !empty($attributes[$field]['params']['allow_multi']);
-                        $row[$field] = _getBareEmail($row[$field], $allow_multi);
+
+                        $rfc822 = $injector->getInstance('Horde_Mail_Rfc822');
+                        try {
+                            $row[$field] = strval($rfc822->parseAddressList($row[$field], array(
+                                'limit' => $allow_multi ? 0 : 1
+                            )));
+                        } catch (Horde_Mail_Exception $e) {
+                            $row[$field] = '';
+                        }
                     }
                 }
                 $row['__owner'] = $driver->getContactOwner();

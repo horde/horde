@@ -1314,8 +1314,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *   - uid: (string) Indices of the messages to forward (IMAP sequence
      *          string; mailboxes are base64url encoded).
      *
-     * @since IMP 5.1
-     *
      * @return mixed  False on failure, or an object with the following
      *                entries:
      *   - body: (string) The body text of the message.
@@ -1413,7 +1411,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         if (isset($this->_vars->atc_indices)) {
             $imp_compose = $GLOBALS['injector']->getInstance('IMP_Factory_Compose')->create($this->_vars->imp_compose);
             foreach (Horde_Serialize::unserialize($this->_vars->atc_indices, Horde_Serialize::JSON) as $val) {
-                $GLOBALS['notification']->push(sprintf(_("Deleted attachment \"%s\"."), Horde_Mime::decode($imp_compose[$val]['part']->getName(true), 'UTF-8')), 'horde.success');
+                $GLOBALS['notification']->push(sprintf(_("Deleted attachment \"%s\"."), Horde_Mime::decode($imp_compose[$val]['part']->getName(true))), 'horde.success');
                 unset($imp_compose[$val]);
             }
         }
@@ -1837,13 +1835,12 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             'from' => $identity->getFromLine(null, $this->_vars->from)
         );
 
-        $imp_ui = $injector->getInstance('IMP_Ui_Compose');
-        $headers['to'] = $imp_ui->getAddressList($this->_vars->to);
+        $headers['to'] = $this->_vars->to;
         if ($prefs->getValue('compose_cc')) {
-            $headers['cc'] = $imp_ui->getAddressList($this->_vars->cc);
+            $headers['cc'] = $this->_vars->cc;
         }
         if ($prefs->getValue('compose_bcc')) {
-            $headers['bcc'] = $imp_ui->getAddressList($this->_vars->bcc);
+            $headers['bcc'] = $this->_vars->bcc;
         }
         $headers['subject'] = $this->_vars->subject;
 

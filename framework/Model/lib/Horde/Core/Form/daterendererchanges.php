@@ -946,35 +946,20 @@ EOT;
         $email_val = $var->getValue($vars);
 
         if ($var->type->getProperty('link_compose')) {
-            // Multiple email addresses?
-            $addrs = $var->type->getProperty('allow_multi')
-                ? Horde_Mime_Address::explode($email_val)
-                : array($email_val);
+            $addrs = $GLOBALS['injector']->getInstance('Horde_Mail_Rfc822')->parseAddressList($email_val, array(
+                'limit' => $var->type->getProperty('allow_multi') ? 0 : 1
+            ));
 
             $link = '';
             foreach ($addrs as $addr) {
-                $addr = trim($addr);
+                $display_email = $var->type->getProperty('strip_domain')
+                    ? $addr->mailbox . ' (at) ' . str_replace('.', ' (dot) ', $addr->host)
+                    : $addr->bare_address;
 
-                $display_email = $addr;
-                if ($var->type->getProperty('strip_domain') && strpos($addr, '@') !== false) {
-                    $display_email = str_replace(array('@', '.'),
-                                                 array(' (at) ', ' (dot) '),
-                                                 $addr);
-                }
+                $tmp = clone($addr);
+                $addr->personal = $var->type->getProperty('link_name');
+                $address = $addr->writeAddress(true);
 
-                // Format the address according to RFC822.
-                $mailbox_host = explode('@', $addr);
-                if (!isset($mailbox_host[1])) {
-                    $mailbox_host[1] = '';
-                }
-
-                $name = $var->type->getProperty('link_name');
-
-                $address = Horde_Mime_Address::writeAddress($mailbox_host[0], $mailbox_host[1], $name);
-
-                // Get rid of the trailing @ (when no host is included in
-                // the email address).
-                $address = str_replace('@>', '>', $address);
                 try {
                     $mail_link = $GLOBALS['registry']->call('mail/compose', array(array('to' => addslashes($address))));
                 } catch (Horde_Exception $e) {
@@ -984,20 +969,21 @@ EOT;
                 if (!empty($link)) {
                     $link .= ', ';
                 }
-                $link .= Horde::link($mail_link, $addr) . htmlspecialchars($display_email) . '</a>';
+
+                $link .= Horde::link($mail_link, strval($addr)) . htmlspecialchars($display_email) . '</a>';
             }
 
             return $link;
         } else {
-            $email_val = trim($email_val);
+            $addrs = $GLOBALS['injector']->getInstance('Horde_Mail_Rfc822')->parseAddressList($email_val, array(
+                'limit' => 1
+            ));
 
-            if ($var->type->getProperty('strip_domain') && strpos($email_val, '@') !== false) {
-                $email_val = str_replace(array('@', '.'),
-                                         array(' (at) ', ' (dot) '),
-                                         $email_val);
-            }
+            $display_email = $var->type->getProperty('strip_domain')
+                ? $addr->mailbox . ' (at) ' . str_replace('.', ' (dot) ', $addr->host)
+                : $addr->bare_address;
 
-            return nl2br(htmlspecialchars($email_val));
+            return nl2br(htmlspecialchars($display_email));
         }
     }
 

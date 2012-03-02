@@ -34,17 +34,19 @@ class Nag_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = 'H5 (4.0-git)';
+    public $features = array(
+        'smartmobileView' => true
+    );
 
     /**
      */
-    public $mobileView = true;
+    public $version = 'H5 (4.0-git)';
 
     /**
      * Global variables defined:
      *   $nag_shares - TODO
      */
-    protected function _init()
+    public function init()
     {
         // Set the timezone variable.
         $GLOBALS['registry']->setTimeZone();

@@ -496,7 +496,7 @@ extends Horde_Kolab_Storage_Driver_Base
                 $params[strtolower($key)] = $value;
             }
 
-            $params = Horde_Mime::decodeParam('content-type', $params, 'UTF-8');
+            $params = Horde_Mime::decodeParam('content-type', $params);
             foreach ($params['params'] as $key => $value) {
                 $ob->setContentTypeParameter($key, $value);
             }
@@ -511,7 +511,7 @@ extends Horde_Kolab_Storage_Driver_Base
                     $dparams[strtolower($key)] = $value;
                 }
 
-                $dparams = Horde_Mime::decodeParam('content-disposition', $dparams, 'UTF-8');
+                $dparams = Horde_Mime::decodeParam('content-disposition', $dparams);
                 foreach ($dparams['params'] as $key => $value) {
                     $ob->setDispositionParameter($key, $value);
                 }

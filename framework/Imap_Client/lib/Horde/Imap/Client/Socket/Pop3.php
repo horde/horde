@@ -890,6 +890,13 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     }
 
     /**
+     */
+    protected function _vanished($modseq, Horde_Imap_Client_Ids $ids)
+    {
+        $this->_exception('QRESYNC items not supported on POP3 server.', 'NO_SUPPORT');
+    }
+
+    /**
      * @param array $options  Additional options. This driver does not support
      *                        'unchangedsince'.
      */

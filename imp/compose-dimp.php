@@ -53,11 +53,12 @@ foreach (array('to', 'cc', 'bcc', 'subject') as $val) {
 }
 
 /* Check for personal information for 'to' address. */
-if (isset($header['to']) &&
-    isset($vars->toname) &&
-    ($tmp = IMP::parseAddressList($header['to']))) {
-    $tmp[0]->personal = $vars->toname;
-    $header['to'] = $tmp[0]->writeAddress();
+if (isset($header['to']) && isset($vars->toname)) {
+    $result = IMP::parseAddressList($header['to']);
+    if ($tmp = $result[0]) {
+        $tmp->personal = $vars->toname;
+        $header['to'] = $tmp->writeAddress();
+    }
 }
 
 $fillform_opts = array(

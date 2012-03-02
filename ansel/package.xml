@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-16</date>
- <time>14:31:00</time>
+ <date>2011-11-02</date>
+ <time>15:01:33</time>
  <version>
   <release>3.0.0</release>
   <api>3.0.0</api>
@@ -193,9 +193,6 @@
       <file name="Upgrade.php" role="horde" />
      </dir> <!-- /lib/LoginTasks/SystemTask -->
     </dir> <!-- /lib/LoginTasks -->
-    <dir name="Queue">
-     <file name="ProcessThumbs.php" role="horde" />
-    </dir> <!-- /lib/Queue -->
     <dir name="Report">
      <file name="letter.php" role="horde" />
      <file name="mail.php" role="horde" />
@@ -598,16 +595,16 @@
    <package>
     <name>content</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
-    <max>3.0.0</max>
-    <exclude>3.0.0</exclude>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
-    <min>5.0.0</min>
-    <max>6.0.0</max>
-    <exclude>6.0.0</exclude>
+    <min>4.0.10</min>
+    <max>5.0.0</max>
+    <exclude>5.0.0</exclude>
    </package>
    <package>
     <name>Horde_Auth</name>
@@ -957,7 +954,6 @@
    <install as="ansel/lib/ImageGenerator/SquareThumb.php" name="lib/ImageGenerator/SquareThumb.php" />
    <install as="ansel/lib/ImageGenerator/Thumb.php" name="lib/ImageGenerator/Thumb.php" />
    <install as="ansel/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
-   <install as="ansel/lib/Queue/ProcessThumbs.php" name="lib/Queue/ProcessThumbs.php" />
    <install as="ansel/lib/Report/letter.php" name="lib/Report/letter.php" />
    <install as="ansel/lib/Report/mail.php" name="lib/Report/mail.php" />
    <install as="ansel/lib/Report/tickets.php" name="lib/Report/tickets.php" />
@@ -1265,7 +1261,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-16</date>
+   <date>2011-11-02</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fix saving portal blocks.

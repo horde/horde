@@ -1,7 +1,7 @@
 <?php
 /**
- * The IMP_Ui_Compose:: class is designed to provide a place to store common
- * code shared among IMP's various UI views for the compose page.
+ * This class provides a place to store common code shared among IMP's various
+ * UI views for the compose page.
  *
  * Copyright 2006-2012 Horde LLC (http://www.horde.org/)
  *
@@ -19,8 +19,7 @@ class IMP_Ui_Compose
      * Expand addresses in a string. Only the last address in the string will
      * be expanded.
      *
-     * @param string $input             The input string.
-     * @param IMP_Compose $imp_compose  An IMP_Compose object.
+     * @param string $input  The input string.
      *
      * @return mixed  If a string, this value should be used as the new
      *                input string.  If an array, the first value is the
@@ -28,40 +27,44 @@ class IMP_Ui_Compose
      *                value is the search string; and the third value is
      *                the list of matching addresses.
      */
-    public function expandAddresses($input, $imp_compose)
+    public function expandAddresses($input)
     {
-        $addr_list = $this->getAddressList($input, array('addr_list' => true));
-        if (empty($addr_list)) {
+        $addr_list = IMP::parseAddressList($input, array(
+            'default_domain' => null
+        ));
+
+        if (!($size = count($addr_list))) {
             return '';
         }
 
-        $search = array_pop($addr_list);
+        $search = $addr_list[$size];
 
         /* Don't search if the search string looks like an e-mail address. */
-        if ((strpos($search, '<') !== false) ||
-            (strpos($search, '@') !== false)) {
-            array_push($addr_list, $search);
-            return implode(', ', $addr_list);
+        if (!is_null($search->mailbox) && !is_null($search->host)) {
+            return strval($search);
         }
 
-        $res = $imp_compose->expandAddresses($search, array('levenshtein' => true));
+        /* "Search" string will be in mailbox element. */
+        $imple = new IMP_Ajax_Imple_ContactAutoCompleter();
+        $res = $imp->getAddressList($search->mailbox);
 
-        if (count($res) == 1) {
-            array_push($addr_list, reset($res));
-            return implode(', ', $addr_list);
-        } elseif (!count($res)) {
-            $GLOBALS['notification']->push(sprintf(_("Search for \"%s\" failed: no address found."), $search), 'horde.warning');
-            array_push($addr_list, $search);
-            return implode(', ', $addr_list);
+        switch (count($res)) {
+        case 0:
+            $GLOBALS['notification']->push(sprintf(_("Search for \"%s\" failed: no address found."), $search->mailbox), 'horde.warning');
+            return strval($addr_list);
+        case 1:
+            $addr_list[$size] = $res[0];
+            return strval($addr_list);
+
+        default:
+            $GLOBALS['notification']->push(_("Ambiguous address found."), 'horde.warning');
+            unset($addr_list[$size]);
+            return array(
+                strval($addr_list),
+                $search->mailbox,
+                $res
+            );
         }
-
-        $GLOBALS['notification']->push(_("Ambiguous address found."), 'horde.warning');
-
-        return array(
-            implode(', ', $addr_list),
-            $search,
-            $res
-        );
     }
 
     /**
@@ -107,36 +110,6 @@ class IMP_Ui_Compose
         );
 
         $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('SpellChecker', $args);
-    }
-
-    /**
-     * Given an address input, parses the input to obtain the list of
-     * addresses to use on the compose page.
-     *
-     * @param string $addr  The value of the header string.
-     * @param array $opts   Additional options:
-     *   - addr_list: (boolean) Return the list of address components?
-     *                DEFAULT: false
-     *
-     * @return mixed  List of addresses, or a string of addresses if
-     *                'addr_list' is true.
-     */
-    public function getAddressList($addr, $opts = array())
-    {
-        $addr = rtrim(trim($addr), ',');
-        $addr_list = array();
-
-        if (!empty($addr)) {
-            // Although we allow ';' to delimit addresses in the UI, need to
-            // convert to RFC-compliant ',' delimiter for processing.
-            foreach (Horde_Mime_Address::explode($addr, ',;') as $val) {
-                $addr_list[] = IMP_Compose::formatAddr(trim($val));
-            }
-        }
-
-        return empty($opts['addr_list'])
-            ? implode(', ', $addr_list)
-            : $addr_list;
     }
 
     /**
@@ -279,7 +252,7 @@ class IMP_Ui_Compose
                 // Sent mail display name
                 'smf_display' => $smf ? $smf->display_html : '',
                 // Bcc addresses to add
-                'bcc' => Horde_Mime_Address::addrArray2String($identity->getBccAddresses($ident), array('charset' => 'UTF-8'))
+                'bcc' => strval($identity->getBccAddresses($ident))
             );
         }
 

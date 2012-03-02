@@ -441,8 +441,6 @@ class Horde_Imap_Client_Data_Fetch
     /**
      * Does this object contain only default values for all fields?
      *
-     * @since 1.2.0
-     *
      * @return boolean  True if object contains default data.
      */
     public function isDefault()

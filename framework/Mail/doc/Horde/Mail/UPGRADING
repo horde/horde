@@ -8,7 +8,49 @@
 .. section-numbering::
 
 
-This lists the API changes between minor releases of the package.
+This lists the API changes between releases of the package.
+
+
+Upgrading to 2.0
+================
+
+  - Horde_Mail
+
+    This class has been removed (no more Horde_Mail#factory()). Directly
+    instantiate a transport driver instead.
+
+  - Horde_Mail_Rfc822
+
+    The 'num_groups' property has been removed.
+    The validateMailbox() method has been removed.
+    parseAddressList() now returns a Horde_Mail_Rfc822_List object.
+    The 'group' parameter to parseAddressList() has been added.
+    The 'nest_groups' parameter to parseAddressList() has been removed.
+    parseAddressList() does not validate by default.
+
+  - Horde_Mail_Rfc822_Address
+
+    The object can no longer be accessed as an array.
+    Removed the 'adl', 'route', and 'personal_decoded' properties.
+    The 'personal' property now always returns the MIME decoded personal part.
+    The 'host' property now always returns the IDN decoded host.
+    The 'encode' and 'idn' parameters to writeAddress() have changed behavior.
+    Added the 'host_idn' and 'valid' properties.
+    Renamed the 'full_address' property to 'bare_address'.
+
+  - Horde_Mail_Rfc822_Group
+
+    The object can no longer be accessed as an array.
+    Removed the 'groupname_decoded' property.
+    The 'groupname' property now always returns the MIME decoded groupname.
+    The 'encode' and 'idn' parameters to writeAddress() have changed behavior.
+    Added the 'valid' property.
+
+  - Horde_Mail_Rfc822_Object
+
+    Added a match() method.
+    Passing boolean true to writeAddress() now defaults to full encoding of
+    the address.
 
 
 Upgrading To 1.2

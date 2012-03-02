@@ -337,8 +337,7 @@ case 'low':
 
 /* Build Reply-To address link. */
 if (!empty($envelope->reply_to) &&
-    (Horde_Mime_Address::bareAddress(Horde_Mime_Address::addrObject2String($envelope->from[0], array('charset' => 'UTF-8'))) !=
-     Horde_Mime_Address::bareAddress(Horde_Mime_Address::addrObject2String($envelope->reply_to[0], array('charset' => 'UTF-8')))) &&
+    ($envelope->from[0]->bare_address != $envelope->reply_to[0]->bare_address)  &&
     ($reply_to = $imp_ui->buildAddressLinks($envelope->reply_to, $self_link))) {
     $display_headers['reply-to'] = $reply_to;
 }
@@ -539,7 +538,11 @@ if (!$disable_compose) {
         $a_template->set('reply_list', Horde::widget(IMP::composeLink(array(), array('actionID' => 'reply_list') + $compose_params), _("To List"), 'widget', '', '', _("To _List"), true));
     }
 
-    if (Horde_Mime_Address::addrArray2String(array_merge($envelope->to, $envelope->cc), array('charset' => 'UTF-8', 'filter' => array_keys($user_identity->getAllFromAddresses(true))))) {
+    $addr_ob = clone $envelope->to;
+    $addr_ob->add($envelope->cc);
+    $addr_ob->setIteratorFilter(0, array_keys($user_identity->getAllFromAddresses(true)));
+
+    if (count($addr_ob)) {
         $a_template->set('show_reply_all', Horde::widget(IMP::composeLink(array(), array('actionID' => 'reply_all') + $compose_params), _("To All"), 'widget', '', '', _("To _All"), true));
     }
 

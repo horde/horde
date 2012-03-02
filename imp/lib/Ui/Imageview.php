@@ -42,7 +42,7 @@ class IMP_Ui_Imageview
             return false;
         }
 
-        $from = Horde_Mime_Address::bareAddress($contents->getHeader()->getValue('from'));
+        $from = IMP::bareAddress($contents->getHeader()->getValue('from'));
         if ($registry->hasMethod('contacts/getField')) {
             $params = IMP::getAddressbookSearchParams();
             try {

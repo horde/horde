@@ -42,7 +42,7 @@ class Kolab_Application extends Horde_Registry_Application
      * Global variables defined:
      * - $variable: List all global variables here.
      */
-    protected function _init()
+    protected function _bootstrap()
     {
         $GLOBALS['injector']->bindFactory('Kolab_Driver', 'Kolab_Factory_Driver', 'create');
     }

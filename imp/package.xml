@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-02-09</date>
- <time>00:36:23</time>
+ <date>2012-01-17</date>
+ <time>13:09:15</time>
  <version>
   <release>6.0.0</release>
   <api>6.0.0</api>
@@ -1246,6 +1246,13 @@
     <exclude>2.0.0</exclude>
    </package>
    <package>
+    <name>Horde_ListHeaders</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
     <name>Horde_LoginTasks</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0</min>
@@ -1255,9 +1262,9 @@
    <package>
     <name>Horde_Mail</name>
     <channel>pear.horde.org</channel>
-    <min>1.1.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0</max>
+    <exclude>3.0.0</exclude>
    </package>
    <package>
     <name>Horde_Mime</name>
@@ -2650,7 +2657,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-01-17</date>
+   <date>2012-02-28</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fix setting default values for identity preferences.
@@ -2665,6 +2672,20 @@
 * [mms] Catch IMAP server connection errors in traditional mailbox view.
 * [mms] Fix purging moved messages from dynamic mailbox view if deleted messages are visible in the mailbox (Bug #10916).
 * [mms] Fix message advancing when deleting messages in traditional view when deleted messages are visible in the mailbox.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.20</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-02-28</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mms] Fix regression in displaying From address on mailbox page in traditional view.
+* [mms] Fix updating the compose address fields when using the contacts popup and a search is done in that popup.
    </notes>
   </release>
  </changelog>

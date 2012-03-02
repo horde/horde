@@ -40,7 +40,7 @@ class Pastie_Application extends Horde_Registry_Application
 
     /**
      */
-    protected function _init()
+    public function init()
     {
         try {
             $this->driver = Pastie_Driver::factory();

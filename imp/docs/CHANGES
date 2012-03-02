@@ -2,6 +2,7 @@
 v6.0-git
 --------
 
+[mms] Add 'Edit As New' to Forward button dropdown menu in dynamic view.
 [mms] Allow identifying addresses to always display images for without
       requiring to add them to the addressbook.
 [mms] Disable text selection in dynamic view for everything but
@@ -52,8 +53,17 @@ v6.0-git
 
 
 -----------
-v5.0.19-git
+v5.0.20-git
 -----------
+
+[mms] Fix regression in displaying From address on mailbox page in traditional
+      view.
+[mms] Fix updating the compose address fields when using the contacts popup.
+
+
+-------
+v5.0.19
+-------
 
 [jan] Fix setting default values for identity preferences.
 [mms] Improve drag performance of elements in dynamic view.

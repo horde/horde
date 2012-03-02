@@ -129,7 +129,7 @@ $title = IMP::mailbox()->label;
 if ($pageOb['msgcount']) {
     $title .= ' (';
     if ($imp_imap->access(IMP_Imap::ACCESS_UNSEEN)) {
-        $unseen = $imp_mailbox->unseenMessages(Horde_Imap_Client::SORT_RESULTS_COUNT);
+        $unseen = $imp_mailbox->unseenMessages(Horde_Imap_Client::SEARCH_RESULTS_COUNT);
         $title .= sprintf(_("%d unseen"), $unseen) . '/';
     }
     $title .= sprintf(_("%d total"), $pageOb['msgcount']) . ')';
@@ -169,7 +169,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     $flag_parse = $injector->getInstance('IMP_Flags')->parse(array(
         'flags' => $ob['flags'],
         'headers' => $ob['headers'],
-        'personal' => Horde_Mime_Address::getAddressesFromObject($ob['envelope']->to, array('charset' => 'UTF-8'))
+        'personal' => $ob['envelope']->to
     ));
 
     foreach ($flag_parse as $val) {

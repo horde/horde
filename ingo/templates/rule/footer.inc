@@ -5,7 +5,7 @@
     </td>
   </tr>
 
-  <tr class="item0">
+  <tr class="rowEven">
     <td>
       <em><?php echo Horde::label('action', _("Do this:")) ?></em>
       <br />
@@ -20,7 +20,7 @@
   </tr>
 
 <?php if ($current_action->flags && $ingo_script->imapFlags()): ?>
-  <tr class="item0">
+  <tr class="rowEven">
     <td>
       <em><?php echo _("Mark message as:") ?></em>
       <br />
@@ -45,7 +45,7 @@
 <?php endif; ?>
 
 <?php if ($ingo_script->stopScript()): ?>
-  <tr class="item1">
+  <tr class="rowOdd">
     <td align="left">
       <input type="checkbox" id="stop" name="stop" value="1"<?php echo ($rule['stop']) ? ' checked="checked"' : '' ?> /> <?php echo Horde::label('stop', _("Stop checking if this rule matches?")) ?>
     </td>

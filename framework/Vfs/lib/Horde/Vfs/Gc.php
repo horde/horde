@@ -29,7 +29,7 @@ class Horde_Vfs_Gc
 
         /* Use a backend-specific method if one exists. */
         if (is_callable(array($vfs, 'gc'))) {
-            return $vfs->gc($path, $secs);
+            $vfs->gc($path, $secs);
         }
 
         /* Make sure cleaning is done recursively. */

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Horde_ListHeaders</name>
+ <channel>pear.horde.org</channel>
+ <summary>Horde List Headers Parsing Library</summary>
+ <description>The Horde_ListHeaders library parses Mailing List Headers as defined in RFC 2369 &amp; RFC 2919.</description>
+ <lead>
+  <name>Michael Slusarz</name>
+  <user>slusarz</user>
+  <email>slusarz@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2012-03-01</date>
+ <time>17:02:46</time>
+ <version>
+  <release>1.0.0</release>
+  <api>1.0.0</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+ <notes>
+* [mms] Initial release (imported from IMP).
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="ListHeaders">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/ListHeaders -->
+     </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="ListHeaders">
+      <file name="Base.php" role="php" />
+      <file name="Id.php" role="php" />
+      <file name="NoPost.php" role="php" />
+      <file name="Object.php" role="php" />
+     </dir> <!-- /lib/Horde/ListHeaders -->
+     <file name="ListHeaders.php" role="php" />
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="ListHeaders">
+      <file name="AllTests.php" role="test" />
+      <file name="ParseTest.php" role="test" />
+     </dir> <!-- /test/Horde/ListHeaders -->
+     </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+   <package>
+    <name>Horde_Mail</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0</max>
+    <exclude>3.0.0</exclude>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="COPYING" name="doc/Horde/ListHeaders/COPYING" />
+   <install as="Horde/ListHeaders.php" name="lib/Horde/ListHeaders.php" />
+   <install as="Horde/ListHeaders/Base.php" name="lib/Horde/ListHeaders/Base.php" />
+   <install as="Horde/ListHeaders/Id.php" name="lib/Horde/ListHeaders/Id.php" />
+   <install as="Horde/ListHeaders/NoPost.php" name="lib/Horde/ListHeaders/NoPost.php" />
+   <install as="Horde/ListHeaders/Object.php" name="lib/Horde/ListHeaders/Object.php" />
+   <install as="Horde/ListHeaders/AllTests.php" name="test/Horde/ListHeaders/AllTests.php" />
+   <install as="Horde/ListHeaders/ParseTest.php" name="test/Horde/ListHeaders/ParseTest.php" />
+   </filelist>
+ </phprelease>
+ <changelog>
+ </changelog>
+</package>

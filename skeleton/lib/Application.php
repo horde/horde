@@ -42,7 +42,7 @@ class Skeleton_Application extends Horde_Registry_Application
      * Global variables defined:
      * - $variable: List all global variables here.
      */
-    protected function _init()
+    public function init()
     {
         $GLOBALS['injector']->bindFactory('Skeleton_Driver', 'Skeleton_Factory_Driver', 'create');
     }

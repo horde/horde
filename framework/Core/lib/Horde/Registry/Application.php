@@ -9,17 +9,11 @@
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Core
  */
 class Horde_Registry_Application
 {
-    /**
-     * Does this application support an ajax view?
-     *
-     * @var boolean
-     */
-    public $ajaxView = false;
-
     /**
      * The list of available authentication capabilities handled by this
      * application.
@@ -30,18 +24,27 @@ class Horde_Registry_Application
     public $auth = array();
 
     /**
+     * List of features supported by this application.
+     *
+     * @var array
+     */
+    public $features = array(
+        // View Handlers
+        'dynamicView' => false,
+        'minimalView' => false,
+        'smartmobileView' => false,
+        // Notification Handler
+        'notificationHandler' => false,
+        // Alarm Handler
+        'alarmHandler' => false
+    );
+
+    /**
      * The init params used.
      *
      * @var array
      */
     public $initParams = array();
-
-    /**
-     * Does this application support a mobile view?
-     *
-     * @var boolean
-     */
-    public $mobileView = false;
 
     /**
      * The application's version.
@@ -51,11 +54,22 @@ class Horde_Registry_Application
     public $version = 'unknown';
 
     /**
-     * Has init() previously been called?
+     * Constructor.
      *
-     * @var boolean
+     * Global constants defined:
+     *   - [APPNAME]_TEMPLATES - (string) Location of template files.
+     *
+     * @param string $app  Application identifier.
      */
-    protected $_initDone = false;
+    final public function __construct($app)
+    {
+        $appname = Horde_String::upper($app);
+        if (!defined($appname . '_TEMPLATES')) {
+            define($appname . '_TEMPLATES', $GLOBALS['registry']->get('templates', $app));
+        }
+
+        $this->_bootstrap();
+    }
 
     /**
      * Application-specific code to run if application auth fails.
@@ -67,35 +81,36 @@ class Horde_Registry_Application
     {
     }
 
+    /* Initialization methods. */
+
     /**
-     * Initialization. Does any necessary init needed to setup the full
-     * environment for the application.
-     *
-     * Global constants defined:
-     * <pre>
-     * [APPNAME]_TEMPLATES - (string) Location of template files.
-     * </pre>
+     * Bootstrap code for an application. This is run when the application
+     * object is being created. The full Horde environment is not available in
+     * this method, and the user may not yet be authenticated. Only tasks
+     * necessary to setup the base application environment should be done here.
      */
-    final public function init()
+    protected function _bootstrap()
     {
-        if (!$this->_initDone) {
-            $this->_initDone = true;
-
-            $appname = Horde_String::upper($GLOBALS['registry']->getApp());
-            if (!defined($appname . '_TEMPLATES')) {
-                define($appname . '_TEMPLATES', $GLOBALS['registry']->get('templates'));
-            }
-
-            $this->_init();
-        }
     }
 
     /**
-     * Initialization code for an application.
+     * Code to run on successful authentication. This will be called once
+     * per session, and the entire Horde framework will be available.
      */
-    protected function _init()
+    public function authenticated()
     {
     }
+
+    /**
+     * Code run when the application is pushed on the stack for the first
+     * time in a page access. The entire Horde framework will be available,
+     * but the user may not be authenticated.
+     */
+    public function init()
+    {
+    }
+
+    /* Menu generation methods. */
 
     /**
      * Add additional items to the menu.
@@ -224,15 +239,6 @@ class Horde_Registry_Application
     public function authTransparent($auth_ob)
     {
         return false;
-    }
-
-    /**
-     * Does necessary authentication tasks reliant on a full app environment.
-     *
-     * @throws Horde_Auth_Exception
-     */
-    public function authAuthenticateCallback()
-    {
     }
 
     /**

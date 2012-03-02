@@ -176,7 +176,7 @@ class IMP_Views_ShowMessage
         }
 
         if (empty($result['reply-to']) ||
-            (Horde_Mime_Address::bareAddress($result['from'][0]['inner']) == Horde_Mime_Address::bareAddress($result['reply-to'][0]['inner']))) {
+            ($result['from'][0]['inner'] == $result['reply-to'][0]['inner'])) {
             unset($result['reply-to'], $headers['reply-to']);
         }
 
@@ -361,29 +361,24 @@ class IMP_Views_ShowMessage
             : $this->_envelope->$header;
         $addr_array = $out = array();
 
-        if (!empty($addrlist)) {
-            foreach (Horde_Mime_Address::getAddressesFromObject($addrlist, array('charset' => 'UTF-8')) as $ob) {
-                if (!is_null($limit) && (--$limit < 0)) {
-                    $out['addr_limit'][$header] = count($addrlist);
-                    break;
-                }
-
-                if (empty($ob['inner'])) {
-                    continue;
-                }
-
-                try {
-                    $tmp = array(
-                        'raw' => Horde::callHook('dimp_addressformatting', array($ob), 'imp')
-                    );
-                } catch (Horde_Exception_HookNotSet $e) {
-                    $tmp = array('inner' => $ob['inner']);
-                    if (!empty($ob['personal'])) {
-                        $tmp['personal'] = $ob['personal'];
-                    }
-                }
-                $addr_array[] = $tmp;
+        foreach ($addrlist as $ob) {
+            if (!is_null($limit) && (--$limit < 0)) {
+                $out['addr_limit'][$header] = count($addrlist);
+                break;
             }
+
+            try {
+                $tmp = array(
+                    'raw' => Horde::callHook('dimp_addressformatting', array($ob), 'imp')
+                );
+            } catch (Horde_Exception_HookNotSet $e) {
+                $tmp = array('inner' => $ob->bare_address);
+                if (!is_null($ob->personal)) {
+                    $tmp['personal'] = $ob->personal;
+                }
+            }
+
+            $addr_array[] = $tmp;
         }
 
         if (!empty($addr_array)) {

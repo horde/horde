@@ -66,7 +66,7 @@ class Whups_Block_Tickets extends Horde_Core_Block
                 $sortval = '';
                 if ($column == 'timestamp' || $column == 'due' ||
                     substr($column, 0, 5) == 'date_') {
-                    $sortval = (strlen($thevalue) ? ' sortval="' . $thevalue . '"' : '');
+                    $sortval = (strlen($ticket[$column]) ? ' sortval="' . $ticket[$column] . '"' : '');
                 }
 
                 $html .= '<td' . $sortval . '>' . (strlen($thevalue) ? $thevalue : '&nbsp;') . '</td>';

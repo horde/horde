@@ -29,7 +29,7 @@ class Horde_Registry
     const PERMISSION_DENIED = 3;
     const HOOK_FATAL = 4;
 
-    /* View types. @since 2.0.0 */
+    /* View types. */
     const VIEW_BASIC = 1;
     const VIEW_DYNAMIC = 2;
     const VIEW_MINIMAL = 3;
@@ -85,6 +85,13 @@ class Horde_Registry
     protected $_appsinit = array();
 
     /**
+     * The list of applications initialized during this access.
+     *
+     * @var array
+     */
+    protected $_hookinit = array();
+
+    /**
      * The arguments that have been passed when instantiating the registry.
      *
      * @var array
@@ -132,7 +139,6 @@ class Horde_Registry
      * from application without an active Horde_Registry object.
      *
      * Page compression will be started (if configured).
-     * init() will be called after the initialization is completed.
      *
      * Global variables defined:
      *   $browser - Horde_Browser object
@@ -186,9 +192,7 @@ class Horde_Registry
     static public function appInit($app, $args = array())
     {
         if (isset($GLOBALS['registry'])) {
-            $appOb = $GLOBALS['registry']->getApiInstance($app, 'application');
-            $appOb->init();
-            return $appOb;
+            return $GLOBALS['registry']->getApiInstance($app, 'application');
         }
 
         $args = array_merge(array(
@@ -277,8 +281,6 @@ class Horde_Registry
             }
             $registry->setAuth(reset($GLOBALS['conf']['auth']['admins']), array());
         }
-
-        $appob->init();
 
         return $appob;
     }
@@ -805,7 +807,9 @@ class Horde_Registry
             throw new Horde_Exception("$app does not have an API");
         }
 
-        $this->_obCache[$app][$type] = new $classname();
+        $this->_obCache[$app][$type] = ($type == 'application')
+            ? new $classname($app)
+            : new $classname();
 
         return $this->_obCache[$app][$type];
     }
@@ -1139,26 +1143,6 @@ class Horde_Registry
     }
 
     /**
-     * Is an application method defined (i.e. it extends the default method)?
-     *
-     * @since 2.0.0
-     *
-     * @param string $app   The application to check.
-     * @param string $name  The method name to check.
-     *
-     * @return boolean  True if method is defined.
-     */
-    public function appMethodDefined($app, $name)
-    {
-        try {
-            $method = new ReflectionMethod($this->getApiInstance($app, 'application'), $name);
-            return ($method->getDeclaringClass()->name != 'Horde_Registry_Application');
-        } catch (Exception $e) {
-            return false;
-        }
-    }
-
-    /**
      * Returns the link corresponding to the default package that provides the
      * functionality requested by the $method parameter.
      *
@@ -1300,8 +1284,6 @@ class Horde_Registry
      *                 ONLY be disabled by system scripts (cron jobs, etc.)
      *                 and scripts that handle login.
      *                 DEFAULT: true
-     * 'noinit' - (boolean) Do not init the application.
-     *            DEFAULT: false
      * 'logintasks' - (boolean) Perform login tasks? Only performed if
      *                'check_perms' is also true. System tasks are always
      *                peformed if the user is authorized.
@@ -1370,6 +1352,17 @@ class Horde_Registry
             }
         }
 
+        /* Call pre-push hook. */
+        if (Horde::hookExists('pushapp', $app)) {
+            try {
+                Horde::callHook('pushapp', array(), $app);
+            } catch (Horde_Exception $e) {
+                $e->setCode(self::HOOK_FATAL);
+                $this->popApp();
+                throw $e;
+            }
+        }
+
         /* Push application on the stack. */
         $this->_appStack[] = $app;
 
@@ -1390,35 +1383,25 @@ class Horde_Registry
             $this->setLanguageEnvironment(null, $app);
         }
 
-        /* Call first initialization hook. */
-        if (isset($this->_appsinit[$app])) {
-            unset($this->_appsinit[$app]);
-            try {
-                Horde::callHook('appinitialized', array(), $app);
-            } catch (Horde_Exception_HookNotSet $e) {}
-        }
-
-        /* Call pre-push hook. */
-        if (Horde::hookExists('pushapp', $app)) {
-            try {
-                Horde::callHook('pushapp', array(), $app);
-            } catch (Horde_Exception $e) {
-                $e->setCode(self::HOOK_FATAL);
-                $this->popApp();
-                throw $e;
-            }
-        }
-
         /* Initialize application. */
-        if ($checkPerms || empty($options['noinit'])) {
+        if (!isset($this->_appsinit[$app])) {
             try {
                 $this->callAppMethod($app, 'init');
+                $this->_appsinit[$app] = true;
             } catch (Horde_Exception $e) {
                 $this->popApp();
                 $this->applications[$app]['status'] = 'inactive';
                 Horde::logMessage($e);
                 throw $e;
             }
+        }
+
+        /* Call first initialization hook. */
+        if (isset($this->_hookinit[$app])) {
+            unset($this->_hookinit[$app]);
+            try {
+                Horde::callHook('appinitialized', array(), $app);
+            } catch (Horde_Exception_HookNotSet $e) {}
         }
 
         /* Call post-push hook. */
@@ -1663,13 +1646,14 @@ class Horde_Registry
     }
 
     /**
-     * Does the given application have a mobile view?
+     * Does the application have the queried feature?
      *
-     * @param string $app  The application to check.
+     * @param string $id   Feature ID.
+     * @param string $app  The application to check (defaults to current app).
      *
-     * @return boolean  Whether app has mobile view.
+     * @return boolean  True if the application has the feature.
      */
-    public function hasMobileView($app = null)
+    public function hasFeature($view, $app = null)
     {
         if (empty($app)) {
             $app = $this->getApp();
@@ -1677,37 +1661,42 @@ class Horde_Registry
 
         try {
             $api = $this->getApiInstance($app, 'application');
-            return !empty($api->mobileView);
         } catch (Horde_Exception $e) {
             return false;
         }
+
+        return !empty($api->features[$view]);
     }
 
     /**
-     * Does the given application have an ajax view?
+     * Does the given application have the queried view?
      *
-     * @param string $app  The application to check.
+     * @param integer $view  The view type (VIEW_* constant).
+     * @param string $app    The application to check (defaults to current
+     *                       app).
      *
-     * @return boolean  Whether app has an ajax view.
+     * @return boolean  True if the view is available in the application.
      */
-    public function hasAjaxView($app = null)
+    public function hasView($view, $app = null)
     {
-        if (empty($app)) {
-            $app = $this->getApp();
-        }
+        switch ($view) {
+        case VIEW_BASIC:
+            // For now, consider all apps to have BASIC view.
+            return true;
 
-        try {
-            $api = $this->getApiInstance($app, 'application');
-            return !empty($api->ajaxView);
-        } catch (Horde_Exception $e) {
-            return false;
+        case VIEW_DYNAMIC:
+            return $this->hasFeature('dynamicView', $app);
+
+        case VIEW_MINIMAL:
+            return $this->hasFeature('minimalView', $app);
+
+        case VIEW_SMARTMOBILE:
+            return $this->hasFeature('smartmobileView', $app);
         }
     }
 
     /**
      * Set current view.
-     *
-     * @since 2.0.0
      *
      * @param integer $view  The view type.
      */
@@ -1718,8 +1707,6 @@ class Horde_Registry
 
     /**
      * Get current view.
-     *
-     * @since 2.0.0
      *
      * @return integer  The view type.
      */
@@ -2320,7 +2307,7 @@ class Horde_Registry
             ? 'horde'
             : $options['app'];
 
-        $this->_appsinit[$app] = true;
+        $this->_hookinit[$app] = true;
 
         if ($this->getAuth() == $authId) {
             /* Store app credentials - base Horde session already exists. */
@@ -2348,7 +2335,7 @@ class Horde_Registry
         $injector->getInstance('Horde_Core_Factory_Prefs')->clearCache();
         $this->loadPrefs();
 
-        unset($this->_appsinit['horde']);
+        unset($this->_hookinit['horde']);
         try {
             Horde::callHook('appinitialized', array(), 'horde');
         } catch (Horde_Exception_HookNotSet $e) {}
@@ -2360,7 +2347,6 @@ class Horde_Registry
      * Check existing auth for triggers that might invalidate it.
      *
      * @param string $app  Check authentication for this app too.
-     *                     @since Horde_Core 1.4.0.
      *
      * @return boolean  Is existing auth valid?
      */

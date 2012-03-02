@@ -41,7 +41,7 @@ class Horde_Mime_MailTest extends PHPUnit_Framework_TestCase
             'charset' => 'iso-8859-15'
         ));
 
-        $dummy = Horde_Mail::factory('Mock');
+        $dummy = new Horde_Mail_Transport_Mock();
         $mail->send($dummy);
         $sent = str_replace("\r\n", "\n", $dummy->sentMessages[0]);
 
@@ -79,7 +79,7 @@ MIME-Version: 1.0',
         $mail->addHeader('From', 'sender@example.com');
         $mail->removeHeader('Cc');
 
-        $dummy = Horde_Mail::factory('Mock');
+        $dummy = new Horde_Mail_Transport_Mock();
         $mail->send($dummy);
         $sent = str_replace("\r\n", "\n", $dummy->sentMessages[0]);
 
@@ -118,7 +118,7 @@ MIME-Version: 1.0',
             'charset' => 'iso-8859-1'
         ));
 
-        $dummy = Horde_Mail::factory('Mock');
+        $dummy = new Horde_Mail_Transport_Mock();
         $mail->send($dummy);
         $sent = str_replace("\r\n", "\n", $dummy->sentMessages[0]);
 
@@ -170,7 +170,7 @@ Content-Transfer-Encoding: quoted-printable',
             'attachment'
         );
 
-        $dummy = Horde_Mail::factory('Mock');
+        $dummy = new Horde_Mail_Transport_Mock();
         $mail->send($dummy);
         $sent = str_replace("\r\n", "\n", $dummy->sentMessages[0]);
 
@@ -227,7 +227,7 @@ bHRlciBEZWljaC4K
         ));
         $mail->setBody("This is\nthe plain text body.");
 
-        $dummy = Horde_Mail::factory('Mock');
+        $dummy = new Horde_Mail_Transport_Mock();
         $mail->send($dummy);
         $sent = str_replace("\r\n", "\n", $dummy->sentMessages[0]);
 
@@ -264,7 +264,7 @@ MIME-Version: 1.0',
             false
         );
 
-        $dummy = Horde_Mail::factory('Mock');
+        $dummy = new Horde_Mail_Transport_Mock();
         $mail->send($dummy);
         $sent = str_replace("\r\n", "\n", $dummy->sentMessages[0]);
 
@@ -298,7 +298,7 @@ MIME-Version: 1.0',
         ));
         $mail->setHTMLBody("<h1>Header Title</h1>\n<p>This is<br />the html text body.</p>");
 
-        $dummy = Horde_Mail::factory('Mock');
+        $dummy = new Horde_Mail_Transport_Mock();
         $mail->send($dummy);
         $sent = str_replace("\r\n", "\n", $dummy->sentMessages[0]);
 
@@ -359,7 +359,7 @@ Content-Description: HTML Version of Message
             'iso-8859-15'
         );
 
-        $dummy = Horde_Mail::factory('Mock');
+        $dummy = new Horde_Mail_Transport_Mock();
         $mail->send($dummy);
         $sent = str_replace("\r\n", "\n", $dummy->sentMessages[0]);
 
@@ -431,7 +431,7 @@ end
             'charset' => 'iso-8859-15'
         ));
 
-        $dummy = Horde_Mail::factory('Mock');
+        $dummy = new Horde_Mail_Transport_Mock();
         $mail->send($dummy);
         $sent1 = str_replace("\r\n", "\n", $dummy->sentMessages[0]);
 
@@ -462,7 +462,7 @@ end
             'To' => 'recipient@example.com',
             'body' => file_get_contents(dirname(__FILE__) . '/fixtures/flowed_msg.txt')));
 
-        $dummy = Horde_Mail::factory('Mock');
+        $dummy = new Horde_Mail_Transport_Mock();
         $mail->send($dummy);
         $sent = str_replace("\r\n", "\n", $dummy->sentMessages[0]);
 
@@ -506,7 +506,7 @@ id est laborum.
             'charset' => 'iso-8859-15'
         ));
 
-        $dummy = Horde_Mail::factory('Mock');
+        $dummy = new Horde_Mail_Transport_Mock();
         $mail->send($dummy);
         $sent = str_replace("\r\n", "\n", $dummy->sentMessages[0]);
 

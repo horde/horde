@@ -682,15 +682,12 @@ class Whups
                 self::$_users[$user]['name'] = '';
                 self::$_users[$user]['email'] = '';
 
-                try {
-                    $addr_arr = Horde_Mime_Address::parseAddressList($user);
-                    if (isset($addr_arr[0])) {
-                        self::$_users[$user]['name'] = isset($addr_arr[0]['personal'])
-                            ? $addr_arr[0]['personal'] : '';
-                        self::$_users[$user]['email'] = $addr_arr[0]['mailbox'] . '@'
-                            . $addr_arr[0]['host'];
-                    }
-                } catch (Horde_Mime_Exception $e) {
+                $addr_ob = new Horde_Mail_Rfc822_Address($user);
+                if ($addr_ob->valid) {
+                    self::$_users[$user]['name'] = is_null($addr_ob->personal)
+                        ? ''
+                        : $addr_ob->personal;
+                    self::$_users[$user]['email'] = $addr_ob->bare_address;
                 }
             } elseif ($user < 0) {
                 global $whups_driver;
@@ -699,15 +696,12 @@ class Whups
                 self::$_users[$user]['name'] = '';
                 self::$_users[$user]['email'] = $whups_driver->getGuestEmail($user);
 
-                try {
-                    $addr_arr = Horde_Mime_Address::parseAddressList(self::$_users[$user]['email']);
-                    if (isset($addr_arr[0])) {
-                        self::$_users[$user]['name'] = isset($addr_arr[0]['personal'])
-                            ? $addr_arr[0]['personal'] : '';
-                        self::$_users[$user]['email'] = $addr_arr[0]['mailbox'] . '@'
-                            . $addr_arr[0]['host'];
-                    }
-                } catch (Horde_Mime_Exception $e) {
+                $addr_ob = new Horde_Mail_Rfc822_Address(self::$_user[$user]['email']);
+                if ($addr_ob->valid) {
+                    self::$_users[$user]['name'] = is_null($addr_ob->personal)
+                        ? ''
+                        : $addr_ob->personal;
+                    self::$_users[$user]['email'] = $addr_ob->bare_address;
                 }
             } else {
                 $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($user);

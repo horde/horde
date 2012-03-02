@@ -273,7 +273,11 @@ if (IMP::canCompose()) {
         $menu[] = array(_("Reply to List"), IMP::composeLink(array(), array('a' => 'rl') + $compose_params));
     }
 
-    if (Horde_Mime_Address::addrArray2String(array_merge($envelope->to, $envelope->cc), array('charset' => 'UTF-8', 'filter' => array_keys($user_identity->getAllFromAddresses(true))))) {
+    $addr_ob = clone($envelope->to);
+    $addr_ob->add($envelope->cc);
+    $addr_ob->setIteratorFilter(0, array_keys($user_identity->getAllFromAddresses(true)));
+
+    if (count($addr_ob)) {
         $menu[] = array(_("Reply All"), IMP::composeLink(array(), array('a' => 'ra') + $compose_params));
     }
 

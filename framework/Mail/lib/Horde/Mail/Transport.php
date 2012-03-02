@@ -121,9 +121,9 @@ abstract class Horde_Mail_Transport
             if (strcasecmp($key, 'From') === 0) {
                 $parser = new Horde_Mail_Rfc822();
                 $addresses = $parser->parseAddressList($value, array(
-                    'nest_groups' => false,
+                    'validate' => true
                 ));
-                $from = $addresses[0]->full_address;
+                $from = $addresses[0]->bare_address;
 
                 // Reject envelope From: addresses with spaces.
                 if (strstr($from, ' ')) {
@@ -180,18 +180,12 @@ abstract class Horde_Mail_Transport
         // Parse recipients, leaving out all personal info. This is
         // for smtp recipients, etc. All relevant personal information
         // should already be in the headers.
-        $parser = new Horde_Mail_Rfc822();
-        $addresses = $parser->parseAddressList($recipients, array(
-            'nest_groups' => false
+        $rfc822 = new Horde_Mail_Rfc822();
+        $addresses = $rfc822->parseAddressList($recipients, array(
+            'validate' => true
         ));
 
-        $recipients = array();
-
-        foreach ($addresses as $ob) {
-            $recipients[] = $ob->full_address;
-        }
-
-        return $recipients;
+        return $addresses->bare_addresses;
     }
 
     /**

@@ -52,7 +52,7 @@ $imp_mailbox = $mailbox->getListOb();
 $total_num = count($imp_mailbox);
 $unseen_num = $mailbox->vinbox
     ? $total_num
-    : $imp_mailbox->unseenMessages(Horde_Imap_Client::SORT_RESULTS_COUNT);
+    : $imp_mailbox->unseenMessages(Horde_Imap_Client::SEARCH_RESULTS_COUNT);
 
 $query = new Horde_Imap_Client_Search_Query();
 if ($new_mail) {
@@ -73,7 +73,7 @@ if (count($ids)) {
             'description' => isset($ob['preview']) ? $ob['preview'] : '',
             'url' => Horde::url($mailbox->url('message.php', $ob['uid'], $mailbox), true, array('append_session' => -1)),
             'fromAddr' => $from_addr['fullfrom'],
-            'toAddr' => Horde_Mime_Address::addrArray2String($ob['envelope']->to, array('charset' => 'UTF-8'))
+            'toAddr' => strval($ob['envelope']->to)
         ));
     }
 }

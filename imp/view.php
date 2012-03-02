@@ -240,7 +240,7 @@ case 'print_attach':
     unset($basic_headers['bcc'], $basic_headers['reply-to']);
     $headerob = $contents->getHeader();
 
-    $d_param = Horde_Mime::decodeParam('content-type', $render[$render_key]['type'], 'UTF-8');
+    $d_param = Horde_Mime::decodeParam('content-type', $render[$render_key]['type']);
 
     $headers = array();
     foreach ($basic_headers as $key => $val) {
@@ -299,7 +299,7 @@ case 'print_attach':
 
     $browser->downloadHeaders($render[$render_key]['name'], $render[$render_key]['type'], true, strlen($render[$render_key]['data']));
 
-    $pstring = Horde_Mime::decodeParam('content-type', $render[$render_key]['type'], 'UTF-8');
+    $pstring = Horde_Mime::decodeParam('content-type', $render[$render_key]['type']);
 
     $doc = new Horde_Domhtml($render[$render_key]['data'], $pstring['params']['charset']);
 

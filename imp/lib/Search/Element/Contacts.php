@@ -32,7 +32,8 @@ class IMP_Search_Element_Contacts extends IMP_Search_Element
     {
         $addrs = array();
 
-        foreach (IMP_Compose::getAddressList('', true) as $val) {
+        $ajax = new IMP_Ajax_Imple_ContactAutoCompleter();
+        foreach ($ajax->getAddressList()->bare_addresses as $val) {
             $ob = new Horde_Imap_Client_Search_Query();
             $ob->headerText('from', $val, $this->_data);
             $addrs[] = $ob;

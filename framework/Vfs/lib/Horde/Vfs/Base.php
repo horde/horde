@@ -67,7 +67,7 @@ abstract class Horde_Vfs_Base
         $this->setParams(array(
             'user' => '',
             'vfs_quotalimit' => -1,
-            'vfs_quotaroot' => '/'
+            'vfs_quotaroot' => ''
         ));
         $this->setParams($params);
     }
@@ -424,20 +424,18 @@ abstract class Horde_Vfs_Base
     public function autocreatePath($path)
     {
         $dirs = explode('/', $path);
-        if (is_array($dirs)) {
-            $cur = '/';
-            foreach ($dirs as $dir) {
-                if (!strlen($dir)) {
-                    continue;
-                }
-                if (!$this->isFolder($cur, $dir)) {
-                    $result = $this->createFolder($cur, $dir);
-                }
-                if ($cur != '/') {
-                    $cur .= '/';
-                }
-                $cur .= $dir;
+        $cur = '/';
+        foreach ($dirs as $dir) {
+            if (!strlen($dir)) {
+                continue;
             }
+            if (!$this->isFolder($cur, $dir)) {
+                $this->createFolder($cur, $dir);
+            }
+            if ($cur != '/') {
+                $cur .= '/';
+            }
+            $cur .= $dir;
         }
     }
 

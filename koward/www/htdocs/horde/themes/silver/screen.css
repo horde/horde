@@ -98,11 +98,11 @@ a.button {
     font-weight: bold;
 }
 
-/* Alternating styles. item0, item1 are deprecated. */
-.rowEven, .item0 {
+/* Alternating styles. */
+.rowEven {
     background-color: #eee;
 }
-.rowOdd, .item1 {
+.rowOdd {
     background-color: #fff;
 }
 

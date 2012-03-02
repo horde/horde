@@ -140,19 +140,20 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
         }
 
         try {
-            $ob = IMP::parseAddressList($address);
+            $result = IMP::parseAddressList($address);
+            $ob = $result[0];
         } catch (Horde_Mail_Exception $e) {
             throw new Horde_Exception (_("Your From address is not a valid email address. This can be fixed in your Personal Information preferences page."));
         }
 
         if (empty($name)) {
-            $name = is_null($ob[0]->personal)
+            $name = is_null($ob->personal)
                 ? $this->getFullname($ident)
-                : $ob[0]->personal;
+                : $ob->personal;
         }
 
-        $ob[0]->personal = $name;
-        $from = $ob[0]->writeAddress();
+        $ob->personal = $name;
+        $from = $ob->writeAddress();
         $this->_cached['froms'][$ident] = $from;
 
         return $from;
@@ -336,23 +337,11 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
      *
      * @param integer $ident  The identity to retrieve the Bcc addresses from.
      *
-     * @return array  The array of objects (IMAP addresses).
+     * @return Horde_Mail_Rfc822_List  BCC addresses.
      */
     public function getBccAddresses($ident = null)
     {
-        $bcc = $this->getValue('bcc_addr', $ident);
-        if (empty($bcc)) {
-            return array();
-        } else {
-            if (!is_array($bcc)) {
-                $bcc = array($bcc);
-            }
-            try {
-                return IMP::parseAddressList(implode(', ', $bcc));
-            } catch (Horde_Mail_Exception $e) {
-                return array();
-            }
-        }
+        return IMP::parseAddressList($this->getValue('bcc_addr', $ident));
     }
 
     /**
@@ -374,27 +363,19 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
             $this->_cached['own_addresses'] = $this->getAllFromAddresses(true);
         }
 
-        /* Normalize address list. */
-        $addresses = is_array($addresses)
-            ? array_filter($addresses)
-            : array($addresses);
-
         try {
-            $addr_list = IMP::parseAddressList(implode(', ', $addresses));
+            $addr_list = IMP::parseAddressList($addresses);
         } catch (Horde_Mail_Exception $e) {
             return null;
         }
 
         foreach ($addr_list as $address) {
-            if (is_null($address->mailbox)) {
-                continue;
-            }
-            $find_address = Horde_String::lower($address->full_address);
+            $bare_address = $address->bare_address;
 
-            /* Search 'tieto' addresses first. */
-            /* Check for this address explicitly. */
-            if (isset($this->_cached['tie_addresses'][$find_address])) {
-                return $this->_cached['tie_addresses'][$find_address];
+            /* Search 'tieto' addresses first. Check for this address
+             * explicitly. */
+            if (isset($this->_cached['tie_addresses'][$bare_address])) {
+                return $this->_cached['tie_addresses'][$bare_address];
             }
 
             /* If we didn't find the address, check for the domain. */
@@ -405,8 +386,8 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
 
             /* Next, search all from addresses. */
             if ($search_own &&
-                isset($this->_cached['own_addresses'][$find_address])) {
-                return $this->_cached['own_addresses'][$find_address];
+                isset($this->_cached['own_addresses'][$bare_address])) {
+                return $this->_cached['own_addresses'][$bare_address];
             }
         }
 

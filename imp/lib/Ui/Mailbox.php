@@ -62,44 +62,31 @@ class IMP_Ui_Mailbox
      */
     public function getFrom($ob, $options = array())
     {
-        $ret = array('error' => false, 'to' => false);
-
-        if (empty($ob->from)) {
-            $ret['from'] = $ret['fullfrom'] = _("Invalid Address");
-            $ret['error'] = true;
-            return $ret;
-        }
+        $ret = array(
+            'error' => false,
+            'to' => false
+        );
 
         if (!isset($this->_cache['drafts_sm_folder'])) {
             $this->_cache['drafts_sm_folder'] = $this->_mailbox->special_outgoing;
         }
 
-        $from = Horde_Mime_Address::getAddressesFromObject($ob->from, array('charset' => 'UTF-8'));
-        $from = reset($from);
-
-        if (empty($from)) {
+        if (!($from = $ob->from[0])) {
             $ret['from'] = _("Invalid Address");
             $ret['error'] = true;
         } else {
-            if ($GLOBALS['injector']->getInstance('IMP_Identity')->hasAddress($from['inner'])) {
+            if ($GLOBALS['injector']->getInstance('IMP_Identity')->hasAddress($from->bare_address)) {
                 /* This message was sent by one of the user's identity
                  * addresses - show To: information instead. */
-                if (empty($ob->to)) {
+                if (!$first_to = $ob->to[0]) {
                     $ret['from'] = _("Undisclosed Recipients");
                     $ret['error'] = true;
                 } else {
-                    $to = Horde_Mime_Address::getAddressesFromObject($ob->to, array('charset' => 'UTF-8'));
-                    $first_to = reset($to);
-                    if (empty($first_to)) {
-                        $ret['from'] = _("Undisclosed Recipients");
-                        $ret['error'] = true;
-                    } else {
-                        $ret['from'] = empty($first_to['personal'])
-                            ? $first_to['inner']
-                            : $first_to['personal'];
-                        if (!empty($options['fullfrom'])) {
-                            $ret['fullfrom'] = $first_to['display'];
-                        }
+                    $ret['from'] = is_null($first_to->personal)
+                        ? $first_to->bare_address
+                        : $first_to->personal;
+                    if (!empty($options['fullfrom'])) {
+                        $ret['fullfrom'] = strval($first_to);
                     }
                 }
                 if (!$this->_cache['drafts_sm_folder']) {
@@ -107,14 +94,14 @@ class IMP_Ui_Mailbox
                 }
                 $ret['to'] = true;
             } else {
-                $ret['from'] = empty($from['personal'])
-                    ? $from['inner']
-                    : $from['personal'];
+                $ret['from'] = is_null($from->personal)
+                    ? $from->bare_address
+                    : $from->personal;
                 if ($this->_cache['drafts_sm_folder']) {
                     $ret['from'] = _("From") . ': ' . $ret['from'];
                 }
                 if (!empty($options['fullfrom'])) {
-                    $ret['fullfrom'] = $from['display'];
+                    $ret['fullfrom'] = strval($from);
                 }
             }
         }
@@ -203,15 +190,14 @@ class IMP_Ui_Mailbox
     /**
      * Formats the subject header.
      *
-     * @param string $subject     The MIME encoded subject header.
+     * @param string $subject     The subject header.
      * @param string $htmlspaces  HTML-ize spaces?
      *
      * @return string  The formatted subject header.
      */
     public function getSubject($subject, $htmlspaces = false)
     {
-        $subject = Horde_Mime::decode($subject, 'UTF-8');
-        if (empty($subject)) {
+        if (!strlen($subject)) {
             return _("[No Subject]");
         }
 

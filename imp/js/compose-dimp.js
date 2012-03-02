@@ -971,8 +971,6 @@ var DimpCompose = {
             case 'redirect_sendto':
                 if (orig.match('TD.label SPAN')) {
                     this.openAddressbook({
-                        formfield: 'redirect_to',
-                        formname: 'redirect',
                         to_only: 1
                     });
                 }
@@ -1084,6 +1082,26 @@ var DimpCompose = {
         }
     },
 
+    onContactsUpdate: function(e)
+    {
+        switch (e.memo.field) {
+        case 'bcc':
+        case 'cc':
+            if (!$('send' + e.memo.field).visible()) {
+                this.toggleCC(e.memo.field);
+            }
+            break;
+
+        case 'to':
+            if (DIMP.conf_compose.redirect) {
+                e.memo.field = 'redirect_to';
+            }
+            break;
+        }
+
+        ImpComposeBase.updateAddressField($(e.memo.field), e.memo.value);
+    },
+
     onDomLoad: function()
     {
         var tmp;
@@ -1190,6 +1208,7 @@ var DimpCompose = {
 
 /* Attach event handlers. */
 document.observe('dom:loaded', DimpCompose.onDomLoad.bind(DimpCompose));
+document.observe('ImpContacts:update', DimpCompose.onContactsUpdate.bindAsEventListener(DimpCompose));
 document.observe('TextareaResize:resize', DimpCompose.resizeMsgArea.bind(DimpCompose));
 
 /* ContextSensitive functions. */

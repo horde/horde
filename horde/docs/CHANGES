@@ -11,11 +11,16 @@ v5.0-git
 
 
 -----------
-v4.0.14-git
+v4.0.15-git
 -----------
 
-[jan] Fix setting default values for HTML signatures.
-[mjr] Added more atomic control over ActiveSync security policies for better
+
+
+-------
+v4.0.14
+-------
+
+[mjr] Add more atomic control over ActiveSync security policies for better
       device compatibility.
 [mms] Add 'sendmail_eol' configuration parameter.
 [jan] Fix horde-set-perms (piper@hrz.uni-marburg.de, Bug #10923).

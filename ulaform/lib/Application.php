@@ -40,7 +40,7 @@ class Ulaform_Application extends Horde_Registry_Application
      * Global variables defined:
      *   $ulaform_driver - TODO
      */
-    protected function _init()
+    public function init()
     {
         $GLOBALS['ulaform_driver'] = new Ulaform_Driver($GLOBALS['injector']->getInstance('Horde_Db_Adapter'));
     }

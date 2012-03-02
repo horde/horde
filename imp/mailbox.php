@@ -355,7 +355,7 @@ if (!$preview_tooltip) {
     $strip_preview = $prefs->getValue('preview_strip_nl');
 }
 
-$unread = $imp_mailbox->unseenMessages(Horde_Imap_Client::SORT_RESULTS_COUNT);
+$unread = $imp_mailbox->unseenMessages(Horde_Imap_Client::SEARCH_RESULTS_COUNT);
 
 Horde::addInlineJsVars(array(
     'ImpMailbox.unread' => intval($unread)
@@ -815,7 +815,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     $flag_parse = $imp_flags->parse(array(
         'flags' => $ob['flags'],
         'headers' => $ob['headers'],
-        'personal' => Horde_Mime_Address::getAddressesFromObject($ob['envelope']->to, array('charset' => 'UTF-8'))
+        'personal' => $ob['envelope']->to
     ));
 
     $css_class = $subject_flags = array();
@@ -866,7 +866,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     switch ($fromlinkstyle) {
     case 0:
         if (!$getfrom['error']) {
-            $msg['from'] = call_user_func_array(array('Horde', $preview_tooltip ? 'linkTooltip' : 'link'), IMP::composeLink(array(), array('actionID' => 'mailto', 'thismailbox' => $ob['mailbox'], 'uid' => $ob['uid'], 'mailto' => $getfrom['to'])), sprintf(_("New Message to %s"), $msg['fullfrom']));
+            $msg['from'] = call_user_func_array(array('Horde', $preview_tooltip ? 'linkTooltip' : 'link'), array(IMP::composeLink(array(), array('actionID' => 'mailto', 'thismailbox' => $ob['mailbox'], 'uid' => $ob['uid'], 'mailto' => $getfrom['to'])), sprintf(_("New Message to %s"), $msg['fullfrom']))) . $msg['from'] . '</a>';
         }
         break;
 

@@ -189,8 +189,8 @@ class IMP_Ui_Message
         $ret = array();
 
         foreach (array_keys($headers->listHeaders()) as $val) {
-            if (($data = $headers->getValue($val))) {
-                $ret[$val] = $this->parseListHeaders($data);
+            if ($data = $headers->getValue($val)) {
+                $ret[$val] = $this->parseListHeaders($val, $data);
             }
         }
 
@@ -200,70 +200,37 @@ class IMP_Ui_Message
     /**
      * Parse the information in mailing list headers.
      *
+     * @param string $id    The header ID.
      * @param string $data  The header text to process.
-     * @param array $opts   Additional options:
-     * <pre>
-     * 'email' - (boolean) Only return e-mail values.
-     *           DEFAULT: false
-     * 'raw' - (boolean) Should the raw URL be returned instead of linking
-     *                   the header value?
-     *                   DEFAULT: false
-     * </pre>
      *
      * @return string  The header value.
      */
-    public function parseListHeaders($data, $opts = array())
+    public function parseListHeaders($id, $data)
     {
         $output = '';
+        $parser = $GLOBALS['injector']->getInstance('Horde_ListHeaders');
+        $text_filter = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter');
 
-        /* Split the incoming data by the ',' character. */
-        foreach (explode(',', $data) as $orig_entry) {
-            $entry = Horde_Mime_Address::trimAddress($orig_entry);
-
-            /* Get the data inside of the brackets. If there is no brackets,
-             * then return the raw text. */
-            if (trim($orig_entry) == $entry) {
-                return $entry;
-            }
-
-            /* Remove all whitespace from between brackets (RFC 2369 [2]). */
-            $match = preg_replace("/\s+/", '', $entry);
-
-            /* Determine if there are any comments. */
-            preg_match("/(\(.+\))/", $entry, $comments);
-
+        foreach ($parser->parse($id, $data) as $val) {
             /* RFC 2369 [2] states that we should only show the *FIRST* URL
              * that appears in a header that we can adequately handle. */
-            if (stristr($match, 'mailto:') !== false) {
-                $match = substr($match, strpos($match, ':') + 1);
-                if (!empty($opts['raw'])) {
-                    return $match;
+            if (stripos($val->url, 'mailto:') === 0) {
+                $url = substr($val->url, 7);
+                $output = Horde::link(IMP::composeLink($url)) . $url . '</a>';
+                foreach ($val->comments as $val2) {
+                    $output .= '&nbsp;(' . $val2 . ')';
                 }
-                $output = Horde::link(IMP::composeLink($match)) . $match . '</a>';
-                if (!empty($comments[1])) {
-                    $output .= '&nbsp;' . $comments[1];
-                }
-
-                return $output;
-            } elseif ($url = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($match, 'linkurls')) {
-                if (!empty($opts['email'])) {
-                    continue;
-                }
-
-                if (!empty($opts['raw'])) {
-                    return $match;
-                }
-
+                break;
+            } elseif ($url = $text_filter->filter($val, 'linkurls')) {
                 $output = $url;
-                if (!empty($comments[1])) {
-                    $output .= '&nbsp;' . $comments[1];
+                foreach ($val->comments as $val2) {
+                    $output .= '&nbsp;(' . $val2 . ')';
                 }
-
-                return $output;
-            } else {
-                /* Use this entry unless we can find a better one. */
-                $output = $match;
+                break;
             }
+
+            /* Use this entry unless we can find a better one. */
+            $output = $match;
         }
 
         return $output;
@@ -285,9 +252,15 @@ class IMP_Ui_Message
 
             /* See if the List-Post header provides an e-mail address for the
              * list. */
-            if (($val = $headers->getValue('list-post')) &&
-                ($val != 'NO')) {
-                $ret['reply_list'] = $this->parseListHeaders($val, array('email' => true, 'raw' => true));
+            if ($val = $headers->getValue('list-post')) {
+                foreach ($GLOBALS['injector']->getInstance('Horde_ListHeaders')->parse('list-post', $val) as $val2) {
+                    if ($val2 instanceof Horde_ListHeaders_NoPost) {
+                        break;
+                    } elseif (stripos($val2->url, 'mailto:') === 0) {
+                        $ret['reply_list'] = substr($val2->url, 7);
+                        break;
+                    }
+                }
             }
         }
 
@@ -297,21 +270,17 @@ class IMP_Ui_Message
     /**
      * Builds a string containing a list of addresses.
      *
-     * @param array $addrlist    The list of addresses from
-     *                           Horde_Mime_Address::parseAddressList().
-     * @param Horde_Url $addURL  The self URL.
-     * @param boolean $link      Link each address to the compose screen?
+     * @param Horde_Mail_Rfc822_List $addrlist  An address list.
+     * @param Horde_Url $addURL                 The self URL.
+     * @param boolean $link                     Link each address to the
+     *                                          compose screen?
      *
      * @return string  String containing the formatted address list.
      */
-    public function buildAddressLinks($addrlist, $addURL = null, $link = true)
+    public function buildAddressLinks(Horde_Mail_Rfc822_List $addrlist,
+                                      $addURL = null, $link = true)
     {
         global $prefs, $registry;
-
-        /* Make sure this is a valid object address field. */
-        if (empty($addrlist) || !is_array($addrlist)) {
-            return null;
-        }
 
         $add_link = null;
         $addr_array = array();
@@ -327,57 +296,56 @@ class IMP_Ui_Message
             } catch (Horde_Exception $e) {}
         }
 
-        foreach (Horde_Mime_Address::getAddressesFromObject($addrlist, array('charset' => 'UTF-8')) as $ob) {
-            if (isset($ob['groupname'])) {
+        $addrlist->setIteratorFilter();
+        foreach ($addrlist as $ob) {
+            if ($ob instanceof Horde_Mail_Rfc822_Group) {
                 $group_array = array();
-                foreach ($ob['addresses'] as $ad) {
-                    if (empty($ad['address']) || empty($ad['inner'])) {
-                        continue;
-                    }
-
+                foreach ($ob->addresses as $ad) {
                     $ret = $mimp_view
-                        ? $ad['display']
-                        : htmlspecialchars($ad['display']);
+                        ? strval($ad)
+                        : htmlspecialchars(strval($ad));
 
                     if ($link) {
-                        $ret = Horde::link(IMP::composeLink(array('to' => $ad['address'])), sprintf(_("New Message to %s"), $ad['inner'])) . htmlspecialchars($ad['display']) . '</a>';
+                        $ret = Horde::link(IMP::composeLink(array('to' => $ad['address'])), sprintf(_("New Message to %s"), $ad['inner'])) . htmlspecialchars(strval($ad)) . '</a>';
                     }
 
                     /* Append the add address icon to every address if contact
                      * manager is available. */
                     if ($add_link) {
-                        $curr_link = $add_link->copy()->add(array('name' => $ad['personal'], 'address' => $ad['inner']));
-                        $ret .= Horde::link($curr_link, sprintf(_("Add %s to my Address Book"), $ad['inner'])) .
+                        $curr_link = $add_link->copy()->add(array(
+                            'address' => $ad->bare_address,
+                            'name' => $ad->personal
+                        ));
+                        $ret .= Horde::link($curr_link, sprintf(_("Add %s to my Address Book"), $ad->bare_address)) .
                             '<span class="iconImg addrbookaddImg"></span></a>';
                     }
 
                     $group_array[] = $ret;
                 }
 
-                if (!$mimp_view) {
-                    $ob['groupname'] = htmlspecialchars($ob['groupname']);
+                $groupname = $mimp_view
+                    ? $ob->groupname
+                    : htmlspecialchars($ob->groupname);
+
+                $addr_array[] = $groupname . ':' . (count($group_array) ? ' ' . implode(', ', $group_array) : '');
+            } else {
+                $ret = $mimp_view
+                    ? strval($ad)
+                    : htmlspecialchars(strval($ad));
+
+                if ($link) {
+                    $ret = Horde::link(IMP::composeLink(array('to' => strval($ob))), sprintf(_("New Message to %s"), strval($ob))) . htmlspecialchars(strval($ob)) . '</a>';
                 }
 
-                $addr_array[] = $ob['groupname'] . ':' . (count($group_array) ? ' ' . implode(', ', $group_array) : '');
-            } elseif (!empty($ob['address']) && !empty($ob['inner'])) {
-                $ret = $mimp_view
-                    ? $ob['display']
-                    : htmlspecialchars($ob['display']);
-
-                /* If this is an incomplete e-mail address, don't link to
-                 * anything. */
-                if (stristr($ob['host'], 'UNKNOWN') === false) {
-                    if ($link) {
-                        $ret = Horde::link(IMP::composeLink(array('to' => $ob['address'])), sprintf(_("New Message to %s"), $ob['inner'])) . htmlspecialchars($ob['display']) . '</a>';
-                    }
-
-                    /* Append the add address icon to every address if contact
-                     * manager is available. */
-                    if ($add_link) {
-                        $curr_link = $add_link->copy()->add(array('name' => $ob['personal'], 'address' => $ob['inner']));
-                        $ret .= Horde::link($curr_link, sprintf(_("Add %s to my Address Book"), $ob['inner'])) .
-                            '<span class="iconImg addrbookaddImg"></span></a>';
-                    }
+                /* Append the add address icon to every address if contact
+                 * manager is available. */
+                if ($add_link) {
+                    $curr_link = $add_link->copy()->add(array(
+                        'address' => $ob->bare_address,
+                        'name' => $ob->personal
+                    ));
+                    $ret .= Horde::link($curr_link, sprintf(_("Add %s to my Address Book"), $ob->bare_address)) .
+                        '<span class="iconImg addrbookaddImg"></span></a>';
                 }
 
                 $addr_array[] = $ret;

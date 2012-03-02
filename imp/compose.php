@@ -159,7 +159,7 @@ if ($session->get('imp', 'file_upload')) {
     /* Delete attachments. */
     foreach ($deleteList as $val) {
         if ($notify) {
-            $notification->push(sprintf(_("Deleted attachment \"%s\"."), Horde_Mime::decode($imp_compose[$val]['part']->getName(true), 'UTF-8')), 'horde.success');
+            $notification->push(sprintf(_("Deleted attachment \"%s\"."), Horde_Mime::decode($imp_compose[$val]['part']->getName(true))), 'horde.success');
         }
         unset($imp_compose[$val]);
     }
@@ -195,8 +195,8 @@ case 'mailto':
         $header['to'] = $imp_headers->getValue('to');
     }
     if (empty($header['to'])) {
-        ($header['to'] = Horde_Mime_Address::addrArray2String($imp_headers->getOb('from'))) ||
-        ($header['to'] = Horde_Mime_Address::addrArray2String($imp_headers->getOb('reply-to')));
+        ($header['to'] = strval($imp_headers->getOb('from'))) ||
+        ($header['to'] = strval($imp_headers->getOb('reply-to')));
     }
     break;
 
@@ -300,9 +300,9 @@ case 'reply_list':
     case IMP_Compose::REPLY_LIST:
         if ($vars->actionID == 'reply_auto') {
             $replyauto_list = true;
-            if (($parse_list = $injector->getInstance('IMP_Parse_Listid')->parseListId($contents->getHeader()->getValue('list-id'))) &&
-                isset($parse_list->phrase)) {
-                $replyauto_list_id = $parse_list->phrase;
+            if (($parse_list = $injector->getInstance('Horde_ListHeaders')->parse('list-id', $contents->getHeader()->getValue('list-id'))) &&
+                !is_null($parse_list->label)) {
+                $replyauto_list_id = $parse_list->label;
             }
         }
 
@@ -367,7 +367,7 @@ case 'redirect_compose':
 
 case 'redirect_send':
     try {
-        $num_msgs = $imp_compose->sendRedirectMessage($imp_ui->getAddressList($vars->to));
+        $num_msgs = $imp_compose->sendRedirectMessage($vars->to);
         $imp_compose->destroy('send');
         if ($isPopup) {
             if ($prefs->getValue('compose_confirm')) {
@@ -404,12 +404,12 @@ case 'send_message':
         break;
     }
 
-    $header['to'] = $imp_ui->getAddressList($vars->to);
+    $header['to'] = $vars->to;
     if ($prefs->getValue('compose_cc')) {
-        $header['cc'] = $imp_ui->getAddressList($vars->cc);
+        $header['cc'] = $vars->cc;
     }
     if ($prefs->getValue('compose_bcc')) {
-        $header['bcc'] = $imp_ui->getAddressList($vars->bcc);
+        $header['bcc'] = $vars->bcc;
     }
 
     $header['subject'] = strval($vars->subject);
@@ -672,12 +672,12 @@ if (!is_null($oldrtemode) && ($oldrtemode != $rtemode)) {
 /* If this is the first page load for this compose item, add auto BCC
  * addresses. */
 if (!$vars->compose_formToken && ($vars->actionID != 'draft')) {
-    $header['bcc'] = Horde_Mime_Address::addrArray2String($identity->getBccAddresses());
+    $header['bcc'] = strval($identity->getBccAddresses());
 }
 
 foreach (array('to', 'cc', 'bcc') as $val) {
     if (!isset($header[$val])) {
-        $header[$val] = $imp_ui->getAddressList($vars->$val);
+        $header[$val] = $vars->$val;
     }
 }
 
@@ -749,7 +749,7 @@ if ($redirect) {
             'id' => 'redirect_abook',
             'title' => _("Address Book")
         )) . Horde::img('addressbook_browse.png') . '<br />' . _("Address Book") . '</a>');
-        $js_vars['ImpCompose.redirect_contacts'] = strval(Horde::url('contacts.php')->add(array('formname' => 'redirect', 'to_only' => 1))->setRaw(true));
+        $js_vars['ImpCompose.redirect_contacts'] = strval(Horde::url('contacts.php')->add(array('to_only' => 1))->setRaw(true));
     }
 
     $t->set('to', Horde::label('to', _("To")));

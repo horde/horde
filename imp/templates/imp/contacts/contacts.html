@@ -1,6 +1,6 @@
 <form method="post" id="contacts" action="<tag:action />">
-<input type="hidden" name="formname" value="<tag:formname />" />
 <input type="hidden" name="searched" value="1" />
+<input type="hidden" name="to_only" id="to_only" value="<tag:to_only />" />
 <input type="hidden" id="sa" name="sa" />
 <tag:formInput />
 
@@ -39,10 +39,10 @@
    </td>
    <td width="33%" class="contactsButtons">
     <input id="btn_add_to" type="button" class="button" value="<gettext>To</gettext> &gt;&gt;" /><br />&nbsp;<br />
-<if:cc>
+<if:to_only><else:to_only>
     <input id="btn_add_cc" type="button" class="button" value="<gettext>Cc</gettext> &gt;&gt;" /><br />&nbsp;<br />
     <input id="btn_add_bcc" type="button" class="button" value="<gettext>Bcc</gettext> &gt;&gt;" />
-</if:cc>
+</else:to_only></if:to_only>
    </td>
    <td width="33%">
     <label for="selected_addresses" class="hidden"><gettext>Selected Addresses</gettext></label>

@@ -53,6 +53,8 @@ class Horde_Vfs_File extends Horde_Vfs_Base
              (substr($this->_params['vfsroot'], -1) == '\\'))) {
             $this->_params['vfsroot'] = substr($this->_params['vfsroot'], 0, strlen($this->_params['vfsroot']) - 1);
         }
+
+        $this->_connect();
     }
 
     /**
@@ -544,8 +546,6 @@ class Horde_Vfs_File extends Horde_Vfs_Base
      */
     public function listFolders($path = '', $filter = null, $dotfolders = true)
     {
-        $this->_connect();
-
         $folders = array();
         $folders[dirname($path)] = array(
             'val' => dirname($path),
@@ -667,9 +667,9 @@ class Horde_Vfs_File extends Horde_Vfs_Base
 
             $path = str_replace('..', '', $path);
             if (substr($path, 0, 1) == '/') {
-                return $this->_params['vfsroot'] . $path . $name;
+                return $this->_params['vfsroot'] . rtrim($path, '/') . $name;
             } else {
-                return $this->_params['vfsroot'] . '/' . $path . $name;
+                return $this->_params['vfsroot'] . '/' . rtrim($path, '/') . $name;
             }
         }
 

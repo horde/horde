@@ -362,10 +362,11 @@ var DimpCore = {
             }
         }.bindAsEventListener(this));
 
-        /* Disable text selection for everything but compose/message body. */
+        /* Disable text selection for everything but compose/message body
+         * and FORM inputs. */
         document.observe(Prototype.Browser.IE ? 'selectstart' : 'mousedown', function(e) {
             if (!e.element().up('.messageBody') &&
-                !e.element().up('#writemsg') &&
+                !e.element().match('TEXTAREA') &&
                 !e.element().match('INPUT')) {
                 e.stop();
             }
