@@ -23,6 +23,12 @@ class Horde_Vfs_Test_Base extends Horde_Test_Case
         $this->assertEquals(array(), self::$vfs->listFolder('/'));
     }
 
+    /**
+     * Structure after test:
+     * test/
+     *   dir1/
+     *   dir2/
+     */
     protected function _createFolderStructure()
     {
         self::$vfs->createFolder('', 'test');
@@ -30,6 +36,16 @@ class Horde_Vfs_Test_Base extends Horde_Test_Case
         self::$vfs->createFolder('test', 'dir2');
     }
 
+    /**
+     * Structure after test:
+     * test/
+     *   dir1/
+     *     file1: content1_1
+     *   dir2/
+     *   dir3/
+     *     file1: content3_1
+     *   file1: content1
+     */
     protected function _writeData()
     {
         self::$vfs->writeData('test', 'file1', 'content1');
@@ -42,6 +58,18 @@ class Horde_Vfs_Test_Base extends Horde_Test_Case
         }
     }
 
+    /**
+     * Structure after test:
+     * test/
+     *   dir1/
+     *     file1: content1_1
+     *     file2: __FILE__
+     *   dir2/
+     *   dir3/
+     *     file1: content3_1
+     *     file2: __FILE__
+     *   file1: content1
+     */
     protected function _write()
     {
         self::$vfs->write('test/dir1', 'file2', __FILE__);
@@ -102,6 +130,20 @@ class Horde_Vfs_Test_Base extends Horde_Test_Case
         $this->assertEquals(28 + 2 * filesize(__FILE__), self::$vfs->getVFSSize());
     }
 
+    /**
+     * Structure after test:
+     * test/
+     *   dir1/
+     *     file1: content1_1
+     *     file2: __FILE__
+     *   dir2/
+     *   dir3/
+     *     file1: content3_1
+     *     file2: __FILE__
+     *   dir4/
+     *     file1: content1_1
+     *   file1: content1
+     */
     protected function _copy()
     {
         self::$vfs->copy('test/dir1', 'file1', 'test/dir4', true);
@@ -109,6 +151,20 @@ class Horde_Vfs_Test_Base extends Horde_Test_Case
         $this->assertTrue(self::$vfs->exists('test/dir4', 'file1'));
     }
 
+    /**
+     * Structure after test:
+     * test/
+     *   dir1/
+     *     file1: content1_1
+     *     file2: __FILE__
+     *   dir2/
+     *   dir3/
+     *     file1: content3_1
+     *     file2: __FILE__
+     *     file3: content1_1
+     *   dir4/
+     *   file1: content1
+     */
     protected function _rename()
     {
         self::$vfs->rename('test/dir4', 'file1', 'test/dir4', 'file2');
@@ -119,11 +175,100 @@ class Horde_Vfs_Test_Base extends Horde_Test_Case
         $this->assertTrue(self::$vfs->exists('test/dir3', 'file3'));
     }
 
+    /**
+     * Structure after test:
+     * test/
+     *   dir1/
+     *     file1: content1_1
+     *     file2: __FILE__
+     *   dir2/
+     *     file3: content1_1
+     *   dir3/
+     *     file1: content3_1
+     *     file2: __FILE__
+     *   dir4/
+     *   file1: content1
+     */
     protected function _move()
     {
         self::$vfs->move('test/dir3', 'file3', 'test/dir2');
         $this->assertFalse(self::$vfs->exists('test/dir3', 'file3'));
         $this->assertTrue(self::$vfs->exists('test/dir2', 'file3'));
+    }
+
+    /**
+     * Structure after test:
+     * test/
+     *   dir1/
+     *     file1: content1_1
+     *     file2: __FILE__
+     *   dir2/
+     *   dir3/
+     *     file1: content3_1
+     *     file2: __FILE__
+     *   dir4/
+     *   file1: content1
+     */
+    protected function _deleteFile()
+    {
+        $this->assertTrue(self::$vfs->exists('test/dir2', 'file3'));
+        self::$vfs->deleteFile('test/dir2', 'file3');
+        $this->assertFalse(self::$vfs->exists('test/dir2', 'file3'));
+        $this->assertFalse(self::$vfs->exists('test/dir4', 'file2'));
+        try {
+            self::$vfs->deleteFile('test/dir4', 'file2');
+            $this->fail('Missing file should throw an exception');
+        } catch (Horde_Vfs_Exception $e) {
+        }
+    }
+
+    /**
+     * Structure after test:
+     * test/
+     *   dir1/
+     *     file1: content1_1
+     *     file2: __FILE__
+     *   dir2/
+     *   file1: content1
+     */
+    protected function _deleteFolder()
+    {
+        $this->assertTrue(self::$vfs->exists('test', 'dir4'));
+        self::$vfs->deleteFolder('test', 'dir4');
+        $this->assertFalse(self::$vfs->exists('test', 'dir4'));
+        $this->assertTrue(self::$vfs->exists('test', 'dir3'));
+        try {
+            self::$vfs->deleteFolder('test', 'dir3');
+            $this->fail('Non-empty folder should throw an exception unless $recursive is set');
+        } catch (Horde_Vfs_Exception $e) {
+        }
+        $this->assertTrue(self::$vfs->exists('test', 'dir3'));
+        self::$vfs->deleteFolder('test', 'dir3', true);
+        $this->assertFalse(self::$vfs->exists('test', 'dir3'));
+    }
+
+    /**
+     * Structure after test:
+     * test/
+     *   dir1/
+     *     file1: content1_1
+     *     file2: __FILE__
+     *   dir2/
+     *   file1: content1
+     */
+    protected function _emptyFolder()
+    {
+        self::$vfs->copy('test/dir1', 'file1', 'test/dir2');
+        self::$vfs->copy('test/dir1', 'file2', 'test/dir2');
+        self::$vfs->createFolder('test/dir2', 'dir2_1');
+        $content = array_keys(self::$vfs->listFolder('test/dir2'));
+        sort($content);
+        $this->assertEquals(array('dir2_1', 'file1', 'file2'), $content);
+        self::$vfs->emptyFolder('test', 'dir2');
+        $this->assertFalse(self::$vfs->exists('test/dir2', 'file1'));
+        $this->assertFalse(self::$vfs->exists('test/dir2', 'file2'));
+        $this->assertFalse(self::$vfs->exists('test/dir2', 'dir2_1'));
+        $this->assertEquals(array(), self::$vfs->listFolder('test/dir2'));
     }
 
     protected function _listFolder()

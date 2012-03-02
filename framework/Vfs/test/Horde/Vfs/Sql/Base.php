@@ -127,6 +127,30 @@ class Horde_Vfs_Test_Sql_Base extends Horde_Vfs_Test_Base
     }
 
     /**
+     * @depends testMove
+     */
+    public function testDeleteFile()
+    {
+        $this->_deleteFile();
+    }
+
+    /**
+     * @depends testMove
+     */
+    public function testDeleteFolder()
+    {
+        $this->_deleteFolder();
+    }
+
+    /**
+     * @depends testMove
+     */
+    public function testEmptyFolder()
+    {
+        $this->_emptyFolder();
+    }
+
+    /**
      * @depends testWrite
      * @depends testWriteData
      */
