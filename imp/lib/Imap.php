@@ -367,36 +367,10 @@ class IMP_Imap implements Serializable
             $params[1] = IMP_Mailbox::getImapMboxOb($params[1]);
             break;
 
-        case 'getNamespaces':
-            // We know that the namespace strings are in UTF-8 here. For
-            // Imap_Client 1.x, we need to explicitly force to a Mailbox
-            // object so that UTF7-IMAP auto-detection does not occur.
-            // TODO: Remove once Horde_Imap_Client 2.0+ is required.
-            $params[0] = IMP_Mailbox::getImapMboxOb($params[0]);
-            break;
-
         case 'listMailboxes':
             // Horde_Imap_Client_Mailbox: these calls all have the mailbox as
             // their first parameter.
             $params[0] = IMP_Mailbox::getImapMboxOb($params[0]);
-
-            // Explicitly add 'utf8' parameter so we are returned mailbox
-            // objects, not UTF7-IMAP strings.
-            // TODO: Remove once Horde_Imap_Client 2.0+ is required.
-            if (!isset($params[2])) {
-                $params[2] = array();
-            }
-            $params[2]['utf8'] = true;
-            break;
-
-        case 'listACLRights':
-        case 'setACL':
-            // These are not mailbox parameters, but for Imap_Client 1.x we
-            // need to explicitly force to a Mailbox object so that UTF7-IMAP
-            // auto-detection does not occur.
-            // TODO: Remove once Horde_Imap_Client 2.0+ is required.
-            $params[0] = IMP_Mailbox::getImapMboxOb($params[0]);
-            $params[1] = IMP_Mailbox::getImapMboxOb($params[1]);
             break;
 
         case 'search':
