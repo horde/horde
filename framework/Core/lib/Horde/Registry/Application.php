@@ -54,6 +54,13 @@ class Horde_Registry_Application
     public $version = 'unknown';
 
     /**
+     * Application identifier.
+     *
+     * @var string
+     */
+    protected $_app;
+
+    /**
      * Constructor.
      *
      * Global constants defined:
@@ -63,6 +70,8 @@ class Horde_Registry_Application
      */
     final public function __construct($app)
     {
+        $this->_app = $app;
+
         $appname = Horde_String::upper($app);
         if (!defined($appname . '_TEMPLATES')) {
             define($appname . '_TEMPLATES', $GLOBALS['registry']->get('templates', $app));
