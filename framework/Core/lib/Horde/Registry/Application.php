@@ -88,12 +88,21 @@ class Horde_Registry_Application
     }
 
     /**
-     * Code to run on successful authentication.
+     * Code run on successful authentication.
      */
-    public function authenticated()
+    final public function authenticated()
     {
         $this->updateSessVars();
         $this->_authenticated();
+    }
+
+    /**
+     * Code run when the application is pushed on the stack for the first
+     * time in a page access.
+     */
+    final public function init()
+    {
+        $this->_init();
     }
 
 
@@ -126,7 +135,7 @@ class Horde_Registry_Application
      *
      * @throws Horde_Exception
      */
-    public function init()
+    protected function _init()
     {
     }
 
