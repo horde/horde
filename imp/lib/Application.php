@@ -37,13 +37,6 @@ require_once HORDE_BASE . '/lib/core.php';
 
 class IMP_Application extends Horde_Registry_Application
 {
-    /**
-     */
-    public $features = array(
-        'dynamicView' => true,
-        'minimalView' => true,
-        'smartmobileView' => true
-    );
 
     /**
      */
@@ -53,6 +46,15 @@ class IMP_Application extends Horde_Registry_Application
         'list',
         'remove',
         'transparent'
+    );
+
+    /**
+     */
+    public $features = array(
+        'dynamicView' => true,
+        'minimalView' => true,
+        'notificationHandler' => true,
+        'smartmobileView' => true
     );
 
     /**

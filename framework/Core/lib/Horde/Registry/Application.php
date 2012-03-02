@@ -29,9 +29,12 @@ class Horde_Registry_Application
      * @var array
      */
     public $features = array(
+        // View Handlers
         'dynamicView' => false,
         'minimalView' => false,
-        'smartmobileView' => false
+        'smartmobileView' => false,
+        // Notification Handler
+        'notificationHandler' => false
     );
 
     /**
