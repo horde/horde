@@ -1661,14 +1661,14 @@ class Horde_Registry
     }
 
     /**
-     * Does the given application have an ajax view?
+     * Does the application have the queried feature?
      *
-     * @param integer $view  The view type (VIEW_* constant).
-     * @param string $app    The application to check.
+     * @param string $id   Feature ID.
+     * @param string $app  The application to check (defaults to current app).
      *
-     * @return boolean  Whether app has an ajax view.
+     * @return boolean  True if the application has the feature.
      */
-    public function hasView($view, $app = null)
+    public function hasFeature($view, $app = null)
     {
         if (empty($app)) {
             $app = $this->getApp();
@@ -1680,19 +1680,33 @@ class Horde_Registry
             return false;
         }
 
+        return !empty($api->features[$view]);
+    }
+
+    /**
+     * Does the given application have the queried view?
+     *
+     * @param integer $view  The view type (VIEW_* constant).
+     * @param string $app    The application to check (defaults to current
+     *                       app).
+     *
+     * @return boolean  True if the view is available in the application.
+     */
+    public function hasView($view, $app = null)
+    {
         switch ($view) {
         case VIEW_BASIC:
             // For now, consider all apps to have BASIC view.
             return true;
 
         case VIEW_DYNAMIC:
-            return !empty($api->features['dynamicView']);
+            return $this->hasFeature('dynamicView', $app);
 
         case VIEW_MINIMAL:
-            return !empty($api->features['minimalView']);
+            return $this->hasFeature('minimalView', $app);
 
         case VIEW_SMARTMOBILE:
-            return !empty($api->features['smartmobileView']);
+            return $this->hasFeature('smartmobileView', $app);
         }
     }
 
