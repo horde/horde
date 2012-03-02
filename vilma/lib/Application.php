@@ -44,7 +44,7 @@ class Vilma_Application extends Horde_Registry_Application
     public $driver = null;
     public $curdomain = null;
 
-    public function init()
+    protected function _init()
     {
         $this->driver = Vilma_Driver::factory();
 

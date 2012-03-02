@@ -42,7 +42,7 @@ class Chora_Application extends Horde_Registry_Application
      *   $chora_conf
      *   $sourceroots
      */
-    public function init()
+    protected function _init()
     {
         global $acts, $conf, $defaultActs, $where, $atdir, $fullname, $sourceroot;
 

@@ -39,10 +39,8 @@ class Skeleton_Application extends Horde_Registry_Application
     public $version = 'H5 (0.1-git)';
 
     /**
-     * Global variables defined:
-     * - $variable: List all global variables here.
      */
-    public function init()
+    protected function _bootstrap()
     {
         $GLOBALS['injector']->bindFactory('Skeleton_Driver', 'Skeleton_Factory_Driver', 'create');
     }

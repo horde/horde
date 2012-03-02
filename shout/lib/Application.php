@@ -66,7 +66,7 @@ class Shout_Application extends Horde_Registry_Application
 
     /**
      */
-    public function init()
+    protected function _init()
     {
         try {
             $this->storage = Shout_Driver::factory('storage');

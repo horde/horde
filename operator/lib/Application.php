@@ -48,7 +48,7 @@ class Operator_Application extends Horde_Registry_Application
      * Global variables defined:
      *   $cache - TODO
      */
-    public function init()
+    protected function _init()
     {
         // Operator backend.
         $this->driver = Operator_Driver::factory();

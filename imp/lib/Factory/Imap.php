@@ -28,15 +28,6 @@
 class IMP_Factory_Imap extends Horde_Core_Factory_Base
 {
     /**
-     * Name of the instance used for the initial authentication.
-     * Needed because the session may not be setup yet to indicate the
-     * default instance to use.
-     *
-     * @var string
-     */
-    private $_authInstance;
-
-    /**
      * Instances.
      *
      * @var array
@@ -44,55 +35,42 @@ class IMP_Factory_Imap extends Horde_Core_Factory_Base
     private $_instances = array();
 
     /**
-     * The list of instances to save.
-     *
-     * @var array
-     */
-    private $_save = array();
-
-    /**
      * Return the IMP_Imap:: instance.
      *
-     * @param string $id     The server ID.
-     * @param boolean $save  Save the instance in the session?
+     * @param string $id  The server ID.
      *
      * @return IMP_Imap  The singleton instance.
      * @throws IMP_Exception
      */
-    public function create($id = null, $save = false)
+    public function create($id = null)
     {
         global $session;
 
         if (is_null($id) &&
-            !($id = $session->get('imp', 'server_key')) &&
-            !($id = $this->_authInstance)) {
+            !($id = $session->get('imp', 'server_key'))) {
             $id = 'default';
         }
 
-        if (!isset($this->_instances[$id])) {
-            if (empty($this->_instances)) {
-                register_shutdown_function(array($this, 'shutdown'));
-            }
-
-            if ($ob = $session->get('imp', 'imap_ob/' . $id)) {
-                /* If retrieved from session, we know $save should implcitly
-                 * be true. */
-                $this->_save[] = $id;
-            } else {
-                $ob = new IMP_Imap();
-                $this->_authInstance = $id;
-            }
-
-            $this->_instances[$id] = $ob;
+        if (isset($this->_instances[$id])) {
+            return $this->_instances[$id];
         }
 
-        if ($save) {
-            $this->_save[] = $id;
+        if (empty($this->_instances)) {
+            register_shutdown_function(array($this, 'shutdown'));
+        }
+
+        if (!($ob = $session->get('imp', 'imap_ob/' . $id))) {
+            $ob = new IMP_Imap();
+
             /* Explicitly save object when first creating. Prevents losing
              * authentication information in case a misconfigured server
              * crashes before shutdown operations can occur. */
-            $session->set('imp', 'imap_ob/' . $id, $this->_instances[$id]);
+            if ($id != 'default') {
+                $session->set('imp', 'imap_ob/' . $id, $ob);
+            }
         }
+
+        $this->_instances[$id] = $ob;
 
         return $this->_instances[$id];
     }
@@ -103,9 +81,9 @@ class IMP_Factory_Imap extends Horde_Core_Factory_Base
     public function shutdown()
     {
         if ($GLOBALS['registry']->getAuth() !== false) {
-            foreach (array_unique($this->_save) as $id) {
-                if ($this->_instances[$id]->changed) {
-                    $GLOBALS['session']->set('imp', 'imap_ob/' . $id, $this->_instances[$id]);
+            foreach ($this->_instances as $id => $ob) {
+                if (($id != 'default') && $ob->changed) {
+                    $GLOBALS['session']->set('imp', 'imap_ob/' . $id, $ob);
                 }
             }
         }

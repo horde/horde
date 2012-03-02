@@ -39,7 +39,7 @@ class Beatnik_Application extends Horde_Registry_Application
     public $driver = null;
     public $domains = null;
 
-    public function init()
+    protected function _init()
     {
         $this->driver = Beatnik_Driver::factory();
 

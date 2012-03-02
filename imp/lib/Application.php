@@ -62,13 +62,6 @@ class IMP_Application extends Horde_Registry_Application
     public $version = 'H5 (6.0-git)';
 
     /**
-     * Cached values to add to the session after authentication.
-     *
-     * @var array
-     */
-    protected $_cacheSess = array();
-
-    /**
      * Server key used in logged out session.
      *
      * @var string
@@ -117,19 +110,14 @@ class IMP_Application extends Horde_Registry_Application
 
     /**
      */
-    public function authenticated()
+    protected function _authenticated()
     {
-        foreach ($this->_cacheSess as $key => $val) {
-            $GLOBALS['session']->set('imp', $key, $val);
-        }
-        $this->_cacheSess = array();
-
         IMP_Auth::authenticateCallback();
     }
 
     /**
      */
-    public function init()
+    protected function _init()
     {
         // Set default message character set.
         if ($GLOBALS['registry']->getAuth()) {
@@ -406,8 +394,6 @@ class IMP_Application extends Horde_Registry_Application
      */
     public function authAuthenticate($userId, $credentials)
     {
-        $this->init();
-
         if (isset($credentials['server'])) {
             $server = $credentials['server'];
         } else {
@@ -416,25 +402,19 @@ class IMP_Application extends Horde_Registry_Application
                 : $credentials['imp_server_key'];
         }
 
-        $new_session = IMP_Auth::authenticate(array(
+        $this->_addSessVars(IMP_Auth::authenticate(array(
             'password' => $credentials['password'],
             'server' => $server,
             'userId' => $userId
-        ));
-
-        if ($new_session) {
-            $this->_cacheSess = $new_session;
-        }
+        )));
     }
 
     /**
      */
     public function authTransparent($auth_ob)
     {
-        $this->init();
-
         if ($result = IMP_Auth::transparent($auth_ob)) {
-            $this->_cacheSess = $result;
+            $this->_addSessVars($result);
             return true;
         }
 
@@ -602,7 +582,6 @@ class IMP_Application extends Horde_Registry_Application
      */
     public function changeLanguage()
     {
-        $this->init();
         $this->mailboxesChanged();
     }
 

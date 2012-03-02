@@ -41,13 +41,6 @@
 class IMP_Auth
 {
     /**
-     * Password.
-     *
-     * @var string
-     */
-    static private $_password;
-
-    /**
      * Authenticate to the mail server.
      *
      * @param array $credentials  An array of login credentials. If empty,
@@ -92,7 +85,6 @@ class IMP_Auth
 
             try {
                 $imp_imap->createImapObject($credentials['userId'], $credentials['password'], $credentials['server']);
-                self::$_password = $credentials['password'];
             } catch (IMP_Imap_Exception $e) {
                 self::_logMessage(false, $imp_imap);
                 throw $e->authException();
@@ -351,16 +343,16 @@ class IMP_Auth
      * Perform post-login tasks. Session creation requires the full IMP
      * environment, which is not available until this callback.
      *
-     * @throws Horde_Auth_Exception
+     * @throws Horde_Exception
      */
     static public function authenticateCallback()
     {
-        global $browser, $conf, $injector, $notification, $prefs, $registry, $session;
+        global $browser, $conf, $injector, $prefs, $registry, $session;
 
-        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create(null, true);
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
         $ptr = $imp_imap->loadServerConfig($session->get('imp', 'server_key'));
         if ($ptr === false) {
-            throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
+            throw new Horde_Exception(_("Could not initialize mail server configuration."));
         }
 
         /* Set the maildomain. */
@@ -440,9 +432,6 @@ class IMP_Auth
 
         /* Is the HTML editor available? */
         $session->set('imp', 'rteavail', $injector->getInstance('Horde_Editor')->supportedByBrowser());
-
-        /* Bug #10680: Secret key may have changed between initial login. */
-        $imp_imap->ob->setParam('password', self::$_password);
 
         self::_logMessage(true, $imp_imap);
     }

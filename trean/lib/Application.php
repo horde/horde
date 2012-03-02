@@ -42,7 +42,7 @@ class Trean_Application extends Horde_Registry_Application
      * - $linkTags:      <link> tags for common-header.inc.
      * - $bodyClass:     <body> CSS class for common-header.inc.
      */
-    public function init()
+    protected function _init()
     {
         /* For now, autoloading the Content_* classes depend on there being a
          * registry entry for the 'content' application that contains at least

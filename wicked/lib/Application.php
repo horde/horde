@@ -48,7 +48,7 @@ class Wicked_Application extends Horde_Registry_Application
      * - $wicked:   The Wicked_Driver object.
      * - $linkTags: <link> tags for common-header.inc.
      */
-    public function init()
+    protected function _init()
     {
         $GLOBALS['wicked'] = $GLOBALS['injector']->getInstance('Wicked_Driver');
         $GLOBALS['linkTags'] = array('<link href="' . Horde::url('opensearch.php', true, -1) . '" rel="search" type="application/opensearchdescription+xml" title="' . $GLOBALS['registry']->get('name') . ' (' . Horde::url('', true) . ')" />');

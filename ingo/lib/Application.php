@@ -63,7 +63,7 @@ class Ingo_Application extends Horde_Registry_Application
      *   - all_rulesets
      *   - ingo_shares
      */
-    public function init()
+    protected function _init()
     {
         // Create the session.
         $this->_createSession();
