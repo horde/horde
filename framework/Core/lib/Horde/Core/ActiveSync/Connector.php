@@ -479,10 +479,9 @@ class Horde_Core_ActiveSync_Connector
             $query = new Horde_Imap_Client_Fetch_Query();
 
             // Get deleted.
-            $deleted = $imap->fetch($mbox, $query, array(
-                'changedsince' => $folder->modseq(),
-                'vanished' => true));
-            $folder->setRemoved(array_keys($deleted));
+            $deleted = $imap->vanished($mbox, $folder->modseq());
+            $folder->setRemoved($deleted->ids);
+
         } elseif ($folder->modseq() == 0) {
             // This is either an initial priming or we don't support QRESYNC
             // Either way, we need the full message uid list.
@@ -701,20 +700,22 @@ class Horde_Core_ActiveSync_Connector
         $message->bodytruncated = isset($options['truncation']) ? 1 : 0;
 
         // Parse To: header
-        $to = $envelope->to_decoded;
+        $to = $envelope->to->addresses;
         $tos = array();
         foreach ($to as $r) {
-            $tos[] = Horde_Mime_Address::writeAddress($r['mailbox'], $r['host'], $r['personal']);
-            $dtos[] = $to['personal'];
+            $a = new Horde_Mail_Rfc822_Address($r);
+            $tos[] = $a->writeAddress(true);
+            $dtos[] = $a->personal;
         }
         $message->to = implode(',', $tos);
         $message->displayto = implode(',', $dtos);
 
         // Parse From: header
-        $from = array_pop($envelope->from_decoded);
-        $message->from = Horde_Mime_Address::writeAddress($from['mailbox'], $from['host'], $from['personal']);
+        $from = array_pop($envelope->from->addresses);
+        $a = new Horde_Mail_Rfc822_Address($from);
+        $message->from = $a->writeAddress(true);
 
-        $message->subject = $envelope->subject_decoded;
+        $message->subject = $envelope->subject;
         $message->datereceived = new Horde_Date((string)$envelope->date);
 
 
