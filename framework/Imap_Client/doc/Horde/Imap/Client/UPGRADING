@@ -156,8 +156,7 @@ The cclient drivers have been removed.
 
   - Horde_Imap_Client_Data_Envelope
 
-    Address entries are now returned as a list of Horde_Mail_Rfc822_Object
-    objects.
+    Address entries are now returned as a Horde_Mail_Rfc822_List object.
 
     The following properties have been removed:
       - bcc_decoded
