@@ -68,6 +68,19 @@ class Horde_Vfs_Test_Base extends Horde_Test_Case
         $this->assertFileEquals(__FILE__, self::$vfs->readFile('test/dir3', 'file2', __FILE__));
     }
 
+    protected function _readByteRange()
+    {
+        $offset = 1;
+        $this->assertEquals('on', self::$vfs->readByteRange('test', 'file1', $offset, 2, $remain));
+        $this->assertEquals(3, $offset);
+        $this->assertEquals(5, $remain);
+        $offset++;
+        $this->assertEquals('en', self::$vfs->readByteRange('test', 'file1', $offset, 2, $remain));
+        $this->assertEquals(6, $offset);
+        $this->assertEquals(2, $remain);
+        $this->assertEquals('t1', self::$vfs->readByteRange('test', 'file1', $offset, -1, $remain));
+    }
+
     protected function _size()
     {
         $this->assertEquals(8, self::$vfs->size('test', 'file1'));
