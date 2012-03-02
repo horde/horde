@@ -89,24 +89,23 @@ abstract class Horde_Core_Ajax_Application
     /**
      * Performs the AJAX action.
      *
-     * @return mixed  The result of the action call. (DEPRECATED; access
-     *                results via $this->data instead).
      * @throws Horde_Exception
      */
     public function doAction()
     {
         if (!$this->_action) {
-            return false;
+            return;
         }
 
         if (method_exists($this, $this->_action)) {
             $this->data = call_user_func(array($this, $this->_action));
-            return $this->data;
+            return;
         }
 
         /* Look for hook in application. */
         try {
-            return Horde::callHook('ajaxaction', array($this->_action, $this->_vars), $this->_app);
+            $this->data = Horde::callHook('ajaxaction', array($this->_action, $this->_vars), $this->_app);
+            return;
         } catch (Horde_Exception $e) {}
 
         throw new Horde_Exception('Handler for action "' . $this->_action . '" does not exist.');
@@ -114,8 +113,6 @@ abstract class Horde_Core_Ajax_Application
 
     /**
      * Determines the HTTP response output type.
-     *
-     * @see Horde::sendHTTPResponse().
      *
      * @return string  The output type.
      */
