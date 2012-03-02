@@ -92,7 +92,7 @@ class Horde_Mail_Rfc822_Address extends Horde_Mail_Rfc822_Object
 
         case 'personal':
             $this->_personal = strlen($value)
-                ? Horde_Mime::decode($value, 'UTF-8')
+                ? Horde_Mime::decode($value)
                 : null;
             break;
         }

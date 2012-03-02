@@ -323,7 +323,7 @@ class Horde_Mime_Headers implements Serializable
                 $rfc822 = new Horde_Mail_Rfc822();
                 $value = Horde_String::convertCharset(strval($rfc822->parseAddressList($value)), 'UTF-8', empty($options['charset']) ? 'UTF-8' : $options['charset']);
             } else {
-                $value = Horde_Mime::decode($value, empty($options['charset']) ? 'UTF-8' : $options['charset']);
+                $value = Horde_Mime::decode($value);
             }
         }
 

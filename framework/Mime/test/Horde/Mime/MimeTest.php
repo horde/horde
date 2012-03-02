@@ -90,13 +90,13 @@ class Horde_Mime_MimeTest extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals(
             ' François Xavier. XXXXXX  <foo@example.com>',
-            Horde_Mime::decode('=?utf-8?Q?_Fran=C3=A7ois_Xavier=2E_XXXXXX_?= <foo@example.com>', 'UTF-8')
+            Horde_Mime::decode('=?utf-8?Q?_Fran=C3=A7ois_Xavier=2E_XXXXXX_?= <foo@example.com>')
         );
 
         /* Not MIME encoded. */
         $this->assertEquals(
             '=? required=?',
-            Horde_Mime::decode('=? required=?', 'UTF-8')
+            Horde_Mime::decode('=? required=?')
         );
     }
 

@@ -183,7 +183,7 @@ class Horde_Mime
     /**
      * Encodes a line via quoted-printable encoding.
      *
-     * @param string $text   The text to encode.
+     * @param string $text   The text to encode (UTF-8).
      * @param string $eol    The EOL sequence to use.
      * @param integer $wrap  Wrap a line at this many characters.
      *
@@ -192,8 +192,8 @@ class Horde_Mime
     static public function quotedPrintableEncode($text, $eol = self::EOL,
                                                  $wrap = 76)
     {
-        $output = '';
         $curr_length = 0;
+        $output = '';
 
         /* We need to go character by character through the data. */
         for ($i = 0, $length = strlen($text); $i < $length; ++$i) {
@@ -235,15 +235,13 @@ class Horde_Mime
     }
 
     /**
-     * Decodes an RFC 2047-encoded string.
+     * Decodes a MIME encoded (RFC 2047) string.
      *
-     * @param string $string      The text to decode.
-     * @param string $to_charset  The charset that the text should be decoded
-     *                            to.
+     * @param string $string  The MIME encoded text.
      *
      * @return string  The decoded text.
      */
-    static public function decode($string, $to_charset)
+    static public function decode($string)
     {
         /* Take out any spaces between multiple encoded words. */
         $string = preg_replace('|\?=\s+=\?|', '?==?', $string);
@@ -286,7 +284,7 @@ class Horde_Mime
                 $out .= Horde_String::convertCharset(
                     preg_replace('/=([0-9a-f]{2})/ie', 'chr(0x\1)', str_replace('_', ' ', $encoded_text)),
                     $orig_charset,
-                    $to_charset
+                    'UTF-8'
                 );
             break;
 
@@ -295,7 +293,7 @@ class Horde_Mime
                 $out .= Horde_String::convertCharset(
                     base64_decode($encoded_text),
                     $orig_charset,
-                    $to_charset
+                    'UTF-8'
                 );
             break;
 

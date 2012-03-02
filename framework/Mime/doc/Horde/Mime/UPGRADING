@@ -20,6 +20,10 @@ Upgrading to 2.0
     Equivalent functionality can now be found in the Horde_Mail package
     (version 2.0.0+).
 
+    - decode()
+
+      Removed the second parameter ($to_charset). Output is now in UTF-8.
+
     - encode()
 
       The first parameter ($text) now requires a UTF-8 string.

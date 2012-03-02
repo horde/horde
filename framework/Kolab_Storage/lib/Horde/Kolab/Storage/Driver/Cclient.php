@@ -844,7 +844,7 @@ extends Horde_Kolab_Storage_Driver_Base
                 $ob->setContentId($data->id);
             }
             if ($data->ifdescription) {
-                $ob->setDescription(Horde_Mime::decode($data->description, 'UTF-8'));
+                $ob->setDescription(Horde_Mime::decode($data->description));
             }
 
             $ob->setTransferEncoding($this->_mimeEncodings[$data->encoding]);

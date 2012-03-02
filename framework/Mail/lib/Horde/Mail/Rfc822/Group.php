@@ -74,7 +74,7 @@ class Horde_Mail_Rfc822_Group extends Horde_Mail_Rfc822_Object
     {
         switch ($name) {
         case 'groupname':
-            $this->_groupname = Horde_Mime::decode($value, 'UTF-8');
+            $this->_groupname = Horde_Mime::decode($value);
             break;
         }
     }

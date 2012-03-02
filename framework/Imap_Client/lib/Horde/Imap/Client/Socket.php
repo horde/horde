@@ -2902,7 +2902,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
 
             if (($tmp = $this->_getString($data[4], true)) !== null) {
-                $ob->setDescription(Horde_Mime::decode($tmp, 'UTF-8'));
+                $ob->setDescription(Horde_Mime::decode($tmp));
             }
 
             if (($tmp = $this->_getString($data[5], true)) !== null) {
