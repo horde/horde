@@ -79,11 +79,11 @@ class Horde_Mime_MimeTest extends PHPUnit_Framework_TestCase
         );
 
         Horde_Mime::$brokenRFC2231 = true;
-        $this->assertEquals(Horde_Mime::encodeParam($pname, $str, 'UTF-8'), $expected);
+        $this->assertEquals(Horde_Mime::encodeParam($pname, $str), $expected);
 
         Horde_Mime::$brokenRFC2231 = false;
         unset($expected['test']);
-        $this->assertEquals(Horde_Mime::encodeParam($pname, $str, 'UTF-8'), $expected);
+        $this->assertEquals(Horde_Mime::encodeParam($pname, $str), $expected);
     }
 
     public function testDecode()

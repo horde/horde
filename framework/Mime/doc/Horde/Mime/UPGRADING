@@ -30,6 +30,11 @@ Upgrading to 2.0
       The second parameter ($charset) is now optional and indicates the
       charset to MIME encode to.
 
+    - encodeParam()
+
+      The third parameter ($charset) has been removed and moved to the options.
+      By default, the string is encoded in UTF-8.
+
   - Horde_Mime_Address
 
     This class has been removed. Equivalent functionality can now be found

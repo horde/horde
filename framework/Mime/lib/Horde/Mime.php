@@ -312,22 +312,29 @@ class Horde_Mime
      * (Content-Type and Content-Disposition headers).
      *
      * @param string $name     The parameter name.
-     * @param string $val      The parameter value.
-     * @param string $charset  The charset the text should be encoded with.
+     * @param string $val      The parameter value (UTF-8).
      * @param array $opts      Additional options:
+     *   - charset: (string) The charset to encode to.
+     *              DEFAULT: UTF-8
      *   - escape: (boolean) If true, escape param values as described in
      *             RFC 2045 [Appendix A].
      *             DEFAULT: false
      *   - lang: (string) The language to use when encoding.
      *           DEFAULT: None specified
      *
-     * @return array  The encoded parameter string.
+     * @return array  The encoded parameter string (US-ASCII).
      */
-    static public function encodeParam($name, $val, $charset, $opts = array())
+    static public function encodeParam($name, $val, array $opts = array())
     {
+        $curr = 0;
         $encode = $wrap = false;
         $output = array();
-        $curr = 0;
+
+        $charset = isset($opts['charset'])
+            ? $opts['charset']
+            : 'UTF-8';
+
+        $val = Horde_String::convertCharset($val, 'UTF-8', $charset);
 
         // 2 = '=', ';'
         $pre_len = strlen($name) + 2;

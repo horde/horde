@@ -106,7 +106,7 @@ class Horde_Mime_Headers implements Serializable
                     /* MIME encoded headers (RFC 2231). */
                     $text = $val[$key];
                     foreach ($ob['p'] as $name => $param) {
-                        foreach (Horde_Mime::encodeParam($name, Horde_String::convertCharset($param, 'UTF-8', $charset), $charset, array('escape' => true)) as $name2 => $param2) {
+                        foreach (Horde_Mime::encodeParam($name, $param, array('charset' => $charset, 'escape' => true)) as $name2 => $param2) {
                             $text .= '; ' . $name2 . '=' . $param2;
                         }
                     }
@@ -684,7 +684,7 @@ class Horde_Mime_Headers implements Serializable
                     $res = Horde_Mime::decodeParam($header, $tmp, 'UTF-8');
                     $data = $res['val'];
                     foreach ($res['params'] as $name => $param) {
-                        foreach (Horde_Mime::encodeParam($name, $param, 'UTF-8', array('escape' => true)) as $name2 => $param2) {
+                        foreach (Horde_Mime::encodeParam($name, $param, array('escape' => true)) as $name2 => $param2) {
                             $data .= '; ' . $name2 . '=' . $param2;
                         }
                     }
