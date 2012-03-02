@@ -76,19 +76,6 @@ class IMP_Application extends Horde_Registry_Application
     protected $_oldserver = null;
 
     /**
-     * Constructor.
-     */
-    public function __construct()
-    {
-        /* Methods only available if admin config is set for this
-         * server/login. */
-        if (!isset($GLOBALS['session']) ||
-            !$GLOBALS['session']->get('imp', 'imap_admin')) {
-            $this->auth = array_diff($this->auth, array('add', 'list', 'remove'));
-        }
-    }
-
-    /**
      */
     public function appInitFailure($e)
     {
@@ -100,7 +87,7 @@ class IMP_Application extends Horde_Registry_Application
 
     /**
      */
-    protected function _init()
+    protected function _bootstrap()
     {
         /* Add IMP-specific factories. */
         $factories = array(
@@ -120,6 +107,30 @@ class IMP_Application extends Horde_Registry_Application
             $GLOBALS['injector']->bindFactory($key, $val, 'create');
         }
 
+        /* Methods only available if admin config is set for this
+         * server/login. */
+        if (!isset($GLOBALS['session']) ||
+            !$GLOBALS['session']->get('imp', 'imap_admin')) {
+            $this->auth = array_diff($this->auth, array('add', 'list', 'remove'));
+        }
+    }
+
+    /**
+     */
+    public function authenticated()
+    {
+        foreach ($this->_cacheSess as $key => $val) {
+            $GLOBALS['session']->set('imp', $key, $val);
+        }
+        $this->_cacheSess = array();
+
+        IMP_Auth::authenticateCallback();
+    }
+
+    /**
+     */
+    public function init()
+    {
         // Set default message character set.
         if ($GLOBALS['registry']->getAuth()) {
             if ($def_charset = $GLOBALS['prefs']->getValue('default_msg_charset')) {
@@ -428,22 +439,6 @@ class IMP_Application extends Horde_Registry_Application
         }
 
         return false;
-    }
-
-    /**
-     */
-    public function authAuthenticateCallback()
-    {
-        if ($GLOBALS['registry']->getAuth()) {
-            $this->init();
-
-            foreach ($this->_cacheSess as $key => $val) {
-                $GLOBALS['session']->set('imp', $key, $val);
-            }
-            $this->_cacheSess = array();
-
-            IMP_Auth::authenticateCallback();
-        }
     }
 
     /**

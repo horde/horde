@@ -39,7 +39,7 @@ class Klutz_Application extends Horde_Registry_Application
     /**
      * Global variables defined:
      */
-    protected function _init()
+    public function init()
     {
         $GLOBALS['registry']->setTimeZone();
 

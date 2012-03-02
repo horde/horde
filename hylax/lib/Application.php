@@ -38,7 +38,7 @@ class Hylax_Application extends Horde_Registry_Application
     public $gateway = null;
     public $storage = null;
 
-    protected function _init()
+    public function init()
     {
         /* Hylax Driver */
         $this->gateway = Hylax_Driver::singleton($conf['fax']['driver'],

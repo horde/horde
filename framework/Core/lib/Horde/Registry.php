@@ -85,6 +85,13 @@ class Horde_Registry
     protected $_appsinit = array();
 
     /**
+     * The list of applications initialized during this access.
+     *
+     * @var array
+     */
+    protected $_hookinit = array();
+
+    /**
      * The arguments that have been passed when instantiating the registry.
      *
      * @var array
@@ -132,7 +139,6 @@ class Horde_Registry
      * from application without an active Horde_Registry object.
      *
      * Page compression will be started (if configured).
-     * init() will be called after the initialization is completed.
      *
      * Global variables defined:
      *   $browser - Horde_Browser object
@@ -186,9 +192,7 @@ class Horde_Registry
     static public function appInit($app, $args = array())
     {
         if (isset($GLOBALS['registry'])) {
-            $appOb = $GLOBALS['registry']->getApiInstance($app, 'application');
-            $appOb->init();
-            return $appOb;
+            return $GLOBALS['registry']->getApiInstance($app, 'application');
         }
 
         $args = array_merge(array(
@@ -277,8 +281,6 @@ class Horde_Registry
             }
             $registry->setAuth(reset($GLOBALS['conf']['auth']['admins']), array());
         }
-
-        $appob->init();
 
         return $appob;
     }
@@ -805,7 +807,9 @@ class Horde_Registry
             throw new Horde_Exception("$app does not have an API");
         }
 
-        $this->_obCache[$app][$type] = new $classname();
+        $this->_obCache[$app][$type] = ($type == 'application')
+            ? new $classname($app)
+            : new $classname();
 
         return $this->_obCache[$app][$type];
     }
@@ -1280,8 +1284,6 @@ class Horde_Registry
      *                 ONLY be disabled by system scripts (cron jobs, etc.)
      *                 and scripts that handle login.
      *                 DEFAULT: true
-     * 'noinit' - (boolean) Do not init the application.
-     *            DEFAULT: false
      * 'logintasks' - (boolean) Perform login tasks? Only performed if
      *                'check_perms' is also true. System tasks are always
      *                peformed if the user is authorized.
@@ -1350,6 +1352,17 @@ class Horde_Registry
             }
         }
 
+        /* Call pre-push hook. */
+        if (Horde::hookExists('pushapp', $app)) {
+            try {
+                Horde::callHook('pushapp', array(), $app);
+            } catch (Horde_Exception $e) {
+                $e->setCode(self::HOOK_FATAL);
+                $this->popApp();
+                throw $e;
+            }
+        }
+
         /* Push application on the stack. */
         $this->_appStack[] = $app;
 
@@ -1370,35 +1383,25 @@ class Horde_Registry
             $this->setLanguageEnvironment(null, $app);
         }
 
-        /* Call first initialization hook. */
-        if (isset($this->_appsinit[$app])) {
-            unset($this->_appsinit[$app]);
-            try {
-                Horde::callHook('appinitialized', array(), $app);
-            } catch (Horde_Exception_HookNotSet $e) {}
-        }
-
-        /* Call pre-push hook. */
-        if (Horde::hookExists('pushapp', $app)) {
-            try {
-                Horde::callHook('pushapp', array(), $app);
-            } catch (Horde_Exception $e) {
-                $e->setCode(self::HOOK_FATAL);
-                $this->popApp();
-                throw $e;
-            }
-        }
-
         /* Initialize application. */
-        if ($checkPerms || empty($options['noinit'])) {
+        if (!isset($this->_appsinit[$app])) {
             try {
                 $this->callAppMethod($app, 'init');
+                $this->_appsinit[$app] = true;
             } catch (Horde_Exception $e) {
                 $this->popApp();
                 $this->applications[$app]['status'] = 'inactive';
                 Horde::logMessage($e);
                 throw $e;
             }
+        }
+
+        /* Call first initialization hook. */
+        if (isset($this->_hookinit[$app])) {
+            unset($this->_hookinit[$app]);
+            try {
+                Horde::callHook('appinitialized', array(), $app);
+            } catch (Horde_Exception_HookNotSet $e) {}
         }
 
         /* Call post-push hook. */
@@ -2304,7 +2307,7 @@ class Horde_Registry
             ? 'horde'
             : $options['app'];
 
-        $this->_appsinit[$app] = true;
+        $this->_hookinit[$app] = true;
 
         if ($this->getAuth() == $authId) {
             /* Store app credentials - base Horde session already exists. */
@@ -2332,7 +2335,7 @@ class Horde_Registry
         $injector->getInstance('Horde_Core_Factory_Prefs')->clearCache();
         $this->loadPrefs();
 
-        unset($this->_appsinit['horde']);
+        unset($this->_hookinit['horde']);
         try {
             Horde::callHook('appinitialized', array(), 'horde');
         } catch (Horde_Exception_HookNotSet $e) {}

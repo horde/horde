@@ -66,12 +66,27 @@ class Gollem_Application extends Horde_Registry_Application
      */
     protected $_oldbackend = null;
 
-    /**
-     */
-    protected function _init()
+    protected function _bootstrap()
     {
         $GLOBALS['injector']->bindFactory('Gollem_Vfs', 'Gollem_Factory_VfsDefault', 'create');
+    }
 
+    /**
+     * Does necessary authentication tasks reliant on a full app environment.
+     *
+     * @throws Horde_Auth_Exception
+     */
+    public function authenticated()
+    {
+        foreach ($this->_cacheSess as $key => $val) {
+            $GLOBALS['session']->set('gollem', $key, $val);
+        }
+    }
+
+    /**
+     */
+    public function init()
+    {
         if ($backend_key = $GLOBALS['session']->get('gollem', 'backend_key')) {
             Gollem_Auth::changeBackend($backend_key);
         }
@@ -177,23 +192,6 @@ class Gollem_Application extends Horde_Registry_Application
         }
 
         return false;
-    }
-
-    /**
-     * Does necessary authentication tasks reliant on a full app environment.
-     *
-     * @throws Horde_Auth_Exception
-     */
-    public function authAuthenticateCallback()
-    {
-        if ($GLOBALS['registry']->getAuth()) {
-            $this->init();
-
-            foreach ($this->_cacheSess as $key => $val) {
-                $GLOBALS['session']->set('gollem', $key, $val);
-            }
-            $this->_cacheSess = array();
-        }
     }
 
     /**

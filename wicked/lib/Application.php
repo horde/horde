@@ -38,14 +38,18 @@ class Wicked_Application extends Horde_Registry_Application
      */
     public $version = 'H5 (2.0-git)';
 
+    protected function _bootstrap()
+    {
+        $GLOBALS['injector']->bindFactory('Wicked_Driver', 'Wicked_Factory_Driver', 'create');
+    }
+
     /**
      * Global variables defined:
      * - $wicked:   The Wicked_Driver object.
      * - $linkTags: <link> tags for common-header.inc.
      */
-    protected function _init()
+    public function init()
     {
-        $GLOBALS['injector']->bindFactory('Wicked_Driver', 'Wicked_Factory_Driver', 'create');
         $GLOBALS['wicked'] = $GLOBALS['injector']->getInstance('Wicked_Driver');
         $GLOBALS['linkTags'] = array('<link href="' . Horde::url('opensearch.php', true, -1) . '" rel="search" type="application/opensearchdescription+xml" title="' . $GLOBALS['registry']->get('name') . ' (' . Horde::url('', true) . ')" />');
     }

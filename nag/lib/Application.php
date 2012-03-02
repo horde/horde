@@ -46,7 +46,7 @@ class Nag_Application extends Horde_Registry_Application
      * Global variables defined:
      *   $nag_shares - TODO
      */
-    protected function _init()
+    public function init()
     {
         // Set the timezone variable.
         $GLOBALS['registry']->setTimeZone();

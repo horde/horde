@@ -40,7 +40,7 @@ class Sam_Application extends Horde_Registry_Application
 
     /**
      */
-    protected function _init()
+    protected function _bootstrap()
     {
         $GLOBALS['injector']->bindFactory('Sam_Driver', 'Sam_Factory_Driver', 'create');
     }

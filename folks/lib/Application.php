@@ -29,7 +29,7 @@ class Folks_Application extends Horde_Registry_Application
      * Global variables defined:
      * - $linkTags: <link> tags for common-header.inc.
      */
-    protected function _init()
+    public function init()
     {
         $links = array(Folks::getUrlFor('feed', 'online') => _("Online users"));
         if ($GLOBALS['registry']->isAuthenticated()) {

@@ -50,7 +50,7 @@ class Turba_Application extends Horde_Registry_Application
      *   $cfgSources   - TODO
      *   $copymoveSources - TODO
      */
-    protected function _init()
+    public function init()
     {
         /* Add IMP-specific factories. */
         $factories = array(

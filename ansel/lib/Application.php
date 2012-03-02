@@ -40,7 +40,7 @@ class Ansel_Application extends Horde_Registry_Application
      *   $ansel_db - TODO  remove this global. Only place left that uses it
      *               are the face objects.
      */
-    protected function _init()
+    public function init()
     {
         if (!$GLOBALS['conf']['image']['driver']) {
             throw new Horde_Exception('You must configure a Horde_Image driver to use Ansel');

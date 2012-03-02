@@ -43,7 +43,7 @@ class Hermes_Application extends Horde_Registry_Application
 
     /**
      */
-    protected function _init()
+    protected function _bootstrap()
     {
         $GLOBALS['injector']->bindFactory('Hermes_Driver', 'Hermes_Factory_Driver', 'create');
     }
