@@ -269,7 +269,7 @@ class Horde_Block_Weather extends Horde_Core_Block
                  if ($which > $this->_params['days']) {
                      break;
                  }
-                 $html .= '<tr class="item0">';
+                 $html .= '<tr class="rowEven">';
 
                  // Day name.
                  $html .= '<td><strong>';

@@ -37,7 +37,7 @@ if ($gallery->countImages()) {
 
         $count++;
         if (($count % 2) == 0) {
-            echo '</tr><tr class="' . (($count % 4 == 0) ? 'text' : 'item0') . '">';
+            echo '</tr><tr class="' . (($count % 4 == 0) ? 'text' : 'rowEven') . '">';
         }
     }
 
@@ -47,7 +47,7 @@ if ($gallery->countImages()) {
         echo '<td>&nbsp;</td><td>&nbsp;</td>';
     }
 
-    echo '</tr><tr class="' . (($count % 4 == 0) ? 'text' : 'item0') . '"><td align="center" colspan="4"><input type="submit" value="' . _("Save Captions") . '" class="button" /></tr></table>';
+    echo '</tr><tr class="' . (($count % 4 == 0) ? 'text' : 'rowEven') . '"><td align="center" colspan="4"><input type="submit" value="' . _("Save Captions") . '" class="button" /></tr></table>';
 } else {
     echo '<em>' . _("There are no photos in this gallery.") . '</em>';
 } ?>

@@ -227,11 +227,11 @@ table.horde-table th.sortdown {
     background: #bbcbff url("graphics/az.png") center left no-repeat;
     padding-left: 10px;
 }
-/* Alternating styles. item0, item1 are deprecated. */
-.striped, .rowEven, .item0 {
+/* Alternating styles. */
+.striped, .rowEven {
     background-color: #eee;
 }
-.rowOdd, .item1 {
+.rowOdd {
     background-color: #ddd;
 }
 
@@ -1562,7 +1562,7 @@ span.loadingImg {
         border: none;
     }
 
-    .control, .rowEven, .rowOdd, .item0, .item1 {
+    .control, .rowEven, .rowOdd {
         background-color: #fff;
         border-bottom: thin solid #000;
     }

@@ -73,11 +73,11 @@ input:focus, textarea:focus {
     background: #339;
 }
 
-/* Alternating styles. item0, item1 are deprecated. */
-.rowEven, .item0 {
+/* Alternating styles. */
+.rowEven {
     background-color: #eef;
 }
-.rowOdd, .item1 {
+.rowOdd {
     background-color: #fff;
 }
 
