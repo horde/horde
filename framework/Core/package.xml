@@ -42,7 +42,6 @@
  <notes>
 * [mms] Added Horde_Core_Ajax_Imple_ContactAutoCompleter.
 * [mjr] Use local member storage when no session is available (Bug # 9733).
-* [mms] Add Horde_Registry#appMethodDefined().
 * [mms] Added AJAX core features.
 * [mms] Added view determination to Horde_Registry.
 * [mms] Performance improvements when initializing Alarm system.
