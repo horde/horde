@@ -26,16 +26,16 @@
  <date>2012-01-31</date>
  <time>11:25:07</time>
  <version>
-  <release>1.4.9</release>
-  <api>1.4.0</api>
+  <release>2.0.0</release>
+  <api>2.0.0</api>
  </version>
  <stability>
-  <release>stable</release>
-  <api>stable</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Removed charset parameter for Imap and Cyrsql drivers.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -662,19 +662,6 @@
    <notes>
 * [jan] Add optimized exists() implementation to LDAP driver (Marco Ferrante &lt;marco@csita.unige.it&gt;, Request #10944).
 * [jan] Add Spanish translation (Manuel P. Ayala &lt;mayala@unex.es&gt;).
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>1.4.9</release>
-    <api>1.4.0</api></version>
-   <stability>
-    <release>stable</release>
-    <api>stable</api></stability>
-   <date>2012-01-31</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
-   <notes>
-* 
    </notes>
   </release>
  </changelog>
