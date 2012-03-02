@@ -17,3 +17,8 @@ Upgrading to 2.0
   - Horde_Vfs_Browser, Horde_Vfs_ListItem, Horde_Vfs_Object
 
     These classes have been removed.
+
+  - Horde_Vfs_Base#getFolderSize()
+
+    The $name argument has been removed, specify the full path with the first
+    argument instead.

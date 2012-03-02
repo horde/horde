@@ -83,15 +83,14 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
     }
 
     /**
-     * Returns the size of a file.
+     * Returns the size of a folder.
      *
-     * @param string $path  The path of the file.
-     * @param string $name  The filename.
+     * @param string $path  The path of the folder.
      *
      * @return integer  The size of the folder in bytes.
      * @throws Horde_Vfs_Exception
      */
-    public function getFolderSize($path = null, $name = null)
+    public function getFolderSize($path = null)
     {
         try {
             $where = null;

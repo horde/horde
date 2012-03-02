@@ -134,15 +134,14 @@ abstract class Horde_Vfs_Base
     }
 
     /**
-     * Returns the size of a folder
+     * Returns the size of a folder.
      *
-     * @param string $path  The path to the folder.
-     * @param string $name  The name of the folder.
+     * @param string $path  The path of the folder.
      *
      * @return integer  The size of the folder, in bytes.
      * @throws Horde_Vfs_Exception
      */
-    public function getFolderSize($path = null, $name = null)
+    public function getFolderSize($path = null)
     {
         $size = 0;
         $root = (!is_null($path) ? $path . '/' : '') . $name;
@@ -150,7 +149,7 @@ abstract class Horde_Vfs_Base
 
         foreach ($object_list as $key => $val) {
             $size += isset($val['subdirs'])
-                ? $this->getFolderSize($root, $key)
+                ? $this->getFolderSize($root . '/' . $key)
                 : $this->size($root, $key);
         }
 
