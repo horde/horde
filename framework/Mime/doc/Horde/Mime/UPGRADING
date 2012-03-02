@@ -51,3 +51,17 @@ Upgrading to 2.0
 
     This class has been removed. Equivalent functionality can now be found
     in the Horde_Mail class.
+
+  - Horde_Mime_Headers
+
+    - addHeader()
+
+      Removed the 'charset' and 'decode' parameters.
+
+    - replaceHeader()
+
+      Removed the 'charset' and 'decode' parameters.
+
+    - setValue()
+
+      This method has been removed.

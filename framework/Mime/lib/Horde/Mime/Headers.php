@@ -15,7 +15,7 @@
 class Horde_Mime_Headers implements Serializable
 {
     /* Serialized version. */
-    const VERSION = 1;
+    const VERSION = 2;
 
     /* Constants for getValue(). */
     const VALUE_STRING = 1;
@@ -291,12 +291,8 @@ class Horde_Mime_Headers implements Serializable
      * Add a header to the header array.
      *
      * @param string $header  The header name.
-     * @param string $value   The header value.
+     * @param string $value   The header value (UTF-8).
      * @param array $options  Additional options:
-     *   - charset: (string) Charset of the header value.
-     *              DEFAULT: UTF-8
-     *   - decode: (boolean) MIME decode the value?
-     *             DEFAULT: false
      *   - params: (array) MIME parameters for Content-Type or
      *             Content-Disposition.
      *             DEFAULT: None
@@ -313,18 +309,12 @@ class Horde_Mime_Headers implements Serializable
         }
         $ptr = &$this->_headers[$lcHeader];
 
-        if (empty($options['decode'])) {
-            if (!empty($options['charset'])) {
-                $value = Horde_String::convertCharset($value, $options['charset'], 'UTF-8');
-            }
+        // Fields defined in RFC 2822 that contain address information
+        if (in_array($lcHeader, $this->addressFields())) {
+            $rfc822 = new Horde_Mail_Rfc822();
+            $value = strval($rfc822->parseAddressList($value));
         } else {
-            // Fields defined in RFC 2822 that contain address information
-            if (in_array($lcHeader, $this->addressFields())) {
-                $rfc822 = new Horde_Mail_Rfc822();
-                $value = Horde_String::convertCharset(strval($rfc822->parseAddressList($value)), 'UTF-8', empty($options['charset']) ? 'UTF-8' : $options['charset']);
-            } else {
-                $value = Horde_Mime::decode($value);
-            }
+            $value = Horde_Mime::decode($value);
         }
 
         if (isset($ptr['v'])) {
@@ -357,42 +347,14 @@ class Horde_Mime_Headers implements Serializable
      * @param string $header  The header name.
      * @param string $value   The header value.
      * @param array $options  Additional options:
-     *   - charset: (string) Charset of the header value.
-     *              DEFAULT: UTF-8
-     *   - decode: (boolean) MIME decode the value?
-     *             DEFAULT: false
      *   - params: (array) MIME parameters for Content-Type or
      *             Content-Disposition.
      *             DEFAULT: None
      */
-    public function replaceHeader($header, $value, $options = array())
+    public function replaceHeader($header, $value, array $options = array())
     {
         $this->removeHeader($header);
         $this->addHeader($header, $value, $options);
-    }
-
-    /**
-     * Set a value for a particular header ONLY if that header is set.
-     *
-     * @param string $header  The header name.
-     * @param string $value   The header value.
-     * @param array $options  Additional options:
-     *   - charset: (string) Charset of the header value.
-     *              DEFAULT: UTF-8
-     *   - decode: (boolean) MIME decode the value?
-     *   - params: (array) MIME parameters for Content-Type or
-     *             Content-Disposition.
-     *
-     * @return boolean  True if value was set.
-     */
-    public function setValue($header, $value, $options = array())
-    {
-        if (isset($this->_headers[Horde_String::lower($header)])) {
-            $this->addHeader($header, $value, $options);
-            return true;
-        }
-
-        return false;
     }
 
     /**
