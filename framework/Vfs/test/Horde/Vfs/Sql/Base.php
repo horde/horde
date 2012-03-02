@@ -159,12 +159,19 @@ class Horde_Vfs_Test_Sql_Base extends Horde_Vfs_Test_Base
     }
 
     /**
-     * @depends testWrite
-     * @depends testWriteData
+     * @depends testQuota
      */
     public function testListFolder()
     {
         $this->_listFolder();
+    }
+
+    /**
+     * @depends testQuota
+     */
+    public function testListFolders()
+    {
+        $this->_listFolders();
     }
 
     public static function setUpBeforeClass()

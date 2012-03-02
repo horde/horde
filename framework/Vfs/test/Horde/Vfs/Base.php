@@ -17,6 +17,11 @@ class Horde_Vfs_Test_Base extends Horde_Test_Case
 {
     protected static $vfs;
 
+    public static function tearDownAfterClass()
+    {
+        self::$vfs = null;
+    }
+
     protected function _listEmpty()
     {
         $this->assertEquals(array(), self::$vfs->listFolder(''));
@@ -261,9 +266,9 @@ class Horde_Vfs_Test_Base extends Horde_Test_Case
         self::$vfs->copy('test/dir1', 'file1', 'test/dir2');
         self::$vfs->copy('test/dir1', 'file2', 'test/dir2');
         self::$vfs->createFolder('test/dir2', 'dir2_1');
-        $content = array_keys(self::$vfs->listFolder('test/dir2'));
-        sort($content);
-        $this->assertEquals(array('dir2_1', 'file1', 'file2'), $content);
+        $this->assertEquals(
+            array('dir2_1', 'file1', 'file2'),
+            array_keys($this->_sort(self::$vfs->listFolder('test/dir2'))));
         self::$vfs->emptyFolder('test/dir2');
         $this->assertFalse(self::$vfs->exists('test/dir2', 'file1'));
         $this->assertFalse(self::$vfs->exists('test/dir2', 'file2'));
@@ -307,15 +312,95 @@ class Horde_Vfs_Test_Base extends Horde_Test_Case
         self::$vfs->writeData('', 'file2', '1');
     }
 
+    /**
+     * Structure after test:
+     * test/
+     *   dir1/
+     *     file1: content1_1
+     *     file2: __FILE__
+     *   dir2/
+     *   .file2: content2
+     *   file1: content1
+     * file2: 1
+     */
     protected function _listFolder()
     {
-        $this->markTestSkipped();
-        $this->assertEquals(array('test'), array_keys(self::$vfs->listFolder('')));
-        $this->assertEquals(array('test'), array_keys(self::$vfs->listFolder('/')));
+        $this->assertEquals(
+            array('file2', 'test'),
+            array_keys($this->_sort(self::$vfs->listFolder('/'))));
+        $this->assertEquals(
+            array('file2' => null, 'test' => array()),
+            $this->_sort(self::$vfs->listFolder('')));
+        $this->assertEquals(
+            array('test' => array()),
+            $this->_sort(self::$vfs->listFolder('', null, true, true)));
+        self::$vfs->writeData('test', '.file2', 'content2');
+        $this->assertEquals(
+            array('file2' => null,
+                  'test' => array('.file2' => null,
+                                  'dir1' => array('file1' => null,
+                                                  'file2' => null),
+                                  'dir2' => array(),
+                                  'file1' => null)),
+            $this->_sort(self::$vfs->listFolder('', null, true, false, true)));
+        $this->assertEquals(
+            array('dir1' => array('file1' => null,
+                                  'file2' => null),
+                  'dir2' => array(),
+                  'file1' => null),
+            $this->_sort(self::$vfs->listFolder('test', null, false, false, true)));
+        $this->assertEquals(
+            array('.file2' => null,
+                  'dir2' => array()),
+            $this->_sort(self::$vfs->listFolder('test', '^.*1$')));
     }
 
-    public static function tearDownAfterClass()
+    /**
+     * Structure after test:
+     * test/
+     *   .dir3/
+     *   dir1/
+     *     file1: content1_1
+     *     file2: __FILE__
+     *   dir2/
+     *   .file2: content2
+     *   file1: content1
+     * file2: 1
+     */
+    protected function _listFolders()
     {
-        self::$vfs = null;
+        $this->assertEquals(
+            array('test'),
+            array_keys(self::$vfs->listFolders('/')));
+        $this->assertEquals(
+            array('test'),
+            array_keys(self::$vfs->listFolders('')));
+        self::$vfs->createFolder('test', '.dir3');
+        $this->assertEquals(
+            array('test/.dir3', 'test/dir1', 'test/dir2'),
+            array_keys(self::$vfs->listFolders('test', array(), true)));
+        $this->assertEquals(
+            array('test/dir1', 'test/dir2'),
+            array_keys(self::$vfs->listFolders('test', array(), false)));
+        $this->assertEquals(
+            array('test/.dir3', 'test/dir2'),
+            array_keys(self::$vfs->listFolders('test', array('test/dir1'))));
+    }
+
+    protected function _sort($folders)
+    {
+        ksort($folders);
+        foreach ($folders as &$item) {
+            if ($item['type'] == '**dir') {
+                if (!empty($item['subdirs'])) {
+                    $item = $this->_sort($item['subdirs']);
+                } else {
+                    $item = array();
+                }
+            } else {
+                $item = null;
+            }
+        }
+        return $folders;
     }
 }
