@@ -840,7 +840,7 @@ extends Horde_Kolab_Storage_Driver_Base
             }
         }
 
-        $ret = Horde_Mime::decodeParam($type, $params, 'UTF-8');
+        $ret = Horde_Mime::decodeParam($type, $params);
 
         return $ret['params'];
     }

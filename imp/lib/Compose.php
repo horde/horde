@@ -2226,7 +2226,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
         $part->setType($type);
         if ($part->getPrimaryType() == 'text') {
             if ($analyzetype = Horde_Mime_Magic::analyzeFile($tempfile, empty($conf['mime']['magic_db']) ? null : $conf['mime']['magic_db'], array('nostrip' => true))) {
-                $analyzetype = Horde_Mime::decodeParam('Content-Type', $analyzetype, 'UTF-8');
+                $analyzetype = Horde_Mime::decodeParam('Content-Type', $analyzetype);
                 $part->setCharset(isset($analyzetype['params']['charset']) ? $analyzetype['params']['charset'] : 'UTF-8');
             } else {
                 $part->setCharset('UTF-8');

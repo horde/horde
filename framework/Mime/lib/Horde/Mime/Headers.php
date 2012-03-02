@@ -622,7 +622,7 @@ class Horde_Mime_Headers implements Serializable
             $val[1] = self::sanityCheck($val[0], $val[1]);
 
             if (in_array(Horde_String::lower($val[0]), $mime)) {
-                $res = Horde_Mime::decodeParam($val[0], $val[1], 'UTF-8');
+                $res = Horde_Mime::decodeParam($val[0], $val[1]);
                 $headers->addHeader($val[0], $res['val'], array(
                     'decode' => true,
                     'params' => $res['params']
@@ -681,7 +681,7 @@ class Horde_Mime_Headers implements Serializable
                         'idn' => true
                     ));
                 } elseif (in_array($header, self::mimeParamFields())) {
-                    $res = Horde_Mime::decodeParam($header, $tmp, 'UTF-8');
+                    $res = Horde_Mime::decodeParam($header, $tmp);
                     $data = $res['val'];
                     foreach ($res['params'] as $name => $param) {
                         foreach (Horde_Mime::encodeParam($name, $param, array('escape' => true)) as $name2 => $param2) {

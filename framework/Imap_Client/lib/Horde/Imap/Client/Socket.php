@@ -2974,7 +2974,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
         }
 
-        $ret = Horde_Mime::decodeParam($type, $params, 'UTF-8');
+        $ret = Horde_Mime::decodeParam($type, $params);
 
         return $ret['params'];
     }

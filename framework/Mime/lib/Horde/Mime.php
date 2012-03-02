@@ -403,13 +403,13 @@ class Horde_Mime
      *                         (case-insensitive).
      * @param mixed $data      The text of the header or an array of
      *                         param name => param values.
-     * @param string $charset  The charset the text should be decoded to.
      *
-     * @return array  An array with the following entries:
+     * @return array  An array with the following entries (all strings in
+     *                UTF-8):
      *   - params: (array) The header's parameter values.
      *   - val: (string) The header's "base" value.
      */
-    static public function decodeParam($type, $data, $charset)
+    static public function decodeParam($type, $data)
     {
         $convert = array();
         $ret = array('params' => array(), 'val' => '');
@@ -501,7 +501,7 @@ class Horde_Mime
             /* Ignore language. */
             $quote = strpos($val, "'", $quote + 1);
             substr($val, $quote + 1);
-            $ret['params'][$name] = Horde_String::convertCharset(urldecode(substr($val, $quote + 1)), $orig_charset, $charset);
+            $ret['params'][$name] = Horde_String::convertCharset(urldecode(substr($val, $quote + 1)), $orig_charset, 'UTF-8');
         }
 
         /* MIME parameters are supposed to be encoded via RFC 2231, but many
@@ -510,7 +510,7 @@ class Horde_Mime
          * it was doing. */
         if (empty($convert)) {
             foreach (array_diff(array_keys($ret['params']), array_keys($convert)) as $name) {
-                $ret['params'][$name] = self::decode($ret['params'][$name], $charset);
+                $ret['params'][$name] = self::decode($ret['params'][$name]);
             }
         }
 
