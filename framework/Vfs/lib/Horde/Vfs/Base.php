@@ -51,7 +51,7 @@ abstract class Horde_Vfs_Base
     );
 
     /**
-     * The current size, in bytes, of the VFS item.
+     * The current size, in bytes, of the VFS tree.
      *
      * @var integer
      */
@@ -193,7 +193,6 @@ abstract class Horde_Vfs_Base
         if (!($localFile = Horde_Util::getTempFile('vfs'))) {
             throw new Horde_Vfs_Exception('Unable to create temporary file.');
         }
-        register_shutdown_function(create_function('', 'unlink(\'' . addslashes($localFile) . '\');'));
 
         if (is_callable(array($this, 'readStream'))) {
             // Use a stream from the VFS if possible, to avoid reading all data
@@ -317,7 +316,7 @@ abstract class Horde_Vfs_Base
         if ($this->isFolder($path, $name)) {
             $this->_copyRecursive($path, $name, $dest);
         } else {
-            return $this->writeData($dest, $name, $this->read($path, $name), $autocreate);
+            $this->writeData($dest, $name, $this->read($path, $name), $autocreate);
         }
     }
 
@@ -345,7 +344,7 @@ abstract class Horde_Vfs_Base
      */
     public function delete($path, $name)
     {
-        return $this->deleteFile($path, $name);
+        $this->deleteFile($path, $name);
     }
 
     /**
@@ -497,11 +496,12 @@ abstract class Horde_Vfs_Base
     /**
      * Returns a file list of the directory passed in.
      *
-     * @param string $path        The path of the directory.
-     * @param mixed $filter       String/hash to filter file/dirname on.
-     * @param boolean $dotfiles   Show dotfiles?
-     * @param boolean $dironly    Show only directories?
-     * @param boolean $recursive  Return all directory levels recursively?
+     * @param string $path          The path of the directory.
+     * @param string|array $filter  Regular expression(s) to filter
+     *                              file/directory name on.
+     * @param boolean $dotfiles     Show dotfiles?
+     * @param boolean $dironly      Show only directories?
+     * @param boolean $recursive    Return all directory levels recursively?
      *
      * @return array  File list.
      * @throws Horde_Vfs_Exception
@@ -514,9 +514,12 @@ abstract class Horde_Vfs_Base
             return $list;
         }
 
+        if (strlen($path)) {
+            $path .= '/';
+        }
         foreach ($list as $name => $values) {
             if ($values['type'] == '**dir') {
-                $list[$name]['subdirs'] = $this->listFolder($path . '/' . $name, $filter, $dotfiles, $dironly, $recursive);
+                $list[$name]['subdirs'] = $this->listFolder($path . $name, $filter, $dotfiles, $dironly, $recursive);
             }
         }
 
@@ -528,10 +531,11 @@ abstract class Horde_Vfs_Base
      *
      * @abstract
      *
-     * @param string $path       The path of the directory.
-     * @param mixed $filter      String/hash to filter file/dirname on.
-     * @param boolean $dotfiles  Show dotfiles?
-     * @param boolean $dironly   Show only directories?
+     * @param string $path          The path of the directory.
+     * @param string|array $filter  Regular expression(s) to filter
+     *                              file/directory name on.
+     * @param boolean $dotfiles     Show dotfiles?
+     * @param boolean $dironly      Show only directories?
      *
      * @return array  File list.
      * @throws Horde_Vfs_Exception
@@ -553,43 +557,27 @@ abstract class Horde_Vfs_Base
     }
 
     /**
-     * Returns whether or not a filename matches any filter element.
+     * Returns whether or not a file or directory name matches an filter
+     * element.
      *
-     * @param mixed $filter     String/hash to build the regular expression
-     *                          from.
-     * @param string $filename  String containing the filename to match.
+     * @param string|array $filter  Regular expression(s) to build the filter
+     *                              from.
+     * @param string $filename      String containing the file/directory name
+     *                              to match.
      *
      * @return boolean  True on match, false on no match.
      */
     protected function _filterMatch($filter, $filename)
     {
-        $namefilter = null;
-
-        // Build a regexp based on $filter.
-        if (!is_null($filter)) {
-            $namefilter = '/';
-            if (is_array($filter)) {
-                $once = false;
-                foreach ($filter as $item) {
-                    if ($once !== true) {
-                        $once = true;
-                    } else {
-                        $namefilter .= '|';
-                    }
-                    $namefilter .= '(' . $item . ')';
-                }
-            } else {
-                $namefilter .= '(' . $filter . ')';
-            }
-            $namefilter .= '/';
+        if (is_array($filter)) {
+            $filter = implode('|', $filter);
         }
 
-        $match = false;
-        if (!is_null($namefilter)) {
-            $match = preg_match($namefilter, $filename);
+        if (!strlen($filter)) {
+            return false;
         }
 
-        return $match;
+        return preg_match('/' . $filter . '/', $filename);
     }
 
     /**
@@ -613,10 +601,11 @@ abstract class Horde_Vfs_Base
      *
      * @abstract
      *
-     * @param string $path         The path of the directory to get the
-     *                             directory list for.
-     * @param mixed $filter        Hash of items to filter based on folderlist.
-     * @param boolean $dotfolders  Include dotfolders?
+     * @param string $path          The path of the directory to get the
+     *                              directory list for.
+     * @param string|array $filter  Regular expression(s) to filter directory
+     *                              names on.
+     * @param boolean $dotfolders   Include dotfolders?
      *
      * @return array  Folder list.
      * @throws Horde_Vfs_Exception
@@ -729,7 +718,8 @@ abstract class Horde_Vfs_Base
      */
     protected function _checkQuotaWrite($mode, $data)
     {
-        if ($this->_params['vfs_quotalimit'] == -1) {
+        if ($this->_params['vfs_quotalimit'] == -1 &&
+            is_null($this->_vfsSize)) {
             return;
         }
 
@@ -743,9 +733,12 @@ abstract class Horde_Vfs_Base
         }
 
         $vfssize = $this->getVFSSize();
-        if (($vfssize + $filesize) > $this->_params['vfs_quotalimit']) {
+        if ($this->_params['vfs_quotalimit'] > -1 &&
+            ($vfssize + $filesize) > $this->_params['vfs_quotalimit']) {
             throw new Horde_Vfs_Exception('Unable to write VFS file, quota will be exceeded.');
-        } elseif ($this->_vfsSize !== 0) {
+        }
+
+        if (!is_null($this->_vfsSize)) {
             $this->_vfsSize += $filesize;
         }
     }
@@ -760,8 +753,7 @@ abstract class Horde_Vfs_Base
      */
     protected function _checkQuotaDelete($path, $name)
     {
-        if (($this->_params['vfs_quotalimit'] != -1) &&
-            !empty($this->_vfsSize)) {
+        if (!is_null($this->_vfsSize)) {
             $this->_vfsSize -= $this->size($path, $name);
         }
     }

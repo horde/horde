@@ -50,7 +50,7 @@ Upgrading to 2.0
   - Horde_Mime_Address
 
     This class has been removed. Equivalent functionality can now be found
-    in the Horde_Mail class.
+    in the Horde_Mail package (version 2.0.0+).
 
   - Horde_Mime_Headers
 

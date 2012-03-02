@@ -500,6 +500,10 @@ your PHP configuration::
 Installing into separate PEAR
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+.. Warning:: Unless you really know **why** you want to do this, you probably
+             do **not** want to do this. Use the general PEAR installation
+             instructions from above instead.
+
 If you want to create a separate PEAR installation for installing Horde,
 independent from the system-wide PEAR installation, this can be done with the
 following commands (in this example, ``/var/www/horde`` is used as the
