@@ -1314,8 +1314,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *   - uid: (string) Indices of the messages to forward (IMAP sequence
      *          string; mailboxes are base64url encoded).
      *
-     * @since IMP 5.1
-     *
      * @return mixed  False on failure, or an object with the following
      *                entries:
      *   - body: (string) The body text of the message.

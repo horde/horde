@@ -29,7 +29,7 @@ class Horde_Registry
     const PERMISSION_DENIED = 3;
     const HOOK_FATAL = 4;
 
-    /* View types. @since 2.0.0 */
+    /* View types. */
     const VIEW_BASIC = 1;
     const VIEW_DYNAMIC = 2;
     const VIEW_MINIMAL = 3;
@@ -1141,8 +1141,6 @@ class Horde_Registry
     /**
      * Is an application method defined (i.e. it extends the default method)?
      *
-     * @since 2.0.0
-     *
      * @param string $app   The application to check.
      * @param string $name  The method name to check.
      *
@@ -1677,37 +1675,28 @@ class Horde_Registry
 
         try {
             $api = $this->getApiInstance($app, 'application');
-            return !empty($api->mobileView);
         } catch (Horde_Exception $e) {
             return false;
         }
-    }
 
-    /**
-     * Does the given application have an ajax view?
-     *
-     * @param string $app  The application to check.
-     *
-     * @return boolean  Whether app has an ajax view.
-     */
-    public function hasAjaxView($app = null)
-    {
-        if (empty($app)) {
-            $app = $this->getApp();
-        }
+        switch ($view) {
+        case VIEW_BASIC:
+            // For now, consider all apps to have BASIC view.
+            return true;
 
-        try {
-            $api = $this->getApiInstance($app, 'application');
-            return !empty($api->ajaxView);
-        } catch (Horde_Exception $e) {
-            return false;
+        case VIEW_DYNAMIC:
+            return !empty($api->features['dynamicView']);
+
+        case VIEW_MINIMAL:
+            return !empty($api->features['minimalView']);
+
+        case VIEW_SMARTMOBILE:
+            return !empty($api->features['smartmobileView']);
         }
     }
 
     /**
      * Set current view.
-     *
-     * @since 2.0.0
      *
      * @param integer $view  The view type.
      */
@@ -1718,8 +1707,6 @@ class Horde_Registry
 
     /**
      * Get current view.
-     *
-     * @since 2.0.0
      *
      * @return integer  The view type.
      */
@@ -2360,7 +2347,6 @@ class Horde_Registry
      * Check existing auth for triggers that might invalidate it.
      *
      * @param string $app  Check authentication for this app too.
-     *                     @since Horde_Core 1.4.0.
      *
      * @return boolean  Is existing auth valid?
      */
