@@ -344,7 +344,7 @@ abstract class Horde_Vfs_Base
      */
     public function delete($path, $name)
     {
-        return $this->deleteFile($path, $name);
+        $this->deleteFile($path, $name);
     }
 
     /**

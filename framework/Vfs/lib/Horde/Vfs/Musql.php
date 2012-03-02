@@ -155,7 +155,7 @@ class Horde_Vfs_Musql extends Horde_Vfs_Sql
                 if ($result == 0) {
                     throw new Horde_Vfs_Exception('Unable to delete VFS file.');
                 }
-                return $result;
+                return;
             }
         }
 

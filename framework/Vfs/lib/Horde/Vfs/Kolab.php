@@ -120,7 +120,7 @@ class Horde_Vfs_Kolab extends Horde_Vfs_Base
             unset($object['_attachments'][$name]);
             $object['link-attachment'] = array_values(array_diff($object['link-attachment'], array($name)));
 
-            return $handler->save($object, $uid);
+            $handler->save($object, $uid);
         }
 
         //FIXME
