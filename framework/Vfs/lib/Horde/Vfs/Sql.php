@@ -514,6 +514,11 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
 
         $folders = array();
         foreach ($folderList as $line) {
+            // Filter out dotfolder if they aren't wanted.
+            if (!$dotfolders && substr($line['vfs_name'], 0, 1) == '.') {
+                continue;
+            }
+
             $folder['val'] = $this->_getNativePath($line['vfs_path'], $line['vfs_name']);
             $folder['abbrev'] = '';
             $folder['label'] = '';
