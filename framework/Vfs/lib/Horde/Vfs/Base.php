@@ -562,33 +562,15 @@ abstract class Horde_Vfs_Base
      */
     protected function _filterMatch($filter, $filename)
     {
-        $namefilter = null;
-
-        // Build a regexp based on $filter.
-        if (!is_null($filter)) {
-            $namefilter = '/';
-            if (is_array($filter)) {
-                $once = false;
-                foreach ($filter as $item) {
-                    if ($once !== true) {
-                        $once = true;
-                    } else {
-                        $namefilter .= '|';
-                    }
-                    $namefilter .= '(' . $item . ')';
-                }
-            } else {
-                $namefilter .= '(' . $filter . ')';
-            }
-            $namefilter .= '/';
+        if (is_array($filter)) {
+            $filter = implode('|', $filter);
         }
 
-        $match = false;
-        if (!is_null($namefilter)) {
-            $match = preg_match($namefilter, $filename);
+        if (!strlen($filter)) {
+            return false;
         }
 
-        return $match;
+        return preg_match('/' . $filter . '/', $filename);
     }
 
     /**
