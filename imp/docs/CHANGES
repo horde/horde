@@ -2,6 +2,8 @@
 v6.0-git
 --------
 
+[mms] Block images in HTML messages that appear to be sent from you by default,
+      to prevent spammers form easily circumventing the block.
 [mms] Add 'Edit As New' to Forward button dropdown menu in dynamic view.
 [mms] Allow identifying addresses to always display images for without
       requiring to add them to the addressbook.

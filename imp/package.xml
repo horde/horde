@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Block images in HTML messages that appear to be sent from you by default, to prevent spammers form easily circumventing the block.
 * [jan] Fix setting default values for identity preferences.
 * [mms] Improve drag performance of elements in dynamic view.
 * [mms] Fix saving initial_page preference.

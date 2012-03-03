@@ -32,7 +32,7 @@ class IMP_Ui_Imageview
      */
     public function showInlineImage(IMP_Contents $contents)
     {
-        global $prefs, $registry, $session;
+        global $injector, $prefs, $registry, $session;
 
         if (!$prefs->getValue('image_replacement')) {
             return true;
@@ -55,7 +55,14 @@ class IMP_Ui_Imageview
                 array('name', 'email')
             );
 
+            $ajax = new IMP_Ajax_Imple_ContactAutoCompleter();
             $res = $ajax->parseContactsSearch($registry->call('contacts/search', $apiargs));
+
+            // Don't allow personal addresses by default - this is the only
+            // e-mail address a Spam sender for sure knows you will recognize
+            // so it is too much of a loophole.
+            $res->setIteratorFilter(0, array_keys($injector->getInstance('IMP_Identity')->getAllFromAddresses(true)));
+
             foreach ($from as $val) {
                 if ($res->contains($val)) {
                     return true;
