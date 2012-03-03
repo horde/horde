@@ -112,7 +112,7 @@ abstract class Horde_ActiveSync_State_Base
     protected $_changes;
 
     /**
-     * The type of request we are handling (if important).
+     * The type of request we are handling.
      *
      * @var string
      */
