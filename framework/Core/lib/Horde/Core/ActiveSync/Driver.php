@@ -793,16 +793,17 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
     /**
      * Sends the email represented by the rfc822 string received by the PIM.
-     * Currently only used when meeting requests are sent from the PIM.
      *
+     * @TODO: Accept a stream?
      * @param string $rfc822    The rfc822 mime message
      * @param boolean $forward  Indicates if this is a forwarded message
      * @param boolean $reply    Indicates if this is a reply
      * @param boolean $parent   Parent message in thread.
+     * @param boolean $save     Save in sent messages.
      *
      * @return boolean
      */
-    public function sendMail($rfc822, $forward = false, $reply = false, $parent = false)
+    public function sendMail($rfc822, $forward = false, $reply = false, $parent = false, $save = true)
     {
         $headers = Horde_Mime_Headers::parseHeaders($rfc822);
         $message = Horde_Mime_Part::parseMessage($rfc822);
@@ -827,12 +828,27 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         } else {
             $mail->setBody('No body?');
         }
-
         foreach ($message->contentTypeMap() as $id => $type) {
             $mail->addPart($type, $message->getPart($id)->toString());
         }
 
-        $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
+        $this->_logger->debug('Sending Email.');
+        try {
+            $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
+        } catch (Horde_Mail_Exception $e) {
+            $this->_logger->err($e->getMessage());
+            throw new Horde_Exception($e);
+        }
+        if ($save) {
+            $sf = $this->getSpecialFolderNameByType(self::SPECIAL_SENT);
+            if (!empty($sf)) {
+                $this->_logger->debug(sprintf("Preparing to copy to '%s'", $sf));
+                $mbox = new Horde_Imap_Client_Mailbox($sf);
+                $flags = array(Horde_Imap_Client::FLAG_SEEN);
+                $msg = $message->toString(array('headers' => $headers, 'stream' => true));
+                $this->_connector->mail_appendMessage($mbox, array(array('data' => $msg, 'flags' => $flags)));
+            }
+        }
 
         return true;
     }
