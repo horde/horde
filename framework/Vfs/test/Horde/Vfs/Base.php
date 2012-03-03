@@ -285,7 +285,6 @@ class Horde_Vfs_Test_Base extends Horde_Test_Case
      *     file2: __FILE__
      *   dir2/
      *   file1: content1
-     * file2: 1
      */
     protected function _quota()
     {
@@ -310,6 +309,8 @@ class Horde_Vfs_Test_Base extends Horde_Test_Case
         $this->assertEquals(array('limit' => $used + 10, 'usage' => $used),
                             self::$vfs->getQuota());
         self::$vfs->writeData('', 'file2', '1');
+        self::$vfs->setQuota(-1);
+        self::$vfs->deleteFile('', 'file2');
     }
 
     /**
@@ -325,6 +326,7 @@ class Horde_Vfs_Test_Base extends Horde_Test_Case
      */
     protected function _listFolder()
     {
+        self::$vfs->writeData('', 'file2', '1');
         $this->assertEquals(
             array('file2', 'test'),
             array_keys($this->_sort(self::$vfs->listFolder('/'))));
