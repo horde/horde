@@ -743,7 +743,7 @@ if ($redirect) {
     IMP::status();
     $t->set('status', Horde::endBuffer());
 
-    if ($registry->hasMethod('contacts/search')) {
+    if ($session->get('imp', 'csearchavail')) {
         $t->set('abook', $blank_url->copy()->link(array(
             'class' => 'widget',
             'id' => 'redirect_abook',
@@ -873,7 +873,7 @@ if ($redirect) {
     $menu_view = $prefs->getValue('menu_view');
     $show_text = ($menu_view == 'text' || $menu_view == 'both');
     $compose_options = array();
-    if ($registry->hasMethod('contacts/search')) {
+    if ($session->get('imp', 'csearchavail')) {
         $compose_options[] = array(
             'url' => $blank_url->copy()->link(array(
                 'class' => 'widget',

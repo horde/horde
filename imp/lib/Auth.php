@@ -5,6 +5,7 @@
  * The following is the list of IMP session variables:
  *   - compose_cache: (array) List of compose objects that have not yet been
  *                    garbage collected.
+ *   - csearchavail: (boolean) True if contacts search is available.
  *   - file_upload: (integer) If file uploads are allowed, the max size.
  *   - filteravail: (boolean) Can we apply filters manually?
  *   - imap_acl: (boolean) See 'acl' entry in config/backends.php.
@@ -410,6 +411,11 @@ class IMP_Auth
         /* Does the server allow file uploads? If yes, store the
          * value, in bytes, of the maximum file size. */
         $session->set('imp', 'file_upload', $browser->allowFileUploads());
+
+        /* Is the 'contacts/search' API call available? */
+        if ($registry->hasMethod('contacts/search')) {
+            $session->set('imp', 'csearchavail', true);
+        }
 
         /* Is the 'mail/canApplyFilters' API call available? */
         try {

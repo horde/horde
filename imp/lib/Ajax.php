@@ -296,7 +296,7 @@ class IMP_Ajax extends Horde_Core_Ajax
      */
     protected function _addComposeVars()
     {
-        global $browser, $conf, $prefs, $registry;
+        global $browser, $conf, $prefs, $registry, $session;
 
         $compose_cursor = $prefs->getValue('compose_cursor');
 
@@ -325,7 +325,7 @@ class IMP_Ajax extends Horde_Core_Ajax
             'uploading' => _("Uploading..."),
         );
 
-        if ($registry->hasMethod('contacts/search')) {
+        if ($session->get('imp', 'csearchavail')) {
             $this->_jsvars['conf_compose']['URI_ABOOK'] = strval(Horde::url('contacts.php'));
         }
 

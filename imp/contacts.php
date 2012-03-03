@@ -23,6 +23,11 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('imp', array('authentication' => 'horde'));
 
+/* Sanity checking. */
+if (!$session->get('imp', 'csearchavail')) {
+    throw new IMP_Exception('Addressbook not available on this system.');
+}
+
 $vars = Horde_Variables::getDefaultVariables();
 
 /* Get the lists of address books through the API. */

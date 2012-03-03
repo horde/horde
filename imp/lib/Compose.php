@@ -1134,11 +1134,11 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
      */
     protected function _saveRecipients(Horde_Mail_Rfc822_List $recipients)
     {
-        global $notification, $prefs, $registry;
+        global $notification, $prefs, $registry, $session;
 
         if (!$prefs->getValue('save_recipients') ||
+            !$session->get('imp', 'csearchavail') ||
             !$registry->hasMethod('contacts/import') ||
-            !$registry->hasMethod('contacts/search') ||
             !($abook = $prefs->getValue('add_source'))) {
             return;
         }
