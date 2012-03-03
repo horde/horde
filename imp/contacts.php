@@ -42,9 +42,12 @@ if (!isset($vars->source) || !isset($source_list[$vars->source])) {
 
 $search_params = IMP::getAddressbookSearchParams();
 $apiargs = array(
-    'addresses' => array($vars->search),
-    'addressbooks' => array($vars->source),
-    'fields' => $search_params['fields']
+    array($vars->search),
+    array($vars->source),
+    $search_params['fields'],
+    false,
+    false,
+    array('name', 'email')
 );
 
 $a_list = array();
