@@ -166,12 +166,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function getWasteBasket()
     {
-        if (empty($this->_specialFolders)) {
-            $this->_specialFolders = $this->_connector->mail_getSpecialFolders();
-        }
-        if (!empty($this->_specialFolders[self::SPECIAL_TRASH])) {
-            $this->_logger->debug('Horde::getWasteBasket(): ' . $this->_specialFolders[self::SPECIAL_TRASH]);
-            return $this->_specialFolders[self::SPECIAL_TRASH];
+        $specialFolders = $this->_connector->mail_getSpecialFolders();
+        if (!empty($specialFolders[self::SPECIAL_TRASH])) {
+            $this->_logger->debug('Horde::getWasteBasket(): ' . $specialFolders[self::SPECIAL_TRASH]);
+            return $specialFolders[self::SPECIAL_TRASH];
         }
         $this->_logger->debug('Horde::getWasteBasket(): FALSE');
         return false;
@@ -880,10 +878,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $folder->serverid = $sid;
         $folder->displayname = $f['label'];
         $folder->parentid = '0';
-
-        if (empty($this->_specialFolders)) {
-            $this->_specialFolders = $this->_connector->mail_getSpecialFolders();
-        }
+        $specialFolders = $this->_connector->mail_getSpecialFolders();
 
         // Short circuit for INBOX
         if (strcasecmp($sid, 'INBOX') === 0) {
@@ -892,7 +887,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         }
 
         // Check for known, supported special folders.
-        foreach ($this->_specialFolders as $key => $value) {
+        foreach ($specialFolders as $key => $value) {
             if (!is_array($value)) {
                 $value = array($value);
             }
@@ -926,6 +921,22 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         // Not a known folder, set it to user mail.
         $folder->type = Horde_ActiveSync::FOLDER_TYPE_USER_MAIL;
         return $folder;
+    }
+
+    public function getSpecialFolderNameByType($type)
+    {
+        Horde::debug('FOO');
+        $folders = $this->_connector->mail_getSpecialFolders();
+        $folder = $folders[$type];
+        if (!is_null($folder)) {
+            if (is_array($folder)) {
+                $folder = array_pop($folder);
+            }
+
+            return $folder->basename;
+        } else {
+            return $folder;
+        }
     }
 
     /**
