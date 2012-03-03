@@ -109,6 +109,12 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         );
     }
 
+    public function setLogger($logger)
+    {
+        parent::setLogger($logger);
+        $this->_connector->setLogger($logger);
+    }
+
     /**
      * Authenticate to Horde
      *
