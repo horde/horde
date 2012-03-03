@@ -401,25 +401,6 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                         $this->_folder[] = $stat;
                         $this->_folder = array_values($this->_folder);
                     }
-                    // @TODO: This makes NO sense. Probably a merge artifact. Remove
-                    // after tested.
-                    // if ($this->_collection['class'] != Horde_ActiveSync::CLASS_EMAIL) {
-                    //     // Track the UIDs sent to the PIM.
-                    //     foreach ($this->_state as $fi => $state) {
-                    //         if ($state['id'] == $value['id']) {
-                    //             unset($this->_state[$fi]);
-                    //             break;
-                    //         }
-                    //     }
-                    //     // @TODO - can we just use the entire $value here?
-                    //     $stat = array(
-                    //         'id' => $value['id'],
-                    //         'mod' => $value['mod'],
-                    //         'flags' => $value['flags']
-                    //     );
-                    //     $this->_state[] = $stat;
-                    //     $this->_state = array_values($this->_state);
-                    // }
                     unset($this->_changes[$key]);
                     break;
                 }
