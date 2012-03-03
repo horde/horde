@@ -111,10 +111,24 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base
         }
         parent::setStatus($status);
     }
+
+    /**
+     * Check the validity of various values.
+     *
+     * @throws Horde_ActiveSync_Exception_StaleState
+     */
+    public function checkValidity($params = array())
+    {
+        if (!empty($params[self::UIDVALIDITY]) && $this->uidvalidity() != $params[self::UIDVALIDITY]) {
+            throw new Horde_ActiveSync_Exception_StaleState('UIDVALIDTY no longer valid');
+        }
+    }
+
     /**
      * Set the list of expunged message UIDs.
      *
      * @param array $uids  An array of message UIDs that have been expunged.
+     * @throws Horde_ActiveSync_Exception_StaleState
      */
     public function setRemoved($uids)
     {
@@ -124,8 +138,8 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base
         // this at this point.
         if (!empty($this->_status[self::MINUID])) {
             if ($uids[0] < $this->_status[self::MINUID]) {
-                // Do nothing for now
-                return;
+                throw new Horde_ActiveSync_Exception_StaleState(
+                    'IMAP server has returned all VANISHED UIDs.');
             }
         }
 

@@ -207,6 +207,18 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                     }
                     try {
                         $sync->init($this->_stateDriver, null, $collection);
+                    } catch (Horde_ActiveSync_Exception_StaleState $e) {
+                        $this->_logger->err(sprintf(
+                            "[%s] PING terminating and force-clearing device state: %s",
+                            $this->_device->id,
+                            $e->getMessage()));
+                        // Force removal of the current collection's state,
+                        // something is stale/corrupt.
+                        $this->_stateDriver->loadState(null, $collection['id']);
+                        $changes[$collection['id']] = 1;
+                        $this->_statusCode = self::STATUS_NEEDSYNC;
+                        break;
+
                     } catch (Horde_ActiveSync_Exception $e) {
                         // Stop ping if exporter cannot be configured
                         // @TODO: We should limit this to N number of tries too.

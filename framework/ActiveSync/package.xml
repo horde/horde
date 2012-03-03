@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-02-22</date>
- <time>16:48:01</time>
+ <date>2012-03-03</date>
+ <time>14:35:40</time>
  <version>
   <release>1.2.5</release>
   <api>1.2.0</api>
@@ -31,6 +31,7 @@
      <dir name="ActiveSync">
       <file name="COPYING" role="doc" />
       <file name="TODO" role="doc" />
+      <file name="UPGRADING" role="doc" />
      </dir> <!-- /doc/Horde/ActiveSync -->
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
@@ -46,6 +47,7 @@
       </dir> <!-- /lib/Horde/ActiveSync/Driver -->
       <dir name="Exception">
        <file name="InvalidRequest.php" role="php" />
+       <file name="StaleState.php" role="php" />
        <file name="StateGone.php" role="php" />
       </dir> <!-- /lib/Horde/ActiveSync/Exception -->
       <dir name="Folder">
@@ -191,6 +193,7 @@
   <filelist>
    <install as="COPYING" name="doc/Horde/ActiveSync/COPYING" />
    <install as="TODO" name="doc/Horde/ActiveSync/TODO" />
+   <install as="UPGRADING" name="doc/Horde/ActiveSync/UPGRADING" />
    <install as="Horde/ActiveSync.php" name="lib/Horde/ActiveSync.php" />
    <install as="Horde/ActiveSync/Exception.php" name="lib/Horde/ActiveSync/Exception.php" />
    <install as="Horde/ActiveSync/Sync.php" name="lib/Horde/ActiveSync/Sync.php" />
@@ -201,6 +204,7 @@
    <install as="Horde/ActiveSync/Connector/Importer.php" name="lib/Horde/ActiveSync/Connector/Importer.php" />
    <install as="Horde/ActiveSync/Driver/Base.php" name="lib/Horde/ActiveSync/Driver/Base.php" />
    <install as="Horde/ActiveSync/Exception/InvalidRequest.php" name="lib/Horde/ActiveSync/Exception/InvalidRequest.php" />
+   <install as="Horde/ActiveSync/Exception/StaleState.php" name="lib/Horde/ActiveSync/Exception/StaleState.php" />
    <install as="Horde/ActiveSync/Exception/StateGone.php" name="lib/Horde/ActiveSync/Exception/StateGone.php" />
    <install as="Horde/ActiveSync/Folder/Base.php" name="lib/Horde/ActiveSync/Folder/Base.php" />
    <install as="Horde/ActiveSync/Folder/Collection.php" name="lib/Horde/ActiveSync/Folder/Collection.php" />
@@ -588,7 +592,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-02-22</date>
+   <date>2012-03-03</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 *
