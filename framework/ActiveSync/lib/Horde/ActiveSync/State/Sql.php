@@ -908,24 +908,45 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             }
 
             $this->_logger->debug(sprintf(
-                "[%s] Found %n message changes, checking for PIM initiated changes.",
+                "[%s] Found %d message changes.",
                 $this->_devId,
                 count($changes)));
 
             $this->_changes = array();
-            if ($this->_havePIMChanges($this->_collection['class'])) {
+
+            if (count($changes) && $this->_havePIMChanges($this->_collection['class'])) {
+                $this->_logger->debug(sprintf(
+                    "[%s] Checking for PIM initiated changes.",
+                    $this->_devId));
                 switch ($this->_collection['class']) {
                 case Horde_ActiveSync::CLASS_EMAIL:
                     foreach ($changes as $change) {
-                        $stat = $this->_backend->statMailMessage($this->_collection['id'], $change['id']);
-                        if ($stat && $this->_isPIMFlagChange($change['id'], $stat['flags'])) {
-                            $this->_logger->debug(sprintf(
-                                "[%s] Ignoring PIM initiated flag change for %s",
-                                $this->_devId,
-                                $change['id']));
-                        } else {
-                            // @TODO: Need to catch device-deleted messages,
-                            // device moved messages etc...
+                        switch ($change['type']) {
+                        case Horde_ActiveSync::CHANGE_TYPE_FLAGS:
+                            $stat = $this->_backend->statMailMessage(
+                                $this->_collection['id'],
+                                $change['id']);
+                            if ($stat && $this->_isPIMChange($change['id'], $stat['flags'], $change['type'])) {
+                                $this->_logger->debug(sprintf(
+                                    "[%s] Ignoring PIM initiated flag change for %s",
+                                    $this->_devId,
+                                    $change['id']));
+                            } else {
+                                $this->_changes[] = $change;
+                            }
+                            break;
+                        case Horde_ActiveSync::CHANGE_TYPE_DELETE:
+                            if ($this->_isPIMChange($change['id'], 1, $change['type'])) {
+                               $this->_logger->debug(sprintf(
+                                    "[%s] Ignoring PIM initiated deletion for %s",
+                                    $this->_devId,
+                                    $change['id']));
+                            } else {
+                                $this->_changes[] = $change;
+                            }
+
+                        default:
+                            // New message.
                             $this->_changes[] = $change;
                         }
                     }
@@ -944,7 +965,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                         }
                     }
                 }
-            } else {
+            } elseif (count($changes)) {
                 $this->_logger->debug(sprintf(
                     "[%s] No PIM changes present, returning all messages.",
                     $this->_devId));
@@ -963,7 +984,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 $folderlist);
 
             $this->_logger->debug(sprintf(
-                "[%s] Found %n folder changes.",
+                "[%s] Found %d folder changes.",
                 $this->_devId,
                 count($this->_changes)));
         }
@@ -1195,9 +1216,13 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         return !empty($this->_lastSyncTS) ? $this->_lastSyncTS : 0;
     }
 
-    protected function _isPIMFlagChange($id, $flag)
+    protected function _isPIMChange($id, $flag, $type)
     {
-        $sql = 'SELECT sync_read FROM ' . $this->_syncMailMapTable
+        $field = ($type == Horde_ActiveSync::CHANGE_TYPE_FLAGS)
+            ? 'sync_read'
+            : 'sync_deleted';
+
+        $sql = 'SELECT ' . $field . ' FROM ' . $this->_syncMailMapTable
             . ' WHERE sync_folderid = ? AND sync_devid = ? AND message_uid = ?'
             . ' AND sync_user = ?';
 
