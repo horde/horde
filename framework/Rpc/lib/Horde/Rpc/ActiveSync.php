@@ -122,7 +122,7 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
             $this->_logger->debug('Horde_Rpc_ActiveSync::getResponse() starting for OPTIONS');
             try {
                 $this->_server->handleRequest('Options', null, null);
-            } catch (Horde_ActiveSync_Exception $e) {
+            } catch (Horde_Exception $e) {
                 $this->_handleError($e);
             }
             break;
@@ -132,14 +132,16 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
             $this->_logger->debug('Horde_Rpc_ActiveSync::getResponse() starting for ' . $this->_get['Cmd']);
             try {
                 $this->_server->handleRequest($this->_get['Cmd'], $this->_get['DeviceId']);
-            } catch (Horde_ActiveSync_Exception_Invalid_Request $e) {
+            } catch (Horde_ActiveSync_Exception_InvalidRequest $e) {
                $this->_logger->err('Returning HTTP 400');
                $this->_handleError($e);
                header('HTTP/1.1 400 Invalid Request ' . $e->getMessage());
-            } catch (Horde_ActiveSync_Exception $e) {
+               exit;
+            } catch (Horde_Exception $e) {
                 $this->_logger->err('Returning HTTP 500');
                 $this->_handleError($e);
-                header('HTTP/1.1 500');
+                header('HTTP/1.1 500 ' . $e->getMessage());
+                exit;
             }
             break;
         }
