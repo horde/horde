@@ -418,7 +418,7 @@ class Horde_Core_ActiveSync_Connector
     }
 
     /**
-     * Get the full list of messages in the requested folder, optionally
+     * Get the list of messages in the requested folder, optionally
      * restricting to a SINCE date.
      *
      * @param Horde_ActiveSync_Folder_Imap $folder  The mailbox folder.
@@ -476,12 +476,10 @@ class Horde_Core_ActiveSync_Connector
                 }
             }
             $folder->setChanges($changes, $flags);
-            $query = new Horde_Imap_Client_Fetch_Query();
 
             // Get deleted.
             $deleted = $imap->vanished($mbox, $folder->modseq());
             $folder->setRemoved($deleted->ids);
-
         } elseif ($folder->modseq() == 0) {
             // This is either an initial priming or we don't support QRESYNC
             // Either way, we need the full message uid list.
