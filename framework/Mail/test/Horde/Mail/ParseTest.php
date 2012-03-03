@@ -471,4 +471,21 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testParsingPersonalPartWithQuotes()
+    {
+        $email = '"Test \\"F-oo\\" Bar" <foo@example.com>';
+
+        $ob = new Horde_Mail_Rfc822_Address($email);
+
+        $this->assertEquals(
+            'Test "F-oo" Bar <foo@example.com>',
+            $ob->writeAddress()
+        );
+
+        $this->assertEquals(
+            $email,
+            $ob->writeAddress(true)
+        );
+    }
+
 }

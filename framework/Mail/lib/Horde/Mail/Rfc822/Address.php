@@ -138,14 +138,16 @@ class Horde_Mail_Rfc822_Address extends Horde_Mail_Rfc822_Object
     protected function _writeAddress($opts)
     {
         $rfc822 = new Horde_Mail_Rfc822();
+
         $address = $rfc822->encode($this->mailbox, 'address') . '@' .
             (empty($opts['idn']) ? $this->host : $this->host_idn);
-        $personal = empty($opts['encode'])
-             ? $this->personal
-             : Horde_Mime::encode($this->personal, $opts['encode']);
+        $personal = $this->personal;
+        if (!empty($opts['encode']) && strlen($personal)) {
+            $personal = $rfc822->encode(Horde_Mime::encode($this->personal, $opts['encode']), 'personal');
+        }
 
         return (strlen($personal) && ($personal != $address))
-            ? $rfc822->encode($personal, 'personal') . ' <' . $address . '>'
+            ? $personal . ' <' . $address . '>'
             : $address;
     }
 
