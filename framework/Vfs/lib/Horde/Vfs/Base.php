@@ -144,7 +144,7 @@ abstract class Horde_Vfs_Base
     public function getFolderSize($path = null)
     {
         $size = 0;
-        $root = (!is_null($path) ? $path . '/' : '') . $name;
+        $root = !is_null($path) ? $path . '/' : '';
         $object_list = $this->listFolder($root, null, true, false, true);
 
         foreach ($object_list as $key => $val) {
