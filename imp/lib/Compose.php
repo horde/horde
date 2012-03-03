@@ -221,17 +221,14 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
         ));
         $base->isBasePart(true);
 
-        if ($has_session) {
-            foreach (array('to', 'cc', 'bcc') as $v) {
-                if (isset($headers[$v])) {
-                    try {
-                        IMP::parseAddressList($headers[$v], array(
-                            'validate' => true
-                        ));
-                    } catch (Horde_Mail_Exception $e) {
-                        throw new IMP_Compose_Exception(sprintf(_("Saving the draft failed. The %s header contains an invalid e-mail address: %s."), $v, $e->getMessage()), $e->getCode());
-                    }
-                }
+        $recip_list = $this->recipientList($headers);
+        foreach ($recip_list['list'] as $val) {
+            try {
+                IMP::parseAddressList($val->writeAddress(true), array(
+                    'validate' => true
+                ));
+            } catch (Horde_Mail_Exception $e) {
+                throw new IMP_Compose_Exception(sprintf(_("Saving the draft failed because it contains an invalid e-mail address: %s."), strval($val), $e->getMessage()), $e->getCode());
             }
         }
 
