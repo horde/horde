@@ -561,6 +561,17 @@ class Horde_Core_ActiveSync_Connector
         return array($id => $uidnext);
     }
 
+
+    public function mail_appendMessage($folderid, $message)
+    {
+        $imap = $this->_getImapOb();
+        try {
+            $imap->append($mbox, $message);
+        } catch (Horde_Imap_Client_Exception $e) {
+            throw new Horde_Exception($e);
+        }
+    }
+
     /**
      * Permanently delete a mail message.
      *
