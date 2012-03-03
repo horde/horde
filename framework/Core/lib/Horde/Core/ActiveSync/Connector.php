@@ -452,7 +452,7 @@ class Horde_Core_ActiveSync_Connector
         $this->_logger->debug('IMAP status: ' . print_r($status, true));
         if ($qresync && $folder->modseq() > 0 && $folder->modseq() < $modseq) {
             // If we are here, we support QRESYNC and have known changes
-            $imap->checkValidity($status);
+            $folder->checkValidity($status);
             $query = new Horde_Imap_Client_Fetch_Query();
             $query->modseq();
             $query->flags();
