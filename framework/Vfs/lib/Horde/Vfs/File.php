@@ -69,7 +69,7 @@ class Horde_Vfs_File extends Horde_Vfs_Base
     public function size($path, $name)
     {
         if (($size = @filesize($this->_getNativePath($path, $name))) === false) {
-            throw new Horde_Vfs_Exception(sprintf('Unable to check file size of "%s/%s".'), $path, $name);
+            throw new Horde_Vfs_Exception(sprintf('Unable to check file size of "%s/%s".', $path, $name));
         }
 
         return $size;
