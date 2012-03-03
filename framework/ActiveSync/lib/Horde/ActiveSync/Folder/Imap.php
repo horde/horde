@@ -72,6 +72,15 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base
     protected $_flags = array();
 
     /**
+     * Cache the known lowest UID we received during the initial SYNC request.
+     * Only available (or even needed) if server supports QRESYNC. This value
+     * will never change unless the syncstate is removed.
+     *
+     * @var integer
+     */
+    protected $_min = 0;
+
+    /**
      * Set message changes.
      *
      * @param array $messages  An array of message UIDs.
@@ -90,12 +99,36 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base
     }
 
     /**
+     * Set server status values. Overrides parent class to save the MINUID.
+     *
+     * @param array $status  The server status array.
+     */
+    public function setStatus($status)
+    {
+        if (!empty($status[self::MINUID])) {
+            $this->_min = $status[self::MINUID];
+            unset($status[self::MINUID]);
+        }
+        parent::setStatus($status);
+    }
+    /**
      * Set the list of expunged message UIDs.
      *
      * @param array $uids  An array of message UIDs that have been expunged.
      */
     public function setRemoved($uids)
     {
+        // Protect against HUGE numbers of UIDs from apparently broken(?)
+        // servers. Hopefully a temporary solution. If this happens we should
+        // simply reset the server state, though not yet sure how to indicate
+        // this at this point.
+        if (!empty($this->_status[self::MINUID])) {
+            if ($uids[0] < $this->_status[self::MINUID]) {
+                // Do nothing for now
+                return;
+            }
+        }
+
         $this->_removed = $uids;
     }
 
@@ -210,7 +243,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base
      */
     public function serialize()
     {
-        return serialize(array($this->_status, $this->_messages, $this->_serverid, $this->_class));
+        return serialize(array($this->_status, $this->_messages, $this->_serverid, $this->_class, $this->_min));
     }
 
     /**
@@ -220,7 +253,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base
      */
     public function unserialize($data)
     {
-        list($this->_status, $this->_messages, $this->_servierid, $this->_class) = @unserialize($data);
+        list($this->_status, $this->_messages, $this->_servierid, $this->_class, $this->_min) = @unserialize($data);
     }
 
     /**
@@ -231,11 +264,8 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base
     public function __toString()
     {
         return sprintf(
-            "uidvalidity: %s\nuidnext: %s\nuids: %s\nmodseq: %s\nchanged: %s\nadded: %s\nremoved: %s",
-            $this->uidvalidity(),
-            $this->uidnext(),
-            join(', ', $this->messages()),
-            $this->modseq(),
+            "status: %s\nchanged: %s\nadded: %s\nremoved: %s",
+            join(', ', $this->_status),
             join(', ', $this->_changed),
             join(', ', $this->_added),
             join(', ', $this->_removed)
