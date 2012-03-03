@@ -615,42 +615,6 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
     }
 
     /**
-     * Returns a sorted list of folders in the specified directory.
-     *
-     * @param string $path          The path of the directory to get the
-     *                              directory list for.
-     * @param string|array $filter  Regular expression(s) to filter directory
-     *                              names on.
-     * @param boolean $dotfolders   Include dotfolders?
-     *
-     * @return array  Folder list.
-     * @throws Horde_Vfs_Exception
-     */
-    public function listFolders($path = '', $filter = null, $dotfolders = true)
-    {
-        $this->_connect();
-
-        $folder = array(
-            'abbrev' => '..',
-            'val' => $this->_parentDir($path),
-            'label' => '..'
-        );
-        $folders[$folder['val']] = $folder;
-
-        $folderList = $this->listFolder($path, null, $dotfolders, true);
-        foreach ($folderList as $files) {
-            $folders[$folder['val']] = array(
-                'val' => $this->_getPath($path, $files['name']),
-                'abbrev' => $files['name'],
-                'label' => $folder['val']
-            );
-        }
-
-        ksort($folders);
-        return $folders;
-    }
-
-    /**
      * Copies a file through the backend.
      *
      * @param string $path         The path of the original file.

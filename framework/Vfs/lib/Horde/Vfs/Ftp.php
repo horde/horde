@@ -618,43 +618,6 @@ class Horde_Vfs_Ftp extends Horde_Vfs_Base
     }
 
     /**
-     * Returns a sorted list of folders in the specified directory.
-     *
-     * @param string $path          The path of the directory to get the
-     *                              directory list for.
-     * @param string|array $filter  Regular expression(s) to filter directory
-     *                              names on.
-     * @param boolean $dotfolders   Include dotfolders?
-     *
-     * @return array  Folder list.
-     * @throws Horde_Vfs_Exception
-     */
-    public function listFolders($path = '', $filter = null, $dotfolders = true)
-    {
-        $this->_connect();
-
-        $folder = array(
-            'abbrev' => '..',
-            'label' => '..',
-            'val' => $this->_parentDir($path)
-        );
-        $folders = array($folder['val'] => $folder);
-
-        $folderList = $this->listFolder($path, null, $dotfolders, true);
-        foreach ($folderList as $files) {
-            $folders[$folder['val']] = array(
-                'abbrev' => $files['name'],
-                'label' => $folder['val'],
-                'val' => $this->_getPath($path, $files['name'])
-            );
-        }
-
-        ksort($folders);
-
-        return $folders;
-    }
-
-    /**
      * Copies a file through the backend.
      *
      * @param string $path         The path of the original file.

@@ -54,6 +54,7 @@ class Horde_Vfs_KolabTest extends PHPUnit_Framework_TestCase
      */
     public function testFolders()
     {
+        $this->markTestIncomplete('listFolders() is gone.');
         $this->assertEquals(array(), $this->_vfs->listFolders());
         $this->assertNoError($this->_vfs->createFolder('/', 'test'));
         $this->assertEquals(1, count($this->_vfs->listFolders()));

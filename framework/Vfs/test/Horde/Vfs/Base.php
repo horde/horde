@@ -355,38 +355,6 @@ class Horde_Vfs_Test_Base extends Horde_Test_Case
             $this->_sort(self::$vfs->listFolder('test', '^.*1$')));
     }
 
-    /**
-     * Structure after test:
-     * test/
-     *   .dir3/
-     *   dir1/
-     *     file1: content1_1
-     *     file2: __FILE__
-     *   dir2/
-     *   .file2: content2
-     *   file1: content1
-     * file2: 1
-     */
-    protected function _listFolders()
-    {
-        $this->assertEquals(
-            array('test'),
-            array_keys(self::$vfs->listFolders('/')));
-        $this->assertEquals(
-            array('test'),
-            array_keys(self::$vfs->listFolders('')));
-        self::$vfs->createFolder('test', '.dir3');
-        $this->assertEquals(
-            array('test/.dir3', 'test/dir1', 'test/dir2'),
-            array_keys(self::$vfs->listFolders('test', array(), true)));
-        $this->assertEquals(
-            array('test/dir1', 'test/dir2'),
-            array_keys(self::$vfs->listFolders('test', array(), false)));
-        $this->assertEquals(
-            array('test/.dir3', 'test/dir2'),
-            array_keys(self::$vfs->listFolders('test', array('test/dir1'))));
-    }
-
     protected function _sort($folders)
     {
         ksort($folders);

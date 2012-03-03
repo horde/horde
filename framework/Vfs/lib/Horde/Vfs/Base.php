@@ -596,25 +596,6 @@ abstract class Horde_Vfs_Base
     }
 
     /**
-     * Returns a sorted list of folders in the specified directory.
-     *
-     * @abstract
-     *
-     * @param string $path          The path of the directory to get the
-     *                              directory list for.
-     * @param string|array $filter  Regular expression(s) to filter directory
-     *                              names on.
-     * @param boolean $dotfolders   Include dotfolders?
-     *
-     * @return array  Folder list.
-     * @throws Horde_Vfs_Exception
-     */
-    public function listFolders($path = '', $filter = null, $dotfolders = true)
-    {
-        throw new Horde_Vfs_Exception('Not supported.');
-    }
-
-    /**
      * Returns the list of additional credentials required, if any.
      *
      * @return array  Credential list.

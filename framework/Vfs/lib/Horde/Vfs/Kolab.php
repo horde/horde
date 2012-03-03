@@ -280,10 +280,41 @@ class Horde_Vfs_Kolab extends Horde_Vfs_Base
 
         $file = $files = array();
 
-        $folders = $this->listFolders($path, $filter, $dotfiles);
+        $folderpath = $path;
+        if (substr($folderpath, -1) != '/') {
+            $folderpath .= '/';
+        }
+
+        $aFolder = $aFolders = array();
+
+        if ($dotfiles && $folderpath != '/') {
+            $aFolder['val'] = dirname($folderpath);
+            $aFolder['abbrev'] = '..';
+            $aFolder['label'] = '..';
+
+            $aFolders[$aFolder['val']] = $aFolder;
+        }
+
+        $folders = $this->_getFolders();
+
+        $base_len = strlen($folderpath);
+        foreach (array_keys($folders) as $folder) {
+            if (substr($folder, 0, $base_len) == $folderpath) {
+                $name = substr($folder, $base_len);
+                if (!strpos($name, '/')) {
+                    $aFolder['val']	= $folder;
+                    $aFolder['abbrev'] = $name;
+                    $aFolder['label'] = $folder;
+                    $aFolders[$aFolder['val']] = $aFolder;
+                }
+            }
+        }
+
+        ksort($aFolders);
+
         $list = $this->_getFolders();
 
-        foreach ($folders as $folder) {
+        foreach ($aFolders as $folder) {
             $file['type'] = '**dir';
             $file['size'] = -1;
             $file['name'] = $folder['abbrev'];
@@ -408,53 +439,6 @@ class Horde_Vfs_Kolab extends Horde_Vfs_Base
         }
 
         return '';
-    }
-
-    /**
-     * Returns a sorted list of folders in the specified directory.
-     *
-     * @param string $path          The path of the directory to get the
-     *                              directory list for.
-     * @param string|array $filter  Regular expression(s) to filter directory
-     *                              names on.
-     * @param boolean $dotfolders   Include dotfolders?
-     *
-     * @return array  Folder list.
-     * @throws Horde_Vfs_Exception
-     */
-    public function listFolders($path = '', $filter = null, $dotfolders = true)
-    {
-        if (substr($path, -1) != '/') {
-            $path .= '/';
-        }
-
-        $aFolder = $aFolders = array();
-
-        if ($dotfolders && $path != '/') {
-            $aFolder['val'] = dirname($path);
-            $aFolder['abbrev'] = '..';
-            $aFolder['label'] = '..';
-
-            $aFolders[$aFolder['val']] = $aFolder;
-        }
-
-        $folders = $this->_getFolders();
-
-        $base_len = strlen($path);
-        foreach (array_keys($folders) as $folder) {
-            if (substr($folder, 0, $base_len) == $path) {
-                $name = substr($folder, $base_len);
-                if (!strpos($name, '/')) {
-                    $aFolder['val']	= $folder;
-                    $aFolder['abbrev'] = $name;
-                    $aFolder['label'] = $folder;
-                    $aFolders[$aFolder['val']] = $aFolder;
-                }
-            }
-        }
-
-        ksort($aFolders);
-        return $aFolders;
     }
 
     /**

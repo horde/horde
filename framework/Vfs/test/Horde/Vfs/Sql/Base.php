@@ -166,14 +166,6 @@ class Horde_Vfs_Test_Sql_Base extends Horde_Vfs_Test_Base
         $this->_listFolder();
     }
 
-    /**
-     * @depends testQuota
-     */
-    public function testListFolders()
-    {
-        $this->_listFolders();
-    }
-
     public static function setUpBeforeClass()
     {
         $logger = new Horde_Log_Logger(new Horde_Log_Handler_Stream(STDOUT));

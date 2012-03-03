@@ -535,41 +535,6 @@ class Horde_Vfs_File extends Horde_Vfs_Base
     }
 
     /**
-     * Returns a sorted list of folders in the specified directory.
-     *
-     * @param string $path          The path of the directory to get the
-     *                              directory list for.
-     * @param string|array $filter  Regular expression(s) to filter directory
-     *                              names on.
-     * @param boolean $dotfolders   Include dotfolders?
-     *
-     * @return array  Folder list.
-     * @throws Horde_Vfs_Exception
-     */
-    public function listFolders($path = '', $filter = null, $dotfolders = true)
-    {
-        $folders = array();
-        $folders[dirname($path)] = array(
-            'val' => dirname($path),
-            'abbrev' => '..',
-            'label' => '..'
-        );
-
-        $folderList = $this->listFolder($path, null, $dotfolders, true);
-        foreach ($folderList as $name => $files) {
-            $folders[$name] = array(
-                'val' => $path . '/' . $files['name'],
-                'abbrev' => $files['name'],
-                'label' => $path . '/' . $files['name']
-            );
-        }
-
-        ksort($folders);
-
-        return $folders;
-    }
-
-    /**
      * Return Unix style perms.
      *
      * @param integer $perms  The permissions to set.
