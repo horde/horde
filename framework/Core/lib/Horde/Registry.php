@@ -451,29 +451,20 @@ class Horde_Registry
         $this->setLanguageEnvironment(null, 'horde');
 
         /* Initialize notification object. Always attach status listener by
-         * default.
-         *
-         * Default status listener can be overriden through the
-         * 'notification_override' session variable. */
-        $GLOBALS['notification'] = $injector->getInstance('Horde_Notification');
+         * default. */
+        $notify_class = null;
         switch ($this->getView()) {
         case self::VIEW_DYNAMIC:
-            $GLOBALS['notification']->attach('status', null, 'Horde_Core_Notification_Listener_DynamicStatus');
+            $notify_class = 'Horde_Core_Notification_Listener_DynamicStatus';
             break;
 
         case self::VIEW_SMARTMOBILE:
-            $GLOBALS['notification']->attach('status', null, 'Horde_Core_Notification_Listener_SmartmobileStatus');
-            break;
-
-        default:
-            if ($override = $session->get('horde', 'notification_override')) {
-                require_once $override[0];
-                $GLOBALS['notification']->attach('status', null, $override[1]);
-            } else {
-                $GLOBALS['notification']->attach('status');
-            }
+            $notify_class = 'Horde_Core_Notification_Listener_SmartmobileStatus';
             break;
         }
+
+        $GLOBALS['notification'] = $injector->getInstance('Horde_Notification');
+        $GLOBALS['notification']->attach('status', null, $notify_class);
 
         register_shutdown_function(array($this, 'shutdown'));
     }
