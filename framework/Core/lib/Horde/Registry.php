@@ -135,50 +135,48 @@ class Horde_Registry
      * Page compression will be started (if configured).
      *
      * Global variables defined:
-     *   $browser - Horde_Browser object
-     *   $cli - Horde_Cli object (if 'cli' is true)
-     *   $conf - Configuration array
-     *   $injector - Horde_Injector object
-     *   $language - Language
-     *   $notification - Horde_Notification object
-     *   $prefs - Horde_Prefs object
-     *   $registry - Horde_Registry object
-     *   $session - Horde_Session object
+     *   - $browser: Horde_Browser object
+     *   - $cli: Horde_Cli object (if 'cli' is true)
+     *   - $conf: Configuration array
+     *   - $injector: Horde_Injector object
+     *   - $language: Language
+     *   - $notification: Horde_Notification object
+     *   - $prefs: Horde_Prefs object
+     *   - $registry: Horde_Registry object
+     *   - $session: Horde_Session object
      *
      * @param string $app  The application to initialize.
      * @param array $args  Optional arguments:
-     * <pre>
-     * 'admin' - (boolean) Require authenticated user to be an admin?
-     *           DEFAULT: false
-     * 'authentication' - (string) The type of authentication to use:
-     *   'none'  - Do not authenticate
-     *   'throw' - Authenticate; on no auth, throw a Horde_Exception
-     *   [DEFAULT] - Authenticate; on no auth redirect to login screen
-     * 'cli' - (boolean) Initialize a CLI interface. Setting this to true
-     *         implicits setting 'authentication' to 'none' and 'admin' and
-     *         'nocompress' to true.
-     *         DEFAULT: false
-     * 'nocompress' - (boolean) If set, the page will not be compressed.
-     *                DEFAULT: false
-     * 'nologintasks' - (boolean) If set, don't perform logintasks (never
-     *                  performed if authentication is 'none').
-     *                  DEFAULT: false
-     * 'session_cache_limiter' - (string) Use this value for the session cache
-     *                           limiter.
-     *                           DEFAULT: Uses the value in the configuration.
-     * 'session_control' - (string) Sets special session control limitations:
-     *   'netscape' - TODO; start read/write session
-     *   'none' - Do not start a session
-     *   'readonly' - Start session readonly
-     *   [DEFAULT] - Start read/write session
-     * 'test' - (boolean) Is this the test script? If so, we relax several
-     *          sanity checks and don't load things from the cache.
+     *   - admin: (boolean) Require authenticated user to be an admin?
+     *            DEFAULT: false
+     *   - authentication: (string) The type of authentication to use:
+     *     - none: Do not authenticate
+     *     - throw: Authenticate; on no auth, throw a Horde_Exception
+     *     - [DEFAULT]: Authenticate; on no auth redirect to login screen
+     *   - cli: (boolean) Initialize a CLI interface. Setting this to true
+     *          implicits setting 'authentication' to 'none' and 'admin' and
+     *          'nocompress' to true.
      *          DEFAULT: false
-     * 'timezone' - (boolean) Set the time zone?
-     *              DEFAULT: false
-     * 'user_admin' - (boolean) Set authentication to an admin user?
-     *                DEFAULT: false
-     * </pre>
+     *   - nocompress: (boolean) If set, the page will not be compressed.
+     *                 DEFAULT: false
+     *   - nologintasks: (boolean) If set, don't perform logintasks (never
+     *                   performed if authentication is 'none').
+     *                   DEFAULT: false
+     *   - session_cache_limiter: (string) Use this value for the session
+     *                            cache limiter.
+     *                            DEFAULT: Uses the value in the config.
+     *   - session_control: (string) Special session control limitations:
+     *     - netscape: TODO; start read/write session
+     *     - none: Do not start a session
+     *     - readonly: Start session readonly
+     *     - [DEFAULT] - Start read/write session
+     *   - test: (boolean) Is this the test script? If so, we relax several
+     *           sanity checks and don't load things from the cache.
+     *           DEFAULT: false
+     *   - timezone: (boolean) Set the time zone?
+     *               DEFAULT: false
+     *   - user_admin: (boolean) Set authentication to an admin user?
+     *                 DEFAULT: false
      *
      * @return Horde_Registry_Application  The application object.
      * @throws Horde_Exception
@@ -1026,15 +1024,13 @@ class Horde_Registry
      * @param string $call    The method to call.
      * @param array $args     Arguments to the method.
      * @param array $options  Additional options:
-     * <pre>
-     * 'noperms' - (boolean) If true, don't check the perms.
-     * </pre>
+     *   - noperms: (boolean) If true, don't check the perms.
      *
      * @return mixed  Return from application call.
      * @throws Horde_Exception
      */
-    public function callByPackage($app, $call, $args = array(),
-                                  $options = array())
+    public function callByPackage($app, $call, array $args = array(),
+                                  array $options = array())
     {
         /* Note: calling hasMethod() makes sure that we've cached
          * $app's services and included the API file, so we don't try
@@ -1084,14 +1080,13 @@ class Horde_Registry
      * @param string $app     The application name.
      * @param string $call    The method to call.
      * @param array $options  Additional options:
-     * <pre>
-     * args - (array) Additional parameters to pass to the method.
-     * check_missing - (boolean) If true, throws an Exception if method does
-     *                 not exist. Otherwise, will return null.
-     * noperms - (boolean) If true, don't check the perms.
-     * </pre>
+     *   - args: (array) Additional parameters to pass to the method.
+     *   - check_missing: (boolean) If true, throws an Exception if method
+     *                    does not exist. Otherwise, will return null.
+     *   - noperms: (boolean) If true, don't check the perms.
      *
      * @return mixed  Various.
+     *
      * @throws Horde_Exception  Application methods should throw this if there
      *                          is a fatal error.
      */
@@ -1272,19 +1267,17 @@ class Horde_Registry
      * pushApp() also reads the application's configuration file and
      * sets up its global $conf hash.
      *
-     * @param string $app          The name of the application to push.
-     * @param array $options       Additional options:
-     * <pre>
-     * 'check_perms' - (boolean) Make sure that the current user has
-     *                 permissions to the application being loaded. Should
-     *                 ONLY be disabled by system scripts (cron jobs, etc.)
-     *                 and scripts that handle login.
-     *                 DEFAULT: true
-     * 'logintasks' - (boolean) Perform login tasks? Only performed if
-     *                'check_perms' is also true. System tasks are always
-     *                peformed if the user is authorized.
-     *                DEFAULT: false
-     * </pre>
+     * @param string $app     The name of the application to push.
+     * @param array $options  Additional options:
+     *   - check_perms: (boolean) Make sure that the current user has
+     *                  permissions to the application being loaded. Should
+     *                  ONLY be disabled by system scripts (cron jobs, etc.)
+     *                  and scripts that handle login.
+     *                  DEFAULT: true
+     *   - logintasks: (boolean) Perform login tasks? Only performed if
+     *                 'check_perms' is also true. System tasks are always
+     *                 peformed if the user is authorized.
+     *                 DEFAULT: false
      *
      * @return boolean  Whether or not the _appStack was modified.
      * @throws Horde_Exception
@@ -1482,10 +1475,8 @@ class Horde_Registry
      * @param string $app     The name of the application
      * @param integer $perms  The permission level to check for.
      * @param array $options  Additional options:
-     * <pre>
-     * 'notransparent' - (boolean) Do not attempt transparent authentication.
-     *                   DEFAULT: false
-     * </pre>
+     *   - notransparent: (boolean) Do not attempt transparent authentication.
+     *                    DEFAULT: false
      *
      * @return boolean  Whether access is allowed.
      */
@@ -1928,14 +1919,12 @@ class Horde_Registry
      * Is a user an administrator?
      *
      * @param array $options  Options:
-     * <pre>
-     * 'permission' - (string) Allow users with this permission admin access
-     *                in the current context.
-     * 'permlevel' - (integer) The level of permissions to check for.
-     *               Defaults to Horde_Perms::EDIT.
-     * 'user' - (string) The user to check.
-     *          Defaults to self::getAuth().
-     * </pre>
+     *   - permission: (string) Allow users with this permission admin access
+     *                 in the current context.
+     *   - permlevel: (integer) The level of permissions to check for.
+     *                Defaults to Horde_Perms::EDIT.
+     *   - user: (string) The user to check.
+     *           Defaults to self::getAuth().
      *
      * @return boolean  Whether or not this is an admin user.
      */
@@ -1962,12 +1951,10 @@ class Horde_Registry
      * authentication, then we try that.
      *
      * @param array $options  Additional options:
-     * <pre>
-     * 'app' - (string) Check authentication for this app.
-     *         DEFAULT: Checks horde-wide authentication.
-     * 'notransparent' - (boolean) Do not attempt transparent authentication.
-     *                   DEFAULT: false
-     * </pre>
+     *   - app: (string) Check authentication for this app.
+     *          DEFAULT: Checks horde-wide authentication.
+     *   - notransparent: (boolean) Do not attempt transparent authentication.
+     *                    DEFAULT: false
      *
      * @return boolean  Whether or not the user is authenticated.
      */
@@ -2118,13 +2105,11 @@ class Horde_Registry
      *
      * @param string $format  The return format, defaults to the unique Horde
      *                        ID. Alternative formats:
-     * <pre>
-     * bare - Horde ID without any domain information.
-     *        EXAMPLE: foo@example.com would be returned as 'foo'.
-     * domain: Domain of the Horde ID.
-     *         EXAMPLE: foo@example.com would be returned as 'example.com'.
-     * original: The username used to originally login to Horde.
-     * </pre>
+     *   - bare: (string) Horde ID without any domain information.
+     *           EXAMPLE: foo@example.com would be returned as 'foo'.
+     *   - domain: (string) Domain of the Horde ID.
+     *             EXAMPLE: foo@example.com would be returned as 'example.com'.
+     *   - original: (string) The username used to originally login to Horde.
      *
      * @return mixed  The user ID or false if no user is logged in.
      */
@@ -2287,16 +2272,14 @@ class Horde_Registry
      *
      * Horde authentication data is stored in the session in the 'auth' and
      * 'auth_app' array keys.  The 'auth' key has the following members:
-     * <pre>
-     * 'authId' - (string) The username used during the original auth.
-     * 'browser' - (string) The remote browser string.
-     * 'change' - (boolean) Is a password change requested?
-     * 'credentials' - (string) The 'auth_app' entry that contains the Horde
+     *   - authId: (string) The username used during the original auth.
+     *   - browser: (string) The remote browser string.
+     *   - change: (boolean) Is a password change requested?
+     *   - credentials: (string) The 'auth_app' entry that contains the Horde
      *                 credentials.
-     * 'remoteAddr' - (string) The remote IP address of the user.
-     * 'timestamp' - (integer) The login time.
-     * 'userId' - (string) The unique Horde username.
-     * </pre>
+     *   - remoteAddr: (string) The remote IP address of the user.
+     *   - timestamp: (integer) The login time.
+     *   - userId: (string) The unique Horde username.
      *
      * The auth_app key contains application-specific authentication.
      * Session subkeys are the app names, values are an array containing
@@ -2306,15 +2289,13 @@ class Horde_Registry
      * @param string $authId      The userId that has been authorized.
      * @param array $credentials  The credentials of the user.
      * @param array $options      Additional options:
-     * <pre>
-     * 'app' - (string) The app to set authentication credentials for.
-     *         DEFAULT: 'horde'
-     * 'change' - (boolean) Whether to request that the user change their
-     *            password.
-     *            DEFAULT: No
-     * 'language' - (string) The preferred language.
-     *              DEFAULT: null
-     * </pre>
+     *   - app: (string) The app to set authentication credentials for.
+     *          DEFAULT: 'horde'
+     *   - change: (boolean) Whether to request that the user change their
+     *             password.
+     *             DEFAULT: No
+     *   - language: (string) The preferred language.
+     *               DEFAULT: null
      */
     public function setAuth($authId, $credentials, array $options = array())
     {
