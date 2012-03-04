@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-03-01</date>
- <time>14:11:24</time>
+ <date>2012-03-04</date>
+ <time>02:28:01</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -195,6 +195,7 @@
        <file name="Perms.php" role="php" />
        <file name="PermsCore.php" role="php" />
        <file name="Prefs.php" role="php" />
+       <file name="QueueStorage.php" role="php" />
        <file name="Request.php" role="php" />
        <file name="Secret.php" role="php" />
        <file name="SessionHandler.php" role="php" />
@@ -1193,6 +1194,7 @@
    <install as="Horde/Core/Factory/Perms.php" name="lib/Horde/Core/Factory/Perms.php" />
    <install as="Horde/Core/Factory/PermsCore.php" name="lib/Horde/Core/Factory/PermsCore.php" />
    <install as="Horde/Core/Factory/Prefs.php" name="lib/Horde/Core/Factory/Prefs.php" />
+   <install as="Horde/Core/Factory/QueueStorage.php" name="lib/Horde/Core/Factory/QueueStorage.php" />
    <install as="Horde/Core/Factory/Request.php" name="lib/Horde/Core/Factory/Request.php" />
    <install as="Horde/Core/Factory/Secret.php" name="lib/Horde/Core/Factory/Secret.php" />
    <install as="Horde/Core/Factory/SessionHandler.php" name="lib/Horde/Core/Factory/SessionHandler.php" />

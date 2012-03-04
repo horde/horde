@@ -328,6 +328,7 @@ class Horde_Registry
             'Horde_Memcache' => 'Horde_Core_Factory_Memcache',
             'Horde_Notification' => 'Horde_Core_Factory_Notification',
             'Horde_Perms' => 'Horde_Core_Factory_Perms',
+            'Horde_Queue_Storage' => 'Horde_Core_Factory_QueueStorage',
             'Horde_Routes_Mapper' => 'Horde_Core_Factory_Mapper',
             'Horde_Routes_Matcher' => 'Horde_Core_Factory_Matcher',
             'Horde_Secret' => 'Horde_Core_Factory_Secret',
@@ -346,9 +347,7 @@ class Horde_Registry
 
         /* Define implementations. */
         $implementations = array(
-            'Horde_Controller_ResponseWriter' => 'Horde_Controller_ResponseWriter_Web',
-            'Horde_Queue_Runner' => 'Horde_Queue_Runner_RequestShutdown',
-            'Horde_Queue_Storage' => 'Horde_Queue_Storage_Array',
+            'Horde_Controller_ResponseWriter' => 'Horde_Controller_ResponseWriter_Web'
         );
 
         /* Setup injector. */
@@ -450,11 +449,6 @@ class Horde_Registry
 
         /* Initialize the localization routines and variables. */
         $this->setLanguageEnvironment(null, 'horde');
-
-        /* Initialize shutdown Queue running.
-         * @TODO: Only do this if actually using the shutdown runner
-         */
-        $this->_runner = $injector->getInstance('Horde_Queue_Runner');
 
         /* Initialize notification object. Always attach status listener by
          * default.
