@@ -582,18 +582,10 @@ class IMP_Application extends Horde_Registry_Application
      */
     public function changeLanguage()
     {
-        $this->mailboxesChanged();
+        $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->init();
     }
 
     /* Helper methods. */
-
-    /**
-     * Run tasks when the mailbox list has changed.
-     */
-    public function mailboxesChanged()
-    {
-        $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->init();
-    }
 
     /**
      * Callback, called from common-template-mobile.inc that sets up the jquery

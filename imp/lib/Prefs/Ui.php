@@ -522,7 +522,7 @@ class IMP_Prefs_Ui
      */
     public function prefsCallback($ui)
     {
-        global $browser, $notification, $prefs, $registry, $session;
+        global $injector, $notification, $prefs, $session;
 
         if ($prefs->isDirty('use_trash')) {
             IMP_Mailbox::getPref('trash_folder')->expire(IMP_Mailbox::CACHE_SPECIALMBOXES);
@@ -545,7 +545,7 @@ class IMP_Prefs_Ui
         }
 
         if ($prefs->isDirty('subscribe') || $prefs->isDirty('tree_view')) {
-            $registry->getApiInstance('imp', 'application')->mailboxesChanged();
+            $injector->getInstance('IMP_Imap_Tree')->init();
         }
     }
 
