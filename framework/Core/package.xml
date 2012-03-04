@@ -29,7 +29,7 @@
   <active>yes</active>
  </developer>
  <date>2012-03-04</date>
- <time>02:28:01</time>
+ <time>02:44:34</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -272,6 +272,9 @@
        <file name="Identity.php" role="php" />
        <file name="Ui.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Prefs -->
+      <dir name="Queue">
+       <file name="Registry.php" role="php" />
+      </dir> <!-- /lib/Horde/Core/Queue -->
       <dir name="Share">
        <file name="Driver.php" role="php" />
        <file name="FactoryCallback.php" role="php" />
@@ -1232,6 +1235,7 @@
    <install as="Horde/Core/Prefs/Storage/Hooks.php" name="lib/Horde/Core/Prefs/Storage/Hooks.php" />
    <install as="Horde/Core/Prefs/Storage/Upgrade.php" name="lib/Horde/Core/Prefs/Storage/Upgrade.php" />
    <install as="Horde/Core/Prefs/Ui/Widgets.php" name="lib/Horde/Core/Prefs/Ui/Widgets.php" />
+   <install as="Horde/Core/Queue/Registry.php" name="lib/Horde/Core/Queue/Registry.php" />
    <install as="Horde/Core/Share/Driver.php" name="lib/Horde/Core/Share/Driver.php" />
    <install as="Horde/Core/Share/FactoryCallback.php" name="lib/Horde/Core/Share/FactoryCallback.php" />
    <install as="Horde/Core/Text/Filter/Bbcode.php" name="lib/Horde/Core/Text/Filter/Bbcode.php" />

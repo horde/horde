@@ -466,7 +466,7 @@ class Horde_Registry
         $GLOBALS['notification'] = $injector->getInstance('Horde_Notification');
         $GLOBALS['notification']->attach('status', null, $notify_class);
 
-        register_shutdown_function(array($this, 'shutdown'));
+        $injector->getInstance('Horde_Queue_Storage')->add(new Horde_Core_Queue_Registry());
     }
 
     /**
@@ -484,22 +484,6 @@ class Horde_Registry
     {
         $this->_args['authentication'] = $authentication;
         $this->_obCache = array();
-    }
-
-    /**
-     * Events to do on shutdown.
-     */
-    public function shutdown()
-    {
-        /* Register access key logger for translators. */
-        if (!empty($GLOBALS['conf']['log_accesskeys'])) {
-            Horde::getAccessKey(null, null, true);
-        }
-
-        /* Register memory tracker if logging in debug mode. */
-        if (function_exists('memory_get_peak_usage')) {
-            Horde::logMessage('Max memory usage: ' . memory_get_peak_usage(true) . ' bytes', 'DEBUG');
-        }
     }
 
     /**
