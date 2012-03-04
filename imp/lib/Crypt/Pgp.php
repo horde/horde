@@ -176,15 +176,13 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      *
      * @param string $address  The e-mail address to search by.
      * @param array $options   Additional options:
-     * <pre>
-     * 'keyid' - (string) The key ID of the user's key.
-     *           DEFAULT: key ID not used
-     * 'nocache' - (boolean) Don't retrieve from cache?
-     *             DEFAULT: false
-     * 'noserver' - (boolean) Whether to check the public key servers for the
-     *              key.
+     *   - keyid: (string) The key ID of the user's key.
+     *            DEFAULT: key ID not used
+     *   - nocache: (boolean) Don't retrieve from cache?
      *              DEFAULT: false
-     * </pre>
+     *   - noserver: (boolean) Whether to check the public key servers for the
+     *               key.
+     *               DEFAULT: false
      *
      * @return string  The PGP public key requested.
      * @throws Horde_Crypt_Exception

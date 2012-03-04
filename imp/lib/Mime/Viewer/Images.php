@@ -42,13 +42,11 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
      * Return the full rendered version of the Horde_Mime_Part object.
      *
      * URL parameters used by this function:
-     * <pre>
-     * imp_img_view - (string) One of the following:
-     *   data - Output the image directly.
-     *   view_convert - Convert the image to browser-viewable format and
-     *                  display.
-     *   view_thumbnail - Create thumbnail and display.
-     * </pre>
+     *   - imp_img_view: (string) One of the following:
+     *     - data: Output the image directly.
+     *     - view_convert: Convert the image to browser-viewable format and
+     *                     display.
+     *     - view_thumbnail: Create thumbnail and display.
      *
      * @return array  See parent::render().
      */

@@ -213,12 +213,10 @@ class IMP_Api extends Horde_Registry_Api
      * Returns information on the currently logged on IMAP server.
      *
      * @return mixed  An array with the following entries:
-     * <pre>
-     * 'hostspec' - (string) The server hostname.
-     * 'port' - (integer) The server port.
-     * 'protocol' - (string) Either 'imap' or 'pop'.
-     * 'secure' - (string) Either 'none', 'ssl', or 'tls'.
-     * </pre>
+     *   - hostspec: (string) The server hostname.
+     *   - port: (integer) The server port.
+     *   - protocol: (string) Either 'imap' or 'pop'.
+     *   - secure: (string) Either 'none', 'ssl', or 'tls'.
      */
     public function server()
     {

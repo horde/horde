@@ -23,13 +23,11 @@ class IMP_Quota_Command extends IMP_Quota
      * Constructor.
      *
      * @param array $params  Parameters:
-     * <pre>
-     * 'grep_path' - (string) [REQUIRED] Path to the grep binary.
-     * 'partition' - (string) If all user mailboxes are on a single partition,
-     *               the partition label.  By default, quota will determine
-     *               quota information using the user's home directory value.
-     * 'quota_path' - (string) [REQUIRED] Path to the quota binary.
-     * </pre>
+     *   - grep_path: (string) [REQUIRED] Path to the grep binary.
+     *   - partition: (string) If all user mailboxes are on a single partition,
+     *                the partition label.  By default, quota will determine
+     *                quota information using the user's home directory value.
+     *   - quota_path: (string) [REQUIRED] Path to the quota binary.
      */
     public function __construct(array $params = array())
     {

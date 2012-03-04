@@ -83,37 +83,33 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
      *
      * @param array $msgnum   An array of index numbers.
      * @param array $options  Additional options:
-     * <pre>
-     * headers - (boolean) Return info on the non-envelope headers
-     *           'Importance', 'List-Post', and 'X-Priority'.
-     *           DEFAULT: false (only envelope headers returned)
-     * preview - (mixed) Include preview information?  If empty, add no
-     *                   preview information. If 1, uses value from prefs.
-     *                   If 2, forces addition of preview info.
-     *                   DEFAULT: No preview information.
-     * type - (boolean) Return info on the MIME Content-Type of the base
-     *        message part ('Content-Type' header).
-     *        DEFAULT: false
-     * </pre>
+     *   - headers: (boolean) Return info on the non-envelope headers
+     *              'Importance', 'List-Post', and 'X-Priority'.
+     *              DEFAULT: false (only envelope headers returned)
+     *   - preview: (mixed) Include preview information?  If empty, add no
+     *              preview information. If 1, uses value from prefs.
+     *              If 2, forces addition of preview info.
+     *              DEFAULT: No preview information.
+     *   - type: (boolean) Return info on the MIME Content-Type of the base
+     *           message part ('Content-Type' header).
+     *           DEFAULT: false
      *
      * @return array  An array with the following keys:
-     * <pre>
-     * overview - (array) The overview information. Contains the following:
-     *     envelope - (Horde_Imap_Client_Data_Envelope) Envelope information
-     *                returned from the IMAP server.
-     *     flags - (array) The list of IMAP flags returned from the server.
-     *     headers - (array) Horde_Mime_Headers objects containing header data
-     *               if either $options['headers'] or $options['type'] are
-     *               true.
-     *     idx - (integer) Array index of this message.
-     *     mailbox - (string) The mailbox containing the message.
-     *     preview - (string) If requested in $options['preview'], the preview
-     *               text.
-     *     previewcut - (boolean) Has the preview text been cut?
-     *     size - (integer) The size of the message in bytes.
-     *     uid - (string) The unique ID of the message.
-     * uids - (IMP_Indices) An indices object.
-     * </pre>
+     *   - overview: (array) The overview information. Contains the following:
+     *   - envelope: (Horde_Imap_Client_Data_Envelope) Envelope information
+     *               returned from the IMAP server.
+     *   - flags: (array) The list of IMAP flags returned from the server.
+     *   - headers: (array) Horde_Mime_Headers objects containing header data
+     *              if either $options['headers'] or $options['type'] are
+     *              true.
+     *   - idx: (integer) Array index of this message.
+     *   - mailbox: (string) The mailbox containing the message.
+     *   - preview: (string) If requested in $options['preview'], the preview
+     *              text.
+     *   - previewcut: (boolean) Has the preview text been cut?
+     *   - size: (integer) The size of the message in bytes.
+     *   - uid: (string) The unique ID of the message.
+     *   - uids: (IMP_Indices) An indices object.
      */
     public function getMailboxArray($msgnum, $options = array())
     {

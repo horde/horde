@@ -670,10 +670,8 @@ class IMP_Hooks
      * @param array $params  Parameters for the function, set in backends.php.
      *
      * @return array  Tuple with two members:
-     * <pre>
-     * first: disk space used (in bytes)
-     * second: maximum disk space (in bytes)
-     * </pre>
+     *   - first: disk space used (in bytes)
+     *   - second: maximum disk space (in bytes)
      */
 //    public function quota($params = null)
 //    {
@@ -876,10 +874,8 @@ class IMP_Hooks
      * advanced functionality to be available in the mobile view.
      *
      * @param string $feature  The advanced feature. One of the following:
-     * <pre>
-     * 'checkbox' - Adds a checkbox interface to selecting messages on the
-     *              mailbox listing page.
-     * </pre>
+     *   - checkbox: Adds a checkbox interface to selecting messages on the
+     *               mailbox listing page.
      *
      * @return boolean  If true, activates the feature. By default, these
      *                  advanced features are NOT active.
