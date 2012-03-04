@@ -67,7 +67,6 @@ class Horde_Themes_Css
      * 'nobase' - (boolean) If true, don't load base stylesheets.
      * 'nohorde' - (boolean) If true, don't load files from Horde.
      * 'nocache' - (boolean) If true, don't load files from Cache.
-     *             @since Horde_Core 1.3.0
      * 'sub' - (string) A subdirectory containing additional CSS files to
      *         load as an overlay to the base CSS files.
      * 'subonly' - (boolean) If true, only load the files in 'sub', not

@@ -12,7 +12,6 @@
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Core
- * @since    2.0.0
  */
 class Horde_Core_Ajax_Response
 {
