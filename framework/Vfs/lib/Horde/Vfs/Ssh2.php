@@ -413,12 +413,23 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
                 $dotfiles = true;
             }
 
-            $stream = @ssh2_exec($this->_stream, 'ls -' . $ls_args . ' ' . escapeshellarg($path), '', array('LC_TIME' => 'C'));
+            $stream = @ssh2_exec(
+                $this->_stream,
+                'ls -' . $ls_args . ' ' . escapeshellarg($path),
+                null,
+                array('LC_TIME' => 'C'));
         } else {
             $stream = @ssh2_exec($this->_stream, '');
         }
-
         stream_set_blocking($stream, true);
+
+        $errstream = ssh2_fetch_stream($stream, SSH2_STREAM_STDERR);
+        if ($error = stream_get_contents($errstream)) {
+            fclose($errstream);
+            fclose($stream);
+            throw new Horde_Vfs_Exception($error);
+        }
+
         unset($list);
         while (!feof($stream)) {
             $line = fgets($stream);
@@ -427,6 +438,7 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
             }
             $list[] = trim($line);
         }
+        fclose($errstream);
         fclose($stream);
 
         if (!is_array($list)) {
