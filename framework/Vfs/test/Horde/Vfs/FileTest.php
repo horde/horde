@@ -70,6 +70,15 @@ class Horde_Vfs_FileTest extends Horde_Vfs_Test_Base
      * @depends testWrite
      * @depends testWriteData
      */
+    public function testReadStream()
+    {
+        $this->_readStream();
+    }
+
+    /**
+     * @depends testWrite
+     * @depends testWriteData
+     */
     public function testReadByteRange()
     {
         $this->_readByteRange();

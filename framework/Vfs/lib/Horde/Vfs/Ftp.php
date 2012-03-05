@@ -191,7 +191,23 @@ class Horde_Vfs_Ftp extends Horde_Vfs_Base
      */
     public function readStream($path, $name)
     {
-        return fopen($this->readFile($path, $name), OS_WINDOWS ? 'rb' : 'r');
+        if (!empty($this->_params['ssl'])) {
+            if (function_exists('ftp_ssl_connect')) {
+                $url = 'ftps://';
+            } else {
+                throw new Horde_Vfs_Exception('Unable to connect with SSL.');
+            }
+        } else {
+            $url = 'ftp://';
+        }
+        $url .= $this->_params['username'] . ':' . $this->_params['password']
+            . '@' . $this->_params['hostspec'] . ':' . $this->_params['port']
+            . '/' . $this->_getPath($path, $name);
+        $stream = @fopen($url, 'r');
+        if (!is_resource($stream)) {
+            throw new Horde_Vfs_Exception('Unable to open VFS file.');
+        }
+        return $stream;
     }
 
     /**

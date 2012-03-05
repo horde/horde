@@ -130,12 +130,10 @@ class Horde_Vfs_File extends Horde_Vfs_Base
      */
     public function readStream($path, $name)
     {
-        $mode = OS_WINDOWS ? 'rb' : 'r';
-        $stream = @fopen($this->_getNativePath($path, $name), $mode);
+        $stream = @fopen($this->_getNativePath($path, $name), 'rb');
         if (!is_resource($stream)) {
             throw new Horde_Vfs_Exception('Unable to open VFS file.');
         }
-
         return $stream;
     }
 

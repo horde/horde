@@ -101,6 +101,16 @@ class Horde_Vfs_Test_Base extends Horde_Test_Case
         $this->assertFileEquals(__FILE__, self::$vfs->readFile('test/dir3', 'file2', __FILE__));
     }
 
+    protected function _readStream()
+    {
+        $this->assertEquals(
+            file_get_contents(__FILE__),
+            stream_get_contents(self::$vfs->readStream('test/dir1', 'file2')));
+        $this->assertEquals(
+            file_get_contents(__FILE__),
+            stream_get_contents(self::$vfs->readStream('test/dir3', 'file2')));
+    }
+
     protected function _readByteRange()
     {
         $offset = 1;
