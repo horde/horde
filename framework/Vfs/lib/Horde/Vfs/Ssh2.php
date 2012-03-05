@@ -149,7 +149,6 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
         if (!($localFile = Horde_Util::getTempFile('vfs'))) {
             throw new Horde_Vfs_Exception('Unable to create temporary file.');
         }
-        register_shutdown_function(create_function('', '@unlink(\'' . addslashes($localFile) . '\');'));
 
         if (!$this->_recv($this->_getPath($path, $name), $localFile)) {
             throw new Horde_Vfs_Exception(sprintf('Unable to open VFS file "%s".', $this->_getPath($path, $name)));
@@ -219,14 +218,7 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
         $tmpFile = Horde_Util::getTempFile('vfs');
         file_put_contents($tmpFile, $data);
         clearstatcache();
-
-        try {
-            $this->write($path, $name, $tmpFile, $autocreate);
-            unlink($tmpFile);
-        } catch (Horde_Vfs_Exception $e) {
-            unlink($tmpFile);
-            throw $e;
-        }
+        $this->write($path, $name, $tmpFile, $autocreate);
     }
 
     /**
@@ -658,7 +650,6 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
         } else {
             $tmpFile = Horde_Util::getTempFile('vfs');
             if (!$this->_recv($orig, $tmpFile)) {
-                unlink($tmpFile);
                 throw new Horde_Vfs_Exception(sprintf('Failed to copy from "%s".', $orig));
             }
 
@@ -666,11 +657,8 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
             $this->_checkQuotaWrite('file', $tmpFile);
 
             if (!$this->_send($tmpFile, $this->_getPath($dest, $name))) {
-                unlink($tmpFile);
                 throw new Horde_Vfs_Exception(sprintf('Failed to copy to "%s".', $this->_getPath($dest, $name)));
             }
-
-            unlink($tmpFile);
         }
     }
 
