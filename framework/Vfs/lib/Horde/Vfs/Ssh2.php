@@ -212,10 +212,9 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
      */
     public function writeData($path, $name, $data, $autocreate = false)
     {
-        $this->_checkQuotaWrite('string', $data);
-
         $tmpFile = Horde_Util::getTempFile('vfs');
         file_put_contents($tmpFile, $data);
+        clearstatcache();
 
         try {
             $this->write($path, $name, $tmpFile, $autocreate);
@@ -288,15 +287,15 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
         }
 
         if ($isDir) {
-            $file_list = $this->listFolder($this->_getPath($path, $name));
+            $file_list = $this->listFolder($path . '/' . $name);
             if (count($file_list) && !$recursive) {
                 throw new Horde_Vfs_Exception(sprintf('Unable to delete "%s", the directory is not empty.', $this->_getPath($path, $name)));
             }
             foreach ($file_list as $file) {
                 if ($file['type'] == '**dir') {
-                    $this->deleteFolder($this->_getPath($path, $name), $file['name'], $recursive);
+                    $this->deleteFolder($path . '/' . $name, $file['name'], $recursive);
                 } else {
-                    $this->deleteFile($this->_getPath($path, $name), $file['name']);
+                    $this->deleteFile($path . '/' . $name, $file['name']);
                 }
             }
 
@@ -392,6 +391,7 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
         $type = 'unix';
 
         $olddir = $this->getCurrentDirectory();
+        $path = $this->_getPath('', $path);
         if (strlen($path)) {
             $this->_setPath($path);
         }
@@ -623,7 +623,7 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
             return $conn;
         }
 
-        return !(ssh2_sftp_stat($this->_sftp, ssh2_sftp_realpath($this->_sftp, $path) . '/' . $name) === false);
+        return @ssh2_sftp_stat($this->_sftp, $this->_getPath($path, $name)) !== false;
     }
 
     /**
@@ -665,6 +665,7 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
                 throw new Horde_Vfs_Exception(sprintf('Failed to copy from "%s".', $orig));
             }
 
+            clearstatcache();
             $this->_checkQuotaWrite('file', $tmpFile);
 
             if (!$this->_send($tmpFile, $this->_getPath($dest, $name))) {
@@ -759,9 +760,14 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
      */
     protected function _getPath($path, $name)
     {
-        return ($path !== '')
-            ? ($path . '/' . $name)
-            : $name;
+        if (strlen($this->_params['vfsroot'])) {
+            if (strlen($path)) {
+                $path = $this->_params['vfsroot'] . '/' . $path;
+            } else {
+                $path = $this->_params['vfsroot'];
+            }
+        }
+        return parent::_getPath($path, $name);
     }
 
     /**
@@ -825,11 +831,18 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
 
         /* Create sftp resource. */
         $this->_sftp = @ssh2_sftp($this->_stream);
+
+        if (!empty($this->_params['vfsroot']) &&
+            !@ssh2_sftp_stat($this->_sftp, $this->_params['vfsroot']) &&
+            !@ssh2_sftp_mkdir($this->_sftp, $this->_params['vfsroot'])) {
+            throw new Horde_Vfs_Exception(sprintf('Unable to create VFS root directory "%s".', $this->_params['vfsroot']));
+        }
     }
 
     /**
      * Sends local file to remote host.
-     * This function exists because the php_scp_* functions doesn't seem to
+     *
+     * This function exists because the ssh2_scp_send function doesn't seem to
      * work on some hosts.
      *
      * @param string $local   Full path to the local file.
@@ -844,7 +857,8 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
 
     /**
      * Receives file from remote host.
-     * This function exists because the php_scp_* functions doesn't seem to
+     *
+     * This function exists because the ssh2_scp_recv function doesn't seem to
      * work on some hosts.
      *
      * @param string $local   Full path to the local file.
@@ -866,10 +880,11 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
      */
     protected function _wrap($remote)
     {
-        return 'ssh2.sftp://' . $this->_params['username'] . ':' .
-            $this->_params['password'] . '@' . $this->_params['hostspec'] .
-            ':' . $this->_params['port'] .
-            ssh2_sftp_realpath($this->_sftp, $remote);
+        $wrapper = 'ssh2.sftp://' . $this->_params['username'] . ':'
+            . $this->_params['password'] . '@' . $this->_params['hostspec'];
+        if (!empty($this->_params['port'])) {
+            $wrapper .= ':' . $this->_params['port'];
+        }
+        return $wrapper . $remote;
     }
-
 }
