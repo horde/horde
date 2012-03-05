@@ -505,7 +505,7 @@ var ViewPort = Class.create({
             });
             this.opts.content.setStyle({ width: '100%' });
             sp.currbar.show();
-            this.opts.pane_data.setStyle({ height: (this._getMaxHeight() - h) + 'px' }).show();
+            this.opts.pane_data.setStyle({ height: Math.max(this._getMaxHeight() - h, 0) + 'px' }).show();
             break;
 
         case 'vert':

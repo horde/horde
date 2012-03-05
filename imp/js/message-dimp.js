@@ -241,7 +241,7 @@ var DimpMessage = {
     {
         var mb = $('msgData').down('DIV.messageBody');
 
-        mb.setStyle({ height: (document.viewport.getHeight() - mb.cumulativeOffset()[1] - parseInt(mb.getStyle('paddingTop'), 10) - parseInt(mb.getStyle('paddingBottom'), 10)) + 'px' });
+        mb.setStyle({ height: Math.max(document.viewport.getHeight() - mb.cumulativeOffset()[1] - parseInt(mb.getStyle('paddingTop'), 10) - parseInt(mb.getStyle('paddingBottom'), 10), 0) + 'px' });
     },
 
     onDomLoad: function()
