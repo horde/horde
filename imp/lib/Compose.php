@@ -1576,7 +1576,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
 
             /* Filter out our own address from the addresses we reply to. */
             $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
-            $all_addrs = array_keys($identity->getAllFromAddresses(true));
+            $all_addrs = new Horde_Mail_Rfc822_List(array_keys($identity->getAllFromAddresses(true)));
 
             /* Build the To: header. It is either:
              * 1) the Reply-To address (if not a personal address)
@@ -1590,36 +1590,37 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
                     continue;
                 }
 
-                $ob = $h->getOb($val);
-                $ob->setIteratorFilter(0, $all_addrs);
+                if ($ob = $h->getOb($val)) {
+                    $ob->setIteratorFilter(0, $all_addrs);
 
-                if ($first_ob = $ob[0]) {
-                    if ($first_ob instanceof Horde_Mail_Rfc822_Group) {
-                        $cc_addrs->add($ob);
-                        $all_addrs = array_merge($all_addrs, $ob->addresses->bare_addresses);
-                    } elseif (($val != 'to') ||
-                              is_null($list_info) ||
-                              !$force ||
-                              empty($list_info['exists'])) {
-                        /* Don't add as To address if this is a list that
-                         * doesn't have a post address but does have a
-                         * reply-to address. */
-                        if (in_array($val, array('from', 'reply-to'))) {
-                            /* If from/reply-to doesn't have personal
-                             * information, check from address. */
-                            if (is_null($first_ob->personal) &&
-                                ($to_ob = $h->getOb('from')) &&
-                                !is_null($to_ob[0]->personal) &&
-                                ($to_ob[0]->bare_address != $first_ob->bare_address)) {
-                                $header['to'] = strval($to_ob);
-                            } else {
-                                $header['to'] = strval($first_ob);
-                            }
-                        } else {
+                    if ($first_ob = $ob[0]) {
+                        if ($first_ob instanceof Horde_Mail_Rfc822_Group) {
                             $cc_addrs->add($ob);
-                        }
+                            $all_addrs->add($ob->addresses);
+                        } elseif (($val != 'to') ||
+                                  is_null($list_info) ||
+                                  !$force ||
+                                  empty($list_info['exists'])) {
+                            /* Don't add as To address if this is a list that
+                             * doesn't have a post address but does have a
+                             * reply-to address. */
+                            if (in_array($val, array('from', 'reply-to'))) {
+                                /* If from/reply-to doesn't have personal
+                                 * information, check from address. */
+                                if (is_null($first_ob->personal) &&
+                                    ($to_ob = $h->getOb('from')) &&
+                                    !is_null($to_ob[0]->personal) &&
+                                    ($first_ob->match($to_ob[0]))) {
+                                    $header['to'] = strval($to_ob);
+                                } else {
+                                    $header['to'] = strval($first_ob);
+                                }
+                            } else {
+                                $cc_addrs->add($ob);
+                            }
 
-                        $all_addrs = array_merge($all_addrs, $ob->bare_addresses);
+                            $all_addrs->add($ob);
+                        }
                     }
                 }
             }
@@ -1634,10 +1635,11 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
             $header[empty($header['to']) ? 'to' : 'cc'] = strval($cc_addrs);
 
             /* Build the Bcc: header. */
-            $bcc = $h->getOb('bcc');
-            $bcc->add($identity->getBccAddresses());
-            $bcc->setIteratorFilter(0, $all_addrs);
-            $header['bcc'] = strval($bcc);
+            if ($bcc = $h->getOb('bcc')) {
+                $bcc->add($identity->getBccAddresses());
+                $bcc->setIteratorFilter(0, $all_addrs);
+                $header['bcc'] = strval($bcc);
+            }
         }
 
         if (!$this->_replytype || ($reply_type != $this->_replytype)) {
