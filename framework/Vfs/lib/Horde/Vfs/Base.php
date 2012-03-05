@@ -773,9 +773,8 @@ abstract class Horde_Vfs_Base
         if (strlen($path) > 0) {
             if (substr($path, -1) == '/') {
                 return $path . $name;
-            } else {
-                return $path . '/' . $name;
             }
+            return $path . '/' . $name;
         }
 
         return $name;
