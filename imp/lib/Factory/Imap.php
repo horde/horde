@@ -61,7 +61,7 @@ class IMP_Factory_Imap extends Horde_Core_Factory_Base
      */
     public function create($id = null, $save = false)
     {
-        global $session;
+        global $injector, $registry, $session;
 
         if (is_null($id) &&
             !($id = $session->get('imp', 'server_key')) &&
@@ -74,8 +74,17 @@ class IMP_Factory_Imap extends Horde_Core_Factory_Base
                 register_shutdown_function(array($this, 'shutdown'));
             }
 
-            if ($ob = $session->get('imp', 'imap_ob/' . $id)) {
-                /* If retrieved from session, we know $save should implcitly
+            try {
+                $ob = $session->get('imp', 'imap_ob/' . $id);
+            } catch (Exception $e) {
+                // This indicates an unserialize() error.  This is fatal, so
+                // logout.
+                $injector->getInstance('Horde_Core_Factory_Auth')->create()->setError(Horde_Auth::REASON_SESSION);
+                $registry->authenticateFailure('imp');
+            }
+
+            if ($ob) {
+                /* If retrieved from session, we know $save should implicitly
                  * be true. */
                 $this->_save[] = $id;
             } else {
