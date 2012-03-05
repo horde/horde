@@ -5,9 +5,9 @@
 require_once dirname(__FILE__) . '/Base.php';
 
 /**
- * Test the file based virtual file system.
+ * Test the FTP based virtual file system.
  *
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -15,13 +15,11 @@ require_once dirname(__FILE__) . '/Base.php';
  * @category   Horde
  * @package    VFS
  * @subpackage UnitTests
- * @author     Michael Slusarz <slusarz@horde.org>
  * @author     Jan Schneider <jan@horde.org>
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
-class Horde_Vfs_FileTest extends Horde_Vfs_Test_Base
+class Horde_Vfs_FtpTest extends Horde_Vfs_Test_Base
 {
-
     public function testListEmpty()
     {
         $this->_listEmpty();
@@ -64,15 +62,6 @@ class Horde_Vfs_FileTest extends Horde_Vfs_Test_Base
     public function testReadFile()
     {
         $this->_readFile();
-    }
-
-    /**
-     * @depends testWrite
-     * @depends testWriteData
-     */
-    public function testReadByteRange()
-    {
-        $this->_readByteRange();
     }
 
     /**
@@ -167,28 +156,34 @@ class Horde_Vfs_FileTest extends Horde_Vfs_Test_Base
         $this->_listFolder();
     }
 
-    public function testDeleteUnusalFileNames()
-    {
-        putenv('LANG=en_US.UTF-8');
-        $file = '高&执&行&力&的&打&造.txt';
-        $dir = '.horde/foo';
-        $path = sys_get_temp_dir() . '/vfsfiletest/' . $dir . '/' . $file;
-        self::$vfs->writeData($dir, $file, 'some content', true);
-        $this->assertFileExists($path);
-        $this->assertStringEqualsFile($path, 'some content');
-        self::$vfs->delete($dir, $file);
-        $this->assertThat(true, $this->logicalNot($this->fileExists($path)));
-    }
-
     static public function setUpBeforeClass()
     {
-        self::$vfs = Horde_Vfs::factory('File', array(
-            'vfsroot' => sys_get_temp_dir() . '/vfsfiletest'
-        ));
+        if (!extension_loaded('ftp')) {
+            self::$reason = 'No ftp extension';
+            return;
+        }
+        $config = self::getConfig('VFS_FTP_TEST_CONFIG', dirname(__FILE__));
+        if ($config && !empty($config['vfs']['ftp'])) {
+            self::$vfs = Horde_Vfs::factory('Ftp', $config['vfs']['ftp']);
+        }
     }
 
     static public function tearDownAfterClass()
     {
-        system('rm -r ' . sys_get_temp_dir() . '/vfsfiletest');
+        if (self::$vfs) {
+            try {
+                self::$vfs->emptyFolder('');
+            } catch (Horde_Vfs_Exception $e) {
+                echo $e;
+            }
+        }
+        parent::tearDownAfterClass();
+    }
+
+    public function setUp()
+    {
+        if (!self::$vfs) {
+            $this->markTestSkipped(self::$reason);
+        }
     }
 }
