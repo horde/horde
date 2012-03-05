@@ -23,7 +23,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix parsing composite phone fields (alexander.haensch@ipc.uni-tuebingen.de, Bug #11047).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -579,7 +579,7 @@
    <date>2011-12-16</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix parsing composite phone fields (alexander.haensch@ipc.uni-tuebingen.de, Bug #11047).
    </notes>
   </release>
  </changelog>
