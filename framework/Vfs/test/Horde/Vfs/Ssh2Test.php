@@ -20,6 +20,8 @@ require_once dirname(__FILE__) . '/Base.php';
  */
 class Horde_Vfs_Ssh2Test extends Horde_Vfs_Test_Base
 {
+    protected static $reason;
+
     public function testListEmpty()
     {
         $this->_listEmpty();
