@@ -39,6 +39,7 @@ Reading, writing and listing of files are all supported, and there are both obje
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix inconsistent behavior of the different backend drivers.
 * [jan] Fix double unlink() of temporary files.
 * [jan] Fix ignored $dotfolder argument for listFolders() in SQL driver.
 * [jan] Fix several issues with quota calculation.
@@ -940,6 +941,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    <date>2011-11-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix inconsistent behavior of the different backend drivers.
 * [jan] Fix double unlink() of temporary files.
 * [jan] Fix ignored $dotfolder argument for listFolders() in SQL driver.
 * [jan] Fix several issues with quota calculation.
