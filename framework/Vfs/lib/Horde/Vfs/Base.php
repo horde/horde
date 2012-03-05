@@ -51,6 +51,15 @@ abstract class Horde_Vfs_Base
     );
 
     /**
+     * List of features that the VFS driver supports.
+     *
+     * @var array
+     */
+    protected $_features = array(
+        'readByteRange' => false,
+    );
+
+    /**
      * The current size, in bytes, of the VFS tree.
      *
      * @var integer
@@ -70,6 +79,19 @@ abstract class Horde_Vfs_Base
             'vfs_quotaroot' => ''
         ));
         $this->setParams($params);
+    }
+
+    /**
+     * Returns whether the drivers supports a certain feature.
+     *
+     * @param string $feature  A feature name. See {@link $_features} for a
+     *                         list of possible features.
+     *
+     * @return boolean  True if the feature is supported.
+     */
+    public function hasFeature($feature)
+    {
+        return !empty($this->_features[$feature]);
     }
 
     /**

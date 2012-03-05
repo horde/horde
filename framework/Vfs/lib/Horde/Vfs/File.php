@@ -36,6 +36,15 @@ class Horde_Vfs_File extends Horde_Vfs_Base
     );
 
     /**
+     * List of features that the VFS driver supports.
+     *
+     * @var array
+     */
+    protected $_features = array(
+        'readByteRange' => true,
+    );
+
+    /**
      * Constructs a new Filesystem based VFS object.
      *
      * @param array $params  A hash containing connection parameters. REQUIRED

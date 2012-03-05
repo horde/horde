@@ -39,6 +39,15 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
     protected $_db = false;
 
     /**
+     * List of features that the VFS driver supports.
+     *
+     * @var array
+     */
+    protected $_features = array(
+        'readByteRange' => true,
+    );
+
+    /**
      * Constructor.
      *
      * @param array $params  A hash containing connection parameters.
