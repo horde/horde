@@ -16,6 +16,7 @@ v5.0-git
 v4.0.15-git
 -----------
 
+[jan] Fix horde-set-perms script (Arjen de Korte, Bug #11048).
 
 
 -------

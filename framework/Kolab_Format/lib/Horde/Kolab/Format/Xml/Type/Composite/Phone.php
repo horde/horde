@@ -32,7 +32,7 @@ class Horde_Kolab_Format_Xml_Type_Composite_Phone
 extends Horde_Kolab_Format_Xml_Type_Composite
 {
     protected $elements = array(
-        'type'   => 'Horde_Kolab_Format_Xml_PhoneType',
-        'number' => 'Horde_Kolab_Format_Xml_String_MaybeMissing',
+        'type'   => 'Horde_Kolab_Format_Xml_Type_PhoneType',
+        'number' => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
     );
 }

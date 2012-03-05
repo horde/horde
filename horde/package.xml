@@ -43,10 +43,6 @@
 * [mms] Modified pushapp hook behavior.
 * [mms] Removed pushapp_post hook.
 * [jan] Fix setting default values for HTML signatures.
-* [mjr] Added more atomic control over ActiveSync security policies for better device compatibility.
-* [mms] Add &apos;sendmail_eol&apos; configuration parameter.
-* [jan] Fix horde-set-perms (piper@hrz.uni-marburg.de, Bug #10923).
-* [jan] Sort user and group names in permission screen (Request #10896).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4640,6 +4636,19 @@
 * [mms] Add &apos;sendmail_eol&apos; configuration parameter.
 * [jan] Fix horde-set-perms (piper@hrz.uni-marburg.de, Bug #10923).
 * [jan] Sort user and group names in permission screen (Request #10896).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.15</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-02-28</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix horde-set-perms script (Arjen de Korte, Bug #11048).
    </notes>
   </release>
  </changelog>
