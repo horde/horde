@@ -57,11 +57,18 @@ Upgrading to 2.0
     - addHeader()
 
       Removed the 'charset' and 'decode' parameters.
+      Added the 'sanity_check' parameter.
+
+    - getOb()
+
+      Now returns null if the header does not exist.
 
     - replaceHeader()
 
       Removed the 'charset' and 'decode' parameters.
+      Added the 'sanity_check' parameter.
 
     - setValue()
+    - sanityCheck()
 
-      This method has been removed.
+      These methods have been removed.
