@@ -202,7 +202,7 @@ class Horde_Vfs_File extends Horde_Vfs_Base
      *
      * @throws Horde_Vfs_Exception
      */
-    public function write($path, $name, $tmpFile, $autocreate = true)
+    public function write($path, $name, $tmpFile, $autocreate = false)
     {
         if (!@is_dir($this->_getNativePath($path))) {
             if ($autocreate) {
@@ -299,13 +299,13 @@ class Horde_Vfs_File extends Horde_Vfs_Base
      *
      * @throws Horde_Vfs_Exception
      */
-    public function writeData($path, $name, $data, $autocreate = true)
+    public function writeData($path, $name, $data, $autocreate = false)
     {
         if (!@is_dir($this->_getNativePath($path))) {
             if ($autocreate) {
                 $this->autocreatePath($path);
             } else {
-                throw new Horde_Vfs_Exception('VFS directory does not exist.');
+                throw new Horde_Vfs_Exception(sprintf('VFS directory %s does not exist.', $path));
             }
         }
 
