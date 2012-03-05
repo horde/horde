@@ -599,10 +599,7 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
         }
 
         if (isset($olddir)) {
-            $res = $this->_setPath($olddir);
-            if (is_a($res, 'PEAR_Error')) {
-                return $res;
-            }
+            $this->_setPath($olddir);
         }
 
         return $files;
@@ -618,11 +615,7 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
      */
     public function exists($path, $name)
     {
-        $conn = $this->_connect();
-        if (is_a($conn, 'PEAR_Error')) {
-            return $conn;
-        }
-
+        $this->_connect();
         return @ssh2_sftp_stat($this->_sftp, $this->_getPath($path, $name)) !== false;
     }
 
