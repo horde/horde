@@ -3838,8 +3838,8 @@ document.observe('IMPDialog:onClick', function(e) {
 
 /* Route AJAX responses through ViewPort. */
 document.observe('HordeCore:doActionComplete', function(e) {
-    if (this.viewport) {
-        this.viewport.parseJSONResponse(e.memo);
+    if (this.viewport && e.memo.ViewPort) {
+        this.viewport.parseJSONResponse(e.memo.ViewPort);
     }
     this.mailboxCallback(e.memo);
     this.flagCallback(e.memo);

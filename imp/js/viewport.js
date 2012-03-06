@@ -273,7 +273,9 @@ var ViewPort = Class.create({
         this.empty_msg = new Element('SPAN', { className: 'vpEmpty' });
 
         // Set up AJAX response function.
-        this.ajax_response = this.opts.onAjaxResponse || this._ajaxRequestComplete.bind(this);
+        this.ajax_response = this.opts.onAjaxResponse || function(r) {
+            this.parseJSONResponse(r.responseJSON);
+        }.bind(this);
 
         Event.observe(window, 'resize', this.onResize.bind(this));
     },
@@ -804,22 +806,9 @@ var ViewPort = Class.create({
         }));
     },
 
-    _ajaxRequestComplete: function(r)
-    {
-        if (r.responseJSON) {
-            this.parseJSONResponse(r.responseJSON);
-        }
-    },
-
     // r - (object) responseJSON returned from the server.
     parseJSONResponse: function(r)
     {
-        if (!r.ViewPort) {
-            return;
-        }
-
-        r = r.ViewPort;
-
         if (r.rangelist) {
             this.select(this.createSelection('uid', r.rangelist, r.view));
             this.opts.container.fire('ViewPort:endRangeFetch', r.view);
