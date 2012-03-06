@@ -22,13 +22,6 @@ abstract class Horde_Core_Ajax_Application
     public $notify = false;
 
     /**
-     * The Horde application.
-     *
-     * @var string
-     */
-    protected $_app;
-
-    /**
      * The action to perform.
      *
      * @var string
@@ -36,18 +29,11 @@ abstract class Horde_Core_Ajax_Application
     protected $_action;
 
     /**
-     * The request variables.
+     * The Horde application.
      *
-     * @var Variables
+     * @var string
      */
-    protected $_vars;
-
-    /**
-     * The list of actions that require readonly access to the session.
-     *
-     * @var array
-     */
-    protected $_readOnly = array();
+    protected $_app;
 
     /**
      * Default domain.
@@ -58,13 +44,27 @@ abstract class Horde_Core_Ajax_Application
     protected $_defaultDomain;
 
     /**
+     * The list of actions that require readonly access to the session.
+     *
+     * @var array
+     */
+    protected $_readOnly = array();
+
+    /**
+     * The request variables.
+     *
+     * @var Horde_Variables
+     */
+    protected $_vars;
+
+    /**
      * Constructor.
      *
      * @param string $app            The application name.
      * @param Horde_Variables $vars  Form/request data.
      * @param string $action         The AJAX action to perform.
      */
-    public function __construct($app, $vars, $action = null)
+    public function __construct($app, Horde_Variables $vars, $action = null)
     {
         $this->_app = $app;
         $this->_vars = $vars;
@@ -150,9 +150,7 @@ abstract class Horde_Core_Ajax_Application
      * to.
      *
      * @return object  Object with the following properties:
-     * <pre>
-     * 'groups' - (array) Groups hash.
-     * </pre>
+     *   - groups: (array) Groups hash.
      */
     public function listGroups()
     {
@@ -178,15 +176,11 @@ abstract class Horde_Core_Ajax_Application
      * Parses a valid email address out of a complete address string.
      *
      * Variables used:
-     * <pre>
-     * 'mbox' - (string) The name of the new mailbox.
-     * 'parent' - (string) The parent mailbox.
-     * </pre>
+     *   - mbox: (string) The name of the new mailbox.
+     *   - parent: (string) The parent mailbox.
      *
      * @return object  Object with the following properties:
-     * <pre>
-     * 'email' - (string) The parsed email address.
-     * </pre>
+     *   - email: (string) The parsed email address.
      *
      * @throws Horde_Exception
      * @throws Horde_Mail_Exception
@@ -213,9 +207,7 @@ abstract class Horde_Core_Ajax_Application
      * application's templates directory.
      *
      * @return object  Object with the following properties:
-     * <pre>
-     * 'chunk' - (string) A chunk of PHP output.
-     * </pre>
+     *   - chunk: (string) A chunk of PHP output.
      */
     public function chunkContent()
     {
@@ -234,10 +226,8 @@ abstract class Horde_Core_Ajax_Application
      * Sets a preference value.
      *
      * Variables used:
-     * <pre>
-     * 'pref' - (string) The preference name.
-     * 'value' - (mixed) The preference value.
-     * </pre>
+     *   - pref: (string) The preference name.
+     *   - value: (mixed) The preference value.
      *
      * @return boolean  True on success.
      */
