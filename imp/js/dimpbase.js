@@ -817,7 +817,10 @@ var DimpBase = {
         }.bindAsEventListener(this));
 
         container.observe('ViewPort:fetch', function(e) {
-            $('searchbar').hide();
+            if ($('searchbar').visible()) {
+                $('searchbar').hide();
+                this.viewport.onResize(true);
+            }
             this.loadingImg('viewport', true);
         }.bindAsEventListener(this));
 
