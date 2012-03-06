@@ -418,7 +418,12 @@ class Hermes_Api extends Horde_Registry_Api
         }
 
         // Parse date
-        $dateobj = new Horde_Date($data->date);
+        try {
+            // Check for stdObject types
+            $dateobj = new Horde_Date($data->date->scalar);
+        } catch (Exception $e) {
+            $dateobj = new Horde_Date($data->date);
+        }
         $date['year'] = $dateobj->year;
         $date['month'] = $dateobj->month;
         $date['day'] = $dateobj->mday;
