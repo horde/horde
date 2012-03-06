@@ -60,6 +60,8 @@ class IMP_Factory_Mail extends Horde_Core_Factory_Injector
         $class = 'Horde_Mail_Transport_' . ucfirst($transport);
         if (class_exists($class)) {
             return new $class($params);
+        } elseif (class_exists($transport)) {
+            return new $transport($params);
         }
 
         throw new Horde_Exception('Unable to find class for transport ' . $transport);
