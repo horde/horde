@@ -150,18 +150,7 @@ abstract class Horde_Core_Ajax_Application
     public function send()
     {
         $response = new Horde_Core_Ajax_Response_HordeCore($this->data, $this->tasks, $this->notify);
-        $this->_send($response);
         $response->sendAndExit($this->responseType());
-    }
-
-    /**
-     * Submethod that allows alteration of response object before sending to
-     * the browser.
-     *
-     * @param Horde_Core_Ajax_Response $response  The JSON response object.
-     */
-    protected function _send(Horde_Core_Ajax_Response $response)
-    {
     }
 
     /**
