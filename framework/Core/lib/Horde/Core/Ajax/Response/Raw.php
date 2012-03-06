@@ -15,6 +15,13 @@
 class Horde_Core_Ajax_Response_Raw extends Horde_Core_Ajax_Response
 {
     /**
+     */
+    public function __construct($data = null)
+    {
+        parent::__construct($data);
+    }
+
+    /**
      * Don't add notification messages to raw data.
      */
     public function addNotifications()
@@ -24,7 +31,7 @@ class Horde_Core_Ajax_Response_Raw extends Horde_Core_Ajax_Response
     /**
      * Prepare JSON data response object.
      *
-     * For raw data, we send back whatever is stored in the data property.
+     * For raw data, we send back only the response data.
      *
      * @return object  Data response object.
      */
