@@ -409,6 +409,14 @@ class Hermes_Api extends Horde_Registry_Api
           throw new Hermes_Exception(_("Missing required values: check data and retry"));
         }
 
+        if ($data->employee) {
+          if (!$GLOBALS['registry']->isAdmin(array('permission' => 'hermes:review', 'permlevel' => Horde_Perms::EDIT))) {
+            throw new Hermes_Exception(_("Only time reviewers with edit permissions can post time for other users."));
+          }
+        } else {
+          $data->employee = $GLOBALS['registry']->getAuth();
+        }
+
         // Parse date
         $dateobj = new Horde_Date($data->date);
         $date['year'] = $dateobj->year;
@@ -420,7 +428,7 @@ class Hermes_Api extends Horde_Registry_Api
           $data->billable = true;
         }
 
-        return $GLOBALS['injector']->getInstance('Hermes_Driver')->enterTime($GLOBALS['registry']->getAuth(), $data);
+        return $GLOBALS['injector']->getInstance('Hermes_Driver')->enterTime($data->employee, $data);
     }
 
     /**
