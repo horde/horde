@@ -334,7 +334,7 @@ class Horde_Prefs_Identity
                 'validate' => true
             ));
         } catch (Horde_Mail_Exception $e) {
-            throw new Horde_Prefs_Exception($e);
+            throw new Horde_Prefs_Exception(sprintf(Horde_Prefs_Translation::t("\"%s\" is not a valid email address."), $this->getValue($this->_prefnames['from_addr'], $identity)));
         }
     }
 

@@ -44,7 +44,7 @@ class IMP_Factory_Imap extends Horde_Core_Factory_Base
      */
     public function create($id = null)
     {
-        global $session;
+        global $injector, $registry, $session;
 
         if (is_null($id) &&
             !($id = $session->get('imp', 'server_key'))) {
@@ -59,7 +59,16 @@ class IMP_Factory_Imap extends Horde_Core_Factory_Base
             register_shutdown_function(array($this, 'shutdown'));
         }
 
-        if (!($ob = $session->get('imp', 'imap_ob/' . $id))) {
+        try {
+            $ob = $session->get('imp', 'imap_ob/' . $id);
+        } catch (Exception $e) {
+            // This indicates an unserialize() error.  This is fatal, so
+            // logout.
+            $injector->getInstance('Horde_Core_Factory_Auth')->create()->setError(Horde_Auth::REASON_SESSION);
+            $registry->authenticateFailure('imp');
+        }
+
+        if (!$ob) {
             $ob = new IMP_Imap();
 
             /* Explicitly save object when first creating. Prevents losing

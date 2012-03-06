@@ -3310,7 +3310,7 @@ var DimpBase = {
     {
         var nf = $('normalfolders');
         if (nf) {
-            nf.setStyle({ height: (document.viewport.getHeight() - nf.cumulativeOffset()[1]) + 'px' });
+            nf.setStyle({ height: Math.max(document.viewport.getHeight() - nf.cumulativeOffset()[1], 0) + 'px' });
         }
     },
 

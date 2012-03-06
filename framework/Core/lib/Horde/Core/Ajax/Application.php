@@ -71,7 +71,7 @@ abstract class Horde_Core_Ajax_Application
      * @param Horde_Variables $vars  Form/request data.
      * @param string $action         The AJAX action to perform.
      */
-    public function __construct($app, $vars, $action = null)
+    public function __construct($app, Horde_Variables $vars, $action = null)
     {
         $this->_app = $app;
         $this->_vars = $vars;
@@ -79,7 +79,7 @@ abstract class Horde_Core_Ajax_Application
         if (!is_null($action)) {
             /* Close session if action is labeled as read-only. */
             if (in_array($action, $this->_readOnly)) {
-                session_write_close();
+                $GLOBALS['session']->close();
             }
 
             $this->_action = $action;
