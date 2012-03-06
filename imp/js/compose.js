@@ -131,8 +131,8 @@ var ImpCompose = {
             if (this.last_msg && curr_hash != this.last_msg) {
                 // Use an AJAX submit here so that the page doesn't reload.
                 $('actionID').setValue(actionID);
-                $('compose').request({
-                    onComplete: this._autoSaveDraft.bind(this)
+                HordeCore.submitForm('compose', {
+                    callback: this._autoSaveDraftCallback.bind(this)
                 });
             }
             this.last_msg = cur_msg;
@@ -159,13 +159,10 @@ var ImpCompose = {
         form.submit();
     },
 
-    _autoSaveDraft: function(r, o)
+    _autoSaveDraftCallback: function(r)
     {
-        if (r.responseJSON && r.responseJSON.response) {
-            r = r.responseJSON.response;
-            $('compose_formToken').setValue(r.formToken);
-            $('compose_requestToken').setValue(r.requestToken);
-        }
+        $('compose_formToken').setValue(r.formToken);
+        $('compose_requestToken').setValue(r.requestToken);
     },
 
     attachmentChanged: function()
