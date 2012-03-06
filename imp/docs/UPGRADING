@@ -47,6 +47,10 @@ The 'smtphost' and 'smtpport' options have been removed. They have been
 replaced by the 'smtp' option, which allows ALL available SMTP configuration
 options to be overriden.
 
+The 'admin' option has been changed: optional configuration parameters should
+live within the base 'admin' array rather than a 'params' array within the
+base.
+
 
 Configuration Options (conf.php)
 --------------------------------

@@ -366,21 +366,28 @@ class IMP_Auth
              * loaded to grab the special mailboxes information. */
             $imp_imap->updateFetchIgnore();
 
-            foreach (array('acl', 'admin', 'namespace', 'quota') as $val) {
-                if (!empty($ptr[$val])) {
-                    $tmp = $ptr[$val];
+            if (!empty($ptr['acl'])) {
+                $session->set('imp', 'imap_acl', $ptr['acl']);
+            }
 
-                    /* 'admin' and 'quota' have password entries - encrypt
-                     * these entries in the session if they exist. */
-                    foreach (array('password', 'admin_password') as $key) {
-                        if (isset($ptr[$val]['params'][$key])) {
-                            $secret = $injector->getInstance('Horde_Secret');
-                            $tmp['params'][$key] = $secret->write($secret->getKey('imp'), $ptr[$val]['params'][$key]);
-                        }
-                    }
-
-                    $session->set('imp', 'imap_' . $val, $tmp);
+            if (!empty($ptr['admin'])) {
+                $tmp = $ptr['admin'];
+                if (isset($tmp['password'])) {
+                    $tmp['password'] = $injector->getInstance('Horde_Secret')->write($secret->getKey('imp'), $tmp['password']);
                 }
+                $session->set('imp', 'imap_admin', $tmp);
+            }
+
+            if (!empty($ptr['namespace'])) {
+                $session->set('imp', 'imap_namespace', $ptr['namespace']);
+            }
+
+            if (!empty($ptr['quota'])) {
+                $tmp = $ptr['quota'];
+                if (isset($tmp['params']['password'])) {
+                    $tmp['params']['password'] = $injector->getInstance('Horde_Secret')->write($secret->getKey('imp'), $tmp['params']['password']);
+                }
+                $session->set('imp', 'imap_quota', $tmp);
             }
 
             /* Set the IMAP threading algorithm. */
