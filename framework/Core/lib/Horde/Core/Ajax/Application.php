@@ -72,7 +72,7 @@ abstract class Horde_Core_Ajax_Application
         if (!is_null($action)) {
             /* Close session if action is labeled as read-only. */
             if (in_array($action, $this->_readOnly)) {
-                session_write_close();
+                $GLOBALS['session']->close();
             }
 
             $this->_action = $action;
