@@ -250,7 +250,7 @@ abstract class Horde_Core_Ajax_Application
      */
     public function chunkContent()
     {
-        $chunk = basename(Horde_Util::getPost('chunk'));
+        $chunk = basename($vars->chunk);
         $result = new stdClass;
         if (!empty($chunk)) {
             Horde::startBuffer();
