@@ -2011,6 +2011,14 @@ var DimpBase = {
             $('dimpmain_folder').visible() &&
             this.viewport.getMetaData('label')) {
             args = this.viewport.addRequestParams({});
+
+            // Possible further optimization: only poll VISIBLE mailboxes.
+            // Issue: it is quite expensive to determine this, since the
+            // mailbox elements themselves aren't hidden - it is one of the
+            // parent containers. Probably not worth the effort.
+            args.set('mboxes', Object.toJSON($('foldersSidebar').select('.folder').findAll(function(elt) {
+                return !Object.isUndefined(elt.retrieve('u')) && elt.visible();
+            }).invoke('retrieve', 'mbox')));
         }
 
         if (search) {
