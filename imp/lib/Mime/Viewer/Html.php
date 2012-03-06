@@ -276,7 +276,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             $GLOBALS['registry']->hasMethod('contacts/getField')) {
             $params = IMP::getAddressbookSearchParams();
             try {
-                if ($GLOBALS['registry']->call('contacts/getField', array($from, '__key', $params['sources'], false, true))) {
+                if ($GLOBALS['registry']->call('contacts/getField', array($from, '__key', $params['sources'], true, true))) {
                     return true;
                 }
             } catch (Horde_Exception $e) {}

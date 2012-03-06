@@ -40,7 +40,7 @@ class IMP_Ui_Imageview
             $registry->hasMethod('contacts/getField')) {
             $params = IMP::getAddressbookSearchParams();
             try {
-                if ($registry->call('contacts/getField', array($from, '__key', $params['sources'], false, true))) {
+                if ($registry->call('contacts/getField', array($from, '__key', $params['sources'], true, true))) {
                     return true;
                 }
             } catch (Horde_Exception $e) {}
