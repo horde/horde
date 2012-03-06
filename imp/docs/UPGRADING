@@ -43,6 +43,10 @@ Server Options (backends.php)
 The 'namespace' option now requires the namespaces to be in the UTF-8 charset,
 not UTF7-IMAP.
 
+The 'smtphost' and 'smtpport' options have been removed. They have been
+replaced by the 'smtp' option, which allows ALL available SMTP configuration
+options to be overriden.
+
 
 Configuration Options (conf.php)
 --------------------------------

@@ -22,7 +22,7 @@
  *   - search: (IMP_Search) The IMP_Search object.
  *   - server_key: (string) Server used to login.
  *   - smime: (array) Settings related to the S/MIME viewer.
- *   - smtp: (array) SMTP options ('host' and 'port')
+ *   - smtp: (array) SMTP configuration.
  *   - showunsub: (boolean) Show unsusubscribed mailboxes on the folders
  *                screen.
  *   - tasklistavail: (boolean) Is listing of tasklists available?
@@ -394,18 +394,12 @@ class IMP_Auth
             );
         }
 
-        /* Set the SMTP options, if needed. */
+        /* Set the SMTP configuration. */
         if ($conf['mailer']['type'] == 'smtp') {
-            $smtp = array();
-            foreach (array('smtphost' => 'host', 'smtpport' => 'port') as $key => $val) {
-                if (!empty($ptr[$key])) {
-                    $smtp[$val] = $ptr[$key];
-                }
-            }
-
-            if (!empty($smtp)) {
-                $session->set('imp', 'smtp', $smtp);
-            }
+            $session->set('imp', 'smtp', array_merge(
+                $conf['mailer']['params'],
+                empty($ptr['smtp']) ? array() : $ptr['smtp']
+            ));
         }
 
         /* Does the server allow file uploads? If yes, store the
