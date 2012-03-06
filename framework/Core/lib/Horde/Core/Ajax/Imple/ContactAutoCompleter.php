@@ -106,16 +106,20 @@ abstract class Horde_Core_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Aja
         $search = new Horde_Mail_Rfc822_List();
 
         foreach (reset($res) as $val) {
-            if (!empty($val['email'])) {
-                if (strpos($val['email'], ',') !== false) {
-                    $search->add(new Horde_Mail_Rfc822_Group($val['name'], $val['email']));
-                } else {
-                    $addr_ob = new Horde_Mail_Rfc822_Address($val['email']);
-                    if (!is_null($addr_ob->host)) {
+            if (!isset($val['email'])) {
+                continue;
+            }
+
+            if (strpos($val['email'], ',') === false) {
+                $addr_ob = new Horde_Mail_Rfc822_Address($val['email']);
+                if (!is_null($addr_ob->host)) {
+                    if (isset($val['name'])) {
                         $addr_ob->personal = $val['name'];
-                        $search->add($addr_ob);
                     }
+                    $search->add($addr_ob);
                 }
+            } else {
+                $search->add(new Horde_Mail_Rfc822_Group(isset($val['name']) ? $val['name'] : null, $val['email']));
             }
         }
 
