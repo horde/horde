@@ -52,7 +52,7 @@ class IMP_Ui_Imageview
                 $sparams['fields'],
                 false,
                 false,
-                array('name', 'email')
+                array('email')
             );
 
             $ajax = new IMP_Ajax_Imple_ContactAutoCompleter();
