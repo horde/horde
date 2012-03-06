@@ -14,6 +14,8 @@
  */
 var HordeMobile = {
 
+    notify_handler: function() { return HordeMobile.showNotifications; },
+
     serverError: 0,
 
     /**
@@ -121,8 +123,6 @@ var HordeMobile = {
 
     onDocumentReady: function()
     {
-        HordeMobile.notify_handler = HordeMobile.showNotifications;
-
         // Global ajax options.
         $.ajaxSetup({
             dataFilter: function(data, type)
