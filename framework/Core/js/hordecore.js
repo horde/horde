@@ -113,7 +113,7 @@ var HordeCore = {
 
         if (r.response && Object.isFunction(callback)) {
             try {
-                callback(r);
+                callback(r.response);
             } catch (e) {
                 this.debug('doActionComplete', e);
             }

@@ -404,11 +404,7 @@ HermesCore = {
     deletesliceCallback: function(elt, sid, r)
     {
         $('hermesLoading').hide();
-        if (r.response) {
-            this.removeSliceFromUI(elt, sid);
-        } else {
-            // Error?
-        }
+        this.removeSliceFromUI(elt, sid);
         this.updateTimeSummary();
     },
 
@@ -479,7 +475,7 @@ HermesCore = {
         $('hermesTimeFormCostobject').childElements().each(function(el) {
             el.remove();
         });
-        var h = $H(r.response);
+        var h = $H(r);
         h.each(function(i) {
            new Element('option', {'value': i.key});
            $('hermesTimeFormCostobject').insert(new Element('option', {'value': i.key}).insert(i.value));
@@ -516,7 +512,7 @@ HermesCore = {
     {
         $('hermesLoading').hide();
         // Just push the new slice on the stack, and rerender the view.
-        this.slices.push(r.response);
+        this.slices.push(r);
         this.reverseSort = false;
         this.updateView(this.view);
         this.buildTimeTable();
@@ -527,7 +523,7 @@ HermesCore = {
     editTimeCallback: function(sid, r)
     {
         $('hermesLoading').hide();
-        this.replaceSliceInCache(sid, r.response);
+        this.replaceSliceInCache(sid, r);
         this.reverseSort = false;
         this.updateView(this.view);
         this.buildTimeTable();
@@ -546,11 +542,11 @@ HermesCore = {
 
     newTimerCallback: function(r)
     {
-        if (!r.response.id) {
+        if (!r.id) {
             $('hermesTimerDialog').fade({ duration: this.effectDur });
         }
 
-        this.insertTimer({ 'id': r.response.id, 'e': 0, 'paused': false }, $F('hermesTimerTitle'));
+        this.insertTimer({ 'id': r.id, 'e': 0, 'paused': false }, $F('hermesTimerTitle'));
     },
 
     insertTimer: function(r, d)
@@ -581,7 +577,7 @@ HermesCore = {
 
     listTimersCallback: function(r)
     {
-        var timers = r.response;
+        var timers = r;
         for (var i = 0; i < timers.length; i++) {
             this.insertTimer(timers[i], timers[i].name);
         };
@@ -616,9 +612,9 @@ HermesCore = {
 
     closeTimerCallback: function(elt, r)
     {
-        if (r.response) {
-            $('hermesTimeFormHours').setValue(r.response.h);
-            $('hermesTimeFormNotes').setValue(r.response.n);
+        if (r) {
+            $('hermesTimeFormHours').setValue(r.h);
+            $('hermesTimeFormNotes').setValue(r.n);
         }
         elt.up().up().fade({
             duration: this.effectDur,
@@ -702,7 +698,7 @@ HermesCore = {
     loadSlicesCallback: function(r)
     {
         $('hermesLoading').hide();
-        this.slices = r.response;
+        this.slices = r;
         this.buildTimeTable();
         this.updateMinical(new Date());
     },
@@ -1062,9 +1058,9 @@ HermesCore = {
     pollCallback: function(r)
     {
         // Update timers.
-        if(r.response) {
-            for (var i = 0; i < r.response.length; i++) {
-                var t = r.response[i];
+        if(r) {
+            for (var i = 0; i < r.length; i++) {
+                var t = r[i];
                 $('hermesMenuTimers').select('.hermesMenuItem').each(function(elt) {
                     if (elt.down('.hermesStopTimer').up().retrieve('tid') == t['id']) {
                         elt.down('.hermesTimerLabel').update(t.name + ' (' + t.e + ' hours)');

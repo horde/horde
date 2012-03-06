@@ -231,14 +231,8 @@ var DimpCompose = {
         }
     },
 
-    uniqueSubmitCallback: function(r)
+    uniqueSubmitCallback: function(d)
     {
-        var d = r.response;
-
-        if (!d) {
-            return;
-        }
-
         if (d.imp_compose) {
             $('composeCache').setValue(d.imp_compose);
         }
@@ -504,9 +498,9 @@ var DimpCompose = {
         }
 
         if (this.rte_loaded && rte) {
-            this.rte.setData(r.response.text);
+            this.rte.setData(r.text);
         } else if (!this.rte_loaded && !rte) {
-            ta.setValue(r.response.text);
+            ta.setValue(r.text);
         } else {
             this.setMessageText.bind(this, rte, r).defer();
             return;
@@ -679,14 +673,14 @@ var DimpCompose = {
 
     swapToAddressCallback: function(r)
     {
-        if (r.response.header) {
-            $('to').setValue(r.response.header.to);
+        if (r.header) {
+            $('to').setValue(r.header.to);
             [ 'cc', 'bcc' ].each(function(t) {
-                if (r.response.header[t] || $(t).visible()) {
+                if (r.header[t] || $(t).visible()) {
                     if (!$(t).visible()) {
                         this.toggleCC(t);
                     }
-                    $(t).setValue(r.response.header.cc);
+                    $(t).setValue(r.header.cc);
                 }
             }, this);
         }
@@ -695,15 +689,15 @@ var DimpCompose = {
 
     forwardAddCallback: function(r)
     {
-        if (r.response.type) {
-            switch (r.response.type) {
+        if (r.type) {
+            switch (r.type) {
             case 'forward_attach':
-                this.processFwdList(r.response.opts.fwd_list);
+                this.processFwdList(r.opts.fwd_list);
                 break;
 
             case 'forward_body':
                 this.removeAttach([ $('attach_list').down() ]);
-                this.setBodyText(r.response.body);
+                this.setBodyText(r.body);
                 break;
             }
         }

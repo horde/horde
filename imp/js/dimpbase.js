@@ -1616,7 +1616,7 @@ var DimpBase = {
     {
         var bg, ppuid, tmp,
             pm = $('previewMsg'),
-            r = resp.response.preview,
+            r = resp.preview,
             vs = this.viewport.getSelection();
 
         bg = (!this.pp ||
@@ -1742,11 +1742,8 @@ var DimpBase = {
 
     _updateAddressHeaderCallback: function(r)
     {
-        var resp = r.response;
-
         this.loadingImg('msg', false);
-
-        $H(r.response.hdr_data).each(function(d) {
+        $H(r.hdr_data).each(function(d) {
             this.updateHeader(d.key, d.value, 0);
         }, this);
     },
@@ -1760,14 +1757,12 @@ var DimpBase = {
 
     _stripAttachmentCallback: function(r)
     {
-        var resp = r.response;
-
         if (this.pp &&
-            this.pp.uid == resp.olduid &&
-            this.pp.mbox == resp.oldmbox) {
+            this.pp.uid == r.olduid &&
+            this.pp.mbox == r.oldmbox) {
             this.uid = {
                 type: 'uid',
-                uid: resp.preview.uid
+                uid: r.preview.uid
             };
         }
     },
@@ -1776,7 +1771,7 @@ var DimpBase = {
     {
         this.pp.hide_all = true;
 
-        $('partlist').update(r.response.tree).previous().update(new Element('SPAN', { className: 'atcLabel' }).insert(DIMP.text.allparts_label));
+        $('partlist').update(r.tree).previous().update(new Element('SPAN', { className: 'atcLabel' }).insert(DIMP.text.allparts_label));
         $('partlist_col').show();
         $('partlist_exp').hide();
         $('msgAtc').show();
@@ -1786,15 +1781,13 @@ var DimpBase = {
 
     _sendMdnCallback: function(r)
     {
-        if (r.response) {
-            this._expirePPCache([ this._getPPId(r.response.uid, r.response.mbox) ]);
+        this._expirePPCache([ this._getPPId(r.uid, r.mbox) ]);
 
-            if (this.pp &&
-                this.pp.uid == r.response.uid &&
-                this.pp.mbox == r.response.mbox) {
-                this.loadingImg('msg', false);
-                $('sendMdnMessage').up(1).fade({ duration: 0.2 });
-            }
+        if (this.pp &&
+            this.pp.uid == r.uid &&
+            this.pp.mbox == r.mbox) {
+            this.loadingImg('msg', false);
+            $('sendMdnMessage').up(1).fade({ duration: 0.2 });
         }
     },
 
@@ -1820,7 +1813,7 @@ var DimpBase = {
         if (opts) {
             tmp = this._getPPId(opts.uid, opts.mbox);
             if (this.ppcache[tmp]) {
-                this.ppcache[tmp].response.log = log;
+                this.ppcache[tmp].log = log;
             }
         }
     },
@@ -2779,15 +2772,14 @@ var DimpBase = {
             doc = sf.contentDocument || sf.contentWindow.document,
             r = doc.body.innerHTML.evalJSON(true);
 
-        if (r) {
-            if (r.response.action) {
-                switch (r.response.action) {
-                case 'importMailbox':
-                    if (r.response.mbox = this.view) {
-                        this.viewport.reload();
-                    }
-                    break;
+        if (r &&
+            r.response.action) {
+            switch (r.response.action) {
+            case 'importMailbox':
+                if (r.response.mbox = this.view) {
+                    this.viewport.reload();
                 }
+                break;
             }
 
             HordeCore.doActionComplete({ responseJSON: r });
@@ -2808,36 +2800,38 @@ var DimpBase = {
 
     _mailboxPromptCallback: function(type, params, r)
     {
-        if (r.response && params.elt) {
-            switch (type) {
-            case 'create':
-                this._createFolderForm(this._folderAction.bindAsEventListener(this, params.orig_elt, 'createsub'), DIMP.text.createsub_prompt.sub('%s', this.fullMboxDisplay(params.elt)));
-                break;
+        if (!params.elt) {
+            return;
+        }
 
-            case 'delete':
-                this.viewaction = DimpCore.doAction.bind(DimpCore, 'deleteMailbox', { mbox: params.elt.retrieve('mbox') });
-                IMPDialog.display({
-                    cancel_text: DIMP.text.cancel,
-                    noinput: true,
-                    ok_text: DIMP.text.ok,
-                    text: DIMP.text.delete_folder.sub('%s', this.fullMboxDisplay(params.elt))
-                });
-                break;
+        switch (type) {
+        case 'create':
+            this._createFolderForm(this._folderAction.bindAsEventListener(this, params.orig_elt, 'createsub'), DIMP.text.createsub_prompt.sub('%s', this.fullMboxDisplay(params.elt)));
+            break;
 
-            case 'empty':
-                this.viewaction = DimpCore.doAction.bind(DimpCore, 'emptyMailbox', { mbox: params.elt.retrieve('mbox') });
-                IMPDialog.display({
-                    cancel_text: DIMP.text.cancel,
-                    noinput: true,
-                    ok_text: DIMP.text.ok,
-                    text: DIMP.text.empty_folder.sub('%s', this.fullMboxDisplay(params.elt)).sub('%d', r.response)
-                });
-                break;
+        case 'delete':
+            this.viewaction = DimpCore.doAction.bind(DimpCore, 'deleteMailbox', { mbox: params.elt.retrieve('mbox') });
+            IMPDialog.display({
+                cancel_text: DIMP.text.cancel,
+                noinput: true,
+                ok_text: DIMP.text.ok,
+                text: DIMP.text.delete_folder.sub('%s', this.fullMboxDisplay(params.elt))
+            });
+            break;
 
-            case 'rename':
-                this._createFolderForm(this._folderAction.bindAsEventListener(this, params.elt, 'rename'), DIMP.text.rename_prompt.sub('%s', this.fullMboxDisplay(params.elt)), params.elt.retrieve('l').unescapeHTML());
-                break;
-            }
+        case 'empty':
+            this.viewaction = DimpCore.doAction.bind(DimpCore, 'emptyMailbox', { mbox: params.elt.retrieve('mbox') });
+            IMPDialog.display({
+                cancel_text: DIMP.text.cancel,
+                noinput: true,
+                ok_text: DIMP.text.ok,
+                text: DIMP.text.empty_folder.sub('%s', this.fullMboxDisplay(params.elt)).sub('%d', r)
+            });
+            break;
+
+        case 'rename':
+            this._createFolderForm(this._folderAction.bindAsEventListener(this, params.elt, 'rename'), DIMP.text.rename_prompt.sub('%s', this.fullMboxDisplay(params.elt)), params.elt.retrieve('l').unescapeHTML());
+            break;
         }
     },
 
@@ -2953,11 +2947,11 @@ var DimpBase = {
     {
         var nf = $('normalfolders');
 
-        if (r.response.expand) {
+        if (r.expand) {
             this.expandmbox = params.base ? params.base : true;
         }
-        this.mailboxCallback(r.response);
-        delete r.response.mailbox;
+        this.mailboxCallback(r);
+        delete r.mailbox;
         this.expandmbox = false;
 
         if (params.base) {
@@ -2977,8 +2971,8 @@ var DimpBase = {
             this._sizeFolderlist();
         }
 
-        if (r.response.quota) {
-            this._displayQuota(r.response.quota);
+        if (r.quota) {
+            this._displayQuota(r.quota);
         }
     },
 
@@ -3518,19 +3512,11 @@ var DimpBase = {
 
     _modifyPollCallback: function(r)
     {
-        r = r.response;
-
-        var f = r.mbox,
-            m_elt = this.getMboxElt(),
-            p = { response: { poll: {} } };
-
         if (r.add) {
-            p.response.poll[f] = r.poll.u;
-            m_elt.store('u', 0);
+            this.getMboxElt().store('u', 0);
         } else {
-            p.response.poll[f] = 0;
-            m_elt.store('u', undefined);
-            this.updateUnseenStatus(f, 0);
+            this.getMboxElt().store('u', undefined);
+            this.updateUnseenStatus(r.mbox, 0);
         }
     },
 

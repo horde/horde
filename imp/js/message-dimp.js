@@ -50,14 +50,8 @@ var DimpMessage = {
                             callback: this.msgTextCallback.bind(this) });
     },
 
-    msgTextCallback: function(result)
+    msgTextCallback: function(r)
     {
-        if (!result.response) {
-            return;
-        }
-
-        var r = result.response;
-
         switch (r.type) {
         case 'forward_redirect':
             if (r.imp_compose) {
@@ -97,9 +91,7 @@ var DimpMessage = {
     },
     _updateAddressHeaderCallback: function(r)
     {
-        var resp = r.response;
-
-        $H(r.response.hdr_data).each(function(d) {
+        $H(r.hdr_data).each(function(d) {
             this.updateHeader(d.key, d.value, 0);
         }, this);
     },
@@ -220,9 +212,7 @@ var DimpMessage = {
                     uid: DimpCore.toUIDString(tmp)
                 }, {
                     callback: function(r) {
-                        if (r.response) {
-                            $('sendMdnMessage').up(1).fade({ duration: 0.2 });
-                        }
+                        $('sendMdnMessage').up(1).fade({ duration: 0.2 });
                     }
                 });
                 e.stop();
@@ -295,7 +285,7 @@ var DimpMessage = {
     {
         $('msg_all_parts').up().hide();
 
-        $('partlist').update(r.response.tree);
+        $('partlist').update(r.tree);
         $('msgAtc').down('SPAN.atcLabel').update(DIMP.text.allparts_label);
         $('msgAtc').show();
     },

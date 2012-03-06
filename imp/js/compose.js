@@ -131,7 +131,9 @@ var ImpCompose = {
             if (this.last_msg && curr_hash != this.last_msg) {
                 // Use an AJAX submit here so that the page doesn't reload.
                 $('actionID').setValue(actionID);
-                $('compose').request({ onComplete: this._autoSaveDraft.bind(this) });
+                $('compose').request({
+                    onComplete: this._autoSaveDraft.bind(this)
+                });
             }
             this.last_msg = cur_msg;
             return;
