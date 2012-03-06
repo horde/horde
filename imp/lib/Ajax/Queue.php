@@ -55,6 +55,8 @@ class IMP_Ajax_Queue
      *
      * For mailbox data (key: 'mailbox'), an array with these keys:
      *   - a: (array) Mailboxes that were added (base64url encoded).
+     *   - all: (integer) TODO
+     *   - base: (string) TODO
      *   - c: (array) Mailboxes that were changed (base64url encoded).
      *   - d: (array) Mailboxes that were deleted (base64url encoded).
      *   - expand: (integer) Expand subfolders on load.
