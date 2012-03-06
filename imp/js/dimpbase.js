@@ -2037,20 +2037,14 @@ var DimpBase = {
             return this.pollCallback.bind(this, r).defer();
         }
 
-        if (r.poll) {
-            $H(r.poll).each(function(u) {
-                this.updateUnseenStatus(u.key, u.value);
-            }, this);
-        }
-
-        if (r.quota) {
-            this._displayQuota(r.quota);
-        }
+        $H(r).each(function(u) {
+            this.updateUnseenStatus(u.key, u.value);
+        }, this);
 
         $('checkmaillink').down('A').update(DIMP.text.getmail);
     },
 
-    _displayQuota: function(r)
+    quotaCallback: function(r)
     {
         var q = $('quota').cleanWhitespace();
         $('quota-text').setText(r.m);
@@ -2882,11 +2876,11 @@ var DimpBase = {
     /* Mailbox action callback functions. */
     mailboxCallback: function(r)
     {
-        if (!r.mailbox) {
-            return;
-        }
+        var nf = $('normalfolders');
 
-        r = r.mailbox;
+        if (r.expand) {
+            this.expandmbox = r.base ? r.base : true;
+        }
 
         if (r.d) {
             r.d.each(this.deleteFolder.bind(this));
@@ -2897,15 +2891,30 @@ var DimpBase = {
         if (r.a && !r.noexpand) {
             r.a.each(this.createFolder.bind(this));
         }
+
+        this.expandmbox = false;
+
+        if (r.base) {
+            this._toggleSubFolder(r.base, r.all ? 'expall' : 'tog', false, true);
+        }
+
+        if (this.view) {
+            this.highlightSidebar(this.view);
+        }
+
+        if ($('foldersLoading').visible()) {
+            $('foldersLoading').hide();
+            $('foldersSidebar').show();
+        }
+
+        if (nf && nf.getStyle('max-height') !== null) {
+            this._sizeFolderlist();
+        }
     },
 
     flagCallback: function(r)
     {
-        if (!r.flag) {
-            return;
-        }
-
-        r.flag.each(function(entry) {
+        r.each(function(entry) {
             $H(DimpCore.parseUIDString(entry.uids)).each(function(m) {
                 var s = this.viewport.createSelectionBuffer(m.key).search({
                     uid: { equal: m.value },
@@ -2925,42 +2934,6 @@ var DimpBase = {
                 }
             }, this);
         }, this);
-    },
-
-    // params: (object)
-    //   - all
-    //   - base
-    _folderLoadCallback: function(params, r)
-    {
-        var nf = $('normalfolders');
-
-        if (r.expand) {
-            this.expandmbox = params.base ? params.base : true;
-        }
-        this.mailboxCallback(r);
-        delete r.mailbox;
-        this.expandmbox = false;
-
-        if (params.base) {
-            this._toggleSubFolder(params.base, params.all ? 'expall' : 'tog', false, true);
-        }
-
-        if (this.view) {
-            this.highlightSidebar(this.view);
-        }
-
-        if ($('foldersLoading').visible()) {
-            $('foldersLoading').hide();
-            $('foldersSidebar').show();
-        }
-
-        if (nf && nf.getStyle('max-height') !== null) {
-            this._sizeFolderlist();
-        }
-
-        if (r.quota) {
-            this._displayQuota(r.quota);
-        }
     },
 
     _handleFolderMouseClick: function(e)
@@ -3087,7 +3060,7 @@ var DimpBase = {
         }
         params.mboxes = Object.toJSON(params.mboxes);
 
-        DimpCore.doAction('listMailboxes', params, { callback: this._folderLoadCallback.bind(this, params) });
+        DimpCore.doAction('listMailboxes', params);
     },
 
     // Folder actions.
@@ -3805,14 +3778,27 @@ document.observe('IMPDialog:onClick', function(e) {
     }
 }.bindAsEventListener(DimpBase));
 
-/* Route AJAX responses through ViewPort. */
-document.observe('HordeCore:doActionComplete', function(e) {
-    if (this.viewport && e.memo.ViewPort) {
-        this.viewport.parseJSONResponse(e.memo.ViewPort);
+/* Handle AJAX response tasks. */
+document.observe('HordeCore:runTasks', function(e) {
+    if (this.viewport && e.memo['imp:viewport']) {
+        this.viewport.parseJSONResponse(e.memo['imp:viewport']);
     }
-    this.mailboxCallback(e.memo);
-    this.flagCallback(e.memo);
-    this.pollCallback(e.memo);
+
+    if (e.memo['imp:mailbox']) {
+        this.mailboxCallback(e.memo['imp:mailbox']);
+    }
+
+    if (e.memo['imp:flag']) {
+        this.flagCallback(e.memo['imp:flag']);
+    }
+
+    if (e.memo['imp:poll']) {
+        this.pollCallback(e.memo['imp:poll']);
+    }
+
+    if (e.memo['imp:quota']) {
+        this.quotaCallback(e.memo['imp:quota']);
+    }
 }.bindAsEventListener(DimpBase));
 
 /* Click handler. */
