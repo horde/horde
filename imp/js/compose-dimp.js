@@ -854,15 +854,6 @@ var DimpCompose = {
         $('upload_wait').update(DIMP.text_compose.uploading + ' (' + $F(u) + ')').show();
     },
 
-    attachmentComplete: function()
-    {
-        var sf = $('submit_frame'),
-            doc = sf.contentDocument || sf.contentWindow.document;
-        HordeCore.doActionComplete({
-            responseJSON: doc.body.innerHTML.evalJSON(true)
-        }, this.uniqueSubmitCallback.bind(this));
-    },
-
     toggleCC: function(type)
     {
         var t = $('toggle' + type),
@@ -1121,7 +1112,10 @@ var DimpCompose = {
         }
         Event.observe(window, 'resize', this.resizeMsgArea.bindAsEventListener(this));
         $('compose').observe('submit', Event.stop);
-        $('submit_frame').observe('load', this.attachmentComplete.bind(this));
+
+        HordeCore.handleSubmit($('compose'), {
+            callback: this.uniqueSubmitCallback.bind(this)
+        });
 
         // Initialize spell checker
         document.observe('SpellChecker:noerror', this._onSpellCheckNoError.bind(this));

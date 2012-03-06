@@ -328,8 +328,6 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
  <div class="sep"></div>
  <a id="ctx_folderopts_reload"><span class="iconImg"></span><?php echo _("Rebuild Folder List") ?></a>
 </div>
-
-<iframe name="submit_frame" id="submit_frame" style="display:none" src="javascript:false;"></iframe>
 <?php endif; ?>
 
 <div class="context" id="ctx_noactions" style="display:none">

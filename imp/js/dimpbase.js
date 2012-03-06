@@ -979,10 +979,14 @@ var DimpBase = {
                     className: 'RBForm',
                     enctype: 'multipart/form-data',
                     method: 'post',
-                    name: 'mbox_import',
-                    target: 'submit_frame'
+                    name: 'mbox_import'
                 },
                 ok_text: DIMP.text.ok,
+                submit_handler: function(r) {
+                    if (r.action == 'importMailbox') {
+                        this.viewport.reload();
+                    }
+                }.bind(this),
                 text: DIMP.text.import_mbox
             });
             break;
@@ -2766,26 +2770,6 @@ var DimpBase = {
         }
     },
 
-    submitFrameHandler: function()
-    {
-        var sf = $('submit_frame'),
-            doc = sf.contentDocument || sf.contentWindow.document,
-            r = doc.body.innerHTML.evalJSON(true);
-
-        if (r &&
-            r.response.action) {
-            switch (r.response.action) {
-            case 'importMailbox':
-                if (r.response.mbox = this.view) {
-                    this.viewport.reload();
-                }
-                break;
-            }
-
-            HordeCore.doActionComplete({ responseJSON: r });
-        }
-    },
-
     toggleHelp: function()
     {
         Effect.toggle($('helptext').down('DIV'), 'blind', {
@@ -3568,10 +3552,6 @@ var DimpBase = {
 
         /* Initialize variables. */
         DIMP.conf.sort = $H(DIMP.conf.sort);
-
-        if (tmp = $('submit_frame')) {
-            tmp.observe('load', this.submitFrameHandler.bind(this));
-        }
 
         /* Limit to folders sidebar only. */
         $('foldersSidebar').observe('mouseover', this.mouseoverHandler.bindAsEventListener(this));
