@@ -5,6 +5,7 @@
  *
  * Events fired:
  *   - HordeCore:doActionComplete
+ *   - HordeCore:runTasks
  *   - HordeCore:showNotifications
  *
  * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
@@ -152,9 +153,11 @@ var HordeCore = {
 
         this.notify_handler(r.msgs);
 
-        if (r.response) {
-            document.fire('HordeCore:doActionComplete', r.response);
+        if (r.tasks) {
+            document.fire('HordeCore:runTasks', r.tasks);
         }
+
+        document.fire('HordeCore:doActionComplete');
 
         this.inAjaxCallback = false;
     },
