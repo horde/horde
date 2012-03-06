@@ -20,7 +20,7 @@ var HordeCore = {
     //   Growler, inAjaxCallback, is_logout, submit_frame
     alarms: [],
     base: null,
-    notify_handler: function() { return HordeCore.showNotifications.bind(HordeCore); },
+    notify_handler: function(m) { HordeCore.showNotifications(m); },
     server_error: 0,
     submit_frame: [],
 
