@@ -61,7 +61,6 @@ class Horde_Ajax_Application extends Horde_Core_Ajax_Application
     {
         if (isset($this->_vars->app) && isset($this->_vars->blockid)) {
             try {
-                Horde::debug($this->_vars);
                 return $GLOBALS['injector']
                     ->getInstance('Horde_Core_Factory_BlockCollection')
                     ->create()
