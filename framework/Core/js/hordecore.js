@@ -19,6 +19,7 @@ var HordeCore = {
     //   Growler, inAjaxCallback, is_logout
     alarms: [],
     base: null,
+    notify_handler: function() { return HordeCore.showNotifications.bind(HordeCore); },
     server_error: 0,
 
     doActionOpts: function()
@@ -126,7 +127,7 @@ var HordeCore = {
         }
         this.server_error = 0;
 
-        this.showNotifications(r.msgs);
+        this.notify_handler(r.msgs);
 
         if (r.response) {
             document.fire('HordeCore:doActionComplete', r.response);
@@ -135,18 +136,14 @@ var HordeCore = {
         this.inAjaxCallback = false;
     },
 
-    showNotifications: function(msgs, opts)
+    showNotifications: function(msgs)
     {
         if (!msgs.size() || this.is_logout) {
             return;
         }
 
-        if (opts && opts.base && this.base) {
-            return this.base.HordeCore.showNotifications(msgs);
-        }
-
         if (!this.Growler) {
-            return this.showNotifications.bind(this, msgs, opts).defer();
+            return this.showNotifications.bind(this, msgs).defer();
         }
 
         msgs.find(function(m) {
@@ -251,12 +248,12 @@ var HordeCore = {
         }, this);
     },
 
-    notify: function(msg, type, opts)
+    notify: function(msg, type)
     {
         this.showNotifications([ {
             message: msg,
             type: type
-        } ], opts);
+        } ]);
     },
 
     // url: (string) TODO
