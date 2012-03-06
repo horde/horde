@@ -245,7 +245,7 @@ var DimpCompose = {
 
                 if (d.action == 'saveDraft') {
                     if (!DIMP.conf_compose.qreply && this.baseAvailable()) {
-                        HordeCore.notify_handler = HordeCore.base.showNotifications.bind(HordeCore.base);
+                        HordeCore.notify_handler = HordeCore.base.HordeCore.showNotifications.bind(HordeCore.base.HordeCore);
                     }
                     if (DIMP.conf_compose.close_draft) {
                         return this.closeCompose();
@@ -279,7 +279,7 @@ var DimpCompose = {
                     }
 
                     if (!DIMP.conf_compose.qreply) {
-                        HordeCore.notify_handler = HordeCore.base.showNotifications.bind(HordeCore.base);
+                        HordeCore.notify_handler = HordeCore.base.HordeCore.showNotifications.bind(HordeCore.base.HordeCore);
                     }
                 }
                 return this.closeCompose();
@@ -296,7 +296,7 @@ var DimpCompose = {
                     }
 
                     if (!DIMP.conf_compose.qreply) {
-                        HordeCore.notify_handler = HordeCore.base.showNotifications.bind(HordeCore.base);
+                        HordeCore.notify_handler = HordeCore.base.HordeCore.showNotifications.bind(HordeCore.base.HordeCore);
                     }
                 }
                 return this.closeCompose();

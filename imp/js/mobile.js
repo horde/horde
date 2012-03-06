@@ -726,7 +726,7 @@ var ImpMobile = {
                 if (d.action == 'saveDraft') {
                     if (!DIMP.conf_compose.qreply &&
                         ImpMobile.baseAvailable()) {
-                        HordeMobile.notify_handler = HordeMobile.base.showNotifications;
+                        HordeMobile.notify_handler = HordeMobile.base.HordeMobile.showNotifications;
                     }
                     if (DIMP.conf_compose.close_draft) {
                         return ImpMobile.closeCompose();
