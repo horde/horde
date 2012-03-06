@@ -16,11 +16,12 @@
 var HordeCore = {
 
     // Vars used and defaulting to null/false:
-    //   Growler, inAjaxCallback, is_logout
+    //   Growler, inAjaxCallback, is_logout, submit_frame
     alarms: [],
     base: null,
     notify_handler: function() { return HordeCore.showNotifications.bind(HordeCore); },
     server_error: 0,
+    submit_frame: [],
 
     doActionOpts: function()
     {
@@ -80,6 +81,28 @@ var HordeCore = {
         }.bind(this);
 
         $(form).request(ajaxopts);
+    },
+
+    handleSubmit: function(form, opts)
+    {
+        form = $(form);
+        opts = opts || {};
+
+        if (this.submit_frame[form.identify()]) {
+            return;
+        }
+
+        var sf = new Element('IFRAME', { name: 'submit_frame', src: 'javascript:false' }).hide();
+        $(document.body).insert(sf);
+        $(form).writeAttribute('target', 'submit_frame');
+
+        sf.observe('load', function(sf) {
+            this.doActionComplete({
+                responseJSON: (sf.contentDocument || sf.contentWindow.document).body.innerHTML.evalJSON(true)
+            }, opts.callback);
+        }.bind(this, sf));
+
+        this.submit_frame[form.identify()] = sf;
     },
 
     // params: (Hash) URL parameters
