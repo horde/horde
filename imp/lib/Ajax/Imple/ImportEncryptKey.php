@@ -127,8 +127,7 @@ class IMP_Ajax_Imple_ImportEncryptKey extends Horde_Core_Ajax_Imple
             $notification->push($e, 'horde.error');
         }
 
-        $resp = new Horde_Core_Ajax_Response($result, true);
-        return $resp->jsonData();
+        return new Horde_Core_Ajax_Response($result, true);
     }
 
     /**
