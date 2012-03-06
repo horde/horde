@@ -1162,19 +1162,14 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
             return;
         }
 
+        $recipients->setIteratorFilter(0, array_keys($results));
         foreach ($recipients as $recipient) {
-            /* Skip email addresses that already exist in the add_source. */
-            $tmp = $recipient->bare_address;
-            if (!empty($results[$tmp])) {
-                continue;
-            }
-
             $name = is_null($recipient->personal)
                 ? $recipient->mailbox
                 : $recipient->personal;
 
             try {
-                $registry->call('contacts/import', array(array('name' => $name, 'email' => $tmp), 'array', $abook));
+                $registry->call('contacts/import', array(array('name' => $name, 'email' => $recipient->bare_address), 'array', $abook));
                 $notification->push(sprintf(_("Entry \"%s\" was successfully added to the address book"), $name), 'horde.success');
             } catch (Horde_Exception $e) {
                 if ($e->getCode() == 'horde.error') {
