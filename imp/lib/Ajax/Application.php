@@ -560,6 +560,9 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * AJAX action: Poll mailboxes.
      *
      * See the list of variables needed for _changed() and _viewPortData().
+     * Additional variables used:
+     *   - mboxes: (string) The list of mailboxes to process (JSON encoded
+     *             array; mailboxes are base64url encoded) if 'all' is 0.
      *
      * @return mixed  False on failure, or an object with the following
      *                entries:
@@ -567,7 +570,12 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      */
     public function poll()
     {
-        $this->_queue->poll($GLOBALS['injector']->getInstance('IMP_Imap_Tree')->getPollList());
+        if (empty($this->_vars->mboxes)) {
+            $this->_queue->poll($GLOBALS['injector']->getInstance('IMP_Imap_Tree')->getPollList());
+        } else {
+            $this->_queue->poll(IMP_Mailbox::formFrom(Horde_Serialize::unserialize($this->_vars->mboxes, Horde_Serialize::JSON)));
+        }
+
         $this->_queue->quota();
 
         return ($this->_mbox && $this->_changed())
