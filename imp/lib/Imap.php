@@ -104,7 +104,7 @@ class IMP_Imap implements Serializable
 
         if (($server = $this->loadServerConfig($key)) === false) {
             $error = new IMP_Imap_Exception('Could not load server configuration.');
-            $error->log();
+            Horde::logMessage($error);
             throw $error;
         }
 
@@ -138,7 +138,7 @@ class IMP_Imap implements Serializable
             $ob = Horde_Imap_Client::factory(($protocol == 'imap') ? 'Socket' : 'Socket_Pop3', $imap_config);
         } catch (Horde_Imap_Client_Exception $e) {
             $error = new IMP_Imap_Exception($e);
-            $error->log();
+            Horde::logMessage($error);
             throw $error;
         }
 
@@ -382,7 +382,7 @@ class IMP_Imap implements Serializable
             $result = call_user_func_array(array($this->ob, $method), $params);
         } catch (Horde_Imap_Client_Exception $e) {
             $error = new IMP_Imap_Exception($e);
-            $error->log();
+            Horde::logMessage($error);
             throw $error;
         }
 
@@ -400,7 +400,7 @@ class IMP_Imap implements Serializable
                 if ($this->pop3 &&
                     !$this->queryCapability('UIDL')) {
                     $error = new IMP_Imap_Exception('The POP3 server does not support the REQUIRED UIDL capability.');
-                    $error->log();
+                    Horde::logMessage($error);
                     throw $error;
                 }
 
