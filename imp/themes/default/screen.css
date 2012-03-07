@@ -475,6 +475,10 @@ tr.flagDeleted * {
 }
 
 /* Prefs management styles. */
+table.flagmanagement thead td {
+    font-weight: bold;
+    text-decoration: underline;
+}
 table.flagmanagement div.flagUser {
     border: 1px solid gray;
     margin-right: 2px;
