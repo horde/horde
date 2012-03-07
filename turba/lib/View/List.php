@@ -178,12 +178,6 @@ class Turba_View_List implements Countable
         $vars = Horde_Variables::getDefaultVariables();
 
         list($addToList, $addToListSources) = $this->getAddSources();
-        $viewurl = Horde::url('browse.php')->add(array(
-            'url' => Horde::selfUrl(true, false, true)
-        ));
-        if (isset($vars->key)) {
-            $viewurl->add('key', $vars->key);
-        }
 
         if ($this->type == 'search') {
             $page = $vars->get('page', 0);
@@ -235,6 +229,13 @@ class Turba_View_List implements Countable
             }
             $listHtml = $this->getAlpha($numDisplayed, $page);
             $pagerHeader = 'alphaPager.inc';
+
+            $viewurl = Horde::url('browse.php')->add(array(
+                'show' => $vars->get('show', 'all')
+            ));
+            if (isset($vars->key)) {
+                $viewurl->add('key', $vars->key);
+            }
         }
 
         if ($numDisplayed) {
