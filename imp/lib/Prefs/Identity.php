@@ -127,13 +127,12 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
         if (empty($address) ||
             $this->_prefs->isLocked($this->_prefnames['from_addr'])) {
             $address = $this->getFromAddress($ident);
-            $name = $this->getFullname($ident);
         }
 
         $result = IMP::parseAddressList($address);
         $ob = $result[0];
 
-        if (empty($name) && is_null($ob->personal)) {
+        if (is_null($ob->personal)) {
             $ob->personal = $this->getFullname($ident);
         }
 
