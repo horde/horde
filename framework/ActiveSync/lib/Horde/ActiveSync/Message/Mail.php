@@ -11,16 +11,10 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
 {
     const POOMMAIL_ATTACHMENT        = 'POOMMAIL:Attachment';
     const POOMMAIL_ATTACHMENTS       = 'POOMMAIL:Attachments';
-    const POOMMAIL_ATTNAME           = 'POOMMAIL:AttName';
-    const POOMMAIL_ATTSIZE           = 'POOMMAIL:AttSize';
-    const POOMMAIL_ATTOID            = 'POOMMAIL:AttOid';
-    const POOMMAIL_ATTMETHOD         = 'POOMMAIL:AttMethod';
-    const POOMMAIL_ATTREMOVED        = 'POOMMAIL:AttRemoved';
     const POOMMAIL_BODY              = 'POOMMAIL:Body';
     const POOMMAIL_BODYSIZE          = 'POOMMAIL:BodySize';
     const POOMMAIL_BODYTRUNCATED     = 'POOMMAIL:BodyTruncated';
     const POOMMAIL_DATERECEIVED      = 'POOMMAIL:DateReceived';
-    const POOMMAIL_DISPLAYNAME       = 'POOMMAIL:DisplayName';
     const POOMMAIL_DISPLAYTO         = 'POOMMAIL:DisplayTo';
     const POOMMAIL_IMPORTANCE        = 'POOMMAIL:Importance';
     const POOMMAIL_MESSAGECLASS      = 'POOMMAIL:MessageClass';
@@ -78,7 +72,7 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
         self::POOMMAIL_DISPLAYTO      => array(self::KEY_ATTRIBUTE => 'displayto'),
         self::POOMMAIL_IMPORTANCE     => array(self::KEY_ATTRIBUTE => 'importance'),
         self::POOMMAIL_READ           => array(self::KEY_ATTRIBUTE => 'read'),
-        self::POOMMAIL_ATTACHMENTS    => array(self::KEY_ATTRIBUTE => 'attachments', self::KEY_TYPE => 'SyncAttachment', self::KEY_VALUES => self::POOMMAIL_ATTACHMENT),
+        self::POOMMAIL_ATTACHMENTS    => array(self::KEY_ATTRIBUTE => 'attachments', self::KEY_TYPE => 'Horde_ActiveSync_Message_Attachment', self::KEY_VALUES => self::POOMMAIL_ATTACHMENT),
         self::POOMMAIL_MIMETRUNCATED  => array(self::KEY_ATTRIBUTE => 'mimetruncated' ),
         // @TODO???
         self::POOMMAIL_MIMEDATA       => array(self::KEY_ATTRIBUTE => 'mimedata', self::KEY_TYPE => 'STREAMER_TYPE_MAPI_STREAM'),
