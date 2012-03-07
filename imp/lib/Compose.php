@@ -1034,7 +1034,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         }
 
         try {
-            $results = $registry->call('contacts/search', array($emails, array($abook), array($abook => array('email'), true, false, array('email'))));
+            $results = $registry->call('contacts/search', array($emails, array($abook), array($abook => array('email')), true, false, array('email')));
         } catch (Horde_Exception $e) {
             Horde::logMessage($e, 'ERR');
             $notification->push(_("Could not save recipients."));
