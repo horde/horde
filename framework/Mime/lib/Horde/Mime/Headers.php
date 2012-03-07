@@ -311,7 +311,7 @@ class Horde_Mime_Headers implements Serializable
         }
         $ptr = &$this->_headers[$lcHeader];
 
-        if ($opts['sanity_check']) {
+        if (!empty($opts['sanity_check'])) {
             $value = $this->_sanityCheck($value);
         }
 
