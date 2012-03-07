@@ -794,7 +794,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     /**
      * Sends the email represented by the rfc822 string received by the PIM.
      *
-     * @TODO: Accept a stream?
      * @param string $rfc822    The rfc822 mime message
      * @param boolean $forward  Indicates if this is a forwarded message
      * @param boolean $reply    Indicates if this is a reply
@@ -815,11 +814,16 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             ->create($this->_user);
         $name = $ident->getValue('fullname');
         $from_addr = $ident->getValue('from_addr');
+        $from = $name . '<' . $from_addr . '>';
+        $headers->addHeader('From', $from);
+
+        $this->_logger->debug(sprintf("Setting FROM to '%s'.", $from));
+        // @TODO: From seems to be broken when it's not in UTF-8 coming from the
+        //        Device.
+        $this->_logger->debug(sprintf("TO '%s'", $headers->getValue('To')));
 
         $mail = new Horde_Mime_Mail();
         $mail->addHeaders($headers->toArray());
-        $mail->addHeader('From', $name . '<' . $from_addr . '>');
-
         $body_id = $message->findBody();
         if ($body_id) {
             $part = $message->getPart($body_id);
@@ -845,7 +849,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $this->_logger->debug(sprintf("Preparing to copy to '%s'", $sf));
                 $mbox = new Horde_Imap_Client_Mailbox($sf);
                 $flags = array(Horde_Imap_Client::FLAG_SEEN);
-                $msg = $message->toString(array('headers' => $headers, 'stream' => true));
+                $msg = $message->toString(array('headers' => $headers));
+                Horde::debug($msg);
                 $this->_connector->mail_appendMessage($mbox, array(array('data' => $msg, 'flags' => $flags)));
             }
         }
