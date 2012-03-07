@@ -597,10 +597,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         if ($prefs->getValue('use_smime') &&
             in_array($encrypt, array(IMP_Crypt_Smime::ENCRYPT, IMP_Crypt_Smime::SIGNENC))) {
             foreach ($recip['list'] as $val) {
+                $tmp = Horde_Mime_Address::addrObject2String($val);
                 $send_msgs[] = array(
-                    'base' => $this->_createMimeMessage(array($val), $body, $msg_options),
+                    'base' => $this->_createMimeMessage(array($tmp), $body, $msg_options),
                     'recipientob' => array($val),
-                    'recipients' => Horde_Mime_Address::addrObject2String($val)
+                    'recipients' => $tmp
                 );
             }
 
@@ -611,7 +612,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             /* Can send in clear-text all at once, or PGP can encrypt
              * multiple addresses in the same message. */
             $msg_options['from'] = $barefrom;
-            $save_msg = $this->_createMimeMessage($recip['list'], $body, $msg_options);
+            $save_msg = $this->_createMimeMessage($recip['recips'], $body, $msg_options);
             $send_msgs[] = array(
                 'base' => $save_msg,
                 'recipientob' => $recip['list'],
