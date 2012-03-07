@@ -30,7 +30,6 @@
 ************************************************/
 class Horde_ActiveSync_Message_Base
 {
-
     /* Attribute Keys */
     const KEY_ATTRIBUTE    = 1;
     const KEY_VALUES       = 2;
