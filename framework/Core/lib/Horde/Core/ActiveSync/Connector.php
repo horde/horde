@@ -562,8 +562,16 @@ class Horde_Core_ActiveSync_Connector
         return array($id => $uidnext);
     }
 
-
-    public function mail_appendMessage($folderid, $message)
+    /**
+     * Append a message to the specified mailbox. Used for saving sent email.
+     *
+     * @param Horde_Imap_Client_Mailbox $mbox  The mailbox
+     * @param mixed $message                   The email message
+     * @see Horde_Imap_Client_Base::append
+     *
+     * @throws new Horde_Exception
+     */
+    public function mail_appendMessage($mbox, $message)
     {
         $imap = $this->_getImapOb();
         try {
@@ -613,7 +621,8 @@ class Horde_Core_ActiveSync_Connector
         $imap = $this->_getImapOb();
         $query = new Horde_Imap_Client_Fetch_Query();
         $query->structure();
-        $query->uid;
+        $query->uid();
+        $query->flags();
         $ids = new Horde_Imap_Client_Ids($messages);
         $mbox = new Horde_Imap_Client_Mailbox($folder->serverid);
         $messages = array();
@@ -655,7 +664,8 @@ class Horde_Core_ActiveSync_Connector
      * @param Horde_Imap_Client_Mailbox    $mbox  The IMAP mailbox.
      * @param Horde_Imap_Client_Data_Fetch $data  The fetch results.
      * @param array $options                      Additional Options:
-     *   -truncation  Truncate the message body to this length.
+     *   - truncation:  (integer) Truncate the message body to this length.
+     *                  DEFAULT: No truncation.
      *
      * @return Horde_ActiveSync_Mail_Message
      * @throws Horde_Exception
@@ -665,81 +675,40 @@ class Horde_Core_ActiveSync_Connector
         Horde_Imap_Client_Data_Fetch $data,
         $options = array())
     {
-        $part = $data->getStructure();
-        $id = $part->findBody();
-        $body = $part->getPart($id);
-        $charset = $body->getCharset();
-        $imap = $this->_getImapOb();
-        $query = new Horde_Imap_Client_Fetch_Query();
-        $query->envelope();
-        $query->flags();
-        $qopts = array(
-            'decode' => true,
-            'peek' => true
+        // Get a message object.
+        $imap_message = new Horde_Core_ActiveSync_Imap_Message(
+            $this->_getImapOb(),
+            $mbox,
+            $data
         );
-        // Figure out if we need the body, and if so, how to truncate it.
-        if (isset($options['truncation']) && $options['truncation'] > 0) {
-            $qopts['length'] = $options['truncation'];
+
+        $message_text = $imap_message->getMessageBody($options);
+        $eas_message = new Horde_ActiveSync_Message_Mail();
+        if ($message_text['charset'] != 'UTF-8') {
+            $eas_message->body = Horde_String::convertCharset(
+                $message_text['text'],
+                $message_text['charset'],
+                'UTF-8');
+        } else {
+            $eas_message->body = $message_text['text'];
         }
-        if ((isset($options['truncation']) && $options['truncation'] > 0) ||
-            !isset($options['truncation'])) {
-            $query->bodyPart($id, $qopts);
-        }
+        $eas_message->bodysize = Horde_String::length($eas_message->body);
+        $eas_message->bodytruncated = isset($options['truncation']) ? 1 : 0;
+        $to = $imap_message->getToAddresses();
+        $eas_message->to = implode(',', $to['to']);
+        $eas_message->displayto = implode(',', $to['displayto']);
+        $eas_message->from = $imap_message->getFromAddress();
+        $eas_message->subject = $imap_message->getSubject();
+        $eas_message->datereceived = $imap_message->getDate();
+        $eas_message->read = $imap_message->getFlag(Horde_Imap_Client::FLAG_SEEN);
 
-        try {
-            $messages = $imap->fetch(
-                $mbox,
-                $query,
-                array('ids' => new Horde_Imap_Client_Ids(array($data->getUid()))));
-        } catch (Horde_Imap_Client_Exception $e) {
-            throw new Horde_Exception($e);
-        }
-        $data = array_pop($messages);
-        $envelope = $data->getEnvelope();
-
-        // Get the plaintext part.
-        $text = $data->getBodyPart($id);
-        if (!$data->getBodyPartDecode($id)) {
-            $body->setContents($data->getBodyPart($id));
-            $text = $body->getContents();
-        }
-
-        $message = new Horde_ActiveSync_Message_Mail();
-        $message->body = Horde_String::convertCharset($text, $charset, 'UTF-8');
-        $message->bodysize = Horde_String::length($message->body);
-        $message->bodytruncated = isset($options['truncation']) ? 1 : 0;
-
-        // Parse To: header
-        $to = $envelope->to->addresses;
-        $tos = array();
-        foreach ($to as $r) {
-            $a = new Horde_Mail_Rfc822_Address($r);
-            $tos[] = $a->writeAddress(true);
-            $dtos[] = $a->personal;
-        }
-        $message->to = implode(',', $tos);
-        $message->displayto = implode(',', $dtos);
-
-        // Parse From: header
-        $from = array_pop($envelope->from->addresses);
-        $a = new Horde_Mail_Rfc822_Address($from);
-        $message->from = $a->writeAddress(true);
-
-        $message->subject = $envelope->subject;
-        $message->datereceived = new Horde_Date((string)$envelope->date);
-
+        // Attachments
+        $eas_message->attachments = $imap_message->getAttachments();
 
         // @TODO: Parse out/detect at least meeting requests and notifications.
-        $message->messageclass = 'IPM.Note';
+        $eas_message->messageclass = 'IPM.Note';
 
-        // Seen flag
-        if (array_search('\seen', $data->getFlags()) !== false) {
-            $message->read = 1;
-        } else {
-            $message->read = 0;
-        }
-
-        return $message;
+        return $eas_message;
     }
 
     /**
@@ -783,7 +752,7 @@ class Horde_Core_ActiveSync_Connector
     /**
      * Helper for getting folderlist.
      *
-     * @var array
+     * @return array
      */
     protected function _getFolderlist()
     {
