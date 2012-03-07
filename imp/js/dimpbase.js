@@ -817,7 +817,7 @@ var DimpBase = {
         }.bindAsEventListener(this));
 
         container.observe('ViewPort:fetch', function(e) {
-            if ($('searchbar').visible()) {
+            if (!this.isSearch() && $('searchbar').visible()) {
                 $('searchbar').hide();
                 this.viewport.onResize(true);
             }
