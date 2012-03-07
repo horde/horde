@@ -125,7 +125,7 @@ class Horde_Core_ActiveSync_Imap_Message
                 $mime_part = $this->getMIMEPart($id, array('nocontents' => true));
                 $atc = new Horde_ActiveSync_Message_Attachment();
                 $atc->attsize = $mime_part->getBytes();
-                $atc->attname = $this->getPartName($mime_part);
+                $atc->attname = $this->_mbox . ':' . $this->_uid . ':' . $id;
                 $atc->displayname = $this->getPartName($mime_part, true);
                 $atc->attmethod = Horde_ActiveSync_Message_Attachment::ATT_TYPE_NORMAL;
                 $atc->attoid = ''; // content-id header?
