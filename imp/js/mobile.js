@@ -508,7 +508,7 @@ var ImpMobile = {
                     'href',
                     '#target?action=copy' + args);
             }
-            if (ImpMobile.mailbox == IMP.conf.spam_folder) {
+            if (ImpMobile.mailbox == IMP.conf.spam_mbox) {
                 if (!IMP.conf.spam_spammbox) {
                     spam = 'hide';
                 }
@@ -904,7 +904,7 @@ var ImpMobile = {
     },
 
     /**
-     * Opens a target folder dialog.
+     * Opens a target mailbox dialog.
      *
      * @param object url      Page URL from $.mobile.path.parseUrl().
      * @param object options  Page change options.

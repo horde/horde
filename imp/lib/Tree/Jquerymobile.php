@@ -1,6 +1,6 @@
 <?php
 /**
- * This class defines Jquerymobile output for a folder list.
+ * This class defines Jquerymobile output for a mailbox (folder tree) list.
  *
  * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *

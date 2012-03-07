@@ -62,8 +62,8 @@ if (!$prefs->isLocked('default_identity') && isset($vars->identity)) {
 /* Determine if mailboxes are readonly. */
 $drafts = IMP_Mailbox::getPref('drafts_folder');
 $readonly_drafts = $drafts && $drafts->readonly;
-$sent_mail_folder = $identity->getValue('sent_mail_folder');
-$save_sent_mail = ($sent_mail_folder && $sent_mail_folder->readonly)
+$sent_mail = $identity->getValue('sent_mail_folder');
+$save_sent_mail = ($sent_mail && $sent_mail->readonly)
     ? false
     : $prefs->getValue('save_sent_mail');
 
@@ -131,7 +131,7 @@ case 't':
             ($result['identity'] != $identity->getDefault()) &&
             !$prefs->isLocked('default_identity')) {
             $identity->setDefault($result['identity']);
-            $sent_mail_folder = $identity->getValue('sent_mail_folder');
+            $sent_mail = $identity->getValue('sent_mail_folder');
         }
     } catch (IMP_Compose_Exception $e) {
         $notification->push($e);
@@ -286,7 +286,7 @@ case _("Send"):
             'identity' => $identity,
             'readreceipt' => ($prefs->getValue('request_mdn') == 'always'),
             'save_sent' => $save_sent_mail,
-            'sent_folder' => $sent_mail_folder
+            'sent_mail' => $sent_mail
         );
 
         try {

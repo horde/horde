@@ -12,7 +12,7 @@ $code = array(
 /* Variables used in core javascript files. */
     'conf' => array(
         'pop3' => intval($GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->pop3),
-        'fixed_folders' => empty($GLOBALS['conf']['server']['fixed_folders'])
+        'fixed_mboxes' => empty($GLOBALS['conf']['server']['fixed_folders'])
             ? array()
             : $GLOBALS['conf']['server']['fixed_folders'],
     ),
@@ -43,16 +43,16 @@ $code = array(
         'contacts_select' => _("You must select an address first."),
 
         /* Strings used in folders.js */
-        'folders_select' => _("Please select a folder before you perform this action."),
-        'folders_oneselect' => _("Only one folder should be selected for this action."),
-        'folders_subfolder1' => _("You are creating a sub-folder to"),
-        'folders_subfolder2' => _("Please enter the name of the new folder:"),
-        'folders_toplevel' => _("You are creating a top-level folder.") . "\n" . _("Please enter the name of the new folder:"),
-        'folders_download1' => _("All messages in the following folder(s) will be downloaded into one MBOX file:"),
+        'folders_select' => _("Please select a mailbox before you perform this action."),
+        'folders_oneselect' => _("Only one mailbox should be selected for this action."),
+        'folders_subfolder1' => _("You are creating a subfolder to"),
+        'folders_subfolder2' => _("Please enter the name of the new mailbox:"),
+        'folders_toplevel' => _("You are creating a top-level mailbox.") . "\n" . _("Please enter the name of the new mailbox:"),
+        'folders_download1' => _("All messages in the following mailbox(es) will be downloaded into one MBOX file:"),
         'folders_download2' => _("This may take some time. Are you sure you want to continue?"),
-        'folders_rename1' => _("You are renaming the folder:"),
+        'folders_rename1' => _("You are renaming the mailbox:"),
         'folders_rename2' => _("Please enter the new name:"),
-        'folders_no_rename' => _("This folder may not be renamed:"),
+        'folders_no_rename' => _("This mailbox may not be renamed:"),
 
         /* Strings used in imp.js */
         'popup_block' => _("A popup window could not be opened. Perhaps you have set your browser to block popup windows?"),
@@ -65,7 +65,7 @@ $code = array(
         'moveconfirm' => _("Are you sure you want to move the message(s)? (Some message information might get lost, like message headers, text formatting or attachments!)"),
         'spam_report' => _("Are you sure you wish to report this message as spam?"),
         'notspam_report' => _("Are you sure you wish to report this message as innocent?"),
-        'newfolder' => _("You are copying/moving to a new folder.") . "\n" . _("Please enter a name for the new folder:") . "\n",
+        'newmbox' => _("You are copying/moving to a new mailbox.") . "\n" . _("Please enter a name for the new mailbox:") . "\n",
         'target_mbox' => _("You must select a target mailbox first."),
     )
 );

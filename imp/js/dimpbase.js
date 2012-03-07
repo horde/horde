@@ -198,7 +198,7 @@ var DimpBase = {
     //     'prefs' - (object) Extra parameters to add to prefs URL
     //     'search' - (object)
     //         'edit_query' = If 1, mailbox will be edited
-    //         'mailbox' = folders to search
+    //         'mailbox' = mailboxes to search
     //         'subfolder' = do subfolder search
     //         If not set, loads search screen with current mailbox as
     //         default search mailbox
@@ -447,11 +447,11 @@ var DimpBase = {
         }
 
         if (this.view != f) {
-            $('folderName').update(DIMP.text.loading);
+            $('mailboxName').update(DIMP.text.loading);
             $('msgHeader').update();
             this.viewswitch = true;
 
-            /* Don't cache results of search folders - since we will need to
+            /* Don't cache results of search mailboxes - since we will need to
              * grab new copy if we ever return to it. */
             if (this.isSearch()) {
                 need_delete = this.view;
@@ -692,7 +692,7 @@ var DimpBase = {
                 }
                 [ $('search_edit') ].invoke(this.search || this.viewport.getMetaData('noedit') ? 'hide' : 'show');
             } else {
-                this.setFolderLabel(this.view);
+                this.setMboxLabel(this.view);
             }
 
             if (this.rownum) {
@@ -764,10 +764,10 @@ var DimpBase = {
                 tmp = [ $('ctx_message_setflag') ].compact();
                 if (this.viewport.getMetaData('readonly')) {
                     tmp.invoke('hide');
-                    $('folderName').next().show();
+                    $('mailboxName').next().show();
                 } else {
                     tmp.invoke('show');
-                    $('folderName').next().hide();
+                    $('mailboxName').next().hide();
                 }
 
                 /* ACL changes. */
@@ -908,7 +908,7 @@ var DimpBase = {
 
         switch (id) {
         case 'ctx_container_create':
-        case 'ctx_folder_create':
+        case 'ctx_mbox_create':
             tmp = e.findElement('LI');
             DimpCore.doAction('createMailboxPrepare', {
                 mbox: tmp.retrieve('mbox')
@@ -918,7 +918,7 @@ var DimpBase = {
             break;
 
         case 'ctx_container_rename':
-        case 'ctx_folder_rename':
+        case 'ctx_mbox_rename':
             tmp = e.findElement('LI');
             DimpCore.doAction('deleteMailboxPrepare', {
                 mbox: tmp.retrieve('mbox'),
@@ -928,7 +928,7 @@ var DimpBase = {
             });
             break;
 
-        case 'ctx_folder_empty':
+        case 'ctx_mbox_empty':
             tmp = e.findElement('LI');
             DimpCore.doAction('emptyMailboxPrepare', {
                 mbox: tmp.retrieve('mbox')
@@ -937,7 +937,7 @@ var DimpBase = {
             });
             break;
 
-        case 'ctx_folder_delete':
+        case 'ctx_mbox_delete':
         case 'ctx_vfolder_delete':
             tmp = e.findElement('LI');
             DimpCore.doAction('deleteMailboxPrepare', {
@@ -948,25 +948,25 @@ var DimpBase = {
             });
             break;
 
-        case 'ctx_folder_export_mbox':
-        case 'ctx_folder_export_zip':
+        case 'ctx_mbox_export_mbox':
+        case 'ctx_mbox_export_zip':
             tmp = e.findElement('LI');
 
             this.viewaction = HordeCore.redirect.bind(HordeCore, HordeCore.addURLParam(DIMP.conf.URI_VIEW, {
                 actionID: 'download_mbox',
                 mailbox: tmp.retrieve('mbox'),
-                zip: Number(id == 'ctx_folder_export_zip')
+                zip: Number(id == 'ctx_mbox_export_zip')
             }));
 
             IMPDialog.display({
                 cancel_text: DIMP.text.cancel,
                 noinput: true,
                 ok_text: DIMP.text.ok,
-                text: DIMP.text.download_folder
+                text: DIMP.text.download_mbox
             });
             break;
 
-        case 'ctx_folder_import':
+        case 'ctx_mbox_import':
             tmp = e.findElement('LI').retrieve('mbox');
 
             IMPDialog.display({
@@ -994,34 +994,34 @@ var DimpBase = {
             });
             break;
 
-        case 'ctx_folder_seen':
-        case 'ctx_folder_unseen':
+        case 'ctx_mbox_seen':
+        case 'ctx_mbox_unseen':
             DimpCore.doAction('flagAll', {
-                add: Number(id == 'ctx_folder_seen'),
+                add: Number(id == 'ctx_mbox_seen'),
                 flags: Object.toJSON([ DIMP.conf.FLAG_SEEN ]),
                 mbox: e.findElement('LI').retrieve('mbox')
             });
             break;
 
-        case 'ctx_folder_poll':
-        case 'ctx_folder_nopoll':
-            this.modifyPoll(e.findElement('LI').retrieve('mbox'), id == 'ctx_folder_poll');
+        case 'ctx_mbox_poll':
+        case 'ctx_mbox_nopoll':
+            this.modifyPoll(e.findElement('LI').retrieve('mbox'), id == 'ctx_mbox_poll');
             break;
 
-        case 'ctx_folder_sub':
-        case 'ctx_folder_unsub':
-            this.subscribeFolder(e.findElement('LI').retrieve('mbox'), id == 'ctx_folder_sub');
+        case 'ctx_mbox_sub':
+        case 'ctx_mbox_unsub':
+            this.subscribeMailbox(e.findElement('LI').retrieve('mbox'), id == 'ctx_mbox_sub');
             break;
 
-        case 'ctx_folder_acl':
+        case 'ctx_mbox_acl':
             this.go('prefs', {
                 group: 'acl',
-                folder: e.findElement('LI').retrieve('mbox')
+                mbox: e.findElement('LI').retrieve('mbox')
             });
             break;
 
         case 'ctx_folderopts_new':
-            this.createBaseFolder();
+            this._createMboxForm(this._mboxAction.bindAsEventListener(this, '', 'create'), DIMP.text.create_prompt);
             break;
 
         case 'ctx_folderopts_sub':
@@ -1031,7 +1031,7 @@ var DimpBase = {
 
         case 'ctx_folderopts_expand':
         case 'ctx_folderopts_collapse':
-            this._toggleSubFolder($('normalfolders'), id == 'ctx_folderopts_expand' ? 'expall' : 'colall', true);
+            this._toggleSubFolder($('normalmboxes'), id == 'ctx_folderopts_expand' ? 'expall' : 'colall', true);
             break;
 
         case 'ctx_folderopts_reload':
@@ -1040,15 +1040,15 @@ var DimpBase = {
 
         case 'ctx_container_expand':
         case 'ctx_container_collapse':
-        case 'ctx_folder_expand':
-        case 'ctx_folder_collapse':
-            this._toggleSubFolder(e.findElement('LI').next(), (id == 'ctx_container_expand' || id == 'ctx_folder_expand') ? 'expall' : 'colall', true);
+        case 'ctx_mbox_expand':
+        case 'ctx_mbox_collapse':
+            this._toggleSubFolder(e.findElement('LI').next(), (id == 'ctx_container_expand' || id == 'ctx_mbox_expand') ? 'expall' : 'colall', true);
             break;
 
         case 'ctx_container_search':
         case 'ctx_container_searchsub':
-        case 'ctx_folder_search':
-        case 'ctx_folder_searchsub':
+        case 'ctx_mbox_search':
+        case 'ctx_mbox_searchsub':
             this.go('search', {
                 mailbox: e.findElement('LI').retrieve('mbox'),
                 subfolder: Number(id.endsWith('searchsub'))
@@ -1244,24 +1244,24 @@ var DimpBase = {
             ctx_id = e.memo;
 
         switch (ctx_id) {
-        case 'ctx_folder':
-            elts = $('ctx_folder_create', 'ctx_folder_rename', 'ctx_folder_delete');
+        case 'ctx_mbox':
+            elts = $('ctx_mbox_create', 'ctx_mbox_rename', 'ctx_mbox_delete');
             baseelt = e.findElement('LI');
 
             if (baseelt.retrieve('mbox') == this.INBOX) {
                 elts.invoke('hide');
-                if ($('ctx_folder_sub')) {
-                    $('ctx_folder_sub', 'ctx_folder_unsub').invoke('hide');
+                if ($('ctx_mbox_sub')) {
+                    $('ctx_mbox_sub', 'ctx_mbox_unsub').invoke('hide');
                 }
             } else {
-                if ($('ctx_folder_sub')) {
-                    tmp = baseelt.hasClassName('unsubFolder');
-                    [ $('ctx_folder_sub') ].invoke(tmp ? 'show' : 'hide');
-                    [ $('ctx_folder_unsub') ].invoke(tmp ? 'hide' : 'show');
+                if ($('ctx_mbox_sub')) {
+                    tmp = baseelt.hasClassName('unsubMbox');
+                    [ $('ctx_mbox_sub') ].invoke(tmp ? 'show' : 'hide');
+                    [ $('ctx_mbox_unsub') ].invoke(tmp ? 'hide' : 'show');
                 }
 
-                if (DIMP.conf.fixed_folders &&
-                    DIMP.conf.fixed_folders.indexOf(baseelt.retrieve('mbox')) != -1) {
+                if (DIMP.conf.fixed_mboxes &&
+                    DIMP.conf.fixed_mboxes.indexOf(baseelt.retrieve('mbox')) != -1) {
                     elts.shift();
                     elts.invoke('hide');
                 } else {
@@ -1271,15 +1271,15 @@ var DimpBase = {
 
             tmp = Object.isUndefined(baseelt.retrieve('u'));
             if (DIMP.conf.poll_alter) {
-                [ $('ctx_folder_poll') ].invoke(tmp ? 'show' : 'hide');
-                [ $('ctx_folder_nopoll') ].invoke(tmp ? 'hide' : 'show');
+                [ $('ctx_mbox_poll') ].invoke(tmp ? 'show' : 'hide');
+                [ $('ctx_mbox_nopoll') ].invoke(tmp ? 'hide' : 'show');
             } else {
-                $('ctx_folder_poll', 'ctx_folder_nopoll').invoke('hide');
+                $('ctx_mbox_poll', 'ctx_mbox_nopoll').invoke('hide');
             }
 
-            [ $('ctx_folder_expand').up() ].invoke(this.getSubMboxElt(baseelt) ? 'show' : 'hide');
+            [ $('ctx_mbox_expand').up() ].invoke(this.getSubMboxElt(baseelt) ? 'show' : 'hide');
 
-            [ $('ctx_folder_acl').up() ].invoke(DIMP.conf.acl ? 'show' : 'hide');
+            [ $('ctx_mbox_acl').up() ].invoke(DIMP.conf.acl ? 'show' : 'hide');
 
             // Fall-through
 
@@ -1287,7 +1287,7 @@ var DimpBase = {
         case 'ctx_noactions':
         case 'ctx_vfolder':
             baseelt = e.findElement('LI');
-            $(ctx_id).down('DIV.folderName').update(this.fullMboxDisplay(baseelt));
+            $(ctx_id).down('DIV.mboxName').update(this.fullMboxDisplay(baseelt));
             break;
 
         case 'ctx_reply':
@@ -1471,8 +1471,8 @@ var DimpBase = {
         a.store('flag', flag);
     },
 
-    // foldername: (boolean) If true, update the folderName label
-    updateTitle: function(foldername)
+    // name: (boolean) If true, update the mailboxName label
+    updateTitle: function(name)
     {
         var elt, unseen,
             label = this.viewport.getMetaData('label');
@@ -1493,8 +1493,8 @@ var DimpBase = {
 
         // Label is HTML encoded - but this is not HTML code so unescape.
         this.setTitle(label.unescapeHTML(), unseen);
-        if (foldername) {
-            $('folderName').update(label);
+        if (name) {
+            $('mailboxName').update(label);
         }
     },
 
@@ -1912,7 +1912,7 @@ var DimpBase = {
     // unseen: (integer) The updated value.
     updateUnseenStatus: function(mbox, unseen)
     {
-        this.setFolderLabel(mbox, unseen);
+        this.setMboxLabel(mbox, unseen);
 
         if (this.view == mbox) {
             this.updateTitle();
@@ -1941,8 +1941,8 @@ var DimpBase = {
         $('msgHeader').update(text);
     },
 
-    // m = (string|Element)
-    setFolderLabel: function(m, unseen)
+    // m = (string|Element) Mailbox element.
+    setMboxLabel: function(m, unseen)
     {
         var elt = this.getMboxElt(m);
 
@@ -2006,7 +2006,7 @@ var DimpBase = {
     {
         var args = {};
 
-        // Reset poll folder counter.
+        // Reset poll counter.
         this.setPoll();
 
         // Check for label info - it is possible that the mailbox may be
@@ -2021,7 +2021,7 @@ var DimpBase = {
             // Issue: it is quite expensive to determine this, since the
             // mailbox elements themselves aren't hidden - it is one of the
             // parent containers. Probably not worth the effort.
-            args.set('mboxes', Object.toJSON($('foldersSidebar').select('.folder').findAll(function(elt) {
+            args.set('mboxes', Object.toJSON($('foldersSidebar').select('.mbox').findAll(function(elt) {
                 return !Object.isUndefined(elt.retrieve('u')) && elt.visible();
             }).invoke('retrieve', 'mbox')));
         }
@@ -2150,19 +2150,19 @@ var DimpBase = {
     },
 
     /* Drag/Drop handler. */
-    folderDropHandler: function(e)
+    mboxDropHandler: function(e)
     {
         var dropbase, sel, uids,
             drag = e.memo.element,
             drop = e.element(),
-            foldername = drop.retrieve('mbox'),
+            mboxname = drop.retrieve('mbox'),
             ftype = drop.retrieve('ftype');
 
-        if (drag.hasClassName('folder')) {
+        if (drag.hasClassName('mbox')) {
             dropbase = (drop == $('dropbase'));
             if (dropbase ||
                 (ftype != 'special' && !this.isSubfolder(drag, drop))) {
-                DimpCore.doAction('renameMailbox', { old_name: drag.retrieve('mbox'), new_parent: dropbase ? '' : foldername, new_name: drag.retrieve('l') });
+                DimpCore.doAction('renameMailbox', { old_name: drag.retrieve('mbox'), new_parent: dropbase ? '' : mboxname, new_name: drag.retrieve('l') });
             }
         } else if (ftype != 'container') {
             sel = this.viewport.getSelected();
@@ -2170,18 +2170,18 @@ var DimpBase = {
             if (sel.size()) {
                 // Dragging multiple selected messages.
                 uids = sel;
-            } else if (drag.retrieve('mbox') != foldername) {
+            } else if (drag.retrieve('mbox') != mboxname) {
                 // Dragging a single unselected message.
                 uids = this.viewport.createSelection('domid', drag.id);
             }
 
             if (uids.size()) {
                 if (e.memo.dragevent.ctrlKey) {
-                    DimpCore.doAction('copyMessages', this.viewport.addRequestParams({ mboxto: foldername }), { uids: uids });
-                } else if (this.view != foldername) {
-                    // Don't allow drag/drop to the current folder.
+                    DimpCore.doAction('copyMessages', this.viewport.addRequestParams({ mboxto: mboxname }), { uids: uids });
+                } else if (this.view != mboxname) {
+                    // Don't allow drag/drop to the current mailbox.
                     this.updateFlag(uids, DIMP.conf.FLAG_DELETED, true);
-                    DimpCore.doAction('moveMessages', this.viewport.addRequestParams({ mboxto: foldername }), { uids: uids });
+                    DimpCore.doAction('moveMessages', this.viewport.addRequestParams({ mboxto: mboxname }), { uids: uids });
                 }
             }
         }
@@ -2222,14 +2222,14 @@ var DimpBase = {
             } else {
                 this.msgSelect(id, args);
             }
-        } else if (elt.hasClassName('folder')) {
+        } else if (elt.hasClassName('mbox')) {
             d.opera = DimpCore.DMenu.operaCheck(e);
         }
     },
 
     onDragStart: function(e)
     {
-        if (e.element().hasClassName('folder')) {
+        if (e.element().hasClassName('mbox')) {
             var d = e.memo;
             if (!d.opera && !d.wasDragged) {
                 $('folderopts').hide();
@@ -2245,7 +2245,7 @@ var DimpBase = {
             id = elt.identify(),
             d = DragDrop.Drags.getDrag(id);
 
-        if (elt.hasClassName('folder')) {
+        if (elt.hasClassName('mbox')) {
             if (!d.opera) {
                 $('folderopts').show();
                 $('dropbase').hide();
@@ -2534,9 +2534,9 @@ var DimpBase = {
             id = elt.readAttribute('id');
 
             switch (id) {
-            case 'normalfolders':
-            case 'specialfolders':
-                this._handleFolderMouseClick(e);
+            case 'normalmboxes':
+            case 'specialmboxes':
+                this._handleMboxMouseClick(e);
                 break;
 
             case 'appportal':
@@ -2792,7 +2792,7 @@ var DimpBase = {
 
         switch (type) {
         case 'create':
-            this._createFolderForm(this._folderAction.bindAsEventListener(this, params.orig_elt, 'createsub'), DIMP.text.createsub_prompt.sub('%s', this.fullMboxDisplay(params.elt)));
+            this._createMboxForm(this._mboxAction.bindAsEventListener(this, params.orig_elt, 'createsub'), DIMP.text.createsub_prompt.sub('%s', this.fullMboxDisplay(params.elt)));
             break;
 
         case 'delete':
@@ -2801,7 +2801,7 @@ var DimpBase = {
                 cancel_text: DIMP.text.cancel,
                 noinput: true,
                 ok_text: DIMP.text.ok,
-                text: DIMP.text.delete_folder.sub('%s', this.fullMboxDisplay(params.elt))
+                text: DIMP.text.delete_mbox.sub('%s', this.fullMboxDisplay(params.elt))
             });
             break;
 
@@ -2811,23 +2811,18 @@ var DimpBase = {
                 cancel_text: DIMP.text.cancel,
                 noinput: true,
                 ok_text: DIMP.text.ok,
-                text: DIMP.text.empty_folder.sub('%s', this.fullMboxDisplay(params.elt)).sub('%d', r)
+                text: DIMP.text.empty_mbox.sub('%s', this.fullMboxDisplay(params.elt)).sub('%d', r)
             });
             break;
 
         case 'rename':
-            this._createFolderForm(this._folderAction.bindAsEventListener(this, params.elt, 'rename'), DIMP.text.rename_prompt.sub('%s', this.fullMboxDisplay(params.elt)), params.elt.retrieve('l').unescapeHTML());
+            this._createMboxForm(this._mboxAction.bindAsEventListener(this, params.elt, 'rename'), DIMP.text.rename_prompt.sub('%s', this.fullMboxDisplay(params.elt)), params.elt.retrieve('l').unescapeHTML());
             break;
         }
     },
 
-    /* Handle insert folder actions. */
-    createBaseFolder: function()
-    {
-        this._createFolderForm(this._folderAction.bindAsEventListener(this, '', 'create'), DIMP.text.create_prompt);
-    },
-
-    _createFolderForm: function(action, text, val)
+    /* Handle create mailbox actions. */
+    _createMboxForm: function(action, text, val)
     {
         this.viewaction = action;
         IMPDialog.display({
@@ -2838,7 +2833,7 @@ var DimpBase = {
         });
     },
 
-    _folderAction: function(e, folder, mode)
+    _mboxAction: function(e, mbox, mode)
     {
         var action, params, tmp, val,
             form = e.findElement('form');
@@ -2847,11 +2842,11 @@ var DimpBase = {
         if (val) {
             switch (mode) {
             case 'rename':
-                if (folder.retrieve('l') != val) {
+                if (mbox.retrieve('l') != val) {
                     action = 'renameMailbox';
                     params = {
-                        old_name: folder.retrieve('mbox'),
-                        new_parent: folder.up().hasClassName('folderlist') ? '' : folder.up(1).previous().retrieve('mbox'),
+                        old_name: mbox.retrieve('mbox'),
+                        new_parent: mbox.up().hasClassName('mboxlist') ? '' : mbox.up(1).previous().retrieve('mbox'),
                         new_name: val
                     };
                 }
@@ -2862,7 +2857,7 @@ var DimpBase = {
                 action = 'createMailbox';
                 params = { mbox: val };
                 if (mode == 'createsub') {
-                    params.parent = folder.up('LI').retrieve('mbox');
+                    params.parent = mbox.up('LI').retrieve('mbox');
                     tmp = this.getSubMboxElt(params.parent);
                     if (!tmp ||
                         !tmp.down('UL').childElements().size()) {
@@ -2881,20 +2876,20 @@ var DimpBase = {
     /* Mailbox action callback functions. */
     mailboxCallback: function(r)
     {
-        var nf = $('normalfolders');
+        var nm = $('normalmboxes');
 
         if (r.expand) {
             this.expandmbox = r.base ? r.base : true;
         }
 
         if (r.d) {
-            r.d.each(this.deleteFolder.bind(this));
+            r.d.each(this.deleteMbox.bind(this));
         }
         if (r.c) {
-            r.c.each(this.changeFolder.bind(this));
+            r.c.each(this.changeMbox.bind(this));
         }
         if (r.a && !r.noexpand) {
-            r.a.each(this.createFolder.bind(this));
+            r.a.each(this.createMbox.bind(this));
         }
 
         this.expandmbox = false;
@@ -2912,7 +2907,7 @@ var DimpBase = {
             $('foldersSidebar').show();
         }
 
-        if (nf && nf.getStyle('max-height') !== null) {
+        if (nm && nm.getStyle('max-height') !== null) {
             this._sizeFolderlist();
         }
     },
@@ -2941,7 +2936,7 @@ var DimpBase = {
         }, this);
     },
 
-    _handleFolderMouseClick: function(e)
+    _handleMboxMouseClick: function(e)
     {
         var elt = e.element(),
             li = elt.match('LI') ? elt : elt.up('LI');
@@ -2960,7 +2955,7 @@ var DimpBase = {
                 e.stop();
                 break;
 
-            case 'folder':
+            case 'mbox':
             case 'special':
             case 'vfolder':
                 e.stop();
@@ -3003,7 +2998,7 @@ var DimpBase = {
                 if (mode == 'tog') {
                     base.down('A').update(DIMP.text.loading);
                 }
-                this._listFolders({
+                this._listMboxes({
                     all: Number(mode == 'expall'),
                     base: base,
                     mboxes: need
@@ -3011,8 +3006,8 @@ var DimpBase = {
                 return;
             } else if (mode == 'tog') {
                 // Need to pass element here, since we might be working
-                // with 'special' folders.
-                this.setFolderLabel(base);
+                // with 'special' mailboxes.
+                this.setMboxLabel(base);
             }
         }
 
@@ -3056,7 +3051,7 @@ var DimpBase = {
         }
     },
 
-    _listFolders: function(params)
+    _listMboxes: function(params)
     {
         params = params || {};
         params.unsub = Number(this.showunsub);
@@ -3068,11 +3063,10 @@ var DimpBase = {
         DimpCore.doAction('listMailboxes', params);
     },
 
-    // Folder actions.
     // For format of the ob object, see
     // IMP_Ajax_Application#_createMailboxElt().
     // If this.expandmbox is set, expand folder list on initial display.
-    createFolder: function(ob)
+    createMbox: function(ob)
     {
         var div, f_node, ftype, li, ll, parent_e, tmp, tmp2,
             cname = 'container',
@@ -3095,17 +3089,17 @@ var DimpBase = {
             }
 
             /* This is a dummy container element to display child elements of
-             * a mailbox displayed in the 'specialfolders' section. */
+             * a mailbox displayed in the 'specialmboxes' section. */
             if (ob.dummy) {
                 cname += ' specialContainer';
             }
         } else {
-            cname = 'folder';
-            ftype = ob.s ? 'special' : 'folder';
+            cname = 'mbox';
+            ftype = ob.s ? 'special' : 'mbox';
         }
 
         if (ob.un && this.showunsub) {
-            cname += ' unsubFolder';
+            cname += ' unsubMbox';
         }
 
         div = new Element('SPAN', { className: 'iconImgSidebar' });
@@ -3116,25 +3110,25 @@ var DimpBase = {
         li = new Element('LI', { className: cname, title: title }).store('l', label).store('mbox', ob.m).insert(div).insert(new Element('A').insert(label));
 
         // Now walk through the parent <ul> to find the right place to
-        // insert the new folder.
+        // insert the new mailbox.
         if (ob.s) {
             div.addClassName(ob.cl || 'folderImg');
-            parent_e = $('specialfolders');
+            parent_e = $('specialmboxes');
 
-            /* Create a dummy container element in 'normalfolders' section. */
+            /* Create a dummy container element in 'normalmboxes' section. */
             if (ob.ch) {
                 div.removeClassName('exp').addClassName(ob.cl || 'folderImg');
 
                 tmp = Object.clone(ob);
                 tmp.co = tmp.dummy = true;
                 tmp.s = false;
-                this.createFolder(tmp);
+                this.createMbox(tmp);
             }
         } else {
             div.addClassName(ob.ch ? 'exp' : (ob.cl || 'folderImg'));
             parent_e = ob.pa
                 ? this.getSubMboxElt(ob.pa).down()
-                : $('normalfolders');
+                : $('normalmboxes');
         }
 
         /* Virtual folders and special mailboxes are sorted on the server. */
@@ -3154,7 +3148,7 @@ var DimpBase = {
             f_node.insert({ before: li });
         } else {
             parent_e.insert(li);
-            if (this.expandmbox && !parent_e.hasClassName('folderlist')) {
+            if (this.expandmbox && !parent_e.hasClassName('mboxlist')) {
                 tmp2 = parent_e.up('LI').previous();
                 if (!Object.isElement(this.expandmbox) ||
                     this.expandmbox != tmp2) {
@@ -3174,9 +3168,9 @@ var DimpBase = {
 
         li.store('ftype', ftype);
 
-        // Make the new folder a drop target.
+        // Make the new mailbox a drop target.
         if (!ob.v) {
-            new Drop(li, this._folderDropConfig);
+            new Drop(li, this._mboxDropConfig);
         }
 
         // Check for unseen messages
@@ -3186,14 +3180,14 @@ var DimpBase = {
 
         switch (ftype) {
         case 'special':
-            // For purposes of the contextmenu, treat special folders
-            // like regular folders.
-            ftype = 'folder';
+            // For purposes of the contextmenu, treat special mailboxes
+            // like regular mailboxes.
+            ftype = 'mbox';
             // Fall through.
 
         case 'container':
-        case 'folder':
-            new Drag(li, this._folderDragConfig);
+        case 'mbox':
+            new Drag(li, this._mboxDragConfig);
             break;
 
         case 'scontainer':
@@ -3218,41 +3212,41 @@ var DimpBase = {
         }
     },
 
-    deleteFolder: function(folder)
+    deleteMbox: function(mbox)
     {
-        if (this.view == folder) {
+        if (this.view == mbox) {
             this.go('mbox', this.INBOX);
         }
-        this.deleteFolderElt(folder, true);
+        this.deleteMboxElt(mbox, true);
     },
 
-    changeFolder: function(ob)
+    changeMbox: function(ob)
     {
         var tmp;
 
         if (this.smboxes[ob.m]) {
-            // The case of children being added to a special folder is
-            // handled by createFolder().
+            // The case of children being added to a special mailbox is
+            // handled by createMbox().
             if (!ob.ch) {
-                this.deleteFolderElt(ob.m, true);
+                this.deleteMboxElt(ob.m, true);
             }
             return;
         }
 
         tmp = this.getMboxElt(ob.m).down('SPAN');
 
-        this.deleteFolderElt(ob.m, !ob.ch);
+        this.deleteMboxElt(ob.m, !ob.ch);
         if (ob.co && this.view == ob.m) {
             this.go();
         }
-        this.createFolder(ob);
+        this.createMbox(ob);
         if (ob.ch && tmp && tmp.hasClassName('col')) {
             this.getMboxElt(ob.m).down('SPAN').removeClassName('exp').addClassName('col');
         }
     },
 
     // m: (string) Mailbox ID
-    deleteFolderElt: function(m, sub)
+    deleteMboxElt: function(m, sub)
     {
         var m_elt = this.getMboxElt(m), submbox;
         if (!m_elt) {
@@ -3275,7 +3269,7 @@ var DimpBase = {
 
     _sizeFolderlist: function()
     {
-        var nf = $('normalfolders');
+        var nf = $('normalmboxes');
         if (nf) {
             nf.setStyle({ height: Math.max(document.viewport.getHeight() - nf.cumulativeOffset()[1], 0) + 'px' });
         }
@@ -3294,26 +3288,26 @@ var DimpBase = {
         $('foldersSidebar').hide();
 
         [ Object.values(this.mboxes), Object.values(this.smboxes) ].flatten().compact().each(function(elt) {
-            this.deleteFolderElt(elt, true);
+            this.deleteMboxElt(elt, true);
         }, this);
 
-        this._listFolders({ reload: 1, mboxes: this.view });
+        this._listMboxes({ reload: 1, mboxes: this.view });
     },
 
-    subscribeFolder: function(m, sub)
+    subscribeMbox: function(m, sub)
     {
         var m_elt = this.getMboxElt(m);
         DimpCore.doAction('subscribe', { mbox: m, sub: Number(sub) });
 
         if (this.showunsub) {
-            [ m_elt ].invoke(sub ? 'removeClassName' : 'addClassName', 'unsubFolder');
+            [ m_elt ].invoke(sub ? 'removeClassName' : 'addClassName', 'unsubMbox');
         } else if (!sub) {
             if (!this.showunsub &&
                 !m_elt.siblings().size() &&
                 m_elt.up('LI.subfolders')) {
                 m_elt.up('LI').previous().down('SPAN.iconImgSidebar').removeClassName('exp').removeClassName('col').addClassName('folderImg');
             }
-            this.deleteFolderElt(m);
+            this.deleteMboxElt(m);
         }
     },
 
@@ -3464,15 +3458,21 @@ var DimpBase = {
                vs.get('dataob').first().flag.include(DIMP.conf.FLAG_DRAFT);
     },
 
-    /* Miscellaneous folder actions. */
+    /* Miscellaneous mailbox actions. */
+
     purgeDeleted: function()
     {
         DimpCore.doAction('purgeDeleted', this.viewport.addRequestParams({}));
     },
 
-    modifyPoll: function(folder, add)
+    modifyPoll: function(mbox, add)
     {
-        DimpCore.doAction('modifyPoll', { add: Number(add), mbox: folder }, { callback: this._modifyPollCallback.bind(this) });
+        DimpCore.doAction('modifyPoll', {
+            add: Number(add),
+            mbox: mbox
+        }, {
+            callback: this._modifyPollCallback.bind(this)
+        });
     },
 
     _modifyPollCallback: function(r)
@@ -3633,7 +3633,7 @@ var DimpBase = {
 
         /* Create the folder list. Any pending notifications will be caught
          * via the return from this call. */
-        this._listFolders({ initial: 1, mboxes: this.view });
+        this._listMboxes({ initial: 1, mboxes: this.view });
 
         /* Add popdown menus. */
         DimpCore.addPopdownButton('button_template', 'template');
@@ -3655,8 +3655,8 @@ var DimpBase = {
                 DM.addSubMenu(i + 'unsetflag', 'ctx_flag');
             }
         });
-        DM.addSubMenu('ctx_folder_setflag', 'ctx_folder_flag');
-        DM.addSubMenu('ctx_folder_export', 'ctx_folder_export_opts');
+        DM.addSubMenu('ctx_mbox_setflag', 'ctx_mbox_flag');
+        DM.addSubMenu('ctx_mbox_export', 'ctx_mbox_export_opts');
 
         DimpCore.addPopdown($('msglistHeaderHoriz').down('.msgSubject').identify(), 'subjectsort', {
             insert: 'bottom'
@@ -3686,7 +3686,7 @@ var DimpBase = {
             DimpCore.addPopdownButton('button_forward', 'forward');
         }
 
-        new Drop('dropbase', this._folderDropConfig);
+        new Drop('dropbase', this._mboxDropConfig);
 
         if (this._getPref('toggle_hdrs')) {
             this._toggleHeaders($('th_expand'));
@@ -3735,20 +3735,20 @@ var DimpBase = {
 /* Need to add after DimpBase is defined. */
 DimpBase._msgDragConfig = {
     classname: 'msgdrag',
-    scroll: 'normalfolders',
+    scroll: 'normalmboxes',
     threshold: 5,
     caption: DimpBase.dragCaption.bind(DimpBase)
 };
 
-DimpBase._folderDragConfig = {
-    classname: 'folderdrag',
+DimpBase._mboxDragConfig = {
+    classname: 'mboxdrag',
     ghosting: true,
     offset: { x: 15, y: 0 },
-    scroll: 'normalfolders',
+    scroll: 'normalmboxes',
     threshold: 5
 };
 
-DimpBase._folderDropConfig = {
+DimpBase._mboxDropConfig = {
     caption: function(drop, drag, e) {
         var m,
             d = drag.retrieve('l'),
@@ -3778,7 +3778,7 @@ DimpBase._folderDropConfig = {
             break;
         }
 
-        if (drag.hasClassName('folder')) {
+        if (drag.hasClassName('mbox')) {
             return (ftype != 'special' && !DimpBase.isSubfolder(drag, drop)) ? m.sub('%s', d).sub('%s', l) : '';
         }
 
@@ -3789,7 +3789,7 @@ DimpBase._folderDropConfig = {
 
 /* Drag/drop listeners. */
 document.observe('DragDrop2:start', DimpBase.onDragStart.bindAsEventListener(DimpBase));
-document.observe('DragDrop2:drop', DimpBase.folderDropHandler.bindAsEventListener(DimpBase));
+document.observe('DragDrop2:drop', DimpBase.mboxDropHandler.bindAsEventListener(DimpBase));
 document.observe('DragDrop2:end', DimpBase.onDragEnd.bindAsEventListener(DimpBase));
 document.observe('DragDrop2:mousedown', DimpBase.onDragMouseDown.bindAsEventListener(DimpBase));
 document.observe('DragDrop2:mouseup', DimpBase.onDragMouseUp.bindAsEventListener(DimpBase));

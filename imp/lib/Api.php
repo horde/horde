@@ -69,31 +69,31 @@ class IMP_Api extends Horde_Registry_Api
     }
 
     /**
-     * Returns the list of folders.
+     * Returns the list of mailboxes.
      *
-     * @return array  The list of IMAP folders.  Keys are the IMAP mailbox
+     * @return array  The list of IMAP mailboxes.  Keys are the IMAP mailbox
      *                name (UTF7-IMAP).  Values have the following keys:
-     * - label: (string) Human readable label.
-     * - level: (integer) The child level of this element.
+     *   - label: (string) Human readable label.
+     *   - level: (integer) The child level of this element.
      */
     public function folderlist()
     {
-        $folders = array();
+        $mboxes = array();
         $imap_tree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
 
         $imap_tree->setIteratorFilter(IMP_Imap_Tree::FLIST_NOCONTAINER);
         foreach ($imap_tree as $val) {
-            $folders[$val->utf7imap] = array(
+            $mboxes[$val->utf7imap] = array(
                 'label' => $val->label,
                 'level' => $val->level
             );
         }
 
-        return $folders;
+        return $mboxes;
     }
 
     /**
-     * Creates a new folder.
+     * Creates a new mailbox.
      *
      * @param string $folder  The name of the folder to create (UTF7-IMAP).
      * @param array $options  Additional options:
@@ -102,7 +102,7 @@ class IMP_Api extends Horde_Registry_Api
      *           Available since IMP 5.0.11
      *           DEFAULT: false
      *
-     * @return string  The full folder name created or false on failure.
+     * @return string  The full mailbox name created or false on failure.
      *
      * @throws IMP_Exception
      */

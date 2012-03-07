@@ -37,7 +37,7 @@ if ($view->allowFolders) {
         'optgroup' => true,
         'inc_tasklists' => true,
         'inc_notepads' => true,
-        'new_folder' => true
+        'new_mbox' => true
     ));
 }
 

@@ -86,11 +86,11 @@ var DimpCompose = {
     {
         var identity = ImpComposeBase.identities[$F('identity')];
 
-        this.setPopdownLabel('sm', identity.smf_name, identity.smf_display);
+        this.setPopdownLabel('sm', identity.sm_name, identity.sm_display);
         if (DIMP.conf_compose.bcc) {
             $('bcc').setValue(identity.bcc);
         }
-        this.setSaveSentMail(identity.smf_save);
+        this.setSaveSentMail(identity.sm_save);
     },
 
     setSaveSentMail: function(set)
@@ -526,8 +526,8 @@ var DimpCompose = {
             this.toggleCC('cc');
             $('cc').setValue(header.cc);
         }
-        this.setPopdownLabel('sm', identity.smf_name, identity.smf_display);
-        this.setSaveSentMail(identity.smf_save);
+        this.setPopdownLabel('sm', identity.sm_name, identity.sm_display);
+        this.setSaveSentMail(identity.sm_save);
         if (DIMP.conf_compose.bcc) {
             bcc_add = header.bcc
                 ? header.bcc
@@ -1145,10 +1145,10 @@ var DimpCompose = {
             this.createPopdown('sm', {
                 base: 'save_sent_mail',
                 data: DIMP.conf_compose.flist,
-                input: 'save_sent_mail_folder',
-                label: 'sent_mail_folder_label'
+                input: 'save_sent_mail',
+                label: 'sent_mail_label'
             });
-            this.setPopdownLabel('sm', ImpComposeBase.identities[$F('identity')].smf_name);
+            this.setPopdownLabel('sm', ImpComposeBase.identities[$F('identity')].sm_name);
         }
 
         /* Create priority list. */

@@ -81,7 +81,7 @@ $_prefs['save_sent_mail'] = array(
     'desc' => _("Save sent mail?")
 );
 
-// sent mail folder
+// sent mail mailbox
 $_prefs['sent_mail_folder'] = array(
     // NOTE: Localization of this name for display purposes is done
     // automatically. This entry only needs to be changed if the mailbox name
@@ -91,7 +91,7 @@ $_prefs['sent_mail_folder'] = array(
     // 'value' => 'Sent Items'
 );
 
-// sent mail folder selection widget.
+// sent mail mailbox selection widget.
 $_prefs['sentmailselect'] = array(
     'type' => 'special'
 );
@@ -102,8 +102,8 @@ $_prefs['sentmailselect'] = array(
 
 $prefGroups['acl'] = array(
     'column' => _("General"),
-    'label' => _("Share Folders"),
-    'desc' => _("Share your mail folders with other users."),
+    'label' => _("Share Mailboxes"),
+    'desc' => _("Share your mailboxes with other users."),
     'members' => array('aclmanagement')
 );
 
@@ -112,9 +112,9 @@ $_prefs['aclmanagement'] = array(
     'type' => 'special'
 );
 
-// folder sharing preferences
+// mailbox sharing preferences
 $_prefs['acl'] = array(
-    // set 'locked' => true to disable folder sharing
+    // set 'locked' => true to disable mailbox sharing
     'value' => ''
 );
 
@@ -155,7 +155,7 @@ $_prefs['filter'] = array(
 $prefGroups['filters'] = array(
     'column' => _("General"),
     'label' => _("Filters"),
-    'desc' => _("Create filtering rules to organize your incoming mail, sort it into folders, and delete spam."),
+    'desc' => _("Create filtering rules to organize your incoming mail, sort it into mailboxes, and delete spam."),
     'members' => array(
         'filters_link', 'filters_blacklist_link', 'filters_whitelist_link',
         'filter_on_login', 'filter_on_display', 'filter_any_mailbox',
@@ -486,7 +486,7 @@ $_prefs['default_encrypt'] = array(
     'value' => IMP::ENCRYPT_NONE
 );
 
-// Save attachments when saving in sent mail folder?
+// Save attachments when saving in sent mail mailbox?
 $_prefs['save_attachments'] = array(
     'value' => 'prompt_no',
     'type' => 'enum',
@@ -696,12 +696,12 @@ $prefGroups['drafts'] = array(
     )
 );
 
-// drafts folder selection widget.
+// drafts mailbox selection widget.
 $_prefs['draftsselect'] = array(
     'type' => 'special'
 );
 
-// drafts folder
+// drafts mailbox
 $_prefs['drafts_folder'] = array(
     // NOTE: Localization of this name for display purposes is done
     // automatically. This entry only needs to be changed if the mailbox name
@@ -744,31 +744,31 @@ $_prefs['auto_save_drafts'] = array(
 $prefGroups['sentmail'] = array(
     'column' => _("Compose"),
     'label' => _("Sent Mail"),
-    'desc' => _("Manage sent mail folders."),
+    'desc' => _("Manage sent mail mailboxes."),
     'members' => array(
         'rename_sentmail_monthly', 'delete_sentmail_monthly_keep',
         'purge_sentmail_interval', 'purge_sentmail_keep'
     )
 );
 
-// rename sent mail folder every month?
+// rename sent mail mailbox every month?
 $_prefs['rename_sentmail_monthly'] = array(
     'value' => 0,
     'type' => 'checkbox',
-    'desc' => _("Rename sent mail folder at beginning of month?"),
+    'desc' => _("Rename sent mail mailbox at beginning of month?"),
     'help' => 'prefs-rename_sentmail_monthly'
 );
 
-// how many old sent mail folders to keep every month?
+// how many old sent mail mailbox to keep every month?
 $_prefs['delete_sentmail_monthly_keep'] = array(
     'value' => 0,
     'type' => 'number',
     'zero' => true,
-    'desc' => _("Delete old sent mail folders after this many months (0 to never delete)?"),
+    'desc' => _("Delete old sent mail mailboxes after this many months (0 to never delete)?"),
     'help' => 'prefs-delete_sentmail_monthly_keep'
 );
 
-// how often to purge the Sent-Mail folder?
+// how often to purge the sent mail mailbox?
 $_prefs['purge_sentmail_interval'] = array(
     'value' => 0,
     'type' => 'enum',
@@ -777,11 +777,11 @@ $_prefs['purge_sentmail_interval'] = array(
     'help' => 'prefs-purge_sentmail_interval'
 );
 
-// when purging sent mail folder, purge messages older than how many days?
+// when purging sent mail malibox, purge messages older than how many days?
 $_prefs['purge_sentmail_keep'] = array(
     'value' => 30,
     'type' => 'number',
-    'desc' => _("Purge messages in sent mail folder(s) older than this amount of days."),
+    'desc' => _("Purge messages in sent mail mailbox(es) older than this amount of days."),
     'help' => 'prefs-purge_sentmail_keep'
 );
 
@@ -1062,20 +1062,20 @@ $_prefs['delete_mark_seen'] = array(
     'desc' => _("Mark messages as Seen when deleting?")
 );
 
-// should we move messages to a trash folder instead of just marking
+// should we move messages to a trash mailbox instead of just marking
 // them as deleted?
 $_prefs['use_trash'] = array(
     'value' => 0,
     'type' => 'checkbox',
-    'desc' => _("When deleting messages, move them to your Trash folder instead of marking them as deleted?")
+    'desc' => _("When deleting messages, move them to your Trash mailbox instead of marking them as deleted?")
 );
 
-// trash folder selection widget.
+// trash mailbox selection widget.
 $_prefs['trashselect'] = array(
     'type' => 'special'
 );
 
-// trash folder
+// trash mailbox
 $_prefs['trash_folder'] = array(
     // NOTE: Localization of this name for display purposes is done
     // automatically. This entry only needs to be changed if the mailbox name
@@ -1092,7 +1092,7 @@ $_prefs['empty_trash_menu'] = array(
     'desc' => _("Display the \"Empty Trash\" link in the menubar?")
 );
 
-// how often to purge the Trash folder?
+// how often to purge the Trash mailbox?
 $_prefs['purge_trash_interval'] = array(
     'value' => 0,
     'type' => 'enum',
@@ -1101,11 +1101,11 @@ $_prefs['purge_trash_interval'] = array(
     'help' => 'prefs-purge_trash_interval'
 );
 
-// when purging Trash folder, purge messages older than how many days?
+// when purging Trash mailbox, purge messages older than how many days?
 $_prefs['purge_trash_keep'] = array(
     'value' => 30,
     'type' => 'number',
-    'desc' => _("Purge messages in Trash folder older than this amount of days."),
+    'desc' => _("Purge messages in Trash mailbox older than this amount of days."),
     'help' => 'prefs-purge_trash_keep'
 );
 
@@ -1129,12 +1129,12 @@ $prefGroups['spamreport'] = array(
     )
 );
 
-// spam folder selection widget.
+// spam mailbox selection widget.
 $_prefs['spamselect'] = array(
     'type' => 'special'
 );
 
-// spam folder
+// spam mailbox
 $_prefs['spam_folder'] = array(
     // NOTE: Localization of this name for display purposes is done
     // automatically. This entry only needs to be changed if the mailbox name
@@ -1149,7 +1149,7 @@ $_prefs['delete_spam_after_report'] = array(
     'enum' => array(
         0 => _("Nothing"),
         1 => _("Delete message"),
-        2 => _("Move to spam folder")
+        2 => _("Move to spam mailbox")
     ),
     'desc' => _("What should we do with messages after they have been reported as spam?"),
     'help' => 'prefs-delete_spam_after_report'
@@ -1174,7 +1174,7 @@ $_prefs['empty_spam_menu'] = array(
     'desc' => _("Display the \"Empty Spam\" link in the menubar?")
 );
 
-// how often to purge the Spam folder?
+// how often to purge the Spam mailbox?
 $_prefs['purge_spam_interval'] = array(
     'value' => 0,
     'type' => 'enum',
@@ -1183,11 +1183,11 @@ $_prefs['purge_spam_interval'] = array(
     'help' => 'prefs-purge_spam_interval'
 );
 
-// when purging Spam folder, purge messages older than how many days?
+// when purging Spam mailbox, purge messages older than how many days?
 $_prefs['purge_spam_keep'] = array(
     'value' => 30,
     'type' => 'number',
-    'desc' => _("Purge messages in Spam folder older than this amount of days."),
+    'desc' => _("Purge messages in Spam mailbox older than this amount of days."),
     'help' => 'prefs-purge_spam_keep'
 );
 
@@ -1340,7 +1340,7 @@ $_prefs['sortdir'] = array(
     'desc' => _("Default sorting direction:")
 );
 
-// sort prefs for individual folders
+// sort prefs for individual mailboxes
 $_prefs['sortpref'] = array(
     // value = serialize(array())
     'value' => 'a:0:{}'
@@ -1468,7 +1468,7 @@ $prefGroups['folderdisplay'] = array(
 $_prefs['subscribe'] = array(
     'value' => 1,
     'type' => 'checkbox',
-    'desc' => _("Use IMAP folder subscriptions?")
+    'desc' => _("Use IMAP mailbox subscriptions?")
 );
 
 // expand folder tree by default
@@ -1494,11 +1494,11 @@ $_prefs['tree_view'] = array(
     'desc' => _("How should namespaces be displayed in the folder tree view?")
 );
 
-// poll all folders for new mail?
+// poll all mailboxes for new mail?
 $_prefs['nav_poll_all'] = array(
     'value' => 0,
     'type' => 'checkbox',
-    'desc' => _("Poll all folders for new mail?")
+    'desc' => _("Poll all mailboxes for new mail?")
 );
 
 // list of folders to expand by default
@@ -1507,7 +1507,7 @@ $_prefs['expanded_folders'] = array(
     'value' => 'a:0:{}'
 );
 
-// list of folders to poll for new mail
+// list of mailboxes to poll for new mail
 $_prefs['nav_poll'] = array(
     'value' => ''
 );

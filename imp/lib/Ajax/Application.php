@@ -113,7 +113,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             return true;
         }
 
-        $GLOBALS['notification']->push(sprintf(_("You may not create child folders in \"%s\"."), $mbox->display), 'horde.error');
+        $GLOBALS['notification']->push(sprintf(_("You may not create child mailboxes in \"%s\"."), $mbox->display), 'horde.error');
         return false;
     }
 
@@ -252,13 +252,13 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $mbox = IMP_Mailbox::formFrom($this->_vars->mbox);
 
         if (!$mbox->access_empty) {
-            $GLOBALS['notification']->push(sprintf(_("The folder \"%s\" may not be emptied."), $mbox->display), 'horde.error');
+            $GLOBALS['notification']->push(sprintf(_("The mailbox \"%s\" may not be emptied."), $mbox->display), 'horde.error');
             return 0;
         }
 
         $poll_info = $mbox->poll_info;
         if (empty($poll_info->msgs)) {
-            $GLOBALS['notification']->push(sprintf(_("The folder \"%s\" is already empty."), $mbox->display), 'horde.message');
+            $GLOBALS['notification']->push(sprintf(_("The mailbox \"%s\" is already empty."), $mbox->display), 'horde.message');
             return 0;
         }
 
@@ -1598,8 +1598,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *   - request_read_receipt: (boolean) Add request read receipt header?
      *   - save_attachments_select: (boolean) Whether to save attachments.
      *   - save_sent_mail: (boolean) True if saving sent mail.
-     *   - save_sent_mail_folder: (string) base64url encoded version of
-     *                            sent mailbox to use.
+     *   - save_sent_mail_mbox: (string) base64url encoded version of sent
+     *                          mail mailbox to use.
      *
      * @return object  An object with the following entries:
      *   - action: (string) The AJAX action string
@@ -1645,8 +1645,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             'save_sent' => ($sm_displayed
                             ? (bool)$this->_vars->save_sent_mail
                             : $identity->getValue('save_sent_mail')),
-            'sent_folder' => ($sm_displayed
-                              ? (isset($this->_vars->save_sent_mail_folder) ? IMP_Mailbox::formFrom($this->_vars->save_sent_mail_folder) : $identity->getValue('sent_mail_folder'))
+            'sent_mail' => ($sm_displayed
+                              ? (isset($this->_vars->save_sent_mail_mbox) ? IMP_Mailbox::formFrom($this->_vars->save_sent_mail_mbox) : $identity->getValue('sent_mail_folder'))
                               : $identity->getValue('sent_mail_folder'))
         );
 
@@ -1773,7 +1773,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *   - unsub: (integer) If set, includes unsubscribed mailboxes.
      *
      * @return object  An object with the following entries:
-     *   - folder_list: (array)
+     *   - mbox_list: (array)
      *   - tree: (string)
      */
     public function searchMailboxList()
@@ -1781,7 +1781,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $ob = $GLOBALS['injector']->getInstance('IMP_Ui_Search')->getSearchMboxList($this->_vars->unsub);
 
         $result = new stdClass;
-        $result->folder_list = $ob->folder_list;
+        $result->mbox_list = $ob->mbox_list;
         $result->tree = $ob->tree->getTree();
 
         return $result;

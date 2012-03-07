@@ -500,18 +500,17 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
     }
 
     /**
-     * Returns an array with the sent-mail folder names from all the
-     * identities.
+     * Returns an array with the sent-mail mailboxes from all identities.
      *
-     * @return array  The array with the sent-mail objects.
+     * @return array  The array with the sent-mail IMP_Mailbox objects.
      */
-    public function getAllSentmailFolders()
+    public function getAllSentmail()
     {
         $list = array();
 
         foreach (array_keys($this->_identities) as $key) {
-            if ($folder = $this->getValue('sent_mail_folder', $key)) {
-                $list[strval($folder)] = 1;
+            if ($mbox = $this->getValue('sent_mail_folder', $key)) {
+                $list[strval($mbox)] = 1;
             }
         }
 

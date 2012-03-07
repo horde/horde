@@ -162,7 +162,7 @@ class IMP
     }
 
     /**
-     * Generates a select form input from a folder list. The &lt;select&gt;
+     * Generates a select form input from a mailbox list. The &lt;select&gt;
      * and &lt;/select&gt; tags are NOT included in the output.
      *
      * @param array $options  Optional parameters:
@@ -182,12 +182,12 @@ class IMP
      *                    DEFAULT: No
      *   - inc_vfolder: (boolean) Include user's virtual folders in list?
      *                  DEFAULT: No
-     *   - new_folder: (boolean) Display an option to create a new folder?
-     *                 DEFAULT: No
+     *   - new_mbox: (boolean) Display an option to create a new mailbox?
+     *               DEFAULT: No
      *   - selected: (string) The mailbox to have selected by default.
      *               DEFAULT: None
      *   - optgroup: (boolean) Whether to use <optgroup> elements to group
-     *               folder types.
+     *               mailbox types.
      *               DEFAULT: false
      *
      * @return string  A string containing <option> elements for each mailbox
@@ -395,7 +395,7 @@ class IMP
                 'inc_vfolder' => true,
                 'selected' => self::mailbox()
             )));
-            $t->set('flink', sprintf('%s%s<br />%s</a>', Horde::link('#'), ($menu_view != 'text') ? '<span class="iconImg folderImg" title="' . htmlspecialchars(_("Open Folder")) . '"></span>' : '', ($menu_view != 'icon') ? Horde::highlightAccessKey(_("Open Fo_lder"), $ak) : ''));
+            $t->set('flink', sprintf('%s%s<br />%s</a>', Horde::link('#'), ($menu_view != 'text') ? '<span class="iconImg folderImg" title="' . htmlspecialchars(_("Open Mailbox")) . '"></span>' : '', ($menu_view != 'icon') ? Horde::highlightAccessKey(_("Open Mai_lbox"), $ak) : ''));
         }
         $t->set('menu_string', Horde::menu(array('app' => 'imp', 'menu_ob' => true))->render());
 

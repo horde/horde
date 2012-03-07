@@ -5,7 +5,7 @@
 #sidebar li {
     overflow: hidden;
 }
-#sidebar .folderlist {
+#sidebar .mboxlist {
     overflow-y: auto;
 }
 
@@ -21,7 +21,7 @@
     border-width: 2px;
 }
 
-#sidebar li.folder a:hover, #sidebar li.custom a:hover, #sidebar li.servicelink a:hover {
+#sidebar li.mbox a:hover, #sidebar li.custom a:hover, #sidebar li.servicelink a:hover {
     font-weight: bold;
     text-decoration: underline;
 }
