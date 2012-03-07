@@ -3513,6 +3513,30 @@ var DimpBase = {
         }
     },
 
+    /* AJAX tasks handler. */
+    tasksHandler: function(t)
+    {
+        if (this.viewport && t['imp:viewport']) {
+            this.viewport.parseJSONResponse(t['imp:viewport']);
+        }
+
+        if (t['imp:mailbox']) {
+            this.mailboxCallback(t['imp:mailbox']);
+        }
+
+        if (t['imp:flag']) {
+            this.flagCallback(t['imp:flag']);
+        }
+
+        if (t['imp:poll']) {
+            this.pollCallback(t['imp:poll']);
+        }
+
+        if (t['imp:quota']) {
+            this.quotaCallback(t['imp:quota']);
+        }
+    },
+
     /* Onload function. */
     onDomLoad: function()
     {
@@ -3780,25 +3804,7 @@ document.observe('IMPDialog:onClick', function(e) {
 
 /* Handle AJAX response tasks. */
 document.observe('HordeCore:runTasks', function(e) {
-    if (this.viewport && e.memo['imp:viewport']) {
-        this.viewport.parseJSONResponse(e.memo['imp:viewport']);
-    }
-
-    if (e.memo['imp:mailbox']) {
-        this.mailboxCallback(e.memo['imp:mailbox']);
-    }
-
-    if (e.memo['imp:flag']) {
-        this.flagCallback(e.memo['imp:flag']);
-    }
-
-    if (e.memo['imp:poll']) {
-        this.pollCallback(e.memo['imp:poll']);
-    }
-
-    if (e.memo['imp:quota']) {
-        this.quotaCallback(e.memo['imp:quota']);
-    }
+    this.tasksHandler(e.memo);
 }.bindAsEventListener(DimpBase));
 
 /* Click handler. */

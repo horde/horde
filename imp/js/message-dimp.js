@@ -322,12 +322,8 @@ var DimpMessage = {
         if (HordeCore.base.DimpBase) {
             if (this.strip) {
                 HordeCore.base.DimpBase.poll();
-            } else if (this.poll) {
-                HordeCore.base.DimpBase.pollCallback({ poll: this.poll });
-            }
-
-            if (this.flag) {
-                HordeCore.base.DimpBase.flagCallback({ flag: this.flag });
+            } else if (this.tasks) {
+                HordeCore.base.DimpBase.tasksHandler(this.tasks);
             }
         }
 

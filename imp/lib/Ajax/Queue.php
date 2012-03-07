@@ -73,10 +73,6 @@ class IMP_Ajax_Queue
      */
     public function add(IMP_Ajax_Application $ajax)
     {
-        if (is_null($ajax->data)) {
-            return;
-        }
-
         /* Add flag information. */
         if (!empty($this->_flag)) {
             $ajax->addTask('flag', $this->_flag);

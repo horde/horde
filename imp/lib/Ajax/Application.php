@@ -81,10 +81,19 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      */
     public function send()
     {
-        // Add tasks to JSON response.
-        $this->_queue->add($this);
-
+        $this->getTasks();
         parent::send();
+    }
+
+    /**
+     * Get the list of tasks.
+     *
+     * @return array  Task list.
+     */
+    public function getTasks()
+    {
+        $this->_queue->add($this);
+        return $this->tasks;
     }
 
     /**
