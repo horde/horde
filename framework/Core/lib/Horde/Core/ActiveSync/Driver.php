@@ -850,7 +850,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $mbox = new Horde_Imap_Client_Mailbox($sf);
                 $flags = array(Horde_Imap_Client::FLAG_SEEN);
                 $msg = $message->toString(array('headers' => $headers));
-                Horde::debug($msg);
                 $this->_connector->mail_appendMessage($mbox, array(array('data' => $msg, 'flags' => $flags)));
             }
         }
@@ -946,7 +945,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
     public function getSpecialFolderNameByType($type)
     {
-        Horde::debug('FOO');
         $folders = $this->_connector->mail_getSpecialFolders();
         $folder = $folders[$type];
         if (!is_null($folder)) {
