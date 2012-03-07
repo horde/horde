@@ -42,6 +42,10 @@ class Horde_Core_Log_Logger extends Horde_Log_Logger
         }
 
         if ($event instanceof Exception) {
+            if (($event instanceof Horde_Exception) && $event->logged) {
+                return;
+            }
+            $event->logged = true;
             if (is_null($priority)) {
                 $priority = Horde_Log::ERR;
             }
