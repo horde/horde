@@ -179,12 +179,15 @@ class IMP_Views_ListMessages
             $md->sortby = intval($sortpref->sortby);
             $md->sortdir = intval($sortpref->sortdir);
         }
-        if ($args['initial'] && $sortpref->locked) {
-            $md->sortlock = 1;
-        }
 
         /* Actions only done on 'initial' request. */
         if ($args['initial']) {
+            if ($sortpref->sortby_locked) {
+                $md->sortbylock = 1;
+            }
+            if ($sortpref->sortdir_locked) {
+                $md->sortdirlock = 1;
+            }
             if (!$mbox->access_sortthread) {
                 $md->nothread = 1;
             }

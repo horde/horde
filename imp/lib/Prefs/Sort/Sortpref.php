@@ -13,13 +13,13 @@
  * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  *
- * @property boolean $locked  Are the sorting preferences for this mailbox
- *                            locked?
  * @property IMP_Mailbox $mbox  Mailbox for these preferences.
  * @property integer $sortby  The sortby value.
  * @property boolean $sortby_default  Is the sortby value the default?
+ * @property boolean $sortby_locked  Is the sortby value locked?
  * @property integer $sortdir  The sortdir value.
  * @property boolean $sortdir_default  Is the sortdir value the default?
+ * @property boolean $sortdir_locked  Is the sortdir value locked?
  */
 class IMP_Prefs_Sort_Sortpref
 {
@@ -65,13 +65,6 @@ class IMP_Prefs_Sort_Sortpref
         global $prefs;
 
         switch ($name) {
-        case 'locked':
-            return $this->_mbox->search
-                /* For now, only allow sorting in search mailboxes guaranteed
-                 * to consist of a single mailbox. */
-                ? !$this->_mbox->systemquery
-                : $prefs->isLocked(IMP_Prefs_Sort::SORTPREF);
-
         case 'mbox':
             return $this->_mbox;
 
@@ -87,6 +80,13 @@ class IMP_Prefs_Sort_Sortpref
         case 'sortby_default':
             return is_null($this->_sortby);
 
+        case 'sortby_locked':
+            return $this->_mbox->search
+                /* For now, only allow sorting in search mailboxes guaranteed
+                 * to consist of a single mailbox. */
+                ? !$this->_mbox->systemquery
+                : $prefs->isLocked(IMP_Prefs_Sort::SORTPREF);
+
         case 'sortdir':
             return is_null($this->_sortdir)
                 ? $prefs->getValue('sortdir')
@@ -94,6 +94,12 @@ class IMP_Prefs_Sort_Sortpref
 
         case 'sortdir_default':
             return is_null($this->_sortdir);
+
+        case 'sortdir_locked':
+            return $this->_mbox->search
+                /* Search results can always/easily be reversed. */
+                ? false
+                : $prefs->isLocked(IMP_Prefs_Sort::SORTPREF);
         }
     }
 

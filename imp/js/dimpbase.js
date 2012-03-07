@@ -1502,16 +1502,21 @@ var DimpBase = {
     {
         var s;
 
-        if (Object.isUndefined(sortby) ||
-            this.viewport.getMetaData('sortlock')) {
+        if (Object.isUndefined(sortby)) {
             return;
         }
 
         sortby = Number(sortby);
         if (sortby == this.viewport.getMetaData('sortby')) {
+            if (this.viewport.getMetaData('sortdirlock')) {
+                return;
+            }
             s = { sortdir: (this.viewport.getMetaData('sortdir') ? 0 : 1) };
             this.viewport.setMetaData({ sortdir: s.sortdir });
         } else {
+            if (this.viewport.getMetaData('sortbylock')) {
+                return;
+            }
             s = { sortby: sortby };
             this.viewport.setMetaData({ sortby: s.sortby });
         }
@@ -1555,7 +1560,7 @@ var DimpBase = {
         [ tmp2 ].invoke(tmp ? 'show' : 'hide');
         tmp2.siblings().invoke(tmp ? 'hide' : 'show');
 
-        [ m.down('.msgSubject SPAN.popdown'), m.down('.msgDate SPAN.popdown') ].invoke(this.viewport.getMetaData('sortlock') ? 'hide' : 'show');
+        [ m.down('.msgSubject SPAN.popdown'), m.down('.msgDate SPAN.popdown') ].invoke(this.viewport.getMetaData('sortbylock') ? 'hide' : 'show');
 
         ptr.find(function(s) {
             if (sortby != s.value.v) {
