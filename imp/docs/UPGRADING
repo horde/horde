@@ -108,6 +108,38 @@ will automatically be converted to 'bottom'.
 The 'image_replacement_addrs' and 'reply_charset' preferences were added.
 
 
+API Changes
+-----------
+
+  - copyMessages
+
+    The $mailbox and $target parameters are now required to be UTF-8 strings.
+
+  - createFolder
+
+    This call has been removed (replaced with 'createMailbox').
+
+  - deleteMessages
+
+    The $mailbox parameter is now required to be a UTF-8 string.
+
+  - flagMessages
+
+    The $mailbox parameter is now required to be a UTF-8 string.
+
+  - folderlist
+
+    This call has been removed (replaced with 'mailboxList').
+
+  - moveMessages
+
+    The $mailbox and $target parameters are now required to be UTF-8 strings.
+
+  - searchMailbox
+
+    The $mailbox parameter is now required to be a UTF-8 string.
+
+
 
 Upgrading IMP From 5.0.x To 5.0.15
 ==================================

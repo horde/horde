@@ -87,7 +87,7 @@ class Ingo_Api extends Horde_Registry_Api
      *
      * @param array $params  The parameter array:
      *   - filter_seen
-     *   - mailbox
+     *   - mailbox (UTF-8)
      *   - show_filter_msg
      *
      * @return boolean  True if filtering was performed, false if not.
@@ -95,6 +95,9 @@ class Ingo_Api extends Horde_Registry_Api
     public function applyFilters(array $params = array())
     {
         try {
+            if (isset($params['mailbox'])) {
+                $params['mailbox'] = Horde_String::convertCharset($params['mailbox'], 'UTF-8', 'UTF7-IMAP');
+            }
             return $GLOBALS['injector']->getInstance('Ingo_Script')->perform(array_merge(array(
                 'filter_seen' => $GLOBALS['prefs']->getValue('filter_seen'),
                 'show_filter_msg' => $GLOBALS['prefs']->getValue('show_filter_msg')

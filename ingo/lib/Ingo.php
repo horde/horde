@@ -36,7 +36,7 @@ class Ingo
     /**
      * Generates a folder widget.
      *
-     * If an application is available that provides a folderlist method
+     * If an application is available that provides a mailboxList method
      * then a &lt;select&gt; input is created. Otherwise a simple text field
      * is returned.
      *
@@ -51,23 +51,23 @@ class Ingo
     {
         global $conf, $registry;
 
-        if ($registry->hasMethod('mail/folderlist')) {
+        if ($registry->hasMethod('mail/mailboxList')) {
             try {
-                $mailboxes = $registry->call('mail/folderlist');
+                $mailboxes = $registry->call('mail/mailboxList');
 
                 $text = '<select class="flistSelect" id="' . $tagname . '" name="' . $tagname . '">' .
                     '<option value="">' . _("Select target folder:") . '</option>' .
                     '<option disabled="disabled">- - - - - - - - - -</option>';
 
-                if ($registry->hasMethod('mail/createFolder')) {
+                if ($registry->hasMethod('mail/createMailbox')) {
                     $text .= '<option class="flistCreate" value="">' . _("Create new folder") . '</option>' .
                         '<option disabled="disabled">- - - - - - - - - -</option>';
                 }
 
-                foreach ($mailboxes as $key => $val) {
+                foreach ($mailboxes as $val) {
                     $text .= sprintf(
                         "<option value=\"%s\"%s>%s</option>\n",
-                        htmlspecialchars($key),
+                        htmlspecialchars($val['ob']->utf7imap),
                         ($key === $value) ? ' selected="selected"' : '',
                         str_repeat('&nbsp;', $val['level'] * 2) . htmlspecialchars($val['label'])
                     );
@@ -99,8 +99,8 @@ class Ingo
         $new_id = $name . '_new';
 
         if (isset($vars->$new_id)) {
-            if ($GLOBALS['registry']->hasMethod('mail/createFolder') &&
-                $GLOBALS['registry']->call('mail/createFolder', array(Horde_String::convertCharset($vars->$new_id, 'UTF-8', 'UTF7-IMAP')))) {
+            if ($GLOBALS['registry']->hasMethod('mail/createMailbox') &&
+                $GLOBALS['registry']->call('mail/createMailbox', $vars->$new_id)) {
                 return $vars->$new_id;
             }
         } elseif (isset($vars->$name) && strlen($vars->$name)) {
