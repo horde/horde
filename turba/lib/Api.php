@@ -1126,24 +1126,29 @@ class Turba_Api extends Horde_Registry_Api
     {
         global $attributes, $cfgSources, $injector, $prefs;
 
-        if (!isset($cfgSources) ||
-            !is_array($cfgSources) ||
-            !count($cfgSources) ||
-            is_null($names)) {
-            return array();
-        }
-
-        if (!is_array($names)) {
-            $names = array($names);
-        }
-
         $opts = array_merge(array(
             'fields' => array(),
             'forceSource' => false,
             'matchBegin' => false,
             'returnFields' => array(),
+            'rfc822Return' => false,
             'sources' => array()
         ), $opts);
+
+        $results = empty($opts['rfc822Return'])
+            ? array()
+            : new Horde_Mail_Rfc822_List();
+
+        if (!isset($cfgSources) ||
+            !is_array($cfgSources) ||
+            !count($cfgSources) ||
+            is_null($names)) {
+            return $results;
+        }
+
+        if (!is_array($names)) {
+            $names = array($names);
+        }
 
         if (!$opts['forceSource']) {
             // Make sure the selected source is activated in Turba.
@@ -1162,10 +1167,6 @@ class Turba_Api extends Horde_Registry_Api
 
         // Read the columns to display from the preferences.
         $sort_columns = Turba::getColumns();
-
-        $results = empty($opts['rfc822Return'])
-            ? array()
-            : new Horde_Mail_Rfc822_List();
 
         foreach ($opts['sources'] as $source) {
             // Skip invalid sources.
@@ -1218,7 +1219,7 @@ class Turba_Api extends Horde_Registry_Api
                 $rfc822 = new Horde_Mail_Rfc822();
 
                 while ($ob = $search->next()) {
-                    $emails = $seen = array();
+                    $emails = $out = $seen = array();
 
                     if ($ob->isGroup()) {
                         /* Is a distribution list. */
@@ -1230,10 +1231,6 @@ class Turba_Api extends Horde_Registry_Api
 
                         $listatt = $ob->getAttributes();
                         $listName = $ob->getValue('name');
-
-                        if (!isset($results[$name])) {
-                            $results[$name] = array();
-                        }
 
                         while ($ob = $members->next()) {
                             foreach (array_keys($ob->getAttributes()) as $key) {
@@ -1254,7 +1251,7 @@ class Turba_Api extends Horde_Registry_Api
                         }
 
                         if (empty($opts['rfc822Return'])) {
-                            $results[$name][] = array(
+                            $out[] = array(
                                 'email' => implode(', ', $emails),
                                 'id' => $listatt['__key'],
                                 'name' => $listName,
@@ -1303,16 +1300,13 @@ class Turba_Api extends Horde_Registry_Api
                                     }
                                 }
                             }
-                        } else {
+                        } elseif (empty($opts['rfc822Return'])) {
                             $emails[] = null;
                         }
 
                         if (empty($opts['rfc822Return'])) {
-                            if (!isset($results[$name])) {
-                                $results[$name] = array();
-                            }
                             foreach ($emails as $val) {
-                                $results[$name][] = array_merge($att, array(
+                                $out[] = array_merge($att, array(
                                     '__type' => 'Object',
                                     'email' => $val,
                                     'id' => $att['__key'],
@@ -1321,6 +1315,10 @@ class Turba_Api extends Horde_Registry_Api
                                 ));
                             }
                         }
+                    }
+
+                    if (!empty($out)) {
+                        $results[$name] = $out;
                     }
                 }
             }
