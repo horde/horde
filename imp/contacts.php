@@ -25,7 +25,7 @@ Horde_Registry::appInit('imp', array('authentication' => 'horde'));
 
 /* Sanity checking. */
 if (!$session->get('imp', 'csearchavail')) {
-    throw new IMP_Exception('Addressbook not available on this system.');
+    Horde::fatal(new IMP_Exception('Addressbook not available on this system.'), false);
 }
 
 $vars = Horde_Variables::getDefaultVariables();
