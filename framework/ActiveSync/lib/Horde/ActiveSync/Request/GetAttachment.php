@@ -1,7 +1,7 @@
 <?php
 /**
  * Handle GetAttachment requests.
- * 
+ *
  * Logic adapted from Z-Push, original copyright notices below.
  *
  * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
@@ -25,14 +25,26 @@ class Horde_ActiveSync_Request_GetAttachment extends Horde_ActiveSync_Request_Ba
      */
     public function handle()
     {
-        $get = $this->_request->getGetParams();
-        $attname = $get('AttachmentName');
+        parent::handle();
+        $this->_logger->info('[' . $this->_device->id . '] Handling GETATTACHMENT command.');
+
+        $get = $this->_request->getGetVars();
+        $attname = $get['AttachmentName'];
         if (!isset($attname)) {
             return false;
         }
 
-        header("Content-Type: application/octet-stream");
-        $this->_driver->GetAttachmentData($attname);
+        $this->_logger->debug(sprintf(
+            "[%s] Fetching attachement: %s",
+            $this->_device->id,
+            $attname));
 
-        return true;    }
+        $att = $this->_driver->getAttachment($attname);
+
+        // Output the attachment data to the stream.
+        fwrite($this->_encoder->getStream(), $att[1]);
+
+        // Indicate the content-type
+        return $att[0];
+    }
 }
