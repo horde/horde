@@ -34,6 +34,13 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
     private $_backend;
 
     /**
+     * Content type header to send in response.
+     *
+     * @var string
+     */
+    private $_contentType = 'application/vnd.ms-sync.wbxml';
+
+    /**
      * Constructor.
      *
      * @param Horde_Controller_Request_Http  The request object.
@@ -88,7 +95,7 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
      */
     public function getResponseContentType()
     {
-        return 'application/vnd.ms-sync.wbxml';
+        return $this->_contentType;
     }
 
     /**
@@ -131,7 +138,12 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
             Horde_ActiveSync::activeSyncHeader();
             $this->_logger->debug('Horde_Rpc_ActiveSync::getResponse() starting for ' . $this->_get['Cmd']);
             try {
-                $this->_server->handleRequest($this->_get['Cmd'], $this->_get['DeviceId']);
+                $ret = $this->_server->handleRequest($this->_get['Cmd'], $this->_get['DeviceId']);
+                if ($ret === false) {
+                    throw new Horde_ActiveSync_Exception('Unknown Error');
+                } elseif ($ret !== true) {
+                    $this->_contentType = $ret;
+                }
             } catch (Horde_ActiveSync_Exception_InvalidRequest $e) {
                $this->_logger->err('Returning HTTP 400');
                $this->_handleError($e);
@@ -163,7 +175,7 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
         $data = ob_get_contents();
         ob_end_clean();
 
-        header('Content-Type: application/vnd.ms-sync.wbxml');
+        header('Content-Type: ' . $this->_contentType);
         header('Content-Length: ' . $len);
         echo $data;
     }
