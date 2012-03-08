@@ -149,7 +149,7 @@ class Horde_Core_ActiveSync_Imap_Message
      *
      * @return Horde_Mime_Part  The raw MIME part asked for (reference).
      */
-    public function getMIMEPart($id, $options)
+    public function getMIMEPart($id, array $options = array())
     {
         $part = $this->_message->getPart($id);
         if ($part &&
@@ -404,6 +404,7 @@ class Horde_Core_ActiveSync_Imap_Message
     public function isAttachment($mime_type)
     {
         switch ($mime_type) {
+        //case 'text/plain':
         case 'application/ms-tnef':
             return false;
         }

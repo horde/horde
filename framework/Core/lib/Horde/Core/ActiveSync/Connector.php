@@ -618,24 +618,52 @@ class Horde_Core_ActiveSync_Connector
     public function mail_getMessages(
         Horde_ActiveSync_Message_Folder $folder, array $messages, array $options = array())
     {
+        $mbox = new Horde_Imap_Client_Mailbox($folder->serverid);
+        $results = $this->_getMailMessages($mbox, $messages);
+        $ret = array();
+        foreach ($results as $result) {
+            $ret[] = $this->_buildMailMessage($mbox, $result, $options);
+        }
+
+        return $ret;
+    }
+
+    /**
+     *
+     * @return array An array of Horde_Imap_Client_Data_Fetch objects.
+     */
+    protected function _getMailMessages($mbox, array $uids)
+    {
         $imap = $this->_getImapOb();
         $query = new Horde_Imap_Client_Fetch_Query();
         $query->structure();
-        $query->uid();
         $query->flags();
-        $ids = new Horde_Imap_Client_Ids($messages);
-        $mbox = new Horde_Imap_Client_Mailbox($folder->serverid);
-        $messages = array();
+        $ids = new Horde_Imap_Client_Ids($uids);
         try {
-            $results = $imap->fetch($mbox, $query, array('ids' => $ids));
+            return $imap->fetch($mbox, $query, array('ids' => $ids));
         } catch (Horde_Imap_Client_Exception $e) {
             throw new Horde_Exception($e);
         }
-        foreach ($results as $result) {
-            $messages[] = $this->_buildMailMessage($mbox, $result, $options);
-        }
+    }
 
-        return $messages;
+    /**
+     * Return a specific MIME part of the specified message.
+     *
+     * @param string $mailbox  The mailbox name.
+     * @param string $uid      The message UID.
+     * @param string $part     The MIME part identifier.
+     *
+     * @return Horde_Mime_Part
+     */
+    public function mail_getAttachment($mailbox, $uid, $part)
+    {
+        $mbox = new Horde_Imap_Client_Mailbox($mailbox);
+        $messages = $this->_getMailMessages($mbox, array($uid));
+        $msg = new Horde_Core_ActiveSync_Imap_Message(
+            $this->_imap, new Horde_Imap_Client_Mailbox($mbox), $messages[$uid]);
+        $part = $msg->getMIMEPart($part);
+
+        return $part;
     }
 
     public function mail_getSpecialFolders()
@@ -710,6 +738,7 @@ class Horde_Core_ActiveSync_Connector
 
         return $eas_message;
     }
+
 
     /**
      * Clear the authentication and destroy the current session.

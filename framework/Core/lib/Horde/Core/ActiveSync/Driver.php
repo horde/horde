@@ -514,7 +514,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             try {
                 $messages = $this->_connector->mail_getMessages(
                     $folder,
-                    $id,
+                    array($id),
                     array('truncation' => $truncsize));
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
@@ -539,6 +539,19 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
         $this->_endBuffer();
         return $message;
+    }
+
+    /**
+     *
+     * @return array  An array of (content-type, data)
+     */
+    public function getAttachment($name)
+    {
+        list($mailbox, $uid, $part) = explode(':', $name);
+
+        $atc = $this->_connector->mail_getAttachment($mailbox, $uid, $part);
+
+        return array($atc->getType(), $atc->getContents());
     }
 
     /**
