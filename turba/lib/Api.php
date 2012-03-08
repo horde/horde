@@ -1160,7 +1160,7 @@ class Turba_Api extends Horde_Registry_Api
         // Read the columns to display from the preferences.
         $sort_columns = Turba::getColumns();
 
-        $results = $seen = array();
+        $results = array();
         foreach ($opts['sources'] as $source) {
             // Skip invalid sources.
             if (!isset($cfgSources[$source])) {
@@ -1212,101 +1212,97 @@ class Turba_Api extends Horde_Registry_Api
                 $rfc822 = new Horde_Mail_Rfc822();
 
                 while ($ob = $search->next()) {
-                    if (!$ob->isGroup()) {
+                    $emails = $seen = array();
+
+                    if ($ob->isGroup()) {
+                        /* Is a distribution list. */
+                        $members = $ob->listMembers();
+                        if (!($members instanceof Turba_List) ||
+                            !count($members)) {
+                            continue;
+                        }
+
+                        $listatt = $ob->getAttributes();
+                        $listName = $ob->getValue('name');
+
+                        if (!isset($results[$name])) {
+                            $results[$name] = array();
+                        }
+
+                        while ($ob = $members->next()) {
+                            foreach (array_keys($ob->getAttributes()) as $key) {
+                                $value = $ob->getValue($key);
+                                if (empty($value)) {
+                                    continue;
+                                }
+
+                                $seen_key = trim(Horde_String::lower($ob->getValue('name'))) . trim(Horde_String::lower(is_array($value) ? $value['load']['file'] : $value));
+
+                                if (isset($attributes[$key]) &&
+                                    ($attributes[$key]['type'] == 'email') &&
+                                    empty($seen[$seen_key])) {
+                                    $emails[] = $value;
+                                    $seen[$seen_key] = true;
+                                }
+                            }
+                        }
+
+                        $results[$name][] = array(
+                            'email' => implode(', ', $emails),
+                            'id' => $listatt['__key'],
+                            'name' => $listName,
+                            'source' => $source
+                        );
+                    } else {
                         /* Not a group. */
-                        $att = array('__key' => $ob->getValue('__key'));
-                        foreach ($ob->driver->getCriteria() as $info_key => $info_val) {
-                            $att[$info_key] = $ob->getValue($info_key);
+                        $att = array(
+                            '__key' => $ob->getValue('__key')
+                        );
+
+                        foreach (array_keys($ob->driver->getCriteria()) as $key) {
+                            $att[$key] = $ob->getValue($key);
                         }
 
                         $email = new Horde_Mail_Rfc822_List();
 
                         foreach (array_keys($att) as $key) {
-                            if (!$ob->getValue($key) ||
-                                !isset($attributes[$key]) ||
-                                $attributes[$key]['type'] != 'email') {
-                                continue;
+                            if ($ob->getValue($key) &&
+                                isset($attributes[$key]) &&
+                                ($attributes[$key]['type'] == 'email')) {
+                                // Multiple addresses support
+                                $email->add($rfc822->parseAddressList($ob->getValue($key), array(
+                                    'limit' => (isset($attributes[$key]['params']) && is_array($attributes[$key]['params']) && !empty($attributes[$key]['params']['allow_multi'])) ? 0 : 1
+                                )));
                             }
-                            $email_val = $ob->getValue($key);
-
-                            // Multiple addresses support
-                            $email->add($rfc822->parseAddressList($email_val, array(
-                                'limit' => (isset($attributes[$key]['params']) && is_array($attributes[$key]['params']) && !empty($attributes[$key]['params']['allow_multi'])) ? 0 : 1
-                            )));
                         }
 
                         $display_name = ($ob->hasValue('name') || !isset($ob->driver->alternativeName))
                             ? Turba::formatName($ob)
                             : $ob->getValue($ob->driver->alternativeName);
 
-                        if (!isset($results[$name])) {
-                            $results[$name] = array();
-                        }
-
                         if (count($email)) {
                             foreach ($email as $val) {
                                 $seen_key = trim(Horde_String::lower($display_name)) . '/' . trim(Horde_String::lower($val));
-                                if (!empty($seen[$seen_key])) {
-                                    continue;
+                                if (empty($seen[$seen_key])) {
+                                    $seen[$seen_key] = true;
+                                    $emails[] = $val->bare_address;
                                 }
-                                $seen[$seen_key] = true;
-                                $results[$name][] = array_merge($att, array(
-                                    'id' => $att['__key'],
-                                    'name' => $display_name,
-                                    'email' => $val->bare_address,
-                                    '__type' => 'Object',
-                                    'source' => $source)
-                                );
                             }
                         } else {
+                            $emails[] = null;
+                        }
+
+                        if (!isset($results[$name])) {
+                            $results[$name] = array();
+                        }
+                        foreach ($emails as $val) {
                             $results[$name][] = array_merge($att, array(
+                                '__type' => 'Object',
+                                'email' => $val,
                                 'id' => $att['__key'],
                                 'name' => $display_name,
-                                'email' => null,
-                                '__type' => 'Object',
-                                'source' => $source)
-                            );
-                        }
-                    } else {
-                        /* Is a distribution list. */
-                        $listatt = $ob->getAttributes();
-                        $seeninlist = array();
-                        $members = $ob->listMembers();
-                        $listName = $ob->getValue('name');
-                        if (!($members instanceof Turba_List)) {
-                            continue;
-                        }
-                        if (count($members)) {
-                            if (!isset($results[$name])) {
-                                $results[$name] = array();
-                            }
-                            $emails = array();
-                            while ($ob = $members->next()) {
-                                $att = $ob->getAttributes();
-                                foreach (array_keys($att) as $key) {
-                                    $value = $ob->getValue($key);
-                                    if (empty($value)) {
-                                        continue;
-                                    }
-
-                                    $seen_key = is_array($value)
-                                        ? trim(Horde_String::lower($ob->getValue('name'))) . trim(Horde_String::lower($value['load']['file']))
-                                        : trim(Horde_String::lower($ob->getValue('name'))) . trim(Horde_String::lower($value));
-
-                                    if (isset($attributes[$key]) &&
-                                        $attributes[$key]['type'] == 'email' &&
-                                        empty($seeninlist[$seen_key])) {
-                                        $emails[] = $value;
-                                        $seeninlist[$seen_key] = true;
-                                    }
-                                }
-                            }
-                            $results[$name][] = array(
-                                'name' => $listName,
-                                'email' => implode(', ', $emails),
-                                'id' => $listatt['__key'],
                                 'source' => $source
-                            );
+                            ));
                         }
                     }
                 }
