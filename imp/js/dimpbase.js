@@ -2879,7 +2879,7 @@ var DimpBase = {
         var nm = $('normalmboxes');
 
         if (r.expand) {
-            this.expandmbox = r.base ? r.base : true;
+            this.expandmbox = r.base ? this.getMboxElt(r.base) : true;
         }
 
         if (r.d) {
@@ -2895,7 +2895,7 @@ var DimpBase = {
         this.expandmbox = false;
 
         if (r.base) {
-            this._toggleSubFolder(r.base, r.all ? 'expall' : 'tog', false, true);
+            this._toggleSubFolder(this.getMboxElt(r.base), r.all ? 'expall' : 'tog', false, true);
         }
 
         if (this.view) {
@@ -3057,6 +3057,9 @@ var DimpBase = {
         params.unsub = Number(this.showunsub);
         if (!Object.isArray(params.mboxes)) {
             params.mboxes = [ params.mboxes ];
+        }
+        if (Object.isElement(params.base)) {
+            params.base = params.base.retrieve('mbox');
         }
         params.mboxes = Object.toJSON(params.mboxes);
 
