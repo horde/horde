@@ -93,7 +93,7 @@ class Horde_Share_Sqlng extends Horde_Share_Sql
 
         $key = md5(serialize(array($userid, $params)));
         if (isset($this->_listcache[$key])) {
-            return is_array($this->_listcache[$key]) ? $this->_listcache : array();
+            return is_array($this->_listcache[$key]) ? $this->_listcache[$key] : array();
         }
 
         $perms = $this->convertBitmaskToArray($params['perm']);
