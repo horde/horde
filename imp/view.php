@@ -4,27 +4,27 @@
  *
  * URL parameters:
  * ---------------
- * actionID - (string) The action ID to perform
- *   compose_attach_preview
- *   download_all
- *   download_attach
- *   download_mbox
- *   download_render
- *   print_attach
- *   save_message
- *   view_attach
- *   view_face
- *   view_source
- * autodetect - (integer) If set, tries to autodetect MIME type when viewing
- *              based on data.
- * composeCache - (string) Cache ID for compose object.
- * ctype - (string) The content-type to use instead of the content-type
- *           found in the original Horde_Mime_Part object.
- * id - (string) The MIME part ID to display.
- * mode - (integer) The view mode to use.
- *          DEFAULT: IMP_Contents::RENDER_FULL
- * pmode - (string) The print mode of this request ('content', 'headers').
- * zip - (boolean) Download in .zip format?
+ *   - actionID: (string) The action ID to perform:
+ *     - compose_attach_preview
+ *     - download_all
+ *     - download_attach
+ *     - download_mbox
+ *     - download_render
+ *     - print_attach
+ *     - save_message
+ *     - view_attach
+ *     - view_face
+ *     - view_source
+ *   - autodetect: (integer) If set, tries to autodetect MIME type when
+ *                 viewing based on data.
+ *   - composeCache: (string) Cache ID for compose object.
+ *   - ctype: (string) The content-type to use instead of the content-type
+ *            found in the original Horde_Mime_Part object.
+ *   - id: (string) The MIME part ID to display.
+ *   - mode: (integer) The view mode to use.
+ *           DEFAULT: IMP_Contents::RENDER_FULL
+ *   - pmode: (string) The print mode of this request ('content', 'headers').
+ *   - zip: (boolean) Download in .zip format?
  *
  * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
@@ -59,7 +59,7 @@ case 'compose_attach_preview':
      * the necessary data for Horde_Mime_Part. */
     $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($vars->composeCache);
     if (!$mime = $imp_compose->buildAttachment($vars->id)) {
-        throw new IMP_Compose(_("Could not display attachment data."));
+        throw new IMP_Exception(_("Could not display attachment data."));
     }
     $mime->setMimeId($vars->id);
 

@@ -40,20 +40,17 @@ if (!isset($vars->source) || !isset($source_list[$vars->source])) {
     $vars->source = key($source_list);
 }
 
-$search_params = IMP::getAddressbookSearchParams();
-$apiargs = array(
-    array($vars->search),
-    array($vars->source),
-    $search_params['fields'],
-    false,
-    false,
-    array('name', 'email')
-);
-
 $a_list = array();
 if ($vars->searched || $prefs->getValue('display_contact')) {
-    $ajax = new IMP_Ajax_Imple_ContactAutoCompleter();
-    foreach ($ajax->parseContactsSearch($registry->call('contacts/search', $apiargs)) as $val) {
+    $search_params = IMP::getAddressbookSearchParams();
+    $csearch = $registry->call('contacts/search', array($vars->get('search', ''), array(
+        'fields' => $search_params['fields'],
+        'returnFields' => array('email', 'name'),
+        'rfc822Return' => true,
+        'sources' => array($vars->source)
+    )));
+
+    foreach ($csearch as $val) {
         $a_list[] = htmlspecialchars(strval($val), ENT_QUOTES, 'UTF-8');
     }
 }

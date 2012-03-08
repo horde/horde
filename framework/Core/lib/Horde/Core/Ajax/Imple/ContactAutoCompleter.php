@@ -25,6 +25,7 @@ abstract class Horde_Core_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Aja
             'ajax' => 'ContactAutoCompleter',
             'params' => $js_params,
             'raw_params' => array(
+                'onSelect' => 'function (v) { return v + ", "; }',
                 'onType' => 'function (e) { return e.include("<") ? "" : e; }'
             )
         );
@@ -70,15 +71,16 @@ abstract class Horde_Core_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Aja
         $searchpref = $this->_getAddressbookSearchParams();
 
         try {
-            $res = $GLOBALS['registry']->call('contacts/search', array($str, $searchpref->sources, $searchpref->fields, false, false, array('name', 'email')));
+            $search = $GLOBALS['registry']->call('contacts/search', array($str, array(
+                'fields' => $searchpref->fields,
+                'returnFields' => array('email', 'name'),
+                'rfc822Return' => true,
+                'sources' => $searchpref->sources
+            )));
         } catch (Horde_Exception $e) {
             Horde::logMessage($e, 'ERR');
             return new Horde_Mail_Rfc822_List();
         }
-
-        /* The first key of the result will be the search term. The matching
-         * entries are stored underneath this key. */
-        $search = $this->parseContactsSearch($res);
 
         if (empty($levenshtein)) {
             return $search;
@@ -91,39 +93,6 @@ abstract class Horde_Core_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Aja
         asort($sort_list, SORT_NUMERIC);
 
         return new Horde_Mail_Rfc822_List($sort_list);
-    }
-
-    /**
-     * Parse the results of a contacts/search API call into a Rfc822 list
-     * object.
-     *
-     * @param array $res  Results from contacts/search API call.
-     *
-     * @return Horde_Mail_Rfc822_List  List object.
-     */
-    public function parseContactsSearch($res)
-    {
-        $search = new Horde_Mail_Rfc822_List();
-
-        foreach (reset($res) as $val) {
-            if (!isset($val['email'])) {
-                continue;
-            }
-
-            if (strpos($val['email'], ',') === false) {
-                $addr_ob = new Horde_Mail_Rfc822_Address($val['email']);
-                if (!is_null($addr_ob->host)) {
-                    if (isset($val['name'])) {
-                        $addr_ob->personal = $val['name'];
-                    }
-                    $search->add($addr_ob);
-                }
-            } else {
-                $search->add(new Horde_Mail_Rfc822_Group(isset($val['name']) ? $val['name'] : null, $val['email']));
-            }
-        }
-
-        return $search;
     }
 
     /**

@@ -32,19 +32,18 @@ if (empty($source) || !isset($source_list[$source])) {
 
 /* Get the search as submitted (defaults to '' which should list everyone). */
 $search = Horde_Util::getFormData('search');
-$apiargs = array();
-$apiargs['addresses'] = array($search);
-$apiargs['addressbooks'] = array($source);
-$apiargs['fields'] = array();
-
-$searchpref = Kronolith::getAddressbookSearchParams();
-if (isset($searchpref[$source])) {
-    $apiargs['fields'][$source] = $searchpref[$source];
-}
 
 if ($search || $prefs->getValue('display_contact')) {
+    $searchpref = Kronolith::getAddressbookSearchParams();
+    $fields = isset($searchpref[$source])
+        ? array($source => $searchpref[$source])
+        : array();
+
     try {
-        $results = $registry->call('contacts/search', $apiargs);
+        $results = $registry->call('contacts/search', array($search, array(
+            'fields' => $fields,
+            'sources' => array($source)
+        )));
     } catch (Exception $e) {
         $results = array();
     }

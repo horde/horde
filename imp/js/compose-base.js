@@ -52,22 +52,14 @@ var ImpComposeBase = {
 
     updateAddressField: function(elt, address)
     {
-        var v;
+        var v = $F(elt).strip(),
+            pos = v.lastIndexOf(',');
 
-        if (elt.value.length) {
-            v = elt.value.replace(/, +/g, ',').split(',').findAll(function(s) { return s; });
-            elt.value = v.join(', ');
-            if (elt.value.lastIndexOf(';') != elt.value.length - 1) {
-                elt.value += ',';
-            }
-            elt.value += ' ' + address;
-        } else {
-            elt.value = address;
+        if (pos != -1) {
+            v = v.substring(0, pos) + ' ';
         }
 
-        if (address.lastIndexOf(';') != address.length - 1) {
-            elt.value += ', ';
-        }
+        elt.setValue(v + address + ', ');
     }
 
 };
