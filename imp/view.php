@@ -59,7 +59,7 @@ case 'compose_attach_preview':
      * the necessary data for Horde_Mime_Part. */
     $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($vars->composeCache);
     if (!$mime = $imp_compose->buildAttachment($vars->id)) {
-        throw new IMP_Compose(_("Could not display attachment data."));
+        throw new IMP_Exception(_("Could not display attachment data."));
     }
     $mime->setMimeId($vars->id);
 
