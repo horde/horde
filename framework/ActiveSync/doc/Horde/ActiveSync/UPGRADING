@@ -47,5 +47,5 @@ Horde_ActiveSync_State_File was removed.
 
     - SQL table names are no longer configurable.
 
-    - Internal state data is stored as serialized Horde_ActiveSync_Folder_*
-      objects now.
+    - Internal state data is now stored as serialized Horde_ActiveSync_Folder_*
+      objects.

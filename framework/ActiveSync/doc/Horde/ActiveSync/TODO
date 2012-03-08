@@ -8,3 +8,10 @@ TODO for 2.0
   save the current SYNC syncKey into the colletion's PING state. NOTE: This
   might be unneccessary once we implement EAS 12.0 or 12.1
 
+- Figure out how to better separate the imap handling classes from Core. If
+  we want Horde_ActiveSync to be friendly to reuse outside of Horde, we need
+  to provide a better out-of-the-box solution for connecting to IMAP. We should
+  provide a base/abstract IMAP adapter in Horde_ActiveSync and an implementation
+  for Horde_Imap_Client. The problem is, at the moment, that we rely on the mail
+  API (i.e. IMP) for obtaining the folder list. Once we can implement that
+  entirely within Horde_ActiveSync's IMAP adapter we can do this.
