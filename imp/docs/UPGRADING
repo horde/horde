@@ -60,6 +60,9 @@ UTF-8 charset, not UTF7-IMAP.
 
 The $conf['compose']['link_attach_size_limit'] option was added.
 
+The $conf['print']['add_printedby'] option was removed and replaced by the
+'add_printedby' preference.
+
 The following configuration options were removed::
 
    $conf['dimp']['viewport']['buffer_pages']
@@ -105,7 +108,8 @@ your preference backend::
 The 'cursor_compose' preference removed the 'sig' option. Existing preferences
 will automatically be converted to 'bottom'.
 
-The 'image_replacement_addrs' and 'reply_charset' preferences were added.
+The 'add_printedby', 'image_replacement_addrs', and 'reply_charset'
+preferences were added.
 
 
 API Changes
