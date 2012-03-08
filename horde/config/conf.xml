@@ -1967,6 +1967,9 @@
    <configswitch name="enabled" quote="false" desc="Enable ActiveSync server?">true
     <case name="false" desc="Disabled" />
     <case name="true" desc="Enabled">
+     <configheader>Email</configheader>
+      <configboolean name="emailsync" desc="Enable Email support?">false
+      </configboolean>
      <configheader>Logging</configheader>
      <configsection name="logging">
       <configswitch name="type" desc="For debugging, it may be useful to send
