@@ -1111,12 +1111,15 @@ class Turba_Api extends Horde_Registry_Api
      *                  DEFAULT: false
      *   - matchBegin: (boolean) Match word boundaries only?
      *                 DEFAULT: false
-     *   - returnFields: Only return these fields. Returns all
-     *                   DEFAULT: Return all fields
+     *   - returnFields: Only return these fields.
+     *                   DEFAULT: Return all fields.
+     *   - rfc822Return: Return a Horde_Mail_Rfc822_List object.
+     *                   DEFAULT: Returns an array of search results.
      *   - sources: (array) The sources to search in.
      *              DEFAULT: All sources
      *
-     * @return array  Hash containing the search results.
+     * @return mixed  Either a hash containing the search results or a
+     *                Rfc822 List object (if 'rfc822Return' is true).
      * @throws Turba_Exception
      */
     public function search($names = null, array $opts = array())
@@ -1160,7 +1163,10 @@ class Turba_Api extends Horde_Registry_Api
         // Read the columns to display from the preferences.
         $sort_columns = Turba::getColumns();
 
-        $results = array();
+        $results = empty($opts['rfc822Return'])
+            ? array()
+            : new Horde_Mail_Rfc822_List();
+
         foreach ($opts['sources'] as $source) {
             // Skip invalid sources.
             if (!isset($cfgSources[$source])) {
@@ -1247,12 +1253,16 @@ class Turba_Api extends Horde_Registry_Api
                             }
                         }
 
-                        $results[$name][] = array(
-                            'email' => implode(', ', $emails),
-                            'id' => $listatt['__key'],
-                            'name' => $listName,
-                            'source' => $source
-                        );
+                        if (empty($opts['rfc822Return'])) {
+                            $results[$name][] = array(
+                                'email' => implode(', ', $emails),
+                                'id' => $listatt['__key'],
+                                'name' => $listName,
+                                'source' => $source
+                            );
+                        } else {
+                            $results->add(new Horde_Mail_Rfc822_Group($listName, $emails));
+                        }
                     } else {
                         /* Not a group. */
                         $att = array(
@@ -1285,24 +1295,31 @@ class Turba_Api extends Horde_Registry_Api
                                 $seen_key = trim(Horde_String::lower($display_name)) . '/' . trim(Horde_String::lower($val));
                                 if (empty($seen[$seen_key])) {
                                     $seen[$seen_key] = true;
-                                    $emails[] = $val->bare_address;
+                                    if (empty($opts['rfc822Return'])) {
+                                        $emails[] = $val->bare_address;
+                                    } else {
+                                        $val->personal = $display_name;
+                                        $results->add($val);
+                                    }
                                 }
                             }
                         } else {
                             $emails[] = null;
                         }
 
-                        if (!isset($results[$name])) {
-                            $results[$name] = array();
-                        }
-                        foreach ($emails as $val) {
-                            $results[$name][] = array_merge($att, array(
-                                '__type' => 'Object',
-                                'email' => $val,
-                                'id' => $att['__key'],
-                                'name' => $display_name,
-                                'source' => $source
-                            ));
+                        if (empty($opts['rfc822Return'])) {
+                            if (!isset($results[$name])) {
+                                $results[$name] = array();
+                            }
+                            foreach ($emails as $val) {
+                                $results[$name][] = array_merge($att, array(
+                                    '__type' => 'Object',
+                                    'email' => $val,
+                                    'id' => $att['__key'],
+                                    'name' => $display_name,
+                                    'source' => $source
+                                ));
+                            }
                         }
                     }
                 }
