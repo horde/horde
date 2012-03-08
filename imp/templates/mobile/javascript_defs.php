@@ -71,7 +71,7 @@ $code['conf'] = array_filter(array(
             'v' => Horde_Imap_Client::SORT_SIZE
         )
     ),
-    'spam_folder' => IMP_Mailbox::formTo($GLOBALS['prefs']->getValue('spam_folder')),
+    'spam_mbox' => IMP_Mailbox::formTo($GLOBALS['prefs']->getValue('spam_folder')),
     'spam_spammbox' => !empty($GLOBALS['conf']['spam']['spamfolder']),
 ));
 

@@ -242,15 +242,15 @@ class IMP_Ui_Compose
         $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
 
         foreach (array_keys($identity->getAll('id')) as $ident) {
-            $smf = $identity->getValue('sent_mail_folder', $ident);
+            $sm = $identity->getValue('sent_mail_folder', $ident);
 
             $identities[] = array(
-                // Sent mail folder name
-                'smf_name' => $smf ? $smf->form_to : '',
-                // Save in sent mail folder by default?
-                'smf_save' => (bool)$identity->saveSentmail($ident),
+                // Sent mail mailbox name
+                'sm_name' => $sm ? $sm->form_to : '',
+                // Save in sent mail mailbox by default?
+                'sm_save' => (bool)$identity->saveSentmail($ident),
                 // Sent mail display name
-                'smf_display' => $smf ? $smf->display_html : '',
+                'sm_display' => $sm ? $sm->display_html : '',
                 // Bcc addresses to add
                 'bcc' => strval($identity->getBccAddresses($ident))
             );

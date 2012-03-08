@@ -69,7 +69,7 @@ var ImpMessage = {
 
     _transfer: function(actID)
     {
-        var newFolder,
+        var newMbox,
             elt = $('target1'),
             target = $F(elt),
             tmbox = $('targetMbox');
@@ -78,10 +78,10 @@ var ImpMessage = {
 
         // Check for a mailbox actually being selected.
         if ($(elt[elt.selectedIndex]).hasClassName('flistCreate')) {
-            newFolder = window.prompt(IMP.text.newfolder, '');
-            if (newFolder != null && newFolder != '') {
+            newMbox = window.prompt(IMP.text.newmbox, '');
+            if (newMbox != null && newMbox != '') {
                 $('newMbox').setValue(1);
-                tmbox.setValue(newFolder);
+                tmbox.setValue(newMbox);
                 this.submit(actID);
             }
         } else if (target.empty()) {
@@ -101,7 +101,7 @@ var ImpMessage = {
         }
     },
 
-    updateFolders: function(form)
+    updateMailboxes: function(form)
     {
         var f = (form == 1) ? 2 : 1;
         $('target' + f).selectedIndex = $('target' + form).selectedIndex;
@@ -178,7 +178,7 @@ var ImpMessage = {
         if (id.startsWith('flag')) {
             this.flagMessage(id.substring(4));
         } else if (id.startsWith('target')) {
-            this.updateFolders(id.substring(6));
+            this.updateMailboxes(id.substring(6));
         }
     },
 

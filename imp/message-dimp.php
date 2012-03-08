@@ -72,14 +72,9 @@ $js_out = Horde::addInlineJsVars($js_vars, array('ret_vars' => true));
 $disable_compose = !IMP::canCompose();
 
 if (!$disable_compose) {
-    $compose_args = array(
-        'folder' => IMP::mailbox(),
-        'messageCache' => '',
-        'popup' => false,
-        'qreply' => true,
-        'uid' => $uid,
-    );
-    $compose_result = IMP_Views_Compose::showCompose($compose_args);
+    $compose_result = IMP_Views_Compose::showCompose(array(
+        'qreply' => true
+    ));
 
     /* Attach spellchecker & auto completer. */
     $imp_ui = new IMP_Ui_Compose();

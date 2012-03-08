@@ -1,6 +1,6 @@
 <?php
 /**
- * Block: show folder summary.
+ * Block: show mailbox summary.
  *
  * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
  *
@@ -24,7 +24,7 @@ class IMP_Block_Summary extends Horde_Core_Block
     {
         parent::__construct($app, $params);
 
-        $this->_name = _("Folder Summary");
+        $this->_name = _("Mailbox Summary");
     }
 
     /**
@@ -41,7 +41,7 @@ class IMP_Block_Summary extends Horde_Core_Block
         return array(
             'show_unread' => array(
                 'type' => 'boolean',
-                'name' => _("Only display folders with unread messages in them?"),
+                'name' => _("Only display mailboxes with unread messages in them?"),
                 'default' => 0
             )
         );
@@ -96,10 +96,10 @@ class IMP_Block_Summary extends Horde_Core_Block
         }
 
         if (!empty($this->_params['show_unread']) && !$anyUnseen) {
-            return '<em>' . _("No folders with unseen messages") . '</em>';
+            return '<em>' . _("No mailboxes with unseen messages") . '</em>';
         }
 
-        return '<table class="impBlockSummary"><thead><tr><th>' . _("Folder") . '</th><th>' . _("Unseen") . '</th><th>' . _("Total") . '</th></tr></thead><tbody>' .
+        return '<table class="impBlockSummary"><thead><tr><th>' . _("Mailbox") . '</th><th>' . _("Unseen") . '</th><th>' . _("Total") . '</th></tr></thead><tbody>' .
             $out .
             '</tbody></table>';
     }

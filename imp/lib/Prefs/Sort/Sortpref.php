@@ -133,7 +133,7 @@ class IMP_Prefs_Sort_Sortpref
 
              case Horde_Imap_Client::SORT_FROM:
                  /* If the preference is to sort by From Address, when we are
-                  * in the Drafts or Sent folders, sort by To Address. */
+                  * in the Drafts or Sent mailboxes, sort by To Address. */
                  if ($this->_mbox->special_outgoing) {
                      $this->_sortby = Horde_Imap_Client::SORT_TO;
                  }

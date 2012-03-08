@@ -97,7 +97,7 @@ var ImpMailbox = {
         this.startrange = tr;
     },
 
-    updateFolders: function(form)
+    updateMboxes: function(form)
     {
         var tm1 = $('targetMailbox1'),
             tm2 = $('targetMailbox2');
@@ -111,7 +111,7 @@ var ImpMailbox = {
 
     _transfer: function(actID)
     {
-        var elt, newFolder, target, tmbox;
+        var elt, newMbox, target, tmbox;
 
         if (this.countSelected()) {
             elt = $('targetMailbox1');
@@ -121,10 +121,10 @@ var ImpMailbox = {
 
             // Check for a mailbox actually being selected.
             if ($(elt[elt.selectedIndex]).hasClassName('flistCreate')) {
-                newFolder = prompt(IMP.text.newfolder, '');
-                if (newFolder != null && newFolder != '') {
+                newMbox = prompt(IMP.text.newmbox, '');
+                if (newMbox != null && newMbox != '') {
                     $('newMbox').setValue(1);
-                    tmbox.setValue(newFolder);
+                    tmbox.setValue(newMbox);
                     this.submit(actID);
                 }
             } else if (target.empty()) {
@@ -207,7 +207,7 @@ var ImpMailbox = {
             } else if (id.startsWith('filter')) {
                 this.filterMessages(id.substring(6));
             } else if (id.startsWith('targetMailbox')) {
-                this.updateFolders(id.substring(13));
+                this.updateMboxes(id.substring(13));
             }
         }
     },

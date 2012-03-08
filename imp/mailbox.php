@@ -250,7 +250,7 @@ if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
         'heading' => _("Messages to"),
         'inc_notepads' => true,
         'inc_tasklists' => true,
-        'new_folder' => true
+        'new_mbox' => true
     ));
 }
 
@@ -530,8 +530,8 @@ if ($pageOb['msgcount']) {
     $n_template->set('filtermsg', $filtermsg);
 
     if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
-        $n_template->set('move', Horde::widget('#', _("Move to folder"), 'widget moveAction', '', '', _("Move"), true));
-        $n_template->set('copy', Horde::widget('#', _("Copy to folder"), 'widget copyAction', '', '', _("Copy"), true));
+        $n_template->set('move', Horde::widget('#', _("Move to mailbox"), 'widget moveAction', '', '', _("Move"), true));
+        $n_template->set('copy', Horde::widget('#', _("Copy to mailbox"), 'widget copyAction', '', '', _("Copy"), true));
         $n_template->set('folder_options', $folder_options);
     }
 
@@ -667,7 +667,7 @@ $headers = array(
     )
 );
 
-/* If this is the Drafts or Sent-Mail Folder, sort by To instead of From. */
+/* If this is the Drafts or Sent-Mail mailbox, sort by To instead of From. */
 if (IMP::mailbox()->special_outgoing) {
     unset($headers[Horde_Imap_Client::SORT_FROM]);
 } else {
@@ -764,14 +764,14 @@ while (list(,$ob) = each($mbox_info['overview'])) {
 
             $mbox = IMP_Mailbox::get($ob['mailbox']);
 
-            $folder_link = $mailbox_url->copy()->add('mailbox', IMP::base64urlEncode($ob['mailbox']));
-            $folder_link = Horde::link($folder_link, sprintf(_("View messages in %s"), $mbox->display), 'smallheader') . $mbox->display_html . '</a>';
+            $mbox_link = $mailbox_url->copy()->add('mailbox', IMP::base64urlEncode($ob['mailbox']));
+            $mbox_link = Horde::link($mbox_link, sprintf(_("View messages in %s"), $mbox->display), 'smallheader') . $mbox->display_html . '</a>';
             if (is_null($search_template)) {
                 $search_template = $injector->createInstance('Horde_Template');
             }
             $search_template->set('lastMbox', $lastMbox);
-            $search_template->set('folder_link', $folder_link);
-            echo $search_template->fetch(IMP_TEMPLATES . '/imp/mailbox/searchfolder.html');
+            $search_template->set('mbox_link', $mbox_link);
+            echo $search_template->fetch(IMP_TEMPLATES . '/imp/mailbox/searchmbox.html');
 
             $mh_template->set('show_checkbox', !$mh_count++);
             echo $mh_template->fetch(IMP_TEMPLATES . '/imp/mailbox/message_headers.html');

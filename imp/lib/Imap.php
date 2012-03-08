@@ -241,13 +241,13 @@ class IMP_Imap implements Serializable
     }
 
     /**
-     * Get namespace info for a full folder path.
+     * Get namespace info for a full mailbox path.
      *
-     * @param string $mailbox    The folder path.
+     * @param string $mailbox    The mailbox path.
      * @param boolean $personal  If true, will return empty namespace only
      *                           if it is a personal namespace.
      *
-     * @return mixed  The namespace info for the folder path or null if the
+     * @return mixed  The namespace info for the mailbox path or null if the
      *                path doesn't exist.
      */
     public function getNamespace($mailbox = null, $personal = false)

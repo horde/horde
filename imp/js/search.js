@@ -8,9 +8,9 @@
 var ImpSearch = {
 
     // The following variables are defined in search.php:
-    //   data, i_criteria, i_folders, i_recent, text
+    //   data, i_criteria, i_mboxes, i_recent, text
     criteria: {},
-    folders: $H(),
+    mboxes: $H(),
     saved_searches: {},
 
     updateRecentSearches: function(searches)
@@ -311,30 +311,30 @@ var ImpSearch = {
         this.criteria[this.insertCriteria(tmp)] = { t: id };
     },
 
-    // Folder actions
+    // Mailbox actions
 
-    // folders = (object) m: mailboxes, s: subfolders
-    updateFolders: function(folders)
+    // mboxes = (object) m: mailboxes, s: subfolders
+    updateMailboxes: function(mboxes)
     {
-        this.resetFolders();
-        folders.m.each(function(f) {
-            this.insertFolder(f, false);
+        this.resetMailboxes();
+        mboxes.m.each(function(f) {
+            this.insertMailbox(f, false);
         }, this);
-        folders.s.each(function(f) {
-            this.insertFolder(f, true);
+        mboxes.s.each(function(f) {
+            this.insertMailbox(f, true);
         }, this);
     },
 
-    deleteFolder: function(div)
+    deleteMailbox: function(div)
     {
         var first, keys,
             id = div.identify()
 
-        this.disableFolder(false, this.folders.get(id));
-        this.folders.unset(id);
+        this.disableMailbox(false, this.mboxes.get(id));
+        this.mboxes.unset(id);
         div.remove();
 
-        keys = $('search_folders').childElements().pluck('id');
+        keys = $('search_mboxes').childElements().pluck('id');
 
         if (keys.size()) {
             first = keys.first();
@@ -344,71 +344,71 @@ var ImpSearch = {
         }
 
         if (!keys.size()) {
-            $('no_search_folders', 'search_folders').invoke('toggle');
-            $('search_folders_add').up().show();
+            $('no_search_mboxes', 'search_mboxes').invoke('toggle');
+            $('search_mboxes_add').up().show();
         }
     },
 
-    resetFolders: function()
+    resetMailboxes: function()
     {
-        elts = $('search_folders').childElements();
+        elts = $('search_mboxes').childElements();
 
         if (elts.size()) {
-            this.folders.values().each(this.disableFolder.bind(this, false));
+            this.mboxes.values().each(this.disableMailbox.bind(this, false));
             elts.invoke('remove');
-            $('no_search_folders', 'search_folders').invoke('toggle');
-            $('search_folders_add').clear().up().show();
-            this.folders = $H();
+            $('no_search_mboxes', 'search_mboxes').invoke('toggle');
+            $('search_mboxes_add').clear().up().show();
+            this.mboxes = $H();
         }
     },
 
-    insertFolder: function(folder, checked)
+    insertMailbox: function(mbox, checked)
     {
         var div = new Element('DIV', { className: 'searchId' }),
             div2 = new Element('DIV', { className: 'searchElement' });
 
-        if (folder == this.allsearch) {
-            this.resetFolders();
-            [ $('no_search_folders'), $('search_folders_add').up() ].invoke('hide');
-            $('search_folders').show();
+        if (mbox == this.allsearch) {
+            this.resetMailboxes();
+            [ $('no_search_mboxes'), $('search_mboxes_add').up() ].invoke('hide');
+            $('search_mboxes').show();
             div2.insert(
                 new Element('EM').insert(ImpSearch.text.search_all.escapeHTML())
             ).insert(
                 new Element('A', { href: '#', className: 'iconImg searchuiImg searchuiDelete' })
             );
         } else {
-            if ($('search_folders').childElements().size()) {
+            if ($('search_mboxes').childElements().size()) {
                 div.insert(new Element('EM', { className: 'join' }).insert(this.text.and));
             } else {
-                $('no_search_folders', 'search_folders').invoke('toggle');
+                $('no_search_mboxes', 'search_mboxes').invoke('toggle');
             }
 
             div2.insert(
-                new Element('EM').insert(this.getFolderLabel(folder).escapeHTML())
+                new Element('EM').insert(this.getMailboxLabel(mbox).escapeHTML())
             ).insert(
-                new Element('SPAN', { className: 'subfolders' }).insert(new Element('INPUT', { className: 'checkbox', type: 'checkbox' }).setValue(checked)).insert(this.text.subfolder_search).setStyle(folder == this.data.inbox ? { display: 'none' } : {})
+                new Element('SPAN', { className: 'subfolders' }).insert(new Element('INPUT', { className: 'checkbox', type: 'checkbox' }).setValue(checked)).insert(this.text.subfolder_search).setStyle(mbox == this.data.inbox ? { display: 'none' } : {})
             ).insert(
                 new Element('A', { href: '#', className: 'iconImg searchuiImg searchuiDelete' })
             );
 
-            this.disableFolder(true, folder);
-            $('search_folders_add').clear();
+            this.disableMailbox(true, mbox);
+            $('search_mboxes_add').clear();
         }
 
         div.insert(div2);
-        $('search_folders').insert(div);
+        $('search_mboxes').insert(div);
 
-        this.folders.set(div.identify(), folder);
+        this.mboxes.set(div.identify(), mbox);
     },
 
-    getFolderLabel: function(folder)
+    getMailboxLabel: function(mbox)
     {
-        return this.data.folder_list[folder];
+        return this.data.mbox_list[mbox];
     },
 
-    disableFolder: function(disable, folder)
+    disableMailbox: function(disable, mbox)
     {
-        $('search_folders_add').down('[value="' + folder + '"]').writeAttribute({ disabled: disable });
+        $('search_mboxes_add').down('[value="' + mbox + '"]').writeAttribute({ disabled: disable });
     },
 
     // Miscellaneous actions
@@ -426,8 +426,8 @@ var ImpSearch = {
             return;
         }
 
-        if (type != 'filter' && !this.folders.size()) {
-            alert(this.text.need_folder);
+        if (type != 'filter' && !this.mboxes.size()) {
+            alert(this.text.need_mbox);
             return;
         }
 
@@ -499,8 +499,8 @@ var ImpSearch = {
 
         $('criteria_form').setValue(Object.toJSON(data));
 
-        if ($('search_folders_add').up().visible()) {
-            this.folders.each(function(f) {
+        if ($('search_mboxes_add').up().visible()) {
+            this.mboxes.each(function(f) {
                 var type = $F($(f.key).down('INPUT[type=checkbox]'))
                     ? 'subfolder'
                     : 'mbox';
@@ -509,7 +509,7 @@ var ImpSearch = {
         } else {
             f_out.mbox.push(this.allsearch);
         }
-        $('folders_form').setValue(Object.toJSON(f_out));
+        $('mboxes_form').setValue(Object.toJSON(f_out));
 
         $('search_form').submit();
     },
@@ -534,7 +534,7 @@ var ImpSearch = {
 
             case 'search_reset':
                 this.resetCriteria();
-                this.resetFolders();
+                this.resetMailboxes();
                 return;
 
             case 'search_dimp_return':
@@ -567,7 +567,7 @@ var ImpSearch = {
                     if (elt.up('#search_criteria')) {
                         this.deleteCriteria(elt.up('DIV.searchId'));
                     } else {
-                        this.deleteFolder(elt.up('DIV.searchId'));
+                        this.deleteMailbox(elt.up('DIV.searchId'));
                     }
                     e.stop();
                     return;
@@ -603,7 +603,7 @@ var ImpSearch = {
         case 'recent_searches':
             tmp = this.saved_searches.get($F(elt));
             this.updateCriteria(tmp.c);
-            this.updateFolders(tmp.f);
+            this.updateMailboxes(tmp.f);
             elt.clear();
             break;
 
@@ -645,8 +645,8 @@ var ImpSearch = {
             }
             break;
 
-        case 'search_folders_add':
-            this.insertFolder($F('search_folders_add'));
+        case 'search_mboxes_add':
+            this.insertMailbox($F('search_mboxes_add'));
             break;
         }
 
@@ -668,13 +668,13 @@ var ImpSearch = {
 
         if (r.responseJSON.response) {
             resp = r.responseJSON.response;
-            this.data.folder_list = resp.folder_list;
-            sfa = $('search_folders_add');
+            this.data.mbox_list = resp.mbox_list;
+            sfa = $('search_mboxes_add');
             vals = sfa.select('[disabled]').pluck('value');
             sfa.update(resp.tree);
             vals.each(function(v) {
                 if (v.length) {
-                    this.disableFolder(true, v);
+                    this.disableMailbox(true, v);
                 }
             }, this);
         }
@@ -688,7 +688,7 @@ var ImpSearch = {
         }
 
         if (Prototype.Browser.IE) {
-            $('recent_searches', 'search_criteria_add', 'search_folders_add').compact().invoke('observe', 'change', ImpSearch.changeHandler.bindAsEventListener(ImpSearch));
+            $('recent_searches', 'search_criteria_add', 'search_mboxes_add').compact().invoke('observe', 'change', ImpSearch.changeHandler.bindAsEventListener(ImpSearch));
         } else {
             document.observe('change', ImpSearch.changeHandler.bindAsEventListener(ImpSearch));
         }
@@ -705,9 +705,9 @@ var ImpSearch = {
             delete this.i_criteria;
         }
 
-        if (this.i_folders) {
-            this.updateFolders(this.i_folders);
-            delete this.i_folders;
+        if (this.i_mboxes) {
+            this.updateMailboxes(this.i_mboxes);
+            delete this.i_mboxes;
         }
     }
 

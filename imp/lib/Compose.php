@@ -282,12 +282,12 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
     protected function _saveDraftServer($data)
     {
         if (!$drafts_mbox = IMP_Mailbox::getPref('drafts_folder')) {
-            throw new IMP_Compose_Exception(_("Saving the draft failed. No draft folder specified."));
+            throw new IMP_Compose_Exception(_("Saving the draft failed. No drafts mailbox specified."));
         }
 
-        /* Check for access to drafts folder. */
+        /* Check for access to drafts mailbox. */
         if (!$drafts_mbox->create()) {
-            throw new IMP_Compose_Exception(_("Saving the draft failed. Could not create a drafts folder."));
+            throw new IMP_Compose_Exception(_("Saving the draft failed. Could not create a drafts mailbox."));
         }
 
         $append_flags = array(Horde_Imap_Client::FLAG_DRAFT);
@@ -311,7 +311,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
 
             $this->_metadata['draft_uid'] = $drafts_mbox->getIndicesOb($ids);
             $this->changed = 'changed';
-            return sprintf(_("The draft has been saved to the \"%s\" folder."), $drafts_mbox->display);
+            return sprintf(_("The draft has been saved to the \"%s\" mailbox."), $drafts_mbox->display);
         } catch (IMP_Imap_Exception $e) {
             return _("The draft was not successfully saved.");
         }
@@ -656,7 +656,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
      *   save_sent: (boolean) Save sent mail?
      *  </li>
      *  <li>
-     *   sent_folder: (IMP_Mailbox) The sent-mail folder (UTF-8).
+     *   sent_mail: (IMP_Mailbox) The sent-mail mailbox (UTF-8).
      *  </li>
      *  <li>
      *   save_attachments: (bool) Save attachments with the message?
@@ -670,7 +670,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
      * </ul>
      *
      * @return boolean  Whether the sent message has been saved in the
-     *                  sent-mail folder.
+     *                  sent-mail mailbox.
      *
      * @throws Horde_Exception
      * @throws IMP_Compose_Exception
@@ -846,8 +846,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
         $entry = sprintf("%s Message sent to %s from %s", $_SERVER['REMOTE_ADDR'], $recipients, $registry->getAuth());
         Horde::logMessage($entry, 'INFO');
 
-        /* Should we save this message in the sent mail folder? */
-        if (!empty($opts['sent_folder']) &&
+        /* Should we save this message in the sent mail mailbox? */
+        if (!empty($opts['sent_mail']) &&
             ((!$prefs->isLocked('save_sent_mail') && !empty($opts['save_sent'])) ||
              ($prefs->isLocked('save_sent_mail') &&
               $prefs->getValue('save_sent_mail')))) {
@@ -884,9 +884,9 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
             /* Generate the message string. */
             $fcc = $save_msg->toString(array('defserver' => $session->get('imp', 'maildomain'), 'headers' => $headers, 'stream' => true));
 
-            /* Make sure sent folder is created. */
-            $sent_folder = IMP_Mailbox::get($opts['sent_folder']);
-            $sent_folder->create();
+            /* Make sure sent mailbox is created. */
+            $sent_mail = IMP_Mailbox::get($opts['sent_mail']);
+            $sent_mail->create();
 
             $flags = array(Horde_Imap_Client::FLAG_SEEN);
 
@@ -899,9 +899,9 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
             }
 
             try {
-                $injector->getInstance('IMP_Factory_Imap')->create()->append($sent_folder, array(array('data' => $fcc, 'flags' => $flags)));
+                $injector->getInstance('IMP_Factory_Imap')->create()->append($sent_mail, array(array('data' => $fcc, 'flags' => $flags)));
             } catch (IMP_Imap_Exception $e) {
-                $notification->push(sprintf(_("Message sent successfully, but not saved to %s."), $sent_folder->display));
+                $notification->push(sprintf(_("Message sent successfully, but not saved to %s."), $sent_mail->display));
                 $sent_saved = false;
             }
         }
@@ -2999,7 +2999,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
 
             try {
                 $this->_saveDraftServer($data);
-                $GLOBALS['notification']->push(_("A message you were composing when your session expired has been recovered. You may resume composing your message by going to your Drafts folder."));
+                $GLOBALS['notification']->push(_("A message you were composing when your session expired has been recovered. You may resume composing your message by going to your Drafts mailbox."));
             } catch (IMP_Compose_Exception $e) {}
         }
     }

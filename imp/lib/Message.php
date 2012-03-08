@@ -120,8 +120,7 @@ class IMP_Message
     }
 
     /**
-     * Deletes a list of messages taking into account whether or not a
-     * Trash folder is being used.
+     * Deletes a list of messages.
      * Handles search and Trash mailboxes.
      *
      * @param IMP_Indices $indices  An indices object.
@@ -156,13 +155,13 @@ class IMP_Message
 
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
-        /* Check for Trash folder. */
-        $no_expunge = $use_trash_folder = $use_vtrash = false;
+        /* Check for Trash mailbox. */
+        $no_expunge = $use_trash_mbox = $use_vtrash = false;
         if ($use_trash &&
             empty($opts['nuke']) &&
             $imp_imap->access(IMP_Imap::ACCESS_TRASH)) {
             $use_vtrash = $trash->vtrash;
-            $use_trash_folder = !$use_vtrash;
+            $use_trash_mbox = !$use_vtrash;
         }
 
         /* Check whether we are marking messages as seen.
@@ -172,22 +171,22 @@ class IMP_Message
         $mark_seen = empty($opts['nuke']) &&
                      ($use_vtrash || $prefs->getValue('delete_mark_seen'));
 
-        if ($use_trash_folder && !$trash->create()) {
-            /* If trash folder could not be created, just mark message as
+        if ($use_trash_mbox && !$trash->create()) {
+            /* If trash mailbox could not be created, just mark message as
              * deleted. */
             $no_expunge = true;
-            $return_value = $use_trash_folder = false;
+            $return_value = $use_trash_mbox = false;
         }
 
         foreach ($indices as $ob) {
             try {
                 if (!$ob->mbox->access_deletemsgs) {
-                    throw new IMP_Exception(_("This folder is read-only."));
+                    throw new IMP_Exception(_("This mailbox is read-only."));
                 }
 
                 $ob->mbox->uidvalid;
             } catch (IMP_Exception $e) {
-                $notification->push(sprintf(_("There was an error deleting messages from the folder \"%s\"."), $ob->mbox->display) . ' ' . $e->getMessage(), 'horde.error');
+                $notification->push(sprintf(_("There was an error deleting messages from the mailbox \"%s\"."), $ob->mbox->display) . ' ' . $e->getMessage(), 'horde.error');
                 $return_value = false;
                 continue;
             }
@@ -200,7 +199,7 @@ class IMP_Message
             $ids_ob = $imp_imap->getIdsOb($ob->uids);
 
             /* Trash is only valid for IMAP mailboxes. */
-            if ($use_trash_folder && ($ob->mbox != $trash)) {
+            if ($use_trash_mbox && ($ob->mbox != $trash)) {
                 if ($ob->mbox->access_expunge) {
                     try {
                         if ($mark_seen) {
@@ -625,7 +624,7 @@ class IMP_Message
         foreach ($indices as $ob) {
             try {
                 if ($ob->mbox->readonly) {
-                    throw new IMP_Exception(_("This folder is read-only."));
+                    throw new IMP_Exception(_("This mailbox is read-only."));
                 }
 
                 $ob->mbox->uidvalid;
@@ -637,7 +636,7 @@ class IMP_Message
 
                 $ajax_queue->flag(reset($action_array), $action, $ob->mbox->getIndicesOb($ob->uids));
             } catch (Exception $e) {
-                $GLOBALS['notification']->push(sprintf(_("There was an error flagging messages in the folder \"%s\": %s."), $ob->mbox->display, $e->getMessage()), 'horde.error');
+                $GLOBALS['notification']->push(sprintf(_("There was an error flagging messages in the mailbox \"%s\": %s."), $ob->mbox->display, $e->getMessage()), 'horde.error');
                 $ret = false;
             }
         }
@@ -769,7 +768,7 @@ class IMP_Message
         global $notification, $prefs;
 
         $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
-        $trash_folder = ($prefs->getValue('use_trash'))
+        $trash = ($prefs->getValue('use_trash'))
             ? IMP_Mailbox::getPref('trash_folder')
             : null;
 
@@ -794,7 +793,7 @@ class IMP_Message
                     continue;
                 }
 
-                if (!$trash_folder || ($trash_folder == $mbox)) {
+                if (!$trash || ($trash == $mbox)) {
                     $this->flagAllInMailbox(array(Horde_Imap_Client::FLAG_DELETED), array($mbox), true);
                     $this->expungeMailbox(array(strval($mbox) => 1));
                 } else {

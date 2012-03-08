@@ -8,7 +8,7 @@
 var ImpCompose = {
     // Variables defined in compose.php:
     //   cancel_url, cursor_pos, editor_wait, last_msg, max_attachments,
-    //   popup, redirect, reloaded, sc_submit, smf_check, skip_spellcheck,
+    //   popup, redirect, reloaded, sc_submit, sm_check, skip_spellcheck,
     //   spellcheck
     display_unload_warning: true,
 
@@ -37,17 +37,17 @@ var ImpCompose = {
             next = ImpComposeBase.identities[id],
             bcc = $('bcc'),
             save = $('ssm'),
-            smf = $('sent_mail_folder'),
+            sm = $('sent_mail'),
             re;
 
-        if (this.smf_check) {
-            smf.setValue(next.smf_name);
+        if (this.sm_check) {
+            sm.setValue(next.sm_name);
         } else {
-            smf.update(next.smf_display);
+            sm.update(next.sm_display);
         }
 
         if (save) {
-            save.setValue(next.smf_save);
+            save.setValue(next.sm_save);
         }
         if (bcc) {
             bccval = $F(bcc);
@@ -249,7 +249,7 @@ var ImpCompose = {
             this.changeIdentity(elt);
             break;
 
-        case 'sent_mail_folder':
+        case 'sent_mail':
             $('ssm').writeAttribute('checked', 'checked');
             break;
 
@@ -314,7 +314,7 @@ var ImpCompose = {
             document.observe('SpellChecker:noerror', this._onNoErrorSpellCheck.bind(this));
 
             if (Prototype.Browser.IE) {
-                $('identity', 'sentmail_folder', 'upload_1').compact().invoke('observe', 'change', this.changeHandler.bindAsEventListener(this));
+                $('identity', 'sent_mail', 'upload_1').compact().invoke('observe', 'change', this.changeHandler.bindAsEventListener(this));
             } else {
                 document.observe('change', this.changeHandler.bindAsEventListener(this));
             }

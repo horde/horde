@@ -51,7 +51,7 @@ table.messageList .sortup, table.messageList .sortdown {
 }
 
 /* Message list table styles. */
-.searchfolder a.smallheader {
+.searchmbox a.smallheader {
     display: block;
 }
 .messageList {
@@ -239,7 +239,7 @@ div.partsTreeDiv span span:last-child {
     padding: 3px;
 }
 
-#no_search_criteria, #no_search_folders {
+#no_search_criteria, #no_search_mboxes {
     font-weight: bold;
     padding: 3px;
 }
@@ -290,18 +290,8 @@ div.partsTreeDiv span span:last-child {
     background-image: url("graphics/calendar.png");
 }
 
-.searchuiFoldersActions {
-    font-size: 90%;
-    margin-left: 10px;
-}
-.searchuiFoldersActions a {
-    color: #366;
-}
 .searchuiButtons {
     padding-top: 5px;
-}
-.signedinvalid td .signature {
-    color: #999;
 }
 
 /* Folder view. */
@@ -335,7 +325,7 @@ span.trashImg {
     background-image: url("graphics/folders/trash.png");
 }
 
-.folderunsub {
+.mboxunsub {
     background: #bbb;
     font-style: italic;
 }
@@ -386,9 +376,6 @@ span.trashImg {
 
 .folders {
     font-size: 100%;
-}
-.folderselect {
-    padding-top: 5px;
 }
 .seen {
     background: #fff;

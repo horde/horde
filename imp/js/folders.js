@@ -1,5 +1,5 @@
 /**
- * Provides the javascript for the compose.php script (standard view).
+ * Provides the javascript for the folders tree view (standard view).
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -12,25 +12,25 @@ var ImpFolders = {
 
     getChecked: function()
     {
-        return this.getFolders().findAll(function(e) {
+        return this.getMboxes().findAll(function(e) {
             return e.checked;
         });
     },
 
-    getFolders: function()
+    getMboxes: function()
     {
-        return $('fmanager').getInputs(null, 'folder_list[]');
+        return $('fmanager').getInputs(null, 'mbox_list[]');
     },
 
-    selectedFoldersDisplay: function()
+    selectedMboxesDisplay: function()
     {
-        var folder = 0, sel = "";
+        var mbox = 0, sel = "";
 
-        this.getFolders().each(function(e) {
+        this.getMboxes().each(function(e) {
             if (e.checked) {
-                sel += this.displayNames[folder] + "\n";
+                sel += this.displayNames[mbox] + "\n";
             }
-            ++folder;
+            ++mbox;
         }, this);
 
         return sel.strip();
@@ -44,7 +44,7 @@ var ImpFolders = {
         a.selectedIndex = 0;
 
         switch (action) {
-        case 'create_folder':
+        case 'create_mbox':
             this.createMailbox();
             break;
 
@@ -61,12 +61,12 @@ var ImpFolders = {
             }
 
             switch (action) {
-            case 'rename_folder':
+            case 'rename_mbox':
                 this.renameMailbox();
                 break;
 
-            case 'download_folder':
-            case 'download_folder_zip':
+            case 'download_mbox':
+            case 'download_mbox_zip':
                 this.downloadMailbox(action);
                 break;
 
@@ -101,18 +101,18 @@ var ImpFolders = {
         }
 
         mbox = (count == 1)
-            ? window.prompt(IMP.text.folders_subfolder1 + ' ' + this.selectedFoldersDisplay() + ".\n" + IMP.text.folders_subfolder2 + "\n", '')
+            ? window.prompt(IMP.text.folders_subfolder1 + ' ' + this.selectedMboxesDisplay() + ".\n" + IMP.text.folders_subfolder2 + "\n", '')
             : window.prompt(IMP.text.folders_toplevel, '');
 
         if (mbox) {
             $('new_mailbox').setValue(mbox);
-            this.submitAction('create_folder');
+            this.submitAction('create_mbox');
         }
     },
 
     downloadMailbox: function(actionid)
     {
-        if (window.confirm(IMP.text.folders_download1 + "\n" + this.selectedFoldersDisplay() + "\n" + IMP.text.folders_download2)) {
+        if (window.confirm(IMP.text.folders_download1 + "\n" + this.selectedMboxesDisplay() + "\n" + IMP.text.folders_download2)) {
             this.submitAction(actionid);
         }
     },
@@ -121,9 +121,9 @@ var ImpFolders = {
     {
         var newnames = '', oldnames = '', j = 0;
 
-        this.getFolders().each(function(f) {
+        this.getMboxes().each(function(f) {
             if (f.checked) {
-                if (IMP.conf.fixed_folders.indexOf(this.displayNames[j]) != -1) {
+                if (IMP.conf.fixed_mboxes.indexOf(this.displayNames[j]) != -1) {
                     window.alert(IMP.text.folders_no_rename + ' ' + this.displayNames[j]);
                 } else {
                     var tmp = window.prompt(IMP.text.folders_rename1 + ' ' + this.displayNames[j] + "\n" + IMP.text.folders_rename2, this.fullNames[j] ? this.fullNames[j] : this.displayNames[j]);
@@ -139,15 +139,16 @@ var ImpFolders = {
         if (newnames) {
             $('new_names').setValue(newnames.strip());
             $('old_names').setValue(oldnames.strip());
-            this.submitAction('rename_folder');
+            this.submitAction('rename_mbox');
         }
     },
 
     toggleSelection: function()
     {
-        var count = this.getChecked().size(), folders = this.getFolders(),
-            checked = (count != folders.size());
-        folders.each(function(f) {
+        var count = this.getChecked().size(),
+            mboxes = this.getMboxes(),
+            checked = (count != mboxes.size());
+        mboxes.each(function(f) {
             f.checked = checked;
         });
     },

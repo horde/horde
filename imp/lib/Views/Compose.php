@@ -91,12 +91,12 @@ class IMP_Views_Compose
 
                 if (!empty($conf['user']['select_sentmail_folder']) &&
                     !$prefs->isLocked('sent_mail_folder')) {
-                    /* Check to make sure the sent-mail folders are created -
+                    /* Check to make sure the sent-mail mailboxes are created;
                      * they need to exist to show up in drop-down list. */
                     foreach (array_keys($identity->getAll('id')) as $ident) {
-                        $folder = $identity->getValue('sent_mail_folder', $ident);
-                        if ($folder instanceof IMP_Mailbox) {
-                            $folder->create();
+                        $mbox = $identity->getValue('sent_mail_folder', $ident);
+                        if ($mbox instanceof IMP_Mailbox) {
+                            $mbox->create();
                         }
                     }
 

@@ -1,5 +1,5 @@
 /**
- * Provides the javascript for managing folders.
+ * Provides the javascript for managing the folder view preferences.
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -8,27 +8,27 @@
 var ImpFolderPrefs = {
 
     // Variables defined by other code: origtext, sentmail
-    folders: {},
+    mboxes: {},
 
-    newFolderName: function(e)
+    newMboxName: function(e)
     {
-        var folder, tmp,
+        var mbox, tmp,
             f = e.element(),
             id = f.identify(),
-            txt = this.folders.get(id),
-            newfolder = $(id + '_new'),
+            txt = this.mboxes.get(id),
+            newmbox = $(id + '_new'),
             sel = $(f[f.selectedIndex]);
 
-        if (sel.hasClassName('flistCreate') && !newfolder) {
-            folder = window.prompt(txt, '');
-            if (folder && !folder.empty()) {
-                if (!newfolder) {
-                    newfolder = new Element('INPUT', { id: id + '_new', name: id + '_new', type: 'hidden' });
-                    f.insert({ after: newfolder });
+        if (sel.hasClassName('flistCreate') && !newmbox) {
+            mbox = window.prompt(txt, '');
+            if (mbox && !mbox.empty()) {
+                if (!newmbox) {
+                    newmbox = new Element('INPUT', { id: id + '_new', name: id + '_new', type: 'hidden' });
+                    f.insert({ after: newmbox });
                 }
-                newfolder.setValue(folder);
+                newmbox.setValue(mbox);
                 this.origtext = sel.text;
-                sel.update(sel.text + ' [' + folder + ']');
+                sel.update(sel.text + ' [' + mbox + ']');
             }
         }
     },
@@ -37,10 +37,10 @@ var ImpFolderPrefs = {
     {
         switch (e.memo.pref) {
         case 'sentmailselect':
-            $('sent_mail_folder').setValue(this.sentmail[e.memo.i]);
+            $('sent_mail').setValue(this.sentmail[e.memo.i]);
             if (this.origtext) {
-                $('sent_mail_folder_new').remove();
-                $('sent_mail_folder').down('.flistCreate').update(this.origtext);
+                $('sent_mail_new').remove();
+                $('sent_mail').down('.flistCreate').update(this.origtext);
                 delete this.origtext;
             }
             break;
@@ -49,10 +49,10 @@ var ImpFolderPrefs = {
 
     onDomLoad: function()
     {
-        this.folders = $H(this.folders);
+        this.mboxes = $H(this.mboxes);
 
-        this.folders.keys().each(function(f) {
-            $(f).observe('change', this.newFolderName.bindAsEventListener(this));
+        this.mboxes.keys().each(function(f) {
+            $(f).observe('change', this.newMboxName.bindAsEventListener(this));
         }, this);
     }
 

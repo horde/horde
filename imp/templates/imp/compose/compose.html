@@ -109,11 +109,11 @@
   <td class="item">
    <input id="ssm" type="checkbox" class="checkbox" name="save_sent_mail" <if:ssm_selected>checked="checked" </if:ssm_selected>/>
    <tag:ssm_label />
-<if:ssm_folders>
-   <select tabindex="<tag:ssm_tabindex />" id="sent_mail_folder" name="sent_mail_folder"><tag:ssm_folders /></select>
-<else:ssm_folders>
-   <span id="sent_mail_folder"><tag:ssm_folder /></span>
-</else:ssm_folders></if:ssm_folders>
+<if:ssm_mboxes>
+   <select tabindex="<tag:ssm_tabindex />" id="sent_mail" name="sent_mail"><tag:ssm_mboxes /></select>
+<else:ssm_mboxes>
+   <span id="sent_mail"><tag:ssm_mbox /></span>
+</else:ssm_mboxes></if:ssm_mboxes>
   </td>
  </tr>
 </if:ssm>
