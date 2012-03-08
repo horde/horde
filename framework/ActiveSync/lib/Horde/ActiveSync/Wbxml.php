@@ -527,4 +527,9 @@ class Horde_ActiveSync_Wbxml
         $this->_logger = new Horde_Support_Stub();
     }
 
+    public function getStream()
+    {
+        return $this->_stream;
+    }
+
 }
