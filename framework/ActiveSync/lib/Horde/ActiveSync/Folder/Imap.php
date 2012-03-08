@@ -136,7 +136,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base
         // servers. Hopefully a temporary solution. If this happens we should
         // simply reset the server state, though not yet sure how to indicate
         // this at this point.
-        if (!empty($this->_min)) {
+        if (!empty($this->_min) && count($uids)) {
             if ($uids[0] < $this->_min) {
                 throw new Horde_ActiveSync_Exception_StaleState(
                     'IMAP server has returned all VANISHED UIDs.');
