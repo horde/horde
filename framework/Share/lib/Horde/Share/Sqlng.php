@@ -92,7 +92,7 @@ class Horde_Share_Sqlng extends Horde_Share_Sql
                               $params);
 
         $key = md5(serialize(array($userid, $params)));
-        if (!empty($this->_listcache[$key])) {
+        if (isset($this->_listcache[$key])) {
             return $this->_listcache[$key];
         }
 
