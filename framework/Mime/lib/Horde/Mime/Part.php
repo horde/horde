@@ -579,7 +579,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
       *
       * @param boolean $charset  Append character set information to the end
       *                          of the content type if this is a text/* part?
-      *
+      *`
       * @return string  The mimetype of this part (ex.: text/plain;
       *                 charset=us-ascii) or false.
       */
@@ -1737,7 +1737,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      * @param string $subtype  Specifically search for this subtype.
      *
      * @return mixed  The MIME ID of the main body part, or null if a body
-                      part is not found.
+     *                part is not found.
      */
     public function findBody($subtype = null)
     {
