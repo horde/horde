@@ -178,7 +178,7 @@ class Horde_Core_ActiveSync_Imap_Adapter
             // Initial priming or we don't support QRESYNC.
             // Either way, we need the full message uid list.
             $query = new Horde_Imap_Client_Search_Query();
-            if ($options['sincedate']) {
+            if (!empty($options['sincedate'])) {
                 $query->dateSearch(
                     new Horde_Date($options['sincedate']),
                     Horde_Imap_Client_Search_Query::DATE_SINCE);
@@ -196,8 +196,8 @@ class Horde_Core_ActiveSync_Imap_Adapter
             } else {
                 // No QRESYNC, perform some magic.
                 $uids = $folder->messages();
-                $deleted = array_diff($uids, $search_ret['match']);
-                $changed = array_diff($uids, $deleted);
+                $deleted = array_diff($uids, $search_ret['match']->ids);
+                $changed = $search_ret['match']->ids;
                 // All changes in AS are a change in /seen. Get the flags only
                 // for the messages we think have been changed and set them in
                 // the folder. We don't care about what state the flag is in
@@ -206,7 +206,7 @@ class Horde_Core_ActiveSync_Imap_Adapter
                 // to do this without killing the server.
                 $query = new Horde_Imap_Client_Fetch_Query();
                 $query->flags();
-                $fetch_ret = $imap->fetch($mbox, $query, array('uids' => $changed));
+                $fetch_ret = $imap->fetch($mbox, $query, array('uids' => $search_ret['match']));
                 $flags = array();
                 foreach ($fetch_ret as $uid => $data) {
                     $flags[$uid] = array(

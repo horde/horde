@@ -92,7 +92,13 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base
             if ($uid >= $this->uidnext()) {
                 $this->_added[] = $uid;
             } else {
-                $this->_changed[] = $uid;
+                if ($this->modseq() > 0) {
+                    $this->_changed[] = $uid;
+                } else {
+                    if ($flags[$uid]['read'] != $this->_messages[$uid]['read']) {
+                        $this->_changed[] = $uid;
+                    }
+                }
             }
         }
         $this->_flags = $flags;
@@ -155,10 +161,11 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base
         // If we support QRESYNC, do not bother keeping a cache of messages,
         // since we do not need them.
         if ($this->modseq() == 0) {
-            $this->_messages = array_diff($this->_messages, $this->_removed);
+            $this->_messages = array_diff(array_keys($this->_messages), $this->_removed);
             foreach ($this->_added as $add) {
                 $this->_messages[] = $add;
             }
+            $this->_messages = array_intersect_key($this->_flags, array_flip($this->_messages));
         }
         $this->_removed = array();
         $this->_added = array();
@@ -207,7 +214,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base
      */
     public function messages()
     {
-        return $this->_messages;
+        return array_keys($this->_messages);
     }
 
     /**
