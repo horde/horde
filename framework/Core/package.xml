@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-03-04</date>
- <time>21:35:57</time>
+ <date>2012-03-08</date>
+ <time>02:29:51</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -85,6 +85,7 @@
      <dir name="Core">
       <dir name="ActiveSync">
        <dir name="Imap">
+        <file name="Adapter.php" role="php" />
         <file name="Message.php" role="php" />
        </dir> <!-- /lib/Horde/Core/ActiveSync/Imap -->
        <file name="Connector.php" role="php" />
@@ -1120,6 +1121,7 @@
    <install as="Horde/Core/Translation.php" name="lib/Horde/Core/Translation.php" />
    <install as="Horde/Core/ActiveSync/Connector.php" name="lib/Horde/Core/ActiveSync/Connector.php" />
    <install as="Horde/Core/ActiveSync/Driver.php" name="lib/Horde/Core/ActiveSync/Driver.php" />
+   <install as="Horde/Core/ActiveSync/Imap/Adapter.php" name="lib/Horde/Core/ActiveSync/Imap/Adapter.php" />
    <install as="Horde/Core/ActiveSync/Imap/Message.php" name="lib/Horde/Core/ActiveSync/Imap/Message.php" />
    <install as="Horde/Core/Ajax/Application.php" name="lib/Horde/Core/Ajax/Application.php" />
    <install as="Horde/Core/Ajax/Imple.php" name="lib/Horde/Core/Ajax/Imple.php" />

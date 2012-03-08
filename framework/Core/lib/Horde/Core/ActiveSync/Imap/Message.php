@@ -25,8 +25,17 @@ class Horde_Core_ActiveSync_Imap_Message
      */
     protected $_imap;
 
+    /**
+     * @var Horde_Imap_Client_Data_Envelope
+     */
     protected $_envelope;
-    public $lastBodyPartDecode = null;
+
+    /**
+     * Cache if the last body part was encoded or not.
+     *
+     * @var boolean
+     */
+    protected $_lastBodyPartDecode = null;
 
     /**
      *
@@ -65,7 +74,6 @@ class Horde_Core_ActiveSync_Imap_Message
         $charset = $body->getCharset();
 
         $query = new Horde_Imap_Client_Fetch_Query();
-
         if (empty($this->_envelope)) {
             $query->envelope();
         }
@@ -171,7 +179,7 @@ class Horde_Core_ActiveSync_Imap_Message
                     'stream' => true)
             );
 
-            $part->setContents($body, array('encoding' => $this->lastBodyPartDecode, 'usestream' => true));
+            $part->setContents($body, array('encoding' => $this->_lastBodyPartDecode, 'usestream' => true));
         }
 
         return $part;
@@ -242,7 +250,7 @@ class Horde_Core_ActiveSync_Imap_Message
      * @param integer $id     The ID of the MIME part.
      * @param array $options  Additional options:
      *   - decode: (boolean) Attempt to decode the bodypart on the remote
-     *             server. If successful, sets self::$lastBodyPartDecode to
+     *             server. If successful, sets self::$_lastBodyPartDecode to
      *             the content-type of the decoded data.
      *             DEFAULT: No
      *   - length: (integer) If set, only download this many bytes of the
@@ -258,7 +266,7 @@ class Horde_Core_ActiveSync_Imap_Message
      */
     public function getBodyPart($id, $options)
     {
-        $this->lastBodyPartDecode = null;
+        $this->_lastBodyPartDecode = null;
         $query = new Horde_Imap_Client_Fetch_Query();
         if (!isset($options['length']) || !empty($options['length'])) {
             $bodypart_params = array(
@@ -287,7 +295,7 @@ class Horde_Core_ActiveSync_Imap_Message
         );
 
         if (empty($options['mimeheaders'])) {
-            $this->lastBodyPartDecode = $fetch_res[$this->_uid]->getBodyPartDecode($id);
+            $this->_lastBodyPartDecode = $fetch_res[$this->_uid]->getBodyPartDecode($id);
             return $fetch_res[$this->_uid]->getBodyPart($id);
         } elseif (empty($options['stream'])) {
             return $fetch_res[$this->_uid]->getMimeHeader($id) . $fetch_res[$this->_uid]->getBodyPart($id);
@@ -404,7 +412,7 @@ class Horde_Core_ActiveSync_Imap_Message
     public function isAttachment($mime_type)
     {
         switch ($mime_type) {
-        //case 'text/plain':
+        case 'text/plain':
         case 'application/ms-tnef':
             return false;
         }

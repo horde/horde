@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-03-07</date>
- <time>14:23:06</time>
+ <date>2012-03-08</date>
+ <time>02:29:58</time>
  <version>
   <release>1.2.5</release>
   <api>1.2.0</api>
@@ -55,6 +55,12 @@
        <file name="Collection.php" role="php" />
        <file name="Imap.php" role="php" />
       </dir> <!-- /lib/Horde/ActiveSync/Folder -->
+      <dir name="Imap">
+       <dir name="Adapter">
+        <file name="Base.php" role="php" />
+        <file name="Horde.php" role="php" />
+       </dir> <!-- /lib/Horde/ActiveSync/Imap/Adapter -->
+      </dir> <!-- /lib/Horde/ActiveSync/Imap -->
       <dir name="Message">
        <file name="Appointment.php" role="php" />
        <file name="Attachment.php" role="php" />
@@ -210,6 +216,8 @@
    <install as="Horde/ActiveSync/Folder/Base.php" name="lib/Horde/ActiveSync/Folder/Base.php" />
    <install as="Horde/ActiveSync/Folder/Collection.php" name="lib/Horde/ActiveSync/Folder/Collection.php" />
    <install as="Horde/ActiveSync/Folder/Imap.php" name="lib/Horde/ActiveSync/Folder/Imap.php" />
+   <install as="Horde/ActiveSync/Imap/Adapter/Base.php" name="lib/Horde/ActiveSync/Imap/Adapter/Base.php" />
+   <install as="Horde/ActiveSync/Imap/Adapter/Horde.php" name="lib/Horde/ActiveSync/Imap/Adapter/Horde.php" />
    <install as="Horde/ActiveSync/Message/Appointment.php" name="lib/Horde/ActiveSync/Message/Appointment.php" />
    <install as="Horde/ActiveSync/Message/Attachment.php" name="lib/Horde/ActiveSync/Message/Attachment.php" />
    <install as="Horde/ActiveSync/Message/Attendee.php" name="lib/Horde/ActiveSync/Message/Attendee.php" />
@@ -594,7 +602,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-03-07</date>
+   <date>2012-03-08</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 *
