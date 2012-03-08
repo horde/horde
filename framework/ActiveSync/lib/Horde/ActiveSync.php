@@ -300,7 +300,9 @@ class Horde_ActiveSync
      * @param string $cmd    The command we are requesting.
      * @param string $devId  The device id making the request.
      *
-     * @return boolean
+     * @return string|boolean  false if failed, true if succeeded and response
+     *                         content is wbxml, otherwise the
+     *                         content-type string to send in the response.
      * @throws Horde_ActiveSync_Exception, Horde_ActiveSync_Exception_InvalidRequest
      */
     public function handleRequest($cmd, $devId)
