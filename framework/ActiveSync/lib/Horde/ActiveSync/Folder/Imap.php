@@ -130,14 +130,14 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base
      * @param array $uids  An array of message UIDs that have been expunged.
      * @throws Horde_ActiveSync_Exception_StaleState
      */
-    public function setRemoved($uids)
+    public function setRemoved(array $uids)
     {
         // Protect against HUGE numbers of UIDs from apparently broken(?)
         // servers. Hopefully a temporary solution. If this happens we should
         // simply reset the server state, though not yet sure how to indicate
         // this at this point.
-        if (!empty($this->_status[self::MINUID])) {
-            if ($uids[0] < $this->_status[self::MINUID]) {
+        if (!empty($this->_min)) {
+            if ($uids[0] < $this->_min) {
                 throw new Horde_ActiveSync_Exception_StaleState(
                     'IMAP server has returned all VANISHED UIDs.');
             }
