@@ -1102,57 +1102,66 @@ class Turba_Api extends Horde_Registry_Api
     /**
      * Returns a contact search result.
      *
-     * @param array $names          The search filter values.
-     * @param array $sources        The sources to search in.
-     * @param array $fields         The fields to search on.
-     * @param boolean $matchBegin   Match word boundaries only?
-     * @param boolean $forceSource  Whether to use the specified sources, even
-     *                              if they have been disabled in the
-     *                              preferences?
-     * @param array $returnFields   Only return these fields. Returns all
-     *                              fields if empty.
+     * @param mixed $names  The search filter values.
+     * @param array $opts   Optional parameters:
+     *   - fields: (array) The fields to search on.
+     *             DEFAULT: All fields
+     *   - forceSource: (boolean) Whether to use the specified sources, even
+     *                  if they have been disabled in the preferences?
+     *                  DEFAULT: false
+     *   - matchBegin: (boolean) Match word boundaries only?
+     *                 DEFAULT: false
+     *   - returnFields: Only return these fields. Returns all
+     *                   DEFAULT: Return all fields
+     *   - sources: (array) The sources to search in.
+     *              DEFAULT: All sources
      *
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
-    public function search($names = array(), $sources = array(),
-                           $fields = array(), $matchBegin = false,
-                           $forceSource = false, $returnFields = array())
+    public function search($names = null, array $opts = array())
     {
         global $attributes, $cfgSources, $injector, $prefs;
 
         if (!isset($cfgSources) ||
             !is_array($cfgSources) ||
-            !count($cfgSources)) {
+            !count($cfgSources) ||
+            is_null($names)) {
             return array();
         }
 
         if (!is_array($names)) {
-            $names = is_null($names)
-                ? array()
-                : array($names);
+            $names = array($names);
         }
 
-        if (!$forceSource) {
+        $opts = array_merge(array(
+            'fields' => array(),
+            'forceSource' => false,
+            'matchBegin' => false,
+            'returnFields' => array(),
+            'sources' => array()
+        ), $opts);
+
+        if (!$opts['forceSource']) {
             // Make sure the selected source is activated in Turba.
             $addressbooks = array_keys(Turba::getAddressBooks());
-            foreach (array_keys($sources) as $id) {
-                if (!in_array($sources[$id], $addressbooks)) {
-                    unset($sources[$id]);
+            foreach (array_keys($opts['sources']) as $id) {
+                if (!in_array($opts['sources'][$id], $addressbooks)) {
+                    unset($opts['sources'][$id]);
                 }
             }
         }
 
         // ...and ensure the default source is used as a default.
-        if (!count($sources)) {
-            $sources = array(Turba::getDefaultAddressbook());
+        if (!count($opts['sources'])) {
+            $opts['sources'] = array(Turba::getDefaultAddressbook());
         }
 
         // Read the columns to display from the preferences.
         $sort_columns = Turba::getColumns();
 
         $results = $seen = array();
-        foreach ($sources as $source) {
+        foreach ($opts['sources'] as $source) {
             // Skip invalid sources.
             if (!isset($cfgSources[$source])) {
                 continue;
@@ -1160,9 +1169,9 @@ class Turba_Api extends Horde_Registry_Api
 
             // Skip sources that aren't browseable if the search is empty.
             if (empty($cfgSources[$source]['browse']) &&
-                (!count($names) || (count($names) == 1 && empty($names[0])))) {
-                    continue;
-                }
+                ((count($names) == 1) && empty($names[0]))) {
+                continue;
+            }
 
             $driver = $injector
                 ->getInstance('Turba_Factory_Driver')
@@ -1177,8 +1186,8 @@ class Turba_Api extends Horde_Registry_Api
                 $trimname = trim($name);
                 $criteria = array();
                 if (strlen($trimname)) {
-                    if (isset($fields[$source])) {
-                        foreach ($fields[$source] as $field) {
+                    if (isset($opts['fields'][$source])) {
+                        foreach ($opts['fields'][$source] as $field) {
                             $criteria[$field] = $trimname;
                         }
                     }
@@ -1191,9 +1200,9 @@ class Turba_Api extends Horde_Registry_Api
                     $criteria,
                     Turba::getPreferredSortOrder(),
                     'OR',
-                    $returnFields,
+                    $opts['returnFields'],
                     array(),
-                    $matchBegin
+                    $opts['matchBegin']
                 );
 
                 if (!($search instanceof Turba_List)) {

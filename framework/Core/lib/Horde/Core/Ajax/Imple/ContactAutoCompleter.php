@@ -70,7 +70,11 @@ abstract class Horde_Core_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Aja
         $searchpref = $this->_getAddressbookSearchParams();
 
         try {
-            $res = $GLOBALS['registry']->call('contacts/search', array($str, $searchpref->sources, $searchpref->fields, false, false, array('name', 'email')));
+            $res = $GLOBALS['registry']->call('contacts/search', array($str, array(
+                'fields' => $searchpref->fields,
+                'returnFields' => array('name', 'email'),
+                'sources' => $searchpref->sources
+            )));
         } catch (Horde_Exception $e) {
             Horde::logMessage($e, 'ERR');
             return new Horde_Mail_Rfc822_List();

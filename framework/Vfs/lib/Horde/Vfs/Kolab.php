@@ -522,10 +522,10 @@ class Horde_Vfs_Kolab extends Horde_Vfs_Base
             foreach (array_keys($sources) as $source) {
                 $fields[$source] = array('__uid');
             }
-            $result = $registry->call('contacts/search',
-                                      array('names' => $uid,
-                                            'sources' => array_keys($sources),
-                                            'fields' => $fields));
+            $result = $registry->call('contacts/search', array($uid, array(
+                'fields' => $fields,
+                'sources' => array_keys($sources)
+            )));
             if (!isset($result[$uid])) {
                 throw new Horde_Vfs_Exception('No such contact!');
             }
@@ -548,10 +548,10 @@ class Horde_Vfs_Kolab extends Horde_Vfs_Base
         case 'turba':
             $sources = $registry->call('contacts/sources',
                                        array('writeable' => true));
-            $result = $registry->call('contacts/search',
-                                      array('names' => '',
-                                            'sources' => array_keys($sources),
-                                            'fields' => array()));
+            $result = $registry->call('contacts/search', array('', array(
+                'fields' => array(),
+                'sources' => array_keys($sources)
+            )));
             $uids = array();
             foreach ($result[''] as $contact) {
                 if (isset($contact['__uid'])) {

@@ -45,18 +45,14 @@ class IMP_Ui_Imageview
         $from = $contents->getHeader()->getOb('from');
 
         if ($session->get('imp', 'csearchavail')) {
-            $sparams = IMP::getAddressbookSearchParams();
-            $apiargs = array(
-                $from->bare_addresses,
-                $sparams['sources'],
-                $sparams['fields'],
-                false,
-                false,
-                array('email')
-            );
-
             $ajax = new IMP_Ajax_Imple_ContactAutoCompleter();
-            $res = $ajax->parseContactsSearch($registry->call('contacts/search', $apiargs));
+            $sparams = IMP::getAddressbookSearchParams();
+
+            $res = $ajax->parseContactsSearch($registry->call('contacts/search', $from->bare_addresses, array(
+                'fields' => $sparams['fields'],
+                'returnFields' => array('email'),
+                'sources' => $sparams['sources']
+            )));
 
             // Don't allow personal addresses by default - this is the only
             // e-mail address a Spam sender for sure knows you will recognize

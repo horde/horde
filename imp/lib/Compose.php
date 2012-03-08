@@ -1145,17 +1145,13 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
 
         /* Filter out anyone that matches an email address already
          * in the address book. */
-        $search_args = array(
-            $recipients->bare_addresses,
-            array($abook),
-            array($abook => array('email')),
-            true,
-            false,
-            array('email')
-        );
-
         try {
-            $results = $registry->call('contacts/search', $search_args);
+            $results = $registry->call('contacts/search', array($recipients->bare_addresses, array(
+                'fields' => array($abook => array('email')),
+                'matchBegin' => true,
+                'returnFields' => array('email'),
+                'sources' => array($abook)
+            )));
         } catch (Horde_Exception $e) {
             Horde::logMessage($e, 'ERR');
             $notification->push(_("Could not save recipients."));
