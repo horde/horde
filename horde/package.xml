@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-12-13</date>
- <time>12:48:26</time>
+ <date>2012-03-08</date>
+ <time>20:12:41</time>
  <version>
   <release>5.0.0</release>
   <api>5.0.0</api>
@@ -363,6 +363,7 @@
     <file name="colorpicker.js" role="horde" />
     <file name="contextsensitive.js" role="horde" />
     <file name="controls.js" role="horde" />
+    <file name="dialog.js" role="horde" />
     <file name="dragdrop.js" role="horde" />
     <file name="dragdrop2.js" role="horde" />
     <file name="effects.js" role="horde" />
@@ -2109,6 +2110,7 @@
       <file name="za.png" role="horde" />
      </dir> <!-- /themes/silver/graphics -->
      <file name="info.php" role="horde" />
+     <file name="rtl.css" role="horde" />
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/silver -->
     <dir name="tango-blue">
@@ -2646,6 +2648,7 @@
    <install as="js/colorpicker.js" name="js/colorpicker.js" />
    <install as="js/contextsensitive.js" name="js/contextsensitive.js" />
    <install as="js/controls.js" name="js/controls.js" />
+   <install as="js/dialog.js" name="js/dialog.js" />
    <install as="js/dragdrop.js" name="js/dragdrop.js" />
    <install as="js/dragdrop2.js" name="js/dragdrop2.js" />
    <install as="js/effects.js" name="js/effects.js" />
@@ -4090,6 +4093,7 @@
    <install as="themes/kolab/graphics/kolab.png" name="themes/kolab/graphics/kolab.png" />
    <install as="themes/kolab/graphics/kolablogo.png" name="themes/kolab/graphics/kolablogo.png" />
    <install as="themes/silver/info.php" name="themes/silver/info.php" />
+   <install as="themes/silver/rtl.css" name="themes/silver/rtl.css" />
    <install as="themes/silver/screen.css" name="themes/silver/screen.css" />
    <install as="themes/silver/graphics/about.png" name="themes/silver/graphics/about.png" />
    <install as="themes/silver/graphics/add_group.png" name="themes/silver/graphics/add_group.png" />
