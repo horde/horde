@@ -337,12 +337,12 @@ var DimpCore = {
         document.observe('click', DimpCore.clickHandler.bindAsEventListener(DimpCore));
 
         /* Catch dialog actions. */
-        document.observe('IMPDialog:success', function(e) {
+        document.observe('HordeDialog:success', function(e) {
             switch (e.memo) {
             case 'pgpPersonal':
             case 'pgpSymmetric':
             case 'smimePersonal':
-                IMPDialog.noreload = true;
+                HordeDialog.noreload = true;
                 this.reloadMessage({});
                 break;
             }

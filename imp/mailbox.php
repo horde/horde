@@ -389,9 +389,9 @@ if (IMP::mailbox()->editvfolder) {
     $pagetitle = $title = htmlspecialchars($title);
 }
 
-Horde::addScriptFile('dialog.js', 'imp');
 Horde::addScriptFile('effects.js', 'horde');
 Horde::addScriptFile('redbox.js', 'horde');
+Horde::addScriptFile('dialog.js', 'horde');
 Horde::addScriptFile('mailbox.js', 'imp');
 
 $menu = IMP::menu();

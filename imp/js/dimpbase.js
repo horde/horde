@@ -958,7 +958,7 @@ var DimpBase = {
                 zip: Number(id == 'ctx_mbox_export_zip')
             }));
 
-            IMPDialog.display({
+            HordeDialog.display({
                 cancel_text: DIMP.text.cancel,
                 noinput: true,
                 ok_text: DIMP.text.ok,
@@ -969,7 +969,7 @@ var DimpBase = {
         case 'ctx_mbox_import':
             tmp = e.findElement('LI').retrieve('mbox');
 
-            IMPDialog.display({
+            HordeDialog.display({
                 cancel_text: DIMP.text.cancel,
                 form: new Element('DIV').insert(
                           new Element('INPUT', { name: 'import_file', type: 'file' })
@@ -2797,7 +2797,7 @@ var DimpBase = {
 
         case 'delete':
             this.viewaction = DimpCore.doAction.bind(DimpCore, 'deleteMailbox', { mbox: params.elt.retrieve('mbox') });
-            IMPDialog.display({
+            HordeDialog.display({
                 cancel_text: DIMP.text.cancel,
                 noinput: true,
                 ok_text: DIMP.text.ok,
@@ -2807,7 +2807,7 @@ var DimpBase = {
 
         case 'empty':
             this.viewaction = DimpCore.doAction.bind(DimpCore, 'emptyMailbox', { mbox: params.elt.retrieve('mbox') });
-            IMPDialog.display({
+            HordeDialog.display({
                 cancel_text: DIMP.text.cancel,
                 noinput: true,
                 ok_text: DIMP.text.ok,
@@ -2825,7 +2825,7 @@ var DimpBase = {
     _createMboxForm: function(action, text, val)
     {
         this.viewaction = action;
-        IMPDialog.display({
+        HordeDialog.display({
             cancel_text: DIMP.text.cancel,
             input_val: val,
             ok_text: DIMP.text.ok,
@@ -3797,8 +3797,8 @@ document.observe('DragDrop2:end', DimpBase.onDragEnd.bindAsEventListener(DimpBas
 document.observe('DragDrop2:mousedown', DimpBase.onDragMouseDown.bindAsEventListener(DimpBase));
 document.observe('DragDrop2:mouseup', DimpBase.onDragMouseUp.bindAsEventListener(DimpBase));
 
-/* IMPDialog listener. */
-document.observe('IMPDialog:onClick', function(e) {
+/* HordeDialog listener. */
+document.observe('HordeDialog:onClick', function(e) {
     switch (e.element().identify()) {
     case 'RB_confirm':
         this.viewaction(e.memo);

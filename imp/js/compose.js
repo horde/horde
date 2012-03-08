@@ -396,12 +396,12 @@ Event.observe(window, 'beforeunload', ImpCompose.onBeforeUnload.bind(ImpCompose)
 document.observe('ImpContacts:update', ImpCompose.onContactsUpdate.bindAsEventListener(ImpCompose));
 
 /* Catch dialog actions. */
-document.observe('IMPDialog:success', function(e) {
+document.observe('HordeDialog:success', function(e) {
     switch (e.memo) {
     case 'pgpPersonal':
     case 'pgpSymmetric':
     case 'smimePersonal':
-        IMPDialog.noreload = true;
+        HordeDialog.noreload = true;
         ImpCompose.uniqSubmit('send_message');
         break;
     }

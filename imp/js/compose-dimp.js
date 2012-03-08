@@ -1202,12 +1202,12 @@ DimpCore.contextOnClick = DimpCore.contextOnClick.wrap(DimpCompose.contextOnClic
 DimpCore.clickHandler = DimpCore.clickHandler.wrap(DimpCompose.clickHandler.bind(DimpCompose));
 
 /* Catch dialog actions. */
-document.observe('IMPDialog:success', function(e) {
+document.observe('HordeDialog:success', function(e) {
     switch (e.memo) {
     case 'pgpPersonal':
     case 'pgpSymmetric':
     case 'smimePersonal':
-        IMPDialog.noreload = true;
+        HordeDialog.noreload = true;
         DimpCompose.retrySubmit();
         break;
     }

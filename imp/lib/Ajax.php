@@ -58,8 +58,8 @@ class IMP_Ajax extends Horde_Core_Ajax
             if (!$prefs->isLocked('default_encrypt') &&
                 ($prefs->getValue('use_pgp') ||
                  $prefs->getValue('use_smime'))) {
-                Horde::addScriptFile('dialog.js', 'imp');
                 Horde::addScriptFile('redbox.js', 'horde');
+                Horde::addScriptFile('dialog.js', 'horde');
             }
 
             $this->_addComposeVars();
@@ -67,7 +67,6 @@ class IMP_Ajax extends Horde_Core_Ajax
 
         case 'main':
             Horde::addScriptFile('dimpbase.js', 'imp');
-            Horde::addScriptFile('dialog.js', 'imp');
             Horde::addScriptFile('imp.js', 'imp');
             Horde::addScriptFile('imageunblock.js', 'imp');
             Horde::addScriptFile('itiprequest.js', 'imp');
@@ -77,6 +76,7 @@ class IMP_Ajax extends Horde_Core_Ajax
             Horde::addScriptFile('dragdrop2.js', 'horde');
             Horde::addScriptFile('form_ghost.js', 'horde');
             Horde::addScriptFile('redbox.js', 'horde');
+            Horde::addScriptFile('dialog.js', 'horde');
             Horde::addScriptFile('slider2.js', 'horde');
             Horde::addScriptFile('toggle_quotes.js', 'horde');
 
@@ -107,8 +107,8 @@ class IMP_Ajax extends Horde_Core_Ajax
                 if (!$prefs->isLocked('default_encrypt') &&
                     ($prefs->getValue('use_pgp') ||
                      $prefs->getValue('use_smime'))) {
-                    Horde::addScriptFile('dialog.js', 'imp');
                     Horde::addScriptFile('redbox.js', 'horde');
+                    Horde::addScriptFile('dialog.js', 'horde');
                 }
 
                 $this->_addComposeVars();

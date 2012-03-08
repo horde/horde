@@ -132,7 +132,7 @@ var ImpMailbox = {
             } else if (target.startsWith("notepad\0") ||
                        target.startsWith("tasklist\0")) {
                 this.actIDconfirm = actID;
-                IMPDialog.display({
+                HordeDialog.display({
                     cancel_text: this.text.no,
                     form_id: 'RB_ImpMailboxConfirm',
                     noinput: true,
@@ -302,7 +302,7 @@ var ImpMailbox = {
 
             case 'delete_vfolder':
                 this.lastclick = elt.readAttribute('href');
-                IMPDialog.display({
+                HordeDialog.display({
                     cancel_text: this.text.no,
                     form_id: 'RB_ImpMailbox',
                     noinput: true,
@@ -314,7 +314,7 @@ var ImpMailbox = {
 
             case 'empty_mailbox':
                 this.lastclick = elt.readAttribute('href');
-                IMPDialog.display({
+                HordeDialog.display({
                     cancel_text: this.text.no,
                     form_id: 'RB_ImpMailbox',
                     noinput: true,
@@ -439,7 +439,7 @@ document.observe('dom:loaded', function() {
     }
 });
 
-document.observe('IMPDialog:onClick', function(e) {
+document.observe('HordeDialog:onClick', function(e) {
     switch (e.element().identify()) {
     case 'RB_ImpMailbox':
         window.location = this.lastclick;
