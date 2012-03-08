@@ -443,7 +443,7 @@ class IMP_Imap implements Serializable
     /**
      * Prepares an IMAP search query.  Needed because certain configuration
      * parameters may need to be dynamically altered before passed to the
-     * IMAP Client object.
+     * Imap_Client object.
      *
      * @param string $mailbox                        The mailbox to search.
      * @param Horde_Imap_Client_Search_Query $query  The search query object.
@@ -451,7 +451,7 @@ class IMP_Imap implements Serializable
      *
      * @return array  Parameters to use in the search() call.
      */
-    protected function _search($mailbox, $query, $opts)
+    protected function _search($mailbox, $query = null, array $opts = array())
     {
         $imap_charset = null;
 
@@ -482,7 +482,7 @@ class IMP_Imap implements Serializable
         }
 
         /* Make sure we search in the proper charset. */
-        if ($query) {
+        if (!is_null($query)) {
             $query = clone $query;
             if (is_null($imap_charset)) {
                 $imap_charset = $this->validSearchCharset('UTF-8')
