@@ -25,6 +25,7 @@ abstract class Horde_Core_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Aja
             'ajax' => 'ContactAutoCompleter',
             'params' => $js_params,
             'raw_params' => array(
+                'onSelect' => 'function (v) { return v + ", "; }',
                 'onType' => 'function (e) { return e.include("<") ? "" : e; }'
             )
         );
