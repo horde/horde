@@ -42,15 +42,15 @@ if (!isset($vars->source) || !isset($source_list[$vars->source])) {
 
 $a_list = array();
 if ($vars->searched || $prefs->getValue('display_contact')) {
-    $ajax = new IMP_Ajax_Imple_ContactAutoCompleter();
     $search_params = IMP::getAddressbookSearchParams();
-    $csearch = $registry->call('contacts/search', array($vars->search, array(
+    $csearch = $registry->call('contacts/search', array($vars->get('search', ''), array(
         'fields' => $search_params['fields'],
-        'returnFields' => array('name', 'email'),
+        'returnFields' => array('email', 'name'),
+        'rfc822Return' => true,
         'sources' => array($vars->source)
     )));
 
-    foreach ($ajax->parseContactsSearch($csearch) as $val) {
+    foreach ($csearch as $val) {
         $a_list[] = htmlspecialchars(strval($val), ENT_QUOTES, 'UTF-8');
     }
 }

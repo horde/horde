@@ -1150,6 +1150,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
                 'fields' => array($abook => array('email')),
                 'matchBegin' => true,
                 'returnFields' => array('email'),
+                'rfc822Return' => true,
                 'sources' => array($abook)
             )));
         } catch (Horde_Exception $e) {
@@ -1158,7 +1159,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
             return;
         }
 
-        $recipients->setIteratorFilter(0, array_keys($results));
+        $recipients->setIteratorFilter(0, $results);
         foreach ($recipients as $recipient) {
             $name = is_null($recipient->personal)
                 ? $recipient->mailbox
