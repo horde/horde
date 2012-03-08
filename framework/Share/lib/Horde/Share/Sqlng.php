@@ -92,8 +92,8 @@ class Horde_Share_Sqlng extends Horde_Share_Sql
                               $params);
 
         $key = md5(serialize(array($userid, $params)));
-        if (isset($this->_listcache[$key])) {
-            return is_array($this->_listcache[$key]) ? $this->_listcache : array();
+        if (!empty($this->_listcache[$key])) {
+            return $this->_listcache[$key];
         }
 
         $perms = $this->convertBitmaskToArray($params['perm']);
@@ -134,7 +134,7 @@ class Horde_Share_Sqlng extends Horde_Share_Sql
         if (!empty($this->_callbacks['list'])) {
             $sharelist = $this->runCallback('list', array($userid, $sharelist, $params));
         }
-        $this->_listcache[$key] = empty($sharelist) ? false : $sharelist;
+        $this->_listcache[$key] = $sharelist;
 
         return $this->_listcache[$key];
     }
