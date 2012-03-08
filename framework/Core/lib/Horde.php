@@ -141,12 +141,9 @@ class Horde
      *
      * @param mixed $error   Either a string or an object with a getMessage()
      *                       method (e.g. PEAR_Error, Exception).
-     * @param integer $file  The file in which the error occured.
-     * @param integer $line  The line on which the error occured.
-     * @param boolean $log   Log this message via logMessage()?
+     * @param boolean $log   Log this message?
      */
-    static public function fatal($error, $file = null, $line = null,
-                                 $log = true)
+    static public function fatal($error, $log = true)
     {
         // Log the error via logMessage() if requested.
         if ($log) {
