@@ -480,4 +480,15 @@ class Horde_Mail_ListTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    public function testContains()
+    {
+        $email = 'Test <test@example.com>, Group: foo@example.com, Foo 2 <foo2@example.com>;, Test2 <test2@example.com>';
+
+        $res = $this->rfc822->parseAddressList($email);
+
+        $this->assertTrue($res->contains('test@example.com'));
+        $this->assertTrue($res->contains('foo2@example.com'));
+        $this->assertFalse($res->contains('foo4@example.com'));
+    }
+
 }

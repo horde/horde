@@ -221,17 +221,14 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
         ));
         $base->isBasePart(true);
 
-        if ($has_session) {
-            foreach (array('to', 'cc', 'bcc') as $v) {
-                if (isset($headers[$v])) {
-                    try {
-                        IMP::parseAddressList($headers[$v], array(
-                            'validate' => true
-                        ));
-                    } catch (Horde_Mail_Exception $e) {
-                        throw new IMP_Compose_Exception(sprintf(_("Saving the draft failed. The %s header contains an invalid e-mail address: %s."), $v, $e->getMessage()), $e->getCode());
-                    }
-                }
+        $recip_list = $this->recipientList($headers);
+        foreach ($recip_list['list'] as $val) {
+            try {
+                IMP::parseAddressList($val->writeAddress(true), array(
+                    'validate' => true
+                ));
+            } catch (Horde_Mail_Exception $e) {
+                throw new IMP_Compose_Exception(sprintf(_("Saving the draft failed because it contains an invalid e-mail address: %s."), strval($val), $e->getMessage()), $e->getCode());
             }
         }
 
@@ -285,12 +282,12 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
     protected function _saveDraftServer($data)
     {
         if (!$drafts_mbox = IMP_Mailbox::getPref('drafts_folder')) {
-            throw new IMP_Compose_Exception(_("Saving the draft failed. No draft folder specified."));
+            throw new IMP_Compose_Exception(_("Saving the draft failed. No drafts mailbox specified."));
         }
 
-        /* Check for access to drafts folder. */
+        /* Check for access to drafts mailbox. */
         if (!$drafts_mbox->create()) {
-            throw new IMP_Compose_Exception(_("Saving the draft failed. Could not create a drafts folder."));
+            throw new IMP_Compose_Exception(_("Saving the draft failed. Could not create a drafts mailbox."));
         }
 
         $append_flags = array(Horde_Imap_Client::FLAG_DRAFT);
@@ -314,7 +311,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
 
             $this->_metadata['draft_uid'] = $drafts_mbox->getIndicesOb($ids);
             $this->changed = 'changed';
-            return sprintf(_("The draft has been saved to the \"%s\" folder."), $drafts_mbox->display);
+            return sprintf(_("The draft has been saved to the \"%s\" mailbox."), $drafts_mbox->display);
         } catch (IMP_Imap_Exception $e) {
             return _("The draft was not successfully saved.");
         }
@@ -659,7 +656,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
      *   save_sent: (boolean) Save sent mail?
      *  </li>
      *  <li>
-     *   sent_folder: (IMP_Mailbox) The sent-mail folder (UTF-8).
+     *   sent_mail: (IMP_Mailbox) The sent-mail mailbox (UTF-8).
      *  </li>
      *  <li>
      *   save_attachments: (bool) Save attachments with the message?
@@ -673,7 +670,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
      * </ul>
      *
      * @return boolean  Whether the sent message has been saved in the
-     *                  sent-mail folder.
+     *                  sent-mail mailbox.
      *
      * @throws Horde_Exception
      * @throws IMP_Compose_Exception
@@ -849,8 +846,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
         $entry = sprintf("%s Message sent to %s from %s", $_SERVER['REMOTE_ADDR'], $recipients, $registry->getAuth());
         Horde::logMessage($entry, 'INFO');
 
-        /* Should we save this message in the sent mail folder? */
-        if (!empty($opts['sent_folder']) &&
+        /* Should we save this message in the sent mail mailbox? */
+        if (!empty($opts['sent_mail']) &&
             ((!$prefs->isLocked('save_sent_mail') && !empty($opts['save_sent'])) ||
              ($prefs->isLocked('save_sent_mail') &&
               $prefs->getValue('save_sent_mail')))) {
@@ -887,9 +884,9 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
             /* Generate the message string. */
             $fcc = $save_msg->toString(array('defserver' => $session->get('imp', 'maildomain'), 'headers' => $headers, 'stream' => true));
 
-            /* Make sure sent folder is created. */
-            $sent_folder = IMP_Mailbox::get($opts['sent_folder']);
-            $sent_folder->create();
+            /* Make sure sent mailbox is created. */
+            $sent_mail = IMP_Mailbox::get($opts['sent_mail']);
+            $sent_mail->create();
 
             $flags = array(Horde_Imap_Client::FLAG_SEEN);
 
@@ -902,9 +899,9 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
             }
 
             try {
-                $injector->getInstance('IMP_Factory_Imap')->create()->append($sent_folder, array(array('data' => $fcc, 'flags' => $flags)));
+                $injector->getInstance('IMP_Factory_Imap')->create()->append($sent_mail, array(array('data' => $fcc, 'flags' => $flags)));
             } catch (IMP_Imap_Exception $e) {
-                $notification->push(sprintf(_("Message sent successfully, but not saved to %s."), $sent_folder->display));
+                $notification->push(sprintf(_("Message sent successfully, but not saved to %s."), $sent_mail->display));
                 $sent_saved = false;
             }
         }
@@ -1137,38 +1134,42 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
      */
     protected function _saveRecipients(Horde_Mail_Rfc822_List $recipients)
     {
-        global $notification, $prefs, $registry;
+        global $notification, $prefs, $registry, $session;
 
         if (!$prefs->getValue('save_recipients') ||
+            !$session->get('imp', 'csearchavail') ||
             !$registry->hasMethod('contacts/import') ||
-            !$registry->hasMethod('contacts/search') ||
             !($abook = $prefs->getValue('add_source'))) {
             return;
         }
 
         /* Filter out anyone that matches an email address already
          * in the address book. */
+        $search_args = array(
+            $recipients->bare_addresses,
+            array($abook),
+            array($abook => array('email')),
+            true,
+            false,
+            array('email')
+        );
+
         try {
-            $results = $registry->call('contacts/search', array($recipients->bare_addresses, array($abook), array($abook => array('email'))));
+            $results = $registry->call('contacts/search', $search_args);
         } catch (Horde_Exception $e) {
             Horde::logMessage($e, 'ERR');
             $notification->push(_("Could not save recipients."));
             return;
         }
 
+        $recipients->setIteratorFilter(0, array_keys($results));
         foreach ($recipients as $recipient) {
-            /* Skip email addresses that already exist in the add_source. */
-            $tmp = $recipient->bare_address;
-            if (!empty($results[$tmp])) {
-                continue;
-            }
-
             $name = is_null($recipient->personal)
                 ? $recipient->mailbox
                 : $recipient->personal;
 
             try {
-                $registry->call('contacts/import', array(array('name' => $name, 'email' => $tmp), 'array', $abook));
+                $registry->call('contacts/import', array(array('name' => $name, 'email' => $recipient->bare_address), 'array', $abook));
                 $notification->push(sprintf(_("Entry \"%s\" was successfully added to the address book"), $name), 'horde.success');
             } catch (Horde_Exception $e) {
                 if ($e->getCode() == 'horde.error') {
@@ -1579,7 +1580,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
 
             /* Filter out our own address from the addresses we reply to. */
             $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
-            $all_addrs = array_keys($identity->getAllFromAddresses(true));
+            $all_addrs = new Horde_Mail_Rfc822_List(array_keys($identity->getAllFromAddresses(true)));
 
             /* Build the To: header. It is either:
              * 1) the Reply-To address (if not a personal address)
@@ -1593,36 +1594,37 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
                     continue;
                 }
 
-                $ob = $h->getOb($val);
-                $ob->setIteratorFilter(0, $all_addrs);
+                if ($ob = $h->getOb($val)) {
+                    $ob->setIteratorFilter(0, $all_addrs);
 
-                if ($first_ob = $ob[0]) {
-                    if ($first_ob instanceof Horde_Mail_Rfc822_Group) {
-                        $cc_addrs->add($ob);
-                        $all_addrs = array_merge($all_addrs, $ob->addresses->bare_addresses);
-                    } elseif (($val != 'to') ||
-                              is_null($list_info) ||
-                              !$force ||
-                              empty($list_info['exists'])) {
-                        /* Don't add as To address if this is a list that
-                         * doesn't have a post address but does have a
-                         * reply-to address. */
-                        if (in_array($val, array('from', 'reply-to'))) {
-                            /* If from/reply-to doesn't have personal
-                             * information, check from address. */
-                            if (is_null($first_ob->personal) &&
-                                ($to_ob = $h->getOb('from')) &&
-                                !is_null($to_ob[0]->personal) &&
-                                ($to_ob[0]->bare_address != $first_ob->bare_address)) {
-                                $header['to'] = strval($to_ob);
-                            } else {
-                                $header['to'] = strval($first_ob);
-                            }
-                        } else {
+                    if ($first_ob = $ob[0]) {
+                        if ($first_ob instanceof Horde_Mail_Rfc822_Group) {
                             $cc_addrs->add($ob);
-                        }
+                            $all_addrs->add($ob->addresses);
+                        } elseif (($val != 'to') ||
+                                  is_null($list_info) ||
+                                  !$force ||
+                                  empty($list_info['exists'])) {
+                            /* Don't add as To address if this is a list that
+                             * doesn't have a post address but does have a
+                             * reply-to address. */
+                            if (in_array($val, array('from', 'reply-to'))) {
+                                /* If from/reply-to doesn't have personal
+                                 * information, check from address. */
+                                if (is_null($first_ob->personal) &&
+                                    ($to_ob = $h->getOb('from')) &&
+                                    !is_null($to_ob[0]->personal) &&
+                                    ($first_ob->match($to_ob[0]))) {
+                                    $header['to'] = strval($to_ob);
+                                } else {
+                                    $header['to'] = strval($first_ob);
+                                }
+                            } else {
+                                $cc_addrs->add($ob);
+                            }
 
-                        $all_addrs = array_merge($all_addrs, $ob->bare_addresses);
+                            $all_addrs->add($ob);
+                        }
                     }
                 }
             }
@@ -1637,10 +1639,11 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
             $header[empty($header['to']) ? 'to' : 'cc'] = strval($cc_addrs);
 
             /* Build the Bcc: header. */
-            $bcc = $h->getOb('bcc');
-            $bcc->add($identity->getBccAddresses());
-            $bcc->setIteratorFilter(0, $all_addrs);
-            $header['bcc'] = strval($bcc);
+            if ($bcc = $h->getOb('bcc')) {
+                $bcc->add($identity->getBccAddresses());
+                $bcc->setIteratorFilter(0, $all_addrs);
+                $header['bcc'] = strval($bcc);
+            }
         }
 
         if (!$this->_replytype || ($reply_type != $this->_replytype)) {
@@ -2996,7 +2999,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
 
             try {
                 $this->_saveDraftServer($data);
-                $GLOBALS['notification']->push(_("A message you were composing when your session expired has been recovered. You may resume composing your message by going to your Drafts folder."));
+                $GLOBALS['notification']->push(_("A message you were composing when your session expired has been recovered. You may resume composing your message by going to your Drafts mailbox."));
             } catch (IMP_Compose_Exception $e) {}
         }
     }

@@ -42,7 +42,7 @@ class Mnemo_Application extends Horde_Registry_Application
      * Global variables defined:
      *   $mnemo_shares - TODO
      */
-    public function init()
+    protected function _init()
     {
         Mnemo::initialize();
     }

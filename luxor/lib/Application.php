@@ -39,9 +39,8 @@ class Luxor_Application extends Horde_Registry_Application
      * Global variables defined:
      *   $luxor_shares - TODO
      */
-    public function init()
+    protected function _init()
     {
-        // Luxor base libraries.
         Luxor::initialize();
     }
 

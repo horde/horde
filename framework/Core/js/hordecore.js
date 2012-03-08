@@ -5,6 +5,7 @@
  *
  * Events fired:
  *   - HordeCore:doActionComplete
+ *   - HordeCore:runTasks
  *   - HordeCore:showNotifications
  *
  * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
@@ -16,10 +17,12 @@
 var HordeCore = {
 
     // Vars used and defaulting to null/false:
-    //   Growler, inAjaxCallback, is_logout
+    //   Growler, inAjaxCallback, is_logout, submit_frame
     alarms: [],
     base: null,
+    notify_handler: function(m) { HordeCore.showNotifications(m); },
     server_error: 0,
+    submit_frame: [],
 
     doActionOpts: function()
     {
@@ -81,6 +84,28 @@ var HordeCore = {
         $(form).request(ajaxopts);
     },
 
+    handleSubmit: function(form, opts)
+    {
+        form = $(form);
+        opts = opts || {};
+
+        if (this.submit_frame[form.identify()]) {
+            return;
+        }
+
+        var sf = new Element('IFRAME', { name: 'submit_frame', src: 'javascript:false' }).hide();
+        $(document.body).insert(sf);
+        $(form).writeAttribute('target', 'submit_frame');
+
+        sf.observe('load', function(sf) {
+            this.doActionComplete({
+                responseJSON: (sf.contentDocument || sf.contentWindow.document).body.innerHTML.evalJSON(true)
+            }, opts.callback);
+        }.bind(this, sf));
+
+        this.submit_frame[form.identify()] = sf;
+    },
+
     // params: (Hash) URL parameters
     addRequestParams: function(params)
     {
@@ -112,7 +137,7 @@ var HordeCore = {
 
         if (r.response && Object.isFunction(callback)) {
             try {
-                callback(r);
+                callback(r.response);
             } catch (e) {
                 this.debug('doActionComplete', e);
             }
@@ -126,27 +151,25 @@ var HordeCore = {
         }
         this.server_error = 0;
 
-        this.showNotifications(r.msgs);
+        this.notify_handler(r.msgs);
 
-        if (r.response) {
-            document.fire('HordeCore:doActionComplete', r.response);
+        if (r.tasks) {
+            document.fire('HordeCore:runTasks', r.tasks);
         }
+
+        document.fire('HordeCore:doActionComplete');
 
         this.inAjaxCallback = false;
     },
 
-    showNotifications: function(msgs, opts)
+    showNotifications: function(msgs)
     {
         if (!msgs.size() || this.is_logout) {
             return;
         }
 
-        if (opts && opts.base && this.base) {
-            return this.base.HordeCore.showNotifications(msgs);
-        }
-
         if (!this.Growler) {
-            return this.showNotifications.bind(this, msgs, opts).defer();
+            return this.showNotifications.bind(this, msgs).defer();
         }
 
         msgs.find(function(m) {
@@ -251,12 +274,12 @@ var HordeCore = {
         }, this);
     },
 
-    notify: function(msg, type, opts)
+    notify: function(msg, type)
     {
         this.showNotifications([ {
             message: msg,
             type: type
-        } ], opts);
+        } ]);
     },
 
     // url: (string) TODO

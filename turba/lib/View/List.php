@@ -175,14 +175,12 @@ class Turba_View_List implements Countable
         $hasDelete = $driver->hasPermission(Horde_Perms::DELETE);
         $hasEdit = $driver->hasPermission(Horde_Perms::EDIT);
         $hasExport = ($GLOBALS['conf']['menu']['import_export'] && !empty($GLOBALS['cfgSources'][$default_source]['export']));
+        $vars = Horde_Variables::getDefaultVariables();
 
         list($addToList, $addToListSources) = $this->getAddSources();
-        $viewurl = Horde::url('browse.php')->add(array(
-            'key' => Horde_Util::getFormData('key'),
-            'url' => Horde::selfUrl(true, false, true)
-        ));
+
         if ($this->type == 'search') {
-            $page = Horde_Util::getFormData('page', 0);
+            $page = $vars->get('page', 0);
             $numitem = count($this);
             $maxpage = $prefs->getValue('maxpage');
             $perpage = $prefs->getValue('perpage');
@@ -199,40 +197,45 @@ class Turba_View_List implements Countable
             if ($session->get('turba', 'search_mode') == 'advanced') {
                 $map = $driver->getCriteria();
                 foreach ($map as $key => $value) {
-                    if ($key != '__key') {
-                        $val = Horde_Util::getFormData($key);
-                        if (!empty($val)) {
-                            $crit[$key] = $val;
-                        }
+                    if (($key != '__key') && !empty($vars->$key)) {
+                        $crit[$key] = $vars->$key;
                     }
                 }
             }
             $params = array_merge($crit, array(
-                'criteria' => Horde_Util::getFormData('criteria'),
-                'val' => Horde_Util::getFormData('val'),
-                'source' => Horde_Util::getFormData('source', $default_source)
+                'criteria' => $vars->criteria,
+                'val' => $vars->val,
+                'source' => $vars->get('source', $default_source)
             ));
             $viewurl = Horde::url('search.php')->add($params);
-            $vars = Horde_Variables::getDefaultVariables();
-            $pager = new Horde_Core_Ui_Pager('page', $vars,
-                                        array('num' => $numitem,
-                                              'url' => $viewurl,
-                                              'page_limit' => $maxpage,
-                                              'perpage' => $perpage));
+            $pager = new Horde_Core_Ui_Pager('page', $vars, array(
+                'num' => $numitem,
+                'url' => $viewurl,
+                'page_limit' => $maxpage,
+                'perpage' => $perpage
+            ));
             $pagerHeader = 'numPager.inc';
         } else {
-            $page = Horde_Util::getFormData('page', '*');
-            if (!preg_match('/^[A-Za-z*]$/', $page)) {
-                $page = '*';
-            }
             if (count($this) > $prefs->getValue('perpage')) {
-                $page = Horde_Util::getFormData('page', 'A');
+                $page = $vars->get('page', 'A');
                 if (!preg_match('/^[A-Za-z*]$/', $page)) {
                     $page = 'A';
+                }
+            } else {
+                $page = $vars->get('page', '*');
+                if (!preg_match('/^[A-Za-z*]$/', $page)) {
+                    $page = '*';
                 }
             }
             $listHtml = $this->getAlpha($numDisplayed, $page);
             $pagerHeader = 'alphaPager.inc';
+
+            $viewurl = Horde::url('browse.php')->add(array(
+                'show' => $vars->get('show', 'all')
+            ));
+            if (isset($vars->key)) {
+                $viewurl->add('key', $vars->key);
+            }
         }
 
         if ($numDisplayed) {

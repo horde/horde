@@ -1,6 +1,6 @@
 <?php
 /**
- * Logint tasks module that deletes old sent-mail folders.
+ * Logint tasks module that deletes old sent-mail mailboxes.
  *
  * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
  *
@@ -26,43 +26,43 @@ class IMP_LoginTasks_Task_DeleteSentmailMonthly extends Horde_LoginTasks_Task
     }
 
     /**
-     * Purge the old sent-mail folders.
+     * Purge the old sent-mail mailboxes.
      *
-     * @return boolean  Whether any sent-mail folders were deleted.
+     * @return boolean  Whether any mailboxes were deleted.
      */
     public function execute()
     {
-        /* Get list of all folders, parse through and get the list of all
-           old sent-mail folders. Then sort this array according to
-           the date. */
+        /* Get list of all mailboxes, parse through and get the list of all
+         * old sent-mail mailboxes. Then sort this array according to the
+         * date. */
         $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
-        $sent_mail_folders = $identity->getAllSentmailFolders();
+        $sent_mail = $identity->getAllSentmail();
 
         $imaptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
         $imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_NOCONTAINER);
 
-        $folder_array = array();
+        $mbox_list = array();
 
         foreach ($imaptree as $k => $v) {
-            foreach ($sent_mail_folders as $folder) {
-                if (preg_match('/^' . str_replace('/', '\/', $folder) . '-([^-]+)-([0-9]{4})$/i', $k, $regs)) {
-                    $folder_array[$k] = is_numeric($regs[1])
+            foreach ($sent_mail as $mbox) {
+                if (preg_match('/^' . str_replace('/', '\/', $mbox) . '-([^-]+)-([0-9]{4})$/i', $k, $regs)) {
+                    $mbox_list[$k] = is_numeric($regs[1])
                         ? mktime(0, 0, 0, $regs[1], 1, $regs[2])
                         : strtotime("$regs[1] 1, $regs[2]");
                 }
             }
         }
-        arsort($folder_array, SORT_NUMERIC);
+        arsort($mbox_list, SORT_NUMERIC);
 
         $return_val = false;
 
-        /* See if any folders need to be purged. */
-        $purge_folders = array_slice(array_keys($folder_array), $GLOBALS['prefs']->getValue('delete_sentmail_monthly_keep'));
-        if (count($purge_folders)) {
-            $GLOBALS['notification']->push(_("Old sent-mail folders being purged."), 'horde.message');
+        /* See if any mailboxes need to be purged. */
+        $purge = array_slice(array_keys($mbox_list), $GLOBALS['prefs']->getValue('delete_sentmail_monthly_keep'));
+        if (count($purge)) {
+            $GLOBALS['notification']->push(_("Old sent-mail mailboxes being purged."), 'horde.message');
 
-            /* Delete the old folders now. */
-            foreach (IMP_Mailbox::get($purge_folders) as $val) {
+            /* Delete the old mailboxes now. */
+            foreach (IMP_Mailbox::get($purge) as $val) {
                 if ($val->delete(true)) {
                     $return_val = true;
                 }
@@ -80,7 +80,7 @@ class IMP_LoginTasks_Task_DeleteSentmailMonthly extends Horde_LoginTasks_Task
      */
     public function describe()
     {
-        return sprintf(_("All old sent-mail folders more than %s months old will be deleted."), $GLOBALS['prefs']->getValue('delete_sentmail_monthly_keep'));
+        return sprintf(_("All old sent-mail mailboxes more than %s months old will be deleted."), $GLOBALS['prefs']->getValue('delete_sentmail_monthly_keep'));
     }
 
 }

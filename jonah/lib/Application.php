@@ -38,7 +38,7 @@ class Jonah_Application extends Horde_Registry_Application
      * Global variables defined:
      * - $linkTags: <link> tags for common-header.inc.
      */
-    public function init()
+    protected function _init()
     {
         if ($channel_id = Horde_Util::getFormData('channel_id')) {
             $url = Horde::url('delivery/rss.php', true, -1)

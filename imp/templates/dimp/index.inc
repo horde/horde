@@ -81,7 +81,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
    <div class="sepfull"></div>
    <div id="foldersLoading"><?php echo _("Loading...") ?></div>
    <div id="foldersSidebar" style="display:none">
-    <ul class="folderlist" id="specialfolders"></ul>
+    <ul class="mboxlist" id="specialmboxes"></ul>
 <?php if ($render_sidebar): ?>
     <div class="sepfull"></div>
     <ul id="sidebar_apps">
@@ -90,12 +90,12 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 <?php endif; ?>
 <?php if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)): ?>
     <div class="sepfull"></div>
-    <ul class="folderlist" id="normalfolders">
-     <li class="folder" id="folderopts">
+    <ul class="mboxlist" id="normalmboxes">
+     <li class="mbox" id="folderopts">
       <span class="iconImgSidebar folderoptsImg"></span>
       <a id="folderopts_link" title="<?php echo _("Folder Actions") ?>"><?php echo _("Folder Actions") ?></a>
      </li>
-     <li class="folder" id="dropbase" style="display:none">
+     <li class="mbox" id="dropbase" style="display:none">
       <span class="iconImgSidebar folderImg"></span>
       <a title="<?php echo _("Move to Base Level") ?>"><?php echo _("Move to Base Level") ?></a>
      </li>
@@ -112,7 +112,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
      <div class="header mboxheader">
       <div>
        <span class="rightFloat" id="msgHeader"></span>
-       <span id="folderName"></span>
+       <span id="mailboxName"></span>
        <span class="iconImg readonlyImg" style="display:none" title="<?php echo htmlspecialchars(_("Read-Only")) ?>"></span>
       </div>
      </div>
@@ -260,51 +260,51 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
  </div>
 </div>
 
-<div class="context" id="ctx_folder" style="display:none">
- <div class="folderName"></div>
+<div class="context" id="ctx_mbox" style="display:none">
+ <div class="mboxName"></div>
  <div class="sep"></div>
- <a id="ctx_folder_create"><span class="iconImg"></span><?php echo _("Create subfolder") ?></a>
- <a id="ctx_folder_rename"><span class="iconImg"></span><?php echo _("Rename") ?></a>
- <a id="ctx_folder_empty"><span class="iconImg"></span><?php echo _("Empty") ?></a>
- <a id="ctx_folder_delete"><span class="iconImg"></span><?php echo _("Delete") ?></a>
+ <a id="ctx_mbox_create"><span class="iconImg"></span><?php echo _("Create subfolder") ?></a>
+ <a id="ctx_mbox_rename"><span class="iconImg"></span><?php echo _("Rename") ?></a>
+ <a id="ctx_mbox_empty"><span class="iconImg"></span><?php echo _("Empty") ?></a>
+ <a id="ctx_mbox_delete"><span class="iconImg"></span><?php echo _("Delete") ?></a>
  <div class="sep"></div>
- <a id="ctx_folder_setflag"><span class="iconImg"></span><?php echo _("Mark all as") ?></a>
+ <a id="ctx_mbox_setflag"><span class="iconImg"></span><?php echo _("Mark all as") ?></a>
  <div class="sep"></div>
- <a id="ctx_folder_poll"><span class="iconImg"></span><?php echo _("Check for New Mail") ?></a>
- <a id="ctx_folder_nopoll"><span class="iconImg"></span><?php echo _("Do Not Check for New Mail") ?></a>
+ <a id="ctx_mbox_poll"><span class="iconImg"></span><?php echo _("Check for New Mail") ?></a>
+ <a id="ctx_mbox_nopoll"><span class="iconImg"></span><?php echo _("Do Not Check for New Mail") ?></a>
 <?php if ($use_sub): ?>
- <a id="ctx_folder_sub"><span class="iconImg"></span><?php echo _("Subscribe") ?></a>
- <a id="ctx_folder_unsub"><span class="iconImg"></span><?php echo _("Unsubscribe") ?></a>
+ <a id="ctx_mbox_sub"><span class="iconImg"></span><?php echo _("Subscribe") ?></a>
+ <a id="ctx_mbox_unsub"><span class="iconImg"></span><?php echo _("Unsubscribe") ?></a>
 <?php endif; ?>
  <div class="sep"></div>
- <a id="ctx_folder_search"><span class="iconImg"></span><?php echo _("Search") ?></a>
- <a id="ctx_folder_searchsub"><span class="iconImg"></span><?php echo _("Search All Subfolders") ?></a>
+ <a id="ctx_mbox_search"><span class="iconImg"></span><?php echo _("Search") ?></a>
+ <a id="ctx_mbox_searchsub"><span class="iconImg"></span><?php echo _("Search All Subfolders") ?></a>
  <div style="display:none">
   <div class="sep"></div>
-  <a id="ctx_folder_expand"><span class="iconImg"></span><?php echo _("Expand All") ?></a>
-  <a id="ctx_folder_collapse"><span class="iconImg"></span><?php echo _("Collapse All") ?></a>
+  <a id="ctx_mbox_expand"><span class="iconImg"></span><?php echo _("Expand All") ?></a>
+  <a id="ctx_mbox_collapse"><span class="iconImg"></span><?php echo _("Collapse All") ?></a>
  </div>
  <div class="sep"></div>
- <a id="ctx_folder_export"><span class="iconImg"></span><?php echo _("Export") ?></a>
- <a id="ctx_folder_import"><span class="iconImg"></span><?php echo _("Import") ?></a>
+ <a id="ctx_mbox_export"><span class="iconImg"></span><?php echo _("Export") ?></a>
+ <a id="ctx_mbox_import"><span class="iconImg"></span><?php echo _("Import") ?></a>
  <div style="display:none">
   <div class="sep"></div>
-  <a id="ctx_folder_acl"><span class="iconImg"></span><?php echo _("Edit ACL") ?></a>
+  <a id="ctx_mbox_acl"><span class="iconImg"></span><?php echo _("Edit ACL") ?></a>
  </div>
 </div>
 
-<div class="context" id="ctx_folder_flag" style="display:none">
- <a id="ctx_folder_seen"><span class="iconImg"></span><?php echo _("Seen") ?></a>
- <a id="ctx_folder_unseen"><span class="iconImg"></span><?php echo _("Unseen") ?></a>
+<div class="context" id="ctx_mbox_flag" style="display:none">
+ <a id="ctx_mbox_seen"><span class="iconImg"></span><?php echo _("Seen") ?></a>
+ <a id="ctx_mbox_unseen"><span class="iconImg"></span><?php echo _("Unseen") ?></a>
 </div>
 
-<div class="context" id="ctx_folder_export_opts" style="display:none">
- <a id="ctx_folder_export_mbox"><?php echo _("Uncompressed") ?></a>
- <a id="ctx_folder_export_zip"><?php echo _("Compressed (.zip file)") ?></a>
+<div class="context" id="ctx_mbox_export_opts" style="display:none">
+ <a id="ctx_mbox_export_mbox"><?php echo _("Uncompressed") ?></a>
+ <a id="ctx_mbox_export_zip"><?php echo _("Compressed (.zip file)") ?></a>
 </div>
 
 <div class="context" id="ctx_container" style="display:none">
- <div class="folderName"></div>
+ <div class="mboxName"></div>
  <div class="sep"></div>
  <a id="ctx_container_create"><span class="iconImg"></span><?php echo _("Create subfolder") ?></a>
  <a id="ctx_container_rename"><span class="iconImg"></span><?php echo _("Rename") ?></a>
@@ -318,34 +318,32 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 
 <?php if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)): ?>
 <div class="context" id="ctx_folderopts" style="display:none">
- <a id="ctx_folderopts_new"><span class="iconImg"></span><?php echo _("New Folder") ?></a>
+ <a id="ctx_folderopts_new"><span class="iconImg"></span><?php echo _("New Mailbox") ?></a>
 <?php if ($use_sub): ?>
  <a id="ctx_folderopts_sub" style="display:none"><span class="iconImg"></span><?php echo _("Hide Unsubscribed") ?></a>
- <a id="ctx_folderopts_unsub"><span class="iconImg"></span><?php echo _("Show All Folders") ?></a>
+ <a id="ctx_folderopts_unsub"><span class="iconImg"></span><?php echo _("Show All Mailboxes") ?></a>
 <?php endif; ?>
  <a id="ctx_folderopts_expand"><span class="iconImg"></span><?php echo _("Expand All") ?></a>
  <a id="ctx_folderopts_collapse"><span class="iconImg"></span><?php echo _("Collapse All") ?></a>
  <div class="sep"></div>
  <a id="ctx_folderopts_reload"><span class="iconImg"></span><?php echo _("Rebuild Folder List") ?></a>
 </div>
-
-<iframe name="submit_frame" id="submit_frame" style="display:none" src="javascript:false;"></iframe>
 <?php endif; ?>
 
 <div class="context" id="ctx_noactions" style="display:none">
- <div class="folderName"></div>
+ <div class="mboxName"></div>
  <div class="sep"></div>
  <div><?php echo _("No actions available") ?></div>
 </div>
 
 <div class="context" id="ctx_vcontainer" style="display:none">
- <div class="folderName"><?php echo _("Virtual Folders") ?></div>
+ <div class="mboxName"><?php echo _("Virtual Folders") ?></div>
  <div class="sep"></div>
  <a id="ctx_vcontainer_edit"><span class="iconImg"></span><?php echo _("Edit Virtual Folders") ?></a>
 </div>
 
 <div class="context" id="ctx_vfolder" style="display:none">
- <div class="folderName"></div>
+ <div class="mboxName"></div>
  <div class="sep"></div>
  <a id="ctx_vfolder_edit"><span class="iconImg"></span><?php echo _("Edit Virtual Folder") ?></a>
  <a id="ctx_vfolder_delete"><span class="iconImg"></span><?php echo _("Delete Virtual Folder") ?></a>
@@ -500,7 +498,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 <?php if ($browser->isBrowser('opera')): ?>
   <?php echo _("A left click") ?> + <span class="kbd"><?php echo _("Shift") ?></span> + <span class="kbd"><?php echo _("Ctrl") ?></span> <?php echo _("will display available actions.") ?>
 <?php else: ?>
-  <?php echo _("A right-click on a message or a folder will display available actions.") ?>
+  <?php echo _("A right-click on a message or a mailbox will display available actions.") ?>
 <?php endif; ?>
   <br />
   <?php printf(_("Click on a message while holding down the %s key to select multiple messages.  To select a range of messages, click the first message of the range, navigate to the last message of the range, and then click on the last message while holding down the %s key."), '<span class="kbd">' . _("Ctrl") . '</span>', '<span class="kbd">' . _("Shift") . '</span>') ?><br /><br />
@@ -510,7 +508,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
   <span class="kbd"><?php echo _("Alt") ?></span> + <span class="kbd"><?php echo _("PgUp") ?></span> / <span class="kbd"><?php echo _("PgDown") ?></span> : <?php echo _("Scroll up/down through the display of the previewed message.") ?><br />
   <span class="kbd"><?php echo _("Home") ?></span> / <span class="kbd"><?php echo _("End") ?></span> : <?php echo  _("Move to the beginning/end of the message list.") ?><br />
   <span class="kbd"><?php echo _("Del") ?></span> : <?php echo _("Delete the currently selected message(s).") ?> <?php printf(_("%s will delete the current message and move to the next message if a single message is selected."), '<span class="kbd">' . _("Shift") . '</span> + <span class="kbd">' . _("Del") . '</span>') ?><br />
-  <span class="kbd"><?php echo _("Shift") ?></span> + <span class="kbd"><?php echo _("N") ?></span> : <?php echo _("Move to the next unseen message (non-search folders only).") ?><br />
+  <span class="kbd"><?php echo _("Shift") ?></span> + <span class="kbd"><?php echo _("N") ?></span> : <?php echo _("Move to the next unseen message (non-search mailboxes only).") ?><br />
   <span class="kbd"><?php echo _("Enter") ?></span> : <?php echo _("Open message in a popup window.") ?><br />
   <span class="kbd"><?php echo _("Ctrl") ?></span> + <span class="kbd"><?php echo 'A' ?></span> : <?php echo _("Select all messages in the current mailbox.") ?>
  </div>

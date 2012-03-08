@@ -39,7 +39,7 @@ class Kronolith_Application extends Horde_Registry_Application
     public $features = array(
         'alarmHandler' => true,
         'dynamicView' => true,
-        'minimalView' => true
+        'smartphoneView' => true
     );
 
     /**
@@ -48,7 +48,7 @@ class Kronolith_Application extends Horde_Registry_Application
 
     /**
      */
-    public function init()
+    protected function _init()
     {
         /* For now, autoloading the Content_* classes depend on there being a
          * registry entry for the 'content' application that contains at least
@@ -75,7 +75,7 @@ class Kronolith_Application extends Horde_Registry_Application
         }
     }
 
-    public function authenticated()
+    protected function _authenticated()
     {
         /* Set the timezone variable, if available. */
         $GLOBALS['registry']->setTimeZone();

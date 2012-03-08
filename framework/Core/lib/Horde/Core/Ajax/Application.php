@@ -29,6 +29,13 @@ abstract class Horde_Core_Ajax_Application
     public $notify = false;
 
     /**
+     * The list of (possibly) unsolicited tasks/data to do for this request.
+     *
+     * @var object
+     */
+    public $tasks = null;
+
+    /**
      * The action to perform.
      *
      * @var string
@@ -71,7 +78,7 @@ abstract class Horde_Core_Ajax_Application
      * @param Horde_Variables $vars  Form/request data.
      * @param string $action         The AJAX action to perform.
      */
-    public function __construct($app, $vars, $action = null)
+    public function __construct($app, Horde_Variables $vars, $action = null)
     {
         $this->_app = $app;
         $this->_vars = $vars;
@@ -79,7 +86,7 @@ abstract class Horde_Core_Ajax_Application
         if (!is_null($action)) {
             /* Close session if action is labeled as read-only. */
             if (in_array($action, $this->_readOnly)) {
-                session_write_close();
+                $GLOBALS['session']->close();
             }
 
             $this->_action = $action;
@@ -112,6 +119,22 @@ abstract class Horde_Core_Ajax_Application
     }
 
     /**
+     * Add task to response data.
+     *
+     * @param string $name  Task name.
+     * @param mixed $data   Task data.
+     */
+    public function addTask($name, $data)
+    {
+        if (empty($this->tasks)) {
+            $this->tasks = new stdClass;
+        }
+
+        $name = $this->_app . ':' . $name;
+        $this->tasks->$name = $data;
+    }
+
+    /**
      * Determines the HTTP response output type.
      *
      * @return string  The output type.
@@ -126,19 +149,8 @@ abstract class Horde_Core_Ajax_Application
      */
     public function send()
     {
-        $response = new Horde_Core_Ajax_Response($this->data, $this->notify);
-        $this->_send($response);
+        $response = new Horde_Core_Ajax_Response_HordeCore($this->data, $this->tasks, $this->notify);
         $response->sendAndExit($this->responseType());
-    }
-
-    /**
-     * Submethod that allows alteration of response object before sending to
-     * the browser.
-     *
-     * @param Horde_Core_Ajax_Response $response  The JSON response object.
-     */
-    protected function _send(Horde_Core_Ajax_Response $response)
-    {
     }
 
     /**
@@ -250,7 +262,7 @@ abstract class Horde_Core_Ajax_Application
      */
     public function chunkContent()
     {
-        $chunk = basename(Horde_Util::getPost('chunk'));
+        $chunk = basename($vars->chunk);
         $result = new stdClass;
         if (!empty($chunk)) {
             Horde::startBuffer();

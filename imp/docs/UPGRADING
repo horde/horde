@@ -43,6 +43,14 @@ Server Options (backends.php)
 The 'namespace' option now requires the namespaces to be in the UTF-8 charset,
 not UTF7-IMAP.
 
+The 'smtphost' and 'smtpport' options have been removed. They have been
+replaced by the 'smtp' option, which allows ALL available SMTP configuration
+options to be overriden.
+
+The 'admin' option has been changed: optional configuration parameters should
+live within the base 'admin' array rather than a 'params' array within the
+base.
+
 
 Configuration Options (conf.php)
 --------------------------------
@@ -51,6 +59,9 @@ The $conf['fixed_folders'] option now requires the mailboxes to be in the
 UTF-8 charset, not UTF7-IMAP.
 
 The $conf['compose']['link_attach_size_limit'] option was added.
+
+The $conf['print']['add_printedby'] option was removed and replaced by the
+'add_printedby' preference.
 
 The following configuration options were removed::
 
@@ -97,7 +108,40 @@ your preference backend::
 The 'cursor_compose' preference removed the 'sig' option. Existing preferences
 will automatically be converted to 'bottom'.
 
-The 'image_replacement_addrs' and 'reply_charset' preferences were added.
+The 'add_printedby', 'image_replacement_addrs', and 'reply_charset'
+preferences were added.
+
+
+API Changes
+-----------
+
+  - copyMessages
+
+    The $mailbox and $target parameters are now required to be UTF-8 strings.
+
+  - createFolder
+
+    This call has been removed (replaced with 'createMailbox').
+
+  - deleteMessages
+
+    The $mailbox parameter is now required to be a UTF-8 string.
+
+  - flagMessages
+
+    The $mailbox parameter is now required to be a UTF-8 string.
+
+  - folderlist
+
+    This call has been removed (replaced with 'mailboxList').
+
+  - moveMessages
+
+    The $mailbox and $target parameters are now required to be UTF-8 strings.
+
+  - searchMailbox
+
+    The $mailbox parameter is now required to be a UTF-8 string.
 
 
 
@@ -345,10 +389,10 @@ value.
 Changed Preferences
 -------------------
 
-The default values for the folder preferences 'sent_mail_folder',
+The default values for the mailbox preferences 'sent_mail_folder',
 'drafts_folder', and 'trash_folder' have been changed and localized. Use the
-old values to prohibit the creation of duplicate folders for users that
-didn't explicitly set the folders in their preferences.
+old values to prohibit the creation of duplicate mailboxes for users that
+didn't explicitly set the mailboxes in their preferences.
 
 The following preferences are no longer used and may be safely removed from
 your ``config/prefs.php`` file and your preferences backend::

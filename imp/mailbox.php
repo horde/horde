@@ -250,7 +250,7 @@ if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
         'heading' => _("Messages to"),
         'inc_notepads' => true,
         'inc_tasklists' => true,
-        'new_folder' => true
+        'new_mbox' => true
     ));
 }
 
@@ -341,11 +341,6 @@ $refresh_url = $mailbox_imp_url->copy()->add('page', $pageOb['page']);
 if (isset($filter_url)) {
     $filter_url->add('page', $pageOb['page']);
 }
-
-/* Set the folder for the sort links. */
-$sort_url = $sortpref->locked
-    ? null
-    : $mailbox_imp_url->copy()->add('sortdir', $sortpref->sortdir ? 0 : 1);
 
 /* Determine if we are showing previews. */
 $preview_tooltip = $show_preview
@@ -535,8 +530,8 @@ if ($pageOb['msgcount']) {
     $n_template->set('filtermsg', $filtermsg);
 
     if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
-        $n_template->set('move', Horde::widget('#', _("Move to folder"), 'widget moveAction', '', '', _("Move"), true));
-        $n_template->set('copy', Horde::widget('#', _("Copy to folder"), 'widget copyAction', '', '', _("Copy"), true));
+        $n_template->set('move', Horde::widget('#', _("Move to mailbox"), 'widget moveAction', '', '', _("Move"), true));
+        $n_template->set('copy', Horde::widget('#', _("Copy to mailbox"), 'widget copyAction', '', '', _("Copy"), true));
         $n_template->set('folder_options', $folder_options);
     }
 
@@ -584,9 +579,10 @@ if ($pageOb['msgcount']) {
         );
     }
 
-    if ($sort_url && ($sortpref->sortby != Horde_Imap_Client::SORT_SEQUENCE)) {
+    if (!$sortpref->sotrby_locked &&
+        ($sortpref->sortby != Horde_Imap_Client::SORT_SEQUENCE)) {
         $mboxactions[] = array(
-            'v' => Horde::widget($sort_url->copy()->remove('sortdir')->add(array('sortby' => Horde_Imap_Client::SORT_SEQUENCE, 'actionID' => 'change_sort', 'mailbox_token' => $mailbox_token)), _("Clear Sort"), 'widget', '', '', _("Clear Sort"))
+            'v' => Horde::widget($mailbox_imp_url->copy()->add(array('sortby' => Horde_Imap_Client::SORT_SEQUENCE, 'actionID' => 'change_sort', 'mailbox_token' => $mailbox_token)), _("Clear Sort"), 'widget', '', '', _("Clear Sort"))
         );
     }
 
@@ -671,7 +667,7 @@ $headers = array(
     )
 );
 
-/* If this is the Drafts or Sent-Mail Folder, sort by To instead of From. */
+/* If this is the Drafts or Sent-Mail mailbox, sort by To instead of From. */
 if (IMP::mailbox()->special_outgoing) {
     unset($headers[Horde_Imap_Client::SORT_FROM]);
 } else {
@@ -679,9 +675,9 @@ if (IMP::mailbox()->special_outgoing) {
 }
 
 /* Determine which of Subject/Thread to emphasize. */
-if (!IMP::mailbox()->access_sortthread || !$sort_url) {
+if (!IMP::mailbox()->access_sortthread || $sortpref->sortby_locked) {
     unset($headers[Horde_Imap_Client::SORT_THREAD]);
-    if (!$sort_url && $thread_sort) {
+    if ($sortpref->sortby_locked && $thread_sort) {
         $sortpref->sortby = Horde_Imap_Client::SORT_SUBJECT;
     }
 } else {
@@ -704,26 +700,30 @@ foreach ($headers as $key => $val) {
     $ptr = &$headers[$key];
     if ($sortpref->sortby == $key) {
         $csl_icon = '<span class="iconImg ' . $sortImg . '"></span>';
-        $ptr['change_sort_link'] = $sort_url
-            ? Horde::link($sort_url->copy()->add(array('sortby' => $key, 'actionID' => 'change_sort', 'mailbox_token' => $mailbox_token)), $val['stext'], null, null, null, $val['stext']) . $csl_icon . '</a>'
-            : $csl_icon;
+        if ($sortpref->sortdir_locked) {
+            $ptr['change_sort_link'] = $csl_icon;
+            $ptr['change_sort_widget'] = Horde::stripAccessKey($val['text']);
+        } else {
+            $tmp = $mailbox_imp_url->copy()->add(array(
+                'sortby' => $key,
+                'sortdir' => intval(!$sortpref->sortdir),
+                'actionID' => 'change_sort',
+                'mailbox_token' => $mailbox_token
+            ));
+            $ptr['change_sort_link'] = Horde::link($tmp, $val['stext'], null, null, null, $val['stext']) . $csl_icon . '</a>';
+            $ptr['change_sort_widget'] = Horde::widget($tmp, $val['stext'], 'widget', null, null, $val['text']);
+        }
         $ptr['class'] = 'selected';
     } else {
         $ptr['change_sort_link'] = null;
+        $ptr['change_sort_widget'] = $sortpref->sortby_locked
+            ? Horde::stripAccessKey($val['text'])
+            : Horde::widget($mailbox_imp_url->copy()->add(array(
+                  'actionID' => 'change_sort',
+                  'mailbox_token' => $mailbox_token,
+                  'sortby' => $key
+              )), $val['stext'], 'widget', null, null, $val['text']);
         $ptr['class'] = 'item';
-    }
-
-    if ($sort_url) {
-        $tmp = ($sortpref->sortby == $key)
-            ? $sort_url
-            : $mailbox_imp_url;
-        $ptr['change_sort_widget'] = Horde::widget($tmp->copy()->add(array(
-            'actionID' => 'change_sort',
-            'mailbox_token' => $mailbox_token,
-            'sortby' => $key
-        )), $val['stext'], 'widget', null, null, $val['text']);
-    } else {
-        $ptr['change_sort_widget'] = Horde::stripAccessKey($val['text']);
     }
 }
 
@@ -764,14 +764,14 @@ while (list(,$ob) = each($mbox_info['overview'])) {
 
             $mbox = IMP_Mailbox::get($ob['mailbox']);
 
-            $folder_link = $mailbox_url->copy()->add('mailbox', IMP::base64urlEncode($ob['mailbox']));
-            $folder_link = Horde::link($folder_link, sprintf(_("View messages in %s"), $mbox->display), 'smallheader') . $mbox->display_html . '</a>';
+            $mbox_link = $mailbox_url->copy()->add('mailbox', IMP::base64urlEncode($ob['mailbox']));
+            $mbox_link = Horde::link($mbox_link, sprintf(_("View messages in %s"), $mbox->display), 'smallheader') . $mbox->display_html . '</a>';
             if (is_null($search_template)) {
                 $search_template = $injector->createInstance('Horde_Template');
             }
             $search_template->set('lastMbox', $lastMbox);
-            $search_template->set('folder_link', $folder_link);
-            echo $search_template->fetch(IMP_TEMPLATES . '/imp/mailbox/searchfolder.html');
+            $search_template->set('mbox_link', $mbox_link);
+            echo $search_template->fetch(IMP_TEMPLATES . '/imp/mailbox/searchmbox.html');
 
             $mh_template->set('show_checkbox', !$mh_count++);
             echo $mh_template->fetch(IMP_TEMPLATES . '/imp/mailbox/message_headers.html');

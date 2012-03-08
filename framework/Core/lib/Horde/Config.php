@@ -138,7 +138,6 @@ class Horde_Config
     }
 
     /**
-     * @since Horde_Core 1.1.0
      */
     public function configFile()
     {
@@ -270,8 +269,6 @@ class Horde_Config
     /**
      * Generates and writes the content of the application's configuration
      * file.
-     *
-     * @since Horde_Core 1.1.0
      *
      * @param Horde_Variables $formvars  The processed configuration form
      *                                   data.

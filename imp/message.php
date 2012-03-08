@@ -481,13 +481,13 @@ if ($imp_imap->access(IMP_Imap::ACCESS_FLAGS)) {
 }
 
 if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
-    $n_template->set('move', Horde::widget('#', _("Move to folder"), 'widget moveAction', '', '', _("Move"), true));
-    $n_template->set('copy', Horde::widget('#', _("Copy to folder"), 'widget copyAction', '', '', _("Copy"), true));
+    $n_template->set('move', Horde::widget('#', _("Move to mailbox"), 'widget moveAction', '', '', _("Move"), true));
+    $n_template->set('copy', Horde::widget('#', _("Copy to mailbox"), 'widget copyAction', '', '', _("Copy"), true));
     $n_template->set('options', IMP::flistSelect(array(
         'heading' => _("This message to"),
         'inc_tasklists' => true,
         'inc_notepads' => true,
-        'new_folder' => true
+        'new_mbox' => true
     )));
 }
 

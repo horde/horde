@@ -1,6 +1,5 @@
 <?php
 /**
- * @since    Horde_Core 1.6.0
  * @category Horde
  * @package  Core
  */

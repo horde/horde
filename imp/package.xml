@@ -34,6 +34,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Allow all SMTP configuration parameters to be overridden in the backends configuration file (Request #11051).
+* [mms] Block images in HTML messages that appear to be sent from you by default, to prevent spammers form easily circumventing the block.
 * [jan] Fix setting default values for identity preferences.
 * [mms] Improve drag performance of elements in dynamic view.
 * [mms] Fix saving initial_page preference.
@@ -2684,8 +2686,9 @@
    <date>2012-02-28</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Only poll mailboxes in dynamic view that exist in the browser folder tree.
 * [mms] Fix regression in displaying From address on mailbox page in traditional view.
-* [mms] Fix updating the compose address fields when using the contacts popup and a search is done in that popup.
+* [mms] Fix updating the compose address fields when using the contacts popup.
    </notes>
   </release>
  </changelog>

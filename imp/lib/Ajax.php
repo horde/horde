@@ -198,7 +198,7 @@ class IMP_Ajax extends Horde_Core_Ajax
             'filters' => $filters,
             /* Needed to maintain flag ordering. */
             'filters_o' => array_keys($filters),
-            'fixed_folders' => empty($conf['server']['fixed_folders'])
+            'fixed_mboxes' => empty($conf['server']['fixed_folders'])
                 ? array()
                 : array_map(array('IMP_Mailbox', 'formTo'), array_map(array('IMP_Mailbox', 'prefFrom'), $conf['server']['fixed_folders'])),
             'flags' => $flags,
@@ -262,11 +262,11 @@ class IMP_Ajax extends Horde_Core_Ajax
             'cancel' => _("Cancel"),
             'check' => _("Checking..."),
             'copyto' => _("Copy %s to %s"),
-            'create_prompt' => _("Create folder:"),
+            'create_prompt' => _("Create mailbox:"),
             'createsub_prompt' => _("Create subfolder of %s:"),
-            'delete_folder' => _("Permanently delete %s?"),
-            'download_folder' => _("All messages in this mailbox will be downloaded into one MBOX file. This may take some time. Are you sure you want to continue?"),
-            'empty_folder' => _("Permanently delete all %d messages in %s?"),
+            'delete_mbox' => _("Permanently delete %s?"),
+            'download_mbox' => _("All messages in this mailbox will be downloaded into one MBOX file. This may take some time. Are you sure you want to continue?"),
+            'empty_mbox' => _("Permanently delete all %d messages in %s?"),
             'hidealog' => Horde::highlightAccessKey(_("Hide Alerts _Log"), Horde::getAccessKey(_("Alerts _Log"), true)),
             'import_mbox' => _("Mbox or .eml file:"),
             'listmsg_wait' => _("The server is still generating the message list."),
@@ -296,7 +296,7 @@ class IMP_Ajax extends Horde_Core_Ajax
      */
     protected function _addComposeVars()
     {
-        global $browser, $conf, $prefs, $registry;
+        global $browser, $conf, $prefs, $registry, $session;
 
         $compose_cursor = $prefs->getValue('compose_cursor');
 
@@ -325,7 +325,7 @@ class IMP_Ajax extends Horde_Core_Ajax
             'uploading' => _("Uploading..."),
         );
 
-        if ($registry->hasMethod('contacts/search')) {
+        if ($session->get('imp', 'csearchavail')) {
             $this->_jsvars['conf_compose']['URI_ABOOK'] = strval(Horde::url('contacts.php'));
         }
 

@@ -39,6 +39,15 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
     protected $_db = false;
 
     /**
+     * List of features that the VFS driver supports.
+     *
+     * @var array
+     */
+    protected $_features = array(
+        'readByteRange' => true,
+    );
+
+    /**
      * Constructor.
      *
      * @param array $params  A hash containing connection parameters.
@@ -83,15 +92,14 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
     }
 
     /**
-     * Returns the size of a file.
+     * Returns the size of a folder.
      *
-     * @param string $path  The path of the file.
-     * @param string $name  The filename.
+     * @param string $path  The path of the folder.
      *
      * @return integer  The size of the folder in bytes.
      * @throws Horde_Vfs_Exception
      */
-    public function getFolderSize($path = null, $name = null)
+    public function getFolderSize($path = null)
     {
         try {
             $where = null;
@@ -265,10 +273,9 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
         $path = $this->_convertPath($path);
 
         try {
-            $sql = sprintf('DELETE FROM %s WHERE vfs_type = ? AND vfs_path %s AND vfs_name = ?',
-                           $this->_params['table'],
-                           ' = ' . $this->_db->quote($path));
-            $values = array(self::FILE, $name);
+            $sql = sprintf('DELETE FROM %s WHERE vfs_type = ? AND vfs_path = ? AND vfs_name = ?',
+                           $this->_params['table']);
+            $values = array(self::FILE, $path, $name);
             $result = $this->_db->delete($sql, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Vfs_Exception($e);
@@ -277,8 +284,6 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
         if ($result == 0) {
             throw new Horde_Vfs_Exception('Unable to delete VFS file.');
         }
-
-        return $result;
     }
 
     /**
@@ -367,6 +372,11 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
             }
         }
 
+        /* Remember the size of the folder. */
+        if (!is_null($this->_vfsSize)) {
+            $size = $this->getFolderSize($folderPath);
+        }
+
         /* First delete everything below the folder, so if error we get no
          * orphans. */
         try {
@@ -375,6 +385,7 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
                            ' LIKE ' . $this->_db->quote($this->_getNativePath($folderPath, '%')));
             $this->_db->delete($sql);
         } catch (Horde_Db_Exception $e) {
+            $this->_vfsSize = null;
             throw new Horde_Vfs_Exception('Unable to delete VFS recursively: ' . $e->getMessage());
         }
 
@@ -385,6 +396,7 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
                            ' = ' . $this->_db->quote($folderPath));
             $this->_db->delete($sql);
         } catch (Horde_Db_Exception $e) {
+            $this->_vfsSize = null;
             throw new Horde_Vfs_Exception('Unable to delete VFS directory: ' . $e->getMessage());
         }
 
@@ -396,18 +408,24 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
             $values = array($name);
             $this->_db->delete($sql, $values);
         } catch (Horde_Db_Exception $e) {
+            $this->_vfsSize = null;
             throw new Horde_Vfs_Exception('Unable to delete VFS directory: ' . $e->getMessage());
+        }
+
+        /* Update VFS size. */
+        if (!is_null($this->_vfsSize)) {
+            $this->_vfsSize -= $size;
         }
     }
 
     /**
-     * Return a list of the contents of a folder.
+     * Returns an an unsorted file list of the specified directory.
      *
-     * @param string $path       The directory path.
-     * @param mixed $filter      String/hash of items to filter based on
-     *                           filename.
-     * @param boolean $dotfiles  Show dotfiles?
-     * @param boolean $dironly   Show directories only?
+     * @param string $path          The path of the directory.
+     * @param string|array $filter  Regular expression(s) to filter
+     *                              file/directory name on.
+     * @param boolean $dotfiles     Show dotfiles?
+     * @param boolean $dironly      Show only directories?
      *
      * @return array  File list.
      * @throws Horde_Vfs_Exception
@@ -474,76 +492,6 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
         }
 
         return $files;
-    }
-
-    /**
-     * Returns a sorted list of folders in specified directory.
-     *
-     * @param string $path         The path of the directory to get the
-     *                             directory list for.
-     * @param mixed $filter        String/hash of items to filter based on
-     *                             folderlist.
-     * @param boolean $dotfolders  Include dotfolders?
-     *
-     * @return array  Folder list.
-     * @throws Horde_Vfs_Exception
-     */
-    public function listFolders($path = '', $filter = array(),
-                                $dotfolders = true)
-    {
-        $path = $this->_convertPath($path);
-
-        $sql  = 'SELECT vfs_name, vfs_path FROM ' . $this->_params['table']
-            . ' WHERE vfs_path = ? AND vfs_type = ?';
-        $values = array($path, self::FOLDER);
-
-        try {
-            $folderList = $this->_db->select($sql, $values);
-        } catch (Horde_Db_Exception $e) {
-            throw new Horde_Vfs_Exception($e);
-        }
-
-        $folders = array();
-        foreach ($folderList as $line) {
-            $folder['val'] = $this->_getNativePath($line['vfs_path'], $line['vfs_name']);
-            $folder['abbrev'] = '';
-            $folder['label'] = '';
-
-            $count = substr_count($folder['val'], '/');
-
-            $x = 0;
-            while ($x < $count) {
-                $folder['abbrev'] .= '    ';
-                $folder['label'] .= '    ';
-                $x++;
-            }
-
-            $folder['abbrev'] .= $line['vfs_name'];
-            $folder['label'] .= $line['vfs_name'];
-
-            $strlen = Horde_String::length($folder['label']);
-            if ($strlen > 26) {
-                $folder['abbrev'] = substr($folder['label'], 0, ($count * 4));
-                $length = (29 - ($count * 4)) / 2;
-                $folder['abbrev'] .= substr($folder['label'], ($count * 4), $length);
-                $folder['abbrev'] .= '...';
-                $folder['abbrev'] .= substr($folder['label'], -1 * $length, $length);
-            }
-
-            $found = false;
-            foreach ($filter as $fltr) {
-                if ($folder['val'] == $fltr) {
-                    $found = true;
-                }
-            }
-
-            if (!$found) {
-                $folders[$folder['val']] = $folder;
-            }
-        }
-
-        ksort($folders);
-        return $folders;
     }
 
     /**

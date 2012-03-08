@@ -53,13 +53,6 @@ class Gollem_Application extends Horde_Registry_Application
     public $version = 'H5 (3.0-git)';
 
     /**
-     * Cached values to add to the session after authentication.
-     *
-     * @var array
-     */
-    protected $_cacheSess = array();
-
-    /**
      * Server key used in logged out session.
      *
      * @var string
@@ -72,20 +65,8 @@ class Gollem_Application extends Horde_Registry_Application
     }
 
     /**
-     * Does necessary authentication tasks reliant on a full app environment.
-     *
-     * @throws Horde_Auth_Exception
      */
-    public function authenticated()
-    {
-        foreach ($this->_cacheSess as $key => $val) {
-            $GLOBALS['session']->set('gollem', $key, $val);
-        }
-    }
-
-    /**
-     */
-    public function init()
+    protected function _init()
     {
         if ($backend_key = $GLOBALS['session']->get('gollem', 'backend_key')) {
             Gollem_Auth::changeBackend($backend_key);
@@ -162,15 +143,11 @@ class Gollem_Application extends Horde_Registry_Application
     {
         $this->init();
 
-        $new_session = Gollem_Auth::authenticate(array(
+        $this->_addSessVars(Gollem_Auth::authenticate(array(
             'password' => $credentials['password'],
             'backend_key' => empty($credentials['backend']) ? Gollem_Auth::getPreferredBackend() : $credentials['backend'],
             'userId' => $userId
-        ));
-
-        if ($new_session) {
-            $this->_cacheSess = $new_session;
-        }
+        )));
     }
 
     /**
@@ -187,7 +164,7 @@ class Gollem_Application extends Horde_Registry_Application
         $this->init();
 
         if ($result = Gollem_Auth::transparent($auth_ob)) {
-            $this->_cacheSess = $result;
+            $this->_addSessVars($result);
             return true;
         }
 

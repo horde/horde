@@ -30,11 +30,11 @@ class Horde_Imap_Client_Data_Envelope implements Serializable
     const VERSION = 2;
 
     /**
-     * Internal data array.
+     * Data object.
      *
-     * @var array
+     * @var Horde_Mime_Headers
      */
-    protected $_data = array();
+    protected $_data;
 
     /**
      * Constructor.
@@ -44,6 +44,8 @@ class Horde_Imap_Client_Data_Envelope implements Serializable
      */
     public function __construct(array $data = array())
     {
+        $this->_data = new Horde_Mime_Headers();
+
         foreach ($data as $key => $val) {
             $this->$key = $val;
         }
@@ -53,20 +55,42 @@ class Horde_Imap_Client_Data_Envelope implements Serializable
      */
     public function __get($name)
     {
-        if (isset($this->_data[$name])) {
-            return is_object($this->_data[$name])
-                ? clone $this->_data[$name]
-                : $this->_data[$name];
-        }
-
         switch ($name) {
         case 'reply_to':
-        case 'sender':
-            if ($data = $this->from) {
-                return $data;
-            }
+            $name = 'reply-to';
             // Fall-through
 
+        case 'bcc':
+        case 'cc':
+        case 'from':
+        case 'sender':
+        case 'to':
+            if (($ob = $this->_data->getOb($name)) !== null) {
+                return $ob;
+            }
+
+            if (in_array($name, array('sender', 'reply-to'))) {
+                return $this->from;
+            }
+            break;
+
+        case 'date':
+            if (($val = $this->_data->getValue($name)) !== null) {
+                return new Horde_Imap_Client_DateTime($val);
+            }
+            break;
+
+        case 'in_reply_to':
+        case 'message_id':
+        case 'subject':
+            if (($val = $this->_data->getValue($name)) !== null) {
+                return $val;
+            }
+            break;
+        }
+
+        // Default values.
+        switch ($name) {
         case 'bcc':
         case 'cc':
         case 'from':
@@ -89,56 +113,47 @@ class Horde_Imap_Client_Data_Envelope implements Serializable
      */
     public function __set($name, $value)
     {
+        if (!strlen($value)) {
+            return;
+        }
+
         switch ($name) {
         case 'bcc':
         case 'cc':
+        case 'date':
         case 'from':
+        case 'in_reply_to':
+        case 'message_id':
         case 'reply_to':
         case 'sender':
+        case 'subject':
         case 'to':
             switch ($name) {
             case 'from':
                 foreach (array('reply_to', 'sender') as $val) {
-                    if ($value == $this->$val) {
-                        unset($this->_data[$val]);
+                    if ($this->$val->match($value)) {
+                        $this->_data->removeHeader($val);
                     }
                 }
                 break;
 
             case 'reply_to':
             case 'sender':
-                if ($value == $this->from) {
-                    unset($this->_data[$name]);
-                    $value = array();
+                if ($this->from->match($value)) {
+                    $this->_data->removeHeader($name);
+                    return;
+                }
+
+                /* Convert reply-to name. */
+                if ($name == 'reply_to') {
+                    $name = 'reply-to';
                 }
                 break;
             }
 
-            if (!empty($value)) {
-                $value->setIteratorFilter(Horde_Mail_Rfc822_List::HIDE_GROUPS);
-                foreach ($value as $val) {
-                    $val->personal = Horde_Mime_Headers::sanityCheck($name, $val->personal);
-                }
-                $value->setIteratorFilter();
-                $this->_data[$name] = $value;
-            }
-            break;
-
-        case 'date':
-            $this->_data['date'] = new Horde_Imap_Client_DateTime($value);
-            break;
-
-        case 'in_reply_to':
-        case 'message_id':
-            if (strlen($value)) {
-                $this->_data[$name] = $value;
-            }
-            break;
-
-        case 'subject':
-            if (strlen($value)) {
-                $this->_data[$name] = Horde_Mime_Headers::sanityCheck($name, $value);
-            }
+            $this->_data->addHeader($name, $value, array(
+                'sanity_check' => true
+            ));
             break;
         }
     }
@@ -149,12 +164,18 @@ class Horde_Imap_Client_Data_Envelope implements Serializable
     {
         switch ($name) {
         case 'reply_to':
+            $name = 'reply-to';
+            // Fall-through
+
         case 'sender':
-            return (isset($this->_data[$name]) ||
-                    isset($this->_data['from']));
+            if ($this->_data->getValue($name) !== null) {
+                return true;
+            }
+            $name = 'from';
+            break;
         }
 
-        return isset($this->_data[$name]);
+        return ($this->_data->getValue($name) !== null);
     }
 
     /* Serializable methods. */
@@ -163,8 +184,6 @@ class Horde_Imap_Client_Data_Envelope implements Serializable
      */
     public function serialize()
     {
-        // For first serializable version, we can rely on storage format
-        // change to identify instead of explicit VERSION number.
         return serialize(array(
             'd' => $this->_data,
             'v' => self::VERSION

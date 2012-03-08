@@ -1,9 +1,9 @@
 <?php
 /**
  * The IMP_Imap_Tree class provides a tree view of the mailboxes in an
- * IMAP/POP3 repository.  It provides access functions to iterate through this
- * tree and query information about individual mailboxes.
- * In IMP, folders = IMAP mailboxes so the two terms are used interchangably.
+ * IMAP/POP3 repository (a/k/a a folder list; in IMP, folders = collection of
+ * mailboxes).  It provides access functions to iterate through this tree and
+ * query information about individual mailboxes.
  *
  * Copyright 2000-2012 Horde LLC (http://www.horde.org/)
  *
@@ -44,7 +44,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     const OPEN_ALL = 1;
     const OPEN_USER = 2;
 
-    /* The folder list filtering constants. */
+    /* The list filtering constants. */
     const FLIST_NOCONTAINER = 1;
     const FLIST_UNSUB = 2;
     const FLIST_VFOLDER = 4;
@@ -411,19 +411,19 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     }
 
     /**
-     * Expand a mail folder.
+     * Expand a mailbox.
      *
-     * @param string $folder      The folder name to expand.
-     * @param boolean $expandall  Expand all folders under this one?
+     * @param string $mbox        The mailbox name to expand.
+     * @param boolean $expandall  Expand all subfolders?
      */
-    public function expand($folder, $expandall = false)
+    public function expand($mbox, $expandall = false)
     {
-        $folder = $this->_convertName($folder);
+        $mbox = $this->_convertName($mbox);
 
-        if (!isset($this->_tree[$folder])) {
+        if (!isset($this->_tree[$mbox])) {
             return;
         }
-        $elt = &$this->_tree[$folder];
+        $elt = &$this->_tree[$mbox];
 
         if ($this->hasChildren($elt)) {
             if (!$this->isOpen($elt)) {
@@ -432,8 +432,8 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             }
 
             /* Expand all children beneath this one. */
-            if ($expandall && !empty($this->_parent[$folder])) {
-                foreach ($this->_parent[$folder] as $val) {
+            if ($expandall && !empty($this->_parent[$mbox])) {
+                foreach ($this->_parent[$mbox] as $val) {
                     $this->expand($this->_tree[$val]['v'], true);
                 }
             }
@@ -441,24 +441,24 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     }
 
     /**
-     * Collapse a mail folder.
+     * Collapse a mailbox.
      *
-     * @param string $folder  The folder name to collapse.
+     * @param string $mbox  The mailbox name to collapse.
      */
-    public function collapse($folder)
+    public function collapse($mbox)
     {
-        $folder = $this->_convertName($folder);
+        $mbox = $this->_convertName($mbox);
 
-        if (isset($this->_tree[$folder])) {
+        if (isset($this->_tree[$mbox])) {
             $this->_changed = true;
-            $this->_setOpen($this->_tree[$folder], false);
+            $this->_setOpen($this->_tree[$mbox], false);
         }
     }
 
     /**
      * Insert a mailbox/virtual folder into the tree.
      *
-     * @param mixed $id  The name of the folder (or a list of folder names)
+     * @param mixed $id  The name of the mailbox (or a list of mailboxes)
      *                   to add. Can also be a virtual folder object.
      */
     public function insert($id)
@@ -541,13 +541,13 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                 if (!isset($this->_tree[$part])) {
                     $attributes = 0;
 
-                    /* Set subscribed values. We know the folder is
+                    /* Set subscribed values. We know the mailbox is
                      * subscribed, without query of the IMAP server, in the
                      * following situations:
                      * + Subscriptions are turned off.
                      * + $sub is true.
-                     * + Folder is INBOX.
-                     * + Folder has the \subscribed attribute set. */
+                     * + Mailbox is INBOX.
+                     * + Mailbox has the \subscribed attribute set. */
                     if (!$sub_pref ||
                         (($i == $p_count) &&
                          (($sub === true) ||
@@ -584,7 +584,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             return;
         }
 
-        // UW fix - it may return both 'foo' and 'foo/' as folder names.
+        // UW fix - it may return both 'foo' and 'foo/' as mailbox names.
         // Only add one of these (without the namespace character) to
         // the tree.  See Ticket #5764.
         $ns_info = $this->_getNamespace($elt['v']);
@@ -685,7 +685,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
         $elt = &$this->_tree[$id];
 
-        /* Delete the entry from the folder list cache(s). */
+        /* Delete the entry from the mailbox list cache(s). */
         unset($this->_cache['fulllist'][$id], $this->_cache['subscribed'][$id]);
 
         /* Do not delete from tree if there are child elements - instead,
@@ -706,7 +706,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         unset($this->_parent[$parent][$key]);
 
         if (empty($this->_parent[$parent])) {
-            /* This folder is now completely empty (no children). */
+            /* This mailbox is now completely empty (no children). */
             unset($this->_parent[$parent]);
             if (isset($this->_tree[$parent])) {
                 if ($this->isContainer($this->_tree[$parent]) &&
@@ -1097,8 +1097,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     /**
      * Remove element from the poll list.
      *
-     * @param mixed $id  The folder/mailbox or a list of folders/mailboxes to
-     *                   remove.
+     * @param mixed $id  The mailbox (or a list of mailboxes) to remove.
      */
     public function removePollList($id)
     {
@@ -1141,7 +1140,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     }
 
     /**
-     * Prune non-existent folders from poll list.
+     * Prune non-existent mailboxes from poll list.
      */
     public function prunePollList()
     {
@@ -1342,11 +1341,11 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     }
 
     /**
-     * Get namespace info for a full folder path.
+     * Get namespace info for a full mailbox path.
      *
-     * @param string $mailbox  The folder path.
+     * @param string $mailbox  The mailbox path.
      *
-     * @return mixed  The namespace info for the folder path or null if the
+     * @return mixed  The namespace info for the mailbox path, or null if the
      *                path doesn't exist.
      */
     protected function _getNamespace($mailbox)
@@ -1441,7 +1440,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     }
 
     /**
-     * Rename a current folder.
+     * Rename a mailbox.
      *
      * @param string $old  The old mailbox name.
      * @param string $new  The new mailbox name.
@@ -1472,7 +1471,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     /**
      * Sort a level in the tree.
      *
-     * @param string $id  The parent folder whose children need to be sorted.
+     * @param string $id  The parent mailbox whose children need to be sorted.
      */
     protected function _sortLevel($id)
     {
@@ -1645,13 +1644,13 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             } else {
                 $params['url'] = $val->url($mailbox_page);
                 if ($this->_showunsub && !$this->isSubscribed($val)) {
-                    $params['class'] = 'folderunsub';
+                    $params['class'] = 'mboxunsub';
                 }
             }
 
             $checkbox = empty($opts['checkbox'])
                 ? ''
-                : '<input type="checkbox" class="checkbox" name="folder_list[]" value="' . $val->form_to . '"';
+                : '<input type="checkbox" class="checkbox" name="mbox_list[]" value="' . $val->form_to . '"';
 
             if ($val->vfolder) {
                 $checkbox .= ' disabled="disabled"';
@@ -1701,7 +1700,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     /**
      * Prepares an AJAX Mailbox response.
      *
-     * @return array  The object used by JS code to update the folder tree.
+     * @return array  The object used by JS code to update the tree.
      */
     public function getAjaxResponse()
     {
@@ -2019,7 +2018,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      *   IMP_Imap_Tree::FLIST_NOCHILDREN: Don't include child elements.
      *  </li>
      *  <li>
-     *   IMP_Imap_Tree::FLIST_EXPANDED: Only include expanded folders.
+     *   IMP_Imap_Tree::FLIST_EXPANDED: Only include expanded mailboxes.
      *  </li>
      *  <li>
      *   IMP_Imap_Tree::FLIST_ASIS: Display the list as is currently cached

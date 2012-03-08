@@ -344,7 +344,7 @@ Configuring IMP
    - Reading mail.
    - Deleting mail.
    - Flagging mail (if using IMAP).
-   - Changing folders (if using IMAP).
+   - Changing mailboxes (if using IMAP).
 
 6. Tuning IMP (Performance)
 

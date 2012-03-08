@@ -14,6 +14,8 @@
  */
 var HordeMobile = {
 
+    notify_handler: function() { return HordeMobile.showNotifications; },
+
     serverError: 0,
 
     /**
@@ -68,7 +70,7 @@ var HordeMobile = {
         }
 
         HordeMobile.server_error = 0;
-        HordeMobile.showNotifications(d.msgs || []);
+        HordeMobile.notify_handler(d.msgs || []);
         HordeMobile.inAjaxCallback = false;
         $.mobile.hidePageLoadingMsg();
     },

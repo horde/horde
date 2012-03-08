@@ -19,10 +19,8 @@ class IMP_Mime_Viewer_Vcard extends Horde_Core_Mime_Viewer_Vcard
      * Return the full rendered version of the Horde_Mime_Part object.
      *
      * URL parameters used by this function:
-     * <pre>
-     * 'c' - (integer) The VCARD component that contains an image.
-     * 'p' - (integer) The index of image inside the component to display.
-     * </pre>
+     *   - c: (integer) The VCARD component that contains an image.
+     *   - p: (integer) The index of image inside the component to display.
      *
      * @return array  See parent::render().
      * @throws Horde_Exception

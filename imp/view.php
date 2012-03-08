@@ -258,7 +258,7 @@ case 'print_attach':
         }
     }
 
-    if (!empty($conf['print']['add_printedby'])) {
+    if ($prefs->getValue('add_printedby')) {
         $user_identity = $injector->getInstance('IMP_Identity');
         $headers[] = array(
             'header' => htmlspecialchars(_("Printed By")),

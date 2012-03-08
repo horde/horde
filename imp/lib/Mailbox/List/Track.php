@@ -73,10 +73,8 @@ class IMP_Mailbox_List_Track extends IMP_Mailbox_List
      * @param integer $offset  The offset from the current message.
      *
      * @return array  Array with the following entries:
-     * <pre>
-     * 'mailbox' - (IMP_Mailbox) The mailbox.
-     * 'uid' - (integer) The message UID.
-     * </pre>
+     *   - mailbox: (IMP_Mailbox) The mailbox.
+     *   - uid: (integer) The message UID.
      */
     public function getIMAPIndex($offset = 0)
     {

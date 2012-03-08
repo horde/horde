@@ -101,6 +101,8 @@
         <file name="WeatherLocationAutoCompleter.php" role="php" />
        </dir> <!-- /lib/Horde/Core/Ajax/Imple -->
        <dir name="Response">
+        <file name="HordeCore.php" role="php" />
+        <file name="Notifications.php" role="php" />
         <file name="Raw.php" role="php" />
        </dir> <!-- /lib/Horde/Core/Ajax/Response -->
        <file name="Application.php" role="php" />
@@ -198,6 +200,7 @@
        <file name="Perms.php" role="php" />
        <file name="PermsCore.php" role="php" />
        <file name="Prefs.php" role="php" />
+       <file name="QueueStorage.php" role="php" />
        <file name="Request.php" role="php" />
        <file name="Secret.php" role="php" />
        <file name="SessionHandler.php" role="php" />
@@ -1126,6 +1129,8 @@
    <install as="Horde/Core/Ajax/Imple/SpellChecker.php" name="lib/Horde/Core/Ajax/Imple/SpellChecker.php" />
    <install as="Horde/Core/Ajax/Imple/WeatherLocationAutoCompleter.php" name="lib/Horde/Core/Ajax/Imple/WeatherLocationAutoCompleter.php" />
    <install as="Horde/Core/Ajax/Imple/Geocoder/Geonames.php" name="lib/Horde/Core/Ajax/Imple/Geocoder/Geonames.php" />
+   <install as="Horde/Core/Ajax/Response/HordeCore.php" name="lib/Horde/Core/Ajax/Response/HordeCore.php" />
+   <install as="Horde/Core/Ajax/Response/Notifications.php" name="lib/Horde/Core/Ajax/Response/Notifications.php" />
    <install as="Horde/Core/Ajax/Response/Raw.php" name="lib/Horde/Core/Ajax/Response/Raw.php" />
    <install as="Horde/Core/Alarm/Handler/Notify.php" name="lib/Horde/Core/Alarm/Handler/Notify.php" />
    <install as="Horde/Core/Auth/Application.php" name="lib/Horde/Core/Auth/Application.php" />
@@ -1197,6 +1202,7 @@
    <install as="Horde/Core/Factory/Perms.php" name="lib/Horde/Core/Factory/Perms.php" />
    <install as="Horde/Core/Factory/PermsCore.php" name="lib/Horde/Core/Factory/PermsCore.php" />
    <install as="Horde/Core/Factory/Prefs.php" name="lib/Horde/Core/Factory/Prefs.php" />
+   <install as="Horde/Core/Factory/QueueStorage.php" name="lib/Horde/Core/Factory/QueueStorage.php" />
    <install as="Horde/Core/Factory/Request.php" name="lib/Horde/Core/Factory/Request.php" />
    <install as="Horde/Core/Factory/Secret.php" name="lib/Horde/Core/Factory/Secret.php" />
    <install as="Horde/Core/Factory/SessionHandler.php" name="lib/Horde/Core/Factory/SessionHandler.php" />

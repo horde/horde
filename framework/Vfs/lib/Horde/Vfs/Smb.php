@@ -342,15 +342,14 @@ class Horde_Vfs_Smb extends Horde_Vfs_Base
     }
 
     /**
-     * Returns an unsorted file list.
+     * Returns a file list of the directory passed in.
      *
-     * @param string $path       The path of the directory to get the file list
-     *                           for.
-     * @param mixed $filter      Hash of items to filter based on filename.
-     * @param boolean $dotfiles  Show dotfiles? This is irrelevant with
-     *                           smbclient.
-     * @param boolean $dironly   Show directories only?
-     * @param boolean $recursive  Return all directory levels recursively?
+     * @param string $path          The path of the directory.
+     * @param string|array $filter  Regular expression(s) to filter
+     *                              file/directory name on.
+     * @param boolean $dotfiles     Show dotfiles?
+     * @param boolean $dironly      Show only directories?
+     * @param boolean $recursive    Return all directory levels recursively?
      *
      * @return array  File list.
      * @throws Horde_Vfs_Exception
@@ -417,40 +416,6 @@ class Horde_Vfs_Smb extends Horde_Vfs_Base
         }
 
         return $files;
-    }
-
-    /**
-     * Returns a sorted list of folders in specified directory.
-     *
-     * @param string $path         The path of the directory to get the
-     *                             directory list for.
-     * @param mixed $filter        Hash of items to filter based on folderlist.
-     * @param boolean $dotfolders  Include dotfolders? Irrelevant for SMB.
-     *
-     * @return array  Folder list.
-     * @throws Horde_Vfs_Exception
-     */
-    public function listFolders($path = '', $filter = null, $dotfolders = true)
-    {
-        // dirname will strip last component from path, even on a directory
-        $folder = array(
-            'val' => dirname($path),
-            'abbrev' => '..',
-            'label' => '..'
-        );
-        $folders = array($folder['val'] => $folder);
-
-        $folderList = $this->listFolder($path, null, $dotfolders, true);
-        foreach ($folderList as $files) {
-            $folders[$folder['val']] = array(
-                'val' => $this->_getPath($path, $files['name']),
-                'abbrev' => $files['name'],
-                'label' => $folder['val']
-            );
-        }
-
-        ksort($folders);
-        return $folders;
     }
 
     /**

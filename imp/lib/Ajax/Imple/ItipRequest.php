@@ -431,8 +431,7 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
             }
         }
 
-        $resp = new Horde_Core_Ajax_Response($result, true);
-        return $resp->jsonData();
+        return new Horde_Core_Ajax_Response($result, true);
     }
 
     /**

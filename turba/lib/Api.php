@@ -51,8 +51,7 @@ class Turba_Api extends Horde_Registry_Api
         @list($source, $key) = explode('.', $id, 2);
         if (isset($GLOBALS['cfgSources'][$source]) && $key) {
             try {
-                $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($source);
-                $object = $driver->getObject($key)->getValue('name');
+                return $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($source)->getObject($key)->getValue('name');
             } catch (Turba_Exception $e) {}
         }
 

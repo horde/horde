@@ -2,6 +2,10 @@
 v6.0-git
 --------
 
+[mms] Allow all SMTP configuration parameters to be overridden in the backends
+      configuration file (Request #11051).
+[mms] Block images in HTML messages that appear to be sent from you by default,
+      to prevent spammers form easily circumventing the block.
 [mms] Add 'Edit As New' to Forward button dropdown menu in dynamic view.
 [mms] Allow identifying addresses to always display images for without
       requiring to add them to the addressbook.
@@ -56,6 +60,8 @@ v6.0-git
 v5.0.20-git
 -----------
 
+[mms] Only poll mailboxes in dynamic view that exist in the browser folder
+      tree.
 [mms] Fix regression in displaying From address on mailbox page in traditional
       view.
 [mms] Fix updating the compose address fields when using the contacts popup.

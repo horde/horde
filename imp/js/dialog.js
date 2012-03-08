@@ -16,6 +16,7 @@
  *     ok_text: '',
  *     password: '',
  *     reloadurl: '',
+ *     submit_handler: false,
  *     // [REQUIRED] The text to display at top of dialog box
  *     text: '',
  *
@@ -74,8 +75,8 @@ var IMPDialog = {
         }, data.form_opts);
 
         var n = new Element('FORM', data.form_opts).insert(
-                    new Element('P').insert(data.text)
-                );
+            new Element('P').insert(data.text)
+        );
 
         delete RedBox.onDisplay;
 
@@ -99,6 +100,10 @@ var IMPDialog = {
 
         RedBox.overlay = true;
         RedBox.showHtml(n);
+
+        if (data.submit_handler) {
+            HordeCore.handleSubmit(n, data.submit_handler);
+        }
     },
 
     _close: function()

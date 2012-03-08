@@ -18,10 +18,8 @@ class IMP_Quota_Imap extends IMP_Quota
      * Constructor.
      *
      * @param array $params  Parameters:
-     * <pre>
-     * 'imap_ob' - (Horde_Imap_Client_Base) IMAP client object.
-     * 'mbox' - (string) IMAP mailbox to query.
-     * </pre>
+     *   - imap_ob: (Horde_Imap_Client_Base) IMAP client object.
+     *   - mbox: (string) IMAP mailbox to query.
      *
      * @throws InvalidArgumentException
      */

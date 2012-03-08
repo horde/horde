@@ -18,7 +18,7 @@ class IMP_Ui_Imageview
     /**
      * List of safe addresses.
      *
-     * @var array
+     * @var Horde_Mail_Rfc822_List
      */
     protected $_safeAddrs;
 
@@ -32,7 +32,7 @@ class IMP_Ui_Imageview
      */
     public function showInlineImage(IMP_Contents $contents)
     {
-        global $prefs, $registry;
+        global $injector, $prefs, $registry, $session;
 
         if (!$prefs->getValue('image_replacement')) {
             return true;
@@ -42,19 +42,43 @@ class IMP_Ui_Imageview
             return false;
         }
 
-        $from = IMP::bareAddress($contents->getHeader()->getValue('from'));
-        if ($registry->hasMethod('contacts/getField')) {
-            $params = IMP::getAddressbookSearchParams();
-            try {
-                if ($registry->call('contacts/getField', array($from, '__key', $params['sources'], false, true))) {
+        $from = $contents->getHeader()->getOb('from');
+
+        if ($session->get('imp', 'csearchavail')) {
+            $sparams = IMP::getAddressbookSearchParams();
+            $apiargs = array(
+                $from->bare_addresses,
+                $sparams['sources'],
+                $sparams['fields'],
+                false,
+                false,
+                array('email')
+            );
+
+            $ajax = new IMP_Ajax_Imple_ContactAutoCompleter();
+            $res = $ajax->parseContactsSearch($registry->call('contacts/search', $apiargs));
+
+            // Don't allow personal addresses by default - this is the only
+            // e-mail address a Spam sender for sure knows you will recognize
+            // so it is too much of a loophole.
+            $res->setIteratorFilter(0, array_keys($injector->getInstance('IMP_Identity')->getAllFromAddresses(true)));
+
+            foreach ($from as $val) {
+                if ($res->contains($val)) {
                     return true;
                 }
-            } catch (Horde_Exception $e) {}
+            }
         }
 
         /* Check safe address list. */
         $this->_initSafeAddrList();
-        return in_array($from, $this->_safeAddrs);
+        foreach ($from as $val) {
+            if ($this->_safeAddrs->contains($val)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -62,10 +86,7 @@ class IMP_Ui_Imageview
     protected function _initSafeAddrList()
     {
         if (!isset($this->_safeAddrs)) {
-            $this->_safeAddrs = json_decode($GLOBALS['prefs']->getValue('image_replacement_addrs'));
-            if (empty($this->_safeAddrs)) {
-                $this->_safeAddrs = array();
-            }
+            $this->_safeAddrs = new Horde_Mail_Rfc822_List(json_decode($GLOBALS['prefs']->getValue('image_replacement_addrs')));
         }
     }
 
@@ -74,9 +95,9 @@ class IMP_Ui_Imageview
     public function addSafeAddress($address)
     {
         $this->_initSafeAddrList();
-        $this->_safeAddrs[] = $address;
-        $this->_safeAddrs = array_keys(array_flip($this->_safeAddrs));
-        $GLOBALS['prefs']->setValue('image_replacement_addrs', json_encode($this->_safeAddrs));
+        $this->_safeAddrs->add($address);
+        $this->_safeAddrs->unique();
+        $GLOBALS['prefs']->setValue('image_replacement_addrs', json_encode($this->_safeAddrs->bare_addresses));
     }
 
 }

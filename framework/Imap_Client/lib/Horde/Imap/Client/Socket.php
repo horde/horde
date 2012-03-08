@@ -3076,9 +3076,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                             $tmp->add($addr);
                         }
                     }
-
-                    $ret->$env_data[$key] = $tmp;
                 }
+
+                $ret->$env_data[$key] = $tmp;
             }
         }
 

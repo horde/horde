@@ -5,9 +5,7 @@
  *
  * You must configure this driver in imp/config/backends.php.  The driver
  * supports the following parameters:
- * <pre>
- * 'params' - (array) Parameters to pass to the quota function.
- * </pre>
+ *   - params: (array) Parameters to pass to the quota function.
  *
  * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
  *

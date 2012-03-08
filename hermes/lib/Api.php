@@ -406,21 +406,34 @@ class Hermes_Api extends Horde_Registry_Api
         $data = new Horde_Support_Array($data);
         // Check for required
         if (!$data->date || !$data->client || !$data->type || !$data->hours || !$data->description) {
-          throw new Hermes_Exception(_("Missing required values: check data and retry"));
+            throw new Hermes_Exception(_("Missing required values: check data and retry"));
+        }
+
+        if ($data->employee) {
+            if (!$GLOBALS['registry']->isAdmin(array('permission' => 'hermes:review', 'permlevel' => Horde_Perms::EDIT))) {
+              throw new Hermes_Exception(_("Only time reviewers with edit permissions can post time for other users."));
+            }
+        } else {
+            $data->employee = $GLOBALS['registry']->getAuth();
         }
 
         // Parse date
-        $dateobj = new Horde_Date($data->date);
+        try {
+            // Check for stdObject types
+            $dateobj = new Horde_Date($data->date->scalar);
+        } catch (Exception $e) {
+            $dateobj = new Horde_Date($data->date);
+        }
         $date['year'] = $dateobj->year;
         $date['month'] = $dateobj->month;
         $date['day'] = $dateobj->mday;
         $data->date = $date;
 
         if (!$data->billable) {
-          $data->billable = true;
+            $data->billable = true;
         }
 
-        return $GLOBALS['injector']->getInstance('Hermes_Driver')->enterTime($GLOBALS['registry']->getAuth(), $data);
+        return $GLOBALS['injector']->getInstance('Hermes_Driver')->enterTime($data->employee, $data);
     }
 
     /**
@@ -443,12 +456,12 @@ class Hermes_Api extends Horde_Registry_Api
         $billable = $time = 0;
         $employees = array();
         foreach ($slices as $slice) {
-          $time += $slice['hours'];
-          if ($slice['billable']) {
-            $billable += $slice['hours'];
-          }
+            $time += $slice['hours'];
+            if ($slice['billable']) {
+              $billable += $slice['hours'];
+            }
 
-          $employees[$slice['employee']] += $slice['hours'];
+            $employees[$slice['employee']] += $slice['hours'];
         }
 
         return array('employees' => $employees,

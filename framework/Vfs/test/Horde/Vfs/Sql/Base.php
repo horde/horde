@@ -60,6 +60,24 @@ class Horde_Vfs_Test_Sql_Base extends Horde_Vfs_Test_Base
      * @depends testWrite
      * @depends testWriteData
      */
+    public function testReadFile()
+    {
+        $this->_readFile();
+    }
+
+    /**
+     * @depends testWrite
+     * @depends testWriteData
+     */
+    public function testReadByteRange()
+    {
+        $this->_readByteRange();
+    }
+
+    /**
+     * @depends testWrite
+     * @depends testWriteData
+     */
     public function testSize()
     {
         $this->_size();
@@ -87,6 +105,62 @@ class Horde_Vfs_Test_Sql_Base extends Horde_Vfs_Test_Base
      * @depends testWrite
      * @depends testWriteData
      */
+    public function testCopy()
+    {
+        $this->_copy();
+    }
+
+    /**
+     * @depends testCopy
+     */
+    public function testRename()
+    {
+        $this->_rename();
+    }
+
+    /**
+     * @depends testRename
+     */
+    public function testMove()
+    {
+        $this->_move();
+    }
+
+    /**
+     * @depends testMove
+     */
+    public function testDeleteFile()
+    {
+        $this->_deleteFile();
+    }
+
+    /**
+     * @depends testMove
+     */
+    public function testDeleteFolder()
+    {
+        $this->_deleteFolder();
+    }
+
+    /**
+     * @depends testMove
+     */
+    public function testEmptyFolder()
+    {
+        $this->_emptyFolder();
+    }
+
+    /**
+     * @depends testMove
+     */
+    public function testQuota()
+    {
+        $this->_quota();
+    }
+
+    /**
+     * @depends testQuota
+     */
     public function testListFolder()
     {
         $this->_listFolder();
@@ -112,7 +186,7 @@ class Horde_Vfs_Test_Sql_Base extends Horde_Vfs_Test_Base
             self::$db,
             null,//$logger,
             array('migrationsPath' => $dir,
-                  'schemaTableName' => 'horde_vfss_test_schema'));
+                  'schemaTableName' => 'horde_vfs_test_schema'));
         self::$migrator->up();
 
         self::$vfs = new Horde_Vfs_Sql(array('db' => self::$db));

@@ -372,12 +372,11 @@ if ($browser->isMobile() &&
     }
 
     /* Show notifications. */
-    $response = new Horde_Core_Ajax_Response(null, true);
-    $json_data = $response->jsonData();
-    if (!empty($json_data->msgs)) {
+    $response = new Horde_Core_Ajax_Response_Notifications();
+    if ($json_notify = $response->jsonData()) {
         Horde::addInlineScript(
             'window.setTimeout(function(){HordeMobile.showNotifications('
-            . Horde_Serialize::serialize($json_data->msgs, Horde_Serialize::JSON)
+            . Horde_Serialize::serialize($json_notify, Horde_Serialize::JSON)
             . ');},0);');
     }
 

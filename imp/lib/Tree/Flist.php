@@ -1,6 +1,7 @@
 <?php
 /**
- * The IMP_Tree_Flist class provides an IMP dropdown folder list.
+ * The IMP_Tree_Flist class provides an IMP dropdown mailbox (folder tree)
+ * list.
  *
  * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
@@ -58,8 +59,8 @@ class IMP_Tree_Flist extends Horde_Tree_Select
      *                    DEFAULT: No
      *   - inc_vfolder: (boolean) Include user's virtual folders in list?
      *                  DEFAULT: No
-     *   - new_folder: (boolean) Display an option to create a new folder?
-     *                 DEFAULT: No
+     *   - new_mbox: (boolean) Display an option to create a new mailbox?
+     *               DEFAULT: No
      */
     public function __construct($name, array $params = array())
     {
@@ -95,8 +96,8 @@ class IMP_Tree_Flist extends Horde_Tree_Select
             $t->set('heading', $heading);
         }
 
-        /* New folder entry. */
-        if ($this->getOption('new_folder') &&
+        /* New mailbox entry. */
+        if ($this->getOption('new_mbox') &&
             ($injector->getInstance('Horde_Core_Perms')->hasAppPermission('create_folders') &&
              $injector->getInstance('Horde_Core_Perms')->hasAppPermission('max_folders'))) {
             $t->set('new_mbox', true);

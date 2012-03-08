@@ -5,6 +5,7 @@
  * The following is the list of IMP session variables:
  *   - compose_cache: (array) List of compose objects that have not yet been
  *                    garbage collected.
+ *   - csearchavail: (boolean) True if contacts search is available.
  *   - file_upload: (integer) If file uploads are allowed, the max size.
  *   - filteravail: (boolean) Can we apply filters manually?
  *   - imap_acl: (boolean) See 'acl' entry in config/backends.php.
@@ -21,7 +22,7 @@
  *   - search: (IMP_Search) The IMP_Search object.
  *   - server_key: (string) Server used to login.
  *   - smime: (array) Settings related to the S/MIME viewer.
- *   - smtp: (array) SMTP options ('host' and 'port')
+ *   - smtp: (array) SMTP configuration.
  *   - showunsub: (boolean) Show unsusubscribed mailboxes on the folders
  *                screen.
  *   - tasklistavail: (boolean) Is listing of tasklists available?
@@ -40,13 +41,6 @@
  */
 class IMP_Auth
 {
-    /**
-     * Password.
-     *
-     * @var string
-     */
-    static private $_password;
-
     /**
      * Authenticate to the mail server.
      *
@@ -92,7 +86,6 @@ class IMP_Auth
 
             try {
                 $imp_imap->createImapObject($credentials['userId'], $credentials['password'], $credentials['server']);
-                self::$_password = $credentials['password'];
             } catch (IMP_Imap_Exception $e) {
                 self::_logMessage(false, $imp_imap);
                 throw $e->authException();
@@ -351,16 +344,16 @@ class IMP_Auth
      * Perform post-login tasks. Session creation requires the full IMP
      * environment, which is not available until this callback.
      *
-     * @throws Horde_Auth_Exception
+     * @throws Horde_Exception
      */
     static public function authenticateCallback()
     {
-        global $browser, $conf, $injector, $notification, $prefs, $registry, $session;
+        global $browser, $conf, $injector, $prefs, $registry, $session;
 
-        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create(null, true);
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
         $ptr = $imp_imap->loadServerConfig($session->get('imp', 'server_key'));
         if ($ptr === false) {
-            throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
+            throw new Horde_Exception(_("Could not initialize mail server configuration."));
         }
 
         /* Set the maildomain. */
@@ -373,21 +366,28 @@ class IMP_Auth
              * loaded to grab the special mailboxes information. */
             $imp_imap->updateFetchIgnore();
 
-            foreach (array('acl', 'admin', 'namespace', 'quota') as $val) {
-                if (!empty($ptr[$val])) {
-                    $tmp = $ptr[$val];
+            if (!empty($ptr['acl'])) {
+                $session->set('imp', 'imap_acl', $ptr['acl']);
+            }
 
-                    /* 'admin' and 'quota' have password entries - encrypt
-                     * these entries in the session if they exist. */
-                    foreach (array('password', 'admin_password') as $key) {
-                        if (isset($ptr[$val]['params'][$key])) {
-                            $secret = $injector->getInstance('Horde_Secret');
-                            $tmp['params'][$key] = $secret->write($secret->getKey('imp'), $ptr[$val]['params'][$key]);
-                        }
-                    }
-
-                    $session->set('imp', 'imap_' . $val, $tmp);
+            if (!empty($ptr['admin'])) {
+                $tmp = $ptr['admin'];
+                if (isset($tmp['password'])) {
+                    $tmp['password'] = $injector->getInstance('Horde_Secret')->write($secret->getKey('imp'), $tmp['password']);
                 }
+                $session->set('imp', 'imap_admin', $tmp);
+            }
+
+            if (!empty($ptr['namespace'])) {
+                $session->set('imp', 'imap_namespace', $ptr['namespace']);
+            }
+
+            if (!empty($ptr['quota'])) {
+                $tmp = $ptr['quota'];
+                if (isset($tmp['params']['password'])) {
+                    $tmp['params']['password'] = $injector->getInstance('Horde_Secret')->write($secret->getKey('imp'), $tmp['params']['password']);
+                }
+                $session->set('imp', 'imap_quota', $tmp);
             }
 
             /* Set the IMAP threading algorithm. */
@@ -401,23 +401,22 @@ class IMP_Auth
             );
         }
 
-        /* Set the SMTP options, if needed. */
+        /* Set the SMTP configuration. */
         if ($conf['mailer']['type'] == 'smtp') {
-            $smtp = array();
-            foreach (array('smtphost' => 'host', 'smtpport' => 'port') as $key => $val) {
-                if (!empty($ptr[$key])) {
-                    $smtp[$val] = $ptr[$key];
-                }
-            }
-
-            if (!empty($smtp)) {
-                $session->set('imp', 'smtp', $smtp);
-            }
+            $session->set('imp', 'smtp', array_merge(
+                $conf['mailer']['params'],
+                empty($ptr['smtp']) ? array() : $ptr['smtp']
+            ));
         }
 
         /* Does the server allow file uploads? If yes, store the
          * value, in bytes, of the maximum file size. */
         $session->set('imp', 'file_upload', $browser->allowFileUploads());
+
+        /* Is the 'contacts/search' API call available? */
+        if ($registry->hasMethod('contacts/search')) {
+            $session->set('imp', 'csearchavail', true);
+        }
 
         /* Is the 'mail/canApplyFilters' API call available? */
         try {
@@ -440,9 +439,6 @@ class IMP_Auth
 
         /* Is the HTML editor available? */
         $session->set('imp', 'rteavail', $injector->getInstance('Horde_Editor')->supportedByBrowser());
-
-        /* Bug #10680: Secret key may have changed between initial login. */
-        $imp_imap->ob->setParam('password', self::$_password);
 
         self::_logMessage(true, $imp_imap);
     }

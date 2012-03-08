@@ -37,7 +37,7 @@
  * NOTE: Because the prefs_init hook is called BEFORE the application is
  *       initialized, application data will not be available in this hook.
  *       If you want to alter preferences values based on application data,
- *       you should use the appinitialized hook instead.
+ *       you should use the appauthenticated hook instead.
  *
  * On change
  * ---------
@@ -110,8 +110,8 @@
  *   [throw Horde_Auth_Exception] - Fatal error.
  *   (string) - The converted username.
  *
- * appinitialized
- * --------------
+ * appauthenticated
+ * ----------------
  * This hook is called after an application is authenticated to and the
  * initial application initialization is complete.
  *
@@ -119,24 +119,14 @@
  * thrown from this hook will cause a fatal error.
  *
  *
- * Application Switching Hooks
- * ===========================
- * These hooks are called every time an application is switched to.
- * They may be called MULTIPLE times per page access.
- * Actions that only need to be done once per login should use the
- * appinitialized hook instead.
+ * Application Initialization Hook
+ * ===============================
  *
  * pushapp
  * -------
- * This hook is called before an application is switched to.
+ * This hook is called the first time an application is pushed onto the stack.
  * It is passed no parameters and expects no return value.
  * Any Exception thrown in this hook will cause a fatal error.
- *
- * pushapp_post
- * ------------
- * This hook is called after an application is successfully switched to.
- * It is passed no parameters and expects no return value.
- * Any Exception thrown in this hook is ignored.
  *
  *
  * AJAX Hooks
@@ -477,10 +467,10 @@ class Horde_Hooks
 //    }
 
 
-//    // APPLICATION INITIALIZATION HOOK: See above for format.
-//    public function appinitialized()
+//    // APPLICATION AUTHENTICATED HOOK: See above for format.
+//    public function appauthenticated()
 //    {
-//        // Code to run when an application is first initialized
+//        // Code to run when an application is first authenticated
 //    }
 
 

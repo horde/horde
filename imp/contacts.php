@@ -23,6 +23,11 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('imp', array('authentication' => 'horde'));
 
+/* Sanity checking. */
+if (!$session->get('imp', 'csearchavail')) {
+    throw new IMP_Exception('Addressbook not available on this system.');
+}
+
 $vars = Horde_Variables::getDefaultVariables();
 
 /* Get the lists of address books through the API. */
@@ -37,9 +42,12 @@ if (!isset($vars->source) || !isset($source_list[$vars->source])) {
 
 $search_params = IMP::getAddressbookSearchParams();
 $apiargs = array(
-    'addresses' => array($vars->search),
-    'addressbooks' => array($vars->source),
-    'fields' => $search_params['fields']
+    array($vars->search),
+    array($vars->source),
+    $search_params['fields'],
+    false,
+    false,
+    array('name', 'email')
 );
 
 $a_list = array();

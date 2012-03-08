@@ -53,12 +53,10 @@ class IMP_Ui_Mailbox
      *                   htmlspecialchars() using the given charset.
      *
      * @return array  An array of information:
-     * <pre>
-     * 'error' - (boolean) True on error.
-     * 'from' - (string) The personal part of the From address.
-     * 'fullfrom' - (string) The full From address.
-     * 'to' - (boolean) True if this is who the message was sent to.
-     * </pre>
+     *   - error: (boolean) True on error.
+     *   - from: (string) The personal part of the From address.
+     *   - fullfrom: (string) The full From address.
+     *   - to: (boolean) True if this is who the message was sent to.
      */
     public function getFrom($ob, $options = array())
     {

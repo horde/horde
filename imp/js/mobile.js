@@ -508,7 +508,7 @@ var ImpMobile = {
                     'href',
                     '#target?action=copy' + args);
             }
-            if (ImpMobile.mailbox == IMP.conf.spam_folder) {
+            if (ImpMobile.mailbox == IMP.conf.spam_mbox) {
                 if (!IMP.conf.spam_spammbox) {
                     spam = 'hide';
                 }
@@ -726,8 +726,7 @@ var ImpMobile = {
                 if (d.action == 'saveDraft') {
                     if (!DIMP.conf_compose.qreply &&
                         ImpMobile.baseAvailable()) {
-                        HordeMobile.showNotifications(r.msgs, { base: true });
-                        r.msgs = [];
+                        HordeMobile.notify_handler = HordeMobile.base.HordeMobile.showNotifications;
                     }
                     if (DIMP.conf_compose.close_draft) {
                         return ImpMobile.closeCompose();
@@ -905,7 +904,7 @@ var ImpMobile = {
     },
 
     /**
-     * Opens a target folder dialog.
+     * Opens a target mailbox dialog.
      *
      * @param object url      Page URL from $.mobile.path.parseUrl().
      * @param object options  Page change options.

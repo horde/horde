@@ -86,11 +86,11 @@ var DimpCompose = {
     {
         var identity = ImpComposeBase.identities[$F('identity')];
 
-        this.setPopdownLabel('sm', identity.smf_name, identity.smf_display);
+        this.setPopdownLabel('sm', identity.sm_name, identity.sm_display);
         if (DIMP.conf_compose.bcc) {
             $('bcc').setValue(identity.bcc);
         }
-        this.setSaveSentMail(identity.smf_save);
+        this.setSaveSentMail(identity.sm_save);
     },
 
     setSaveSentMail: function(set)
@@ -231,14 +231,8 @@ var DimpCompose = {
         }
     },
 
-    uniqueSubmitCallback: function(r)
+    uniqueSubmitCallback: function(d)
     {
-        var d = r.response;
-
-        if (!d) {
-            return;
-        }
-
         if (d.imp_compose) {
             $('composeCache').setValue(d.imp_compose);
         }
@@ -250,10 +244,8 @@ var DimpCompose = {
                 this.updateDraftsMailbox();
 
                 if (d.action == 'saveDraft') {
-                    if (!DIMP.conf_compose.qreply &&
-                        this.baseAvailable()) {
-                        HordeCore.showNotifications(r.msgs, { base: true });
-                        r.msgs = [];
+                    if (!DIMP.conf_compose.qreply && this.baseAvailable()) {
+                        HordeCore.notify_handler = HordeCore.base.HordeCore.showNotifications.bind(HordeCore.base.HordeCore);
                     }
                     if (DIMP.conf_compose.close_draft) {
                         return this.closeCompose();
@@ -287,8 +279,7 @@ var DimpCompose = {
                     }
 
                     if (!DIMP.conf_compose.qreply) {
-                        HordeCore.showNotifications(r.msgs, { base: true });
-                        r.msgs = [];
+                        HordeCore.notify_handler = HordeCore.base.HordeCore.showNotifications.bind(HordeCore.base.HordeCore);
                     }
                 }
                 return this.closeCompose();
@@ -305,8 +296,7 @@ var DimpCompose = {
                     }
 
                     if (!DIMP.conf_compose.qreply) {
-                        HordeCore.showNotifications(r.msgs, { base: true });
-                        r.msgs = [];
+                        HordeCore.notify_handler = HordeCore.base.HordeCore.showNotifications.bind(HordeCore.base.HordeCore);
                     }
                 }
                 return this.closeCompose();
@@ -508,9 +498,9 @@ var DimpCompose = {
         }
 
         if (this.rte_loaded && rte) {
-            this.rte.setData(r.response.text);
+            this.rte.setData(r.text);
         } else if (!this.rte_loaded && !rte) {
-            ta.setValue(r.response.text);
+            ta.setValue(r.text);
         } else {
             this.setMessageText.bind(this, rte, r).defer();
             return;
@@ -536,8 +526,8 @@ var DimpCompose = {
             this.toggleCC('cc');
             $('cc').setValue(header.cc);
         }
-        this.setPopdownLabel('sm', identity.smf_name, identity.smf_display);
-        this.setSaveSentMail(identity.smf_save);
+        this.setPopdownLabel('sm', identity.sm_name, identity.sm_display);
+        this.setSaveSentMail(identity.sm_save);
         if (DIMP.conf_compose.bcc) {
             bcc_add = header.bcc
                 ? header.bcc
@@ -683,14 +673,14 @@ var DimpCompose = {
 
     swapToAddressCallback: function(r)
     {
-        if (r.response.header) {
-            $('to').setValue(r.response.header.to);
+        if (r.header) {
+            $('to').setValue(r.header.to);
             [ 'cc', 'bcc' ].each(function(t) {
-                if (r.response.header[t] || $(t).visible()) {
+                if (r.header[t] || $(t).visible()) {
                     if (!$(t).visible()) {
                         this.toggleCC(t);
                     }
-                    $(t).setValue(r.response.header.cc);
+                    $(t).setValue(r.header.cc);
                 }
             }, this);
         }
@@ -699,15 +689,15 @@ var DimpCompose = {
 
     forwardAddCallback: function(r)
     {
-        if (r.response.type) {
-            switch (r.response.type) {
+        if (r.type) {
+            switch (r.type) {
             case 'forward_attach':
-                this.processFwdList(r.response.opts.fwd_list);
+                this.processFwdList(r.opts.fwd_list);
                 break;
 
             case 'forward_body':
                 this.removeAttach([ $('attach_list').down() ]);
-                this.setBodyText(r.response.body);
+                this.setBodyText(r.body);
                 break;
             }
         }
@@ -862,15 +852,6 @@ var DimpCompose = {
         this.uniqueSubmit('addAttachment');
         u.up().hide().next().hide();
         $('upload_wait').update(DIMP.text_compose.uploading + ' (' + $F(u) + ')').show();
-    },
-
-    attachmentComplete: function()
-    {
-        var sf = $('submit_frame'),
-            doc = sf.contentDocument || sf.contentWindow.document;
-        HordeCore.doActionComplete({
-            responseJSON: doc.body.innerHTML.evalJSON(true)
-        }, this.uniqueSubmitCallback.bind(this));
     },
 
     toggleCC: function(type)
@@ -1131,7 +1112,10 @@ var DimpCompose = {
         }
         Event.observe(window, 'resize', this.resizeMsgArea.bindAsEventListener(this));
         $('compose').observe('submit', Event.stop);
-        $('submit_frame').observe('load', this.attachmentComplete.bind(this));
+
+        HordeCore.handleSubmit($('compose'), {
+            callback: this.uniqueSubmitCallback.bind(this)
+        });
 
         // Initialize spell checker
         document.observe('SpellChecker:noerror', this._onSpellCheckNoError.bind(this));
@@ -1161,10 +1145,10 @@ var DimpCompose = {
             this.createPopdown('sm', {
                 base: 'save_sent_mail',
                 data: DIMP.conf_compose.flist,
-                input: 'save_sent_mail_folder',
-                label: 'sent_mail_folder_label'
+                input: 'save_sent_mail',
+                label: 'sent_mail_label'
             });
-            this.setPopdownLabel('sm', ImpComposeBase.identities[$F('identity')].smf_name);
+            this.setPopdownLabel('sm', ImpComposeBase.identities[$F('identity')].sm_name);
         }
 
         /* Create priority list. */

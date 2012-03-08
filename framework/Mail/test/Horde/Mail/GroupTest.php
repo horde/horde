@@ -61,4 +61,14 @@ class Horde_Mail_GroupTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testEncodingGroupname()
+    {
+        $group_ob = new Horde_Mail_Rfc822_Group('Group "Foo"');
+
+        $this->assertEquals(
+            '"Group \"Foo\"":;',
+            $group_ob->writeAddress(true)
+        );
+    }
+
 }

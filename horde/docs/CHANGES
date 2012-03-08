@@ -2,6 +2,8 @@
 v5.0-git
 --------
 
+[mms] Modified pushapp hook behavior.
+[mms] Removed pushapp_post hook.
 [mms] AJAX core features now contained within Horde_Core.
 [mms] E-mail sending charset now defaults to UTF-8.
 [mms] Add post-install script for the Horde application
@@ -14,6 +16,7 @@ v5.0-git
 v4.0.15-git
 -----------
 
+[jan] Fix horde-set-perms script (Arjen de Korte, Bug #11048).
 
 
 -------
