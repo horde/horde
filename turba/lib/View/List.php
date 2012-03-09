@@ -176,6 +176,7 @@ class Turba_View_List implements Countable
         $hasDelete = $driver->hasPermission(Horde_Perms::DELETE);
         $hasEdit = $driver->hasPermission(Horde_Perms::EDIT);
         $hasExport = ($GLOBALS['conf']['menu']['import_export'] && !empty($GLOBALS['cfgSources'][$default_source]['export']));
+        $vars = Horde_Variables::getDefaultVariables();
 
         list($addToList, $addToListSources) = $this->getAddSources();
 
@@ -211,7 +212,6 @@ class Turba_View_List implements Countable
                 'source' => Horde_Util::getFormData('source', $default_source)
             ));
             $viewurl = Horde::url('search.php')->add($params);
-            $vars = Horde_Variables::getDefaultVariables();
             $pager = new Horde_Core_Ui_Pager('page', $vars,
                                         array('num' => $numitem,
                                               'url' => $viewurl,
