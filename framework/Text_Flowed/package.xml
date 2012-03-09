@@ -23,7 +23,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Don&apos;t do regex matching for data that can never match.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -191,7 +191,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2011-04-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Don&apos;t do regex matching for data that can never match.
    </notes>
   </release>
  </changelog>

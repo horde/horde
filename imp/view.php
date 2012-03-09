@@ -52,6 +52,12 @@ Horde_Registry::appInit('imp', array(
     'session_control' => (Horde_Util::getFormData('ajax') ? null : 'readonly')
 ));
 
+/* We may reach this page from the download script - need to check for
+ * an authenticated user. */
+if (!$registry->isAuthenticated(array('app' => 'imp'))) {
+    throw new IMP_Exception(_("User is not authenticated."));
+}
+
 switch ($vars->actionID) {
 case 'compose_attach_preview':
     /* 'compose_attach_preview' doesn't use IMP_Contents since there is no
