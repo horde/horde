@@ -215,6 +215,15 @@ class Horde_ActiveSync
     const CLASS_CALENDAR = 'Calendar';
     const CLASS_TASKS = 'Tasks';
 
+    /* Filtertype constants */
+    const FILTERTYPE_ALL = 0;
+    const FILTERTYPE_1DAY = 1;
+    const FILTERTYPE_3DAYS = 2;
+    const FILTERTYPE_1WEEK = 3;
+    const FILTERTYPE_2WEEKS = 4;
+    const FILTERTYPE_1MONTH = 5;
+    const FILTERTYPE_3MONTHS = 6;
+    const FILTERTYPE_6MONTHS = 7;
     const PROVISIONING_LOOSE            = 'loose';
 
     /**

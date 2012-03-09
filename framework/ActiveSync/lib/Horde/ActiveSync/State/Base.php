@@ -14,18 +14,6 @@
 abstract class Horde_ActiveSync_State_Base
 {
     /**
-     * Filtertype constants
-     */
-    const FILTERTYPE_ALL = 0;
-    const FILTERTYPE_1DAY = 1;
-    const FILTERTYPE_3DAYS = 2;
-    const FILTERTYPE_1WEEK = 3;
-    const FILTERTYPE_2WEEKS = 4;
-    const FILTERTYPE_1MONTH = 5;
-    const FILTERTYPE_3MONTHS = 6;
-    const FILTERTYPE_6MONTHS = 7;
-
-    /**
      * Configuration parameters
      *
      * @var array
@@ -306,26 +294,26 @@ abstract class Horde_ActiveSync_State_Base
     static protected function _getCutOffDate($restrict)
     {
         switch($restrict) {
-        case self::FILTERTYPE_1DAY:
-            $back = 60 * 60 * 24;
+        case Horde_ActiveSync::FILTERTYPE_1DAY:
+            $back = 86400;
             break;
-        case self::FILTERTYPE_3DAYS:
-            $back = 60 * 60 * 24 * 3;
+        case Horde_ActiveSync::FILTERTYPE_3DAYS:
+            $back = 259200;
             break;
-        case self::FILTERTYPE_1WEEK:
-            $back = 60 * 60 * 24 * 7;
+        case Horde_ActiveSync::FILTERTYPE_1WEEK:
+            $back = 604800;
             break;
-        case self::FILTERTYPE_2WEEKS:
-            $back = 60 * 60 * 24 * 14;
+        case Horde_ActiveSync::FILTERTYPE_2WEEKS:
+            $back = 1209600;
             break;
-        case self::FILTERTYPE_1MONTH:
-            $back = 60 * 60 * 24 * 31;
+        case Horde_ActiveSync::FILTERTYPE_1MONTH:
+            $back = 2419200;
             break;
-        case self::FILTERTYPE_3MONTHS:
-            $back = 60 * 60 * 24 * 31 * 3;
+        case Horde_ActiveSync::FILTERTYPE_3MONTHS:
+            $back = 7257600;
             break;
-        case self::FILTERTYPE_6MONTHS:
-            $back = 60 * 60 * 24 * 31 * 6;
+        case Horde_ActiveSync::FILTERTYPE_6MONTHS:
+            $back = 14515200;
             break;
         default:
             break;

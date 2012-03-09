@@ -90,6 +90,7 @@ abstract class Horde_ActiveSync_Folder_Base
      * @return string  The serialized data.
      */
     abstract public function serialize();
+
     /**
      * Reconstruct the object from serialized data.
      *
