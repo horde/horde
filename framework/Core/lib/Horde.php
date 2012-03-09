@@ -420,8 +420,8 @@ HTML;
     }
 
     /**
-     * Add a signature + timestamp to a query string and return the signed query
-     * string.
+     * Add a signature + timestamp to a query string and return the signed
+     * query string.
      *
      * @param string $queryString  The query string to sign.
      * @param integer $now         The timestamp at which to sign. Leave blank
@@ -2195,4 +2195,5 @@ HTML;
             $GLOBALS['notification']->push($error, 'horde.warning');
         }
     }
+
 }
