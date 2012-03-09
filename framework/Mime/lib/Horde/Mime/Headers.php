@@ -62,6 +62,36 @@ class Horde_Mime_Headers implements Serializable
     protected $_agent = null;
 
     /**
+     * List of single header fields.
+     *
+     * @var array
+     */
+    protected $_singleFields = array(
+        // Mail: RFC 5322
+        'to', 'from', 'cc', 'bcc', 'date', 'sender', 'reply-to',
+        'message-id', 'in-reply-to', 'references', 'subject', 'x-priority',
+        // MIME: RFC 1864
+        'content-md5',
+        // MIME: RFC 2045
+        'mime-version', 'content-type', 'content-transfer-encoding',
+        'content-id', 'content-description',
+        // MIME: RFC 2110
+        'content-base',
+        // MIME: RFC 2183
+        'content-disposition',
+        // MIME: RFC 2424
+        'content-duration',
+        // MIME: RFC 2557
+        'content-location',
+        // MIME: RFC 2912 [3]
+        'content-features',
+        // MIME: RFC 3282
+        'content-language',
+        // MIME: RFC 3297
+        'content-alternative'
+    );
+
+    /**
      * Returns the internal header array in array format.
      *
      * @param array $opts  Optional parameters:
@@ -412,7 +442,8 @@ class Horde_Mime_Headers implements Serializable
         }
 
         $ptr = &$this->_headers[$header];
-        $base = (is_array($ptr['v']) && in_array($header, $this->singleFields(true)))
+        $base = (is_array($ptr['v']) &&
+                 in_array($header, $this->singleFields(true)))
             ? $ptr['v'][0]
             : $ptr['v'];
         $params = isset($ptr['p']) ? $ptr['p'] : array();
@@ -456,16 +487,9 @@ class Horde_Mime_Headers implements Serializable
      */
     public function singleFields($list = true)
     {
-        $single = array(
-            'to', 'from', 'cc', 'bcc', 'date', 'sender', 'reply-to',
-            'message-id', 'in-reply-to', 'references', 'subject', 'x-priority'
-        );
-
-        if ($list) {
-            $single = array_merge($single, array_keys($this->listHeaders()));
-        }
-
-        return $single;
+        return $list
+            ? array_merge($this->_singleFields, array_keys($this->listHeaders()))
+            : $this->_singleFields;
     }
 
     /**
