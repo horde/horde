@@ -73,4 +73,17 @@ class Horde_Mime_HeadersTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testMultipleContentType()
+    {
+        $hdrs = Horde_Mime_Headers::parseHeaders(
+            "Content-Type: multipart/mixed\n" .
+            "Content-Type: multipart/mixed\n"
+        );
+
+        $this->assertInternalType(
+            'string',
+            $hdrs->getValue('content-type', Horde_Mime_Headers::VALUE_BASE)
+        );
+    }
+
 }
