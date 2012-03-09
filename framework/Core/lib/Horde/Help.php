@@ -115,7 +115,9 @@ class Horde_Help
     }
 
     /**
-     * TODO
+     * Process a help node
+     * @param SimpleXMLElement An XML help node representation
+     * @return string an output string with HTML
      */
     protected function _processNode($node)
     {
