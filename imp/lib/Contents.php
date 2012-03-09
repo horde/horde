@@ -1494,11 +1494,11 @@ class IMP_Contents
     /**
      * Get FETCH data from IMAP server for this message.
      *
-     * @param Horde_Imap_Client_Search_Query $query  Search query.
+     * @param Horde_Imap_Client_Fetch_Query $query  Search query.
      *
      * @return array  Fetch data.
      */
-    protected function _fetchData(Horde_Imap_Client_Search_Query $query)
+    protected function _fetchData(Horde_Imap_Client_Fetch_Query $query)
     {
         try {
             $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
