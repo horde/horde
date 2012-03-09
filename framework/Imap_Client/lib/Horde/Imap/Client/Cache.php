@@ -427,21 +427,22 @@ class Horde_Imap_Client_Cache
         $mailbox = strval($mailbox);
         $this->_loadSliceMap($mailbox);
 
-        $slicemap = &$this->_slicemap[$mailbox]['s'];
-        $update = array_intersect_key($slicemap, array_flip($uids));
+        $slicemap = &$this->_slicemap[$mailbox];
+        $update = array_intersect_key($slicemap['s'], array_flip($uids));
 
         if (!empty($update)) {
             $this->_loadUids(array_keys($update));
             $d = &$this->_data[$mailbox];
 
             foreach (array_keys($update) as $id) {
-                unset($d[$id], $slicemap[$id]);
+                unset($d[$id], $slicemap['s'][$id]);
             }
 
             foreach (array_unique($update) as $slice) {
                 /* Get rid of slice if less than 10% of capacity. */
-                $slice_uids = array_keys($slicemap, $slice);
-                if (($this->_params['slicesize'] * 0.1) > count($slice_uids)) {
+                if (($slice != $slicemap['i']) &&
+                    ($slice_uids = array_keys($slicemap['s'], $slice)) &&
+                    ($this->_params['slicesize'] * 0.1) > count($slice_uids)) {
                     $this->_toUpdate($mailbox, 'add', array_keys($slice_uids));
                     $this->_cache->expire($this->_getCid($mbox, $slice));
                 } else {
