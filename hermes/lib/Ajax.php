@@ -42,18 +42,19 @@ class Hermes_Ajax extends Horde_Core_Ajax
         if (!file_exists($GLOBALS['registry']->get('jsfs', 'horde') . '/date/' . $datejs)) {
             $datejs = 'en-US.js';
         }
-        Horde::addScriptFile('effects.js', 'horde');
-        Horde::addScriptFile('horde.js', 'horde');
-        Horde::addScriptFile('growler.js', 'horde');
-        Horde::addScriptFile('redbox.js', 'horde');
-        Horde::addScriptFile('tooltips.js', 'horde');
-        Horde::addScriptFile('date/' . $datejs, 'horde');
-        Horde::addScriptFile('date/date.js', 'horde');
-        Horde::addScriptFile('quickfinder.js', 'horde');
-        Horde::addScriptFile('hermes.js', 'hermes');
+        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        $page_output->addScriptFile('effects.js', 'horde');
+        $page_output->addScriptFile('horde.js', 'horde');
+        $page_output->addScriptFile('growler.js', 'horde');
+        $page_output->addScriptFile('redbox.js', 'horde');
+        $page_output->addScriptFile('tooltips.js', 'horde');
+        $page_output->addScriptFile('date/' . $datejs, 'horde');
+        $page_output->addScriptFile('date/date.js', 'horde');
+        $page_output->addScriptFile('quickfinder.js', 'horde');
+        $page_output->addScriptFile('hermes.js');
         Horde_Core_Ui_JsCalendar::init(array('short_weekdays' => true));
 
-        Horde::addInlineJsVars(array(
+        $page_output->addInlineJsVars(array(
             'var Hermes' => $this->_jsvars
         ), array('top' => true));
 

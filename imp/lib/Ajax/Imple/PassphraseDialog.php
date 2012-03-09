@@ -85,9 +85,11 @@ class IMP_Ajax_Imple_PassphraseDialog extends Horde_Core_Ajax_Imple
             $js_params['reloadurl'] = strval($this->_params['reloadurl']);
         }
 
-        Horde::addScriptFile('effects.js', 'horde');
-        Horde::addScriptFile('redbox.js', 'horde');
-        Horde::addScriptFile('dialog.js', 'horde');
+        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+
+        $page_output->addScriptFile('effects.js', 'horde');
+        $page_output->addScriptFile('redbox.js', 'horde');
+        $page_output->addScriptFile('dialog.js', 'horde');
 
         $js = 'HordeDialog.display(' . Horde::escapeJson($js_params, array('urlencode' => true)) . ');';
 
@@ -95,7 +97,7 @@ class IMP_Ajax_Imple_PassphraseDialog extends Horde_Core_Ajax_Imple
             $js = '$("' . $this->_params['id'] . '").observe("click", function(e) { ' . $js . 'e.stop(); })';
         }
 
-        Horde::addInlineScript(array($js), 'dom');
+        $page_output->addInlineScript(array($js), true);
     }
 
     /**

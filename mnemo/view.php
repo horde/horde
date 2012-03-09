@@ -115,7 +115,7 @@ if ($memo['body'] instanceof Mnemo_Exception) {
 $title = $memo ? $memo['desc'] : _("Note Details");
 require $registry->get('templates', 'horde') . '/common-header.inc';
 
-Horde::addScriptFile('stripe.js', 'horde', true);
+$injector->getInstance('Horde_PageOutput')->addScriptFile('stripe.js', 'horde');
 echo Horde::menu();
 $notification->notify();
 

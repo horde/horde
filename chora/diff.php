@@ -74,7 +74,7 @@ foreach ($VC->getRevisionRange($fl, $vars->r1, $vars->r2) as $val) {
     }
 }
 
-Horde::addScriptFile('stripe.js', 'horde');
+$injector->getInstance('Horde_PageOutput')->addScriptFile('stripe.js', 'horde');
 require $registry->get('templates', 'horde') . '/common-header.inc';
 require CHORA_TEMPLATES . '/menu.inc';
 require CHORA_TEMPLATES . '/headerbar.inc';

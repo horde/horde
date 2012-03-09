@@ -92,10 +92,10 @@ class Ansel_View_Image extends Ansel_View_Ansel
 
         /* Any script files we may need if not calling via the api */
         if (empty($this->_params['api'])) {
-            Horde::addScriptFile('effects.js', 'horde');
-            Horde::addScriptFile('stripe.js', 'horde');
+            $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+            $page_output->addScriptFile('effects.js', 'horde');
+            $page_output->addScriptFile('stripe.js', 'horde');
         }
-
     }
 
     public function getGalleryCrumbData()

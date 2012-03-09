@@ -17,7 +17,7 @@ try {
 }
 
 $title = $_SESSION['beatnik']['curdomain']['zonename'];
-Horde::addScriptFile('stripe.js', 'horde');
+$injector->getInstance('Horde_PageOutput')->addScriptFile('stripe.js', 'horde');
 Beatnik::notifyCommits();
 require $registry->get('templates', 'horde') . '/common-header.inc';
 require BEATNIK_TEMPLATES . '/menu.inc';

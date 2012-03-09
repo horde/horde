@@ -96,7 +96,7 @@ try {
     $notification->push($e);
 }
 
-Horde::addScriptFile('stripe.js', 'horde');
+$injector->getInstance('Horde_PageOutput')->addScriptFile('stripe.js', 'horde');
 
 require $registry->get('templates', 'horde') . '/common-header.inc';
 require SHOUT_TEMPLATES . '/menu.inc';

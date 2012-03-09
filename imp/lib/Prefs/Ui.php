@@ -342,17 +342,19 @@ class IMP_Prefs_Ui
      */
     public function prefsSpecial($ui, $item)
     {
+        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+
         switch ($item) {
         case 'aclmanagement':
-            Horde::addScriptFile('acl.js', 'imp');
+            $page_output->addScriptFile('acl.js');
             return $this->_aclManagement($ui);
 
         case 'composetemplates_management':
             return $this->_composeTemplatesManagement($ui);
 
         case 'draftsselect':
-            Horde::addScriptFile('folderprefs.js', 'imp');
-            Horde::addInlineJsVars(array(
+            $page_output->addScriptFile('folderprefs.js');
+            $page_output->addInlineJsVars(array(
                 'ImpFolderPrefs.mboxes.drafts' => _("Enter the name for your new drafts mailbox.")
             ));
             return $this->_drafts();
@@ -362,8 +364,8 @@ class IMP_Prefs_Ui
 
         case 'flagmanagement':
             if (!$ui->nobuttons) {
-                Horde::addScriptFile('colorpicker.js', 'horde');
-                Horde::addScriptFile('flagprefs.js', 'imp');
+                $page_output->addScriptFile('colorpicker.js', 'horde');
+                $page_output->addScriptFile('flagprefs.js');
             }
             return $this->_flagManagement();
 
@@ -377,37 +379,37 @@ class IMP_Prefs_Ui
             return $this->_newmailAudio();
 
         case 'pgpprivatekey':
-            Horde::addScriptFile('imp.js', 'imp');
-            Horde::addScriptFile('pgp.js', 'imp');
+            $page_output->addScriptFile('imp.js');
+            $page_output->addScriptFile('pgp.js');
             Horde_Core_Ui_JsCalendar::init();
-            Horde::addInlineJsVars(array(
+            $page_output->addInlineJsVars(array(
                 'ImpPgp.months' => Horde_Core_Ui_JsCalendar::months()
             ));
 
             return $this->_pgpPrivateKey($ui);
 
         case 'pgppublickey':
-            Horde::addScriptFile('imp.js', 'imp');
+            $page_output->addScriptFile('imp.js');
             return $this->_pgpPublicKey($ui);
 
         case 'searchesmanagement':
-            Horde::addScriptFile('searchesprefs.js', 'imp');
+            $page_output->addScriptFile('searchesprefs.js');
             return $this->_searchesManagement();
 
         case 'sentmailselect':
-            Horde::addScriptFile('folderprefs.js', 'imp');
+            $page_output->addScriptFile('folderprefs.js');
             return $this->_sentmail();
 
         case 'smimeprivatekey':
-            Horde::addScriptFile('imp.js', 'imp');
+            $page_output->addScriptFile('imp.js');
             return $this->_smimePrivateKey($ui);
 
         case 'smimepublickey':
-            Horde::addScriptFile('imp.js', 'imp');
+            $page_output->addScriptFile('imp.js');
             return $this->_smimePublicKey($ui);
 
         case 'signature_html_select':
-            Horde::addScriptFile('signaturehtml.js', 'imp');
+            $page_output->addScriptFile('signaturehtml.js');
             IMP_Ui_Editor::init(false, 'signature_html');
             return $this->_signatureHtml();
 
@@ -419,15 +421,15 @@ class IMP_Prefs_Ui
             ));
 
         case 'spamselect':
-            Horde::addScriptFile('folderprefs.js', 'imp');
-            Horde::addInlineJsVars(array(
+            $page_output->addScriptFile('folderprefs.js');
+            $page_output->addInlineJsVars(array(
                 'ImpFolderPrefs.mboxes.spam' => _("Enter the name for your new spam mailbox.")
             ));
             return $this->_spam();
 
         case 'trashselect':
-            Horde::addScriptFile('folderprefs.js', 'imp');
-            Horde::addInlineJsVars(array(
+            $page_output->addScriptFile('folderprefs.js');
+            $page_output->addInlineJsVars(array(
                 'ImpFolderPrefs.mboxes.trash' => _("Enter the name for your new trash mailbox.")
             ));
             return $this->_trash();
@@ -747,8 +749,9 @@ class IMP_Prefs_Ui
         $t->setOption('gettext', true);
 
         if (!$prefs->isLocked('composetemplates_mbox')) {
-            Horde::addScriptFile('folderprefs.js', 'imp');
-            Horde::addInlineJsVars(array(
+            $page_output = $injector->getInstance('Horde_PageOutput');
+            $page_output->addScriptFile('folderprefs.js');
+            $page_output->addInlineJsVars(array(
                 'ImpFolderPrefs.mboxes.templates' => _("Enter the name for your new compose templates mailbox.")
             ));
 
@@ -830,7 +833,7 @@ class IMP_Prefs_Ui
      */
     protected function _flagManagement()
     {
-        Horde::addInlineJsVars(array(
+        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineJsVars(array(
             'ImpFlagPrefs.new_prompt' => _("Please enter the label for the new flag:"),
             'ImpFlagPrefs.confirm_delete' => _("Are you sure you want to delete this flag?")
         ));
@@ -968,7 +971,7 @@ class IMP_Prefs_Ui
      */
     protected function _mailtoHandler()
     {
-        Horde::addInlineScript(array(
+        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineScript(array(
             'if (!Object.isUndefined(navigator.registerProtocolHandler))' .
             '$("mailto_handler").show().down("A").observe("click", function() {' .
                 'navigator.registerProtocolHandler("mailto","' .
@@ -978,7 +981,7 @@ class IMP_Prefs_Ui
                 )) .
                 '=%s","' . $GLOBALS['registry']->get('name') . '");' .
             '})'
-        ), 'dom');
+        ), true);
 
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->setOption('gettext', true);
@@ -1038,6 +1041,7 @@ class IMP_Prefs_Ui
         if (!Horde::isConnectionSecure()) {
             $t->set('notsecure', true);
         } else {
+            $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
             $pgp_url = Horde::url('pgp.php');
 
             $t->set('has_key', $GLOBALS['prefs']->getValue('pgp_public_key') && $GLOBALS['prefs']->getValue('pgp_private_key'));
@@ -1062,9 +1066,9 @@ class IMP_Prefs_Ui
                 $t->set('personalkey-private-help', Horde_Help::link('imp', 'pgp-personalkey-private'));
                 $t->set('personalkey-delete-help', Horde_Help::link('imp', 'pgp-personalkey-delete'));
 
-                Horde::addInlineScript(array(
+                $page_output->addInlineScript(array(
                     '$("delete_pgp_privkey").observe("click", function(e) { if (!window.confirm(' . Horde_Serialize::serialize(_("Are you sure you want to delete your keypair? (This is NOT recommended!)"), Horde_Serialize::JSON, 'UTF-8') . ')) { e.stop(); } })'
-                ), 'dom');
+                ), true);
             } else {
                 $imp_identity = $GLOBALS['injector']->getInstance('IMP_Identity');
                 $t->set('fullname', $imp_identity->getFullname());
@@ -1075,15 +1079,15 @@ class IMP_Prefs_Ui
                 $t->set('personalkey-create-keylength-help', Horde_Help::link('imp', 'pgp-personalkey-create-keylength'));
                 $t->set('personalkey-create-passphrase-help', Horde_Help::link('imp', 'pgp-personalkey-create-passphrase'));
 
-                Horde::addInlineScript(array(
+                $page_output->addInlineScript(array(
                     '$("create_pgp_key").observe("click", function(e) { if (!window.confirm(' . Horde_Serialize::serialize(_("Key generation may take a long time to complete.  Continue with key generation?"), Horde_Serialize::JSON, 'UTF-8') . ')) { e.stop(); } })'
-                ), 'dom');
+                ), true);
 
                 if ($GLOBALS['session']->get('imp', 'file_upload')) {
                     $t->set('import_pgp_private', true);
-                    Horde::addInlineScript(array(
+                    $page_output->addInlineScript(array(
                         '$("import_pgp_personal").observe("click", function(e) { ' . Horde::popupJs($pgp_url, array('params' => array('actionID' => 'import_personal_key', 'reload' => $GLOBALS['session']->store($ui->selfUrl()->setRaw(true), false)), 'height' => 275, 'width' => 750, 'urlencode' => true)) . '; e.stop(); })'
-                    ), 'dom');
+                    ), true);
                 }
 
                 $t->set('personalkey-create-actions-help', Horde_Help::link('imp', 'pgp-personalkey-create-actions'));
@@ -1190,9 +1194,9 @@ class IMP_Prefs_Ui
             if (!$t->get('no_source')) {
                 $t->set('import_pubkey-help', Horde_Help::link('imp', 'pgp-import-pubkey'));
 
-                Horde::addInlineScript(array(
+                $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineScript(array(
                     '$("import_pgp_public").observe("click", function(e) { ' . Horde::popupJs($pgp_url, array('params' => array('actionID' => 'import_public_key', 'reload' => $GLOBALS['session']->store($ui->selfUrl()->setRaw(true), false)), 'height' => 275, 'width' => 750, 'urlencode' => true)) . '; e.stop(); })'
-                ), 'dom');
+                ), true);
             }
         }
 
@@ -1291,7 +1295,7 @@ class IMP_Prefs_Ui
         if (empty($fout) && empty($vout)) {
             $t->set('nosearches', true);
         } else {
-            Horde::addInlineJsVars(array(
+            $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineJsVars(array(
                 'ImpSearchesPrefs.confirm_delete_filter' => _("Are you sure you want to delete this filter?"),
                 'ImpSearchesPrefs.confirm_delete_vfolder' => _("Are you sure you want to delete this virtual folder?"),
                 'ImpSearchesPrefs.mailboxids' => $mailboxids
@@ -1371,7 +1375,7 @@ class IMP_Prefs_Ui
             $js[$key] = $identity->getValue('sent_mail_folder', $key)->form_to;
         };
 
-        Horde::addInlineJsVars(array(
+        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineJsVars(array(
             'ImpFolderPrefs.mboxes' => array('sent_mail' => _("Create a new sent-mail mailbox")),
             'ImpFolderPrefs.sentmail' => $js
         ));
@@ -1447,6 +1451,7 @@ class IMP_Prefs_Ui
         if (!Horde::isConnectionSecure()) {
             $t->set('notsecure', true);
         } else {
+            $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
             $smime_url = Horde::url('smime.php');
 
             $t->set('has_key', $GLOBALS['prefs']->getValue('smime_public_key') && $GLOBALS['prefs']->getValue('smime_private_key'));
@@ -1467,15 +1472,15 @@ class IMP_Prefs_Ui
                 $t->set('viewprivate', Horde::link($smime_url->copy()->add('actionID', 'view_personal_private_key'), _("View Personal Private Key"), null, 'view_key'));
                 $t->set('personalkey-delete-help', Horde_Help::link('imp', 'smime-delete-personal-certs'));
 
-                Horde::addInlineScript(array(
+                $page_output->addInlineScript(array(
                     '$("delete_smime_personal").observe("click", function(e) { if (!window.confirm(' . Horde_Serialize::serialize(_("Are you sure you want to delete your keypair? (This is NOT recommended!)"), Horde_Serialize::JSON, 'UTF-8') . ')) { e.stop(); } })'
-                ), 'dom');
+                ), true);
             } elseif ($GLOBALS['session']->get('imp', 'file_upload')) {
                 $t->set('import-cert-help', Horde_Help::link('imp', 'smime-import-personal-certs'));
 
-                Horde::addInlineScript(array(
+                $page_output->addInlineScript(array(
                     '$("import_smime_personal").observe("click", function(e) { ' . Horde::popupJs($smime_url, array('params' => array('actionID' => 'import_personal_certs', 'reload' => $GLOBALS['session']->store($ui->selfUrl()->setRaw(true), false)), 'height' => 275, 'width' => 750, 'urlencode' => true)) . '; e.stop(); })'
-                ), 'dom');
+                ), true);
             }
         }
 
@@ -1547,9 +1552,9 @@ class IMP_Prefs_Ui
             if (!$t->get('no_source')) {
                 $t->set('import_pubkey-help', Horde_Help::link('imp', 'smime-import-pubkey'));
 
-                Horde::addInlineScript(array(
+                $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineScript(array(
                     '$("import_smime_public").observe("click", function(e) { ' . Horde::popupJs($smime_url, array('params' => array('actionID' => 'import_public_key', 'reload' => $GLOBALS['session']->store($ui->selfUrl()->setRaw(true), false)), 'height' => 275, 'width' => 750, 'urlencode' => true)) . '; e.stop(); })'
-                ), 'dom');
+                ), true);
             }
         }
 
@@ -1589,7 +1594,7 @@ class IMP_Prefs_Ui
             $js[$key] = $identity->getValue('signature_html', $key);
         };
 
-        Horde::addInlineJsVars(array(
+        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineJsVars(array(
             'ImpHtmlSignaturePrefs.sigs' => $js
         ));
 

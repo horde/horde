@@ -18,9 +18,10 @@ if ($registry->getView() == Horde_Registry::VIEW_SMARTMOBILE) {
 }
 
 // Get refresh interval.
+$page_output = $injector->getInstance('Horde_PageOutput');
 if (($r_time = $prefs->getValue('summary_refresh_time'))
     && !$browser->hasFeature('xmlhttpreq')) {
-    Horde::metaRefresh($r_time, Horde::url('services/portal/'));
+    $page_output->metaRefresh($r_time, Horde::url('services/portal/'));
 }
 
 // Render layout.
@@ -31,14 +32,9 @@ $view = new Horde_Core_Block_Layout_View(
 );
 $layout_html = $view->toHtml();
 
-if ($app_css = $view->getStylesheets()) {
-    $css = $injector->getInstance('Horde_Themes_Css');
-    foreach ($app_css as $val) {
-        $css->addStylesheet($val['fs'], $val['uri']);
-    }
+foreach ($view->getStylesheets() as $val) {
+    $page_output->addStylesheet($val['fs'], $val['uri']);
 }
-
-$linkTags = $view->getLinkTags();
 
 $title = _("My Portal");
 require HORDE_TEMPLATES . '/common-header.inc';

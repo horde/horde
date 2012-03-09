@@ -60,7 +60,7 @@ case 'edit_file':
         $injector->getInstance('Horde_Editor')->initialize(array('id' => 'content'));
     }
 
-    Horde::addScriptFile('edit.js', 'gollem');
+    $injector->getInstance('Horde_PageOutput')->addScriptFile('edit.js');
 
     require $registry->get('templates', 'horde') . '/common-header.inc';
     require GOLLEM_TEMPLATES . '/javascript_defs.php';

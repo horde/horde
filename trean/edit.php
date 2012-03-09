@@ -40,9 +40,9 @@ $injector->getInstance('Horde_Core_Factory_Imple')->create(
     )
 );
 
-Horde::addInlineScript(array(
+$injector->getInstance('Horde_PageOutput')->addInlineScript(array(
     'bookmarkTagAc.init()',
-), 'dom');
+), true);
 
 $title = _("Edit Bookmark");
 require $registry->get('templates', 'horde') . '/common-header.inc';

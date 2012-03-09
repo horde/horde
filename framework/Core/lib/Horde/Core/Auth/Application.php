@@ -499,10 +499,8 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
      *
      * @return array  An array with the following keys:
      * <pre>
-     * 'js_code' - (array) A list of javascript statements to be included via
-     *             Horde::addInlineScript().
-     * 'js_files' - (array) A list of javascript files to be included via
-     *              Horde::addScriptFile().
+     * 'js_code' - (array) A list of javascript statements to be included.
+     * 'js_files' - (array) A list of javascript files to be included.
      * 'params' - (array) A list of parameters to display on the login screen.
      *            Each entry is an array with the following entries:
      *            'label' - (string) The label of the entry.

@@ -60,7 +60,7 @@ $edit_img = Horde::img('edit.png', _("Edit"));
 $perms_img = Horde::img('perms.png', _("Change Permissions"));
 $delete_img = Horde::img('delete.png', _("Delete"));
 
-Horde::addScriptFile('tables.js', 'horde');
+$injector->getInstance('Horde_PageOutput')->addScriptFile('tables.js', 'horde');
 $title = _("Manage Task Lists");
 require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Nag::menu();

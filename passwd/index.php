@@ -206,12 +206,13 @@ if ($view->showlist) {
 $menu = new Horde_Menu(Horde_Menu::MASK_ALL & ~Horde_Menu::MASK_PREFS);
 $view->menu = $menu->render();
 
-Horde::addScriptFile('stripe.js', 'horde', true);
-Horde::addScriptFile('passwd.js', 'passwd', true);
-Horde::addInlineScript(array(
+$page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+$page_output->addScriptFile('stripe.js', 'horde');
+$page_output->addScriptFile('passwd.js');
+$page_output->addInlineScript(array(
     '$(\'passwd\').focusFirstElement()'
-), 'dom');
-Horde::addInlineJsVars(array(
+), true);
+$page_output->addInlineJsVars(array(
     'var Passwd' => array(
         'current_pass' => _("Please provide your current password"),
         'new_pass' => _("Please provide a new password"),

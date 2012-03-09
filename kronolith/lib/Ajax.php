@@ -38,21 +38,22 @@ class Kronolith_Ajax extends Horde_Core_Ajax
 
         $this->_addBaseVars();
 
-        Horde::addScriptFile('dragdrop2.js', 'kronolith');
-        Horde::addScriptFile('redbox.js', 'horde');
-        Horde::addScriptFile('tooltips.js', 'horde');
-        Horde::addScriptFile('colorpicker.js', 'horde');
+        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        $page_output->addScriptFile('dragdrop2.js');
+        $page_output->addScriptFile('redbox.js', 'horde');
+        $page_output->addScriptFile('tooltips.js', 'horde');
+        $page_output->addScriptFile('colorpicker.js', 'horde');
 
         $datejs = str_replace('_', '-', $GLOBALS['language']) . '.js';
         if (!file_exists($GLOBALS['registry']->get('jsfs', 'horde') . '/date/' . $datejs)) {
             $datejs = 'en-US.js';
         }
-        Horde::addScriptFile('date/' . $datejs, 'horde');
-        Horde::addScriptFile('date/date.js', 'horde');
-        Horde::addScriptFile('kronolith.js', 'kronolith');
+        $page_output->addScriptFile('date/' . $datejs, 'horde');
+        $page_output->addScriptFile('date/date.js', 'horde');
+        $page_output->addScriptFile('kronolith.js');
         Horde_Core_Ui_JsCalendar::init(array('short_weekdays' => true));
 
-        Horde::addInlineJsVars(array(
+        $page_output->addInlineJsVars(array(
             'var Kronolith' => $this->_jsvars
         ), array('top' => true));
 

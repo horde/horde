@@ -177,7 +177,7 @@ if (is_array($info['list']) &&
 }
 
 $title = $info['title'];
-Horde::addScriptFile('selectlist.js', 'gollem');
+$injector->getInstance('Horde_PageOutput')->addScriptFile('selectlist.js');
 require $registry->get('templates', 'horde') . '/common-header.inc';
 require GOLLEM_TEMPLATES . '/javascript_defs.php';
 Gollem::status();

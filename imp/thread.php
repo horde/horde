@@ -23,6 +23,7 @@ Horde_Registry::appInit('imp', array(
  * DEFAULT/'thread' - Thread mode
  * 'msgview' - Multiple message view
  */
+$page_output = $injector->getInstance('Horde_PageOutput');
 $vars = Horde_Variables::getDefaultVariables();
 $mode = $vars->mode
     ? $vars->mode
@@ -159,17 +160,17 @@ if ($mode == 'thread') {
         $delete_link->add(array('indices[]' => strval(IMP::mailbox()->getIndicesOb($val)), 'start' => $imp_mailbox->getArrayIndex($val)));
     }
     $template->set('delete', Horde::link($delete_link, _("Delete Thread"), null, null, null, null, null, array('id' => 'threaddelete')));
-    Horde::addInlineScript(array(
+    $page_output->addInlineScript(array(
         '$("threaddelete").observe("click", function(e) { if (!window.confirm(' . Horde_Serialize::serialize(_("Are you sure you want to delete all messages in this thread?"), Horde_Serialize::JSON, $charset) . ')) { e.stop(); } })'
-    ), 'dom');
+    ), true);
 }
 $template->set('thread', $mode == 'thread');
 $template->set('messages', $msgs);
 $template->set('tree', $tree);
 
 /* Output page. */
-Horde::addScriptFile('stripe.js', 'horde');
-Horde::noDnsPrefetch();
+$page_output->addScriptFile('stripe.js', 'horde');
+$page_output->noDnsPrefetch();
 $menu = IMP::menu();
 IMP::header($mode == 'thread' ? _("Thread View") : _("Multiple Message View"));
 echo $menu;

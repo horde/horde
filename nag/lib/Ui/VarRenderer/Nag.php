@@ -79,7 +79,7 @@ class Horde_Core_Ui_VarRenderer_Nag extends Horde_Core_Ui_VarRenderer_Html
             Horde_Core_Ui_JsCalendar::init(array(
                 'full_weekdays' => true
             ));
-            Horde::addScriptFile('calendar.js', 'nag');
+            $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('calendar.js');
             echo '<span id="start_wday"></span>' .
                 Horde::img('calendar.png', _("Calendar"), 'id="startimg"');
         }
@@ -129,7 +129,7 @@ class Horde_Core_Ui_VarRenderer_Nag extends Horde_Core_Ui_VarRenderer_Html
             Horde_Core_Ui_JsCalendar::init(array(
                 'full_weekdays' => true
             ));
-            Horde::addScriptFile('calendar.js', 'nag');
+            $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('calendar.js');
             echo '<span id="due_wday"></span>' .
                 Horde::img('calendar.png', _("Calendar"), 'id="dueimg"');
         }

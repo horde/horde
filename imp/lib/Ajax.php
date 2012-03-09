@@ -34,7 +34,7 @@ class IMP_Ajax extends Horde_Core_Ajax
      */
     public function header($page, $title = '')
     {
-        global $prefs;
+        global $injector, $prefs;
 
         $inlinescript = false;
 
@@ -44,71 +44,73 @@ class IMP_Ajax extends Horde_Core_Ajax
 
         $this->_addBaseVars();
 
-        Horde::addScriptFile('dimpcore.js', 'imp');
-        Horde::addScriptFile('indices.js', 'imp');
-        Horde::addScriptFile('contextsensitive.js', 'horde');
+        $page_output = $injector->getInstance('Horde_PageOutput');
+
+        $page_output->addScriptFile('dimpcore.js');
+        $page_output->addScriptFile('indices.js');
+        $page_output->addScriptFile('contextsensitive.js', 'horde');
 
         switch ($page) {
         case 'compose':
-            Horde::addScriptFile('compose-base.js', 'imp');
-            Horde::addScriptFile('compose-dimp.js', 'imp');
-            Horde::addScriptFile('md5.js', 'horde');
-            Horde::addScriptFile('textarearesize.js', 'horde');
+            $page_output->addScriptFile('compose-base.js');
+            $page_output->addScriptFile('compose-dimp.js');
+            $page_output->addScriptFile('md5.js', 'horde');
+            $page_output->addScriptFile('textarearesize.js', 'horde');
 
             if (!$prefs->isLocked('default_encrypt') &&
                 ($prefs->getValue('use_pgp') ||
                  $prefs->getValue('use_smime'))) {
-                Horde::addScriptFile('redbox.js', 'horde');
-                Horde::addScriptFile('dialog.js', 'horde');
+                $page_output->addScriptFile('redbox.js', 'horde');
+                $page_output->addScriptFile('dialog.js', 'horde');
             }
 
             $this->_addComposeVars();
             break;
 
         case 'main':
-            Horde::addScriptFile('dimpbase.js', 'imp');
-            Horde::addScriptFile('imp.js', 'imp');
-            Horde::addScriptFile('imageunblock.js', 'imp');
-            Horde::addScriptFile('itiprequest.js', 'imp');
-            Horde::addScriptFile('jstorage.js', 'imp');
-            Horde::addScriptFile('mailbox-dimp.js', 'imp');
-            Horde::addScriptFile('viewport.js', 'imp');
-            Horde::addScriptFile('dragdrop2.js', 'horde');
-            Horde::addScriptFile('form_ghost.js', 'horde');
-            Horde::addScriptFile('redbox.js', 'horde');
-            Horde::addScriptFile('dialog.js', 'horde');
-            Horde::addScriptFile('slider2.js', 'horde');
-            Horde::addScriptFile('toggle_quotes.js', 'horde');
+            $page_output->addScriptFile('dimpbase.js');
+            $page_output->addScriptFile('imp.js');
+            $page_output->addScriptFile('imageunblock.js');
+            $page_output->addScriptFile('itiprequest.js');
+            $page_output->addScriptFile('jstorage.js');
+            $page_output->addScriptFile('mailbox-dimp.js');
+            $page_output->addScriptFile('viewport.js');
+            $page_output->addScriptFile('dragdrop2.js', 'horde');
+            $page_output->addScriptFile('form_ghost.js', 'horde');
+            $page_output->addScriptFile('redbox.js', 'horde');
+            $page_output->addScriptFile('dialog.js', 'horde');
+            $page_output->addScriptFile('slider2.js', 'horde');
+            $page_output->addScriptFile('toggle_quotes.js', 'horde');
 
             if ($prefs->getValue('use_pgp') ||
                 $prefs->getValue('use_smime')) {
-                Horde::addScriptFile('importencryptkey.js', 'imp');
+                $page_output->addScriptFile('importencryptkey.js');
             }
             break;
 
         case 'message':
-            Horde::addScriptFile('message-dimp.js', 'imp');
-            Horde::addScriptFile('imp.js', 'imp');
-            Horde::addScriptFile('imageunblock.js', 'imp');
-            Horde::addScriptFile('itiprequest.js', 'imp');
-            Horde::addScriptFile('textarearesize.js', 'horde');
-            Horde::addScriptFile('toggle_quotes.js', 'horde');
+            $page_output->addScriptFile('message-dimp.js');
+            $page_output->addScriptFile('imp.js');
+            $page_output->addScriptFile('imageunblock.js');
+            $page_output->addScriptFile('itiprequest.js');
+            $page_output->addScriptFile('textarearesize.js', 'horde');
+            $page_output->addScriptFile('toggle_quotes.js', 'horde');
 
             if ($prefs->getValue('use_pgp') ||
                 $prefs->getValue('use_smime')) {
-                Horde::addScriptFile('importencryptkey.js', 'imp');
+                $page_output->addScriptFile('importencryptkey.js');
             }
 
             if (IMP::canCompose()) {
-                Horde::addScriptFile('compose-base.js', 'imp');
-                Horde::addScriptFile('compose-dimp.js', 'imp');
-                Horde::addScriptFile('md5.js', 'horde');
+                $page_output->addScriptFile('compose-base.js');
+                $page_output->addScriptFile('compose-dimp.js');
+                $page_output->addScriptFile('md5.js', 'horde');
 
                 if (!$prefs->isLocked('default_encrypt') &&
                     ($prefs->getValue('use_pgp') ||
                      $prefs->getValue('use_smime'))) {
-                    Horde::addScriptFile('redbox.js', 'horde');
-                    Horde::addScriptFile('dialog.js', 'horde');
+                    $page_output->addScriptFile('redbox.js', 'horde');
+                    $page_output->addScriptFile('dialog.js', 'horde');
                 }
 
                 $this->_addComposeVars();
@@ -120,7 +122,7 @@ class IMP_Ajax extends Horde_Core_Ajax
             break;
         }
 
-        Horde::addInlineJsVars(array(
+        $page_output->addInlineJsVars(array(
             'var DIMP' => $this->_jsvars
         ), array('top' => true));
 

@@ -74,7 +74,7 @@ class Whups_Block_Tickets extends Horde_Core_Block
             $html .= '</tr>';
         }
 
-        Horde::addScriptFile('tables.js', 'horde', true);
+        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('tables.js', 'horde');
 
         return '<table id="' . htmlspecialchars($tableId) . '" cellspacing="0" class="tickets striped sortable">' . $html . '</tbody></table>';
     }

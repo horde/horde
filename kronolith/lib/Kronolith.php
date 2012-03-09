@@ -1027,8 +1027,10 @@ class Kronolith
         }
 
         $params['jsuri'] = $GLOBALS['registry']->get('jsuri', 'horde') . '/map/';
-        Horde::addScriptFile('map/map.js', 'horde');
-        Horde::addinlineScript(
+
+        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        $page_output->addScriptFile('map/map.js', 'horde');
+        $page_output->addinlineScript(
             'HordeMap.initialize(' . Horde_Serialize::serialize($params, HORDE_SERIALIZE::JSON) . ');'
         );
     }

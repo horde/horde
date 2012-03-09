@@ -22,7 +22,7 @@ $dimp_menu = new IMP_Menu_Dimp(Horde_Menu::MASK_BASE);
 $render_sidebar = $dimp_menu->render();
 $dimp_menu->addJs();
 
-Horde::noDnsPrefetch();
+$injector->getInstance('Horde_PageOutput')->noDnsPrefetch();
 $injector->getInstance('IMP_Ajax')->header('main');
 
 require IMP_TEMPLATES . '/dimp/index.inc';

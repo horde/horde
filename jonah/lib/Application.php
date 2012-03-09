@@ -35,8 +35,6 @@ class Jonah_Application extends Horde_Registry_Application
     }
 
     /**
-     * Global variables defined:
-     * - $linkTags: <link> tags for common-header.inc.
      */
     protected function _init()
     {
@@ -46,7 +44,11 @@ class Jonah_Application extends Horde_Registry_Application
             if ($tag_id = Horde_Util::getFormData('tag_id')) {
                 $url->add('tag_id', $tag_id);
             }
-            $GLOBALS['linkTags'] = array('<link rel="alternate" type="application/rss+xml" title="RSS 0.91" href="' . $url . '" />');
+
+            $GLOBALS['injector']->getInstance('Horde_PageOutput')->addLinkTag(array(
+                'href' => $url,
+                'title' => 'RSS 0.91'
+            ));
         }
     }
 

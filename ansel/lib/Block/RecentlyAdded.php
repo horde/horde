@@ -94,7 +94,8 @@ class Ansel_Block_Recentlyadded extends Horde_Core_Block
      */
     protected function _content()
     {
-        Horde::addScriptFile('block.js');
+        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('block.js');
+
         if ($this->_params['gallery'] == 'all') {
             $galleries = array();
         } elseif (!is_array($this->_params['gallery'])) {

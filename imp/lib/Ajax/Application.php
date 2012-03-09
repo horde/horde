@@ -1676,7 +1676,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
                 }
 
                 Horde::startBuffer();
-                Horde::outputInlineScript(true);
+                $GLOBALS['injector']->getInstance('Horde_PageOutput')->outputInlineScript(true);
                 if ($js_inline = Horde::endBuffer()) {
                     $result->encryptjs = array($js_inline);
                 }

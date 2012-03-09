@@ -353,7 +353,7 @@ $t->set('atc', $atc);
 $title = $display_headers['subject'];
 $t->set('title', ($status ? $status . ' ' : '') . sprintf(_("(Message %d of %d)"), $msgindex, $msgcount));
 
-Horde::noDnsPrefetch();
+$injector->getInstance('Horde_PageOutput')->noDnsPrefetch();
 
 IMP::header($title);
 IMP::status();

@@ -11,9 +11,9 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('mnemo');
 
-Horde::addInlineScript(array(
+$injector->getInstance('Horde_PageOutput')->addInlineScript(array(
     '$("search_pattern").focus()'
-), 'dom');
+), true);
 
 if ($prefs->getValue('show_panel')) {
     $bodyClass = 'rightPanel';

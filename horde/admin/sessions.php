@@ -11,15 +11,15 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 $permission = 'sessions';
 Horde_Registry::appInit('horde');
-if (!$registry->isAdmin() && 
+if (!$registry->isAdmin() &&
     !$injector->getInstance('Horde_Perms')->hasPermission('horde:administration:'.$permission, $registry->getAuth(), Horde_Perms::SHOW)) {
     $registry->authenticateFailure('horde', new Horde_Exception(sprintf("Not an admin and no %s permission", $permission)));
 }
 
 $title = _("Session Admin");
-Horde::addInlineScript(array(
+$injector->getInstance('Horde_PageOutput')->addInlineScript(array(
     '$$("DIV.sesstoggle").invoke("observe", "click", function() { [ this.nextSiblings(), this.immediateDescendants() ].flatten().compact().invoke("toggle"); })'
-), 'dom');
+), true);
 
 require HORDE_TEMPLATES . '/common-header.inc';
 require HORDE_TEMPLATES . '/admin/menu.inc';

@@ -64,13 +64,16 @@ class Kronolith_Application extends Horde_Registry_Application
         $GLOBALS['injector']->bindFactory('Kronolith_Geo', 'Kronolith_Factory_Geo', 'create');
         $GLOBALS['injector']->bindFactory('Kronolith_Shares', 'Kronolith_Factory_Shares', 'create');
 
-        $GLOBALS['linkTags'] = array();
         if ($GLOBALS['registry']->getView() != Horde_Registry::VIEW_DYNAMIC ||
             !$GLOBALS['prefs']->getValue('dynamic_view') ||
             empty($this->initParams['nodynamicinit'])) {
             Kronolith::initialize();
+            $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
             foreach ($GLOBALS['display_calendars'] as $calendar) {
-                $GLOBALS['linkTags'][] = '<link href="' . Kronolith::feedUrl($calendar) . '" rel="alternate" type="application/atom+xml" />';
+                $page_output->addLinkTag(array(
+                    'href' => Kronolith::feedUrl($calendar),
+                    'type' => 'application/atom+xml'
+                ));
             }
         }
     }
@@ -124,8 +127,9 @@ class Kronolith_Application extends Horde_Registry_Application
                 'click_year' => true,
                 'full_weekdays' => true
             ));
-            Horde::addScriptFile('goto.js', 'kronolith');
-            Horde::addInlineJsVars(array(
+            $page_output = $injector->getInstance('Horde_PageOutput');
+            $page_output->addScriptFile('goto.js');
+            $page_output->addInlineJsVars(array(
                 'KronolithGoto.dayurl' => strval(Horde::url('day.php')),
                 'KronolithGoto.monthurl' => strval(Horde::url('month.php')),
                 'KronolithGoto.weekurl' => strval(Horde::url('week.php')),
@@ -603,13 +607,14 @@ class Kronolith_Application extends Horde_Registry_Application
             $datejs = 'en-US.js';
         }
 
-        Horde::addScriptFile('date/' . $datejs, 'horde');
-        Horde::addScriptFile('date/date.js', 'horde');
-        Horde::addScriptFile('mobile.js');
+        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        $page_output->addScriptFile('date/' . $datejs, 'horde');
+        $page_output->addScriptFile('date/date.js', 'horde');
+        $page_output->addScriptFile('mobile.js');
         require KRONOLITH_TEMPLATES . '/mobile/javascript_defs.php';
 
         /* Inline script. */
-        Horde::addInlineScript(
+        $page_output->addInlineScript(
           '$(window.document).bind("mobileinit", function() {
               $.mobile.page.prototype.options.addBackBtn = true;
               $.mobile.page.prototype.options.backBtnText = "' . _("Back") .'";

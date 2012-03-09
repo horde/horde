@@ -53,7 +53,7 @@ if ($VC->hasFeature('branches')) {
     }
 }
 
-Horde::addScriptFile('revlog.js', 'chora');
+$injector->getInstance('Horde_PageOutput')->addScriptFile('revlog.js');
 require $registry->get('templates', 'horde') . '/common-header.inc';
 require CHORA_TEMPLATES . '/menu.inc';
 require CHORA_TEMPLATES . '/headerbar.inc';

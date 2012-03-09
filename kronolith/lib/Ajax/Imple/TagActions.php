@@ -14,7 +14,9 @@ class Kronolith_Ajax_Imple_TagActions extends Horde_Core_Ajax_Imple
      */
     public function attach()
     {
-        Horde::addScriptFile('tagactions.js');
+        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+
+        $page_output->addScriptFile('tagactions.js');
         $dom_id = $this->_params['triggerId'];
         $action = $this->_params['action'];
         $content_id = $this->_params['resource'];
@@ -27,7 +29,7 @@ class Kronolith_Ajax_Imple_TagActions extends Horde_Core_Ajax_Imple
         } elseif ($action == 'delete') {
             $js = "Event.observe('" . $dom_id . "', 'click', function(event) {removeTag('" . $content_id . "', '" . $content_type . "', " . $tag_id . ", '" . $endpoint . "'); Event.stop(event)});";
         }
-        Horde::addInlineScript($js, 'window');
+        $page_output->addInlineScript($js);
     }
 
     /**

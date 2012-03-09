@@ -234,7 +234,7 @@ class IMP_Ui_Compose
     }
 
     /**
-     * @return array  See Horde::addInlineJsVars().
+     * @return array
      */
     public function identityJs()
     {
@@ -256,7 +256,7 @@ class IMP_Ui_Compose
             );
         }
 
-        return Horde::addInlineJsVars(array(
+        return $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineJsVars(array(
             'ImpComposeBase.identities' => $identities
         ), array('ret_vars' => true));
     }

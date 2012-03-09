@@ -11,28 +11,29 @@ header('Vary: Accept-Language');
   <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
 <?php
 
-Horde::includeFavicon();
+$page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+
+$page_output->includeFavicon();
 
 /* CSS Files. */
-$horde_css = $GLOBALS['injector']->getInstance('Horde_Themes_Css');
-$horde_css->addStylesheet(
+$page_output->addStylesheet(
     $GLOBALS['registry']->get('jsfs', 'horde') . '/jquery.mobile/jquery.mobile.min.css',
     $GLOBALS['registry']->get('jsuri', 'horde') . '/jquery.mobile/jquery.mobile.min.css'
 );
-$horde_css->addThemeStylesheet('mobile.css');
-Horde::includeStylesheetFiles(array(
+$page_output->addThemeStylesheet('mobile.css');
+$page_output->includeStylesheetFiles(array(
     'nobase' => true,
     'nocache' => true,
 ));
 
 /* JS Files. */
 $GLOBALS['injector']->getInstance('Horde_Script_Files')->prototypejs = false;
-Horde::addScriptFile('jquery.mobile/jquery.min.js', 'horde');
-Horde::addScriptFile('horde-jquery.js', 'horde');
-Horde::addScriptFile('mobile.js', 'horde');
+$page_output->addScriptFile('jquery.mobile/jquery.min.js', 'horde');
+$page_output->addScriptFile('horde-jquery.js', 'horde');
+$page_output->addScriptFile('mobile.js', 'horde');
 
 $GLOBALS['registry']->callAppMethod($GLOBALS['registry']->getApp(), 'mobileInitCallback');
 
-Horde::addScriptFile('jquery.mobile/jquery.mobile.min.js', 'horde');
-Horde::includeScriptFiles();
-Horde::outputInlineScript();
+$page_output->addScriptFile('jquery.mobile/jquery.mobile.min.js', 'horde');
+$page_output->includeScriptFiles();
+$page_output->outputInlineScript();

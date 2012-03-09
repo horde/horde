@@ -177,7 +177,7 @@ case 'day':
     echo Horde::menu();
     require KLUTZ_TEMPLATES . '/comics/nav_bar.inc';
     if (!empty($imageApp)) {
-        Horde::addScriptFile('popup.js', 'horde', true);
+        $injector->getInstance('Horde_PageOutput')->addScriptFile('popup.js', 'horde');
     }
 
     // Used for tracking dates we've already looked at.
@@ -292,7 +292,7 @@ case 'comic':
     echo Horde::menu();
     require KLUTZ_TEMPLATES . '/comics/nav_bar.inc';
     if (!empty($imageApp)) {
-        Horde::addScriptFile('popup.js', 'horde', true);
+        $injector->getInstance('Horde_PageOutput')->addScriptFile('popup.js', 'horde');
     }
 
     $name = $klutz->getProperty($index, 'name');

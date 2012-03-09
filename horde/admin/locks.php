@@ -49,7 +49,7 @@ try {
         $lock['end'] = strftime($format, $lock['lock_expiry_timestamp']);
     }
     $view->locks = $locks;
-    Horde::addScriptFile('tables.js', 'horde');
+    $injector->getInstance('Horde_PageOutput')->addScriptFile('tables.js', 'horde');
 } catch (Horde_Lock_Exception $e) {
     $view->locks = array();
     $view->error = sprintf(_("Listing locks failed: %s"), $e->getMessage());

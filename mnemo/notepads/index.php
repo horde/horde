@@ -34,8 +34,9 @@ $edit_img = Horde::img('edit.png', _("Edit"), null);
 $perms_img = Horde::img('perms.png', _("Change Permissions"), null);
 $delete_img = Horde::img('delete.png', _("Delete"), null);
 
-Horde::addScriptFile('popup.js', 'horde', true);
-Horde::addScriptFile('tables.js', 'horde', true);
+$page_output = $injector->getInstance('Horde_PageOutput');
+$page_output->addScriptFile('popup.js', 'horde');
+$page_output->addScriptFile('tables.js', 'horde');
 $title = _("Manage Notepads");
 require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Horde::menu();

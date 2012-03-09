@@ -31,7 +31,7 @@ $gettext = array_map('addslashes', array(
     'opener_window' => _("The original opener window has been closed. Exiting."),
 ));
 
-Horde::addInlineJsVars(array(
+$GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineJsVars(array(
     'var GollemVar' => $var,
     'var GollemText' => $gettext
 ), array('top' => true));

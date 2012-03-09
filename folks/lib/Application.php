@@ -26,8 +26,6 @@ class Folks_Application extends Horde_Registry_Application
     public $version = 'H5 (0.1-git)';
 
     /**
-     * Global variables defined:
-     * - $linkTags: <link> tags for common-header.inc.
      */
     protected function _init()
     {
@@ -38,9 +36,12 @@ class Folks_Application extends Horde_Registry_Application
             $links[Folks::getUrlFor('feed', 'know')] = _("People you might know");
         }
 
-        $GLOBALS['linkTags'] = array();
+        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
         foreach ($links as $url => $label) {
-            $GLOBALS['linkTags'][] = '<link rel="alternate" type="application/rss+xml" href="' . $url . '" title="' . $label . '" />';
+            $page_output->addLinkTag(array(
+                'href' => $url,
+                'title' => $label
+            ));
         }
     }
 

@@ -87,11 +87,11 @@ class Kronolith_Ajax_Imple_Embed extends Horde_Core_Ajax_Imple
 
         /* CSS */
         if (empty($nocss)) {
-            $horde_css = $GLOBALS['injector']->getInstance('Horde_Themes_Css');
-            $horde_css->addThemeStylesheet('embed.css');
+            $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+            $page_output->addThemeStylesheet('embed.css');
 
             Horde::startBuffer();
-            Horde::includeStylesheetFiles(array('nobase' => true), true);
+            $page_output->includeStylesheetFiles(array('nobase' => true), true);
             $css = Horde::endBuffer();
         } else {
             $css = '';

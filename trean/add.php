@@ -54,9 +54,9 @@ case 'add_bookmark':
 }
 
 if (Horde_Util::getFormData('popup')) {
-    Horde::addInlineScript(array(
+    $injector->getInstance('Horde_PageOutput')->addInlineScript(array(
         'window.focus()'
-    ), 'dom');
+    ), true);
 }
 
 $injector->getInstance('Horde_Core_Factory_Imple')->create(
@@ -77,9 +77,9 @@ $injector->getInstance('Horde_Core_Factory_Imple')->create(
     )
 );
 
-Horde::addInlineScript(array(
+$injector->getInstance('Horde_PageOutput')->addInlineScript(array(
     'bookmarkTagAc.init()'
-), 'dom');
+), true);
 
 $title = _("New Bookmark");
 require $registry->get('templates', 'horde') . '/common-header.inc';

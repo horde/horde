@@ -315,7 +315,7 @@ class IMP_Views_ShowMessage
 
             /* Need to grab cached inline scripts. */
             Horde::startBuffer();
-            Horde::outputInlineScript(true);
+            $GLOBALS['injector']->getInstance('Horde_PageOutput')->outputInlineScript(true);
             if ($js_inline = Horde::endBuffer()) {
                 $result['js'][] = $js_inline;
             }

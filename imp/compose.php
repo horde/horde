@@ -20,6 +20,7 @@ Horde_Registry::appInit('imp', array(
     'session_control' => 'netscape'
 ));
 
+$page_output = $injector->getInstance('Horde_PageOutput');
 $vars = Horde_Variables::getDefaultVariables();
 
 /* Mailto link handler: redirect based on current view. */
@@ -621,7 +622,8 @@ if ($redirect) {
             Horde::logMessage($e, 'ERR');
         }
     }
-    Horde::addScriptFile('ieescguard.js', 'horde');
+
+    $page_output->addScriptFile('ieescguard.js', 'horde');
 }
 
 $max_attach = $imp_compose->additionalAttachmentsAllowed();
@@ -1091,13 +1093,13 @@ if ($rtemode && !$redirect) {
 if ($showmenu) {
     $menu = IMP::menu();
 }
-Horde::addScriptFile('compose-base.js', 'imp');
-Horde::addScriptFile('compose.js', 'imp');
-Horde::addScriptFile('md5.js', 'horde');
+$page_output->addScriptFile('compose-base.js');
+$page_output->addScriptFile('compose.js');
+$page_output->addScriptFile('md5.js', 'horde');
 IMP::header($title);
-Horde::addInlineJsVars($js_vars);
+$page_output->addInlineJsVars($js_vars);
 if (!$redirect) {
-    Horde::addInlineScript($imp_ui->identityJs());
+    $page_output->addInlineScript($imp_ui->identityJs());
 }
 if ($showmenu) {
     echo $menu;

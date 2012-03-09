@@ -91,9 +91,10 @@ default:
     break;
 }
 
-Horde::addScriptFile('tooltips.js', 'horde');
-Horde::addScriptFile('effects.js', 'horde');
-Horde::addScriptFile('quickfinder.js', 'horde');
+$page_output = $injector->getInstance('Horde_PageOutput');
+$page_output->addScriptFile('tooltips.js', 'horde');
+$page_output->addScriptFile('effects.js', 'horde');
+$page_output->addScriptFile('quickfinder.js', 'horde');
 
 if ($prefs->getValue('show_panel')) {
     $bodyClass = 'rightPanel';

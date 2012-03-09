@@ -313,8 +313,9 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 </div>
 
 <?php
-Horde::includeScriptFiles();
-Horde::outputInlineScript();
+$page_output = $injector->getInstance('Horde_PageOutput');
+$page_output->includeScriptFiles();
+$page_output->outputInlineScript();
 ?>
 
 </body></html>

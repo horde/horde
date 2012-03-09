@@ -72,7 +72,10 @@ $pager_ob->preserve('scope', $scope);
 $view->pager_link = $pager_ob->render();
 
 $title = _("All Forums");
-$linkTags = array('<link rel="alternate" title="' . _("Forums") . '" href="' . Horde::url('rss/index.php', true, -1)->add('scope', $scope) . '" type="application/rss+xml" />');
+$injector->getInstance('Horde_PageOutput')->addLinkTag(array(
+    'href' => Horde::url('rss/index.php', true, -1)->add('scope', $scope),
+    'title' => _("Forums")
+));
 require $registry->get('templates', 'horde') . '/common-header.inc';
 echo $view->render('forums');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

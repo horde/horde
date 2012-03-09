@@ -22,8 +22,9 @@ if ($prefs->getValue('show_panel')) {
     $bodyClass = 'rightPanel';
 }
 
-Horde::addScriptFile('tooltips.js', 'horde');
-Horde::addScriptFile('views.js', 'kronolith');
+$page_output = $injector->getInstance('Horde_PageOutput');
+$page_output->addScriptFile('tooltips.js', 'horde');
+$page_output->addScriptFile('views.js');
 
 require $registry->get('templates', 'horde') . '/common-header.inc';
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';

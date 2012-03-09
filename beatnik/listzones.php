@@ -46,8 +46,9 @@ foreach ($fields as $field_id => $field) {
 }
 
 // Add javascript navigation and striping
-Horde::addScriptFile('beatnik.js');
-Horde::addScriptFile('stripe.js', 'horde');
+$page_output = $injector->getInstance('Horde_PageOutput');
+$page_output->addScriptFile('beatnik.js');
+$page_output->addScriptFile('stripe.js', 'horde');
 
 // Initialization complete.  Render the page.
 Beatnik::notifyCommits();

@@ -67,7 +67,7 @@ if ($VC->hasFeature('branches')) {
 $printAllCols = count($fileList);
 $sortdirclass = $acts['sbt'] ? 'sortdown' : 'sortup';
 
-Horde::addScriptFile('tables.js', 'horde');
+$injector->getInstance('Horde_PageOutput')->addScriptFile('tables.js', 'horde');
 require $registry->get('templates', 'horde') . '/common-header.inc';
 require CHORA_TEMPLATES . '/menu.inc';
 require CHORA_TEMPLATES . '/headerbar.inc';

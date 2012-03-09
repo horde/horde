@@ -47,11 +47,14 @@ $extraLink = sprintf('<a href="%s">%s</a> | <a href="%s">%s</a>',
                      Chora::url('co', $where, array('r' => $rev)), _("View"),
                      Chora::url('co', $where, array('r' => $rev, 'p' => 1)), _("Download"));
 
-Horde::addScriptFile('annotate.js', 'chora');
-Horde::addInlineJsVars(array('var Chora' => array(
-    'ANNOTATE_URL' => (string)Horde::url('annotate.php', true)->add(array('actionID' => 'log', 'f' => $where, 'rev' => '')),
-    'loading_text' => _("Loading...")
-)));
+$page_output = $injector->getInstance('Horde_PageOutput');
+$page_output->addScriptFile('annotate.js');
+$page_output->addInlineJsVars(array(
+    'var Chora' => array(
+        'ANNOTATE_URL' => (string)Horde::url('annotate.php', true)->add(array('actionID' => 'log', 'f' => $where, 'rev' => '')),
+        'loading_text' => _("Loading...")
+    )
+));
 
 require $registry->get('templates', 'horde') . '/common-header.inc';
 require CHORA_TEMPLATES . '/menu.inc';

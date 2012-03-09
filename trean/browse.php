@@ -13,8 +13,9 @@ Horde_Registry::appInit('trean');
 /* Get bookmarks to display. */
 $bookmarks = $trean_gateway->listBookmarks($prefs->getValue('sortby'), $prefs->getValue('sortdir'), 0, 100);
 
-Horde::addScriptFile('tables.js', 'horde', true);
-Horde::addScriptFile('effects.js', 'horde', true);
+$page_output = $injector->getInstance('Horde_PageOutput');
+$page_output->addScriptFile('tables.js', 'horde');
+$page_output->addScriptFile('effects.js', 'horde');
 $title = _("Browse");
 require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Horde::menu();

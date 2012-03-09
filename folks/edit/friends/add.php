@@ -60,7 +60,7 @@ if ($user) {
 
 $friend_form = new Folks_AddFriend_Form($vars, _("Add or remove user"), 'blacklist');
 
-Horde::addScriptFile('tables.js', 'horde');
+$injector->getInstance('Horde_PageOutput')->addScriptFile('tables.js', 'horde');
 require $registry->get('templates', 'horde') . '/common-header.inc';
 require FOLKS_TEMPLATES . '/menu.inc';
 echo $tabs->render('add');

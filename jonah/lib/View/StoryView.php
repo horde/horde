@@ -26,8 +26,9 @@ class Jonah_View_StoryView extends Jonah_View_Base
     {
         extract($this->_params, EXTR_REFS);
 
-        Horde::addScriptFile('syntaxhighlighter/scripts/shCore.js', 'horde');
-        Horde::addScriptFile('syntaxhighlighter/scripts/shAutoloader.js', 'horde');
+        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        $page_output->addScriptFile('syntaxhighlighter/scripts/shCore.js', 'horde');
+        $page_output->addScriptFile('syntaxhighlighter/scripts/shAutoloader.js', 'horde');
         $path = $GLOBALS['registry']->get('jsuri', 'horde') . '/syntaxhighlighter/scripts/';
         $brushes = <<<EOT
           SyntaxHighlighter.autoloader(
@@ -57,18 +58,17 @@ class Jonah_View_StoryView extends Jonah_View_Base
           'xml xhtml xslt html    {$path}shBrushXml.js'
         );
 EOT;
-        Horde::addInlineScript(array(
+        $page_output->addInlineScript(array(
             $brushes,
             'SyntaxHighlighter.defaults[\'toolbar\'] = false',
             'SyntaxHighlighter.all()'
-        ), 'dom');
+        ), true);
 
         $sh_js_fs = $GLOBALS['registry']->get('jsfs', 'horde') . '/syntaxhighlighter/styles/';
         $sh_js_uri = Horde::url($GLOBALS['registry']->get('jsuri', 'horde'), false, -1) . '/syntaxhighlighter/styles/';
 
-        $css = $GLOBALS['injector']->getInstance('Horde_Themes_Css');
-        $css->addStylesheet($sh_js_fs . 'shCoreEclipse.css', $sh_js_uri . 'shCoreEclipse.css');
-        $css->addStylesheet($sh_js_fs . 'shThemeEclipse.css', $sh_js_uri . 'shThemeEclipse.css');
+        $page_output->addStylesheet($sh_js_fs . 'shCoreEclipse.css', $sh_js_uri . 'shCoreEclipse.css');
+        $page_output->addStylesheet($sh_js_fs . 'shThemeEclipse.css', $sh_js_uri . 'shThemeEclipse.css');
 
         $driver = $GLOBALS['injector']->getInstance('Jonah_Driver');
         try {

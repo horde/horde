@@ -27,11 +27,11 @@ class Horde_Block_Vatid extends Horde_Core_Block
     {
         $name = strval(new Horde_Support_Randomid());
 
-        Horde::addScriptFile('vatid.js', 'horde');
-        Horde::addInlineScript(
-            '$("' . $name . '").observe("submit", HordeBlockVatid.onSubmit.bindAsEventListener(HordeBlockVatid))',
-            'dom'
-        );
+        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        $page_output->addScriptFile('vatid.js', 'horde');
+        $page_output->addInlineScript(array(
+            '$("' . $name . '").observe("submit", HordeBlockVatid.onSubmit.bindAsEventListener(HordeBlockVatid))'
+        ), true);
 
         return '<form style="padding:2px" action="' .
             $this->_ajaxUpdateUrl() . '" id="' . $name . '">' .

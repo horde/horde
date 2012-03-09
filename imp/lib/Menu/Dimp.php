@@ -87,7 +87,7 @@ class IMP_Menu_Dimp extends Horde_Menu
         }
 
         if (!empty($out)) {
-            Horde::addInlineJsVars(array(
+            $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineJsVars(array(
                 'DIMP.conf.menu_urls' => $out
             ));
         }

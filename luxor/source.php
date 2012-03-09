@@ -127,9 +127,10 @@ if (substr($pathname, -5) == '.html' ||
 
 $content = printfile($pathname);
 
+$page_output = $injector->getInstance('Horde_PageOutput');
 if (substr($pathname, -1) == '/') {
     $title = sprintf(_("Directory Listing :: %s"), $pathname);
-    Horde::addScriptFile('tables.js', 'horde', true);
+    $page_output->addScriptFile('tables.js', 'horde');
 } else {
     $title = sprintf(_("Markup of %s"), $pathname);
     $lastmod = $index->getLastModified($pathname);
@@ -140,7 +141,7 @@ if (substr($pathname, -1) == '/') {
     }
 
     if (!empty($conf['options']['use_show_var'])) {
-        Horde::addScriptFile('show_var.js', 'luxor', true);
+        $page_output->addScriptFile('show_var.js');
     }
 }
 

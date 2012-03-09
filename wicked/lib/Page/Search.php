@@ -76,7 +76,7 @@ class Wicked_Page_Search extends Wicked_Page {
             return true;
         }
 
-        Horde::addScriptFile('tables.js', 'horde', true);
+        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('tables.js', 'horde');
 
         $template = $GLOBALS['injector']->createInstance('Horde_Template');
 

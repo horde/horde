@@ -48,7 +48,7 @@ if ($activities instanceof PEAR_Error) {
 $delete_url = Horde::url('edit/activity.php');
 $delete_img = Horde::img('delete.png');
 
-Horde::addScriptFile('tables.js', 'horde');
+$injector->getInstance('Horde_PageOutput')->addScriptFile('tables.js', 'horde');
 require $registry->get('templates', 'horde') . '/common-header.inc';
 require FOLKS_TEMPLATES . '/menu.inc';
 

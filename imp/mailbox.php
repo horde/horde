@@ -38,6 +38,7 @@ Horde_Registry::appInit('imp', array(
     'impmode' => 'imp'
 ));
 
+$page_output = $injector->getInstance('Horde_PageOutput');
 $registry->setTimeZone();
 
 /* Call the mailbox redirection hook, if requested. */
@@ -133,9 +134,9 @@ case 'template_edit':
         ), IMP::getComposeArgs());
 
         if ($prefs->getValue('compose_popup')) {
-            Horde::addInlineScript(array(
+            $page_output->addInlineScript(array(
                 Horde::popupJs(Horde::url('compose.php'), array('novoid' => true, 'params' => array_merge(array('popup' => 1), $options)))
-            ), 'dom');
+            ), true);
         } else {
             Horde::url('compose.php', true)->add($options)->redirect();
         }
@@ -352,7 +353,7 @@ if (!$preview_tooltip) {
 
 $unread = $imp_mailbox->unseenMessages(Horde_Imap_Client::SEARCH_RESULTS_COUNT);
 
-Horde::addInlineJsVars(array(
+$page_output->addInlineJsVars(array(
     'ImpMailbox.text' => array(
         'delete' => _("Are you sure you wish to PERMANENTLY delete these messages?"),
         'delete_all' => _("Are you sure you wish to delete all mail in this mailbox?"),
@@ -389,13 +390,14 @@ if (IMP::mailbox()->editvfolder) {
     $pagetitle = $title = htmlspecialchars($title);
 }
 
-Horde::addScriptFile('effects.js', 'horde');
-Horde::addScriptFile('redbox.js', 'horde');
-Horde::addScriptFile('dialog.js', 'horde');
-Horde::addScriptFile('mailbox.js', 'imp');
+$page_output = $injector->getInstance('Horde_PageOutput');
+$page_output->addScriptFile('effects.js', 'horde');
+$page_output->addScriptFile('redbox.js', 'horde');
+$page_output->addScriptFile('dialog.js', 'horde');
+$page_output->addScriptFile('mailbox.js');
 
 $menu = IMP::menu();
-Horde::metaRefresh($prefs->getValue('refresh_time'), $refresh_url);
+$page_output->metaRefresh($prefs->getValue('refresh_time'), $refresh_url);
 IMP::header($title);
 echo $menu;
 IMP::status();

@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-03-06</date>
- <time>00:06:59</time>
+ <date>2012-03-14</date>
+ <time>16:59:39</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Added Horde_PageOutput.
 * [mms] Added Horde_Core_Ajax_Imple_ContactAutoCompleter.
 * [mjr] Use local member storage when no session is available (Bug # 9733).
 * [mms] Added AJAX core features.
@@ -345,6 +346,7 @@
      <file name="ErrorHandler.php" role="php" />
      <file name="Help.php" role="php" />
      <file name="Menu.php" role="php" />
+     <file name="PageOutput.php" role="php" />
      <file name="Registry.php" role="php" />
      <file name="Session.php" role="php" />
      <file name="Themes.php" role="php" />
@@ -1102,6 +1104,7 @@
    <install as="Horde/ErrorHandler.php" name="lib/Horde/ErrorHandler.php" />
    <install as="Horde/Help.php" name="lib/Horde/Help.php" />
    <install as="Horde/Menu.php" name="lib/Horde/Menu.php" />
+   <install as="Horde/PageOutput.php" name="lib/Horde/PageOutput.php" />
    <install as="Horde/Registry.php" name="lib/Horde/Registry.php" />
    <install as="Horde/Session.php" name="lib/Horde/Session.php" />
    <install as="Horde/Themes.php" name="lib/Horde/Themes.php" />

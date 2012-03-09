@@ -11,7 +11,8 @@ require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('whups');
 
 $ticket = Whups::getCurrentTicket();
-$linkTags[] = $ticket->feedLink();
+$injector->getInstance('Horde_PageOutput')->addLinkTag($ticket->feedLink());
+
 $vars = Horde_Variables::getDefaultVariables();
 $vars->set('id', $id = $ticket->getId());
 foreach ($ticket->getDetails() as $varname => $value) {

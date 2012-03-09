@@ -60,9 +60,10 @@ class Horde_Core_Ajax_Imple_SpellChecker extends Horde_Core_Ajax_Imple
      */
     public function attach()
     {
-        Horde::addScriptFile('effects.js', 'horde');
-        Horde::addScriptFile('keynavlist.js', 'horde');
-        Horde::addScriptFile('spellchecker.js', 'horde');
+        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        $page_output->addScriptFile('effects.js', 'horde');
+        $page_output->addScriptFile('keynavlist.js', 'horde');
+        $page_output->addScriptFile('spellchecker.js', 'horde');
 
         $opts = array(
             'locales' => $this->_params['locales'],
@@ -75,9 +76,9 @@ class Horde_Core_Ajax_Imple_SpellChecker extends Horde_Core_Ajax_Imple
             $opts['bs'] = $this->_params['states'];
         }
 
-        Horde::addInlineScript(array(
+        $page_output->addInlineScript(array(
             $this->_params['id'] . ' = new SpellChecker(' . Horde_Serialize::serialize($opts, Horde_Serialize::JSON) . ')'
-        ), 'dom');
+        ), true);
     }
 
     /**

@@ -15,7 +15,7 @@ Horde_Registry::appInit('whups');
 $ticket = Whups::getCurrentTicket();
 $vars = Horde_Variables::getDefaultVariables();
 $ticket->setDetails($vars);
-$linkTags[] = $ticket->feedLink();
+$injector->getInstance('Horde_PageOutput')->addLinkTag($ticket->feedLink());
 
 $title = '[#' . $ticket->getId() . '] ' . $ticket->get('summary');
 require $registry->get('templates', 'horde') . '/common-header.inc';

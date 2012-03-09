@@ -26,6 +26,7 @@ Horde_Registry::appInit('imp', array(
     'impmode' => 'imp'
 ));
 
+$page_output = $injector->getInstance('Horde_PageOutput');
 $registry->setTimeZone();
 
 /* We know we are going to be exclusively dealing with this mailbox, so
@@ -521,7 +522,7 @@ if (IMP::mailbox()->access_deletemsgs) {
     } else {
         $a_template->set('delete', Horde::widget($self_link->copy()->add('actionID', 'delete_message'), _("Delete"), 'widget', '', '', _("_Delete"), true));
         if ($imp_imap->pop3) {
-            Horde::addInlineJsVars(array(
+            $page_output->addInlineJsVars(array(
                 'ImpMessage.pop3delete' => _("Are you sure you want to PERMANENTLY delete these messages?")
             ));
         }
@@ -678,7 +679,7 @@ if (count($inlineout['atc_parts']) > 2) {
     $a_template->set('download_all', Horde::widget($imp_contents->urlView($imp_contents->getMIMEMessage(), 'download_all'), _("Download All Attachments (in .zip file)"), 'widget', '', '', _("Download All Attachments (in .zip file)"), true));
     if ($strip_atc) {
         $a_template->set('strip_all', Horde::widget(Horde::selfUrl(true)->remove(array('actionID'))->add(array('actionID' => 'strip_all', 'message_token' => $message_token)), _("Strip All Attachments"), 'widget stripAllAtc', '', '', _("Strip All Attachments"), true));
-        Horde::addInlineJsVars(array(
+        $page_output->addInlineJsVars(array(
             'ImpMessage.stripatc' => _("Are you sure you want to PERMANENTLY delete all attachments?")
         ));
     }
@@ -727,18 +728,18 @@ $m_template->set('headers', $hdrs);
 $m_template->set('msgtext', $mdntext . $inlineout['msgtext']);
 
 /* Output message page now. */
-Horde::addInlineScript($inlineout['js_onload'], 'dom');
-Horde::addScriptFile('effects.js', 'horde');
-Horde::addScriptFile('imp.js', 'imp');
-Horde::addScriptFile('message.js', 'imp');
+$page_output->addInlineScript($inlineout['js_onload'], true);
+$page_output->addScriptFile('effects.js', 'horde');
+$page_output->addScriptFile('imp.js');
+$page_output->addScriptFile('message.js');
 
 if (!empty($conf['tasklist']['use_notepad']) || !empty($conf['tasklist']['use_tasklist'])) {
-    Horde::addScriptFile('redbox.js', 'horde');
-    Horde::addScriptFile('dialog.js', 'horde');
+    $page_output->addScriptFile('redbox.js', 'horde');
+    $page_output->addScriptFile('dialog.js', 'horde');
 }
 
 $menu = IMP::menu();
-Horde::noDnsPrefetch();
+$page_output->noDnsPrefetch();
 
 IMP::header($title);
 

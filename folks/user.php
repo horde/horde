@@ -57,7 +57,7 @@ if ($user == $GLOBALS['registry']->getAuth()) {
     }
 }
 
-Horde::addScriptFile('stripe.js', 'horde');
+$injector->getInstance('Horde_PageOutput')->addScriptFile('stripe.js', 'horde');
 
 $title = sprintf(_("%s's profile"), $user);
 require $registry->get('templates', 'horde') . '/common-header.inc';

@@ -33,4 +33,4 @@ if ($conf['facebook']['enabled']) {
 }
 
 
-Horde::addScriptFile('tables.js', 'horde');
+$injector->getInstance('Horde_PageOutput')->addScriptFile('tables.js', 'horde');

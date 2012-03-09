@@ -17,6 +17,7 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('imp', array('impmode' => 'dimp'));
 
+$page_output = $injector->getInstance('Horde_PageOutput');
 $vars = Horde_Variables::getDefaultVariables();
 
 if (!IMP::uid() || !IMP::mailbox()) {
@@ -66,7 +67,7 @@ foreach (array('from', 'to', 'cc', 'bcc', 'replyTo', 'log', 'uid', 'mbox', 'addr
 $js_vars['DimpMessage.reply_list'] = $show_msg_result['list_info']['exists'];
 $js_vars['DimpMessage.tasks'] = $injector->getInstance('Horde_Core_Factory_Ajax')->create('imp', $vars)->getTasks();
 
-$js_out = Horde::addInlineJsVars($js_vars, array('ret_vars' => true));
+$js_out = $page_output->addInlineJsVars($js_vars, array('ret_vars' => true));
 
 /* Determine if compose mode is disabled. */
 $disable_compose = !IMP::canCompose();
@@ -95,10 +96,10 @@ if (isset($show_msg_result['js'])) {
     $js_onload = array_merge($js_onload, $show_msg_result['js']);
 }
 
-Horde::addInlineScript($js_out);
-Horde::addInlineScript(array_filter($js_onload), 'load');
+$page_output->addInlineScript($js_out);
+$page_output->addInlineScript(array_filter($js_onload), true);
 
-Horde::noDnsPrefetch();
+$page_output->noDnsPrefetch();
 
 $t = $injector->createInstance('Horde_Template');
 $t->setOption('gettext', true);
@@ -183,8 +184,8 @@ $t->set('status', Horde::endBuffer());
 $injector->getInstance('IMP_Ajax')->header('message', $show_msg_result['title']);
 
 Horde::startBuffer();
-Horde::includeScriptFiles();
-Horde::outputInlineScript();
+$page_output->includeScriptFiles();
+$page_output->outputInlineScript();
 $t->set('script', Horde::endBuffer());
 
 Horde::startBuffer();

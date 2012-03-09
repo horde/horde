@@ -40,7 +40,7 @@ class Folks_Block_Know extends Horde_Core_Block
                                 'name' => _("Send message"));
         }
 
-        Horde::addScriptFile('stripe.js', 'horde');
+        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('stripe.js', 'horde');
 
         ob_start();
         require FOLKS_TEMPLATES . '/block/users.php';

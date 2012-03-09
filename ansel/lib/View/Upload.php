@@ -59,9 +59,11 @@ class Ansel_View_Upload
         }
 
         Ansel::initJSVariables();
-        Horde::addScriptFile('effects.js', 'horde', true);
-        Horde::addScriptFile('carousel.js', 'ansel', true);
-        Horde::addScriptFile('upload.js', 'ansel');
+
+        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        $page_output->addScriptFile('effects.js', 'horde');
+        $page_output->addScriptFile('carousel.js');
+        $page_output->addScriptFile('upload.js');
     }
 
     public function run()
@@ -70,12 +72,13 @@ class Ansel_View_Upload
         $this->_handleFileUpload();
 
         // TODO: Configure which runtimes to allow?
-        Horde::addScriptFile('plupload/plupload.js', 'horde');
-        Horde::addScriptFile('plupload/plupload.flash.js', 'horde');
-        Horde::addScriptFile('plupload/plupload.silverlight.js', 'horde');
-        Horde::addScriptFile('plupload/plupload.html5.js', 'horde');
-        Horde::addScriptFile('plupload/plupload.browserplus.js', 'horde');
-        Horde::addScriptFile('plupload/uploader.js', 'horde');
+        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        $page_output->addScriptFile('plupload/plupload.js', 'horde');
+        $page_output->addScriptFile('plupload/plupload.flash.js', 'horde');
+        $page_output->addScriptFile('plupload/plupload.silverlight.js', 'horde');
+        $page_output->addScriptFile('plupload/plupload.html5.js', 'horde');
+        $page_output->addScriptFile('plupload/plupload.browserplus.js', 'horde');
+        $page_output->addScriptFile('plupload/uploader.js', 'horde');
 
         $startText = _("Upload");
         $addText = _("Add Images");
@@ -133,7 +136,7 @@ class Ansel_View_Upload
 EOT;
 
         $js .= $this->_doCarouselSetup();
-        Horde::addInlineScript($js, 'load');
+        $page_output->addInlineScript($js, true);
     }
 
     /**
@@ -150,7 +153,7 @@ EOT;
         // explicitly selected the old uploader.
         $js = $this->_doCarouselSetup();
         if (!empty($js)) {
-            Horde::addInlineScript($js, 'load');
+            $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineScript($js, true);
         }
 
         if ($form->validate($vars)) {

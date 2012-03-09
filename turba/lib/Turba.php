@@ -663,8 +663,9 @@ class Turba
      */
     static public function addBrowseJs()
     {
-        Horde::addScriptFile('browse.js', 'turba');
-        Horde::addInlineJsVars(array(
+        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        $page_output->addScriptFile('browse.js');
+        $page_output->addInlineJsVars(array(
             'TurbaBrowse.confirmdelete' => _("Are you sure that you want to delete %s?"),
             'TurbaBrowse.contact1' => _("You must select at least one contact first."),
             'TurbaBrowse.contact2' => _("You must select a target contact list."),

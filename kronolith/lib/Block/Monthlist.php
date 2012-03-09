@@ -63,7 +63,7 @@ class Kronolith_Block_Monthlist extends Horde_Core_Block
     {
         global $registry, $prefs;
 
-        Horde::addScriptFile('tooltips.js', 'horde');
+        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('tooltips.js', 'horde');
 
         $now = new Horde_Date($_SERVER['REQUEST_TIME']);
         $today = date('j');

@@ -11,7 +11,7 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 $permission = 'users';
 Horde_Registry::appInit('horde');
-if (!$registry->isAdmin() && 
+if (!$registry->isAdmin() &&
     !$injector->getInstance('Horde_Perms')->hasPermission('horde:administration:'.$permission, $registry->getAuth(), Horde_Perms::SHOW)) {
     $registry->authenticateFailure('horde', new Horde_Exception(sprintf("Not an admin and no %s permission", $permission)));
 }
@@ -226,10 +226,11 @@ case 'removequeued':
     break;
 }
 
-Horde::addScriptFile('stripe.js', 'horde');
+$page_output = $injector->getInstance('Horde_PageOutput');
+$page_output->addScriptFile('stripe.js', 'horde');
 if (isset($update_form) && $auth->hasCapability('list')) {
-    Horde::addScriptFile('userupdate.js', 'horde');
-    Horde::addInlineJsVars(array(
+    $page_output->addScriptFile('userupdate.js', 'horde');
+    $page_output->addInlineJsVars(array(
         'HordeAdminUserUpdate.pass_error' => _("Passwords must match.")
     ));
 }

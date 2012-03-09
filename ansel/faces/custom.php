@@ -66,14 +66,15 @@ $width = $y2 - $y1;
 
 $title = _("Create a new face");
 
-Horde::addScriptFile('builder.js', 'horde');
-Horde::addScriptFile('effects.js', 'horde');
-Horde::addScriptFile('controls.js', 'horde');
-Horde::addScriptFile('dragdrop.js', 'horde');
-Horde::addScriptFile('cropper.js');
-Horde::addScriptFile('stripe.js', 'horde');
+$page_output = $injector->getInstance('Horde_PageOutput');
+$page_output->addScriptFile('builder.js', 'horde');
+$page_output->addScriptFile('effects.js', 'horde');
+$page_output->addScriptFile('controls.js', 'horde');
+$page_output->addScriptFile('dragdrop.js', 'horde');
+$page_output->addScriptFile('cropper.js');
+$page_output->addScriptFile('stripe.js', 'horde');
 
-$injector->getInstance('Horde_Themes_Css')->addThemeStylesheet('cropper.css');
+$page_output->addThemeStylesheet('cropper.css');
 
 require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Horde::menu();

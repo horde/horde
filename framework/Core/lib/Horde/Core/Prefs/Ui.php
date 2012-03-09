@@ -411,6 +411,7 @@ class Horde_Core_Prefs_Ui
         $columns = $pref_list = array();
         $identities = false;
 
+        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
         $prefgroups = $this->_getPrefGroups();
 
         if ($this->group) {
@@ -424,7 +425,7 @@ class Horde_Core_Prefs_Ui
             /* Add necessary init stuff for identities pages. */
             if (isset($prefgroups[$this->group]['type']) &&
                 ($prefgroups[$this->group]['type'] == 'identities')) {
-                Horde::addScriptFile('identityselect.js', 'horde');
+                $page_output->addScriptFile('identityselect.js', 'horde');
                 $identities = true;
 
                 /* If this is an identities group, need to grab the base
@@ -452,7 +453,7 @@ class Horde_Core_Prefs_Ui
          * do things like add javascript to the page output. This should all
          * be combined and served in the page HEAD. */
         Horde::startBuffer();
-        Horde::addScriptFile('prefs.js', 'horde');
+        $page_output->addScriptFile('prefs.js', 'horde');
 
         if ($this->group) {
             if ($identities) {
@@ -838,7 +839,7 @@ class Horde_Core_Prefs_Ui
         }
         $t->set('entry', $entry);
 
-        Horde::addInlineScript(array(
+        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineScript(array(
             'HordeIdentitySelect.identities = ' . Horde_Serialize::serialize($js, Horde_Serialize::JSON)
         ));
 
