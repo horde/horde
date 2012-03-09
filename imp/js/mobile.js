@@ -230,8 +230,8 @@ var ImpMobile = {
                 requestid: 1,
                 sortby: IMP.conf.sort.date.v,
                 sortdir: 1
-            }),
-            ImpMobile.mailboxLoaded);
+            })
+        );
     },
 
     /**
@@ -242,74 +242,75 @@ var ImpMobile = {
     mailboxLoaded: function(r)
     {
         var list = $('#imp-mailbox-list'), c, l, url;
-        if (r && r.ViewPort) {
-            ImpMobile.mailbox   = r.ViewPort.view;
-            ImpMobile.totalrows = r.ViewPort.totalrows;
-            ImpMobile.data      = r.ViewPort.data;
-            ImpMobile.messages  = r.ViewPort.rowlist;
-            ImpMobile.readOnly  = r.ViewPort.metadata.readonly;
-            if (r.ViewPort.metadata.slabel) {
-                document.title = r.ViewPort.metadata.slabel;
-                $('#imp-mailbox-header').text(r.ViewPort.metadata.slabel);
-            }
-            $.each(r.ViewPort.data || [], function(key, data) {
-                c = 'imp-message';
-                url = '#message?view=' + data.mbox + '&uid=' + data.uid;
-                if (data.flag) {
-                    $.each(data.flag, function(k, flag) {
-                        c += ' imp-message-' + flag.substr(1);
-                        if (flag == '\\draft') {
-                            url = '#compose?type=resume&mbox=' + data.mbox + '&uid=' + data.uid;
-                        }
-                    });
-                }
-                list.append(
-                    $('<li class="' + c + '">').append(
-                        $('<h3>').append(
-                            $('<a href="' + url + '">').html(data.subject))).append(
-                        $('<div class="ui-grid-a">').append(
-                            $('<div class="ui-block-a">').append(
-                                $('<p>').text(data.from))).append(
-                            $('<div class="ui-block-b">').append(
-                                $('<p align="right">').text(data.date)))));
-            });
-            l = list.children().length;
-            if (r.ViewPort.totalrows > l) {
-                var navtext = IMP.text.nav
-                    .replace(/%d/, ImpMobile.from)
-                    .replace(/%d/, Math.min(ImpMobile.from + 24, r.ViewPort.totalrows))
-                    .replace(/%d/, r.ViewPort.totalrows);
-                $('#imp-mailbox-navtop,#imp-mailbox-navbottom').show();
-                $('#imp-mailbox-navtop h2,#imp-mailbox-navbottom h2')
-                    .text(navtext);
-                if (ImpMobile.from == 1) {
-                    $('#imp-mailbox-prev1,#imp-mailbox-prev2')
-                        .addClass('ui-disabled')
-                        .attr('aria-disabled', true);
-                } else {
-                    $('#imp-mailbox-prev1,#imp-mailbox-prev2')
-                        .removeClass('ui-disabled')
-                        .attr('aria-disabled', false);
-                }
-                if (ImpMobile.from + 24 >= r.ViewPort.totalrows) {
-                    $('#imp-mailbox-next1,#imp-mailbox-next2')
-                        .addClass('ui-disabled')
-                        .attr('aria-disabled', true);
-                } else {
-                    $('#imp-mailbox-next1,#imp-mailbox-next2')
-                        .removeClass('ui-disabled')
-                        .attr('aria-disabled', false);
-                }
-            } else {
-                $('#imp-mailbox-navtop,#imp-mailbox-navbottom').hide();
-            }
-            list.listview('refresh');
-            $.mobile.fixedToolbars.show();
-            if (ImpMobile.mailboxCallback) {
-                ImpMobile.mailboxCallback.apply();
-            }
+
+        ImpMobile.mailbox   = r.view;
+        ImpMobile.totalrows = r.totalrows;
+        ImpMobile.data      = r.data;
+        ImpMobile.messages  = r.rowlist;
+        ImpMobile.readOnly  = r.metadata.readonly;
+        if (r.metadata.slabel) {
+            document.title = r.metadata.slabel;
+            $('#imp-mailbox-header').text(r.metadata.slabel);
         }
-        delete ImpMobile.mailboxCallback;
+        $.each(r.data || [], function(key, data) {
+            c = 'imp-message';
+            url = '#message?view=' + data.mbox + '&uid=' + data.uid;
+            if (data.flag) {
+                $.each(data.flag, function(k, flag) {
+                    c += ' imp-message-' + flag.substr(1);
+                    if (flag == '\\draft') {
+                        url = '#compose?type=resume&mbox=' + data.mbox + '&uid=' + data.uid;
+                    }
+                });
+            }
+            list.append(
+                $('<li class="' + c + '">').append(
+                    $('<h3>').append(
+                        $('<a href="' + url + '">').html(data.subject))).append(
+                    $('<div class="ui-grid-a">').append(
+                        $('<div class="ui-block-a">').append(
+                            $('<p>').text(data.from))).append(
+                        $('<div class="ui-block-b">').append(
+                            $('<p align="right">').text(data.date)))));
+        });
+        l = list.children().length;
+        if (r.totalrows > l) {
+            var navtext = IMP.text.nav
+                .replace(/%d/, ImpMobile.from)
+                .replace(/%d/, Math.min(ImpMobile.from + 24, r.totalrows))
+                .replace(/%d/, r.totalrows);
+            $('#imp-mailbox-navtop,#imp-mailbox-navbottom').show();
+            $('#imp-mailbox-navtop h2,#imp-mailbox-navbottom h2')
+                .text(navtext);
+            if (ImpMobile.from == 1) {
+                $('#imp-mailbox-prev1,#imp-mailbox-prev2')
+                    .addClass('ui-disabled')
+                    .attr('aria-disabled', true);
+            } else {
+                $('#imp-mailbox-prev1,#imp-mailbox-prev2')
+                    .removeClass('ui-disabled')
+                    .attr('aria-disabled', false);
+            }
+            if (ImpMobile.from + 24 >= r.totalrows) {
+                $('#imp-mailbox-next1,#imp-mailbox-next2')
+                    .addClass('ui-disabled')
+                    .attr('aria-disabled', true);
+            } else {
+                $('#imp-mailbox-next1,#imp-mailbox-next2')
+                    .removeClass('ui-disabled')
+                    .attr('aria-disabled', false);
+            }
+        } else {
+            $('#imp-mailbox-navtop,#imp-mailbox-navbottom').hide();
+        }
+
+        list.listview('refresh');
+        $.mobile.fixedToolbars.show();
+
+        if (ImpMobile.mailboxCallback) {
+            ImpMobile.mailboxCallback.apply();
+            delete ImpMobile.mailboxCallback;
+        }
     },
 
     /**
@@ -1082,6 +1083,17 @@ var ImpMobile = {
         }
     },
 
+    runTasks: function(e, d)
+    {
+        $.each(d, function(key, value) {
+            switch (key) {
+            case 'imp:viewport':
+                ImpMobile.mailboxLoaded(value);
+                break;
+            }
+        });
+    },
+
     /**
      * Event handlder for the document-ready event, responsible for the inital
      * setup.
@@ -1094,6 +1106,7 @@ var ImpMobile = {
         $(document).bind('swipeleft', ImpMobile.navigate);
         $(document).bind('swiperight', ImpMobile.navigate);
         $(document).bind('pagebeforechange', ImpMobile.toPage);
+        $(document).bind('HordeMobile:runTasks', ImpMobile.runTasks);
         if (!IMP.conf.disable_compose) {
             $('#compose').live('pagehide', function() { $('#imp-compose-cache').val(''); });
         }
