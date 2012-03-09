@@ -88,6 +88,13 @@ $template->set('sa', $selected_addresses);
 
 /* Display the form. */
 Horde::addScriptFile('contacts.js', 'imp');
+Horde::addInlineJsVars(array(
+    'ImpContacts.text' => array(
+        'closed' => _("The message being composed has been closed."),
+        'select' => _("You must select an address first.")
+    )
+));
+
 IMP::header(_("Address Book"));
 echo $template->fetch(IMP_TEMPLATES . '/imp/contacts/contacts.html');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

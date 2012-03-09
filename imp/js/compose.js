@@ -9,14 +9,14 @@ var ImpCompose = {
     // Variables defined in compose.php:
     //   cancel_url, cursor_pos, editor_wait, last_msg, max_attachments,
     //   popup, redirect, reloaded, sc_submit, sm_check, skip_spellcheck,
-    //   spellcheck
+    //   spellcheck, text
     display_unload_warning: true,
 
     confirmCancel: function(e)
     {
         e.stop();
 
-        if (window.confirm(IMP.text.compose_cancel)) {
+        if (window.confirm(this.text.cancel)) {
             this.display_unload_warning = false;
             if (this.popup) {
                 if (this.cancel_url) {
@@ -82,7 +82,7 @@ var ImpCompose = {
         switch (actionID) {
         case 'redirect':
             if ($F('to') == '') {
-                alert(IMP.text.compose_recipient);
+                alert(this.text.recipient);
                 $('to').focus();
                 return;
             }
@@ -101,7 +101,7 @@ var ImpCompose = {
             }
 
             if (($F('subject') == '') &&
-                !window.confirm(IMP.text.compose_nosubject)) {
+                !window.confirm(this.text.nosubject)) {
                 return;
             }
 
@@ -189,7 +189,7 @@ var ImpCompose = {
         if (usedFields == fields.length) {
             lastRow = $('attachment_row_' + usedFields);
             if (lastRow) {
-                td = new Element('TD', { align: 'left' }).insert(new Element('STRONG').insert(IMP.text.compose_file + ' ' + (usedFields + 1) + ':')).insert('&nbsp;')
+                td = new Element('TD', { align: 'left' }).insert(new Element('STRONG').insert(this.text.file + ' ' + (usedFields + 1) + ':')).insert('&nbsp;')
 
                 input = new Element('INPUT', { type: 'file', id: 'upload_' + (usedFields + 1), name: 'upload_' + (usedFields + 1), size: 25 });
                 if (Prototype.Browser.IE) {
@@ -375,7 +375,7 @@ var ImpCompose = {
     onBeforeUnload: function()
     {
         if (this.display_unload_warning) {
-            return IMP.text.compose_discard;
+            return this.text.discard;
         }
     },
 

@@ -38,9 +38,21 @@ $vars = Horde_Variables::getDefaultVariables();
 /* Get the base URL for this page. */
 $folders_url = Horde::selfUrl();
 
-/* This JS define is required by all sub-pages. */
+/* These JS defines are required by all sub-pages. */
 Horde::addInlineJsVars(array(
-    'ImpFolders.folders_url' => strval($folders_url)
+    'ImpFolders.folders_url' => strval($folders_url),
+    'ImpFolders.text' => array(
+        'download1' => _("All messages in the following mailbox(es) will be downloaded into one MBOX file:"),
+        'download2' => _("This may take some time. Are you sure you want to continue?"),
+        'no_rename' => _("This mailbox may not be renamed:"),
+        'oneselect' => _("Only one mailbox should be selected for this action."),
+        'rename1' => _("You are renaming the mailbox:"),
+        'rename2' => _("Please enter the new name:"),
+        'select' => _("Please select a mailbox before you perform this action."),
+        'subfolder1' => _("You are creating a subfolder to"),
+        'subfolder2' => _("Please enter the name of the new mailbox:"),
+        'toplevel' => _("You are creating a top-level mailbox.") . "\n" . _("Please enter the name of the new mailbox:")
+    )
 ));
 
 /* Initialize the IMP_Imap_Tree object. */

@@ -8,7 +8,7 @@
 var ImpFolders = {
 
     // The following variables are defined in folders.php:
-    //   displayNames, folders_url
+    //   displayNames, folders_url, text
 
     getChecked: function()
     {
@@ -55,7 +55,7 @@ var ImpFolders = {
         default:
             if (!this.getChecked().size()) {
                 if (action != '') {
-                    alert(IMP.text.folders_select);
+                    alert(this.text.select);
                 }
                 break;
             }
@@ -72,7 +72,7 @@ var ImpFolders = {
 
             case 'import_mbox':
                 if (this.getChecked().length > 1) {
-                    alert(IMP.text.folders_oneselect);
+                    alert(this.text.oneselect);
                 } else {
                     this.submitAction(action);
                 }
@@ -96,13 +96,13 @@ var ImpFolders = {
     {
         var count = this.getChecked().size(), mbox;
         if (count > 1) {
-            window.alert(IMP.text.folders_oneselect);
+            window.alert(this.text.oneselect);
             return;
         }
 
         mbox = (count == 1)
-            ? window.prompt(IMP.text.folders_subfolder1 + ' ' + this.selectedMboxesDisplay() + ".\n" + IMP.text.folders_subfolder2 + "\n", '')
-            : window.prompt(IMP.text.folders_toplevel, '');
+            ? window.prompt(this.text.subfolder1 + ' ' + this.selectedMboxesDisplay() + ".\n" + this.text.subfolder2 + "\n", '')
+            : window.prompt(this.text.toplevel, '');
 
         if (mbox) {
             $('new_mailbox').setValue(mbox);
@@ -112,7 +112,7 @@ var ImpFolders = {
 
     downloadMailbox: function(actionid)
     {
-        if (window.confirm(IMP.text.folders_download1 + "\n" + this.selectedMboxesDisplay() + "\n" + IMP.text.folders_download2)) {
+        if (window.confirm(this.text.download1 + "\n" + this.selectedMboxesDisplay() + "\n" + this.text.download2)) {
             this.submitAction(actionid);
         }
     },
@@ -124,9 +124,9 @@ var ImpFolders = {
         this.getMboxes().each(function(f) {
             if (f.checked) {
                 if (IMP.conf.fixed_mboxes.indexOf(this.displayNames[j]) != -1) {
-                    window.alert(IMP.text.folders_no_rename + ' ' + this.displayNames[j]);
+                    window.alert(this.text.no_rename + ' ' + this.displayNames[j]);
                 } else {
-                    var tmp = window.prompt(IMP.text.folders_rename1 + ' ' + this.displayNames[j] + "\n" + IMP.text.folders_rename2, this.fullNames[j] ? this.fullNames[j] : this.displayNames[j]);
+                    var tmp = window.prompt(this.text.rename1 + ' ' + this.displayNames[j] + "\n" + this.text.rename2, this.fullNames[j] ? this.fullNames[j] : this.displayNames[j]);
                     if (tmp) {
                         newnames += tmp + "\n";
                         oldnames += f.value + "\n";

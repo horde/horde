@@ -7,7 +7,7 @@
 
 var ImpMailbox = {
     // The following variables are defined in mailbox.php:
-    //  unread
+    //  text, unread
 
     countSelected: function()
     {
@@ -31,7 +31,7 @@ var ImpMailbox = {
 
         default:
             if (!this.countSelected()) {
-                alert(IMP.text.mailbox_submit);
+                alert(this.text.submit);
                 return;
             }
             break;
@@ -39,7 +39,7 @@ var ImpMailbox = {
 
         switch (actID) {
         case 'delete_messages':
-            if (IMP.conf.pop3 && !confirm(IMP.text.mailbox_delete)) {
+            if (IMP.conf.pop3 && !confirm(this.text.delete)) {
                 return;
             }
             break;
@@ -133,17 +133,17 @@ var ImpMailbox = {
                        target.startsWith("tasklist\0")) {
                 this.actIDconfirm = actID;
                 IMPDialog.display({
-                    cancel_text: IMP.text.no,
+                    cancel_text: this.text.no,
                     form_id: 'RB_ImpMailboxConfirm',
                     noinput: true,
-                    ok_text: IMP.text.yes,
+                    ok_text: this.text.yes,
                     text: IMP.text.moveconfirm
                 });
             } else {
                 this.submit(actID);
             }
         } else {
-            alert(IMP.text.mailbox_selectone);
+            alert(this.text.selectone);
         }
     },
 
@@ -162,7 +162,7 @@ var ImpMailbox = {
                 } else {
                     f2.selectedIndex = 0;
                 }
-                alert(IMP.text.mailbox_selectone);
+                alert(this.text.selectone);
             }
         }
     },
@@ -229,7 +229,7 @@ var ImpMailbox = {
                     this._transfer('copy_messages');
                     e.stop();
                 } else if (elt.hasClassName('permdeleteAction')) {
-                    if (confirm(IMP.text.mailbox_delete)) {
+                    if (confirm(this.text.delete)) {
                         this.submit('delete_messages');
                     }
                     e.stop();
@@ -263,7 +263,7 @@ var ImpMailbox = {
                 } else if (elt.hasClassName('templateeditAction')) {
                     switch (this.countSelected()) {
                     case 0:
-                        alert(IMP.text.mailbox_selectone);
+                        alert(this.text.selectone);
                         break;
 
                     case 1:
@@ -271,7 +271,7 @@ var ImpMailbox = {
                         break;
 
                     default:
-                        alert(IMP.text.mailbox_selectonlyone);
+                        alert(this.text.selectonlyone);
                         break;
                     }
                     e.stop();
@@ -303,11 +303,11 @@ var ImpMailbox = {
             case 'delete_vfolder':
                 this.lastclick = elt.readAttribute('href');
                 IMPDialog.display({
-                    cancel_text: IMP.text.no,
+                    cancel_text: this.text.no,
                     form_id: 'RB_ImpMailbox',
                     noinput: true,
-                    ok_text: IMP.text.yes,
-                    text: IMP.text.mailbox_delete_vfolder
+                    ok_text: this.text.yes,
+                    text: this.text.delete_vfolder
                 });
                 e.stop();
                 return;
@@ -315,11 +315,11 @@ var ImpMailbox = {
             case 'empty_mailbox':
                 this.lastclick = elt.readAttribute('href');
                 IMPDialog.display({
-                    cancel_text: IMP.text.no,
+                    cancel_text: this.text.no,
                     form_id: 'RB_ImpMailbox',
                     noinput: true,
-                    ok_text: IMP.text.yes,
-                    text: IMP.text.mailbox_delete_all
+                    ok_text: this.text.yes,
+                    text: this.text.delete_all
                 });
                 e.stop();
                 return;
