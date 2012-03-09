@@ -59,8 +59,10 @@ var HordeMobile = {
 
     doActionComplete: function(d, callback)
     {
-        HordeMobile.inAjaxCallback = true;
         var r = d.response;
+
+        HordeMobile.inAjaxCallback = true;
+
         if (r && $.isFunction(callback)) {
             try {
                 callback(r);
@@ -69,9 +71,14 @@ var HordeMobile = {
             }
         }
 
-        HordeMobile.server_error = 0;
         HordeMobile.notify_handler(d.msgs || []);
+
+        if (d.tasks) {
+            $(document).trigger('HordeMobile:runTasks', d.tasks);
+        }
+
         HordeMobile.inAjaxCallback = false;
+
         $.mobile.hidePageLoadingMsg();
     },
 
