@@ -301,7 +301,7 @@ class IMP_Ajax extends Horde_Core_Ajax
         $compose_cursor = $prefs->getValue('compose_cursor');
 
         /* Variables used in compose page. */
-        $this->_jsvars['conf_compose'] = array_filter(array(
+        $this->_jsvars['conf'] += array_filter(array(
             'attach_limit' => ($conf['compose']['attach_count_limit'] ? intval($conf['compose']['attach_count_limit']) : -1),
             'auto_save_interval_val' => intval($prefs->getValue('auto_save_drafts')),
             'bcc' => intval($prefs->getValue('compose_bcc')),
@@ -315,8 +315,8 @@ class IMP_Ajax extends Horde_Core_Ajax
         ));
 
         /* Gettext strings used in compose page. */
-        $this->_jsvars['text_compose'] = array(
-            'cancel' => _("Cancelling this message will permanently discard its contents and will delete auto-saved drafts.\nAre you sure you want to do this?"),
+        $this->_jsvars['text'] += array(
+            'compose_cancel' => _("Cancelling this message will permanently discard its contents and will delete auto-saved drafts.\nAre you sure you want to do this?"),
             'nosubject' => _("The message does not have a Subject entered.") . "\n" . _("Send message without a Subject?"),
             'remove' => _("Remove"),
             'replyall' => _("%d recipients"),
@@ -326,11 +326,11 @@ class IMP_Ajax extends Horde_Core_Ajax
         );
 
         if ($session->get('imp', 'csearchavail')) {
-            $this->_jsvars['conf_compose']['URI_ABOOK'] = strval(Horde::url('contacts.php'));
+            $this->_jsvars['conf']['URI_ABOOK'] = strval(Horde::url('contacts.php'));
         }
 
         if ($prefs->getValue('set_priority')) {
-            $this->_jsvars['conf_compose']['priority'] = array(
+            $this->_jsvars['conf']['priority'] = array(
                 array(
                     'l' => _("High"),
                     'v' => 'high'
@@ -357,7 +357,7 @@ class IMP_Ajax extends Horde_Core_Ajax
             }
 
             if (!empty($encrypt)) {
-                $this->_jsvars['conf_compose']['encrypt'] = $encrypt;
+                $this->_jsvars['conf']['encrypt'] = $encrypt;
             }
         }
     }

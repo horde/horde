@@ -725,11 +725,10 @@ var ImpMobile = {
                 ImpMobile.updateDraftsMailbox();
 
                 if (d.action == 'saveDraft') {
-                    if (!DIMP.conf_compose.qreply &&
-                        ImpMobile.baseAvailable()) {
+                    if (!DIMP.conf.qreply && ImpMobile.baseAvailable()) {
                         HordeMobile.notify_handler = HordeMobile.base.HordeMobile.showNotifications;
                     }
-                    if (DIMP.conf_compose.close_draft) {
+                    if (DIMP.conf.close_draft) {
                         return ImpMobile.closeCompose();
                     }
                 }

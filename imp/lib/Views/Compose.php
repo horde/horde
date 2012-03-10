@@ -75,7 +75,7 @@ class IMP_Views_Compose
             }
 
             if (!empty($args['qreply'])) {
-                $result['js'][] = 'DIMP.conf_compose.qreply = 1';
+                $result['js'][] = 'DIMP.conf.qreply = 1';
             }
 
             if ($session->get('imp', 'rteavail')) {
@@ -115,7 +115,7 @@ class IMP_Views_Compose
                         $flist[] = $tmp;
                     }
                     $result['js'] = array_merge($result['js'], Horde::addInlineJsVars(array(
-                        'DIMP.conf_compose.flist' => $flist
+                        'DIMP.conf.flist' => $flist
                     ), array('ret_vars' => true)));
                 }
             }
@@ -177,7 +177,7 @@ class IMP_Views_Compose
             }
         } else {
             $result['js'] = array_merge($result['js'], Horde::addInlineJsVars(array(
-                '-DIMP.conf_compose.redirect' => 1
+                '-DIMP.conf.redirect' => 1
             ), array('ret_vars' => true)));
         }
 
