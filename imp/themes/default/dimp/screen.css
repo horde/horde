@@ -988,10 +988,10 @@ span.dimpactionFilter {
 #ctx_message_forward span.iconImg, #ctx_forward_attach span.iconImg, #ctx_forward_body span.iconImg, #ctx_forward_both span.iconImg, #ctx_forward_redirect span.iconImg {
     background-image: url("../graphics/forward.png");
 }
-#ctx_mbox_empty span.iconImg, #ctx_message_deleted span.iconImg, #oa_purge_deleted span.iconImg {
+#ctx_mbox_empty span.iconImg, #ctx_message_delete span.iconImg, #ctx_oa_purge_deleted span.iconImg {
     background-image: url("../graphics/delete.png");
 }
-#ctx_message_undeleted span.iconImg, #oa_undeleted span.iconImg {
+#ctx_message_undelete span.iconImg, #ctx_oa_undeleted span.iconImg {
     background-image: url("../graphics/undelete.png");
 }
 #ctx_mbox_seen span.iconImg, #ctx_message_view span.iconImg {
@@ -1000,10 +1000,10 @@ span.dimpactionFilter {
 #ctx_mbox_unseen span.iconImg, #ctx_mbox_poll span.iconImg, #ctx_mbox_nopoll span.iconImg {
     background-image: url("../graphics/mail_unseen.png");
 }
-#ctx_message_setflag span.iconImg, #oa_setflag span.iconImg, #ctx_mbox_setflag span.iconImg {
+#ctx_message_setflag span.iconImg, #ctx_oa_setflag span.iconImg, #ctx_mbox_setflag span.iconImg {
     background-image: url("../graphics/mail_flagged.png");
 }
-#ctx_message_unsetflag span.iconImg, #oa_unsetflag span.iconImg {
+#ctx_message_unsetflag span.iconImg, #ctx_oa_unsetflag span.iconImg {
     background-image: url("../graphics/mail_clearflag.png");
 }
 #ctx_message_source span.iconImg, #msg_view_source span.iconImg, #ctx_preview_viewsource span.iconImg {
@@ -1012,16 +1012,16 @@ span.dimpactionFilter {
 #ctx_message_resume span.iconImg, #ctx_message_template span.iconImg, #ctx_message_template_edit span.iconImg, #ctx_template_new span.iconImg, #ctx_template_edit span.iconImg, #msg_resume_draft span.iconImg, #msg_template span.iconImg {
     background-image: url("../graphics/mail_draft.png");
 }
-#oa_preview_hide span.iconImg, #oa_preview_show span.iconImg {
+#ctx_oa_preview_hide span.iconImg, #ctx_oa_preview_show span.iconImg {
     background-image: url("../graphics/preview.png");
 }
-#oa_layout_horiz span.iconImg {
+#ctx_oa_layout_horiz span.iconImg {
     background-image: url("../graphics/application_tile_vertical.png");
 }
-#oa_layout_vert span.iconImg {
+#ctx_oa_layout_vert span.iconImg {
     background-image: url("../graphics/application_tile_horizontal.png");
 }
-#oa_help span.iconImg {
+#ctx_oa_help span.iconImg {
     background-image: url("../graphics/help.png");
 }
 #ctx_mbox_create span.iconImg, #ctx_container_create span.iconImg, #ctx_folderopts_new span.iconImg {
@@ -1048,10 +1048,10 @@ span.dimpactionFilter {
 #ctx_message_ham span.iconImg {
     background-image: url("../graphics/ham.png");
 }
-#ctx_message_blacklist span.iconImg, #oa_blacklist span.iconImg {
+#ctx_message_blacklist span.iconImg, #ctx_oa_blacklist span.iconImg {
     background-image: url("../graphics/blacklist.png");
 }
-#ctx_message_whitelist span.iconImg, #oa_whitelist span.iconImg {
+#ctx_message_whitelist span.iconImg, #ctx_oa_whitelist span.iconImg {
     background-image: url("../graphics/whitelist.png");
 }
 #ctx_message_editasnew span.iconImg, #ctx_contacts_new span.iconImg, #ctx_forward_editasnew span.iconImg {

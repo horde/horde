@@ -281,6 +281,21 @@ var DimpCore = {
         }
     },
 
+    contextOnClick: function(e)
+    {
+        var baseelt = e.element();
+
+        switch (e.memo.elt.readAttribute('id')) {
+        case 'ctx_contacts_new':
+            this.compose('new', { to: baseelt.retrieve('email'), toname: baseelt.retrieve('personal') });
+            break;
+
+        case 'ctx_contacts_add':
+            this.doAction('addContact', { name: baseelt.retrieve('personal'), email: baseelt.retrieve('email') });
+            break;
+        }
+    },
+
     contextOnShow: function(e)
     {
         var tmp;
@@ -304,19 +319,51 @@ var DimpCore = {
         }
     },
 
-    contextOnClick: function(e)
+    contextOnTrigger: function(e)
     {
-        var baseelt = e.element();
-
-        switch (e.memo.elt.readAttribute('id')) {
-        case 'ctx_contacts_new':
-            this.compose('new', { to: baseelt.retrieve('email'), toname: baseelt.retrieve('personal') });
-            break;
-
-        case 'ctx_contacts_add':
-            this.doAction('addContact', { name: baseelt.retrieve('personal'), email: baseelt.retrieve('email') });
-            break;
+        if (!DIMP.context[e.memo]) {
+            return;
         }
+
+        var div = new Element('DIV', { className: 'context', id: e.memo }).hide();
+
+        if (!Object.isArray(DIMP.context[e.memo])) {
+            $H(DIMP.context[e.memo]).each(function(pair) {
+                div.insert(this._contextOnTrigger(pair, e.memo));
+            }, this);
+        }
+
+        $(document.body).insert(div);
+    },
+
+    _contextOnTrigger: function(pair, ctx)
+    {
+        var elt;
+
+        if (pair.key.startsWith('_sep')) {
+            return new Element('DIV', { className: 'sep' });
+        }
+        if (pair.key.startsWith('_mbox')) {
+            return new Element('DIV', { className: 'mboxName' }).insert(pair.value.escapeHTML());
+        }
+        if (pair.key.startsWith('_sub')) {
+            var elt = new Element('DIV').hide();
+            $H(pair.value).each(function(v) {
+                elt.insert(this._contextOnTrigger(v, ctx));
+            }, this);
+            return elt;
+        }
+
+        elt = new Element('A');
+        if (pair.key.startsWith('*')) {
+            pair.key = pair.key.substring(1);
+        } else {
+            elt.insert(new Element('SPAN', { className: 'iconImg' }));
+        }
+        elt.writeAttribute('id', ctx + '_' + pair.key);
+        elt.insert(pair.value.escapeHTML());
+
+        return elt;
     },
 
     /* DIMP initialization function. */
@@ -331,6 +378,7 @@ var DimpCore = {
             this.DMenu = new ContextSensitive();
             document.observe('ContextSensitive:click', this.contextOnClick.bindAsEventListener(this));
             document.observe('ContextSensitive:show', this.contextOnShow.bindAsEventListener(this));
+            document.observe('ContextSensitive:trigger', this.contextOnTrigger.bindAsEventListener(this));
         }
 
         /* Add click handler. */

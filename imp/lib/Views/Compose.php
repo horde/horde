@@ -150,7 +150,6 @@ class IMP_Views_Compose
 
             $d_read = $prefs->getValue('request_mdn');
             if ($d_read != 'never') {
-                $t->set('read_receipt', true);
                 $t->set('read_receipt_set', ($d_read != 'ask'));
             }
 
@@ -172,7 +171,6 @@ class IMP_Views_Compose
 
             $save_attach = $prefs->getValue('save_attachments');
             if (strpos($save_attach, 'prompt') !== false) {
-                $t->set('save_attach', true);
                 $t->set('save_attach_set', strpos($save_attach, 'yes') !== false);
             }
         } else {

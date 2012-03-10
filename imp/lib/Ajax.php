@@ -140,16 +140,7 @@ class IMP_Ajax extends Horde_Core_Ajax
     {
         global $conf, $injector, $prefs, $registry;
 
-        $code = $filters = $flags = array();
-
-        /* Generate filter array. */
-        $imp_search = $injector->getInstance('IMP_Search');
-        $imp_search->setIteratorFilter(IMP_Search::LIST_FILTER);
-        foreach (iterator_to_array($imp_search) as $key => $val) {
-            if ($val->enabled) {
-                $filters[$key] = $val->label;
-            }
-        }
+        $code = $flags = array();
 
         /* Generate flag array. */
         foreach ($injector->getInstance('IMP_Flags')->getList() as $val) {
@@ -195,9 +186,6 @@ class IMP_Ajax extends Horde_Core_Ajax
             'acl' => $acl,
             'disable_compose' => !IMP::canCompose(),
             'filter_any' => intval($prefs->getValue('filter_any_mailbox')),
-            'filters' => $filters,
-            /* Needed to maintain flag ordering. */
-            'filters_o' => array_keys($filters),
             'fixed_mboxes' => empty($conf['server']['fixed_folders'])
                 ? array()
                 : array_map(array('IMP_Mailbox', 'formTo'), array_map(array('IMP_Mailbox', 'prefFrom'), $conf['server']['fixed_folders'])),
@@ -253,6 +241,273 @@ class IMP_Ajax extends Horde_Core_Ajax
             'spam_spammbox' => intval(!empty($conf['spam']['spamfolder']))
         ));
 
+        /* Context menu definitions.
+         * Keys:
+         *   - Begin with '_mbox': A mailbox name container entry
+         *   - Begin with '_sep': A separator
+         *   - Begin with '_sub': All subitems wrapped in a DIV
+         *   - Begin with a '*': No icon
+         */
+        $context = array(
+            'ctx_contacts' => array(
+                'new' => _("New Message"),
+                'add' => _("Add to Address Book")
+            ),
+            'ctx_reply' => array(
+                'reply' => _("To Sender"),
+                'reply_all' => _("To All"),
+                'reply_list' => _("To List")
+            ),
+
+            'ctx_container' => array(
+                '_mbox' => '',
+                '_sep1' => null,
+                'create' => _("Create subfolder"),
+                'rename' => _("Rename"),
+                '_sep2' => null,
+                'search' => _("Search"),
+                'searchsub' => _("Search All Subfolders"),
+                '_sep3' => null,
+                'expand' => _("Expand All"),
+                'collapse' => _("Collapse All")
+            ),
+            'ctx_datesort' => array(
+                'sequence' => _("Arrival Time"),
+                'date' => _("Message Date")
+            ),
+            'ctx_flag' => array(),
+            'ctx_flag_search' => array(),
+            'ctx_mbox_flag' => array(
+                'seen' => _("Seen"),
+                'unseen' => _("Unseen")
+            ),
+            'ctx_noactions' => array(
+                '_mbox' => '',
+                '_sep1' => null,
+                'noaction' => _("No actions available")
+            ),
+            'ctx_sortopts' => array(
+                'from' => _("From"),
+                'to' => _("To"),
+                'subject' => _("Subject"),
+                'thread' => _("Thread"),
+                'date' => _("Date"),
+                'size' => ("Size"),
+                '_sep1' => null,
+                'sequence' => _("Arrival (No Sort)")
+            ),
+            'ctx_subjectsort' => array(
+                'thread' => _("Thread Sort"),
+            ),
+            'ctx_template' => array(
+                'edit' => _("Edit Template"),
+                'new' => _("Create New Template")
+            ),
+            'ctx_vcontainer' => array(
+                '_mbox' => _("Virtual Folders"),
+                '_sep1' => null,
+                'edit' => _("Edit Virtual Folders")
+            ),
+            'ctx_vfolder' => array(
+                '_mbox' => '',
+                '_sep1' => null,
+                'edit' => _("Edit Virtual Folder"),
+                'delete' => _("Delete Virtual Folder")
+            )
+        );
+
+        /* Folder options context menu. */
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+        if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
+            $context['ctx_folderopts'] = array(
+                'new' => _("New Mailbox"),
+                'sub' => _("Hide Unsubscribed"),
+                'unsub' => _("Show All Mailboxes"),
+                'expand' => _("Expand All"),
+                'collapse' => _("Collapse All"),
+                '_sep1' => null,
+                'reload' => _("Rebuild Folder List")
+            );
+        }
+
+        /* Forward context menu. */
+        $context['ctx_forward'] = array(
+            'attach' => _("As Attachment"),
+            'body' => _("In Body Text"),
+            'both' => _("Attachment and Body Text"),
+            '_sep1' => null,
+            'editasnew' => _("Edit as New"),
+            '_sep2' => null,
+            'redirect' => _("Redirect")
+        );
+        if ($prefs->isLocked('forward_default')) {
+            unset(
+                $context['ctx_forward']['attach'],
+                $context['ctx_forward']['body'],
+                $context['ctx_forward']['both'],
+                $context['ctx_forward']['_sep1']
+            );
+        }
+
+        /* Message context menu. */
+        $context['ctx_message'] = array(
+            '_sub1' => array(
+                'resume' => _("Resume Draft"),
+                'template' => _("Use Template"),
+                'template_edit' => _("Edit Template"),
+                'view' => _("View Message")
+            ),
+            'reply' => _("Reply"),
+            'forward' => _("Forward"),
+            'editasnew' => _("Edit as New"),
+            '_sub2' => array(
+                '_sep1' => null,
+                'setflag' => _("Mark as") . '...',
+                'unsetflag' => _("Unmark as") . '...',
+            ),
+            '_sep2' => null,
+            'spam' => _("Report as Spam"),
+            'ham' => _("Report as Innocent"),
+            'blacklist' => _("Blacklist"),
+            'whitelist' => _("Whitelist"),
+            'delete' => _("Delete"),
+            'undelete' => _("Undelete"),
+            '_sub3' => array(
+                '_sep3' => null,
+                'source' => _("View Source")
+            )
+        );
+
+        if (empty($conf['spam']['reporting'])) {
+            unset($context['ctx_message']['spam']);
+        }
+        if (empty($conf['notspam']['reporting'])) {
+            unset($context['ctx_message']['ham']);
+        }
+        if (!$registry->hasMethod('mail/blacklistFrom')) {
+            unset($context['ctx_message']['blacklist']);
+        }
+        if (!$registry->hasMethod('mail/whitelistFrom')) {
+            unset($context['ctx_message']['whitelist']);
+        }
+        if ($prefs->getValue('use_trash')) {
+            unset($context['ctx_message']['undelete']);
+        }
+        if (empty($conf['user']['allow_view_source'])) {
+            unset($context['ctx_message']['_sub3']);
+        }
+
+        /* Mailbox context menu. */
+        $context['ctx_mbox'] = array(
+            '_mbox' => '',
+            '_sep1' => null,
+            'create' => _("Create subfolder"),
+            'rename' => _("Rename"),
+            'empty' => _("Empty"),
+            'delete' => _("Delete"),
+            '_sep2' => null,
+            'setflag' => _("Mark all as"),
+            '_sep3' => null,
+            'poll' => _("Check for New Mail"),
+            'nopoll' => _("Do Not Check for New Mail"),
+            'sub' => _("Subscribe"),
+            'unsub' => _("Unsubscribe"),
+            '_sep4' => null,
+            'search' => _("Search"),
+            'searchsub' => _("Search All Subfolders"),
+            '_sub1' => array(
+                '_sep5' => null,
+                'expand' => _("Expand All"),
+                'collapse' => _("Collapse All")
+            ),
+            '_sep6' => null,
+            'export' => _("Export"),
+            'import' => _("Import"),
+            '_sub2' => array(
+                '_sep7' => null,
+                'acl' => _("Edit ACL")
+            )
+        );
+
+        if (!$prefs->getValue('subscribe')) {
+            unset($context['ctx_mbox']['sub'], $context['ctx_mbox']['unsub']);
+        }
+
+        /* Other Actions context menu. */
+        $context['ctx_oa'] = array(
+            'preview_hide' => _("Hide Preview"),
+            'preview_show' => _("Show Preview"),
+            'layout_horiz' => _("Horizontal Layout"),
+            'layout_vert' => _("Vertical Layout"),
+            '_sub1' => array(
+                '_sep1' => null,
+                'setflag' => _("Mark as") . '...',
+                'unsetflag' => _("Unmark as") . '...',
+            ),
+            'blacklist' => _("Blacklist"),
+            'whitelist' => _("Whitelist"),
+            '_sub2' => array(
+                '_sep2' => null,
+                'purge_deleted' => _("Purge Deleted"),
+                'undelete' => _("Undelete")
+            ),
+            'show_deleted' => _("Show Deleted"),
+            'hide_deleted' => _("Hide Deleted"),
+            '_sep3' => null,
+            'help' => _("Help")
+        );
+        if ($prefs->getValue('use_trash')) {
+            unset($context['ctx_oa']['_sub2']);
+        }
+        if ($prefs->isLocked('delhide')) {
+            unset($context['ctx_oa']['hide_deleted']);
+        }
+
+        /* Preview context menu. */
+        $context['ctx_preview'] = array(
+            'save' => _("Save"),
+            'viewsource' => _("View Source"),
+            'allparts' => _("All Parts")
+        );
+
+        if (empty($conf['user']['allow_view_source'])) {
+            unset($context['ctx_preview']['viewsource']);
+        }
+
+        /* Search related context menus. */
+        if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
+            $context['ctx_filteropts'] = array(
+                '*filter' => _("Filter By"),
+                '*flag' => _("Show Only"),
+                '*flagnot' => _("Don't Show")
+            );
+            $context['ctx_qsearchby'] = array(
+                '*all' => _("Entire Message"),
+                '*body' => _("Body"),
+                '*from' => _("From"),
+                '*recip' => _("Recipients (To/Cc/Bcc)"),
+                '*subject' => _("Subject")
+            );
+            $context['ctx_qsearchopts'] = array(
+                '*by' => _("Search By"),
+                '_sep1' => null,
+                '*advanced' => _("Advanced Search...")
+            );
+
+            /* Generate filter array. */
+            $imp_search = $injector->getInstance('IMP_Search');
+            $imp_search->setIteratorFilter(IMP_Search::LIST_FILTER);
+
+            $context['ctx_filter'] = array();
+            foreach (iterator_to_array($imp_search) as $key => $val) {
+                if ($val->enabled) {
+                    $context['ctx_filter']['*' . $key] = $val->label;
+                }
+            }
+        }
+
+        $this->_jsvars['context'] = $context;
+
         /* Gettext strings used in core javascript files. */
         $this->_jsvars['text'] = array(
             'allparts_label' => _("All Message Parts"),
@@ -299,6 +554,24 @@ class IMP_Ajax extends Horde_Core_Ajax
         global $browser, $conf, $prefs, $registry, $session;
 
         $compose_cursor = $prefs->getValue('compose_cursor');
+
+        /* Context menu definitions. */
+        $context = array(
+            'ctx_msg_other' => array(
+                '*rr' => _("Read Receipt"),
+                '*saveatc' => _("Save Attachments in Sent Mailbox")
+            )
+        );
+
+        if ($prefs->getValue('request_mdn') == 'never') {
+            unset($context['ctx_msg_other']['*rr']);
+        }
+
+        if (strpos($prefs->getValue('save_attachments'), 'prompt') === false) {
+            unset($context['ctx_msg_other']['*saveatc']);
+        }
+
+        $this->_jsvars['context'] += $context;
 
         /* Variables used in compose page. */
         $this->_jsvars['conf'] += array_filter(array(
