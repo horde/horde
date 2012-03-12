@@ -150,7 +150,8 @@ class Horde_ActiveSync_Timezone
      */
     static protected function _getTransitions(DateTimeZone $timezone, Horde_Date $date)
     {
-        $std = $dst = null;
+
+        $std = $dst = array();
         $transitions = $timezone->getTransitions(
             mktime(0, 0, 0, 12, 1, $date->year - 1),
             mktime(24, 0, 0, 12, 31, $date->year)
@@ -217,13 +218,14 @@ class Horde_ActiveSync_Timezone
     /**
      * Attempt to guess the timezone identifier from the $offsets array.
      *
-     * @param array $offsets            The offsets to check.
+     * @param array|string $offsets     The timezone to check. Either an array
+     *                                  of offsets or an activesynz tz blob.
      * @param string $expectedTimezone  The expected timezone. If not empty, and
      *                                  present in the results, will return.
      *
      * @return string  The timezone identifier
      */
-    public function getTimezone(array $offsets, $expectedTimezone = null)
+    public function getTimezone($offsets, $expectedTimezone = null)
     {
         $timezones = $this->getListOfTimezones($offsets, $expectedTimezone);
         if (isset($timezones[$expectedTimezone])) {
@@ -333,8 +335,9 @@ class Horde_ActiveSync_Timezone
         // check each condition in a single if statement and break the chain
         // when one condition is not met - for performance reasons
         if ($standardOffset == $std['offset']) {
-            if (empty($offsets['dstmonth']) && (empty($dst) || empty($dst['isdst']))) {
-                //No DST
+            if ((empty($offsets['dstmonth']) && (empty($dst) || empty($dst['isdst']))) ||
+                (empty($dst) && !empty($offsets['dstmonth']))) {
+                // Offset contains DST, but no dst to compare
                 return true;
             }
             $daylightOffset = ($offsets['bias'] + $offsets['dstbias']) * 60 * -1;

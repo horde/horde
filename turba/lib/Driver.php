@@ -2707,12 +2707,14 @@ class Turba_Driver implements Countable
         /* Birthday and Anniversary */
         if (!empty($message->birthday)) {
             $bday = new Horde_Date($message->birthday);
+            $bday->setTimezone(date_default_timezone_get());
             $hash['birthday'] = $bday->format('Y-m-d');
         } elseif (!$message->isGhosted('birthday')) {
             $hash['birthday'] = null;
         }
         if (!empty($message->anniversary)) {
             $anniversary = new Horde_Date($message->anniversary);
+            $anniversary->setTimezone(date_default_timezone_get());
             $hash['anniversary'] = $anniversary->format('Y-m-d');
         } elseif (!$message->isGhosted('anniversary')) {
             $hash['anniversary'] = null;

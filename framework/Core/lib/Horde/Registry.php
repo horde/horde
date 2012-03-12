@@ -2314,7 +2314,7 @@ class Horde_Registry
         /* Reload preferences for the new user. */
         unset($GLOBALS['prefs']);
         $injector->getInstance('Horde_Core_Factory_Prefs')->clearCache();
-        $this->loadPrefs();
+        $this->loadPrefs($app);
 
         $this->setLanguageEnvironment(isset($options['language']) ? $this->preferredLang($options['language']) : null, $app);
     }

@@ -40,11 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* [mjr] Ensure contact lists are always populated with their members (Bug #10961).
-* [jan] Fix SyncML compatibility with work/home phone numbers and newer Funambol clients (Bug #10912).
-* [mjr] Implement more flexible ActiveSync synchronization of names and addresses.
-* [jan] Fix address book sorting in preferences (Bug #10897).
-* [mms] Improved navigation when editing group entries.
+*
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1390,5 +1386,21 @@
 * [mms] Improved navigation when editing group entries.
    </notes>
   </release>
+<<<<<<< HEAD
+=======
+  <release>
+   <version>
+    <release>3.0.13</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-02-28</date>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <notes>
+* [mjr] Fix bug that caused time shifting of contact birthday and anniversary values from ActiveSync devices for users in certain timezones.
+   </notes>
+  </release>
+>>>>>>> master
  </changelog>
 </package>
