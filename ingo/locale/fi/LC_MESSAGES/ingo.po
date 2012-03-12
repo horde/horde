@@ -1,14 +1,14 @@
 # Finnish translation for Ingo.
 # This file is distributed under the same license as the Horde package.
 # Copyright
-# Leena Heino <liinu@uta.fi>, 2003-2008.
+# Leena Heino <liinu@uta.fi>, 2003-2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Ingo 2.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-04 10:15+0200\n"
-"PO-Revision-Date: 2011-04-05 12:56:31+0300\n"
+"POT-Creation-Date: 2012-02-22 11:20+0100\n"
+"PO-Revision-Date: 2012-03-08 07:19:31+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -25,15 +25,15 @@ msgstr " ja"
 msgid " or"
 msgstr " tai"
 
-#: templates/blacklist/blacklist.inc:17
+#: templates/blacklist/blacklist.inc:16
 msgid "Action for blacklisted addresses:"
-msgstr "Toiminto mustalistatuille osoitteille:"
+msgstr "Toiminto musta listatuille osoitteille:"
 
 #: templates/script/activate.inc:10
 msgid "Activate Script"
 msgstr "Aktivoi skripti"
 
-#: lib/Transport/Ldap.php:219
+#: lib/Transport/Ldap.php:222
 #, php-format
 msgid "Activating the script for \"%s\" failed: (%d) %s"
 msgstr "Skriptin aktivointi \"%s\":lle epäonnistui: (%d) %s"
@@ -54,7 +54,7 @@ msgstr "Älä lähetä vastausviestiä osoitteisiin:"
 msgid "Advanced Settings"
 msgstr "Tarkemmat asetukset"
 
-#: templates/rule/header.inc:32
+#: templates/rule/header.inc:31
 msgid "All of the following"
 msgstr "Kaikki seuraavat"
 
@@ -66,7 +66,7 @@ msgstr "Salli säännöt"
 msgid "Answered"
 msgstr "Vastattu"
 
-#: templates/rule/header.inc:33
+#: templates/rule/header.inc:32
 msgid "Any of the following"
 msgstr "Jokin seuraavista"
 
@@ -78,7 +78,7 @@ msgstr "Suodata viestit"
 msgid "Are you sure you want to delete this rule?"
 msgstr "Oletko varma, että haluat poistaa tämän säännön?"
 
-#: config/prefs.php:26
+#: config/prefs.php:24
 msgid "Automatically activate the script after each change?"
 msgstr "Päivitetäänkö skripti automaattisesti jokaisen muutoksen jälkeen?"
 
@@ -86,7 +86,7 @@ msgstr "Päivitetäänkö skripti automaattisesti jokaisen muutoksen jälkeen?"
 msgid "Basic Settings"
 msgstr "Perusasetukset"
 
-#: config/fields.php:51
+#: config/fields.php:52
 msgid "Bcc"
 msgstr "Piilokopio"
 
@@ -100,11 +100,11 @@ msgid "Bind failed: (%s) %s"
 msgstr "Yhdistäminen epäonnistui: (%s) %s"
 
 #: filters.php:179 lib/Block/Overview.php:84 lib/Block/Overview.php:87
-#: templates/blacklist/blacklist.inc:7
+#: templates/blacklist/blacklist.inc:6
 msgid "Blacklist"
 msgstr "Musta lista"
 
-#: blacklist.php:97
+#: blacklist.php:91
 msgid "Blacklist Edit"
 msgstr "Mustan listan muokkaus"
 
@@ -112,24 +112,24 @@ msgstr "Mustan listan muokkaus"
 msgid "Blacklist is not supported in the current filtering driver."
 msgstr "Käytössä oleva suodatinajuri ei tue mustia listoja."
 
-#: lib/Script/Maildrop.php:191 lib/Script/Procmail.php:219
+#: lib/Script/Maildrop.php:198 lib/Script/Procmail.php:219
 #: lib/Script/Sieve.php:281
 msgid "Blacklisted Addresses"
 msgstr "Mustalle listalle lisätyt osoitteet"
 
-#: config/fields.php:104
+#: config/fields.php:105
 msgid "Body"
 msgstr "Sisältö"
 
-#: filters.php:225 rule.php:317
+#: filters.php:225 rule.php:336
 msgid "Case Sensitive"
 msgstr "Kirjainkokoriippuvainen"
 
-#: config/fields.php:47
+#: config/fields.php:48
 msgid "Cc"
 msgstr "Kopio"
 
-#: blacklist.php:67 forward.php:49 rule.php:136 spam.php:99 vacation.php:71
+#: blacklist.php:63 forward.php:49 rule.php:156 spam.php:88 vacation.php:71
 #: whitelist.php:32
 msgid "Changes saved."
 msgstr "Muutokset tallennettiin."
@@ -152,7 +152,11 @@ msgstr "Kopioi %s"
 msgid "Copy of %s"
 msgstr "%s:n kopio"
 
-#: lib/Ingo.php:133
+#: lib/Ingo.php:166
+msgid "Could not validate IMAP mailbox."
+msgstr "Ei voitu varmentaa IMAP postilaatikkoa."
+
+#: lib/Ingo.php:120
 msgid "Create new folder"
 msgstr "Luo uusi kansio"
 
@@ -197,7 +201,7 @@ msgstr "Laita viesti INBOXiini ja uudelleenohjaa kohteeseen..."
 msgid "Deliver to folder..."
 msgstr "Laita viesti tähän kansioon..."
 
-#: config/fields.php:87
+#: config/fields.php:88
 msgid "Destination (To, Cc, Bcc, etc.)"
 msgstr "Kohde (To, CC, Bcc, etc.)"
 
@@ -206,8 +210,8 @@ msgstr "Kohde (To, CC, Bcc, etc.)"
 msgid "Disable %s"
 msgstr "Poista käytöstä %s"
 
-#: forward.php:88 spam.php:144 templates/blacklist/blacklist.inc:10
-#: templates/rule/header.inc:14 templates/whitelist/whitelist.inc:8
+#: forward.php:88 spam.php:132 templates/blacklist/blacklist.inc:9
+#: templates/rule/header.inc:13 templates/whitelist/whitelist.inc:8
 #: vacation.php:137
 msgid "Disabled"
 msgstr "Poistettu käytöstä"
@@ -295,15 +299,15 @@ msgstr "Olemassa"
 msgid "Expected 1 object, got %d."
 msgstr "Odotettiin 1 objekti, saatiin %d."
 
-#: lib/Transport/Sivtest.php:181
+#: lib/Transport/Sivtest.php:146
 msgid "Failed to read from socket: "
 msgstr "Ei voitu lukea socketista:"
 
-#: lib/Transport/Sivtest.php:176
+#: lib/Transport/Sivtest.php:141
 msgid "Failed to write to socket: "
 msgstr "Ei voitu kirjoittaa socketiin:"
 
-#: lib/Transport/Sivtest.php:171
+#: lib/Transport/Sivtest.php:136
 msgid "Failed to write to socket: (connection lost!)"
 msgstr "Ei voitu kirjoittaa socketiin (yhteys katkesi!)"
 
@@ -327,7 +331,7 @@ msgstr "Suodata vain uudet viestit"
 msgid "Filter Options"
 msgstr "Suodatin asetukset"
 
-#: templates/rule/header.inc:13
+#: templates/rule/header.inc:12
 msgid "Filter Rule"
 msgstr "Suodatinsääntö"
 
@@ -335,7 +339,7 @@ msgstr "Suodatinsääntö"
 msgid "Filter Rules"
 msgstr "Suodatinsäännöt"
 
-#: script.php:51
+#: script.php:52
 msgid "Filter Script Display"
 msgstr "Suodatusskripti näkymä"
 
@@ -343,27 +347,27 @@ msgstr "Suodatusskripti näkymä"
 msgid "Filter _Rules"
 msgstr "Suodati_nsäännöt"
 
-#: lib/Script/Imap.php:333
+#: lib/Script/Imap.php:337
 #, php-format
 msgid "Filter activity: %s message(s) have been copied to the folder \"%s\"."
 msgstr "Suodatintoiminto: %s viestiä on siirretty kansioon \"%s\"."
 
-#: lib/Script/Imap.php:312
+#: lib/Script/Imap.php:315
 #, php-format
 msgid "Filter activity: %s message(s) have been deleted."
 msgstr "Suodatintoiminto: %s viestiä on poistettu."
 
-#: lib/Script/Imap.php:288
+#: lib/Script/Imap.php:290
 #, php-format
 msgid "Filter activity: %s message(s) have been moved to the folder \"%s\"."
 msgstr "Suodatintoiminto: %s viestiä on siirretty kansioon \"%s\"."
 
-#: lib/Script/Imap.php:190
+#: lib/Script/Imap.php:191
 #, php-format
 msgid "Filter activity: %s message(s) that matched the blacklist were deleted."
 msgstr "Suodatintoiminto: %s mustalla listalla olevaa viestiä on poistettu."
 
-#: lib/Script/Imap.php:326
+#: lib/Script/Imap.php:330
 #, php-format
 msgid ""
 "Filter activity: The message \"%s\" from \"%s\" has been copied to the "
@@ -372,12 +376,12 @@ msgstr ""
 "Suodatintoiminto: Viesti \"%s\" osoitteesta \"%s\" on kopioitu kansioon \"%s"
 "\"."
 
-#: lib/Script/Imap.php:306
+#: lib/Script/Imap.php:309
 #, php-format
 msgid "Filter activity: The message \"%s\" from \"%s\" has been deleted."
 msgstr "Suodatintoiminto: Viesti \"%s\" osoitteesta \"%s\" on poistettu."
 
-#: lib/Script/Imap.php:281
+#: lib/Script/Imap.php:283
 #, php-format
 msgid ""
 "Filter activity: The message \"%s\" from \"%s\" has been moved to the folder "
@@ -386,7 +390,7 @@ msgstr ""
 "Suodatintoiminto: Viesti \"%s\" osoitteesta \"%s\" on siirretty kansioon \"%s"
 "\"."
 
-#: rule.php:184
+#: rule.php:204
 msgid "Filter not found."
 msgstr "Suodatinta ei löytynyt"
 
@@ -398,7 +402,7 @@ msgstr "Merkitty jatkoksi"
 msgid "Folder to receive spam:"
 msgstr "Roskapostikansio:"
 
-#: templates/rule/header.inc:30
+#: templates/rule/header.inc:29
 msgid "For an incoming message that matches:"
 msgstr "Kaikille tuleville viesteille, jotka sopivat:"
 
@@ -415,7 +419,7 @@ msgstr "Uudelleenohjauksen tallennustoiminto"
 msgid "Forward is not supported in the current filtering driver."
 msgstr "Käytössä oleva ajuri ei tue uudelleenohjausta."
 
-#: lib/Script/Maildrop.php:240 lib/Script/Procmail.php:298
+#: lib/Script/Maildrop.php:247 lib/Script/Procmail.php:298
 #: lib/Script/Sieve.php:244
 msgid "Forwards"
 msgstr "Uudelleenohjaukset"
@@ -424,7 +428,7 @@ msgstr "Uudelleenohjaukset"
 msgid "Forwards Edit"
 msgstr "Uudelleenohjauksen muokkaus"
 
-#: config/fields.php:43
+#: config/fields.php:44
 msgid "From"
 msgstr "Lähettäjä"
 
@@ -479,11 +483,11 @@ msgstr "Pienempi kuin"
 msgid "Less than or equal to"
 msgstr "Pienempi tai yhtäsuuri kuin"
 
-#: config/fields.php:63
+#: config/fields.php:64
 msgid "List-ID"
 msgstr "List-ID"
 
-#: templates/blacklist/blacklist.inc:20
+#: templates/blacklist/blacklist.inc:19
 msgid "Mar_k message as deleted"
 msgstr "Merkitse viesti poistetuksi"
 
@@ -591,7 +595,7 @@ msgstr "Ei suodattimia. Napsauta \"%s\" tehdäksesi uuden suodattimen."
 msgid "No headers specified"
 msgstr "Otsakkeita ei ole määritelty"
 
-#: script.php:68
+#: script.php:69
 msgid "No script generated."
 msgstr "Skriptiä ei luotu."
 
@@ -615,7 +619,7 @@ msgstr "Monenko päivän välein lähetetään poissaoloviesti:"
 msgid "Only flag the message"
 msgstr "Muuta vain viestin tilatietoa"
 
-#: config/prefs.php:13
+#: config/prefs.php:14
 msgid "Other Preferences"
 msgstr "Muut asetukset"
 
@@ -623,7 +627,7 @@ msgstr "Muut asetukset"
 msgid "Overview"
 msgstr "Yleiskuva"
 
-#: config/fields.php:95
+#: config/fields.php:96
 msgid "Participant (From, To, etc.)"
 msgstr "Osallistuja (From, To, etc.)"
 
@@ -631,11 +635,11 @@ msgstr "Osallistuja (From, To, etc.)"
 msgid "Permission Denied"
 msgstr "Käyttö kielletty"
 
-#: lib/Ingo.php:472
+#: lib/Ingo.php:135
 msgid "Please enter the name of the new folder:"
 msgstr "Anna uuden kansion nimi:"
 
-#: config/prefs.php:15
+#: config/prefs.php:16
 msgid "Preferences about script updating."
 msgstr "Skriptin päivitykseen liittyviä asetuksia."
 
@@ -643,7 +647,7 @@ msgstr "Skriptin päivitykseen liittyviä asetuksia."
 msgid "Reason:"
 msgstr "Syy:"
 
-#: config/fields.php:67
+#: config/fields.php:68
 msgid "Received"
 msgstr "Vastaanotettu"
 
@@ -666,11 +670,11 @@ msgstr ""
 "Käytössä oleva ajuri nykyisellä taustajärjestelmällä ei tue käyttäjien "
 "tietojen poistamisesta."
 
-#: config/fields.php:55
+#: config/fields.php:56
 msgid "Resent-From"
 msgstr "Uudelleenlähetetty osoitteesta"
 
-#: config/fields.php:59
+#: config/fields.php:60
 msgid "Resent-To"
 msgstr "Lähetä uudelleen osoitteeseen"
 
@@ -678,8 +682,8 @@ msgstr "Lähetä uudelleen osoitteeseen"
 msgid "Return to Filters List"
 msgstr "Palaa suodatinlistaan"
 
-#: forward.php:30 forward.php:77 spam.php:56 spam.php:130
-#: templates/blacklist/blacklist.inc:42 templates/whitelist/whitelist.inc:24
+#: forward.php:30 forward.php:77 spam.php:56 spam.php:119
+#: templates/blacklist/blacklist.inc:41 templates/whitelist/whitelist.inc:24
 #: vacation.php:30 vacation.php:102
 msgid "Return to Rules List"
 msgstr "Palaa säännöstölistaan"
@@ -708,15 +712,15 @@ msgstr "Sääntö \"%s\" pois käytöstä"
 msgid "Rule \"%s\" enabled."
 msgstr "Sääntö \"%s\" käytössä"
 
-#: forward.php:58 spam.php:108 vacation.php:80
+#: forward.php:58 spam.php:97 vacation.php:80
 msgid "Rule Disabled"
 msgstr "Sääntö pois käytöstä"
 
-#: forward.php:53 spam.php:103 vacation.php:75
+#: forward.php:53 spam.php:92 vacation.php:75
 msgid "Rule Enabled"
 msgstr "Sääntö käytössä"
 
-#: templates/rule/header.inc:21
+#: templates/rule/header.inc:20
 msgid "Rule Name:"
 msgstr "Säännön nimi:"
 
@@ -733,7 +737,7 @@ msgstr "STARTTLS epäonnistui: (%s) %s"
 msgid "S_pam"
 msgstr "Roska_posti"
 
-#: forward.php:40 spam.php:72 templates/blacklist/blacklist.inc:41
+#: forward.php:40 spam.php:71 templates/blacklist/blacklist.inc:40
 #: templates/rule/footer.inc:60 templates/whitelist/whitelist.inc:23
 #: vacation.php:54
 msgid "Save"
@@ -743,12 +747,12 @@ msgstr "Tallenna"
 msgid "Save Settings"
 msgstr "Tallenna asetukset"
 
-#: forward.php:55 forward.php:73 spam.php:105 spam.php:126 vacation.php:77
+#: forward.php:55 forward.php:73 spam.php:94 spam.php:115 vacation.php:77
 #: vacation.php:98
 msgid "Save and Disable"
 msgstr "Tallenna ja poista käytöstä"
 
-#: forward.php:50 forward.php:75 spam.php:100 spam.php:128 vacation.php:72
+#: forward.php:50 forward.php:75 spam.php:89 spam.php:117 vacation.php:72
 #: vacation.php:100
 msgid "Save and Enable"
 msgstr "Tallenna ja ota käyttöön"
@@ -757,7 +761,7 @@ msgstr "Tallenna ja ota käyttöön"
 msgid "Script"
 msgstr "Skripti"
 
-#: config/prefs.php:14
+#: config/prefs.php:15
 msgid "Script Updating"
 msgstr "Skriptin päivitys"
 
@@ -765,11 +769,11 @@ msgstr "Skriptin päivitys"
 msgid "Script not updated."
 msgstr "Skriptiä ei päivitetty."
 
-#: lib/Ingo.php:233
+#: lib/Ingo.php:232
 msgid "Script successfully activated."
 msgstr "Skriptin aktivointi onnistui."
 
-#: lib/Ingo.php:232
+#: lib/Ingo.php:231
 msgid "Script successfully deactivated."
 msgstr "Skriptin aktivointi onnistui."
 
@@ -777,7 +781,7 @@ msgstr "Skriptin aktivointi onnistui."
 msgid "Seen"
 msgstr "Vanha"
 
-#: rule.php:214
+#: rule.php:233
 msgid "Select a field"
 msgstr "Valitse kenttä"
 
@@ -785,19 +789,19 @@ msgstr "Valitse kenttä"
 msgid "Select ruleset to display:"
 msgstr "Valitse näytettävä sääntö:"
 
-#: rule.php:342 templates/blacklist/blacklist.inc:23
+#: rule.php:361 templates/blacklist/blacklist.inc:22
 msgid "Select target folder"
 msgstr "Valitse kohdekansio"
 
-#: lib/Ingo.php:129
+#: lib/Ingo.php:116
 msgid "Select target folder:"
 msgstr "Valitse kohdekansio:"
 
-#: rule.php:251
+#: rule.php:270
 msgid "Self-Defined Header"
 msgstr "Itsemääritelty otsake"
 
-#: config/fields.php:39
+#: config/fields.php:40
 msgid "Sender"
 msgstr "Lähettäjä"
 
@@ -818,20 +822,20 @@ msgid "Simple spam filtering is not supported in the current filtering driver."
 msgstr ""
 "Yksinkertainen roskapostisuodatin ei ole tuettu nykyisessä suodatinajurissa."
 
-#: config/fields.php:99
+#: config/fields.php:100
 msgid "Size"
 msgstr "Koko"
 
-#: config/fields.php:91
+#: config/fields.php:92
 msgid "Source (From, Reply-to, etc.)"
 msgstr "Lähde (From, Reply-to, etc.)"
 
 #: filters.php:203 lib/Block/Overview.php:94 lib/Block/Overview.php:97
-#: lib/Script/Maildrop.php:297 lib/Script/Sieve.php:442
+#: lib/Script/Maildrop.php:304 lib/Script/Sieve.php:442
 msgid "Spam Filter"
 msgstr "Roskapostisuodatin"
 
-#: spam.php:142 spam.php:149
+#: spam.php:130 spam.php:137
 msgid "Spam Filtering"
 msgstr "Roskapostisuodatus"
 
@@ -847,7 +851,7 @@ msgstr "Poissaolon alku:"
 msgid "Stop checking if this rule matches?"
 msgstr "Lopeta tarkistus jos tämä sääntö sopii."
 
-#: config/fields.php:35
+#: config/fields.php:36
 msgid "Subject"
 msgstr "Otsikko"
 
@@ -869,19 +873,19 @@ msgstr "Osoite \"%s\" on lisätty mustalle listallesi."
 msgid "The address \"%s\" has been added to your whitelist."
 msgstr "Osoite \"%s\" on lisätty valkoiselle listallesi."
 
-#: lib/Ingo.php:223
+#: lib/Ingo.php:226
 msgid "The driver said: "
 msgstr "Ajurin virheilmoitus oli: "
 
-#: lib/Ingo.php:222
+#: lib/Ingo.php:225
 msgid "There was an error activating the script."
 msgstr "Skriptin aktivoinnissa tapahtui virhe."
 
-#: lib/Ingo.php:221
+#: lib/Ingo.php:224
 msgid "There was an error deactivating the script."
 msgstr "Skriptin ei-aktivoinnissa tapahtui virhe."
 
-#: config/fields.php:31
+#: config/fields.php:32
 msgid "To"
 msgstr "Vastaanottaja"
 
@@ -899,7 +903,7 @@ msgid "User header"
 msgstr "Käytäjän määrittelemä otsake"
 
 #: filters.php:191 lib/Block/Overview.php:50 lib/Block/Overview.php:53
-#: lib/Script/Maildrop.php:272 lib/Script/Procmail.php:278
+#: lib/Script/Maildrop.php:278 lib/Script/Procmail.php:278
 #: lib/Script/Sieve.php:416 vacation.php:135
 msgid "Vacation"
 msgstr "Poissaoloviesti"
@@ -912,7 +916,7 @@ msgstr "Poissaoloviestin muokkaus"
 msgid "Vacation is not supported in the current filtering driver."
 msgstr "Käytössä oleva suodatinajuri ei tue poissaoloviestejä."
 
-#: rule.php:348
+#: rule.php:367
 msgid "Value"
 msgstr "Arvo"
 
@@ -933,28 +937,28 @@ msgstr "Valkoisen listan muokkaus"
 msgid "Whitelist is not supported in the current filtering driver."
 msgstr "Käytössä oleva ajuri ei tue valkoista listaa."
 
-#: lib/Script/Maildrop.php:218 lib/Script/Procmail.php:246
+#: lib/Script/Maildrop.php:225 lib/Script/Procmail.php:246
 #: lib/Script/Sieve.php:341
 msgid "Whitelisted Addresses"
 msgstr "Valkoiselle listalle lisätyt osoitteet"
 
-#: config/fields.php:83
+#: config/fields.php:84
 msgid "X-Priority"
 msgstr "X-Prioriteetti"
 
-#: config/fields.php:71
+#: config/fields.php:72
 msgid "X-Spam-Level"
 msgstr "X-Spam-Level"
 
-#: config/fields.php:75
+#: config/fields.php:76
 msgid "X-Spam-Score"
 msgstr "X-Spam-Score"
 
-#: config/fields.php:79
+#: config/fields.php:80
 msgid "X-Spam-Status"
 msgstr "X-Spam-Status"
 
-#: filters.php:73 rule.php:171
+#: filters.php:73 rule.php:191
 #, php-format
 msgid "You are not allowed to create more than %d rules."
 msgstr "Et voi luoda enempää kuin %d sääntöä."
@@ -963,16 +967,16 @@ msgstr "Et voi luoda enempää kuin %d sääntöä."
 msgid "You are not allowed to create or edit custom rules."
 msgstr "Et voi luoda tai muokata erityisiä sääntöjä."
 
-#: rule.php:91
+#: rule.php:90
 #, php-format
 msgid "You cannot create empty conditions. Please fill in a value for \"%s\"."
 msgstr "Et voi luoda tyhjiä ehtoja. Täytä arvo kohtaan  \"%s\"."
 
-#: filters.php:50 rule.php:148
+#: filters.php:50 rule.php:168
 msgid "You do not have permission to delete filter rules."
 msgstr "Sinulla ei ole oikeuksia poistaa suodatinsääntöjä."
 
-#: filters.php:44 filters.php:114 filters.php:124 rule.php:52 rule.php:161
+#: filters.php:44 filters.php:114 filters.php:124 rule.php:51 rule.php:181
 msgid "You do not have permission to edit filter rules."
 msgstr "Sinulla ei ole oikeuksia muokata suodatinsääntöjä."
 
@@ -980,11 +984,11 @@ msgstr "Sinulla ei ole oikeuksia muokata suodatinsääntöjä."
 msgid "You have received a new message"
 msgstr "Sinulle on tullut uusi viesti"
 
-#: lib/Script/Imap.php:283 lib/Script/Imap.php:308 lib/Script/Imap.php:328
+#: lib/Script/Imap.php:285 lib/Script/Imap.php:311 lib/Script/Imap.php:332
 msgid "[No Sender]"
 msgstr "[Ei lähettäjää]"
 
-#: lib/Script/Imap.php:282 lib/Script/Imap.php:307 lib/Script/Imap.php:327
+#: lib/Script/Imap.php:284 lib/Script/Imap.php:310 lib/Script/Imap.php:331
 msgid "[No Subject]"
 msgstr "[Ei otsikkoa]"
 
@@ -992,11 +996,11 @@ msgstr "[Ei otsikkoa]"
 msgid "_Blacklist"
 msgstr "_Musta lista"
 
-#: templates/blacklist/blacklist.inc:18
+#: templates/blacklist/blacklist.inc:17
 msgid "_Delete message completely"
 msgstr "_Poista viesti kokonaan"
 
-#: templates/blacklist/blacklist.inc:32
+#: templates/blacklist/blacklist.inc:31
 msgid "_Enter each address on a new line:"
 msgstr "_Laita jokainen osoite omalle rivilleen:"
 
@@ -1004,7 +1008,7 @@ msgstr "_Laita jokainen osoite omalle rivilleen:"
 msgid "_Forward"
 msgstr "_Uudelleenohjaa"
 
-#: templates/blacklist/blacklist.inc:22
+#: templates/blacklist/blacklist.inc:21
 msgid "_Move message to folder:"
 msgstr "_Siirrä viesti kansioon:"
 
@@ -1040,7 +1044,7 @@ msgstr "pois päältä - napsauta laittaaksesi päälle"
 msgid "inactive"
 msgstr "ei aktiivinen"
 
-#: lib/Script/Maildrop.php:126
+#: lib/Script/Maildrop.php:133
 msgid "maildrop script generated by Ingo"
 msgstr "Ingo ohjelman tuottama skripti"
 

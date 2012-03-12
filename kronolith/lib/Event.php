@@ -1261,9 +1261,12 @@ abstract class Kronolith_Event
         }
 
         /* Date/times */
+        $tz = $message->getTimezone();
         $dates = $message->getDatetime();
-        $this->start = $dates['start'];
-        $this->end = $dates['end'];
+        $this->start = clone($dates['start']);
+        $this->start->setTimezone($tz);
+        $this->end = clone($dates['end']);
+        $this->end->setTimezone($tz);
         $this->allday = $dates['allday'];
 
         /* Sensitivity */

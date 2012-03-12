@@ -87,9 +87,9 @@ class IMP_Ajax_Imple_PassphraseDialog extends Horde_Core_Ajax_Imple
 
         Horde::addScriptFile('effects.js', 'horde');
         Horde::addScriptFile('redbox.js', 'horde');
-        Horde::addScriptFile('dialog.js', 'imp');
+        Horde::addScriptFile('dialog.js', 'horde');
 
-        $js = 'IMPDialog.display(' . Horde::escapeJson($js_params, array('urlencode' => true)) . ');';
+        $js = 'HordeDialog.display(' . Horde::escapeJson($js_params, array('urlencode' => true)) . ');';
 
         if (empty($this->_params['onload'])) {
             $js = '$("' . $this->_params['id'] . '").observe("click", function(e) { ' . $js . 'e.stop(); })';

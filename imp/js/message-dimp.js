@@ -129,12 +129,12 @@ var DimpMessage = {
                 e.stop();
                 return;
 
-            case 'button_deleted':
+            case 'button_delete':
             case 'button_ham':
             case 'button_spam':
                 if (HordeCore.base.DimpBase) {
                     HordeCore.base.focus();
-                    if (id == 'button_deleted') {
+                    if (id == 'button_delete') {
                         HordeCore.base.DimpBase.deleteMsg({ uid: this.uid, mailbox: this.mbox });
                     } else {
                         HordeCore.base.DimpBase.reportSpam(id == 'button_spam', { uid: this.uid, mailbox: this.mbox });
@@ -142,7 +142,7 @@ var DimpMessage = {
                 } else {
                     tmp = {};
                     tmp[this.mbox] = [ this.uid ];
-                    if (id == 'button_deleted') {
+                    if (id == 'button_delete') {
                         DimpCore.doAction('deleteMessages', {
                             view: this.mbox
                         }, {
@@ -295,12 +295,13 @@ var DimpMessage = {
         DimpCore.init();
 
         if (DIMP.conf.disable_compose) {
-            $('reply_link', 'forward_link').compact().invoke('up', 'SPAN').concat([ $('ctx_contacts_new') ]).compact().invoke('remove');
+            $('reply_link', 'forward_link').compact().invoke('up', 'SPAN').invoke('remove');
+            delete DIMP.context.ctx_contacts['new'];
         } else {
             DimpCore.addPopdownButton('reply_link', 'reply');
             DimpCore.addPopdownButton('forward_link', 'forward');
             if (!this.reply_list) {
-                $('ctx_reply_reply_list').hide();
+                delete DIMP.context.ctx_reply['reply_list'];
             }
         }
 

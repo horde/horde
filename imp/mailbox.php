@@ -353,6 +353,16 @@ if (!$preview_tooltip) {
 $unread = $imp_mailbox->unseenMessages(Horde_Imap_Client::SEARCH_RESULTS_COUNT);
 
 Horde::addInlineJsVars(array(
+    'ImpMailbox.text' => array(
+        'delete' => _("Are you sure you wish to PERMANENTLY delete these messages?"),
+        'delete_all' => _("Are you sure you wish to delete all mail in this mailbox?"),
+        'delete_vfolder' => _("Are you sure you want to delete this Virtual Folder Definition?"),
+        'no' => _("No"),
+        'selectone' => _("You must select at least one message first."),
+        'selectonlyone' => _("You must select only one message for this action."),
+        'submit' => _("You must select at least one message first."),
+        'yes' => _("Yes")
+    ),
     'ImpMailbox.unread' => intval($unread)
 ));
 
@@ -379,9 +389,9 @@ if (IMP::mailbox()->editvfolder) {
     $pagetitle = $title = htmlspecialchars($title);
 }
 
-Horde::addScriptFile('dialog.js', 'imp');
 Horde::addScriptFile('effects.js', 'horde');
 Horde::addScriptFile('redbox.js', 'horde');
+Horde::addScriptFile('dialog.js', 'horde');
 Horde::addScriptFile('mailbox.js', 'imp');
 
 $menu = IMP::menu();

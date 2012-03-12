@@ -1,9 +1,9 @@
 /**
- * Javascript API used to display a RedBox dialog in IMP.
+ * Javascript API used to display a RedBox dialog in Horde.
  *
  * Usage:
  * ------
- * IMPDialog.display({
+ * HordeDialog.display({
  *     // [REQUIRED] Cancel text
  *     cancel_text: '',
  *     form: '',
@@ -30,13 +30,13 @@
  *
  * Events triggered:
  * -----------------
- * IMPDialog:close
+ * HordeDialog:close
  *   params: NONE
  *
- * IMPDialog:onClick
+ * HordeDialog:onClick
  *   params: Event object
  *
- * IMPDialog:success
+ * HordeDialog:success
  *   params: type parameter
  *
  * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
@@ -47,7 +47,7 @@
  * @author Michael Slusarz <slusarz@horde.org>
  */
 
-var IMPDialog = {
+var HordeDialog = {
 
     display: function(data)
     {
@@ -84,7 +84,7 @@ var IMPDialog = {
         if (data.form) {
             n.insert(data.form);
         } else if (!data.noinput) {
-            n.insert(new Element('INPUT', { name: 'dialog_input', type: data.password ? 'password' : 'text', size: 15 }).setValue(data.input_val));
+            n.insert(new Element('INPUT', { id: 'dialog_input', name: 'dialog_input', type: data.password ? 'password' : 'text', size: 15 }).setValue(data.input_val));
             RedBox.onDisplay = Form.focusFirstElement.curry(n);
         }
 
@@ -98,6 +98,8 @@ var IMPDialog = {
             new Element('INPUT', { type: 'button', className: 'button', value: data.cancel_text }).observe('click', this._close.bind(this))
         ).observe('keydown', function(e) { if ((e.keyCode || e.charCode) == Event.KEY_RETURN) { e.stop(); this._onClick(e); } }.bind(this));
 
+        n.observe('keydown', function(e) { if ((e.keyCode || e.charCode) == Event.KEY_ESC) { e.stop(); this._close(e); } }.bind(this));
+
         RedBox.overlay = true;
         RedBox.showHtml(n);
 
@@ -110,7 +112,7 @@ var IMPDialog = {
     {
         var c = RedBox.getWindowContents();
         [ c, c.descendants()].flatten().compact().invoke('stopObserving');
-        c.fire('IMPDialog:close');
+        c.fire('HordeDialog:close');
         RedBox.close();
     },
 
@@ -125,7 +127,7 @@ var IMPDialog = {
                 parameters: params
             });
         } else {
-            RedBox.getWindowContents().fire('IMPDialog:onClick', e);
+            RedBox.getWindowContents().fire('HordeDialog:onClick', e);
             this._close();
         }
     },
@@ -137,7 +139,7 @@ var IMPDialog = {
         if (r.success || (r.response && r.response.success)) {
             this._close();
             this.noreload = false;
-            RedBox.getWindowContents().fire('IMPDialog:success', this.type);
+            RedBox.getWindowContents().fire('HordeDialog:success', this.type);
             if (!this.noreload) {
                 if (this.reloadurl) {
                     location = this.reloadurl;

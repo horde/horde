@@ -38,7 +38,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
     const REDIRECT = 11;
 
     /* The blockquote tag to use to indicate quoted text in HTML data. */
-    const HTML_BLOCKQUOTE = '<blockquote type="cite" style="border-left:2px solid blue;margin-left:8px;padding-left:8px;">';
+    const HTML_BLOCKQUOTE = '<blockquote type="cite" style="border-left:2px solid blue;margin-left:2px;padding-left:12px;">';
 
     /**
      * Mark as changed for purposes of storing in the session.

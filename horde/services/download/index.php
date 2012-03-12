@@ -9,7 +9,10 @@
  */
 
 require_once dirname(__FILE__) . '/../../lib/Application.php';
-Horde_Registry::appInit('horde', array('session_control' => 'readonly', 'authentication' => 'none'));
+Horde_Registry::appInit('horde', array(
+    'authentication' => 'none',
+    'session_control' => 'readonly'
+));
 
 if (!($module = Horde_Util::getFormData('module')) ||
     !file_exists($registry->get('fileroot', $module))) {

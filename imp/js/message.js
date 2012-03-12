@@ -89,7 +89,7 @@ var ImpMessage = {
         } else if (target.startsWith("notepad\0") ||
                    target.startsWith("tasklist\0")) {
             this.actIDconfirm = actID;
-            IMPDialog.display({
+            HordeDialog.display({
                 cancel_text: IMP.text.no,
                 form_id: 'RB_ImpMessageConfirm',
                 noinput: true,
@@ -223,4 +223,4 @@ var ImpMessage = {
 };
 
 document.observe('dom:loaded', ImpMessage.onDomLoad.bind(ImpMessage));
-document.observe('IMPDialog:onClick', ImpMessage.onDialogClick.bind(ImpMessage));
+document.observe('HordeDialog:onClick', ImpMessage.onDialogClick.bind(ImpMessage));

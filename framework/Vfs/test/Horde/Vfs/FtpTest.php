@@ -20,6 +20,8 @@ require_once dirname(__FILE__) . '/Base.php';
  */
 class Horde_Vfs_FtpTest extends Horde_Vfs_Test_Base
 {
+    protected static $reason;
+
     public function testListEmpty()
     {
         $this->_listEmpty();
@@ -62,6 +64,15 @@ class Horde_Vfs_FtpTest extends Horde_Vfs_Test_Base
     public function testReadFile()
     {
         $this->_readFile();
+    }
+
+    /**
+     * @depends testWrite
+     * @depends testWriteData
+     */
+    public function testReadStream()
+    {
+        $this->_readStream();
     }
 
     /**

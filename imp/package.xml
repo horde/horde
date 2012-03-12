@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-01-17</date>
- <time>13:09:15</time>
+ <date>2012-03-08</date>
+ <time>20:12:24</time>
  <version>
   <release>6.0.0</release>
   <api>6.0.0</api>
@@ -81,12 +81,12 @@
     <file name="compose-dimp.js" role="horde" />
     <file name="compose.js" role="horde" />
     <file name="contacts.js" role="horde" />
-    <file name="dialog.js" role="horde" />
     <file name="dimpbase.js" role="horde" />
     <file name="dimpcore.js" role="horde" />
     <file name="flagprefs.js" role="horde" />
     <file name="folderprefs.js" role="horde" />
     <file name="folders.js" role="horde" />
+    <file name="imageunblock.js" role="horde" />
     <file name="imp.js" role="horde" />
     <file name="importencryptkey.js" role="horde" />
     <file name="indices.js" role="horde" />
@@ -108,6 +108,7 @@
     <dir name="Ajax">
      <dir name="Imple">
       <file name="ContactAutoCompleter.php" role="horde" />
+      <file name="ImageUnblock.php" role="horde" />
       <file name="ImportEncryptKey.php" role="horde" />
       <file name="ItipRequest.php" role="horde" />
       <file name="PassphraseDialog.php" role="horde" />
@@ -260,7 +261,6 @@
      <file name="Ui.php" role="horde" />
     </dir> <!-- /lib/Prefs -->
     <dir name="Quota">
-     <file name="Base.php" role="horde" />
      <file name="Command.php" role="horde" />
      <file name="Hook.php" role="horde" />
      <file name="Imap.php" role="horde" />
@@ -308,7 +308,6 @@
      <file name="Vfolder.php" role="horde" />
     </dir> <!-- /lib/Search -->
     <dir name="Sentmail">
-     <file name="Base.php" role="horde" />
      <file name="Null.php" role="horde" />
      <file name="Sql.php" role="horde" />
     </dir> <!-- /lib/Sentmail -->
@@ -1069,7 +1068,6 @@
       <file name="warning.png" role="horde" />
       <file name="whitelist.png" role="horde" />
      </dir> <!-- /themes/silver/graphics -->
-     <file name="rtl.css" role="horde" />
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/silver -->
     <dir name="tango-blue">
@@ -1436,12 +1434,12 @@
    <install as="imp/js/compose-dimp.js" name="js/compose-dimp.js" />
    <install as="imp/js/compose.js" name="js/compose.js" />
    <install as="imp/js/contacts.js" name="js/contacts.js" />
-   <install as="imp/js/dialog.js" name="js/dialog.js" />
    <install as="imp/js/dimpbase.js" name="js/dimpbase.js" />
    <install as="imp/js/dimpcore.js" name="js/dimpcore.js" />
    <install as="imp/js/flagprefs.js" name="js/flagprefs.js" />
    <install as="imp/js/folderprefs.js" name="js/folderprefs.js" />
    <install as="imp/js/folders.js" name="js/folders.js" />
+   <install as="imp/js/imageunblock.js" name="js/imageunblock.js" />
    <install as="imp/js/imp.js" name="js/imp.js" />
    <install as="imp/js/importencryptkey.js" name="js/importencryptkey.js" />
    <install as="imp/js/indices.js" name="js/indices.js" />
@@ -1483,6 +1481,7 @@
    <install as="imp/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
    <install as="imp/lib/Ajax/Queue.php" name="lib/Ajax/Queue.php" />
    <install as="imp/lib/Ajax/Imple/ContactAutoCompleter.php" name="lib/Ajax/Imple/ContactAutoCompleter.php" />
+   <install as="imp/lib/Ajax/Imple/ImageUnblock.php" name="lib/Ajax/Imple/ImageUnblock.php" />
    <install as="imp/lib/Ajax/Imple/ImportEncryptKey.php" name="lib/Ajax/Imple/ImportEncryptKey.php" />
    <install as="imp/lib/Ajax/Imple/ItipRequest.php" name="lib/Ajax/Imple/ItipRequest.php" />
    <install as="imp/lib/Ajax/Imple/PassphraseDialog.php" name="lib/Ajax/Imple/PassphraseDialog.php" />
@@ -1580,7 +1579,6 @@
    <install as="imp/lib/Prefs/Sort.php" name="lib/Prefs/Sort.php" />
    <install as="imp/lib/Prefs/Ui.php" name="lib/Prefs/Ui.php" />
    <install as="imp/lib/Prefs/Sort/Sortpref.php" name="lib/Prefs/Sort/Sortpref.php" />
-   <install as="imp/lib/Quota/Base.php" name="lib/Quota/Base.php" />
    <install as="imp/lib/Quota/Command.php" name="lib/Quota/Command.php" />
    <install as="imp/lib/Quota/Hook.php" name="lib/Quota/Hook.php" />
    <install as="imp/lib/Quota/Imap.php" name="lib/Quota/Imap.php" />
@@ -1618,7 +1616,6 @@
    <install as="imp/lib/Search/Vfolder/Builtin.php" name="lib/Search/Vfolder/Builtin.php" />
    <install as="imp/lib/Search/Vfolder/Vinbox.php" name="lib/Search/Vfolder/Vinbox.php" />
    <install as="imp/lib/Search/Vfolder/Vtrash.php" name="lib/Search/Vfolder/Vtrash.php" />
-   <install as="imp/lib/Sentmail/Base.php" name="lib/Sentmail/Base.php" />
    <install as="imp/lib/Sentmail/Null.php" name="lib/Sentmail/Null.php" />
    <install as="imp/lib/Sentmail/Sql.php" name="lib/Sentmail/Sql.php" />
    <install as="imp/lib/Tree/Flist.php" name="lib/Tree/Flist.php" />
@@ -1973,7 +1970,6 @@
    <install as="imp/themes/default/graphics/nav/right-grey.png" name="themes/default/graphics/nav/right-grey.png" />
    <install as="imp/themes/default/graphics/nav/right.png" name="themes/default/graphics/nav/right.png" />
    <install as="imp/themes/default/mimp/screen.css" name="themes/default/mimp/screen.css" />
-   <install as="imp/themes/silver/rtl.css" name="themes/silver/rtl.css" />
    <install as="imp/themes/silver/screen.css" name="themes/silver/screen.css" />
    <install as="imp/themes/silver/dimp/screen.css" name="themes/silver/dimp/screen.css" />
    <install as="imp/themes/silver/graphics/addressbook_add.png" name="themes/silver/graphics/addressbook_add.png" />

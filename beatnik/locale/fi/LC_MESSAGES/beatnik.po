@@ -1,0 +1,569 @@
+# Finnish translations for Beatnik H4 package.
+# Copyright (C) 2012 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Beatnik package.
+# Leena Heino <liinu@uta.fi>, 2011-2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Beatnik H4 (1.0-git)\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"PO-Revision-Date: 2012-03-07 17:22:58+0200\n"
+"Last-Translator: Leena Heino <liinu@uta.fi>\n"
+"Language-Team: Finnish <i18n@lists.horde.org>\n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: scripts/export_config.php:140
+msgid "-h, --help                   Show this help"
+msgstr "-h, --help                   Näytä tämä ohje"
+
+#: scripts/export_config.php:142
+msgid "-p, --password[=password]    Horde login password"
+msgstr "-p, --password[=password]    Horde sisäänkirjaumissalasana"
+
+#: scripts/export_config.php:144
+msgid "-r, --rpc[=http://example.com/horde/rpc.php]    Remote url"
+msgstr "-r, --rpc[=http://example.com/horde/rpc.php]    Etäosoite"
+
+#: scripts/export_config.php:143
+msgid "-t, --type[=type]    Export format"
+msgstr "-t, --type[=type]    Viennin muoto"
+
+#: scripts/export_config.php:141
+msgid "-u, --username[=username]    Horde login username"
+msgstr "-u, --username[=username]    Horde sisäänkirjautumistunnus"
+
+#: lib/Beatnik.php:61
+msgid "A (Address)"
+msgstr "A (Osoite)"
+
+#: lib/Beatnik.php:62
+msgid "AAAA (IPv6 Address)"
+msgstr "AAAA (IPv6 osoite)"
+
+#: templates/listzones/header.inc:43 templates/view/header.inc:43
+msgid "Actions"
+msgstr "Toiminnot"
+
+#: lib/Forms/EditRecord.php:29
+msgid "Add DNS Record"
+msgstr "Lisää DNS tietue"
+
+#: lib/Beatnik.php:28
+msgid "Add Record"
+msgstr "Lisää tietue"
+
+#: lib/Beatnik.php:30
+msgid "Add Zone"
+msgstr "Lisää zone"
+
+#: lib/Driver/pdnsgsql.php:131 lib/Driver/pdnsgsql.php:185
+msgid ""
+"An error occurred while searching the database.  Details have been logged "
+"for the administrator."
+msgstr ""
+"Tapahtui virhe etsittäessä tietokannasta. Yksityiskohtaiset tiedot on "
+"kirjattu järjestelmän ylläpidolle tiedoksi."
+
+#: lib/Forms/DeleteRecord.php:17
+msgid "Are you sure you want to delete this record?"
+msgstr "Oletko varma, että haluat poistaa tämän tietueen?"
+
+#: autogenerate.php:24 autogenerate.php:38 lib/Forms/Autogenerate.php:20
+#: templates/listzones/row.inc:14 templates/view/header.inc:23
+msgid "Autogenerate"
+msgstr "Automaattiluonti"
+
+#: autogenerate.php:32
+msgid "Autogeneration not performed"
+msgstr "Automaattiluontia ei käytetty"
+
+#: lib/Beatnik.php:64
+msgid "CNAME (Alias)"
+msgstr "CNAME (Alias)"
+
+#: lib/Forms/Autogenerate.php:20 lib/Forms/DeleteRecord.php:35
+msgid "Cancel"
+msgstr "Peru"
+
+#: lib/Forms/Autogenerate.php:19
+msgid "Choose a template for autogenerating the records:"
+msgstr "Valitse malli, jonka mukaan tietueet luodaan automaattisesti"
+
+#: lib/Beatnik.php:38
+msgid "Commit All"
+msgstr "Kommitoi kaikki"
+
+#: templates/view/header.inc:11
+msgid "Commit Changes"
+msgstr "Kommitoi muutokset"
+
+#: lib/Beatnik.php:134
+msgid "Contact e-mail address for this zone"
+msgstr "Tämän zonen yhteystietojen sähköpostiosoite"
+
+#: lib/Driver/pdnsgsql.php:143
+msgid "Corrupt SOA found for zone.  Contact your administrator."
+msgstr ""
+"Tästä zonesta löytyi korruptoitunut SOA tieto. Ota yhteyttä ylläpitoon."
+
+#: scripts/export_config.php:41
+msgid "Couldn't read command-line options."
+msgstr "Ei voitu lukea komentorivin optioita."
+
+#: lib/Beatnik.php:359
+msgid "DNS Service Record Port Number"
+msgstr "DNS Service tietue porttinumero"
+
+#: lib/Beatnik.php:339
+msgid "DNS Service Record Priority"
+msgstr "DNS Service tietue prioriteetti"
+
+#: lib/Beatnik.php:349
+msgid "DNS Service Record Weight"
+msgstr "DNS Service tietue painoarvo"
+
+#: config/prefs.php:44
+msgid "Default Time-To-Live for new records."
+msgstr "Oletus Time-To-Live tieto uusille tietueille"
+
+#: delete.php:23 delete.php:47 lib/Forms/DeleteRecord.php:35
+#: templates/listzones/row.inc:16 templates/view/header.inc:25
+#: templates/view/record.inc:16
+msgid "Delete"
+msgstr "Poista"
+
+#: config/prefs.php:13
+msgid "Display Preferences"
+msgstr "Näytä asetukset"
+
+#: templates/listzones/header.inc:13
+msgid "Domain Categories"
+msgstr "Toimialue kategoriat"
+
+#: lib/Beatnik.php:115 lib/Beatnik.php:297
+msgid "Domain Name"
+msgstr "Toimialue nimi"
+
+#: lib/Application.php:86
+msgid "Domains"
+msgstr "Toimialueet"
+
+#: lib/Driver.php:312
+msgid "Driver not found."
+msgstr "Ajuria ei löytynyt."
+
+#: templates/listzones/row.inc:18 templates/view/header.inc:21
+#: templates/view/record.inc:14
+msgid "Edit"
+msgstr "Muokkaa"
+
+#: lib/Forms/EditRecord.php:29
+msgid "Edit DNS Record"
+msgstr "Muokkaa DNS tietuetta"
+
+#: lib/Beatnik.php:28
+msgid "Edit Record"
+msgstr "Muokkaa tietuetta"
+
+#: templates/listzones/header.inc:18
+msgid "Edit categories and colors"
+msgstr "Muokkaa kategorioita ja värejä"
+
+#: templates/listzones/header.inc:17
+msgid "Edit domain groups and colors"
+msgstr "Muokkaa toimialueen ryhmiä ja värejä"
+
+#: lib/Driver/pdnsgsql.php:83
+msgid ""
+"Error getting domain list.  Details have been logged for the administrator."
+msgstr ""
+"Virhe haettaessa listaa toimialueista. Yksityiskohtaiset tiedot on kirjattu "
+"järjestelmän ylläpidolle tiedoksi."
+
+#: lib/Beatnik.php:34
+msgid "Expert Mode"
+msgstr "Asiantuntija tila"
+
+#: lib/Application.php:69
+msgid "Expert Mode ON"
+msgstr "Asiantuntija tila käytössä"
+
+#: lib/Application.php:66
+msgid "Expert Mode off"
+msgstr "Asiantuntija tila pois käytöstä"
+
+#: lib/Beatnik.php:170
+msgid "Expiration"
+msgstr "Vanheneminen"
+
+#: scripts/export_config.php:118
+msgid "Have noting to do."
+msgstr "Ei mitään tehtäväksi."
+
+#: lib/Beatnik.php:191 lib/Beatnik.php:212 lib/Beatnik.php:233
+#: lib/Beatnik.php:276 lib/Beatnik.php:320 lib/Beatnik.php:371
+msgid "Hostname"
+msgstr "Nimi"
+
+#: lib/Beatnik.php:242 lib/Beatnik.php:254 lib/Beatnik.php:285
+#: lib/Beatnik.php:308 lib/Beatnik.php:329
+msgid "Hostname Target"
+msgstr "Nimen osoite"
+
+#: lib/Beatnik.php:286
+msgid "Hostname for CNAME alias"
+msgstr "Nimi CNAME aliakselle"
+
+#: lib/Beatnik.php:330
+msgid "Hostname for DNS Service Record"
+msgstr "Nimi DNS Service tietueelle"
+
+#: lib/Beatnik.php:243
+msgid "Hostname for Reverse DNS"
+msgstr "Nimi käänteiselle DNS:lle"
+
+#: lib/Beatnik.php:309
+msgid "Hostname of Authoritative Name Server"
+msgstr "Autorisen nimipalvelimen nimi"
+
+#: lib/Beatnik.php:255
+msgid "Hostname of Mail eXchanger"
+msgstr "Nimi postinkäsittelijälle (MX)"
+
+#: config/prefs.php:37
+msgid "How many domain to display per page."
+msgstr "Miten monta toimialuetta näytetään sivulla."
+
+#: lib/Beatnik.php:200
+msgid "IP Address"
+msgstr "IP-osoite"
+
+#: lib/Beatnik.php:234
+msgid "IP in Reverse notation (.in-addr.arpa)"
+msgstr "IP-osoite käänteisellä merkinnällä (.in-addr.arpa)"
+
+#: lib/Beatnik.php:201
+msgid "IPv4 Network Address"
+msgstr "IPv4 verkko-osoite"
+
+#: lib/Beatnik.php:221
+msgid "IPv6 Address"
+msgstr "IPv6 osoite"
+
+#: lib/Beatnik.php:222
+msgid "IPv6 Network Address"
+msgstr "IPv6 verkko-osoite"
+
+#: lib/Driver/ldap2dns.php:245
+#, php-format
+msgid "Internal error: %s"
+msgstr "Sisäinen virhe: %s"
+
+#: lib/Driver/ldap2dns.php:347
+msgid "Invalid record type specified."
+msgstr "Annettu tietuetyyppi on epäkelpo."
+
+#: lib/Beatnik.php:26
+msgid "List Domains"
+msgstr "Listaa toimialueet"
+
+#: scripts/export_config.php:110
+#, php-format
+msgid "Logged in successfully as \"%s\"."
+msgstr "Kirjauduttiin sisään käyttäjäksi \"%s\"."
+
+#: scripts/export_config.php:106
+msgid "Login is incorrect."
+msgstr "Sisäänkirjautuminen epäonnistui."
+
+#: lib/Beatnik.php:65
+msgid "MX (Mail eXchange)"
+msgstr "MX (Postinkäsittelijä)"
+
+#: lib/Beatnik.php:264
+msgid "MX Preference (lower is more preferred)"
+msgstr "MX järjestys (pienempi on etusijalla)"
+
+#: scripts/export_config.php:138
+msgid ""
+"Mandatory arguments to long options are mandatory for short options too."
+msgstr ""
+"Pakolliset parametrit pitkillä optioille on pakollisia myös lyhyille "
+"optioille."
+
+#: lib/Beatnik.php:179
+msgid "Minimum"
+msgstr "Minimi"
+
+#: lib/Driver/ldap2dns.php:398
+#, php-format
+msgid "Missing required field %s to save record."
+msgstr "Puuttuu tallenukseen pakollinen kenttä %s."
+
+#: lib/Beatnik.php:60
+msgid "NS (Name Server)"
+msgstr "NS (Nimipalvelin)"
+
+#: lib/Driver/pdnsgsql.php:412
+msgid "Not implemented."
+msgstr "Ei toteutettu."
+
+#: lib/Beatnik.php:63
+msgid "PTR (Reverse DNS)"
+msgstr "PTR (Käänteinen DNS)"
+
+#: lib/Beatnik.php:263
+msgid "Preference"
+msgstr "Painoarvo"
+
+#: config/prefs.php:12 config/prefs.php:19
+msgid "Preferences"
+msgstr "Asetukset"
+
+#: lib/Beatnik.php:124
+msgid "Primary Nameserver"
+msgstr "Primääri nimipalvelin"
+
+#: lib/Beatnik.php:125
+msgid "Primary nameserver for this zone"
+msgstr "Primääri nimipalvelin tälle toimialueelle"
+
+#: config/prefs.php:20
+msgid "Record Defaults"
+msgstr "Tietue oletukset"
+
+#: lib/Beatnik.php:393
+msgid "Record Time-To-Live (seconds)"
+msgstr "Tietue Time-To-Live (sekuntteja)"
+
+#: lib/Forms/EditRecord.php:37
+msgid "Record Type"
+msgstr "Tietueen tyyppi"
+
+#: lib/Beatnik.php:577
+#, php-format
+msgid "Record added: %s/%s"
+msgstr "Tietue lisätty: %s/%s"
+
+#: delete.php:30
+msgid "Record deleted"
+msgstr "Tietue poistettu"
+
+#: delete.php:37
+msgid "Record not deleted"
+msgstr "Tietuetta ei poistettu"
+
+#: lib/Beatnik.php:161
+msgid "Retry"
+msgstr "Yritä uudelleen"
+
+#: lib/Beatnik.php:59 lib/Forms/EditRecord.php:34
+msgid "SOA (Start of Authority)"
+msgstr "SOA (Start of Authority)"
+
+#: lib/Beatnik.php:66
+msgid "SRV (Service Record)"
+msgstr "SRV (Palvelutietue)"
+
+#: lib/Beatnik.php:358
+msgid "SRV Port"
+msgstr "SRV portti"
+
+#: lib/Beatnik.php:338
+msgid "SRV Priority"
+msgstr "SRV prioriteetti"
+
+#: lib/Beatnik.php:348
+msgid "SRV Weight"
+msgstr "SRV painoarvo"
+
+#: templates/menu.inc:15
+msgid "Select Domain"
+msgstr "Valitse toimialue"
+
+#: templates/menu.inc:9 templates/menu.inc:16
+msgid "Select _Domain"
+msgstr "Valitse _Toimialue"
+
+#: lib/Beatnik.php:142
+msgid "Serial"
+msgstr "Sarjanumero"
+
+#: config/prefs.php:14
+msgid "Set default display parameters."
+msgstr "Aseta näkymän oletusasetukset."
+
+#: config/prefs.php:21
+msgid "Set default record parameters."
+msgstr "Aseta tietueiden oletusasetukset."
+
+#: lib/Beatnik.php:192 lib/Beatnik.php:213 lib/Beatnik.php:277
+#: lib/Beatnik.php:321 lib/Beatnik.php:372
+msgid "Short hostname for this record"
+msgstr "Lyhyt nimi tälle tietueelle"
+
+#: lib/Beatnik.php:298
+msgid ""
+"Short sub-domain for NS record (leave blank unless creating a subdomain)"
+msgstr ""
+"Lyhyt alitoimialue tälle NS-tietueelle (jätä tyhjäksi jos ei luoda "
+"alitoimialuetta)"
+
+#: lib/Beatnik.php:572
+msgid "Skipping existing identical record"
+msgstr "Ohitetaan jo olemassaoleva identtinen tietue"
+
+#: lib/Beatnik.php:381
+msgid "String payload for DNS TXT"
+msgstr "Merkkijonotieto DNS TXT:lle"
+
+#: lib/Beatnik.php:392
+msgid "TTL"
+msgstr "TTL"
+
+#: lib/Beatnik.php:67
+msgid "TXT (Text Record)"
+msgstr "TXT (Tekstitietue)"
+
+#: lib/Forms/Autogenerate.php:27
+msgid "Template"
+msgstr "Malli"
+
+#: lib/Driver/pdnsgsql.php:135
+msgid "Too many domains matched that name.  Contact your administrator."
+msgstr ""
+"Liian monta toimialuetta täsmää tuohon nimeen. Ota yhteyttä ylläpitoon."
+
+#: lib/Forms/DeleteRecord.php:25 templates/view/header.inc:44
+msgid "Type"
+msgstr "Tyyppi"
+
+#: lib/Beatnik.php:103
+msgid "UID"
+msgstr "UID"
+
+#: lib/Driver/ldap2dns.php:467
+#, php-format
+msgid "Unable to add record to LDAP. Reason: %s"
+msgstr "Ei voida lisätä tietoja LDAP-kantaan. Syy: %s"
+
+#: commit.php:48
+#, php-format
+msgid "Unable to construct valid SOA for %s.  Not incrementing serial."
+msgstr ""
+"Ei voida luoda kelvollista SOA tietoa toimialueelle %s. Sarjanumero ei ole "
+"lisättävissä."
+
+#: lib/Driver/ldap2dns.php:320
+#, php-format
+msgid "Unable to delete record.  Reason: %s"
+msgstr "Ei voida poistaa tietuetta.  Syy: %s"
+
+#: lib/Driver/ldap2dns.php:299
+msgid "Unable to delete record: No record ID specified."
+msgstr "Ei voida poistaa tietuetta: Ei record ID määriteltynä"
+
+#: lib/Beatnik.php:452
+msgid "Unable to determine if domain needs committing: invalid parameter."
+msgstr ""
+"Ei voidä päätellä pitääkö toimialueen tiedot kommitoida: väärä parametri."
+
+#: lib/Driver.php:144
+msgid "Unable to locate requested record."
+msgstr "Ei voida paikallistaa pyydettyä tietuetta."
+
+#: lib/Driver/ldap2dns.php:450
+#, php-format
+msgid "Unable to modify record.  Reason: %s"
+msgstr "Ei voida muokata tietuetta.  Syy: %s"
+
+#: lib/Driver.php:105
+#, php-format
+msgid "Unable to read requested domain %s"
+msgstr "Ei voida lukea pyydettyä toimialuetta %s"
+
+#: lib/Driver/ldap2dns.php:440
+#, php-format
+msgid "Unable to rename old object.  Reason: %s"
+msgstr "Ei voida uudelleennimetä vanhaa objektia  Syy: %s"
+
+#: lib/Driver/ldap2dns.php:144
+#, php-format
+msgid "Unable to retrieve data from LDAP results: %s"
+msgstr "Ei voida hakea tietoja LDAP-kannasta syy: %s"
+
+#: lib/Beatnik.php:104
+msgid "Unique Identifier (Used as Record ID)"
+msgstr "Uniikki tunniste (Käytetään Record ID:ä)"
+
+#: lib/Driver/ldap2dns.php:435
+msgid "Unsupported operation: cannot rename a domain."
+msgstr "Ei tuettu operaatio: ei voida uudelleennimetä toimialuetta."
+
+#: lib/Driver/ldap2dns.php:308
+msgid "Unsupported recursive delete."
+msgstr "Ei tuettu rekursiivinen poisto."
+
+#: scripts/export_config.php:136
+#, php-format
+msgid "Usage: %s [OPTIONS]..."
+msgstr "Käyttö: %s [OPTIOT]..."
+
+#: lib/Driver.php:77
+msgid "You are not permitted to view any domains."
+msgstr "Sinulla ei ole oikeuksia nähdä ainuttakaan toimialuetta."
+
+#: lib/Driver.php:204
+msgid "You do not have permission to create new domains."
+msgstr "Sinulla ei ole oikeuksia lisätä uusia toimialueita."
+
+#: lib/Driver.php:217
+msgid "You do not have permssion to edit the SOA of this zone."
+msgstr "Sinulla ei ole oikeuksia muokata zonen SOA tietoja."
+
+#: lib/Driver.php:222
+msgid "You do not have permssion to edit this record."
+msgstr "Sinulla ei ole oikeuksia muokata tätä tietuetta"
+
+#: lib/Beatnik.php:462
+#, php-format
+msgid "You have uncommitted changes in %s."
+msgstr "Sinulla kommitoimattomia muutoksia %s."
+
+#: lib/Beatnik.php:133
+msgid "Zone Contact"
+msgstr "Zone yhteystiedot"
+
+#: lib/Beatnik.php:116
+msgid "Zone Domain Name"
+msgstr "Zone toimialueen nimi"
+
+#: lib/Beatnik.php:171
+msgid "Zone Expiry"
+msgstr "Zone vanheneminen"
+
+#: lib/Beatnik.php:180
+msgid "Zone Minimum"
+msgstr "Zone minimi"
+
+#: lib/Beatnik.php:153
+msgid "Zone Refresh"
+msgstr "Zone päivitys"
+
+#: lib/Beatnik.php:162
+msgid "Zone Retry"
+msgstr "Zone uudelleenyritys"
+
+#: lib/Beatnik.php:143
+msgid "Zone Serial Number"
+msgstr "Zonen sarjanumero"
+
+#: commit.php:46
+#, php-format
+msgid "Zone serial for %s incremented."
+msgstr "Zonen %s sarjanumeroa lisättiin."

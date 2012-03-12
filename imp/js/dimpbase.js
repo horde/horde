@@ -752,44 +752,26 @@ var DimpBase = {
                         ham = 'hide';
                     }
 
-                    if ($('button_ham')) {
-                        [ $('button_ham').up(), $('ctx_message_ham') ].invoke(ham);
+                    if (tmp = $('button_ham')) {
+                        [ tmp.up() ].invoke(ham);
                     }
-                    if ($('button_spam')) {
-                        [ $('button_spam').up(), $('ctx_message_spam') ].invoke(spam);
+                    if (tmp = $('button_spam')) {
+                        [ tmp.up() ].invoke(spam);
                     }
                 }
 
-                /* Read-only changes. 'oa_setflag' is handled elsewhere. */
-                tmp = [ $('ctx_message_setflag') ].compact();
-                if (this.viewport.getMetaData('readonly')) {
-                    tmp.invoke('hide');
-                    $('mailboxName').next().show();
-                } else {
-                    tmp.invoke('show');
-                    $('mailboxName').next().hide();
-                }
+                /* Read-only changes. */
+                [ $('mailboxName').next('.readonlyImg') ].invoke(this.viewport.getMetaData('readonly') ? 'show' : 'hide');
 
                 /* ACL changes. */
-                [ $('button_deleted') ].compact().invoke('up').concat($('ctx_message_deleted', 'ctx_message_undeleted')).compact().invoke(this.viewport.getMetaData('nodelete') ? 'hide' : 'show');
-                [ $('oa_purge_deleted') ].compact().invoke(this.viewport.getMetaData('noexpunge') ? 'hide' : 'show');
+                if (tmp = $('button_delete')) {
+                    [ tmp.up() ].invoke(this.viewport.getMetaData('nodelete') ? 'hide' : 'show');
+                }
             } else if (this.filtertoggle && this.isThreadSort()) {
                 ssc = DIMP.conf.sort.get('date').v;
             }
 
             this.setSortColumns(ssc);
-
-            /* Context menu: generate the list of settable flags for this
-             * mailbox. */
-            flags = this.viewport.getMetaData('flags');
-            $('ctx_message_setflag', 'oa_setflag').invoke('up').invoke(flags.size() ? 'show' : 'hide');
-            if (flags.size()) {
-                $('ctx_flag').childElements().each(function(c) {
-                    [ c ].invoke(flags.include(c.retrieve('flag')) ? 'show' : 'hide');
-                });
-            } else {
-                $('ctx_flag').childElements().invoke('show');
-            }
         }.bindAsEventListener(this));
 
         container.observe('ViewPort:deselect', function(e) {
@@ -948,17 +930,17 @@ var DimpBase = {
             });
             break;
 
-        case 'ctx_mbox_export_mbox':
-        case 'ctx_mbox_export_zip':
+        case 'ctx_mbox_export_opts_mbox':
+        case 'ctx_mbox_export_opts_zip':
             tmp = e.findElement('LI');
 
             this.viewaction = HordeCore.redirect.bind(HordeCore, HordeCore.addURLParam(DIMP.conf.URI_VIEW, {
                 actionID: 'download_mbox',
                 mailbox: tmp.retrieve('mbox'),
-                zip: Number(id == 'ctx_mbox_export_zip')
+                zip: Number(id == 'ctx_mbox_export_opts_zip')
             }));
 
-            IMPDialog.display({
+            HordeDialog.display({
                 cancel_text: DIMP.text.cancel,
                 noinput: true,
                 ok_text: DIMP.text.ok,
@@ -969,7 +951,7 @@ var DimpBase = {
         case 'ctx_mbox_import':
             tmp = e.findElement('LI').retrieve('mbox');
 
-            IMPDialog.display({
+            HordeDialog.display({
                 cancel_text: DIMP.text.cancel,
                 form: new Element('DIV').insert(
                           new Element('INPUT', { name: 'import_file', type: 'file' })
@@ -1065,7 +1047,7 @@ var DimpBase = {
             this.blacklist(id == 'ctx_message_blacklist');
             break;
 
-        case 'ctx_message_deleted':
+        case 'ctx_message_delete':
             this.deleteMsg();
             break;
 
@@ -1115,51 +1097,51 @@ var DimpBase = {
             this.composeMailbox(id.substring(4));
             break;
 
-        case 'oa_preview_hide':
+        case 'ctx_oa_preview_hide':
             this._setPref('preview_old', this._getPref('preview', 'horiz'));
             this.togglePreviewPane('');
             break;
 
-        case 'oa_preview_show':
+        case 'ctx_oa_preview_show':
             this.togglePreviewPane(this._getPref('preview_old'));
             break;
 
-        case 'oa_layout_horiz':
-        case 'oa_layout_vert':
-            this.togglePreviewPane(id.substring(10));
+        case 'ctx_oa_layout_horiz':
+        case 'ctx_oa_layout_vert':
+            this.togglePreviewPane(id.substring(14));
             break;
 
-        case 'oa_blacklist':
-        case 'oa_whitelist':
+        case 'ctx_oa_blacklist':
+        case 'ctx_oa_whitelist':
             this.blacklist(id == 'oa_blacklist');
             break;
 
-        case 'ctx_message_undeleted':
-        case 'oa_undeleted':
+        case 'ctx_message_undelete':
+        case 'ctx_oa_undeleted':
             this.flag(DIMP.conf.FLAG_DELETED, false);
             break;
 
-        case 'oa_purge_deleted':
+        case 'ctx_oa_purge_deleted':
             this.purgeDeleted();
             break;
 
-        case 'oa_hide_deleted':
-        case 'oa_show_deleted':
+        case 'ctx_oa_hide_deleted':
+        case 'ctx_oa_show_deleted':
             this.viewport.reload({ delhide: Number(id == 'oa_hide_deleted') });
             break;
 
-        case 'oa_help':
+        case 'ctx_oa_help':
             this.toggleHelp();
             break;
 
-        case 'oa_sort_date':
-        case 'oa_sort_from':
-        case 'oa_sort_to':
-        case 'oa_sort_sequence':
-        case 'oa_sort_size':
-        case 'oa_sort_subject':
-        case 'oa_sort_thread':
-            this.sort(DIMP.conf.sort.get(id.substring(8)).v);
+        case 'ctx_sortopts_date':
+        case 'ctx_sortopts_from':
+        case 'ctx_sortopts_to':
+        case 'ctx_sortopts_sequence':
+        case 'ctx_sortopts_size':
+        case 'ctx_sortopts_subject':
+        case 'ctx_sortopts_thread':
+            this.sort(DIMP.conf.sort.get(id.substring(13)).v);
             break;
 
         case 'ctx_template_edit':
@@ -1213,7 +1195,7 @@ var DimpBase = {
         default:
             if (menu == 'ctx_filteropts_filter') {
                 this.search = {
-                    filter: elt.retrieve('filter'),
+                    filter: elt.identify().substring('ctx_filter_'.length),
                     label: this.viewport.getMetaData('label'),
                     mbox: this.view
                 }
@@ -1298,56 +1280,56 @@ var DimpBase = {
             [ $('ctx_reply_reply_list') ].invoke(ob && ob.listmsg ? 'show' : 'hide');
             break;
 
-        case 'ctx_otheractions':
+        case 'ctx_oa':
             switch (this._getPref('preview')) {
             case 'vert':
-                $('oa_preview_hide', 'oa_layout_horiz').invoke('show');
-                $('oa_preview_show', 'oa_layout_vert').invoke('hide');
+                $('ctx_oa_preview_hide', 'ctx_oa_layout_horiz').invoke('show');
+                $('ctx_oa_preview_show', 'ctx_oa_layout_vert').invoke('hide');
                 break;
 
             case 'horiz':
-                $('oa_preview_hide', 'oa_layout_vert').invoke('show');
-                $('oa_preview_show', 'oa_layout_horiz').invoke('hide');
+                $('ctx_oa_preview_hide', 'ctx_oa_layout_vert').invoke('show');
+                $('ctx_oa_preview_show', 'ctx_oa_layout_horiz').invoke('hide');
                 break;
 
             default:
-                $('oa_preview_hide', 'oa_layout_horiz', 'oa_layout_vert').invoke('hide');
-                $('oa_preview_show').show();
+                $('ctx_oa_preview_hide', 'ctx_oa_layout_horiz', 'ctx_oa_layout_vert').invoke('hide');
+                $('ctx_oa_preview_show').show();
                 break;
             }
 
-            tmp = [ $('oa_undeleted') ];
-            $('oa_blacklist', 'oa_whitelist').each(function(o) {
-                if (o) {
-                    tmp.push(o.up());
-                }
-            });
-
+            tmp = [ $('ctx_oa_undeleted') ];
             sel = this.viewport.getSelected();
 
-            if ($('oa_setflag')) {
+            if ($('ctx_oa_setflag')) {
                 if (this.viewport.getMetaData('readonly')) {
-                    $('oa_setflag').up().hide();
+                    $('ctx_oa_setflag').up().hide();
                 } else {
-                    tmp.push($('oa_setflag').up());
-                    [ $('oa_unsetflag') ].invoke((sel.size() > 1) ? 'show' : 'hide');
+                    tmp.push($('ctx_oa_setflag').up());
+                    [ $('ctx_oa_unsetflag') ].invoke((sel.size() > 1) ? 'show' : 'hide');
                 }
             }
 
             tmp.compact().invoke(sel.size() ? 'show' : 'hide');
 
-            if (tmp = $('oa_purge_options')) {
-                [ tmp ].invoke(tmp.select('> a').any(Element.visible) ? 'show' : 'hide');
-                if (tmp = $('oa_hide_deleted')) {
-                    if (this.isThreadSort()) {
-                        $(tmp, 'oa_show_deleted').invoke('hide');
-                    } else if (this.viewport.getMetaData('delhide')) {
-                        tmp.hide();
-                        $('oa_show_deleted').show();
-                    } else {
-                        tmp.show();
-                        $('oa_show_deleted').hide();
-                    }
+            if (tmp = $('ctx_oa_purge_deleted')) {
+                if (this.viewport.getMetaData('noexpunge')) {
+                    tmp.hide();
+                } else {
+                    tmp.show();
+                    [ tmp.up() ].invoke(tmp.up().select('> a').any(Element.visible) ? 'show' : 'hide');
+                }
+            }
+
+            if (tmp = $('ctx_oa_hide_deleted')) {
+                if (this.isThreadSort()) {
+                    $(tmp, 'ctx_oa_show_deleted').invoke('hide');
+                } else if (this.viewport.getMetaData('delhide')) {
+                    tmp.hide();
+                    $('ctx_oa_show_deleted').show();
+                } else {
+                    tmp.show();
+                    $('ctx_oa_show_deleted').hide();
                 }
             }
             break;
@@ -1362,14 +1344,14 @@ var DimpBase = {
 
             DIMP.conf.sort.detect(function(s) {
                 if (s.value.v == tmp) {
-                    $('oa_sort_' + s.key).down('.iconImg').addClassName(this.viewport.getMetaData('sortdir') ? 'sortup' : 'sortdown');
+                    $('ctx_sortopts_' + s.key).down('.iconImg').addClassName(this.viewport.getMetaData('sortdir') ? 'sortup' : 'sortdown');
                     return true;
                 }
             }, this);
 
             tmp = this.viewport.getMetaData('special');
-            [ $('oa_sort_from') ].invoke(tmp ? 'hide' : 'show');
-            [ $('oa_sort_to') ].invoke(tmp ? 'show' : 'hide');
+            [ $('ctx_sortopts_from') ].invoke(tmp ? 'hide' : 'show');
+            [ $('ctx_sortopts_to') ].invoke(tmp ? 'show' : 'hide');
             break;
 
         case 'ctx_qsearchby':
@@ -1379,6 +1361,10 @@ var DimpBase = {
 
         case 'ctx_message':
             [ $('ctx_message_source').up() ].invoke(this._getPref('preview') ? 'hide' : 'show');
+            $('ctx_message_delete', 'ctx_message_undelete').compact().invoke(this.viewport.getMetaData('nodelete') ? 'hide' : 'show');
+
+            [ $('ctx_message_setflag').up() ].invoke(this.viewport.getMetaData('flags').size() & this.viewport.getMetaData('readonly') ? 'hide' : 'show');
+
             sel = this.viewport.getSelected();
             if (sel.size() == 1) {
                 if (this.viewport.getMetaData('templates')) {
@@ -1401,6 +1387,15 @@ var DimpBase = {
             break;
 
         case 'ctx_flag':
+            flags = this.viewport.getMetaData('flags');
+            if (flags.size()) {
+                $(ctx_id).childElements().each(function(c) {
+                    [ c ].invoke(flags.include(c.retrieve('flag')) ? 'show' : 'hide');
+                });
+            } else {
+                $(ctx_id).childElements().invoke('show');
+            }
+
             sel = this.viewport.getSelected();
             flags = (sel.size() == 1)
                 ? sel.get('dataob').first().flag
@@ -1440,11 +1435,21 @@ var DimpBase = {
         }
     },
 
-    contextAddFilter: function(filter, label)
+    contextOnTrigger: function(parentfunc, e)
     {
-        var a = new Element('A').insert(label.escapeHTML());
-        $('ctx_filter').insert(a);
-        a.store('filter', filter);
+        parentfunc(e);
+
+        switch (e.memo) {
+        case 'ctx_flag':
+        case 'ctx_flag_search':
+            DIMP.conf.flags_o.each(function(f) {
+                if ((DIMP.conf.flags[f].a && (e.memo == 'ctx_flag')) ||
+                    (DIMP.conf.flags[f].s && (e.memo == 'ctx_flag_search'))) {
+                    this.contextAddFlag(f, DIMP.conf.flags[f], e.memo);
+                }
+            }, this);
+            break;
+        }
     },
 
     contextAddFlag: function(flag, f, id)
@@ -2137,7 +2142,7 @@ var DimpBase = {
     /* Set quicksearch text. */
     _setQsearchText: function()
     {
-        $('qsearch_input').writeAttribute('title', DIMP.text.search + ' (' + $('ctx_qsearchby_' + this._getPref('qsearch_field')).getText() + ')');
+        $('qsearch_input').writeAttribute('title', DIMP.text.search + ' (' + DIMP.context.ctx_qsearchby['*' + this._getPref('qsearch_field')] + ')');
         if (this.qsearch_ghost) {
             this.qsearch_ghost.refresh();
         }
@@ -2614,7 +2619,7 @@ var DimpBase = {
                 e.stop();
                 return;
 
-            case 'button_deleted':
+            case 'button_delete':
                 this.deleteMsg();
                 e.stop();
                 return;
@@ -2797,7 +2802,7 @@ var DimpBase = {
 
         case 'delete':
             this.viewaction = DimpCore.doAction.bind(DimpCore, 'deleteMailbox', { mbox: params.elt.retrieve('mbox') });
-            IMPDialog.display({
+            HordeDialog.display({
                 cancel_text: DIMP.text.cancel,
                 noinput: true,
                 ok_text: DIMP.text.ok,
@@ -2807,7 +2812,7 @@ var DimpBase = {
 
         case 'empty':
             this.viewaction = DimpCore.doAction.bind(DimpCore, 'emptyMailbox', { mbox: params.elt.retrieve('mbox') });
-            IMPDialog.display({
+            HordeDialog.display({
                 cancel_text: DIMP.text.cancel,
                 noinput: true,
                 ok_text: DIMP.text.ok,
@@ -2825,7 +2830,7 @@ var DimpBase = {
     _createMboxForm: function(action, text, val)
     {
         this.viewaction = action;
-        IMPDialog.display({
+        HordeDialog.display({
             cancel_text: DIMP.text.cancel,
             input_val: val,
             ok_text: DIMP.text.ok,
@@ -3605,11 +3610,6 @@ var DimpBase = {
             DM.addSubMenu('ctx_filteropts_flag', 'ctx_flag_search');
             DM.addSubMenu('ctx_filteropts_flagnot', 'ctx_flag_search');
 
-            /* Create flag entries. */
-            DIMP.conf.filters_o.each(function(f) {
-                this.contextAddFilter(f, DIMP.conf.filters[f]);
-            }, this);
-
             /* Don't submit FORM. Really only needed for Opera (Bug #9730)
              * but shouldn't hurt otherwise. */
             $('qsearch_input').up('FORM').observe('submit', Event.stop);
@@ -3640,7 +3640,7 @@ var DimpBase = {
 
         /* Add popdown menus. */
         DimpCore.addPopdownButton('button_template', 'template');
-        DimpCore.addPopdownButton('button_other', 'otheractions', {
+        DimpCore.addPopdownButton('button_other', 'oa', {
             trigger: true
         });
         DimpCore.addPopdown('folderopts_link', 'folderopts', {
@@ -3652,12 +3652,10 @@ var DimpBase = {
 
         DM.addSubMenu('ctx_message_reply', 'ctx_reply');
         DM.addSubMenu('ctx_message_forward', 'ctx_forward');
-        [ 'ctx_message_', 'oa_' ].each(function(i) {
-            if ($(i + 'setflag')) {
-                DM.addSubMenu(i + 'setflag', 'ctx_flag');
-                DM.addSubMenu(i + 'unsetflag', 'ctx_flag');
-            }
-        });
+        DM.addSubMenu('ctx_message_setflag', 'ctx_flag');
+        DM.addSubMenu('ctx_message_unsetflag', 'ctx_flag');
+        DM.addSubMenu('ctx_oa_setflag', 'ctx_flag');
+        DM.addSubMenu('ctx_oa_unsetflag', 'ctx_flag');
         DM.addSubMenu('ctx_mbox_setflag', 'ctx_mbox_flag');
         DM.addSubMenu('ctx_mbox_export', 'ctx_mbox_export_opts');
 
@@ -3672,7 +3670,6 @@ var DimpBase = {
             trigger: true
         });
 
-        /* Create flag entries. */
         DIMP.conf.flags_o.each(function(f) {
             if (DIMP.conf.flags[f].s) {
                 this.contextAddFlag(f, DIMP.conf.flags[f], 'ctx_flag_search');
@@ -3797,8 +3794,8 @@ document.observe('DragDrop2:end', DimpBase.onDragEnd.bindAsEventListener(DimpBas
 document.observe('DragDrop2:mousedown', DimpBase.onDragMouseDown.bindAsEventListener(DimpBase));
 document.observe('DragDrop2:mouseup', DimpBase.onDragMouseUp.bindAsEventListener(DimpBase));
 
-/* IMPDialog listener. */
-document.observe('IMPDialog:onClick', function(e) {
+/* HordeDialog listener. */
+document.observe('HordeDialog:onClick', function(e) {
     switch (e.element().identify()) {
     case 'RB_confirm':
         this.viewaction(e.memo);
@@ -3821,6 +3818,7 @@ DimpCore.clickHandler = DimpCore.clickHandler.wrap(DimpBase.clickHandler.bind(Di
 /* ContextSensitive handlers. */
 DimpCore.contextOnClick = DimpCore.contextOnClick.wrap(DimpBase.contextOnClick.bind(DimpBase));
 DimpCore.contextOnShow = DimpCore.contextOnShow.wrap(DimpBase.contextOnShow.bind(DimpBase));
+DimpCore.contextOnTrigger = DimpCore.contextOnTrigger.wrap(DimpBase.contextOnTrigger.bind(DimpBase));
 
 /* Extend AJAX exception handling. */
 HordeCore.onException = HordeCore.onException.wrap(DimpBase.onAjaxException.bind(DimpBase));

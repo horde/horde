@@ -46,7 +46,7 @@ class IMP_Prefs_Sort implements ArrayAccess, IteratorAggregate
             /* Purge if mailbox doesn't exist or this is a search query (not
              * a virtual folder). */
             if (!$val->exists || $val->query) {
-                unset($this[$key]);
+                unset($this[strval($val)]);
             }
         }
     }

@@ -16,9 +16,13 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('imp');
 
-$vars = Horde_Variables::getDefaultVariables();
+if (!$registry->hasMethod('images/selectGalleries') ||
+    !$registry->hasMethod('images/saveImage')) {
+    Horde::fatal(new IMP_Exception('Image saving is not available.'), false);
+}
 
 /* Run through the action handlers. */
+$vars = Horde_Variables::getDefaultVariables();
 switch ($vars->actionID) {
 case 'save_image':
     $contents = $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($vars->mbox, $vars->uid));
@@ -37,11 +41,6 @@ case 'save_image':
     }
     echo Horde::wrapInlineScript(array('window.close();'));
     exit;
-}
-
-if (!$registry->hasMethod('images/selectGalleries') ||
-    !$registry->hasMethod('images/saveImage')) {
-    throw new IMP_Exception('Image saving is not available.');
 }
 
 /* Build the template. */

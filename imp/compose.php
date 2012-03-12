@@ -722,7 +722,14 @@ $js_vars = array(
     'ImpCompose.redirect' => intval($redirect),
     'ImpCompose.reloaded' => intval($vars->compose_formToken),
     'ImpCompose.sm_check' => intval($sm_check),
-    'ImpCompose.spellcheck' => intval($spellcheck && $prefs->getValue('compose_spellcheck'))
+    'ImpCompose.spellcheck' => intval($spellcheck && $prefs->getValue('compose_spellcheck')),
+    'ImpCompose.text' => array(
+        'cancel' => _("Cancelling this message will permanently discard its contents.") . "\n" . _("Are you sure you want to do this?"),
+        'discard' => _("Doing so will discard this message permanently."),
+        'file' => _("File"),
+        'nosubject' => _("The message does not have a Subject entered.") . "\n" . _("Send message without a Subject?"),
+        'recipient' => _("You must specify a recipient.")
+    )
 );
 
 /* Set up the base template now. */

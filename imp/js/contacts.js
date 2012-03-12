@@ -41,7 +41,7 @@ var ImpContacts = {
         var d, l, option, s = $('search_results');
 
         if (!$F(s).size()) {
-            alert(IMP.text.contacts_select);
+            alert(this.text.select);
         } else {
             d = $('selected_addresses');
             l = $A(d).size();
@@ -61,7 +61,7 @@ var ImpContacts = {
     updateMessage: function()
     {
         if (!parent.opener) {
-            alert(IMP.text.contacts_closed);
+            alert(this.text.closed);
             window.close();
             return;
         }
