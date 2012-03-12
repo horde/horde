@@ -3670,15 +3670,6 @@ var DimpBase = {
             trigger: true
         });
 
-        DIMP.conf.flags_o.each(function(f) {
-            if (DIMP.conf.flags[f].s) {
-                this.contextAddFlag(f, DIMP.conf.flags[f], 'ctx_flag_search');
-            }
-            if (DIMP.conf.flags[f].a) {
-                this.contextAddFlag(f, DIMP.conf.flags[f], 'ctx_flag');
-            }
-        }, this);
-
         if (DIMP.conf.disable_compose) {
             $('button_reply', 'button_forward').compact().invoke('up', 'SPAN').concat($('button_compose', 'composelink', 'ctx_contacts_new')).compact().invoke('remove');
         } else {
