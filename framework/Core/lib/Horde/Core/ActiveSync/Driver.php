@@ -319,14 +319,20 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * @param integer $from_ts     The starting timestamp
      * @param integer $to_ts       The ending timestamp
      * @param integer $cutoffdate  The earliest date to retrieve back to
+     * @param boolean $ping        If true, returned changeset may
+     *                             not contain the full changeset, may only
+     *                             contain a single change, designed only to
+     *                             indicate *some* change has taken place. The
+     *                             value should not be used to determine *what*
+     *                             change has taken place.
      *
      * @return array A list of messge uids that have changed in the specified
      *               time period.
      */
-    public function getServerChanges($folder, $from_ts, $to_ts, $cutoffdate)
+    public function getServerChanges($folder, $from_ts, $to_ts, $cutoffdate, $ping)
     {
         $this->_logger->debug(
-            sprintf("Horde_ActiveSync_Driver_Horde::getServerChanges(%s, $from_ts, $to_ts, $cutoffdate)",
+            sprintf("Horde_ActiveSync_Driver_Horde::getServerChanges(%s, $from_ts, $to_ts, $cutoffdate, $ping)",
                     (string)$folder));
 
         $changes = array(
@@ -406,18 +412,33 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             if (empty($this->_imap)) {
                 return array();
             }
-            try {
-                $folder = &$this->_imap->getMessageChanges(
-                    $folder,
-                    array('sincedate' => (int)$cutoffdate));
-            } catch (Horde_Exception $e) {
-                $this->_logger->err($e->getMessage());
-                $this->_endBuffer();
-                return array();
+            if ($ping) {
+                try {
+                    $ping_res = $this->_imap->ping(
+                        $folder,
+                        array('sincedate' => (int)$cutoffdate));
+                    if ($ping_res) {
+                        $changes['add'] = array(1);
+                    }
+                } catch (Horde_Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                    $this->_endBuffer();
+                    return array();
+                }
+            } else {
+                try {
+                    $folder = &$this->_imap->getMessageChanges(
+                        $folder,
+                        array('sincedate' => (int)$cutoffdate));
+                } catch (Horde_Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                    $this->_endBuffer();
+                    return array();
+                }
+                $changes['add'] = $folder->added();
+                $changes['delete'] = $folder->removed();
+                $changes['modify'] = $folder->changed();
             }
-            $changes['add'] = $folder->added();
-            $changes['delete'] = $folder->removed();
-            $changes['modify'] = $folder->changed();
         }
 
         $results = array();
