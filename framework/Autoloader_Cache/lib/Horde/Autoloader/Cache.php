@@ -29,12 +29,6 @@
  */
 class Horde_Autoloader_Cache implements Horde_Autoloader
 {
-    /* Cache types. */
-    const APC = 1;
-    const XCACHE = 2;
-    const EACCELERATOR = 3;
-    const TEMPFILE = 4;
-
     /**
      * The autoloader that is being cached by this decorator.
      *
@@ -50,18 +44,11 @@ class Horde_Autoloader_Cache implements Horde_Autoloader
     protected $_cache = array();
 
     /**
-     * The cache type.
+     * The caching backend.
      *
-     * @var array
+     * @var Horde_Autoloader_Cache_Backend
      */
-    protected $_cachetype;
-
-    /**
-     * Cache key name.
-     *
-     * @var string
-     */
-    protected $_cachekey = 'horde_autoloader_cache';
+    protected $_backend;
 
     /**
      * Has the cache changed since the last save?
@@ -71,46 +58,41 @@ class Horde_Autoloader_Cache implements Horde_Autoloader
     protected $_changed = false;
 
     /**
-     * Cached value of the temporary directory.
-     *
-     * @var string
-     */
-    protected $_tempdir;
-
-    /**
      * Constructor.
      *
      * Tries all supported cache backends and tries to retrieved the cached
      * class map.
      *
      * @param Horde_Autoloader $autoloader The autoloader that is being decorated.
+     * @param array            $backends   Class names of backends that may be used.
      */
-    public function __construct($autoloader)
+    public function __construct($autoloader, array $backends = null)
     {
         $this->_autoloader = $autoloader;
 
+        $cachekey = 'horde_autoloader_cache';
         if (isset($_SERVER['SERVER_NAME'])) {
-            $this->_cachekey .= '|' . $_SERVER['SERVER_NAME'];
+            $cachekey .= '|' . $_SERVER['SERVER_NAME'];
         }
-        $this->_cachekey .= '|' . __FILE__;
+        $cachekey .= '|' . __FILE__;
 
-        if (extension_loaded('apc')) {
-            $this->_cache = apc_fetch($this->_cachekey);
-            $this->_cachetype = self::APC;
-        } elseif (extension_loaded('xcache')) {
-            $this->_cache = xcache_get($this->_cachekey);
-            $this->_cachetype = self::XCACHE;
-        } elseif (extension_loaded('eaccelerator')) {
-            $this->_cache = eaccelerator_get($this->_cachekey);
-            $this->_cachetype = self::EACCELERATOR;
-        } elseif (($this->_tempdir = sys_get_temp_dir()) &&
-                  is_readable($this->_tempdir)) {
-            $this->_cachekey = hash('md5', $this->_cachekey);
-            if (file_exists($this->_tempdir . '/' . $this->_cachekey)
-                && ($data = file_get_contents($this->_tempdir . '/' . $this->_cachekey)) !== false) {
-                $this->_cache = @json_decode($data, true);
+        if ($backends === null) {
+            $backends = array(
+                'Horde_Autoloader_Cache_Backend_Apc',
+                'Horde_Autoloader_Cache_Backend_Xcache',
+                'Horde_Autoloader_Cache_Backend_Eaccelerator',
+                'Horde_Autoloader_Cache_Backend_Tempfile'
+            );
+        }
+
+        foreach ($backends as $backend) {
+            if (class_exists($backend)
+                && method_exists($backend, 'isSupported')
+                && call_user_func(array($backend, 'isSupported'))) {
+                $this->_backend = new $backend($cachekey);
+                $this->_cache = $this->_backend->fetch();
+                break;
             }
-            $this->_cachetype = self::TEMPFILE;
         }
     }
 
@@ -134,22 +116,8 @@ class Horde_Autoloader_Cache implements Horde_Autoloader
      */
     public function store()
     {
-        switch ($this->_cachetype) {
-        case self::APC:
-            apc_store($this->_cachekey, $this->_cache);
-            break;
-
-        case self::XCACHE:
-            xcache_set($this->_cachekey, $this->_cache);
-            break;
-
-        case self::EACCELERATOR:
-            eaccelerator_put($this->_cachekey, $this->_cache);
-            break;
-
-        case self::TEMPFILE:
-            file_put_contents($this->_tempdir . '/' . $this->_cachekey, json_encode($this->_cache));
-            break;
+        if ($this->_backend !== null) {
+            $this->_backend->store($this->_cache);
         }
     }
 
@@ -224,20 +192,8 @@ class Horde_Autoloader_Cache implements Horde_Autoloader
     public function prune()
     {
         $this->_cache = array();
-        if (extension_loaded('apc')) {
-            return apc_delete($this->_cachekey);
+        if ($this->_backend !== null) {
+            return $this->_backend->prune();
         }
-        if (extension_loaded('xcache')) {
-            return xcache_unset($this->_cachekey);
-        }
-        if (extension_loaded('eaccelerator')) {
-            /* Undocumented, unknown return value. */
-            eaccelerator_rm($this->_cachekey);
-            return true;
-        }
-        if (file_exists($this->_tempdir . '/' . $this->_cachekey)) {
-            return unlink($this->_tempdir . '/' . $this->_cachekey);
-        }
-        return false;
     }
 }

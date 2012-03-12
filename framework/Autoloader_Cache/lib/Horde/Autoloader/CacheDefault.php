@@ -19,7 +19,12 @@
  * @link     http://www.horde.org/libraries/Horde_Autoloader_Cache
  */
 require_once 'Horde/Autoloader/Default.php';
-require_once 'Horde/Autoloader/CacheDefault.php';
+require_once 'Horde/Autoloader/Cache.php';
+require_once 'Horde/Autoloader/Cache/Backend.php';
+require_once 'Horde/Autoloader/Cache/Backend/Apc.php';
+require_once 'Horde/Autoloader/Cache/Backend/Eaccelerator.php';
+require_once 'Horde/Autoloader/Cache/Backend/Tempfile.php';
+require_once 'Horde/Autoloader/Cache/Backend/Xcache.php';
 
 $__autoloader = new Horde_Autoloader_Cache(new Horde_Autoloader_IncludePath());
 $__autoloader->registerAutoloader();

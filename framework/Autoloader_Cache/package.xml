@@ -10,8 +10,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-02-29</date>
- <time>22:37:03</time>
+ <date>2012-03-12</date>
+ <time>13:07:27</time>
  <version>
   <release>1.0.2</release>
   <api>1.0.0</api>
@@ -41,6 +41,15 @@
    <dir name="lib">
     <dir name="Horde">
      <dir name="Autoloader">
+      <dir name="Cache">
+       <dir name="Backend">
+        <file name="Apc.php" role="php" />
+        <file name="Eaccelerator.php" role="php" />
+        <file name="Tempfile.php" role="php" />
+        <file name="Xcache.php" role="php" />
+       </dir> <!-- /lib/Horde/Autoloader/Cache/Backend -->
+       <file name="Backend.php" role="php" />
+      </dir> <!-- /lib/Horde/Autoloader/Cache -->
       <file name="Cache.php" role="php" />
       <file name="CacheDefault.php" role="php" />
      </dir> <!-- /lib/Horde/Autoloader -->
@@ -51,9 +60,8 @@
      <dir name="Autoloader">
       <dir name="Cache">
        <dir name="Stub">
-        <file name="#TestCache.php#" role="test" />
+        <file name="TestCache.php" role="test" />
        </dir> <!-- /test/Horde/Autoloader/Cache/Stub -->
-       <file name="#CacheTest.php#" role="test" />
        <file name="AllTests.php" role="test" />
        <file name="CacheTest.php" role="test" />
        <file name="phpunit.xml" role="test" />
@@ -100,11 +108,15 @@
    <install as="COPYING" name="doc/Horde/Autoloader/Cache/COPYING" />
    <install as="Horde/Autoloader/Cache.php" name="lib/Horde/Autoloader/Cache.php" />
    <install as="Horde/Autoloader/CacheDefault.php" name="lib/Horde/Autoloader/CacheDefault.php" />
-   <install as="Horde/Autoloader/Cache/#CacheTest.php#" name="test/Horde/Autoloader/Cache/#CacheTest.php#" />
+   <install as="Horde/Autoloader/Cache/Backend.php" name="lib/Horde/Autoloader/Cache/Backend.php" />
+   <install as="Horde/Autoloader/Cache/Backend/Apc.php" name="lib/Horde/Autoloader/Cache/Backend/Apc.php" />
+   <install as="Horde/Autoloader/Cache/Backend/Eaccelerator.php" name="lib/Horde/Autoloader/Cache/Backend/Eaccelerator.php" />
+   <install as="Horde/Autoloader/Cache/Backend/Tempfile.php" name="lib/Horde/Autoloader/Cache/Backend/Tempfile.php" />
+   <install as="Horde/Autoloader/Cache/Backend/Xcache.php" name="lib/Horde/Autoloader/Cache/Backend/Xcache.php" />
    <install as="Horde/Autoloader/Cache/AllTests.php" name="test/Horde/Autoloader/Cache/AllTests.php" />
    <install as="Horde/Autoloader/Cache/CacheTest.php" name="test/Horde/Autoloader/Cache/CacheTest.php" />
    <install as="Horde/Autoloader/Cache/phpunit.xml" name="test/Horde/Autoloader/Cache/phpunit.xml" />
-   <install as="Horde/Autoloader/Cache/Stub/#TestCache.php#" name="test/Horde/Autoloader/Cache/Stub/#TestCache.php#" />
+   <install as="Horde/Autoloader/Cache/Stub/TestCache.php" name="test/Horde/Autoloader/Cache/Stub/TestCache.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -184,7 +196,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-02-29</date>
+   <date>2012-03-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

@@ -6,18 +6,13 @@ require_once 'Horde/Autoloader/Cache.php';
 class Horde_Autoloader_Cache_Stub_TestCache
 extends Horde_Autoloader_Cache
 {
-    public function getType()
+    public function getBackend()
     {
-        return $this->_cachetype;
+        return $this->_backend;
     }
 
     public function getCache()
     {
         return $this->_cache;
-    }
-
-    public function getKey()
-    {
-        return $this->_cachekey;
     }
 }

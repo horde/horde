@@ -13,9 +13,17 @@
  */
 
 require_once dirname(__FILE__) . '/Stub/TestCache.php';
+require_once 'Horde/Autoloader/Cache/Backend.php';
+require_once 'Horde/Autoloader/Cache/Backend/Apc.php';
+require_once 'Horde/Autoloader/Cache/Backend/Eaccelerator.php';
+require_once 'Horde/Autoloader/Cache/Backend/Tempfile.php';
+require_once 'Horde/Autoloader/Cache/Backend/Xcache.php';
 
 /**
  * Tests the Autoloader cache.
+ *
+ * NOTE: If you activate APC < 3.1.7 the tests wont run
+ * (https://bugs.php.net/bug.php?id=58832)
  *
  * @category   Horde
  * @package    Autoloader_Cache
@@ -48,8 +56,8 @@ class Horde_Autoloader_CacheTest extends PHPUnit_Framework_TestCase
             $this->markTestSkipped('APC not active.');
         }
         $this->assertEquals(
-            Horde_Autoloader_Cache::APC,
-            $this->cache->getType()
+            'Horde_Autoloader_Cache_Backend_Apc',
+            get_class($this->cache->getBackend())
         );
     }
 
@@ -59,8 +67,8 @@ class Horde_Autoloader_CacheTest extends PHPUnit_Framework_TestCase
             $this->markTestSkipped('Eaccelerator not active.');
         }
         $this->assertEquals(
-            Horde_Autoloader_Cache::EACCELERATOR,
-            $this->cache->getType()
+            'Horde_Autoloader_Cache_Backend_Eaccelerator',
+            get_class($this->cache->getBackend())
         );
     }
 
@@ -71,8 +79,8 @@ class Horde_Autoloader_CacheTest extends PHPUnit_Framework_TestCase
             $this->markTestSkipped('Caching engine active.');
         }
         $this->assertEquals(
-            Horde_Autoloader_Cache::TEMPFILE,
-            $this->cache->getType()
+            'Horde_Autoloader_Cache_Backend_Tempfile',
+            get_class($this->cache->getBackend())
         );
     }
 
@@ -182,7 +190,7 @@ class Horde_Autoloader_CacheTest extends PHPUnit_Framework_TestCase
         $this->cache->store();
         $this->assertEquals(
             array('test' => 'TEST'),
-            apc_fetch($this->cache->getKey())
+            apc_fetch($this->cache->getBackend()->getKey())
         );
     }
 
@@ -200,7 +208,7 @@ class Horde_Autoloader_CacheTest extends PHPUnit_Framework_TestCase
         $this->cache->prune();
         $this->assertEquals(
             array(),
-            apc_fetch($this->cache->getKey())
+            apc_fetch($this->cache->getBackend()->getKey())
         );
     }
 
@@ -218,7 +226,7 @@ class Horde_Autoloader_CacheTest extends PHPUnit_Framework_TestCase
         $this->cache->store();
         $this->assertEquals(
             array('test' => 'TEST'),
-            json_decode(file_get_contents(sys_get_temp_dir() . '/' . $this->cache->getKey()), true)
+            json_decode(file_get_contents($this->cache->getBackend()->getTempfile()), true)
         );
     }
 
@@ -236,7 +244,7 @@ class Horde_Autoloader_CacheTest extends PHPUnit_Framework_TestCase
         $this->cache->store();
         $this->cache->prune();
         $this->assertFalse(
-            file_exists(sys_get_temp_dir() . '/' . $this->cache->getKey())
+            file_exists($this->cache->getBackend()->getTempfile())
         );
     }
 
