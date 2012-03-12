@@ -222,7 +222,7 @@ class Horde_ActiveSync_Timezone
      * @param string $expectedTimezone  The expected timezone. If not empty, and
      *                                  present in the results, will return.
      *
-     * @return array
+     * @return string  The timezone identifier
      */
     public function getTimezone(array $offsets, $expectedTimezone = null)
     {
