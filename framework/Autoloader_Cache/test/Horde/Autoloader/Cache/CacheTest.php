@@ -39,7 +39,16 @@ class Horde_Autoloader_CacheTest extends PHPUnit_Framework_TestCase
         if (extension_loaded('xcache')) {
             $this->markTestSkipped('Xcache is active and it does not support the command line.');
         }
-        $this->autoloader = $this->getMock('Horde_Autoloader');
+        $this->autoloader = $this->getMock(
+            'Horde_Autoloader',
+            array(
+                'loadClass',
+                'registerAutoloader',
+                'loadPath',
+                'mapToPath',
+                'someOther'
+            )
+        );
         $this->cache = new Horde_Autoloader_Cache_Stub_TestCache(
             $this->autoloader
         );
@@ -246,6 +255,15 @@ class Horde_Autoloader_CacheTest extends PHPUnit_Framework_TestCase
         $this->assertFalse(
             file_exists($this->cache->getBackend()->getTempfile())
         );
+    }
+
+    public function testArbitraryCalls()
+    {
+        $this->autoloader->expects($this->once())
+            ->method('someOther')
+            ->with('A', 'B')
+            ->will($this->returnValue(true));
+        $this->assertTrue($this->cache->someOther('A', 'B'));
     }
 
 }

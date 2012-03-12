@@ -188,6 +188,21 @@ class Horde_Autoloader_Cache implements Horde_Autoloader
     }
 
     /**
+     * Call a method of the decorated autoloader.
+     *
+     * @param string $name The method name.
+     * @param array  $arguments The method arguments.
+     *
+     * @return mixed
+     */
+    public function __call($name, $arguments)
+    {
+        return call_user_func_array(
+            array($this->_autoloader, $name), $arguments
+        );
+    }
+
+    /**
      * Prunes the autoloader cache.
      *
      * @return boolean  True if pruning succeeded.
