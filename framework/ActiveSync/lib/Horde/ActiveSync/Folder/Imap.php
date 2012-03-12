@@ -138,14 +138,11 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base
      */
     public function setRemoved(array $uids)
     {
-        // Protect against HUGE numbers of UIDs from apparently broken(?)
-        // servers. Hopefully a temporary solution. If this happens we should
-        // simply reset the server state, though not yet sure how to indicate
-        // this at this point.
+        // Protect against HUGE numbers of UIDs from apparently broken(?) servers.
         if (!empty($this->_min) && count($uids)) {
             if ($uids[0] < $this->_min) {
                 throw new Horde_ActiveSync_Exception_StaleState(
-                    'IMAP server has returned all VANISHED UIDs.');
+                    'BROKEN IMAP server has returned all VANISHED UIDs.');
             }
         }
 
