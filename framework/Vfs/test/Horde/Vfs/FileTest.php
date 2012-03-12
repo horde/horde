@@ -199,5 +199,6 @@ class Horde_Vfs_FileTest extends Horde_Vfs_Test_Base
     static public function tearDownAfterClass()
     {
         system('rm -r ' . sys_get_temp_dir() . '/vfsfiletest');
+        parent::tearDownAfterClass();
     }
 }
