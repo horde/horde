@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-02-28</date>
- <time>21:49:18</time>
+ <date>2012-03-12</date>
+ <time>16:36:05</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -31,7 +31,6 @@
      <dir name="Imap">
       <dir name="Client">
        <file name="COPYING" role="doc" />
-       <file name="TODO" role="doc" />
        <file name="UPGRADING" role="doc" />
       </dir> <!-- /doc/Horde/Imap/Client -->
      </dir> <!-- /doc/Horde/Imap -->
@@ -216,7 +215,6 @@
  <phprelease>
   <filelist>
    <install as="COPYING" name="doc/Horde/Imap/Client/COPYING" />
-   <install as="TODO" name="doc/Horde/Imap/Client/TODO" />
    <install as="UPGRADING" name="doc/Horde/Imap/Client/UPGRADING" />
    <install as="Horde/Imap/Client.php" name="lib/Horde/Imap/Client.php" />
    <install as="Horde/Imap/Client/Base.php" name="lib/Horde/Imap/Client/Base.php" />
