@@ -10,20 +10,19 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-02-22</date>
- <time>13:12:49</time>
+ <date>2012-02-28</date>
+ <time>21:49:18</time>
  <version>
-  <release>1.5.1</release>
-  <api>1.5.0</api>
+  <release>2.0.0</release>
+  <api>2.0.0</api>
  </version>
  <stability>
-  <release>stable</release>
-  <api>stable</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix accessing STATUS information for mailboxes with non 7-bit characters.
-* [mms] Fix &apos;vanished&apos; return from fetch().
+* [mms] Implement new 2.0 API. See UPGRADING for full details of changes.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -159,9 +158,9 @@
    <package>
     <name>Horde_Mail</name>
     <channel>pear.horde.org</channel>
-    <min>1.1.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0</max>
+    <exclude>3.0.0</exclude>
    </package>
    <package>
     <name>Horde_Mime</name>
@@ -794,11 +793,26 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-02-22</date>
+   <date>2012-02-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Workaround PHP bug when using serialized Envelope data created by Horde_Imap_Client &lt; 1.5.0 (Bug #11026).
 * [mms] Fix accessing STATUS information for mailboxes with non 7-bit characters.
 * [mms] Fix &apos;vanished&apos; return from fetch().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.5.2</release>
+    <api>1.5.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-02-28</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Rewrite of caching system. Fixes a few bugs, and should be more efficient.
+* [mms] Clear imapproxy status when logging out.
    </notes>
   </release>
  </changelog>

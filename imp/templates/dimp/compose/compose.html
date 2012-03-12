@@ -1,5 +1,5 @@
 <if:compose_link>
-<form id="compose" name="compose" enctype="multipart/form-data" action="<tag:compose_link />" method="post" target="submit_frame">
+<form id="compose" name="compose" enctype="multipart/form-data" action="<tag:compose_link />" method="post">
  <tag:forminput />
  <input type="hidden" id="last_identity" name="last_identity" value="<tag:selected_identity />" />
  <input type="hidden" id="html" name="html" value="<if:rte><if:compose_html>1</if:compose_html></if:rte>" />
@@ -42,9 +42,9 @@
     <div style="display:none">
      <label>
       <input id="save_sent_mail" name="save_sent_mail" type="checkbox" class="checkbox" /><gettext>Save in</gettext>
-      <span id="sent_mail_folder_label"></span>
+      <span id="sent_mail_label"></span>
      </label>
-     <input id="save_sent_mail_folder" name="save_sent_mail_folder" type="hidden" />
+     <input id="save_sent_mail_mbox" name="save_sent_mail_mbox" type="hidden" />
     </div>
 </if:save_sent_mail>
 <if:priority>
@@ -213,5 +213,3 @@
  <a id="ctx_msg_other_saveatc"><div class="iconImg"></div><gettext>Save Attachments in Sent Mailbox</gettext></a>
 </if:save_attach>
 </div>
-
-<iframe name="submit_frame" id="submit_frame" style="display:none" src="javascript:false;"></iframe>

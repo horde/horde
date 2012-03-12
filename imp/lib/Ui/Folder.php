@@ -1,7 +1,7 @@
 <?php
 /**
  * This class provides a place to store common code shared among IMP's various
- * UI views for folder manipulation.
+ * UI views for folder tree manipulation.
  *
  * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
@@ -16,25 +16,25 @@
 class IMP_Ui_Folder
 {
     /**
-     * Download folder(s) into a MBOX file.
+     * Download mailboxe(s) into a MBOX file.
      *
-     * @param array $flist  The folder list.
+     * @param array $mlist  The mailbox list.
      * @param boolean $zip  Compress with zip?
      *
      * @throws Horde_Exception
      */
-    public function downloadMbox($flist, $zip = false)
+    public function downloadMbox($mlist, $zip = false)
     {
         global $browser, $injector;
 
-        $mbox = $this->generateMbox($flist);
+        $mbox = $this->generateMbox($mlist);
 
         if ($zip) {
             $horde_compress = Horde_Compress::factory('zip');
             try {
                 $data = $horde_compress->compress(array(array(
                     'data' => $mbox,
-                    'name' => reset($flist) . '.mbox'
+                    'name' => reset($mlist) . '.mbox'
                 )), array(
                     'stream' => true
                 ));
@@ -53,7 +53,7 @@ class IMP_Ui_Folder
         }
 
         fseek($data, 0, SEEK_END);
-        $browser->downloadHeaders(reset($flist) . $suffix, $type, false, ftell($data));
+        $browser->downloadHeaders(reset($mlist) . $suffix, $type, false, ftell($data));
 
         rewind($data);
         while (!feof($data)) {
@@ -65,9 +65,9 @@ class IMP_Ui_Folder
 
     /**
      * Generates a string that can be saved out to an mbox format mailbox file
-     * for a folder or set of folders, optionally including all subfolders of
-     * the selected folders as well. All folders will be put into the same
-     * string.
+     * for a mailbox (or set of mailboxes), optionally including all
+     * subfolders of the selected mailbox(es) as well. All mailboxes will be
+     * output in the same string.
      *
      * @author Didi Rieder <adrieder@sbox.tugraz.at>
      *

@@ -227,11 +227,11 @@ table.horde-table th.sortdown {
     background: #bbcbff url("graphics/az.png") center left no-repeat;
     padding-left: 10px;
 }
-/* Alternating styles. item0, item1 are deprecated. */
-.striped, .rowEven, .item0 {
+/* Alternating styles. */
+.striped, .rowEven {
     background-color: #eee;
 }
-.rowOdd, .item1 {
+.rowOdd {
     background-color: #ddd;
 }
 
@@ -1528,6 +1528,32 @@ form.inplaceeditor-form {
     color: #999;
 }
 
+/* Nav images */
+.navfirstgreyImg {
+    background-image: url("graphics/nav/first-grey.png");
+}
+.navfirstImg {
+    background-image: url("graphics/nav/first.png");
+}
+.navlastgreyImg {
+    background-image: url("graphics/nav/last-grey.png");
+}
+.navlastImg {
+    background-image: url("graphics/nav/last.png");
+}
+.navleftgreyImg {
+    background-image: url("graphics/nav/left-grey.png");
+}
+.navleftImg {
+    background-image: url("graphics/nav/left.png");
+}
+.navrightgreyImg {
+    background-image: url("graphics/nav/right-grey.png");
+}
+.navrightImg {
+    background-image: url("graphics/nav/right.png");
+}
+
 /* Loading image. */
 span.loadingImg {
     background: #fff url("graphics/loading.gif") no-repeat center;
@@ -1562,7 +1588,7 @@ span.loadingImg {
         border: none;
     }
 
-    .control, .rowEven, .rowOdd, .item0, .item1 {
+    .control, .rowEven, .rowOdd {
         background-color: #fff;
         border-bottom: thin solid #000;
     }

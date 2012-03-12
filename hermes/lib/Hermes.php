@@ -349,8 +349,12 @@ class Hermes
     {
         global $prefs;
 
-        $timers = unserialize($prefs->getValue('running_timers'));
-        unset($timers[$id]);
+        $timers = @unserialize($prefs->getValue('running_timers'));
+         if (!is_array($timers)) {
+            $timers = array();
+         } else {
+            unset($timers[$id]);
+        }
         $prefs->setValue('running_timers', serialize($timers));
     }
 
@@ -358,7 +362,10 @@ class Hermes
     {
          global $prefs;
 
-         $timers = unserialize($prefs->getValue('running_timers'));
+         $timers = @unserialize($prefs->getValue('running_timers'));
+         if (!is_array($timers)) {
+            $timers = array();
+         }
          $timers[$id] = $timer;
          $prefs->setValue('running_timers', serialize($timers));
     }

@@ -10,32 +10,24 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Release::FOCUS_MINORBUG);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Whups Ticket
-Tracking System version H4 (2.0.1).
+Tracking System version H4 (2.0.2).
 
 Whups is a Horde ticket-tracking application. It is very flexible in design,
 and can be used for help-desk requests, tracking software development, and
 anything else that needs to track a set of requests and their status.
 
-The major changes compared to the Whups version H4 (2.0) are:
-    * Improved ticket generation from e-mail messages.
-    * Fixed creating restricted comments.
-    * Fixed CLI scripts.
-    * Added Latvian translation.
-    * Small bugfixes and improvements.
+The major changes compared to the Whups version H4 (2.0.1) are:
+    * Small bugfixes.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Improved ticket generation from e-mail messages.
-Fixed creating restricted comments.
-Fixed CLI scripts.
-Added Latvian translation.
-Small bugfixes and improvements.
+Small bugfixes.
 FM;
 
 $this->notes['name'] = 'Whups';

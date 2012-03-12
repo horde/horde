@@ -35,7 +35,7 @@ class Chora_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = 'H4 (3.0-git)';
+    public $version = 'H5 (3.0-git)';
 
     /**
      * Global variables defined:
@@ -50,7 +50,7 @@ class Chora_Application extends Horde_Registry_Application
             $GLOBALS['sourceroots'] = Horde::loadConfiguration('backends.php', 'sourceroots');
         } catch (Horde_Exception $e) {
             $GLOBALS['sourceroots'] = array();
-            // If chora isn't fully/properly setup, _init() will throw fatal
+            // If chora isn't fully/properly setup, init() will throw fatal
             // errors. Don't want that if this class is being loaded simply to
             // obtain basic chora application information.
             if ($GLOBALS['registry']->initialApp != 'chora') {

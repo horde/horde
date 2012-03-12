@@ -6,8 +6,8 @@
  */
 
 document.observe('dom:loaded', function() {
-    $('aclfolder').observe('change', function(e) {
+    $('aclmbox').observe('change', function(e) {
         $($('prefs').getInputs('checkbox')).flatten().invoke('disable');
-        $('change_acl_folder').click();
+        $('change_acl_mbox').click();
     });
 });

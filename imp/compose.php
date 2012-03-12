@@ -105,8 +105,8 @@ $draft = IMP_Mailbox::getPref('drafts_folder');
 $readonly_drafts = $draft && $draft->readonly;
 
 $save_sent_mail = $vars->save_sent_mail;
-$sent_mail_folder = $identity->getValue('sent_mail_folder');
-if ($readonly_sentmail = ($sent_mail_folder && $sent_mail_folder->readonly)) {
+$sent_mail = $identity->getValue('sent_mail_folder');
+if ($readonly_sentmail = ($sent_mail && $sent_mail->readonly)) {
     $save_sent_mail = false;
 }
 
@@ -159,7 +159,7 @@ if ($session->get('imp', 'file_upload')) {
     /* Delete attachments. */
     foreach ($deleteList as $val) {
         if ($notify) {
-            $notification->push(sprintf(_("Deleted attachment \"%s\"."), Horde_Mime::decode($imp_compose[$val]['part']->getName(true), 'UTF-8')), 'horde.success');
+            $notification->push(sprintf(_("Deleted attachment \"%s\"."), Horde_Mime::decode($imp_compose[$val]['part']->getName(true))), 'horde.success');
         }
         unset($imp_compose[$val]);
     }
@@ -195,8 +195,8 @@ case 'mailto':
         $header['to'] = $imp_headers->getValue('to');
     }
     if (empty($header['to'])) {
-        ($header['to'] = Horde_Mime_Address::addrArray2String($imp_headers->getOb('from'))) ||
-        ($header['to'] = Horde_Mime_Address::addrArray2String($imp_headers->getOb('reply-to')));
+        ($header['to'] = strval($imp_headers->getOb('from'))) ||
+        ($header['to'] = strval($imp_headers->getOb('reply-to')));
     }
     break;
 
@@ -247,7 +247,7 @@ case 'template_edit':
             ($result['identity'] != $identity->getDefault()) &&
             !$prefs->isLocked('default_identity')) {
             $identity->setDefault($result['identity']);
-            $sent_mail_folder = $identity->getValue('sent_mail_folder');
+            $sent_mail = $identity->getValue('sent_mail_folder');
         }
         $priority = $result['priority'];
         $request_read_receipt = $result['readreceipt'];
@@ -300,9 +300,9 @@ case 'reply_list':
     case IMP_Compose::REPLY_LIST:
         if ($vars->actionID == 'reply_auto') {
             $replyauto_list = true;
-            if (($parse_list = $injector->getInstance('IMP_Parse_Listid')->parseListId($contents->getHeader()->getValue('list-id'))) &&
-                isset($parse_list->phrase)) {
-                $replyauto_list_id = $parse_list->phrase;
+            if (($parse_list = $injector->getInstance('Horde_ListHeaders')->parse('list-id', $contents->getHeader()->getValue('list-id'))) &&
+                !is_null($parse_list->label)) {
+                $replyauto_list_id = $parse_list->label;
             }
         }
 
@@ -367,7 +367,7 @@ case 'redirect_compose':
 
 case 'redirect_send':
     try {
-        $num_msgs = $imp_compose->sendRedirectMessage($imp_ui->getAddressList($vars->to));
+        $num_msgs = $imp_compose->sendRedirectMessage($vars->to);
         $imp_compose->destroy('send');
         if ($isPopup) {
             if ($prefs->getValue('compose_confirm')) {
@@ -404,12 +404,12 @@ case 'send_message':
         break;
     }
 
-    $header['to'] = $imp_ui->getAddressList($vars->to);
+    $header['to'] = $vars->to;
     if ($prefs->getValue('compose_cc')) {
-        $header['cc'] = $imp_ui->getAddressList($vars->cc);
+        $header['cc'] = $vars->cc;
     }
     if ($prefs->getValue('compose_bcc')) {
-        $header['bcc'] = $imp_ui->getAddressList($vars->bcc);
+        $header['bcc'] = $vars->bcc;
     }
 
     $header['subject'] = strval($vars->subject);
@@ -485,8 +485,8 @@ case 'send_message':
 
     $header['replyto'] = $identity->getValue('replyto_addr');
 
-    if ($vars->sent_mail_folder) {
-        $sent_mail_folder = IMP_Mailbox::formFrom($vars->sent_mail_folder);
+    if ($vars->sent_mail) {
+        $sent_mail = IMP_Mailbox::formFrom($vars->sent_mail);
     }
 
     $options = array(
@@ -496,7 +496,7 @@ case 'send_message':
         'identity' => $identity,
         'priority' => $priority,
         'save_sent' => $save_sent_mail,
-        'sent_folder' => $sent_mail_folder,
+        'sent_mail' => $sent_mail,
         'save_attachments' => $vars->save_attachments_select,
         'readreceipt' => $request_read_receipt
     );
@@ -625,7 +625,7 @@ if ($redirect) {
 }
 
 $max_attach = $imp_compose->additionalAttachmentsAllowed();
-$smf_check = !empty($conf['user']['select_sentmail_folder']) && !$prefs->isLocked('sent_mail_folder');
+$sm_check = !empty($conf['user']['select_sentmail_folder']) && !$prefs->isLocked('sent_mail_folder');
 
 /* Get the URL to use for the cancel action. */
 $cancel_url = '';
@@ -672,12 +672,12 @@ if (!is_null($oldrtemode) && ($oldrtemode != $rtemode)) {
 /* If this is the first page load for this compose item, add auto BCC
  * addresses. */
 if (!$vars->compose_formToken && ($vars->actionID != 'draft')) {
-    $header['bcc'] = Horde_Mime_Address::addrArray2String($identity->getBccAddresses());
+    $header['bcc'] = strval($identity->getBccAddresses());
 }
 
 foreach (array('to', 'cc', 'bcc') as $val) {
     if (!isset($header[$val])) {
-        $header[$val] = $imp_ui->getAddressList($vars->$val);
+        $header[$val] = $vars->$val;
     }
 }
 
@@ -721,8 +721,15 @@ $js_vars = array(
     'ImpCompose.popup' => intval($isPopup),
     'ImpCompose.redirect' => intval($redirect),
     'ImpCompose.reloaded' => intval($vars->compose_formToken),
-    'ImpCompose.smf_check' => intval($smf_check),
-    'ImpCompose.spellcheck' => intval($spellcheck && $prefs->getValue('compose_spellcheck'))
+    'ImpCompose.sm_check' => intval($sm_check),
+    'ImpCompose.spellcheck' => intval($spellcheck && $prefs->getValue('compose_spellcheck')),
+    'ImpCompose.text' => array(
+        'cancel' => _("Cancelling this message will permanently discard its contents.") . "\n" . _("Are you sure you want to do this?"),
+        'discard' => _("Doing so will discard this message permanently."),
+        'file' => _("File"),
+        'nosubject' => _("The message does not have a Subject entered.") . "\n" . _("Send message without a Subject?"),
+        'recipient' => _("You must specify a recipient.")
+    )
 );
 
 /* Set up the base template now. */
@@ -743,13 +750,13 @@ if ($redirect) {
     IMP::status();
     $t->set('status', Horde::endBuffer());
 
-    if ($registry->hasMethod('contacts/search')) {
+    if ($session->get('imp', 'csearchavail')) {
         $t->set('abook', $blank_url->copy()->link(array(
             'class' => 'widget',
             'id' => 'redirect_abook',
             'title' => _("Address Book")
         )) . Horde::img('addressbook_browse.png') . '<br />' . _("Address Book") . '</a>');
-        $js_vars['ImpCompose.redirect_contacts'] = strval(Horde::url('contacts.php')->add(array('formname' => 'redirect', 'to_only' => 1))->setRaw(true));
+        $js_vars['ImpCompose.redirect_contacts'] = strval(Horde::url('contacts.php')->add(array('to_only' => 1))->setRaw(true));
     }
 
     $t->set('to', Horde::label('to', _("To")));
@@ -873,7 +880,7 @@ if ($redirect) {
     $menu_view = $prefs->getValue('menu_view');
     $show_text = ($menu_view == 'text' || $menu_view == 'both');
     $compose_options = array();
-    if ($registry->hasMethod('contacts/search')) {
+    if ($session->get('imp', 'csearchavail')) {
         $compose_options[] = array(
             'url' => $blank_url->copy()->link(array(
                 'class' => 'widget',
@@ -906,36 +913,36 @@ if ($redirect) {
     $t->set('ssm', ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS) && !$prefs->isLocked('save_sent_mail')));
     if ($t->get('ssm')) {
         if ($readonly_sentmail) {
-            $notification->push(sprintf(_("Cannot save sent-mail message to \"%s\" as that mailbox is read-only.", $sent_mail_folder->display), 'horde.warning'));
+            $notification->push(sprintf(_("Cannot save sent-mail message to \"%s\" as that mailbox is read-only.", $sent_mail->display), 'horde.warning'));
         }
-        $t->set('ssm_selected', $vars->compose_formToken ? ($save_sent_mail == 'on') : $sent_mail_folder && $identity->saveSentmail());
+        $t->set('ssm_selected', $vars->compose_formToken ? ($save_sent_mail == 'on') : $sent_mail && $identity->saveSentmail());
         $t->set('ssm_label', Horde::label('ssm', _("Sa_ve a copy in ")));
-        if ($vars->sent_mail_folder) {
-            $sent_mail_folder = IMP_Mailbox::formFrom($vars->sent_mail_folder);
+        if ($vars->sent_mail) {
+            $sent_mail = IMP_Mailbox::formFrom($vars->sent_mail);
         }
         if (!empty($conf['user']['select_sentmail_folder']) &&
             !$prefs->isLocked('sent_mail_folder')) {
-            $ssm_folder_options = array(
+            $ssm_options = array(
                 'abbrev' => false,
                 'basename' => true,
                 'filter' => array('INBOX'),
-                'selected' => $sent_mail_folder
+                'selected' => $sent_mail
             );
             $t->set('ssm_tabindex', ++$tabindex);
 
-            /* Check to make sure the sent-mail folder is created - it needs
+            /* Check to make sure the sent-mail mailbox is created - it needs
              * to exist to show up in drop-down list. */
-            if ($sent_mail_folder) {
-                $sent_mail_folder->create();
+            if ($sent_mail) {
+                $sent_mail->create();
             }
 
-            $t->set('ssm_folders', IMP::flistSelect($ssm_folder_options));
+            $t->set('ssm_mboxes', IMP::flistSelect($ssm_options));
         } else {
-            if ($sent_mail_folder) {
-                $sent_mail_folder = '&quot;' . $sent_mail_folder->display_html . '&quot;';
+            if ($sent_mail) {
+                $sent_mail = '&quot;' . $sent_mail->display_html . '&quot;';
             }
-            $t->set('ssm_folder', $sent_mail_folder);
-            $t->set('ssm_folders', false);
+            $t->set('ssm_mbox', $sent_mail);
+            $t->set('ssm_mboxes', false);
         }
     }
 
@@ -1018,7 +1025,7 @@ if ($redirect) {
             $attach_options = array();
             if ($show_save_attach) {
                 $save_attach_val = isset($vars->save_attachments_select) ? $vars->save_attachments_select : ($save_attach == 'prompt_yes');
-                $attach_options[] = array('label' => _("Save Attachments with message in sent-mail folder?"), 'name' => 'save_attachments_select', 'select_yes' => ($save_attach_val == 1), 'select_no' => ($save_attach_val == 0), 'help' => Horde_Help::link('imp', 'compose-save-attachments'));
+                $attach_options[] = array('label' => _("Save Attachments with message in sent-mail mailbox?"), 'name' => 'save_attachments_select', 'select_yes' => ($save_attach_val == 1), 'select_no' => ($save_attach_val == 0), 'help' => Horde_Help::link('imp', 'compose-save-attachments'));
             }
             if ($show_link_attach) {
                 $attach_options[] = array('label' => _("Link Attachments?"), 'name' => 'link_attachments', 'select_yes' => ($vars->link_attachments == 1), 'select_no' => ($vars->link_attachments == 0), 'help' => Horde_Help::link('imp', 'compose-link-attachments'));

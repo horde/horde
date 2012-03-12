@@ -70,12 +70,12 @@ case 'edit':
     if (isset($attendees[$actionValue])) {
         if (empty($attendees[$actionValue]['name'])) {
             $editAttendee = $actionValue;
+        } elseif (strpos($actionValue, '@') === false) {
+            $editAttendee = $attendees[$actionValue]['name'];
         } else {
-            $editAttendee = Horde_Mime_Address::trimAddress(
-                $attendees[$actionValue]['name']
-                . (strpos($actionValue, '@') === false
-                   ? ''
-                   : ' <' . $actionValue . '>'));
+            $tmp = new Horde_Mail_Rfc822_Address($actionValue);
+            $tmp->personal = $attendees[$actionValue]['name'];
+            $editAttendee = strval($tmp);
         }
         unset($attendees[$actionValue]);
         $session->set('kronolith', 'attendees', $attendees);

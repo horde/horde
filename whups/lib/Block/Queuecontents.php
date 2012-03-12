@@ -2,14 +2,20 @@
 /**
  * Show the open tickets in a queue.
  */
-class Whups_Block_Queuecontents extends Horde_Core_Block
+class Whups_Block_Queuecontents extends Whups_Block_Tickets
 {
+    /**
+     * Is this block enabled?
+     *
+     * @var boolean
+     */
+    public $enabled = true;
+
     /**
      */
     public function __construct($app, $params = array())
     {
         parent::__construct($app, $params);
-
         $this->_name = _("Queue Contents");
     }
 
@@ -17,11 +23,12 @@ class Whups_Block_Queuecontents extends Horde_Core_Block
      */
     protected function _params()
     {
-        global $whups_driver;
-
         $qParams = array();
         $qDefault = null;
-        $qParams = Whups::permissionsFilter($whups_driver->getQueues(), 'queue', Horde_Perms::READ);
+        $qParams = Whups::permissionsFilter(
+            $GLOBALS['whups_driver']->getQueues(),
+            'queue',
+            Horde_Perms::READ);
         if (!$qParams) {
             $qDefault = _("No queues available.");
             $qType = 'error';
@@ -29,13 +36,14 @@ class Whups_Block_Queuecontents extends Horde_Core_Block
             $qType = 'enum';
         }
 
-        return array(
+        return array_merge(array(
             'queue' => array(
                 'type' => $qType,
                 'name' => _("Queue"),
                 'default' => $qDefault,
                 'values' => $qParams,
-            )
+            )),
+            parent::_params()
         );
     }
 
@@ -54,47 +62,24 @@ class Whups_Block_Queuecontents extends Horde_Core_Block
      */
     protected function _content()
     {
-        global $whups_driver, $prefs;
-
         if (!($queue = $this->_getQueue())) {
             return '<p><em>' . _("No tickets in queue.") . '</em></p>';
         }
 
         $info = array('queue' => $this->_params['queue'],
                       'nores' => true);
-        $tickets = $whups_driver->getTicketsByProperties($info);
+        $tickets = $GLOBALS['whups_driver']->getTicketsByProperties($info);
         if (!$tickets) {
             return '<p><em>' . _("No tickets in queue.") . '</em></p>';
         }
 
-        $html = '<thead><tr>';
-        $sortby = $prefs->getValue('sortby');
-        $sortdirclass = ' class="' . ($prefs->getValue('sortdir') ? 'sortup' : 'sortdown') . '"';
-        foreach (Whups::getSearchResultColumns('block') as $name => $column) {
-            $html .= '<th' . ($sortby == $column ? $sortdirclass : '') . '>' . $name . '</th>';
-        }
-        $html .= '</tr></thead><tbody>';
-
-        Whups::sortTickets($tickets);
-        foreach ($tickets as $ticket) {
-            $link = Horde::link(Whups::urlFor('ticket', $ticket['id'], true));
-            $html .= '<tr><td>' . $link . htmlspecialchars($ticket['id']) . '</a></td>' .
-                '<td>' . $link . htmlspecialchars($ticket['summary']) . '</a></td>' .
-                '<td>' . htmlspecialchars($ticket['priority_name']) . '</td>' .
-                '<td>' . htmlspecialchars($ticket['state_name']) . '</td></tr>';
-        }
-
-        Horde::addScriptFile('tables.js', 'horde', true);
-
-        return '<table id="whups_block_queue_' . htmlspecialchars($this->_params['queue']) . '" cellspacing="0" class="tickets striped sortable">' . $html . '</tbody></table>';
+        return $this->_table($tickets, 'whups_block_queue_' . $this->_params['queue']);
     }
 
     /**
      */
     private function _getQueue()
     {
-        global $whups_driver;
-
         if (empty($this->_params['queue'])) {
             return false;
         }
@@ -103,7 +88,7 @@ class Whups_Block_Queuecontents extends Horde_Core_Block
         }
 
         try {
-            return $whups_driver->getQueue($this->_params['queue']);
+            return $GLOBALS['whups_driver']->getQueue($this->_params['queue']);
         } catch (Whups_Exception $e) {
             return false;
         }

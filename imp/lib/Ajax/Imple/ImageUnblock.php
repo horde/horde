@@ -92,15 +92,14 @@ class IMP_Ajax_Imple_ImageUnblock extends Horde_Core_Ajax_Imple
             $contents = $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices(IMP_Mailbox::formFrom($vars->mailbox), $vars->uid));
 
             $imgview = new IMP_Ui_Imageview();
-            $imgview->addSafeAddress(Horde_Mime_Address::bareAddress($contents->getHeader()->getValue('from')));
+            $imgview->addSafeAddress(IMP::bareAddress($contents->getHeader()->getValue('from')));
 
             $result = 1;
         } catch (Exception $e) {
             $notification->push($e, 'horde.error');
         }
 
-        $resp = new Horde_Core_Ajax_Response($result, true);
-        return $resp->jsonData();
+        return new Horde_Core_Ajax_Response($result, true);
     }
 
     /**

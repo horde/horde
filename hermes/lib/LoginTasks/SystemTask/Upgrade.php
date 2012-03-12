@@ -52,9 +52,7 @@ class Hermes_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemT
     protected function _upgradePausedTimers()
     {
         $timers = @unserialize($GLOBALS['prefs']->getValue('running_timers'));
-        if (!empty($timers)) {
-            $timers = @unserialize($timers);
-        } else {
+        if (!is_array($timers)) {
             $timers = array();
         };
 

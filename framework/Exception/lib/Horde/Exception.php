@@ -27,6 +27,13 @@ if (version_compare(PHP_VERSION, '5.3.0', '<')) {
         public $details;
 
         /**
+         * Has this exception been logged?
+         *
+         * @var boolean
+         */
+        public $logged = false;
+
+        /**
          * Construct the exception
          *
          * @param string $msg
@@ -85,5 +92,13 @@ if (version_compare(PHP_VERSION, '5.3.0', '<')) {
          * @var string
          */
         public $details;
+
+        /**
+         * Has this exception been logged?
+         *
+         * @var boolean
+         */
+        public $logged = false;
+
     }
 }

@@ -50,14 +50,8 @@ var DimpMessage = {
                             callback: this.msgTextCallback.bind(this) });
     },
 
-    msgTextCallback: function(result)
+    msgTextCallback: function(r)
     {
-        if (!result.response) {
-            return;
-        }
-
-        var r = result.response;
-
         switch (r.type) {
         case 'forward_redirect':
             if (r.imp_compose) {
@@ -97,9 +91,7 @@ var DimpMessage = {
     },
     _updateAddressHeaderCallback: function(r)
     {
-        var resp = r.response;
-
-        $H(r.response.hdr_data).each(function(d) {
+        $H(r.hdr_data).each(function(d) {
             this.updateHeader(d.key, d.value, 0);
         }, this);
     },
@@ -220,9 +212,7 @@ var DimpMessage = {
                     uid: DimpCore.toUIDString(tmp)
                 }, {
                     callback: function(r) {
-                        if (r.response) {
-                            $('sendMdnMessage').up(1).fade({ duration: 0.2 });
-                        }
+                        $('sendMdnMessage').up(1).fade({ duration: 0.2 });
                     }
                 });
                 e.stop();
@@ -288,14 +278,14 @@ var DimpMessage = {
     {
         var mb = $('msgData').down('DIV.messageBody');
 
-        mb.setStyle({ height: (document.viewport.getHeight() - mb.cumulativeOffset()[1] - parseInt(mb.getStyle('paddingTop'), 10) - parseInt(mb.getStyle('paddingBottom'), 10)) + 'px' });
+        mb.setStyle({ height: Math.max(document.viewport.getHeight() - mb.cumulativeOffset()[1] - parseInt(mb.getStyle('paddingTop'), 10) - parseInt(mb.getStyle('paddingBottom'), 10), 0) + 'px' });
     },
 
     _mimeTreeCallback: function(r)
     {
         $('msg_all_parts').up().hide();
 
-        $('partlist').update(r.response.tree);
+        $('partlist').update(r.tree);
         $('msgAtc').down('SPAN.atcLabel').update(DIMP.text.allparts_label);
         $('msgAtc').show();
     },
@@ -332,12 +322,8 @@ var DimpMessage = {
         if (HordeCore.base.DimpBase) {
             if (this.strip) {
                 HordeCore.base.DimpBase.poll();
-            } else if (this.poll) {
-                HordeCore.base.DimpBase.pollCallback({ poll: this.poll });
-            }
-
-            if (this.flag) {
-                HordeCore.base.DimpBase.flagCallback({ flag: this.flag });
+            } else if (this.tasks) {
+                HordeCore.base.DimpBase.tasksHandler(this.tasks);
             }
         }
 

@@ -226,7 +226,7 @@ class Turba_Driver_Ldap extends Turba_Driver
         }
 
         /* Handle a request for multiple records. */
-        if (is_array($ids)) {
+        if (is_array($ids) && !empty($ids)) {
             $results = array();
             foreach ($ids as $d) {
                 $res = @ldap_read($this->_ds, Horde_String::convertCharset($d, 'UTF-8', $this->_params['charset']), $filter, $attr);
@@ -240,7 +240,7 @@ class Turba_Driver_Ldap extends Turba_Driver
             return $results;
         }
 
-        $res = @ldap_read($this->_ds, Horde_String::convertCharset($ids, 'UTF-8', $this->_params['charset']), $filter, $attr);
+        $res = @ldap_read($this->_ds, Horde_String::convertCharset($this->_params['root'], 'UTF-8', $this->_params['charset']), $filter, $attr);
         if (!$res) {
             throw new Turba_Exception(sprintf(_("Read failed: (%s) %s"), ldap_errno($this->_ds), ldap_error($this->_ds)));
         }

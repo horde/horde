@@ -104,12 +104,6 @@
   </configsection>
  </configtab>
 
- <configsection name="print">
-  <configheader>Print Options</configheader>
-  <configboolean name="add_printedby" desc="Should a &quot;Printed By&quot;
-  header be added to the top of all printed messages?">false</configboolean>
- </configsection>
-
  <configtab name="compose" desc="Compose">
   <configsection name="compose">
    <configboolean name="use_vfs" desc="Should the Horde VFS system be used for

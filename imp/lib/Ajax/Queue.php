@@ -24,6 +24,13 @@ class IMP_Ajax_Queue
     protected $_flag = array();
 
     /**
+     * Mailbox options.
+     *
+     * @var array
+     */
+    protected $_mailboxOpts = array();
+
+    /**
      * Poll mailboxes.
      *
      * @var array
@@ -38,7 +45,7 @@ class IMP_Ajax_Queue
     protected $_quota = false;
 
     /**
-     * Generates variable data from the queue.
+     * Generates AJAX response task data from the queue.
      *
      * For flag data (key: 'flag'), an array of objects with these properties:
      *   - add: (array) The list of flags that were added.
@@ -46,8 +53,14 @@ class IMP_Ajax_Queue
      *   - uids: (string) Indices of the messages that have changed (IMAP
      *           sequence string; mboxes are base64url encoded).
      *
-     * For mailbox data (key: 'mailbox'), a list of added/changed/deleted
-     * objects used to alter the folder tree.
+     * For mailbox data (key: 'mailbox'), an array with these keys:
+     *   - a: (array) Mailboxes that were added (base64url encoded).
+     *   - all: (integer) TODO
+     *   - base: (string) TODO
+     *   - c: (array) Mailboxes that were changed (base64url encoded).
+     *   - d: (array) Mailboxes that were deleted (base64url encoded).
+     *   - expand: (integer) Expand subfolders on load.
+     *   - noexpand: (integer) TODO
      *
      * For poll data (key: 'poll'), an array with keys as base64url encoded
      * mailbox names, values as the number of unseen messages.
@@ -56,17 +69,13 @@ class IMP_Ajax_Queue
      *   - m: (string) Quota message.
      *   - p: (integer) Quota percentage.
      *
-     * @param Horde_Core_Ajax_Response $response  The response object.
+     * @param IMP_Ajax_Application $ajax  The AJAX object.
      */
-    public function add(Horde_Core_Ajax_Response $response)
+    public function add(IMP_Ajax_Application $ajax)
     {
-        if (is_null($response->data)) {
-            return;
-        }
-
         /* Add flag information. */
         if (!empty($this->_flag)) {
-            $response->data->flag = $this->_flag;
+            $ajax->addTask('flag', $this->_flag);
             $this->_flag = array();
         }
 
@@ -75,10 +84,7 @@ class IMP_Ajax_Queue
         $imptree->setIteratorFilter(IMP_Imap_Tree::FLIST_NOSPECIALMBOXES);
         $out = $imptree->getAjaxResponse();
         if (!empty($out)) {
-            if (!isset($response->data->mailbox)) {
-                $response->data->mailbox = array();
-            }
-            $response->data->mailbox = array_merge($out, $response->data->mailbox);
+            $ajax->addTask('mailbox', array_merge($out, $this->_mailboxOpts));
         }
 
         /* Add poll information. */
@@ -95,7 +101,7 @@ class IMP_Ajax_Queue
         }
 
         if (!empty($poll)) {
-            $response->data->poll = $poll;
+            $ajax->addTask('poll', $poll);
             $this->_poll = array();
         }
 
@@ -103,10 +109,10 @@ class IMP_Ajax_Queue
         if ($this->_quota &&
             $GLOBALS['session']->get('imp', 'imap_quota') &&
             ($quotadata = IMP::quotaData(false))) {
-            $response->data->quota = array(
+            $ajax->addTask('quota', array(
                 'm' => $quotadata['message'],
                 'p' => round($quotadata['percent'])
-            );
+            ));
             $this->_quota = false;
         }
     }
@@ -140,6 +146,17 @@ class IMP_Ajax_Queue
             $result->uids = $indices->formTo();
             $this->_flag[] = $result;
         }
+    }
+
+    /**
+     * Add additional options to the mailbox output.
+     *
+     * @param array $name   Option name.
+     * @param mixed $value  Option value.
+     */
+    public function setMailboxOpt($name, $value)
+    {
+        $this->_mailboxOpts[$name] = $value;
     }
 
     /**

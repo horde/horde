@@ -12,7 +12,7 @@
  * @author   Gaudenz Steinlin <gaudenz@soziologie.ch>
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde
- * @license http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @package  Auth
  */
 class Horde_Auth_Imap extends Horde_Auth_Base
@@ -28,32 +28,27 @@ class Horde_Auth_Imap extends Horde_Auth_Base
      * Constructor.
      *
      * @param array $params  Optional parameters:
-     * <pre>
-     * 'admin_password' - (string) The password of the adminstrator.
-     *                    DEFAULT: null
-     * 'admin_user' - (string) The name of a user with admin privileges.
-     *                DEFAULT: null
-     * 'charset' - (string) Default charset.
-     *             DEFAULT: NONE
-     * 'hostspec' - (string) The hostname or IP address of the server.
-     *              DEFAULT: 'localhost'
-     * 'port' - (integer) The server port to which we will connect.
-     *          IMAP is generally 143, while IMAP-SSL is generally 993.
-     *          DEFAULT: Encryption port default
-     * 'secure' - (string) The encryption to use.  Either 'none', 'ssl', or
-     *            'tls'.
-     *            DEFAULT: 'none'
-     * 'userhierarchy' - (string) The hierarchy where user mailboxes are
-     *                   stored.
-     *                   DEFAULT: 'user.'
-     * </pre>
+     *   - admin_password: (string) The password of the adminstrator.
+     *                     DEFAULT: null
+     *   - admin_user: (string) The name of a user with admin privileges.
+     *                 DEFAULT: null
+     *   - hostspec: (string) The hostname or IP address of the server.
+     *               DEFAULT: 'localhost'
+     *   - port: (integer) The server port to which we will connect.
+     *           IMAP is generally 143, while IMAP-SSL is generally 993.
+     *           DEFAULT: Encryption port default
+     *   - secure: (string) The encryption to use.  Either 'none', 'ssl', or
+     *             'tls'.
+     *             DEFAULT: 'none'
+     *   - userhierarchy: (string) The hierarchy where user mailboxes are
+     *                    stored (UTF-8).
+     *                    DEFAULT: 'user.'
      */
     public function __construct(array $params = array())
     {
         $params = array_merge(array(
             'admin_password' => null,
             'admin_user' => null,
-            'charset' => null,
             'hostspec' => '',
             'port' => null,
             'secure' => 'none',
@@ -100,12 +95,10 @@ class Horde_Auth_Imap extends Horde_Auth_Base
      */
     public function addUser($userId, $credentials)
     {
-        $mailbox = Horde_String::convertCharset($this->_params['userhierarchy'] . $userId, $this->_params['charset'], 'utf7-imap');
-
         try {
             $ob = $this->_getOb($this->_params['admin_user'], $this->_params['admin_password']);
-            $ob->createMailbox($mailbox);
-            $ob->setACL($mailbox, $this->_params['admin_user'], 'lrswipcda');
+            $ob->createMailbox($this->_params['userhierarchy']);
+            $ob->setACL($this->_params['userhierarchy'], $this->_params['admin_user'], 'lrswipcda');
         } catch (Horde_Imap_Client_Exception $e) {
             throw new Horde_Auth_Exception($e);
         }
@@ -120,12 +113,10 @@ class Horde_Auth_Imap extends Horde_Auth_Base
      */
     public function removeUser($userId)
     {
-        $mailbox = Horde_String::convertCharset($this->_params['userhierarchy'] . $userId, $this->_params['charset'], 'utf7-imap');
-
         try {
             $ob = $this->_getOb($this->_params['admin_user'], $this->_params['admin_password']);
-            $ob->setACL($mailbox, $this->_params['admin_user'], 'lrswipcda');
-            $ob->deleteMailbox($mailbox);
+            $ob->setACL($this->_params['userhierarchy'], $this->_params['admin_user'], 'lrswipcda');
+            $ob->deleteMailbox($this->_params['userhierarchy']);
         } catch (Horde_Imap_Client_Exception $e) {
             throw new Horde_Auth_Exception($e);
         }

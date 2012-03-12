@@ -38,7 +38,21 @@ class Turba_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = 'H4 (3.1-git)';
+    public $version = 'H5 (4.0-git)';
+
+    /**
+     */
+    protected function _bootstrap()
+    {
+        /* Add Turba-specific factories. */
+        $factories = array(
+            'Turba_Shares' => 'Turba_Factory_Shares'
+        );
+
+        foreach ($factories as $key => $val) {
+            $GLOBALS['injector']->bindFactory($key, $val, 'create');
+        }
+    }
 
     /**
      * Global variables defined:
@@ -52,15 +66,6 @@ class Turba_Application extends Horde_Registry_Application
      */
     protected function _init()
     {
-        /* Add IMP-specific factories. */
-        $factories = array(
-            'Turba_Shares' => 'Turba_Factory_Shares'
-        );
-
-        foreach ($factories as $key => $val) {
-            $GLOBALS['injector']->bindFactory($key, $val, 'create');
-        }
-
         // Turba source and attribute configuration.
         $attributes = Horde::loadConfiguration('attributes.php', 'attributes', 'turba');
         $cfgSources = Turba::availableSources();

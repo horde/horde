@@ -36,10 +36,8 @@ class IMP_Quota_Mercury32 extends IMP_Quota
      * Constructor.
      *
      * @param array $params  Parameters:
-     * <pre>
-     * 'mail_user_folder' - (string) [REQUIRED] The path to folder mail
-                             mercury.
-     * </pre>
+     *   - mail_user_folder: (string) [REQUIRED] The path to folder mail
+     *                       mercury.
      *
      * @throws IMP_Exception
      */

@@ -746,14 +746,14 @@ class IMP_Mailbox implements Serializable
             Horde::permissionDeniedError(
                 'imp',
                 'create_folders',
-                _("You are not allowed to create folders.")
+                _("You are not allowed to create mailboxes.")
             );
             return false;
         } elseif (!$perms->hasAppPermission('max_folders')) {
             Horde::permissionDeniedError(
                 'imp',
                 'max_folders',
-                sprintf(_("You are not allowed to create more than %d folders."), $injector->getInstance('Horde_Perms')->getPermissions('max_folders', $registry->getAuth()))
+                sprintf(_("You are not allowed to create more than %d mailboxes."), $injector->getInstance('Horde_Perms')->getPermissions('max_folders', $registry->getAuth()))
             );
             return false;
         }
@@ -1395,8 +1395,8 @@ class IMP_Mailbox implements Serializable
     /**
      * Return the list of special mailboxes.
      *
-     * @return array  A list of folders, with the self::SPECIAL_* constants as
-     *                keys and values containing the IMP_Mailbox objects or
+     * @return array  A list of mailboxes, with the self::SPECIAL_* constants
+     *                as keys and values containing the IMP_Mailbox objects or
      *                null if the mailbox doesn't exist (self::SPECIAL_SENT
      *                contains an array of objects).
      */
@@ -1408,7 +1408,7 @@ class IMP_Mailbox implements Serializable
             $sm = array(
                 self::SPECIAL_COMPOSETEMPLATES => self::getPref('composetemplates_mbox'),
                 self::SPECIAL_DRAFTS => self::getPref('drafts_folder'),
-                self::SPECIAL_SENT => $GLOBALS['injector']->getInstance('IMP_Identity')->getAllSentmailFolders(),
+                self::SPECIAL_SENT => $GLOBALS['injector']->getInstance('IMP_Identity')->getAllSentmail(),
                 self::SPECIAL_SPAM => self::getPref('spam_folder'),
                 self::SPECIAL_TRASH => $GLOBALS['prefs']->getValue('use_trash') ? self::getPref('trash_folder') : null,
                 self::SPECIAL_USERHOOK => array()

@@ -35,11 +35,15 @@ class Horde_Vcs_QuickLog_Git extends Horde_Vcs_QuickLog_Base
 
         $fields = explode("\0", fgets($pipe));
         if ($this->_rev != $fields[0]) {
+            fclose($pipe);
+            proc_close($resource);
             throw new Horde_Vcs_Exception(
                 'Expected ' . $this->_rev . ', got ' . $fields[0]);
         }
         $this->_author = $fields[1];
         $this->_date = $fields[2];
         $this->_log = trim($fields[3] . "\n" . $fields[4]);
+        fclose($pipe);
+        proc_close($resource);
     }
 }

@@ -40,8 +40,7 @@ class Horde_Core_Factory_Ldap extends Horde_Core_Factory_Base
      * @param string $app            The application.
      * @param string|array $backend  The backend, see Horde::getDriverConfig().
      *                               If this is an array, this is used as the
-     *                               configuration array (@since Horde_Core
-     *                               1.5.0).
+     *                               configuration array.
      *
      * @return Horde_Ldap  The singleton instance.
      * @throws Horde_Exception

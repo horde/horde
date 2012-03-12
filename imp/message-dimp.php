@@ -55,22 +55,16 @@ try {
     exit;
 }
 
+$ajax_queue = $injector->getInstance('IMP_Ajax_Queue');
+$ajax_queue->poll(IMP::mailbox());
+
 foreach (array('from', 'to', 'cc', 'bcc', 'replyTo', 'log', 'uid', 'mbox', 'addr_limit') as $val) {
     if (!empty($show_msg_result[$val])) {
         $js_vars['DimpMessage.' . $val] = $show_msg_result[$val];
     }
 }
 $js_vars['DimpMessage.reply_list'] = $show_msg_result['list_info']['exists'];
-
-$ajax_queue = $injector->getInstance('IMP_Ajax_Queue');
-$ajax_queue->poll(IMP::mailbox());
-
-$response = new Horde_Core_Ajax_Response();
-$ajax_queue->add($response);
-
-foreach ($response as $key => $val) {
-    $js_vars['DimpMessage.' . $key] = $val;
-}
+$js_vars['DimpMessage.tasks'] = $injector->getInstance('Horde_Core_Factory_Ajax')->create('imp', $vars)->getTasks();
 
 $js_out = Horde::addInlineJsVars($js_vars, array('ret_vars' => true));
 
@@ -78,14 +72,9 @@ $js_out = Horde::addInlineJsVars($js_vars, array('ret_vars' => true));
 $disable_compose = !IMP::canCompose();
 
 if (!$disable_compose) {
-    $compose_args = array(
-        'folder' => IMP::mailbox(),
-        'messageCache' => '',
-        'popup' => false,
-        'qreply' => true,
-        'uid' => $uid,
-    );
-    $compose_result = IMP_Views_Compose::showCompose($compose_args);
+    $compose_result = IMP_Views_Compose::showCompose(array(
+        'qreply' => true
+    ));
 
     /* Attach spellchecker & auto completer. */
     $imp_ui = new IMP_Ui_Compose();

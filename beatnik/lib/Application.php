@@ -35,11 +35,11 @@ require_once HORDE_BASE . '/lib/core.php';
 
 class Beatnik_Application extends Horde_Registry_Application
 {
-    public $version = 'H4 (1.0-git)';
+    public $version = 'H5 (1.0-git)';
     public $driver = null;
     public $domains = null;
 
-    function _init()
+    protected function _init()
     {
         $this->driver = Beatnik_Driver::factory();
 

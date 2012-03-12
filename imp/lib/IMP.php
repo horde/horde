@@ -162,7 +162,7 @@ class IMP
     }
 
     /**
-     * Generates a select form input from a folder list. The &lt;select&gt;
+     * Generates a select form input from a mailbox list. The &lt;select&gt;
      * and &lt;/select&gt; tags are NOT included in the output.
      *
      * @param array $options  Optional parameters:
@@ -182,12 +182,12 @@ class IMP
      *                    DEFAULT: No
      *   - inc_vfolder: (boolean) Include user's virtual folders in list?
      *                  DEFAULT: No
-     *   - new_folder: (boolean) Display an option to create a new folder?
-     *                 DEFAULT: No
+     *   - new_mbox: (boolean) Display an option to create a new mailbox?
+     *               DEFAULT: No
      *   - selected: (string) The mailbox to have selected by default.
      *               DEFAULT: None
      *   - optgroup: (boolean) Whether to use <optgroup> elements to group
-     *               folder types.
+     *               mailbox types.
      *               DEFAULT: false
      *
      * @return string  A string containing <option> elements for each mailbox
@@ -395,7 +395,7 @@ class IMP
                 'inc_vfolder' => true,
                 'selected' => self::mailbox()
             )));
-            $t->set('flink', sprintf('%s%s<br />%s</a>', Horde::link('#'), ($menu_view != 'text') ? '<span class="iconImg folderImg" title="' . htmlspecialchars(_("Open Folder")) . '"></span>' : '', ($menu_view != 'icon') ? Horde::highlightAccessKey(_("Open Fo_lder"), $ak) : ''));
+            $t->set('flink', sprintf('%s%s<br />%s</a>', Horde::link('#'), ($menu_view != 'text') ? '<span class="iconImg folderImg" title="' . htmlspecialchars(_("Open Mailbox")) . '"></span>' : '', ($menu_view != 'icon') ? Horde::highlightAccessKey(_("Open Mai_lbox"), $ak) : ''));
         }
         $t->set('menu_string', Horde::menu(array('app' => 'imp', 'menu_ob' => true))->render());
 
@@ -647,11 +647,29 @@ class IMP
     static public function parseAddressList($str, array $opts = array())
     {
         $rfc822 = $GLOBALS['injector']->getInstance('Horde_Mail_Rfc822');
-        return $rfc822->parseAddressList($str, array_merge(array(
+        $res = $rfc822->parseAddressList($str, array_merge(array(
             'default_domain' => $GLOBALS['session']->get('imp', 'maildomain'),
-            'nest_groups' => false,
             'validate' => false
         ), $opts));
+        $res->setIteratorFilter(Horde_Mail_Rfc822_List::HIDE_GROUPS);
+        return $res;
+    }
+
+    /**
+     * Shortcut method to get the bare address of an e-mail string.
+     *
+     * @param string $str              The address string.
+     * @param boolean $default_domain  Append default domain, if needed?
+     *
+     * @return string  The bare address.
+     */
+    static public function bareAddress($str, $default_domain = false)
+    {
+        $ob = new Horde_Mail_Rfc822_Address($str);
+        if ($default_domain && is_null($ob->host)) {
+            $ob->host = $GLOBALS['session']->get('imp', 'maildomain');
+        }
+        return $ob->bare_address;
     }
 
 }

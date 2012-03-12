@@ -48,6 +48,18 @@ var ImpComposeBase = {
             Field.select(range);
             range.scrollIntoView(true);
         }
+    },
+
+    updateAddressField: function(elt, address)
+    {
+        var v = $F(elt).strip(),
+            pos = v.lastIndexOf(',');
+
+        if (pos != -1) {
+            v = v.substring(0, pos) + ' ';
+        }
+
+        elt.setValue(v + address + ', ');
     }
 
 };

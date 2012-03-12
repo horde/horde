@@ -28,16 +28,14 @@ class IMP_Quota_Sql extends IMP_Quota
      * Constructor.
      *
      * @param array $params  Parameters:
-     * <pre>
-     * 'db' - (Horde_Db_Adapter) [REQUIRED] The DB instance.
-     * 'query_quota' - (string) SQL query which returns single row/column with
-     *                 user quota (in bytes). %u is replaced with current user
-     *                 name, %U with the user name without the domain part, %d
-     *                 with the domain.
-     * 'query_used' - (string) SQL query which returns single row/column with
-     *                user used space (in bytes). Placeholders are the same
-     *                as in 'query_quota'.
-     * </pre>
+     *   - db: (Horde_Db_Adapter) [REQUIRED] The DB instance.
+     *   - query_quota: (string) SQL query which returns single row/column with
+     *                  user quota (in bytes). %u is replaced with current user
+     *                  name, %U with the user name without the domain part, %d
+     *                  with the domain.
+     *   - query_used: (string) SQL query which returns single row/column with
+     *                 user used space (in bytes). Placeholders are the same
+     *                 as in 'query_quota'.
      *
      * @throws InvalidArgumentException
      */
@@ -61,10 +59,8 @@ class IMP_Quota_Sql extends IMP_Quota
      * Returns quota information.
      *
      * @return array  An array with the following keys:
-     * <pre>
-     * 'limit' - Maximum quota allowed
-     * 'usage' - Currently used portion of quota (in bytes)
-     * </pre>
+     *   - limit: Maximum quota allowed
+     *   - usage: Currently used portion of quota (in bytes)
      * @throws IMP_Exception
      */
     public function getQuota()

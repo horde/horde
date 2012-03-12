@@ -1,7 +1,6 @@
 <?php
 /**
- * A data object that represents the JSON data expected by the HordeCore
- * javascript framework.
+ * A data object that represents JSON response data.
  *
  * Copyright 2012 Horde LLC (http://www.horde.org/)
  *
@@ -12,12 +11,11 @@
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Core
- * @since    2.0.0
  */
 class Horde_Core_Ajax_Response
 {
     /**
-     * Data to send to the browser.
+     * Response data to send to the browser.
      *
      * @var mixed
      */
@@ -33,7 +31,7 @@ class Horde_Core_Ajax_Response
     /**
      * Constructor.
      *
-     * @param mixed $data      Raw data to send to browser.
+     * @param mixed $data      Response data to send to browser.
      * @param boolean $notify  If true, adds notification info to object.
      */
     public function __construct($data = null, $notify = false)

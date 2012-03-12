@@ -41,14 +41,11 @@ class Ingo_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = 'H4 (2.1-git)';
+    public $version = 'H5 (3.0-git)';
 
     /**
-     * Global variables defined:
-     *   - all_rulesets
-     *   - ingo_shares
      */
-    protected function _init()
+    protected function _bootstrap()
     {
         /* Add Ingo-specific factories. */
         $factories = array(
@@ -59,7 +56,15 @@ class Ingo_Application extends Horde_Registry_Application
         foreach ($factories as $key => $val) {
             $GLOBALS['injector']->bindFactory($key, $val, 'create');
         }
+    }
 
+    /**
+     * Global variables defined:
+     *   - all_rulesets
+     *   - ingo_shares
+     */
+    protected function _init()
+    {
         // Create the session.
         $this->_createSession();
 

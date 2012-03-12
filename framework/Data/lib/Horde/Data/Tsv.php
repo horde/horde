@@ -187,17 +187,13 @@ class Horde_Data_Tsv extends Horde_Data_Base
                         }
                         $row[1] = preg_replace('/^([^,"]+),\s*(.*)$/', '$2 $1', $row[1]);
                         /* Address can be a full RFC822 address */
-                        try {
-                            $addr_arr = Horde_Mime_Address::parseAddressList($row[2]);
-                        } catch (Horde_Mime_Exception $e) {
+                        $addr_ob = new Horde_Mail_Rfc822_Address($row[2]);
+                        if (!$addr_ob->valid) {
                             continue;
                         }
-                        if (empty($addr_arr[0]->mailbox)) {
-                            continue;
-                        }
-                        $row[2] = $addr_arr[0]->mailbox . '@' . $addr_arr[0]->host;
-                        if (empty($row[1]) && !empty($addr_arr[0]->personal)) {
-                            $row[1] = $addr_arr[0]->personal;
+                        $row[2] = $addr_ob->bare_address;
+                        if (empty($row[1]) && !is_null($addr_ob->personal)) {
+                            $row[1] = $addr_ob->personal;
                         }
                         foreach ($dataKeys as $key) {
                             if (array_key_exists($key, $row)) {

@@ -53,7 +53,7 @@ class IMP_Menu_Dimp extends Horde_Menu
             // FIXME: solve the ajax view detection properly.
             if (empty($GLOBALS['conf']['menu']['apps_iframe']) ||
                 (($m['icon'] instanceof Horde_Themes_Image) &&
-                 $GLOBALS['registry']->hasAjaxView($m['icon']->app))) {
+                 $GLOBALS['registry']->hasView(Horde_Registry::VIEW_DYNAMIC, $m['icon']->app))) {
                 $href = ' href="' . htmlspecialchars($m['url']) . '"';
             } else {
                 $href = '';

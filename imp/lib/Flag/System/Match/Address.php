@@ -15,9 +15,8 @@
 abstract class IMP_Flag_System_Match_Address extends IMP_Flag_Base
 {
     /**
-     * @param mixed $data  Either an array of addresses as returned by
-     *                     Horde_Mime_Address::getAddressesFromObject() or the
-     *                     identity that matched the address list.
+     * @param mixed $data  Either a list of addresses (Horde_Mail_Rfc822_List)
+     *                     or the identity that matched the address list.
      */
     public function match($data)
     {

@@ -557,20 +557,18 @@ abstract class Whups_Driver
                 $opts['view']->comment = $formattedComment;
             }
 
-            try {
-                $addr_arr = Horde_Mime_Address::parseAddressList($to);
-                if (isset($addr_arr[0])) {
-                    $bare_address = strtolower($addr_arr[0]['mailbox'] . '@' . $addr_arr[0]['host']);
-                    if (!empty($seen_email_addresses[$bare_address])) {
-                        continue;
-                    }
-                    $seen_email_addresses[$bare_address] = true;
-
-                    if (empty($full_name) && isset($addr_arr[0]['personal'])) {
-                        $full_name = $addr_arr[0]['personal'];
-                    }
+            $addr_ob = new Horde_Mail_Rfc822_Address($to);
+            if ($addr_ob->valid) {
+                $bare_address = $addr_ob->bare_address;
+                if (!empty($seen_email_addresses[$bare_address])) {
+                    continue;
                 }
-            } catch (Horde_Mime_Exception $e) {}
+                $seen_email_addresses[$bare_address] = true;
+
+                if (empty($full_name) && !is_null($addr_ob->personal)) {
+                    $full_name = $addr_ob->personal;
+                }
+            }
 
             // use email address as fallback
             if (empty($full_name)) {

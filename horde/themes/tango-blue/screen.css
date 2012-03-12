@@ -122,11 +122,11 @@ legend {
     font-weight: bold;
 }
 
-/* Alternating styles. item0, item1 are deprecated. */
-.rowEven, .item0 {
+/* Alternating styles. */
+.rowEven {
     background: #eee;
 }
-.rowOdd, .item1, .item {
+.rowOdd, .item {
     background: #dae6f2;
 }
 

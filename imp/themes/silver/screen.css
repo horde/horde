@@ -26,7 +26,7 @@ div.composebody {
     border-width: 1px;
 }
 
-.smallheader.searchfolder {
+.smallheader.searchmbox {
     border-bottom-width: 0;
 }
 
@@ -146,30 +146,4 @@ span.trashImg {
 }
 .printAtc {
     background-image: url("graphics/print.png");
-}
-
-/* Nav images (TODO: move to Horde) */
-.navfirstgreyImg {
-    background-image: url("graphics/nav/first-grey.png");
-}
-.navfirstImg {
-    background-image: url("graphics/nav/first.png");
-}
-.navlastgreyImg {
-    background-image: url("graphics/nav/last-grey.png");
-}
-.navlastImg {
-    background-image: url("graphics/nav/last.png");
-}
-.navleftgreyImg {
-    background-image: url("graphics/nav/left-grey.png");
-}
-.navleftImg {
-    background-image: url("graphics/nav/left.png");
-}
-.navrightgreyImg {
-    background-image: url("graphics/nav/right-grey.png");
-}
-.navrightImg {
-    background-image: url("graphics/nav/right.png");
 }

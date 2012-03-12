@@ -165,7 +165,7 @@ if (is_array($info['list']) &&
             $item['selected'] = true;
         }
 
-        $item['item'] = (++$rowct % 2) ? 'item0' : 'item1';
+        $item['item'] = (++$rowct % 2) ? 'rowEven' : 'rowOdd';
 
         $entry[] = $item;
     }

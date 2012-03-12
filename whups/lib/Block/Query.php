@@ -2,14 +2,20 @@
 /**
  * Display the results of a saved Query in a block.
  */
-class Whups_Block_Query extends Horde_Core_Block
+class Whups_Block_Query extends Whups_Block_Tickets
 {
+    /**
+     * Is this block enabled?
+     *
+     * @var boolean
+     */
+    public $enabled = true;
+
     /**
      */
     public function __construct($app, $params = array())
     {
         parent::__construct($app, $params);
-
         $this->_name = _("Query Results");
     }
 
@@ -27,13 +33,14 @@ class Whups_Block_Query extends Horde_Core_Block
             $qType = 'error';
         }
 
-        return array(
+        return array_merge(array(
             'query' => array(
                 'type' => $qType,
                 'name' => _("Query to run"),
                 'default' => $qDefault,
                 'values' => $qParams
-            )
+            )),
+            parent::_params()
         );
     }
 
@@ -53,34 +60,14 @@ class Whups_Block_Query extends Horde_Core_Block
      */
     protected function _content()
     {
-        global $whups_driver, $prefs;
-
         if (!($query = $this->_getQuery())) {
             return '<p><em>' . _("No query to run") . '</em></p>';
         }
 
         $vars = Horde_Variables::getDefaultVariables();
-        $tickets = $whups_driver->executeQuery($query, $vars);
-        $html = '<thead><tr>';
-        $sortby = $prefs->getValue('sortby');
-        $sortdirclass = ' class="' . ($prefs->getValue('sortdir') ? 'sortup' : 'sortdown') . '"';
-        foreach (Whups::getSearchResultColumns('block') as $name => $column) {
-            $html .= '<th' . ($sortby == $column ? $sortdirclass : '') . '>' . $name . '</th>';
-        }
-        $html .= '</tr></thead><tbody>';
+        $tickets = $GLOBALS['whups_driver']->executeQuery($query, $vars);
 
-        Whups::sortTickets($tickets);
-        foreach ($tickets as $ticket) {
-            $link = Horde::link(Whups::urlFor('ticket', $ticket['id'], true));
-            $html .= '<tr><td>' . $link . htmlspecialchars($ticket['id']) . '</a></td>' .
-                '<td>' . $link . htmlspecialchars($ticket['summary']) . '</a></td>' .
-                '<td>' . htmlspecialchars($ticket['priority_name']) . '</td>' .
-                '<td>' . htmlspecialchars($ticket['state_name']) . '</td></tr>';
-        }
-
-        Horde::addScriptFile('tables.js', 'horde', true);
-
-        return '<table id="whups_block_query_' . $query->id . '" cellspacing="0" class="tickets striped sortable">' . $html . '</tbody></table>';
+        return $this->_table($tickets, 'whups_block_query_' . $query->id);
     }
 
     /**

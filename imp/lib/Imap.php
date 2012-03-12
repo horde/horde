@@ -104,7 +104,7 @@ class IMP_Imap implements Serializable
 
         if (($server = $this->loadServerConfig($key)) === false) {
             $error = new IMP_Imap_Exception('Could not load server configuration.');
-            $error->log();
+            Horde::logMessage($error);
             throw $error;
         }
 
@@ -138,7 +138,7 @@ class IMP_Imap implements Serializable
             $ob = Horde_Imap_Client::factory(($protocol == 'imap') ? 'Socket' : 'Socket_Pop3', $imap_config);
         } catch (Horde_Imap_Client_Exception $e) {
             $error = new IMP_Imap_Exception($e);
-            $error->log();
+            Horde::logMessage($error);
             throw $error;
         }
 
@@ -241,13 +241,13 @@ class IMP_Imap implements Serializable
     }
 
     /**
-     * Get namespace info for a full folder path.
+     * Get namespace info for a full mailbox path.
      *
-     * @param string $mailbox    The folder path.
+     * @param string $mailbox    The mailbox path.
      * @param boolean $personal  If true, will return empty namespace only
      *                           if it is a personal namespace.
      *
-     * @return mixed  The namespace info for the folder path or null if the
+     * @return mixed  The namespace info for the mailbox path or null if the
      *                path doesn't exist.
      */
     public function getNamespace($mailbox = null, $personal = false)
@@ -367,36 +367,10 @@ class IMP_Imap implements Serializable
             $params[1] = IMP_Mailbox::getImapMboxOb($params[1]);
             break;
 
-        case 'getNamespaces':
-            // We know that the namespace strings are in UTF-8 here. For
-            // Imap_Client 1.x, we need to explicitly force to a Mailbox
-            // object so that UTF7-IMAP auto-detection does not occur.
-            // TODO: Remove once Horde_Imap_Client 2.0+ is required.
-            $params[0] = IMP_Mailbox::getImapMboxOb($params[0]);
-            break;
-
         case 'listMailboxes':
             // Horde_Imap_Client_Mailbox: these calls all have the mailbox as
             // their first parameter.
             $params[0] = IMP_Mailbox::getImapMboxOb($params[0]);
-
-            // Explicitly add 'utf8' parameter so we are returned mailbox
-            // objects, not UTF7-IMAP strings.
-            // TODO: Remove once Horde_Imap_Client 2.0+ is required.
-            if (!isset($params[2])) {
-                $params[2] = array();
-            }
-            $params[2]['utf8'] = true;
-            break;
-
-        case 'listACLRights':
-        case 'setACL':
-            // These are not mailbox parameters, but for Imap_Client 1.x we
-            // need to explicitly force to a Mailbox object so that UTF7-IMAP
-            // auto-detection does not occur.
-            // TODO: Remove once Horde_Imap_Client 2.0+ is required.
-            $params[0] = IMP_Mailbox::getImapMboxOb($params[0]);
-            $params[1] = IMP_Mailbox::getImapMboxOb($params[1]);
             break;
 
         case 'search':
@@ -408,7 +382,7 @@ class IMP_Imap implements Serializable
             $result = call_user_func_array(array($this->ob, $method), $params);
         } catch (Horde_Imap_Client_Exception $e) {
             $error = new IMP_Imap_Exception($e);
-            $error->log();
+            Horde::logMessage($error);
             throw $error;
         }
 
@@ -420,25 +394,13 @@ class IMP_Imap implements Serializable
             IMP_Mailbox::get($params[0])->expire();
             break;
 
-        case 'getNamespaces':
-            // Workaround deprecated UTF7-IMAP return.
-            // TODO: Remove once Horde_Imap_Client 2.0+ is required.
-            $tmp = array();
-            foreach ($result as $key => $val) {
-                $key = Horde_Imap_Client_Mailbox::get($key, true);
-                $val['name'] = $key;
-                $tmp[strval($key)] = $val;
-            }
-            $result = $tmp;
-            break;
-
         case 'login':
             if (!$this->_login) {
                 /* Check for POP3 UIDL support. */
                 if ($this->pop3 &&
                     !$this->queryCapability('UIDL')) {
                     $error = new IMP_Imap_Exception('The POP3 server does not support the REQUIRED UIDL capability.');
-                    $error->log();
+                    Horde::logMessage($error);
                     throw $error;
                 }
 
@@ -458,16 +420,6 @@ class IMP_Imap implements Serializable
         case 'setACL':
             IMP_Mailbox::get($params[0])->expire(IMP_Mailbox::CACHE_ACL);
             break;
-
-        case 'statusMultiple':
-            // Workaround deprecated UTF7-IMAP return.
-            // TODO: Remove once Horde_Imap_Client 2.0+ is required.
-            $tmp = array();
-            foreach ($result as $key => $val) {
-                $tmp[strval(Horde_Imap_Client_Mailbox::get($key, true))] = $val;
-            }
-            $result = $tmp;
-            break;
         }
 
         return $result;
@@ -476,7 +428,7 @@ class IMP_Imap implements Serializable
     /**
      * Prepares an IMAP search query.  Needed because certain configuration
      * parameters may need to be dynamically altered before passed to the
-     * IMAP Client object.
+     * Imap_Client object.
      *
      * @param string $mailbox                        The mailbox to search.
      * @param Horde_Imap_Client_Search_Query $query  The search query object.
@@ -484,7 +436,7 @@ class IMP_Imap implements Serializable
      *
      * @return array  Parameters to use in the search() call.
      */
-    protected function _search($mailbox, $query, $opts)
+    protected function _search($mailbox, $query = null, array $opts = array())
     {
         $imap_charset = null;
         $mailbox = IMP_Mailbox::get($mailbox);
@@ -516,7 +468,7 @@ class IMP_Imap implements Serializable
         }
 
         /* Make sure we search in the proper charset. */
-        if ($query) {
+        if (!is_null($query)) {
             $query = clone $query;
             if (is_null($imap_charset)) {
                 $imap_charset = $this->validSearchCharset('UTF-8')

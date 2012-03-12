@@ -11,6 +11,20 @@
  * @category Horde
  * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
+ *
+ * @property string $abbreviation  The abbreviation to use in the mimp view.
+ * @property string $bgcolor  The background color.
+ * @property boolean $bgdefault  Is the backgroud color the default?
+ * @property boolean $canset  Can this flag be set by the user?
+ * @property string $css  The CSS class for the icon when the flag is set.
+ * @property string $cssicon  The CSS class for the icon.
+ * @property string $fgcolor  The foreground (text) color.
+ * @property string $form_set  Form value to use when setting flag.
+ * @property string $form_unset  Form value to use when unsetting flag.
+ * @property string $id  Unique ID.
+ * @property string $label  The query label.
+ * @property string $span  Return SPAN HTML to output the icon for use in a
+ *                         mailbox row.
  */
 abstract class IMP_Flag_Base implements Serializable
 {
@@ -60,26 +74,6 @@ abstract class IMP_Flag_Base implements Serializable
     protected $_id = '';
 
     /**
-     * Get object properties.
-     *
-     * @param string $name  Available properties:
-     * <pre>
-     * 'abbreviation' - (string) The abbreviation to use in the mimp view.
-     * 'bgcolor' - (string) The background color.
-     * 'bgdefault' - (boolean) Is the backgroud color the default?
-     * 'canset' - (boolean) Can this flag be set by the user?
-     * 'css' - (string) The CSS class for the icon when the flag is set.
-     * 'cssicon' - (string) The CSS class for the icon.
-     * 'span' - (string) Return SPAN HTML to output the icon for use in a
-     *         mailbox row.
-     * 'fgcolor' - (string) The foreground (text) color.
-     * 'form_set' - (string) Form value to use when setting flag.
-     * 'form_unset' - (string) Form value to use when unsetting flag.
-     * 'id' - (string) Unique ID.
-     * 'label' - (string) The query label.
-     * </pre>
-     *
-     * @return mixed  Property value.
      */
     public function __get($name)
     {
@@ -134,9 +128,7 @@ abstract class IMP_Flag_Base implements Serializable
      * Set properties.
      *
      * @param string $name   Available properties:
-     * <pre>
-     * 'bgcolor' - (string) The background color.
-     * </pre>
+     *   - bgcolor: (string) The background color.
      * @param string $value  Property value.
      */
     public function __set($name, $value)

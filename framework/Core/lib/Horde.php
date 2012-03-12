@@ -141,12 +141,9 @@ class Horde
      *
      * @param mixed $error   Either a string or an object with a getMessage()
      *                       method (e.g. PEAR_Error, Exception).
-     * @param integer $file  The file in which the error occured.
-     * @param integer $line  The line on which the error occured.
-     * @param boolean $log   Log this message via logMessage()?
+     * @param boolean $log   Log this message?
      */
-    static public function fatal($error, $file = null, $line = null,
-                                 $log = true)
+    static public function fatal($error, $log = true)
     {
         // Log the error via logMessage() if requested.
         if ($log) {
@@ -236,9 +233,6 @@ HTML;
                 }
 
                 self::logMessage(new ErrorException('PHP ERROR: ' . $errstr, 0, $errno, $errfile, $errline), $priority);
-                if (class_exists('Horde_Support_Backtrace')) {
-                    self::logMessage(new Horde_Support_Backtrace(), Horde_Log::DEBUG);
-                }
             } catch (Exception $e) {}
         }
     }
@@ -426,8 +420,8 @@ HTML;
     }
 
     /**
-     * Add a signature + timestamp to a query string and return the signed query
-     * string.
+     * Add a signature + timestamp to a query string and return the signed
+     * query string.
      *
      * @param string $queryString  The query string to sign.
      * @param integer $now         The timestamp at which to sign. Leave blank
@@ -581,88 +575,6 @@ HTML;
         }
 
         return false;
-    }
-
-    /**
-     * Returns a response object with added notification information.
-     *
-     * @deprecated  Use Horde_Core_Ajax_Response#__construct() instead.
-     *
-     * @param mixed $data      The 'response' data.
-     * @param boolean $notify  If true, adds notification info to object.
-     *
-     * @return object  The Horde JSON response.  It has the following
-     *                 properties:
-     *   - msgs: (array) [OPTIONAL] List of notification messages.
-     *   - response: (mixed) The response data for the request.
-     */
-    static public function prepareResponse($data = null, $notify = false)
-    {
-        $response = new stdClass();
-        $response->response = $data;
-
-        if ($notify) {
-            $stack = $GLOBALS['notification']->notify(array('listeners' => 'status', 'raw' => true));
-            if (!empty($stack)) {
-                $response->msgs = $stack;
-            }
-        }
-
-        return $response;
-    }
-
-    /**
-     * Send response data to browser.
-     *
-     * @deprecated  Use Horde_Core_Ajax_Response#send() instead.
-     *
-     * @param mixed $data  The data to serialize and send to the browser.
-     * @param string $ct   The content-type to send the data with.  Either
-     *                     'json', 'js-json', 'html', 'plain', and 'xml'.
-     */
-    static public function sendHTTPResponse($data, $ct)
-    {
-        // Output headers and encoded response.
-        switch ($ct) {
-        case 'json':
-        case 'js-json':
-            /* JSON responses are a structured object which always
-             * includes the response in a member named 'response', and an
-             * additional array of messages in 'msgs' which may be updates
-             * for the server or notification messages.
-             *
-             * Make sure no null bytes sneak into the JSON output stream.
-             * Null bytes cause IE to stop reading from the input stream,
-             * causing malformed JSON data and a failed request.  These
-             * bytes don't seem to break any other browser, but might as
-             * well remove them anyway.
-             *
-             * Finally, add prototypejs security delimiters to returned
-             * JSON. */
-            $s_data = str_replace("\00", '', self::escapeJson($data));
-
-            if ($ct == 'json') {
-                header('Content-Type: application/json');
-                echo $s_data;
-            } else {
-                header('Content-Type: text/html; charset=UTF-8');
-                echo htmlspecialchars($s_data);
-            }
-            break;
-
-        case 'html':
-        case 'plain':
-        case 'xml':
-            $s_data = is_string($data) ? $data : $data->response;
-            header('Content-Type: text/' . $ct . '; charset=UTF-8');
-            echo $s_data;
-            break;
-
-        default:
-            echo $data;
-        }
-
-        exit;
     }
 
     /**
@@ -2283,4 +2195,5 @@ HTML;
             $GLOBALS['notification']->push($error, 'horde.warning');
         }
     }
+
 }

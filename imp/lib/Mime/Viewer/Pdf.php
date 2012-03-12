@@ -31,9 +31,7 @@ class IMP_Mime_Viewer_Pdf extends Horde_Mime_Viewer_Pdf
      * Return the full rendered version of the Horde_Mime_Part object.
      *
      * URL parameters used by this function:
-     * <pre>
-     * 'pdf_view_thumbnail' - (boolean) Output the thumbnail info.
-     * </pre>
+     *   - pdf_view_thumbnail: (boolean) Output the thumbnail info.
      *
      * @return array  See parent::render().
      */

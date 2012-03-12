@@ -344,9 +344,8 @@ class IMP_Hooks
 //        // the same domain.
 //        $flags = array();
 //
-//        $from_ob = Horde_Mime_Address::getAddressesFromObject($data['envelope']->from, array('charset' => 'UTF-8'));
-//        if (!empty($from_ob) &&
-//            (strcasecmp($from_ob[0]['host'], 'example.com') === 0)) {
+//        if (($from_ob = $data['envelope']->from[0]) &&
+//            ($from_ob->host == 'example.com')) {
 //            /* The '$indomain' flag in this example must have already been
 //             * created in the 'msgflags' preference. */
 //            $flags = array('$indomain');
@@ -671,10 +670,8 @@ class IMP_Hooks
      * @param array $params  Parameters for the function, set in backends.php.
      *
      * @return array  Tuple with two members:
-     * <pre>
-     * first: disk space used (in bytes)
-     * second: maximum disk space (in bytes)
-     * </pre>
+     *   - first: disk space used (in bytes)
+     *   - second: maximum disk space (in bytes)
      */
 //    public function quota($params = null)
 //    {
@@ -848,14 +845,7 @@ class IMP_Hooks
     /**
      * DIMP: Allows alteration of address formatting in email message headers.
      *
-     * @param stdClass $ob  Object with the following possible properties:
-     * <pre>
-     * 'address' - Full address
-     * 'display' - Display address
-     * 'host' - Host name
-     * 'inner' - Trimmed, bare address
-     * 'personal' - Personal string
-     * </pre>
+     * @param Horde_Mail_Rfc822_Address $ob  An address object.
      *
      * @return string  The raw string to display for that address. This value
      *                 must be properly escaped (i.e. htmlspecialchars() used
@@ -865,7 +855,9 @@ class IMP_Hooks
 //    {
 //         // Example #1: Display only the raw text of the personal name
 //         // or, if not set, the e-mail address.
-//         return empty($ob['personal']) ? $ob['address'] : $ob['personal'];
+//         return is_null($ob->personal)
+//             ? htmlspecialchars($ob->bare_address)
+//             : htmlspecialchars($ob->personal);
 //    }
 
 
@@ -882,10 +874,8 @@ class IMP_Hooks
      * advanced functionality to be available in the mobile view.
      *
      * @param string $feature  The advanced feature. One of the following:
-     * <pre>
-     * 'checkbox' - Adds a checkbox interface to selecting messages on the
-     *              mailbox listing page.
-     * </pre>
+     *   - checkbox: Adds a checkbox interface to selecting messages on the
+     *               mailbox listing page.
      *
      * @return boolean  If true, activates the feature. By default, these
      *                  advanced features are NOT active.

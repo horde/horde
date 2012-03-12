@@ -142,8 +142,6 @@ class Horde_Session
 
     /**
      * Starts the session.
-     *
-     * @since 1.4.0
      */
     public function start()
     {
@@ -234,8 +232,6 @@ class Horde_Session
 
     /**
      * Is the current session active (read/write)?
-     *
-     * @since 1.4.0
      *
      * @return boolean  True if the current session is active.
      */

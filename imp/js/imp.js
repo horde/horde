@@ -7,17 +7,17 @@
 
 var IMP_JS = {
 
+    // Defaulting to null: menumbox_load
+    keydownhandler: null,
     imgs: {},
 
-    keydownhandler: null,
-
-    menuFolderSubmit: function(clear)
+    menuMailboxSubmit: function(clear)
     {
         var mf = $('menuform');
 
-        if ((!this.menufolder_load || clear) &&
+        if ((!this.menumbox_load || clear) &&
             $F(mf.down('SELECT[name="mailbox"]'))) {
-            this.menufolder_load = true;
+            this.menumbox_load = true;
             mf.submit();
         }
     },
@@ -161,12 +161,12 @@ var IMP_JS = {
 
     onDomLoad: function()
     {
-        // If menu is present, attach event handlers to folder switcher.
-        var tmp = $('openfoldericon');
+        // If menu is present, attach event handlers to mailbox switcher.
+        var tmp = $('openmboxicon');
         if (tmp) {
             // Observe actual element since IE does not bubble change events.
-            $('menu').down('[name=mailbox]').observe('change', this.menuFolderSubmit.bind(this));
-            tmp.down().observe('click', this.menuFolderSubmit.bind(this, true));
+            $('menu').down('[name=mailbox]').observe('change', this.menuMailboxSubmit.bind(this));
+            tmp.down().observe('click', this.menuMailboxSubmit.bind(this, true));
         }
     }
 

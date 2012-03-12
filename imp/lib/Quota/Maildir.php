@@ -19,17 +19,15 @@ class IMP_Quota_Maildir extends IMP_Quota
      * Constructor.
      *
      * @param array $params  Parameters:
-     * <pre>
-     * 'msg_count' - (boolean) Display information on the message limit rather
-     *               than the storage limit?
-     *               DEFAULT: false
-     * 'path' - (string) The path to the user's Maildir directory. You may use
-     *          the two-character sequence "~U" to represent the user's
-     *          account name, and the actual username will be substituted in
-     *          that location.
-     *          E.g., '/home/~U/Maildir/' or '/var/mail/~U/Maildir/'
-     *          DEFAULT: ''
-     * </pre>
+     *   - msg_count: (boolean) Display information on the message limit rather
+     *                than the storage limit?
+     *                DEFAULT: false
+     *   - path: (string) The path to the user's Maildir directory. You may use
+     *           the two-character sequence "~U" to represent the user's
+     *           account name, and the actual username will be substituted in
+     *           that location.
+     *           E.g., '/home/~U/Maildir/' or '/var/mail/~U/Maildir/'
+     *           DEFAULT: ''
      */
     public function __construct($params = array())
     {
@@ -43,10 +41,8 @@ class IMP_Quota_Maildir extends IMP_Quota
      * Returns quota information (used/allocated), in bytes.
      *
      * @return array  An array with the following keys:
-     * <pre>
-     * 'limit' = Maximum quota allowed.
-     * 'usage' = Currently used portion of quota (in bytes).
-     * </pre>
+     *   - limit: Maximum quota allowed.
+     *   - usage: Currently used portion of quota (in bytes).
      * @throws IMP_Exception
      */
     public function getQuota()

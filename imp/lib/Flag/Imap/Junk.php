@@ -25,7 +25,6 @@ class IMP_Flag_Imap_Junk extends IMP_Flag_Imap
 
     /**
      */
-    // TODO: BC
     protected $_imapflag = '$junk';
 
     /**

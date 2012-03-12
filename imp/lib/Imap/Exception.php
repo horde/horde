@@ -18,37 +18,11 @@
 class IMP_Imap_Exception extends Horde_Imap_Client_Exception
 {
     /**
-     * Logged the error.
-     *
-     * @var boolean
-     */
-    protected $_logged = false;
-
-    /**
      * Sent the error to the notification system.
      *
      * @var boolean
      */
     public $_notified = false;
-
-    /**
-     * Log the error.
-     *
-     * @param string $msg     Log message.
-     * @param integer $level  Log level.
-     * @param boolean $force  Force logging, even if already done?
-     */
-    public function log($msg = null, $level = 'ERR', $force = false)
-    {
-        if (!$this->_logged || $force) {
-            Horde::logMessage(
-                is_null($msg) ? $this : $msg,
-                $level
-            );
-
-            $this->_logged = true;
-        }
-    }
 
     /**
      * Send notification of the error.
@@ -109,9 +83,6 @@ class IMP_Imap_Exception extends Horde_Imap_Client_Exception
     public function __get($name)
     {
         switch ($name) {
-        case 'logged':
-            return $this->_logged;
-
         case 'notified':
             return $this->_notified;
         }

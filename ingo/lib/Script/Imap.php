@@ -168,15 +168,7 @@ class Ingo_Script_Imap extends Ingo_Script
                 }
 
                 foreach ($msgs as $v) {
-                    $from_addr = Horde_Mime_Address::bareAddress(Horde_Mime_Address::addrArray2String($v->getEnvelope()->from, array('charset' => 'UTF-8')));
-                    $found = false;
-                    foreach ($addr as $val) {
-                        if (strtolower($from_addr) == strtolower($val)) {
-                            $found = true;
-                            break;
-                        }
-                    }
-                    if (!$found) {
+                    if (!$v->getEnvelope()->from->match($addr)) {
                         $indices = array_diff($indices, array($v->getUid()));
                     }
                 }
@@ -282,8 +274,8 @@ class Ingo_Script_Imap extends Ingo_Script
                                 $envelope = $msg->getEnvelope();
                                 $GLOBALS['notification']->push(
                                     sprintf(_("Filter activity: The message \"%s\" from \"%s\" has been moved to the folder \"%s\"."),
-                                            !empty($envelope->subject) ? Horde_Mime::decode($envelope->subject, 'UTF-8') : _("[No Subject]"),
-                                            !empty($envelope->from) ? Horde_Mime_Address::addrArray2String($envelope->from, array('charset' => 'UTF-8')) : _("[No Sender]"),
+                                            !empty($envelope->subject) ? Horde_Mime::decode($envelope->subject) : _("[No Subject]"),
+                                            !empty($envelope->from) ? strval($envelope->from) : _("[No Sender]"),
                                             Horde_String::convertCharset($rule['action-value'], 'UTF7-IMAP', 'UTF-8')),
                                     'horde.message');
                             }
@@ -308,8 +300,8 @@ class Ingo_Script_Imap extends Ingo_Script
                                 $envelope = $msg->getEnvelope();
                                 $GLOBALS['notification']->push(
                                     sprintf(_("Filter activity: The message \"%s\" from \"%s\" has been deleted."),
-                                            !empty($envelope->subject) ? Horde_Mime::decode($envelope->subject, 'UTF-8') : _("[No Subject]"),
-                                            !empty($envelope->from) ? Horde_Mime_Address::addrArray2String($envelope->from, array('charset' => 'UTF-8')) : _("[No Sender]")),
+                                            !empty($envelope->subject) ? Horde_Mime::decode($envelope->subject) : _("[No Subject]"),
+                                            !empty($envelope->from) ? strval($envelope->from) : _("[No Sender]")),
                                     'horde.message');
                             }
                         } else {
@@ -329,8 +321,8 @@ class Ingo_Script_Imap extends Ingo_Script
                                 $envelope = $msg->getEnvelope();
                                 $GLOBALS['notification']->push(
                                     sprintf(_("Filter activity: The message \"%s\" from \"%s\" has been copied to the folder \"%s\"."),
-                                            !empty($envelope->subject) ? Horde_Mime::decode($envelope->subject, 'UTF-8') : _("[No Subject]"),
-                                            !empty($envelope->from) ? Horde_Mime_Address::addrArray2String($envelope->from, array('charset' => 'UTF-8')) : _("[No Sender]"),
+                                            !empty($envelope->subject) ? Horde_Mime::decode($envelope->subject) : _("[No Subject]"),
+                                            !empty($envelope->from) ? strval($envelope->from) : _("[No Sender]"),
                                             Horde_String::convertCharset($rule['action-value'], 'UTF7-IMAP', 'UTF-8')),
                                     'horde.message');
                             }

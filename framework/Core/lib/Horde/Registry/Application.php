@@ -9,17 +9,11 @@
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Core
  */
 class Horde_Registry_Application
 {
-    /**
-     * Does this application support an ajax view?
-     *
-     * @var boolean
-     */
-    public $ajaxView = false;
-
     /**
      * The list of available authentication capabilities handled by this
      * application.
@@ -30,18 +24,27 @@ class Horde_Registry_Application
     public $auth = array();
 
     /**
+     * List of features supported by this application.
+     *
+     * @var array
+     */
+    public $features = array(
+        // View Handlers
+        'dynamicView' => false,
+        'minimalView' => false,
+        'smartmobileView' => false,
+        // Notification Handler
+        'notificationHandler' => false,
+        // Alarm Handler
+        'alarmHandler' => false
+    );
+
+    /**
      * The init params used.
      *
      * @var array
      */
     public $initParams = array();
-
-    /**
-     * Does this application support a mobile view?
-     *
-     * @var boolean
-     */
-    public $mobileView = false;
 
     /**
      * The application's version.
@@ -51,11 +54,90 @@ class Horde_Registry_Application
     public $version = 'unknown';
 
     /**
-     * Has init() previously been called?
+     * Application identifier.
      *
-     * @var boolean
+     * @var string
      */
-    protected $_initDone = false;
+    protected $_app;
+
+    /**
+     * Cached values to add to the session after authentication.
+     *
+     * @var array
+     */
+    protected $_sessVars = array();
+
+    /**
+     * Constructor.
+     *
+     * Global constants defined:
+     *   - [APPNAME]_TEMPLATES - (string) Location of template files.
+     *
+     * @param string $app  Application identifier.
+     */
+    final public function __construct($app)
+    {
+        $this->_app = $app;
+
+        $appname = Horde_String::upper($app);
+        if (!defined($appname . '_TEMPLATES')) {
+            define($appname . '_TEMPLATES', $GLOBALS['registry']->get('templates', $app));
+        }
+
+        $this->_bootstrap();
+    }
+
+    /**
+     * Code run on successful authentication.
+     */
+    final public function authenticated()
+    {
+        $this->updateSessVars();
+        $this->_authenticated();
+    }
+
+    /**
+     * Code run when the application is pushed on the stack for the first
+     * time in a page access.
+     */
+    final public function init()
+    {
+        $this->_init();
+    }
+
+
+    /* Initialization methods. */
+
+    /**
+     * Bootstrap code for an application. This is run when the application
+     * object is being created. The full Horde environment is not available in
+     * this method, and the user may not yet be authenticated. Only tasks
+     * necessary to setup the base application environment should be done here.
+     */
+    protected function _bootstrap()
+    {
+    }
+
+    /**
+     * Code to run on successful authentication. This will be called once
+     * per session, and the entire Horde framework will be available.
+     *
+     * @throws Horde_Exception
+     */
+    protected function _authenticated()
+    {
+    }
+
+    /**
+     * Code run when the application is pushed on the stack for the first
+     * time in a page access. The entire Horde framework will be available,
+     * but the user may not be authenticated.
+     *
+     * @throws Horde_Exception
+     */
+    protected function _init()
+    {
+    }
 
     /**
      * Application-specific code to run if application auth fails.
@@ -67,35 +149,7 @@ class Horde_Registry_Application
     {
     }
 
-    /**
-     * Initialization. Does any necessary init needed to setup the full
-     * environment for the application.
-     *
-     * Global constants defined:
-     * <pre>
-     * [APPNAME]_TEMPLATES - (string) Location of template files.
-     * </pre>
-     */
-    final public function init()
-    {
-        if (!$this->_initDone) {
-            $this->_initDone = true;
-
-            $appname = Horde_String::upper($GLOBALS['registry']->getApp());
-            if (!defined($appname . '_TEMPLATES')) {
-                define($appname . '_TEMPLATES', $GLOBALS['registry']->get('templates'));
-            }
-
-            $this->_init();
-        }
-    }
-
-    /**
-     * Initialization code for an application.
-     */
-    protected function _init()
-    {
-    }
+    /* Menu generation methods. */
 
     /**
      * Add additional items to the menu.
@@ -201,6 +255,8 @@ class Horde_Registry_Application
 
     /**
      * Tries to authenticate with the server and create a session.
+     * Any session variables you want added should be set by calling
+     * _addSessVars() internally within this method.
      *
      * @param string $userId      The username of the user.
      * @param array $credentials  Credentials of the user.
@@ -215,6 +271,8 @@ class Horde_Registry_Application
     /**
      * Tries to transparently authenticate with the server and create a
      * session.
+     * Any session variables you want added should be set by calling
+     * _addSessVars() internally within this method.
      *
      * @param Horde_Core_Auth_Application $auth_ob  The authentication object.
      *
@@ -227,18 +285,7 @@ class Horde_Registry_Application
     }
 
     /**
-     * Does necessary authentication tasks reliant on a full app environment.
-     *
-     * @throws Horde_Auth_Exception
-     */
-    public function authAuthenticateCallback()
-    {
-    }
-
-    /**
      * Validates an existing authentication.
-     *
-     * @since Horde_Core 1.4.0
      *
      * @return boolean  Whether the authentication is still valid.
      */
@@ -317,6 +364,31 @@ class Horde_Registry_Application
     public function authResetPassword($userId)
     {
         return '';
+    }
+
+    /**
+     * Add session variables to the session.
+     *
+     * @param array $vars  Array of session variables to add to the session,
+     *                     once it becomes available.
+     */
+    final protected function _addSessVars($vars)
+    {
+        if (!empty($vars)) {
+            $this->_sessVars = array_merge($this->_sessVars, $vars);
+            register_shutdown_function(array($this, 'updateSessVars'));
+        }
+    }
+
+    /**
+     * Updates cached session variable information into the active session.
+     */
+    final public function updateSessVars()
+    {
+        foreach ($this->_sessVars as $key => $val) {
+            $GLOBALS['session']->set($this->_app, $key, $val);
+        }
+        $this->_sessVars = array();
     }
 
 

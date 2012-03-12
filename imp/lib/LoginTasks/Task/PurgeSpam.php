@@ -1,7 +1,6 @@
 <?php
 /**
- * Login tasks module that purges old messages in the Spam folder.  Based on
- * the purge_trash task, written by Michael Slusarz <slusarz@horde.org>.
+ * Login tasks module that purges old messages in the Spam mailbox.
  *
  * Copyright 2006-2012 Horde LLC (http://www.horde.org/)
  *
@@ -9,6 +8,7 @@
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Matt Selsky <selsky@columbia.edu>
+ * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
@@ -30,15 +30,14 @@ class IMP_LoginTasks_Task_PurgeSpam extends Horde_LoginTasks_Task
     }
 
     /**
-     * Purge old messages in the Spam folder.
+     * Purge old messages in the Spam mailbox.
      *
-     * @return boolean  Whether any messages were purged from the Spam folder.
+     * @return boolean  Whether any messages were purged from the mailbox.
      */
     public function execute()
     {
-        /* If there is no Spam folder set, or it doesn't exist, exit. */
-        if (!($spam_folder = IMP_Mailbox::getPref('spam_folder')) ||
-            !$spam_folder->exists) {
+        /* If there is no Spam mailbox set, or it doesn't exist, exit. */
+        if (!($spam = IMP_Mailbox::getPref('spam_folder')) || !$spam->exists) {
             return false;
         }
 
@@ -50,12 +49,12 @@ class IMP_LoginTasks_Task_PurgeSpam extends Horde_LoginTasks_Task
         /* Get the list of messages older than 'purge_spam_keep' days. */
         $query = new Horde_Imap_Client_Search_Query();
         $query->dateSearch($del_time, Horde_Imap_Client_Search_Query::DATE_BEFORE);
-        $msg_ids = $spam_folder->runSearchQuery($query);
+        $msg_ids = $spam->runSearchQuery($query);
 
         /* Go through the message list and delete the messages. */
         if ($GLOBALS['injector']->getInstance('IMP_Message')->delete($msg_ids, array('nuke' => true))) {
             $msgcount = count($msg_ids);
-            $GLOBALS['notification']->push(sprintf(ngettext("Purging %d message from Spam folder.", "Purging %d messages from Spam folder.", $msgcount), $msgcount), 'horde.message');
+            $GLOBALS['notification']->push(sprintf(ngettext("Purging %d message from Spam mailbox.", "Purging %d messages from Spam mailbox.", $msgcount), $msgcount), 'horde.message');
             return true;
         }
 
@@ -70,7 +69,7 @@ class IMP_LoginTasks_Task_PurgeSpam extends Horde_LoginTasks_Task
      */
     public function describe()
     {
-        return sprintf(_("All messages in your \"%s\" folder older than %s days will be permanently deleted."),
+        return sprintf(_("All messages in your \"%s\" mailbox older than %s days will be permanently deleted."),
                        IMP_Mailbox::getPref('spam_folder')->display_html,
                        $GLOBALS['prefs']->getValue('purge_spam_keep'));
     }

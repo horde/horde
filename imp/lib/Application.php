@@ -37,9 +37,6 @@ require_once HORDE_BASE . '/lib/core.php';
 
 class IMP_Application extends Horde_Registry_Application
 {
-    /**
-     */
-    public $ajaxView = true;
 
     /**
      */
@@ -53,18 +50,16 @@ class IMP_Application extends Horde_Registry_Application
 
     /**
      */
-    public $mobileView = true;
+    public $features = array(
+        'dynamicView' => true,
+        'minimalView' => true,
+        'notificationHandler' => true,
+        'smartmobileView' => true
+    );
 
     /**
      */
-    public $version = 'H4 (5.1-git)';
-
-    /**
-     * Cached values to add to the session after authentication.
-     *
-     * @var array
-     */
-    protected $_cacheSess = array();
+    public $version = 'H5 (6.0-git)';
 
     /**
      * Server key used in logged out session.
@@ -72,19 +67,6 @@ class IMP_Application extends Horde_Registry_Application
      * @var string
      */
     protected $_oldserver = null;
-
-    /**
-     * Constructor.
-     */
-    public function __construct()
-    {
-        /* Methods only available if admin config is set for this
-         * server/login. */
-        if (!isset($GLOBALS['session']) ||
-            !$GLOBALS['session']->get('imp', 'imap_admin')) {
-            $this->auth = array_diff($this->auth, array('add', 'list', 'remove'));
-        }
-    }
 
     /**
      */
@@ -98,7 +80,7 @@ class IMP_Application extends Horde_Registry_Application
 
     /**
      */
-    protected function _init()
+    protected function _bootstrap()
     {
         /* Add IMP-specific factories. */
         $factories = array(
@@ -118,6 +100,25 @@ class IMP_Application extends Horde_Registry_Application
             $GLOBALS['injector']->bindFactory($key, $val, 'create');
         }
 
+        /* Methods only available if admin config is set for this
+         * server/login. */
+        if (!isset($GLOBALS['session']) ||
+            !$GLOBALS['session']->get('imp', 'imap_admin')) {
+            $this->auth = array_diff($this->auth, array('add', 'list', 'remove'));
+        }
+    }
+
+    /**
+     */
+    protected function _authenticated()
+    {
+        IMP_Auth::authenticateCallback();
+    }
+
+    /**
+     */
+    protected function _init()
+    {
         // Set default message character set.
         if ($GLOBALS['registry']->getAuth()) {
             if ($def_charset = $GLOBALS['prefs']->getValue('default_msg_charset')) {
@@ -187,11 +188,11 @@ class IMP_Application extends Horde_Registry_Application
     {
         return array(
             'create_folders' => array(
-                'title' => _("Allow Folder Creation?"),
+                'title' => _("Allow mailbox creation?"),
                 'type' => 'boolean'
             ),
             'max_folders' => array(
-                'title' => _("Maximum Number of Folders"),
+                'title' => _("Maximum Number of Mailboxes"),
                 'type' => 'int'
             ),
             'max_recipients' => array(
@@ -273,27 +274,27 @@ class IMP_Application extends Horde_Registry_Application
         if ($imp_imap->access(IMP_Imap::ACCESS_TRASH) &&
             $prefs->getValue('use_trash') &&
             $prefs->getValue('empty_trash_menu') &&
-            ($trash_folder = IMP_Mailbox::getPref('trash_folder')) &&
-            ($trash_folder->vtrash || $trash_folder->access_expunge)) {
+            ($trash = IMP_Mailbox::getPref('trash_folder')) &&
+            ($trash->vtrash || $trash->access_expunge)) {
             $menu->addArray(array(
                 'class' => '__noselection',
                 'icon' => 'empty_trash.png',
-                'onclick' => 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to empty your trash folder?"), Horde_Serialize::JSON, 'UTF-8') . ')',
+                'onclick' => 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to empty your trash mailbox?"), Horde_Serialize::JSON, 'UTF-8') . ')',
                 'text' => _("Empty _Trash"),
-                'url' => $trash_folder->url($menu_mailbox_url)->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => $injector->getInstance('Horde_Token')->get('imp.mailbox')))
+                'url' => $trash->url($menu_mailbox_url)->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => $injector->getInstance('Horde_Token')->get('imp.mailbox')))
             ));
         }
 
         if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS) &&
             $prefs->getValue('empty_spam_menu') &&
-            ($spam_folder = IMP_Mailbox::getPref('spam_folder')) &&
-            $spam_folder->access_expunge) {
+            ($spam = IMP_Mailbox::getPref('spam_folder')) &&
+            $spam->access_expunge) {
             $menu->addArray(array(
                 'class' => '__noselection',
                 'icon' =>  'empty_spam.png',
-                'onclick' => 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to empty your spam folder?"), Horde_Serialize::JSON, 'UTF-8') . ')',
+                'onclick' => 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to empty your spam mailbox?"), Horde_Serialize::JSON, 'UTF-8') . ')',
                 'text' => _("Empty _Spam"),
-                'url' => $spam_folder->url($menu_mailbox_url)->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => $injector->getInstance('Horde_Token')->get('imp.mailbox')))
+                'url' => $spam->url($menu_mailbox_url)->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => $injector->getInstance('Horde_Token')->get('imp.mailbox')))
             ));
         }
 
@@ -393,8 +394,6 @@ class IMP_Application extends Horde_Registry_Application
      */
     public function authAuthenticate($userId, $credentials)
     {
-        $this->init();
-
         if (isset($credentials['server'])) {
             $server = $credentials['server'];
         } else {
@@ -403,45 +402,23 @@ class IMP_Application extends Horde_Registry_Application
                 : $credentials['imp_server_key'];
         }
 
-        $new_session = IMP_Auth::authenticate(array(
+        $this->_addSessVars(IMP_Auth::authenticate(array(
             'password' => $credentials['password'],
             'server' => $server,
             'userId' => $userId
-        ));
-
-        if ($new_session) {
-            $this->_cacheSess = $new_session;
-        }
+        )));
     }
 
     /**
      */
     public function authTransparent($auth_ob)
     {
-        $this->init();
-
         if ($result = IMP_Auth::transparent($auth_ob)) {
-            $this->_cacheSess = $result;
+            $this->_addSessVars($result);
             return true;
         }
 
         return false;
-    }
-
-    /**
-     */
-    public function authAuthenticateCallback()
-    {
-        if ($GLOBALS['registry']->getAuth()) {
-            $this->init();
-
-            foreach ($this->_cacheSess as $key => $val) {
-                $GLOBALS['session']->set('imp', $key, $val);
-            }
-            $this->_cacheSess = array();
-
-            IMP_Auth::authenticateCallback();
-        }
     }
 
     /**
@@ -605,19 +582,10 @@ class IMP_Application extends Horde_Registry_Application
      */
     public function changeLanguage()
     {
-        $this->init();
-        $this->mailboxesChanged();
+        $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->init();
     }
 
     /* Helper methods. */
-
-    /**
-     * Run tasks when the mailbox list has changed.
-     */
-    public function mailboxesChanged()
-    {
-        $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->init();
-    }
 
     /**
      * Callback, called from common-template-mobile.inc that sets up the jquery

@@ -194,7 +194,7 @@ class Horde_Serialize
             break;
 
         case self::IMAPUTF8:
-            $data = Horde_Mime::decode($data, 'UTF-8');
+            $data = Horde_Mime::decode($data);
             break;
 
         // $params['level'] = Level of compression (default: 3)
@@ -308,7 +308,7 @@ class Horde_Serialize
             break;
 
         case self::IMAPUTF8:
-            $data = Horde_Mime::encode($data, 'UTF-8');
+            $data = Horde_Mime::encode($data);
             break;
 
         case self::BASIC:

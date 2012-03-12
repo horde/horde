@@ -273,7 +273,9 @@ var ViewPort = Class.create({
         this.empty_msg = new Element('SPAN', { className: 'vpEmpty' });
 
         // Set up AJAX response function.
-        this.ajax_response = this.opts.onAjaxResponse || this._ajaxRequestComplete.bind(this);
+        this.ajax_response = this.opts.onAjaxResponse || function(r) {
+            this.parseJSONResponse(r.responseJSON);
+        }.bind(this);
 
         Event.observe(window, 'resize', this.onResize.bind(this));
     },
@@ -505,7 +507,7 @@ var ViewPort = Class.create({
             });
             this.opts.content.setStyle({ width: '100%' });
             sp.currbar.show();
-            this.opts.pane_data.setStyle({ height: (this._getMaxHeight() - h) + 'px' }).show();
+            this.opts.pane_data.setStyle({ height: Math.max(this._getMaxHeight() - h, 0) + 'px' }).show();
             break;
 
         case 'vert':
@@ -804,22 +806,9 @@ var ViewPort = Class.create({
         }));
     },
 
-    _ajaxRequestComplete: function(r)
-    {
-        if (r.responseJSON) {
-            this.parseJSONResponse(r.responseJSON);
-        }
-    },
-
     // r - (object) responseJSON returned from the server.
     parseJSONResponse: function(r)
     {
-        if (!r.ViewPort) {
-            return;
-        }
-
-        r = r.ViewPort;
-
         if (r.rangelist) {
             this.select(this.createSelection('uid', r.rangelist, r.view));
             this.opts.container.fire('ViewPort:endRangeFetch', r.view);

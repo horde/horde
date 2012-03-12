@@ -337,8 +337,7 @@ case 'low':
 
 /* Build Reply-To address link. */
 if (!empty($envelope->reply_to) &&
-    (Horde_Mime_Address::bareAddress(Horde_Mime_Address::addrObject2String($envelope->from[0], array('charset' => 'UTF-8'))) !=
-     Horde_Mime_Address::bareAddress(Horde_Mime_Address::addrObject2String($envelope->reply_to[0], array('charset' => 'UTF-8')))) &&
+    ($envelope->from[0]->bare_address != $envelope->reply_to[0]->bare_address)  &&
     ($reply_to = $imp_ui->buildAddressLinks($envelope->reply_to, $self_link))) {
     $display_headers['reply-to'] = $reply_to;
 }
@@ -482,13 +481,13 @@ if ($imp_imap->access(IMP_Imap::ACCESS_FLAGS)) {
 }
 
 if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
-    $n_template->set('move', Horde::widget('#', _("Move to folder"), 'widget moveAction', '', '', _("Move"), true));
-    $n_template->set('copy', Horde::widget('#', _("Copy to folder"), 'widget copyAction', '', '', _("Copy"), true));
+    $n_template->set('move', Horde::widget('#', _("Move to mailbox"), 'widget moveAction', '', '', _("Move"), true));
+    $n_template->set('copy', Horde::widget('#', _("Copy to mailbox"), 'widget copyAction', '', '', _("Copy"), true));
     $n_template->set('options', IMP::flistSelect(array(
         'heading' => _("This message to"),
         'inc_tasklists' => true,
         'inc_notepads' => true,
-        'new_folder' => true
+        'new_mbox' => true
     )));
 }
 
@@ -539,7 +538,11 @@ if (!$disable_compose) {
         $a_template->set('reply_list', Horde::widget(IMP::composeLink(array(), array('actionID' => 'reply_list') + $compose_params), _("To List"), 'widget', '', '', _("To _List"), true));
     }
 
-    if (Horde_Mime_Address::addrArray2String(array_merge($envelope->to, $envelope->cc), array('charset' => 'UTF-8', 'filter' => array_keys($user_identity->getAllFromAddresses(true))))) {
+    $addr_ob = clone $envelope->to;
+    $addr_ob->add($envelope->cc);
+    $addr_ob->setIteratorFilter(0, array_keys($user_identity->getAllFromAddresses(true)));
+
+    if (count($addr_ob)) {
         $a_template->set('show_reply_all', Horde::widget(IMP::composeLink(array(), array('actionID' => 'reply_all') + $compose_params), _("To All"), 'widget', '', '', _("To _All"), true));
     }
 
@@ -730,8 +733,8 @@ Horde::addScriptFile('imp.js', 'imp');
 Horde::addScriptFile('message.js', 'imp');
 
 if (!empty($conf['tasklist']['use_notepad']) || !empty($conf['tasklist']['use_tasklist'])) {
-    Horde::addScriptFile('dialog.js', 'imp');
     Horde::addScriptFile('redbox.js', 'horde');
+    Horde::addScriptFile('dialog.js', 'horde');
 }
 
 $menu = IMP::menu();

@@ -10,27 +10,27 @@
     <select id="action_choose<tag:id />">
      <option selected="selected"><gettext>Choose Action</gettext></option>
      <option value="" disabled="disabled">--------------------</option>
-<if:create_folder>
-     <option value="create_folder"><gettext>Create</gettext></option>
-</if:create_folder>
-     <option value="rename_folder"><gettext>Rename</gettext></option>
-     <option value="delete_folder_confirm"><gettext>Delete</gettext></option>
-     <option value="folders_empty_mailbox_confirm"><gettext>Empty</gettext></option>
+<if:create_mbox>
+     <option value="create_mbox"><gettext>Create</gettext></option>
+</if:create_mbox>
+     <option value="rename_mbox"><gettext>Rename</gettext></option>
+     <option value="delete_mbox_confirm"><gettext>Delete</gettext></option>
+     <option value="empty_mbox_confirm"><gettext>Empty</gettext></option>
 <if:notrash>
-     <option value="expunge_folder"><gettext>Purge</gettext></option>
+     <option value="expunge_mbox"><gettext>Expunge</gettext></option>
 </if:notrash>
 <if:subscribe>
-     <option value="subscribe_folder"><gettext>Subscribe</gettext></option>
-     <option value="unsubscribe_folder"><gettext>Unsubscribe</gettext></option>
+     <option value="subscribe_mbox"><gettext>Subscribe</gettext></option>
+     <option value="unsubscribe_mbox"><gettext>Unsubscribe</gettext></option>
 </if:subscribe>
 <if:nav_poll>
-     <option value="poll_folder"><gettext>Check for New Mail</gettext></option>
-     <option value="nopoll_folder"><gettext>Do Not Check for New Mail</gettext></option>
+     <option value="poll_mbox"><gettext>Check for New Mail</gettext></option>
+     <option value="nopoll_mbox"><gettext>Do Not Check for New Mail</gettext></option>
 </if:nav_poll>
-     <option value="mark_folder_seen"><gettext>Mark All Messages as Seen</gettext></option>
-     <option value="mark_folder_unseen"><gettext>Mark All Messages as Unseen</gettext></option>
-     <option value="download_folder"><gettext>Download</gettext></option>
-     <option value="download_folder_zip"><gettext>Download (.zip format)</gettext></option>
+     <option value="mark_mbox_seen"><gettext>Mark All Messages as Seen</gettext></option>
+     <option value="mark_mbox_unseen"><gettext>Mark All Messages as Unseen</gettext></option>
+     <option value="download_mbox"><gettext>Download</gettext></option>
+     <option value="download_mbox_zip"><gettext>Download (.zip format)</gettext></option>
 <if:file_upload>
      <option value="import_mbox"><gettext>Import Messages</gettext></option>
 </if:file_upload>

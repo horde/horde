@@ -13,8 +13,7 @@ Horde_Registry::appInit('ansel');
 
 
 /* Load mobile? */
-$mode = $session->get('horde', 'mode');
-if ($mode == 'smartmobile' || $mode == 'mobile') {
+if (in_array($registry->getView(), array(Horde_Registry::VIEW_MINIMAL, Horde_Registry::VIEW_SMARTMOBILE))) {
     include ANSEL_BASE . '/mobile.php';
     exit;
 }

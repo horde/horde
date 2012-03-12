@@ -25,7 +25,14 @@ require_once HORDE_BASE . '/lib/core.php';
 
 class Jonah_Application extends Horde_Registry_Application
 {
-    public $version = 'H4 (1.0-git)';
+    public $version = 'H5 (1.0-git)';
+
+    /**
+     */
+    protected function _bootstrap()
+    {
+        $GLOBALS['injector']->bindFactory('Jonah_Driver', 'Jonah_Factory_Driver', 'create');
+    }
 
     /**
      * Global variables defined:
@@ -33,8 +40,6 @@ class Jonah_Application extends Horde_Registry_Application
      */
     protected function _init()
     {
-        $GLOBALS['injector']->bindFactory('Jonah_Driver', 'Jonah_Factory_Driver', 'create');
-
         if ($channel_id = Horde_Util::getFormData('channel_id')) {
             $url = Horde::url('delivery/rss.php', true, -1)
                 ->add('channel_id', $channel_id);

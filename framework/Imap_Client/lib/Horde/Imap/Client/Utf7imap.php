@@ -158,12 +158,12 @@ class Horde_Imap_Client_Utf7imap
      * @param string $str     The UTF-8 string.
      * @param boolean $force  Assume $str is UTF-8 (no-autodetection)? If
      *                        false, attempts to auto-detect if string is
-     *                        already in UTF7-IMAP. (Since 1.2.0)
+     *                        already in UTF7-IMAP.
      *
      * @return string  The converted UTF7-IMAP string.
      * @throws Horde_Imap_Client_Exception
      */
-    public static function Utf8ToUtf7Imap($str, $force = false)
+    public static function Utf8ToUtf7Imap($str, $force = true)
     {
         if ($str instanceof Horde_Imap_Client_Mailbox) {
             return $str->utf7imap;

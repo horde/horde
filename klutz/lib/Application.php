@@ -34,7 +34,7 @@ class Klutz_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = 'H4 (2.0.0-git)';
+    public $version = 'H5 (2.0-git)';
 
     /**
      * Global variables defined:

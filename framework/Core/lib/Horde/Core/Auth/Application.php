@@ -641,14 +641,13 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
         if (!$GLOBALS['session']->exists('horde', 'view')) {
             $this->_setView();
         }
+
         if ($this->_base &&
             isset($GLOBALS['notification']) &&
             ($expire = $this->_base->getCredential('expire'))) {
             $toexpire = ($expire - time()) / 86400;
             $GLOBALS['notification']->push(sprintf(Horde_Core_Translation::ngettext("%d day until your password expires.", "%d days until your password expires.", $toexpire), $toexpire), 'horde.warning');
         }
-
-        $registry->callAppMethod($this->_app, 'authAuthenticateCallback', array('noperms' => true));
 
         return true;
     }
@@ -732,9 +731,6 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
 
         $this->_view = $mode;
         $registry->setView($registry_map[$mode]);
-
-        // TODO/DEPRECATED: BC for H4.0 apps
-        $session->set('horde', 'mode', $mode);
     }
 
 }

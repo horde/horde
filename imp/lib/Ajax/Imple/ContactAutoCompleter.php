@@ -12,7 +12,7 @@
  * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
-class IMP_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Ajax_Imple_AutoCompleter
+class IMP_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Ajax_Imple_ContactAutoCompleter
 {
     /**
      * Has the address book been output to the browser?
@@ -26,33 +26,17 @@ class IMP_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Ajax_Imple_AutoComp
      */
     protected function _attach($js_params)
     {
-        $js_params['indicator'] = $this->_params['triggerId'] . '_loading_img';
-
-        $ret = array(
-            'params' => $js_params,
-            'raw_params' => array(
-                'onSelect' => 'function (v) { if (!v.endsWith(";")) { v += ","; } return v + " "; }',
-                'onType' => 'function (e) { return e.include("<") ? "" : e; }'
-            )
-        );
+        $ret = parent::_attach($js_params);
 
         $ac_browser = empty($GLOBALS['conf']['compose']['ac_browser'])
             ? 0
             : $GLOBALS['conf']['compose']['ac_browser'];
 
         if ($ac_browser && !$GLOBALS['session']->get('imp', 'ac_ajax')) {
-            $success = $use_ajax = true;
-            $sparams = IMP::getAddressbookSearchParams();
-            foreach ($sparams['fields'] as $val) {
-                array_map('strtolower', $val);
-                sort($val);
-                if ($val != array('email', 'name')) {
-                    $success = false;
-                    break;
-                }
-            }
-            if ($success) {
-                $addrlist = IMP_Compose::getAddressList();
+            $use_ajax = true;
+            $sparams = $this->_getAddressbookSearchParams();
+            if (!array_diff($sparams->fields, array('email', 'name'))) {
+                $addrlist = $this->getAddressList();
                 $use_ajax = count($addrlist) > $ac_browser;
             }
             $GLOBALS['session']->set('imp', 'ac_ajax', $use_ajax);
@@ -64,12 +48,12 @@ class IMP_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Ajax_Imple_AutoComp
         } else {
             if (!self::$_listOutput) {
                 if (!isset($addrlist)) {
-                    $addrlist = IMP_Compose::getAddressList();
+                    $addrlist = $this->getAddressList();
                 }
                 Horde::addInlineScript(array_merge(array(
                     'if (!window.IMP) window.IMP = {}'
                 ), Horde::addInlineJsVars(array(
-                    'IMP.ac_list' => $addrlist
+                    'IMP.ac_list' => $addrlist->addresses
                 ), array('ret_vars' => true))));
                 self::$_listOutput = true;
             }
@@ -81,21 +65,16 @@ class IMP_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Ajax_Imple_AutoComp
     }
 
     /**
-     * Perform the address search.
-     *
-     * @param array $args  Array with 1 key: 'input'.
-     *
-     * @return array  The data to send to the autocompleter JS code.
      */
-    public function handle($args, $post)
+    protected function _getAddressbookSearchParams()
     {
-        // Avoid errors if 'input' isn't set and short-circuit empty searches.
-        if (empty($args['input']) ||
-            !($input = Horde_Util::getPost($args['input']))) {
-            return array();
-        }
+        $params = IMP::getAddressbookSearchParams();
 
-        return IMP_Compose::expandAddresses($input, array('levenshtein' => true));
+        $ob = new stdClass;
+        $ob->fields = $params['fields'];
+        $ob->sources = $params['sources'];
+
+        return $ob;
     }
 
 }

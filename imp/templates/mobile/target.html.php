@@ -10,7 +10,7 @@
         <?php echo $this->options ?>
       </select>
       <div id="imp-target-newdiv">
-        <label for="imp-target-new"><?php echo _("New folder name:") ?></label>
+        <label for="imp-target-new"><?php echo _("New mailbox name:") ?></label>
         <input id="imp-target-new" type="text" />
         <input id="imp-target-new-submit" type="button" data-theme="a" value="<?php echo _("Create") ?>" />
       </div>

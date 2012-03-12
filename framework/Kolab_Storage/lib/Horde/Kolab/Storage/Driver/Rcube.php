@@ -761,7 +761,7 @@ extends Horde_Kolab_Storage_Driver_Base
             }
 
             if ($data[4] !== null) {
-                $ob->setDescription(Horde_Mime::decode($data[4], 'UTF-8'));
+                $ob->setDescription(Horde_Mime::decode($data[4]));
             }
 
             if ($data[5] !== null) {
@@ -840,7 +840,7 @@ extends Horde_Kolab_Storage_Driver_Base
             }
         }
 
-        $ret = Horde_Mime::decodeParam($type, $params, 'UTF-8');
+        $ret = Horde_Mime::decodeParam($type, $params);
 
         return $ret['params'];
     }

@@ -285,30 +285,40 @@ class Horde_Text_Flowed
                         /* Remaining section of line is short enough. */
                         $this->_output[] = array('text' => $line, 'level' => $num_quotes);
                         break;
-                    } elseif ($m = Horde_String::regexMatch($line, array('^(.{' . $min . ',' . $opt . '}) (.*)', '^(.{' . $min . ',' . $this->_maxlength . '}) (.*)', '^(.{' . $min . ',})? (.*)'), $this->_charset)) {
-                        /* We need to wrap text at a certain number of
-                         * *characters*, not a certain number of *bytes*;
-                         * thus the need for a multibyte capable regex.
-                         * If a multibyte regex isn't available, we are stuck
-                         * with preg_match() (the function will still work -
-                         * we will just be left with shorter rows than expected
-                         * if multibyte characters exist in the row).
-                         *
-                         * Algorithim:
-                         * 1. Try to find a string as long as _optlength.
-                         * 2. Try to find a string as long as _maxlength.
-                         * 3. Take the first word. */
-                        if (empty($m[1])) {
-                            $m[1] = $m[2];
-                            $m[2] = '';
-                        }
-                        $this->_output[] = array('text' => $m[1] . ' ' . (($delsp) ? ' ' : ''), 'level' => $num_quotes);
-                        $line = $m[2];
                     } else {
-                        /* One excessively long word left on line.  Be
-                         * absolutely sure it does not exceed 998 characters
-                         * in length or else we must truncate. */
-                        if ($line_length > 998) {
+                        $regex = array();
+                        if ($min <= $opt) {
+                            $regex[] = '^(.{' . $min . ',' . $opt . '}) (.*)';
+                        }
+                        if ($min <= $this->_maxlength) {
+                            $regex[] = '^(.{' . $min . ',' . $this->_maxlength . '}) (.*)';
+                        }
+                        $regex[] = '^(.{' . $min . ',})? (.*)';
+
+                        if ($m = Horde_String::regexMatch($line, $regex, $this->_charset)) {
+                            /* We need to wrap text at a certain number of
+                             * *characters*, not a certain number of *bytes*;
+                             * thus the need for a multibyte capable regex.
+                             * If a multibyte regex isn't available, we are
+                             * stuck with preg_match() (the function will
+                             * still work - are just left with shorter rows
+                             * than expected if multibyte characters exist in
+                             * the row).
+                             *
+                             * 1. Try to find a string as long as _optlength.
+                             * 2. Try to find a string as long as _maxlength.
+                             * 3. Take the first word. */
+                            if (empty($m[1])) {
+                                $m[1] = $m[2];
+                                $m[2] = '';
+                            }
+                            $this->_output[] = array('text' => $m[1] . ' ' . (($delsp) ? ' ' : ''), 'level' => $num_quotes);
+                            $line = $m[2];
+                        } elseif ($line_length > 998) {
+                            /* One excessively long word left on line.  Be
+                             * absolutely sure it does not exceed 998
+                             * characters in length or else we must
+                             * truncate. */
                             $this->_output[] = array('text' => Horde_String::substr($line, 0, 998, $this->_charset), 'level' => $num_quotes);
                             $line = Horde_String::substr($line, 998, null, $this->_charset);
                         } else {

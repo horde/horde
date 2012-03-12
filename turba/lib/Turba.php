@@ -284,14 +284,15 @@ class Turba
         }
 
         $out = array();
+        $rfc822 = $GLOBALS['injector']->getInstance('Horde_Mail_Rfc822');
 
         if (!is_array($data)) {
             $data = array($data);
         }
 
         foreach ($data as $i => $email_vals) {
-            foreach (Horde_Mime_Address::parseAddressList($email_vals) as $j => $ob) {
-                $addr = Horde_Mime_Address::addrObject2String($ob);
+            foreach ($rfc822->parseAddressList($email_vals) as $ob) {
+                $addr = strval($ob);
                 $tmp = null;
 
                 if (self::$_cache['useRegistry']) {

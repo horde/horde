@@ -139,7 +139,7 @@ extends PHPUnit_Framework_TestCase
 
         case 'IMP_Mail':
             if (!isset($this->_mail)) {
-                $this->_mail = Horde_Mail::factory('Mock');
+                $this->_mail = new Horde_Mail_Transport_Mock();
             }
             return $this->_mail;
         }
