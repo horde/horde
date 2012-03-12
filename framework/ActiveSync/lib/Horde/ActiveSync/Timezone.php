@@ -335,8 +335,9 @@ class Horde_ActiveSync_Timezone
         // check each condition in a single if statement and break the chain
         // when one condition is not met - for performance reasons
         if ($standardOffset == $std['offset']) {
-            if (empty($offsets['dstmonth']) && (empty($dst) || empty($dst['isdst']))) {
-                //No DST
+            if ((empty($offsets['dstmonth']) && (empty($dst) || empty($dst['isdst']))) ||
+                (empty($dst) && !empty($offsets['dstmonth']))) {
+                // Offset contains DST, but no dst to compare
                 return true;
             }
             $daylightOffset = ($offsets['bias'] + $offsets['dstbias']) * 60 * -1;
