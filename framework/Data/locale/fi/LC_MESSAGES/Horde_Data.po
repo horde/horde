@@ -1,14 +1,14 @@
 # Finnish translations for Horde_Data module.
 # Copyright 2010-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Data module.
-# Leena Heino <liinu@uta.fi>, 2010-2011.
+# Leena Heino <liinu@uta.fi>, 2010-2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Data\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
-"PO-Revision-Date: 2011-04-03 10:11:16+0300\n"
+"POT-Creation-Date: 2012-02-22 11:20+0100\n"
+"PO-Revision-Date: 2012-03-07 19:19:16+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -17,10 +17,32 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: lib/Horde/Data/Csv.php:98
+msgid "Cannot open file."
+msgstr "Tiedostoa ei voi aukaista."
+
 #: lib/Horde/Data/Tsv.php:222
 msgid "TSV file"
 msgstr "TSV-tiedosto"
 
-#: lib/Horde/Data/Base.php:281
+#: lib/Horde/Data/Base.php:279
 msgid "The file contained no data."
 msgstr "Tiedosto oli tyhjä."
+
+#: lib/Horde/Data/Base.php:339
+msgid "The uploaded data was lost since the previous step."
+msgstr "Tuotu tiedosto oli tyhjä edellisen kohdan takia."
+
+#: lib/Horde/Data/Csv.php:230 lib/Horde/Data/Tsv.php:228
+msgid "The uploaded file could not be saved."
+msgstr "Tuotua tiedostoa ei voitu tallentaa."
+
+#: lib/Horde/Data/Imc.php:32
+msgid "There was an error importing the iCalendar data."
+msgstr "Tapahtui virhe tuotaessa iCalendar tietoja."
+
+#: lib/Horde/Data/Base.php:286
+msgid ""
+"You didn\\'t map any fields from the imported file to the corresponding "
+"fields."
+msgstr "Et ollut muodostanut liitospareja tuodun tuotujen kenttien kesken."

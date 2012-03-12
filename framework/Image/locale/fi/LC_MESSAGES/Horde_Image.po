@@ -1,14 +1,14 @@
 # Finnish translations for Horde_Image module.
 # Copyright 2010-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Image module.
-# Leena Heino <liinu@uta.fi>, 2010-2011.
+# Leena Heino <liinu@uta.fi>, 2010-2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Image\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
-"PO-Revision-Date: 2011-04-03 10:12:21+0300\n"
+"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"PO-Revision-Date: 2012-03-09 09:51:41+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -359,15 +359,15 @@ msgstr "Viileä, valkoinen loisteputki"
 msgid "Copyright"
 msgstr "Tekijänoikeus"
 
-#: lib/Horde/Image/Exif/Bundled.php:269
+#: lib/Horde/Image/Exif/Bundled.php:285
 msgid "Couldnt Find IFD1"
 msgstr "Ei löytynyt IFD1"
 
-#: lib/Horde/Image/Exif/Bundled.php:315
+#: lib/Horde/Image/Exif/Bundled.php:331
 msgid "Couldnt Find InteroperabilityIFD"
 msgstr "Ei löytynyt InteroperabilityIFD"
 
-#: lib/Horde/Image/Exif/Bundled.php:232
+#: lib/Horde/Image/Exif/Bundled.php:248
 msgid "Couldnt Find SubIFD"
 msgstr "Ei löytynyt SubIFD"
 
@@ -595,15 +595,15 @@ msgstr "ISO-asetus"
 msgid "ISO studio tungsten"
 msgstr "ISO studio tungsteeni"
 
-#: lib/Horde/Image/Exif/Bundled.php:288
+#: lib/Horde/Image/Exif/Bundled.php:304
 msgid "Illegal size for IFD1"
 msgstr "Epäkelpo koko IFD1:lle"
 
-#: lib/Horde/Image/Exif/Bundled.php:334
+#: lib/Horde/Image/Exif/Bundled.php:350
 msgid "Illegal size for InteroperabilityIFD"
 msgstr "Epäkelpo koko InteroperabilityIFD:lle"
 
-#: lib/Horde/Image/Exif/Bundled.php:251
+#: lib/Horde/Image/Exif/Bundled.php:267
 msgid "Illegal size for SubIFD"
 msgstr "Epäkelpo koko SubIFD:lle"
 
@@ -659,9 +659,9 @@ msgstr "Leveyspiiri"
 msgid "Left"
 msgstr "Vasen"
 
-#: lib/Horde/Image/Exif.php:127
-msgid "Lens"
-msgstr "Linssi"
+#: lib/Horde/Image/Exif.php:126
+msgid "Lens Id"
+msgstr "Linssi Id"
 
 #: lib/Horde/Image/Exif.php:120
 msgid "Light source"
@@ -669,7 +669,7 @@ msgstr "Valonlähde"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:260
 msgid "Locked (Pan Mode)"
-msgstr "Lukittu (Pan moodi)"
+msgstr "Lukittu (Pan tila)"
 
 #: lib/Horde/Image/Exif.php:89
 msgid "Longitude"
@@ -729,7 +729,7 @@ msgstr "Keskikoinen"
 
 #: lib/Horde/Image/Exif.php:111
 msgid "Metering Mode"
-msgstr "Mittausmoodi"
+msgstr "Mittaustila"
 
 #: lib/Horde/Image/Exif.php:293
 msgid "Mirrored"
@@ -737,11 +737,11 @@ msgstr "Peilikuva"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:215
 msgid "Mode 1"
-msgstr "Moodi 1"
+msgstr "Tila 1"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:221
 msgid "Mode 2"
-msgstr "Moodi 2"
+msgstr "Tila 2"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:165
 msgid "Monochrome"
@@ -1119,7 +1119,7 @@ msgstr "Aurinkoinen"
 msgid "Superfine"
 msgstr "Supertarkka"
 
-#: lib/Horde/Image/Exif/Bundled.php:53
+#: lib/Horde/Image/Exif/Bundled.php:69
 msgid "The file could not be opened."
 msgstr "Tiedostoa ei voitu avata."
 
@@ -1317,7 +1317,7 @@ msgstr "muu valonlähde"
 msgid "sRGB"
 msgstr "sRGB"
 
-#: lib/Horde/Image/Exif/Bundled.php:800
+#: lib/Horde/Image/Exif/Bundled.php:816
 #, php-format
 msgid "version %d"
 msgstr "versio %d"

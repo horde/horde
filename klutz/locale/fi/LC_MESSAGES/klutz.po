@@ -1,52 +1,49 @@
 # Finnish translation for Klutz.
 # Copyright
-# Leena Heino <liinu@uta.fi>, 2003-2004.
+# Leena Heino <liinu@uta.fi>, 2003-2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Klutz 1.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2005-02-10 10:56+0200\n"
-"PO-Revision-Date: 2011-08-02 15:56+0200\n"
+"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"PO-Revision-Date: 2012-03-07 20:07:39+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
+"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: comics.php:298 templates/comics/comic.inc:6 templates/comics/comic.inc:9
-#: templates/comics/main.inc:60 templates/comics/missing.inc:6
-#: templates/comics/missing.inc:9
+#: comics.php:301 templates/comics/comic.inc:5 templates/comics/comic.inc:8
+#: templates/comics/main.inc:45 templates/comics/missing.inc:5
+#: templates/comics/missing.inc:8
 #, php-format
 msgid "%s by %s"
 msgstr "%s tekijä %s"
 
-#: backend.php:104
+#: lib/Application.php:56
+msgid "Administration"
+msgstr "Ylläpito"
+
+#: backend.php:116
 msgid "All Comics"
 msgstr "Kaikki sarjakuvat"
 
-#: backend.php:76
+#: backend.php:91
 msgid "All Dates"
 msgstr "Kaikki päivät"
 
-#: backend.php:240
+#: backend.php:256
 #, php-format
 msgid "An error occurred removing %s for %s<br />\n"
 msgstr "Tapahtui virhe poistettaessa %s %s:lle<br />\n"
 
-#: templates/javascript/goto.inc:52
-msgid "April"
-msgstr "huhtikuu"
+#: templates/savecomic.html.php:29
+msgid "Cancel"
+msgstr "Peru"
 
-#: templates/javascript/goto.inc:56
-msgid "August"
-msgstr "elokuu"
-
-#: lib/Klutz.php:317
-msgid "Browse"
-msgstr "Selaa"
-
-#: config/prefs.php.dist:11
+#: config/prefs.php:9
 msgid ""
 "Change display options such as what comics you see, and how comics are "
 "sorted."
@@ -58,135 +55,120 @@ msgstr ""
 msgid "Choose the comics you wish to view."
 msgstr "Voit valita näytettävät sarjakuvat."
 
-#: lib/Block/summary.php:3
+#: lib/Block/Comics.php:3
 msgid "Comics"
 msgstr "Sarjakuvat"
 
-#: backend.php:116
+#: backend.php:127 backend.php:137
 msgid "Comics Update"
 msgstr "Sarjakuvien päivitys"
 
-#: backend.php:239
+#: backend.php:255
 #, php-format
 msgid "Could not find %s for %s<br />\n"
 msgstr "Ei löytynyt %s %s:lle<br />\n"
 
-#: lib/Block/summary.php:73
+#: lib/Block/Comics.php:69
 msgid "Could not find any comics to display."
 msgstr "Ei löytynyt sarjakuvia näytettäväksi."
 
-#: templates/javascript/goto.inc:60
-msgid "December"
-msgstr "joulukuu"
+#: config/prefs.php:51
+msgid "Default gallery to use when saving comics:"
+msgstr "Oletusgalleria kun tallennetaan sarjakuvia:"
 
-#: templates/backend/backend.inc:27
+#: templates/backend.html.php:27
 msgid "Delete"
 msgstr "Poista"
 
-#: templates/backend/backend.inc:35
+#: templates/backend.html.php:35
 msgid "Delete Comics"
 msgstr "Poista sarjakuvat"
 
-#: config/prefs.php.dist:10
+#: templates/savecomic.html.php:19
+msgid "Description"
+msgstr "Kuvaus"
+
+#: config/prefs.php:8
 msgid "Display Options"
 msgstr "Näkymän asetukset"
 
-#: templates/backend/backend.inc:20
+#: templates/backend.html.php:20
 msgid "Don't check for uniqueness"
 msgstr "Älä tarkista yksikäsitteisyyttä"
 
-#: backend.php:208
+#: backend.php:225
 msgid "Done"
 msgstr "Valmis"
 
-#: backend.php:210
+#: templates/savecomic.html.php:18
+msgid "Enter a description for this comic"
+msgstr "Anna kuvaus tälle sarjakuvalle"
+
+#: templates/savecomic.html.php:23
+msgid "Enter any tags for this image"
+msgstr "Anna tagejä tälle kuvalle"
+
+#: backend.php:231
 msgid "Error storing the image"
 msgstr "Tapahtui virhe kuvan talletuksessa"
 
-#: templates/javascript/goto.inc:50
-msgid "February"
-msgstr "helmikuu"
-
-#: templates/backend/backend.inc:13
+#: templates/backend.html.php:13
 msgid "Fetch"
 msgstr "Hae"
 
-#: templates/backend/backend.inc:21
+#: templates/backend.html.php:21
 msgid "Fetch Comics"
 msgstr "Hae sarjakuvat"
 
-#: backend.php:196
+#: backend.php:209
 #, php-format
 msgid "Fetching %s for date %s..."
 msgstr "Haetaan %s päivämäärälle %s..."
 
-#: templates/javascript/goto.inc:44
-msgid "Fr"
-msgstr "pe"
+#: backend.php:227
+#, php-format
+msgid "Fetching %s for date %s...Done"
+msgstr "Haetaan %s päivämäärälle %s...Valmis"
 
-#: lib/Klutz.php:323
-msgid "Goto"
-msgstr "Mene"
+#: templates/savecomic.html.php:12
+msgid "Gallery"
+msgstr "Galleria"
 
-#: templates/javascript/goto.inc:49
-msgid "January"
-msgstr "tammikuu"
+#: templates/savecomic.html.php:7
+msgid "Image"
+msgstr "Kuva"
 
-#: templates/javascript/goto.inc:55
-msgid "July"
-msgstr "heinäkuu"
-
-#: templates/javascript/goto.inc:54
-msgid "June"
-msgstr "kesäkuu"
-
-#: templates/backend/backend.inc:4
+#: templates/backend.html.php:4
 msgid "Klutz Backend"
 msgstr "Klutzi taustajärjestelmä"
 
-#: comics.php:115
+#: comics.php:110
 msgid "Main Listing"
 msgstr "Pääsivun listaus"
 
-#: templates/backend/backend.inc:38
+#: templates/backend.html.php:38
 msgid "Maintenance Functions"
 msgstr "Ylläpitotoimenpiteet"
 
-#: templates/javascript/goto.inc:51
-msgid "March"
-msgstr "maaliskuu"
-
-#: templates/javascript/goto.inc:53
-msgid "May"
-msgstr "toukokuu"
-
-#: templates/javascript/goto.inc:40
-msgid "Mo"
-msgstr "ma"
-
-#: templates/javascript/goto.inc:59
-msgid "November"
-msgstr "marraskuu"
-
-#: templates/javascript/goto.inc:58
-msgid "October"
-msgstr "lokakuu"
-
-#: config/prefs.php.dist:9
+#: config/prefs.php:7
 msgid "Other Options"
 msgstr "Muut asetukset"
 
-#: templates/backend/backend.inc:18
+#: templates/backend.html.php:18
 msgid "Overwrite comics if they exist?"
 msgstr "Kirjoita olemassaolevien sarjakuvien päälle."
 
-#: templates/backend/backend.inc:42
+#: templates/backend.html.php:42
 msgid "Rebuild Unique Identifiers file."
 msgstr "Rakenna uudestaan yksikäsitteisten tunnisteiden tiedosto."
 
-#: templates/javascript/goto.inc:45
-msgid "Sa"
-msgstr "la"
+#: comics.php:216 comics.php:218 comics.php:313 comics.php:315
+msgid "Save Comic to Gallery"
+msgstr "Tallenna sarjakuva galleriaan"
+
+#: savecomic.php:63
+msgid "Save Image"
+msgstr "Tallenna kuva"
 
 #: templates/prefs/comic_select.inc:65
 msgid "Select All"
@@ -196,59 +178,63 @@ msgstr "Valitse kaikki"
 msgid "Select None"
 msgstr "Tyhjennä valinnat"
 
-#: templates/javascript/goto.inc:57
-msgid "September"
-msgstr "syyskuu"
+#: templates/savecomic.html.php:8
+msgid "Select the gallery to save the comic to."
+msgstr "Valitse galleria mihin sarjakuvat tallennetaan."
 
-#: config/prefs.php.dist:46
+#: config/prefs.php:44
 msgid "Show all of your selected comics on the summary page?"
 msgstr "Näytä kaikki valitsemasi sarjakuvat yhteenvetonäkymässä."
 
-#: config/prefs.php.dist:38
+#: config/prefs.php:36
 msgid "Show comics you haven't selected on the browse page?"
 msgstr "Näytä selaussivulla ne sarjakuvat, joita et ole valinnut."
 
-#: backend.php:213
+#: backend.php:234
 #, php-format
 msgid "Skipping %s for %s"
 msgstr "Ohita %s %s:lle"
 
-#: backend.php:193
+#: backend.php:206
 #, php-format
 msgid "Skipping %s for %s - no historical fetching"
 msgstr "Ohitetaan %s %s:lle - ei historia hakuja"
 
-#: templates/javascript/goto.inc:46
-msgid "Su"
-msgstr "su"
+#: templates/savecomic.html.php:28
+msgid "Submit"
+msgstr "Lähetä"
 
-#: backend.php:238
+#: backend.php:254
 #, php-format
 msgid "Successfully removed %s for %s<br />\n"
 msgstr "%s:n poistaminen %s:lta onnistui<br />\n"
 
-#: templates/javascript/goto.inc:43
-msgid "Th"
-msgstr "to"
+#: templates/savecomic.html.php:24
+msgid "Tags"
+msgstr "Tagit"
 
-#: backend.php:203
+#: backend.php:216 backend.php:218
 msgid "The image doesn't exist or can't be retrieved"
 msgstr "Kuvaa ei ole olemassa tai sitä ei voida hakea"
 
-#: backend.php:68 backend.php:70
+#: backend.php:85
 msgid "The unique identifiers table has been rebuilt."
 msgstr "Yksikäsitteisten tunnisteiden taulu on rakennettu uudestaan."
 
-#: comics.php:257
+#: savecomic.php:35
+msgid "There was an error retrieving the comic."
+msgstr "Tapahtui virhe haettaessa sarjakuvaa."
+
+#: comics.php:242
 msgid "This comic doesn't exist or is disabled."
 msgstr "Tätä sarjakuvaa ei ole olemassa tai sen näyttö on estetty."
 
-#: backend.php:206
+#: backend.php:222
 #, php-format
 msgid "This image appears to be a repeat (%s)"
 msgstr "Tämä kuva vaikuttaisi olevan uusinta (%s)"
 
-#: templates/comics/missing.inc:16
+#: templates/comics/missing.inc:13
 msgid "This image is not currently available."
 msgstr "Tämä kuva ei ole juuri nyt saatavilla."
 
@@ -260,57 +246,53 @@ msgstr ""
 "Voidaksesi valita useampia sarjakuvia, pidä Control/Option näppäintä "
 "pohjassa kun napsautat hiiren painiketta."
 
-#: lib/Klutz.php:325 lib/Block/summary.php:27
-msgid "Today"
-msgstr "Tänään"
-
-#: comics.php:24 lib/Block/summary.php:26
+#: comics.php:22
 msgid "Today's Comics"
 msgstr "Tämänpäiväiset sarjakuvat"
 
-#: templates/comics/missing.inc:24
+#: templates/comics/missing.inc:22
 msgid "Try to fetch this comic"
 msgstr "Yritä hakea tämä sarjakuva"
 
-#: templates/javascript/goto.inc:41
-msgid "Tu"
-msgstr "ti"
-
-#: lib/Klutz.php:329
-msgid "Update"
-msgstr "Päivitä"
-
-#: templates/comics/main.inc:44
+#: templates/comics/main.inc:32
 msgid "View by comic"
 msgstr "Näytä sarjakuvittain"
 
-#: templates/comics/main.inc:12
+#: templates/comics/main.inc:9
 #, php-format
 msgid "View comics for %s"
 msgstr "Näytä sarjakuvat %s:lle"
 
-#: templates/javascript/goto.inc:42
-msgid "We"
-msgstr "ke"
-
-#: backend.php:40 backend.php:42
+#: backend.php:43 backend.php:46
 msgid "You must define a storage backend to use the administrative interface."
 msgstr ""
 "Sinun pitää määritellä talletuksen taustajärjestelmä, jotta voisit käyttää "
 "ylläpitoliittymää."
 
-#: backend.php:259 backend.php:261
+#: lib/Application.php:74
+msgid "_Browse"
+msgstr "_Selaa"
+
+#: lib/Application.php:77
+msgid "_Today"
+msgstr "_Tänään"
+
+#: lib/Application.php:81
+msgid "_Update"
+msgstr "_Päivitä"
+
+#: backend.php:275 backend.php:277
 msgid "all comics"
 msgstr "kaikki sarjakuvat"
 
-#: backend.php:255
+#: backend.php:271
 msgid "any comics"
 msgstr "mikä tahansa sarjakuva"
 
-#: backend.php:255
+#: backend.php:271
 msgid "any dates"
 msgstr "mikä tahansa päivämäärä"
 
-#: templates/backend/backend.inc:15
+#: templates/backend.html.php:15
 msgid "for"
 msgstr " "

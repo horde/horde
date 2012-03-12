@@ -809,6 +809,7 @@
    <date>2012-02-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Add Finnish translation (Leena Heino &lt;liinu@uta.fi&gt;).
 * [mms] Rewrite of caching system. Fixes a few bugs, and should be more efficient.
 * [mms] Clear imapproxy status when logging out.
    </notes>

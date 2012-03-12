@@ -1,14 +1,14 @@
 # Finnish translation for Trean.
 # This file is distributed under the same license as the Horde package.
 # Copyright
-# Leena Heino <liinu@uta.fi>, 2003-2011.
+# Leena Heino <liinu@uta.fi>, 2003-2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Trean 1.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-15 13:27+0100\n"
-"PO-Revision-Date: 2011-04-05 12:57:25+0300\n"
+"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"PO-Revision-Date: 2012-03-07 17:28:02+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -115,7 +115,7 @@ msgstr "JA"
 msgid "Accepted"
 msgstr "Hyväksytty"
 
-#: lib/Application.php:110 templates/add.html.php:59
+#: lib/Application.php:107 templates/add.html.php:59
 msgid "Add"
 msgstr "Lisää"
 
@@ -145,7 +145,7 @@ msgstr "Missä tahansa kohdassa kenttää"
 msgid "Are you sure you want to delete the selected bookmarks?"
 msgstr "Oletko varma että haluat tuhota valitut kirjanmerkit?"
 
-#: config/prefs.php:33
+#: config/prefs.php:34
 msgid "Ascending (A to Z)"
 msgstr "Nouseva (A - Z)"
 
@@ -173,7 +173,7 @@ msgstr "Kirjanmerkit"
 msgid "Bookmarks Feed"
 msgstr "Kirjanmerkkisyöte"
 
-#: browse.php:59
+#: browse.php:60
 msgid "Browse"
 msgstr "Selaa"
 
@@ -193,11 +193,11 @@ msgstr "Sulje"
 msgid "Combine"
 msgstr "Yhdistä"
 
-#: config/prefs.php:60
+#: config/prefs.php:61
 msgid "Completely collapsed"
 msgstr "Kokonaan pienennetty"
 
-#: config/prefs.php:62
+#: config/prefs.php:63
 msgid "Completely expanded"
 msgstr "Kokonaan laajennettu"
 
@@ -264,7 +264,7 @@ msgstr "Poistettu kansio: "
 msgid "Deleted the folder \"%s\""
 msgstr "Poistettiin kansio \"%s\""
 
-#: config/prefs.php:34
+#: config/prefs.php:35
 msgid "Descending (9 to 1)"
 msgstr "Laskeva (Z - A)"
 
@@ -273,7 +273,7 @@ msgstr "Laskeva (Z - A)"
 msgid "Description"
 msgstr "Kuvaus"
 
-#: config/prefs.php:12
+#: config/prefs.php:13
 msgid "Display Preferences"
 msgstr "Näytön asetukset"
 
@@ -333,7 +333,7 @@ msgstr "Tiedosto, josta tuodaan:"
 msgid "Firefox/Mozilla"
 msgstr "Firefox/Mozilla"
 
-#: config/prefs.php:61
+#: config/prefs.php:62
 msgid "First level shown"
 msgstr "Ensimmäinen taso näkyvissä"
 
@@ -378,7 +378,7 @@ msgstr "HTTP tila"
 msgid "HTTP Version not supported"
 msgstr "HTTP versio ei tuettu"
 
-#: config/prefs.php:23 lib/Block/Bookmarks.php:60
+#: config/prefs.php:24 lib/Block/Bookmarks.php:60
 msgid "Highest Rated"
 msgstr "Korkeimmalle arvostetut"
 
@@ -423,11 +423,11 @@ msgstr "Pituus tarvitaan"
 msgid "Match"
 msgstr "Täsmää"
 
-#: lib/Application.php:76
+#: lib/Application.php:73
 msgid "Maximum Number of Bookmarks"
 msgstr "Suurin sallittu määrä kirjanmerkkejä"
 
-#: lib/Application.php:80
+#: lib/Application.php:77
 msgid "Maximum Number of Folders"
 msgstr "Suurin sallittu määrä kansioita"
 
@@ -435,7 +435,7 @@ msgstr "Suurin sallittu määrä kansioita"
 msgid "Method Not Allowed"
 msgstr "Metodi ei ole sallittu"
 
-#: config/prefs.php:24 lib/Block/Bookmarks.php:61
+#: config/prefs.php:25 lib/Block/Bookmarks.php:61
 msgid "Most Clicked"
 msgstr "Eniten napsautuksia"
 
@@ -566,11 +566,11 @@ msgstr ""
 "Vain omistaja tai järjestelmän ylläpitäjä voi muutta jaon omistajaa tai "
 "omistajan oikeuksia jakoon."
 
-#: config/prefs.php:52
+#: config/prefs.php:53
 msgid "Open links in a new window?"
 msgstr "Avaa linkit uudessa ikkunassa."
 
-#: config/prefs.php:11
+#: config/prefs.php:12
 msgid "Other Preferences"
 msgstr "Muut asetukset"
 
@@ -635,7 +635,7 @@ msgstr "Tyhjennä sisältö"
 msgid "Save"
 msgstr "Tallenna"
 
-#: lib/Application.php:122 lib/Forms/Search.php:20 search.php:19
+#: lib/Application.php:119 lib/Forms/Search.php:20 search.php:19
 msgid "Search"
 msgstr "Haku"
 
@@ -673,19 +673,19 @@ msgstr "Valitse: %s, %s"
 msgid "Service Unavailable"
 msgstr "Palvelu ei ole käytettävissä"
 
-#: config/prefs.php:13
+#: config/prefs.php:14
 msgid "Set how to display bookmark listings and how to open links."
 msgstr "Aseta kuika kirjanmerkkilistaus näytetään ja kuinka linkit avataan."
 
-#: config/prefs.php:63
+#: config/prefs.php:64
 msgid "Should your list of bookmark folders be open when you log in?"
 msgstr "Avataanko kirjanmerkkikansiot kun kirjaudut sisään?"
 
-#: config/prefs.php:44
+#: config/prefs.php:45
 msgid "Show folder actions panel?"
 msgstr "Näytetäänkö kansiotoimintojen paneeli?"
 
-#: config/prefs.php:25
+#: config/prefs.php:26
 msgid "Sort bookmarks by:"
 msgstr "Järjestä kirjanmerkit"
 
@@ -693,7 +693,7 @@ msgstr "Järjestä kirjanmerkit"
 msgid "Sort by"
 msgstr "Järjestetty"
 
-#: config/prefs.php:35
+#: config/prefs.php:36
 msgid "Sort direction:"
 msgstr "Järjestyssuunta"
 
@@ -759,7 +759,7 @@ msgstr "Kirjanmerkkiä tallennettaessa tapahtui virhe: %s"
 msgid "There was an error saving the folder: %s"
 msgstr "Kansioon tallennettaessa tapahtui virhe: %s"
 
-#: config/prefs.php:22 lib/Block/Bookmarks.php:59 lib/Forms/Search.php:21
+#: config/prefs.php:23 lib/Block/Bookmarks.php:59 lib/Forms/Search.php:21
 #: templates/add.html.php:37 templates/edit/bookmark.inc:10
 #: templates/views/BookmarkList.php:26
 msgid "Title"
@@ -826,7 +826,7 @@ msgstr "Sinulla ei ole lupaa luoda kuin %d kirjanmerkkiä."
 msgid "You are not allowed to create more than %d folders."
 msgstr "Sinulla ei ole lupaa luoda kuin %d kansiota."
 
-#: browse.php:45
+#: browse.php:46
 msgid "You do not have permission to view this folder."
 msgstr "Sinulla ei ole lupaa katsoa tätä kansiota."
 
@@ -834,7 +834,7 @@ msgstr "Sinulla ei ole lupaa katsoa tätä kansiota."
 msgid "You must select a target folder first"
 msgstr "Sinun pitää ensin valita kohdekansio"
 
-#: lib/Application.php:90
+#: lib/Application.php:87
 msgid "_Browse"
 msgstr "_Selaa"
 
@@ -846,7 +846,7 @@ msgstr "_Poista kirjanmerkki"
 msgid "_Edit Bookmarks"
 msgstr "_Muokkaa kirjanmerkkiä"
 
-#: lib/Application.php:96
+#: lib/Application.php:93
 msgid "_Import/Export"
 msgstr "_Tuo/Vie"
 
@@ -854,11 +854,11 @@ msgstr "_Tuo/Vie"
 msgid "_New Bookmark"
 msgstr "_Uusi kirjanmerkki"
 
-#: lib/Application.php:92
+#: lib/Application.php:89
 msgid "_Reports"
 msgstr "_Raportit"
 
-#: lib/Application.php:91
+#: lib/Application.php:88
 msgid "_Search"
 msgstr "_Haku"
 

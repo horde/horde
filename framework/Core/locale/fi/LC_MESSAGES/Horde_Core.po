@@ -1,14 +1,14 @@
 # Finnish translations for Horde_Core module.
 # Copyright 2010-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Core module.
-# Leena Heino <liinu@uta.fi>, 2010-2011.
+# Leena Heino <liinu@uta.fi>, 2010-2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Core\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-04 10:15+0200\n"
-"PO-Revision-Date: 2011-04-05 12:58:53+0300\n"
+"POT-Creation-Date: 2012-02-22 11:20+0100\n"
+"PO-Revision-Date: 2012-03-07 19:16:04+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -17,17 +17,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde.php:1735
+#: lib/Horde.php:1770
 #, php-format
 msgid " (Accesskey %s)"
 msgstr " (Pikanäppäin %s)"
 
-#: lib/Horde/Core/Factory/Group.php:31
+#: lib/Horde/Core/Factory/Group.php:35
 #, php-format
 msgid "\"%s\" group driver not found."
 msgstr "\"%s\" group-ajuria ei löytynyt."
 
-#: lib/Horde/Registry.php:1180 lib/Horde/Registry.php:1639
+#: lib/Horde/Registry.php:1204 lib/Horde/Registry.php:1714
 #, php-format
 msgid "\"%s\" is not configured in the Horde Registry."
 msgstr "\"%s\" asennustietoja ei löydy Horden rekisteristä."
@@ -44,45 +44,35 @@ msgid_plural "%d contacts were successfully added to your address book."
 msgstr[0] "%d yhteystieto lisättiin onnistuneesti osoitekirjaasi."
 msgstr[1] "%d Yhteystietoa lisättiin onnistuneesti osoitekirjaasi."
 
-#: lib/Horde/Core/Auth/Application.php:590
+#: lib/Horde/Core/Auth/Application.php:656
 #, php-format
 msgid "%d day until your password expires."
 msgid_plural "%d days until your password expires."
 msgstr[0] "Salasanasi vanhentuu %d päivän päästä."
 msgstr[1] "Salasanasi vanhentuu %d päivän päästä."
 
-#: lib/Horde/Core/Auth/Signup/Form.php:29
-#, php-format
-msgid "%s Sign Up"
-msgstr "%s kirjautuminen"
-
-#: lib/Horde/Registry.php:1285
-#, php-format
-msgid "%s is not authorized for %s."
-msgstr "%s:lla ei ole oikeuksia toimintoon %s."
-
 #: lib/Horde/Core/Perms/Ui.php:347 lib/Horde/Core/Perms/Ui.php:407
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:810
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:815
 msgid "-- select --"
 msgstr "-- valitse --"
 
-#: lib/Horde/Core/Notification/Status.php:72
+#: lib/Horde/Core/Notification/Event/Status.php:72
 msgid "1 day"
 msgstr "1 päivä"
 
-#: lib/Horde/Core/Notification/Status.php:70
+#: lib/Horde/Core/Notification/Event/Status.php:70
 msgid "1 hour"
 msgstr "1 tunti"
 
-#: lib/Horde/Core/Notification/Status.php:69
+#: lib/Horde/Core/Notification/Event/Status.php:69
 msgid "15 minutes"
 msgstr "15 minuuttia"
 
-#: lib/Horde/Core/Notification/Status.php:68
+#: lib/Horde/Core/Notification/Event/Status.php:68
 msgid "5 minutes"
 msgstr "5 minuuttia"
 
-#: lib/Horde/Core/Notification/Status.php:71
+#: lib/Horde/Core/Notification/Event/Status.php:71
 msgid "6 hours"
 msgstr "6 tuntia"
 
@@ -90,7 +80,7 @@ msgstr "6 tuntia"
 msgid "<Previous"
 msgstr "<Edellinen"
 
-#: lib/Horde.php:151
+#: lib/Horde.php:163
 msgid "A fatal error has occurred"
 msgstr "Tapahtui vakava virhe"
 
@@ -105,7 +95,7 @@ msgstr ""
 "sähköpostiosoite aktivoidaan heti kun olet vastannut varmistusviestiin ja "
 "varmistanut osoitteen kuuluvan sinulle."
 
-#: lib/Horde/Core/Auth/Signup/Base.php:84
+#: lib/Horde/Core/Auth/Signup/Base.php:83
 #, php-format
 msgid ""
 "A new account for the user \"%s\" has been requested through the signup form."
@@ -120,12 +110,12 @@ msgstr ""
 "Ponnahdusikkunaa ei voitu avata. Ehkäpä selaimesi estää ponnahdusikkunoiden "
 "avaamisen?"
 
-#: lib/Horde/Core/Auth/Signup/Base.php:92
+#: lib/Horde/Core/Auth/Signup/Base.php:91
 #, php-format
 msgid "Account signup request for \"%s\""
 msgstr "Käyttäjätunnupyyntö käyttäjältä \"%s\""
 
-#: lib/Horde/Core/Perms/Ui.php:194 lib/Horde/Core/Ui/VarRenderer/Html.php:615
+#: lib/Horde/Core/Perms/Ui.php:194 lib/Horde/Core/Ui/VarRenderer/Html.php:620
 msgid "Add"
 msgstr "Lisää"
 
@@ -167,11 +157,11 @@ msgstr "Osoite"
 msgid "Address Book"
 msgstr "Osoitekirja"
 
-#: lib/Horde/Core/Sidebar.php:98
+#: lib/Horde/Core/Sidebar.php:117
 msgid "Administration"
 msgstr "Ylläpito"
 
-#: lib/Horde/Core/Notification/Status.php:88
+#: lib/Horde/Core/Notification/Event/Status.php:88
 msgid "Alarm"
 msgstr "Hälytys"
 
@@ -187,23 +177,23 @@ msgstr "Kaikki autentikoidut käyttäjät"
 msgid "All Permissions"
 msgstr "Kaikki oikeudet"
 
-#: lib/Horde/Core/Prefs/Ui.php:307 lib/Horde/Core/Prefs/Ui.php:323
+#: lib/Horde/Core/Prefs/Ui.php:303 lib/Horde/Core/Prefs/Ui.php:319
 msgid "An illegal value was specified."
 msgstr "Annettu arvo ei kelpaa."
 
-#: lib/Horde/Core/Auth/Signup/Base.php:86
+#: lib/Horde/Core/Auth/Signup/Base.php:85
 msgid "Approve the account:"
 msgstr "Hyväksy käyttäjätunnus:"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:130
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:430
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:476
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:435
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:481
 msgid "April"
 msgstr "huhtikuu"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:134
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:434
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:480
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:439
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:485
 msgid "August"
 msgstr "elokuu"
 
@@ -215,12 +205,12 @@ msgstr "Käytettävissäolevat osoitekirjat:"
 msgid "Birthday"
 msgstr "Syntymäpäivä"
 
-#: lib/Horde/Core/Block/Collection.php:347
+#: lib/Horde/Core/Block/Collection.php:392
 #, php-format
 msgid "Block \"%s\" of application \"%s\" not found."
 msgstr "Ei löytynyt osiota \"%s\" ohjelmalle \"%s\"."
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:517
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:522
 msgid "Calendar"
 msgstr "Kalenteri"
 
@@ -244,8 +234,8 @@ msgstr ""
 "Valitse missä järjestyksessä laajennettaviaosoitteita etsitään "
 "osoitekirjoista."
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:564
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:566
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:569
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:571
 msgid "Color Picker"
 msgstr "Värivalitsin"
 
@@ -257,17 +247,22 @@ msgstr "Yritys"
 msgid "Confirm new email address"
 msgstr "Varmista uusi sähköpöstiosoite"
 
+#: lib/Horde/Config.php:293
+#, php-format
+msgid "Could not save the backup configuration file %s."
+msgstr "Ei voitu tallentaa varmuuskopiotiedostoa %s."
+
 #: lib/Horde/Core/Perms/Ui.php:293
 msgid "Creator Permissions"
 msgstr "Oikeudet tekijällä"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:485
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:490
 msgid "DD"
 msgstr "PP"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:138
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:438
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:484
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:443
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:489
 msgid "December"
 msgstr "joulukuu"
 
@@ -289,7 +284,7 @@ msgstr "Poista oikeudet \"%s\":lta"
 msgid "Delete permissions for \"%s\" and any sub-permissions?"
 msgstr "Oletko varma, että haluat poistaa \"%s\" ja kaikki sen alioikeudet?"
 
-#: lib/Horde/Core/Auth/Signup/Base.php:88
+#: lib/Horde/Core/Auth/Signup/Base.php:87
 msgid "Deny the account:"
 msgstr "Kiellä käyttäjätunnus:"
 
@@ -297,20 +292,20 @@ msgstr "Kiellä käyttäjätunnus:"
 msgid "Department"
 msgstr "Osasto"
 
-#: lib/Horde.php:169
+#: lib/Horde.php:180
 msgid "Details"
 msgstr "Yksityiskohdat"
 
-#: lib/Horde.php:174
+#: lib/Horde.php:185
 msgid "Details have been logged for the administrator."
 msgstr "Tarkemmat tiedot on talletettu ylläpidon käsiteltäväksi."
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1144
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1166
 #, php-format
 msgid "Dial %s"
 msgstr "Valitsin %s"
 
-#: lib/Horde/Core/Notification/Status.php:67
+#: lib/Horde/Core/Notification/Event/Status.php:67
 msgid "Dismiss"
 msgstr "Ohita"
 
@@ -345,17 +340,17 @@ msgstr "Sähköposti"
 msgid "Email addresses to confirm not found."
 msgstr "Varmistettavaa sähköpostiosoittetta ei löytyntyt."
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:308
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:313
 msgid "Emoticons"
 msgstr "Hymiöt"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:945
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:956
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:950
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:961
 msgid "Enter the letters below:"
 msgstr "Anna kirjaimet alle:"
 
 #: lib/Horde/Core/Block/Layout/View.php:131
-#: lib/Horde/Core/Notification/Status.php:93
+#: lib/Horde/Core/Notification/Event/Status.php:93
 msgid "Error"
 msgstr "Virhe"
 
@@ -368,16 +363,16 @@ msgid "Fax"
 msgstr "Faksi"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:128
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:428
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:474
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:433
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:479
 msgid "February"
 msgstr "helmikuu"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:249
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:254
 msgid "Fix ratio"
 msgstr "Korjaa suhde"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:224
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:229
 msgid "Flip"
 msgstr "Käännä ympäri"
 
@@ -389,15 +384,15 @@ msgstr "pe"
 msgid "Friday"
 msgstr "perjantai"
 
-#: lib/Horde/Core/Prefs/Ui.php:651 lib/Horde/Core/Sidebar.php:131
+#: lib/Horde/Core/Prefs/Ui.php:646 lib/Horde/Core/Sidebar.php:138
 msgid "Global Preferences"
 msgstr "Yleiset asetukset"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1289
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1311
 msgid "Google Maps"
 msgstr "Google Kartat"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:230
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:235
 msgid "Grayscale"
 msgstr "Harmaasävy"
 
@@ -409,7 +404,7 @@ msgstr "Ryhmät"
 msgid "Guest Permissions"
 msgstr "Vierailijan oikeudet"
 
-#: lib/Horde/Help.php:219 lib/Horde/Help.php:220 lib/Horde/Menu.php:185
+#: lib/Horde/Help.php:219 lib/Horde/Help.php:220 lib/Horde/Menu.php:227
 msgid "Help"
 msgstr "Ohje"
 
@@ -426,73 +421,77 @@ msgstr "Puhelin (Koti)"
 msgid "Individual Users"
 msgstr "Yksittäiset käyttäjät"
 
+#: lib/Horde/Core/Alarm/Handler/Notify.php:54
+msgid "Inline"
+msgstr "Sisällytetty"
+
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:214
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:278
 msgid "International Address"
 msgstr "Kansainvälinen osoite"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:740
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:745
 #: lib/Horde/Core/Ui/VarRenderer/TablesetHtml.php:26
 msgid "Invert selection"
 msgstr "Muuta valinta käänteiseksi"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:127
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:427
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:473
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:432
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:478
 msgid "January"
 msgstr "tammikuu"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:133
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:433
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:479
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:438
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:484
 msgid "July"
 msgstr "heinäkuu"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:132
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:432
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:478
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:437
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:483
 msgid "June"
 msgstr "kesäkuu"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:257
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:262
 msgid "Keep original?"
 msgstr "Säilytä alkuperäinen?"
 
-#: lib/Horde/Core/Sidebar.php:160
+#: lib/Horde/Core/Sidebar.php:167
 msgid "Log in"
 msgstr "Kirjaudu sisään"
 
-#: lib/Horde/Core/Sidebar.php:153
+#: lib/Horde/Core/Sidebar.php:160
 msgid "Log out"
 msgstr "Kirjaudu ulos"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:426
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:472
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:431
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:477
 msgid "MM"
 msgstr "KK"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1215
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1264
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1237
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1286
 msgid "MapQuest map"
 msgstr "MapQuest kartta"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:129
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:429
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:475
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:434
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:480
 msgid "March"
 msgstr "maaliskuu"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:131
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:431
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:477
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:436
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:482
 msgid "May"
 msgstr "toukokuu"
 
-#: lib/Horde/Core/Notification/Status.php:98
+#: lib/Horde/Core/Notification/Event/Status.php:98
 msgid "Message"
 msgstr "Viesti"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:227
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:232
 msgid "Mirror"
 msgstr "Peilikuva"
 
@@ -521,17 +520,17 @@ msgid "Move Up"
 msgstr "Siirrä ylöspäin"
 
 #: lib/Horde/Core/Prefs/Ui/Widgets.php:97
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:587
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:592
 msgid "Move down"
 msgstr "Siirrä alaspäin"
 
 #: lib/Horde/Core/Prefs/Ui/Widgets.php:96
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:586
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:587
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:591
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:592
 msgid "Move up"
 msgstr "Siirrä ylöspäin"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1184
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1206
 msgid "Multimap UK map"
 msgstr "Multimap Iso-Britannian kartta"
 
@@ -543,7 +542,7 @@ msgstr "Nimi"
 msgid "Next>"
 msgstr "Seuraava>"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1049
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1054
 msgid "No"
 msgstr "Ei"
 
@@ -551,7 +550,7 @@ msgstr "Ei"
 msgid "No OAuth Key or Secret found for the Twitter API"
 msgstr "Twitter API:lle ei löytynyt OAuth avainta tai salatietoa."
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:534
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:539
 msgid "No Sound"
 msgstr "Ei ääniä"
 
@@ -563,19 +562,20 @@ msgstr "Osoitekirjaa ei ole valittu."
 msgid "No children can be added to this permission."
 msgstr "Tälle oikeudelle ei voi lisätä alitasoja."
 
-#: lib/Horde.php:938
+#: lib/Horde.php:953
 #, php-format
 msgid "No configuration information specified for %s."
 msgstr "Asetuksia ei löytynyt %s."
 
-#: lib/Horde/Core/Ajax/Application.php:202
+#: lib/Horde/Core/Ajax/Application.php:203
 msgid "No valid email address found"
 msgstr "Käyttökelpoista sähköpostiosoitetta ei löytynyt"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1057
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1067
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1078
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1095
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1062
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1072
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1083
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1100
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1117
 msgid "No values"
 msgstr "Ei arvoja"
 
@@ -584,18 +584,18 @@ msgid "Notes"
 msgstr "Muistiinpanot"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:137
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:437
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:483
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:442
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:488
 msgid "November"
 msgstr "marraskuu"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:927
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:932
 msgid "Object"
 msgstr "Objekti"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:136
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:436
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:482
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:441
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:487
 msgid "October"
 msgstr "lokakuu"
 
@@ -622,16 +622,20 @@ msgstr "Puhelin"
 msgid "Photo"
 msgstr "Valokuvat"
 
+#: lib/Horde/Core/Alarm/Handler/Notify.php:74
+msgid "Play a sound?"
+msgstr "Soita ääni?"
+
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:218
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:282
 msgid "Postal Address"
 msgstr "Postiosoite"
 
-#: lib/Horde/Core/Sidebar.php:120
+#: lib/Horde/Core/Sidebar.php:127
 msgid "Preferences"
 msgstr "Asetukset"
 
-#: lib/Horde/Core/Prefs/Ui.php:651
+#: lib/Horde/Core/Prefs/Ui.php:646
 #, php-format
 msgid "Preferences for %s"
 msgstr "%s asetukset"
@@ -641,11 +645,11 @@ msgstr "%s asetukset"
 msgid "Preferred Address"
 msgstr "Oletusosoite"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1487
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1517
 msgid "Preview"
 msgstr "Esikatselu"
 
-#: lib/Horde/Menu.php:177
+#: lib/Horde/Menu.php:219
 msgid "Problem"
 msgstr "Ongelma"
 
@@ -654,7 +658,8 @@ msgid "Really delete this block?"
 msgstr "Poistetaan tämä osio?"
 
 #: lib/Horde/Core/Block/Layout.php:114 lib/Horde/Core/Block/Layout.php:118
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:618
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:199
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:623
 msgid "Remove"
 msgstr "Poista"
 
@@ -662,12 +667,12 @@ msgstr "Poista"
 msgid "Remove source"
 msgstr "Poista lähde"
 
-#: lib/Horde.php:947
+#: lib/Horde.php:962
 #, php-format
 msgid "Required \"%s\" not specified in %s configuration."
 msgstr "Tarvittavaa tietoa \"%s\" ei ollut määritelty %s asetuksissa."
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:212
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:217
 msgid "Reset"
 msgstr "Tyhjennä"
 
@@ -675,15 +680,15 @@ msgstr "Tyhjennä"
 msgid "Role"
 msgstr "Rooli"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:218
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:223
 msgid "Rotate 180"
 msgstr "Käännä 180"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:215
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:220
 msgid "Rotate Left"
 msgstr "Käännä vastapäivään"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:221
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:226
 msgid "Rotate Right"
 msgstr "Käännä myötäpäivään"
 
@@ -695,25 +700,25 @@ msgstr "la"
 msgid "Saturday"
 msgstr "lauantai"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:517
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:522
 msgid "Select a date"
 msgstr "Valitse päivämäärä"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:738
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:743
 #: lib/Horde/Core/Ui/VarRenderer/TablesetHtml.php:24
 msgid "Select all"
 msgstr "Valitse kaikki"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:927
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:932
 msgid "Select an object"
 msgstr "Valitse objekti"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:739
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:744
 #: lib/Horde/Core/Ui/VarRenderer/TablesetHtml.php:25
 msgid "Select none"
 msgstr "Tyhjennä valinta"
 
-#: lib/Horde/Core/Prefs/Ui.php:815
+#: lib/Horde/Core/Prefs/Ui.php:810
 msgid "Select the identity you want to change:"
 msgstr "Valitse muutettava profiili:"
 
@@ -721,13 +726,13 @@ msgstr "Valitse muutettava profiili:"
 msgid "Selected address books:"
 msgstr "Valitut osoitekirjat:"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1160
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1182
 msgid "Send SMS"
 msgstr "Lähetä SMS"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:135
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:435
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:481
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:440
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:486
 msgid "September"
 msgstr "syyskuu"
 
@@ -739,7 +744,11 @@ msgstr "Pienennä"
 msgid "Sign up"
 msgstr "Kirjaudu"
 
-#: lib/Horde/Core/Notification/Status.php:75
+#: lib/Horde/Core/Auth/Signup/Form.php:29
+msgid "Sign up for an account"
+msgstr "Rekisteröi uutta tunnusta"
+
+#: lib/Horde/Core/Notification/Event/Status.php:75
 msgid "Snooze..."
 msgstr "Torkku..."
 
@@ -747,9 +756,14 @@ msgstr "Torkku..."
 msgid "Su"
 msgstr "su"
 
-#: lib/Horde/Core/Notification/Status.php:103
+#: lib/Horde/Core/Notification/Event/Status.php:103
 msgid "Success"
 msgstr "Onnistui"
+
+#: lib/Horde/Config.php:291
+#, php-format
+msgid "Successfully saved the backup configuration file %s."
+msgstr "Varmuuskopiotiedoston tallennus onnistui %s."
 
 #: lib/Horde/Core/Ui/JsCalendar.php:109
 msgid "Sunday"
@@ -771,27 +785,27 @@ msgid ""
 msgstr ""
 "Sähköpostiosoite %s on lisätty profiileihisi. Voit sulkea tämän ikkunan."
 
-#: lib/Horde.php:721
+#: lib/Horde.php:736
 msgid "The encryption features require a secure web connection."
 msgstr "Salaustoiminto vaati salatun yhteyden käyttämistä."
 
-#: lib/Horde.php:948
+#: lib/Horde.php:963
 #, php-format
 msgid "The file %s should contain a %s setting."
 msgstr "Tiedostossa %s pitäisi olla %s asetus."
 
-#: lib/Horde.php:939
+#: lib/Horde.php:954
 #, php-format
 msgid "The file %s should contain some %s settings."
 msgstr "Tiedostossa %s pitäisi olla joitakin %s asetuksia."
 
-#: lib/Horde/Registry.php:2251
+#: lib/Horde/Registry.php:2382
 #, php-format
 msgid "The following applications encountered errors removing user data: %s"
 msgstr ""
 "Seuraavissa ohjelmissa tapahtui virheitä kun poistettiin käyttäjätietoja: %s"
 
-#: lib/Horde.php:170
+#: lib/Horde.php:181
 msgid ""
 "The full error message is logged in Horde's log file, and is shown below "
 "only to administrators. Non-administrative users will not see error details."
@@ -800,16 +814,16 @@ msgstr ""
 "alla vain ylläpitäjille. Tavalliset käyttäjät eivät näe virhetilanteen "
 "yksityiskohtia."
 
-#: lib/Horde/Core/Prefs/Ui.php:879
+#: lib/Horde/Core/Prefs/Ui.php:874
 #, php-format
 msgid "The identity \"%s\" has been deleted."
 msgstr "Poistettiin profiili \"%s\"."
 
-#: lib/Horde/Core/Prefs/Ui.php:927
+#: lib/Horde/Core/Prefs/Ui.php:922
 msgid "The new from address can't be verified, try again later: "
 msgstr "Uutta osoitetta ei pystytty varmentamaan, yritä myöhemmin uudestaan: "
 
-#: lib/Horde/Core/Factory/Prefs.php:193
+#: lib/Horde/Core/Factory/Prefs.php:197
 #, php-format
 msgid ""
 "The preference \"%s\" could not be saved because its data exceeds the "
@@ -818,7 +832,7 @@ msgstr ""
 "Asetusta \"%s\" ei voitu tallentaa, koska se vie enemmän tilaa kuin mitä on "
 "sallittu"
 
-#: lib/Horde/Core/Factory/Prefs.php:165
+#: lib/Horde/Core/Factory/Prefs.php:169
 msgid ""
 "The preferences backend is currently unavailable and your preferences have "
 "not been loaded. You may continue to use the system with default preferences."
@@ -830,7 +844,7 @@ msgstr ""
 msgid "There are no email addresses to confirm."
 msgstr "Ei ole varmistettavia sähköpostiosoitteita."
 
-#: lib/Horde/Core/Prefs/Ui.php:445
+#: lib/Horde/Core/Prefs/Ui.php:441
 msgid "There are no preferences available for this application."
 msgstr "Tälle ohjelmalle ei voi asettaa asetuksia."
 
@@ -842,20 +856,20 @@ msgstr "Yhteystietojen tuonnissa tapahtui virhe:"
 msgid "There was an error reading the contact data."
 msgstr "Yhteystietoja luettaessa tapahtui virhe."
 
-#: lib/Horde/Core/Prefs/Ui.php:359
+#: lib/Horde/Core/Prefs/Ui.php:355
 msgid "There were errors encountered while updating your preferences."
 msgstr "Päivitettäessä asetuksiasi tapahtui virhe."
 
-#: lib/Horde/Registry.php:434
+#: lib/Horde/Registry.php:446
 msgid "This system is currently deactivated."
 msgstr "Tämä järjestelmä on pois käytöstä."
 
 #  lib/Horde/Core/Prefs/Ui.php:287
-#: lib/Horde/Core/Prefs/Ui.php:335
+#: lib/Horde/Core/Prefs/Ui.php:331
 msgid "This value must be a number."
 msgstr "Tämän arvon pitää olla numero."
 
-#: lib/Horde/Core/Prefs/Ui.php:337
+#: lib/Horde/Core/Prefs/Ui.php:333
 msgid "This value must be non-zero."
 msgstr "Tämä arvo ei saa olla nolla."
 
@@ -867,7 +881,7 @@ msgstr "torstai"
 msgid "Title"
 msgstr "Titteli"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:711
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:716
 msgid ""
 "To select multiple items, hold down the Control (PC) or Command (Mac) key "
 "while clicking."
@@ -883,6 +897,11 @@ msgstr "ti"
 msgid "Tuesday"
 msgstr "tiistai"
 
+#: lib/Horde/Core/Auth/Signup/Form.php:45
+#: lib/Horde/Core/Auth/Signup/Form.php:59
+msgid "Type your password twice to confirm"
+msgstr "Varmistaaksesi kirjoita salasana kahdesti"
+
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:386
 msgid "URL"
 msgstr "URL"
@@ -895,21 +914,21 @@ msgstr "Päivitä"
 msgid "Upload"
 msgstr "Vie"
 
-#: lib/Horde/Core/Auth/Signup/Sql.php:96
+#: lib/Horde/Core/Auth/Signup/Sql.php:95
 #, php-format
 msgid "User \"%s\" does not exist."
 msgstr "Käyttäjää \"%s\" ei ole olemassa."
 
-#: lib/Horde/Core/Prefs/Ui.php:605
+#: lib/Horde/Core/Prefs/Ui.php:601
 msgid "User Preferences"
 msgstr "Käyttäjäasetukset"
 
-#: lib/Horde/Core/Auth/Signup/Base.php:117
+#: lib/Horde/Core/Auth/Signup/Base.php:116
 #, php-format
 msgid "Username \"%s\" already exists."
 msgstr "Käyttäjätunnus \"%s\" on jo olemassa."
 
-#: lib/Horde/Core/Notification/Status.php:108
+#: lib/Horde/Core/Notification/Event/Status.php:108
 msgid "Warning"
 msgstr "Varoitus"
 
@@ -917,11 +936,15 @@ msgstr "Varoitus"
 msgid "We"
 msgstr "ke"
 
+#: lib/Horde/Core/Factory/Weather.php:17
+msgid "Weather support not configured."
+msgstr "Tukea säätiedoille ei ole asennettu."
+
 #: lib/Horde/Core/Ui/JsCalendar.php:112
 msgid "Wednesday"
 msgstr "keskiviikko"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1191
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1213
 msgid "Whereis Australia map"
 msgstr "Whereis Australian kartta"
 
@@ -934,16 +957,16 @@ msgstr "Osoite (Työ)"
 msgid "Work Phone"
 msgstr "Puhelin (Työ)"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:439
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:489
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:444
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:494
 msgid "YYYY"
 msgstr "VVVV"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1235
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1257
 msgid "Yahoo! map"
 msgstr "Yahoo! kartta"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1049
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1054
 msgid "Yes"
 msgstr "Kyllä"
 
@@ -954,7 +977,11 @@ msgid_plural "You are not allowed to create more than %d blocks."
 msgstr[0] "Et voi tehdä kuin %d osion."
 msgstr[1] "Et voi tehdä kuin %d osiota."
 
-#: lib/Horde/Registry.php:1845
+#: lib/Horde/Registry.php:2349
+msgid "You are not allowed to remove user data."
+msgstr "Sinulla ei ole oikeuksia poistaa käyttäjätietoja."
+
+#: lib/Horde/Registry.php:1926
 msgid "You are not authenticated."
 msgstr "Et ole autentikoitunut."
 
@@ -977,7 +1004,7 @@ msgstr ""
 "\n"
 "Jos et tiedä mitä tämä viesti tarkoittaa, niin voit poistaa sen."
 
-#: lib/Horde/Core/Factory/Vfs.php:69
+#: lib/Horde/Core/Factory/Vfs.php:75
 msgid "You must configure a VFS backend."
 msgstr "Sinun pitää asentaa VFS-taustajärjestelmä."
 
@@ -986,19 +1013,19 @@ msgstr "Sinun pitää asentaa VFS-taustajärjestelmä."
 msgid "You must provide a setting for \"%s\"."
 msgstr "Sinun pitää antaa asetus \"%s\":lle."
 
-#: lib/Horde/Core/Prefs/Ui.php:895
+#: lib/Horde/Core/Prefs/Ui.php:890
 msgid "Your default identity has been changed."
 msgstr "Oletusprofiilisi on muutettu."
 
-#: lib/Horde/Core/Prefs/Ui.php:814
+#: lib/Horde/Core/Prefs/Ui.php:809
 msgid "Your default identity:"
 msgstr "Oletusprofiilisi:"
 
-#: lib/Horde/Core/Prefs/Ui.php:371
+#: lib/Horde/Core/Prefs/Ui.php:367
 msgid "Your preferences have been updated for the duration of this session."
 msgstr "Asetuksesi on päivitetty ja ne ovat voimassa tämän istunnon ajan."
 
-#: lib/Horde/Core/Prefs/Ui.php:373
+#: lib/Horde/Core/Prefs/Ui.php:369
 msgid "Your preferences have been updated."
 msgstr "Asetuksesi on päivitetty."
 
@@ -1015,43 +1042,38 @@ msgstr "[Ei otsaketta]"
 msgid "[Show Quoted Text - %d lines]"
 msgstr "[Näytä lainattu teksti - %d riviä]"
 
-#: lib/Horde/Menu.php:206
+#: lib/Horde/Menu.php:248
 msgid "_Log in"
 msgstr "Kirjaudu _sisään"
 
-#: lib/Horde/Menu.php:201
+#: lib/Horde/Menu.php:243
 msgid "_Log out"
 msgstr "Kirjaudu _ulos"
 
-#: lib/Horde/Menu.php:170
+#: lib/Horde/Menu.php:212
 msgid "_Preferences"
 msgstr "_Asetukset"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:242
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:247
 msgid "h:"
 msgstr "h:"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:383
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:388
 msgid "hh"
 msgstr "hh"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:394
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:399
 msgid "mm"
 msgstr "mm"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:411
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:416
 msgid "ss"
 msgstr "ss"
-
-#: lib/Horde/Core/Auth/Signup/Form.php:45
-#: lib/Horde/Core/Auth/Signup/Form.php:59
-msgid "type the password twice to confirm"
-msgstr "varmistaaksesi kirjoita salasana kahdesti"
 
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:102
 msgid "vCard"
 msgstr "vCard"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:234
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:239
 msgid "w:"
 msgstr "w:"
