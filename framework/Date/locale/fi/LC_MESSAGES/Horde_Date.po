@@ -1,14 +1,14 @@
 # Finnish translations for Horde_Date module.
 # Copyright 2010-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Date module.
-# Leena Heino <liinu@uta.fi>, 2010-2011.
+# Leena Heino <liinu@uta.fi>, 2010-2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Date\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-04 10:15+0200\n"
-"PO-Revision-Date: 2011-04-03 20:41:47+0300\n"
+"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"PO-Revision-Date: 2012-03-08 07:26:49+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -54,7 +54,7 @@ msgstr[1] "%d viikkoa sitten"
 msgid "Daily"
 msgstr "Päivittäin"
 
-#: lib/Horde/Date.php:253
+#: lib/Horde/Date.php:252
 #, php-format
 msgid "Failed to parse time string (%s)"
 msgstr "Merkkijonosta ei pystytty lukemaan Päiväystä (%s)"

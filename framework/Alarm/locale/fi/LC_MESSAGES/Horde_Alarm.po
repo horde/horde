@@ -1,14 +1,14 @@
 # Finnish translations for Horde_Alarm module.
 # Copyright 2010-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Alarm module.
-# Leena Heino <liinu@uta.fi>, 2010-2011.
+# Leena Heino <liinu@uta.fi>, 2010-2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Alarm\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-15 13:27+0100\n"
-"PO-Revision-Date: 2011-04-03 10:08:52+0300\n"
+"POT-Creation-Date: 2012-02-22 11:20+0100\n"
+"PO-Revision-Date: 2012-03-07 15:04:08+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -17,15 +17,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Alarm/Handler/Desktop.php:87
+#: lib/Horde/Alarm/Handler/Desktop.php:79
 msgid "Desktop notification (with certain browsers)"
 msgstr "Työpöytähälytykset (vain joillakin selaimilla)"
 
-#: lib/Horde/Alarm/Handler/Mail.php:121
+#: lib/Horde/Alarm/Handler/Mail.php:129
 msgid "Email"
 msgstr "Sähköposti"
 
-#: lib/Horde/Alarm/Handler/Mail.php:141
+#: lib/Horde/Alarm/Handler/Mail.php:149
 msgid "Email address (optional)"
 msgstr "Sähköpostiosoite (valinnainen)"
 

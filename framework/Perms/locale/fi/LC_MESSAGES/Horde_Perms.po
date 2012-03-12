@@ -1,14 +1,14 @@
 # Finnish translations for Horde_Perms module.
 # Copyright 2010-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Perms module.
-# Leena Heino <liinu@uta.fi>, 2010-2011.
+# Leena Heino <liinu@uta.fi>, 2010-2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Perms\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-15 13:27+0100\n"
-"PO-Revision-Date: 2011-04-03 11:12:55+0300\n"
+"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"PO-Revision-Date: 2012-03-07 19:36:28+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -32,3 +32,11 @@ msgstr "Luku"
 #: lib/Horde/Perms.php:66
 msgid "Show"
 msgstr "Näytä"
+
+#: lib/Horde/Perms/Sql.php:205
+msgid ""
+"Trying to create sub permission of non-existant parent permission. Create "
+"parent permission(s) first."
+msgstr ""
+"Yrität luoda alitason oikeutta olemattomalle ylitasolle. Luo ensin ylitason "
+"oikeudet."

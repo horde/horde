@@ -1,14 +1,14 @@
 # Finnish translation for Mnemo.
 # This file is distributed under the same license as the Mnemo package.
 # Copyright
-# Leena Heino <liinu@uta.fi>, 2002-2011.
+# Leena Heino <liinu@uta.fi>, 2002-2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Mnemo 3.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-04 10:15+0200\n"
-"PO-Revision-Date: 2011-04-05 13:46:18+0300\n"
+"POT-Creation-Date: 2012-02-22 11:20+0100\n"
+"PO-Revision-Date: 2012-03-07 19:48:29+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -49,7 +49,7 @@ msgstr "Tapahtui virhe näytettäessä: %s"
 msgid "An error occurred displaying the note"
 msgstr "Tapahtui virhe näytettäessä muistiinpanoa"
 
-#: config/prefs.php:63
+#: config/prefs.php:64
 msgid "Ascending"
 msgstr "Nouseva"
 
@@ -62,7 +62,7 @@ msgstr "CSV"
 msgid "Cancel"
 msgstr "Peru"
 
-#: data.php:49 templates/view/memo.inc:26
+#: data.php:49 templates/view/memo.inc:24
 msgid "Category"
 msgstr "Kategoria"
 
@@ -70,11 +70,11 @@ msgstr "Kategoria"
 msgid "Change Permissions"
 msgstr "Muuta oikeuksia"
 
-#: config/prefs.php:13
+#: config/prefs.php:14
 msgid "Change your note sorting and display preferences."
 msgstr "Voit muuttaa muistiinpanojen järjestely- ja näyttöasetuksia."
 
-#: config/prefs.php:20
+#: config/prefs.php:21
 msgid "Choose your default Notepad."
 msgstr "Voit valita oletusmuistilistasi."
 
@@ -98,7 +98,7 @@ msgstr "Luo muistilista"
 msgid "Create a new Notepad"
 msgstr "Luo uusi muistilista"
 
-#: templates/view/memo.inc:32
+#: templates/view/memo.inc:30
 msgid "Created"
 msgstr "Luotu"
 
@@ -106,24 +106,24 @@ msgstr "Luotu"
 msgid "Date"
 msgstr "Päiväys"
 
-#: templates/memo/memo.inc:23 templates/view/memo.inc:54
+#: templates/memo/memo.inc:23 templates/view/memo.inc:52
 msgid "Decrypt"
 msgstr "Pura salaus"
 
-#: config/prefs.php:19
+#: config/prefs.php:20
 msgid "Default Notepad"
 msgstr "Oletusmuistilista"
 
-#: config/prefs.php:55
+#: config/prefs.php:56
 msgid "Default sorting criteria:"
 msgstr "Oletusjärjestys:"
 
-#: config/prefs.php:66
+#: config/prefs.php:67
 msgid "Default sorting direction:"
 msgstr "Oletusjärjestyksen suunta:"
 
 #: lib/Form/DeleteNotepad.php:34 notepads/index.php:35
-#: templates/notepad_list.php:31 templates/view/memo.inc:16
+#: templates/notepad_list.php:31 templates/view/memo.inc:15
 msgid "Delete"
 msgstr "Poista"
 
@@ -132,11 +132,11 @@ msgstr "Poista"
 msgid "Delete %s"
 msgstr "Poista %s"
 
-#: config/prefs.php:26
+#: config/prefs.php:27
 msgid "Delete Confirmation"
 msgstr "Poiston varmistus"
 
-#: config/prefs.php:27
+#: config/prefs.php:28
 msgid "Delete button behaviour"
 msgstr "Voit muuttaa Poista painikkeen toimintaa"
 
@@ -144,7 +144,7 @@ msgstr "Voit muuttaa Poista painikkeen toimintaa"
 msgid "Delete this note"
 msgstr "Poista tämä muistiinpano"
 
-#: config/prefs.php:64
+#: config/prefs.php:65
 msgid "Descending"
 msgstr "Laskeva"
 
@@ -152,16 +152,16 @@ msgstr "Laskeva"
 msgid "Description"
 msgstr "Kuvaus"
 
-#: config/prefs.php:12
+#: config/prefs.php:13
 msgid "Display Preferences"
 msgstr "Näkymän asetukset"
 
-#: config/prefs.php:96
+#: config/prefs.php:97
 msgid "Do you want to confirm deleting entries?"
 msgstr "Haluatko varmistuksen poistettavista merkinnöistä?"
 
 #: notepads/index.php:33 templates/notepad_list.php:27
-#: templates/view/memo.inc:13
+#: templates/view/memo.inc:12
 msgid "Edit"
 msgstr "Muokkaa"
 
@@ -207,7 +207,7 @@ msgstr "Vie"
 msgid "Export Notes"
 msgstr "Vie muistiinpanot"
 
-#: config/prefs.php:11 config/prefs.php:18 config/prefs.php:25
+#: config/prefs.php:12 config/prefs.php:19 config/prefs.php:26
 msgid "General Preferences"
 msgstr "Yleisest asetukset"
 
@@ -224,7 +224,7 @@ msgstr "Tuo/Vie muistiinpanot"
 msgid "In: "
 msgstr "Sisältää:"
 
-#: templates/view/memo.inc:39
+#: templates/view/memo.inc:37
 msgid "Last Modified"
 msgstr "Muokattu viimeksi"
 
@@ -232,7 +232,7 @@ msgstr "Muokattu viimeksi"
 msgid "Manage Notepads"
 msgstr "[Hallinnoi muistilistoja]"
 
-#: lib/Application.php:57
+#: lib/Application.php:56
 msgid "Maximum Number of Notes"
 msgstr "Muistiinpanojen enimmäismäärä"
 
@@ -240,7 +240,7 @@ msgstr "Muistiinpanojen enimmäismäärä"
 msgid "Memo Text"
 msgstr "Muistiinpanon teksti"
 
-#: config/prefs.php:53
+#: config/prefs.php:54
 msgid "Modification Date"
 msgstr "Muokkauspäiväys"
 
@@ -248,7 +248,7 @@ msgstr "Muokkauspäiväys"
 msgid "More Options..."
 msgstr "Lisää asetuksia..."
 
-#: lib/Api.php:378
+#: lib/Api.php:364
 msgid "Multiple iCalendar components found; only one vNote is supported."
 msgstr "Löytyi useita iCalendar komponentteja; vain yksi vNote on tuettu."
 
@@ -256,7 +256,7 @@ msgstr "Löytyi useita iCalendar komponentteja; vain yksi vNote on tuettu."
 msgid "My Notepads:"
 msgstr "Omat muistilistani:"
 
-#: list.php:29 stickies.php:29
+#: list.php:29
 msgid "My Notes"
 msgstr "Oma muistiinpanoni"
 
@@ -264,7 +264,7 @@ msgstr "Oma muistiinpanoni"
 msgid "Name"
 msgstr "Nimi"
 
-#: lib/Application.php:133 memo.php:92 memo.php:138
+#: lib/Application.php:128 memo.php:92 memo.php:138
 msgid "New Note"
 msgstr "Uusi muistiinpano"
 
@@ -272,7 +272,7 @@ msgstr "Uusi muistiinpano"
 msgid "Next"
 msgstr "Seuraava"
 
-#: lib/Api.php:222 lib/Api.php:371
+#: lib/Api.php:208 lib/Api.php:357
 msgid "No iCalendar data was found."
 msgstr "iCalendar tietoja ei löytynyt."
 
@@ -296,11 +296,11 @@ msgstr "Ei muistiinpanoja näytettäväksi"
 msgid "No_te"
 msgstr "Mu_istiinpano"
 
-#: lib/Driver/Kolab.php:97 lib/Driver/Sql.php:80
+#: lib/Driver/Kolab.php:109 lib/Driver/Sql.php:80
 msgid "Not Found"
 msgstr "Ei löytynyt"
 
-#: config/prefs.php:51
+#: config/prefs.php:52
 msgid "Note Category"
 msgstr "Muistiinpanon luokitus"
 
@@ -308,7 +308,7 @@ msgstr "Muistiinpanon luokitus"
 msgid "Note Details"
 msgstr "Muistiinpanon yksityiskohdat"
 
-#: config/prefs.php:50
+#: config/prefs.php:51
 msgid "Note Text"
 msgstr "Muistiinpanon teksti"
 
@@ -324,7 +324,7 @@ msgstr "Muistiinpanoa ei löytynyt."
 msgid "Note_pad:"
 msgstr "Muisti_lista:"
 
-#: config/prefs.php:52 templates/list/memo_headers.inc:33
+#: config/prefs.php:53 templates/list/memo_headers.inc:33
 #: templates/notepad_list.php:17
 msgid "Notepad"
 msgstr "Muistilista"
@@ -333,7 +333,7 @@ msgstr "Muistilista"
 msgid "Notepad List"
 msgstr "Muistilistalistaus"
 
-#: lib/Mnemo.php:522
+#: lib/Notepads/Default.php:65
 #, php-format
 msgid "Notepad of %s"
 msgstr "%s:n muistilistat"
@@ -341,6 +341,10 @@ msgstr "%s:n muistilistat"
 #: templates/panel.inc:33 templates/panel.inc:34
 msgid "Notepads"
 msgstr "Muistilistat"
+
+#: lib/Notepads/Kolab.php:38
+msgid "Notes"
+msgstr "Muistiinpanot"
 
 #: lib/Block/Summary.php:12
 msgid "Notes Summary"
@@ -350,8 +354,8 @@ msgstr "Muistiinpanojen yhteenveto"
 msgid "Ok"
 msgstr "Ok"
 
-#: lib/Api.php:105 lib/Api.php:138 lib/Api.php:170 lib/Api.php:201
-#: lib/Api.php:286 lib/Api.php:331 lib/Api.php:354
+#: lib/Api.php:73 lib/Api.php:124 lib/Api.php:156 lib/Api.php:187
+#: lib/Api.php:272 lib/Api.php:317 lib/Api.php:340
 msgid "Permission Denied"
 msgstr "Käyttö kielletty"
 
@@ -368,7 +372,7 @@ msgstr ""
 "Haluatko poistaa muistilistan \"%s\"? Tämä operaatio on peruuttamaton ja "
 "kaikki tiedot tällä muistilistalla poistuvat lopullisesti."
 
-#: templates/view/memo.inc:16
+#: templates/view/memo.inc:15
 msgid "Really delete this note?"
 msgstr "Poistetaanko tämä muistiinpano?"
 
@@ -377,16 +381,16 @@ msgstr "Poistetaanko tämä muistiinpano?"
 msgid "Save"
 msgstr "Tallenna"
 
-#: templates/view/memo.inc:11
+#: templates/view/memo.inc:10
 msgid "Save as PDF"
 msgstr "Tallenna PDF-muodossa"
 
-#: lib/Application.php:166 search.php:22 templates/list/header.inc:4
+#: lib/Application.php:154 search.php:22 templates/list/header.inc:4
 #: templates/search/search.inc:4 templates/search/search.inc:27
 msgid "Search"
 msgstr "Haku"
 
-#: list.php:52 notes/index.php:38 stickies.php:52
+#: list.php:52 notes/index.php:38
 msgid "Search Results"
 msgstr "Haun tulokset"
 
@@ -410,7 +414,7 @@ msgstr "Valitse lähdetiedoston muoto:"
 msgid "Shared Notepads:"
 msgstr "Jaetut muistilistat"
 
-#: config/prefs.php:36
+#: config/prefs.php:37
 msgid "Should the Notepad be shown in its own column in the List view?"
 msgstr "Näytetäänkö muistalistat omissa sarakkeissaan listanäkymässä?"
 
@@ -489,11 +493,11 @@ msgstr "Salasanat eivät täsmää."
 msgid "There was an error importing the data: %s"
 msgstr "Tapahtui virhe tuotaessa tietoa: %s"
 
-#: lib/Api.php:216 lib/Api.php:365
+#: lib/Api.php:202 lib/Api.php:351
 msgid "There was an error importing the iCalendar data."
 msgstr "Tapahtui virhe tuotaessa iCalendar tietoja."
 
-#: lib/Api.php:53 lib/Api.php:65
+#: lib/Application.php:202
 #, php-format
 msgid "There was an error removing notes for %s. Details have been logged."
 msgstr ""
@@ -539,17 +543,17 @@ msgstr ""
 msgid "This note has been encrypted, please provide the password below"
 msgstr "Tämä muistiinpano on salattu, anna salasana alla olevaan tilaan."
 
-#: lib/Api.php:280 lib/Driver/Kolab.php:281 lib/Driver/Sql.php:344
+#: lib/Api.php:266 lib/Driver/Kolab.php:292 lib/Driver/Sql.php:344
 msgid "This note has been encrypted."
 msgstr "Tämä muistiinpano on salattu."
 
-#: lib/Block/Summary.php:116 lib/Mnemo.php:267 lib/Mnemo.php:268
-#: lib/Mnemo.php:282 lib/Mnemo.php:283 templates/list/memo_summaries.inc:20
-#: templates/view/memo.inc:27
+#: lib/Block/Summary.php:116 lib/Mnemo.php:310 lib/Mnemo.php:311
+#: lib/Mnemo.php:325 lib/Mnemo.php:326 templates/list/memo_summaries.inc:20
+#: templates/view/memo.inc:25
 msgid "Unfiled"
 msgstr "Luokittelematon"
 
-#: lib/Api.php:249 lib/Api.php:305 lib/Api.php:388
+#: lib/Api.php:235 lib/Api.php:291 lib/Api.php:374
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr "Ei tuettu Content-Type: %s"
@@ -584,7 +588,7 @@ msgstr "Sinulla ei ole oikeuksia muokata tätä muistiinpanoa."
 msgid "You do not have permission to view the notepad %s."
 msgstr "Sinulla ei ole oikeuksia selata muistilistaa %s."
 
-#: config/prefs.php:84
+#: config/prefs.php:85
 msgid "Your default notepad:"
 msgstr "Oletusmuistilistasi:"
 
@@ -604,11 +608,11 @@ msgstr "_Kategoria"
 msgid "_Category:"
 msgstr "_Kategoria:"
 
-#: templates/view/memo.inc:16
+#: templates/view/memo.inc:15
 msgid "_Delete"
 msgstr "_Poista"
 
-#: templates/view/memo.inc:13
+#: templates/view/memo.inc:12
 msgid "_Edit"
 msgstr "_Muokkaa"
 
@@ -620,19 +624,19 @@ msgstr "_Salaa?"
 msgid "_For: "
 msgstr "_Syy:"
 
-#: lib/Application.php:82
+#: lib/Application.php:81
 msgid "_Import/Export"
 msgstr "_Tuo/Vie"
 
-#: lib/Application.php:69
+#: lib/Application.php:68
 msgid "_List Notes"
 msgstr "_Listaa muistiinpanot"
 
-#: lib/Application.php:74
+#: lib/Application.php:73
 msgid "_New Note"
 msgstr "_Uusi muistiinpano"
 
-#: templates/memo/memo.inc:21 templates/view/memo.inc:52
+#: templates/memo/memo.inc:21 templates/view/memo.inc:50
 msgid "_Password"
 msgstr "S_alasana"
 
@@ -640,15 +644,11 @@ msgstr "S_alasana"
 msgid "_Password:"
 msgstr "S_alasana:"
 
-#: lib/Application.php:87
-msgid "_Print"
-msgstr "_Tulosta"
-
 #: templates/memo/memo.inc:93
 msgid "_Repeat:"
 msgstr "_Toisto:"
 
-#: lib/Application.php:78
+#: lib/Application.php:77
 msgid "_Search"
 msgstr "_Haku"
 
@@ -665,7 +665,7 @@ msgstr "%s"
 msgid "by me"
 msgstr "itse"
 
-#: lib/Application.php:153
+#: lib/Application.php:141
 #, php-format
 msgid "in %s"
 msgstr "%s:ssä"

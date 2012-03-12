@@ -1,14 +1,14 @@
 # Finnish translations for Horde_Kolab_FreeBusy module.
 # Copyright 2010-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Kolab_FreeBusy module.
-# Leena Heino <liinu@uta.fi>, 2010-2011.
+# Leena Heino <liinu@uta.fi>, 2010-2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Kolab_FreeBusy\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
-"PO-Revision-Date: 2011-04-03 11:11:04+0300\n"
+"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"PO-Revision-Date: 2012-03-07 15:07:44+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -42,22 +42,12 @@ msgstr "Virheet:"
 msgid "Failed regenerating calendar %s: %s"
 msgstr "Kalenterin uudelleenluonti epäonnistui %s: %s"
 
-#: lib/Horde/Kolab/FreeBusy/Imap.php:128
-#, php-format
-msgid "Folder %s does not exist!"
-msgstr "Kansiota %s ei ole olemassa!"
-
-#: lib/Horde/Kolab/FreeBusy/Imap.php:135
-#, php-format
-msgid "Folder %s has type \"%s\" not \"event\"!"
-msgstr "Kansilla %s on tyyppi \"%s\" ei \"event\"!"
-
-#: lib/Horde/Kolab/FreeBusy/Driver/Base.php:183
+#: lib/Horde/Kolab/FreeBusy/Driver/Base.php:93
 #, php-format
 msgid "Invalid authentication for user %s!"
 msgstr "Autentikointi epäonnistui käyttäjälle %s!"
 
-#: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Base.php:218
+#: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Base.php:321
 #, php-format
 msgid "No such account %s!"
 msgstr "Ei käyttäjätunnusta %s!"
@@ -71,7 +61,7 @@ msgstr "Ei löytynyt kansiota %s"
 msgid "Not found"
 msgstr "Ei löytynyt"
 
-#: lib/Horde/Kolab/FreeBusy/Driver/Base.php:179
+#: lib/Horde/Kolab/FreeBusy/Driver/Base.php:89
 msgid "Please authenticate!"
 msgstr "Ole hyvä ja kirjaudu!"
 
@@ -97,7 +87,7 @@ msgstr "Pyydettyä URL %s ei löytynyt tältä palvelimelta."
 msgid "Unable to determine owner of the free/busy data!"
 msgstr "Ei voitu päätellä vapaa/varattu tietojen omistajaa!"
 
-#: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Base.php:295
+#: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Base.php:398
 #, php-format
 msgid "Unable to read free/busy information from %s"
 msgstr "Ei voitu lukea vapaa/varattu tietoja lähteestä %s"
