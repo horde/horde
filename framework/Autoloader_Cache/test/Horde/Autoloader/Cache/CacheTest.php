@@ -153,4 +153,91 @@ class Horde_Autoloader_CacheTest extends PHPUnit_Framework_TestCase
         );
         $this->cache->mapToPath('test');
     }
+
+    public function testSecondMappingWithPrunedCache()
+    {
+        $this->autoloader->expects($this->exactly(2))
+            ->method('mapToPath')
+            ->with('test')
+            ->will($this->returnValue('TEST'));
+        $this->cache->mapToPath('test');
+        $this->cache->store();
+        $this->cache->prune();
+        $this->cache = new Horde_Autoloader_Cache_Stub_TestCache(
+            $this->autoloader
+        );
+        $this->cache->mapToPath('test');
+    }
+
+    public function testApcStore()
+    {
+        if (!extension_loaded('apc')) {
+            $this->markTestSkipped('APC not active.');
+        }
+        $this->autoloader->expects($this->once())
+            ->method('mapToPath')
+            ->with('test')
+            ->will($this->returnValue('TEST'));
+        $this->cache->mapToPath('test');
+        $this->cache->store();
+        $this->assertEquals(
+            array('test' => 'TEST'),
+            apc_fetch($this->cache->getKey())
+        );
+    }
+
+    public function testApcPrune()
+    {
+        if (!extension_loaded('apc')) {
+            $this->markTestSkipped('APC not active.');
+        }
+        $this->autoloader->expects($this->once())
+            ->method('mapToPath')
+            ->with('test')
+            ->will($this->returnValue('TEST'));
+        $this->cache->mapToPath('test');
+        $this->cache->store();
+        $this->cache->prune();
+        $this->assertEquals(
+            array(),
+            apc_fetch($this->cache->getKey())
+        );
+    }
+
+    public function testFileStore()
+    {
+        if (extension_loaded('eaccelerator')
+            || extension_loaded('apc')) {
+            $this->markTestSkipped('Caching engine active.');
+        }
+        $this->autoloader->expects($this->once())
+            ->method('mapToPath')
+            ->with('test')
+            ->will($this->returnValue('TEST'));
+        $this->cache->mapToPath('test');
+        $this->cache->store();
+        $this->assertEquals(
+            array('test' => 'TEST'),
+            json_decode(file_get_contents(sys_get_temp_dir() . '/' . $this->cache->getKey()), true)
+        );
+    }
+
+    public function testFilePrune()
+    {
+        if (extension_loaded('eaccelerator')
+            || extension_loaded('apc')) {
+            $this->markTestSkipped('Caching engine active.');
+        }
+        $this->autoloader->expects($this->once())
+            ->method('mapToPath')
+            ->with('test')
+            ->will($this->returnValue('TEST'));
+        $this->cache->mapToPath('test');
+        $this->cache->store();
+        $this->cache->prune();
+        $this->assertFalse(
+            file_exists(sys_get_temp_dir() . '/' . $this->cache->getKey())
+        );
+    }
+
 }

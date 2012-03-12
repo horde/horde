@@ -15,4 +15,9 @@ extends Horde_Autoloader_Cache
     {
         return $this->_cache;
     }
+
+    public function getKey()
+    {
+        return $this->_cachekey;
+    }
 }
