@@ -2,6 +2,8 @@
 v3.0.13-git
 -----------
 
+[mjr] Fix bug that caused time shifting of contact birthday and anniversary
+      values from ActiveSync devices for users in certain timezones.
 
 
 -------

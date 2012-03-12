@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* 
+* [mjr] Fix bug that caused time shifting of contact birthday and anniversary values from ActiveSync devices for users in certain timezones.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1396,7 +1396,7 @@
    <date>2012-02-28</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
-* 
+* [mjr] Fix bug that caused time shifting of contact birthday and anniversary values from ActiveSync devices for users in certain timezones.
    </notes>
   </release>
  </changelog>

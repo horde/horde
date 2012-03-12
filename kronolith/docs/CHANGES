@@ -2,6 +2,8 @@
 v3.0.16-git
 -----------
 
+[mjr] Fix bug that caused time shift of all day events when imported from
+      ActiveSync devices for users in certain timezones (Bug #10991).
 [mjr] Correctly deal with deleted calendars in sync clients (Bug #10969).
 
 
