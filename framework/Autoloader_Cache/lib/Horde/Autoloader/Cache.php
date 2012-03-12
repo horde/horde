@@ -106,7 +106,8 @@ class Horde_Autoloader_Cache implements Horde_Autoloader
         } elseif (($this->_tempdir = sys_get_temp_dir()) &&
                   is_readable($this->_tempdir)) {
             $this->_cachekey = hash('md5', $this->_cachekey);
-            if (($data = file_get_contents($this->_tempdir . '/' . $this->_cachekey)) !== false) {
+            if (file_exists($this->_tempdir . '/' . $this->_cachekey)
+                && ($data = file_get_contents($this->_tempdir . '/' . $this->_cachekey)) !== false) {
                 $this->_cache = @json_decode($data, true);
             }
             $this->_cachetype = self::TEMPFILE;
@@ -142,6 +143,49 @@ class Horde_Autoloader_Cache implements Horde_Autoloader
             file_put_contents($this->_tempdir . '/' . $this->_cachekey, json_encode($this->_cache));
             break;
         }
+    }
+
+    /**
+     * Register this instance as autoloader.
+     *
+     * @return NULL
+     */
+    public function registerAutoloader()
+    {
+        // Register the autoloader in a way to play well with as many
+        // configurations as possible.
+        spl_autoload_register(array($this, 'loadClass'));
+        if (function_exists('__autoload')) {
+            spl_autoload_register('__autoload');
+        }
+    }
+
+    /**
+     * Try to load the definition for the provided class name.
+     *
+     * @param string $className The name of the undefined class.
+     *
+     * @return NULL
+     */
+    public function loadClass($className)
+    {
+        if ($path = $this->mapToPath($className)) {
+            return $this->loadPath($path, $className);
+        }
+        return false;
+    }
+
+    /**
+     * Try to load a class from the provided path.
+     *
+     * @param string $path      The path to the source file.
+     * @param string $className The class to load.
+     *
+     * @return boolean True if loading the class succeeded.
+     */
+    public function loadPath($path, $className)
+    {
+        return $this->_autoloader->loadPath($path, $className);
     }
 
     /**
