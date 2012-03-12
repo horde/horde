@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-22</date>
- <time>11:57:03</time>
+ <date>2012-02-29</date>
+ <time>22:36:56</time>
  <version>
   <release>1.0.2</release>
   <api>1.0.0</api>
@@ -51,6 +51,7 @@
       <file name="Base.php" role="php" />
       <file name="ClassPathMapper.php" role="php" />
       <file name="Default.php" role="php" />
+      <file name="IncludePath.php" role="php" />
      </dir> <!-- /lib/Horde/Autoloader -->
      <file name="Autoloader.php" role="php" />
     </dir> <!-- /lib/Horde -->
@@ -63,8 +64,12 @@
        <file name="DefaultTest.php" role="test" />
        <file name="PrefixTest.php" role="test" />
       </dir> <!-- /test/Horde/Autoloader/ClassPathMapper -->
+      <dir name="fixtures">
+       <file name="HordeAutoloaderTestFixture.php" role="test" />
+      </dir> <!-- /test/Horde/Autoloader/fixtures -->
       <file name="AllTests.php" role="test" />
       <file name="AutoloaderTest.php" role="test" />
+      <file name="phpunit.xml" role="test" />
      </dir> <!-- /test/Horde/Autoloader -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -87,14 +92,17 @@
    <install as="Horde/Autoloader/Base.php" name="lib/Horde/Autoloader/Base.php" />
    <install as="Horde/Autoloader/ClassPathMapper.php" name="lib/Horde/Autoloader/ClassPathMapper.php" />
    <install as="Horde/Autoloader/Default.php" name="lib/Horde/Autoloader/Default.php" />
+   <install as="Horde/Autoloader/IncludePath.php" name="lib/Horde/Autoloader/IncludePath.php" />
    <install as="Horde/Autoloader/ClassPathMapper/Application.php" name="lib/Horde/Autoloader/ClassPathMapper/Application.php" />
    <install as="Horde/Autoloader/ClassPathMapper/Default.php" name="lib/Horde/Autoloader/ClassPathMapper/Default.php" />
    <install as="Horde/Autoloader/ClassPathMapper/Prefix.php" name="lib/Horde/Autoloader/ClassPathMapper/Prefix.php" />
    <install as="Horde/Autoloader/AllTests.php" name="test/Horde/Autoloader/AllTests.php" />
    <install as="Horde/Autoloader/AutoloaderTest.php" name="test/Horde/Autoloader/AutoloaderTest.php" />
+   <install as="Horde/Autoloader/phpunit.xml" name="test/Horde/Autoloader/phpunit.xml" />
    <install as="Horde/Autoloader/ClassPathMapper/ApplicationTest.php" name="test/Horde/Autoloader/ClassPathMapper/ApplicationTest.php" />
    <install as="Horde/Autoloader/ClassPathMapper/DefaultTest.php" name="test/Horde/Autoloader/ClassPathMapper/DefaultTest.php" />
    <install as="Horde/Autoloader/ClassPathMapper/PrefixTest.php" name="test/Horde/Autoloader/ClassPathMapper/PrefixTest.php" />
+   <install as="Horde/Autoloader/fixtures/HordeAutoloaderTestFixture.php" name="test/Horde/Autoloader/fixtures/HordeAutoloaderTestFixture.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -196,7 +204,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-22</date>
+   <date>2012-02-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
