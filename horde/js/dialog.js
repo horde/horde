@@ -84,7 +84,7 @@ var HordeDialog = {
         if (data.form) {
             n.insert(data.form);
         } else if (!data.noinput) {
-            n.insert(new Element('INPUT', { name: 'dialog_input', type: data.password ? 'password' : 'text', size: 15 }).setValue(data.input_val));
+            n.insert(new Element('INPUT', { id: 'dialog_input', name: 'dialog_input', type: data.password ? 'password' : 'text', size: 15 }).setValue(data.input_val));
             RedBox.onDisplay = Form.focusFirstElement.curry(n);
         }
 
