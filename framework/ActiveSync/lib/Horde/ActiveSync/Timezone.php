@@ -94,6 +94,8 @@ class Horde_ActiveSync_Timezone
      *
      * @param Horde_Date $date  A date object representing the date to base the
      *                          the tz data on.
+     *
+     * @return array  An offset hash.
      */
     static public function getOffsetsFromDate(Horde_Date $date)
     {
@@ -149,14 +151,11 @@ class Horde_ActiveSync_Timezone
     static protected function _getTransitions(DateTimeZone $timezone, Horde_Date $date)
     {
         $std = $dst = null;
-        if (version_compare(PHP_VERSION, '5.3.0', '>=')) {
-            $transitions = $timezone->getTransitions(
-                mktime(0, 0, 0, 12, 1, $date->year - 1),
-                mktime(24, 0, 0, 12, 31, $date->year)
-            );
-        } else {
-            $transitions = $timezone->getTransitions();
-        }
+        $transitions = $timezone->getTransitions(
+            mktime(0, 0, 0, 12, 1, $date->year - 1),
+            mktime(24, 0, 0, 12, 31, $date->year)
+        );
+
         foreach ($transitions as $i => $transition) {
             try {
                $d = new Horde_Date($transition['time']);
