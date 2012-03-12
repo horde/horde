@@ -37,6 +37,11 @@ class Horde_Autoloader_CacheTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function tearDown()
+    {
+        $this->cache->prune();
+    }
+
     public function testTypeApc()
     {
         if (!extension_loaded('apc')) {
@@ -69,5 +74,83 @@ class Horde_Autoloader_CacheTest extends PHPUnit_Framework_TestCase
             Horde_Autoloader_Cache::TEMPFILE,
             $this->cache->getType()
         );
+    }
+
+    public function testRegistering()
+    {
+        $this->cache->registerAutoloader();
+        $this->assertContains(
+            array($this->cache, 'loadClass'), spl_autoload_functions()
+        );
+        spl_autoload_unregister(array($this->cache, 'loadClass'));
+    }
+
+    public function testMapping()
+    {
+        $this->autoloader->expects($this->once())
+            ->method('mapToPath')
+            ->with('test')
+            ->will($this->returnValue('TEST'));
+        $this->assertEquals('TEST', $this->cache->mapToPath('test'));
+    }
+
+    public function testSecondMapping()
+    {
+        $this->autoloader->expects($this->once())
+            ->method('mapToPath')
+            ->with('test')
+            ->will($this->returnValue('TEST'));
+        $this->cache->mapToPath('test');
+        $this->cache->mapToPath('test');
+    }
+
+    public function testPathLoading()
+    {
+        $this->autoloader->expects($this->once())
+            ->method('loadPath')
+            ->with('TEST', 'test')
+            ->will($this->returnValue(true));
+        $this->assertTrue($this->cache->loadPath('TEST', 'test'));
+    }
+
+    public function testClassLoading()
+    {
+        $this->autoloader->expects($this->once())
+            ->method('mapToPath')
+            ->with('test')
+            ->will($this->returnValue('TEST'));
+        $this->autoloader->expects($this->once())
+            ->method('loadPath')
+            ->with('TEST', 'test')
+            ->will($this->returnValue(true));
+        $this->assertTrue($this->cache->loadClass('test'));
+    }
+
+    public function testSecondClassLoading()
+    {
+        $this->autoloader->expects($this->once())
+            ->method('mapToPath')
+            ->with('test')
+            ->will($this->returnValue('TEST'));
+        $this->autoloader->expects($this->exactly(2))
+            ->method('loadPath')
+            ->with('TEST', 'test')
+            ->will($this->returnValue(true));
+        $this->cache->loadClass('test');
+        $this->cache->loadClass('test');
+    }
+
+    public function testSecondMappingWithSecondCache()
+    {
+        $this->autoloader->expects($this->once())
+            ->method('mapToPath')
+            ->with('test')
+            ->will($this->returnValue('TEST'));
+        $this->cache->mapToPath('test');
+        $this->cache->store();
+        $this->cache = new Horde_Autoloader_Cache_Stub_TestCache(
+            $this->autoloader
+        );
+        $this->cache->mapToPath('test');
     }
 }

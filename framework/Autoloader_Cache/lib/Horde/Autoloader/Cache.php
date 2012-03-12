@@ -126,6 +126,14 @@ class Horde_Autoloader_Cache implements Horde_Autoloader
             return;
         }
 
+	$this->store();
+    }
+
+    /**
+     * Save the class map to the cache.
+     */
+    public function store()
+    {
         switch ($this->_cachetype) {
         case self::APC:
             apc_store($this->_cachekey, $this->_cache);
@@ -226,7 +234,7 @@ class Horde_Autoloader_Cache implements Horde_Autoloader
             eaccelerator_rm($this->_cachekey);
             return true;
         }
-        if ($this->_tempdir) {
+        if (file_exists($this->_tempdir . '/' . $this->_cachekey)) {
             return unlink($this->_tempdir . '/' . $this->_cachekey);
         }
         return false;
