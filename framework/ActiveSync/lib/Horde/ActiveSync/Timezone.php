@@ -148,7 +148,7 @@ class Horde_ActiveSync_Timezone
      */
     static protected function _getTransitions(DateTimeZone $timezone, Horde_Date $date)
     {
-        $std = $dst = null;
+        $std = $dst = array();
         if (version_compare(PHP_VERSION, '5.3.0', '>=')) {
             $transitions = $timezone->getTransitions(
                 mktime(0, 0, 0, 12, 1, $date->year - 1),
