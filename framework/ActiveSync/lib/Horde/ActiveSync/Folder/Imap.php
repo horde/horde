@@ -28,6 +28,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base
     const UIDNEXT     = 'uidnext';
     const MODSEQ      = 'highestmodseq';
     const MINUID      = 'min';
+    const COUNT       = 'messages';
 
     /**
      * The folder's current message list. Only used for servers that do not
@@ -190,6 +191,18 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base
         return empty($this->_status[self::UIDNEXT])
             ? 0
             : $this->_status[self::UIDNEXT];
+    }
+
+    /**
+     * Return the total count of messages in this mailbox, if available.
+     *
+     * @return integer  The total count.
+     */
+    public function count()
+    {
+        return isset($this->_status[self::COUNT])
+            ? $this->_status[self::COUNT]
+            : null;
     }
 
     /**
