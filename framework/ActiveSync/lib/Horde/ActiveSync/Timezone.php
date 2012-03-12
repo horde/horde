@@ -218,13 +218,14 @@ class Horde_ActiveSync_Timezone
     /**
      * Attempt to guess the timezone identifier from the $offsets array.
      *
-     * @param array $offsets            The offsets to check.
+     * @param array|string $offsets     The timezone to check. Either an array
+     *                                  of offsets or an activesynz tz blob.
      * @param string $expectedTimezone  The expected timezone. If not empty, and
      *                                  present in the results, will return.
      *
      * @return array
      */
-    public function getTimezone(array $offsets, $expectedTimezone = null)
+    public function getTimezone($offsets, $expectedTimezone = null)
     {
         $timezones = $this->getListOfTimezones($offsets, $expectedTimezone);
         if (isset($timezones[$expectedTimezone])) {
