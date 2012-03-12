@@ -44,4 +44,14 @@ interface Horde_Autoloader
      * @return NULL
      */
     public function loadClass($className);
+
+    /**
+     * Try to load a class from the provided path.
+     *
+     * @param string $path      The path to the source file.
+     * @param string $className The class to load.
+     *
+     * @return boolean True if loading the class succeeded.
+     */
+    public function loadPath($path, $className);
 }

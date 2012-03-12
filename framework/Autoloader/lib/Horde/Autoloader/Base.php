@@ -56,13 +56,27 @@ class Horde_Autoloader_Base implements Horde_Autoloader
     public function loadClass($className)
     {
         if ($path = $this->mapToPath($className)) {
-            if ($this->_include($path)) {
-                $className = strtolower($className);
-                if (isset($this->_callbacks[$className])) {
-                    call_user_func($this->_callbacks[$className]);
-                }
-                return true;
+            return $this->loadPath($path, $className);
+        }
+        return false;
+    }
+
+    /**
+     * Try to load a class from the provided path.
+     *
+     * @param string $path      The path to the source file.
+     * @param string $className The class to load.
+     *
+     * @return boolean True if loading the class succeeded.
+     */
+    public function loadPath($path, $className)
+    {
+        if ($this->_include($path)) {
+            $className = strtolower($className);
+            if (isset($this->_callbacks[$className])) {
+                call_user_func($this->_callbacks[$className]);
             }
+            return true;
         }
 
         return false;
