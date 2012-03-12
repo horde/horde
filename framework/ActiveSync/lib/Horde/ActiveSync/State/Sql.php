@@ -977,24 +977,32 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 $this->_changes = $changes;
             }
         } else {
-            $this->_logger->debug(sprintf(
-                "[%s] Initializing folder diff engine",
-                $this->_devId));
-            $folderlist = $this->_backend->getFolderList();
-            if ($folderlist === false) {
-                return false;
-            }
-            $this->_changes = $this->_getDiff(
-                (empty($this->_folder) ? array() : $this->_folder),
-                $folderlist);
-
-            $this->_logger->debug(sprintf(
-                "[%s] Found %d folder changes.",
-                $this->_devId,
-                count($this->_changes)));
+            $this->_getFolderChanges();
         }
 
         return $this->_changes;
+    }
+
+    /**
+     * Get folder changes
+     */
+    protected function _getFolderChanges()
+    {
+        $this->_logger->debug(sprintf(
+            "[%s] Initializing folder diff engine",
+            $this->_devId));
+        $folderlist = $this->_backend->getFolderList();
+        if ($folderlist === false) {
+            return false;
+        }
+        $this->_changes = $this->_getDiff(
+            (empty($this->_folder) ? array() : $this->_folder),
+            $folderlist);
+
+        $this->_logger->debug(sprintf(
+            "[%s] Found %d folder changes.",
+            $this->_devId,
+            count($this->_changes)));
     }
 
     /**
