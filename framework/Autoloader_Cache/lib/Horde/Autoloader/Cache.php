@@ -124,13 +124,16 @@ class Horde_Autoloader_Cache implements Horde_Autoloader
     /**
      * Register this instance as autoloader.
      *
+     * @param boolean $prepend If true, the autoloader will be prepended on the
+     *                         autoload stack instead of appending it.
+     *
      * @return NULL
      */
-    public function registerAutoloader()
+    public function registerAutoloader($prepend = false)
     {
         // Register the autoloader in a way to play well with as many
         // configurations as possible.
-        spl_autoload_register(array($this, 'loadClass'));
+        spl_autoload_register(array($this, 'loadClass'), true, false);
         if (function_exists('__autoload')) {
             spl_autoload_register('__autoload');
         }

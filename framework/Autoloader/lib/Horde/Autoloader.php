@@ -32,9 +32,12 @@ interface Horde_Autoloader
     /**
      * Register this instance as autoloader.
      *
+     * @param boolean $prepend If true, the autoloader will be prepended on the
+     *                         autoload stack instead of appending it.
+     *
      * @return NULL
      */
-    public function registerAutoloader();
+    public function registerAutoloader($prepend = false);
 
     /**
      * Try to load the definition for the provided class name.

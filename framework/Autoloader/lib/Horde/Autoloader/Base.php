@@ -110,13 +110,14 @@ class Horde_Autoloader_Base implements Horde_Autoloader
      * Register the autoloader in the PHP autoloading system via
      * spl_autoload_register().
      *
-     * @param Horde_Autoloader_ClassPathMapper $mapper The mapper to be added.
+     * @param boolean $prepend If true, the autoloader will be prepended on the
+     *                         autoload stack instead of appending it.
      */
-    public function registerAutoloader()
+    public function registerAutoloader($prepend = false)
     {
         // Register the autoloader in a way to play well with as many
         // configurations as possible.
-        spl_autoload_register(array($this, 'loadClass'));
+        spl_autoload_register(array($this, 'loadClass'), true, $prepend);
         if (function_exists('__autoload')) {
             spl_autoload_register('__autoload');
         }
