@@ -126,7 +126,7 @@ class Horde_Autoloader_Cache implements Horde_Autoloader
             return;
         }
 
-	$this->store();
+        $this->store();
     }
 
     /**
@@ -223,6 +223,7 @@ class Horde_Autoloader_Cache implements Horde_Autoloader
      */
     public function prune()
     {
+        $this->_cache = array();
         if (extension_loaded('apc')) {
             return apc_delete($this->_cachekey);
         }
