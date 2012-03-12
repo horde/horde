@@ -488,11 +488,14 @@ abstract class Horde_ActiveSync_State_Base
     /**
      * Get all items that have changed since the last sync time
      *
-     * @param integer $flags
+     * @param array $options  An options array:
+     *      - ping:  (boolean)  Only detect if there is a change, do not build
+     *                          any messages.
+     *               DEFAULT: false (Build full change array).
      *
      * @return array
      */
-    abstract public function getChanges($flags = 0);
+    abstract public function getChanges(array $options = array());
 
     /**
      * Determines if the server version of the message represented by $stat

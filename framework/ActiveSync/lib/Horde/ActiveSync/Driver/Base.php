@@ -210,14 +210,21 @@ abstract class Horde_ActiveSync_Driver_Base
      * period.
      *
      * @param string $folderId     The server id of the collection to check.
-     * @param integer $from_ts     The starting timestamp
-     * @param integer $to_ts       The ending timestamp
-     * @param integer $cutoffdate  The earliest date to retrieve back to
+     * @param integer $from_ts     The starting timestamp.
+     * @param integer $to_ts       The ending timestamp.
+     * @param integer $cutoffdate  The earliest date to retrieve back to.
+     * @param boolean $ping        If true, returned changeset may
+     *                             not contain the full changeset, may only
+     *                             contain a single change, designed only to
+     *                             indicate *some* change has taken place. The
+     *                             value should not be used to determine *what*
+     *                             change has taken place.
      *
      * @return array A list of messge uids that have chnaged in the specified
      *               time period.
      */
-    abstract public function getServerChanges($folderId, $from_ts, $to_ts, $cutoffdate);
+    abstract public function getServerChanges(
+        $folderId, $from_ts, $to_ts, $cutoffdate, $ping);
 
     /**
      * Get a message stat.

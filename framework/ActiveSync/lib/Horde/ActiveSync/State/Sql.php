@@ -867,11 +867,14 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     /**
      * Get all items that have changed since the last sync time
      *
-     * @param integer $flags  Any flags to use
+     * @param array $options  An options array:
+     *      - ping:  (boolean)  Only detect if there is a change, do not build
+     *                          any messages.
+     *               DEFAULT: false (Build full change array).
      *
      * @return array
      */
-    public function getChanges($flags = 0)
+    public function getChanges(array $options = array())
     {
         // How far back to sync (for those collections that use this)
         $cutoffdate = self::_getCutOffDate(!empty($this->_collection['filtertype'])
@@ -888,7 +891,6 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 $this->_collection['id']));
 
             if ($this->_collection['id'] != Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
-                $folder = &$this->_folder;
                 if (!empty($this->_changes)) {
                     $this->_logger->debug(sprintf(
                         "[%s] Returning previously found changes.",
@@ -898,13 +900,15 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
 
                 // No existing changes, poll the backend
                 $changes = $this->_backend->getServerChanges(
-                    $folder,
+                    $this->_folder,
                     (int)$this->_lastSyncTS,
                     (int)$this->_thisSyncTS,
-                    $cutoffdate);
+                    $cutoffdate,
+                    (!empty($options['ping'])));
 
-                // @TODO: Need to test this.
                 $this->_folder->updateState();
+            } else {
+                $changes = array();
             }
 
             $this->_logger->debug(sprintf(
@@ -918,6 +922,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 $this->_logger->debug(sprintf(
                     "[%s] Checking for PIM initiated changes.",
                     $this->_devId));
+
                 switch ($this->_collection['class']) {
                 case Horde_ActiveSync::CLASS_EMAIL:
                     foreach ($changes as $change) {
@@ -953,7 +958,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                     break;
                 default:
                     foreach ($changes as $change) {
-                        $stat = $this->_backend->statMessage($folderId, $change['id']);
+                        $stat = $this->_backend->statMessage($this->_folder->serverid(), $change['id']);
                         $ts = $this->_getPIMChangeTS($change['id']);
                         if ($ts && $ts >= $stat['mod']) {
                             $this->_logger->debug(sprintf(
