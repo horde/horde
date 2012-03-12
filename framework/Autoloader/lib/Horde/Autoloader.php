@@ -54,4 +54,14 @@ interface Horde_Autoloader
      * @return boolean True if loading the class succeeded.
      */
     public function loadPath($path, $className);
+
+    /**
+     * Map a class name to a file path. The registered mappers will be searched
+     * in LIFO order.
+     *
+     * @param string $className The class name that should be mapped to a path.
+     *
+     * @return string The path name to the source file.
+     */
+    public function mapToPath($className);
 }
