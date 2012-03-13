@@ -1463,9 +1463,9 @@ HTML;
             $tmp = $conf['tmpdir'];
         }
 
-        /* Next, try Horde_Util::getTempDir(). */
+        /* Next, try sys_get_temp_dir(). */
         if (empty($tmp)) {
-            $tmp = Horde_Util::getTempDir();
+            $tmp = sys_get_temp_dir();
         }
 
         /* If it is still empty, we have failed, so return false;

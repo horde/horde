@@ -74,7 +74,7 @@ implements Horde_Kolab_Filter_Temporary
         if (isset($conf['kolab']['filter']['tempdir'])) {
             $tmpdir = $conf['kolab']['filter']['tempdir'];
         } else {
-            $tmpdir = Horde_Util::getTempDir();
+            $tmpdir = sys_get_temp_dir();
         }
 
         $this->_tmpfile = @tempnam($tmpdir, 'IN.' . get_class($this) . '.');

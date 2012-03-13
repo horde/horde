@@ -31,16 +31,6 @@ class Horde_Util
     );
 
     /**
-     * Temp directory locations.
-     *
-     * @var array
-     */
-    static public $tmpLocations = array(
-        '/tmp/', '/var/tmp/', 'c:\WUTemp\\', 'c:\temp\\', 'c:\windows\temp\\',
-        'c:\winnt\temp\\'
-    );
-
-    /**
      * Are magic quotes in use?
      *
      * @var boolean
@@ -281,45 +271,6 @@ class Horde_Util
     }
 
     /**
-     * Determines the location of the system temporary directory.
-     *
-     * @return string  A directory name which can be used for temp files.
-     *                 Returns false if one could not be found.
-     */
-    static public function getTempDir()
-    {
-        $tmp = false;
-
-        // Try sys_get_temp_dir() - only available in PHP 5.2.1+.
-        if (function_exists('sys_get_temp_dir')) {
-            $tmp = sys_get_temp_dir();
-        }
-
-        // First, try PHP's upload_tmp_dir directive.
-        if (!$tmp) {
-            $tmp = ini_get('upload_tmp_dir');
-
-            // Otherwise, try to determine the TMPDIR environment
-            // variable.
-            if (!$tmp) {
-                $tmp = getenv('TMPDIR');
-
-                // If we still cannot determine a value, then cycle through a
-                // list of preset possibilities.
-                if (!$tmp) {
-                    foreach (self::$tmpLocations as $tmp_check) {
-                        if (@is_dir($tmp_check)) {
-                            return $tmp_check;
-                        }
-                    }
-                }
-            }
-        }
-
-        return $tmp ? $tmp : false;
-    }
-
-    /**
      * Creates a temporary filename for the lifetime of the script, and
      * (optionally) registers it to be deleted at request shutdown.
      *
@@ -337,7 +288,7 @@ class Horde_Util
                                        $secure = false)
     {
         $tempDir = (empty($dir) || !is_dir($dir))
-            ? self::getTempDir()
+            ? sys_get_temp_dir()
             : $dir;
 
         $tempFile = tempnam($tempDir, $prefix);
@@ -376,7 +327,7 @@ class Horde_Util
                                                     $secure = false)
     {
         $tempDir = (empty($dir) || !is_dir($dir))
-            ? self::getTempDir()
+            ? sys_get_temp_dir()
             : $dir;
 
         if (empty($tempDir)) {
@@ -434,7 +385,7 @@ class Horde_Util
     static public function createTempDir($delete = true, $temp_dir = null)
     {
         if (is_null($temp_dir)) {
-            $temp_dir = self::getTempDir();
+            $temp_dir = sys_get_temp_dir();
         }
 
         if (empty($temp_dir)) {

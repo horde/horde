@@ -23,7 +23,7 @@ class Horde_Crypt_PgpKeyserverTest extends PHPUnit_Framework_TestCase
 
         $this->_pgp = Horde_Crypt::factory('Pgp', array(
             'program' => '/usr/bin/gpg',
-            'temp' => Horde_Util::getTempDir()
+            'temp' => sys_get_temp_dir()
         ));
     }
 
