@@ -651,7 +651,6 @@ var ImpMobile = {
             $('#imp-compose-identity').selectmenu('refresh', true);
             $('#imp-compose-last-identity').val(id);
 
-            //DimpCompose.fillForm(i.id[2] ? ("\n" + i.sig + r.body) : (r.body + "\n" + i.sig), r.header, r.opts);
             $('#imp-compose-to').val(r.header.to);
             $('#imp-compose-subject').val(r.header.subject);
             $('#imp-compose-message').val(r.body);
@@ -721,75 +720,10 @@ var ImpMobile = {
 
         if (d.success || d.action == 'addAttachment') {
             switch (d.action) {
-            case 'autoSaveDraft':
-            case 'saveDraft':
-                break;
-                //TODO
-                ImpMobile.updateDraftsMailbox();
-
-                if (d.action == 'saveDraft') {
-                    if (!DIMP.conf.qreply && ImpMobile.baseAvailable()) {
-                        HordeMobile.notify_handler = HordeMobile.base.HordeMobile.showNotifications;
-                    }
-                    if (DIMP.conf.close_draft) {
-                        return ImpMobile.closeCompose();
-                    }
-                }
-                break;
-
-            case 'sendMessage':
-                if (d.flag) {
-                    //HordeCore.base.DimpBase.flagCallback(d);
-                }
-
-                if (d.mailbox) {
-                    //HordeCore.base.DimpBase.mailboxCallback(r);
-                }
-
-                if (d.draft_delete) {
-                    //HordeCore.base.DimpBase.poll();
-                }
-
-                if (d.log) {
-                    //HordeCore.base.DimpBase.updateMsgLog(d.log, { uid: d.uid, mailbox: d.mbox });
-                }
-
-                return ImpMobile.closeCompose();
-
             case 'redirectMessage':
-                if (d.log) {
-                    //HordeCore.base.DimpBase.updateMsgLog(d.log, { uid: d.uid, mailbox: d.mbox });
-                }
+            case 'sendMessage':
                 return ImpMobile.closeCompose();
-
-            case 'addAttachment':
-                break;
-                //TODO
-                ImpMobile.uploading = false;
-                if (d.success) {
-                    ImpMobile.addAttach(d.atc);
-                }
-
-                $('upload_wait').hide();
-                ImpMobile.initAttachList();
-                ImpMobile.resizeMsgArea();
-                break;
             }
-        } else {
-            /*
-            if (!Object.isUndefined(d.identity)) {
-                ImpMobile.old_identity = $F('identity');
-                $('identity').setValue(d.identity);
-                ImpMobile.changeIdentity();
-                $('noticerow', 'identitychecknotice').invoke('show');
-                ImpMobile.resizeMsgArea();
-            }
-
-            if (!Object.isUndefined(d.encryptjs)) {
-                ImpMobile.old_action = d.action;
-                eval(d.encryptjs.join(';'));
-            }
-            */
         }
 
         ImpMobile.setDisabled(false);
