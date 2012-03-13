@@ -14,7 +14,7 @@
  */
 var HordeMobile = {
 
-    notify_handler: function() { return HordeMobile.showNotifications; },
+    notify_handler: function(m) { return HordeMobile.showNotifications(m); },
 
     serverError: 0,
 
