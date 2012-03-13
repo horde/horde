@@ -201,9 +201,6 @@ class Horde_ActiveSync_Sync
                 switch($change['type']) {
                 case Horde_ActiveSync::CHANGE_TYPE_CHANGE:
                     $truncsize = self::_getTruncSize($this->_truncation);
-                    // @TODO: This causes the entire message to be built, even for a PING, where it's not used.
-                    //        Figure out a way to avoid this, yet still check that it's a valid change?
-                    //        Maybe assume an email message is valid? Worse case you get an extra sync request.
                     if (!$message = $this->_backend->getMessage($this->_folderId, $change['id'], $truncsize)) {
                         return false;
                     }

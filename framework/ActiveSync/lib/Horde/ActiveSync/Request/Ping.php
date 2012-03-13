@@ -233,10 +233,6 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                         $changes[$collection['id']] = $changecount;
                         $this->_statusCode = self::STATUS_NEEDSYNC;
                     }
-
-                    // Update the state, but don't use the exporter since we
-                    // are only PINGing, not SYNCing.
-                    //while (is_array($sync->syncronize(Horde_ActiveSync::BACKEND_DISCARD_DATA)));
                 }
 
                 if ($dataavailable) {
