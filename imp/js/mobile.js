@@ -948,10 +948,14 @@ var ImpMobile = {
     updateFolders: function(r)
     {
         $.each(r, function(key, value) {
-            var elt = $('#imp-mailbox-' + key).parent();
-            elt.remove('.ul-li-count');
+            var elt = $('#imp-mailbox-' + key);
             if (value) {
-                elt.append('<span class="ui-li-count">' + parseInt(value, 10) + '</span>');
+                if (!elt.siblings('.ui-li-count').size()) {
+                    elt.after('<span class="ui-li-count"></span>');
+                }
+                elt.siblings('.ui-li-count').text(value);
+            } else if (!value) {
+                elt.remove('.ui-li-count');
             }
         });
         $('#imp-mailbox-list').listview('refresh');
