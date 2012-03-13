@@ -107,19 +107,18 @@ class Horde_ActiveSync_Message_Base
      *
      * @return mixed  The value of the requested property.
      */
-    public function __get($property)
+    public function &__get($property)
     {
         if (!array_key_exists($property, $this->_properties)) {
             $this->_logger->err('Unknown property: ' . $property);
             throw new InvalidArgumentException('Unknown property: ' . $property);
         }
 
-        if (!empty($this->_properties[$property])) {
+        if ($this->_properties[$property] !== false) {
             return $this->_properties[$property];
-        } elseif ($this->_properties[$property] === 0) {
-            return 0;
         } else {
-            return '';
+            $string = '';
+            return $string;
         }
     }
 

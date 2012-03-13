@@ -81,15 +81,6 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     const RESPONSE_DECLINED          = 4;
     const RESPONSE_NORESPONSE        = 5;
 
-    /**
-     * Workarounds for PHP < 5.2.6 not being able to return an array by reference
-     * from a __get() property.
-     */
-    public $exceptions    = array();
-    public $attendees     = array();
-    public $categories    = array();
-    public $bodytruncated = 0;
-
     protected $_dayOfWeekMap = array(
         Horde_Date::DATE_SUNDAY    => Horde_Date::MASK_SUNDAY,
         Horde_Date::DATE_MONDAY    => Horde_Date::MASK_MONDAY,
@@ -126,24 +117,27 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     );
 
     protected $_properties = array(
-        'timezone'       => false,
-        'dtstamp'        => false,
-        'starttime'      => false,
-        'subject'        => false,
-        'uid'            => false,
-        'organizername'  => false,
-        'organizeremail' => false,
-        'location'       => false,
-        'endtime'        => false,
-        'recurrence'     => false,
-        'sensitivity'    => false,
-        'busystatus'     => false,
         'alldayevent'    => false,
+        'attendees'      => array(),
+        'body'           => false,
+        'bodytruncated'  => 0,
+        'busystatus'     => false,
+        'categories'     => array(),
+        'dtstamp'        => false,
+        'endtime'        => false,
+        'exceptions'     => array(),
+        'organizeremail' => false,
+        'organizername'  => false,
+        'location'       => false,
+        'meetingstatus'  => false,
+        'recurrence'     => false,
         'reminder'       => false,
         'rtf'            => false,
-        'meetingstatus'  => false,
-        'body'           => false,
-        'bodytruncated'  => false,
+        'sensitivity'    => false,
+        'starttime'      => false,
+        'subject'        => false,
+        'timezone'       => false,
+        'uid'            => false,
     );
 
     /**
