@@ -541,4 +541,20 @@ abstract class Horde_ActiveSync_Driver_Base
      */
     abstract public function getAttachment($name);
 
+    /**
+     * Build a stat structure for an email message.
+     *
+     * @return array
+     */
+    abstract public function statMailMessage($folderid, $id);
+
+    /**
+     * Return the server id of the specified special folder type.
+     *
+     * @param string $type  The self::SPECIAL_* constant.
+     *
+     * @return string  The folder's server id.
+     */
+    abstract public function getSpecialFolderNameByType($type);
+
 }
