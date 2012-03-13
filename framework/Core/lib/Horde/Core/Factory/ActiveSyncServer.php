@@ -33,8 +33,9 @@ class Horde_Core_Factory_ActiveSyncServer extends Horde_Core_Factory_Injector
             $injector->getInstance('Horde_ActiveSyncBackend'),
             new Horde_ActiveSync_Wbxml_Decoder(fopen('php://input', 'r')),
             new Horde_ActiveSync_Wbxml_Encoder(fopen('php://output', 'w+')),
-            $injector->getInstance('Horde_ActiveSyncState')
-            $injector->getInstance('Horde_Controller_Request'));
+            $injector->getInstance('Horde_ActiveSyncState'),
+            $injector->getInstance('Horde_Controller_Request')
+        );
 
         $server->setLogger($logger);
 

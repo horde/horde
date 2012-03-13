@@ -1012,8 +1012,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
     /**
      * Build a stat structure for an email message.
-     * @TODO: Pass some option to _imap to indicate we don't need the full
-     *        message content.
+     *
      * @return array
      */
     public function statMailMessage($folderid, $id)
