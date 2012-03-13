@@ -62,40 +62,6 @@ var ImpMobile = {
      */
     messages: {},
 
-    /**
-     * Converts an object to an IMP UID Range string.
-     * See IMP::toRangeString().
-     *
-     * @param object ob  Mailbox name as keys, values are array of uids.
-     */
-    toRangeString: function(ob)
-    {
-        var str = '';
-
-        $.each(ob, function(key, value) {
-            if (!value.length) {
-                return;
-            }
-
-            var u = (IMP.conf.pop3 ? value : value.numericSort()),
-                first = u.shift(),
-                last = first,
-                out = [];
-
-            $.each(u, function(n, k) {
-                if (!IMP.conf.pop3 && (last + 1 == k)) {
-                    last = k;
-                } else {
-                    out.push(first + (last == first ? '' : (':' + last)));
-                    first = last = k;
-                }
-            });
-            out.push(first + (last == first ? '' : (':' + last)));
-            str += '{' + key.length + '}' + key + out.join(',');
-        });
-
-        return str;
-    },
 
     /**
      * Safe wrapper that makes sure that no dialog is still open before calling
@@ -625,7 +591,7 @@ var ImpMobile = {
             $.extend(params, {
                 type: type,
                 imp_compose: $(cache).val(),
-                uid: ImpMobile.toRangeString(o)
+                uid: ImpMobile.toUIDString(o)
             }),
             function(r) { ImpMobile.composeLoaded(r, options); });
     },
