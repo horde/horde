@@ -195,19 +195,6 @@ abstract class Horde_ActiveSync_Request_Base
     }
 
     /**
-     * Simple factory for the Sync object.
-     *
-     * @return Horde_ActiveSync_Sync
-     */
-    public function getSyncObject()
-    {
-        $sync = new Horde_ActiveSync_Sync($this->_driver);
-        $sync->setLogger($this->_logger);
-
-        return $sync;
-    }
-
-    /**
      * Handle the request.
      *
      * @return boolean
@@ -225,6 +212,19 @@ abstract class Horde_ActiveSync_Request_Base
     }
 
     abstract protected function _handle();
+
+    /**
+     * Simple factory for the Sync object.
+     *
+     * @return Horde_ActiveSync_Sync
+     */
+    protected function _getSyncObject()
+    {
+        $sync = new Horde_ActiveSync_Sync($this->_driver);
+        $sync->setLogger($this->_logger);
+
+        return $sync;
+    }
 
     /**
      * Utility function to help determine if a device has broken provisioning.
