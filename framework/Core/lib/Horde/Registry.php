@@ -1402,8 +1402,6 @@ class Horde_Registry
             return;
         }
 
-        $e->setCode($error);
-
         /* Hook errors are already logged. */
         if ($error == self::INITCALLBACK_FATAL) {
             Horde::logMessage($e);
@@ -1412,7 +1410,7 @@ class Horde_Registry
         $this->applications[$this->getApp()]['status'] = 'inactive';
         $this->popApp();
 
-        throw new Horde_Exception($e);
+        throw new Horde_Exception($e, $error);
     }
 
     /**
@@ -1551,6 +1549,9 @@ class Horde_Registry
 
         if (is_null($app)) {
             $app = $this->getApp();
+            if (is_null($app)) {
+                $app = 'horde';
+            }
         } else {
             $this->pushApp($app);
         }
@@ -2314,7 +2315,7 @@ class Horde_Registry
         /* Reload preferences for the new user. */
         unset($GLOBALS['prefs']);
         $injector->getInstance('Horde_Core_Factory_Prefs')->clearCache();
-        $this->loadPrefs($app);
+        $this->loadPrefs($this->getApp());
 
         $this->setLanguageEnvironment(isset($options['language']) ? $this->preferredLang($options['language']) : null, $app);
     }

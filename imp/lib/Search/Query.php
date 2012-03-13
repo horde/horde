@@ -193,8 +193,7 @@ class IMP_Search_Query implements Serializable
                     }
                 }
 
-                // TODO: array_unique() for objects (requires 5.2.9)
-                $this->_cache['mboxes'] = $out;
+                $this->_cache['mboxes'] = array_unique($out, SORT_REGULAR);
             }
 
             return $this->_cache['mboxes'];
