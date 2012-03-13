@@ -139,7 +139,7 @@ var ImpMobile = {
     {
         var match = /\?mbox=(.*)&from=(.*)/.exec(url.hash) ||
                     /\?mbox=(.*)/.exec(url.hash),
-            mailbox = match[1],
+            mailbox = match ? match[1] : 'SU5CT1g',
             title = $('#imp-mailbox-' + mailbox).text(),
             params = {}, ob;
 
@@ -174,7 +174,7 @@ var ImpMobile = {
         }
 
         if (ob = ImpMobile.cache[mailbox]) {
-            if (match[2]) {
+            if (match && match[2]) {
                 ob.from = match[2];
             }
 
