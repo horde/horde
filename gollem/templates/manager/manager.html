@@ -36,46 +36,7 @@
 </form>
 </div>
 </if:perms_chmod>
-
-<if:perms_edit>
-<div id="rename" class="managerpopup" style="display:none;">
-<form id="renamefrm" action="<tag:action />">
-<input type="hidden" id="renamefrm_oldname" name="oldname" value="" />
-<h1 class="header"><gettext>Rename</gettext></h1>
-<div class="control nowrap" style="padding:3px">
- <gettext>Name:</gettext>
- <input class="input" type="text" id="renamefrm_newname" name="newname" value="" />
- <input class="button" type="button" id="renamesave" value="<tag:ok />" />
- <input class="button" type="button" id="renamecancel" value="<tag:cancel />" />
-</div>
-</form>
-</div>
-</if:perms_edit>
 </if:list_count>
-
-<div id="createFolder" class="managerpopup" style="display:none;">
-<form id="createfrm" action="<tag:action />">
-<h1 class="header"><gettext>Create Folder</gettext></h1>
-<div class="control nowrap" style="padding:3px">
- <gettext>Name:</gettext>
- <input class="input" type="text" id="createfrm_fname" name="foldername" value="" />
- <input class="button" type="button" id="createok" value="<tag:ok />" />
- <input class="button" type="button" id="createcancel" value="<tag:cancel />" />
-</div>
-</form>
-</div>
-
-<div id="changeDirectory" class="managerpopup" style="display:none;">
-<form id="cdfrm" action="<tag:action />">
-<h1 class="header"><gettext>Change Folder</gettext></h1>
-<div class="control nowrap" style="padding:3px">
- <gettext>Go to:</gettext>
- <input class="input" type="text" id="cdfrm_fname" name="foldername" value="" />
- <input class="button" type="button" id="cdfrmok" value="<tag:ok />" />
- <input class="button" type="button" id="cdfrmcancel" value="<tag:cancel />" />
-</div>
-</form>
-</div>
 
 <form method="post" id="manager" name="manager" enctype="multipart/form-data" action="<tag:action />">
 <tag:forminput />
@@ -83,6 +44,7 @@
 <input type="hidden" id="new_folder" name="new_folder" value="" />
 <input type="hidden" id="new_names" name="new_names" value="" />
 <input type="hidden" id="old_names" name="old_names" value="" />
+<input type="hidden" id="renamefrm_oldname" name="oldname" value="" />
 <input type="hidden" id="chmod" name="chmod" value="" />
 <input type="hidden" id="dir" name="dir" value="<tag:dir />" />
 <input type="hidden" name="targetFolder" value="" />

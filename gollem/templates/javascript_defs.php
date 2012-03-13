@@ -13,13 +13,18 @@ $gettext = array_map('addslashes', array(
     'login_password' => _("Please provide your password."),
 
     /* Strings used in manager.js */
-    'select_item' => _("Please select an item before this action."),
+    'cancel_text' => _("Cancel"),
+    'change_directory' => _("Change Folder"),
+    'create_folder' => _("Create Folder"),
     'delete_confirm_1' => _("The following items will be permanently deleted:"),
     'delete_confirm_2' => _("Are you sure?"),
     'delete_recurs_1' => _("The following item(s) are folders:"),
     'delete_recurs_2' => _("Are you sure you wish to continue?"),
-    'specify_upload' => _("Please specify at least one file to upload."),
     'file' => _("File"),
+    'ok_text' => _("OK"),
+    'rename' => _("Rename"),
+    'select_item' => _("Please select an item before this action."),
+    'specify_upload' => _("Please specify at least one file to upload."),
 
     /* Strings used in selectlist.js */
     'opener_window' => _("The original opener window has been closed. Exiting."),

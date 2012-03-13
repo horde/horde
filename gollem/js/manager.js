@@ -92,24 +92,16 @@ var Gollem = {
         }
     },
 
-    changeDirectory: function(elt)
-    {
-        this._prepPopup('changeDirectory', elt);
-        $('cdfrm_fname').focus();
-    },
-
-    createFolder: function(elt)
-    {
-        this._prepPopup('createFolder', elt);
-        $('createfrm_fname').focus();
-    },
-
-    _prepPopup: function(elt, elt2)
+    _clearChecks: function()
     {
         this.getChecked().each(function(e) {
             e.checked = false;
         });
+    },
 
+    _prepPopup: function(elt, elt2)
+    {
+        this._clearChecks();
         $(elt).clonePosition(elt2, { setWidth: false, setHeight: false, offsetTop: elt2.getHeight() }).show();
     },
 
@@ -118,9 +110,14 @@ var Gollem = {
         var c = this.getChecked();
         if (c.size()) {
             c[0].checked = false;
-            $('rename').show();
             $('renamefrm_oldname').setValue(c[0].value);
-            $('renamefrm_newname').setValue(c[0].value).focus();
+            HordeDialog.display({
+                cancel_text: GollemText.cancel_text,
+                form_id: 'renamefrm',
+                input_val: c[0].value,
+                ok_text: GollemText.ok_text,
+                text: GollemText.rename,
+            });
         }
     },
 
@@ -157,33 +154,11 @@ var Gollem = {
 
     createFolderOK: function()
     {
-        $('createFolder').hide();
-        if ($F('createfrm_fname')) {
-            $('new_folder').setValue($F('createfrm_fname'));
+        if ($F('dialog_input')) {
+            $('new_folder').setValue($F('dialog_input'));
             $('actionID').setValue('create_folder');
             $('manager').submit();
         }
-    },
-
-    createFolderKeyCheck: function(e)
-    {
-        switch (e.keyCode) {
-        case Event.KEY_ESC:
-            this.createFolderCancel();
-            e.stop();
-            break;
-
-        case EVENT.KEY_RETURN:
-            this.createFolderOK();
-            e.stop();
-            break;
-        }
-    },
-
-    createFolderCancel: function()
-    {
-        $('createFolder').hide();
-        $('createfrm').reset();
     },
 
     chmodCancel: function()
@@ -197,18 +172,18 @@ var Gollem = {
         var all = group = owner = 0;
 
         $('chmodfrm').getElements().each(function(e) {
-            if (e.name == "owner[]" && e.checked) {
+            if (e.name == 'owner[]' && e.checked) {
                 owner |= e.value;
-            } else if (e.name == "group[]" && e.checked) {
+            } else if (e.name == 'group[]' && e.checked) {
                 group |= e.value;
-            } else if (e.name == "all[]" && e.checked) {
+            } else if (e.name == 'all[]' && e.checked) {
                 all |= e.value;
             }
         });
 
         $('attributes').hide();
 
-        $('chmod').setValue("0" + owner + "" + group + "" + all);
+        $('chmod').setValue('0' + owner + '' + group + '' + all);
         $('actionID').setValue('chmod_modify');
         $('manager').submit();
     },
@@ -216,20 +191,20 @@ var Gollem = {
     renameOK: function()
     {
         var c = this.getChecked(),
-            newname = $F('renamefrm_newname'),
+            newname = $F('dialog_input'),
             newNames = $F('new_names'),
             oldname = $F('renamefrm_oldname'),
             oldNames = $F('old_names');
 
         if (newname && newname != oldname) {
-            newNames += "|" + newname;
-            oldNames += "|" + oldname;
+            newNames += '|' + newname;
+            oldNames += '|' + oldname;
         }
 
-        if (newNames.startsWith("|")) {
+        if (newNames.startsWith('|')) {
             newNames = newNames.substring(1);
         }
-        if (oldNames.startsWith("|")) {
+        if (oldNames.startsWith('|')) {
             oldNames = oldNames.substring(1);
         }
 
@@ -237,67 +212,19 @@ var Gollem = {
         $('old_names').setValue(oldNames);
 
         if (c.size()) {
-            c[0].checked = false;
-            found = true;
-            $('rename').show();
-            $F(c[0]).focus();
+            this.renameItems.defer();
         } else {
             $('actionID').setValue('rename_items');
             $('manager').submit();
-        }
-
-        return false;
-    },
-
-    renameCancel: function()
-    {
-        $('new_names', 'old_names').invoke('setValue', '');
-        $('rename').hide();
-    },
-
-    renameKeyCheck: function(e)
-    {
-        switch (e.keyCode) {
-        case Event.KEY_ESC:
-            this.renameCancel();
-            e.stop();
-            break;
-
-        case EVENT.KEY_RETURN:
-            this.renameOK();
-            e.stop();
-            break;
         }
     },
 
     changeDirectoryOK: function()
     {
-        $('changeDirectory').hide();
-        if ($F('cdfrm_fname')) {
-            $('dir').setValue($F('cdfrm_fname'));
+        if ($F('dialog_input')) {
+            $('dir').setValue($F('dialog_input'));
             $('manager').submit();
         }
-    },
-
-    changeDirectoryKeyCheck: function(e)
-    {
-        switch (e.keyCode) {
-        case Event.KEY_ESC:
-            this.changeDirectoryCancel();
-            e.stop();
-            break;
-
-        case EVENT.KEY_RETURN:
-            this.changeDirectoryOK();
-            e.stop();
-            break;
-        }
-    },
-
-    changeDirectoryCancel: function()
-    {
-        $('changeDirectory').hide();
-        $('cdfrm').reset();
     },
 
     uploadFields: function()
@@ -382,16 +309,14 @@ var Gollem = {
             id = elt.readAttribute('id');
 
             switch (id) {
-            case 'cdfrmcancel':
-                this.changeDirectoryCancel();
-                return;
-
-            case 'cdfrmok':
-                this.changeDirectoryOK();
-                return;
-
             case 'changefolder':
-                this.changeDirectory(elt);
+                this._clearChecks();
+                HordeDialog.display({
+                    cancel_text: GollemText.cancel_text,
+                    form_id: 'cdfrm',
+                    ok_text: GollemText.ok_text,
+                    text: GollemText.change_directory,
+                });
                 e.stop();
                 return;
 
@@ -407,18 +332,16 @@ var Gollem = {
                 this.chmodSave();
                 break;
 
-            case 'createcancel':
-                this.createFolderCancel();
-                break;
-
             case 'createfolder':
-                this.createFolder(elt);
+                this._clearChecks();
+                HordeDialog.display({
+                    cancel_text: GollemText.cancel_text,
+                    form_id: 'createfrm',
+                    ok_text: GollemText.ok_text,
+                    text: GollemText.create_folder,
+                });
                 e.stop();
                 return;
-
-            case 'createok':
-                this.createFolderOK();
-                break;
 
             case 'filterapply':
                 this.applyFilter();
@@ -426,14 +349,6 @@ var Gollem = {
 
             case 'filterclear':
                 this.clearFilter();
-                break;
-
-            case 'renamecancel':
-                this.renameCancel();
-                break;
-
-            case 'renamesave':
-                this.renameOK();
                 break;
 
             case 'uploadfile':
@@ -445,20 +360,31 @@ var Gollem = {
         }
     },
 
+    okHandler: function(e)
+    {
+        switch (e.findElement('FORM').id) {
+        case 'cdfrm':
+            Gollem.changeDirectoryOK();
+            break;
+        case 'createfrm':
+            Gollem.createFolderOK();
+            break;
+        case 'renamefrm':
+            Gollem.renameOK();
+            break;
+        }
+    },
+
+    closeHandler: function(e)
+    {
+        $('new_names', 'old_names').invoke('setValue', '');
+    },
+
     onDomLoad: function()
     {
         var tmp;
 
-        this.toggleRow()
-
-        if (tmp = $('renamefrm_newname')) {
-            tmp.observe('keypress', this.renameKeyCheck.bindAsEventListener(this));
-        }
-
-        $('createfrm_fname').observe('keypress', this.createFolderKeyCheck.bindAsEventListener(this));
-        $('cdfrm_fname').observe('keypress', this.changeDirectoryKeyCheck.bindAsEventListener(this));
-
-        $('createfrm', 'cdfrm').invoke('observe', 'submit', Event.stop);
+        this.toggleRow();
 
         // Observe actual event since IE does not bubble change events.
         if (tmp = $('action1')) {
@@ -485,3 +411,5 @@ function table_sortCallback(tableId, column, sortDown)
 
 document.observe('dom:loaded', Gollem.onDomLoad.bind(Gollem));
 document.observe('click', Gollem.clickHandler.bindAsEventListener(Gollem));
+document.observe('HordeDialog:onClick', Gollem.okHandler.bindAsEventListener(Gollem));
+document.observe('HordeDialog:close', Gollem.closeHandler.bindAsEventListener(Gollem));

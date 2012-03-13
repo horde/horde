@@ -555,8 +555,11 @@ if (is_array($list) && $numitem && $read_perms) {
 }
 $template->set('itemcount', sprintf(ngettext(_("%d item"), _("%d items"), $total), $total));
 
-Horde::addScriptFile('manager.js', 'gollem');
+Horde::addScriptFile('effects.js', 'horde');
+Horde::addScriptFile('redbox.js', 'horde');
+Horde::addScriptFile('dialog.js', 'horde');
 Horde::addScriptFile('tables.js', 'horde');
+Horde::addScriptFile('manager.js', 'gollem');
 Horde::addInlineJsVars(array(
     '-warn_recursive' => intval($prefs->getValue('recursive_deletes') == 'warn')
 ));
