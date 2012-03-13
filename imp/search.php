@@ -477,7 +477,7 @@ Horde::addInlineJsVars(array_merge($js_vars, array(
         'loading' => _("Loading..."),
         'need_criteria' => _("Please select at least one search criteria."),
         'need_date' => _("Need at least one date in the date range search."),
-        'need_mbox' => _("Please select at least one mbox to search."),
+        'need_mbox' => _("Please select at least one mailbox to search."),
         'need_label' => _("Saved searches require a label."),
         'not_match' => _("Do NOT Match"),
         'or' => _("OR"),
