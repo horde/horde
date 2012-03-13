@@ -23,133 +23,130 @@ if (!isset($backends[$backend_key])) {
     $backend_key = null;
 }
 
-// Use a do-while to allow easy breaking if an error is found.
-// @todo: use goto when we depend on PHP 5.3+
-do {
-    if (!$backend_key) {
-        break;
-    }
+if (!$backend_key) {
+    goto proceed;
+}
 
-    // Has the user submitted the form yet?
-    if (!Horde_Util::getFormData('submit')) {
-        // No so we don't need to do anything in this loop.
-        break;
-    }
+// Has the user submitted the form yet?
+if (!Horde_Util::getFormData('submit')) {
+    // No so we don't need to do anything in this loop.
+    goto proceed;
+}
 
-    $driver = $backends[$backend_key]['driver'];
-    $params = $backends[$backend_key]['params'];
-    $password_policy = isset($backends[$backend_key]['policy'])
-        ? $backends[$backend_key]['policy']
-        : array();
+$driver = $backends[$backend_key]['driver'];
+$params = $backends[$backend_key]['params'];
+$password_policy = isset($backends[$backend_key]['policy'])
+    ? $backends[$backend_key]['policy']
+    : array();
 
-    // Get the username.
-    if ($conf['user']['change'] === true) {
-        $userid = Horde_Util::getFormData('userid');
-    } else {
-        try {
-            $userid = Horde::callHook('default_username', array($registry->getAuth()), 'passwd');
-        } catch (Horde_Exception_HookNotSet $e) {
-            $userid = $registry->getAuth();
-        }
-    }
-
-    // Check for users that cannot change their passwords.
-    if (in_array($userid, $conf['user']['refused'])) {
-        $notification->push(sprintf(_("You can't change password for user %s"),
-                                    $userid), 'horde.error');
-        break;
-    }
-
-    // We must be passed the old (current) password, or its an error.
-    $old_password = Horde_Util::getFormData('oldpassword', false);
-    if (!$old_password) {
-        $notification->push(_("You must give your current password"),
-                            'horde.warning');
-        break;
-    }
-
-    // See if they entered the new password and verified it.
-    $new_password0 = Horde_Util::getFormData('newpassword0', false);
-    $new_password1 = Horde_Util::getFormData('newpassword1', false);
-    if (!$new_password0) {
-        $notification->push(_("You must give your new password"), 'horde.warning');
-        break;
-    }
-    if (!$new_password1) {
-        $notification->push(_("You must verify your new password"), 'horde.warning');
-        break;
-    }
-    if ($new_password0 != $new_password1) {
-        $notification->push(_("Your new passwords didn't match"), 'horde.warning');
-        break;
-    }
-    if ($new_password0 == $old_password) {
-        $notification->push(_("Your new password must be different from your current password"), 'horde.warning');
-        break;
-    }
-
+// Get the username.
+if ($conf['user']['change'] === true) {
+    $userid = Horde_Util::getFormData('userid');
+} else {
     try {
-        Horde_Auth::checkPasswordPolicy($new_password0, $password_policy);
+        $userid = Horde::callHook('default_username', array($registry->getAuth()), 'passwd');
+    } catch (Horde_Exception_HookNotSet $e) {
+        $userid = $registry->getAuth();
+    }
+}
+
+// Check for users that cannot change their passwords.
+if (in_array($userid, $conf['user']['refused'])) {
+    $notification->push(sprintf(_("You can't change password for user %s"),
+                                $userid), 'horde.error');
+    goto proceed;
+}
+
+// We must be passed the old (current) password, or its an error.
+$old_password = Horde_Util::getFormData('oldpassword', false);
+if (!$old_password) {
+    $notification->push(_("You must give your current password"),
+                        'horde.warning');
+    goto proceed;
+}
+
+// See if they entered the new password and verified it.
+$new_password0 = Horde_Util::getFormData('newpassword0', false);
+$new_password1 = Horde_Util::getFormData('newpassword1', false);
+if (!$new_password0) {
+    $notification->push(_("You must give your new password"), 'horde.warning');
+    goto proceed;
+}
+if (!$new_password1) {
+    $notification->push(_("You must verify your new password"), 'horde.warning');
+    goto proceed;
+}
+if ($new_password0 != $new_password1) {
+    $notification->push(_("Your new passwords didn't match"), 'horde.warning');
+    goto proceed;
+}
+if ($new_password0 == $old_password) {
+    $notification->push(_("Your new password must be different from your current password"), 'horde.warning');
+    goto proceed;
+}
+
+try {
+    Horde_Auth::checkPasswordPolicy($new_password0, $password_policy);
+} catch (Horde_Auth_Exception $e) {
+    $notification->push($e->getMessage(), 'horde.warning');
+    goto proceed;
+}
+
+// Do some simple strength tests, if enabled in the config file.
+if ($conf['password']['strengthtests']) {
+    try {
+        Horde_Auth::checkPasswordSimilarity($new_password0,
+                                            array($userid, $old_password));
     } catch (Horde_Auth_Exception $e) {
         $notification->push($e->getMessage(), 'horde.warning');
-        break;
+        goto proceed;
+    }
+}
+
+// Create a Password_Driver instance.
+try {
+    $daemon = $GLOBALS['injector']->getInstance('Passwd_Factory_Driver')->setBackends($backends)->create($backend_key);
+}
+catch (Passwd_Exception $e) {
+    Horde::logMessage($e);
+    $notification->push(_("Password module is not properly configured"),
+                        'horde.error');
+    goto proceed;
+}
+
+try {
+    $backend_userid = Horde::callHook('username', array($userid, $daemon), 'passwd');
+} catch (Horde_Exception_HookNotSet $e) {
+    $backend_userid = $userid;
+}
+
+try {
+    $res = $daemon->changePassword($backend_userid, $old_password,
+                                   $new_password0);
+    if (!isset($backends[$backend_key]['no_reset']) ||
+        !$backends[$backend_key]['no_reset']) {
+        Passwd::resetCredentials($old_password, $new_password0);
     }
 
-    // Do some simple strength tests, if enabled in the config file.
-    if ($conf['password']['strengthtests']) {
-        try {
-            Horde_Auth::checkPasswordSimilarity($new_password0,
-                                                array($userid, $old_password));
-        } catch (Horde_Auth_Exception $e) {
-            $notification->push($e->getMessage(), 'horde.warning');
-            break;
-        }
-    }
+    $notification->push(sprintf(_("Password changed on %s."),
+                                $backends[$backend_key]['name']), 'horde.success');
 
-    // Create a Password_Driver instance.
     try {
-        $daemon = $GLOBALS['injector']->getInstance('Passwd_Factory_Driver')->setBackends($backends)->create($backend_key);
-    }
-    catch (Passwd_Exception $e) {
-        Horde::logMessage($e);
-        $notification->push(_("Password module is not properly configured"),
-                            'horde.error');
-        break;
-    }
-
-    try {
-        $backend_userid = Horde::callHook('username', array($userid, $daemon), 'passwd');
+        Horde::callHook('password_changed', array($backend_userid, $old_password, $new_password0), 'passwd');
     } catch (Horde_Exception_HookNotSet $e) {
-        $backend_userid = $userid;
     }
 
-    try {
-        $res = $daemon->changePassword($backend_userid, $old_password,
-                                       $new_password0);
-        if (!isset($backends[$backend_key]['no_reset']) ||
-            !$backends[$backend_key]['no_reset']) {
-            Passwd::resetCredentials($old_password, $new_password0);
-        }
-
-        $notification->push(sprintf(_("Password changed on %s."),
-                                    $backends[$backend_key]['name']), 'horde.success');
-
-        try {
-            Horde::callHook('password_changed', array($backend_userid, $old_password, $new_password0), 'passwd');
-        } catch (Horde_Exception_HookNotSet $e) {
-        }
-
-        if (!empty($return_to)) {
-            header('Location: ' . $return_to);
-            exit;
-        }
-    } catch (Exception $e) {
-        $notification->push(sprintf(_("Failure in changing password for %s: %s"),
-                                    $backends[$backend_key]['name'],
-                                    $e->getMessage()), 'horde.error');
-        break;
+    if (!empty($return_to)) {
+        header('Location: ' . $return_to);
+        exit;
     }
-} while (false);
+} catch (Exception $e) {
+    $notification->push(sprintf(_("Failure in changing password for %s: %s"),
+                                $backends[$backend_key]['name'],
+                                $e->getMessage()), 'horde.error');
+}
+
+proceed:
 
 // Choose the prefered backend from config/backends.php.
 foreach ($backends as $key => $current_backend) {
