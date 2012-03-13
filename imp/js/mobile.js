@@ -237,7 +237,9 @@ var ImpMobile = {
         if (r.rowlist_reset) {
             ob.rowlist = {};
         }
-        ob.update(r.data, r.rowlist, r.totalrows);
+        if (r.data) {
+            ob.update(r.data, r.rowlist, r.totalrows);
+        }
         if (r.disappear) {
             ob.disappear(r.disappear);
         }
