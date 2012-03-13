@@ -2,6 +2,8 @@
 v6.0-git
 --------
 
+[mms] Viewing a mailbox in smartmobile mode no longer resets the sortpref
+      preference.
 [mms] Allow all SMTP configuration parameters to be overridden in the backends
       configuration file (Request #11051).
 [mms] Block images in HTML messages that appear to be sent from you by default,

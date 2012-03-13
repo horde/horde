@@ -91,6 +91,7 @@ class IMP_Application extends Horde_Registry_Application
             'IMP_Identity' => 'IMP_Factory_Identity',
             'IMP_Imap_Tree' => 'IMP_Factory_Imaptree',
             'IMP_Mail' => 'IMP_Factory_Mail',
+            'IMP_Prefs_Sort' => 'IMP_Factory_PrefsSort',
             'IMP_Quota' => 'IMP_Factory_Quota',
             'IMP_Search' => 'IMP_Factory_Search',
             'IMP_Sentmail' => 'IMP_Factory_Sentmail'

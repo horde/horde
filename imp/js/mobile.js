@@ -225,11 +225,9 @@ var ImpMobile = {
         HordeMobile.doAction(
             'viewPort',
             $.extend(params, {
-                view: mailbox,
-                slice: from + ':' + (from + 24),
                 requestid: 1,
-                sortby: IMP.conf.sort.date.v,
-                sortdir: 1
+                slice: from + ':' + (from + 24),
+                view: mailbox
             })
         );
     },
