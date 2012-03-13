@@ -2,6 +2,7 @@
 v6.0-git
 --------
 
+[mms] Add mailbox caching to the smartmobile view.
 [mms] Cache last seen message in smartmobile view.
 [mms] Viewing a mailbox in smartmobile mode no longer resets the sortpref
       preference.

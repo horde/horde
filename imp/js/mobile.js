@@ -10,57 +10,29 @@ var ImpMobile = {
 
     // Vars used and defaulting to null/false:
     //
-    // /**
-    //  * The current mailbox.
-    //  */
-    // mailbox,
-    //
-    // /**
-    //  * Whether the current mailbox is read-only.
-    //  */
-    // readOnly,
-    //
-    // /**
-    //  * The number of messages in the current mailbox.
-    //  */
-    // totalrows,
-    //
-    // /**
-    //  * UID of the currently displayed message.
-    //  */
-    // uid,
-    //
-    // /**
-    //  * Whether the compose form is currently disable, e.g. being submitted.
-    //  */
+    // /* Whether the compose form is currently disabled (being submitted). */
     // disabled,
     //
-    // /**
-    //  * Whether attachments are currently being uploaded.
-    //  */
-    // uploading,
+    // /* The current mailbox. */
+    // mailbox,
     //
-    // /**
-    //  * One-time callback after the mailbox has been loaded.
-    //  */
+    // /* One-time callback after the mailbox has been loaded. */
     // mailboxCallback,
     //
-    // /**
-    //  * Search parameters for the viewPort Ajax request.
-    //  */
+    // /* Search parameters for the viewPort Ajax request. */
     // search,
+    //
+    // /* UID of the currently displayed message. */
+    // uid,
+    //
+    // /* Mailbox of the currently displayed message. */
+    // uid_mbox,
+    //
+    // /* Whether attachments are currently being uploaded. */
+    // uploading,
 
-    /**
-     * The currently loaded list of message data, keys are UIDs, values are
-     * the message information.
-     */
-    data: {},
-
-    /**
-     * The currently loaded list of messages, keys are UIDs, values are
-     * position.
-     */
-    messages: {},
+    // Mailbox data cache.
+    cache: {},
 
 
     /**
@@ -120,7 +92,7 @@ var ImpMobile = {
             switch (match[1]) {
             case 'mailbox':
                 ImpMobile.lastHash = url.hash;
-                ImpMobile.toMailbox(url, data.options);
+                ImpMobile.toMailbox(url, { opts: data.options });
                 break;
 
             case 'message':
@@ -162,9 +134,10 @@ var ImpMobile = {
     {
         var match = /\?mbox=(.*)&from=(.*)/.exec(url.hash) ||
                     /\?mbox=(.*)/.exec(url.hash),
-            mailbox = match[1], from = 1 * (match[2] || 1),
+            mailbox = match[1],
             title = $('#imp-mailbox-' + mailbox).text(),
-            params = {};
+            params = {}, ob;
+
         if ($.mobile.activePage &&
             $.mobile.activePage.attr('id') == 'mailbox') {
             // Need to update history manually, because jqm exits too early
@@ -173,52 +146,120 @@ var ImpMobile = {
             $.mobile.urlHistory.ignoreNextHashChange = true;
             $.mobile.path.set(url.hash);
         } else {
-            options.dataUrl = url.href;
-            $.mobile.changePage($('#mailbox'), options);
+            if (!options.opts) {
+                options.opts = {};
+            }
+            options.opts.dataUrl = url.href;
+            $.mobile.changePage($('#mailbox'), options.opts);
         }
+
         document.title = title;
         $('#imp-mailbox-header').text(title);
-        $('#imp-mailbox-list').empty();
-        $('#imp-mailbox-navtop,#imp-mailbox-navbottom').hide();
-        ImpMobile.from = from;
+        if (ImpMobile.mailbox != mailbox) {
+            $('#imp-mailbox-list').empty();
+            $('#imp-mailbox-navtop,#imp-mailbox-navbottom').hide();
+            ImpMobile.mailbox = mailbox;
+        }
+
         if (mailbox != IMP.conf.qsearchid) {
             delete ImpMobile.search;
             $('#imp-search-input').val('');
-        }
-        if (ImpMobile.search) {
+        } else if (ImpMobile.search) {
             params = ImpMobile.search;
         }
+
+        if (ob = ImpMobile.cache[mailbox]) {
+            if (match[2]) {
+                ob.from = match[2];
+            }
+
+            ImpMobile.refreshMailbox(ob);
+
+            if (options.noajax) {
+                return;
+            }
+        }
+
         HordeMobile.doAction(
             'viewPort',
-            $.extend(params, {
+            $.extend(ImpMobile.addMboxParams(params), {
                 requestid: 1,
-                slice: from + ':' + (from + 24),
                 view: mailbox
             })
         );
     },
 
     /**
-     * Callback method after message list has been loaded.
+     */
+    addMboxParams: function(params)
+    {
+        params = params || {};
+
+        var from = 1, o = {}, ob;
+
+        if (ob = ImpMobile.cache[ImpMobile.mailbox]) {
+            o[ImpMobile.mailbox] = ob.cachedIds();
+            params.cache = ImpMobile.toUIDString(o);
+            params.cacheid = ob.cacheid;
+            params.checkcache = 1;
+            from = ob.from;
+        }
+
+        params.slice = from + ':' + (from + 24);
+
+        return params;
+    },
+
+    /**
+     * Callback method to update viewport information.
      *
      * @param object r  The Ajax response object.
      */
-    mailboxLoaded: function(r)
+    viewport: function(r)
     {
-        var list = $('#imp-mailbox-list'), c, url;
+        var ob;
 
-        ImpMobile.mailbox   = r.view;
-        ImpMobile.totalrows = r.totalrows;
-        ImpMobile.data      = r.data;
-        ImpMobile.messages  = r.rowlist;
-        ImpMobile.readOnly  = r.metadata.readonly;
-
-        if (r.metadata.slabel) {
-            document.title = r.metadata.slabel;
-            $('#imp-mailbox-header').text(r.metadata.slabel);
+        if (!(ob = ImpMobile.cache[r.view])) {
+            ob = ImpMobile.cache[r.view] = $.extend(true, {}, ImpMobileMbox);
+            if (r.metadata.readonly) {
+                ob.readonly = r.metadata.readonly;
+            }
+            if (r.metadata.slabel) {
+                ob.label = r.metadata.slabel;
+            }
+        }
+        ob.cacheid = r.cacheid;
+        if (r.data_reset) {
+            ob.data = {};
+        }
+        if (r.rowlist_reset) {
+            ob.rowlist = {};
+        }
+        ob.update(r.data, r.rowlist, r.totalrows);
+        if (r.disappear) {
+            ob.disappear(r.disappear);
         }
 
-        $.each(r.data || [], function(key, data) {
+        if ($.mobile.activePage &&
+            $.mobile.activePage.attr('id') == 'mailbox') {
+            ImpMobile.refreshMailbox(ob);
+        }
+    },
+
+    /**
+     */
+    refreshMailbox: function(ob)
+    {
+        var list = $('#imp-mailbox-list'), c, ob, url;
+
+        if (ob.label) {
+            document.title = ob.label;
+            $('#imp-mailbox-header').text(ob.label);
+        }
+
+        list.empty();
+
+        $.each(ob.data || [], function(key, data) {
             c = '';
             url = '#message?view=' + data.mbox + '&uid=' + data.uid;
 
@@ -247,15 +288,15 @@ var ImpMobile = {
                             $('<p align="right">').text(data.date)))));
         });
 
-        if (r.totalrows > list.children().length) {
+        if (ob.totalrows > list.children().length) {
             var navtext = IMP.text.nav
-                .replace(/%d/, ImpMobile.from)
-                .replace(/%d/, Math.min(ImpMobile.from + 24, r.totalrows))
-                .replace(/%d/, r.totalrows);
+                .replace(/%d/, ob.from)
+                .replace(/%d/, Math.min(ob.from + 24, ob.totalrows))
+                .replace(/%d/, ob.totalrows);
             $('#imp-mailbox-navtop,#imp-mailbox-navbottom').show();
             $('#imp-mailbox-navtop h2,#imp-mailbox-navbottom h2')
                 .text(navtext);
-            if (ImpMobile.from == 1) {
+            if (ob.from == 1) {
                 $('#imp-mailbox-prev1,#imp-mailbox-prev2')
                     .addClass('ui-disabled')
                     .attr('aria-disabled', true);
@@ -264,7 +305,7 @@ var ImpMobile = {
                     .removeClass('ui-disabled')
                     .attr('aria-disabled', false);
             }
-            if (ImpMobile.from + 24 >= r.totalrows) {
+            if (ob.from + 24 >= ob.totalrows) {
                 $('#imp-mailbox-next1,#imp-mailbox-next2')
                     .addClass('ui-disabled')
                     .attr('aria-disabled', true);
@@ -359,17 +400,22 @@ var ImpMobile = {
             dir = (dir.type == 'swipeleft') ? 1 : -1;
         }
 
-        var pos = ImpMobile.messages[ImpMobile.uid] + dir, newuid;
-        $.each(ImpMobile.messages, function(uid, messagepos) {
-            if (messagepos == pos) {
-                newuid = uid;
+        var ob = ImpMobile.cache[ImpMobile.mailbox],
+            pos = ob.rowlist[ImpMobile.uid] + dir,
+            newuid;
+
+        if (pos < 0 || pos > ob.totalrows) {
+            return;
+        }
+
+        $.each(ob.rowlist, function(uid, mpos) {
+            if (mpos == pos) {
+                newuid = [ ob.data[uid].mbox, uid ];
                 return;
             }
         });
 
-        if (newuid && ImpMobile.data[newuid]) {
-            return [ ImpMobile.data[newuid].mbox, newuid ];
-        }
+        return newuid;
     },
 
     /**
@@ -391,10 +437,11 @@ var ImpMobile = {
             if (typeof dir == 'object') {
                 dir = dir.type == 'swipeleft' ? 1 : -1;
             }
-            var page = Math.min(Math.max(ImpMobile.from,
-                                         ImpMobile.totalrows - 24),
-                                Math.max(1, ImpMobile.from + dir * 25));
-            if (page != ImpMobile.from) {
+
+            var ob = ImpMobile.cache[ImpMobile.mailbox],
+                     page = Math.min(Math.max(ob.from, ob.totalrows - 24),
+                                     Math.max(1, ob.from + dir * 25));
+            if (page != ob.from) {
                 $.mobile.changePage('#mailbox?mbox=' + ImpMobile.mailbox
                                     + '&from=' + page);
             }
@@ -474,7 +521,7 @@ var ImpMobile = {
                     '#compose?type=editasnew' + args);
             }
 
-            if (ImpMobile.readOnly) {
+            if (ImpMobile.cache[ImpMobile.mailbox].readonly) {
                 $('#imp-message-delete,#imp-message-move').hide();
             } else {
                 $('#imp-message-delete,#imp-message-move').show();
@@ -789,31 +836,29 @@ var ImpMobile = {
         case 'delete':
             HordeMobile.doAction(
                 'deleteMessages',
-                {
+                ImpMobile.addMboxParams({
                     uid: ImpMobile.toUIDString(o),
                     view: mailbox
-                },
+                }),
                 function() {
-                    ImpMobile.toMailbox(
-                        $.mobile.path.parseUrl('#mailbox?mbox=' + mailbox),
-                        {});
-                });
+                    ImpMobile.toMailbox($.mobile.path.parseUrl('#mailbox?mbox=' + mailbox), { noajax: true });
+                }
+            );
             break;
 
         case 'spam':
         case 'ham':
             HordeMobile.doAction(
                 'reportSpam',
-                {
+                ImpMobile.addMboxParams({
+                    spam: Number(match[1] == 'spam'),
                     uid: ImpMobile.toUIDString(o),
-                    view: mailbox,
-                    spam: Number(match[1] == 'spam')
-                },
+                    view: mailbox
+                }),
                 function() {
-                    ImpMobile.toMailbox(
-                        $.mobile.path.parseUrl('#mailbox?mbox=' + mailbox),
-                        {});
-                });
+                    ImpMobile.toMailbox($.mobile.path.parseUrl('#mailbox?mbox=' + mailbox), { noajax: true });
+                }
+            );
             break;
         }
 
@@ -1004,7 +1049,7 @@ var ImpMobile = {
         $.each(d, function(key, value) {
             switch (key) {
             case 'imp:viewport':
-                ImpMobile.mailboxLoaded(value);
+                ImpMobile.viewport(value);
                 break;
             }
         });
@@ -1041,6 +1086,48 @@ var ImpMobile = {
 
 // JQuery Mobile setup
 $(ImpMobile.onDocumentReady);
+
+
+var ImpMobileMbox = {
+    // Vars used: cacheid, label, readonly
+    data: {},
+    from: 1,
+    rowlist: {},
+    totalrows: 0,
+
+    update: function(data, rowlist, totalrows)
+    {
+        if (data.length !== 0) {
+            $.extend(this.data, data);
+        }
+        if (rowlist.length !== 0) {
+            $.extend(this.rowlist, rowlist);
+        }
+        this.totalrows = totalrows;
+    },
+
+    cachedIds: function()
+    {
+        var ids = [];
+
+        $.each(this.data, function(key, value) {
+            ids.push(key);
+        });
+
+        return ids;
+    },
+
+    disappear: function(ids)
+    {
+        var t = this;
+
+        $.each(ids, function(key, value) {
+            delete t.data[value];
+            delete t.rowlist[value];
+        });
+    }
+
+};
 
 
 var IMP_JS = {
