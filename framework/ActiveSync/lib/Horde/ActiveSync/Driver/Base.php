@@ -227,19 +227,6 @@ abstract class Horde_ActiveSync_Driver_Base
     }
 
     /**
-     * Will (eventually) return an appropriate state object based on the class
-     * being sync'd.
-     *
-     * @param array $collection
-     */
-    public function &getStateDriver($collection = array())
-    {
-        $this->_stateDriver->init($collection);
-        $this->_stateDriver->setLogger($this->_logger);
-        return $this->_stateDriver;
-    }
-
-    /**
      * Get the full folder hierarchy from the backend.
      *
      * @return array

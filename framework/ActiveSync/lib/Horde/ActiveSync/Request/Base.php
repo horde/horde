@@ -104,42 +104,31 @@ abstract class Horde_ActiveSync_Request_Base
     /**
      * Const'r
      *
-     * @param Horde_ActiveSync_Driver $driver            The backend driver.
-     * @param Horde_ActiveSync_Wbxml_Decoder $decoder    The Wbxml decoder.
-     * @param Horde_ActiveSync_Wbxml_Endcodder $encdoer  The Wbxml encoder.
-     * @param Horde_Controller_Request_Http $request     The request object.
      * @param Horde_ActiveSync $as                       The ActiveSync server.
      * @param stdClass $device                           The device descriptor.
-     * @param mixed $provisioning                        Is provisioning required?
      *
      * @return Horde_ActiveSync_Request_Base
      */
-    public function __construct(Horde_ActiveSync_Driver_Base $driver,
-                                Horde_ActiveSync_Wbxml_Decoder $decoder,
-                                Horde_ActiveSync_Wbxml_Encoder $encoder,
-                                Horde_Controller_Request_Http $request,
-                                Horde_ActiveSync $as,
-                                $device,
-                                $provisioning)
+    public function __construct(Horde_ActiveSync $as, $device)
     {
-        // Backend driver
-        $this->_driver = $driver;
-
         // Server
         $this->_activeSync = $as;
 
+        // Backend driver
+        $this->_driver = $as->driver;
+
         // Wbxml handlers
-        $this->_encoder = $encoder;
-        $this->_decoder = $decoder;
+        $this->_encoder = $as->encoder;
+        $this->_decoder = $as->decoder;
 
         // The http request
-        $this->_request = $request;
+        $this->_request = $as->request;
 
         // Provisioning support
-        $this->_provisioning = $provisioning;
+        $this->_provisioning = $as->provisioning;
 
-        /* Get the state object */
-        $this->_stateDriver = &$driver->getStateDriver();
+        // Get the state object
+        $this->_stateDriver = &$as->state;
 
         // Device info
         $this->_device = $device;
@@ -171,8 +160,7 @@ abstract class Horde_ActiveSync_Request_Base
 
         // Don't attempt if we don't care
         if ($this->_provisioning !== Horde_ActiveSync::PROVISIONING_NONE) {
-            $state = $this->_driver->getStateDriver();
-            $storedKey = $state->getPolicyKey($this->_device->id);
+            $storedKey = $this->_stateDriver->getPolicyKey($this->_device->id);
             $this->_logger->debug('[' . $this->_device->id . '] Stored key: ' . $storedKey);
 
             // Loose provsioning should allow a blank key

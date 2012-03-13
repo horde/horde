@@ -29,13 +29,12 @@ class Horde_Core_Factory_ActiveSyncServer extends Horde_Core_Factory_Injector
             $logger = $injector->getInstance('Horde_Log_Logger');
         }
 
-        $request = $injector->getInstance('Horde_Controller_Request');
-        $backend = $injector->getInstance('Horde_ActiveSyncBackend');
         $server = new Horde_ActiveSync(
-            $backend,
+            $injector->getInstance('Horde_ActiveSyncBackend'),
             new Horde_ActiveSync_Wbxml_Decoder(fopen('php://input', 'r')),
             new Horde_ActiveSync_Wbxml_Encoder(fopen('php://output', 'w+')),
-            $request);
+            $injector->getInstance('Horde_ActiveSyncState')
+            $injector->getInstance('Horde_Controller_Request'));
 
         $server->setLogger($logger);
 

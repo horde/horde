@@ -102,7 +102,6 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
         $this->_statusCode = self::STATUS_NOCHANGES;
 
         // Initialize the state machine
-        $this->_stateDriver = &$this->_driver->getStateDriver();
         $this->_stateDriver->loadDeviceInfo(
             $this->_device->id, $this->_driver->getUser());
 

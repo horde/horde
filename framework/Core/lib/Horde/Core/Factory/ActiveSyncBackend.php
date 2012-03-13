@@ -7,7 +7,7 @@ class Horde_Core_Factory_ActiveSyncBackend extends Horde_Core_Factory_Injector
 {
     public function create(Horde_Injector $injector)
     {
-        global $conf;
+        global $conf, $registry;
 
         $params = array();
 
@@ -19,11 +19,9 @@ class Horde_Core_Factory_ActiveSyncBackend extends Horde_Core_Factory_Injector
         }
 
         // Backend driver and dependencies
-        $params['registry'] = $GLOBALS['registry'];
+        $params['registry'] = $registry;
         $driver_params = array(
             'connector' => new Horde_Core_ActiveSync_Connector($params),
-            // @TODO should pass the imapOb() here, but we still need the
-            // registry b/c we rely on IMP for folder listings at the moment.
             'imap' => !empty($conf['activesync']['emailsync'])
                 ? new Horde_Core_ActiveSync_Imap_Adapter($params)
                 : null,

@@ -246,20 +246,26 @@ class Horde_ActiveSync
     /**
      * Const'r
      *
-     * @param Horde_ActiveSync_Driver $driver            The backend driver
-     * @param Horde_ActiveSync_StateMachine $state       The state machine
-     * @param Horde_ActiveSync_Wbxml_Decoder $decoder    The Wbxml decoder
-     * @param Horde_ActiveSync_Wbxml_Endcodder $encdoer  The Wbxml encoder
+     * @param Horde_ActiveSync_Driver_Base $driver      The backend driver.
+     * @param Horde_ActiveSync_Wbxml_Decoder $decoder   The Wbxml decoder.
+     * @param Horde_ActiveSync_Wbxml_Endcoder $encoder  The Wbxml encoder.
+     * @param Horde_ActiveSync_State_Base $state        The state driver.
+     * @param Horde_Controller_Request_Http $request    The HTTP request object.
      *
      * @return Horde_ActiveSync
      */
-    public function __construct(Horde_ActiveSync_Driver_Base $driver,
-                                Horde_ActiveSync_Wbxml_Decoder $decoder,
-                                Horde_ActiveSync_Wbxml_Encoder $encoder,
-                                Horde_Controller_Request_Http $request)
+    public function __construct(
+        Horde_ActiveSync_Driver_Base $driver,
+        Horde_ActiveSync_Wbxml_Decoder $decoder,
+        Horde_ActiveSync_Wbxml_Encoder $encoder,
+        Horde_ActiveSync_State_Base $state,
+        Horde_Controller_Request_Http $request)
     {
         // Backend driver
         $this->_driver = $driver;
+
+        // Device state manager
+        $this->_state = $state;
 
         // Wbxml handlers
         $this->_encoder = $encoder;
@@ -270,6 +276,31 @@ class Horde_ActiveSync
 
         // The http request
         $this->_request = $request;
+    }
+
+    /**
+     * Getter
+     *
+     * @param string $property  The property to return.
+     *
+     * @return mixed  The value of the requested property.
+     */
+    public function __get($property)
+    {
+        switch ($property) {
+        case 'encoder':
+        case 'decoder':
+        case 'state':
+        case 'request':
+        case 'driver':
+        case 'provisioning':
+            return $this->_{$property};
+        default:
+            throw new InvalidArgumentException(sprintf(
+                'The property %s does not exist',
+                $property)
+            );
+        }
     }
 
     /**
@@ -285,6 +316,7 @@ class Horde_ActiveSync
         $this->_encoder->setLogger($logger);
         $this->_decoder->setLogger($logger);
         $this->_driver->setLogger($logger);
+        $this->_state->setLogger($logger);
     }
 
     /**
@@ -329,17 +361,15 @@ class Horde_ActiveSync
             return true;
         }
 
-        $state = $this->_driver->getStateDriver();
-
         if (is_null($devId)) {
             throw new Horde_ActiveSync_Exception('Device failed to send device id.');
         }
         // Does device exist AND does the user have an account on the device?
-        if (!empty($devId) && !$state->deviceExists($devId, $this->_driver->getUser())) {
+        if (!empty($devId) && !$this->_state->deviceExists($devId, $this->_driver->getUser())) {
             // Device might exist, but with a new (additional) user account
             $device = new StdClass();
-            if ($state->deviceExists($devId)) {
-                $d = $state->loadDeviceInfo($devId, '');;
+            if ($this->_state->deviceExists($devId)) {
+                $d = $this->_state->loadDeviceInfo($devId, '');;
             }
             $device->policykey = 0;
             $get = $this->_request->getGetVars();
@@ -348,23 +378,16 @@ class Horde_ActiveSync
             $device->rwstatus = self::RWSTATUS_NA;
             $device->user = $this->_driver->getUser();
             $device->id = $devId;
-            $state->setDeviceInfo($device);
+            $this->_state->setDeviceInfo($device);
         } else {
-            $device = $state->loadDeviceInfo($devId, $this->_driver->getUser());
+            $device = $this->_state->loadDeviceInfo($devId, $this->_driver->getUser());
         }
 
         // Load the request handler to handle the request
         $class = 'Horde_ActiveSync_Request_' . basename($cmd);
         $version = $this->getProtocolVersion();
         if (class_exists($class)) {
-            $request = new $class(
-                $this->_driver,
-                $this->_decoder,
-                $this->_encoder,
-                $this->_request,
-                $this,
-                $device,
-                $this->_provisioning);
+            $request = new $class($this, $device);
             $request->setLogger($this->_logger);
             $result = $request->handle();
             $this->_driver->logOff();

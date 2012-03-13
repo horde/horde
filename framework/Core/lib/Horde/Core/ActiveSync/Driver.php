@@ -575,7 +575,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * @param string $name  The attachment identifier. For this driver, this
      *                      consists of 'mailbox:uid:mimepart'
      *
-     * @return array  The attachement in the form of an array with the following
+     * @return array  The attachment in the form of an array with the following
      *                structure:
      * array('content-type' => {the content-type of the attachement},
      *       'data'         => {the raw attachment data})
