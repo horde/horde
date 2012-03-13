@@ -16,7 +16,6 @@
  * and for calculating deltas between server and client.
  *
  * Needs a number of SQL tables present:
- * <pre>
  *    syncStateTable (horde_activesync_state):
  *        sync_time:    - The timestamp of last sync
  *        sync_key:     - The syncKey for the last sync
@@ -53,8 +52,7 @@
  *        device_ping      - The account's ping state
  *        device_folders   - Account's folder data
  *        device_policykey - The provisioned policykey for this device/user
- *                           combonation.
- * </pre>
+ *                           combination.
  *
  * @license   http://www.horde.org/licenses/gpl GPLv2
  * @copyright 2010-2012 Horde LLC (http://www.horde.org/)
@@ -962,7 +960,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                         $ts = $this->_getPIMChangeTS($change['id']);
                         if ($ts && $ts >= $stat['mod']) {
                             $this->_logger->debug(sprintf(
-                                "[%s] Ignoring PIM initiated change for %s (PIM TS: %s Stat TS: %s",
+                                "[%s] Ignoring PIM initiated change for %s (PIM TS: %s Stat TS: %s)",
                                 $this->_devId,
                                 $change['id'], $ts, $stat['mod']));
                         } else {
