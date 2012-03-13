@@ -355,7 +355,14 @@ var ImpMobile = {
             $.mobile.changePage($('#message'), options);
         }
 
+        if (ImpMobile.uid == match[2] && ImpMobile.uid_mbox == match[1]) {
+            return;
+        }
+
+        $('#imp-message-body').text('');
+
         o[match[1]] = [ match[2] ];
+
         HordeMobile.doAction(
             'showMessage',
             {
@@ -443,6 +450,8 @@ var ImpMobile = {
                 ham = spam = 'show', spambar;
 
             ImpMobile.uid = data.uid;
+            ImpMobile.uid_mbox = data.mbox;
+
             $('#imp-message-title').html(data.title);
             document.title = $('#imp-message-title').text();
             $('#imp-message-subject').html(data.subject);

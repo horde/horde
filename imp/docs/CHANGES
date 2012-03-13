@@ -2,6 +2,7 @@
 v6.0-git
 --------
 
+[mms] Cache last seen message in smartmobile view.
 [mms] Viewing a mailbox in smartmobile mode no longer resets the sortpref
       preference.
 [mms] Allow all SMTP configuration parameters to be overridden in the backends
