@@ -204,7 +204,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                         break;
                     }
                     try {
-                        $sync->init($this->_stateDriver, null, $collection);
+                        $sync->init($this->_stateDriver, null, $collection, true);
                     } catch (Horde_ActiveSync_Exception_StaleState $e) {
                         $this->_logger->err(sprintf(
                             "[%s] PING terminating and force-clearing device state: %s",
