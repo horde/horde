@@ -331,9 +331,14 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function getServerChanges($folder, $from_ts, $to_ts, $cutoffdate, $ping)
     {
-        $this->_logger->debug(
-            sprintf("Horde_ActiveSync_Driver_Horde::getServerChanges(%s, $from_ts, $to_ts, $cutoffdate, $ping)",
-                    (string)$folder));
+        $this->_logger->debug(sprintf(
+            "Horde_ActiveSync_Driver_Horde::getServerChanges(%s, %u, %u, %u, %d)",
+            $folder->serverid(),
+            $from_ts,
+            $to_ts,
+            $cutoffdate,
+            $ping)
+        );
 
         $changes = array(
             'add' => array(),
