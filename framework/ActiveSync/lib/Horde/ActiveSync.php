@@ -294,7 +294,8 @@ class Horde_ActiveSync
         case 'request':
         case 'driver':
         case 'provisioning':
-            return $this->_{$property};
+            $property = '_' . $property;
+            return $this->$property;
         default:
             throw new InvalidArgumentException(sprintf(
                 'The property %s does not exist',
