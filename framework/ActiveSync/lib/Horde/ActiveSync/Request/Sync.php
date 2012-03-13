@@ -414,7 +414,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             if (isset($collection['getchanges'])) {
                 $filtertype = isset($collection['filtertype']) ? $collection['filtertype'] : false;
                 $exporter = new Horde_ActiveSync_Connector_Exporter($this->_encoder, $collection['class']);
-                $sync = $this->_driver->getSyncObject();
+                $sync = $this->_getSyncObject();
                 try {
                     $sync->init($this->_stateDriver, $exporter, $collection);
                 } catch (Horde_ActiveSync_Exception_StaleState $e) {

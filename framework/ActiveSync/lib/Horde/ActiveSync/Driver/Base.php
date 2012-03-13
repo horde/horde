@@ -362,21 +362,6 @@ abstract class Horde_ActiveSync_Driver_Base
     }
 
     /**
-     * Return helper for performing the actual sync operation.
-     *
-     * @param string $folderId
-     *
-     * @return Horde_ActiveSync_Sync
-     */
-    public function getSyncObject()
-    {
-        $exporter = new Horde_ActiveSync_Sync($this);
-        $exporter->setLogger($this->_logger);
-
-        return $exporter;
-    }
-
-    /**
      * Will (eventually) return an appropriate state object based on the class
      * being sync'd.
      *

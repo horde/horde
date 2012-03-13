@@ -145,7 +145,7 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
             $this->_encoder->content($collection['id']);
             $this->_encoder->endTag();
             $this->_encoder->startTag(self::ESTIMATE);
-            $sync = $this->_driver->getSyncObject();
+            $sync = $this->_getSyncObject();
             $sync->init($this->_stateDriver, null, $collection);
             $this->_encoder->content($sync->GetChangeCount());
             $this->_encoder->endTag();

@@ -168,7 +168,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                 for ($i = 0; $i < count($collections); $i++) {
                     $collection = $collections[$i];
                     $collection['synckey'] = $this->_device->id;
-                    $sync = $this->_driver->getSyncObject();
+                    $sync = $this->_getSyncObject();
                     try {
                         $this->_stateDriver->loadPingCollectionState($collection);
                     } catch (Horde_ActiveSync_Exception_InvalidRequest $e) {

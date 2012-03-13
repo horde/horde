@@ -1,16 +1,21 @@
 <?php
 /**
- * Base class for handling ActiveSync requests
+ * Horde_ActiveSync_Request_Base::
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
- *
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ * @copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * @link      http://pear.horde.org/index.php?package=ActiveSync
+ * @author Michael J Rubinsky <mrubinsk@horde.org>
  * @package ActiveSync
  */
 /**
- * Zarafa Deutschland GmbH, www.zarafaserver.de
- * This file is distributed under GPL-2.0.
- * Consult COPYING file for details
+ * Base class for handlig ActiveSync requests.
+ *
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ * @copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * @link      http://pear.horde.org/index.php?package=ActiveSync
+ * @author Michael J Rubinsky <mrubinsk@horde.org>
+ * @package ActiveSync
  */
 abstract class Horde_ActiveSync_Request_Base
 {
@@ -20,6 +25,13 @@ abstract class Horde_ActiveSync_Request_Base
      * @var Horde_ActiveSync_Driver_Base
      */
     protected $_driver;
+
+    /**
+     * State driver
+     *
+     * @var Horde_ActiveSync_State_Base
+     */
+    protected $_stateDriver;
 
     /**
      * Encoder
@@ -44,11 +56,13 @@ abstract class Horde_ActiveSync_Request_Base
 
     /**
      * Whether we require provisioned devices.
-     * Valid values are true, false, or Horde_ActiveSync::PROVISIONING_LOOSE.
-     * Loose allows devices that don't know about provisioning to continue to
-     * function, but requires devices that are capable to be provisioned.
+     * Valid values are:
+     *  - Horde_ActiveSync::PROVISIONING_FORCE: Accept ONLY provisioned devices
+     *  - Horde_ActiveSync::PROVISIONING_LOOSE: Force provisioning if device
+     *        supports provisioning, allow non-provisionable devices as well.
+     *  - Horde_ActiveSync::PROVISIONING_NONE:  Allow any device.
      *
-     * @var mixed
+     * @var integer
      */
     protected $_provisioning;
 
@@ -65,13 +79,6 @@ abstract class Horde_ActiveSync_Request_Base
      * @var integer
      */
     protected $_statusCode = 0;
-
-    /**
-     * State driver
-     *
-     * @var Horde_ActiveSync_State_Base
-     */
-    protected $_stateDriver;
 
     /**
      * ActiveSync server
@@ -97,13 +104,15 @@ abstract class Horde_ActiveSync_Request_Base
     /**
      * Const'r
      *
-     * @param Horde_ActiveSync_Driver $driver            The backend driver
-     * @param Horde_ActiveSync_Wbxml_Decoder $decoder    The Wbxml decoder
-     * @param Horde_ActiveSync_Wbxml_Endcodder $encdoer  The Wbxml encoder
-     * @param Horde_Controller_Request_Http $request     The request object
-     * @param string $provisioning                       Is provisioning required?
+     * @param Horde_ActiveSync_Driver $driver            The backend driver.
+     * @param Horde_ActiveSync_Wbxml_Decoder $decoder    The Wbxml decoder.
+     * @param Horde_ActiveSync_Wbxml_Endcodder $encdoer  The Wbxml encoder.
+     * @param Horde_Controller_Request_Http $request     The request object.
+     * @param Horde_ActiveSync $as                       The ActiveSync server.
+     * @param stdClass $device                           The device descriptor.
+     * @param mixed $provisioning                        Is provisioning required?
      *
-     * @return Horde_ActiveSync
+     * @return Horde_ActiveSync_Request_Base
      */
     public function __construct(Horde_ActiveSync_Driver_Base $driver,
                                 Horde_ActiveSync_Wbxml_Decoder $decoder,
@@ -113,66 +122,68 @@ abstract class Horde_ActiveSync_Request_Base
                                 $device,
                                 $provisioning)
     {
-        /* Backend driver */
+        // Backend driver
         $this->_driver = $driver;
 
-        /* server */
+        // Server
         $this->_activeSync = $as;
 
-        /* Wbxml handlers */
+        // Wbxml handlers
         $this->_encoder = $encoder;
         $this->_decoder = $decoder;
 
-        /* The http request */
+        // The http request
         $this->_request = $request;
 
-        /* Provisioning support */
+        // Provisioning support
         $this->_provisioning = $provisioning;
 
         /* Get the state object */
         $this->_stateDriver = &$driver->getStateDriver();
 
-        /* Device info */
+        // Device info
         $this->_device = $device;
     }
 
     /**
      * Ensure the PIM's policy key is current.
      *
-     * @param integer $sentKey  The policykey sent to us by the PIM
+     * @param string $sentKey  The policykey sent to us by the PIM
      *
      * @return boolean
      */
     public function checkPolicyKey($sentKey)
     {
-         $this->_logger->debug('[' . $this->_device->id . '] Checking policykey for device '
-            . ' Key: ' . $sentKey
-            . ' User: ' . $this->_driver->getUser());
+        $this->_logger->debug(sprintf(
+            "[%s] Checking policykey for Device %s User %s",
+            $this->_device->id,
+            $sentKey,
+            $this->_driver->getUser()));
 
-         $this->_device = $this->_stateDriver->loadDeviceInfo($this->_device->id, $this->_driver->getUser());
+        $this->_device = $this->_stateDriver->loadDeviceInfo(
+            $this->_device->id, $this->_driver->getUser());
 
-         // Use looseprovisioning?
-         if (empty($sentKey) && $this->_hasBrokenProvisioning() &&
-             $this->_provisioning == Horde_ActiveSync::PROVISIONING_LOOSE) {
+        // Use looseprovisioning?
+        if (empty($sentKey) && $this->_hasBrokenProvisioning() &&
+            $this->_provisioning == Horde_ActiveSync::PROVISIONING_LOOSE) {
             $sentKey = null;
-         }
+        }
 
         // Don't attempt if we don't care
-        if ($this->_provisioning !== false) {
+        if ($this->_provisioning !== Horde_ActiveSync::PROVISIONING_NONE) {
             $state = $this->_driver->getStateDriver();
             $storedKey = $state->getPolicyKey($this->_device->id);
             $this->_logger->debug('[' . $this->_device->id . '] Stored key: ' . $storedKey);
 
-            /* Loose provsioning should allow a blank key */
+            // Loose provsioning should allow a blank key
             if ((empty($storedKey) || $storedKey != $sentKey) &&
                ($this->_provisioning !== Horde_ActiveSync::PROVISIONING_LOOSE ||
                ($this->_provisioning === Horde_ActiveSync::PROVISIONING_LOOSE && !is_null($sentKey)))) {
 
-                    Horde_ActiveSync::provisioningRequired();
-                    return false;
+                Horde_ActiveSync::provisioningRequired();
+                return false;
             }
         }
-
         $this->_logger->debug('Policykey: ' . $sentKey . ' verified.');
 
         return true;
@@ -184,15 +195,24 @@ abstract class Horde_ActiveSync_Request_Base
     }
 
     /**
+     * Simple factory for the Sync object.
      *
-     * @param string $version
-     * @param string $devId
+     * @return Horde_ActiveSync_Sync
      */
-    public function handle()
+    public function getSyncObject()
     {
-        $this->_version = $this->_activeSync->getProtocolVersion();
-        $this->_logger->info('Request being handled for device: ' . $this->_device->id . ' Supporting protocol version: ' . $this->_version);
+        $sync = new Horde_ActiveSync_Sync($this->_driver);
+        $sync->setLogger($this->_logger);
+
+        return $sync;
     }
+
+    /**
+     * Handle the request.
+     *
+     * @return boolean
+     */
+    abstract public function handle();
 
     /**
      * Utility function to help determine if a device has broken provisioning.

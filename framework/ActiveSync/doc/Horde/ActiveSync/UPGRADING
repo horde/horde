@@ -41,6 +41,11 @@ Horde_ActiveSync_State_File was removed.
 
       This method has been removed.
 
+    - getSyncObject()
+
+      This method has been removed. The Sync object is now built by the request
+      object itself. See Horde_ActiveSync_Request_Base#_getSyncObject.
+
   - Horde_ActiveSync_State_History
 
     - Renamed to Horde_ActiveSync_State_Sql

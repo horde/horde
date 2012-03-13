@@ -224,7 +224,10 @@ class Horde_ActiveSync
     const FILTERTYPE_1MONTH = 5;
     const FILTERTYPE_3MONTHS = 6;
     const FILTERTYPE_6MONTHS = 7;
+
+    const PROVISIONING_FORCE            = true;
     const PROVISIONING_LOOSE            = 'loose';
+    const PROVISIONING_NONE             = false;
 
     /**
      * Logger
