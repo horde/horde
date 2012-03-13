@@ -376,7 +376,9 @@ var ImpMobile = {
             $.mobile.changePage($('#message'), options);
         }
 
+        // Page is cached.
         if (ImpMobile.uid == match[2] && ImpMobile.uid_mbox == match[1]) {
+            document.title = $('#imp-message-title').text();
             return;
         }
 
