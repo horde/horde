@@ -27,6 +27,17 @@
  */
 class Horde_Imap_Client_DateTimeTest extends PHPUnit_Framework_TestCase
 {
+    public function testBug5717()
+    {
+        $date = '12 Sep 2007 15:49:12 UT';
+        $ob = new Horde_Imap_Client_DateTime($date);
+
+        $this->assertEquals(
+            1189612152,
+            intval(strval($ob))
+        );
+    }
+
     public function testBug9847()
     {
         $date = 'Fri, 06 Oct 2006 12:15:13 +0100 (GMT+01:00)';
@@ -36,6 +47,19 @@ class Horde_Imap_Client_DateTimeTest extends PHPUnit_Framework_TestCase
             1160133313,
             intval(strval($ob))
         );
+    }
+
+    public function testBadDate()
+    {
+        $date = 'This is a bad date';
+        $ob = new Horde_Imap_Client_DateTime($date);
+
+        $this->assertEquals(
+            0,
+            intval(strval($ob))
+        );
+
+        $this->assertTrue($ob->error());
     }
 
 }
