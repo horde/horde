@@ -1069,7 +1069,7 @@ class Turba_Api extends Horde_Registry_Api
 
         $driver = $injector->getInstance('Turba_Factory_Driver');
 
-        foreach ($sources as $source) {
+        foreach ($opts['sources'] as $source) {
             // Skip invalid sources -or-
             // skip sources that aren't browseable if the search is empty.
             if (!isset($cfgSources[$source]) ||
