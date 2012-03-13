@@ -121,6 +121,8 @@ var ImpMobile = {
                 break;
             }
             e.preventDefault();
+        } else {
+            HordeMobile.doAction('poll');
         }
     },
 
@@ -937,6 +939,22 @@ var ImpMobile = {
     },
 
     /**
+     * Update unseen message count for folders.
+     *
+     * @param object r  The Ajax response object.
+     */
+    updateFolders: function(r)
+    {
+        $.each(r, function(key, value) {
+            var elt = $('#imp-mailbox-' + key).parent();
+            elt.remove('.ul-li-count');
+            if (value) {
+                elt.append('<span class="ui-li-count">' + parseInt(value, 10) + '</span>');
+            }
+        });
+    },
+
+    /**
      * Converts an object to an IMP UID range string.
      *
      * @param object ob  Mailbox name as keys, values are array of uids.
@@ -1054,6 +1072,10 @@ var ImpMobile = {
     {
         $.each(d, function(key, value) {
             switch (key) {
+            case 'imp:poll':
+                ImpMobile.updateFolders(value);
+                break;
+
             case 'imp:viewport':
                 ImpMobile.viewport(value);
                 break;
