@@ -1,54 +1,76 @@
 <?php
 /**
- * ActiveSync Handler for PING requests
+ * Horde_ActiveSync_Request_Ping
+ *
+ * PHP Version 5
  *
  * Contains portions of code from ZPush
  * Zarafa Deutschland GmbH, www.zarafaserver.de
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ * @copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @link      http://pear.horde.org/index.php?package=ActiveSync
+ * @package   ActiveSync
+ */
+/**
+ * ActiveSync Handler for PING requests
  *
- * @author Michael J Rubinsky <mrubinsk@horde.org>
- * @package ActiveSync
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ * @copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @link      http://pear.horde.org/index.php?package=ActiveSync
+ * @package   ActiveSync
  */
 
 class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
 {
-    const STATUS_NOCHANGES = 1;
-    const STATUS_NEEDSYNC = 2;
-    const STATUS_MISSING = 3;
-    const STATUS_PROTERROR = 4;
-    const STATUS_HBOUTOFBOUNDS = 5;
-
-    // Requested more then the max folders (TODO)
-    const STATUS_MAXFOLDERS = 6;
-
-    // Folder sync is required, hierarchy out of date.
+    /* Status Constants */
+    const STATUS_NOCHANGES      = 1;
+    const STATUS_NEEDSYNC       = 2;
+    const STATUS_MISSING        = 3;
+    const STATUS_PROTERROR      = 4;
+    const STATUS_HBOUTOFBOUNDS  = 5;
+    const STATUS_MAXFOLDERS     = 6;
     const STATUS_FOLDERSYNCREQD = 7;
-    const STATUS_SERVERERROR = 8;
+    const STATUS_SERVERERROR    = 8;
 
-    // Ping
-    const PING = 'Ping:Ping';
-    const STATUS = 'Ping:Status';
-    const HEARTBEATINTERVAL =  'Ping:HeartbeatInterval';
-    const FOLDERS =  'Ping:Folders';
-    const FOLDER =  'Ping:Folder';
-    const SERVERENTRYID =  'Ping:ServerEntryId';
-    const FOLDERTYPE =  'Ping:FolderType';
+    /* PING Wbxml entities */
+    const PING              = 'Ping:Ping';
+    const STATUS            = 'Ping:Status';
+    const HEARTBEATINTERVAL = 'Ping:HeartbeatInterval';
+    const FOLDERS           = 'Ping:Folders';
+    const FOLDER            = 'Ping:Folder';
+    const SERVERENTRYID     = 'Ping:ServerEntryId';
+    const FOLDERTYPE        = 'Ping:FolderType';
 
-    protected $_ping_settings;
+    /**
+     * The device's PING configuration (obtained from state)
+     *
+     * @var array
+     */
+    protected $_pingSettings;
 
+    /**
+     * Validate the configured/requested heartbeat
+     * Will set self::_statusCode appropriately in case of an invalid interval.
+     *
+     * @param integer $lifetime  The heartbeat to verify
+     *
+     * @return integer  The valid heartbeat value to use.
+     */
     protected function _checkHeartbeat($lifetime)
     {
-        if (!empty($this->_ping_settings['forcedheartbeat'])) {
-            return $this->_ping_settings['forcedheartbeat'];
+        if (!empty($this->_pingSettings['forcedheartbeat'])) {
+            return $this->_pingSettings['forcedheartbeat'];
         }
-        if ($lifetime !== 0 && $lifetime < $this->_ping_settings['heartbeatmin']) {
+        if ($lifetime !== 0 && $lifetime < $this->_pingSettings['heartbeatmin']) {
             $this->_statusCode = self::STATUS_HBOUTOFBOUNDS;
-            $lifetime = $this->_ping_settings['heartbeatmin'];
+            $lifetime = $this->_pingSettings['heartbeatmin'];
             $this->_stateDriver->setHeartbeatInterval($lifetime);
-        } elseif ($lifetime > $this->_ping_settings['heartbeatmax']) {
+        } elseif ($lifetime > $this->_pingSettings['heartbeatmax']) {
             $this->_statusCode = self::STATUS_HBOUTOFBOUNDS;
-            $lifetime = $this->_ping_settings['heartbeatmax'];
+            $lifetime = $this->_pingSettings['heartbeatmax'];
             $this->_stateDriver->setHeartbeatInterval($lifetime);
         }
 
@@ -59,10 +81,10 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
      * Handle a PING command from the PIM. PING is sent periodically by the PIM
      * to tell the server what folders we are interested in monitoring for
      * changes. If no changes are detected by the server during the 'heartbeat'
-     * interval, the server sends back a status of 1 to indicate heartbeat
-     * expired and the client should re-issue the PING command. If a change
-     * has been found, the client is sent a 2 status and should then issue a
-     * SYNC command.
+     * interval, the server sends back a status of self::STATUS_NOCHANGES to
+     * indicate heartbeat expired and the client should re-issue the PING
+     * command. If a change has been found, the client is sent a
+     * self::STATUS_NEEDSYNC and should issue a SYNC command.
      *
      * @return boolean
      */
@@ -75,8 +97,8 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
             $now));
 
         // Get the settings for the server
-        $this->_ping_settings = $this->_driver->getHeartbeatConfig();
-        $timeout = $this->_ping_settings['waitinterval'];
+        $this->_pingSettings = $this->_driver->getHeartbeatConfig();
+        $timeout = $this->_pingSettings['waitinterval'];
         $this->_statusCode = self::STATUS_NOCHANGES;
 
         // Initialize the state machine
@@ -96,9 +118,8 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                 $lifetime = $this->_checkHeartbeat($this->_decoder->getElementContent());
                 $this->_decoder->getElementEndTag();
             }
-            // @TODO: Isn't this supposed to be overridable?
             if ($lifetime == 0) {
-                $lifetime = $this->_ping_settings['heartbeatdefault'];
+                $lifetime = $this->_pingSettings['heartbeatdefault'];
             }
             $this->_stateDriver->setHeartbeatInterval($lifetime);
 
@@ -141,10 +162,11 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
 
         // Start waiting for changes, but only if we don't have any errors
         if ($this->_statusCode == self::STATUS_NOCHANGES) {
-            $this->_logger->info(
-                sprintf('[%s] Waiting for changes (heartbeat interval: %d)',
-                        $this->_device->id,
-                        $lifetime));
+            $this->_logger->info(sprintf(
+                '[%s] Waiting for changes (heartbeat interval: %d)',
+                $this->_device->id,
+                $lifetime)
+            );
             $expire = $now + $lifetime;
             while (time() <= $expire) {
                 // Check the remote wipe status and request a foldersync if
@@ -216,10 +238,8 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                         $changes[$collection['id']] = 1;
                         $this->_statusCode = self::STATUS_NEEDSYNC;
                         break;
-
                     } catch (Horde_ActiveSync_Exception $e) {
                         // Stop ping if exporter cannot be configured
-                        // @TODO: We should limit this to N number of tries too.
                         $this->_logger->err(sprintf(
                             "[%s] PING error: Exporter can not be configured: %s Waiting 30 seconds before PING is retried.",
                             $e->getMessage()));

@@ -119,10 +119,8 @@ class Horde_ActiveSync_Sync
      * @param boolean $isPing                                This is a PING request.
      *
      */
-    public function init(Horde_ActiveSync_State_Base &$stateDriver,
-                         Horde_ActiveSync_Connector_Exporter $exporter = null,
-                         array $collection = array(),
-                         $isPing = false)
+    public function init(
+        Horde_ActiveSync_State_Base &$stateDriver, $exporter, array $collection, $isPing = false)
     {
         $this->_stateDriver = &$stateDriver;
         $this->_exporter = $exporter;
