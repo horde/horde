@@ -1402,8 +1402,6 @@ class Horde_Registry
             return;
         }
 
-        $e->setCode($error);
-
         /* Hook errors are already logged. */
         if ($error == self::INITCALLBACK_FATAL) {
             Horde::logMessage($e);
@@ -1412,7 +1410,7 @@ class Horde_Registry
         $this->applications[$this->getApp()]['status'] = 'inactive';
         $this->popApp();
 
-        throw new Horde_Exception($e);
+        throw new Horde_Exception($e, $error);
     }
 
     /**
