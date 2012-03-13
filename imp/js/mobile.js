@@ -250,6 +250,10 @@ var ImpMobile = {
      */
     refreshMailbox: function(ob)
     {
+        if (ob.oldcacheid == ob.cacheid) {
+            return;
+        }
+
         var list = $('#imp-mailbox-list'), c, ob, url;
 
         if (ob.label) {
@@ -325,6 +329,8 @@ var ImpMobile = {
             ImpMobile.mailboxCallback.apply();
             delete ImpMobile.mailboxCallback;
         }
+
+        ob.oldcacheid = ob.cacheid;
     },
 
     /**
@@ -1034,7 +1040,7 @@ var ImpMobile = {
                 ImpMobile.search = {
                     qsearch: $('#imp-search-input').val(),
                     qsearchfield: $('#imp-search-by').val(),
-                    qsearchmbox: ImpMobile.mailbox,
+                    qsearchmbox: ImpMobile.mailbox
                 };
                 $.mobile.changePage('#mailbox?mbox=' + IMP.conf.qsearchid);
                 return;
@@ -1089,7 +1095,7 @@ $(ImpMobile.onDocumentReady);
 
 
 var ImpMobileMbox = {
-    // Vars used: cacheid, label, readonly
+    // Vars used: cacheid, label, oldcacheid, readonly
     data: {},
     from: 1,
     rowlist: {},
