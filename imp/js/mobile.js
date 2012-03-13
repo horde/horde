@@ -248,13 +248,16 @@ var ImpMobile = {
         ImpMobile.data      = r.data;
         ImpMobile.messages  = r.rowlist;
         ImpMobile.readOnly  = r.metadata.readonly;
+
         if (r.metadata.slabel) {
             document.title = r.metadata.slabel;
             $('#imp-mailbox-header').text(r.metadata.slabel);
         }
+
         $.each(r.data || [], function(key, data) {
             c = 'imp-message';
             url = '#message?view=' + data.mbox + '&uid=' + data.uid;
+
             if (data.flag) {
                 $.each(data.flag, function(k, flag) {
                     c += ' imp-message-' + flag.substr(1);
@@ -263,6 +266,7 @@ var ImpMobile = {
                     }
                 });
             }
+
             list.append(
                 $('<li class="' + c + '">').append(
                     $('<h3>').append(
@@ -273,8 +277,8 @@ var ImpMobile = {
                         $('<div class="ui-block-b">').append(
                             $('<p align="right">').text(data.date)))));
         });
-        l = list.children().length;
-        if (r.totalrows > l) {
+
+        if (r.totalrows > list.children().length) {
             var navtext = IMP.text.nav
                 .replace(/%d/, ImpMobile.from)
                 .replace(/%d/, Math.min(ImpMobile.from + 24, r.totalrows))
@@ -376,8 +380,9 @@ var ImpMobile = {
     nextMessage: function(dir)
     {
         if (typeof dir == 'object') {
-            dir = dir.type == 'swipeleft' ? 1 : -1;
+            dir = (dir.type == 'swipeleft') ? 1 : -1;
         }
+
         var pos = ImpMobile.messages[ImpMobile.uid] + dir, newuid;
         $.each(ImpMobile.messages, function(uid, messagepos) {
             if (messagepos == pos) {
@@ -385,10 +390,10 @@ var ImpMobile = {
                 return;
             }
         });
-        if (!newuid || !ImpMobile.data[newuid]) {
-            return;
+
+        if (newuid && ImpMobile.data[newuid]) {
+            return [ ImpMobile.data[newuid].mbox, newuid ];
         }
-        return [ ImpMobile.data[newuid].mbox, newuid ];
     },
 
     /**

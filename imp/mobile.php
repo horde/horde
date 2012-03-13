@@ -19,19 +19,16 @@ Horde_Registry::appInit('imp', array('impmode' => 'mobile'));
 $view = new Horde_View(array('templatePath' => IMP_TEMPLATES . '/mobile'));
 new Horde_View_Helper_Text($view);
 
-$imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
-
 /* Initialize the IMP_Imap_Tree object. */
 $imptree = $injector->getInstance('IMP_Imap_Tree');
 $imptree->setIteratorFilter();
-$tree = $imptree->createTree('mobile_folders', array(
+$view->tree = $imptree->createTree('mobile_folders', array(
     'poll_info' => true,
     'render_type' => 'IMP_Tree_Jquerymobile'
-));
-$view->tree = $tree->getTree(true);
+))->getTree(true);
 
-$view->allowFolders = $imp_imap->access(IMP_Imap::ACCESS_FOLDERS);
-if ($view->allowFolders) {
+$imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+if ($view->allowFolders = $imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
     $view->options = IMP::flistSelect(array(
         'heading' => _("This message to"),
         'optgroup' => true,
@@ -47,8 +44,7 @@ $view->canSearch = $imp_imap->access(IMP_Imap::ACCESS_SEARCH);
 $view->canSpam = !empty($conf['spam']['reporting']);
 $view->canHam = !empty($conf['notspam']['reporting']);
 
-$view->canCompose = IMP::canCompose();
-if ($view->canCompose) {
+if ($view->canCompose = IMP::canCompose()) {
     /* Setting up identities. */
     $identity = $injector->getInstance('IMP_Identity');
     $view->defaultIdentity = $identity->getDefault();
@@ -61,10 +57,9 @@ if ($view->canCompose) {
         );
     }
 
-    $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create();
+    $view->composeCache = $injector->getInstance('IMP_Factory_Compose')->create()->getCacheId();
     $view->composeLink = Horde::getServiceLink('ajax', 'imp');
     $view->composeLink->pathInfo = 'addAttachment';
-    $view->composeCache = $imp_compose->getCacheId();
 }
 
 $title = _("Mobile Mail");
