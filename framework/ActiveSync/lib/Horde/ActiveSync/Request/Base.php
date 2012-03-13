@@ -227,6 +227,17 @@ abstract class Horde_ActiveSync_Request_Base
     }
 
     /**
+     * Simple factory method for the importer.
+     *
+     * @return Horde_ActiveSync_Connector_Importer
+     */
+    protected function _getImporter()
+    {
+        $importer = new Horde_ActiveSync_Connector_Importer($this->_driver);
+        return $importer;
+    }
+
+    /**
      * Utility function to help determine if a device has broken provisioning.
      * This is impossible to get 100% right since versions of Android that
      * are broken and versions that are not both use the same User-Agent string

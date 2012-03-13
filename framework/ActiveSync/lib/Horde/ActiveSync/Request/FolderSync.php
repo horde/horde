@@ -93,7 +93,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
             }
 
             // Configure importer with last state
-            $importer = $this->_driver->getImporter();
+            $importer = $this->_getImporter();
             $importer->init($this->_stateDriver, false);
 
             while (1) {

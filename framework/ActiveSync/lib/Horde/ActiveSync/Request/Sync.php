@@ -257,7 +257,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 }
 
                 // Configure importer with last state
-                $importer = $this->_driver->getImporter();
+                $importer = $this->_getImporter();
                 $importer->init($this->_stateDriver, $collection['id'], $collection['conflict']);
                 $nchanges = 0;
                 while (1) {
