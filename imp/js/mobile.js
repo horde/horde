@@ -390,15 +390,8 @@ var ImpMobile = {
                 uid: ImpMobile.toUIDString(o),
                 view: match[1]
             },
-            ImpMobile.messageLoaded,
-            {
-                success: function(d) {
-                    HordeMobile.doActionComplete(d, ImpMobile.messageLoaded);
-                    if (!d.response) {
-                        ImpMobile.changePage('#mailbox?mbox=' + match[1]);
-                    }
-                }
-            });
+            ImpMobile.messageLoaded
+        );
     },
 
     /**
@@ -927,21 +920,15 @@ var ImpMobile = {
                 newmbox: $('#imp-target-new').val(),
                 view: source
             },
-            null,
-            {
-                success: function(d) {
-                    HordeMobile.doActionComplete(d);
-                    if (d.response) {
-                        ImpMobile.onDialogClose(function() {
-                            $('#target').dialog('close');
-                            if (IMP.conf.mailbox_return) {
-                                ImpMobile.changePage('#mailbox?mbox=' + source);
-                            }
-                        },
-                        [ 'target' ]);
+            function(r) {
+                ImpMobile.onDialogClose(function() {
+                    $('#target').dialog('close');
+                    if (IMP.conf.mailbox_return) {
+                        ImpMobile.changePage('#mailbox?mbox=' + source);
                     }
-                }
-            });
+                }, [ 'target' ]);
+            }
+        );
     },
 
     /**
