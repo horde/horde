@@ -110,25 +110,24 @@ class Horde_ActiveSync_Sync
     }
 
     /**
-     * Initialize the sync
+     * Initialize the sync. Causes the backend to be polled for changes, and
+     * the changes to be populated in the local cache.
      *
      * @param Horde_ActiveSync_State_Base $stateDriver       The state driver
      * @param Horde_ActiveSync_Connector_Exporter $exporter  The exporter object
      * @param array $collection                              Collection data
+     * @param boolean $isPing                                This is a PING request.
      *
-     * @return void
      */
     public function init(Horde_ActiveSync_State_Base &$stateDriver,
                          Horde_ActiveSync_Connector_Exporter $exporter = null,
-                         array $collection = array())
+                         array $collection = array(),
+                         $isPing = false)
     {
         $this->_stateDriver = &$stateDriver;
-
-        // We might not need an exporter, like e.g., when we are handling a PING
-        // request the changes are never exported.
         $this->_exporter = $exporter;
         $this->_folderId = !empty($collection['id']) ? $collection['id'] : false;
-        $this->_changes = $stateDriver->getChanges();
+        $this->_changes = $stateDriver->getChanges(array('ping' => $isPing));
         $this->_truncation = !empty($collection['truncation']) ? $collection['truncation'] : 0;
     }
 
