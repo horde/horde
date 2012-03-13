@@ -245,10 +245,9 @@ class Horde_Date
                 $this->_sec   = $parts['seconds'];
             }
         } else {
-            // Use date_create() so we can catch errors with PHP 5.2. Use
-            // "new DateTime() once we require 5.3.
-            $parsed = date_create($date);
-            if (!$parsed) {
+            try {
+                $parsed = new DateTime($date);
+            } catch (Exception $e) {
                 throw new Horde_Date_Exception(sprintf(Horde_Date_Translation::t("Failed to parse time string (%s)"), $date));
             }
             $parsed->setTimezone(new DateTimeZone(date_default_timezone_get()));
