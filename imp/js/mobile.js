@@ -954,6 +954,7 @@ var ImpMobile = {
                 elt.append('<span class="ui-li-count">' + parseInt(value, 10) + '</span>');
             }
         });
+        $('#imp-mailbox-list').listview('refresh');
     },
 
     /**
