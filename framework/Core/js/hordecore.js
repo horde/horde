@@ -135,14 +135,6 @@ var HordeCore = {
             r.msgs = [];
         }
 
-        if (r.response && Object.isFunction(callback)) {
-            try {
-                callback(r.response);
-            } catch (e) {
-                this.debug('doActionComplete', e);
-            }
-        }
-
         if (this.server_error >= 3) {
             r.msgs.push({
                 message: HordeCoreText.ajax_recover,
@@ -155,6 +147,14 @@ var HordeCore = {
 
         if (r.tasks) {
             document.fire('HordeCore:runTasks', r.tasks);
+        }
+
+        if (r.response && Object.isFunction(callback)) {
+            try {
+                callback(r.response);
+            } catch (e) {
+                this.debug('doActionComplete', e);
+            }
         }
 
         document.fire('HordeCore:doActionComplete');
