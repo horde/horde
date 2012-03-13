@@ -1418,7 +1418,7 @@ var DimpBase = {
             break;
 
         case 'ctx_subjectsort':
-            DimpCore.toggleCheck($('ctx_subjectsort_thread').down('DIV.iconImg'), this.isThreadSort());
+            DimpCore.toggleCheck($('ctx_subjectsort_thread').down('.iconImg'), this.isThreadSort());
             break;
 
         case 'ctx_preview':
