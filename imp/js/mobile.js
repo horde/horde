@@ -19,6 +19,9 @@ var ImpMobile = {
     // /* One-time callback after the mailbox has been loaded. */
     // mailboxCallback,
     //
+    // /* Cache ID for the current mailbox view. */
+    // mailboxCache,
+    //
     // /* Search parameters for the viewPort Ajax request. */
     // search,
     //
@@ -254,17 +257,20 @@ var ImpMobile = {
      */
     refreshMailbox: function(ob)
     {
-        if (ob.oldcacheid == ob.cacheid) {
+        var c, list, ob, url,
+            cid = ImpMobile.mailbox + '|' + ob.cacheid + '|' + ob.from;
+
+        if (cid == ImpMobile.mailboxCache) {
             return;
         }
-
-        var list = $('#imp-mailbox-list'), c, ob, url;
+        ImpMobile.mailboxCache = cid;
 
         if (ob.label) {
             document.title = ob.label;
             $('#imp-mailbox-header').text(ob.label);
         }
 
+        list = $('#imp-mailbox-list');
         list.empty();
 
         $.each(ob.data || [], function(key, data) {
@@ -333,8 +339,6 @@ var ImpMobile = {
             ImpMobile.mailboxCallback.apply();
             delete ImpMobile.mailboxCallback;
         }
-
-        ob.oldcacheid = ob.cacheid;
     },
 
     /**
@@ -1124,7 +1128,7 @@ $(ImpMobile.onDocumentReady);
 
 
 var ImpMobileMbox = {
-    // Vars used: cacheid, label, oldcacheid, readonly
+    // Vars used: cacheid, label, readonly
     data: {},
     from: 1,
     rowlist: {},
