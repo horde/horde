@@ -1,14 +1,14 @@
 # Finnish translation for Jonah.
 # This file is distributed under the same license as the Jonah package.
 # Copyright
-# Leena Heino <liinu@uta.fi>, 2003-2011.
+# Leena Heino <liinu@uta.fi>, 2003-2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Jonah 1.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-04 10:15+0200\n"
-"PO-Revision-Date: 2011-04-05 12:56:40+0300\n"
+"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"PO-Revision-Date: 2012-03-07 17:23:54+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -75,7 +75,7 @@ msgstr "ylläpitäjä"
 msgid "An error occurred fetching channels: %s"
 msgstr "Taphtui virhe haettaessa kanavia: %s"
 
-#: lib/Driver/Sql.php:577
+#: lib/Driver/Sql.php:579
 #, php-format
 msgid "Channel \"%s\" not found."
 msgstr "Kanavaa id \"%s\" ei löydy."
@@ -122,15 +122,15 @@ msgstr "Sulje haku"
 msgid "Comments"
 msgstr "Kommentit"
 
-#: config/templates.php:44
+#: config/templates.php:45
 msgid "Compact"
 msgstr "Pienennetty"
 
-#: lib/Jonah.php:223
+#: lib/Jonah.php:213
 msgid "Composite Feed"
 msgstr "Yhdistelmäsyöte"
 
-#: lib/Jonah.php:61 lib/Jonah.php:64
+#: lib/Jonah.php:51 lib/Jonah.php:54
 #, php-format
 msgid "Could not open %s: %s"
 msgstr "Ei voitu aukaista %s: %s"
@@ -258,7 +258,7 @@ msgstr "Lisää"
 msgid "Include full story content in syndicated feeds?"
 msgstr "Lisää artikkelin koko sisältö jaettuun syötteeseen?"
 
-#: config/templates.php:33
+#: config/templates.php:34
 msgid "Internal"
 msgstr "Sisäinen"
 
@@ -283,7 +283,7 @@ msgstr "Edellinen päivitys"
 msgid "Latest News"
 msgstr "Uusimmat uutiset"
 
-#: lib/Jonah.php:84 lib/Jonah.php:220
+#: lib/Jonah.php:74 lib/Jonah.php:210
 msgid "Local Feed"
 msgstr "Paikallinen syöte"
 
@@ -295,7 +295,7 @@ msgstr "Hallinnoin syötteitä"
 msgid "Maximum Stories"
 msgstr "Maksimimäärä artikkeleita"
 
-#: config/templates.php:22
+#: config/templates.php:23
 msgid "Media"
 msgstr "Media"
 
@@ -437,7 +437,7 @@ msgstr "Poistetaanko uutisartikkeli?"
 msgid "Results URL"
 msgstr "Tulos URL"
 
-#: lib/Jonah.php:174
+#: lib/Jonah.php:164
 msgid "Rich Text"
 msgstr "Rich Text"
 
@@ -483,7 +483,7 @@ msgstr ""
 "<br /> Luotien nimissä saa olla vain kirjaimia, numeroita tai _ (alaviiva) "
 "merkkejä."
 
-#: config/templates.php:11
+#: config/templates.php:12
 msgid "Standard"
 msgstr "Standardi"
 
@@ -531,7 +531,7 @@ msgstr "Artikkelin muokkaus epäonnistui: %s"
 msgid "Story has not been deleted."
 msgstr "Artikkeli on poistettu."
 
-#: lib/Driver/Sql.php:525
+#: lib/Driver/Sql.php:527
 #, php-format
 msgid "Story id \"%s\" not found."
 msgstr "Artikkelia id \"%s\" ei löytynyt."
@@ -561,7 +561,7 @@ msgstr "Tagit:"
 msgid "Tags: "
 msgstr "Tagit: "
 
-#: lib/Jonah.php:181
+#: lib/Jonah.php:171
 msgid "Text"
 msgstr "Teksti"
 
@@ -619,7 +619,7 @@ msgstr "Vastaanottaja"
 msgid "Type"
 msgstr "Tyyppi"
 
-#: config/templates.php:55
+#: config/templates.php:56
 msgid "Ultracompact"
 msgstr "Ultrapieni"
 

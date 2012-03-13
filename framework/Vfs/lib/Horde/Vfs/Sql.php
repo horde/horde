@@ -351,6 +351,38 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
     }
 
     /**
+     * Horde_Vfs_Sql override of isFolder() to check for root folder.
+     *
+     * @param string $path  Path to possible folder
+     * @param string $name  Name of possible folder
+     *
+     * @return boolean  True if $path/$name is a folder
+     */
+    public function isFolder($path, $name)
+    {
+        $path = $this->_convertPath($path);
+        if ($path == '' && $name == '') {
+            // The root of VFS is always a folder.
+            return true;
+        }
+        $path = $this->_getNativePath($path, $name);
+        $name = basename($path);
+        $path = dirname($path);
+        if ($path == '.') {
+            $path = '';
+        }
+        try {
+            return (bool)$this->_db->selectValue(
+                sprintf(
+                    'SELECT 1 FROM %s WHERE vfs_type = ? AND vfs_path = ? AND vfs_name = ?',
+                    $this->_params['table']),
+                array(self::FOLDER, $path, $name));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Vfs_Exception($e);
+        }
+    }
+
+    /**
      * Delete a folder from the VFS.
      *
      * @param string $path        The path of the folder.
@@ -433,17 +465,18 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
     protected function _listFolder($path, $filter = null, $dotfiles = true,
                                    $dironly = false)
     {
+        if (!$this->isFolder(dirname($path), basename($path))) {
+            throw new Horde_Vfs_Exception(sprintf('"%s" is not a folder.', $path));
+        }
+
         $path = $this->_convertPath($path);
 
         try {
-            $where = 'vfs_path = ' . $this->_db->quote($path);
-
             $length_op = $this->_getFileSizeOp();
-            $sql = sprintf('SELECT vfs_name, vfs_type, %s(vfs_data) length, vfs_modified, vfs_owner FROM %s WHERE %s',
+            $sql = sprintf('SELECT vfs_name, vfs_type, %s(vfs_data) length, vfs_modified, vfs_owner FROM %s WHERE vfs_path = ?',
                            $length_op,
-                           $this->_params['table'],
-                           $where);
-            $fileList = $this->_db->select($sql);
+                           $this->_params['table']);
+            $fileList = $this->_db->select($sql, array($path));
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Vfs_Exception($e);
         }
@@ -734,21 +767,4 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
             return 'LENGTH';
         }
     }
-
-    /**
-     * Horde_Vfs_Sql override of isFolder() to check for root folder.
-     *
-     * @param string $path  Path to possible folder
-     * @param string $name  Name of possible folder
-     *
-     * @return boolean  True if $path/$name is a folder
-     */
-    public function isFolder($path, $name)
-    {
-        return (($path == '') && ($name == ''))
-            // The root of VFS is always a folder.
-            ? true
-            : parent::isFolder($path, $name);
-    }
-
 }

@@ -1,29 +1,30 @@
 # Finnish translation for Ulaform.
 # Copyright
 # Petteri Karttunen <pkarttun@siba.fi>, 2003.
-# Leena Heino <liinu@uta.fi>, 2003-2004.
+# Leena Heino <liinu@uta.fi>, 2003-2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Ulaform 0.1-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2005-02-17 12:50+0200\n"
-"PO-Revision-Date: 2011-08-02 15:57+0200\n"
+"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"PO-Revision-Date: 2012-03-07 19:05:45+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
+"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: edit.php:84
+#: edit.php:75
 msgid "-- default configured --"
 msgstr "-- oletukset asetettu --"
 
-#: edit.php:63
+#: edit.php:55
 msgid "-- select --"
 msgstr "-- valitse --"
 
-#: delete.php:33 edit.php:63 forms.php:33
+#: delete.php:26 edit.php:55 forms.php:33
 msgid "Action"
 msgstr "Toiminto"
 
@@ -31,157 +32,156 @@ msgstr "Toiminto"
 msgid "Available Forms"
 msgstr "Saatavilla olevat lomakkeet"
 
-#: lib/Action/mailto.php:126
+#: lib/Action/Mailto.php:88
 msgid "Bcc"
 msgstr "Piilokopio"
 
-#: lib/Action/mailto.php:122
+#: lib/Action/Mailto.php:84
 msgid "Cc"
 msgstr "Kopio"
 
-#: edit.php:44
+#: edit.php:38
 msgid "Changed action driver."
 msgstr "Muuta toimintoajuria"
 
-#: genhtml.php:36
+#: genhtml.php:29
 msgid "Changed embed type."
 msgstr "Muuta sulautettua tyyppiä"
 
-#: config/fields.php.dist:49
+#: config/fields.php:46
 msgid "Characters"
 msgstr "Merkit"
 
-#: config/fields.php.dist:40 config/fields.php.dist:47
+#: config/fields.php:37 config/fields.php:44
 msgid "Columns"
 msgstr "Sarakkeet"
 
-#: display.php:32
+#: display.php:29
 #, php-format
-msgid "Could not fetch form ID '%s'. %s"
-msgstr "Ei voitu hakea lomaketta ID '%s'. %s"
+msgid "Could not fetch form ID \"%s\". %s"
+msgstr "Ei voitu hakea lomaketta ID \"%s\". %s"
 
-#: edit.php:57
+#: edit.php:49
 msgid "Create"
 msgstr "Luo"
 
-#: lib/Ulaform.php:146
-msgid "Create Form"
-msgstr "Luo lomake"
-
-#: edit.php:84
+#: edit.php:75
 msgid "Default language"
 msgstr "Oletuskieli"
 
-#: delete.php:34 delete.php:37 deletefield.php:44 deletefield.php:50
+#: delete.php:27 delete.php:30 deletefield.php:32 deletefield.php:38
 msgid "Delete"
 msgstr "Poista"
 
-#: deletefield.php:41 fields.php:136
+#: deletefield.php:31 fields.php:116
 msgid "Delete Field"
 msgstr "Poista kenttä"
 
-#: forms.php:27
+#: forms.php:26
 msgid "Delete Form"
 msgstr "Poista lomake"
 
-#: deletefield.php:48
+#: deletefield.php:36
 msgid "Delete this field?"
 msgstr "Poista tämä kenttä?"
 
-#: delete.php:29
+#: delete.php:24
 msgid "Delete this form?"
 msgstr "Poista tämä lomake?"
 
-#: fields.php:59 fields.php:134
+#: fields.php:49 fields.php:113
 msgid "Description"
 msgstr "Kuvaus"
 
-#: delete.php:34 deletefield.php:44 deletefield.php:68
+#: delete.php:27 deletefield.php:32 deletefield.php:51
 msgid "Do not delete"
 msgstr "Ei saa poistaa"
 
-#: fields.php:137
+#: fields.php:117
 msgid "Edit Field"
 msgstr "Muokkaa kenttää"
 
-#: forms.php:28
+#: forms.php:27
 msgid "Edit Form"
 msgstr "Muokkaa lomaketta"
 
-#: edit.php:120
+#: edit.php:106
 msgid "Edit Forms"
 msgstr "Muokkaa lomakkeita"
 
-#: config/fields.php.dist:121 config/fields.php.dist:129
+#: config/fields.php:118 config/fields.php:126
 msgid "End year"
 msgstr "Päättymisvuosi"
 
-#: config/fields.php.dist:64 config/fields.php.dist:84
-#: config/fields.php.dist:92 config/fields.php.dist:100
-#: config/fields.php.dist:108 config/fields.php.dist:147
+#: config/fields.php:61 config/fields.php:81 config/fields.php:89
+#: config/fields.php:97 config/fields.php:105 config/fields.php:144
 msgid "Enter a comma separated list of values."
 msgstr "Anna lista pilkuilla erotettuja arvoja."
 
-#: deletefield.php:58
+#: deletefield.php:48
 #, php-format
 msgid "Error deleting field. %s."
 msgstr "Virhe poistettaessa kenttää. %s."
 
-#: delete.php:45
+#: delete.php:40
 #, php-format
 msgid "Error deleting form. %s."
 msgstr "Virhe poistettaessa lomaketta. %s"
 
-#: fields.php:90
+#: fields.php:82
 #, php-format
 msgid "Error saving field. %s."
 msgstr "Virhe tallennettaessa kenttää. %s."
 
-#: sortfields.php:45
+#: sortfields.php:41
 #, php-format
 msgid "Error saving fields. %s."
 msgstr "Virhe tallennettaessa kenttiä. %s."
 
-#: edit.php:102
+#: edit.php:95
 #, php-format
 msgid "Error saving form. %s."
 msgstr "Virhe tallennettaessa lomaketta. %s."
 
-#: display.php:67 lib/Block/form.php:89
+#: display.php:65 lib/Api.php:112 lib/Block/Form.php:85
 #, php-format
 msgid "Error submitting form. %s."
 msgstr "Virhe lähetettäessä lomaketta. %s."
 
-#: deletefield.php:60
+#: deletefield.php:45
 #, php-format
-msgid "Field '%s' deleted."
-msgstr "Kenttä '%s' poistettiin."
+msgid "Field \"%s\" deleted."
+msgstr "Kenttä \"%s\" poistettiin."
 
-#: fields.php:39
+#: fields.php:32
 msgid "Field Details"
 msgstr "Kentän tiedot"
 
-#: deletefield.php:69
+#: deletefield.php:52
 msgid "Field not deleted."
 msgstr "Kenttää ei poistettu."
 
-#: fields.php:92
+#: fields.php:79
 msgid "Field saved."
 msgstr "Kenttä tallennettiin."
 
-#: sortfields.php:47
+#: sortfields.php:38
 msgid "Field sort order saved."
 msgstr "Kenttien lajitteluperuste tallennettiin."
 
-#: lib/Block/form.php:32
+#: templates/fields.html.php:9
+msgid "Fields"
+msgstr "Kentät"
+
+#: lib/Block/Form.php:29
 msgid "Form"
 msgstr "Lomake"
 
-#: delete.php:28 edit.php:54
+#: delete.php:23 edit.php:48
 msgid "Form Details"
 msgstr "Lomakkeen tiedot"
 
-#: fields.php:145
+#: fields.php:122
 msgid "Form Fields"
 msgstr "Lomakkeen kentät"
 
@@ -189,163 +189,149 @@ msgstr "Lomakkeen kentät"
 msgid "Form Name"
 msgstr "Lomakkeen nimi"
 
-#: delete.php:47
+#: delete.php:37
 msgid "Form deleted."
 msgstr "Lomake poistettu."
 
-#: edit.php:104
+#: edit.php:92
 msgid "Form details saved."
 msgstr "Lomakkeen tiedot tallennettiin."
 
-#: delete.php:54
+#: delete.php:44
 msgid "Form has not been deleted."
 msgstr "Lomaketta ei poistettu"
 
-#: display.php:69 lib/Block/form.php:91
+#: display.php:62 lib/Block/Form.php:82
 msgid "Form submitted successfully."
 msgstr "Lomake lähetettiin onnistuneesti"
 
-#: config/fields.php.dist:135
+#: config/fields.php:132
 msgid "Format used to display"
 msgstr "Näytettäessä käytettävä muoto"
 
-#: config/fields.php.dist:133
+#: config/fields.php:130
 msgid "Format used to submit"
 msgstr "Lähetettäessä käytettävä muoto"
 
-#: forms.php:39 lib/Ulaform.php:143
+#: lib/Application.php:56
+msgid "Forms"
+msgstr "Lomakkeet"
+
+#: forms.php:37
 msgid "Forms List"
 msgstr "Lomake lista"
 
-#: lib/Action/mailto.php:118
+#: lib/Action/Mailto.php:80
 msgid "From"
 msgstr "Lähettäjä"
 
-#: fields.php:138 forms.php:30 genhtml.php:46
+#: fields.php:104 forms.php:29 genhtml.php:40
 msgid "Generate HTML"
 msgstr "Tee HTML"
 
-#: genhtml.php:41
+#: genhtml.php:34
 #, php-format
-msgid "HTML Generation for '%s'"
-msgstr "HTML tehdään '%s':lle"
+msgid "HTML Generation for \"%s\""
+msgstr "HTML luonti \"%s\":lle"
 
-#: genhtml.php:60
+#: genhtml.php:54
 msgid "Height"
 msgstr "Korkeus"
 
-#: genhtml.php:50
-msgid "Iframes"
-msgstr "Iframet"
-
-#: fields.php:48
+#: fields.php:39
 msgid "Internal name"
 msgstr "Sisäinen nimi"
 
-#: fields.php:47 fields.php:134
+#: edit.php:79
+msgid "Javascript to execute on form \"submit\":"
+msgstr "Javascript, joka suoritetaan lomakkeen \"lähetä\":"
+
+#: fields.php:38 fields.php:113
 msgid "Label"
 msgstr "Tunniste"
 
-#: lib/Action/mailto.php:102
+#: lib/Action/Mailto.php:64
 msgid "Mailto"
 msgstr "Sähköposti"
 
-#: lib/Driver/sql.php:73 lib/Driver/sql.php:151
+#: lib/Driver/Sql.php:107 lib/Driver/Sql.php:172
 msgid "Missing form"
 msgstr "Lomake puuttuu"
 
-#: edit.php:57
+#: edit.php:49
 msgid "Modify"
 msgstr "Muuta"
 
-#: delete.php:32 edit.php:60 fields.php:134 genhtml.php:59
+#: delete.php:25 edit.php:52 fields.php:113 genhtml.php:53
 msgid "Name"
 msgstr "Nimi"
 
-#: lib/Driver.php:121 lib/Driver.php:122
+#: lib/Driver.php:91 lib/Driver.php:92
 msgid "No"
 msgstr "Ei"
 
-#: fields.php:110
+#: fields.php:91
 msgid "No available fields."
 msgstr "Ei kenttiä."
 
-#: forms.php:24
+#: forms.php:19
 msgid "No available forms."
 msgstr "Ei lomakkeita."
 
-#: deletefield.php:31
+#: deletefield.php:25
 msgid "No field specified."
 msgstr "Yhtään kenttää ei määritelty."
 
-#: lib/Action.php:88
+#: lib/Driver/Sql.php:262
 #, php-format
-msgid "No such action '%s' found"
-msgstr "Toimintoa '%s' ei löytynyt"
+msgid "No such form ID \"%s\"."
+msgstr "Lomaketta ID \"%s\" ei ole olemassa."
 
-#: lib/Driver.php:176
-#, php-format
-msgid "No such backend '%s' found"
-msgstr "Taustajärjestelmää '%s' ei löytynyt"
-
-#: display.php:34
-#, php-format
-msgid "No such form ID '%s'."
-msgstr "Lomaketta ID '%s' ei ole olemassa."
-
-#: edit.php:88
-msgid "On submit"
-msgstr "Lähetettäessä"
-
-#: genhtml.php:50
+#: genhtml.php:44
 msgid "PHP using PEAR classes"
 msgstr "PHP käyttäen PEAR luokkia"
 
-#: fields.php:139
+#: fields.php:104
 msgid "Preview"
 msgstr "Esikatselu"
 
-#: forms.php:29
+#: forms.php:28
 msgid "Preview Form"
 msgstr "Esikatsele lomake"
 
-#: fields.php:58 fields.php:134
+#: fields.php:48 fields.php:113
 msgid "Read only"
 msgstr "Vain luku"
 
-#: lib/Driver.php:77 lib/Driver.php:102
-msgid "Requested form does not exist."
-msgstr "Pyydettyä lomaketta ei löydy"
-
-#: fields.php:57 fields.php:134
+#: fields.php:47 fields.php:113
 msgid "Required"
 msgstr "Pakollinen"
 
-#: config/fields.php.dist:38 config/fields.php.dist:45
+#: config/fields.php:35 config/fields.php:42
 msgid "Rows"
 msgstr "Rivit"
 
-#: lib/Action/sql.php:87
+#: lib/Action/Sql.php:115
 msgid "SQL"
 msgstr "SQL"
 
-#: sortfields.php:33
+#: sortfields.php:27
 msgid "Save"
 msgstr "Talleta"
 
-#: fields.php:42
+#: fields.php:33
 msgid "Save Field"
 msgstr "Talleta kenttä"
 
-#: genhtml.php:51
+#: genhtml.php:45
 msgid "Select how you wish to embed the form"
 msgstr "Valitse miten haluat sisällyttää lomakkeen"
 
-#: sortfields.php:34
+#: sortfields.php:28
 msgid "Select the sort order of the fields"
 msgstr "Valitse kenttien lajitteluperuste"
 
-#: fields.php:48
+#: fields.php:39
 msgid ""
 "Set this name if you have a particular reason to override the automatic "
 "internal naming of fields."
@@ -353,40 +339,40 @@ msgstr ""
 "Aseta tämä nimi, jos sinulla on hyvä syy nimeta kentät itse ja olla "
 "käyttämättä kenttien automaattista nimeämistä."
 
-#: lib/Block/form.php:3
+#: lib/Block/Form.php:23
 msgid "Show Form"
 msgstr "Näytä lomake"
 
-#: config/fields.php.dist:131
+#: config/fields.php:128
 msgid "Show the date picker"
 msgstr "Näytä päiväyksen valitsin"
 
-#: sortfields.php:30
+#: sortfields.php:24
 msgid "Sort Fields"
 msgstr "Järjestä kentät"
 
-#: fields.php:140
+#: fields.php:104
 msgid "Sort fields"
 msgstr "Lajittele kentät"
 
-#: config/fields.php.dist:119 config/fields.php.dist:127
+#: config/fields.php:116 config/fields.php:124
 msgid "Start year"
 msgstr "Alkamisvuosi"
 
-#: lib/Action/mailto.php:117
+#: lib/Action/Mailto.php:79
 msgid "Subject"
 msgstr "Otsikko"
 
-#: lib/Action/sql.php:102
+#: lib/Action/Sql.php:130
 msgid "Table"
 msgstr "Taulukko"
 
-#: forms.php:21
+#: forms.php:22
 #, php-format
 msgid "There was an error listing forms: %s."
 msgstr "Tapahtui virhe listattaessa lomakkeita: %s."
 
-#: lib/Action/mailto.php:103
+#: lib/Action/Mailto.php:65
 msgid ""
 "This driver allows the sending of form results via email to one or more "
 "recipients."
@@ -394,32 +380,47 @@ msgstr ""
 "Tämä ajuri mahdollistaa lomakkeen tulosten lähettämisen sähköpostitse "
 "yhdelle tai usealle vastaanottajalle."
 
-#: lib/Action/sql.php:88
+#: lib/Action/Sql.php:116
 msgid "This driver allows to insertion of form results into a database."
 msgstr "Tämä ajuri mahdollistaa tulosten tallettamisen tietokantaan."
 
-#: fields.php:67
+#: fields.php:57
 msgid "This field type has extra parameters."
 msgstr "Tämän tyyppisellä kentällä on lisäparametrejä"
 
-#: lib/Action/mailto.php:119
+#: lib/Action/Mailto.php:81
 msgid "To"
 msgstr "Vastaanottaja"
 
-#: fields.php:52 fields.php:134
+#: fields.php:43 fields.php:113
 msgid "Type"
 msgstr "Tyyppi"
 
-#: config/fields.php.dist:61 config/fields.php.dist:81
-#: config/fields.php.dist:89 config/fields.php.dist:97
-#: config/fields.php.dist:105 config/fields.php.dist:144
+#: config/fields.php:58 config/fields.php:78 config/fields.php:86
+#: config/fields.php:94 config/fields.php:102 config/fields.php:141
 msgid "Values"
 msgstr "Arvot"
 
-#: genhtml.php:61
+#: genhtml.php:55
 msgid "Width"
 msgstr "Leveys"
 
-#: lib/Driver.php:121 lib/Driver.php:122
+#: lib/Driver.php:91 lib/Driver.php:92
 msgid "Yes"
 msgstr "Kyllä"
+
+#: lib/Driver/Sql.php:248
+msgid "You don't have the right permission to access this form."
+msgstr "Sinulla ei ole tarpeellisia oikeuksia käyttää tätä lomaketta."
+
+#: lib/Application.php:77
+msgid "_List Forms"
+msgstr "_Listaa lomakkeet"
+
+#: lib/Application.php:78
+msgid "_New Form"
+msgstr "_Uusi lomake"
+
+#: genhtml.php:44
+msgid "iframe"
+msgstr "iframe"

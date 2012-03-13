@@ -134,12 +134,14 @@ class Horde_Imap_Client_Cache
         $this->_params['debug'] = (bool)$params['debug'];
         $this->_params['lifetime'] = intval($params['lifetime']);
         $this->_params['slicesize'] = intval($params['slicesize']);
+
+        register_shutdown_function(array($this, 'shutdown'));
     }
 
     /**
      * Updates the cache on shutdown.
      */
-    public function __destruct()
+    public function shutdown()
     {
         $lifetime = $this->_params['lifetime'];
 

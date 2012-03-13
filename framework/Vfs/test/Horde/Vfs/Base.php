@@ -336,6 +336,11 @@ class Horde_Vfs_Test_Base extends Horde_Test_Case
      */
     protected function _listFolder()
     {
+        try {
+            self::$vfs->listFolder('nonexistant_foobar');
+            $this->fail('Listing non-existant folders should throw an exception');
+        } catch (Horde_Vfs_Exception $e) {
+        }
         self::$vfs->writeData('', 'file2', '1');
         $this->assertEquals(
             array('file2', 'test'),

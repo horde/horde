@@ -281,7 +281,7 @@ if ($vars->type == 'redirect') {
     $imp_ui->attachSpellChecker();
 
     if ($show_editor) {
-        $js['DIMP.conf_compose.show_editor'] = 1;
+        $js['DIMP.conf.show_editor'] = 1;
     }
 }
 

@@ -1,14 +1,14 @@
 # Finnish translation for Horde_Kolab_Cli.
 # Copyright YEAR Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Kolab_Cli package.
-# Leena Heino <liinu@uta.fi>, 2010-2011.
+# Leena Heino <liinu@uta.fi>, 2010-2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Kolab_Cli \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-26 21:38+0100\n"
-"PO-Revision-Date: 2011-04-03 11:08:14+0300\n"
+"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"PO-Revision-Date: 2012-03-07 19:35:01+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -17,6 +17,36 @@ msgstr ""
 "Content-Transfer-Encoding: 8-bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: lib/Horde/Kolab/Cli/Module/Account.php:40
+msgid ""
+"  account - Handles operations on an account level (like listing *all* "
+"available groupware objects)\n"
+"\n"
+"  - all [TYPE]       : List all groupware objects of the account "
+"(optionally\n"
+"                       limit to TYPE)\n"
+"  - defects [TYPE]   : List all defects of the account (optionally limit to\n"
+"                       TYPE)\n"
+"  - issuelist [TYPE] : A brief list of issues of the account (optionally\n"
+"                       limit to TYPE)\n"
+"\n"
+"\n"
+msgstr ""
+"  account - tekee kaikki operaatiot tilitasolla (kuten listaa *kaikki* "
+"käytettävissä olevat groupware objektit)\n"
+"\n"
+"  - all [TYPE]       : Listaa kaikki tilin groupware objektit "
+"(vaihtoehtoisesti\n"
+"                       rajoittamaan koskemaan vain TYPE)\n"
+"  - defects [TYPE]   : Listaa kaikki tilin puutteet (vaihtoehtoisesti "
+"rajoittamaan koskemaan vain\n"
+"                       TYPE)\n"
+"  - issuelist [TYPE] : Listaa kaikki tilin ongelmat (vaihtoehtoisesti "
+"rajoittamaan\n"
+"                      rajoittamaan koskemaan vain TYPE)\n"
+"\n"
+"\n"
+
 #: lib/Horde/Kolab/Cli/Module/Data.php:38
 msgid ""
 "  data - Handle Kolab data (the default action is \"info\"). PATH refers to "
@@ -24,19 +54,40 @@ msgid ""
 "indicates which data type should be read. This is usually already defined by "
 "the folder setting.\n"
 "\n"
-"  - info      PATH  : Display general information.\n"
-"  - stamp     PATH  : Display the folder status information.\n"
-"\n"
+"  - info      PATH               : Display general information.\n"
+"  - stamp     PATH               : Display the folder status information.\n"
+"  - ids       PATH TYPE          : Display all object ids in the folder PATH "
+"of\n"
+"                                   type TYPE.\n"
+"  - complete  PATH BACKENDID     : Return the complete message from folder "
+"PATH\n"
+"                                   for the given BACKENDID.\n"
+"  - create    PATH TYPE yaml PATH: Create an object as defined in the "
+"specified\n"
+"                                   YAML data\n"
+"  - backendid PATH TYPE OBJECTID : Return the backend ID for the object with "
+"ID\n"
+"                                   OBJECTID.\n"
+"  - delete    PATH TYPE ID,ID,.. : Delete the given object id's.\n"
 "\n"
 msgstr ""
-"  tieto - Käsittele Kolav tietoja (oletustoiminto on \"info\"). Polku "
-"tarkoittaa polkua kansioon, jossa tiedot sijaitsee ja valinnaista TYYPPI "
-"argumenttia, joka tarkoittaa mitä tietoja pitäisi lukea. Tämä on yleensä "
-"määritelty kansion asetuksissa.\n"
+"  data - Käsittele kaikkea Kolab tietoa (oletustoiminto on \"info\". PATH "
+"osoittaa kansion polkuun, jossa tiedot sijaitsevat ja valinnaisella "
+"TYPEparametrilla voi valita sen mitkä tietotyypit luetaan. Tämä tieto on jo "
+"yleensä määritelty kansioasetuksissa.\n"
 "\n"
-"  - info      POLKU  : Näytä yleiset tiedot.\n"
-"  - stamp     POLKU  : Näytä kansion tilatietdot.\n"
-"\n"
+"  - info      PATH               : Näyttää yleiset tiedot.\n"
+"  - stamp     PATH               : Näyttää kansion tilatiedot.\n"
+"  - ids       PATH TYPE          : Näyttää kaikki object id kansiosta PATH\n"
+"                                   tyyppiä TYPE.\n"
+"  - complete  PATH BACKENDID     : Palauttaa koko viestin kansiosta PATH\n"
+"                                   taustajärjestelmälle BACKENDID.\n"
+"  - create    PATH TYPE yaml PATH: Luo objektin määriteltyn\n"
+"                                   YAML tiedon perusteella\n"
+"  - backendid PATH TYPE OBJECTID : Return the backend ID for the object with "
+"ID\n"
+"                                   OBJECTID.\n"
+"  - delete    PATH TYPE ID,ID,.. : Poistaa annetun object id:t.\n"
 "\n"
 
 #: lib/Horde/Kolab/Cli/Module/Folder.php:38
@@ -159,7 +210,8 @@ msgstr ""
 msgid "%s is no local file!"
 msgstr "%s ei ole paikallinen tiedosto!"
 
-#: lib/Horde/Kolab/Cli/Module/Data.php:223
+#: lib/Horde/Kolab/Cli/Module/Account.php:240
+#: lib/Horde/Kolab/Cli/Module/Data.php:235
 #: lib/Horde/Kolab/Cli/Module/Folder.php:228
 #: lib/Horde/Kolab/Cli/Module/Format.php:165
 #: lib/Horde/Kolab/Cli/Module/Ledger.php:152
@@ -168,7 +220,7 @@ msgstr "%s ei ole paikallinen tiedosto!"
 msgid "Action %s not supported!"
 msgstr "Toiminto %s ei ole tuettu!"
 
-#: lib/Horde/Kolab/Cli/Module/Base.php:150
+#: lib/Horde/Kolab/Cli/Module/Base.php:147
 msgid ""
 "Activates the IMAP debug log. This will log the full IMAP communication - "
 "CAUTION: the \"php\" driver is the only driver variant that does not support "
@@ -183,11 +235,19 @@ msgstr ""
 "horde, horde-php ja rouncube voi asettaa tämän osoittamaan tiedostoon ja "
 "kaikki tulostus ohjataan sinne."
 
-#: lib/Horde/Kolab/Cli/Module/Base.php:134
+#: lib/Horde/Kolab/Cli/Module/Base.php:131
 msgid "Deactivate caching of the IMAP data."
 msgstr "Poista käytöstä IMAP tietojen välimuistitus"
 
-#: lib/Horde/Kolab/Cli/Module/Base.php:118
+#: lib/Horde/Kolab/Cli/Module/Base.php:155
+msgid ""
+"Path to the configuration file. Comman line parameters overwrite values from "
+"the configuration file."
+msgstr ""
+"Polku asennustiedostoon. Komentoriviparametreilla avulla voi yliajaa "
+"asetustiedoston asetukset."
+
+#: lib/Horde/Kolab/Cli/Module/Base.php:115
 msgid ""
 "Produce time measurements to indicate how long the processing takes. You "
 "*must* activate logging for this as well."
@@ -195,7 +255,7 @@ msgstr ""
 "Tuota aikamittauksen siitä kuin paljon jokin toiminto kestää. Tämän lisäksi "
 "sinun *pitää* aktivoida myös lokitus."
 
-#: lib/Horde/Kolab/Cli/Module/Base.php:126
+#: lib/Horde/Kolab/Cli/Module/Base.php:123
 msgid ""
 "Report memory consumption statistics. You *must* activate logging for this "
 "as well."
@@ -203,11 +263,11 @@ msgstr ""
 "Raportoi muistinkäyttötilastot. Tämän lisäksi sinun *pitää* aktivoida myös "
 "lokitus."
 
-#: lib/Horde/Kolab/Cli/Module/Base.php:110
+#: lib/Horde/Kolab/Cli/Module/Base.php:107
 msgid "Sets the connection type. Use either \"tls\" or \"ssl\" here."
 msgstr "Asettaa yhteyden tyypin. Käytä joko \"tls\" tai \"ssl\"."
 
-#: lib/Horde/Kolab/Cli/Module/Base.php:59
+#: lib/Horde/Kolab/Cli/Module/Base.php:58
 msgid ""
 "The Kolab backend driver that should be used.\n"
 "Choices are:\n"
@@ -230,23 +290,23 @@ msgstr ""
 " - roundcube [IMAP]: Roundcupe IMAP ajuri\n"
 " - mock      [Mem.]: Tynkä muistia käyttävä ajuri."
 
-#: lib/Horde/Kolab/Cli/Module/Base.php:93
+#: lib/Horde/Kolab/Cli/Module/Base.php:91
 msgid "The host that holds the data."
 msgstr "Palvelin jossa tiedot sijaitsee."
 
-#: lib/Horde/Kolab/Cli/Module/Base.php:85
+#: lib/Horde/Kolab/Cli/Module/Base.php:83
 msgid "The password of the user accessing the backend."
 msgstr "Taustajärjestelmäkäyttäjän salasana."
 
-#: lib/Horde/Kolab/Cli/Module/Base.php:102
+#: lib/Horde/Kolab/Cli/Module/Base.php:99
 msgid "The port that should be used to connect to the host."
 msgstr "Palvelimen portti, johon yhteys otetaan"
 
-#: lib/Horde/Kolab/Cli/Module/Base.php:77
+#: lib/Horde/Kolab/Cli/Module/Base.php:75
 msgid "The user accessing the backend."
 msgstr "Taustajärjestelmän käyttäjätunnus."
 
-#: lib/Horde/Kolab/Cli/Module/Base.php:142
+#: lib/Horde/Kolab/Cli/Module/Base.php:139
 msgid ""
 "Write a log file in the provided LOG location. Use \"STDOUT\" here to direct "
 "the log output to the screen."
@@ -254,7 +314,7 @@ msgstr ""
 "Kirjoita loki tiedostoon määriteltyyn LOG paikkaan. Käytä \"STDOUT\" "
 "ohjataksesi lokin tulostumaan ruudulle."
 
-#: lib/Horde/Kolab/Cli.php:94
+#: lib/Horde/Kolab/Cli.php:115
 msgid ""
 "[options] MODULE ACTION\n"
 "\n"

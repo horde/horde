@@ -137,7 +137,7 @@ if (!empty($conf['notspam']['reporting']) &&
 if (IMP::mailbox()->access_deletemsgs) {
     $t->set('delete_button', IMP_Dimp::actionButton(array(
         'icon' => 'Delete',
-        'id' => 'button_deleted',
+        'id' => 'button_delete',
         'title' => _("Delete")
     )));
 }

@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Chora package.
 # Copyright
 # Tero Matinlassi <terom@iki.fi>, 2002.
-# Leena Heino <liinu@uta.fi>, 2002-2011.
+# Leena Heino <liinu@uta.fi>, 2002-2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Chora 3.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-04 10:15+0200\n"
-"PO-Revision-Date: 2011-04-03 20:39:40+0300\n"
+"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"PO-Revision-Date: 2012-03-08 07:27:51+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -69,7 +69,7 @@ msgstr "Tekijä"
 msgid "Back"
 msgstr "Takaisin"
 
-#: app/views/_logMessage.html.php:15 lib/Chora.php:332 lib/Chora.php:333
+#: app/views/_logMessage.html.php:20 lib/Chora.php:332 lib/Chora.php:333
 #: lib/Chora.php:336 lib/Chora.php:337
 msgid "Branches"
 msgstr "Haarat"
@@ -138,11 +138,12 @@ msgstr "Poistettu tiedosto"
 msgid "Description"
 msgstr "Kuvaus"
 
-#: patchsets.php:52 templates/log/header.inc:11
+#: app/views/_logMessage.html.php:10 patchsets.php:52
+#: templates/log/header.inc:11
 msgid "Diff"
 msgstr "Muutokset"
 
-#: diff.php:52
+#: diff.php:65
 #, php-format
 msgid "Diff for %s between version %s and %s"
 msgstr "Muutokset %s:ssä versioiden %s ja %s välillä"
@@ -191,11 +192,11 @@ msgstr "Hae muutokset"
 msgid "Graph for %s"
 msgstr "Graafi %s:lle"
 
-#: browsedir.php:42
+#: browsedir.php:43
 msgid "Hide Deleted Files"
 msgstr "Piilota poistetut tiedostot"
 
-#: browsedir.php:42
+#: browsedir.php:43
 msgid "Hide _Deleted Files"
 msgstr "Piilota _poistetut tiedostot"
 
@@ -219,7 +220,7 @@ msgstr "Paikka:"
 msgid "Logs"
 msgstr "Lokit"
 
-#: diff.php:28
+#: diff.php:41
 msgid "Malformed Query"
 msgstr "Epäkelpo kysely"
 
@@ -285,7 +286,7 @@ msgstr "Hae paikkajoukkiosta:"
 msgid "Show Branch:"
 msgstr "Näytä Haara:"
 
-#: browsedir.php:42
+#: browsedir.php:43
 msgid "Show Deleted Files"
 msgstr "Näytä poistetut tiedostot"
 
@@ -293,7 +294,7 @@ msgstr "Näytä poistetut tiedostot"
 msgid "Show Differences"
 msgstr "Näyt eroavaisuudet"
 
-#: browsedir.php:42
+#: browsedir.php:43
 msgid "Show _Deleted Files"
 msgstr "Näytä _poistetut tiedostot"
 
@@ -330,12 +331,12 @@ msgstr ""
 msgid "Statistics"
 msgstr "Tilastot"
 
-#: stats.php:26
+#: stats.php:33
 #, php-format
 msgid "Statistics for %s"
 msgstr "Tilastot %s:lle"
 
-#: app/views/_logMessage.html.php:24 templates/patchsets/ps.inc:8
+#: app/views/_logMessage.html.php:29 templates/patchsets/ps.inc:8
 msgid "Tags"
 msgstr "Tagit"
 
