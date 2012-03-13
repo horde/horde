@@ -100,49 +100,28 @@ class Horde_Core_ActiveSync_Imap_Adapter
     }
 
     /**
-     * Ping a mailbox. This only detects if any change has occured in the
-     * mailbox. This doesn't report how many changes, or what changes.
-     * For QRESYNC servers, this will include flag changes. For IMAP only
-     * servers, this only reports either a change in NEXTUID (which indicates
-     * new mail has arrived) or a change in total message count (which indicates
-     * message may have been deleted). Flag changes will still be sync'd but only
-     * after some other change has triggered a new SYNC request.
+     * Ping a mailbox. This only detects if any new messages have arrived in
+     * the specified mailbox. Flag changes are not detected for performance
+     * reasons. This allows quick change detection, as well as a great
+     * reduction in PING/SYNC/PING cycles while reading mail on the device.
      *
      * @param Horde_ActiveSync_Folder_Imap $folder  The folder object.
-     * @param array $options                        Additional options:
-     *  - sincedate: (integer)  Timestamp of earliest message to retrieve.
-     *               DEFAULT: 0 (Don't filter).
      *
      * @return boolean  True if changes were detected, otherwise false.
      * @throws Horde_ActiveSync_Exception
      */
     public function ping(
-        Horde_ActiveSync_Folder_Imap $folder, array $options = array())
+        Horde_ActiveSync_Folder_Imap $folder)
     {
         $imap = $this->_getImapOb();
         $mbox = new Horde_Imap_Client_Mailbox($folder->serverid());
-        $qresync = $imap->queryCapability('QRESYNC');
-        if ($qresync) {
-            $status_flags = Horde_Imap_Client::STATUS_HIGHESTMODSEQ | Horde_Imap_Client::STATUS_UIDNEXT;
-        } else {
-            $status_flags = Horde_Imap_Client::STATUS_MESSAGES | Horde_Imap_Client::STATUS_UIDNEXT;
-        }
         try {
-            $status = $imap->status($mbox, $status_flags);
+            $status = $imap->status($mbox, Horde_Imap_Client::STATUS_UIDNEXT);
         } catch (Horde_Imap_Client_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
 
-        // QRESYNC - if current MODSEQ > last MODSEQ then we have a change.
-        if ($qresync && $folder->modseq() > 0 && $folder->modseq() < $status['highestmodseq']) {
-            return true;
-        } elseif ($qresync) {
-            return false;
-        }
-
-        // IMAP only.
-        if (($folder->uidnext() < $status['uidnext']) ||
-            ($folder->count() != $status['messages']) {
+        if ($folder->uidnext() < $status['uidnext']) {
             return true;
         }
 
