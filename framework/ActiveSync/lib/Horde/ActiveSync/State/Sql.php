@@ -902,7 +902,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                     (int)$this->_lastSyncTS,
                     (int)$this->_thisSyncTS,
                     $cutoffdate,
-                    (!empty($options['ping']))
+                    !empty($options['ping'])
                 );
                 $this->_folder->updateState();
             } else {
@@ -946,7 +946,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                             } else {
                                 $this->_changes[] = $change;
                             }
-
+                            break;
                         default:
                             // New message.
                             $this->_changes[] = $change;
