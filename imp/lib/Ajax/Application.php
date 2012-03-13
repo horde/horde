@@ -473,7 +473,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * See the list of variables needed for _changed() and _viewPortData().
      * Additional variables used:
      *   - mboxes: (string) The list of mailboxes to process (JSON encoded
-     *             array; mailboxes are base64url encoded) if 'all' is 0.
+     *             array; mailboxes are base64url encoded).
      *
      * @return boolean  True.
      */
