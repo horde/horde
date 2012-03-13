@@ -66,11 +66,9 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
      *
      * @return boolean
      */
-    public function handle()
+    protected function _handle()
     {
         $now = time();
-        parent::handle();
-
         $this->_logger->info(sprintf(
             "[%s] PING received at timestamp: %s.",
             $this->_device->id,
@@ -238,7 +236,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
 
                     // Update the state, but don't use the exporter since we
                     // are only PINGing, not SYNCing.
-                    while (is_array($sync->syncronize(Horde_ActiveSync::BACKEND_DISCARD_DATA)));
+                    //while (is_array($sync->syncronize(Horde_ActiveSync::BACKEND_DISCARD_DATA)));
                 }
 
                 if ($dataavailable) {

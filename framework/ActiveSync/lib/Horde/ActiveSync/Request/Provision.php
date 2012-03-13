@@ -48,10 +48,8 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
      * @return boolean
      * @throws Horde_ActiveSync_Exception
      */
-    public function handle()
+    protected function _handle()
     {
-        parent::handle();
-
         // Be optimistic
         $status = self::STATUS_SUCCESS;
         $policyStatus = self::STATUS_SUCCESS;

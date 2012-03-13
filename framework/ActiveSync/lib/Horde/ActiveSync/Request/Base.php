@@ -212,7 +212,19 @@ abstract class Horde_ActiveSync_Request_Base
      *
      * @return boolean
      */
-    abstract public function handle();
+    public function handle()
+    {
+        $this->_version = $this->_activeSync->getProtocolVersion();
+        $this->_logger->info(sprintf(
+            "Request being handled for device: %s Supporting protocol version: %s",
+            $this->_device->id,
+            $this->_version)
+        );
+
+        return $this->_handle();
+    }
+
+    abstract protected function _handle();
 
     /**
      * Utility function to help determine if a device has broken provisioning.

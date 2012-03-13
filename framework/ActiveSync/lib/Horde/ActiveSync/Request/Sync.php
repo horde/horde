@@ -50,10 +50,12 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
      * @return boolean
      * @throws Horde_ActiveSync_Exception
      */
-    public function handle()
+    protected function _handle()
     {
-        parent::handle();
-        $this->_logger->info('[' . $this->_device->id . '] Handling SYNC command.');
+        $this->_logger->info(sprintf(
+            "[%s] Handling SYNC command.",
+            $this->_device->id)
+        );
 
         // Check policy
         if (!$this->checkPolicyKey($this->_activeSync->getPolicyKey())) {

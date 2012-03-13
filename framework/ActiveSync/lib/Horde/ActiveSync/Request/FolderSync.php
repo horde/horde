@@ -26,10 +26,8 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
      *
      * @return boolean
      */
-    public function handle()
+    protected function _handle()
     {
-        parent::handle();
-
         // Be optimistic
         $this->_statusCode = self::STATUS_SUCCESS;
         $this->_logger->info('[Horde_ActiveSync::handleFolderSync] Beginning FOLDERSYNC');

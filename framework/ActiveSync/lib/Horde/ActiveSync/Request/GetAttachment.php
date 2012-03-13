@@ -23,11 +23,12 @@ class Horde_ActiveSync_Request_GetAttachment extends Horde_ActiveSync_Request_Ba
      *
      * @return boolean
      */
-    public function handle()
+    protected function _handle()
     {
-        parent::handle();
-        $this->_logger->info('[' . $this->_device->id . '] Handling GETATTACHMENT command.');
-
+        $this->_logger->info(sprintf(
+            "[%s] Handling GETATTACHMENT command.",
+            $this->_device->id)
+        );
         $get = $this->_request->getGetVars();
         $attname = $get['AttachmentName'];
         if (!isset($attname)) {
@@ -47,4 +48,5 @@ class Horde_ActiveSync_Request_GetAttachment extends Horde_ActiveSync_Request_Ba
         // Indicate the content-type
         return $att[0];
     }
+
 }

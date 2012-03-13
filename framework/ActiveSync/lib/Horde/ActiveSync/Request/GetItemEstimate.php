@@ -38,10 +38,12 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
      * @return boolean
      * @throws Horde_ActiveSync_Exception
      */
-    public function handle()
+    protected function _handle()
     {
-        parent::handle();
-        $this->_logger->info('[' . $this->_device->id . '] Beginning GETITEMESTIMATE');
+        $this->_logger->info(sprintf(
+            "[%s] Beginning GETITEMESTIMATE",
+            $this->_device->id)
+        );
 
         /* Check policy */
         if (!$this->checkPolicyKey($this->_activeSync->getPolicyKey())) {
