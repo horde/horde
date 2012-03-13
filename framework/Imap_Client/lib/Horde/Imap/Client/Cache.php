@@ -380,7 +380,7 @@ class Horde_Imap_Client_Cache
         $update = array_intersect_key($slicemap['s'], array_flip($uids));
 
         if (!empty($update)) {
-            $this->_loadUids(array_keys($update));
+            $this->_loadUids($mailbox, array_keys($update));
             $d = &$this->_data[$mailbox];
 
             foreach (array_keys($update) as $id) {

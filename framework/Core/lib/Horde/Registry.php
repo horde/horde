@@ -1547,13 +1547,10 @@ class Horde_Registry
     {
         global $injector, $prefs;
 
-        if (is_null($app)) {
-            $app = $this->getApp();
-            if (is_null($app)) {
-                $app = 'horde';
-            }
-        } else {
+        if (strlen($app)) {
             $this->pushApp($app);
+        } elseif (($app = $this->getApp()) === false) {
+            $app = 'horde';
         }
 
         $user = $this->getAuth();
