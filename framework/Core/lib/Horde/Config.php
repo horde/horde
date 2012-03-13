@@ -206,7 +206,7 @@ class Horde_Config
             if ($root->hasChildNodes()) {
                 $tree = array();
                 $this->_parseLevel($tree, $root->childNodes, '');
-                $this->_xmlConfigTree = Horde_Array::replaceRecursive($this->_xmlConfigTree, $tree);
+                $this->_xmlConfigTree = array_replace_recursive($this->_xmlConfigTree, $tree);
             }
         }
 
@@ -1099,7 +1099,7 @@ class Horde_Config
                         'charset' => $charset,
                         'ssl' => $ssl,
                         'ca' => $ca,
-                        'splitread' => Horde_Array::replaceRecursive(
+                        'splitread' => array_replace_recursive(
                             $splitread,
                             array(
                                 'switch' => array(
@@ -1125,7 +1125,7 @@ class Horde_Config
                         'charset' => $charset,
                         'ssl' => $ssl,
                         'ca' => $ca,
-                        'splitread' => Horde_Array::replaceRecursive(
+                        'splitread' => array_replace_recursive(
                             $splitread,
                             array(
                                 'switch' => array(

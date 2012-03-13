@@ -200,34 +200,4 @@ class Horde_Array
             ? array_combine($array, $array)
             : array();
     }
-
-    /**
-     * Backported array_replace_recursive().
-     *
-     * @todo Remove when requiring PHP 5.3.
-     *
-     * @param array $a1  The old array.
-     * @param array $a2  The new array.
-     *
-     * @return array  The merged array.
-     */
-    static public function replaceRecursive(array $a1, array $a2)
-    {
-        if (function_exists('array_replace_recursive')) {
-            return array_replace_recursive($a1, $a2);
-        }
-
-        foreach ($a2 as $key => $val) {
-            if (!isset($a1[$key])) {
-                $a1[$key] = array();
-            }
-
-            $a1[$key] = (is_array($val))
-                ? self::replaceRecursive($a1[$key], $val)
-                : $val;
-        }
-
-        return $a1;
-    }
-
 }

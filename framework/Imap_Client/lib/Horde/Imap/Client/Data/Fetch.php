@@ -423,7 +423,7 @@ class Horde_Imap_Client_Data_Fetch
      */
     public function merge(Horde_Imap_Client_Data_Fetch $data)
     {
-        $this->_data = Horde_Array::replaceRecursive($this->_data, $data->getRawData());
+        $this->_data = array_replace_recursive($this->_data, $data->getRawData());
     }
 
     /**

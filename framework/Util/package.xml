@@ -20,16 +20,16 @@
  <date>2012-01-17</date>
  <time>12:37:27</time>
  <version>
-  <release>1.2.1</release>
-  <api>1.2.0</api>
+  <release>2.0.0alpha1</release>
+  <api>2.0.0</api>
  </version>
  <stability>
-  <release>stable</release>
-  <api>stable</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Remove Horde_Array::replaceRecursive().
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -451,15 +451,17 @@ Converted to package.xml 2.0 for pear.horde.org
   </release>
   <release>
    <version>
-    <release>1.2.1</release>
-    <api>1.2.0</api></version>
+    <release>2.0.0alpha1</release>
+    <api>2.0.0</api>
+   </version>
    <stability>
-    <release>stable</release>
-    <api>stable</api></stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
    <date>2012-01-17</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Remove Horde_Array::replaceRecursive().
    </notes>
   </release>
  </changelog>
