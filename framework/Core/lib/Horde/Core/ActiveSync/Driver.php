@@ -570,8 +570,15 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     }
 
     /**
+     * Return the specified attachment.
      *
-     * @return array  An array of (content-type, data)
+     * @param string $name  The attachment identifier. For this driver, this
+     *                      consists of 'mailbox:uid:mimepart'
+     *
+     * @return array  The attachement in the form of an array with the following
+     *                structure:
+     * array('content-type' => {the content-type of the attachement},
+     *       'data'         => {the raw attachment data})
      */
     public function getAttachment($name)
     {
