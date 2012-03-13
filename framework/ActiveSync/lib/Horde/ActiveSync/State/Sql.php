@@ -902,8 +902,8 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                     (int)$this->_lastSyncTS,
                     (int)$this->_thisSyncTS,
                     $cutoffdate,
-                    (!empty($options['ping'])));
-
+                    (!empty($options['ping']))
+                );
                 $this->_folder->updateState();
             } else {
                 $changes = array();
@@ -915,7 +915,6 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 count($changes)));
 
             $this->_changes = array();
-
             if (count($changes) && $this->_havePIMChanges($this->_collection['class'])) {
                 $this->_logger->debug(sprintf(
                     "[%s] Checking for PIM initiated changes.",
