@@ -150,7 +150,7 @@ class IMP_Ajax_Imple_PassphraseDialog extends Horde_Core_Ajax_Imple
                     $imp_smime = $injector->getInstance('IMP_Crypt_Smime');
                     if ($imp_smime->storePassphrase($vars->dialog_input)) {
                         $result->success = 1;
-                        $success = _("S/MIME passhprase stored in session.");
+                        $success = _("S/MIME passphrase stored in session.");
                     } else {
                         $error = _("Invalid passphrase entered.");
                     }
