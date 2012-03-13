@@ -72,20 +72,6 @@ class Horde_Imap_Client_MailboxTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testMailboxAutoDetect()
-    {
-        $mailbox = Horde_Imap_Client_Mailbox::get('Envoy&AOk-', null);
-
-        $this->assertEquals(
-            'Envoyé',
-            $mailbox->utf8
-        );
-        $this->assertEquals(
-            'Envoy&AOk-',
-            $mailbox->utf7imap
-        );
-    }
-
     public function testBug10093()
     {
         $orig = 'Foo&Bar-2011';
@@ -97,19 +83,6 @@ class Horde_Imap_Client_MailboxTest extends PHPUnit_Framework_TestCase
             $mailbox->utf8
         );
         $this->assertEquals(
-            'Foo&-Bar-2011',
-            $mailbox->utf7imap
-        );
-
-        /* Auto-detection SHOULD be broken for this example - this is
-         * Bug #10093. */
-        $mailbox = Horde_Imap_Client_Mailbox::get($orig, null);
-
-        $this->assertNotEquals(
-            'Foo&Bar-2011',
-            $mailbox->utf8
-        );
-        $this->assertNotEquals(
             'Foo&-Bar-2011',
             $mailbox->utf7imap
         );
