@@ -259,6 +259,7 @@ var DimpCompose = {
                         r.msgs = [];
                     }
                     if (DIMP.conf_compose.close_draft) {
+                        $('attach_list').childElements().invoke('remove');
                         return this.closeCompose();
                     }
                 }
@@ -287,6 +288,8 @@ var DimpCompose = {
                         r.msgs = [];
                     }
                 }
+
+                $('attach_list').childElements().invoke('remove');
                 return this.closeCompose();
 
             case 'redirectMessage':
@@ -305,6 +308,8 @@ var DimpCompose = {
                         r.msgs = [];
                     }
                 }
+
+                $('attach_list').childElements().invoke('remove');
                 return this.closeCompose();
 
             case 'addAttachment':
