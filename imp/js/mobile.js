@@ -908,29 +908,25 @@ var ImpMobile = {
             return;
         }
 
-        if ($('#imp-target-header').text() == IMP.text.copy) {
-            func = 'copyMessages';
-        } else {
-            func = 'moveMessages';
-        }
+        func = ($('#imp-target-header').text() == IMP.text.copy)
+            ? 'copyMessages'
+            : 'moveMessages';
         o[source] = [ $('#imp-target-uid').val() ];
+
         HordeMobile.doAction(
             func,
-            {
-                uid: ImpMobile.toUIDString(o),
+            $.extend(ImpMobile.addMboxParams({}), {
                 mboxto: value,
                 newmbox: $('#imp-target-new').val(),
+                uid: ImpMobile.toUIDString(o),
                 view: source
-            },
-            function(r) {
-                ImpMobile.onDialogClose(function() {
-                    $('#target').dialog('close');
-                    if (IMP.conf.mailbox_return) {
-                        ImpMobile.changePage('#mailbox?mbox=' + source);
-                    }
-                }, [ 'target' ]);
-            }
+            }),
+            (IMP.conf.mailbox_return || func == 'moveMessages')
+                ? function(r) { ImpMobile.toMailbox($.mobile.path.parseUrl('#mailbox?mbox=' + source), { noajax: true }); }
+                : null
         );
+
+        $('#target').dialog('close');
     },
 
     /**
