@@ -144,6 +144,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
       <span class="iconImg closeImg" id="search_close" title="<?php echo _("Clear Search") ?>"></span>
       <span class="iconImg dimpactionRefresh" id="search_refresh" title="<?php echo _("Refresh Search Results") ?>"></span>
       <span class="iconImg dimpactionEditsearch" id="search_edit" style="display:none" title="<?php echo _("Edit Search Query") ?>"></span>
+      <span id="search_time_elapsed" style="display:none"></span>
       <div id="search_label"></div>
      </div>
     </div>

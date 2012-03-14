@@ -538,6 +538,7 @@ class IMP_Ajax extends Horde_Core_Ajax
             'prefs' => _("User Options"),
             'rename_prompt' => _("Rename %s to:"),
             'search' => _("Search"),
+            'search_time' => _("Results are %d Minutes Old"),
             'selected' => _("selected"),
             'verify' => _("Verifying..."),
             'vfolder' => _("Virtual Folder: %s"),
