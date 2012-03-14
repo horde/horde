@@ -2,7 +2,7 @@
 
 /* Variables used in core javascript files. */
 $var = array(
-    'URI_AJAX' => Horde::getServiceLink('ajax', 'gollem')->url,
+    'URI_AJAX' => (string)Horde::getServiceLink('ajax', 'gollem'),
     'empty_input' => intval($GLOBALS['browser']->hasQuirk('empty_file_input_value'))
 );
 
@@ -22,6 +22,7 @@ $gettext = array_map('addslashes', array(
     'delete_recurs_2' => _("Are you sure you wish to continue?"),
     'file' => _("File"),
     'ok_text' => _("OK"),
+    'permissions' => _("Permissions"),
     'rename' => _("Rename"),
     'select_item' => _("Please select an item before this action."),
     'specify_upload' => _("Please specify at least one file to upload."),

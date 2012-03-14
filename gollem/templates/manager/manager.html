@@ -1,39 +1,32 @@
 <if:list_count>
 <if:perms_chmod>
-<div id="attributes" class="managerpopup" style="display:none;">
-<form id="chmodfrm" name="chmodfrm" action="<tag:action />">
-<h1 class="header"><gettext>Attributes</gettext></h1>
-<table width="100%" cellspacing="0" class="text">
- <tr class="control">
-  <td align="center" width="25%"></td>
-  <td align="center" width="25%" class="smallheader"><gettext>Owner</gettext></td>
-  <td align="center" width="25%" class="smallheader"><gettext>Group</gettext></td>
-  <td align="center" width="25%" class="smallheader"><gettext>All</gettext></td>
+<div id="attributes" style="display:none;">
+<table class="horde-table">
+ <tr>
+  <th width="25%">&nbsp;</th>
+  <th width="25%" align="center"><gettext>Owner</gettext></th>
+  <th width="25%" align="center"><gettext>Group</gettext></th>
+  <th width="25%" align="center"><gettext>All</gettext></th>
  </tr>
- <tr class="control">
-  <td align="center" width="25%"><gettext>Read</gettext></td>
-  <td align="center" width="25%"><input name="owner[]" type="checkbox" value="4" <if:owner_read>disabled="disabled" </if:owner_read>/></td>
-  <td align="center" width="25%"><input name="group[]" type="checkbox" value="4" <if:group_read>disabled="disabled" </if:group_read>/></td>
-  <td align="center" width="25%"><input name="all[]" type="checkbox" value="4" <if:all_read>disabled="disabled" </if:all_read>/></td>
+ <tr>
+  <td><gettext>Read</gettext></td>
+  <td align="center"><input name="owner[]" type="checkbox" value="4" <if:owner_read>disabled="disabled" </if:owner_read>/></td>
+  <td align="center"><input name="group[]" type="checkbox" value="4" <if:group_read>disabled="disabled" </if:group_read>/></td>
+  <td align="center"><input name="all[]" type="checkbox" value="4" <if:all_read>disabled="disabled" </if:all_read>/></td>
  </tr>
- <tr class="control">
-  <td align="center" width="25%"><gettext>Write</gettext></td>
-  <td align="center" width="25%"><input name="owner[]" type="checkbox" value="2" <if:owner_write>disabled="disabled" </if:owner_write>/></td>
-  <td align="center" width="25%"><input name="group[]" type="checkbox" value="2" <if:group_write>disabled="disabled" </if:group_write>/></td>
-  <td align="center" width="25%"><input name="all[]" type="checkbox" value="2" <if:all_write>disabled="disabled" </if:all_write>/></td>
+ <tr>
+  <td><gettext>Write</gettext></td>
+  <td align="center"><input name="owner[]" type="checkbox" value="2" <if:owner_write>disabled="disabled" </if:owner_write>/></td>
+  <td align="center"><input name="group[]" type="checkbox" value="2" <if:group_write>disabled="disabled" </if:group_write>/></td>
+  <td align="center"><input name="all[]" type="checkbox" value="2" <if:all_write>disabled="disabled" </if:all_write>/></td>
  </tr>
- <tr class="control">
-  <td align="center" width="25%"><gettext>Execute</gettext></td>
-  <td align="center" width="25%"><input name="owner[]" type="checkbox" value="1" <if:owner_execute>disabled="disabled" </if:owner_execute>/></td>
-  <td align="center" width="25%"><input name="group[]" type="checkbox" value="1" <if:group_execute>disabled="disabled" </if:group_execute>/></td>
-  <td align="center" width="25%"><input name="all[]" type="checkbox" value="1" <if:all_execute>disabled="disabled" </if:all_execute>/></td>
- </tr>
- <tr class="control">
-  <td align="center" width="50%" colspan="2"><input class="button" type="button" name="Save" id="chmodsave" value="<tag:save />" /></td>
-  <td align="center" width="50%" colspan="2"><input class="button" type="button" name="Cancel" id="chmodcancel" value="<tag:cancel />" /></td>
+ <tr>
+  <td><gettext>Execute</gettext></td>
+  <td align="center"><input name="owner[]" type="checkbox" value="1" <if:owner_execute>disabled="disabled" </if:owner_execute>/></td>
+  <td align="center"><input name="group[]" type="checkbox" value="1" <if:group_execute>disabled="disabled" </if:group_execute>/></td>
+  <td align="center"><input name="all[]" type="checkbox" value="1" <if:all_execute>disabled="disabled" </if:all_execute>/></td>
  </tr>
 </table>
-</form>
 </div>
 </if:perms_chmod>
 </if:list_count>

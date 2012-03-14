@@ -75,7 +75,14 @@ var Gollem = {
                 break;
 
             case 'chmod_modify':
-                $('attributes').show();
+                HordeDialog.display({
+                    cancel_text: GollemText.cancel_text,
+                    form: $('attributes').clone(true).show(),
+                    form_id: 'chmodfrm',
+                    form_opts: { action: GollemVar.actionUrl },
+                    ok_text: GollemText.ok_text,
+                    header: GollemText.permissions
+                });
                 break;
 
             case 'cut_items':
@@ -116,7 +123,7 @@ var Gollem = {
                 form_id: 'renamefrm',
                 input_val: c[0].value,
                 ok_text: GollemText.ok_text,
-                text: GollemText.rename,
+                text: GollemText.rename
             });
         }
     },
@@ -161,13 +168,7 @@ var Gollem = {
         }
     },
 
-    chmodCancel: function()
-    {
-        $('attributes').hide();
-        $('chmodfrm').reset();
-    },
-
-    chmodSave: function()
+    chmodOK: function()
     {
         var all = group = owner = 0;
 
@@ -180,8 +181,6 @@ var Gollem = {
                 all |= e.value;
             }
         });
-
-        $('attributes').hide();
 
         $('chmod').setValue('0' + owner + '' + group + '' + all);
         $('actionID').setValue('chmod_modify');
@@ -315,7 +314,7 @@ var Gollem = {
                     cancel_text: GollemText.cancel_text,
                     form_id: 'cdfrm',
                     ok_text: GollemText.ok_text,
-                    text: GollemText.change_directory,
+                    text: GollemText.change_directory
                 });
                 e.stop();
                 return;
@@ -324,21 +323,13 @@ var Gollem = {
                 this.toggleSelection();
                 break;
 
-            case 'chmodcancel':
-                this.chmodCancel();
-                break;
-
-            case 'chmodsave':
-                this.chmodSave();
-                break;
-
             case 'createfolder':
                 this._clearChecks();
                 HordeDialog.display({
                     cancel_text: GollemText.cancel_text,
                     form_id: 'createfrm',
                     ok_text: GollemText.ok_text,
-                    text: GollemText.create_folder,
+                    text: GollemText.create_folder
                 });
                 e.stop();
                 return;
@@ -365,6 +356,9 @@ var Gollem = {
         switch (e.findElement('FORM').id) {
         case 'cdfrm':
             Gollem.changeDirectoryOK();
+            break;
+        case 'chmodfrm':
+            Gollem.chmodOK();
             break;
         case 'createfrm':
             Gollem.createFolderOK();

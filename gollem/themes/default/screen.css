@@ -42,12 +42,8 @@
     width: 99%;
 }
 
-.managerpopup {
-    background-color: #000;
-    position: absolute;
-    left: 200px;
-    top: 20px;
-    padding: 1px;
+#attributes table.horde-table th {
+    text-align: center;
 }
 
 table.clipboard {
