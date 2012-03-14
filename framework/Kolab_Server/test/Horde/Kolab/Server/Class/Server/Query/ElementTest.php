@@ -149,7 +149,7 @@ class Horde_Kolab_Server_Class_Server_Query_ElementTest extends PHPUnit_Framewor
     }
 
     /**
-     * @expectedException Exception
+     * @expectedException Kolab_Server_Exception
      */
     public function testClassGroupMethodGetnameThrowsException()
     {
@@ -158,7 +158,7 @@ class Horde_Kolab_Server_Class_Server_Query_ElementTest extends PHPUnit_Framewor
     }
 
     /**
-     * @expectedException Exception
+     * @expectedException Kolab_Server_Exception
      */
     public function testClassGroupMethodGetvalueThrowsException()
     {
@@ -202,7 +202,7 @@ class Horde_Kolab_Server_Class_Server_Query_ElementTest extends PHPUnit_Framewor
     }
 
     /**
-     * @expectedException Exception
+     * @expectedException Kolab_Server_Exception
      */
     public function testClassSingleMethodGetelementsThrowsException()
     {
