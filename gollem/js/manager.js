@@ -24,6 +24,15 @@ var Gollem = {
         return this.getChecked().pluck('value').join("\n");
     },
 
+    toggleSelection: function()
+    {
+        var e = this.getElements(),
+            checked = (this.getChecked().size() != e.length);
+        e.each(function(f) {
+            f.checked = checked;
+        });
+    },
+
     getItemsArray: function()
     {
         var i = 0,
@@ -135,15 +144,6 @@ var Gollem = {
         }
     },
 
-    toggleSelection: function()
-    {
-        var e = this.getElements(),
-            checked = (this.getChecked().size() != e.length);
-        e.each(function(f) {
-            f.checked = checked;
-        });
-    },
-
     createFolderOK: function()
     {
         if ($F('dialog_input')) {
@@ -211,6 +211,17 @@ var Gollem = {
         }
     },
 
+    applyFilter: function()
+    {
+        $('manager').submit();
+    },
+
+    clearFilter: function()
+    {
+        $('filter').setValue('');
+        this.applyFilter();
+    },
+
     uploadFields: function()
     {
         return $('manager').getInputs('file').collect(function(m) {
@@ -224,17 +235,6 @@ var Gollem = {
             $('actionID').setValue('upload_file');
             $('manager').submit();
         }
-    },
-
-    applyFilter: function()
-    {
-        $('manager').submit();
-    },
-
-    clearFilter: function()
-    {
-        $('filter').setValue('');
-        this.applyFilter();
     },
 
     uploadsExist: function()
