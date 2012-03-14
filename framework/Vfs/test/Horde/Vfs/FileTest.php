@@ -46,7 +46,7 @@ class Horde_Vfs_FileTest extends PHPUnit_Framework_TestCase
         $file = '高&执&行&力&的&打&造.txt';
         $dir = '.horde/foo';
         $path = sys_get_temp_dir() . '/vfsfiletest/' . $dir . '/' . $file;
-        $this->_vfs->writeData($dir, $file, 'some content');
+        $this->_vfs->writeData($dir, $file, 'some content', true);
         $this->assertFileExists($path);
         $this->assertStringEqualsFile($path, 'some content');
         $this->_vfs->delete($dir, $file);
