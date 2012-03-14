@@ -469,6 +469,11 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
             $email,
             $ob[0]->mailbox
         );
+
+        $this->assertEquals(
+            $email,
+            (string)$ob[0]
+        );
     }
 
     public function testParsingPersonalPartWithQuotes()
