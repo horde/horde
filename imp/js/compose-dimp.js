@@ -745,6 +745,7 @@ var DimpCompose = {
     removeAttach: function(e)
     {
         var ids = [];
+
         e.each(function(n) {
             n = $(n);
             ids.push(n.retrieve('atc_id'));
@@ -757,9 +758,11 @@ var DimpCompose = {
                 duration: 0.4
             });
         }, this);
+
         if (!$('attach_list').childElements().size()) {
             $('attach_list').hide();
         }
+
         DimpCore.doAction('deleteAttach', { atc_indices: Object.toJSON(ids), imp_compose: $F('composeCache') });
     },
 
