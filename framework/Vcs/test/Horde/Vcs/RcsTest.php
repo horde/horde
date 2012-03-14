@@ -115,6 +115,13 @@ class Horde_Vcs_RcsTest extends Horde_Vcs_TestBase
             $this->fail('Expected Horde_Vcs_Exception');
         } catch (Horde_Vcs_Exception $e) {
         }
+    }
+
+    public function testUnicodeFile()
+    {
+        if (!setlocale(LC_ALL, 'de_DE.UTF-8')) {
+            $this->skipTest('Cannot set de_DE locale');
+        }
 
         /* Test unicode file. */
         $file = $this->vcs->getFile('umläüte');
