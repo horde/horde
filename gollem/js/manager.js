@@ -278,14 +278,6 @@ var Gollem = {
         }
     },
 
-    doPrefsUpdate: function(column, sortDown)
-    {
-        try {
-            new Ajax.Request(GollemVar.URI_AJAX + 'setPrefValue', { parameters: { pref: 'sortby', value: column.substring(1) } });
-            new Ajax.Request(GollemVar.URI_AJAX + 'setPrefValue', { parameters: { pref: 'sortdir', value: sortDown } });
-        } catch (e) {}
-    },
-
     clickHandler: function(e)
     {
         if (e.isRightClick()) {
@@ -383,14 +375,6 @@ var Gollem = {
     }
 
 };
-
-function table_sortCallback(tableId, column, sortDown)
-{
-    if (Gollem.prefs_update_timeout) {
-        window.clearTimeout(Gollem.prefs_update_timeout);
-    }
-    Gollem.prefs_update_timeout = Gollem.doPrefsUpdate.bind(this, column, sortDown).delay(0.3);
-}
 
 document.observe('dom:loaded', Gollem.onDomLoad.bind(Gollem));
 document.observe('click', Gollem.clickHandler.bindAsEventListener(Gollem));

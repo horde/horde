@@ -347,7 +347,6 @@ if (is_array($list) && $numitem && $read_perms) {
 
         $item = array(
             'date' => htmlspecialchars(strftime($prefs->getValue('date_format'), $val['date'])),
-            'date_sort' => intval($val['date']),
             'dl' => false,
             'edit' => false,
             'group' => empty($val['group']) ? '-' : htmlspecialchars($val['group']),
@@ -356,8 +355,7 @@ if (is_array($list) && $numitem && $read_perms) {
             'owner' => empty($val['owner']) ? '-' : htmlspecialchars($val['owner']),
             'perms' => empty($val['perms']) ? '-' : htmlspecialchars($val['perms']),
             'size' => ($val['type'] == '**dir') ? '-' : number_format($val['size'], 0, '.', ','),
-            'type' => htmlspecialchars($val['type']),
-            'type_sort' => ($val['type'] == '**dir') ? '' : htmlspecialchars($val['type']),
+            'type' => htmlspecialchars($val['type'])
         );
 
         $name = str_replace(' ', '&nbsp;', $item['name']);
@@ -486,14 +484,12 @@ if (is_array($list) && $numitem && $read_perms) {
             $hdr['width'] = '1%';
             $hdr['label'] = '&nbsp;';
             $hdr['align'] = 'center';
-            $hdr['class'] = 'nosort';
             break;
 
         case 'download':
             $hdr['width'] = '1%';
             $hdr['label'] = '&nbsp;';
             $hdr['align'] = 'center';
-            $hdr['class'] = 'nosort';
             break;
 
         case 'modified':
@@ -516,29 +512,29 @@ if (is_array($list) && $numitem && $read_perms) {
             $hdr['width'] = '7%';
             $hdr['label'] = _("Permission");
             $hdr['align'] = 'right';
-            $hdr['class'] = 'nosort';
             break;
 
         case 'owner':
             $hdr['width'] = '7%';
             $hdr['label'] = _("Owner");
             $hdr['align'] = 'right';
-            $hdr['class'] = 'nosort';
             break;
 
         case 'group':
             $hdr['width'] = '7%';
             $hdr['label'] = _("Group");
             $hdr['align'] = 'right';
-            $hdr['class'] = 'nosort';
             break;
         }
 
         if ($sort !== null) {
             if ($sortby == $sort) {
                 $hdr['class'] = ($sortdir ? 'sortup' : 'sortdown');
+                $params = array('actionID' => 'change_sortdir', 'sortdir' => 1 - $sortdir);
+            } else {
+                $params = array('actionID' => 'change_sortby', 'sortby' => $sort);
             }
-            $hdr['label'] = '<a href="' . $refresh_url->copy()->add(array('actionID' => 'change_sortby', 'sortby' => $sort)) . '" class="sortlink">' . htmlspecialchars($hdr['label']) . '</a>';
+            $hdr['label'] = '<a href="' . Horde::selfUrl()->add($params) . '" class="sortlink">' . htmlspecialchars($hdr['label']) . '</a>';
         }
 
         $headers[] = $hdr;

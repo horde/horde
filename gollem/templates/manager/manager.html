@@ -95,10 +95,10 @@
  <em><gettext>There are no files in this folder.</gettext></em>
 </p>
 <else:empty_dir>
-<table id="filelist" class="striped sortable hover" cellspacing="0">
+<table id="filelist" class="striped hover" cellspacing="0">
 <thead>
  <tr>
-  <th class="nosort" style="text-align:center" width="1%"><input type="checkbox" class="checkbox" id="checkall" name="checkAll" <tag:checkall /> /></th>
+  <th style="text-align:center" width="1%"><input type="checkbox" class="checkbox" id="checkall" name="checkAll" <tag:checkall /> /></th>
 <loop:headers>
   <th<if:headers.id> id="<tag:headers.id />"</if:headers.id><if:headers.class> class="<tag:headers.class />"</if:headers.class> style="text-align:<tag:headers.align />" width="<tag:headers.width />"><tag:headers.sort /><tag:headers.label /></th>
 </loop:headers>
@@ -109,7 +109,7 @@
  <tr>
   <td style="text-align:center"><if:entry.on_clipboard>&nbsp;<else:entry.on_clipboard><input type="checkbox" class="checkbox" name="items[]" value="<tag:entry.name />" /></else:entry.on_clipboard></if:entry.on_clipboard></td>
 <if:columns_type>
-  <td sortval="<tag:entry.type_sort />" class="rightAlign"><input type="hidden" name="itemTypes[]" value="<tag:entry.type />" /><tag:entry.graphic />&nbsp;</td>
+  <td class="rightAlign"><input type="hidden" name="itemTypes[]" value="<tag:entry.type />" /><tag:entry.graphic />&nbsp;</td>
 </if:columns_type>
 <if:columns_name>
   <td><tag:entry.link /></td>
@@ -125,7 +125,7 @@
   </td>
 </if:columns_download>
 <if:columns_modified>
-  <td sortval="<tag:entry.date_sort />"><tag:entry.date /></td>
+  <td><tag:entry.date /></td>
 </if:columns_modified>
 <if:columns_size>
   <td class="rightAlign"><tag:entry.size /></td>
