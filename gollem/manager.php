@@ -228,23 +228,25 @@ try {
 $numitem = count($list);
 $title = Gollem::$backend['label'];
 
-/* Init some form vars. */
-if ($session->get('gollem', 'filter') != $vars->filter) {
-    $page = 0;
-} else {
-    $page = $vars->get('page', 0);
-}
-$session->set('gollem', 'filter', strval($vars->filter));
-
 /* Commonly used URLs. */
 $view_url = Horde::url('view.php');
 $edit_url = Horde::url('edit.php');
 $manager_url = Horde::url('manager.php');
 
 $refresh_url = Horde::selfUrl(true, true);
-if ($vars->filter) {
-    $refresh_url->add('filter', $vars->filter);
+
+/* Init some form vars. */
+if ($session->get('gollem', 'filter') != $vars->filter) {
+    if (strlen($vars->filter)) {
+        $refresh_url->add('filter', $vars->filter);
+    } else {
+        $refresh_url->remove('filter');
+    }
+    $page = 0;
+} else {
+    $page = $vars->get('page', 0);
 }
+$session->set('gollem', 'filter', strval($vars->filter));
 
 /* Get the list of copy/cut files in this directory. */
 $clipboard_files = array();
