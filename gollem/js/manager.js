@@ -97,12 +97,6 @@ var Gollem = {
         });
     },
 
-    _prepPopup: function(elt, elt2)
-    {
-        this._clearChecks();
-        $(elt).clonePosition(elt2, { setWidth: false, setHeight: false, offsetTop: elt2.getHeight() }).show();
-    },
-
     renameItems: function()
     {
         var c = this.getChecked();
