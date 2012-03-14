@@ -2,7 +2,7 @@
 
 class Horde_Kolab_Server_Constraint_Searchmail extends PHPUnit_Framework_Constraint
 {
-    public function evaluate($other)
+    public function evaluate($other, $description = '', $returnResult = FALSE)
     {
         if ($other instanceOf Horde_Kolab_Server_Query_Element_Interface) {
             if ($other instanceOf Horde_Kolab_Server_Query_Element_Group) {
@@ -25,7 +25,7 @@ class Horde_Kolab_Server_Constraint_Searchmail extends PHPUnit_Framework_Constra
         }
     }
 
-    public function fail($other, $description, $not = FALSE)
+    public function fail($other, $description, PHPUnit_Framework_ComparisonFailure $comparisonFailure = NULL)
     {
         throw new PHPUnit_Framework_ExpectationFailedException(
           sprintf(
