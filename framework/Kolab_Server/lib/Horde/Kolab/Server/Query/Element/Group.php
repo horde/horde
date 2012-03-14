@@ -54,7 +54,7 @@ implements Horde_Kolab_Server_Query_Element_Interface
      */
     public function getName()
     {
-        throw new Exception('Not supported!');
+        throw new Horde_Kolab_Server_Exception('Not supported!');
     }
 
     /**
@@ -66,7 +66,7 @@ implements Horde_Kolab_Server_Query_Element_Interface
      */
     public function getValue()
     {
-        throw new Exception('Not supported!');
+        throw new Horde_Kolab_Server_Exception('Not supported!');
     }
 
     /**

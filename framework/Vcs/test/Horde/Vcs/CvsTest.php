@@ -264,6 +264,7 @@ class Horde_Vcs_CvsTest extends Horde_Vcs_TestBase
             $this->markTestSkipped('cvsps is not installed');
         }
 
+        date_default_timezone_set('Europe/Berlin');
         $ps = $this->vcs->getPatchset(array('file' => 'module/file1'));
         $this->assertInstanceOf('Horde_Vcs_Patchset_Cvs', $ps);
         $sets = $ps->getPatchsets();

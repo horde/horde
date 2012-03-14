@@ -85,7 +85,7 @@ class Horde_Vcs_SvnTest extends Horde_Vcs_TestBase
         $this->assertEquals('file1', $file->getFileName());
         $this->assertEquals('file1', $file->getSourcerootPath());
         $this->assertEquals(
-            'file:///home/jan/horde-git/framework/Vcs/test/Horde/Vcs/repos/svn/file1',
+            'file://' . dirname(__FILE__) . '/repos/svn/file1',
             $file->getPath());
         $this->assertEquals('2', $file->getRevision());
         $this->assertEquals('1', $file->getPreviousRevision('2'));
@@ -100,7 +100,7 @@ class Horde_Vcs_SvnTest extends Horde_Vcs_TestBase
         $this->assertEquals('file1_1', $file->getFileName());
         $this->assertEquals('dir1/file1_1', $file->getSourcerootPath());
         $this->assertEquals(
-            'file:///home/jan/horde-git/framework/Vcs/test/Horde/Vcs/repos/svn/dir1/file1_1',
+            'file://' . dirname(__FILE__) . '/repos/svn/dir1/file1_1',
             $file->getPath());
         $this->assertEquals('1', $file->getRevision());
         $this->assertEquals(1, $file->revisionCount());
@@ -113,7 +113,7 @@ class Horde_Vcs_SvnTest extends Horde_Vcs_TestBase
         $this->assertEquals('deletedfile1', $file->getFileName());
         $this->assertEquals('deletedfile1', $file->getSourcerootPath());
         $this->assertEquals(
-            'file:///home/jan/horde-git/framework/Vcs/test/Horde/Vcs/repos/svn/deletedfile1',
+            'file://' . dirname(__FILE__) . '/repos/svn/deletedfile1',
             $file->getPath());
         /* FIXME
         $this->assertEquals('2', $file->getRevision());
@@ -133,7 +133,7 @@ class Horde_Vcs_SvnTest extends Horde_Vcs_TestBase
         $this->assertEquals('umläüte', $file->getFileName());
         $this->assertEquals('umläüte', $file->getSourcerootPath());
         $this->assertEquals(
-            'file:///home/jan/horde-git/framework/Vcs/test/Horde/Vcs/repos/svn/umläüte',
+            'file://' . dirname(__FILE__) . '/repos/svn/umläüte',
             $file->getPath());
         $this->assertEquals('3', $file->getRevision());
         $this->assertEquals(1, $file->revisionCount());

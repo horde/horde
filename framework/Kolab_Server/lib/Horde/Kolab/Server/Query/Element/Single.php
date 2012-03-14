@@ -83,6 +83,6 @@ implements Horde_Kolab_Server_Query_Element_Interface
      */
     public function getElements()
     {
-        throw new Exception('Not supported!');
+        throw new Horde_Kolab_Server_Exception('Not supported!');
     }
 }
