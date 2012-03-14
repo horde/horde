@@ -7,15 +7,6 @@
 
 var Gollem = {
 
-    toggleRow: function()
-    {
-        $$('table.striped tr').each(function(tr) {
-            var td = tr.select('TD');
-            tr.observe('mouseover', td.invoke.bind(td, 'addClassName', 'selected'));
-            tr.observe('mouseout', td.invoke.bind(td, 'removeClassName', 'selected'));
-        });
-    },
-
     getChecked: function()
     {
         return this.getElements().findAll(function(e) {
@@ -377,8 +368,6 @@ var Gollem = {
     onDomLoad: function()
     {
         var tmp;
-
-        this.toggleRow();
 
         // Observe actual event since IE does not bubble change events.
         if (tmp = $('action1')) {
