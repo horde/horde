@@ -140,6 +140,7 @@ extends Horde_Kolab_Storage_TestCase
 
     public function testEnvelopeDescriptionContent()
     {
+        setlocale(LC_MESSAGES, 'C');
         $this->assertEquals(
             "This is a Kolab Groupware object. To view this object you will need an email\r
 client that understands the Kolab Groupware format. For a list of such email\r
