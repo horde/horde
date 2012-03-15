@@ -352,7 +352,9 @@ class Horde_Imap_Client_Cache
                 $d[$k] = is_array($d[$k])
                     ? array_merge($d[$k], $v)
                     : $v;
-                $updated[$s[$k]] = true;
+                if (isset($s[$k])) {
+                    $updated[$s[$k]] = true;
+                }
             } else {
                 $d[$k] = $v;
                 $add[] = $k;
