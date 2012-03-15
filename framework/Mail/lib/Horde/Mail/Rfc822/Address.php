@@ -145,8 +145,11 @@ class Horde_Mail_Rfc822_Address extends Horde_Mail_Rfc822_Object
             $address .= '@' . $host;
         }
         $personal = $this->personal;
-        if (!empty($opts['encode']) && strlen($personal)) {
-            $personal = $rfc822->encode(Horde_Mime::encode($this->personal, $opts['encode']), 'personal');
+        if (strlen($personal)) {
+            if (!empty($opts['encode'])) {
+                $personal = Horde_Mime::encode($this->personal, $opts['encode']);
+            }
+            $personal = $rfc822->encode($personal, 'personal');
         }
 
         return (strlen($personal) && ($personal != $address))

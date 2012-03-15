@@ -483,9 +483,30 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
         $ob = new Horde_Mail_Rfc822_Address($email);
 
         $this->assertEquals(
-            'Test "F-oo" Bar <foo@example.com>',
+            '"Test \"F-oo\" Bar" <foo@example.com>',
             $ob->writeAddress()
         );
+
+        $this->assertEquals(
+            $email,
+            $ob->writeAddress(true)
+        );
+    }
+
+    public function testParsingPersonalPartWithCommas()
+    {
+        $email = "\"Foo, Bar\" <foo@example.com>";
+
+        $ob = $this->rfc822->parseAddressList($email);
+
+        $this->assertEquals(
+            $email,
+            $ob->writeAddress(true)
+        );
+
+        $ob = $this->rfc822->parseAddressList($email, array(
+            'validate' => true
+        ));
 
         $this->assertEquals(
             $email,
