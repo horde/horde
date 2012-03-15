@@ -1186,7 +1186,7 @@ class Turba_Api extends Horde_Registry_Api
 
                         if (count($email)) {
                             foreach ($email as $val) {
-                                $seen_key = trim(Horde_String::lower($display_name)) . '/' . trim(Horde_String::lower($val));
+                                $seen_key = trim(Horde_String::lower($display_name)) . '/' . Horde_String::lower($val->bare_address);
                                 if (empty($seen[$seen_key])) {
                                     $seen[$seen_key] = true;
                                     if (empty($opts['rfc822Return'])) {
