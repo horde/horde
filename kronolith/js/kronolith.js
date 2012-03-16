@@ -1878,6 +1878,7 @@ KronolithCore = {
                 resizable = event.value.pe && (Object.isUndefined(event.value.vl) || event.value.vl),
                 innerDiv = new Element('div', { className: 'kronolithEventInfo' }),
                 parentElement = view == 'day' ? $('kronolithEventsDay') : this.eventsWeek['kronolithEventsWeek' + date],
+                elapsed = (event.value.start.getHours() - midnight.getHours()) * 60 + (event.value.start.getMinutes() - midnight.getMinutes()),
                 minHeight = 0,
                 draggerTop, draggerBottom;
             if (event.value.fi) {
@@ -1898,7 +1899,7 @@ KronolithCore = {
             }
 
             div.setStyle({
-                top: (Math.round(midnight.getElapsed(event.value.start) / 60000) * this[storage].height / 60 | 0) + 'px',
+                top: (elapsed * this[storage].height / 60 | 0) + 'px',
                 width: 100 - margin + '%'
             })
                 .insert(innerDiv.setStyle(style));
