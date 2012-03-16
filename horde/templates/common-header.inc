@@ -28,7 +28,7 @@ if (!empty($title)) {
 <head>
 <?php
 
-$page_output = $injector->getInstance('Horde_PageOutput');
+$page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
 
 $page_output->outputMetaTags();
 if (!in_array($GLOBALS['registry']->getView(), array(Horde_Registry::VIEW_MINIMAL, Horde_Registry::VIEW_SMARTMOBILE))) {
