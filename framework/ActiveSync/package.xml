@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-03-08</date>
- <time>10:39:38</time>
+ <date>2012-03-16</date>
+ <time>09:43:36</time>
  <version>
   <release>1.2.5</release>
   <api>1.2.0</api>
@@ -55,6 +55,13 @@
        <file name="Collection.php" role="php" />
        <file name="Imap.php" role="php" />
       </dir> <!-- /lib/Horde/ActiveSync/Folder -->
+      <dir name="Imap">
+       <file name="Adapter.php" role="php" />
+       <file name="Message.php" role="php" />
+      </dir> <!-- /lib/Horde/ActiveSync/Imap -->
+      <dir name="Interface">
+       <file name="ImapFactory.php" role="php" />
+      </dir> <!-- /lib/Horde/ActiveSync/Interface -->
       <dir name="Message">
        <file name="Appointment.php" role="php" />
        <file name="Attachment.php" role="php" />
@@ -210,6 +217,9 @@
    <install as="Horde/ActiveSync/Folder/Base.php" name="lib/Horde/ActiveSync/Folder/Base.php" />
    <install as="Horde/ActiveSync/Folder/Collection.php" name="lib/Horde/ActiveSync/Folder/Collection.php" />
    <install as="Horde/ActiveSync/Folder/Imap.php" name="lib/Horde/ActiveSync/Folder/Imap.php" />
+   <install as="Horde/ActiveSync/Imap/Adapter.php" name="lib/Horde/ActiveSync/Imap/Adapter.php" />
+   <install as="Horde/ActiveSync/Imap/Message.php" name="lib/Horde/ActiveSync/Imap/Message.php" />
+   <install as="Horde/ActiveSync/Interface/ImapFactory.php" name="lib/Horde/ActiveSync/Interface/ImapFactory.php" />
    <install as="Horde/ActiveSync/Message/Appointment.php" name="lib/Horde/ActiveSync/Message/Appointment.php" />
    <install as="Horde/ActiveSync/Message/Attachment.php" name="lib/Horde/ActiveSync/Message/Attachment.php" />
    <install as="Horde/ActiveSync/Message/Attendee.php" name="lib/Horde/ActiveSync/Message/Attendee.php" />
@@ -594,7 +604,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-03-08</date>
+   <date>2012-03-16</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 *

@@ -57,7 +57,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     /**
      * Imap client adapter
      *
-     * @var Horde_Core_ActiveSync_Imap_Adapter
+     * @var Horde_ActiveSync_Imap_Adapter
      */
     private $_imap;
 
@@ -74,18 +74,20 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * @param array $params  Configuration parameters:
      *   - connector: Horde_ActiveSync_Driver_Horde_Connector_Registry object
      *   - auth:      Horde_Auth object
-     *   - imap:      Horde_Core_ActiveSync_Imap_Adapter (OPTIONAL)
+     *   - imap:      Horde_ActiveSync_Imap_Adapter (OPTIONAL)
      *
      * @return Horde_ActiveSync_Driver_Horde
      */
     public function __construct(array $params = array())
     {
         parent::__construct($params);
-        if (empty($this->_params['connector']) || !($this->_params['connector'] instanceof Horde_Core_ActiveSync_Connector)) {
+        if (empty($this->_params['connector']) ||
+            !($this->_params['connector'] instanceof Horde_Core_ActiveSync_Connector)) {
             throw new InvalidArgumentException('Missing required connector object.');
         }
 
-        if (empty($this->_params['auth']) || !($this->_params['auth'] instanceof Horde_Auth_Base)) {
+        if (empty($this->_params['auth']) ||
+            !($this->_params['auth'] instanceof Horde_Auth_Base)) {
             throw new InvalidArgumentException('Missing required Auth object');
         }
 

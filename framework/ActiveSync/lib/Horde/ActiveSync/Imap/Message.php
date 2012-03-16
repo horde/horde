@@ -8,7 +8,7 @@
  * @package Core
  */
 
-class Horde_Core_ActiveSync_Imap_Message
+class Horde_ActiveSync_Imap_Message
 {
 
     /**

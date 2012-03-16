@@ -1,6 +1,6 @@
 <?php
 /**
- * Horde_Core_ActiveSync_Imap_Adapter
+ * Horde_ActiveSync_Imap_Adapter
  *
  * PHP Version 5
  *
@@ -11,7 +11,7 @@
  * @package   ActiveSync
  */
 /**
- * Horde_Core_ActiveSync_Imap_Adapter:: Contains methods for communicating with
+ * Horde_ActiveSync_Imap_Adapter:: Contains methods for communicating with
  * Horde's Horde_Imap_Client library.
  *
  * @license   http://www.horde.org/licenses/gpl GPLv2
@@ -20,41 +20,28 @@
  * @link      http://pear.horde.org/index.php?package=ActiveSync
  * @package   ActiveSync
  */
-class Horde_Core_ActiveSync_Imap_Adapter
+class Horde_ActiveSync_Imap_Adapter
 {
     /**
-     * @var Horde_Imap_Client_Base
+     * @var Horde_ActiveSync_Interface_ImapFactory
      */
     protected $_imap;
 
     /**
-     * @var Horde_Log_Loggerg
+     * @var Horde_Log_Logger
      */
     protected $_logger;
-
-    /**
-     * Cache folderlist.
-     *
-     * @var array
-     */
-    protected $_folderlist = array();
-
-    /**
-     * specialMailboxes list
-     *
-     * @var array
-     */
-    protected $_specialMailboxes = array();
 
     /**
      * Cont'r
      *
      * @param array $params  Parameters:
-     *   - registry: (Horde_Registry)  The registry object. REQUIRED.
+     *   - factory:  (Horde_ActiveSync_Interface_ImapFactory) Factory object
+     *               REQUIRED
      */
     public function __construct(array $params = array())
     {
-        $this->_registry = $params['registry'];
+        $this->_imap = $params['factory'];
     }
 
     /**
@@ -75,13 +62,7 @@ class Horde_Core_ActiveSync_Imap_Adapter
      */
     public function getMailboxes()
     {
-        if (!empty($this->_folderlist)) {
-          return $this->_folderlist;
-        }
-
-        $this->_folderlist = $this->_registry->mail->mailboxList();
-
-        return $this->_folderlist;
+        return $this->_imap->getMailboxes();
     }
 
     /**
@@ -91,12 +72,7 @@ class Horde_Core_ActiveSync_Imap_Adapter
      */
     public function getSpecialMailboxes()
     {
-        if (!empty($this->_specialMailboxes)) {
-            return $this->_specialMailboxes;
-        }
-        $this->_specialMailboxes = $this->_registry->mail->getSpecialMailboxes();
-
-        return $this->_specialMailboxes;
+        return $this->_imap->getSpecialMailboxes();
     }
 
     /**
@@ -395,7 +371,7 @@ class Horde_Core_ActiveSync_Imap_Adapter
         $imap = $this->_getImapOb();
         $mbox = new Horde_Imap_Client_Mailbox($mailbox);
         $messages = $this->_getMailMessages($mbox, array($uid));
-        $msg = new Horde_Core_ActiveSync_Imap_Message(
+        $msg = new Horde_ActiveSync_Imap_Message(
             $imap, $mbox, $messages[$uid]);
         $part = $msg->getMIMEPart($part);
 
@@ -440,7 +416,7 @@ class Horde_Core_ActiveSync_Imap_Adapter
         $imap = $this->_getImapOb();
 
         // Get a message object.
-        $imap_message = new Horde_Core_ActiveSync_Imap_Message(
+        $imap_message = new Horde_ActiveSync_Imap_Message(
             $imap, $mbox, $data);
 
         $message_data = $imap_message->getMessageBody($options);
@@ -480,13 +456,7 @@ class Horde_Core_ActiveSync_Imap_Adapter
      */
     protected function _getImapOb()
     {
-        if (!empty($this->_imap)) {
-            return $this->_imap;
-        }
-
-        $this->_imap = $this->_registry->mail->imapOb();
-
-        return $this->_imap;
+        return $this->_imap->getImapOb();
     }
 
 }
