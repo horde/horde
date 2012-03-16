@@ -42,7 +42,7 @@ class Horde_Token_File extends Horde_Token_Base
     public function __construct($params = array())
     {
         $params = array_merge(array(
-            'token_dir' => Horde_Util::getTempDir()
+            'token_dir' => sys_get_temp_dir()
         ), $params);
 
         parent::__construct($params);

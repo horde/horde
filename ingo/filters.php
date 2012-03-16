@@ -132,8 +132,9 @@ case 'apply_filters':
 /* Get the list of rules now. */
 $filter_list = $filters->getFilterList();
 
-Horde::addScriptFile('stripe.js', 'horde');
-Horde::addScriptFile('filters.js', 'ingo');
+$page_output = $injector->getInstance('Horde_PageOutput');
+$page_output->addScriptFile('stripe.js', 'horde');
+$page_output->addScriptFile('filters.js');
 $menu = Ingo::menu();
 $title = _("Filter Rules");
 require $registry->get('templates', 'horde') . '/common-header.inc';

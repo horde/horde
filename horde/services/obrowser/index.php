@@ -99,7 +99,7 @@ $template->setOption('gettext', true);
 $template->set('rows', $rows);
 $template->set('close', '<a href="#" onclick="window.close(); return false;">' . Horde::img('close.png') . '</a>');
 
-Horde::addScriptFile('stripe.js', 'horde');
+$injector->getInstance('Horde_PageOutput')->addScriptFile('stripe.js', 'horde');
 require HORDE_TEMPLATES . '/common-header.inc';
 echo $template->parse($tpl);
 require HORDE_TEMPLATES . '/common-footer.inc';

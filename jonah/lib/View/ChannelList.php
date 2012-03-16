@@ -62,8 +62,9 @@ class Jonah_View_ChannelList extends Jonah_View_Base
         $view->channels = $channels;
         $view->search_img = Horde::img('search.png');
         $title = _("Feeds");
-        Horde::addScriptFile('tables.js', 'horde', true);
-        Horde::addScriptFile('quickfinder.js', 'horde', true);
+        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        $page_output->addScriptFile('tables.js', 'horde');
+        $page_output->addScriptFile('quickfinder.js', 'horde');
         require $registry->get('templates', 'horde') . '/common-header.inc';
         require JONAH_TEMPLATES . '/menu.inc';
         echo $view->render('channellist');

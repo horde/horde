@@ -370,7 +370,7 @@ class Horde_Share_Sql extends Horde_Share_Base
                               $params);
         $key = md5(serialize(array($userid, $params)));
         if (isset($this->_listcache[$key])) {
-            return is_array($this->_listcache[$key]) ? $this->_listcache[$key] : array();
+            return $this->_listcache[$key];
         }
         $shares = array();
         if (is_null($params['sort_by'])) {
@@ -446,7 +446,7 @@ class Horde_Share_Sql extends Horde_Share_Base
             $sharelist = $this->runCallback('list', array($userid, $sharelist, $params));
         }
 
-        $this->_listcache[$key] = empty($sharelist) ? false : $sharelist;
+        $this->_listcache[$key] = $sharelist;
 
         return $sharelist;
     }

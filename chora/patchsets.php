@@ -42,8 +42,9 @@ if (empty($patchsets)) {
 
 $extraLink = Chora::getFileViews($where, 'patchsets');
 
-Horde::addScriptFile('tables.js', 'horde');
-Horde::addScriptFile('quickfinder.js', 'horde');
+$page_output = $injector->getInstance('Horde_PageOutput');
+$page_output->addScriptFile('tables.js', 'horde');
+$page_output->addScriptFile('quickfinder.js', 'horde');
 require $registry->get('templates', 'horde') . '/common-header.inc';
 require CHORA_TEMPLATES . '/menu.inc';
 require CHORA_TEMPLATES . '/headerbar.inc';

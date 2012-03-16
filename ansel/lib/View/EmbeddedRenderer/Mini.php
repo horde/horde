@@ -131,8 +131,8 @@ class Ansel_View_EmbeddedRenderer_Mini extends Ansel_View_Base
                 ->getImageJson($images, $style, true, 'screen', true);
         }
 
-        $horde_css = $GLOBALS['injector']->getInstance('Horde_Themes_Css');
-        $horde_css->addThemeStylesheet('embed.css');
+        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        $page_output->addThemeStylesheet('embed.css');
 
         /* Some paths */
         $js_path = $GLOBALS['registry']->get('jsuri', 'horde');
@@ -150,8 +150,9 @@ class Ansel_View_EmbeddedRenderer_Mini extends Ansel_View_Base
         }
 
         Horde::startBuffer();
-        Horde::includeStylesheetFiles(array(
-            'nobase' => true), true);
+        $page_output->includeStylesheetFiles(array(
+            'nobase' => true
+        ), true);
         $css = Horde::endBuffer();
 
         /* Start building the javascript */

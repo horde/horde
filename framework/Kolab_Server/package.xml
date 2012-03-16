@@ -354,6 +354,10 @@
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
+   <package>
+    <name>PHPUnit_Story</name>
+    <channel>pear.phpunit.de</channel>
+   </package>
    <extension>
     <name>ldap</name>
    </extension>

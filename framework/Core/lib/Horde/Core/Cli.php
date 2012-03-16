@@ -8,36 +8,11 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @todo Extend Horde_Cli when we can use LSB of PHP 5.3 in Horde_Cli::init().
- *
  * @author  Jan Schneider <jan@horde.org>
  * @package Core
  */
-class Horde_Core_Cli
+class Horde_Core_Cli extends Horde_Cli
 {
-    /**
-     * The Horde_Cli object we are wrapping.
-     *
-     * @var Horde_Cli
-     */
-    protected $_cli;
-
-    /**
-     * Constructor.
-     */
-    public function __construct()
-    {
-        $this->_cli = Horde_Cli::init();
-    }
-
-    /**
-     * Proxy method.
-     */
-    public function __call($method, $args)
-    {
-        return call_user_func_array(array($this->_cli, $method), $args);
-    }
-
     /**
      * Shows a prompt for a single configuration setting.
      *

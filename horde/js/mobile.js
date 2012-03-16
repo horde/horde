@@ -14,7 +14,7 @@
  */
 var HordeMobile = {
 
-    notify_handler: function() { return HordeMobile.showNotifications; },
+    notify_handler: function(m) { return HordeMobile.showNotifications(m); },
 
     serverError: 0,
 
@@ -63,18 +63,18 @@ var HordeMobile = {
 
         HordeMobile.inAjaxCallback = true;
 
+        HordeMobile.notify_handler(d.msgs || []);
+
+        if (d.tasks) {
+            $(document).trigger('HordeMobile:runTasks', d.tasks);
+        }
+
         if (r && $.isFunction(callback)) {
             try {
                 callback(r);
             } catch (e) {
                 HordeMobile.debug('doActionComplete', e);
             }
-        }
-
-        HordeMobile.notify_handler(d.msgs || []);
-
-        if (d.tasks) {
-            $(document).trigger('HordeMobile:runTasks', d.tasks);
         }
 
         HordeMobile.inAjaxCallback = false;

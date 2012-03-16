@@ -18,7 +18,7 @@ $RENDERER = new Horde_Form_Renderer();
 
 $title = _("Accounts: ");
 
-Horde::addScriptFile('stripe.js', 'horde');
+$injector->getInstance('Horde_PageOutput')->addScriptFile('stripe.js', 'horde');
 
 require $registry->get('templates', 'horde') . '/common-header.inc';
 require SHOUT_TEMPLATES . '/menu.inc';

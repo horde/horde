@@ -10,8 +10,8 @@
 var DimpBase = {
     // Vars used and defaulting to null/false:
     //   expandmbox, pollPE, pp, qsearch_ghost, resize, rownum, search,
-    //   splitbar, sort_init, template, uid, view, viewaction, viewport,
-    //   viewswitch
+    //   searchbar_time, searchbar_time_mins, splitbar, sort_init, template,
+    //   uid, view, viewaction, viewport, viewswitch
     // msglist_template_horiz and msglist_template_vert set via
     //   js/mailbox-dimp.js
 
@@ -710,16 +710,10 @@ var DimpBase = {
                     if (!this.search || !this.search.qsearch) {
                         $('qsearch').hide();
                     }
-                    if (!$('searchbar').visible()) {
-                        $('searchbar').show();
-                        this.viewport.onResize(true);
-                    }
+                    this.showSearchbar(true);
                 } else {
                     $('filter').show();
-                    if ($('searchbar').visible()) {
-                        $('searchbar').hide();
-                        this.viewport.onResize(true);
-                    }
+                    this.showSearchbar(false);
                 }
 
                 tmp = $('applyfilterlink');
@@ -799,9 +793,8 @@ var DimpBase = {
         }.bindAsEventListener(this));
 
         container.observe('ViewPort:fetch', function(e) {
-            if (!this.isSearch() && $('searchbar').visible()) {
-                $('searchbar').hide();
-                this.viewport.onResize(true);
+            if (!this.isSearch()) {
+                this.showSearchbar(false);
             }
             this.loadingImg('viewport', true);
         }.bindAsEventListener(this));
@@ -1418,7 +1411,7 @@ var DimpBase = {
             break;
 
         case 'ctx_subjectsort':
-            DimpCore.toggleCheck($('ctx_subjectsort_thread').down('DIV.iconImg'), this.isThreadSort());
+            DimpCore.toggleCheck($('ctx_subjectsort_thread').down('.iconImg'), this.isThreadSort());
             break;
 
         case 'ctx_preview':
@@ -2148,6 +2141,40 @@ var DimpBase = {
         }
     },
 
+    /* Handle searchbar. */
+    showSearchbar: function(show)
+    {
+        if ($('searchbar').visible()) {
+            if (!show) {
+                $('searchbar').hide();
+                this.viewport.onResize(true);
+                this.searchbarTimeReset(false);
+            }
+        } else if (show) {
+            $('searchbar').show();
+            this.viewport.onResize(true);
+            this.searchbarTimeReset(true);
+        }
+    },
+
+    searchbarTimeReset: function(restart)
+    {
+        if (this.searchbar_time) {
+            this.searchbar_time.stop();
+            delete this.searchbar_time;
+            $('search_time_elapsed').hide();
+        }
+
+        if (restart) {
+            this.searchbar_time_mins = 0;
+            this.searchbar_time = new PeriodicalExecuter(function() {
+                if (++this.searchbar_time_mins > 5) {
+                    $('search_time_elapsed').update(DIMP.text.search_time.sub('%d', this.searchbar_time_mins).escapeHTML()).show();
+                }
+            }.bind(this), 60);
+        }
+    },
+
     /* Enable/Disable DIMP action buttons as needed. */
     toggleButtons: function()
     {
@@ -2559,6 +2586,7 @@ var DimpBase = {
 
             case 'search_refresh':
                 this.loadingImg('viewport', true);
+                this.searchbarTimeReset(true);
                 // Fall-through
 
             case 'checkmaillink':
@@ -3669,15 +3697,6 @@ var DimpBase = {
         DimpCore.addPopdown($('preview_other_opts').down('A'), 'preview', {
             trigger: true
         });
-
-        DIMP.conf.flags_o.each(function(f) {
-            if (DIMP.conf.flags[f].s) {
-                this.contextAddFlag(f, DIMP.conf.flags[f], 'ctx_flag_search');
-            }
-            if (DIMP.conf.flags[f].a) {
-                this.contextAddFlag(f, DIMP.conf.flags[f], 'ctx_flag');
-            }
-        }, this);
 
         if (DIMP.conf.disable_compose) {
             $('button_reply', 'button_forward').compact().invoke('up', 'SPAN').concat($('button_compose', 'composelink', 'ctx_contacts_new')).compact().invoke('remove');

@@ -234,6 +234,9 @@ table.horde-table th.sortdown {
 .rowOdd {
     background-color: #ddd;
 }
+.striped.hover .rowEven:hover, .striped.hover .rowOdd:hover {
+    background: #bbcbff;
+}
 
 .widget {
     font-size: 90%;

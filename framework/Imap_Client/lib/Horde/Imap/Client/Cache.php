@@ -16,7 +16,7 @@
 class Horde_Imap_Client_Cache
 {
     /** Cache structure version. */
-    const VERSION = 2;
+    const VERSION = 3;
 
     /**
      * The base driver object.
@@ -299,7 +299,9 @@ class Horde_Imap_Client_Cache
                 $d[$k] = is_array($d[$k])
                     ? array_merge($d[$k], $v)
                     : $v;
-                $updated[$s[$k]] = true;
+                if (isset($s[$k])) {
+                    $updated[$s[$k]] = true;
+                }
             } else {
                 $d[$k] = $v;
                 $add[] = $k;
@@ -380,7 +382,7 @@ class Horde_Imap_Client_Cache
         $update = array_intersect_key($slicemap['s'], array_flip($uids));
 
         if (!empty($update)) {
-            $this->_loadUids(array_keys($update));
+            $this->_loadUids($mailbox, array_keys($update));
             $d = &$this->_data[$mailbox];
 
             foreach (array_keys($update) as $id) {

@@ -96,11 +96,11 @@ function printfile_raw($pathname)
     extract($result);
     $result = Horde::loadConfiguration('mime_drivers.php', array('mime_drivers', 'mime_drivers_map'), 'luxor');
     if (isset($result['mime_drivers'])) {
-        $mime_drivers = Horde_Array::replaceRecursive(
+        $mime_drivers = array_replace_recursive(
             $mime_drivers, $result['mime_drivers']);
     }
     if (isset($result['mime_drivers_map'])) {
-        $mime_drivers_map = Horde_Array::replaceRecursive(
+        $mime_drivers_map = array_replace_recursive(
             $mime_drivers_map, $result['mime_drivers_map']);
     }
 
@@ -127,9 +127,10 @@ if (substr($pathname, -5) == '.html' ||
 
 $content = printfile($pathname);
 
+$page_output = $injector->getInstance('Horde_PageOutput');
 if (substr($pathname, -1) == '/') {
     $title = sprintf(_("Directory Listing :: %s"), $pathname);
-    Horde::addScriptFile('tables.js', 'horde', true);
+    $page_output->addScriptFile('tables.js', 'horde');
 } else {
     $title = sprintf(_("Markup of %s"), $pathname);
     $lastmod = $index->getLastModified($pathname);
@@ -140,7 +141,7 @@ if (substr($pathname, -1) == '/') {
     }
 
     if (!empty($conf['options']['use_show_var'])) {
-        Horde::addScriptFile('show_var.js', 'luxor', true);
+        $page_output->addScriptFile('show_var.js');
     }
 }
 

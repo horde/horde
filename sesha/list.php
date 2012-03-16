@@ -71,8 +71,9 @@ try {
 require $registry->get('templates', 'horde') . '/common-header.inc';
 require SESHA_TEMPLATES . '/menu.inc';
 
-Horde::addScriptFile('prototype.js', 'horde', true);
-Horde::addScriptFile('tables.js', 'horde', true);
+$page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+$page_output->addScriptFile('prototype.js', 'horde');
+$page_output->addScriptFile('tables.js', 'horde');
 
 $sortby = $prefs->getValue('sortby');
 $sortdir = $prefs->getValue('sortdir');

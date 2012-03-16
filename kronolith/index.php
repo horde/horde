@@ -148,7 +148,9 @@ if ($conf['maps']['driver']) {
 $injector->getInstance('Kronolith_Ajax')->header();
 
 require KRONOLITH_TEMPLATES . '/index/index.inc';
-Horde::includeScriptFiles();
-Horde::outputInlineScript();
+
+$page_output = $injector->getInstance('Horde_PageOutput');
+$page_output->includeScriptFiles();
+$page_output->outputInlineScript();
 
 echo "</body>\n</html>";

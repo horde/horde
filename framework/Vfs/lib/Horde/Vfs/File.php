@@ -463,7 +463,7 @@ class Horde_Vfs_File extends Horde_Vfs_Base
 
             // Group
             $file['group'] = filegroup($entry);
-            if (function_exists('posix_getgrgid') && (PHP_VERSION != '5.2.1')) {
+            if (function_exists('posix_getgrgid')) {
                 $group = posix_getgrgid($file['group']);
                 $file['group'] = $group['name'];
             }

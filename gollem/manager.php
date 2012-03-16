@@ -228,23 +228,25 @@ try {
 $numitem = count($list);
 $title = Gollem::$backend['label'];
 
-/* Init some form vars. */
-if ($session->get('gollem', 'filter') != $vars->filter) {
-    $page = 0;
-} else {
-    $page = $vars->get('page', 0);
-}
-$session->set('gollem', 'filter', strval($vars->filter));
-
 /* Commonly used URLs. */
 $view_url = Horde::url('view.php');
 $edit_url = Horde::url('edit.php');
 $manager_url = Horde::url('manager.php');
 
 $refresh_url = Horde::selfUrl(true, true);
-if ($vars->filter) {
-    $refresh_url->add('filter', $vars->filter);
+
+/* Init some form vars. */
+if ($session->get('gollem', 'filter') != $vars->filter) {
+    if (strlen($vars->filter)) {
+        $refresh_url->add('filter', $vars->filter);
+    } else {
+        $refresh_url->remove('filter');
+    }
+    $page = 0;
+} else {
+    $page = $vars->get('page', 0);
 }
+$session->set('gollem', 'filter', strval($vars->filter));
 
 /* Get the list of copy/cut files in this directory. */
 $clipboard_files = array();
@@ -347,7 +349,6 @@ if (is_array($list) && $numitem && $read_perms) {
 
         $item = array(
             'date' => htmlspecialchars(strftime($prefs->getValue('date_format'), $val['date'])),
-            'date_sort' => intval($val['date']),
             'dl' => false,
             'edit' => false,
             'group' => empty($val['group']) ? '-' : htmlspecialchars($val['group']),
@@ -356,8 +357,7 @@ if (is_array($list) && $numitem && $read_perms) {
             'owner' => empty($val['owner']) ? '-' : htmlspecialchars($val['owner']),
             'perms' => empty($val['perms']) ? '-' : htmlspecialchars($val['perms']),
             'size' => ($val['type'] == '**dir') ? '-' : number_format($val['size'], 0, '.', ','),
-            'type' => htmlspecialchars($val['type']),
-            'type_sort' => ($val['type'] == '**dir') ? '' : htmlspecialchars($val['type']),
+            'type' => htmlspecialchars($val['type'])
         );
 
         $name = str_replace(' ', '&nbsp;', $item['name']);
@@ -486,14 +486,12 @@ if (is_array($list) && $numitem && $read_perms) {
             $hdr['width'] = '1%';
             $hdr['label'] = '&nbsp;';
             $hdr['align'] = 'center';
-            $hdr['class'] = 'nosort';
             break;
 
         case 'download':
             $hdr['width'] = '1%';
             $hdr['label'] = '&nbsp;';
             $hdr['align'] = 'center';
-            $hdr['class'] = 'nosort';
             break;
 
         case 'modified':
@@ -516,29 +514,29 @@ if (is_array($list) && $numitem && $read_perms) {
             $hdr['width'] = '7%';
             $hdr['label'] = _("Permission");
             $hdr['align'] = 'right';
-            $hdr['class'] = 'nosort';
             break;
 
         case 'owner':
             $hdr['width'] = '7%';
             $hdr['label'] = _("Owner");
             $hdr['align'] = 'right';
-            $hdr['class'] = 'nosort';
             break;
 
         case 'group':
             $hdr['width'] = '7%';
             $hdr['label'] = _("Group");
             $hdr['align'] = 'right';
-            $hdr['class'] = 'nosort';
             break;
         }
 
         if ($sort !== null) {
             if ($sortby == $sort) {
                 $hdr['class'] = ($sortdir ? 'sortup' : 'sortdown');
+                $params = array('actionID' => 'change_sortdir', 'sortdir' => 1 - $sortdir);
+            } else {
+                $params = array('actionID' => 'change_sortby', 'sortby' => $sort);
             }
-            $hdr['label'] = '<a href="' . $refresh_url->copy()->add(array('actionID' => 'change_sortby', 'sortby' => $sort)) . '" class="sortlink">' . htmlspecialchars($hdr['label']) . '</a>';
+            $hdr['label'] = '<a href="' . Horde::selfUrl()->add($params) . '" class="sortlink">' . htmlspecialchars($hdr['label']) . '</a>';
         }
 
         $headers[] = $hdr;
@@ -555,9 +553,13 @@ if (is_array($list) && $numitem && $read_perms) {
 }
 $template->set('itemcount', sprintf(ngettext(_("%d item"), _("%d items"), $total), $total));
 
-Horde::addScriptFile('manager.js', 'gollem');
-Horde::addScriptFile('tables.js', 'horde');
-Horde::addInlineJsVars(array(
+$page_output = $injector->getInstance('Horde_PageOutput');
+$page_output->addScriptFile('effects.js', 'horde');
+$page_output->addScriptFile('redbox.js', 'horde');
+$page_output->addScriptFile('dialog.js', 'horde');
+$page_output->addScriptFile('tables.js', 'horde');
+$page_output->addScriptFile('manager.js');
+$page_output->addInlineJsVars(array(
     '-warn_recursive' => intval($prefs->getValue('recursive_deletes') == 'warn')
 ));
 

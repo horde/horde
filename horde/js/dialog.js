@@ -6,18 +6,25 @@
  * HordeDialog.display({
  *     // [REQUIRED] Cancel text
  *     cancel_text: '',
+ *     // Any DOM or HTML to be added to the form instead of the default INPUT
+ *     // element
  *     form: '',
  *     // The ID for the form
  *     form_id: 'RB_confirm',
+ *     // Additional FORM attributes
  *     form_opts: {},
+ *     // Default value for the INPUT element
  *     input_val: '',
+ *     // Don't insert the default INPUT element
  *     noinput: false,
  *     // OK text.
  *     ok_text: '',
  *     password: '',
  *     reloadurl: '',
  *     submit_handler: false,
- *     // [REQUIRED] The text to display at top of dialog box
+ *     // The header to display at top of dialog box
+ *     header: '',
+ *     // The text to display at top of dialog box
  *     text: '',
  *
  *     // If these are set, an AJAX action (to 'uri') will be initiated if the
@@ -74,9 +81,13 @@ var HordeDialog = {
             id: data.form_id || 'RB_confirm'
         }, data.form_opts);
 
-        var n = new Element('FORM', data.form_opts).insert(
-            new Element('P').insert(data.text)
-        );
+        var n = new Element('FORM', data.form_opts);
+        if (data.header) {
+            n.insert(new Element('H2').insert(data.header));
+        }
+        if (data.text) {
+            n.insert(new Element('P').insert(data.text));
+        }
 
         delete RedBox.onDisplay;
 

@@ -114,8 +114,7 @@ a.button {
 .rowOdd {
     background-color: #fff;
 }
-
-.selected {
+.selected, .striped.hover .rowEven:hover, .striped.hover .rowOdd:hover {
     background: #ccc;
 }
 

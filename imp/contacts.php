@@ -87,8 +87,9 @@ $template->set('to_only', intval($vars->to_only));
 $template->set('sa', $selected_addresses);
 
 /* Display the form. */
-Horde::addScriptFile('contacts.js', 'imp');
-Horde::addInlineJsVars(array(
+$page_output = $injector->getInstance('Horde_PageOutput');
+$page_output->addScriptFile('contacts.js');
+$page_output->addInlineJsVars(array(
     'ImpContacts.text' => array(
         'closed' => _("The message being composed has been closed."),
         'select' => _("You must select an address first.")

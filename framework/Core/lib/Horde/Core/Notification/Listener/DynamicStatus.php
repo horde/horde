@@ -29,9 +29,9 @@ class Horde_Core_Notification_Listener_DynamicStatus extends Horde_Notification_
     {
         if (!empty($events)) {
             $GLOBALS['injector']->getInstance('Horde_Core_Ajax')->initGrowler();
-            Horde::addInlineScript(array(
+            $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineScript(array(
                 'if (window.HordeCore || parent.HordeCore) { (window.HordeCore || parent.HordeCore).showNotifications(' . Horde_Serialize::serialize($events, Horde_Serialize::JSON) . ') }'
-            ), 'dom');
+            ), true);
         }
     }
 

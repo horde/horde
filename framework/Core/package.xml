@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-03-08</date>
- <time>02:29:51</time>
+ <date>2012-03-14</date>
+ <time>16:59:39</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Added Horde_PageOutput.
 * [mms] Added Horde_Core_Ajax_Imple_ContactAutoCompleter.
 * [mjr] Use local member storage when no session is available (Bug # 9733).
 * [mms] Added AJAX core features.
@@ -349,6 +350,7 @@
      <file name="ErrorHandler.php" role="php" />
      <file name="Help.php" role="php" />
      <file name="Menu.php" role="php" />
+     <file name="PageOutput.php" role="php" />
      <file name="Registry.php" role="php" />
      <file name="Session.php" role="php" />
      <file name="Themes.php" role="php" />
@@ -634,7 +636,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -684,9 +686,9 @@
    <package>
     <name>Horde_Cli</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0alpha1</min>
+    <max>3.0.0</max>
+    <exclude>3.0.0</exclude>
    </package>
    <package>
     <name>Horde_Compress</name>
@@ -1106,6 +1108,7 @@
    <install as="Horde/ErrorHandler.php" name="lib/Horde/ErrorHandler.php" />
    <install as="Horde/Help.php" name="lib/Horde/Help.php" />
    <install as="Horde/Menu.php" name="lib/Horde/Menu.php" />
+   <install as="Horde/PageOutput.php" name="lib/Horde/PageOutput.php" />
    <install as="Horde/Registry.php" name="lib/Horde/Registry.php" />
    <install as="Horde/Session.php" name="lib/Horde/Session.php" />
    <install as="Horde/Themes.php" name="lib/Horde/Themes.php" />

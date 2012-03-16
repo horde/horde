@@ -17,7 +17,7 @@ require_once PEAR_Config::singleton()
     ->get('horde_dir', null, 'pear.horde.org') . '/lib/Application.php';
 
 // Load the CLI environment.
-$cli = new Horde_Core_Cli();
+$cli = Horde_Core_Cli::init();
 if (!$cli->runningFromCLI()) {
     $cli->fatal('This script must be run from the command line.');
 }

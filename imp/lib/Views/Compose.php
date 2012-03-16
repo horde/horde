@@ -114,7 +114,7 @@ class IMP_Views_Compose
                         }
                         $flist[] = $tmp;
                     }
-                    $result['js'] = array_merge($result['js'], Horde::addInlineJsVars(array(
+                    $result['js'] = array_merge($result['js'], $injector->getInstance('Horde_PageOutput')->addInlineJsVars(array(
                         'DIMP.conf.flist' => $flist
                     ), array('ret_vars' => true)));
                 }
@@ -174,7 +174,7 @@ class IMP_Views_Compose
                 $t->set('save_attach_set', strpos($save_attach, 'yes') !== false);
             }
         } else {
-            $result['js'] = array_merge($result['js'], Horde::addInlineJsVars(array(
+            $result['js'] = array_merge($result['js'], $injector->getInstance('Horde_PageOutput')->addInlineJsVars(array(
                 '-DIMP.conf.redirect' => 1
             ), array('ret_vars' => true)));
         }

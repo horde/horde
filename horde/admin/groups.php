@@ -122,9 +122,9 @@ case 'editform':
 
 switch ($form) {
 case 'addchild.inc':
-    Horde::addInlineScript(array(
+    $injector->getInstance('Horde_PageOutput')->addInlineScript(array(
         '$("child").focus()'
-    ), 'dom');
+    ), true);
     break;
 
 case 'edit.inc':

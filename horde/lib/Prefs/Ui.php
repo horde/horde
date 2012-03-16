@@ -81,7 +81,7 @@ class Horde_Prefs_Ui
                 break;
 
             case 'remotemanagement':
-                Horde::addScriptFile('rpcprefs.js', 'horde');
+                $injector->getInstance('Horde_PageOutput')->addScriptFile('rpcprefs.js', 'horde');
                 $ui->nobuttons = true;
                 break;
 
@@ -195,9 +195,10 @@ class Horde_Prefs_Ui
      */
     protected function _categoryManagement($ui)
     {
-        Horde::addScriptFile('categoryprefs.js', 'horde');
-        Horde::addScriptFile('colorpicker.js', 'horde');
-        Horde::addInlineJsVars(array(
+        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        $page_output->addScriptFile('categoryprefs.js', 'horde');
+        $page_output->addScriptFile('colorpicker.js', 'horde');
+        $page_output->addInlineJsVars(array(
             'HordeCategoryPrefs.category_text' => _("Enter a name for the new category:")
         ));
 
@@ -288,7 +289,7 @@ class Horde_Prefs_Ui
             );
         }
 
-        Horde::addInlineJsVars(array(
+        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineJsVars(array(
             'HordeRpcPrefs.servers' => $js
         ));
 
@@ -313,7 +314,7 @@ class Horde_Prefs_Ui
      */
     protected function _syncmlManagement($ui)
     {
-        Horde::addScriptFile('syncmlprefs.js', 'horde');
+        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('syncmlprefs.js', 'horde');
         $devices = Horde_SyncMl_Backend::factory('Horde')->getUserAnchors($GLOBALS['registry']->getAuth());
 
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
@@ -362,8 +363,9 @@ class Horde_Prefs_Ui
             );
         }
 
-        Horde::addScriptFile('activesyncprefs.js', 'horde');
-        Horde::addInlineJsVars(array(
+        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        $page_output->addScriptFile('activesyncprefs.js', 'horde');
+        $page_output->addInlineJsVars(array(
             'HordeActiveSyncPrefs.devices' => $js
         ));
 
@@ -428,7 +430,8 @@ class Horde_Prefs_Ui
             return $e->getMessage();
         }
 
-        $GLOBALS['injector']->getInstance('Horde_Themes_Css')->addThemeStylesheet('facebook.css');
+        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addThemeStylesheet('facebook.css');
+
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->setOption('gettext', true);
         $t->set('app_name', $GLOBALS['registry']->get('name', 'horde'));
@@ -600,7 +603,7 @@ class Horde_Prefs_Ui
 
         default:
             /* Save button. */
-            Horde::addInlineScript(array(
+            $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineScript(array(
                 'if (window.opener && window.name) window.close();'
             ));
             return true;

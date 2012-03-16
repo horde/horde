@@ -93,21 +93,23 @@ if ($search_mode == 'basic') {
     }
 }
 
+$page_output = $injector->getInstance('Horde_PageOutput');
+
 if ($search_mode == 'basic') {
-    Horde::addInlineScript(array(
+    $page_output->addInlineScript(array(
         '$("pattern_title").focus()'
-    ), 'dom');
+    ), true);
 } else {
-    Horde::addInlineScript(array(
+    $page_output->addInlineScript(array(
         '$("title").focus()'
-    ), 'dom');
+    ), true);
     Horde_Core_Ui_JsCalendar::init(array('full_weekdays' => true));
-    Horde::addScriptFile('edit.js', 'kronolith');
+    $page_output->addScriptFile('edit.js');
 }
 
 $menu = Horde::menu();
 $title = _("Search");
-Horde::addScriptFile('tooltips.js', 'horde');
+$page_output->addScriptFile('tooltips.js', 'horde');
 require $registry->get('templates', 'horde') . '/common-header.inc';
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
 echo $menu;

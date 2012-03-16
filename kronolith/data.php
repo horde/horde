@@ -227,6 +227,8 @@ if (!$error && $import_format) {
     }
 }
 
+$page_output = $injector->getInstance('Horde_PageOutput');
+
 /* We have a final result set. */
 if (is_array($next_step)) {
     $events = array();
@@ -326,8 +328,8 @@ if (is_array($next_step)) {
         $notification->push(sprintf(_("%s file successfully imported"),
                                     $file_types[$session->get('horde', 'import_data/format')]), 'horde.success');
         if (Horde_Util::getFormData('import_ajax')) {
-            Horde::includeScriptFiles();
-            Horde::addInlineScript('(function(window){window.KronolithCore.loading--;if(!window.KronolithCore.loading)window.$(\'kronolithLoading\').hide();window.KronolithCore.loadCalendar(\'' . $type . '\', \'' . $calendar . '\');})(window.parent)');
+            $page_output->includeScriptFiles();
+            $page_output->addInlineScript('(function(window){window.KronolithCore.loading--;if(!window.KronolithCore.loading)window.$(\'kronolithLoading\').hide();window.KronolithCore.loadCalendar(\'' . $type . '\', \'' . $calendar . '\');})(window.parent)');
         }
     }
     $next_step = $data->cleanup();
@@ -335,8 +337,8 @@ if (is_array($next_step)) {
 
 if (Horde_Util::getFormData('import_ajax')) {
     new Horde_Core_Ajax_Response_Notifications();
-    Horde::addInlineScript('window.parent.$(window.name).remove();');
-    Horde::outputInlineScript();
+    $page_output->addInlineScript('window.parent.$(window.name).remove();');
+    $page_output->outputInlineScript();
     exit;
 }
 

@@ -1210,7 +1210,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
     /**
      * Create the base Horde_Mime_Part for sending.
      *
-     * @param Horde_Imap_Rfc822_List $to  The recipient list.
+     * @param Horde_Mail_Rfc822_List $to  The recipient list.
      * @param string $body                Message body.
      * @param array $options              Additional options:
      *   - encrypt: (integer) The encryption flag.
@@ -1227,7 +1227,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
      * @throws Horde_Exception
      * @throws IMP_Compose_Exception
      */
-    protected function _createMimeMessage(Horde_Imap_Rfc822_List $to, $body,
+    protected function _createMimeMessage(Horde_Mail_Rfc822_List $to, $body,
                                           array $options = array())
     {
         $body = Horde_String::convertCharset($body, 'UTF-8', $this->charset);

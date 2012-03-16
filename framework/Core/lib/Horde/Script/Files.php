@@ -1,8 +1,7 @@
 <?php
 /**
- * The Horde_Script_Files:: class provides a coherent way to manage script
- * files for inclusion in Horde output.  This class is meant to be used
- * internally by Horde:: only.
+ * This class provides a centralized location to manage javascript files
+ * needed for inclusion in Horde output.
  *
  * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
@@ -11,6 +10,7 @@
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Core
  */
 class Horde_Script_Files
@@ -122,7 +122,7 @@ class Horde_Script_Files
 
         // Add localized string for popup.js
         if (($file == 'popup.js') && ($app == 'horde')) {
-            Horde::addInlineJsVars(array(
+            $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineJsVars(array(
                 'Horde.popup_block_text' => Horde_Core_Translation::t("A popup window could not be opened. Your browser may be blocking popups.")
             ), array('onload' => 'dom'));
         }

@@ -55,17 +55,18 @@ class IMP_Ajax_Imple_ImageUnblock extends Horde_Core_Ajax_Imple
             $js_params = array_merge($js_params, $sid);
         }
 
-        if (self::$_unblockId == 1) {
-            Horde::addScriptFile('imageunblock.js', 'imp');
+        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
 
-            Horde::addInlineJsVars(array(
+        if (self::$_unblockId == 1) {
+            $page_output->addScriptFile('imageunblock.js');
+            $page_output->addInlineJsVars(array(
                 'IMPImageUnblock.uri' => strval($this->_getUrl('ImageUnblock', 'imp', array('sessionWrite' => 1)))
-            ), array('onload' => 'dom'));
+            ), array('onload' => true));
         }
 
-        Horde::addInlineJsVars(array(
+        $page_output->addInlineJsVars(array(
             'IMPImageUnblock.handles[' . Horde_Serialize::serialize($this->getDomId(), Horde_Serialize::JSON) . ']' => $js_params
-        ), array('onload' => 'dom'));
+        ), array('onload' => true));
     }
 
     /**

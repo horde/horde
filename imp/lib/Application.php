@@ -91,6 +91,7 @@ class IMP_Application extends Horde_Registry_Application
             'IMP_Identity' => 'IMP_Factory_Identity',
             'IMP_Imap_Tree' => 'IMP_Factory_Imaptree',
             'IMP_Mail' => 'IMP_Factory_Mail',
+            'IMP_Prefs_Sort' => 'IMP_Factory_PrefsSort',
             'IMP_Quota' => 'IMP_Factory_Quota',
             'IMP_Search' => 'IMP_Factory_Search',
             'IMP_Sentmail' => 'IMP_Factory_Sentmail'
@@ -593,13 +594,15 @@ class IMP_Application extends Horde_Registry_Application
      */
     public function mobileInitCallback()
     {
-        Horde::addScriptFile('mobile.js');
+        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        $page_output->addScriptFile('mobile.js');
+
         require IMP_TEMPLATES . '/mobile/javascript_defs.php';
 
         $GLOBALS['notification']->notify(array('listeners' => 'status'));
 
         /* Inline script. */
-        Horde::addInlineScript(
+        $page_output->addInlineScript(
 '$(window.document).bind("mobileinit", function() {
     $.mobile.page.prototype.options.addBackBtn = true;
     $.mobile.page.prototype.options.backBtnText = "' . _("Back") .'";

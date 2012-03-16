@@ -127,9 +127,11 @@ class Ansel_View_GalleryProperties
                 }';
             $js[] = '$("background_color").observe("change", checkStyleSelection); $("thumbnail_style").observe("change", checkStyleSelection);';
         }
-        Horde::addInlineScript($js, 'dom');
-        Horde::addScriptFile('stripe.js', 'horde');
-        Horde::addScriptFile('popup.js', 'horde');
+
+        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        $page_output->addInlineScript($js, true);
+        $page_output->addScriptFile('stripe.js', 'horde');
+        $page_output->addScriptFile('popup.js', 'horde');
 
         /* Attach the slug check action to the form */
         $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('ansel', 'GallerySlugCheck'), array(

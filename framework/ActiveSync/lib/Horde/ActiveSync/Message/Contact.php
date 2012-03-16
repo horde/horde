@@ -10,11 +10,6 @@
  */
 class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
 {
-    /* Workaround for issues with arrays from __get() */
-    public $categories    = array();
-    public $children      = array();
-    public $bodytruncated = 0;
-
     /* POOMCONTACTS */
     const ANNIVERSARY           = "POOMCONTACTS:Anniversary";
     const ASSISTANTNAME         = "POOMCONTACTS:AssistantName";
@@ -161,7 +156,7 @@ class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
             'birthday'              => false,
             'body'                  => false,
             'bodysize'              => false,
-            'bodytruncated'         => false,
+            'bodytruncated'         => 0,
             'business2phonenumber'  => false,
             'businesscity'          => false,
             'businesscountry'       => false,
@@ -171,7 +166,8 @@ class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
             'businessfaxnumber'     => false,
             'businessphonenumber'   => false,
             'carphonenumber'        => false,
-            'children'              => false,
+            'categories'            => array(),
+            'children'              => array(),
             'companyname'           => false,
             'department'            => false,
             'email1address'         => false,

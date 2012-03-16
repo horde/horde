@@ -248,6 +248,7 @@ var DimpCompose = {
                         HordeCore.notify_handler = HordeCore.base.HordeCore.showNotifications.bind(HordeCore.base.HordeCore);
                     }
                     if (DIMP.conf.close_draft) {
+                        $('attach_list').childElements().invoke('remove');
                         return this.closeCompose();
                     }
                 }
@@ -282,6 +283,8 @@ var DimpCompose = {
                         HordeCore.notify_handler = HordeCore.base.HordeCore.showNotifications.bind(HordeCore.base.HordeCore);
                     }
                 }
+
+                $('attach_list').childElements().invoke('remove');
                 return this.closeCompose();
 
             case 'redirectMessage':
@@ -299,6 +302,8 @@ var DimpCompose = {
                         HordeCore.notify_handler = HordeCore.base.HordeCore.showNotifications.bind(HordeCore.base.HordeCore);
                     }
                 }
+
+                $('attach_list').childElements().invoke('remove');
                 return this.closeCompose();
 
             case 'addAttachment':
@@ -739,6 +744,7 @@ var DimpCompose = {
     removeAttach: function(e)
     {
         var ids = [];
+
         e.each(function(n) {
             n = $(n);
             ids.push(n.retrieve('atc_id'));
@@ -751,9 +757,11 @@ var DimpCompose = {
                 duration: 0.4
             });
         }, this);
+
         if (!$('attach_list').childElements().size()) {
             $('attach_list').hide();
         }
+
         DimpCore.doAction('deleteAttach', { atc_indices: Object.toJSON(ids), imp_compose: $F('composeCache') });
     },
 

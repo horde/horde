@@ -26,7 +26,7 @@ class Horde_Crypt_PgpTest extends PHPUnit_Framework_TestCase
 
         $this->_pgp = Horde_Crypt::factory('Pgp', array(
             'program' => '/usr/bin/gpg',
-            'temp' => Horde_Util::getTempDir()
+            'temp' => sys_get_temp_dir()
         ));
 
         $this->_privkey = file_get_contents(dirname(__FILE__) . '/fixtures/pgp_private.asc');

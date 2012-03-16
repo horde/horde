@@ -30,7 +30,8 @@ function _renderSidebar()
             ? $sidebar->getBaseTree()
             : $sidebar->getTree();
 
-        Horde::addScriptFile('sidebar.js', 'horde');
+        $page_output = $injector->getInstance('Horde_PageOutput');
+        $page_output->addScriptFile('sidebar.js', 'horde');
 
         $ajax_url = Horde::getServiceLink('ajax', 'horde');
         $ajax_url->pathInfo = 'sidebarUpdate';
@@ -40,7 +41,7 @@ function _renderSidebar()
         $width = intval($prefs->getValue('sidebar_width'));
 
         if ($is_js) {
-            Horde::addInlineJsVars(array(
+            $page_output->addInlineJsVars(array(
                 'HordeSidebar.domain' => $conf['cookie']['domain'],
                 'HordeSidebar.path' => $conf['cookie']['path'],
                 '-HordeSidebar.refresh' => intval($prefs->getValue('menu_refresh_time')),

@@ -82,7 +82,7 @@ if ($stats['numcalls'] > $GLOBALS['conf']['storage']['searchlimit']) {
 }
 
 $title = _("Search Call Detail Records");
-Horde::addScriptFile('stripe.js', 'horde', true);
+$injector->getInstance('Horde_PageOutput')->addScriptFile('stripe.js', 'horde');
 
 require $registry->get('templates', 'horde') . '/common-header.inc';
 require OPERATOR_TEMPLATES . '/menu.inc';

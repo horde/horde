@@ -79,7 +79,7 @@ class IMP_Ui_Editor
             $config[] = 'toolbar: ' . $prefs->getValue('ckeditor_buttons');
         }
 
-        Horde::addInlineScript(array(
+        $injector->getInstance('Horde_PageOutput')->addInlineScript(array(
             'window.IMP = window.IMP || {}',
             'IMP.ckeditor_config = {' . implode(',', $config) . '}'
         ));

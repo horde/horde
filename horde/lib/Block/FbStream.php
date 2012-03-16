@@ -99,8 +99,9 @@ class Horde_Block_FbStream extends Horde_Core_Block
         $fbp = unserialize($GLOBALS['prefs']->getValue('facebook'));
 
         /* Add the client javascript / initialize it */
-        $GLOBALS['injector']->getInstance('Horde_Themes_Css')->addThemeStylesheet('facebook.css');
-        Horde::addScriptFile('facebookclient.js');
+        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        $page_output->addThemeStylesheet('facebook.css');
+        $page_output->addScriptFile('facebookclient.js');
         $script = <<<EOT
             var Horde = window.Horde || {};
             Horde['{$instance}_facebook'] = new Horde_Facebook({
@@ -117,7 +118,7 @@ class Horde_Block_FbStream extends Horde_Core_Block
                'count': '{$this->_params['count']}'
             });
 EOT;
-        Horde::addInlineScript($script, 'dom');
+        $page_output->addInlineScript($script, true);
 
         /* Build the UI */
         $html .= '<div style="padding: 8px 8px 0 8px">';

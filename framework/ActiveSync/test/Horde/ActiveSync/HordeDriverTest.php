@@ -134,9 +134,7 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
         $event = new Horde_ActiveSync_Message_Appointment();
         $task = new Horde_ActiveSync_Message_Task();
 
-        if (version_compare(PHP_VERSION, '5.3.0', '>=')) {
-            error_reporting(E_ALL & ~E_DEPRECATED);
-        }
+        error_reporting(E_ALL & ~E_DEPRECATED);
 
         /* Mock the registry connector */
         $connector = $this->getMockSkipConstructor('Horde_ActiveSync_Driver_Horde_Connector_Registry');

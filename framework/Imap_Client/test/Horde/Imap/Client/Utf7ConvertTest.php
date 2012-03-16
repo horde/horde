@@ -75,21 +75,21 @@ class Horde_Imap_Client_Utf7ConvertTest extends PHPUnit_Framework_TestCase
         );
 
         $orig = '&-';
-        $utf7_imap = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($orig);
+        $utf7_imap = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($orig, false);
         $this->assertEquals(
             '&-',
             $utf7_imap
         );
 
         $orig = 'Envoy&AOk-';
-        $utf7_imap = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($orig);
+        $utf7_imap = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($orig, false);
         $this->assertEquals(
             'Envoy&AOk-',
             $utf7_imap
         );
 
         $orig = 'T&APY-st-';
-        $utf7_imap = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($orig);
+        $utf7_imap = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($orig, false);
         $this->assertEquals(
             'T&APY-st-',
             $utf7_imap
@@ -98,7 +98,7 @@ class Horde_Imap_Client_Utf7ConvertTest extends PHPUnit_Framework_TestCase
         // Bug #10133
         $orig = 'Entw&APw-rfe';
 
-        $utf7_imap = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($orig);
+        $utf7_imap = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($orig, false);
         $this->assertEquals(
             $orig,
             $utf7_imap

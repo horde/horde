@@ -57,7 +57,7 @@ class Turba_Block_Minisearch extends Horde_Core_Block
             ? implode(';', array_keys($this->_options))
             : implode(';', $this->_params['addressbooks']);
 
-        Horde::addScriptFile('minisearch.js', 'turba');
+        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('minisearch.js');
 
         Horde::startBuffer();
         include TURBA_TEMPLATES . '/block/minisearch.inc';

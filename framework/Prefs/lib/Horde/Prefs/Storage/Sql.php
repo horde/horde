@@ -90,6 +90,10 @@ class Horde_Prefs_Storage_Sql extends Horde_Prefs_Storage_Base
      */
     public function store($scope_ob)
     {
+        if (!$this->_db->isActive()) {
+            $this->_db->reconnect();
+        }
+
         $charset = $this->_db->getOption('charset');
 
         // For each preference, check for an existing table row and

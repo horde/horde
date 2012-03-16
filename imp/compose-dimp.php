@@ -299,13 +299,14 @@ $compose_result = IMP_Views_Compose::showCompose(array(
 
 $t->set('compose_html', $compose_result['html']);
 
-Horde::addInlineJsVars($js);
-Horde::addInlineScript($compose_result['js']);
+$page_output = $injector->getInstance('Horde_PageOutput');
+$page_output->addInlineJsVars($js);
+$page_output->addInlineScript($compose_result['js']);
 
 if ($vars->type != 'redirect') {
     $compose_result['jsonload'][] = 'DimpCompose.fillForm(' . Horde_Serialize::serialize($msg, Horde_Serialize::JSON) . ',' . Horde_Serialize::serialize($header, Horde_Serialize::JSON) . ',' . Horde_Serialize::serialize($fillform_opts, Horde_Serialize::JSON) . ')';
 }
-Horde::addInlineScript($compose_result['jsonload'], 'dom');
+$page_output->addInlineScript($compose_result['jsonload'], true);
 
 Horde::startBuffer();
 IMP::status();
@@ -314,8 +315,8 @@ $t->set('status', Horde::endBuffer());
 $injector->getInstance('IMP_Ajax')->header('compose', $title);
 
 Horde::startBuffer();
-Horde::includeScriptFiles();
-Horde::outputInlineScript();
+$page_output->includeScriptFiles();
+$page_output->outputInlineScript();
 $t->set('script', Horde::endBuffer());
 
 echo $t->fetch(IMP_TEMPLATES . '/dimp/compose/compose-base.html');

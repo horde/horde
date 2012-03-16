@@ -578,16 +578,16 @@ class Whups_Ticket
     }
 
     /**
-     * Returns a <link> tag for this ticket's feed.
+     * Returns <link> data for this ticket's feed.
      *
-     * @return string  A full <link> tag.
+     * @return array  Link data.
      */
     public function feedLink()
     {
-        return '<link rel="alternate" type="application/rss+xml" title="'
-            . htmlspecialchars('[#' . $this->getId() . '] ' . $this->get('summary'))
-            . '" href="' . Whups::urlFor('ticket_rss', $this->getId(), true, -1)
-            . '" />';
+        return array(
+            'href' => Whups::urlFor('ticket_rss', $this->getId(), true, -1),
+            'title' => '[#' . $this->getId() . '] ' . $this->get('summary')
+        );
     }
 
     /**

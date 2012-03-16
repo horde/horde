@@ -351,6 +351,8 @@ if ($reason) {
     $notification->push(str_replace('<br />', ' ', $reason), 'horde.message');
 }
 
+$page_output = $injector->getInstance('Horde_PageOutput');
+
 if ($browser->isMobile() &&
     (!isset($conf['user']['force_view']) ||
      ($conf['user']['force_view'] != 'traditional' &&
@@ -374,7 +376,7 @@ if ($browser->isMobile() &&
     /* Show notifications. */
     $response = new Horde_Core_Ajax_Response_Notifications();
     if ($json_notify = $response->jsonData()) {
-        Horde::addInlineScript(
+        $page_output->addInlineScript(
             'window.setTimeout(function(){HordeMobile.showNotifications('
             . Horde_Serialize::serialize($json_notify, Horde_Serialize::JSON)
             . ');},0);');
@@ -388,11 +390,11 @@ if ($browser->isMobile() &&
 
 if (!empty($js_files)) {
     foreach ($js_files as $val) {
-        Horde::addScriptFile($val[0], $val[1]);
+        $page_output->addScriptFile($val[0], $val[1]);
     }
 }
 
-Horde::addInlineJsVars($js_code);
+$page_output->addInlineJsVars($js_code);
 $bodyClass = 'modal-form';
 require $registry->get('templates', 'horde') . '/common-header.inc';
 require $registry->get('templates', 'horde') . '/login/login.inc';

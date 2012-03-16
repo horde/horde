@@ -83,8 +83,10 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
 
         // Setup map and javascript includes
         Ansel::initHordeMap($GLOBALS['conf']['maps']);
-        Horde::addScriptFile('popup.js', 'horde');
-        Horde::addScriptFile('widgets/geotag.js');
+
+        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        $page_output->addScriptFile('popup.js', 'horde');
+        $page_output->addScriptFile('widgets/geotag.js');
 
         // Values needed by map javascript
         $url = Horde::url('map_edit.php', true);

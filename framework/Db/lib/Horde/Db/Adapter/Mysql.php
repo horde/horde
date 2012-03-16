@@ -122,7 +122,7 @@ class Horde_Db_Adapter_Mysql extends Horde_Db_Adapter_Base
      */
     public function isActive()
     {
-        return isset($this->_connection) && mysql_ping($this->_connection);
+        return isset($this->_connection) && @mysql_ping($this->_connection);
     }
 
 

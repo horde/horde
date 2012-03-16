@@ -2,12 +2,15 @@
 v3.0-git
 --------
 
+[jan] Fix sorting if using a pager.
+[jan] Use standard Horde dialogs.
 
 
 ----------
 v2.0.2-git
 ----------
 
+[jan] Fix removing filter (Bug #11043).
 [jan] Update Japanese translation (Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>).
 
 

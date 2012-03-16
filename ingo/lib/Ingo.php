@@ -73,8 +73,9 @@ class Ingo
                     );
                 }
 
-                Horde::addScriptFile('new_folder.js', 'ingo');
-                Horde::addInlineJsVars(array(
+                $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+                $page_output->addScriptFile('new_folder.js');
+                $page_output->addInlineJsVars(array(
                     'IngoNewFolder.folderprompt' => _("Please enter the name of the new folder:")
                 ));
 

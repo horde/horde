@@ -125,10 +125,12 @@ $datejs = str_replace('_', '-', $GLOBALS['language']) . '.js';
 if (!file_exists($GLOBALS['registry']->get('jsfs', 'horde') . '/date/' . $datejs)) {
     $datejs = 'en-US.js';
 }
-Horde::addScriptFile('date/' . $datejs, 'horde');
-Horde::addScriptFile('date/date.js', 'horde');
-Horde::addScriptFile('keynavlist.js', 'horde');
-Horde::addScriptFile('task.js', 'nag');
+
+$page_output = $injector->getInstance('Horde_PageOutput');
+$page_output->addScriptFile('date/' . $datejs, 'horde');
+$page_output->addScriptFile('date/date.js', 'horde');
+$page_output->addScriptFile('keynavlist.js', 'horde');
+$page_output->addScriptFile('task.js');
 
 $title = $form->getTitle();
 require $registry->get('templates', 'horde') . '/common-header.inc';

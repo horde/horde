@@ -384,7 +384,7 @@ class IMP
         $t->set('forminput', Horde_Util::formInput());
         $t->set('use_folders', $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS), true);
         if ($t->get('use_folders')) {
-            Horde::addScriptFile('imp.js', 'imp');
+            $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('imp.js');
             $menu_view = $GLOBALS['prefs']->getValue('menu_view');
             $ak = $GLOBALS['prefs']->getValue('widget_accesskey')
                 ? Horde::getAccessKey(_("Open Fo_lder"))

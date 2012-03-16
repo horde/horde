@@ -12,16 +12,15 @@ class Ansel_Ajax_Imple_GallerySlugCheck extends Horde_Core_Ajax_Imple
 {
     public function attach()
     {
-        // Include the js
-        Horde::addScriptFile('slugcheck.js');
+        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        $page_output->addScriptFile('slugcheck.js');
 
         $url = $this->_getUrl('GallerySlugCheck', 'ansel', array('input' => 'slug'));
 
-        $js = array();
-        $js[] = "Ansel.ajax['gallerySlugCheck'] = {slugText:'" . $this->_params['slug'] . "', 'url': '" . $url . "', bindTo: '" . $this->_params['bindTo'] . "'};";
-        $js[] = "Event.observe(Ansel.ajax.gallerySlugCheck.bindTo, 'change', checkSlug);";
-
-        Horde::addInlineScript($js, 'dom');
+        $page_output->addInlineScript(array(
+            "Ansel.ajax['gallerySlugCheck'] = {slugText:'" . $this->_params['slug'] . "', 'url': '" . $url . "', bindTo: '" . $this->_params['bindTo'] . "'};",
+            "Event.observe(Ansel.ajax.gallerySlugCheck.bindTo, 'change', checkSlug);"
+        ), true);
     }
 
     public function handle($args, $post)

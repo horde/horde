@@ -35,7 +35,7 @@ $application = Horde_Util::getFormData('app', 'horde');
 $command = trim(Horde_Util::getFormData('php'));
 
 $title = _("PHP Shell");
-Horde::addScriptFile('stripe.js', 'horde');
+$injector->getInstance('Horde_PageOutput')->addScriptFile('stripe.js', 'horde');
 require HORDE_TEMPLATES . '/common-header.inc';
 require HORDE_TEMPLATES . '/admin/menu.inc';
 

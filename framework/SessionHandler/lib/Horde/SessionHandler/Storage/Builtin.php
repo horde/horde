@@ -31,7 +31,7 @@ class Horde_SessionHandler_Storage_Builtin extends Horde_SessionHandler_Storage
 
         $this->_path = session_save_path();
         if (!$this->_path) {
-            $this->_path = Horde_Util::getTempDir();
+            $this->_path = sys_get_temp_dir();
         }
     }
 

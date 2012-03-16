@@ -20,16 +20,16 @@
  <date>2011-11-22</date>
  <time>12:08:48</time>
  <version>
-  <release>1.0.5</release>
-  <api>1.0.0</api>
+  <release>2.0.0alpha1</release>
+  <api>2.0.0</api>
  </version>
  <stability>
-  <release>stable</release>
-  <api>stable</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Use late static binding in init() for easier extension of Horde_Cli.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -612,15 +612,17 @@ Add &apos;default&apos; parameter to Horde_CLI::prompt().
   </release>
   <release>
    <version>
-    <release>1.0.5</release>
-    <api>1.0.0</api></version>
+    <release>2.0.0alpha1</release>
+    <api>2.0.0</api>
+   </version>
    <stability>
-    <release>stable</release>
-    <api>stable</api></stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
    <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Use late static binding in init() for easier extension of Horde_Cli.
    </notes>
   </release>
  </changelog>

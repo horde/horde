@@ -303,7 +303,7 @@ class Horde_Core_Factory_MimeViewer extends Horde_Core_Factory_Base
                     unset($tmp['icons']);
                 }
 
-                $config = array_merge(Horde_Array::replaceRecursive($config, $tmp), array(
+                $config = array_merge(array_replace_recursive($config, $tmp), array(
                     'app' => $val[0],
                     'driver' => $driver
                 ));

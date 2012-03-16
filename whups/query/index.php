@@ -166,7 +166,7 @@ $qops = array(
 
 // Start the page.
 if ($whups_query->id) {
-    $linkTags[] = $whups_query->feedLink();
+    $injector->getInstance('Horde_PageOutput')->addLinkTag($whups_query->feedLink());
 }
 $title = _("Query Builder");
 require $registry->get('templates', 'horde') . '/common-header.inc';

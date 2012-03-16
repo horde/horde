@@ -31,6 +31,6 @@ $code = array(
     )
 );
 
-Horde::addInlineJsVars(array(
+$GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineJsVars(array(
     'var IMP' => $code
 ), array('top' => true));

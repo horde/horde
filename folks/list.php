@@ -49,7 +49,7 @@ $pager = new Horde_Core_Ui_Pager('page',
 $pager->preserve($criteria);
 $list_url = Folks::getUrlFor('list', 'list');
 
-Horde::addScriptFile('stripe.js', 'horde');
+$injector->getInstance('Horde_PageOutput')->addScriptFile('stripe.js', 'horde');
 
 require $registry->get('templates', 'horde') . '/common-header.inc';
 require FOLKS_TEMPLATES . '/menu.inc';

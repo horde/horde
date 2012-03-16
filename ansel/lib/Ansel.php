@@ -879,8 +879,10 @@ class Ansel
             $code['conf']['havetwitter'] = !empty($GLOBALS['conf']['twitter']['enabled']);
             $code['ajax'] = new stdClass();
             $code['widgets'] = new stdClass();
-            Horde::addInlineJsVars(array(
-                'var Ansel' => $code));
+
+            $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineJsVars(array(
+                'var Ansel' => $code
+            ));
         }
     }
 
@@ -943,10 +945,13 @@ class Ansel
             }
         }
         $params['jsuri'] = $GLOBALS['registry']->get('jsuri', 'horde') . '/map/';
-        Horde::addScriptFile('map/map.js', 'horde');
-        Horde::addScriptFile('map.js');
-        $js = 'HordeMap.initialize(' . Horde_Serialize::serialize($params, HORDE_SERIALIZE::JSON) . ');';
-        Horde::addinlineScript($js);
+
+        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        $page_output->addScriptFile('map/map.js', 'horde');
+        $page_output->addScriptFile('map.js');
+        $page_output->addInlineScript(array(
+            'HordeMap.initialize(' . Horde_Serialize::serialize($params, HORDE_SERIALIZE::JSON) . ');'
+        ));
     }
 
 }

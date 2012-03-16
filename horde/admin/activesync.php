@@ -65,8 +65,9 @@ foreach ($devices as $key => $val) {
     );
 }
 
-Horde::addScriptFile('activesyncadmin.js');
-Horde::addInlineJsVars(array(
+$page_output = $injector->getInstance('Horde_PageOutput');
+$page_output->addScriptFile('activesyncadmin.js');
+$page_output->addInlineJsVars(array(
     'HordeActiveSyncAdmin.devices' => $js
 ));
 

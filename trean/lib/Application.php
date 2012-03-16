@@ -39,7 +39,6 @@ class Trean_Application extends Horde_Registry_Application
      * Global variables defined:
      * - $trean_db:      TODO
      * - $trean_gateway: TODO
-     * - $linkTags:      <link> tags for common-header.inc.
      * - $bodyClass:     <body> CSS class for common-header.inc.
      */
     protected function _init()
@@ -67,7 +66,11 @@ class Trean_Application extends Horde_Registry_Application
         if ($label = Horde_Util::getFormData('label')) {
             $rss->add('label', $label);
         }
-        $GLOBALS['linkTags'] = array('<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars(_("Bookmarks Feed")) . '" href="' . $rss . '" />');
+
+        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addLinkTag(array(
+            'href' => $rss,
+            'title' => _("Bookmarks Feed")
+        ));
     }
 
     /**

@@ -81,7 +81,7 @@ $folder_list = Ingo::flistSelect($blacklist_folder, 'filters', 'actionvalue');
 $filters = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
 $bl_rule = $filters->findRule(Ingo_Storage::ACTION_BLACKLIST);
 
-Horde::addScriptFile('blacklist.js', 'ingo');
+$injector->getInstance('Horde_PageOutput')->addScriptFile('blacklist.js');
 
 $menu = Ingo::menu();
 $title = _("Blacklist Edit");

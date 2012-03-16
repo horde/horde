@@ -107,7 +107,7 @@ $template->set('header', $header);
 $template->set('tasks', $display_tasks, true);
 $template->set('logintasks_url', $tasks->getLoginTasksUrl());
 
-Horde::addScriptFile('logintasks.js', 'horde');
+$injector->getInstance('Horde_PageOutput')->addScriptFile('logintasks.js', 'horde');
 
 $bodyId = 'services_logintasks';
 $bodyClass = 'modal-form';

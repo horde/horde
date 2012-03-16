@@ -515,9 +515,9 @@ class Horde_SyncMl_Sync
                                                     $clientEncodingType,
                                                     null, $suid);
                 $this->_server_add_count++;
+                $state->serverChanges[$state->messageID][$this->_targetLocURI][$cmdId] = array($suid, 0);
             }
             unset($this->_server_adds[$suid]);
-            $state->serverChanges[$state->messageID][$this->_targetLocURI][$cmdId] = array($suid, 0);
         }
 
         if ($this->_server_add_count) {

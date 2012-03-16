@@ -241,11 +241,9 @@ class Horde_Serialize
         case self::JSON:
             $tmp = json_encode($data);
 
-            /* Basic error handling attempts. Requires PHP 5.3+.
-             * Error code 5, although not documented, indicates non UTF-8
-             * data. */
-            if (function_exists('json_last_error') &&
-                (json_last_error() == 5)) {
+            /* Basic error handling attempts.  Error code 5, although not
+             * documented, indicates non UTF-8 data. */
+            if (json_last_error() == 5) {
                 $data = json_encode(Horde_String::convertCharset($data, $params, 'UTF-8', true));
             } else {
                 $data = $tmp;

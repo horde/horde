@@ -21,7 +21,7 @@ try {
     $tasks = new Nag_Task();
 }
 
-Horde::addScriptFile('mobile.js');
+$injector->getInstance('Horde_PageOutput')->addScriptFile('mobile.js');
 require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
 
 ?>

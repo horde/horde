@@ -42,9 +42,11 @@ foreach ($session->get('gollem', 'clipboard') as $key => $val) {
 $template->set('entry', $entry, true);
 
 $title = _("Clipboard");
-Horde::addScriptFile('clipboard.js', 'gollem');
-Horde::addScriptFile('tables.js', 'horde');
-Horde::addInlineJsVars(array(
+
+$page_output = $injector->getInstance('Horde_PageOutput');
+$page_output->addScriptFile('clipboard.js');
+$page_output->addScriptFile('tables.js', 'horde');
+$page_output->addInlineJsVars(array(
     'GollemClipboard.selectall' => _("Select All"),
     'GollemClipboard.selectnone' => _("Select None")
 ));

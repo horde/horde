@@ -41,7 +41,7 @@ if (Horde_Util::getFormData('list-tables')) {
 }
 
 $title = _("SQL Shell");
-Horde::addScriptFile('stripe.js', 'horde');
+$injector->getInstance('Horde_PageOutput')->addScriptFile('stripe.js', 'horde');
 require HORDE_TEMPLATES . '/common-header.inc';
 require HORDE_TEMPLATES . '/admin/menu.inc';
 

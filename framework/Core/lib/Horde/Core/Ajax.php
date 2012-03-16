@@ -42,12 +42,13 @@ class Horde_Core_Ajax
             $opts['app'] = $registry->getApp();
         }
 
-        Horde::addScriptFile('horde.js', 'horde');
-        Horde::addScriptFile('hordecore.js', 'horde');
-        Horde::addScriptFile('effects.js', 'horde');
-        Horde::addScriptFile('growler.js', 'horde');
-        Horde::addScriptFile('popup.js', 'horde');
-        Horde::addScriptFile('sound.js', 'horde');
+        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        $page_output->addScriptFile('horde.js', 'horde');
+        $page_output->addScriptFile('hordecore.js', 'horde');
+        $page_output->addScriptFile('effects.js', 'horde');
+        $page_output->addScriptFile('growler.js', 'horde');
+        $page_output->addScriptFile('popup.js', 'horde');
+        $page_output->addScriptFile('sound.js', 'horde');
 
         /* Configuration used in core javascript files. */
         $js_conf = array_filter(array(
@@ -86,7 +87,7 @@ class Horde_Core_Ajax
             $js_text['growlernoalerts'] = _("No Alerts");
         }
 
-        Horde::addInlineJsVars(array(
+        $page_output->addInlineJsVars(array(
             'var HordeCoreConf' => $js_conf,
             'var HordeCoreText' => $js_text
         ), array('top' => true));
@@ -101,11 +102,12 @@ class Horde_Core_Ajax
     public function initGrowler()
     {
         if (!self::$_init) {
-            Horde::addScriptFile('hordecore.js', 'horde');
-            Horde::addScriptFile('effects.js', 'horde');
-            Horde::addScriptFile('growler.js', 'horde');
+            $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+            $page_output->addScriptFile('hordecore.js', 'horde');
+            $page_output->addScriptFile('effects.js', 'horde');
+            $page_output->addScriptFile('growler.js', 'horde');
 
-            Horde::addInlineJsVars(array(
+            $page_output->addInlineJsVars(array(
                 'var HordeCoreConf' => array()
             ));
         }
@@ -140,13 +142,14 @@ class Horde_Core_Ajax
 
         print '<head>';
 
-        Horde::outputMetaTags();
-        Horde::includeStylesheetFiles(isset($opts['css']) ? $opts['css'] : array());
+        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        $page_output->outputMetaTags();
+        $page_output->includeStylesheetFiles(isset($opts['css']) ? $opts['css'] : array());
         if (!empty($opts['inlinescript'])) {
-            Horde::includeScriptFiles();
-            Horde::outputInlineScript();
+            $page_output->includeScriptFiles();
+            $page_output->outputInlineScript();
         }
-        Horde::includeFavicon();
+        $page_output->includeFavicon();
 
         $page_title = $GLOBALS['registry']->get('name');
         if (!empty($opts['title'])) {

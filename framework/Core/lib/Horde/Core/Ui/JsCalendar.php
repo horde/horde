@@ -76,8 +76,9 @@ class Horde_Core_Ui_JsCalendar
             $js['Horde_Calendar.fullweekdays'] = self::fullWeekdays();
         }
 
-        Horde::addScriptFile('calendar.js', 'horde');
-        Horde::addInlineJsVars($js);
+        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        $page_output->addScriptFile('calendar.js', 'horde');
+        $page_output->addInlineJsVars($js);
     }
 
     /**

@@ -34,6 +34,11 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Provide details of when search results were last refreshed.
+* [mms] Dynamically update unseen message counts in folder list in smartmobile view.
+* [mms] Add mailbox caching to the smartmobile view.
+* [mms] Cache last seen message in smartmobile view.
+* [mms] Viewing a mailbox in smartmobile mode no longer resets the sortpref preference.
 * [mms] Allow all SMTP configuration parameters to be overridden in the backends configuration file (Request #11051).
 * [mms] Block images in HTML messages that appear to be sent from you by default, to prevent spammers form easily circumventing the block.
 * [jan] Fix setting default values for identity preferences.

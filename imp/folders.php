@@ -20,8 +20,6 @@ Horde_Registry::appInit('imp', array(
     'impmode' => 'imp'
 ));
 
-Horde::addScriptFile('folders.js', 'imp');
-
 /* Redirect back to the mailbox if folder use is not allowed. */
 $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 if (!$imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
@@ -33,13 +31,16 @@ if (!$imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
 $subscribe = $prefs->getValue('subscribe');
 $showAll = (!$subscribe || $session->get('imp', 'showunsub'));
 
+$page_output = $injector->getInstance('Horde_PageOutput');
+$page_output->addScriptFile('folders.js');
+
 $vars = Horde_Variables::getDefaultVariables();
 
 /* Get the base URL for this page. */
 $folders_url = Horde::selfUrl();
 
 /* These JS defines are required by all sub-pages. */
-Horde::addInlineJsVars(array(
+$page_output->addInlineJsVars(array(
     'ImpFolders.folders_url' => strval($folders_url),
     'ImpFolders.text' => array(
         'download1' => _("All messages in the following mailbox(es) will be downloaded into one MBOX file:"),
@@ -278,7 +279,7 @@ case 'empty_mbox_confirm':
 
 case 'mbox_size':
     if (!empty($mbox_list)) {
-        Horde::addScriptFile('tables.js', 'horde');
+        $page_output->addScriptFile('tables.js', 'horde');
 
         $menu = IMP::menu();
         IMP::header(_("Mailbox Sizes"));
@@ -402,7 +403,7 @@ foreach ($imaptree as $key => $val) {
     }
 }
 
-Horde::addInlineJsVars(array(
+$page_output->addInlineJsVars(array(
     'ImpFolders.ajax' => Horde::getServiceLink('ajax', 'imp')->url,
     'ImpFolders.displayNames' => $displayNames,
     'ImpFolders.fullNames' => $fullNames,
@@ -410,7 +411,7 @@ Horde::addInlineJsVars(array(
 ));
 
 $menu = IMP::menu();
-Horde::metaRefresh($refresh_time, Horde::url('folders.php', true));
+$page_output->metaRefresh($refresh_time, Horde::url('folders.php', true));
 IMP::header(_("Folder Navigator"));
 echo $menu;
 IMP::status();

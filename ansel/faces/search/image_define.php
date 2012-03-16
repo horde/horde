@@ -47,10 +47,11 @@ if (count($faces) > 1) {
 $height = $x2 - $x1;
 $width = $y2 - $y1;
 
-Horde::addScriptFile('scriptaculous.js', 'horde');
-Horde::addScriptFile('builder.js', 'horde');
-Horde::addScriptFile('cropper.js', 'ansel');
-Horde::addScriptFile('stripe.js', 'horde');
+$page_output = $injector->getInstance('Horde_PageOutput');
+$page_output->addScriptFile('scriptaculous.js', 'horde');
+$page_output->addScriptFile('builder.js', 'horde');
+$page_output->addScriptFile('cropper.js');
+$page_output->addScriptFile('stripe.js', 'horde');
 
 require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Horde::menu();

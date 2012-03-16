@@ -16,6 +16,6 @@ class Horde_Controller_StreamTest extends Horde_Test_Case
         $writer = new Horde_Controller_ResponseWriter_Web();
         ob_start();
         $writer->writeResponse($response);
-        $this->assertEquals('BODY', ob_end_clean());
+        $this->assertEquals('BODY', ob_get_clean());
     }
 }

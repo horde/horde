@@ -57,10 +57,10 @@ case 'Sort':
     exit;
 }
 
-Horde::addInlineScript(array(
+$injector->getInstance('Horde_PageOutput')->addInlineScript(array(
     'jQuery("#sortContainer").sortable()',
     'jQuery("#sortContainer").disableSelection()',
-), 'dom');
+), true);
 
 $title = sprintf(_("%s :: Sort"), $gallery->get('name'));
 require $registry->get('templates', 'horde') . '/common-header.inc';

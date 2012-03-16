@@ -1572,6 +1572,8 @@ $c->writeln($c->bold('---------------------------'));
 /* Instantiate main object. */
 $script = new Horde_Translation_Script();
 $script->cli = $c;
+$registry = new Horde_Support_Stub();
+$injector = new Horde_Support_Stub();
 
 /* Sanity checks */
 if (!extension_loaded('gettext')) {

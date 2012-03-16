@@ -84,9 +84,13 @@ class IMP_LoginTasks_Task_PurgeSentmail extends Horde_LoginTasks_Task
             $mbox_list = $val->display_html;
         }
 
-        return sprintf(_("All messages in the mailbox(es) \"%s\" older than %s days will be permanently deleted."),
-                       implode(', ', $mbox_list),
-                       $GLOBALS['prefs']->getValue('purge_sentmail_keep'));
+        return sprintf(
+            ngettext(
+                "All messages in the mailbox \"%s\" older than %s days will be permanently deleted.",
+                "All messages in the mailboxes \"%s\" older than %s days will be permanently deleted.",
+                count($mbox_list)),
+            implode(', ', $mbox_list),
+            $GLOBALS['prefs']->getValue('purge_sentmail_keep'));
     }
 
     /**

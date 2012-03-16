@@ -887,6 +887,11 @@ a.address:hover img {
     font-size: 90%;
     font-weight: bold;
 }
+#searchbar #search_time_elapsed {
+    float: right;
+    font-size: 90%;
+    padding-right: 12px;
+}
 
 /* Redbox styles. */
 .RBForm {

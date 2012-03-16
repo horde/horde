@@ -363,7 +363,7 @@ Reading, writing and listing of files are all supported.</description>
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.2.2</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>

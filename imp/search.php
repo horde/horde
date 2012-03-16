@@ -453,10 +453,11 @@ if (!$t->get('edit_query_filter')) {
 }
 
 Horde_Core_Ui_JsCalendar::init();
-Horde::addScriptFile('horde.js', 'horde');
-Horde::addScriptFile('search.js', 'imp');
+$page_output = $injector->getInstance('Horde_PageOutput');
+$page_output->addScriptFile('horde.js', 'horde');
+$page_output->addScriptFile('search.js');
 
-Horde::addInlineJsVars(array_merge($js_vars, array(
+$page_output->addInlineJsVars(array_merge($js_vars, array(
     /* Javascript data for this page. */
     'ImpSearch.data' => array(
         'constants' => $constants,
@@ -477,7 +478,7 @@ Horde::addInlineJsVars(array_merge($js_vars, array(
         'loading' => _("Loading..."),
         'need_criteria' => _("Please select at least one search criteria."),
         'need_date' => _("Need at least one date in the date range search."),
-        'need_mbox' => _("Please select at least one mbox to search."),
+        'need_mbox' => _("Please select at least one mailbox to search."),
         'need_label' => _("Saved searches require a label."),
         'not_match' => _("Do NOT Match"),
         'or' => _("OR"),
@@ -486,7 +487,7 @@ Horde::addInlineJsVars(array_merge($js_vars, array(
         'subfolder_search' => _("Search all subfolders?"),
         'to' => _("to")
     )
-)), array('onload' => 'dom'));
+)), array('onload' => true));
 
 if ($dimp_view) {
     if (!$vars->edit_query) {

@@ -15,11 +15,13 @@ if (!empty(IMP::$title)) {
     $page_title .= ' :: ' . IMP::$title;
 }
 
-Horde::outputMetaTags();
+$page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+
+$page_output->outputMetaTags();
 
 switch ($view_mode) {
 case Horde_Registry::VIEW_MINIMAL:
-    Horde::includeStylesheetFiles(array(
+    $page_output->includeStylesheetFiles(array(
         'nohorde' => true,
         'sub' => 'mimp',
         'subonly' => true
@@ -27,10 +29,10 @@ case Horde_Registry::VIEW_MINIMAL:
     break;
 
 default:
-    Horde::includeStylesheetFiles();
-    Horde::includeScriptFiles();
-    Horde::includeFavicon();
-    Horde::outputInlineScript();
+    $page_output->includeStylesheetFiles();
+    $page_output->includeScriptFiles();
+    $page_output->includeFavicon();
+    $page_output->outputInlineScript();
     break;
 }
 ?>

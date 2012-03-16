@@ -98,10 +98,6 @@ class Horde_Serialize_JsonTest extends PHPUnit_Framework_TestCase
     // JSON encode/decode tests (invalid UTF-8 input).
     public function testJsonInvalidUTF8Input()
     {
-        if (version_compare(phpversion(), '5.3.0') == -1) {
-            $this->markTestSkipped("skip Test requires PHP 5.3+");
-        }
-
         $old_error_reporting = error_reporting(E_ALL & ~E_WARNING);
         $this->assertEquals(
             '"Note: To play video messages sent to email, QuickTime\u00ae 6.5 or higher is required.\n"',

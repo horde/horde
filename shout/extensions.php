@@ -27,8 +27,9 @@ try {
     $extensions = array();
 }
 
-Horde::addScriptFile('stripe.js', 'horde');
-Horde::addScriptFile('scriptaculous.js', 'horde');
+$page_output = $injector->getInstance('Horde_PageOutput');
+$page_output->addScriptFile('stripe.js', 'horde');
+$page_output->addScriptFile('scriptaculous.js', 'horde');
 
 require $registry->get('templates', 'horde') . '/common-header.inc';
 require SHOUT_TEMPLATES . '/menu.inc';
