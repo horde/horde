@@ -486,7 +486,8 @@ class Horde_Mail_Rfc822
         $route = array();
 
         while ($this->_curr() !== false) {
-            $route[] = '@' . $this->_rfc822ParseDomain();
+            $this->_rfc822ParseDomain($str);
+            $route[] = '@' . $str;
 
             $this->_rfc822SkipLwsp();
             if ($this->_curr() != ',') {
