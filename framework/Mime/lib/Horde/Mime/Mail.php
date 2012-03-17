@@ -144,7 +144,6 @@ class Horde_Mime_Mail
      *
      * @param string $header      The header name.
      * @param string $value       The header value.
-     * @param string $charset     The header value's charset.
      * @param boolean $overwrite  If true, an existing header of the same name
      *                            is being overwritten; if false, multiple
      *                            headers are added; if null, the correct
