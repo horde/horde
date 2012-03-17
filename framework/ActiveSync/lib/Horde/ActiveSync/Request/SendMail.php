@@ -19,7 +19,7 @@ class Horde_ActiveSync_Request_SendMail extends Horde_ActiveSync_Request_Base
      * @param $protocolversion
      * @return unknown_type
      */
-    public function handle()
+    protected function _handle()
     {
         $this->_logger->info('[' . $this->_device->id . '] Handling SendMail command.');
 
