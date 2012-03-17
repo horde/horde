@@ -30,7 +30,7 @@ require_once dirname(__FILE__) . '/../../../../Autoload.php';
  */
 
 class Horde_Notification_Class_Notification_Handler_Decorator_HordelogTest
-extends PHPUnit_Framework_TestCase
+extends Horde_Test_Case
 {
     public function testNoneAvailable()
     {

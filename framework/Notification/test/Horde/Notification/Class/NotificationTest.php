@@ -29,7 +29,7 @@ require_once dirname(__FILE__) . '/../Autoload.php';
  * @link     http://pear.horde.org/index.php?package=Notification
  */
 
-class Horde_Notification_Class_NotificationTest extends PHPUnit_Framework_TestCase
+class Horde_Notification_Class_NotificationTest extends Horde_Test_Case
 {
     public function tearDown()
     {
