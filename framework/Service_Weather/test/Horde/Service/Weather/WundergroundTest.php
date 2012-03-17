@@ -67,6 +67,7 @@ class Horde_Service_Weather_WundergroundTest extends PHPUnit_Framework_TestCase
 
     public function testForecast()
     {
+        setlocale(LC_MESSAGES, 'C');
         $weather = $this->_getStub('boston_wunderground.json');
         $forecast = $weather->getForecast('boston,ma');
         //$this->assertEquals('2011-11-27 22:15:00', (string)$forecast->getForecastTime());

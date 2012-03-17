@@ -28,7 +28,7 @@ require_once __DIR__ . '/../../Autoload.php';
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Notification
  */
-class Horde_Notification_Class_Notification_EventTest extends PHPUnit_Framework_TestCase
+class Horde_Notification_Class_Notification_EventTest extends Horde_Test_Case
 {
     public function testMethodConstructHasPostconditionThatTheGivenMessageWasSavedIfItWasNotNull()
     {
