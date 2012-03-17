@@ -26,6 +26,7 @@ v4.0-git
 v3.0.16-git
 -----------
 
+[jan] Fix positioning of events on DST changing dates (Bug #11070).
 [mjr] Fix bug that caused time shift of all day events when imported from
       ActiveSync devices for users in certain timezones (Bug #10991).
 [mjr] Correctly deal with deleted calendars in sync clients (Bug #10969).

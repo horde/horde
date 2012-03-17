@@ -457,6 +457,8 @@ Converted to package.xml 2.0 for pear.horde.org
     <release>2.0.0alpha1</release>
     <api>2.0.0</api>
    </version>
+    <release>1.3.0</release>
+    <api>1.3.0</api></version>
    <stability>
     <release>alpha</release>
     <api>alpha</api>
@@ -464,8 +466,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2012-03-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [jan] Remove Horde_Util::getTempDir().
-* [jan] Remove Horde_Array::replaceRecursive().
+* [jan] Implement ArrayAccess in Horde_Variables.
    </notes>
   </release>
  </changelog>
