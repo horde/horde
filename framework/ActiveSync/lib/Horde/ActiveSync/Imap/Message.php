@@ -184,6 +184,7 @@ class Horde_ActiveSync_Imap_Message
 
         return $part;
     }
+
     /**
      * Return the descriptive part label, making sure it is not empty.
      *
@@ -322,12 +323,12 @@ class Horde_ActiveSync_Imap_Message
             $this->_fetchEnvelope();
         }
 
-        $to = $this->_envelope->to->addresses;
-        $$dtos = $tos = array();
-        foreach ($to as $r) {
-            $a = new Horde_Mail_Rfc822_Address($r);
-            $tos[] = $a->writeAddress(true);
-            $dtos[] = $a->personal;
+        $to = $this->_envelope->to;
+        $dtos = $tos = array();
+        $rfc822 = new Horde_Mail_Rfc822();
+        foreach ($to->addresses as $e) {
+            $tos[] = $e->bare_address;
+            $dtos[] = $e->personal;
         }
 
         return array('to' => $tos, 'displayto' => $dtos);
@@ -346,7 +347,7 @@ class Horde_ActiveSync_Imap_Message
         $from = array_pop($this->_envelope->from->addresses);
         $a = new Horde_Mail_Rfc822_Address($from);
 
-        return $a->writeAddress(true);
+        return $a->writeAddress(false);
     }
 
     /**
