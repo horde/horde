@@ -427,6 +427,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     if ($ping_res) {
                         $changes['add'] = array(1);
                     }
+                } catch (Horde_ActiveSync_Exeption_StaleState $e) {
+                    $this->_endBuffer();
+                    throw $e;
                 } catch (Horde_Exception $e) {
                     $this->_logger->err($e->getMessage());
                     $this->_endBuffer();
@@ -437,6 +440,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     $folder = &$this->_imap->getMessageChanges(
                         $folder,
                         array('sincedate' => (int)$cutoffdate));
+                } catch (Horde_ActiveSync_Exception_StaleState $e) {
+                    $this->_endBuffer();
+                    throw $e;
                 } catch (Horde_Exception $e) {
                     $this->_logger->err($e->getMessage());
                     $this->_endBuffer();
@@ -449,8 +455,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         }
 
         $results = array();
-
-        // Server additions
         foreach ($changes['add'] as $add) {
             $results[] = array(
                 'id' => $add,
