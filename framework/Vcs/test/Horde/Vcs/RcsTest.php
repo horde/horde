@@ -2,7 +2,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/TestBase.php';
+require_once __DIR__ . '/TestBase.php';
 
 /**
  * @author     Jan Schneider <jan@horde.org>
@@ -22,7 +22,7 @@ class Horde_Vcs_RcsTest extends Horde_Vcs_TestBase
         $this->vcs = Horde_Vcs::factory(
             'Rcs',
             array_merge(self::$conf,
-                        array('sourceroot' => dirname(__FILE__) . '/repos/rcs')));
+                        array('sourceroot' => __DIR__ . '/repos/rcs')));
     }
 
     public function testFactory()
@@ -81,9 +81,9 @@ class Horde_Vcs_RcsTest extends Horde_Vcs_TestBase
         $this->assertInstanceOf('Horde_Vcs_File_Rcs', $file);
         $this->assertEquals('file1', $file->getFileName());
         $this->assertEquals('file1', $file->getSourcerootPath());
-        $this->assertEquals(dirname(__FILE__) . '/repos/rcs/file1',
+        $this->assertEquals(__DIR__ . '/repos/rcs/file1',
                             $file->getPath());
-        $this->assertEquals(dirname(__FILE__) . '/repos/rcs/file1,v',
+        $this->assertEquals(__DIR__ . '/repos/rcs/file1,v',
                             $file->getFullPath());
         $this->assertEquals('1.2', $file->getRevision());
         $this->assertEquals('1.1', $file->getPreviousRevision('1.2'));
@@ -98,10 +98,10 @@ class Horde_Vcs_RcsTest extends Horde_Vcs_TestBase
         $this->assertEquals('file1_1', $file->getFileName());
         $this->assertEquals('dir1/file1_1', $file->getSourcerootPath());
         $this->assertEquals(
-            dirname(__FILE__) . '/repos/rcs/dir1/file1_1',
+            __DIR__ . '/repos/rcs/dir1/file1_1',
             $file->getPath());
         $this->assertEquals(
-            dirname(__FILE__) . '/repos/rcs/dir1/file1_1,v',
+            __DIR__ . '/repos/rcs/dir1/file1_1,v',
             $file->getFullPath());
         $this->assertEquals('1.1', $file->getRevision());
         $this->assertEquals(1, $file->revisionCount());
@@ -128,9 +128,9 @@ class Horde_Vcs_RcsTest extends Horde_Vcs_TestBase
         $this->assertInstanceOf('Horde_Vcs_File_Rcs', $file);
         $this->assertEquals('umläüte', $file->getFileName());
         $this->assertEquals('umläüte', $file->getSourcerootPath());
-        $this->assertEquals(dirname(__FILE__) . '/repos/rcs/umläüte',
+        $this->assertEquals(__DIR__ . '/repos/rcs/umläüte',
                             $file->getPath());
-        $this->assertEquals(dirname(__FILE__) . '/repos/rcs/umläüte,v',
+        $this->assertEquals(__DIR__ . '/repos/rcs/umläüte,v',
                             $file->getFullPath());
         $this->assertEquals('1.1', $file->getRevision());
         $this->assertEquals(1, $file->revisionCount());

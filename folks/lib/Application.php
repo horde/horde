@@ -57,7 +57,7 @@ class Folks_Application extends Horde_Registry_Application
      */
     public function authAuthenticate($userID, $credentials)
     {
-        require_once dirname(__FILE__) . '/base.php';
+        require_once __DIR__ . '/base.php';
 
         $result = $GLOBALS['folks_driver']->comparePassword($userID, $credentials['password']);
         if ($result !== true) {
@@ -74,7 +74,7 @@ class Folks_Application extends Horde_Registry_Application
             return false;
         }
 
-        require_once dirname(__FILE__) . '/base.php';
+        require_once __DIR__ . '/base.php';
         $GLOBALS['folks_driver'] = Folks_Driver::factory();
         if ($_COOKIE['folks_login_code'] == $GLOBALS['folks_driver']->getCookie($_COOKIE['folks_login_user'])) {
             $GLOBALS['registry']->setAuth($_COOKIE['folks_login_user']);
@@ -90,7 +90,7 @@ class Folks_Application extends Horde_Registry_Application
      */
     public function authUserExists($userId)
     {
-        require_once dirname(__FILE__) . '/base.php';
+        require_once __DIR__ . '/base.php';
 
         return $GLOBALS['folks_driver']->userExists($userId);
     }
@@ -99,7 +99,7 @@ class Folks_Application extends Horde_Registry_Application
      */
     public function authUserList()
     {
-        require_once dirname(__FILE__) . '/base.php';
+        require_once __DIR__ . '/base.php';
 
         $users = array();
         foreach ($GLOBALS['folks_driver']->getUsers() as $user) {
@@ -113,7 +113,7 @@ class Folks_Application extends Horde_Registry_Application
      */
     public function authAddUser($userId, $credentials)
     {
-        require_once dirname(__FILE__) . '/base.php';
+        require_once __DIR__ . '/base.php';
 
         $result = $GLOBALS['folks_driver']->addUser($userId, $credentials);
         if ($result instanceof PEAR_Error) {
@@ -129,7 +129,7 @@ class Folks_Application extends Horde_Registry_Application
         $password = Horde_Auth::genRandomPassword();
 
         /* Update password in DB. */
-        require_once dirname(__FILE__) . '/base.php';
+        require_once __DIR__ . '/base.php';
         $result = $GLOBALS['folks_driver']->changePassword($password, $userId);
         if ($result instanceof PEAR_Error) {
             throw new Horde_Auth_Exception($result);
@@ -142,7 +142,7 @@ class Folks_Application extends Horde_Registry_Application
      */
     public function authRemoveUser($userId)
     {
-        require_once dirname(__FILE__) . '/base.php';
+        require_once __DIR__ . '/base.php';
 
         return $GLOBALS['folks_driver']->deleteUser($userId);
     }

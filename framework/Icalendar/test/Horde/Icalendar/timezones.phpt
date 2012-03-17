@@ -3,10 +3,10 @@ Timezone handling
 --FILE--
 <?php
 
-require_once dirname(__FILE__) . '/common.php';
+require_once __DIR__ . '/common.php';
 date_default_timezone_set('UTC');
 
-$test_files = glob(dirname(__FILE__) . '/fixtures/vTimezone/*.???');
+$test_files = glob(__DIR__ . '/fixtures/vTimezone/*.???');
 sort($test_files);
 foreach ($test_files as $file) {
     echo basename($file) . "\n";

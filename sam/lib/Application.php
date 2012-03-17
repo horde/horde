@@ -15,7 +15,7 @@
 
 /* Determine the base directories. */
 if (!defined('SAM_BASE')) {
-    define('SAM_BASE', dirname(__FILE__) . '/..');
+    define('SAM_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {

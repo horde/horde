@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__) . '/TestBase.php';
+require_once __DIR__ . '/TestBase.php';
 
 /**
  * @author     Jan Schneider <jan@horde.org>
@@ -17,8 +17,8 @@ class Horde_Translation_GettextTest extends Horde_Translation_TestBase
     public function setUp()
     {
         parent::setUp();
-        $this->_dict = new Horde_Translation_Handler_Gettext('Horde_Translation', dirname(__FILE__) . '/locale');
-        $this->_otherDict = new Horde_Translation_Handler_Gettext('Horde_Other', dirname(__FILE__) . '/locale');
+        $this->_dict = new Horde_Translation_Handler_Gettext('Horde_Translation', __DIR__ . '/locale');
+        $this->_otherDict = new Horde_Translation_Handler_Gettext('Horde_Other', __DIR__ . '/locale');
     }
 
     public function testGettext()
@@ -38,10 +38,10 @@ class Horde_Translation_GettextTest extends Horde_Translation_TestBase
     public function testInvalidConstruction()
     {
         try {
-            new Horde_Translation_Handler_Gettext('Horde_Translation', dirname(__FILE__) . '/DOES_NOT_EXIST');
+            new Horde_Translation_Handler_Gettext('Horde_Translation', __DIR__ . '/DOES_NOT_EXIST');
         } catch (InvalidArgumentException $e) {
             $this->assertEquals(
-                dirname(__FILE__) . '/DOES_NOT_EXIST is not a directory',
+                __DIR__ . '/DOES_NOT_EXIST is not a directory',
                 $e->getMessage()
             );
         }

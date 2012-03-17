@@ -65,7 +65,7 @@ class Horde_Kolab_Storage_AllTests extends Horde_Test_AllTests
     {
         $config = getenv('KOLAB_STORAGE_TEST_CONFIG');
         if ($config === false) {
-            $config = dirname(__FILE__) . '/conf.php';
+            $config = __DIR__ . '/conf.php';
         }
         if (file_exists($config)) {
             require $config;

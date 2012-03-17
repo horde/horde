@@ -2,7 +2,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/Base.php';
+require_once __DIR__ . '/Base.php';
 
 /**
  * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
@@ -18,7 +18,7 @@ class Horde_Image_Exif_ExiftoolTest extends Horde_Image_Test_Exif_Base
     public static function setUpBeforeClass()
     {
         $config = self::getConfig('IMAGE_EXIF_TEST_CONFIG',
-                                  dirname(__FILE__) . '/..');
+                                  __DIR__ . '/..');
         if ($config && !empty($config['image']['exiftool'])) {
             self::$_exif = new Horde_Image_Exif_Exiftool(array('exiftool' => $config['image']['exiftool']));
             parent::setUpBeforeClass();

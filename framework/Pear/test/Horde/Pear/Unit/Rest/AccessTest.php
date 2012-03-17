@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../Autoload.php';
+require_once __DIR__ . '/../../Autoload.php';
 
 /**
  * Test the rest access helper.
@@ -177,7 +177,7 @@ extends Horde_Pear_TestCase
         }
         $response = new Horde_Http_Response_Mock(
             '',
-            fopen(dirname(__FILE__) . '/../../fixture/horde/horde/package.xml', 'r')
+            fopen(__DIR__ . '/../../fixture/horde/horde/package.xml', 'r')
         );
         $response->code = $code;
         $request = new Horde_Http_Request_Mock();

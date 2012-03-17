@@ -8,7 +8,7 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 $permission = 'locks';
 Horde_Registry::appInit('horde');
 if (!$registry->isAdmin() &&

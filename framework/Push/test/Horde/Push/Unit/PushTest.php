@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../Autoload.php';
+require_once __DIR__ . '/../Autoload.php';
 
 /**
  * Test the Horde_Push interface.
@@ -94,7 +94,7 @@ extends Horde_Push_TestCase
     {
         $push = new Horde_Push();
         $push->addContent(
-            fopen(dirname(__FILE__) . '/../fixtures/text.txt', 'r')
+            fopen(__DIR__ . '/../fixtures/text.txt', 'r')
         );
         $this->assertEquals("TEST TEXT\n", $push->getStringContent(0));
     }

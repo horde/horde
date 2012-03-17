@@ -14,7 +14,7 @@
  * @author Bo Daley <bo@darkwork.net>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('sesha');
 
 $perms = $GLOBALS['injector']->getInstance('Horde_Perms');

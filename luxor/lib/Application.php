@@ -12,7 +12,7 @@
 
 /* Determine the base directories. */
 if (!defined('LUXOR_BASE')) {
-    define('LUXOR_BASE', dirname(__FILE__) . '/..');
+    define('LUXOR_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {

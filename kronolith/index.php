@@ -6,7 +6,7 @@
  * not receive such a file, see also http://www.horde.org/licenses/gpl.
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('kronolith', array('nodynamicinit' => true));
 
 /* Determine View */

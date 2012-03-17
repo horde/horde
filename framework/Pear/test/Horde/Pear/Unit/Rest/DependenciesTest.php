@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../Autoload.php';
+require_once __DIR__ . '/../../Autoload.php';
 
 /**
  * Test the package information parser.
@@ -100,7 +100,7 @@ extends Horde_Pear_TestCase
     {
         return new Horde_Pear_Rest_Dependencies(
             file_get_contents(
-                dirname(__FILE__) . '/../../fixture/rest/dependencies'
+                __DIR__ . '/../../fixture/rest/dependencies'
             )
         );
     }
@@ -108,7 +108,7 @@ extends Horde_Pear_TestCase
     private function _getStreamDependencies()
     {
         return new Horde_Pear_Rest_Dependencies(
-            fopen(dirname(__FILE__) . '/../../fixture/rest/dependencies', 'r')
+            fopen(__DIR__ . '/../../fixture/rest/dependencies', 'r')
         );
     }
 }

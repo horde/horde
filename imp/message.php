@@ -21,7 +21,7 @@ function _returnToMailbox($startIndex = null, $actID = null)
     $GLOBALS['start'] = $startIndex;
 }
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('imp', array(
     'impmode' => 'imp'
 ));

@@ -6,7 +6,7 @@ Vilma_Driver_sql::
 echo "Load... ";
 
 define('AUTH_HANDLER', false);
-require_once dirname(__FILE__) . '/../../lib/Application.php';
+require_once __DIR__ . '/../../lib/Application.php';
 $vilma = Horde_Registry::appInit('vilma', array('authentication' => 'none'));
 
 echo "ok\n";

@@ -15,7 +15,7 @@
 
 /* Determine the base directories. */
 if (!defined('ULAFORM_BASE')) {
-    define('ULAFORM_BASE', dirname(__FILE__) . '/..');
+    define('ULAFORM_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {

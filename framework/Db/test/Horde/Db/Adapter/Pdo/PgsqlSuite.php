@@ -48,10 +48,10 @@ class Horde_Db_Adapter_Pdo_PgsqlSuite extends PHPUnit_Framework_TestSuite
             return $suite;
         }
 
-        require_once dirname(__FILE__) . '/PgsqlTest.php';
-        require_once dirname(__FILE__) . '/../Postgresql/ColumnTest.php';
-        require_once dirname(__FILE__) . '/../Postgresql/ColumnDefinitionTest.php';
-        require_once dirname(__FILE__) . '/../Postgresql/TableDefinitionTest.php';
+        require_once __DIR__ . '/PgsqlTest.php';
+        require_once __DIR__ . '/../Postgresql/ColumnTest.php';
+        require_once __DIR__ . '/../Postgresql/ColumnDefinitionTest.php';
+        require_once __DIR__ . '/../Postgresql/TableDefinitionTest.php';
 
         $suite->addTestSuite('Horde_Db_Adapter_Pdo_PgsqlTest');
         $suite->addTestSuite('Horde_Db_Adapter_Postgresql_ColumnTest');

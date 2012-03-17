@@ -22,7 +22,7 @@ require_once 'Horde/Autoloader/Default.php';
 $git = $rpc_endpoint = $rpc_method = null;
 $rpc_options = array();
 
-require dirname(__FILE__) . '/commit-update-tickets-conf.php';
+require __DIR__ . '/commit-update-tickets-conf.php';
 
 
 /**

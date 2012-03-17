@@ -77,7 +77,7 @@ class Horde_Kolab_Resource_Freebusy
             ? 'Horde_Kolab_Resource_Freebusy'
             : 'Horde_Kolab_Resource_Freebusy_' . $driver;
 
-        require_once dirname(__FILE__) . '/Freebusy/' . $driver . '.php';
+        require_once __DIR__ . '/Freebusy/' . $driver . '.php';
 
         if (!class_exists($class)) {
             $class = 'Horde_Kolab_Resource_Freebusy';

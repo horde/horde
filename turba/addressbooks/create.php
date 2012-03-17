@@ -8,7 +8,7 @@
  * did not receive this file, see http://www.horde.org/licenses/apache.
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('turba');
 
 // Exit if this isn't an authenticated user, or if there's no source

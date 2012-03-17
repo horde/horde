@@ -15,7 +15,7 @@
  */
 
 if (!defined('BEATNIK_BASE')) {
-    define('BEATNIK_BASE', dirname(__FILE__). '/..');
+    define('BEATNIK_BASE', __DIR__. '/..');
 }
 
 if (!defined('HORDE_BASE')) {

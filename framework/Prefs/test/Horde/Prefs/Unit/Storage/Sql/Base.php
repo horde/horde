@@ -2,7 +2,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../../Autoload.php';
+require_once __DIR__ . '/../../../Autoload.php';
 
 /**
  * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
@@ -68,7 +68,7 @@ class Horde_Prefs_Test_Sql_Base extends Horde_Test_Case
             new Horde_Log_Handler_Stream(
                 STDOUT, null,
                 new Horde_Log_Formatter_Simple('%message%' . PHP_EOL)));
-        $dir = dirname(__FILE__) . '/../../../../../../migration/Horde/Prefs';
+        $dir = __DIR__ . '/../../../../../../migration/Horde/Prefs';
         if (!is_dir($dir)) {
             error_reporting(E_ALL & ~E_DEPRECATED);
             $dir = PEAR_Config::singleton()

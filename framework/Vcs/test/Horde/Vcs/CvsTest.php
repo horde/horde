@@ -2,7 +2,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/TestBase.php';
+require_once __DIR__ . '/TestBase.php';
 
 /**
  * @author     Jan Schneider <jan@horde.org>
@@ -22,7 +22,7 @@ class Horde_Vcs_CvsTest extends Horde_Vcs_TestBase
         $conf = self::$conf;
         $conf['paths']['cvsps_home'] = Horde_Util::createTempDir(
             true, $conf['paths']['cvsps_home']);
-        $conf['sourceroot'] = dirname(__FILE__) . '/repos/cvs';
+        $conf['sourceroot'] = __DIR__ . '/repos/cvs';
         $this->vcs = Horde_Vcs::factory('Cvs', $conf);
     }
 
@@ -93,9 +93,9 @@ class Horde_Vcs_CvsTest extends Horde_Vcs_TestBase
         $this->assertInstanceOf('Horde_Vcs_File_Cvs', $file);
         $this->assertEquals('file1', $file->getFileName());
         $this->assertEquals('module/file1', $file->getSourcerootPath());
-        $this->assertEquals(dirname(__FILE__) . '/repos/cvs/module/file1',
+        $this->assertEquals(__DIR__ . '/repos/cvs/module/file1',
                             $file->getPath());
-        $this->assertEquals(dirname(__FILE__) . '/repos/cvs/module/file1,v',
+        $this->assertEquals(__DIR__ . '/repos/cvs/module/file1,v',
                             $file->getFullPath());
         $this->assertEquals('1.2', $file->getRevision());
         $this->assertEquals('1.1', $file->getPreviousRevision('1.2'));
@@ -121,10 +121,10 @@ class Horde_Vcs_CvsTest extends Horde_Vcs_TestBase
         $this->assertEquals('file1_1', $file->getFileName());
         $this->assertEquals('module/dir1/file1_1', $file->getSourcerootPath());
         $this->assertEquals(
-            dirname(__FILE__) . '/repos/cvs/module/dir1/file1_1',
+            __DIR__ . '/repos/cvs/module/dir1/file1_1',
             $file->getPath());
         $this->assertEquals(
-            dirname(__FILE__) . '/repos/cvs/module/dir1/file1_1,v',
+            __DIR__ . '/repos/cvs/module/dir1/file1_1,v',
             $file->getFullPath());
         $this->assertEquals('1.1', $file->getRevision());
         $this->assertEquals(1, $file->revisionCount());
@@ -141,10 +141,10 @@ class Horde_Vcs_CvsTest extends Horde_Vcs_TestBase
             'module/Attic/deletedfile1',
             $file->getSourcerootPath());
         $this->assertEquals(
-            dirname(__FILE__) . '/repos/cvs/module/Attic/deletedfile1',
+            __DIR__ . '/repos/cvs/module/Attic/deletedfile1',
             $file->getPath());
         $this->assertEquals(
-            dirname(__FILE__) . '/repos/cvs/module/Attic/deletedfile1,v',
+            __DIR__ . '/repos/cvs/module/Attic/deletedfile1,v',
             $file->getFullPath());
         $this->assertEquals('1.2', $file->getRevision());
         $this->assertEquals('1.1', $file->getPreviousRevision('1.2'));
@@ -164,9 +164,9 @@ class Horde_Vcs_CvsTest extends Horde_Vcs_TestBase
         $this->assertInstanceOf('Horde_Vcs_File_Cvs', $file);
         $this->assertEquals('umläüte', $file->getFileName());
         $this->assertEquals('module/umläüte', $file->getSourcerootPath());
-        $this->assertEquals(dirname(__FILE__) . '/repos/cvs/module/umläüte',
+        $this->assertEquals(__DIR__ . '/repos/cvs/module/umläüte',
                             $file->getPath());
-        $this->assertEquals(dirname(__FILE__) . '/repos/cvs/module/umläüte,v',
+        $this->assertEquals(__DIR__ . '/repos/cvs/module/umläüte,v',
                             $file->getFullPath());
         $this->assertEquals('1.1', $file->getRevision());
         $this->assertEquals(1, $file->revisionCount());

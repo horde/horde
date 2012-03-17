@@ -18,12 +18,12 @@
  * @license    http://www.horde.org/licenses/gpl GNU General Public License, version 2
  */
 
-$mappings = array('Wicked' => dirname(__FILE__) . '/../../lib/');
-$mappings = array('Text/Wiki/Render/Rst' => dirname(__FILE__) . '/../../lib/Text_Wiki/Render/Rst');
+$mappings = array('Wicked' => __DIR__ . '/../../lib/');
+$mappings = array('Text/Wiki/Render/Rst' => __DIR__ . '/../../lib/Text_Wiki/Render/Rst');
 require_once 'Horde/Test/Autoload.php';
 
 /** Catch strict standards */
 error_reporting(E_ALL | E_STRICT);
 
 /** Load the basic test definition */
-require_once dirname(__FILE__) . '/TestCase.php';
+require_once __DIR__ . '/TestCase.php';

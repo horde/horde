@@ -13,7 +13,7 @@
  * @package  IMP
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('imp', array('impmode' => 'mobile'));
 
 $view = new Horde_View(array('templatePath' => IMP_TEMPLATES . '/mobile'));

@@ -20,7 +20,7 @@ class Horde_Db_StatementParserTest extends Horde_Test_Case
 
     public function assertParser(array $expectedStatements, $filename)
     {
-        $file = new SplFileObject(dirname(__FILE__) . '/fixtures/' . $filename, 'r');
+        $file = new SplFileObject(__DIR__ . '/fixtures/' . $filename, 'r');
         $parser = new Horde_Db_StatementParser($file);
 
         foreach ($expectedStatements as $i => $expected) {

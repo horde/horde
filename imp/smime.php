@@ -14,7 +14,7 @@
  * @package  IMP
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('imp');
 
 $imp_smime = $injector->getInstance('IMP_Crypt_Smime');

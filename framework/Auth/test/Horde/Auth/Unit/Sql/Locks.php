@@ -2,7 +2,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/Base.php';
+require_once __DIR__ . '/Base.php';
 
 /**
  * @category   Horde
@@ -22,10 +22,10 @@ class Horde_Auth_Unit_Sql_Locks extends Horde_Auth_Unit_Sql_Base
     {
         parent::setUpBeforeClass();
 
-        if (is_dir(dirname(__FILE__) .'/../../../../../../Lock/migration')) {
-            $lockMigrationsPath = dirname(__FILE__) .'/../../../../../../Lock/migration';
-        } elseif (is_dir(dirname(__FILE__) .'/../../../../../../deps/Lock/migration')) {
-            $lockMigrationsPath = dirname(__FILE__) .'/../../../../../../deps/Lock/migration';
+        if (is_dir(__DIR__ .'/../../../../../../Lock/migration')) {
+            $lockMigrationsPath = __DIR__ .'/../../../../../../Lock/migration';
+        } elseif (is_dir(__DIR__ .'/../../../../../../deps/Lock/migration')) {
+            $lockMigrationsPath = __DIR__ .'/../../../../../../deps/Lock/migration';
             // how would that work for any possible pear_dir ?
         } else {
             self::$skip = 'Could not determine path to Horde_Lock migration';

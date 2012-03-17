@@ -6,7 +6,7 @@
  * @package  Turba
  */
 
-require_once dirname(__FILE__) . '/../lib/Turba.php';
+require_once __DIR__ . '/../lib/Turba.php';
 
 /**
  * Add hierarchcal related columns to the legacy sql share driver

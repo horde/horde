@@ -9,7 +9,7 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once __DIR__ . '/lib/base.php';
 
 $shares = $injector->getInstance('Horde_Core_Factory_Share')->create();
 $groups = $injector->getInstance('Horde_Group');

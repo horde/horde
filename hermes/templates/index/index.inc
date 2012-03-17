@@ -114,13 +114,13 @@
 </div>
 <!-- end left menu -->
 
-<?php require dirname(__FILE__) . '/timer.inc'; ?>
+<?php require __DIR__ . '/timer.inc'; ?>
 
 <!-- begin body -->
 <div id="hermesBody">
 <?php
-require dirname(__FILE__) . '/timeedit.inc';
-require dirname(__FILE__) . '/search.inc';
+require __DIR__ . '/timeedit.inc';
+require __DIR__ . '/search.inc';
 ?>
 <div id="hermesViewIframe" style="display:none"></div>
 </div>

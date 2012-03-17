@@ -3,7 +3,7 @@
  * @package Image
  */
 
-require_once dirname(__FILE__) . '/../Image/Svg.php';
+require_once __DIR__ . '/../Image/Svg.php';
 
 $image = new Horde_Image_svg(array('height' => 400, 'width' => 400));
 

@@ -35,7 +35,7 @@ error_reporting(E_ALL | E_STRICT);
 
 
 /** Load the basic test definition */
-require_once dirname(__FILE__) . '/StoryTestCase.php';
+require_once __DIR__ . '/StoryTestCase.php';
 
 /** Load the test helpers */
-require_once dirname(__FILE__) . '/Helper/AddressFilter.php';
+require_once __DIR__ . '/Helper/AddressFilter.php';

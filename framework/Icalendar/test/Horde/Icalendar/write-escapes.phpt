@@ -3,7 +3,7 @@ Write values with proper escaping test
 --FILE--
 <?php
 
-require_once dirname(__FILE__) . '/common.php';
+require_once __DIR__ . '/common.php';
 $ical = new Horde_Icalendar();
 
 $event1 = Horde_Icalendar::newComponent('vevent', $ical);

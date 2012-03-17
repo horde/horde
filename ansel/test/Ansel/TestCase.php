@@ -66,7 +66,7 @@ extends PHPUnit_Framework_TestCase
     {
         $setup->getInjector()->setInstance(
             'Ansel_Vfs',
-            new Horde_Vfs_File(array('vfsroot' => dirname(__FILE__) . '/fixtures/vfs'))
+            new Horde_Vfs_File(array('vfsroot' => __DIR__ . '/fixtures/vfs'))
         );
 
         $setup->getInjector()->setInstance(

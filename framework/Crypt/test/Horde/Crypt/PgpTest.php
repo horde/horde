@@ -29,13 +29,13 @@ class Horde_Crypt_PgpTest extends PHPUnit_Framework_TestCase
             'temp' => sys_get_temp_dir()
         ));
 
-        $this->_privkey = file_get_contents(dirname(__FILE__) . '/fixtures/pgp_private.asc');
-        $this->_pubkey = file_get_contents(dirname(__FILE__) . '/fixtures/pgp_public.asc');
+        $this->_privkey = file_get_contents(__DIR__ . '/fixtures/pgp_private.asc');
+        $this->_pubkey = file_get_contents(__DIR__ . '/fixtures/pgp_public.asc');
     }
 
     public function testBug6601()
     {
-        $data = file_get_contents(dirname(__FILE__) . '/fixtures/bug_6601.asc');
+        $data = file_get_contents(__DIR__ . '/fixtures/bug_6601.asc');
 
         $this->assertEquals(
 'Name:             Richard Selsky
@@ -58,7 +58,7 @@ Key Fingerprint:  5912 D91D 4C79 C670 1FFF  1486 04A6 7B37 F3C0 1D42
     public function testPgpDecrypt()
     {
         // Encrypted data is in ISO-8859-1 format
-        $crypt = file_get_contents(dirname(__FILE__) . '/fixtures/pgp_encrypted.txt');
+        $crypt = file_get_contents(__DIR__ . '/fixtures/pgp_encrypted.txt');
 
         $decrypt = $this->_pgp->decrypt($crypt, array(
             'passphrase' => 'Secret',
@@ -91,7 +91,7 @@ The quick brown fox jumps over the lazy dog.
     public function testPgpDecryptSymmetric()
     {
         // Encrypted data is in ISO-8859-1 format
-        $crypt = file_get_contents(dirname(__FILE__) . '/fixtures/pgp_encrypted_symmetric.txt');
+        $crypt = file_get_contents(__DIR__ . '/fixtures/pgp_encrypted_symmetric.txt');
 
         $decrypt = $this->_pgp->decrypt($crypt, array(
             'passphrase' => 'Secret',
@@ -120,7 +120,7 @@ The quick brown fox jumps over the lazy dog.
 
     public function testPgpEncrypt()
     {
-        $clear = file_get_contents(dirname(__FILE__) . '/fixtures/clear.txt');
+        $clear = file_get_contents(__DIR__ . '/fixtures/clear.txt');
 
         $out = $this->_pgp->encrypt($clear, array(
             'recips' => array('me@example.com' => $this->_pubkey),
@@ -149,7 +149,7 @@ Version: GnuPG v%d.%d.%d (%s)
 
     public function testPgpEncryptSymmetric()
     {
-        $clear = file_get_contents(dirname(__FILE__) . '/fixtures/clear.txt');
+        $clear = file_get_contents(__DIR__ . '/fixtures/clear.txt');
 
         $out = $this->_pgp->encrypt($clear, array(
             'passphrase' => 'Secret',
@@ -174,10 +174,10 @@ Version: GnuPG v%d.%d.%d (%s)
     public function testPgpEncryptedSymmetrically()
     {
         $this->assertFalse(
-            $this->_pgp->encryptedSymmetrically(file_get_contents(dirname(__FILE__) . '/fixtures/pgp_encrypted.txt'))
+            $this->_pgp->encryptedSymmetrically(file_get_contents(__DIR__ . '/fixtures/pgp_encrypted.txt'))
         );
         $this->assertTrue(
-            $this->_pgp->encryptedSymmetrically(file_get_contents(dirname(__FILE__) . '/fixtures/pgp_encrypted_symmetric.txt'))
+            $this->_pgp->encryptedSymmetrically(file_get_contents(__DIR__ . '/fixtures/pgp_encrypted_symmetric.txt'))
         );
     }
 
@@ -204,13 +204,13 @@ Comment: A revocation certificate should follow
     {
         $this->assertEquals(
             'BADEABD7',
-            $this->_pgp->getSignersKeyID(file_get_contents(dirname(__FILE__) . '/fixtures/pgp_signed.txt'))
+            $this->_pgp->getSignersKeyID(file_get_contents(__DIR__ . '/fixtures/pgp_signed.txt'))
         );
     }
 
     public function testParsePGPData()
     {
-        $out = $this->_pgp->parsePGPData(file_get_contents(dirname(__FILE__) . '/fixtures/pgp_signed.txt'));
+        $out = $this->_pgp->parsePGPData(file_get_contents(__DIR__ . '/fixtures/pgp_signed.txt'));
 
         $this->assertEquals(
             2,
@@ -409,7 +409,7 @@ umO5uT5yDcir3zwqUAxzBAkE4ACcCtGfb6usaTKnNXo+ZuLoHiOwIE4=
 
     public function testPgpSign()
     {
-        $clear = file_get_contents(dirname(__FILE__) . '/fixtures/clear.txt');
+        $clear = file_get_contents(__DIR__ . '/fixtures/clear.txt');
 
         $out = $this->_pgp->encrypt($clear, array(
             'passphrase' => 'Secret',
@@ -471,10 +471,10 @@ Version: GnuPG v%d.%d.%d (%s)
         date_default_timezone_set('GMT');
 
         $out = $this->_pgp->decrypt(
-            file_get_contents(dirname(__FILE__) . '/fixtures/clear.txt'),
+            file_get_contents(__DIR__ . '/fixtures/clear.txt'),
             array(
                 'pubkey' => $this->_pubkey,
-                'signature' => file_get_contents(dirname(__FILE__) . '/fixtures/pgp_signature.txt'),
+                'signature' => file_get_contents(__DIR__ . '/fixtures/pgp_signature.txt'),
                 'type' => 'detached-signature'
             )
         );
@@ -482,7 +482,7 @@ Version: GnuPG v%d.%d.%d (%s)
         $this->assertNotEmpty($out->result);
 
         $out = $this->_pgp->decrypt(
-            file_get_contents(dirname(__FILE__) . '/fixtures/pgp_signed.txt'),
+            file_get_contents(__DIR__ . '/fixtures/pgp_signed.txt'),
             array(
                 'pubkey' => $this->_pubkey,
                 'type' => 'signature'
@@ -492,7 +492,7 @@ Version: GnuPG v%d.%d.%d (%s)
         $this->assertNotEmpty($out->result);
 
         $out = $this->_pgp->decrypt(
-            file_get_contents(dirname(__FILE__) . '/fixtures/pgp_signed2.txt'),
+            file_get_contents(__DIR__ . '/fixtures/pgp_signed2.txt'),
             array(
                 'pubkey' => $this->_pubkey,
                 'type' => 'signature'

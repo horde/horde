@@ -21,7 +21,7 @@ FREEBUSY:20061123T080000Z/PT2H
 END:VFREEBUSY
 END:VCALENDAR';
 
-require_once dirname(__FILE__) . '/common.php';
+require_once __DIR__ . '/common.php';
 $ical = new Horde_Icalendar();
 
 // Parse the data

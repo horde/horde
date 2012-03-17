@@ -10,7 +10,7 @@
  * @author Ben Klang <ben@alkaloid.net>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 $pastie = Horde_Registry::appInit('pastie');
 
 require_once PASTIE_BASE . '/lib/Forms/Paste.php';

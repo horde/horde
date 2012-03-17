@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../Autoload.php';
+require_once __DIR__ . '/../Autoload.php';
 
 /**
  * Test exporting iCalendar events.
@@ -147,6 +147,6 @@ class Kronolith_Integration_ToIcalendarTest extends Kronolith_TestCase
 
     private function _getFixture($name)
     {
-        return file_get_contents(dirname(__FILE__) . '/../fixtures/' . $name);
+        return file_get_contents(__DIR__ . '/../fixtures/' . $name);
     }
 }

@@ -15,7 +15,7 @@
 
 /* Determine the base directories. */
 if (!defined('SESHA_BASE')) {
-    define('SESHA_BASE', dirname(__FILE__) . '/..');
+    define('SESHA_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {

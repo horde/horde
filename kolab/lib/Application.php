@@ -15,7 +15,7 @@
 
 /* Determine the base directories. */
 if (!defined('KOLAB_BASE')) {
-    define('KOLAB_BASE', dirname(__FILE__) . '/..');
+    define('KOLAB_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {

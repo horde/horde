@@ -8,4 +8,4 @@
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
  */
 
-require dirname(__FILE__) . '/browse.php';
+require __DIR__ . '/browse.php';

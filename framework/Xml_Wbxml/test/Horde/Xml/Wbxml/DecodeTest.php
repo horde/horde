@@ -2,7 +2,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/Autoload.php';
+require_once __DIR__ . '/Autoload.php';
 
 /**
  * @author     Jan Schneider <jan@horde.org>
@@ -22,7 +22,7 @@ class Horde_Xml_Wbxml_DecodeTest extends PHPUnit_Framework_TestCase
 
         $decoder = new Horde_Xml_Wbxml_Decoder();
 
-        foreach (glob(dirname(__FILE__) . '/../../../../doc/Horde/Xml/Wbxml/examples/*.wbxml') as $file) {
+        foreach (glob(__DIR__ . '/../../../../doc/Horde/Xml/Wbxml/examples/*.wbxml') as $file) {
             $xml_ref = shell_exec('/usr/bin/wbxml2xml' . ' -m 0 -o - "' . $file . '" 2>/dev/null');
             $xml_ref = preg_replace(
                 array(

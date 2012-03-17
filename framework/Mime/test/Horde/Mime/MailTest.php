@@ -14,7 +14,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/Autoload.php';
+require_once __DIR__ . '/Autoload.php';
 
 /**
  * @author     Michael Slusarz <slusarz@horde.org>
@@ -165,7 +165,7 @@ Content-Transfer-Encoding: quoted-printable',
         );
         $mail->addPart(
             'application/octet-stream',
-            file_get_contents(dirname(__FILE__) . '/fixtures/attachment.bin'),
+            file_get_contents(__DIR__ . '/fixtures/attachment.bin'),
             null,
             'attachment'
         );
@@ -351,9 +351,9 @@ Content-Description: HTML Version of Message
             'From' => 'sender@example.com',
             'charset' => 'iso-8859-15'
         ));
-        $mail->addAttachment(dirname(__FILE__) . '/fixtures/attachment.bin');
+        $mail->addAttachment(__DIR__ . '/fixtures/attachment.bin');
         $mail->addAttachment(
-            dirname(__FILE__) . '/fixtures/uudecode.txt',
+            __DIR__ . '/fixtures/uudecode.txt',
             'my_name.html',
             'text/html',
             'iso-8859-15'
@@ -460,7 +460,7 @@ end
             'charset' => 'ISO-8859-1',
             'Subject' => 'My Subject',
             'To' => 'recipient@example.com',
-            'body' => file_get_contents(dirname(__FILE__) . '/fixtures/flowed_msg.txt')));
+            'body' => file_get_contents(__DIR__ . '/fixtures/flowed_msg.txt')));
 
         $dummy = new Horde_Mail_Transport_Mock();
         $mail->send($dummy);

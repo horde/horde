@@ -11,7 +11,7 @@
  * @package  Mnemo
 s */
 
-require_once dirname(__FILE__) . '/../lib/Mnemo.php';
+require_once __DIR__ . '/../lib/Mnemo.php';
 
 /**
  * Add hierarchcal related columns to the legacy sql share driver

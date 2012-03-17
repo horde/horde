@@ -11,10 +11,10 @@ if (defined('E_DEPRECATED')) {
 
 require 'Horde.php';
 require 'Horde/Data.php';
-require dirname(__FILE__) . '/../Data/ldif.php';
+require __DIR__ . '/../Data/ldif.php';
 
 $data = new Horde_Data_ldif();
-var_dump($data->importFile(dirname(__FILE__) . '/importCRLF.ldif', false));
+var_dump($data->importFile(__DIR__ . '/importCRLF.ldif', false));
 
 ?>
 --EXPECT--

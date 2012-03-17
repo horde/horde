@@ -22,8 +22,8 @@ $BUGZILLA_BUG_TYPE = array('Bug', 'Imported Bugzilla Bug');
 $BUGZILLA_PRIORITIES = array('P1', 'P2', 'P3', 'P4', 'P5');
 /* END CONFIGURATION */
 
-if (file_exists(dirname(__FILE__) . '/../../whups/lib/Application.php')) {
-    $baseDir = dirname(__FILE__) . '/../';
+if (file_exists(__DIR__ . '/../../whups/lib/Application.php')) {
+    $baseDir = __DIR__ . '/../';
 } else {
     require_once 'PEAR/Config.php';
     $baseDir = PEAR_Config::singleton()

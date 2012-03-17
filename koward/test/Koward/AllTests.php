@@ -59,7 +59,7 @@ class Koward_AllTests
         // Build the suite
         $suite = new PHPUnit_Framework_TestSuite('Koward');
 
-        $basedir = dirname(__FILE__);
+        $basedir = __DIR__;
         $baseregexp = preg_quote($basedir . DIRECTORY_SEPARATOR, '/');
 
         foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($basedir)) as $file) {

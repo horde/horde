@@ -157,7 +157,7 @@ class Turba_KolabTestBase extends Turba_TestCase
 
     function provideHordeBase()
     {
-        require_once dirname(__FILE__) . '/../Application.php';
+        require_once __DIR__ . '/../Application.php';
         return HORDE_BASE;
     }
 }

@@ -17,7 +17,7 @@
 
 /* Determine the base directories. */
 if (!defined('INGO_BASE')) {
-    define('INGO_BASE', dirname(__FILE__) . '/..');
+    define('INGO_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {

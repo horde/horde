@@ -12,7 +12,7 @@
  * @link     http://pear.horde.org/index.php?package=Service_Gravatar
  */
 
-require_once dirname(__FILE__) . '/Autoload.php';
+require_once __DIR__ . '/Autoload.php';
 
 /**
  * Horde_Service_Gravatar abstracts communication with Services supporting the
@@ -37,7 +37,7 @@ extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         parent::setUp();
-        if (@include_once(dirname(__FILE__) . '/conf.php')) {
+        if (@include_once(__DIR__ . '/conf.php')) {
             if (!empty($conf['service']['gravatar']['server'])) {
                 $this->_server = $conf['service']['gravatar']['server'];
                 return;

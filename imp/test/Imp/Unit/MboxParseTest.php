@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../Autoload.php';
+require_once __DIR__ . '/../Autoload.php';
 
 /**
  * Test the mbox parsing library.
@@ -36,7 +36,7 @@ class Imp_Unit_MboxParseTest extends PHPUnit_Framework_TestCase
 {
     public function testMboxParse()
     {
-        $parse = new IMP_Mbox_Parse(dirname(__FILE__) . '/../fixtures/test.mbox');
+        $parse = new IMP_Mbox_Parse(__DIR__ . '/../fixtures/test.mbox');
 
         $this->assertEquals(
             2,
@@ -64,7 +64,7 @@ class Imp_Unit_MboxParseTest extends PHPUnit_Framework_TestCase
 
     public function testEmlParse()
     {
-        $parse = new IMP_Mbox_Parse(dirname(__FILE__) . '/../fixtures/test.eml');
+        $parse = new IMP_Mbox_Parse(__DIR__ . '/../fixtures/test.eml');
 
         $this->assertEquals(
             0,
@@ -89,7 +89,7 @@ class Imp_Unit_MboxParseTest extends PHPUnit_Framework_TestCase
      */
     public function testBadData()
     {
-        new IMP_Mbox_Parse(dirname(__FILE__) . '/noexist');
+        new IMP_Mbox_Parse(__DIR__ . '/noexist');
     }
 
 }

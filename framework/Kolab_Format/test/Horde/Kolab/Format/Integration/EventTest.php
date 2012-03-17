@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../Autoload.php';
+require_once __DIR__ . '/../Autoload.php';
 
 /**
  * Test event handling.
@@ -46,7 +46,7 @@ extends Horde_Kolab_Format_TestCase
 
         // Load XML
         $event  = file_get_contents(
-            dirname(__FILE__) . '/../fixtures/event_umlaut.xml'
+            __DIR__ . '/../fixtures/event_umlaut.xml'
         );
         $result = $xml->load($event);
 
@@ -57,7 +57,7 @@ extends Horde_Kolab_Format_TestCase
 
         // Load XML
         $event  = file_get_contents(
-            dirname(__FILE__) . '/../fixtures/event_umlaut_broken.xml'
+            __DIR__ . '/../fixtures/event_umlaut_broken.xml'
         );
         $result = $xml->load($event);
 

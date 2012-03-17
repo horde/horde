@@ -17,7 +17,7 @@
  */
 
 if (!defined('ANSEL_BASE')) {
-    define('ANSEL_BASE', dirname(__FILE__) . '/..');
+    define('ANSEL_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {

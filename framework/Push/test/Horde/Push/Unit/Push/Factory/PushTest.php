@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../../Autoload.php';
+require_once __DIR__ . '/../../../Autoload.php';
 
 /**
  * Test the push factory.
@@ -55,7 +55,7 @@ extends Horde_Push_TestCase
     {
         $factory = new Horde_Push_Factory_Push();
         $push = $factory->create(
-            array('yaml://' . dirname(__FILE__) . '/../../../fixtures/push.yaml'),
+            array('yaml://' . __DIR__ . '/../../../fixtures/push.yaml'),
             array(),
             array()
         );
@@ -66,7 +66,7 @@ extends Horde_Push_TestCase
     {
         $factory = new Horde_Push_Factory_Push();
         $push = $factory->create(
-            array('php://' . dirname(__FILE__) . '/../../../fixtures/push.php'),
+            array('php://' . __DIR__ . '/../../../fixtures/push.php'),
             array(),
             array()
         );
@@ -94,10 +94,10 @@ extends Horde_Push_TestCase
                                 't' => 'note.default',
                                 'm' => array(
                                     1 => array(
-                                        'structure' => dirname(__FILE__) . '/../../../fixtures/note.struct',
+                                        'structure' => __DIR__ . '/../../../fixtures/note.struct',
                                         'parts' => array(
                                             '2' => array(
-                                                'file' => dirname(__FILE__) . '/../../../fixtures/note.xml.qp',
+                                                'file' => __DIR__ . '/../../../fixtures/note.xml.qp',
                                             )
                                         )
                                     )
@@ -120,8 +120,8 @@ extends Horde_Push_TestCase
         $factory = new Horde_Push_Factory_Push();
         $push = $factory->create(
             array(
-                'php://' . dirname(__FILE__) . '/../../../fixtures/push.php',
-                'yaml://' . dirname(__FILE__) . '/../../../fixtures/push.yaml'
+                'php://' . __DIR__ . '/../../../fixtures/push.php',
+                'yaml://' . __DIR__ . '/../../../fixtures/push.yaml'
             ),
             array(),
             array()
@@ -137,7 +137,7 @@ extends Horde_Push_TestCase
     {
         $factory = new Horde_Push_Factory_Push();
         $push = $factory->create(
-            array('php://' . dirname(__FILE__) . '/../../../fixtures/DOES_NOT_EXIST'),
+            array('php://' . __DIR__ . '/../../../fixtures/DOES_NOT_EXIST'),
             array(),
             array()
         );
@@ -150,7 +150,7 @@ extends Horde_Push_TestCase
     {
         $factory = new Horde_Push_Factory_Push();
         $push = $factory->create(
-            array('php://' . dirname(__FILE__) . '/../../../fixtures/empty.php'),
+            array('php://' . __DIR__ . '/../../../fixtures/empty.php'),
             array(),
             array()
         );
@@ -163,7 +163,7 @@ extends Horde_Push_TestCase
     {
         $factory = new Horde_Push_Factory_Push();
         $push = $factory->create(
-            array('yaml://' . dirname(__FILE__) . '/../../../fixtures/DOES_NOT_EXIST'),
+            array('yaml://' . __DIR__ . '/../../../fixtures/DOES_NOT_EXIST'),
             array(),
             array()
         );

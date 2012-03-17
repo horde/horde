@@ -20,7 +20,7 @@
 $sources['horde'] = array(
     'name' => 'Horde',
     'driver' => 'plain',
-    'root' => dirname(__FILE__) . '/../../',
+    'root' => __DIR__ . '/../../',
     'restrictions' => array('(.*)config/(\w*).php$')
 );
 

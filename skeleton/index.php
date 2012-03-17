@@ -10,4 +10,4 @@
  * @author Your Name <you@example.com>
  */
 
-require dirname(__FILE__) . '/list.php';
+require __DIR__ . '/list.php';

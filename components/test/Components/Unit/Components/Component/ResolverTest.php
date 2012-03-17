@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../../Autoload.php';
+require_once __DIR__ . '/../../../Autoload.php';
 
 /**
  * Test the component resolver.
@@ -48,7 +48,7 @@ extends Components_TestCase
     {
         return new Components_Component_Resolver(
             new Components_Helper_Root(
-                null, null, dirname(__FILE__) . '/../../../fixture'
+                null, null, __DIR__ . '/../../../fixture'
             ),
             $this->getComponentFactory()
         );

@@ -13,7 +13,7 @@
 
 /* Determine the base directories. */
 if (!defined('CONTENT_BASE')) {
-    define('CONTENT_BASE', dirname(__FILE__) . '/..');
+    define('CONTENT_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {

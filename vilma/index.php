@@ -8,4 +8,4 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-require dirname(__FILE__) . '/domains/index.php';
+require __DIR__ . '/domains/index.php';

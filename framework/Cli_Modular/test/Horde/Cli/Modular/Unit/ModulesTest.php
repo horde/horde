@@ -19,7 +19,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../Autoload.php';
+require_once __DIR__ . '/../Autoload.php';
 
 /**
  * Test the modules handler.
@@ -42,14 +42,14 @@ extends Horde_Cli_Modular_TestCase
     public function testInvalidDirectory()
     {
         $modules = new Horde_Cli_Modular_Modules(
-            array('directory' => dirname(__FILE__) . '/DOES_NOT_EXIST')
+            array('directory' => __DIR__ . '/DOES_NOT_EXIST')
         );
     }
 
     public function testList()
     {
         $modules = new Horde_Cli_Modular_Modules(
-            array('directory' => dirname(__FILE__) . '/../fixtures/Module')
+            array('directory' => __DIR__ . '/../fixtures/Module')
         );
         $this->assertEquals(array('One', 'Two'), $modules->listModules());
     }
@@ -58,7 +58,7 @@ extends Horde_Cli_Modular_TestCase
     {
         $modules = new Horde_Cli_Modular_Modules(
             array(
-                'directory' => dirname(__FILE__) . '/../fixtures/Module',
+                'directory' => __DIR__ . '/../fixtures/Module',
                 'exclude' => 'One'
             )
         );
@@ -68,7 +68,7 @@ extends Horde_Cli_Modular_TestCase
     public function testIteration()
     {
         $modules = new Horde_Cli_Modular_Modules(
-            array('directory' => dirname(__FILE__) . '/../fixtures/Module')
+            array('directory' => __DIR__ . '/../fixtures/Module')
         );
         $result = array();
         foreach ($modules as $name => $module) {
@@ -80,7 +80,7 @@ extends Horde_Cli_Modular_TestCase
     public function testCount()
     {
         $modules = new Horde_Cli_Modular_Modules(
-            array('directory' => dirname(__FILE__) . '/../fixtures/Module')
+            array('directory' => __DIR__ . '/../fixtures/Module')
         );
         $this->assertEquals(2, count($modules));
     }

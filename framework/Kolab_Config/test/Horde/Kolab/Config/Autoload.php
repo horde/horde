@@ -24,4 +24,4 @@ error_reporting(E_ALL | E_STRICT);
 
 
 /** Load the basic test definition */
-require_once dirname(__FILE__) . '/ConfigStoryTestCase.php';
+require_once __DIR__ . '/ConfigStoryTestCase.php';

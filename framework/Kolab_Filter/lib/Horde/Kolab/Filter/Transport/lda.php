@@ -23,7 +23,7 @@ class Horde_Kolab_Filter_Transport_lda extends Horde_Kolab_Filter_Transport
      */
     function _createTransport()
     {
-        require_once dirname(__FILE__) . '/DovecotLDA.php';
+        require_once __DIR__ . '/DovecotLDA.php';
 
         $transport = new Dovecot_LDA();
 

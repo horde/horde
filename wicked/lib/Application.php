@@ -15,7 +15,7 @@
 
 /* Determine the base directories. */
 if (!defined('WICKED_BASE')) {
-    define('WICKED_BASE', dirname(__FILE__) . '/..');
+    define('WICKED_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {

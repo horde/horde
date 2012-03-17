@@ -23,4 +23,4 @@ require_once 'Horde/Test/Autoload.php';
 error_reporting(E_ALL | E_STRICT);
 
 /** Load basic test case definitions */
-require_once dirname(__FILE__) . '/BackendTestCase.php';
+require_once __DIR__ . '/BackendTestCase.php';

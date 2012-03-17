@@ -8,4 +8,4 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require dirname(__FILE__) . '/channels/index.php';
+require __DIR__ . '/channels/index.php';

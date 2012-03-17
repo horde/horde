@@ -10,4 +10,4 @@
  * @author Your Name <you@example.com>
  */
 
-require dirname(__FILE__) . '/paste.php';
+require __DIR__ . '/paste.php';

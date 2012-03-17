@@ -14,7 +14,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../Autoload.php';
+require_once __DIR__ . '/../../Autoload.php';
 
 /**
  * Test the file based preferences storage backend.
@@ -45,7 +45,7 @@ class Horde_Prefs_Unit_Storage_FileTest extends PHPUnit_Framework_TestCase
      */
     public function testInvalidDirectory()
     {
-        $b = new Horde_Prefs_Storage_File('nobody', array('directory' => dirname(__FILE__) . '/DOES_NOT_EXIST'));
+        $b = new Horde_Prefs_Storage_File('nobody', array('directory' => __DIR__ . '/DOES_NOT_EXIST'));
     }
 
     public function testConstruction()

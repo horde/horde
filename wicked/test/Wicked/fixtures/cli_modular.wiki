@@ -32,7 +32,7 @@ The following demonstrates how you could construct the {{Horde_Cli_Modular}} ins
 $modular = new Horde_Cli_Modular(
   array(
     'parser' => array('usage' => '[options] MODULE'),
-    'modules' => array('directory' => dirname(__FILE__) . '/Module'),
+    'modules' => array('directory' => __DIR__ . '/Module'),
     'provider' => array('prefix' => 'Horde_Something_Module_')
   )
 );

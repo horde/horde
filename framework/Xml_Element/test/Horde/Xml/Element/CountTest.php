@@ -7,7 +7,7 @@
  * @subpackage UnitTests
  */
 
-require_once dirname(__FILE__) . '/Autoload.php';
+require_once __DIR__ . '/Autoload.php';
 
 class Horde_Xml_Element_CountTest extends PHPUnit_Framework_TestCase
 {

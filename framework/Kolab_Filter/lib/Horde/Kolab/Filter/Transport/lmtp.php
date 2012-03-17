@@ -24,7 +24,7 @@ class Horde_Kolab_Filter_Transport_lmtp extends Horde_Kolab_Filter_Transport
      */
     function _createTransport()
     {
-        require_once dirname(__FILE__) . '/LMTPTLS.php';
+        require_once __DIR__ . '/LMTPTLS.php';
 
         if (!isset($this->_params['host'])) {
             $this->_params['host'] = '127.0.0.1';

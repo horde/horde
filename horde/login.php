@@ -51,7 +51,7 @@ function _addAnchor($url, $type, $vars, $url_anchor = null)
  * Horde first or else we will lose the session. Ignore any auth errors.
  * Transparent authentication is handled by the Horde_Application::
  * constructor. */
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 try {
     Horde_Registry::appInit('horde', array('authentication' => 'none', 'nologintasks' => true));
 } catch (Horde_Exception $e) {}

@@ -18,4 +18,4 @@ require_once 'Horde/Test/Autoload.php';
 error_reporting(E_ALL | E_STRICT);
 
 /** Load dependencies from the test suite */
-require_once dirname(__FILE__) . '/Stub/Identity.php';
+require_once __DIR__ . '/Stub/Identity.php';
