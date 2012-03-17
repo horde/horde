@@ -384,7 +384,7 @@ abstract class Horde_Rdo_Mapper implements Countable
 
         if (!$fields) {
             // Nothing to change.
-            return true;
+            return 0;
         }
 
         $sql = 'UPDATE ' . $this->adapter->quoteTableName($this->table) . ' SET';
