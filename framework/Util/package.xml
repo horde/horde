@@ -454,9 +454,6 @@ Converted to package.xml 2.0 for pear.horde.org
   </release>
   <release>
    <version>
-    <release>2.0.0alpha1</release>
-    <api>2.0.0</api>
-   </version>
     <release>1.3.0</release>
     <api>1.3.0</api></version>
    <stability>
