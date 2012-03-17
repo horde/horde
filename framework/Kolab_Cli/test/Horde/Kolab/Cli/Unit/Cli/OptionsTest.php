@@ -37,6 +37,7 @@ extends Horde_Kolab_Cli_TestCase
 {
     public function testOptionHelp()
     {
+        setlocale(LC_MESSAGES, 'C');
         $_SERVER['argv'] = array(
             'klb'
         );

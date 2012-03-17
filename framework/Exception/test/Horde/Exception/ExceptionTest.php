@@ -69,6 +69,7 @@ class Horde_Exception_ExceptionTest extends  PHPUnit_Framework_TestCase
 
     public function testEmptyConstructionYieldsNotFoundMessage()
     {
+        setlocale(LC_MESSAGES, 'C');
         $e = new Horde_Exception_NotFound();
         $this->assertSame('Not Found', $e->getMessage());
     }
@@ -77,6 +78,7 @@ class Horde_Exception_ExceptionTest extends  PHPUnit_Framework_TestCase
 
     public function testEmptyConstructionYieldsPermissionDeniedMessage()
     {
+        setlocale(LC_MESSAGES, 'C');
         $e = new Horde_Exception_PermissionDenied();
         $this->assertSame('Permission Denied', $e->getMessage());
     }
