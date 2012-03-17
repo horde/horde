@@ -70,6 +70,7 @@ extends PHPUnit_Framework_TestCase
      */
     public function testIncorrectUsageWithInvalidOption()
     {
+        setlocale(LC_MESSAGES, 'C');
         $_SERVER['argv'] = array(
             $_SERVER['argv'][0],
             '--recipient'
