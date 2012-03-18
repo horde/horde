@@ -68,7 +68,7 @@ class Horde_ActiveSync
 
     /* Flag used to indicate we should NOT export change data to the PIM. Used
      * during PING requests. */
-    const BACKEND_DISCARD_DATA          = 1;
+    const BACKEND_IGNORE_DATA          = 1;
 
     /* TRUNCATION Constants */
     const TRUNCATION_ALL                = 0;
