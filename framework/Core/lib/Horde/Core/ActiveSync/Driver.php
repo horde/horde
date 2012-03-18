@@ -563,7 +563,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 return false;
             }
             $this->_endBuffer();
-            return array_pop($messages);
+            return current($messages);
             break;
 
         default:
