@@ -452,10 +452,7 @@ class Horde_Mime_Mail
 
         /* Send message. */
         $recipients->unique();
-        $basepart->send($recipients->writeAddress(array(
-            'encode' => $this->_charset,
-            'idn' => true
-        )), $this->_headers, $mailer);
+        $basepart->send($recipients->writeAddress(), $this->_headers, $mailer);
     }
 
 }
