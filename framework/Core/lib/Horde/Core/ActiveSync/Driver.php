@@ -884,18 +884,37 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
         $mail = new Horde_Mime_Mail();
         $mail->addHeaders($headers->toArray());
+
+        // @TODO: Incorporate the reply position prefs?
+        if ($reply && $parent) {
+            $imap_message = $this->_imap->getImapMessage($parent, $reply);
+            $data = $imap_message->getMessageBody();
+            if ($data['charset'] != 'UTF-8') {
+                $quoted = Horde_String::convertCharset(
+                    $data['text'],
+                    $data['charset'],
+                    'UTF-8'
+                );
+            } else {
+                $quoted = $data['text'];
+            }
+        } else {
+            $quoted = '';
+        }
+
         if (preg_match('/multipart/i', $headers->getValue('Content-Type'))) {
             $mail->setBasePart($message);
         } else {
             $body_id = $message->findBody();
             if ($body_id) {
                 $part = $message->getPart($body_id);
-                $body = $part->getContents();
+                $body = $part->getContents() . $quoted;
                 $mail->setBody($body);
             } else {
                 $mail->setBody('No body?');
             }
         }
+
         $this->_logger->debug('Sending Email.');
         try {
             $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));

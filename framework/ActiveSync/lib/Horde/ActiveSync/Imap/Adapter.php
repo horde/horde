@@ -377,6 +377,15 @@ class Horde_ActiveSync_Imap_Adapter
         return $part;
     }
 
+    public function getImapMessage($mailbox, $uid)
+    {
+        $mbox = new Horde_Imap_Client_Mailbox($mailbox);
+        $messages = $this->_getMailMessages($mbox, array($uid));
+        $message = array_pop($messages);
+                Horde::debug($message);
+        return new Horde_ActiveSync_Imap_Message($this->_getImapOb(), $mbox, $message);
+    }
+
     /**
      *
      * @return array An array of Horde_Imap_Client_Data_Fetch objects.

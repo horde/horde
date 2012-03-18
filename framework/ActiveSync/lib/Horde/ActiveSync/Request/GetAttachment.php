@@ -30,10 +30,10 @@ class Horde_ActiveSync_Request_GetAttachment extends Horde_ActiveSync_Request_Ba
             $this->_device->id)
         );
         $get = $this->_request->getGetVars();
-        $attname = $get['AttachmentName'];
-        if (!isset($attname)) {
+        if (empty($get['AttachmentName'])) {
             return false;
         }
+        $attname = $get['AttachmentName'];
 
         $this->_logger->debug(sprintf(
             "[%s] Fetching attachement: %s",
