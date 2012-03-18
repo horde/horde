@@ -880,24 +880,22 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $headers->addHeader('From', $from);
 
         $this->_logger->debug(sprintf("Setting FROM to '%s'.", $from));
-        // @TODO: From seems to be broken when it's not in UTF-8 coming from the
-        //        Device.
         $this->_logger->debug(sprintf("TO '%s'", $headers->getValue('To')));
 
         $mail = new Horde_Mime_Mail();
         $mail->addHeaders($headers->toArray());
-        $body_id = $message->findBody();
-        if ($body_id) {
-            $part = $message->getPart($body_id);
-            $body = $part->getContents();
-            $mail->setBody($body);
+        if (preg_match('/multipart/i', $headers->getValue('Content-Type'))) {
+            $mail->setBasePart($message);
         } else {
-            $mail->setBody('No body?');
+            $body_id = $message->findBody();
+            if ($body_id) {
+                $part = $message->getPart($body_id);
+                $body = $part->getContents();
+                $mail->setBody($body);
+            } else {
+                $mail->setBody('No body?');
+            }
         }
-        foreach ($message->contentTypeMap() as $id => $type) {
-            $mail->addPart($type, $message->getPart($id)->toString());
-        }
-
         $this->_logger->debug('Sending Email.');
         try {
             $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
