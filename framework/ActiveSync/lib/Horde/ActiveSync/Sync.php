@@ -199,7 +199,8 @@ class Horde_ActiveSync_Sync
                 case Horde_ActiveSync::CHANGE_TYPE_CHANGE:
                     $truncsize = self::_getTruncSize($this->_truncation);
                     if (!$message = $this->_backend->getMessage($this->_folderId, $change['id'], $truncsize)) {
-                        return false;
+                        $this->_logger->debug('Message gone? Possibly a MoreItems that has since disappeared.');
+                        $flags = $flags | Horde_ActiveSync::BACKEND_IGNORE_DATA;
                     }
 
                     // copy the flag to the message
