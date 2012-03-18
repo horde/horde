@@ -2983,7 +2983,7 @@ class Kronolith
     {
         $a_list = new Horde_Mail_Rfc822_List();
 
-        foreach ($this->attendees as $mail => $attendee) {
+        foreach ($attendees as $mail => $attendee) {
             $tmp = new Horde_Mail_Rfc822_Address($mail);
             if (!empty($attendee['name'])) {
                 $tmp->personal = $attendee['name'];
