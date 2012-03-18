@@ -160,7 +160,7 @@ class Horde_ActiveSync_Sync
                     if (!$folder) {
                         return;
                     }
-                    if ($flags & Horde_ActiveSync::BACKEND_DISCARD_DATA ||
+                    if ($flags & Horde_ActiveSync::BACKEND_IGNORE_DATA ||
                         $this->_exporter->folderChange($folder)) {
 
                         $this->_stateDriver->updateState(
@@ -168,7 +168,7 @@ class Horde_ActiveSync_Sync
                     }
                     break;
                 case Horde_ActiveSync::CHANGE_TYPE_DELETE:
-                    if ($flags & Horde_ActiveSync::BACKEND_DISCARD_DATA ||
+                    if ($flags & Horde_ActiveSync::BACKEND_IGNORE_DATA ||
                         $this->_exporter->folderDeletion($change['id'])) {
 
                         $this->_stateDriver->updateState(
@@ -205,28 +205,28 @@ class Horde_ActiveSync_Sync
                     // copy the flag to the message
                     // @TODO: Rename this to ->new or ->status or *anything* other than flags!!
                     $message->flags = (isset($change['flags'])) ? $change['flags'] : 0;
-                    if ($flags & Horde_ActiveSync::BACKEND_DISCARD_DATA || $this->_exporter->messageChange($change['id'], $message) == true) {
+                    if ($flags & Horde_ActiveSync::BACKEND_IGNORE_DATA || $this->_exporter->messageChange($change['id'], $message) == true) {
                         $this->_stateDriver->updateState(
                             Horde_ActiveSync::CHANGE_TYPE_CHANGE, $change);
                     }
                     break;
 
                 case Horde_ActiveSync::CHANGE_TYPE_DELETE:
-                    if ($flags & Horde_ActiveSync::BACKEND_DISCARD_DATA || $this->_exporter->messageDeletion($change['id']) == true) {
+                    if ($flags & Horde_ActiveSync::BACKEND_IGNORE_DATA || $this->_exporter->messageDeletion($change['id']) == true) {
                         $this->_stateDriver->updateState(
                             Horde_ActiveSync::CHANGE_TYPE_DELETE, $change);
                     }
                     break;
 
                 case Horde_ActiveSync::CHANGE_TYPE_FLAGS:
-                    if ($flags & Horde_ActiveSync::BACKEND_DISCARD_DATA || $this->_exporter->messageReadFlag($change['id'], $change['flags']) == true) {
+                    if ($flags & Horde_ActiveSync::BACKEND_IGNORE_DATA || $this->_exporter->messageReadFlag($change['id'], $change['flags']) == true) {
                         $this->_stateDriver->updateState(
                             Horde_ActiveSync::CHANGE_TYPE_FLAGS, $change);
                     }
                     break;
 
                 case Horde_ActiveSync::CHANGE_TYPE_MOVE:
-                    if ($flags & Horde_ActiveSync::BACKEND_DISCARD_DATA || $this->_exporter->messageMove($change['id'], $change['parent']) == true) {
+                    if ($flags & Horde_ActiveSync::BACKEND_IGNORE_DATA || $this->_exporter->messageMove($change['id'], $change['parent']) == true) {
                         $this->_stateDriver->updateState(
                             Horde_ActiveSync::CHANGE_TYPE_MOVE, $change);
                     }
