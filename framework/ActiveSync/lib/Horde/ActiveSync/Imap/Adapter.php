@@ -317,7 +317,6 @@ class Horde_ActiveSync_Imap_Adapter
      *                            DEFAULT: false (No truncation).
      *
      * @return array  An array of Horde_ActiveSync_Message_Mail objects.
-     * @throws Horde_Exception
      */
     public function getMessages($folderid, array $messages, array $options = array())
     {

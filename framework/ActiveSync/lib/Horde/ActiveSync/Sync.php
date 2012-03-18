@@ -189,7 +189,6 @@ class Horde_ActiveSync_Sync
                 $change = $this->_changes[$this->_step];
 
                 // Prevent corrupt server entries from causing infinite sync
-                // attempts.
                 while (empty($change['id']) && $this->_step < count($this->_changes) - 1) {
                     $this->_logger->err('Missing UID value for an entry in: ' . $this->_folderId);
                     $this->_step++;

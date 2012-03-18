@@ -497,7 +497,14 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     /**
      * Get a message from the backend
      *
-     * @see framework/ActiveSync/lib/Horde/ActiveSync/Driver/Horde_ActiveSync_Driver_Base#getMessage
+     * @param string $folderid      The server's folder id this message is from
+     * @param string $id            The server's message id
+     * @param integer $truncsize    A TRUNCATION_* constant
+     * @param integer $mimesupport  Mime support for this message
+     *
+     * @return Horde_ActiveSync_Message_Base|boolean
+     *                              The message data, or false if not found.
+     *
      */
     public function getMessage($folderid, $id, $truncsize, $mimesupport = 0)
     {
@@ -686,13 +693,14 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * @param string $folderid  The server id for the folder the message belongs
      *                          to.
      * @param string $id        The server's uid for the message if this is a
-     *                          change to an existing message.
-     * @param Horde_ActiveSync_Message_Base $message  The activesync message
-     * @param object $device  The device information
+     *                          change to an existing message, null if new.
+     * @param Horde_ActiveSync_Message_Base $message
+     *                          The activesync message
+     * @param stdClass $device  The device information
      *
-     * @see framework/ActiveSync/lib/Horde/ActiveSync/Driver/Horde_ActiveSync_Driver_Base#changeMessage($folderid, $id, $message)
+     * @return array|boolean    A stat array if successful, otherwise false.
      */
-    public function changeMessage($folderid, $id, $message, $device)
+    public function changeMessage($folderid, $id, Horde_ActiveSync_Message_Base $message, $device)
     {
         $this->_logger->debug('Horde::changeMessage(' . $folderid . ', ' . $id . ')');
         ob_start();

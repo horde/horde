@@ -510,11 +510,14 @@ abstract class Horde_ActiveSync_Driver_Base
      * @param string $folderid  The server id for the folder the message belongs
      *                          to.
      * @param string $id        The server's uid for the message if this is a
-     *                          change to an existing message.
-     * @param Horde_ActiveSync_Message_Base $message  The activesync message
+     *                          change to an existing message, null if new.
+     * @param Horde_ActiveSync_Message_Base $message
+     *                          The activesync message
      * @param stdClass $device  The device information
+     *
+     * @return array|boolean    A stat array if successful, otherwise false.
      */
-    abstract public function changeMessage($folderid, $id, $message, $device);
+    abstract public function changeMessage($folderid, $id, Horde_ActiveSync_Message_Base $message, $device);
 
     /**
      * Sends the email represented by the rfc822 string received by the PIM.
