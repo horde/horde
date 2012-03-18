@@ -12,22 +12,22 @@
  * @license    http://www.horde.org/licenses/gpl GNU General Public License, version 2
  */
 
-$mappings = array('Kronolith' => dirname(__FILE__) . '/../../lib/');
+$mappings = array('Kronolith' => __DIR__ . '/../../lib/');
 require_once 'Horde/Test/Autoload.php';
 
 /** Catch strict standards */
 error_reporting(E_ALL | E_STRICT);
 
 /** Load the basic test definition */
-require_once dirname(__FILE__) . '/TestCase.php';
-require_once dirname(__FILE__) . '/Integration/Driver/Base.php';
-require_once dirname(__FILE__) . '/Integration/Driver/Sql/Base.php';
-require_once dirname(__FILE__) . '/Integration/Kronolith/Base.php';
-require_once dirname(__FILE__) . '/Integration/Kronolith/Sql/Base.php';
+require_once __DIR__ . '/TestCase.php';
+require_once __DIR__ . '/Integration/Driver/Base.php';
+require_once __DIR__ . '/Integration/Driver/Sql/Base.php';
+require_once __DIR__ . '/Integration/Kronolith/Base.php';
+require_once __DIR__ . '/Integration/Kronolith/Sql/Base.php';
 
 /** Load stub definitions */
-require_once dirname(__FILE__) . '/Stub/Driver.php';
-require_once dirname(__FILE__) . '/Stub/Registry.php';
-require_once dirname(__FILE__) . '/Stub/ShareFactory.php';
-require_once dirname(__FILE__) . '/Stub/Tagger.php';
-require_once dirname(__FILE__) . '/Stub/Types.php';
+require_once __DIR__ . '/Stub/Driver.php';
+require_once __DIR__ . '/Stub/Registry.php';
+require_once __DIR__ . '/Stub/ShareFactory.php';
+require_once __DIR__ . '/Stub/Tagger.php';
+require_once __DIR__ . '/Stub/Types.php';

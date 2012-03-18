@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../Autoload.php';
+require_once __DIR__ . '/../Autoload.php';
 
 /**
  * Test importing iCalendar events.
@@ -103,7 +103,7 @@ class Kronolith_Integration_FromIcalendarTest extends Kronolith_TestCase
     {
         $iCal = new Horde_Icalendar();
         $iCal->parsevCalendar(
-            file_get_contents(dirname(__FILE__) . '/../fixtures/' . $name)
+            file_get_contents(__DIR__ . '/../fixtures/' . $name)
         );
         $components = $iCal->getComponents();
         $event = new Kronolith_Event_Sql(new Kronolith_Stub_Driver());

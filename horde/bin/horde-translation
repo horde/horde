@@ -1550,7 +1550,7 @@ class Horde_Translation_Script
 define('DS', DIRECTORY_SEPARATOR);
 putenv('LANG=en');
 
-$baseFile = dirname(__FILE__) . '/../lib/Application.php';
+$baseFile = __DIR__ . '/../lib/Application.php';
 if (file_exists($baseFile)) {
     require_once $baseFile;
 } else {

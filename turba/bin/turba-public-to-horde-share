@@ -18,8 +18,8 @@
  * @package Turba
  */
 
-if (file_exists(dirname(__FILE__) . '/../../turba/lib/Application.php')) {
-    $baseDir = dirname(__FILE__) . '/../';
+if (file_exists(__DIR__ . '/../../turba/lib/Application.php')) {
+    $baseDir = __DIR__ . '/../';
 } else {
     require_once 'PEAR/Config.php';
     $baseDir = PEAR_Config::singleton()

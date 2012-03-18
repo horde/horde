@@ -9,7 +9,7 @@
  * @author Ben Klang <ben@alkaloid.net>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('hermes');
 
 $vars = Horde_Variables::getDefaultVariables();

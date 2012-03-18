@@ -5,7 +5,7 @@
  * did not receive this file, see http://cvs.horde.org/co.php/jonah/LICENSE.
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('jonah', array('cli' => true));
 
 if (empty($argv[1]) || !file_exists($argv[1])) {

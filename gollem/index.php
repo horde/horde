@@ -14,4 +14,4 @@
  * @package  Gollem
  */
 
-require dirname(__FILE__) . '/manager.php';
+require __DIR__ . '/manager.php';

@@ -8,7 +8,7 @@
  * @package    Text_Filter
  * @subpackage UnitTests
  */
-require_once dirname(__FILE__) . '/Autoload.php';
+require_once __DIR__ . '/Autoload.php';
 
 class Horde_Text_Filter_LinkurlsTest extends Horde_Test_Case
 {

@@ -2,7 +2,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/Base.php';
+require_once __DIR__ . '/Base.php';
 
 /**
  * Copyright 2012 Horde LLC (http://www.horde.org/)
@@ -22,7 +22,7 @@ class Horde_Vfs_SqlFile_MysqliTest extends Horde_Vfs_Test_SqlFile_Base
             return;
         }
         $config = self::getConfig('VFS_SQLFILE_MYSQLI_TEST_CONFIG',
-                                  dirname(__FILE__) . '/..');
+                                  __DIR__ . '/..');
         if ($config && !empty($config['vfs']['sqlfile']['mysqli'])) {
             self::$db = new Horde_Db_Adapter_Mysqli($config['vfs']['sqlfile']['mysqli']);
             parent::setUpBeforeClass();

@@ -1716,10 +1716,9 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
 
         $this->_basepart = $old_basepart;
         $rfc822 = new Horde_Mail_Rfc822();
-
         try {
             $mailer->send($rfc822->parseAddressList($email)->writeAddress(array(
-                'encode' => $this->getCharset(),
+                'encode' => $this->getHeaderCharset(),
                 'idn' => true
             )), $headers->toArray(array(
                 'canonical' => true,

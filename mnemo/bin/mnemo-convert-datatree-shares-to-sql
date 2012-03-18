@@ -6,8 +6,8 @@
  * upgrade script before executing this script.
  */
 
-if (file_exists(dirname(__FILE__) . '/../../mnemo/lib/Application.php')) {
-    $baseDir = dirname(__FILE__) . '/../';
+if (file_exists(__DIR__ . '/../../mnemo/lib/Application.php')) {
+    $baseDir = __DIR__ . '/../';
 } else {
     require_once 'PEAR/Config.php';
     $baseDir = PEAR_Config::singleton()

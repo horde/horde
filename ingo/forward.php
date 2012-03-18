@@ -10,7 +10,7 @@
  * @author Todd Merritt <tmerritt@email.arizona.edu>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('ingo');
 
 /* Redirect if forward is not available. */

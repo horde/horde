@@ -12,7 +12,7 @@
 
 /* Determine the base directories. */
 if (!defined('TREAN_BASE')) {
-    define('TREAN_BASE', dirname(__FILE__) . '/..');
+    define('TREAN_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {

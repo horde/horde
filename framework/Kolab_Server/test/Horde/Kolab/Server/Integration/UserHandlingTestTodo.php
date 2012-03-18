@@ -14,7 +14,7 @@
 /**
  * Require our basic test case definition
  */
-require_once dirname(__FILE__) . '/Scenario.php';
+require_once __DIR__ . '/Scenario.php';
 
 /**
  * Handling users.

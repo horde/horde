@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../Autoload.php';
+require_once __DIR__ . '/../Autoload.php';
 
 /**
  * Test recurrence handling
@@ -38,7 +38,7 @@ extends Horde_Kolab_Format_TestCase
     public function testBug6388()
     {
         $xml   = $this->getFactory()->create('XML', 'event');
-        $recur = file_get_contents(dirname(__FILE__) . '/../fixtures/recur_fail.xml');
+        $recur = file_get_contents(__DIR__ . '/../fixtures/recur_fail.xml');
         // Check that the xml fails because of a missing interval value
         try {
             $xml->load($recur);
@@ -154,7 +154,7 @@ extends Horde_Kolab_Format_TestCase
     private function _loadExclusions()
     {
         return $this->getFactory()->create('XML', 'event')->load(
-            file_get_contents(dirname(__FILE__) . '/../fixtures/recur.xml')
+            file_get_contents(__DIR__ . '/../fixtures/recur.xml')
         );
     }
 
@@ -162,7 +162,7 @@ extends Horde_Kolab_Format_TestCase
     {
         $parser = $this->getFactory()->create('XML', 'event');
         $object = $parser->load(
-            file_get_contents(dirname(__FILE__) . '/../fixtures/recur.xml')
+            file_get_contents(__DIR__ . '/../fixtures/recur.xml')
         );
         $xml = $parser->save($object);
         return $parser->load($xml);
@@ -171,7 +171,7 @@ extends Horde_Kolab_Format_TestCase
     private function _loadComplete()
     {
         return $this->getFactory()->create('XML', 'event')->load(
-            file_get_contents(dirname(__FILE__) . '/../fixtures/recur_complete.xml')
+            file_get_contents(__DIR__ . '/../fixtures/recur_complete.xml')
         );
     }
 
@@ -179,7 +179,7 @@ extends Horde_Kolab_Format_TestCase
     {
         $parser = $this->getFactory()->create('XML', 'event');
         $object = $parser->load(
-            file_get_contents(dirname(__FILE__) . '/../fixtures/recur_complete.xml')
+            file_get_contents(__DIR__ . '/../fixtures/recur_complete.xml')
         );
         $xml = $parser->save($object);
         return $parser->load($xml);

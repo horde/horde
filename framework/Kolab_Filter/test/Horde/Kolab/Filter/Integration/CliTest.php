@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../Autoload.php';
+require_once __DIR__ . '/../Autoload.php';
 
 /**
  * Test the CLI handling.
@@ -52,7 +52,7 @@ extends PHPUnit_Framework_TestCase
     {
         $_SERVER['argv'] = array($_SERVER['argv'][0]);
         $filter = new Horde_Kolab_Filter();
-        $inh = fopen(dirname(__FILE__) . '/../fixtures/tiny.eml', 'r');
+        $inh = fopen(__DIR__ . '/../fixtures/tiny.eml', 'r');
         try {
             $result = $filter->main('Incoming', $inh, 'echo');
         } catch (Horde_Kolab_Filter_Exception $e) {
@@ -70,12 +70,13 @@ extends PHPUnit_Framework_TestCase
      */
     public function testIncorrectUsageWithInvalidOption()
     {
+        setlocale(LC_MESSAGES, 'C');
         $_SERVER['argv'] = array(
             $_SERVER['argv'][0],
             '--recipient'
         );
         $filter = new Horde_Kolab_Filter();
-        $inh = fopen(dirname(__FILE__) . '/../fixtures/tiny.eml', 'r');
+        $inh = fopen(__DIR__ . '/../fixtures/tiny.eml', 'r');
         try {
             $result = $filter->main('Incoming', $inh, 'echo');
         } catch (Horde_Kolab_Filter_Exception $e) {

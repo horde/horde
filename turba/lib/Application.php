@@ -17,7 +17,7 @@
 
 /* Determine the base directories. */
 if (!defined('TURBA_BASE')) {
-    define('TURBA_BASE', dirname(__FILE__) . '/..');
+    define('TURBA_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {

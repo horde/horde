@@ -15,7 +15,7 @@
 
 /* Determine the base directories. */
 if (!defined('WHUPS_BASE')) {
-    define('WHUPS_BASE', dirname(__FILE__) . '/..');
+    define('WHUPS_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {

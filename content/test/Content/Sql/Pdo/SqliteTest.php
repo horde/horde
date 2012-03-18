@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__) . '/../Base.php';
+require_once __DIR__ . '/../Base.php';
 
 class Content_Sql_Pdo_SqliteTest extends Content_Test_Sql_Base
 {

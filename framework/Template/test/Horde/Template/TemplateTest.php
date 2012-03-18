@@ -1,4 +1,7 @@
 <?php
+
+require_once dirname(__FILE__) . '/Autoload.php';
+
 /**
  * Json serialization tests.
  *
@@ -8,8 +11,7 @@
  * @package    Template
  * @subpackage UnitTests
  */
-
-class Horde_Template_TemplateTest extends PHPUnit_Framework_TestCase
+class Horde_Template_TemplateTest extends Horde_Test_Case
 {
     // Associative Array Test
     public function testAssociativeArray()

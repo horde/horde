@@ -13,9 +13,9 @@
  * @package Rampage
  */
 
-@define('ZOMBIE_BASE', dirname(__FILE__) . '/..');
+@define('ZOMBIE_BASE', __DIR__ . '/..');
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
 /* List of files that are parsed, converted and copied to output

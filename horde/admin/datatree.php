@@ -26,7 +26,7 @@ function _addTree($parent, $parent_id, $datatree, $tree, $indent = 1)
     }
 }
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 $permission = 'datatree';
 Horde_Registry::appInit('horde');
 if (!$registry->isAdmin() && 

@@ -14,7 +14,7 @@
  */
 
 if (!defined('CHORA_BASE')) {
-    define('CHORA_BASE', dirname(__FILE__) . '/..');
+    define('CHORA_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {
@@ -182,7 +182,7 @@ class Chora_Application extends Horde_Registry_Application
         );
 
         // Run through every source repository
-        require dirname(__FILE__) . '/../config/backends.php';
+        require __DIR__ . '/../config/backends.php';
         foreach ($sourceroots as $sourceroot => $srconfig) {
             $perms['sourceroots:' . $sourceroot] = array(
                 'title' => $srconfig['name']

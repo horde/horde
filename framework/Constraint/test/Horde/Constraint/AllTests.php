@@ -15,7 +15,7 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
  * Prepare the test setup.
  */
 require_once 'Horde/Test/AllTests.php';
-set_include_path(dirname(__FILE__) . '/../../' . PATH_SEPARATOR . get_include_path());
+set_include_path(__DIR__ . '/../../' . PATH_SEPARATOR . get_include_path());
 
 /**
  * @package    Constraint

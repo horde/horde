@@ -2,7 +2,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/Base.php';
+require_once __DIR__ . '/Base.php';
 
 /**
  * Test the SSH based virtual file system.
@@ -173,7 +173,7 @@ class Horde_Vfs_Ssh2Test extends Horde_Vfs_Test_Base
             self::$reason = 'No ssh2 extension';
             return;
         }
-        $config = self::getConfig('VFS_SSH2_TEST_CONFIG', dirname(__FILE__));
+        $config = self::getConfig('VFS_SSH2_TEST_CONFIG', __DIR__);
         if ($config && !empty($config['vfs']['ssh2'])) {
             self::$vfs = Horde_Vfs::factory('Ssh2', $config['vfs']['ssh2']);
         }

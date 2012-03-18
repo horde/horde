@@ -15,7 +15,7 @@
 
 /* Load the Horde Framework core (needed to autoload
  * Horde_Registry_Application::). */
-require_once dirname(__FILE__) . '/core.php';
+require_once __DIR__ . '/core.php';
 
 class Horde_Application extends Horde_Registry_Application
 {

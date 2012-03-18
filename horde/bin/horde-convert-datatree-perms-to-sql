@@ -5,7 +5,7 @@
  * new (Horde 3.2+) native SQL Perms backend.
  */
 
-$baseFile = dirname(__FILE__) . '/../../lib/Application.php';
+$baseFile = __DIR__ . '/../../lib/Application.php';
 if (file_exists($baseFile)) {
     require_once $baseFile;
 } else {

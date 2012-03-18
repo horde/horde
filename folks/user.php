@@ -9,7 +9,7 @@
  * @package Folks
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once __DIR__ . '/lib/base.php';
 
 // Load profile
 $user = Horde_Util::getFormData('user', $GLOBALS['registry']->getAuth());

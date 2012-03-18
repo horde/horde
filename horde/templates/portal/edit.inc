@@ -26,17 +26,17 @@ try {
     $blockInfo = $layout->getBlockInfo($row, $col);
 } catch (Horde_Exception $e) {}
 if (!$layout->isEmpty($row, $col)) {
-    require dirname(__FILE__) . '/layout.inc';
+    require __DIR__ . '/layout.inc';
 } else {
     if ($allow_add) {
-        require dirname(__FILE__) . '/add.inc';
+        require __DIR__ . '/add.inc';
     }
 }
 ?>
     </td>
 <?php endif; endfor; if ($allow_add): ?>
     <td valign="top" class="headerbox">
-      <?php require dirname(__FILE__) . '/add.inc'; ?>
+      <?php require __DIR__ . '/add.inc'; ?>
     </td>
 <?php endif; ?>
   </tr>
@@ -46,7 +46,7 @@ if (!$layout->isEmpty($row, $col)) {
 for ($col = 0; $col <= $columns; ++$col):
 ?>
     <td valign="top" class="headerbox">
-      <?php require dirname(__FILE__) . '/add.inc'; ?>
+      <?php require __DIR__ . '/add.inc'; ?>
     </td>
 <?php endfor; ?>
   </tr>

@@ -8,4 +8,4 @@
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
-require dirname(__FILE__) . '/source.php';
+require __DIR__ . '/source.php';

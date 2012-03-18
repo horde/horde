@@ -11,7 +11,7 @@
  * @package Jonah
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('jonah');
 
 if (!Jonah::checkPermissions('jonah:news', Horde_Perms::EDIT)) {

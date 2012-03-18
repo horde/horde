@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../../Autoload.php';
+require_once __DIR__ . '/../../../Autoload.php';
 
 /**
  * Test the OWA resource handler.
@@ -111,7 +111,7 @@ extends Horde_Kolab_FreeBusy_TestCase
         $response = new Horde_Http_Response_Mock(
             '',
             fopen(
-                dirname(__FILE__) . '/../../../fixtures/owa_freebusy.xml', 'r'
+                __DIR__ . '/../../../fixtures/owa_freebusy.xml', 'r'
             )
         );
         $response->code = $code;

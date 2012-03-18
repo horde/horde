@@ -36,7 +36,7 @@ $phar = new Phar(
     'ezcomponents-2008.1.phar', 0,
     'ezcomponents-2008.1.phar' );
 $phar-&amp;gt;buildFromDirectory(
-    dirname(__FILE__) . '/ezcomponents-2008.1',
+    __DIR__ . '/ezcomponents-2008.1',
     '/\.php$/');
 $phar-&amp;gt;compressFiles( Phar::GZ );
 $phar-&amp;gt;stopBuffering();

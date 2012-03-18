@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__) . '/TestBase.php';
+require_once __DIR__ . '/TestBase.php';
 
 /**
  * Test cases for the Turba_Driver:: class

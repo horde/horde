@@ -45,7 +45,7 @@ class Ansel_Search {
         $type = basename($type);
         $class = 'Ansel_Search_' . $type;
         if (!class_exists($class)) {
-            include dirname(__FILE__) . '/Search/' . $type . '.php';
+            include __DIR__ . '/Search/' . $type . '.php';
         }
         if (class_exists($class)) {
             $search = new $class($params);

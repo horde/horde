@@ -12,7 +12,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../../../Autoload.php';
+require_once __DIR__ . '/../../../../Autoload.php';
 
 /**
  * Test the logging notification handler class.
@@ -30,7 +30,7 @@ require_once dirname(__FILE__) . '/../../../../Autoload.php';
  */
 
 class Horde_Notification_Class_Notification_Handler_Decorator_LogTest
-extends PHPUnit_Framework_TestCase
+extends Horde_Test_Case
 {
     public function setUp()
     {

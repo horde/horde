@@ -17,7 +17,7 @@
  * @link       http://pear.horde.org/index.php?package=Content
  */
 
-$mappings = array('Content' => dirname(__FILE__) . '/../../lib');
+$mappings = array('Content' => __DIR__ . '/../../lib');
 require_once 'Horde/Test/Autoload.php';
 
 /** Catch strict standards */

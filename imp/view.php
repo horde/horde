@@ -43,7 +43,7 @@ function _sanitizeName($name)
     return trim(preg_replace('/[^\pL\pN-+_. ]/u', '_', $name), ' _');
 }
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 
 /* Don't compress if we are already sending in compressed format. */
 $vars = Horde_Variables::getDefaultVariables();

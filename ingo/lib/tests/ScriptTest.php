@@ -10,7 +10,7 @@
  * @subpackage UnitTests
  */
 
-require_once dirname(__FILE__) . '/TestBase.php';
+require_once __DIR__ . '/TestBase.php';
 
 class Ingo_ScriptTest extends Ingo_TestBase {
 
@@ -149,7 +149,7 @@ class ScriptTester_imap extends ScriptTester {
     {
         $this->_setupStorage();
         $this->api = Ingo_Script_Imap_Api::factory('mock', array());
-        $this->api->loadFixtures(dirname(__FILE__) . '/_data/');
+        $this->api->loadFixtures(__DIR__ . '/_data/');
 
         $GLOBALS['notification'] = new Ingo_Test_Notification;
 
@@ -286,12 +286,12 @@ class ScriptTester_sieve extends ScriptTester {
         $mh = fopen($this->mbox, 'w');
         $uid = 1;
 
-        $dh = opendir(dirname(__FILE__) . '/_data');
+        $dh = opendir(__DIR__ . '/_data');
         while (($dent = readdir($dh)) !== false) {
             if ($dent == '.' || $dent == '..' || $dent == 'CVS') {
                 continue;
             }
-            $filespec = dirname(__FILE__) . '/_data/' . $dent;
+            $filespec = __DIR__ . '/_data/' . $dent;
             $fh = fopen($filespec, 'r');
             $data = fread($fh, filesize($filespec));
             fclose($fh);

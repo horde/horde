@@ -8,7 +8,7 @@
  * @author Duck <duck@obala.net>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 $hermes = Horde_Registry::appInit('hermes');
 
 require_once 'Horde/Form.php';

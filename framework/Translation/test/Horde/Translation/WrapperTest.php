@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__) . '/TestBase.php';
+require_once __DIR__ . '/TestBase.php';
 
 /**
  * @author     Jan Schneider <jan@horde.org>
@@ -24,14 +24,14 @@ class Horde_Translation_TestWrapperA extends Horde_Translation
     static public function t($message)
     {
         self::$_domain = 'Horde_Translation';
-        self::$_directory = dirname(__FILE__) . '/locale';
+        self::$_directory = __DIR__ . '/locale';
         return parent::t($message);
     }
 
     static public function ngettext($singular, $plural, $number)
     {
         self::$_domain = 'Horde_Translation';
-        self::$_directory = dirname(__FILE__) . '/locale';
+        self::$_directory = __DIR__ . '/locale';
         return parent::ngettext($singular, $plural, $number);
     }
 }
@@ -41,14 +41,14 @@ class Horde_Translation_TestWrapperB extends Horde_Translation
     static public function t($message)
     {
         self::$_domain = 'Horde_Other';
-        self::$_directory = dirname(__FILE__) . '/locale';
+        self::$_directory = __DIR__ . '/locale';
         return parent::t($message);
     }
 
     static public function ngettext($singular, $plural, $number)
     {
         self::$_domain = 'Horde_Other';
-        self::$_directory = dirname(__FILE__) . '/locale';
+        self::$_directory = __DIR__ . '/locale';
         return parent::ngettext($singular, $plural, $number);
     }
 }

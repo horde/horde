@@ -4,7 +4,7 @@ Horde_Form_Type_email tests
 <?php
 
 require 'Horde/Autoloader.php';
-require dirname(__FILE__) . '/../Form.php';
+require __DIR__ . '/../Form.php';
 
 $vars = Horde_Variables::getDefaultVariables();
 $type = new Horde_Form_Type_email();

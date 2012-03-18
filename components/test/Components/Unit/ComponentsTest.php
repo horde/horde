@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../Autoload.php';
+require_once __DIR__ . '/../Autoload.php';
 
 /**
  * Test the Components entry point.
@@ -63,7 +63,7 @@ extends Components_TestCase
         $_SERVER['argv'] = array(
             'horde-components',
             '--list-deps',
-            dirname(__FILE__) . '/../fixture/framework/Install/package.xml'
+            __DIR__ . '/../fixture/framework/Install/package.xml'
         );
         $output = $this->_callUnstrictComponents();
         $this->assertContains(
@@ -77,7 +77,7 @@ extends Components_TestCase
         $_SERVER['argv'] = array(
             'horde-components',
             '--list-deps',
-            dirname(__FILE__) . '/../fixture/framework/Install'
+            __DIR__ . '/../fixture/framework/Install'
         );
         $output = $this->_callUnstrictComponents();
         $this->assertContains(
@@ -89,7 +89,7 @@ extends Components_TestCase
     public function testWithinComponent()
     {
         $oldcwd = getcwd();
-        chdir(dirname(__FILE__) . '/../fixture/framework/Install');
+        chdir(__DIR__ . '/../fixture/framework/Install');
         $_SERVER['argv'] = array(
             'horde-components',
             '--list-deps',
@@ -105,7 +105,7 @@ extends Components_TestCase
     public function testWithinComponentNoAction()
     {
         $oldcwd = getcwd();
-        chdir(dirname(__FILE__) . '/../fixture/framework/Install');
+        chdir(__DIR__ . '/../fixture/framework/Install');
         $_SERVER['argv'] = array(
             'horde-components',
         );

@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../Autoload.php';
+require_once __DIR__ . '/../../Autoload.php';
 
 /**
  * Test the configuration handler.
@@ -96,21 +96,21 @@ extends Components_TestCase
     private function _getAConfig()
     {
         return new Components_Config_File(
-            dirname(__FILE__) . '/../../fixture/config/a.php'
+            __DIR__ . '/../../fixture/config/a.php'
         );
     }
 
     private function _getBConfig()
     {
         return new Components_Config_File(
-            dirname(__FILE__) . '/../../fixture/config/b.php'
+            __DIR__ . '/../../fixture/config/b.php'
         );
     }
 
     private function _getNullConfig()
     {
         return new Components_Config_File(
-            dirname(__FILE__) . '/../../fixture/config/null.php'
+            __DIR__ . '/../../fixture/config/null.php'
         );
     }
 }

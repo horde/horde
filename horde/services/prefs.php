@@ -18,7 +18,7 @@
  * @category Horde
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('horde');
 
 $prefs_ui = new Horde_Core_Prefs_Ui(Horde_Variables::getDefaultVariables());

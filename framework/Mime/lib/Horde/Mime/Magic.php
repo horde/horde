@@ -31,7 +31,7 @@ class Horde_Mime_Magic
     static protected function _getMimeExtensionMap()
     {
         if (is_null(self::$_map)) {
-            require dirname(__FILE__) . '/mime.mapping.php';
+            require __DIR__ . '/mime.mapping.php';
             self::$_map = $mime_extension_map;
         }
 

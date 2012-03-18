@@ -15,7 +15,7 @@ class Koward_Test_Renderer extends PHPUnit_Extensions_Story_ResultPrinter_HTML
         $this->templatePath = sprintf(
           '%s%sTemplate%s',
 
-          dirname(__FILE__),
+          __DIR__,
           DIRECTORY_SEPARATOR,
           DIRECTORY_SEPARATOR
         );

@@ -66,7 +66,7 @@
 // If your applications live in a different base directory, defining these
 // variables will change the default directory without the need to change
 // every application's 'fileroot'/'webroot' settings.
-// $app_fileroot = dirname(__FILE__) . '../';
+// $app_fileroot = __DIR__ . '../';
 // $app_webroot = $this->_detectWebroot();
 
 $this->applications = array(

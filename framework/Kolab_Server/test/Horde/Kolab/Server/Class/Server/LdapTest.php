@@ -14,7 +14,7 @@
 /**
  * Require our basic test case definition
  */
-require_once dirname(__FILE__) . '/../../LdapTestCase.php';
+require_once __DIR__ . '/../../LdapTestCase.php';
 
 /**
  * Test the LDAP backend.

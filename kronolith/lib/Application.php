@@ -15,7 +15,7 @@
 
 /* Determine the base directories. */
 if (!defined('KRONOLITH_BASE')) {
-    define('KRONOLITH_BASE', dirname(__FILE__) . '/..');
+    define('KRONOLITH_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {

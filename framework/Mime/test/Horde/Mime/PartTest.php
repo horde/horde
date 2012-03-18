@@ -14,7 +14,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/Autoload.php';
+require_once __DIR__ . '/Autoload.php';
 
 /**
  * @author     Michael Slusarz <slusarz@horde.org>
@@ -27,7 +27,7 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
 {
     public function testParseMessage()
     {
-        $msg = file_get_contents(dirname(__FILE__) . '/fixtures/sample_msg.txt');
+        $msg = file_get_contents(__DIR__ . '/fixtures/sample_msg.txt');
         $part = Horde_Mime_Part::parseMessage($msg);
 
         $this->assertEquals(
@@ -137,7 +137,7 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
 
     public function testAlterPart()
     {
-        $msg = file_get_contents(dirname(__FILE__) . '/fixtures/sample_msg.txt');
+        $msg = file_get_contents(__DIR__ . '/fixtures/sample_msg.txt');
         $part = Horde_Mime_Part::parseMessage($msg);
 
         $map = $part->contentTypeMap();

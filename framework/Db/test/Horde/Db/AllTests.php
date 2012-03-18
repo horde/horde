@@ -21,9 +21,9 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 require_once 'Horde/Test/AllTests.php';
 
 /* Set up autoload. */
-set_include_path(dirname(dirname(dirname(dirname(__FILE__)))) . DIRECTORY_SEPARATOR . 'lib' . PATH_SEPARATOR . get_include_path());
+set_include_path(dirname(dirname(dirname(__DIR__))) . DIRECTORY_SEPARATOR . 'lib' . PATH_SEPARATOR . get_include_path());
 require_once 'Horde/Test/Autoload.php';
-require_once dirname(__FILE__) . '/Adapter/MissingTest.php';
+require_once __DIR__ . '/Adapter/MissingTest.php';
 
 /* Ensure a default timezone is set. */
 date_default_timezone_set('America/New_York');
@@ -62,7 +62,7 @@ class Horde_Db_AllTests extends Horde_Test_AllTests
         // Build the suite
         $suite = new PHPUnit_Framework_TestSuite('Horde Framework - Horde_Db');
 
-        $basedir = dirname(__FILE__);
+        $basedir = __DIR__;
         $baseregexp = preg_quote($basedir . DIRECTORY_SEPARATOR, '/');
 
         foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($basedir)) as $file) {

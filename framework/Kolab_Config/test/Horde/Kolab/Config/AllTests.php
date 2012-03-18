@@ -76,7 +76,7 @@ class Horde_Kolab_Config_AllTests extends Horde_Test_AllTests
     {
         $config = getenv('KOLAB_CONFIG_TEST_CONFIG');
         if ($config === false) {
-            $config = dirname(__FILE__) . '/conf.php';
+            $config = __DIR__ . '/conf.php';
         }
         if (file_exists($config)) {
             require $config;

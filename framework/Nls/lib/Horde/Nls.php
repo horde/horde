@@ -183,7 +183,7 @@ class Horde_Nls
     static public function tldLookup($code)
     {
         if (!isset(self::$_cache['tld'])) {
-            include dirname(__FILE__) . '/Nls/Tld.php';
+            include __DIR__ . '/Nls/Tld.php';
             self::$_cache['tld'] = $tld;
         }
 
@@ -206,7 +206,7 @@ class Horde_Nls
     static public function getCountryISO($code = null)
     {
         if (!isset(self::$_cache['iso3166'])) {
-            include dirname(__FILE__) . '/Nls/Countries.php';
+            include __DIR__ . '/Nls/Countries.php';
             self::$_cache['iso3166'] = $countries;
         }
 
@@ -234,7 +234,7 @@ class Horde_Nls
     static public function getLanguageISO($code = null)
     {
         if (!isset(self::$_cache['iso639'])) {
-            include dirname(__FILE__) . '/Nls/Languages.php';
+            include __DIR__ . '/Nls/Languages.php';
             self::$_cache['iso639'] = $languages;
         }
 

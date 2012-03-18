@@ -21,7 +21,7 @@
  * @package  Horde
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 
 // Since different RPC servers have different session requirements, we can't
 // call appInit() until we know which server we are requesting. We  don't

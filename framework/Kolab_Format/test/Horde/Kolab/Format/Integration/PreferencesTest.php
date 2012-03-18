@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../Autoload.php';
+require_once __DIR__ . '/../Autoload.php';
 
 /**
  * Test the preferences XML format.
@@ -52,7 +52,7 @@ extends Horde_Kolab_Format_TestCase
         $preferences = $this->_getHprefs();
 
         $xml = file_get_contents(
-            dirname(__FILE__) . '/../fixtures/preferences_read_old.xml'
+            __DIR__ . '/../fixtures/preferences_read_old.xml'
         );
         $object = array(
             'uid' => 1,
@@ -61,7 +61,7 @@ extends Horde_Kolab_Format_TestCase
         );
         $xml = $preferences->save($object, array('previous' => $xml));
         $expect = file_get_contents(
-            dirname(__FILE__) . '/../fixtures/preferences_write_old.xml'
+            __DIR__ . '/../fixtures/preferences_write_old.xml'
         );
         $this->assertEquals(
             $this->removeLastModification($expect),
@@ -102,7 +102,7 @@ extends Horde_Kolab_Format_TestCase
         $preferences = $this->_getHprefs();
 
         $xml = file_get_contents(
-            dirname(__FILE__) . '/../fixtures/preferences_read_old.xml'
+            __DIR__ . '/../fixtures/preferences_read_old.xml'
         );
         return $preferences->load($xml);
     }

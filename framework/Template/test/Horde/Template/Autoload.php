@@ -2,27 +2,18 @@
 /**
  * Setup autoloading for the tests.
  *
- * PHP version 5
+ * Copyright 2012 Horde LLC (http://www.horde.org/)
  *
- * @category Horde
- * @package  Template
- * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Template
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @category   Horde
+ * @package    Horde_Template
+ * @subpackage UnitTests
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
 
-if (!spl_autoload_functions()) {
-    spl_autoload_register(
-        create_function(
-            '$class',
-            '$filename = str_replace(array(\'::\', \'_\'), \'/\', $class);'
-            . '$err_mask = E_ALL ^ E_WARNING;'
-            . '$oldErrorReporting = error_reporting($err_mask);'
-            . 'include "$filename.php";'
-            . 'error_reporting($oldErrorReporting);'
-        )
-    );
-}
+require_once 'Horde/Test/Autoload.php';
 
-/** Catch strict standards */
+/* Catch strict standards */
 error_reporting(E_ALL | E_STRICT);

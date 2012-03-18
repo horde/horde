@@ -8,4 +8,4 @@
  * @author Duck <duck@obala.net>
  */
 
-require dirname(__FILE__) . '/list.php';
+require __DIR__ . '/list.php';

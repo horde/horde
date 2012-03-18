@@ -643,10 +643,10 @@ extends PHPUnit_Framework_TestCase
     protected function getDefaultEventData($add = '')
     {
         return array(
-            'structure' => dirname(__FILE__) . '/fixtures/event.struct',
+            'structure' => __DIR__ . '/fixtures/event.struct',
             'parts' => array(
                 '2' => array(
-                    'file' => dirname(__FILE__) . '/fixtures/event' . $add . '.xml.qp',
+                    'file' => __DIR__ . '/fixtures/event' . $add . '.xml.qp',
                 )
             )
         );

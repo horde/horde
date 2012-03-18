@@ -58,7 +58,7 @@ class Koward_Test_AllTests
 
         $suite = new PHPUnit_Framework_TestSuite('Kolab server test suite');
 
-        $basedir    = dirname(__FILE__);
+        $basedir    = __DIR__;
         $baseregexp = preg_quote($basedir . DIRECTORY_SEPARATOR, '/');
 
         foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($basedir)) as $file) {

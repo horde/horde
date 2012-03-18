@@ -51,7 +51,7 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
         // read sql file for statements
         $statements = array();
         $current_stmt = '';
-        $fp = fopen(dirname(__FILE__) . '/../../fixtures/unit_tests.sql', 'r');
+        $fp = fopen(__DIR__ . '/../../fixtures/unit_tests.sql', 'r');
         while ($line = fgets($fp, 8192)) {
             $line = rtrim(preg_replace('/^(.*)--.*$/s', '\1', $line));
             if (!$line) {

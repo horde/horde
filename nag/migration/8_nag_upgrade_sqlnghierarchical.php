@@ -6,7 +6,7 @@
  * @package  Nag
  */
 
-require_once dirname(__FILE__) . '/../lib/Nag.php';
+require_once __DIR__ . '/../lib/Nag.php';
 
 /**
  * Add hierarchcal related columns to the legacy sql share driver

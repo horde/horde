@@ -2,7 +2,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/Autoload.php';
+require_once __DIR__ . '/Autoload.php';
 
 /**
  * @author     Jan Schneider <jan@horde.org>
@@ -18,7 +18,7 @@ class Horde_Timezone_IcalendarTest extends Horde_Test_Case
     {
         $tz = new Horde_Timezone_Mock();
         $this->assertStringEqualsFile(
-            dirname(__FILE__) . '/fixtures/europe.ics',
+            __DIR__ . '/fixtures/europe.ics',
             $tz->getZone('Europe/Jersey')->toVtimezone()->exportVcalendar()
         );
     }
@@ -32,6 +32,6 @@ class Horde_Timezone_Mock extends Horde_Timezone
 
     protected function _extractAndParse()
     {
-        $this->_parse(file_get_contents(dirname(__FILE__) . '/fixtures/europe'));
+        $this->_parse(file_get_contents(__DIR__ . '/fixtures/europe'));
     }
 }

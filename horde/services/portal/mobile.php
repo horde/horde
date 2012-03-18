@@ -13,7 +13,7 @@
  * @package  Horde
  */
 
-require_once dirname(__FILE__) . '/../../lib/Application.php';
+require_once __DIR__ . '/../../lib/Application.php';
 Horde_Registry::appInit('horde');
 
 $identity = $injector->getInstance('Horde_Core_Factory_Identity')->create();

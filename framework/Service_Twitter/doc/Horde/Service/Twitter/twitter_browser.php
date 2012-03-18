@@ -11,7 +11,7 @@
  * @package  Service_Twitter
  */
 
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once __DIR__ . '/../lib/base.php';
 
 /* Keys - these are obtained when registering for the service */
 $consumer_key = '********';

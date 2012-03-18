@@ -32,7 +32,7 @@ class Horde_Block_Klutz_Comics extends Horde_Core_Block
      */
     function _content()
     {
-        require_once dirname(__FILE__) . '/../base.php';
+        require_once __DIR__ . '/../base.php';
         global $prefs, $klutz, $klutz_driver;
 
         $showall = $prefs->getValue('summ_showall');

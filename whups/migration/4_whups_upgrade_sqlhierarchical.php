@@ -6,7 +6,7 @@
  * @package  Whups
  */
 
-require_once dirname(__FILE__) . '/../lib/Whups.php';
+require_once __DIR__ . '/../lib/Whups.php';
 
 /**
  * Add hierarchcal related columns to the legacy sql share driver

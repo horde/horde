@@ -14,7 +14,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/Autoload.php';
+require_once __DIR__ . '/Autoload.php';
 
 /**
  * @author     Michael Slusarz <slusarz@horde.org>
@@ -27,7 +27,7 @@ class Horde_Mime_MimeTest extends PHPUnit_Framework_TestCase
 {
     public function testUudecode()
     {
-        $data = Horde_Mime::uudecode(file_get_contents(dirname(__FILE__) . '/fixtures/uudecode.txt'));
+        $data = Horde_Mime::uudecode(file_get_contents(__DIR__ . '/fixtures/uudecode.txt'));
 
         $this->assertEquals(
             2,

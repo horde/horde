@@ -39,7 +39,7 @@ class Folks_Api extends Horde_Registry_Api
      */
     public function getImageUrl($user, $view = 'small', $full = false)
     {
-        require_once dirname(__FILE__) . '/base.php';
+        require_once __DIR__ . '/base.php';
         return Folks::getImageUrl($user, $view, $full);
     }
 
@@ -58,7 +58,7 @@ class Folks_Api extends Horde_Registry_Api
             return $info[$id][$type];
         }
 
-        require_once dirname(__FILE__) . '/base.php';
+        require_once __DIR__ . '/base.php';
 
         switch ($type) {
 
@@ -100,7 +100,7 @@ class Folks_Api extends Horde_Registry_Api
      */
     public function getOnlineUsers()
     {
-        require_once dirname(__FILE__) . '/base.php';
+        require_once __DIR__ . '/base.php';
 
         return $GLOBALS['folks_driver']->getOnlineUsers();
     }
@@ -112,7 +112,7 @@ class Folks_Api extends Horde_Registry_Api
      */
     public function getProfile($user = null)
     {
-        require_once dirname(__FILE__) . '/base.php';
+        require_once __DIR__ . '/base.php';
 
         return $GLOBALS['folks_driver']->getProfile($user);
     }
@@ -127,7 +127,7 @@ class Folks_Api extends Horde_Registry_Api
      */
     public function getFriends($user = null)
     {
-        require_once dirname(__FILE__) . '/Friends.php';
+        require_once __DIR__ . '/Friends.php';
 
         $friends = Folks_Friends::singleton('sql', array('user' => $user));
 
@@ -143,7 +143,7 @@ class Folks_Api extends Horde_Registry_Api
      */
     public function addFriend($user = null)
     {
-        require_once dirname(__FILE__) . '/Friends.php';
+        require_once __DIR__ . '/Friends.php';
 
         $friends = Folks_Friends::singleton('sql', array('user' => $user));
 
@@ -159,7 +159,7 @@ class Folks_Api extends Horde_Registry_Api
      */
     public function removeFriend($user = null)
     {
-        require_once dirname(__FILE__) . '/Friends.php';
+        require_once __DIR__ . '/Friends.php';
 
         $friends = Folks_Friends::singleton('sql', array('user' => $user));
 
@@ -175,7 +175,7 @@ class Folks_Api extends Horde_Registry_Api
      */
     public function getBlacklist($user = null)
     {
-        require_once dirname(__FILE__) . '/Friends.php';
+        require_once __DIR__ . '/Friends.php';
 
         $friends = Folks_Friends::singleton('sql', array('user' => $user));
 
@@ -189,7 +189,7 @@ class Folks_Api extends Horde_Registry_Api
      */
     public function addBlacklisted($user = null)
     {
-        require_once dirname(__FILE__) . '/Friends.php';
+        require_once __DIR__ . '/Friends.php';
 
         $friends = Folks_Friends::singleton('sql', array('user' => $user));
 
@@ -203,7 +203,7 @@ class Folks_Api extends Horde_Registry_Api
      */
     public function removeBlacklisted($user = null)
     {
-        require_once dirname(__FILE__) . '/Friends.php';
+        require_once __DIR__ . '/Friends.php';
 
         $friends = Folks_Friends::singleton('sql', array('user' => $user));
 
@@ -219,7 +219,7 @@ class Folks_Api extends Horde_Registry_Api
      */
     public function isBlacklisted($user = null)
     {
-        require_once dirname(__FILE__) . '/Friends.php';
+        require_once __DIR__ . '/Friends.php';
 
         $friends = Folks_Friends::singleton('sql', array('user' => $user));
 
@@ -243,7 +243,7 @@ class Folks_Api extends Horde_Registry_Api
      */
     public function listTimeObjects($categories, $start, $end)
     {
-        require_once dirname(__FILE__) . '/base.php';
+        require_once __DIR__ . '/base.php';
         require_once FOLKS_BASE . '/lib/Friends.php';
 
         $friends_driver = Folks_Friends::singleton('sql');
@@ -302,7 +302,7 @@ class Folks_Api extends Horde_Registry_Api
             return PEAR::raiseError(_("You cannot log activities for other users."));
         }
 
-        require_once dirname(__FILE__) . '/base.php';
+        require_once __DIR__ . '/base.php';
 
         return $GLOBALS['folks_driver']->logActivity($message, $scope, $user);
     }
@@ -317,7 +317,7 @@ class Folks_Api extends Horde_Registry_Api
      */
     public function getActivity($user, $limit = 10)
     {
-        require_once dirname(__FILE__) . '/base.php';
+        require_once __DIR__ . '/base.php';
 
         return $GLOBALS['folks_driver']->getActivity($user, $limit);
     }
@@ -332,7 +332,7 @@ class Folks_Api extends Horde_Registry_Api
      */
     public function setStatus($online = true, $user = null)
     {
-        require_once dirname(__FILE__) . '/base.php';
+        require_once __DIR__ . '/base.php';
 
         if ($user == null) {
             $user = $GLOBALS['registry']->getAuth();
@@ -356,7 +356,7 @@ class Folks_Api extends Horde_Registry_Api
      */
     public function getStatus($user = null)
     {
-        require_once dirname(__FILE__) . '/base.php';
+        require_once __DIR__ . '/base.php';
 
         if ($user == null) {
             $user = $GLOBALS['registry']->getAuth();

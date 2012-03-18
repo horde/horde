@@ -18,7 +18,7 @@
 
 /* Determine the base directories. */
 if (!defined('IMP_BASE')) {
-    define('IMP_BASE', dirname(__FILE__) . '/..');
+    define('IMP_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {

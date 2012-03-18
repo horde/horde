@@ -10,7 +10,7 @@
  * @author Duck  <duck@oabla.net>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('agora');
 
 /* Default to agora and current user if is not an admin. */

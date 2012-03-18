@@ -7,11 +7,11 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('nag');
 
 if ($registry->getView() == Horde_Registry::VIEW_SMARTMOBILE) {
-    require dirname(__FILE__) . '/mobile.php';
+    require __DIR__ . '/mobile.php';
 } else {
-    require dirname(__FILE__) . '/list.php';
+    require __DIR__ . '/list.php';
 }

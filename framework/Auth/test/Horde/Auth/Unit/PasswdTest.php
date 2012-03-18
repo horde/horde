@@ -19,14 +19,14 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../Autoload.php';
+require_once __DIR__ . '/../Autoload.php';
 
 class Horde_Auth_Unit_PasswdTest extends Horde_Auth_TestCase
 {
     public function setUp()
     {
         $this->driver = new Horde_Auth_Passwd(
-            array('filename' => dirname(__FILE__) . '/../fixtures/test.passwd')
+            array('filename' => __DIR__ . '/../fixtures/test.passwd')
         );
     }
 

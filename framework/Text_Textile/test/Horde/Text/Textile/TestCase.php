@@ -6,7 +6,7 @@
  */
 
 /** Horde_Text_Textile */
-require_once dirname(__FILE__) . '/../../../../lib/Horde/Text/Textile.php';
+require_once __DIR__ . '/../../../../lib/Horde/Text/Textile.php';
 
 /**
  * @category   Horde

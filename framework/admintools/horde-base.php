@@ -7,7 +7,7 @@ if ((($base = getenv('HORDE_BASE')) ||
 } elseif (is_file(getcwd() . '/lib/Application.php')) {
     $horde_base = getcwd();
 } else {
-    $horde_base = dirname(dirname(dirname(__FILE__)));
+    $horde_base = dirname(dirname(__DIR__));
 }
 
 require_once $horde_base . '/lib/Application.php';

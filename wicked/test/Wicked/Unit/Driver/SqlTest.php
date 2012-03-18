@@ -21,7 +21,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../Autoload.php';
+require_once __DIR__ . '/../../Autoload.php';
 
 /**
  * Test the restructured text renderer.
@@ -45,7 +45,7 @@ class Wicked_Unit_Driver_SqlTest extends Wicked_TestCase
     {
         $this->markTestIncomplete('This is a very old test case that certainly does not work in its current form. But it may still be useful to be rescued.');
 
-        @define('WICKED_BASE', dirname(__FILE__) . '/../..');
+        @define('WICKED_BASE', __DIR__ . '/../..');
         @define('TEST_PAGE_1', 'driver-pages.phpt Test Page One');
         @define('TEST_PAGE_2', 'Renamed driver-pages.phpt Test Page (Called "Two")');
 

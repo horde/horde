@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../../Autoload.php';
+require_once __DIR__ . '/../../../Autoload.php';
 
 /**
  * Test the Dependencies module.
@@ -50,7 +50,7 @@ extends Components_TestCase
         $_SERVER['argv'] = array(
             'horde-components',
             '--list-deps',
-            dirname(__FILE__) . '/../../../fixture/framework/Install'
+            __DIR__ . '/../../../fixture/framework/Install'
         );
         $this->assertContains(
             'Dependency-0.0.1', $this->_callUnstrictComponents()
@@ -63,7 +63,7 @@ extends Components_TestCase
             'horde-components',
             '--list-deps',
             '--alldeps',
-            dirname(__FILE__) . '/../../../fixture/framework/Install'
+            __DIR__ . '/../../../fixture/framework/Install'
         );
         $this->assertContains(
             '_Console_Getopt', $this->_callUnstrictComponents()
@@ -77,7 +77,7 @@ extends Components_TestCase
             '--list-deps',
             '--alldeps',
             '--short',
-            dirname(__FILE__) . '/../../../fixture/framework/Install'
+            __DIR__ . '/../../../fixture/framework/Install'
         );
         $this->assertContains(
             'Console_Getopt', $this->_callUnstrictComponents()

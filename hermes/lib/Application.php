@@ -18,7 +18,7 @@
  */
 
 if (!defined('HERMES_BASE')) {
-    define('HERMES_BASE', dirname(__FILE__). '/..');
+    define('HERMES_BASE', __DIR__. '/..');
 }
 
 if (!defined('HORDE_BASE')) {

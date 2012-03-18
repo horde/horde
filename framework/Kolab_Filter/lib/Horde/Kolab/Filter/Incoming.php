@@ -4,10 +4,10 @@
  */
 
 /** Load the basic filter definition */
-require_once dirname(__FILE__) . '/Base.php';
+require_once __DIR__ . '/Base.php';
 
 /** Load the Transport library */
-require_once dirname(__FILE__) . '/Transport.php';
+require_once __DIR__ . '/Transport.php';
 
 /**
  * A Kolab Server filter for incoming mails that are parsed for iCal

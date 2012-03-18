@@ -51,7 +51,7 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends PHPUnit_Framework_TestCase
         // read sql file for statements
         $statements = array();
         $current_stmt = '';
-        $fp = fopen(dirname(__FILE__) . '/../../fixtures/unit_tests.sql', 'r');
+        $fp = fopen(__DIR__ . '/../../fixtures/unit_tests.sql', 'r');
         while ($line = fgets($fp, 8192)) {
             $line = rtrim(preg_replace('/^(.*)--.*$/s', '\1', $line));
             if (!$line) {
@@ -1364,7 +1364,7 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends PHPUnit_Framework_TestCase
             $table->column('text', 'string');
         $table->end();
 
-        $input = file_get_contents(dirname(__FILE__) . '/../../fixtures/charsets/cp1257.txt');
+        $input = file_get_contents(__DIR__ . '/../../fixtures/charsets/cp1257.txt');
         $conn->insert("INSERT INTO charset_cp1257 (text) VALUES (?)", array($input));
         $output = $conn->selectValue('SELECT text FROM charset_cp1257');
 
@@ -1378,7 +1378,7 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends PHPUnit_Framework_TestCase
             $table->column('text', 'string');
         $table->end();
 
-        $input = file_get_contents(dirname(__FILE__) . '/../../fixtures/charsets/utf8.txt');
+        $input = file_get_contents(__DIR__ . '/../../fixtures/charsets/utf8.txt');
         $conn->insert("INSERT INTO charset_utf8 (text) VALUES (?)", array($input));
         $output = $conn->selectValue('SELECT text FROM charset_utf8');
 

@@ -2,7 +2,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../Locks.php';
+require_once __DIR__ . '/../Locks.php';
 
 /**
  * @category   Horde

@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../../../Autoload.php';
+require_once __DIR__ . '/../../../../Autoload.php';
 
 /**
  * Test the timestamp release task.
@@ -37,7 +37,7 @@ extends Components_TestCase
 {
     public function setUp()
     {
-        $this->_fixture = dirname(__FILE__) . '/../../../../fixture/simple';
+        $this->_fixture = __DIR__ . '/../../../../fixture/simple';
     }
 
     public function testValidateSucceeds()

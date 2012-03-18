@@ -14,7 +14,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../Autoload.php';
+require_once __DIR__ . '/../../Autoload.php';
 
 /**
  * Test logging in the preferences storage backend for Kolab.
@@ -98,7 +98,7 @@ class Horde_Prefs_Unit_Storage_KolabImapLogTest extends Horde_Test_Log
                 'user/test/Preferences' => array(
                     't' => 'h-prefs.default',
                     'm' => array(
-                        1 => array('file' => dirname(__FILE__) . '/../../fixtures/preferences.1'),
+                        1 => array('file' => __DIR__ . '/../../fixtures/preferences.1'),
                     ),
                 )
             )

@@ -11,7 +11,7 @@
  * @package Folks
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('folks', array('cli' => true, 'no_compress' => true));
 
 // We accept the user name on the command-line.

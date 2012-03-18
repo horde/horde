@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__) . '/sql.php';
+require_once __DIR__ . '/sql.php';
 
 /**
  * Folks_Friends:: defines an API for implementing storage backends for

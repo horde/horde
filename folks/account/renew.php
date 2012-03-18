@@ -8,7 +8,7 @@
  * @author Duck <duck@obala.net>
  */
 
-require_once dirname(__FILE__) . '/tabs.php';
+require_once __DIR__ . '/tabs.php';
 
 $title = _("Renew account");
 
