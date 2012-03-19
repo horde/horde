@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../../Autoload.php';
+require_once __DIR__ . '/../../../Autoload.php';
 
 /**
  * Test the directory handler.
@@ -43,7 +43,7 @@ extends Horde_Pear_TestCase
                 '/lib/Stays.php',
                 '/test.php'
             ),
-            $this->_getList(dirname(__FILE__) . '/../../../fixture/horde/framework/directory')->getFiles()
+            $this->_getList(__DIR__ . '/../../../fixture/horde/framework/directory')->getFiles()
         );
     }
 

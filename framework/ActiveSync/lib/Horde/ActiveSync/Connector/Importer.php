@@ -1,26 +1,21 @@
 <?php
 /**
- * Connector class for importing ActiveSync messages from the wbxml input stream
- * Contains code written by the Z-Push project. Original file header preserved
- * below.
+ * Horde_ActiveSync_Connector_Importer:: Class for importing message changes
+ * from the PIM to the backend.
+ *
+ * @copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * @author Michael J Rubinsky <mrubinsk@horde.org>
+ * @package ActiveSync
+ */
+/**
+ * Connector class for importing ActiveSync messages from the wbxml input stream.
  *
  * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
- * @author  Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author  Michael J Rubinsky <mrubinsk@horde.org>
  * @package ActiveSync
  */
 
-/**
- * File      :   streamimporter.php
- * Project   :   Z-Push
- * Descr     :   Stream import classes
- *
- * Created   :   01.10.2007
- *
- * © Zarafa Deutschland GmbH, www.zarafaserver.de
- * This file is distributed under GPL-2.0.
- * Consult COPYING file for details
- */
 class Horde_ActiveSync_Connector_Importer
 {
     /**
@@ -38,7 +33,7 @@ class Horde_ActiveSync_Connector_Importer
     protected $_backend;
 
     /**
-     * Flags
+     * Conflict resolution flags
      *
      * @var integer
      */
@@ -51,6 +46,11 @@ class Horde_ActiveSync_Connector_Importer
      */
     protected $_folderId;
 
+    /**
+     * Logger
+     *
+     * @var Horde_Log_Logger
+     */
     protected $_logger;
 
     /**
@@ -66,9 +66,9 @@ class Horde_ActiveSync_Connector_Importer
     /**
      * Initialize the exporter for this collection
      *
-     * @param Horde_ActiveSync_State_Base $state  The state machine
-     * @param string $folderId                    The collection's id
-     * @param integer $flags                      Any flags
+     * @param Horde_ActiveSync_State_Base $state  The state machine.
+     * @param string $folderId                    The collection's id.
+     * @param integer $flags                      Conflict resolution flags.
      */
     public function init(Horde_ActiveSync_State_Base &$state, $folderId, $flags = 0)
     {
@@ -90,26 +90,28 @@ class Horde_ActiveSync_Connector_Importer
     /**
      * Import a message change from the wbxml stream
      *
-     * @param mixed $id                                A server message id or
-     *                                                 false if a new message
+     * @param string|boolean $id                       A server message id or
+     *                                                 false if a new message.
      * @param Horde_ActiveSync_Message_Base $message   A message object
      * @param StdClass $device                         A device descriptor
      * @param integer $clientid                        Client id sent from PIM
      *                                                 on message addition.
      *
-     * @return mixed The server message id or false
+     * @return string|boolean The server message id or false
      */
     public function importMessageChange($id, $message, $device, $clientid)
     {
-        /* do nothing if it is in a dummy folder */
         if ($this->_folderId == Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
             return false;
         }
 
-        /* Changing an existing object */
+        // Changing an existing object
         if ($id) {
-            /* Check for conflicts */
-            $conflict = $this->_isConflict('change', $this->_folderId, $id);
+            $conflict = $this->_isConflict(
+                Horde_ActiveSync::CHANGE_TYPE_CHANGE,
+                $this->_folderId,
+                $id);
+
             if ($conflict && $this->_flags == Horde_ActiveSync::CONFLICT_OVERWRITE_PIM) {
                 return $id;
             }
@@ -120,16 +122,19 @@ class Horde_ActiveSync_Connector_Importer
             }
         }
 
-        /* Tell the backend about the change */
+        // Tell the backend about the change
         if (!$stat = $this->_backend->changeMessage($this->_folderId, $id, $message, $device)) {
             return false;
         }
         $stat['parent'] = $this->_folderId;
 
-        /* Record the state of the message */
+        // Record the state of the message
         $this->_state->updateState(
-            'change', $stat, Horde_ActiveSync::CHANGE_ORIGIN_PIM,
-            $this->_backend->getUser(), $clientid);
+            Horde_ActiveSync::CHANGE_TYPE_CHANGE,
+            $stat,
+            Horde_ActiveSync::CHANGE_ORIGIN_PIM,
+            $this->_backend->getUser(),
+            $clientid);
 
         return $stat['id'];
     }
@@ -144,29 +149,32 @@ class Horde_ActiveSync_Connector_Importer
      */
     public function importMessageDeletion($id)
     {
-        /* Do nothing if it is in a dummy folder */
         if ($this->_folderId == Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
             return true;
         }
 
-        /* Check for conflict */
-        $conflict = $this->_isConflict('delete', $this->_folderId, $id);
+        $conflict = $this->_isConflict(
+            Horde_ActiveSync::CHANGE_TYPE_DELETE, $this->_folderId, $id);
 
-        /* Update client state */
+        // Update client state
         $change = array();
         $change['id'] = $id;
         $change['mod'] = time();
         $change['parent'] = $this->_folderId;
-        $this->_state->updateState('delete', $change, Horde_ActiveSync::CHANGE_ORIGIN_PIM, $this->_backend->getUser());
+        $this->_state->updateState(
+            Horde_ActiveSync::CHANGE_TYPE_DELETE,
+            $change,
+            Horde_ActiveSync::CHANGE_ORIGIN_PIM,
+            $this->_backend->getUser());
 
-        /* If server wins the conflict, don't import change - it will be
-         * detected on next sync and sent back to PIM (since we updated the PIM
-         * state). */
+        // If server wins the conflict, don't import change - it will be
+        // detected on next sync and sent back to PIM (since we updated the PIM
+        // state).
         if ($conflict && $this->_flags == Horde_ActiveSync::CONFLICT_OVERWRITE_PIM) {
             return true;
         }
 
-        /* Tell backend about the deletion */
+        // Tell backend about the deletion
         $this->_backend->deleteMessage($this->_folderId, $id);
 
         return true;
@@ -175,41 +183,42 @@ class Horde_ActiveSync_Connector_Importer
     /**
      * Import a change in 'read' flags .. This can never conflict
      *
-     * @param string $id  Server message id
-     * @param ??  $flags  The read flags to set
+     * @param string $id        Server message id
+     * @param string $flags     The read flags to set
      */
     public function importMessageReadFlag($id, $flags)
     {
-        /* Do nothing if it is a dummy folder */
         if ($this->_folderId == Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
             return true;
         }
 
-        /* Update client state */
         $change = array();
         $change['id'] = $id;
         $change['flags'] = $flags;
-        $this->_state->updateState('flags', $change, Horde_ActiveSync::CHANGE_ORIGIN_NA);
+        $change['parent'] = $this->_folderId;
+        $this->_state->updateState(
+            Horde_ActiveSync::CHANGE_TYPE_FLAGS,
+            $change,
+            Horde_ActiveSync::CHANGE_ORIGIN_PIM,
+            $this->_backend->getUser());
 
-        /* Tell backend */
+        // @TODO: These methods should be passed a Folder object.
         $this->_backend->setReadFlag($this->_folderId, $id, $flags);
 
         return true;
     }
 
     /**
-     * Perform a message move initiated on the PIM.
+     * Perform a message move initiated on the PIM
      *
-     * @TODO
+     * @param string $uid   The source message id
+     * @param string $dst  The destination folder id.
      *
-     * @param string $id  The message id
-     * @param  $newfolder
-     *
-     * @return boolean
+     * @return array
      */
-    public function importMessageMove($id, $newfolder)
+    public function importMessageMove($uid, $dst)
     {
-        return true;
+        return $this->_backend->moveMessage($this->_folderId, $uid, $dst);
     }
 
     /**
@@ -235,13 +244,19 @@ class Horde_ActiveSync_Connector_Importer
             $change['mod'] = $displayname;
             $change['parent'] = $parent;
             $change['flags'] = 0;
-            $this->_state->updateState('change', $change, Horde_ActiveSync::CHANGE_ORIGIN_NA);
+            $this->_state->updateState(
+                Horde_ActiveSync::CHANGE_TYPE_CHANGE,
+                $change,
+                Horde_ActiveSync::CHANGE_ORIGIN_NA);
         }
 
         /* Tell the backend */
         $stat = $this->_backend->ChangeFolder($parent, $id, $displayname, $type);
         if ($stat) {
-            $this->_state->updateState('change', $stat, Horde_ActiveSync::CHANGE_ORIGIN_NA);
+            $this->_state->updateState(
+                Horde_ActiveSync::CHANGE_TYPE_CHANGE,
+                $stat,
+                Horde_ActiveSync::CHANGE_ORIGIN_NA);
         }
 
         return $stat['id'];
@@ -265,7 +280,10 @@ class Horde_ActiveSync_Connector_Importer
         $change = array();
         $change['id'] = $id;
 
-        $this->_state->updateState('delete', $change, Horde_ActiveSync::CHANGE_ORIGIN_NA);
+        $this->_state->updateState(
+            Horde_ActiveSync::CHANGE_TYPE_DELETE,
+            $change,
+            Horde_ActiveSync::CHANGE_ORIGIN_NA);
         $this->_backend->deleteFolder($parent, $id);
 
         return true;
@@ -293,7 +311,7 @@ class Horde_ActiveSync_Connector_Importer
         $stat = $this->_backend->statMessage($folderid, $id);
         if (!$stat) {
             /* Message is gone, if type is change, this is a conflict */
-            if ($type == 'change') {
+            if ($type == Horde_ActiveSync::CHANGE_TYPE_CHANGE) {
                 return true;
             } else {
                 return false;

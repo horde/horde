@@ -16,7 +16,7 @@
  */
 
 if (!defined('OPERATOR_BASE')) {
-    define('OPERATOR_BASE', dirname(__FILE__). '/..');
+    define('OPERATOR_BASE', __DIR__. '/..');
 }
 
 if (!defined('HORDE_BASE')) {

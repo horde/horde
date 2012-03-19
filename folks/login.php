@@ -9,7 +9,7 @@
  * @package Folks
  */
 
-require_once dirname(__FILE__) . '/account/tabs.php';
+require_once __DIR__ . '/account/tabs.php';
 require_once FOLKS_BASE . '/lib/Forms/Login.php';
 
 /*

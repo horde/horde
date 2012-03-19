@@ -42,7 +42,7 @@ class Horde_Vfs_SmbTest extends PHPUnit_Framework_TestCase
     {
         $vfs = new Horde_Vfs_Smb();
 
-        $listing = $vfs->parseListing(file(dirname(__FILE__) . '/fixtures/samba1.txt'), null, true, false);
+        $listing = $vfs->parseListing(file(__DIR__ . '/fixtures/samba1.txt'), null, true, false);
         $this->assertInternalType('array', $listing);
         $this->assertEquals(7, count($listing));
         $this->assertEquals(
@@ -120,7 +120,7 @@ class Horde_Vfs_SmbTest extends PHPUnit_Framework_TestCase
                 ),
             $listing);
 
-        $listing = $vfs->parseListing(file(dirname(__FILE__) . '/fixtures/samba2.txt'), null, true, false);
+        $listing = $vfs->parseListing(file(__DIR__ . '/fixtures/samba2.txt'), null, true, false);
         $this->assertInternalType('array', $listing);
         $this->assertEquals(26, count($listing));
         $this->assertEquals(

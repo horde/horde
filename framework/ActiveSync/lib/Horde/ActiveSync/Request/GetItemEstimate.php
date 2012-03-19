@@ -4,7 +4,7 @@
  *
  * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author Michael J Rubinsky <mrubinsk@horde.org>
  * @package ActiveSync
  */
 /**
@@ -15,22 +15,22 @@
 class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_Base
 {
     /** Status Codes **/
-    const STATUS_SUCCESS = 1;
+    const STATUS_SUCCESS    = 1;
     const STATUS_INVALIDCOL = 2;
-    const STATUS_NOTPRIMED = 3;
-    const STATUS_KEYMISM = 4;
+    const STATUS_NOTPRIMED  = 3;
+    const STATUS_KEYMISM    = 4;
 
     /* Request tag constants */
     const GETITEMESTIMATE = 'GetItemEstimate:GetItemEstimate';
-    const VERSION = 'GetItemEstimate:Version';
-    const FOLDERS = 'GetItemEstimate:Folders';
-    const FOLDER = 'GetItemEstimate:Folder';
-    const FOLDERTYPE = 'GetItemEstimate:FolderType';
-    const FOLDERID = 'GetItemEstimate:FolderId';
-    const DATETIME = 'GetItemEstimate:DateTime';
-    const ESTIMATE = 'GetItemEstimate:Estimate';
-    const RESPONSE = 'GetItemEstimate:Response';
-    const STATUS = 'GetItemEstimate:Status';
+    const VERSION         = 'GetItemEstimate:Version';
+    const FOLDERS         = 'GetItemEstimate:Folders';
+    const FOLDER          = 'GetItemEstimate:Folder';
+    const FOLDERTYPE      = 'GetItemEstimate:FolderType';
+    const FOLDERID        = 'GetItemEstimate:FolderId';
+    const DATETIME        = 'GetItemEstimate:DateTime';
+    const ESTIMATE        = 'GetItemEstimate:Estimate';
+    const RESPONSE        = 'GetItemEstimate:Response';
+    const STATUS          = 'GetItemEstimate:Status';
 
     /**
      * Handle the request
@@ -38,10 +38,12 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
      * @return boolean
      * @throws Horde_ActiveSync_Exception
      */
-    public function handle()
+    protected function _handle()
     {
-        parent::handle();
-        $this->_logger->info('[' . $this->_device->id . '] Beginning GETITEMESTIMATE');
+        $this->_logger->info(sprintf(
+            "[%s] Beginning GETITEMESTIMATE",
+            $this->_device->id)
+        );
 
         /* Check policy */
         if (!$this->checkPolicyKey($this->_activeSync->getPolicyKey())) {
@@ -114,7 +116,7 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
 
             /* compatibility mode - get id from state */
             if (!isset($collectionid)) {
-                $collectionid = $this->_state>getFolderData($this->_device->id, $collection['class']);
+                $collectionid = $this->_stateDriver>getFolderData($this->_device->id, $collection['class']);
             }
             $collection['id'] = $collectionid;
             $status[$collection['id']] = $cStatus;
@@ -127,9 +129,9 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
         /* Start getting the actual esitmates and outputting the results */
         $this->_encoder->startTag(self::GETITEMESTIMATE);
         foreach ($collections as $collection) {
-            $this->_state->init($collection);
+            $this->_stateDriver->init($collection);
             try {
-                $this->_state->loadState($collection['synckey']);
+                $this->_stateDriver->loadState($collection['synckey']);
             } catch (Horde_ActiveSync_Exception $e) {
                 $status[$collection['id']] = self::STATUS_KEYMISM;
             }
@@ -145,8 +147,8 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
             $this->_encoder->content($collection['id']);
             $this->_encoder->endTag();
             $this->_encoder->startTag(self::ESTIMATE);
-            $sync = $this->_driver->getSyncObject();
-            $sync->init($this->_state, null, $collection);
+            $sync = $this->_getSyncObject();
+            $sync->init($this->_stateDriver, null, $collection);
             $this->_encoder->content($sync->GetChangeCount());
             $this->_encoder->endTag();
             $this->_encoder->endTag();

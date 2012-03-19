@@ -26,10 +26,8 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
      *
      * @return boolean
      */
-    public function handle()
+    protected function _handle()
     {
-        parent::handle();
-
         // Be optimistic
         $this->_statusCode = self::STATUS_SUCCESS;
         $this->_logger->info('[Horde_ActiveSync::handleFolderSync] Beginning FOLDERSYNC');
@@ -64,7 +62,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
         $this->_logger->debug('[Horde_ActiveSync::handleFolderSync] syncKey: ' . $synckey);
 
         try {
-            $this->_state->loadState($synckey, 'foldersync');
+            $this->_stateDriver->loadState($synckey, Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC);
         } catch (Horde_ActiveSync_Exception $e) {
             $this->_statusCode = self::STATUS_KEYMISM;
             $this->_handleError();
@@ -95,8 +93,8 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
             }
 
             // Configure importer with last state
-            $importer = $this->_driver->getImporter();
-            $importer->init($this->_state, false);
+            $importer = $this->_getImporter();
+            $importer->init($this->_stateDriver, false);
 
             while (1) {
                 $folder = new Horde_ActiveSync_Message_Folder(array('logger' => $this->_logger));
@@ -131,16 +129,15 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
         }
 
         // Start sending server -> PIM changes
-        $this->_logger->debug('[Horde_ActiveSync::handleFolderSync] Preparing to send changes to PIM');
-        $newsynckey = $this->_state->getNewSyncKey($synckey);
-        $seenfolders = $this->_state->getKnownFolders();
+        $newsynckey = $this->_stateDriver->getNewSyncKey($synckey);
+        $seenfolders = $this->_stateDriver->getKnownFolders();
         $this->_logger->debug('[Horde_ActiveSync::handleFolderSync] newSyncKey: ' . $newsynckey);
 
         // The $exporter just caches all folder changes in-memory, so we can
         // count before sending the actual data.
         $exporter = new Horde_ActiveSync_Connector_Exporter();
-        $sync = $this->_driver->getSyncObject();
-        $sync->init($this->_state, $exporter, array('synckey' => $synckey));
+        $sync = $this->_getSyncObject();
+        $sync->init($this->_stateDriver, $exporter, array('synckey' => $synckey));
 
         // Perform the actual sync operation
         while(is_array($sync->syncronize()));
@@ -192,8 +189,8 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
         // Save the state as well as the known folder cache if we had any
         // changes.
         if ($exporter->count || $changed) {
-            $this->_state->setNewSyncKey($newsynckey);
-            $this->_state->save();
+            $this->_stateDriver->setNewSyncKey($newsynckey);
+            $this->_stateDriver->save();
         }
         $this->_cleanUpAfterPairing();
 

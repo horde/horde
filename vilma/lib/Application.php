@@ -15,7 +15,7 @@
 
 /* Determine the base directories. */
 if (!defined('VILMA_BASE')) {
-    define('VILMA_BASE', dirname(__FILE__) . '/..');
+    define('VILMA_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {

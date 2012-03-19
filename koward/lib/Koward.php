@@ -75,8 +75,8 @@ class Koward {
 
         $context = array(
             'mapper' => $mapper,
-            'controllerDir' => dirname(__FILE__) . '/Koward/Controller',
-            'viewsDir' => dirname(__FILE__) . '/Koward/View',
+            'controllerDir' => __DIR__ . '/Koward/Controller',
+            'viewsDir' => __DIR__ . '/Koward/View',
             // 'logger' => '',
         );
 

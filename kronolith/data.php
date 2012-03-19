@@ -15,7 +15,7 @@ function _cleanupData()
     return Horde_Data::IMPORT_FILE;
 }
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
 if (Kronolith::showAjaxView() && !(Horde_Util::getPost('import_ajax')) &&

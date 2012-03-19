@@ -14,18 +14,6 @@
 abstract class Horde_ActiveSync_State_Base
 {
     /**
-     * Filtertype constants
-     */
-    const FILTERTYPE_ALL = 0;
-    const FILTERTYPE_1DAY = 1;
-    const FILTERTYPE_3DAYS = 2;
-    const FILTERTYPE_1WEEK = 3;
-    const FILTERTYPE_2WEEKS = 4;
-    const FILTERTYPE_1MONTH = 5;
-    const FILTERTYPE_3MONTHS = 6;
-    const FILTERTYPE_6MONTHS = 7;
-
-    /**
      * Configuration parameters
      *
      * @var array
@@ -35,9 +23,9 @@ abstract class Horde_ActiveSync_State_Base
     /**
      * Caches the current state(s) in memory
      *
-     * @var array
+     * @var Horde_ActiveSync_Folder_Base
      */
-    protected $_stateCache;
+    protected $_folder;
 
     /**
      * The syncKey for the current request.
@@ -71,7 +59,6 @@ abstract class Horde_ActiveSync_State_Base
      *   'conflict'   - Conflicts
      *   'truncation' - Truncation
      *
-     *
      * @var array
      */
     protected $_collection;
@@ -91,9 +78,16 @@ abstract class Horde_ActiveSync_State_Base
     protected $_devId;
 
     /**
-     * Device info cache
+     * Device info structure. Contains the following properties:
+     *  'rwstatus'   - Device RemoteWipe status.
+     *  'deviceType' - The device type.
+     *  'userAgent'  - The device's userAgent string.
+     *  'id'         - Device id.
+     *  'user'       - The user associated with the current account.
+     *  'supported'  - The SUPPORTED response for the device's collections.
+     *  'policykey'  - The device's current POLICYKEY.
      *
-     * @var object
+     * @var StdClass
      */
     protected $_deviceInfo;
 
@@ -101,12 +95,12 @@ abstract class Horde_ActiveSync_State_Base
      * Local cache for changes to *send* to PIM
      * (Will remain null until getChanges() is called)
      *
-     * @var
+     * @var array
      */
     protected $_changes;
 
     /**
-     * The type of request we are handling (if important).
+     * The type of request we are handling.
      *
      * @var string
      */
@@ -300,26 +294,26 @@ abstract class Horde_ActiveSync_State_Base
     static protected function _getCutOffDate($restrict)
     {
         switch($restrict) {
-        case self::FILTERTYPE_1DAY:
-            $back = 60 * 60 * 24;
+        case Horde_ActiveSync::FILTERTYPE_1DAY:
+            $back = 86400;
             break;
-        case self::FILTERTYPE_3DAYS:
-            $back = 60 * 60 * 24 * 3;
+        case Horde_ActiveSync::FILTERTYPE_3DAYS:
+            $back = 259200;
             break;
-        case self::FILTERTYPE_1WEEK:
-            $back = 60 * 60 * 24 * 7;
+        case Horde_ActiveSync::FILTERTYPE_1WEEK:
+            $back = 604800;
             break;
-        case self::FILTERTYPE_2WEEKS:
-            $back = 60 * 60 * 24 * 14;
+        case Horde_ActiveSync::FILTERTYPE_2WEEKS:
+            $back = 1209600;
             break;
-        case self::FILTERTYPE_1MONTH:
-            $back = 60 * 60 * 24 * 31;
+        case Horde_ActiveSync::FILTERTYPE_1MONTH:
+            $back = 2419200;
             break;
-        case self::FILTERTYPE_3MONTHS:
-            $back = 60 * 60 * 24 * 31 * 3;
+        case Horde_ActiveSync::FILTERTYPE_3MONTHS:
+            $back = 7257600;
             break;
-        case self::FILTERTYPE_6MONTHS:
-            $back = 60 * 60 * 24 * 31 * 6;
+        case Horde_ActiveSync::FILTERTYPE_6MONTHS:
+            $back = 14515200;
             break;
         default:
             break;
@@ -336,7 +330,7 @@ abstract class Horde_ActiveSync_State_Base
 
     /**
      * Helper function that performs the actual diff between PIM state and
-     * server state arrays.
+     * server state FOLDERSYNC arrays.
      *
      * @param array $old  The PIM state
      * @param array $new  The current server state
@@ -354,7 +348,7 @@ abstract class Horde_ActiveSync_State_Base
         $inew = 0;
         $iold = 0;
 
-        // Get changes by comparing our list of messages with
+        // Get changes by comparing our list of folders with
         // our previous state
         while (1) {
             $change = array();
@@ -363,54 +357,39 @@ abstract class Horde_ActiveSync_State_Base
                 break;
             }
 
+            // If ids are the same, but mod is different, a folder was
+            // renamed on the client, but the server keeps it's id.
+            // Not sure if this ever happens.
             if ($old[$iold]['id'] == $new[$inew]['id']) {
-                // Both messages are still available, compare flags and mod
-                if (isset($old[$iold]['flags']) && isset($new[$inew]['flags']) && $old[$iold]['flags'] != $new[$inew]['flags']) {
-                    // Flags changed
-                    $change['type'] = 'flags';
-                    $change['id'] = $new[$inew]['id'];
-                    $change['flags'] = $new[$inew]['flags'];
-                    $changes[] = $change;
-                }
-
+                // Both folders are still available compare mod
                 if ($old[$iold]['mod'] != $new[$inew]['mod']) {
-                    $change['type'] = 'change';
+                    $change['type'] = Horde_ActiveSync::CHANGE_TYPE_CHANGE;
+                    $change['mod'] = $new[$inew]['mod'];
                     $change['id'] = $new[$inew]['id'];
                     $changes[] = $change;
                 }
 
                 $inew++;
                 $iold++;
-            } else {
-                if ($old[$iold]['id'] > $new[$inew]['id']) {
-                    // Message in state seems to have disappeared (delete)
-                    $change['type'] = 'delete';
-                    $change['id'] = $old[$iold]['id'];
-                    $changes[] = $change;
-                    $iold++;
-                } else {
-                    // Message in new seems to be new (add)
-                    $change['type'] = 'change';
-                    $change['flags'] = Horde_ActiveSync::FLAG_NEWMESSAGE;
-                    $change['id'] = $new[$inew]['id'];
-                    $changes[] = $change;
-                    $inew++;
-                }
             }
         }
 
+        // @TODO: Don't think this could ever happen (delete folder on client).
         while ($iold < count($old)) {
             // All data left in _syncstate have been deleted
-            $change['type'] = 'delete';
+            $change['type'] = Horde_ActiveSync::CHANGE_TYPE_DELETE;
+            $change['mod'] = $old[$iold]['mod'];
             $change['id'] = $old[$iold]['id'];
             $changes[] = $change;
             $iold++;
         }
 
+        // New folders added on server.
         while ($inew < count($new)) {
             // All data left in new have been added
-            $change['type'] = 'change';
+            $change['type'] = Horde_ActiveSync::CHANGE_TYPE_CHANGE;
             $change['flags'] = Horde_ActiveSync::FLAG_NEWMESSAGE;
+            $change['mod'] = $new[$inew]['mod'];
             $change['id'] = $new[$inew]['id'];
             $changes[] = $change;
             $inew++;
@@ -509,11 +488,14 @@ abstract class Horde_ActiveSync_State_Base
     /**
      * Get all items that have changed since the last sync time
      *
-     * @param integer $flags
+     * @param array $options  An options array:
+     *      - ping:  (boolean)  Only detect if there is a change, do not build
+     *                          any messages.
+     *               DEFAULT: false (Build full change array).
      *
      * @return array
      */
-    abstract public function getChanges($flags = 0);
+    abstract public function getChanges(array $options = array());
 
     /**
      * Determines if the server version of the message represented by $stat

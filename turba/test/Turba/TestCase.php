@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/Autoload.php';
+require_once __DIR__ . '/Autoload.php';
 
 /**
  * Basic Turba test case.
@@ -84,7 +84,7 @@ class Turba_TestCase extends PHPUnit_Framework_TestCase
                     'factory' => 'Db',
                     'params' => array(
                         'migrations' => array(
-                            'migrationsPath' => dirname(__FILE__) . '/../../migration',
+                            'migrationsPath' => __DIR__ . '/../../migration',
                             'schemaTableName' => 'turba_test_schema'
                         )
                     )

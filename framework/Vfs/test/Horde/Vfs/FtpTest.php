@@ -2,7 +2,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/Base.php';
+require_once __DIR__ . '/Base.php';
 
 /**
  * Test the FTP based virtual file system.
@@ -173,7 +173,7 @@ class Horde_Vfs_FtpTest extends Horde_Vfs_Test_Base
             self::$reason = 'No ftp extension';
             return;
         }
-        $config = self::getConfig('VFS_FTP_TEST_CONFIG', dirname(__FILE__));
+        $config = self::getConfig('VFS_FTP_TEST_CONFIG', __DIR__);
         if ($config && !empty($config['vfs']['ftp'])) {
             self::$vfs = Horde_Vfs::factory('Ftp', $config['vfs']['ftp']);
         }

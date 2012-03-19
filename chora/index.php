@@ -9,4 +9,4 @@
  * @package Chora
  */
 
-require dirname(__FILE__) . '/browsedir.php';
+require __DIR__ . '/browsedir.php';

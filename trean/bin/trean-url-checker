@@ -1,6 +1,7 @@
 #!/usr/bin/env php
 <?php
 /**
+ *
  * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did not
@@ -10,7 +11,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('trean', array('cli' => true));
 
 $ids = $trean_db->selectValues('SELECT bookmark_id FROM trean_bookmarks');
@@ -96,10 +97,6 @@ function get_body($bookmark)
     // @TODO get headers
 
     get_favicon($bookmark, $body);
-<<<<<<< HEAD
-=======
-
->>>>>>> master
 }
 
 /**

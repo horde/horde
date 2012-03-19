@@ -110,8 +110,8 @@ class Horde_Kolab_Filter_ResourceTest extends Horde_Kolab_Test_Filter
         $params = array('unmodified_content' => true,
                         'incoming' => true);
 
-        $this->sendFixture(dirname(__FILE__) . '/fixtures/recur_invitation.eml',
-                           dirname(__FILE__) . '/fixtures/recur_invitation.ret2',
+        $this->sendFixture(__DIR__ . '/fixtures/recur_invitation.eml',
+                           __DIR__ . '/fixtures/recur_invitation.ret2',
                            '', '', 'test@example.org', 'wrobel@example.org',
                            'home.example.org', $params);
 
@@ -142,8 +142,8 @@ class Horde_Kolab_Filter_ResourceTest extends Horde_Kolab_Test_Filter
         $params = array('unmodified_content' => true,
                         'incoming' => true);
 
-        $this->sendFixture(dirname(__FILE__) . '/fixtures/longstring_invitation.eml',
-                           dirname(__FILE__) . '/fixtures/longstring_invitation.ret',
+        $this->sendFixture(__DIR__ . '/fixtures/longstring_invitation.eml',
+                           __DIR__ . '/fixtures/longstring_invitation.ret',
                            '', '', 'test@example.org', 'wrobel@example.org',
                            'home.example.org', $params);
 
@@ -176,8 +176,8 @@ class Horde_Kolab_Filter_ResourceTest extends Horde_Kolab_Test_Filter
         $params = array('unmodified_content' => true,
                         'incoming' => true);
 
-        $this->sendFixture(dirname(__FILE__) . '/fixtures/invitation_whole_day.eml',
-                           dirname(__FILE__) . '/fixtures/invitation_whole_day.ret',
+        $this->sendFixture(__DIR__ . '/fixtures/invitation_whole_day.eml',
+                           __DIR__ . '/fixtures/invitation_whole_day.ret',
                            '', '', 'test@example.org', 'wrobel@example.org',
                            'home.example.org', $params);
 
@@ -210,8 +210,8 @@ class Horde_Kolab_Filter_ResourceTest extends Horde_Kolab_Test_Filter
         $params = array('unmodified_content' => true,
                         'incoming' => true);
 
-        $this->sendFixture(dirname(__FILE__) . '/fixtures/invitation_plus_addressing.eml',
-                           dirname(__FILE__) . '/fixtures/invitation_plus_addressing.ret',
+        $this->sendFixture(__DIR__ . '/fixtures/invitation_plus_addressing.eml',
+                           __DIR__ . '/fixtures/invitation_plus_addressing.ret',
                            '', '', 'test@example.org', 'wrobel+laptop@example.org',
                            'home.example.org', $params);
 
@@ -243,8 +243,8 @@ class Horde_Kolab_Filter_ResourceTest extends Horde_Kolab_Test_Filter
         $params = array('unmodified_content' => true,
                         'incoming' => true);
 
-        $this->sendFixture(dirname(__FILE__) . '/fixtures/recur_invitation.eml',
-                           dirname(__FILE__) . '/fixtures/recur_invitation.ret',
+        $this->sendFixture(__DIR__ . '/fixtures/recur_invitation.eml',
+                           __DIR__ . '/fixtures/recur_invitation.ret',
                            '', '', 'wrobel@example.org', 'else@example.org', 
                            'home.example.org', $params);
     }
@@ -265,8 +265,8 @@ class Horde_Kolab_Filter_ResourceTest extends Horde_Kolab_Test_Filter
         $params = array('unmodified_content' => true,
                         'incoming' => true);
 
-        $this->sendFixture(dirname(__FILE__) . '/fixtures/recur_invitation2.eml',
-                           dirname(__FILE__) . '/fixtures/null.ret',
+        $this->sendFixture(__DIR__ . '/fixtures/recur_invitation2.eml',
+                           __DIR__ . '/fixtures/null.ret',
                            '', '', 'test@example.org', 'wrobel@example.org',
                            'home.example.org', $params);
 
@@ -294,8 +294,8 @@ class Horde_Kolab_Filter_ResourceTest extends Horde_Kolab_Test_Filter
         $params = array('unmodified_content' => true,
                         'incoming' => true);
 
-        $this->sendFixture(dirname(__FILE__) . '/fixtures/allday_invitation.eml',
-                           dirname(__FILE__) . '/fixtures/null.ret',
+        $this->sendFixture(__DIR__ . '/fixtures/allday_invitation.eml',
+                           __DIR__ . '/fixtures/null.ret',
                            '', '', 'test@example.org', 'wrobel@example.org',
                            'home.example.org', $params);
 
@@ -328,8 +328,8 @@ class Horde_Kolab_Filter_ResourceTest extends Horde_Kolab_Test_Filter
         $params = array('unmodified_content' => true,
                         'incoming' => true);
 
-        $this->sendFixture(dirname(__FILE__) . '/fixtures/attendee_status_invitation.eml',
-                           dirname(__FILE__) . '/fixtures/null.ret',
+        $this->sendFixture(__DIR__ . '/fixtures/attendee_status_invitation.eml',
+                           __DIR__ . '/fixtures/null.ret',
                            '', '', 'test@example.org', 'wrobel@example.org',
                            'home.example.org', $params);
 

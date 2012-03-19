@@ -9,7 +9,7 @@
  * @author Marko Djukic <marko@oblo.com>
  * @package Jonah
  */
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 
 Horde_Registry::appInit('jonah');
 $params = array('notification' => &$notification,

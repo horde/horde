@@ -9,7 +9,7 @@
  */
 
 $session_control = 'readonly';
-@define('TREAN_BASE', dirname(__FILE__));
+@define('TREAN_BASE', __DIR__);
 require_once TREAN_BASE . '/lib/base.php';
 
 $bookmark_id = Horde_Util::getFormData('bookmark_id');

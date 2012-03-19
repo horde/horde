@@ -100,7 +100,7 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
 </div>
 
 <div id="kronolithCalendarinternalTabPerms" class="kronolithTabsOption" style="display:none">
-<?php $type = 'internal'; include dirname(__FILE__) . '/permissions.inc'; ?>
+<?php $type = 'internal'; include __DIR__ . '/permissions.inc'; ?>
 </div>
 
 <div id="kronolithCalendarinternalTabImport" class="kronolithTabsOption" style="display:none">
@@ -189,7 +189,7 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
 </div>
 
 <div id="kronolithCalendartasklistsTabPerms" class="kronolithTabsOption" style="display:none">
-<?php $type = 'tasklists'; include dirname(__FILE__) . '/permissions.inc'; ?>
+<?php $type = 'tasklists'; include __DIR__ . '/permissions.inc'; ?>
 </div>
 
 <div id="kronolithCalendartasklistsTabExport" class="kronolithTabsOption" style="display:none">

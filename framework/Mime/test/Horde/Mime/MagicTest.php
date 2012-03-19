@@ -14,7 +14,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/Autoload.php';
+require_once __DIR__ . '/Autoload.php';
 
 /**
  * @author     Michael Slusarz <slusarz@horde.org>
@@ -33,7 +33,7 @@ class Horde_Mime_MagicTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             'text/plain',
-            Horde_Mime_Magic::analyzeFile(dirname(__FILE__) . '/fixtures/flowed_msg.txt')
+            Horde_Mime_Magic::analyzeFile(__DIR__ . '/fixtures/flowed_msg.txt')
         );
     }
 

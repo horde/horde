@@ -23,7 +23,7 @@
  * @package  Horde
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 
 if (!($path = Horde_Util::getFormData('imple'))) {
     exit;

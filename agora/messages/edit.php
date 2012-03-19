@@ -13,7 +13,7 @@
 
 /* TODO total message count doesn't increase in forum and threads view
  * (cache problem) */
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('agora');
 
 list($forum_id, $message_id, $scope) = Agora::getAgoraId();

@@ -14,7 +14,7 @@
  */
 
 if (!defined('HYLAX_BASE')) {
-    define('HYLAX_BASE', dirname(__FILE__). '/..');
+    define('HYLAX_BASE', __DIR__. '/..');
 }
 
 if (!defined('HORDE_BASE')) {

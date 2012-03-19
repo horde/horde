@@ -10,7 +10,7 @@
  */
 /* Determine the base directories. */
 if (!defined('TIMEOBJECTS_BASE')) {
-    define('TIMEOBJECTS_BASE', dirname(__FILE__) . '/..');
+    define('TIMEOBJECTS_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {

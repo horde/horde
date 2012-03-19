@@ -8,4 +8,4 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-require dirname(__FILE__) . '/folder.php';
+require __DIR__ . '/folder.php';

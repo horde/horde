@@ -2,7 +2,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/TestBase.php';
+require_once __DIR__ . '/TestBase.php';
 
 /**
  * @author     Jan Schneider <jan@horde.org>
@@ -22,7 +22,7 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
         $this->vcs = Horde_Vcs::factory(
             'Git',
             array_merge(self::$conf,
-                        array('sourceroot' => dirname(__FILE__) . '/repos/git')));
+                        array('sourceroot' => __DIR__ . '/repos/git')));
     }
 
     public function testFactory()

@@ -16,7 +16,7 @@
  */
 
 if (!defined('SHOUT_BASE')) {
-    define('SHOUT_BASE', dirname(__FILE__). '/..');
+    define('SHOUT_BASE', __DIR__. '/..');
 }
 
 if (!defined('HORDE_BASE')) {

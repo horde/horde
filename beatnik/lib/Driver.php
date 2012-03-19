@@ -304,7 +304,7 @@ class Beatnik_Driver {
             }
         }
 
-        require_once dirname(__FILE__) . '/Driver/' . $driver . '.php';
+        require_once __DIR__ . '/Driver/' . $driver . '.php';
         $class = 'Beatnik_Driver_' . $driver;
         if (class_exists($class)) {
             return new $class($params);

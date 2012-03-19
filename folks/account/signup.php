@@ -8,7 +8,7 @@
  * @author Duck <duck@obala.net>
  */
 
-require_once dirname(__FILE__) . '/tabs.php';
+require_once __DIR__ . '/tabs.php';
 
 $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
 

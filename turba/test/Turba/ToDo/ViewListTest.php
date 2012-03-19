@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__) . '/TestBase.php';
+require_once __DIR__ . '/TestBase.php';
 
 /**
  * @author  Jason M. Felice <jason.m.felice@gmail.com>
@@ -14,7 +14,7 @@ class Turba_ToDo_ViewListTest extends Turba_TestBase {
         $this->markTestIncomplete('Convert to use Horde_Test.');
         parent::setUp();
         $this->setUpDatabase();
-        require_once dirname(__FILE__) . '/../View/List.php';
+        require_once __DIR__ . '/../View/List.php';
     }
 
     function callView_List($method, &$numDisplayed, $param = null)

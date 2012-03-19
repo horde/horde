@@ -5,7 +5,7 @@
  * system for any new users. A cron job can be set up to run this periodically.
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 $vilma = Horde_Registry::appInit('vilma', array('authentication' => 'none'));
 
 // Make sure no one runs this from the web.

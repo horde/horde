@@ -14,7 +14,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/Autoload.php';
+require_once __DIR__ . '/Autoload.php';
 
 /**
  * @author     Michael Slusarz <slusarz@horde.org>
@@ -165,7 +165,7 @@ Content-Transfer-Encoding: quoted-printable',
         );
         $mail->addPart(
             'application/octet-stream',
-            file_get_contents(dirname(__FILE__) . '/fixtures/attachment.bin'),
+            file_get_contents(__DIR__ . '/fixtures/attachment.bin'),
             null,
             'attachment'
         );
@@ -351,9 +351,9 @@ Content-Description: HTML Version of Message
             'From' => 'sender@example.com',
             'charset' => 'iso-8859-15'
         ));
-        $mail->addAttachment(dirname(__FILE__) . '/fixtures/attachment.bin');
+        $mail->addAttachment(__DIR__ . '/fixtures/attachment.bin');
         $mail->addAttachment(
-            dirname(__FILE__) . '/fixtures/uudecode.txt',
+            __DIR__ . '/fixtures/uudecode.txt',
             'my_name.html',
             'text/html',
             'iso-8859-15'
@@ -460,7 +460,7 @@ end
             'charset' => 'ISO-8859-1',
             'Subject' => 'My Subject',
             'To' => 'recipient@example.com',
-            'body' => file_get_contents(dirname(__FILE__) . '/fixtures/flowed_msg.txt')));
+            'body' => file_get_contents(__DIR__ . '/fixtures/flowed_msg.txt')));
 
         $dummy = new Horde_Mail_Transport_Mock();
         $mail->send($dummy);
@@ -478,13 +478,13 @@ MIME-Version: 1.0',
         );
 
         $this->assertEquals(
-'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do  
-eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad  
-minim veniam, quis nostrud exercitation ullamco laboris nisi ut  
+'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+minim veniam, quis nostrud exercitation ullamco laboris nisi ut
 aliquip ex ea commodo
 consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat  
-cupidatat non proident, sunt in culpa qui officia deserunt mollit anim  
+cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
 id est laborum.
 
 ',
@@ -520,4 +520,37 @@ id est laborum.
             $sent['recipients']
         );
     }
+
+    public function testParsingAndSending()
+    {
+        $rfc822_in = 'Subject: Test
+From: mike@theupstairsroom.com
+Content-Type: text/plain;
+    charset=us-ascii
+Message-Id: <9517149F-ADF2-4D24-AA6F-0010D6AFA3EE@theupstairsroom.com>
+Date: Sat, 17 Mar 2012 13:29:10 -0400
+To: =?utf-8?Q?Mich=C3=B1el_Rubinsky?= <mrubinsk@horde.org>
+Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0 (1.0)
+
+Testing 123
+--
+Mike';
+
+        $headers = Horde_Mime_Headers::parseHeaders($rfc822_in);
+        $message_part = Horde_Mime_Part::parseMessage($rfc822_in);
+        $this->assertEquals('Michñel Rubinsky <mrubinsk@horde.org>', $headers->getValue('To'));
+
+        $mail = new Horde_Mime_Mail();
+        $part = $message_part->getPart($message_part->findBody());
+        $body = $part->getContents();
+        $this->assertEquals('Testing 123
+--
+Mike', $body);
+
+        $mail->addHeaders($headers->toArray());
+        $dummy = new Horde_Mail_Transport_Mock();
+        $mail->send($dummy);
+    }
+
 }

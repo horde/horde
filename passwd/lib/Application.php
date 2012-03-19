@@ -16,7 +16,7 @@
  */
 
 if (!defined('PASSWD_BASE')) {
-    define('PASSWD_BASE', dirname(__FILE__). '/..');
+    define('PASSWD_BASE', __DIR__. '/..');
 }
 
 if (!defined('HORDE_BASE')) {

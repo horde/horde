@@ -38,7 +38,7 @@ function _emptyAttributeFilter($var)
     return true;
 }
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('turba');
 
 if (!$conf['menu']['import_export']) {

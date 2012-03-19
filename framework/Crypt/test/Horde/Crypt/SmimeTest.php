@@ -24,7 +24,7 @@ class Horde_Crypt_SmimeTest extends PHPUnit_Framework_TestCase
             'temp' => sys_get_temp_dir()
         ));
 
-        $key = file_get_contents(dirname(__FILE__) . '/fixtures/smime_subjectAltName.pem');
+        $key = file_get_contents(__DIR__ . '/fixtures/smime_subjectAltName.pem');
 
         $this->assertEquals(
             'test1@example.com',

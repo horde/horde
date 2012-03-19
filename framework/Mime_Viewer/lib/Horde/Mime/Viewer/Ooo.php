@@ -116,7 +116,7 @@ class Horde_Mime_Viewer_Ooo extends Horde_Mime_Viewer_Base
 
         $xslt = new XSLTProcessor();
         $xsl = new DOMDocument();
-        $xsl->load(realpath(dirname(__FILE__) . '/Ooo/main_html.xsl'));
+        $xsl->load(realpath(__DIR__ . '/Ooo/main_html.xsl'));
         $xslt->importStylesheet($xsl);
         $xslt->setParameter('http://www.w3.org/1999/XSL/Transform', array(
             'metaFileURL' => $tmpdir . 'meta.xml',

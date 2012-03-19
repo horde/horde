@@ -23,22 +23,22 @@ require_once 'Horde/Test/Autoload.php';
 error_reporting(E_ALL | E_STRICT);
 
 /** Load the basic test definition */
-require_once dirname(__FILE__) . '/TestCase.php';
+require_once __DIR__ . '/TestCase.php';
 
 /** Load stub definitions */
-require_once dirname(__FILE__) . '/Stub/BooleanDefault.php';
-require_once dirname(__FILE__) . '/Stub/BooleanNotEmpty.php';
-require_once dirname(__FILE__) . '/Stub/ColorDefault.php';
-require_once dirname(__FILE__) . '/Stub/ColorNotEmpty.php';
-require_once dirname(__FILE__) . '/Stub/Composite.php';
-require_once dirname(__FILE__) . '/Stub/DateTimeDefault.php';
-require_once dirname(__FILE__) . '/Stub/DateTimeNotEmpty.php';
-require_once dirname(__FILE__) . '/Stub/IntegerDefault.php';
-require_once dirname(__FILE__) . '/Stub/IntegerNotEmpty.php';
-require_once dirname(__FILE__) . '/Stub/Log.php';
-require_once dirname(__FILE__) . '/Stub/Dummy.php';
-require_once dirname(__FILE__) . '/Stub/MultipleNotEmpty.php';
-require_once dirname(__FILE__) . '/Stub/MultipleDefault.php';
-require_once dirname(__FILE__) . '/Stub/StringDefault.php';
-require_once dirname(__FILE__) . '/Stub/StringNotEmpty.php';
-require_once dirname(__FILE__) . '/Stub/Types.php';
+require_once __DIR__ . '/Stub/BooleanDefault.php';
+require_once __DIR__ . '/Stub/BooleanNotEmpty.php';
+require_once __DIR__ . '/Stub/ColorDefault.php';
+require_once __DIR__ . '/Stub/ColorNotEmpty.php';
+require_once __DIR__ . '/Stub/Composite.php';
+require_once __DIR__ . '/Stub/DateTimeDefault.php';
+require_once __DIR__ . '/Stub/DateTimeNotEmpty.php';
+require_once __DIR__ . '/Stub/IntegerDefault.php';
+require_once __DIR__ . '/Stub/IntegerNotEmpty.php';
+require_once __DIR__ . '/Stub/Log.php';
+require_once __DIR__ . '/Stub/Dummy.php';
+require_once __DIR__ . '/Stub/MultipleNotEmpty.php';
+require_once __DIR__ . '/Stub/MultipleDefault.php';
+require_once __DIR__ . '/Stub/StringDefault.php';
+require_once __DIR__ . '/Stub/StringNotEmpty.php';
+require_once __DIR__ . '/Stub/Types.php';

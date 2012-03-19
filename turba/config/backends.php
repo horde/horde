@@ -351,6 +351,7 @@ $cfgSources['localsql'] = array(
         'object_id',
         'owner_id',
         'object_type',
+        'object_uid'
     ),
     'export' => true,
     'browse' => true,
@@ -457,7 +458,7 @@ $cfgSources['localldap'] = array(
         'homeAddress'
     ),
     'strict' => array(
-        'dn',
+        'dn', 'uid'
     ),
     'approximate' => array(
         'cn',
@@ -557,7 +558,7 @@ $cfgSources['personal_ldap'] = array(
         'homeAddress'
     ),
     'strict' => array(
-        'dn',
+        'dn', 'uid'
     ),
     'approximate' => array(
         'cn',
@@ -602,6 +603,7 @@ $cfgSources['prefs'] = array(
     'strict' => array(
         'id',
         '_type',
+        'uid'
     ),
     'export' => true,
     'browse' => true,
@@ -820,7 +822,7 @@ if (!empty($GLOBALS['conf']['imsp']['enabled'])) {
             'company',
             'homePhone'
             ),
-        'strict' => array(),
+        'strict' => array('__uid'),
         'export' => true,
         'browse' => true,
         'use_shares' => false,

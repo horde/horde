@@ -160,7 +160,7 @@ class Turba_TestBase extends PHPUnit_Framework_TestCase {
 
     function setUp()
     {
-        @define('TURBA_BASE', dirname(__FILE__) . '/../..');
+        @define('TURBA_BASE', __DIR__ . '/../..');
         @define('TURBA_TEMPLATES', $GLOBALS['registry']->get('templates', 'turba'));
         require_once TURBA_BASE . '/lib/Driver.php';
         require_once TURBA_BASE . '/lib/Object.php';
@@ -174,7 +174,7 @@ class Turba_TestBase extends PHPUnit_Framework_TestCase {
         require_once 'MDB2/Schema.php';
         $config = $this->getDriverConfig();
         $manager = MDB2_Schema::factory($config['params']);
-        $defs = $manager->parseDatabaseDefinition(dirname(dirname(dirname(__FILE__))) . '/scripts/sql/test.xml',
+        $defs = $manager->parseDatabaseDefinition(dirname(dirname(__DIR__)) . '/scripts/sql/test.xml',
                                                   false,
                                                   array('name' => $config['params']['database']),
                                                   false);

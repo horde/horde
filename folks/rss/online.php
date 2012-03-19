@@ -10,7 +10,7 @@
  */
 
 $folks_authentication = 'none';
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once __DIR__ . '/../lib/base.php';
 
 $users = $folks_driver->getOnlineUsers();
 if ($users instanceof PEAR_Error) {

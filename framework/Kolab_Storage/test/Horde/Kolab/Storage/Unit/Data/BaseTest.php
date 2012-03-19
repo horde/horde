@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../Autoload.php';
+require_once __DIR__ . '/../../Autoload.php';
 
 /**
  * Test the basic data handler.
@@ -447,7 +447,7 @@ extends Horde_Kolab_Storage_TestCase
                             'm' => array(
                                 1 => array(
                                     'stream' => fopen(
-                                        dirname(__FILE__) . '/../../fixtures/broken_note.eml', 'r'
+                                        __DIR__ . '/../../fixtures/broken_note.eml', 'r'
                                     )
                                 )
                             )

@@ -10,10 +10,7 @@
  */
 class Horde_ActiveSync_Message_Folder extends Horde_ActiveSync_Message_Base
 {
-    public $serverid;
-    public $parentid;
-    public $displayname;
-    public $type;
+    public $parentid = false;
 
     protected $_mapping = array (
         Horde_ActiveSync::FOLDERHIERARCHY_SERVERENTRYID => array (self::KEY_ATTRIBUTE => 'serverid'),
@@ -24,7 +21,6 @@ class Horde_ActiveSync_Message_Folder extends Horde_ActiveSync_Message_Base
 
     protected $_properties = array(
         'serverid'    => false,
-        'parentid'    => false,
         'displayname' => false,
         'type'        => false,
     );

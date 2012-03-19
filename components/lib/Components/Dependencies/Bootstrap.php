@@ -56,7 +56,7 @@ implements Components_Dependencies
         if (!isset($this->_instances[$interface])) {
             switch ($interface) {
             case 'Components_Component_Factory':
-                require_once dirname(__FILE__) . '/../Component/Factory.php';
+                require_once __DIR__ . '/../Component/Factory.php';
                 $this->_instances[$interface] = new $interface(
                     $this->getInstance('Components_Config'),
                     $this->getInstance('Components_Pear_Factory'),
@@ -64,24 +64,24 @@ implements Components_Dependencies
                 );
                 break;
             case 'Components_Pear_Factory':
-                require_once dirname(__FILE__) . '/../Pear/Factory.php';
+                require_once __DIR__ . '/../Pear/Factory.php';
                 $this->_instances[$interface] = new $interface($this);
                 break;
             case 'Components_Config':
-                require_once dirname(__FILE__) . '/../Config.php';
-                require_once dirname(__FILE__) . '/../Config/Base.php';
-                require_once dirname(__FILE__) . '/../Config/Bootstrap.php';
+                require_once __DIR__ . '/../Config.php';
+                require_once __DIR__ . '/../Config/Base.php';
+                require_once __DIR__ . '/../Config/Bootstrap.php';
                 $this->_instances[$interface] = new Components_Config_Bootstrap();
                 break;
             case 'Components_Output':
-                require_once dirname(__FILE__) . '/../Output.php';
+                require_once __DIR__ . '/../Output.php';
                 $this->_instances[$interface] = new Components_Output(
                     $this->getInstance('Horde_Cli'),
                     $this->getInstance('Components_Config')->getOptions()
                 );
                 break;
             case 'Horde_Cli':
-                require_once dirname(__FILE__) . '/../../../../framework/Cli/lib/Horde/Cli.php';
+                require_once __DIR__ . '/../../../../framework/Cli/lib/Horde/Cli.php';
                 $this->_instances[$interface] = new Horde_Cli();
                 break;
             }

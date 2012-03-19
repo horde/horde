@@ -6,7 +6,7 @@
  */
 
 if (!defined('JONAH_BASE')) {
-    define('JONAH_BASE', dirname(__FILE__). '/..');
+    define('JONAH_BASE', __DIR__. '/..');
 }
 
 if (!defined('HORDE_BASE')) {

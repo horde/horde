@@ -18,7 +18,7 @@ class Folks_Block_Know extends Horde_Core_Block
      */
     protected function _content()
     {
-        require_once dirname(__FILE__) . '/../base.php';
+        require_once __DIR__ . '/../base.php';
 
         $friends_driver = Folks_Friends::singleton();
         $list = $friends_driver->getPossibleFriends(20);

@@ -8,7 +8,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../../lib/Application.php';
+require_once __DIR__ . '/../../lib/Application.php';
 $permission = 'configuration';
 Horde_Registry::appInit('horde');
 if (!$registry->isAdmin() && 

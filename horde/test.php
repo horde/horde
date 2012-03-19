@@ -27,20 +27,20 @@ function _hordeTestError($msg)
 
 /* If we can't find the Autoloader, then the framework is not setup. A user
  * must at least correctly install the framework. */
-ini_set('include_path', dirname(__FILE__) . '/lib' . PATH_SEPARATOR . ini_get('include_path'));
-if (file_exists(dirname(__FILE__) . '/config/horde.local.php')) {
-    include dirname(__FILE__) . '/config/horde.local.php';
+ini_set('include_path', __DIR__ . '/lib' . PATH_SEPARATOR . ini_get('include_path'));
+if (file_exists(__DIR__ . '/config/horde.local.php')) {
+    include __DIR__ . '/config/horde.local.php';
 }
 if (!@include_once 'Horde/Autoloader.php') {
     _hordeTestError(sprintf('Could not find Horde\'s framework libraries in the following path(s): %s. Please read horde/docs/INSTALL for information on how to install these libraries.', get_include_path()));
 }
 
 /* Similarly, registry.php needs to exist. */
-if (!file_exists(dirname(__FILE__) . '/config/registry.php')) {
+if (!file_exists(__DIR__ . '/config/registry.php')) {
     _hordeTestError('Could not find horde/config/registry.php. Please make sure this file exists. Read horde/docs/INSTALL for further information.');
 }
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 try {
     Horde_Registry::appInit('horde', array(
         'authentication' => 'none',
@@ -48,7 +48,7 @@ try {
     ));
     $init_exception = null;
 } catch (Exception $e) {
-    define('HORDE_TEMPLATES', dirname(__FILE__) . '/templates');
+    define('HORDE_TEMPLATES', __DIR__ . '/templates');
     $init_exception = $e;
 }
 

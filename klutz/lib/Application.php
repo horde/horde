@@ -13,7 +13,7 @@
 
 /* Determine the base directories. */
 if (!defined('KLUTZ_BASE')) {
-    define('KLUTZ_BASE', dirname(__FILE__) . '/..');
+    define('KLUTZ_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {

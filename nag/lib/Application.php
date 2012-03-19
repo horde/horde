@@ -13,7 +13,7 @@
 
 /* Determine the base directories. */
 if (!defined('NAG_BASE')) {
-    define('NAG_BASE', dirname(__FILE__) . '/..');
+    define('NAG_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {

@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../../Autoload.php';
+require_once __DIR__ . '/../../../Autoload.php';
 
 /**
  * Test the dependency list.
@@ -211,7 +211,7 @@ extends Components_TestCase
     {
         $this->lessStrict();
         $comp = $this->getComponent(
-            dirname(__FILE__) . '/../../../fixture/framework/Install'
+            __DIR__ . '/../../../fixture/framework/Install'
         );
         $this->assertTrue(
             $comp->getDependencyList()->{'pear.horde.org/Dependency'}->isRequired()

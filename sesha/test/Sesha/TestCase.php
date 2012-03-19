@@ -2,7 +2,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/Autoload.php';
+require_once __DIR__ . '/Autoload.php';
 
 /**
  * @author     Ralf Lang <lang@ralf-lang.de>
@@ -34,7 +34,7 @@ class Sesha_TestCase extends PHPUnit_Framework_TestCase
         self::$migrator = new Horde_Db_Migration_Migrator(
             self::$db,
             null,//$logger,
-            array('migrationsPath' => dirname(__FILE__) . '/../../migration',
+            array('migrationsPath' => __DIR__ . '/../../migration',
                   'schemaTableName' => 'sesha_test_schema'));
         self::$migrator->up();
         $driver_factory         = new Sesha_Factory_Driver(self::$injector);

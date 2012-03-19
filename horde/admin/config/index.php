@@ -10,7 +10,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../../lib/Application.php';
+require_once __DIR__ . '/../../lib/Application.php';
 $permission = 'configuration';
 Horde_Registry::appInit('horde');
 if (!$registry->isAdmin() && 
@@ -63,7 +63,7 @@ function _uploadFTP($params)
 }
 
 $hconfig = new Horde_Config();
-$migration = new Horde_Core_Db_Migration(dirname(__FILE__) . '/../../..');
+$migration = new Horde_Core_Db_Migration(__DIR__ . '/../../..');
 $vars = Horde_Variables::getDefaultVariables();
 $a = $registry->listAllApps();
 

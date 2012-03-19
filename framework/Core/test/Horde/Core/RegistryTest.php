@@ -29,7 +29,7 @@ class Horde_Core_RegistryTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        require_once dirname(__FILE__) . '/Stub/Registry.php';
+        require_once __DIR__ . '/Stub/Registry.php';
     }
 
     public function testBug10381()

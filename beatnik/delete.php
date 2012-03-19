@@ -8,7 +8,7 @@
  * did not receive this file, see http://www.horde.org/licenses/gpl
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 $beatnik = Horde_Registry::appInit('beatnik');
 
 require_once BEATNIK_BASE . '/lib/Forms/DeleteRecord.php';

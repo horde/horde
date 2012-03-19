@@ -17,7 +17,7 @@
 require_once 'Horde/Autoloader/Default.php';
 
 if (!defined('KOWARD_BASE')) {
-    define('KOWARD_BASE', dirname(__FILE__) . '/../');
+    define('KOWARD_BASE', __DIR__ . '/../');
 }
 
 /* Set up the application class and controller loading */

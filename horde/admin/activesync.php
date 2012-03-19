@@ -13,7 +13,7 @@
  * @package  Horde
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 $permission = 'activesync';
 Horde_Registry::appInit('horde');
 if (!$registry->isAdmin() &&

@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../../Autoload.php';
+require_once __DIR__ . '/../../../Autoload.php';
 
 /**
  * Test the dependency list.
@@ -38,7 +38,7 @@ extends Components_TestCase
     public function testDependencyList()
     {
         $comp = $this->getComponent(
-            dirname(__FILE__) . '/../../../fixture/framework/Install'
+            __DIR__ . '/../../../fixture/framework/Install'
         );
         $this->assertInstanceOf(
             'Components_Component_DependencyList',
@@ -50,7 +50,7 @@ extends Components_TestCase
     {
         $this->lessStrict();
         $comp = $this->getComponent(
-            dirname(__FILE__) . '/../../../fixture/framework/Install'
+            __DIR__ . '/../../../fixture/framework/Install'
         );
         $list = $comp->getDependencyList();
         foreach ($list as $element) {
@@ -62,7 +62,7 @@ extends Components_TestCase
     {
         $this->lessStrict();
         $comp = $this->getComponent(
-            dirname(__FILE__) . '/../../../fixture/framework/Install'
+            __DIR__ . '/../../../fixture/framework/Install'
         );
         $list = $comp->getDependencyList();
         $names = array();
@@ -76,7 +76,7 @@ extends Components_TestCase
     {
         $this->lessStrict();
         $comp = $this->getComponent(
-            dirname(__FILE__) . '/../../../fixture/framework/Install'
+            __DIR__ . '/../../../fixture/framework/Install'
         );
         $this->assertEquals(
             array('pear.php.net', 'pear.horde.org'),
@@ -88,7 +88,7 @@ extends Components_TestCase
     {
         $this->lessStrict();
         $comp = $this->getComponent(
-            dirname(__FILE__) . '/../../../fixture/framework/Install'
+            __DIR__ . '/../../../fixture/framework/Install'
         );
         $this->assertInstanceOf(
             'Components_Component_Dependency',

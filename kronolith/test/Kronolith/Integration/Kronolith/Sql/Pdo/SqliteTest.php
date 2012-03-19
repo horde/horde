@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../../../Autoload.php';
+require_once __DIR__ . '/../../../../Autoload.php';
 
 /**
  * Test the core Kronolith driver with a sqlite DB.
@@ -44,7 +44,7 @@ class Kronolith_Integration_Kronolith_Sql_Pdo_SqliteTest extends Kronolith_Integ
             $GLOBALS['injector']->getInstance('Horde_Db_Adapter'),
             null,
             array(
-                'migrationsPath' => dirname(__FILE__) . '/../../../../../../migration',
+                'migrationsPath' => __DIR__ . '/../../../../../../migration',
                 'schemaTableName' => 'kronolith_test_schema'
             )
         );

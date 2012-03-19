@@ -768,7 +768,7 @@ class TApplicationException extends TException {
  * Set global THRIFT ROOT automatically via inclusion here
  */
 if (!isset($GLOBALS['THRIFT_ROOT'])) {
-  $GLOBALS['THRIFT_ROOT'] = dirname(__FILE__);
+  $GLOBALS['THRIFT_ROOT'] = __DIR__;
 }
 include_once $GLOBALS['THRIFT_ROOT'].'/protocol/TProtocol.php';
 include_once $GLOBALS['THRIFT_ROOT'].'/transport/TTransport.php';

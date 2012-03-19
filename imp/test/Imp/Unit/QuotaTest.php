@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../Autoload.php';
+require_once __DIR__ . '/../Autoload.php';
 
 /**
  * Test the Quota library.
@@ -37,7 +37,7 @@ class Imp_Unit_QuotaTest extends PHPUnit_Framework_TestCase
     public function testMaildir()
     {
         $quota = new IMP_Quota_Maildir(array(
-            'path' => dirname(__FILE__) . '/../fixtures',
+            'path' => __DIR__ . '/../fixtures',
             'username' => 'foo'
         ));
 

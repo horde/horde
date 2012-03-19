@@ -3,7 +3,7 @@
  * @package Image
  */
 
-require_once dirname(__FILE__) . '/../Image/Swf.php';
+require_once __DIR__ . '/../Image/Swf.php';
 
 $image = new Horde_Image_swf(array('height' => 400, 'width' => 400));
 

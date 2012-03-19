@@ -15,7 +15,7 @@
 
 /* Determine the base directories. */
 if (!defined('MNEMO_BASE')) {
-    define('MNEMO_BASE', dirname(__FILE__) . '/..');
+    define('MNEMO_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {

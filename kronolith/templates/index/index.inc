@@ -181,23 +181,23 @@
 <!-- end left menu -->
 
 <!-- begin edit form -->
-<?php require dirname(__FILE__) . '/edit.inc'; ?>
+<?php require __DIR__ . '/edit.inc'; ?>
 <!-- end edit form -->
 
 <!-- begin body -->
 <div id="kronolithBody">
 <div id="kronolithLoading" style="display:none"></div>
 <?php
-require dirname(__FILE__) . '/month.inc';
-require dirname(__FILE__) . '/workweek.inc';
-require dirname(__FILE__) . '/week.inc';
-require dirname(__FILE__) . '/day.inc';
-require dirname(__FILE__) . '/year.inc';
+require __DIR__ . '/month.inc';
+require __DIR__ . '/workweek.inc';
+require __DIR__ . '/week.inc';
+require __DIR__ . '/day.inc';
+require __DIR__ . '/year.inc';
 if (Kronolith::hasApiPermission('tasks')) {
-    require dirname(__FILE__) . '/tasks.inc';
-    require dirname(__FILE__) . '/task.inc';
+    require __DIR__ . '/tasks.inc';
+    require __DIR__ . '/task.inc';
 }
-require dirname(__FILE__) . '/agenda.inc';
+require __DIR__ . '/agenda.inc';
 ?>
 <div id="kronolithViewIframe" style="display:none"></div>
 </div>

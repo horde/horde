@@ -6,7 +6,7 @@
  */
 
 /** Setup testing */
-require_once dirname(__FILE__) . '/Autoload.php';
+require_once __DIR__ . '/Autoload.php';
 
 class Horde_Feed_BlogrollTest extends PHPUnit_Framework_TestCase
 {
@@ -14,7 +14,7 @@ class Horde_Feed_BlogrollTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->_feedDir = dirname(__FILE__) . '/fixtures/';
+        $this->_feedDir = __DIR__ . '/fixtures/';
     }
 
     /**

@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../../../Autoload.php';
+require_once __DIR__ . '/../../../../Autoload.php';
 
 /**
  * Test the install paths for horde applications.
@@ -86,7 +86,7 @@ extends Horde_Pear_TestCase
     private function _getFixture()
     {
         return new Horde_Pear_Package_Type_Horde(
-            dirname(__FILE__) . '/../../../../fixture/horde/imp'
+            __DIR__ . '/../../../../fixture/horde/imp'
         );
     }
 }

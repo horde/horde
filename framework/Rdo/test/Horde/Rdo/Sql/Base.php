@@ -2,7 +2,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../Base.php';
+require_once __DIR__ . '/../Base.php';
 
 /**
  * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
@@ -57,7 +57,7 @@ class Horde_Rdo_Test_Sql_Base extends Horde_Rdo_Test_Base
         // read sql file for statements
         $statements = array();
         $current_stmt = '';
-        $fp = fopen(dirname(__FILE__) . '/../fixtures/unit_tests.sql', 'r');
+        $fp = fopen(__DIR__ . '/../fixtures/unit_tests.sql', 'r');
         while ($line = fgets($fp, 8192)) {
             $line = rtrim(preg_replace('/^(.*)--.*$/s', '\1', $line));
             if (!$line) {

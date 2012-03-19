@@ -31,7 +31,7 @@ class Folks_Block_New extends Horde_Core_Block
      */
     protected function _content()
     {
-        require_once dirname(__FILE__) . '/../base.php';
+        require_once __DIR__ . '/../base.php';
 
         $new = $GLOBALS['folks_driver']->getNewUsers($this->_params['limit']);
         if ($new instanceof PEAR_Error) {

@@ -19,7 +19,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../Autoload.php';
+require_once __DIR__ . '/../Autoload.php';
 
 /**
  * Test the module wrapper.
@@ -42,7 +42,7 @@ extends Horde_Cli_Modular_TestCase
         $modular = new Horde_Cli_Modular(
             array(
                 'modules' => array(
-                    'directory' => dirname(__FILE__) . '/../Stub/Module'
+                    'directory' => __DIR__ . '/../Stub/Module'
                 ),
                 'provider' => array(
                     'prefix' => 'Horde_Cli_Modular_Stub_Module_'
@@ -81,7 +81,7 @@ extends Horde_Cli_Modular_TestCase
         $modular = new Horde_Cli_Modular(
             array('modules' => new Horde_Cli_Modular_Modules(
                       array(
-                          'directory' => dirname(__FILE__) . '/../fixtures/Module'
+                          'directory' => __DIR__ . '/../fixtures/Module'
                       )
                   )
             )
@@ -104,7 +104,7 @@ extends Horde_Cli_Modular_TestCase
         $modular = new Horde_Cli_Modular(
             array(
                 'modules' => array(
-                    'directory' => dirname(__FILE__) . '/../fixtures/Module'
+                    'directory' => __DIR__ . '/../fixtures/Module'
                 ),
             )
         );
@@ -217,7 +217,7 @@ extends Horde_Cli_Modular_TestCase
                     'usage' => 'GLOBAL USAGE'
                 ),
                 'modules' => array(
-                    'directory' => dirname(__FILE__) . '/../Stub/Module'
+                    'directory' => __DIR__ . '/../Stub/Module'
                 ),
                 'provider' => array(
                     'prefix' => 'Horde_Cli_Modular_Stub_Module_'

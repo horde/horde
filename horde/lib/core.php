@@ -29,7 +29,7 @@ if (($rg = ini_get('register_globals')) &&
     exit('Register globals is enabled. Exiting.');
 }
 
-$dirname = dirname(__FILE__);
+$dirname = __DIR__;
 
 if (!defined('HORDE_BASE')) {
     define('HORDE_BASE', $dirname . '/..');

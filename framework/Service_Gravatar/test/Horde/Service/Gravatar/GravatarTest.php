@@ -12,7 +12,7 @@
  * @link     http://pear.horde.org/index.php?package=Service_Gravatar
  */
 
-require_once dirname(__FILE__) . '/Autoload.php';
+require_once __DIR__ . '/Autoload.php';
 
 /**
  * Horde_Service_Gravatar abstracts communication with Services supporting the

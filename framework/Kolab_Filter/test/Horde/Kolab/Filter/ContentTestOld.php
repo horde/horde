@@ -84,30 +84,30 @@ class Horde_Kolab_Filter_ContentTest extends Horde_Kolab_Test_Filter
             /**
              * Test a simple message
              */
-            array(dirname(__FILE__) . '/fixtures/vacation.eml',
-                  dirname(__FILE__) . '/fixtures/vacation.ret',
+            array(__DIR__ . '/fixtures/vacation.eml',
+                  __DIR__ . '/fixtures/vacation.ret',
                   '', '', 'me@example.org', 'you@example.net', 'example.org',
                   array('unmodified_content' => true)),
             /**
              * Test a simple message
              */
-            array(dirname(__FILE__) . '/fixtures/tiny.eml',
-                  dirname(__FILE__) . '/fixtures/tiny.ret',
+            array(__DIR__ . '/fixtures/tiny.eml',
+                  __DIR__ . '/fixtures/tiny.ret',
                   '', '', 'me@example.org', 'you@example.org', 'example.org',
                   array('unmodified_content' => true)),
             /**
              * Test a simple message
              */
-            array(dirname(__FILE__) . '/fixtures/simple.eml',
-                  dirname(__FILE__) . '/fixtures/simple_out.ret',
+            array(__DIR__ . '/fixtures/simple.eml',
+                  __DIR__ . '/fixtures/simple_out.ret',
                   '', '', 'me@example.org', 'you@example.org', 'example.org',
                   array('unmodified_content' => true)),
             /**
              * Test sending from a remote server without authenticating. This
              * will be considered forging the sender.
              */
- /*           array(dirname(__FILE__) . '/fixtures/forged.eml',
-                  dirname(__FILE__) . '/fixtures/forged.ret',
+ /*           array(__DIR__ . '/fixtures/forged.eml',
+                  __DIR__ . '/fixtures/forged.ret',
                   '', '10.0.0.1', 'me@example.org', 'you@example.org', 'example.org',
                   array('unmodified_content' => true)),*/
             /**
@@ -115,50 +115,50 @@ class Horde_Kolab_Filter_ContentTest extends Horde_Kolab_Test_Filter
              * within the priviledged network. This will not be considered
              * forging the sender.
              */
-            array(dirname(__FILE__) . '/fixtures/forged.eml',
-                  dirname(__FILE__) . '/fixtures/privileged.ret',
+            array(__DIR__ . '/fixtures/forged.eml',
+                  __DIR__ . '/fixtures/privileged.ret',
                   '', '192.168.178.1', 'me@example.org', 'you@example.org', 'example.org',
                   array('unmodified_content' => true)),
             /**
              * Test authenticated sending of a message from a remote client.
              */
-            array(dirname(__FILE__) . '/fixtures/validation.eml',
-                  dirname(__FILE__) . '/fixtures/validation.ret',
+            array(__DIR__ . '/fixtures/validation.eml',
+                  __DIR__ . '/fixtures/validation.ret',
                   'me@example.org', 'remote.example.org', 'me@example.org', 'you@example.org', 'example.org'),
             /**
              * Test authenticated sending of a message from a remote client
              * using an alias.
              */
-            array(dirname(__FILE__) . '/fixtures/validation.eml',
-                  dirname(__FILE__) . '/fixtures/validation.ret',
+            array(__DIR__ . '/fixtures/validation.eml',
+                  __DIR__ . '/fixtures/validation.ret',
                   'me@example.org', 'remote.example.org', 'me.me@example.org', 'you@example.org', 'example.org'),
             /**
              * Test authenticated sending of a message from a remote client
              * using an alias with capitals (MEME@example.org).
              */
-            array(dirname(__FILE__) . '/fixtures/validation.eml',
-                  dirname(__FILE__) . '/fixtures/validation.ret',
+            array(__DIR__ . '/fixtures/validation.eml',
+                  __DIR__ . '/fixtures/validation.ret',
                   'me@example.org', 'remote.example.org', 'meme@example.org', 'you@example.org', 'example.org'),
             /**
              * Test authenticated sending of a message from a remote client
              * as delegate
              */
-            array(dirname(__FILE__) . '/fixtures/validation.eml',
-                  dirname(__FILE__) . '/fixtures/validation.ret',
+            array(__DIR__ . '/fixtures/validation.eml',
+                  __DIR__ . '/fixtures/validation.ret',
                   'me@example.org', 'remote.example.org', 'else@example.org', 'you@example.org', 'example.org'),
             /**
              * Test authenticated sending of a message from a remote client
              * with an address that is not allowed.
              */
-            array(dirname(__FILE__) . '/fixtures/validation.eml',
-                  dirname(__FILE__) . '/fixtures/validation.ret',
+            array(__DIR__ . '/fixtures/validation.eml',
+                  __DIR__ . '/fixtures/validation.ret',
                   'me@example.org', 'remote.example.org', 'else3@example.org', 'you@example.org', 'example.org',
                   array('error' =>'Invalid From: header. else3@example.org looks like a forged sender')),
             /**
              * Test forwarding an invitation
              */
-            array(dirname(__FILE__) . '/fixtures/invitation_forward.eml',
-                  dirname(__FILE__) . '/fixtures/invitation_forward.ret',
+            array(__DIR__ . '/fixtures/invitation_forward.eml',
+                  __DIR__ . '/fixtures/invitation_forward.ret',
                   'me@example.org', '10.0.2.1', 'me@example.org', 'you@example.org', 'example.org'),
         );
     }
@@ -172,8 +172,8 @@ class Horde_Kolab_Filter_ContentTest extends Horde_Kolab_Test_Filter
 
         $conf['kolab']['filter']['reject_forged_from_header'] = true;
 
-        $this->sendFixture(dirname(__FILE__) . '/fixtures/forged.eml',
-                           dirname(__FILE__) . '/fixtures/forged.ret',
+        $this->sendFixture(__DIR__ . '/fixtures/forged.eml',
+                           __DIR__ . '/fixtures/forged.ret',
                            '', '10.0.0.1', 'me@example.org', 'you@example.org', 'example.org',
                            array('error' =>'Invalid From: header. me@example.org looks like a forged sender',
                                  'unmodified_content' => true));
@@ -187,11 +187,11 @@ class Horde_Kolab_Filter_ContentTest extends Horde_Kolab_Test_Filter
         $this->markTestIncomplete('Some the translation does not kick in.');
         global $conf;
 
-        $conf['kolab']['filter']['locale_path'] = dirname(__FILE__) . '/../../../../../data/Kolab_Filter/locale';
+        $conf['kolab']['filter']['locale_path'] = __DIR__ . '/../../../../../data/Kolab_Filter/locale';
         $conf['kolab']['filter']['locale'] = 'de_DE';
 
-        $this->sendFixture(dirname(__FILE__) . '/fixtures/forged.eml',
-                           dirname(__FILE__) . '/fixtures/forged_trans.ret',
+        $this->sendFixture(__DIR__ . '/fixtures/forged.eml',
+                           __DIR__ . '/fixtures/forged_trans.ret',
                            '', '10.0.0.1', 'me@example.org', 'you@example.org', 'example.org',
                            array('unmodified_content' => true));
     }

@@ -15,7 +15,7 @@
 
 /* Determine the base directories. */
 if (!defined('SKELETON_BASE')) {
-    define('SKELETON_BASE', dirname(__FILE__) . '/..');
+    define('SKELETON_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {

@@ -8,4 +8,4 @@
  * @author Tyler Colbert <tyler@colberts.us>
  */
 
-require dirname(__FILE__) . '/display.php';
+require __DIR__ . '/display.php';

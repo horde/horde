@@ -9,7 +9,7 @@
  * @author  Ben Klang <ben@alkaloid.net>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 $shout = Horde_Registry::appInit('shout');
 
 require_once SHOUT_BASE . '/lib/Forms/AccountForm.php';

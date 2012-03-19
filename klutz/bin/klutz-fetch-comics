@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-$baseFile = dirname(__FILE__) . '/../../klutz/lib/Application.php';
+$baseFile = __DIR__ . '/../../klutz/lib/Application.php';
 if (file_exists($baseFile)) {
     require_once $baseFile;
 } else {

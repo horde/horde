@@ -12,7 +12,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../../Autoload.php';
+require_once __DIR__ . '/../../../Autoload.php';
 
 /**
  * Test the status listener class.
@@ -28,7 +28,7 @@ require_once dirname(__FILE__) . '/../../../Autoload.php';
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Notification
  */
-class Horde_Notification_Class_Notification_Listener_StatusTest extends PHPUnit_Extensions_OutputTestCase
+class Horde_Notification_Class_Notification_Listener_StatusTest extends Horde_Test_Case
 {
     public function testMethodHandleHasEventClassForHordeMessages()
     {

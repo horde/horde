@@ -309,4 +309,14 @@ class IMP_Api extends Horde_Registry_Api
         ));
     }
 
+    /**
+     * Return the list of special mailboxes.
+     *
+     * @return @see IMP_Mailbox::getSpecialMailboxes()
+     */
+    public function getSpecialMailboxes()
+    {
+        return IMP_Mailbox::getSpecialMailboxes();
+    }
+
 }

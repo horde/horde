@@ -40,7 +40,7 @@ class Folks_Block_Random extends Horde_Core_Block
      */
     protected function _content()
     {
-        require_once dirname(__FILE__) . '/../base.php';
+        require_once __DIR__ . '/../base.php';
 
         $list = $GLOBALS['folks_driver']->getRandomUsers(
             $this->_params['limit'],

@@ -10,7 +10,7 @@
  * @author Joel Vandal <joel@scopserv.com>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 $hylax = Horde_Registry::appInit('hylax');
 
 /* Load Cover Page templates */

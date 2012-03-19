@@ -129,7 +129,7 @@ class Operator_Driver {
 
         $class = 'Operator_Driver_' . $driver;
         if (!class_exists($class)) {
-            include dirname(__FILE__) . '/Driver/' . $driver . '.php';
+            include __DIR__ . '/Driver/' . $driver . '.php';
         }
         if (class_exists($class)) {
             return new $class($params);

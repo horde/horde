@@ -17,7 +17,7 @@
 
 /* Determine the base directories. */
 if (!defined('AGORA_BASE')) {
-    define('AGORA_BASE', dirname(__FILE__) . '/..');
+    define('AGORA_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {

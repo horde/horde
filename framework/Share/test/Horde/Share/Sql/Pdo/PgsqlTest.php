@@ -2,7 +2,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../Base.php';
+require_once __DIR__ . '/../Base.php';
 
 /**
  * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
@@ -22,7 +22,7 @@ class Horde_Share_Sql_Pdo_PgsqlTest extends Horde_Share_Test_Sql_Base
             return;
         }
         $config = self::getConfig('SHARE_SQL_PDO_PGSQL_TEST_CONFIG',
-                                  dirname(__FILE__) . '/../..');
+                                  __DIR__ . '/../..');
         if ($config && !empty($config['share']['sql']['pdo_pgsql'])) {
             self::$db = new Horde_Db_Adapter_Pdo_Pgsql($config['share']['sql']['pdo_pgsql']);
             parent::setUpBeforeClass();

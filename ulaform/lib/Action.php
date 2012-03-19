@@ -41,7 +41,7 @@ class Ulaform_Action {
             return $drivers;
         }
 
-        $driver_path = dirname(__FILE__) . '/Action/';
+        $driver_path = __DIR__ . '/Action/';
         $drivers = array();
 
         if ($driver_dir = opendir($driver_path)) {

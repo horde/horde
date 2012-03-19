@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../Autoload.php';
+require_once __DIR__ . '/../Autoload.php';
 
 /**
  * Test handling all day events.
@@ -65,7 +65,7 @@ class Kronolith_Integration_AllDayTest extends Kronolith_TestCase
     {
         $iCal = new Horde_Icalendar();
         $iCal->parsevCalendar(
-            file_get_contents(dirname(__FILE__) . '/../fixtures/allday.ics')
+            file_get_contents(__DIR__ . '/../fixtures/allday.ics')
         );
         $components = $iCal->getComponents();
         return $components[$element];

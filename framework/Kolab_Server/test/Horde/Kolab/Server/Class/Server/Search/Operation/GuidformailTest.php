@@ -14,7 +14,7 @@
 /**
  * Require our basic test case definition
  */
-require_once dirname(__FILE__) . '/../../../../TestCase.php';
+require_once __DIR__ . '/../../../../TestCase.php';
 
 /**
  * Test the search operations by mail.

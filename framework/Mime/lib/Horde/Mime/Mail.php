@@ -144,7 +144,6 @@ class Horde_Mime_Mail
      *
      * @param string $header      The header name.
      * @param string $value       The header value.
-     * @param string $charset     The header value's charset.
      * @param boolean $overwrite  If true, an existing header of the same name
      *                            is being overwritten; if false, multiple
      *                            headers are added; if null, the correct
@@ -453,10 +452,7 @@ class Horde_Mime_Mail
 
         /* Send message. */
         $recipients->unique();
-        $basepart->send($recipients->writeAddress(array(
-            'encode' => $this->_charset,
-            'idn' => true
-        )), $this->_headers, $mailer);
+        $basepart->send($recipients->writeAddress(), $this->_headers, $mailer);
     }
 
 }

@@ -18,7 +18,7 @@
 
 // We do not need to be authenticated to get the file. Most users won't send
 // linked attachments just to other IMP users.
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('imp', array('authentication' => 'none', 'session_control' => 'none'));
 
 // Lets see if we are even able to send the user an attachment.

@@ -2,7 +2,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../Autoload.php';
+require_once __DIR__ . '/../Autoload.php';
 
 /**
  * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
@@ -39,7 +39,7 @@ class Horde_Image_Test_Exif_Base extends Horde_Test_Case
      */
     public function testExtract()
     {
-        $fixture = dirname(__FILE__) . '/../Fixtures/img_exif.jpg';
+        $fixture = __DIR__ . '/../Fixtures/img_exif.jpg';
         setlocale(LC_ALL, 'de_DE');
         self::$_data = self::$_exif->getData($fixture);
         $this->assertInternalType('array', self::$_data);
