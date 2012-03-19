@@ -116,7 +116,7 @@ class IMP_Contents
 
             $ret = $this->_fetchData($query);
             if (!isset($ret[$this->_uid])) {
-                throw new IMP_Exception(_("Error displaying message: message does not exist on server."), 'NOTICE');
+                throw new IMP_Exception(_("Error displaying message: message does not exist on server."), Horde_Log::NOTICE);
             }
 
             $this->_message = $ret[$this->_uid]->getStructure();
