@@ -159,10 +159,6 @@ class Horde_Session_Null extends Horde_Session
      */
     public function set($app, $name, $value, $mask = 0)
     {
-        if ($this->_readonly) {
-            return;
-        }
-
         /* Each particular piece of session data is generally not used on any
          * given page load.  Thus, for arrays and objects, it is beneficial to
          * always convert to string representations so that the object/array
