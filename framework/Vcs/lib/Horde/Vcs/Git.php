@@ -148,6 +148,8 @@ class Horde_Vcs_Git extends Horde_Vcs_Base
         if (!$stream || !is_resource($stream)) {
             throw new Horde_Vcs_Exception('Failed to execute git: ' . $cmd);
         }
+        stream_set_blocking($pipes[1], true);
+        stream_set_blocking($pipes[2], true);
         if ($error = stream_get_contents($pipes[2])) {
             fclose($pipes[2]);
             proc_close($stream);
