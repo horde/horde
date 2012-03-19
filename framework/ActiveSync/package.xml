@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-03-16</date>
- <time>09:43:36</time>
+ <date>2012-03-19</date>
+ <time>01:08:09</time>
  <version>
   <release>1.2.5</release>
   <api>1.2.0</api>
@@ -117,6 +117,7 @@
       <file name="4_horde_activesync_longtextstatefield.php" role="data" />
       <file name="5_horde_activesync_addpendingfield.php" role="data" />
       <file name="6_horde_activesync_addmailmap.php" role="data" />
+      <file name="7_horde_activesync_clearstate.php" role="data" />
      </dir> <!-- /migration/Horde/ActiveSync -->
     </dir> <!-- /migration/Horde -->
    </dir> <!-- /migration -->
@@ -254,6 +255,7 @@
    <install as="migration/4_horde_activesync_longtextstatefield.php" name="migration/Horde/ActiveSync/4_horde_activesync_longtextstatefield.php" />
    <install as="migration/5_horde_activesync_addpendingfield.php" name="migration/Horde/ActiveSync/5_horde_activesync_addpendingfield.php" />
    <install as="migration/6_horde_activesync_addmailmap.php" name="migration/Horde/ActiveSync/6_horde_activesync_addmailmap.php" />
+   <install as="migration/7_horde_activesync_clearstate.php" name="migration/Horde/ActiveSync/7_horde_activesync_clearstate.php" />
    <install as="Horde/ActiveSync/AllTests.php" name="test/Horde/ActiveSync/AllTests.php" />
    <install as="Horde/ActiveSync/AppointmentTest.php" name="test/Horde/ActiveSync/AppointmentTest.php" />
    <install as="Horde/ActiveSync/ContactTest.php" name="test/Horde/ActiveSync/ContactTest.php" />
@@ -602,7 +604,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-03-16</date>
+   <date>2012-03-19</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 *
