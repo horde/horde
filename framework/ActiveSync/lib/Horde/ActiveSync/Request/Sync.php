@@ -297,25 +297,25 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     // Create Message object from messages passed from PIM
                     if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_DATA)) {
                         switch ($collection['class']) {
-                        case 'Email':
+                        case Horde_ActiveSync::CLASS_EMAIL:
                             $appdata = new Horde_ActiveSync_Message_Mail(
                                 array('logger' => $this->_logger,
                                       'protocolversion' => $this->_version)
                             );
                             $appdata->decodeStream($this->_decoder);
                             break;
-                        case 'Contacts':
+                        case Horde_ActiveSync::CLASS_CONTACTS:
                             $appdata = new Horde_ActiveSync_Message_Contact(
                                 array('logger' => $this->_logger,
                                       'protocolversion' => $this->_version));
                             $appdata->decodeStream($this->_decoder);
                             break;
-                        case 'Calendar':
+                        case Horde_ActiveSync::CLASS_CALENDAR:
                             $appdata = new Horde_ActiveSync_Message_Appointment(
                                 array('logger' => $this->_logger));
                             $appdata->decodeStream($this->_decoder);
                             break;
-                        case 'Tasks':
+                        case Horde_ActiveSync::CLASS_TASKS:
                             $appdata = new Horde_ActiveSync_Message_Task(
                                 array('logger' => $this->_logger));
                             $appdata->decodeStream($this->_decoder);
