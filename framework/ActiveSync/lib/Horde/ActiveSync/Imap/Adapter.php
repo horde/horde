@@ -377,25 +377,45 @@ class Horde_ActiveSync_Imap_Adapter
         return $part;
     }
 
-    public function getImapMessage($mailbox, $uid)
+    /**
+     * Return a Horde_ActiveSync_Imap_Message object for the requested uid.
+     *
+     * @param string $mailbox  The mailbox name.
+     * @param integer $uid     The message uid.
+     * @param array $options   Additional options:
+     *     - headers: (boolean) Also fetch the message headers if this is true.
+     *                DEFAULT: false (Do not fetch headers).
+     *
+     * @return Horde_ActiveSync_Imap_Message  The message object.
+     */
+    public function getImapMessage($mailbox, $uid, array $options = array())
     {
         $mbox = new Horde_Imap_Client_Mailbox($mailbox);
-        $messages = $this->_getMailMessages($mbox, array($uid));
+        $messages = $this->_getMailMessages($mbox, array($uid), $options);
         $message = array_pop($messages);
-                Horde::debug($message);
         return new Horde_ActiveSync_Imap_Message($this->_getImapOb(), $mbox, $message);
     }
 
     /**
      *
+     * @param Horde_Imap_Client_Mailbox $mbox   The mailbox
+     * @param array $uids                       An array of message uids
+     * @param array $options                    An options array
+     *   - headers: (boolean)  Fetch header text if true.
+     *              DEFAULT: false (Do not fetch header text).
+     *
      * @return array An array of Horde_Imap_Client_Data_Fetch objects.
      */
-    protected function _getMailMessages($mbox, array $uids)
+    protected function _getMailMessages(
+        Horde_Imap_Client_Mailbox $mbox, array $uids, array $options = array())
     {
         $imap = $this->_getImapOb();
         $query = new Horde_Imap_Client_Fetch_Query();
         $query->structure();
         $query->flags();
+        if (!empty($options['headers'])) {
+            $query->headerText();
+        }
         $ids = new Horde_Imap_Client_Ids($uids);
         try {
             return $imap->fetch($mbox, $query, array('ids' => $ids));
@@ -413,7 +433,8 @@ class Horde_ActiveSync_Imap_Adapter
      *   - truncation:  (integer) Truncate the message body to this length.
      *                  DEFAULT: No truncation.
      *
-     * @return Horde_ActiveSync_Mail_Message
+     * @return Horde_ActiveSync_Message_Mail  The message object suitable for
+     *                                        streaming to the device.
      * @throws Horde_Exception
      */
     protected function _buildMailMessage(

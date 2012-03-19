@@ -1,15 +1,33 @@
 <?php
 /**
+ * Horde_ActiveSync_Imap_Message::
+ *
+ * PHP 5
+ *
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ * @copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @link      http://pear.horde.org/index.php?package=ActiveSync
+ * @package   ActiveSync
+ */
+/**
  * This class provides all functionality related to parsing and working with
  * a single IMAP email message when using Horde_Imap_Client.
  *
+ * Some Mime parsing code taken from Imp_Contents.
+ *
  * @copyright 2012 Horde LLC (http://www.horde.org/)
  * @author Michael J Rubinsky <mrubinsk@horde.org>
- * @package Core
+ * @package  ActiveSync
  */
-
 class Horde_ActiveSync_Imap_Message
 {
+    /**
+     * Message data
+     *
+     * @var Horde_Imap_Client_Fetch_Data
+     */
+    protected $_data;
 
     /**
      * Message structure
@@ -52,10 +70,101 @@ class Horde_ActiveSync_Imap_Message
         $this->_uid = $data->getUid();
         $this->_flags = $data->getFlags();
         $this->_mbox = $mailbox;
+        $this->_data = $data;
     }
 
     /**
-     * Returns the main text body of the message.
+     * Return this message's base part headers.
+     *
+     * @return Horde_Mime_Header  The message headrers.
+     */
+    public function getHeaders()
+    {
+        return $this->_data->getHeaderText(0, Horde_Imap_Client_Data_Fetch::HEADER_PARSE);
+    }
+
+    /**
+     * Return nicely formatted text representing the headers to display with
+     * in-line forwarded messages.
+     *
+     * @return string
+     */
+    public function getForwardHeaders()
+    {
+        $tmp = array();
+        $h = $this->getHeaders();
+
+        if (($ob = $h->getValue('date'))) {
+            $tmp[_("Date")] = $ob;
+        }
+
+        if (($ob = strval($h->getOb('from')))) {
+            $tmp[_("From")] = $ob;
+        }
+
+        if (($ob = strval($h->getOb('reply-to')))) {
+            $tmp[_("Reply-To")] = $ob;
+        }
+
+        if (($ob = $h->getValue('subject'))) {
+            $tmp[_("Subject")] = $ob;
+        }
+
+        if (($ob = strval($h->getOb('to')))) {
+            $tmp[_("To")] = $ob;
+        }
+
+        if (($ob = strval($h->getOb('cc')))) {
+            $tmp[_("Cc")] = $ob;
+        }
+
+        $max = max(array_map(array('Horde_String', 'length'), array_keys($tmp))) + 2;
+        $text = '';
+
+        foreach ($tmp as $key => $val) {
+            $text .= Horde_String::pad($key . ': ', $max, ' ', STR_PAD_LEFT) . $val . "\n";
+        }
+
+        return $text;
+    }
+
+    /**
+     * Return the full message text.
+     *
+     * @return string
+     */
+    public function getFullMsg()
+    {
+        // First see if we already have it.
+        if (!$full = $this->_data->getFullMsg()) {
+            $query = new Horde_Imap_Client_Fetch_Query();
+            $query->fullText();
+            $fetch_ret = $this->_imap->fetch(
+                $this->_mbox,
+                $query,
+                array('ids' => new Horde_Imap_Client_Ids(array($this->_uid)))
+            );
+
+            $data = array_pop($fetch_ret);
+            $full = $data->getFullMsg();
+        }
+
+        return $full;
+    }
+
+    /**
+     * Return the message's base Mime part.
+     *
+     * @return Horde_Mime_Part
+     */
+    public function getStructure()
+    {
+        return $this->_message;
+    }
+
+    /**
+     * Returns the main text body of the message suitable for sending over
+     * EAS response.
      *
      * @param array $options  An options array containgin:
      *  - truncation: (integer) Truncate message body to this length.
@@ -378,6 +487,13 @@ class Horde_ActiveSync_Imap_Message
         return new Horde_Date((string)$this->_envelope->date);
     }
 
+    /**
+     * Get a message flag
+     *
+     * @param string $flag  The flag to search for.
+     *
+     * @return boolean
+     */
     public function getFlag($flag)
     {
         return (array_search($flag, $this->_flags) !== false)
@@ -385,24 +501,20 @@ class Horde_ActiveSync_Imap_Message
             : 0;
     }
 
-    public function getMap()
+    /**
+     * Return this message's content map
+     *
+     * @return array  The content map, with mime ids as keys and content type
+     *                as values.
+     */
+    public function contentTypeMap()
     {
-        $parts = $this->_message->contentTypeMap();
-        foreach ($parts as $id => $type) {
-            $part = $this->_message->getPart($id);
-            if ($part &&
-                (strcasecmp($part->getCharset(), 'ISO-8859-1') === 0)) {
-                $part->setCharset('windows-1252');
-            }
-
-            var_dump($part->getBytes());
-            //var_dump($part);
-        }
+        return $this->_message->contentTypeMap();
     }
 
     /**
      * Determines if a MIME type is an attachment.
-     * For IMP's purposes, an attachment is any MIME part that can be
+     * For our purposes, an attachment is any MIME part that can be
      * downloaded by itself (i.e. all the data needed to view the part is
      * contained within the download data).
      *
@@ -432,6 +544,9 @@ class Horde_ActiveSync_Imap_Message
         }
     }
 
+    /**
+     * Ensure that the envelope is available.
+     */
     protected function _fetchEnvelope()
     {
         $query = new Horde_Imap_Client_Fetch_Query();
@@ -447,4 +562,5 @@ class Horde_ActiveSync_Imap_Message
         }
         $this->_envelope = $fetch_ret[$this->_uid]->getEnvelope();
     }
+
 }
