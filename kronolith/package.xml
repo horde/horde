@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix fatal error if no external calendars are available (Bug #11079).
 * [jan] Fix positioning of events on DST changing dates (Bug #11070).
 * [mjr] Fix bug that caused time shift of all day events when imported from ActiveSync devices for users in certain timezones (Bug #10991).
 * [mjr] Correctly deal with deleted calendars in sync clients (Bug #10969).
@@ -2062,6 +2063,7 @@
    <date>2012-01-31</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix fatal error if no external calendars are available (Bug #11079).
 * [jan] Fix positioning of events on DST changing dates (Bug #11070).
 * [mjr] Fix bug that caused time shift of all day events when imported from ActiveSync devices for users in certain timezones (Bug #10991).
 * [mjr] Correctly deal with deleted calendars in sync clients (Bug #10969).
