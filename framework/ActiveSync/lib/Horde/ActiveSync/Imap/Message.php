@@ -130,7 +130,7 @@ class Horde_ActiveSync_Imap_Message
         $map = $this->_message->contentTypeMap();
         foreach ($map as $id => $type) {
             if ($this->isAttachment($type)) {
-                $mime_part = $this->getMIMEPart($id, array('nocontents' => true));
+                $mime_part = $this->getMimePart($id, array('nocontents' => true));
                 $atc = new Horde_ActiveSync_Message_Attachment();
                 $atc->attsize = $mime_part->getBytes();
                 $atc->attname = $this->_mbox . ':' . $this->_uid . ':' . $id;
@@ -157,7 +157,7 @@ class Horde_ActiveSync_Imap_Message
      *
      * @return Horde_Mime_Part  The raw MIME part asked for (reference).
      */
-    public function getMIMEPart($id, array $options = array())
+    public function getMimePart($id, array $options = array())
     {
         $part = $this->_message->getPart($id);
         if ($part &&
@@ -207,7 +207,7 @@ class Horde_ActiveSync_Imap_Message
         case 'multipart':
             if (($part->getSubType() == 'related') &&
                 ($view_id = $part->getMetaData('viewable_part')) &&
-                ($viewable = $this->getMIMEPart($view_id, array('nocontents' => true)))) {
+                ($viewable = $this->getMimePart($view_id, array('nocontents' => true)))) {
                 return $this->getPartName($viewable, $use_descrip);
             }
             /* Fall-through. */

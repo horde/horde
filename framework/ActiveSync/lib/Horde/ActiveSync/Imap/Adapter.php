@@ -372,7 +372,7 @@ class Horde_ActiveSync_Imap_Adapter
         $messages = $this->_getMailMessages($mbox, array($uid));
         $msg = new Horde_ActiveSync_Imap_Message(
             $imap, $mbox, $messages[$uid]);
-        $part = $msg->getMIMEPart($part);
+        $part = $msg->getMimePart($part);
 
         return $part;
     }
