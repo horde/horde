@@ -161,19 +161,21 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     /**
      * Get the wastebasket folder. If this returns false, imap deletions are
      * permanent. If it returns a valid mailbox, deletions are treated as moves
-     * to this mailbox.
+     * to this mailbox. Note that any collection class other than
+     * Horde_ActiveSync::CLASS_EMAIL will return false.
      *
      * @return string|boolean  Returns name of the trash folder, or false
      *                         if not using a trash folder.
      */
-    public function getWasteBasket()
+    public function getWasteBasket($class)
     {
+        if ($class != Horde_ActiveSync::CLASS_EMAIL) {
+            return false;
+        }
         $specialFolders = $this->_imap->getSpecialMailboxes();
         if (!empty($specialFolders[self::SPECIAL_TRASH])) {
-            $this->_logger->debug('Horde::getWasteBasket(): ' . $specialFolders[self::SPECIAL_TRASH]);
             return $specialFolders[self::SPECIAL_TRASH];
         }
-        $this->_logger->debug('Horde::getWasteBasket(): FALSE');
         return false;
     }
 

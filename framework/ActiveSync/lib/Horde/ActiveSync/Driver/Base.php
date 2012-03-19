@@ -260,9 +260,14 @@ abstract class Horde_ActiveSync_Driver_Base
     }
 
     /**
-     * @return unknown_type
+     * Get the wastebasket folder.
+     *
+     * @param string $class  The collection class.
+     *
+     * @return string|boolean  Returns name of the trash folder, or false
+     *                         if not using a trash folder.
      */
-    public function getWasteBasket()
+    public function getWasteBasket($class)
     {
         return false;
     }

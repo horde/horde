@@ -352,7 +352,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                         break;
                     case Horde_ActiveSync::SYNC_REMOVE:
                         if (isset($collection['deletesasmoves'])) {
-                            $folderid = $this->_driver->getWasteBasket();
+                            $folderid = $this->_driver->getWasteBasket($collection['class']);
                             if ($folderid) {
                                 $importer->importMessageMove($serverid, $folderid);
                                 $collection['importedchanges'] = true;
