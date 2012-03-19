@@ -669,7 +669,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * @param string $id           Message UID
      * @param string $newfolderid  The new folder id
      *
-     * @return boolean
+     * @return string  The new uid for the message.
      */
     public function moveMessage($folderid, $id, $newfolderid)
     {
@@ -682,10 +682,11 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $this->_endBuffer();
             throw new Horde_Exception('Not supported');
         default:
-            $this->_imap->moveMessage($folderid, $id, $newfolderid);
+            $move_res = $this->_imap->moveMessage($folderid, $id, $newfolderid);
         }
-        return true;
         $this->_endBuffer();
+
+        return $move_res[$id];
     }
 
 

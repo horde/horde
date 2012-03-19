@@ -209,21 +209,16 @@ class Horde_ActiveSync_Connector_Importer
     }
 
     /**
-     * Perform a message move initiated on the PIM.
+     * Perform a message move initiated on the PIM
      *
-     * @TODO
-     *
-     * @param string $id  The message id
-     * @param  $newfolder
+     * @param string $uid   The source message id
+     * @param string $dst  The destination folder id.
      *
      * @return array
      */
-    public function importMessageMove($id, $newfolder)
+    public function importMessageMove($uid, $dst)
     {
-        // @TODO:: Do we need to update state? I think the next sync will
-        // take care of it??
-        return $this->_backend->moveMessage($this->_folderId, $id, $newfolder);
-
+        return $this->_backend->moveMessage($this->_folderId, $uid, $dst);
     }
 
     /**

@@ -238,7 +238,7 @@ class Horde_ActiveSync_Imap_Adapter
      * @param string $id           The message UID of the message to move.
      * @param string $newfolderid  The folder id to move $id to.
      *
-     * @return array  An hash of oldUID => newUIDs. If the server does not
+     * @return array  An hash of oldUID => newUID. If the server does not
      *                support UIDPLUS, then this is a best guess and might fail
      *                on busy folders.
      */

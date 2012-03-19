@@ -314,12 +314,13 @@ abstract class Horde_ActiveSync_Driver_Base
     }
 
     /**
-     * @todo
+     * Move message
      *
-     * @param $folderid
-     * @param $id
-     * @param $newfolderid
-     * @return unknown_type
+     * @param string $folderid     Existing folder id
+     * @param string $id           Message UID
+     * @param string $newfolderid  The new folder id
+     *
+     * @return string  The new uid for the message.
      */
     public function moveMessage($folderid, $id, $newfolderid)
     {
