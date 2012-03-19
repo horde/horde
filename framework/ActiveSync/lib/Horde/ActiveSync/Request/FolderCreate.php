@@ -21,8 +21,9 @@ class Horde_ActiveSync_Request_FolderCreate extends Horde_ActiveSync_Request_Bas
      *
      * @return boolean
      */
-    public function handle()
+    protected function _handle()
     {
+        throw new Horde_ActiveSync_Exception('Not Implented');
         $el = $this->_decoder->getElement();
         if ($el[Horde_ActiveSync_Wbxml::EN_TYPE] != Horde_ActiveSync_Wbxml::EN_TYPE_STARTTAG) {
             return false;

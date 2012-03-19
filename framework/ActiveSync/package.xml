@@ -83,7 +83,6 @@
        <file name="GetItemEstimate.php" role="php" />
        <file name="MeetingResponse.php" role="php" />
        <file name="MoveItems.php" role="php" />
-       <file name="Notify.php" role="php" />
        <file name="Ping.php" role="php" />
        <file name="Provision.php" role="php" />
        <file name="Search.php" role="php" />
@@ -238,7 +237,6 @@
    <install as="Horde/ActiveSync/Request/GetItemEstimate.php" name="lib/Horde/ActiveSync/Request/GetItemEstimate.php" />
    <install as="Horde/ActiveSync/Request/MeetingResponse.php" name="lib/Horde/ActiveSync/Request/MeetingResponse.php" />
    <install as="Horde/ActiveSync/Request/MoveItems.php" name="lib/Horde/ActiveSync/Request/MoveItems.php" />
-   <install as="Horde/ActiveSync/Request/Notify.php" name="lib/Horde/ActiveSync/Request/Notify.php" />
    <install as="Horde/ActiveSync/Request/Ping.php" name="lib/Horde/ActiveSync/Request/Ping.php" />
    <install as="Horde/ActiveSync/Request/Provision.php" name="lib/Horde/ActiveSync/Request/Provision.php" />
    <install as="Horde/ActiveSync/Request/Search.php" name="lib/Horde/ActiveSync/Request/Search.php" />

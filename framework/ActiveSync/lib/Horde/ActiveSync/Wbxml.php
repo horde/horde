@@ -209,27 +209,9 @@ class Horde_ActiveSync_Wbxml
                 0x38 => 'MIMESize',
                 0x39 => 'InternetCPID',
             ),
-            /* AIRNOTIFY */
-            3 => array (
-                0x05 => 'Notify',
-                0x06 => 'Notification',
-                0x07 => 'Version',
-                0x08 => 'Lifetime',
-                0x09 => 'DeviceInfo',
-                0x0a => 'Enable',
-                0x0b => 'Folder',
-                0x0c => 'ServerEntryId',
-                0x0d => 'DeviceAddress',
-                0x0e => 'ValidCarrierProfiles',
-                0x0f => 'CarrierProfile',
-                0x10 => 'Status',
-                0x11 => 'Replies',
-                0x12 => 'Devices',
-                0x13 => 'Device',
-                0x14 => 'Id',
-                0x15 => 'Expiry',
-                0x16 => 'NotifyGUID',
-            ),
+
+            /* 3 == AirNotify == deprecated */
+
             /* POOMCAL */
             4 => array (
                 0x05 => 'Timezone',
@@ -471,7 +453,6 @@ class Horde_ActiveSync_Wbxml
       'namespaces' => array(
           1 => 'POOMCONTACTS',
           2 => 'POOMMAIL',
-          3 => 'AirNotify',
           4 => 'POOMCAL',
           5 => 'Move',
           6 => 'GetItemEstimate',
