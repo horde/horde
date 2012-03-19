@@ -2,6 +2,7 @@
 v3.0.16-git
 -----------
 
+[jan] Use preferred date format in week and agenda views (Bug #11089).
 [jan] Fix fatal error if no external calendars are available (Bug #11079).
 [jan] Fix positioning of events on DST changing dates (Bug #11070).
 [mjr] Fix bug that caused time shift of all day events when imported from
