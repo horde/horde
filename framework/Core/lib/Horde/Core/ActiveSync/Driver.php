@@ -231,9 +231,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $folders = array_merge($folders, $this->_getMailFolders());
             }
 
-            if ($errors = Horde::endBuffer()) {
-                $this->_logger->err('Unexpected output: ' . $errors);
-            }
             $this->_endBuffer();
 
             $this->_folders = $folders;
