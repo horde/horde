@@ -16,8 +16,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2012-02-22</date>
- <time>13:43:42</time>
+ <date>2012-03-20</date>
+ <time>10:47:10</time>
  <version>
   <release>1.1.6</release>
   <api>1.0.0</api>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Update Finnish translation (Leena Heino &lt;liinu@uta.fi&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -761,10 +761,10 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-02-22</date>
+   <date>2012-03-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Update Finnish translation (Leena Heino &lt;liinu@uta.fi&gt;).
    </notes>
   </release>
  </changelog>
