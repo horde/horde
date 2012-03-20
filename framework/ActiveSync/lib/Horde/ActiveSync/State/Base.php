@@ -352,33 +352,40 @@ abstract class Horde_ActiveSync_State_Base
         // our previous state
         while (1) {
             $change = array();
-
             if ($iold >= count($old) || $inew >= count($new)) {
                 break;
             }
-
             // If ids are the same, but mod is different, a folder was
             // renamed on the client, but the server keeps it's id.
-            // Not sure if this ever happens.
             if ($old[$iold]['id'] == $new[$inew]['id']) {
                 // Both folders are still available compare mod
                 if ($old[$iold]['mod'] != $new[$inew]['mod']) {
                     $change['type'] = Horde_ActiveSync::CHANGE_TYPE_CHANGE;
-                    $change['mod'] = $new[$inew]['mod'];
+                    //$change['mod'] = $new[$inew]['mod'];
                     $change['id'] = $new[$inew]['id'];
                     $changes[] = $change;
                 }
-
                 $inew++;
                 $iold++;
+            } else {
+                if ($old[$iold]['id'] > $new[$inew]['id']) {
+                    // Messesge in device state has disappeared
+                    $change['type'] = Horde_ActiveSync::CHANGE_TYPE_DELETE;
+                    $change['id'] = $old[$iold]['id'];
+                    $changes[] = $change;
+                    $iold++;
+                } else {
+                    // Message in $new is new
+                    $change['type'] = Horde_ActiveSync::CHANGE_TYPE_CHANGE;
+                    $change['id'] = $new[$inew]['id'];
+                    $changes[] = $change;
+                    $inew++;
+                }
             }
         }
-
-        // @TODO: Don't think this could ever happen (delete folder on client).
         while ($iold < count($old)) {
             // All data left in _syncstate have been deleted
             $change['type'] = Horde_ActiveSync::CHANGE_TYPE_DELETE;
-            $change['mod'] = $old[$iold]['mod'];
             $change['id'] = $old[$iold]['id'];
             $changes[] = $change;
             $iold++;
@@ -389,7 +396,6 @@ abstract class Horde_ActiveSync_State_Base
             // All data left in new have been added
             $change['type'] = Horde_ActiveSync::CHANGE_TYPE_CHANGE;
             $change['flags'] = Horde_ActiveSync::FLAG_NEWMESSAGE;
-            $change['mod'] = $new[$inew]['mod'];
             $change['id'] = $new[$inew]['id'];
             $changes[] = $change;
             $inew++;
