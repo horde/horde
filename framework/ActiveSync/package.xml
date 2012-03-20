@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-02-22</date>
- <time>12:34:01</time>
+ <date>2012-03-20</date>
+ <time>10:27:53</time>
  <version>
   <release>1.2.5</release>
   <api>1.2.0</api>
@@ -574,7 +574,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-02-22</date>
+   <date>2012-03-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix parsing incoming timezones under certain conditions (Bug #11068).
