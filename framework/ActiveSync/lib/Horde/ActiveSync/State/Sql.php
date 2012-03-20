@@ -326,6 +326,21 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     {
         $this->_logger->debug('Updating state during ' . $type);
         if ($origin == Horde_ActiveSync::CHANGE_ORIGIN_PIM) {
+            if ($this->_type == Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC) {
+                foreach ($this->_folder as $fi => $state) {
+                    if ($state['id'] == $change['id']) {
+                        unset($this->_folder[$fi]);
+                        break;
+                    }
+                }
+                $stat = array(
+                   'id' => $change['id'],
+                   'mod' => $change['mod'],
+                   'parent' => $change['parent']
+                );
+                $this->_folder[] = $stat;
+                $this->_folder = array_values($this->_folder);
+            }
             // This is an incoming change from the PIM, store it so we
             // don't mirror it back to device.
             switch ($this->_collection['class']) {
@@ -992,10 +1007,12 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         if ($folderlist === false) {
             return false;
         }
+        Horde::debug($folderlist);
+        Horde::debug($this->_folder);
         $this->_changes = $this->_getDiff(
             (empty($this->_folder) ? array() : $this->_folder),
             $folderlist);
-
+//Horde::debug($this->_changes);
         $this->_logger->debug(sprintf(
             "[%s] Found %d folder changes.",
             $this->_devId,

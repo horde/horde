@@ -14,12 +14,17 @@
  */
 class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
 {
+
+    const ADD     = 'FolderHierarchy:Add';
+    const REMOVE  = 'FolderHierarchy:Remove';
+    const UPDATE  = 'FolderHierarchy:Update';
+
     /* SYNC Status response codes */
-    const STATUS_SUCCESS = 1;
+    const STATUS_SUCCESS     = 1;
     const STATUS_SERVERERROR = 6;
-    const STATUS_TIMEOUT = 8;
-    const STATUS_KEYMISM = 9;
-    const STATUS_PROTOERR = 10;
+    const STATUS_TIMEOUT     = 8;
+    const STATUS_KEYMISM     = 9;
+    const STATUS_PROTOERR    = 10;
 
     /**
      * Handle the request.
@@ -164,9 +169,9 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
         if (count($exporter->changed) > 0) {
             foreach ($exporter->changed as $folder) {
                 if (isset($folder->serverid) && in_array($folder->serverid, $seenfolders)) {
-                    $this->_encoder->startTag(Horde_ActiveSync::FOLDERHIERARCHY_UPDATE);
+                    $this->_encoder->startTag(self::UPDATE);
                 } else {
-                    $this->_encoder->startTag(Horde_ActiveSync::FOLDERHIERARCHY_ADD);
+                    $this->_encoder->startTag(self::ADD);
                 }
                 $folder->encodeStream($this->_encoder);
                 $this->_encoder->endTag();
@@ -175,7 +180,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
 
         if (count($exporter->deleted) > 0) {
             foreach ($exporter->deleted as $folder) {
-                $this->_encoder->startTag(Horde_ActiveSync::FOLDERHIERARCHY_REMOVE);
+                $this->_encoder->startTag(self::REMOVE);
                 $this->_encoder->startTag(Horde_ActiveSync::FOLDERHIERARCHY_SERVERENTRYID);
                 $this->_encoder->content($folder);
                 $this->_encoder->endTag();

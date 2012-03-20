@@ -94,13 +94,7 @@ class Horde_ActiveSync
     const FOLDERHIERARCHY_STATUS        = 'FolderHierarchy:Status';
     const FOLDERHIERARCHY_CONTENTCLASS  = 'FolderHierarchy:ContentClass';
     const FOLDERHIERARCHY_CHANGES       = 'FolderHierarchy:Changes';
-    const FOLDERHIERARCHY_ADD           = 'FolderHierarchy:Add';
-    const FOLDERHIERARCHY_REMOVE        = 'FolderHierarchy:Remove';
-    const FOLDERHIERARCHY_UPDATE        = 'FolderHierarchy:Update';
     const FOLDERHIERARCHY_SYNCKEY       = 'FolderHierarchy:SyncKey';
-    const FOLDERHIERARCHY_FOLDERCREATE  = 'FolderHierarchy:FolderCreate';
-    const FOLDERHIERARCHY_FOLDERDELETE  = 'FolderHierarchy:FolderDelete';
-    const FOLDERHIERARCHY_FOLDERUPDATE  = 'FolderHierarchy:FolderUpdate';
     const FOLDERHIERARCHY_FOLDERSYNC    = 'FolderHierarchy:FolderSync';
     const FOLDERHIERARCHY_COUNT         = 'FolderHierarchy:Count';
     const FOLDERHIERARCHY_VERSION       = 'FolderHierarchy:Version';
@@ -229,6 +223,7 @@ class Horde_ActiveSync
     const PROVISIONING_LOOSE            = 'loose';
     const PROVISIONING_NONE             = false;
 
+    const FOLDER_ROOT                   = 0;
     /**
      * Logger
      *
@@ -361,7 +356,9 @@ class Horde_ActiveSync
             self::commandsHeader();
             return true;
         }
-
+        if ($cmd == 'FolderDelete' || $cmd == 'FolderUpdate') {
+            $cmd = 'FolderCreate';
+        }
         if (is_null($devId)) {
             throw new Horde_ActiveSync_Exception('Device failed to send device id.');
         }

@@ -70,7 +70,7 @@ class Horde_ActiveSync_Connector_Importer
      * @param string $folderId                    The collection's id.
      * @param integer $flags                      Conflict resolution flags.
      */
-    public function init(Horde_ActiveSync_State_Base &$state, $folderId, $flags = 0)
+    public function init(Horde_ActiveSync_State_Base &$state, $folderId = null, $flags = 0)
     {
         $this->_state = &$state;
         $this->_flags = $flags;
@@ -227,9 +227,9 @@ class Horde_ActiveSync_Connector_Importer
      * @param string $id            The folder id
      * @param string $parent        The parent folder id?
      * @param string $displayname   The folder display name
-     * @param <unknown_type> $type  The collection type?
+     * @param integer $type         The collection type.
      *
-     * @return boolean
+     * @return string|boolean  The new serverid if successful, otherwise false.
      */
     public function importFolderChange($id, $parent, $displayname, $type)
     {
@@ -238,28 +238,19 @@ class Horde_ActiveSync_Connector_Importer
             return false;
         }
 
-        if ($id) {
+        /* Tell the backend */
+        $change_res = $this->_backend->changeFolder($parent, $id, $displayname, $type);
+        if ($change_res) {
             $change = array();
             $change['id'] = $id;
             $change['mod'] = $displayname;
             $change['parent'] = $parent;
-            $change['flags'] = 0;
             $this->_state->updateState(
                 Horde_ActiveSync::CHANGE_TYPE_CHANGE,
                 $change,
-                Horde_ActiveSync::CHANGE_ORIGIN_NA);
+                Horde_ActiveSync::CHANGE_ORIGIN_PIM);
         }
-
-        /* Tell the backend */
-        $stat = $this->_backend->ChangeFolder($parent, $id, $displayname, $type);
-        if ($stat) {
-            $this->_state->updateState(
-                Horde_ActiveSync::CHANGE_TYPE_CHANGE,
-                $stat,
-                Horde_ActiveSync::CHANGE_ORIGIN_NA);
-        }
-
-        return $stat['id'];
+        return $change_res;
     }
 
     /**
@@ -270,7 +261,7 @@ class Horde_ActiveSync_Connector_Importer
      *
      * @return boolean
      */
-    public function importFolderDeletion($id, $parent)
+    public function importFolderDeletion($id, $parent = Horde_ActiveSync::FOLDER_ROOT)
     {
         /* Do nothing if it is a dummy folder */
         if ($parent == Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
@@ -284,7 +275,7 @@ class Horde_ActiveSync_Connector_Importer
             Horde_ActiveSync::CHANGE_TYPE_DELETE,
             $change,
             Horde_ActiveSync::CHANGE_ORIGIN_NA);
-        $this->_backend->deleteFolder($parent, $id);
+        $this->_backend->deleteFolder($id, $parent);
 
         return true;
     }

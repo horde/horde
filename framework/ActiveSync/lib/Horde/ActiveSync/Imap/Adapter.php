@@ -76,6 +76,23 @@ class Horde_ActiveSync_Imap_Adapter
     }
 
     /**
+     * Create a new mailbox on the server, and subscribe to it.
+     *
+     * @param string $name  The new mailbox name.
+     */
+    public function createMailbox($name)
+    {
+        $mbox = new Horde_Imap_Client_Mailbox($name);
+        $imap = $this->_getImapOb();
+        try {
+            $imap->createMailbox($mbox);
+            $imap->subscribeMailbox($mbox, true);
+        } catch (Horde_Imap_Client_Exception $e) {
+            throw new Horde_ActiveSync_Exception($e);
+        }
+    }
+
+    /**
      * Ping a mailbox. This detects only if any new messages have arrived in
      * the specified mailbox. Flag changes are not detected for performance
      * reasons. This allows quick change detection, as well as a great
@@ -138,7 +155,8 @@ class Horde_ActiveSync_Imap_Adapter
         try {
             $status = $imap->status($mbox, $status_flags);
         } catch (Horde_Imap_Client_Exception $e) {
-            throw new Horde_ActiveSync_Exception($e);
+            // If we can't status the mailbox, assume it's gone.
+            throw new Horde_ActiveSync_Exception_FolderGone($e);
         }
         if ($qresync) {
             $modseq = $status['highestmodseq'];

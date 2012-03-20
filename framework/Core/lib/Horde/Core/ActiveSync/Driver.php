@@ -285,10 +285,42 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 }
             }
             $this->_logger->err('Folder ' . $id . ' unknown');
-            throw new Horde_ActiveSync_Exception('Folder ' . $id . ' unknown');
+            throw new Horde_Exception('Folder ' . $id . ' unknown');
         }
 
         return $folder;
+    }
+
+    public function changeFolder($parent, $id, $displayname, $type)
+    {
+        if ($type != Horde_ActiveSync::FOLDER_TYPE_USER_MAIL) {
+            throw new Horde_Exception('Not Supported');
+        }
+
+        if (!$id) {
+            // New folder
+            try {
+                $this->_imap->createMailbox($displayname);
+            } catch (Horde_ActiveSync_Exception $e) {
+                $this->_logger->err($e->getMessage());
+                throw new Horde_Exception($e);
+            }
+
+            return $displayname;
+        }
+    }
+
+    /**
+     * Delete a folder on the server.
+     *
+     * @param string $id  The server's folder id.
+     * @param string $parent  The folder's parent, if needed.
+     *
+     * @return boolean
+     */
+    public function deleteFolder($id, $parent = Horde_ActiveSync::FOLDER_ROOT)
+    {
+
     }
 
     /**
