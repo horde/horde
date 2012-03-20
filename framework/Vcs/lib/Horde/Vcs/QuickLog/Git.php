@@ -30,20 +30,18 @@ class Horde_Vcs_QuickLog_Git extends Horde_Vcs_QuickLog_Base
     {
         parent::__construct($rep, $rev);
 
-        $cmd = 'whatchanged --no-color --pretty=format:"%H%x00%an <%ae>%x00%at%x00%s%x00%b" --no-abbrev -n 1 ' . escapeshellarg($this->_rev);
+        $cmd = 'log --no-color --pretty=format:"%H%x00%an <%ae>%x00%at%x00%s%x00%b" --no-abbrev -n 1 ' . escapeshellarg($this->_rev);
         list($resource, $pipe) = $this->_rep->runCommand($cmd);
 
         $fields = explode("\0", fgets($pipe));
+        fclose($pipe);
+        proc_close($resource);
         if ($this->_rev != $fields[0]) {
-            fclose($pipe);
-            proc_close($resource);
             throw new Horde_Vcs_Exception(
                 'Expected ' . $this->_rev . ', got ' . $fields[0]);
         }
         $this->_author = $fields[1];
         $this->_date = $fields[2];
         $this->_log = trim($fields[3] . "\n" . $fields[4]);
-        fclose($pipe);
-        proc_close($resource);
     }
 }
