@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-01-31</date>
- <time>12:31:38</time>
+ <date>2012-03-20</date>
+ <time>10:58:58</time>
  <version>
   <release>3.0.16</release>
   <api>3.0.0</api>
@@ -2061,7 +2061,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-01-31</date>
+   <date>2012-03-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Use preferred date format in week and agenda views (Bug #11089).

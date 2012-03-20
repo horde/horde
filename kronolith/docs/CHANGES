@@ -1,6 +1,6 @@
------------
-v3.0.16-git
------------
+-------
+v3.0.16
+-------
 
 [jan] Use preferred date format in week and agenda views (Bug #11089).
 [jan] Fix fatal error if no external calendars are available (Bug #11079).
