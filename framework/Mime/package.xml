@@ -18,9 +18,9 @@
   <active>yes</active>
  </lead>
  <date>2012-03-20</date>
- <time>10:40:50</time>
+ <time>10:41:06</time>
  <version>
-  <release>1.5.1</release>
+  <release>1.5.2</release>
   <api>1.5.0</api>
  </version>
  <stability>
@@ -29,8 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Add MIME headers to the list of single-value headers.
-* [mms] Don&apos;t add personal part to e-mail address if it is identical to the address itself.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -885,6 +884,19 @@
    <notes>
 * [mms] Add MIME headers to the list of single-value headers.
 * [mms] Don&apos;t add personal part to e-mail address if it is identical to the address itself.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.5.2</release>
+    <api>1.5.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-03-20</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
