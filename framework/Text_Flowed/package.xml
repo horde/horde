@@ -11,8 +11,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:22:14</time>
+ <date>2012-03-20</date>
+ <time>10:46:36</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -27,6 +27,15 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Text">
+      <dir name="Flowed">
+       <file name="COPYING" role="doc" />
+      </dir> <!-- /doc/Horde/Text/Flowed -->
+     </dir> <!-- /doc/Horde/Text -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Text">
@@ -67,6 +76,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Text/Flowed/COPYING" />
    <install as="Horde/Text/Flowed.php" name="lib/Horde/Text/Flowed.php" />
    <install as="Horde/Text/Flowed/AllTests.php" name="test/Horde/Text/Flowed/AllTests.php" />
    <install as="Horde/Text/Flowed/Autoload.php" name="test/Horde/Text/Flowed/Autoload.php" />
@@ -188,7 +198,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2012-03-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Don&apos;t do regex matching for data that can never match.
