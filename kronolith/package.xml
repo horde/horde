@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2012-03-20</date>
- <time>10:58:58</time>
+ <time>11:00:03</time>
  <version>
-  <release>3.0.16</release>
+  <release>3.0.17</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -34,11 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Use preferred date format in week and agenda views (Bug #11089).
-* [jan] Fix fatal error if no external calendars are available (Bug #11079).
-* [jan] Fix positioning of events on DST changing dates (Bug #11070).
-* [mjr] Fix bug that caused time shift of all day events when imported from ActiveSync devices for users in certain timezones (Bug #10991).
-* [mjr] Correctly deal with deleted calendars in sync clients (Bug #10969).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2069,6 +2065,19 @@
 * [jan] Fix positioning of events on DST changing dates (Bug #11070).
 * [mjr] Fix bug that caused time shift of all day events when imported from ActiveSync devices for users in certain timezones (Bug #10991).
 * [mjr] Correctly deal with deleted calendars in sync clients (Bug #10969).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.17</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-03-20</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
