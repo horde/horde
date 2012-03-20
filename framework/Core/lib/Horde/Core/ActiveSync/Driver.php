@@ -230,7 +230,12 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             if (array_search('mail', $supported)) {
                 $folders = array_merge($folders, $this->_getMailFolders());
             }
+
+            if ($errors = Horde::endBuffer()) {
+                $this->_logger->err('Unexpected output: ' . $errors);
+            }
             $this->_endBuffer();
+
             $this->_folders = $folders;
         }
 
@@ -248,7 +253,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     public function getFolder($id)
     {
         $this->_logger->debug('Horde::getFolder(' . $id . ')');
-        ob_start();
+
         switch ($id) {
         case self::APPOINTMENTS_FOLDER_UID:
             $folder = $this->_buildNonMailFolder(
@@ -276,11 +281,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $folders = $this->_getMailFolders();
             foreach ($folders as $folder) {
                 if ($folder->serverid == $id) {
-                    $this->_endBuffer();
                     return $folder;
                 }
             }
-            $this->_endBuffer();
             $this->_logger->err('Folder ' . $id . ' unknown');
             throw new Horde_Exception('Folder ' . $id . ' unknown');
         }
@@ -448,7 +451,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             break;
         case Horde_ActiveSync::CLASS_EMAIL:
             if (empty($this->_imap)) {
-                $this->_endBuffer();
                 return array();
             }
             if ($ping) {
@@ -596,6 +598,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
             $this->_endBuffer();
             return current($messages);
+            break;
 
         default:
             $this->_endBuffer();
