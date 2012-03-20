@@ -11,8 +11,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-02-22</date>
- <time>13:24:07</time>
+ <date>2012-03-20</date>
+ <time>10:43:03</time>
  <version>
   <release>1.2.0</release>
   <api>1.2.0</api>
@@ -265,7 +265,7 @@ Major improvements including inflection, eager or lazy loading of relationships 
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-02-22</date>
+   <date>2012-03-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Implement ArrayAccess in Horde_Rdo_Base.
