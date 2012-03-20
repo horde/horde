@@ -479,7 +479,7 @@ class Horde_Imap_Client_Cache
      */
     protected function _deleteMailbox($mbox)
     {
-        foreach (array_merge(array_keys(array_flip($this->_slicemap[$mbox]['s'])), 'slicemap') as $slice) {
+        foreach (array_merge(array_keys(array_flip($this->_slicemap[$mbox]['s'])), array('slicemap')) as $slice) {
             $cid = $this->_getCid($mbox, $slice);
             $this->_cache->expire($cid);
             unset($this->_loaded[$cid]);
