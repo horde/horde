@@ -527,8 +527,16 @@ class Horde_Imap_Client_Cache
                     $this->_data[$mailbox] += $data;
                     $this->_loaded[$cache_id] = true;
                 } else {
+                    $ptr = &$this->_slicemap[$mailbox];
+
                     // Slice data is corrupt; remove from slicemap.
-                    $this->deleteMsgs($mailbox, array_keys($slices, $slice));
+                    foreach (array_keys($slices, $slice) as $val) {
+                        unset($ptr['s'][$val]);
+                    }
+
+                    if ($slice == $ptr['i']) {
+                        $ptr['c'] = 0;
+                    }
                 }
             }
         }
