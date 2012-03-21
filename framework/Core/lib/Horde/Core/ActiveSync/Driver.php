@@ -288,14 +288,20 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         return $folder;
     }
 
-    public function changeFolder($parent, $id, $displayname, $type)
+    /**
+     * Change a folder on the server.
+     *
+     * @param string $id           The server's folder id
+     * @param string $displayname  The new display name.
+     * @param string $parent       The folder's parent, if needed.
+     */
+    public function changeFolder($id, $displayname, $parent)
     {
         if ($type != Horde_ActiveSync::FOLDER_TYPE_USER_MAIL) {
             throw new Horde_Exception('Not Supported');
         }
 
         if (!$id) {
-            // New folder
             try {
                 $this->_imap->createMailbox($displayname);
             } catch (Horde_ActiveSync_Exception $e) {
@@ -312,12 +318,14 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *
      * @param string $id  The server's folder id.
      * @param string $parent  The folder's parent, if needed.
-     *
-     * @return boolean
      */
     public function deleteFolder($id, $parent = Horde_ActiveSync::FOLDER_ROOT)
     {
-
+        try {
+            $this->_imap->deleteMailbox($id);
+        } catch (Horde_ActiveSync_Exception $e) {
+            throw new Horde_Exception($e);
+        }
     }
 
     /**

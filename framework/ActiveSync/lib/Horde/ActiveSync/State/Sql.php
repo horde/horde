@@ -395,7 +395,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             // request.
             foreach ($this->_changes as $key => $value) {
                 if ($value['id'] == $change['id']) {
-                    if ($type == Horde_ActiveSync::CHANGE_TYPE_FOLDERSYNC) {
+                    if ($this->_type == Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC) {
                         foreach ($this->_folder as $fi => $state) {
                             if ($state['id'] == $value['id']) {
                                 unset($this->_folder[$fi]);
@@ -405,14 +405,16 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                         // Only save what we need. Note that 'mod' is eq to the
                         // folder id, since that is the only thing that can
                         // change in a folder.
-                        $folder = $this->_backend->getFolder($value['id']);
-                        $stat = array(
-                           'id' => $value['id'],
-                           'mod' => $folder->displayname,
-                           'parent' => (empty($value['parent']) ? 0 : $value['parent'])
-                        );
-                        $this->_folder[] = $stat;
-                        $this->_folder = array_values($this->_folder);
+                        if ($type != Horde_ActiveSync::CHANGE_TYPE_DELETE) {
+                            $folder = $this->_backend->getFolder($value['id']);
+                            $stat = array(
+                               'id' => $value['id'],
+                               'mod' => $folder->displayname,
+                               'parent' => (empty($value['parent']) ? 0 : $value['parent'])
+                            );
+                            $this->_folder[] = $stat;
+                            $this->_folder = array_values($this->_folder);
+                        }
                     }
                     unset($this->_changes[$key]);
                     break;
@@ -755,7 +757,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         }
         $this->_pingState['collections'] = array();
         foreach ($collections as $collection) {
-            $this->_pingState['collections'][$collection['class']] = $collection;
+            $this->_pingState['collections'][$collection['id']] = $collection;
         }
     }
 
@@ -776,15 +778,12 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         $haveState = false;
 
         // Load any existing state
-        // @TODO: I'm almost positive we need to key these by 'id', not 'class'
-        // but this is what z-push did so...
         $this->_logger->debug(sprintf(
             "[%s] Attempting to load PING state for: %s",
             $this->_devId,
-            $pingCollection['class']));
-
-        if (!empty($this->_pingState['collections'][$pingCollection['class']])) {
-            $this->_collection = $this->_pingState['collections'][$pingCollection['class']];
+            $pingCollection['id']));
+        if (!empty($this->_pingState['collections'][$pingCollection['id']])) {
+            $this->_collection = $this->_pingState['collections'][$pingCollection['id']];
             $this->_collection['synckey'] = $this->_devId;
             $this->_lastSyncTS = $this->_getLastSyncTS();
             if (!isset($this->_lastSyncTS)) {
@@ -814,7 +813,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             $this->_collection['synckey'] = $this->_devId;
 
             // The PING state was empty, need to prime it.
-            $this->_pingState['collections'][$this->_collection['class']] = $this->_collection;
+            $this->_pingState['collections'][$this->_collection['id']] = $this->_collection;
             $this->savePingState();
 
             // We MUST have a previous successful SYNC before PING.
@@ -840,7 +839,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         }
         /* Update the ping's collection */
         if (!empty($this->_collection)) {
-            $this->_pingState['collections'][$this->_collection['class']] = $this->_collection;
+            $this->_pingState['collections'][$this->_collection['id']] = $this->_collection;
         }
 
         $state = serialize(array('lifetime' => $this->_pingState['lifetime'], 'collections' => $this->_pingState['collections']));
@@ -1008,16 +1007,14 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         if ($folderlist === false) {
             return false;
         }
-        Horde::debug($folderlist);
-        Horde::debug($this->_folder);
         $this->_changes = $this->_getDiff(
             (empty($this->_folder) ? array() : $this->_folder),
             $folderlist);
-//Horde::debug($this->_changes);
+
         $this->_logger->debug(sprintf(
-            "[%s] Found %d folder changes.",
+            "[%s] Found folder changes: %s",
             $this->_devId,
-            count($this->_changes)));
+            print_r($this->_changes, true)));
     }
 
     /**

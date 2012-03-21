@@ -79,6 +79,8 @@ class Horde_ActiveSync_Imap_Adapter
      * Create a new mailbox on the server, and subscribe to it.
      *
      * @param string $name  The new mailbox name.
+     *
+     * @throws Horde_ActiveSync_Exception
      */
     public function createMailbox($name)
     {
@@ -87,6 +89,24 @@ class Horde_ActiveSync_Imap_Adapter
         try {
             $imap->createMailbox($mbox);
             $imap->subscribeMailbox($mbox, true);
+        } catch (Horde_Imap_Client_Exception $e) {
+            throw new Horde_ActiveSync_Exception($e);
+        }
+    }
+
+    /**
+     * Delete a mailbox
+     *
+     * @param string $name  The mailbox name to delete.
+     *
+     * @throws Horde_ActiveSync_Exception
+     */
+    public function deleteMailbox($name)
+    {
+        $mbox = new Horde_Imap_Client_Mailbox($name);
+        $imap = $this->_getImapOb();
+        try {
+            $imap->deleteMailbox($mbox);
         } catch (Horde_Imap_Client_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
