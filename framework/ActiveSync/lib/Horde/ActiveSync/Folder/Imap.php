@@ -189,7 +189,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base
     public function uidnext()
     {
         return empty($this->_status[self::UIDNEXT])
-            ? 0
+            ? 1
             : $this->_status[self::UIDNEXT];
     }
 
