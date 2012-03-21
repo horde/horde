@@ -786,7 +786,8 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         if (!empty($this->_pingState['collections'][$pingCollection['class']])) {
             $this->_collection = $this->_pingState['collections'][$pingCollection['class']];
             $this->_collection['synckey'] = $this->_devId;
-            if (!$this->_lastSyncTS = $this->_getLastSyncTS()) {
+            $this->_lastSyncTS = $this->_getLastSyncTS();
+            if (!isset($this->_lastSyncTS)) {
                 throw new Horde_ActiveSync_Exception_StateGone('Previous syncstate has been removed.');
             }
             $this->_logger->debug(sprintf(
