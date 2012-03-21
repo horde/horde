@@ -2,6 +2,8 @@
 v3.0.17-git
 -----------
 
+[jan] Show round corners only on the start and end of multi-day events
+      (Request #11067).
 
 
 -------

@@ -1882,17 +1882,17 @@ KronolithCore = {
                 minHeight = 0,
                 draggerTop, draggerBottom;
             if (event.value.fi) {
+                div.addClassName('kronolithFirst');
                 if (resizable) {
                     draggerTop = new Element('div', { id: event.value.nodeId + 'top', className: 'kronolithDragger kronolithDraggerTop' }).setStyle(style);
-                    div.addClassName('kronolithFirst');
                 }
             } else {
                 innerDiv.setStyle({ top: 0 });
             }
             if (event.value.la) {
+                div.addClassName('kronolithLast');
                 if (resizable) {
                     draggerBottom = new Element('div', { id: event.value.nodeId + 'bottom', className: 'kronolithDragger kronolithDraggerBottom' }).setStyle(style);
-                    div.addClassName('kronolithLast');
                 }
             } else {
                 innerDiv.setStyle({ bottom: 0 });
