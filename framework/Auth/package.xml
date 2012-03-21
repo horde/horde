@@ -23,8 +23,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-01-31</date>
- <time>11:25:07</time>
+ <date>2012-03-20</date>
+ <time>10:30:07</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -100,6 +100,12 @@
       <file name="Horde_Auth.po" role="data" />
      </dir> <!-- /locale/et/LC_MESSAGES -->
     </dir> <!-- /locale/et -->
+    <dir name="fi">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Auth.mo" role="data" />
+      <file name="Horde_Auth.po" role="data" />
+     </dir> <!-- /locale/fi/LC_MESSAGES -->
+    </dir> <!-- /locale/fi -->
     <dir name="ja">
      <dir name="LC_MESSAGES">
       <file name="Horde_Auth.mo" role="data" />
@@ -283,6 +289,8 @@
    <install as="locale/es/LC_MESSAGES/Horde_Auth.po" name="locale/es/LC_MESSAGES/Horde_Auth.po" />
    <install as="locale/et/LC_MESSAGES/Horde_Auth.mo" name="locale/et/LC_MESSAGES/Horde_Auth.mo" />
    <install as="locale/et/LC_MESSAGES/Horde_Auth.po" name="locale/et/LC_MESSAGES/Horde_Auth.po" />
+   <install as="locale/fi/LC_MESSAGES/Horde_Auth.mo" name="locale/fi/LC_MESSAGES/Horde_Auth.mo" />
+   <install as="locale/fi/LC_MESSAGES/Horde_Auth.po" name="locale/fi/LC_MESSAGES/Horde_Auth.po" />
    <install as="locale/ja/LC_MESSAGES/Horde_Auth.mo" name="locale/ja/LC_MESSAGES/Horde_Auth.mo" />
    <install as="locale/ja/LC_MESSAGES/Horde_Auth.po" name="locale/ja/LC_MESSAGES/Horde_Auth.po" />
    <install as="locale/lv/LC_MESSAGES/Horde_Auth.mo" name="locale/lv/LC_MESSAGES/Horde_Auth.mo" />
@@ -671,10 +679,23 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-01-31</date>
+   <date>2012-03-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Add Finnish translation (Leena Heino &lt;liinu@uta.fi&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.4.10</release>
+    <api>1.4.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-03-20</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

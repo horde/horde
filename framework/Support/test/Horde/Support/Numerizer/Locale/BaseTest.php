@@ -59,6 +59,14 @@ class Horde_Support_Numerizer_Locale_BaseTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    public function testMissspelledForty()
+    {
+        $numerizer = Horde_Support_Numerizer::factory();
+
+        $this->assertEquals(40, $numerizer->numerize('forty'));
+        $this->assertEquals(40, $numerizer->numerize('fourty'));
+    }
+
     public function testLeavesDatesAlone()
     {
         $numerizer = Horde_Support_Numerizer::factory();

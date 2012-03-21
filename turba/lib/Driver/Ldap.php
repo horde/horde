@@ -54,6 +54,19 @@ class Turba_Driver_Ldap extends Turba_Driver
         ), $params);
 
         parent::__construct($name, $params);
+    }
+
+    /**
+     * Initiate LDAP connection.
+     *
+     * Not done in __construct(), only when a read or write action is
+     * necessary.
+     */
+    protected function _connect()
+    {
+        if ($this->_ds) {
+            return;
+        }
 
         if (!($this->_ds = @ldap_connect($this->_params['server'], $this->_params['port']))) {
             throw new Turba_Exception(_("Connection failure"));
@@ -140,6 +153,8 @@ class Turba_Driver_Ldap extends Turba_Driver
      */
     protected function _search(array $criteria, array $fields, array $blobFields = array())
     {
+        $this->_connect();
+
         /* Build the LDAP filter. */
         $filter = '';
         if (count($criteria)) {
@@ -212,6 +227,8 @@ class Turba_Driver_Ldap extends Turba_Driver
             return array();
         }
 
+        $this->_connect();
+
         if (empty($this->_params['objectclass'])) {
             $filter = null;
         } else {
@@ -260,9 +277,12 @@ class Turba_Driver_Ldap extends Turba_Driver
     {
         if (empty($attributes['dn'])) {
             throw new Turba_Exception('Tried to add an object with no dn: [' . serialize($attributes) . '].');
-        } elseif (empty($this->_params['objectclass'])) {
+        }
+        if (empty($this->_params['objectclass'])) {
             throw new Turba_Exception('Tried to add an object with no objectclass: [' . serialize($attributes) . '].');
         }
+
+        $this->_connect();
 
         /* Take the DN out of the attributes array. */
         $dn = $attributes['dn'];
@@ -324,6 +344,8 @@ class Turba_Driver_Ldap extends Turba_Driver
             throw new Turba_Exception(_("Invalid key specified."));
         }
 
+        $this->_connect();
+
         if (!@ldap_delete($this->_ds, Horde_String::convertCharset($object_id, 'UTF-8', $this->_params['charset']))) {
             throw new Turba_Exception(sprintf(_("Delete failed: (%s) %s"), ldap_errno($this->_ds), ldap_error($this->_ds)));
         }
@@ -339,6 +361,8 @@ class Turba_Driver_Ldap extends Turba_Driver
      */
     protected function _save(Turba_Object $object)
     {
+        $this->_connect();
+
         list($object_key, $object_id) = each($this->toDriverKeys(array('__key' => $object->getValue('__key'))));
         $attributes = $this->toDriverKeys($object->getAttributes());
 

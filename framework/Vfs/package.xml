@@ -929,7 +929,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-08</date>
+   <date>2012-03-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix inconsistent behavior of the different backend drivers.
@@ -942,17 +942,15 @@ Added a class for providing garbage collection; removed all Horde dependancies.
   </release>
   <release>
    <version>
-    <release>2.0.0alpha1</release>
-    <api>2.0.0</api></version>
+    <release>1.0.10</release>
+    <api>1.0.0</api></version>
    <stability>
-    <release>alpha</release>
-    <api>alpha</api></stability>
-   <date>2012-03-01</date>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-03-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [jan] Add hasFeature().
-* [jan] Drop listFolders() method.
-* [jan] Remove Horde_Vfs_Browser, Horde_Vfs_ListItem, Horde_Vfs_Object classes.
+* 
    </notes>
   </release>
  </changelog>

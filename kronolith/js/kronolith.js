@@ -609,7 +609,7 @@ KronolithCore = {
         case 'week':
         case 'workweek':
             var dates = this.viewDates(date, view);
-            return this.setTitle(dates[0].toString('d') + ' - ' + dates[1].toString('d'));
+            return this.setTitle(dates[0].toString(Kronolith.conf.date_format) + ' - ' + dates[1].toString(Kronolith.conf.date_format));
 
         case 'month':
             return this.setTitle(date.toString('MMMM yyyy'));
@@ -619,7 +619,7 @@ KronolithCore = {
 
         case 'agenda':
             var dates = this.viewDates(date, view);
-            return this.setTitle(Kronolith.text.agenda + ' ' + dates[0].toString('d') + ' - ' + dates[1].toString('d'));
+            return this.setTitle(Kronolith.text.agenda + ' ' + dates[0].toString(Kronolith.conf.date_format) + ' - ' + dates[1].toString(Kronolith.conf.date_format));
 
         case 'search':
             return this.setTitle(Kronolith.text.searching.interpolate({ term: data }));
@@ -1732,17 +1732,17 @@ KronolithCore = {
                 break;
             }
             if (event.value.fi) {
+                div.addClassName('kronolithFirst');
                 if (resizable) {
                     draggerTop = new Element('div', { id: event.value.nodeId + 'top', className: 'kronolithDragger kronolithDraggerTop' }).setStyle(style);
-                    div.addClassName('kronolithFirst');
                 }
             } else {
                 innerDiv.setStyle({ top: 0 });
             }
             if (event.value.la) {
+                div.addClassName('kronolithLast');
                 if (resizable) {
                     draggerBottom = new Element('div', { id: event.value.nodeId + 'bottom', className: 'kronolithDragger kronolithDraggerBottom' }).setStyle(style);
-                    div.addClassName('kronolithLast');
                 }
             } else {
                 innerDiv.setStyle({ bottom: 0 });

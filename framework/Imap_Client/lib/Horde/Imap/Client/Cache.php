@@ -426,7 +426,7 @@ class Horde_Imap_Client_Cache
      */
     protected function _deleteMailbox($mbox)
     {
-        foreach (array_merge(array_keys(array_flip($this->_slicemap[$mbox]['s'])), 'slicemap') as $slice) {
+        foreach (array_merge(array_keys(array_flip($this->_slicemap[$mbox]['s'])), array('slicemap')) as $slice) {
             $cid = $this->_getCid($mbox, $slice);
             $this->_cache->expire($cid);
             unset($this->_loaded[$cid]);
@@ -474,8 +474,16 @@ class Horde_Imap_Client_Cache
                     $this->_data[$mailbox] += $data;
                     $this->_loaded[$cache_id] = true;
                 } else {
+                    $ptr = &$this->_slicemap[$mailbox];
+
                     // Slice data is corrupt; remove from slicemap.
-                    $this->deleteMsgs($mailbox, array_keys($slices, $slice));
+                    foreach (array_keys($slices, $slice) as $val) {
+                        unset($ptr['s'][$val]);
+                    }
+
+                    if ($slice == $ptr['i']) {
+                        $ptr['c'] = 0;
+                    }
                 }
             }
         }

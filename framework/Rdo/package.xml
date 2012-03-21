@@ -11,10 +11,10 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-02-22</date>
- <time>13:24:07</time>
+ <date>2012-03-20</date>
+ <time>10:43:18</time>
  <version>
-  <release>1.2.0</release>
+  <release>1.2.1</release>
   <api>1.2.0</api>
  </version>
  <stability>
@@ -23,8 +23,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Implement ArrayAccess in Horde_Rdo_Base.
-* [jan] Fix Horde_Rdo_Exception not extending Horde_Exception.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -265,11 +264,24 @@ Major improvements including inflection, eager or lazy loading of relationships 
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-02-22</date>
+   <date>2012-03-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Implement ArrayAccess in Horde_Rdo_Base.
 * [jan] Fix Horde_Rdo_Exception not extending Horde_Exception.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.1</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-03-20</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

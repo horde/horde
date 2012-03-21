@@ -23,10 +23,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-12-13</date>
- <time>11:52:02</time>
+ <date>2012-03-20</date>
+ <time>10:35:27</time>
  <version>
-  <release>1.2.1</release>
+  <release>1.2.2</release>
   <api>1.2.0</api>
  </version>
  <stability>
@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [jan] Fix escaping of binary values in SQLite.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -558,10 +558,23 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-12-13</date>
+   <date>2012-03-20</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [jan] Fix escaping of binary values in SQLite.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.2</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-03-20</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

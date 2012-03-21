@@ -47,6 +47,9 @@ class Kronolith_Application extends Horde_Registry_Application
     public $version = 'H5 (4.0-git)';
 
     /**
+     * Global variables defined:
+     * - $kronolith_shares: TODO
+     * - $linkTags: <link> tags for common-header.inc.
      */
     protected function _init()
     {
