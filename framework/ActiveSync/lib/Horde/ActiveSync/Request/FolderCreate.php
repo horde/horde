@@ -124,7 +124,7 @@ class Horde_ActiveSync_Request_FolderCreate extends Horde_ActiveSync_Request_Bas
             $importer->init($this->_stateDriver);
             if (!$delete) {
                 if (!$serverid = $importer->importFolderChange($serverid, $displayname, $parentid)) {
-                    $status == self::STATUS_ERROR;
+                    $status = self::STATUS_ERROR;
                 }
             } else {
                 if (!$deletedstat = $importer->importFolderDeletion($serverid)) {
