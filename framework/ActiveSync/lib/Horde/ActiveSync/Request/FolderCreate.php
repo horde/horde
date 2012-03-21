@@ -155,7 +155,7 @@ class Horde_ActiveSync_Request_FolderCreate extends Horde_ActiveSync_Request_Bas
             $this->_encoder->startTag(self::FOLDERUPDATE);
 
             $this->_encoder->startTag(Horde_ActiveSync::FOLDERHIERARCHY_STATUS);
-            $this->_encoder->content($stauts);
+            $this->_encoder->content($status);
             $this->_encoder->endTag();
 
             $this->_encoder->startTag(Horde_ActiveSync::FOLDERHIERARCHY_SYNCKEY);
