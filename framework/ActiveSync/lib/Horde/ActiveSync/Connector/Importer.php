@@ -234,7 +234,7 @@ class Horde_ActiveSync_Connector_Importer
     public function importFolderChange($id, $parent, $displayname, $type)
     {
         /* do nothing if it is a dummy folder */
-        if ($parent == Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
+        if ($parent === Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
             return false;
         }
 
