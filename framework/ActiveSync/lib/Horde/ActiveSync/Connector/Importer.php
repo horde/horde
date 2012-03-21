@@ -243,7 +243,7 @@ class Horde_ActiveSync_Connector_Importer
             return false;
         }
         $change = array();
-        $change['id'] = empty($id) ? $displayname : $id;
+        $change['id'] = $displayname;
         $change['mod'] = $displayname;
         $change['parent'] = $parent;
         $this->_state->updateState(

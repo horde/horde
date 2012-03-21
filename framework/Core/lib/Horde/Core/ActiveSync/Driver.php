@@ -297,10 +297,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function changeFolder($id, $displayname, $parent)
     {
-        if ($type != Horde_ActiveSync::FOLDER_TYPE_USER_MAIL) {
-            throw new Horde_Exception('Not Supported');
-        }
-
         if (!$id) {
             try {
                 $this->_imap->createMailbox($displayname);
@@ -308,9 +304,12 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $this->_logger->err($e->getMessage());
                 throw new Horde_Exception($e);
             }
-
-            return $displayname;
+        } else {
+            $this->_logger->err('Renaming IMAP folders not supported.');
+            throw Horde_Exception('Renaming not supported.');
         }
+
+        return $displayname;
     }
 
     /**
