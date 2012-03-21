@@ -112,6 +112,19 @@ class Horde_ActiveSync_Imap_Adapter
         }
     }
 
+    public function renameMailbox($old, $new)
+    {
+        $imap = $this->_getImapOb();
+        try {
+            $imap->renameMailbox(
+                new Horde_Imap_Client_Mailbox($old),
+                new Horde_Imap_Client_Mailbox($new)
+            );
+        } catch (Horde_Imap_Client_Exception $e) {
+            throw new Horde_ActiveSync_Exception($e);
+        }
+    }
+
     /**
      * Ping a mailbox. This detects only if any new messages have arrived in
      * the specified mailbox. Flag changes are not detected for performance
