@@ -997,8 +997,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 array(
                     'delimiter' => !empty($options['delimiter']),
                     'flat' => !empty($options['flat']),
-                    'no_listext' => true,
-                    'utf8' => !empty($options['utf8'])
+                    'no_listext' => true
                 )
             );
         }
@@ -1197,9 +1196,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
         }
 
-        if (!empty($mlo['utf8'])) {
-            $mbox = Horde_Imap_Client_Mailbox::get($mbox, true);
-        }
+        $mbox = Horde_Imap_Client_Mailbox::get($mbox, true);
 
         if (empty($mlo['flat'])) {
             $tmp = array(
