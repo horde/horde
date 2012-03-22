@@ -30,6 +30,7 @@ try {
 
 $vars = Horde_Variables::getDefaultVariables();
 $username = $vars->get('user_name');
+$email = $vars->get('email');
 if (!(bool)filter_var($username, FILTER_VALIDATE_EMAIL) && !empty($username) && !empty($conf['signup']['altemail'])) {
     $showEmail = true;
     if ($conf['signup']['altemail'] == 1) {
@@ -70,10 +71,15 @@ if ($formsignup->validate()) {
         }
     }
 } elseif (!empty($username)) {
-    try {
-        $signup->checkUsername($username);
-    } catch (Horde_Exception $e) {
-        $notification->push($e->getMessage(), 'horde.error');
+    if(!empty($username)) {
+        try {
+            $signup->checkUsername($username);
+        } catch (Horde_Exception $e) {
+            $notification->push($e->getMessage(), 'horde.error');
+        }
+    }
+    if(!empty($email) && !$signup->checkEmail($email)) {
+        $notification->push(_("Email address not valid."), 'horde.error');
     }
 }
 
