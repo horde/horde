@@ -114,13 +114,13 @@ class Trean_View_Browse
     protected function _getRelatedTags()
     {
         $rtags = $this->_browser->getRelatedTags();
-        $html = '<div class="">' . _("Related Tags") . '</div><ul class="tag-list">';
+        $html = _("Related Tags:") . '<ul class="tag-list">';
         foreach ($rtags as $id => $taginfo) {
             $html .= '<li>' . $this->_linkAddTag($taginfo['tag_name'])->link()
                 . htmlspecialchars($taginfo['tag_name']) . '</a></li>';
         }
 
-        return $html;
+        return $html . '</ul>';
     }
 
     /**
