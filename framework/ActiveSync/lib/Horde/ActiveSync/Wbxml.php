@@ -257,7 +257,7 @@ class Horde_ActiveSync_Wbxml
                 0x27 => 'StartTime',
                 0x28 => 'UID',
                 // EAS 12.0
-                0x29 => 'Attendee_Status'
+                0x29 => 'Attendee_Status',
                 0x2A => 'Attendee_Type',
             ),
             /* MOVE */
