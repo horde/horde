@@ -352,18 +352,9 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                         }
                         break;
                     case Horde_ActiveSync::SYNC_REMOVE:
-                        if (isset($collection['deletesasmoves'])) {
-                            $folderid = $this->_driver->getWasteBasket($collection['class']);
-                            if ($folderid) {
-                                $importer->importMessageMove($serverid, $folderid);
-                                $collection['importedchanges'] = true;
-                                break;
-                            }
-                        }
-
-                        $importer->importMessageDeletion($serverid);
-                        $collection['importedchanges'] = true;
+                        $collection['removes'][] = $serverid;
                         break;
+
                     case Horde_ActiveSync::SYNC_FETCH:
                         array_push($collection['fetchids'], $serverid);
                         break;
@@ -375,6 +366,20 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                         $this->_handleError($collection);
                         exit;
                     }
+                }
+
+                // Do all the SYNC_REMOVE requests at once
+                if (!empty($collection['removes'])) {
+                    if (isset($collection['deletesasmoves']) &&
+                        $folderid = $this->_driver->getWasteBasket($collection['class'])) {
+
+                        $importer->importMessageMove($collection['removes'], $folderid);
+                        $collection['importedchanges'] = true;
+                        break;
+                    }
+                    $importer->importMessageDeletion($collection['removes'], $collection['class']);
+                    unset($collection['removes']);
+                    $collection['importedchanges'] = true;
                 }
 
                 $this->_logger->debug(sprintf('[%s] Processed %d incoming changes', $this->_device->id, $nchanges));

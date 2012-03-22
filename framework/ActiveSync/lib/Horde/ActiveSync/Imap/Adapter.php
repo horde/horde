@@ -308,7 +308,7 @@ class Horde_ActiveSync_Imap_Adapter
      * Move a mail message
      *
      * @param string $folderid     The existing folderid.
-     * @param string $id           The message UID of the message to move.
+     * @param array $ids           The message UIDs of the messages to move.
      * @param string $newfolderid  The folder id to move $id to.
      *
      * @return array  An hash of oldUID => newUID. If the server does not
@@ -317,7 +317,7 @@ class Horde_ActiveSync_Imap_Adapter
      *
      * @throws Horde_ActiveSync_Exception, Horde_ActiveSync_Exception_FolderGone
      */
-    public function moveMessage($folderid, $id, $newfolderid)
+    public function moveMessage($folderid, array $ids, $newfolderid)
     {
         $imap = $this->_getImapOb();
         $from = new Horde_Imap_Client_Mailbox($folderid);
@@ -326,7 +326,7 @@ class Horde_ActiveSync_Imap_Adapter
             $status = $imap->status($to, Horde_Imap_Client::STATUS_UIDNEXT);
             $uidnext = $status[Horde_Imap_Client::STATUS_UIDNEXT];
         }
-        $ids = new Horde_Imap_Client_Ids(array($id));
+        $ids = new Horde_Imap_Client_Ids($ids);
         try {
             $copy_res = $imap->copy($from, $to, array('ids' => $ids, 'move' => true));
         } catch (Horde_Imap_Client_Exception $e) {
@@ -335,8 +335,12 @@ class Horde_ActiveSync_Imap_Adapter
         if (is_array($copy_res)) {
             return $copy_res;
         }
+        $ret = array();
+        foreach ($ids as $id) {
+            $ret[$id] = $uidnext++;
+        }
 
-        return array($id => $uidnext);
+        return $ret;
     }
 
     /**
@@ -460,20 +464,26 @@ class Horde_ActiveSync_Imap_Adapter
     /**
      * Return a Horde_ActiveSync_Imap_Message object for the requested uid.
      *
-     * @param string $mailbox  The mailbox name.
-     * @param integer $uid     The message uid.
-     * @param array $options   Additional options:
+     * @param string $mailbox     The mailbox name.
+     * @param array|integer $uid  The message uid.
+     * @param array $options      Additional options:
      *     - headers: (boolean) Also fetch the message headers if this is true.
      *                DEFAULT: false (Do not fetch headers).
      *
-     * @return Horde_ActiveSync_Imap_Message  The message object.
+     * @return array  An array of Horde_ActiveSync_Imap_Message objects.
      */
     public function getImapMessage($mailbox, $uid, array $options = array())
     {
+        if (!is_array($uid)) {
+            $uid = array($uid);
+        }
         $mbox = new Horde_Imap_Client_Mailbox($mailbox);
-        $messages = $this->_getMailMessages($mbox, array($uid), $options);
-        $message = array_pop($messages);
-        return new Horde_ActiveSync_Imap_Message($this->_getImapOb(), $mbox, $message);
+        $messages = $this->_getMailMessages($mbox, $uid, $options);
+        foreach ($messages as $message) {
+            $res[] = new Horde_ActiveSync_Imap_Message($this->_getImapOb(), $mbox, $message);
+        }
+
+        return $res;
     }
 
     /**
@@ -483,16 +493,32 @@ class Horde_ActiveSync_Imap_Adapter
      * @param array $options                    An options array
      *   - headers: (boolean)  Fetch header text if true.
      *              DEFAULT: false (Do not fetch header text).
+     *   - structure: (boolean) Fetch message structure.
+     *            DEFAULT: true (Fetch message structure).
+     *   - flags: (boolean) Fetch messagge flags.
+     *            DEFAULT: true (Fetch message flags).
      *
      * @return array An array of Horde_Imap_Client_Data_Fetch objects.
      */
     protected function _getMailMessages(
         Horde_Imap_Client_Mailbox $mbox, array $uids, array $options = array())
     {
+        $options = array_merge(
+            array(
+                'headers' => false,
+                'structure' => true,
+                'flags' => true),
+            $options
+        );
+
         $imap = $this->_getImapOb();
         $query = new Horde_Imap_Client_Fetch_Query();
-        $query->structure();
-        $query->flags();
+        if ($options['structure']) {
+            $query->structure();
+        }
+        if ($options['flags']) {
+            $query->flags();
+        }
         if (!empty($options['headers'])) {
             $query->headerText();
         }

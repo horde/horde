@@ -940,9 +940,9 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                     foreach ($changes as $change) {
                         switch ($change['type']) {
                         case Horde_ActiveSync::CHANGE_TYPE_FLAGS:
-                            $stat = $this->_backend->statMailMessage(
+                            $stat = array_pop($this->_backend->statMailMessage(
                                 $this->_collection['id'],
-                                $change['id']);
+                                $change['id']));
                             if ($stat && $this->_isPIMChange($change['id'], $stat['flags'], $change['type'])) {
                                 $this->_logger->debug(sprintf(
                                     "[%s] Ignoring PIM initiated flag change for %s",

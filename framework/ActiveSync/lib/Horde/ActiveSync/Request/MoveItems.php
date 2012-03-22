@@ -102,6 +102,10 @@ class Horde_ActiveSync_Request_MoveItems extends Horde_ActiveSync_Request_Base
         $this->_encoder->StartWBXML();
         $this->_encoder->startTag(self::MOVES);
 
+        // Can't do these all at once since the device may send any combination
+        // of src and dest mailboxes in the same request, though oddly enough
+        // the server response only needs to include the message uids, not
+        // the mailbox identifier.
         foreach ($moves as $move) {
             $status = self::STATUS_SUCCESS;
             $this->_encoder->startTag(self::RESPONSE);
@@ -112,7 +116,10 @@ class Horde_ActiveSync_Request_MoveItems extends Horde_ActiveSync_Request_Base
             $importer = $this->_getImporter();
             $importer->init($this->_stateDriver, $move[self::SRCFLDKEY]);
             try {
-                $new_msgid = $importer->importMessageMove($move[self::SRCMSGKEY], $move[self::DSTFLDKEY]);
+                $move_res = $importer->importMessageMove(
+                    array($move[self::SRCMSGKEY]),
+                    $move[self::DSTFLDKEY]);
+                $new_msgid = $move_res[$move[self::SRCMSGKEY]];
             } catch (Horde_ActiveSYnc_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 // Right now, we don't know the reason, just use 1.

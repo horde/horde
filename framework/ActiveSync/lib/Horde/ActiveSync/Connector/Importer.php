@@ -140,44 +140,50 @@ class Horde_ActiveSync_Connector_Importer
     }
 
     /**
-     * Import a message deletion. This may conflict if the local object has been
+     * Import message deletions. This may conflict if the local object has been
      * modified.
      *
-     * @param string $id  Server message uid
-     *
-     * @return boolean
+     * @param array $ids  Server message uids to delete
+     * @param string $collection  The server collection type.
      */
-    public function importMessageDeletion($id)
+    public function importMessageDeletion(array $ids, $collection)
     {
         if ($this->_folderId == Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
-            return true;
+            return;
         }
 
-        $conflict = $this->_isConflict(
-            Horde_ActiveSync::CHANGE_TYPE_DELETE, $this->_folderId, $id);
+        // Check all deletions for conflicts and update device state.
+        // We do this first, so (1) any conflicts will be properly resolved and
+        // (2) the device state knows about the deletion before the server tries
+        // to send the change back to the device.
+        foreach ($ids as $id) {
+            // Email deletions do not conflict
+            if ($collection != Horde_ActiveSync::CLASS_EMAIL) {
+                $conflict = $this->_isConflict(
+                    Horde_ActiveSync::CHANGE_TYPE_DELETE, $this->_folderId, $ids);
+            }
 
-        // Update client state
-        $change = array();
-        $change['id'] = $id;
-        $change['mod'] = time();
-        $change['parent'] = $this->_folderId;
-        $this->_state->updateState(
-            Horde_ActiveSync::CHANGE_TYPE_DELETE,
-            $change,
-            Horde_ActiveSync::CHANGE_ORIGIN_PIM,
-            $this->_backend->getUser());
+            // Update client state
+            $change = array();
+            $change['id'] = $id;
+            $change['mod'] = time();
+            $change['parent'] = $this->_folderId;
+            $this->_state->updateState(
+                Horde_ActiveSync::CHANGE_TYPE_DELETE,
+                $change,
+                Horde_ActiveSync::CHANGE_ORIGIN_PIM,
+                $this->_backend->getUser());
 
-        // If server wins the conflict, don't import change - it will be
-        // detected on next sync and sent back to PIM (since we updated the PIM
-        // state).
-        if ($conflict && $this->_flags == Horde_ActiveSync::CONFLICT_OVERWRITE_PIM) {
-            return true;
+            // If server wins the conflict, don't import change - it will be
+            // detected on next sync and sent back to PIM (since we updated the
+            // device state).
+            if ($conflict && $this->_flags == Horde_ActiveSync::CONFLICT_OVERWRITE_PIM) {
+                return;
+            }
         }
 
         // Tell backend about the deletion
-        $this->_backend->deleteMessage($this->_folderId, $id);
-
-        return true;
+        $this->_backend->deleteMessage($this->_folderId, $ids);
     }
 
     /**
@@ -211,14 +217,14 @@ class Horde_ActiveSync_Connector_Importer
     /**
      * Perform a message move initiated on the PIM
      *
-     * @param string $uid   The source message id
+     * @param array $uids  The source message ids.
      * @param string $dst  The destination folder id.
      *
-     * @return array
+     * @return array  An array with old uids as keys and new uids as values.
      */
-    public function importMessageMove($uid, $dst)
+    public function importMessageMove(array $uids, $dst)
     {
-        return $this->_backend->moveMessage($this->_folderId, $uid, $dst);
+        return $this->_backend->moveMessage($this->_folderId, $uids, $dst);
     }
 
     /**

@@ -317,12 +317,12 @@ abstract class Horde_ActiveSync_Driver_Base
      * Move message
      *
      * @param string $folderid     Existing folder id
-     * @param string $id           Message UID
+     * @param array $ids           Message UIDs
      * @param string $newfolderid  The new folder id
      *
-     * @return string  The new uid for the message.
+     * @return array  The new uids for the message.
      */
-    public function moveMessage($folderid, $id, $newfolderid)
+    public function moveMessage($folderid, array $ids, $newfolderid)
     {
         throw new Horde_ActiveSync_Exception('moveMessage not yet implemented.');
     }
@@ -506,9 +506,9 @@ abstract class Horde_ActiveSync_Driver_Base
      * Delete a message
      *
      * @param string $folderId  Folder id
-     * @param string $id        Message id
+     * @param array $ids        Message ids
      */
-    abstract public function deleteMessage($folderid, $id);
+    abstract public function deleteMessage($folderid, array $ids);
 
     /**
      * Add/Edit a message
