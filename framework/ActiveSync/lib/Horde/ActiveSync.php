@@ -231,12 +231,12 @@ class Horde_ActiveSync
     const CLASS_TASKS    = 'Tasks';
 
     /* Filtertype constants */
-    const FILTERTYPE_ALL = 0;
-    const FILTERTYPE_1DAY = 1;
-    const FILTERTYPE_3DAYS = 2;
-    const FILTERTYPE_1WEEK = 3;
-    const FILTERTYPE_2WEEKS = 4;
-    const FILTERTYPE_1MONTH = 5;
+    const FILTERTYPE_ALL     = 0;
+    const FILTERTYPE_1DAY    = 1;
+    const FILTERTYPE_3DAYS   = 2;
+    const FILTERTYPE_1WEEK   = 3;
+    const FILTERTYPE_2WEEKS  = 4;
+    const FILTERTYPE_1MONTH  = 5;
     const FILTERTYPE_3MONTHS = 6;
     const FILTERTYPE_6MONTHS = 7;
 
@@ -246,8 +246,8 @@ class Horde_ActiveSync
 
     const FOLDER_ROOT                   = 0;
 
-    const VERSION_25    = 2.5;
-    const VERSION_12    = 12;
+    const VERSION_TWOFIVE  = 2.5;
+    const VERSION_TWELVE   = 12;
 
     /**
      * Logger
@@ -268,7 +268,7 @@ class Horde_ActiveSync
      *
      * @var float
      */
-    protected $_maxVersion = self::VERSION_25;
+    protected $_maxVersion = self::VERSION_TWOFIVE;
 
     protected $_multipart = false;
     protected $_compression = false;
@@ -463,8 +463,8 @@ class Horde_ActiveSync
     public function activeSyncHeader()
     {
         switch ($this->_maxVersion) {
-        case self::VERSION_25:
-        case self::VERSION_12:
+        case self::VERSION_TWOFIVE:
+        case self::VERSION_TWELVE:
             header("MS-Server-ActiveSync: 6.5.7638.1");
             break;
         }
@@ -477,10 +477,10 @@ class Horde_ActiveSync
     public function versionHeader()
     {
         switch ($this->_maxVersion) {
-        case self::VERSION_25:
+        case self::VERSION_TWOFIVE:
             header("MS-ASProtocolVersions: 1.0,2.0,2.1,2.5");
             break;
-        case self::VERSION_12:
+        case self::VERSION_TWELVE:
             header("MS-ASProtocolVersions: 1.0,2.0,2.1,2.5,12.0");
         }
     }
@@ -492,10 +492,10 @@ class Horde_ActiveSync
     static public function commandsHeader()
     {
         switch ($this->_maxVersion) {
-        case self::VERSION_25:
+        case self::VERSION_TWOFIVE:
             header("MS-ASProtocolCommands: Sync,SendMail,SmartForward,SmartReply,GetAttachment,GetHierarchy,CreateCollection,DeleteCollection,MoveCollection,FolderSync,FolderCreate,FolderDelete,FolderUpdate,MoveItems,GetItemEstimate,MeetingResponse,ResolveRecipients,ValidateCert,Provision,Search,Ping");
             break;
-        case self::VERSION_12:
+        case self::VERSION_TWELVE:
             header("MS-ASProtocolCommands: Sync,SendMail,SmartForward,SmartReply,GetAttachment,GetHierarchy,CreateCollection,DeleteCollection,MoveCollection,FolderSync,FolderCreate,FolderDelete,FolderUpdate,MoveItems,GetItemEstimate,MeetingResponse,ResolveRecipients,ValidateCert,Provision,Settings,Search,Ping,ItemOperations");
             break;
         }

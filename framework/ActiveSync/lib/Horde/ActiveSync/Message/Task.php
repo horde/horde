@@ -10,35 +10,38 @@
 class Horde_ActiveSync_Message_Task extends Horde_ActiveSync_Message_Base
 {
     /* POOMTASKS */
-    const POOMTASKS_BODY          = 'POOMTASKS:Body';
-    const POOMTASKS_BODYSIZE      = 'POOMTASKS:BodySize';
-    const POOMTASKS_BODYTRUNCATED = 'POOMTASKS:BodyTruncated';
-    const POOMTASKS_CATEGORIES    = 'POOMTASKS:Categories';
-    const POOMTASKS_CATEGORY      = 'POOMTASKS:Category';
-    const POOMTASKS_COMPLETE      = 'POOMTASKS:Complete';
-    const POOMTASKS_DATECOMPLETED = 'POOMTASKS:DateCompleted';
-    const POOMTASKS_DUEDATE       = 'POOMTASKS:DueDate';
-    const POOMTASKS_UTCDUEDATE    = 'POOMTASKS:UtcDueDate';
-    const POOMTASKS_IMPORTANCE    = 'POOMTASKS:Importance';
-    const POOMTASKS_RECURRENCE    = 'POOMTASKS:Recurrence';
-    const POOMTASKS_TYPE          = 'POOMTASKS:Type';
-    const POOMTASKS_START         = 'POOMTASKS:Start';
-    const POOMTASKS_UNTIL         = 'POOMTASKS:Until';
-    const POOMTASKS_OCCURRENCES   = 'POOMTASKS:Occurrences';
-    const POOMTASKS_INTERVAL      = 'POOMTASKS:Interval';
-    const POOMTASKS_DAYOFWEEK     = 'POOMTASKS:DayOfWeek';
-    const POOMTASKS_DAYOFMONTH    = 'POOMTASKS:DayOfMonth';
-    const POOMTASKS_WEEKOFMONTH   = 'POOMTASKS:WeekOfMonth';
-    const POOMTASKS_MONTHOFYEAR   = 'POOMTASKS:MonthOfYear';
-    const POOMTASKS_REGENERATE    = 'POOMTASKS:Regenerate';
-    const POOMTASKS_DEADOCCUR     = 'POOMTASKS:DeadOccur';
-    const POOMTASKS_REMINDERSET   = 'POOMTASKS:ReminderSet';
-    const POOMTASKS_REMINDERTIME  = 'POOMTASKS:ReminderTime';
-    const POOMTASKS_SENSITIVITY   = 'POOMTASKS:Sensitivity';
-    const POOMTASKS_STARTDATE     = 'POOMTASKS:StartDate';
-    const POOMTASKS_UTCSTARTDATE  = 'POOMTASKS:UtcStartDate';
-    const POOMTASKS_SUBJECT       = 'POOMTASKS:Subject';
-    const POOMTASKS_RTF           = 'POOMTASKS:Rtf';
+    const POOMTASKS_BODY           = 'POOMTASKS:Body';
+    const POOMTASKS_BODYSIZE       = 'POOMTASKS:BodySize';
+    const POOMTASKS_BODYTRUNCATED  = 'POOMTASKS:BodyTruncated';
+    const POOMTASKS_CATEGORIES     = 'POOMTASKS:Categories';
+    const POOMTASKS_CATEGORY       = 'POOMTASKS:Category';
+    const POOMTASKS_COMPLETE       = 'POOMTASKS:Complete';
+    const POOMTASKS_DATECOMPLETED  = 'POOMTASKS:DateCompleted';
+    const POOMTASKS_DUEDATE        = 'POOMTASKS:DueDate';
+    const POOMTASKS_UTCDUEDATE     = 'POOMTASKS:UtcDueDate';
+    const POOMTASKS_IMPORTANCE     = 'POOMTASKS:Importance';
+    const POOMTASKS_RECURRENCE     = 'POOMTASKS:Recurrence';
+    const POOMTASKS_TYPE           = 'POOMTASKS:Type';
+    const POOMTASKS_START          = 'POOMTASKS:Start';
+    const POOMTASKS_UNTIL          = 'POOMTASKS:Until';
+    const POOMTASKS_OCCURRENCES    = 'POOMTASKS:Occurrences';
+    const POOMTASKS_INTERVAL       = 'POOMTASKS:Interval';
+    const POOMTASKS_DAYOFWEEK      = 'POOMTASKS:DayOfWeek';
+    const POOMTASKS_DAYOFMONTH     = 'POOMTASKS:DayOfMonth';
+    const POOMTASKS_WEEKOFMONTH    = 'POOMTASKS:WeekOfMonth';
+    const POOMTASKS_MONTHOFYEAR    = 'POOMTASKS:MonthOfYear';
+    const POOMTASKS_REGENERATE     = 'POOMTASKS:Regenerate';
+    const POOMTASKS_DEADOCCUR      = 'POOMTASKS:DeadOccur';
+    const POOMTASKS_REMINDERSET    = 'POOMTASKS:ReminderSet';
+    const POOMTASKS_REMINDERTIME   = 'POOMTASKS:ReminderTime';
+    const POOMTASKS_SENSITIVITY    = 'POOMTASKS:Sensitivity';
+    const POOMTASKS_STARTDATE      = 'POOMTASKS:StartDate';
+    const POOMTASKS_UTCSTARTDATE   = 'POOMTASKS:UtcStartDate';
+    const POOMTASKS_SUBJECT        = 'POOMTASKS:Subject';
+    const POOMTASKS_RTF            = 'POOMTASKS:Rtf';
+    // EAS 12.0
+    const POOMTASKS_ORDINALDATE    = 'POOMTASKS:OrdinalDate';
+    const POOMTASKS_SUBORDINALDATE = 'POOMTASKS:SubOrdinalDate';
 
     const TASK_COMPLETE_TRUE      = 1;
     const TASK_COMPLETE_FALSE     = 0;
