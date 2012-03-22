@@ -198,15 +198,13 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                         // a PING in place of the initial SYNC. But sending the
                         // 400 causes TD to disable push entirely. Instead,
                         // cause the PING to terminate early and hope we have
-                        // a SYNC next time it's pinged. We also use continue
-                        // here instead of break to make sure we give all
-                        // collections a change to report changes before we fail
+                        // a SYNC next time it's pinged.
                         $this->_logger->err(sprintf(
                             "[%s] PING terminating: %s",
                             $this->_device->id,
                             $e->getMessage()));
                         $expire = time();
-                        continue;
+                        break;
                     } catch (Horde_ActiveSync_Exception_StateGone $e) {
                         $this->_logger->err(sprintf(
                             "[%s] PING terminating, forcing a SYNC: %s",
@@ -215,13 +213,15 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                         $this->_statusCode = self::STATUS_NEEDSYNC;
                         $dataavailable = true;
                         $changes[$collection['id']] = 1;
-                        continue;
+                        $expire = time();
+                        break;
                     } catch (Horde_ActiveSync_Exception $e) {
                         $this->_logger->err(sprintf(
                             "[%s] PING terminating: %s",
                             $this->_device->id,
                             $e->getMessage()));
                         $this->_statusCode = self::STATUS_SERVERERROR;
+                        $expire = time();
                         break;
                     }
                     try {
@@ -231,17 +231,17 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                             "[%s] PING terminating and force-clearing device state: %s",
                             $this->_device->id,
                             $e->getMessage()));
-                        // Force removal of the current collection's state,
-                        // something is stale/corrupt.
                         $this->_stateDriver->loadState(null, $collection['id']);
                         $changes[$collection['id']] = 1;
                         $this->_statusCode = self::STATUS_NEEDSYNC;
+                        $expire = time();
                         break;
                     } catch (Horde_ActiveSync_Exception_FolderGone $e) {
                         $this->_logger->err(sprintf(
                             "[%s] PING terminating and forcing a FOLDERSYNC",
                             $this->_device->id));
                         $this->_statusCode = self::STATUS_FOLDERSYNCREQD;
+                        $expire = time();
                         break;
                     } catch (Horde_ActiveSync_Exception $e) {
                         // Stop ping if exporter cannot be configured
@@ -252,7 +252,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                         break;
                     }
 
-                    $changecount = $sync->GetChangeCount();
+                    $changecount = $sync->getChangeCount();
                     if ($changecount > 0) {
                         $dataavailable = true;
                         $changes[$collection['id']] = $changecount;
