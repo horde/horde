@@ -2,6 +2,7 @@
 v0.1-cvs
 --------
 
+[jan] Add Finnish translation (Leena Heino <liinu@uta.fi>).
 [jan] Add Latvian translation (Jānis Eisaks <jancs@dv.lv>).
 [jan] Provide default configuration files instead of .dist versions.
 [bkl] Restructure application to have Users, Aliases, Groups and Forwards.
