@@ -28,4 +28,37 @@ class Horde_Exception extends Exception
      */
     public $logged = false;
 
+    /**
+     * The log level to use. A Horde_Log constant.
+     *
+     * @var integer
+     */
+    protected $_logLevel = 0;
+
+    /**
+     * Get the log level.
+     *
+     * @return integer  The Horde_Log constant for the log level.
+     */
+    public function getLogLevel()
+    {
+        return $this->_logLevel;
+    }
+
+    /**
+     * Sets the log level.
+     *
+     * @param mixed $level  The log level.
+     */
+    public function setLogLevel($level = 0)
+    {
+        if (is_string($level)) {
+            $level = defined('Horde_Log::' . $level)
+                ? constant('Horde_Log::' . $level)
+                : 0;
+        }
+
+        $this->_logLevel = $level;
+    }
+
 }
