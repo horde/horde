@@ -134,7 +134,7 @@ class Horde
         // Log the error via logMessage() if requested.
         if ($log) {
             try {
-                self::logMessage($error, is_object($error) && $error->getCode() ? $error->getCode() : 'EMERG');
+                self::logMessage($error, 'EMERG');
             } catch (Exception $e) {}
         }
 
