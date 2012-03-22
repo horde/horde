@@ -22,9 +22,6 @@ if (!count($bookmarks)) {
 }
 
 $view = new Trean_View_BookmarkList($bookmarks);
-$page_output = $injector->getInstance('Horde_PageOutput');
-$page_output->addScriptFile('tables.js', 'horde');
-$page_output->addScriptFile('effects.js', 'horde');
 $title = _("Browse");
 require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Horde::menu();
