@@ -135,7 +135,6 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
             break;
 
         case 'POST':
-            Horde_ActiveSync::activeSyncHeader();
             $this->_logger->debug('Horde_Rpc_ActiveSync::getResponse() starting for ' . $this->_get['Cmd']);
             try {
                 $ret = $this->_server->handleRequest($this->_get['Cmd'], $this->_get['DeviceId']);
