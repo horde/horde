@@ -288,7 +288,11 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         }
 
         $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
-        $result = $imp_imap->listMailboxes($searches, $showunsub ? Horde_Imap_Client::MBOX_ALL : Horde_Imap_Client::MBOX_SUBSCRIBED_EXISTS, array('attributes' => true, 'delimiter' => true, 'sort' => true));
+        $result = $imp_imap->listMailboxes($searches, $showunsub ? Horde_Imap_Client::MBOX_ALL : Horde_Imap_Client::MBOX_SUBSCRIBED_EXISTS, array(
+            'attributes' => true,
+            'delimiter' => true,
+            'sort' => true
+        ));
 
         /* INBOX must always appear. */
         if (empty($result['INBOX'])) {
