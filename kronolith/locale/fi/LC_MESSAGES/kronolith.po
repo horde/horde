@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Kronolith 3.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-02-22 11:20+0100\n"
-"PO-Revision-Date: 2012-03-07 19:53:09+0200\n"
+"PO-Revision-Date: 2012-03-22 14:54:36+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -1492,7 +1492,7 @@ msgstr "Paikka:"
 #: templates/mobile/day.html.php:6 templates/mobile/month.html.php:6
 #: templates/mobile/summary.html.php:6
 msgid "Log out"
-msgstr "Kirjaudu ulos"
+msgstr "Poistu"
 
 #: config/prefs.php:47
 msgid "Login Tasks"
@@ -3575,7 +3575,7 @@ msgstr "_Tuo/Vie"
 
 #: templates/index/index.inc:38 templates/index/index.inc:39
 msgid "_Logout"
-msgstr "_Kirjaudu ulos"
+msgstr "_Poistu"
 
 #: lib/Application.php:108
 msgid "_New Event"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Imp 5.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-02-22 11:20+0100\n"
-"PO-Revision-Date: 2012-03-08 07:17:29+0200\n"
+"PO-Revision-Date: 2012-03-22 15:00:59+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -633,7 +633,7 @@ msgstr "Ohjelmat"
 
 #: templates/dimp/index.inc:55 templates/imp/mailbox/header.html:17
 msgid "Apply Filters"
-msgstr "Suodata viestit"
+msgstr "Suodata"
 
 #: config/prefs.php:1156
 msgid "Apply filter rules upon logging on?"
@@ -1763,7 +1763,7 @@ msgstr "Luonnoskansio:"
 
 #: config/prefs.php:1540
 msgid "Dynamic View"
-msgstr "Dynaaminen nakymä"
+msgstr "Dynaaminen näkymä"
 
 #: templates/prefs/pgpprivatekey.html:70
 msgid "E-mail Address:"
@@ -1791,7 +1791,7 @@ msgstr "Muokkaa ACL"
 
 #: templates/imp/search/search.html:11
 msgid "Edit Filter"
-msgstr "Muokkaa suodatinsääntöjä"
+msgstr "Muokkaa suodatinta"
 
 #: mailbox.php:412 templates/dimp/index.inc:151
 msgid "Edit Search Query"
@@ -1820,7 +1820,7 @@ msgstr "Muokkaa mustaa listaasi"
 
 #: config/prefs.php:1134
 msgid "Edit your Filter Rules"
-msgstr "Muokkaa suodatinsääntöjäsi"
+msgstr "Muokkaa suodatintasi"
 
 #: config/prefs.php:1148
 msgid "Edit your Whitelist"
@@ -2119,11 +2119,11 @@ msgstr "Kansio"
 
 #: templates/dimp/index.inc:96
 msgid "Folder Actions"
-msgstr "Kansiot toiminnot"
+msgstr "Kansiot: Toiminto"
 
 #: folders.php:250 templates/imp/folders/folders_confirm.html:6
 msgid "Folder Actions - Confirmation"
-msgstr "Kansiot toimenpide - Varmistus"
+msgstr "Kansiot: Toiminto - Varmistus"
 
 #: config/prefs.php:1061
 msgid "Folder Display"
@@ -2140,7 +2140,7 @@ msgstr "Kansioiden koot"
 
 #: lib/Block/Summary.php:27
 msgid "Folder Summary"
-msgstr "Kansioiden yhteenveto"
+msgstr "Kansiot: Yhteenveto"
 
 #: folders-mimp.php:26 folders.php:28
 msgid "Folder use is not enabled."
@@ -2336,7 +2336,7 @@ msgstr "Horde"
 
 #: templates/dimp/index.inc:415
 msgid "Horizontal Layout"
-msgstr "Vaakasuora asetelma"
+msgstr "Vaakasuora asettelu"
 
 #: config/prefs.php:419
 msgid "How should messages be forwarded by default?"
@@ -2671,7 +2671,7 @@ msgstr "Paikka"
 #: lib/Ui/Mimp.php:44 templates/mobile/folders.html.php:6
 #: templates/mobile/mailbox.html.php:5 templates/mobile/message.html.php:5
 msgid "Log out"
-msgstr "Kirjaudu ulos"
+msgstr "Poistu"
 
 #: templates/dimp/javascript_defs.php:178
 msgid "Logging Out..."
@@ -3051,7 +3051,7 @@ msgstr "Älä koskaan tallenna liitteitä"
 
 #: config/prefs.php:685
 msgid "Never send read receipt"
-msgstr "Älä koskaan ilmoitusta viestin lukemisesta"
+msgstr "Älä koskaan lähetä ilmoitusta viestin lukemisesta"
 
 #: templates/prefs/flags.html:47
 msgid "New Flag"
@@ -3650,8 +3650,8 @@ msgid ""
 "Prompt to send read receipt (a/k/a message disposition notification) when "
 "requested by the sender?"
 msgstr ""
-"Kysytäänkö kun lähetetään kuittaus viestiin (ns. message disposition "
-"notification) kun lähettäjä on sitä pyytänyt?"
+"Kysy lähetetäänkö viestiin kuittaus (ns. message disposition notification) "
+"kun lähettäjä on sitä pyytänyt?"
 
 #: lib/Crypt/Pgp.php:330
 msgid "Public PGP keyserver support has been disabled."
@@ -5562,7 +5562,7 @@ msgstr "Tarkistetaan..."
 
 #: templates/dimp/index.inc:416
 msgid "Vertical Layout"
-msgstr "Pystysuora asetelma"
+msgstr "Pystysuora asettelu"
 
 #: lib/Contents.php:1305
 msgid "Video part"
@@ -6171,7 +6171,7 @@ msgstr "_Inbox"
 
 #: templates/dimp/index.inc:78
 msgid "_Log Out"
-msgstr "_Kirjaudu ulos"
+msgstr "_Poistu"
 
 #: message.php:572
 msgid "_Message Source"
