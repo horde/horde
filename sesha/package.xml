@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Add Finnish translation (Leena Heino &lt;liinu@uta.fi&gt;).
 * [rla] Converted to Horde 4 Framework
 * Initial release.
  </notes>
@@ -288,6 +289,7 @@
    <date>2012-01-14</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Add Finnish translation (Leena Heino &lt;liinu@uta.fi&gt;).
 * [rla] Converted to Horde 4 Framework
 * Initial release.
    </notes>

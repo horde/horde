@@ -1,0 +1,530 @@
+# Finnish translations for Sesha H4 package.
+# Copyright (C) 2012 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Sesha package.
+# Leena Heino <liinu@uta.fi>, 2001-2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Sesha H4 (1.0-git)\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2012-02-22 11:20+0100\n"
+"PO-Revision-Date: 2012-03-12 22:35:57+0200\n"
+"Last-Translator: Leena Heino <liinu@uta.fi>\n"
+"Language-Team: Finnish <i18n@lists.horde.org>\n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: templates/menu.inc:6
+msgid "#Stock"
+msgstr "#Osake"
+
+#: list.php:86
+#, php-format
+msgid "%d Items"
+msgstr "%d tuotetta"
+
+#: list.php:85
+msgid "1 Item"
+msgstr "1 tuote"
+
+#: lib/Application.php:54
+msgid "Add Stock"
+msgstr "Lisää osake"
+
+#: stock.php:40
+msgid "Add Stock To Inventory"
+msgstr "Lisää osake inventaariin"
+
+#: admin.php:39
+msgid "Add a category"
+msgstr "Lisää kategoria"
+
+#: admin.php:230
+msgid "Add a new category"
+msgstr "Lisää uusi kategoria"
+
+#: admin.php:198 admin.php:256
+msgid "Add a new property"
+msgstr "Lisää uusi omistus"
+
+#: admin.php:194
+msgid "Add a property"
+msgstr "Lisää omistus"
+
+#: lib/Sesha.php:255
+msgid "Admin"
+msgstr "Hallinta"
+
+#: lib/Application.php:51
+msgid "Administration"
+msgstr "Hallinnointi"
+
+#: config/prefs.php:39
+msgid "Ascending"
+msgstr "Nouseva"
+
+#: list.php:54
+msgid "Available Inventory"
+msgstr "Olemassaoleva inventaari"
+
+#: list.php:54
+#, php-format
+msgid "Available Inventory in %s"
+msgstr "Olemassaoleva inventaari %s"
+
+#: lib/Forms/CategoryList.php:36 lib/Forms/Stock.php:65
+msgid "Category"
+msgstr "Kategoria"
+
+#: lib/Forms/Category.php:53
+msgid "Category Name"
+msgstr "Kategorian nimi"
+
+#: config/prefs.php:19
+msgid "Change your inventory sorting and display options."
+msgstr "Muuta inventaarin järjestystä ja näkymän asetuksia."
+
+#: lib/Forms/Type/Client.php:45
+msgid "Client"
+msgstr "Asiakas"
+
+#: lib/Forms/CategoryDelete.php:25 lib/Forms/PropertyDelete.php:25
+msgid "Confirm"
+msgstr "Varmista"
+
+#: admin.php:49
+msgid "Could not add new category."
+msgstr "Ei voitu lisätä uutta kategoriaa."
+
+#: admin.php:57
+#, php-format
+msgid "Could not add properties to new category: %s, %s"
+msgstr "Ei voitu lisätä omistuksia uuteen kategoriaan: %s, %s"
+
+#: admin.php:205
+msgid "Could not add property."
+msgstr "Ei voitu lisätä omistusta."
+
+#: admin.php:72
+msgid "Could not retrieve category"
+msgstr "Ei voitu hakea kategoriaa"
+
+#: admin.php:89
+msgid "Could not update category details."
+msgstr "Ei voitu päivittää kategorian yksityiskohtia."
+
+#: admin.php:96
+msgid "Could not update properties for this category."
+msgstr "Ei voitu päivittää omistuksia tähän kategoriaan."
+
+#: admin.php:159
+msgid "Could not update property details."
+msgstr "Ei voitu päivittää omistuksen yksityiskohtia"
+
+#: list.php:18
+msgid "Current Inventory"
+msgstr "Nykyinen inventaari"
+
+#: lib/Forms/Property.php:35
+msgid "Data Type"
+msgstr "Datatyyppi"
+
+#: config/prefs.php:31
+msgid "Default sorting criteria:"
+msgstr "Oletusjärjestys:"
+
+#: config/prefs.php:41
+msgid "Default sorting direction:"
+msgstr "Oletusjärjestyksen suunta:"
+
+#: admin.php:108 lib/Forms/CategoryDelete.php:18 lib/Forms/CategoryList.php:20
+msgid "Delete Category"
+msgstr "Poista kategoria"
+
+#: admin.php:109
+#, php-format
+msgid "Delete Category \"%s\""
+msgstr "Poista kategoria \"%s\""
+
+#: list.php:82 list.php:133
+msgid "Delete Item"
+msgstr "Poista tuote"
+
+#: admin.php:143 lib/Forms/PropertyDelete.php:18 lib/Forms/PropertyList.php:20
+msgid "Delete Property"
+msgstr "Poista omistus"
+
+#: admin.php:144
+#, php-format
+msgid "Delete Property \"%s\""
+msgstr "Poista omistus \"%s\""
+
+#: config/prefs.php:40
+msgid "Descending"
+msgstr "Laskeva"
+
+#: lib/Forms/Category.php:54 lib/Forms/Property.php:40
+msgid "Description"
+msgstr "Kuvaus"
+
+#: config/prefs.php:18
+msgid "Display Options"
+msgstr "Näkymän asetukset"
+
+#: stock.php:134
+msgid "Edit"
+msgstr "Muokkaa"
+
+#: admin.php:77 lib/Forms/CategoryList.php:19
+msgid "Edit Category"
+msgstr "Muokkaa kategoriaa"
+
+#: stock.php:132
+msgid "Edit Inventory Item"
+msgstr "Muokkaa inventaarituotetta"
+
+#: list.php:80 list.php:130
+msgid "Edit Item"
+msgstr "Muokkaa tuotetta"
+
+#: lib/Forms/PropertyList.php:20
+msgid "Edit Property"
+msgstr "Muokkaa omistusta"
+
+#: lib/Forms/CategoryList.php:26
+msgid "Edit a category"
+msgstr "Muokkaa kategoriaa"
+
+#: lib/Forms/PropertyList.php:26
+msgid "Edit a property"
+msgstr "Muokkaa omistusta"
+
+#: lib/Forms/Search.php:35
+msgid "For this value"
+msgstr "tällä hinnalla"
+
+#: config/prefs.php:17
+msgid "General Options"
+msgstr "Yleiset asetukset"
+
+#: templates/menu.inc:7
+msgid "Go"
+msgstr "Mene"
+
+#: config/prefs.php:29 lib/Forms/Search.php:32 list.php:102
+msgid "Item Name"
+msgstr "Tuotteen nimi"
+
+#: lib/Forms/Search.php:33
+msgid "Item Note"
+msgstr "Tuotteen lisätieto"
+
+#: stock.php:83
+#, php-format
+msgid "Item number %d was successfully deleted"
+msgstr "Tuoteen numero %d poisto onnistui"
+
+#: config/prefs.php:50
+msgid "List"
+msgstr "Listaa"
+
+#: admin.php:25
+msgid "Manage Categories"
+msgstr "Hallinnoi kategorioita"
+
+#: admin.php:26
+msgid "Manage Properties"
+msgstr "Hallinnoi omistuksia"
+
+#: list.php:51
+msgid "Matching Inventory"
+msgstr "Täsmäävät inventaarit"
+
+#: admin.php:79
+#, php-format
+msgid "Modifying %s"
+msgstr "Muokataan %s"
+
+#: admin.php:149
+#, php-format
+msgid "Modifying property \"%s\""
+msgstr "Muokataan omistusta \"%s\""
+
+#: lib/Forms/Stock.php:58
+msgid "Name"
+msgstr "Nimi"
+
+#: admin.php:61
+msgid "New category added successfully."
+msgstr "Uuden kategorian lisäys onnistui."
+
+#: admin.php:209
+msgid "New property added successfully."
+msgstr "Uuden omistuksen lisäys onnistui."
+
+#: lib/Forms/CategoryDelete.php:20 lib/Forms/PropertyDelete.php:20
+msgid "No"
+msgstr "Ei"
+
+#: lib/Forms/Stock.php:61
+msgid ""
+"No categories are currently configured. Click 'Admin' (above) to add some."
+msgstr ""
+"Ei kategorioita määriteltynä. Napsauta 'Hallinnoin' (yläpuolella) "
+"lisätäksesi joitakin."
+
+#: lib/Forms/CategoryList.php:32
+msgid "No categories are currently configured. Use the form below to add one."
+msgstr ""
+"Ei kategorioita määriteltynä. Käytä alla olevaa lomaketta lisätäksesi "
+"joitakin."
+
+#: lib/Forms/Category.php:58
+msgid ""
+"No properties are currently configured. Use the 'Manage Properties' tab "
+"(above) to add some."
+msgstr ""
+"Ei omistuksia määriteltynä. Käytä yllä olevaa 'Hallinnoi omistuksia' tabia "
+"lisätäksesi joitakin."
+
+#: lib/Forms/PropertyList.php:32
+msgid "No properties are currently configured. Use the form below to add one."
+msgstr ""
+"Ei omistuksia määriteltynä. Käytä alla olevaa lomaketta lisätäksesi joitakin."
+
+#: config/prefs.php:30 lib/Forms/Stock.php:99 list.php:116
+msgid "Note"
+msgstr "Lisätieto"
+
+#: lib/Forms/Category.php:62
+msgid "Properties"
+msgstr "Omistukset"
+
+#: lib/Forms/PropertyList.php:36
+msgid "Property"
+msgstr "Omistus"
+
+#: lib/Forms/Property.php:32
+msgid "Property Name"
+msgstr "Omistuksen nimi"
+
+#: lib/Forms/Search.php:34
+msgid "Property Value"
+msgstr "Omistuksen arvo"
+
+#: admin.php:138
+msgid "Property not found"
+msgstr "Omistusta ei löytynyt"
+
+#: lib/Forms/CategoryDelete.php:21
+msgid "Really delete this category?"
+msgstr "Poistetaanko oikeasti tämä kategoria?"
+
+#: lib/Forms/PropertyDelete.php:21
+msgid "Really delete this property?"
+msgstr "Poistetaanko oikeasti tämä omistus?"
+
+#: admin.php:78 lib/Forms/Category.php:19
+msgid "Save Category"
+msgstr "Tallenna kategoria"
+
+#: lib/Forms/Stock.php:31
+msgid "Save Item"
+msgstr "Tallenna tuote"
+
+#: lib/Forms/Property.php:17
+msgid "Save Property"
+msgstr "Tallenna omistus"
+
+#: config/prefs.php:51 lib/Forms/Search.php:26
+msgid "Search"
+msgstr "Hae"
+
+#: list.php:50 search.php:18
+msgid "Search Inventory"
+msgstr "Hae inventaarista"
+
+#: lib/Forms/Search.php:24
+msgid "Search The Inventory"
+msgstr "Hae inventaarista"
+
+#: lib/Forms/Search.php:29
+msgid "Search these properties"
+msgstr "Hae näitä omistuksia"
+
+#: config/prefs.php:64
+msgid ""
+"Select properties that you would like to see in the list view (all other "
+"properties are only shown on individual item screens):"
+msgstr ""
+"Valitse omistukset, joka haluaisit nähdä listanäkymässä (kaikki muut "
+"omistuksen näytetään vain yksittäisten tuotteiden näkymissä):"
+
+#: config/prefs.php:54
+msgid "Select the view to display after login:"
+msgstr "Valitse sisäänkirjautumisen jälkeen näytettävä näkymä:"
+
+#: templates/list.html:12
+msgid "Show Category:"
+msgstr "Näytä kategoria:"
+
+#: lib/Forms/Category.php:55 lib/Forms/Property.php:41
+msgid "Sort Weight"
+msgstr "Järjestä painoarvolla"
+
+#: list.php:109
+#, php-format
+msgid "Sort by %s"
+msgstr "Järjestä - %s"
+
+#: list.php:102
+msgid "Sort by item name"
+msgstr "Järjestä tuotteen nimellä"
+
+#: list.php:116
+msgid "Sort by note"
+msgstr "Järjestä lisätiedolla"
+
+#: list.php:98
+msgid "Sort by stock ID"
+msgstr "Järjestä osake ID:llä"
+
+#: config/prefs.php:52
+msgid "Stock"
+msgstr "Osake"
+
+#: config/prefs.php:28 lib/Forms/Search.php:31 lib/Forms/Stock.php:52
+#: lib/Forms/Stock.php:54 list.php:98
+msgid "Stock ID"
+msgstr "Osake ID"
+
+#: admin.php:126
+msgid "The category was deleted."
+msgstr "Tämä kategoria poistettiin."
+
+#: admin.php:128
+msgid "The category was not deleted."
+msgstr "Tätä kategoriaa ei poistettu."
+
+#: lib/Forms/Property.php:93
+#, php-format
+msgid "The form field type \"%s\" doesn't exist."
+msgstr "Lomakkeen kenttätyyppiä \"%s\" ei ole olemassa."
+
+#: stock.php:57
+msgid "The item was added succcessfully."
+msgstr "Tuotteen lisäys onnistui."
+
+#: admin.php:185
+msgid "The property was deleted."
+msgstr "Omistus poistettiin."
+
+#: admin.php:187
+msgid "The property was not deleted."
+msgstr "Omistusta ei poistettu."
+
+#: stock.php:161
+msgid "The stock item was successfully updated."
+msgstr "Osaketuotteen päivitys onnistui."
+
+#: list.php:34
+msgid "There are no categories"
+msgstr "Ei ole kategorioita"
+
+#: templates/list.html:66
+msgid "There are no stocked items matching the criteria"
+msgstr "Ei ole kriteeriä vastaavia varastoituja tuotteita"
+
+#: stock.php:51
+#, php-format
+msgid "There was a problem adding the item: %s"
+msgstr "Ongelmia poistettaessa tuotetta: %s"
+
+#: stock.php:145
+#, php-format
+msgid "There was a problem updating the inventory: %s"
+msgstr "Ongelmia poistettaessa inventaaria: %s"
+
+#: stock.php:79
+#, php-format
+msgid "There was a problem with the driver while deleting: %s"
+msgstr "Ongelmia ajurien kanssa poistettaessa: %s"
+
+#: admin.php:122
+msgid "There was an error removing the category."
+msgstr "Tapahtui virhe poistettaessa kategoriaa."
+
+#: admin.php:181
+msgid "There was an error removing the property."
+msgstr "Tapahtui virhe poistettaessa omistusta."
+
+#: lib/Forms/Property.php:39
+msgid "Unit"
+msgstr "Yksikkö"
+
+#: lib/Forms/Stock.php:85
+msgid "Unit: "
+msgstr "Yksikkö: "
+
+#: admin.php:100
+msgid "Updated category successfully."
+msgstr "Kategorian päivitys onnistui"
+
+#: admin.php:163
+msgid "Updated property successfully."
+msgstr "Omistuksen päivitys onnistui."
+
+#: stock.php:95
+msgid "View Inventory Item"
+msgstr "Näytä inventaarituote"
+
+#: list.php:138 list.php:141
+msgid "View Item"
+msgstr "Näytä tuote"
+
+#: lib/Forms/Category.php:55
+msgid ""
+"When categories are displayed, they will be shown in weight order from "
+"highest to lowest"
+msgstr ""
+"Kun kategoriat näytetään, niin ne näytetään painotetussa järjestyksessä "
+"suurimmasta pienimpään"
+
+#: lib/Forms/Property.php:41
+msgid ""
+"When properties are displayed, they will be shown in weight order from "
+"highest to lowest"
+msgstr ""
+"Kun omistukset näytetään, niin ne näytetään painotetussa järjestyksessä "
+"suurimmasta pienimpään"
+
+#: lib/Forms/CategoryDelete.php:19 lib/Forms/PropertyDelete.php:19
+msgid "Yes"
+msgstr "Kyllä"
+
+#: admin.php:29
+msgid "You are no administrator"
+msgstr "Et ole ylläpitäjä"
+
+#: stock.php:85
+msgid "You do not have sufficient permissions to delete."
+msgstr "Sinulla ei ole riittäviä oikeuksia poistaa."
+
+#: lib/Sesha.php:254
+msgid "_Add Stock"
+msgstr "Lisää _osake"
+
+#: lib/Sesha.php:252
+msgid "_List Stock"
+msgstr "_Listaa osake"
+
+#: lib/Sesha.php:261
+msgid "_Print"
+msgstr "_Tulosta"
+
+#: lib/Sesha.php:257
+msgid "_Search"
+msgstr "_Haku"
