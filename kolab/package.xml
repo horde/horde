@@ -23,6 +23,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Add Finnish translation (Leena Heino &lt;liinu@uta.fi&gt;).
 * Initial release.
  </notes>
  <contents>
@@ -134,6 +135,7 @@
    <date>2011-11-28</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Add Finnish translation (Leena Heino &lt;liinu@uta.fi&gt;).
 * Initial release.
    </notes>
   </release>
