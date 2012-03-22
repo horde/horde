@@ -150,7 +150,8 @@ class Horde_ActiveSync_Imap_Adapter
         try {
             $status = $imap->status($mbox, Horde_Imap_Client::STATUS_UIDNEXT);
         } catch (Horde_Imap_Client_Exception $e) {
-            if ($e->getCode() == Horde_Imap_Client_Exception::MAILBOX_NOOPEN) {
+            // See if the folder disappeared.
+            if (!$this->_mailboxExists($mbox->utf8)) {
                 throw new Horde_ActiveSync_Exception_FolderGone();
             }
             throw new Horde_ActiveSync_Exception($e);
@@ -158,6 +159,18 @@ class Horde_ActiveSync_Imap_Adapter
 
         if ($folder->uidnext() < $status['uidnext']) {
             return true;
+        }
+
+        return false;
+    }
+
+    protected function _mailboxExists($mbox)
+    {
+        $mailboxes = $this->_imap->getMailboxes(true);
+        foreach ($mailboxes as $mailbox) {
+            if ($mailbox['ob']->utf8 == $mbox) {
+                return true;
+            }
         }
 
         return false;
@@ -317,9 +330,6 @@ class Horde_ActiveSync_Imap_Adapter
         try {
             $copy_res = $imap->copy($from, $to, array('ids' => $ids, 'move' => true));
         } catch (Horde_Imap_Client_Exception $e) {
-            if ($e->getCode() == Horde_Imap_Client_Exception::MAILBOX_NOOPEN) {
-                throw new Horde_ActiveSync_Exception_FolderGone();
-            }
             throw new Horde_ActiveSync_Exception($e);
         }
         if (is_array($copy_res)) {
@@ -346,7 +356,7 @@ class Horde_ActiveSync_Imap_Adapter
         try {
             $imap->append($mbox, $message);
         } catch (Horde_Imap_Client_Exception $e) {
-            if ($e->getCode() == Horde_Imap_Client_Exception::MAILBOX_NOOPEN) {
+            if (!$this->_mailboxExists($folderid)) {
                 throw new Horde_ActiveSync_Exception_FolderGone();
             }
             throw new Horde_ActiveSync_Exception($e);
@@ -373,9 +383,6 @@ class Horde_ActiveSync_Imap_Adapter
             );
             $imap->expunge($mbox, array('ids' => $ids));
         } catch (Horde_Imap_Client_Exception $e) {
-            if ($e->getCode() == Horde_Imap_Client_Exception::MAILBOX_NOOPEN) {
-                throw new Horde_ActiveSync_Exception_FolderGone();
-            }
             throw new Horde_ActiveSync_Exception($e);
         }
     }
