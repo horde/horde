@@ -216,6 +216,51 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                             exit;
                         }
                     }
+
+                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_BODYPREFERENCE)) {
+                        $body_pref = array();
+                        while (1) {
+                            if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_TYPE)) {
+                                $body_pref['Type'] = $this->_decoder->getElementContent();
+                                if (!$this->_decoder->getElementEndTag()) {
+                                    $this->_statusCode = self::STATUS_PROTERROR;
+                                    $this->_handleError($collection);
+                                    exit;
+                                }
+                            }
+
+                            if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_TRUNCATIONSIZE)) {
+                                $body_pref['TruncationSize'] = $this->_decoder->getElementContent();
+                                if (!$this->_decoder->getElementEndTag()) {
+                                    $this->_statusCode = self::STATUS_PROTERROR;
+                                    $this->_handleError($collection);
+                                    exit;
+                                }
+                            }
+
+                            if ($this->_decoder->getElementStartTag(SYNC_AIRSYNCBASE_ALLORNONE)) {
+                                $body_pref['AllOrNone'] = $this->_decoder->getElementContent();
+                                if (!$this->_decoder->getElementEndTag()) {
+                                    $this->_statusCode = self::STATUS_PROTERROR;
+                                    $this->_handleError($collection);
+                                    exit;
+                                }
+                            }
+
+                            $e = $this->_decoder->peek();
+                            if ($e[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_TYPE_ENDTAG) {
+                                $this->_decoder->getElementEndTag();
+                                if (isset($body_pref['Type']) &&
+                                    !isset($collection['BodyPreference']['wanted'])) {
+
+                                    $collection['BodyPreference']['wanted'] = $body_pref['Type'];
+                                }
+                                $collection['BodyPreference'][$body_pref['Type']] = $body_pref;
+                                break;
+                            }
+                        }
+                    }
+
                     $e = $this->_decoder->peek();
                     if ($e[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_TYPE_ENDTAG) {
                         $this->_decoder->getElementEndTag();
