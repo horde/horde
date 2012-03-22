@@ -42,7 +42,8 @@ class Horde_Core_Auth_Signup_Form extends Horde_Form
                 $v = $this->addVariable(Horde_Core_Translation::t("Choose a username"), 'user_name', 'text', true);
                 $v->setAction(Horde_Form_Action::factory('reload'));
                 if ($showEmail) {
-                    $this->addVariable(Horde_Core_Translation::t("Email address for notification"), 'email', 'text', $requireEmail);
+                    $x = $this->addVariable(Horde_Core_Translation::t("Email address for notification"), 'email', 'text', $requireEmail);
+                    $x->setAction(Horde_Form_Action::factory('reload'));
                 }
             }
             if (!isset($extra['password'])) {
@@ -62,7 +63,8 @@ class Horde_Core_Auth_Signup_Form extends Horde_Form
             $v = $this->addVariable(Horde_Core_Translation::t("Choose a username"), 'user_name', 'text', true);
             $v->setAction(Horde_Form_Action::factory('reload'));
             if ($showEmail) {
-                $this->addVariable(Horde_Core_Translation::t("Email address for notification"), 'email', 'text', $requireEmail);
+                $x = $this->addVariable(Horde_Core_Translation::t("Email address for notification"), 'email', 'text', $requireEmail);
+                $x->setAction(Horde_Form_Action::factory('reload'));
             }
             $this->addVariable(Horde_Core_Translation::t("Choose a password"), 'password', 'passwordconfirm', true, false, Horde_Core_Translation::t("type your password twice to confirm"));
         }
