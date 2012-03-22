@@ -132,6 +132,27 @@ class Horde_ActiveSync
     const SYNC_MIMESUPPORT              = 'MIMESupport';
     const SYNC_MIMETRUNCATION           = 'MIMETruncation';
 
+    /* AIRSYNCBASE */
+    const AIRSYNCBASE_BODYPREFERENCE    = 'AirSyncBase:BodyPreference';
+    const AIRSYNCBASE_TYPE              = 'AirSyncBase:Type';
+    const AIRSYNCBASE_TRUNCATIONSIZE    = 'AirSyncBase:TruncationSize';
+    const AIRSYNCBASE_ALLORNONE         = 'AirSyncBase:AllOrNone';
+    const AIRSYNCBASE_BODY              = 'AirSyncBase:Body';
+    const AIRSYNCBASE_DATA              = 'AirSyncBase:Data';
+    const AIRSYNCBASE_ESTIMATEDDATASIZE = 'AirSyncBase:EstimatedDataSize';
+    const AIRSYNCBASE_TRUNCATED         = 'AirSyncBase:Truncated';
+    const AIRSYNCBASE_ATTACHMENTS       = 'AirSyncBase:Attachments';
+    const AIRSYNCBASE_ATTACHMENT        = 'AirSyncBase:Attachment';
+    const AIRSYNCBASE_DISPLAYNAME       = 'AirSyncBase:DisplayName';
+    const AIRSYNCBASE_FILEREFERENCE     = 'AirSyncBase:FileReference';
+    const AIRSYNCBASE_METHOD            = 'AirSyncBase:Method';
+    const AIRSYNCBASE_CONTENTID         = 'AirSyncBase:ContentId';
+    const AIRSYNCBASE_CONTENTLOCATION   = 'AirSyncBase:ContentLocation';
+    const AIRSYNCBASE_ISINLINE          = 'AirSyncBase:IsInline';
+    const AIRSYNCBASE_NATIVEBODYTYPE    = 'AirSyncBase:NativeBodyType';
+    const AIRSYNCBASE_CONTENTTYPE       = 'AirSyncBase:ContentType';
+    const AIRSYNCBASE_PREVIEW           = 'AirSyncBase:Preview';
+
     /* PROVISION */
     const PROVISION_PROVISION           =  'Provision:Provision';
     const PROVISION_POLICIES            =  'Provision:Policies';

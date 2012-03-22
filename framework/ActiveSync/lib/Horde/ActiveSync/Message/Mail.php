@@ -56,6 +56,12 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
     const POOMMAIL_MIMETRUNCATED     = 'POOMMAIL:MIMETruncated';
     const POOMMAIL_MIMESIZE          = 'POOMMAIL:MIMESize';
     const POOMMAIL_INTERNETCPID      = 'POOMMAIL:InternetCPID';
+    // EAS 12.0
+    const POOMMAIL_CONTENTCLASS      = 'POOMMAIL:ContentClass';
+    const POOMMAIL_FLAG              = 'POOMMAIL:Flag';
+    const POOMMAIL_FLAGSTATUS        = 'POOMMAIL:FlagStatus';
+    const POOMMAIL_FLAGTYPE          = 'POOMMAIL:FlagType';
+    const POOMMAIL_COMPLETETIME      = 'POOMMAIL:CompleteTime';
 
     /**
      * Property mappings
@@ -72,14 +78,9 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
         self::POOMMAIL_DISPLAYTO      => array(self::KEY_ATTRIBUTE => 'displayto'),
         self::POOMMAIL_IMPORTANCE     => array(self::KEY_ATTRIBUTE => 'importance'),
         self::POOMMAIL_READ           => array(self::KEY_ATTRIBUTE => 'read'),
-        self::POOMMAIL_ATTACHMENTS    => array(self::KEY_ATTRIBUTE => 'attachments', self::KEY_TYPE => 'Horde_ActiveSync_Message_Attachment', self::KEY_VALUES => self::POOMMAIL_ATTACHMENT),
         self::POOMMAIL_MIMETRUNCATED  => array(self::KEY_ATTRIBUTE => 'mimetruncated' ),
-        // @TODO???
-        self::POOMMAIL_MIMEDATA       => array(self::KEY_ATTRIBUTE => 'mimedata', self::KEY_TYPE => 'STREAMER_TYPE_MAPI_STREAM'),
+        self::POOMMAIL_MIMEDATA       => array(self::KEY_ATTRIBUTE => 'mimedata', self::KEY_TYPE => 'KEY_TYPE_MAPI_STREAM'),
         self::POOMMAIL_MIMESIZE       => array(self::KEY_ATTRIBUTE => 'mimesize' ),
-        self::POOMMAIL_BODYTRUNCATED  => array(self::KEY_ATTRIBUTE => 'bodytruncated'),
-        self::POOMMAIL_BODYSIZE       => array(self::KEY_ATTRIBUTE => 'bodysize'),
-        self::POOMMAIL_BODY           => array(self::KEY_ATTRIBUTE => 'body'),
         self::POOMMAIL_MESSAGECLASS   => array(self::KEY_ATTRIBUTE => 'messageclass'),
         self::POOMMAIL_MEETINGREQUEST => array(self::KEY_ATTRIBUTE => 'meetingrequest', self::KEY_TYPE => 'SyncMeetingRequest'),
         self::POOMMAIL_REPLY_TO       => array(self::KEY_ATTRIBUTE => 'reply_to'),
@@ -99,25 +100,58 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
     public $read = false;
 
     protected $_properties = array(
-        'to' => false,
-        'cc' => false,
-        'from' => false,
-        'subject' => false,
-        'threadtopic' => false,
-        'datereceived' => false,
-        'displayto' => false,
-        'importance' => false,
-        'attachments' => false,
-        'mimetruncated' => false,
-        'mimedata' => false,
-        'mimesize' => false,
-        'bodytruncated' => false,
-        'bodysize' => false,
-        'messageclass' => false,
+        'to'             => false,
+        'cc'             => false,
+        'from'           => false,
+        'subject'        => false,
+        'threadtopic'    => false,
+        'datereceived'   => false,
+        'displayto'      => false,
+        'importance'     => false,
+        'mimetruncated'  => false,
+        'mimedata'       => false,
+        'mimesize'       => false,
+        'messageclass'   => false,
         'meetingrequest' => false,
-        'reply_to' => false,
-        'body' => false,
+        'reply_to'       => false,
     );
+
+    public function __construct(Horde_ActiveSync $as, $device)
+    {
+        parent::__construct($as, $device);
+        if ($this->_version < 12.0) {
+            $this->_mapping += array(
+                self::POOMMAIL_ATTACHMENTS    => array(self::KEY_ATTRIBUTE => 'attachments', self::KEY_TYPE => 'Horde_ActiveSync_Message_Attachment', self::KEY_VALUES => self::POOMMAIL_ATTACHMENT),
+                self::POOMMAIL_BODYTRUNCATED  => array(self::KEY_ATTRIBUTE => 'bodytruncated'),
+                self::POOMMAIL_BODYSIZE       => array(self::KEY_ATTRIBUTE => 'bodysize'),
+                self::POOMMAIL_BODY           => array(self::KEY_ATTRIBUTE => 'body'),
+            );
+
+            $this->_properties += array(
+                'attachments'    => false,
+                'bodytruncated'  => false,
+                'bodysize'       => false,
+                'body'           => false,
+            );
+        }
+        if ($this->_version >= 12.0) {
+            $this->_mapping += array(
+                Horde_ActiveSync::AIRSYNCBASE_NATIVEBODYTYPE => array(self::KEY_ATTRIBUTE => 'airsyncbasenativebodytype'),
+                Horde_ActiveSync::AIRSYNCBASE_BODY           => array(self::KEY_ATTRIBUTE => 'airsyncbasebody', KEY_TYPE=> 'SyncAirSyncBaseBody'),
+                Horde_ActiveSync::AIRSYNCBASE_ATTACHMENTS    => array(KEY_ATTRIBUTE => 'airsyncbaseattachments', KEY_TYPE => 'AirSyncBaseAttachment', STREAMER_ARRAY => SYNC_AIRSYNCBASE_ATTACHMENT ),
+                self::POOMMAIL_FLAG                          => array(KEY_ATTRIBUTE => 'poommailflag', KEY_TYPE => 'SyncPoommailFlag'),
+                self::POOMMAIL_CONTENTCLASS                  => array(KEY_ATTRIBUTE => 'contentclass'),
+            );
+
+            $this->_properties += array(
+                'airsyncbasenativebodytype' => false,
+                'airsyncbasebody'           => false,
+                'airsyncbaseattachments'    => false,
+                'poommailflag'              => false,
+                'contentclass'              => false,
+            )
+        }
+    }
 
     public function getClass()
     {
