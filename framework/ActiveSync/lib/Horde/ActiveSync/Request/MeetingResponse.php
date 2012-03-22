@@ -1,7 +1,7 @@
 <?php
 /**
  * Handle MeetingResponse requests.
- * 
+ *
  * Logic adapted from Z-Push, original copyright notices below.
  *
  * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
@@ -67,7 +67,7 @@ class Horde_ActiveSync_Request_MeetingResponse extends Horde_ActiveSync_Request_
                 return false;
             }
 
-            array_push($requests, $req);
+            $requests[] = $req;
         }
 
         if (!$this->_decoder->getElementEndTag()) {

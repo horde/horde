@@ -356,7 +356,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                         break;
 
                     case Horde_ActiveSync::SYNC_FETCH:
-                        array_push($collection['fetchids'], $serverid);
+                        $collection['fetchids'][] = $serverid;
                         break;
                     }
 
@@ -399,7 +399,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 exit;
             }
 
-            array_push($collections, $collection);
+            $collections[] = $collection;
         }
 
         if (!$this->_decoder->getElementEndTag()) {
