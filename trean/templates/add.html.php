@@ -41,7 +41,7 @@
   </td>
   <td>
    <input type="submit" class="button" value="<?php echo _("Add") ?>">
-   <input type="button" class="button" value="<?php echo _("Cancel") ?>" onclick="<?php echo !Horde_Util::getFormData('popup') ? 'window.history.go(-1);' : 'window.close();'; ?>" />
+   <input type="button" class="button" value="<?php echo _("Cancel") ?>" onclick="<?php echo Horde_Util::getFormData('popup') ? 'window.close();' : 'window.history.go(-1);'; ?>" />
   </td>
 </tr>
 
@@ -61,8 +61,7 @@
     <?php printf(_("On newer versions of Internet Explorer, you may have to add %s://%s to your Trusted Zone for this to work."), !empty($_SERVER['HTTPS']) ? 'https' : 'http', $conf['server']['name']) ?>
  </p>
  <p>
-  <?php require TREAN_TEMPLATES . '/bookmarklet.php' ?>
-  <?php echo $bookmarklet_link ?>
+   <?php echo Trean::bookmarkletLink() ?>
  </p>
 </div>
 <?php endif; ?>

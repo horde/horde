@@ -70,4 +70,13 @@ class Trean
         $protocol = substr($bookmark->url, 0, strpos($bookmark->url, '://'));
         return Horde_Themes::img('/protocol/' . (empty($protocol) ? 'http' : $protocol) . '.png');
     }
+
+    static public function bookmarkletLink()
+    {
+        $view = $GLOBALS['injector']->getInstance('Horde_View');
+        $view->url = Horde::url('add.php', true, array('append_session' => -1))
+            ->add('popup', 1);
+        $view->image = Horde::img('add.png');
+        return $view->render('bookmarklet');
+    }
 }
