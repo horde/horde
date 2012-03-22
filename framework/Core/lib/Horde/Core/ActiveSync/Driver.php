@@ -1034,7 +1034,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $folders = array();
                 $imap_folders = $this->_imap->getMailboxes();
                 foreach ($imap_folders as $folder) {
-                    $folders[] = $this->_getMailFolder($folder['ob']->utf7imap, $folder);
+                    $folders[] = $this->_getMailFolder($folder['ob']->utf8, $folder);
                 }
                 $this->_mailFolders = $folders;
             }
