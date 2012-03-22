@@ -15,11 +15,13 @@ Horde_Registry::appInit('trean');
 $bookmarks = $trean_gateway->listBookmarks($prefs->getValue('sortby'),
                                            $prefs->getValue('sortdir'),
                                            0, 100);
-$view = $injector->getInstance('Horde_View');
-if (count($bookmarks)) {
-    $view->view = new Trean_View_BookmarkList($GLOBALS['bookmarks']);
+if (!count($bookmarks)) {
+    $notification->push(_("No bookmarks yet."), 'horde.message');
+    require __DIR__ . '/add.php';
+    exit;
 }
 
+$view = new Trean_View_BookmarkList($bookmarks);
 $page_output = $injector->getInstance('Horde_PageOutput');
 $page_output->addScriptFile('tables.js', 'horde');
 $page_output->addScriptFile('effects.js', 'horde');
@@ -27,5 +29,5 @@ $title = _("Browse");
 require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
-echo $view->render('browse');
+echo $view->render();
 require $registry->get('templates', 'horde') . '/common-footer.inc';

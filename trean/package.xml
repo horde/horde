@@ -17,7 +17,7 @@
   <active>yes</active>
  </lead>
  <date>2012-03-22</date>
- <time>19:21:06</time>
+ <time>19:26:47</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -185,7 +185,6 @@
     </dir> <!-- /templates/views -->
     <file name="add.html.php" role="horde" />
     <file name="bookmarklet.html.php" role="horde" />
-    <file name="browse.html.php" role="horde" />
     <file name="edit.html.php" role="horde" />
     <file name="search.php" role="horde" />
    </dir> <!-- /templates -->
@@ -363,7 +362,6 @@
    <install as="trean/migration/4_trean_upgrade_folders_to_tags_post.php" name="migration/4_trean_upgrade_folders_to_tags_post.php" />
    <install as="trean/templates/add.html.php" name="templates/add.html.php" />
    <install as="trean/templates/bookmarklet.html.php" name="templates/bookmarklet.html.php" />
-   <install as="trean/templates/browse.html.php" name="templates/browse.html.php" />
    <install as="trean/templates/edit.html.php" name="templates/edit.html.php" />
    <install as="trean/templates/search.php" name="templates/search.php" />
    <install as="trean/templates/block/1line.inc" name="templates/block/1line.inc" />
