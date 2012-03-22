@@ -37,9 +37,9 @@ class Horde_Core_ActiveSync_Imap_Factory implements Horde_ActiveSync_Interface_I
         return $this->_adapter;
     }
 
-    public function getMailboxes()
+    public function getMailboxes($force = false)
     {
-        if (empty($this->_mailboxlist)) {
+        if (empty($this->_mailboxlist) || $force) {
             $this->_mailboxlist = $GLOBALS['registry']->mail->mailboxList();
         }
         return $this->_mailboxlist;
