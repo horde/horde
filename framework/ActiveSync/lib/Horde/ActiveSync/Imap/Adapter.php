@@ -231,7 +231,7 @@ class Horde_ActiveSync_Imap_Adapter
                 ));
             } catch (Horde_Imap_Client_Exception $e) {
                 $this->_logger->err($e->getMessage());
-                throw new Horde_Exception($e);
+                throw new Horde_ActiveSync_Exception($e);
             }
 
             // Prepare the changes and flags array, ensuring no changes after
@@ -253,7 +253,7 @@ class Horde_ActiveSync_Imap_Adapter
                 $deleted = $imap->vanished($mbox, $folder->modseq());
             } catch (Horde_Imap_Client_Excetion $e) {
                 $this->_logger->err($e->getMessage());
-                throw new Horde_Exception($e);
+                throw new Horde_ActiveSync_Exception($e);
             }
             $folder->setRemoved($deleted->ids);
         } elseif ($folder->modseq() == 0) {
@@ -500,7 +500,7 @@ class Horde_ActiveSync_Imap_Adapter
         try {
             return $imap->fetch($mbox, $query, array('ids' => $ids));
         } catch (Horde_Imap_Client_Exception $e) {
-            throw new Horde_Exception($e);
+            throw new Horde_ActiveSync_Exception($e);
         }
     }
 
