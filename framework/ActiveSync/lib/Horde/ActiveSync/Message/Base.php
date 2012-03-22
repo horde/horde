@@ -259,7 +259,7 @@ class Horde_ActiveSync_Message_Base
                             if (!isset($this->$map[self::KEY_ATTRIBUTE])) {
                                 $this->$map[self::KEY_ATTRIBUTE] = array($decoded);
                             } else {
-                                $this->$map[self::KEY_ATTRIBUTE][] = $decoded;
+                                array_push($this->$map[self::KEY_ATTRIBUTE], $decoded);
                             }
                             if (!$decoder->getElementEndTag()) {
                                 throw new Horde_ActiveSync_Exception('Missing expected wbxml end tag');

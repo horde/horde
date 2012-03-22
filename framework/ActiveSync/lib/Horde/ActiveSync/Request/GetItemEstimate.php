@@ -121,7 +121,7 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
             $collection['id'] = $collectionid;
             $status[$collection['id']] = $cStatus;
 
-            $collections[] = $collection;
+            array_push($collections, $collection);
         }
 
         $this->_encoder->startWBXML();

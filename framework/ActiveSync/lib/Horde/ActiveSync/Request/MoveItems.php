@@ -89,7 +89,7 @@ class Horde_ActiveSync_Request_MoveItems extends Horde_ActiveSync_Request_Base
                     break;
                 }
             }
-            $moves[] = $move;
+            array_push($moves, $move);
             if (!$this->_decoder->getElementEndTag()) {
                 throw new Horde_ActiveSync_Exception('Protocol Error');
             }

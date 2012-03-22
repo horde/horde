@@ -199,7 +199,7 @@ class Horde_ActiveSync_Connector_Exporter
      */
     public function folderChange(Horde_ActiveSync_Message_Folder $folder)
     {
-        $this->changed[] = $folder;
+        array_push($this->changed, $folder);
         $this->count++;
 
         return true;
@@ -214,7 +214,7 @@ class Horde_ActiveSync_Connector_Exporter
      */
     public function folderDeletion($id)
     {
-        $this->deleted[] = $id;
+        array_push($this->deleted, $id);
         $this->count++;
 
         return true;
