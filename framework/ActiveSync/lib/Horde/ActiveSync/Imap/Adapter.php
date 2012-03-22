@@ -90,6 +90,9 @@ class Horde_ActiveSync_Imap_Adapter
             $imap->createMailbox($mbox);
             $imap->subscribeMailbox($mbox, true);
         } catch (Horde_Imap_Client_Exception $e) {
+            if ($e->getCode() == Horde_Imap_Client_Exception::ALREADYEXISTS) {
+                throw new Horde_ActiveSync_Exception_FolderExists();
+            }
             throw new Horde_ActiveSync_Exception($e);
         }
     }
@@ -108,6 +111,9 @@ class Horde_ActiveSync_Imap_Adapter
         try {
             $imap->deleteMailbox($mbox);
         } catch (Horde_Imap_Client_Exception $e) {
+            if ($e->getCode() == Horde_Imap_Client_Exception::NONEXISTENT) {
+                throw new Horde_ActiveSync_Exception_FolderGone();
+            }
             throw new Horde_ActiveSync_Exception($e);
         }
     }
@@ -144,6 +150,9 @@ class Horde_ActiveSync_Imap_Adapter
         try {
             $status = $imap->status($mbox, Horde_Imap_Client::STATUS_UIDNEXT);
         } catch (Horde_Imap_Client_Exception $e) {
+            if ($e->getCode() == Horde_Imap_Client_Exception::MAILBOX_NOOPEN) {
+                throw new Horde_ActiveSync_Exception_FolderGone();
+            }
             throw new Horde_ActiveSync_Exception($e);
         }
 
@@ -292,6 +301,8 @@ class Horde_ActiveSync_Imap_Adapter
      * @return array  An hash of oldUID => newUID. If the server does not
      *                support UIDPLUS, then this is a best guess and might fail
      *                on busy folders.
+     *
+     * @throws Horde_ActiveSync_Exception, Horde_ActiveSync_Exception_FolderGone
      */
     public function moveMessage($folderid, $id, $newfolderid)
     {
@@ -306,7 +317,10 @@ class Horde_ActiveSync_Imap_Adapter
         try {
             $copy_res = $imap->copy($from, $to, array('ids' => $ids, 'move' => true));
         } catch (Horde_Imap_Client_Exception $e) {
-            throw new Horde_Exception($e);
+            if ($e->getCode() == Horde_Imap_Client_Exception::MAILBOX_NOOPEN) {
+                throw new Horde_ActiveSync_Exception_FolderGone();
+            }
+            throw new Horde_ActiveSync_Exception($e);
         }
         if (is_array($copy_res)) {
             return $copy_res;
@@ -322,7 +336,7 @@ class Horde_ActiveSync_Imap_Adapter
      * @param string|stream $msg   The message
      * @param array $flags         Any flags to set on the newly appended message.
      *
-     * @throws new Horde_Exception
+     * @throws new Horde_ActiveSync_Exception, Horde_ActiveSync_Exception_FolderGone
      */
     public function appendMessage($folderid, $msg, array $flags = array())
     {
@@ -332,7 +346,10 @@ class Horde_ActiveSync_Imap_Adapter
         try {
             $imap->append($mbox, $message);
         } catch (Horde_Imap_Client_Exception $e) {
-            throw new Horde_Exception($e);
+            if ($e->getCode() == Horde_Imap_Client_Exception::MAILBOX_NOOPEN) {
+                throw new Horde_ActiveSync_Exception_FolderGone();
+            }
+            throw new Horde_ActiveSync_Exception($e);
         }
     }
 
@@ -341,6 +358,8 @@ class Horde_ActiveSync_Imap_Adapter
      *
      * @param array $uids       The message UIDs
      * @param string $folderid  The folder id.
+     *
+     * @throws Horde_ActiveSync_Exception, Horde_ActiveSync_Exception_FolderGone
      */
     public function deleteMessages(array $uids, $folderid)
     {
@@ -354,7 +373,10 @@ class Horde_ActiveSync_Imap_Adapter
             );
             $imap->expunge($mbox, array('ids' => $ids));
         } catch (Horde_Imap_Client_Exception $e) {
-            throw new Horde_Exception($e);
+            if ($e->getCode() == Horde_Imap_Client_Exception::MAILBOX_NOOPEN) {
+                throw new Horde_ActiveSync_Exception_FolderGone();
+            }
+            throw new Horde_ActiveSync_Exception($e);
         }
     }
 

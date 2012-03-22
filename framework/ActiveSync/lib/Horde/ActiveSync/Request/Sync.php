@@ -40,6 +40,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
     const STATUS_KEYMISM     = 3;
     const STATUS_PROTERROR   = 4;
     const STATUS_SERVERERROR = 5;
+    const STATUS_FOLDERSYNC_REQUIRED = 12;
 
     /* Maximum window size */
     const MAX_WINDOW_SIZE    = 512;
@@ -426,6 +427,11 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                         $collection['id']));
                     $this->_stateDriver->loadState(null, $collection['id']);
                     $this->_statusCode = self::STATUS_KEYMISM;
+                } catch (Horde_ActiveSync_Exception_FolderGone $e) {
+                    $this->_logger->err(sprintf(
+                        "[%s] FOLDERSYNC required, collection gone.",
+                        $this->_device->id));
+                    $this->_statusCode = self::STATUS_FOLDERSYNC_REQUIRED;
                 }
                 $changecount = $sync->getChangeCount();
             }

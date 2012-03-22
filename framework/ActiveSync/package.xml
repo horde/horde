@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2012-03-21</date>
- <time>14:52:24</time>
+ <time>18:57:13</time>
  <version>
   <release>1.2.6</release>
   <api>1.2.0</api>
@@ -46,6 +46,7 @@
        <file name="Base.php" role="php" />
       </dir> <!-- /lib/Horde/ActiveSync/Driver -->
       <dir name="Exception">
+       <file name="FolderExists.php" role="php" />
        <file name="FolderGone.php" role="php" />
        <file name="InvalidRequest.php" role="php" />
        <file name="StaleState.php" role="php" />
@@ -212,6 +213,7 @@
    <install as="Horde/ActiveSync/Connector/Exporter.php" name="lib/Horde/ActiveSync/Connector/Exporter.php" />
    <install as="Horde/ActiveSync/Connector/Importer.php" name="lib/Horde/ActiveSync/Connector/Importer.php" />
    <install as="Horde/ActiveSync/Driver/Base.php" name="lib/Horde/ActiveSync/Driver/Base.php" />
+   <install as="Horde/ActiveSync/Exception/FolderExists.php" name="lib/Horde/ActiveSync/Exception/FolderExists.php" />
    <install as="Horde/ActiveSync/Exception/FolderGone.php" name="lib/Horde/ActiveSync/Exception/FolderGone.php" />
    <install as="Horde/ActiveSync/Exception/InvalidRequest.php" name="lib/Horde/ActiveSync/Exception/InvalidRequest.php" />
    <install as="Horde/ActiveSync/Exception/StaleState.php" name="lib/Horde/ActiveSync/Exception/StaleState.php" />
@@ -621,7 +623,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-03-20</date>
+   <date>2012-03-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 *

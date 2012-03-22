@@ -468,6 +468,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 } catch (Horde_ActiveSync_Exeption_StaleState $e) {
                     $this->_endBuffer();
                     throw $e;
+                } catch (Horde_ActiveSync_Exception_FolderGone $e) {
+                    $this->_endBuffer();
+                    throw $e;
                 } catch (Horde_Exception $e) {
                     $this->_logger->err($e->getMessage());
                     $this->_endBuffer();
@@ -479,6 +482,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                         $folder,
                         array('sincedate' => (int)$cutoffdate));
                 } catch (Horde_ActiveSync_Exception_StaleState $e) {
+                    $this->_endBuffer();
+                    throw $e;
+                } catch (Horde_ActiveSync_Exception_FolderGone $e) {
                     $this->_endBuffer();
                     throw $e;
                 } catch (Horde_Exception $e) {

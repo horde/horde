@@ -237,6 +237,12 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                         $changes[$collection['id']] = 1;
                         $this->_statusCode = self::STATUS_NEEDSYNC;
                         break;
+                    } catch (Horde_ActiveSync_Exception_FolderGone $e) {
+                        $this->_logger->err(sprintf(
+                            "[%s] PING terminating and forcing a FOLDERSYNC",
+                            $this->_device->id));
+                        $this->_statusCode = self::STATUS_FOLDERSYNCREQD;
+                        break;
                     } catch (Horde_ActiveSync_Exception $e) {
                         // Stop ping if exporter cannot be configured
                         $this->_logger->err(sprintf(
