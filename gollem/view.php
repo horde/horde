@@ -28,6 +28,12 @@ if ($vars->driver != Gollem::$backend['driver']) {
     ))->redirect();
 }
 
+try {
+    Gollem::changeDir();
+} catch (Horde_Vfs_Exception $e) {
+    $notification->push($e);
+}
+
 $gollem_vfs = $injector->getInstance('Gollem_Vfs');
 $stream = null;
 $data = '';
