@@ -70,7 +70,7 @@ if ($formsignup->validate()) {
             Horde::getServiceLink('login')->add('url', $info['url'])->redirect();
         }
     }
-} elseif (!empty($username)) {
+} else {
     if(!empty($username)) {
         try {
             $signup->checkUsername($username);
