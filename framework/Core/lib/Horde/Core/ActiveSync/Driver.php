@@ -948,6 +948,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         // @TODO: Incorporate the reply position prefs?
         if ($reply && $parent) {
             $imap_message = array_pop($this->_imap->getImapMessage($parent, $reply));
+            if (empty($imap_message)) {
+                // Message gone
+                return false;
+            }
             $data = $imap_message->getMessageBody();
             if ($data['charset'] != 'UTF-8') {
                 $quoted = Horde_String::convertCharset(
@@ -964,6 +968,11 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $this->_imap->getImapMessage(
                     $parent, $forward, array('headers' => true))
             );
+            if (empty($imap_message)) {
+                // Message gone.
+                return false;
+            }
+
             // If forwarding as attachment (sadly most devices can't display
             // message/rfc822 content-type).
             $fwd = new Horde_Mime_Part();
