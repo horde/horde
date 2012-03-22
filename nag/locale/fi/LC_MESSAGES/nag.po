@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Nag 3.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-02-22 11:20+0100\n"
-"PO-Revision-Date: 2012-03-07 19:52:46+0200\n"
+"PO-Revision-Date: 2012-03-22 14:51:00+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -628,7 +628,7 @@ msgstr "Paikallinen"
 
 #: mobile.php:48
 msgid "Log out"
-msgstr "Kirjaudu ulos"
+msgstr "Poistu"
 
 #: tasklists/index.php:64 templates/tasklist_list.php:2
 msgid "Manage Task Lists"

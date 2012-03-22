@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Horde 4.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-02-22 11:20+0100\n"
-"PO-Revision-Date: 2012-03-10 15:49:18+0200\n"
+"PO-Revision-Date: 2012-03-22 15:00:24+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -279,7 +279,7 @@ msgstr "Osoite"
 
 #: config/registry.php:122
 msgid "Address Book"
-msgstr "Osoitekirja"
+msgstr "Osoiteet"
 
 #: lib/Application.php:46
 msgid "Administration"
@@ -1236,7 +1236,7 @@ msgstr "Etsittävät kentät"
 
 #: config/registry.php:310
 msgid "File Manager"
-msgstr "Tiedostohallinta"
+msgstr "Tiedostot"
 
 #: lib/Block/FbStream.php:54
 msgid "Filter"
@@ -1244,7 +1244,7 @@ msgstr "Suodatin"
 
 #: config/registry.php:88
 msgid "Filters"
-msgstr "Suodattimet"
+msgstr "Suodatus"
 
 #: lib/Block/Moon.php:167
 msgid "First Half"
@@ -1331,7 +1331,7 @@ msgstr "Koko nimi"
 #: admin/config/config.php:36
 #, php-format
 msgid "Generate %s Configuration"
-msgstr "Muodosta %s asetukset"
+msgstr "Muodosta %s asennusasetukset"
 
 #: templates/admin/config/config.html:6
 msgid "Generated Code"
@@ -1440,7 +1440,7 @@ msgstr "Kotihakemisto"
 
 #: config/registry.php:75
 msgid "Horde"
-msgstr "Horde"
+msgstr "Portaali"
 
 #: themes/hordeweb/info.php:2
 msgid "Horde Website"
@@ -1727,11 +1727,11 @@ msgstr "Lukot"
 
 #: login.php:303 templates/login/login.inc:43
 msgid "Log in"
-msgstr "Kirjaudu sisaan"
+msgstr "Kirjaudu"
 
 #: templates/portal/mobile.inc:7
 msgid "Log out"
-msgstr "Kirjaudu ulos"
+msgstr "Poistu"
 
 #: login.php:328
 msgid "Login failed because your username or password was entered incorrectly."
@@ -1745,7 +1745,7 @@ msgstr "Sisäänkirjautuminen epäonnistui."
 
 #: templates/prefs/facebook.html:57
 msgid "Login to Facebook and authorize <tag:app_name />"
-msgstr "Kirjaudu Facebookiin ja anna lupa <tag:app_name />"
+msgstr "Kirjaudu sisään Facebookiin ja anna lupa <tag:app_name />"
 
 #: templates/prefs/twitter.html:21
 msgid "Login to Twitter and authorize the <tag:appname /> application"
@@ -1776,11 +1776,11 @@ msgstr "Taikuus"
 
 #: config/registry.php:80
 msgid "Mail"
-msgstr "Sähköposti"
+msgstr "Posti"
 
 #: config/registry.php:355
 msgid "Mail Admin"
-msgstr "Sähköpostin hallinta"
+msgstr "Postin hallinta"
 
 #: config/prefs.php:464
 msgid ""
@@ -2039,7 +2039,7 @@ msgstr "Ei jaettu"
 
 #: config/registry.php:192
 msgid "Notes"
-msgstr "Muistiinpanot"
+msgstr "Muistiot"
 
 #: services/obrowser/index.php:32
 msgid "Nothing to browse, go back."

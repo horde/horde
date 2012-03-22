@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Ansel 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-02-22 11:20+0100\n"
-"PO-Revision-Date: 2012-03-07 19:12:13+0200\n"
+"PO-Revision-Date: 2012-03-22 14:53:37+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -1112,12 +1112,12 @@ msgstr "Lukittuja gallerioita ei voi katsoa api:n kautta."
 
 #: templates/mobile/galleries.html.php:6
 msgid "Log out"
-msgstr "Kirjaudu ulos"
+msgstr "Poistu"
 
 #: templates/xppublish/login.inc:2
 #, php-format
 msgid "Login to %s"
-msgstr "Kirjaudu sisään %s:ään"
+msgstr "Kirjaudu %s:ään"
 
 #: lib/Form/Image.php:32 lib/Form/Upload.php:42
 msgid "Make this the default photo for this gallery?"
