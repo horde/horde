@@ -12,7 +12,7 @@
  * @link       http://pear.horde.org/index.php?package=Service_Weather
  */
 
-require_once dirname(__FILE__) . '/Autoload.php';
+require_once __DIR__ . '/Autoload.php';
 
 class Horde_Service_Weather_WwoTest extends PHPUnit_Framework_TestCase
 {
@@ -114,7 +114,7 @@ class Horde_Service_Weather_WwoTest extends PHPUnit_Framework_TestCase
 
     private function _getStub($fixture, $language = 'en')
     {
-        $body = fopen(dirname(__FILE__) . '/fixtures/' . $fixture, 'r');
+        $body = fopen(__DIR__ . '/fixtures/' . $fixture, 'r');
         $response = new Horde_Http_Response_Mock('', $body);
         $response->code = 200;
         $request = new Horde_Http_Request_Mock();

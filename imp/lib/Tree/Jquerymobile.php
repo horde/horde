@@ -1,6 +1,6 @@
 <?php
 /**
- * This class defines Jquerymobile output for a folder list.
+ * This class defines Jquerymobile output for a mailbox (folder tree) list.
  *
  * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
@@ -28,7 +28,6 @@ class IMP_Tree_Jquerymobile extends Horde_Tree_Jquerymobile
                             $expanded = true, $params = array(),
                             $extra_right = array(), $extra_left = array())
     {
-        $params['url'] = '#';
         parent::addNode($id, $parent, $label, $indent, $expanded, $params, $extra_right, $extra_left);
     }
 

@@ -8,4 +8,4 @@
  * @author  Jon Parise <jon@horde.org>
  * @package Mnemo
  */
-require dirname(__FILE__) . '/list.php';
+require __DIR__ . '/list.php';

@@ -1,14 +1,14 @@
 # Finnish translation for Timeobjects.
 # Copyright YEAR Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Timeobjects package.
-# Leena Heino <liinu@uta.fi>, 2010-2011.
+# Leena Heino <liinu@uta.fi>, 2010-2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Timeobjects 1.0\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-04 10:15+0200\n"
-"PO-Revision-Date: 2011-04-03 13:12:05+0300\n"
+"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"PO-Revision-Date: 2012-03-10 15:49:54+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -17,120 +17,54 @@ msgstr ""
 "Content-Transfer-Encoding: 8-bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Driver/Weatherdotcom.php:222 lib/Driver/Weatherdotcom.php:237
-#, php-format
-msgid " gusting %d%s"
-msgstr " puuskittain %d%s"
-
-#: lib/Driver/Weatherdotcom.php:155
-msgid "An unknown error has occured."
-msgstr "Tapahtui tuntematon virhe"
-
-#: lib/Driver/Weatherdotcom.php:151
-msgid "Cache init was not completed."
-msgstr "Välimuistin alustusta ei saatu valmiiksi."
-
-#: lib/Driver/Weatherdotcom.php:211
+#: lib/Driver/Weather.php:116
 #, php-format
 msgid ""
 "Conditions: %s\n"
 "High temperature: %d%s\n"
-"Precipitation: %d%%\n"
+"Precipitation: %s\n"
+msgstr ""
+"Olosuhteet: %s\n"
+"Korkein lämpötila: %d%s\n"
+"Sademäärä: %s\n"
+
+#: lib/Driver/Weather.php:104
+#, php-format
+msgid ""
+"Conditions: %s\n"
+"High temperature: %d%s\n"
+"Precipitation: %s\n"
 "Humidity: %d%%\n"
 "Winds: From the %s at %d%s"
 msgstr ""
 "Olosuhteet: %s\n"
 "Korkein lämpötila: %d%s\n"
-"Sademäärä: %d%%\n"
+"Sademäärä: %s\n"
 "Kosteus: %d%%\n"
-"Tuules: Suunnasta %s nopeudella %d%s"
+"Tuulet: Suunnasta %s nopeudella %d%s"
 
-#: lib/Driver/Weatherdotcom.php:226
-#, php-format
-msgid ""
-"Conditions: %s\n"
-"Low temperature: %d%s\n"
-"Precipitation: %d%%\n"
-"Humidity: %d%%\n"
-"Winds: From the %s at %d%s"
-msgstr ""
-"Olosuhteet: %s\n"
-"Alin lämpötila: %d%s\n"
-"Sademäärä: %d%%\n"
-"Kosteus: %d%%\n"
-"Tuules: Suunnasta %s nopeudella %d%s"
-
-#: lib/Api.php:43
+#: lib/Api.php:34
 msgid "Facebook Events"
 msgstr "Facebook tapahtumat"
 
-#: lib/Driver/Weatherdotcom.php:165
-msgid "Invalid license key."
-msgstr "Kelvoton lisenssiavain."
+#: lib/Driver/Weather.php:131
+#, php-format
+msgid "Location: %s"
+msgstr "Paikka: %s"
 
-#: lib/Driver/Weatherdotcom.php:159
-msgid "Invalid location provided."
-msgstr "Annettu paikkatieto on kelvoton."
+#: lib/Driver/Weather.php:100
+msgid "N/A"
+msgstr "N/A"
 
-#: lib/Driver/Weatherdotcom.php:161
-msgid "Invalid partner id."
-msgstr "Kelvoton partner id."
-
-#: lib/Driver/Weatherdotcom.php:163
-msgid "Invalid product code."
-msgstr "Kelvoton tuotekoodi"
-
-#: lib/Driver/Weatherdotcom.php:241
+#: lib/Driver/Weather.php:136
 #, php-format
 msgid ""
-"Location: %s\n"
 "Sunrise: %s\n"
 "Sunset: %s\n"
-"\n"
-"Day\n"
-"%s\n"
-"\n"
-"Evening\n"
-"%s"
 msgstr ""
-"Paikka: %s\n"
 "Aurinko nousee: %s\n"
 "Aurinko laskee: %s\n"
-"\n"
-"Päivä\n"
-"%s\n"
-"\n"
-"Ilta\n"
-"%s"
 
-#: lib/Driver/Weatherdotcom.php:153
-msgid "MetarDB is not connected."
-msgstr "MetarDB ei ole yhdistetty"
-
-#: lib/Driver/Weatherdotcom.php:121
-msgid "No location is set."
-msgstr "Paikkatieto ei ole asetettu."
-
-#: lib/Driver/Weatherdotcom.php:157
-msgid "No location provided."
-msgstr "Paikkatietoa ei ole annettu."
-
-#: lib/Driver/Weatherdotcom.php:130
-msgid "No temporary directory available for cache."
-msgstr "Väliaikaistiedostoa ei ole käytettävissä välimuistille."
-
-#: lib/Driver/Weatherdotcom.php:145
-msgid "Requested service could not be found."
-msgstr "Pyydettyä palvelua ei löytynyt."
-
-#: lib/Driver/Weatherdotcom.php:149
-msgid "Server data wrong or not available."
-msgstr "Palvelin palautti väärää tietoa tai ei ole käytettävissä."
-
-#: lib/Driver/Weatherdotcom.php:147
-msgid "Unknown location provided."
-msgstr "Annettu paikkatieto on tuntematon."
-
-#: lib/Api.php:38
+#: lib/Api.php:33
 msgid "Weather"
 msgstr "Sää"

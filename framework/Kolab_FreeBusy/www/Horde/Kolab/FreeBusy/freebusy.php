@@ -25,6 +25,6 @@
 require_once 'Horde/Autoloader.php';
 
 /** Dispatch the request. */
-$params = array('config' => array('dir' => dirname(__FILE__) . '/config'));
+$params = array('config' => array('dir' => __DIR__ . '/config'));
 $application = Horde_Kolab_FreeBusy::singleton($params);
 $application->dispatch();

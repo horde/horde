@@ -83,15 +83,7 @@ class Horde_Core_Factory_DbPear extends Horde_Core_Factory_Base
         }
 
         // Set DB portability options.
-        switch ($db->phptype) {
-        case 'mssql':
-            $db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-            break;
-
-        default:
-            $db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-            break;
-        }
+        $db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
 
         if ($pushed) {
             $registry->popApp();

@@ -6,7 +6,7 @@
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('klutz');
 
 // Get the name of the comic we want to see, if passed in.
@@ -177,7 +177,7 @@ case 'day':
     echo Horde::menu();
     require KLUTZ_TEMPLATES . '/comics/nav_bar.inc';
     if (!empty($imageApp)) {
-        Horde::addScriptFile('popup.js', 'horde', true);
+        $injector->getInstance('Horde_PageOutput')->addScriptFile('popup.js', 'horde');
     }
 
     // Used for tracking dates we've already looked at.
@@ -292,7 +292,7 @@ case 'comic':
     echo Horde::menu();
     require KLUTZ_TEMPLATES . '/comics/nav_bar.inc';
     if (!empty($imageApp)) {
-        Horde::addScriptFile('popup.js', 'horde', true);
+        $injector->getInstance('Horde_PageOutput')->addScriptFile('popup.js', 'horde');
     }
 
     $name = $klutz->getProperty($index, 'name');

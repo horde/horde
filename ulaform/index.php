@@ -8,4 +8,4 @@
  * @author Brent J. Nordquist <bjn@horde.org>
  */
 
-require dirname(__FILE__) . '/forms.php';
+require __DIR__ . '/forms.php';

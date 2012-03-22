@@ -14,7 +14,6 @@
         <li><a id="kronolithSearchPast"><?php echo _("Past") ?></a></li>
         <li class="activeTab"><a id="kronolithSearchFuture"><?php echo _("Future") ?></a></li>
       </ul>
-      <a class="kronolithPrint" onclick="print()" title="<?php echo _("Print") ?>"><span><?php echo _("Print") ?></span></a>
     </span>
   </caption>
   <tbody id="kronolithViewAgendaBody">

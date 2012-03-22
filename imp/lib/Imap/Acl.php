@@ -152,12 +152,12 @@ class IMP_Imap_Acl
                 'title' => _("Administer")
             ),
             Horde_Imap_Client::ACL_CREATEMBOX => array(
-                'desc' => _("Create subfolders"),
-                'title' => _("Create Folders")
+                'desc' => _("Create subfolders and rename mailbox"),
+                'title' => _("Create Subfolders/Rename Mailbox")
             ),
             Horde_Imap_Client::ACL_DELETEMBOX => array(
-                'desc' => _("Delete subfolders"),
-                'title' => _("Delete Folders")
+                'desc' => _("Delete and rename mailbox"),
+                'title' => _("Delete/Rename Mailbox")
             ),
             Horde_Imap_Client::ACL_DELETEMSGS => array(
                 'desc' => _("Delete messages"),

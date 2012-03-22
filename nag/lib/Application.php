@@ -13,7 +13,7 @@
 
 /* Determine the base directories. */
 if (!defined('NAG_BASE')) {
-    define('NAG_BASE', dirname(__FILE__) . '/..');
+    define('NAG_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {
@@ -34,11 +34,13 @@ class Nag_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = 'H4 (3.0.8-git)';
+    public $features = array(
+        'smartmobileView' => true
+    );
 
     /**
      */
-    public $mobileView = true;
+    public $version = 'H5 (4.0-git)';
 
     /**
      * Global variables defined:
@@ -80,8 +82,9 @@ class Nag_Application extends Horde_Registry_Application
              $injector->getInstance('Horde_Core_Perms')->hasAppPermission('max_tasks') > Nag::countTasks())) {
             $menu->add(Horde::url('task.php')->add('actionID', 'add_task'), _("_New Task"), 'add.png', null, null, null, Horde_Util::getFormData('task') ? '__noselection' : null);
             if ($GLOBALS['browser']->hasFeature('dom')) {
-                Horde::addScriptFile('effects.js', 'horde');
-                Horde::addScriptFile('redbox.js', 'horde');
+                $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+                $page_output->addScriptFile('effects.js', 'horde');
+                $page_output->addScriptFile('redbox.js', 'horde');
                 $menu->add(new Horde_Url(''), _("_Quick Add"), 'add.png', null, null, 'RedBox.showInline(\'quickAddInfoPanel\'); $(\'quickText\').focus(); return false;', Horde_Util::getFormData('task') ? 'quickAdd __noselection' : 'quickAdd');
             }
         }
@@ -255,12 +258,16 @@ class Nag_Application extends Horde_Registry_Application
     }
 
     /**
+     * Remove all data for the specified user.
+     *
+     * @param string $user  The user to remove.
+     * @throws Nag_Exception
      */
     public function removeUserData($user)
     {
-        /* Get the shares for later deletion */
         try {
-            $shares = $GLOBALS['nag_shares']->listShares($user, array('attributes' => $user));
+            $shares = $GLOBALS['nag_shares']
+                ->listShares($user, array('attributes' => $user));
         } catch (Horde_Share_Exception $e) {
             Horde::logMessage($e, 'ERR');
             throw new Nag_Exception($e);

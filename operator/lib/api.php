@@ -26,7 +26,7 @@ function _operator_perms()
         return $perms;
     }
 
-    @define('OPERATOR_BASE', dirname(__FILE__) . '/..');
+    @define('OPERATOR_BASE', __DIR__ . '/..');
     require_once OPERATOR_BASE . '/lib/base.php';
 
     $perms['tree']['operator']['accountcodes'] = false;

@@ -514,11 +514,9 @@
      <configsection name="params">
       <configenum name="phptype" desc="The name of the database">mysql
        <values>
-        <value desc="Microsoft SQL Server">mssql</value>
         <value desc="MySQL">mysql</value>
         <value desc="MySQL (mysqli)">mysqli</value>
         <value desc="ODBC">odbc</value>
-        <value desc="Oracle 8">oci8</value>
         <value desc="PostgreSQL">pgsql</value>
        </values>
       </configenum>
@@ -602,10 +600,8 @@
       </configenum>
       <configenum name="phptype" desc="The name of the database">mysql
        <values>
-        <value desc="Microsoft SQL Server">mssql</value>
         <value desc="MySQL">mysql</value>
         <value desc="ODBC">odbc</value>
-        <value desc="Oracle 8">oci8</value>
         <value desc="PostgreSQL">pgsql</value>
        </values>
       </configenum>
@@ -1535,6 +1531,17 @@
   </configsection>
  </configtab>
 
+ <configtab name="timezone" desc="Timezone Lookup">
+  <configsection name="timezone">
+   <configheader>Timezone Lookup Settings</configheader>
+   <configstring name="location" required="false" desc="Horde may
+   lookup timezone information from a global timezone database, also
+   known as Olson database. You can enter any http://, ftp:// or
+   file:// location
+   here.">ftp://ftp.iana.org/tz/tzdata-latest.tar.gz</configstring>
+  </configsection>
+ </configtab>
+
  <configtab name="problems" desc="Problem Reporting">
   <configsection name="problems">
    <configheader>Problem Reporting Settings</configheader>
@@ -1968,19 +1975,9 @@
    <configswitch name="enabled" quote="false" desc="Enable ActiveSync server?">true
     <case name="false" desc="Disabled" />
     <case name="true" desc="Enabled">
-     <configsection name="state">
-      <configheader>State Storage Settings</configheader>
-       <configsection name="params">
-        <configstring name="devicetable" desc="Name of table to hold device
-        information:">horde_activesync_device</configstring>
-        <configstring name="statetable" desc="Name of table to hold state
-        data:">horde_activesync_state</configstring>
-        <configstring name="maptable" desc="Name of table to hold mapping data
-        for device-sent changes.">horde_activesync_map</configstring>
-        <configstring name="userstable" desc="Name of table to hold user-device
-        data:">horde_activesync_device_users</configstring>
-       </configsection>
-     </configsection>
+     <configheader>Email</configheader>
+      <configboolean name="emailsync" desc="Enable Email support?">false
+      </configboolean>
      <configheader>Logging</configheader>
      <configsection name="logging">
       <configswitch name="type" desc="For debugging, it may be useful to send

@@ -76,7 +76,7 @@ class Horde_Vcs_Svn extends Horde_Vcs_Base
         $svnPath = $this->getPath('svn');
         $tempDir = isset($this->_paths['svn_home'])
             ? $this->_paths['svn_home']
-            : Horde_Util::getTempDir();
+            : sys_get_temp_dir();
         $command = $svnPath . ' --non-interactive --config-dir ' . $tempDir;
 
         if ($this->_username) {

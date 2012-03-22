@@ -9,7 +9,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 $hermes = Horde_Registry::appInit('hermes');
 
 printf(_("Deleting data that was exported/billed more than %s days ago.\n"), $conf['time']['days_to_keep']);

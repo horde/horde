@@ -2,6 +2,8 @@
 /**
  * This class handles date-related search queries.
  *
+ * @deprecated  Use IMP_Search_Element_Daterange instead.
+ *
  * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -24,11 +26,9 @@ class IMP_Search_Element_Date extends IMP_Search_Element
      *
      * @param DateTime $date  Date object.
      * @param integer $type   Either:
-     * <pre>
-     * IMP_Search_Element_Date::DATE_ON
-     * IMP_Search_Element_Date::DATE_BEFORE
-     * IMP_Search_Element_Date::DATE_SINCE
-     * </pre>
+     *   - IMP_Search_Element_Date::DATE_ON
+     *   - IMP_Search_Element_Date::DATE_BEFORE
+     *   - IMP_Search_Element_Date::DATE_SINCE
      */
     public function __construct(DateTime $date, $type)
     {

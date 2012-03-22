@@ -36,7 +36,7 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
         $connector = new Horde_ActiveSync_Driver_Horde_Connector_Registry(array('registry' => $registry));
         $state = $this->getMockSkipConstructor('Horde_ActiveSync_State_File');
         $driver = new Horde_ActiveSync_Driver_Horde(array('connector' => $connector,
-                                                          'state_basic' => $state));
+                                                          'state' => $state));
         $this->assertInstanceOf('Horde_ActiveSync_Driver', $driver);
     }
 
@@ -48,6 +48,9 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
      */
     public function testGetMessageList()
     {
+        // Need to rewrite for getServerChanges() instead of getServerList()
+        $this->markTestIncomplete();
+
         // Events fixture - only need the uid property for this test
         $e1 = new stdClass();
         $e1->uid = '20080112030603.249j42k3k068@test.theupstairsroom.com';
@@ -79,7 +82,7 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
 
         $state = $this->getMockSkipConstructor('Horde_ActiveSync_State_File');
         $driver = new Horde_ActiveSync_Driver_Horde(array('connector' => $connector,
-                                                          'state_basic' => $state));
+                                                          'state' => $state));
 
         /* Contacts */
         //$expected = array(
@@ -131,9 +134,7 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
         $event = new Horde_ActiveSync_Message_Appointment();
         $task = new Horde_ActiveSync_Message_Task();
 
-        if (version_compare(PHP_VERSION, '5.3.0', '>=')) {
-            error_reporting(E_ALL & ~E_DEPRECATED);
-        }
+        error_reporting(E_ALL & ~E_DEPRECATED);
 
         /* Mock the registry connector */
         $connector = $this->getMockSkipConstructor('Horde_ActiveSync_Driver_Horde_Connector_Registry');
@@ -154,7 +155,7 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
 
         /* Get the driver, and test it */
         $driver = new Horde_ActiveSync_Driver_Horde(array('connector' => $connector,
-                                                          'state_basic' => $state));
+                                                          'state' => $state));
 
         /* The 'xxx' represents the uid of the object we are getting - which
          * doesn't matter b/c the registry response is mocked */
@@ -226,7 +227,7 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
 
         /* Get the driver, and test it */
         $driver = new Horde_ActiveSync_Driver_Horde(array('connector' => $connector,
-                                                          'state_basic' => $state));
+                                                          'state' => $state));
 
         /* Fixtures - don't really need data, since the change is not actually done */
         $message = new Horde_ActiveSync_Message_Contact();
@@ -320,7 +321,7 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
                 ->will($this->returnValue(array('horde', 'contacts', 'calendar', 'tasks')));
 
         $driver = new Horde_ActiveSync_Driver_Horde(array('connector' => $connector,
-                                                          'state_basic' => $state));
+                                                          'state' => $state));
         $results = $driver->getFolderList();
         $expected = array(
          array(

@@ -2,8 +2,6 @@
 /**
  * Object representation of a RFC 822 e-mail group.
  *
- * @since 1.1.0
- *
  * Copyright 2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (BSD). If you
@@ -22,31 +20,63 @@
  * @category  Horde
  * @license   http://www.horde.org/licenses/bsd New BSD License
  * @package   Mail
+ *
+ * @property string $groupname_encoded  MIME encoded groupname (UTF-8).
+ * @property boolean $valid  Returns true if there is enough information in
+ *                           object to create a valid address.
  */
-class Horde_Mail_Rfc822_Group implements ArrayAccess
+class Horde_Mail_Rfc822_Group extends Horde_Mail_Rfc822_Object implements Countable
 {
     /**
      * List of group e-mail address objects.
      *
-     * @var array
+     * @var Horde_Mail_Rfc822_GroupList
      */
-    public $addresses = array();
+    public $addresses;
 
     /**
-     * Comments associated with the personal phrase.
+     * Group name (MIME decoded).
      *
      * @var string
      */
-    public $groupname = '';
+    protected $_groupname = 'Group';
 
     /**
-     * String representation of object.
+     * Constructor.
      *
-     * @return string  Returns the full e-mail address.
+     * @param string $groupname  If set, used as the group name.
+     * @param mixed $addresses   If a GroupList object, used as the address
+     *                           list. Any other non-null value is parsed and
+     *                           used as the address list (addresses not
+     *                           verified; sub-groups are ignored).
      */
-    public function __toString()
+    public function __construct($groupname = null, $addresses = null)
     {
-        return $this->writeAddress();
+        if (!is_null($groupname)) {
+            $this->groupname = $groupname;
+        }
+
+        if (is_null($addresses)) {
+            $this->addresses = new Horde_Mail_Rfc822_GroupList();
+        } elseif ($addresses instanceof Horde_Mail_Rfc822_GroupList) {
+            $this->addresses = clone $addresses;
+        } else {
+            $rfc822 = new Horde_Mail_Rfc822();
+            $this->addresses = $rfc822->parseAddressList($addresses, array(
+                'group' => true
+            ));
+        }
+    }
+
+    /**
+     */
+    public function __set($name, $value)
+    {
+        switch ($name) {
+        case 'groupname':
+            $this->_groupname = Horde_Mime::decode($value);
+            break;
+        }
     }
 
     /**
@@ -54,12 +84,14 @@ class Horde_Mail_Rfc822_Group implements ArrayAccess
     public function __get($name)
     {
         switch ($name) {
-        case 'groupname_decoded':
-            // DEPRECATED
-            return Horde_Mime::decode($this->groupname, 'UTF-8');
+        case 'groupname':
+            return $this->_groupname;
 
         case 'groupname_encoded':
-            return Horde_Mime::encode($this->groupname, 'UTF-8');
+            return Horde_Mime::encode($this->_groupname);
+
+        case 'valid':
+            return (bool)strlen($this->_groupname);
 
         default:
             return null;
@@ -67,66 +99,38 @@ class Horde_Mail_Rfc822_Group implements ArrayAccess
     }
 
     /**
-     * Write a group address given information in this part.
+     */
+    protected function _writeAddress($opts)
+    {
+        $addr = $this->addresses->writeAddress($opts);
+        $groupname = $this->groupname;
+        if (!empty($opts['encode'])) {
+            $groupname = Horde_Mime::encode($groupname, $opts['encode']);
+        }
+
+        $rfc822 = new Horde_Mail_Rfc822();
+
+        return $rfc822->encode($groupname, 'personal') . ':' .
+            (strlen($addr) ? (' ' . $addr) : '') . ';';
+    }
+
+    /**
+     */
+    public function match($ob)
+    {
+        return $this->addresses->match($ob);
+    }
+
+    /* Countable methods. */
+
+    /**
+     * Address count.
      *
-     * @param array $opts  Optional arguments:
-     *   - encode: (boolean) Encode the groupname/personal parts?
-     *   - idn: (boolean) See Horde_Mime_Address#writeAddress().
-     *
-     * @return string  The correctly escaped/quoted address.
+     * @return integer  The number of addresses.
      */
-    public function writeAddress()
+    public function count()
     {
-        $addr = array();
-        foreach ($this->addresses as $val) {
-            $addr[] = $val->writeAddress(array(
-                'encode' => !empty($opts['encode']),
-                'idn' => (isset($opts['idn']) ? $opts['idn'] : null)
-            ));
-        }
-
-        return Horde_Mime_Address::writeGroupAddress(empty($opts['encode']) ? $ob->groupname : Horde_Mime::encode($ob->groupname, 'UTF-8'), $addr);
-    }
-
-    /* ArrayAccess methods. TODO: Here for BC purposes. Remove for 2.0. */
-
-    /**
-     */
-    public function offsetExists($offset)
-    {
-        switch ($offset) {
-        case 'addresses':
-        case 'groupname':
-            return true;
-
-        default:
-            return false;
-        }
-    }
-
-    /**
-     */
-    public function offsetGet($offset)
-    {
-        return $this->offsetExists($offset)
-            ? $this->$offset
-            : null;
-    }
-
-    /**
-     */
-    public function offsetSet($offset, $value)
-    {
-        if ($this->offsetExists($offset)) {
-            $this->$offset = $value;
-        }
-    }
-
-    /**
-     */
-    public function offsetUnset($offset)
-    {
-        /* Don't allow undsetting of values. */
+        return count($this->addresses);
     }
 
 }

@@ -2,7 +2,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../TestCase.php';
+require_once __DIR__ . '/../TestCase.php';
 
 /**
  * @author     Jan Schneider <jan@horde.org>
@@ -58,7 +58,7 @@ class Turba_Unit_DriverTest extends Turba_TestCase
             'timezone' => 'Europe/Berlin',
             'latitude' => '52.516276',
             'longitude' => '13.377778',
-            'photo' => file_get_contents(dirname(__FILE__) . '/../fixtures/az.png'),
+            'photo' => file_get_contents(__DIR__ . '/../fixtures/az.png'),
             'phototype' => 'image/png',
         );
         $this->driver = new Turba_Driver();

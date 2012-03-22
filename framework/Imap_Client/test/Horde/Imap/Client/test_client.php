@@ -51,7 +51,7 @@ $test_mbox_utf8 = 'TestMailboxTest1è';
 /** End Configuration **/
 
 require_once 'Horde/Autoloader.php';
-$currdir = dirname(__FILE__);
+$currdir = __DIR__;
 
 /* Check for Horde_Cache::. */
 if (@include_once 'Horde/Cache.php') {

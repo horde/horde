@@ -14,7 +14,7 @@
  */
 
 if (!defined('HYLAX_BASE')) {
-    define('HYLAX_BASE', dirname(__FILE__). '/..');
+    define('HYLAX_BASE', __DIR__. '/..');
 }
 
 if (!defined('HORDE_BASE')) {
@@ -33,13 +33,15 @@ require_once HORDE_BASE . '/lib/core.php';
 
 class Hylax_Application extends Horde_Registry_Application
 {
-    public $version = 'H4 (0.1-git)';
+    public $version = 'H5 (0.1-git)';
 
     public $gateway = null;
     public $storage = null;
 
     protected function _init()
     {
+        global $conf;
+
         /* Hylax Driver */
         $this->gateway = Hylax_Driver::singleton($conf['fax']['driver'],
                                                  $conf['fax']['params']);

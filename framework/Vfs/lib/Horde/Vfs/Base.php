@@ -51,7 +51,16 @@ abstract class Horde_Vfs_Base
     );
 
     /**
-     * The current size, in bytes, of the VFS item.
+     * List of features that the VFS driver supports.
+     *
+     * @var array
+     */
+    protected $_features = array(
+        'readByteRange' => false,
+    );
+
+    /**
+     * The current size, in bytes, of the VFS tree.
      *
      * @var integer
      */
@@ -67,9 +76,22 @@ abstract class Horde_Vfs_Base
         $this->setParams(array(
             'user' => '',
             'vfs_quotalimit' => -1,
-            'vfs_quotaroot' => '/'
+            'vfs_quotaroot' => ''
         ));
         $this->setParams($params);
+    }
+
+    /**
+     * Returns whether the drivers supports a certain feature.
+     *
+     * @param string $feature  A feature name. See {@link $_features} for a
+     *                         list of possible features.
+     *
+     * @return boolean  True if the feature is supported.
+     */
+    public function hasFeature($feature)
+    {
+        return !empty($this->_features[$feature]);
     }
 
     /**
@@ -134,23 +156,22 @@ abstract class Horde_Vfs_Base
     }
 
     /**
-     * Returns the size of a folder
+     * Returns the size of a folder.
      *
-     * @param string $path  The path to the folder.
-     * @param string $name  The name of the folder.
+     * @param string $path  The path of the folder.
      *
      * @return integer  The size of the folder, in bytes.
      * @throws Horde_Vfs_Exception
      */
-    public function getFolderSize($path = null, $name = null)
+    public function getFolderSize($path = null)
     {
         $size = 0;
-        $root = (!is_null($path) ? $path . '/' : '') . $name;
+        $root = !is_null($path) ? $path . '/' : '';
         $object_list = $this->listFolder($root, null, true, false, true);
 
         foreach ($object_list as $key => $val) {
             $size += isset($val['subdirs'])
-                ? $this->getFolderSize($root, $key)
+                ? $this->getFolderSize($root . '/' . $key)
                 : $this->size($root, $key);
         }
 
@@ -193,7 +214,6 @@ abstract class Horde_Vfs_Base
         if (!($localFile = Horde_Util::getTempFile('vfs'))) {
             throw new Horde_Vfs_Exception('Unable to create temporary file.');
         }
-        register_shutdown_function(create_function('', 'unlink(\'' . addslashes($localFile) . '\');'));
 
         if (is_callable(array($this, 'readStream'))) {
             // Use a stream from the VFS if possible, to avoid reading all data
@@ -317,7 +337,7 @@ abstract class Horde_Vfs_Base
         if ($this->isFolder($path, $name)) {
             $this->_copyRecursive($path, $name, $dest);
         } else {
-            return $this->writeData($dest, $name, $this->read($path, $name), $autocreate);
+            $this->writeData($dest, $name, $this->read($path, $name), $autocreate);
         }
     }
 
@@ -345,7 +365,7 @@ abstract class Horde_Vfs_Base
      */
     public function delete($path, $name)
     {
-        return $this->deleteFile($path, $name);
+        $this->deleteFile($path, $name);
     }
 
     /**
@@ -424,20 +444,18 @@ abstract class Horde_Vfs_Base
     public function autocreatePath($path)
     {
         $dirs = explode('/', $path);
-        if (is_array($dirs)) {
-            $cur = '/';
-            foreach ($dirs as $dir) {
-                if (!strlen($dir)) {
-                    continue;
-                }
-                if (!$this->isFolder($cur, $dir)) {
-                    $result = $this->createFolder($cur, $dir);
-                }
-                if ($cur != '/') {
-                    $cur .= '/';
-                }
-                $cur .= $dir;
+        $cur = '/';
+        foreach ($dirs as $dir) {
+            if (!strlen($dir)) {
+                continue;
             }
+            if (!$this->isFolder($cur, $dir)) {
+                $this->createFolder($cur, $dir);
+            }
+            if ($cur != '/') {
+                $cur .= '/';
+            }
+            $cur .= $dir;
         }
     }
 
@@ -499,11 +517,12 @@ abstract class Horde_Vfs_Base
     /**
      * Returns a file list of the directory passed in.
      *
-     * @param string $path        The path of the directory.
-     * @param mixed $filter       String/hash to filter file/dirname on.
-     * @param boolean $dotfiles   Show dotfiles?
-     * @param boolean $dironly    Show only directories?
-     * @param boolean $recursive  Return all directory levels recursively?
+     * @param string $path          The path of the directory.
+     * @param string|array $filter  Regular expression(s) to filter
+     *                              file/directory name on.
+     * @param boolean $dotfiles     Show dotfiles?
+     * @param boolean $dironly      Show only directories?
+     * @param boolean $recursive    Return all directory levels recursively?
      *
      * @return array  File list.
      * @throws Horde_Vfs_Exception
@@ -516,9 +535,12 @@ abstract class Horde_Vfs_Base
             return $list;
         }
 
+        if (strlen($path)) {
+            $path .= '/';
+        }
         foreach ($list as $name => $values) {
             if ($values['type'] == '**dir') {
-                $list[$name]['subdirs'] = $this->listFolder($path . '/' . $name, $filter, $dotfiles, $dironly, $recursive);
+                $list[$name]['subdirs'] = $this->listFolder($path . $name, $filter, $dotfiles, $dironly, $recursive);
             }
         }
 
@@ -530,10 +552,11 @@ abstract class Horde_Vfs_Base
      *
      * @abstract
      *
-     * @param string $path       The path of the directory.
-     * @param mixed $filter      String/hash to filter file/dirname on.
-     * @param boolean $dotfiles  Show dotfiles?
-     * @param boolean $dironly   Show only directories?
+     * @param string $path          The path of the directory.
+     * @param string|array $filter  Regular expression(s) to filter
+     *                              file/directory name on.
+     * @param boolean $dotfiles     Show dotfiles?
+     * @param boolean $dironly      Show only directories?
      *
      * @return array  File list.
      * @throws Horde_Vfs_Exception
@@ -555,43 +578,27 @@ abstract class Horde_Vfs_Base
     }
 
     /**
-     * Returns whether or not a filename matches any filter element.
+     * Returns whether or not a file or directory name matches an filter
+     * element.
      *
-     * @param mixed $filter     String/hash to build the regular expression
-     *                          from.
-     * @param string $filename  String containing the filename to match.
+     * @param string|array $filter  Regular expression(s) to build the filter
+     *                              from.
+     * @param string $filename      String containing the file/directory name
+     *                              to match.
      *
      * @return boolean  True on match, false on no match.
      */
     protected function _filterMatch($filter, $filename)
     {
-        $namefilter = null;
-
-        // Build a regexp based on $filter.
-        if (!is_null($filter)) {
-            $namefilter = '/';
-            if (is_array($filter)) {
-                $once = false;
-                foreach ($filter as $item) {
-                    if ($once !== true) {
-                        $once = true;
-                    } else {
-                        $namefilter .= '|';
-                    }
-                    $namefilter .= '(' . $item . ')';
-                }
-            } else {
-                $namefilter .= '(' . $filter . ')';
-            }
-            $namefilter .= '/';
+        if (is_array($filter)) {
+            $filter = implode('|', $filter);
         }
 
-        $match = false;
-        if (!is_null($namefilter)) {
-            $match = preg_match($namefilter, $filename);
+        if (!strlen($filter)) {
+            return false;
         }
 
-        return $match;
+        return preg_match('/' . $filter . '/', $filename);
     }
 
     /**
@@ -606,24 +613,6 @@ abstract class Horde_Vfs_Base
      * @throws Horde_Vfs_Exception
      */
     public function changePermissions($path, $name, $permission)
-    {
-        throw new Horde_Vfs_Exception('Not supported.');
-    }
-
-    /**
-     * Returns a sorted list of folders in the specified directory.
-     *
-     * @abstract
-     *
-     * @param string $path         The path of the directory to get the
-     *                             directory list for.
-     * @param mixed $filter        Hash of items to filter based on folderlist.
-     * @param boolean $dotfolders  Include dotfolders?
-     *
-     * @return array  Folder list.
-     * @throws Horde_Vfs_Exception
-     */
-    public function listFolders($path = '', $filter = null, $dotfolders = true)
     {
         throw new Horde_Vfs_Exception('Not supported.');
     }
@@ -731,7 +720,8 @@ abstract class Horde_Vfs_Base
      */
     protected function _checkQuotaWrite($mode, $data)
     {
-        if ($this->_params['vfs_quotalimit'] == -1) {
+        if ($this->_params['vfs_quotalimit'] == -1 &&
+            is_null($this->_vfsSize)) {
             return;
         }
 
@@ -745,9 +735,12 @@ abstract class Horde_Vfs_Base
         }
 
         $vfssize = $this->getVFSSize();
-        if (($vfssize + $filesize) > $this->_params['vfs_quotalimit']) {
+        if ($this->_params['vfs_quotalimit'] > -1 &&
+            ($vfssize + $filesize) > $this->_params['vfs_quotalimit']) {
             throw new Horde_Vfs_Exception('Unable to write VFS file, quota will be exceeded.');
-        } elseif ($this->_vfsSize !== 0) {
+        }
+
+        if (!is_null($this->_vfsSize)) {
             $this->_vfsSize += $filesize;
         }
     }
@@ -762,8 +755,7 @@ abstract class Horde_Vfs_Base
      */
     protected function _checkQuotaDelete($path, $name)
     {
-        if (($this->_params['vfs_quotalimit'] != -1) &&
-            !empty($this->_vfsSize)) {
+        if (!is_null($this->_vfsSize)) {
             $this->_vfsSize -= $this->size($path, $name);
         }
     }
@@ -781,9 +773,8 @@ abstract class Horde_Vfs_Base
         if (strlen($path) > 0) {
             if (substr($path, -1) == '/') {
                 return $path . $name;
-            } else {
-                return $path . '/' . $name;
             }
+            return $path . '/' . $name;
         }
 
         return $name;

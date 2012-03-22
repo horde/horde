@@ -1,5 +1,5 @@
 ======================
- Installing Ansel 2.0
+ Installing Ansel 3.0
 ======================
 
 .. contents:: Contents
@@ -22,7 +22,7 @@ To function properly, Ansel **requires** the following:
    for web applications written in PHP.  You must install Horde before
    installing Ansel.
 
-   .. Important:: Ansel 2.0 requires version 4.0+ of the Horde Framework -
+   .. Important:: Ansel 3.0 requires version 5.0+ of the Horde Framework -
                   earlier versions of Horde will **not** work.
 
    .. Important:: Be sure to have completed all of the steps in the

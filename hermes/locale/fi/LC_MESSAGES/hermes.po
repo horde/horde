@@ -1,14 +1,14 @@
 # Finnish translation for Hermes.
 # This file is distributed under the same license as the Hermes package.
 # Copyright
-# Leena Heino <liinu@uta.fi>, 2004-2011.
+# Leena Heino <liinu@uta.fi>, 2004-2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Hermes 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-04 10:15+0200\n"
-"PO-Revision-Date: 2011-04-05 13:14:15+0300\n"
+"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"PO-Revision-Date: 2012-03-07 19:40:13+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -16,17 +16,18 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: lib/Hermes.php:315
+#: lib/Hermes.php:276
 #, php-format
 msgid " (%0.2f hours)"
 msgstr " (%0.2f tuntia)"
 
-#: lib/Hermes.php:317
+#: lib/Hermes.php:278
 #, php-format
 msgid " (%d%%, %0.2f of %0.2f hours)"
 msgstr " (%d%%, %0.2f / %0.2f tuntia)"
 
-#: lib/Admin.php:45 lib/Form/JobType/Edit/Step1.php:23 lib/Form/Search.php:90
+#: lib/Form/Admin/EditJobTypeStepOne.php:29 lib/Form/JobType/Edit/Step1.php:23
+#: lib/Form/Search.php:90
 msgid " (DISABLED)"
 msgstr " (POIS KÄYTÖSTÄ)"
 
@@ -40,7 +41,7 @@ msgstr "\"%s\" ei ole määritelty taulukko."
 msgid "%s Deliverables"
 msgstr "%s Toimitettavia"
 
-#: lib/Hermes.php:434
+#: lib/Hermes.php:398
 #, php-format
 msgid "%s notifications"
 msgstr "%s ilmoitukset"
@@ -49,7 +50,7 @@ msgstr "%s ilmoitukset"
 msgid "- - None - -"
 msgstr "- - Ei mitaan - -"
 
-#: lib/Hermes.php:289
+#: lib/Hermes.php:250
 msgid "--- No Cost Object ---"
 msgstr "--- Ei kustannusobjektia ---"
 
@@ -57,11 +58,11 @@ msgstr "--- Ei kustannusobjektia ---"
 msgid "--- Select A Client ---"
 msgstr "--- Valitse asiakas ---"
 
-#: lib/Data/iif.php:62
+#: lib/Data/Iif.php:74
 msgid "; Notes: "
 msgstr "; Muistiinpanot: "
 
-#: entry.php:70 lib/Driver/Sql.php:121
+#: entry.php:70 lib/Driver/Sql.php:123
 msgid "Access denied; user cannot modify this timeslice."
 msgstr "Käyttö kielletty; käyttäjä ei voi muokata tämä aikasiivua."
 
@@ -69,22 +70,22 @@ msgstr "Käyttö kielletty; käyttäjä ei voi muokata tämä aikasiivua."
 msgid "Active?"
 msgstr "Aktiivi?"
 
-#: admin.php:62 admin.php:224
+#: admin.php:60 admin.php:223
 msgid "Add Job Type"
 msgstr "Lisää työn tyyppi"
 
-#: config/prefs.php:29
+#: config/prefs.php:30
 msgid ""
 "Add stop watch name and start and end time to the description of the time "
 "entry?"
 msgstr ""
 "Lisää ajastimelle nimi ja aloitus- ja lopetusaika aikamerkinnän kuvaukseen?"
 
-#: lib/Form/Time/Entry.php:82 templates/index/timeedit.inc:41
+#: lib/Form/Time/Entry.php:83 templates/index/timeedit.inc:41
 msgid "Additional Notes"
 msgstr "Lisämuistiinpanot"
 
-#: admin.php:30
+#: admin.php:27
 msgid "Administration"
 msgstr "Ylläpito"
 
@@ -99,7 +100,7 @@ msgstr "Tapahtui virhe listattaessa asiakkaita: %s"
 msgid "An error occurred listing job types: %s"
 msgstr "Tapahtui virhe listattaessa työn tyyppejä: %s"
 
-#: lib/Hermes.php:208
+#: lib/Hermes.php:169
 #, php-format
 msgid "An error occurred listing users: %s"
 msgstr "Tapahtui virhe listattaessa käyttäjiä: %s"
@@ -108,7 +109,7 @@ msgstr "Tapahtui virhe listattaessa käyttäjiä: %s"
 msgid "Approved By:"
 msgstr "Hyväksynyt:"
 
-#: templates/index/search.inc:56 templates/index/timeedit.inc:62
+#: templates/index/search.inc:55 templates/index/timeedit.inc:62
 msgid "Bill"
 msgstr "Lasku"
 
@@ -116,7 +117,7 @@ msgstr "Lasku"
 msgid "Bill?"
 msgstr "Lasku?"
 
-#: templates/index/index.inc:82 templates/index/index.inc:87
+#: templates/index/index.inc:87 templates/index/index.inc:92
 #: templates/index/timeedit.inc:28
 msgid "Billable"
 msgstr "Laskutettava"
@@ -125,55 +126,56 @@ msgstr "Laskutettava"
 msgid "Billable Hours"
 msgstr "Laskutettavat tunnit"
 
-#: lib/Admin.php:23 lib/Admin.php:94 lib/Form/JobType/Add.php:18
-#: lib/Form/Search.php:61 lib/Form/Time/Entry.php:70
+#: lib/Form/Admin/AddJobType.php:24 lib/Form/Admin/EditJobTypeStepTwo.php:44
+#: lib/Form/JobType/Add.php:18 lib/Form/Search.php:61
+#: lib/Form/Time/Entry.php:70
 msgid "Billable?"
 msgstr "Laskutettavissa?"
 
-#: lib/Hermes.php:337
+#: lib/Hermes.php:298
 msgid "By Client"
 msgstr "Asiakas"
 
-#: lib/Hermes.php:339
+#: lib/Hermes.php:300
 msgid "By Cost Object"
 msgstr "Kustannusobjekti"
 
-#: lib/Hermes.php:335
+#: lib/Hermes.php:296
 msgid "By Date"
 msgstr "Päiväys"
 
-#: lib/Hermes.php:336
+#: lib/Hermes.php:297
 msgid "By Employee"
 msgstr "Työntekijä"
 
-#: lib/Hermes.php:338
+#: lib/Hermes.php:299
 msgid "By Job Type"
 msgstr "Työn tyyppi"
 
-#: templates/index/timeedit.inc:49
+#: templates/index/timeedit.inc:49 templates/index/timer.inc:11
 msgid "Cancel"
 msgstr "Peru"
 
-#: lib/Driver/Sql.php:561
+#: lib/Driver/Sql.php:580
 msgid "Cannot delete deliverable; it has children."
 msgstr "Ei voi poistaa tuotettavaa; lapsia olemassa."
 
-#: lib/Driver/Sql.php:572
+#: lib/Driver/Sql.php:591
 msgid "Cannot delete deliverable; there is time entered on it."
 msgstr "Ei voida poistaa tuotettavaa; aikatieto olemassa."
 
-#: invoicing.php:34 lib/Admin.php:179 lib/Api.php:52
+#: invoicing.php:34 lib/Api.php:52 lib/Form/Admin/EditClientStepTwo.php:36
 #: lib/Form/Deliverable/ClientSelector.php:21 lib/Form/Time/Entry.php:54
-#: templates/index/search.inc:21 templates/index/search.inc:52
+#: templates/index/search.inc:21 templates/index/search.inc:51
 #: templates/index/timeedit.inc:12 templates/index/timeedit.inc:58
 msgid "Client"
 msgstr "Asiakas"
 
-#: lib/Admin.php:152
+#: lib/Form/Admin/EditClientStepOne.php:34
 msgid "Client Name"
 msgstr "Asiakkaan nimi"
 
-#: lib/Form/Search.php:33 templates/index/index.inc:42
+#: lib/Form/Search.php:33 templates/index/index.inc:47
 msgid "Clients"
 msgstr "Asiakkaat"
 
@@ -181,17 +183,17 @@ msgstr "Asiakkaat"
 msgid "Combine same clients in one invoice"
 msgstr "Yhdistä samat asiakkaat yhdelle laskulle"
 
-#: lib/Form/Export.php:29
+#: lib/Form/Export.php:30
 msgid "Comma-Separated Variable (.csv)"
 msgstr "Pilkuilla erotetut muuttujat (.csv)"
 
 #: invoicing.php:42 lib/Api.php:58 lib/Form/Time/Entry.php:63
-#: templates/index/search.inc:29 templates/index/search.inc:53
+#: templates/index/search.inc:29 templates/index/search.inc:52
 #: templates/index/timeedit.inc:16 templates/index/timeedit.inc:59
 msgid "Cost Object"
 msgstr "Kustannusobjekti"
 
-#: lib/Form/Search.php:41 templates/index/index.inc:41
+#: lib/Form/Search.php:41 templates/index/index.inc:46
 msgid "Cost Objects"
 msgstr "Kustannusobjektit"
 
@@ -200,7 +202,7 @@ msgid "Create invoice"
 msgstr "Luo lasku"
 
 #: invoicing.php:40 lib/Api.php:43 lib/Form/Time/Entry.php:50
-#: templates/index/search.inc:50 templates/index/timeedit.inc:19
+#: templates/index/search.inc:49 templates/index/timeedit.inc:19
 #: templates/index/timeedit.inc:57
 msgid "Date"
 msgstr "Päiväys"
@@ -213,15 +215,15 @@ msgstr "Poista"
 msgid "Delete Entry"
 msgstr "Poista merkintä"
 
-#: admin.php:91 admin.php:223
+#: admin.php:89 admin.php:222
 msgid "Delete Job Type"
 msgstr "Poista työn tyyppi"
 
-#: admin.php:96 admin.php:211
+#: admin.php:94 admin.php:210
 msgid "Delete Job Type: Confirmation"
 msgstr "Poista tuon tyyppi: Varmistus"
 
-#: deliverables.php:85
+#: deliverables.php:96
 msgid "Delete This Deliverable"
 msgstr "Poista tämä tuotettava"
 
@@ -247,12 +249,12 @@ msgstr "Tuotettavan tallennus onnistui."
 msgid "Deliverable successfully deleted."
 msgstr "Tuotettavan poisto onnistui."
 
-#: deliverables.php:48 lib/Api.php:358 lib/Application.php:60
+#: deliverables.php:48 lib/Api.php:359 lib/Application.php:60
 msgid "Deliverables"
 msgstr "Tuotettavat"
 
 #: invoicing.php:41 lib/Api.php:72 lib/Form/Deliverable.php:27
-#: lib/Form/Time/Entry.php:81 templates/index/search.inc:55
+#: lib/Form/Time/Entry.php:82 templates/index/search.inc:54
 #: templates/index/timeedit.inc:38 templates/index/timeedit.inc:61
 msgid "Description"
 msgstr "Kuvaus"
@@ -261,7 +263,7 @@ msgstr "Kuvaus"
 msgid "Display Name"
 msgstr "Näkymän nimi"
 
-#: config/prefs.php:19
+#: config/prefs.php:20
 msgid "Display Preferences"
 msgstr "Näkymän asetukset"
 
@@ -273,7 +275,7 @@ msgstr "Älä sisällytä merkintöjä jälkeen"
 msgid "Do not include entries before"
 msgstr "Älä sisällytä merkintöjä ennen"
 
-#: templates/index/search.inc:71 templates/index/timeedit.inc:76
+#: templates/index/search.inc:70 templates/index/timeedit.inc:76
 msgid "Edit"
 msgstr "Muokkaa"
 
@@ -282,11 +284,11 @@ msgstr "Muokkaa"
 msgid "Edit %s"
 msgstr "Muokkaa %s"
 
-#: admin.php:133 admin.php:225
+#: admin.php:131 admin.php:224
 msgid "Edit Client Settings"
 msgstr "Muokkaa asiakkaan asetuksia"
 
-#: admin.php:125 admin.php:184
+#: admin.php:123 admin.php:183
 msgid "Edit Client Settings, Step 2"
 msgstr "Muokkaa asiakkaan asetuksia, askel 2"
 
@@ -298,11 +300,11 @@ msgstr "Muokkaa tuotettavia"
 msgid "Edit Entry"
 msgstr "Muokkaa merkintää"
 
-#: admin.php:78 admin.php:223
+#: admin.php:76 admin.php:222
 msgid "Edit Job Type"
 msgstr "Muokkaa työn tyyppiä"
 
-#: admin.php:83
+#: admin.php:81
 msgid "Edit Job Type, Step 2"
 msgstr "Muokkaa työn tyyppiä, askel 2"
 
@@ -310,16 +312,16 @@ msgstr "Muokkaa työn tyyppiä, askel 2"
 msgid "Edit Time"
 msgstr "Muokkaa aikaa"
 
-#: admin.php:106
+#: admin.php:104
 msgid "Edit job type"
 msgstr "Muokkaa työn tyyppiä"
 
-#: admin.php:159
+#: admin.php:157
 msgid "Edit job type, Step 2"
 msgstr "Muokkaa työn tyyppiä, askel 2"
 
 #: invoicing.php:35 lib/Api.php:48 templates/index/search.inc:9
-#: templates/index/search.inc:51
+#: templates/index/search.inc:50
 msgid "Employee"
 msgstr "Työntekijä"
 
@@ -327,20 +329,25 @@ msgstr "Työntekijä"
 msgid "Employees"
 msgstr "Työntekijät"
 
-#: lib/Admin.php:21 lib/Admin.php:92 lib/Form/JobType/Add.php:16
+#: lib/Form/Admin/AddJobType.php:22 lib/Form/Admin/EditJobTypeStepTwo.php:42
+#: lib/Form/JobType/Add.php:16
 msgid "Enabled?"
 msgstr "Käytössä?"
 
-#: lib/Application.php:80
+#: lib/Application.php:104
 msgid "Enter Time"
 msgstr "Anna aika"
+
+#: templates/index/timer.inc:6
+msgid "Enter title for the new timer."
+msgstr "Anna otsikko uudelle ajastimelle."
 
 #: deliverables.php:43
 #, php-format
 msgid "Error deleting deliverable: %s"
 msgstr "Tapahtui virhe poistettaessa tuotettavia: %s"
 
-#: lib/Form/Search.php:117 lib/Hermes.php:271
+#: lib/Form/Search.php:117 lib/Hermes.php:232
 #, php-format
 msgid "Error retrieving cost objects from \"%s\": %s"
 msgstr "Virhe poistettaessa kustannusobjektia lähteestä \"%s\": %s"
@@ -350,11 +357,11 @@ msgstr "Virhe poistettaessa kustannusobjektia lähteestä \"%s\": %s"
 msgid "Error saving deliverable: %s"
 msgstr "Tapahtui virhe tallennettaessa tuotettavaa: %s"
 
-#: lib/Hermes.php:430
+#: lib/Hermes.php:394
 msgid "Error when communicating with the server."
 msgstr "Virhe palvelinyhteyksissä."
 
-#: lib/Driver/Sql.php:282
+#: lib/Driver/Sql.php:292
 #, php-format
 msgid "Error: %s"
 msgstr "Virhe: %s"
@@ -363,7 +370,7 @@ msgstr "Virhe: %s"
 msgid "Estimated Hours"
 msgstr "Arvoidut tunnit"
 
-#: lib/Form/Export.php:47
+#: lib/Form/Export.php:48
 msgid "Export"
 msgstr "Vie"
 
@@ -371,7 +378,7 @@ msgstr "Vie"
 msgid "Export Search Results"
 msgstr "Vie haun tulokset"
 
-#: templates/index/search.inc:77
+#: templates/index/search.inc:76
 msgid "Export Time"
 msgstr "Vie aika"
 
@@ -379,38 +386,40 @@ msgstr "Vie aika"
 msgid "Exported?"
 msgstr "Viety?"
 
-#: config/prefs.php:11 config/prefs.php:18
+#: config/prefs.php:12 config/prefs.php:19
 msgid "General Preferences"
 msgstr "Yleiset asetukset"
 
-#: index.php:24
+#: index.php:25
 msgid "Help"
 msgstr "Ohje"
 
-#: lib/Hermes.php:435
+#: lib/Hermes.php:399
 msgid "Hide Notifications"
 msgstr "Piilota ilmoitukset"
 
-#: lib/Admin.php:25 lib/Admin.php:96 lib/Form/JobType/Add.php:20
+#: lib/Form/Admin/AddJobType.php:26 lib/Form/Admin/EditJobTypeStepTwo.php:46
+#: lib/Form/JobType/Add.php:20
 msgid "Hourly Rate"
 msgstr "Tuntitaksa"
 
 #: invoicing.php:38 lib/Api.php:60 lib/Form/Time/Entry.php:66
-#: templates/index/search.inc:57 templates/index/timeedit.inc:24
+#: templates/index/search.inc:56 templates/index/timeedit.inc:24
 #: templates/index/timeedit.inc:63
 msgid "Hours"
 msgstr "Tunnit"
 
-#: lib/Admin.php:187
+#: lib/Form/Admin/EditClientStepTwo.php:44
 msgid ""
 "ID for this client when exporting data, if different from the name displayed "
 "above."
 msgstr ""
 "ID tälle asiakkalle tietoja vietäessä, jos se on eri kuin yllä mainittu nimi."
 
-#: lib/Api.php:428
-msgid "Invalid entry: check data and retry."
-msgstr "Kelvoton merkintä: tarkista tiedot ja yritä uudelleen."
+#: lib/Ajax/Application.php:153 lib/Ajax/Application.php:178
+#: lib/Ajax/Application.php:195
+msgid "Invalid timer requested"
+msgstr "Pyydettiin epäkelpoa ajastinta"
 
 #: invoicing.php:116
 #, php-format
@@ -425,32 +434,38 @@ msgstr "Laskutus"
 msgid "Invoicing system is not installed."
 msgstr "Laskutusjärjestelmä ei ole asennettu."
 
-#: invoicing.php:36 lib/Admin.php:20 lib/Admin.php:87 lib/Admin.php:121
-#: lib/Api.php:56 lib/Form/JobType/Add.php:15 lib/Form/Time/Entry.php:60
-#: templates/index/search.inc:25 templates/index/search.inc:54
-#: templates/index/timeedit.inc:33 templates/index/timeedit.inc:60
+#: invoicing.php:36 lib/Api.php:56 lib/Form/Admin/AddJobType.php:21
+#: lib/Form/Admin/DeleteJobType.php:32
+#: lib/Form/Admin/EditJobTypeStepTwo.php:37 lib/Form/JobType/Add.php:15
+#: lib/Form/Time/Entry.php:60 templates/index/search.inc:25
+#: templates/index/search.inc:53 templates/index/timeedit.inc:33
+#: templates/index/timeedit.inc:60
 msgid "Job Type"
 msgstr "Työn tyyppi"
 
-#: lib/Form/Search.php:38 templates/index/index.inc:43
+#: lib/Form/Search.php:38 templates/index/index.inc:48
 msgid "Job Types"
 msgstr "Työn tyypit"
 
-#: lib/Admin.php:58 lib/Form/JobType/Edit/Step1.php:36
+#: lib/Form/Admin/EditJobTypeStepOne.php:42 lib/Form/JobType/Edit/Step1.php:36
 msgid "JobType Name"
 msgstr "Työn tyypin nimi"
 
-#: templates/index/index.inc:40
+#: templates/index/index.inc:45
 msgid "Log"
 msgstr "Loki"
 
-#: lib/Form/Export.php:41
+#: lib/Form/Export.php:42
 msgid "Mark the time as exported?"
 msgstr "Merkitse aika viedyksi?"
 
-#: lib/Form/Export.php:30
+#: lib/Form/Export.php:31
 msgid "Microsoft Excel (.xls)"
 msgstr "Microsoft Excel (.xls)"
+
+#: lib/Api.php:409
+msgid "Missing required values: check data and retry"
+msgstr "Puuttuu pakollisia merkintöjä: tarkista tiedot ja yritä uudelleen."
 
 #: time.php:65
 msgid "My Time"
@@ -460,11 +475,11 @@ msgstr "Oma aika"
 msgid "My Unsubmitted Time"
 msgstr "Oma lähettämätön aika"
 
-#: lib/Hermes.php:87
+#: lib/Application.php:72
 msgid "My _Time"
 msgstr "Oma _Aika"
 
-#: deliverables.php:83
+#: deliverables.php:89
 msgid "New Sub-deliverable"
 msgstr "Uusi alituotettava"
 
@@ -472,24 +487,24 @@ msgstr "Uusi alituotettava"
 msgid "New Time"
 msgstr "Uusi aika"
 
-#: templates/deliverables/list.inc:10
+#: templates/deliverables/list.inc:12
 msgid "New Top-level Deliverable"
 msgstr "Uusi ylimmän tason tuotettava"
 
-#: templates/index/index.inc:62
+#: templates/index/index.inc:67
 msgid "Next month"
 msgstr "Seuraava kuukausi"
 
-#: invoicing.php:70 lib/Admin.php:117 lib/Api.php:31 lib/Form/Export.php:40
-#: lib/Form/Search.php:54 lib/Form/Time/Entry.php:69
+#: invoicing.php:70 lib/Api.php:31 lib/Form/Admin/DeleteJobType.php:28
+#: lib/Form/Export.php:41 lib/Form/Search.php:54 lib/Form/Time/Entry.php:69
 msgid "No"
 msgstr "Ei"
 
-#: lib/Hermes.php:433
+#: lib/Hermes.php:397
 msgid "No Notifications"
 msgstr "Ei ilmoituksia"
 
-#: templates/index/search.inc:74 templates/index/timeedit.inc:79
+#: templates/index/search.inc:73 templates/index/timeedit.inc:79
 msgid "No Time Slices"
 msgstr "Ei aikasiivuja"
 
@@ -502,7 +517,7 @@ msgstr "Ei työtyyppiä ID:llä \"%s\"."
 msgid "No search to export!"
 msgstr "Ei hakuja vietäväksi!"
 
-#: search.php:57
+#: search.php:59
 msgid "No time to export!"
 msgstr "Ei aikatietoja vietäväksi!"
 
@@ -510,7 +525,7 @@ msgstr "Ei aikatietoja vietäväksi!"
 msgid "No timeslices were selected to submit."
 msgstr "Ei aikaviipaleita merkitty lähetettäväksi."
 
-#: templates/index/index.inc:83 templates/index/index.inc:88
+#: templates/index/index.inc:88 templates/index/index.inc:93
 msgid "Non-Billable"
 msgstr "Ei laskutettavissa"
 
@@ -522,23 +537,23 @@ msgstr "Ei laskutettavat tunnit"
 msgid "Notes"
 msgstr "Muistiinpanot"
 
-#: templates/index/index.inc:32
+#: templates/index/index.inc:31
 msgid "Options"
 msgstr "Asetukset"
 
-#: lib/Hermes.php:440
+#: lib/Hermes.php:404
 msgid "Please enter correct values in the form first."
 msgstr "Anna ensin oikeat arvot lomakkeeseen."
 
-#: lib/Hermes.php:438
+#: lib/Hermes.php:402
 msgid "Preferences"
 msgstr "Asetukset"
 
-#: templates/index/index.inc:61
+#: templates/index/index.inc:66
 msgid "Previous month"
 msgstr "Edellinen kuukausi"
 
-#: lib/Form/Export.php:31
+#: lib/Form/Export.php:32
 msgid "QuickBooks (.iif)"
 msgstr "QuickBooks (.iif)"
 
@@ -546,11 +561,12 @@ msgstr "QuickBooks (.iif)"
 msgid "Rate"
 msgstr "Taksa"
 
-#: lib/Admin.php:124
-msgid "Really delete this job type? This may cause data problems!!"
-msgstr "Poistaanko tämä työn tyyppi? Tämä voi aiheuttaa ongelmia!!"
+#: lib/Form/Admin/DeleteJobType.php:36
+msgid "Really delete this job type? This may cause data problems!"
+msgstr "Poistaanko tämä työn tyyppi? Tämä voi aiheuttaa ongelmia!"
 
 #: lib/Form/Time/Entry.php:33 templates/index/timeedit.inc:47
+#: templates/index/timer.inc:10
 msgid "Save"
 msgstr "Tallenna"
 
@@ -558,8 +574,8 @@ msgstr "Tallenna"
 msgid "Save As New"
 msgstr "Tallenna uutena"
 
-#: lib/Form/Search.php:64 templates/index/index.inc:44
-#: templates/index/search.inc:5 templates/index/search.inc:46
+#: lib/Form/Search.php:64 templates/index/index.inc:49
+#: templates/index/search.inc:5 templates/index/search.inc:45
 #: templates/index/timeedit.inc:53
 msgid "Search"
 msgstr "Haku"
@@ -568,19 +584,19 @@ msgstr "Haku"
 msgid "Search For Time"
 msgstr "Hae aikoja"
 
-#: lib/Api.php:98 search.php:105 templates/index/search.inc:46
+#: lib/Api.php:98 search.php:102 templates/index/search.inc:45
 msgid "Search Results"
 msgstr "Haun tulokset"
 
-#: lib/Application.php:92
+#: lib/Application.php:116
 msgid "Search Time"
 msgstr "Hae aikoja"
 
-#: search.php:80
+#: search.php:82
 msgid "Search for Time"
 msgstr "Hae aikoja"
 
-#: lib/Admin.php:182 lib/Form/Time/Entry.php:78
+#: lib/Form/Admin/EditClientStepTwo.php:39 lib/Form/Time/Entry.php:79
 msgid "See Attached Timesheet"
 msgstr "Katso liitettyä aikataulukkoa"
 
@@ -588,7 +604,7 @@ msgstr "Katso liitettyä aikataulukkoa"
 msgid "Select Client"
 msgstr "Valitse asiakas"
 
-#: config/prefs.php:20
+#: config/prefs.php:21
 msgid ""
 "Select confirmation preferences, how to display the different views and "
 "choose default view."
@@ -600,7 +616,7 @@ msgstr ""
 msgid "Select hours to be invoiced"
 msgstr "Valitse laskutettavat tunnit"
 
-#: lib/Form/Export.php:35
+#: lib/Form/Export.php:36
 msgid "Select the export format"
 msgstr "Valitse viennissä käytettävä muoto"
 
@@ -608,7 +624,7 @@ msgstr "Valitse viennissä käytettävä muoto"
 msgid "Set date"
 msgstr "Aseta päiväys"
 
-#: config/prefs.php:13
+#: config/prefs.php:14
 msgid "Set preferences on the stop watch timer."
 msgstr "Aseta asetukset ajastimelle"
 
@@ -616,7 +632,7 @@ msgstr "Aseta asetukset ajastimelle"
 msgid "Set start date"
 msgstr "Aseta alkamispäiväys"
 
-#: lib/Admin.php:182
+#: lib/Form/Admin/EditClientStepTwo.php:39
 #, php-format
 msgid ""
 "Should users enter descriptions of their timeslices for this client? If not, "
@@ -625,25 +641,25 @@ msgstr ""
 "Saavatko käyttäjät laittaa omia kuvauksia heidän aikaviipaleilleen tälle "
 "asiakkaalle? Jos ei niin, kuvaus on oletuksena \"%s\"."
 
-#: config/prefs.php:43
+#: config/prefs.php:44
 msgid "Show the dynamic view by default, if the browser supports it?"
 msgstr ""
 "Käytetäänkö oletuksena dynaamista näkymää oletuksena, jos selaimesi tukee "
 "sitä?"
 
-#: lib/Application.php:109
+#: lib/Application.php:130
 msgid "Start Watch"
 msgstr "Aloita ajastin"
 
-#: start.php:17 start.php:43
+#: start.php:16 start.php:29
 msgid "Stop Watch"
 msgstr "Lopeta ajastin"
 
-#: config/prefs.php:12
+#: config/prefs.php:13
 msgid "Stop watch Preferences"
 msgstr "Ajastimen asetukset"
 
-#: start.php:18
+#: start.php:17
 msgid "Stop watch description"
 msgstr "Ajastimen kuvaus"
 
@@ -659,11 +675,11 @@ msgstr "Lähetä aika"
 msgid "Submitted?"
 msgstr "Lähetetty?"
 
-#: lib/Hermes.php:334
+#: lib/Hermes.php:295
 msgid "Summary"
 msgstr "Yhteenveto"
 
-#: lib/Form/Export.php:32
+#: lib/Form/Export.php:33
 msgid "Tab-Separated Variable (.tsv, .txt)"
 msgstr "Tabulaattorilla erotetut muuttujat (.tsv,.txt)"
 
@@ -671,36 +687,36 @@ msgstr "Tabulaattorilla erotetut muuttujat (.tsv,.txt)"
 msgid "Table"
 msgstr "Taulukko"
 
-#: lib/Hermes.php:439
+#: lib/Hermes.php:403
 msgid "The authentication information you specified wasn't accepted."
 msgstr "Antamasi autentikointitiedot olivat väärin."
 
-#: admin.php:176
+#: admin.php:175
 msgid "The client settings have been modified."
 msgstr "Asiakkaan asetuksia on muokattu."
 
-#: lib/Hermes.php:432
+#: lib/Hermes.php:396
 msgid "The connection to the server has been restored."
 msgstr "Yhteys palvelimeen on saatu palautettua."
 
-#: admin.php:54
+#: admin.php:52
 #, php-format
 msgid "The job type \"%s\" has been added."
 msgstr "Työn tyyppi \"%s\" on lisätty."
 
-#: admin.php:200
+#: admin.php:199
 msgid "The job type has been deleted."
 msgstr "Työn tyyppi on poistettu."
 
-#: admin.php:151
+#: admin.php:149
 msgid "The job type has been modified."
 msgstr "Työn tyyppi on muokattu."
 
-#: admin.php:205
+#: admin.php:204
 msgid "The job type was not deleted."
 msgstr "Työn tyyppiä ei poistettu."
 
-#: start.php:36
+#: start.php:22
 #, php-format
 msgid ""
 "The stop watch \"%s\" has been started and will appear in the sidebar at the "
@@ -709,7 +725,7 @@ msgstr ""
 "Ajastin \"%s\" on käynnistetty ja tulee näkyviin sivuikkunaan seuraavan "
 "päivityksen jälkeen."
 
-#: entry.php:26
+#: entry.php:27 lib/Ajax/Application.php:167
 #, php-format
 msgid "The stop watch \"%s\" has been stopped."
 msgstr "Ajastin \"%s\" on pysäytetty."
@@ -718,7 +734,7 @@ msgstr "Ajastin \"%s\" on pysäytetty."
 msgid "The time entry was successfully deleted."
 msgstr "Aikamerkinnän poistaminen onnistui."
 
-#: lib/Admin.php:145
+#: lib/Form/Admin/EditClientStepOne.php:27
 msgid "There are no clients to edit"
 msgstr "Ei asiakkaita muokattavaksi"
 
@@ -730,11 +746,11 @@ msgstr "Ei asiakkaita, joihin on pääsy sallittu."
 msgid "There are no job types configured."
 msgstr "Ei työn tyyppejä määriteltynä."
 
-#: lib/Admin.php:55 lib/Form/JobType/Edit/Step1.php:33
+#: lib/Form/Admin/EditJobTypeStepOne.php:39 lib/Form/JobType/Edit/Step1.php:33
 msgid "There are no job types to edit"
 msgstr "Ei työn tyyppejä muokattavaksi"
 
-#: lib/Hermes.php:431
+#: lib/Hermes.php:395
 msgid ""
 "There has been no contact with the server for several minutes. The server "
 "may be temporarily unavailable or network problems may be interrupting your "
@@ -748,12 +764,12 @@ msgstr ""
 msgid "There is no submitted billable hours."
 msgstr "Ei ole lähetettäviä laskutettavia tunteja."
 
-#: admin.php:56
+#: admin.php:54
 #, php-format
 msgid "There was an error adding the job type: %s."
 msgstr "Tapahtui virhe lisättäessä työn tyypiä: %s."
 
-#: admin.php:202
+#: admin.php:201
 #, php-format
 msgid "There was an error deleting the job type: %s."
 msgstr "Tapahtui virhe poistettaessa työn tyyppiä: %s."
@@ -763,17 +779,17 @@ msgstr "Tapahtui virhe poistettaessa työn tyyppiä: %s."
 msgid "There was an error deleting the time: %s"
 msgstr "Tapahtui virhe poistettaessa aikaa: %s"
 
-#: admin.php:178
+#: admin.php:177
 #, php-format
 msgid "There was an error editing the client settings: %s."
 msgstr "Tapahtui virhe muokattaessa asiakkaan asetuksia: %s."
 
-#: admin.php:153
+#: admin.php:151
 #, php-format
 msgid "There was an error editing the job type: %s."
 msgstr "Tapahtui virhe muokattaessa työn tyyppiä: %s."
 
-#: entry.php:49
+#: entry.php:42 entry.php:58
 #, php-format
 msgid "There was an error storing your timesheet: %s"
 msgstr "Tapahtui virhe tallennettaessa aikataulukkoasi: %s"
@@ -783,15 +799,15 @@ msgstr "Tapahtui virhe tallennettaessa aikataulukkoasi: %s"
 msgid "There was an error submitting your time: %s"
 msgstr "Tapahtui virhe tallennettaessa aikaasi: %s"
 
-#: lib/Admin.php:172
+#: lib/Form/Admin/EditClientStepTwo.php:29
 msgid "This is not a valid client."
 msgstr "Tämä ei ole kelvollinen asiakas."
 
-#: lib/Admin.php:79
+#: lib/Form/Admin/EditJobTypeStepTwo.php:29
 msgid "This is not a valid job type."
 msgstr "Tämä ei ole kelvollinen työn tyyppi"
 
-#: lib/Hermes.php:436
+#: lib/Hermes.php:400
 msgid "This is the notification backlog"
 msgstr "Tämä on ilmoitusloki"
 
@@ -803,15 +819,15 @@ msgstr "Aika merkintää"
 msgid "Time Review Screen"
 msgstr "Aika tarkitusikkuna"
 
-#: templates/index/index.inc:79
+#: templates/index/index.inc:84
 msgid "Time Summary"
 msgstr "Aika yhteenveto"
 
-#: templates/index/index.inc:81
+#: templates/index/index.inc:86
 msgid "Today"
 msgstr "Tänään"
 
-#: invoicing.php:39 templates/index/index.inc:86
+#: invoicing.php:39 templates/index/index.inc:91
 msgid "Total"
 msgstr "Yhteensä"
 
@@ -832,17 +848,17 @@ msgstr "Lähettämätön aika"
 msgid "Update Time"
 msgstr "Päivitä aika"
 
-#: entry.php:24
+#: entry.php:25 lib/Ajax/Application.php:163
 #, php-format
 msgid "Using the \"%s\" stop watch from %s to %s"
 msgstr "Käyttäen \"%s\" ajastinta %s - %s"
 
-#: invoicing.php:70 lib/Admin.php:117 lib/Api.php:30 lib/Form/Export.php:39
-#: lib/Form/Search.php:53 lib/Form/Time/Entry.php:69
+#: invoicing.php:70 lib/Api.php:30 lib/Form/Admin/DeleteJobType.php:28
+#: lib/Form/Export.php:40 lib/Form/Search.php:53 lib/Form/Time/Entry.php:69
 msgid "Yes"
 msgstr "Kyllä"
 
-#: index.php:15
+#: index.php:16
 msgid ""
 "Your browser is too old to display the dynamic mode. Using traditional mode "
 "instead."
@@ -854,7 +870,7 @@ msgstr ""
 msgid "Your time entry was successfully deleted."
 msgstr "Aikamerkintäsi poistaminen onnistui."
 
-#: entry.php:43 lib/Ajax/Application.php:60
+#: entry.php:53 lib/Ajax/Application.php:60
 msgid "Your time was successfully entered."
 msgstr "Aikasi merkittiin onnistuneesti."
 
@@ -862,39 +878,35 @@ msgstr "Aikasi merkittiin onnistuneesti."
 msgid "Your time was successfully submitted."
 msgstr "Aikasi lähetettiin onnistuneesti."
 
-#: entry.php:39 lib/Ajax/Application.php:110
+#: entry.php:50 lib/Ajax/Application.php:110
 msgid "Your time was successfully updated."
 msgstr "Aikasi päivitettiin onnistuneesti."
 
-#: lib/Hermes.php:106
+#: lib/Application.php:88
 msgid "_Admin"
 msgstr "_Ylläpito"
 
-#: lib/Hermes.php:92
+#: lib/Application.php:78
 msgid "_Deliverables"
 msgstr "_Tuotettavat"
 
-#: lib/Hermes.php:96
+#: lib/Application.php:83
 msgid "_Invoicing"
 msgstr "_Laskutus"
 
-#: templates/index/index.inc:32
+#: templates/index/index.inc:35 templates/index/index.inc:36
 msgid "_Logout"
 msgstr "_Kirjaudu ulos"
 
-#: lib/Hermes.php:88
+#: lib/Application.php:73
 msgid "_New Time"
 msgstr "_Uusi aika"
 
-#: lib/Hermes.php:101
-msgid "_Print"
-msgstr "_Tulosta"
-
-#: lib/Hermes.php:89
+#: lib/Application.php:74
 msgid "_Search"
 msgstr "_Haku"
 
-#: lib/Hermes.php:437
+#: lib/Hermes.php:401
 msgid "more..."
 msgstr "lisää..."
 
@@ -902,6 +914,6 @@ msgstr "lisää..."
 msgid "no client"
 msgstr "ei asiakasta"
 
-#: templates/index/timeedit.inc:49
+#: templates/index/timeedit.inc:49 templates/index/timer.inc:11
 msgid "or"
 msgstr "tai"

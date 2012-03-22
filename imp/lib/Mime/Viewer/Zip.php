@@ -20,9 +20,7 @@ class IMP_Mime_Viewer_Zip extends Horde_Mime_Viewer_Zip
      * Return the full rendered version of the Horde_Mime_Part object.
      *
      * URL parameters used by this function:
-     * <pre>
-     * 'zip_attachment' - (integer) The ZIP attachment to download.
-     * </pre>
+     *   - zip_attachment: (integer) The ZIP attachment to download.
      *
      * @return array  See parent::render().
      * @throws Horde_Exception

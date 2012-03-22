@@ -8,7 +8,7 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 $permission = 'locks';
 Horde_Registry::appInit('horde');
 if (!$registry->isAdmin() &&
@@ -49,7 +49,7 @@ try {
         $lock['end'] = strftime($format, $lock['lock_expiry_timestamp']);
     }
     $view->locks = $locks;
-    Horde::addScriptFile('tables.js', 'horde');
+    $injector->getInstance('Horde_PageOutput')->addScriptFile('tables.js', 'horde');
 } catch (Horde_Lock_Exception $e) {
     $view->locks = array();
     $view->error = sprintf(_("Listing locks failed: %s"), $e->getMessage());

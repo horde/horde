@@ -10,6 +10,6 @@ $search = array(
     )
 );
 
-if (file_exists(dirname(__FILE__) . '/search.local.php')) {
-    require_once(dirname(__FILE__) . '/search.local.php');
+if (file_exists(__DIR__ . '/search.local.php')) {
+    require_once(__DIR__ . '/search.local.php');
 }

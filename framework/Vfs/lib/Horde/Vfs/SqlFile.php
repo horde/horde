@@ -331,13 +331,13 @@ class Horde_Vfs_SqlFile extends Horde_Vfs_File
     }
 
     /**
-     * Return a list of the contents of a folder.
+     * Returns an unsorted file list of the specified directory.
      *
-     * @param string $path       The directory path.
-     * @param mixed $filter      String/hash of items to filter based on
-     *                           filename.
-     * @param boolean $dotfiles  Show dotfiles?
-     * @param boolean $dironly   Show directories only?
+     * @param string $path          The path of the directory.
+     * @param string|array $filter  Regular expression(s) to filter
+     *                              file/directory name on.
+     * @param boolean $dotfiles     Show dotfiles?
+     * @param boolean $dironly      Show only directories?
      *
      * @return array  File list.
      * @throws Horde_Vfs_Exception
@@ -400,74 +400,6 @@ class Horde_Vfs_SqlFile extends Horde_Vfs_File
         }
 
         return $files;
-    }
-
-    /**
-     * Returns a sorted list of folders in specified directory.
-     *
-     * @param string $path         The path of the directory to get the
-     *                             directory list for.
-     * @param mixed $filter        String/hash of items to filter based on
-     *                             folderlist.
-     * @param boolean $dotfolders  Include dotfolders?
-     *
-     * @return array  Folder list.
-     * @throws Horde_Vfs_Exception
-     */
-    public function listFolders($path = '', $filter = array(),
-                                $dotfolders = true)
-    {
-        $this->_connect();
-
-        $sql = sprintf('SELECT vfs_name, vfs_path FROM %s WHERE vfs_path = ? AND vfs_type = ?',
-                       $this->_params['table']);
-
-        $folderList = $this->_db->getAll($sql, array($path, self::FOLDER));
-        if ($folderList instanceof PEAR_Error) {
-            throw new Horde_Vfs_Exception($folderList->getMessage());
-        }
-
-        $folders = array();
-        foreach ($folderList as $line) {
-            $folder['val'] = $this->_getNativePath($line[1], $line[0]);
-            $folder['abbrev'] = '';
-            $folder['label'] = '';
-
-            $count = substr_count($folder['val'], '/');
-
-            $x = 0;
-            while ($x < $count) {
-                $folder['abbrev'] .= '    ';
-                $folder['label'] .= '    ';
-                $x++;
-            }
-
-            $folder['abbrev'] .= $line[0];
-            $folder['label'] .= $line[0];
-
-            $strlen = Horde_String::length($folder['label']);
-            if ($strlen > 26) {
-                $folder['abbrev'] = substr($folder['label'], 0, ($count * 4));
-                $length = (29 - ($count * 4)) / 2;
-                $folder['abbrev'] .= substr($folder['label'], ($count * 4), $length);
-                $folder['abbrev'] .= '...';
-                $folder['abbrev'] .= substr($folder['label'], -1 * $length, $length);
-            }
-
-            $found = false;
-            foreach ($filter as $fltr) {
-                if ($folder['val'] == $fltr) {
-                    $found = true;
-                }
-            }
-
-            if (!$found) {
-                $folders[$folder['val']] = $folder;
-            }
-        }
-
-        ksort($folders);
-        return $folders;
     }
 
     /**

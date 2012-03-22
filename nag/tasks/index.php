@@ -6,7 +6,7 @@
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('nag');
 
 $search = Horde_Util::getGet('q');
@@ -41,9 +41,10 @@ $tasks = $search_results;
 $title = sprintf(_("Search: Results for \"%s\""), $search);
 $actionID = null;
 
-Horde::addScriptFile('tooltips.js', 'horde');
-Horde::addScriptFile('effects.js', 'horde');
-Horde::addScriptFile('quickfinder.js', 'horde');
+$page_output = $injector->getInstance('Horde_PageOutput');
+$page_output->addScriptFile('tooltips.js', 'horde');
+$page_output->addScriptFile('effects.js', 'horde');
+$page_output->addScriptFile('quickfinder.js', 'horde');
 
 if ($prefs->getValue('show_panel')) {
     $bodyClass = 'rightPanel';

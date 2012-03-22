@@ -16,19 +16,20 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-12-13</date>
- <time>12:26:58</time>
+ <date>2012-02-28</date>
+ <time>12:27:17</time>
  <version>
-  <release>1.0.6</release>
-  <api>1.0.0</api>
+  <release>2.0.0</release>
+  <api>2.0.0</api>
  </version>
  <stability>
-  <release>stable</release>
-  <api>stable</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
- <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+ <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [mjr] Always provide the longest forecast length available for weather forecast data.
+* [mjr] No longer attempt to create a Horde_Service_Weather provider if we do not have one configured.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -96,7 +97,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -197,7 +198,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * First beta release for Horde 4.
    </notes>
@@ -212,7 +213,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-23</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * First release candidate for Horde 4.
    </notes>
@@ -227,7 +228,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-30</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * Second release candidate for Horde 4.
    </notes>
@@ -242,7 +243,7 @@
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * First stable release for Horde 4.
    </notes>
@@ -255,7 +256,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-05-09</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [jan] Fix installation paths.
    </notes>
@@ -268,7 +269,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-02</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [jan] Export location, description, status, privacy, and URL of Facebook events.
 * [jan] Fix timezone conversion of Facebook events (Bug #10341).
@@ -282,7 +283,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-11-22</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mjr] Remove support for the now non-existent weatherdotcom API.
 * [mjr] Add support for Horde_Service_Weather.
@@ -298,7 +299,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-11-23</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [jan] Fix retrieving driver list if Horde_Service_Weather is not installed.
    </notes>
@@ -311,7 +312,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-12-13</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [jan] Add Dutch translation (Arjen de Korte &lt;arjen+horde@de-korte.org&gt;).
 * [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
@@ -324,10 +325,11 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-12-13</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <date>2012-02-28</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [mjr] Always provide the longest forecast length available for weather forecast data.
+* [mjr] No longer attempt to create a Horde_Service_Weather provider if we do not have one configured.
    </notes>
   </release>
  </changelog>

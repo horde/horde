@@ -8,7 +8,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
 if (Kronolith::showAjaxView()) {
@@ -21,8 +21,9 @@ if ($prefs->getValue('show_panel')) {
     $bodyClass = 'rightPanel';
 }
 
-Horde::addScriptFile('tooltips.js', 'horde');
-Horde::addScriptFile('views.js', 'kronolith');
+$page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+$page_output->addScriptFile('tooltips.js', 'horde');
+$page_output->addScriptFile('views.js');
 
 require $registry->get('templates', 'horde') . '/common-header.inc';
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';

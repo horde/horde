@@ -2,8 +2,6 @@
 /**
  * Object representation of a RFC 822 e-mail address.
  *
- * @since 1.1.0
- *
  * Copyright 2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (BSD). If you
@@ -22,8 +20,15 @@
  * @category  Horde
  * @license   http://www.horde.org/licenses/bsd New BSD License
  * @package   Mail
+ *
+ * @property string $bare_address  The bare mailbox@host address.
+ * @property string $encoded  The full MIME/IDN encoded address (UTF-8).
+ * @property string $host_idn  Returns the IDN encoded host part.
+ * @property string $personal_encoded  The MIME encoded personal part (UTF-8).
+ * @property boolean $valid  Returns true if there is enough information in
+ *                           object to create a valid address.
  */
-class Horde_Mail_Rfc822_Address implements ArrayAccess
+class Horde_Mail_Rfc822_Address extends Horde_Mail_Rfc822_Object
 {
     /**
      * Comments associated with the personal phrase.
@@ -33,13 +38,6 @@ class Horde_Mail_Rfc822_Address implements ArrayAccess
     public $comment = array();
 
     /**
-     * Hostname of the address.
-     *
-     * @var string
-     */
-    public $host = null;
-
-    /**
      * Local-part of the address.
      *
      * @var string
@@ -47,44 +45,88 @@ class Horde_Mail_Rfc822_Address implements ArrayAccess
     public $mailbox = null;
 
     /**
+     * Hostname of the address.
+     *
+     * @var string
+     */
+    protected $_host = null;
+
+    /**
      * Personal part of the address.
      *
      * @var string
      */
-    public $personal = null;
+    protected $_personal = null;
 
     /**
-     * Routing information (obsoleted by RFC 2822 [4.4]).
+     * Constructor.
      *
-     * @deprecated
-     *
-     * @var array
+     * @param string $addresses  If set, address is parsed and used as the
+     *                           object address. Address is not validated;
+     *                           first e-mail address parsed is used.
      */
-    public $route = array();
+    public function __construct($address = null)
+    {
+        if (!is_null($address)) {
+            $rfc822 = new Horde_Mail_Rfc822();
+            $addr = $rfc822->parseAddressList($address);
+            if (count($addr)) {
+                foreach ($addr[0] as $key => $val) {
+                    $this->$key = $val;
+                }
+            }
+        }
+    }
+
+    /**
+     */
+    public function __set($name, $value)
+    {
+        switch ($name) {
+        case 'host':
+            $value = ltrim($value, '@');
+            $this->_host = function_exists('idn_to_utf8')
+                ? strtolower(idn_to_utf8($value))
+                : strtolower($value);
+            break;
+
+        case 'personal':
+            $this->_personal = strlen($value)
+                ? Horde_Mime::decode($value)
+                : null;
+            break;
+        }
+    }
 
     /**
      */
     public function __get($name)
     {
         switch ($name) {
-        case 'adl':
-            // DEPRECATED
-            return empty($route)
-                ? ''
-                : implode(',', $route);
-
-        case 'full_address':
-            // Return the full mailbox@host address.
+        case 'bare_address':
             return is_null($this->host)
                 ? $this->mailbox
                 : $this->mailbox . '@' . $this->host;
 
-        case 'personal_decoded':
-            // DEPRECATED
-            return Horde_Mime::decode($this->personal, 'UTF-8');
+        case 'encoded':
+            return $this->writeAddress(true);
+
+        case 'host':
+            return $this->_host;
+
+        case 'host_idn':
+            return function_exists('idn_to_ascii')
+                ? idn_to_ascii($this->_host)
+                : $this->host;
+
+        case 'personal':
+            return $this->_personal;
 
         case 'personal_encoded':
-            return Horde_Mime::encode($this->personal, 'UTF-8');
+            return Horde_Mime::encode($this->personal);
+
+        case 'valid':
+            return (bool)strlen($this->mailbox);
 
         default:
             return null;
@@ -92,76 +134,38 @@ class Horde_Mail_Rfc822_Address implements ArrayAccess
     }
 
     /**
-     * String representation of object.
-     *
-     * @return string  Returns the full e-mail address.
      */
-    public function __toString()
+    protected function _writeAddress($opts)
     {
-        return $this->writeAddress();
-    }
+        $rfc822 = new Horde_Mail_Rfc822();
 
-    /**
-     * Write an address given information in this part.
-     *
-     * @param array $opts  Optional arguments:
-     *   - encode: (boolean) Encode the personal part?
-     *   - idn: (boolean) See Horde_Mime_Address#writeAddress().
-     *
-     * @return string  The correctly escaped/quoted address.
-     */
-    public function writeAddress(array $opts = array())
-    {
-        return Horde_Mime_Address::writeAddress(
-            $this->mailbox,
-            $this->host,
-            empty($opts['encode']) ? $this->personal : Horde_Mime::encode($this->personal, 'UTF-8'),
-            array(
-                'idn' => (isset($opts['idn']) ? $opts['idn'] : null)
-            )
-        );
-    }
-
-    /* ArrayAccess methods. TODO: Here for BC purposes. Remove for 2.0. */
-
-    /**
-     */
-    public function offsetExists($offset)
-    {
-        return (bool)$this->$offset;
-    }
-
-    /**
-     */
-    public function offsetGet($offset)
-    {
-        return $this->$offset;
-    }
-
-    /**
-     */
-    public function offsetSet($offset, $value)
-    {
-        if (property_exists($this, $offset)) {
-            $this->$offset = $value;
+        $address = $rfc822->encode($this->mailbox, 'address');
+        $host = empty($opts['idn']) ? $this->host : $this->host_idn;
+        if (strlen($host)) {
+            $address .= '@' . $host;
         }
-    }
-
-    /**
-     */
-    public function offsetUnset($offset)
-    {
-        if (property_exists($this, $offset)) {
-            switch ($offset) {
-            case 'comment':
-                $this->comment = array();
-                break;
-
-            default:
-                $this->$offset = null;
-                break;
+        $personal = $this->personal;
+        if (strlen($personal)) {
+            if (!empty($opts['encode'])) {
+                $personal = Horde_Mime::encode($this->personal, $opts['encode']);
             }
+            $personal = $rfc822->encode($personal, 'personal');
         }
+
+        return (strlen($personal) && ($personal != $address))
+            ? $personal . ' <' . $address . '>'
+            : $address;
+    }
+
+    /**
+     */
+    public function match($ob)
+    {
+        if (!($ob instanceof Horde_Mail_Rfc822_Address)) {
+            $ob = new Horde_Mail_Rfc822_Address($ob);
+        }
+
+        return ($this->bare_address == $ob->bare_address);
     }
 
 }

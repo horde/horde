@@ -1,3 +1,3 @@
 <?php
 
-require dirname(__FILE__) . '/forums.php';
+require __DIR__ . '/forums.php';

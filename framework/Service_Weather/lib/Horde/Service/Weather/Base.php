@@ -104,6 +104,13 @@ abstract class Horde_Service_Weather_Base
     protected $_lastLocation;
 
     /**
+     * Last requested forecast length.
+     *
+     * @var integer
+     */
+    protected $_lastLength;
+
+    /**
      * Constructor.
      *
      * @param array $params  Parameters:
@@ -204,7 +211,6 @@ abstract class Horde_Service_Weather_Base
             'rain' => Horde_Service_Weather_Translation::t('millimeters'),
             'snow' => Horde_Service_Weather_Translation::t('centimeters'),
         );
-
     }
 
     /**

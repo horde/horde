@@ -238,12 +238,12 @@ EOD;
         $fh = fopen(HORDE_BASE . '/config/registry.php', 'w');
         $data = <<<EOD
 \$this->applications['horde'] = array(
-    'fileroot' => dirname(__FILE__) . '/..',
+    'fileroot' => __DIR__ . '/..',
     'webroot' => '/',
     'initial_page' => 'login.php',
     'name' => _("Horde"),
     'status' => 'active',
-    'templates' => dirname(__FILE__) . '/../templates',
+    'templates' => __DIR__ . '/../templates',
     'provides' => 'horde',
 );
 EOD;

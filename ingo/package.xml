@@ -22,18 +22,19 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-12-13</date>
- <time>13:14:45</time>
+ <date>2012-01-31</date>
+ <time>19:19:01</time>
  <version>
-  <release>2.0.8</release>
-  <api>2.0.0</api>
+  <release>3.0.0</release>
+  <api>3.0.0</api>
  </version>
  <stability>
-  <release>stable</release>
-  <api>stable</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
- <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+ <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
+* [jan] Validate start and end dates of vacation rules (Request #10879).
 * [mms] Application initialization should only be done on first access.
  </notes>
  <contents>
@@ -73,6 +74,17 @@
     <dir name="Exception">
      <file name="Pear.php" role="horde" />
     </dir> <!-- /lib/Exception -->
+    <dir name="Factory">
+     <file name="Script.php" role="horde" />
+     <file name="Storage.php" role="horde" />
+     <file name="Transport.php" role="horde" />
+    </dir> <!-- /lib/Factory -->
+    <dir name="Form">
+     <file name="Base.php" role="horde" />
+     <file name="Forward.php" role="horde" />
+     <file name="Spam.php" role="horde" />
+     <file name="Vacation.php" role="horde" />
+    </dir> <!-- /lib/Form -->
     <dir name="LoginTasks">
      <dir name="SystemTask">
       <file name="Upgrade.php" role="horde" />
@@ -421,6 +433,9 @@
    </dir> <!-- /templates -->
    <dir name="themes">
     <dir name="default">
+     <dir name="block">
+      <file name="screen.css" role="horde" />
+     </dir> <!-- /themes/default/block -->
      <dir name="graphics">
       <file name="blacklist.png" role="horde" />
       <file name="copy.png" role="horde" />
@@ -437,6 +452,9 @@
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/default -->
     <dir name="silver">
+     <dir name="block">
+      <file name="screen.css" role="horde" />
+     </dir> <!-- /themes/silver/block -->
      <dir name="graphics">
       <file name="blacklist.png" role="horde" />
       <file name="copy.png" role="horde" />
@@ -475,7 +493,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -483,9 +501,9 @@
    <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
-    <min>4.0.0</min>
-    <max>5.0.0</max>
-    <exclude>5.0.0</exclude>
+    <min>5.0.0</min>
+    <max>6.0.0</max>
+    <exclude>6.0.0</exclude>
    </package>
    <package>
     <name>Horde_Auth</name>
@@ -624,6 +642,13 @@
    <install as="ingo/lib/Transport.php" name="lib/Transport.php" />
    <install as="ingo/lib/Block/Overview.php" name="lib/Block/Overview.php" />
    <install as="ingo/lib/Exception/Pear.php" name="lib/Exception/Pear.php" />
+   <install as="ingo/lib/Factory/Script.php" name="lib/Factory/Script.php" />
+   <install as="ingo/lib/Factory/Storage.php" name="lib/Factory/Storage.php" />
+   <install as="ingo/lib/Factory/Transport.php" name="lib/Factory/Transport.php" />
+   <install as="ingo/lib/Form/Base.php" name="lib/Form/Base.php" />
+   <install as="ingo/lib/Form/Forward.php" name="lib/Form/Forward.php" />
+   <install as="ingo/lib/Form/Spam.php" name="lib/Form/Spam.php" />
+   <install as="ingo/lib/Form/Vacation.php" name="lib/Form/Vacation.php" />
    <install as="ingo/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
    <install as="ingo/lib/Script/Imap.php" name="lib/Script/Imap.php" />
    <install as="ingo/lib/Script/Maildrop.php" name="lib/Script/Maildrop.php" />
@@ -786,6 +811,7 @@
    <install as="ingo/templates/script/script.inc" name="templates/script/script.inc" />
    <install as="ingo/templates/whitelist/whitelist.inc" name="templates/whitelist/whitelist.inc" />
    <install as="ingo/themes/default/screen.css" name="themes/default/screen.css" />
+   <install as="ingo/themes/default/block/screen.css" name="themes/default/block/screen.css" />
    <install as="ingo/themes/default/graphics/blacklist.png" name="themes/default/graphics/blacklist.png" />
    <install as="ingo/themes/default/graphics/copy.png" name="themes/default/graphics/copy.png" />
    <install as="ingo/themes/default/graphics/disable.png" name="themes/default/graphics/disable.png" />
@@ -797,6 +823,7 @@
    <install as="ingo/themes/default/graphics/spam.png" name="themes/default/graphics/spam.png" />
    <install as="ingo/themes/default/graphics/vacation.png" name="themes/default/graphics/vacation.png" />
    <install as="ingo/themes/default/graphics/whitelist.png" name="themes/default/graphics/whitelist.png" />
+   <install as="ingo/themes/silver/block/screen.css" name="themes/silver/block/screen.css" />
    <install as="ingo/themes/silver/graphics/blacklist.png" name="themes/silver/graphics/blacklist.png" />
    <install as="ingo/themes/silver/graphics/copy.png" name="themes/silver/graphics/copy.png" />
    <install as="ingo/themes/silver/graphics/disable.png" name="themes/silver/graphics/disable.png" />
@@ -835,7 +862,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-03-09</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * First alpha release for Horde 4.
    </notes>
@@ -850,7 +877,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * Fix creating new rules with PostgreSQL (Bug #9638).
    </notes>
@@ -865,7 +892,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-23</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * First release candidate for Horde 4.
 * [jan] Fix instantiation of VFS transport driver (Bug #9605).
@@ -882,7 +909,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-29</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * Second release candidate for Horde 4.
 * [jan] Fix updating forward rules in SQL driver (Bug #9699).
@@ -898,7 +925,7 @@
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * First stable release for Horde 4.
 * [jan] Fix application-specific permission checks (Bug #9786).
@@ -920,7 +947,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-04-20</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mms] Fix folder selection (Bug #9907).
 * [mms] Fix IMAP filtering using envelope data (Bug #9859).
@@ -934,7 +961,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-06-14</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [jan] Fix moving rules to an explicit position (Bug #10172).
 * [mms] Fix storage backend conversion script.
@@ -948,7 +975,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-07-05</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [jan] Add -N parameter to mailbot calls by default (Request #10147).
 * [jan] Fix notice when using numeric comparisons for spam headers (Bug #10222).
@@ -965,7 +992,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-02</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mms] Fix creating new mailboxes (Bug #10282).
    </notes>
@@ -978,7 +1005,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-30</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [jan] Fix disabling of actions by locking preferences (Bug #10455).
 * [jan] Sort blacklist and whitelist for display instead of for storage.
@@ -992,7 +1019,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-10-18</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mms] Fix displaying From address in notification when filtering with IMAP driver.
 * [jan] Catch if files don&apos;t exist while deleting with VFS transport (michael-dev@fami-braun.de, Bug #10494).
@@ -1007,7 +1034,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-12-13</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
 * [jan] Set Return-Path: in Maildrop vacation driver (rsalmon@mbpgroup.com, Bug #10568).
@@ -1021,7 +1048,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-12-13</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mms] Application initialization should only be done on first access.
    </notes>

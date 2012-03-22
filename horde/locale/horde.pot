@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde 4.0.14-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"POT-Creation-Date: 2012-02-22 11:20+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -163,14 +163,6 @@ msgstr ""
 msgid ""
 "A device wipe has been requested. Device will be wiped on next "
 "syncronization attempt."
-msgstr ""
-
-#: config/hooks.php:80
-#, php-format
-msgid ""
-"A message has been sent to \"%s\" to verify that this is really your "
-"address. The new email address is activated as soon as you confirm this "
-"message."
 msgstr ""
 
 #: admin/config/index.php:147 admin/config/index.php:188
@@ -710,10 +702,6 @@ msgstr ""
 
 #: templates/admin/user/update.inc:28
 msgid "Confirm Password"
-msgstr ""
-
-#: config/hooks.php:59
-msgid "Confirm new email address"
 msgstr ""
 
 #: services/changepassword.php:25 services/resetpassword.php:26
@@ -1539,6 +1527,10 @@ msgstr ""
 
 #: admin/perms/addchild.php:29
 msgid "Invalid parent permission."
+msgstr ""
+
+#: config/registry.php:364
+msgid "Inventory"
 msgstr ""
 
 #: config/nls.php:180
@@ -3458,18 +3450,6 @@ msgstr ""
 msgid ""
 "You have not properly connected your Twitter account with Horde. You should "
 "check your Twitter settings in your %s."
-msgstr ""
-
-#: config/hooks.php:45
-#, php-format
-msgid ""
-"You have requested to add the email address \"%s\" to the list of your "
-"personal email addresses.\n"
-"\n"
-"Go to the following link to confirm that this is really your address:\n"
-"%s\n"
-"\n"
-"If you don't know what this message means, you can delete it."
 msgstr ""
 
 #: services/facebook/index.php:120 services/facebook/index.php:160

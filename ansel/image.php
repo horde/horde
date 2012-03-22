@@ -12,7 +12,7 @@
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('ansel');
 
 // Get all the form data
@@ -354,6 +354,8 @@ case 'resizeedit':
     $title = sprintf(
         _("Edit %s :: %s"), $gallery->get('name'), $image->filename);
 
+    $page_output = $injector->getInstance('Horde_PageOutput');
+
     if ($actionID == 'cropedit') {
         $geometry = $image->getDimensions('full');
         $x1 = 0;
@@ -362,22 +364,20 @@ case 'resizeedit':
         $y2 = $geometry['height'];
 
         // js and css files
-        Horde::addScriptFile('builder.js', 'horde');
-        Horde::addScriptFile('effects.js', 'horde');
-        Horde::addScriptFile('controls.js', 'horde');
-        Horde::addScriptFile('dragdrop.js', 'horde');
-        Horde::addScriptFile('cropper.js');
+        $page_output->addScriptFile('builder.js', 'horde');
+        $page_output->addScriptFile('effects.js', 'horde');
+        $page_output->addScriptFile('controls.js', 'horde');
+        $page_output->addScriptFile('dragdrop.js', 'horde');
+        $page_output->addScriptFile('cropper.js');
 
-        $GLOBALS['injector']
-            ->getInstance('Horde_Themes_Css')
-            ->addThemeStylesheet('cropper.css');
+        $page_output->addThemeStylesheet('cropper.css');
     } elseif ($actionID == 'resizeedit') {
         // js and css files
         $geometry = $image->getDimensions('full');
-        Horde::addScriptFile('builder.js', 'horde');
-        Horde::addScriptFile('effects.js', 'horde');
-        Horde::addScriptFile('slider.js', 'horde');
-        Horde::addScriptFile('dragdrop.js', 'horde');
+        $page_output->addScriptFile('builder.js', 'horde');
+        $page_output->addScriptFile('effects.js', 'horde');
+        $page_output->addScriptFile('slider.js', 'horde');
+        $page_output->addScriptFile('dragdrop.js', 'horde');
     }
     require $registry->get('templates', 'horde') . '/common-header.inc';
     echo Horde::menu();

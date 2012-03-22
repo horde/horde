@@ -8,7 +8,7 @@
  *
  * @author Ben Klang <ben@alkaloid.net>
  */
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 $jonah = Horde_Registry::appInit('jonah', array(
     'authentication' => 'none',
     'session_control' => 'readonly'
@@ -74,4 +74,4 @@ if (empty($deliveryType)) {
     $deliveryType = 'html';
 }
 
-include dirname(__FILE__) . '/' . basename($deliveryType) . '.php';
+include __DIR__ . '/' . basename($deliveryType) . '.php';

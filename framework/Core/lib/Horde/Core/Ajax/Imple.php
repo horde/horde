@@ -37,14 +37,18 @@ abstract class Horde_Core_Ajax_Imple
     abstract public function attach();
 
     /**
-     * TODO
+     * Imple handler.
      *
-     * @param array $args  TODO
+     * @param array $args  URL parameter arguments.
+     * @param array $post  POST data.
+     *
+     * @return mixed  Either a Horde_Core_Ajax_Response object (converted to
+     *                JSON before sending), or raw data.
      */
     abstract public function handle($args, $post);
 
     /**
-     * TODO
+     * Generated the URL to the imple script.
      *
      * @param string $driver
      * @param string $app

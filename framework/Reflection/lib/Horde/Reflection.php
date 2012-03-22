@@ -208,7 +208,7 @@ abstract class Horde_Reflection {
     {
         $class = 'Horde_Reflection_' . $driver;
         if (!class_exists($class)) {
-            include dirname(__FILE__) . '/Reflection/' . $driver . '.php';
+            include __DIR__ . '/Reflection/' . $driver . '.php';
         }
         if (class_exists($class)) {
             return new $class($function);

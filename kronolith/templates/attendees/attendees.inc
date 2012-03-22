@@ -56,7 +56,7 @@ function switchDateView(view, date)
 <?php else: foreach ($GLOBALS['session']->get('kronolith', 'attendees') as $email => $status): ?>
  <tr>
   <td class="nowrap"><?php $name = strpos($email, '@') === false ? $status['name'] : $email; echo Horde::url('#')->link(array('title' => sprintf(_("Remove %s"), $name), 'onclick' => "performAction('remove', decodeURIComponent('" . rawurlencode($email) . "')); return false;")) . Horde::img('delete.png') . '</a> ' . Horde::url('#')->link(array('title' => sprintf(_("Edit %s"), $name), 'onclick' => "performAction('edit', decodeURIComponent('" . rawurlencode($email) . "')); return false;")) . Horde::img('edit.png') . '</a>' ?></td>
-  <td><?php echo htmlspecialchars(empty($status['name']) ? $email : Horde_Mime_Address::trimAddress($status['name'] . (strpos($email, '@') === false ? '' : ' <' . $email . '>'))) ?></td>
+  <td><?php echo htmlspecialchars(strval(Kronolith::getAttendeeEmailList(array($email => $status)))) ?></td>
   <td>
 <label for="<?php echo "attendance_$i" ?>" class="hidden"><?php echo _("Attendance") ?></label>
    <select id="<?php echo "attendance_$i" ?>" name="<?php echo "attendance_$i" ?>" onchange="performAction('changeatt', document.attendeesForm.<?php echo "attendance_$i" ?>.value + ' ' + decodeURIComponent('<?php echo rawurlencode($email) ?>'));">

@@ -60,7 +60,7 @@
  * sender is blacklisted.
  */
 
-$baseFile = dirname(__FILE__) . '/../../ingo/lib/Application.php';
+$baseFile = __DIR__ . '/../../ingo/lib/Application.php';
 if (file_exists($baseFile)) {
     require_once $baseFile;
 } else {
@@ -74,9 +74,6 @@ exit('Not updated');
 
 // Initialize authentication manager.
 $auth = $injector->getInstance('Horde_Auth')->getAuth();
-
-// Initialize storage backend.
-$rules_storage = Ingo_Storage::factory();
 
 // Make sure output is unbuffered.
 ob_implicit_flush();
@@ -144,12 +141,14 @@ function smtpd_access_policy($query)
         $GLOBALS['auth']->setAuth($user, array());
         $GLOBALS['session']->set('ingo', 'current_share', ':' . $user);
 
+        $ingo_storage = $GLOBALS['injector']->getInstance('Ingo_Factory_Storage')->create();
+
         try {
-            $whitelists[$user] = $GLOBALS['rules_storage']->retrieve(Ingo_Storage::ACTION_WHITELIST, false)->getWhitelist();
+            $whitelists[$user] = $ingo_storage->retrieve(Ingo_Storage::ACTION_WHITELIST, false)->getWhitelist();
         } catch (Ingo_Exception $e) {}
 
         try {
-            $bl = $GLOBALS['rules_storage']->retrieve(Ingo_Storage::ACTION_BLACKLIST, false);
+            $bl = $ingo_storage->retrieve(Ingo_Storage::ACTION_BLACKLIST, false);
             if (!$bl->getBlacklistFolder()) {
                 // We will only reject email at delivery time if the user
                 // wants blacklisted mail deleted completely, not filed

@@ -17,7 +17,7 @@
 
 /* Determine the base directories. */
 if (!defined('AGORA_BASE')) {
-    define('AGORA_BASE', dirname(__FILE__) . '/..');
+    define('AGORA_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {
@@ -38,7 +38,7 @@ class Agora_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = 'H4 (1.0-git)';
+    public $version = 'H5 (1.0-git)';
 
     /**
      */
@@ -133,7 +133,7 @@ class Agora_Application extends Horde_Registry_Application
                     !$vfs->isFolder(Agora::AVATAR_PATH, 'gallery')) {
                     $ui->suppress[] = 'avatar_link';
                 } else {
-                    Horde::addScriptFile('popup.js', 'horde', true);
+                    $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('popup.js', 'horde');
                 }
                 break;
             }

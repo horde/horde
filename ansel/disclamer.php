@@ -8,7 +8,7 @@
  * @author Jan Zagar <jan.zagar@siol.net>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('ansel');
 
 $vars = Horde_Variables::getDefaultVariables();

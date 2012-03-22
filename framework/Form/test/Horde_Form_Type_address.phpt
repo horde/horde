@@ -4,7 +4,7 @@ Horde_Form_Type_address tests
 <?php
 
 require 'Horde/Autoloader.php';
-require dirname(__FILE__) . '/../Form.php';
+require __DIR__ . '/../Form.php';
 
 $addresses = array(
     // UK addresses.

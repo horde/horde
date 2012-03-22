@@ -18,7 +18,7 @@
  */
 
 if (!defined('HERMES_BASE')) {
-    define('HERMES_BASE', dirname(__FILE__). '/..');
+    define('HERMES_BASE', __DIR__. '/..');
 }
 
 if (!defined('HORDE_BASE')) {
@@ -39,11 +39,11 @@ class Hermes_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = 'H4 (2.0-git)';
+    public $version = 'H5 (2.0-git)';
 
     /**
      */
-    protected function _init()
+    protected function _bootstrap()
     {
         $GLOBALS['injector']->bindFactory('Hermes_Driver', 'Hermes_Factory_Driver', 'create');
     }

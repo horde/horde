@@ -15,6 +15,13 @@
 abstract class Horde_Core_Ajax_Application
 {
     /**
+     * The data returned from the doAction() call.
+     *
+     * @var mixed
+     */
+    public $data = null;
+
+    /**
      * Determines if notification information is sent in response.
      *
      * @var boolean
@@ -22,11 +29,11 @@ abstract class Horde_Core_Ajax_Application
     public $notify = false;
 
     /**
-     * The Horde application.
+     * The list of (possibly) unsolicited tasks/data to do for this request.
      *
-     * @var string
+     * @var object
      */
-    protected $_app;
+    public $tasks = null;
 
     /**
      * The action to perform.
@@ -36,18 +43,11 @@ abstract class Horde_Core_Ajax_Application
     protected $_action;
 
     /**
-     * The request variables.
+     * The Horde application.
      *
-     * @var Variables
+     * @var string
      */
-    protected $_vars;
-
-    /**
-     * The list of actions that require readonly access to the session.
-     *
-     * @var array
-     */
-    protected $_readOnly = array();
+    protected $_app;
 
     /**
      * Default domain.
@@ -58,13 +58,27 @@ abstract class Horde_Core_Ajax_Application
     protected $_defaultDomain;
 
     /**
+     * The list of actions that require readonly access to the session.
+     *
+     * @var array
+     */
+    protected $_readOnly = array();
+
+    /**
+     * The request variables.
+     *
+     * @var Horde_Variables
+     */
+    protected $_vars;
+
+    /**
      * Constructor.
      *
      * @param string $app            The application name.
      * @param Horde_Variables $vars  Form/request data.
      * @param string $action         The AJAX action to perform.
      */
-    public function __construct($app, $vars, $action = null)
+    public function __construct($app, Horde_Variables $vars, $action = null)
     {
         $this->_app = $app;
         $this->_vars = $vars;
@@ -72,7 +86,7 @@ abstract class Horde_Core_Ajax_Application
         if (!is_null($action)) {
             /* Close session if action is labeled as read-only. */
             if (in_array($action, $this->_readOnly)) {
-                session_write_close();
+                $GLOBALS['session']->close();
             }
 
             $this->_action = $action;
@@ -82,39 +96,76 @@ abstract class Horde_Core_Ajax_Application
     /**
      * Performs the AJAX action.
      *
-     * @return mixed  The result of the action call.
      * @throws Horde_Exception
      */
     public function doAction()
     {
         if (!$this->_action) {
-            return false;
+            return;
         }
 
         if (method_exists($this, $this->_action)) {
-            return call_user_func(array($this, $this->_action));
+            $this->data = call_user_func(array($this, $this->_action));
+            return;
         }
 
         /* Look for hook in application. */
         try {
-            return Horde::callHook('ajaxaction', array($this->_action, $this->_vars), $this->_app);
-        } catch (Horde_Exception_HookNotSet $e) {
-        } catch (Horde_Exception $e) {
-        }
+            $this->data = Horde::callHook('ajaxaction', array($this->_action, $this->_vars), $this->_app);
+            return;
+        } catch (Horde_Exception $e) {}
 
         throw new Horde_Exception('Handler for action "' . $this->_action . '" does not exist.');
     }
 
     /**
-     * Determines the HTTP response output type.
+     * Add task to response data.
      *
-     * @see Horde::sendHTTPResponse().
+     * @param string $name  Task name.
+     * @param mixed $data   Task data.
+     */
+    public function addTask($name, $data)
+    {
+        if (empty($this->tasks)) {
+            $this->tasks = new stdClass;
+        }
+
+        $name = $this->_app . ':' . $name;
+        $this->tasks->$name = $data;
+    }
+
+    /**
+     * Determines the HTTP response output type.
      *
      * @return string  The output type.
      */
     public function responseType()
     {
         return 'json';
+    }
+
+    /**
+     * Send AJAX response to the browser.
+     */
+    public function send()
+    {
+        $response = new Horde_Core_Ajax_Response_HordeCore($this->data, $this->tasks, $this->notify);
+        $response->sendAndExit($this->responseType());
+    }
+
+    /**
+     * Sends a notification to the browser indicating that the user's session
+     * has timed out.
+     */
+    public function sessionTimeout()
+    {
+        $msg = new stdClass;
+        $msg->message = strval($this->getSessionLogoutUrl());
+        $msg->type = 'horde.ajaxtimeout';
+
+        $response = new Horde_Core_Ajax_Response(new stdClass);
+        $response->notifications = array($msg);
+        $response->sendAndExit('json');
     }
 
     /**
@@ -150,9 +201,7 @@ abstract class Horde_Core_Ajax_Application
      * to.
      *
      * @return object  Object with the following properties:
-     * <pre>
-     * 'groups' - (array) Groups hash.
-     * </pre>
+     *   - groups: (array) Groups hash.
      */
     public function listGroups()
     {
@@ -178,34 +227,30 @@ abstract class Horde_Core_Ajax_Application
      * Parses a valid email address out of a complete address string.
      *
      * Variables used:
-     * <pre>
-     * 'mbox' - (string) The name of the new mailbox.
-     * 'parent' - (string) The parent mailbox.
-     * </pre>
+     *   - mbox: (string) The name of the new mailbox.
+     *   - parent: (string) The parent mailbox.
      *
      * @return object  Object with the following properties:
-     * <pre>
-     * 'email' - (string) The parsed email address.
-     * </pre>
+     *   - email: (string) The parsed email address.
      *
      * @throws Horde_Exception
      * @throws Horde_Mail_Exception
      */
     public function parseEmailAddress()
     {
-        $rfc822 = new Horde_Mail_Rfc822();
-        $params = array();
-        if ($this->_defaultDomain) {
-            $params['default_domain'] = $this->_defaultDomain;
-        }
-        $res = $rfc822->parseAddressList(Horde_Mime::encodeAddress($this->_vars->email, 'UTF-8', $this->_defaultDomain), $params);
-        if (!count($res)) {
+        $ob = new Horde_Mail_Rfc822_Address($this->_vars->email);
+        if (is_null($ob->mailbox)) {
             throw new Horde_Exception(Horde_Core_Translation::t("No valid email address found"));
         }
 
-        return (object)array(
-            'email' => Horde_Mime_Address::writeAddress($res[0]->mailbox, $res[0]->host)
-        );
+        if ($this->_defaultDomain) {
+            $ob->host = $this->_defaultDomain;
+        }
+
+        $ret = new stdClass;
+        $ret->email = $ob->bare_address;
+
+        return $ret;
     }
 
     /**
@@ -213,13 +258,11 @@ abstract class Horde_Core_Ajax_Application
      * application's templates directory.
      *
      * @return object  Object with the following properties:
-     * <pre>
-     * 'chunk' - (string) A chunk of PHP output.
-     * </pre>
+     *   - chunk: (string) A chunk of PHP output.
      */
     public function chunkContent()
     {
-        $chunk = basename(Horde_Util::getPost('chunk'));
+        $chunk = basename($vars->chunk);
         $result = new stdClass;
         if (!empty($chunk)) {
             Horde::startBuffer();
@@ -234,10 +277,8 @@ abstract class Horde_Core_Ajax_Application
      * Sets a preference value.
      *
      * Variables used:
-     * <pre>
-     * 'pref' - (string) The preference name.
-     * 'value' - (mixed) The preference value.
-     * </pre>
+     *   - pref: (string) The preference name.
+     *   - value: (mixed) The preference value.
      *
      * @return boolean  True on success.
      */

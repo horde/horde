@@ -32,7 +32,7 @@ class IMP_Views_ListMessages
      *   - change: (boolean)
      *   - initial: (boolean) Is this the initial load of the view?
      *   - mbox: (string) The mailbox of the view.
-     *   - qsearch: (boolean) Is this a quicksearch?
+     *   - qsearch: (string) The quicksearch search string.
      *   - qsearchfield: (string) The quicksearch search criteria.
      *   - qsearchmbox: (string) The mailbox to do the quicksearch in
      *                  (base64url encoded).
@@ -68,7 +68,6 @@ class IMP_Views_ListMessages
 
                     $is_search = true;
                 } elseif (strlen($args['qsearch'])) {
-                    $GLOBALS['prefs']->setValue('dimp_qsearch_field', $args['qsearchfield']);
                     $is_search = true;
 
                     switch ($args['qsearchfield']) {
@@ -174,27 +173,32 @@ class IMP_Views_ListMessages
             $mbox->hideDeletedMsgs(true)) {
             $md->delhide = 1;
         }
-        if ($args['initial'] || !is_null($args['sortby'])) {
-            $md->sortby = intval($sortpref['by']);
-        }
-        if ($args['initial'] || !is_null($args['sortdir'])) {
-            $md->sortdir = intval($sortpref['dir']);
-        }
-        if ($args['initial'] && $sortpref['locked']) {
-            $md->sortlock = 1;
+        if ($args['initial'] ||
+            !is_null($args['sortby']) ||
+            !is_null($args['sortdir'])) {
+            $md->sortby = intval($sortpref->sortby);
+            $md->sortdir = intval($sortpref->sortdir);
         }
 
         /* Actions only done on 'initial' request. */
         if ($args['initial']) {
+            if ($sortpref->sortby_locked) {
+                $md->sortbylock = 1;
+            }
+            if ($sortpref->sortdir_locked) {
+                $md->sortdirlock = 1;
+            }
             if (!$mbox->access_sortthread) {
                 $md->nothread = 1;
             }
             if ($mbox->special_outgoing) {
                 $md->special = 1;
-                if ($mbox == IMP_Mailbox::getPref('drafts_folder')) {
+                if ($mbox->drafts) {
                     $md->drafts = 1;
+                } elseif ($mbox->templates) {
+                    $md->templates = 1;
                 }
-            } elseif ($mbox == IMP_Mailbox::getPref('spam_folder')) {
+            } elseif ($mbox->spam) {
                 $md->spam = 1;
             }
 
@@ -284,7 +288,7 @@ class IMP_Views_ListMessages
             /* Do an unseen search.  We know what messages the browser
              * doesn't have based on $cached. Thus, search for the first
              * unseen message not located in $cached. */
-            $unseen_search = $mailbox_list->unseenMessages(Horde_Imap_Client::SORT_RESULTS_MATCH, true);
+            $unseen_search = $mailbox_list->unseenMessages(Horde_Imap_Client::SEARCH_RESULTS_MATCH, true);
             if (!($uid_search = array_diff($unseen_search['match']->ids, array_keys($cached)))) {
                 return $result;
             }
@@ -391,10 +395,16 @@ class IMP_Views_ListMessages
         $result->data = $this->_getOverviewData($mbox, array_keys($data));
 
         /* Get thread information. */
-        if (!$is_search &&
-            ($sortpref['by'] == Horde_Imap_Client::SORT_THREAD)) {
-            $imp_thread = new IMP_Imap_Thread($mailbox_list->getThreadOb());
-            $md->thread = (object)$imp_thread->getThreadTreeOb($msglist, $sortpref['dir']);
+        if ($sortpref->sortby == Horde_Imap_Client::SORT_THREAD) {
+            $thread = new stdClass;
+            foreach ($msglist as $key => $val) {
+                $tmp = $mailbox_list[$key]['t'];
+                $thread->$val = $sortpref->sortdir
+                    ? $tmp->reverse_raw
+                    : $tmp->raw;
+            }
+
+            $md->thread = $thread;
         }
 
         return $result;
@@ -453,7 +463,7 @@ class IMP_Views_ListMessages
                 $flag_parse = $GLOBALS['injector']->getInstance('IMP_Flags')->parse(array(
                     'flags' => $ob['flags'],
                     'headers' => $ob['headers'],
-                    'personal' => Horde_Mime_Address::getAddressesFromObject($ob['envelope']->to, array('charset' => 'UTF-8'))
+                    'personal' => $ob['envelope']->to
                 ));
 
                 foreach ($flag_parse as $val) {

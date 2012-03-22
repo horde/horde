@@ -369,10 +369,20 @@ class Nag_Driver_Kolab extends Nag_Driver
 
     /**
      * Deletes all tasks from the backend.
+     *
+     * @return array  An array of uids that have been deleted.
      */
-    public function deleteAll()
+    protected function _deleteAll()
     {
+        $this->retrieve();
+        $this->tasks->reset();
+        $uids = array();
+        while ($task = $tasks->each()) {
+            $uids[] = $task->uid;
+        }
         $this->_getData()->deleteAll();
+
+        return $uids;
     }
 
     /**

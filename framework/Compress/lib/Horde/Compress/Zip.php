@@ -250,7 +250,9 @@ class Horde_Compress_Zip extends Horde_Compress_Base
             }
             $info = unpack('vMethod/VTime/VCRC32/VCompressed/VUncompressed/vLength/vExtraLength', substr($data, $fhStart + 8, 25));
             $name = substr($data, $fhStart + 30, $info['Length']);
-            $entries[$name]['_dataStart'] = $fhStart + 30 + $info['Length'] + $info['ExtraLength'];
+            if (isset($entries[$name])) {
+                $entries[$name]['_dataStart'] = $fhStart + 30 + $info['Length'] + $info['ExtraLength'];
+            }
         } while ($data_len > $fhStart + 30 + $info['Length'] &&
                  ($fhStart = strpos($data, self::FILE_HEADER, $fhStart + 30 + $info['Length'])) !== false);
 

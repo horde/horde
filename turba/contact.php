@@ -10,7 +10,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('turba');
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -101,7 +101,7 @@ if ($own_source == $source && $own_id == $contact->getValue('__key')) {
 
 $title = $view->getTitle();
 
-Horde::addScriptFile('contact_tabs.js', 'turba');
+$injector->getInstance('Horde_PageOutput')->addScriptFile('contact_tabs.js');
 require $registry->get('templates', 'horde') . '/common-header.inc';
 require TURBA_TEMPLATES . '/menu.inc';
 echo '<div id="page">';

@@ -30,7 +30,7 @@
  * @package  IMP
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('imp', array(
     'impmode' => 'mimp',
     'timezone' => true
@@ -62,8 +62,8 @@ if (!$prefs->isLocked('default_identity') && isset($vars->identity)) {
 /* Determine if mailboxes are readonly. */
 $drafts = IMP_Mailbox::getPref('drafts_folder');
 $readonly_drafts = $drafts && $drafts->readonly;
-$sent_mail_folder = $identity->getValue('sent_mail_folder');
-$save_sent_mail = ($sent_mail_folder && $sent_mail_folder->readonly)
+$sent_mail = $identity->getValue('sent_mail_folder');
+$save_sent_mail = ($sent_mail && $sent_mail->readonly)
     ? false
     : $prefs->getValue('save_sent_mail');
 
@@ -104,10 +104,26 @@ if ($session->get('imp', 'file_upload') &&
 switch ($vars->a) {
 // 'd' = draft
 // 'en' = edit as new
+// 't' = template
 case 'd':
 case 'en':
+case 't':
     try {
-        $result = $imp_compose->resumeDraft(IMP::$thismailbox->getIndicesOb(IMP::$uid), ($vars->a == 'd'));
+        $indices_ob = IMP::mailbox(true)->getIndicesOb(IMP::uid());
+
+        switch ($vars->a) {
+        case 'd':
+            $result = $imp_compose->resumeDraft($indices_ob);
+            break;
+
+        case 'en':
+            $result = $imp_compose->editAsNew($indices_ob);
+            break;
+
+        case 't':
+            $result = $imp_compose->useTemplate($indices_ob);
+            break;
+        }
 
         $msg = $result['msg'];
         $header = array_merge($header, $result['header']);
@@ -115,7 +131,7 @@ case 'en':
             ($result['identity'] != $identity->getDefault()) &&
             !$prefs->isLocked('default_identity')) {
             $identity->setDefault($result['identity']);
-            $sent_mail_folder = $identity->getValue('sent_mail_folder');
+            $sent_mail = $identity->getValue('sent_mail_folder');
         }
     } catch (IMP_Compose_Exception $e) {
         $notification->push($e);
@@ -125,7 +141,7 @@ case 'en':
 case _("Expand Names"):
     foreach (array_keys($display_hdrs) as $val) {
         if (($val == 'to') || ($vars->action != 'rc')) {
-            $res = $imp_ui->expandAddresses($header[$val], $imp_compose);
+            $res = $imp_ui->expandAddresses($header[$val]);
             if (is_string($res)) {
                 $header[$val] = $res;
             } else {
@@ -190,7 +206,7 @@ case 'rc':
 
 case _("Redirect"):
     try {
-        $num_msgs = $imp_compose->sendRedirectMessage($imp_ui->getAddressList($header['to']));
+        $num_msgs = $imp_compose->sendRedirectMessage($header['to']);
         $imp_compose->destroy('send');
 
         $notification->push(ngettext("Message redirected successfully.", "Messages redirected successfully.", count($num_msgs)), 'horde.success');
@@ -247,7 +263,7 @@ case _("Send"):
     $header['subject'] = strval($vars->subject);
 
     foreach (array_keys($display_hdrs) as $val) {
-        $header[$val] = $imp_ui->getAddressList($old_header[$val]);
+        $header[$val] = $old_header[$val];
     }
 
     switch ($vars->a) {
@@ -266,10 +282,11 @@ case _("Send"):
 
     case _("Send"):
         $options = array(
+            'add_signature' => $identity->getDefault(),
             'identity' => $identity,
             'readreceipt' => ($prefs->getValue('request_mdn') == 'always'),
             'save_sent' => $save_sent_mail,
-            'sent_folder' => $sent_mail_folder
+            'sent_mail' => $sent_mail
         );
 
         try {
@@ -381,6 +398,6 @@ if ($session->get('imp', 'file_upload')) {
     } catch (Horde_Exception_HookNotSet $e) {}
 }
 
-require IMP_TEMPLATES . '/common-header.inc';
+IMP::header($title);
 IMP::status();
 echo $t->fetch(IMP_TEMPLATES . '/mimp/compose/compose.html');

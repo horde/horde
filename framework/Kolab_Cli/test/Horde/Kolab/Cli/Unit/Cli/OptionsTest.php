@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../Autoload.php';
+require_once __DIR__ . '/../../Autoload.php';
 
 /**
  * Test the options of the CLI interface.
@@ -37,6 +37,7 @@ extends Horde_Kolab_Cli_TestCase
 {
     public function testOptionHelp()
     {
+        setlocale(LC_MESSAGES, 'C');
         $_SERVER['argv'] = array(
             'klb'
         );

@@ -9,6 +9,7 @@
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL
  * @package  Core
  */
 class Horde_Core_Notification_Event_Status extends Horde_Notification_Event_Status

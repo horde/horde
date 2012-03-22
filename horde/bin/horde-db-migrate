@@ -17,7 +17,7 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-$baseFile = dirname(__FILE__) . '/../lib/Application.php';
+$baseFile = __DIR__ . '/../lib/Application.php';
 if (file_exists($baseFile)) {
     require_once $baseFile;
 } else {
@@ -56,7 +56,7 @@ $parser = new Horde_Argv_Parser(
 );
 list($options, $args) = $parser->parseArgs();
 
-$migration = new Horde_Core_Db_Migration(dirname(__FILE__) . '/../..', $options['config']);
+$migration = new Horde_Core_Db_Migration(__DIR__ . '/../..', $options['config']);
 if (empty($args[0])) {
     // Run all migrations.
     $apps = $migration->apps;

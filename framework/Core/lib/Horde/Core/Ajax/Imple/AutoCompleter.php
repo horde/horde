@@ -46,10 +46,11 @@ abstract class Horde_Core_Ajax_Imple_AutoCompleter extends Horde_Core_Ajax_Imple
         );
 
         $config = $this->_attach(array('tokens' => array(',', ';')));
+        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
 
-        Horde::addScriptFile('autocomplete.js', 'horde');
-        Horde::addScriptFile('keynavlist.js', 'horde');
-        Horde::addScriptFile('liquidmetal.js', 'horde');
+        $page_output->addScriptFile('autocomplete.js', 'horde');
+        $page_output->addScriptFile('keynavlist.js', 'horde');
+        $page_output->addScriptFile('liquidmetal.js', 'horde');
         if (isset($config['ajax'])) {
             $func = 'Ajax.Autocompleter';
             $params[] = '"' . $this->_getUrl($config['ajax'], $GLOBALS['registry']->getApp(), array('input' => $this->_params['triggerId'])) . '"';
@@ -62,7 +63,7 @@ abstract class Horde_Core_Ajax_Imple_AutoCompleter extends Horde_Core_Ajax_Imple
                 'score' => 1
             ), $config['params']);
         } elseif (isset($config['pretty'])) {
-            Horde::addScriptFile('prettyautocomplete.js', 'horde');
+            $page_output->addScriptFile('prettyautocomplete.js', 'horde');
             $func = 'PrettyAutocompleter';
             $config['params'] = array_merge(array(
                 'boxClass' => 'hordeACBox kronolithLongField',
@@ -91,9 +92,8 @@ abstract class Horde_Core_Ajax_Imple_AutoCompleter extends Horde_Core_Ajax_Imple
             $js_params = str_replace('"' . $name . '":1', '"' . $name . '":' . $val, $js_params);
         }
 
-        Horde::addScriptFile('effects.js', 'horde');
-
-        Horde::addInlineScript((isset($config['var']) ? $config['var'] . ' = ' : '') . 'new ' . $func . '(' . implode(',', $params) . ',' . $js_params . ')', empty($this->_params['no_onload']) ? 'dom' : null);
+        $page_output->addScriptFile('effects.js', 'horde');
+        $page_output->addInlineScript((isset($config['var']) ? $config['var'] . ' = ' : '') . 'new ' . $func . '(' . implode(',', $params) . ',' . $js_params . ')', empty($this->_params['no_onload']) ? true : null);
     }
 
     /**

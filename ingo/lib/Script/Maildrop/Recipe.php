@@ -158,7 +158,7 @@ class Ingo_Script_Maildrop_Recipe
                 $this->_params['mailbotargs'],
                 $params['action-value']['days'],
                 escapeshellarg('From: ' . $from),
-                escapeshellarg(Horde_Mime::encode($params['action-value']['subject'], 'UTF-8')),
+                escapeshellarg(Horde_Mime::encode($params['action-value']['subject'])),
                 escapeshellarg($from)))
                 . '"';
             if (($start != 0) && ($end !== 0)) {

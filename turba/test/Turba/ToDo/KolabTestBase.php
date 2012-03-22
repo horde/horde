@@ -146,7 +146,6 @@ class Turba_KolabTestBase extends Turba_TestCase
         $this->prepareNewFolder($world['storage'], 'test2', 'contact');
 
         $GLOBALS['session']->set('turba', 'has_share', true);
-        $GLOBALS['turba_shares'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
 
         $GLOBALS['cfgSources'] = Turba::getConfigFromShares($cfgSources);
     }
@@ -158,7 +157,7 @@ class Turba_KolabTestBase extends Turba_TestCase
 
     function provideHordeBase()
     {
-        require_once dirname(__FILE__) . '/../Application.php';
+        require_once __DIR__ . '/../Application.php';
         return HORDE_BASE;
     }
 }

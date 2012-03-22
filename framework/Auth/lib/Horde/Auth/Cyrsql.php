@@ -116,23 +116,19 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
      * Constructor.
      *
      * @param array $params  Parameters:
-     * <pre>
-     * 'charset' - (string) Default charset.
-     *             DEFAULT: NONE
-     * 'domain_field' - (string) If set to anything other than 'none' this is
-     *                  used as field name where domain is stored.
-     *                  DEFAULT: 'domain_name'
-     * 'folders' - (array) An array of folders to create under username.
-     *             DEFAULT: NONE
-     * 'hidden_accounts' - (array) An array of system accounts to hide from
-     *                     the user interface.
-     *                     DEFAULT: None.
-     * 'imap' - (Horde_Imap_Client_Base) [REQUIRED] An IMAP client object.
-     * 'quota' - (integer) The quota (in kilobytes) to grant on the mailbox.
-     *           DEFAULT: NONE
-     * 'userhierarchy' - (string) The user hierarchy prefix.
-     *                   DEFAULT: 'user.'
-     * </pre>
+     *   - domain_field: (string) If set to anything other than 'none' this is
+     *                   used as field name where domain is stored.
+     *                   DEFAULT: 'domain_name'
+     *   - folders: (array) An array of folders to create under username.
+     *                DEFAULT: NONE
+     *   - hidden_accounts: (array) An array of system accounts to hide from
+     *                      the user interface.
+     *                      DEFAULT: None.
+     *   - imap: (Horde_Imap_Client_Base) [REQUIRED] An IMAP client object.
+     *   - quota: (integer) The quota (in kilobytes) to grant on the mailbox.
+     *            DEFAULT: NONE
+     *   - userhierarchy: (string) The user hierarchy prefix (UTF-8).
+     *                    DEFAULT: 'user.'
      *
      * @throws InvalidArgumentException
      */
@@ -146,7 +142,6 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
         unset($params['imap']);
 
         $params = array_merge(array(
-            'charset' => null,
             'domain_field' => 'domain_name',
             'folders' => array(),
             'hidden_accounts' => array('cyrus'),
@@ -249,7 +244,7 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
             parent::addUser($userId, $credentials);
         }
 
-        $mailbox = Horde_String::convertCharset($this->_params['userhierarchy'] . $userId, $this->_params['charset'], 'utf7-imap');
+        $mailbox = $this->_params['userhierarchy'];
 
         try {
             $this->_imap->createMailbox($mailbox);
@@ -306,7 +301,7 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
         /* Set ACL for mailbox deletion. */
         list($admin) = explode('@', $this->_params['cyradmin']);
 
-        $mailbox = Horde_String::convertCharset($this->_params['userhierarchy'] . $userId, $this->_params['charset'], 'utf7-imap');
+        $mailbox = $this->_params['userhierarchy'];
 
         try {
             $this->_imap->setACL($mailbox, $admin, array('rights' => 'lrswipcda'));

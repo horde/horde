@@ -14,7 +14,9 @@ class Kronolith_Ajax_Imple_TagActions extends Horde_Core_Ajax_Imple
      */
     public function attach()
     {
-        Horde::addScriptFile('tagactions.js');
+        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+
+        $page_output->addScriptFile('tagactions.js');
         $dom_id = $this->_params['triggerId'];
         $action = $this->_params['action'];
         $content_id = $this->_params['resource'];
@@ -27,7 +29,7 @@ class Kronolith_Ajax_Imple_TagActions extends Horde_Core_Ajax_Imple
         } elseif ($action == 'delete') {
             $js = "Event.observe('" . $dom_id . "', 'click', function(event) {removeTag('" . $content_id . "', '" . $content_type . "', " . $tag_id . ", '" . $endpoint . "'); Event.stop(event)});";
         }
-        Horde::addInlineScript($js, 'window');
+        $page_output->addInlineScript($js);
     }
 
     /**
@@ -49,7 +51,7 @@ class Kronolith_Ajax_Imple_TagActions extends Horde_Core_Ajax_Imple
 
         // Check perms only calendar owners may tag a calendar, only event
         // creator can tag an event.
-        $cal = $GLOBALS['kronolith_shares']->getShare($post['resource']);
+        $cal = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($post['resource']);
         $cal_owner = $cal->get('owner');
         if($post['type'] == 'event') {
             $event = Kronolith::getDriver()->getByUID($post['resource']);
@@ -101,7 +103,7 @@ class Kronolith_Ajax_Imple_TagActions extends Horde_Core_Ajax_Imple
         $html = '';
 
         if ($type == 'calendar') {
-            $cal = $GLOBALS['kronolith_shares']->getShare($id);
+            $cal = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($id);
             $hasEdit = $cal->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT);
         } elseif ($type == 'event') {
             $event = Kronolith::getDriver()->getByUID($id);

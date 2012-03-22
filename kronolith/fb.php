@@ -9,7 +9,7 @@
  * @package Kronolith
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('kronolith', array('authentication' => 'none', 'session_control' => 'none'));
 
 // Determine the username to show free/busy time for.

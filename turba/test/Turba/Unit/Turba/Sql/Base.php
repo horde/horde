@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../Base.php';
+require_once __DIR__ . '/../Base.php';
 
 /**
  * Test the core Turba class with a SQL backend.

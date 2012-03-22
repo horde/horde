@@ -4,27 +4,27 @@
  *
  * URL parameters:
  * ---------------
- * actionID - (string) The action ID to perform
- *   compose_attach_preview
- *   download_all
- *   download_attach
- *   download_mbox
- *   download_render
- *   print_attach
- *   save_message
- *   view_attach
- *   view_face
- *   view_source
- * autodetect - (integer) If set, tries to autodetect MIME type when viewing
- *              based on data.
- * composeCache - (string) Cache ID for compose object.
- * ctype - (string) The content-type to use instead of the content-type
- *           found in the original Horde_Mime_Part object.
- * id - (string) The MIME part ID to display.
- * mode - (integer) The view mode to use.
- *          DEFAULT: IMP_Contents::RENDER_FULL
- * pmode - (string) The print mode of this request ('content', 'headers').
- * zip - (boolean) Download in .zip format?
+ *   - actionID: (string) The action ID to perform:
+ *     - compose_attach_preview
+ *     - download_all
+ *     - download_attach
+ *     - download_mbox
+ *     - download_render
+ *     - print_attach
+ *     - save_message
+ *     - view_attach
+ *     - view_face
+ *     - view_source
+ *   - autodetect: (integer) If set, tries to autodetect MIME type when
+ *                 viewing based on data.
+ *   - composeCache: (string) Cache ID for compose object.
+ *   - ctype: (string) The content-type to use instead of the content-type
+ *            found in the original Horde_Mime_Part object.
+ *   - id: (string) The MIME part ID to display.
+ *   - mode: (integer) The view mode to use.
+ *           DEFAULT: IMP_Contents::RENDER_FULL
+ *   - pmode: (string) The print mode of this request ('content', 'headers').
+ *   - zip: (boolean) Download in .zip format?
  *
  * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
@@ -43,7 +43,7 @@ function _sanitizeName($name)
     return trim(preg_replace('/[^\pL\pN-+_. ]/u', '_', $name), ' _');
 }
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 
 /* Don't compress if we are already sending in compressed format. */
 $vars = Horde_Variables::getDefaultVariables();
@@ -52,6 +52,12 @@ Horde_Registry::appInit('imp', array(
     'session_control' => (Horde_Util::getFormData('ajax') ? null : 'readonly')
 ));
 
+/* We may reach this page from the download script - need to check for
+ * an authenticated user. */
+if (!$registry->isAuthenticated(array('app' => 'imp'))) {
+    Horde::fatal(new IMP_Exception(_("User is not authenticated.")), false);
+}
+
 switch ($vars->actionID) {
 case 'compose_attach_preview':
     /* 'compose_attach_preview' doesn't use IMP_Contents since there is no
@@ -59,7 +65,7 @@ case 'compose_attach_preview':
      * the necessary data for Horde_Mime_Part. */
     $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($vars->composeCache);
     if (!$mime = $imp_compose->buildAttachment($vars->id)) {
-        throw new IMP_Compose(_("Could not display attachment data."));
+        Horde::fatal(new IMP_Exception(_("Could not display attachment data.")), false);
     }
     $mime->setMimeId($vars->id);
 
@@ -69,20 +75,20 @@ case 'compose_attach_preview':
     break;
 
 case 'download_mbox':
-    if (empty(IMP::$thismailbox)) {
+    if (!IMP::mailbox(true)) {
         exit;
     }
 
     // Exception will be displayed as fatal error.
-    $injector->getInstance('IMP_Ui_Folder')->downloadMbox(array(strval(IMP::$thismailbox)), $vars->zip);
+    $injector->getInstance('IMP_Ui_Folder')->downloadMbox(array(strval(IMP::mailbox(true))), $vars->zip);
     break;
 
 default:
-    if (empty(IMP::$thismailbox) || empty(IMP::$uid)) {
+    if (!IMP::mailbox(true) || !IMP::uid()) {
         exit;
     }
 
-    $contents = $injector->getInstance('IMP_Factory_Contents')->create(IMP::$thismailbox->getIndicesOb(IMP::$uid));
+    $contents = $injector->getInstance('IMP_Factory_Contents')->create(IMP::mailbox(true)->getIndicesOb(IMP::uid()));
     break;
 }
 
@@ -191,29 +197,20 @@ case 'view_attach':
     }
     break;
 
+case 'save_message':
 case 'view_source':
     $msg = $contents->fullMessageText(array('stream' => true));
     fseek($msg, 0, SEEK_END);
-    $browser->downloadHeaders('Message Source', 'text/plain', true, ftell($msg));
-    rewind($msg);
-    while (!feof($msg)) {
-        echo fread($msg, 8192);
-    }
-    fclose($msg);
-    break;
 
-case 'save_message':
-    $mime_headers = $contents->getHeader();
-
-    if (($subject = $mime_headers->getValue('subject'))) {
-        $name = _sanitizeName($subject);
+    if ($vars->actionID == 'save_message') {
+        $name = ($subject = $contents->getHeader()->getValue('subject'))
+            ? _sanitizeName($subject)
+            : 'saved_message';
+        $browser->downloadHeaders($name . '.eml', 'message/rfc822', false, ftell($msg));
     } else {
-        $name = 'saved_message';
+        $browser->downloadHeaders(_("Message Source"), 'text/plain', true, ftell($msg));
     }
 
-    $msg = $contents->fullMessageText(array('stream' => true));
-    fseek($msg, 0, SEEK_END);
-    $browser->downloadHeaders($name . '.eml', 'message/rfc822', false, ftell($msg));
     rewind($msg);
     while (!feof($msg)) {
         echo fread($msg, 8192);
@@ -249,7 +246,7 @@ case 'print_attach':
     unset($basic_headers['bcc'], $basic_headers['reply-to']);
     $headerob = $contents->getHeader();
 
-    $d_param = Horde_Mime::decodeParam('content-type', $render[$render_key]['type'], 'UTF-8');
+    $d_param = Horde_Mime::decodeParam('content-type', $render[$render_key]['type']);
 
     $headers = array();
     foreach ($basic_headers as $key => $val) {
@@ -267,7 +264,7 @@ case 'print_attach':
         }
     }
 
-    if (!empty($conf['print']['add_printedby'])) {
+    if ($prefs->getValue('add_printedby')) {
         $user_identity = $injector->getInstance('IMP_Identity');
         $headers[] = array(
             'header' => htmlspecialchars(_("Printed By")),
@@ -290,9 +287,9 @@ case 'print_attach':
             }
         }
 
-        $css = $injector->getInstance('Horde_Themes_Css');
         // Csstidy filter may not be available.
         try {
+            $css = $injector->getInstance('Horde_PageOutput')->css;
             if ($style = $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($css->loadCssFiles($css->getStylesheets()), 'csstidy', array('ob' => true, 'preserve_css' => false))->filterBySelector($selectors)) {
                 $elt->setAttribute('style', ($elt->hasAttribute('style') ? rtrim($elt->getAttribute('style'), ' ;') . ';' : '') . $style);
             }
@@ -308,7 +305,7 @@ case 'print_attach':
 
     $browser->downloadHeaders($render[$render_key]['name'], $render[$render_key]['type'], true, strlen($render[$render_key]['data']));
 
-    $pstring = Horde_Mime::decodeParam('content-type', $render[$render_key]['type'], 'UTF-8');
+    $pstring = Horde_Mime::decodeParam('content-type', $render[$render_key]['type']);
 
     $doc = new Horde_Domhtml($render[$render_key]['data'], $pstring['params']['charset']);
 

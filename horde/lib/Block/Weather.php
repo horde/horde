@@ -202,7 +202,6 @@ class Horde_Block_Weather extends Horde_Core_Block
         if ($current->wind_direction) {
             // Wind.
             $html .= '<br /><strong>' . _("Wind") . ': </strong>';
-
             $html .= sprintf(
                 _("From the %s (%s &deg;) at %s %s"),
                 $current->wind_direction,
@@ -270,7 +269,8 @@ class Horde_Block_Weather extends Horde_Core_Block
                  if ($which > $this->_params['days']) {
                      break;
                  }
-                 $html .= '<tr class="item0">';
+                 $html .= '<tr class="rowEven">';
+
                  // Day name.
                  $html .= '<td><strong>';
 

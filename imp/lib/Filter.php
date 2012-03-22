@@ -5,13 +5,13 @@
  *
  * For full use, the following Horde API calls should be defined
  * (These API methods are not defined in IMP):
- *   mail/applyFilters
- *   mail/canApplyFilters
- *   mail/showFilters
- *   mail/blacklistFrom
- *   mail/showBlacklist
- *   mail/whitelistFrom
- *   mail/showWhitelist
+ *   - mail/applyFilters
+ *   - mail/canApplyFilters
+ *   - mail/showFilters
+ *   - mail/blacklistFrom
+ *   - mail/showBlacklist
+ *   - mail/whitelistFrom
+ *   - mail/showWhitelist
  *
  * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
  *
@@ -65,11 +65,7 @@ class IMP_Filter
             return false;
         }
 
-        if ($msg_count == 1) {
-            $GLOBALS['notification']->push(_("The message has been deleted."), 'horde.message');
-        } else {
-            $GLOBALS['notification']->push(_("The messages have been deleted."), 'horde.message');
-        }
+        $GLOBALS['notification']->push(ngettext(_("The message has been deleted."), _("The messages have been deleted."), $msg_count), 'horde.message');
 
         return true;
     }
@@ -118,8 +114,7 @@ class IMP_Filter
 
             foreach ($ob->uids as $idx) {
                 /* Get the list of from addresses. */
-                $contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($ob->mbox->getIndicesOb($idx));
-                $addr[] = Horde_Mime_Address::bareAddress($contents->getHeader()->getValue('from'));
+                $addr[] = IMP::bareAddress($GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($ob->mbox->getIndicesOb($idx))->getHeader()->getValue('from'));
             }
         }
 

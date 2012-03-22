@@ -29,7 +29,7 @@ USAGE;
 /* Set these options to empty by default. */
 $config_file = $install_dir = '';
 
-$dir = dirname(dirname(__FILE__));
+$dir = dirname(__DIR__);
 foreach ($options[0] as $option) {
     switch ($option[0]) {
     case 'b':

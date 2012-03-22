@@ -143,16 +143,10 @@ class Horde_Core_Factory_Auth extends Horde_Core_Factory_Base
                     ->getInstance('Horde_Core_Factory_Db')
                     ->create('horde', is_null($orig_params) ? 'auth' : $orig_params);
             }
-
-            $params['charset'] = 'UTF-8';
             break;
 
         case 'http_remote':
             $params['client'] = $this->_injector->getInstance('Horde_Core_Factory_HttpClient')->create();
-            break;
-
-        case 'imap':
-            $params['charset'] = 'UTF-8';
             break;
 
         case 'horde_core_auth_application':

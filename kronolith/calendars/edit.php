@@ -8,7 +8,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -23,7 +23,7 @@ if (!$GLOBALS['registry']->getAuth()) {
 }
 
 try {
-    $calendar = $kronolith_shares->getShare($vars->get('c'));
+    $calendar = $injector->getInstance('Kronolith_Shares')->getShare($vars->get('c'));
 } catch (Exception $e) {
     $notification->push($e, 'horde.error');
     Horde::url('calendars/', true)->redirect();

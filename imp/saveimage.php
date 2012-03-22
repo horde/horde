@@ -13,12 +13,16 @@
  * @package  IMP
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('imp');
 
-$vars = Horde_Variables::getDefaultVariables();
+if (!$registry->hasMethod('images/selectGalleries') ||
+    !$registry->hasMethod('images/saveImage')) {
+    Horde::fatal(new IMP_Exception('Image saving is not available.'), false);
+}
 
 /* Run through the action handlers. */
+$vars = Horde_Variables::getDefaultVariables();
 switch ($vars->actionID) {
 case 'save_image':
     $contents = $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($vars->mbox, $vars->uid));
@@ -39,11 +43,6 @@ case 'save_image':
     exit;
 }
 
-if (!$registry->hasMethod('images/selectGalleries') ||
-    !$registry->hasMethod('images/saveImage')) {
-    throw new IMP_Exception('Image saving is not available.');
-}
-
 /* Build the template. */
 $t = $injector->createInstance('Horde_Template');
 $t->setOption('gettext', true);
@@ -56,8 +55,7 @@ $t->set('image_img', Horde::img('mime/image.png', _("Image")));
 /* Build the list of galleries. */
 $t->set('gallerylist', $registry->images->selectGalleries(array('perm' => Horde_Perms::EDIT)));
 
-$title = _("Save Image");
-require IMP_TEMPLATES . '/common-header.inc';
+IMP::header(_("Save Image"));
 IMP::status();
 echo $t->fetch(IMP_TEMPLATES . '/saveimage/saveimage.html');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

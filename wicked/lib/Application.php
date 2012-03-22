@@ -15,7 +15,7 @@
 
 /* Determine the base directories. */
 if (!defined('WICKED_BASE')) {
-    define('WICKED_BASE', dirname(__FILE__) . '/..');
+    define('WICKED_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {
@@ -36,18 +36,26 @@ class Wicked_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = 'H4 (1.0.2-git)';
+    public $version = 'H5 (2.0-git)';
+
+    protected function _bootstrap()
+    {
+        $GLOBALS['injector']->bindFactory('Wicked_Driver', 'Wicked_Factory_Driver', 'create');
+    }
 
     /**
      * Global variables defined:
      * - $wicked:   The Wicked_Driver object.
-     * - $linkTags: <link> tags for common-header.inc.
      */
     protected function _init()
     {
-        $GLOBALS['injector']->bindFactory('Wicked_Driver', 'Wicked_Factory_Driver', 'create');
         $GLOBALS['wicked'] = $GLOBALS['injector']->getInstance('Wicked_Driver');
-        $GLOBALS['linkTags'] = array('<link href="' . Horde::url('opensearch.php', true, -1) . '" rel="search" type="application/opensearchdescription+xml" title="' . $GLOBALS['registry']->get('name') . ' (' . Horde::url('', true) . ')" />');
+        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addLinkTag(array(
+            'href' => Horde::url('opensearch.php', true, -1),
+            'rel' => 'search',
+            'title' => $GLOBALS['registry']->get('name') . ' (' . Horde::url('', true) . ')',
+            'type' => 'application/opensearchdescription+xml'
+        ));
     }
 
     /**

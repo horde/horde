@@ -39,6 +39,15 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
     protected $_db = false;
 
     /**
+     * List of features that the VFS driver supports.
+     *
+     * @var array
+     */
+    protected $_features = array(
+        'readByteRange' => true,
+    );
+
+    /**
      * Constructor.
      *
      * @param array $params  A hash containing connection parameters.
@@ -83,26 +92,28 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
     }
 
     /**
-     * Returns the size of a file.
+     * Returns the size of a folder.
      *
-     * @param string $path  The path of the file.
-     * @param string $name  The filename.
+     * @param string $path  The path of the folder.
      *
      * @return integer  The size of the folder in bytes.
      * @throws Horde_Vfs_Exception
      */
-    public function getFolderSize($path = null, $name = null)
+    public function getFolderSize($path = null)
     {
         try {
-            $where = is_null($path)
-                ? null
-                : sprintf('WHERE vfs_path LIKE %s', ((!strlen($path)) ? '""' : $this->_db->quote($this->_convertPath($path) . '%')));
-            $length_op = $this->_getFileSizeOp();
+            $where = null;
+            $params = array();
+            if (strlen($path)) {
+                $where = 'WHERE vfs_path = ? OR vfs_path LIKE ?';
+                $path = $this->_convertPath($path);
+                $params = array($path, $path . '/%');
+            }
             $sql = sprintf('SELECT SUM(%s(vfs_data)) FROM %s %s',
-                           $length_op,
+                           $this->_getFileSizeOp(),
                            $this->_params['table'],
                            $where);
-            $size = $this->_db->selectValue($sql);
+            $size = $this->_db->selectValue($sql, $params);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Vfs_Exception($e);
         }
@@ -212,7 +223,7 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
         try {
             $sql = sprintf('SELECT vfs_id FROM %s WHERE vfs_path %s AND vfs_name = ?',
                            $this->_params['table'],
-                           (!strlen($path) && $this->_db->dbsyntax == 'oci8') ? ' IS NULL' : ' = ' . $this->_db->quote($path));
+                           ' = ' . $this->_db->quote($path));
             $values = array($name);
             $id = $this->_db->selectValue($sql, $values);
         } catch (Horde_Db_Exception $e) {
@@ -262,10 +273,9 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
         $path = $this->_convertPath($path);
 
         try {
-            $sql = sprintf('DELETE FROM %s WHERE vfs_type = ? AND vfs_path %s AND vfs_name = ?',
-                           $this->_params['table'],
-                           (!strlen($path) && $this->_db->dbsyntax == 'oci8') ? ' IS NULL' : ' = ' . $this->_db->quote($path));
-            $values = array(self::FILE, $name);
+            $sql = sprintf('DELETE FROM %s WHERE vfs_type = ? AND vfs_path = ? AND vfs_name = ?',
+                           $this->_params['table']);
+            $values = array(self::FILE, $path, $name);
             $result = $this->_db->delete($sql, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Vfs_Exception($e);
@@ -274,8 +284,6 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
         if ($result == 0) {
             throw new Horde_Vfs_Exception('Unable to delete VFS file.');
         }
-
-        return $result;
     }
 
     /**
@@ -343,6 +351,38 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
     }
 
     /**
+     * Horde_Vfs_Sql override of isFolder() to check for root folder.
+     *
+     * @param string $path  Path to possible folder
+     * @param string $name  Name of possible folder
+     *
+     * @return boolean  True if $path/$name is a folder
+     */
+    public function isFolder($path, $name)
+    {
+        $path = $this->_convertPath($path);
+        if ($path == '' && $name == '') {
+            // The root of VFS is always a folder.
+            return true;
+        }
+        $path = $this->_getNativePath($path, $name);
+        $name = basename($path);
+        $path = dirname($path);
+        if ($path == '.') {
+            $path = '';
+        }
+        try {
+            return (bool)$this->_db->selectValue(
+                sprintf(
+                    'SELECT 1 FROM %s WHERE vfs_type = ? AND vfs_path = ? AND vfs_name = ?',
+                    $this->_params['table']),
+                array(self::FOLDER, $path, $name));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Vfs_Exception($e);
+        }
+    }
+
+    /**
      * Delete a folder from the VFS.
      *
      * @param string $path        The path of the folder.
@@ -364,14 +404,20 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
             }
         }
 
+        /* Remember the size of the folder. */
+        if (!is_null($this->_vfsSize)) {
+            $size = $this->getFolderSize($folderPath);
+        }
+
         /* First delete everything below the folder, so if error we get no
          * orphans. */
         try {
             $sql = sprintf('DELETE FROM %s WHERE vfs_path %s',
                            $this->_params['table'],
-                           (!strlen($folderPath) && $this->_db->dbsyntax == 'oci8') ? ' IS NULL' : ' LIKE ' . $this->_db->quote($this->_getNativePath($folderPath, '%')));
+                           ' LIKE ' . $this->_db->quote($this->_getNativePath($folderPath, '%')));
             $this->_db->delete($sql);
         } catch (Horde_Db_Exception $e) {
+            $this->_vfsSize = null;
             throw new Horde_Vfs_Exception('Unable to delete VFS recursively: ' . $e->getMessage());
         }
 
@@ -379,9 +425,10 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
         try {
             $sql = sprintf('DELETE FROM %s WHERE vfs_path %s',
                            $this->_params['table'],
-                           (!strlen($path) && $this->_db->dbsyntax == 'oci8') ? ' IS NULL' : ' = ' . $this->_db->quote($folderPath));
+                           ' = ' . $this->_db->quote($folderPath));
             $this->_db->delete($sql);
         } catch (Horde_Db_Exception $e) {
+            $this->_vfsSize = null;
             throw new Horde_Vfs_Exception('Unable to delete VFS directory: ' . $e->getMessage());
         }
 
@@ -389,22 +436,28 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
         try {
             $sql = sprintf('DELETE FROM %s WHERE vfs_path %s AND vfs_name = ?',
                            $this->_params['table'],
-                           (!strlen($path) && $this->_db->dbsyntax == 'oci8') ? ' IS NULL' : ' = ' . $this->_db->quote($path));
+                           ' = ' . $this->_db->quote($path));
             $values = array($name);
             $this->_db->delete($sql, $values);
         } catch (Horde_Db_Exception $e) {
+            $this->_vfsSize = null;
             throw new Horde_Vfs_Exception('Unable to delete VFS directory: ' . $e->getMessage());
+        }
+
+        /* Update VFS size. */
+        if (!is_null($this->_vfsSize)) {
+            $this->_vfsSize -= $size;
         }
     }
 
     /**
-     * Return a list of the contents of a folder.
+     * Returns an an unsorted file list of the specified directory.
      *
-     * @param string $path       The directory path.
-     * @param mixed $filter      String/hash of items to filter based on
-     *                           filename.
-     * @param boolean $dotfiles  Show dotfiles?
-     * @param boolean $dironly   Show directories only?
+     * @param string $path          The path of the directory.
+     * @param string|array $filter  Regular expression(s) to filter
+     *                              file/directory name on.
+     * @param boolean $dotfiles     Show dotfiles?
+     * @param boolean $dironly      Show only directories?
      *
      * @return array  File list.
      * @throws Horde_Vfs_Exception
@@ -412,24 +465,18 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
     protected function _listFolder($path, $filter = null, $dotfiles = true,
                                    $dironly = false)
     {
+        if (!$this->isFolder(dirname($path), basename($path))) {
+            throw new Horde_Vfs_Exception(sprintf('"%s" is not a folder.', $path));
+        }
+
         $path = $this->_convertPath($path);
 
         try {
-            // Fix for Oracle not differentiating between '' and NULL.
-            if (!strlen($path) &&
-                ($this->_db->adapterName() == 'Oracle' ||
-                 $this->_db->adapterName() == 'PDO_Oracle')) {
-                $where = 'vfs_path IS NULL';
-            } else {
-                $where = 'vfs_path = ' . $this->_db->quote($path);
-            }
-
             $length_op = $this->_getFileSizeOp();
-            $sql = sprintf('SELECT vfs_name, vfs_type, %s(vfs_data) length, vfs_modified, vfs_owner FROM %s WHERE %s',
+            $sql = sprintf('SELECT vfs_name, vfs_type, %s(vfs_data) length, vfs_modified, vfs_owner FROM %s WHERE vfs_path = ?',
                            $length_op,
-                           $this->_params['table'],
-                           $where);
-            $fileList = $this->_db->select($sql);
+                           $this->_params['table']);
+            $fileList = $this->_db->select($sql, array($path));
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Vfs_Exception($e);
         }
@@ -478,76 +525,6 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
         }
 
         return $files;
-    }
-
-    /**
-     * Returns a sorted list of folders in specified directory.
-     *
-     * @param string $path         The path of the directory to get the
-     *                             directory list for.
-     * @param mixed $filter        String/hash of items to filter based on
-     *                             folderlist.
-     * @param boolean $dotfolders  Include dotfolders?
-     *
-     * @return array  Folder list.
-     * @throws Horde_Vfs_Exception
-     */
-    public function listFolders($path = '', $filter = array(),
-                                $dotfolders = true)
-    {
-        $path = $this->_convertPath($path);
-
-        $sql  = 'SELECT vfs_name, vfs_path FROM ' . $this->_params['table']
-            . ' WHERE vfs_path = ? AND vfs_type = ?';
-        $values = array($path, self::FOLDER);
-
-        try {
-            $folderList = $this->_db->select($sql, $values);
-        } catch (Horde_Db_Exception $e) {
-            throw new Horde_Vfs_Exception($e);
-        }
-
-        $folders = array();
-        foreach ($folderList as $line) {
-            $folder['val'] = $this->_getNativePath($line['vfs_path'], $line['vfs_name']);
-            $folder['abbrev'] = '';
-            $folder['label'] = '';
-
-            $count = substr_count($folder['val'], '/');
-
-            $x = 0;
-            while ($x < $count) {
-                $folder['abbrev'] .= '    ';
-                $folder['label'] .= '    ';
-                $x++;
-            }
-
-            $folder['abbrev'] .= $line['vfs_name'];
-            $folder['label'] .= $line['vfs_name'];
-
-            $strlen = Horde_String::length($folder['label']);
-            if ($strlen > 26) {
-                $folder['abbrev'] = substr($folder['label'], 0, ($count * 4));
-                $length = (29 - ($count * 4)) / 2;
-                $folder['abbrev'] .= substr($folder['label'], ($count * 4), $length);
-                $folder['abbrev'] .= '...';
-                $folder['abbrev'] .= substr($folder['label'], -1 * $length, $length);
-            }
-
-            $found = false;
-            foreach ($filter as $fltr) {
-                if ($folder['val'] == $fltr) {
-                    $found = true;
-                }
-            }
-
-            if (!$found) {
-                $folders[$folder['val']] = $folder;
-            }
-        }
-
-        ksort($folders);
-        return $folders;
     }
 
     /**
@@ -782,10 +759,6 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
     protected function _getFileSizeOp()
     {
         switch ($this->_db->adapterName()) {
-        case 'Oracle':
-        case 'PDO_Oracle':
-            return 'LENGTHB';
-
         case 'PostgreSQL':
         case 'PDO_PostgreSQL':
             return 'OCTET_LENGTH';
@@ -794,21 +767,4 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
             return 'LENGTH';
         }
     }
-
-    /**
-     * Horde_Vfs_Sql override of isFolder() to check for root folder.
-     *
-     * @param string $path  Path to possible folder
-     * @param string $name  Name of possible folder
-     *
-     * @return boolean  True if $path/$name is a folder
-     */
-    public function isFolder($path, $name)
-    {
-        return (($path == '') && ($name == ''))
-            // The root of VFS is always a folder.
-            ? true
-            : parent::isFolder($path, $name);
-    }
-
 }

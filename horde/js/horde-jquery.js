@@ -81,7 +81,7 @@ String.prototype.toPaddedString = Number.prototype.toPaddedString;
 Array.prototype.numericSort = function()
 {
     return $.map(this, function(n) {
-        return new Number(n);
+        return parseInt(n, 10);
     }).sort(function(a, b) {
         return (a > b) ? 1 : ((a < b) ? -1 : 0);
     });

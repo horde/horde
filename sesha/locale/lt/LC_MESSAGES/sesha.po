@@ -8,14 +8,13 @@ msgstr ""
 "Project-Id-Version: Sesha 1.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2007-11-02 15:40+0200\n"
-"PO-Revision-Date: 2007-11-11 18:47+0200\n"
+"PO-Revision-Date: 2012-03-20 20:42+0100\n"
 "Last-Translator: Vilius Sumskas <vilius@lnk.lt>\n"
 "Language-Team: Lithuanian <vilius@lnk.lt>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-13\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
-"100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: templates/menu.inc:6
 msgid "#Stock"
@@ -24,7 +23,7 @@ msgstr "#ID"
 #: list.php:86
 #, php-format
 msgid "%d Items"
-msgstr "%d vienetai(ø)"
+msgstr "%d vienetai(Å³)"
 
 #: list.php:85
 msgid "1 Item"
@@ -32,27 +31,27 @@ msgstr "1 vienetas"
 
 #: lib/api.php:47
 msgid "Add Stock"
-msgstr "Pridëti elementà"
+msgstr "PridÄ—ti elementÄ…"
 
 #: stock.php:37
 msgid "Add Stock To Inventory"
-msgstr "Elemento árağymas á inventoriaus duomenø bazæ"
+msgstr "Elemento Ä¯raÅ¡ymas Ä¯ inventoriaus duomenÅ³ bazÄ™"
 
 #: admin.php:39
 msgid "Add a category"
-msgstr "Sukurti kategorijà"
+msgstr "Sukurti kategorijÄ…"
 
 #: admin.php:226
 msgid "Add a new category"
-msgstr "Naujos kategorijos kûrimas"
+msgstr "Naujos kategorijos kÅ«rimas"
 
 #: admin.php:190 admin.php:253
 msgid "Add a new property"
-msgstr "Naujos savybës kûrimas"
+msgstr "Naujos savybÄ—s kÅ«rimas"
 
 #: admin.php:186
 msgid "Add a property"
-msgstr "Sukurti savybæ"
+msgstr "Sukurti savybÄ™"
 
 #: lib/Sesha.php:225
 msgid "Admin"
@@ -64,7 +63,7 @@ msgstr "Valdymas"
 
 #: config/prefs.php.dist:35
 msgid "Ascending"
-msgstr "Didëjimo tvarka"
+msgstr "DidÄ—jimo tvarka"
 
 #: list.php:56
 msgid "Available Inventory"
@@ -85,7 +84,7 @@ msgstr "Kategorijos pavadinimas"
 
 #: config/prefs.php.dist:13
 msgid "Change your inventory sorting and display options."
-msgstr "Inventoriaus rûğiavimo ir rodymo nustatymai."
+msgstr "Inventoriaus rÅ«Å¡iavimo ir rodymo nustatymai."
 
 #: lib/Forms/Stock.php:137
 msgid "Client"
@@ -102,23 +101,23 @@ msgstr "Nepavyko sukurti naujos kategorijos."
 #: admin.php:54
 #, php-format
 msgid "Could not add properties to new category: %s, %s"
-msgstr "Nepavyko priskirti savybiø naujoje kategorijoje: %s, %s"
+msgstr "Nepavyko priskirti savybiÅ³ naujoje kategorijoje: %s, %s"
 
 #: admin.php:205
 msgid "Could not add property."
-msgstr "Nepavyko sukurti savybës."
+msgstr "Nepavyko sukurti savybÄ—s."
 
 #: admin.php:90
 msgid "Could not update category details."
-msgstr "Nepavyko atnaujinti kategorijos duomenø."
+msgstr "Nepavyko atnaujinti kategorijos duomenÅ³."
 
 #: admin.php:87
 msgid "Could not update properties for this category."
-msgstr "Nepavyko atnaujinti savybiø ğiai kategorijai."
+msgstr "Nepavyko atnaujinti savybiÅ³ Å¡iai kategorijai."
 
 #: admin.php:156
 msgid "Could not update property details."
-msgstr "Nepavyko atnaujinti savybës duomenø."
+msgstr "Nepavyko atnaujinti savybÄ—s duomenÅ³."
 
 #: lib/Forms/Search.php:32
 msgid "Criteria"
@@ -130,45 +129,45 @@ msgstr "Dabartinis inventorius"
 
 #: lib/Forms/Property.php:38
 msgid "Data Type"
-msgstr "Duomenø tipas"
+msgstr "DuomenÅ³ tipas"
 
 #: config/prefs.php.dist:26
 msgid "Default sorting criteria:"
-msgstr "Standartinis rûğiavimo kriterijus:"
+msgstr "Standartinis rÅ«Å¡iavimo kriterijus:"
 
 #: config/prefs.php.dist:37
 msgid "Default sorting direction:"
-msgstr "Standartinë rûğiavimo tvarka:"
+msgstr "StandartinÄ— rÅ«Å¡iavimo tvarka:"
 
 #: admin.php:100 lib/Forms/Category.php:68 lib/Forms/Category.php:95
 msgid "Delete Category"
-msgstr "Iğtrinti kategorijà"
+msgstr "IÅ¡trinti kategorijÄ…"
 
 #: admin.php:101
 #, php-format
 msgid "Delete Category \"%s\""
-msgstr "Iğtrinti kategorijà \"%s\""
+msgstr "IÅ¡trinti kategorijÄ… \"%s\""
 
 #: list.php:83 list.php:119
 msgid "Delete Item"
-msgstr "Iğtrinti elementà"
+msgstr "IÅ¡trinti elementÄ…"
 
 #: admin.php:131 lib/Forms/Property.php:101 lib/Forms/Property.php:129
 msgid "Delete Property"
-msgstr "Iğtrinti savybæ"
+msgstr "IÅ¡trinti savybÄ™"
 
 #: admin.php:132
 #, php-format
 msgid "Delete Property \"%s\""
-msgstr "Iğtrinti savybæ \"%s\""
+msgstr "IÅ¡trinti savybÄ™ \"%s\""
 
 #: config/prefs.php.dist:36
 msgid "Descending"
-msgstr "Maşëjimo tvarka"
+msgstr "MaÅ¾Ä—jimo tvarka"
 
 #: lib/Forms/Category.php:45 lib/Forms/Property.php:44
 msgid "Description"
-msgstr "Aprağymas"
+msgstr "ApraÅ¡ymas"
 
 #: config/prefs.php.dist:12
 msgid "Display Options"
@@ -180,7 +179,7 @@ msgstr "Redaguoti"
 
 #: admin.php:70 lib/Forms/Category.php:67
 msgid "Edit Category"
-msgstr "Redaguoti kategorijà"
+msgstr "Redaguoti kategorijÄ…"
 
 #: stock.php:134
 msgid "Edit Inventory Item"
@@ -188,19 +187,19 @@ msgstr "Inventoriaus elemento redagavimas"
 
 #: list.php:81 list.php:116
 msgid "Edit Item"
-msgstr "Redaguoti elementà"
+msgstr "Redaguoti elementÄ…"
 
 #: lib/Forms/Property.php:101
 msgid "Edit Property"
-msgstr "Redaguoti savybæ"
+msgstr "Redaguoti savybÄ™"
 
 #: lib/Forms/Category.php:74
 msgid "Edit a category"
-msgstr "Redaguoti kategorijà"
+msgstr "Redaguoti kategorijÄ…"
 
 #: lib/Forms/Property.php:107
 msgid "Edit a property"
-msgstr "Redaguoti savybæ"
+msgstr "Redaguoti savybÄ™"
 
 #: config/prefs.php.dist:11
 msgid "General Options"
@@ -212,7 +211,7 @@ msgstr "Rodyti"
 
 #: lib/Driver/sql.php:107
 msgid "Invalid search parameters!"
-msgstr "Neteisingi paieğkos parametrai!"
+msgstr "Neteisingi paieÅ¡kos parametrai!"
 
 #: list.php:103 lib/Forms/Search.php:36 config/prefs.php.dist:24
 msgid "Item Name"
@@ -225,7 +224,7 @@ msgstr "Elemento pastabos"
 #: stock.php:86
 #, php-format
 msgid "Item number %d was successfully deleted"
-msgstr "Elementas numeris %d sëkmingai iğtrintas."
+msgstr "Elementas numeris %d sÄ—kmingai iÅ¡trintas."
 
 #: lib/Forms/Search.php:33
 msgid "Location"
@@ -251,7 +250,7 @@ msgstr "Redaguojamas %s"
 #: admin.php:137
 #, php-format
 msgid "Modifying property \"%s\""
-msgstr "\"%s\" savybës redagavimas"
+msgstr "\"%s\" savybÄ—s redagavimas"
 
 #: lib/Forms/Stock.php:61
 msgid "Name"
@@ -259,11 +258,11 @@ msgstr "Pavadinimas"
 
 #: admin.php:52
 msgid "New category added successfully."
-msgstr "Nauja kategorija sëkmingai sukurta."
+msgstr "Nauja kategorija sÄ—kmingai sukurta."
 
 #: admin.php:200
 msgid "New property added successfully."
-msgstr "Nauja savybë sëkmingai sukurta."
+msgstr "Nauja savybÄ— sÄ—kmingai sukurta."
 
 #: lib/Forms/Category.php:97 lib/Forms/Property.php:131
 msgid "No"
@@ -272,23 +271,23 @@ msgstr "Ne"
 #: lib/Forms/Stock.php:64
 msgid ""
 "No categories are currently configured. Click 'Admin' (above) to add some."
-msgstr "Kategorijø nëra. Paspauskite 'Valdymas' (virğuje) ir keletà sukurkite."
+msgstr "KategorijÅ³ nÄ—ra. Paspauskite 'Valdymas' (virÅ¡uje) ir keletÄ… sukurkite."
 
 #: lib/Forms/Category.php:80
 msgid "No categories are currently configured. Use the form below to add one."
-msgstr "Kategorijø nëra. Pasinaudojæ forma apaèioje galite keletà sukurti."
+msgstr "KategorijÅ³ nÄ—ra. PasinaudojÄ™ forma apaÄioje galite keletÄ… sukurti."
 
 #: lib/Forms/Category.php:48
 msgid ""
 "No properties are currently configured. Use the 'Manage Properties' tab "
 "(above) to add some."
 msgstr ""
-"Savybiø nëra. Pasinaudojæ kortele 'Tvarkyti savybes' (virğuje) galite keletà "
+"SavybiÅ³ nÄ—ra. PasinaudojÄ™ kortele 'Tvarkyti savybes' (virÅ¡uje) galite keletÄ… "
 "sukurti."
 
 #: lib/Forms/Property.php:113
 msgid "No properties are currently configured. Use the form below to add one."
-msgstr "Savybiø nëra. Pasinaudojæ forma apaèioje galite keletà sukurti."
+msgstr "SavybiÅ³ nÄ—ra. PasinaudojÄ™ forma apaÄioje galite keletÄ… sukurti."
 
 #: list.php:107 lib/Forms/Stock.php:99 config/prefs.php.dist:25
 msgid "Note"
@@ -300,67 +299,67 @@ msgstr "Svarba"
 
 #: lib/Forms/Category.php:52
 msgid "Properties"
-msgstr "Savybës"
+msgstr "SavybÄ—s"
 
 #: lib/Forms/Property.php:117
 msgid "Property"
-msgstr "Savybë"
+msgstr "SavybÄ—"
 
 #: lib/Forms/Property.php:36
 msgid "Property Name"
-msgstr "Savybës pavadinimas"
+msgstr "SavybÄ—s pavadinimas"
 
 #: lib/Forms/Search.php:38
 msgid "Property Value"
-msgstr "Savybës reikğmë"
+msgstr "SavybÄ—s reikÅ¡mÄ—"
 
 #: lib/Forms/Category.php:98
 msgid "Really delete this category?"
-msgstr "Tikrai iğtrinti ğià kategorijà?"
+msgstr "Tikrai iÅ¡trinti Å¡iÄ… kategorijÄ…?"
 
 #: lib/Forms/Property.php:132
 msgid "Really delete this property?"
-msgstr "Tikrai iğtrinti ğià savybæ?"
+msgstr "Tikrai iÅ¡trinti Å¡iÄ… savybÄ™?"
 
 #: admin.php:71 lib/Forms/Category.php:22
 msgid "Save Category"
-msgstr "Iğsaugoti kategorijà"
+msgstr "IÅ¡saugoti kategorijÄ…"
 
 #: lib/Forms/Stock.php:34
 msgid "Save Item"
-msgstr "Iğsaugoti elementà"
+msgstr "IÅ¡saugoti elementÄ…"
 
 #: lib/Forms/Property.php:22
 msgid "Save Property"
-msgstr "Iğsaugoti savybæ"
+msgstr "IÅ¡saugoti savybÄ™"
 
 #: lib/Forms/Search.php:29
 msgid "Search"
-msgstr "Ieğkoti"
+msgstr "IeÅ¡koti"
 
 #: search.php:20 list.php:51
 msgid "Search Inventory"
-msgstr "Ieğkoti inventoriaus"
+msgstr "IeÅ¡koti inventoriaus"
 
 #: lib/Forms/Search.php:27
 msgid "Search The Inventory"
-msgstr "Inventoriau paieğka"
+msgstr "Inventoriau paieÅ¡ka"
 
 #: templates/list/list.html:11
 msgid "Show Category"
-msgstr "Rodyti kategorijà"
+msgstr "Rodyti kategorijÄ…"
 
 #: list.php:103
 msgid "Sort by item name"
-msgstr "Rûğiuoti pagal elemento pavadinimà"
+msgstr "RÅ«Å¡iuoti pagal elemento pavadinimÄ…"
 
 #: list.php:107
 msgid "Sort by note"
-msgstr "Rûğiuoti pagal pastabà"
+msgstr "RÅ«Å¡iuoti pagal pastabÄ…"
 
 #: list.php:99
 msgid "Sort by stock ID"
-msgstr "Rûğiuoti pagal ID"
+msgstr "RÅ«Å¡iuoti pagal ID"
 
 #: list.php:99 lib/Forms/Search.php:35 lib/Forms/Stock.php:55
 #: lib/Forms/Stock.php:57 config/prefs.php.dist:23
@@ -369,11 +368,11 @@ msgstr "ID"
 
 #: admin.php:117
 msgid "The category was deleted."
-msgstr "Kategorija iğtrinta."
+msgstr "Kategorija iÅ¡trinta."
 
 #: admin.php:120
 msgid "The category was not deleted."
-msgstr "Kategorija neiğtrinta."
+msgstr "Kategorija neiÅ¡trinta."
 
 #: lib/Forms/Property.php:69
 #, php-format
@@ -382,51 +381,51 @@ msgstr "Formos laukelio tipas \"%s\" neegzistuoja."
 
 #: stock.php:52
 msgid "The item was added succcessfully."
-msgstr "Elementas sëkmingai sukurtas."
+msgstr "Elementas sÄ—kmingai sukurtas."
 
 #: admin.php:175
 msgid "The property was deleted."
-msgstr "Savybë iğtrinta."
+msgstr "SavybÄ— iÅ¡trinta."
 
 #: admin.php:178
 msgid "The property was not deleted."
-msgstr "Savybë neiğtrinta."
+msgstr "SavybÄ— neiÅ¡trinta."
 
 #: stock.php:159
 msgid "The stock item was successfully updated."
-msgstr "Elementas sëkmingai atnaujintas."
+msgstr "Elementas sÄ—kmingai atnaujintas."
 
 #: templates/list/list.html:64
 msgid "There are no stocked items matching the criteria"
-msgstr "Inventoriaus elementø, atitinkanèiø jûsø kriterijø, nëra"
+msgstr "Inventoriaus elementÅ³, atitinkanÄiÅ³ jÅ«sÅ³ kriterijÅ³, nÄ—ra"
 
 #: stock.php:48
 #, php-format
 msgid "There was a problem adding the item: %s"
-msgstr "Klaida sukuriant elementà: %s"
+msgstr "Klaida sukuriant elementÄ…: %s"
 
 #: stock.php:171
 #, php-format
 msgid "There was a problem updating the inventory: %s"
-msgstr "Klaida atnaujinant inventoriø: %s"
+msgstr "Klaida atnaujinant inventoriÅ³: %s"
 
 #: stock.php:82
 #, php-format
 msgid "There was a problem with the driver while deleting: %s"
-msgstr "Tvarkyklës klaida trinant: %s"
+msgstr "TvarkyklÄ—s klaida trinant: %s"
 
 #: list.php:64
 #, php-format
 msgid "There was a problem with the driver: %s"
-msgstr "Tvarkyklës klaida: %s."
+msgstr "TvarkyklÄ—s klaida: %s."
 
 #: admin.php:115
 msgid "There was an error removing the category."
-msgstr "Klaida trinant kategorijà."
+msgstr "Klaida trinant kategorijÄ…."
 
 #: admin.php:173
 msgid "There was an error removing the property."
-msgstr "Klaida trinant elementà."
+msgstr "Klaida trinant elementÄ…."
 
 #: lib/Forms/Property.php:43
 msgid "Unit"
@@ -438,27 +437,27 @@ msgstr "Vienetai: "
 
 #: admin.php:107
 msgid "Unknown category"
-msgstr "Neşinoma kategorija"
+msgstr "NeÅ¾inoma kategorija"
 
 #: admin.php:165
 msgid "Unknown property"
-msgstr "Neşinoma savybë"
+msgstr "NeÅ¾inoma savybÄ—"
 
 #: admin.php:85
 msgid "Updated category successfully."
-msgstr "Kategorija sëkmingai atnaujinta."
+msgstr "Kategorija sÄ—kmingai atnaujinta."
 
 #: admin.php:151
 msgid "Updated property successfully."
-msgstr "Savybë sëkmingai atnaujinta."
+msgstr "SavybÄ— sÄ—kmingai atnaujinta."
 
 #: stock.php:97
 msgid "View Inventory Item"
-msgstr "Inventoriau elemento perşiûra"
+msgstr "Inventoriau elemento perÅ¾iÅ«ra"
 
 #: list.php:121
 msgid "View Item"
-msgstr "Perşiûrëti elementà"
+msgstr "PerÅ¾iÅ«rÄ—ti elementÄ…"
 
 #: lib/Forms/Category.php:96 lib/Forms/Property.php:130
 msgid "Yes"
@@ -466,11 +465,11 @@ msgstr "Taip"
 
 #: stock.php:74
 msgid "You do not have sufficient permissions to delete."
-msgstr "Jûs neturite pakankamai teisiø trinimui."
+msgstr "JÅ«s neturite pakankamai teisiÅ³ trinimui."
 
 #: lib/Sesha.php:224
 msgid "_Add Stock"
-msgstr "Á_rağyti"
+msgstr "Ä®_raÅ¡yti"
 
 #: lib/Sesha.php:222
 msgid "_List Stock"
@@ -482,4 +481,4 @@ msgstr "_Spausdinti"
 
 #: lib/Sesha.php:227
 msgid "_Search"
-msgstr "_Ieğkoti"
+msgstr "_IeÅ¡koti"

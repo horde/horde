@@ -32,7 +32,7 @@ $_prefs['add_description'] = array(
 
 // preference for holding any running timers.
 $_prefs['running_timers'] = array(
-    'value' => '',
+    'value' => 'a:0:{}',
     'locked' => false,
     'type' => 'implicit'
 );

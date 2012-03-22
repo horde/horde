@@ -24,6 +24,7 @@ class IMP_Views_Compose
      *   - qreply: (boolean) Is this a quickreply view?
      *   - redirect: (string) Display the redirect interface?
      *   - show_editor: (boolean) Show the HTML editor?
+     *   - template: (string) Display the edit template interface?
      *
      * @return array  Array with the following keys:
      *   - html: (string) The rendered HTML content.
@@ -44,7 +45,6 @@ class IMP_Views_Compose
         $t->setOption('gettext', true);
 
         if (!empty($args['composeCache'])) {
-            $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($args['composeCache']);
             $t->set('composeCache', $args['composeCache']);
         }
 
@@ -55,6 +55,8 @@ class IMP_Views_Compose
 
             /* Generate identities list. */
             $result['js'] = array_merge($result['js'], $injector->getInstance('IMP_Ui_Compose')->identityJs());
+
+            $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create(isset($args['composeCache']) ? $args['composeCache'] : null);
 
             if ($t->get('composeCache') && count($imp_compose)) {
                 foreach ($imp_compose as $num => $atc) {
@@ -73,7 +75,7 @@ class IMP_Views_Compose
             }
 
             if (!empty($args['qreply'])) {
-                $result['js'][] = 'DIMP.conf_compose.qreply = 1';
+                $result['js'][] = 'DIMP.conf.qreply = 1';
             }
 
             if ($session->get('imp', 'rteavail')) {
@@ -89,12 +91,12 @@ class IMP_Views_Compose
 
                 if (!empty($conf['user']['select_sentmail_folder']) &&
                     !$prefs->isLocked('sent_mail_folder')) {
-                    /* Check to make sure the sent-mail folders are created -
+                    /* Check to make sure the sent-mail mailboxes are created;
                      * they need to exist to show up in drop-down list. */
                     foreach (array_keys($identity->getAll('id')) as $ident) {
-                        $folder = $identity->getValue('sent_mail_folder', $ident);
-                        if ($folder instanceof IMP_Mailbox) {
-                            $folder->create();
+                        $mbox = $identity->getValue('sent_mail_folder', $ident);
+                        if ($mbox instanceof IMP_Mailbox) {
+                            $mbox->create();
                         }
                     }
 
@@ -112,8 +114,8 @@ class IMP_Views_Compose
                         }
                         $flist[] = $tmp;
                     }
-                    $result['js'] = array_merge($result['js'], Horde::addInlineJsVars(array(
-                        'DIMP.conf_compose.flist' => $flist
+                    $result['js'] = array_merge($result['js'], $injector->getInstance('Horde_PageOutput')->addInlineJsVars(array(
+                        'DIMP.conf.flist' => $flist
                     ), array('ret_vars' => true)));
                 }
             }
@@ -122,24 +124,32 @@ class IMP_Views_Compose
             $compose_link->pathInfo = 'addAttachment';
             $t->set('compose_link', $compose_link);
 
-            $t->set('send_button', IMP_Dimp::actionButton(array(
-                'icon' => 'Forward',
-                'id' => 'send_button',
-                'title' => _("Send")
-            )));
             $t->set('spell_button', IMP_Dimp::actionButton(array(
                 'id' => 'spellcheck',
                 'title' => _("Check Spelling")
             )));
-            $t->set('draft_button', IMP_Dimp::actionButton(array(
-                'icon' => 'Drafts',
-                'id' => 'draft_button',
-                'title' => _("Save as Draft")
-            )));
+
+            if (empty($args['template'])) {
+                $t->set('send_button', IMP_Dimp::actionButton(array(
+                    'icon' => 'Forward',
+                    'id' => 'send_button',
+                    'title' => _("Send")
+                )));
+                $t->set('draft_button', IMP_Dimp::actionButton(array(
+                    'icon' => 'Drafts',
+                    'id' => 'draft_button',
+                    'title' => _("Save as Draft")
+                )));
+            } else {
+                $t->set('template_button', IMP_Dimp::actionButton(array(
+                    'icon' => 'Templates',
+                    'id' => 'template_button',
+                    'title' => _("Save Template")
+                )));
+            }
 
             $d_read = $prefs->getValue('request_mdn');
             if ($d_read != 'never') {
-                $t->set('read_receipt', true);
                 $t->set('read_receipt_set', ($d_read != 'ask'));
             }
 
@@ -161,12 +171,11 @@ class IMP_Views_Compose
 
             $save_attach = $prefs->getValue('save_attachments');
             if (strpos($save_attach, 'prompt') !== false) {
-                $t->set('save_attach', true);
                 $t->set('save_attach_set', strpos($save_attach, 'yes') !== false);
             }
         } else {
-            $result['js'] = array_merge($result['js'], Horde::addInlineJsVars(array(
-                '-DIMP.conf_compose.redirect' => 1
+            $result['js'] = array_merge($result['js'], $injector->getInstance('Horde_PageOutput')->addInlineJsVars(array(
+                '-DIMP.conf.redirect' => 1
             ), array('ret_vars' => true)));
         }
 

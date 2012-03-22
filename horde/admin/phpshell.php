@@ -11,7 +11,7 @@
  * @category Horde
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 $permission = 'phpshell';
 Horde_Registry::appInit('horde');
 if (!$registry->isAdmin() &&
@@ -35,7 +35,7 @@ $application = Horde_Util::getFormData('app', 'horde');
 $command = trim(Horde_Util::getFormData('php'));
 
 $title = _("PHP Shell");
-Horde::addScriptFile('stripe.js', 'horde');
+$injector->getInstance('Horde_PageOutput')->addScriptFile('stripe.js', 'horde');
 require HORDE_TEMPLATES . '/common-header.inc';
 require HORDE_TEMPLATES . '/admin/menu.inc';
 

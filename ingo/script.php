@@ -8,7 +8,7 @@
  * @author Mike Cochrane <mike@graftonhall.co.nz>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('ingo');
 
 /* Redirect if script updating is not available. */
@@ -16,14 +16,10 @@ if (!$session->get('ingo', 'script_generate')) {
     Horde::url('filters.php', true)->redirect();
 }
 
-$script = '';
-
-/* Get the Ingo_Script:: backend. */
-$scriptor = Ingo::loadIngoScript();
-
 /* Generate the script. */
-$script = $scriptor->generate();
-$additional = $scriptor->additionalScripts();
+$ingo_script = $injector->getInstance('Ingo_Script');
+$script = $ingo_script->generate();
+$additional = $ingo_script->additionalScripts();
 
 /* Activate/deactivate script if requested.
    activateScript() does its own $notification->push() on error. */

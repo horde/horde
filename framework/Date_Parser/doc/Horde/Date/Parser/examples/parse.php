@@ -1,6 +1,6 @@
 <?php
 
-set_include_path(dirname(dirname(dirname(dirname(dirname(__FILE__))))) . '/lib:' . get_include_path());
+set_include_path(dirname(dirname(dirname(dirname(__DIR__)))) . '/lib:' . get_include_path());
 require 'Horde/Autoloader/Default.php';
 
 $t = isset($_SERVER['argv'][1]) ? $_SERVER['argv'][1] : 'this fortnight';

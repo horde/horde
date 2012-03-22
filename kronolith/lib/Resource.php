@@ -27,11 +27,11 @@ class Kronolith_Resource
    /**
     * Adds a new resource to storage
     *
-    * @param Kronolith_Resource $resource
+    * @param Kronolith_Resource_Base $resource
     *
     * @return unknown_type
     */
-    static public function addResource($resource)
+    static public function addResource(Kronolith_Resource_Base $resource)
     {
         // Create a new calendar id.
         $calendar = uniqid(mt_rand());

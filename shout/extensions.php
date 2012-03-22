@@ -9,7 +9,7 @@
  * @author  Ben Klang <ben@alkaloid.net>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 $shout = Horde_Registry::appInit('shout');
 
 require_once SHOUT_BASE . '/lib/Forms/ExtensionForm.php';
@@ -27,8 +27,9 @@ try {
     $extensions = array();
 }
 
-Horde::addScriptFile('stripe.js', 'horde');
-Horde::addScriptFile('scriptaculous.js', 'horde');
+$page_output = $injector->getInstance('Horde_PageOutput');
+$page_output->addScriptFile('stripe.js', 'horde');
+$page_output->addScriptFile('scriptaculous.js', 'horde');
 
 require $registry->get('templates', 'horde') . '/common-header.inc';
 require SHOUT_TEMPLATES . '/menu.inc';

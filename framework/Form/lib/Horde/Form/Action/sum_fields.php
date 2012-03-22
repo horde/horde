@@ -20,7 +20,7 @@ class Horde_Form_Action_sum_fields extends Horde_Form_Action {
 
     function getActionScript(&$form, $renderer, $varname)
     {
-        Horde::addScriptFile('form_helpers.js', 'horde');
+        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('form_helpers.js', 'horde');
 
         $form_name = $form->getName();
         $fields = "'" . implode("','", $this->_params) . "'";

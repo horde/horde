@@ -12,7 +12,9 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Horde
  */
- var HordeMobile = {
+var HordeMobile = {
+
+    notify_handler: function(m) { return HordeMobile.showNotifications(m); },
 
     serverError: 0,
 
@@ -34,27 +36,39 @@
     /**
      * Perform an Ajax action
      *
-     * @param string action      The AJAX request
-     * @param object params      The parameter hash
-     * @param function callback  The callback function
+     * @param string action      The AJAX request method.
+     * @param object params      The parameter hash for the AJAX request.
+     * @param function callback  A callback function for successful request.
+     * @param object opts        Additional options for jQuery.ajax() (since
+     *                           Horde 4.1).
      */
-    doAction: function(action, params, callback)
+    doAction: function(action, params, callback, opts)
     {
         $.mobile.showPageLoadingMsg();
-        var options = {
-            'url': HordeMobile.urls.ajax + action,
-            'data': params,
-            'error': HordeMobile.errorCallback,
-            'success': function(d, t, x) { HordeMobile.doActionComplete(d, callback); },
-            'type': 'post'
-        };
+        var options = $.extend(
+            {
+                'url': HordeMobile.urls.ajax + action,
+                'data': params,
+                'error': HordeMobile.errorCallback,
+                'success': function(d, t, x) { HordeMobile.doActionComplete(d, callback); },
+                'type': 'post'
+            },
+            opts || {});
         $.ajax(options);
     },
 
     doActionComplete: function(d, callback)
     {
-        HordeMobile.inAjaxCallback = true;
         var r = d.response;
+
+        HordeMobile.inAjaxCallback = true;
+
+        HordeMobile.notify_handler(d.msgs || []);
+
+        if (d.tasks) {
+            $(document).trigger('HordeMobile:runTasks', d.tasks);
+        }
+
         if (r && $.isFunction(callback)) {
             try {
                 callback(r);
@@ -63,10 +77,9 @@
             }
         }
 
-        HordeMobile.server_error = 0;
-        HordeMobile.showNotifications(d.msgs || []);
         HordeMobile.inAjaxCallback = false;
-        $.mobile.hidePageLoadingMsg(true);
+
+        $.mobile.hidePageLoadingMsg();
     },
 
     showNotifications: function(msgs)
@@ -126,6 +139,7 @@
                 return data.replace(filter, "$1");
             }
         });
+        $('#notification').live('pagebeforeshow', function() { $('#horde-notification').listview('refresh'); });
     }
 };
 $(HordeMobile.onDocumentReady);

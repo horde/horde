@@ -13,8 +13,8 @@
  * @pacakge Ansel
  */
 
-if (file_exists(dirname(__FILE__) . '/../../ansel/lib/Application.php')) {
-    $baseDir = dirname(__FILE__) . '/../';
+if (file_exists(__DIR__ . '/../../ansel/lib/Application.php')) {
+    $baseDir = __DIR__ . '/../';
 } else {
     require_once 'PEAR/Config.php';
     $baseDir = PEAR_Config::singleton()

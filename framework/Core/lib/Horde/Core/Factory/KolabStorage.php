@@ -90,7 +90,7 @@ class Horde_Core_Factory_KolabStorage extends Horde_Core_Factory_Base
                 'username' => $GLOBALS['registry']->getAuth(),
                 'password' => $GLOBALS['registry']->getAuthCredential('password'),
                 'port'     => $configuration['port'],
-                'secure'   => true
+                'secure'   => 'tls'
             ),
             'queryset' => array(
                 'list' => array('queryset' => 'horde'),

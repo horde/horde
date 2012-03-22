@@ -10,7 +10,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../../lib/Application.php';
+require_once __DIR__ . '/../../lib/Application.php';
 $permission = 'configuration';
 Horde_Registry::appInit('horde');
 if (!$registry->isAdmin() && 
@@ -63,7 +63,7 @@ function _uploadFTP($params)
 }
 
 $hconfig = new Horde_Config();
-$migration = new Horde_Core_Db_Migration(dirname(__FILE__) . '/../../..');
+$migration = new Horde_Core_Db_Migration(__DIR__ . '/../../..');
 $vars = Horde_Variables::getDefaultVariables();
 $a = $registry->listAllApps();
 
@@ -356,7 +356,7 @@ $template->set('actions', $actions, true);
 $template->set('ftpform', $ftpform, true);
 
 $title = sprintf(_("%s Configuration"), $registry->get('name', 'horde'));
-Horde::addScriptFile('stripe.js', 'horde');
+$injector->getInstance('Horde_PageOutput')->addScriptFile('stripe.js', 'horde');
 require HORDE_TEMPLATES . '/common-header.inc';
 require HORDE_TEMPLATES . '/admin/menu.inc';
 echo $template->fetch(HORDE_TEMPLATES . '/admin/config/index.html');

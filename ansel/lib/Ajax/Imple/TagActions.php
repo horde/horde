@@ -12,8 +12,8 @@ class Ansel_Ajax_Imple_TagActions extends Horde_Core_Ajax_Imple
 {
     public function attach()
     {
-        // Include the js
-        Horde::addScriptFile('tagactions.js');
+        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        $page_output->addScriptFile('tagactions.js');
 
         $url = $this->_getUrl('TagActions', 'ansel', array('gallery' => $this->_params['gallery'],
                                                            'image' =>  (isset($this->_params['image']) ? $this->_params['image'] : 0)));
@@ -22,11 +22,11 @@ class Ansel_Ajax_Imple_TagActions extends Horde_Core_Ajax_Imple
                         'image' => (isset($this->_params['image']) ? $this->_params['image'] : 0),
                         'bindTo' => $this->_params['bindTo'],
                         'input' => 'tags');
-        $js = array();
-        $js[] = "Ansel.ajax['tagActions'] = " . Horde_Serialize::serialize($params, Horde_Serialize::JSON) . ";";
-        $js[] = "Event.observe(Ansel.ajax.tagActions.bindTo.add, 'click', function(event) {addTag(); Event.stop(event)});";
 
-        Horde::addInlineScript($js, 'dom');
+        $page_output->addInlineScript(array(
+            "Ansel.ajax['tagActions'] = " . Horde_Serialize::serialize($params, Horde_Serialize::JSON) . ";",
+            "Event.observe(Ansel.ajax.tagActions.bindTo.add, 'click', function(event) {addTag(); Event.stop(event)});"
+        ), true);
     }
 
     public function handle($args, $post)

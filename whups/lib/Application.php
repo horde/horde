@@ -15,7 +15,7 @@
 
 /* Determine the base directories. */
 if (!defined('WHUPS_BASE')) {
-    define('WHUPS_BASE', dirname(__FILE__) . '/..');
+    define('WHUPS_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {
@@ -36,17 +36,21 @@ class Whups_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = 'H4 (2.0.2-git)';
+    public $version = 'H5 (3.0-git)';
 
     /**
      * Global variables defined:
      * - $whups_driver: The global Whups driver object.
-     * - $linkTags:     <link> tags for common-header.inc.
      */
     protected function _init()
     {
         $GLOBALS['whups_driver'] = $GLOBALS['injector']->getInstance('Whups_Factory_Driver')->create();
-        $GLOBALS['linkTags'] = array('<link href="' . Horde::url('opensearch.php', true, -1) . '" rel="search" type="application/opensearchdescription+xml" title="' . $GLOBALS['registry']->get('name') . ' (' . Horde::url('', true) . ')" />');
+        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addLinkTag(array(
+            'href' => Horde::url('opensearch.php', true, -1),
+            'rel' => 'search',
+            'type' => 'application/opensearchdescription+xml',
+            'title' => $GLOBALS['registry']->get('name') . ' (' . Horde::url('', true) . ')'
+        ));
 
         /* Set the timezone variable, if available. */
         $GLOBALS['registry']->setTimeZone();
@@ -137,7 +141,11 @@ class Whups_Application extends Horde_Registry_Application
         foreach ($ui->getChangeablePrefs() as $val) {
             switch ($val) {
             case 'sourceselect':
-                Horde_Core_Prefs_Ui_Widgets::addressbooksInit();
+                if ($GLOBALS['prefs']->isLocked('search_sources')) {
+                    $ui->suppress[] = $val;
+                } else {
+                    Horde_Core_Prefs_Ui_Widgets::addressbooksInit();
+                }
                 break;
             }
         }

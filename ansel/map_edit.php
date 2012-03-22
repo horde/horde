@@ -8,13 +8,14 @@
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('ansel');
 
 // Init the map
 Ansel::initJSVariables();
 Ansel::initHordeMap();
-Horde::addScriptFile('map_edit.js');
+
+$injector->getInstance('Horde_PageOutput')->addScriptFile('map_edit.js');
 
 // Get the image id to (re)locate.
 $image_id = Horde_Util::getFormData('image');

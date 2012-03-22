@@ -10,14 +10,15 @@
  * @author Mike Cochrane <mike@graftonhall.co.nz>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('ingo');
 
 /* Get the list of filter rules. */
+$ingo_storage = $injector->getInstance('Ingo_Factory_Storage')->create();
 $filters = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
 
 /* Load the Ingo_Script:: driver. */
-$ingo_script = Ingo::loadIngoScript();
+$ingo_script = $injector->getInstance('Ingo_Script');
 
 /* Determine if we need to show the on-demand settings. */
 $on_demand = $ingo_script->performAvailable();
@@ -131,8 +132,9 @@ case 'apply_filters':
 /* Get the list of rules now. */
 $filter_list = $filters->getFilterList();
 
-Horde::addScriptFile('stripe.js', 'horde');
-Horde::addScriptFile('filters.js', 'ingo');
+$page_output = $injector->getInstance('Horde_PageOutput');
+$page_output->addScriptFile('stripe.js', 'horde');
+$page_output->addScriptFile('filters.js');
 $menu = Ingo::menu();
 $title = _("Filter Rules");
 require $registry->get('templates', 'horde') . '/common-header.inc';

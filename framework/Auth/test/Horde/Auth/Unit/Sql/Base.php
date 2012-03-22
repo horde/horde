@@ -2,7 +2,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../Autoload.php';
+require_once __DIR__ . '/../../Autoload.php';
 
 /**
  * @category   Horde
@@ -22,7 +22,7 @@ class Horde_Auth_Unit_Sql_Base extends Horde_Auth_TestCase
 
     public static function setUpBeforeClass()
     {
-        $dir = dirname(__FILE__) . '/../../../../../migration/Horde/Auth';
+        $dir = __DIR__ . '/../../../../../migration/Horde/Auth';
         if (!is_dir($dir)) {
             error_reporting(E_ALL & ~E_DEPRECATED);
             $dir = PEAR_Config::singleton()

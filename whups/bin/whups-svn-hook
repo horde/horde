@@ -24,7 +24,7 @@ $rpc_endpoint = null;
 $rpc_method = null;
 $rpc_options = array();
 
-include dirname(__FILE__) . '/commit-update-tickets-conf.php';
+include __DIR__ . '/commit-update-tickets-conf.php';
 
 
 /**

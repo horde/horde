@@ -33,7 +33,7 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
         $data = $this->_impRender(false);
         $item = reset($data);
         Horde::startBuffer();
-        Horde::includeStylesheetFiles();
+        $GLOBALS['injector']->getInstance('Horde_PageOutput')->includeStylesheetFiles();
         $item['data'] = '<html><head>' . Horde::endBuffer() . '</head><body>' . $item['data'] . '</body></html>';
         $data[key($data)] = $item;
         return $data;
@@ -99,8 +99,8 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
 
         $text = IMP::filterText($text);
 
-        /* Done processing if in mimp mode. */
-        if (IMP::getViewMode() == 'mimp') {
+        /* Done processing if in minimal mode. */
+        if ($GLOBALS['registry']->getView() == Horde_Registry::VIEW_MINIMAL) {
             return array(
                 $mime_id => array(
                     'data' => $text,
@@ -134,7 +134,7 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
             if ($inline) {
                 $filters['highlightquotes'] = array(
                     'hideBlocks' => $hideBlocks,
-                    'noJS' => (IMP::getViewMode() == 'dimp')
+                    'noJS' => ($GLOBALS['registry']->getView() == Horde_Registry::VIEW_DYNAMIC)
                 );
             } else {
                 $filters['Horde_Text_Filter_Highlightquotes'] = array(

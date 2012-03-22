@@ -56,7 +56,7 @@ class Horde_Cache_Storage_File extends Horde_Cache_Storage_Base
 
         $this->_dir = (isset($params['dir']) && @is_dir($params['dir']))
             ? $params['dir']
-            : Horde_Util::getTempDir();
+            : sys_get_temp_dir();
 
         parent::__construct($params);
     }

@@ -6,7 +6,7 @@
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 $hylax = Horde_Registry::appInit('hylax');
 
 $fax_id = Horde_Util::getFormData('fax_id');

@@ -268,19 +268,28 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
     /**
      * Remove ALL notes belonging to the curernt user.
      *
+     * @return array  An array of note uids that have been removed.
      * @throws Mnemo_Exception
      */
-    public function deleteAll()
+    protected function _deleteAll()
     {
-        $query = sprintf('DELETE FROM %s WHERE memo_owner = ?',
-             $this->_table);
+        // Get list of notes we are removing so we can tell history about it.
+        $query = sprintf('SELECT memo_uid FROM %s WHERE memo_owner = ?', $this->_table);
         $values = array($this->_notepad);
+        try {
+            $ids = $this->_db->selectValues($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Mnemo_Exception($e->getMessage());
+        }
 
+        $query = sprintf('DELETE FROM %s WHERE memo_owner = ?', $this->_table);
         try {
             $this->_db->delete($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Mnemo_Exception($e->getMessage());
         }
+
+        return $ids;
     }
 
     /**

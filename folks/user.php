@@ -9,7 +9,7 @@
  * @package Folks
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once __DIR__ . '/lib/base.php';
 
 // Load profile
 $user = Horde_Util::getFormData('user', $GLOBALS['registry']->getAuth());
@@ -57,7 +57,7 @@ if ($user == $GLOBALS['registry']->getAuth()) {
     }
 }
 
-Horde::addScriptFile('stripe.js', 'horde');
+$injector->getInstance('Horde_PageOutput')->addScriptFile('stripe.js', 'horde');
 
 $title = sprintf(_("%s's profile"), $user);
 require $registry->get('templates', 'horde') . '/common-header.inc';

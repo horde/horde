@@ -20,7 +20,7 @@
   <release>beta</release>
   <api>beta</api>
  </stability>
- <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+ <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
 * Initial Horde 4 package.
  </notes>
@@ -65,7 +65,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -99,7 +99,7 @@
     <api>beta</api>
    </stability>
    <date>2011-09-15</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * Initial Horde 4 package.
    </notes>

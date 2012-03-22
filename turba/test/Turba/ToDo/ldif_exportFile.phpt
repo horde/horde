@@ -11,7 +11,7 @@ if (defined('E_DEPRECATED')) {
 
 require 'Horde.php';
 require 'Horde/Data.php';
-require dirname(__FILE__) . '/../Data/ldif.php';
+require __DIR__ . '/../Data/ldif.php';
 
 $ldif = new Horde_Data_ldif();
 

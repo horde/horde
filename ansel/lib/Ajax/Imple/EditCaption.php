@@ -24,30 +24,31 @@ class Ansel_Ajax_Imple_EditCaption extends Horde_Core_Ajax_Imple
 
     public function attach()
     {
-        Horde::addScriptFile('effects.js', 'horde');
-        Horde::addScriptFile('inplaceeditor.js', 'horde');
+        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+
+        $page_output->addScriptFile('effects.js', 'horde');
+        $page_output->addScriptFile('inplaceeditor.js', 'horde');
 
         $params = array('input' => 'value',
                         'id' => $this->_params['id']);
 
         $url = $this->_getUrl('EditCaption', 'ansel', $params);
         $loadTextUrl = $this->_getUrl('EditCaption', 'ansel', array_merge($params, array('action' => 'load')));
-        $js = array();
 
-        $js[] = "new InPlaceEditor('" . $this->_params['domid'] . "', '" . $url . "', {"
-                . "   callback: function(form, value) {"
-                . "       return 'value=' + encodeURIComponent(value);},"
-                . "   loadTextURL: '". $loadTextUrl . "',"
-                . "   rows:" . $this->_params['rows'] . ","
-                . "   width:" . $this->_params['width'] . ","
-                . "   emptyText: '" . _("Click to add caption...") . "',"
-                . "   onComplete: function(ipe, opts) { ipe.checkEmpty() },"
-                . "   cancelText: '" . _("Cancel") . "',"
-                . "   okText: '" . _("Ok") . "',"
-                . "   cancelClassName: ''"
-                . "  });";
-
-        Horde::addInlineScript($js, 'dom');
+        $page_output->addInlineScript(array(
+            "new InPlaceEditor('" . $this->_params['domid'] . "', '" . $url . "', {"
+            . "   callback: function(form, value) {"
+            . "       return 'value=' + encodeURIComponent(value);},"
+            . "   loadTextURL: '". $loadTextUrl . "',"
+            . "   rows:" . $this->_params['rows'] . ","
+            . "   width:" . $this->_params['width'] . ","
+            . "   emptyText: '" . _("Click to add caption...") . "',"
+            . "   onComplete: function(ipe, opts) { ipe.checkEmpty() },"
+            . "   cancelText: '" . _("Cancel") . "',"
+            . "   okText: '" . _("Ok") . "',"
+            . "   cancelClassName: ''"
+            . "  });"
+        ), true);
     }
 
     public function handle($args, $post)

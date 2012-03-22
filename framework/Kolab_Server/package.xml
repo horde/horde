@@ -316,7 +316,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -353,6 +353,10 @@
     <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>PHPUnit_Story</name>
+    <channel>pear.phpunit.de</channel>
    </package>
    <extension>
     <name>ldap</name>

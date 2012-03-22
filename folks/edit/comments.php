@@ -9,7 +9,7 @@
  * @package Folks
  */
 
-define('FOLKS_BASE', dirname(__FILE__) . '/..');
+define('FOLKS_BASE', __DIR__ . '/..');
 require_once FOLKS_BASE . '/lib/base.php';
 require_once 'tabs.php';
 
@@ -80,7 +80,7 @@ if (!$form->isSubmitted()) {
     }
 }
 
-Horde::addScriptFile('tables.js', 'horde');
+$injector->getInstance('Horde_PageOutput')->addScriptFile('tables.js', 'horde');
 require $registry->get('templates', 'horde') . '/common-header.inc';
 require FOLKS_TEMPLATES . '/menu.inc';
 

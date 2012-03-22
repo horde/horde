@@ -31,19 +31,16 @@
  <date>2012-01-17</date>
  <time>13:22:43</time>
  <version>
-  <release>3.0.12</release>
-  <api>3.0.0</api>
+  <release>4.0.0</release>
+  <api>4.0.0</api>
  </version>
  <stability>
-  <release>stable</release>
-  <api>stable</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* [jan] Fix SyncML compatibility with work/home phone numbers and newer Funambol clients (Bug #10912).
-* [mjr] Implement more flexible ActiveSync synchronization of names and addresses.
-* [jan] Fix address book sorting in preferences (Bug #10897).
-* [mms] Improved navigation when editing group entries.
+*
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -614,7 +611,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -622,9 +619,9 @@
    <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
-    <min>4.0.0</min>
-    <max>5.0.0</max>
-    <exclude>5.0.0</exclude>
+    <min>5.0.0</min>
+    <max>6.0.0</max>
+    <exclude>6.0.0</exclude>
    </package>
    <package>
     <name>Horde_Auth</name>
@@ -692,9 +689,9 @@
    <package>
     <name>Horde_Mail</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0</max>
+    <exclude>3.0.0</exclude>
    </package>
    <package>
     <name>Horde_Mime</name>
@@ -1379,13 +1376,28 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-01-17</date>
+   <date>2012-02-28</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
+* [mjr] Ensure contact lists are always populated with their members (Bug #10961).
 * [jan] Fix SyncML compatibility with work/home phone numbers and newer Funambol clients (Bug #10912).
 * [mjr] Implement more flexible ActiveSync synchronization of names and addresses.
 * [jan] Fix address book sorting in preferences (Bug #10897).
 * [mms] Improved navigation when editing group entries.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.13</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-02-28</date>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <notes>
+* [jan] Only connect to LDAP driver for read/write requests (Dominique Lalot &lt;dom.lalot@gmail.com&gt;, Request #11082).
+* [mjr] Fix bug that caused time shifting of contact birthday and anniversary values from ActiveSync devices for users in certain timezones.
    </notes>
   </release>
  </changelog>

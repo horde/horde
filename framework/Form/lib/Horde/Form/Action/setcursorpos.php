@@ -19,7 +19,7 @@ class Horde_Form_Action_setcursorpos extends Horde_Form_Action {
 
     function getActionScript(&$form, $renderer, $varname)
     {
-        Horde::addScriptFile('form_helpers.js', 'horde');
+        $injector->getInstance('Horde_PageOutput')->addScriptFile('form_helpers.js', 'horde');
 
         $pos = implode(',', $this->_params);
         return 'form_setCursorPosition(document.forms[\'' .

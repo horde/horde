@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../../Autoload.php';
+require_once __DIR__ . '/../../../Autoload.php';
 
 /**
  * Test the mail recipient.
@@ -58,7 +58,7 @@ extends Horde_Push_TestCase
             ->setSummary('E-MAIL')
             ->addContent('BODY')
             ->push();
-        $this->assertEquals("BODY\r\n", $mx->sentMessages[0]['body']);
+        $this->assertEquals("BODY\n", $mx->sentMessages[0]['body']);
     }
 
     public function testMailHtmlBody()

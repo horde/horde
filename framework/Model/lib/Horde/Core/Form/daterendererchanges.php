@@ -159,7 +159,7 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
     {
         $image = $var->type->getImage($vars, $var);
         $varname = $this->_genID($var->getVarName(), false);
-        Horde::addScriptFile('image.js', 'horde');
+        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('image.js', 'horde');
         $html = '';
 
         /* Check if there is existing img information stored. */
@@ -292,8 +292,9 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
         if ($var->type->hasHelper() && $browser->hasFeature('javascript')) {
             $html .= '<br /><table cellspacing="0"><tr><td>';
             $imgId = $this->_genID($var->getVarName(), false) . 'ehelper';
+            $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
 
-            Horde::addScriptFile('open_html_helper.js', 'horde');
+            $page_output->addScriptFile('open_html_helper.js', 'horde');
 
             if ($var->type->hasHelper('emoticons')) {
                 $filter = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->create('emoticons');
@@ -306,7 +307,7 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
                     );
                 }
 
-                Horde::addInlineJsVars(array(
+                $page_output->addInlineJsVars(array(
                     'Horde_Html_Helper.iconlist' => $icon_list
                 ));
 
@@ -482,7 +483,7 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
                   "elt.up().previous('SELECT[name$=\"[day]\"]').setValue(e.memo.getDate());" .
                   "elt.up().previous('SELECT[name$=\"[year]\"]').setValue(e.memo.getFullYear());" .
               "});\n";
-            Horde::addInlineScript($js, 'dom');
+            $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineScript($js, true);
 
             Horde_Core_Ui_JsCalendar::init();
             $imgId = $this->_genID($var->getVarName(), false) . 'goto';
@@ -531,7 +532,7 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
             . ' value="' . htmlspecialchars($color)
             . '" /></td>';
         if ($browser->hasFeature('javascript')) {
-            Horde::addScriptFile('colorpicker.js', 'horde');
+            $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('colorpicker.js', 'horde');
             $html .= '<td>'
                 . Horde::link('#', Horde_Core_Translation::t("Color Picker"), '', '',
                               'new ColorPicker({ color: \'' . htmlspecialchars($color) . '\', offsetParent: Event.element(event), update: [[\'' . $varname . '\', \'value\'], [\'' . $varname . '\', \'background\']] }); return false;')
@@ -546,7 +547,7 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
 
         $instance = $var->type->getProperty('instance');
 
-        Horde::addScriptFile('sorter.js', 'horde');
+        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('sorter.js', 'horde');
 
         return '<input type="hidden" name="' . htmlspecialchars($var->getVarName()) .
             '[array]" value="" ' . $this->_genID($var->getVarName() . '_array') . '/>' .
@@ -567,7 +568,7 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
     {
         global $registry;
 
-        Horde::addScriptFile('form_assign.js', 'horde');
+        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('form_assign.js', 'horde');
 
         $name = htmlspecialchars($var->getVarName());
         $size = $var->type->getSize();
@@ -946,35 +947,20 @@ EOT;
         $email_val = $var->getValue($vars);
 
         if ($var->type->getProperty('link_compose')) {
-            // Multiple email addresses?
-            $addrs = $var->type->getProperty('allow_multi')
-                ? Horde_Mime_Address::explode($email_val)
-                : array($email_val);
+            $addrs = $GLOBALS['injector']->getInstance('Horde_Mail_Rfc822')->parseAddressList($email_val, array(
+                'limit' => $var->type->getProperty('allow_multi') ? 0 : 1
+            ));
 
             $link = '';
             foreach ($addrs as $addr) {
-                $addr = trim($addr);
+                $display_email = $var->type->getProperty('strip_domain')
+                    ? $addr->mailbox . ' (at) ' . str_replace('.', ' (dot) ', $addr->host)
+                    : $addr->bare_address;
 
-                $display_email = $addr;
-                if ($var->type->getProperty('strip_domain') && strpos($addr, '@') !== false) {
-                    $display_email = str_replace(array('@', '.'),
-                                                 array(' (at) ', ' (dot) '),
-                                                 $addr);
-                }
+                $tmp = clone($addr);
+                $addr->personal = $var->type->getProperty('link_name');
+                $address = $addr->writeAddress(true);
 
-                // Format the address according to RFC822.
-                $mailbox_host = explode('@', $addr);
-                if (!isset($mailbox_host[1])) {
-                    $mailbox_host[1] = '';
-                }
-
-                $name = $var->type->getProperty('link_name');
-
-                $address = Horde_Mime_Address::writeAddress($mailbox_host[0], $mailbox_host[1], $name);
-
-                // Get rid of the trailing @ (when no host is included in
-                // the email address).
-                $address = str_replace('@>', '>', $address);
                 try {
                     $mail_link = $GLOBALS['registry']->call('mail/compose', array(array('to' => addslashes($address))));
                 } catch (Horde_Exception $e) {
@@ -984,20 +970,21 @@ EOT;
                 if (!empty($link)) {
                     $link .= ', ';
                 }
-                $link .= Horde::link($mail_link, $addr) . htmlspecialchars($display_email) . '</a>';
+
+                $link .= Horde::link($mail_link, strval($addr)) . htmlspecialchars($display_email) . '</a>';
             }
 
             return $link;
         } else {
-            $email_val = trim($email_val);
+            $addrs = $GLOBALS['injector']->getInstance('Horde_Mail_Rfc822')->parseAddressList($email_val, array(
+                'limit' => 1
+            ));
 
-            if ($var->type->getProperty('strip_domain') && strpos($email_val, '@') !== false) {
-                $email_val = str_replace(array('@', '.'),
-                                         array(' (at) ', ' (dot) '),
-                                         $email_val);
-            }
+            $display_email = $var->type->getProperty('strip_domain')
+                ? $addr->mailbox . ' (at) ' . str_replace('.', ' (dot) ', $addr->host)
+                : $addr->bare_address;
 
-            return nl2br(htmlspecialchars($email_val));
+            return nl2br(htmlspecialchars($display_email));
         }
     }
 
@@ -1480,7 +1467,7 @@ EOT;
 
     protected function _renderVarInput_category($form, &$var, &$vars)
     {
-        Horde::addScriptFile('form_helpers.js', 'horde');
+        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('form_helpers.js', 'horde');
         $this->_addOnLoadJavascript('addEvent(document.getElementById(\'' . $form->getName() . '\'), \'submit\', checkCategory);');
         return '<input type="hidden" name="new_category" />'
             . Horde_Prefs_CategoryManager::getJavaScript($form->getName(), $var->getVarName())

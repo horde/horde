@@ -53,6 +53,16 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
     }
 
     /**
+     * Returns whether this driver supports per-event timezones.
+     *
+     * @return boolean  Whether this drivers suppports per-event timezones.
+     */
+    public function supportsTimezones()
+    {
+        return $this->getParam('utc');
+    }
+
+    /**
      *
      * @param Horde_Date $date    The date to list alarms for
      * @param boolean $fullevent  Return the full event objects?
@@ -322,7 +332,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         }
         $q = 'SELECT event_id, event_uid, event_description, event_location,' .
             ' event_private, event_status, event_attendees,' .
-            ' event_title, event_recurcount, event_url,' .
+            ' event_title, event_recurcount, event_url, event_timezone,' .
             ' event_recurtype, event_recurenddate, event_recurinterval,' .
             ' event_recurdays, event_start, event_end, event_allday,' .
             ' event_alarm, event_alarm_methods, event_modified,' .
@@ -429,7 +439,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
         $query = 'SELECT event_id, event_uid, event_description,' .
             ' event_location, event_private, event_status, event_attendees,' .
-            ' event_title, event_recurcount, event_url,' .
+            ' event_title, event_recurcount, event_url, event_timezone,' .
             ' event_recurtype, event_recurenddate, event_recurinterval,' .
             ' event_recurdays, event_start, event_end, event_allday,' .
             ' event_alarm, event_alarm_methods, event_modified,' .
@@ -467,7 +477,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
     {
         $query = 'SELECT event_id, event_uid, calendar_id, event_description,' .
             ' event_location, event_private, event_status, event_attendees,' .
-            ' event_title, event_recurcount, event_url,' .
+            ' event_title, event_recurcount, event_url, event_timezone,' .
             ' event_recurtype, event_recurenddate, event_recurinterval,' .
             ' event_recurdays, event_start, event_end, event_allday,' .
             ' event_alarm, event_alarm_methods, event_modified,' .
@@ -667,7 +677,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
         /* Add tags again, but as the share owner (replaceTags removes ALL tags). */
         try {
-            $cal = $GLOBALS['kronolith_shares']->getShare($event->calendar);
+            $cal = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($event->calendar);
         } catch (Horde_Share_Exception $e) {
             throw new Kronolith_Exception($e);
         }
@@ -688,7 +698,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         /* Add tags again, but as the share owner (replaceTags removes ALL
          * tags). */
         try {
-            $cal = $GLOBALS['kronolith_shares']->getShare($event->calendar);
+            $cal = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($event->calendar);
         } catch (Horde_Share_Exception $e) {
             Horde::logMessage($e->getMessage(), 'ERR');
             throw new Kronolith_Exception($e);
@@ -748,14 +758,21 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      */
     public function delete($calendar)
     {
-        $query = 'DELETE FROM ' . $this->_params['table'] . ' WHERE calendar_id = ?';
-        $values = array($calendar);
-
-        try {
-            $this->_db->delete($query, $values);
-        } catch (Horde_Db_Exception $e) {
-            throw new Kronolith_Exception($e);
+        $oldCalendar = $this->calendar;
+        $this->open($calendar);
+        $events = $this->listEvents(null, null, false, false, false);
+        $uids = array();
+        foreach ($events as $dayevents) {
+            foreach ($dayevents as $event) {
+                $uids[] = $event->uid;
+            }
         }
+        foreach ($uids as $uid) {
+            $event = $this->getByUID($uid, array($calendar));
+            $this->deleteEvent($event->id);
+        }
+
+        $this->open($oldCalendar);
     }
 
     /**
@@ -890,23 +907,6 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             throw new Kronolith_Exception($e);
         }
 
-        /* Handle any database specific initialization code to run. */
-        try {
-            switch ($this->_db->adapterName()) {
-            case 'Oracle':
-                $query = "ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS'";
-                $this->_db->execute($query);
-                break;
-
-            case 'PDO_PostgreSQL':
-                $query = "SET datestyle TO 'iso'";
-                $this->_db->execute($query);
-                break;
-            }
-
-        } catch (Horde_Db_Exception $e) {
-            throw new Kronolith_Exception($e);
-        }
         $this->_params = array_merge(array(
             'table' => 'kronolith_events'
         ), $this->_params);

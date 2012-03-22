@@ -267,9 +267,9 @@ function validateAndStore()
     var creds = '';
     // Build the URL
     if (username) {
-        creds += escape(username);
+        creds += encodeURIComponent(username);
         if (password)
-            creds += ':' + escape(password);
+            creds += ':' + encodeURIComponent(password);
         creds += '@';
     }
 

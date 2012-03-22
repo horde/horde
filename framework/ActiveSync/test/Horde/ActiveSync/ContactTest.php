@@ -21,10 +21,7 @@ class Horde_ActiveSync_ContactTest extends Horde_Test_Case
     }
 
     /**
-     * Tests that properties that are arrays of values work as expected. Tests
-     * the fact that we have to workaround arrays not being returned by
-     * reference from __get(), so we can't do ->arrayProperty[] = 'blah' or
-     * array_push() in PHP < 5.2.6
+     * Tests that properties that are arrays of values work as expected.
      */
     public function testComplexProperties()
     {

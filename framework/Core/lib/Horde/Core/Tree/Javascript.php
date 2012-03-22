@@ -30,7 +30,7 @@ class Horde_Core_Tree_Javascript extends Horde_Core_Tree_Html
     {
         parent::__construct($name, $params);
 
-        Horde::addScriptFile('hordetree.js', 'horde');
+        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('hordetree.js', 'horde');
 
         /* Check for a javascript session state. */
         if (($session = $this->getOption('session')) &&
@@ -109,9 +109,9 @@ class Horde_Core_Tree_Javascript extends Horde_Core_Tree_Html
             $js_var = $this->_instance;
         }
 
-        Horde::addInlineScript(array(
+        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineScript(array(
             'window.' . $js_var . ' = new Horde_Tree(' . Horde_Serialize::serialize($opts, Horde_Serialize::JSON) . ')'
-        ), 'dom');
+        ), true);
 
         return '<div id="' . $this->_instance . '"></div>';
     }

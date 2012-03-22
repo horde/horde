@@ -46,10 +46,10 @@ class Horde_Db_Adapter_Pdo_SqliteSuite extends PHPUnit_Framework_TestSuite
             return $suite;
         }
 
-        require_once dirname(__FILE__) . '/SqliteTest.php';
-        require_once dirname(__FILE__) . '/../Sqlite/ColumnTest.php';
-        require_once dirname(__FILE__) . '/../Sqlite/ColumnDefinitionTest.php';
-        require_once dirname(__FILE__) . '/../Sqlite/TableDefinitionTest.php';
+        require_once __DIR__ . '/SqliteTest.php';
+        require_once __DIR__ . '/../Sqlite/ColumnTest.php';
+        require_once __DIR__ . '/../Sqlite/ColumnDefinitionTest.php';
+        require_once __DIR__ . '/../Sqlite/TableDefinitionTest.php';
 
         $suite->addTestSuite('Horde_Db_Adapter_Pdo_SqliteTest');
         $suite->addTestSuite('Horde_Db_Adapter_Sqlite_ColumnTest');

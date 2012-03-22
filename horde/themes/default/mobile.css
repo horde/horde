@@ -1,3 +1,55 @@
+.ui-bar .ui-title {
+    /* copy of .ui-header .ui-title */
+    min-height: 1.1em;
+    text-align: center;
+    font-size: 16px;
+    margin: 0 20px .1em;
+    white-space: nowrap;
+}
+
+.center {
+    text-align: center;
+}
+
+pre, code, .fixed, table.lineNumbered * {
+    font-family: Menlo,Consolas,"Lucida Console","DejaVu Sans Mono",monospace;
+}
+
+/* Styles for email-like messages. */
+.signature {
+    color: #ccc;
+}
+.signature .fixed {
+    color: #ccc;
+}
+.citation {
+    margin: 1em 0;
+    padding-left: 1em;
+    border-left-width: 1px;
+    border-left-style: solid;
+    min-height: 1em;
+}
+.quoted1 {
+    color: #606;
+    border-color: #606;
+}
+.quoted2 {
+    color: #077;
+    border-color: #077;
+}
+.quoted3 {
+    color: #900;
+    border-color: #900;
+}
+.quoted4 {
+    color: #009;
+    border-color: #009;
+}
+.quoted5 {
+    color: #b60;
+    border-color: #b60;
+}
+
 .horde-message, .horde-success, .horde-warning, .horde-error {
     padding-left: 40px !important;
     background-position: 14px center !important;
@@ -7,23 +59,23 @@
 }
 .horde-error {
     background-color: #e81222 !important;
-    background-image: url("graphics/alerts/error.png") !important;
+    background-image: url("graphics/mobile/alerts/error.png") !important;
 }
 .horde-message {
     background-color: #369 !important;
-    background-image: url("graphics/alerts/message.png") !important;
+    background-image: url("graphics/mobile/alerts/message.png") !important;
 }
 .horde-success  {
     background-color: #5db110 !important;
-    background-image: url("graphics/alerts/success.png") !important;
+    background-image: url("graphics/mobile/alerts/success.png") !important;
 }
 .horde-warning {
     background-color: #ebe20c !important;
-    background-image: url("graphics/alerts/warning.png") !important;
+    background-image: url("graphics/mobile/alerts/warning.png") !important;
     color: #444 !important;
     text-shadow: 0 1px 1px #f6f6f6 !important;
 }
 .horde-alarm {
     background-color: orange !important;
-    background-image: url("graphics/alerts/alarm.png") !important;
+    background-image: url("graphics/mobile/alerts/alarm.png") !important;
 }

@@ -361,7 +361,12 @@ class Ansel
                 return Horde::url((string)Ansel::getErrorImage($view), $full);
             }
             try {
-                $image->createView($view, $style);
+                $image->createView(
+                    $view,
+                    $style,
+                    (($GLOBALS['prefs']->getValue('watermark_auto') && $view == 'screen') ?
+                        $GLOBALS['prefs']->getValue('watermark_text', '') : '')
+                );
             } catch (Ansel_Exception $e) {
                 return Horde::url((string)Ansel::getErrorImage($view), $full);
             }
@@ -874,8 +879,10 @@ class Ansel
             $code['conf']['havetwitter'] = !empty($GLOBALS['conf']['twitter']['enabled']);
             $code['ajax'] = new stdClass();
             $code['widgets'] = new stdClass();
-            Horde::addInlineJsVars(array(
-                'var Ansel' => $code));
+
+            $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineJsVars(array(
+                'var Ansel' => $code
+            ));
         }
     }
 
@@ -938,10 +945,13 @@ class Ansel
             }
         }
         $params['jsuri'] = $GLOBALS['registry']->get('jsuri', 'horde') . '/map/';
-        Horde::addScriptFile('map/map.js', 'horde');
-        Horde::addScriptFile('map.js');
-        $js = 'HordeMap.initialize(' . Horde_Serialize::serialize($params, HORDE_SERIALIZE::JSON) . ');';
-        Horde::addinlineScript($js);
+
+        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        $page_output->addScriptFile('map/map.js', 'horde');
+        $page_output->addScriptFile('map.js');
+        $page_output->addInlineScript(array(
+            'HordeMap.initialize(' . Horde_Serialize::serialize($params, HORDE_SERIALIZE::JSON) . ');'
+        ));
     }
 
 }

@@ -138,7 +138,6 @@ class Horde_Config
     }
 
     /**
-     * @since Horde_Core 1.1.0
      */
     public function configFile()
     {
@@ -207,7 +206,7 @@ class Horde_Config
             if ($root->hasChildNodes()) {
                 $tree = array();
                 $this->_parseLevel($tree, $root->childNodes, '');
-                $this->_xmlConfigTree = Horde_Array::replaceRecursive($this->_xmlConfigTree, $tree);
+                $this->_xmlConfigTree = array_replace_recursive($this->_xmlConfigTree, $tree);
             }
         }
 
@@ -270,8 +269,6 @@ class Horde_Config
     /**
      * Generates and writes the content of the application's configuration
      * file.
-     *
-     * @since Horde_Core 1.1.0
      *
      * @param Horde_Variables $formvars  The processed configuration form
      *                                   data.
@@ -1102,7 +1099,7 @@ class Horde_Config
                         'charset' => $charset,
                         'ssl' => $ssl,
                         'ca' => $ca,
-                        'splitread' => Horde_Array::replaceRecursive(
+                        'splitread' => array_replace_recursive(
                             $splitread,
                             array(
                                 'switch' => array(
@@ -1128,7 +1125,7 @@ class Horde_Config
                         'charset' => $charset,
                         'ssl' => $ssl,
                         'ca' => $ca,
-                        'splitread' => Horde_Array::replaceRecursive(
+                        'splitread' => array_replace_recursive(
                             $splitread,
                             array(
                                 'switch' => array(

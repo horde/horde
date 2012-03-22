@@ -15,12 +15,6 @@ var HordeIdentitySelect = {
         var identity = $('identity'),
             id = Number($F(identity));
 
-        if (id < 0) {
-            identity.up('FORM').reset();
-            identity.setValue(id);
-            return;
-        }
-
         this.identities[id].each(function(a) {
             var field = $(a[0]);
 

@@ -451,7 +451,7 @@ abstract class Horde_Alarm
     public function handlers()
     {
         if (!$this->_handlersLoaded) {
-            foreach (new DirectoryIterator(dirname(__FILE__) . '/Alarm/Handler') as $file) {
+            foreach (new DirectoryIterator(__DIR__ . '/Alarm/Handler') as $file) {
                 if (!$file->isFile() || substr($file->getFilename(), -4) != '.php') {
                     continue;
                 }

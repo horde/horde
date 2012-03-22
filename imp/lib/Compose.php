@@ -12,7 +12,7 @@
  * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
-class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
+class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializable
 {
     /* The virtual path to use for VFS data. */
     const VFS_ATTACH_PATH = '.horde/imp/compose';
@@ -38,7 +38,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     const REDIRECT = 11;
 
     /* The blockquote tag to use to indicate quoted text in HTML data. */
-    const HTML_BLOCKQUOTE = '<blockquote type="cite" style="border-left:2px solid blue;margin-left:8px;padding-left:8px;">';
+    const HTML_BLOCKQUOTE = '<blockquote type="cite" style="border-left:2px solid blue;margin-left:2px;padding-left:12px;">';
 
     /**
      * Mark as changed for purposes of storing in the session.
@@ -172,7 +172,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     }
 
     /**
-     * Saves a message to the draft folder.
+     * Saves a draft message.
      *
      * @param array $header   List of message headers (UTF-8).
      * @param mixed $message  Either the message text (string) or a
@@ -214,22 +214,21 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         $has_session = (bool)$GLOBALS['registry']->getAuth();
 
         /* Set up the base message now. */
-        $base = $this->_createMimeMessage(array(null), $message, array(
+        $base = $this->_createMimeMessage(new Horde_Mail_Rfc822_List(), $message, array(
             'html' => !empty($opts['html']),
             'noattach' => !$has_session,
             'nofinal' => true
         ));
         $base->isBasePart(true);
 
-        if ($has_session) {
-            foreach (array('to', 'cc', 'bcc') as $v) {
-                if (isset($headers[$v])) {
-                    try {
-                        Horde_Mime::encodeAddress(self::formatAddr($headers[$v]), $this->charset, $GLOBALS['session']->get('imp', 'maildomain'));
-                    } catch (Horde_Mime_Exception $e) {
-                        throw new IMP_Compose_Exception(sprintf(_("Saving the draft failed. The %s header contains an invalid e-mail address: %s."), $v, $e->getMessage()), $e->getCode());
-                    }
-                }
+        $recip_list = $this->recipientList($headers);
+        foreach ($recip_list['list'] as $val) {
+            try {
+                IMP::parseAddressList($val->writeAddress(true), array(
+                    'validate' => true
+                ));
+            } catch (Horde_Mail_Exception $e) {
+                throw new IMP_Compose_Exception(sprintf(_("Saving the draft failed because it contains an invalid e-mail address: %s."), strval($val), $e->getMessage()), $e->getCode());
             }
         }
 
@@ -283,12 +282,12 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     protected function _saveDraftServer($data)
     {
         if (!$drafts_mbox = IMP_Mailbox::getPref('drafts_folder')) {
-            throw new IMP_Compose_Exception(_("Saving the draft failed. No draft folder specified."));
+            throw new IMP_Compose_Exception(_("Saving the draft failed. No drafts mailbox specified."));
         }
 
-        /* Check for access to drafts folder. */
+        /* Check for access to drafts mailbox. */
         if (!$drafts_mbox->create()) {
-            throw new IMP_Compose_Exception(_("Saving the draft failed. Could not create a drafts folder."));
+            throw new IMP_Compose_Exception(_("Saving the draft failed. Could not create a drafts mailbox."));
         }
 
         $append_flags = array(Horde_Imap_Client::FLAG_DRAFT);
@@ -312,17 +311,49 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 
             $this->_metadata['draft_uid'] = $drafts_mbox->getIndicesOb($ids);
             $this->changed = 'changed';
-            return sprintf(_("The draft has been saved to the \"%s\" folder."), $drafts_mbox->display);
+            return sprintf(_("The draft has been saved to the \"%s\" mailbox."), $drafts_mbox->display);
         } catch (IMP_Imap_Exception $e) {
             return _("The draft was not successfully saved.");
         }
     }
 
     /**
+     * Edits a message as new.
+     *
+     * @see resumeDraft().
+     *
+     * @param IMP_Indices $indices  An indices object.
+     *
+     * @return mixed  See resumeDraft().
+     *
+     * @throws IMP_Compose_Exception
+     */
+    public function editAsNew($indices)
+    {
+        return $this->_resumeDraft($indices, false);
+    }
+
+    /**
+     * Edit an existing template message. Saving this template later
+     * (using saveTemplate()) will cause the original message to be deleted.
+     *
+     * @param IMP_Indices $indices  An indices object.
+     *
+     * @return mixed  See resumeDraft().
+     *
+     * @throws IMP_Compose_Exception
+     */
+    public function editTemplate($indices)
+    {
+        $res = $this->useTemplate($indices);
+        $this->_metadata['template_uid_edit'] = $indices;
+        return $res;
+    }
+
+    /**
      * Resumes a previously saved draft message.
      *
      * @param IMP_Indices $indices  An indices object.
-     * @param boolean $addheaders   Populate header entries?
      *
      * @return mixed  An array with the following keys:
      *   - header: (array) A list of headers to add to the outgoing message.
@@ -334,9 +365,42 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      *
      * @throws IMP_Compose_Exception
      */
-    public function resumeDraft($indices, $addheaders = true)
+    public function resumeDraft($indices)
     {
-        global $injector, $prefs;
+        $res = $this->_resumeDraft($indices, true);
+        $this->_metadata['draft_uid_resume'] = $indices;
+        return $res;
+    }
+
+    /**
+     * Uses a template to create a message.
+     *
+     * @see resumeDraft().
+     *
+     * @param IMP_Indices $indices  An indices object.
+     *
+     * @return mixed  See resumeDraft().
+     *
+     * @throws IMP_Compose_Exception
+     */
+    public function useTemplate($indices)
+    {
+        return $this->_resumeDraft($indices, true);
+    }
+
+    /**
+     * Resumes a previously saved draft message.
+     *
+     * @param IMP_Indices $indices  See resumeDraft().
+     * @param boolean $addheaders   Populate header entries?
+     *
+     * @return mixed  See resumeDraft().
+     *
+     * @throws IMP_Compose_Exception
+     */
+    protected function _resumeDraft($indices, $addheaders)
+    {
+        global $injector, $prefs, $registry;
 
         try {
             $contents = $injector->getInstance('IMP_Factory_Contents')->create($indices);
@@ -360,7 +424,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             $imp_draft = self::COMPOSE;
         }
 
-        if (IMP::getViewMode() == 'mimp') {
+        if ($registry->getView() == Horde_Registry::VIEW_MINIMAL) {
             $compose_html = false;
         } elseif ($prefs->getValue('compose_html')) {
             $compose_html = true;
@@ -395,12 +459,15 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         ));
 
         if (empty($msg_text)) {
-            $charset = $this->charset;
             $message = '';
             $mode = 'text';
             $text_id = 0;
         } else {
-            $charset = $msg_text['charset'];
+            /* Use charset at time of initial composition if this is an IMP
+             * draft. */
+            if ($imp_draft !== false) {
+                $this->charset = $msg_text['charset'];
+            }
             $message = $msg_text['text'];
             $mode = $msg_text['mode'];
             $text_id = $msg_text['id'];
@@ -429,16 +496,16 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         }
 
         $identity_id = null;
-        if (($fromaddr = Horde_Mime_Address::bareAddress($headers->getValue('from')))) {
+        if (($fromaddr = IMP::bareAddress($headers->getValue('from')))) {
             $identity = $injector->getInstance('IMP_Identity');
             $identity_id = $identity->getMatchingIdentity($fromaddr);
         }
 
         if ($addheaders) {
             $header = array(
-                'to' => Horde_Mime_Address::addrArray2String($headers->getOb('to')),
-                'cc' => Horde_Mime_Address::addrArray2String($headers->getOb('cc')),
-                'bcc' => Horde_Mime_Address::addrArray2String($headers->getOb('bcc')),
+                'to' => strval($headers->getOb('to')),
+                'cc' => strval($headers->getOb('cc')),
+                'bcc' => strval($headers->getOb('bcc')),
                 'subject' => $headers->getValue('subject')
             );
 
@@ -469,8 +536,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                     }
                 } catch (Exception $e) {}
             }
-
-            $this->_metadata['draft_uid_resume'] = $indices;
         }
 
         $imp_ui_hdrs = new IMP_Ui_Headers();
@@ -479,7 +544,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         $mdn = new Horde_Mime_Mdn($headers);
         $readreceipt = (bool)$mdn->getMdnReturnAddr();
 
-        $this->charset = $charset;
         $this->changed = 'changed';
 
         return array(
@@ -490,6 +554,58 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             'priority' => $priority,
             'readreceipt' => $readreceipt
         );
+    }
+
+    /**
+     * Save a template message on the IMAP server.
+
+     * @param array $header   List of message headers (UTF-8).
+     * @param mixed $message  Either the message text (string) or a
+     *                        Horde_Mime_Part object that contains the text
+     *                        to save.
+     * @param array $opts     An array of options w/the following keys:
+     *   - html: (boolean) Is this an HTML message?
+     *   - priority: (string) The message priority ('high', 'normal', 'low').
+     *   - readreceipt: (boolean) Add return receipt headers?
+     *
+     * @return string  Notification text on success.
+     *
+     * @throws IMP_Compose_Exception
+     */
+    public function saveTemplate($headers, $message, array $opts = array())
+    {
+        if (!$mbox = IMP_Mailbox::getPref('composetemplates_mbox')) {
+            throw new IMP_Compose_Exception(_("Saving the template failed: no template mailbox exists."));
+        }
+
+        /* Check for access to mailbox. */
+        if (!$mbox->create()) {
+            throw new IMP_Compose_Exception(_("Saving the template failed: could not create the templates mailbox."));
+        }
+
+        $append_flags = array(
+            // Don't mark as draft, since other MUAs could potentially
+            // delete it.
+            Horde_Imap_Client::FLAG_SEEN
+        );
+
+        $old_uid = $this->getMetadata('template_uid_edit');
+
+        /* Add the message to the mailbox. */
+        try {
+            $ids = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->append($mbox, array(array(
+                'data' => $this->_saveDraftMsg($headers, $message, $opts),
+                'flags' => $append_flags
+            )));
+
+            if ($old_uid) {
+                $GLOBALS['injector']->getInstance('IMP_Message')->delete($old_uid, array('nuke' => true));
+            }
+        } catch (IMP_Imap_Exception $e) {
+            return _("The template was not successfully saved.");
+        }
+
+        return _("The template has been saved.");
     }
 
     /**
@@ -510,6 +626,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      * @param array $header  List of message headers.
      * @param array $opts    An array of options w/the following keys:
      * <ul>
+     *  <li>
+     *   add_signature: (integer) Add the signature to the outgoing message?
+     *                  This is the ID of the identity to use.
+     *                  DEFAULT: No signature added
+     *  </li>
      *  <li>
      *   encrypt: (integer) A flag whether to encrypt or sign the message.
      *            One of:
@@ -535,7 +656,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      *   save_sent: (boolean) Save sent mail?
      *  </li>
      *  <li>
-     *   sent_folder: (IMP_Mailbox) The sent-mail folder (UTF7-IMAP).
+     *   sent_mail: (IMP_Mailbox) The sent-mail mailbox (UTF-8).
      *  </li>
      *  <li>
      *   save_attachments: (bool) Save attachments with the message?
@@ -549,7 +670,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      * </ul>
      *
      * @return boolean  Whether the sent message has been saved in the
-     *                  sent-mail folder.
+     *                  sent-mail mailbox.
      *
      * @throws Horde_Exception
      * @throws IMP_Compose_Exception
@@ -562,23 +683,28 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         /* We need at least one recipient & RFC 2822 requires that no 8-bit
          * characters can be in the address fields. */
         $recip = $this->recipientList($header);
+        if (!count($recip['list'])) {
+            throw new IMP_Compose_Exception(_("Need at least one message recipient."));
+        }
         $header = array_merge($header, $recip['header']);
 
         /* Check for correct identity usage. */
         if (!$this->getMetadata('identity_check') &&
             (count($recip['list']) === 1) &&
             isset($opts['identity'])) {
-            $identity_search = $opts['identity']->getMatchingIdentity($recip['recips'], false);
+            $identity_search = $opts['identity']->getMatchingIdentity($recip['list'], false);
             if (!is_null($identity_search) &&
                 ($opts['identity']->getDefault() != $identity_search)) {
                 $this->_metadata['identity_check'] = true;
+                $this->changed = 'changed';
+
                 $e = new IMP_Compose_Exception(_("Recipient address does not match the currently selected identity."));
                 $e->tied_identity = $identity_search;
                 throw $e;
             }
         }
 
-        $barefrom = Horde_Mime_Address::bareAddress($header['from'], $session->get('imp', 'maildomain'));
+        $barefrom = IMP::bareAddress($header['from'], true);
         $encrypt = empty($opts['encrypt']) ? 0 : $opts['encrypt'];
 
         /* Prepare the array of messages to send out.  May be more
@@ -587,22 +713,24 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         $send_msgs = array();
         $msg_options = array(
             'encrypt' => $encrypt,
-            'html' => !empty($opts['html'])
+            'html' => !empty($opts['html']),
+            'signature' => isset($opts['add_signature']) ? $opts['add_signature'] : null
         );
 
         /* Must encrypt & send the message one recipient at a time. */
         if ($prefs->getValue('use_smime') &&
             in_array($encrypt, array(IMP_Crypt_Smime::ENCRYPT, IMP_Crypt_Smime::SIGNENC))) {
             foreach ($recip['list'] as $val) {
+                $list_ob = new Horde_Mail_Rfc822_List($val);
                 $send_msgs[] = array(
-                    'base' => $this->_createMimeMessage(array($val), $body, $msg_options),
-                    'recipients' => array($val)
+                    'base' => $this->_createMimeMessage($list_ob, $body, $msg_options),
+                    'recipients' => $list_ob
                 );
             }
 
             /* Must target the encryption for the sender before saving message
              * in sent-mail. */
-            $save_msg = $this->_createMimeMessage(array($header['from']), $body, $msg_options);
+            $save_msg = $this->_createMimeMessage(IMP::parseAddressList($header['from']), $body, $msg_options);
         } else {
             /* Can send in clear-text all at once, or PGP can encrypt
              * multiple addresses in the same message. */
@@ -686,7 +814,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 
         }
 
-        $recipients = implode(', ', $recip['recips']);
+        $recipients = strval($recip['list']);
         $sent_saved = true;
 
         if ($this->_replytype) {
@@ -718,8 +846,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         $entry = sprintf("%s Message sent to %s from %s", $_SERVER['REMOTE_ADDR'], $recipients, $registry->getAuth());
         Horde::logMessage($entry, 'INFO');
 
-        /* Should we save this message in the sent mail folder? */
-        if (!empty($opts['sent_folder']) &&
+        /* Should we save this message in the sent mail mailbox? */
+        if (!empty($opts['sent_mail']) &&
             ((!$prefs->isLocked('save_sent_mail') && !empty($opts['save_sent'])) ||
              ($prefs->isLocked('save_sent_mail') &&
               $prefs->getValue('save_sent_mail')))) {
@@ -756,9 +884,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             /* Generate the message string. */
             $fcc = $save_msg->toString(array('defserver' => $session->get('imp', 'maildomain'), 'headers' => $headers, 'stream' => true));
 
-            /* Make sure sent folder is created. */
-            $sent_folder = IMP_Mailbox::get($opts['sent_folder']);
-            $sent_folder->create();
+            /* Make sure sent mailbox is created. */
+            $sent_mail = IMP_Mailbox::get($opts['sent_mail']);
+            $sent_mail->create();
 
             $flags = array(Horde_Imap_Client::FLAG_SEEN);
 
@@ -771,9 +899,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             }
 
             try {
-                $injector->getInstance('IMP_Factory_Imap')->create()->append($sent_folder, array(array('data' => $fcc, 'flags' => $flags)));
+                $injector->getInstance('IMP_Factory_Imap')->create()->append($sent_mail, array(array('data' => $fcc, 'flags' => $flags)));
             } catch (IMP_Imap_Exception $e) {
-                $notification->push(sprintf(_("Message sent successfully, but not saved to %s."), $sent_folder->display));
+                $notification->push(sprintf(_("Message sent successfully, but not saved to %s."), $sent_mail->display));
                 $sent_saved = false;
             }
         }
@@ -857,7 +985,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         if (!empty($opts['readreceipt']) &&
             ($GLOBALS['prefs']->getValue('request_mdn') != 'never')) {
             $mdn = new Horde_Mime_Mdn($ob);
-            $mdn->addMdnRequestHeaders(Horde_Mime_Address::bareAddress($ob->getValue('from'), $GLOBALS['session']->get('imp', 'maildomain')));
+            $mdn->addMdnRequestHeaders(IMP::bareAddress($ob->getValue('from'), true));
         }
 
         return $ob;
@@ -866,15 +994,17 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     /**
      * Sends a message.
      *
-     * @param array $email                 The e-mail list to send to.
-     * @param Horde_Mime_Headers $headers  The object holding this message's
-     *                                     headers.
-     * @param Horde_Mime_Part $message     The Horde_Mime_Part object that
-     *                                     contains the text to send.
+     * @param Horde_Mail_Rfc822_List $email  The e-mail list to send to.
+     * @param Horde_Mime_Headers $headers    The object holding this message's
+     *                                       headers.
+     * @param Horde_Mime_Part $message       The object that contains the text
+     *                                       to send.
      *
      * @throws IMP_Compose_Exception
      */
-    public function sendMessage($email, $headers, $message)
+    public function sendMessage(Horde_Mail_Rfc822_List $email,
+                                Horde_Mime_Headers $headers,
+                                Horde_Mime_Part $message)
     {
         $email = $this->_prepSendMessage($email, $message);
 
@@ -888,15 +1018,16 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     /**
      * Sanity checking/MIME formatting before sending a message.
      *
-     * @param array $email             The e-mail list to send to.
-     * @param Horde_Mime_Part $message  The Horde_Mime_Part object that
-     *                                  contains the text to send.
+     * @param Horde_Mail_Rfc822_List $email  The e-mail list to send to.
+     * @param Horde_Mime_Part $message       The object that contains the text
+     *                                       to send.
      *
      * @return string  The encoded $email list.
      *
      * @throws IMP_Compose_Exception
      */
-    protected function _prepSendMessage($email, $message = null)
+    protected function _prepSendMessage(Horde_Mail_Rfc822_List $email,
+                                        $message = null)
     {
         /* Properly encode the addresses we're sending to. Always try
          * charset of original message as we know that the user can handle
@@ -919,29 +1050,31 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     /**
      * Additonal checks to do if this is a user-generated compose message.
      *
-     * @param array $email                 The e-mail list to send to.
-     * @param Horde_Mime_Headers $headers  The object holding this message's
-     *                                     headers.
-     * @param Horde_Mime_Part $message     The Horde_Mime_Part object that
-     *                                     contains the text to send.
+     * @param Horde_Mail_Rfc822_List $email  The e-mail list to send to.
+     * @param Horde_Mime_Headers $headers    The object holding this message's
+     *                                       headers.
+     * @param Horde_Mime_Part $message       The object that contains the text
+     *                                       to send.
      *
      * @throws IMP_Compose_Exception
      */
-    protected function _prepSendMessageAssert($email, $headers = null,
-                                              $message = null)
+    protected function _prepSendMessageAssert(Horde_Mail_Rfc822_List $email,
+                                              Horde_Mime_Headers $headers = null,
+                                              Horde_Mime_Part $message = null)
     {
         global $conf, $injector, $registry;
 
         $core_perms = $injector->getInstance('Horde_Core_Perms');
+        $email_count = count($email);
 
-        if (!$core_perms->hasAppPermission('max_timelimit', array('opts' => array('value' => count($email))))) {
+        if (!$core_perms->hasAppPermission('max_timelimit', array('opts' => array('value' => $email_count)))) {
             Horde::permissionDeniedError('imp', 'max_timelimit');
             throw new IMP_Compose_Exception(sprintf(_("You are not allowed to send messages to more than %d recipients within %d hours."), $injector->getInstance('Horde_Perms')->getPermissions('imp:max_timelimit', $registry->getAuth()), $conf['sentmail']['params']['limit_period']));
         }
 
         /* Count recipients if necessary. We need to split email groups
          * because the group members count as separate recipients. */
-        if (!$core_perms->hasAppPermission('max_recipients', array('opts' => array('value' => count($email))))) {
+        if (!$core_perms->hasAppPermission('max_recipients', array('opts' => array('value' => $email_count)))) {
             Horde::permissionDeniedError('imp', 'max_recipients');
             throw new IMP_Compose_Exception(sprintf(_("You are not allowed to send messages to more than %d recipients."), $injector->getInstance('Horde_Perms')->getPermissions('imp:max_recipients', $registry->getAuth())));
         }
@@ -957,41 +1090,35 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     /**
      * Encode address and do sanity checking on encoded address.
      *
-     * @param array $email     The e-mail list to send to.
-     * @param string $charset  The charset to encode to.
+     * @param Horde_Mail_Rfc822_List $email  The e-mail list to send to.
+     * @param string $charset                The charset to encode to.
      *
      * @return string  The encoded $email list.
      *
      * @throws IMP_Compose_Exception
      */
-    protected function _prepSendMessageEncode($email, $charset)
+    protected function _prepSendMessageEncode(Horde_Mail_Rfc822_List $email,
+                                              $charset)
     {
         $out = array();
 
-        // Here, $email is list of address objects.
         foreach ($email as $val) {
-            // Convert IDN hosts to ASCII.
-            if (function_exists('idn_to_ascii')) {
-                $val['host'] = @idn_to_ascii(trim($val['host']));
-            } elseif (Horde_Mime::is8bit($val['mailbox'], 'UTF-8')) {
-                throw new IMP_Compose_Exception(sprintf(_("Invalid character in e-mail address: %s."), Horde_Mime_Address::addrObject2String($val)));
-            }
+            /* $email contains address objects that already have the default
+             * maildomain appended. Need to encode personal part and encode
+             * IDN domain names. */
+            $tmp = $val->writeAddress(array(
+                'encode' => $charset,
+                'idn' => true
+            ));
 
-            // Encode personal part of e-mail address.
-            if (isset($val['personal'])) {
-                $val['personal'] = Horde_Mime::encode($val['personal'], 'UTF-8');
-            }
-
-            // Write out address.
-            $tmp = Horde_Mime_Address::writeAddress($val['mailbox'], trim($val['host']), isset($val['personal']) ? $val['personal'] : '');
-
-            // Check if address is valid.
             try {
-                Horde_Mime_Address::parseAddressList($tmp, array(
+                /* We have written address, but it still may not be valid.
+                 * So double-check. */
+                IMP::parseAddressList($tmp, array(
                     'validate' => true
                 ));
-            } catch (Horde_Mime_Exception $e) {
-                throw new IMP_Compose_Exception(sprintf(_("Invalid e-mail address (%s)."), $tmp));
+            } catch (Horde_Mail_Exception $e) {
+                throw new IMP_Compose_Exception(sprintf(_("Invalid e-mail address (%s)."), $val->writeAddress()));
             }
 
             $out[] = $tmp;
@@ -1003,62 +1130,43 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     /**
      * Save the recipients done in a sendMessage().
      *
-     * @param array $recipients  The list of recipients.
+     * @param Horde_Mail_Rfc822_List $recipients  The list of recipients.
      */
-    protected function _saveRecipients($recipients)
+    protected function _saveRecipients(Horde_Mail_Rfc822_List $recipients)
     {
-        global $notification, $prefs, $registry;
+        global $notification, $prefs, $registry, $session;
 
-        if (empty($recipients) ||
-            !$prefs->getValue('save_recipients') ||
+        if (!$prefs->getValue('save_recipients') ||
+            !$session->get('imp', 'csearchavail') ||
             !$registry->hasMethod('contacts/import') ||
-            !$registry->hasMethod('contacts/search')) {
-            return;
-        }
-
-        $abook = $prefs->getValue('add_source');
-        if (empty($abook)) {
+            !($abook = $prefs->getValue('add_source'))) {
             return;
         }
 
         /* Filter out anyone that matches an email address already
          * in the address book. */
-        $emails = array();
-        foreach ($recipients as $recipient) {
-            $emails[] = $recipient['mailbox'] . '@' . $recipient['host'];
-        }
-
         try {
-            $results = $registry->call('contacts/search', array($emails, array($abook), array($abook => array('email'))));
+            $results = $registry->call('contacts/search', array($recipients->bare_addresses, array(
+                'fields' => array($abook => array('email')),
+                'matchBegin' => true,
+                'returnFields' => array('email'),
+                'rfc822Return' => true,
+                'sources' => array($abook)
+            )));
         } catch (Horde_Exception $e) {
             Horde::logMessage($e, 'ERR');
             $notification->push(_("Could not save recipients."));
             return;
         }
 
+        $recipients->setIteratorFilter(0, $results);
         foreach ($recipients as $recipient) {
-            /* Skip email addresses that already exist in the add_source. */
-            if (isset($results[$recipient['mailbox'] . '@' . $recipient['host']]) &&
-                count($results[$recipient['mailbox'] . '@' . $recipient['host']])) {
-                continue;
-            }
-
-            /* Remove surrounding quotes and make sure that $name is
-             * non-empty. */
-            $name = '';
-            if (isset($recipient['personal'])) {
-                $name = trim($recipient['personal']);
-                if (preg_match('/^(["\']).*\1$/', $name)) {
-                    $name = substr($name, 1, -1);
-                }
-            }
-            if (empty($name)) {
-                $name = $recipient['mailbox'];
-            }
-            $name = Horde_Mime::decode($name, 'UTF-8');
+            $name = is_null($recipient->personal)
+                ? $recipient->mailbox
+                : $recipient->personal;
 
             try {
-                $registry->call('contacts/import', array(array('name' => $name, 'email' => $recipient['mailbox'] . '@' . $recipient['host']), 'array', $abook));
+                $registry->call('contacts/import', array(array('name' => $name, 'email' => $recipient->bare_address), 'array', $abook));
                 $notification->push(sprintf(_("Entry \"%s\" was successfully added to the address book"), $name), 'horde.success');
             } catch (Horde_Exception $e) {
                 if ($e->getCode() == 'horde.error') {
@@ -1078,87 +1186,71 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      * @return array  An array with the following entries:
      *   - header: (array) Contains the cleaned up 'to', 'cc', and 'bcc'
      *             header strings.
-     *   - list: (array) Recipient addresses (address objects).
-     *   - recips: (array) List of recipient addresses (string).
+     *   - list: (Horde_Mail_Rfc822_List) Recipient addresses.
      */
     public function recipientList($hdr)
     {
-        $addrlist = $header = $recips = array();
+        $addrlist = new Horde_Mail_Rfc822_List();
+        $header = array();
 
         foreach (array('to', 'cc', 'bcc') as $key) {
-            if (!isset($hdr[$key])) {
-                continue;
+            if (isset($hdr[$key])) {
+                $obs = IMP::parseAddressList($hdr[$key]);
+                $header[$key] = strval($obs);
+                $addrlist->add($obs);
             }
-
-            $arr = array_filter(array_map('trim', Horde_Mime_Address::explode($hdr[$key], ',;')));
-            $tmp = array();
-
-            foreach ($arr as $email) {
-                if (!strlen($email)) {
-                    continue;
-                }
-
-                try {
-                    $obs = Horde_Mime_Address::parseAddressList($email, array(
-                        'defserver' => $GLOBALS['session']->get('imp', 'maildomain'),
-                        'nestgroups' => true,
-                        'validate' => false
-                    ));
-                } catch (Horde_Mime_Exception $e) {
-                    throw new IMP_Compose_Exception(sprintf(_("Invalid e-mail address: %s."), $email));
-                }
-
-                foreach ($obs as $ob) {
-                    if (isset($ob['groupname'])) {
-                        $group_addresses = array();
-                        foreach ($ob['addresses'] as $ad) {
-                            $addrlist[] = $ad;
-                            $recips[] = $group_addresses[] = Horde_Mime_Address::writeAddress($ad['mailbox'], trim($ad['host']), isset($ad['personal']) ? $ad['personal'] : '');
-                        }
-
-                        $tmp[] = Horde_Mime_Address::writeGroupAddress($ob['groupname'], $group_addresses) . ' ';
-                    } else {
-                        $addrlist[] = $ob;
-                        $recips[] = $tmp[] = Horde_Mime_Address::writeAddress($ob['mailbox'], trim($ob['host']), isset($ob['personal']) ? $ob['personal'] : '');
-                    }
-                }
-            }
-
-            $header[$key] = implode(', ', $tmp);
         }
 
         return array(
             'header' => $header,
-            'list' => $addrlist,
-            'recips' => $recips
+            'list' => $addrlist
         );
     }
 
     /**
      * Create the base Horde_Mime_Part for sending.
      *
-     * @param array $to        The recipient list.
-     * @param string $body     Message body.
-     * @param array $options   Additional options:
+     * @param Horde_Mail_Rfc822_List $to  The recipient list.
+     * @param string $body                Message body.
+     * @param array $options              Additional options:
      *   - encrypt: (integer) The encryption flag.
      *   - from: (string) The outgoing from address - only needed for multiple
      *           PGP encryption.
      *   - html: (boolean) Is this a HTML message?
      *   - nofinal: (boolean) This is not a message which will be sent out.
      *   - noattach: (boolean) Don't add attachment information.
+     *   - signature: (integer) If set, will add the users' signature to the
+     *                message.
      *
      * @return Horde_Mime_Part  The MIME message to send.
      *
      * @throws Horde_Exception
      * @throws IMP_Compose_Exception
      */
-    protected function _createMimeMessage($to, $body, array $options = array())
+    protected function _createMimeMessage(Horde_Mail_Rfc822_List $to, $body,
+                                          array $options = array())
     {
         $body = Horde_String::convertCharset($body, 'UTF-8', $this->charset);
 
+        /* Get body text. */
         if (!empty($options['html'])) {
             $body_html = $body;
             $body = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($body, 'Html2text', array('wrap' => false, 'charset' => $this->charset));
+        }
+
+        /* Add signature data. */
+        if (isset($options['signature'])) {
+            $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
+            $sig = $identity->getSignature('text', $options['signature']);
+            $body .= $sig;
+
+            if (!empty($options['html'])) {
+                $html_sig = $identity->getSignature('html', $options['signature']);
+                if (!strlen($html_sig) && strlen($sig)) {
+                    $html_sig = $this->text2html($sig);
+                }
+                $body_html .= $html_sig;
+            }
         }
 
         /* Get trailer text (if any). */
@@ -1333,17 +1425,19 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 
                 case IMP_Crypt_Pgp::ENCRYPT:
                 case IMP_Crypt_Pgp::SYM_ENCRYPT:
-                    $to_list = empty($options['from'])
-                        ? $to
-                        : array_keys(array_flip(array_merge($to, array($options['from']))));
+                    $to_list = clone $to;
+                    if (!empty($options['from'])) {
+                        $to_list->add($options['from']);
+                    }
                     $base = $imp_pgp->IMPencryptMIMEPart($base, $to_list, ($encrypt == IMP_Crypt_Pgp::SYM_ENCRYPT) ? $symmetric_passphrase : null);
                     break;
 
                 case IMP_Crypt_Pgp::SIGNENC:
                 case IMP_Crypt_Pgp::SYM_SIGNENC:
-                    $to_list = empty($options['from'])
-                        ? $to
-                        : array_keys(array_flip(array_merge($to, array($options['from']))));
+                    $to_list = clone $to;
+                    if (!empty($options['from'])) {
+                        $to_list->add($options['from']);
+                    }
                     $base = $imp_pgp->IMPsignAndEncryptMIMEPart($base, $to_list, ($encrypt == IMP_Crypt_Pgp::SYM_SIGNENC) ? $symmetric_passphrase : null);
                     break;
                 }
@@ -1453,10 +1547,10 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         $force = false;
         if (in_array($type, array(self::REPLY_AUTO, self::REPLY_SENDER))) {
             if (($header['to'] = $to) ||
-                ($header['to'] = Horde_Mime_Address::addrArray2String($h->getOb('reply-to')))) {
+                ($header['to'] = strval($h->getOb('reply-to')))) {
                 $force = true;
             } else {
-                $header['to'] = Horde_Mime_Address::addrArray2String($h->getOb('from'));
+                $header['to'] = strval($h->getOb('from'));
             }
         }
 
@@ -1471,7 +1565,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         if (!is_null($list_info) && !empty($list_info['reply_list'])) {
             /* If To/Reply-To and List-Reply address are the same, no need
              * to handle these address separately. */
-            if (Horde_Mime_Address::bareAddress($list_info['reply_list']) != Horde_Mime_Address::bareAddress($header['to'])) {
+            if (IMP::bareAddress($list_info['reply_list']) != IMP::bareAddress($header['to'])) {
                 $header['to'] = $list_info['reply_list'];
                 $reply_type = self::REPLY_LIST;
             }
@@ -1483,13 +1577,13 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 
             /* Filter out our own address from the addresses we reply to. */
             $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
-            $all_addrs = array_keys($identity->getAllFromAddresses(true));
+            $all_addrs = new Horde_Mail_Rfc822_List(array_keys($identity->getAllFromAddresses(true)));
 
             /* Build the To: header. It is either:
              * 1) the Reply-To address (if not a personal address)
              * 2) the From address (if not a personal address)
              * 3) all remaining Cc addresses. */
-            $cc_addrs = array();
+            $cc_addrs = new Horde_Mail_Rfc822_List();
             foreach (array('reply-to', 'from', 'to', 'cc') as $val) {
                 /* If either a reply-to or $to is present, we use this address
                  * INSTEAD of the from address. */
@@ -1497,15 +1591,13 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                     continue;
                 }
 
-                $ob = $h->getOb($val);
-                if (!empty($ob)) {
-                    $addr_obs = Horde_Mime_Address::getAddressesFromObject($ob, array('filter' => $all_addrs));
-                    if (!empty($addr_obs)) {
-                        if (isset($addr_obs[0]['groupname'])) {
-                            $cc_addrs = array_merge($cc_addrs, $addr_obs);
-                            foreach ($addr_obs[0]['addresses'] as $addr_ob) {
-                                $all_addrs[] = $addr_ob['inner'];
-                            }
+                if ($ob = $h->getOb($val)) {
+                    $ob->setIteratorFilter(0, $all_addrs);
+
+                    if ($first_ob = $ob[0]) {
+                        if ($first_ob instanceof Horde_Mail_Rfc822_Group) {
+                            $cc_addrs->add($ob);
+                            $all_addrs->add($ob->addresses);
                         } elseif (($val != 'to') ||
                                   is_null($list_info) ||
                                   !$force ||
@@ -1516,22 +1608,19 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                             if (in_array($val, array('from', 'reply-to'))) {
                                 /* If from/reply-to doesn't have personal
                                  * information, check from address. */
-                                if (!$addr_obs[0]['personal'] &&
+                                if (is_null($first_ob->personal) &&
                                     ($to_ob = $h->getOb('from')) &&
-                                    $to_ob[0]['personal'] &&
-                                    ($to_addr = Horde_Mime_Address::addrArray2String($to_ob)) &&
-                                    Horde_Mime_Address::bareAddress($to_addr) == $addr_obs[0]['address']) {
-                                    $header['to'] = $to_addr;
+                                    !is_null($to_ob[0]->personal) &&
+                                    ($first_ob->match($to_ob[0]))) {
+                                    $header['to'] = strval($to_ob);
                                 } else {
-                                    $header['to'] = $addr_obs[0]['address'];
+                                    $header['to'] = strval($first_ob);
                                 }
                             } else {
-                                $cc_addrs = array_merge($cc_addrs, $addr_obs);
+                                $cc_addrs->add($ob);
                             }
 
-                            foreach ($addr_obs as $addr_ob) {
-                                $all_addrs[] = $addr_ob['inner'];
-                            }
+                            $all_addrs->add($ob);
                         }
                     }
                 }
@@ -1541,22 +1630,17 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
              * reply to a message that was already replied to by the user,
              * this reply will go to the original recipients (Request
              * #8485).  */
-            $hdr_cc = array();
-            foreach ($cc_addrs as $ob) {
-                if (isset($ob['groupname'])) {
-                    $hdr_cc[] = Horde_Mime_Address::writeGroupAddress($ob['groupname'], $ob['addresses']) . ' ';
-                } else {
-                    $hdr_cc[] = $ob['address'] . ', ';
-                }
-            }
-
-            if (count($hdr_cc)) {
+            if (count($cc_addrs)) {
                 $reply_type = self::REPLY_ALL;
             }
-            $header[empty($header['to']) ? 'to' : 'cc'] = rtrim(implode('', $hdr_cc), ' ,');
+            $header[empty($header['to']) ? 'to' : 'cc'] = strval($cc_addrs);
 
             /* Build the Bcc: header. */
-            $header['bcc'] = Horde_Mime_Address::addrArray2String($h->getOb('bcc') + $identity->getBccAddresses(), array('filter' => $all_addrs));
+            if ($bcc = $h->getOb('bcc')) {
+                $bcc->add($identity->getBccAddresses());
+                $bcc->setIteratorFilter(0, $all_addrs);
+                $header['bcc'] = strval($bcc);
+            }
         }
 
         if (!$this->_replytype || ($reply_type != $this->_replytype)) {
@@ -1565,7 +1649,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         }
 
         $ret = $this->replyMessageText($contents);
-        if ($ret['charset'] != $this->charset) {
+        if ($prefs->getValue('reply_charset') &&
+            ($ret['charset'] != $this->charset)) {
             $this->charset = $ret['charset'];
             $this->changed = 'changed';
         }
@@ -1583,9 +1668,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                 break;
 
             case self::REPLY_LIST:
-                $addr_ob = Horde_Mime_Address::parseAddressList($h->getValue('list-id'));
-                if (isset($addr_ob[0]['personal'])) {
-                    $ret['reply_list_id'] = $addr_ob[0]['personal'];
+                if (($list_parse = $GLOBALS['injector']->getInstance('Horde_ListHeaders')->parse('list-id', $h->getValue('list-id'))) &&
+                    !is_null($list_parse->label)) {
+                    $ret['reply_list_id'] = $list_parse->label;
                 }
                 break;
             }
@@ -1644,7 +1729,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 
         $h = $contents->getHeader();
 
-        $from = Horde_Mime_Address::addrArray2String($h->getOb('from'));
+        $from = strval($h->getOb('from'));
 
         if ($prefs->getValue('reply_headers') && !empty($h)) {
             $msg_pre = '----- ' .
@@ -1709,7 +1794,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      */
     protected function _msgTextFormat($opts, $pref_name)
     {
-        if (IMP::getViewMode() == 'mimp') {
+        if ($GLOBALS['registry']->getView() == Horde_Registry::VIEW_MINIMAL) {
             $compose_html = $force_html = false;
         } elseif (!empty($opts['format'])) {
             $compose_html = $force_html = ($opts['format'] == 'html');
@@ -1814,7 +1899,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 
         if (in_array($type, array(self::FORWARD_BODY, self::FORWARD_BOTH))) {
             $ret = $this->forwardMessageText($contents);
-            $this->charset = $ret['charset'];
             unset($ret['charset']);
         } else {
             $ret = array(
@@ -1849,7 +1933,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 
         $h = $contents->getHeader();
 
-        $from = Horde_Mime_Address::addrArray2String($h->getOb('from'));
+        $from = strval($h->getOb('from'));
 
         $msg_pre = "\n----- " .
             ($from ? sprintf(_("Forwarded message from %s"), $from) : _("Forwarded message")) .
@@ -1903,7 +1987,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     /**
      * Send a redirect (a/k/a resent) message. See RFC 5322 [3.6.6].
      *
-     * @param string $to  The addresses to redirect to.
+     * @param mixed $to  The addresses to redirect to.
      *
      * @return array  An object with the following properties for each
      *                redirected message:
@@ -1959,7 +2043,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                     throw new IMP_Compose_Exception($e);
                 }
 
-                $recipients = implode(', ', $recip['list']);
+                $recipients = strval($recip['list']);
 
                 Horde::logMessage(sprintf("%s Redirected message sent to %s from %s", $_SERVER['REMOTE_ADDR'], $recipients, $GLOBALS['registry']->getAuth()), 'INFO');
 
@@ -2070,11 +2154,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             $tmp[_("Date")] = $ob;
         }
 
-        if (($ob = Horde_Mime_Address::addrArray2String($h->getOb('from')))) {
+        if (($ob = strval($h->getOb('from')))) {
             $tmp[_("From")] = $ob;
         }
 
-        if (($ob = Horde_Mime_Address::addrArray2String($h->getOb('reply-to')))) {
+        if (($ob = strval($h->getOb('reply-to')))) {
             $tmp[_("Reply-To")] = $ob;
         }
 
@@ -2082,11 +2166,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             $tmp[_("Subject")] = $ob;
         }
 
-        if (($ob = Horde_Mime_Address::addrArray2String($h->getOb('to')))) {
+        if (($ob = strval($h->getOb('to')))) {
             $tmp[_("To")] = $ob;
         }
 
-        if (($ob = Horde_Mime_Address::addrArray2String($h->getOb('cc')))) {
+        if (($ob = strval($h->getOb('cc')))) {
             $tmp[_("Cc")] = $ob;
         }
 
@@ -2142,7 +2226,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         $part->setType($type);
         if ($part->getPrimaryType() == 'text') {
             if ($analyzetype = Horde_Mime_Magic::analyzeFile($tempfile, empty($conf['mime']['magic_db']) ? null : $conf['mime']['magic_db'], array('nostrip' => true))) {
-                $analyzetype = Horde_Mime::decodeParam('Content-Type', $analyzetype, 'UTF-8');
+                $analyzetype = Horde_Mime::decodeParam('Content-Type', $analyzetype);
                 $part->setCharset(isset($analyzetype['params']['charset']) ? $analyzetype['params']['charset'] : 'UTF-8');
             } else {
                 $part->setCharset('UTF-8');
@@ -2343,38 +2427,22 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      */
     protected function _expandAttribution($line, $from, $h)
     {
-        $addressList = $nameList = '';
+        $addressList = $nameList = array();
 
         /* First we'll get a comma seperated list of email addresses
-           and a comma seperated list of personal names out of $from
-           (there just might be more than one of each). */
-        try {
-            $addr_list = Horde_Mime_Address::parseAddressList($from);
-        } catch (Horde_Mime_Exception $e) {
-            $addr_list = array();
-        }
+         * and a comma seperated list of personal names out of $from
+         * (there just might be more than one of each). */
+        $addr_list = IMP::parseAddressList($from);
 
-        foreach ($addr_list as $entry) {
-            if (isset($entry['mailbox'])) {
-                if (strlen($addressList) > 0) {
-                    $addressList .= ', ';
-                }
-                $addressList .= $entry['mailbox'];
-                if (isset($entry['host'])) {
-                    $addressList .= '@' . $entry['host'];
-                }
+        foreach ($addr_list as $addr) {
+            if (!is_null($addr->mailbox)) {
+                $addressList[] = $addr->bare_address;
             }
 
-            if (isset($entry['personal'])) {
-                if (strlen($nameList) > 0) {
-                    $nameList .= ', ';
-                }
-                $nameList .= $entry['personal'];
-            } elseif (isset($entry['mailbox'])) {
-                if (strlen($nameList) > 0) {
-                    $nameList .= ', ';
-                }
-                $nameList .= $entry['mailbox'];
+            if (!is_null($addr->personal)) {
+                $nameList[] = $addr->personal;
+            } elseif (!is_null($addr->mailbox)) {
+                $nameList[] = $addr->mailbox;
             }
         }
 
@@ -2398,10 +2466,10 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             '/%f/' => $from,
 
             /* Senders email address(es). */
-            '/%a/' => $addressList,
+            '/%a/' => implode(', ', $addressList),
 
             /* Senders name(s). */
-            '/%p/' => $nameList,
+            '/%p/' => implode(', ', $nameList),
 
             /* RFC 822 date and time. */
             '/%r/' => $h->getValue('date'),
@@ -2541,9 +2609,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 
     /**
      * Remove all attachments from an email message and replace with
-     * urls to downloadable links. Should properly save all
-     * attachments to a new folder and remove the Horde_Mime_Parts for the
-     * attachments.
+     * urls to downloadable links. Should properly save all attachments to a
+     * new mailbox and remove the Horde_Mime_Parts for the attachments.
      *
      * @param Horde_Mime_Part $part  The body of the message.
      *
@@ -2557,6 +2624,14 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 
         if (!$conf['compose']['link_attachments']) {
             throw new IMP_Compose_Exception(_("Linked attachments are forbidden."));
+        }
+
+        /* Verify that message is below the linked attachment size limit. */
+        if (!empty($conf['compose']['link_attach_size_limit'])) {
+            $size_check = $conf['compose']['link_attach_size_limit'] - $this->sizeOfAttachments();
+            if ($size_check < 0) {
+                throw new IMP_Compose_Exception(sprintf(_("Attached file(s) exceeds the linked attachment size limit (%d KB too large). Delete one of the attachments to continue."), IMP::numberFormat(abs($size) / 1024, 0)));
+            }
         }
 
         $auth = $GLOBALS['registry']->getAuth();
@@ -2665,7 +2740,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         if (!empty($options['html']) &&
             $GLOBALS['session']->get('imp', 'rteavail') &&
             (($body_id = $contents->findBody('html')) !== null)) {
-            if (($contents->getMIMEMessage()->getType() != 'multipart/mixed') &&
+            $mime_message = $contents->getMIMEMessage();
+            if (($mime_message->getPrimaryType() == 'multipart') &&
+                ($mime_message->getSubType() != 'mixed') &&
                 in_array($options['imp_msg'], array(self::COMPOSE, self::REPLY))) {
                 $check_id = '2';
             } else {
@@ -2871,11 +2948,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 
         $headers = array();
         foreach (array('to', 'cc', 'bcc', 'subject') as $val) {
-            $headers[$val] = $imp_ui->getAddressList($vars->$val);
-        }
-
-        if ($vars->charset) {
-            $this->charset = $vars->charset;
+            $headers[$val] = $vars->$val;
         }
 
         try {
@@ -2923,7 +2996,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 
             try {
                 $this->_saveDraftServer($data);
-                $GLOBALS['notification']->push(_("A message you were composing when your session expired has been recovered. You may resume composing your message by going to your Drafts folder."));
+                $GLOBALS['notification']->push(_("A message you were composing when your session expired has been recovered. You may resume composing your message by going to your Drafts mailbox."));
             } catch (IMP_Compose_Exception $e) {}
         }
     }
@@ -2973,104 +3046,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         default:
             return null;
         }
-    }
-
-    /* Static utility functions. */
-
-    /**
-     * Formats the address properly.
-     *
-     * @param string $addr  The address to format.
-     *
-     * @return string  The formatted address.
-     */
-    static public function formatAddr($addr)
-    {
-        /* If there are angle brackets (<>), or a colon (group name
-         * delimiter), assume the user knew what they were doing. */
-        return (!empty($addr) &&
-                (strpos($addr, '>') === false) &&
-                (strpos($addr, ':') === false))
-            ? preg_replace('|\s+|', ', ', trim(strtr($addr, ';,', '  ')))
-            : $addr;
-    }
-
-    /**
-     * Uses the Registry to expand names and return error information for
-     * any address that is either not valid or fails to expand. This function
-     * will not search if the address string is empty.
-     *
-     * @param string $addrString  The name(s) or address(es) to expand.
-     * @param array $options      Additional options:
-     *   - levenshtein: (boolean) If true, will sort the results using the
-     *                  PHP levenshtein() scoring function.
-     *
-     * @return array  All matching addresses.
-     */
-    static public function expandAddresses($addrString, $options = array())
-    {
-        if (!preg_match('|[^\s]|', $addrString)) {
-            return array();
-        }
-
-        $addrString = reset(array_filter(array_map('trim', Horde_Mime_Address::explode($addrString, ',;'))));
-        $addr_list = self::getAddressList($addrString);
-
-        if (empty($options['levenshtein'])) {
-            return $addr_list;
-        }
-
-        $sort_list = array();
-        foreach ($addr_list as $val) {
-            $sort_list[$val] = levenshtein($addrString, $val);
-        }
-        asort($sort_list, SORT_NUMERIC);
-
-        return array_keys($sort_list);
-    }
-
-    /**
-     * Uses the Registry to obtain a list of e-mail addresses in the
-     * addressbook.
-     *
-     * @param string $search  The term to search by.
-     * @param boolean $email  Return the e-mail only? Otherwise, returns
-     *                        the full address.
-     *
-     * @return array  All matching addresses.
-     */
-    static public function getAddressList($search = '', $email = false)
-    {
-        $sparams = IMP::getAddressbookSearchParams();
-        try {
-            $res = $GLOBALS['registry']->call(
-                'contacts/search', array($search, $sparams['sources'], $sparams['fields'], false, false, array('name', 'email')));
-        } catch (Horde_Exception $e) {
-            Horde::logMessage($e, 'ERR');
-            return array();
-        }
-
-        if (!count($res)) {
-            return array();
-        }
-
-        /* The first key of the result will be the search term. The matching
-         * entries are stored underneath this key. */
-        $search = array();
-        foreach (reset($res) as $val) {
-            if (!empty($val['email'])) {
-                if (!$email && (strpos($val['email'], ',') !== false)) {
-                    $search[] = Horde_Mime_Address::encode($val['name'], 'personal') . ': ' . $val['email'] . ';';
-                } else {
-                    $mbox_host = explode('@', $val['email']);
-                    if (isset($mbox_host[1])) {
-                        $search[] = Horde_Mime_Address::writeAddress($mbox_host[0], $mbox_host[1], $email ? '' : $val['name']);
-                    }
-                }
-            }
-        }
-
-        return $search;
     }
 
     /* ArrayAccess methods. */
@@ -3146,31 +3121,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         return count($this->_cache);
     }
 
-    /* Iterator methods. */
+    /* IteratorAggregate method. */
 
-    public function current()
+    public function getIterator()
     {
-        return current($this->_cache);
-    }
-
-    public function key()
-    {
-        return key($this->_cache);
-    }
-
-    public function next()
-    {
-        next($this->_cache);
-    }
-
-    public function rewind()
-    {
-        reset($this->_cache);
-    }
-
-    public function valid()
-    {
-        return (key($this->_cache) !== null);
+        return new ArrayIterator($this->_cache);
     }
 
     /* Serializable methods. */

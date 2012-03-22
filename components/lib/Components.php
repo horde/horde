@@ -101,7 +101,7 @@ This is a list of available actions (use "help ACTION" to get additional informa
 '
                 ),
                 'modules' => array(
-                    'directory' => dirname(__FILE__) . '/Components/Module',
+                    'directory' => __DIR__ . '/Components/Module',
                     'exclude' => 'Base'
                 ),
                 'provider' => array(

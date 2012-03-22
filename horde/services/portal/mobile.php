@@ -7,10 +7,13 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author Chuck Hagenbuch <chuck@horde.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Horde
  */
 
-require_once dirname(__FILE__) . '/../../lib/Application.php';
+require_once __DIR__ . '/../../lib/Application.php';
 Horde_Registry::appInit('horde');
 
 $identity = $injector->getInstance('Horde_Core_Factory_Identity')->create();
@@ -25,6 +28,8 @@ foreach ($registry->listApps() as $app) {
         $links[htmlspecialchars($registry->get('name', $app))] = array(Horde::url('', true, array('app' => $app)), $registry->get('icon', $app));
     }
 }
+
+$notification->notify(array('listeners' => 'status'));
 
 $title = _("Welcome");
 

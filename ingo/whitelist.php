@@ -12,7 +12,7 @@
  * @author Michael Slusarz <slusarz@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('ingo');
 
 /* Redirect if whitelist not available. */
@@ -21,6 +21,7 @@ if (!in_array(Ingo_Storage::ACTION_WHITELIST, $session->get('ingo', 'script_cate
     Horde::url('filters.php', true)->redirect();
 }
 
+$ingo_storage = $injector->getInstance('Ingo_Factory_Storage')->create();
 $whitelist = $ingo_storage->retrieve(Ingo_Storage::ACTION_WHITELIST);
 
 /* Perform requested actions. */

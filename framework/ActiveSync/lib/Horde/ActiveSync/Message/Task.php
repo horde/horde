@@ -9,9 +9,6 @@
  */
 class Horde_ActiveSync_Message_Task extends Horde_ActiveSync_Message_Base
 {
-    public $categories = array();
-    public $bodytruncated = 0;
-
     /* POOMTASKS */
     const POOMTASKS_BODY          = 'POOMTASKS:Body';
     const POOMTASKS_BODYSIZE      = 'POOMTASKS:BodySize';
@@ -75,22 +72,23 @@ class Horde_ActiveSync_Message_Task extends Horde_ActiveSync_Message_Base
 
     protected $_properties = array(
         'body'          => false,
+        'bodytruncated' => 0,
+        'categories'    => array(),
         'complete'      => false,
         'datecompleted' => false,
+        'deadoccur'     => false,
         'duedate'       => false,
-        'utcduedate'    => false,
         'importance'    => false,
         'recurrence'    => false,
         'regenerate'    => false,
-        'deadoccur'     => false,
         'reminderset'   => false,
         'remindertime'  => false,
+        'rtf'           => false,
         'sensitiviy'    => false,
         'startdate'     => false,
-        'utcstartdate'  => false,
         'subject'       => false,
-        'rtf'           => false,
-        'categories'    => false,
+        'utcduedate'    => false,
+        'utcstartdate'  => false,
     );
 
     /**

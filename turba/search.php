@@ -45,7 +45,7 @@ function updateSortOrderFromVars()
     }
 }
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('turba');
 
 /* Verify if the search mode variable is passed in form or is registered in
@@ -83,6 +83,8 @@ if (!isset($addressBooks[$source])) {
 $criteria = Horde_Util::getFormData('criteria');
 $val = Horde_Util::getFormData('val');
 $action = Horde_Util::getFormData('actionID');
+
+$page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
 
 try {
     $driver = $injector->getInstance('Turba_Factory_Driver')->create($source);
@@ -158,7 +160,7 @@ if ($driver) {
                 $dupe = Horde_Util::getFormData('dupe');
                 $type = Horde_Util::getFormData('type');
                 $view = new Turba_View_Duplicates($duplicates, $driver, $type, $dupe);
-                Horde::addScriptFile('tables.js', 'horde');
+                $page_output->addScriptFile('tables.js', 'horde');
             } catch (Exception $e) {
                 $notification->push($e);
             }
@@ -239,16 +241,16 @@ if ($search_mode != 'duplicate') {
 switch ($search_mode) {
 case 'basic':
     $title = _("Basic Search");
-    Horde::addInlineScript(array(
+    $page_output->addInlineScript(array(
         '$("val").focus()'
-    ), 'dom');
+    ), true);
     break;
 
 case 'advanced':
     $title = _("Advanced Search");
-    Horde::addInlineScript(array(
+    $page_output->addInlineScript(array(
         '$("name").focus()'
-    ), 'dom');
+    ), true);
     break;
 
 case 'duplicate':
@@ -256,10 +258,10 @@ case 'duplicate':
     break;
 }
 
-Horde::addScriptFile('quickfinder.js', 'horde');
-Horde::addScriptFile('effects.js', 'horde');
-Horde::addScriptFile('redbox.js', 'horde');
-Horde::addScriptFile('search.js', 'turba');
+$page_output->addScriptFile('quickfinder.js', 'horde');
+$page_output->addScriptFile('effects.js', 'horde');
+$page_output->addScriptFile('redbox.js', 'horde');
+$page_output->addScriptFile('search.js');
 if (isset($view) && is_object($view)) {
     Turba::addBrowseJs();
 }

@@ -10,7 +10,7 @@
  * @package Ansel
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('ansel', array('session_control' => 'readonly'));
 
 // Get form data

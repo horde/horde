@@ -53,6 +53,10 @@ class Kronolith_Event_Sql extends Kronolith_Event
     {
         $driver = $this->getDriver();
 
+        if (isset($SQLEvent['event_timezone'])) {
+            $this->timezone = $SQLEvent['event_timezone'];
+        }
+
         $this->allday = (bool)$SQLEvent['event_allday'];
         if (!$this->allday && $driver->getParam('utc')) {
             $tz_local = date_default_timezone_get();
@@ -159,6 +163,7 @@ class Kronolith_Event_Sql extends Kronolith_Event
         $properties['event_title'] = $driver->convertToDriver($this->title);
         $properties['event_description'] = $driver->convertToDriver($this->description);
         $properties['event_location'] = $driver->convertToDriver($this->location);
+        $properties['event_timezone'] = $this->timezone;
         $properties['event_url'] = (string)$this->url;
         $properties['event_private'] = (int)$this->private;
         $properties['event_status'] = $this->status;

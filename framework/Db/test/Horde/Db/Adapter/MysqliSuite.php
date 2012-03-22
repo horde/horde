@@ -46,10 +46,10 @@ class Horde_Db_Adapter_MysqliSuite extends PHPUnit_Framework_TestSuite
             return $suite;
         }
 
-        require_once dirname(__FILE__) . '/MysqliTest.php';
-        require_once dirname(__FILE__) . '/Mysql/ColumnTest.php';
-        require_once dirname(__FILE__) . '/Mysql/ColumnDefinitionTest.php';
-        require_once dirname(__FILE__) . '/Mysql/TableDefinitionTest.php';
+        require_once __DIR__ . '/MysqliTest.php';
+        require_once __DIR__ . '/Mysql/ColumnTest.php';
+        require_once __DIR__ . '/Mysql/ColumnDefinitionTest.php';
+        require_once __DIR__ . '/Mysql/TableDefinitionTest.php';
 
         $suite->addTestSuite('Horde_Db_Adapter_MysqliTest');
         $suite->addTestSuite('Horde_Db_Adapter_Mysql_ColumnTest');

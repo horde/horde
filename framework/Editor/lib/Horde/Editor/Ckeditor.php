@@ -51,9 +51,10 @@ class Horde_Editor_Ckeditor extends Horde_Editor
         }
 
         if (empty($params['no_notify'])) {
-            Horde::addScriptFile($ck_path . $ck_file, null, array('external' => true));
+            $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+            $page_output->addScriptFile($ck_path . $ck_file, null, array('external' => true));
             if (isset($params['id'])) {
-                Horde::addInlineScript('CKEDITOR.replace("' . $params['id'] . '",' . $params['config'] . ')', 'load');
+                $page_output->addInlineScript('CKEDITOR.replace("' . $params['id'] . '",' . $params['config'] . ')', 'load');
             }
         } else {
             $this->_js = '<script type="text/javascript" src="' . htmlspecialchars($ck_path) . $ck_file . '"></script>';

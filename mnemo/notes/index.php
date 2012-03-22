@@ -8,7 +8,7 @@
  * @package Mnemo
  */
 
-@define('MNEMO_BASE', dirname(dirname(__FILE__)));
+@define('MNEMO_BASE', dirname(__DIR__));
 require_once MNEMO_BASE . '/lib/Application.php';
 Horde_Registry::appInit('mnemo');
 
@@ -42,8 +42,9 @@ if ($prefs->getValue('show_panel')) {
     $bodyClass = 'rightPanel';
 }
 
-Horde::addScriptFile('tables.js', 'horde', true);
-Horde::addScriptFile('quickfinder.js', 'horde', true);
+$page_output = $injector->getInstance('Horde_PageOutput');
+$page_output->addScriptFile('tables.js', 'horde');
+$page_output->addScriptFile('quickfinder.js', 'horde');
 
 require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Horde::menu();

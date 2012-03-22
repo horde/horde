@@ -235,7 +235,7 @@ class Hermes_Table extends Horde_Core_Ui_Widget
             $html .= ($secname == 'footer') ? '</tfoot>' : '</tbody>';
         }
 
-        Horde::addScriptFile('stripe.js', 'horde', true);
+        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('stripe.js', 'horde');
         return $html . '</table>';
     }
 

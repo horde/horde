@@ -133,6 +133,16 @@ class Kronolith_Driver
     }
 
     /**
+     * Returns whether this driver supports per-event timezones.
+     *
+     * @return boolean  Whether this drivers suppports per-event timezones.
+     */
+    public function supportsTimezones()
+    {
+        return false;
+    }
+
+    /**
      * Searches a calendar.
      *
      * @param object $query  An object with the criteria to search for.
@@ -379,7 +389,7 @@ class Kronolith_Driver
      * Stub for child class to override if it can implement.
      *
      * @todo Remove in Kronolith 4.0
-     * @deprecated  Now lives in Kronolith::
+     * @deprecated  Now lives in Kronolith_Application::
      * @throws Kronolith_Exception
      */
     public function removeUserData($user)

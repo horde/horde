@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('nag');
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -20,7 +20,10 @@ try {
     $notification->push($tasks, 'horde.error');
     $tasks = new Nag_Task();
 }
+
+$injector->getInstance('Horde_PageOutput')->addScriptFile('mobile.js');
 require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
+
 ?>
 <style type="text/css">
 .ui-icon-nag-unchecked {
@@ -36,10 +39,16 @@ require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
     text-decoration: line-through;
 }
 </style>
+<script>
+var NagConf = {
+    completeUrl: '<?php echo Horde::url('t/complete?format=json') ?>',
+    showCompleted: <?php echo $prefs->getValue('show_completed') ?>
+};
+</script>
 </head>
 
 <body>
-<div data-role="page">
+<div data-role="page" id="nag-tasklist">
 
 <div data-role="header">
  <h1>My Tasks</h1>
@@ -52,35 +61,20 @@ require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
  <ul data-role="listview">
 <?php
 if ($tasks->hasTasks()) {
-    $sortby = $prefs->getValue('sortby');
-    $sortdir = $prefs->getValue('sortdir');
     $dateFormat = $prefs->getValue('date_format');
-    $columns = @unserialize($prefs->getValue('tasklist_columns'));
-    if (empty($columns)) {
-        $columns = array();
-    }
     $dynamic_sort = true;
-
-    $baseurl = 'list.php';
-    if ($actionID == 'search_tasks') {
-        $baseurl = Horde_Util::addParameter(
-            $baseurl,
-            array('actionID' => 'search_tasks',
-                  'search_pattern' => $search_pattern,
-                  'search_name' => $search_name ? 'on' : 'off',
-                  'search_desc' => $search_desc ? 'on' : 'off',
-                  'search_category' => $search_category ? 'on' : 'off'));
-    }
 
     $tasks->reset();
     while ($task = $tasks->each()) {
         $dynamic_sort &= !$task->hasSubTasks();
 
         $style = '';
+        $overdue = false;
         if (!empty($task->completed)) {
             $style = 'closed';
         } elseif (!empty($task->due) && $task->due < time()) {
             $style = 'overdue';
+            $overdue = true;
         }
         if ($style) { $style = ' class="' . $style . '"'; }
 
@@ -103,28 +97,26 @@ if ($tasks->hasTasks()) {
             $task_link = $task->view_link;
         }
 
+        $task_complete_class = '';
         if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             if (!$task->completed) {
                 $icon = 'nag-unchecked';
                 if (!$task->childrenCompleted()) {
-                    $href = '#';
                     $label = _("Incomplete sub tasks, complete them first");
                 } else {
-                    $href = $task->complete_link;
-                    $label = sprintf(_("Complete \"%s\""), $task->name);
+                    $task_complete_class = 'toggleable incomplete';
+                    $label = _("Complete");
                 }
             } else {
                 $icon = 'check';
                 if ($task->parent && $task->parent->completed) {
-                    $href = '#';
                     $label = _("Completed parent task, mark it as incomplete first");
                 } else {
-                    $href = $task->complete_link;
-                    $label = sprintf(_("Mark \"%s\" as incomplete"), $task->name);
+                    $task_complete_class = 'toggleable complete';
+                    $label = _("Mark incomplete");
                 }
             }
         } else {
-            $href = '#';
             if ($task->completed) {
                 $label = _("Completed");
                 $icon = 'check';
@@ -133,13 +125,16 @@ if ($tasks->hasTasks()) {
                 $icon = 'nag-unchecked';
             }
         }
+        if ($task_complete_class) { $task_complete_class = ' class="' . $task_complete_class . '"'; }
 
-        echo '<li' . $style . '><a rel="external" href="' . $task_link . '">' . htmlspecialchars($task->name) . '</a><a rel="external" data-icon="' . $icon . '" href="' . $href . '">' . $label . '</a></li>';
+        echo '<li' . $style . '><a data-rel="dialog" data-transition="slideup" href="' . str_replace('view.php', 'mobile-view.php', $task_link) . '"><h3>' . htmlspecialchars($task->name) . '</h3><p>' . htmlspecialchars(substr($task->desc, 0, 1000)) . '</p><p class="ui-li-aside' . ($overdue ? ' overdue' : '') . '"><strong>' . ($task->due ? strftime($dateFormat, $task->due) : '&nbsp;') . '</strong></p></a><a data-task="' . htmlspecialchars($task->id) . '" data-tasklist="' . htmlspecialchars($task->tasklist) . '" data-icon="' . $icon . '" href="#"' . $task_complete_class . '>' . $label . '</a></li>';
     }
 }
 ?>
  </ul>
 </div>
+
+<?php require NAG_TEMPLATES . '/mobile-footer.html.php'; ?>
 
 </div>
 

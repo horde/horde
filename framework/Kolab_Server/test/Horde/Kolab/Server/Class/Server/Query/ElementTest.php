@@ -14,7 +14,7 @@
 /**
  * Require our basic test case definition
  */
-require_once dirname(__FILE__) . '/../../../Autoload.php';
+require_once __DIR__ . '/../../../Autoload.php';
 
 /**
  * Test the LDAP query elements.
@@ -149,7 +149,7 @@ class Horde_Kolab_Server_Class_Server_Query_ElementTest extends PHPUnit_Framewor
     }
 
     /**
-     * @expectedException Exception
+     * @expectedException Horde_Kolab_Server_Exception
      */
     public function testClassGroupMethodGetnameThrowsException()
     {
@@ -158,7 +158,7 @@ class Horde_Kolab_Server_Class_Server_Query_ElementTest extends PHPUnit_Framewor
     }
 
     /**
-     * @expectedException Exception
+     * @expectedException Horde_Kolab_Server_Exception
      */
     public function testClassGroupMethodGetvalueThrowsException()
     {
@@ -202,7 +202,7 @@ class Horde_Kolab_Server_Class_Server_Query_ElementTest extends PHPUnit_Framewor
     }
 
     /**
-     * @expectedException Exception
+     * @expectedException Horde_Kolab_Server_Exception
      */
     public function testClassSingleMethodGetelementsThrowsException()
     {

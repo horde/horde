@@ -121,8 +121,9 @@ class Horde_Block_TwitterTimeline extends Horde_Core_Block
         $refresh = empty($this->_params['refresh_rate']) ? 300 : $this->_params['refresh_rate'];
 
         /* Add the client javascript / initialize it */
-        Horde::addScriptFile('twitterclient.js');
-        Horde::addScriptFile('effects.js');
+        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        $page_output->addScriptFile('twitterclient.js');
+        $page_output->addScriptFile('effects.js');
         $script = <<<EOT
             var Horde = window.Horde || {};
             Horde['twitter{$instance}'] = new Horde_Twitter({
@@ -141,7 +142,7 @@ class Horde_Block_TwitterTimeline extends Horde_Core_Block
                strings: { inreplyto: '{$inReplyToText}', defaultText: '{$defaultText}', justnow: '{$justNowText}' }
             });
 EOT;
-        Horde::addInlineScript($script, 'dom');
+        $page_output->addInlineScript($script, true);
 
         /* Get the user's most recent tweet */
 

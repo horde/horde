@@ -29,7 +29,7 @@ class Horde_Imap_Client_AuthTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        require_once dirname(__FILE__) . '/Stub/DigestMD5.php';
+        require_once __DIR__ . '/Stub/DigestMD5.php';
     }
 
     public function testDigestMd5()

@@ -12,9 +12,9 @@
  * @subpackage UnitTests
  */
 
-require_once dirname(dirname(__FILE__)) . '/fixtures/migrations/1_users_have_last_names1.php';
-require_once dirname(dirname(__FILE__)) . '/fixtures/migrations/2_we_need_reminders1.php';
-require_once dirname(dirname(__FILE__)) . '/fixtures/migrations_with_decimal/1_give_me_big_numbers.php';
+require_once dirname(__DIR__) . '/fixtures/migrations/1_users_have_last_names1.php';
+require_once dirname(__DIR__) . '/fixtures/migrations/2_we_need_reminders1.php';
+require_once dirname(__DIR__) . '/fixtures/migrations_with_decimal/1_give_me_big_numbers.php';
 
 /**
  * @author     Mike Naberezny <mike@maintainable.com>

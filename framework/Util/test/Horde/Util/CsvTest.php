@@ -7,13 +7,13 @@
  * @subpackage UnitTests
  */
 
-require_once dirname(__FILE__) . '/Autoload.php';
+require_once __DIR__ . '/Autoload.php';
 
 class Horde_Util_CsvTest extends PHPUnit_Framework_TestCase
 {
     protected function readCsv($file, $conf = array())
     {
-        $fp = fopen(dirname(__FILE__) . '/fixtures/' . $file, 'r');
+        $fp = fopen(__DIR__ . '/fixtures/' . $file, 'r');
         $data = array();
         while ($res = Horde_Util::getCsv($fp, $conf)) {
             $data[] = $res;

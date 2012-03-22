@@ -15,7 +15,7 @@
 
 /* Determine the base directories. */
 if (!defined('PASTIE_BASE')) {
-    define('PASTIE_BASE', dirname(__FILE__) . '/..');
+    define('PASTIE_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {
@@ -36,7 +36,7 @@ class Pastie_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = 'H4 (0.1-git)';
+    public $version = 'H5 (0.1-git)';
 
     /**
      */

@@ -1,14 +1,14 @@
 # Finnish translations for Horde_Prefs module.
 # Copyright 2010-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Prefs module.
-# Leena Heino <liinu@uta.fi>, 2010-2011.
+# Leena Heino <liinu@uta.fi>, 2010-2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Prefs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
-"PO-Revision-Date: 2011-04-03 11:13:12+0300\n"
+"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"PO-Revision-Date: 2012-03-07 19:37:16+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -29,11 +29,15 @@ msgstr "Uusi luokitus"
 msgid "Please type the new category name:"
 msgstr "Anna nimi uudelle luokitukselle:"
 
+#: lib/Horde/Prefs/Storage/KolabImap.php:66
+msgid "Preferences"
+msgstr "Asetukset"
+
 #: lib/Horde/Prefs/CategoryManager.php:63
 msgid "Unfiled"
 msgstr "Luokittelematon"
 
-#: lib/Horde/Prefs/Identity.php:332
+#: lib/Horde/Prefs/Identity.php:322
 msgid "Unnamed"
 msgstr "Nimetön"
 

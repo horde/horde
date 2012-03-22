@@ -59,9 +59,8 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
      *
      * @return boolean
      */
-    public function handle()
+    protected function _handle()
     {
-        parent::handle();
         $this->_logger->info('[' . $this->_device->id . '] Beginning SEARCH');
 
         $searchrange = '0';

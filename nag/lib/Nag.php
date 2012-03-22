@@ -956,11 +956,13 @@ class Nag
             if (strpos($email, '@') === false) {
                 continue;
             }
-            list($mailbox, $host) = explode('@', $email);
             if (!isset($addresses[$vals['lang']][$vals['tf']][$vals['df']])) {
                 $addresses[$vals['lang']][$vals['tf']][$vals['df']] = array();
             }
-            $addresses[$vals['lang']][$vals['tf']][$vals['df']][] = Horde_Mime_Address::writeAddress($mailbox, $host, $identity->getValue('fullname'));
+
+            $tmp = new Horde_Mail_Rfc822_Address($email);
+            $tmp->personal = $identity->getValue('fullname');
+            $addresses[$vals['lang']][$vals['tf']][$vals['df']][] = strval($tmp);
         }
 
         if (!$addresses) {

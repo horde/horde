@@ -14,7 +14,7 @@
  * @package  IMP
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('imp', array('impmode' => 'dimp'));
 
 /* Get site specific menu items. */
@@ -22,20 +22,7 @@ $dimp_menu = new IMP_Menu_Dimp(Horde_Menu::MASK_BASE);
 $render_sidebar = $dimp_menu->render();
 $dimp_menu->addJs();
 
-Horde::noDnsPrefetch();
-IMP_Dimp::header('', array(
-    array('dimpbase.js', 'imp'),
-    array('viewport.js', 'imp'),
-    array('dialog.js', 'imp'),
-    array('mailbox-dimp.js', 'imp'),
-    array('imp.js', 'imp'),
-    array('contextsensitive.js', 'horde'),
-    array('dragdrop2.js', 'horde'),
-    array('popup.js', 'horde'),
-    array('redbox.js', 'horde'),
-    array('slider2.js', 'horde'),
-    array('form_ghost.js', 'horde'),
-    array('toggle_quotes.js', 'horde'),
-));
+$injector->getInstance('Horde_PageOutput')->noDnsPrefetch();
+$injector->getInstance('IMP_Ajax')->header('main');
 
 require IMP_TEMPLATES . '/dimp/index.inc';

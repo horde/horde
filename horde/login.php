@@ -51,7 +51,7 @@ function _addAnchor($url, $type, $vars, $url_anchor = null)
  * Horde first or else we will lose the session. Ignore any auth errors.
  * Transparent authentication is handled by the Horde_Application::
  * constructor. */
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 try {
     Horde_Registry::appInit('horde', array('authentication' => 'none', 'nologintasks' => true));
 } catch (Horde_Exception $e) {}
@@ -114,6 +114,11 @@ if ($logout_reason) {
     $entry = sprintf('User %s [%s] logged out of Horde', $registry->getAuth(), $_SERVER['REMOTE_ADDR']);
     Horde::logMessage($entry, 'NOTICE');
     $registry->clearAuth();
+
+    /* Reset notification handler now, since it may still be using a status
+     * handler that is no longer valid. */
+    $notification->detach('status');
+    $notification->attach('status');
 
     /* Redirect the user on logout if redirection is enabled and this is an
      * an intended logout. */
@@ -346,6 +351,8 @@ if ($reason) {
     $notification->push(str_replace('<br />', ' ', $reason), 'horde.message');
 }
 
+$page_output = $injector->getInstance('Horde_PageOutput');
+
 if ($browser->isMobile() &&
     (!isset($conf['user']['force_view']) ||
      ($conf['user']['force_view'] != 'traditional' &&
@@ -366,6 +373,15 @@ if ($browser->isMobile() &&
         );
     }
 
+    /* Show notifications. */
+    $response = new Horde_Core_Ajax_Response_Notifications();
+    if ($json_notify = $response->jsonData()) {
+        $page_output->addInlineScript(
+            'window.setTimeout(function(){HordeMobile.showNotifications('
+            . Horde_Serialize::serialize($json_notify, Horde_Serialize::JSON)
+            . ');},0);');
+    }
+
     require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
     require $registry->get('templates', 'horde') . '/login/mobile.inc';
     require $registry->get('templates', 'horde') . '/common-footer-mobile.inc';
@@ -374,11 +390,11 @@ if ($browser->isMobile() &&
 
 if (!empty($js_files)) {
     foreach ($js_files as $val) {
-        Horde::addScriptFile($val[0], $val[1]);
+        $page_output->addScriptFile($val[0], $val[1]);
     }
 }
 
-Horde::addInlineJsVars($js_code);
+$page_output->addInlineJsVars($js_code);
 $bodyClass = 'modal-form';
 require $registry->get('templates', 'horde') . '/common-header.inc';
 require $registry->get('templates', 'horde') . '/login/login.inc';

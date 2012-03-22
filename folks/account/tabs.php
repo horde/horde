@@ -9,7 +9,7 @@
  */
 
 $folks_authentication = 'none';
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once __DIR__ . '/../lib/base.php';
 
 $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
 

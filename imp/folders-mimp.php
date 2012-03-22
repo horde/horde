@@ -1,9 +1,9 @@
 <?php
 /**
- * Mobile (MIMP) folder display page.
+ * Mobile (MIMP) folder tree display page.
  *
  * URL Parameters:
- *   'ts' = (integer) Toggle subscribe view.
+ *   - ts: (integer) Toggle subscribe view.
  *
  * Copyright 2000-2012 Horde LLC (http://www.horde.org/)
  *
@@ -18,16 +18,16 @@
  * @package  IMP
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('imp', array('impmode' => 'mimp'));
 
 /* Redirect back to the mailbox if folder use is not allowed. */
 if (!$injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS)) {
-    $notification->push(_("Folder use is not enabled."), 'horde.error');
+    $notification->push(_("The folder view is not enabled."), 'horde.error');
     Horde::url('mailbox-mimp.php', true)->redirect();
 }
 
-/* Decide whether or not to show all the unsubscribed folders */
+/* Decide whether or not to show all the unsubscribed mailboxes. */
 $subscribe = $prefs->getValue('subscribe');
 $showAll = (!$subscribe || $session->get('imp', 'showunsub'));
 
@@ -55,7 +55,7 @@ $selfurl = Horde::url('folders-mimp.php');
 $menu = array(array(_("Refresh"), $selfurl));
 if ($subscribe) {
     $menu[] = array(
-        ($showAll ? _("Show Subscribed Folders") : _("Show All Folders")),
+        ($showAll ? _("Show Subscribed Mailboxes") : _("Show All Mailboxes")),
         $selfurl->copy()->add('ts', 1)
     );
 }
@@ -67,6 +67,6 @@ $t->set('menu', $injector->getInstance('IMP_Ui_Mimp')->getMenu('folders', $menu)
 $t->set('title', $title);
 $t->set('tree', $tree->getTree(true));
 
-require_once IMP_TEMPLATES . '/common-header.inc';
+IMP::header($title);
 IMP::status();
 echo $t->fetch(IMP_TEMPLATES . '/mimp/folders/folders.html');

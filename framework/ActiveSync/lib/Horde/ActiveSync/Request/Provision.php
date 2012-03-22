@@ -48,10 +48,8 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
      * @return boolean
      * @throws Horde_ActiveSync_Exception
      */
-    public function handle()
+    protected function _handle()
     {
-        parent::handle();
-
         // Be optimistic
         $status = self::STATUS_SUCCESS;
         $policyStatus = self::STATUS_SUCCESS;
@@ -73,7 +71,7 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
                 return $this->_globalError(self::STATUS_PROTERROR);
             }
             if ($status == self::STATUS_CLIENT_SUCCESS) {
-                $this->_state->setDeviceRWStatus($this->_devId, Horde_ActiveSync::RWSTATUS_WIPED);
+                $this->_stateDriver->setDeviceRWStatus($this->_devId, Horde_ActiveSync::RWSTATUS_WIPED);
             }
 
             // Need to send *something* in the policytype field even if wiping
@@ -152,7 +150,7 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
                     return $this->_globalError(self::STATUS_PROTERROR);
                 }
                 if ($status == self::STATUS_CLIENT_SUCCESS) {
-                    $this->_state->setDeviceRWStatus($this->_device->id, Horde_ActiveSync::RWSTATUS_WIPED);
+                    $this->_stateDriver->setDeviceRWStatus($this->_device->id, Horde_ActiveSync::RWSTATUS_WIPED);
                 }
             }
         }
@@ -168,19 +166,19 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
         // send it to the client.
         if (!$phase2) {
             // Verify intermediate key
-            if ($this->_state->getPolicyKey($this->_device->id) != $policykey) {
+            if ($this->_stateDriver->getPolicyKey($this->_device->id) != $policykey) {
                 $policyStatus = self::STATUS_POLKEYMISM;
             } else {
                 // Set the final key
-                $policykey = $this->_state->generatePolicyKey();
-                $this->_state->setPolicyKey($this->_device->id, $policykey);
-                $this->_state->setDeviceRWStatus($this->_device->id, Horde_ActiveSync::RWSTATUS_OK);
+                $policykey = $this->_stateDriver->generatePolicyKey();
+                $this->_stateDriver->setPolicyKey($this->_device->id, $policykey);
+                $this->_stateDriver->setDeviceRWStatus($this->_device->id, Horde_ActiveSync::RWSTATUS_OK);
             }
             $this->_cleanUpAfterPairing();
         } elseif (empty($policykey)) {
             // This is phase2 - we need to set the intermediate key
-            $policykey = $this->_state->generatePolicyKey();
-            $this->_state->setPolicyKey($this->_device->id, $policykey);
+            $policykey = $this->_stateDriver->generatePolicyKey();
+            $this->_stateDriver->setPolicyKey($this->_device->id, $policykey);
         }
 
         $this->_encoder->startTag(Horde_ActiveSync::PROVISION_PROVISION);
@@ -213,10 +211,10 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
         }
         $this->_encoder->endTag();     //policy
         $this->_encoder->endTag();     //policies
-        $rwstatus = $this->_state->getDeviceRWStatus($this->_device->id);
+        $rwstatus = $this->_stateDriver->getDeviceRWStatus($this->_device->id);
         if ($rwstatus == Horde_ActiveSync::RWSTATUS_PENDING || $rwstatus == Horde_ActiveSync::RWSTATUS_WIPED) {
             $this->_encoder->startTag(Horde_ActiveSync::PROVISION_REMOTEWIPE, false, true);
-            $this->_state->setDeviceRWStatus($this->_device->id, Horde_ActiveSync::RWSTATUS_WIPED);
+            $this->_stateDriver->setDeviceRWStatus($this->_device->id, Horde_ActiveSync::RWSTATUS_WIPED);
         }
         $this->_encoder->endTag();         //provision
 

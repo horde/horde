@@ -1,5 +1,5 @@
 ==========================
- Installing Kronolith 3.0
+ Installing Kronolith 4.0
 ==========================
 
 :Contact: kronolith@lists.horde.org
@@ -25,7 +25,7 @@ To function properly, Kronolith requires the following:
    tools for Web applications written in PHP.  You must install Horde before
    installing Kronolith.
 
-   .. Important:: Kronolith 3.0 requires version 4.0+ of the Horde Framework -
+   .. Important:: Kronolith 4.0 requires version 5.0+ of the Horde Framework -
                   earlier versions of Horde will **not** work.
 
    .. Important:: Be sure to have completed all of the steps in the

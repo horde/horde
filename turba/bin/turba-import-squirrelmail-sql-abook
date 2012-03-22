@@ -15,8 +15,8 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-if (file_exists(dirname(__FILE__) . '/../../turba/lib/Application.php')) {
-    $baseDir = dirname(__FILE__) . '/../';
+if (file_exists(__DIR__ . '/../../turba/lib/Application.php')) {
+    $baseDir = __DIR__ . '/../';
 } else {
     require_once 'PEAR/Config.php';
     $baseDir = PEAR_Config::singleton()
@@ -39,7 +39,7 @@ include TURBA_BASE . '/config/backends.php';
 
 // Loop through SquirrelMail address books.
 $handle = $db->select('SELECT owner, nickname, firstname, lastname, email, label FROM address ORDER BY owner');
-$turba_shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
+$turba_shares = $GLOBALS['injector']->getInstance('Turba_Shares');
 $user = null;
 $count = 0;
 foreach ($handle as $row) {
@@ -103,7 +103,8 @@ foreach ($handle as $row) {
         continue;
     }
 
-    $members = Horde_Mime_Address::explode($row['email'], ',;');
+    $rfc822 = new Horde_Mail_Rfc822();
+    $members = $rfc822->parseAddressList($row['email']);
     if (count($members) > 1) {
         // Entry is a list of contacts, import each individually and create a
         // group that contains them.
@@ -113,10 +114,13 @@ foreach ($handle as $row) {
                             'notes' => $row['label']);
         $gid = $driver->add($attributes);
         $group = new Turba_Object_Group($driver, array_merge($attributes, array('__key' => $gid)));
-        $count++;
-        foreach ($members as $member) {
+        ++$count;
+        foreach (array_map('strval', $members) as $member) {
             try {
-                $result = $driver->add(array('firstname' => $member, 'email' => $member));
+                $result = $driver->add(array(
+                    'firstname' => $member,
+                    'email' => $member
+                ));
                 $group->addMember($result, $import_source);
                 ++$count;
             } catch (Turba_Exception $e) {

@@ -80,8 +80,6 @@ class Horde_Menu
     /**
      * Sets the display mask.
      *
-     * @since Horde_Core 1.3.0
-     *
      * @param integer $mask  Display mask.
      */
     public function setMask($mask)

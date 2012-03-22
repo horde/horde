@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__) . '/InterceptedException.php';
+require_once __DIR__ . '/InterceptedException.php';
 
 /**
  * @author     Chuck Hagenbuch <chuck@horde.org>

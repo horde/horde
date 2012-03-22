@@ -21,7 +21,7 @@
  * @package  Horde
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 
 // Since different RPC servers have different session requirements, we can't
 // call appInit() until we know which server we are requesting. We  don't
@@ -39,6 +39,7 @@ if ((!empty($_SERVER['CONTENT_TYPE']) &&
     $conf['cookie']['path'] = '/Microsoft-Server-ActiveSync';
     $serverType = 'ActiveSync';
     $nocompress = true;
+    $session_control = 'none';
 } elseif (!empty($_SERVER['PATH_INFO']) ||
           in_array($_SERVER['REQUEST_METHOD'], array('DELETE', 'PROPFIND', 'PUT', 'OPTIONS'))) {
     $serverType = 'Webdav';
@@ -118,9 +119,15 @@ try {
     header('HTTP/1.1 501 Not Implemented');
 }
 
-/* Let the backend check authentication. By default, we look for HTTP
- * basic authentication against Horde, but backends can override this
- * as needed. */
+// Let the backend check authentication. By default, we look for HTTP
+// basic authentication against Horde, but backends can override this
+// as needed. Must reset the authentication argument since we delegate
+// auth to the RPC server.
+$GLOBALS['registry']->setAuthenticationSetting(
+    (array_key_exists($params, 'requireAuthorization') && $params['requireAuthorization'] === false)
+     ? 'none'
+     : 'Authenticate');
+
 try {
     $server->authorize();
 } catch (Horde_Rpc_Exception $e) {
@@ -129,6 +136,8 @@ try {
     echo $e->getMessage();
     exit;
 }
+
+
 /* Get the server's response. We call $server->getInput() to allow
  * backends to handle input processing differently. */
 if (is_null($input)) {

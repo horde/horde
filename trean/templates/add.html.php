@@ -1,21 +1,3 @@
-<script type="text/javascript">
-function addBookmark() {
-    if (document.bookmark.f.value == '*new*') {
-        var newFolder = window.prompt('<?php echo addslashes(_("Please enter a name for the new folder:")) ?>\n', '');
-        if (newFolder != null && newFolder != '') {
-            document.bookmark.newFolder.value = newFolder;
-            document.bookmark.submit();
-        }
-    } else {
-        if (document.bookmark.f.value == '') {
-            window.alert('<?php echo addslashes(_("You must select a target folder first")) ?>');
-        } else {
-            document.bookmark.submit();
-        }
-    }
-}
-</script>
-
 <form name="bookmark" action="add.php" method="post">
 <?php echo Horde_Util::formInput() ?>
 <input type="hidden" name="newFolder" value="" />
@@ -44,11 +26,13 @@ function addBookmark() {
 </tr>
 
 <tr>
-  <td class="light rightAlign"><strong><?php echo _("Folder") ?></strong></td>
+  <td></td>
   <td>
-   <select name="f">
-    <?php echo Trean::folderSelect(Horde_Util::getFormData('f'), Horde_Perms::EDIT, true) ?>
-   </select>
+  <div class="horde-DialogInfo"><?php echo _("Categorize your bookmark with comma separated tags.") ?></div>
+  <input id="treanBookmarkTags" name="tags" />
+  <label for="treanBookmarkTopTags"><?php echo _("Previously used tags") ?>:</label><br />
+  <span id="treanBookmarkTags_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
+  <div class="treanTopTags" id="treanBookmarkTopTags"></div>
   </td>
 </tr>
 
@@ -56,7 +40,7 @@ function addBookmark() {
   <td>
   </td>
   <td>
-   <input type="submit" class="button" value="<?php echo _("Add") ?>" onclick="addBookmark(); return false;" />
+   <input type="submit" class="button" value="<?php echo _("Add") ?>">
    <input type="button" class="button" value="<?php echo _("Cancel") ?>" onclick="<?php echo !Horde_Util::getFormData('popup') ? 'window.history.go(-1);' : 'window.close();'; ?>" />
   </td>
 </tr>
@@ -76,10 +60,9 @@ function addBookmark() {
     <strong><?php echo _("Note:") ?></strong>
     <?php printf(_("On newer versions of Internet Explorer, you may have to add %s://%s to your Trusted Zone for this to work."), !empty($_SERVER['HTTPS']) ? 'https' : 'http', $conf['server']['name']) ?>
  </p>
-<?php
-$addurl = Horde::url(Horde_Util::addParameter('add.php', 'popup', 1), true, -1);
-$url = "javascript:d = new Date(); w = window.open('$addurl' + '&amp;title=' + encodeURIComponent(document.title) + '&amp;url=' + encodeURIComponent(location.href) + '&amp;d=' + d.getTime(), d.getTime(), 'height=200,width=400'); w.focus();";
-echo '<p><a href="' . $url . '">' . Horde::img('add.png') . _("Add to Bookmarks") . '</a></p>';
-?>
+ <p>
+  <?php require TREAN_TEMPLATES . '/bookmarklet.php' ?>
+  <?php echo $bookmarklet_link ?>
+ </p>
 </div>
 <?php endif; ?>

@@ -8,7 +8,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 $permission = 'sqlshell';
 Horde_Registry::appInit('horde');
 if (!$registry->isAdmin() &&
@@ -41,7 +41,7 @@ if (Horde_Util::getFormData('list-tables')) {
 }
 
 $title = _("SQL Shell");
-Horde::addScriptFile('stripe.js', 'horde');
+$injector->getInstance('Horde_PageOutput')->addScriptFile('stripe.js', 'horde');
 require HORDE_TEMPLATES . '/common-header.inc';
 require HORDE_TEMPLATES . '/admin/menu.inc';
 

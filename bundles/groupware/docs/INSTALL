@@ -84,7 +84,7 @@ properly.
 
      "broken-scriptfilename" => "enable"
 
-3. PHP 5.2.0 or above.
+3. PHP 5.3.0 or above.
 
    PHP is the interpreted language in which Horde Groupware is written.
 
@@ -410,6 +410,10 @@ in your PHP configuration::
 
 Installing into separate PEAR
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. Warning:: Unless you really know **why** you want to do this, you probably
+             do **not** want to do this. Use the general PEAR installation
+             instructions from above instead.
 
 If you want to create a separate PEAR installation for installing Horde
 Groupware, independent from the system-wide PEAR installation, this can be done

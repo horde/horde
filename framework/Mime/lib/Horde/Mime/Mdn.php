@@ -77,13 +77,18 @@ class Horde_Mime_Mdn
         /* RFC 3798 [2.1]: Explicit confirmation is needed if there is more
          * than one distinct address in the Disposition-Notification-To
          * header. */
-        try {
-            $addr_arr = Horde_Mime_Address::parseAddressList($this->getMdnReturnAddr());
-        } catch (Horde_Mime_Exception $e) {
-            return false;
-        }
+        $rfc822 = new Horde_Mail_Rfc822();
+        $addr_ob = $rfc822->parseAddressList($this->getMdnReturnAddr());
 
-        if (count($addr_arr) > 1) {
+        switch (count($addr_ob)) {
+        case 0:
+            return false;
+
+        case 1:
+            // No-op
+            break;
+
+        default:
             return true;
         }
 
@@ -92,14 +97,10 @@ class Horde_Mime_Mdn
          * from the address in the Return-Path header." This comparison is
          * case-sensitive for the mailbox part and case-insensitive for the
          * host part. */
-        try {
-            $ret_arr = Horde_Mime_Address::parseAddressList($return_path);
-        } catch (Horde_Mime_Exception $e) {
-            return false;
-        }
+        $ret_ob = new Horde_Mail_Rfc822_Address($return_path);
 
-        return ($addr_arr[0]['mailbox'] == $ret_arr[0]['mailbox']) &&
-               (Horde_String::lower($addr_arr[0]['host']) == Horde_String::lower($ret_arr[0]['host']));
+        return ($ret_ob->valid &&
+                ($addr_ob->bare_address == $ret_ob->bare_address));
     }
 
     /**
@@ -124,27 +125,23 @@ class Horde_Mime_Mdn
      * @param boolean $sending  Was this MDN sent as a result of a manual
      *                          action on part of the user?
      * @param string $type      The type of action performed by the user.
-     * <pre>
-     * Per RFC 3798 [3.2.6.2] the following types are valid:
-     * 'displayed'
-     * 'deleted'
-     * </pre>
+     *                          Per RFC 3798 [3.2.6.2] the following types are
+     *                          valid:
+     *                            - deleted
+     *                            - displayed
      * @param string $name      The name of the local server.
      * @param Mail $mailer      A Mail driver.
      * @param array $opts       Additional options:
-     * <pre>
-     * 'charset' - (string) Default charset.
-     *             DEFAULT: NONE
-     * 'from_addr' - (string) From address.
-     *               DEFAULT: NONE
-     * </pre>
-     * @param array $mod        The list of modifications.
-     * <pre>
-     * Per RFC 3798 [3.2.6.3] the following modifications are valid:
-     * 'error'
-     * </pre>
+     *   - charset: (string) Default charset.
+     *              DEFAULT: NONE
+     *   - from_addr: (string) From address.
+     *                DEFAULT: NONE
+     * @param array $mod        The list of modifications. Per RFC 3798
+     *                          [3.2.6.3] the following modifications are
+     *                          valid:
+     *                            - error
      * @param array $err        If $mod is 'error', the additional
-     *                          information to provide.  Key is the type of
+     *                          information to provide. Key is the type of
      *                          modification, value is the text.
      *
      * @throws Horde_Mime_Exception

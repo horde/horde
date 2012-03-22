@@ -9,7 +9,7 @@
  * @author Ben Chavet <ben@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('ansel');
 
 // check for grouping

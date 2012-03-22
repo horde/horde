@@ -394,7 +394,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
             Kronolith::getTagger()->tag($event->uid, $event->tags, $event->creator, 'event');
         }
 
-        $cal = $GLOBALS['kronolith_shares']->getShare($event->calendar);
+        $cal = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($event->calendar);
 
         /* Notify about the changed event. */
         Kronolith::sendNotification($event, $edit ? 'edit' : 'add');
@@ -431,8 +431,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
         $event = $this->getEvent($eventId);
         $result = $this->synchronize();
 
-        global $kronolith_shares;
-        $target = $kronolith_shares->getShare($newCalendar);
+        $target = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($newCalendar);
         $folder = $target->getId();
 
         $result = $this->_data->move($eventId, $folder);

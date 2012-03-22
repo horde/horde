@@ -17,7 +17,7 @@
  */
 
 define('AUTH_HANDLER', true);
-define('HORDE_BASE', dirname(__FILE__) . '/../../');
+define('HORDE_BASE', __DIR__ . '/../../');
 define('BEATNIK_BASE', HORDE_BASE . '/beatnik');
 
 // Do CLI checks and environment setup first.

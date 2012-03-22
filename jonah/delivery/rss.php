@@ -7,7 +7,7 @@
  *
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 $jonah = Horde_Registry::appInit('jonah', array(
     'authentication' => 'none',
     'session_control' => 'readonly'

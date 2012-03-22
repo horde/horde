@@ -1,0 +1,74 @@
+======================
+ Upgrading Horde_Mime
+======================
+
+:Contact: dev@lists.horde.org
+
+.. contents:: Contents
+.. section-numbering::
+
+
+This lists the API changes between releases of the package.
+
+
+Upgrading to 2.0
+================
+
+  - Horde_Mime
+
+    - decode()
+
+      Removed the second parameter ($to_charset). Output is now in UTF-8.
+
+    - decodeAddrString()
+
+      This method has been removed.
+      Equivalent functionality can now be found in the Horde_Mail package
+      (version 2.0.0+).
+
+    - decodeParam()
+
+      Removed the third parameter ($charset). Output is now in UTF-8.
+
+    - encode()
+
+      The first parameter ($text) now requires a UTF-8 string.
+      The second parameter ($charset) is now optional and indicates the
+      charset to MIME encode to.
+
+    - encodeAddress()
+
+      This method has been removed.
+      Equivalent functionality can now be found in the Horde_Mail package
+      (version 2.0.0+).
+
+    - encodeParam()
+
+      The third parameter ($charset) has been removed and moved to the options.
+      By default, the string is encoded in UTF-8.
+
+  - Horde_Mime_Address
+
+    This class has been removed. Equivalent functionality can now be found
+    in the Horde_Mail package (version 2.0.0+).
+
+  - Horde_Mime_Headers
+
+    - addHeader()
+
+      Removed the 'charset' and 'decode' parameters.
+      Added the 'sanity_check' parameter.
+
+    - getOb()
+
+      Now returns null if the header does not exist.
+
+    - replaceHeader()
+
+      Removed the 'charset' and 'decode' parameters.
+      Added the 'sanity_check' parameter.
+
+    - setValue()
+    - sanityCheck()
+
+      These methods have been removed.

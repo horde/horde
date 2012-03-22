@@ -1,6 +1,5 @@
 <?php
 /**
- * $Horde: trean/search.php,v 1.32 2009/06/10 17:33:43 slusarz Exp $
  *
  * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
  *
@@ -10,11 +9,10 @@
  * @author Mike Cochrane <mike@graftonhall.co.nz>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('trean');
 
 require_once TREAN_BASE . '/lib/Forms/Search.php';
-require_once TREAN_BASE . '/lib/Views/BookmarkList.php';
 
 $title = _("Search");
 require $registry->get('templates', 'horde') . '/common-header.inc';
@@ -52,7 +50,7 @@ if ($form->validate($vars)) {
 
     if ($criteria) {
         // Get the bookmarks.
-        $bookmarks = $trean_shares->searchBookmarks($criteria, $combine);
+        $bookmarks = $trean_gateway->searchBookmarks($criteria, $combine);
         $search_title = sprintf(_("Search Results (%s)"), count($bookmarks));
 
         // Display the results.

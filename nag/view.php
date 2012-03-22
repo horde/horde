@@ -6,7 +6,7 @@
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('nag');
 
 /* We can either have a UID or a taskId and a tasklist. Check for
@@ -90,7 +90,7 @@ if (!empty($task->uid)) {
 
 $title = $task->name;
 $links = array();
-Horde::addScriptFile('stripe.js', 'horde');
+$injector->getInstance('Horde_PageOutput')->addScriptFile('stripe.js', 'horde');
 
 $taskurl = Horde_Util::addParameter('task.php',
                               array('task' => $task_id,
@@ -103,7 +103,7 @@ try {
 }
 if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
     if (!$task->completed) {
-        $links[] = Horde::widget(Horde::url(Horde_Util::addParameter($taskurl, 'actionID', 'complete_task')), _("Complete"), 'smallheader', '', '', _("_Complete"));
+        $links[] = Horde::widget($task->complete_link, _("Complete"), 'smallheader', '', '', _("_Complete"));
     }
     if (!$task->private || $task->owner == $GLOBALS['registry']->getAuth()) {
         $links[] = Horde::widget(Horde::url(Horde_Util::addParameter($taskurl, 'actionID', 'modify_task')), _("Edit"), 'smallheader', '', '', _("_Edit"));

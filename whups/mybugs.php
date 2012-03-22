@@ -8,14 +8,13 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('whups');
 
 // Get refresh interval.
-if ($r_time = $prefs->getValue('summary_refresh_time')) {
-    if (!$browser->hasFeature('xmlhttpreq')) {
-        Horde::metaRefresh($r_time, Horde::url('mybugs.php'));
-    }
+if ($r_time = $prefs->getValue('summary_refresh_time') &&
+    !$browser->hasFeature('xmlhttpreq')) {
+    $injector->getInstance('Horde_PageOutput')->metaRefresh($r_time, Horde::url('mybugs.php'));
 }
 
 // Load layout from preferences for authenticated users, and a default

@@ -122,16 +122,16 @@ legend {
     font-weight: bold;
 }
 
-/* Alternating styles. item0, item1 are deprecated. */
-.rowEven, .item0 {
+/* Alternating styles. */
+.rowEven {
     background: #eee;
 }
-.rowOdd, .item1, .item {
+.rowOdd, .item {
     background: #dae6f2;
 }
 
-.selected {
-    background: #C6D3FF;
+.selected, .striped.hover .rowEven:hover, .striped.hover .rowOdd:hover {
+    background: #c6d3ff;
 }
 
 h1 {

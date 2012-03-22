@@ -36,26 +36,17 @@ class Horde_Imap_Client_Mailbox implements Serializable
     /**
      * Shortcut to obtaining mailbox object.
      *
-     * @param string $mbox     The mailbox name.
-     * @param mixed $utf7imap  Is mailbox UTF7-IMAP encoded (true), UTF-8
-     *                         encoded (false), or should it be
-     *                         auto-determined (null).  NOTE:
-     *                         auto-determination is not 100% accurate.
+     * @param string $mbox       The mailbox name.
+     * @param boolean $utf7imap  Is mailbox UTF7-IMAP encoded? Otherwise,
+     *                           mailbox is assumed to be UTF-8.
      *
      * @return Horde_Imap_Client_Mailbox  A mailbox object.
      */
     static public function get($mbox, $utf7imap = false)
     {
-        if ($mbox instanceof Horde_Imap_Client_Mailbox) {
-            return $mbox;
-        }
-
-        if (is_null($utf7imap)) {
-            $mbox = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($mbox);
-            $utf7imap = true;
-        }
-
-        return new Horde_Imap_Client_Mailbox($mbox, $utf7imap);
+        return ($mbox instanceof Horde_Imap_Client_Mailbox)
+            ? $mbox
+            : new Horde_Imap_Client_Mailbox($mbox, $utf7imap);
     }
 
     /**
@@ -63,7 +54,7 @@ class Horde_Imap_Client_Mailbox implements Serializable
      *
      * @param string $mbox     The mailbox name.
      * @param mixed $utf7imap  Is mailbox UTF7-IMAP encoded (true). Otherwise,
-     *                         mailbox is taken as UTF-8 encoded.
+     *                         mailbox is assumed to be UTF-8 encoded.
      */
     public function __construct($mbox, $utf7imap = false)
     {
@@ -81,7 +72,7 @@ class Horde_Imap_Client_Mailbox implements Serializable
         switch ($name) {
         case 'utf7imap':
             if (!isset($this->_utf7imap)) {
-                $n = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($this->_utf8, true);
+                $n = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($this->_utf8);
                 $this->_utf7imap = ($n == $this->_utf8)
                     ? true
                     : $n;

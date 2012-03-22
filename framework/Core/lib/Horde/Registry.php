@@ -28,6 +28,13 @@ class Horde_Registry
     const NOT_ACTIVE = 2;
     const PERMISSION_DENIED = 3;
     const HOOK_FATAL = 4;
+    const INITCALLBACK_FATAL = 5;
+
+    /* View types. */
+    const VIEW_BASIC = 1;
+    const VIEW_DYNAMIC = 2;
+    const VIEW_MINIMAL = 3;
+    const VIEW_SMARTMOBILE = 4;
 
     /**
      * Hash storing information on each registry-aware application.
@@ -51,13 +58,6 @@ class Horde_Registry
     public $nlsconfig;
 
     /**
-     * Stack of in-use applications.
-     *
-     * @var array
-     */
-    protected $_appStack = array();
-
-    /**
      * The list of external services.
      *
      * @var array
@@ -72,11 +72,18 @@ class Horde_Registry
     protected $_apiList = array();
 
     /**
+     * Stack of in-use applications.
+     *
+     * @var array
+     */
+    protected $_appStack = array();
+
+    /**
      * The list of applications initialized during this access.
      *
      * @var array
      */
-    protected $_appsinit = array();
+    protected $_appsInit = array();
 
     /**
      * The arguments that have been passed when instantiating the registry.
@@ -126,53 +133,50 @@ class Horde_Registry
      * from application without an active Horde_Registry object.
      *
      * Page compression will be started (if configured).
-     * init() will be called after the initialization is completed.
      *
      * Global variables defined:
-     *   $browser - Horde_Browser object
-     *   $cli - Horde_Cli object (if 'cli' is true)
-     *   $conf - Configuration array
-     *   $injector - Horde_Injector object
-     *   $language - Language
-     *   $notification - Horde_Notification object
-     *   $prefs - Horde_Prefs object
-     *   $registry - Horde_Registry object
-     *   $session - Horde_Session object
+     *   - $browser: Horde_Browser object
+     *   - $cli: Horde_Cli object (if 'cli' is true)
+     *   - $conf: Configuration array
+     *   - $injector: Horde_Injector object
+     *   - $language: Language
+     *   - $notification: Horde_Notification object
+     *   - $prefs: Horde_Prefs object
+     *   - $registry: Horde_Registry object
+     *   - $session: Horde_Session object
      *
      * @param string $app  The application to initialize.
      * @param array $args  Optional arguments:
-     * <pre>
-     * 'admin' - (boolean) Require authenticated user to be an admin?
-     *           DEFAULT: false
-     * 'authentication' - (string) The type of authentication to use:
-     *   'none'  - Do not authenticate
-     *   'throw' - Authenticate; on no auth, throw a Horde_Exception
-     *   [DEFAULT] - Authenticate; on no auth redirect to login screen
-     * 'cli' - (boolean) Initialize a CLI interface. Setting this to true
-     *         implicits setting 'authentication' to 'none' and 'admin' and
-     *         'nocompress' to true.
-     *         DEFAULT: false
-     * 'nocompress' - (boolean) If set, the page will not be compressed.
-     *                DEFAULT: false
-     * 'nologintasks' - (boolean) If set, don't perform logintasks (never
-     *                  performed if authentication is 'none').
-     *                  DEFAULT: false
-     * 'session_cache_limiter' - (string) Use this value for the session cache
-     *                           limiter.
-     *                           DEFAULT: Uses the value in the configuration.
-     * 'session_control' - (string) Sets special session control limitations:
-     *   'netscape' - TODO; start read/write session
-     *   'none' - Do not start a session
-     *   'readonly' - Start session readonly
-     *   [DEFAULT] - Start read/write session
-     * 'test' - (boolean) Is this the test script? If so, we relax several
-     *          sanity checks and don't load things from the cache.
+     *   - admin: (boolean) Require authenticated user to be an admin?
+     *            DEFAULT: false
+     *   - authentication: (string) The type of authentication to use:
+     *     - none: Do not authenticate
+     *     - throw: Authenticate; on no auth, throw a Horde_Exception
+     *     - [DEFAULT]: Authenticate; on no auth redirect to login screen
+     *   - cli: (boolean) Initialize a CLI interface. Setting this to true
+     *          implicits setting 'authentication' to 'none' and 'admin' and
+     *          'nocompress' to true.
      *          DEFAULT: false
-     * 'timezone' - (boolean) Set the time zone?
-     *              DEFAULT: false
-     * 'user_admin' - (boolean) Set authentication to an admin user?
-     *                DEFAULT: false
-     * </pre>
+     *   - nocompress: (boolean) If set, the page will not be compressed.
+     *                 DEFAULT: false
+     *   - nologintasks: (boolean) If set, don't perform logintasks (never
+     *                   performed if authentication is 'none').
+     *                   DEFAULT: false
+     *   - session_cache_limiter: (string) Use this value for the session
+     *                            cache limiter.
+     *                            DEFAULT: Uses the value in the config.
+     *   - session_control: (string) Special session control limitations:
+     *     - netscape: TODO; start read/write session
+     *     - none: Do not start a session
+     *     - readonly: Start session readonly
+     *     - [DEFAULT] - Start read/write session
+     *   - test: (boolean) Is this the test script? If so, we relax several
+     *           sanity checks and don't load things from the cache.
+     *           DEFAULT: false
+     *   - timezone: (boolean) Set the time zone?
+     *               DEFAULT: false
+     *   - user_admin: (boolean) Set authentication to an admin user?
+     *                 DEFAULT: false
      *
      * @return Horde_Registry_Application  The application object.
      * @throws Horde_Exception
@@ -180,9 +184,7 @@ class Horde_Registry
     static public function appInit($app, $args = array())
     {
         if (isset($GLOBALS['registry'])) {
-            $appOb = $GLOBALS['registry']->getApiInstance($app, 'application');
-            $appOb->init();
-            return $appOb;
+            return $GLOBALS['registry']->getApiInstance($app, 'application');
         }
 
         $args = array_merge(array(
@@ -272,8 +274,6 @@ class Horde_Registry
             $registry->setAuth(reset($GLOBALS['conf']['auth']['admins']), array());
         }
 
-        $appob->init();
-
         return $appob;
     }
 
@@ -315,6 +315,7 @@ class Horde_Registry
             'Horde_Core_Perms' => 'Horde_Core_Factory_PermsCore',
             'Horde_Db_Adapter' => 'Horde_Core_Factory_DbBase',
             'Horde_Editor' => 'Horde_Core_Factory_Editor',
+            'Horde_ElasticSearch_Client' => 'Horde_Core_Factory_ElasticSearch',
             'Horde_Group' => 'Horde_Core_Factory_Group',
             'Horde_History' => 'Horde_Core_Factory_History',
             'Horde_Log_Logger' => 'Horde_Core_Factory_Logger',
@@ -327,24 +328,26 @@ class Horde_Registry
             'Horde_Memcache' => 'Horde_Core_Factory_Memcache',
             'Horde_Notification' => 'Horde_Core_Factory_Notification',
             'Horde_Perms' => 'Horde_Core_Factory_Perms',
+            'Horde_Queue_Storage' => 'Horde_Core_Factory_QueueStorage',
             'Horde_Routes_Mapper' => 'Horde_Core_Factory_Mapper',
             'Horde_Routes_Matcher' => 'Horde_Core_Factory_Matcher',
             'Horde_Secret' => 'Horde_Core_Factory_Secret',
             'Horde_Service_Facebook' => 'Horde_Core_Factory_Facebook',
             'Horde_Service_Twitter' => 'Horde_Core_Factory_Twitter',
+            'Horde_Service_UrlShortener' => 'Horde_Core_Factory_UrlShortener',
             'Horde_SessionHandler' => 'Horde_Core_Factory_SessionHandler',
             'Horde_Template' => 'Horde_Core_Factory_Template',
             'Horde_Token' => 'Horde_Core_Factory_Token',
-            'Horde_Service_UrlShortener' => 'Horde_Core_Factory_UrlShortener',
             'Horde_View' => 'Horde_Core_Factory_View',
             'Horde_View_Base' => 'Horde_Core_Factory_View',
             'Horde_Weather' => 'Horde_Core_Factory_Weather',
             'Net_DNS2_Resolver' => 'Horde_Core_Factory_Dns',
+            'Text_LanguageDetect' => 'Horde_Core_Factory_LanguageDetect',
         );
 
         /* Define implementations. */
         $implementations = array(
-            'Horde_Controller_ResponseWriter' => 'Horde_Controller_ResponseWriter_Web',
+            'Horde_Controller_ResponseWriter' => 'Horde_Controller_ResponseWriter_Web'
         );
 
         /* Setup injector. */
@@ -414,15 +417,16 @@ class Horde_Registry
         }
 
         /* Start a session. */
-        $GLOBALS['session'] = $session = new Horde_Session();
         if ($session_flags & self::SESSION_NONE ||
             (PHP_SAPI == 'cli') ||
             (((PHP_SAPI == 'cgi') || (PHP_SAPI == 'cgi-fcgi')) &&
              empty($_SERVER['SERVER_NAME']))) {
             /* Never start a session if the session flags include
                SESSION_NONE. */
-            $session->setup(false, $args['session_cache_limiter']);
+            $GLOBALS['session'] = $session = new Horde_Session_Null();
+            //$session->setup(false, $args['session_cache_limiter']);
         } else {
+            $GLOBALS['session'] = $session = new Horde_Session();
             $session->setup(true, $args['session_cache_limiter']);
             if ($session_flags & self::SESSION_READONLY) {
                 /* Close the session immediately so no changes can be made but
@@ -435,30 +439,51 @@ class Horde_Registry
         /* Always need to load applications information. */
         $this->_loadApplications();
 
+        /* Stop system if Horde is inactive. */
+        if ($this->applications['horde']['status'] == 'inactive') {
+            throw new Horde_Exception(Horde_Core_Translation::t("This system is currently deactivated."));
+        }
+
         /* Initialize language configuration object. */
         $this->nlsconfig = new Horde_Registry_Nlsconfig();
 
         /* Initialize the localization routines and variables. */
         $this->setLanguageEnvironment(null, 'horde');
 
-        /* Stop system if Horde is inactive. */
-        if ($this->applications['horde']['status'] == 'inactive') {
-            throw new Horde_Exception(Horde_Core_Translation::t("This system is currently deactivated."));
+        /* Initialize notification object. Always attach status listener by
+         * default. */
+        $notify_class = null;
+        switch ($this->getView()) {
+        case self::VIEW_DYNAMIC:
+            $notify_class = 'Horde_Core_Notification_Listener_DynamicStatus';
+            break;
+
+        case self::VIEW_SMARTMOBILE:
+            $notify_class = 'Horde_Core_Notification_Listener_SmartmobileStatus';
+            break;
         }
 
-        /* Initialize notification object. Always attach status listener by
-         * default. Default status listener can be overriden through the
-         * 'notification_override' session variable. */
         $GLOBALS['notification'] = $injector->getInstance('Horde_Notification');
-        if (Horde_Util::getFormData('ajaxui') &&
-            ($override = $session->get('horde', 'notification_override'))) {
-            require_once $override[0];
-            $GLOBALS['notification']->attach('status', null, $override[1]);
-        } else {
-            $GLOBALS['notification']->attach('status');
-        }
+        $GLOBALS['notification']->attach('status', null, $notify_class);
 
         register_shutdown_function(array($this, 'shutdown'));
+    }
+
+    /**
+     * (Re)set the authentication parameter. Useful for requests, such as Rpc
+     * requests where we actually don't perform authentication until later in
+     * the request, but still need Horde bootstrapped early in the request. Also
+     * clears the local app/api cache since applications will probably already
+     * have been initialized during Notification polling.
+     *
+     * @see appInit()
+     *
+     * @param string $authentication  The authentication setting.
+     */
+    public function setAuthenticationSetting($authentication)
+    {
+        $this->_args['authentication'] = $authentication;
+        $this->_obCache = array();
     }
 
     /**
@@ -739,9 +764,9 @@ class Horde_Registry
      * @return Horde_Registry_Api|Horde_Registry_Application  The API object.
      * @throws Horde_Exception
      */
-    public function getApiInstance($app, $type)
+    public function getApiInstance($app, $type, $force_new = false)
     {
-        if (isset($this->_obCache[$app][$type])) {
+        if (isset($this->_obCache[$app][$type]) && !$force_new) {
             return $this->_obCache[$app][$type];
         }
 
@@ -761,7 +786,9 @@ class Horde_Registry
             throw new Horde_Exception("$app does not have an API");
         }
 
-        $this->_obCache[$app][$type] = new $classname();
+        $this->_obCache[$app][$type] = ($type == 'application')
+            ? new $classname($app)
+            : new $classname();
 
         return $this->_obCache[$app][$type];
     }
@@ -815,16 +842,12 @@ class Horde_Registry
      *
      * @return array  List of all apps registered with Horde.
      */
-    public function listAllApps($filter = null)
+    public function listAllApps()
     {
         // Default to all installed (but possibly not configured) applications.
-        if (is_null($filter)) {
-            $filter = array(
-                'active', 'admin', 'noadmin', 'hidden', 'inactive', 'notoolbar'
-            );
-        }
-
-        return $this->listApps($filter, false, null);
+        return $this->listApps(array(
+            'active', 'admin', 'noadmin', 'hidden', 'inactive', 'notoolbar'
+        ), false, null);
     }
 
     /**
@@ -986,15 +1009,13 @@ class Horde_Registry
      * @param string $call    The method to call.
      * @param array $args     Arguments to the method.
      * @param array $options  Additional options:
-     * <pre>
-     * 'noperms' - (boolean) If true, don't check the perms.
-     * </pre>
+     *   - noperms: (boolean) If true, don't check the perms.
      *
      * @return mixed  Return from application call.
      * @throws Horde_Exception
      */
-    public function callByPackage($app, $call, $args = array(),
-                                  $options = array())
+    public function callByPackage($app, $call, array $args = array(),
+                                  array $options = array())
     {
         /* Note: calling hasMethod() makes sure that we've cached
          * $app's services and included the API file, so we don't try
@@ -1044,14 +1065,13 @@ class Horde_Registry
      * @param string $app     The application name.
      * @param string $call    The method to call.
      * @param array $options  Additional options:
-     * <pre>
-     * args - (array) Additional parameters to pass to the method.
-     * check_missing - (boolean) If true, throws an Exception if method does
-     *                 not exist. Otherwise, will return null.
-     * noperms - (boolean) If true, don't check the perms.
-     * </pre>
+     *   - args: (array) Additional parameters to pass to the method.
+     *   - check_missing: (boolean) If true, throws an Exception if method
+     *                    does not exist. Otherwise, will return null.
+     *   - noperms: (boolean) If true, don't check the perms.
      *
      * @return mixed  Various.
+     *
      * @throws Horde_Exception  Application methods should throw this if there
      *                          is a fatal error.
      */
@@ -1232,21 +1252,17 @@ class Horde_Registry
      * pushApp() also reads the application's configuration file and
      * sets up its global $conf hash.
      *
-     * @param string $app          The name of the application to push.
-     * @param array $options       Additional options:
-     * <pre>
-     * 'check_perms' - (boolean) Make sure that the current user has
-     *                 permissions to the application being loaded. Should
-     *                 ONLY be disabled by system scripts (cron jobs, etc.)
-     *                 and scripts that handle login.
-     *                 DEFAULT: true
-     * 'noinit' - (boolean) Do not init the application.
-     *            DEFAULT: false
-     * 'logintasks' - (boolean) Perform login tasks? Only performed if
-     *                'check_perms' is also true. System tasks are always
-     *                peformed if the user is authorized.
-     *                DEFAULT: false
-     * </pre>
+     * @param string $app     The name of the application to push.
+     * @param array $options  Additional options:
+     *   - check_perms: (boolean) Make sure that the current user has
+     *                  permissions to the application being loaded. Should
+     *                  ONLY be disabled by system scripts (cron jobs, etc.)
+     *                  and scripts that handle login.
+     *                  DEFAULT: true
+     *   - logintasks: (boolean) Perform login tasks? Only performed if
+     *                 'check_perms' is also true. System tasks are always
+     *                 peformed if the user is authorized.
+     *                 DEFAULT: false
      *
      * @return boolean  Whether or not the _appStack was modified.
      * @throws Horde_Exception
@@ -1255,6 +1271,7 @@ class Horde_Registry
      *         Horde_Registry::NOT_ACTIVE
      *         Horde_Registry::PERMISSION_DENIED
      *         Horde_Registry::HOOK_FATAL
+     *         Horde_Registry::INITCALLBACK_FATAL
      */
     public function pushApp($app, $options = array())
     {
@@ -1285,9 +1302,9 @@ class Horde_Registry
         }
         $autoloader->addClassPathMapper($applicationMapper);
 
-        $checkPerms = (!isset($options['check_perms']) ||
+        $checkPerms = ((!isset($options['check_perms']) ||
                        !empty($options['check_perms'])) &&
-            $this->_args['authentication'] != 'none';
+                       ($this->_args['authentication'] != 'none'));
 
         /* If permissions checking is requested, return an error if the
          * current user does not have read perms to the application being
@@ -1330,42 +1347,35 @@ class Horde_Registry
             $this->setLanguageEnvironment(null, $app);
         }
 
-        /* Call first initialization hook. */
-        if (isset($this->_appsinit[$app])) {
-            unset($this->_appsinit[$app]);
+        /* Run authenticated hooks, if necessary. */
+        if ($GLOBALS['session']->get('horde', 'auth_app_init/' . $app)) {
             try {
-                Horde::callHook('appinitialized', array(), $app);
-            } catch (Horde_Exception_HookNotSet $e) {}
-        }
+                $error = self::INITCALLBACK_FATAL;
+                $this->callAppMethod($app, 'authenticated');
 
-        /* Call pre-push hook. */
-        if (Horde::hookExists('pushapp', $app)) {
-            try {
-                Horde::callHook('pushapp', array(), $app);
-            } catch (Horde_Exception $e) {
-                $e->setCode(self::HOOK_FATAL);
-                $this->popApp();
-                throw $e;
+                $error = self::HOOK_FATAL;
+                Horde::callHook('appauthenticated', array(), $app);
+            } catch (Exception $e) {
+                $this->_pushAppError($e, $error);
             }
+
+            $GLOBALS['session']->remove('horde', 'auth_app_init/' . $app);
+            unset($this->_appsInit[$app]);
         }
 
         /* Initialize application. */
-        if ($checkPerms || empty($options['noinit'])) {
+        if (!isset($this->_appsInit[$app])) {
             try {
+                $error = self::INITCALLBACK_FATAL;
                 $this->callAppMethod($app, 'init');
-            } catch (Horde_Exception $e) {
-                $this->popApp();
-                $this->applications[$app]['status'] = 'inactive';
-                Horde::logMessage($e);
-                throw $e;
-            }
-        }
 
-        /* Call post-push hook. */
-        if (Horde::hookExists('pushapp_post', $app)) {
-            try {
-                Horde::callHook('pushapp_post', array(), $app);
-            } catch (Exception $e) {}
+                $error = self::HOOK_FATAL;
+                Horde::callHook('pushapp', array(), $app);
+            } catch (Exception $e) {
+                $this->_pushAppError($e, $error);
+            }
+
+            $this->_appsInit[$app] = true;
         }
 
         /* Do login tasks. */
@@ -1376,6 +1386,31 @@ class Horde_Registry
         }
 
         return true;
+    }
+
+    /**
+     * Process Exceptions thrown when pushing app on stack.
+     *
+     * @param Exception $e    The thrown Exception.
+     * @param integer $error  The pushApp() error type.
+     *
+     * @throws Horde_Exception
+     */
+    protected function _pushAppError(Exception $e, $error)
+    {
+        if ($e instanceof Horde_Exception_HookNotSet) {
+            return;
+        }
+
+        /* Hook errors are already logged. */
+        if ($error == self::INITCALLBACK_FATAL) {
+            Horde::logMessage($e);
+        }
+
+        $this->applications[$this->getApp()]['status'] = 'inactive';
+        $this->popApp();
+
+        throw new Horde_Exception($e, $error);
     }
 
     /**
@@ -1423,10 +1458,8 @@ class Horde_Registry
      * @param string $app     The name of the application
      * @param integer $perms  The permission level to check for.
      * @param array $options  Additional options:
-     * <pre>
-     * 'notransparent' - (boolean) Do not attempt transparent authentication.
-     *                   DEFAULT: false
-     * </pre>
+     *   - notransparent: (boolean) Do not attempt transparent authentication.
+     *                    DEFAULT: false
      *
      * @return boolean  Whether access is allowed.
      */
@@ -1514,10 +1547,10 @@ class Horde_Registry
     {
         global $injector, $prefs;
 
-        if (is_null($app)) {
-            $app = $this->getApp();
-        } else {
+        if (strlen($app)) {
             $this->pushApp($app);
+        } elseif (($app = $this->getApp()) === false) {
+            $app = 'horde';
         }
 
         $user = $this->getAuth();
@@ -1603,13 +1636,14 @@ class Horde_Registry
     }
 
     /**
-     * Does the given application have a mobile view?
+     * Does the application have the queried feature?
      *
-     * @param string $app  The application to check.
+     * @param string $id   Feature ID.
+     * @param string $app  The application to check (defaults to current app).
      *
-     * @return boolean  Whether app has mobile view.
+     * @return boolean  True if the application has the feature.
      */
-    public function hasMobileView($app = null)
+    public function hasFeature($view, $app = null)
     {
         if (empty($app)) {
             $app = $this->getApp();
@@ -1617,31 +1651,62 @@ class Horde_Registry
 
         try {
             $api = $this->getApiInstance($app, 'application');
-            return !empty($api->mobileView);
         } catch (Horde_Exception $e) {
             return false;
+        }
+
+        return !empty($api->features[$view]);
+    }
+
+    /**
+     * Does the given application have the queried view?
+     *
+     * @param integer $view  The view type (VIEW_* constant).
+     * @param string $app    The application to check (defaults to current
+     *                       app).
+     *
+     * @return boolean  True if the view is available in the application.
+     */
+    public function hasView($view, $app = null)
+    {
+        switch ($view) {
+        case VIEW_BASIC:
+            // For now, consider all apps to have BASIC view.
+            return true;
+
+        case VIEW_DYNAMIC:
+            return $this->hasFeature('dynamicView', $app);
+
+        case VIEW_MINIMAL:
+            return $this->hasFeature('minimalView', $app);
+
+        case VIEW_SMARTMOBILE:
+            return $this->hasFeature('smartmobileView', $app);
         }
     }
 
     /**
-     * Does the given application have an ajax view?
+     * Set current view.
      *
-     * @param string $app  The application to check.
-     *
-     * @return boolean  Whether app has an ajax view.
+     * @param integer $view  The view type.
      */
-    public function hasAjaxView($app = null)
+    public function setView($view = self::VIEW_BASIC)
     {
-        if (empty($app)) {
-            $app = $this->getApp();
-        }
+        $GLOBALS['session']->set('horde', 'view', $view);
+    }
 
-        try {
-            $api = $this->getApiInstance($app, 'application');
-            return !empty($api->ajaxView);
-        } catch (Horde_Exception $e) {
-            return false;
-        }
+    /**
+     * Get current view.
+     *
+     * @return integer  The view type.
+     */
+    public function getView()
+    {
+        global $session;
+
+        return $session->exists('horde', 'view')
+            ? $session->get('horde', 'view')
+            : self::VIEW_BASIC;
     }
 
     /**
@@ -1837,14 +1902,12 @@ class Horde_Registry
      * Is a user an administrator?
      *
      * @param array $options  Options:
-     * <pre>
-     * 'permission' - (string) Allow users with this permission admin access
-     *                in the current context.
-     * 'permlevel' - (integer) The level of permissions to check for.
-     *               Defaults to Horde_Perms::EDIT.
-     * 'user' - (string) The user to check.
-     *          Defaults to self::getAuth().
-     * </pre>
+     *   - permission: (string) Allow users with this permission admin access
+     *                 in the current context.
+     *   - permlevel: (integer) The level of permissions to check for.
+     *                Defaults to Horde_Perms::EDIT.
+     *   - user: (string) The user to check.
+     *           Defaults to self::getAuth().
      *
      * @return boolean  Whether or not this is an admin user.
      */
@@ -1871,12 +1934,10 @@ class Horde_Registry
      * authentication, then we try that.
      *
      * @param array $options  Additional options:
-     * <pre>
-     * 'app' - (string) Check authentication for this app.
-     *         DEFAULT: Checks horde-wide authentication.
-     * 'notransparent' - (boolean) Do not attempt transparent authentication.
-     *                   DEFAULT: false
-     * </pre>
+     *   - app: (string) Check authentication for this app.
+     *          DEFAULT: Checks horde-wide authentication.
+     *   - notransparent: (boolean) Do not attempt transparent authentication.
+     *                    DEFAULT: false
      *
      * @return boolean  Whether or not the user is authenticated.
      */
@@ -2027,13 +2088,11 @@ class Horde_Registry
      *
      * @param string $format  The return format, defaults to the unique Horde
      *                        ID. Alternative formats:
-     * <pre>
-     * bare - Horde ID without any domain information.
-     *        EXAMPLE: foo@example.com would be returned as 'foo'.
-     * domain: Domain of the Horde ID.
-     *         EXAMPLE: foo@example.com would be returned as 'example.com'.
-     * original: The username used to originally login to Horde.
-     * </pre>
+     *   - bare: (string) Horde ID without any domain information.
+     *           EXAMPLE: foo@example.com would be returned as 'foo'.
+     *   - domain: (string) Domain of the Horde ID.
+     *             EXAMPLE: foo@example.com would be returned as 'example.com'.
+     *   - original: (string) The username used to originally login to Horde.
      *
      * @return mixed  The user ID or false if no user is logged in.
      */
@@ -2152,6 +2211,7 @@ class Horde_Registry
         }
 
         $session->set('horde', 'auth_app/' . $app, $entry);
+        $session->set('horde', 'auth_app_init/' . $app, true);
     }
 
     /**
@@ -2195,16 +2255,14 @@ class Horde_Registry
      *
      * Horde authentication data is stored in the session in the 'auth' and
      * 'auth_app' array keys.  The 'auth' key has the following members:
-     * <pre>
-     * 'authId' - (string) The username used during the original auth.
-     * 'browser' - (string) The remote browser string.
-     * 'change' - (boolean) Is a password change requested?
-     * 'credentials' - (string) The 'auth_app' entry that contains the Horde
+     *   - authId: (string) The username used during the original auth.
+     *   - browser: (string) The remote browser string.
+     *   - change: (boolean) Is a password change requested?
+     *   - credentials: (string) The 'auth_app' entry that contains the Horde
      *                 credentials.
-     * 'remoteAddr' - (string) The remote IP address of the user.
-     * 'timestamp' - (integer) The login time.
-     * 'userId' - (string) The unique Horde username.
-     * </pre>
+     *   - remoteAddr: (string) The remote IP address of the user.
+     *   - timestamp: (integer) The login time.
+     *   - userId: (string) The unique Horde username.
      *
      * The auth_app key contains application-specific authentication.
      * Session subkeys are the app names, values are an array containing
@@ -2214,15 +2272,13 @@ class Horde_Registry
      * @param string $authId      The userId that has been authorized.
      * @param array $credentials  The credentials of the user.
      * @param array $options      Additional options:
-     * <pre>
-     * 'app' - (string) The app to set authentication credentials for.
-     *         DEFAULT: 'horde'
-     * 'change' - (boolean) Whether to request that the user change their
-     *            password.
-     *            DEFAULT: No
-     * 'language' - (string) The preferred language.
-     *              DEFAULT: null
-     * </pre>
+     *   - app: (string) The app to set authentication credentials for.
+     *          DEFAULT: 'horde'
+     *   - change: (boolean) Whether to request that the user change their
+     *             password.
+     *             DEFAULT: No
+     *   - language: (string) The preferred language.
+     *               DEFAULT: null
      */
     public function setAuth($authId, $credentials, array $options = array())
     {
@@ -2231,8 +2287,6 @@ class Horde_Registry
         $app = empty($options['app'])
             ? 'horde'
             : $options['app'];
-
-        $this->_appsinit[$app] = true;
 
         if ($this->getAuth() == $authId) {
             /* Store app credentials - base Horde session already exists. */
@@ -2258,12 +2312,7 @@ class Horde_Registry
         /* Reload preferences for the new user. */
         unset($GLOBALS['prefs']);
         $injector->getInstance('Horde_Core_Factory_Prefs')->clearCache();
-        $this->loadPrefs();
-
-        unset($this->_appsinit['horde']);
-        try {
-            Horde::callHook('appinitialized', array(), 'horde');
-        } catch (Horde_Exception_HookNotSet $e) {}
+        $this->loadPrefs($this->getApp());
 
         $this->setLanguageEnvironment(isset($options['language']) ? $this->preferredLang($options['language']) : null, $app);
     }
@@ -2272,7 +2321,6 @@ class Horde_Registry
      * Check existing auth for triggers that might invalidate it.
      *
      * @param string $app  Check authentication for this app too.
-     *                     @since Horde_Core 1.4.0.
      *
      * @return boolean  Is existing auth valid?
      */
@@ -2406,7 +2454,8 @@ class Horde_Registry
      */
     public function getEmailCharset()
     {
-        if (isset($GLOBALS['prefs']) && ($charset = $GLOBALS['prefs']->getValue('sending_charset'))) {
+        if (isset($GLOBALS['prefs']) &&
+            ($charset = $GLOBALS['prefs']->getValue('sending_charset'))) {
             return $charset;
         }
 

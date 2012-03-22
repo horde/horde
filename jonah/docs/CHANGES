@@ -5,12 +5,6 @@ v1.0-git
 [jan] Add Latvian translation (Jānis Eisaks <jancs@dv.lv>).
 [jan] Provide default configuration files instead of .dist versions.
 [bak/mjr/mms] Converted to H4.
-
-
-----
-v0.1
-----
-
 [jan] Enable output compression.
 [cjh] Remove the Jonah-specific portal (Bug #7584).
 [cjh] Add support for full-content feeds (Request #6400).

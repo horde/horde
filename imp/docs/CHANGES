@@ -1,7 +1,84 @@
+--------
+v6.0-git
+--------
+
+[mms] Provide details of when search results were last refreshed.
+[mms] Dynamically update unseen message counts in folder list in smartmobile
+      view.
+[mms] Add mailbox caching to the smartmobile view.
+[mms] Cache last seen message in smartmobile view.
+[mms] Viewing a mailbox in smartmobile mode no longer resets the sortpref
+      preference.
+[mms] Allow all SMTP configuration parameters to be overridden in the backends
+      configuration file (Request #11051).
+[mms] Block images in HTML messages that appear to be sent from you by default,
+      to prevent spammers form easily circumventing the block.
+[mms] Add 'Edit As New' to Forward button dropdown menu in dynamic view.
+[mms] Allow identifying addresses to always display images for without
+      requiring to add them to the addressbook.
+[mms] Disable text selection in dynamic view for everything but
+      compose/message bodies.
+[mms] Rewritten vCal/iCal attachment viewer/handler.
+[mms] S/MIME certificate import from message data no longer requires popup
+      window.
+[mms] PGP key import from message attachment no longer requires popup window.
+[mms] Improve PGP key import screen.
+[mms] Truncate large address lists (50+) by default in dynamic message views.
+[mms] Moved AJAX core features to Horde_Core package.
+[jan] Add reporting as spam/innocent to smartphone view.
+[mms] Workaround overquota error when deleting messages and using Trash
+      mailbox.
+[jan] Add basic search to smartphone view.
+[jan] Add resume and "edit as new" to smartphone view.
+[mms] Hide deleted now works with threaded mailboxes.
+[mms] Threaded sorts now work in all search mailboxes (Request #9700).
+[mms] Improved threading performance.
+[mms] Improved date searching to search by range.
+[mms] Added 'mbox_sort' hook.
+[mms] Make mailbox columns the same order in traditional view as in dynamic
+      view.
+[jan] Add mailbox paging to smartphone view.
+[jan] Add copy and move to smartphone view.
+[jan] Add deleting messages to smartphone view.
+[jan] Add reply, forward and redirect to smartphone view.
+[jan] Add compose functionality to smartphone view.
+[mms] Accurately track changes to virtual folders in dynamic folder tree (Bug
+      #10886).
+[mms] Traditional mode now requires javascript on the browser.
+[mms] Added 'mbox_special' hook (rsalmon@mbpgroup.com, Request #10801).
+[mms] Converted stationery to the Templates special mailbox (Request #9296).
+[mms] Hide inactive buttons in dynamic view instead of dimming them.
+[mms] Added config option to limit size of messages with linked attachments
+      (Request #6247).
+[mms] Allow expiration date to be provided when creating personal PGP key
+      (Request #5754).
+[mms] Always use Horde default for sending charset unless reply_charset
+      preference is active.
+[mms] Add ability to view all message parts in dynamic view (Request #9827).
+[mms] Remove signature from compose UI; signature is now added automatically
+      when sending (Request #10487).
+[mms] Fix accessing mailboxes containing ampersands (Bug #10093).
+[mms] Size of sidebar now saved in dynamic view.
+[mms] Browser-specific UI elements in dynamic view now saved in browser storage
+      (Ticket #10723).
+
+
 -----------
-v5.0.19-git
+v5.0.20-git
 -----------
 
+[mms] Only poll mailboxes in dynamic view that exist in the browser folder
+      tree.
+[mms] Fix regression in displaying From address on mailbox page in traditional
+      view.
+[mms] Fix updating the compose address fields when using the contacts popup.
+
+
+-------
+v5.0.19
+-------
+
+[jan] Fix setting default values for identity preferences.
 [mms] Improve drag performance of elements in dynamic view.
 [mms] Fix saving initial_page preference.
 [mms] Workaround broken Thunderbird encrypted S/MIME messages.
@@ -213,7 +290,6 @@ v5.0.10
 [mms] Remove 'allow_resume_all' configuration option (Request #10206).
 [mms] Add personal contacts search filter.
 [mms] Add ability to search all mailboxes (Request #10204).
-
 
 ------
 v5.0.9

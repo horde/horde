@@ -32,7 +32,8 @@ var PrettyAutocompleter = Class.create({
             displayFilter: function(t) { return t.escapeHTML() },
             filterCallback: this._filterChoices.bind(this),
             onAdd: Prototype.K,
-            onRemove: Prototype.K
+            onRemove: Prototype.K,
+            requireSelection: false,
         }, params || {});
 
         // Array to hold the currently selected items to ease with removing
@@ -170,8 +171,10 @@ var PrettyAutocompleter = Class.create({
     _onKeyDown: function(e)
     {
         // Check for a comma
-        if (e.keyCode == 188) {
+        if (e.keyCode == 188 && !this.p.requireSelection) {
             this._processValue();
+            e.stop();
+        } else if (e.keyCode == 188) {
             e.stop();
         }
     },

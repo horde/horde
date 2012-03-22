@@ -127,7 +127,7 @@ class Ansel_View_GalleryRenderer_Gallery extends Ansel_View_GalleryRenderer_Base
         if (!empty($option_copy)) {
             $action_links[] = $url->link(array('class' => 'widget', 'onclick.raw' => 'copySelected(); return false;')) . _("Copy") . '</a>';
         }
-        Horde::addScriptFile('popup.js', 'horde');
+        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('popup.js', 'horde');
         include ANSEL_TEMPLATES . '/view/gallery.inc';
         return Horde::endBuffer();
     }

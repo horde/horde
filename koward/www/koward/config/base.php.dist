@@ -1,5 +1,5 @@
 <?php
 /** Tell the registry where our base lives. */
 if (!defined('HORDE_BASE')) {
-    define('HORDE_BASE', dirname(__FILE__) . '/../../horde');
+    define('HORDE_BASE', __DIR__ . '/../../horde');
 }

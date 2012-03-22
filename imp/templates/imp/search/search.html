@@ -1,6 +1,6 @@
 <form id="search_form" action="<tag:action />" method="post">
  <input class="hidden" name="criteria_form" id="criteria_form" value="" />
- <input class="hidden" name="folders_form" id="folders_form" value="" />
+ <input class="hidden" name="mboxes_form" id="mboxes_form" value="" />
 
  <h1 class="header">
   <strong>
@@ -58,19 +58,19 @@
 
 <if:edit_query_filter><else:edit_query_filter>
  <div class="smallheader leftAlign">
-  <gettext>Search Folders</gettext>
+  <gettext>Search Mailboxes</gettext>
  </div>
 
  <div class="item">
-  <div id="no_search_folders"><gettext>No Search Folders</gettext></div>
-  <div id="search_folders" style="display:none"></div>
+  <div id="no_search_mboxes"><gettext>No Search Mailboxes</gettext></div>
+  <div id="search_mboxes" style="display:none"></div>
 
   <div class="searchAdd">
-   <select id="search_folders_add">
+   <select id="search_mboxes_add">
     <tag:tree />
    </select>
 <if:subscribe>
-   <a href="#" id="show_unsub"><gettext>Show Unsubscribed Folders</gettext></a>
+   <a href="#" id="show_unsub"><gettext>Show Unsubscribed Mailboxes</gettext></a>
 </if:subscribe>
   </div>
  </div>

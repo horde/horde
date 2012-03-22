@@ -9,7 +9,7 @@
  * @subpackage UnitTests
  */
 
-require_once dirname(__FILE__) . '/Autoload.php';
+require_once __DIR__ . '/Autoload.php';
 
 /**
  * @category   Horde
@@ -786,7 +786,7 @@ class Horde_Yaml_LoaderTest extends PHPUnit_Framework_TestCase
 
     public function fixture($name)
     {
-        return dirname(__FILE__) . "/fixtures/{$name}.yml";
+        return __DIR__ . "/fixtures/{$name}.yml";
     }
 
     public function testUnfolding()

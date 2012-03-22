@@ -13,17 +13,6 @@
 class Ingo_Storage_Prefs extends Ingo_Storage
 {
     /**
-     * Constructor.
-     *
-     * @param array $params  Additional parameters for the subclass.
-     */
-    public function __construct($params = array())
-    {
-        $this->_params = $params;
-        parent::__construct();
-    }
-
-    /**
      * Retrieves the specified data from the storage backend.
      *
      * @param integer $field     The field name of the desired data.

@@ -60,7 +60,7 @@ class Horde_Test_Case extends PHPUnit_Framework_TestCase
         if ($config) {
             $json = json_decode($config, true);
             if ($json) {
-                return Horde_Array::replaceRecursive($default, $json);
+                return array_replace_recursive($default, $json);
             }
         } else {
             if (!$path) {

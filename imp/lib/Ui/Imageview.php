@@ -16,6 +16,13 @@
 class IMP_Ui_Imageview
 {
     /**
+     * List of safe addresses.
+     *
+     * @var Horde_Mail_Rfc822_List
+     */
+    protected $_safeAddrs;
+
+    /**
      * Show inline images in messages?
      *
      * @param IMP_Contents $contents  The contents object containing the
@@ -23,9 +30,9 @@ class IMP_Ui_Imageview
      *
      * @return boolean  True if inline image should be shown.
      */
-    public function showInlineImage($contents)
+    public function showInlineImage(IMP_Contents $contents)
     {
-        global $injector, $prefs, $registry;
+        global $injector, $prefs, $registry, $session;
 
         if (!$prefs->getValue('image_replacement')) {
             return true;
@@ -35,20 +42,57 @@ class IMP_Ui_Imageview
             return false;
         }
 
-        $from = Horde_Mime_Address::bareAddress($contents->getHeader()->getValue('from'));
-        if ($prefs->getValue('image_addrbook') &&
-            $registry->hasMethod('contacts/getField')) {
-            $params = IMP::getAddressbookSearchParams();
-            try {
-                if ($registry->call('contacts/getField', array($from, '__key', $params['sources'], false, true))) {
+        $from = $contents->getHeader()->getOb('from');
+
+        if ($session->get('imp', 'csearchavail')) {
+            $sparams = IMP::getAddressbookSearchParams();
+            $res = $registry->call('contacts/search', array($from->bare_addresses, array(
+                'fields' => $sparams['fields'],
+                'returnFields' => array('email'),
+                'rfc822Return' => true,
+                'sources' => $sparams['sources']
+            )));
+
+            // Don't allow personal addresses by default - this is the only
+            // e-mail address a Spam sender for sure knows you will recognize
+            // so it is too much of a loophole.
+            $res->setIteratorFilter(0, array_keys($injector->getInstance('IMP_Identity')->getAllFromAddresses(true)));
+
+            foreach ($from as $val) {
+                if ($res->contains($val)) {
                     return true;
                 }
-            } catch (Horde_Exception $e) {}
+            }
         }
 
-        /* Check admin defined e-mail list. */
-        list(, $config) = $injector->getInstance('Horde_Core_Factory_MimeViewer')->getViewerConfig('image/*', 'imp');
-        return (!empty($config['safe_addrs']) && in_array($from, $config['safe_addrs']));
+        /* Check safe address list. */
+        $this->_initSafeAddrList();
+        foreach ($from as $val) {
+            if ($this->_safeAddrs->contains($val)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     */
+    protected function _initSafeAddrList()
+    {
+        if (!isset($this->_safeAddrs)) {
+            $this->_safeAddrs = new Horde_Mail_Rfc822_List(json_decode($GLOBALS['prefs']->getValue('image_replacement_addrs')));
+        }
+    }
+
+    /**
+     */
+    public function addSafeAddress($address)
+    {
+        $this->_initSafeAddrList();
+        $this->_safeAddrs->add($address);
+        $this->_safeAddrs->unique();
+        $GLOBALS['prefs']->setValue('image_replacement_addrs', json_encode($this->_safeAddrs->bare_addresses));
     }
 
 }

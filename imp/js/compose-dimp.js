@@ -21,17 +21,17 @@ var DimpCompose = {
         var cc,
             sbd = $('send_button_redirect');
 
-        if (window.confirm(DIMP.text_compose.cancel)) {
-            if (!DIMP.conf_compose.qreply &&
+        if (window.confirm(DIMP.text.compose_cancel)) {
+            if (!DIMP.conf.qreply &&
                 this.baseAvailable()) {
-                DimpCore.base.focus();
+                HordeCore.base.focus();
             }
 
             cc = (sbd && sbd.visible())
                 ? $F('composeCacheRedirect')
                 : $F('composeCache');
 
-            DimpCore.doAction(DIMP.conf_compose.auto_save_interval_val ? 'deleteDraft' : 'cancelCompose', { imp_compose: cc }, { ajaxopts: { asynchronous: DIMP.conf_compose.qreply } });
+            DimpCore.doAction(DIMP.conf.auto_save_interval_val ? 'deleteDraft' : 'cancelCompose', { imp_compose: cc }, { ajaxopts: { asynchronous: DIMP.conf.qreply } });
             this.updateDraftsMailbox();
             return this.closeCompose();
         }
@@ -40,19 +40,19 @@ var DimpCompose = {
     updateDraftsMailbox: function()
     {
         if (this.baseAvailable() &&
-            DimpCore.base.DimpBase.view == DIMP.conf_compose.drafts_mbox) {
-            DimpCore.base.DimpBase.poll();
+            HordeCore.base.DimpBase.view == DIMP.conf.drafts_mbox) {
+            HordeCore.base.DimpBase.poll();
         }
     },
 
     closeCompose: function()
     {
-        if (DIMP.conf_compose.qreply) {
+        if (DIMP.conf.qreply) {
             this.closeQReply();
         } else if (this.is_popup) {
-            DimpCore.closePopup();
+            HordeCore.closePopup();
         } else {
-            DimpCore.redirect(DIMP.conf.URI_DIMP);
+            HordeCore.redirect(DIMP.conf.URI_DIMP);
         }
     },
 
@@ -84,28 +84,21 @@ var DimpCompose = {
 
     changeIdentity: function()
     {
-        var identity = ImpComposeBase.getIdentity($F('identity'));
+        var identity = ImpComposeBase.identities[$F('identity')];
 
-        this.setPopdownLabel('sm', identity.id.smf_name, identity.id.smf_display);
-        if (DIMP.conf_compose.bcc) {
-            $('bcc').setValue(identity.id.bcc);
+        this.setPopdownLabel('sm', identity.sm_name, identity.sm_display);
+        if (DIMP.conf.bcc) {
+            $('bcc').setValue(identity.bcc);
         }
-        this.setSaveSentMail(identity.id.smf_save);
-
-        ImpComposeBase.replaceSignature($F('identity'));
+        this.setSaveSentMail(identity.sm_save);
     },
 
     setSaveSentMail: function(set)
     {
-        var ssm = $('save_sent_mail'), tmp;
+        var ssm = $('save_sent_mail');
 
         if (ssm) {
             ssm.setValue(set);
-
-            tmp = $('attach_cell').down('LABEL');
-            if (tmp) {
-                [ tmp ].invoke(set ? 'show' : 'hide');
-            }
         }
     },
 
@@ -120,7 +113,9 @@ var DimpCompose = {
             opts: opts
         };
 
-        $(opts.label).insert({ after: new Element('SPAN', { className: 'iconImg popdownImg' }).observe('click', function(e) { if (!this.disabled) { this.knl[id].knl.show(); this.knl[id].knl.ignoreClick(e); e.stop(); } }.bindAsEventListener(this)) });
+        $(opts.label).insert({ after:
+            new Element('SPAN', { className: 'iconImg popdownImg dimpOptionPopdown' }).store('popdown_id', id)
+        });
     },
 
     setPopdownLabel: function(id, s, l)
@@ -178,11 +173,13 @@ var DimpCompose = {
             return this.uniqueSubmit.bind(this, action).defer();
         }
 
-        if (action == 'sendMessage' || action == 'saveDraft') {
+        if (action == 'sendMessage' ||
+            action == 'saveDraft' ||
+            action == 'saveTemplate') {
             switch (action) {
             case 'sendMessage':
                 if (!this.skip_spellcheck &&
-                    DIMP.conf_compose.spellcheck &&
+                    DIMP.conf.spellcheck &&
                     DIMP.SpellChecker &&
                     !DIMP.SpellChecker.isActive()) {
                     this.sc_submit = action;
@@ -191,7 +188,7 @@ var DimpCompose = {
                 }
 
                 if (($F('subject') == '') &&
-                    !window.confirm(DIMP.text_compose.nosubject)) {
+                    !window.confirm(DIMP.text.nosubject)) {
                     return;
                 }
                 break;
@@ -234,14 +231,8 @@ var DimpCompose = {
         }
     },
 
-    uniqueSubmitCallback: function(r)
+    uniqueSubmitCallback: function(d)
     {
-        var d = r.response;
-
-        if (!d) {
-            return;
-        }
-
         if (d.imp_compose) {
             $('composeCache').setValue(d.imp_compose);
         }
@@ -253,58 +244,66 @@ var DimpCompose = {
                 this.updateDraftsMailbox();
 
                 if (d.action == 'saveDraft') {
-                    if (!DIMP.conf_compose.qreply &&
-                        this.baseAvailable()) {
-                        DimpCore.base.DimpCore.showNotifications(r.msgs);
-                        r.msgs = [];
+                    if (!DIMP.conf.qreply && this.baseAvailable()) {
+                        HordeCore.notify_handler = HordeCore.base.HordeCore.showNotifications.bind(HordeCore.base.HordeCore);
                     }
-                    if (DIMP.conf_compose.close_draft) {
+                    if (DIMP.conf.close_draft) {
+                        $('attach_list').childElements().invoke('remove');
                         return this.closeCompose();
                     }
                 }
                 break;
 
+            case 'saveTemplate':
+                if (this.baseAvailable() &&
+                    HordeCore.base.DimpBase.view == DIMP.conf.templates_mbox) {
+                    HordeCore.base.DimpBase.poll();
+                }
+                return this.closeCompose();
+
             case 'sendMessage':
                 if (this.baseAvailable()) {
                     if (d.flag) {
-                        DimpCore.base.DimpBase.flagCallback(d);
+                        HordeCore.base.DimpBase.flagCallback(d);
                     }
 
                     if (d.mailbox) {
-                        DimpCore.base.DimpBase.mailboxCallback(r);
+                        HordeCore.base.DimpBase.mailboxCallback(r);
                     }
 
                     if (d.draft_delete) {
-                        DimpCore.base.DimpBase.poll();
+                        HordeCore.base.DimpBase.poll();
                     }
 
                     if (d.log) {
-                        DimpCore.base.DimpBase.updateMsgLog(d.log, { uid: d.uid, mbox: d.mbox });
+                        HordeCore.base.DimpBase.updateMsgLog(d.log, { uid: d.uid, mbox: d.mbox });
                     }
 
-                    if (!DIMP.conf_compose.qreply) {
-                        DimpCore.base.DimpCore.showNotifications(r.msgs);
-                        r.msgs = [];
+                    if (!DIMP.conf.qreply) {
+                        HordeCore.notify_handler = HordeCore.base.HordeCore.showNotifications.bind(HordeCore.base.HordeCore);
                     }
                 }
+
+                $('attach_list').childElements().invoke('remove');
                 return this.closeCompose();
 
             case 'redirectMessage':
                 if (this.baseAvailable()) {
                     if (d.log) {
                         d.log.each(function(l) {
-                            DimpCore.base.DimpBase.updateMsgLog(l.log, {
+                            HordeCore.base.DimpBase.updateMsgLog(l.log, {
                                 mbox: l.mbox,
                                 uid: l.uid
                             });
                         });
                     }
 
-                    if (!DIMP.conf_compose.qreply) {
-                        DimpCore.base.DimpCore.showNotifications(r.msgs);
-                        r.msgs = [];
+                    if (!DIMP.conf.qreply) {
+                        HordeCore.notify_handler = HordeCore.base.HordeCore.showNotifications.bind(HordeCore.base.HordeCore);
                     }
                 }
+
+                $('attach_list').childElements().invoke('remove');
                 return this.closeCompose();
 
             case 'addAttachment':
@@ -340,7 +339,7 @@ var DimpCompose = {
     {
         if (this.disabled) {
             this.setDisabled(false);
-            DimpCore.doActionOpts.onFailure(t, o);
+            HordeCore.onFailure(t, o);
         }
     },
 
@@ -351,11 +350,11 @@ var DimpCompose = {
         this.disabled = disable;
 
         if (redirect.visible()) {
-            DimpCore.loadingImg('sendingImg', 'redirect', disable);
+            HordeCore.loadingImg('sendingImg', 'redirect', disable);
             DimpCore.toggleButtons(redirect.select('DIV.dimpActions A'), disable);
             redirect.setStyle({ cursor: disable ? 'wait': null });
         } else {
-            DimpCore.loadingImg('sendingImg', 'composeMessageParent', disable);
+            HordeCore.loadingImg('sendingImg', 'composeMessageParent', disable);
             DimpCore.toggleButtons($('compose').select('DIV.dimpActions A'), disable);
             [ $('compose') ].invoke(disable ? 'disable' : 'enable');
             if (DIMP.SpellChecker) {
@@ -371,7 +370,7 @@ var DimpCompose = {
 
     toggleHtmlEditor: function(noupdate)
     {
-        if (!DIMP.conf_compose.rte_avail) {
+        if (!DIMP.conf.rte_avail) {
             return;
         }
 
@@ -491,7 +490,7 @@ var DimpCompose = {
             this.skip_spellcheck = true;
             this.uniqueSubmit(this.sc_submit);
         } else {
-            DimpCore.showNotifications([ { type: 'horde.message', message: DIMP.text_compose.spell_noerror } ]);
+            HordeCore.notify(DIMP.text.spell_noerror, 'horde.message');
             this._onSpellCheckAfter();
         }
     },
@@ -504,9 +503,9 @@ var DimpCompose = {
         }
 
         if (this.rte_loaded && rte) {
-            this.rte.setData(r.response.text);
+            this.rte.setData(r.text);
         } else if (!this.rte_loaded && !rte) {
-            ta.setValue(r.response.text);
+            ta.setValue(r.text);
         } else {
             this.setMessageText.bind(this, rte, r).defer();
             return;
@@ -524,25 +523,25 @@ var DimpCompose = {
         }
 
         var bcc_add,
-            identity = ImpComposeBase.getIdentity($F('last_identity'));
+            identity = ImpComposeBase.identities[$F('last_identity')];
         opts = opts || {};
 
         $('to').setValue(header.to);
-        if (DIMP.conf_compose.cc && header.cc) {
+        if (DIMP.conf.cc && header.cc) {
             this.toggleCC('cc');
             $('cc').setValue(header.cc);
         }
-        this.setPopdownLabel('sm', identity.id.smf_name, identity.id.smf_display);
-        this.setSaveSentMail(identity.id.smf_save);
-        if (DIMP.conf_compose.bcc) {
+        this.setPopdownLabel('sm', identity.sm_name, identity.sm_display);
+        this.setSaveSentMail(identity.sm_save);
+        if (DIMP.conf.bcc) {
             bcc_add = header.bcc
                 ? header.bcc
                 : $F('bcc');
-            if (identity.id.bcc) {
+            if (identity.bcc) {
                 if (!bcc_add.empty()) {
                     bcc_add += ', ';
                 }
-                bcc_add += identity.id.bcc;
+                bcc_add += identity.bcc;
             }
             if (!bcc_add.empty()) {
                 this.toggleCC('bcc');
@@ -551,7 +550,7 @@ var DimpCompose = {
         }
         $('subject').setValue(header.subject);
 
-        if (DIMP.conf_compose.priority && opts.priority) {
+        if (DIMP.conf.priority && opts.priority) {
             this.setPopdownLabel('p', opts.priority);
         }
 
@@ -572,7 +571,7 @@ var DimpCompose = {
             break
 
         case 'reply_all':
-            $('replyallnotice').down('SPAN.replyAllNoticeCount').setText(DIMP.text_compose.replyall.sub('%d', opts.reply_recip));
+            $('replyallnotice').down('SPAN.replyAllNoticeCount').setText(DIMP.text.replyall.sub('%d', opts.reply_recip));
             $('noticerow', 'replyallnotice').invoke('show');
             break
 
@@ -592,7 +591,7 @@ var DimpCompose = {
 
         Field.focus(opts.focus || 'to');
 
-        if (DIMP.conf_compose.show_editor || opts.show_editor) {
+        if (DIMP.conf.show_editor || opts.show_editor) {
             if (!ImpComposeBase.editor_on) {
                 this.toggleHtmlEditor(opts.noupdate);
             }
@@ -616,7 +615,7 @@ var DimpCompose = {
         this.md5_msgOrig = this.msgHash();
 
         // Set auto-save-drafts now if not already active.
-        if (DIMP.conf_compose.auto_save_interval_val &&
+        if (DIMP.conf.auto_save_interval_val &&
             !this.auto_save_interval) {
             this.auto_save_interval = new PeriodicalExecuter(function() {
                 if ($('compose').visible()) {
@@ -632,7 +631,7 @@ var DimpCompose = {
                     this.md5_hdrs = hdrs;
                     this.md5_msg = msg;
                 }
-            }.bind(this), DIMP.conf_compose.auto_save_interval_val * 60);
+            }.bind(this), DIMP.conf.auto_save_interval_val * 60);
 
             /* Immediately execute to get MD5 hash of headers. */
             this.auto_save_interval.execute();
@@ -666,7 +665,7 @@ var DimpCompose = {
             this.rte.setData(msg, function() { this.editor_wait = false; }.bind(this));
         } else {
             $('composeMessage').setValue(msg);
-            ImpComposeBase.setCursorPosition('composeMessage', DIMP.conf_compose.compose_cursor, ImpComposeBase.getIdentity($F('last_identity')).sig);
+            ImpComposeBase.setCursorPosition('composeMessage', DIMP.conf.compose_cursor);
         }
     },
 
@@ -679,14 +678,14 @@ var DimpCompose = {
 
     swapToAddressCallback: function(r)
     {
-        if (r.response.header) {
-            $('to').setValue(r.response.header.to);
+        if (r.header) {
+            $('to').setValue(r.header.to);
             [ 'cc', 'bcc' ].each(function(t) {
-                if (r.response.header[t] || $(t).visible()) {
+                if (r.header[t] || $(t).visible()) {
                     if (!$(t).visible()) {
                         this.toggleCC(t);
                     }
-                    $(t).setValue(r.response.header.cc);
+                    $(t).setValue(r.header.cc);
                 }
             }, this);
         }
@@ -695,15 +694,15 @@ var DimpCompose = {
 
     forwardAddCallback: function(r)
     {
-        if (r.response.type) {
-            switch (r.response.type) {
+        if (r.type) {
+            switch (r.type) {
             case 'forward_attach':
-                this.processFwdList(r.response.opts.fwd_list);
+                this.processFwdList(r.opts.fwd_list);
                 break;
 
             case 'forward_body':
                 this.removeAttach([ $('attach_list').down() ]);
-                this.setBodyText(r.response.body);
+                this.setBodyText(r.body);
                 break;
             }
         }
@@ -732,7 +731,7 @@ var DimpCompose = {
             li.insert(' (' + opts.size + ' KB)');
             span.addClassName('attachNameFwdmsg');
         } else {
-            li.insert(' [' + opts.type + '] (' + opts.size + ' KB) ').insert(new Element('SPAN', { className: 'button remove' }).insert(DIMP.text_compose.remove));
+            li.insert(' [' + opts.type + '] (' + opts.size + ' KB) ').insert(new Element('SPAN', { className: 'button remove' }).insert(DIMP.text.remove));
             if (opts.type != 'application/octet-stream') {
                 span.addClassName('attachName');
             }
@@ -745,6 +744,7 @@ var DimpCompose = {
     removeAttach: function(e)
     {
         var ids = [];
+
         e.each(function(n) {
             n = $(n);
             ids.push(n.retrieve('atc_id'));
@@ -757,9 +757,11 @@ var DimpCompose = {
                 duration: 0.4
             });
         }, this);
+
         if (!$('attach_list').childElements().size()) {
             $('attach_list').hide();
         }
+
         DimpCore.doAction('deleteAttach', { atc_indices: Object.toJSON(ids), imp_compose: $F('composeCache') });
     },
 
@@ -768,8 +770,8 @@ var DimpCompose = {
         var u = $('upload'),
             u_parent = u.up();
 
-        if (DIMP.conf_compose.attach_limit != -1 &&
-            $('attach_list').childElements().size() >= DIMP.conf_compose.attach_limit) {
+        if (DIMP.conf.attach_limit != -1 &&
+            $('attach_list').childElements().size() >= DIMP.conf.attach_limit) {
             $('upload_limit').show();
         } else if (!u_parent.visible()) {
             $('upload_limit').hide();
@@ -857,14 +859,7 @@ var DimpCompose = {
         var u = $('upload');
         this.uniqueSubmit('addAttachment');
         u.up().hide().next().hide();
-        $('upload_wait').update(DIMP.text_compose.uploading + ' (' + $F(u) + ')').show();
-    },
-
-    attachmentComplete: function()
-    {
-        var sf = $('submit_frame'),
-            doc = sf.contentDocument || sf.contentWindow.document;
-        DimpCore.doActionComplete({ responseJSON: doc.body.innerHTML.evalJSON(true) }, this.uniqueSubmitCallback.bind(this));
+        $('upload_wait').update(DIMP.text.uploading + ' (' + $F(u) + ')').show();
     },
 
     toggleCC: function(type)
@@ -887,10 +882,10 @@ var DimpCompose = {
     /* Open the addressbook window. */
     openAddressbook: function(params)
     {
-        var uri = DIMP.conf_compose.URI_ABOOK;
+        var uri = DIMP.conf.URI_ABOOK;
 
         if (params) {
-            uri = DimpCore.addURLParam(uri, params);
+            uri = HordeCore.addURLParam(uri, params);
         }
 
         window.open(uri, 'contacts', 'toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=300,left=100,top=100');
@@ -899,9 +894,9 @@ var DimpCompose = {
     baseAvailable: function()
     {
         return (this.is_popup &&
-                DimpCore.base &&
-                !Object.isUndefined(DimpCore.base.DimpBase) &&
-                !DimpCore.base.closed);
+                HordeCore.base &&
+                !Object.isUndefined(HordeCore.base.DimpBase) &&
+                !HordeCore.base.closed);
     },
 
     /* Click observe handler. */
@@ -913,7 +908,7 @@ var DimpCompose = {
 
         var elt = e.element(),
             orig = elt,
-            atc_num, id;
+            atc_num, id, tmp;
 
         while (Object.isElement(elt)) {
             id = elt.readAttribute('id');
@@ -935,6 +930,12 @@ var DimpCompose = {
                 }
                 break;
 
+            case 'template_button':
+                if (!this.disabled) {
+                    this.uniqueSubmit('saveTemplate');
+                }
+                break;
+
             case 'send_button':
                 if (!this.disabled) {
                     this.uniqueSubmit('sendMessage');
@@ -949,7 +950,7 @@ var DimpCompose = {
 
             case 'htmlcheckbox':
                 if (!ImpComposeBase.editor_on ||
-                    window.confirm(DIMP.text_compose.toggle_html)) {
+                    window.confirm(DIMP.text.toggle_html)) {
                     this.toggleHtmlEditor();
                 } else {
                     $('htmlcheckbox').setValue(true);
@@ -959,8 +960,6 @@ var DimpCompose = {
             case 'redirect_sendto':
                 if (orig.match('TD.label SPAN')) {
                     this.openAddressbook({
-                        formfield: 'redirect_to',
-                        formname: 'redirect',
                         to_only: 1
                     });
                 }
@@ -979,7 +978,13 @@ var DimpCompose = {
                     this.removeAttach([ orig.up() ]);
                 } else if (orig.match('SPAN.attachName')) {
                     atc_num = orig.up('LI').retrieve('atc_id');
-                    DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { composeCache: $F('composeCache'), actionID: 'compose_attach_preview', id: atc_num }), $F('composeCache') + '|' + atc_num);
+                    HordeCore.popupWindow(DIMP.conf.URI_VIEW, {
+                        actionID: 'compose_attach_preview',
+                        composeCache: $F('composeCache'),
+                        id: atc_num
+                    }, {
+                        name: $F('composeCache') + '|' + atc_num
+                    });
                 }
                 break;
 
@@ -1009,6 +1014,16 @@ var DimpCompose = {
                 DimpCore.doAction('getReplyData', { headeronly: 1, imp_compose: $F('composeCache'), type: 'reply' }, { callback: this.swapToAddressCallback.bind(this) });
                 e.stop();
                 return;
+
+            case 'writemsg':
+                if (!this.disabled &&
+                    e.element().hasClassName('dimpOptionPopdown')) {
+                    tmp = e.element().retrieve('popdown_id');
+                    this.knl[tmp].knl.show();
+                    this.knl[tmp].knl.ignoreClick(e);
+                    e.stop();
+                }
+                break;
             }
 
             elt = elt.up();
@@ -1033,18 +1048,62 @@ var DimpCompose = {
         }
     },
 
+    contextOnClick: function(parentfunc, e)
+    {
+        var id = e.memo.elt.readAttribute('id'), tmp;
+
+        switch (id) {
+        case 'ctx_msg_other_rr':
+            tmp = !$F('request_read_receipt');
+            $('request_read_receipt').setValue(tmp);
+            DimpCore.toggleCheck($('ctx_msg_other_rr').down('DIV'), tmp);
+            break;
+
+        case 'ctx_msg_other_saveatc':
+            tmp = !$F('save_attachments_select');
+            $('save_attachments_select').setValue(tmp);
+            DimpCore.toggleCheck($('ctx_msg_other_saveatc').down('DIV'), tmp);
+            break;
+
+        default:
+            parentfunc(e);
+            break;
+        }
+    },
+
+    onContactsUpdate: function(e)
+    {
+        switch (e.memo.field) {
+        case 'bcc':
+        case 'cc':
+            if (!$('send' + e.memo.field).visible()) {
+                this.toggleCC(e.memo.field);
+            }
+            break;
+
+        case 'to':
+            if (DIMP.conf.redirect) {
+                e.memo.field = 'redirect_to';
+            }
+            break;
+        }
+
+        ImpComposeBase.updateAddressField($(e.memo.field), e.memo.value);
+    },
+
     onDomLoad: function()
     {
-        DimpCore.growler_log = false;
+        var tmp;
+
         DimpCore.init();
 
-        this.is_popup = !Object.isUndefined(DimpCore.base);
+        this.is_popup = !Object.isUndefined(HordeCore.base);
 
         /* Initialize redirect elements. */
-        if (DIMP.conf_compose.redirect) {
+        if (DIMP.conf.redirect) {
             $('redirect').observe('submit', Event.stop);
             new TextareaResize('redirect_to');
-            if (DIMP.conf_compose.URI_ABOOK) {
+            if (DIMP.conf.URI_ABOOK) {
                 $('redirect_sendto').down('TD.label SPAN').addClassName('composeAddrbook');
             }
             $('dimpLoading').hide();
@@ -1061,32 +1120,50 @@ var DimpCompose = {
         }
         Event.observe(window, 'resize', this.resizeMsgArea.bindAsEventListener(this));
         $('compose').observe('submit', Event.stop);
-        $('submit_frame').observe('load', this.attachmentComplete.bind(this));
+
+        HordeCore.handleSubmit($('compose'), {
+            callback: this.uniqueSubmitCallback.bind(this)
+        });
 
         // Initialize spell checker
         document.observe('SpellChecker:noerror', this._onSpellCheckNoError.bind(this));
-        if (DIMP.conf_compose.rte_avail) {
+        if (DIMP.conf.rte_avail) {
             document.observe('SpellChecker:after', this._onSpellCheckAfter.bind(this));
             document.observe('SpellChecker:before', this._onSpellCheckBefore.bind(this));
             document.observe('SpellChecker:error', this._onSpellCheckError.bind(this));
         }
 
+        tmp = $('msg_other_options');
+        if (tmp.childElements().size()) {
+            DimpCore.addPopdown(tmp.down('A'), 'msg_other', {
+                trigger: true
+            });
+            if (tmp = $('ctx_msg_other_rr')) {
+                DimpCore.toggleCheck(tmp.down('DIV'), $F('request_read_receipt'));
+            }
+            if (tmp = $('ctx_msg_other_saveatc')) {
+                DimpCore.toggleCheck(tmp.down('DIV'), $F('save_attachments_select'));
+            }
+        } else {
+            tmp.hide();
+        }
+
         /* Create sent-mail list. */
-        if (DIMP.conf_compose.flist) {
+        if (DIMP.conf.flist) {
             this.createPopdown('sm', {
                 base: 'save_sent_mail',
-                data: DIMP.conf_compose.flist,
-                input: 'save_sent_mail_folder',
-                label: 'sent_mail_folder_label'
+                data: DIMP.conf.flist,
+                input: 'save_sent_mail',
+                label: 'sent_mail_label'
             });
-            this.setPopdownLabel('sm', ImpComposeBase.getIdentity($F('identity')).id.smf_name);
+            this.setPopdownLabel('sm', ImpComposeBase.identities[$F('identity')].sm_name);
         }
 
         /* Create priority list. */
-        if (DIMP.conf_compose.priority) {
+        if (DIMP.conf.priority) {
             this.createPopdown('p', {
                 base: 'priority_label',
-                data: DIMP.conf_compose.priority,
+                data: DIMP.conf.priority,
                 input: 'priority',
                 label: 'priority_label'
             });
@@ -1094,10 +1171,10 @@ var DimpCompose = {
         }
 
         /* Create encryption list. */
-        if (DIMP.conf_compose.encrypt) {
+        if (DIMP.conf.encrypt) {
             this.createPopdown('e', {
                 base: $('encrypt_label').up(),
-                data: DIMP.conf_compose.encrypt,
+                data: DIMP.conf.encrypt,
                 input: 'encrypt',
                 label: 'encrypt_label'
             });
@@ -1107,7 +1184,7 @@ var DimpCompose = {
         new TextareaResize('to');
 
         /* Add addressbook link formatting. */
-        if (DIMP.conf_compose.URI_ABOOK) {
+        if (DIMP.conf.URI_ABOOK) {
             $('sendto', 'sendcc', 'sendbcc', 'redirect_sendto').compact().each(function(a) {
                 a.down('TD.label SPAN').addClassName('composeAddrbook');
             });
@@ -1123,18 +1200,22 @@ var DimpCompose = {
 
 /* Attach event handlers. */
 document.observe('dom:loaded', DimpCompose.onDomLoad.bind(DimpCompose));
+document.observe('ImpContacts:update', DimpCompose.onContactsUpdate.bindAsEventListener(DimpCompose));
 document.observe('TextareaResize:resize', DimpCompose.resizeMsgArea.bind(DimpCompose));
+
+/* ContextSensitive functions. */
+DimpCore.contextOnClick = DimpCore.contextOnClick.wrap(DimpCompose.contextOnClick.bind(DimpCompose));
 
 /* Click handler. */
 DimpCore.clickHandler = DimpCore.clickHandler.wrap(DimpCompose.clickHandler.bind(DimpCompose));
 
 /* Catch dialog actions. */
-document.observe('IMPDialog:success', function(e) {
+document.observe('HordeDialog:success', function(e) {
     switch (e.memo) {
     case 'pgpPersonal':
     case 'pgpSymmetric':
     case 'smimePersonal':
-        IMPDialog.noreload = true;
+        HordeDialog.noreload = true;
         DimpCompose.retrySubmit();
         break;
     }

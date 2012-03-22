@@ -122,8 +122,9 @@ class Kronolith_View_EditEvent
             'full_weekdays' => true
         ));
 
-        Horde::addScriptFile('edit.js', 'kronolith');
-        Horde::addScriptFile('popup.js', 'horde');
+        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        $page_output->addScriptFile('edit.js');
+        $page_output->addScriptFile('popup.js', 'horde');
 
         echo '<div id="EditEvent"' . ($active ? '' : ' style="display:none"') . '>';
         require KRONOLITH_TEMPLATES . '/edit/edit.inc';

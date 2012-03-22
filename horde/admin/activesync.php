@@ -13,7 +13,7 @@
  * @package  Horde
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 $permission = 'activesync';
 Horde_Registry::appInit('horde');
 if (!$registry->isAdmin() &&
@@ -65,8 +65,9 @@ foreach ($devices as $key => $val) {
     );
 }
 
-Horde::addScriptFile('activesyncadmin.js');
-Horde::addInlineJsVars(array(
+$page_output = $injector->getInstance('Horde_PageOutput');
+$page_output->addScriptFile('activesyncadmin.js');
+$page_output->addInlineJsVars(array(
     'HordeActiveSyncAdmin.devices' => $js
 ));
 

@@ -1,7 +1,45 @@
+--------
+v4.0-git
+--------
+
+[jan] Make calendar lists collapsible (Request #10865).
+[jan] Delay calendar list loading to speed up initial display.
+[mjr] Implement resource scheduling in dynamic view (Request #9774).
+[mjr] Fix issue that could cause incorrect freebusy data to be displayed in
+      certain circumstances.
+[mjr] Prompt to send updates when modifying an event with attendees (Request
+      #10724).
+[mjr] Add heatmap to year view (Request #10658).
+[mjr] Implement proper editing and deleting of recurrence series and exceptions
+      in ajax view (Request #9926).
+[jan] Remove print buttons.
+[jan] Add work week view to dynamic interface (rsalmon@mbpgroup.com, Request
+      #10519).
+[jan] Support importing of iCalendar events with non-local timezones (Request
+      #7156).
+[jan] Include timezone information when exporting events to iCalendar (Request
+      #7156).
+[jan] Allow to set individual timezones for each event (Request #10727).
+
+
 -----------
-v3.0.16-git
+v3.0.17-git
 -----------
 
+[jan] Show round corners only on the start and end of multi-day events
+      (Request #11067).
+
+
+-------
+v3.0.16
+-------
+
+[jan] Use preferred date format in week and agenda views (Bug #11089).
+[jan] Fix fatal error if no external calendars are available (Bug #11079).
+[jan] Fix positioning of events on DST changing dates (Bug #11070).
+[mjr] Fix bug that caused time shift of all day events when imported from
+      ActiveSync devices for users in certain timezones (Bug #10991).
+[mjr] Correctly deal with deleted calendars in sync clients (Bug #10969).
 
 
 -------

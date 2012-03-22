@@ -116,7 +116,7 @@ class Horde_Kolab_Cli
                     )
                 ),
                 'modules' => array(
-                    'directory' => dirname(__FILE__) . '/Cli/Module',
+                    'directory' => __DIR__ . '/Cli/Module',
                 ),
                 'provider' => array(
                     'prefix' => 'Horde_Kolab_Cli_Module_'

@@ -8,7 +8,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
 if (Kronolith::showAjaxView()) {
@@ -79,8 +79,10 @@ Horde_Core_Ui_JsCalendar::init(array(
 
 $title = _("Add a new event");
 $menu = Horde::menu();
-Horde::addScriptFile('edit.js', 'kronolith');
-Horde::addScriptFile('popup.js', 'horde');
+
+$page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+$page_output->addScriptFile('edit.js');
+$page_output->addScriptFile('popup.js', 'horde');
 
 require $registry->get('templates', 'horde') . '/common-header.inc';
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';

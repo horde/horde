@@ -2,7 +2,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/Autoload.php';
+require_once __DIR__ . '/Autoload.php';
 
 /**
  * @author     Jan Schneider <jan@horde.org>
@@ -18,8 +18,8 @@ class Horde_Text_Diff_EngineTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->_lines = array(
-            1 => file(dirname(__FILE__) . '/fixtures/1.txt'),
-            2 => file(dirname(__FILE__) . '/fixtures/2.txt'));
+            1 => file(__DIR__ . '/fixtures/1.txt'),
+            2 => file(__DIR__ . '/fixtures/2.txt'));
     }
 
     protected function _testDiff($diff)
@@ -54,11 +54,11 @@ class Horde_Text_Diff_EngineTest extends PHPUnit_Framework_TestCase
 
     public function testStringEngine()
     {
-        $patch = file_get_contents(dirname(__FILE__) . '/fixtures/unified.patch');
+        $patch = file_get_contents(__DIR__ . '/fixtures/unified.patch');
         $diff = new Horde_Text_Diff('String', array($patch));
         $this->_testDiff($diff);
 
-        $patch = file_get_contents(dirname(__FILE__) . '/fixtures/unified2.patch');
+        $patch = file_get_contents(__DIR__ . '/fixtures/unified2.patch');
         try {
             $diff = new Horde_Text_Diff('String', array($patch));
             $this->fail('Horde_Text_Diff_Exception expected');
@@ -71,7 +71,7 @@ class Horde_Text_Diff_EngineTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('For the first time in U.S. history number of private contractors and troops are equal', $edits[0]->orig[0]);
         $this->assertEquals('Number of private contractors and troops are equal for first time in U.S. history', $edits[0]->final[0]);
 
-        $patch = file_get_contents(dirname(__FILE__) . '/fixtures/context.patch');
+        $patch = file_get_contents(__DIR__ . '/fixtures/context.patch');
         $diff = new Horde_Text_Diff('String', array($patch));
         $this->_testDiff($diff);
     }

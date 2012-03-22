@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../../Autoload.php';
+require_once __DIR__ . '/../../../Autoload.php';
 
 /**
  * Test the structure based parser.
@@ -130,7 +130,7 @@ extends Horde_Kolab_Storage_TestCase
 
     private function _getParser()
     {
-        $fixture = dirname(__FILE__) . '/../../../fixtures/event.struct';
+        $fixture = __DIR__ . '/../../../fixtures/event.struct';
         $structure = unserialize(base64_decode(file_get_contents($fixture)));
         $structures = array(
             1 => array('structure' => $structure),

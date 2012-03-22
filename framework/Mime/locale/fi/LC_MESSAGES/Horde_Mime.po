@@ -1,14 +1,14 @@
 # Finnish translations for Horde_Mime module.
 # Copyright 2010-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Mime module.
-# Leena Heino <liinu@uta.fi>, 2010-2011.
+# Leena Heino <liinu@uta.fi>, 2010-2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Mime\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-15 13:27+0100\n"
-"PO-Revision-Date: 2011-04-03 11:12:01+0300\n"
+"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"PO-Revision-Date: 2012-03-07 15:08:44+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -21,48 +21,48 @@ msgstr ""
 msgid "Disposition Notification"
 msgstr "Perillemenoilmoitus"
 
-#: lib/Horde/Mime/Mail.php:446
+#: lib/Horde/Mime/Mail.php:457
 msgid "HTML Version of Message"
 msgstr "Viestin HTML-versio"
 
-#: lib/Horde/Mime/Mail.php:390
+#: lib/Horde/Mime/Mail.php:401
 #, php-format
 msgid "Invalid character in e-mail address: %s."
 msgstr "Epäkelpo merkki sähköpostiosoitteessa: %s."
 
-#: lib/Horde/Mime/Headers.php:533
+#: lib/Horde/Mime/Headers.php:527
 msgid "List-Archive"
 msgstr "Lista-Arkisto"
 
-#: lib/Horde/Mime/Headers.php:528
+#: lib/Horde/Mime/Headers.php:522
 msgid "List-Help"
 msgstr "Lista-Ohje"
 
-#: lib/Horde/Mime/Headers.php:535
+#: lib/Horde/Mime/Headers.php:529
 msgid "List-Id"
 msgstr "Lista-Id"
 
-#: lib/Horde/Mime/Headers.php:531
+#: lib/Horde/Mime/Headers.php:525
 msgid "List-Owner"
 msgstr "Lista-Omistaja"
 
-#: lib/Horde/Mime/Headers.php:532
+#: lib/Horde/Mime/Headers.php:526
 msgid "List-Post"
 msgstr "Lista-Viesti"
 
-#: lib/Horde/Mime/Headers.php:530
+#: lib/Horde/Mime/Headers.php:524
 msgid "List-Subscribe"
 msgstr "Lista-Tilaus"
 
-#: lib/Horde/Mime/Headers.php:529
+#: lib/Horde/Mime/Headers.php:523
 msgid "List-Unsubscribe"
 msgstr "Lista-Tilauksen-lopettaminen"
 
-#: lib/Horde/Mime/Mail.php:444
+#: lib/Horde/Mime/Mail.php:455
 msgid "Plaintext Version of Message"
 msgstr "Viestin tekstiversio."
 
-#: lib/Horde/Mime/Mdn.php:202
+#: lib/Horde/Mime/Mdn.php:203
 #, php-format
 msgid ""
 "The message sent on %s to %s with subject \"%s\" has been displayed.\n"

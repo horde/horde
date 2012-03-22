@@ -16,7 +16,7 @@ $prefGroups['identities'] = array(
     'desc' => _("Change the name, address, and signature that people see when they read and reply to your email."),
     'members' => array(
         'replyto_addr', 'alias_addr', 'tieto_addr', 'bcc_addr', 'signature',
-        'sig_dashes', 'signature_html_select', 'sig_first', 'save_sent_mail',
+        'sig_dashes', 'signature_html_select', 'save_sent_mail',
         'sent_mail_folder', 'sentmailselect'
     ),
     'type' => 'identities'
@@ -74,13 +74,6 @@ $_prefs['signature_html'] = array(
     'value' => ''
 );
 
-// signature before replies and forwards?
-$_prefs['sig_first'] = array(
-    'value' => 0,
-    'type' => 'checkbox',
-    'desc' => _("Place your signature before replies and forwards?")
-);
-
 // save a copy of sent messages?
 $_prefs['save_sent_mail'] = array(
     'value' => 1,
@@ -88,20 +81,17 @@ $_prefs['save_sent_mail'] = array(
     'desc' => _("Save sent mail?")
 );
 
-// sent mail folder
+// sent mail mailbox
 $_prefs['sent_mail_folder'] = array(
     // NOTE: Localization of this name for display purposes is done
     // automatically. This entry only needs to be changed if the mailbox name
     // on the IMAP server is different than this value.
-    // If the mailbox value contains non-ASCII characters, it must be encoded
-    // in the UTF7-IMAP charset (RFC 3501 [5.1.3]). This convertCharset() call
-    // will do the necessary conversion.
-    'value' => Horde_String::convertCharset('Sent', 'UTF-8', 'UTF7-IMAP')
+    'value' => 'Sent'
     // Exchange servers use this default value instead.
     // 'value' => 'Sent Items'
 );
 
-// sent mail folder selection widget.
+// sent mail mailbox selection widget.
 $_prefs['sentmailselect'] = array(
     'type' => 'special'
 );
@@ -112,8 +102,8 @@ $_prefs['sentmailselect'] = array(
 
 $prefGroups['acl'] = array(
     'column' => _("General"),
-    'label' => _("Share Folders"),
-    'desc' => _("Share your mail folders with other users."),
+    'label' => _("Share Mailboxes"),
+    'desc' => _("Share your mailboxes with other users."),
     'members' => array('aclmanagement')
 );
 
@@ -122,9 +112,9 @@ $_prefs['aclmanagement'] = array(
     'type' => 'special'
 );
 
-// folder sharing preferences
+// mailbox sharing preferences
 $_prefs['acl'] = array(
-    // set 'locked' => true to disable folder sharing
+    // set 'locked' => true to disable mailbox sharing
     'value' => ''
 );
 
@@ -160,6 +150,233 @@ $_prefs['filter'] = array(
 
 
 
+// *** Filter Preferences ***
+
+$prefGroups['filters'] = array(
+    'column' => _("General"),
+    'label' => _("Filters"),
+    'desc' => _("Create filtering rules to organize your incoming mail, sort it into mailboxes, and delete spam."),
+    'members' => array(
+        'filters_link', 'filters_blacklist_link', 'filters_whitelist_link',
+        'filter_on_login', 'filter_on_display', 'filter_any_mailbox',
+        'filter_menuitem'
+    )
+);
+
+$_prefs['filters_link'] = array(
+    'type' => 'link',
+    'img' => 'filters.png',
+    'desc' => _("Edit your Filter Rules"),
+    'help' => 'filter-edit-rules'
+);
+
+$_prefs['filters_blacklist_link'] = array(
+    'type' => 'link',
+    'img' => 'filters.png',
+    'desc' => _("Edit your Blacklist"),
+    'help' => 'filter-edit-blacklist'
+);
+
+$_prefs['filters_whitelist_link'] = array(
+    'type' => 'link',
+    'img' => 'filters.png',
+    'desc' => _("Edit your Whitelist"),
+    'help' => 'filter-edit-whitelist'
+);
+
+// run filters on login?
+$_prefs['filter_on_login'] = array(
+    'value' => 0,
+    'type' => 'checkbox',
+    'desc' => _("Apply filter rules upon logging on?"),
+    'help' => 'filter-on-login'
+);
+
+// run filters with INBOX display?
+$_prefs['filter_on_display'] = array(
+    'value' => 0,
+    'type' => 'checkbox',
+    'desc' => _("Apply filter rules whenever Inbox is displayed?"),
+    'help' => 'filter-on-display'
+);
+
+// Allow filters to be applied to any mailbox?
+$_prefs['filter_any_mailbox'] = array(
+    'value' => 0,
+    'type' => 'checkbox',
+    'desc' => _("Allow filter rules to be applied in any mailbox?"),
+    'help' => 'filter-any-mailbox'
+);
+
+// show filter icon on the menubar?
+$_prefs['filter_menuitem'] = array(
+    'value' => 0,
+    'type' => 'checkbox',
+    'desc' => _("Show the filter icon on the menubar?"),
+    'help' => 'filter-menuitem'
+);
+
+
+
+// *** Event Request Preferences ***
+
+$prefGroups['events'] = array(
+    'column' => _("General"),
+    'label' => _("Event Requests"),
+    'desc' => _("Configure how event or meeting requests should be handled."),
+    'members' => array('conflict_interval')
+);
+
+// Amount of minutes to consider a event as a non-conflicting one in iTip
+$_prefs['conflict_interval'] = array(
+    'value' => 30,
+    'type' => 'number',
+    'desc' => _("Minutes needed to consider a event as a non-conflicting one in iTip")
+);
+
+
+
+// *** PGP Preferences ***
+
+$prefGroups['pgp'] = array(
+    'column' => _("General"),
+    'label' => _("PGP"),
+    'desc' => _("Configure PGP encryption support."),
+    'members' => array(
+        'pgpmanagement'
+    )
+);
+
+// These preferences MUST appear on the same page.
+$_prefs['pgpmanagement'] = array(
+    'value' => array(
+        'use_pgp', 'use_pgp_text', 'pgp_attach_pubkey', 'pgp_scan_body',
+        'pgp_verify', 'pgp_reply_pubkey', 'pgppublickey', 'pgpprivatekey'
+    ),
+    'type' => 'container'
+);
+
+// Activate PGP support?
+$_prefs['use_pgp'] = array(
+    'value' => 0,
+    'type' => 'checkbox',
+    'desc' => _("Enable PGP functionality?"),
+    'help' => 'pgp-overview'
+);
+
+$_prefs['use_pgp_text'] = array(
+    'value' => '<div class="prefsPgpWarning">' . _("PGP support requires popup windows to be used.  If your browser is currently set to disable popup windows, you must change this setting or else the PGP features will not work correctly.") . '</div>',
+    'type' => 'rawhtml'
+);
+
+$_prefs['pgp_attach_pubkey'] = array(
+    'value' => 0,
+    'type' => 'checkbox',
+    'desc' => _("Should your PGP public key to be attached to your messages by default?"),
+    'help' => 'pgp-option-attach-pubkey'
+);
+
+$_prefs['pgp_scan_body'] = array(
+    'value' => 0,
+    'type' => 'checkbox',
+    'desc' => _("Should the body of text/plain messages be scanned for PGP data?"),
+    'help' => 'pgp-option-scan-body'
+);
+
+$_prefs['pgp_verify'] = array(
+    'value' => 1,
+    'type' => 'checkbox',
+    'desc' => _("Should PGP signed messages automatically be verified when viewed?"),
+    'help' => 'pgp-option-verify'
+);
+
+$_prefs['pgp_reply_pubkey'] = array(
+    'value' => 1,
+    'advanced' => true,
+    'type' => 'checkbox',
+    'desc' => _("Check for valid recipient PGP public keys while replying?"),
+    'help' => 'pgp-option-reply-pubkey'
+);
+
+$_prefs['pgppublickey'] = array(
+    'type' => 'special'
+);
+
+$_prefs['pgp_public_key'] = array(
+    'value' => ''
+);
+
+$_prefs['pgpprivatekey'] = array(
+    'type' => 'special'
+);
+
+$_prefs['pgp_private_key'] = array(
+    'value' => ''
+);
+
+
+
+// *** S/MIME Preferences ***
+
+$prefGroups['smime'] = array(
+    'column' => _("General"),
+    'label' => _("S/MIME"),
+    'desc' => _("Configure S/MIME encryption support."),
+    'members' => array(
+        'smimemanagement'
+    )
+);
+
+// These preferences MUST appear on the same page.
+$_prefs['smimemanagement'] = array(
+    'value' => array(
+        'use_smime', 'use_smime_text', 'smime_verify', 'smimepublickey',
+        'smimeprivatekey'
+    ),
+    'type' => 'container'
+);
+
+// Activate S/MIME support?
+$_prefs['use_smime'] = array(
+    'value' => 0,
+    'type' => 'checkbox',
+    'desc' => _("Enable S/MIME functionality?"),
+    'help' => 'smime-overview'
+);
+
+$_prefs['use_smime_text'] = array(
+    'value' => '<div class="prefsSmimeWarning">' . _("S/MIME support requires popup windows to be used.  If your browser is currently set to disable popup windows, you must change this setting or else the S/MIME features will not work correctly.") . '</div>',
+    'type' => 'rawhtml'
+);
+
+$_prefs['smime_verify'] = array(
+    'value' => 1,
+    'type' => 'checkbox',
+    'desc' => _("Should S/MIME signed messages automatically be verified when viewed?"),
+    'help' => 'smime-option-verify'
+);
+
+// S/MIME public key management widget
+$_prefs['smimepublickey'] = array(
+    'type' => 'special'
+);
+
+$_prefs['smime_public_key'] = array(
+    'value' => ''
+);
+
+// S/MIME private key management widget
+$_prefs['smimeprivatekey'] = array(
+    'type' => 'special'
+);
+
+$_prefs['smime_private_key'] = array(
+    'value' => ''
+);
+
+$_prefs['smime_additional_cert'] = array(
+    'value' => ''
+);
 // *** Compose Preferences ***
 
 $prefGroups['compose'] = array(
@@ -172,7 +389,8 @@ $prefGroups['compose'] = array(
         'compose_html_font_size', 'mail_domain',
         'compose_cursor', 'encryptselect', 'save_attachments',
         'delete_attachments_monthly_keep', 'request_mdn',
-        'reply_lang'
+        'reply_lang', 'traditional_compose', 'compose_popup',
+        'compose_confirm'
     )
 );
 
@@ -253,8 +471,7 @@ $_prefs['compose_cursor'] = array(
     'type' => 'enum',
     'enum' => array(
         'top' => _("Top"),
-        'bottom' => _("Bottom"),
-        'sig' => _("Before Signature")
+        'bottom' => _("Bottom")
     ),
     'desc' => _("Where should the cursor be located in the compose text area by default?")
 );
@@ -269,7 +486,7 @@ $_prefs['default_encrypt'] = array(
     'value' => IMP::ENCRYPT_NONE
 );
 
-// Save attachments when saving in sent mail folder?
+// Save attachments when saving in sent mail mailbox?
 $_prefs['save_attachments'] = array(
     'value' => 'prompt_no',
     'type' => 'enum',
@@ -317,6 +534,25 @@ $_prefs['reply_lang'] = array(
     'desc' => _("What language(s) do you prefer replies to your messages to be in? (Hold down the CTRL key when clicking to add multiple languages)")
 );
 
+$_prefs['traditional_compose'] = array(
+    'value' => '<div class="prefsViews">' . _("Preferences affecting only the Traditional View") . '</div>',
+    'type' => 'rawhtml'
+);
+
+// compose in a separate window?
+$_prefs['compose_popup'] = array(
+    'value' => 1,
+    'type' => 'checkbox',
+    'desc' => _("Compose messages in a separate window?")
+);
+
+// confirm successful sending of messages in popup window?
+$_prefs['compose_confirm'] = array(
+    'value' => 0,
+    'type' => 'checkbox',
+    'desc' => _("Display confirmation in popup window after sending a message?")
+);
+
 // The list of buttons to show in CKeditor
 // See http://docs.cksource.com/CKEditor_3.x/Developers_Guide/Toolbar for
 // details on configuration
@@ -328,24 +564,33 @@ $_prefs['ckeditor_buttons'] = array(
 
 
 
-// *** Stationery Preferences ***
+// *** Compose Templates Preferences ***
 
-$prefGroups['stationery'] = array(
+$prefGroups['composetemplates'] = array(
     'column' => _("Compose"),
-    'label' => _("Stationery"),
-    'desc' => _("Edit stationery and form responses."),
-    'members' => array('stationerymanagement')
+    'label' => _("Compose Templates"),
+    'desc' => _("Edit compose templates."),
+    'members' => array('composetemplates_management', 'composetemplates_new')
 );
 
-// Stationery configuration widget
-$_prefs['stationerymanagement'] = array(
+// Compose templates configuration widget
+$_prefs['composetemplates_management'] = array(
     'type' => 'special'
 );
 
-// Internal stationery storage value
-$_prefs['stationery'] = array(
-    // value = serialize(array())
-    'value' => 'a:0:{}'
+// Link to compose templates mailbox.
+$_prefs['composetemplates_new'] = array(
+    'type' => 'link',
+    'img' => 'edit.png',
+    'desc' => _("Create new Template")
+);
+
+// Compose templates mailbox
+$_prefs['composetemplates_mbox'] = array(
+    // NOTE: Localization of this name for display purposes is done
+    // automatically. This entry only needs to be changed if the mailbox name
+    // on the IMAP server is different than this value.
+    'value' => 'Templates'
 );
 
 
@@ -357,7 +602,8 @@ $prefGroups['reply'] = array(
     'label' => _("Replies"),
     'desc' => _("Configure how you reply to mail."),
     'members' => array(
-        'reply_quote', 'reply_format', 'reply_headers', 'attrib_text'
+        'reply_quote', 'reply_format', 'reply_charset', 'reply_headers',
+        'attrib_text'
     )
 );
 
@@ -375,6 +621,15 @@ $_prefs['reply_format'] = array(
     'value' => 0,
     'type' => 'checkbox',
     'desc' => _("When replying to a message, should we use the same format as the original message?")
+);
+
+// Use the charset of the original message, as opposed to the default sending
+// charset, when replying to a message?
+$_prefs['reply_charset'] = array(
+    'desc' => _("Use the charset of the original message when replying?"),
+    'advanced' => true,
+    'value' => 0,
+    'type' => 'checkbox'
 );
 
 // Reply to header summary - leave a brief summary of the header inside
@@ -441,20 +696,17 @@ $prefGroups['drafts'] = array(
     )
 );
 
-// drafts folder selection widget.
+// drafts mailbox selection widget.
 $_prefs['draftsselect'] = array(
     'type' => 'special'
 );
 
-// drafts folder
+// drafts mailbox
 $_prefs['drafts_folder'] = array(
     // NOTE: Localization of this name for display purposes is done
     // automatically. This entry only needs to be changed if the mailbox name
     // on the IMAP server is different than this value.
-    // If the mailbox value contains non-ASCII characters, it must be encoded
-    // in the UTF7-IMAP charset (RFC 3501 [5.1.3]). This convertCharset() call
-    // will do the necessary conversion.
-    'value' => Horde_String::convertCharset('Drafts', 'UTF-8', 'UTF7-IMAP')
+    'value' => 'Drafts'
 );
 
 // closing window after saving a draft?
@@ -492,31 +744,31 @@ $_prefs['auto_save_drafts'] = array(
 $prefGroups['sentmail'] = array(
     'column' => _("Compose"),
     'label' => _("Sent Mail"),
-    'desc' => _("Manage sent mail folders."),
+    'desc' => _("Manage sent mail mailboxes."),
     'members' => array(
         'rename_sentmail_monthly', 'delete_sentmail_monthly_keep',
         'purge_sentmail_interval', 'purge_sentmail_keep'
     )
 );
 
-// rename sent mail folder every month?
+// rename sent mail mailbox every month?
 $_prefs['rename_sentmail_monthly'] = array(
     'value' => 0,
     'type' => 'checkbox',
-    'desc' => _("Rename sent mail folder at beginning of month?"),
+    'desc' => _("Rename sent mail mailbox at beginning of month?"),
     'help' => 'prefs-rename_sentmail_monthly'
 );
 
-// how many old sent mail folders to keep every month?
+// how many old sent mail mailbox to keep every month?
 $_prefs['delete_sentmail_monthly_keep'] = array(
     'value' => 0,
     'type' => 'number',
     'zero' => true,
-    'desc' => _("Delete old sent mail folders after this many months (0 to never delete)?"),
+    'desc' => _("Delete old sent mail mailboxes after this many months (0 to never delete)?"),
     'help' => 'prefs-delete_sentmail_monthly_keep'
 );
 
-// how often to purge the Sent-Mail folder?
+// how often to purge the sent mail mailbox?
 $_prefs['purge_sentmail_interval'] = array(
     'value' => 0,
     'type' => 'enum',
@@ -525,12 +777,83 @@ $_prefs['purge_sentmail_interval'] = array(
     'help' => 'prefs-purge_sentmail_interval'
 );
 
-// when purging sent mail folder, purge messages older than how many days?
+// when purging sent mail malibox, purge messages older than how many days?
 $_prefs['purge_sentmail_keep'] = array(
     'value' => 30,
     'type' => 'number',
-    'desc' => _("Purge messages in sent mail folder(s) older than this amount of days."),
+    'desc' => _("Purge messages in sent mail mailbox(es) older than this amount of days."),
     'help' => 'prefs-purge_sentmail_keep'
+);
+
+
+
+// *** Addressbook Preferences ***
+
+$prefGroups['addressbooks'] = array(
+    'column' => _("Compose"),
+    'label' => _("Address Books"),
+    'desc' => _("Select address book sources for adding and searching for addresses."),
+   'members' => array(
+        'save_recipients', 'display_contact', 'sourceselect', 'add_source'
+    )
+);
+
+// Should recipients of outgoing messages be added automatically to
+// the address book?
+$_prefs['save_recipients'] = array(
+    'value' => 0,
+    'type' => 'checkbox',
+    'desc' => _("Save recipients automatically to the default address book?")
+);
+
+// By default, display all contacts in the address book when loading
+// the contacts screen.  If your default address book is large and
+// slow to display, you may want to disable and lock this preference.
+$_prefs['display_contact'] = array(
+    'value' => 1,
+    'type' => 'checkbox',
+    'desc' => _("List all contacts when loading the contacts screen? (if disabled, you will only see contacts that you search for explicitly)")
+);
+
+// address book selection widget
+$_prefs['sourceselect'] = array(
+    'type' => 'special'
+);
+
+// Address book(s) to use when expanding addresses
+// Refer to turba/config/sources.php for possible source values
+//
+// You can provide default values this way:
+//   'value' => json_encode(array('source_one', 'source_two'))
+$_prefs['search_sources'] = array(
+    'value' => ''
+);
+
+// Field(s) to use when expanding addresses
+// Refer to turba/config/sources.php for possible source and field values
+//
+// If you want to provide a default value, this field depends on the
+// search_sources preference. For example:
+//   'value' => json_encode(array(
+//       'source_one' => array('field_one', 'field_two'),
+//       'source_two' => array('field_three')
+//   ))
+// will search the fields 'field_one' and 'field_two' in source_one and
+// 'field_three' in source_two.
+$_prefs['search_fields'] = array(
+    'value' => ''
+);
+
+// Address book to use for adding addresses.
+// If NOT using shared address books in Turba, you can put a $cfgSources array
+// element name in the value field. See the preference hook example in
+// config/hooks.php.dist if using shared address books.
+$_prefs['add_source'] = array(
+//  'value' => 'localsql',
+    'value' => '',
+    'type' => 'enum',
+    'enum' => array(),
+    'desc' => _("Choose the address book to use when adding addresses.")
 );
 
 
@@ -543,10 +866,10 @@ $prefGroups['viewing'] = array(
     'desc' => _("Configure how messages are displayed."),
     'members' => array(
         'filtering', 'strip_attachments', 'alternative_display',
-        'image_replacement', 'image_addrbook', 'highlight_text',
-        'highlight_simple_markup', 'show_quoteblocks', 'dim_signature',
-        'emoticons', 'parts_display', 'mail_hdr', 'default_msg_charset',
-        'send_mdn'
+        'image_replacement', 'highlight_text', 'highlight_simple_markup',
+        'show_quoteblocks', 'dim_signature', 'emoticons', 'parts_display',
+        'mail_hdr', 'default_msg_charset', 'send_mdn', 'mimp_message',
+        'mimp_download_confirm', 'mimp_inline_all'
     )
 );
 
@@ -584,13 +907,12 @@ $_prefs['image_replacement'] = array(
     'help' => 'prefs-image_replacement'
 );
 
-// By default, automatically show images in inline messages if the sender is
-// in the user's addressbook?
-$_prefs['image_addrbook'] = array(
-    'value' => 1,
-    'type' => 'checkbox',
-    'desc' => _("Automatically show images in messages when the sender is in my address book?"),
-    'help' => 'prefs-image_addrbook'
+// List of e-mail addresses to allow images from (in addition to e-mail
+// addresses contained in the user's addressbooks.
+// You can provide default values this way:
+//   'value' => json_encode(array('foo@example.com', 'foo2@example.com'))
+$_prefs['image_replacement_addrs'] = array(
+    'value' => '[]'
 );
 
 // should we try to mark different conversations with different colors?
@@ -661,7 +983,6 @@ $_prefs['mail_hdr'] = array(
 );
 
 // default message character set
-
 $_prefs['default_msg_charset'] = array(
     'value' => $GLOBALS['registry']->getEmailCharset()
         ? $GLOBALS['registry']->getEmailCharset()
@@ -690,6 +1011,26 @@ $_prefs['send_mdn'] = array(
     ),
     'desc' => _("Prompt to send read receipt (a/k/a message disposition notification) when requested by the sender?"),
     'help' => 'prefs-send_mdn'
+);
+
+$_prefs['mimp_message'] = array(
+    'value' => '<div class="prefsViews">' . _("Preferences affecting only the Minimal View") . '</div>',
+    'type' => 'rawhtml'
+);
+
+$_prefs['mimp_download_confirm'] = array(
+    'value' => 0,
+    'advanced' => true,
+    'type' => 'number',
+    'zero' => true,
+    'desc' => _("Only show download confirmation page if message part is greater than this size, in bytes. Set to 0 to always require the confirmation page.")
+);
+
+$_prefs['mimp_inline_all'] = array(
+    'value' => 0,
+    'advanced' => true,
+    'type' => 'checkbox',
+    'desc' => _("Show all inline parts by default in message view? If unchecked, will treat all but the first viewable inline part as attachments.")
 );
 
 
@@ -721,28 +1062,25 @@ $_prefs['delete_mark_seen'] = array(
     'desc' => _("Mark messages as Seen when deleting?")
 );
 
-// should we move messages to a trash folder instead of just marking
+// should we move messages to a trash mailbox instead of just marking
 // them as deleted?
 $_prefs['use_trash'] = array(
     'value' => 0,
     'type' => 'checkbox',
-    'desc' => _("When deleting messages, move them to your Trash folder instead of marking them as deleted?")
+    'desc' => _("When deleting messages, move them to your Trash mailbox instead of marking them as deleted?")
 );
 
-// trash folder selection widget.
+// trash mailbox selection widget.
 $_prefs['trashselect'] = array(
     'type' => 'special'
 );
 
-// trash folder
+// trash mailbox
 $_prefs['trash_folder'] = array(
     // NOTE: Localization of this name for display purposes is done
     // automatically. This entry only needs to be changed if the mailbox name
     // on the IMAP server is different than this value.
-    // If the mailbox value contains non-ASCII characters, it must be encoded
-    // in the UTF7-IMAP charset (RFC 3501 [5.1.3]). This convertCharset() call
-    // will do the necessary conversion.
-    'value' => Horde_String::convertCharset('Trash', 'UTF-8', 'UTF7-IMAP')
+    'value' => 'Trash'
     // Exchange servers use this default value instead.
     // 'value' => 'Deleted Items'
 );
@@ -754,7 +1092,7 @@ $_prefs['empty_trash_menu'] = array(
     'desc' => _("Display the \"Empty Trash\" link in the menubar?")
 );
 
-// how often to purge the Trash folder?
+// how often to purge the Trash mailbox?
 $_prefs['purge_trash_interval'] = array(
     'value' => 0,
     'type' => 'enum',
@@ -763,11 +1101,11 @@ $_prefs['purge_trash_interval'] = array(
     'help' => 'prefs-purge_trash_interval'
 );
 
-// when purging Trash folder, purge messages older than how many days?
+// when purging Trash mailbox, purge messages older than how many days?
 $_prefs['purge_trash_keep'] = array(
     'value' => 30,
     'type' => 'number',
-    'desc' => _("Purge messages in Trash folder older than this amount of days."),
+    'desc' => _("Purge messages in Trash mailbox older than this amount of days."),
     'help' => 'prefs-purge_trash_keep'
 );
 
@@ -791,20 +1129,17 @@ $prefGroups['spamreport'] = array(
     )
 );
 
-// spam folder selection widget.
+// spam mailbox selection widget.
 $_prefs['spamselect'] = array(
     'type' => 'special'
 );
 
-// spam folder
+// spam mailbox
 $_prefs['spam_folder'] = array(
     // NOTE: Localization of this name for display purposes is done
     // automatically. This entry only needs to be changed if the mailbox name
     // on the IMAP server is different than this value.
-    // If the mailbox value contains non-ASCII characters, it must be encoded
-    // in the UTF7-IMAP charset (RFC 3501 [5.1.3]). This convertCharset() call
-    // will do the necessary conversion.
-    'value' => Horde_String::convertCharset('Spam', 'UTF-8', 'UTF7-IMAP')
+    'value' => 'Spam'
 );
 
 // What should we do with spam messages after reporting them?
@@ -814,7 +1149,7 @@ $_prefs['delete_spam_after_report'] = array(
     'enum' => array(
         0 => _("Nothing"),
         1 => _("Delete message"),
-        2 => _("Move to spam folder")
+        2 => _("Move to spam mailbox")
     ),
     'desc' => _("What should we do with messages after they have been reported as spam?"),
     'help' => 'prefs-delete_spam_after_report'
@@ -839,7 +1174,7 @@ $_prefs['empty_spam_menu'] = array(
     'desc' => _("Display the \"Empty Spam\" link in the menubar?")
 );
 
-// how often to purge the Spam folder?
+// how often to purge the Spam mailbox?
 $_prefs['purge_spam_interval'] = array(
     'value' => 0,
     'type' => 'enum',
@@ -848,11 +1183,11 @@ $_prefs['purge_spam_interval'] = array(
     'help' => 'prefs-purge_spam_interval'
 );
 
-// when purging Spam folder, purge messages older than how many days?
+// when purging Spam mailbox, purge messages older than how many days?
 $_prefs['purge_spam_keep'] = array(
     'value' => 30,
     'type' => 'number',
-    'desc' => _("Purge messages in Spam folder older than this amount of days."),
+    'desc' => _("Purge messages in Spam mailbox older than this amount of days."),
     'help' => 'prefs-purge_spam_keep'
 );
 
@@ -934,15 +1269,37 @@ $_prefs['show_all_flags'] = array(
 
 
 
+// *** Printing Preferences ***
+
+$prefGroups['printing'] = array(
+    'column' => _("Message"),
+    'label' => _("Printing"),
+    'desc' => _("Configure message printing."),
+    'members' => array('add_printedby')
+);
+
+// Add a 'Printed By' header to printed messages?
+$_prefs['add_printedby'] = array(
+    'value' => 0,
+    'advanced' => true,
+    'type' => 'checkbox',
+    'desc' => _("Add a \"Printed By\" header to the top of printed messages?")
+);
+
+
+
 // *** Mailbox Display Preferences ***
 
 $prefGroups['mboxdisplay'] = array(
-    'column' => _("Other"),
+    'column' => _("Mailbox"),
     'label' => _("Mailbox Display"),
-    'desc' => _("Change display preferences such as how many messages you see on each page and how messages are sorted."),
+    'desc' => _("Change display preferences for viewing the listing of messages in a mailbox."),
     'members' => array(
         'initialpageselect', 'mailbox_start', 'sortby', 'sortdir', 'sortdate',
-        'max_msgs', 'from_link', 'atc_flag'
+        'max_msgs', 'from_link', 'atc_flag', 'traditional_mailbox',
+        'preview_enabled', 'preview_maxlen', 'preview_strip_nl',
+        'preview_show_unread', 'preview_show_tooltip', 'mimp_mailbox',
+        'mimp_preview_msg'
     )
 );
 
@@ -1002,7 +1359,7 @@ $_prefs['sortdir'] = array(
     'desc' => _("Default sorting direction:")
 );
 
-// sort prefs for individual folders
+// sort prefs for individual mailboxes
 $_prefs['sortpref'] = array(
     // value = serialize(array())
     'value' => 'a:0:{}'
@@ -1052,420 +1409,8 @@ $_prefs['atc_flag'] = array(
     'desc' => _("Display attachment information about a message in the mailbox listing?")
 );
 
-
-
-// *** Folder Display Preferences ***
-
-$prefGroups['folderdisplay'] = array(
-    'column' => _("Other"),
-    'label' => _("Folder Display"),
-    'desc' => _("Change folder navigation display preferences."),
-    'members' => array(
-        'subscribe', 'nav_expanded', 'tree_view', 'nav_poll_all'
-    )
-);
-
-// use IMAP subscribe?
-$_prefs['subscribe'] = array(
-    'value' => 1,
-    'type' => 'checkbox',
-    'desc' => _("Use IMAP folder subscriptions?")
-);
-
-// expand folder tree by default
-$_prefs['nav_expanded'] = array(
-    'value' => 2,
-    'type' => 'enum',
-    'enum' => array(
-        0 => _("No"),
-        1 => _("Yes"),
-        2 => _("Remember the last view")
-    ),
-    'desc' => _("Expand the entire folder tree by default in the folders view?"));
-
-// folder tree view style
-$_prefs['tree_view'] = array(
-    'value' => 0,
-    'advanced' => true,
-    'type' => 'enum',
-    'enum' => array(
-        0 => _("Combine all namespaces"),
-        1 => _("Show non-private mailboxes in separate folders")
-    ),
-    'desc' => _("How should namespaces be displayed in the folder tree view?")
-);
-
-// poll all folders for new mail?
-$_prefs['nav_poll_all'] = array(
-    'value' => 0,
-    'type' => 'checkbox',
-    'desc' => _("Poll all folders for new mail?")
-);
-
-// list of folders to expand by default
-$_prefs['expanded_folders'] = array(
-    // value = serialize(array())
-    'value' => 'a:0:{}'
-);
-
-// list of folders to poll for new mail
-$_prefs['nav_poll'] = array(
-    'value' => ''
-);
-
-
-
-// *** Filter Preferences ***
-
-$prefGroups['filters'] = array(
-    'column' => _("Other"),
-    'label' => _("Filters"),
-    'desc' => _("Create filtering rules to organize your incoming mail, sort it into folders, and delete spam."),
-    'members' => array(
-        'filters_link', 'filters_blacklist_link', 'filters_whitelist_link',
-        'filter_on_login', 'filter_on_display', 'filter_any_mailbox',
-        'filter_menuitem'
-    )
-);
-
-$_prefs['filters_link'] = array(
-    'type' => 'link',
-    'img' => 'filters.png',
-    'desc' => _("Edit your Filter Rules"),
-    'help' => 'filter-edit-rules'
-);
-
-$_prefs['filters_blacklist_link'] = array(
-    'type' => 'link',
-    'img' => 'filters.png',
-    'desc' => _("Edit your Blacklist"),
-    'help' => 'filter-edit-blacklist'
-);
-
-$_prefs['filters_whitelist_link'] = array(
-    'type' => 'link',
-    'img' => 'filters.png',
-    'desc' => _("Edit your Whitelist"),
-    'help' => 'filter-edit-whitelist'
-);
-
-// run filters on login?
-$_prefs['filter_on_login'] = array(
-    'value' => 0,
-    'type' => 'checkbox',
-    'desc' => _("Apply filter rules upon logging on?"),
-    'help' => 'filter-on-login'
-);
-
-// run filters with INBOX display?
-$_prefs['filter_on_display'] = array(
-    'value' => 0,
-    'type' => 'checkbox',
-    'desc' => _("Apply filter rules whenever Inbox is displayed?"),
-    'help' => 'filter-on-display'
-);
-
-// Allow filters to be applied to any mailbox?
-$_prefs['filter_any_mailbox'] = array(
-    'value' => 0,
-    'type' => 'checkbox',
-    'desc' => _("Allow filter rules to be applied in any mailbox?"),
-    'help' => 'filter-any-mailbox'
-);
-
-// show filter icon on the menubar?
-$_prefs['filter_menuitem'] = array(
-    'value' => 0,
-    'type' => 'checkbox',
-    'desc' => _("Show the filter icon on the menubar?"),
-    'help' => 'filter-menuitem'
-);
-
-
-
-// *** Addressbook Preferences ***
-
-$prefGroups['addressbooks'] = array(
-    'column' => _("Other"),
-    'label' => _("Address Books"),
-    'desc' => _("Select address book sources for adding and searching for addresses."),
-   'members' => array(
-        'save_recipients', 'display_contact', 'sourceselect', 'add_source'
-    )
-);
-
-// Should recipients of outgoing messages be added automatically to
-// the address book?
-$_prefs['save_recipients'] = array(
-    'value' => 0,
-    'type' => 'checkbox',
-    'desc' => _("Save recipients automatically to the default address book?")
-);
-
-// By default, display all contacts in the address book when loading
-// the contacts screen.  If your default address book is large and
-// slow to display, you may want to disable and lock this preference.
-$_prefs['display_contact'] = array(
-    'value' => 1,
-    'type' => 'checkbox',
-    'desc' => _("List all contacts when loading the contacts screen? (if disabled, you will only see contacts that you search for explicitly)")
-);
-
-// address book selection widget
-$_prefs['sourceselect'] = array(
-    'type' => 'special'
-);
-
-// Address book(s) to use when expanding addresses
-// Refer to turba/config/sources.php for possible source values
-//
-// You can provide default values this way:
-//   'value' => json_encode(array('source_one', 'source_two'))
-$_prefs['search_sources'] = array(
-    'value' => ''
-);
-
-// Field(s) to use when expanding addresses
-// Refer to turba/config/sources.php for possible source and field values
-//
-// If you want to provide a default value, this field depends on the
-// search_sources preference. For example:
-//   'value' => json_encode(array(
-//       'source_one' => array('field_one', 'field_two'),
-//       'source_two' => array('field_three')
-//   ))
-// will search the fields 'field_one' and 'field_two' in source_one and
-// 'field_three' in source_two.
-$_prefs['search_fields'] = array(
-    'value' => ''
-);
-
-// Address book to use for adding addresses.
-// If NOT using shared address books in Turba, you can put a $cfgSources array
-// element name in the value field. See the preference hook example in
-// config/hooks.php.dist if using shared address books.
-$_prefs['add_source'] = array(
-//  'value' => 'localsql',
-    'value' => '',
-    'type' => 'enum',
-    'enum' => array(),
-    'desc' => _("Choose the address book to use when adding addresses.")
-);
-
-
-
-// *** Event Request Preferences ***
-
-$prefGroups['events'] = array(
-    'column' => _("Other"),
-    'label' => _("Event Requests"),
-    'desc' => _("Configure how event or meeting requests should be handled."),
-    'members' => array('conflict_interval')
-);
-
-// Amount of minutes to consider a event as a non-conflicting one in iTip
-$_prefs['conflict_interval'] = array(
-    'value' => 30,
-    'type' => 'number',
-    'desc' => _("Minutes needed to consider a event as a non-conflicting one in iTip")
-);
-
-
-
-// *** PGP Preferences ***
-
-$prefGroups['pgp'] = array(
-    'column' => _("Other"),
-    'label' => _("PGP"),
-    'desc' => sprintf(_("Control PGP support for %s."), $GLOBALS['registry']->get('name')),
-    'members' => array(
-        'pgpmanagement'
-    )
-);
-
-// These preferences MUST appear on the same page.
-$_prefs['pgpmanagement'] = array(
-    'value' => array(
-        'use_pgp', 'use_pgp_text', 'pgp_attach_pubkey', 'pgp_scan_body',
-        'pgp_verify', 'pgp_reply_pubkey', 'pgppublickey', 'pgpprivatekey'
-    ),
-    'type' => 'container'
-);
-
-// Activate PGP support?
-$_prefs['use_pgp'] = array(
-    'value' => 0,
-    'type' => 'checkbox',
-    'desc' => _("Enable PGP functionality?"),
-    'help' => 'pgp-overview'
-);
-
-$_prefs['use_pgp_text'] = array(
-    'value' => '<div class="prefsPgpWarning">' . _("PGP support requires popup windows to be used.  If your browser is currently set to disable popup windows, you must change this setting or else the PGP features will not work correctly.") . '</div>',
-    'type' => 'rawhtml'
-);
-
-$_prefs['pgp_attach_pubkey'] = array(
-    'value' => 0,
-    'type' => 'checkbox',
-    'desc' => _("Should your PGP public key to be attached to your messages by default?"),
-    'help' => 'pgp-option-attach-pubkey'
-);
-
-$_prefs['pgp_scan_body'] = array(
-    'value' => 0,
-    'type' => 'checkbox',
-    'desc' => _("Should the body of text/plain messages be scanned for PGP data?"),
-    'help' => 'pgp-option-scan-body'
-);
-
-$_prefs['pgp_verify'] = array(
-    'value' => 1,
-    'type' => 'checkbox',
-    'desc' => _("Should PGP signed messages automatically be verified when viewed?"),
-    'help' => 'pgp-option-verify'
-);
-
-$_prefs['pgp_reply_pubkey'] = array(
-    'value' => 1,
-    'advanced' => true,
-    'type' => 'checkbox',
-    'desc' => _("Check for valid recipient PGP public keys while replying?"),
-    'help' => 'pgp-option-reply-pubkey'
-);
-
-$_prefs['pgppublickey'] = array(
-    'type' => 'special'
-);
-
-$_prefs['pgp_public_key'] = array(
-    'value' => ''
-);
-
-$_prefs['pgpprivatekey'] = array(
-    'type' => 'special'
-);
-
-$_prefs['pgp_private_key'] = array(
-    'value' => ''
-);
-
-
-
-// *** S/MIME Preferences ***
-
-$prefGroups['smime'] = array(
-    'column' => _("Other"),
-    'label' => _("S/MIME"),
-    'desc' => sprintf(_("Control S/MIME support for %s."), $GLOBALS['registry']->get('name')),
-    'members' => array(
-        'smimemanagement'
-    )
-);
-
-// These preferences MUST appear on the same page.
-$_prefs['smimemanagement'] = array(
-    'value' => array(
-        'use_smime', 'use_smime_text', 'smime_verify', 'smimepublickey',
-        'smimeprivatekey'
-    ),
-    'type' => 'container'
-);
-
-// Activate S/MIME support?
-$_prefs['use_smime'] = array(
-    'value' => 0,
-    'type' => 'checkbox',
-    'desc' => _("Enable S/MIME functionality?"),
-    'help' => 'smime-overview'
-);
-
-$_prefs['use_smime_text'] = array(
-    'value' => '<div class="prefsSmimeWarning">' . _("S/MIME support requires popup windows to be used.  If your browser is currently set to disable popup windows, you must change this setting or else the S/MIME features will not work correctly.") . '</div>',
-    'type' => 'rawhtml'
-);
-
-$_prefs['smime_verify'] = array(
-    'value' => 1,
-    'type' => 'checkbox',
-    'desc' => _("Should S/MIME signed messages automatically be verified when viewed?"),
-    'help' => 'smime-option-verify'
-);
-
-// S/MIME public key management widget
-$_prefs['smimepublickey'] = array(
-    'type' => 'special'
-);
-
-$_prefs['smime_public_key'] = array(
-    'value' => ''
-);
-
-// S/MIME private key management widget
-$_prefs['smimeprivatekey'] = array(
-    'type' => 'special'
-);
-
-$_prefs['smime_private_key'] = array(
-    'value' => ''
-);
-
-$_prefs['smime_additional_cert'] = array(
-    'value' => ''
-);
-
-
-
-// *** Mobile View (MIMP) Preferences ***
-
-$prefGroups['mimp'] = array(
-    'column' => _("Other"),
-    'label' => _("Mobile View"),
-    'desc' => _("Configure preferences for the mobile view."),
-    'members' => array(
-        'mimp_preview_msg', 'mimp_download_confirm', 'mimp_inline_all'
-    )
-);
-
-// display only the first 250 characters of a message on first message view?
-$_prefs['mimp_preview_msg'] = array(
-    'value' => 0,
-    'type' => 'checkbox',
-    'desc' => _("Display only the first 250 characters of a message initially?")
-);
-
-$_prefs['mimp_download_confirm'] = array(
-    'value' => 0,
-    'advanced' => true,
-    'type' => 'number',
-    'zero' => true,
-    'desc' => _("Only show download confirmation page if message part is greater than this size, in bytes. Set to 0 to always require the confirmation page.")
-);
-
-$_prefs['mimp_inline_all'] = array(
-    'value' => 0,
-    'advanced' => true,
-    'type' => 'checkbox',
-    'desc' => _("Show all inline parts by default in message view? If unchecked, will treat all but the first viewable inline part as attachments.")
-);
-
-
-
-// *** Traditional View (IMP) Preferences ***
-
-$prefGroups['traditional'] = array(
-    'column' => _("Other"),
-    'label' => _("Traditional View"),
-    'desc' => _("Configure preferences for the traditional view."),
-    'members' => array(
-        'traditional_mailbox', 'preview_enabled', 'preview_maxlen',
-        'preview_strip_nl', 'preview_show_unread', 'preview_show_tooltip',
-        'traditional_compose', 'compose_popup', 'compose_confirm'
-    )
-);
-
 $_prefs['traditional_mailbox'] = array(
-    'value' => '<div class="prefsTraditional">' . _("Mailbox") . '</div>',
+    'value' => '<div class="prefsViews">' . _("Preferences affecting only the Traditional View") . '</div>',
     'type' => 'rawhtml'
 );
 
@@ -1513,59 +1458,75 @@ $_prefs['preview_show_tooltip'] = array(
     'desc' => _("Show previews in tooltips?")
 );
 
-$_prefs['traditional_compose'] = array(
-    'value' => '<div class="prefsTraditional">' . _("Compose") . '</div>',
+$_prefs['mimp_mailbox'] = array(
+    'value' => '<div class="prefsViews">' . _("Preferences affecting only the Minimal View") . '</div>',
     'type' => 'rawhtml'
 );
 
-// compose in a separate window?
-$_prefs['compose_popup'] = array(
-    'value' => 1,
-    'type' => 'checkbox',
-    'desc' => _("Compose messages in a separate window?")
-);
-
-// confirm successful sending of messages in popup window?
-$_prefs['compose_confirm'] = array(
+// display only the first 250 characters of a message on first message view?
+$_prefs['mimp_preview_msg'] = array(
     'value' => 0,
     'type' => 'checkbox',
-    'desc' => _("Display confirmation in popup window after sending a message?")
+    'desc' => _("Display only the first 250 characters of a message initially?")
 );
 
 
 
-// *** Dynamic View (DIMP) Preferences ***
-$prefGroups['dimp'] = array(
-    'column' => _("Other"),
-    'label' => _("Dynamic View"),
-    'desc' => _("Configure preferences for the dynamic view."),
-    'members' => array('dynamic_view')
+// *** Folder Display Preferences ***
+
+$prefGroups['folderdisplay'] = array(
+    'column' => _("Mailbox"),
+    'label' => _("Folder Display"),
+    'desc' => _("Change folder navigation display preferences."),
+    'members' => array(
+        'subscribe', 'nav_expanded', 'tree_view', 'nav_poll_all'
+    )
 );
 
-// Show dynamic view?
-$_prefs['dynamic_view'] = array(
-   'value' => 1,
-   'type' => 'checkbox',
-   'desc' => _("Show the dynamic view by default, if the browser supports it?")
+// use IMAP subscribe?
+$_prefs['subscribe'] = array(
+    'value' => 1,
+    'type' => 'checkbox',
+    'desc' => _("Use IMAP mailbox subscriptions?")
 );
 
-// Other dynamic view preferences
-$_prefs['dimp_qsearch_field'] = array(
-    'value' => 'all'
+// expand folder tree by default
+$_prefs['nav_expanded'] = array(
+    'value' => 2,
+    'type' => 'enum',
+    'enum' => array(
+        0 => _("No"),
+        1 => _("Yes"),
+        2 => _("Remember the last view")
+    ),
+    'desc' => _("Expand the entire folder tree by default in the folders view?"));
+
+// folder tree view style
+$_prefs['tree_view'] = array(
+    'value' => 0,
+    'advanced' => true,
+    'type' => 'enum',
+    'enum' => array(
+        0 => _("Combine all namespaces"),
+        1 => _("Show non-private mailboxes in separate folders")
+    ),
+    'desc' => _("How should namespaces be displayed in the folder tree view?")
 );
 
-$_prefs['dimp_show_preview'] = array(
-    'value' => 'horiz'
+// poll all mailboxes for new mail?
+$_prefs['nav_poll_all'] = array(
+    'value' => 0,
+    'type' => 'checkbox',
+    'desc' => _("Poll all mailboxes for new mail?")
 );
 
-$_prefs['dimp_splitbar'] = array(
-    'value' => 0
+// list of folders to expand by default
+$_prefs['expanded_folders'] = array(
+    // value = serialize(array())
+    'value' => 'a:0:{}'
 );
 
-$_prefs['dimp_splitbar_vert'] = array(
-    'value' => 0
-);
-
-$_prefs['dimp_toggle_headers'] = array(
-    'value' => 0
+// list of mailboxes to poll for new mail
+$_prefs['nav_poll'] = array(
+    'value' => ''
 );

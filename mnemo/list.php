@@ -7,7 +7,7 @@
  *
  * @package Mnemo
  */
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('mnemo');
 
 /* Get the current action ID. */
@@ -58,8 +58,9 @@ if ($prefs->getValue('show_panel')) {
     $bodyClass = 'rightPanel';
 }
 
-Horde::addScriptFile('tables.js', 'horde', true);
-Horde::addScriptFile('quickfinder.js', 'horde', true);
+$page_output = $injector->getInstance('Horde_PageOutput');
+$page_output->addScriptFile('tables.js', 'horde');
+$page_output->addScriptFile('quickfinder.js', 'horde');
 require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Horde::menu();
 $notification->notify();

@@ -221,14 +221,16 @@ class IMP_Maillog
             }
 
             if ($msg) {
-                $ret[] = array(
+                $ret[$entry['ts']] = array(
                     'action' => $entry['action'],
                     'msg' => @sprintf($msg, strftime($df . ' ' . $tf, $entry['ts']))
                 );
             }
         }
 
-        return $ret;
+        ksort($ret);
+
+        return array_values($ret);
     }
 
     /**
@@ -242,9 +244,9 @@ class IMP_Maillog
         if (!is_array($msg_ids)) {
             $msg_ids = array($msg_ids);
         }
-        $msg_ids = array_map(array('IMP_Maillog', '_getUniqueHistoryId'), $msg_ids);
-
-        $GLOBALS['injector']->getInstance('Horde_History')->removeByNames($msg_ids);
+        $GLOBALS['injector']->getInstance('Horde_History')->removeByNames(
+            array_map(array('IMP_Maillog', '_getUniqueHistoryId'), $msg_ids)
+        );
     }
 
     /**
@@ -256,11 +258,9 @@ class IMP_Maillog
      */
     static protected function _getUniqueHistoryId($msgid)
     {
-        if (is_array($msgid)) {
-            return '';
-        }
-
-        return implode('.', array('imp', str_replace('.', '*', $GLOBALS['registry']->getAuth()), $msgid));
+        return is_array($msgid)
+            ? ''
+            : implode('.', array('imp', str_replace('.', '*', $GLOBALS['registry']->getAuth()), $msgid));
     }
 
 }

@@ -17,7 +17,7 @@
 
 /* Determine the base directories. */
 if (!defined('TURBA_BASE')) {
-    define('TURBA_BASE', dirname(__FILE__) . '/..');
+    define('TURBA_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {
@@ -38,7 +38,21 @@ class Turba_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = 'H4 (3.0.12-git)';
+    public $version = 'H5 (4.0-git)';
+
+    /**
+     */
+    protected function _bootstrap()
+    {
+        /* Add Turba-specific factories. */
+        $factories = array(
+            'Turba_Shares' => 'Turba_Factory_Shares'
+        );
+
+        foreach ($factories as $key => $val) {
+            $GLOBALS['injector']->bindFactory($key, $val, 'create');
+        }
+    }
 
     /**
      * Global variables defined:
@@ -48,9 +62,7 @@ class Turba_Application extends Horde_Registry_Application
      *   $browse_source_count - TODO
      *   $browse_source_options - TODO
      *   $cfgSources   - TODO
-     *   $copymove_source_options - TODO
      *   $copymoveSources - TODO
-     *   $turba_shares - TODO
      */
     protected function _init()
     {
@@ -67,7 +79,6 @@ class Turba_Application extends Horde_Registry_Application
             if (!empty($cfg['use_shares'])) {
                 // Create a share instance.
                 $GLOBALS['session']->set('turba', 'has_share', true);
-                $GLOBALS['turba_shares'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
                 $cfgSources = Turba::getConfigFromShares($cfgSources);
                 break;
             }
@@ -108,22 +119,8 @@ class Turba_Application extends Horde_Registry_Application
         $GLOBALS['session']->set('turba', 'source', $default_source);
         $GLOBALS['default_source'] = $default_source;
 
-        /* Only set $add_source_options if there is at least one editable
-         * address book that is not the current address book. */
-        $addSources = Turba::getAddressBooks(Horde_Perms::EDIT, array('require_add' => true));
-        $copymove_source_options = '';
-        $copymoveSources = $addSources;
-        unset($copymoveSources[$default_source]);
-        foreach ($copymoveSources as $key => $curSource) {
-            if ($key != $default_source) {
-                $copymove_source_options .= '<option value="' . htmlspecialchars($key) . '">' .
-                    htmlspecialchars($curSource['title']) . '</option>';
-            }
-        }
-
-        $GLOBALS['addSources'] = $addSources;
-        $GLOBALS['copymove_source_options'] = $copymove_source_options;
-        $GLOBALS['copymoveSources'] = $copymoveSources;
+        $GLOBALS['addSources'] = Turba::getAddressBooks(Horde_Perms::EDIT, array('require_add' => true));
+        $GLOBALS['copymoveSources'] = array_diff($GLOBALS['addSources'], array($default_source));
     }
 
     /**
@@ -187,9 +184,10 @@ class Turba_Application extends Horde_Registry_Application
         foreach ($ui->getChangeablePrefs() as $val) {
             switch ($val) {
             case 'columnselect':
-                Horde::addScriptFile('effects.js', 'horde');
-                Horde::addScriptFile('dragdrop.js', 'horde');
-                Horde::addScriptFile('columnprefs.js', 'turba');
+                $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+                $page_output->addScriptFile('effects.js', 'horde');
+                $page_output->addScriptFile('dragdrop.js', 'horde');
+                $page_output->addScriptFile('columnprefs.js');
                 break;
 
             case 'default_dir':
@@ -379,6 +377,11 @@ class Turba_Application extends Horde_Registry_Application
     }
 
     /**
+     * Returns values for <configspecial> configuration settings.
+     *
+     * @param string $what  Either 'client-fields' or 'sources'.
+     *
+     * @return array  The values for the requested configuration setting.
      */
     public function configSpecialValues($what)
     {
@@ -420,7 +423,9 @@ class Turba_Application extends Horde_Registry_Application
             if (empty($source['use_shares'])) {
                 // Shares not enabled for this source
                 try {
-                    $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($source);
+                    $driver = $GLOBALS['injector']
+                        ->getInstance('Turba_Factory_Driver')
+                        ->create($source);
                 } catch (Turba_Exception $e) {
                     Horde::logMessage($e, 'ERR');
                 }
@@ -441,7 +446,8 @@ class Turba_Application extends Horde_Registry_Application
             return;
         }
 
-        $shares = $GLOBALS['turba_shares']->listShares(
+        $turba_shares = $GLOBALS['injector']->getInstance('Turba_Shares');
+        $shares = $turba_shares->listShares(
             $user,
             array('perm' => Horde_Perms::EDIT,
                   'attributes' => $user));
@@ -450,7 +456,9 @@ class Turba_Application extends Horde_Registry_Application
         foreach ($shares as $share) {
             $config = Turba::getSourceFromShare($share);
             try {
-                $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($config);
+                $driver = $GLOBALS['injector']
+                    ->getInstance('Turba_Factory_Driver')
+                    ->create($config);
             } catch (Turba_Exception $e) {
                 continue;
             }
@@ -468,7 +476,7 @@ class Turba_Application extends Horde_Registry_Application
         /* Get a list of all shares this user has perms to and remove the
          * perms. */
         try {
-            $shares = $GLOBALS['turba_shares']->listShares($user);
+            $shares = $turba_shares->listShares($user);
             foreach ($shares as $share) {
                 $share->removeUser($user);
             }

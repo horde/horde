@@ -101,7 +101,7 @@ CONFIGURING Jonah
       like)::
 
          $this->applications['jonah'] = array(
-             'fileroot' => dirname(__FILE__) . '/../jonah',
+             'fileroot' => __DIR__ . '/../jonah',
              'webroot' => $this->applications['horde']['webroot'] . '/jonah',
              'icon' => $this->applications['horde']['webroot'] . '/jonah/graphics/jonah.png',
              'name' => _("Jonah"),

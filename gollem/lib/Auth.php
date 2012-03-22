@@ -314,22 +314,14 @@ class Gollem_Auth
     /**
      * Can we log in without a login screen for the requested backend key?
      *
-     * @param string $key     The backend key to check. Defaults to
-     *                        self::getPreferredBackend().
-     * @param boolean $force  If true, check the backend key even if there is
-     *                        more than one backend.
-     *
      * @return array  The credentials needed to login ('userId', 'password',
      *                'backend') or false if autologin not available.
      */
-    static protected function _canAutoLogin($key = null, $force = false)
+    static protected function _canAutoLogin()
     {
-        $auto_server = self::getPreferredBackend();
-        if ($key === null) {
-            $key = $auto_server;
-        }
+        $key = self::getPreferredBackend();
 
-        if ((count($auto_server) == 1 || $force) &&
+        if ($key &&
             $GLOBALS['registry']->getAuth() &&
             ($config = self::getBackend($key)) &&
             empty($config['loginparams']) &&

@@ -24,7 +24,7 @@ class Horde_Core_Ajax_Imple_WeatherLocationAutoCompleter extends Horde_Core_Ajax
         $updateurl->pathInfo = 'blockRefresh';
         $updateurl->add('app', 'horde')
                   ->add('blockid', 'horde_block_weather');
-        Horde::addInlineScript(
+        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineScript(
             array(
                 'window.weatherupdate = window.weatherupdate || {};',
                 'window.weatherupdate["' . $this->_params['instance'] . '"] = {
@@ -56,7 +56,7 @@ class Horde_Core_Ajax_Imple_WeatherLocationAutoCompleter extends Horde_Core_Ajax
                     e.stop();
                 });'
             ),
-            'dom'
+            true
         );
 
 

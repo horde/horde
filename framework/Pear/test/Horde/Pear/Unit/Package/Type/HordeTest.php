@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../../Autoload.php';
+require_once __DIR__ . '/../../../Autoload.php';
 
 /**
  * Test the Horde package type.
@@ -150,6 +150,6 @@ extends Horde_Pear_TestCase
 
     private function _getFixtureBase()
     {
-        return dirname(__FILE__) . '/../../../fixture/horde';
+        return __DIR__ . '/../../../fixture/horde';
     }
 }

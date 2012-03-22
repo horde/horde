@@ -68,7 +68,7 @@ class Horde_Kolab_Filter_Transport
     {
         $class = 'Horde_Kolab_Filter_Transport_' . $driver;
         if (!class_exists($class)) {
-            include dirname(__FILE__) . '/Transport/' . $driver . '.php';
+            include __DIR__ . '/Transport/' . $driver . '.php';
         }
         if (class_exists($class)) {
             $transport = new $class($params);

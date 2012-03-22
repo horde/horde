@@ -10,10 +10,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-12-21</date>
- <time>18:59:25</time>
+ <date>2012-02-22</date>
+ <time>12:42:10</time>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix horde-autoloader-cache-prune script.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -50,7 +50,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -149,10 +149,23 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-12-21</date>
+   <date>2012-02-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix horde-autoloader-cache-prune script.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-02-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

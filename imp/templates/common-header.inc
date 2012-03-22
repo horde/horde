@@ -1,53 +1,27 @@
 <?php
 
-$imp_view = IMP::getViewMode();
-
-/* Do this include here so that the generated script can be added with any
- * other scripts already added. */
-switch ($imp_view) {
-case 'dimp':
-    include IMP_TEMPLATES . '/dimp/javascript_defs.php';
-    break;
-
-case 'mimp':
-    // Nothing
-    break;
-
-default:
-    include IMP_TEMPLATES . '/imp/javascript_defs.php';
-    break;
-}
-
 if (isset($GLOBALS['language'])) {
     header('Content-type: text/html; charset=UTF-8');
     header('Vary: Accept-Language');
 }
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
 <?php
 echo (!empty($GLOBALS['language']) ? '<html lang="' . strtr($GLOBALS['language'], '_', '-') . '">' : '<html>') . '<head>';
 
 $page_title = $GLOBALS['registry']->get('name');
-if (!empty($title)) {
-    $page_title .= ' :: ' . $title;
+if (!empty(IMP::$title)) {
+    $page_title .= ' :: ' . IMP::$title;
 }
 
-Horde::outputMetaTags();
+$page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
 
-switch ($imp_view) {
-case 'dimp':
-    Horde::includeStylesheetFiles(array(
-        'sub' => 'dimp'
-    ));
-    if (!in_array(basename($_SERVER['PHP_SELF']), array('compose-dimp.php', 'index-dimp.php', 'message-dimp.php'))) {
-        Horde::includeScriptFiles();
-        Horde::outputInlineScript();
-    }
-    Horde::includeFavicon();
-    break;
+$page_output->outputMetaTags();
 
-case 'mimp':
-    Horde::includeStylesheetFiles(array(
+switch ($view_mode) {
+case Horde_Registry::VIEW_MINIMAL:
+    $page_output->includeStylesheetFiles(array(
         'nohorde' => true,
         'sub' => 'mimp',
         'subonly' => true
@@ -55,15 +29,15 @@ case 'mimp':
     break;
 
 default:
-    Horde::includeStylesheetFiles();
-    Horde::includeScriptFiles();
-    Horde::includeFavicon();
-    Horde::outputInlineScript();
+    $page_output->includeStylesheetFiles();
+    $page_output->includeScriptFiles();
+    $page_output->includeFavicon();
+    $page_output->outputInlineScript();
     break;
 }
 ?>
 <title><?php echo htmlspecialchars($page_title) ?></title>
-<?php if ($imp_view == 'imp'): ?>
+<?php if ($view_mode == Horde_Registry::VIEW_BASIC): ?>
 <?php if ($mailbox_url = Horde_Util::nonInputVar('mailbox_url')): ?>
 <link href="<?php echo $mailbox_url ?>" rel="Up" />
 <?php elseif (!Horde_Util::nonInputVar('login_page')): ?>

@@ -122,7 +122,7 @@ class Wicked_Page_MergeOrRename extends Wicked_Page {
 
         $template->set('new_name', Horde_Util::getFormData('new_name'));
 
-        Horde::addScriptFile('stripe.js', 'horde', true);
+        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('stripe.js', 'horde');
         echo $template->fetch(WICKED_TEMPLATES . '/display/MergeOrRename.html');
         return true;
     }

@@ -9,7 +9,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('whups');
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -166,7 +166,7 @@ $qops = array(
 
 // Start the page.
 if ($whups_query->id) {
-    $linkTags[] = $whups_query->feedLink();
+    $injector->getInstance('Horde_PageOutput')->addLinkTag($whups_query->feedLink());
 }
 $title = _("Query Builder");
 require $registry->get('templates', 'horde') . '/common-header.inc';

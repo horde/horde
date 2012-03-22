@@ -10,7 +10,7 @@
  * @author Daniel Collins <horde_dev@argentproductions.com>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 $vilma = Horde_Registry::appInit('vilma');
 
 /* Only admin should be using this. */

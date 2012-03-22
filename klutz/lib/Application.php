@@ -13,7 +13,7 @@
 
 /* Determine the base directories. */
 if (!defined('KLUTZ_BASE')) {
-    define('KLUTZ_BASE', dirname(__FILE__) . '/..');
+    define('KLUTZ_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {
@@ -34,7 +34,7 @@ class Klutz_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = 'H4 (2.0.0-git)';
+    public $version = 'H5 (2.0-git)';
 
     /**
      * Global variables defined:

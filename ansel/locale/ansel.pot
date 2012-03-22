@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ansel H4 (2.0.1-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"POT-Creation-Date: 2012-02-22 11:20+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -332,6 +332,10 @@ msgstr ""
 
 #: config/prefs.php:199 templates/gallery/properties.html.php:110
 msgid "Anyone"
+msgstr ""
+
+#: templates/mobile/galleries.html.php:4
+msgid "Applications"
 msgstr ""
 
 #: templates/view/gallery.inc:32 templates/view/gallerylightbox.inc:33
@@ -1473,10 +1477,6 @@ msgstr ""
 
 #: lib/ImageGenerator/PolaroidThumb.php:15
 msgid "Polaroids"
-msgstr ""
-
-#: templates/mobile/galleries.html.php:4
-msgid "Portal"
 msgstr ""
 
 #: templates/image/crop_image.inc:149

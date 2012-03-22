@@ -21,7 +21,7 @@ $cron_tasks = array(
 
 // End Configuration
 
-$baseFile = dirname(__FILE__) . '/../lib/Application.php';
+$baseFile = __DIR__ . '/../lib/Application.php';
 if (file_exists($baseFile)) {
     require_once $baseFile;
 } else {

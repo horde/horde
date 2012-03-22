@@ -411,6 +411,7 @@ class Horde_Core_Prefs_Ui
         $columns = $pref_list = array();
         $identities = false;
 
+        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
         $prefgroups = $this->_getPrefGroups();
 
         if ($this->group) {
@@ -424,7 +425,7 @@ class Horde_Core_Prefs_Ui
             /* Add necessary init stuff for identities pages. */
             if (isset($prefgroups[$this->group]['type']) &&
                 ($prefgroups[$this->group]['type'] == 'identities')) {
-                Horde::addScriptFile('identityselect.js', 'horde');
+                $page_output->addScriptFile('identityselect.js', 'horde');
                 $identities = true;
 
                 /* If this is an identities group, need to grab the base
@@ -452,7 +453,7 @@ class Horde_Core_Prefs_Ui
          * do things like add javascript to the page output. This should all
          * be combined and served in the page HEAD. */
         Horde::startBuffer();
-        Horde::addScriptFile('prefs.js', 'horde');
+        $page_output->addScriptFile('prefs.js', 'horde');
 
         if ($this->group) {
             if ($identities) {
@@ -812,6 +813,15 @@ class Horde_Core_Prefs_Ui
         }
 
         $entry = $js = array();
+
+        $tmp = array();
+        foreach ($members as $member) {
+            $tmp[] = $this->_generateEntry(
+                $member,
+                $GLOBALS['prefs']->getDefault($member));
+        }
+        $js[-1] = $tmp;
+
         foreach ($identities as $key => $val) {
             $entry[] = array(
                 'i' => $key,
@@ -821,41 +831,55 @@ class Horde_Core_Prefs_Ui
 
             $tmp = array();
             foreach ($members as $member) {
-                $val = $identity->getValue($member, $key);
-                switch ($this->prefs[$member]['type']) {
-                case 'checkbox':
-                case 'number':
-                    $val2 = intval($val);
-                    break;
-
-                case 'textarea':
-                    if (is_array($val)) {
-                        $val = implode("\n", $val);
-                    }
-                    // Fall-through
-
-                default:
-                    $val2 = $val;
-                }
-
-                // [0] = pref name
-                // [1] = pref type
-                // [2] = pref value
-                $tmp[] = array(
+                $tmp[] = $this->_generateEntry(
                     $member,
-                    $this->prefs[$member]['type'],
-                    $val2
-                );
+                    $identity->getValue($member, $key));
             }
             $js[] = $tmp;
         }
         $t->set('entry', $entry);
 
-        Horde::addInlineScript(array(
+        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineScript(array(
             'HordeIdentitySelect.identities = ' . Horde_Serialize::serialize($js, Horde_Serialize::JSON)
         ));
 
         return $t->fetch(HORDE_TEMPLATES . '/prefs/identityselect.html');
+    }
+
+    /**
+     * Generates an entry hash for an identity's preference value.
+     *
+     * @param string $member  A preference name.
+     * @param mixed $val      A preference value.
+     *
+     * @return array  An array with preference name, type, and value.
+     */
+    protected function _generateEntry($member, $val)
+    {
+        switch ($this->prefs[$member]['type']) {
+        case 'checkbox':
+        case 'number':
+            $val2 = intval($val);
+            break;
+
+        case 'textarea':
+            if (is_array($val)) {
+                $val = implode("\n", $val);
+            }
+            // Fall-through
+
+        default:
+            $val2 = $val;
+        }
+
+        // [0] = pref name
+        // [1] = pref type
+        // [2] = pref value
+        return array(
+            $member,
+            $this->prefs[$member]['type'],
+            $val2
+        );
     }
 
     /**

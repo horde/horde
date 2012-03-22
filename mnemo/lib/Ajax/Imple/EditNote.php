@@ -23,17 +23,17 @@ class Mnemo_Ajax_Imple_EditNote extends Horde_Core_Ajax_Imple
 
     public function attach()
     {
-        Horde::addScriptFile('effects.js', 'horde');
-        Horde::addScriptFile('inplaceeditor.js', 'horde');
+        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        $page_output->addScriptFile('effects.js', 'horde');
+        $page_output->addScriptFile('inplaceeditor.js', 'horde');
 
         $params = array('input' => 'value',
                         'id' => $this->_params['id']);
 
         $url = $this->_getUrl('EditNote', 'mnemo', $params);
         $loadTextUrl = $this->_getUrl('EditNote', 'mnemo', array_merge($params, array('action' => 'load')));
-        $js = array();
 
-        $js[] =
+        $page_output->addInlineScript(array(
             "new InPlaceEditor('" . $this->_params['domid'] . "', '" . $url . "', {"
             . "   callback: function(form, value) {"
             . "       return 'value=' + encodeURIComponent(value);},"
@@ -45,9 +45,8 @@ class Mnemo_Ajax_Imple_EditNote extends Horde_Core_Ajax_Imple
             . "   cancelText: '" . _("Cancel") . "',"
             . "   okText: '" . _("Ok") . "',"
             . "   cancelClassName: ''"
-            . "  });";
-
-        Horde::addInlineScript($js, 'dom');
+            . "  });"
+        ), true);
     }
 
     public function handle($args, $post)

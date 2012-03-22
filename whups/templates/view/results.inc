@@ -60,22 +60,11 @@ function doResort(column, sortDown)
          $url = Whups::urlFor('ticket', $info['id']);
 
          foreach ($this->_params['values'] as $name => $value) {
-             $thevalue = isset($info[$value]) ? $info[$value] : '';
-
-             if ($value == 'timestamp' || substr($value, 0, 5) == 'date_') {
+             $thevalue = Whups::formatColumn($info, $value);
+             $sortval = '';
+             if ($value == 'timestamp' || $value == 'due' ||
+                 substr($value, 0, 5) == 'date_') {
                  $sortval = (strlen($thevalue) ? ' sortval="' . $thevalue . '"' : '');
-                 require_once 'Horde/Form/Type.php';
-                 $thevalue = Horde_Form_Type_date::getFormattedTime($thevalue, $prefs->getValue('report_time_format'), false);
-             } elseif ($value == 'user_id_requester') {
-                 $thevalue = $info['requester_formatted'];
-             } elseif ($value == 'id' || $value == 'summary') {
-                 $sortval = '';
-                 $thevalue = Horde::link($url) . '<strong>' . htmlspecialchars($thevalue) . '</strong></a>';
-             } elseif ($value == 'owners') {
-                 $sortval = '';
-                 if (!empty($info['owners_formatted'])) {
-                     $thevalue = implode(', ', $info['owners_formatted']);
-                 }
              }
 
              echo '<td' . $sortval . '>' . (strlen($thevalue) ? $thevalue : '&nbsp;') . '</td>';

@@ -29,7 +29,7 @@ class IMP_LoginTasks_Task_RenameSentmailMonthly extends Horde_LoginTasks_Task
     /**
      * Renames the old sent-mail mailboxes.
      *
-     * Folder name: sent-mail-month-year
+     * Mailbox name: sent-mail-month-year
      *   month = English:         3 letter abbreviation
      *           Other Languages: Month value (01-12)
      *   year  = 4 digit year
@@ -76,7 +76,7 @@ class IMP_LoginTasks_Task_RenameSentmailMonthly extends Horde_LoginTasks_Task
 
                 unset($msgs[$now]);
                 foreach ($msgs as $key => $val) {
-                    $new_mbox = IMP_Mailbox::get(strval($sent) . '-' . Horde_String::convertCharset(Horde_String::lower($key), 'UTF-8', 'UTF7-IMAP'));
+                    $new_mbox = IMP_Mailbox::get(strval($sent) . '-' . Horde_String::lower($key));
 
                     $imp_imap->copy($sent, $new_mbox, array(
                         'create' => true,
@@ -114,7 +114,7 @@ class IMP_LoginTasks_Task_RenameSentmailMonthly extends Horde_LoginTasks_Task
      */
     protected function _getSentmail()
     {
-        return IMP_Mailbox::get($GLOBALS['injector']->getInstance('IMP_Identity')->getAllSentmailfolders());
+        return IMP_Mailbox::get($GLOBALS['injector']->getInstance('IMP_Identity')->getAllSentmail());
     }
 
 }

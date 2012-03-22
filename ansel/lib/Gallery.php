@@ -270,14 +270,19 @@ class Ansel_Gallery implements Serializable
      */
     public function addImageObject(Ansel_Image $image, $default = false)
     {
-        /* Make sure it's taken as a new image */
+        // Normal is the only view mode that can accurately update counts
+        $vMode = $this->get('view_mode');
+        if ($vMode != 'Normal') {
+            $this->_setModeHelper('Normal');
+        }
+        // Make sure it's taken as a new image
         $image->id = null;
         $image->gallery = $this->id;
         $image->sort = $this->countImages();
         $image->save();
         $this->updateImageCount(1);
 
-        /* Should this be the key image? */
+        // Should this be the key image?
         if ($default) {
             $this->set('default', $image->id);
             $this->clearStacks();
@@ -285,6 +290,11 @@ class Ansel_Gallery implements Serializable
 
         /* Save all changes to the gallery */
         $this->save();
+
+        // Return to the proper view mode
+        if ($vMode != 'Normal') {
+            $this->_setModeHelper($vMode);
+        }
 
         return $image->id;
     }

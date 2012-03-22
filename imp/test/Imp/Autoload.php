@@ -12,7 +12,7 @@
  * @link       http://pear.horde.org/index.php?package=Imp
  */
 
-$mappings = array('IMP' => dirname(__FILE__) . '/../../lib/');
+$mappings = array('IMP' => __DIR__ . '/../../lib/');
 require_once 'Horde/Test/Autoload.php';
 
 /** Catch strict standards */

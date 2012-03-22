@@ -14,47 +14,45 @@ class Passwd
 {
     static public function getBackends()
     {
-        $backends = Horde::loadConfiguration('backends.php', 'backends', 'passwd');
-        if (!isset($backends) || !is_array($backends)) {
+        $allbackends = Horde::loadConfiguration('backends.php', 'backends', 'passwd');
+        if (!isset($allbackends) || !is_array($allbackends)) {
             throw new Passwd_Exception(_("No backends configured in backends.php"));
         }
 
-        $backend = null;
-        foreach ($backends as $name => $temp) {
-            if (!empty($temp['disabled'])) {
+        $backends = array();
+        foreach ($allbackends as $name => $backend) {
+            if (!empty($backend['disabled'])) {
                 continue;
             }
-            if (!isset($backend[$name])) {
-                $backend[$name] = $name;
-            } elseif (!empty($temp['preferred'])) {
-                if (is_array($temp['preferred'])) {
-                    foreach ($temp['preferred'] as $val) {
+
+            /* Make sure the 'params' entry exists. */
+            if (!isset($backend['params'])) {
+                $backend['params'] = array();
+            }
+
+            if (!empty($backend['preferred'])) {
+                if (is_array($backend['preferred'])) {
+                    foreach ($backend['preferred'] as $val) {
                         if (($val == $_SERVER['SERVER_NAME']) ||
                             ($val == $_SERVER['HTTP_HOST'])) {
-                            $backend[$name] = $name;
+                            $backends[$name] = $backend;
                         }
                     }
-                } elseif (($temp['preferred'] == $_SERVER['SERVER_NAME']) ||
-                          ($temp['preferred'] == $_SERVER['HTTP_HOST'])) {
-                    $backend[$name] = $name;
+                } elseif (($backend['preferred'] == $_SERVER['SERVER_NAME']) ||
+                          ($backend['preferred'] == $_SERVER['HTTP_HOST'])) {
+                    $backends[$name] = $backend;
                 }
+            } else {
+                $backends[$name] = $backend;
             }
         }
 
         /* Check for valid backend configuration. */
-        if (is_null($backend)) {
+        if (empty($backends)) {
             throw new Passwd_Exception(_("No backend configured for this host"));
         }
 
-        $name = array_keys($backend);
-        $backend[$name[0]] = $backends[$name[0]];
-
-        /* Make sure the 'params' entry exists. */
-        if (!isset($backend[$name[0]]['params'])) {
-            $backend[$name[0]]['params'] = array();
-        }
-
-        return $backend;
+        return $backends;
     }
 
     /**

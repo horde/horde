@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../../Autoload.php';
+require_once __DIR__ . '/../../../Autoload.php';
 
 /**
  * Test the core content list handler for package.xml files.
@@ -67,7 +67,7 @@ extends Horde_Pear_TestCase
     private function _getList($root = null)
     {
         if ($root === null) {
-            $root = dirname(__FILE__) . '/../../../fixture/horde/framework/simple';
+            $root = __DIR__ . '/../../../fixture/horde/framework/simple';
         }
         return new Horde_Pear_Package_Contents_List(
             new Horde_Pear_Package_Type_Horde($root)

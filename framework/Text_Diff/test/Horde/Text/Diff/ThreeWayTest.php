@@ -2,7 +2,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/Autoload.php';
+require_once __DIR__ . '/Autoload.php';
 
 /**
  * @author     Jan Schneider <jan@horde.org>
@@ -18,7 +18,7 @@ class Horde_Text_Diff_ThreeWayTest extends Horde_Test_Case
     public function setUp()
     {
         for ($i = 1; $i <= 4; $i++) {
-            $this->_lines[$i] = file(dirname(__FILE__) . '/fixtures/' . $i . '.txt');
+            $this->_lines[$i] = file(__DIR__ . '/fixtures/' . $i . '.txt');
         }
     }
 

@@ -13,7 +13,7 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-$baseFile = dirname(__FILE__) . '/../../nag/lib/Application.php';
+$baseFile = __DIR__ . '/../../nag/lib/Application.php';
 if (file_exists($baseFile)) {
     require_once $baseFile;
 } else {

@@ -15,7 +15,7 @@
 
 /* Determine the base directories. */
 if (!defined('KRONOLITH_BASE')) {
-    define('KRONOLITH_BASE', dirname(__FILE__) . '/..');
+    define('KRONOLITH_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {
@@ -36,15 +36,15 @@ class Kronolith_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $ajaxView = true;
+    public $features = array(
+        'alarmHandler' => true,
+        'dynamicView' => true,
+        'smartphoneView' => true
+    );
 
     /**
      */
-    public $mobileView = true;
-
-    /**
-     */
-    public $version = 'H4 (3.0.16-git)';
+    public $version = 'H5 (4.0-git)';
 
     /**
      * Global variables defined:
@@ -56,24 +56,39 @@ class Kronolith_Application extends Horde_Registry_Application
         /* For now, autoloading the Content_* classes depend on there being a
          * registry entry for the 'content' application that contains at least
          * the fileroot entry. */
-        $GLOBALS['injector']->getInstance('Horde_Autoloader')->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^Content_/', $GLOBALS['registry']->get('fileroot', 'content') . '/lib/'));
+        $GLOBALS['injector']->getInstance('Horde_Autoloader')
+            ->addClassPathMapper(
+                new Horde_Autoloader_ClassPathMapper_Prefix('/^Content_/', $GLOBALS['registry']->get('fileroot', 'content') . '/lib/'));
+
         if (!class_exists('Content_Tagger')) {
-            throw new Horde_Exception('The Content_Tagger class could not be found. Make sure the Content application is installed.');
+            throw new Horde_Exception(_("The Content_Tagger class could not be found. Make sure the Content application is installed."));
         }
 
         $GLOBALS['injector']->bindFactory('Kronolith_Geo', 'Kronolith_Factory_Geo', 'create');
+        $GLOBALS['injector']->bindFactory('Kronolith_Shares', 'Kronolith_Factory_Shares', 'create');
 
+        if ($GLOBALS['registry']->getView() != Horde_Registry::VIEW_DYNAMIC ||
+            !$GLOBALS['prefs']->getValue('dynamic_view') ||
+            empty($this->initParams['nodynamicinit'])) {
+            Kronolith::initialize();
+            $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+            foreach ($GLOBALS['display_calendars'] as $calendar) {
+                $page_output->addLinkTag(array(
+                    'href' => Kronolith::feedUrl($calendar),
+                    'type' => 'application/atom+xml'
+                ));
+            }
+        }
+    }
+
+    protected function _authenticated()
+    {
         /* Set the timezone variable, if available. */
         $GLOBALS['registry']->setTimeZone();
 
-        /* Create a share instance. */
-        $GLOBALS['kronolith_shares'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
-
-        Kronolith::initialize();
-
-        $GLOBALS['linkTags'] = array();
-        foreach ($GLOBALS['display_calendars'] as $calendar) {
-            $GLOBALS['linkTags'][] = '<link href="' . Kronolith::feedUrl($calendar) . '" rel="alternate" type="application/atom+xml" />';
+        /* Store the request timestamp if it's not already present. */
+        if (!isset($_SERVER['REQUEST_TIME'])) {
+            $_SERVER['REQUEST_TIME'] = time();
         }
     }
 
@@ -115,8 +130,9 @@ class Kronolith_Application extends Horde_Registry_Application
                 'click_year' => true,
                 'full_weekdays' => true
             ));
-            Horde::addScriptFile('goto.js', 'kronolith');
-            Horde::addInlineJsVars(array(
+            $page_output = $injector->getInstance('Horde_PageOutput');
+            $page_output->addScriptFile('goto.js');
+            $page_output->addInlineJsVars(array(
                 'KronolithGoto.dayurl' => strval(Horde::url('day.php')),
                 'KronolithGoto.monthurl' => strval(Horde::url('month.php')),
                 'KronolithGoto.weekurl' => strval(Horde::url('week.php')),
@@ -218,7 +234,11 @@ class Kronolith_Application extends Horde_Registry_Application
                 break;
 
             case 'sourceselect':
-                Horde_Core_Prefs_Ui_Widgets::addressbooksInit();
+                if ($prefs->isLocked('search_sources')) {
+                    $ui->suppress[] = $val;
+                } else {
+                    Horde_Core_Prefs_Ui_Widgets::addressbooksInit();
+                }
                 break;
             }
         }
@@ -456,11 +476,12 @@ class Kronolith_Application extends Horde_Registry_Application
 
         // Get the shares owned by the user being deleted.
         try {
-            $shares = $GLOBALS['kronolith_shares']->listShares(
+            $kronolith_shares = $GLOBALS['injector']->getInstance('Kronolith_Shares');
+            $shares = $kronolith_shares->listShares(
                 $user,
                 array('attributes' => $user));
             foreach ($shares as $share) {
-                $GLOBALS['kronolith_shares']->removeShare($share);
+                $kronolith_shares->removeShare($share);
             }
         } catch (Exception $e) {
             Horde::logMessage($e, 'NOTICE');
@@ -470,7 +491,7 @@ class Kronolith_Application extends Horde_Registry_Application
         /* Get a list of all shares this user has perms to and remove the
          * perms */
         try {
-            $shares = $GLOBALS['kronolith_shares']->listShares($user);
+            $shares = $kronolith_shares->listShares($user);
             foreach ($shares as $share) {
                 $share->removeUser($user);
             }
@@ -589,13 +610,14 @@ class Kronolith_Application extends Horde_Registry_Application
             $datejs = 'en-US.js';
         }
 
-        Horde::addScriptFile('date/' . $datejs, 'horde');
-        Horde::addScriptFile('date/date.js', 'horde');
-        Horde::addScriptFile('mobile.js');
+        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        $page_output->addScriptFile('date/' . $datejs, 'horde');
+        $page_output->addScriptFile('date/date.js', 'horde');
+        $page_output->addScriptFile('mobile.js');
         require KRONOLITH_TEMPLATES . '/mobile/javascript_defs.php';
 
         /* Inline script. */
-        Horde::addInlineScript(
+        $page_output->addInlineScript(
           '$(window.document).bind("mobileinit", function() {
               $.mobile.page.prototype.options.addBackBtn = true;
               $.mobile.page.prototype.options.backBtnText = "' . _("Back") .'";
@@ -647,16 +669,20 @@ class Kronolith_Application extends Horde_Registry_Application
         }
 
         $group = $GLOBALS['injector']->getInstance('Horde_Group');
+        $kronolith_shares = $GLOBALS['injector']->getInstance('Kronolith_Shares');
+
         $alarm_list = array();
         $time = new Horde_Date($time);
-        $calendars = is_null($user) ? array_keys($GLOBALS['kronolith_shares']->listAllShares()) : $GLOBALS['display_calendars'];
+        $calendars = is_null($user)
+            ? array_keys($kronolith_shares->listAllShares())
+            : $GLOBALS['display_calendars'];
         $alarms = Kronolith::listAlarms($time, $calendars, true);
         foreach ($alarms as $calendar => $cal_alarms) {
             if (!$cal_alarms) {
                 continue;
             }
             try {
-                $share = $GLOBALS['kronolith_shares']->getShare($calendar);
+                $share = $kronolith_shares->getShare($calendar);
             } catch (Exception $e) {
                 continue;
             }
@@ -693,7 +719,7 @@ class Kronolith_Application extends Horde_Registry_Application
                             if ($alarm) {
                                 $alarm_list[] = $alarm;
                             }
-                        }
+                    }
                 }
             }
         }

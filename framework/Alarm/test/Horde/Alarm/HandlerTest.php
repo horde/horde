@@ -44,7 +44,7 @@ class Horde_Alarm_HandlerTest extends PHPUnit_Framework_TestCase
         $handler = new Horde_Alarm_Handler_Desktop(array('js_notify' => array($this, 'desktopCallback'), 'icon' => 'test.png'));
         self::$alarm->addHandler('desktop', $handler);
 
-        self::$mail = Horde_Mail::factory('Mock');
+        self::$mail = new Horde_Mail_Transport_Mock();
         $factory = new Horde_Alarm_HandlerTest_IdentityFactory();
         $handler = new Horde_Alarm_Handler_Mail(array('mail' => self::$mail, 'identity' => $factory, 'charset' => 'us-ascii'));
         self::$alarm->addHandler('mail', $handler);
@@ -75,7 +75,7 @@ User-Agent: Horde Application Framework 4
 Date: %s, %d %s %s %d:%d:%d %s%d
 Content-Type: text/plain; charset=UTF-8; format=flowed; DelSp=Yes
 MIME-Version: 1.0';
-        $body = "Action is required.\r\n";
+        $body = "Action is required.\n";
 
         $alarm = self::$alarm->get('personalalarm', 'john');
         $alarm['methods'] = array('mail');

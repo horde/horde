@@ -8,7 +8,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 $permission = 'groups';
 Horde_Registry::appInit('horde');
 if (!$registry->isAdmin() && 
@@ -122,9 +122,9 @@ case 'editform':
 
 switch ($form) {
 case 'addchild.inc':
-    Horde::addInlineScript(array(
+    $injector->getInstance('Horde_PageOutput')->addInlineScript(array(
         '$("child").focus()'
-    ), 'dom');
+    ), true);
     break;
 
 case 'edit.inc':

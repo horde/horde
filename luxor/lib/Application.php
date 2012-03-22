@@ -12,7 +12,7 @@
 
 /* Determine the base directories. */
 if (!defined('LUXOR_BASE')) {
-    define('LUXOR_BASE', dirname(__FILE__) . '/..');
+    define('LUXOR_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {
@@ -33,7 +33,7 @@ class Luxor_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = 'H4 (1.0-git)';
+    public $version = 'H5 (1.0-git)';
 
     /**
      * Global variables defined:
@@ -41,7 +41,6 @@ class Luxor_Application extends Horde_Registry_Application
      */
     protected function _init()
     {
-        // Luxor base libraries.
         Luxor::initialize();
     }
 

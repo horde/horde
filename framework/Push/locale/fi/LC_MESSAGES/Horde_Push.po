@@ -1,0 +1,42 @@
+# Finnish translations for Horde_Push package.
+# Copyright (C) 2012 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Horde_Push package.
+# Automatically generated, 2011-2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Push \n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"PO-Revision-Date: 2012-03-07 17:49:30+0200\n"
+"Last-Translator: Leena Heino <liinu@uta.fi>\n"
+"Language-Team: Finnish <i18n@lists.horde.org>\n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/Horde/Push/Cli.php:79
+msgid "A comma delimited list of links."
+msgstr "Pilkulla erotettu lista linkeistä."
+
+#: lib/Horde/Push/Cli.php:63
+msgid "A comma delimited list of recipients."
+msgstr "Pilkulla erotettu lista vastaanottajista."
+
+#: lib/Horde/Push/Cli.php:71
+msgid "A comma delimited list of tags."
+msgstr "Pilkulla erotettu lista tageistä."
+
+#: lib/Horde/Push/Cli.php:55
+msgid "A summary replacing the value provided by the source."
+msgstr "Yhteenveto joka korvaa lähteessä määritellyn arvon."
+
+#: lib/Horde/Push/Cli.php:87
+msgid "Do not push the content but display what would be done."
+msgstr "Älä työnnä tietoja vaan näytä mitä olisi tarkoitus tehdä."
+
+#: lib/Horde/Push/Cli.php:47
+msgid "Path to the configuration file."
+msgstr "Polku asetustiedostoon."

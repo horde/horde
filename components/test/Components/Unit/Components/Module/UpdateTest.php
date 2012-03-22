@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../../Autoload.php';
+require_once __DIR__ . '/../../../Autoload.php';
 
 /**
  * Test the Update module.
@@ -140,7 +140,7 @@ extends Components_TestCase
             'horde-components',
             '--action=print',
             '--updatexml',
-            dirname(__FILE__) . '/../../../fixture/framework/simple'
+            __DIR__ . '/../../../fixture/framework/simple'
         );
         return $this->_callStrictComponents();
     }

@@ -26,7 +26,7 @@ div.composebody {
     border-width: 1px;
 }
 
-.smallheader.searchfolder {
+.smallheader.searchmbox {
     border-bottom-width: 0;
 }
 
@@ -89,7 +89,7 @@ span.folderImg {
 span.folderopenImg {
     background-image: url("graphics/folders/open.png");
 }
-span.draftsImg {
+span.draftsImg, span.composetemplatesImg {
     background-image: url("graphics/folders/drafts.png");
 }
 span.inboxImg {
@@ -105,13 +105,13 @@ span.trashImg {
     background-image: url("graphics/folders/trash.png");
 }
 
-.closeImg, .searchuiDelete {
+.closeImg {
     background-image: url("graphics/close.png");
 }
 .calendarImg {
     background-image: url("graphics/calendar.png");
 }
-.deleteImg {
+.deleteImg, .searchuiDelete {
     background-image: url("graphics/delete.png");
 }
 .reloadImg {
@@ -146,30 +146,4 @@ span.trashImg {
 }
 .printAtc {
     background-image: url("graphics/print.png");
-}
-
-/* Nav images (TODO: move to Horde) */
-.navfirstgreyImg {
-    background-image: url("graphics/nav/first-grey.png");
-}
-.navfirstImg {
-    background-image: url("graphics/nav/first.png");
-}
-.navlastgreyImg {
-    background-image: url("graphics/nav/last-grey.png");
-}
-.navlastImg {
-    background-image: url("graphics/nav/last.png");
-}
-.navleftgreyImg {
-    background-image: url("graphics/nav/left-grey.png");
-}
-.navleftImg {
-    background-image: url("graphics/nav/left.png");
-}
-.navrightgreyImg {
-    background-image: url("graphics/nav/right-grey.png");
-}
-.navrightImg {
-    background-image: url("graphics/nav/right.png");
 }

@@ -98,7 +98,7 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
      */
     public function quoteBinary($value)
     {
-        return "'" . str_replace(array('%', "\0"), array('%25', '%00'), $value) . "'";
+        return "'" . str_replace(array("'", '%', "\0"), array("''", '%25', '%00'), $value) . "'";
     }
 
 

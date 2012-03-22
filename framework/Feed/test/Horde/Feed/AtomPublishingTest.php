@@ -6,7 +6,7 @@
  */
 
 /** Setup testing */
-require_once dirname(__FILE__) . '/Autoload.php';
+require_once __DIR__ . '/Autoload.php';
 
 class Horde_Feed_AtomPublishingTest extends PHPUnit_Framework_TestCase {
 
@@ -20,7 +20,7 @@ class Horde_Feed_AtomPublishingTest extends PHPUnit_Framework_TestCase {
     public function testPost()
     {
         $mock = new Horde_Http_Request_Mock();
-        $mock->setResponse(new Horde_Http_Response_Mock('', fopen(dirname(__FILE__) . '/fixtures/AtomPublishingTest-created-entry.xml', 'r'), array('HTTP/1.1 201')));
+        $mock->setResponse(new Horde_Http_Response_Mock('', fopen(__DIR__ . '/fixtures/AtomPublishingTest-created-entry.xml', 'r'), array('HTTP/1.1 201')));
         $httpClient = new Horde_Http_Client(array('request' => $mock));
 
         $entry = new Horde_Feed_Entry_Atom(null, $httpClient);
@@ -47,12 +47,12 @@ class Horde_Feed_AtomPublishingTest extends PHPUnit_Framework_TestCase {
     public function testEdit()
     {
         $mock = new Horde_Http_Request_Mock();
-        $mock->setResponse(new Horde_Http_Response_Mock('', fopen(dirname(__FILE__) . '/fixtures/AtomPublishingTest-updated-entry.xml', 'r'), array('HTTP/1.1 200')));
+        $mock->setResponse(new Horde_Http_Response_Mock('', fopen(__DIR__ . '/fixtures/AtomPublishingTest-updated-entry.xml', 'r'), array('HTTP/1.1 200')));
         $httpClient = new Horde_Http_Client(array('request' => $mock));
 
         // The base feed URI is the same as the POST URI, so just supply the
         // Horde_Feed_Entry_Atom object with that.
-        $contents = file_get_contents(dirname(__FILE__) .  '/fixtures/AtomPublishingTest-before-update.xml');
+        $contents = file_get_contents(__DIR__ .  '/fixtures/AtomPublishingTest-before-update.xml');
         $entry = new Horde_Feed_Entry_Atom($contents, $httpClient);
 
         // Initial state.

@@ -27,59 +27,7 @@
  */
 
 // POOMMAIL
-//define("SYNC_POOMMAIL_ATTACHMENT","POOMMAIL:Attachment");
-//define("SYNC_POOMMAIL_ATTACHMENTS","POOMMAIL:Attachments");
-//define("SYNC_POOMMAIL_ATTNAME","POOMMAIL:AttName");
-//define("SYNC_POOMMAIL_ATTSIZE","POOMMAIL:AttSize");
-//define("SYNC_POOMMAIL_ATTOID","POOMMAIL:AttOid");
-//define("SYNC_POOMMAIL_ATTMETHOD","POOMMAIL:AttMethod");
-//define("SYNC_POOMMAIL_ATTREMOVED","POOMMAIL:AttRemoved");
-//define("SYNC_POOMMAIL_BODY","POOMMAIL:Body");
-//define("SYNC_POOMMAIL_BODYSIZE","POOMMAIL:BodySize");
-//define("SYNC_POOMMAIL_BODYTRUNCATED","POOMMAIL:BodyTruncated");
-//define("SYNC_POOMMAIL_DATERECEIVED","POOMMAIL:DateReceived");
-//define("SYNC_POOMMAIL_DISPLAYNAME","POOMMAIL:DisplayName");
-//define("SYNC_POOMMAIL_DISPLAYTO","POOMMAIL:DisplayTo");
-//define("SYNC_POOMMAIL_IMPORTANCE","POOMMAIL:Importance");
-//define("SYNC_POOMMAIL_MESSAGECLASS","POOMMAIL:MessageClass");
-//define("SYNC_POOMMAIL_SUBJECT","POOMMAIL:Subject");
-//define("SYNC_POOMMAIL_READ","POOMMAIL:Read");
-//define("SYNC_POOMMAIL_TO","POOMMAIL:To");
-//define("SYNC_POOMMAIL_CC","POOMMAIL:Cc");
-//define("SYNC_POOMMAIL_FROM","POOMMAIL:From");
-//define("SYNC_POOMMAIL_REPLY_TO","POOMMAIL:Reply-To");
-//define("SYNC_POOMMAIL_ALLDAYEVENT","POOMMAIL:AllDayEvent");
-//define("SYNC_POOMMAIL_CATEGORIES","POOMMAIL:Categories");
-//define("SYNC_POOMMAIL_CATEGORY","POOMMAIL:Category");
-//define("SYNC_POOMMAIL_DTSTAMP","POOMMAIL:DtStamp");
-//define("SYNC_POOMMAIL_ENDTIME","POOMMAIL:EndTime");
-//define("SYNC_POOMMAIL_INSTANCETYPE","POOMMAIL:InstanceType");
-//define("SYNC_POOMMAIL_BUSYSTATUS","POOMMAIL:BusyStatus");
-//define("SYNC_POOMMAIL_LOCATION","POOMMAIL:Location");
-//define("SYNC_POOMMAIL_MEETINGREQUEST","POOMMAIL:MeetingRequest");
-//define("SYNC_POOMMAIL_ORGANIZER","POOMMAIL:Organizer");
-//define("SYNC_POOMMAIL_RECURRENCEID","POOMMAIL:RecurrenceId");
-//define("SYNC_POOMMAIL_REMINDER","POOMMAIL:Reminder");
-//define("SYNC_POOMMAIL_RESPONSEREQUESTED","POOMMAIL:ResponseRequested");
-//define("SYNC_POOMMAIL_RECURRENCES","POOMMAIL:Recurrences");
-//define("SYNC_POOMMAIL_RECURRENCE","POOMMAIL:Recurrence");
-//define("SYNC_POOMMAIL_TYPE","POOMMAIL:Type");
-//define("SYNC_POOMMAIL_UNTIL","POOMMAIL:Until");
-//define("SYNC_POOMMAIL_OCCURRENCES","POOMMAIL:Occurrences");
-//define("SYNC_POOMMAIL_INTERVAL","POOMMAIL:Interval");
-//define("SYNC_POOMMAIL_DAYOFWEEK","POOMMAIL:DayOfWeek");
-//define("SYNC_POOMMAIL_DAYOFMONTH","POOMMAIL:DayOfMonth");
-//define("SYNC_POOMMAIL_WEEKOFMONTH","POOMMAIL:WeekOfMonth");
-//define("SYNC_POOMMAIL_MONTHOFYEAR","POOMMAIL:MonthOfYear");
-//define("SYNC_POOMMAIL_STARTTIME","POOMMAIL:StartTime");
-//define("SYNC_POOMMAIL_SENSITIVITY","POOMMAIL:Sensitivity");
-//define("SYNC_POOMMAIL_TIMEZONE","POOMMAIL:TimeZone");
-//define("SYNC_POOMMAIL_GLOBALOBJID","POOMMAIL:GlobalObjId");
-//define("SYNC_POOMMAIL_THREADTOPIC","POOMMAIL:ThreadTopic");
-//define("SYNC_POOMMAIL_MIMEDATA","POOMMAIL:MIMEData");
-//define("SYNC_POOMMAIL_MIMETRUNCATED","POOMMAIL:MIMETruncated");
-//define("SYNC_POOMMAIL_MIMESIZE","POOMMAIL:MIMESize");
-//define("SYNC_POOMMAIL_INTERNETCPID","POOMMAIL:InternetCPID");
+
 //
 //// ResolveRecipients
 //define("SYNC_RESOLVERECIPIENTS_RESOLVERECIPIENTS","ResolveRecipients:ResolveRecipients");
@@ -118,15 +66,21 @@ class Horde_ActiveSync
     const CONFLICT_OVERWRITE_SERVER     = 0;
     const CONFLICT_OVERWRITE_PIM        = 1;
 
-    const BACKEND_DISCARD_DATA          = 1;
+    /* Flag used to indicate we should NOT export change data to the PIM. Used
+     * during PING requests. */
+    const BACKEND_IGNORE_DATA          = 1;
 
     /* TRUNCATION Constants */
-    const TRUNCATION_HEADERS            = 0;
-    const TRUNCATION_512B               = 1;
-    const TRUNCATION_1K                 = 2;
-    const TRUNCATION_5K                 = 4;
-    const TRUNCATION_SEVEN              = 7;
-    const TRUNCATION_ALL                = 9;
+    const TRUNCATION_ALL                = 0;
+    const TRUNCATION_1                  = 1;
+    const TRUNCATION_2                  = 2;
+    const TRUNCATION_3                  = 3;
+    const TRUNCATION_4                  = 4;
+    const TRUNCATION_5                  = 5;
+    const TRUNCATION_6                  = 6;
+    const TRUNCATION_7                  = 7;
+    const TRUNCATION_8                  = 8;
+    const TRUNCATION_NONE               = 9;
 
     /* Request related constants that are used in multiple places */
     /* FOLDERHIERARCHY */
@@ -140,13 +94,7 @@ class Horde_ActiveSync
     const FOLDERHIERARCHY_STATUS        = 'FolderHierarchy:Status';
     const FOLDERHIERARCHY_CONTENTCLASS  = 'FolderHierarchy:ContentClass';
     const FOLDERHIERARCHY_CHANGES       = 'FolderHierarchy:Changes';
-    const FOLDERHIERARCHY_ADD           = 'FolderHierarchy:Add';
-    const FOLDERHIERARCHY_REMOVE        = 'FolderHierarchy:Remove';
-    const FOLDERHIERARCHY_UPDATE        = 'FolderHierarchy:Update';
     const FOLDERHIERARCHY_SYNCKEY       = 'FolderHierarchy:SyncKey';
-    const FOLDERHIERARCHY_FOLDERCREATE  = 'FolderHierarchy:FolderCreate';
-    const FOLDERHIERARCHY_FOLDERDELETE  = 'FolderHierarchy:FolderDelete';
-    const FOLDERHIERARCHY_FOLDERUPDATE  = 'FolderHierarchy:FolderUpdate';
     const FOLDERHIERARCHY_FOLDERSYNC    = 'FolderHierarchy:FolderSync';
     const FOLDERHIERARCHY_COUNT         = 'FolderHierarchy:Count';
     const FOLDERHIERARCHY_VERSION       = 'FolderHierarchy:Version';
@@ -244,7 +192,38 @@ class Horde_ActiveSync
     const GAL_MOBILEPHONE               = 'GAL:MobilePhone';
     const GAL_EMAILADDRESS              = 'GAL:EmailAddress';
 
+    /* Request Type */
+    const REQUEST_TYPE_SYNC             = 'sync';
+    const REQUEST_TYPE_FOLDERSYNC       = 'foldersync';
+
+    /* Change Type */
+    const CHANGE_TYPE_CHANGE            = 'change';
+    const CHANGE_TYPE_DELETE            = 'delete';
+    const CHANGE_TYPE_FLAGS             = 'flags';
+    const CHANGE_TYPE_MOVE              = 'move';
+    const CHANGE_TYPE_FOLDERSYNC        = 'foldersync';
+
+    /* Collection Classes */
+    const CLASS_EMAIL = 'Email';
+    const CLASS_CONTACTS = 'Contacts';
+    const CLASS_CALENDAR = 'Calendar';
+    const CLASS_TASKS = 'Tasks';
+
+    /* Filtertype constants */
+    const FILTERTYPE_ALL = 0;
+    const FILTERTYPE_1DAY = 1;
+    const FILTERTYPE_3DAYS = 2;
+    const FILTERTYPE_1WEEK = 3;
+    const FILTERTYPE_2WEEKS = 4;
+    const FILTERTYPE_1MONTH = 5;
+    const FILTERTYPE_3MONTHS = 6;
+    const FILTERTYPE_6MONTHS = 7;
+
+    const PROVISIONING_FORCE            = true;
     const PROVISIONING_LOOSE            = 'loose';
+    const PROVISIONING_NONE             = false;
+
+    const FOLDER_ROOT                   = 0;
     /**
      * Logger
      *
@@ -262,20 +241,26 @@ class Horde_ActiveSync
     /**
      * Const'r
      *
-     * @param Horde_ActiveSync_Driver $driver            The backend driver
-     * @param Horde_ActiveSync_StateMachine $state       The state machine
-     * @param Horde_ActiveSync_Wbxml_Decoder $decoder    The Wbxml decoder
-     * @param Horde_ActiveSync_Wbxml_Endcodder $encdoer  The Wbxml encoder
+     * @param Horde_ActiveSync_Driver_Base $driver      The backend driver.
+     * @param Horde_ActiveSync_Wbxml_Decoder $decoder   The Wbxml decoder.
+     * @param Horde_ActiveSync_Wbxml_Endcoder $encoder  The Wbxml encoder.
+     * @param Horde_ActiveSync_State_Base $state        The state driver.
+     * @param Horde_Controller_Request_Http $request    The HTTP request object.
      *
      * @return Horde_ActiveSync
      */
-    public function __construct(Horde_ActiveSync_Driver_Base $driver,
-                                Horde_ActiveSync_Wbxml_Decoder $decoder,
-                                Horde_ActiveSync_Wbxml_Encoder $encoder,
-                                Horde_Controller_Request_Http $request)
+    public function __construct(
+        Horde_ActiveSync_Driver_Base $driver,
+        Horde_ActiveSync_Wbxml_Decoder $decoder,
+        Horde_ActiveSync_Wbxml_Encoder $encoder,
+        Horde_ActiveSync_State_Base $state,
+        Horde_Controller_Request_Http $request)
     {
         // Backend driver
         $this->_driver = $driver;
+
+        // Device state manager
+        $this->_state = $state;
 
         // Wbxml handlers
         $this->_encoder = $encoder;
@@ -286,6 +271,32 @@ class Horde_ActiveSync
 
         // The http request
         $this->_request = $request;
+    }
+
+    /**
+     * Getter
+     *
+     * @param string $property  The property to return.
+     *
+     * @return mixed  The value of the requested property.
+     */
+    public function __get($property)
+    {
+        switch ($property) {
+        case 'encoder':
+        case 'decoder':
+        case 'state':
+        case 'request':
+        case 'driver':
+        case 'provisioning':
+            $property = '_' . $property;
+            return $this->$property;
+        default:
+            throw new InvalidArgumentException(sprintf(
+                'The property %s does not exist',
+                $property)
+            );
+        }
     }
 
     /**
@@ -301,6 +312,7 @@ class Horde_ActiveSync
         $this->_encoder->setLogger($logger);
         $this->_decoder->setLogger($logger);
         $this->_driver->setLogger($logger);
+        $this->_state->setLogger($logger);
     }
 
     /**
@@ -328,7 +340,10 @@ class Horde_ActiveSync
      * @param string $cmd    The command we are requesting.
      * @param string $devId  The device id making the request.
      *
-     * @return boolean
+     * @return string|boolean  false if failed, true if succeeded and response
+     *                         content is wbxml, otherwise the
+     *                         content-type string to send in the response.
+     * @throws Horde_ActiveSync_Exception, Horde_ActiveSync_Exception_InvalidRequest
      */
     public function handleRequest($cmd, $devId)
     {
@@ -341,18 +356,18 @@ class Horde_ActiveSync
             self::commandsHeader();
             return true;
         }
-
-        $state = $this->_driver->getStateObject();
-
+        if ($cmd == 'FolderDelete' || $cmd == 'FolderUpdate') {
+            $cmd = 'FolderCreate';
+        }
         if (is_null($devId)) {
             throw new Horde_ActiveSync_Exception('Device failed to send device id.');
         }
         // Does device exist AND does the user have an account on the device?
-        if (!empty($devId) && !$state->deviceExists($devId, $this->_driver->getUser())) {
+        if (!empty($devId) && !$this->_state->deviceExists($devId, $this->_driver->getUser())) {
             // Device might exist, but with a new (additional) user account
             $device = new StdClass();
-            if ($state->deviceExists($devId)) {
-                $d = $state->loadDeviceInfo($devId, '');;
+            if ($this->_state->deviceExists($devId)) {
+                $d = $this->_state->loadDeviceInfo($devId, '');;
             }
             $device->policykey = 0;
             $get = $this->_request->getGetVars();
@@ -361,43 +376,24 @@ class Horde_ActiveSync
             $device->rwstatus = self::RWSTATUS_NA;
             $device->user = $this->_driver->getUser();
             $device->id = $devId;
-            $state->setDeviceInfo($device);
+            $this->_state->setDeviceInfo($device);
         } else {
-            $device = $state->loadDeviceInfo($devId, $this->_driver->getUser());
+            $device = $this->_state->loadDeviceInfo($devId, $this->_driver->getUser());
         }
 
         // Load the request handler to handle the request
         $class = 'Horde_ActiveSync_Request_' . basename($cmd);
         $version = $this->getProtocolVersion();
         if (class_exists($class)) {
-            $request = new $class(
-                $this->_driver,
-                $this->_decoder,
-                $this->_encoder,
-                $this->_request,
-                $this,
-                $device,
-                $this->_provisioning);
+            $request = new $class($this, $device);
             $request->setLogger($this->_logger);
-            // @TODO: The headers really should be output in the Rpc layer.
-            // Can't due that until Horde 5 because the InvalidRequest Exception
-            // was introduced after release i.e., this is a BC break.
-            try {
-                $result = $request->handle();
-            } catch (Horde_ActiveSync_Exception_InvalidRequest $e) {
-                $this->_logger->err('Returning HTTP 400:' . $e->getMessage());
-                header('HTTP/1.1 400 Invalid Request ' . $e->getMessage());
-            } catch (Horde_ActiveSync_Exception $e) {
-                $this->_logger->err('Returning HTTP 500:' . $e->getMessage());
-                header('HTTP/1.1 500');
-            }
+            $result = $request->handle();
             $this->_driver->logOff();
 
             return $result;
         }
 
-        // No idea what the client is talking about
-        header('HTTP/1.1 400 Invalid Request ' . basename($cmd) . ' not supported.');
+        throw new Horde_ActiveSync_Exception_InvalidRequest(basename($cmd) . ' not supported.');
     }
 
     /**

@@ -16,7 +16,7 @@ class Ingo_Transport_Ldap extends Ingo_Transport
      *
      * @throws Ingo_Exception
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
         if (!Horde_Util::extensionExists('ldap')) {
             throw new Ingo_Exception(_("LDAP support is required but the LDAP module is not available or not loaded."));

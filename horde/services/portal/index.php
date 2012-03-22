@@ -8,19 +8,20 @@
  * @author Mike Cochrane <mike@graftonhall.co.nz>
  */
 
-require_once dirname(__FILE__) . '/../../lib/Application.php';
+require_once __DIR__ . '/../../lib/Application.php';
 Horde_Registry::appInit('horde');
 
 // Make sure we don't need the mobile view.
-if ($session->get('horde', 'mode') == 'smartmobile' && Horde::ajaxAvailable()) {
+if ($registry->getView() == Horde_Registry::VIEW_SMARTMOBILE) {
     Horde::getServiceLink('portal')->redirect();
     exit;
 }
 
 // Get refresh interval.
+$page_output = $injector->getInstance('Horde_PageOutput');
 if (($r_time = $prefs->getValue('summary_refresh_time'))
     && !$browser->hasFeature('xmlhttpreq')) {
-    Horde::metaRefresh($r_time, Horde::url('services/portal/'));
+    $page_output->metaRefresh($r_time, Horde::url('services/portal/'));
 }
 
 // Render layout.
@@ -31,14 +32,9 @@ $view = new Horde_Core_Block_Layout_View(
 );
 $layout_html = $view->toHtml();
 
-$css = $injector->getInstance('Horde_Themes_Css');
-foreach ($view->getApplications() as $app) {
-    foreach ($css->getStylesheets('', array('app' => $app, 'nohorde' => true)) as $val) {
-        $css->addStylesheet($val['fs'], $val['uri']);
-    }
+foreach ($view->getStylesheets() as $val) {
+    $page_output->addStylesheet($val['fs'], $val['uri']);
 }
-
-$linkTags = $view->getLinkTags();
 
 $title = _("My Portal");
 require HORDE_TEMPLATES . '/common-header.inc';

@@ -12,7 +12,7 @@
  */
 
 require_once 'Horde/Test/Autoload.php';
-require_once dirname(__FILE__) . '/Helpers.php';
+require_once __DIR__ . '/Helpers.php';
 
 /* Catch strict standards */
 error_reporting(E_ALL | E_STRICT);

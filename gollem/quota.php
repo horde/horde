@@ -13,7 +13,7 @@
  * @package  Gollem
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('gollem');
 
 /* Is this a popup window? */
@@ -24,9 +24,9 @@ $template = $injector->createInstance('Horde_Template');
 $template->setOption('gettext', true);
 if ($isPopup) {
     $template->set('closebutton', _("Close"));
-    Horde::addInlineScript(array(
+    $injector->getInstance('Horde_PageOutput')->addInlineScript(array(
         '$("closebutton").observe("click", function() { window.close(); })'
-    ), 'dom');
+    ), true);
 }
 
 /* Get the quota information. */

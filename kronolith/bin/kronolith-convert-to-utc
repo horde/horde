@@ -4,8 +4,8 @@
  * This script converts all dates from the user's timezone to UTC.
  */
 
-if (file_exists(dirname(__FILE__) . '/../../kronolith/lib/Application.php')) {
-    $baseDir = dirname(__FILE__) . '/../';
+if (file_exists(__DIR__ . '/../../kronolith/lib/Application.php')) {
+    $baseDir = __DIR__ . '/../';
 } else {
     require_once 'PEAR/Config.php';
     $baseDir = PEAR_Config::singleton()
@@ -37,6 +37,7 @@ if (!isset($argv[1]) || $argv[1] != '--yes') {
 $creator = null;
 $utc = new DateTimeZone('UTC');
 echo "Converting events for:\n";
+$timezone = new DateTimeZone(date_default_timezone_get());
 foreach ($result as $row) {
     if ($row['event_allday']) {
         continue;

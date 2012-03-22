@@ -155,7 +155,7 @@ class Horde_Vfs_Musql extends Horde_Vfs_Sql
                 if ($result == 0) {
                     throw new Horde_Vfs_Exception('Unable to delete VFS file.');
                 }
-                return $result;
+                return;
             }
         }
 
@@ -336,7 +336,7 @@ class Horde_Vfs_Musql extends Horde_Vfs_Sql
     }
 
     /**
-     * Returns a list of the contents of a folder.
+     * Returns an an unsorted file list of the specified directory.
      *
      * @param string $path       The path of the directory.
      * @param mixed $filter      String/hash to filter file/dirname on.

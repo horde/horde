@@ -1,6 +1,6 @@
 <?php
 /**
- * Login tasks module that purges old messages in the Trash folder.
+ * Login tasks module that purges old messages in the Trash mailbox.
  *
  * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
  *
@@ -29,18 +29,18 @@ class IMP_LoginTasks_Task_PurgeTrash extends Horde_LoginTasks_Task
     }
 
     /**
-     * Purge old messages in the Trash folder.
+     * Purge old messages in the Trash mailbox.
      *
-     * @return boolean  Whether any messages were purged from the Trash folder.
+     * @return boolean  Whether any messages were purged from the mailbox.
      */
     public function execute()
     {
         global $injector, $notification, $prefs;
 
         if (!$prefs->getValue('use_trash') ||
-            !($trash_folder = IMP_Mailbox::getPref('trash_folder')) ||
-            $trash_folder->vtrash ||
-            !$trash_folder->exists) {
+            !($trash = IMP_Mailbox::getPref('trash_folder')) ||
+            $trash->vtrash ||
+            !$trash->exists) {
             return false;
         }
 
@@ -52,7 +52,7 @@ class IMP_LoginTasks_Task_PurgeTrash extends Horde_LoginTasks_Task
         /* Get the list of messages older than 'purge_trash_keep' days. */
         $query = new Horde_Imap_Client_Search_Query();
         $query->dateSearch($del_time, Horde_Imap_Client_Search_Query::DATE_BEFORE);
-        $msg_ids = $trash_folder->runSearchQuery($query);
+        $msg_ids = $trash->runSearchQuery($query);
 
         /* Go through the message list and delete the messages. */
         if (!$injector->getInstance('IMP_Message')->delete($msg_ids, array('nuke' => true))) {
@@ -60,7 +60,7 @@ class IMP_LoginTasks_Task_PurgeTrash extends Horde_LoginTasks_Task
         }
 
         $msgcount = count($msg_ids);
-        $notification->push(sprintf(ngettext("Purging %d message from Trash folder.", "Purging %d messages from Trash folder.", $msgcount), $msgcount), 'horde.message');
+        $notification->push(sprintf(ngettext("Purging %d message from Trash mailbox.", "Purging %d messages from Trash mailbox.", $msgcount), $msgcount), 'horde.message');
         return true;
     }
 
@@ -72,7 +72,7 @@ class IMP_LoginTasks_Task_PurgeTrash extends Horde_LoginTasks_Task
      */
     public function describe()
     {
-        return sprintf(_("All messages in your \"%s\" folder older than %s days will be permanently deleted."),
+        return sprintf(_("All messages in your \"%s\" mailbox older than %s days will be permanently deleted."),
                        IMP_Mailbox::getPref('trash_folder')->display_html,
                        $GLOBALS['prefs']->getValue('purge_trash_keep'));
     }

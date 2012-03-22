@@ -30,12 +30,14 @@ class Ansel_View_GalleryRenderer_GalleryLightbox extends Ansel_View_GalleryRende
             $this->view->image_onclick = 'return lb.start(%i);';
         }
 
-        // Attach the script and CSS files here if we aren't being called via the api
+        // Attach the script and CSS files here if we aren't being called via
+        // the API
         if (empty($this->view->api)) {
-            $GLOBALS['injector']->getInstance('Horde_Themes_Css')->addThemeStylesheet('lightbox.css');
-            Horde::addScriptFile('effects.js', 'horde');
-            Horde::addScriptFile('lightbox.js', 'ansel');
-            Horde::addScriptFile('popup.js', 'horde');
+            $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+            $page_output->addThemeStylesheet('lightbox.css');
+            $page_output->addScriptFile('effects.js', 'horde');
+            $page_output->addScriptFile('popup.js', 'horde');
+            $page_output->addScriptFile('lightbox.js');
         }
     }
 
@@ -147,11 +149,12 @@ class Ansel_View_GalleryRenderer_GalleryLightbox extends Ansel_View_GalleryRende
         } else {
             $jsvars['gallery_url'] = $pagerurl . '&';
         }
-        
+
         // Output js/css here if we are calling via the api
         if ($this->view->api) {
-            $GLOBALS['injector']->getInstance('Horde_Themes_Css')->addThemeStylesheet('lightbox.css');
-            Horde::includeStylesheetFiles(array('nobase' => true), true);
+            $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+            $page_output->addThemeStylesheet('lightbox.css');
+            $page_output->includeStylesheetFiles(array('nobase' => true), true);
             $includes = $GLOBALS['injector']->createInstance('Horde_Script_Files');
             $includes->add('accesskeys.js', 'horde', true);
             $includes->add('effects.js', 'horde', true);

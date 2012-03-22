@@ -6,7 +6,7 @@
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 $beatnik = Horde_Registry::appInit('beatnik');
 
 // Unset the current domain since we are generating a zone list
@@ -46,8 +46,9 @@ foreach ($fields as $field_id => $field) {
 }
 
 // Add javascript navigation and striping
-Horde::addScriptFile('beatnik.js');
-Horde::addScriptFile('stripe.js', 'horde');
+$page_output = $injector->getInstance('Horde_PageOutput');
+$page_output->addScriptFile('beatnik.js');
+$page_output->addScriptFile('stripe.js', 'horde');
 
 // Initialization complete.  Render the page.
 Beatnik::notifyCommits();

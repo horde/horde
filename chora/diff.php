@@ -19,7 +19,7 @@
  * @package  Chora
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('chora');
 
 /* Spawn the repository and file objects */
@@ -74,7 +74,7 @@ foreach ($VC->getRevisionRange($fl, $vars->r1, $vars->r2) as $val) {
     }
 }
 
-Horde::addScriptFile('stripe.js', 'horde');
+$injector->getInstance('Horde_PageOutput')->addScriptFile('stripe.js', 'horde');
 require $registry->get('templates', 'horde') . '/common-header.inc';
 require CHORA_TEMPLATES . '/menu.inc';
 require CHORA_TEMPLATES . '/headerbar.inc';

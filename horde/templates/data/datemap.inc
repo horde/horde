@@ -33,7 +33,7 @@ foreach ($GLOBALS['session']->get('horde', 'import_data/dates') as $key => $date
         </td>
     </tr>
 <?php endif; ?>
-<?php include dirname(__FILE__) . '/' . basename($date['type']) . '.inc' ?>
+<?php include __DIR__ . '/' . basename($date['type']) . '.inc' ?>
     </table>
     </td>
 </tr>

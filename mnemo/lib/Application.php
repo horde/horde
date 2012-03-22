@@ -15,7 +15,7 @@
 
 /* Determine the base directories. */
 if (!defined('MNEMO_BASE')) {
-    define('MNEMO_BASE', dirname(__FILE__) . '/..');
+    define('MNEMO_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {
@@ -36,7 +36,7 @@ class Mnemo_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = 'H4 (3.0.6-git)';
+    public $version = 'H5 (4.0-git)';
 
     /**
      * Global variables defined:

@@ -11,7 +11,7 @@
  * @category Horde
  * @package Rdo
  */
-abstract class Horde_Rdo_Base implements IteratorAggregate
+abstract class Horde_Rdo_Base implements IteratorAggregate, ArrayAccess
 {
     /**
      * The Horde_Rdo_Mapper instance associated with this Rdo object. The
@@ -89,8 +89,9 @@ abstract class Horde_Rdo_Base implements IteratorAggregate
             // @TODO Support composite primary keys
             $query = new Horde_Rdo_Query($mapper);
             $query->setFields($field)
-                  ->addTest($mapper->primaryKey, '=', $this->{$mapper->primaryKey});
-            $this->_fields[$field] = $mapper->adapter->queryOne($query);
+                   ->addTest($mapper->primaryKey, '=', $this->{$mapper->primaryKey});
+            list($sql, $params) = $query->getQuery();
+            $this->_fields[$field] = $mapper->adapter->selectValue($sql, $params);;
             return $this->_fields[$field];
         } elseif (isset($mapper->lazyRelationships[$field])) {
             $rel = $mapper->lazyRelationships[$field];
@@ -120,7 +121,7 @@ abstract class Horde_Rdo_Base implements IteratorAggregate
             if (isset($rel['query'])) {
                 $query = $this->_fillPlaceholders($rel['query']);
                 $this->_fields[$field] = $m->findOne($query);
-            } elseif(!empty($this->{$rel['foreignKey']})) {
+            } elseif (!empty($this->{$rel['foreignKey']})) {
                 $this->_fields[$field] = $m->findOne($this->{$rel['foreignKey']});
                 if (empty($this->_fields[$field])) {
                     throw new Horde_Rdo_Exception('The referenced object with key ' . $this->{$rel['foreignKey']} . ' does not exist. Your data is inconsistent');
@@ -150,6 +151,16 @@ abstract class Horde_Rdo_Base implements IteratorAggregate
     }
 
     /**
+     * Implements getter for ArrayAccess interface.
+     *
+     * @see __get()
+     */
+    public function offsetGet($field)
+    {
+        return $this->__get($field);
+    }
+
+    /**
      * Set a field's value.
      *
      * @param string $field The field to set
@@ -170,6 +181,16 @@ abstract class Horde_Rdo_Base implements IteratorAggregate
     }
 
     /**
+     * Implements setter for ArrayAccess interface.
+     *
+     * @see __set()
+     */
+    public function offsetSet($field, $value)
+    {
+        $this->__set($field, $value);
+    }
+
+    /**
      * Allow using isset($rdo->foo) to check for field or
      * relationship presence.
      *
@@ -186,6 +207,16 @@ abstract class Horde_Rdo_Base implements IteratorAggregate
     }
 
     /**
+     * Implements isset() for ArrayAccess interface.
+     *
+     * @see __isset()
+     */
+    public function offsetExists($field)
+    {
+        return $this->__isset($field);
+    }
+
+    /**
      * Allow using unset($rdo->foo) to unset a basic
      * field. Relationships cannot be unset in this way.
      *
@@ -196,6 +227,16 @@ abstract class Horde_Rdo_Base implements IteratorAggregate
         // @TODO Should unsetting a MANY_TO_MANY relationship remove
         // the relationship?
         unset($this->_fields[$field]);
+    }
+
+    /**
+     * Implements unset() for ArrayAccess interface.
+     *
+     * @see __unset()
+     */
+    public function offsetUnset($field)
+    {
+        $this->__unset($field);
     }
 
     /**

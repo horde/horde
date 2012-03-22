@@ -6,7 +6,7 @@
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 $beatnik = Horde_Registry::appInit('beatnik');
 
 try {
@@ -17,7 +17,7 @@ try {
 }
 
 $title = $_SESSION['beatnik']['curdomain']['zonename'];
-Horde::addScriptFile('stripe.js', 'horde');
+$injector->getInstance('Horde_PageOutput')->addScriptFile('stripe.js', 'horde');
 Beatnik::notifyCommits();
 require $registry->get('templates', 'horde') . '/common-header.inc';
 require BEATNIK_TEMPLATES . '/menu.inc';

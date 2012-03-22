@@ -117,21 +117,20 @@ abstract class Horde_Mail_Transport
             ? $headers['_raw']
             : null;
 
-        $parser = new Horde_Mail_Rfc822();
-
         foreach ($headers as $key => $value) {
             if (strcasecmp($key, 'From') === 0) {
+                $parser = new Horde_Mail_Rfc822();
                 $addresses = $parser->parseAddressList($value, array(
-                    'nest_groups' => false,
+                    'validate' => true
                 ));
-                $from = $addresses[0]->mailbox . '@' . $addresses[0]->host;
+                $from = $addresses[0]->bare_address;
 
                 // Reject envelope From: addresses with spaces.
                 if (strstr($from, ' ')) {
                     return false;
                 }
 
-                $lines[] = $key . ': ' . $value;
+                $lines[] = $key . ': ' . $this->_normalizeEOL($value);
             } elseif (!$raw && (strcasecmp($key, 'Received') === 0)) {
                 $received = array();
                 if (!is_array($value)) {
@@ -139,7 +138,7 @@ abstract class Horde_Mail_Transport
                 }
 
                 foreach ($value as $line) {
-                    $received[] = $key . ': ' . $line;
+                    $received[] = $key . ': ' . $this->_normalizeEOL($line);
                 }
 
                 // Put Received: headers at the top.  Spam detectors often
@@ -152,7 +151,7 @@ abstract class Horde_Mail_Transport
                 if (is_array($value)) {
                     $value = implode(', ', $value);
                 }
-                $lines[] = $key . ': ' . $value;
+                $lines[] = $key . ': ' . $this->_normalizeEOL($value);
             }
         }
 
@@ -181,19 +180,12 @@ abstract class Horde_Mail_Transport
         // Parse recipients, leaving out all personal info. This is
         // for smtp recipients, etc. All relevant personal information
         // should already be in the headers.
-        $parser = new Horde_Mail_Rfc822();
-        $addresses = $parser->parseAddressList($recipients, array(
-            'nest_groups' => false
+        $rfc822 = new Horde_Mail_Rfc822();
+        $addresses = $rfc822->parseAddressList($recipients, array(
+            'validate' => true
         ));
 
-        $recipients = array();
-        if (is_array($addresses)) {
-            foreach ($addresses as $ob) {
-                $recipients[] = $ob->mailbox . '@' . $ob->host;
-            }
-        }
-
-        return $recipients;
+        return $addresses->bare_addresses;
     }
 
     /**
@@ -214,6 +206,22 @@ abstract class Horde_Mail_Transport
         }
 
         return $headers;
+    }
+
+    /**
+     * Normalizes EOLs in string data.
+     *
+     * @param string $data  Data.
+     *
+     * @return string  Normalized data.
+     */
+    protected function _normalizeEOL($data)
+    {
+        return strtr($data, array(
+            "\r\n" => $this->sep,
+            "\r" => $this->sep,
+            "\n" => $this->sep
+        ));
     }
 
 }

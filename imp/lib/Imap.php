@@ -104,7 +104,7 @@ class IMP_Imap implements Serializable
 
         if (($server = $this->loadServerConfig($key)) === false) {
             $error = new IMP_Imap_Exception('Could not load server configuration.');
-            $error->log();
+            Horde::logMessage($error);
             throw $error;
         }
 
@@ -138,7 +138,7 @@ class IMP_Imap implements Serializable
             $ob = Horde_Imap_Client::factory(($protocol == 'imap') ? 'Socket' : 'Socket_Pop3', $imap_config);
         } catch (Horde_Imap_Client_Exception $e) {
             $error = new IMP_Imap_Exception($e);
-            $error->log();
+            Horde::logMessage($error);
             throw $error;
         }
 
@@ -241,13 +241,13 @@ class IMP_Imap implements Serializable
     }
 
     /**
-     * Get namespace info for a full folder path.
+     * Get namespace info for a full mailbox path.
      *
-     * @param string $mailbox    The folder path.
+     * @param string $mailbox    The mailbox path.
      * @param boolean $personal  If true, will return empty namespace only
      *                           if it is a personal namespace.
      *
-     * @return mixed  The namespace info for the folder path or null if the
+     * @return mixed  The namespace info for the mailbox path or null if the
      *                path doesn't exist.
      */
     public function getNamespace($mailbox = null, $personal = false)
@@ -265,7 +265,7 @@ class IMP_Imap implements Serializable
 
         foreach ($ns as $key => $val) {
             $mbox = $mailbox . $val['delimiter'];
-            if (!empty($key) && (strpos($mbox, $key) === 0)) {
+            if (strlen($key) && (strpos($mbox, $key) === 0)) {
                 return $val;
             }
         }
@@ -334,6 +334,45 @@ class IMP_Imap implements Serializable
         }
 
         switch ($method) {
+        case 'append':
+        case 'createMailbox':
+        case 'deleteMailbox':
+        case 'expunge':
+        case 'fetch':
+        case 'fetchFromSectionString':
+        case 'getACL':
+        case 'getCacheId':
+        case 'getMetadata':
+        case 'getMyACLRights':
+        case 'getQuota':
+        case 'getQuotaRoot':
+        case 'openMailbox':
+        case 'setMetadata':
+        case 'setQuota':
+        case 'status':
+        case 'statusMultiple':
+        case 'store':
+        case 'subscribeMailbox':
+        case 'thread':
+            // Horde_Imap_Client_Mailbox: these calls all have the mailbox as
+            // their first parameter.
+            $params[0] = IMP_Mailbox::getImapMboxOb($params[0]);
+            break;
+
+        case 'copy':
+        case 'renameMailbox':
+            // Horde_Imap_Client_Mailbox: these calls all have the mailbox as
+            // their first two parameters.
+            $params[0] = IMP_Mailbox::getImapMboxOb($params[0]);
+            $params[1] = IMP_Mailbox::getImapMboxOb($params[1]);
+            break;
+
+        case 'listMailboxes':
+            // Horde_Imap_Client_Mailbox: these calls all have the mailbox as
+            // their first parameter.
+            $params[0] = IMP_Mailbox::getImapMboxOb($params[0]);
+            break;
+
         case 'search':
             $params = call_user_func_array(array($this, '_search'), $params);
             break;
@@ -343,61 +382,7 @@ class IMP_Imap implements Serializable
             $result = call_user_func_array(array($this->ob, $method), $params);
         } catch (Horde_Imap_Client_Exception $e) {
             $error = new IMP_Imap_Exception($e);
-
-            switch ($e->getCode()) {
-            case Horde_Imap_Client_Exception::DISCONNECT:
-                $error->notify(_("Unexpectedly disconnected from the mail server."));
-                break;
-
-            case Horde_Imap_Client_Exception::SERVER_READERROR:
-                $error->notify(_("Error when communicating with the mail server."));
-                break;
-
-            case Horde_Imap_Client_Exception::MAILBOX_NOOPEN:
-                if (strcasecmp($method, 'openMailbox') === 0) {
-                    $error->notify(sprintf(_("Could not open mailbox \"%s\"."), IMP_Mailbox::get(reset($params)))->label);
-                } else {
-                    $error->notify(_("Could not open mailbox."));
-                }
-                break;
-
-            case Horde_Imap_Client_Exception::CATENATE_TOOBIG:
-                $error->notify(_("Could not save message data because it is too large."));
-                break;
-
-            case Horde_Imap_Client_Exception::NOPERM:
-                $error->notify(_("You do not have adequate permissions to carry out this operation."));
-                break;
-
-            case Horde_Imap_Client_Exception::INUSE:
-            case Horde_Imap_Client_Exception::POP3_TEMP_ERROR:
-                $error->notify(_("There was a temporary issue when attempting this operation. Please try again later."));
-                break;
-
-            case Horde_Imap_Client_Exception::CORRUPTION:
-            case Horde_Imap_Client_Exception::POP3_PERM_ERROR:
-                $error->notify(_("The mail server is reporting corrupt data in your mailbox. Details have been logged for the administrator."));
-                break;
-
-            case Horde_Imap_Client_Exception::LIMIT:
-                $error->notify(_("The mail server has denied the request. Details have been logged for the administrator."));
-                break;
-
-            case Horde_Imap_Client_Exception::OVERQUOTA:
-                $error->notify(_("The operation failed because you have exceeded your quota on the mail server."));
-                break;
-
-            case Horde_Imap_Client_Exception::ALREADYEXISTS:
-                $error->notify(_("The object could not be created because it already exists."));
-                break;
-
-            case Horde_Imap_Client_Exception::NONEXISTENT:
-                $error->notify(_("The object could not be deleted because it does not exist."));
-                break;
-            }
-
-            $error->log();
-
+            Horde::logMessage($error);
             throw $error;
         }
 
@@ -415,7 +400,7 @@ class IMP_Imap implements Serializable
                 if ($this->pop3 &&
                     !$this->queryCapability('UIDL')) {
                     $error = new IMP_Imap_Exception('The POP3 server does not support the REQUIRED UIDL capability.');
-                    $error->log();
+                    Horde::logMessage($error);
                     throw $error;
                 }
 
@@ -443,7 +428,7 @@ class IMP_Imap implements Serializable
     /**
      * Prepares an IMAP search query.  Needed because certain configuration
      * parameters may need to be dynamically altered before passed to the
-     * IMAP Client object.
+     * Imap_Client object.
      *
      * @param string $mailbox                        The mailbox to search.
      * @param Horde_Imap_Client_Search_Query $query  The search query object.
@@ -451,9 +436,10 @@ class IMP_Imap implements Serializable
      *
      * @return array  Parameters to use in the search() call.
      */
-    protected function _search($mailbox, $query, $opts)
+    protected function _search($mailbox, $query = null, array $opts = array())
     {
         $imap_charset = null;
+        $mailbox = IMP_Mailbox::get($mailbox);
 
         if (!empty($opts['sort'])) {
             /* SORT (RFC 5256) requires UTF-8 support. So if we are sorting
@@ -468,7 +454,7 @@ class IMP_Imap implements Serializable
              * on the server. */
             if (is_array($sort_cap) &&
                 in_array('DISPLAY', $sort_cap) &&
-                IMP_Mailbox::get($mailbox)->access_sort) {
+                $mailbox->access_sort) {
                 $pos = array_search(Horde_Imap_Client::SORT_FROM, $opts['sort']);
                 if ($pos !== false) {
                     $opts['sort'][$pos] = Horde_Imap_Client::SORT_DISPLAYFROM;
@@ -482,7 +468,7 @@ class IMP_Imap implements Serializable
         }
 
         /* Make sure we search in the proper charset. */
-        if ($query) {
+        if (!is_null($query)) {
             $query = clone $query;
             if (is_null($imap_charset)) {
                 $imap_charset = $this->validSearchCharset('UTF-8')
@@ -492,7 +478,7 @@ class IMP_Imap implements Serializable
             $query->charset($imap_charset, array('Horde_String', 'convertCharset'));
         }
 
-        return array($mailbox, $query, $opts);
+        return array($mailbox->imap_mbox_ob, $query, $opts);
     }
 
     /* Static methods. */

@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 $hylax = Horde_Registry::appInit('hylax', array('cli' => true));
 
 /* Store the raw fax postscript data. */

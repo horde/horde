@@ -31,7 +31,7 @@ class Horde_Mime_Magic
     static protected function _getMimeExtensionMap()
     {
         if (is_null(self::$_map)) {
-            require dirname(__FILE__) . '/mime.mapping.php';
+            require __DIR__ . '/mime.mapping.php';
             self::$_map = $mime_extension_map;
         }
 
@@ -140,11 +140,9 @@ class Horde_Mime_Magic
      * @param string $path      The path to the file to analyze.
      * @param string $magic_db  Path to the mime magic database.
      * @param array $opts       Additional options:
-     * <pre>
-     * 'nostrip' - (boolean) Don't strip parameter information from MIME
-     *             type string.
-     *             DEFAULT: false
-     * </pre>
+     *   - nostrip: (boolean) Don't strip parameter information from MIME
+     *              type string.
+     *              DEFAULT: false
      *
      * @return mixed  The MIME type of the file. Returns false if the file
      *                type can not be determined.
@@ -187,11 +185,9 @@ class Horde_Mime_Magic
      * @param string $data      The file data to analyze.
      * @param string $magic_db  Path to the mime magic database.
      * @param array $opts       Additional options:
-     * <pre>
-     * 'nostrip' - (boolean) Don't strip parameter information from MIME
-     *             type string.
-     *             DEFAULT: false
-     * </pre>
+     *   - nostrip: (boolean) Don't strip parameter information from MIME
+     *              type string.
+     *              DEFAULT: false
      *
      * @return mixed  The MIME type of the file. Returns false if the file
      *                type can not be determined.

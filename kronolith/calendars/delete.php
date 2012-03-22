@@ -8,7 +8,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
 // Exit if this isn't an authenticated user.
@@ -24,7 +24,7 @@ if (Kronolith::showAjaxView()) {
 }
 
 try {
-    $calendar = $kronolith_shares->getShare($calendar_id);
+    $calendar = $injector->getInstance('Kronolith_Shares')->getShare($calendar_id);
 } catch (Exception $e) {
     $notification->push($e, 'horde.error');
     Horde::url('calendars/', true)->redirect();

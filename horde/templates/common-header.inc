@@ -28,14 +28,15 @@ if (!empty($title)) {
 <head>
 <?php
 
-Horde::outputMetaTags();
-$appOb = $GLOBALS['registry']->getApiInstance($GLOBALS['registry']->getApp(), 'application');
-if ((strpos($GLOBALS['session']->get('horde', 'mode'), 'mobile') === false) || empty($appOb->mobileView)) {
-    Horde::includeFavicon();
-    Horde::includeStylesheetFiles();
-    Horde::includeScriptFiles();
-    echo implode("\n", Horde_Util::nonInputVar('linkTags', array()));
-    Horde::outputInlineScript();
+$page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+
+$page_output->outputMetaTags();
+if (!in_array($GLOBALS['registry']->getView(), array(Horde_Registry::VIEW_MINIMAL, Horde_Registry::VIEW_SMARTMOBILE))) {
+    $page_output->includeFavicon();
+    $page_output->includeStylesheetFiles();
+    $page_output->includeScriptFiles();
+    $page_output->outputLinkTags();
+    $page_output->outputInlineScript();
 }
 
 ?>

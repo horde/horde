@@ -40,6 +40,7 @@ extends Horde_Core_Notification_Handler_Decorator_Base
             return;
         }
 
+        $ajax_queue = $injector->getInstance('IMP_Ajax_Queue');
         $ns = $imp_imap->getNamespace();
         $recent = array();
 
@@ -49,7 +50,9 @@ extends Horde_Core_Notification_Handler_Decorator_Base
                  * cleared. */
                 $imp_imap->openMailbox($key, Horde_Imap_Client::OPEN_READWRITE);
 
-                $recent[IMP_Mailbox::get($key)->display] = $val['recent'];
+                $mbox = IMP_Mailbox::get($key);
+                $recent[$mbox->display] = $val['recent'];
+                $ajax_queue->poll($mbox);
             }
         }
 

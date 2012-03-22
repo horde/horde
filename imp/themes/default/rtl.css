@@ -34,29 +34,3 @@
 .msgheader img {
     padding: 1px 2px 1px 1px;
 }
-
-/* Nav images (TODO: move to Horde) */
-.navfirstgreyImg {
-    background-image: url("graphics/nav/last-grey.png");
-}
-.navfirstImg {
-    background-image: url("graphics/nav/last.png");
-}
-.navlastgreyImg {
-    background-image: url("graphics/nav/first-grey.png");
-}
-.navlastImg {
-    background-image: url("graphics/nav/first.png");
-}
-.navleftgreyImg {
-    background-image: url("graphics/nav/right-grey.png");
-}
-.navleftImg {
-    background-image: url("graphics/nav/right.png");
-}
-.navrightgreyImg {
-    background-image: url("graphics/nav/left-grey.png");
-}
-.navrightImg {
-    background-image: url("graphics/nav/left.png");
-}

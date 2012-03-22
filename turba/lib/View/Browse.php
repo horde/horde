@@ -512,9 +512,10 @@ class Turba_View_Browse
             $templates[] = '/browse/header.inc';
         }
 
-        Horde::addScriptFile('quickfinder.js', 'horde');
-        Horde::addScriptFile('effects.js', 'horde');
-        Horde::addScriptFile('redbox.js', 'horde');
+        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        $page_output->addScriptFile('quickfinder.js', 'horde');
+        $page_output->addScriptFile('effects.js', 'horde');
+        $page_output->addScriptFile('redbox.js', 'horde');
         require $registry->get('templates', 'horde') . '/common-header.inc';
         require TURBA_TEMPLATES . '/menu.inc';
         foreach ($templates as $template) {

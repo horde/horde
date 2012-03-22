@@ -58,12 +58,12 @@ if (!$options['backend'] || !$options['configuration']) {
 }
 
 /* Load configuration. */
-if (!file_exists(dirname(__FILE__) . '/conf.php')) {
+if (!file_exists(__DIR__ . '/conf.php')) {
     echo "Configuration file conf.php missing.\n";
     exit(1);
 }
 
-require dirname(__FILE__) . '/conf.php';
+require __DIR__ . '/conf.php';
 $config = isset($conf['share']['sql'][$options['configuration']])
     ? $conf['share']['sql'][$options['configuration']]
     : array();
@@ -74,7 +74,7 @@ case 'sql':
 case 'sqlng':
     $class = 'Horde_Db_Adapter_' . implode('_', array_map(array('Horde_String', 'ucwords'), explode('_', $options['configuration'])));
     $storage = new $class($config);
-    require_once dirname(__FILE__) . '/migration/' . $options['backend'] . '.php';
+    require_once __DIR__ . '/migration/' . $options['backend'] . '.php';
     call_user_func('migrate_' . $options['backend'], $storage);
     break;
 default:

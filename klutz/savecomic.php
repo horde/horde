@@ -12,7 +12,7 @@
  * @author Michael Rubinsky <mrubinsk@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('klutz');
 
 $index = Horde_Util::getFormData('index');
