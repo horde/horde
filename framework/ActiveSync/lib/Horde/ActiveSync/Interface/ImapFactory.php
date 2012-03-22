@@ -24,9 +24,26 @@
 
 interface Horde_ActiveSync_Interface_ImapFactory
 {
+    /**
+     * Return an imap client object.
+     *
+     * @return mixed  An object capable of communicating with an IMAP server.
+     */
     public function getImapOb();
 
-    public function getMailboxes();
+    /**
+     * Return the list of IMAP mailboxes
+     *
+     * @param boolean $force  If true, force a refresh of the list.
+     *
+     * @return array  An array of mailbox names.
+     */
+    public function getMailboxes($force = false);
 
+    /**
+     * Return the list of "special" mailboxes such as Trash/Sent
+     *
+     * @return array  An array of mailbox names, keyed by the special type.
+     */
     public function getSpecialMailboxes();
 }
