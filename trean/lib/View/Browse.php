@@ -97,7 +97,7 @@ class Trean_View_Browse
         $html = $this->_getTagTrail();
         $html .= $this->_getRelatedTags();
 
-        $html .= '<div class="header">' . _("Bookmarks") . '</div>';
+        $html .= '<h1 class="header">' . _("Bookmarks") . '</h1>';
         $view = new Trean_View_BookmarkList($results);
         Horde::startBuffer();
         $view->render();
