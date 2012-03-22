@@ -145,7 +145,7 @@ class Gollem_Application extends Horde_Registry_Application
 
         $this->_addSessVars(Gollem_Auth::authenticate(array(
             'password' => $credentials['password'],
-            'backend_key' => empty($credentials['backend']) ? Gollem_Auth::getPreferredBackend() : $credentials['backend'],
+            'backend_key' => empty($credentials['backend_key']) ? Gollem_Auth::getPreferredBackend() : $credentials['backend_key'],
             'userId' => $userId
         )));
     }
