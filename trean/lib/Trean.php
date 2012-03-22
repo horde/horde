@@ -68,7 +68,7 @@ class Trean
 
         // Default to the protocol icon.
         $protocol = substr($bookmark->url, 0, strpos($bookmark->url, '://'));
-        return Horde_Themes::img('/protocol/' . (empty($protocol) ? 'http' : $protocol) . '.png');
+        return Horde_Themes::img('protocol/' . (empty($protocol) ? 'http' : $protocol) . '.png');
     }
 
     static public function bookmarkletLink()
