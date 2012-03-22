@@ -204,10 +204,10 @@ class Horde_ActiveSync
     const CHANGE_TYPE_FOLDERSYNC        = 'foldersync';
 
     /* Collection Classes */
-    const CLASS_EMAIL = 'Email';
+    const CLASS_EMAIL    = 'Email';
     const CLASS_CONTACTS = 'Contacts';
     const CLASS_CALENDAR = 'Calendar';
-    const CLASS_TASKS = 'Tasks';
+    const CLASS_TASKS    = 'Tasks';
 
     /* Filtertype constants */
     const FILTERTYPE_ALL = 0;
@@ -224,6 +224,10 @@ class Horde_ActiveSync
     const PROVISIONING_NONE             = false;
 
     const FOLDER_ROOT                   = 0;
+
+    const VERSION_25    = 2.5;
+    const VERSION_12    = 12;
+
     /**
      * Logger
      *
@@ -237,6 +241,16 @@ class Horde_ActiveSync
      * @var string (TODO _constant this)
      */
     protected $_provisioning;
+
+    /**
+     * Highest version to support.
+     *
+     * @var float
+     */
+    protected $_maxVersion = self::VERSION_25;
+
+    protected $_multipart = false;
+    protected $_compression = false;
 
     /**
      * Const'r
@@ -271,6 +285,11 @@ class Horde_ActiveSync
 
         // The http request
         $this->_request = $request;
+    }
+
+    public function setSupportedVersion($version)
+    {
+        $this->_maxVersion = $version;
     }
 
     /**
@@ -324,12 +343,12 @@ class Horde_ActiveSync
         $this->_provisioning = $provision;
     }
 
-    static public function provisioningRequired()
+    public function provisioningRequired()
     {
         self::provisionHeader();
-        self::activeSyncHeader();
-        self::versionHeader();
-        self::commandsHeader();
+        $this->activeSyncHeader();
+        $this->versionHeader();
+        $this->commandsHeader();
         header("Cache-Control: private");
     }
 
@@ -347,21 +366,31 @@ class Horde_ActiveSync
      */
     public function handleRequest($cmd, $devId)
     {
-        $this->_logger->debug('['. $devId . '] ' . strtoupper($cmd) . ' request received for user ' . $this->_driver->getUser());
+        $this->_logger->debug(sprintf("
+            [%s] %s request received for user %s",
+            $devId,
+            strtoupper($cmd),
+            $this->_driver->getUser())
+        );
 
         // Don't bother with everything else if all we want are Options
         if ($cmd == 'Options') {
-            self::activeSyncHeader();
-            self::versionHeader();
-            self::commandsHeader();
+            $this->activeSyncHeader();
+            $this->versionHeader();
+            $this->commandsHeader();
             return true;
         }
+
+        // These are all handled in the same class.
         if ($cmd == 'FolderDelete' || $cmd == 'FolderUpdate') {
             $cmd = 'FolderCreate';
         }
+
+        // Device id is REQUIRED
         if (is_null($devId)) {
-            throw new Horde_ActiveSync_Exception('Device failed to send device id.');
+            throw new Horde_ActiveSync_Exception_InvalidRequest('Device failed to send device id.');
         }
+
         // Does device exist AND does the user have an account on the device?
         if (!empty($devId) && !$this->_state->deviceExists($devId, $this->_driver->getUser())) {
             // Device might exist, but with a new (additional) user account
@@ -381,7 +410,17 @@ class Horde_ActiveSync
             $device = $this->_state->loadDeviceInfo($devId, $this->_driver->getUser());
         }
 
+        // Support Multipart response for ITEMOPERATIONS requests?
+        $this->_multipart = $this->_request->getHeader('MS-ASAcceptMultiPart') == 'T';
+
+        // Support gzip encoding?
+        // We have to manage it ourselves, since only portions of the data
+        // are expected to be encoded.
+
         // Load the request handler to handle the request
+        // We must send the eas header here, since some requests may start
+        // output and be large enough to flush the buffer (e.g., GetAttachement)
+        Horde_ActiveSync::activeSyncHeader();
         $class = 'Horde_ActiveSync_Request_' . basename($cmd);
         $version = $this->getProtocolVersion();
         if (class_exists($class)) {
@@ -397,41 +436,53 @@ class Horde_ActiveSync
     }
 
     /**
-     * Send the MS_Server-ActiveSync header
-     * (This is the version Exchange 2003 advertises)
+     * Send the MS_Server-ActiveSync header.
      *
-     * @return void
      */
-    static public function activeSyncHeader()
+    public function activeSyncHeader()
     {
-        header("MS-Server-ActiveSync: 6.5.7638.1");
+        switch ($this->_maxVersion) {
+        case self::VERSION_25:
+        case self::VERSION_12:
+            header("MS-Server-ActiveSync: 6.5.7638.1");
+            break;
+        }
     }
 
     /**
-     * Send the protocol versions header
+     * Send the protocol versions header.
      *
-     * @return void
      */
-    static public function versionHeader()
+    public function versionHeader()
     {
-        header("MS-ASProtocolVersions: 1.0,2.0,2.1,2.5");
+        switch ($this->_maxVersion) {
+        case self::VERSION_25:
+            header("MS-ASProtocolVersions: 1.0,2.0,2.1,2.5");
+            break;
+        case self::VERSION_12:
+            header("MS-ASProtocolVersions: 1.0,2.0,2.1,2.5,12.0");
+        }
     }
 
     /**
-     * Send protocol commands header. This contains appropriate command for
-     * ActiveSync version 2.5 support.
+     * Send protocol commands header.
      *
-     * @return void
      */
     static public function commandsHeader()
     {
-        header("MS-ASProtocolCommands: Sync,SendMail,SmartForward,SmartReply,GetAttachment,GetHierarchy,CreateCollection,DeleteCollection,MoveCollection,FolderSync,FolderCreate,FolderDelete,FolderUpdate,MoveItems,GetItemEstimate,MeetingResponse,ResolveRecipients,ValidateCert,Provision,Search,Ping");
+        switch ($this->_maxVersion) {
+        case self::VERSION_25:
+            header("MS-ASProtocolCommands: Sync,SendMail,SmartForward,SmartReply,GetAttachment,GetHierarchy,CreateCollection,DeleteCollection,MoveCollection,FolderSync,FolderCreate,FolderDelete,FolderUpdate,MoveItems,GetItemEstimate,MeetingResponse,ResolveRecipients,ValidateCert,Provision,Search,Ping");
+            break;
+        case self::VERSION_12:
+            header("MS-ASProtocolCommands: Sync,SendMail,SmartForward,SmartReply,GetAttachment,GetHierarchy,CreateCollection,DeleteCollection,MoveCollection,FolderSync,FolderCreate,FolderDelete,FolderUpdate,MoveItems,GetItemEstimate,MeetingResponse,ResolveRecipients,ValidateCert,Provision,Settings,Search,Ping,ItemOperations");
+            break;
+        }
     }
 
     /**
      * Send provision header
      *
-     * @return void
      */
     static public function provisionHeader()
     {
