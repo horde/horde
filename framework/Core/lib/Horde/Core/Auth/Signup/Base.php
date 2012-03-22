@@ -34,9 +34,9 @@ abstract class Horde_Core_Auth_Signup_Base
         $GLOBALS['auth']->addUser($info['user_name'], array('password' => $info['password']));
 
         // Attempt to add email to default identity
-        if (checkEmail($info['user_name'])) {
+        if ($this->checkEmail($info['user_name'])) {
             $GLOBALS['prefs']->setValue('alternate_email',$info['user_name']);
-        } elseif (checkEmail($info['email'])) {
+        } elseif ($this->checkEmail($info['email'])) {
             $GLOBALS['prefs']->setValue('alternate_email',$info['email']);
         }
 
