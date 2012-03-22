@@ -208,6 +208,12 @@ class Horde_ActiveSync_Wbxml
                 0x37 => 'MIMETruncated',
                 0x38 => 'MIMESize',
                 0x39 => 'InternetCPID',
+                // EAS 12.0
+                0x3a => 'Flag',
+                0x3b => 'FlagStatus',
+                0x3c => 'ContentClass',
+                0x3d => 'FlagType',
+                0x3e => 'CompleteTime',
             ),
 
             /* 3 == AirNotify == deprecated */
@@ -250,9 +256,9 @@ class Horde_ActiveSync_Wbxml
                 0x26 => 'Subject',
                 0x27 => 'StartTime',
                 0x28 => 'UID',
-                //0x29 => 'AttendeeStatus',
-                //0x2A => 'AttendeeType',
-                //0x36 => 'ResponseType',
+                // EAS 12.0
+                0x29 => 'Attendee_Status'
+                0x2A => 'Attendee_Type',
             ),
             /* MOVE */
             5 => array (
@@ -344,6 +350,9 @@ class Horde_ActiveSync_Wbxml
                 0x1f => 'UtcStartDate',
                 0x20 => 'Subject',
                 0x21 => 'Rtf',
+                // EAS 12.0
+                0x22 => 'OrdinalDate',
+                0x23 => 'SubOrdinalDate'
             ),
             /* RESOLVERECIPIENTS */
             0xa => array (
@@ -408,6 +417,20 @@ class Horde_ActiveSync_Wbxml
                 0x0B => 'Status',
                 0x0C => 'RemoteWipe',
                 0x0D => 'EASProvisionDoc',
+                // EAS 12.0
+                0x0E => 'DevicePasswordEnabled',
+                0x0F => 'AlphanumericDevicePasswordRequired',
+                0x10 => 'DeviceEncryptionEnabled',
+                0x11 => 'PasswordRecoveryEnabled',
+                0x12 => 'DocumentBrowseEnabled',
+                0x13 => 'AttachmentsEnabled',
+                0x14 => 'MinDevicePasswordLength',
+                0x15 => 'MaxInactivityTimeDeviceLock',
+                0x16 => 'MaxDevicePasswordFailedAttempts',
+                0x17 => 'MaxAttachmentSize',
+                0x18 => 'AllowSimpleDevicePassword',
+                0x19 => 'DevicePasswordExpiration',
+                0x1A => 'DevicePasswordHistory',
             ),
             /* SEARCH */
             0xf => array(
@@ -448,25 +471,134 @@ class Horde_ActiveSync_Wbxml
                 0x0D => 'HomePhone',
                 0x0E => 'MobilePhone',
                 0x0F => 'EmailAddress',
+            ),
+
+            // EAS 12.0
+            /* AIRSYNCBASE */
+            0x11 => array(
+                0x05 => 'BodyPreference',
+                0x06 => 'Type',
+                0x07 => 'TruncationSize',
+                0x08 => 'AllOrNone',
+                0x0A => 'Body',
+                0x0B => 'Data',
+                0x0C => 'EstimatedDataSize',
+                0x0D => 'Truncated',
+                0x0E => 'Attachments',
+                0x0F => 'Attachment',
+                0x10 => 'DisplayName',
+                0x11 => 'FileReference',
+                0x12 => 'Method',
+                0x13 => 'ContentId',
+                0x14 => 'ContentLocation',
+                0x15 => 'IsInline',
+                0x16 => 'NativeBodyType',
+                0x17 => 'ContentType',
+                0x18 => 'Preview',
+            ),
+
+            /* SETTINGS */
+            0x12 => array(
+                0x05 => 'Settings',
+                0x06 => 'Status',
+                0x07 => 'Get',
+                0x08 => 'Set',
+                0x09 => 'Oof',
+                0x0A => 'OofState',
+                0x0B => 'StartTime',
+                0x0C => 'EndTime',
+                0x0D => 'OofMessage',
+                0x0E => 'AppliesToInternal',
+                0x0F => 'AppliesToExternalKnown',
+                0x10 => 'AppliesToExternalUnknown',
+                0x11 => 'Enabled',
+                0x12 => 'ReplyMessage',
+                0x13 => 'BodyType',
+                0x14 => 'DevicePassword',
+                0x15 => 'Password',
+                0x16 => 'DeviceInformation',
+                0x17 => 'Model',
+                0x18 => 'IMEI',
+                0x19 => 'FriendlyName',
+                0x1A => 'OS',
+                0x1B => 'OSLanguage',
+                0x1C => 'PhoneNumber',
+                0x1D => 'UserInformation',
+                0x1E => 'EmailAddresses',
+                0x1F => 'SmtpAddress',
+            ),
+
+            /* Document Library */
+            0x13 => array(
+                0x05 => 'LinkId',
+                0x06 => 'DisplayName',
+                0x07 => 'IsFolder',
+                0x08 => 'CreationDate',
+                0x09 => 'LastModifiedDate',
+                0x0A => 'IsHidden',
+                0x0B => 'ContentLength',
+                0x0C => 'ContentType'
+            ),
+
+            /* ITEMOPERATIONS */
+            0x14 => array(
+                0x05 => 'ItemOperations',
+                0x06 => 'Fetch',
+                0x07 => 'Store',
+                0x08 => 'Options',
+                0x09 => 'Range',
+                0x0A => 'Total',
+                0x0B => 'Properties',
+                0x0C => 'Data',
+                0x0D => 'Status',
+                0x0E => 'Response',
+                0x0F => 'Version',
+                0x10 => 'Schema',
+                0x11 => 'Part',
+                0x12 => 'EmptyFolderContent',
+                0x13 => 'DeleteSubFolders'
+            ),
+
+            /* POOMMAIL2 */
+            0x16 => array(
+                0x05 => 'UmCallerId',
+                0x06 => 'UmUserNotes',
+                0x07 => 'UmAttDuration',
+                0x08 => 'UmAttOrder',
+                0x09 => 'ConversationId',
+                0x0A => 'ConversationIndex',
+                0x0B => 'LastVerbExecuted',
+                0x0C => 'LastVerbExecutionTime',
+                0x0D => 'ReceivedAsBcc',
+                0x0E => 'Sender',
+                0x0F => 'CalendarType',
+                0x10 => 'IsLeapMonth',
             )
-      ),
-      'namespaces' => array(
-          1 => 'POOMCONTACTS',
-          2 => 'POOMMAIL',
-          4 => 'POOMCAL',
-          5 => 'Move',
-          6 => 'GetItemEstimate',
-          7 => 'FolderHierarchy',
-          8 => 'MeetingResponse',
-          9 => 'POOMTASKS',
-          0xA => 'ResolveRecipients',
-          0xB => 'ValidateCerts',
-          0xC => 'POOMCONTACTS2',
-          0xD => 'Ping',
-          0xE => 'Provision',
-          0xF => 'Search',
-          0x10 => 'GAL',
-      )
+        ),
+
+        'namespaces' => array(
+              1 => 'POOMCONTACTS',
+              2 => 'POOMMAIL',
+              4 => 'POOMCAL',
+              5 => 'Move',
+              6 => 'GetItemEstimate',
+              7 => 'FolderHierarchy',
+              8 => 'MeetingResponse',
+              9 => 'POOMTASKS',
+              0xA => 'ResolveRecipients',
+              0xB => 'ValidateCerts',
+              0xC => 'POOMCONTACTS2',
+              0xD => 'Ping',
+              0xE => 'Provision',
+              0xF => 'Search',
+              0x10 => 'GAL',
+              // EAS 12.0
+              0x11 => 'AirSyncBase',
+              0x12 => 'Settings',
+              0x13 => 'DocumentLibrary',
+              0x14 => 'ItemOperations',
+              0x16 => 'POOMMAIL2',
+        )
     );
 
     /**
