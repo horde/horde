@@ -2,6 +2,7 @@
 v0.1
 ----
 
+[jan] Add Finnish translation (Leena Heino <liinu@uta.fi>).
 [jan] Add Latvian translation (Jānis Eisaks <jancs@dv.lv>).
 [jan] Provide default configuration files instead of .dist versions.
 [jan] Rename sources.php to backends.php.

@@ -2,6 +2,7 @@
 v1.0-git
 --------
 
+[jan] Add Finnish translation (Leena Heino <liinu@uta.fi>).
 [rla] Converted to Horde 4 Framework
 [jan] Add Latvian translation (Jānis Eisaks).
 [cjh] Add sort priorities to categories.
