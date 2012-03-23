@@ -985,7 +985,7 @@ var DimpBase = {
 
         case 'ctx_mbox_sub':
         case 'ctx_mbox_unsub':
-            this.subscribeMailbox(e.findElement('LI').retrieve('mbox'), id == 'ctx_mbox_sub');
+            this.subscribeMbox(e.findElement('LI').retrieve('mbox'), id == 'ctx_mbox_sub');
             break;
 
         case 'ctx_mbox_acl':
