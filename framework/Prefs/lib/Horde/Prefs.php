@@ -358,7 +358,8 @@ class Horde_Prefs implements ArrayAccess
 
         // Now check the prefs cache for existing values.
         try {
-            if (($cached = $this->_cache->get($scope)) !== false) {
+            if ((($cached = $this->_cache->get($scope)) !== false) &&
+                ($cached instanceof Horde_Prefs_Scope)) {
                 $this->_scopes[$scope] = $cached;
                 return;
             }
