@@ -1442,6 +1442,10 @@ var DimpBase = {
                 }
             }, this);
             break;
+
+        case 'ctx_folderopts':
+            $('ctx_folderopts_sub').hide();
+            break;
         }
     },
 
