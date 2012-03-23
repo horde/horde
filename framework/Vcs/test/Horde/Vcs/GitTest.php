@@ -382,8 +382,9 @@ and here.',
         $this->assertInstanceOf('Horde_Vcs_Patchset_Git', $ps);
         $sets = $ps->getPatchsets();
         $this->assertInternalType('array', $sets);
-        $this->assertEquals(3, count($sets));
-        $this->assertEquals(array('da46ee2e478c6d3a9963eaafcd8f43e83d630526',
+        $this->assertEquals(4, count($sets));
+        $this->assertEquals(array('428a3d1e55c4a65f26f78899d0e8358e7cefcf06',
+                                  'da46ee2e478c6d3a9963eaafcd8f43e83d630526',
                                   '160a468250615b713a7e33d34243530afc4682a9',
                                   'd8561cd227c800ee5b0720701c8b6b77e6f6db4a'),
                             array_keys($sets));
