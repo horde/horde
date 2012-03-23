@@ -1190,7 +1190,6 @@ var IMP_JS = {
                 // Finally, brute force if it still isn't working.
                 id.css('height', (lc.scrollHeight + 25) + 'px');
             }
-            lc.style.setProperty('overflow-x', 'hidden', '');
         }
     }
 

@@ -140,11 +140,6 @@ var IMP_JS = {
                 // Finally, brute force if it still isn't working.
                 id.setStyle({ height: (lc.scrollHeight + 25) + 'px' });
             }
-            if (lc.style.setProperty) {
-                lc.style.setProperty('overflow-x', 'hidden', '');
-            } else {
-                lc.style['overflow-x'] = 'hidden';
-            }
         }
     },
 
