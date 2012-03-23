@@ -199,6 +199,13 @@ class Horde_Vcs_SvnTest extends Horde_Vcs_TestBase
         $this->assertEquals(1, $log->getDeletedLines());
         */
 
+        $this->assertEquals(
+            'Multiline commit message.
+
+More message here
+and here.',
+            $logs['4']->getMessage());
+
         $logs = $this->vcs->getFile('umläüte')->getLog();
         $this->assertInternalType('array', $logs);
         $this->assertEquals(array('3'), array_keys($logs));

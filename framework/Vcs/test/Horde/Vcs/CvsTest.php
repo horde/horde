@@ -209,6 +209,13 @@ class Horde_Vcs_CvsTest extends Horde_Vcs_TestBase
         $this->assertEquals(array('HEAD'), $log->getBranch());
         $this->assertEquals(array(), $log->getTags());
 
+        $this->assertEquals(
+            'Multiline commit message.
+
+More message here
+and here.',
+            $logs['1.3']->getMessage());
+
         $log = $logs['1.1.2.1'];
         $this->assertEquals('1.1.2.1', $log->getRevision());
         $this->assertEquals(1322495667, $log->getDate());

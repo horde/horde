@@ -316,6 +316,13 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
         $this->assertEquals(1, $log->getAddedLines());
         $this->assertEquals(1, $log->getDeletedLines());
 
+        $this->assertEquals(
+            'Multiline commit message.
+
+More message here
+and here.',
+            $logs['428a3d1e55c4a65f26f78899d0e8358e7cefcf06']->getMessage());
+
         $logs = $this->vcs->getFile('file1', array('branch' => 'master'))
             ->getLog();
         $this->assertInternalType('array', $logs);

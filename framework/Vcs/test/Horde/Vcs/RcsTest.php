@@ -170,6 +170,13 @@ class Horde_Vcs_RcsTest extends Horde_Vcs_TestBase
         $this->assertEquals(array(), $log->getBranch());
         $this->assertEquals(array(), $log->getTags());
 
+        $this->assertEquals(
+            'Multiline commit message.
+
+More message here
+and here.',
+            $logs['1.3']->getMessage());
+
         $logs = $this->vcs->getFile('umläüte')->getLog();
         $this->assertInternalType('array', $logs);
         $this->assertEquals(array('1.1'), array_keys($logs));
