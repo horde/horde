@@ -265,6 +265,9 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Base
         }
 
         $href_url = parse_url($href);
+        if (!isset($href_url['host'])) {
+            $href_url['host'] = '';
+        }
 
         /* Only concern ourselves with HTTP and FTP links. */
         if (!isset($href_url['scheme']) ||
