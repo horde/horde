@@ -274,8 +274,8 @@ class Horde_Imap_Client_Cache
      *                undefined if not found). If $uids is empty, returns the
      *                full (unsorted) list of cached UIDs.
      */
-    public function get($mailbox, array $uids = array(),
-                        array $fields = array(), $uidvalid = null)
+    public function get($mailbox, array $uids = array(), $fields = array(),
+                        $uidvalid = null)
     {
         $mailbox = strval($mailbox);
 
