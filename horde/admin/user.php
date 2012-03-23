@@ -90,6 +90,11 @@ case 'add':
                 break;
             }
 
+            if (isset($info['email'])) {
+                $prefs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->create('horde', array('user' => $info['user_name']));
+                $prefs->setValue('alternate_email', $info['email']);
+            }
+
             if (isset($info['extra'])) {
                 try {
                     Horde::callHook('signup_addextra', array($info['user_name'], $info['extra']));
@@ -207,8 +212,12 @@ case 'approve_f':
     unset($info['password']);
     $vars->set('extra', $info);
 
+    $vars->set('email', $info['email']);
+    $addForm->addHidden('', 'email', 'text', true);
+
     $vars->set('removeQueuedSignup', true);
     $addForm->addHidden('', 'removeQueuedSignup', 'boolean', true);
+
     break;
 
 case 'removequeued_f':

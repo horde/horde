@@ -33,11 +33,12 @@ abstract class Horde_Core_Auth_Signup_Base
         // Attempt to add the user to the system.
         $GLOBALS['auth']->addUser($info['user_name'], array('password' => $info['password']));
 
-        // Attempt to add email to default identity
+        // Attempt to add email to prefs
+        $prefs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->create('horde', array('user' => $info['user_name']));
         if ($this->checkEmail($info['user_name'])) {
-            $GLOBALS['prefs']->setValue('alternate_email',$info['user_name']);
+            $prefs->setValue('alternate_email',$info['user_name']);
         } elseif ($this->checkEmail($info['email'])) {
-            $GLOBALS['prefs']->setValue('alternate_email',$info['email']);
+            $prefs->setValue('alternate_email',$info['email']);
         }
 
         // Attempt to add/update any extra data handed in.
@@ -67,6 +68,9 @@ abstract class Horde_Core_Auth_Signup_Base
 
         // If it's a unique username, go ahead and queue the request.
         $signup = $this->newSignup($info['user_name']);
+        if ($this->checkEmail($info['user_name'])) {
+            $info['email'] = $info['user_name'];
+        }
         if (!empty($info['extra'])) {
             $signup->setData($info['extra']);
         }
