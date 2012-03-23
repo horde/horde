@@ -59,9 +59,6 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
     // EAS 12.0
     const POOMMAIL_CONTENTCLASS      = 'POOMMAIL:ContentClass';
     const POOMMAIL_FLAG              = 'POOMMAIL:Flag';
-    const POOMMAIL_FLAGSTATUS        = 'POOMMAIL:FlagStatus';
-    const POOMMAIL_FLAGTYPE          = 'POOMMAIL:FlagType';
-    const POOMMAIL_COMPLETETIME      = 'POOMMAIL:CompleteTime';
 
     /**
      * Property mappings
@@ -86,19 +83,16 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
         self::POOMMAIL_REPLY_TO       => array(self::KEY_ATTRIBUTE => 'reply_to'),
     );
 
-    /**
-     * Mail message types
-     */
+    /* Mail message types */
     const CLASS_NOTE            = 'IPM.Note';
     const CLASS_MEETING_REQUEST = 'IPM.Schedule.Meeting.Request';
     const CLASS_MEETING_NOTICE  = 'IPM.Notification.Meeting';
 
-    /** Flags */
+    /* Flags */
     const FLAG_READ_UNSEEN = 0;
     const FLAG_READ_SEEN   = 1;
 
     public $read = false;
-
     protected $_properties = array(
         'to'             => false,
         'cc'             => false,
@@ -116,9 +110,20 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
         'reply_to'       => false,
     );
 
-    public function __construct(Horde_ActiveSync $as, $device)
+    /**
+     * Const'r
+     *
+     * @param array $options  Configuration options for the message:
+     *   - logger: (Horde_Log_Logger)  A logger instance
+     *             DEFAULT: none (No logging).
+     *   - version: (float)  The version of EAS to support.
+     *              DEFAULT: Horde_ActiveSync::VERSION_TWOFIVE (2.5)
+     *
+     * @return Horde_ActiveSync_Message_Base
+     */
+    public function __construct(array $options = array())
     {
-        parent::__construct($as, $device);
+        parent::__construct($options);
         if ($this->_version < 12.0) {
             $this->_mapping += array(
                 self::POOMMAIL_ATTACHMENTS    => array(self::KEY_ATTRIBUTE => 'attachments', self::KEY_TYPE => 'Horde_ActiveSync_Message_Attachment', self::KEY_VALUES => self::POOMMAIL_ATTACHMENT),
@@ -137,22 +142,27 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
         if ($this->_version >= 12.0) {
             $this->_mapping += array(
                 Horde_ActiveSync::AIRSYNCBASE_NATIVEBODYTYPE => array(self::KEY_ATTRIBUTE => 'airsyncbasenativebodytype'),
-                Horde_ActiveSync::AIRSYNCBASE_BODY           => array(self::KEY_ATTRIBUTE => 'airsyncbasebody', KEY_TYPE=> 'SyncAirSyncBaseBody'),
-                Horde_ActiveSync::AIRSYNCBASE_ATTACHMENTS    => array(KEY_ATTRIBUTE => 'airsyncbaseattachments', KEY_TYPE => 'AirSyncBaseAttachment', STREAMER_ARRAY => SYNC_AIRSYNCBASE_ATTACHMENT ),
-                self::POOMMAIL_FLAG                          => array(KEY_ATTRIBUTE => 'poommailflag', KEY_TYPE => 'SyncPoommailFlag'),
-                self::POOMMAIL_CONTENTCLASS                  => array(KEY_ATTRIBUTE => 'contentclass'),
+                Horde_ActiveSync::AIRSYNCBASE_BODY           => array(self::KEY_ATTRIBUTE => 'airsyncbasebody', self::KEY_TYPE=> 'Horde_ActiveSync_Message_AirSyncBaseBody'),
+                Horde_ActiveSync::AIRSYNCBASE_ATTACHMENTS    => array(self::KEY_ATTRIBUTE => 'airsyncbaseattachments', self::KEY_TYPE => 'AirSyncBaseAttachment', self::KEY_VALUES => Horde_ActiveSync::AIRSYNCBASE_ATTACHMENT ),
+                self::POOMMAIL_FLAG                          => array(self::KEY_ATTRIBUTE => 'flag', self::KEY_TYPE => 'Horde_ActiveSync_Message_Flag'),
+                self::POOMMAIL_CONTENTCLASS                  => array(self::KEY_ATTRIBUTE => 'contentclass'),
             );
 
             $this->_properties += array(
                 'airsyncbasenativebodytype' => false,
                 'airsyncbasebody'           => false,
                 'airsyncbaseattachments'    => false,
-                'poommailflag'              => false,
                 'contentclass'              => false,
-            )
+                'flag'                      => false,
+            );
         }
     }
 
+    /**
+     * Return the class type for this object.
+     *
+     * @return string
+     */
     public function getClass()
     {
         return 'Email';

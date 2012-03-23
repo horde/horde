@@ -168,19 +168,39 @@ class Horde_ActiveSync_Imap_Message
      *
      * @param array $options  An options array containgin:
      *  - truncation: (integer) Truncate message body to this length.
-     *              DEFAULT: No truncation.
+     *                DEFAULT: none (No truncation).
+     *
+     *  - bodyprefs: (array)  Bodypref settings
+     *               DEFAULT: none (No bodyprefs used).
+     *
+     *  - mimesupport: (integer)  MIME supported (1) or not (0)
+     *                 DEFAULT: none (No MIME support).
+     *
+     *  - protocolversion: (float)  The EAS protocol we are supporting.
+     *                     DEFAULT 2.5
      *
      * @return array  An array with 'text' and 'charset' keys.
      */
-    public function getMessageBody($options = array())
+    public function getMessageBodyData($options = array())
     {
-        // Find and get the message body
-        $id = $this->_message->findBody();
-        if (is_null($id)) {
-            return array('text' => '', 'charset' => 'UTF-8');
+        $version = empty($options['protocolversion']) ? 2.5 : $options['protocolversion'];
+
+        // Find and get the message body parts we will need.
+        if ($version >= Horde_ActiveSync::VERSION_TWELVE && !empty($options['bodyprefs'])) {
+            $html_id = $this->_message->findBody('html');
+            if (!empty($html_id)) {
+                $html_body_part = $this->_message->getPart($html_id);
+                $html_charset = $html_body_part->getCharset();
+            }
         }
-        $body = $this->_message->getPart($id);
-        $charset = $body->getCharset();
+
+        $text_id = $this->_message->findBody();
+        if (!empty($text_id)) {
+            $text_body_part = $this->_message->getPart($text_id);
+            $charset = $text_body_part->getCharset();
+        } else {
+            $text_body_part = null;
+        }
 
         $query = new Horde_Imap_Client_Fetch_Query();
         if (empty($this->_envelope)) {
@@ -192,15 +212,32 @@ class Horde_ActiveSync_Imap_Message
             'peek' => true
         );
 
-        // Figure out if we need the body, and if so, how to truncate it.
-        if (isset($options['truncation']) && $options['truncation'] > 0) {
-            $body_query_opts['length'] = $options['truncation'];
+        // Get HTML body information
+        // @TODO: AllorNone
+        if ($version >= Horde_ActiveSync::VERSION_TWELVE) {
+            $html_query_opts = $body_query_opts;
+            if (isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize'])) {
+                $html_query_opts['length'] = $options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize'];
+                $query->bodyPartSize($html_id);
+            }
+            if (!empty($html_id)) {
+                $query->bodyPart($html_id, $html_query_opts);
+            }
+            if (!empty($text_id)) {
+                $query->bodyPart($text_id, $body_query_opts);
+                $query->bodyPartSize($text_id);
+            }
+        } else {
+            // Plaintext body
+            if (isset($options['truncation']) && $options['truncation'] > 0) {
+                $body_query_opts['length'] = $options['truncation'];
+            }
+            if ((isset($options['truncation']) && $options['truncation'] > 0) ||
+                !isset($options['truncation'])) {
+                $query->bodyPart($text_id, $body_query_opts);
+            }
+            $query->bodyPartSize($text_id);
         }
-        if ((isset($options['truncation']) && $options['truncation'] > 0) ||
-            !isset($options['truncation'])) {
-            $query->bodyPart($id, $body_query_opts);
-        }
-
         try {
             $fetch_ret = $this->_imap->fetch(
                 $this->_mbox,
@@ -217,14 +254,29 @@ class Horde_ActiveSync_Imap_Message
             $this->_envelope = $data->getEnvelope();
         }
 
-        // Get only the plaintext part
-        $text = $data->getBodyPart($id);
-        if (!$data->getBodyPartDecode($id)) {
-            $body->setContents($data->getBodyPart($id));
-            $text = $body->getContents();
+        $text = $data->getBodyPart($text_id);
+        if (!$data->getBodyPartDecode($text_id)) {
+            $text_body_part->setContents($data->getBodyPart($text_id));
+            $text = $text_body_part->getContents();
+        }
+        $text_size = $data->getBodyPartSize($text_id);
+
+        $html = !empty($html_id) ? $data->getBodyPart($html_id) : '';
+        $html_size = !empty($html_query_opts['length']) ? $data->getBodyPartSize($html_id) : strlen($html);
+        $return = array('plain' => array(
+            'charset' => $charset,
+            'body' => $text,
+            'truncated' => $text_size > strlen($text),
+            'size' => $text_size));
+        if (!empty($html_id)) {
+            $return['html'] = array(
+                'charset' => $html_charset,
+                'body' => $html,
+                'estimated_size' => $size,
+                'truncated' => $size > strlen($html));
         }
 
-        return array('text' => $text, 'charset' => $charset);
+        return $return;
     }
 
     /**

@@ -58,6 +58,13 @@ abstract class Horde_ActiveSync_Driver_Base
     protected $_params;
 
     /**
+     * Protocol version
+     *
+     * @var float
+     */
+    protected $_version;
+
+    /**
      * Secuirity Policies. These settings can be overridden by the backend
      * provider by passing in a 'policies' key in the const'r params array. This
      * way the server can provide user-specific policies.
@@ -164,6 +171,17 @@ abstract class Horde_ActiveSync_Driver_Base
     }
 
     /**
+     * Set the protocol version. Can't do it in constructer since we
+     * don't know the version at the time this driver is instantiated.
+     *
+     * @param float $version  The EAS protocol version to use.
+     */
+    public function setProtocolVersion($version)
+    {
+        $this->_version = $version;
+    }
+
+    /**
      * Obtain the ping heartbeat settings
      *
      * @return array
@@ -247,16 +265,16 @@ abstract class Horde_ActiveSync_Driver_Base
     /**
      * Obtain a message from the backend.
      *
-     * @param string $folderid
-     * @param string $id
-     * @param ?? $mimesupport  (Not sure what this was supposed to do)
+     * @param string $folderid   Folder id containing data to fetch.
+     * @param string $id         Server id of data to fetch.
+     * @param array $collection  The collection data.
      *
      * @return Horde_ActiveSync_Message_Base The message data
      */
-    public function fetch($folderid, $id, $mimesupport = 0)
+    public function fetch($folderid, $id, array $collection)
     {
         // Forces entire message (up to 1Mb)
-        return $this->getMessage($folderid, $id, 1024 * 1024, $mimesupport);
+        return $this->getMessage($folderid, $id, 1024 * 1024, $collection);
     }
 
     /**
@@ -493,14 +511,19 @@ abstract class Horde_ActiveSync_Driver_Base
     /**
      * Obtain an ActiveSync message from the backend.
      *
-     * @param string $folderid      The server's folder id this message is from
-     * @param string $id            The server's message id
-     * @param integer $truncsize    A TRUNCATION_* constant
-     * @param integer $mimesupport  Mime support for this message
+     * @param string $folderid    The server's folder id this message is from
+     * @param string $id          The server's message id
+     * @param array  $collection  The colletion data. May contain things like:
+     *   - mimesupport: (boolean) Indicates if the device has MIME support.
+     *                  DEFAULT: false (No MIME support)
+     *   - truncation: (integer)  The truncation constant, if sent by the device.
+     *                 DEFAULT: 0 (No truncation)
+     *   - bodyprefs: (array)  The bodypref array from the device.
      *
      * @return Horde_ActiveSync_Message_Base The message data
+     * @throws Horde_ActiveSync_Exception
      */
-    abstract public function getMessage($folderid, $id, $truncsize, $mimesupport = 0);
+    abstract public function getMessage($folderid, $id, array $collection);
 
     /**
      * Delete a message

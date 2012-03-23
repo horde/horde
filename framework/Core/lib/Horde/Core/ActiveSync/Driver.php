@@ -539,18 +539,21 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     }
 
     /**
-     * Get a message from the backend
+     * Obtain an ActiveSync message from the backend.
      *
-     * @param string $folderid      The server's folder id this message is from
-     * @param string $id            The server's message id
-     * @param integer $truncsize    A TRUNCATION_* constant
-     * @param integer $mimesupport  Mime support for this message
+     * @param string $folderid    The server's folder id this message is from
+     * @param string $id          The server's message id
+     * @param array  $collection  The colletion data. May contain things like:
+     *   - mimesupport: (boolean) Indicates if the device has MIME support.
+     *                  DEFAULT: false (No MIME support)
+     *   - truncation: (integer)  The truncation constant, if sent by the device.
+     *                 DEFAULT: 0 (No truncation)
+     *   - bodyprefs: (array)  The bodypref array from the device.
      *
-     * @return Horde_ActiveSync_Message_Base|boolean
-     *                              The message data, or false if not found.
-     *
+     * @return Horde_ActiveSync_Message_Base The message data
+     * @throws Horde_ActiveSync_Exception
      */
-    public function getMessage($folderid, $id, $truncsize, $mimesupport = 0)
+    public function getMessage($folderid, $id, array $collection)
     {
         $this->_logger->debug('Horde::getMessage(' . $folderid . ', ' . $id . ')');
         ob_start();
@@ -559,7 +562,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         switch ($folder->type) {
         case Horde_ActiveSync::FOLDER_TYPE_APPOINTMENT:
             try {
-                $message = $this->_connector->calendar_export($id);
+                $message = $this->_connector->calendar_export($id, $this->_version);
                 // Nokia MfE requires the optional UID element.
                 if (!$message->getUid()) {
                     $message->setUid($id);
@@ -567,27 +570,27 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 $this->_endBuffer();
-                return false;
+                throw new Horde_ActiveSync_Exception('Not Found');
             }
             break;
 
         case Horde_ActiveSync::FOLDER_TYPE_CONTACT:
             try {
-                $message = $this->_connector->contacts_export($id);
+                $message = $this->_connector->contacts_export($id, $this->_version);
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 $this->_endBuffer();
-                return false;
+                throw new Horde_ActiveSync_Exception('Not Found');
             }
             break;
 
         case Horde_ActiveSync::FOLDER_TYPE_TASK:
             try {
-                $message = $this->_connector->tasks_export($id);
+                $message = $this->_connector->tasks_export($id, $this->_version);
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 $this->_endBuffer();
-                return false;
+                throw new Horde_ActiveSync_Exception('Not Found');
             }
             break;
 
@@ -600,11 +603,17 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $messages = $this->_imap->getMessages(
                     $folderid,
                     array($id),
-                    array('truncation' => $truncsize));
+                    array(
+                        'protocolversion' => $this->_version,
+                        'truncation' => $collection['truncation'],
+                        'bodyprefs'  => $collection['bodyprefs'],
+                        'mimesupport' => $collection['mimesupport']
+                    )
+                );
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 $this->_endBuffer();
-                return false;
+                throw new Horde_ActiveSync_Exception('Not Found');
             }
             $this->_endBuffer();
             return current($messages);
@@ -612,7 +621,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
         default:
             $this->_endBuffer();
-            return false;
+            throw new Horde_ActiveSync_Exception('Unsupported type');
         }
         if (strlen($message->body) > $truncsize) {
             $message->body = Horde_String::substr($message->body, 0, $truncsize);

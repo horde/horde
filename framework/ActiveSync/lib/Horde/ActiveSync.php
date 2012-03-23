@@ -153,6 +153,12 @@ class Horde_ActiveSync
     const AIRSYNCBASE_CONTENTTYPE       = 'AirSyncBase:ContentType';
     const AIRSYNCBASE_PREVIEW           = 'AirSyncBase:Preview';
 
+    /* Body type prefs */
+    const BODYPREF_TYPE_PLAIN = 1;
+    const BODYPREF_TYPE_HTML  = 2;
+    const BODYPREF_TYPE_RTF   = 3;
+    const BODYPREF_TYPE_MIME  = 4;
+
     /* PROVISION */
     const PROVISION_PROVISION           =  'Provision:Provision';
     const PROVISION_POLICIES            =  'Provision:Policies';
@@ -268,9 +274,27 @@ class Horde_ActiveSync
      *
      * @var float
      */
-    protected $_maxVersion = self::VERSION_TWOFIVE;
+    protected $_maxVersion = self::VERSION_TWELVE;
 
+    /**
+     * The actual version we are supporting.
+     *
+     * @var float
+     */
+    protected $_version;
+
+    /**
+     * Multipart support?
+     *
+     * @var boolean
+     */
     protected $_multipart = false;
+
+    /**
+     * Support gzip compression of certain data parts?
+     *
+     * @var boolean
+     */
     protected $_compression = false;
 
     /**
@@ -291,8 +315,12 @@ class Horde_ActiveSync
         Horde_ActiveSync_State_Base $state,
         Horde_Controller_Request_Http $request)
     {
+        // The http request
+        $this->_request = $request;
+
         // Backend driver
         $this->_driver = $driver;
+        $this->_driver->setProtocolVersion($this->getProtocolVersion());
 
         // Device state manager
         $this->_state = $state;
@@ -303,11 +331,13 @@ class Horde_ActiveSync
 
         // Read the initial Wbxml header
         $this->_decoder->readWbxmlHeader();
-
-        // The http request
-        $this->_request = $request;
     }
 
+    /**
+     * Allow to force the highest version to support.
+     *
+     * @param float $version  The highest version
+     */
     public function setSupportedVersion($version)
     {
         $this->_maxVersion = $version;
@@ -387,8 +417,8 @@ class Horde_ActiveSync
      */
     public function handleRequest($cmd, $devId)
     {
-        $this->_logger->debug(sprintf("
-            [%s] %s request received for user %s",
+        $this->_logger->debug(sprintf(
+            "[%s] %s request received for user %s",
             $devId,
             strtoupper($cmd),
             $this->_driver->getUser())
@@ -489,7 +519,7 @@ class Horde_ActiveSync
      * Send protocol commands header.
      *
      */
-    static public function commandsHeader()
+    public function commandsHeader()
     {
         switch ($this->_maxVersion) {
         case self::VERSION_TWOFIVE:
@@ -541,6 +571,38 @@ class Horde_ActiveSync
         }
 
         return $this->_version;
+    }
+
+    /**
+     *
+     * @param $truncation
+     * @return unknown_type
+     */
+    static public function getTruncSize($truncation)
+    {
+        switch($truncation) {
+        case Horde_ActiveSync::TRUNCATION_ALL:
+            return 0;
+        case Horde_ActiveSync::TRUNCATION_1:
+            return 512;
+        case Horde_ActiveSync::TRUNCATION_2:
+            return 1024;
+        case Horde_ActiveSync::TRUNCATION_3:
+            return 2048;
+        case Horde_ActiveSync::TRUNCATION_4:
+            return 5120;
+        // case Horde_ActiveSync::TRUNCATION_5:
+        //     return 20480;
+        // case Horde_ActiveSync::TRUNCATION_6:
+        //     return 51200;
+        case Horde_ActiveSync::TRUNCATION_7:
+            //return 102400;
+        //case Horde_ActiveSync::TRUNCATION_8:
+        case Horde_ActiveSync::TRUNCATION_NONE:
+            return 1048576; // We'll limit to 1MB anyway
+        default:
+            return 1024; // Default to 1Kb
+        }
     }
 
 }

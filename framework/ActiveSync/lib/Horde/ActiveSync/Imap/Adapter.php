@@ -36,8 +36,8 @@ class Horde_ActiveSync_Imap_Adapter
      * Cont'r
      *
      * @param array $params  Parameters:
-     *   - factory:  (Horde_ActiveSync_Interface_ImapFactory) Factory object
-     *               REQUIRED
+     *   - factory: (Horde_ActiveSync_Interface_ImapFactory) Factory object
+     *              DEFAULT: none - REQUIRED
      */
     public function __construct(array $params = array())
     {
@@ -397,8 +397,12 @@ class Horde_ActiveSync_Imap_Adapter
      * @param string $folderid  The mailbox folder.
      * @param array $messages   List of IMAP message UIDs
      * @param array $options    Additional Options:
-     *   -truncation:  (integer)  Truncate body of email to this length.
-     *                            DEFAULT: false (No truncation).
+     *   - truncation: (integer) The truncation constant, if sent from device.
+     *                 DEFAULT: false (No truncation).
+     *   - bodyprefs:  (array)  The bodypref settings, if sent from device.
+     *                 DEFAULT: none (No body prefs sent, or enforced).
+     *   - protocolversion: (float)  The EAS protocol version to support.
+     *                      DEFAULT: 2.5
      *
      * @return array  An array of Horde_ActiveSync_Message_Mail objects.
      */
@@ -407,6 +411,9 @@ class Horde_ActiveSync_Imap_Adapter
         $mbox = new Horde_Imap_Client_Mailbox($folderid);
         $results = $this->_getMailMessages($mbox, $messages);
         $ret = array();
+        if (!empty($options['truncation'])) {
+            $options['truncation'] = Horde_ActiveSync::getTruncSize($options['truncation']);
+        }
         foreach ($results as $data) {
             $ret[] = $this->_buildMailMessage($mbox, $data, $options);
         }
@@ -538,6 +545,12 @@ class Horde_ActiveSync_Imap_Adapter
      * @param array $options                      Additional Options:
      *   - truncation:  (integer) Truncate the message body to this length.
      *                  DEFAULT: No truncation.
+     *   - bodyprefs: (array)  Bodyprefs, if sent from device.
+     *                DEFAULT: none (No body prefs sent or enforced).
+     *   - mimesupport: (integer)  Indicates if MIME is supported (1) or not (0)
+     *                  DEFAULT: 0 (No MIME support)
+     *   - protocolversion: (float)  The EAS protocol version to support.
+     *                      DEFAULT: 2.5
      *
      * @return Horde_ActiveSync_Message_Mail  The message object suitable for
      *                                        streaming to the device.
@@ -550,22 +563,84 @@ class Horde_ActiveSync_Imap_Adapter
     {
         $imap = $this->_getImapOb();
 
-        // Get a message object.
-        $imap_message = new Horde_ActiveSync_Imap_Message(
-            $imap, $mbox, $data);
+        $version = empty($options['protocolversion']) ?
+            Horde_ActiveSync::VERSION_TWOFIVE :
+            $options['protocolversion'];
 
-        $message_data = $imap_message->getMessageBody($options);
-        $eas_message = new Horde_ActiveSync_Message_Mail();
-        if ($message_data['charset'] != 'UTF-8') {
-            $eas_message->body = Horde_String::convertCharset(
-                $message_data['text'],
-                $message_data['charset'],
-                'UTF-8');
+        $imap_message = new Horde_ActiveSync_Imap_Message($imap, $mbox, $data);
+        $eas_message = new Horde_ActiveSync_Message_Mail(array('protocolversion' => $version));
+        if ($version == Horde_ActiveSync::VERSION_TWOFIVE || empty($options['bodyprefs'])) {
+            // EAS 2.5 behavior or no bodyprefs sent
+            $message_data = $imap_message->getMessageBody($options);
+            if ($message_data['plain']['charset'] != 'UTF-8') {
+                $eas_message->body = Horde_String::convertCharset(
+                    $message_data['plain']['body'],
+                    $message_data['plain']['charset'],
+                    'UTF-8');
+            } else {
+                $eas_message->body = $message_data['plain']['body'];
+            }
+            $eas_message->bodysize = Horde_String::length($eas_message->body); // @TODO: Should this be full or sent?
+            $eas_message->bodytruncated = $message_data['plain']['truncated'];
+            $eas_message->attachments = $imap_message->getAttachments();
         } else {
-            $eas_message->body = $message_data['text'];
+            // Body pref EAS >= 12.0
+            if (isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]) &&
+                !isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'])) {
+                $options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'] = 1048576; // 1024 * 1024
+            }
+            if (isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]) &&
+                !isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize'])) {
+                $options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize'] = 1048576; // 1024 * 1024
+            }
+            if (isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_RTF]) &&
+                !isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_RTF]['truncationsize'])) {
+                $options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_RTF]['truncationsize'] = 1048576; // 1024 * 1024
+            }
+            if (isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_MIME]) &&
+                !isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_MIME]['truncationsize'])) {
+                $options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_MIME]['truncationsize'] = 1048576; // 1024 * 1024
+            }
+            $message_data = $imap_message->getMessageBodyData($options);
+
+
+            if (!empty($message_data['html'])) {
+                $eas_message->airsyncbasenativebodytype = Horde_ActiveSync::BODYPREF_TYPE_HTML;
+            } else {
+                $eas_message->airsyncbasenativebodytype = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
+            }
+
+            // TODO s/MIME
+
+            if (isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML])) {
+                // HTML
+                $airsync_body = new Horde_ActiveSync_Message_AirSyncBaseBody();
+                if (empty($message_data['html'])) {
+                    $airsync_body->type = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
+                    $message_data['html'] = array(
+                        'body' => $message_data['plain']['body'],
+                        'estimated_size' => $message_data['plain']['size'],
+                        'truncated' => $message_data['plain']['truncated'],
+                        'body' => $message_data['plain']['body'],
+                        'charset' => $message_data['plain']['charset']
+                    );
+                } else {
+                    $airsync_body->type = Horde_ActiveSync::BODYPREF_TYPE_HTML;
+                }
+                if ($message_data['html']['charset'] != 'UTF-8') {
+                    $message_data['html']['body'] = Horde_String::convertCharset(
+                        $message_data['html']['body'],
+                        $message_data['html']['charset']
+                    );
+                }
+                $airsync_body->estimateddatasize = $message_data['html']['estimated_size'];
+                $airsync_body->truncated = $message_data['html']['truncated'];
+                $airsync_body->data = $message_data['html']['body'];
+                $eas_message->airsyncbasebody = $airsync_body;
+            }
+
         }
-        $eas_message->bodysize = Horde_String::length($eas_message->body);
-        $eas_message->bodytruncated = isset($options['truncation']) ? 1 : 0;
+
         $to = $imap_message->getToAddresses();
         $eas_message->to = implode(',', $to['to']);
         $eas_message->displayto = implode(',', $to['displayto']);
@@ -573,9 +648,6 @@ class Horde_ActiveSync_Imap_Adapter
         $eas_message->subject = $imap_message->getSubject();
         $eas_message->datereceived = $imap_message->getDate();
         $eas_message->read = $imap_message->getFlag(Horde_Imap_Client::FLAG_SEEN);
-
-        // Attachments
-        $eas_message->attachments = $imap_message->getAttachments();
 
         // @TODO: Parse out/detect at least meeting requests and notifications.
         $eas_message->messageclass = 'IPM.Note';

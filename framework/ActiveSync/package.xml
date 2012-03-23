@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-03-21</date>
- <time>18:57:13</time>
+ <date>2012-03-23</date>
+ <time>14:49:58</time>
  <version>
   <release>1.2.6</release>
   <api>1.2.0</api>
@@ -65,12 +65,14 @@
        <file name="ImapFactory.php" role="php" />
       </dir> <!-- /lib/Horde/ActiveSync/Interface -->
       <dir name="Message">
+       <file name="AirSyncBaseBody.php" role="php" />
        <file name="Appointment.php" role="php" />
        <file name="Attachment.php" role="php" />
        <file name="Attendee.php" role="php" />
        <file name="Base.php" role="php" />
        <file name="Contact.php" role="php" />
        <file name="Exception.php" role="php" />
+       <file name="Flag.php" role="php" />
        <file name="Folder.php" role="php" />
        <file name="Mail.php" role="php" />
        <file name="Recurrence.php" role="php" />
@@ -83,12 +85,14 @@
        <file name="GetAttachment.php" role="php" />
        <file name="GetHierarchy.php" role="php" />
        <file name="GetItemEstimate.php" role="php" />
+       <file name="ItemOperations.php" role="php" />
        <file name="MeetingResponse.php" role="php" />
        <file name="MoveItems.php" role="php" />
        <file name="Ping.php" role="php" />
        <file name="Provision.php" role="php" />
        <file name="Search.php" role="php" />
        <file name="SendMail.php" role="php" />
+       <file name="Settings.php" role="php" />
        <file name="SmartForward.php" role="php" />
        <file name="SmartReply.php" role="php" />
        <file name="Sync.php" role="php" />
@@ -224,12 +228,14 @@
    <install as="Horde/ActiveSync/Imap/Adapter.php" name="lib/Horde/ActiveSync/Imap/Adapter.php" />
    <install as="Horde/ActiveSync/Imap/Message.php" name="lib/Horde/ActiveSync/Imap/Message.php" />
    <install as="Horde/ActiveSync/Interface/ImapFactory.php" name="lib/Horde/ActiveSync/Interface/ImapFactory.php" />
+   <install as="Horde/ActiveSync/Message/AirSyncBaseBody.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseBody.php" />
    <install as="Horde/ActiveSync/Message/Appointment.php" name="lib/Horde/ActiveSync/Message/Appointment.php" />
    <install as="Horde/ActiveSync/Message/Attachment.php" name="lib/Horde/ActiveSync/Message/Attachment.php" />
    <install as="Horde/ActiveSync/Message/Attendee.php" name="lib/Horde/ActiveSync/Message/Attendee.php" />
    <install as="Horde/ActiveSync/Message/Base.php" name="lib/Horde/ActiveSync/Message/Base.php" />
    <install as="Horde/ActiveSync/Message/Contact.php" name="lib/Horde/ActiveSync/Message/Contact.php" />
    <install as="Horde/ActiveSync/Message/Exception.php" name="lib/Horde/ActiveSync/Message/Exception.php" />
+   <install as="Horde/ActiveSync/Message/Flag.php" name="lib/Horde/ActiveSync/Message/Flag.php" />
    <install as="Horde/ActiveSync/Message/Folder.php" name="lib/Horde/ActiveSync/Message/Folder.php" />
    <install as="Horde/ActiveSync/Message/Mail.php" name="lib/Horde/ActiveSync/Message/Mail.php" />
    <install as="Horde/ActiveSync/Message/Recurrence.php" name="lib/Horde/ActiveSync/Message/Recurrence.php" />
@@ -240,12 +246,14 @@
    <install as="Horde/ActiveSync/Request/GetAttachment.php" name="lib/Horde/ActiveSync/Request/GetAttachment.php" />
    <install as="Horde/ActiveSync/Request/GetHierarchy.php" name="lib/Horde/ActiveSync/Request/GetHierarchy.php" />
    <install as="Horde/ActiveSync/Request/GetItemEstimate.php" name="lib/Horde/ActiveSync/Request/GetItemEstimate.php" />
+   <install as="Horde/ActiveSync/Request/ItemOperations.php" name="lib/Horde/ActiveSync/Request/ItemOperations.php" />
    <install as="Horde/ActiveSync/Request/MeetingResponse.php" name="lib/Horde/ActiveSync/Request/MeetingResponse.php" />
    <install as="Horde/ActiveSync/Request/MoveItems.php" name="lib/Horde/ActiveSync/Request/MoveItems.php" />
    <install as="Horde/ActiveSync/Request/Ping.php" name="lib/Horde/ActiveSync/Request/Ping.php" />
    <install as="Horde/ActiveSync/Request/Provision.php" name="lib/Horde/ActiveSync/Request/Provision.php" />
    <install as="Horde/ActiveSync/Request/Search.php" name="lib/Horde/ActiveSync/Request/Search.php" />
    <install as="Horde/ActiveSync/Request/SendMail.php" name="lib/Horde/ActiveSync/Request/SendMail.php" />
+   <install as="Horde/ActiveSync/Request/Settings.php" name="lib/Horde/ActiveSync/Request/Settings.php" />
    <install as="Horde/ActiveSync/Request/SmartForward.php" name="lib/Horde/ActiveSync/Request/SmartForward.php" />
    <install as="Horde/ActiveSync/Request/SmartReply.php" name="lib/Horde/ActiveSync/Request/SmartReply.php" />
    <install as="Horde/ActiveSync/Request/Sync.php" name="lib/Horde/ActiveSync/Request/Sync.php" />
@@ -623,7 +631,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-03-21</date>
+   <date>2012-03-23</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 *

@@ -4,30 +4,34 @@
  * such as a Contact or Appointment. Encoding/Decoding logic taken from the
  * Z-Push library. Original file header and copyright notice appear below.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * File      :   streamer.php
+ * Project   :   Z-Push
+ * Descr     :   This file handles streaming of
+ *                WBXML objects. It must be
+ *                subclassed so the internals of
+ *                the object can be specified via
+ *                $mapping. Basically we set/read
+ *                the object variables of the
+ *                subclass according to the mappings
  *
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ *
+ * Created   :   01.10.2007
+ *
+ * © Zarafa Deutschland GmbH, www.zarafaserver.de
+ * This file is distributed under GPL-2.0.
+ * Consult COPYING file for details
+ *
+ * @copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * @author Michael J Rubinsky <mrubinsk@horde.org>
  * @package ActiveSync
  */
-
-/***********************************************
-* File      :   streamer.php
-* Project   :   Z-Push
-* Descr     :   This file handles streaming of
-*                WBXML objects. It must be
-*                subclassed so the internals of
-*                the object can be specified via
-*                $mapping. Basically we set/read
-*                the object variables of the
-*                subclass according to the mappings
-*
-*
-* Created   :   01.10.2007
-*
-* © Zarafa Deutschland GmbH, www.zarafaserver.de
-* This file is distributed under GPL-2.0.
-* Consult COPYING file for details
-************************************************/
+/**
+ * Horde_ActiveSync_Message_Base::
+ *
+ * @copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * @author Michael J Rubinsky <mrubinsk@horde.org>
+ * @package ActiveSync
+ */
 class Horde_ActiveSync_Message_Base
 {
     /* Attribute Keys */
@@ -84,9 +88,20 @@ class Horde_ActiveSync_Message_Base
     protected $_exists = array();
 
     /**
+     * The version of EAS we are to support.
+     *
+     * @var float
+     */
+    protected $_version = Horde_ActiveSync::VERSION_TWOFIVE;
+
+    /**
      * Const'r
      *
-     * @param array $options  Any addition options the message may require
+     * @param array $options  Configuration options for the message:
+     *   - logger: (Horde_Log_Logger)  A logger instance
+     *             DEFAULT: none (No logging).
+     *   - protocolversion: (float)  The version of EAS to support.
+     *              DEFAULT: Horde_ActiveSync::VERSION_TWOFIVE (2.5)
      *
      * @return Horde_ActiveSync_Message_Base
      */
@@ -97,6 +112,10 @@ class Horde_ActiveSync_Message_Base
         } else {
             $this->_logger = new Horde_Support_Stub();
         }
+        if (!empty($options['protocolversion'])) {
+            $this->_version = $options['protocolversion'];
+        }
+
     }
 
     /**
@@ -139,11 +158,16 @@ class Horde_ActiveSync_Message_Base
         $this->_exists[$property] = true;
     }
 
+    public function setProtocolVersion($version)
+    {
+        $this->_version = $version;
+    }
+
     /**
      * Magic caller method.
      *
      * @param  mixed $method  The method to call.
-     * @param  array $arg    Method arguments.
+     * @param  array $arg     Method arguments.
      *
      * @return mixed
      * @throws BadMethodCallException
@@ -301,7 +325,7 @@ class Horde_ActiveSync_Message_Base
                                 $this->_logger->err('Unable to get content for ' . $entity[Horde_ActiveSync_Wbxml::EN_TAG]);
                             }
                             if (!$decoder->getElementEndTag()) {
-                                $this->_loger->err('Unable to get end tag for ' . $entity[Horde_ActiveSync_Wbxml::EN_TAG]);
+                                $this->_logger->err('Unable to get end tag for ' . $entity[Horde_ActiveSync_Wbxml::EN_TAG]);
                                 throw new Horde_ActiveSync_Exception('Missing expected wbxml end tag');
                             }
                         }
