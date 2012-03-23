@@ -265,9 +265,10 @@ class Horde_Vcs_File_Rcs extends Horde_Vcs_File_Base
 
             case 'log':
                 if (strpos($line, '==============================') === 0) {
+                    $log = substr($log, 0, -1);
                     break 2;
                 }
-                $log .= $line;
+                $log .= $line . "\n";
             }
         }
 

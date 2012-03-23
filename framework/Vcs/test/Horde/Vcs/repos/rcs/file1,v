@@ -1,9 +1,14 @@
-head	1.2;
+head	1.3;
 access;
 symbols;
 locks; strict;
 comment	@# @;
 
+
+1.3
+date	2012.03.23.12.46.27;	author jan;	state Exp;
+branches;
+next	1.2;
 
 1.2
 date	2011.11.28.15.59.29;	author jan;	state Exp;
@@ -21,12 +26,26 @@ desc
 @
 
 
+1.3
+log
+@Multiline commit message.
+
+More message here
+and here.
+@
+text
+@3
+@
+
+
 1.2
 log
 @Commit 2nd version.
 @
 text
-@2
+@d1 1
+a1 1
+2
 @
 
 
