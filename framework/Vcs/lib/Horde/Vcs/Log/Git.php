@@ -64,7 +64,9 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log_Base
         // documented in the git diff-tree documentation:
         // http://www.kernel.org/pub/software/scm/git/docs/git-diff-tree.html
         while (!feof($pipe) && $line = fgets($pipe)) {
-            preg_match('/:(\d+) (\d+) (\w+) (\w+) (.+)\t(.+)(\t(.+))?/', $line, $matches);
+            if (!preg_match('/^:(\d+) (\d+) (\w+) (\w+) (.+)\t(.+)(\t(.+))?/', $line, $matches)) {
+                throw new Horde_Vcs_Exception('Unknown log line format: ' . $line);
+            }
 
             $statinfo = isset($stats[$matches[6]])
                 ? array('added' => $stats[$matches[6]][0], 'deleted' => $stats[$matches[6]][1])
