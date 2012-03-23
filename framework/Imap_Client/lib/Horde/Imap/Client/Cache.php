@@ -151,6 +151,7 @@ class Horde_Imap_Client_Cache
             if (!empty($val['add'])) {
                 if ($s['c'] <= $this->_params['slicesize']) {
                     $val['slice'][] = $s['i'];
+                    $this->_loadSlice($mbox, $s['i']);
                 }
                 $val['slicemap'] = true;
 
@@ -158,6 +159,7 @@ class Horde_Imap_Client_Cache
                     if ($s['c']++ > $this->_params['slicesize']) {
                         $s['c'] = 0;
                         $val['slice'][] = ++$s['i'];
+                        $this->_loadSlice($mbox, $s['i']);
                     }
                     $s['s'][$uid] = $s['i'];
                 }
@@ -461,33 +463,42 @@ class Horde_Imap_Client_Cache
 
         $this->_loadSliceMap($mailbox, $uidvalid);
 
-        if (empty($uids)) {
+        if (!empty($uids)) {
+            foreach (array_unique(array_intersect_key($this->_slicemap[$mailbox]['s'], array_flip($uids))) as $slice) {
+                $this->_loadSlice($mailbox, $slice);
+            }
+        }
+    }
+
+    /**
+     * Load UIDs from a cache slice.
+     *
+     * @param string $mailbox  The mailbox to load.
+     * @param integer $slice   The slice to load.
+     */
+    protected function _loadSlice($mailbox, $slice)
+    {
+        $cache_id = $this->_getCid($mailbox, $slice);
+
+        if (!empty($this->_loaded[$cache_id])) {
             return;
         }
 
-        $slices = array_intersect_key($this->_slicemap[$mailbox]['s'], array_flip($uids));
+        if ((($data = $this->_cache->get($cache_id, $this->_params['lifetime'])) !== false) &&
+            ($data = @unserialize($data)) &&
+            is_array($data)) {
+            $this->_data[$mailbox] += $data;
+            $this->_loaded[$cache_id] = true;
+        } else {
+            $ptr = &$this->_slicemap[$mailbox];
 
-        foreach (array_unique($slices) as $slice) {
-            $cache_id = $this->_getCid($mailbox, $slice);
+            // Slice data is corrupt; remove from slicemap.
+            foreach (array_keys($ptr['s'], $slice) as $val) {
+                unset($ptr['s'][$val]);
+            }
 
-            if (empty($this->_loaded[$cache_id])) {
-                if ((($data = $this->_cache->get($cache_id, $this->_params['lifetime'])) !== false) &&
-                    ($data = @unserialize($data)) &&
-                    is_array($data)) {
-                    $this->_data[$mailbox] += $data;
-                    $this->_loaded[$cache_id] = true;
-                } else {
-                    $ptr = &$this->_slicemap[$mailbox];
-
-                    // Slice data is corrupt; remove from slicemap.
-                    foreach (array_keys($slices, $slice) as $val) {
-                        unset($ptr['s'][$val]);
-                    }
-
-                    if ($slice == $ptr['i']) {
-                        $ptr['c'] = 0;
-                    }
-                }
+            if ($slice == $ptr['i']) {
+                $ptr['c'] = 0;
             }
         }
     }
