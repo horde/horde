@@ -448,7 +448,7 @@ class Horde_Imap_Client_Cache
                     ($slice_uids = array_keys($slicemap['s'], $slice)) &&
                     ($this->_params['slicesize'] * 0.1) > count($slice_uids)) {
                     $this->_toUpdate($mailbox, 'add', $slice_uids);
-                    $this->_cache->expire($this->_getCid($mbox, $slice));
+                    $this->_cache->expire($this->_getCid($mailbox, $slice));
                 } else {
                     $this->_toUpdate($mailbox, 'slice', array($slice));
                 }
