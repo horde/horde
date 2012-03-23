@@ -32,7 +32,7 @@ class Horde_Script_Files
     );
 
     /**
-     * TODO
+     * Output full URLs?
      *
      * @var boolean
      */
@@ -120,13 +120,6 @@ class Horde_Script_Files
         }
         $this->_included[$app][$file] = true;
 
-        // Add localized string for popup.js
-        if (($file == 'popup.js') && ($app == 'horde')) {
-            $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineJsVars(array(
-                'Horde.popup_block_text' => Horde_Core_Translation::t("A popup window could not be opened. Your browser may be blocking popups.")
-            ), array('onload' => 'dom'));
-        }
-
         if ($file[0] == '/') {
             $url = Horde::url($registry->get('webroot', $app) . $file, $full, -1);
             $path = $registry->get('fileroot', $app);
@@ -210,6 +203,25 @@ class Horde_Script_Files
     public function outputTag($src)
     {
         echo '<script type="text/javascript" src="' . $src . "\"></script>\n";
+    }
+
+    /**
+     * Has the file been included already?
+     *
+     * @param string $file   The full javascript file name.
+     * @param string $app    The application name. Defaults to the current
+     *                       application.
+     *
+     * @return boolean  True if file is already included.
+     */
+    public function isIncluded($file, $app = null)
+    {
+        if (empty($app)) {
+            $app = $registry->getApp();
+        }
+
+        // Don't include scripts multiple times.
+        return !empty($this->_included[$app][$file]);
     }
 
 }

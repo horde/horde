@@ -1644,7 +1644,7 @@ HTML;
      */
     static public function popupJs($url, $options = array())
     {
-        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('popup.js', 'horde');
+        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addPopupJs();
 
         $params = new stdClass;
 
