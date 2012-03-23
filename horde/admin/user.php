@@ -53,6 +53,7 @@ if (empty($extra)) {
     $addForm->addVariable(_("Username"), 'user_name', 'text', true);
     $addForm->addVariable(_("Password"), 'password', 'passwordconfirm', false, false, _("type the password twice to confirm"));
 }
+$addForm->addHidden('', 'email', 'text', true);
 
 // Process forms. Use Horde_Util::getPost() instead of Horde_Util::getFormData()
 // for a lot of the data because we want to actively ignore GET data
@@ -213,7 +214,6 @@ case 'approve_f':
     $vars->set('extra', $info);
 
     $vars->set('email', $info['email']);
-    $addForm->addHidden('', 'email', 'text', true);
 
     $vars->set('removeQueuedSignup', true);
     $addForm->addHidden('', 'removeQueuedSignup', 'boolean', true);
