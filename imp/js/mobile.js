@@ -944,7 +944,7 @@ var ImpMobile = {
                 }
                 elt.siblings('.ui-li-count').text(value);
             } else if (!value) {
-                elt.parent().remove('.ui-li-count');
+                elt.siblings('.ui-li-count').remove();
             }
         });
         $('#imp-mailbox-list').listview('refresh');
