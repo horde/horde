@@ -2085,12 +2085,12 @@ var DimpBase = {
                 this.msgSelect(id, $H({ ctrl: true }).merge(args).toObject());
             } else if (e.memo.shiftKey) {
                 this.msgSelect(id, $H({ shift: true }).merge(args).toObject());
-            } else if (e.memo.element().hasClassName('msCheck')) {
-                this.msgSelect(id, { ctrl: true, right: true });
             } else if (this.isSelected('domid', id)) {
                 if (!args.right && this.selectedCount()) {
                     d.selectIfNoDrag = true;
                 }
+            } else if (e.memo.element().hasClassName('msCheck')) {
+                this.msgSelect(id, { ctrl: true, right: true });
             } else {
                 this.msgSelect(id, args);
             }
