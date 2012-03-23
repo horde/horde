@@ -289,7 +289,7 @@ class Horde_PageOutput
      *
      * @return array  Returns the variable list of 'ret_vars' option is true.
      */
-    public function addInlineJsVars($data, array $opts = array())
+    public function addInlineJsVars($data, $opts = array())
     {
         $out = array();
 
