@@ -16,6 +16,9 @@ class Trean_View_BookmarkList
 
     public function __construct($bookmarks)
     {
+        $GLOBALS['injector']
+            ->getInstance('Horde_PageOutput')
+            ->addScriptFile('tables.js', 'horde');
         $this->bookmarks = $bookmarks;
         $this->target = $GLOBALS['prefs']->getValue('show_in_new_window') ? '_blank' : '';
         $this->redirectUrl = Horde::url('redirect.php');

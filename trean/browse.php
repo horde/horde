@@ -12,14 +12,19 @@ require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('trean');
 
 /* Get bookmarks to display. */
-$bookmarks = $trean_gateway->listBookmarks($prefs->getValue('sortby'), $prefs->getValue('sortdir'), 0, 100);
+$bookmarks = $trean_gateway->listBookmarks($prefs->getValue('sortby'),
+                                           $prefs->getValue('sortdir'),
+                                           0, 100);
+if (!count($bookmarks)) {
+    $notification->push(_("No bookmarks yet."), 'horde.message');
+    require __DIR__ . '/add.php';
+    exit;
+}
 
-$page_output = $injector->getInstance('Horde_PageOutput');
-$page_output->addScriptFile('tables.js', 'horde');
-$page_output->addScriptFile('effects.js', 'horde');
+$view = new Trean_View_BookmarkList($bookmarks);
 $title = _("Browse");
 require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
-require TREAN_TEMPLATES . '/browse.php';
+echo $view->render();
 require $registry->get('templates', 'horde') . '/common-footer.inc';

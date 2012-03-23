@@ -18,6 +18,7 @@ function doPrefsUpdate(column, sortDown)
 }
 </script>
 
+<div id="bookmarkList">
 <table class="striped sortable" cellspacing="0" id="BookmarkList">
 <thead>
  <tr>
@@ -69,3 +70,4 @@ foreach ($this->bookmarks as $bookmark) {
 <?php } ?>
 </tbody>
 </table>
+</div>
