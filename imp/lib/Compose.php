@@ -1965,7 +1965,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                     throw new IMP_Compose_Exception($e);
                 }
 
-                $recipients = implode(', ', $recip['list']);
+                $recipients = implode(', ', $recip['recips']);
 
                 Horde::logMessage(sprintf("%s Redirected message sent to %s from %s", $_SERVER['REMOTE_ADDR'], $recipients, $GLOBALS['registry']->getAuth()), 'INFO');
 
