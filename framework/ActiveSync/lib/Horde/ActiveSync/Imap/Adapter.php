@@ -638,9 +638,15 @@ class Horde_ActiveSync_Imap_Adapter
                 $airsync_body->data = $message_data['html']['body'];
                 $eas_message->airsyncbasebody = $airsync_body;
             }
-
         }
 
+        if ($version >= Horde_ActiveSync::VERSION_TWELVE) {
+            $eas_message->contentclass = 'urn:content-classes:message';
+            $poommail_flag = new Horde_ActiveSync_Message_Flag();
+            $poommail_flag->flagstatus = 0; // @TODO
+            $eas_message->flag = $poommail_flag;
+            $eas_message->airsyncbaseattachments = $imap_message->getAttachments(array('protocolversion' => $version));
+        }
         $to = $imap_message->getToAddresses();
         $eas_message->to = implode(',', $to['to']);
         $eas_message->displayto = implode(',', $to['displayto']);

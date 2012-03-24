@@ -56,6 +56,7 @@ class Horde_ActiveSync_Imap_Message
     protected $_lastBodyPartDecode = null;
 
     /**
+     * Constructor
      *
      * @param Horde_Imap_Client_Base $imap        The imap client object.
      * @param Horde_Imap_Client_Mailbox $mbox     The mailbox object.
@@ -76,7 +77,7 @@ class Horde_ActiveSync_Imap_Message
     /**
      * Return this message's base part headers.
      *
-     * @return Horde_Mime_Header  The message headrers.
+     * @return Horde_Mime_Header  The message headers.
      */
     public function getHeaders()
     {
@@ -179,7 +180,7 @@ class Horde_ActiveSync_Imap_Message
      *  - protocolversion: (float)  The EAS protocol we are supporting.
      *                     DEFAULT 2.5
      *
-     * @return array  An array with 'text' and 'charset' keys.
+     * @return array  An array of 'plain' and 'html' content.
      */
     public function getMessageBodyData($options = array())
     {
@@ -283,21 +284,28 @@ class Horde_ActiveSync_Imap_Message
      * Return an array of Horde_ActiveSync_Message_Attachment objects for
      * the current message.
      *
+     * @param float $version  The EAS protocol version this is for.
+     *
      * @return array  An array of Horde_ActiveSync_Message_Attachment objects.
      */
-    public function getAttachments()
+    public function getAttachments($version)
     {
         $ret = array();
         $map = $this->_message->contentTypeMap();
+        $headers = $this->getHeaders();
         foreach ($map as $id => $type) {
             if ($this->isAttachment($type)) {
                 $mime_part = $this->getMimePart($id, array('nocontents' => true));
-                $atc = new Horde_ActiveSync_Message_Attachment();
+                if ($version > Horde_ActiveSync::VERSION_TWOFIVE) {
+                    $atc = new Horde_ActiveSync_Message_AirSyncBaseAttachment();
+                } else {
+                    $atc = new Horde_ActiveSync_Message_Attachment();
+                }
                 $atc->attsize = $mime_part->getBytes();
                 $atc->attname = $this->_mbox . ':' . $this->_uid . ':' . $id;
                 $atc->displayname = $this->getPartName($mime_part, true);
                 $atc->attmethod = Horde_ActiveSync_Message_Attachment::ATT_TYPE_NORMAL;
-                $atc->attoid = ''; // content-id header?
+                //$atc->attoid = $headers->getValue('content-id');
                 $ret[] = $atc;
             }
         }

@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2012-03-23</date>
- <time>14:49:58</time>
+ <time>22:34:12</time>
  <version>
   <release>1.2.6</release>
   <api>1.2.0</api>
@@ -65,6 +65,7 @@
        <file name="ImapFactory.php" role="php" />
       </dir> <!-- /lib/Horde/ActiveSync/Interface -->
       <dir name="Message">
+       <file name="AirSyncBaseAttachment.php" role="php" />
        <file name="AirSyncBaseBody.php" role="php" />
        <file name="Appointment.php" role="php" />
        <file name="Attachment.php" role="php" />
@@ -228,6 +229,7 @@
    <install as="Horde/ActiveSync/Imap/Adapter.php" name="lib/Horde/ActiveSync/Imap/Adapter.php" />
    <install as="Horde/ActiveSync/Imap/Message.php" name="lib/Horde/ActiveSync/Imap/Message.php" />
    <install as="Horde/ActiveSync/Interface/ImapFactory.php" name="lib/Horde/ActiveSync/Interface/ImapFactory.php" />
+   <install as="Horde/ActiveSync/Message/AirSyncBaseAttachment.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseAttachment.php" />
    <install as="Horde/ActiveSync/Message/AirSyncBaseBody.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseBody.php" />
    <install as="Horde/ActiveSync/Message/Appointment.php" name="lib/Horde/ActiveSync/Message/Appointment.php" />
    <install as="Horde/ActiveSync/Message/Attachment.php" name="lib/Horde/ActiveSync/Message/Attachment.php" />
