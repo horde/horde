@@ -1153,7 +1153,7 @@ var DimpCompose = {
             this.createPopdown('sm', {
                 base: 'save_sent_mail',
                 data: DIMP.conf.flist,
-                input: 'save_sent_mail',
+                input: 'save_sent_mail_mbox',
                 label: 'sent_mail_label'
             });
             this.setPopdownLabel('sm', ImpComposeBase.identities[$F('identity')].sm_name);
