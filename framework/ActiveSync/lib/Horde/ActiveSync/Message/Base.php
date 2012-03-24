@@ -158,11 +158,6 @@ class Horde_ActiveSync_Message_Base
         $this->_exists[$property] = true;
     }
 
-    public function setProtocolVersion($version)
-    {
-        $this->_version = $version;
-    }
-
     /**
      * Magic caller method.
      *
