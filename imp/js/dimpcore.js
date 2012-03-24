@@ -408,7 +408,7 @@ var DimpCore = {
                 });
                 break;
             }
-        }.bindAsEventListener(this));
+        });
 
         /* Disable text selection for everything but compose/message body
          * and FORM inputs. */
