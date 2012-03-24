@@ -311,7 +311,7 @@ if ($vars->criteria_form) {
         break;
 
     default:
-        $form = Horde_Serialize::unserialize($vars->form, Horde_Serialize::JSON);
+        $form = Horde_Serialize::unserialize($vars->mboxes_form, Horde_Serialize::JSON);
         $q_ob = $imp_search->createQuery($c_list, array(
             'mboxes' => IMP_Mailbox::formFrom($form->mbox),
             'subfolders' => IMP_Mailbox::formFrom($form->subfolder)
