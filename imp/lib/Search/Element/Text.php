@@ -29,8 +29,8 @@ class IMP_Search_Element_Text extends IMP_Search_Element
          * n = (integer) Do a NOT search?
          * t = (string) The search text. */
         $this->_data = new stdClass;
-        $this->_data->b = intval($bodyonly);
-        $this->_data->n = intval($not);
+        $this->_data->b = intval(!empty($bodyonly));
+        $this->_data->n = intval(!empty($not));
         $this->_data->t = $text;
     }
 

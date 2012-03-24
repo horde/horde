@@ -29,7 +29,7 @@ class IMP_Search_Element_Header extends IMP_Search_Element
          * t = (string) The search text. */
         $this->_data = new stdClass;
         $this->_data->h = trim(Horde_String::lower($header));
-        $this->_data->n = intval($not);
+        $this->_data->n = intval(!empty($not));
         $this->_data->t = $text;
     }
 

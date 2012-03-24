@@ -36,7 +36,7 @@ class IMP_Search_Element_Flag extends IMP_Search_Element
          * s = (integer) Search for set flag? */
         $this->_data = new stdClass;
         $this->_data->f = $name;
-        $this->_data->s = intval($set);
+        $this->_data->s = intval(!empty($set));
     }
 
     /**
