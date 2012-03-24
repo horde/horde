@@ -588,6 +588,7 @@ class Horde_ActiveSync_Imap_Message
         switch ($mime_type) {
         case 'text/plain':
         case 'application/ms-tnef':
+        case 'text/html':
             return false;
         }
 
