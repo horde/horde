@@ -410,6 +410,9 @@ var DimpCore = {
             }
         });
 
+        /* Catch image blocking actions. */
+        document.observe('IMPImageUnblock:success', IMP_JS.unblockImages.bindAsEventListener(IMP_JS));
+
         /* Disable text selection for everything but compose/message body
          * and FORM inputs. */
         document.observe(Prototype.Browser.IE ? 'selectstart' : 'mousedown', function(e) {
