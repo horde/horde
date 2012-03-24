@@ -81,12 +81,13 @@ class Horde_Core_ActiveSync_Connector
      * Export the specified event as an ActiveSync message
      *
      * @param string $uid          The calendar id.
+     * @param array $options       Options to pass to the backend exporter.
      *
      * @return Horde_ActiveSync_Message_Appointment  The requested event.
      */
-    public function calendar_export($uid)
+    public function calendar_export($uid, array $options = array())
     {
-        return $this->_registry->calendar->export($uid, 'activesync');
+        return $this->_registry->calendar->export($uid, 'activesync', $options);
     }
 
     /**
@@ -153,9 +154,9 @@ class Horde_Core_ActiveSync_Connector
      *
      * @return array The contact hash
      */
-    public function contacts_export($uid)
+    public function contacts_export($uid, array $options = array())
     {
-        return $this->_registry->contacts->export($uid, 'activesync');
+        return $this->_registry->contacts->export($uid, 'activesync', $options);
     }
 
     /**
@@ -257,13 +258,14 @@ class Horde_Core_ActiveSync_Connector
     /**
      * Export a single task from the backend.
      *
-     * @param string $uid  The task uid
+     * @param string $uid     The task uid
+     * @param array $options  Options to pass to the backend exporter.
      *
      * @return Horde_ActiveSync_Message_Task  The task message object
      */
-    public function tasks_export($uid)
+    public function tasks_export($uid, array $options = array())
     {
-        return $this->_registry->tasks->export($uid, 'activesync');
+        return $this->_registry->tasks->export($uid, 'activesync', $options);
     }
 
     /**
