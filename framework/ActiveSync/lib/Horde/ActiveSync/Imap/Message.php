@@ -261,15 +261,16 @@ class Horde_ActiveSync_Imap_Message
             $text = $text_body_part->getContents();
         }
         $text_size = $data->getBodyPartSize($text_id);
-
-        $html = !empty($html_id) ? $data->getBodyPart($html_id) : '';
-        $html_size = !empty($html_query_opts['length']) ? $data->getBodyPartSize($html_id) : strlen($html);
         $return = array('plain' => array(
             'charset' => $charset,
             'body' => $text,
             'truncated' => $text_size > strlen($text),
             'size' => $text_size));
+
         if (!empty($html_id)) {
+            $html_body_part->setContents($data->getBodyPart($html_id));
+            $html = $html_body_part->getContents();
+            $html_size = !empty($html_query_opts['length']) ? $data->getBodyPartSize($html_id) : strlen($html);
             $return['html'] = array(
                 'charset' => $html_charset,
                 'body' => $html,
