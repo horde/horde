@@ -306,7 +306,7 @@ class Horde_ActiveSync_Imap_Message
                 $atc->attname = $this->_mbox . ':' . $this->_uid . ':' . $id;
                 $atc->displayname = $this->getPartName($mime_part, true);
                 $atc->attmethod = Horde_ActiveSync_Message_Attachment::ATT_TYPE_NORMAL;
-                //$atc->attoid = $headers->getValue('content-id');
+                $atc->attoid = $headers->getValue('content-id');
                 $ret[] = $atc;
             }
         }
