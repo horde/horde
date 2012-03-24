@@ -888,9 +888,17 @@ class Nag_Task
     /**
      * Create an AS message from this task
      *
+     * @param array $options  Options:
+     *   - protocolversion: (float)  The EAS version to support
+     *                      DEFAULT: 2.5
+     *   - bodyprefs: (array)  A BODYPREFERENCE array.
+     *                DEFAULT: none (No body prefs enforced).
+     *   - truncation: (integer)  Truncate event body to this length
+     *                 DEFAULT: none (No truncation).
+     *
      * @return Horde_ActiveSync_Message_Task
      */
-    function toASTask()
+    function toASTask(array $options = array())
     {
         $message = new Horde_ActiveSync_Message_Task();
 

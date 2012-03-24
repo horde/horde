@@ -720,11 +720,13 @@ class Turba_Api extends Horde_Registry_Api
      * @param array $fields          Hash of field names and
      *                               Horde_SyncMl_Property properties with the
      *                               requested fields.
+     * @param array $options         Any additional options to be passed to the
+     *                               exporter.
      *
      * @return mixed  The requested data.
      * @throws Turba_Exception
      */
-    public function export($uid, $contentType, $sources = null, $fields = null)
+    public function export($uid, $contentType, $sources = null, $fields = null, array $options = array())
     {
         if (empty($uid)) {
             throw new Turba_Exception(_("Invalid ID"));
@@ -779,7 +781,7 @@ class Turba_Api extends Horde_Registry_Api
                 foreach ($result->objects as $object) {
                     $return = $object;
                 }
-                return $sdriver->toASContact($return);
+                return $sdriver->toASContact($return, $options);
 
             default:
                 throw new Turba_Exception(sprintf(_("Unsupported Content-Type: %s"), $contentType));

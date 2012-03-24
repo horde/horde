@@ -1367,9 +1367,17 @@ abstract class Kronolith_Event
     /**
      * Export this event as a MS ActiveSync Message
      *
+     * @param array $options  Options:
+     *   - protocolversion: (float)  The EAS version to support
+     *                      DEFAULT: 2.5
+     *   - bodyprefs: (array)  A BODYPREFERENCE array.
+     *                DEFAULT: none (No body prefs enforced).
+     *   - truncation: (integer)  Truncate event body to this length
+     *                 DEFAULT: none (No truncation).
+     *
      * @return Horde_ActiveSync_Message_Appointment
      */
-    public function toASAppointment()
+    public function toASAppointment(array $options = array())
     {
         $message = new Horde_ActiveSync_Message_Appointment(
             array('logger' => $GLOBALS['injector']->getInstance('Horde_Log_Logger')));

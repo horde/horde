@@ -768,12 +768,14 @@ class Kronolith_Api extends Horde_Registry_Api
      *                                              Still in wide use)
      *                             activesync (Horde_ActiveSync_Message_Appointment)
      *                            </pre>
+     * @param array $optinos      Any additional options to be passed to the
+     *                            exporter.
      *
      * @return string  The requested data.
      * @throws Kronolith_Exception
      * @throws Horde_Exception_NotFound
      */
-    public function export($uid, $contentType)
+    public function export($uid, $contentType, array $options = array())
     {
         $event = Kronolith::getDriver()->getByUID($uid);
         if (!$event->hasPermission(Horde_Perms::READ)) {
@@ -796,7 +798,7 @@ class Kronolith_Api extends Horde_Registry_Api
             return $iCal->exportvCalendar();
 
         case 'activesync':
-            return $event->toASAppointment();
+            return $event->toASAppointment($options);
         }
 
         throw new Kronolith_Exception(sprintf(_("Unsupported Content-Type: %s"), $contentType));

@@ -1027,10 +1027,11 @@ class Nag_Api extends Horde_Registry_Api
      *                    rfc2445)
      * text/x-vcalendar - (old VCALENDAR 1.0 format. Still in wide use)
      * </pre>
+     * @param array $options      Any additional options for the exporter.
      *
      * @return string  The requested data.
      */
-    public function export($uid, $contentType)
+    public function export($uid, $contentType, array $options = array())
     {
         $storage = Nag_Driver::singleton();
         $task = $storage->getByUID($uid);
@@ -1056,7 +1057,7 @@ class Nag_Api extends Horde_Registry_Api
 
             return $iCal->exportvCalendar();
         case 'activesync':
-            return $task->toASTask();
+            return $task->toASTask($options);
         default:
             throw new Nag_Exception(sprintf(_("Unsupported Content-Type: %s"), $contentType));
         }

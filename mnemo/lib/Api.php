@@ -249,12 +249,14 @@ class Mnemo_Api extends Horde_Registry_Api
      *                               'text/plain'
      *                               'text/x-vnote'
      *                             </pre>
+     * @param array $options       Any additional options to be passed to the
+     *                             exporter.
      *
      * @return string  The requested data
      * @throws Mnemo_Exception
      * @throws Horde_Exception_PermissionDenied
      */
-    public function export($uid, $contentType)
+    public function export($uid, $contentType, array $options = array())
     {
         $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create();
         try {
