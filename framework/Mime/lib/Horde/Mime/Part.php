@@ -286,7 +286,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      * Get the content-disposition of this part.
      *
      * @return string  The part's content-disposition.  An empty string means
-     * q               no desired disposition has been set for this part.
+     *                 no desired disposition has been set for this part.
      */
     public function getDisposition()
     {
