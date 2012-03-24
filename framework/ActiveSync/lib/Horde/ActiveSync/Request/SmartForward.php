@@ -56,4 +56,5 @@ class Horde_ActiveSync_Request_SmartForward extends Horde_ActiveSync_Request_Bas
 
         return $this->_driver->sendMail($rfc822, $orig, false, $parent);
     }
+
 }

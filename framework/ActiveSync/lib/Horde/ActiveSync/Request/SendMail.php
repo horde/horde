@@ -34,4 +34,5 @@ class Horde_ActiveSync_Request_SendMail extends Horde_ActiveSync_Request_Base
             throw new Horde_ActiveSync_Exception_InvalidRequest($e->getMessage());
         }
     }
+
 }
