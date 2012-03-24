@@ -571,7 +571,7 @@ class Horde_ActiveSync_Imap_Adapter
         $eas_message = new Horde_ActiveSync_Message_Mail(array('protocolversion' => $version));
         if ($version == Horde_ActiveSync::VERSION_TWOFIVE || empty($options['bodyprefs'])) {
             // EAS 2.5 behavior or no bodyprefs sent
-            $message_data = $imap_message->getMessageBody($options);
+            $message_data = $imap_message->getMessageBodyData($options);
             if ($message_data['plain']['charset'] != 'UTF-8') {
                 $eas_message->body = Horde_String::convertCharset(
                     $message_data['plain']['body'],
