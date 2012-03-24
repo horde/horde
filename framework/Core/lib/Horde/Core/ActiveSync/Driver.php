@@ -19,9 +19,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     const CONTACTS_FOLDER_UID     = '@Contacts@';
     const TASKS_FOLDER_UID        = '@Tasks@';
 
-    const SPECIAL_SENT = 'sent';
-    const SPECIAL_SPAM = 'spam';
-    const SPECIAL_TRASH = 'trash';
+    const SPECIAL_SENT   = 'sent';
+    const SPECIAL_SPAM   = 'spam';
+    const SPECIAL_TRASH  = 'trash';
     const SPECIAL_DRAFTS = 'drafts';
 
 
@@ -66,15 +66,25 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *
      * @var Horde_Auth_Base
      */
-     private $_auth;
+    private $_auth;
 
     /**
      * Const'r
      *
      * @param array $params  Configuration parameters:
-     *   - connector: Horde_ActiveSync_Driver_Horde_Connector_Registry object
-     *   - auth:      Horde_Auth object
-     *   - imap:      Horde_ActiveSync_Imap_Adapter (OPTIONAL)
+     *   - logger: (Horde_Log_Logger) The logger.
+     *             DEFAULT: none (No logging).
+     *
+     *   - state: (Horde_ActiveSync_State_Base) The state driver.
+     *            DEFAULT: none (REQUIRED).
+     *   - connector: (Horde_ActiveSync_Driver_Horde_Connector_Registry) The
+     *                connector object for communicating with the registry.
+     *                DEFAULT: none, REQUIRED
+     *   - auth: (Horde_Auth) The auth object.
+     *           DEFAULT: none, REQUIRED.
+     *   - imap: (Horde_ActiveSync_Imap_Adapter) The IMAP adapter if email
+     *           support is desired.
+     *           DEFAULT: none (No email support will be provided).
      *
      * @return Horde_ActiveSync_Driver_Horde
      */
@@ -103,8 +113,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         // Build the displaymap
         $this->_displayMap = array(
             self::APPOINTMENTS_FOLDER_UID => Horde_ActiveSync_Translation::t('Calendar'),
-            self::CONTACTS_FOLDER_UID => Horde_ActiveSync_Translation::t('Contacts'),
-            self::TASKS_FOLDER_UID => Horde_ActiveSync_Translation::t('Tasks')
+            self::CONTACTS_FOLDER_UID     => Horde_ActiveSync_Translation::t('Contacts'),
+            self::TASKS_FOLDER_UID        => Horde_ActiveSync_Translation::t('Tasks')
         );
     }
 
@@ -145,7 +155,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     /**
      * Setup sync parameters. The user provided here is the user the backend
      * will sync with. This allows you to authenticate as one user, and sync as
-     * another, if the backend supports this.
+     * another, if the backend supports this (Horde does not).
      *
      * @param string $user      The username to sync as on the backend.
      *
@@ -200,7 +210,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * Return an array of the server's folder objects.
      *
      * @return array  An array of Horde_ActiveSync_Message_Folder objects.
-     * @since 2.0
      */
     public function getFolders()
     {
@@ -249,8 +258,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function getFolder($id)
     {
-        $this->_logger->debug('Horde::getFolder(' . $id . ')');
-
         switch ($id) {
         case self::APPOINTMENTS_FOLDER_UID:
             $folder = $this->_buildNonMailFolder(
@@ -360,8 +367,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * @param integer $to_ts       The ending timestamp
      * @param integer $cutoffdate  The earliest date to retrieve back to
      * @param boolean $ping        If true, returned changeset may
-     *                             not contain the full changeset, may only
-     *                             contain a single change, designed only to
+     *                             not contain the full changeset, but rather
+     *                             only a single change, designed only to
      *                             indicate *some* change has taken place. The
      *                             value should not be used to determine *what*
      *                             change has taken place.

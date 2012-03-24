@@ -127,21 +127,24 @@ class Horde_ActiveSync_Sync
         $this->_exporter = $exporter;
         $this->_folderId = !empty($collection['id']) ? $collection['id'] : false;
         $this->_changes = $stateDriver->getChanges(array('ping' => $isPing));
-        //$this->_truncation = !empty($collection['truncation']) ? $collection['truncation'] : 0;
     }
 
-    public function setLogger($logger)
+    /**
+     * Set a logger.
+     *
+     * @param Horde_Log_Logger $logger  The logger
+     */
+    public function setLogger(Horde_Log_Logger $logger)
     {
         $this->_logger = $logger;
     }
 
     /**
-     * Sends the next change in the set and updates the stateDriver if
-     * successful
+     * Sends the next change in the set and updates the device state.
      *
      * @param integer $flags  A Horde_ActiveSync:: flag constant
      *
-     * @return mixed  A progress array or false if no more changes
+     * @return array|boolean  A progress array or false if no more changes
      */
     public function syncronize($flags = 0)
     {
@@ -198,9 +201,9 @@ class Horde_ActiveSync_Sync
 
                 switch($change['type']) {
                 case Horde_ActiveSync::CHANGE_TYPE_CHANGE:
-                    //$truncsize = self::_getTruncSize($this->_truncation);
                     try {
-                        $message = $this->_backend->getMessage($this->_folderId, $change['id'], $this->_collection);
+                        $message = $this->_backend->getMessage(
+                            $this->_folderId, $change['id'], $this->_collection);
                     } catch (Horde_ActiveSync_Exception $e) {
                         $this->_logger->debug('Message gone? Possibly a MoreItems that has since disappeared.');
                         $flags = $flags | Horde_ActiveSync::BACKEND_IGNORE_DATA;
@@ -254,37 +257,5 @@ class Horde_ActiveSync_Sync
     {
         return count($this->_changes);
     }
-
-    // /**
-    //  *
-    //  * @param $truncation
-    //  * @return unknown_type
-    //  */
-    // private static function _getTruncSize($truncation)
-    // {
-    //     switch($truncation) {
-    //     case Horde_ActiveSync::TRUNCATION_ALL:
-    //         return 0;
-    //     case Horde_ActiveSync::TRUNCATION_1:
-    //         return 512;
-    //     case Horde_ActiveSync::TRUNCATION_2:
-    //         return 1024;
-    //     case Horde_ActiveSync::TRUNCATION_3:
-    //         return 2048;
-    //     case Horde_ActiveSync::TRUNCATION_4:
-    //         return 5120;
-    //     // case Horde_ActiveSync::TRUNCATION_5:
-    //     //     return 20480;
-    //     // case Horde_ActiveSync::TRUNCATION_6:
-    //     //     return 51200;
-    //     case Horde_ActiveSync::TRUNCATION_7:
-    //         //return 102400;
-    //     //case Horde_ActiveSync::TRUNCATION_8:
-    //     case Horde_ActiveSync::TRUNCATION_NONE:
-    //         return 1048576; // We'll limit to 1MB anyway
-    //     default:
-    //         return 1024; // Default to 1Kb
-    //     }
-    // }
 
 }

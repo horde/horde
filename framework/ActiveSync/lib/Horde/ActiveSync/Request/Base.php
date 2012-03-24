@@ -69,7 +69,7 @@ abstract class Horde_ActiveSync_Request_Base
     /**
      * The ActiveSync Version
      *
-     * @var string
+     * @var float
      */
     protected $_version;
 

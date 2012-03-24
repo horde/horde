@@ -165,7 +165,7 @@ abstract class Horde_ActiveSync_Driver_Base
      *
      * @param Horde_Log_Logger $logger  The logger
      */
-    public function setLogger(Horde_Log_Logger $logger)
+    public function setLogger($logger)
     {
         $this->_logger = $logger;
     }
@@ -219,7 +219,7 @@ abstract class Horde_ActiveSync_Driver_Base
     }
 
     /**
-     * Any code to run on log off
+     * Logoff
      *
      * @return boolean
      */

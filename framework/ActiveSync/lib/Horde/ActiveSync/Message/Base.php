@@ -21,8 +21,10 @@
  * This file is distributed under GPL-2.0.
  * Consult COPYING file for details
  *
+ * @license   http://www.horde.org/licenses/gpl GPLv2
  * @copyright 2010-2012 Horde LLC (http://www.horde.org/)
  * @author Michael J Rubinsky <mrubinsk@horde.org>
+ * @link      http://pear.horde.org/index.php?package=ActiveSync
  * @package ActiveSync
  */
 /**
@@ -62,7 +64,7 @@ class Horde_ActiveSync_Message_Base
     /**
      * Message flags
      *
-     * @var Horde_ActiveSync_FLAG_* constant
+     * @var Horde_ActiveSync::FLAG_* constant
      */
     public $flags = false;
 
@@ -165,7 +167,6 @@ class Horde_ActiveSync_Message_Base
      * @param  array $arg     Method arguments.
      *
      * @return mixed
-     * @throws BadMethodCallException
      */
     public function __call($method, $arg)
     {
