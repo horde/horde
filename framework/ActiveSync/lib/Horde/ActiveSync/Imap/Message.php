@@ -301,12 +301,12 @@ class Horde_ActiveSync_Imap_Message
                     $atc = new Horde_ActiveSync_Message_AirSyncBaseAttachment();
                 } else {
                     $atc = new Horde_ActiveSync_Message_Attachment();
+                    $atc->attoid = $headers->getValue('content-id');
                 }
                 $atc->attsize = $mime_part->getBytes();
                 $atc->attname = $this->_mbox . ':' . $this->_uid . ':' . $id;
                 $atc->displayname = $this->getPartName($mime_part, true);
                 $atc->attmethod = Horde_ActiveSync_Message_Attachment::ATT_TYPE_NORMAL;
-                $atc->attoid = $headers->getValue('content-id');
                 $ret[] = $atc;
             }
         }
