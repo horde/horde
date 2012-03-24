@@ -503,7 +503,7 @@ case 'send_message':
     );
 
     try {
-        $sent = $imp_compose->buildAndSendMessage($message, $header, $options);
+        $imp_compose->buildAndSendMessage($message, $header, $options);
         $imp_compose->destroy('send');
     } catch (IMP_Compose_Exception $e) {
         $code = $e->getCode();
@@ -532,10 +532,8 @@ case 'send_message':
     }
 
     if ($isPopup) {
-        if ($prefs->getValue('compose_confirm') || !$sent) {
-            if ($sent) {
-                $notification->push(_("Message sent successfully."), 'horde.success');
-            }
+        if ($prefs->getValue('compose_confirm')) {
+            $notification->push(_("Message sent successfully."), 'horde.success');
             $imp_ui->popupSuccess();
         } else {
             echo Horde::wrapInlineScript(array('window.close();'));

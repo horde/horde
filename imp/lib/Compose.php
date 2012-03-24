@@ -669,9 +669,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
      *  </li>
      * </ul>
      *
-     * @return boolean  Whether the sent message has been saved in the
-     *                  sent-mail mailbox.
-     *
      * @throws Horde_Exception
      * @throws IMP_Compose_Exception
      * @throws IMP_Exception
@@ -815,7 +812,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
         }
 
         $recipients = strval($recip['list']);
-        $sent_saved = true;
 
         if ($this->_replytype) {
             /* Log the reply. */
@@ -848,7 +844,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
 
         /* Should we save this message in the sent mail mailbox? */
         if (!empty($opts['sent_mail']) &&
-            ((!$prefs->isLocked('save_sent_mail') && !empty($opts['save_sent'])) ||
+            ((!$prefs->isLocked('save_sent_mail') &&
+              !empty($opts['save_sent'])) ||
              ($prefs->isLocked('save_sent_mail') &&
               $prefs->getValue('save_sent_mail')))) {
             /* Keep Bcc: headers on saved messages. */
@@ -882,7 +879,11 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
             }
 
             /* Generate the message string. */
-            $fcc = $save_msg->toString(array('defserver' => $session->get('imp', 'maildomain'), 'headers' => $headers, 'stream' => true));
+            $fcc = $save_msg->toString(array(
+                'defserver' => $session->get('imp', 'maildomain'),
+                'headers' => $headers,
+                'stream' => true
+            ));
 
             /* Make sure sent mailbox is created. */
             $sent_mail = IMP_Mailbox::get($opts['sent_mail']);
@@ -902,7 +903,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
                 $injector->getInstance('IMP_Factory_Imap')->create()->append($sent_mail, array(array('data' => $fcc, 'flags' => $flags)));
             } catch (IMP_Imap_Exception $e) {
                 $notification->push(sprintf(_("Message sent successfully, but not saved to %s."), $sent_mail->display));
-                $sent_saved = false;
             }
         }
 
@@ -916,8 +916,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
         try {
             Horde::callHook('post_sent', array($save_msg['msg'], $headers), 'imp');
         } catch (Horde_Exception_HookNotSet $e) {}
-
-        return $sent_saved;
     }
 
     /**

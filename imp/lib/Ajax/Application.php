@@ -1651,7 +1651,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         );
 
         try {
-            $sent = $imp_compose->buildAndSendMessage($this->_vars->message, $headers, $options);
+            $imp_compose->buildAndSendMessage($this->_vars->message, $headers, $options);
+            $GLOBALS['notification']->push(empty($headers['subject']) ? _("Message sent successfully.") : sprintf(_("Message \"%s\" sent successfully."), Horde_String::truncate($headers['subject'])), 'horde.success');
         } catch (IMP_Compose_Exception $e) {
             $result->success = 0;
 
@@ -1692,10 +1693,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         /* Remove any auto-saved drafts. */
         if ($imp_compose->hasDrafts()) {
             $result->draft_delete = 1;
-        }
-
-        if ($sent) {
-            $GLOBALS['notification']->push(empty($headers['subject']) ? _("Message sent successfully.") : sprintf(_("Message \"%s\" sent successfully."), Horde_String::truncate($headers['subject'])), 'horde.success');
         }
 
         /* Update maillog information. */
