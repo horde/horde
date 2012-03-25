@@ -150,10 +150,9 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
         parent::__construct($options);
         if ($this->_version < Horde_ActiveSync::VERSION_TWELVE) {
             $this->_mapping += array(
-                self::BODY                  => array(self::KEY_ATTRIBUTE => 'body'),
-                self::BODYSIZE              => array(self::KEY_ATTRIBUTE => 'bodysize'),
-                self::BODYTRUNCATED         => array(self::KEY_ATTRIBUTE => 'bodytruncated'),
-                self::RTF                   => array(self::KEY_ATTRIBUTE => 'rtf'),
+                self::POOMCAL_BODY                  => array(self::KEY_ATTRIBUTE => 'body'),
+                self::POOMCAL_BODYTRUNCATED         => array(self::KEY_ATTRIBUTE => 'bodytruncated'),
+                self::POOMCAL_RTF                   => array(self::KEY_ATTRIBUTE => 'rtf'),
             );
 
             $this->_properties += array(
