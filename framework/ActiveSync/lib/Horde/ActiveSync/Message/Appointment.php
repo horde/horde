@@ -157,7 +157,6 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
 
             $this->_properties += array(
                 'body'                  => false,
-                'bodysize'              => false,
                 'bodytruncated'         => 0,
                 'rtf'                   => false
             );
