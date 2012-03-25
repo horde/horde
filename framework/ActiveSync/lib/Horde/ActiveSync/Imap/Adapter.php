@@ -585,25 +585,7 @@ class Horde_ActiveSync_Imap_Adapter
             $eas_message->attachments = $imap_message->getAttachments();
         } else {
             // Body pref EAS >= 12.0
-            if (isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]) &&
-                !isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'])) {
-                $options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'] = 1048576; // 1024 * 1024
-            }
-            if (isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]) &&
-                !isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize'])) {
-                $options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize'] = 1048576; // 1024 * 1024
-            }
-            if (isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_RTF]) &&
-                !isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_RTF]['truncationsize'])) {
-                $options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_RTF]['truncationsize'] = 1048576; // 1024 * 1024
-            }
-            if (isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_MIME]) &&
-                !isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_MIME]['truncationsize'])) {
-                $options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_MIME]['truncationsize'] = 1048576; // 1024 * 1024
-            }
             $message_data = $imap_message->getMessageBodyData($options);
-
-
             if (!empty($message_data['html'])) {
                 $eas_message->airsyncbasenativebodytype = Horde_ActiveSync::BODYPREF_TYPE_HTML;
             } else {

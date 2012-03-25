@@ -583,7 +583,11 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
         case Horde_ActiveSync::FOLDER_TYPE_CONTACT:
             try {
-                $message = $this->_connector->contacts_export($id, $this->_version);
+                $message = $this->_connector->contacts_export($id, array(
+                    'protocolversion' => $this->_version,
+                    'truncation' => $collection['truncation'],
+                    'bodyprefs' => $this->addDefaultBodyPrefTruncation($collection['bodyprefs']),
+                    'mimesupport' => $collection['mimesupport']));
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 $this->_endBuffer();
@@ -613,7 +617,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     array(
                         'protocolversion' => $this->_version,
                         'truncation' => $collection['truncation'],
-                        'bodyprefs'  => $collection['bodyprefs'],
+                        'bodyprefs'  => $this->addDefaultBodyPrefTruncation($collection['bodyprefs']),
                         'mimesupport' => $collection['mimesupport']
                     )
                 );

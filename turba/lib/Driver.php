@@ -2338,7 +2338,12 @@ class Turba_Driver implements Countable
      */
     public function toASContact(Turba_Object $object, array $options = array())
     {
-        $message = new Horde_ActiveSync_Message_Contact(array('logger' => $GLOBALS['injector']->getInstance('Horde_Log_Logger')));
+        $message = new Horde_ActiveSync_Message_Contact(
+            array(
+                'logger' => $GLOBALS['injector']->getInstance('Horde_Log_Logger'),
+                'protocolversion' => $options['protocolversion'])
+            )
+        );
         $hash = $object->getAttributes();
         if (!isset($hash['lastname']) && isset($hash['name'])) {
             $this->_guessName($hash);
@@ -2576,11 +2581,29 @@ class Turba_Driver implements Countable
             case 'spouse':
                 $message->spouse = $value;
                 break;
+
             case 'notes':
-                /* Assume no truncation - AS server will truncate as needed */
-                $message->body = $value;
-                $message->bodysize = strlen($message->body);
-                $message->bodytruncated = false;
+                if (!empty($options['bodyprefs'])) {
+                    $bp = $options['bodyprefs'];
+                    $note = new Horde_ActiveSync_Message_AirSyncBaseBody();
+                    // No HTML supported in Turba's notes. Always use plaintext.
+                    $note->type = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
+                    if (isset($bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'])) {
+                        if (Horde_String::length($value) > $bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize']) {
+                            $note->data = Horde_String::substr($value, 0, $bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize']);
+                            $note->truncated = 1;
+                        } else {
+                            $note->data = $value;
+                        }
+                        $note->estimateddatasize = Horde_String::length($value);
+                    }
+                    $message->airsyncbasebody = $note;
+                } else {
+                    // EAS 2.5
+                    $message->body = $value;
+                    $message->bodysize = strlen($message->body);
+                    $message->bodytruncated = false;
+                }
                 break;
 
             case 'website':

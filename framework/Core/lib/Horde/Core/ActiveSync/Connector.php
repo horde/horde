@@ -150,9 +150,16 @@ class Horde_Core_ActiveSync_Connector
     /**
      * Export the specified contact from Horde's contacts storage
      *
-     * @param string $uid          The contact's UID
+     * @param string $uid     The contact's UID
+     * @param array $options  Exporter options:
+     *   - protocolversion: (float)  The EAS version to support
+     *                      DEFAULT: 2.5
+     *   - bodyprefs: (array)  A BODYPREFERENCE array.
+     *                DEFAULT: none (No body prefs enforced).
+     *   - truncation: (integer)  Truncate event body to this length
+     *                 DEFAULT: none (No truncation).
      *
-     * @return array The contact hash
+     * @return Horde_ActiveSync_Message_Contact  The contact object.
      */
     public function contacts_export($uid, array $options = array())
     {

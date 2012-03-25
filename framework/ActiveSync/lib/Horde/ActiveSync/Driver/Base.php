@@ -433,6 +433,35 @@ abstract class Horde_ActiveSync_Driver_Base
     }
 
     /**
+     * Add default truncation values for this driver.
+     *
+     * @param array $bodyprefs  BODYPREFERENCE data.
+     *
+     * @return array  THe BODYPREFERENCE data, with default truncationsize values.
+     */
+    public function addDefaultBodyPrefTruncation(array $bodyprefs)
+    {
+        if (isset($bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]) &&
+            !isset($bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'])) {
+            $bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'] = 1048576; // 1024 * 1024
+        }
+        if (isset($bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_HTML]) &&
+            !isset($bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize'])) {
+            $bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize'] = 1048576; // 1024 * 1024
+        }
+        if (isset($bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_RTF]) &&
+            !isset($bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_RTF]['truncationsize'])) {
+            $bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_RTF]['truncationsize'] = 1048576; // 1024 * 1024
+        }
+        if (isset($bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_MIME]) &&
+            !isset($bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_MIME]['truncationsize'])) {
+            $bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_MIME]['truncationsize'] = 1048576; // 1024 * 1024
+        }
+
+        return $bodyprefs;
+    }
+
+    /**
      * Get folder stat
      *
      * @param string $id  The folder server id.
