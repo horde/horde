@@ -169,7 +169,7 @@ class Horde_Core_ActiveSync_Connector
      */
     public function contacts_export($uid, array $options = array())
     {
-        return $this->_registry->contacts->export($uid, 'activesync', $options);
+        return $this->_registry->contacts->export($uid, 'activesync', null, null, $options);
     }
 
     /**
