@@ -289,7 +289,7 @@ if ($origin_host) {
 }
 
 if (empty($from_img) && !empty($envelope->from)) {
-    $from_img .= Horde_Core_Ui_FlagImage::generateFlagImageByHost($envelope->from[0]['host']) . ' ';
+    $from_img .= Horde_Core_Ui_FlagImage::generateFlagImageByHost($envelope->from[0]->host) . ' ';
 }
 
 if (!empty($from_img)) {
