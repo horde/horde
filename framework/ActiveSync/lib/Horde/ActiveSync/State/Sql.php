@@ -801,6 +801,9 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             $this->_folder = $this->_getLastState(
                 $this->_collection['id'],
                 $this->_lastSyncTS);
+            if (!$this->_folder) {
+                throw new Horde_ActiveSync_Exception_StateGone('Previous syncstate has been removed');
+            }
         } else {
             // Initialize the collection's state.
             $this->_logger->info(sprintf(
