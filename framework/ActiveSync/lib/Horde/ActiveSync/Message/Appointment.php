@@ -164,10 +164,10 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
             );
         } else {
             $this->_mapping += array(
-                Horde_ActiveSync::SYNC_AIRSYNCBASE_BODY => array(self::KEY_ATTRIBUTE => 'airsyncbasebody', self::KEY_TYPE => 'Horde_ActiveSync_Message_AirSyncBaseBody')
+                Horde_ActiveSync::AIRSYNCBASE_BODY => array(self::KEY_ATTRIBUTE => 'airsyncbasebody', self::KEY_TYPE => 'Horde_ActiveSync_Message_AirSyncBaseBody')
             );
             $this->_properties += array(
-                'airsyncbasebody'
+                'airsyncbasebody' => false
             );
         }
     }
