@@ -1380,34 +1380,56 @@ abstract class Kronolith_Event
     public function toASAppointment(array $options = array())
     {
         $message = new Horde_ActiveSync_Message_Appointment(
-            array('logger' => $GLOBALS['injector']->getInstance('Horde_Log_Logger')));
-        $message->setSubject($this->getTitle());
-        $message->setBody($this->description);
+            array(
+                'logger' => $GLOBALS['injector']->getInstance('Horde_Log_Logger'),
+                'protocolversion' => $options['protocolversion']
+            )
+        );
+
+        // Handle body/truncation
+        if (!empty($options['bodyprefs'])) {
+            $bp = $options['bodyprefs'];
+            $note = new Horde_ActiveSync_Message_AirSyncBaseBody();
+            // No HTML supported. Always use plaintext.
+            $note->type = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
+            if (isset($bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'])) {
+                if (Horde_String::length($this->description) > $bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize']) {
+                    $note->data = Horde_String::substr($this->description, 0, $bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize']);
+                    $note->truncated = 1;
+                } else {
+                    $note->data = $this->description;
+                }
+                $note->estimateddatasize = Horde_String::length($this->description);
+            }
+            $message->airsyncbasebody = $note;
+        } else {
+            $message->setBody($this->description);
+        }
+
         $message->setLocation($this->location);
-
-        /* Start and End */
-        $message->setDatetime(array('start' => $this->start,
-                                    'end' => $this->end,
-                                    'allday' => $this->isAllDay()));
-
-        /* Timezone */
+        $message->setSubject($this->getTitle());
+        $message->setDatetime(array(
+            'start' => $this->start,
+            'end' => $this->end,
+            'allday' => $this->isAllDay())
+        );
         $message->setTimezone($this->start);
 
-        /* Organizer */
+        // Organizer
         if (count($this->attendees)) {
             $name = Kronolith::getUserName($this->creator);
-            $message->setOrganizer(
-                    array('name' => $name,
-                          'email' => Kronolith::getUserEmail($this->creator))
+            $message->setOrganizer(array(
+                'name' => $name,
+                'email' => Kronolith::getUserEmail($this->creator))
             );
         }
 
-        /* Privacy */
+        // Privacy
         $message->setSensitivity($this->private ?
             Horde_ActiveSync_Message_Appointment::SENSITIVITY_PRIVATE :
             Horde_ActiveSync_Message_Appointment::SENSITIVITY_NORMAL);
 
-        /* Busy Status */
+        // Busy Status
         switch ($this->status) {
         case Kronolith::STATUS_CANCELLED:
             $status = Horde_ActiveSync_Message_Appointment::BUSYSTATUS_FREE;
@@ -1423,10 +1445,10 @@ abstract class Kronolith_Event
         }
         $message->setBusyStatus($status);
 
-        /* DTStamp */
+        // DTStamp
         $message->setDTStamp($_SERVER['REQUEST_TIME']);
 
-        /* Recurrence */
+        // Recurrence
         if ($this->recurs()) {
             $message->setRecurrence($this->recurrence);
 
@@ -1447,12 +1469,12 @@ abstract class Kronolith_Event
                 foreach ($results as $days) {
                     foreach ($days as $exception) {
                         $e = new Horde_ActiveSync_Message_Exception();
-                        /* Times */
-                        $e->setDateTime(
-                            array('start' => $exception->start,
-                                  'end' => $exception->end,
-                                  'allday' => $exception->isAllDay()));
-                        /* The start time of the *original* recurring event */
+                        $e->setDateTime(array(
+                            'start' => $exception->start,
+                            'end' => $exception->end,
+                            'allday' => $exception->isAllDay()));
+
+                        // The start time of the *original* recurring event
                         $e->setExceptionStartTime($exception->exceptionoriginaldate);
                         $originaldate = $exception->exceptionoriginaldate->format('Ymd');
                         $key = array_search($originaldate, $exceptions);
@@ -1460,18 +1482,16 @@ abstract class Kronolith_Event
                             unset($exceptions[$key]);
                         }
 
-                        /* Remaining properties that could be different */
+                        // Remaining properties that could be different
                         $e->setSubject($exception->getTitle());
                         $e->setLocation($exception->location);
                         $e->setBody($exception->description);
-
                         $e->setSensitivity($exception->private ?
                             Horde_ActiveSync_Message_Appointment::SENSITIVITY_PRIVATE :
                             Horde_ActiveSync_Message_Appointment::SENSITIVITY_NORMAL);
-
                         $e->setReminder($exception->alarm);
                         $e->setDTStamp($_SERVER['REQUEST_TIME']);
-                        /* Response Status */
+
                         switch ($exception->status) {
                         case Kronolith::STATUS_CANCELLED:
                             $status = 'declined';
@@ -1487,16 +1507,15 @@ abstract class Kronolith_Event
                         }
                         $e->setResponseType($status);
 
-                        /* Tags/Categories */
+                        // Tags/Categories
                         foreach ($exception->tags as $tag) {
                             $e->addCategory($tag);
                         }
                         $message->addexception($e);
-
                     }
                 }
 
-                /* Any dates left in $exceptions must be deleted exceptions */
+                // Any dates left in $exceptions must be deleted exceptions
                 foreach ($exceptions as $deleted) {
                     $e = new Horde_ActiveSync_Message_Exception();
                     // Kronolith stores the date only, but some AS clients need
@@ -1511,7 +1530,7 @@ abstract class Kronolith_Event
             }
         }
 
-        /* Attendees */
+        // Attendees
         if (count($this->attendees)) {
             $message->setMeetingStatus(Horde_ActiveSync_Message_Appointment::MEETING_IS_MEETING);
             foreach ($this->attendees as $email => $properties) {
@@ -1536,12 +1555,12 @@ abstract class Kronolith_Event
 //            $message->addAttendee($attendee);
 //        }
 
-        /* Reminder */
+        // Reminder
         if ($this->alarm) {
             $message->setReminder($this->alarm);
         }
 
-        /* Categories (tags) */
+        // Categories (tags)
         foreach ($this->tags as $tag) {
             $message->addCategory($tag);
         }

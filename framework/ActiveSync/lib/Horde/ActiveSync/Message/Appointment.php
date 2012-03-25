@@ -106,11 +106,8 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
         self::POOMCAL_BUSYSTATUS     => array (self::KEY_ATTRIBUTE => 'busystatus'),
         self::POOMCAL_ALLDAYEVENT    => array (self::KEY_ATTRIBUTE => 'alldayevent'),
         self::POOMCAL_REMINDER       => array (self::KEY_ATTRIBUTE => 'reminder'),
-        self::POOMCAL_RTF            => array (self::KEY_ATTRIBUTE => 'rtf'),
         self::POOMCAL_MEETINGSTATUS  => array (self::KEY_ATTRIBUTE => 'meetingstatus'),
         self::POOMCAL_ATTENDEES      => array (self::KEY_ATTRIBUTE => 'attendees', self::KEY_TYPE => 'Horde_ActiveSync_Message_Attendee', self::KEY_VALUES => self::POOMCAL_ATTENDEE),
-        self::POOMCAL_BODY           => array (self::KEY_ATTRIBUTE => 'body'),
-        self::POOMCAL_BODYTRUNCATED  => array (self::KEY_ATTRIBUTE => 'bodytruncated'),
         self::POOMCAL_EXCEPTIONS     => array (self::KEY_ATTRIBUTE => 'exceptions', self::KEY_TYPE => 'Horde_ActiveSync_Message_Exception', self::KEY_VALUES => self::POOMCAL_EXCEPTION),
         self::POOMCAL_CATEGORIES     => array (self::KEY_ATTRIBUTE => 'categories', self::KEY_VALUES => self::POOMCAL_CATEGORY),
         //self::POOMCAL_RESPONSETYPE => array(self::KEY_ATTRIBUTE => 'responsetype'),
@@ -119,8 +116,6 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     protected $_properties = array(
         'alldayevent'    => false,
         'attendees'      => array(),
-        'body'           => false,
-        'bodytruncated'  => 0,
         'busystatus'     => false,
         'categories'     => array(),
         'dtstamp'        => false,
@@ -132,13 +127,50 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
         'meetingstatus'  => false,
         'recurrence'     => false,
         'reminder'       => false,
-        'rtf'            => false,
         'sensitivity'    => false,
         'starttime'      => false,
         'subject'        => false,
         'timezone'       => false,
         'uid'            => false,
     );
+
+    /**
+     * Const'r
+     *
+     * @param array $options  Configuration options for the message:
+     *   - logger: (Horde_Log_Logger)  A logger instance
+     *             DEFAULT: none (No logging).
+     *   - protocolversion: (float)  The version of EAS to support.
+     *              DEFAULT: Horde_ActiveSync::VERSION_TWOFIVE (2.5)
+     *
+     * @return Horde_ActiveSync_Message_Base
+     */
+    public function __construct(array $options = array())
+    {
+        parent::__construct($options);
+        if ($this->_version < Horde_ActiveSync::VERSION_TWELVE) {
+            $this->_mapping += array(
+                self::BODY                  => array(self::KEY_ATTRIBUTE => 'body'),
+                self::BODYSIZE              => array(self::KEY_ATTRIBUTE => 'bodysize'),
+                self::BODYTRUNCATED         => array(self::KEY_ATTRIBUTE => 'bodytruncated'),
+                self::RTF                   => array(self::KEY_ATTRIBUTE => 'rtf'),
+            );
+
+            $this->_properties += array(
+                'body'                  => false,
+                'bodysize'              => false,
+                'bodytruncated'         => 0,
+                'rtf'                   => false
+            );
+        } else {
+            $this->_mapping += array(
+                Horde_ActiveSync::SYNC_AIRSYNCBASE_BODY => array(self::KEY_ATTRIBUTE => 'airsyncbasebody', self::KEY_TYPE => 'Horde_ActiveSync_Message_AirSyncBaseBody')
+            );
+            $this->_properties += array(
+                'airsyncbasebody'
+            );
+        }
+    }
 
     /**
      * Set the timezone

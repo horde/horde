@@ -569,7 +569,12 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         switch ($folder->type) {
         case Horde_ActiveSync::FOLDER_TYPE_APPOINTMENT:
             try {
-                $message = $this->_connector->calendar_export($id, $this->_version);
+                $message = $this->_connector->calendar_export($id, array(
+                    'protocolversion' => $this->_version,
+                    'truncation' => $collection['truncation'],
+                    'bodyprefs' => $this->addDefaultBodyPrefTruncation($collection['bodyprefs']),
+                    'mimesupport' => $collection['mimesupport']));
+
                 // Nokia MfE requires the optional UID element.
                 if (!$message->getUid()) {
                     $message->setUid($id);

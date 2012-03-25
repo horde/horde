@@ -82,6 +82,12 @@ class Horde_Core_ActiveSync_Connector
      *
      * @param string $uid          The calendar id.
      * @param array $options       Options to pass to the backend exporter.
+     *   - protocolversion: (float)  The EAS version to support
+     *                      DEFAULT: 2.5
+     *   - bodyprefs: (array)  A BODYPREFERENCE array.
+     *                DEFAULT: none (No body prefs enforced).
+     *   - truncation: (integer)  Truncate event body to this length
+     *                 DEFAULT: none (No truncation).
      *
      * @return Horde_ActiveSync_Message_Appointment  The requested event.
      */
