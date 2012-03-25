@@ -2338,11 +2338,9 @@ class Turba_Driver implements Countable
      */
     public function toASContact(Turba_Object $object, array $options = array())
     {
-        $message = new Horde_ActiveSync_Message_Contact(
-            array(
-                'logger' => $GLOBALS['injector']->getInstance('Horde_Log_Logger'),
-                'protocolversion' => $options['protocolversion'])
-            )
+        $message = new Horde_ActiveSync_Message_Contact(array(
+            'logger' => $GLOBALS['injector']->getInstance('Horde_Log_Logger'),
+            'protocolversion' => $options['protocolversion'])
         );
         $hash = $object->getAttributes();
         if (!isset($hash['lastname']) && isset($hash['name'])) {
