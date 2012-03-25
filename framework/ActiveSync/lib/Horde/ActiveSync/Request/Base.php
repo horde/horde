@@ -168,7 +168,7 @@ abstract class Horde_ActiveSync_Request_Base
                ($this->_provisioning !== Horde_ActiveSync::PROVISIONING_LOOSE ||
                ($this->_provisioning === Horde_ActiveSync::PROVISIONING_LOOSE && !is_null($sentKey)))) {
 
-                Horde_ActiveSync::provisioningRequired();
+                $this->_activeSync->provisioningRequired();
                 return false;
             }
         }
