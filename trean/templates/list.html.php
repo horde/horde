@@ -23,7 +23,6 @@ function doPrefsUpdate(column, sortDown)
 <thead>
  <tr>
   <th id="s_title"<?php if ($this->sortby == 'title') echo ' class="' . $this->sortdirclass . '"' ?>><?php echo _("Title") ?></th>
-  <?php if ($this->showFolder): ?><th><?php echo _("Folder") ?></th><?php endif; ?>
   <th id="s_clicks"<?php if ($this->sortby == 'clicks') echo ' class="' . $this->sortdirclass . '"' ?> width="1%"><?php echo _("Clicks") ?></th>
   <th width="10%" class="nosort"></th>
  </tr>
