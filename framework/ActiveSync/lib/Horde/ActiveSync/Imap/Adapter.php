@@ -666,11 +666,19 @@ class Horde_ActiveSync_Imap_Adapter
             }
         }
 
+        // POOMMAIL_FLAG
         if ($version >= Horde_ActiveSync::VERSION_TWELVE) {
             $eas_message->contentclass = 'urn:content-classes:message';
             $poommail_flag = new Horde_ActiveSync_Message_Flag();
-            $poommail_flag->flagstatus = 0; // @TODO
+            $poommail_flag->subject = $imap_message->getSubject();
+            $poommail_flag->flagstatus = $imap_message->getFlag(Horde_Imap_Client::FLAG_FLAGGED)
+                ? Horde_ActiveSync_Message_Flag::FLAG_STATUS_ACTIVE
+                : Horde_ActiveSync_Message_Flag::FLAG_STATUS_CLEAR;
+            $poommail_flag->flagtype = Horde_Imap_Client::FLAG_FLAGGED;
+
+
             $eas_message->flag = $poommail_flag;
+
             $eas_message->airsyncbaseattachments = $imap_message->getAttachments(array('protocolversion' => $version));
         }
         $to = $imap_message->getToAddresses();
