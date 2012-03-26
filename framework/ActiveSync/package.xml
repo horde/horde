@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-03-23</date>
- <time>22:34:12</time>
+ <date>2012-03-26</date>
+ <time>10:48:12</time>
  <version>
   <release>1.2.6</release>
   <api>1.2.0</api>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-*
+* [mjr] Add Email support
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -67,6 +67,7 @@
       <dir name="Message">
        <file name="AirSyncBaseAttachment.php" role="php" />
        <file name="AirSyncBaseBody.php" role="php" />
+       <file name="AirSyncBaseFileAttachment.php" role="php" />
        <file name="Appointment.php" role="php" />
        <file name="Attachment.php" role="php" />
        <file name="Attendee.php" role="php" />
@@ -231,6 +232,7 @@
    <install as="Horde/ActiveSync/Interface/ImapFactory.php" name="lib/Horde/ActiveSync/Interface/ImapFactory.php" />
    <install as="Horde/ActiveSync/Message/AirSyncBaseAttachment.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseAttachment.php" />
    <install as="Horde/ActiveSync/Message/AirSyncBaseBody.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseBody.php" />
+   <install as="Horde/ActiveSync/Message/AirSyncBaseFileAttachment.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseFileAttachment.php" />
    <install as="Horde/ActiveSync/Message/Appointment.php" name="lib/Horde/ActiveSync/Message/Appointment.php" />
    <install as="Horde/ActiveSync/Message/Attachment.php" name="lib/Horde/ActiveSync/Message/Attachment.php" />
    <install as="Horde/ActiveSync/Message/Attendee.php" name="lib/Horde/ActiveSync/Message/Attendee.php" />
@@ -633,10 +635,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-03-23</date>
+   <date>2012-03-26</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-*
+* [mjr] Add Email support
    </notes>
   </release>
  </changelog>
