@@ -344,12 +344,25 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             // don't mirror it back to device.
             switch ($this->_collection['class']) {
             case Horde_ActiveSync::CLASS_EMAIL:
+                // the 'flagged' flag is imported as a CHANGE, not as a FLAG
+                if ($type == Horde_ActiveSync::CHANGE_TYPE_CHANGE && isset($change['flags']['flagged'])) {
+                    $type = Horde_ActiveSync::CHANGE_TYPE_FLAGS;
+                }
                 if ($type == Horde_ActiveSync::CHANGE_TYPE_FLAGS) {
-                    // This is a mail sync changing only a read flag.
-                    $sql = 'INSERT INTO ' . $this->_syncMailMapTable
-                        . ' (message_uid, sync_key, sync_devid,'
-                        . ' sync_folderid, sync_user, sync_read)'
-                        . ' VALUES (?, ?, ?, ?, ?, ?)';
+                    if (isset($change['flags']['read'])) {
+                        // This is a mail sync changing only a read flag.
+                        $sql = 'INSERT INTO ' . $this->_syncMailMapTable
+                            . ' (message_uid, sync_key, sync_devid,'
+                            . ' sync_folderid, sync_user, sync_read)'
+                            . ' VALUES (?, ?, ?, ?, ?, ?)';
+                        $flag_value = !empty($change['flags']['read']);
+                    } elseif (isset($change['flags']['flagged'])) {
+                        $sql = 'INSERT INTO ' . $this->_syncMailMapTable
+                            . ' (message_uid, sync_key, sync_devid,'
+                            . ' sync_folderid, sync_user, sync_flagged)'
+                            . ' VALUES (?, ?, ?, ?, ?, ?)';
+                        $flag_value = !empty($change['flags']['flagged']);
+                    }
                 } else {
                     $sql = 'INSERT INTO ' . $this->_syncMailMapTable
                         . ' (message_uid, sync_key, sync_devid,'
@@ -362,7 +375,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                     $this->_devId,
                     $change['parent'],
                     $user,
-                    ($type == Horde_ActiveSync::CHANGE_TYPE_FLAGS) ? $change['flags'] : 1
+                    ($type == Horde_ActiveSync::CHANGE_TYPE_FLAGS) ? $flag_value : 1
                 );
                 break;
 
@@ -1240,15 +1253,27 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         return !empty($this->_lastSyncTS) ? $this->_lastSyncTS : 0;
     }
 
-    protected function _isPIMChange($id, $flag, $type)
+    protected function _isPIMChange($id, $flags, $type)
     {
         $this->_logger->debug(sprintf(
-            "_isPIMChange: %s, %d, %s",
-            $id, $flag, $type));
-        $field = ($type == Horde_ActiveSync::CHANGE_TYPE_FLAGS)
-            ? 'sync_read'
-            : 'sync_deleted';
+            "_isPIMChange: %s, %s, %s",
+            $id, print_r($flags, true), $type));
+        if ($type == Horde_ActiveSync::CHANGE_TYPE_FLAGS) {
+            if ($this->_isPIMChangeQuery($id, $flags['read'], 'sync_read')) {
+                return true;
+            }
+            if ($this->_isPIMChangeQuery($id, $flags['flagged'], 'sync_flagged')) {
+                return true;
+            }
 
+            return false;
+        } else {
+            return $this->_isPIMChangeQuery($id, 1, 'sync_deleted');
+        }
+    }
+
+    protected function _isPIMChangeQuery($id, $flag, $field)
+    {
         $sql = 'SELECT ' . $field . ' FROM ' . $this->_syncMailMapTable
             . ' WHERE sync_folderid = ? AND sync_devid = ? AND message_uid = ?'
             . ' AND sync_user = ?';
@@ -1263,6 +1288,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
+
         if ($mflag === false) {
             return false;
         }
