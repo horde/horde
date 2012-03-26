@@ -4,25 +4,22 @@
  * you enable HTML viewing, you are opening a security hole.
  *
  * Filter parameters:
- * ------------------
- * <pre>
- * 'charset' - (string) The charset of the text.
- *             DEFAULT: UTF-8
- * 'noprefetch' - (boolean) Disable DNS pre-fetching? See:
- *                https://developer.mozilla.org/En/Controlling_DNS_prefetching
- *                DEFAULT: false
- * 'return_document' - (string) If true, returns a full HTML representation of
- *                     the document.
- *                     DEFAULT: false (returns the contents contained inside
- *                              the BODY tag)
- * 'return_dom' - (boolean) If true, return a Horde_Domhtml object instead of
- *                HTML text (overrides return_document).
- *                DEFAULT: false
- * 'strip_styles' - (boolean) Strip style tags?
- *                  DEFAULT: true
- * 'strip_style_attributes' - (boolean) Strip style attributes in all tags?
- *                            DEFAULT: true
- * </pre>
+ *   - charset: (string) The charset of the text.
+ *              DEFAULT: UTF-8
+ *   - noprefetch: (boolean) Disable DNS pre-fetching? See:
+ *                 https://developer.mozilla.org/En/Controlling_DNS_prefetching
+ *                 DEFAULT: false
+ *   - return_document: (string) If true, returns a full HTML representation of
+ *                      the document.
+ *                      DEFAULT: false (returns the contents contained inside
+ *                               the BODY tag)
+ *   - return_dom: (boolean) If true, return a Horde_Domhtml object instead of
+ *                 HTML text (overrides return_document).
+ *                 DEFAULT: false
+ *   - strip_styles: (boolean) Strip style tags?
+ *                   DEFAULT: true
+ *   - strip_style_attributes: (boolean) Strip style attributes in all tags?
+ *                             DEFAULT: true
  *
  * @todo http://blog.astrumfutura.com/archives/430-html-Sanitisation-Benchmarking-With-Wibble-ZF-Proposal.html
  *
