@@ -355,7 +355,7 @@ class IMP_Imap implements Serializable
 
             case Horde_Imap_Client_Exception::MAILBOX_NOOPEN:
                 if (strcasecmp($method, 'openMailbox') === 0) {
-                    $error->notify(sprintf(_("Could not open mailbox \"%s\"."), IMP_Mailbox::get(reset($params)))->label);
+                    $error->notify(sprintf(_("Could not open mailbox \"%s\"."), IMP_Mailbox::get(reset($params))->label));
                 } else {
                     $error->notify(_("Could not open mailbox."));
                 }
