@@ -8,9 +8,16 @@
  */
 class Horde_ActiveSync_Message_Flag extends Horde_ActiveSync_Message_Base
 {
-    const POOMMAIL_FLAGSTATUS        = 'POOMMAIL:FlagStatus';
-    const POOMMAIL_FLAGTYPE          = 'POOMMAIL:FlagType';
-    const POOMMAIL_COMPLETETIME      = 'POOMMAIL:CompleteTime';
+    const POOMMAIL_FLAGSTATUS   = 'POOMMAIL:FlagStatus';
+    const POOMMAIL_FLAGTYPE     = 'POOMMAIL:FlagType';
+    const POOMMAIL_COMPLETETIME = 'POOMMAIL:CompleteTime';
+
+    const FLAG_STATUS_CLEAR     = 0;
+    const FLAG_STATUS_COMPLETE  = 1;
+    const FLAG_STATUS_ACTIVE    = 2;
+
+
+
 
     protected $_mapping = array(
         self::POOMMAIL_FLAGSTATUS      => array(self::KEY_ATTRIBUTE => 'flagstatus'),
