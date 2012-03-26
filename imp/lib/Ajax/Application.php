@@ -192,12 +192,13 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * Variables used:
      *   - mbox: (string) The full mailbox name to delete (base64url encoded).
+     *   - subfolders: (boolean) Delete all subfolders?
      *
      * @return boolean  True on success, false on failure.
      */
     public function deleteMailbox()
     {
-        return ($this->_vars->mbox && IMP_Mailbox::formFrom($this->_vars->mbox)->delete());
+        return ($this->_vars->mbox && IMP_Mailbox::formFrom($this->_vars->mbox)->delete(array('subfolders' => !empty($this->_vars->subfolders))));
     }
 
     /**

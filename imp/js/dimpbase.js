@@ -927,11 +927,13 @@ var DimpBase = {
         case 'ctx_mbox_export_opts_zip':
             tmp = e.findElement('LI');
 
-            this.viewaction = HordeCore.redirect.bind(HordeCore, HordeCore.addURLParam(DIMP.conf.URI_VIEW, {
-                actionID: 'download_mbox',
-                mailbox: tmp.retrieve('mbox'),
-                zip: Number(id == 'ctx_mbox_export_opts_zip')
-            }));
+            this.viewaction = function(e) {
+                HordeCore.redirect(HordeCore.addURLParam(DIMP.conf.URI_VIEW, {
+                    actionID: 'download_mbox',
+                    mailbox: tmp.retrieve('mbox'),
+                    zip: Number(id == 'ctx_mbox_export_opts_zip')
+                }));
+            };
 
             HordeDialog.display({
                 cancel_text: DIMP.text.cancel,
@@ -996,7 +998,7 @@ var DimpBase = {
             break;
 
         case 'ctx_folderopts_new':
-            this._createMboxForm(this._mboxAction.bindAsEventListener(this, '', 'create'), DIMP.text.create_prompt);
+            this._createMboxForm('', 'create', DIMP.text.create_prompt);
             break;
 
         case 'ctx_folderopts_sub':
@@ -2833,21 +2835,34 @@ var DimpBase = {
 
         switch (type) {
         case 'create':
-            this._createMboxForm(this._mboxAction.bindAsEventListener(this, params.orig_elt, 'createsub'), DIMP.text.createsub_prompt.sub('%s', this.fullMboxDisplay(params.elt)));
+            this._createMboxForm(params.orig_elt, 'createsub', DIMP.text.createsub_prompt.sub('%s', this.fullMboxDisplay(params.elt)));
             break;
 
         case 'delete':
-            this.viewaction = DimpCore.doAction.bind(DimpCore, 'deleteMailbox', { mbox: params.elt.retrieve('mbox') });
+            this.viewaction = function(e) {
+                DimpCore.doAction('deleteMailbox', {
+                    mbox: params.elt.retrieve('mbox'),
+                    subfolders: e.element().down('[name=delete_subfolders]').getValue()
+                });
+            };
             HordeDialog.display({
                 cancel_text: DIMP.text.cancel,
-                noinput: true,
+                form: new Element('DIV').insert(
+                    new Element('INPUT', { name: 'delete_subfolders', type: 'checkbox' })
+                ).insert(
+                    DIMP.text.delete_mbox_subfolders
+                ),
                 ok_text: DIMP.text.ok,
                 text: DIMP.text.delete_mbox.sub('%s', this.fullMboxDisplay(params.elt))
             });
             break;
 
         case 'empty':
-            this.viewaction = DimpCore.doAction.bind(DimpCore, 'emptyMailbox', { mbox: params.elt.retrieve('mbox') });
+            this.viewaction = function(e) {
+                DimpCore.doAction('emptyMailbox', {
+                    mbox: params.elt.retrieve('mbox')
+                });
+            };
             HordeDialog.display({
                 cancel_text: DIMP.text.cancel,
                 noinput: true,
@@ -2857,15 +2872,18 @@ var DimpBase = {
             break;
 
         case 'rename':
-            this._createMboxForm(this._mboxAction.bindAsEventListener(this, params.elt, 'rename'), DIMP.text.rename_prompt.sub('%s', this.fullMboxDisplay(params.elt)), params.elt.retrieve('l').unescapeHTML());
+            this._createMboxForm(params.elt, 'rename', DIMP.text.rename_prompt.sub('%s', this.fullMboxDisplay(params.elt)), params.elt.retrieve('l').unescapeHTML());
             break;
         }
     },
 
     /* Handle create mailbox actions. */
-    _createMboxForm: function(action, text, val)
+    _createMboxForm: function(mbox, mode, text, val)
     {
-        this.viewaction = action;
+        this.viewaction = function(e) {
+            this._mboxAction(e, mbox, mode);
+        }.bind(this);
+
         HordeDialog.display({
             cancel_text: DIMP.text.cancel,
             input_val: val,
@@ -3825,7 +3843,7 @@ document.observe('DragDrop2:mouseup', DimpBase.onDragMouseUp.bindAsEventListener
 document.observe('HordeDialog:onClick', function(e) {
     switch (e.element().identify()) {
     case 'RB_confirm':
-        this.viewaction(e.memo);
+        this.viewaction(e);
         break;
 
     case 'mbox_import':

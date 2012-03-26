@@ -793,11 +793,15 @@ class IMP_Mailbox implements Serializable
     /**
      * Deletes mailbox.
      *
-     * @param boolean $force  Delete even if fixed?
+     * @param array $opts  Addtional options:
+     *   - force: (boolean) Delete even if fixed?
+     *     DEFAULT: false
+     *   - subfolders: (boolean) Delete all subfolders?
+     *     DEFAULT: false
      *
      * @return boolean  True on success.
      */
-    public function delete($force = false)
+    public function delete(array $opts = array())
     {
         global $conf, $injector, $notification;
 
@@ -814,23 +818,34 @@ class IMP_Mailbox implements Serializable
             return false;
         }
 
-        if ((!$force && $this->fixed) || !$this->access_deletembox_acl)  {
-            $notification->push(sprintf(_("The mailbox \"%s\" may not be deleted."), $this->display), 'horde.error');
-            return false;
+        $deleted = array();
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+        $to_delete = empty($opts['subfolders'])
+            ? array($this)
+            : $this->subfolders;
+
+        foreach ($to_delete as $val) {
+            if ((empty($opts['force']) && $val->fixed) ||
+                !$val->access_deletembox_acl)  {
+                $notification->push(sprintf(_("The mailbox \"%s\" may not be deleted."), $val->display), 'horde.error');
+                continue;
+            }
+
+            try {
+                $imp_imap->deleteMailbox($val->value);
+                $notification->push(sprintf(_("The mailbox \"%s\" was successfully deleted."), $val->display), 'horde.success');
+                $deleted[] = $val;
+            } catch (IMP_Imap_Exception $e) {
+                $e->notify(sprintf(_("The mailbox \"%s\" was not deleted. This is what the server said"), $val->display) . ': ' . $e->getMessage());
+            }
         }
 
-        try {
-            $injector->getInstance('IMP_Factory_Imap')->create()->deleteMailbox($this->_mbox);
-            $notification->push(sprintf(_("The mailbox \"%s\" was successfully deleted."), $this->display), 'horde.success');
-        } catch (IMP_Imap_Exception $e) {
-            $e->notify(sprintf(_("The mailbox \"%s\" was not deleted. This is what the server said"), $this->display) . ': ' . $e->getMessage());
-            return false;
+        if (!empty($deleted)) {
+            $injector->getInstance('IMP_Imap_Tree')->delete($deleted);
+            $this->_onDelete($deleted);
         }
 
-        $injector->getInstance('IMP_Imap_Tree')->delete($this->_mbox);
-        $this->_onDelete(array($this->_mbox));
-
-        return true;
+        return (count($deleted) == count($to_delete));
     }
 
     /**
@@ -1783,7 +1798,7 @@ class IMP_Mailbox implements Serializable
      */
     protected function _onDelete($deleted)
     {
-        /* Clear the mailbox from the sort prefs. */
+        /* Clear the mailboxes from the sort prefs. */
         foreach ($this->get($deleted) as $val) {
             $val->setSort(null, null, true);
         }

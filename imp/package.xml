@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Allow deletion of all subfolders at once in dynamic view.
 * [mms] Provide details of when search results were last refreshed.
 * [mms] Dynamically update unseen message counts in folder list in smartmobile view.
 * [mms] Add mailbox caching to the smartmobile view.

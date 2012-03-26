@@ -2,6 +2,7 @@
 v6.0-git
 --------
 
+[mms] Allow deletion of all subfolders at once in dynamic view.
 [mms] Provide details of when search results were last refreshed.
 [mms] Dynamically update unseen message counts in folder list in smartmobile
       view.
