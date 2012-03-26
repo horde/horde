@@ -226,9 +226,17 @@ class Horde_ActiveSync_Sync
                     break;
 
                 case Horde_ActiveSync::CHANGE_TYPE_FLAGS:
-                    if ($flags & Horde_ActiveSync::BACKEND_IGNORE_DATA || $this->_exporter->messageReadFlag($change['id'], $change['flags']) == true) {
-                        $this->_stateDriver->updateState(
-                            Horde_ActiveSync::CHANGE_TYPE_FLAGS, $change);
+                    if (isset($change['flags']['read'])) {
+                        if ($flags & Horde_ActiveSync::BACKEND_IGNORE_DATA || $this->_exporter->messageReadFlag($change['id'], $change['flags']['read']) == true) {
+                            $this->_stateDriver->updateState(
+                                Horde_ActiveSync::CHANGE_TYPE_FLAGS, $change);
+                        }
+                    }
+                    if (isset($change['flags']['flagged'])) {
+                        if ($flags & Horde_ActiveSync::BACKEND_IGNORE_DATA || $this->_exporter->messageFlag($change['id'], $change['flags']['flagged']) == true) {
+                            $this->_stateDriver->updateState(
+                                Horde_ActiveSync::CHANGE_TYPE_FLAGS, $change);
+                        }
                     }
                     break;
 

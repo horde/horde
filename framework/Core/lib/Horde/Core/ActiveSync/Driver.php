@@ -516,15 +516,14 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         }
 
         // Server changes
-        // For CLASS_EMAIL, all changes are a change in read status. Might have
-        // to revist this after 12.0 is implemented?
+        // For CLASS_EMAIL, all changes are a change in flags.
         if ($folder->collectionClass() == Horde_ActiveSync::CLASS_EMAIL) {
             $flags = $folder->flags();
             foreach ($changes['modify'] as $uid) {
                 $results[] = array(
                     'id' => $uid,
                     'type' => Horde_ActiveSync::CHANGE_TYPE_FLAGS,
-                    'flags' => $flags[$uid]['read']
+                    'flags' => $flags[$uid]
                 );
             }
         } else {
@@ -862,7 +861,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             // Email?
             if ($message instanceof Horde_ActiveSync_Message_Mail) {
                 $this->_imap->setMessageFlag($folderid, $id, $message->flag);
-                $stat = array('id' => $id, 'flags' => null, 'mod' => 0);
+                $stat = array('id' => $id, 'flags' => array('flagged' => $message->flag->flagstatus), 'mod' => 0);
             } else {
                 $this->_endBuffer();
                 return false;
@@ -1169,13 +1168,16 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function statMailMessage($folderid, $id)
     {
-        $messages = $this->_imap->getImapMessage(
-            $folderid, array($id), array('structure' => false));
+        // I can't think of a time when we would actually need to hit the
+        // server. As long as 'mod' is 0, this should be fine as we don't
+        // track flag conflicts.
+        // $messages = $this->_imap->getImapMessage(
+        //     $folderid, array($id), array('structure' => false));
 
             $res = array(
                 'id' => $id,
                 'mod' => 0,
-                'flags' => $messages[$id]->getFlag(Horde_Imap_Client::FLAG_SEEN));
+                'flags' => false);//$messages[$id]->getFlag(Horde_Imap_Client::FLAG_SEEN));
 
         return $res;
     }

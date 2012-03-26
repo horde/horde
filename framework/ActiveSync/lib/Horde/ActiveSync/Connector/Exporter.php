@@ -156,13 +156,12 @@ class Horde_ActiveSync_Connector_Exporter
      *
      * @return boolean
      */
-    public function messageReadFlag($id, $flags)
+    public function messageReadFlag($id, $flag)
     {
         // This only applies to mail folders
         if ($this->_class != Horde_ActiveSync::CLASS_EMAIL) {
             return true;
         }
-
         /* Encode and stream */
         $this->_encoder->startTag(Horde_ActiveSync::SYNC_MODIFY);
         $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
@@ -170,12 +169,28 @@ class Horde_ActiveSync_Connector_Exporter
         $this->_encoder->endTag();
         $this->_encoder->startTag(Horde_ActiveSync::SYNC_DATA);
         $this->_encoder->startTag(Horde_ActiveSync_Message_Mail::POOMMAIL_READ);
-        $this->_encoder->content($flags);
+        $this->_encoder->content($flag);
         $this->_encoder->endTag();
         $this->_encoder->endTag();
         $this->_encoder->endTag();
 
         return true;
+    }
+
+    public function messageFlag($id, $flag)
+    {
+        $this->_encoder->startTag(Horde_ActiveSync::SYNC_MODIFY);
+        $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
+        $this->_encoder->content($id);
+        $this->_encoder->endTag();
+        $this->_encoder->startTag(Horde_ActiveSync::SYNC_DATA);
+        $pflag = new Horde_ActiveSync_Message_Flag();
+        $pflag->flagstatus = $flag == 1 ? Horde_ActiveSync_Message_Flag::FLAG_STATUS_ACTIVE : Horde_ActiveSync_Message_Flag::FLAG_STATUS_CLEAR;
+        $this->_encoder->startTag(Horde_ActiveSync_Message_Mail::POOMMAIL_FLAG);
+        $pflag->encodeStream($this->_encoder);
+        $this->_encoder->endTag();
+        $this->_encoder->endTag();
+        $this->_encoder->endTag();
     }
 
     /**

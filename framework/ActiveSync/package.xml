@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2012-03-26</date>
- <time>10:48:12</time>
+ <time>13:00:36</time>
  <version>
   <release>1.2.6</release>
   <api>1.2.0</api>
@@ -126,6 +126,7 @@
       <file name="5_horde_activesync_addpendingfield.php" role="data" />
       <file name="6_horde_activesync_addmailmap.php" role="data" />
       <file name="7_horde_activesync_clearstate.php" role="data" />
+      <file name="8_horde_activesync_addmailflagged.php" role="data" />
      </dir> <!-- /migration/Horde/ActiveSync -->
     </dir> <!-- /migration/Horde -->
    </dir> <!-- /migration -->
@@ -272,6 +273,7 @@
    <install as="migration/5_horde_activesync_addpendingfield.php" name="migration/Horde/ActiveSync/5_horde_activesync_addpendingfield.php" />
    <install as="migration/6_horde_activesync_addmailmap.php" name="migration/Horde/ActiveSync/6_horde_activesync_addmailmap.php" />
    <install as="migration/7_horde_activesync_clearstate.php" name="migration/Horde/ActiveSync/7_horde_activesync_clearstate.php" />
+   <install as="migration/8_horde_activesync_addmailflagged.php" name="migration/Horde/ActiveSync/8_horde_activesync_addmailflagged.php" />
    <install as="Horde/ActiveSync/AllTests.php" name="test/Horde/ActiveSync/AllTests.php" />
    <install as="Horde/ActiveSync/AppointmentTest.php" name="test/Horde/ActiveSync/AppointmentTest.php" />
    <install as="Horde/ActiveSync/ContactTest.php" name="test/Horde/ActiveSync/ContactTest.php" />
