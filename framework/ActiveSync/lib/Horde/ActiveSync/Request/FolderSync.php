@@ -39,7 +39,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
 
         // Check policy
         if (!$this->checkPolicyKey($this->_activeSync->getPolicyKey())) {
-            return false;
+            return true;
         }
 
         // Start parsing input
