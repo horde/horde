@@ -1433,7 +1433,7 @@ class IMP_Contents
                 $wrap_ids[] = $id;
             }
 
-            $text_out .= $part['text'];
+            $text_out .= '<div class="mimePartBase">' . $part['text'] . '</div>';
         }
 
         $text_out .= str_repeat('</div>', count($wrap_ids));

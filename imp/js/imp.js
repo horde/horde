@@ -29,7 +29,7 @@ var IMP_JS = {
     {
         var callback,
             elt = e.element().up('.mimeStatusMessageTable').up(),
-            iframe = elt.up().next('.mimePartData').down('.htmlMsgData'),
+            iframe = elt.up('.mimePartBase').down('.mimePartData IFRAME.htmlMsgData'),
             iframeid = iframe.readAttribute('id'),
             imgload = false,
             s = new Selector('[htmlimgblocked]'),
