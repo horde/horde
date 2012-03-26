@@ -641,27 +641,27 @@ class Horde_ActiveSync_Imap_Adapter
             if (isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML])) {
                 // HTML
                 $airsync_body = new Horde_ActiveSync_Message_AirSyncBaseBody();
-                if (empty($message_data['html'])) {
+                if (empty($message_body_data['html'])) {
                     $airsync_body->type = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
-                    $message_data['html'] = array(
-                        'body' => $message_data['plain']['body'],
-                        'estimated_size' => $message_data['plain']['size'],
-                        'truncated' => $message_data['plain']['truncated'],
-                        'body' => $message_data['plain']['body'],
-                        'charset' => $message_data['plain']['charset']
+                    $message_body_data['html'] = array(
+                        'body' => $message_body_data['plain']['body'],
+                        'estimated_size' => $message_body_data['plain']['size'],
+                        'truncated' => $message_body_data['plain']['truncated'],
+                        'body' => $message_body_data['plain']['body'],
+                        'charset' => $message_body_data['plain']['charset']
                     );
                 } else {
                     $airsync_body->type = Horde_ActiveSync::BODYPREF_TYPE_HTML;
                 }
-                if ($message_data['html']['charset'] != 'UTF-8') {
-                    $message_data['html']['body'] = Horde_String::convertCharset(
-                        $message_data['html']['body'],
-                        $message_data['html']['charset']
+                if ($message_body_data['html']['charset'] != 'UTF-8') {
+                    $message_body_data['html']['body'] = Horde_String::convertCharset(
+                        $message_body_data['html']['body'],
+                        $message_body_data['html']['charset']
                     );
                 }
-                $airsync_body->estimateddatasize = $message_data['html']['estimated_size'];
-                $airsync_body->truncated = $message_data['html']['truncated'];
-                $airsync_body->data = $message_data['html']['body'];
+                $airsync_body->estimateddatasize = $message_body_data['html']['estimated_size'];
+                $airsync_body->truncated = $message_body_data['html']['truncated'];
+                $airsync_body->data = $message_body_data['html']['body'];
                 $eas_message->airsyncbasebody = $airsync_body;
             }
         }
