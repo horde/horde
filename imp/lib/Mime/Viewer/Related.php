@@ -131,9 +131,10 @@ class IMP_Mime_Viewer_Related extends Horde_Mime_Viewer_Base
                 ));
                 $status->action(IMP_Mime_Status::WARNING);
 
-                if (isset($ret[$related_id]['status']) &&
-                    !is_array($ret[$related_id]['status'])) {
-                    $ret[$related_id]['status'] = array($ret[$related_id]['status']);
+                if (isset($ret[$related_id]['status'])) {
+                    if (!is_array($ret[$related_id]['status'])) {
+                        $ret[$related_id]['status'] = array($ret[$related_id]['status']);
+                    }
                 } else {
                     $ret[$related_id]['status'] = array();
                 }
