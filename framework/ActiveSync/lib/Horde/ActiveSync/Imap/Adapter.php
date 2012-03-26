@@ -442,7 +442,7 @@ class Horde_ActiveSync_Imap_Adapter
         $options = array(
             'ids' => new Horde_Imap_Client_Ids(array($uid)),
         );
-        switch ($flag->status) {
+        switch ($flag->flagstatus) {
         case Horde_ActiveSync_Message_Flag::FLAG_STATUS_ACTIVE:
             $options['add'] = array(Horde_Imap_Client::FLAG_FLAGGED);
             break;
