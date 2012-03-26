@@ -17,8 +17,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-02-29</date>
- <time>22:40:16</time>
+ <date>2012-03-25</date>
+ <time>22:59:32</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -29,6 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Added Horde_Mime_Related class.
 * [mms] Implement new 2.0 API. See UPGRADING for full details of changes.
  </notes>
  <contents>
@@ -51,6 +52,7 @@
       <file name="Mdn.php" role="php" />
       <file name="mime.mapping.php" role="php" />
       <file name="Part.php" role="php" />
+      <file name="Related.php" role="php" />
       <file name="Translation.php" role="php">
        <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
       </file>
@@ -442,6 +444,7 @@
    <install as="Horde/Mime/Mdn.php" name="lib/Horde/Mime/Mdn.php" />
    <install as="Horde/Mime/mime.mapping.php" name="lib/Horde/Mime/mime.mapping.php" />
    <install as="Horde/Mime/Part.php" name="lib/Horde/Mime/Part.php" />
+   <install as="Horde/Mime/Related.php" name="lib/Horde/Mime/Related.php" />
    <install as="Horde/Mime/Translation.php" name="lib/Horde/Mime/Translation.php" />
    <install as="locale/Horde_Mime.pot" name="locale/Horde_Mime.pot" />
    <install as="locale/ar/LC_MESSAGES/Horde_Mime.mo" name="locale/ar/LC_MESSAGES/Horde_Mime.mo" />
