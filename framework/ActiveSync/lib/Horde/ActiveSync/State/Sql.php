@@ -942,10 +942,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                     foreach ($changes as $change) {
                         switch ($change['type']) {
                         case Horde_ActiveSync::CHANGE_TYPE_FLAGS:
-                            $stat = array_pop($this->_backend->statMailMessage(
-                                $this->_collection['id'],
-                                $change['id']));
-                            if ($stat && $this->_isPIMChange($change['id'], $stat['flags'], $change['type'])) {
+                            if ($this->_isPIMChange($change['id'], $change['flags'], $change['type'])) {
                                 $this->_logger->debug(sprintf(
                                     "[%s] Ignoring PIM initiated flag change for %s",
                                     $this->_devId,
@@ -1245,6 +1242,9 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
 
     protected function _isPIMChange($id, $flag, $type)
     {
+        $this->_logger->debug(sprintf(
+            "_isPIMChange: %s, %d, %s",
+            $id, $flag, $type));
         $field = ($type == Horde_ActiveSync::CHANGE_TYPE_FLAGS)
             ? 'sync_read'
             : 'sync_deleted';
