@@ -34,8 +34,8 @@ var IMPImageUnblock = {
     _onSuccess: function(elt, r)
     {
         if (r.responseJSON.response) {
-            elt.up('TR').remove();
             elt.fire('IMPImageUnblock:success');
+            elt.up('TR').remove();
         }
         if (HordeCore &&
             HordeCore.showNotifications &&
