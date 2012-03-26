@@ -422,11 +422,47 @@ class Horde_ActiveSync_Imap_Adapter
     }
 
     /**
+     * Set a POOMMAIL_FLAG on a mail message. This method differs from
+     * setReadFlag() in that it is passed a Flag object, which contains
+     * other data beside the seen status. Used for setting flagged for followup
+     * and potentially creating tasks based on the email.
+     *
+     * @param string $mailbox                      The mailbox name.
+     * @param string $uid                          The message uid.
+     * @param Horde_ActiveSync_Message_Flag $flag  The flag
+     */
+    public function setMessageFlag($mailbox, $uid, $flag)
+    {
+        // There is no standard in EAS for the name of flags, so it is impossible
+        // to map flagtype to an actual message flag. Until a better solution
+        // is thought of, just always use \flagged. There is also no meaning
+        // of a "completed" flag/task in IMAP email, so if it's not active,
+        // clear the flag.
+        $mbox = new Horde_Imap_Client_Mailbox($mailbox);
+        $options = array(
+            'ids' => new Horde_Imap_Client_Ids(array($uid)),
+        );
+        switch ($flag->status) {
+        case Horde_ActiveSync_Message_Flag::FLAG_STATUS_ACTIVE:
+            $options['add'] = array(Horde_Imap_Client::FLAG_FLAGGED);
+            break;
+        default:
+            $options['remove'] = array(Horde_Imap_Client::FLAG_FLAGGED);
+        }
+        $imap = $this->_getImapOb();
+        try {
+            $imap->store($mbox, $options);
+        } catch (Horde_Imap_Client_Exception $e) {
+            throw new Horde_ActiveSync_Exception($e);
+        }
+    }
+
+    /**
      * Set the message's read status.
      *
      * @param string $mailbox  The mailbox name.
-     * @param string $uid
-     * @param integer $flag  Horde_ActiveSYnc_Message_Mail::FLAG_* constant
+     * @param string $uid      The message uid.
+     * @param integer $flag  Horde_ActiveSync_Message_Mail::FLAG_* constant
      */
     public function setReadFlag($mailbox, $uid, $flag)
     {
