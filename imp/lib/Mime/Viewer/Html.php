@@ -122,15 +122,16 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
     {
         $data = $this->_mimepart->getContents();
 
-        /* Don't do IMP DOM processing if in mimp mode or converting to
-         * text. */
+        $contents = $this->getConfigParam('imp_contents');
         $convert_text = ($GLOBALS['registry']->getView() == Horde_Registry::VIEW_MINIMAL) ||
                         Horde_Util::getFormData('convert_text');
+
+        /* Don't do IMP DOM processing if in mimp mode or converting to
+         * text. */
         if (!$inline || $convert_text) {
-            $this->_imptmp = null;
+            $this->_imptmp = array();
         } else {
             if ($inline) {
-                $contents = $this->getConfigParam('imp_contents');
                 $imgview = new IMP_Ui_Imageview();
                 $blockimg = !$imgview->showInlineImage($contents);
             } else {
@@ -150,27 +151,15 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             );
 
             /* Image filtering. */
-            if ($this->_imptmp['img']) {
+            if ($blockimg) {
                 $this->_imptmp['blockimg'] = Horde::url(Horde_Themes::img('spacer_red.png'), true, array('append_session' => -1));
             }
+        }
 
-            /* Search for inlined data that we can display (multipart/related
-             * parts) - see RFC 2392. */
-            $this->_imptmp['cid'] = array();
-            if (($related_part = $contents->findMimeType($this->_mimepart->getMimeId(), 'multipart/related')) &&
-                ($related_cids = $related_part->getMetadata('related_cids'))) {
-                $cid_replace = array();
-
-                foreach ($related_cids as $mime_id => $cid) {
-                    if ($cid = trim($cid, '<>')) {
-                        $cid_replace['cid:' . $cid] = $mime_id;
-                    }
-                }
-
-                if (!empty($cid_replace)) {
-                    $this->_imptmp['cid'] = $cid_replace;
-                }
-            }
+        /* Search for inlined data that we can display (multipart/related
+         * parts) - see RFC 2392. */
+        if ($related_part = $contents->findMimeType($this->_mimepart->getMimeId(), 'multipart/related')) {
+            $this->_imptmp['cid'] = $related_part->getMetadata('related_ob');
         }
 
         /* Sanitize the HTML. */
@@ -278,7 +267,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
         if ($doc == $node) {
             /* Sanitize and optimize style tags. */
-            if ($this->_imptmp && !empty($this->_imptmp['style'])) {
+            if (!empty($this->_imptmp['style'])) {
                 // Csstidy may not be available.
                 try {
                     $style = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter(implode("\n", $this->_imptmp['style']), 'csstidy', array(
@@ -347,7 +336,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
      */
     protected function _nodeCallback($doc, $node)
     {
-        if (is_null($this->_imptmp)) {
+        if (empty($this->_imptmp)) {
             return;
         }
 
@@ -366,7 +355,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                          * to use 'simple' links. */
                         $node->setAttribute('href', IMP::composeLink($node->getAttribute('href'), array(), true));
                         $node->removeAttribute('target');
-                    } elseif ($this->_imptmp['inline'] &&
+                    } elseif (!empty($this->_imptmp['inline']) &&
                               isset($url['fragment']) &&
                               empty($url['path']) &&
                               $GLOBALS['browser']->isBrowser('mozilla')) {
@@ -382,23 +371,21 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
             case 'img':
             case 'input':
-                if ($this->_imptmp && $node->hasAttribute('src')) {
+                if ($node->hasAttribute('src')) {
                     $val = $node->getAttribute('src');
 
                     /* Multipart/related. */
-                    if (($tag == 'img') &&
-                        isset($this->_imptmp['cid'][$val])) {
-                        $this->_imptmp['cid_used'][] = $this->_imptmp['cid'][$val];
+                    if (($tag == 'img') && ($id = $this->_cidSearch($val))) {
                         $val = $this->getConfigParam('imp_contents')->urlView(null, 'view_attach', array('params' => array(
                             'ctype' => 'image/*',
-                            'id' => $this->_imptmp['cid'][$val],
+                            'id' => $id,
                             'imp_img_view' => 'data'
                         )));
                         $node->setAttribute('src', $val);
                     }
 
                     /* Block images.*/
-                    if ($this->_imptmp['img']) {
+                    if (!empty($this->_imptmp['img'])) {
                         $node->setAttribute('htmlimgblocked', $val);
                         $node->setAttribute('src', $this->_imptmp['blockimg']);
                         $this->_imptmp['imgblock'] = true;
@@ -415,11 +402,11 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
                 switch (Horde_String::lower($node->getAttribute('type'))) {
                 case 'text/css':
-                    if ($this->_imptmp && $node->hasAttribute('href')) {
+                    if ($node->hasAttribute('href')) {
                         $tmp = $node->getAttribute('href');
 
-                        if (isset($this->_imptmp['cid'][$tmp])) {
-                            $this->_imptmp['style'][] = $this->getConfigParam('imp_contents')->getMIMEPart($this->_imptmp['cid'][$tmp])->getContents();
+                        if ($id = $this->_cidSearch($tmp, false)) {
+                            $this->_imptmp['style'][] = $this->getConfigParam('imp_contents')->getMIMEPart($id)->getContents();
                         } else {
                             $node->setAttribute('htmlcssblocked', $node->getAttribute('href'));
                             $node->removeAttribute('href');
@@ -440,9 +427,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             case 'style':
                 switch (Horde_String::lower($node->getAttribute('type'))) {
                 case 'text/css':
-                    if ($this->_imptmp) {
-                        $this->_imptmp['style'][] = $node->nodeValue;
-                    }
+                    $this->_imptmp['style'][] = $node->nodeValue;
                     $node->parentNode->removeChild($node);
                     break;
                 }
@@ -452,7 +437,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                 /* If displaying inline (in IFRAME), tables with 100%
                  * height seems to confuse many browsers re: the
                  * iframe internal height. */
-                if ($this->_imptmp['inline'] &&
+                if (!empty($this->_imptmp['inline']) &&
                     $node->hasAttribute('height') &&
                     ($node->getAttribute('height') == '100%')) {
                     $node->removeAttribute('height');
@@ -462,22 +447,20 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
             case 'body':
             case 'td':
-                if ($this->_imptmp &&
-                    $node->hasAttribute('background')) {
+                if ($node->hasAttribute('background')) {
                     $val = $node->getAttribute('background');
 
                     /* Multipart/related. */
-                    if (isset($this->_imptmp['cid'][$val])) {
-                        $this->_imptmp['cid_used'][] = $this->_imptmp['cid'][$val];
+                    if ($id = $this->_cidSearch($val)) {
                         $val = $this->getConfigParam('imp_contents')->urlView(null, 'view_attach', array('params' => array(
-                            'id' => $this->_imptmp['cid'][$val],
+                            'id' => $id,
                             'imp_img_view' => 'data'
                         )));
                         $node->setAttribute('background', $val);
                     }
 
                     /* Block images.*/
-                    if ($this->_imptmp['img']) {
+                    if (!empty($this->_imptmp['img'])) {
                         $node->setAttribute('htmlimgblocked', $val);
                         $node->setAttribute('background', $this->_imptmp['blockimg']);
                         $this->_imptmp['imgblock'] = true;
@@ -486,31 +469,29 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                 break;
             }
 
-
-            if (!is_null($this->_imptmp)) {
-                $remove = array();
-                foreach ($node->attributes as $val) {
-                    /* Catch random mailto: strings in attributes that will
-                     * cause problems with e-mail linking. */
-                    if (stripos($val->value, 'mailto:') === 0) {
-                        $remove[] = $val->name;
-                    }
+            $remove = array();
+            foreach ($node->attributes as $val) {
+                /* Catch random mailto: strings in attributes that will
+                 * cause problems with e-mail linking. */
+                if (stripos($val->value, 'mailto:') === 0) {
+                    $remove[] = $val->name;
                 }
+            }
 
-                foreach ($remove as $val) {
-                    $node->removeAttribute($val);
-                }
+            foreach ($remove as $val) {
+                $node->removeAttribute($val);
+            }
 
-                if ($node->hasAttribute('style')) {
-                    if (strpos($node->getAttribute('style'), 'content:') !== false) {
-                        // TODO: Figure out way to unblock?
-                        $node->removeAttribute('style');
-                    } elseif ($this->_imptmp['img'] || $this->_imptmp['cid']) {
-                        $this->_imptmp['node'] = $node;
-                        $style = preg_replace_callback(self::CSS_BG_PREG, array($this, '_styleCallback'), $node->getAttribute('style'), -1, $matches);
-                        if ($matches) {
-                            $node->setAttribute('style', $style);
-                        }
+            if ($node->hasAttribute('style')) {
+                if (strpos($node->getAttribute('style'), 'content:') !== false) {
+                    // TODO: Figure out way to unblock?
+                    $node->removeAttribute('style');
+                } elseif (!empty($this->_imptmp['img']) ||
+                          !empty($this->_imptmp['cid'])) {
+                    $this->_imptmp['node'] = $node;
+                    $style = preg_replace_callback(self::CSS_BG_PREG, array($this, '_styleCallback'), $node->getAttribute('style'), -1, $matches);
+                    if ($matches) {
+                        $node->setAttribute('style', $style);
                     }
                 }
             }
@@ -527,18 +508,40 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
      */
     protected function _styleCallback($matches)
     {
-        if (isset($this->_imptmp['cid'][$matches[2]])) {
+        if ($id = $this->_cidSearch($matches[2])) {
             $replace = $this->getConfigParam('imp_contents')->urlView(null, 'view_attach', array('params' => array(
-                'id' => $this->_imptmp['cid'][$matches[2]],
+                'id' => $id,
                 'imp_img_view' => 'data'
             )));
-            $this->_imptmp['cid_used'][] = $this->_imptmp['cid'][$matches[2]];
         } else {
             $this->_imptmp['node']->setAttribute('htmlimgblocked', $matches[2]);
             $this->_imptmp['imgblock'] = true;
             $replace = $this->_imptmp['blockimg'];
         }
         return $matches[1] . $replace . $matches[3];
+    }
+
+    /**
+     * Search for a CID in a related part.
+     *
+     * @param string $cid    The CID to query.
+     * @param boolean $save  Save as a CID used?
+     *
+     * @return string  The MIME ID of the part, or null if not found.
+     */
+    protected function _cidSearch($cid, $save = true)
+    {
+        if (empty($this->_imptmp['cid']) ||
+            (($pos = strpos($cid, 'cid:')) !== 0) ||
+            !($id = $this->_imptmp['cid']->cidSearch(substr($cid, 4)))) {
+            return null;
+        }
+
+        if ($save) {
+            $this->_imptmp['cid_used'][] = $id;
+        }
+
+        return $id;
     }
 
 }

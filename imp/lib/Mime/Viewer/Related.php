@@ -33,11 +33,11 @@ class IMP_Mime_Viewer_Related extends Horde_Mime_Viewer_Base
     );
 
     /**
-     * The start MIME ID.
+     * The multipart/related info object.
      *
-     * @var string
+     * @var Horde_Mime_Related
      */
-    protected $_start;
+    protected $_related;
 
     /**
      */
@@ -154,44 +154,18 @@ class IMP_Mime_Viewer_Related extends Horde_Mime_Viewer_Base
      */
     protected function _init($inline)
     {
-        if (!isset($this->_start)) {
-            $ids = array_keys($this->_mimepart->contentTypeMap());
-            $related_id = $this->_mimepart->getMimeId();
-            $cids = array();
-            $id = null;
-
-            /* Build a list of parts -> CIDs. */
-            foreach ($ids as $val) {
-                if (strcmp($related_id, $val) !== 0) {
-                    $part = $this->_mimepart->getPart($val);
-                    $cids[$val] = $part->getContentId();
-                }
-            }
-
-            /* Look at the 'start' parameter to determine which part to start
-             * with. If no 'start' parameter, use the first part. RFC 2387
-             * [3.1] */
-            $start = $this->_mimepart->getContentTypeParameter('start');
-            if (!empty($start)) {
-                $id = array_search($id, $cids);
-            }
-
-            if (empty($id)) {
-                reset($ids);
-                $id = next($ids);
-            }
+        if (!isset($this->_related)) {
+            $this->_related = new Horde_Mime_Related($this->_mimepart);
 
             /* Set related information in message metadata. */
-            $this->_mimepart->setMetadata('related_cids', $cids);
-
-            $this->_start = $id;
+            $this->_mimepart->setMetadata('related_ob', $this->_related);
         }
 
         /* Only display if the start part (normally text/html) can be
          * displayed inline -OR- we are viewing this part as an attachment. */
-        return ($inline && !$this->getConfigParam('imp_contents')->canDisplay($this->_start, IMP_Contents::RENDER_INLINE))
+        return ($inline && !$this->getConfigParam('imp_contents')->canDisplay($this->_related->startId(), IMP_Contents::RENDER_INLINE))
             ? null
-            : $this->_start;
+            : $this->_related->startId();
     }
 
     /**
