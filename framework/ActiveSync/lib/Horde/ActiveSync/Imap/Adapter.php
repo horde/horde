@@ -613,6 +613,17 @@ class Horde_ActiveSync_Imap_Adapter
 
         $imap_message = new Horde_ActiveSync_Imap_Message($imap, $mbox, $data);
         $eas_message = new Horde_ActiveSync_Message_Mail(array('protocolversion' => $version));
+
+        $to = $imap_message->getToAddresses();
+        $eas_message->to = implode(',', $to['to']);
+        $eas_message->displayto = implode(',', $to['displayto']);
+        $eas_message->from = $imap_message->getFromAddress();
+        $eas_message->subject = $imap_message->getSubject();
+        $eas_message->datereceived = $imap_message->getDate();
+        $eas_message->read = $imap_message->getFlag(Horde_Imap_Client::FLAG_SEEN);
+        // @TODO: Parse out/detect at least meeting requests and notifications.
+        $eas_message->messageclass = 'IPM.Note';
+
         if ($version == Horde_ActiveSync::VERSION_TWOFIVE || empty($options['bodyprefs'])) {
             // EAS 2.5 behavior or no bodyprefs sent
             $message_body_data = $imap_message->getMessageBodyData($options);
@@ -681,16 +692,6 @@ class Horde_ActiveSync_Imap_Adapter
 
             $eas_message->airsyncbaseattachments = $imap_message->getAttachments(array('protocolversion' => $version));
         }
-        $to = $imap_message->getToAddresses();
-        $eas_message->to = implode(',', $to['to']);
-        $eas_message->displayto = implode(',', $to['displayto']);
-        $eas_message->from = $imap_message->getFromAddress();
-        $eas_message->subject = $imap_message->getSubject();
-        $eas_message->datereceived = $imap_message->getDate();
-        $eas_message->read = $imap_message->getFlag(Horde_Imap_Client::FLAG_SEEN);
-
-        // @TODO: Parse out/detect at least meeting requests and notifications.
-        $eas_message->messageclass = 'IPM.Note';
 
         return $eas_message;
     }
