@@ -1,20 +1,8 @@
 <script type="text/javascript">
-var PREFS_UPDATE_TIMEOUT;
 function table_sortCallback(tableId, column, sortDown)
 {
-    if (typeof PREFS_UPDATE_TIMEOUT != "undefined") {
-        window.clearTimeout(PREFS_UPDATE_TIMEOUT);
-    }
-    PREFS_UPDATE_TIMEOUT = window.setTimeout('doPrefsUpdate("' + column + '", "' + sortDown + '")', 300);
-}
-
-function doPrefsUpdate(column, sortDown)
-{
-    baseurl = '<?php echo Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/prefs/', true) ?>';
-    try {
-        new Ajax.Request(baseurl, { parameters: { app: 'trean', pref: 'sortby', value: encodeURIComponent(column.substring(2)) } });
-        new Ajax.Request(baseurl, { parameters: { app: 'trean', pref: 'sortdir', value: encodeURIComponent(sortDown) } });
-    } catch (e) {}
+    new Ajax.Request('<?php echo Horde::getServiceLink('ajax', 'trean')->url ?>setPrefValue', { parameters: { pref: 'sortby', value: column.substring(2) } });
+    new Ajax.Request('<?php echo Horde::getServiceLink('ajax', 'trean')->url ?>setPrefValue', { parameters: { pref: 'sortdir', value: sortDown } });
 }
 </script>
 
