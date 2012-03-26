@@ -174,7 +174,7 @@ var KeyNavList = Class.create({
         /* Need to do width second - horizontal scrolling might add scroll
          * bar. */
         if ((divL.get('border-box-width') + dl + off.left + 5) > v.width) {
-            dl = (v.width - divL.get('border-box-width') - off.left - 5);
+            dl = Math.max(0, (v.width - divL.get('border-box-width') - off.left - 5));
             this.div.setStyle({ left: dl + 'px' });
         }
 
