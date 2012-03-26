@@ -396,7 +396,7 @@ class Horde_ActiveSync
 
     public function provisioningRequired()
     {
-        self::provisionHeader();
+        $this->provisionHeader();
         $this->activeSyncHeader();
         $this->versionHeader();
         $this->commandsHeader();
@@ -535,7 +535,7 @@ class Horde_ActiveSync
      * Send provision header
      *
      */
-    static public function provisionHeader()
+    public function provisionHeader()
     {
         header("HTTP/1.1 449 Retry after sending a PROVISION command");
     }
