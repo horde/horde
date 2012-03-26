@@ -857,8 +857,14 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             break;
 
         default:
-            $this->_endBuffer();
-            return false;
+            // Email?
+            if ($message instanceof Horde_ActiveSync_Message_Mail) {
+                $this->_imap->setMessageFlag($folderid, $id, $message->flag);
+                $stat = array('id' => $id, 'flags' => null, 'mod' => 0);
+            } else {
+                $this->_endBuffer();
+                return false;
+            }
         }
 
         $this->_endBuffer();
