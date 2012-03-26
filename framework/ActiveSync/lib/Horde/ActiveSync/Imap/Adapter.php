@@ -624,6 +624,9 @@ class Horde_ActiveSync_Imap_Adapter
         $eas_message->subject = $imap_message->getSubject();
         $eas_message->datereceived = $imap_message->getDate();
         $eas_message->read = $imap_message->getFlag(Horde_Imap_Client::FLAG_SEEN);
+        $eas_message->cc = $imap_message->getCc();
+        $eas_message->reply_to = $imap_message->getReplyTo();
+
         // @TODO: Parse out/detect at least meeting requests and notifications.
         $eas_message->messageclass = 'IPM.Note';
 

@@ -504,6 +504,28 @@ class Horde_ActiveSync_Imap_Message
         return array('to' => $tos, 'displayto' => $dtos);
     }
 
+    public function getCc()
+    {
+        if (empty($this->_envelope)) {
+            $this->_fetchEnvelope();
+        }
+        $cc = array_pop($this->_envelope->cc->address);
+        $a = new Horde_Mail_Rfc822_Address($cc);
+
+        return $a->writeAddress(false);
+    }
+
+    public function getReplyTo()
+    {
+        if (empty($this->_envelope)) {
+            $this->_fetchEnvelope();
+        }
+        $r = array_pop($this->_envelope->reply_to->address);
+        $a = new Horde_Mail_Rfc822_Address($r);
+
+        return $a->writeAddress(false);
+    }
+
     /**
      * Return the message's From: address.
      *
