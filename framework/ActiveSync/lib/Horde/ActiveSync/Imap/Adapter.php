@@ -615,22 +615,22 @@ class Horde_ActiveSync_Imap_Adapter
         $eas_message = new Horde_ActiveSync_Message_Mail(array('protocolversion' => $version));
         if ($version == Horde_ActiveSync::VERSION_TWOFIVE || empty($options['bodyprefs'])) {
             // EAS 2.5 behavior or no bodyprefs sent
-            $message_data = $imap_message->getMessageBodyData($options);
-            if ($message_data['plain']['charset'] != 'UTF-8') {
+            $message_body_data = $imap_message->getMessageBodyData($options);
+            if ($message_body_data['plain']['charset'] != 'UTF-8') {
                 $eas_message->body = Horde_String::convertCharset(
-                    $message_data['plain']['body'],
-                    $message_data['plain']['charset'],
+                    $message_body_data['plain']['body'],
+                    $message_body_data['plain']['charset'],
                     'UTF-8');
             } else {
-                $eas_message->body = $message_data['plain']['body'];
+                $eas_message->body = $message_body_data['plain']['body'];
             }
             $eas_message->bodysize = Horde_String::length($eas_message->body); // @TODO: Should this be full or sent?
-            $eas_message->bodytruncated = $message_data['plain']['truncated'];
+            $eas_message->bodytruncated = $message_body_data['plain']['truncated'];
             $eas_message->attachments = $imap_message->getAttachments();
         } else {
             // Body pref EAS >= 12.0
-            $message_data = $imap_message->getMessageBodyData($options);
-            if (!empty($message_data['html'])) {
+            $message_body_data = $imap_message->getMessageBodyData($options);
+            if (!empty($message_body_data['html'])) {
                 $eas_message->airsyncbasenativebodytype = Horde_ActiveSync::BODYPREF_TYPE_HTML;
             } else {
                 $eas_message->airsyncbasenativebodytype = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
