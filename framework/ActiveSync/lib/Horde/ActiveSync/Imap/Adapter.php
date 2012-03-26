@@ -617,6 +617,9 @@ class Horde_ActiveSync_Imap_Adapter
         $to = $imap_message->getToAddresses();
         $eas_message->to = implode(',', $to['to']);
         $eas_message->displayto = implode(',', $to['displayto']);
+        if (empty($eas_message->displayto)) {
+            $eas_message->displayto = $eas_message->to;
+        }
         $eas_message->from = $imap_message->getFromAddress();
         $eas_message->subject = $imap_message->getSubject();
         $eas_message->datereceived = $imap_message->getDate();
