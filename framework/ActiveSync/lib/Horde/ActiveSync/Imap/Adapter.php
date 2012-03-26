@@ -249,7 +249,7 @@ class Horde_ActiveSync_Imap_Adapter
                         'read' => (array_search(Horde_Imap_Client::FLAG_SEEN, $data->getFlags()) !== false) ? 1 : 0
                     );
                     if (($options['protocolversion']) > Horde_ActiveSync::VERSION_TWOFIVE) {
-                        $flags[$uid]['followup'] = (array_search(Horde_Imap_Client::FLAG_FLAGGED, $data->getFlags()) !== false ? 1 : 0;
+                        $flags[$uid]['followup'] = (array_search(Horde_Imap_Client::FLAG_FLAGGED, $data->getFlags()) !== false) ? 1 : 0;
                     }
                 }
             }
@@ -300,7 +300,7 @@ class Horde_ActiveSync_Imap_Adapter
                         'read' => (array_search(Horde_Imap_Client::FLAG_SEEN, $data->getFlags()) !== false) ? 1 : 0
                     );
                     if (($options['protocolversion']) > Horde_ActiveSync::VERSION_TWOFIVE) {
-                        $flags[$uid]['followup'] = (array_search(Horde_Imap_Client::FLAG_FLAGGED, $data->getFlags()) !== false ? 1 : 0;
+                        $flags[$uid]['followup'] = (array_search(Horde_Imap_Client::FLAG_FLAGGED, $data->getFlags()) !== false) ? 1 : 0;
                     }
                 }
                 $folder->setChanges($changed, $flags);
