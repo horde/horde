@@ -77,6 +77,12 @@ class IMP_Ui_Mailbox
         $from = Horde_Mime_Address::getAddressesFromObject($ob->from, array('charset' => 'UTF-8'));
         $from = reset($from);
 
+        if (!empty($from) && !isset($from['inner'])) {
+            $from = isset($from['addresses'])
+                ? reset($from['addresses'])
+                : null;
+        }
+
         if (empty($from)) {
             $ret['from'] = _("Invalid Address");
             $ret['error'] = true;
