@@ -410,8 +410,11 @@ var DimpCore = {
             }
         });
 
-        /* Catch image blocking actions. */
-        document.observe('IMPImageUnblock:success', IMP_JS.unblockImages.bindAsEventListener(IMP_JS));
+        /* Catch image blocking actions. Put method call in function so that
+         * pages that don't load IMP_JS (i.e. compose page) won't break. */
+        document.observe('IMPImageUnblock:success', function(e) {
+            IMP_JS.unblockImages(e);
+        }.bindAsEventListener(this));
 
         /* Disable text selection for everything but compose/message body
          * and FORM inputs. */
