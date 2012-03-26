@@ -1582,6 +1582,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
              * 2) the From address (if not a personal address)
              * 3) all remaining Cc addresses. */
             $cc_addrs = new Horde_Mail_Rfc822_List();
+            $to_fields = array('from', 'reply-to');
+
             foreach (array('reply-to', 'from', 'to', 'cc') as $val) {
                 /* If either a reply-to or $to is present, we use this address
                  * INSTEAD of the from address. */
@@ -1603,7 +1605,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
                             /* Don't add as To address if this is a list that
                              * doesn't have a post address but does have a
                              * reply-to address. */
-                            if (in_array($val, array('from', 'reply-to'))) {
+                            if (in_array($val, $to_fields)) {
                                 /* If from/reply-to doesn't have personal
                                  * information, check from address. */
                                 if (is_null($first_ob->personal) &&
@@ -1620,6 +1622,11 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
 
                             $all_addrs->add($ob);
                         }
+                    } elseif ($val == 'from') {
+                        /* The from field contained a personal address. Use
+                         * the 'To' header as the primary reply-to address
+                         * instead. */
+                        $to_fields[] = 'to';
                     }
                 }
             }
