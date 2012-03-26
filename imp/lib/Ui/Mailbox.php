@@ -78,8 +78,8 @@ class IMP_Ui_Mailbox
         $from = reset($from);
 
         if (!empty($from) && !isset($from['inner'])) {
-            $from = isset($from['addresses'])
-                ? reset($from['addresses'])
+            $from = (isset($from['addresses']) && count($from['addresses']))
+                ? $from['addresses'][0]
                 : null;
         }
 
