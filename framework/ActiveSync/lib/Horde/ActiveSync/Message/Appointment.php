@@ -512,7 +512,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      */
     public function addException(Horde_ActiveSync_Message_Exception $exception)
     {
-        $this->exceptions[] = $exception;
+        $this->_properties['exceptions'][] = $exception;
     }
 
     /**
@@ -521,7 +521,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      */
     public function getExceptions()
     {
-        return $this->exceptions;
+        return $this->_properties['exceptions'];
     }
 
     /**
@@ -637,7 +637,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     public function addAttendee($attendee)
     {
         /* Both email and name are REQUIRED if setting an attendee */
-        $this->attendees[] = $attendee;
+        $this->_properties['attendees'][] = $attendee;
     }
 
     /**
@@ -647,7 +647,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      */
     public function getAttendees()
     {
-        return $this->attendees;
+        return $this->_properties['attendees'];
     }
 
     /**
@@ -677,12 +677,12 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      */
     public function addCategory($category)
     {
-        $this->categories[] = $category;
+        $this->_properties['categories'] = $category;
     }
 
     public function getCategories()
     {
-        return $this->categories;
+        return $this->_properties['categories'];
     }
 
     /**
