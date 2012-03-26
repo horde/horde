@@ -2,7 +2,7 @@
 /**
  * Tag browsing
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did not
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -17,34 +17,33 @@ class Trean_View_Browse
      *
      * @var Trean_TagBrowse
      */
-     protected $_browser;
+    protected $_browser;
 
-     /**
-      * Current page
-      *
-      * @var int
-      */
-     protected $_page = 0;
+    /**
+     * Current page
+     *
+     * @var int
+     */
+    protected $_page = 0;
 
-     /**
-      * Bookmarks to display per page
-      *
-      * @var int
-      */
-     protected $_perPage = 999;
+    /**
+     * Bookmarks to display per page
+     *
+     * @var int
+     */
+    protected $_perPage = 999;
 
-     /**
-      * Flag to indicate we have an empty search.
-      *
-      * @var boolean
-      */
-     protected $_noSearch = false;
-
-
-     /**
-      * Const'r
-      *
-      */
+    /**
+     * Flag to indicate we have an empty search.
+     *
+     * @var boolean
+     */
+    protected $_noSearch = false;
+    
+    /**
+     * Const'r
+     *
+     */
     public function __construct()
     {
         $this->_browser = new Trean_TagBrowse(
