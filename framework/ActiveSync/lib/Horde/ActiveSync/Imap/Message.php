@@ -496,7 +496,7 @@ class Horde_ActiveSync_Imap_Message
         $to = $this->_envelope->to;
         $dtos = $tos = array();
         $rfc822 = new Horde_Mail_Rfc822();
-        foreach ($to->addresses as $e) {
+        foreach ($to->raw_addresses as $e) {
             $tos[] = $e->bare_address;
             $dtos[] = $e->personal;
         }
