@@ -265,234 +265,234 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
     {
         parent::_node($doc, $node);
 
-        if ($doc == $node) {
-            /* Sanitize and optimize style tags. */
+        if ($node instanceof DOMDocument) {
             if (!empty($this->_imptmp['style'])) {
-                // Csstidy may not be available.
-                try {
-                    $style = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter(implode("\n", $this->_imptmp['style']), 'csstidy', array(
-                        'ob' => true,
-                        'preserve_css' => false
-                    ));
-
-                    $blocked = array();
-                    foreach ($style->import as $val) {
-                        $blocked[] = '@import "' . $val . '";';
-                    }
-                    $style->import = array();
-
-                    foreach ($style->css as $key => $val) {
-                        foreach ($val as $key2 => $val2) {
-                            foreach ($val2 as $key3 => $val3) {
-                                foreach ($val3['p'] as $key4 => $val4) {
-                                    if (preg_match('/^\s*url\(["\']?.*?["\']?\)/i', $val4)) {
-                                        $blocked[] = $key2 . '{' . $key3 . ':' . $val4 . ';}';
-                                        unset($style->css[$key][$key2][$key3]['p'][$key4]);
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    $css_text = $style->print->plain();
-
-                    if ($css_text || !empty($blocked)) {
-                        // Gets the HEAD element or creates one if it doesn't
-                        // exist.
-                        $head = $doc->getElementsByTagName('head');
-                        if ($head->length) {
-                            $headelt = $head->item(0);
-                        } else {
-                            $headelt = $doc->createElement('head');
-                            $doc->appendChild($headelt);
-                        }
-                    }
-
-                    if ($css_text) {
-                        $style_elt = $doc->createElement('style', $css_text);
-                        $style_elt->setAttribute('type', 'text/css');
-                        $headelt->appendChild($style_elt);
-                    }
-
-                    /* Store all the blocked CSS in a bogus style element in
-                     * the HTML output - then we simply need to change the
-                     * type attribute to text/css, and the browser should
-                     * load the definitions on-demand. */
-                    if (!empty($blocked)) {
-                        $block_elt = $doc->createElement('style', implode('', $blocked));
-                        $block_elt->setAttribute('type', 'text/x-imp-cssblocked');
-                        $headelt->appendChild($block_elt);
-                    }
-                } catch (Horde_Exception $e) {}
+                $this->_processDomDocument($node);
+            }
+        } elseif ($node instanceof DOMElement) {
+            if (!empty($this->_imptmp)) {
+                $this->_processDomElement($doc, $node);
             }
         }
     }
 
     /**
-     * Process DOM node (callback).
-     *
-     * @param DOMDocument $doc  Document node.
-     * @param DOMNode $node     Node.
      */
-    protected function _nodeCallback($doc, $node)
+    protected function _processDomDocument($doc)
     {
-        if (empty($this->_imptmp)) {
+        /* Sanitize and optimize style tags. */
+        try {
+            // Csstidy may not be available.
+            $style = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter(implode("\n", $this->_imptmp['style']), 'csstidy', array(
+                'ob' => true,
+                'preserve_css' => false
+            ));
+        } catch (Horde_Exception $e) {
             return;
         }
 
-        if ($node instanceof DOMElement) {
-            $tag = Horde_String::lower($node->tagName);
+        $blocked = array();
+        foreach ($style->import as $val) {
+            $blocked[] = '@import "' . $val . '";';
+        }
+        $style->import = array();
 
-            switch ($tag) {
-            case 'a':
-            case 'area':
-                /* Convert links to open in new windows. Ignore
-                 * mailto: links and links that already have a target. */
-                if ($node->hasAttribute('href')) {
-                    $url = parse_url($node->getAttribute('href'));
-                    if (isset($url['scheme']) && ($url['scheme'] == 'mailto')) {
-                        /* We don't include Horde.popup() in IFRAME, so need
-                         * to use 'simple' links. */
-                        $node->setAttribute('href', IMP::composeLink($node->getAttribute('href'), array(), true));
-                        $node->removeAttribute('target');
-                    } elseif (!empty($this->_imptmp['inline']) &&
-                              isset($url['fragment']) &&
-                              empty($url['path']) &&
-                              $GLOBALS['browser']->isBrowser('mozilla')) {
-                        /* See Bug #8695: internal anchors are broken in
-                         * Mozilla. */
-                        $node->removeAttribute('href');
-                    } elseif (!$node->hasAttribute('target') ||
-                              Horde_String::lower($node->getAttribute('target')) == '_self') {
-                        $node->setAttribute('target', $this->_imptmp['target']);
-                    }
-                }
-                break;
-
-            case 'img':
-            case 'input':
-                if ($node->hasAttribute('src')) {
-                    $val = $node->getAttribute('src');
-
-                    /* Multipart/related. */
-                    if (($tag == 'img') && ($id = $this->_cidSearch($val))) {
-                        $val = $this->getConfigParam('imp_contents')->urlView(null, 'view_attach', array('params' => array(
-                            'ctype' => 'image/*',
-                            'id' => $id,
-                            'imp_img_view' => 'data'
-                        )));
-                        $node->setAttribute('src', $val);
-                    }
-
-                    /* Block images.*/
-                    if (!empty($this->_imptmp['img'])) {
-                        $node->setAttribute('htmlimgblocked', $val);
-                        $node->setAttribute('src', $this->_imptmp['blockimg']);
-                        $this->_imptmp['imgblock'] = true;
-                    }
-                }
-                break;
-
-            case 'link':
-                /* Block all link tags that reference foreign URLs, other than
-                 * CSS. There's no inherently wrong with linking to a foreign
-                 * CSS file other than privacy concerns. Therefore, block
-                 * linking until requested by the user. */
-                $delete_link = true;
-
-                switch (Horde_String::lower($node->getAttribute('type'))) {
-                case 'text/css':
-                    if ($node->hasAttribute('href')) {
-                        $tmp = $node->getAttribute('href');
-
-                        if ($id = $this->_cidSearch($tmp, false)) {
-                            $this->_imptmp['style'][] = $this->getConfigParam('imp_contents')->getMIMEPart($id)->getContents();
-                        } else {
-                            $node->setAttribute('htmlcssblocked', $node->getAttribute('href'));
-                            $node->removeAttribute('href');
-                            $this->_imptmp['cssblock'] = true;
-                            $delete_link = false;
+        foreach ($style->css as $key => $val) {
+            foreach ($val as $key2 => $val2) {
+                foreach ($val2 as $key3 => $val3) {
+                    foreach ($val3['p'] as $key4 => $val4) {
+                        if (preg_match('/^\s*url\(["\']?.*?["\']?\)/i', $val4)) {
+                            $blocked[] = $key2 . '{' . $key3 . ':' . $val4 . ';}';
+                            unset($style->css[$key][$key2][$key3]['p'][$key4]);
                         }
                     }
-                    break;
+                }
+            }
+        }
+
+        $css_text = $style->print->plain();
+
+        if ($css_text || !empty($blocked)) {
+            /* Gets the HEAD element or creates one if it doesn't exist. */
+            $head = $doc->getElementsByTagName('head');
+            if ($head->length) {
+                $headelt = $head->item(0);
+            } else {
+                $headelt = $doc->createElement('head');
+                $doc->appendChild($headelt);
+            }
+        }
+
+        if ($css_text) {
+            $style_elt = $doc->createElement('style', $css_text);
+            $style_elt->setAttribute('type', 'text/css');
+            $headelt->appendChild($style_elt);
+        }
+
+        /* Store all the blocked CSS in a bogus style element in the HTML
+         * output - then we simply need to change the type attribute to
+         * text/css, and the browser should load the definitions on-demand. */
+        if (!empty($blocked)) {
+            $block_elt = $doc->createElement('style', implode('', $blocked));
+            $block_elt->setAttribute('type', 'text/x-imp-cssblocked');
+            $headelt->appendChild($block_elt);
+        }
+    }
+
+    /**
+     */
+    protected function _processDomElement($doc, $node)
+    {
+        $tag = Horde_String::lower($node->tagName);
+
+        switch ($tag) {
+        case 'a':
+        case 'area':
+            /* Convert links to open in new windows. Ignore mailto: links and
+             * links that already have a target. */
+            if ($node->hasAttribute('href')) {
+                $url = parse_url($node->getAttribute('href'));
+                if (isset($url['scheme']) && ($url['scheme'] == 'mailto')) {
+                    /* We don't include Horde.popup() in IFRAME, so need to
+                     * use 'simple' links. */
+                    $node->setAttribute('href', IMP::composeLink($node->getAttribute('href'), array(), true));
+                    $node->removeAttribute('target');
+                } elseif (!empty($this->_imptmp['inline']) &&
+                          isset($url['fragment']) &&
+                          empty($url['path']) &&
+                          $GLOBALS['browser']->isBrowser('mozilla')) {
+                    /* See Bug #8695: internal anchors are broken in
+                     * Mozilla. */
+                    $node->removeAttribute('href');
+                } elseif (!$node->hasAttribute('target') ||
+                          Horde_String::lower($node->getAttribute('target')) == '_self') {
+                    $node->setAttribute('target', $this->_imptmp['target']);
+                }
+            }
+            break;
+
+        case 'img':
+        case 'input':
+            if ($node->hasAttribute('src')) {
+                $val = $node->getAttribute('src');
+
+                /* Multipart/related. */
+                if (($tag == 'img') && ($id = $this->_cidSearch($val))) {
+                    $val = $this->getConfigParam('imp_contents')->urlView(null, 'view_attach', array('params' => array(
+                        'ctype' => 'image/*',
+                        'id' => $id,
+                        'imp_img_view' => 'data'
+                    )));
+                    $node->setAttribute('src', $val);
                 }
 
-                if ($delete_link &&
-                    $node->hasAttribute('href') &&
-                    $node->parentNode) {
-                    $node->parentNode->removeChild($node);
+                /* Block images.*/
+                if (!empty($this->_imptmp['img'])) {
+                    $node->setAttribute('htmlimgblocked', $val);
+                    $node->setAttribute('src', $this->_imptmp['blockimg']);
+                    $this->_imptmp['imgblock'] = true;
                 }
-                break;
+            }
+            break;
 
-            case 'style':
-                switch (Horde_String::lower($node->getAttribute('type'))) {
-                case 'text/css':
-                    $this->_imptmp['style'][] = $node->nodeValue;
-                    $node->parentNode->removeChild($node);
-                    break;
-                }
-                break;
+        case 'link':
+            /* Block all link tags that reference foreign URLs, other than
+             * CSS. There's no inherently wrong with linking to a foreign
+             * CSS file other than privacy concerns. Therefore, block
+             * linking until requested by the user. */
+            $delete_link = true;
 
-            case 'table':
-                /* If displaying inline (in IFRAME), tables with 100%
-                 * height seems to confuse many browsers re: the
-                 * iframe internal height. */
-                if (!empty($this->_imptmp['inline']) &&
-                    $node->hasAttribute('height') &&
-                    ($node->getAttribute('height') == '100%')) {
-                    $node->removeAttribute('height');
-                }
+            switch (Horde_String::lower($node->getAttribute('type'))) {
+            case 'text/css':
+                if ($node->hasAttribute('href')) {
+                    $tmp = $node->getAttribute('href');
 
-                // Fall-through
-
-            case 'body':
-            case 'td':
-                if ($node->hasAttribute('background')) {
-                    $val = $node->getAttribute('background');
-
-                    /* Multipart/related. */
-                    if ($id = $this->_cidSearch($val)) {
-                        $val = $this->getConfigParam('imp_contents')->urlView(null, 'view_attach', array('params' => array(
-                            'id' => $id,
-                            'imp_img_view' => 'data'
-                        )));
-                        $node->setAttribute('background', $val);
-                    }
-
-                    /* Block images.*/
-                    if (!empty($this->_imptmp['img'])) {
-                        $node->setAttribute('htmlimgblocked', $val);
-                        $node->setAttribute('background', $this->_imptmp['blockimg']);
-                        $this->_imptmp['imgblock'] = true;
+                    if ($id = $this->_cidSearch($tmp, false)) {
+                        $this->_imptmp['style'][] = $this->getConfigParam('imp_contents')->getMIMEPart($id)->getContents();
+                    } else {
+                        $node->setAttribute('htmlcssblocked', $node->getAttribute('href'));
+                        $node->removeAttribute('href');
+                        $this->_imptmp['cssblock'] = true;
+                        $delete_link = false;
                     }
                 }
                 break;
             }
 
-            $remove = array();
-            foreach ($node->attributes as $val) {
-                /* Catch random mailto: strings in attributes that will
-                 * cause problems with e-mail linking. */
-                if (stripos($val->value, 'mailto:') === 0) {
-                    $remove[] = $val->name;
+            if ($delete_link &&
+                $node->hasAttribute('href') &&
+                $node->parentNode) {
+                $node->parentNode->removeChild($node);
+            }
+            break;
+
+        case 'style':
+            switch (Horde_String::lower($node->getAttribute('type'))) {
+            case 'text/css':
+                $this->_imptmp['style'][] = $node->nodeValue;
+                $node->parentNode->removeChild($node);
+                break;
+            }
+            break;
+
+        case 'table':
+            /* If displaying inline (in IFRAME), tables with 100% height seems
+             * to confuse many browsers re: the IFRAME internal height. */
+            if (!empty($this->_imptmp['inline']) &&
+                $node->hasAttribute('height') &&
+                ($node->getAttribute('height') == '100%')) {
+                $node->removeAttribute('height');
+            }
+
+            // Fall-through
+
+        case 'body':
+        case 'td':
+            if ($node->hasAttribute('background')) {
+                $val = $node->getAttribute('background');
+
+                /* Multipart/related. */
+                if ($id = $this->_cidSearch($val)) {
+                    $val = $this->getConfigParam('imp_contents')->urlView(null, 'view_attach', array('params' => array(
+                        'id' => $id,
+                        'imp_img_view' => 'data'
+                    )));
+                    $node->setAttribute('background', $val);
+                }
+
+                /* Block images.*/
+                if (!empty($this->_imptmp['img'])) {
+                    $node->setAttribute('htmlimgblocked', $val);
+                    $node->setAttribute('background', $this->_imptmp['blockimg']);
+                    $this->_imptmp['imgblock'] = true;
                 }
             }
+            break;
+        }
 
-            foreach ($remove as $val) {
-                $node->removeAttribute($val);
+        $remove = array();
+        foreach ($node->attributes as $val) {
+            /* Catch random mailto: strings in attributes that will cause
+             * problems with e-mail linking. */
+            if (stripos($val->value, 'mailto:') === 0) {
+                $remove[] = $val->name;
             }
+        }
 
-            if ($node->hasAttribute('style')) {
-                if (strpos($node->getAttribute('style'), 'content:') !== false) {
-                    // TODO: Figure out way to unblock?
-                    $node->removeAttribute('style');
-                } elseif (!empty($this->_imptmp['img']) ||
-                          !empty($this->_imptmp['cid'])) {
-                    $this->_imptmp['node'] = $node;
-                    $style = preg_replace_callback(self::CSS_BG_PREG, array($this, '_styleCallback'), $node->getAttribute('style'), -1, $matches);
-                    if ($matches) {
-                        $node->setAttribute('style', $style);
-                    }
+        foreach ($remove as $val) {
+            $node->removeAttribute($val);
+        }
+
+        if ($node->hasAttribute('style')) {
+            if (strpos($node->getAttribute('style'), 'content:') !== false) {
+                // TODO: Figure out way to unblock?
+                $node->removeAttribute('style');
+            } elseif (!empty($this->_imptmp['img']) ||
+                      !empty($this->_imptmp['cid'])) {
+                $this->_imptmp['node'] = $node;
+                $style = preg_replace_callback(self::CSS_BG_PREG, array($this, '_styleCallback'), $node->getAttribute('style'), -1, $matches);
+                if ($matches) {
+                    $node->setAttribute('style', $style);
                 }
             }
         }

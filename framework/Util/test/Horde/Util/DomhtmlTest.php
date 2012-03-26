@@ -76,4 +76,26 @@ EOT;
         );
     }
 
+    public function testIterator()
+    {
+        $text = file_get_contents(__DIR__ . '/fixtures/domhtml_test.html');
+        $dom = new Horde_Domhtml($text);
+
+        $tags = array(
+            'html',
+            'body',
+            'div',
+            'head',
+            'title'
+        );
+
+        foreach ($dom as $node) {
+            if ($node instanceof DOMElement) {
+                if ($node->tagName != reset($tags)) {
+                    $this->fail('Wrong tag name.');
+                }
+                array_shift($tags);
+            }
+        }
+    }
 }

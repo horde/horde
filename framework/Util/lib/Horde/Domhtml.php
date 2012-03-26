@@ -9,7 +9,7 @@
  * @package  Util
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
-class Horde_Domhtml
+class Horde_Domhtml implements Iterator
 {
     /**
      * DOM object.
@@ -17,6 +17,13 @@ class Horde_Domhtml
      * @var DOMDocument
      */
     public $dom;
+
+    /**
+     * Iterator status.
+     *
+     * @var array
+     */
+    protected $_iterator = null;
 
     /**
      * Original charset of data.
@@ -135,6 +142,78 @@ class Horde_Domhtml
         }
 
         return Horde_String::convertCharset($text, 'UTF-8', $this->_origCharset);
+    }
+
+    /* Iterator methods. */
+
+    /**
+     */
+    public function current()
+    {
+        if ($this->_iterator instanceof DOMDocument) {
+            return $this->_iterator;
+        }
+
+        $curr = end($this->_iterator);
+        return $curr['list']->item($curr['i']);
+    }
+
+    /**
+     */
+    public function key()
+    {
+        return 0;
+    }
+
+    /**
+     */
+    public function next()
+    {
+        /* Iterate in the reverse direction through the node list. This allows
+         * alteration of the original list without breaking things (foreach()
+         * w/removeChild() may exit iteration after removal is complete. */
+
+        if ($this->_iterator instanceof DOMDocument) {
+            $this->_iterator = array();
+            $curr = array();
+            $node = $this->dom;
+        } elseif (empty($this->_iterator)) {
+            $this->_iterator = null;
+            return;
+        } else {
+            $curr = &$this->_iterator[count($this->_iterator) - 1];
+            $node = $curr['list']->item($curr['i']);
+        }
+
+        if (empty($curr['child']) &&
+            ($node instanceof DOMNode) &&
+            $node->hasChildNodes()) {
+            $curr['child'] = true;
+            $this->_iterator[] = array(
+                'child' => false,
+                'i' => $node->childNodes->length - 1,
+                'list' => $node->childNodes
+            );
+        } elseif (--$curr['i'] < 0) {
+            array_pop($this->_iterator);
+            $this->next();
+        } else {
+            $curr['child'] = false;
+        }
+    }
+
+    /**
+     */
+    public function rewind()
+    {
+        $this->_iterator = $this->dom;
+    }
+
+    /**
+     */
+    public function valid()
+    {
+        return !is_null($this->_iterator);
     }
 
 }

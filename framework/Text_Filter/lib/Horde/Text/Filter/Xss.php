@@ -99,7 +99,9 @@ class Horde_Text_Filter_Xss extends Horde_Text_Filter_Base
     {
         $dom = new Horde_Domhtml($text, $this->_params['charset']);
 
-        $this->_node($dom->dom, $dom->dom);
+        foreach ($dom as $node) {
+            $this->_node($node);
+        }
 
         if ($this->_params['noprefetch']) {
             $meta = $dom->dom->createElement('meta');
@@ -122,106 +124,91 @@ class Horde_Text_Filter_Xss extends Horde_Text_Filter_Base
     /**
      * Process DOM node.
      *
-     * @param DOMDocument $doc  Document node.
      * @param DOMElement $node  Element node.
      *
      * @return string  The plaintext representation.
      */
-    protected function _node($doc, $node)
+    protected function _node($node)
     {
-        if ($node->hasChildNodes()) {
-            /* Iterate in the reverse direction through the node list. This
-             * allows us to alter the original list without breaking things
-             * (foreach() w/removeChild() may exit iteration after the removal
-             * is completed). */
-            for ($i = $node->childNodes->length; $i-- > 0;) {
-                $child = $node->childNodes->item($i);
+        if ($node instanceof DOMElement) {
+            $remove = $this->_params['strip_style_attributes']
+                ? array('style')
+                : array();
 
-                if ($child instanceof DOMElement) {
-                    $remove = $this->_params['strip_style_attributes']
-                        ? array('style')
-                        : array();
-
-                    switch (strtolower($child->tagName)) {
-                    case 'a':
-                        /* Strip out data URLs living in an A HREF element
-                         * (Bug #8715). */
-                        if ($child->hasAttribute('href') &&
-                            preg_match("/\s*data:/i", $child->getAttribute('href'))) {
-                            $remove[] = 'href';
-                        }
-                        break;
-
-                    case 'applet':
-                    case 'audio':
-                    case 'bgsound':
-                    case 'embed':
-                    case 'iframe':
-                    case 'import':
-                    case 'java':
-                    case 'layer':
-                    case 'meta':
-                    case 'object':
-                    case 'script':
-                    case 'video':
-                    case 'xml':
-                        /* Remove all tags that might cause trouble. */
-                        $node->removeChild($child);
-                        continue 2;
-
-                    case 'base':
-                    case 'link':
-                    case 'style':
-                        /* We primarily strip out <base> tags due to styling
-                         * concerns. There is a security issue with HREF tags,
-                         * but the 'javascript' search/replace code
-                         * sufficiently filters these strings. */
-                        if ($this->_params['strip_styles']) {
-                            $node->removeChild($child);
-                            continue 2;
-                        }
-                        break;
-
-                    case 'html':
-                        if ($child->hasAttribute('manifest')) {
-                            $remove[] = 'manifest';
-                        }
-                        break;
-
-                    case 'set':
-                        /* I believe this attack only works on old browsers.
-                         * But makes no sense allowing HTML to try to set
-                         * innerHTML anyway. */
-                        if ($child->hasAttribute('attributename') &&
-                            (strcasecmp($child->getAttribute('attributename'), 'innerHTML') === 0)) {
-                            $node->removeChild($child);
-                            continue 2;
-                        }
-                    }
-
-                    foreach ($child->attributes as $val) {
-                        /* Never allow on<foo>="bar()",
-                         * attribute="[mocha|*script]:foo()", or
-                         * attribute="&{...}". */
-                        if ((stripos(ltrim($val->name), 'on') === 0) ||
-                            preg_match("/^\s*(?:mocha:|[^:]+script:|&{)/i", $val->value)) {
-                            $remove[] = $val->name;
-                        }
-                    }
-
-                    foreach ($remove as $val) {
-                        $child->removeAttribute($val);
-                    }
-                } elseif ($child instanceof DOMComment) {
-                    /* Remove HTML comments (including some scripts &
-                     * styles). */
-                    if ($this->_params['strip_styles']) {
-                        $node->removeChild($child);
-                        continue;
-                    }
+            switch (strtolower($node->tagName)) {
+            case 'a':
+                /* Strip out data URLs living in an A HREF element
+                 * (Bug #8715). */
+                if ($node->hasAttribute('href') &&
+                    preg_match("/\s*data:/i", $node->getAttribute('href'))) {
+                    $remove[] = 'href';
                 }
+                break;
 
-                $this->_node($doc, $child);
+            case 'applet':
+            case 'audio':
+            case 'bgsound':
+            case 'embed':
+            case 'iframe':
+            case 'import':
+            case 'java':
+            case 'layer':
+            case 'meta':
+            case 'object':
+            case 'script':
+            case 'video':
+            case 'xml':
+                /* Remove all tags that might cause trouble. */
+                $node->parentNode->removeChild($node);
+                break;
+
+            case 'base':
+            case 'link':
+            case 'style':
+                /* We primarily strip out <base> tags due to styling
+                 * concerns. There is a security issue with HREF tags,
+                 * but the 'javascript' search/replace code
+                 * sufficiently filters these strings. */
+                if ($this->_params['strip_styles']) {
+                    $node->parentNode->removeChild($node);
+                }
+                break;
+
+            case 'html':
+                if ($node->hasAttribute('manifest')) {
+                    $remove[] = 'manifest';
+                }
+                break;
+
+            case 'set':
+                /* I believe this attack only works on old browsers.
+                 * But makes no sense allowing HTML to try to set
+                 * innerHTML anyway. */
+                if ($node->hasAttribute('attributename') &&
+                    (strcasecmp($node->getAttribute('attributename'), 'innerHTML') === 0)) {
+                    $node->parentNode->removeChild($node);
+                }
+                break;
+            }
+
+            foreach ($node->attributes as $val) {
+                /* Never allow on<foo>="bar()",
+                 * attribute="[mocha|*script]:foo()", or
+                 * attribute="&{...}". */
+                if ((stripos(ltrim($val->name), 'on') === 0) ||
+                    preg_match("/^\s*(?:mocha:|[^:]+script:|&{)/i", $val->value)) {
+                    $remove[] = $val->name;
+                }
+            }
+
+            foreach ($remove as $val) {
+                $node->removeAttribute($val);
+            }
+        } elseif ($node instanceof DOMComment) {
+            /* Remove HTML comments (including some scripts &
+             * styles). */
+            if ($this->_params['strip_styles']) {
+                $node->parentNode->removeChild($node);
             }
         }
     }

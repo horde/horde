@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-03-13</date>
- <time>18:28:53</time>
+ <date>2012-03-26</date>
+ <time>17:48:47</time>
  <version>
   <release>2.0.0alpha1</release>
   <api>2.0.0</api>
@@ -29,6 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add iteration to Horde_Domhtml object.
 * [jan] Remove Horde_Util::getTempDir().
 * [jan] Remove Horde_Array::replaceRecursive().
  </notes>
@@ -72,6 +73,7 @@
        <file name="bug_6372.csv" role="test" />
        <file name="columns1.csv" role="test" />
        <file name="columns2.csv" role="test" />
+       <file name="domhtml_test.html" role="test" />
        <file name="multiline1.csv" role="test" />
        <file name="notrailing_crlf.csv" role="test" />
        <file name="notrailing_lf.csv" role="test" />
@@ -173,6 +175,7 @@
    <install as="Horde/Util/fixtures/bug_6372.csv" name="test/Horde/Util/fixtures/bug_6372.csv" />
    <install as="Horde/Util/fixtures/columns1.csv" name="test/Horde/Util/fixtures/columns1.csv" />
    <install as="Horde/Util/fixtures/columns2.csv" name="test/Horde/Util/fixtures/columns2.csv" />
+   <install as="Horde/Util/fixtures/domhtml_test.html" name="test/Horde/Util/fixtures/domhtml_test.html" />
    <install as="Horde/Util/fixtures/multiline1.csv" name="test/Horde/Util/fixtures/multiline1.csv" />
    <install as="Horde/Util/fixtures/notrailing_crlf.csv" name="test/Horde/Util/fixtures/notrailing_crlf.csv" />
    <install as="Horde/Util/fixtures/notrailing_lf.csv" name="test/Horde/Util/fixtures/notrailing_lf.csv" />
