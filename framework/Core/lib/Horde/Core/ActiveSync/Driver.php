@@ -487,7 +487,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 try {
                     $folder = &$this->_imap->getMessageChanges(
                         $folder,
-                        array('sincedate' => (int)$cutoffdate));
+                        array(
+                            'sincedate' => (int)$cutoffdate,
+                            'protocolversion' => $this->_version));
                 } catch (Horde_ActiveSync_Exception_StaleState $e) {
                     $this->_endBuffer();
                     throw $e;

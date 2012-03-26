@@ -186,6 +186,8 @@ class Horde_ActiveSync_Imap_Adapter
      * @param array $options                        Additional options:
      *  - sincedate: (integer)  Timestamp of earliest message to retrieve.
      *               DEFAULT: 0 (Don't filter).
+     *  - protocolversion: (float)  EAS protocol version to support.
+     *                     DEFAULT: none REQUIRED
      *
      * @return Horde_ActiveSync_Folder_Imap  The folder object, containing any
      *                                       change instructions for the device.
@@ -244,8 +246,11 @@ class Horde_ActiveSync_Imap_Adapter
                     array_search('\deleted', $data->getFlags()) === false) {
                     $changes[] = $uid;
                     $flags[$uid] = array(
-                        'read' => (array_search('\seen', $data->getFlags()) !== false) ? 1 : 0
+                        'read' => (array_search(Horde_Imap_Client::FLAG_SEEN, $data->getFlags()) !== false) ? 1 : 0
                     );
+                    if (($options['protocolversion']) > Horde_ActiveSync::VERSION_TWOFIVE) {
+                        $flags[$uid]['followup'] = (array_search(Horde_Imap_Client::FLAG_FLAGGED, $data->getFlags()) !== false ? 1 : 0;
+                    }
                 }
             }
             $folder->setChanges($changes, $flags);
@@ -293,8 +298,10 @@ class Horde_ActiveSync_Imap_Adapter
                 foreach ($fetch_ret as $uid => $data) {
                     $flags[$uid] = array(
                         'read' => (array_search(Horde_Imap_Client::FLAG_SEEN, $data->getFlags()) !== false) ? 1 : 0
-                        'followup' => (array_search(Horde_Imap_Client::FLAG_FLAGGED, $data->getFlags()) !== false ? 1 : 0
                     );
+                    if (($options['protocolversion']) > Horde_ActiveSync::VERSION_TWOFIVE) {
+                        $flags[$uid]['followup'] = (array_search(Horde_Imap_Client::FLAG_FLAGGED, $data->getFlags()) !== false ? 1 : 0;
+                    }
                 }
                 $folder->setChanges($changed, $flags);
                 $folder->setRemoved($deleted);
