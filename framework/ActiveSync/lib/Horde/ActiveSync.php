@@ -584,20 +584,20 @@ class Horde_ActiveSync
         case Horde_ActiveSync::TRUNCATION_ALL:
             return 0;
         case Horde_ActiveSync::TRUNCATION_1:
-            return 512;
+            return 4096;
         case Horde_ActiveSync::TRUNCATION_2:
-            return 1024;
-        case Horde_ActiveSync::TRUNCATION_3:
-            return 2048;
-        case Horde_ActiveSync::TRUNCATION_4:
             return 5120;
-        // case Horde_ActiveSync::TRUNCATION_5:
-        //     return 20480;
-        // case Horde_ActiveSync::TRUNCATION_6:
-        //     return 51200;
+        case Horde_ActiveSync::TRUNCATION_3:
+            return 7168;
+        case Horde_ActiveSync::TRUNCATION_4:
+            return 10240;
+        case Horde_ActiveSync::TRUNCATION_5:
+            return 20480;
+        case Horde_ActiveSync::TRUNCATION_6:
+            return 51200;
         case Horde_ActiveSync::TRUNCATION_7:
-            //return 102400;
-        //case Horde_ActiveSync::TRUNCATION_8:
+            return 102400;
+        case Horde_ActiveSync::TRUNCATION_8:
         case Horde_ActiveSync::TRUNCATION_NONE:
             return 1048576; // We'll limit to 1MB anyway
         default:
