@@ -144,13 +144,10 @@ abstract class Horde_ActiveSync_Request_Base
     public function checkPolicyKey($sentKey)
     {
         $this->_logger->debug(sprintf(
-            "[%s] Checking policykey for Device %s User %s",
+            "[%s] Checking policykey for device: %s user: %s",
             $this->_device->id,
             $sentKey,
             $this->_driver->getUser()));
-
-        $this->_device = $this->_stateDriver->loadDeviceInfo(
-            $this->_device->id, $this->_driver->getUser());
 
         // Use looseprovisioning?
         if (empty($sentKey) && $this->_hasBrokenProvisioning() &&
