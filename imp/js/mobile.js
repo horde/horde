@@ -465,120 +465,123 @@ var ImpMobile = {
      */
     messageLoaded: function(r)
     {
-        if (r && r.message && !r.message.error) {
-            var data = r.message,
-                headers = $('#imp-message-headers tbody'),
-                args = '&mbox=' + data.mbox + '&uid=' + data.uid,
-                ham = spam = 'show', spambar;
+        if (!r || !r.message || r.message.error) {
+            return;
+        }
 
-            ImpMobile.uid = data.uid;
-            ImpMobile.uid_mbox = data.mbox;
+        var data = r.message,
+            headers = $('#imp-message-headers tbody'),
+            args = '&mbox=' + data.mbox + '&uid=' + data.uid,
+            ham = spam = 'show', spambar;
 
-            $('#imp-message-title').html(data.title);
-            document.title = $('#imp-message-title').text();
-            $('#imp-message-subject').html(data.subject);
-            $('#imp-message-from').text(data.from[0].personal || data.from[0].inner);
-            $('#imp-message-body').html(data.msgtext);
-            $('#imp-message-date').text('');
-            $('#imp-message-more').parent().show();
-            $('#imp-message-less').parent().hide();
-            headers.text('');
-            $.each(data.headers, function(k, header) {
-                if (header.value) {
-                    headers.append($('<tr>').append($('<td class="imp-header-label">').html(header.name + ':')).append($('<td>').html(header.value)));
-                }
-                if (header.id == 'Date') {
-                    $('#imp-message-date').text(header.value);
-                }
-            });
+        ImpMobile.uid = data.uid;
+        ImpMobile.uid_mbox = data.mbox;
 
-            $('#imp-message-back').attr('href', '#mailbox?mbox=' + data.mbox);
-            $('#imp-message-back .ui-btn-text')
-                .text($('#imp-mailbox-' + data.mbox).text());
+        $('#imp-message-title').html(data.title);
+        document.title = $('#imp-message-title').text();
+        $('#imp-message-subject').html(data.subject);
+        $('#imp-message-from').text(data.from[0].personal || data.from[0].inner);
+        $('#imp-message-body').html(data.msgtext);
+        $('#imp-message-date').text('');
+        $('#imp-message-more').parent().show();
+        $('#imp-message-less').parent().hide();
 
-            if (ImpMobile.nextMessage(-1)) {
-                $('#imp-message-prev')
-                    .removeClass('ui-disabled')
-                    .attr('aria-disabled', false);
-            } else {
-                $('#imp-message-prev')
-                    .addClass('ui-disabled')
-                    .attr('aria-disabled', true);
+        headers.text('');
+        $.each(data.headers, function(k, header) {
+            if (header.value) {
+                headers.append($('<tr>').append($('<td class="imp-header-label">').html(header.name + ':')).append($('<td>').html(header.value)));
             }
-            if (ImpMobile.nextMessage(1)) {
-                $('#imp-message-next')
-                    .removeClass('ui-disabled')
-                    .attr('aria-disabled', false);
-            } else {
-                $('#imp-message-next')
-                    .addClass('ui-disabled')
-                    .attr('aria-disabled', true);
+            if (header.id == 'Date') {
+                $('#imp-message-date').text(header.value);
             }
+        });
 
-            if (!IMP.conf.disable_compose) {
-                $('#imp-message-reply').attr(
-                    'href',
-                    '#compose?type=reply_auto' + args);
-                $('#imp-message-forward').attr(
-                    'href',
-                    '#compose?type=forward_auto' + args);
-                $('#imp-message-redirect').attr(
-                    'href',
-                    '#compose?type=forward_redirect' + args);
-                $('#imp-message-resume').attr(
-                    'href',
-                    '#compose?type=editasnew' + args);
-            }
+        $('#imp-message-back').attr('href', '#mailbox?mbox=' + data.mbox);
+        $('#imp-message-back .ui-btn-text')
+            .text($('#imp-mailbox-' + data.mbox).text());
 
-            if (ImpMobile.cache[ImpMobile.mailbox].readonly) {
-                $('#imp-message-delete,#imp-message-move').hide();
-            } else {
-                $('#imp-message-delete,#imp-message-move').show();
-                $('#imp-message-delete').attr(
-                    'href',
-                    '#confirm?action=delete' + args);
-                if (IMP.conf.allow_folders) {
-                    $('#imp-message-move').attr(
-                        'href',
-                        '#target?action=move' + args);
-                }
-            }
+        if (ImpMobile.nextMessage(-1)) {
+            $('#imp-message-prev')
+                .removeClass('ui-disabled')
+                .attr('aria-disabled', false);
+        } else {
+            $('#imp-message-prev')
+                .addClass('ui-disabled')
+                .attr('aria-disabled', true);
+        }
+        if (ImpMobile.nextMessage(1)) {
+            $('#imp-message-next')
+                .removeClass('ui-disabled')
+                .attr('aria-disabled', false);
+        } else {
+            $('#imp-message-next')
+                .addClass('ui-disabled')
+                .attr('aria-disabled', true);
+        }
+
+        if (!IMP.conf.disable_compose) {
+            $('#imp-message-reply').attr(
+                'href',
+                '#compose?type=reply_auto' + args);
+            $('#imp-message-forward').attr(
+                'href',
+                '#compose?type=forward_auto' + args);
+            $('#imp-message-redirect').attr(
+                'href',
+                '#compose?type=forward_redirect' + args);
+            $('#imp-message-resume').attr(
+                'href',
+                '#compose?type=editasnew' + args);
+        }
+
+        if (ImpMobile.cache[ImpMobile.mailbox].readonly) {
+            $('#imp-message-delete,#imp-message-move').hide();
+        } else {
+            $('#imp-message-delete,#imp-message-move').show();
+            $('#imp-message-delete').attr(
+                'href',
+                '#confirm?action=delete' + args);
             if (IMP.conf.allow_folders) {
-                $('#imp-message-copy').attr(
+                $('#imp-message-move').attr(
                     'href',
-                    '#target?action=copy' + args);
+                    '#target?action=move' + args);
             }
-            if (ImpMobile.mailbox == IMP.conf.spam_mbox) {
-                if (!IMP.conf.spam_spammbox) {
-                    spam = 'hide';
-                }
-            } else if (IMP.conf.ham_spammbox) {
-                ham = 'hide';
+        }
+        if (IMP.conf.allow_folders) {
+            $('#imp-message-copy').attr(
+                'href',
+                '#target?action=copy' + args);
+        }
+        if (ImpMobile.mailbox == IMP.conf.spam_mbox) {
+            if (!IMP.conf.spam_spammbox) {
+                spam = 'hide';
             }
+        } else if (IMP.conf.ham_spammbox) {
+            ham = 'hide';
+        }
 
-            if ($('#imp-message-ham')) {
-                $.fn[ham].call($('#imp-message-ham'));
-                $('#imp-message-ham').attr(
-                    'href',
-                    '#confirm?action=ham' + args);
-                spambar = $('#imp-message-ham').parent();
-            }
-            if ($('#imp-message-spam')) {
-                $.fn[spam].call($('#imp-message-spam'));
-                $('#imp-message-spam').attr(
-                    'href',
-                    '#confirm?action=spam' + args);
-                spambar = $('#imp-message-spam').parent();
-            }
-            if (spambar) {
-                spambar.controlgroup('refresh');
-            }
+        if ($('#imp-message-ham')) {
+            $.fn[ham].call($('#imp-message-ham'));
+            $('#imp-message-ham').attr(
+                'href',
+                '#confirm?action=ham' + args);
+            spambar = $('#imp-message-ham').parent();
+        }
+        if ($('#imp-message-spam')) {
+            $.fn[spam].call($('#imp-message-spam'));
+            $('#imp-message-spam').attr(
+                'href',
+                '#confirm?action=spam' + args);
+            spambar = $('#imp-message-spam').parent();
+        }
+        if (spambar) {
+            spambar.controlgroup('refresh');
+        }
 
-            if (data.js) {
-                $.each(data.js, function(k, js) {
-                    $.globalEval(js);
-                });
-            }
+        if (data.js) {
+            $.each(data.js, function(k, js) {
+                $.globalEval(js);
+            });
         }
     },
 
