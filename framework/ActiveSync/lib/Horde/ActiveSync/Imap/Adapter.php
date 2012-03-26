@@ -280,7 +280,7 @@ class Horde_ActiveSync_Imap_Adapter
                 $uids = $folder->messages();
                 $deleted = array_diff($uids, $search_ret['match']->ids);
                 $changed = $search_ret['match']->ids;
-                // All changes in AS are a change in /seen. Get the flags only
+                // All changes in AS are a change in flags. Get the flags only
                 // for the messages we think have been changed and set them in
                 // the folder. We don't care about what state the flag is in
                 // on the device currently. We will assume that all flag changes
@@ -292,7 +292,8 @@ class Horde_ActiveSync_Imap_Adapter
                 $flags = array();
                 foreach ($fetch_ret as $uid => $data) {
                     $flags[$uid] = array(
-                        'read' => (array_search('\seen', $data->getFlags()) !== false) ? 1 : 0
+                        'read' => (array_search(Horde_Imap_Client::FLAG_SEEN, $data->getFlags()) !== false) ? 1 : 0
+                        'followup' => (array_search(Horde_Imap_Client::FLAG_FLAGGED, $data->getFlags()) !== false ? 1 : 0
                     );
                 }
                 $folder->setChanges($changed, $flags);
