@@ -1,27 +1,11 @@
 <?php $sortdirclass = $sortdir ? 'sortup' : 'sortdown' ?>
 
 <script type="text/javascript">
-
-var PREFS_UPDATE_TIMEOUT;
-
 function table_sortCallback(tableId, column, sortDown)
 {
-    if (typeof PREFS_UPDATE_TIMEOUT != "undefined") {
-        window.clearTimeout(PREFS_UPDATE_TIMEOUT);
-    }
-
-    PREFS_UPDATE_TIMEOUT = window.setTimeout('doPrefsUpdate("' + column + '", "' + sortDown + '")', 300);
+    new Ajax.Request('<?php echo Horde::getServiceLink('ajax', 'mnemo')->url ?>setPrefValue', { parameters: { pref: 'sortby', value: column.substring(1) } });
+    new Ajax.Request('<?php echo Horde::getServiceLink('ajax', 'mnemo')->url ?>setPrefValue', { parameters: { pref: 'sortdir', value: sortDown } });
 }
-
-function doPrefsUpdate(column, sortDown)
-{
-    baseurl = '<?php echo Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/prefs/', true, -1) ?>';
-    try {
-        new Ajax.Request(baseurl, { parameters: { app: 'mnemo', pref: 'sortby', value: encodeURIComponent(column.substring(1)) } });
-        new Ajax.Request(baseurl, { parameters: { app: 'mnemo', pref: 'sortdir', value: encodeURIComponent(sortDown) } });
-    } catch (e) {}
-}
-
 </script>
 
 <table width="100%" id="memos" cellspacing="0" class="sortable linedRow nowrap">
