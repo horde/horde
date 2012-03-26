@@ -522,8 +522,8 @@ class Horde_ActiveSync_Imap_Adapter
         }
         $mbox = new Horde_Imap_Client_Mailbox($mailbox);
         $messages = $this->_getMailMessages($mbox, $uid, $options);
-        foreach ($messages as $message) {
-            $res[] = new Horde_ActiveSync_Imap_Message($this->_getImapOb(), $mbox, $message);
+        foreach ($messages as $id => $message) {
+            $res[$id] = new Horde_ActiveSync_Imap_Message($this->_getImapOb(), $mbox, $message);
         }
 
         return $res;
