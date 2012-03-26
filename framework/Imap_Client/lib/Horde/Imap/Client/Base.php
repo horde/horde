@@ -1196,9 +1196,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
     {
         $this->login();
 
-        if (!is_array($pattern)) {
-            $pattern = array($pattern);
-        }
+        $pattern = is_array($pattern)
+            ? array_unique($pattern)
+            : array($pattern);
 
         if (isset($options['special_use']) &&
             !$this->queryCapability('SPECIAL-USE')) {
