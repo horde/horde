@@ -1387,8 +1387,13 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         $id = $elt['v'];
 
         if (array_key_exists($id, $ed['o'])) {
-            if ($ed['o'][$id] == $elt) {
-                unset($ed['a'][$id], $ed['c'][$id], $ed['d'][$id], $ed['o'][$id]);
+            if (($type != 'd') && ($ed['o'][$id] == $elt)) {
+                unset(
+                    $ed['a'][$id],
+                    $ed['c'][$id],
+                    $ed['d'][$id],
+                    $ed['o'][$id]
+                );
                 return;
             }
         } else {
