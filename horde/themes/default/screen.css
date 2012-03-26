@@ -1162,6 +1162,31 @@ ul.sound-list {
     color: #fff;
 }
 
+/* Tag lists. */
+ul.horde-tags {
+    display: inline;
+    list-style-type: none;
+}
+.hordeACListItem, ul.horde-tags li {
+    display: inline-block;
+    padding: 2px 4px;
+    margin-right: 4px;
+    background-color: #fff;
+    border: 1px #999 solid;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    font-size: 90%;
+    font-weight: normal;
+    line-height: normal;
+}
+.header ul.horde-tags li {
+    font-size: 72%;
+}
+.hordeACListItem img, ul.horde-tags li img {
+    vertical-align: middle;
+}
+
 /* Growler notice styling. */
 #Growler {
     width: 340px;
@@ -1285,6 +1310,7 @@ div.GrowlerNoticeExit:hover {
     border-color: red;
 }
 
+/* Auto completer styles. See tags section too. */
 .hordeACBox {
     background:white none repeat scroll 0 0;
     border:1px solid #666699;
@@ -1292,6 +1318,7 @@ div.GrowlerNoticeExit:hover {
     /*overflow:hidden;*/
     text-align:left;
     min-height: 58px;
+    padding: 4px;
 }
 .hordeACList {
     display:block;
@@ -1302,20 +1329,10 @@ div.GrowlerNoticeExit:hover {
     margin:0;
     padding:0;
 }
-.hordeACListMember {
+.hordeACList li {
     display:inline-block;
     font-size:90%;
-    padding:2px 1px 1px 2px;
-    height: 17px;
     white-space:nowrap;
-}
-.hordeACListItem {
-    background-color:lightblue;
-    border:1px solid #C0C0C0;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    border-radius: 4px;
-    margin:5px;
 }
 .hordeACTrigger, .hordeACTrigger:focus, .hordeACTrigger:disabled {
     background:transparent none repeat scroll 0 0;

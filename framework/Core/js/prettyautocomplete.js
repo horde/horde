@@ -139,9 +139,7 @@ var PrettyAutocompleter = Class.create({
         var list = new Element('ul', { className: this.p.listClass });
 
         // The input element and the <li> wraper
-        var inputListItem = new Element('li', {
-                className: this.p.listClass + 'Member',
-                id: this.p.triggerContainer }),
+        var inputListItem = new Element('li', { id: this.p.triggerContainer }),
             growingInput = new Element('input', {
                 className: this.p.growingInputClass,
                 id: this.p.trigger,
@@ -221,7 +219,7 @@ var PrettyAutocompleter = Class.create({
         }
 
         var displayValue = this.p.displayFilter(value),
-            newItem = new Element('li', { className: this.p.listClass + 'Member ' + this.p.listClass + 'Item' }).update(displayValue),
+            newItem = new Element('li', { className: this.p.listClass + 'Item' }).update(displayValue),
             x = new Element('img', { className: 'hordeACItemRemove', src: this.p.deleteIcon });
         x.observe('click', this._removeItemHandler.bindAsEventListener(this));
         newItem.insert(x);

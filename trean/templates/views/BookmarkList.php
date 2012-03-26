@@ -48,11 +48,11 @@ foreach ($this->bookmarks as $bookmark) {
     <?php if ($status) echo Horde::img('http/' . $status) ?>
     <?php echo Horde::link($bookmark_url, '', '', $this->target) . htmlspecialchars($bookmark->title ? $bookmark->title : $bookmark->url) ?></a>
     <small> &#8230; <?php echo htmlspecialchars($bookmark->url) . ' &#8230; ' . htmlspecialchars(Horde_String::substr($bookmark->description, 0, 200)) ?></small>
-    <span class="bl-tags">
+    <ul class="horde-tags">
      <?php foreach ($bookmark->tags as $tag): ?>
-     <a href="<?php echo Horde::selfUrl()->add('tag', $tag) ?>"><?php echo htmlspecialchars($tag) ?></a>
+     <li><a href="<?php echo Horde::selfUrl()->add('tag', $tag) ?>"><?php echo htmlspecialchars($tag) ?></a></li>
      <?php endforeach ?>
-    </span>
+    </ul>
    </div>
   </td>
   <td class="bl-clicks">

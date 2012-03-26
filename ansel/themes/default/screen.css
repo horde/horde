@@ -125,27 +125,9 @@ th {
 #tags {
     padding: 4px;
 }
-#tags li {
-    list-style: none;
-}
-#tagform {
+#tags form {
     white-space: nowrap;
-    padding: 4px;
-}
-.tag-list {
-    display: inline;
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-    font-size: 80%;
-}
-.tag-list li {
-    margin: 0;
-    padding: 0 .2em;
-    display: inline;
-}
-.tag-list img {
-    vertical-align: middle;
+    margin-top: 4px;
 }
 #gallery-actions a:hover {
     text-decoration: underline;

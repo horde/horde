@@ -33,7 +33,7 @@ class Ansel_Widget_Tags extends Ansel_Widget_Base
         /* Build the tag widget */
         $html = $this->_htmlBegin();
         try {
-            $html .= '<div id="tags">' . $this->_getTagHTML() . '</div>';
+            $html .= '<div id="tags">' . $this->_getTagHTML();
         } catch (Ansel_Exception $e) {
             return $html . sprintf(_("There was an error fetching tags: %s"), $e->getMessage()) . $this->_htmlEnd();
         }
@@ -55,7 +55,7 @@ class Ansel_Widget_Tags extends Ansel_Widget_Base
             $html .= '<input id="addtag" name="addtag" type="text" size="15" /> <input name="tagbutton" id="tagbutton" class="button" value="' . _("Add") . '" type="submit" />';
             $html .= '</form>';
         }
-        $html .= $this->_htmlEnd();
+        $html .= '</div>' . $this->_htmlEnd();
 
         return $html;
     }
@@ -85,7 +85,7 @@ class Ansel_Widget_Tags extends Ansel_Widget_Base
         }
 
         $links = Ansel::getTagLinks($tags, 'add', $owner);
-        $html = '<ul>';
+        $html = '<ul class="horde-tags">';
         foreach ($tags as $taginfo) {
             $tag_id = $taginfo['tag_id'];
             $html .= '<li>' . $links[$tag_id]->link(array('title' => sprintf(ngettext("%d photo", "%d photos", $taginfo['count']), $taginfo['count']))) . htmlspecialchars($taginfo['tag_name']) . '</a>' . ($hasEdit ? '<a href="#" onclick="removeTag(' . $tag_id . ');">' . Horde::img('delete-small.png', _("Remove Tag")) . '</a>' : '') . '</li>';

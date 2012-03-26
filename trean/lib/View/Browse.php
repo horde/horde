@@ -114,13 +114,13 @@ class Trean_View_Browse
     protected function _getRelatedTags()
     {
         $rtags = $this->_browser->getRelatedTags();
-        $html = _("Related Tags:") . '<ul class="tag-list">';
+        $html = '<div class="trean-tags-related">' . _("Related Tags:") . '<ul class="horde-tags">';
         foreach ($rtags as $id => $taginfo) {
             $html .= '<li>' . $this->_linkAddTag($taginfo['tag_name'])->link()
                 . htmlspecialchars($taginfo['tag_name']) . '</a></li>';
         }
 
-        return $html . '</ul>';
+        return $html . '</ul></div>';
     }
 
     /**
@@ -130,10 +130,12 @@ class Trean_View_Browse
      */
     protected function _getTagTrail()
     {
-        $html = '<div class="header">' . _("Browsing for tags:") . '<ul class="tag-list">';
+        $html = '<div class="header">' . _("Browsing for tags:") . '<ul class="horde-tags">';
         foreach ($this->_browser->getTags() as $tag => $id) {
-            $html .= '<li>' . htmlspecialchars($tag) . $this->_linkRemoveTag($tag)->link()
-                . Horde::img('delete-small.png', _("Remove from search")) . '</a></li>';
+            $html .= '<li>' . htmlspecialchars($tag)
+                . $this->_linkRemoveTag($tag)->link()
+                . Horde::img('delete-small.png', _("Remove from search"))
+                . '</a></li>';
         }
         return $html .= '</ul></div>';
     }
