@@ -27,7 +27,7 @@ $page_output->includeStylesheetFiles(array(
 ));
 
 /* JS Files. */
-$GLOBALS['injector']->getInstance('Horde_Script_Files')->prototypejs = false;
+$page_output->hsf->prototypejs = false;
 $page_output->addScriptFile('jquery.mobile/jquery.min.js', 'horde');
 $page_output->addScriptFile('horde-jquery.js', 'horde');
 $page_output->addScriptFile('mobile.js', 'horde');

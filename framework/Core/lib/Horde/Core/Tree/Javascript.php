@@ -143,7 +143,7 @@ class Horde_Core_Tree_Javascript extends Horde_Core_Tree_Html
         $result->root_nodes = $this->_root_nodes;
         $result->files = array();
 
-        foreach ($GLOBALS['injector']->getInstance('Horde_Script_Files')->listFiles() as $apps) {
+        foreach ($GLOBALS['injector']->getInstance('Horde_PageOutput')->hsf->listFiles() as $apps) {
             foreach ($apps as $file) {
                 /* Ignore files that are already loaded before building the
                  * tree. */
