@@ -486,6 +486,8 @@ var ImpMobile = {
         $('#imp-message-more').parent().show();
         $('#imp-message-less').parent().hide();
 
+        data.headers.push({ name: 'Subject', value: data.subject });
+
         headers.text('');
         $.each(data.headers, function(k, header) {
             if (header.value) {
