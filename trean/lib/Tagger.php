@@ -159,7 +159,7 @@ class Trean_Tagger
      *                       - user (array) - only include objects owned by
      *                         these users.
      *
-     * @return  A hash of 'bookmarks' that contains an array of bookmark ids
+     * @return  A hash of 'bookmark' that contains an array of bookmark ids
      */
     public function search($tags, $filter = array())
     {
@@ -170,7 +170,7 @@ class Trean_Tagger
             ->getInstance('Content_Tagger')
             ->getTagIds($tags);
 
-        $args['typeId'] = $this->_type_ids['bookmarks'];
+        $args['typeId'] = $this->_type_ids['bookmark'];
         $results = $GLOBALS['injector']
             ->getInstance('Content_Tagger')
             ->getObjects($args);
