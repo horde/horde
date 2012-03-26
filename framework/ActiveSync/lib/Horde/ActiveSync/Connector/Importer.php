@@ -104,14 +104,12 @@ class Horde_ActiveSync_Connector_Importer
         if ($this->_folderId == Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
             return false;
         }
-
         // Changing an existing object
         if ($id) {
             $conflict = $this->_isConflict(
                 Horde_ActiveSync::CHANGE_TYPE_CHANGE,
                 $this->_folderId,
                 $id);
-
             if ($conflict && $this->_flags == Horde_ActiveSync::CONFLICT_OVERWRITE_PIM) {
                 return $id;
             }
@@ -121,7 +119,6 @@ class Horde_ActiveSync_Connector_Importer
                 return $uid;
             }
         }
-
         // Tell the backend about the change
         if (!$stat = $this->_backend->changeMessage($this->_folderId, $id, $message, $device)) {
             return false;

@@ -143,13 +143,11 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                 $collections = array_values($collections);
 
                 if (!$this->_decoder->getElementEndTag()) {
-                    $this->_statusCode = self::STATUS_PROTERROR;
-                    return false;
+                    throw new Horde_ActiveSync_Exception('Protocol Error');
                 }
             }
             if (!$this->_decoder->getElementEndTag()) {
-                $this->_statusCode = self::STATUS_PROTERROR;
-                return false;
+                throw new Horde_ActiveSync_Exception('Protocol Error');
             }
             $this->_stateDriver->addPingCollections($collections);
         } else {

@@ -225,17 +225,16 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     public function isConflict($stat, $type)
     {
         // $stat == server's message information
-         if ($stat['mod'] > $this->_lastSyncTS) {
-             if ($type == Horde_ActiveSync::CHANGE_TYPE_DELETE ||
-                 $type == Horde_ActiveSync::CHANGE_TYPE_CHANGE) {
-                 // changed here - deleted there
-                 // changed here - changed there
-                 return true;
-             } else {
-                 // all other remote cahnges are fine (move/flags)
-                 return false;
-             }
+        if ($stat['mod'] > $this->_lastSyncTS &&
+            ($type == Horde_ActiveSync::CHANGE_TYPE_DELETE ||
+             $type == Horde_ActiveSync::CHANGE_TYPE_CHANGE)) {
+
+             // changed here - deleted there
+             // changed here - changed there
+             return true;
         }
+
+        return false;
     }
 
     /**

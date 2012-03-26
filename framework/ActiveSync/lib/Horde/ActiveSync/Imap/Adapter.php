@@ -186,6 +186,8 @@ class Horde_ActiveSync_Imap_Adapter
      * @param array $options                        Additional options:
      *  - sincedate: (integer)  Timestamp of earliest message to retrieve.
      *               DEFAULT: 0 (Don't filter).
+     *  - protocolversion: (float)  EAS protocol version to support.
+     *                     DEFAULT: none REQUIRED
      *
      * @return Horde_ActiveSync_Folder_Imap  The folder object, containing any
      *                                       change instructions for the device.
@@ -244,8 +246,11 @@ class Horde_ActiveSync_Imap_Adapter
                     array_search('\deleted', $data->getFlags()) === false) {
                     $changes[] = $uid;
                     $flags[$uid] = array(
-                        'read' => (array_search('\seen', $data->getFlags()) !== false) ? 1 : 0
+                        'read' => (array_search(Horde_Imap_Client::FLAG_SEEN, $data->getFlags()) !== false) ? 1 : 0
                     );
+                    if (($options['protocolversion']) > Horde_ActiveSync::VERSION_TWOFIVE) {
+                        $flags[$uid]['followup'] = (array_search(Horde_Imap_Client::FLAG_FLAGGED, $data->getFlags()) !== false) ? 1 : 0;
+                    }
                 }
             }
             $folder->setChanges($changes, $flags);
@@ -280,7 +285,7 @@ class Horde_ActiveSync_Imap_Adapter
                 $uids = $folder->messages();
                 $deleted = array_diff($uids, $search_ret['match']->ids);
                 $changed = $search_ret['match']->ids;
-                // All changes in AS are a change in /seen. Get the flags only
+                // All changes in AS are a change in flags. Get the flags only
                 // for the messages we think have been changed and set them in
                 // the folder. We don't care about what state the flag is in
                 // on the device currently. We will assume that all flag changes
@@ -292,8 +297,11 @@ class Horde_ActiveSync_Imap_Adapter
                 $flags = array();
                 foreach ($fetch_ret as $uid => $data) {
                     $flags[$uid] = array(
-                        'read' => (array_search('\seen', $data->getFlags()) !== false) ? 1 : 0
+                        'read' => (array_search(Horde_Imap_Client::FLAG_SEEN, $data->getFlags()) !== false) ? 1 : 0
                     );
+                    if (($options['protocolversion']) > Horde_ActiveSync::VERSION_TWOFIVE) {
+                        $flags[$uid]['followup'] = (array_search(Horde_Imap_Client::FLAG_FLAGGED, $data->getFlags()) !== false) ? 1 : 0;
+                    }
                 }
                 $folder->setChanges($changed, $flags);
                 $folder->setRemoved($deleted);
@@ -422,11 +430,47 @@ class Horde_ActiveSync_Imap_Adapter
     }
 
     /**
+     * Set a POOMMAIL_FLAG on a mail message. This method differs from
+     * setReadFlag() in that it is passed a Flag object, which contains
+     * other data beside the seen status. Used for setting flagged for followup
+     * and potentially creating tasks based on the email.
+     *
+     * @param string $mailbox                      The mailbox name.
+     * @param string $uid                          The message uid.
+     * @param Horde_ActiveSync_Message_Flag $flag  The flag
+     */
+    public function setMessageFlag($mailbox, $uid, $flag)
+    {
+        // There is no standard in EAS for the name of flags, so it is impossible
+        // to map flagtype to an actual message flag. Until a better solution
+        // is thought of, just always use \flagged. There is also no meaning
+        // of a "completed" flag/task in IMAP email, so if it's not active,
+        // clear the flag.
+        $mbox = new Horde_Imap_Client_Mailbox($mailbox);
+        $options = array(
+            'ids' => new Horde_Imap_Client_Ids(array($uid)),
+        );
+        switch ($flag->flagstatus) {
+        case Horde_ActiveSync_Message_Flag::FLAG_STATUS_ACTIVE:
+            $options['add'] = array(Horde_Imap_Client::FLAG_FLAGGED);
+            break;
+        default:
+            $options['remove'] = array(Horde_Imap_Client::FLAG_FLAGGED);
+        }
+        $imap = $this->_getImapOb();
+        try {
+            $imap->store($mbox, $options);
+        } catch (Horde_Imap_Client_Exception $e) {
+            throw new Horde_ActiveSync_Exception($e);
+        }
+    }
+
+    /**
      * Set the message's read status.
      *
      * @param string $mailbox  The mailbox name.
-     * @param string $uid
-     * @param integer $flag  Horde_ActiveSYnc_Message_Mail::FLAG_* constant
+     * @param string $uid      The message uid.
+     * @param integer $flag  Horde_ActiveSync_Message_Mail::FLAG_* constant
      */
     public function setReadFlag($mailbox, $uid, $flag)
     {
@@ -486,8 +530,8 @@ class Horde_ActiveSync_Imap_Adapter
         }
         $mbox = new Horde_Imap_Client_Mailbox($mailbox);
         $messages = $this->_getMailMessages($mbox, $uid, $options);
-        foreach ($messages as $message) {
-            $res[] = new Horde_ActiveSync_Imap_Message($this->_getImapOb(), $mbox, $message);
+        foreach ($messages as $id => $message) {
+            $res[$id] = new Horde_ActiveSync_Imap_Message($this->_getImapOb(), $mbox, $message);
         }
 
         return $res;
@@ -571,22 +615,22 @@ class Horde_ActiveSync_Imap_Adapter
         $eas_message = new Horde_ActiveSync_Message_Mail(array('protocolversion' => $version));
         if ($version == Horde_ActiveSync::VERSION_TWOFIVE || empty($options['bodyprefs'])) {
             // EAS 2.5 behavior or no bodyprefs sent
-            $message_data = $imap_message->getMessageBodyData($options);
-            if ($message_data['plain']['charset'] != 'UTF-8') {
+            $message_body_data = $imap_message->getMessageBodyData($options);
+            if ($message_body_data['plain']['charset'] != 'UTF-8') {
                 $eas_message->body = Horde_String::convertCharset(
-                    $message_data['plain']['body'],
-                    $message_data['plain']['charset'],
+                    $message_body_data['plain']['body'],
+                    $message_body_data['plain']['charset'],
                     'UTF-8');
             } else {
-                $eas_message->body = $message_data['plain']['body'];
+                $eas_message->body = $message_body_data['plain']['body'];
             }
             $eas_message->bodysize = Horde_String::length($eas_message->body); // @TODO: Should this be full or sent?
-            $eas_message->bodytruncated = $message_data['plain']['truncated'];
+            $eas_message->bodytruncated = $message_body_data['plain']['truncated'];
             $eas_message->attachments = $imap_message->getAttachments();
         } else {
             // Body pref EAS >= 12.0
-            $message_data = $imap_message->getMessageBodyData($options);
-            if (!empty($message_data['html'])) {
+            $message_body_data = $imap_message->getMessageBodyData($options);
+            if (!empty($message_body_data['html'])) {
                 $eas_message->airsyncbasenativebodytype = Horde_ActiveSync::BODYPREF_TYPE_HTML;
             } else {
                 $eas_message->airsyncbasenativebodytype = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
@@ -597,36 +641,44 @@ class Horde_ActiveSync_Imap_Adapter
             if (isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML])) {
                 // HTML
                 $airsync_body = new Horde_ActiveSync_Message_AirSyncBaseBody();
-                if (empty($message_data['html'])) {
+                if (empty($message_body_data['html'])) {
                     $airsync_body->type = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
-                    $message_data['html'] = array(
-                        'body' => $message_data['plain']['body'],
-                        'estimated_size' => $message_data['plain']['size'],
-                        'truncated' => $message_data['plain']['truncated'],
-                        'body' => $message_data['plain']['body'],
-                        'charset' => $message_data['plain']['charset']
+                    $message_body_data['html'] = array(
+                        'body' => $message_body_data['plain']['body'],
+                        'estimated_size' => $message_body_data['plain']['size'],
+                        'truncated' => $message_body_data['plain']['truncated'],
+                        'body' => $message_body_data['plain']['body'],
+                        'charset' => $message_body_data['plain']['charset']
                     );
                 } else {
                     $airsync_body->type = Horde_ActiveSync::BODYPREF_TYPE_HTML;
                 }
-                if ($message_data['html']['charset'] != 'UTF-8') {
-                    $message_data['html']['body'] = Horde_String::convertCharset(
-                        $message_data['html']['body'],
-                        $message_data['html']['charset']
+                if ($message_body_data['html']['charset'] != 'UTF-8') {
+                    $message_body_data['html']['body'] = Horde_String::convertCharset(
+                        $message_body_data['html']['body'],
+                        $message_body_data['html']['charset']
                     );
                 }
-                $airsync_body->estimateddatasize = $message_data['html']['estimated_size'];
-                $airsync_body->truncated = $message_data['html']['truncated'];
-                $airsync_body->data = $message_data['html']['body'];
+                $airsync_body->estimateddatasize = $message_body_data['html']['estimated_size'];
+                $airsync_body->truncated = $message_body_data['html']['truncated'];
+                $airsync_body->data = $message_body_data['html']['body'];
                 $eas_message->airsyncbasebody = $airsync_body;
             }
         }
 
+        // POOMMAIL_FLAG
         if ($version >= Horde_ActiveSync::VERSION_TWELVE) {
             $eas_message->contentclass = 'urn:content-classes:message';
             $poommail_flag = new Horde_ActiveSync_Message_Flag();
-            $poommail_flag->flagstatus = 0; // @TODO
+            $poommail_flag->subject = $imap_message->getSubject();
+            $poommail_flag->flagstatus = $imap_message->getFlag(Horde_Imap_Client::FLAG_FLAGGED)
+                ? Horde_ActiveSync_Message_Flag::FLAG_STATUS_ACTIVE
+                : Horde_ActiveSync_Message_Flag::FLAG_STATUS_CLEAR;
+            $poommail_flag->flagtype = Horde_Imap_Client::FLAG_FLAGGED;
+
+
             $eas_message->flag = $poommail_flag;
+
             $eas_message->airsyncbaseattachments = $imap_message->getAttachments(array('protocolversion' => $version));
         }
         $to = $imap_message->getToAddresses();

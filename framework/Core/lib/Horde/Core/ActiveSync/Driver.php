@@ -487,7 +487,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 try {
                     $folder = &$this->_imap->getMessageChanges(
                         $folder,
-                        array('sincedate' => (int)$cutoffdate));
+                        array(
+                            'sincedate' => (int)$cutoffdate,
+                            'protocolversion' => $this->_version));
                 } catch (Horde_ActiveSync_Exception_StaleState $e) {
                     $this->_endBuffer();
                     throw $e;
@@ -857,8 +859,14 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             break;
 
         default:
-            $this->_endBuffer();
-            return false;
+            // Email?
+            if ($message instanceof Horde_ActiveSync_Message_Mail) {
+                $this->_imap->setMessageFlag($folderid, $id, $message->flag);
+                $stat = array('id' => $id, 'flags' => null, 'mod' => 0);
+            } else {
+                $this->_endBuffer();
+                return false;
+            }
         }
 
         $this->_endBuffer();
@@ -1161,19 +1169,13 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function statMailMessage($folderid, $id)
     {
-        if (!is_array($id)) {
-            $id = array($id);
-        }
         $messages = $this->_imap->getImapMessage(
-            $folderid, $id, array('structure' => false));
+            $folderid, array($id), array('structure' => false));
 
-        $res = array();
-        foreach ($messages as $message) {
-            $res[$id] = array(
+            $res = array(
                 'id' => $id,
                 'mod' => 0,
-                'flags' => $message->getFlag(Horde_Imap_Client::FLAG_SEEN));
-        }
+                'flags' => $messages[$id]->getFlag(Horde_Imap_Client::FLAG_SEEN));
 
         return $res;
     }
