@@ -388,13 +388,12 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                             break;
                         }
                     }
-
                     switch ($element[Horde_ActiveSync_Wbxml::EN_TAG]) {
                     case Horde_ActiveSync::SYNC_MODIFY:
                         if (isset($appdata)) {
                             // Currently, 'read' is only sent by the PDA when it
                             // is ONLY setting the read flag.
-                            if (isset($appdata->read)) {
+                            if ($appdata->read !== false) {
                                 $importer->importMessageReadFlag($serverid, $appdata->read, $this->_device->id);
                             } else {
                                 $importer->importMessageChange($serverid, $appdata, $this->_device, false);

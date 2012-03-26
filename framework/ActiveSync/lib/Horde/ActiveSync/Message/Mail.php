@@ -108,6 +108,7 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
         'messageclass'   => false,
         'meetingrequest' => false,
         'reply_to'       => false,
+        'read'           => false,
     );
 
     /**
