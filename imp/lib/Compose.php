@@ -12,7 +12,7 @@
  * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
-class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializable
+class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 {
     /* The virtual path to use for VFS data. */
     const VFS_ATTACH_PATH = '.horde/imp/compose';
@@ -2786,6 +2786,17 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
 
         if ($mode == 'html') {
             $msg = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($msg, array('Cleanhtml', 'Xss'), array(array('body_only' => true), array('strip_style_attributes' => false)));
+
+            /* If we are replying to a related part, and this part refers
+             * to local message parts, we need to move those parts into this
+             * message (since the original message may disappear during the
+             * compose process). */
+            if ($related_part = $contents->findMimeType($body_id, 'multipart/related')) {
+                $this->_metadata['related_contents'] = $contents;
+                $related_ob = new Horde_Mime_Related($related_part);
+                $msg = $related_ob->cidReplace($msg, array($this, '_getMessageTextCallback'), $part_charset);
+                unset($this->_metadata['related_contents']);
+            }
         } elseif ($type == 'text/html') {
             $msg = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($msg, 'Html2text');
             $type = 'text/plain';
@@ -2829,6 +2840,31 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
             'mode' => $mode,
             'text' => $msg
         );
+    }
+
+    /**
+     * Callback used in _getMessageText().
+     */
+    public function _getMessageTextCallback($id, $attribute, $node)
+    {
+        $this->_metadata['reply_related'] = true;
+
+        $this->addMimePartAttachment($this->getMetadata('related_contents')->getMIMEPart($id));
+
+        /* Mark this attachment as related to the reply message. */
+        end($this->_atc);
+        $key = key($this->_atc);
+        $this->_atc[$key]['related'] = true;
+
+        $node->setAttribute('imp_related_attr', $attribute);
+        $node->setAttribute('imp_related_attr_id', $key);
+
+        return $this->getMetadata('related_contents')->urlView(null, 'compose_attach_preview', array(
+            'params' => array(
+                'composeCache' => strval($this),
+                'id' => $key
+            )
+        ));
     }
 
     /**
@@ -3123,14 +3159,49 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
      */
     public function count()
     {
-        return count($this->_atc);
+        return count(iterator_to_array($this));
     }
 
-    /* IteratorAggregate method. */
+    /* Iterator methods. */
 
-    public function getIterator()
+    public function current()
     {
-        return new ArrayIterator($this->_atc);
+        return current($this->_atc);
+    }
+
+    public function key()
+    {
+        return key($this->_atc);
+    }
+
+    public function next()
+    {
+        $this->_next();
+    }
+
+    protected function _next($rewind = false)
+    {
+        do {
+            if ($rewind) {
+                $rewind = false;
+            } else {
+                next($this->_atc);
+            }
+            if (($curr = $this->current()) && empty($curr['related'])) {
+                break;
+            }
+        } while ($this->valid());
+    }
+
+    public function rewind()
+    {
+        reset($this->_atc);
+        $this->_next(true);
+    }
+
+    public function valid()
+    {
+        return (key($this->_atc) !== null);
     }
 
     /* Serializable methods. */
