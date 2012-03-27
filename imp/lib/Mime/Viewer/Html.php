@@ -532,7 +532,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
     protected function _cidSearch($cid, $save = true)
     {
         if (empty($this->_imptmp['cid']) ||
-            (($pos = strpos($cid, 'cid:')) !== 0) ||
+            (strpos($cid, 'cid:') !== 0) ||
             !($id = $this->_imptmp['cid']->cidSearch(substr($cid, 4)))) {
             return null;
         }
