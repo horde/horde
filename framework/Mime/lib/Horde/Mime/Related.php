@@ -102,7 +102,7 @@ class Horde_Mime_Related implements IteratorAggregate
      *                            return value of URL to display the data.
      * @param string $charset     HTML data charset.
      *
-     * @return string  HTML text.
+     * @return Horde_Domhtml  A Horde_Domhtml object.
      */
     public function cidReplace($text, $callback, $charset = 'UTF-8')
     {
@@ -123,7 +123,7 @@ class Horde_Mime_Related implements IteratorAggregate
             }
         }
 
-        return $dom->returnHtml();
+        return $dom;
     }
 
     /**

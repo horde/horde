@@ -2852,7 +2852,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             if ($related_part = $contents->findMimeType($body_id, 'multipart/related')) {
                 $this->_metadata['related_contents'] = $contents;
                 $related_ob = new Horde_Mime_Related($related_part);
-                $msg = $related_ob->cidReplace($msg, array($this, '_getMessageTextCallback'), $part_charset);
+                $msg = $related_ob->cidReplace($msg, array($this, '_getMessageTextCallback'), $part_charset)->returnBody();
                 unset($this->_metadata['related_contents']);
             }
         } elseif ($type == 'text/html') {
