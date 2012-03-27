@@ -7,7 +7,7 @@
     <?php endif ?>
   </div>
   <div data-role="content">
-    <ul data-role="listview" data-filter="true">
+    <ul data-role="listview" data-filter="true" id="imp-folders-list">
       <?php echo $this->tree ?>
     </ul>
   </div>
