@@ -79,7 +79,11 @@ class Horde_Share_Object_Datatree extends Horde_Share_Object
      */
     public function set($attribute, $value, $update = false)
     {
-        Horde_Exception_Pear::catchError($this->datatreeObject->set($attribute, $value));
+        if ($attribute == 'name') {
+            Horde_Exception_Pear::catchError($this->datatreeObject->setName($value));
+        } else {
+            Horde_Exception_Pear::catchError($this->datatreeObject->set($attribute, $value));
+        }
     }
 
     /**
