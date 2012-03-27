@@ -89,6 +89,12 @@ table.clipboard td {
 .folderImg {
     background-image: url("graphics/folder.png");
 }
+.foldershareImg {
+    background-image: url("graphics/perms.png");
+}
+.foldershareDisabledImg {
+    background-image: url("graphics/perms_disabled.png");
+}
 .foldercreateImg {
     background-image: url("graphics/folder_create.png");
 }

@@ -44,7 +44,8 @@ class Gollem
     {
         $dir = Horde_Util::realPath($dir);
 
-        if (!self::verifyDir($dir)) {
+        if (!self::verifyDir($dir) ||
+            !self::checkPermissions('directory', Horde_Perms::READ, $dir)) {
             throw new Gollem_Exception(sprintf(_("Access denied to folder \"%s\"."), $dir));
         }
         self::$backend['dir'] = $dir;
@@ -331,6 +332,16 @@ class Gollem
         $GLOBALS['injector']
             ->getInstance('Gollem_Vfs')
             ->rename($oldDir, $old, $newDir, $new);
+
+        $shares = $GLOBALS['injector']->getInstance('Gollem_Shares');
+        $backend = $GLOBALS['session']->get('gollem', 'backend_key');
+        try {
+            $shares->getShare($backend . '|' . $oldDir . '/' . $old)
+                ->set('name', $backend . '|' . $newDir . '/' . $new, true);
+        } catch (Horde_Exception_NotFound $e) {
+        } catch (Horde_Share_Exception $e) {
+            throw new Gollem_Exception($e);
+        }
     }
 
     /**
@@ -353,6 +364,17 @@ class Gollem
             ->deleteFolder($dir,
                            $name,
                            $GLOBALS['prefs']->getValue('recursive_deletes') != 'disabled');
+
+        $shares = $GLOBALS['injector']->getInstance('Gollem_Shares');
+        try {
+            $share = $shares->getShare(
+                $GLOBALS['session']->get('gollem', 'backend_key') . '|'
+                . $dir . '/' . $name);
+            $shares->removeShare($share);
+        } catch (Horde_Exception_NotFound $e) {
+        } catch (Horde_Share_Exception $e) {
+            throw new Gollem_Exception($e);
+        }
     }
 
     /**
@@ -504,30 +526,68 @@ class Gollem
     }
 
     /**
-     * Checks if a user has the specified permissions on the selected backend.
+     * Checks if a user has the specified permissions on a resource.
      *
-     * @param string $filter       What are we checking for.
-     * @param integer $permission  What permission to check for.
-     * @param string $backend      The backend to check.  If empty, check
-     *                             the current backend.
+     * @param string $filter       What are we checking for. Either 'backend'
+     *                             or 'directory'.
+     * @param integer $permission  The permission to check for. One of the
+     *                             Horde_Perms constants.
+     * @param string $resource     The resource to check. If empty, check the
+     *                             current backend/directory.
      *
-     * @return boolean  Returns true if the user has permission, false if
-     *                  they do not.
+     * @return boolean  Returns true if the user has permission.
      */
     static public function checkPermissions($filter,
                                             $permission = Horde_Perms::READ,
-                                            $backend = null)
+                                            $resource = null)
     {
         $userID = $GLOBALS['registry']->getAuth();
-        if (is_null($backend)) {
-            $backend = $GLOBALS['session']->get('gollem', 'backend_key');
-        }
 
         switch ($filter) {
         case 'backend':
-            $backendTag = 'gollem:backends:' . $backend;
-            return (!$GLOBALS['injector']->getInstance('Horde_Perms')->exists($backendTag) ||
-                    $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission($backendTag, $userID, $permission));
+            if (is_null($resource)) {
+                $resource = $GLOBALS['session']->get('gollem', 'backend_key');
+            }
+            $backendTag = 'gollem:backends:' . $resource;
+            $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+            return (!$perms->exists($backendTag) ||
+                    $perms->hasPermission($backendTag, $userID, $permission));
+
+        case 'directory':
+            if (empty(self::$backend['shares'])) {
+                return true;
+            }
+            if (is_null($resource)) {
+                $resource = self::$backend['dir'];
+            }
+            if (strpos($resource, self::$backend['home']) === 0) {
+                return true;
+            }
+            $shares = $GLOBALS['injector']->getInstance('Gollem_Shares');
+            $backend = $GLOBALS['session']->get('gollem', 'backend_key');
+            $directory = $resource;
+            while (strlen($directory) && $directory != './' && $directory != '/') {
+                try {
+                    return $shares->getShare($backend . '|' . $directory)
+                        ->hasPermission($userID, $permission);
+                } catch (Horde_Exception_NotFound $e) {
+                }
+                $directory = dirname($directory);
+            }
+            /* Intermediate solution until we display shared folders
+             * independent from the directory tree. Check if there are
+             * any sub-directories with show permissions and allow
+             * browsing the directory in this case. */
+            if ($permission == Horde_Perms::READ ||
+                $permission == Horde_Perms::SHOW) {
+                $dirs = $shares->listShares($userID, array('perm' => Horde_Perms::SHOW));
+                foreach ($dirs as $dir) {
+                    if (strpos($dir->getName(), $backend . '|' . $resource) === 0) {
+                        return true;
+                    }
+                }
+            }
+            break;
         }
 
         return false;

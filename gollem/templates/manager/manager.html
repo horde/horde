@@ -49,6 +49,9 @@
 <if:clipboard>
  <tag:clipboard /><span class="iconImg clipboardImg"></span></a>
 </if:clipboard>
+<if:share_folder>
+ <tag:share_folder /><span class="iconImg foldershareImg"></span></a>
+</if:share_folder>
 <if:create_folder>
  <tag:create_folder /><span class="iconImg foldercreateImg"></span></a>
 </if:create_folder>
@@ -61,6 +64,7 @@
 <table id="filelist_actions" cellspacing="0">
  <tr class="control">
   <td class="leftAlign">
+<if:actions>
    <select id="action1" name="action1">
     <option selected="selected"><gettext>Actions:</gettext></option>
 <if:perms_chmod>
@@ -68,7 +72,9 @@
 </if:perms_chmod>
 <if:hasclipboard>
     <option value="copy_items"><gettext>Copy</gettext></option>
+<if:perms_delete>
     <option value="cut_items"><gettext>Cut</gettext></option>
+</if:perms_delete>
 </if:hasclipboard>
 <if:perms_delete>
     <option value="delete_items"><gettext>Delete</gettext></option>
@@ -78,6 +84,7 @@
 </if:perms_edit>
    </select>
    <tag:actions_help />
+</if:actions>
   </td>
   <td class="rightAlign">
    <strong><gettext>Filter:</gettext></strong><input id="filter" name="filter" type="text" size="25" value="<tag:filter_val />" />
@@ -114,6 +121,11 @@
 <if:columns_name>
   <td><tag:entry.link /></td>
 </if:columns_name>
+<if:columns_share>
+  <td>
+   <if:entry.share><tag:entry.share /><span class="iconImg <if:entry.share_disabled>foldershareDisabledImg<else:entry.share_disabled>foldershareImg</else:entry.share_disabled></if:entry.share_disabled>"></span></a></if:entry.share>
+  </td>
+</if:columns_share>
 <if:columns_edit>
   <td>
    <if:entry.edit><tag:entry.edit /><span class="iconImg editImg"></span></a></if:entry.edit>

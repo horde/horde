@@ -59,6 +59,7 @@ class Gollem_Factory_Vfs extends Horde_Core_Factory_Base
                 $params['db'] = $this->_injector
                     ->getInstance('Horde_Core_Factory_Db')
                     ->create('gollem', $db_params);
+                $params['user'] = $GLOBALS['registry']->getAuth();
                 break;
             }
 
