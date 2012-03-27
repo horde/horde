@@ -36,9 +36,6 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
     const STATUS_CLIENT_FAILED     = 3; // No policies applied at all.
     const STATUS_CLIENT_THIRDPARTY = 4; // Client provisioned by 3rd party?
 
-    const POLICYTYPE_XML           = 'MS-WAP-Provisioning-XML';
-    const POLICYTYPE_WBXML         = 'MS-EAS-Provisioning-WBXML';
-
     /**
      * Handle the Provision request. This is a 3-phase process. Phase 1 is
      * actually the enforcement, when the server rejects a request and forces
@@ -73,9 +70,7 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
             if ($status == self::STATUS_CLIENT_SUCCESS) {
                 $this->_stateDriver->setDeviceRWStatus($this->_devId, Horde_ActiveSync::RWSTATUS_WIPED);
             }
-
-            // Need to send *something* in the policytype field even if wiping
-            $policytype = self::POLICYTYPE_XML;
+            $policytype = Horde_ActiveSync::POLICYTYPE_XML;
         } else {
             if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_POLICIES) ||
                 !$this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_POLICY)) {
@@ -92,7 +87,10 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
                 }
             } else {
                 $policytype = $this->_decoder->getElementContent();
-                if ($policytype != self::POLICYTYPE_XML) {
+                if ($this->_version < Horde_ActiveSync::VERSION_TWELVE && $policytype != Horde_ActiveSync::POLICYTYPE_XML) {
+                    $policyStatus = self::STATUS_POLICYUNKNOWN;
+                }
+                if ($this->_version >= Horde_ActiveSync::VERSION_TWELVE && $policytype != Horde_ActiveSync::POLICYTYPE_WBXML) {
                     $policyStatus = self::STATUS_POLICYUNKNOWN;
                 }
                 if (!$this->_decoder->getElementEndTag()) {//policytype
@@ -202,10 +200,10 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
         // Send security policies - configure this/move to it's own method.
         if ($phase2 && $status == self::STATUS_SUCCESS && $policyStatus == self::STATUS_SUCCESS) {
             $this->_encoder->startTag(Horde_ActiveSync::PROVISION_DATA);
-            if ($policytype == self::POLICYTYPE_XML) {
-                $this->_encoder->content($this->_driver->getCurrentPolicy(self::POLICYTYPE_XML));
+            if ($policytype == Horde_ActiveSync::POLICYTYPE_XML) {
+                $this->_sendXml($this->_driver->getCurrentPolicy());
             } else {
-                // TODO wbxml for 12.0
+                $this->_sendWbxml($this->_driver->getCurrentPolicy());
             }
             $this->_encoder->endTag(); //data
         }
@@ -221,7 +219,49 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
         return true;
     }
 
-    private function _sendNoProvisionNeededResponse($status)
+    protected function _sendWbxml(array $policies)
+    {
+
+    }
+
+    /**
+     * Send a XML style policy value to the output stream.
+     *
+     * @param array  An array of policy settings, keyed by
+     *               Horde_ActiveSync::POLICY_ constants.
+     */
+    protected function _sendXml(array $policies)
+    {
+        $xml = '<wap-provisioningdoc><characteristic type="SecurityPolicy">'
+            . '<parm name="4131" value="' . ($policies[Horde_ActiveSync::POLICY_PIN] ? 0 : 1) . '"/>'
+            . '</characteristic>';
+        if ($policies[Horde_ActiveSync::POLICY_PIN]) {
+            $xml .= '<characteristic type="Registry">'
+            .   '<characteristic type="HKLM\Comm\Security\Policy\LASSD\AE\{50C13377-C66D-400C-889E-C316FC4AB374}">'
+            .   '<parm name="AEFrequencyType" value="' . (!empty($policies[Horde_ActiveSync::POLICY_AEFVALUE]) ? 1 : 0) . '"/>'
+            .   (!empty($policies[Horde_ActiveSync::POLICY_AEFVALUE]) ? '<parm name="AEFrequencyValue" value="' . $policies[Horde_ActiveSync::POLICY_AEFVALUE] . '"/>' : '')
+            .   '</characteristic>';
+
+            if (!empty($policies[Horde_ActiveSync::POLICY_WIPETHRESHOLD])) {
+                $xml .= '<characteristic type="HKLM\Comm\Security\Policy\LASSD"><parm name="DeviceWipeThreshold" value="' . $policies[Horde_ActiveSync::POLICY_WIPETHRESHOLD] . '"/></characteristic>';
+            }
+            if (!empty($policies[Horde_ActiveSync::POLICY_CODEFREQ])) {
+                $xml .= '<characteristic type="HKLM\Comm\Security\Policy\LASSD"><parm name="CodewordFrequency" value="' . $policies[Horde_ActiveSync::POLICY_CODEFREQ] . '"/></characteristic>';
+            }
+            if (!empty($policies[Horde_ActiveSync::POLICY_MINLENGTH])) {
+                $xml .= '<characteristic type="HKLM\Comm\Security\Policy\LASSD\LAP\lap_pw"><parm name="MinimumPasswordLength" value="' . $policies[Horde_ActiveSync::POLICY_MINLENGTH] . '"/></characteristic>';
+            }
+            if ($policies[Horde_ActiveSync::POLICY_COMPLEXITY] !== false) {
+                $xml .= '<characteristic type="HKLM\Comm\Security\Policy\LASSD\LAP\lap_pw"><parm name="PasswordComplexity" value="' . $policies[Horde_ActiveSync::POLICY_COMPLEXITY] . '"/></characteristic>';
+            }
+            $xml .= '</characteristic>';
+        }
+        $xml .= '</wap-provisioningdoc>';
+
+        $this->_encoder->content($xml);
+    }
+
+    protected function _sendNoProvisionNeededResponse($status)
     {
         $this->_encoder->startWBXML();
         $this->_encoder->startTag(Horde_ActiveSync::PROVISION_PROVISION);
@@ -238,7 +278,7 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
         $this->_encoder->endTag();
     }
 
-    private function _globalError($status)
+    protected function _globalError($status)
     {
         $this->_encoder->StartWBXML();
         $this->_encoder->startTag(Horde_ActiveSync::PROVISION_PROVISION);

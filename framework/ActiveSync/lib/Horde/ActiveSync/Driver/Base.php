@@ -384,55 +384,6 @@ abstract class Horde_ActiveSync_Driver_Base
     }
 
     /**
-     * Build a <wap-provisioningdoc> for the given security settings provided
-     * by the backend.
-     *
-     * 4131 (Enforce password on device) 0: enabled 1: disabled
-     * AEFrequencyType 0: no inactivity time 1: inactivity time is set
-     * AEFrequencyValue inactivity time in minutes
-     * DeviceWipeThreshold after how many wrong password to device should get wiped
-     * CodewordFrequency validate every x wrong passwords, that a person is using the device which is able to read and write. should be half of DeviceWipeThreshold
-     * MinimumPasswordLength minimum password length
-     * PasswordComplexity 0: Require alphanumeric 1: Require only numeric, 2: anything goes
-     *
-     * @param string  The type of policy to return.
-     *
-     * @return string
-     */
-    public function getCurrentPolicy($policyType = 'MS-WAP-Provisioning-XML')
-    {
-        $xml = '<wap-provisioningdoc><characteristic type="SecurityPolicy">'
-            . '<parm name="4131" value="' . ($this->_policies['pin'] ? 0 : 1) . '"/>'
-            . '</characteristic>';
-
-        if ($this->_policies['pin'] && $this->_policies['extended_policies']) {
-            $xml .= '<characteristic type="Registry">'
-            .   '<characteristic type="HKLM\Comm\Security\Policy\LASSD\AE\{50C13377-C66D-400C-889E-C316FC4AB374}">'
-            .        '<parm name="AEFrequencyType" value="' . (!empty($this->_policies['inactivity']) ? 1 : 0) . '"/>'
-            .        (!empty($this->_policies['AEFrequencyValue']) ? '<parm name="AEFrequencyValue" value="' . $this->_policies['inactivity'] . '"/>' : '')
-            .    '</characteristic>';
-
-            if (!empty($this->_policies['wipethreshold'])) {
-                $xml .= '<characteristic type="HKLM\Comm\Security\Policy\LASSD"><parm name="DeviceWipeThreshold" value="' . $this->_policies['wipethreshold'] . '"/></characteristic>';
-            }
-            if (!empty($this->_policies['codewordfrequency'])) {
-                $xml .= '<characteristic type="HKLM\Comm\Security\Policy\LASSD"><parm name="CodewordFrequency" value="' . $this->_policies['codewordfrequency'] . '"/></characteristic>';
-            }
-            if (!empty($this->_policies['minimumlength'])) {
-                $xml .= '<characteristic type="HKLM\Comm\Security\Policy\LASSD\LAP\lap_pw"><parm name="MinimumPasswordLength" value="' . $this->_policies['minimumlength'] . '"/></characteristic>';
-            }
-            if ($this->_policies['complexity'] !== false) {
-                $xml .= '<characteristic type="HKLM\Comm\Security\Policy\LASSD\LAP\lap_pw"><parm name="PasswordComplexity" value="' . $this->_policies['complexity'] . '"/></characteristic>';
-            }
-            $xml .= '</characteristic>';
-        }
-
-        $xml .= '</wap-provisioningdoc>';
-
-        return $xml;
-    }
-
-    /**
      * Add default truncation values for this driver.
      *
      * @param array $bodyprefs  BODYPREFERENCE data.
@@ -618,4 +569,14 @@ abstract class Horde_ActiveSync_Driver_Base
      */
     abstract public function getSpecialFolderNameByType($type);
 
+    /**
+     * Return the security policies.
+     *
+     * @param string  $policyType  The type of policy to return. One of:
+     *  - Horde_ActiveSync::POLICYTYPE_XML
+     *  - Horde_ActiveSync::POLICYTYPE_WBXML
+     *
+     * @return array  An array of provisionable properties and values.
+     */
+    abstract public function getCurrentPolicy($policyType);
 }

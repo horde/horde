@@ -160,15 +160,28 @@ class Horde_ActiveSync
     const BODYPREF_TYPE_MIME  = 4;
 
     /* PROVISION */
-    const PROVISION_PROVISION           =  'Provision:Provision';
-    const PROVISION_POLICIES            =  'Provision:Policies';
-    const PROVISION_POLICY              =  'Provision:Policy';
-    const PROVISION_POLICYTYPE          =  'Provision:PolicyType';
-    const PROVISION_POLICYKEY           =  'Provision:PolicyKey';
-    const PROVISION_DATA                =  'Provision:Data';
-    const PROVISION_STATUS              =  'Provision:Status';
-    const PROVISION_REMOTEWIPE          =  'Provision:RemoteWipe';
-    const PROVISION_EASPROVISIONDOC     =  'Provision:EASProvisionDoc';
+    const PROVISION_PROVISION       =  'Provision:Provision';
+    const PROVISION_POLICIES        =  'Provision:Policies';
+    const PROVISION_POLICY          =  'Provision:Policy';
+    const PROVISION_POLICYTYPE      =  'Provision:PolicyType';
+    const PROVISION_POLICYKEY       =  'Provision:PolicyKey';
+    const PROVISION_DATA            =  'Provision:Data';
+    const PROVISION_STATUS          =  'Provision:Status';
+    const PROVISION_REMOTEWIPE      =  'Provision:RemoteWipe';
+    const PROVISION_EASPROVISIONDOC =  'Provision:EASProvisionDoc';
+
+    /* Policy types */
+    const POLICYTYPE_XML            = 'MS-WAP-Provisioning-XML';
+    const POLICYTYPE_WBXML          = 'MS-EAS-Provisioning-WBXML';
+
+    /* Policy configuration keys */
+    const POLICY_PIN                = 'pin';
+    const POLICY_AEFVALUE           = 'inactivity';
+    const POLICY_WIPETHRESHOLD      = 'wipethreshold';
+    const POLICY_CODEFREQ           = 'codewordfrequency';
+    const POLICY_MINLENGTH          = 'minimumlength';
+    const POLICY_COMPLEXITY         = 'complexity';
+
 
     /* Flags */
     const FLAG_NEWMESSAGE               = 'NewMessage';
@@ -195,18 +208,18 @@ class Horde_ActiveSync
     const FOLDER_TYPE_RECIPIENT_CACHE   =  19;
     const FOLDER_TYPE_DUMMY             =  '__dummy.Folder.Id__';
 
-    /** Origin of changes **/
+    /* Origin of changes **/
     const CHANGE_ORIGIN_PIM             = 0;
     const CHANGE_ORIGIN_SERVER          = 1;
     const CHANGE_ORIGIN_NA              = 3;
 
-    /** Remote wipe **/
+    /* Remote wipe **/
     const RWSTATUS_NA                   = 0;
     const RWSTATUS_OK                   = 1;
     const RWSTATUS_PENDING              = 2;
     const RWSTATUS_WIPED                = 3;
 
-    /** GAL **/
+    /* GAL **/
     const GAL_DISPLAYNAME               = 'GAL:DisplayName';
     const GAL_PHONE                     = 'GAL:Phone';
     const GAL_OFFICE                    = 'GAL:Office';
