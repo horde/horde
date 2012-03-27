@@ -39,6 +39,13 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
     protected $_db = false;
 
     /**
+     * List of permissions and if they can be changed in this VFS backend.
+     *
+     * @var array
+     */
+    protected $_permissions = array();
+
+    /**
      * List of features that the VFS driver supports.
      *
      * @var array
