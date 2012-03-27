@@ -1426,7 +1426,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             try {
                 switch ($encrypt) {
                 case IMP_Crypt_Pgp::SIGN:
-                    $base = $imp_pgp->IMPsignMIMEPart($base);
+                    $base = $imp_pgp->impSignMimePart($base);
                     break;
 
                 case IMP_Crypt_Pgp::ENCRYPT:

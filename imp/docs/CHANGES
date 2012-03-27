@@ -70,6 +70,7 @@ v6.0-git
 v5.0.20-git
 -----------
 
+[mms] Fix regression in sending PGP encrypted messages (Bug #11085).
 [mms] Only poll mailboxes in dynamic view that exist in the browser folder
       tree.
 [mms] Fix regression in displaying From address on mailbox page in traditional
