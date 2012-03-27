@@ -1302,8 +1302,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                     '</body>';
             }
 
-            $htmlBody->setContents($GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($body_html, 'cleanhtml', array('charset' => $this->charset)));
-
             $textBody->setDescription(Horde_String::convertCharset(_("Plaintext Message"), 'UTF-8', $this->charset));
 
             $textpart = new Horde_Mime_Part();
@@ -1312,12 +1310,22 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             $textpart->setHeaderCharset($this->charset);
 
             if (empty($options['nofinal'])) {
-                try {
-                    $htmlBody = $this->_convertToMultipartRelated($htmlBody);
-                } catch (Horde_Exception $e) {}
+                $body_html = $this->_addExternalData($body_html);
             }
 
-            $textpart->addPart($htmlBody);
+            $htmlBody->setContents($body_html);
+
+            /* Now, all parts referred to in the HTML data have been added
+             * to the attachment list. Convert to multipart/related if
+             * this is the case. */
+            $textpart->addPart((empty($options['nofinal']) && $this->getMetadata('compose_related'))
+                ? $this->_convertToRelated($htmlBody)
+                : $htmlBody
+            );
+
+            $htmlBody->setContents($GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($htmlBody->getContents(), 'cleanhtml', array(
+                'charset' => $this->charset
+            )));
         } else {
             $textpart = $textBody;
         }
@@ -1476,8 +1484,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             }
         }
 
-        /* Flag this as the base part. */
+        /* Flag this as the base part and rebuild MIME IDs. */
         $base->isBasePart(true);
+        $base->buildMimeIds();
 
         return $base;
     }
@@ -2325,6 +2334,33 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     }
 
     /**
+     * Add an attachment referred to in a related part.
+     *
+     * @param Horde_Mime_Part $part  Attachment data.
+     * @param DOMElement $node       Node element containg the reference.
+     * @param string $attribute      Element attribute containing the
+     *                               reference.
+     *
+     * @return integer  The attachment ID.
+     */
+    protected function _addRelatedAttachment(Horde_Mime_Part $part, $node,
+                                             $attribute)
+    {
+        $this->addMimePartAttachment($part);
+
+        end($this->_atc);
+        $key = key($this->_atc);
+        $this->_atc[$key]['related'] = true;
+
+        $this->_metadata['compose_related'] = true;
+
+        $node->setAttribute('imp_related_attr', $attribute);
+        $node->setAttribute('imp_related_attr_id', $key);
+
+        return $key;
+    }
+
+    /**
      * Stores the attachment data in its correct location.
      *
      * @param Horde_Mime_Part $part   The object to store.
@@ -2377,7 +2413,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      */
     public function deleteAllAttachments()
     {
-        foreach ($this as $key => $val) {
+        foreach ($this->_atc as $key => $val) {
             unset($this[$key]);
         }
     }
@@ -2538,75 +2574,94 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     }
 
     /**
-     * Convert a text/html Horde_Mime_Part object with embedded image links
-     * to a multipart/related Horde_Mime_Part with the image data embedded in
-     * the part.
+     * Convert external image links into internal links to attachment data.
      *
-     * @param Horde_Mime_Part $mime_part  The text/html object.
+     * @param string $html  The HTML data.
      *
-     * @return Horde_Mime_Part  The converted Horde_Mime_Part.
+     * @return string  HTML with external data moved to attachments.
      */
-    protected function _convertToMultipartRelated($mime_part)
+    protected function _addExternalData($html)
     {
-        global $conf;
-
         /* Return immediately if related conversion is turned off via
-         * configuration, this is not a HTML part, or no 'img' tags are
-         * found (specifically searching for the 'src' parameter). */
-        if (empty($conf['compose']['convert_to_related']) ||
-            ($mime_part->getType() != 'text/html') ||
-            !preg_match_all('/<img[^>]+src\s*\=\s*([^\s]+)\s+/iU', $mime_part->getContents(), $results)) {
-            return $mime_part;
+         * configuration. */
+        if (empty($GLOBALS['conf']['compose']['convert_to_related'])) {
+            return;
         }
 
         $client = $GLOBALS['injector']
           ->getInstance('Horde_Core_Factory_HttpClient')
           ->create();
-        $img_data = $img_parts = array();
+        $dom = new Horde_Domhtml($html, $this->charset);
+        $downloaded = false;
 
-        /* Go through list of results, download the image, and create
-         * Horde_Mime_Part objects with the data. */
-        foreach ($results[1] as $url) {
-            /* Attempt to download the image data. */
-            $response = $client->get(str_replace('&amp;', '&', trim($url, '"\'')));
-            if ($response->code == 200) {
-                /* We need to determine the image type.  Try getting
-                 * that information from the returned HTTP
-                 * content-type header.  TODO: Use Horde_Mime_Magic if this
-                 * fails (?) */
-                $part = new Horde_Mime_Part();
-                $part->setType($response->getHeader('content-type'));
-                $part->setContents($response->getBody());
-                $part->setDisposition('attachment');
-                $img_data[$url] = '"cid:' . $part->setContentID() . '"';
-                $img_parts[] = $part;
+        /* Find external images, download the image, and add as an
+         * attachment. */
+        foreach ($dom as $node) {
+            if (($node instanceof DOMElement) &&
+                (strcasecmp($node->tagName, 'img') === 0) &&
+                $node->hasAttribute('src') &&
+                !$node->hasAttribute('imp_related_attr')) {
+                /* Attempt to download the image data. */
+                $response = $client->get($node->getAttribute('src'));
+                if ($response->code == 200) {
+                    /* We need to determine the image type. Try getting that
+                     * info from the returned HTTP content-type header.
+                     * TODO: Use Horde_Mime_Magic if this fails (?) */
+                    $part = new Horde_Mime_Part();
+                    $part->setType($response->getHeader('content-type'));
+                    $part->setContents($response->getBody());
+                    $part->setDisposition('attachment');
+
+                    $this->_addRelatedAttachment($part, $node, 'src');
+                    $downloaded = true;
+                }
             }
         }
 
-        /* If we could not successfully download any data, return the
-         * original Horde_Mime_Part now. */
-        if (empty($img_data)) {
-            return $mime_part;
-        }
+        return $downloaded
+            ? $dom->returnHtml()
+            : $html;
+    }
 
-        /* Replace the URLs with with CID tags. */
-        $mime_part->setContents(str_replace(array_keys($img_data), array_values($img_data), $mime_part->getContents()));
-
+    /**
+     * Converts an HTML part to a multipart/related part.
+     *
+     * @param Horde_Mime_Part $part  The HTML part.
+     *
+     * @return Horde_Mime_Part  The multipart/related part.
+     */
+    protected function _convertToRelated(Horde_Mime_Part $part)
+    {
         /* Create new multipart/related part. */
         $related = new Horde_Mime_Part();
         $related->setType('multipart/related');
 
-        /* Get the CID for the 'root' part. Although by default the
-         * first part is the root part (RFC 2387 [3.2]), we may as
-         * well be explicit and put the CID in the 'start'
-         * parameter. */
-        $related->setContentTypeParameter('start', $mime_part->setContentID());
+        /* Get the CID for the 'root' part. Although by default the first part
+         * is the root part (RFC 2387 [3.2]), we may as well be explicit and
+         * put the CID in the 'start' parameter. */
+        $related->setContentTypeParameter('start', $part->setContentId());
 
-        /* Add the root part and the various images to the multipart
-         * object. */
-        $related->addPart($mime_part);
-        foreach (array_keys($img_parts) as $val) {
-            $related->addPart($img_parts[$val]);
+        /* Go through the HTML part and generate internal Content-ID links. */
+        $dom = new Horde_Domhtml($part->getContents(), $part->getCharset());
+        $ids = array();
+
+        foreach ($dom as $node) {
+            if (($node instanceof DOMElement) &&
+                $node->hasAttribute('imp_related_attr')) {
+                $id = $ids[] = $node->getAttribute('imp_related_attr_id');
+                $node->setAttribute($node->getAttribute('imp_related_attr'), 'cid:' . $this[$id]['part']->setContentId());
+
+                $node->removeAttribute('imp_related_attr');
+                $node->removeAttribute('imp_related_attr_id');
+            }
+        }
+
+        $part->setContents($dom->returnHtml());
+
+        /* Add the root part and the various data to the multipart object. */
+        $related->addPart($part);
+        foreach ($ids as $id) {
+            $related->addPart($this->buildAttachment($id));
         }
 
         return $related;
@@ -2847,17 +2902,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      */
     public function _getMessageTextCallback($id, $attribute, $node)
     {
-        $this->_metadata['reply_related'] = true;
-
-        $this->addMimePartAttachment($this->getMetadata('related_contents')->getMIMEPart($id));
-
-        /* Mark this attachment as related to the reply message. */
-        end($this->_atc);
-        $key = key($this->_atc);
-        $this->_atc[$key]['related'] = true;
-
-        $node->setAttribute('imp_related_attr', $attribute);
-        $node->setAttribute('imp_related_attr_id', $key);
+        $key = $this->_addRelatedAttachment($this->getMetadata('related_contents')->getMIMEPart($id), $node, $attribute);
 
         return $this->getMetadata('related_contents')->urlView(null, 'compose_attach_preview', array(
             'params' => array(
