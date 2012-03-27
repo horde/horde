@@ -47,7 +47,7 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
 
         /* Check policy */
         if (!$this->checkPolicyKey($this->_activeSync->getPolicyKey())) {
-            return false;
+            return true;
         }
 
         $status = array();

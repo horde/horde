@@ -166,7 +166,7 @@ abstract class Horde_ActiveSync_Request_Base
                ($this->_provisioning === Horde_ActiveSync::PROVISIONING_LOOSE && !is_null($sentKey)))) {
 
                 $this->_activeSync->provisioningRequired();
-                return true;
+                return false;
             }
         }
         $this->_logger->debug('Policykey: ' . $sentKey . ' verified.');
