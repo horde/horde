@@ -1027,11 +1027,6 @@ var ImpMobile = {
                 }
                 return;
 
-            case 'imp-message-spam':
-            case 'imp-message-ham':
-                ImpMobile.reportSpam(id == 'imp-message-spam');
-                return;
-
             case 'imp-mailbox-prev1':
             case 'imp-mailbox-prev2':
                 if (!elt.hasClass('ui-disabled')) {
