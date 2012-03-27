@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Fix regression in sending PGP encrypted messages (Bug #11085).
 * [mms] Only poll mailboxes in dynamic view that exist in the browser folder tree.
 * [mms] Fix regression in displaying From address on mailbox page in traditional view.
 * [mms] Fix updating the compose address fields when using the contacts popup.
@@ -2690,6 +2691,7 @@
    <date>2012-02-28</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix regression in sending PGP encrypted messages (Bug #11085).
 * [mms] Only poll mailboxes in dynamic view that exist in the browser folder tree.
 * [mms] Fix regression in displaying From address on mailbox page in traditional view.
 * [mms] Fix updating the compose address fields when using the contacts popup.
