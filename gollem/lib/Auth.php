@@ -53,7 +53,7 @@ class Gollem_Auth
         if ((!isset($credentials['userId']) ||
              !isset($credentials['password'])) &&
             !$GLOBALS['session']->exists('gollem', 'backend_key') &&
-            self::_canAutoLogin()) {
+            self::canAutoLogin()) {
             if (!empty($backend['hordeauth'])) {
                 $credentials['userId'] = self::getAutologinID($credentials['backend_key']);
                 $credentials['password'] = $GLOBALS['registry']->getAuthCredential('password');
@@ -197,7 +197,7 @@ class Gollem_Auth
 
         if (empty($credentials['transparent'])) {
             /* Attempt hordeauth authentication. */
-            $credentials = self::_canAutoLogin();
+            $credentials = self::canAutoLogin();
             if ($credentials === false) {
                 return false;
             }
@@ -322,7 +322,7 @@ class Gollem_Auth
      * @return array  The credentials needed to login ('userId', 'password',
      *                'backend') or false if autologin not available.
      */
-    static protected function _canAutoLogin($key = null, $force = false)
+    static public function canAutoLogin($key = null, $force = false)
     {
         $auto_server = self::getPreferredBackend();
         if ($key === null) {
