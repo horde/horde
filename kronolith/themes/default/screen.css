@@ -860,17 +860,7 @@ div.kronolithFormActions {
     overflow: auto;
     line-height: 20px;
 }
-.kronolithTopTags span {
-    padding: 2px 4px;
-    margin-right: 4px;
-    background-color: #fff;
-    border: 1px #999 solid;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    border-radius: 4px;
-    font-size: 90%;
-}
-.kronolithTopTags span:hover {
+ul.horde-tags li:hover {
     background-color: #ffc;
     cursor: pointer;
 }

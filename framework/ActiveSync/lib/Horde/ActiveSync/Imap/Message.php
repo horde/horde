@@ -496,12 +496,34 @@ class Horde_ActiveSync_Imap_Message
         $to = $this->_envelope->to;
         $dtos = $tos = array();
         $rfc822 = new Horde_Mail_Rfc822();
-        foreach ($to->addresses as $e) {
+        foreach ($to->raw_addresses as $e) {
             $tos[] = $e->bare_address;
             $dtos[] = $e->personal;
         }
 
         return array('to' => $tos, 'displayto' => $dtos);
+    }
+
+    public function getCc()
+    {
+        if (empty($this->_envelope)) {
+            $this->_fetchEnvelope();
+        }
+        $cc = array_pop($this->_envelope->cc->address);
+        $a = new Horde_Mail_Rfc822_Address($cc);
+
+        return $a->writeAddress(false);
+    }
+
+    public function getReplyTo()
+    {
+        if (empty($this->_envelope)) {
+            $this->_fetchEnvelope();
+        }
+        $r = array_pop($this->_envelope->reply_to->address);
+        $a = new Horde_Mail_Rfc822_Address($r);
+
+        return $a->writeAddress(false);
     }
 
     /**

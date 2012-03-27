@@ -2,12 +2,12 @@
 /**
  * Tag browsing
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did not
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
  *
- * @author Michael J Rubinsky <mrubinsk@horde.org>
+ * @author  Michael J Rubinsky <mrubinsk@horde.org>
  * @package Trean
  */
 class Trean_View_Browse
@@ -17,34 +17,40 @@ class Trean_View_Browse
      *
      * @var Trean_TagBrowse
      */
-     protected $_browser;
+    protected $_browser;
 
-     /**
-      * Current page
-      *
-      * @var int
-      */
-     protected $_page = 0;
+    /**
+     * The loaded bookmarks.
+     *
+     * @var array
+     */
+    protected $_bookmarks;
 
-     /**
-      * Bookmarks to display per page
-      *
-      * @var int
-      */
-     protected $_perPage = 999;
+    /**
+     * Current page
+     *
+     * @var int
+     */
+    protected $_page = 0;
 
-     /**
-      * Flag to indicate we have an empty search.
-      *
-      * @var boolean
-      */
-     protected $_noSearch = false;
+    /**
+     * Bookmarks to display per page
+     *
+     * @var int
+     */
+    protected $_perPage = 999;
 
-
-     /**
-      * Const'r
-      *
-      */
+    /**
+     * Flag to indicate we have an empty search.
+     *
+     * @var boolean
+     */
+    protected $_noSearch = false;
+    
+    /**
+     * Const'r
+     *
+     */
     public function __construct()
     {
         $this->_browser = new Trean_TagBrowse(
@@ -77,33 +83,81 @@ class Trean_View_Browse
     }
 
     /**
-     * Render the view.
+     * Returns whether bookmarks currently exist.
+     *
+     * @return boolean  True if there exist any bookmarks in the backend.
+     */
+    public function hasBookmarks()
+    {
+        $this->_getBookmarks();
+        return (bool)count($this->_bookmarks) ||
+            (bool)$this->_browser->tagCount();
+    }
+
+    /**
+     * Renders the view.
      */
     public function render()
     {
-        // @TODO: paging
-        if ($this->_noSearch) {
-            $results = $GLOBALS['trean_gateway']
-                ->listBookmarks(
-                    $GLOBALS['prefs']->getValue('sortby'),
-                    $GLOBALS['prefs']->getValue('sortdir'),
-                    $this->_page,
-                    $this->_perPage);
-        } else {
-            $results = $this->_browser->getSlice($this->_page, $this->_perPage);
-        }
+        $this->_getBookmarks();
+
         $total = $this->_browser->count();
 
         $html = $this->_getTagTrail();
         $html .= $this->_getRelatedTags();
 
         $html .= '<h1 class="header">' . _("Bookmarks") . '</h1>';
-        $view = new Trean_View_BookmarkList($results);
-        Horde::startBuffer();
-        $view->render();
-        $html .= Horde::endBuffer();
+        $html .= $this->_getBookmarkList($this->_bookmarks);
 
-        echo $html;
+        return $html;
+    }
+
+    /**
+     * Loads the bookmarks from the backend.
+     */
+    protected function _getBookmarks()
+    {
+        if (!is_null($this->_bookmarks)) {
+            return;
+        }
+
+        // @TODO: paging
+        if ($this->_noSearch) {
+            $this->_bookmarks = $GLOBALS['trean_gateway']
+                ->listBookmarks(
+                    $GLOBALS['prefs']->getValue('sortby'),
+                    $GLOBALS['prefs']->getValue('sortdir'),
+                    $this->_page,
+                    $this->_perPage);
+        } else {
+            $this->_bookmarks = $this->_browser->getSlice($this->_page, $this->_perPage);
+        }
+    }
+
+    /**
+     * Returns the HTML to display a bookmark list.
+     *
+     * @param array $bookmarks  A list of bookmarks.
+     *
+     * @return string  Bookmark list HTML.
+     */
+    protected function _getBookmarkList($bookmarks)
+    {
+        $ajax = new Horde_Core_Ajax();
+        $ajax->init(array('app' => 'horde'));
+        $GLOBALS['injector']
+            ->getInstance('Horde_PageOutput')
+            ->addScriptFile('tables.js', 'horde');
+
+        $view = $GLOBALS['injector']->getInstance('Horde_View');
+        $view->bookmarks = $bookmarks;
+        $view->target = $GLOBALS['prefs']->getValue('show_in_new_window') ? '_blank' : '';
+        $view->redirectUrl = Horde::url('redirect.php');
+
+        $view->sortby = $GLOBALS['prefs']->getValue('sortby');
+        $view->sortdir = $GLOBALS['prefs']->getValue('sortdir');
+        $view->sortdirclass = $view->sortdir ? 'sortup' : 'sortdown';
+        return $view->render('list');
     }
 
     /**
@@ -114,13 +168,13 @@ class Trean_View_Browse
     protected function _getRelatedTags()
     {
         $rtags = $this->_browser->getRelatedTags();
-        $html = _("Related Tags:") . '<ul class="tag-list">';
+        $html = '<div class="trean-tags-related">' . _("Related Tags:") . '<ul class="horde-tags">';
         foreach ($rtags as $id => $taginfo) {
             $html .= '<li>' . $this->_linkAddTag($taginfo['tag_name'])->link()
                 . htmlspecialchars($taginfo['tag_name']) . '</a></li>';
         }
 
-        return $html . '</ul>';
+        return $html . '</ul></div>';
     }
 
     /**
@@ -130,10 +184,12 @@ class Trean_View_Browse
      */
     protected function _getTagTrail()
     {
-        $html = '<div class="header">' . _("Browsing for tags:") . '<ul class="tag-list">';
+        $html = '<div class="header">' . _("Browsing for tags:") . '<ul class="horde-tags">';
         foreach ($this->_browser->getTags() as $tag => $id) {
-            $html .= '<li>' . htmlspecialchars($tag) . $this->_linkRemoveTag($tag)->link()
-                . Horde::img('delete-small.png', _("Remove from search")) . '</a></li>';
+            $html .= '<li>' . htmlspecialchars($tag)
+                . $this->_linkRemoveTag($tag)->link()
+                . Horde::img('delete-small.png', _("Remove from search"))
+                . '</a></li>';
         }
         return $html .= '</ul></div>';
     }
@@ -148,10 +204,8 @@ class Trean_View_Browse
      */
     protected function _linkRemoveTag($tag)
     {
-        return Horde::url('tagbrowse.php')
-            ->add(array(
-                'actionID' => 'remove',
-                'tag' => rawurlencode($tag)));
+        return Horde::url('browse.php')
+            ->add(array('actionID' => 'remove', 'tag' => $tag));
     }
 
     /**
@@ -163,9 +217,7 @@ class Trean_View_Browse
      */
     protected function _linkAddTag($tag)
     {
-        return Horde::url('tagbrowse.php')
-            ->add(array(
-                'tag' => rawurlencode($tag)));
+        return Horde::url('browse.php')->add(array('tag' => $tag));
     }
 
 }

@@ -28,9 +28,6 @@
 #imp-message-subject-from, #imp-message-date {
     font-size: 80%;
 }
-#imp-message-headers td {
-    font-size: 90%;
-}
 #imp-message-more, #imp-message-less {
     float: right;
     margin: 0;

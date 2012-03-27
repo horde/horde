@@ -5335,12 +5335,12 @@ KronolithCore = {
             return;
         }
 
-        var t = new Element('div');
+        var t = new Element('ul', { className: 'horde-tags' });
         r.tags.each(function(tag) {
             if (tag == null) {
                 return;
             }
-            t.insert(new Element('span', { className: tagclass }).update(tag.escapeHTML()));
+            t.insert(new Element('li', { className: tagclass }).update(tag.escapeHTML()));
         });
         $(update).update(t);
     },

@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-03-22</date>
- <time>19:26:47</time>
+ <date>2012-03-26</date>
+ <time>21:44:58</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -51,13 +51,13 @@
     <file name="CHANGES" role="doc" />
     <file name="CREDITS" role="doc" />
     <file name="INSTALL" role="doc" />
-    <file name="TODO" role="doc" />
    </dir> <!-- /docs -->
    <dir name="lib">
     <dir name="Ajax">
      <dir name="Imple">
       <file name="TagAutoCompleter.php" role="horde" />
      </dir> <!-- /lib/Ajax/Imple -->
+     <file name="Application.php" role="horde" />
     </dir> <!-- /lib/Ajax -->
     <dir name="Block">
      <file name="Bookmarks.php" role="horde" />
@@ -67,7 +67,6 @@
      <file name="Search.php" role="horde" />
     </dir> <!-- /lib/Forms -->
     <dir name="View">
-     <file name="BookmarkList.php" role="horde" />
      <file name="Browse.php" role="horde" />
     </dir> <!-- /lib/View -->
     <file name="Api.php" role="horde" />
@@ -180,12 +179,10 @@
      <file name="2line.inc" role="horde" />
      <file name="standard.inc" role="horde" />
     </dir> <!-- /templates/block -->
-    <dir name="views">
-     <file name="BookmarkList.php" role="horde" />
-    </dir> <!-- /templates/views -->
     <file name="add.html.php" role="horde" />
     <file name="bookmarklet.html.php" role="horde" />
     <file name="edit.html.php" role="horde" />
+    <file name="list.html.php" role="horde" />
     <file name="search.php" role="horde" />
    </dir> <!-- /templates -->
    <dir name="themes">
@@ -272,7 +269,6 @@
    <file name="redirect.php" role="horde" />
    <file name="rss.php" role="horde" />
    <file name="search.php" role="horde" />
-   <file name="tagbrowse.php" role="horde" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -297,7 +293,6 @@
    <install as="trean/redirect.php" name="redirect.php" />
    <install as="trean/rss.php" name="rss.php" />
    <install as="trean/search.php" name="search.php" />
-   <install as="trean/tagbrowse.php" name="tagbrowse.php" />
    <install as="trean/app/controllers/DeleteBookmark.php" name="app/controllers/DeleteBookmark.php" />
    <install as="trean/app/controllers/SaveBookmark.php" name="app/controllers/SaveBookmark.php" />
    <install as="trean-url-checker" name="bin/trean-url-checker" />
@@ -308,7 +303,6 @@
    <install as="CHANGES" name="docs/CHANGES" />
    <install as="CREDITS" name="docs/CREDITS" />
    <install as="INSTALL" name="docs/INSTALL" />
-   <install as="TODO" name="docs/TODO" />
    <install as="trean/lib/Api.php" name="lib/Api.php" />
    <install as="trean/lib/Application.php" name="lib/Application.php" />
    <install as="trean/lib/Bookmark.php" name="lib/Bookmark.php" />
@@ -317,11 +311,11 @@
    <install as="trean/lib/TagBrowse.php" name="lib/TagBrowse.php" />
    <install as="trean/lib/Tagger.php" name="lib/Tagger.php" />
    <install as="trean/lib/Trean.php" name="lib/Trean.php" />
+   <install as="trean/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
    <install as="trean/lib/Ajax/Imple/TagAutoCompleter.php" name="lib/Ajax/Imple/TagAutoCompleter.php" />
    <install as="trean/lib/Block/Bookmarks.php" name="lib/Block/Bookmarks.php" />
    <install as="trean/lib/Block/Mostclicked.php" name="lib/Block/Mostclicked.php" />
    <install as="trean/lib/Forms/Search.php" name="lib/Forms/Search.php" />
-   <install as="trean/lib/View/BookmarkList.php" name="lib/View/BookmarkList.php" />
    <install as="trean/lib/View/Browse.php" name="lib/View/Browse.php" />
    <install as="trean/locale/.htaccess" name="locale/.htaccess" />
    <install as="trean/locale/trean.pot" name="locale/trean.pot" />
@@ -363,11 +357,11 @@
    <install as="trean/templates/add.html.php" name="templates/add.html.php" />
    <install as="trean/templates/bookmarklet.html.php" name="templates/bookmarklet.html.php" />
    <install as="trean/templates/edit.html.php" name="templates/edit.html.php" />
+   <install as="trean/templates/list.html.php" name="templates/list.html.php" />
    <install as="trean/templates/search.php" name="templates/search.php" />
    <install as="trean/templates/block/1line.inc" name="templates/block/1line.inc" />
    <install as="trean/templates/block/2line.inc" name="templates/block/2line.inc" />
    <install as="trean/templates/block/standard.inc" name="templates/block/standard.inc" />
-   <install as="trean/templates/views/BookmarkList.php" name="templates/views/BookmarkList.php" />
    <install as="trean/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="trean/themes/default/graphics/add.png" name="themes/default/graphics/add.png" />
    <install as="trean/themes/default/graphics/az.png" name="themes/default/graphics/az.png" />
@@ -432,7 +426,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2012-03-22</date>
+   <date>2012-03-26</date>
    <license uri="TODO">TODO</license>
    <notes>
 * Initial release.

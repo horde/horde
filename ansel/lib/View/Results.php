@@ -246,7 +246,7 @@ class Ansel_View_Results extends Ansel_View_Ansel
         // Get any related tags to display.
         if ($conf['tags']['relatedtags']) {
             $rtags = $this->_search->getRelatedTags();
-            $rtaghtml = '<ul>';
+            $rtaghtml = '<ul class="horde-tags">';
 
             $links = Ansel::getTagLinks($rtags, 'add');
             foreach ($rtags as $id => $taginfo) {

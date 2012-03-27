@@ -177,9 +177,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
 
         // Restore any state or pending changes
         $data = unserialize($results['sync_data']);
-        // @TODO: Convert from previous state data format.
         $pending = unserialize($results['sync_pending']);
-
 
         if ($type == Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC) {
             $this->_folder = ($data !== false) ? $data : array();
