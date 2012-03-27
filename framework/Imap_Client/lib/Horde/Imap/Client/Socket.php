@@ -1047,7 +1047,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             'ext' => false,
             'options' => $options,
             'subexist' => ($mode == Horde_Imap_Client::MBOX_SUBSCRIBED_EXISTS),
-            'subscribed' => ($check ? array_flip($subscribed) : null)
+            'subscribed' => ($check ? array_flip(array_map('strval', $subscribed)) : null)
         );
         $t['listresponse'] = array();
         $return_opts = array();
@@ -1180,11 +1180,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $lr = &$this->_temp['listresponse'];
 
         $mode = strtoupper($data[0]);
-        $mbox = $data[3];
+        $mbox = Horde_Imap_Client_Mailbox::get($data[3], true);
 
         if ($ml['check'] &&
             $ml['subexist'] &&
-            !isset($ml['subscribed'][$mbox])) {
+            !isset($ml['subscribed'][$mbox->utf7imap])) {
             return;
         } elseif ((!$ml['check'] && $ml['subexist']) ||
                   (empty($mlo['flat']) && !empty($mlo['attributes']))) {
@@ -1195,8 +1195,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 return;
             }
         }
-
-        $mbox = Horde_Imap_Client_Mailbox::get($mbox, true);
 
         if (empty($mlo['flat'])) {
             $tmp = array(
