@@ -1483,7 +1483,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         if (is_null($this->_contentid)) {
             $this->_contentid = is_null($cid)
                 ? (strval(new Horde_Support_Randomid()) . '@' . $_SERVER['SERVER_NAME'])
-                : $cid;
+                : trim($cid, '<>');
         }
 
         return $this->_contentid;

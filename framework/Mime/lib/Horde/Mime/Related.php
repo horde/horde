@@ -49,7 +49,7 @@ class Horde_Mime_Related implements IteratorAggregate
         foreach ($ids as $val) {
             if ((strcmp($related_id, $val) !== 0) &&
                 ($cid = $mime_part->getPart($val)->getContentId())) {
-                $this->_cids[$val] = trim($cid, '<>');
+                $this->_cids[$val] = $cid;
             }
         }
 
