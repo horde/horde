@@ -2596,10 +2596,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 
         /* Find external images, download the image, and add as an
          * attachment. */
-        foreach ($dom as $node) {
-            if (($node instanceof DOMElement) &&
-                (strcasecmp($node->tagName, 'img') === 0) &&
-                $node->hasAttribute('src') &&
+        foreach ($dom->dom->getElementsByTagName('img') as $node) {
+            if ($node->hasAttribute('src') &&
                 !$node->hasAttribute('imp_related_attr')) {
                 /* Attempt to download the image data. */
                 $response = $client->get($node->getAttribute('src'));
