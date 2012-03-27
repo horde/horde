@@ -58,4 +58,32 @@ class Horde_Mime_RelatedTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testReplace()
+    {
+        $text = $this->_relatedOb->cidReplace(
+            $this->_part->getPart('1')->getContents(),
+            array($this, 'callbackTestReplace')
+        );
+
+        $expected = <<<EOT
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html><body background="2">
+  <div>
+   Foo.
+   <img src="3"></div>
+ </body></html>
+
+EOT;
+
+        $this->assertEquals(
+            $expected,
+            $text
+        );
+    }
+
+    public function callbackTestReplace($id)
+    {
+        return $id;
+    }
+
 }

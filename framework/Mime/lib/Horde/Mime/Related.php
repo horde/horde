@@ -91,6 +91,54 @@ class Horde_Mime_Related implements IteratorAggregate
         return array_search($cid, $this->_cids);
     }
 
+    /**
+     * Scan for CID strings in HTML data and replace with data returned from
+     * a callback method.
+     *
+     * @param string $text        The HTML text.
+     * @param callback $callback  Callback method. Receives three arguments:
+     *                            MIME ID, the attribute name containing the
+     *                            content ID, and the node object. Expects
+     *                            return value of URL to display the data.
+     * @param string $charset     HTML data charset.
+     *
+     * @return string  HTML text.
+     */
+    public function cidReplace($text, $callback, $charset = 'UTF-8')
+    {
+        $dom = new Horde_Domhtml($text, $charset);
+
+        foreach ($dom as $node) {
+            if ($node instanceof DOMElement) {
+                switch (Horde_String::lower($node->tagName)) {
+                case 'body':
+                case 'td':
+                    $this->_cidReplace($node, 'background', $callback);
+                    break;
+
+                case 'img':
+                    $this->_cidReplace($node, 'src', $callback);
+                    break;
+                }
+            }
+        }
+
+        return $dom->returnHtml();
+    }
+
+    /**
+     */
+    protected function _cidReplace($node, $attribute, $callback)
+    {
+        if ($node->hasAttribute($attribute)) {
+            $val = $node->getAttribute($attribute);
+            if ((strpos($val, 'cid:') === 0) &&
+                ($id = $this->cidSearch(substr($val, 4)))) {
+                $node->setAttribute($attribute, call_user_func($callback, $id, $attribute, $node));
+            }
+        }
+    }
+
     /* IteratorAggregate method. */
 
     public function getIterator()
