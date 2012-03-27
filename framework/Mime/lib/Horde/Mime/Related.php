@@ -47,8 +47,9 @@ class Horde_Mime_Related implements IteratorAggregate
 
         /* Build a list of parts -> CIDs. */
         foreach ($ids as $val) {
-            if (strcmp($related_id, $val) !== 0) {
-                $this->_cids[$val] = trim($mime_part->getPart($val)->getContentId(), '<>');
+            if ((strcmp($related_id, $val) !== 0) &&
+                ($cid = $mime_part->getPart($val)->getContentId())) {
+                $this->_cids[$val] = trim($cid, '<>');
             }
         }
 
@@ -57,7 +58,7 @@ class Horde_Mime_Related implements IteratorAggregate
          * [3.1]). */
         $start = $mime_part->getContentTypeParameter('start');
         if (!empty($start)) {
-            $id = array_search($id, $this->_cids);
+            $id = $this->cidSearch($start);
         }
 
         if (empty($id)) {
