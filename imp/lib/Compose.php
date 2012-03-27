@@ -2801,19 +2801,24 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             $GLOBALS['session']->get('imp', 'rteavail') &&
             (($body_id = $contents->findBody('html')) !== null)) {
             $mime_message = $contents->getMIMEMessage();
-            if (($mime_message->getPrimaryType() == 'multipart') &&
-                ($mime_message->getSubType() != 'mixed') &&
-                in_array($options['imp_msg'], array(self::COMPOSE, self::REPLY))) {
-                $check_id = '2';
-            } else {
-                $check_id = '1';
-            }
 
-            if ((strval($body_id) == $check_id) ||
-                Horde_Mime::isChild($check_id, $body_id)) {
-                $mode = 'html';
-            } else {
-                $body_id = null;
+            switch ($mime_message->getPrimaryType()) {
+            case 'multipart':
+                if (($mime_message->getSubType() == 'mixed') &&
+                    !Horde_Mime::isChild('1', $body_id)) {
+                    $body_id = null;
+                } else {
+                    $mode = 'html';
+                }
+                break;
+
+            default:
+                if (strval($body_id) != '1') {
+                    $body_id = null;
+                } else {
+                    $mode = 'html';
+                }
+                break;
             }
         }
 
