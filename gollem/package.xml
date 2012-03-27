@@ -34,8 +34,6 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Don&apos;t show user name and password fields on login page if not required.
-* [jan] Display &apos;loginparams&apos; on login screen (Bug #11088).
 * [jan] Fix sorting if using a pager.
 * [jan] Use standard Horde dialogs.
  </notes>
@@ -731,6 +729,8 @@
    <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Don&apos;t show user name and password fields on login page if not required.
+* [jan] Display &apos;loginparams&apos; on login screen (Bug #11088).
 * [jan] Fix removing filter (Bug #11043).
 * [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
    </notes>
@@ -746,8 +746,6 @@
    </stability>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* [jan] Don&apos;t show user name and password fields on login page if not required.
-* [jan] Display &apos;loginparams&apos; on login screen (Bug #11088).
 * [jan] Fix sorting if using a pager.
 * [jan] Use standard Horde dialogs.
    </notes>
