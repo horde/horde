@@ -197,7 +197,7 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
         $this->_encoder->content($policykey);
         $this->_encoder->endTag();
 
-        // Send security policies - configure this/move to it's own method.
+        // Send security policies.
         if ($phase2 && $status == self::STATUS_SUCCESS && $policyStatus == self::STATUS_SUCCESS) {
             $this->_encoder->startTag(Horde_ActiveSync::PROVISION_DATA);
             if ($policytype == Horde_ActiveSync::POLICYTYPE_XML) {
@@ -214,14 +214,85 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
             $this->_encoder->startTag(Horde_ActiveSync::PROVISION_REMOTEWIPE, false, true);
             $this->_stateDriver->setDeviceRWStatus($this->_device->id, Horde_ActiveSync::RWSTATUS_WIPED);
         }
-        $this->_encoder->endTag();         //provision
+        $this->_encoder->endTag();     //provision
 
         return true;
     }
 
+    /**
+     * Sends a WBXML style provision response to the output stream.
+     *
+     * @param array $policies  An array of policy values.
+     */
     protected function _sendWbxml(array $policies)
     {
+        $policies = array_merge(array(
+            Horde_ActiveSync::POLICY_PIN           => true,
+            Horde_ActiveSync::POLICY_AEFVALUE      => '5',
+            Horde_ActiveSync::POLICY_WIPETHRESHOLD => '10',
+            Horde_ActiveSync::POLICY_CODEFREQ      => '0',
+            Horde_ActiveSync::POLICY_MINLENGTH     => '5',
+            Horde_ActiveSync::POLICY_COMPLEXITY    => '2',
+            Horde_ActiveSync::POLICY_MAXLENGTH     => '10',
+            Horde_ActiveSync::POLICY_PWDRECOVERY   => '0',
+            Horde_ActiveSync::POLICY_PWDEXPIRATION => '0',
+            Horde_ActiveSync::POLICY_PWDHISTORY    => '0',
+            Horde_ActiveSync::POLICY_ENCRYPTION    => '0',
+            Horde_ActiveSync::POLICY_ATC           => '1',
+            Horde_ActiveSync::POLICY_MAXATCSIZE    => '5000000'
+            ), $policies
+        );
+        $this->_encoder->startTag('Provision:EASProvisionDoc');
 
+        $this->_encoder->startTag('Provision:DevicePasswordEnabled');
+        $this->_encoder->content($policies[Horde_ActiveSync::POLICY_PIN] ? '1' : '0');
+        $this->_encoder->endTag();
+
+        if ($policies[Horde_ActiveSync::POLICY_PIN]) {
+            $this->_encoder->startTag('Provision:AlphanumericDevicePasswordRequired');
+            $this->_encoder->content($policies[Horde_ActivSync::POLICY_COMPLEXITY === 0] ? '1' : '0');
+            $this->_encoder->endTag();
+
+            $this->_encoder->startTag('Provision:PasswordRecoveryEnabled');
+            $this->_encoder->content($policies[Horde_ActiveSync::POLICY_PWDRECOVERY]);
+            $this->_encoder->endTag();
+
+            $this->_encoder->startTag('Provision:MinDevicePasswordLength');
+            $this->_encoder->content($policies[Horde_ActiveSync::POLICY_MINLENGTH]);
+            $this->_encoder->endTag();
+
+            $this->_encoder->startTag('Provision:MaxDevicePasswordFailedAttempts');
+            $this->_encoder->content('5');
+            $this->_encoder->endTag();
+
+            $this->_encoder->startTag('Provision:AllowSimpleDevicePassword');
+            $this->_encoder->content($policies[Horde_ActiveSync::POLICY_COMPLEXITY] >= 1 ? '1' : '0');
+            $this->_encoder->endTag();
+
+            $this->_encoder->startTag('Provision:DevicePasswordExpiration', false, true);
+
+            $this->_encoder->startTag('Provision:DevicePasswordHistory');
+            $this->_encoder->content($policies[Horde_ActiveSync::POLICY_PWDHISTORY]);
+            $this->_encoder->endTag();
+        }
+
+        $this->_encoder->startTag('Provision:DeviceEncryptionEnabled');
+        $this->_encoder->content($policies[Horde_ActiveSync::POLICY_ENCRYPTION]);
+        $this->_encoder->endTag();
+
+        $this->_encoder->startTag('Provision:AttachmentsEnabled');
+        $this->_encoder->content($policies[Horde_ActiveSync::POLICY_ATC]);
+        $this->_encoder->endTag();
+
+        $this->_encoder->startTag('Provision:MaxInactivityTimeDeviceLock');
+        $this->_encoder->content($policies[Horde_ActiveSync::POLICY_AEFVALUE]);
+        $this->_encoder->endTag();
+
+        $this->_encoder->startTag('Provision:MaxAttachmentSize');
+        $this->_encoder->content($policies[Horde_ActiveSync::POLICY_MAXATCSIZE]);
+        $this->_encoder->endTag();
+
+        $this->_encoder->endTag();
     }
 
     /**
@@ -261,6 +332,12 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
         $this->_encoder->content($xml);
     }
 
+    /**
+     * Send a WBXML response to the output stream indicating that no
+     * provision requests are necessary.
+     *
+     * @param integer $status  The status code to send along with the response.
+     */
     protected function _sendNoProvisionNeededResponse($status)
     {
         $this->_encoder->startWBXML();
@@ -278,6 +355,12 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
         $this->_encoder->endTag();
     }
 
+    /**
+     * Handle global provision request errors, and send the output to the
+     * output stream.
+     *
+     * @param integer $status  The status code to send.
+     */
     protected function _globalError($status)
     {
         $this->_encoder->StartWBXML();

@@ -181,6 +181,14 @@ class Horde_ActiveSync
     const POLICY_CODEFREQ           = 'codewordfrequency';
     const POLICY_MINLENGTH          = 'minimumlength';
     const POLICY_COMPLEXITY         = 'complexity';
+    // 12.0
+    const POLICY_MAXLENGTH          = 'maximumlength';
+    const POLICY_PWDRECOVERY        = 'passwordrecovery';
+    const POLICY_PWDEXPIRATION      = 'passwordexpiration';
+    const POLICY_PWDHISTORY         = 'passwordhistory';
+    const POLICY_ENCRYPTION         = 'encryption';
+    const POLICY_ATC                = 'attachments';
+    const POLICY_MAXATCSIZE         = 'maxattachmentsize';
 
 
     /* Flags */
