@@ -2,6 +2,8 @@
 v3.0-git
 --------
 
+[jan] Don't show user name and password fields on login page if not required.
+[jan] Display 'loginparams' on login screen (Bug #11088).
 [jan] Fix sorting if using a pager.
 [jan] Use standard Horde dialogs.
 

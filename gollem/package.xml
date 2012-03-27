@@ -34,6 +34,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Don&apos;t show user name and password fields on login page if not required.
+* [jan] Display &apos;loginparams&apos; on login screen (Bug #11088).
 * [jan] Fix sorting if using a pager.
 * [jan] Use standard Horde dialogs.
  </notes>
@@ -744,6 +746,8 @@
    </stability>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Don&apos;t show user name and password fields on login page if not required.
+* [jan] Display &apos;loginparams&apos; on login screen (Bug #11088).
 * [jan] Fix sorting if using a pager.
 * [jan] Use standard Horde dialogs.
    </notes>

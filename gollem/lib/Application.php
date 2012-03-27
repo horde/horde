@@ -115,6 +115,21 @@ class Gollem_Application extends Horde_Registry_Application
                     'name' => $val['name'],
                     'selected' => ($selected == $key)
                 );
+                if ($selected == $key) {
+                    if (!empty($val['loginparams'])) {
+                        foreach ($val['loginparams'] as $param => $label) {
+                            $params[$param] = array(
+                                'label' => $label,
+                                'type' => 'text',
+                                'value' => isset($val['params'][$param]) ? $val['params'][$param] : ''
+                            );
+                        }
+                    }
+                    if (Gollem_Auth::canAutoLogin($key)) {
+                        $params['horde_user'] = null;
+                        $params['horde_pass'] = null;
+                    }
+                }
             }
             $params['backend_key'] = array(
                 'label' => _("Backend"),
@@ -125,7 +140,7 @@ class Gollem_Application extends Horde_Registry_Application
 
         return array(
             'js_code' => array(),
-            'js_files' => array(),
+            'js_files' => array(array('login.js', 'gollem')),
             'params' => $params
         );
     }
