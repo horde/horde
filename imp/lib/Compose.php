@@ -56,18 +56,18 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
     public $charset;
 
     /**
+     * The cached attachment data.
+     *
+     * @var array
+     */
+    protected $_atc = array();
+
+    /**
      * Whether the user's vCard should be attached to outgoing messages.
      *
      * @var string
      */
     protected $_attachVCard = false;
-
-    /**
-     * The cached attachment data.
-     *
-     * @var array
-     */
-    protected $_cache = array();
 
     /**
      * The cache ID used to store object in session.
@@ -2352,14 +2352,14 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
                 throw new IMP_Compose_Exception($e);
             }
 
-            $this->_cache[] = array(
+            $this->_atc[] = array(
                 'filename' => $cacheID,
                 'filetype' => 'vfs',
                 'part' => $part
             );
         } else {
             chmod($data, 0600);
-            $this->_cache[] = array(
+            $this->_atc[] = array(
                 'filename' => $data,
                 'filetype' => 'file',
                 'part' => $part
@@ -3057,29 +3057,29 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
 
     public function offsetExists($offset)
     {
-        return isset($this->_cache[$offset]);
+        return isset($this->_atc[$offset]);
     }
 
     public function offsetGet($offset)
     {
-        return isset($this->_cache[$offset])
-            ? $this->_cache[$offset]
+        return isset($this->_atc[$offset])
+            ? $this->_atc[$offset]
             : null;
     }
 
     public function offsetSet($offset, $value)
     {
-        $this->_cache[$offset] = $value;
+        $this->_atc[$offset] = $value;
         $this->changed = 'changed';
     }
 
     public function offsetUnset($offset)
     {
-        if (!isset($this->_cache[$offset])) {
+        if (!isset($this->_atc[$offset])) {
             return;
         }
 
-        $atc = &$this->_cache[$offset];
+        $atc = &$this->_atc[$offset];
 
         switch ($atc['filetype']) {
         case 'file':
@@ -3099,7 +3099,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
         /* Remove the size information from the counter. */
         $this->_size -= $atc['part']->getBytes();
 
-        unset($this->_cache[$offset]);
+        unset($this->_atc[$offset]);
 
         $this->changed = 'changed';
     }
@@ -3123,14 +3123,14 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
      */
     public function count()
     {
-        return count($this->_cache);
+        return count($this->_atc);
     }
 
     /* IteratorAggregate method. */
 
     public function getIterator()
     {
-        return new ArrayIterator($this->_cache);
+        return new ArrayIterator($this->_atc);
     }
 
     /* Serializable methods. */
@@ -3141,7 +3141,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
     {
         /* Make sure we don't have data in the Mime Part parts. */
         $atc = array();
-        foreach ($this->_cache as $key => $val) {
+        foreach ($this->_atc as $key => $val) {
             $val['part'] = clone($val['part']);
             $val['part']->clearContents();
             $atc[$key] = $val;
@@ -3167,7 +3167,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate, Serializ
         list(
             $this->charset,
             $this->_attachVCard,
-            $this->_cache,
+            $this->_atc,
             $this->_cacheid,
             $this->_linkAttach,
             $this->_metadata,
