@@ -71,6 +71,12 @@
  *           - MB: megabytes
  *           - GB: gigabytes
  *         Examples: "2 MB", "2048 B", "1.5 GB"
+ *   - shares: (boolean) Whether to enable share support for this backend.
+ *             This allows flexible file sharing independent from the
+ *             permission support in the storage backend. For sharing to work
+ *             properly, you need a backend type that does not implicitly
+ *             enforce user permissions, and individual home directories for
+ *             each user.
  *   - root: (string) The directory that will be the "top" or "root" directory,
  *           being the topmost directory where users can change to. This is in
  *           addition to any 'vfsroot' parameter set in the params array.
@@ -265,13 +271,16 @@ $backends['sqlhome'] = array(
     // 'createhome' => false,
     // 'filter' => '^regex$',
     // 'quota' => false,
+    'shares' => true,
     'attributes' => array(
         'type',
         'name',
+        'share',
         'edit',
         'download',
         'modified',
         'size',
+        'owner',
     )
 );
 
@@ -297,9 +306,11 @@ $backends['file'] = array(
     // 'createhome' => false,
     // 'filter' => '^regex$',
     // 'quota' => false,
+    'shares' => true,
     'attributes' => array(
         'type',
         'name',
+        'share',
         'edit',
         'download',
         'modified',

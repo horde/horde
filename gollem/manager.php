@@ -22,11 +22,6 @@ $backkey = $session->get('gollem', 'backend_key');
 $clipboard = $GLOBALS['session']->get('gollem', 'clipboard', Horde_Session::TYPE_ARRAY);
 $vars = Horde_Variables::getDefaultVariables();
 
-/* Get permissions. */
-$delete_perms = Gollem::checkPermissions('backend', Horde_Perms::DELETE);
-$edit_perms = Gollem::checkPermissions('backend', Horde_Perms::EDIT);
-$read_perms = Gollem::checkPermissions('backend', Horde_Perms::READ);
-
 /* Set directory. */
 try {
     Gollem::changeDir();
@@ -34,6 +29,14 @@ try {
     $notification->push($e);
 }
 $old_dir = Gollem::$backend['dir'];
+
+/* Get permissions. */
+$delete_perms = Gollem::checkPermissions('backend', Horde_Perms::DELETE) &&
+    Gollem::checkPermissions('directory', Horde_Perms::DELETE, Gollem::$backend['dir']);
+$edit_perms = Gollem::checkPermissions('backend', Horde_Perms::EDIT) &&
+    Gollem::checkPermissions('directory', Horde_Perms::EDIT, Gollem::$backend['dir']);
+$read_perms = Gollem::checkPermissions('backend', Horde_Perms::READ) &&
+    Gollem::checkPermissions('directory', Horde_Perms::READ, Gollem::$backend['dir']);
 
 /* Get VFS object. */
 $gollem_vfs = $injector->getInstance('Gollem_Vfs');
@@ -45,7 +48,7 @@ case 'create_folder':
         try {
             Gollem::createFolder($old_dir, $vars->new_folder);
             $notification->push(_("New folder created: ") . $vars->new_folder, 'horde.success');
-        } catch (Gollem_Exception $e) {
+        } catch (Horde_Exception $e) {
             $notification->push($e, 'horde.error');
         }
     }
@@ -60,7 +63,7 @@ case 'rename_items':
                 try {
                     Gollem::renameItem($old_dir, $old[$i], $old_dir, $new[$i]);
                     $notification->push(sprintf(_("\"%s\" renamed to \"%s\""), $old[$i], $new[$i]), 'horde.success');
-                } catch (Gollem_Exception $e) {
+                } catch (Horde_Exception $e) {
                     $notification->push($e, 'horde.error');
                 }
             }
@@ -78,7 +81,7 @@ case 'delete_items':
                     Gollem::changePermissions(Gollem::$backend['dir'], $item, $vars->chmod);
                     Gollem::expireCache($old_dir);
                     $notification->push(_("Chmod done: ") . $item, 'horde.success');
-                } catch (Gollem_Exception $e) {
+                } catch (Horde_Exception $e) {
                     $notification->push(sprintf(_("Cannot chmod %s: %s"), $item, $e->getMessage()), 'horde.error');
                 }
             } elseif ($vars->actionID == 'delete_items') {
@@ -87,7 +90,7 @@ case 'delete_items':
                         Gollem::deleteFolder($old_dir, $item);
                         Gollem::expireCache($old_dir);
                         $notification->push(_("Folder removed: ") . $item, 'horde.success');
-                    } catch (Gollem_Exception $e) {
+                    } catch (Horde_Exception $e) {
                         $notification->push(sprintf(_("Unable to delete folder %s: %s"), $item, $e->getMessage()), 'horde.error');
                     }
                 } else {
@@ -95,7 +98,7 @@ case 'delete_items':
                         Gollem::deleteFile($old_dir, $item);
                         Gollem::expireCache($old_dir);
                         $notification->push(_("File deleted: ") . $item, 'horde.success');
-                    } catch (Gollem_Exception $e) {
+                    } catch (Horde_Exception $e) {
                         $notification->push(sprintf(_("Unable to delete file %s: %s"), $item, $e->getMessage()), 'horde.error');
                     }
                 }
@@ -116,9 +119,7 @@ case 'upload_file':
                     Gollem::writeFile($old_dir, $filename, $_FILES[$val]['tmp_name']);
                     Gollem::expireCache($old_dir);
                     $notification->push(sprintf(_("File received: %s"), $filename), 'horde.success');
-                } catch (Horde_Browser_Exception $e) {
-                    $notification->push($e, 'horde.error');
-                } catch (Gollem_Exception $e) {
+                } catch (Horde_Exception $e) {
                     $notification->push($e, 'horde.error');
                 }
             }
@@ -203,14 +204,14 @@ case 'change_sortdir':
  * etc., to make sure we can catch any errors. */
 try {
     $list = Gollem::listFolder(Gollem::$backend['dir']);
-} catch (Gollem_Exception $e) {
+} catch (Horde_Exception $e) {
     /* If this is a user's home directory, try autocreating it. */
     if (Gollem::$backend['dir'] == Gollem::$backend['home']) {
         try {
             Gollem::createFolder('', Gollem::$backend['dir']);
             try {
                 $list = Gollem::listFolder(Gollem::$backend['dir']);
-            } catch (Gollem_Exception $e) {
+            } catch (Horde_Exception $e) {
                 /* If that didn't work, fall back to the parent or the home
                  * directory. */
                 $notification->push(sprintf(_("Permission denied to folder \"%s\": %s"), Gollem::$backend['dir'], $e->getMessage()), 'horde.error');
@@ -219,7 +220,7 @@ try {
                 Gollem::setDir(($loc !== false) ? substr(Gollem::$backend['dir'], 0, $loc) : Gollem::$backend['home']);
                 $list = Gollem::listFolder(Gollem::$backend['dir']);
             }
-        } catch (Gollem_Exception $e) {
+        } catch (Horde_Exception $e) {
             $notification->push(sprintf(_("Cannot create home directory: %s"), $created->getMessage()), 'horde.error');
         }
     }
@@ -274,7 +275,7 @@ foreach (array('owner', 'group', 'all') as $val) {
     }
 }
 
-$all_columns = array('type', 'name', 'edit', 'download', 'modified', 'size', 'permission', 'owner', 'group');
+$all_columns = array('type', 'name', 'share', 'edit', 'download', 'modified', 'size', 'permission', 'owner', 'group');
 foreach ($all_columns as $column) {
     $template->set('columns_' . $column, in_array($column, $columns), true);
 }
@@ -291,6 +292,15 @@ $template->set('refresh', Horde::link($refresh_url, sprintf("%s %s", _("Refresh"
 $template->set('hasclipboard', $edit_perms);
 if ($template->get('hasclipboard') && !empty($clipboard)) {
     $template->set('clipboard', Horde::link(Horde::url('clipboard.php')->add('dir', Gollem::$backend['dir']), _("View Clipboard")));
+}
+
+$shares_enabled = !empty(Gollem::$backend['shares']) &&
+    strpos(Gollem::$backend['dir'], Gollem::$backend['home']) === 0;
+if ($shares_enabled) {
+    $shares = $injector->getInstance('Gollem_Shares');
+    $perms_url_base = Horde::url('share.php', true)->add('app', 'gollem');
+    $share_name = $backkey . '|' . Gollem::$backend['dir'];
+    $template->set('share_folder', $perms_url_base->add('share', $share_name)->link(array('title' => _("Share Folder"), 'target' => '_blank', 'onclick' => Horde::popupJs($perms_url_base, array('params' => array('share' => $share_name), 'urlencode' => true)) . 'return false;')));
 }
 
 if ($edit_perms) {
@@ -316,6 +326,8 @@ if ($numitem) {
 } else {
     $template->set('list_count', false, true);
 }
+
+$template->set('actions', $edit_perms | $perms_delete);
 
 $icon_cache = array();
 $total = 0;
@@ -382,8 +394,17 @@ if (is_array($list) && $numitem && $read_perms) {
         /* Create proper link. */
         switch ($val['type']) {
         case '**dir':
-            $url = $manager_url->copy()->add('dir', Gollem::subdirectory(Gollem::$backend['dir'], $val['name']));
-            $item['link'] = $url->link() . '<strong>' . $name . '</strong></a>';
+            $subdir = Gollem::subdirectory(Gollem::$backend['dir'], $val['name']);
+            if (!Gollem::checkPermissions('directory', Horde_Perms::SHOW, $subdir)) {
+                continue 2;
+            }
+            $item['link'] = $manager_url->copy()->add('dir', $subdir)->link()
+                . '<strong>' . $name . '</strong></a>';
+            if ($shares_enabled) {
+                $share = $backkey . '|' . $subdir;
+                $item['share'] = $perms_url_base->add('share', $share)->link(array('title' => $shares->exists($share) ? _("Shared Folder") : _("Share Folder"), 'target' => '_blank', 'onclick' => Horde::popupJs($perms_url_base, array('params' => array('share' => $share), 'urlencode' => true)) . 'return false;'));
+                $item['share_disabled'] = !$shares->exists($share);
+            }
             break;
 
         case '**broken':
@@ -480,6 +501,12 @@ if (is_array($list) && $numitem && $read_perms) {
             $hdr['align'] = 'left';
             $hdr['id'] = 's' . Gollem::SORT_NAME;
             $sort = Gollem::SORT_NAME;
+            break;
+
+        case 'share':
+            $hdr['width'] = '1%';
+            $hdr['label'] = '&nbsp;';
+            $hdr['align'] = 'center';
             break;
 
         case 'edit':
