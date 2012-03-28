@@ -203,9 +203,17 @@
         growl: function(msg, options)
         {
             options = options || {};
-            var notice, noticeExit, log, logExit, tmp,
+            var exists, notice, noticeExit, log, logExit, tmp,
                 opts = Object.clone(noticeOptions);
             Object.extend(opts, options);
+
+            /* Check if sticky notice with same message already exists. */
+            exists = this.growler.select('> .GrowlerSticky').detect(function(n) {
+                return (n.down('.GrowlerNoticeBody').textContent == msg);
+            });
+            if (exists) {
+                return;
+            }
 
             if (opts.log && this.growlerlog) {
                 tmp = this.growlerlog.down('DIV UL');
@@ -238,7 +246,9 @@
 
             new Effect.Opacity(notice, { to: opts.opacity, duration: opts.speedin });
 
-            if (!opts.sticky) {
+            if (opts.sticky) {
+                notice.addClassName('GrowlerSticky');
+            } else {
                 removeNotice.delay(opts.life, notice, opts);
             }
 
