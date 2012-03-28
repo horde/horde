@@ -1645,15 +1645,20 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
     /**
      * Sends this message.
      *
-     * @param string $email                The address list to send to.
-     * @param Horde_Mime_Headers $headers  The Horde_Mime_Headers object
-     *                                     holding this message's headers.
-     * @param Horde_Mail_Transport $mailer A Horde_Mail_Transport object.
+     * @param string $email                 The address list to send to.
+     * @param Horde_Mime_Headers $headers   The Horde_Mime_Headers object
+     *                                      holding this message's headers.
+     * @param Horde_Mail_Transport $mailer  A Horde_Mail_Transport object.
+     * @param array $opts                   Additional options:
+     *   - encode: (integer) The encoding to use. A mask of self::ENCODE_*
+     *             values.
+     *             DEFAULT: Auto-determined based on transport driver.
      *
      * @throws Horde_Mime_Exception
      * @throws InvalidArgumentException
      */
-    public function send($email, $headers, Horde_Mail_Transport $mailer)
+    public function send($email, $headers, Horde_Mail_Transport $mailer,
+                         array $opts = array())
     {
         $old_basepart = $this->_basepart;
         $this->_basepart = true;
@@ -1662,16 +1667,21 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
          * BINARYMIME (RFC 3030) extensions? Requires Net_SMTP version
          * 1.3+. */
         $encode = self::ENCODE_7BIT;
-        if ($mailer instanceof Horde_Mail_Transport_Smtp) {
-            try {
-                $smtp_ext = $mailer->getSMTPObject()->getServiceExtensions();
-                if (isset($smtp_ext['8BITMIME'])) {
-                    $encode |= self::ENCODE_8BIT;
-                }
-                if (isset($smtp_ext['BINARYMIME'])) {
-                    $encode |= self::ENCODE_BINARY;
-                }
-            } catch (Horde_Mail_Exception $e) {}
+        if (array_key_exists($opts['encode'])) {
+            /* Always allow 7bit encoding. */
+            $encode |= $opts['encode'];
+        } else {
+            if ($mailer instanceof Horde_Mail_Transport_Smtp) {
+                try {
+                    $smtp_ext = $mailer->getSMTPObject()->getServiceExtensions();
+                    if (isset($smtp_ext['8BITMIME'])) {
+                        $encode |= self::ENCODE_8BIT;
+                    }
+                    if (isset($smtp_ext['BINARYMIME'])) {
+                        $encode |= self::ENCODE_BINARY;
+                    }
+                } catch (Horde_Mail_Exception $e) {}
+            }
         }
 
         $msg = $this->toString(array(
