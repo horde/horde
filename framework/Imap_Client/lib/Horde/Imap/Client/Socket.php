@@ -155,7 +155,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $this->_sendLine('CAPABILITY');
         }
 
-        return $this->_init['capability'];
+        return isset($this->_init['capability'])
+            ? $this->_init['capability']
+            : array();
     }
 
     /**

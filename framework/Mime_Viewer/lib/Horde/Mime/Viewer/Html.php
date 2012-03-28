@@ -180,6 +180,14 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Base
         }
 
         switch (strtolower($node->tagName)) {
+        case 'a':
+            /* Strip whitespace from href links. This is bad HTML, but may
+             * prevent viewing of the link. */
+            if ($node->hasAttribute('href')) {
+                $node->setAttribute('href', trim($node->getAttribute('href')));
+            }
+            break;
+
         case 'base':
             /* Deal with <base> tags in the HTML, since they will screw up our
              * own relative paths. */

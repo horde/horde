@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Kolab_Storage\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-09-20 13:49+0200\n"
+"POT-Creation-Date: 2012-01-17 12:38+0100\n"
 "PO-Revision-Date: 2011-06-12 19:38-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -145,8 +145,8 @@ msgstr "Falha ao obter informação de status para a pasta %s%s. Erro: %s"
 msgid "Failed retrieving structure of message %s in folder %s. Error: %s"
 msgstr "Falha ao obter estrutura da mensagem %s na pasta %s. Erro: %s"
 
-#: lib/Horde/Kolab/Storage/Folder/Base.php:843
-#: lib/Horde/Kolab/Storage/Folder/Base.php:849
+#: lib/Horde/Kolab/Storage/Folder/Base.php:842
+#: lib/Horde/Kolab/Storage/Folder/Base.php:848
 #, php-format
 msgid "Failed retrieving the message with ID %s. Original error: %s."
 msgstr "Falha ao obter a mensagem com ID %s. Erro original: %s."
@@ -157,7 +157,7 @@ msgstr "Falha ao obter a mensagem com ID %s. Erro original: %s."
 msgid "Failed setting ACL on folder %s for user %s to %s. Error: %s"
 msgstr "Falha ao definir ACL na pasta %s para o usuário %s para %s. Erro: %s"
 
-#: lib/Horde/Kolab/Storage/Folder/Decorator/Trigger.php:228
+#: lib/Horde/Kolab/Storage/Folder/Decorator/Trigger.php:224
 #, php-format
 msgid "Failed triggering folder %s. Error was: %s"
 msgstr "Falha ao acionar pasta %s. Erro foi: %s"
@@ -171,7 +171,7 @@ msgstr ""
 "Parâmetro de \"driver\" inválido \"%s\". Por favor use um desses \"mock\", "
 "\"php\", \"pear\", \"horde\", \"horde-php\", e \"roundcube\"!"
 
-#: lib/Horde/Kolab/Storage/Factory.php:244
+#: lib/Horde/Kolab/Storage/Factory.php:243
 #, php-format
 msgid "Invalid \"namespace\" type \"%s\"!"
 msgstr "Tipo de \"namespace\" inválido \"%s\"!"
@@ -239,7 +239,7 @@ msgstr "Definindo anotação %s[%s] na pasta %s para %s falhou. Erro: %s"
 msgid "Setting annotation %s[%s] on folder %s%s to %s failed. Error: %s"
 msgstr "Definindo anotação %s[%s] na pasta %s%s para %s falhou. Erro: %s"
 
-#: lib/Horde/Kolab/Storage/Data/Base.php:260
+#: lib/Horde/Kolab/Storage/Data/Base.php:259
 #, php-format
 msgid ""
 "The message with ID %s does not exist. This probably means that the Kolab "
@@ -250,7 +250,7 @@ msgstr ""
 "Kolan foi modificado por alguém desde que você obteve o objeto da estrutura. "
 "Erro original: %s"
 
-#: lib/Horde/Kolab/Storage/Folder/Base.php:682
+#: lib/Horde/Kolab/Storage/Folder/Base.php:681
 #, php-format
 msgid ""
 "The message with ID %s does not exist. This probably means that the Kolab "
@@ -261,7 +261,7 @@ msgstr ""
 "Kolab foi modificado por alguém enquanto você o editava. Suas edições foram "
 "perdidas."
 
-#: lib/Horde/Kolab/Storage/Data/Format/Mime.php:217
+#: lib/Horde/Kolab/Storage/Data/Format/Mime.php:216
 #, php-format
 msgid ""
 "This is a Kolab Groupware object. To view this object you will need an email "
@@ -272,12 +272,12 @@ msgstr ""
 "de um cliente de correio que entenda o formato Kolab Groupware. Para uma "
 "lista de clientes de correio com estas funções por favor visite %s"
 
-#: lib/Horde/Kolab/Storage/Folder/Base.php:365
+#: lib/Horde/Kolab/Storage/Folder/Base.php:364
 #, php-format
 msgid "Unable to rename %s to %s: destination folder already exists"
 msgstr "Impossível renomear %s para %s: a pasta de destino já existe"
 
-#: lib/Horde/Kolab/Storage/Folder/Decorator/Trigger.php:261
+#: lib/Horde/Kolab/Storage/Folder/Decorator/Trigger.php:257
 #, php-format
 msgid "Unable to trigger URL %s. Response: %s"
 msgstr "Impossível acionar a URL %s. Resposta: %s"

@@ -649,7 +649,7 @@
    <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Inherit details from wrapped exception.
    </notes>
   </release>
  </changelog>

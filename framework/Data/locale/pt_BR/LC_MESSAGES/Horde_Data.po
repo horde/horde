@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Data\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2012-02-22 11:20+0100\n"
+"PO-Revision-Date: 2012-03-27 22:56-0300\n"
+"Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -17,10 +17,34 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+#: lib/Horde/Data/Csv.php:98
+msgid "Cannot open file."
+msgstr "Impossível abrir arquivo."
+
 #: lib/Horde/Data/Tsv.php:222
 msgid "TSV file"
 msgstr "Arquivo TSV"
 
-#: lib/Horde/Data/Base.php:281
+#: lib/Horde/Data/Base.php:279
 msgid "The file contained no data."
 msgstr "O arquivo não contém dados."
+
+#: lib/Horde/Data/Base.php:339
+msgid "The uploaded data was lost since the previous step."
+msgstr "Os dados enviados foram perdidos desde a etapa anterior."
+
+#: lib/Horde/Data/Csv.php:230 lib/Horde/Data/Tsv.php:228
+msgid "The uploaded file could not be saved."
+msgstr "Não foi possível gravar o arquivo enviado."
+
+#: lib/Horde/Data/Imc.php:32
+msgid "There was an error importing the iCalendar data."
+msgstr "Houve um erro ao importar os dados do iCalendar."
+
+#: lib/Horde/Data/Base.php:286
+msgid ""
+"You didn\\'t map any fields from the imported file to the corresponding "
+"fields."
+msgstr ""
+"Você não mapeou nenhum campo do arquivo importado para os campos "
+"correspondentes."
