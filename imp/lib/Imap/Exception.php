@@ -53,23 +53,23 @@ class IMP_Imap_Exception extends Horde_Imap_Client_Exception
         $e = $this;
 
         switch ($this->getCode()) {
-        case Horde_Imap_Client_Exception::LOGIN_AUTHENTICATIONFAILED:
-        case Horde_Imap_Client_Exception::LOGIN_AUTHORIZATIONFAILED:
+        case self::LOGIN_AUTHENTICATIONFAILED:
+        case self::LOGIN_AUTHORIZATIONFAILED:
             $code = Horde_Auth::REASON_BADLOGIN;
             break;
 
-        case Horde_Imap_Client_Exception::LOGIN_EXPIRED:
+        case self::LOGIN_EXPIRED:
             $code = Horde_Auth::REASON_EXPIRED;
             break;
 
-        case Horde_Imap_Client_Exception::SERVER_CONNECT:
-        case Horde_Imap_Client_Exception::LOGIN_UNAVAILABLE:
+        case self::SERVER_CONNECT:
+        case self::LOGIN_UNAVAILABLE:
             $code = Horde_Auth::REASON_MESSAGE;
             break;
 
-        case Horde_Imap_Client_Exception::LOGIN_NOAUTHMETHOD:
-        case Horde_Imap_Client_Exception::LOGIN_PRIVACYREQUIRED:
-        case Horde_Imap_Client_Exception::LOGIN_TLSFAILURE:
+        case self::LOGIN_NOAUTHMETHOD:
+        case self::LOGIN_PRIVACYREQUIRED:
+        case self::LOGIN_TLSFAILURE:
         default:
             $code = Horde_Auth::REASON_FAILED;
             break;
