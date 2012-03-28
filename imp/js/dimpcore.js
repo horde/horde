@@ -68,6 +68,169 @@ var DimpCore = {
         return tmp;
     },
 
+    // params: (Hash)
+    addRequestParams: function(params)
+    {
+        if (DIMP.conf.SESSION_ID) {
+            params.update(DIMP.conf.SESSION_ID.toQueryParams());
+        }
+    },
+
+    doActionComplete: function(request, callback)
+    {
+        this.inAjaxCallback = true;
+
+        if (!request.responseJSON) {
+            if (++this.server_error == 3) {
+                this.showNotifications([ { type: 'horde.error', message: DIMP.text.ajax_timeout } ]);
+            }
+            if (request.request) {
+                request.request.options.onFailure(request, {});
+            }
+            this.inAjaxCallback = false;
+            return;
+        }
+
+        var r = request.responseJSON;
+
+        if (!r.msgs) {
+            r.msgs = [];
+        }
+
+        if (r.response && Object.isFunction(callback)) {
+            try {
+                callback(r);
+            } catch (e) {
+                this.debug('doActionComplete', e);
+            }
+        }
+
+        if (this.server_error >= 3) {
+            r.msgs.push({ type: 'horde.success', message: DIMP.text.ajax_recover });
+        }
+        this.server_error = 0;
+
+        this.showNotifications(r.msgs);
+
+        if (r.response && this.onDoActionComplete) {
+            this.onDoActionComplete(r.response);
+        }
+
+        this.inAjaxCallback = false;
+    },
+
+    showNotifications: function(msgs)
+    {
+        if (!msgs.size() || this.is_logout) {
+            return;
+        }
+
+        msgs.find(function(m) {
+            if (!Object.isString(m.message)) {
+                return;
+            }
+
+            switch (m.type) {
+            case 'horde.ajaxtimeout':
+                this.logout(m.message);
+                return true;
+
+            case 'horde.alarm':
+                var alarm = m.flags.alarm;
+                // Only show one instance of an alarm growl.
+                if (this.alarms.include(alarm.id)) {
+                    break;
+                }
+
+                this.alarms.push(alarm.id);
+
+                var message = alarm.title.escapeHTML();
+                if (alarm.params && alarm.params.notify) {
+                    if (alarm.params.notify.url) {
+                        message = new Element('a', { href: alarm.params.notify.url })
+                            .insert(message);
+                    }
+                    if (alarm.params.notify.sound) {
+                        Sound.play(alarm.params.notify.sound);
+                    }
+                }
+                message = new Element('div')
+                    .insert(message);
+                if (alarm.params && alarm.params.notify &&
+                    alarm.params.notify.subtitle) {
+                    message.insert(new Element('br')).insert(alarm.params.notify.subtitle);
+                }
+                if (alarm.user) {
+                    var select = '<select>';
+                    $H(DIMP.conf.snooze).each(function(snooze) {
+                        select += '<option value="' + snooze.key + '">' + snooze.value + '</option>';
+                    });
+                    select += '</select>';
+                    message.insert('<br /><br />' + DIMP.text.snooze.interpolate({ time: select, dismiss_start: '<input type="button" value="', dismiss_end: '" class="button ko" />' }));
+                }
+                var growl = this.Growler.growl(message, {
+                    className: 'horde-alarm',
+                    log: false,
+                    sticky: true
+                });
+                growl.store('alarm', alarm.id);
+
+                document.observe('Growler:destroyed', function(e) {
+                    var id = e.element().retrieve('alarm');
+                    if (id) {
+                        this.alarms = this.alarms.without(id);
+                    }
+                }.bindAsEventListener(this));
+
+                if (alarm.user) {
+                    message.down('select').observe('change', function(e) {
+                        if (e.element().getValue()) {
+                            this.Growler.ungrowl(growl);
+                            new Ajax.Request(
+                                DIMP.conf.URI_SNOOZE,
+                                { parameters: { alarm: alarm.id,
+                                                snooze: e.element().getValue() } });
+                        }
+                    }.bindAsEventListener(this))
+                    .observe('click', function(e) {
+                        e.stop();
+                    });
+                    message.down('input[type=button]').observe('click', function(e) {
+                        new Ajax.Request(
+                            DIMP.conf.URI_SNOOZE,
+                            { parameters: { alarm: alarm.id,
+                                            snooze: -1 } });
+                    }.bindAsEventListener(this));
+                }
+                break;
+
+            case 'horde.error':
+            case 'horde.message':
+            case 'horde.success':
+            case 'horde.warning':
+                this.Growler.growl(
+                    m.flags && m.flags.include('content.raw')
+                        ? m.message.replace(new RegExp('<a href="([^"]+)"'), '<a href="#" onclick="(function(){var base=DimpCore.base?DimpCore.base.DimpBase:DimpBase;base.go(\'app\',{app:null,data:\'$1\'});})();return false;"')
+                        : m.message.escapeHTML(),
+                    {
+                        className: m.type.replace('.', '-'),
+                        life: (m.type == 'horde.error' ? 12 : 8),
+                        log: 1
+                    });
+                break;
+
+            case 'imp.reply':
+            case 'imp.forward':
+            case 'imp.redirect':
+                this.Growler.growl(m.message.escapeHTML(), {
+                    className: m.type.replace('.', '-'),
+                    life: 8
+                });
+                break;
+            }
+        }, this);
+    },
+
     compose: function(type, args)
     {
         var params = {};
