@@ -264,8 +264,11 @@ var ImpSearch = {
     updateDate: function(id, elt, data)
     {
         if (data) {
-            elt.down('SPAN').update(this.data.months[data.getMonth()] + ' ' + data.getDate() + ', ' + (data.getYear() + 1900));
+            elt.down('SPAN').update(this.data.months[data.getMonth()] + ' ' + data.getDate() + ', ' + data.getFullYear());
             elt.down('A.dateReset').show();
+
+            // Convert Date object to a UTC object, since JSON outputs in UTC.
+            data = new Date(Date.UTC(data.getFullYear(), data.getMonth(), data.getDate()));
         } else {
             elt.down('SPAN').update('-----');
             elt.down('A.dateReset').hide();
@@ -273,7 +276,8 @@ var ImpSearch = {
 
         // Need to store date information at all times in criteria, since
         // there is no other way to track this information (there is no
-        // form field for this type).
+        // form field for this type). Also, convert Date object to a UTC
+        // object, since JSON outputs in UTC.
         if (!this.criteria[id]) {
             this.criteria[id] = { t: 'date_range' };
         }
