@@ -1680,7 +1680,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
          * BINARYMIME (RFC 3030) extensions? Requires Net_SMTP version
          * 1.3+. */
         $encode = self::ENCODE_7BIT;
-        if (array_key_exists($opts['encode'])) {
+        if (isset($opts['encode'])) {
             /* Always allow 7bit encoding. */
             $encode |= $opts['encode'];
         } else {
