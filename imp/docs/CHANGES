@@ -2,6 +2,7 @@
 v5.0.20-git
 -----------
 
+[mms] Fix internal storage of date searches (Bug #11109).
 [mms] Fix regression in sending PGP encrypted messages (Bug #11085).
 [mms] Only poll mailboxes in dynamic view that exist in the browser folder
       tree.

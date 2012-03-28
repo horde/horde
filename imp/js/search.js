@@ -233,10 +233,6 @@ var ImpSearch = {
 
     insertDate: function(id, data)
     {
-        if (!data) {
-            data = new Date();
-        }
-
         var tmp = [
                 new Element('EM').insert(this.getCriteriaLabel(id)),
                 new Element('SPAN').insert(new Element('SPAN')).insert(new Element('A', { href: '#', className: 'calendarPopup', title: this.text.dateselection }).insert(new Element('SPAN', { className: 'iconImg searchuiImg calendarImg' })))
@@ -246,11 +242,16 @@ var ImpSearch = {
 
     replaceDate: function(id, type, d)
     {
-        $(id).down('SPAN SPAN').update(this.data.months[d.getMonth()] + ' ' + d.getDate() + ', ' + (d.getYear() + 1900));
+        if (!d) {
+            d = new Date();
+        }
+
+        $(id).down('SPAN SPAN').update(this.data.months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear());
         // Need to store date information at all times in criteria, since we
         // have no other way to track this information (there is no form
-        // field for this type).
-        this.criteria[id] = { t: type, v: d };
+        // field for this type). Also, convert Date object to a UTC object,
+        // since JSON outputs in UTC.
+        this.criteria[id] = { t: type, v: new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate())) };
     },
 
     insertWithin: function(id, data)
