@@ -884,8 +884,14 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     {
         $email = $this->_prepSendMessage($email, $message);
 
+        $opts = array();
+        if ($this->getMetadata('encrypt_sign')) {
+            /* Signing requires that the body not be altered in transport. */
+            $opts['encode'] = Horde_Mime_Part::ENCODE_7BIT;
+        }
+
         try {
-            $message->send($email, $headers, $GLOBALS['injector']->getInstance('IMP_Mail'));
+            $message->send($email, $headers, $GLOBALS['injector']->getInstance('IMP_Mail'), $opts);
         } catch (Horde_Mime_Exception $e) {
             throw new IMP_Compose_Exception($e);
         }
@@ -1335,12 +1341,16 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                 switch ($encrypt) {
                 case IMP_Crypt_Pgp::SIGN:
                     $base = $imp_pgp->impSignMimePart($base);
+                    $this->_metadata['encrypt_sign'] = true;
                     break;
 
-                case IMP_Crypt_Pgp::ENCRYPT:
                 case IMP_Crypt_Pgp::SIGNENC:
-                case IMP_Crypt_Pgp::SYM_ENCRYPT:
                 case IMP_Crypt_Pgp::SYM_SIGNENC:
+                    $this->_metadata['encrypt_sign'] = true;
+                    // Fall-through
+
+                case IMP_Crypt_Pgp::ENCRYPT:
+                case IMP_Crypt_Pgp::SYM_ENCRYPT:
                     $to_list = empty($options['from'])
                         ? array()
                         : array($options['from']);
@@ -1382,6 +1392,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                 switch ($encrypt) {
                 case IMP_Crypt_Smime::SIGN:
                     $base = $imp_smime->IMPsignMIMEPart($base);
+                    $this->_metadata['encrypt_sign'] = true;
                     break;
 
                 case IMP_Crypt_Smime::ENCRYPT:
@@ -1390,6 +1401,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 
                 case IMP_Crypt_Smime::SIGNENC:
                     $base = $imp_smime->IMPsignAndEncryptMIMEPart($base, $to[0]);
+                    $this->_metadata['encrypt_sign'] = true;
                     break;
                 }
             } catch (Horde_Exception $e) {

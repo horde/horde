@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Ensure that PGP &amp; S/MIME signed message bodies are not altered after the signature is calculated (Bug #11058).
 * [mms] Fix internal storage of date searches (Bug #11109).
 * [mms] Fix regression in sending PGP encrypted messages (Bug #11085).
 * [mms] Only poll mailboxes in dynamic view that exist in the browser folder tree.
@@ -1281,7 +1282,7 @@
    <package>
     <name>Horde_Mime</name>
     <channel>pear.horde.org</channel>
-    <min>1.4.0</min>
+    <min>1.6.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -2692,6 +2693,7 @@
    <date>2012-02-28</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Ensure that PGP &amp; S/MIME signed message bodies are not altered after the signature is calculated (Bug #11058).
 * [mms] Fix internal storage of date searches (Bug #11109).
 * [mms] Fix regression in sending PGP encrypted messages (Bug #11085).
 * [mms] Only poll mailboxes in dynamic view that exist in the browser folder tree.
