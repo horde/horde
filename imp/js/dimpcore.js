@@ -203,7 +203,6 @@ var DimpCore = {
                 }
                 var growl = this.Growler.growl(message, {
                     className: 'horde-alarm',
-                    life: 8,
                     log: false,
                     sticky: true
                 });
