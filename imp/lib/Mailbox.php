@@ -767,7 +767,7 @@ class IMP_Mailbox implements Serializable
         try {
             $injector->getInstance('IMP_Factory_Imap')->create()->createMailbox($this->_mbox, array('special_use' => $special_use));
         } catch (IMP_Imap_Exception $e) {
-            if ($e->getCode() == Horde_Imap_Client_Exception::USEATTR) {
+            if ($e->getCode() == $e::USEATTR) {
                 unset($opts['special_use']);
                 return $this->create($opts);
             }
