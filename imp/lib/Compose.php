@@ -1344,13 +1344,10 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                     $this->_metadata['encrypt_sign'] = true;
                     break;
 
-                case IMP_Crypt_Pgp::SIGNENC:
-                case IMP_Crypt_Pgp::SYM_SIGNENC:
-                    $this->_metadata['encrypt_sign'] = true;
-                    // Fall-through
-
                 case IMP_Crypt_Pgp::ENCRYPT:
+                case IMP_Crypt_Pgp::SIGNENC:
                 case IMP_Crypt_Pgp::SYM_ENCRYPT:
+                case IMP_Crypt_Pgp::SYM_SIGNENC:
                     $to_list = empty($options['from'])
                         ? array()
                         : array($options['from']);
@@ -1401,7 +1398,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 
                 case IMP_Crypt_Smime::SIGNENC:
                     $base = $imp_smime->IMPsignAndEncryptMIMEPart($base, $to[0]);
-                    $this->_metadata['encrypt_sign'] = true;
                     break;
                 }
             } catch (Horde_Exception $e) {
