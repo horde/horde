@@ -47,6 +47,9 @@ class Horde_Core_Log_Logger extends Horde_Log_Logger
                 $priority = Horde_Log::ERR;
             }
             $text = $event->getMessage();
+            if (!empty($event->details)) {
+                $text .= ' ' . $event->details;
+            }
             $trace = array(
                 'file' => $event->getFile(),
                 'line' => $event->getLine()
