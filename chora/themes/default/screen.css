@@ -23,7 +23,7 @@ div.options div, div.browsefileoptions div {
     vertical-align: top;
 }
 div.browsefileoptions div {
-    width: 31.3%;
+    min-width: 33.3%;
 }
 div.options em, div.browsefileoptions em {
     margin-top: 4px;
