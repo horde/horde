@@ -43,14 +43,9 @@ foreach ($fl->getTags() as $sm => $rv) {
     $sel .= '<option value="' . $rv . '">' . $sm . '</option>';
 }
 
-$selAllBranches = '';
+$branches = array();
 if ($VC->hasFeature('branches')) {
-    foreach (array_keys($fl->getBranches()) as $sym) {
-        $selAllBranches .= '<option value="' . $sym . '"' . (($sym === $onb) ? ' selected="selected"' : '' ) . '>' . $sym . '</option>';
-    }
-    if (!empty($selAllBranches)) {
-        $selAllBranches = '<option></option>' . $selAllBranches;
-    }
+    $branches = $fl->getBranches();
 }
 
 Horde::addScriptFile('revlog.js', 'chora');
