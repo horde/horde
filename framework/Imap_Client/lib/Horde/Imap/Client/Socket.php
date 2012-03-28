@@ -1427,11 +1427,25 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         try {
             $this->_sendLine($cmd);
         } catch (Horde_Imap_Client_Exception $e) {
+            switch ($e->getCode()) {
+            case $e::CATENATE_BADURL:
+            case $e::CATENATE_TOOBIG:
+                /* Cyrus 2.4 (at least as of .14) has a broken CATENATE (see
+                 * Bug #11111). Regardless, if CATENATE is broken, we can try
+                 * to fallback to APPEND. */
+                $cap = $this->capability();
+                unset($cap['CATENATE']);
+                $this->_setInit('capability', $cap);
+
+                return $this->_append($mailbox, $data, $options);
+            }
+
             if (!empty($options['create']) && $this->_temp['trycreate']) {
                 $this->createMailbox($mailbox);
                 unset($options['create']);
                 return $this->_append($mailbox, $data, $options);
             }
+
             throw $e;
         }
 
