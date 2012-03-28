@@ -31,7 +31,9 @@ var DimpCompose = {
                 ? $F('composeCacheRedirect')
                 : $F('composeCache');
 
-            DimpCore.doAction(DIMP.conf.auto_save_interval_val ? 'deleteDraft' : 'cancelCompose', { imp_compose: cc }, { ajaxopts: { asynchronous: DIMP.conf.qreply } });
+            DimpCore.doAction('cancelCompose', {
+                imp_compose: cc
+            });
             this.updateDraftsMailbox();
             return this.closeCompose();
         }
@@ -58,13 +60,9 @@ var DimpCompose = {
 
     closeQReply: function()
     {
-        var al = $('attach_list').childElements();
         this.md5_hdrs = this.md5_msg = this.md5_msgOrig = '';
 
-        if (al.size()) {
-            this.removeAttach(al);
-        }
-
+        $('attach_list').hide().childElements().invoke('remove');
         $('composeCache').clear();
         $('qreply', 'sendcc', 'sendbcc').compact().invoke('hide');
         $('noticerow').down('UL.notices').childElements().invoke('hide');

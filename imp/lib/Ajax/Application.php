@@ -1370,22 +1370,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      */
     public function cancelCompose()
     {
-        $imp_compose = $GLOBALS['injector']->getInstance('IMP_Factory_Compose')->create($this->_vars->imp_compose);
-        $imp_compose->destroy('cancel');
-
-        return true;
-    }
-
-    /**
-     * AJAX action: Delete a draft.
-     *
-     * Variables used:
-     *   - imp_compose: (string) The IMP_Compose cache identifier.
-     *
-     * @return boolean  True.
-     */
-    public function deleteDraft()
-    {
         $GLOBALS['injector']->getInstance('IMP_Factory_Compose')->create($this->_vars->imp_compose)->destroy('cancel');
         return true;
     }
