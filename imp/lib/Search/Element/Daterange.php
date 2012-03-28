@@ -89,28 +89,28 @@ class IMP_Search_Element_Daterange extends IMP_Search_Element
         if (empty($this->_date->e)) {
             return sprintf(
                 _("After '%s'"),
-                strftime('%x', $this->_data->b)
+                gmstrftime('%x', $this->_data->b)
             );
         }
 
         if (empty($this->_date->b)) {
             return sprintf(
                 _("Before '%s'"),
-                strftime('%x', $this->_data->e)
+                gmstrftime('%x', $this->_data->e)
             );
         }
 
         if ($this->_date->b == $this->_date->e) {
             return sprintf(
                 _("On '%s'"),
-                strftime('%x', $this->_date->b)
+                gmstrftime('%x', $this->_date->b)
             );
         }
 
         return sprintf(
             _("Between '%s' and '%s'"),
-            strftime('%x', $this->_date->b),
-            strftime('%x', $this->_date->e)
+            gmstrftime('%x', $this->_date->b),
+            gmstrftime('%x', $this->_date->e)
         );
     }
 
