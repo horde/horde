@@ -525,8 +525,16 @@ class Hermes_Driver_Sql extends Hermes_Driver
             $values[] = $criteria['id'];
         }
         if (isset($criteria['client_id'])) {
-            $where[] = 'client_id = ?';
-            $values[] = $criteria['client_id'];
+            if (is_array($criteria['client_id'])) {
+                $where[] = 'client_id IN ('
+                    . implode(', ',
+                              array_fill(0, count($criteria['client_id']), '?'))
+                    . ')';
+                $values = array_merge($values, $criteria['client_id']);
+            } else {
+                $where[] = 'client_id = ?';
+                $values[] = $criteria['client_id'];
+            }
         }
         if (isset($criteria['active'])) {
             if ($criteria['active']) {
