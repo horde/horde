@@ -34,7 +34,7 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log_Base
         proc_close($resource);
 
         // @TODO use Commit, CommitDate, and Merge properties
-        $cmd = 'whatchanged --no-color --pretty=format:"%H%x00%P%x00%an <%ae>%x00%at%x00%d%x00%s%x00%b%n%x00" --no-abbrev -n 1 ' . escapeshellarg($this->_rev);
+        $cmd = 'whatchanged -m --no-color --pretty=format:"%H%x00%P%x00%an <%ae>%x00%at%x00%d%x00%s%x00%b%n%x00" --no-abbrev -n 1 ' . escapeshellarg($this->_rev);
         list($resource, $pipe) = $this->_rep->runCommand($cmd);
 
         $log = '';
@@ -47,7 +47,7 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log_Base
             throw new Horde_Vcs_Exception(
                 'Expected ' . $this->_rev . ', got ' . $fields[0]);
         }
-        // @TODO: More than 1 parent?
+
         $this->_parent = $fields[1];
         $this->_author = $fields[2];
         $this->_date = $fields[3];
@@ -68,7 +68,11 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log_Base
         // Build list of files in this revision. The format of these lines is
         // documented in the git diff-tree documentation:
         // http://www.kernel.org/pub/software/scm/git/docs/git-diff-tree.html
+        // @TODO: More than 1 parent? For now, stop after the first parent.
         while (!feof($pipe) && $line = fgets($pipe)) {
+            if ($line == "\n") {
+                break;
+            }
             if (!preg_match('/^:(\d+) (\d+) (\w+) (\w+) (.+)\t(.+)(\t(.+))?/', $line, $matches)) {
                 throw new Horde_Vcs_Exception('Unknown log line format: ' . $line);
             }
