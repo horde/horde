@@ -33,6 +33,13 @@ var DimpMessage = {
             func = 'getForwardData';
             break;
 
+        case 'forward_editasnew':
+            $('compose').show();
+            $('redirect').hide();
+            func = 'getResumeData';
+            type = 'editasnew';
+            break;
+
         case 'forward_redirect':
             $('compose').hide();
             $('redirect').show();
@@ -43,11 +50,13 @@ var DimpMessage = {
         $('msgData').hide();
         $('qreply').show();
 
-        DimpCore.doAction(func,
-                          { imp_compose: $F('composeCache'),
-                            type: type },
-                          { uids: ob,
-                            callback: this.msgTextCallback.bind(this) });
+        DimpCore.doAction(func, {
+            imp_compose: $F('composeCache'),
+            type: type
+        }, {
+            uids: ob,
+            callback: this.msgTextCallback.bind(this)
+        });
     },
 
     msgTextCallback: function(r)
@@ -264,6 +273,7 @@ var DimpMessage = {
         case 'ctx_forward_attach':
         case 'ctx_forward_body':
         case 'ctx_forward_both':
+        case 'ctx_forward_editasnew':
         case 'ctx_forward_redirect':
             this.quickreply(id.substring(4));
             break;

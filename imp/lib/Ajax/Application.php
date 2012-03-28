@@ -1158,7 +1158,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *                entries:
      *   - body: (string) The body text of the message.
      *   - format: (string) Either 'text' or 'html'.
-     *   - fwd_list: (array) See _getAttachmentInfo().
      *   - header: (array) The headers of the message.
      *   - identity: (integer) The identity ID to use for this message.
      *   - imp_compose: (string) The IMP_Compose cache identifier.
@@ -1310,7 +1309,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *   - imp_compose: (string) The IMP_Compose cache identifier.
      *   - header: (array) The headers of the message.
      *   - identity: (integer) The identity ID to use for this message.
-     *   - opts: (array) Additional options (priority, readreceipt).
+     *   - opts: (array) Additional options (fwd_list, priority, readreceipt).
      *   - type: (string) The input 'type' value.
      */
     public function getResumeData()
@@ -1319,9 +1318,12 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             list($imp_compose, $imp_contents) = $this->_initCompose();
             $indices_ob = new IMP_Indices($imp_contents->getMailbox(), $imp_contents->getUid());
 
+            $opts = new stdClass;
+
             switch ($this->_vars->type) {
             case 'editasnew':
                 $resume = $imp_compose->editAsNew($indices_ob);
+                $opts->fwd_list = $this->_getAttachmentInfo($imp_compose);
                 break;
 
             case 'resume':
@@ -1344,7 +1346,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $result->identity = $resume['identity'];
             $result->imp_compose = $imp_compose->getCacheId();
 
-            $opts = new stdClass;
             $opts->priority = $resume['priority'];
             $opts->readreceipt = $resume['readreceipt'];
             $result->opts = $opts;
