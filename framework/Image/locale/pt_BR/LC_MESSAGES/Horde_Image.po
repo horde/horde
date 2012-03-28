@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Image\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-09-20 13:49+0200\n"
-"PO-Revision-Date: 2011-06-12 19:16-0300\n"
+"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"PO-Revision-Date: 2012-03-27 21:56-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -282,7 +282,7 @@ msgstr "Chroma Saturation High"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:259
 msgid "Close-up (Macro)"
-msgstr ""
+msgstr "Close-up (Macro)"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:366
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:126
@@ -301,11 +301,11 @@ msgstr "Cor"
 
 #: lib/Horde/Image/Exif.php:467
 msgid "Color Sequential Area Sensor"
-msgstr ""
+msgstr "Sensor de Área Sequencial Cor"
 
 #: lib/Horde/Image/Exif.php:469
 msgid "Color Sequential Linear Sensor"
-msgstr ""
+msgstr "Sensor Linear Sequencial de Cor"
 
 #: lib/Horde/Image/Exif.php:114
 msgid "Color Space"
@@ -333,7 +333,7 @@ msgstr "Contínuo"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:150
 msgid "Contrast High(HARD)"
-msgstr ""
+msgstr "Contraste Alto(RÍGIDO)"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:151
 #, fuzzy
@@ -342,7 +342,7 @@ msgstr "Contraste+"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:149
 msgid "Contrast Normal(STD)"
-msgstr ""
+msgstr "Contraste Normal(PADRÃO)"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:176
 msgid "Contrast+"
@@ -366,7 +366,7 @@ msgstr "Copyright"
 
 #: lib/Horde/Image/Exif/Bundled.php:285
 msgid "Couldnt Find IFD1"
-msgstr ""
+msgstr "Não Encontrado IFD1"
 
 #: lib/Horde/Image/Exif/Bundled.php:331
 msgid "Couldnt Find InteroperabilityIFD"

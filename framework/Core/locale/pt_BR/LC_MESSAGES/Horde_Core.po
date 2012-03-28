@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Core\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-10-30 20:30-0200\n"
-"PO-Revision-Date: 2011-06-13 02:49-0300\n"
+"POT-Creation-Date: 2012-03-23 23:51-0300\n"
+"PO-Revision-Date: 2012-03-27 22:58-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -27,7 +27,7 @@ msgstr " (Tecla de Atalho %s)"
 msgid "\"%s\" group driver not found."
 msgstr "\"%s\" driver de grupo não encontrado."
 
-#: lib/Horde/Registry.php:1203 lib/Horde/Registry.php:1686
+#: lib/Horde/Registry.php:1204 lib/Horde/Registry.php:1714
 #, php-format
 msgid "\"%s\" is not configured in the Horde Registry."
 msgstr "\"%s\" não está configurado no Registro do Horde."
@@ -51,11 +51,6 @@ msgid "%d day until your password expires."
 msgid_plural "%d days until your password expires."
 msgstr[0] "%d dia até sua senha expirar."
 msgstr[1] "%d dias até sua senha expirar."
-
-#: lib/Horde/Registry.php:1308
-#, php-format
-msgid "%s is not authorized for %s."
-msgstr "%s não está autorizado para %s."
 
 #: lib/Horde/Core/Perms/Ui.php:347 lib/Horde/Core/Perms/Ui.php:407
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:815
@@ -86,7 +81,7 @@ msgstr "6 horas"
 msgid "<Previous"
 msgstr "<Anterior"
 
-#: lib/Horde.php:156
+#: lib/Horde.php:163
 msgid "A fatal error has occurred"
 msgstr "Um erro fatal ocorreu"
 
@@ -163,7 +158,7 @@ msgstr "Endereço"
 msgid "Address Book"
 msgstr "Contatos"
 
-#: lib/Horde/Core/Sidebar.php:118
+#: lib/Horde/Core/Sidebar.php:117
 msgid "Administration"
 msgstr "Administração"
 
@@ -183,7 +178,7 @@ msgstr "Todos os usuários autenticados"
 msgid "All Permissions"
 msgstr "Todas as Permissões"
 
-#: lib/Horde/Core/Prefs/Ui.php:307 lib/Horde/Core/Prefs/Ui.php:323
+#: lib/Horde/Core/Prefs/Ui.php:303 lib/Horde/Core/Prefs/Ui.php:319
 msgid "An illegal value was specified."
 msgstr "Uma valor ilegal foi especificado."
 
@@ -296,11 +291,11 @@ msgstr "Recusar a conta:"
 msgid "Department"
 msgstr "Departamento"
 
-#: lib/Horde.php:173
+#: lib/Horde.php:180
 msgid "Details"
 msgstr "Detalhes"
 
-#: lib/Horde.php:178
+#: lib/Horde.php:185
 msgid "Details have been logged for the administrator."
 msgstr "Os detalhes foram gravados em log para o administrador."
 
@@ -387,7 +382,7 @@ msgstr "Sex"
 msgid "Friday"
 msgstr "Sexta-feira"
 
-#: lib/Horde/Core/Prefs/Ui.php:650 lib/Horde/Core/Sidebar.php:139
+#: lib/Horde/Core/Prefs/Ui.php:646 lib/Horde/Core/Sidebar.php:138
 msgid "Global Preferences"
 msgstr "Preferências Globais"
 
@@ -407,7 +402,7 @@ msgstr "Grupos"
 msgid "Guest Permissions"
 msgstr "Pesmissões de Convidado"
 
-#: lib/Horde/Help.php:219 lib/Horde/Help.php:220 lib/Horde/Menu.php:227
+#: lib/Horde/Help.php:231 lib/Horde/Help.php:232 lib/Horde/Menu.php:227
 msgid "Help"
 msgstr "Ajuda"
 
@@ -423,6 +418,10 @@ msgstr "Fone Residencial"
 #: lib/Horde/Core/Perms/Ui.php:306
 msgid "Individual Users"
 msgstr "Usuários individuais"
+
+#: lib/Horde/Core/Alarm/Handler/Notify.php:54
+msgid "Inline"
+msgstr "Em linha"
 
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:214
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:278
@@ -456,11 +455,11 @@ msgstr "Junho"
 msgid "Keep original?"
 msgstr "Manter o original?"
 
-#: lib/Horde/Core/Sidebar.php:168
+#: lib/Horde/Core/Sidebar.php:167
 msgid "Log in"
 msgstr "Conectar"
 
-#: lib/Horde/Core/Sidebar.php:161
+#: lib/Horde/Core/Sidebar.php:160
 msgid "Log out"
 msgstr "Sair"
 
@@ -566,7 +565,7 @@ msgstr "Nenhum subordinado pode ser adicionado a esta permissão."
 msgid "No configuration information specified for %s."
 msgstr "Nenhuma informação de configuração especificada para %s."
 
-#: lib/Horde/Core/Ajax/Application.php:203
+#: lib/Horde/Core/Ajax/Application.php:197
 msgid "No valid email address found"
 msgstr "Nenhum endereço de e-mail válido encontrado"
 
@@ -621,16 +620,20 @@ msgstr "Telefone"
 msgid "Photo"
 msgstr "Foto"
 
+#: lib/Horde/Core/Alarm/Handler/Notify.php:74
+msgid "Play a sound?"
+msgstr "Tocar um som?"
+
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:218
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:282
 msgid "Postal Address"
 msgstr "Endereço Postal"
 
-#: lib/Horde/Core/Sidebar.php:128
+#: lib/Horde/Core/Sidebar.php:127
 msgid "Preferences"
 msgstr "Preferências"
 
-#: lib/Horde/Core/Prefs/Ui.php:650
+#: lib/Horde/Core/Prefs/Ui.php:646
 #, php-format
 msgid "Preferences for %s"
 msgstr "Preferências para %s"
@@ -640,7 +643,7 @@ msgstr "Preferências para %s"
 msgid "Preferred Address"
 msgstr "Endereços Preferidos"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1509
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1517
 msgid "Preview"
 msgstr "Pré-visualização"
 
@@ -713,7 +716,7 @@ msgstr "Selecione um objeto"
 msgid "Select none"
 msgstr "Anular seleção"
 
-#: lib/Horde/Core/Prefs/Ui.php:814
+#: lib/Horde/Core/Prefs/Ui.php:810
 msgid "Select the identity you want to change:"
 msgstr "Selecione a identidade que você quer alterar:"
 
@@ -795,12 +798,12 @@ msgstr "O arquivo %s deveria conter uma configuração de %s."
 msgid "The file %s should contain some %s settings."
 msgstr "O arquivo %s deveria conter algumas configurações de %s."
 
-#: lib/Horde/Registry.php:2352
+#: lib/Horde/Registry.php:2382
 #, php-format
 msgid "The following applications encountered errors removing user data: %s"
 msgstr "A aplicação a seguir encontrou erros ao remover dados do usuários: %s"
 
-#: lib/Horde.php:174
+#: lib/Horde.php:181
 msgid ""
 "The full error message is logged in Horde's log file, and is shown below "
 "only to administrators. Non-administrative users will not see error details."
@@ -809,12 +812,12 @@ msgstr ""
 "para administradores. Usuários não administrativos não verão detalhes do "
 "erro."
 
-#: lib/Horde/Core/Prefs/Ui.php:878
+#: lib/Horde/Core/Prefs/Ui.php:874
 #, php-format
 msgid "The identity \"%s\" has been deleted."
 msgstr "A identidade \"%s\" foi excluída."
 
-#: lib/Horde/Core/Prefs/Ui.php:926
+#: lib/Horde/Core/Prefs/Ui.php:922
 msgid "The new from address can't be verified, try again later: "
 msgstr ""
 "O novo enderêço DE não pode ser verificado, tente novamente mais tarde: "
@@ -840,7 +843,7 @@ msgstr ""
 msgid "There are no email addresses to confirm."
 msgstr "Não existem endereços de e-mail a confirmar."
 
-#: lib/Horde/Core/Prefs/Ui.php:445
+#: lib/Horde/Core/Prefs/Ui.php:441
 msgid "There are no preferences available for this application."
 msgstr "Não existem opções disponíveis para esta aplicação."
 
@@ -852,19 +855,19 @@ msgstr "Houve um erro ao importar os dados do contato:"
 msgid "There was an error reading the contact data."
 msgstr "Houve um erro ao ler os dados do contato."
 
-#: lib/Horde/Core/Prefs/Ui.php:359
+#: lib/Horde/Core/Prefs/Ui.php:355
 msgid "There were errors encountered while updating your preferences."
 msgstr "Foram encontrados erros ao atualizar suas preferências."
 
-#: lib/Horde/Registry.php:445
+#: lib/Horde/Registry.php:446
 msgid "This system is currently deactivated."
 msgstr "Este sistema está atualmente desativado."
 
-#: lib/Horde/Core/Prefs/Ui.php:335
+#: lib/Horde/Core/Prefs/Ui.php:331
 msgid "This value must be a number."
 msgstr "Este valor deve ser um número."
 
-#: lib/Horde/Core/Prefs/Ui.php:337
+#: lib/Horde/Core/Prefs/Ui.php:333
 msgid "This value must be non-zero."
 msgstr "Este valor não pode ser zero."
 
@@ -914,7 +917,7 @@ msgstr "Enviar"
 msgid "User \"%s\" does not exist."
 msgstr "Usuário \"%s\" não existe."
 
-#: lib/Horde/Core/Prefs/Ui.php:605
+#: lib/Horde/Core/Prefs/Ui.php:601
 msgid "User Preferences"
 msgstr "Preferências de Usuário"
 
@@ -930,6 +933,10 @@ msgstr "Atenção"
 #: lib/Horde/Core/Ui/JsCalendar.php:94
 msgid "We"
 msgstr "Qua"
+
+#: lib/Horde/Core/Factory/Weather.php:17
+msgid "Weather support not configured."
+msgstr "Suporte a clima não configurado."
 
 #: lib/Horde/Core/Ui/JsCalendar.php:112
 msgid "Wednesday"
@@ -968,11 +975,11 @@ msgid_plural "You are not allowed to create more than %d blocks."
 msgstr[0] "Você não pode criar mais do que %d bloco."
 msgstr[1] "Você não pode criar mais do que %d blocos."
 
-#: lib/Horde/Registry.php:2319
+#: lib/Horde/Registry.php:2349
 msgid "You are not allowed to remove user data."
 msgstr "Você não está autorizado a remover dados de usuário."
 
-#: lib/Horde/Registry.php:1898
+#: lib/Horde/Registry.php:1926
 msgid "You are not authenticated."
 msgstr "Você não está autenticado."
 
@@ -1004,20 +1011,20 @@ msgstr "Você deve configurar uma estrutura de VFS."
 msgid "You must provide a setting for \"%s\"."
 msgstr "Você deve fornecer uma configuração para \"%s\"."
 
-#: lib/Horde/Core/Prefs/Ui.php:894
+#: lib/Horde/Core/Prefs/Ui.php:890
 msgid "Your default identity has been changed."
 msgstr "Sua identidade padrão foi alterada."
 
-#: lib/Horde/Core/Prefs/Ui.php:813
+#: lib/Horde/Core/Prefs/Ui.php:809
 msgid "Your default identity:"
 msgstr "Sua identidade padrão:"
 
-#: lib/Horde/Core/Prefs/Ui.php:371
+#: lib/Horde/Core/Prefs/Ui.php:367
 msgid "Your preferences have been updated for the duration of this session."
 msgstr ""
 "Suas preferências foram atualizadas pelo tempo de duração desta sessão."
 
-#: lib/Horde/Core/Prefs/Ui.php:373
+#: lib/Horde/Core/Prefs/Ui.php:369
 msgid "Your preferences have been updated."
 msgstr "Suas preferências foram atualizadas."
 
