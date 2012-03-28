@@ -72,11 +72,11 @@ class IMP_Ajax extends Horde_Core_Ajax
             $page_output->addScriptFile('imp.js');
             $page_output->addScriptFile('imageunblock.js');
             $page_output->addScriptFile('itiprequest.js');
-            $page_output->addScriptFile('jstorage.js');
             $page_output->addScriptFile('mailbox-dimp.js');
             $page_output->addScriptFile('viewport.js');
             $page_output->addScriptFile('dragdrop2.js', 'horde');
             $page_output->addScriptFile('form_ghost.js', 'horde');
+            $page_output->addScriptFile('jstorage.js', 'horde');
             $page_output->addScriptFile('redbox.js', 'horde');
             $page_output->addScriptFile('dialog.js', 'horde');
             $page_output->addScriptFile('slider2.js', 'horde');
