@@ -35,6 +35,8 @@ class Horde_Exception_Wrapped extends Horde_Exception
             if (method_exists($message, 'getUserinfo') &&
                 $details = $message->getUserinfo()) {
                 $this->details = $details;
+            } elseif (!empty($message->details)) {
+                $this->details = $message->details;
             }
             $message = (string)$message->getMessage();
         }
