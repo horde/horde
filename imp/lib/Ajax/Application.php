@@ -1310,8 +1310,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *   - imp_compose: (string) The IMP_Compose cache identifier.
      *   - header: (array) The headers of the message.
      *   - identity: (integer) The identity ID to use for this message.
-     *   - priority: (string) The message priority.
-     *   - readreceipt: (boolean) Add return receipt headers?
+     *   - opts: (array) Additional options (priority, readreceipt).
      *   - type: (string) The input 'type' value.
      */
     public function getResumeData()
@@ -1344,8 +1343,12 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $result->format = $resume['mode'];
             $result->identity = $resume['identity'];
             $result->imp_compose = $imp_compose->getCacheId();
-            $result->priority = $resume['priority'];
-            $result->readreceipt = $resume['readreceipt'];
+
+            $opts = new stdClass;
+            $opts->priority = $resume['priority'];
+            $opts->readreceipt = $resume['readreceipt'];
+            $result->opts = $opts;
+
             $result->type = $this->_vars->type;
         } catch (Horde_Exception $e) {
             $GLOBALS['notification']->push($e);
