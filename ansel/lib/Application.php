@@ -196,30 +196,4 @@ class Ansel_Application extends Horde_Registry_Application
         return false;
     }
 
-    /**
-     * Callback, called from common-template-mobile.inc that sets up the jquery
-     * mobile init hanler.
-     */
-    public function mobileInitCallback()
-    {
-        require ANSEL_TEMPLATES . '/mobile/javascript_defs.php';
-
-        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
-
-        $page_output->addScriptFile('mobile.js');
-        $page_output->addInlineScript(
-          '$(window.document).bind("mobileinit", function() {
-              $.mobile.page.prototype.options.backBtnText = "' . _("Back") .'";
-              $.mobile.loadingMessage = "' . _("loading") . '";
-              // TODO: Figure out how to force load the gallerylist page..
-              // this does not work
-              //$("#imageview").live("pagebeforeshow", function() {
-              //    if (!AnselMobile.currentImage) {
-              //        $.mobile.changePage("gallerylist", "slide", false, true);
-              //    }
-              //});
-          });'
-        );
-    }
-
 }

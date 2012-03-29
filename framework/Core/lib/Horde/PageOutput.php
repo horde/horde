@@ -546,9 +546,6 @@ class Horde_PageOutput
             $this->addScriptFile('jquery.mobile/jquery.min.js', 'horde');
             $this->addScriptFile('horde-jquery.js', 'horde');
             $this->addScriptFile('mobile.js', 'horde');
-
-            $registry->callAppMethod($registry->getApp(), 'mobileInitCallback');
-
             $this->addScriptFile('jquery.mobile/jquery.mobile.min.js', 'horde');
 
             $this->addMetaTag('viewport', 'width=device-width, minimum-scale=1, maximum-scale=1');

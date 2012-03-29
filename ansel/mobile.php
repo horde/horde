@@ -22,7 +22,16 @@ $view->registry = $registry;
 $view->portal = Horde::getServiceLink('portal', 'horde')->setRaw(false);
 $view->logout = Horde::getServiceLink('logout')->setRaw(false);
 
-require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
+require ANSEL_TEMPLATES . '/mobile/javascript_defs.php';
+
+$page_output->addScriptFile('mobile.js');
+// TODO: Figure out how to force load the gallerylist page.
+$page_output->addInlineScript(
+    '$(window.document).bind("mobileinit", function() {
+       $.mobile.page.prototype.options.backBtnText = "' . _("Back") .'";
+       $.mobile.loadingMessage = "' . _("loading") . '";
+     });'
+);
 
 echo $view->render('head');
 echo $view->render('galleries');

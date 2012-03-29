@@ -586,30 +586,4 @@ class IMP_Application extends Horde_Registry_Application
         $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->init();
     }
 
-    /* Helper methods. */
-
-    /**
-     * Callback, called from common-template-mobile.inc that sets up the jquery
-     * mobile init handler.
-     */
-    public function mobileInitCallback()
-    {
-        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
-        $page_output->addScriptFile('mobile.js');
-
-        require IMP_TEMPLATES . '/mobile/javascript_defs.php';
-
-        $GLOBALS['notification']->notify(array('listeners' => 'status'));
-
-        /* Inline script. */
-        $page_output->addInlineScript(
-'$(window.document).bind("mobileinit", function() {
-    $.mobile.page.prototype.options.addBackBtn = true;
-    $.mobile.page.prototype.options.backBtnText = "' . _("Back") .'";
-    $.mobile.dialog.prototype.options.closeBtnText = "' . _("Close") .'";
-    $.mobile.loadingMessage = "' . _("loading") . '";
-});'
-        );
-    }
-
 }

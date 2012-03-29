@@ -62,6 +62,20 @@ if ($view->canCompose = IMP::canCompose()) {
     $view->composeLink->pathInfo = 'addAttachment';
 }
 
+$page_output->addScriptFile('mobile.js');
+require IMP_TEMPLATES . '/mobile/javascript_defs.php';
+$notification->notify(array('listeners' => 'status'));
+
+/* Inline script. */
+$page_output->addInlineScript(
+    '$(window.document).bind("mobileinit", function() {
+       $.mobile.page.prototype.options.addBackBtn = true;
+       $.mobile.page.prototype.options.backBtnText = "' . _("Back") .'";
+       $.mobile.dialog.prototype.options.closeBtnText = "' . _("Close") .'";
+       $.mobile.loadingMessage = "' . _("loading") . '";
+     });'
+);
+
 $page_output->header(array(
     'title' => _("Mobile Mail"),
     'view' => $registry::VIEW_SMARTMOBILE
