@@ -512,11 +512,13 @@ class Turba_View_Browse
             $templates[] = '/browse/header.inc';
         }
 
-        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        global $page_output;
         $page_output->addScriptFile('quickfinder.js', 'horde');
         $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
         $page_output->addScriptFile('redbox.js', 'horde');
-        require $registry->get('templates', 'horde') . '/common-header.inc';
+        $page_output->header(array(
+            'title' => $title
+        ));
         require TURBA_TEMPLATES . '/menu.inc';
         foreach ($templates as $template) {
             require TURBA_TEMPLATES . $template;
@@ -526,7 +528,7 @@ class Turba_View_Browse
             $view->display();
         }
 
-        require $registry->get('templates', 'horde') . '/common-footer.inc';
+        $page_output->footer();
     }
 
 }

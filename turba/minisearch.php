@@ -47,8 +47,9 @@ foreach ($addressbooks as $addressbook) {
     }
 }
 
-$bodyClass = 'summary';
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'body_class' => 'summary'
+));
 
 if (count($results)) {
     echo '<ul id="turba_minisearch_results">';
@@ -87,5 +88,6 @@ if (iframe) {
     });
 }
 </script>
-</body>
-</html>
+<?php
+
+$page_output->footer();

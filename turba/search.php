@@ -72,9 +72,9 @@ if (!isset($addressBooks[$source])) {
     /* If there are absolutely no valid sources, abort. */
     if (!isset($addressBooks[$source])) {
         $notification->push(_("No Address Books are currently available. Searching is disabled."), 'horde.error');
-        require $registry->get('templates', 'horde') . '/common-header.inc';
+        $page_output->header();
         require TURBA_TEMPLATES . '/menu.inc';
-        require $registry->get('templates', 'horde') . '/common-footer.inc';
+        $page_output->footer();
         exit;
     }
 }
@@ -83,8 +83,6 @@ if (!isset($addressBooks[$source])) {
 $criteria = Horde_Util::getFormData('criteria');
 $val = Horde_Util::getFormData('val');
 $action = Horde_Util::getFormData('actionID');
-
-$page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
 
 try {
     $driver = $injector->getInstance('Turba_Factory_Driver')->create($source);
@@ -266,7 +264,9 @@ if (isset($view) && is_object($view)) {
     Turba::addBrowseJs();
 }
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 require TURBA_TEMPLATES . '/menu.inc';
 echo $tabs->render($search_mode);
 echo $headerView->render('header');
@@ -278,4 +278,4 @@ if (isset($view) && is_object($view)) {
     require TURBA_TEMPLATES . '/browse/header.inc';
     $view->display();
 }
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

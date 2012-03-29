@@ -53,8 +53,10 @@ if ($form->validate($vars)) {
 
 $vars->set('name', $addressbook->get('name'));
 $vars->set('description', $addressbook->get('desc'));
-$title = $form->getTitle();
-require $registry->get('templates', 'horde') . '/common-header.inc';
+
+$page_output->header(array(
+    'title' => $form->getTitle()
+));
 require TURBA_TEMPLATES . '/menu.inc';
 echo $form->renderActive($form->getRenderer(), $vars, Horde::url('addressbooks/edit.php'), 'post');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

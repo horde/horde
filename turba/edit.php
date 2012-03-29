@@ -84,8 +84,10 @@ try {
 
 $title = sprintf($contact->isGroup() ? _("Edit Group \"%s\"") : _("Edit \"%s\""), $contact->getValue('name'));
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 require TURBA_TEMPLATES . '/menu.inc';
 $form->setTitle($title);
 $form->renderActive(new Horde_Form_Renderer(), $vars, Horde::url('edit.php'), 'post');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

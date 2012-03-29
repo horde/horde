@@ -663,7 +663,8 @@ class Turba
      */
     static public function addBrowseJs()
     {
-        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        global $page_output;
+
         $page_output->addScriptFile('browse.js');
         $page_output->addInlineJsVars(array(
             'TurbaBrowse.confirmdelete' => _("Are you sure that you want to delete %s?"),

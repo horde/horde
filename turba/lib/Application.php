@@ -177,14 +177,13 @@ class Turba_Application extends Horde_Registry_Application
      */
     public function prefsGroup($ui)
     {
-        global $prefs;
+        global $page_output, $prefs;
 
         $source_init = false;
 
         foreach ($ui->getChangeablePrefs() as $val) {
             switch ($val) {
             case 'columnselect':
-                $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
                 $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
                 $page_output->addScriptFile('scriptaculous/dragdrop.js', 'horde');
                 $page_output->addScriptFile('columnprefs.js');

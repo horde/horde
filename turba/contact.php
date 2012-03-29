@@ -99,10 +99,10 @@ if ($own_source == $source && $own_id == $contact->getValue('__key')) {
         . _("Mark this as your own contact") . '</a></span>';
 }
 
-$title = $view->getTitle();
-
-$injector->getInstance('Horde_PageOutput')->addScriptFile('contact_tabs.js');
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->addScriptFile('contact_tabs.js');
+$page_output->header(array(
+    'title' => $view->getTitle()
+));
 require TURBA_TEMPLATES . '/menu.inc';
 echo '<div id="page">';
 echo $tabs->render($viewName);
@@ -113,4 +113,4 @@ echo '<h1 class="header">' . $own_link
     . $own_icon . '</h1>';
 $view->html();
 echo '</div>';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();
