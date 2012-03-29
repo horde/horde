@@ -87,19 +87,13 @@ var ImpMobile = {
         var url = $.mobile.path.parseUrl(data.toPage),
             match = /^#(mailbox|message|compose|confirm(ed)?|target)/.exec(url.hash);
 
-        if (url.hash == ImpMobile.lastHash) {
-            return;
-        }
-
         if (match) {
             switch (match[1]) {
             case 'mailbox':
-                ImpMobile.lastHash = url.hash;
                 ImpMobile.toMailbox(url, { opts: data.options });
                 break;
 
             case 'message':
-                ImpMobile.lastHash = url.hash;
                 ImpMobile.toMessage(url, data.options);
                 break;
 
@@ -123,6 +117,7 @@ var ImpMobile = {
                 }
                 break;
             }
+
             e.preventDefault();
         } else {
             HordeMobile.doAction('poll');
@@ -356,7 +351,6 @@ var ImpMobile = {
             // Deep-linked message page. Load mailbox first to allow navigation
             // between messages.
             ImpMobile.mailboxCallback = function() {
-                ImpMobile.lastHash = url.hash;
                 options.changeHash = true;
                 ImpMobile.toMessage(url, options);
             };
