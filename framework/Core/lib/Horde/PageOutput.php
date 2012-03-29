@@ -51,6 +51,13 @@ class Horde_PageOutput
     public $metaTags = array();
 
     /**
+     * Has the sidebar been loaded in this page?
+     *
+     * @var boolean
+     */
+    public $sidebarLoaded = false;
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -490,6 +497,123 @@ class Horde_PageOutput
         foreach ($this->css->getStylesheetUrls($opts) as $val) {
             echo '<link href="' . $val->toString(false, $full) . '" rel="stylesheet" type="text/css" />';
         }
+    }
+
+    /**
+     * Output the page header.
+     *
+     * @param array $opts  Options:
+     *   - body_class: (string)
+     *   - body_id: (string)
+     *   - html_id: (string)
+     *   - nojs: (boolean)
+     *   - stylesheet_opts: (array)
+     *   - title: (string)
+     *   - view: (integer)
+     */
+    public function header(array $opts = array())
+    {
+        global $language, $registry;
+
+        $view = new Horde_View(array(
+            'templatePath' => $registry->get('templates', 'horde') . '/common'
+        ));
+
+        $view->minimalView = false;
+        $view->outputJs = empty($opts['nojs']);
+        $view->stylesheetOpts = isset($opts['stylesheet_opts'])
+            ? $opts['stylesheet_opts']
+            : array();
+
+        if (!isset($opts['view'])) {
+            $opts['view'] = $registry->getView();
+        }
+
+        switch ($registry->getView()) {
+        case $registry::VIEW_MINIMAL:
+            $view->minimalView = true;
+            break;
+
+        case $registry::VIEW_SMARTMOBILE:
+            $this->addStylesheet(
+                $registry->get('jsfs', 'horde') . '/jquery.mobile/jquery.mobile.min.css',
+                $registry->get('jsuri', 'horde') . '/jquery.mobile/jquery.mobile.min.css'
+            );
+            $this->addThemeStylesheet('mobile.css');
+
+            /* JS Files. */
+            $this->hsf->prototypejs = false;
+            $this->addScriptFile('jquery.mobile/jquery.min.js', 'horde');
+            $this->addScriptFile('horde-jquery.js', 'horde');
+            $this->addScriptFile('mobile.js', 'horde');
+
+            $registry->callAppMethod($registry->getApp(), 'mobileInitCallback');
+
+            $this->addScriptFile('jquery.mobile/jquery.mobile.min.js', 'horde');
+
+            $this->addMetaTag('viewport', 'width=device-width, minimum-scale=1, maximum-scale=1');
+
+            $this->stylesheetOpts = array(
+                'nobase' => true,
+                'nocache' => true
+            );
+
+            $this->smartmobileView = true;
+            break;
+        }
+
+        $html = '';
+        if (isset($language)) {
+            $html .= ' lang="' . htmlspecialchars(strtr($language, '_', '-')) . '"';
+        }
+        if (isset($opts['html_id'])) {
+            $html .= ' id="' . htmlspecialchars($opts['html_id']) . '"';
+        }
+        $view->htmlAttr = $html;
+
+        $body = '';
+        if (isset($opts['body_class'])) {
+            $body .= ' class="' . htmlspecialchars($opts['body_class']) . '"';
+        }
+        if (isset($opts['body_id'])) {
+            $body .= ' id="' . htmlspecialchars($opts['body_id']) . '"';
+        }
+        $view->bodyAttr = $body;
+
+        $page_title = $registry->get('name');
+        if (isset($opts['title'])) {
+            $page_title .= ' :: ' . $opts['title'];
+        }
+        $view->pageTitle = htmlspecialchars($page_title);
+
+        $view->pageOutput = $this;
+
+        header('Content-type: text/html; charset=UTF-8');
+        if (isset($language)) {
+            header('Vary: Accept-Language');
+        }
+
+        echo $view->render('header.html.php');
+    }
+
+    /**
+     * @param array $opts  Options:
+     *   - No options currently defined.
+     */
+    public function footer(array $opts = array())
+    {
+        global $browser, $notification, $registry;
+
+        $view = new Horde_View(array(
+            'templatePath' => $registry->get('templates', 'horde') . '/common'
+        ));
+
+        $view->notifications = $browser->isMobile()
+            ? ''
+            : $notification->notify(array('listeners' => array('audio')));
+        $view->sidebarLoaded = $this->sidebarLoaded;
+
+        echo $view->render('footer.html.php');
     }
 
 }
