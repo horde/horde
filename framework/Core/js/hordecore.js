@@ -349,7 +349,7 @@ var HordeCore = {
             elt.clonePosition(base, {
                 setHeight: false,
                 setWidth: false
-            }).show();
+            }).setOpacity(1).show();
         } else if (elt) {
             elt.fade({ duration: 0.2 });
         }
