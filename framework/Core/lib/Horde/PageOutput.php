@@ -439,7 +439,9 @@ class Horde_PageOutput
         $out = '<link';
 
         foreach ($opts as $key => $val) {
-            $out .= ' ' . $key . '="' . htmlspecialchars($val) . '"';
+            if (!is_null($val)) {
+                $out .= ' ' . $key . '="' . htmlspecialchars($val) . '"';
+            }
         }
 
         $this->linkTags[] = $out . ' />';
