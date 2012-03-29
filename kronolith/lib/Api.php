@@ -75,7 +75,7 @@ class Kronolith_Api extends Horde_Registry_Api
             $calendars = Kronolith::listInternalCalendars(false, Horde_Perms::READ);
             $owners = array();
             foreach ($calendars as $calendar) {
-                $owners[$calendar->get('owner')] = true;
+                $owners[$calendar->get('owner') ? $calendar->get('owner') : '-system-'] = true;
             }
 
             $results = array();
