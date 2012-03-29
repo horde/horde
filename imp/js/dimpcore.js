@@ -331,7 +331,7 @@ var DimpCore = {
             elt.insert(tmp);
             base = tmp.down('.dispaddrlist');
             tmp = tmp.down('.largeaddrlist');
-            tmp.setText(tmp.getText().replace('%d', limit ? limit : cnt));
+            tmp.setText(tmp.textContent.replace('%d', limit ? limit : cnt));
             if (limit) {
                 base.down('.largeaddrlistlimit').show();
             }

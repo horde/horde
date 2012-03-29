@@ -1740,7 +1740,7 @@ var DimpBase = {
         e.dataTransfer.setData(
             'DownloadURL',
             base.down('IMG').readAttribute('title') + ':' +
-            base.down('SPAN.mimePartInfoDescrip A').getText().gsub(':', '-') + ':' +
+            base.down('SPAN.mimePartInfoDescrip A').textContent.gsub(':', '-') + ':' +
             window.location.origin + e.element().readAttribute('href')
         );
     },

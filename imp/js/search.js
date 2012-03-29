@@ -119,7 +119,7 @@ var ImpSearch = {
 
     getCriteriaLabel: function(id)
     {
-        return $('search_criteria_add').down('[value="' + RegExp.escape(id) + '"]').getText() + ': ';
+        return $('search_criteria_add').down('[value="' + RegExp.escape(id) + '"]').textContent + ': ';
     },
 
     deleteCriteria: function(div)
