@@ -347,12 +347,11 @@ var ImpMobile = {
         var match = /\?view=(.*?)&uid=(.*)/.exec(url.hash),
             o = {};
 
-        if (!$.mobile.activePage) {
+        if (!ImpMobile.mailbox) {
             // Deep-linked message page. Load mailbox first to allow navigation
             // between messages.
             ImpMobile.mailboxCallback = function() {
-                options.changeHash = true;
-                ImpMobile.toMessage(url, options);
+                $.mobile.changePage(url.hash);
             };
             $.mobile.changePage('#mailbox?mbox=' + match[1]);
             return;
@@ -947,7 +946,9 @@ var ImpMobile = {
             }
         });
 
-        $('#imp-folders-list').listview('refresh');
+        if ($.mobile.activePage == $.mobile.firstPage) {
+            $('#imp-folders-list').listview('refresh');
+        }
     },
 
     /**
@@ -1087,9 +1088,11 @@ var ImpMobile = {
         $(document).bind('swiperight', ImpMobile.navigate);
         $(document).bind('pagebeforechange', ImpMobile.toPage);
         $(document).bind('HordeMobile:runTasks', ImpMobile.runTasks);
+
         if (!IMP.conf.disable_compose) {
             $('#compose').live('pagehide', function() { $('#imp-compose-cache').val(''); });
         }
+
         if (IMP.conf.allow_folders) {
             $('#imp-target-list').live('change', ImpMobile.targetSelected);
             $('#imp-target-new-submit').live('click', ImpMobile.targetSelected);
@@ -1098,6 +1101,10 @@ var ImpMobile = {
                 $('#imp-target-list').selectmenu('refresh', true);
                 $('#imp-target-newdiv').hide();
             });
+        }
+
+        if ($.mobile.activePage != $.mobile.firstPage) {
+            $.mobile.changePage(location.hash);
         }
     }
 
