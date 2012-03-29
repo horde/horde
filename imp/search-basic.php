@@ -118,4 +118,4 @@ echo $menu;
 IMP::status();
 
 echo $t->fetch(IMP_TEMPLATES . '/imp/search/search-basic.html');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

@@ -57,16 +57,59 @@ class IMP
      */
     static public function header($title)
     {
-        switch ($view_mode = $GLOBALS['registry']->getView()) {
+        global $conf, $injector, $page_output, $registry;
+
+        $stylesheet_opts = array();
+
+        switch ($registry->getView()) {
         case Horde_Registry::VIEW_BASIC:
-            require IMP_TEMPLATES . '/imp/javascript_defs.php';
-            require IMP_TEMPLATES . '/common-header.inc';
+            $code = array(
+                /* Variables used in core javascript files. */
+                'conf' => array(
+                    'pop3' => intval($injector->getInstance('IMP_Factory_Imap')->create()->pop3),
+                    'fixed_mboxes' => empty($conf['server']['fixed_folders'])
+                        ? array()
+                        : $conf['server']['fixed_folders']
+                ),
+
+                /* Gettext strings used in core javascript files. */
+                'text' => array(
+                    /* Strings used in imp.js */
+                    'popup_block' => _("A popup window could not be opened. Perhaps you have set your browser to block popup windows?"),
+
+                    /* Strings used in multiple pages. */
+                    'moveconfirm' => _("Are you sure you want to move the message(s)? (Some message information might get lost, like message headers, text formatting or attachments!)"),
+                    'spam_report' => _("Are you sure you wish to report this message as spam?"),
+                    'notspam_report' => _("Are you sure you wish to report this message as innocent?"),
+                    'newmbox' => _("You are copying/moving to a new mailbox.") . "\n" . _("Please enter a name for the new mailbox:") . "\n",
+                    'target_mbox' => _("You must select a target mailbox first."),
+                )
+            );
+
+            $page_output->addInlineJsVars(array(
+                'var IMP' => $code
+            ), array('top' => true));
+
+            $page_output->addLinkTag(array(
+                'href' => Horde::url('search.php'),
+                'rel' => 'search',
+                'type' => null
+            ));
             break;
 
-        default:
-            require IMP_TEMPLATES . '/common-header.inc';
+        case Horde_Registry::VIEW_MINIMAL:
+            $stylesheet_opts = array(
+                'nohorde' => true,
+                'sub' => 'mimp',
+                'subonly' => true
+            );
             break;
         }
+
+        $GLOBALS['page_output']->header(array(
+            'stylesheet_opts' => $stylesheet_opts,
+            'title' => $title
+        ));
     }
 
     /**
@@ -384,7 +427,7 @@ class IMP
         $t->set('forminput', Horde_Util::formInput());
         $t->set('use_folders', $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS), true);
         if ($t->get('use_folders')) {
-            $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('imp.js');
+            $GLOBALS['page_output']->addScriptFile('imp.js');
             $menu_view = $GLOBALS['prefs']->getValue('menu_view');
             $ak = $GLOBALS['prefs']->getValue('widget_accesskey')
                 ? Horde::getAccessKey(_("Open Fo_lder"))

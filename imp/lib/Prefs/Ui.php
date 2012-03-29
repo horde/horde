@@ -342,7 +342,7 @@ class IMP_Prefs_Ui
      */
     public function prefsSpecial($ui, $item)
     {
-        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        global $page_output;
 
         switch ($item) {
         case 'aclmanagement':
@@ -743,13 +743,12 @@ class IMP_Prefs_Ui
      */
     protected function _composeTemplatesManagement($ui)
     {
-        global $injector, $prefs;
+        global $injector, $page_output, $prefs;
 
         $t = $injector->createInstance('Horde_Template');
         $t->setOption('gettext', true);
 
         if (!$prefs->isLocked('composetemplates_mbox')) {
-            $page_output = $injector->getInstance('Horde_PageOutput');
             $page_output->addScriptFile('folderprefs.js');
             $page_output->addInlineJsVars(array(
                 'ImpFolderPrefs.mboxes.templates' => _("Enter the name for your new compose templates mailbox.")
@@ -833,7 +832,7 @@ class IMP_Prefs_Ui
      */
     protected function _flagManagement()
     {
-        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineJsVars(array(
+        $GLOBALS['page_output']->addInlineJsVars(array(
             'ImpFlagPrefs.new_prompt' => _("Please enter the label for the new flag:"),
             'ImpFlagPrefs.confirm_delete' => _("Are you sure you want to delete this flag?")
         ));
@@ -971,7 +970,7 @@ class IMP_Prefs_Ui
      */
     protected function _mailtoHandler()
     {
-        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineScript(array(
+        $GLOBALS['page_output']->addInlineScript(array(
             'if (!Object.isUndefined(navigator.registerProtocolHandler))' .
             '$("mailto_handler").show().down("A").observe("click", function() {' .
                 'navigator.registerProtocolHandler("mailto","' .
@@ -1033,6 +1032,8 @@ class IMP_Prefs_Ui
      */
     protected function _pgpPrivateKey($ui)
     {
+        global $page_output;
+
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->setOption('gettext', true);
 
@@ -1041,7 +1042,6 @@ class IMP_Prefs_Ui
         if (!Horde::isConnectionSecure()) {
             $t->set('notsecure', true);
         } else {
-            $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
             $pgp_url = Horde::url('pgp.php');
 
             $t->set('has_key', $GLOBALS['prefs']->getValue('pgp_public_key') && $GLOBALS['prefs']->getValue('pgp_private_key'));
@@ -1194,7 +1194,7 @@ class IMP_Prefs_Ui
             if (!$t->get('no_source')) {
                 $t->set('import_pubkey-help', Horde_Help::link('imp', 'pgp-import-pubkey'));
 
-                $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineScript(array(
+                $GLOBALS['page_output']->addInlineScript(array(
                     '$("import_pgp_public").observe("click", function(e) { ' . Horde::popupJs($pgp_url, array('params' => array('actionID' => 'import_public_key', 'reload' => $GLOBALS['session']->store($ui->selfUrl()->setRaw(true), false)), 'height' => 275, 'width' => 750, 'urlencode' => true)) . '; e.stop(); })'
                 ), true);
             }
@@ -1295,7 +1295,7 @@ class IMP_Prefs_Ui
         if (empty($fout) && empty($vout)) {
             $t->set('nosearches', true);
         } else {
-            $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineJsVars(array(
+            $GLOBALS['page_output']->addInlineJsVars(array(
                 'ImpSearchesPrefs.confirm_delete_filter' => _("Are you sure you want to delete this filter?"),
                 'ImpSearchesPrefs.confirm_delete_vfolder' => _("Are you sure you want to delete this virtual folder?"),
                 'ImpSearchesPrefs.mailboxids' => $mailboxids
@@ -1375,7 +1375,7 @@ class IMP_Prefs_Ui
             $js[$key] = $identity->getValue('sent_mail_folder', $key)->form_to;
         };
 
-        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineJsVars(array(
+        $GLOBALS['page_output']->addInlineJsVars(array(
             'ImpFolderPrefs.mboxes' => array('sent_mail' => _("Create a new sent-mail mailbox")),
             'ImpFolderPrefs.sentmail' => $js
         ));
@@ -1443,6 +1443,8 @@ class IMP_Prefs_Ui
      */
     protected function _smimePrivateKey($ui)
     {
+        global $page_output;
+
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->setOption('gettext', true);
 
@@ -1451,7 +1453,6 @@ class IMP_Prefs_Ui
         if (!Horde::isConnectionSecure()) {
             $t->set('notsecure', true);
         } else {
-            $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
             $smime_url = Horde::url('smime.php');
 
             $t->set('has_key', $GLOBALS['prefs']->getValue('smime_public_key') && $GLOBALS['prefs']->getValue('smime_private_key'));
@@ -1552,7 +1553,7 @@ class IMP_Prefs_Ui
             if (!$t->get('no_source')) {
                 $t->set('import_pubkey-help', Horde_Help::link('imp', 'smime-import-pubkey'));
 
-                $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineScript(array(
+                $GLOBALS['page_output']->addInlineScript(array(
                     '$("import_smime_public").observe("click", function(e) { ' . Horde::popupJs($smime_url, array('params' => array('actionID' => 'import_public_key', 'reload' => $GLOBALS['session']->store($ui->selfUrl()->setRaw(true), false)), 'height' => 275, 'width' => 750, 'urlencode' => true)) . '; e.stop(); })'
                 ), true);
             }
@@ -1594,7 +1595,7 @@ class IMP_Prefs_Ui
             $js[$key] = $identity->getValue('signature_html', $key);
         };
 
-        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineJsVars(array(
+        $GLOBALS['page_output']->addInlineJsVars(array(
             'ImpHtmlSignaturePrefs.sigs' => $js
         ));
 

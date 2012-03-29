@@ -62,8 +62,10 @@ if ($view->canCompose = IMP::canCompose()) {
     $view->composeLink->pathInfo = 'addAttachment';
 }
 
-$title = _("Mobile Mail");
-require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
+$page_output->header(array(
+    'title' => _("Mobile Mail"),
+    'view' => $registry::VIEW_SMARTMOBILE
+));
 echo $view->render('head.html.php');
 echo $view->render('folders.html.php');
 echo $view->render('mailbox.html.php');
@@ -79,4 +81,4 @@ echo $view->render('confirm.html.php');
 if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
     echo $view->render('target.html.php');
 }
-require $registry->get('templates', 'horde') . '/common-footer-mobile.inc';
+$page_output->footer();

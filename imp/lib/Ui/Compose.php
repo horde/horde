@@ -198,7 +198,7 @@ class IMP_Ui_Compose
         $success_template->set('menu', $menu->render());
         echo $success_template->fetch(IMP_TEMPLATES . '/imp/compose/success.html');
         IMP::status();
-        require $GLOBALS['registry']->get('templates', 'horde') . '/common-footer.inc';
+        $GLOBALS['page_output']->footer();
     }
 
     /**
@@ -256,7 +256,7 @@ class IMP_Ui_Compose
             );
         }
 
-        return $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineJsVars(array(
+        return $GLOBALS['page_output']->addInlineJsVars(array(
             'ImpComposeBase.identities' => $identities
         ), array('ret_vars' => true));
     }

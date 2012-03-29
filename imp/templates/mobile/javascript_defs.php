@@ -46,6 +46,6 @@ $code['text'] = array(
     'nosubject' => _("The message does not have a Subject entered.") . "\n" . _("Send message without a Subject?"),
 );
 
-$GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineJsVars(array(
+$page_output->addInlineJsVars(array(
     'var IMP' => $code
 ), array('top' => true));

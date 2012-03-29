@@ -58,4 +58,4 @@ $t->set('gallerylist', $registry->images->selectGalleries(array('perm' => Horde_
 IMP::header(_("Save Image"));
 IMP::status();
 echo $t->fetch(IMP_TEMPLATES . '/saveimage/saveimage.html');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

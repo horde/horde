@@ -299,7 +299,6 @@ $compose_result = IMP_Views_Compose::showCompose(array(
 
 $t->set('compose_html', $compose_result['html']);
 
-$page_output = $injector->getInstance('Horde_PageOutput');
 $page_output->addInlineJsVars($js);
 $page_output->addInlineScript($compose_result['js']);
 

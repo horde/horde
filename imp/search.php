@@ -453,7 +453,6 @@ if (!$t->get('edit_query_filter')) {
 }
 
 Horde_Core_Ui_JsCalendar::init();
-$page_output = $injector->getInstance('Horde_PageOutput');
 $page_output->addScriptFile('horde.js', 'horde');
 $page_output->addScriptFile('search.js');
 
@@ -504,4 +503,4 @@ if (!$dimp_view) {
 IMP::status();
 
 echo $t->fetch(IMP_TEMPLATES . '/imp/search/search.html');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

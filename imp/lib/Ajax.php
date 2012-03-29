@@ -34,7 +34,7 @@ class IMP_Ajax extends Horde_Core_Ajax
      */
     public function header($page, $title = '')
     {
-        global $injector, $prefs;
+        global $injector, $page_output, $prefs;
 
         $inlinescript = false;
 
@@ -43,8 +43,6 @@ class IMP_Ajax extends Horde_Core_Ajax
         ));
 
         $this->_addBaseVars();
-
-        $page_output = $injector->getInstance('Horde_PageOutput');
 
         $page_output->addScriptFile('dimpcore.js');
         $page_output->addScriptFile('indices.js');

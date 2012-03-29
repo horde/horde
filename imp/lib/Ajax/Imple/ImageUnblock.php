@@ -45,6 +45,8 @@ class IMP_Ajax_Imple_ImageUnblock extends Horde_Core_Ajax_Imple
      */
     public function attach()
     {
+        global $page_output;
+
         $js_params = array(
             'mailbox' => $this->_params['mailbox']->form_to,
             'uid' => $this->_params['uid']
@@ -54,8 +56,6 @@ class IMP_Ajax_Imple_ImageUnblock extends Horde_Core_Ajax_Imple
             parse_str(SID, $sid);
             $js_params = array_merge($js_params, $sid);
         }
-
-        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
 
         if (self::$_unblockId == 1) {
             $page_output->addScriptFile('imageunblock.js');

@@ -46,7 +46,7 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
      */
     public function attach()
     {
-        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        global $page_output;
 
         if (self::$_requestId == 1) {
             $page_output->addScriptFile('itiprequest.js');

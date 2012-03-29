@@ -33,7 +33,7 @@ class IMP_Views_Compose
      */
     static public function showCompose($args)
     {
-        global $conf, $injector, $prefs, $registry, $session;
+        global $conf, $injector, $page_output, $prefs, $registry, $session;
 
         $result = array(
             'html' => '',
@@ -114,7 +114,7 @@ class IMP_Views_Compose
                         }
                         $flist[] = $tmp;
                     }
-                    $result['js'] = array_merge($result['js'], $injector->getInstance('Horde_PageOutput')->addInlineJsVars(array(
+                    $result['js'] = array_merge($result['js'], $page_output->addInlineJsVars(array(
                         'DIMP.conf.flist' => $flist
                     ), array('ret_vars' => true)));
                 }
@@ -174,7 +174,7 @@ class IMP_Views_Compose
                 $t->set('save_attach_set', strpos($save_attach, 'yes') !== false);
             }
         } else {
-            $result['js'] = array_merge($result['js'], $injector->getInstance('Horde_PageOutput')->addInlineJsVars(array(
+            $result['js'] = array_merge($result['js'], $page_output->addInlineJsVars(array(
                 '-DIMP.conf.redirect' => 1
             ), array('ret_vars' => true)));
         }

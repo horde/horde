@@ -33,7 +33,7 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
         $data = $this->_impRender(false);
         $item = reset($data);
         Horde::startBuffer();
-        $GLOBALS['injector']->getInstance('Horde_PageOutput')->includeStylesheetFiles();
+        $GLOBALS['page_output']->includeStylesheetFiles();
         $item['data'] = '<html><head>' . Horde::endBuffer() . '</head><body>' . $item['data'] . '</body></html>';
         $data[key($data)] = $item;
         return $data;

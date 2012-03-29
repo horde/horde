@@ -26,7 +26,6 @@ Horde_Registry::appInit('imp', array(
     'impmode' => 'imp'
 ));
 
-$page_output = $injector->getInstance('Horde_PageOutput');
 $registry->setTimeZone();
 
 /* We know we are going to be exclusively dealing with this mailbox, so
@@ -396,10 +395,22 @@ $headersURL = $selfURL->copy()->remove(array('show_all_headers', 'show_list_head
 $prev_msg = $imp_mailbox->getIMAPIndex(-1);
 if ($prev_msg) {
     $prev_url = IMP::mailbox()->url('message.php', $prev_msg['uid'], $prev_msg['mailbox']);
+    $page_output->addLinkTag(array(
+        'href' => $prev_url,
+        'id' => 'prev',
+        'rel' => 'Previous',
+        'type' => null
+    ));
 }
 $next_msg = $imp_mailbox->getIMAPIndex(1);
 if ($next_msg) {
     $next_url = IMP::mailbox()->url('message.php', $next_msg['uid'], $next_msg['mailbox']);
+    $page_output->addLinkTag(array(
+        'href' => $next_url,
+        'id' => 'next',
+        'rel' => 'Next',
+        'type' => null
+    ));
 }
 
 /* Generate the mailbox link. */
@@ -762,4 +773,4 @@ $n_template->set('id', 2);
 $n_template->set('isbottom', true);
 echo $n_template->fetch(IMP_TEMPLATES . '/imp/message/navbar_navigate.html');
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

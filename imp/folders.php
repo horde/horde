@@ -31,7 +31,6 @@ if (!$imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
 $subscribe = $prefs->getValue('subscribe');
 $showAll = (!$subscribe || $session->get('imp', 'showunsub'));
 
-$page_output = $injector->getInstance('Horde_PageOutput');
 $page_output->addScriptFile('folders.js');
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -272,7 +271,7 @@ case 'empty_mbox_confirm':
         $template->set('folders_token', $folders_token);
         echo $template->fetch(IMP_TEMPLATES . '/imp/folders/folders_confirm.html');
 
-        require $registry->get('templates', 'horde') . '/common-footer.inc';
+        $page_output->footer();
         exit;
     }
     break;
@@ -311,7 +310,7 @@ case 'mbox_size':
         $template->set('folders_url', $folders_url);
         echo $template->fetch(IMP_TEMPLATES . '/imp/folders/folders_size.html');
 
-        require $registry->get('templates', 'horde') . '/common-footer.inc';
+        $page_output->footer();
         exit;
     }
     break;
@@ -344,7 +343,7 @@ if ($session->get('imp', 'file_upload') &&
     $i_template->set('import_mbox', htmlspecialchars($mbox_list[0]));
     $i_template->set('folders_token', $folders_token);
     echo $i_template->fetch(IMP_TEMPLATES . '/imp/folders/import.html');
-    require $registry->get('templates', 'horde') . '/common-footer.inc';
+    $page_output->footer();
     exit;
 }
 
@@ -428,4 +427,4 @@ if (count($tree) > 10) {
 /* No need for extra template - close out the tags here. */
 echo '</form></div>';
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

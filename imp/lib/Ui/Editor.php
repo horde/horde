@@ -24,7 +24,7 @@ class IMP_Ui_Editor
      */
     static public function init($basic = false, $id = null)
     {
-        global $injector, $language, $prefs;
+        global $injector, $page_output, $language, $prefs;
 
         $injector->getInstance('Horde_Editor')->initialize(array(
             'basic' => $basic,
@@ -79,7 +79,7 @@ class IMP_Ui_Editor
             $config[] = 'toolbar: ' . $prefs->getValue('ckeditor_buttons');
         }
 
-        $injector->getInstance('Horde_PageOutput')->addInlineScript(array(
+        $page_output->addInlineScript(array(
             'window.IMP = window.IMP || {}',
             'IMP.ckeditor_config = {' . implode(',', $config) . '}'
         ));

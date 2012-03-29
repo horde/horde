@@ -289,7 +289,7 @@ case 'print_attach':
 
         // Csstidy filter may not be available.
         try {
-            $css = $injector->getInstance('Horde_PageOutput')->css;
+            $css = $page_output->css;
             if ($style = $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($css->loadCssFiles($css->getStylesheets()), 'csstidy', array('ob' => true, 'preserve_css' => false))->filterBySelector($selectors)) {
                 $elt->setAttribute('style', ($elt->hasAttribute('style') ? rtrim($elt->getAttribute('style'), ' ;') . ';' : '') . $style);
             }

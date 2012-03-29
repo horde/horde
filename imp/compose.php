@@ -20,7 +20,6 @@ Horde_Registry::appInit('imp', array(
     'session_control' => 'netscape'
 ));
 
-$page_output = $injector->getInstance('Horde_PageOutput');
 $vars = Horde_Variables::getDefaultVariables();
 
 /* Mailto link handler: redirect based on current view. */
@@ -1094,13 +1093,13 @@ if ($showmenu) {
 $page_output->addScriptFile('compose-base.js');
 $page_output->addScriptFile('compose.js');
 $page_output->addScriptFile('md5.js', 'horde');
-IMP::header($title);
 $page_output->addInlineJsVars($js_vars);
 if (!$redirect) {
     $page_output->addInlineScript($imp_ui->identityJs());
 }
+IMP::header($title);
 if ($showmenu) {
     echo $menu;
 }
 echo $template_output;
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

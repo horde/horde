@@ -47,6 +47,8 @@ class IMP_Ajax_Imple_PassphraseDialog extends Horde_Core_Ajax_Imple
      */
     public function attach()
     {
+        global $page_output;
+
         $params = isset($this->_params['params'])
             ? $this->_params['params']
             : array();
@@ -84,8 +86,6 @@ class IMP_Ajax_Imple_PassphraseDialog extends Horde_Core_Ajax_Imple
         if (isset($this->_params['reloadurl'])) {
             $js_params['reloadurl'] = strval($this->_params['reloadurl']);
         }
-
-        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
 
         $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
         $page_output->addScriptFile('redbox.js', 'horde');

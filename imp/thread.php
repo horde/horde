@@ -23,7 +23,6 @@ Horde_Registry::appInit('imp', array(
  * DEFAULT/'thread' - Thread mode
  * 'msgview' - Multiple message view
  */
-$page_output = $injector->getInstance('Horde_PageOutput');
 $vars = Horde_Variables::getDefaultVariables();
 $mode = $vars->mode
     ? $vars->mode
@@ -176,4 +175,4 @@ IMP::header($mode == 'thread' ? _("Thread View") : _("Multiple Message View"));
 echo $menu;
 IMP::status();
 echo $template->fetch(IMP_TEMPLATES . '/imp/thread/thread.html');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

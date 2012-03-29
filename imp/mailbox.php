@@ -38,7 +38,6 @@ Horde_Registry::appInit('imp', array(
     'impmode' => 'imp'
 ));
 
-$page_output = $injector->getInstance('Horde_PageOutput');
 $registry->setTimeZone();
 
 /* Call the mailbox redirection hook, if requested. */
@@ -334,7 +333,9 @@ if (IMP::mailbox()->inbox) {
 }
 
 if (!is_null($rss_box)) {
-    $rss_url = Horde::url('rss.php') . $rss_box;
+    $page_output->addLinkTag(array(
+        'href' => Horde::url('rss.php') . $rss_box
+    ));
 }
 
 /* If user wants the mailbox to be refreshed, set time here. */
@@ -390,7 +391,6 @@ if (IMP::mailbox()->editvfolder) {
     $pagetitle = $title = htmlspecialchars($title);
 }
 
-$page_output = $injector->getInstance('Horde_PageOutput');
 $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
 $page_output->addScriptFile('redbox.js', 'horde');
 $page_output->addScriptFile('dialog.js', 'horde');
@@ -476,7 +476,7 @@ if (empty($pageOb['end'])) {
     $empty_template->setOption('gettext', true);
     $empty_template->set('search_mbox', $search_mbox);
     echo $empty_template->fetch(IMP_TEMPLATES . '/imp/mailbox/empty_mailbox.html');
-    require $registry->get('templates', 'horde') . '/common-footer.inc';
+    $page_output->footer();
     exit;
 }
 
@@ -925,4 +925,4 @@ if (($pageOb['end'] - $pageOb['begin']) >= 20) {
     echo $n_template->fetch(IMP_TEMPLATES . '/imp/mailbox/navbar.html');
 }
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();
