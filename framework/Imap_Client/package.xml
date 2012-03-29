@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Workaround IMAP servers with broken CATENATE implementations (Bug #11111).
 * [jan] Fix sending ID requests.
 * [jan] Add Finnish translation (Leena Heino &lt;liinu@uta.fi&gt;).
 * [mms] Rewrite of caching system. Fixes a few bugs, and should be more efficient.
