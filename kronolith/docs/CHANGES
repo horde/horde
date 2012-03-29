@@ -2,6 +2,7 @@
 v4.0-git
 --------
 
+[rla] Make system shares browseable in WebDAV (Request #10998)
 [jan] Make calendar lists collapsible (Request #10865).
 [jan] Delay calendar list loading to speed up initial display.
 [mjr] Implement resource scheduling in dynamic view (Request #9774).
