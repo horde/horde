@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-*
+* [rla] Make system shares browseable in WebDAV (Request #10998)
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
