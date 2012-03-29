@@ -65,14 +65,14 @@ foreach ($devices as $key => $val) {
     );
 }
 
-$page_output = $injector->getInstance('Horde_PageOutput');
 $page_output->addScriptFile('activesyncadmin.js');
 $page_output->addInlineJsVars(array(
     'HordeActiveSyncAdmin.devices' => $js
 ));
 
-$title = _("ActiveSync Device Administration");
-require HORDE_TEMPLATES . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("ActiveSync Device Administration")
+));
 require HORDE_TEMPLATES . '/admin/menu.inc';
 
 ?>
@@ -202,4 +202,4 @@ foreach ($devices as $key => $device) {
 echo '<h1 class="header">' . Horde::img('group.png') . ' ' . _("ActiveSync Devices") . '</h1>';
 $tree->renderTree();
 echo '</form>';
-require HORDE_TEMPLATES . '/common-footer.inc';
+$page_output->footer();

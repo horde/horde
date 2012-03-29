@@ -31,8 +31,9 @@ foreach ($registry->listApps() as $app) {
 
 $notification->notify(array('listeners' => 'status'));
 
-$title = _("Welcome");
-
-require HORDE_TEMPLATES . '/common-header-mobile.inc';
+$page_output->header(array(
+    'title' => _("Welcome"),
+    'view' => $registry::VIEW_SMARTMOBILE
+));
 require HORDE_TEMPLATES . '/portal/mobile.inc';
-require HORDE_TEMPLATES . '/common-footer-mobile.inc';
+$page_output->footer();

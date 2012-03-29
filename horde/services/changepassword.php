@@ -68,8 +68,9 @@ $vars->remove('old_password');
 $vars->remove('password_1');
 $vars->remove('password_2');
 
-require HORDE_TEMPLATES . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 $notification->notify(array('listeners' => 'status'));
-$renderer = new Horde_Form_Renderer();
-$form->renderActive($renderer, $vars, Horde::url('services/changepassword.php'), 'post');
-require HORDE_TEMPLATES . '/common-footer.inc';
+$form->renderActive(new Horde_Form_Renderer(), $vars, Horde::url('services/changepassword.php'), 'post');
+$page_output->footer();

@@ -64,8 +64,9 @@ if ($formsignup->validate()) {
     }
 }
 
-$title = _("User Registration");
-$bodyClass = 'modal-form';
-require HORDE_TEMPLATES . '/common-header.inc';
+$page_output->header(array(
+    'body_class' => 'modal-form',
+    'title' => _("User Registration")
+));
 require HORDE_TEMPLATES . '/login/signup.inc';
-require HORDE_TEMPLATES . '/common-footer.inc';
+$page_output->footer();

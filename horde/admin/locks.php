@@ -49,15 +49,15 @@ try {
         $lock['end'] = strftime($format, $lock['lock_expiry_timestamp']);
     }
     $view->locks = $locks;
-    $injector->getInstance('Horde_PageOutput')->addScriptFile('tables.js', 'horde');
+    $page_output->addScriptFile('tables.js', 'horde');
 } catch (Horde_Lock_Exception $e) {
     $view->locks = array();
     $view->error = sprintf(_("Listing locks failed: %s"), $e->getMessage());
 }
 
-$title = _("Locks");
-require HORDE_TEMPLATES . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Locks")
+));
 require HORDE_TEMPLATES . '/admin/menu.inc';
 echo $view->render('list');
-
-require HORDE_TEMPLATES . '/common-footer.inc';
+$page_output->footer();

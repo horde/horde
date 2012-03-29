@@ -11,7 +11,7 @@
 require_once __DIR__ . '/../lib/Application.php';
 $permission = 'alarms';
 Horde_Registry::appInit('horde');
-if (!$registry->isAdmin() && 
+if (!$registry->isAdmin() &&
     !$injector->getInstance('Horde_Perms')->hasPermission('horde:administration:'.$permission, $registry->getAuth(), Horde_Perms::SHOW)) {
     $registry->authenticateFailure('horde', new Horde_Exception(sprintf("Not an admin and no %s permission", $permission)));
 }
@@ -135,10 +135,10 @@ try {
     $view->error = sprintf(_("Listing alarms failed: %s"), $e->getMessage());
 }
 
-$title = _("Alarms");
-require HORDE_TEMPLATES . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Alarms")
+));
 require HORDE_TEMPLATES . '/admin/menu.inc';
 echo $view->render('list');
 $form->renderActive();
-
-require HORDE_TEMPLATES . '/common-footer.inc';
+$page_output->footer();

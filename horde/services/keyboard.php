@@ -11,8 +11,9 @@
 require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('horde', array('nologintasks' => true));
 
-$title = _("Special Character Input");
-require HORDE_TEMPLATES . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Special Character Input")
+));
 
 ?>
 
@@ -156,5 +157,6 @@ function handleListChange(theList)
   </tr>
 </table>
 </form>
-</body>
-</html>
+<?php
+
+$page_output->footer();

@@ -25,9 +25,10 @@ class Horde_Block_Vatid extends Horde_Core_Block
      */
     protected function _content()
     {
+        global $page_output;
+
         $name = strval(new Horde_Support_Randomid());
 
-        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
         $page_output->addScriptFile('vatid.js', 'horde');
         $page_output->addInlineScript(array(
             '$("' . $name . '").observe("submit", HordeBlockVatid.onSubmit.bindAsEventListener(HordeBlockVatid))'

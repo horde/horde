@@ -12,15 +12,16 @@
 require_once __DIR__ . '/../../lib/Application.php';
 $permission = 'perms';
 Horde_Registry::appInit('horde');
-if (!$registry->isAdmin() && 
+if (!$registry->isAdmin() &&
     !$injector->getInstance('Horde_Perms')->hasPermission('horde:administration:'.$permission, $registry->getAuth(), Horde_Perms::SHOW)) {
     $registry->authenticateFailure('horde', new Horde_Exception(sprintf("Not an admin and no %s permission", $permission)));
 }
 
 $perm_id = Horde_Util::getFormData('perm_id');
 
-$title = _("Permissions Administration");
-require HORDE_TEMPLATES . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Permissions Administration")
+));
 require HORDE_TEMPLATES . '/admin/menu.inc';
 
 $ui = new Horde_Core_Perms_Ui($injector->getInstance('Horde_Perms'), $injector->getInstance('Horde_Core_Perms'));
@@ -28,4 +29,4 @@ $ui = new Horde_Core_Perms_Ui($injector->getInstance('Horde_Perms'), $injector->
 echo '<h1 class="header">' . Horde::img('perms.png') . ' ' . _("Permissions") . '</h1>';
 $ui->renderTree($perm_id);
 
-require HORDE_TEMPLATES . '/common-footer.inc';
+$page_output->footer();

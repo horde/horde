@@ -51,8 +51,10 @@ if ($module == 'admin') {
 
 $help = new Horde_Help(Horde_Help::SOURCE_FILE, array($fileroot . '/locale/' . $language . '/help.xml', $fileroot . '/locale/' . substr($language, 0, 2) . '/help.xml', $fileroot . '/locale/en/help.xml'));
 
-$bodyClass = 'help help_' . urlencode($show);
-require HORDE_TEMPLATES . '/common-header.inc';
+$page_output->header(array(
+    'body_class' => 'help help_' . urlencode($show),
+    'title' => $title
+));
 
 switch ($show) {
 case 'menu':
@@ -164,4 +166,4 @@ case 'entry':
     break;
 }
 
-require HORDE_TEMPLATES . '/common-footer.inc';
+$page_output->footer();

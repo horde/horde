@@ -11,7 +11,7 @@
 require_once __DIR__ . '/../lib/Application.php';
 $permission = 'groups';
 Horde_Registry::appInit('horde');
-if (!$registry->isAdmin() && 
+if (!$registry->isAdmin() &&
     !$injector->getInstance('Horde_Perms')->hasPermission('horde:administration:'.$permission, $registry->getAuth(), Horde_Perms::SHOW)) {
     $registry->authenticateFailure('horde', new Horde_Exception(sprintf("Not an admin and no %s permission", $permission)));
 }
@@ -122,7 +122,7 @@ case 'editform':
 
 switch ($form) {
 case 'addchild.inc':
-    $injector->getInstance('Horde_PageOutput')->addInlineScript(array(
+    $page_output->addInlineScript(array(
         '$("child").focus()'
     ), true);
     break;
@@ -162,8 +162,9 @@ case 'edit.inc':
 
 }
 
-$title = _("Group Administration");
-require HORDE_TEMPLATES . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Group Administration")
+));
 require HORDE_TEMPLATES . '/admin/menu.inc';
 if (!empty($form)) {
     require HORDE_TEMPLATES . '/admin/groups/' . $form;
@@ -223,4 +224,4 @@ foreach ($nodes as $id => $node) {
 
 echo '<h1 class="header">' . Horde::img('group.png') . ' ' . _("Groups") . '</h1>';
 $tree->renderTree();
-require HORDE_TEMPLATES . '/common-footer.inc';
+$page_output->footer();

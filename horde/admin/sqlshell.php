@@ -40,9 +40,10 @@ if (Horde_Util::getFormData('list-tables')) {
     }
 }
 
-$title = _("SQL Shell");
-$injector->getInstance('Horde_PageOutput')->addScriptFile('stripe.js', 'horde');
-require HORDE_TEMPLATES . '/common-header.inc';
+$page_output->addScriptFile('stripe.js', 'horde');
+$page_output->header(array(
+    'title' => _("SQL Shell")
+));
 require HORDE_TEMPLATES . '/admin/menu.inc';
 
 ?>
@@ -131,4 +132,4 @@ if (isset($result)) {
 </div>
 <?php
 
-require HORDE_TEMPLATES . '/common-footer.inc';
+$page_output->footer();

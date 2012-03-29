@@ -29,7 +29,7 @@ function _addTree($parent, $parent_id, $datatree, $tree, $indent = 1)
 require_once __DIR__ . '/../lib/Application.php';
 $permission = 'datatree';
 Horde_Registry::appInit('horde');
-if (!$registry->isAdmin() && 
+if (!$registry->isAdmin() &&
     !$injector->getInstance('Horde_Perms')->hasPermission('horde:administration:'.$permission, $registry->getAuth(), Horde_Perms::SHOW)) {
     $registry->authenticateFailure('horde', new Horde_Exception(sprintf("Not an admin and no %s permission", $permission)));
 }
@@ -59,8 +59,9 @@ if ($show = Horde_Util::getFormData('show')) {
     $attributes = $datatree->getAttributes($id);
 }
 
-$title = _("DataTree Browser");
-require HORDE_TEMPLATES . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("DataTree Browser")
+));
 require HORDE_TEMPLATES . '/admin/menu.inc';
 echo '<h1 class="header">' . Horde::img('datatree.png') . ' ' . _("DataTree") . '</h1>';
 $tree->renderTree();
@@ -72,4 +73,4 @@ if ($show) {
         htmlspecialchars(print_r($attributes, true)) .
         '</div>';
 }
-require HORDE_TEMPLATES . '/common-footer.inc';
+$page_output->footer();

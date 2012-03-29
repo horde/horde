@@ -82,7 +82,8 @@ $template = $injector->createInstance('Horde_Template');
 $template->setOption('gettext', true);
 $template->set('diffs', $diffs, true);
 
-$title = _("Configuration Differences");
-require HORDE_TEMPLATES . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Configuration Differences")
+));
 echo $template->fetch(HORDE_TEMPLATES . '/admin/config/diff.html');
-require HORDE_TEMPLATES . '/common-footer.inc';
+$page_output->footer();

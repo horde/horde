@@ -11,13 +11,14 @@
 require_once __DIR__ . '/../lib/Application.php';
 $permission = 'cmdshell';
 Horde_Registry::appInit('horde');
-if (!$registry->isAdmin() && 
+if (!$registry->isAdmin() &&
     !$injector->getInstance('Horde_Perms')->hasPermission('horde:administration:'.$permission, $registry->getAuth(), Horde_Perms::SHOW)) {
     $registry->authenticateFailure('horde', new Horde_Exception(sprintf("Not an admin and no %s permission", $permission)));
 }
 
-$title = _("Command Shell");
-require HORDE_TEMPLATES . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Command Shell")
+));
 require HORDE_TEMPLATES . '/admin/menu.inc';
 
 echo '<div>';
@@ -57,4 +58,4 @@ if ($command = trim(Horde_Util::getFormData('cmd'))) {
 </div>
 <?php
 
-require HORDE_TEMPLATES . '/common-footer.inc';
+$page_output->footer();

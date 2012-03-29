@@ -34,9 +34,10 @@ asort($apps);
 $application = Horde_Util::getFormData('app', 'horde');
 $command = trim(Horde_Util::getFormData('php'));
 
-$title = _("PHP Shell");
-$injector->getInstance('Horde_PageOutput')->addScriptFile('stripe.js', 'horde');
-require HORDE_TEMPLATES . '/common-header.inc';
+$page_output->addScriptFile('stripe.js', 'horde');
+$page_output->header(array(
+    'title' => _("PHP Shell")
+));
 require HORDE_TEMPLATES . '/admin/menu.inc';
 
 ?>
@@ -90,4 +91,4 @@ if ($command) {
 </div>
 <?php
 
-require HORDE_TEMPLATES . '/common-footer.inc';
+$page_output->footer();

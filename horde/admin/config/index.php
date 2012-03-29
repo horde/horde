@@ -355,9 +355,11 @@ $template->set('apps', $apps);
 $template->set('actions', $actions, true);
 $template->set('ftpform', $ftpform, true);
 
-$title = sprintf(_("%s Configuration"), $registry->get('name', 'horde'));
-$injector->getInstance('Horde_PageOutput')->addScriptFile('stripe.js', 'horde');
-require HORDE_TEMPLATES . '/common-header.inc';
+$page_output->addScriptFile('stripe.js', 'horde');
+
+$page_output->header(array(
+    'title' => sprintf(_("%s Configuration"), $registry->get('name', 'horde'))
+));
 require HORDE_TEMPLATES . '/admin/menu.inc';
 echo $template->fetch(HORDE_TEMPLATES . '/admin/config/index.html');
-require HORDE_TEMPLATES . '/common-footer.inc';
+$page_output->footer();

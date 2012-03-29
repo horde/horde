@@ -107,21 +107,22 @@ $template->set('header', $header);
 $template->set('tasks', $display_tasks, true);
 $template->set('logintasks_url', $tasks->getLoginTasksUrl());
 
-$injector->getInstance('Horde_PageOutput')->addScriptFile('logintasks.js', 'horde');
-
-$bodyId = 'services_logintasks';
-$bodyClass = 'modal-form';
+$page_output->addScriptFile('logintasks.js', 'horde');
+$page_output->header(array(
+    'body_class' => 'modal-form',
+    'body_id' => 'services_logintasks',
+    'title' => $title,
+    'view' => $registry->getView()
+));
 
 switch ($registry->getView()) {
 case Horde_Registry::VIEW_SMARTMOBILE:
-    require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
     echo $template->fetch(HORDE_TEMPLATES . '/logintasks/mobile.html');
-    require $registry->get('templates', 'horde') . '/common-footer-mobile.inc';
     break;
 
 default:
-    require HORDE_TEMPLATES . '/common-header.inc';
     echo $template->fetch(HORDE_TEMPLATES . '/logintasks/logintasks.html');
-    require HORDE_TEMPLATES . '/common-footer.inc';
     break;
 }
+
+$page_output->footer();

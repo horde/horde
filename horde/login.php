@@ -351,8 +351,6 @@ if ($reason) {
     $notification->push(str_replace('<br />', ' ', $reason), 'horde.message');
 }
 
-$page_output = $injector->getInstance('Horde_PageOutput');
-
 if ($browser->isMobile() &&
     (!isset($conf['user']['force_view']) ||
      ($conf['user']['force_view'] != 'traditional' &&
@@ -382,20 +380,24 @@ if ($browser->isMobile() &&
             . ');},0);');
     }
 
-    require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
+    $page_output->header(array(
+        'title' => $title,
+        'view' => $registry::VIEW_SMARTMOBILE
+    ));
     require $registry->get('templates', 'horde') . '/login/mobile.inc';
-    require $registry->get('templates', 'horde') . '/common-footer-mobile.inc';
-    exit;
-}
-
-if (!empty($js_files)) {
-    foreach ($js_files as $val) {
-        $page_output->addScriptFile($val[0], $val[1]);
+} else {
+    if (!empty($js_files)) {
+        foreach ($js_files as $val) {
+            $page_output->addScriptFile($val[0], $val[1]);
+        }
     }
+
+    $page_output->addInlineJsVars($js_code);
+    $page_output->header(array(
+        'body_class' => 'modal-form',
+        'title' => $title
+    ));
+    require $registry->get('templates', 'horde') . '/login/login.inc';
 }
 
-$page_output->addInlineJsVars($js_code);
-$bodyClass = 'modal-form';
-require $registry->get('templates', 'horde') . '/common-header.inc';
-require $registry->get('templates', 'horde') . '/login/login.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

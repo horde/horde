@@ -83,7 +83,7 @@ class Horde_Block_TwitterTimeline extends Horde_Core_Block
      */
     protected function _content()
     {
-        global $conf;
+        global $conf, $page_output;
 
         /* Get the twitter driver */
         try {
@@ -121,7 +121,6 @@ class Horde_Block_TwitterTimeline extends Horde_Core_Block
         $refresh = empty($this->_params['refresh_rate']) ? 300 : $this->_params['refresh_rate'];
 
         /* Add the client javascript / initialize it */
-        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
         $page_output->addScriptFile('twitterclient.js', 'horde');
         $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
         $script = <<<EOT

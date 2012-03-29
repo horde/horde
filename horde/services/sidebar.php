@@ -19,7 +19,7 @@ Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
 function _renderSidebar()
 {
-    global $conf, $injector, $language, $prefs, $registry;
+    global $conf, $injector, $language, $page_output, $prefs, $registry;
 
     if (!Horde_Util::getFormData('ajaxui') &&
         ($conf['menu']['always'] ||
@@ -30,7 +30,6 @@ function _renderSidebar()
             ? $sidebar->getBaseTree()
             : $sidebar->getTree();
 
-        $page_output = $injector->getInstance('Horde_PageOutput');
         $page_output->addScriptFile('sidebar.js', 'horde');
 
         $ajax_url = Horde::getServiceLink('ajax', 'horde');
@@ -69,7 +68,7 @@ function _renderSidebar()
         echo '<div class="body" id="horde_body">';
     }
 
-    $GLOBALS['sidebarLoaded'] = true;
+    $page_output->sidebarLoaded = true;
 }
 
 _renderSidebar();

@@ -226,7 +226,6 @@ case 'removequeued':
     break;
 }
 
-$page_output = $injector->getInstance('Horde_PageOutput');
 $page_output->addScriptFile('stripe.js', 'horde');
 if (isset($update_form) && $auth->hasCapability('list')) {
     $page_output->addScriptFile('userupdate.js', 'horde');
@@ -235,8 +234,9 @@ if (isset($update_form) && $auth->hasCapability('list')) {
     ));
 }
 
-$title = _("User Administration");
-require HORDE_TEMPLATES . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("User Administration")
+));
 require HORDE_TEMPLATES . '/admin/menu.inc';
 
 if (isset($update_form) && $auth->hasCapability('list')) {
@@ -290,4 +290,4 @@ if ($auth->hasCapability('list')) {
     require HORDE_TEMPLATES . '/admin/user/nolist.inc';
 }
 
-require HORDE_TEMPLATES . '/common-footer.inc';
+$page_output->footer();

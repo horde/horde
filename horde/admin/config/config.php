@@ -11,7 +11,7 @@
 require_once __DIR__ . '/../../lib/Application.php';
 $permission = 'configuration';
 Horde_Registry::appInit('horde');
-if (!$registry->isAdmin() && 
+if (!$registry->isAdmin() &&
     !$injector->getInstance('Horde_Perms')->hasPermission('horde:administration:'.$permission, $registry->getAuth(), Horde_Perms::SHOW)) {
     $registry->authenticateFailure('horde', new Horde_Exception(sprintf("Not an admin and no %s permission", $permission)));
 }
@@ -92,7 +92,9 @@ if ($session->exists('horde', 'config/' . $app)) {
 $template->set('diff_popup', $diff_link, true);
 $template->setOption('gettext', true);
 
-require HORDE_TEMPLATES . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 require HORDE_TEMPLATES . '/admin/menu.inc';
 
 /* Render the configuration form. */
@@ -104,4 +106,4 @@ $form->renderActive($renderer, $vars, Horde::url('admin/config/config.php'), 'po
 $template->set('form', Horde::endBuffer());
 
 echo $template->fetch(HORDE_TEMPLATES . '/admin/config/config.html');
-require HORDE_TEMPLATES . '/common-footer.inc';
+$page_output->footer();

@@ -278,10 +278,11 @@ try {
     $groupList = array();
 }
 
-require HORDE_TEMPLATES . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 $notification->notify(array('listeners' => 'status'));
 if (!empty($form)) {
     require HORDE_TEMPLATES . '/shares/' . $form;
 }
-
-require HORDE_TEMPLATES . '/common-footer.inc';
+$page_output->footer();

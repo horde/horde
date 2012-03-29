@@ -99,7 +99,9 @@ if ($can_validate && $form->validate($vars)) {
 }
 
 $renderer = new Horde_Core_Ui_ModalFormRenderer();
-$bodyClass = 'modal-form';
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'body_class' => 'modal-form',
+    'title' => $title
+));
 require $registry->get('templates', 'horde') . '/login/resetpassword.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

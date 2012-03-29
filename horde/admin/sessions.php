@@ -16,12 +16,12 @@ if (!$registry->isAdmin() &&
     $registry->authenticateFailure('horde', new Horde_Exception(sprintf("Not an admin and no %s permission", $permission)));
 }
 
-$title = _("Session Admin");
-$injector->getInstance('Horde_PageOutput')->addInlineScript(array(
+$page_output->addInlineScript(array(
     '$$("DIV.sesstoggle").invoke("observe", "click", function() { [ this.nextSiblings(), this.immediateDescendants() ].flatten().compact().invoke("toggle"); })'
 ), true);
-
-require HORDE_TEMPLATES . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Session Administration")
+));
 require HORDE_TEMPLATES . '/admin/menu.inc';
 
 echo '<h1 class="header">' . _("Current Sessions");
@@ -71,4 +71,4 @@ try {
     echo '</h1><p class="headerbox"><em>' . sprintf(_("Listing sessions failed: %s"), $e->getMessage()) . '</em></p>';
 }
 
-require HORDE_TEMPLATES . '/common-footer.inc';
+$page_output->footer();

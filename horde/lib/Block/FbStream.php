@@ -87,6 +87,8 @@ class Horde_Block_FbStream extends Horde_Core_Block
      */
     protected function _content()
     {
+        global $page_output;
+
         $instance = hash('md5', mt_rand());
         $endpoint = Horde::url('services/facebook/', true);
         $html = '';
@@ -99,7 +101,6 @@ class Horde_Block_FbStream extends Horde_Core_Block
         $fbp = unserialize($GLOBALS['prefs']->getValue('facebook'));
 
         /* Add the client javascript / initialize it */
-        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
         $page_output->addThemeStylesheet('facebook.css');
         $page_output->addScriptFile('facebookclient.js');
         $script = <<<EOT

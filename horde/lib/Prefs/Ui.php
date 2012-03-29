@@ -56,7 +56,7 @@ class Horde_Prefs_Ui
      */
     public function prefsGroup($ui)
     {
-        global $injector, $registry;
+        global $injector, $page_output, $registry;
 
         foreach ($ui->getChangeablePrefs() as $val) {
             switch ($val) {
@@ -81,7 +81,7 @@ class Horde_Prefs_Ui
                 break;
 
             case 'remotemanagement':
-                $injector->getInstance('Horde_PageOutput')->addScriptFile('rpcprefs.js', 'horde');
+                $page_output->addScriptFile('rpcprefs.js', 'horde');
                 $ui->nobuttons = true;
                 break;
 
@@ -195,7 +195,8 @@ class Horde_Prefs_Ui
      */
     protected function _categoryManagement($ui)
     {
-        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        global $page_output;
+
         $page_output->addScriptFile('categoryprefs.js', 'horde');
         $page_output->addScriptFile('colorpicker.js', 'horde');
         $page_output->addInlineJsVars(array(
@@ -289,7 +290,7 @@ class Horde_Prefs_Ui
             );
         }
 
-        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineJsVars(array(
+        $GLOBALS['page_output']->addInlineJsVars(array(
             'HordeRpcPrefs.servers' => $js
         ));
 
@@ -314,7 +315,7 @@ class Horde_Prefs_Ui
      */
     protected function _syncmlManagement($ui)
     {
-        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('syncmlprefs.js', 'horde');
+        $GLOBALS['page_output']->addScriptFile('syncmlprefs.js', 'horde');
         $devices = Horde_SyncMl_Backend::factory('Horde')->getUserAnchors($GLOBALS['registry']->getAuth());
 
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
@@ -348,6 +349,8 @@ class Horde_Prefs_Ui
      */
     protected function _activesyncManagement($ui)
     {
+        global $page_output;
+
         if (empty($GLOBALS['conf']['activesync']['enabled'])) {
             return _("ActiveSync not activated.");
         }
@@ -363,7 +366,6 @@ class Horde_Prefs_Ui
             );
         }
 
-        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
         $page_output->addScriptFile('activesyncprefs.js', 'horde');
         $page_output->addInlineJsVars(array(
             'HordeActiveSyncPrefs.devices' => $js
@@ -430,7 +432,7 @@ class Horde_Prefs_Ui
             return $e->getMessage();
         }
 
-        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addThemeStylesheet('facebook.css');
+        $GLOBALS['page_output']->addThemeStylesheet('facebook.css');
 
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->setOption('gettext', true);
@@ -603,7 +605,7 @@ class Horde_Prefs_Ui
 
         default:
             /* Save button. */
-            $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineScript(array(
+            $GLOBALS['page_output']->addInlineScript(array(
                 'if (window.opener && window.name) window.close();'
             ));
             return true;

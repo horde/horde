@@ -143,9 +143,10 @@ case 'cancel_problem_report':
     _returnToPage();
 }
 
-$title = _("Problem Description");
-require HORDE_TEMPLATES . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Problem Description")
+));
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 require HORDE_TEMPLATES . '/problem/problem.inc';
-require HORDE_TEMPLATES . '/common-footer.inc';
+$page_output->footer();
