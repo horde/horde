@@ -681,12 +681,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $cmd = array('ID');
 
         if (empty($info)) {
-            $cmd[] = array('t' => Horde_Imap_Client::DATA_NSTRING, null);
+            $cmd[] = array('t' => Horde_Imap_Client::DATA_NSTRING, 'v' => null);
         } else {
             $tmp = array();
             foreach ($info as $key => $val) {
-                $tmp[] = array('t' => Horde_Imap_Client::DATA_STRING, strtolower($key));
-                $tmp[] = array('t' => Horde_Imap_Client::DATA_NSTRING, $val);
+                $tmp[] = array('t' => Horde_Imap_Client::DATA_STRING, 'v' => strtolower($key));
+                $tmp[] = array('t' => Horde_Imap_Client::DATA_NSTRING, 'v' => $val);
             }
             $cmd[] = $tmp;
         }
