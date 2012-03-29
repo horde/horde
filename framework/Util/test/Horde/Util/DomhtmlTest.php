@@ -98,4 +98,28 @@ EOT;
             }
         }
     }
+
+    public function testHrefSpaces()
+    {
+        $text = <<<EOT
+<html>
+ <body>
+  <a href="  http://foo.example.com/">Foo</a>
+ </body>
+</html>
+EOT;
+
+        $dom = new Horde_Domhtml($text, 'UTF-8');
+
+        foreach ($dom as $val) {
+            if (($val instanceof DOMElement) &&
+                ($val->tagName == 'a')) {
+                $this->assertEquals(
+                    '  http://foo.example.com/',
+                    $val->getAttribute('href')
+                );
+            }
+        }
+    }
+
 }
