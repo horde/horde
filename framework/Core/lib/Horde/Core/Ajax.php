@@ -127,39 +127,21 @@ class Horde_Core_Ajax
     {
         $this->init();
 
-        if (isset($GLOBALS['language'])) {
-            header('Content-type: text/html; charset=UTF-8');
-            header('Vary: Accept-Language');
+        $header_opts = array(
+            'outputJs' => !empty($opts['inlinescript'])
+        );
+
+        if (isset($opts['bodyid'])) {
+            $header_opts['body_id'] = $opts['bodyid'];
+        }
+        if (isset($opts['css'])) {
+            $header_opts['stylesheet_opts'] = $opts['css'];
+        }
+        if (isset($opts['title'])) {
+            $header_opts['title'] = $opts['title'];
         }
 
-        print '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">' . "\n";
-
-        if (empty($GLOBALS['language'])) {
-            print '<html>';
-        } else {
-            print '<html lang="' . strtr($GLOBALS['language'], '_', '-') . '">';
-        }
-
-        print '<head>';
-
-        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
-        $page_output->outputMetaTags();
-        $page_output->includeStylesheetFiles(isset($opts['css']) ? $opts['css'] : array());
-        if (!empty($opts['inlinescript'])) {
-            $page_output->includeScriptFiles();
-            $page_output->outputInlineScript();
-        }
-        $page_output->includeFavicon();
-
-        $page_title = $GLOBALS['registry']->get('name');
-        if (!empty($opts['title'])) {
-            $page_title .= ' :: ' . $opts['title'];
-        }
-
-        print '<title>' . htmlspecialchars($page_title) . '</title>' .
-            '</head><body' .
-            (empty($opts['bodyid']) ? '' : ' id="' . $opts['bodyid'] . '"') .
-            '>';
+        $GLOBALS['page_output']->header($header_opts);
 
         // Send what we have currently output so the browser can start
         // loading CSS/JS. See:
