@@ -93,7 +93,7 @@ default:
 
 $page_output = $injector->getInstance('Horde_PageOutput');
 $page_output->addScriptFile('tooltips.js', 'horde');
-$page_output->addScriptFile('effects.js', 'horde');
+$page_output->addScriptFile('scriptaculous/effects.js', 'horde');
 $page_output->addScriptFile('quickfinder.js', 'horde');
 
 if ($prefs->getValue('show_panel')) {

@@ -729,7 +729,7 @@ $m_template->set('msgtext', $mdntext . $inlineout['msgtext']);
 
 /* Output message page now. */
 $page_output->addInlineScript($inlineout['js_onload'], true);
-$page_output->addScriptFile('effects.js', 'horde');
+$page_output->addScriptFile('scriptaculous/effects.js', 'horde');
 $page_output->addScriptFile('imp.js');
 $page_output->addScriptFile('message.js');
 

@@ -92,7 +92,7 @@ abstract class Horde_Core_Ajax_Imple_AutoCompleter extends Horde_Core_Ajax_Imple
             $js_params = str_replace('"' . $name . '":1', '"' . $name . '":' . $val, $js_params);
         }
 
-        $page_output->addScriptFile('effects.js', 'horde');
+        $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
         $page_output->addInlineScript((isset($config['var']) ? $config['var'] . ' = ' : '') . 'new ' . $func . '(' . implode(',', $params) . ',' . $js_params . ')', empty($this->_params['no_onload']) ? true : null);
     }
 

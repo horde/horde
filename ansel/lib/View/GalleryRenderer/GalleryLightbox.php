@@ -35,7 +35,7 @@ class Ansel_View_GalleryRenderer_GalleryLightbox extends Ansel_View_GalleryRende
         if (empty($this->view->api)) {
             $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
             $page_output->addThemeStylesheet('lightbox.css');
-            $page_output->addScriptFile('effects.js', 'horde');
+            $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
             $page_output->addScriptFile('popup.js', 'horde');
             $page_output->addScriptFile('lightbox.js');
         }
@@ -162,7 +162,7 @@ class Ansel_View_GalleryRenderer_GalleryLightbox extends Ansel_View_GalleryRende
             $page_output->includeStylesheetFiles(array('nobase' => true), true);
             $includes = $GLOBALS['injector']->createInstance('Horde_Script_Files');
             $includes->add('accesskeys.js', 'horde', true);
-            $includes->add('effects.js', 'horde', true);
+            $includes->add('scriptaculous/effects.js', 'horde', true);
             $includes->add('lightbox.js', 'ansel', true);
             $includes->includeFiles();
         }

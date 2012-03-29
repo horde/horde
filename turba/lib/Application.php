@@ -185,8 +185,8 @@ class Turba_Application extends Horde_Registry_Application
             switch ($val) {
             case 'columnselect':
                 $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
-                $page_output->addScriptFile('effects.js', 'horde');
-                $page_output->addScriptFile('dragdrop.js', 'horde');
+                $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
+                $page_output->addScriptFile('scriptaculous/dragdrop.js', 'horde');
                 $page_output->addScriptFile('columnprefs.js');
                 break;
 

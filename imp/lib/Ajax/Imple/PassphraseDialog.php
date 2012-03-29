@@ -87,7 +87,7 @@ class IMP_Ajax_Imple_PassphraseDialog extends Horde_Core_Ajax_Imple
 
         $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
 
-        $page_output->addScriptFile('effects.js', 'horde');
+        $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
         $page_output->addScriptFile('redbox.js', 'horde');
         $page_output->addScriptFile('dialog.js', 'horde');
 

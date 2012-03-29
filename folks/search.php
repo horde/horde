@@ -82,7 +82,7 @@ if ($registry->isAuthenticated()) {
 
 $page_output = $injector->getInstance('Horde_PageOutput');
 $page_output->addScriptFile('stripe.js', 'horde');
-$page_output->addScriptFile('effects.js', 'horde');
+$page_output->addScriptFile('scriptaculous/effects.js', 'horde');
 $page_output->addScriptFile('redbox.js', 'horde');
 $page_output->addScriptFile('search.js');
 

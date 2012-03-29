@@ -61,7 +61,7 @@ class Ansel_View_Upload
         Ansel::initJSVariables();
 
         $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
-        $page_output->addScriptFile('effects.js', 'horde');
+        $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
         $page_output->addScriptFile('carousel.js');
         $page_output->addScriptFile('upload.js');
     }

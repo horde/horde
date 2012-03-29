@@ -259,7 +259,7 @@ case 'duplicate':
 }
 
 $page_output->addScriptFile('quickfinder.js', 'horde');
-$page_output->addScriptFile('effects.js', 'horde');
+$page_output->addScriptFile('scriptaculous/effects.js', 'horde');
 $page_output->addScriptFile('redbox.js', 'horde');
 $page_output->addScriptFile('search.js');
 if (isset($view) && is_object($view)) {

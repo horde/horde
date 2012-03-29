@@ -29,7 +29,7 @@ class Horde_Core_Text_Filter_Highlightquotes extends Horde_Text_Filter_Highlight
     {
         if (empty($params['noJS'])) {
             $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
-            $page_output->addScriptFile('effects.js', 'horde');
+            $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
             $page_output->addScriptFile('toggle_quotes.js', 'horde');
         }
 

@@ -364,20 +364,20 @@ case 'resizeedit':
         $y2 = $geometry['height'];
 
         // js and css files
-        $page_output->addScriptFile('builder.js', 'horde');
-        $page_output->addScriptFile('effects.js', 'horde');
-        $page_output->addScriptFile('controls.js', 'horde');
-        $page_output->addScriptFile('dragdrop.js', 'horde');
+        $page_output->addScriptFile('scriptaculous/builder.js', 'horde');
+        $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
+        $page_output->addScriptFile('scriptaculous/controls.js', 'horde');
+        $page_output->addScriptFile('scriptaculous/dragdrop.js', 'horde');
         $page_output->addScriptFile('cropper.js');
 
         $page_output->addThemeStylesheet('cropper.css');
     } elseif ($actionID == 'resizeedit') {
         // js and css files
         $geometry = $image->getDimensions('full');
-        $page_output->addScriptFile('builder.js', 'horde');
-        $page_output->addScriptFile('effects.js', 'horde');
-        $page_output->addScriptFile('slider.js', 'horde');
-        $page_output->addScriptFile('dragdrop.js', 'horde');
+        $page_output->addScriptFile('scriptaculous/builder.js', 'horde');
+        $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
+        $page_output->addScriptFile('scriptaculous/controls.js', 'horde');
+        $page_output->addScriptFile('scriptaculous/dragdrop.js', 'horde');
     }
     require $registry->get('templates', 'horde') . '/common-header.inc';
     echo Horde::menu();

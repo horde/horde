@@ -48,8 +48,8 @@ $height = $x2 - $x1;
 $width = $y2 - $y1;
 
 $page_output = $injector->getInstance('Horde_PageOutput');
-$page_output->addScriptFile('scriptaculous.js', 'horde');
-$page_output->addScriptFile('builder.js', 'horde');
+$page_output->addScriptFile('scriptaculous/scriptaculous.js', 'horde');
+$page_output->addScriptFile('scriptaculous/builder.js', 'horde');
 $page_output->addScriptFile('cropper.js');
 $page_output->addScriptFile('stripe.js', 'horde');
 

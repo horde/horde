@@ -514,7 +514,7 @@ class Turba_View_Browse
 
         $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
         $page_output->addScriptFile('quickfinder.js', 'horde');
-        $page_output->addScriptFile('effects.js', 'horde');
+        $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
         $page_output->addScriptFile('redbox.js', 'horde');
         require $registry->get('templates', 'horde') . '/common-header.inc';
         require TURBA_TEMPLATES . '/menu.inc';

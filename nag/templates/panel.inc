@@ -1,7 +1,7 @@
 <?php
 
 $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
-$page_output->addScriptFile('effects.js', 'horde');
+$page_output->addScriptFile('scriptaculous/effects.js', 'horde');
 $page_output->addScriptFile('redbox.js', 'horde');
 
 $info_img = Horde::img('info_icon.png', _("Task List Information"), array('class' => 'tasklist-info'));

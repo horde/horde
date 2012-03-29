@@ -61,7 +61,7 @@ class Horde_Core_Ajax_Imple_SpellChecker extends Horde_Core_Ajax_Imple
     public function attach()
     {
         $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
-        $page_output->addScriptFile('effects.js', 'horde');
+        $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
         $page_output->addScriptFile('keynavlist.js', 'horde');
         $page_output->addScriptFile('spellchecker.js', 'horde');
 

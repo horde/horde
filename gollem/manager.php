@@ -581,7 +581,7 @@ if (is_array($list) && $numitem && $read_perms) {
 $template->set('itemcount', sprintf(ngettext(_("%d item"), _("%d items"), $total), $total));
 
 $page_output = $injector->getInstance('Horde_PageOutput');
-$page_output->addScriptFile('effects.js', 'horde');
+$page_output->addScriptFile('scriptaculous/effects.js', 'horde');
 $page_output->addScriptFile('redbox.js', 'horde');
 $page_output->addScriptFile('dialog.js', 'horde');
 $page_output->addScriptFile('tables.js', 'horde');

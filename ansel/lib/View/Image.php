@@ -93,7 +93,7 @@ class Ansel_View_Image extends Ansel_View_Ansel
         /* Any script files we may need if not calling via the api */
         if (empty($this->_params['api'])) {
             $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
-            $page_output->addScriptFile('effects.js', 'horde');
+            $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
             $page_output->addScriptFile('stripe.js', 'horde');
         }
     }
@@ -373,7 +373,7 @@ class Ansel_View_Image extends Ansel_View_Ansel
         /* Output the js if we are calling via the api */
         if (!empty($this->_params['api'])) {
             $includes = $GLOBALS['injector']->createInstance('Horde_Script_Files');
-            $includes->add('effects.js', 'horde',true, true);
+            $includes->add('scriptaculous/effects.js', 'horde',true, true);
             $includes->add('stripe.js', 'horde', true, true);
             $includes->includeFiles();
         }

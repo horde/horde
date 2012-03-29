@@ -43,7 +43,7 @@ class Hermes_Ajax extends Horde_Core_Ajax
             $datejs = 'en-US.js';
         }
         $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
-        $page_output->addScriptFile('effects.js', 'horde');
+        $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
         $page_output->addScriptFile('horde.js', 'horde');
         $page_output->addScriptFile('growler.js', 'horde');
         $page_output->addScriptFile('redbox.js', 'horde');

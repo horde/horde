@@ -45,10 +45,10 @@ class Horde_Core_Ajax
         $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
         $page_output->addScriptFile('horde.js', 'horde');
         $page_output->addScriptFile('hordecore.js', 'horde');
-        $page_output->addScriptFile('effects.js', 'horde');
         $page_output->addScriptFile('growler.js', 'horde');
         $page_output->addScriptFile('popup.js', 'horde');
-        $page_output->addScriptFile('sound.js', 'horde');
+        $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
+        $page_output->addScriptFile('scriptaculous/sound.js', 'horde');
 
         /* Configuration used in core javascript files. */
         $js_conf = array_filter(array(
@@ -104,8 +104,8 @@ class Horde_Core_Ajax
         if (!self::$_init) {
             $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
             $page_output->addScriptFile('hordecore.js', 'horde');
-            $page_output->addScriptFile('effects.js', 'horde');
             $page_output->addScriptFile('growler.js', 'horde');
+            $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
 
             $page_output->addInlineJsVars(array(
                 'var HordeCoreConf' => array()

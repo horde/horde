@@ -144,7 +144,7 @@ class Ansel_View_EmbeddedRenderer_Mini extends Ansel_View_Base
 
         /* Lightbox specific URLs */
         if (!empty($this->_params['lightbox'])) {
-            $effectsurl = Horde::url($js_path . '/effects.js', true);
+            $effectsurl = Horde::url($js_path . '/scriptaculous/effects.js', true);
             $lbjsurl = Horde::url($ansel_js_path . '/lightbox.js', true);
             $horde_css->addThemeStylesheet('lightbox.css');
         }
