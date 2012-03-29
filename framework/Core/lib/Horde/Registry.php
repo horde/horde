@@ -141,6 +141,7 @@ class Horde_Registry
      *   - $injector: Horde_Injector object
      *   - $language: Language
      *   - $notification: Horde_Notification object
+     *   - $page_output: Horde_PageOutput object
      *   - $prefs: Horde_Prefs object
      *   - $registry: Horde_Registry object
      *   - $session: Horde_Session object
@@ -465,6 +466,9 @@ class Horde_Registry
 
         $GLOBALS['notification'] = $injector->getInstance('Horde_Notification');
         $GLOBALS['notification']->attach('status', null, $notify_class);
+
+        /* Initialize global page output object. */
+        $GLOBALS['page_output'] = $injector->getInstance('Horde_PageOutput');
 
         register_shutdown_function(array($this, 'shutdown'));
     }
