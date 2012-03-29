@@ -190,8 +190,8 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Base
                     case 'a':
                         /* Strip whitespace from href links. This is bad HTML,
                          * but may prevent viewing of the link. */
-                        if ($node->hasAttribute('href')) {
-                            $node->setAttribute('href', trim($node->getAttribute('href')));
+                        if ($child->hasAttribute('href')) {
+                            $child->setAttribute('href', trim($child->getAttribute('href')));
                         }
                         break;
 
