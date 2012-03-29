@@ -2,14 +2,14 @@
 /**
  * Horde login page.
  *
- * Valid parameters in:
- * 'app' - The app to login to.
- * 'horde_logout_token' - TODO
- * 'horde_user' - TODO
- * 'logout_msg' - Logout message.
- * 'logout_reason' - Logout reason (Horde_Auth or Horde_Core_Auth_Wrapper
- *                   constant).
- * 'url' - The url to redirect to after auth.
+ * URL Parameters:
+ *   - app: The app to login to.
+ *   - horde_logout_token: TODO
+ *   - horde_user: TODO
+ *   - logout_msg: Logout message.
+ *   - logout_reason: Logout reason (Horde_Auth or Horde_Core_Auth_Wrapper
+ *                    constant).
+ *   - url: The url to redirect to after auth.
  *
  * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
