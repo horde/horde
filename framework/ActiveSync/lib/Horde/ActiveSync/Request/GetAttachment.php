@@ -21,7 +21,7 @@ class Horde_ActiveSync_Request_GetAttachment extends Horde_ActiveSync_Request_Ba
     /**
      * Handle request
      *
-     * @return boolean
+     * @return string  The content-type of the attachment
      */
     protected function _handle()
     {
