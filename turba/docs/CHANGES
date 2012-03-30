@@ -2,6 +2,7 @@
 v3.0.13-git
 -----------
 
+[jan] Update Hungarian translation (Zoltán Németh <nemeth.zoltan@etit.hu>).
 [jan] Only connect to LDAP driver for read/write requests (Dominique Lalot
       <dom.lalot@gmail.com>, Request #11082).
 [mjr] Fix bug that caused time shifting of contact birthday and anniversary

@@ -2,6 +2,7 @@
 v4.0.15-git
 -----------
 
+[jan] Update Hungarian translation (Zoltán Németh <nemeth.zoltan@etit.hu>).
 [jan] Fix horde-set-perms script (Arjen de Korte, Bug #11048).
 
 
