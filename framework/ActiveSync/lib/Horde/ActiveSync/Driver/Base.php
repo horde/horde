@@ -554,6 +554,32 @@ abstract class Horde_ActiveSync_Driver_Base
     abstract public function getAttachment($name);
 
     /**
+     * Return the specified attachement data for an ITEMOPERATIONS request.
+     *
+     * @param string $filereference  The attachment identifier.
+     *
+     * @return
+     */
+    abstract public function itemOperationsGetAttachmentData($filereference);
+
+    /**
+     * @TODO
+     */
+    abstract public function itemOperationsFetchMailbox($searchlongid, $bodypreference, $mimesupport);
+
+    /**
+     * Return a documentlibrary item.
+     *
+     * @param string $linkid  The linkid
+     * @param array $cred     A credential array:
+     *   - username: A hash with 'username' and 'domain' key/values.
+     *   - password: User password
+     *
+     * @return array An array containing the data and metadata:
+     */
+    abstract public function itemOperationsGetDocumentLibraryLink($linkid, $cred);
+
+    /**
      * Build a stat structure for an email message.
      *
      * @return array

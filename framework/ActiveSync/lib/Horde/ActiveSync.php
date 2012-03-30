@@ -552,6 +552,11 @@ class Horde_ActiveSync
         }
     }
 
+    public function hasMultiPart()
+    {
+        return $this->_multipart;
+    }
+
     /**
      * Send provision header
      *
