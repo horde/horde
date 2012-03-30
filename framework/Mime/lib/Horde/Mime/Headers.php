@@ -442,10 +442,16 @@ class Horde_Mime_Headers implements Serializable
         }
 
         $ptr = &$this->_headers[$header];
-        $base = (is_array($ptr['v']) &&
-                 in_array($header, $this->singleFields(true)))
-            ? $ptr['v'][0]
-            : $ptr['v'];
+        if (is_array($ptr['v']) &&
+            in_array($header, $this->singleFields(true))) {
+            if (in_array($header, $this->addressFields())) {
+                $base = str_replace(';,', ';', implode(', ', $ptr['v']));
+            } else {
+                $base = $ptr['v'][0];
+            }
+        } else {
+            $base = $ptr['v'];
+        }
         $params = isset($ptr['p']) ? $ptr['p'] : array();
 
         switch ($type) {
