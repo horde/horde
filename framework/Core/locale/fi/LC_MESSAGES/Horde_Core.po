@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Horde_Core\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-02-22 11:20+0100\n"
-"PO-Revision-Date: 2012-03-07 19:16:04+0200\n"
+"PO-Revision-Date: 2012-03-23 09:55:44+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -459,11 +459,11 @@ msgstr "Säilytä alkuperäinen?"
 
 #: lib/Horde/Core/Sidebar.php:167
 msgid "Log in"
-msgstr "Kirjaudu sisään"
+msgstr "Kirjaudu"
 
 #: lib/Horde/Core/Sidebar.php:160
 msgid "Log out"
-msgstr "Kirjaudu ulos"
+msgstr "Poistu"
 
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:431
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:477
@@ -1044,11 +1044,11 @@ msgstr "[Näytä lainattu teksti - %d riviä]"
 
 #: lib/Horde/Menu.php:248
 msgid "_Log in"
-msgstr "Kirjaudu _sisään"
+msgstr "_Kirjaudu"
 
 #: lib/Horde/Menu.php:243
 msgid "_Log out"
-msgstr "Kirjaudu _ulos"
+msgstr "_Poistu"
 
 #: lib/Horde/Menu.php:212
 msgid "_Preferences"

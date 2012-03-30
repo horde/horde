@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Horde 4.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-02-22 11:20+0100\n"
-"PO-Revision-Date: 2012-03-22 15:00:24+0200\n"
+"PO-Revision-Date: 2012-03-28 19:27:46+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -279,7 +279,7 @@ msgstr "Osoite"
 
 #: config/registry.php:122
 msgid "Address Book"
-msgstr "Osoiteet"
+msgstr "Osoitteet"
 
 #: lib/Application.php:46
 msgid "Administration"
@@ -1105,7 +1105,7 @@ msgstr "Muokkaa oikeuksia"
 #: services/shares/edit.php:257 templates/shares/edit.inc:14
 #, php-format
 msgid "Edit permissions for \"%s\""
-msgstr "Muokkaa oikeuksia \"%s\":lle"
+msgstr "Muokkaa oikeuksia - \"%s\""
 
 #: lib/Block/Fortune.php:42
 msgid "Education"
@@ -1440,7 +1440,7 @@ msgstr "Kotihakemisto"
 
 #: config/registry.php:75
 msgid "Horde"
-msgstr "Portaali"
+msgstr "Horde"
 
 #: themes/hordeweb/info.php:2
 msgid "Horde Website"
@@ -1473,7 +1473,7 @@ msgstr "Vain ikonit"
 #: util/icon_browser.php:53
 #, php-format
 msgid "Icons for %s"
-msgstr "Ikonit %s:lle"
+msgstr "Ikonit - %s"
 
 #: config/prefs.php:563
 msgid "Icons with text"
@@ -2434,7 +2434,7 @@ msgstr "Tulokset"
 #: services/portal/cloud_search.php:34
 #, php-format
 msgid "Results for %s"
-msgstr "Tulokset %s:lle"
+msgstr "Tulokset - %s"
 
 #: templates/prefs/end.html:7
 msgid "Return to Main Screen"
@@ -3082,7 +3082,7 @@ msgstr ""
 msgid ""
 "There was an error removing global data for %s. Details have been logged."
 msgstr ""
-"Joitakin ongelmia poistettaessa kaikkia tietoja %s:stä. Tarkemmat tiedot on "
+"Joitakin ongelmia poistettaessa kaikkia tietoja %s. Tarkemmat tiedot on "
 "tallennettu."
 
 #: services/facebook/index.php:49
@@ -3253,7 +3253,7 @@ msgstr "Päivitettiin \"%s\"."
 #: admin/config/index.php:118
 #, php-format
 msgid "Updated schema for %s."
-msgstr "Päivitettiin skeema \"%s\":ksi."
+msgstr "Päivitettiin skeema - \"%s\"."
 
 #: admin/config/index.php:320
 msgid "Upload"
@@ -3524,7 +3524,7 @@ msgstr "Sinulla ei ole oikeuksia listata jakojen jäseniä."
 #: services/facebook/index.php:63 services/facebook/index.php:80
 #, php-format
 msgid "You can also check your Facebook settings in your %s."
-msgstr "Voit myös tarkistaa Facebook asetuksesi %s:ssä."
+msgstr "Voit myös tarkistaa Facebook asetuksesi %s."
 
 #: lib/LoginTasks/Task/TosAgreement.php:64
 msgid ""
@@ -3547,7 +3547,7 @@ msgid ""
 "check your Facebook settings in your %s."
 msgstr ""
 "Et ole kunnolla liittänyt Facebook tiliäsi Horden kanssa. Sinun tulisi "
-"tarkistaa Facebook asetukset %s:ssä."
+"tarkistaa Facebook asetukset %s."
 
 #: lib/Block/TwitterTimeline.php:169
 #, php-format
@@ -3556,7 +3556,7 @@ msgid ""
 "check your Twitter settings in your %s."
 msgstr ""
 "Et ole kunnolla liittänyt Twitter tiliäsi Horden kanssa. Sinun tulisi "
-"tarkistaa Facebook asetukset %s:ssä."
+"tarkistaa Facebook asetukset %s."
 
 #: services/facebook/index.php:120 services/facebook/index.php:160
 #: services/facebook/index.php:168
@@ -3660,7 +3660,7 @@ msgstr "Käyttäjätunnuksesi on vanhentunut."
 #: services/resetpassword.php:79
 #, php-format
 msgid "Your new password for %s is: %s"
-msgstr "Uusi salasanasi %s:lle on: %s"
+msgstr "Uusi salasanasi %s on: %s"
 
 #: services/resetpassword.php:78
 msgid "Your password has been reset"

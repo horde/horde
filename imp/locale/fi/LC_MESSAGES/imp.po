@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Imp 5.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-02-22 11:20+0100\n"
-"PO-Revision-Date: 2012-03-22 15:00:59+0200\n"
+"PO-Revision-Date: 2012-03-30 19:04:59+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -152,12 +152,12 @@ msgstr "%s - '%s'"
 #: lib/Mime/Viewer/Itip.php:662
 #, php-format
 msgid "%s has cancelled \"%s\"."
-msgstr "%s on peruuttanut \"%s\":n."
+msgstr "%s on peruuttanut \"%s\"."
 
 #: lib/Mime/Viewer/Itip.php:657
 #, php-format
 msgid "%s has cancelled an instance of the recurring \"%s\"."
-msgstr "%s on peruuttanut yhden toistuvista \"%s\":stä"
+msgstr "%s on peruuttanut yhden toistuvista \"%s\"."
 
 #: lib/Mime/Viewer/Itip.php:497
 #, php-format
@@ -167,7 +167,7 @@ msgstr "%s on vastannut vapaa/varattu pyyntöön."
 #: lib/Mime/Viewer/Itip.php:647
 #, php-format
 msgid "%s has replied to the invitation to \"%s\"."
-msgstr "%s on vastannut kutsuun \"%s\":stä."
+msgstr "%s on vastannut kutsuun \"%s\"."
 
 #: lib/Mime/Viewer/Itip.php:487
 #, php-format
@@ -197,12 +197,12 @@ msgstr "%s pyytää sinulta vapaa/varattu tietoja."
 #: lib/Mime/Viewer/Itip.php:617
 #, php-format
 msgid "%s requests your presence at \"%s\"."
-msgstr "%s pyytää sinua olemaan paikalla \"%s\":ssä."
+msgstr "%s pyytää sinua olemaan paikalla \"%s\"."
 
 #: lib/Mime/Viewer/Itip.php:598
 #, php-format
 msgid "%s wants to notify you about changes of \"%s\"."
-msgstr "%s haluaa ilmoittaa sinulle muutoksista \"%s\":ssä."
+msgstr "%s haluaa ilmoittaa sinulle muutoksista \"%s\"."
 
 #: lib/Message.php:439
 #, php-format
@@ -226,18 +226,18 @@ msgstr ""
 #: lib/Mime/Viewer/Itip.php:634
 #, php-format
 msgid "%s wishes to amend \"%s\"."
-msgstr "%s haluaa korjata \"%s\":sää."
+msgstr "%s haluaa korjata \"%s\"."
 
 #: lib/Mime/Viewer/Itip.php:587 lib/Mime/Viewer/Itip.php:618
 #: lib/Mime/Viewer/Itip.php:864
 #, php-format
 msgid "%s wishes to make you aware of \"%s\"."
-msgstr "%s haluaa ilmoittaa sinulle \"%s\":stä."
+msgstr "%s haluaa ilmoittaa sinulle \"%s\"."
 
 #: lib/Mime/Viewer/Itip.php:641
 #, php-format
 msgid "%s wishes to receive the latest information about \"%s\"."
-msgstr "%s haluaa vastaanottaa viimeisimmät tiedot \"%s\":stä."
+msgstr "%s haluaa vastaanottaa viimeisimmät tiedot \"%s\"."
 
 #: compose.php:1075
 #, php-format
@@ -255,9 +255,9 @@ msgid ""
 "%s: This message may not be from whom it claims to be. Beware of following "
 "any links in it or of providing the sender with any personal information."
 msgstr ""
-"%s: Tämä viesti ei ole siltä keneltä se näyttää tulevan. Suhtaudu varoen "
-"kaikkiin viestissä oleviin linkkeihin ja vältä lähettämästä mitään "
-"henkilökohtaisia tietoja."
+"%s: Tämä viesti ei välttämättä ole siltä keneltä se näyttää tulevan. "
+"Suhtaudu varoen kaikkiin viestissä oleviin linkkeihin ja vältä lähettämästä "
+"mitään henkilökohtaisia tietoja."
 
 #: lib/Compose.php:2048
 #, php-format
@@ -481,7 +481,7 @@ msgstr ""
 #: compose.php:744 compose.php:745 compose.php:891 contacts.php:117
 #: templates/imp/contacts/contacts.html:8
 msgid "Address Book"
-msgstr "Osoitekirja"
+msgstr "Osoitteet"
 
 #: config/prefs.php:1190
 msgid "Address Books"
@@ -600,12 +600,12 @@ msgstr "Löytyi epämääräinen osoite."
 #: compose-mimp.php:353
 #, php-format
 msgid "Ambiguous matches for \"%s\" (first 5 matches displayed):"
-msgstr "Epämääräinen täsmäävyys \"%s\":lle (vain viisi ensimmäistä näytetään):"
+msgstr "Epämääräinen täsmäävyys \"%s\" (vain viisi ensimmäistä näytetään):"
 
 #: compose-mimp.php:354
 #, php-format
 msgid "Ambiguous matches for \"%s\":"
-msgstr "Epämääräinen täsmäys \"%s\":lle:"
+msgstr "Epämääräinen täsmäys - \"%s\":"
 
 #: lib/Message.php:573
 msgid "An error occured while attempting to strip the attachment."
@@ -1011,7 +1011,7 @@ msgstr "Esikatselussa näytettävien merkkien määrä:"
 #: templates/imp/folders/actions.html:6
 #: templates/imp/mailbox/message_headers.html:5
 msgid "Check All/None"
-msgstr "Valitse kaikki/ei mitään"
+msgstr "Valitse kaikki/Ei mitään"
 
 #: lib/Ui/Compose.php:109 lib/Views/Compose.php:132
 msgid "Check Spelling"
@@ -1019,11 +1019,11 @@ msgstr "Tarkista oikeinkirjoitus"
 
 #: folders.php:368 mailbox.php:736
 msgid "Check _All/None"
-msgstr "Valitse _kaikki/ei mitään"
+msgstr "Valitse _kaikki/Ei mitään"
 
 #: templates/dimp/index.inc:279 templates/imp/folders/actions.html:29
 msgid "Check for New Mail"
-msgstr "Tarkista uudet sähköpostit"
+msgstr "Tarkista uudet viestit"
 
 #: config/prefs.php:1333
 msgid "Check for valid recipient PGP public keys while replying?"
@@ -1047,11 +1047,11 @@ msgstr "Valitse osoitekirja, johon osoitteet lisätään."
 
 #: templates/dimp/index.inc:149
 msgid "Clear Search"
-msgstr "Tyhjennä haku"
+msgstr "Poista haku"
 
 #: mailbox.php:581
 msgid "Clear Sort"
-msgstr "Tyhjennä järjestys"
+msgstr "Poista järjestely"
 
 #: lib/Mime/Viewer/Images.php:120
 #, php-format
@@ -1233,12 +1233,12 @@ msgstr "Nykyiset liitteet"
 #: config/prefs.php:1280
 #, php-format
 msgid "Control PGP support for %s."
-msgstr "Muokkaa %s:n PGP-asetuksia."
+msgstr "Muokkaa %s PGP-asetuksia."
 
 #: config/prefs.php:1360
 #, php-format
 msgid "Control S/MIME support for %s."
-msgstr "Muokkaa %s:n S/MIME-asetuksia."
+msgstr "Muokkaa %s S/MIME-asetuksia."
 
 #: config/prefs.php:866
 msgid ""
@@ -1341,7 +1341,7 @@ msgstr "Viestiä ei voitu hakea postipalvelimelta."
 #: lib/Crypt/Pgp.php:241
 #, php-format
 msgid "Could not retrieve public key for %s."
-msgstr "Julkista avainta ei voitu hakea %s:lle"
+msgstr "Julkista avainta ei voitu hakea - %s."
 
 #: lib/Imap.php:365
 msgid "Could not save message data because it is too large."
@@ -1394,7 +1394,7 @@ msgstr "Luo alikansio"
 #: templates/dimp/javascript_defs.php:161
 #, php-format
 msgid "Create subfolder of %s:"
-msgstr "Luo kansiolle %s alikansio:"
+msgstr "Luo alikansio kansiolle %s:"
 
 #: lib/Imap/Acl.php:155
 msgid "Create subfolders"
@@ -2036,7 +2036,7 @@ msgstr "Vie"
 
 #: lib/Application.php:329
 msgid "Fi_lters"
-msgstr "Suo_dattimet"
+msgstr "Suo_datus"
 
 #: templates/imp/javascript_defs.php:27 templates/imp/compose/compose.html:268
 msgid "File"
@@ -2076,7 +2076,7 @@ msgstr "Suodata viesti loukkaavista sanoista."
 
 #: config/prefs.php:1122
 msgid "Filters"
-msgstr "Suodattimet"
+msgstr "Suodatus"
 
 #: lib/Filter.php:130
 #, php-format
@@ -2119,11 +2119,11 @@ msgstr "Kansio"
 
 #: templates/dimp/index.inc:96
 msgid "Folder Actions"
-msgstr "Kansiot: Toiminto"
+msgstr "Toiminnot kansioille"
 
 #: folders.php:250 templates/imp/folders/folders_confirm.html:6
 msgid "Folder Actions - Confirmation"
-msgstr "Kansiot: Toiminto - Varmistus"
+msgstr "Toiminnot kansioille: Varmistus"
 
 #: config/prefs.php:1061
 msgid "Folder Display"
@@ -2140,7 +2140,7 @@ msgstr "Kansioiden koot"
 
 #: lib/Block/Summary.php:27
 msgid "Folder Summary"
-msgstr "Kansiot: Yhteenveto"
+msgstr "Kansioiden yhteenveto"
 
 #: folders-mimp.php:26 folders.php:28
 msgid "Folder use is not enabled."
@@ -2272,7 +2272,7 @@ msgstr "HTML-kirjoitustila"
 
 #: config/prefs.php:573
 msgid "HTML part"
-msgstr "HTML osio"
+msgstr "HTML-osio"
 
 #: message.php:598
 msgid "Headers"
@@ -2943,8 +2943,7 @@ msgstr "Viestit liitteillä"
 
 #: config/prefs.php:1270
 msgid "Minutes needed to consider a event as a non-conflicting one in iTip"
-msgstr ""
-"Minuutit mitä tarvitaan harkintaan onko tapahtuma ei-ristiriidassa iTip:ssä."
+msgstr "Minuuttien ero, jotta tapahtuma ei ole ristiriidassa iTip:ssä."
 
 #: mobile.php:19
 msgid "Mobile Mail"
@@ -3002,7 +3001,7 @@ msgstr "Siirry ylös/alas viestilistalla."
 
 #: lib/Contents.php:1299
 msgid "Multipart part"
-msgstr "Moniosio osio"
+msgstr "Moniosaosio"
 
 #: thread.php:173
 msgid "Multiple Message View"
@@ -3022,7 +3021,7 @@ msgstr "E"
 
 #: config/prefs.php:983
 msgid "NONE"
-msgstr "[EI AINUTTAKAAN]"
+msgstr "EI MITÄÄN"
 
 #: lib/Mime/Viewer/Itip.php:725 lib/Mime/Viewer/Itip.php:914
 msgid "Name"
@@ -3521,7 +3520,7 @@ msgstr "Muotoilematon teksti"
 
 #: config/prefs.php:574
 msgid "Plaintext part"
-msgstr "Muotoilematon teksti -osio"
+msgstr "Muotoilematon tekstiosio"
 
 #: templates/prefs/newmailaudio.html:2
 msgid ""
@@ -4100,7 +4099,7 @@ msgstr "Ta_lleta kopio kansioon "
 
 #: message.php:582
 msgid "Sa_ve as"
-msgstr "Ta_lleta nimellä"
+msgstr "Ta_llenna nimellä"
 
 #: templates/dimp/index.inc:194 templates/dimp/message/message.html:45
 #: templates/imp/search/search.html:109
@@ -4765,7 +4764,7 @@ msgstr "Teksti"
 
 #: lib/Contents.php:1302
 msgid "Text part"
-msgstr "Teksti osio"
+msgstr "Tekstiosio"
 
 #: config/prefs.php:1042
 msgid "The From: column of the message should be linked:"
@@ -5290,7 +5289,7 @@ msgstr "Tätä viestiä ei voi katsoa koska se on liian suuri."
 msgid ""
 "This message part contains HTML data, but inline HTML display is disabled."
 msgstr ""
-"Tämä viestiosio sisältää HTML tietoa, mutta sisällytettyjen HTML viestien "
+"Tämä viestiosio sisältää HTML-muotoilua, mutta sisällytettyjen HTML-viestien "
 "näyttö on estetty."
 
 #: lib/Mime/Viewer/Html.php:64
@@ -5298,7 +5297,8 @@ msgid ""
 "This message part contains HTML data, but this data can not be displayed "
 "inline."
 msgstr ""
-"Tämä viestiosio sisältää HTML tietoa, mutta tätä tieto ei pystytä näyttämään."
+"Tämä viestiosio sisältää HTML-muotoilua, mutta tätä tieto ei pystytä "
+"näyttämään."
 
 #: message.php:488
 msgid "This message to"
@@ -5566,7 +5566,7 @@ msgstr "Pystysuora asettelu"
 
 #: lib/Contents.php:1305
 msgid "Video part"
-msgstr "Video osio"
+msgstr "Video-osio"
 
 #: templates/prefs/pgpprivatekey.html:19 templates/prefs/pgpprivatekey.html:30
 #: templates/prefs/pgppublickey.html:13
@@ -5767,8 +5767,9 @@ msgid ""
 "When sending mail or expanding addresses, what domain should we append to "
 "unqualified addresses (email addresses without \"@\")?"
 msgstr ""
-"Kun lähetetään viestiä laajentamattomiin osoitteisiin, niin mikä domaäisiin "
-"osoitteisiin (sähköpostiosoitteet ilman \"@\"-merkkiä)?"
+"Kun lähetetään viestiä tai laajennetaan osoitteita, niin mikä "
+"toimialuetarkenne tulisi lisätä tarkentamattomiin osoitteisiin "
+"(sähköpostiosoitteet ilman \"@\"-merkkiä)?"
 
 #: config/prefs.php:259
 msgid "Where should the cursor be located in the compose text area by default?"
@@ -5884,8 +5885,8 @@ msgstr "Välitit tämän viestin päivänä %%s vastaanottajille: %s."
 #, php-format
 msgid "You have %d new mail message in %s."
 msgid_plural "You have %d new mail messages in %s."
-msgstr[0] "Sinulle on %d uutta viestiä kansioissa %s."
-msgstr[1] "Sinulle on %d uutta viestiä kansioissa %s."
+msgstr[0] "Sinulle on %d viesti kansiossa %s."
+msgstr[1] "Sinulle on %d uutta viestiä kansiossa %s."
 
 #: lib/Prefs/Ui.php:529
 msgid ""
@@ -6151,7 +6152,7 @@ msgstr "_Kopio"
 
 #: mailbox.php:559 message.php:523
 msgid "_Delete"
-msgstr "_Poista"
+msgstr "Pois_ta"
 
 #: lib/Application.php:313
 msgid "_Folders"
@@ -6192,7 +6193,7 @@ msgstr "_Prioriteetti"
 #: mailbox.php:357
 #, php-format
 msgid "_Refresh %s"
-msgstr "Päivitä %s"
+msgstr "Päivi_tä %s"
 
 #: message.php:535
 msgid "_Reply"
@@ -6216,7 +6217,7 @@ msgstr "_Vastaanottaja"
 
 #: mailbox.php:563
 msgid "_Undelete"
-msgstr "_Palauta"
+msgstr "Pa_lauta"
 
 #: message.php:560
 msgid "_View Thread"

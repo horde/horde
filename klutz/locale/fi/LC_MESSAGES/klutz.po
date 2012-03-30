@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Klutz 1.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-01-17 12:38+0100\n"
-"PO-Revision-Date: 2012-03-07 20:07:39+0200\n"
+"PO-Revision-Date: 2012-03-28 20:01:36+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -37,7 +37,7 @@ msgstr "Kaikki päivät"
 #: backend.php:256
 #, php-format
 msgid "An error occurred removing %s for %s<br />\n"
-msgstr "Tapahtui virhe poistettaessa %s %s:lle<br />\n"
+msgstr "Tapahtui virhe poistettaessa %s %s />\n"
 
 #: templates/savecomic.html.php:29
 msgid "Cancel"
@@ -66,7 +66,7 @@ msgstr "Sarjakuvien päivitys"
 #: backend.php:255
 #, php-format
 msgid "Could not find %s for %s<br />\n"
-msgstr "Ei löytynyt %s %s:lle<br />\n"
+msgstr "Ei löytynyt %s %s />\n"
 
 #: lib/Block/Comics.php:69
 msgid "Could not find any comics to display."
@@ -193,12 +193,12 @@ msgstr "Näytä selaussivulla ne sarjakuvat, joita et ole valinnut."
 #: backend.php:234
 #, php-format
 msgid "Skipping %s for %s"
-msgstr "Ohita %s %s:lle"
+msgstr "Ohita %s - %s"
 
 #: backend.php:206
 #, php-format
 msgid "Skipping %s for %s - no historical fetching"
-msgstr "Ohitetaan %s %s:lle - ei historia hakuja"
+msgstr "Ohitetaan %s - %s - ei historia hakuja"
 
 #: templates/savecomic.html.php:28
 msgid "Submit"
@@ -207,7 +207,7 @@ msgstr "Lähetä"
 #: backend.php:254
 #, php-format
 msgid "Successfully removed %s for %s<br />\n"
-msgstr "%s:n poistaminen %s:lta onnistui<br />\n"
+msgstr "%s poistaminen %s onnistui<br />\n"
 
 #: templates/savecomic.html.php:24
 msgid "Tags"
@@ -261,7 +261,7 @@ msgstr "Näytä sarjakuvittain"
 #: templates/comics/main.inc:9
 #, php-format
 msgid "View comics for %s"
-msgstr "Näytä sarjakuvat %s:lle"
+msgstr "Näytä sarjakuvat %s"
 
 #: backend.php:43 backend.php:46
 msgid "You must define a storage backend to use the administrative interface."
