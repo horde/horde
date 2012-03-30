@@ -30,31 +30,31 @@
 
 //
 //// ResolveRecipients
-//define("SYNC_RESOLVERECIPIENTS_RESOLVERECIPIENTS","ResolveRecipients:ResolveRecipients");
-//define("SYNC_RESOLVERECIPIENTS_RESPONSE","ResolveRecipients:Response");
-//define("SYNC_RESOLVERECIPIENTS_STATUS","ResolveRecipients:Status");
-//define("SYNC_RESOLVERECIPIENTS_TYPE","ResolveRecipients:Type");
-//define("SYNC_RESOLVERECIPIENTS_RECIPIENT","ResolveRecipients:Recipient");
-//define("SYNC_RESOLVERECIPIENTS_DISPLAYNAME","ResolveRecipients:DisplayName");
-//define("SYNC_RESOLVERECIPIENTS_EMAILADDRESS","ResolveRecipients:EmailAddress");
-//define("SYNC_RESOLVERECIPIENTS_CERTIFICATES","ResolveRecipients:Certificates");
-//define("SYNC_RESOLVERECIPIENTS_CERTIFICATE","ResolveRecipients:Certificate");
-//define("SYNC_RESOLVERECIPIENTS_MINICERTIFICATE","ResolveRecipients:MiniCertificate");
-//define("SYNC_RESOLVERECIPIENTS_OPTIONS","ResolveRecipients:Options");
-//define("SYNC_RESOLVERECIPIENTS_TO","ResolveRecipients:To");
-//define("SYNC_RESOLVERECIPIENTS_CERTIFICATERETRIEVAL","ResolveRecipients:CertificateRetrieval");
-//define("SYNC_RESOLVERECIPIENTS_RECIPIENTCOUNT","ResolveRecipients:RecipientCount");
-//define("SYNC_RESOLVERECIPIENTS_MAXCERTIFICATES","ResolveRecipients:MaxCertificates");
-//define("SYNC_RESOLVERECIPIENTS_MAXAMBIGUOUSRECIPIENTS","ResolveRecipients:MaxAmbiguousRecipients");
-//define("SYNC_RESOLVERECIPIENTS_CERTIFICATECOUNT","ResolveRecipients:CertificateCount");
+//const SYNC_RESOLVERECIPIENTS_RESOLVERECIPIENTS = ResolveRecipients:ResolveRecipients');
+//const SYNC_RESOLVERECIPIENTS_RESPONSE = ResolveRecipients:Response');
+//const SYNC_RESOLVERECIPIENTS_STATUS = ResolveRecipients:Status');
+//const SYNC_RESOLVERECIPIENTS_TYPE = ResolveRecipients:Type');
+//const SYNC_RESOLVERECIPIENTS_RECIPIENT = ResolveRecipients:Recipient');
+//const SYNC_RESOLVERECIPIENTS_DISPLAYNAME = ResolveRecipients:DisplayName');
+//const SYNC_RESOLVERECIPIENTS_EMAILADDRESS = ResolveRecipients:EmailAddress');
+//const SYNC_RESOLVERECIPIENTS_CERTIFICATES = ResolveRecipients:Certificates');
+//const SYNC_RESOLVERECIPIENTS_CERTIFICATE = ResolveRecipients:Certificate');
+//const SYNC_RESOLVERECIPIENTS_MINICERTIFICATE = ResolveRecipients:MiniCertificate');
+//const SYNC_RESOLVERECIPIENTS_OPTIONS = ResolveRecipients:Options');
+//const SYNC_RESOLVERECIPIENTS_TO = ResolveRecipients:To');
+//const SYNC_RESOLVERECIPIENTS_CERTIFICATERETRIEVAL = ResolveRecipients:CertificateRetrieval');
+//const SYNC_RESOLVERECIPIENTS_RECIPIENTCOUNT = ResolveRecipients:RecipientCount');
+//const SYNC_RESOLVERECIPIENTS_MAXCERTIFICATES = ResolveRecipients:MaxCertificates');
+//const SYNC_RESOLVERECIPIENTS_MAXAMBIGUOUSRECIPIENTS = ResolveRecipients:MaxAmbiguousRecipients');
+//const SYNC_RESOLVERECIPIENTS_CERTIFICATECOUNT = ResolveRecipients:CertificateCount');
 //
 //// ValidateCert
-//define("SYNC_VALIDATECERT_VALIDATECERT","ValidateCert:ValidateCert");
-//define("SYNC_VALIDATECERT_CERTIFICATES","ValidateCert:Certificates");
-//define("SYNC_VALIDATECERT_CERTIFICATE","ValidateCert:Certificate");
-//define("SYNC_VALIDATECERT_CERTIFICATECHAIN","ValidateCert:CertificateChain");
-//define("SYNC_VALIDATECERT_CHECKCRL","ValidateCert:CheckCRL");
-//define("SYNC_VALIDATECERT_STATUS","ValidateCert:Status");
+//const SYNC_VALIDATECERT_VALIDATECERT = ValidateCert:ValidateCert');
+//const SYNC_VALIDATECERT_CERTIFICATES = ValidateCert:Certificates');
+//const SYNC_VALIDATECERT_CERTIFICATE = ValidateCert:Certificate');
+//const SYNC_VALIDATECERT_CERTIFICATECHAIN = ValidateCert:CertificateChain');
+//const SYNC_VALIDATECERT_CHECKCRL = ValidateCert:CheckCRL');
+//const SYNC_VALIDATECERT_STATUS = ValidateCert:Status');
 
 /**
  * Main ActiveSync class. Entry point for performing all ActiveSync operations
@@ -131,6 +131,16 @@ class Horde_ActiveSync
     const SYNC_SOFTDELETE               = 'SoftDelete';
     const SYNC_MIMESUPPORT              = 'MIMESupport';
     const SYNC_MIMETRUNCATION           = 'MIMETruncation';
+
+    /* Document library */
+    const SYNC_DOCUMENTLIBRARY_LINKID           = 'DocumentLibrary:LinkId';
+    const SYNC_DOCUMENTLIBRARY_DISPLAYNAME      = 'DocumentLibrary:DisplayName';
+    const SYNC_DOCUMENTLIBRARY_ISFOLDER         = 'DocumentLibrary:IsFolder';
+    const SYNC_DOCUMENTLIBRARY_CREATIONDATE     = 'DocumentLibrary:CreationDate';
+    const SYNC_DOCUMENTLIBRARY_LASTMODIFIEDDATE = 'DocumentLibrary:LastModifiedDate';
+    const SYNC_DOCUMENTLIBRARY_ISHIDDEN         = 'DocumentLibrary:IsHidden';
+    const SYNC_DOCUMENTLIBRARY_CONTENTLENGTH    = 'DocumentLibrary:ContentLength';
+    const SYNC_DOCUMENTLIBRARY_CONTENTTYPE      = 'DocumentLibrary:ContentType';
 
     /* AIRSYNCBASE */
     const AIRSYNCBASE_BODYPREFERENCE    = 'AirSyncBase:BodyPreference';
@@ -421,7 +431,7 @@ class Horde_ActiveSync
         $this->activeSyncHeader();
         $this->versionHeader();
         $this->commandsHeader();
-        header("Cache-Control: private");
+        header('Cache-Control: private');
     }
 
     /**
@@ -516,7 +526,7 @@ class Horde_ActiveSync
         switch ($this->_maxVersion) {
         case self::VERSION_TWOFIVE:
         case self::VERSION_TWELVE:
-            header("MS-Server-ActiveSync: 6.5.7638.1");
+            header('MS-Server-ActiveSync: 6.5.7638.1');
             break;
         }
     }
@@ -529,10 +539,10 @@ class Horde_ActiveSync
     {
         switch ($this->_maxVersion) {
         case self::VERSION_TWOFIVE:
-            header("MS-ASProtocolVersions: 1.0,2.0,2.1,2.5");
+            header('MS-ASProtocolVersions: 1.0,2.0,2.1,2.5');
             break;
         case self::VERSION_TWELVE:
-            header("MS-ASProtocolVersions: 1.0,2.0,2.1,2.5,12.0");
+            header('MS-ASProtocolVersions: 1.0,2.0,2.1,2.5,12.0');
         }
     }
 
@@ -544,10 +554,10 @@ class Horde_ActiveSync
     {
         switch ($this->_maxVersion) {
         case self::VERSION_TWOFIVE:
-            header("MS-ASProtocolCommands: Sync,SendMail,SmartForward,SmartReply,GetAttachment,GetHierarchy,CreateCollection,DeleteCollection,MoveCollection,FolderSync,FolderCreate,FolderDelete,FolderUpdate,MoveItems,GetItemEstimate,MeetingResponse,ResolveRecipients,ValidateCert,Provision,Search,Ping");
+            header('MS-ASProtocolCommands: Sync,SendMail,SmartForward,SmartReply,GetAttachment,GetHierarchy,CreateCollection,DeleteCollection,MoveCollection,FolderSync,FolderCreate,FolderDelete,FolderUpdate,MoveItems,GetItemEstimate,MeetingResponse,ResolveRecipients,ValidateCert,Provision,Search,Ping');
             break;
         case self::VERSION_TWELVE:
-            header("MS-ASProtocolCommands: Sync,SendMail,SmartForward,SmartReply,GetAttachment,GetHierarchy,CreateCollection,DeleteCollection,MoveCollection,FolderSync,FolderCreate,FolderDelete,FolderUpdate,MoveItems,GetItemEstimate,MeetingResponse,ResolveRecipients,ValidateCert,Provision,Settings,Search,Ping,ItemOperations");
+            header('MS-ASProtocolCommands: Sync,SendMail,SmartForward,SmartReply,GetAttachment,GetHierarchy,CreateCollection,DeleteCollection,MoveCollection,FolderSync,FolderCreate,FolderDelete,FolderUpdate,MoveItems,GetItemEstimate,MeetingResponse,ResolveRecipients,ValidateCert,Provision,Settings,Search,Ping,ItemOperations');
             break;
         }
     }
@@ -563,7 +573,7 @@ class Horde_ActiveSync
      */
     public function provisionHeader()
     {
-        header("HTTP/1.1 449 Retry after sending a PROVISION command");
+        header('HTTP/1.1 449 Retry after sending a PROVISION command');
     }
 
     /**
