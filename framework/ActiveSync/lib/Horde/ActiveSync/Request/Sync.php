@@ -246,9 +246,11 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                                 }
                             }
 
-                            if ($this->_decoder->getElementStartTag(SYNC_AIRSYNCBASE_ALLORNONE)) {
+                            if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_ALLORNONE)) {
                                 $body_pref['allornone'] = $this->_decoder->getElementContent();
+                                $this->_logger->debug($body_pref['allornone']);
                                 if (!$this->_decoder->getElementEndTag()) {
+                                    $this->_logger->debug('foobar');
                                     $this->_statusCode = self::STATUS_PROTERROR;
                                     $this->_handleError($collection);
                                     exit;
