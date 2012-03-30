@@ -86,4 +86,23 @@ class Horde_Mime_HeadersTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testMultivalueHeaders()
+    {
+        $hdrs = Horde_Mime_Headers::parseHeaders(
+"To: recipient1@example.com, recipient2@example.com"
+        );
+        $this->assertEquals(
+            'recipient1@example.com, recipient2@example.com',
+            $hdrs->getValue('to')
+        );
+
+        $hdrs = Horde_Mime_Headers::parseHeaders(
+"To: recipient1@example.com
+To: recipient2@example.com"
+        );
+        $this->assertEquals(
+            'recipient1@example.com, recipient2@example.com',
+            $hdrs->getValue('to')
+        );
+    }
 }
