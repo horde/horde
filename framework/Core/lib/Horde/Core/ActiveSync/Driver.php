@@ -658,10 +658,49 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     public function getAttachment($name)
     {
         list($mailbox, $uid, $part) = explode(':', $name);
-
         $atc = $this->_imap->getAttachment($mailbox, $uid, $part);
 
         return array($atc->getType(), $atc->getContents());
+    }
+
+    /**
+     * Return the specified attachement data for an ITEMOPERATIONS request.
+     *
+     * @param string $filereference  The attachment identifier.
+     *
+     * @return Horde_ActiveSync_Message_AirSyncBaseFileAttachment
+     */
+    public function itemOperationsGetAttachmentData($name)
+    {
+        $att = $this->getAttachment($name);
+        $airatt = new Horde_ActiveSync_Message_AirSyncBaseFileAttachment();
+        $airatt->_data = $att['data'];
+        $airatt->contenttype = $att['content-type'];
+
+        return $airatt;
+    }
+
+    /**
+     * @TODO
+     */
+    public function itemOperationsFetchMailbox($searchlongid, $bodypreference, $mimesupport)
+    {
+        throw new Horde_ActiveSync_Exception('Not Supported');
+    }
+
+    /**
+     * Return a documentlibrary item.
+     *
+     * @param string $linkid  The linkid
+     * @param array $cred     A credential array:
+     *   - username: A hash with 'username' and 'domain' key/values.
+     *   - password: User password
+     *
+     * @return array An array containing the data and metadata:
+     */
+    public function itemOperationsGetDocumentLibraryLink($linkid, $cred)
+    {
+        throw new Horde_ActiveSync_Exception('Not Supported');
     }
 
     /**
