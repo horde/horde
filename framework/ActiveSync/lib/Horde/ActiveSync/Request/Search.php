@@ -39,7 +39,9 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
     const SEARCH_GREATERTHAN         = 'Search:GreaterThan';
     const SEARCH_SCHEMA              = 'Search:Schema';
     const SEARCH_SUPPORTED           = 'Search:Supported';
-
+    const SEARCH_USERNAME            = 'Search:UserName';
+    const SEARCH_PASSWORD            = 'Search:Password';
+    const SEARCH_CONVERSATIONID      = 'Search:ConversationId';
     /** Search Status **/
     const SEARCH_STATUS_SUCCESS      = 1;
     const SEARCH_STATUS_ERROR        = 3;
@@ -62,10 +64,10 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
     protected function _handle()
     {
         $this->_logger->info(sprintf(
-            "[%s] Beginning SEARCH",
+            '[%s] Beginning SEARCH',
             $this->_device->id));
 
-        $searchrange = '0';
+        $search_range = '0';
         $search_status = self::SEARCH_STATUS_SUCCESS;
         $store_status = self::STORE_STATUS_SUCCESS;
 
@@ -75,7 +77,7 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
 
             $search_status = self::SEARCH_STATUS_ERROR;
         }
-        $searchname = $this->_decoder->getElementContent();
+        $search_name = $this->_decoder->getElementContent();
         if (!$this->_decoder->getElementEndTag()) {
             $search_status = self::SEARCH_STATUS_ERROR;
             $store_status = self::STORE_STATUS_PROTERR;
@@ -85,27 +87,26 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
             $search_status = self::SEARCH_STATUS_ERROR;
             $store_status = self::STORE_STATUS_PROTERR;
         }
-        switch (strtolower($searchname)) {
+        $search_query = array();
+        switch (strtolower($search_name)) {
         case 'documentlibrary':
             $this->_logger->err('DOCUMENTLIBRARY NOT SUPPORTED.');
             return false;
         case 'mailbox':
-            $searchquery = array();
-            $searchquery['query'] = $this->_parseQuery();
+            $search_query['query'] = $this->_parseQuery();
             break;
         case 'gal':
-            $searchquery = $this->_decoder->getElementContent();
+            $search_query['query'] = $this->_decoder->getElementContent();
         }
         if (!$this->_decoder->getElementEndTag()) {
             $search_status = self::SEARCH_STATUS_ERROR;
             $store_status = self::STORE_STATUS_PROTERR;
         }
 
-
         if ($this->_decoder->getElementStartTag(self::SEARCH_OPTIONS)) {
             while(1) {
                 if ($this->_decoder->getElementStartTag(self::SEARCH_RANGE)) {
-                    $searchrange = $this->_decoder->getElementContent();
+                    $search_range = $this->_decoder->getElementContent();
                     if (!$this->_decoder->getElementEndTag()) {
                         $search_status = self::SEARCH_STATUS_ERROR;
                         $store_status = self::STORE_STATUS_PROTERR;
@@ -113,27 +114,27 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
                 }
                 if ($this->_decoder->getElementStartTag(self::SEARCH_DEEPTRAVERSAL)) {
                     if (!($searchdeeptraversal = $this->_decoder->getElementContent())) {
-                        $searchquerydeeptraversal = true;
+                        $search_querydeeptraversal = true;
                     } elseif (!$this->_decoder->getElementEndTag()) {
                         return false;
                     }
                 }
                 if ($this->_decoder->getElementStartTag(self::SEARCH_REBUILDRESULTS)) {
                     if (!($searchrebuildresults = $this->_decoder->getElementContent())) {
-                        $searchqueryrebuildresults = true;
+                        $search_queryrebuildresults = true;
                     } elseif (!$this->_decoder->getElementEndTag()) {
                         return false;
                     }
                 }
                 if ($this->_decoder->getElementStartTag(self::SEARCH_USERNAME)) {
-                    if (!($searchqueryusername = $this->_decoder->getElementContent())) {
+                    if (!($search_queryusername = $this->_decoder->getElementContent())) {
                         return false;
                     } elseif (!$this->_decoder->getElementEndTag()) {
                         return false;
                     }
                 }
                 if ($this->_decoder->getElementStartTag(self::SEARCH_PASSWORD)) {
-                    if (!($searchquerypassword = $this->_decoder->getElementContent()))
+                    if (!($search_querypassword = $this->_decoder->getElementContent()))
                         return false;
                     else
                         if(!$this->_decoder->getElementEndTag())
@@ -196,23 +197,19 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
             $store_status = self::STORE_STATUS_PROTERR;
         }
 
-        switch(strtolower($searchname)) {
+        $search_query['range'] = $search_range;
+        switch(strtolower($search_name)) {
         case 'documentlibrary':
             // not supported
             break;
         case 'mailbox':
-            $searchquery['rebuildresults'] = $searchqueryrebuildresults;
-            $searchquery['deeptraversal'] =  $searchquerydeeptraversal;
-            $searchquery['range'] = $searchrange;
+            $search_query['rebuildresults'] = $search_queryrebuildresults;
+            $search_query['deeptraversal'] =  $search_querydeeptraversal;
             break;
         }
-        // if (strtoupper($searchname) != "GAL") {
-        //     $this->_logger->debug('Searchtype ' . $searchname . 'is not supported');
-        //     $store_status = self::STORE_STATUS_COMPLEX;
-        // }
 
         // Get search results from backend
-        $search_result = $this->_driver->getSearchResults($searchquery, $searchrange);
+        $search_result = $this->_driver->getSearchResults($search_name, $search_query);
 
         /* Send output */
         $this->_encoder->startWBXML();
@@ -231,10 +228,8 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
 
         if (is_array($search_result['rows']) && !empty($search_result['rows'])) {
             $search_total = count($search_result['rows']);
-            $searchrange = $rows['range'];
-
             foreach ($search_result['rows'] as $u) {
-                switch (strtolower($searchname)) {
+                switch (strtolower($search_name)) {
                 case 'documentlibrary':
                     // not supported
                     continue;
@@ -308,7 +303,7 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
                 }
 
                 $this->_encoder->startTag(self::SEARCH_RANGE);
-                $this->_encoder->content($searchrange);
+                $this->_encoder->content($search_range);
                 $this->_encoder->endTag();
 
                 $this->_encoder->startTag(self::SEARCH_TOTAL);
@@ -322,6 +317,73 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
         $this->_encoder->endTag();//search
 
         return true;
+    }
+
+    /**
+     * Receive, and parse, the incoming wbxml query.
+     *
+     * @param boolean $subquery  Parsing a subquery.
+     *
+     * @return array
+     */
+    protected function _parseQuery($subquery = null)
+    {
+        $query = array();
+        while (($type = ($this->_decoder->getElementStartTag(self::SEARCH_AND) ? self::SEARCH_AND :
+                ($this->_decoder->getElementStartTag(self::SEARCH_OR) ? self::SEARCH_OR :
+                ($this->_decoder->getElementStartTag(self::SEARCH_EQUALTO) ? self::SEARCH_EQUALTO :
+                ($this->_decoder->getElementStartTag(self::SEARCH_LESSTHAN) ? self::SEARCH_LESSTHAN :
+                ($this->_decoder->getElementStartTag(self::SEARCH_GREATERTHAN) ? self::SEARCH_GREATERTHAN :
+                ($this->_decoder->getElementStartTag(self::SEARCH_FREETEXT) ? self::SEARCH_FREETEXT :
+                ($this->_decoder->getElementStartTag(Horde_ActiveSYnc::SYNC_FOLDERID) ? Horde_ActiveSync::SYNC_FOLDERID :
+                ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FOLDERTYPE) ? Horde_ActiveSync::SYNC_FOLDERTYPE :
+                ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_DOCUMENTLIBRARY_LINKID) ? Horde_ActiveSync::SYNC_DOCUMENTLIBRARY_LINKID :
+                ($this->_decoder->getElementStartTag(Horde_ActiveSync_Message_Mail::POOMMAIL_DATERECEIVED) ? Horde_ActiveSync_Message_Mail::POOMMAIL_DATERECEIVED :
+                -1))))))))))) != -1) {
+
+            switch ($type) {
+                case self::SEARCH_AND:
+                case self::SEARCH_OR:
+                case self::SEARCH_EQUALTO:
+                case self::SEARCH_LESSTHAN:
+                case self::SEARCH_GREATERTHAN:
+                    $q = array(
+                        'op' => $type,
+                        'value' => $this->_parseQuery(true)
+                    );
+                    if ($subquery) {
+                        $query['subquery'][] = $q;
+                    } else {
+                        $query[] = $q;
+                    }
+                    $this->_decoder->getElementEndTag();
+                    break;
+                default:
+                    if (($query[$type] = $this->_decoder->getElementContent())) {
+                        $this->_decoder->getElementEndTag();
+                    } else {
+                        $this->_decoder->getElementStartTag(self::SEARCH_VALUE);
+                        $query[$type] = $this->_decoder->getElementContent();
+                        switch ($type) {
+                            case Horde_ActiveSync_Message_Mail::POOMMAIL_DATERECEIVED:
+                                if (preg_match('/(\d{4})[^0-9]*(\d{2})[^0-9]*(\d{2})T(\d{2})[^0-9]*(\d{2})[^0-9]*(\d{2})(.\d+)?Z/', $query[$type], $matches)) {
+                                    if ($matches[1] >= 2038){
+                                        $matches[1] = 2038;
+                                        $matches[2] = 1;
+                                        $matches[3] = 18;
+                                        $matches[4] = $matches[5] = $matches[6] = 0;
+                                    }
+                                    $query[$type] = gmmktime($matches[4], $matches[5], $matches[6], $matches[2], $matches[3], $matches[1]);
+                                }
+                            break;
+                        }
+                        $this->_decoder->getElementEndTag();
+                    };
+                    break;
+            }
+        }
+
+        return $query;
     }
 
 }
