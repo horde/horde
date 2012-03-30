@@ -1,0 +1,81 @@
+# Horde Hungarian translation file
+# Copyright 2012 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Horde package.
+# Latest versions: http://etit.hu/hun_horde_project.php
+msgid ""
+msgstr ""
+"Project-Id-Version: Timeobjects 1.0.4-git\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2011-11-21 18:18+0100\n"
+"PO-Revision-Date: 2012-03-30 14:55+0200\n"
+"Last-Translator: Zoltán Németh <nemeth.zoltan@etit.hu>\n"
+"Language-Team: ETITEAM Kft. <info@etit.hu>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Language: Hungarian\n"
+"X-Poedit-Country: HUNGARY\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: lib/Driver/Weather.php:145
+#, php-format
+msgid ""
+"\n"
+"%s"
+msgstr ""
+"\n"
+"%s"
+
+#: lib/Driver/Weather.php:119
+#, php-format
+msgid ""
+"Conditions: %s\n"
+"High temperature: %d%s\n"
+"Precipitation: %s\n"
+msgstr ""
+"Körülmények: %s\n"
+"Max. hőmérséklet: %d%s\n"
+"Csapadék: %s\n"
+
+#: lib/Driver/Weather.php:107
+#, php-format
+msgid ""
+"Conditions: %s\n"
+"High temperature: %d%s\n"
+"Precipitation: %s\n"
+"Humidity: %d%%\n"
+"Winds: From the %s at %d%s"
+msgstr ""
+"Körülmények: %s\n"
+"Max. hőmérséklet: %d%s\n"
+"Csapadék: %s\n"
+"Páratartalom: %d%%\n"
+"Szél:  %s, %d%s"
+
+#: lib/Api.php:46
+msgid "Facebook Events"
+msgstr "Facebook események"
+
+#: lib/Driver/Weather.php:134
+#, php-format
+msgid "Location: %s"
+msgstr "Helyzet: %s"
+
+#: lib/Driver/Weather.php:103
+msgid "N/A"
+msgstr "Ismeretlen"
+
+#: lib/Driver/Weather.php:139
+#, php-format
+msgid ""
+"Sunrise: %s\n"
+"Sunset: %s\n"
+msgstr ""
+"Napkelte: %s\n"
+"Napnyugta: %s\n"
+
+#: lib/Api.php:38
+msgid "Weather"
+msgstr "Időjárás"
