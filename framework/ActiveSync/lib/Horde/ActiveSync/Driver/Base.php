@@ -362,12 +362,18 @@ abstract class Horde_ActiveSync_Driver_Base
     /**
      * Returns array of items which contain contact information
      *
-     * @param string $query
-     * @param string $range
+     * @param string $type   The search type; ['gal'|'mailbox']
+     * @param array $query   The search query. An array containing:
+     *  - query: (string) The search term.
+     *           DEFAULT: none, REQUIRED
+     *  - range: (string)   A range limiter.
+     *           DEFAULT: none (No range used).
      *
-     * @return array
+     * @return array  An array containing:
+     *  - rows:   An array of search results
+     *  - status: The search store status code.
      */
-    public function getSearchResults($query, $range)
+    public function getSearchResults($type, $query)
     {
         throw new Horde_ActiveSync_Exception('getSearchResults not implemented.');
     }

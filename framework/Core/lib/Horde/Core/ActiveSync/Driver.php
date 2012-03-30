@@ -914,36 +914,74 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     /**
      * Returns array of items which contain contact information
      *
-     * @param string $query  The text string to match against any textual ANR
-     *                       (Automatic Name Resolution) properties. Exchange's
-     *                       searchable ANR properties are currently:
-     *                       firstname, lastname, alias, displayname, email
-     * @param string $range  The range to return (for example, 1-50).
+     * @param string $type   The search type; ['gal'|'mailbox']
+     * @param array $query   The search query. An array containing:
+     *  - query: (mixed) The search term. Either a string if searching gal, or
+     *           an array for searching mailbox.
+     *           DEFAULT: none, REQUIRED
+     *  - range: (string)   A range limiter.
+     *           DEFAULT: none (No range used).
+     *  -
      *
-     * @return array with 'rows' and 'range' keys
+     * @return array  An array containing:
+     *  - rows:   An array of search results
+     *  - status: The search store status code.
      */
-    public function getSearchResults($query, $range)
+    public function getSearchResults($type, $query)
     {
-        $return = array('rows' => array(),
-                        'range' => $range);
+        $return = array('rows' => array());
 
+        switch (strtolower($type)) {
+        case 'gal':
+            return $this->_searchGal($query);
+        case 'mailbox':
+            return $this->_searchMailbox($query);
+        }
+    }
+
+    /**
+     * Perform a search of the email store.
+     *
+     * @param array $query  A query array. @see self::getSearchResults()
+     *
+     * @return array  The results array. @see self::getSearchResults()
+     */
+    public function _searchMailbox($query)
+    {
+
+    }
+
+    /**
+     * Perform a search of the Global Address Book.
+     *
+     * @param array $query  A query array. @see self::getSearchResults()
+     *
+     * @return array  The results array. @see self::getSearchResults()
+     */
+    protected function _searchGal($query)
+    {
         ob_start();
+        $return = array(
+            'rows' => array(),
+            'status' => Horde_ActiveSync_Request_Search::STORE_STATUS_SUCCESS
+        );
         try {
-            $results = $this->_connector->contacts_search($query);
+            $results = $this->_connector->contacts_search($query['query']);
         } catch (Horde_ActiveSync_Exception $e) {
-            $this->_logger->err($e->getMessage());
+            $this->_logger->err($e);
             $this->_endBuffer();
             return $return;
         }
 
-        /* Honor range, and don't bother if no results */
+        // Honor range, and don't bother if no results
         $count = count($results);
         if (!$count) {
+            $this->_endBuffer();
             return $return;
         }
         $this->_logger->info('Horde::getSearchResults found ' . $count . ' matches.');
 
-        preg_match('/(.*)\-(.*)/', $range, $matches);
+        preg_match('/(.*)\-(.*)/', $query['range'], $matches);
         $return_count = $matches[2] - $matches[1];
         $rows = array_slice($results, $matches[1], $return_count + 1, true);
         $rows = array_pop($rows);
