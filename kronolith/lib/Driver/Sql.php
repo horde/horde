@@ -544,6 +544,37 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
     }
 
     /**
+     * build a history hash for a modified event
+     * We don't write it in here because we don't want to
+     * commit history before the actual changes are made
+     *
+     * @param Kronolith_Event $event  The event to log.
+     *
+     * @return array The change log.
+     * @throws Horde_Mime_Exception
+     * @throws Kronolith_Exception
+     */
+    protected function _buildEventHistory(Kronolith_Event $Event)
+    {
+        $changes = array('action' => 'modify');
+        /* We cannot use getEvent because of caching */
+        $oldProperties = $this->getbyUID($Event->uid,  array($Event->calendar))->toProperties();
+        $newProperties = $Event->toProperties();
+        if (empty($oldProperties)) {
+            return $changes;
+        }
+
+        foreach (array_keys($newProperties) as $property) {
+                if ($oldProperties[$property] != $newProperties[$property]) {
+                    $changes['new'][$property] = $newProperties[$property];
+                    $changes['old'][$property] = $oldProperties[$property];
+                }
+        }
+
+        return $changes;
+    }
+
+    /**
      * Updates an existing event in the backend.
      *
      * @param Kronolith_Event $event  The event to save.
@@ -564,6 +595,8 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         $query .= ' WHERE event_id = ?';
         $values[] = $event->id;
 
+        $history = $this->_buildEventHistory($event);
+
         try {
             $result = $this->_db->update($query, $values);
         } catch (Horde_Db_Exception $e) {
@@ -573,7 +606,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         /* Log the modification of this item in the history log. */
         if ($event->uid) {
             try {
-                $GLOBALS['injector']->getInstance('Horde_History')->log('kronolith:' . $this->calendar . ':' . $event->uid, array('action' => 'modify'), true);
+                $GLOBALS['injector']->getInstance('Horde_History')->log('kronolith:' . $this->calendar . ':' . $event->uid, $history, false);
             } catch (Exception $e) {
                 Horde::logMessage($e, 'ERR');
             }
@@ -584,7 +617,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
          * change. */
         if ($event->baseid) {
             try {
-                $GLOBALS['injector']->getInstance('Horde_History')->log('kronolith:' . $this->calendar . ':' . $event->baseid, array('action' => 'modify'), true);
+                $GLOBALS['injector']->getInstance('Horde_History')->log('kronolith:' . $this->calendar . ':' . $event->baseid, $history, false);
             } catch (Exception $e) {
                 Horde::logMessage($e, 'ERR');
             }

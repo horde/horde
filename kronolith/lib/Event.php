@@ -583,20 +583,18 @@ abstract class Kronolith_Event
         $vEvent->setAttribute('DTSTAMP', $_SERVER['REQUEST_TIME']);
         $vEvent->setAttribute('UID', $this->uid);
 
-        /* Get the event's history. */
+        /* Get the event's create and last modify date. */
         $created = $modified = null;
         try {
-            $log = $GLOBALS['injector']->getInstance('Horde_History')->getHistory('kronolith:' . $this->calendar . ':' . $this->uid);
-            foreach ($log as $entry) {
-                switch ($entry['action']) {
-                case 'add':
-                    $created = $entry['ts'];
-                    break;
-
-                case 'modify':
-                    $modified = $entry['ts'];
-                    break;
-                }
+            $history = $GLOBALS['injector']->getInstance('Horde_History');
+            $created = $history->getActionTimestamp('kronolith:' . $this->calendar . ':' . $this->uid, 'add');
+            $modified = $history->getActionTimestamp('kronolith:' . $this->calendar . ':' . $this->uid, 'modify');
+            /* The history driver returns 0 for not found. If 0 or null does not matter, strip this */
+            if ($created == 0) {
+                $created == null;
+            }
+            if ($modified == 0) {
+                $modified == null;
             }
         } catch (Exception $e) {}
         if (!empty($created)) {

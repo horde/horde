@@ -324,17 +324,15 @@ class Kronolith_Api extends Horde_Registry_Api
                         // the event's history.
                         $created = $modified = null;
                         try {
-                            $log = $GLOBALS['injector']->getInstance('Horde_History')->getHistory('kronolith:' . $calendar . ':' . $uid);
-                            foreach ($log as $entry) {
-                                switch ($entry['action']) {
-                                case 'add':
-                                    $created = $entry['ts'];
-                                    break;
-
-                                case 'modify':
-                                    $modified = $entry['ts'];
-                                    break;
-                                }
+                            $history = $GLOBALS['injector']->getInstance('Horde_History');
+                            $created = $history->getActionTimestamp('kronolith:' . $calendar . ':' . $uid, 'add');
+                            $modified = $history->getActionTimestamp('kronolith:' . $calendar . ':' . $uid, 'modify');
+                            /* The history driver returns 0 for not found. If 0 or null does not matter, strip this */
+                            if ($created == 0) {
+                                $created == null;
+                            }
+                            if ($modified == 0) {
+                                $modified == null;
                             }
                         } catch (Exception $e) {}
                         if (empty($modified) && !empty($created)) {
