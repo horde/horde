@@ -538,6 +538,120 @@ class Horde_ActiveSync_Imap_Adapter
     }
 
     /**
+     * Perform a search from a search mailbox request.
+     *
+     * @param array $query  The query array.
+     *
+     * @return array  An array of 'uniqueid', 'searchfolderid' hashes.
+     * @throws Horde_ActiveSync_Exception
+     */
+    public function queryMailbox($query)
+    {
+        return $this->_doQuery($query['query']);
+    }
+
+    /**
+     * Perform an IMAP search based on a SEARCH request.
+     *
+     * @param array $query  The search query.
+     *
+     * @return array  The results array containing an array of hashes:
+     *   'uniqueid' => [The unique identifier of the result]
+     *   'searchfolderid' => [The mailbox name that this result comes from]
+     *
+     * @throws Horde_ActiveSync_Exception
+     */
+    protected function _doQuery(array $query)
+    {
+        $imap_query = new Horde_Imap_Client_Search_Query();
+        foreach ($query as $q) {
+            switch ($q['op']) {
+            case Horde_ActiveSync_Request_Search::SEARCH_AND:
+                return $this->_doQuery(array($q['value']));
+            default:
+                foreach ($q as $key => $value) {
+
+                    switch ($key) {
+                    case 'FolderType':
+                        if ($value != Horde_ActiveSync::CLASS_EMAIL) {
+                            throw new Horde_ActiveSync_Exception('Only Email folders are supported.');
+                        }
+                        break;
+                    case 'FolderId':
+                        $mbox = new Horde_Imap_Client_Mailbox($value);
+                        break;
+                    case Horde_ActiveSync_Message_Mail::POOMMAIL_DATERECEIVED:
+                        if ($q['op'] == Horde_ActiveSync_Request_Search::SEARCH_GREATERTHAN) {
+                            $range = Horde_Imap_Client_Search_Query::DATE_SINCE;
+                        } elseif ($q['op'] == Horde_ActiveSync_Request_Search::SEARCH_LESSTHAN) {
+                            $range = Horde_Imap_Client_Search_Query::DATE_BEFORE;
+                        } else {
+                            $range = Horde_Imap_Client_Search_Query::DATE_ON;
+                        }
+                        $imap_query->dateSearch($value, $range);
+                        break;
+                    case Horde_ActiveSync_Request_Search::SEARCH_FREETEXT:
+                        $imap_query->text($value, false);
+                        break;
+                    case 'subquery':
+                        $imap_query->andSearch(array($this->_buildSubQuery($value)));
+                    }
+                }
+            }
+        }
+        if (empty($mbox)) {
+            throw new Horde_ActiveSync_Exception('No folder id provided');
+        }
+        try {
+            $search_res = $this->_getImapOb()->search($mbox, $imap_query);
+        } catch (Horde_Imap_Client_Exception $e) {
+            throw new Horde_ActiveSync_Exception($e);
+        }
+        if ($search_res['count'] == 0) {
+            return array();
+        }
+        $results = array();
+        foreach ($search_res['match']->ids as $id) {
+            $results[] = array('uniqueid' => $mbox->utf8 . ':' . $id, 'searchfolderid' => $mbox->utf8);
+        }
+
+        return $results;
+    }
+
+    /**
+     * Helper to build a subquery
+     *
+     * @param array $query  A subquery array.
+     *
+     * @return Horde_Imap_Client_Search_Query  The query object.
+     */
+    protected function _buildSubQuery(array $query)
+    {
+        $imap_query = new Horde_Imap_Client_Search_Query();
+        foreach ($query as $q) {
+            foreach ($q['value'] as $type => $value) {
+                switch ($type) {
+                case Horde_ActiveSync_Message_Mail::POOMMAIL_DATERECEIVED:
+                    if ($q['op'] == Horde_ActiveSync_Request_Search::SEARCH_GREATERTHAN) {
+                        $range = Horde_Imap_Client_Search_Query::DATE_SINCE;
+                    } elseif ($q['op'] == Horde_ActiveSync_Request_Search::SEARCH_LESSTHAN) {
+                        $range = Horde_Imap_Client_Search_Query::DATE_BEFORE;
+                    } else {
+                        $range = Horde_Imap_Client_Search_Query::DATE_ON;
+                    }
+                    $imap_query->dateSearch($value, $range);
+                    break;
+                case Horde_ActiveSync_Request_Search::SEARCH_FREETEXT:
+                    $imap_query->text($value);
+                    break;
+                }
+            }
+        }
+
+        return $imap_query;
+    }
+
+    /**
      *
      * @param Horde_Imap_Client_Mailbox $mbox   The mailbox
      * @param array $uids                       An array of message uids
