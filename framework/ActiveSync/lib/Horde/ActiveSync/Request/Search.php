@@ -296,8 +296,8 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
                     $this->_encoder->content($u['searchfolderid']);
                     $this->_encoder->endTag();
                     $this->_encoder->startTag(self::SEARCH_PROPERTIES);
-                    $msg = $backend->ItemOperationsFetchMailbox($u['uniqueid'], $searchbodypreference);
-                    $msg->encode($this->_encoder);
+                    $msg = $this->_driver->ItemOperationsFetchMailbox($u['uniqueid'], $searchbodypreference);
+                    $msg->encodeStream($this->_encoder);
                     $this->_encoder->endTag();//properties
                     $this->_encoder->endTag();//result
                 }
@@ -322,6 +322,11 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
     /**
      * Receive, and parse, the incoming wbxml query.
      *
+     * According to MS docs, OR is supported in the protocol, but will ALWAYS
+     * return a searchToComplex status in Exchange 2007. Additionally, AND is
+     * ONLY supported as the topmost element. No nested AND is allowed. All
+     * such queries will return a searchToComplex status.
+     *
      * @param boolean $subquery  Parsing a subquery.
      *
      * @return array
@@ -341,45 +346,38 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
                 ($this->_decoder->getElementStartTag(Horde_ActiveSync_Message_Mail::POOMMAIL_DATERECEIVED) ? Horde_ActiveSync_Message_Mail::POOMMAIL_DATERECEIVED :
                 -1))))))))))) != -1) {
 
+
             switch ($type) {
-                case self::SEARCH_AND:
-                case self::SEARCH_OR:
-                case self::SEARCH_EQUALTO:
-                case self::SEARCH_LESSTHAN:
-                case self::SEARCH_GREATERTHAN:
-                    $q = array(
-                        'op' => $type,
-                        'value' => $this->_parseQuery(true)
-                    );
-                    if ($subquery) {
-                        $query['subquery'][] = $q;
-                    } else {
-                        $query[] = $q;
+            case self::SEARCH_AND:
+            case self::SEARCH_OR:
+            case self::SEARCH_EQUALTO:
+            case self::SEARCH_LESSTHAN:
+            case self::SEARCH_GREATERTHAN:
+                $q = array(
+                    'op' => $type,
+                    'value' => $this->_parseQuery(true)
+                );
+                if ($subquery) {
+                    $query['subquery'][] = $q;
+                } else {
+                    $query[] = $q;
+                }
+                $this->_decoder->getElementEndTag();
+                break;
+            default:
+                if (($query[$type] = $this->_decoder->getElementContent())) {
+                    $this->_decoder->getElementEndTag();
+                } else {
+                    $this->_decoder->getElementStartTag(self::SEARCH_VALUE);
+                    $query[$type] = $this->_decoder->getElementContent();
+                    switch ($type) {
+                    case Horde_ActiveSync_Message_Mail::POOMMAIL_DATERECEIVED:
+                        $query[$type] = new Horde_Date($query[$type]);
+                        break;
                     }
                     $this->_decoder->getElementEndTag();
-                    break;
-                default:
-                    if (($query[$type] = $this->_decoder->getElementContent())) {
-                        $this->_decoder->getElementEndTag();
-                    } else {
-                        $this->_decoder->getElementStartTag(self::SEARCH_VALUE);
-                        $query[$type] = $this->_decoder->getElementContent();
-                        switch ($type) {
-                            case Horde_ActiveSync_Message_Mail::POOMMAIL_DATERECEIVED:
-                                if (preg_match('/(\d{4})[^0-9]*(\d{2})[^0-9]*(\d{2})T(\d{2})[^0-9]*(\d{2})[^0-9]*(\d{2})(.\d+)?Z/', $query[$type], $matches)) {
-                                    if ($matches[1] >= 2038){
-                                        $matches[1] = 2038;
-                                        $matches[2] = 1;
-                                        $matches[3] = 18;
-                                        $matches[4] = $matches[5] = $matches[6] = 0;
-                                    }
-                                    $query[$type] = gmmktime($matches[4], $matches[5], $matches[6], $matches[2], $matches[3], $matches[1]);
-                                }
-                            break;
-                        }
-                        $this->_decoder->getElementEndTag();
-                    };
-                    break;
+                };
+                break;
             }
         }
 

@@ -664,6 +664,27 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     }
 
     /**
+     * Return Horde_Imap_Message_Mail object represented by the specified
+     * longid. Used to fetch email objects from a search result, which only
+     * returns a 'longid'.
+     *
+     * @param string $longid   The unique search result identifier.
+     * @param array $bodypref  The bodypreference array.
+     * @param boolean $mime    Mimesupport flag.
+     */
+    public function itemOperationsFetchMailbox($searchlongid, array $bodypreference, $mimesupport)
+    {
+        list($mailbox, $uid) = explode(':', $searchlongid);
+        return $this->getMessage(
+            $mailbox,
+            $uid,
+            array(
+                'bodyprefs' => $bodypreference,
+                'mimesupport' => $mimesupport)
+        );
+    }
+
+    /**
      * Return the specified attachement data for an ITEMOPERATIONS request.
      *
      * @param string $filereference  The attachment identifier.
@@ -678,14 +699,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $airatt->contenttype = $att['content-type'];
 
         return $airatt;
-    }
-
-    /**
-     * @TODO
-     */
-    public function itemOperationsFetchMailbox($searchlongid, $bodypreference, $mimesupport)
-    {
-        throw new Horde_ActiveSync_Exception('Not Supported');
     }
 
     /**
@@ -929,13 +942,13 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function getSearchResults($type, $query)
     {
-        $return = array('rows' => array());
-
         switch (strtolower($type)) {
         case 'gal':
             return $this->_searchGal($query);
         case 'mailbox':
-            return $this->_searchMailbox($query);
+            return array(
+                'rows' => $this->_searchMailbox($query),
+                'status' => Horde_ActiveSync_Request_Search::STORE_STATUS_SUCCESS);
         }
     }
 
@@ -948,7 +961,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function _searchMailbox($query)
     {
-
+        return $this->_imap->queryMailbox($query);
     }
 
     /**
