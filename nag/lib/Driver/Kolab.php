@@ -84,14 +84,13 @@ class Nag_Driver_Kolab extends Nag_Driver
      */
     public function get($taskId)
     {
-        if ($this->_getData()->objectIdExists($taskId)) {
-            $task = $this->_getData()->getObject($taskId);
-            $nag_task = $this->_buildTask($task);
-            $nag_task['tasklist_id'] = $this->_tasklist;
-            return new Nag_Task($nag_task);
-        } else {
-            throw new Horde_Exception_NotFound(_("Not Found"));
+        if (!$this->_getData()->objectIdExists($taskId)) {
+            throw new Horde_Exception_NotFound();
         }
+        $task = $this->_getData()->getObject($taskId);
+        $nag_task = $this->_buildTask($task);
+        $nag_task['tasklist_id'] = $this->_tasklist;
+        return new Nag_Task($this, $nag_task);
     }
 
     /**
@@ -373,7 +372,7 @@ class Nag_Driver_Kolab extends Nag_Driver
             $tuid = $task['uid'];
             $nag_task = $this->_buildTask($task);
             $nag_task['tasklist_id'] = $this->_tasklist;
-            $t = new Nag_Task($nag_task);
+            $t = new Nag_Task($this, $nag_task);
             $complete = $t->completed;
             if (empty($t->start)) {
                 $start = null;
@@ -427,7 +426,7 @@ class Nag_Driver_Kolab extends Nag_Driver
         $tasks = array();
         foreach ($task_list as $task) {
             $tuid = $task['uid'];
-            $t = new Nag_Task($this->_buildTask($task));
+            $t = new Nag_Task($this, $this->_buildTask($task));
             if ($t->alarm && $t->due &&
                 $t->due - $t->alarm * 60 < $date) {
                 $tasks[] = $t;
@@ -457,7 +456,7 @@ class Nag_Driver_Kolab extends Nag_Driver
             if ($task['parent'] != $parentId) {
                 continue;
             }
-            $t = new Nag_Task($this->_buildTask($task));
+            $t = new Nag_Task($this, $this->_buildTask($task));
             $children = $this->getChildren($t->id);
             $t->mergeChildren($children);
             $tasks[] = $t;

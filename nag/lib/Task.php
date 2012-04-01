@@ -194,6 +194,13 @@ class Nag_Task
     public $lastChild;
 
     /**
+     * A storage driver.
+     *
+     * @var Nag_Driver
+     */
+    protected $_storage;
+
+    /**
      * Internal flag.
      *
      * @var boolean
@@ -221,10 +228,14 @@ class Nag_Task
      *
      * Takes a hash and returns a nice wrapper around it.
      *
-     * @param array $task  A task hash.
+     * @param Nag_Driver $storage  A storage driver.
+     * @param array $task          A task hash.
      */
-    public function __construct(array $task = null)
+    public function __construct(Nag_Driver $storage = null, array $task = null)
     {
+        if ($storage) {
+            $this->_storage = $storage;
+        }
         if ($task) {
             $this->merge($task);
         }
@@ -251,6 +262,8 @@ class Nag_Task
 
     /**
      * Saves this task in the storage backend.
+     *
+     * @throws Nag_Exception
      */
     public function save()
     {
@@ -287,9 +300,8 @@ class Nag_Task
      */
     public function loadChildren()
     {
-        $storage = Nag_Driver::singleton($this->tasklist);
         try {
-            $this->children = $storage->getChildren($this->id);
+            $this->children = $this->_storage->getChildren($this->id);
         } catch (Nag_Exception $e) {}
     }
 
@@ -966,8 +978,7 @@ class Nag_Task
                 if (empty($params[$id]['RELTYPE']) ||
                     Horde_String::upper($params[$id]['RELTYPE']) == 'PARENT') {
 
-                    $storage = Nag_Driver::singleton($this->tasklist);
-                    $parent = $storage->getByUID($relation);
+                    $parent = $this->_storage->getByUID($relation);
                     $this->parent_id = $parent->id;
                     break;
                 }

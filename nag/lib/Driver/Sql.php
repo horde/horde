@@ -63,7 +63,7 @@ class Nag_Driver_Sql extends Nag_Driver
         }
 
         // Decode and return the task.
-        return new Nag_Task($this->_buildTask($row));
+        return new Nag_Task($this, $this->_buildTask($row));
     }
 
     /**
@@ -91,7 +91,7 @@ class Nag_Driver_Sql extends Nag_Driver
         $this->_tasklist = $row['task_owner'];
 
         // Decode and return the task.
-        return new Nag_Task($this->_buildTask($row));
+        return new Nag_Task($this, $this->_buildTask($row));
     }
 
     /**
@@ -353,7 +353,7 @@ class Nag_Driver_Sql extends Nag_Driver
         $dict = array();
 
         foreach ($result as $row) {
-            $task = new Nag_Task($this->_buildTask($row));
+            $task = new Nag_Task($this, $this->_buildTask($row));
 
             /* Add task directly if it is a root task, otherwise store it in
              * the dictionary. */
@@ -401,7 +401,7 @@ class Nag_Driver_Sql extends Nag_Driver
         // Store the retrieved values in a fresh task list.
         $tasks = array();
         foreach ($result as $row) {
-            $task = new Nag_Task($this->_buildTask($row));
+            $task = new Nag_Task($this, $this->_buildTask($row));
             $children = $this->getChildren($task->id);
             $task->mergeChildren($children);
             $tasks[] = $task;
@@ -435,7 +435,7 @@ class Nag_Driver_Sql extends Nag_Driver
 
         $tasks = array();
         foreach ($result as $row) {
-            $tasks[$row['task_id']] = new Nag_Task($this->_buildTask($row));
+            $tasks[$row['task_id']] = new Nag_Task($this, $this->_buildTask($row));
         }
 
         return $tasks;
