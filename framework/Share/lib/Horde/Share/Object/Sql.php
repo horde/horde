@@ -94,12 +94,9 @@ class Horde_Share_Object_Sql extends Horde_Share_Object implements Serializable
      */
     public function set($attribute, $value, $update = false)
     {
-        switch ($attribute) {
-        case 'owner':
-        case 'name':
-            $driver_key = 'share_' . $attribute;
-            break;
-        default:
+        if ($attribute == 'owner') {
+            $driver_key = 'share_owner';
+        } else {
             $driver_key = 'attribute_' . $attribute;
         }
         $this->data[$driver_key] = $value;
