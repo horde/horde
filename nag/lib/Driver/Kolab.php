@@ -26,7 +26,7 @@ class Nag_Driver_Kolab extends Nag_Driver
      *
      * @var Horde_Kolab_Storage_Data
      */
-    private $_data;
+    protected $_data;
 
     /**
      * Constructs a new Kolab storage object.
@@ -45,7 +45,7 @@ class Nag_Driver_Kolab extends Nag_Driver
      *
      * @return Horde_Kolab_Storage_Date The data handler.
      */
-    private function _getData()
+    protected function _getData()
     {
         if (empty($this->_tasklist)) {
             throw new Nag_Exception(
@@ -65,7 +65,7 @@ class Nag_Driver_Kolab extends Nag_Driver
      *
      * @return Horde_Kolab_Storage_Date The data handler.
      */
-    private function _getDataForTasklist($tasklist)
+    protected function _getDataForTasklist($tasklist)
     {
         return $this->_kolab->getData(
             $GLOBALS['nag_shares']->getShare($tasklist)->get('folder'),
@@ -101,7 +101,7 @@ class Nag_Driver_Kolab extends Nag_Driver
      *
      * @return array  The converted data array representing the task
      */
-    function _buildTask($task)
+    protected function _buildTask($task)
     {
         $task['task_id'] = $task['uid'];
 
@@ -283,7 +283,7 @@ class Nag_Driver_Kolab extends Nag_Driver
      *
      * @throws Nag_Exception
      */
-    private function _getObject(
+    protected function _getObject(
         $name, $desc, $start = 0, $due = 0, $priority = 0,
         $estimate = 0.0, $completed = 0, $category = '', $alarm = 0,
         array $methods = null, $parent = '', $private = false, $owner = null,
@@ -393,7 +393,7 @@ class Nag_Driver_Kolab extends Nag_Driver
      *
      * @return mixed  True on success, PEAR_Error on failure.
      */
-    function retrieve($completed = Nag::VIEW_ALL)
+    public function retrieve($completed = Nag::VIEW_ALL)
     {
         $dict = array();
         $this->tasks = new Nag_Task();
