@@ -271,7 +271,9 @@ $template->setOption('gettext', true);
 $attrib = $gollem_vfs->getModifiablePermissions();
 foreach (array('owner', 'group', 'all') as $val) {
     foreach (array('read', 'write', 'execute') as $val2) {
-        $template->set($val . '_' . $val2, !$attrib[$val][$val2], true);
+        if (isset($attrib[$val][$val2])) {
+            $template->set($val . '_' . $val2, !$attrib[$val][$val2], true);
+        }
     }
 }
 
