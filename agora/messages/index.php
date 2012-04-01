@@ -208,6 +208,6 @@ if (!$messages->hasPermission(Horde_Perms::EDIT)) {
     $view->form = Horde::endBuffer();
 }
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header();
 echo $view->render($template_file);
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

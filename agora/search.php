@@ -68,7 +68,8 @@ Horde::startBuffer();
 $form->renderActive(null, $vars, Horde::url('search.php'), 'get');
 $view->searchForm = Horde::endBuffer();
 
-$title = _("Search Forums");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Search Forums")
+));
 echo $view->render('search');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

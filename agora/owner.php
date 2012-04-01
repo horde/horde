@@ -21,7 +21,7 @@ $owner = $registry->isAdmin() ? Horde_Util::getGet('owner', $registry->getAuth()
 $sort_by = Agora::getSortBy('threads');
 $sort_dir = Agora::getSortDir('threads');
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header();
 
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
@@ -68,4 +68,4 @@ foreach ($registry->listApps() as $scope) {
     }
 }
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

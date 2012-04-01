@@ -80,6 +80,6 @@ $view->message_author = $message['message_author'];
 $view->message_date = strftime($prefs->getValue('date_format'), $message['message_timestamp']);
 $view->message_body = Agora_Driver::formatBody($message['body']);
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header();
 echo $view->render('messages/form');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

@@ -133,7 +133,7 @@ class Agora_Application extends Horde_Registry_Application
                     !$vfs->isFolder(Agora::AVATAR_PATH, 'gallery')) {
                     $ui->suppress[] = 'avatar_link';
                 } else {
-                    $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('popup.js', 'horde');
+                    $GLOBALS['page_output']->addScriptFile('popup.js', 'horde');
                 }
                 break;
             }
