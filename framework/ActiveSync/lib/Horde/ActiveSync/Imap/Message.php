@@ -132,7 +132,7 @@ class Horde_ActiveSync_Imap_Message
     /**
      * Return the full message text.
      *
-     * @return string
+     * @return mixed  A string or stream resource.
      */
     public function getFullMsg()
     {
@@ -147,7 +147,7 @@ class Horde_ActiveSync_Imap_Message
             );
 
             $data = array_pop($fetch_ret);
-            $full = $data->getFullMsg();
+            $full = $data->getFullMsg(true);
         }
 
         return $full;

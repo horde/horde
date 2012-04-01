@@ -650,17 +650,25 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * @param string $name  The attachment identifier. For this driver, this
      *                      consists of 'mailbox:uid:mimepart'
      *
+     * @param array $options  Any options requested. Currently supported:
+     *  - stream: (boolean) Return a stream resource for the mime contents.
+     *            DEFAULT: true (Return a stream resource for the 'data' value).
+     *
      * @return array  The attachment in the form of an array with the following
      *                structure:
      * array('content-type' => {the content-type of the attachement},
      *       'data'         => {the raw attachment data})
      */
-    public function getAttachment($name)
+    public function getAttachment($name, array $options = array())
     {
+        $options = array_merge(array('stream' => true), $options);
         list($mailbox, $uid, $part) = explode(':', $name);
         $atc = $this->_imap->getAttachment($mailbox, $uid, $part);
 
-        return array($atc->getType(), $atc->getContents());
+        return array(
+            'content-type' => $atc->getType(),
+            'data' => $atc->getContents(array('stream' => $options['stream']))
+        );
     }
 
     /**

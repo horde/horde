@@ -43,10 +43,17 @@ class Horde_ActiveSync_Request_GetAttachment extends Horde_ActiveSync_Request_Ba
         $att = $this->_driver->getAttachment($attname);
 
         // Output the attachment data to the stream.
-        fwrite($this->_encoder->getStream(), $att[1]);
+        if (is_resource($att['data'])) {
+            $this->_logger->debug('Copying attachment data directly from stream to stream.');
+            rewind($att['data']);
+            stream_copy_to_stream($att['data'], $this->_encoder->getStream());
+        } else {
+            $this->_logger->debug('Writing attachment data from string to stream.');
+            fwrite($this->_encoder->getStream(), $att['data']);
+        }
 
         // Indicate the content-type
-        return $att[0];
+        return $att['content-type'];
     }
 
 }

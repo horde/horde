@@ -552,12 +552,15 @@ abstract class Horde_ActiveSync_Driver_Base
      * @param string $name  The attachment identifier. For this driver, this
      *                      consists of 'mailbox:uid:mimepart'
      *
+     * @param array $options  Any options requested. Currently supported:
+     *  - stream: (boolean) Return a stream resource for the mime contents.
+     *
      * @return array  The attachment in the form of an array with the following
      *                structure:
      * array('content-type' => {the content-type of the attachement},
      *       'data'         => {the raw attachment data})
      */
-    abstract public function getAttachment($name);
+    abstract public function getAttachment($name, array $options = array());
 
     /**
      * Return the specified attachement data for an ITEMOPERATIONS request.
