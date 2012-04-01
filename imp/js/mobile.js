@@ -848,7 +848,7 @@ var ImpMobile = {
                     view: mailbox
                 }),
                 function() {
-                    ImpMobile.toMailbox($.mobile.path.parseUrl('#mailbox?mbox=' + mailbox), { noajax: true });
+                    ImpMobile.changePage('#mailbox?mbox=' + mailbox);
                 }
             );
             break;
@@ -863,7 +863,7 @@ var ImpMobile = {
                     view: mailbox
                 }),
                 function() {
-                    ImpMobile.toMailbox($.mobile.path.parseUrl('#mailbox?mbox=' + mailbox), { noajax: true });
+                    ImpMobile.changePage('#mailbox?mbox=' + mailbox);
                 }
             );
             break;
