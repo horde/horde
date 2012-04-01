@@ -429,6 +429,21 @@ class Horde_Form_Type_stringarray extends Horde_Form_Type_stringlist {
 
 class Horde_Form_Type_phone extends Horde_Form_Type {
 
+    /**
+     * The size of the input field.
+     *
+     * @var integer
+     */
+    var $_size;
+
+    /**
+     * @param integer $size  The size of the input field.
+     */
+    function init($size = 15)
+    {
+        $this->_size = $size;
+    }
+
     function isValid(&$var, &$vars, $value, &$message)
     {
         if (!strlen(trim($value))) {
@@ -444,12 +459,23 @@ class Horde_Form_Type_phone extends Horde_Form_Type {
         return true;
     }
 
+    function getSize()
+    {
+        return $this->_size;
+    }
+
     /**
      * Return info about field type.
      */
     function about()
     {
-        return array('name' => Horde_Form_Translation::t("Phone number"));
+        return array(
+            'name' => Horde_Form_Translation::t("Phone number"),
+            'params' => array(
+                'size'      => array('label' => Horde_Form_Translation::t("Size"),
+                                     'type'  => 'int'),
+            ),
+        );
     }
 
 }
@@ -1416,6 +1442,13 @@ class Horde_Form_Type_email extends Horde_Form_Type {
     var $_delimiters = ',';
 
     /**
+     * The size of the input field.
+     *
+     * @var integer
+     */
+    var $_size;
+
+    /**
      * @param boolean $allow_multi   Allow multiple addresses?
      * @param boolean $strip_domain  Protect address from spammers?
      * @param boolean $link_compose  Link the email address to the compose page
@@ -1423,16 +1456,18 @@ class Horde_Form_Type_email extends Horde_Form_Type {
      * @param string $link_name      The name to use when linking to the
      *                               compose page.
      * @param string $delimiters     Character to split multiple addresses with.
+     * @param integer $size          The size of the input field.
      */
     function init($allow_multi = false, $strip_domain = false,
                   $link_compose = false, $link_name = null,
-                  $delimiters = ',')
+                  $delimiters = ',', $size = null)
     {
         $this->_allow_multi = $allow_multi;
         $this->_strip_domain = $strip_domain;
         $this->_link_compose = $link_compose;
         $this->_link_name = $link_name;
         $this->_delimiters = $delimiters;
+        $this->_size = $size;
     }
 
     /**
@@ -1606,6 +1641,11 @@ class Horde_Form_Type_email extends Horde_Form_Type {
         return substr($result, 0, 1) == '2';
     }
 
+    function getSize()
+    {
+        return $this->_size;
+    }
+
     /**
      * Return info about field type.
      */
@@ -1629,6 +1669,9 @@ class Horde_Form_Type_email extends Horde_Form_Type {
                 'delimiters' => array(
                     'label' => Horde_Form_Translation::t("Character to split multiple addresses with"),
                     'type' => 'text'),
+                'size' => array(
+                    'label' => Horde_Form_Translation::t("Size"),
+                    'type'  => 'int'),
             ),
         );
     }

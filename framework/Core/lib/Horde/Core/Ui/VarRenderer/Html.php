@@ -108,9 +108,10 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
 
     protected function _renderVarInput_phone($form, &$var, &$vars)
     {
-        return sprintf('<input type="text" name="%s" id="%s" size="15" value="%s" %s%s />',
+        return sprintf('<input type="text" name="%s" id="%s" size="%s" value="%s" %s%s />',
                        htmlspecialchars($var->getVarName()),
                        $this->_genID($var->getVarName(), false),
+                       $var->type->getSize(),
                        htmlspecialchars($var->getValue($vars)),
                        $var->isDisabled() ? ' disabled="disabled" ' : '',
                        $this->_getActionScripts($form, $var)
@@ -789,10 +790,11 @@ EOT;
 
     protected function _renderVarInput_email($form, &$var, &$vars)
     {
-        return sprintf('<input type="email" name="%s" id="%s" value="%s"%s />',
+        return sprintf('<input type="email" name="%s" id="%s" value="%s"%s%s />',
                        htmlspecialchars($var->getVarName()),
                        $this->_genID($var->getVarName(), false),
                        htmlspecialchars($var->getValue($vars)),
+                       $var->type->getSize() ? ' size="' . $var->type->getSize() . '"' : '',
                        $this->_getActionScripts($form, $var));
     }
 
