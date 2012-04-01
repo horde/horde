@@ -9,7 +9,7 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package Nag
  */
-class Nag_Driver
+abstract class Nag_Driver
 {
     /**
      * A Nag_Task instance holding the current task list.
@@ -169,40 +169,47 @@ class Nag_Driver
     /**
      * Adds a task and handles notification.
      *
-     * @param string $name        The name (short) of the task.
-     * @param string $desc        The description (long) of the task.
-     * @param integer $start      The start date of the task.
-     * @param integer $due        The due date of the task.
-     * @param integer $priority   The priority of the task.
-     * @param float $estimate     The estimated time to complete the task.
-     * @param integer $completed  The completion state of the task.
-     * @param string $category    The category of the task.
-     * @param integer $alarm      The alarm associated with the task.
-     * @param array $methods      The overridden alarm notification methods.
-     * @param string $uid         A Unique Identifier for the task.
-     * @param string $parent      The parent task.
-     * @param boolean $private    Whether the task is private.
-     * @param string $owner       The owner of the event.
-     * @param string $assignee    The assignee of the event.
+     * @param array $task  A hash with the following possible properties:
+     *     - name: (string) The name (short) of the task.
+     *     - desc: (string) The description (long) of the task.
+     *     - start: (OPTIONAL, integer) The start date of the task.
+     *     - due: (OPTIONAL, integer) The due date of the task.
+     *     - priority: (OPTIONAL, integer) The priority of the task.
+     *     - estimate: (OPTIONAL, float) The estimated time to complete the
+     *                 task.
+     *     - completed: (OPTIONAL, integer) The completion state of the task.
+     *     - category: (OPTIONAL, string) The category of the task.
+     *     - alarm: (OPTIONAL, integer) The alarm associated with the task.
+     *     - methods: (OPTIONAL, array) The overridden alarm notification
+     *                methods.
+     *     - uid: (OPTIONAL, string) A Unique Identifier for the task.
+     *     - parent: (OPTIONAL, string) The parent task.
+     *     - private: (OPTIONAL, boolean) Whether the task is private.
+     *     - owner: (OPTIONAL, string) The owner of the event.
+     *     - assignee: (OPTIONAL, string) The assignee of the event.
      *
      * @return array  array(ID,UID) of new task
      */
-    public function add($name, $desc, $start = 0, $due = 0, $priority = 0,
-                        $estimate = 0.0, $completed = 0, $category = '',
-                        $alarm = 0, array $methods = null, $uid = null,
-                        $parent = '', $private = false, $owner = null,
-                        $assignee = null)
+    public function add(array $task)
     {
-        if (is_null($uid)) {
-            $uid = strval(new Horde_Support_Guid());
-        }
-        if (is_null($owner)) {
-            $owner = $GLOBALS['registry']->getAuth();
-        }
+        $task = array_merge(
+            array('start' => 0,
+                  'due' => 0,
+                  'priority' => 3,
+                  'estimate' => 0.0,
+                  'completed' => 0,
+                  'category' => '',
+                  'alarm' => 0,
+                  'methods' => null,
+                  'uid' => strval(new Horde_Support_Guid()),
+                  'parent' => '',
+                  'private' => false,
+                  'owner' => $GLOBALS['registry']->getAuth(),
+                  'assignee' => null),
+            $task
+        );
 
-        $taskId = $this->_add($name, $desc, $start, $due, $priority, $estimate,
-                              $completed, $category, $alarm, $methods, $uid,
-                              $parent, $private, $owner, $assignee);
+        $taskId = $this->_add($task);
 
         $task = $this->get($taskId);
         $task->process();
@@ -210,15 +217,19 @@ class Nag_Driver
         /* Log the creation of this item in the history log. */
         $history = $GLOBALS['injector']->getInstance('Horde_History');
         try {
-            $history->log('nag:' . $this->_tasklist . ':' . $uid, array('action' => 'add'), true);
+            $history->log('nag:' . $this->_tasklist . ':' . $task->uid,
+                          array('action' => 'add'),
+                          true);
         } catch (Exception $e) {
             Horde::logMessage($e, 'ERR');
         }
 
         /* Log completion status changes. */
-        if ($completed) {
+        if ($task->completed) {
             try {
-                $history->log('nag:' . $this->_tasklist . ':' . $uid, array('action' => 'complete'), true);
+                $history->log('nag:' . $this->_tasklist . ':' . $task->uid,
+                              array('action' => 'complete'),
+                              true);
             } catch (Exception $e) {
                 Horde::logMessage($e, 'ERR');
             }
@@ -228,61 +239,63 @@ class Nag_Driver
         $result = Nag::sendNotification('add', $task);
 
         /* Add an alarm if necessary. */
-        if (!empty($alarm) &&
+        if (!empty($task->alarm) &&
             ($alarm = $task->toAlarm())) {
             $alarm['start'] = new Horde_Date($alarm['start']);
             $GLOBALS['injector']->getInstance('Horde_Alarm')->set($alarm);
         }
 
-        return array($taskId, $uid);
+        return array($taskId, $task->uid);
     }
+
+    /**
+     * @see add()
+     */
+    abstract protected function _add(array $task);
 
     /**
      * Modifies an existing task and handles notification.
      *
-     * @param string $taskId           The task to modify.
-     * @param string $name             The name (short) of the task.
-     * @param string $desc             The description (long) of the task.
-     * @param integer $start           The start date of the task.
-     * @param integer $due             The due date of the task.
-     * @param integer $priority        The priority of the task.
-     * @param float $estimate          The estimated time to complete the task.
-     * @param integer $completed       The completion state of the task.
-     * @param string $category         The category of the task.
-     * @param integer $alarm           The alarm associated with the task.
-     * @param array $methods           The overridden alarm notification
-     *                                 methods.
-     * @param string $parent           The parent task.
-     * @param boolean $private         Whether the task is private.
-     * @param string $owner            The owner of the event.
-     * @param string $assignee         The assignee of the event.
-     * @param integer $completed_date  The task's completion date.
-     * @param string $tasklist         The new tasklist.
+     * @param string $taskId  The task to modify.
+     * @param array $properties  A hash with the following possible properties:
+     *     - name: (string) The name (short) of the task.
+     *     - desc: (string) The description (long) of the task.
+     *     - start: (OPTIONAL, integer) The start date of the task.
+     *     - due: (OPTIONAL, integer) The due date of the task.
+     *     - priority: (OPTIONAL, integer) The priority of the task.
+     *     - estimate: (OPTIONAL, float) The estimated time to complete the
+     *                 task.
+     *     - completed: (OPTIONAL, integer) The completion state of the task.
+     *     - category: (OPTIONAL, string) The category of the task.
+     *     - alarm: (OPTIONAL, integer) The alarm associated with the task.
+     *     - methods: (OPTIONAL, array) The overridden alarm notification
+     *                methods.
+     *     - uid: (OPTIONAL, string) A Unique Identifier for the task.
+     *     - parent: (OPTIONAL, string) The parent task.
+     *     - private: (OPTIONAL, boolean) Whether the task is private.
+     *     - owner: (OPTIONAL, string) The owner of the event.
+     *     - assignee: (OPTIONAL, string) The assignee of the event.
+     *     - completed_date: (OPTIONAL, integer) The task's completion date.
+     *     - tasklist: (OPTIONAL, string) The new tasklist.
      *
      * @throws Nag_Exception
      */
-    public function modify($taskId, $name, $desc, $start = 0, $due = 0,
-                           $priority = 0, $estimate = 0.0, $completed = 0,
-                           $category = '', $alarm = 0, array $methods = null,
-                           $parent = '', $private = false, $owner = null,
-                           $assignee = null, $completed_date = null,
-                           $tasklist = null)
+    public function modify($taskId, array $properties)
     {
         /* Retrieve unmodified task. */
         $task = $this->get($taskId);
 
         /* Avoid circular reference. */
-        if ($parent == $taskId) {
-            $parent = '';
+        if (isset($properties['parent']) &&
+            $properties['parent'] == $taskId) {
+            unset($properties['parent']);
         }
-        $modify = $this->_modify($taskId, $name, $desc, $start, $due,
-                                 $priority, $estimate, $completed, $category,
-                                 $alarm, $methods, $parent, $private, $owner,
-                                 $assignee, $completed_date);
+        $this->_modify($taskId, array_merge($task->toHash(), $properties));
 
         $new_task = $this->get($task->id);
         $log_tasklist = $this->_tasklist;
-        if (!is_null($tasklist) && $task->tasklist != $tasklist) {
+        if (isset($properties['tasklist']) &&
+            $task->tasklist != $properties['tasklist']) {
             /* Moving the task to another tasklist. */
             try {
                 $share = $GLOBALS['nag_shares']->getShare($task->tasklist);
@@ -297,7 +310,7 @@ class Nag_Driver
             }
 
             try {
-                $share = $GLOBALS['nag_shares']->getShare($tasklist);
+                $share = $GLOBALS['nag_shares']->getShare($properties['tasklist']);
             } catch (Horde_Share_Exception $e) {
                 Horde::logMessage($e->getMessage(), 'ERR');
                 throw new Nag_Exception($e);
@@ -307,8 +320,8 @@ class Nag_Driver
                 $GLOBALS['notification']->push(sprintf(_("Access denied moving the task to %s."), $share->get('name')), 'horde.error');
             }
 
-            $moved = $this->_move($task->id, $tasklist);
-            $new_storage = Nag_Driver::singleton($tasklist);
+            $moved = $this->_move($task->id, $properties['tasklist']);
+            $new_storage = Nag_Driver::singleton($properties['tasklist']);
             $new_task = $new_storage->get($task->id);
 
             /* Log the moving of this item in the history log. */
@@ -320,17 +333,18 @@ class Nag_Driver
                     Horde::logMessage($e, 'ERR');
                 }
                 try {
-                    $history->log('nag:' . $tasklist . ':' . $task->uid, array('action' => 'add'), true);
+                    $history->log('nag:' . $properties['tasklist'] . ':' . $task->uid, array('action' => 'add'), true);
                 } catch (Exception $e) {
                     Horde::logMessage($e, 'ERR');
                 }
-                $log_tasklist = $tasklist;
+                $log_tasklist = $properties['tasklist'];
             }
         }
 
         /* Update alarm if necessary. */
         $horde_alarm = $GLOBALS['injector']->getInstance('Horde_Alarm');
-        if (empty($alarm) || $completed) {
+        if ((isset($properties['alarm']) && empty($properties['alarm'])) ||
+            !empty($properties['completed'])) {
             $horde_alarm->delete($task->uid);
         } else {
             $task = $this->get($taskId);
@@ -345,20 +359,27 @@ class Nag_Driver
         /* Log the modification of this item in the history log. */
         if (!empty($task->uid)) {
             try {
-                $GLOBALS['injector']->getInstance('Horde_History')->log('nag:' . $log_tasklist . ':' . $task->uid, array('action' => 'modify'), true);
+                $GLOBALS['injector']->getInstance('Horde_History')
+                  ->log('nag:' . $log_tasklist . ':' . $task->uid,
+                        array('action' => 'modify'),
+                        true);
             } catch (Exception $e) {
                 Horde::logMessage($e, 'ERR');
             }
         }
 
         /* Log completion status changes. */
-        if ($task->completed != $completed) {
+        if (isset($properties['completed']) &&
+            $task->completed != $properties['completed']) {
             $attributes = array('action' => 'complete');
-            if (!$completed) {
+            if (!$properties['completed']) {
                 $attributes['ts'] = 0;
             }
             try {
-                $GLOBALS['injector']->getInstance('Horde_History')->log('nag:' . $log_tasklist . ':' . $task->uid, $attributes, true);
+                $GLOBALS['injector']->getInstance('Horde_History')
+                  ->log('nag:' . $log_tasklist . ':' . $task->uid,
+                        $attributes,
+                        true);
             } catch (Exception $e) {
                 Horde::logMessage($e, 'ERR');
             }
@@ -370,9 +391,12 @@ class Nag_Driver
         } catch (Nag_Exception $e) {
             Horde::logMessage($e, 'ERR');
         }
-
-        return true;
     }
+
+    /**
+     * @see modify()
+     */
+    abstract protected function _modify($taskId, array $task);
 
     /**
      * Deletes a task and handles notification.

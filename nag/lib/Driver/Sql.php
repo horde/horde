@@ -97,34 +97,31 @@ class Nag_Driver_Sql extends Nag_Driver
     /**
      * Adds a task to the backend storage.
      *
-     * @param string $name        The name (short) of the task.
-     * @param string $desc        The description (long) of the task.
-     * @param integer $start      The start date of the task.
-     * @param integer $due        The due date of the task.
-     * @param integer $priority   The priority of the task.
-     * @param float $estimate     The estimated time to complete the task.
-     * @param integer $completed  The completion state of the task.
-     * @param string $category    The category of the task.
-     * @param integer $alarm      The alarm associated with the task.
-     * @param array $methods      The overridden alarm notification methods.
-     * @param string $uid         A Unique Identifier for the task.
-     * @param string $parent      The parent task id.
-     * @param boolean $private    Whether the task is private.
-     * @param string $owner       The owner of the event.
-     * @param string $assignee    The assignee of the event.
+     * @param array $task  A hash with the following possible properties:
+     *     - name: (string) The name (short) of the task.
+     *     - desc: (string) The description (long) of the task.
+     *     - start: (OPTIONAL, integer) The start date of the task.
+     *     - due: (OPTIONAL, integer) The due date of the task.
+     *     - priority: (OPTIONAL, integer) The priority of the task.
+     *     - estimate: (OPTIONAL, float) The estimated time to complete the
+     *                 task.
+     *     - completed: (OPTIONAL, integer) The completion state of the task.
+     *     - category: (OPTIONAL, string) The category of the task.
+     *     - alarm: (OPTIONAL, integer) The alarm associated with the task.
+     *     - methods: (OPTIONAL, array) The overridden alarm notification
+     *                methods.
+     *     - uid: (OPTIONAL, string) A Unique Identifier for the task.
+     *     - parent: (OPTIONAL, string) The parent task.
+     *     - private: (OPTIONAL, boolean) Whether the task is private.
+     *     - owner: (OPTIONAL, string) The owner of the event.
+     *     - assignee: (OPTIONAL, string) The assignee of the event.
      *
      * @return string  The Nag ID of the new task.
      * @throws Nag_Exception
      */
-    protected function _add($name, $desc, $start = 0, $due = 0, $priority = 0,
-                  $estimate = 0.0, $completed = 0, $category = '', $alarm = 0,
-                  array $methods = null, $uid = null, $parent = '', $private = false,
-                  $owner = null, $assignee = null)
+    protected function _add(array $task)
     {
         $taskId = strval(new Horde_Support_Randomid());
-        if (is_null($uid)) {
-            $uid = strval(new Horde_Support_Guid());
-        }
 
         $query = sprintf(
             'INSERT INTO %s (task_owner, task_creator, task_assignee, '
@@ -134,27 +131,27 @@ class Nag_Driver_Sql extends Nag_Driver
             . 'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
             $this->_params['table']);
         $values = array($this->_tasklist,
-                        $owner,
-                        $assignee,
+                        $task['owner'],
+                        $task['assignee'],
                         $taskId,
-                        Horde_String::convertCharset($name, 'UTF-8', $this->_params['charset']),
-                        Horde_String::convertCharset($uid, 'UTF-8', $this->_params['charset']),
-                        Horde_String::convertCharset($desc, 'UTF-8', $this->_params['charset']),
-                        (int)$start,
-                        (int)$due,
-                        (int)$priority,
-                        number_format($estimate, 2),
-                        (int)$completed,
-                        Horde_String::convertCharset($category, 'UTF-8', $this->_params['charset']),
-                        (int)$alarm,
-                        serialize(Horde_String::convertCharset($methods, 'UTF-8', $this->_params['charset'])),
-                        (int)$private,
-                        $parent);
+                        Horde_String::convertCharset($task['name'], 'UTF-8', $this->_params['charset']),
+                        Horde_String::convertCharset($task['uid'], 'UTF-8', $this->_params['charset']),
+                        Horde_String::convertCharset($task['desc'], 'UTF-8', $this->_params['charset']),
+                        (int)$task['start'],
+                        (int)$task['due'],
+                        (int)$task['priority'],
+                        number_format($task['estimate'], 2),
+                        (int)$task['completed'],
+                        Horde_String::convertCharset($task['category'], 'UTF-8', $this->_params['charset']),
+                        (int)$task['alarm'],
+                        serialize(Horde_String::convertCharset($task['methods'], 'UTF-8', $this->_params['charset'])),
+                        (int)$task['private'],
+                        $task['parent']);
 
         try {
             $this->_db->insert($query, $values);
         } catch (Horde_Db_Exception $e) {
-            throw new Nag_Exception($e->getMessage());
+            throw new Nag_Exception($e);
         }
 
         return $taskId;
@@ -163,31 +160,31 @@ class Nag_Driver_Sql extends Nag_Driver
     /**
      * Modifies an existing task.
      *
-     * @param string $taskId           The task to modify.
-     * @param string $name             The name (short) of the task.
-     * @param string $desc             The description (long) of the task.
-     * @param integer $start           The start date of the task.
-     * @param integer $due             The due date of the task.
-     * @param integer $priority        The priority of the task.
-     * @param float $estimate          The estimated time to complete the task.
-     * @param integer $completed       The completion state of the task.
-     * @param string $category         The category of the task.
-     * @param integer $alarm           The alarm associated with the task.
-     * @param array $methods           The overridden alarm notification
-     *                                 methods.
-     * @param string $parent           The parent task id.
-     * @param boolean $private         Whether the task is private.
-     * @param string $owner            The owner of the event.
-     * @param string $assignee         The assignee of the event.
-     * @param integer $completed_date  The task's completion date.
+     * @param string $taskId  The task to modify.
+     * @param array $properties  A hash with the following possible properties:
+     *     - id: (string) The task to modify.
+     *     - name: (string) The name (short) of the task.
+     *     - desc: (string) The description (long) of the task.
+     *     - start: (OPTIONAL, integer) The start date of the task.
+     *     - due: (OPTIONAL, integer) The due date of the task.
+     *     - priority: (OPTIONAL, integer) The priority of the task.
+     *     - estimate: (OPTIONAL, float) The estimated time to complete the
+     *                 task.
+     *     - completed: (OPTIONAL, integer) The completion state of the task.
+     *     - category: (OPTIONAL, string) The category of the task.
+     *     - alarm: (OPTIONAL, integer) The alarm associated with the task.
+     *     - methods: (OPTIONAL, array) The overridden alarm notification
+     *                methods.
+     *     - uid: (OPTIONAL, string) A Unique Identifier for the task.
+     *     - parent: (OPTIONAL, string) The parent task.
+     *     - private: (OPTIONAL, boolean) Whether the task is private.
+     *     - owner: (OPTIONAL, string) The owner of the event.
+     *     - assignee: (OPTIONAL, string) The assignee of the event.
+     *     - completed_date: (OPTIONAL, integer) The task's completion date.
      *
      * @throws Nag_Exception
      */
-    protected function _modify($taskId, $name, $desc, $start = 0, $due = 0,
-                     $priority = 0, $estimate = 0.0, $completed = 0,
-                     $category = '', $alarm = 0, array $methods = null,
-                     $parent = '', $private = false, $owner = null,
-                     $assignee = null, $completed_date = null)
+    protected function _modify($taskId, array $task)
     {
         $query = sprintf('UPDATE %s SET' .
                          ' task_creator = ?, ' .
@@ -207,21 +204,21 @@ class Nag_Driver_Sql extends Nag_Driver
                          ' task_private = ? ' .
                          'WHERE task_owner = ? AND task_id = ?',
                          $this->_params['table']);
-        $values = array($owner,
-                        $assignee,
-                        Horde_String::convertCharset($name, 'UTF-8', $this->_params['charset']),
-                        Horde_String::convertCharset($desc, 'UTF-8', $this->_params['charset']),
-                        (int)$start,
-                        (int)$due,
-                        (int)$priority,
-                        number_format($estimate, 2),
-                        (int)$completed,
-                        (int)$completed_date,
-                        Horde_String::convertCharset($category, 'UTF-8', $this->_params['charset']),
-                        (int)$alarm,
-                        serialize(Horde_String::convertCharset($methods, 'UTF-8', $this->_params['charset'])),
-                        $parent,
-                        (int)$private,
+        $values = array($task['owner'],
+                        $task['assignee'],
+                        Horde_String::convertCharset($task['name'], 'UTF-8', $this->_params['charset']),
+                        Horde_String::convertCharset($task['desc'], 'UTF-8', $this->_params['charset']),
+                        (int)$task['start'],
+                        (int)$task['due'],
+                        (int)$task['priority'],
+                        number_format($task['estimate'], 2),
+                        (int)$task['completed'],
+                        (int)$task['completed_date'],
+                        Horde_String::convertCharset($task['category'], 'UTF-8', $this->_params['charset']),
+                        (int)$task['alarm'],
+                        serialize(Horde_String::convertCharset($task['methods'], 'UTF-8', $this->_params['charset'])),
+                        $task['parent'],
+                        (int)$task['private'],
                         $this->_tasklist,
                         $taskId);
 

@@ -254,23 +254,7 @@ class Nag_Task
      */
     public function save()
     {
-        $storage = Nag_Driver::singleton($this->tasklist);
-        return $storage->modify($this->id,
-                                $this->name,
-                                $this->desc,
-                                $this->start,
-                                $this->due,
-                                $this->priority,
-                                $this->estimate,
-                                $this->completed,
-                                $this->category,
-                                $this->alarm,
-                                $this->methods,
-                                $this->parent_id,
-                                $this->private,
-                                $this->owner,
-                                $this->assignee,
-                                $this->completed_date);
+        $this->_storage->modify($this->id, $this->toHash());
     }
 
     /**

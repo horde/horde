@@ -43,7 +43,7 @@ class Nag_Driver_Kolab extends Nag_Driver
     /**
      * Return the Kolab data handler for the current tasklist.
      *
-     * @return Horde_Kolab_Storage_Date The data handler.
+     * @return Horde_Kolab_Storage_Data The data handler.
      */
     protected function _getData()
     {
@@ -159,185 +159,151 @@ class Nag_Driver_Kolab extends Nag_Driver
     /**
      * Adds a task to the backend storage.
      *
-     * @param string $name        The name (short) of the task.
-     * @param string $desc        The description (long) of the task.
-     * @param integer $start      The start date of the task.
-     * @param integer $due        The due date of the task.
-     * @param integer $priority   The priority of the task.
-     * @param float $estimate     The estimated time to complete the task.
-     * @param integer $completed  The completion state of the task.
-     * @param string $category    The category of the task.
-     * @param integer $alarm      The alarm associated with the task.
-     * @param array $methods      The overridden alarm notification methods.
-     * @param string $uid         A Unique Identifier for the task.
-     * @param string $parent      The parent task id.
-     * @param boolean $private    Whether the task is private.
-     * @param string $owner       The owner of the event.
-     * @param string $assignee    The assignee of the event.
+     * @param array $task  A hash with the following possible properties:
+     *     - name: (string) The name (short) of the task.
+     *     - desc: (string) The description (long) of the task.
+     *     - start: (OPTIONAL, integer) The start date of the task.
+     *     - due: (OPTIONAL, integer) The due date of the task.
+     *     - priority: (OPTIONAL, integer) The priority of the task.
+     *     - estimate: (OPTIONAL, float) The estimated time to complete the
+     *                 task.
+     *     - completed: (OPTIONAL, integer) The completion state of the task.
+     *     - category: (OPTIONAL, string) The category of the task.
+     *     - alarm: (OPTIONAL, integer) The alarm associated with the task.
+     *     - methods: (OPTIONAL, array) The overridden alarm notification
+     *                methods.
+     *     - uid: (OPTIONAL, string) A Unique Identifier for the task.
+     *     - parent: (OPTIONAL, string) The parent task.
+     *     - private: (OPTIONAL, boolean) Whether the task is private.
+     *     - owner: (OPTIONAL, string) The owner of the event.
+     *     - assignee: (OPTIONAL, string) The assignee of the event.
      *
      * @return string  The Nag ID of the new task.
      * @throws Nag_Exception
      */
-    protected function _add(
-        $name, $desc, $start = 0, $due = 0, $priority = 0,
-        $estimate = 0.0, $completed = 0, $category = '', $alarm = 0,
-        array $methods = null, $uid = null, $parent = '', $private = false,
-        $owner = null, $assignee = null
-    ) {
-        $object = $this->_getObject(
-            $name,
-            $desc,
-            $start,
-            $due,
-            $priority,
-            $estimate,
-            $completed,
-            $category,
-            $alarm,
-            $methods,
-            $parent,
-            $private,
-            $owner,
-            $assignee
-        );
-        if (is_null($uid)) {
-            $object['uid'] = $this->_getData()->generateUid();
-        } else {
-            $object['uid'] = $uid;
+    protected function _add(array $task)
+    {
+        $object = $this->_getObject($task);
+        try {
+            $this->_getData()->create($object);
+        } catch (Horde_Kolab_Storage_Exception $e) {
+            throw new Nag_Exception($e);
         }
-        $this->_getData()->create($object);
-        return $object['uid'] = $uid;
+        return $object['uid'];
     }
 
     /**
      * Modifies an existing task.
      *
-     * @param string $taskId           The task to modify.
-     * @param string $name             The name (short) of the task.
-     * @param string $desc             The description (long) of the task.
-     * @param integer $start           The start date of the task.
-     * @param integer $due             The due date of the task.
-     * @param integer $priority        The priority of the task.
-     * @param float $estimate          The estimated time to complete the task.
-     * @param integer $completed       The completion state of the task.
-     * @param string $category         The category of the task.
-     * @param integer $alarm           The alarm associated with the task.
-     * @param array $methods           The overridden alarm notification
-     *                                 methods.
-     * @param string $parent           The parent task id.
-     * @param boolean $private         Whether the task is private.
-     * @param string $owner            The owner of the event.
-     * @param string $assignee         The assignee of the event.
-     * @param integer $completed_date  The task's completion date.
-     *
-     * @return boolean  Indicates if the modification was successfull.
+     * @param string $taskId  The task to modify.
+     * @param array $properties  A hash with the following possible properties:
+     *     - id: (string) The task to modify.
+     *     - name: (string) The name (short) of the task.
+     *     - desc: (string) The description (long) of the task.
+     *     - start: (OPTIONAL, integer) The start date of the task.
+     *     - due: (OPTIONAL, integer) The due date of the task.
+     *     - priority: (OPTIONAL, integer) The priority of the task.
+     *     - estimate: (OPTIONAL, float) The estimated time to complete the
+     *                 task.
+     *     - completed: (OPTIONAL, integer) The completion state of the task.
+     *     - category: (OPTIONAL, string) The category of the task.
+     *     - alarm: (OPTIONAL, integer) The alarm associated with the task.
+     *     - methods: (OPTIONAL, array) The overridden alarm notification
+     *                methods.
+     *     - uid: (OPTIONAL, string) A Unique Identifier for the task.
+     *     - parent: (OPTIONAL, string) The parent task.
+     *     - private: (OPTIONAL, boolean) Whether the task is private.
+     *     - owner: (OPTIONAL, string) The owner of the event.
+     *     - assignee: (OPTIONAL, string) The assignee of the event.
+     *     - completed_date: (OPTIONAL, integer) The task's completion date.
      */
-    protected function _modify($taskId, $name, $desc, $start = 0, $due = 0,
-                               $priority = 0, $estimate = 0.0, $completed = 0,
-                               $category = '', $alarm = 0, $methods = null,
-                               $parent = null, $private = false, $owner = null,
-                               $assignee = null, $completed_date = null)
+    protected function _modify($taskId, array $task)
     {
-        $object = $this->_getObject(
-            $name,
-            $desc,
-            $start,
-            $due,
-            $priority,
-            $estimate,
-            $completed,
-            $category,
-            $alarm,
-            $methods,
-            $parent,
-            $private,
-            $owner,
-            $assignee,
-            $completed_date
-        );
+        $object = $this->_getObject($task);
         $object['uid'] = $taskId;
-        $this->_getData()->modify($object);
-        return true;
+        try {
+            $this->_getData()->modify($object);
+        } catch (Horde_Kolab_Storage_Exception $e) {
+            throw new Nag_Exception($e);
+        }
     }
 
     /**
      * Retrieve the Kolab object representations for the task.
      *
-     * @param string $name        The name (short) of the task.
-     * @param string $desc        The description (long) of the task.
-     * @param integer $start      The start date of the task.
-     * @param integer $due        The due date of the task.
-     * @param integer $priority   The priority of the task.
-     * @param float $estimate     The estimated time to complete the task.
-     * @param integer $completed  The completion state of the task.
-     * @param string $category    The category of the task.
-     * @param integer $alarm      The alarm associated with the task.
-     * @param array $methods      The overridden alarm notification methods.
-     * @param string $parent      The parent task id.
-     * @param boolean $private    Whether the task is private.
-     * @param string $owner       The owner of the event.
-     * @param string $assignee    The assignee of the event.
-     * @param integer $completed_date  The task's completion date.
+     * @param array $task  A hash with the following possible properties:
+     *     - name: (string) The name (short) of the task.
+     *     - desc: (string) The description (long) of the task.
+     *     - start: (OPTIONAL, integer) The start date of the task.
+     *     - due: (OPTIONAL, integer) The due date of the task.
+     *     - priority: (OPTIONAL, integer) The priority of the task.
+     *     - estimate: (OPTIONAL, float) The estimated time to complete the
+     *                 task.
+     *     - completed: (OPTIONAL, integer) The completion state of the task.
+     *     - category: (OPTIONAL, string) The category of the task.
+     *     - alarm: (OPTIONAL, integer) The alarm associated with the task.
+     *     - methods: (OPTIONAL, array) The overridden alarm notification
+     *                methods.
+     *     - uid: (OPTIONAL, string) A Unique Identifier for the task.
+     *     - parent: (OPTIONAL, string) The parent task.
+     *     - private: (OPTIONAL, boolean) Whether the task is private.
+     *     - owner: (OPTIONAL, string) The owner of the event.
+     *     - assignee: (OPTIONAL, string) The assignee of the event.
+     *     - completed_date: (OPTIONAL, integer) The task's completion date.
      *
      * @return array The Kolab object.
-     *
-     * @throws Nag_Exception
      */
-    protected function _getObject(
-        $name, $desc, $start = 0, $due = 0, $priority = 0,
-        $estimate = 0.0, $completed = 0, $category = '', $alarm = 0,
-        array $methods = null, $parent = '', $private = false, $owner = null,
-        $assignee = null, $completed_date = null
-    ) {
+    protected function _getObject($task)
+    {
         $object = array(
-            'summary' => $name,
-            'body' => $desc,
+            'summary' => $task['name'],
+            'body' => $task['desc'],
             //@todo: Match Horde/Kolab priority values
-            'priority' => $priority,
+            'priority' => $task['priority'],
             //@todo: Extend to Kolab multiple categories (tagger)
-            'categories' => $category,
-            'parent' => $parent,
+            'categories' => $task['category'],
+            'parent' => $task['parent'],
         );
-        if ($start !== 0) {
-            $object['start-date'] = $start;
+        if ($task['start'] !== 0) {
+            $object['start-date'] = $task['start'];
         }
-        if ($due !== 0) {
-            $object['due-date'] = $due;
+        if ($task['due'] !== 0) {
+            $object['due-date'] = $task['due'];
         }
-        if ($completed) {
+        if ($task['completed']) {
             $object['completed'] = 100;
             $object['status'] = 'completed';
         } else {
             $object['completed'] = 0;
             $object['status'] = 'not-started';
         }
-        if ($alarm !== 0) {
-            $object['alarm'] = $alarm;
+        if ($task['alarm'] !== 0) {
+            $object['alarm'] = $task['alarm'];
         }
-        if ($private) {
+        if ($task['private']) {
             $object['sensitivity'] = 'private';
         } else {
             $object['sensitivity'] = 'public';
         }
-        if ($completed_date !== null) {
-            $object['completed_date'] = $completed_date;
+        if (isset($task['completed_date'])) {
+            $object['completed_date'] = $task['completed_date'];
         }
-        if ($estimate !== 0.0) {
-            $object['estimate'] = number_format($estimate, 2);
+        if ($task['estimate'] !== 0.0) {
+            $object['estimate'] = number_format($task['estimate'], 2);
         }
-        if ($methods !== null) {
-            $object['horde-alarm-methods'] = serialize($methods);
+        if ($task['methods'] !== null) {
+            $object['horde-alarm-methods'] = serialize($task['methods']);
         }
-        if ($owner !== null) {
+        if ($task['owner'] !== null) {
             //@todo: Display name
             $object['creator'] = array(
-                'smtp-address' => $owner,
+                'smtp-address' => $task['owner'],
             );
         }
-        if ($assignee !== null) {
+        if ($task['assignee'] !== null) {
             //@todo: Display name
             $object['organizer'] = array(
-                'smtp-address' => $assignee,
+                'smtp-address' => $task['assignee'],
             );
         }
         return $object;
