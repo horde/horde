@@ -1480,7 +1480,7 @@ msgstr "Kirjoitat tietoja liian nopeasti!"
 #: templates/user/user.php:377 templates/user/user.php:394
 #, php-format
 msgid "You are on %s blacklist."
-msgstr "Olet %s:n mustalla listalla."
+msgstr "Olet %s mustalla listalla."
 
 #: templates/user/friends.php:9 templates/user/private.php:10
 #, php-format

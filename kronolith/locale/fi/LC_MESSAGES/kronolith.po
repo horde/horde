@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Kronolith 3.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-02-22 11:20+0100\n"
-"PO-Revision-Date: 2012-03-22 14:54:36+0200\n"
+"PO-Revision-Date: 2012-03-28 20:12:43+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -157,7 +157,7 @@ msgstr "%s ilmoitukset"
 #: lib/Kronolith.php:2390
 #, php-format
 msgid "%s wants to notify you about changes of \"%s\"."
-msgstr "%s haluaa ilmoittaa sinulle muutoksista \"%s\".:ssä"
+msgstr "%s haluaa ilmoittaa sinulle muutoksista \"%s\"."
 
 #: templates/share/notification.plain.php:7
 #, php-format
@@ -180,7 +180,7 @@ msgstr ""
 #: lib/Kronolith.php:2385
 #, php-format
 msgid "%s wishes to make you aware of \"%s\"."
-msgstr "%s tehdä sinut tietoiseksi \"%s\":stä."
+msgstr "%s tehdä sinut tietoiseksi \"%s\"."
 
 #: templates/chunks/permissions.inc:51
 #, php-format
@@ -610,7 +610,7 @@ msgstr "Kalenteria ei löytynyt"
 #: lib/Calendars/Default.php:46
 #, php-format
 msgid "Calendar of %s"
-msgstr "%s:n kalenterit"
+msgstr "Kalenteri %s"
 
 #: templates/chunks/permissions.inc:59
 msgid "Calendar owner"
@@ -1055,7 +1055,7 @@ msgstr "Muokkaa osallistujia"
 #: templates/perms/perms.inc:11
 #, php-format
 msgid "Edit permissions for %s"
-msgstr "Muokkaa %s:n oikeuksia"
+msgstr "Muokkaa %s oikeuksia"
 
 #: resources/index.php:20
 msgid "Edit resources"
@@ -1121,7 +1121,7 @@ msgstr "Päättyy:"
 #: attendees.php:231 attendees.php:251
 #, php-format
 msgid "Error retrieving free/busy information for %s: %s"
-msgstr "Tapahtui virhe tuotaessa vapaa/varattu-tietoja %s:lle: %s"
+msgstr "Tapahtui virhe tuotaessa vapaa/varattu-tietoja %s: %s"
 
 #: attendees.php:209
 #, php-format
@@ -1740,7 +1740,7 @@ msgstr "Vapaa/varattu-tietoja ei löytynyt vapaa/varattu %s url-osoitteesta."
 #: lib/FreeBusy.php:225
 #, php-format
 msgid "No free/busy url found for %s."
-msgstr "Vapaa/varattu url-osoitetta ei löytynyt %s:lle."
+msgstr "Vapaa/varattu url-osoitetta ei löytynyt %s."
 
 #: lib/Api.php:652 lib/Api.php:672 lib/Api.php:975
 msgid "No iCalendar data was found."
@@ -2737,7 +2737,7 @@ msgstr "Kalenteri \"%s\" on poistettu"
 #: calendars/edit.php:44 lib/Ajax/Application.php:650
 #, php-format
 msgid "The calendar \"%s\" has been renamed to \"%s\"."
-msgstr "Kalenteri \"%s\" on nimetty uudelleen \"%s\":ksi."
+msgstr "Kalenteri \"%s\" on nimetty uudelleen \"%s\"."
 
 #: calendars/edit.php:46 calendars/remote_edit.php:45
 #: lib/Ajax/Application.php:652 lib/Ajax/Application.php:739
@@ -2981,7 +2981,7 @@ msgstr ""
 #: lib/Kronolith.php:2455
 #, php-format
 msgid "There was an error sending an event notification to %s: %s"
-msgstr "Tapahtui virhe lähetettäessä tapahtumailmoitusta %s:lle: %s"
+msgstr "Tapahtui virhe lähetettäessä tapahtumailmoitusta %s: %s"
 
 #: data.php:118
 msgid "There were no events to export."
@@ -3253,7 +3253,7 @@ msgstr "Käyttäjänimi"
 
 #: templates/chunks/permissions.inc:181
 msgid "Users"
-msgstr "Käyttät"
+msgstr "Käyttäjät"
 
 #: lib/Block/Month.php:174 lib/Block/Month.php:189 lib/View/Year.php:148
 #: lib/View/Year.php:151
@@ -3403,7 +3403,7 @@ msgstr ""
 #: add.php:48
 #, php-format
 msgid "You do not have permission to add events to %s."
-msgstr "Sinulla ei ole oikeuksia lisätä tapahtumia %s:ään."
+msgstr "Sinulla ei ole oikeuksia lisätä tapahtumia %s."
 
 #: data.php:204
 msgid "You do not have permission to add events to the selected calendar."
@@ -3412,7 +3412,7 @@ msgstr "Sinulla ei ole oikeuksia lisätä tapahtumia valittuun kalenteriin."
 #: add.php:53 edit.php:181
 #, php-format
 msgid "You do not have permission to delegate events to %s."
-msgstr "Sinulla ei ole oikeuksia delegoida tapahtumia %s:lle."
+msgstr "Sinulla ei ole oikeuksia delegoida tapahtumia %s."
 
 #: delete.php:40 delete.php:47 lib/Ajax/Application.php:279
 msgid "You do not have permission to delete this event."
@@ -3599,7 +3599,7 @@ msgstr "_Tänään"
 #: templates/edit/edit.inc:92
 #, php-format
 msgid "as %s"
-msgstr "%s:nä"
+msgstr " - %s"
 
 #: templates/index/edit.inc:24 templates/index/edit.inc:33
 #: templates/index/task.inc:27

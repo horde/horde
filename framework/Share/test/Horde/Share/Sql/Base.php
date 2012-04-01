@@ -174,6 +174,14 @@ class Horde_Share_Test_Sql_Base extends Horde_Share_Test_Base
         $this->removeShare();
     }
 
+    /**
+     * @depends testGetShare
+     */
+    public function testRenameShare()
+    {
+        $this->renameShare();
+    }
+
     public function testCallback()
     {
         $this->callback(new Horde_Share_Object_Sql(array()));

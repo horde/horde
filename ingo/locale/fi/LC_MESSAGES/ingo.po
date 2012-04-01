@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Ingo 2.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-02-22 11:20+0100\n"
-"PO-Revision-Date: 2012-03-08 07:19:31+0200\n"
+"PO-Revision-Date: 2012-03-28 19:29:08+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -36,7 +36,7 @@ msgstr "Aktivoi skripti"
 #: lib/Transport/Ldap.php:222
 #, php-format
 msgid "Activating the script for \"%s\" failed: (%d) %s"
-msgstr "Skriptin aktivointi \"%s\":lle epäonnistui: (%d) %s"
+msgstr "Skriptin aktivointi - \"%s\" epäonnistui: (%d) %s"
 
 #: templates/filters/settings.inc:8
 msgid "Additional Settings"
@@ -150,7 +150,7 @@ msgstr "Kopioi %s"
 #: lib/Storage/Filters.php:194 lib/Storage/Filters/Sql.php:222
 #, php-format
 msgid "Copy of %s"
-msgstr "%s:n kopio"
+msgstr "%s kopio"
 
 #: lib/Ingo.php:166
 msgid "Could not validate IMAP mailbox."

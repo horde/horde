@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Passwd 3.1-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-01-17 12:38+0100\n"
-"PO-Revision-Date: 2012-03-07 19:57:39+0200\n"
+"PO-Revision-Date: 2012-03-28 19:36:08+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -60,7 +60,7 @@ msgstr "Vaihda salasanasi"
 #: index.php:205
 #, php-format
 msgid "Changing password for %s"
-msgstr "Vaihdetaan salasanaa %s:lle"
+msgstr "Vaihdetaan salasanaa %s"
 
 #: index.php:186
 msgid "Confirm new password:"
@@ -114,7 +114,7 @@ msgstr "Vanha salasana on väärä."
 #: index.php:147 lib/Driver/Composite.php:100
 #, php-format
 msgid "Failure in changing password for %s: %s"
-msgstr "Salasanan vaihto epäonnistui %s:lle: %s"
+msgstr "Salasanan vaihto epäonnistui %s: %s"
 
 #: lib/Driver/Expectpecl.php:45
 msgid "Full buffer."

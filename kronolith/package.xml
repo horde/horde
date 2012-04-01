@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [rla] Make system shares browseable in WebDAV (Request #10998)
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2063,6 +2063,7 @@
    <date>2012-03-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Update Hungarian translation (Zoltán Németh &lt;nemeth.zoltan@etit.hu&gt;).
 * [jan] Show round corners only on the start and end of multi-day events (Request #11067).
    </notes>
   </release>

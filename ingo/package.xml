@@ -1050,6 +1050,7 @@
    <date>2011-12-13</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
+* [jan] Update Hungarian translation (Zoltán Németh &lt;nemeth.zoltan@etit.hu&gt;).
 * [mms] Application initialization should only be done on first access.
    </notes>
   </release>

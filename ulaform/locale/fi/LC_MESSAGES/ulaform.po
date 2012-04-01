@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Ulaform 0.1-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-01-17 12:38+0100\n"
-"PO-Revision-Date: 2012-03-07 19:05:45+0200\n"
+"PO-Revision-Date: 2012-03-28 19:41:20+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -232,7 +232,7 @@ msgstr "Tee HTML"
 #: genhtml.php:34
 #, php-format
 msgid "HTML Generation for \"%s\""
-msgstr "HTML luonti \"%s\":lle"
+msgstr "HTML luonti \"%s\""
 
 #: genhtml.php:54
 msgid "Height"
@@ -317,11 +317,11 @@ msgstr "SQL"
 
 #: sortfields.php:27
 msgid "Save"
-msgstr "Talleta"
+msgstr "Tallenna"
 
 #: fields.php:33
 msgid "Save Field"
-msgstr "Talleta kenttä"
+msgstr "Tallenna kenttä"
 
 #: genhtml.php:45
 msgid "Select how you wish to embed the form"

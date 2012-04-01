@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Wicked 1.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-01-17 12:38+0100\n"
-"PO-Revision-Date: 2012-03-07 20:21:18+0200\n"
+"PO-Revision-Date: 2012-03-28 19:48:26+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -178,7 +178,7 @@ msgstr "Muuta viitteitä tälle sivulle lähteestä:"
 #: lib/Page/MergeOrRename.php:239
 #, php-format
 msgid "Changed references from %s to %s"
-msgstr "Muutettu viitteet %s:stä %s:ään"
+msgstr "Muutettu viitteet %s - %s"
 
 #: templates/edit/standard.inc:28
 msgid "Changelog is required"
@@ -378,7 +378,7 @@ msgstr "Hi_storia"
 #: templates/display/standard.inc:87
 #, php-format
 msgid "History of %s"
-msgstr "%s:n Historia"
+msgstr "Historia %s"
 
 #: lib/Page/StandardHistoryPage.php:45
 msgid "History page not found"
@@ -458,17 +458,17 @@ msgstr "Yhdistä/Uudelleennimeä: %s"
 #: lib/Page/MergeOrRename.php:198
 #, php-format
 msgid "Merged \"%s\" into \"%s\"."
-msgstr "Yhdistetty \"%s\" \"%s\":ksi."
+msgstr "Yhdistetty \"%s\" - \"%s\"."
 
 #: lib/Page/MergeOrRename.php:201
 #, php-format
 msgid "Merged \"%s\" into \"%s\". New page: %s\n"
-msgstr "Yhdistetty \"%s\" \"%s\":ksi. Uusi sivu: %s\n"
+msgstr "Yhdistetty \"%s\" - \"%s\". Uusi sivu: %s\n"
 
 #: lib/Page/MergeOrRename.php:194
 #, php-format
 msgid "Merged from %s"
-msgstr "Yhdistetty %s:stä"
+msgstr "Yhdistetty %s"
 
 #: lib/Page/MostPopular.php:78
 msgid "Most Popular"
@@ -664,12 +664,12 @@ msgstr "Poista käyttäjätunnustiedot"
 #: lib/Page/MergeOrRename.php:207
 #, php-format
 msgid "Renamed \"%s\" to \"%s\"."
-msgstr "Uudelleen nimettiin \"%s\" \"%s\":ksi."
+msgstr "Uudelleen nimettiin \"%s\" - \"%s\"."
 
 #: lib/Page/MergeOrRename.php:210
 #, php-format
 msgid "Renamed \"%s\" to \"%s\". New page: %s\n"
-msgstr "Uudelleen nimettiin \"%s\" \"%s\":ksi. Uusi sivu: %s\n"
+msgstr "Uudelleen nimettiin \"%s\" - \"%s\". Uusi sivu: %s\n"
 
 #: lib/Driver/Sql.php:623
 #, php-format
@@ -738,7 +738,7 @@ msgstr "Valitse tiedosto päivitettäväksi"
 #: templates/display/standard.inc:102
 #, php-format
 msgid "Set permissions for %s"
-msgstr "Aseta oikeudet %s:lle"
+msgstr "Aseta oikeudet %s"
 
 #: templates/sync/list.inc:79
 msgid "Show changes"

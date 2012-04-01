@@ -469,6 +469,36 @@ abstract class Horde_Share_Base
     abstract protected function _addShare(Horde_Share_Object $share);
 
     /**
+     * Renames a share in the shares system.
+     *
+     * @param Horde_Share_Object $share  The share to rename.
+     * @param string $name               The share's new name.
+     *
+     * @throws Horde_Share_Exception
+     */
+    public function renameShare(Horde_Share_Object $share, $name)
+    {
+        /* Move share in the caches. */
+        unset($this->_cache[$share->getName()]);
+        $this->_cache[$name] = $share;
+
+        /* Reset caches that depend on unknown criteria. */
+        $this->expireListCache();
+
+        $this->_renameShare($share, $name);
+    }
+
+    /**
+     * Renames a share in the shares system.
+     *
+     * @param Horde_Share_Object $share  The share to rename.
+     * @param string $name               The share's new name.
+     *
+     * @throws Horde_Share_Exception
+     */
+    abstract protected function _renameShare(Horde_Share_Object $share, $name);
+
+    /**
      * Removes a share from the shares system permanently.
      *
      * @param Horde_Share_Object $share  The share to remove.

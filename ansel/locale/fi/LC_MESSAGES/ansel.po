@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Ansel 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-02-22 11:20+0100\n"
-"PO-Revision-Date: 2012-03-22 14:53:37+0200\n"
+"PO-Revision-Date: 2012-03-28 20:08:36+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -115,7 +115,7 @@ msgstr "%s @ %s"
 #: templates/group/owner.inc:17 templates/group/owner.inc:22
 #, php-format
 msgid "%s's Galleries"
-msgstr "%s:n Galleriat"
+msgstr "%s Galleriat"
 
 #: templates/faces/faces.inc:8
 #, php-format
@@ -164,7 +164,7 @@ msgstr "Tagien lisääminen tähän valokuvaan on kielletty."
 #: lib/Gallery.php:468
 #, php-format
 msgid "Access denied copying photos to \"%s\"."
-msgstr "Valokuvien kopionti \"%s\":ään on kielletty."
+msgstr "Valokuvien kopionti \"%s\" on kielletty."
 
 #: lib/Api.php:457
 msgid "Access denied creating new galleries."
@@ -182,17 +182,17 @@ msgstr "Gallerian \"%s\" poistaminen on kielletty."
 #: image.php:660 lib/Api.php:428 lib/View/Results.php:86
 #, php-format
 msgid "Access denied deleting photos from \"%s\"."
-msgstr "Kuvien poisto \"%s\":stä on kielletty."
+msgstr "Kuvien poisto \"%s\" on kielletty."
 
 #: lib/Api.php:663
 #, php-format
 msgid "Access denied downloading full sized photos from \"%s\"."
-msgstr "Täysikokoisten kuvien tallentaminen \"%s\":stä on kielletty."
+msgstr "Täysikokoisten kuvien tallentaminen \"%s\" on kielletty."
 
 #: gallery.php:40 image.php:796 lib/Image.php:907
 #, php-format
 msgid "Access denied downloading photos from \"%s\"."
-msgstr "Kuvien tallentaminen \"%s\":stä on kielletty."
+msgstr "Kuvien tallentaminen \"%s\" on kielletty."
 
 #: lib/View/GalleryProperties.php:240
 msgid "Access denied editing galleries."
@@ -215,7 +215,7 @@ msgstr "Valokuvan siirto \"%s\" on kielletty."
 #: lib/GalleryMode/Date.php:459 lib/GalleryMode/Normal.php:163
 #, php-format
 msgid "Access denied removing photos from \"%s\"."
-msgstr "Valokuvia poista \"%s\":stä on kielletty."
+msgstr "Valokuvia poista \"%s\" on kielletty."
 
 #: lib/View/GalleryProperties.php:284
 #, php-format
@@ -225,12 +225,12 @@ msgstr "Tallennus gallerigaan \"%s\" on kielletty."
 #: image.php:188 image.php:399 image.php:443
 #, php-format
 msgid "Access denied saving photo to \"%s\"."
-msgstr "Valokuvan tallentaminen \"%s\":ään on kielletty."
+msgstr "Valokuvan tallentaminen \"%s\" on kielletty."
 
 #: gallery/captions.php:33
 #, php-format
 msgid "Access denied setting captions for %s."
-msgstr "Kuvatekstin laittaminen %s:lle on estetty."
+msgstr "Kuvatekstin laittaminen %s on estetty."
 
 #: lib/View/Base.php:142
 #, php-format
@@ -290,7 +290,7 @@ msgstr "Lisätään uuteen galleriaan"
 #: lib/View/GalleryProperties.php:189
 #, php-format
 msgid "Adding A Subgallery to %s"
-msgstr "Lisätään aligalleria %s:lle"
+msgstr "Lisätään aligalleria %s"
 
 #: lib/View/GalleryProperties.php:155
 msgid "Adding a New Gallery"
@@ -509,7 +509,7 @@ msgstr "Sisällön väite"
 #: lib/Report.php:91
 #, php-format
 msgid "Content abuse report in %s"
-msgstr "Sisällön väärinkäytösraportti %s:ssä"
+msgstr "Sisällön väärinkäytösraportti %s"
 
 #: disclamer.php:30
 #, php-format
@@ -520,15 +520,15 @@ msgstr "Jatka - Olen yli %d"
 #, php-format
 msgid "Copied %d photo from %s to %s"
 msgid_plural "Copied %d photos from %s to %s"
-msgstr[0] "Kopioitiin %d valokuva %s %s:ksi"
-msgstr[1] "Kopioitiin %d valokuvaa %s %s:ksi"
+msgstr[0] "Kopioitiin %d valokuva %s %s"
+msgstr[1] "Kopioitiin %d valokuvaa %s %s"
 
 #: image.php:761
 #, php-format
 msgid "Copied %d photo to %s"
 msgid_plural "Copied %d photos to %s"
-msgstr[0] "Kopioitiin %d valokuva %s:ksi"
-msgstr[1] "Kopioitiin %d valokuvaa %s:ksi"
+msgstr[0] "Kopioitiin %d valokuva %s"
+msgstr[1] "Kopioitiin %d valokuvaa %s"
 
 #: lib/View/GalleryRenderer/Gallery.php:128
 #: templates/view/gallerylightbox.inc:166 templates/view/results.inc:88
@@ -749,7 +749,7 @@ msgstr "Muokkaa oikeuksia"
 #: perms.php:260
 #, php-format
 msgid "Edit Permissions for %s"
-msgstr "Muokkaa '%s':n oikeuksia"
+msgstr "Muokkaa %s oikeuksia"
 
 #: image.php:588
 msgid "Edit Photo"
@@ -884,7 +884,7 @@ msgstr "Käännä ympäri"
 #: faces/search/owner.php:22
 #, php-format
 msgid "From galleries of %s"
-msgstr "%s:n galleriasta"
+msgstr "%s galleriasta"
 
 #: faces/search/owner.php:20 faces/search/tabs.php:22
 msgid "From my galleries"
@@ -1117,7 +1117,7 @@ msgstr "Poistu"
 #: templates/xppublish/login.inc:2
 #, php-format
 msgid "Login to %s"
-msgstr "Kirjaudu %s:ään"
+msgstr "Kirjaudu %s"
 
 #: lib/Form/Image.php:32 lib/Form/Upload.php:42
 msgid "Make this the default photo for this gallery?"
@@ -1203,8 +1203,8 @@ msgstr "Siirrä"
 #, php-format
 msgid "Moved %d photo from \"%s\" to \"%s\""
 msgid_plural "Moved %d photos from \"%s\" to \"%s\""
-msgstr[0] "Siirrettiin %d kuva \"%s\" \"%s\":ään"
-msgstr[1] "Siirrettiin %d kuvaa \"%s\" \"%s\":ään"
+msgstr[0] "Siirrettiin %d kuva \"%s\" \"%s\""
+msgstr[1] "Siirrettiin %d kuvaa \"%s\" \"%s\""
 
 #: lib/Form/Upload.php:46
 msgid "Multiple Photos"
@@ -1396,7 +1396,7 @@ msgstr "Keskeytä kuvaesitys"
 #: lib/Widget/OwnerFaces.php:39
 #, php-format
 msgid "People in galleries owned by %s (%d of %d)"
-msgstr "Henkilöt %s:n galleriassa (%d / %d)"
+msgstr "Henkilöt %s galleriassa (%d / %d)"
 
 #: lib/Widget/GalleryFaces.php:31
 msgid "People in this gallery"
@@ -1463,7 +1463,7 @@ msgstr "Valokuvan haku"
 #: rss.php:154
 #, php-format
 msgid "Photos by %s"
-msgstr "%s:n valokuvat"
+msgstr "%s valokuvat"
 
 #: templates/image/plupload.inc:6
 msgid "Photos in this gallery"
@@ -1472,7 +1472,7 @@ msgstr "Valokuvia tässä galleriassa"
 #: rss.php:188 rss.php:194
 #, php-format
 msgid "Photos tagged with %s on %s"
-msgstr "Valokuvat tägättynä %s %s:ssä."
+msgstr "Valokuvat tägättynä %s - %s"
 
 #: templates/view/image.inc:91 templates/view/image.inc:118
 #: templates/view/slideshow.inc:37
@@ -1541,12 +1541,12 @@ msgstr "Julkaise kuvat:"
 #: xppublish.php:31
 #, php-format
 msgid "Publish to %s"
-msgstr "Julkaise %s:ssä"
+msgstr "Julkaise %s"
 
 #: xppublish.php:20
 #, php-format
 msgid "Publish your photos to %s on %s."
-msgstr "Julkaise valokuvasi %s:lle %s."
+msgstr "Julkaise valokuvasi %s %s."
 
 #: lib/Block/Gallery.php:79
 msgid "Random Gallery"
@@ -1613,7 +1613,7 @@ msgstr "Syy"
 #: lib/Block/RecentComments.php:84
 #, php-format
 msgid "Recent Comments In %s"
-msgstr "Viimeisimmät komentit %s:ssä"
+msgstr "Viimeisimmät komentit %s"
 
 #: lib/Block/RecentComments.php:29
 msgid "Recent Photo Comments"
@@ -1631,7 +1631,7 @@ msgstr "Viimeisimmät %s ottamat valokuvat"
 #: lib/Widget/Links.php:27
 #, php-format
 msgid "Recent photos in %s"
-msgstr "Viimeisimmät valokuvat %s:ssä"
+msgstr "Viimeisimmät valokuvat %s"
 
 #: lib/Widget/Links.php:25
 msgid "Recent system photos"
@@ -1653,12 +1653,12 @@ msgstr "Viimeisimmät geotagatyt valokuvat"
 #: rss.php:161
 #, php-format
 msgid "Recently added photos by %s on %s"
-msgstr "Viimeisimmät %s lisäämät valokuvat %s:ssä"
+msgstr "Viimeisimmät %s lisäämät valokuvat %s"
 
 #: rss.php:54 rss.php:59
 #, php-format
 msgid "Recently added photos on %s"
-msgstr "Viimeisimmät lisätyt kuva %s:ssä"
+msgstr "Viimeisimmät lisätyt kuva %s"
 
 #: templates/group/header.inc:7 templates/list/header.inc:5
 #: templates/view/list.inc:5
@@ -1821,7 +1821,7 @@ msgstr "Hae valokuvan mukaan"
 #: lib/View/Results.php:216
 #, php-format
 msgid "Searching %s's photos tagged: "
-msgstr "Haetaan %s:n valokuvia tageilla: "
+msgstr "Haetaan %s valokuvia tageilla: "
 
 #: lib/View/Results.php:217
 msgid "Searching all photos tagged: "
@@ -1830,7 +1830,7 @@ msgstr "Haetaan kaikista valokuvista tageilla: "
 #: faces/gallery.php:59
 #, php-format
 msgid "Searching for faces in %s"
-msgstr "Hetaan kasvoja %s:stä"
+msgstr "Hetaan kasvoja %s"
 
 #: templates/view/gallerylightbox.inc:149 templates/view/results.inc:78
 msgid "Select All"
@@ -2070,7 +2070,7 @@ msgstr "Valokuvagallerioita ei ole saatavilla."
 #: lib/Ansel.php:744
 #, php-format
 msgid "There are no photos in %s to download."
-msgstr "%s:ssä ei ole kuvia vietäväksi."
+msgstr "%s ei ole kuvia vietäväksi."
 
 #: templates/captions/captions.inc:52 templates/view/gallery.inc:142
 #: templates/view/gallerylightbox.inc:172 templates/view/results.inc:100
@@ -2176,7 +2176,7 @@ msgstr "Paikkatietoja ei löytynyt: Virhekoodi:"
 #: lib/ImageGenerator.php:129 lib/Search.php:55
 #, php-format
 msgid "Unable to load the definition of %s."
-msgstr "Ei voida ladata %s:n kuvausta"
+msgstr "Ei voida ladata %s kuvausta"
 
 #: rss.php:34
 msgid "Unable to retrieve requested feed"
@@ -2205,7 +2205,7 @@ msgstr "Nimetön"
 #: map_edit.php:157
 #, php-format
 msgid "Update position of %s"
-msgstr "Päivätä %s:n paikkatiedot"
+msgstr "Päivitä %s paikkatiedot"
 
 #: perms.php:246
 #, php-format
@@ -2219,7 +2219,7 @@ msgstr "Tuo palvelimelle"
 #: templates/xppublish/javascript.inc:63
 #, php-format
 msgid "Upload Photos to %s"
-msgstr "Tuo palvelimelle valokuvat %s:ään"
+msgstr "Tuo palvelimelle valokuvat %s"
 
 #: faces/search/image.php:61
 msgid "Upload face photo"
@@ -2363,7 +2363,7 @@ msgstr "Et valinnut ainuttakaan kuvaa tuotavaksi palvelimelle."
 #: lib/View/GalleryProperties.php:342
 #, php-format
 msgid "You do not have permission to add children to %s."
-msgstr "Sinulla ei ole oikeuksia lisätä alitasoja %s:lle."
+msgstr "Sinulla ei ole oikeuksia lisätä alitasoja %s."
 
 #: img/ecard.php:42
 msgid ""
@@ -2372,7 +2372,7 @@ msgid ""
 "then most likely your mail reader does not support viewing text/html "
 "messages."
 msgstr ""
-"Olet saanut Ecard:in. Katsoaksesi Ecarc:n, sinun pitää pystyä katsomaan text/"
+"Olet saanut Ecard:in. Katsoaksesi Ecard:n, sinun pitää pystyä katsomaan text/"
 "html muodossa olevia viestiä sähköpostiohjelmassasi. Jos näet tämän viestin, "
 "niin todennäköisesti sinun käyttämäsi ohjelma ei tue text/html viestejä."
 

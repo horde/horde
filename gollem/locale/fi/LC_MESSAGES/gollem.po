@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Gollem 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-01-17 12:38+0100\n"
-"PO-Revision-Date: 2012-03-07 17:23:08+0200\n"
+"PO-Revision-Date: 2012-03-28 20:10:26+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -40,12 +40,12 @@ msgstr "%d objektia"
 #: edit.php:33
 #, php-format
 msgid "%s successfully saved."
-msgstr "%s: tallennus onnistui."
+msgstr "%s tallennus onnistui."
 
 #: manager.php:177
 #, php-format
 msgid "%s was successfully pasted."
-msgstr "%s:n liittäminen onnistui."
+msgstr "%s liittäminen onnistui."
 
 #: edit.php:35 edit.php:49
 #, php-format
@@ -188,7 +188,7 @@ msgid ""
 "Created empty permissions for \"%s\". You must explicitly grant access to "
 "this backend now."
 msgstr ""
-"Luotiin tyhjä oikeus \"%s\":lle. Sinun pitää erikseen antaa oikeudet tälle "
+"Luotiin tyhjä oikeus - \"%s\". Sinun pitää erikseen antaa oikeudet tälle "
 "taustajärjestelmälle."
 
 #: templates/clipboard/clipboard.html:21

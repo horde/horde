@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Turba 3.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-02-22 11:20+0100\n"
-"PO-Revision-Date: 2012-03-07 20:20:48+0200\n"
+"PO-Revision-Date: 2012-03-28 19:40:48+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -133,7 +133,7 @@ msgstr "Osoitekirjat"
 #: lib/Turba.php:630
 #, php-format
 msgid "Address book of %s"
-msgstr "%s:n Osoitekirjat"
+msgstr "Osoitekirjat %s"
 
 #: data.php:440
 msgid "Address book successfully purged."
@@ -250,7 +250,7 @@ msgstr "Kategoria"
 #: templates/browse/column_headers.inc:25
 #, php-format
 msgid "Change %s sort to %s"
-msgstr "Muuta %s:n järjestys %s:ksi"
+msgstr "Muuta %s järjestys - %s"
 
 #: addressbooks/index.php:41 templates/addressbook_list.php:33
 msgid "Change Permissions"
@@ -258,11 +258,11 @@ msgstr "Muuta oikeuksia"
 
 #: templates/browse/column_headers.inc:8
 msgid "Check All/None"
-msgstr "Valitse kaikki/ei mitään"
+msgstr "Valitse kaikki/Ei mitään"
 
 #: templates/browse/column_headers.inc:8
 msgid "Check _All/None"
-msgstr "Valitse _kaikki/ei mitään"
+msgstr "Valitse _kaikki/Ei mitään"
 
 #: config/attributes.php:116
 msgid "Children"
@@ -485,17 +485,17 @@ msgstr "Tallenna VCard"
 
 #: search.php:209 search.php:255
 msgid "Duplicate Search"
-msgstr "Tuplien haku"
+msgstr "Kaksoistietojen haku"
 
 #: templates/search/duplicate/list.html.php:11
 #, php-format
 msgid "Duplicates of %s"
-msgstr "Ovat tuplia %s:lle"
+msgstr "Ovat kaksoistietoja %s"
 
 #: templates/search/duplicate/header.html.php:2
 #, php-format
 msgid "Duplicates of %s \"%s\""
-msgstr "Ovat tuplia %s:lle \"%s\""
+msgstr "Ovat kaksoistieto %s \"%s\""
 
 #: addressbooks/index.php:40 templates/addressbook_list.php:31
 #: templates/browse/actions.inc:6 templates/browse/column_headers.inc:11
@@ -593,7 +593,7 @@ msgstr "Facebook ystävät"
 #: lib/View/Browse.php:249
 #, php-format
 msgid "Failed to add %s to %s: %s"
-msgstr "%s:n lisäys epäonnistui %s:ään: %s"
+msgstr "Lisäys %s epäonnistui %s: %s"
 
 #: lib/View/Browse.php:481
 msgid "Failed to browse list"
@@ -955,7 +955,7 @@ msgstr "Lempinimi"
 #: lib/Api.php:1754 lib/Api.php:1812
 #, php-format
 msgid "No %s entry found for %s"
-msgstr "Merkintää %s ei löytynyt %s:lle"
+msgstr "Merkintää %s ei löytynyt %s"
 
 #: data.php:87
 msgid ""
@@ -1355,7 +1355,7 @@ msgstr "Onnistuttiin lisäämään %d yhteytietoa listalle."
 #: lib/View/Browse.php:258
 #, php-format
 msgid "Successfully added %s to %s"
-msgstr "Onnistuttiin lisäämään %s %s:ään"
+msgstr "Onnistuttiin lisäämään %s - %s"
 
 #: lib/View/Browse.php:396
 #, php-format
@@ -1686,7 +1686,7 @@ msgstr "Sinulla ei ole oikeutta muuttaa tätä osoitekirjaa."
 #: add.php:51 data.php:352 lib/View/Browse.php:176 lib/View/Browse.php:370
 #, php-format
 msgid "You are not allowed to create more than %d contacts in \"%s\"."
-msgstr "Ei voi luoda kuin enintään %d yhteystietoa \"%s\":een."
+msgstr "Ei voi luoda kuin enintään %d yhteystietoa \"%s\"."
 
 #: addressbooks/delete.php:38
 msgid "You are not allowed to delete this addressbook."
@@ -1853,7 +1853,7 @@ msgstr "nainen"
 #: lib/Application.php:515
 #, php-format
 msgid "in %s"
-msgstr "%s:ssä"
+msgstr "- %s"
 
 #: config/attributes.php:499
 msgid "male"

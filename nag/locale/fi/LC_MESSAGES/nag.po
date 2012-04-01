@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Nag 3.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-02-22 11:20+0100\n"
-"PO-Revision-Date: 2012-03-22 14:51:00+0200\n"
+"PO-Revision-Date: 2012-03-28 19:35:09+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -122,17 +122,17 @@ msgstr "Sinulla ei ole muokata tehtävää: %s"
 #: lib/Driver.php:307
 #, php-format
 msgid "Access denied moving the task to %s."
-msgstr "Sinulla ei ole oikeuksia siirtää tehtävää %s:ään."
+msgstr "Sinulla ei ole oikeuksia siirtää tehtävää %s."
 
 #: lib/Driver.php:295
 #, php-format
 msgid "Access denied removing task from %s."
-msgstr "Sinulla ei ole oikeuksia poistaa tehtävää %s:stä."
+msgstr "Sinulla ei ole oikeuksia poistaa tehtävää %s."
 
 #: task.php:136
 #, php-format
 msgid "Access denied saving task to %s."
-msgstr "Sinulla ei ole oikeuksia tallentaa %s:ään."
+msgstr "Sinulla ei ole oikeuksia tallentaa %s."
 
 #: task.php:132
 #, php-format
@@ -851,7 +851,7 @@ msgstr "Haku:"
 #: list.php:75 tasks/index.php:41
 #, php-format
 msgid "Search: Results for \"%s\""
-msgstr "Haun tulokset \"%s\":lle"
+msgstr "Haun tulokset - \"%s\""
 
 #: config/prefs.php:73
 msgid "Select the columns that should be shown in the list view:"
@@ -1055,7 +1055,7 @@ msgstr "Tehtävälistaan ja jakoihin liittyvät asetukset"
 #: templates/tasklist_info.php:6
 #, php-format
 msgid "Task List owned by %s."
-msgstr "%s:n omistamat tehtävälistat."
+msgstr "%s omistamat tehtävälistat."
 
 #: templates/tasklist_info.php:6
 msgid "Task List owned by system."
@@ -1101,7 +1101,7 @@ msgstr "Tehtävän Kuvaus:"
 #: lib/Tasklists/Default.php:46
 #, php-format
 msgid "Task list of %s"
-msgstr "%s:n tehtävälistat"
+msgstr "Tehtävälista %s"
 
 #: lib/Nag.php:997
 msgid "Task modified:"
@@ -1132,7 +1132,7 @@ msgstr "Tehtävät yhteenveto"
 #: lib/Api.php:298
 #, php-format
 msgid "Tasks from %s"
-msgstr "Tehtävät %s:stä"
+msgstr "Tehtävät - %s"
 
 #: data.php:220
 #, php-format
@@ -1274,7 +1274,7 @@ msgstr "Ei voida poistaa tehtävälistaa \"%s\": %s"
 #: lib/Driver.php:119
 #, php-format
 msgid "Unable to load the definition of %s."
-msgstr "Ei voi ladata määritystä %s:lle."
+msgstr "Ei voi ladata määritystä %s."
 
 #: lib/Nag.php:602
 #, php-format
@@ -1394,7 +1394,7 @@ msgstr "[Hallinnoi tehtävälistoja]"
 #: lib/Block/Summary.php:134 lib/Block/Summary.php:241
 #: templates/list/task_summaries.inc:47
 msgid "[none]"
-msgstr "[tyhjä]"
+msgstr "[ei mitään]"
 
 #: templates/search/search.inc:25
 msgid "_All Tasks"
