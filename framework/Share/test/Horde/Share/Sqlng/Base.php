@@ -175,6 +175,14 @@ class Horde_Share_Test_Sqlng_Base extends Horde_Share_Test_Base
         parent::removeShare();
     }
 
+    /**
+     * @depends testGetShare
+     */
+    public function testRenameShare()
+    {
+        parent::renameShare();
+    }
+
     public function testCallback()
     {
         parent::callback(new Horde_Share_Object_Sqlng(array()));

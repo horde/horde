@@ -693,6 +693,25 @@ class Horde_Share_Sql extends Horde_Share_Base
     }
 
     /**
+     * Renames a share in the shares system.
+     *
+     * @param Horde_Share_Object $share  The share to rename.
+     * @param string $name               The share's new name.
+     *
+     * @throws Horde_Share_Exception
+     */
+    protected function _renameShare(Horde_Share_Object $share, $name)
+    {
+        try {
+            $this->_db->update(
+                'UPDATE ' . $this->_table . ' SET share_name = ? WHERE share_id = ?',
+                array($name, $share->getId()));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Share_Exception($e);
+        }
+    }
+
+    /**
      * Checks if a share exists in the system.
      *
      * @param string $share  The share to check.
