@@ -377,7 +377,7 @@ class Nag_Driver_Kolab extends Nag_Driver
         $this->retrieve();
         $this->tasks->reset();
         $uids = array();
-        while ($task = $tasks->each()) {
+        while ($task = $this->tasks->each()) {
             $uids[] = $task->uid;
         }
         $this->_getData()->deleteAll();
