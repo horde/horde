@@ -571,7 +571,7 @@ abstract class Horde_ActiveSync_Driver_Base
     /**
      * @TODO
      */
-    abstract public function itemOperationsFetchMailbox($searchlongid, $bodypreference, $mimesupport);
+    abstract public function itemOperationsFetchMailbox($searchlongid, array $bodypreference, $mimesupport);
 
     /**
      * Return a documentlibrary item.
