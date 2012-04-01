@@ -624,7 +624,7 @@ class Horde_Share_Kolab extends Horde_Share_Base
      */
     protected function _renameShare(Horde_Share_Object $share, $name)
     {
-        $share->set->('share_name', $name);
+        $share->set('share_name', $name);
     }
 
     /**
