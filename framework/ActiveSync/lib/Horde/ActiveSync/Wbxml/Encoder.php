@@ -36,7 +36,7 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     /**
      * Const'r
      *
-     * @param stream $output
+     * @param stream $output  The output stream
      *
      * @return Horde_ActiveSync_Wbxml_Encoder
      */
@@ -70,9 +70,8 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     }
 
     /**
-     * Starts the wbxml output
+     * Starts the wbxml output.
      *
-     * @return void
      */
     public function startWBXML()
     {
@@ -80,6 +79,10 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
         $this->outputWbxmlHeader();
     }
 
+    /**
+     * Output the Wbxml header to the output stream.
+     *
+     */
     public function outputWbxmlHeader()
     {
         $this->_outByte(0x03);   // WBXML 1.3
@@ -92,10 +95,9 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
      * Start output for the specified tag
      *
      * @param string $tag            The name of the tag to start
-     * @param mixed $attributes     Any attributes for the start tag
+     * @param mixed $attributes      Any attributes for the start tag
      * @param boolean $output_empty  Force output of empty tags
      *
-     * @return void
      */
     public function startTag($tag, $attributes = false, $output_empty = false)
     {
@@ -116,12 +118,10 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     /**
      * Output the end tag
      *
-     * @return void
      */
     public function endTag()
     {
         $stackelem = array_pop($this->_stack);
-        /* Only output end tags for items that have had a start tag sent */
         if ($stackelem['sent']) {
             $this->_endTag();
         }
@@ -130,17 +130,19 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     /**
      * Output the tag content
      *
-     * @param string $content  The value to output for this tag
-     *
-     * @return void
+     * @param mixed $content  The value to output for this tag. A string or
+     *                        a stream resource.
      */
     public function content($content)
     {
-        /* Filter out \0 since it's a string terminator in wbxml. We cannot send
-         * \0 within the xml content */
-        $content = str_replace('\0', '', $content);
-        if ('x' . $content == 'x') {
-            return;
+        // Don't try to send a string containing \0 - it's the wbxml string
+        // terminator. For now, only check if we don't have a stream. Not sure
+        // how to do this with a stream.
+        if (!is_resource($content)) {
+            $content = str_replace('\0', '', $content);
+            if ('x' . $content == 'x') {
+             return;
+            }
         }
         $this->_outputStack();
         $this->_content($content);
@@ -149,13 +151,15 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     /**
      * Output any tags on the stack that haven't been output yet
      *
-     * @return void
      */
     private function _outputStack()
     {
         for ($i=0; $i < count($this->_stack); $i++) {
             if (!$this->_stack[$i]['sent']) {
-                $this->_startTag($this->_stack[$i]['tag'], $this->_stack[$i]['attributes'], $this->_stack[$i]['nocontent']);
+                $this->_startTag(
+                    $this->_stack[$i]['tag'],
+                    $this->_stack[$i]['attributes'],
+                    $this->_stack[$i]['nocontent']);
                 $this->_stack[$i]['sent'] = true;
             }
         }
@@ -167,8 +171,6 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
      * @param string $tag @see Horde_ActiveSync_Wbxml_Encoder::startTag
      * @param mixed $attributes @see Horde_ActiveSync_Wbxml_Encoder::startTag
      * @param boolean $output_empty @see Horde_ActiveSync_Wbxml_Encoder::startTag
-     *
-     * @return void
      */
     private function _startTag($tag, $attributes = false, $output_empty = false)
     {
@@ -200,9 +202,7 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     /**
      * Outputs data
      *
-     * @param string $content  The content to send
-     *
-     * @return void
+     * @param mixed $content  A string or stream resource to write to the output
      */
     private function _content($content)
     {
@@ -214,9 +214,8 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     /**
      * Output the endtag
      *
-     * @return void
      */
-    function _endTag() {
+    private function _endTag() {
         $this->_logEndTag();
         $this->_outByte(Horde_ActiveSync_Wbxml::END);
     }
@@ -224,8 +223,7 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     /**
      * Output a single byte to the stream
      *
-     * @param byte $byte
-     * @return unknown_type
+     * @param byte $byte  The byte to output.
      */
     private function _outByte($byte)
     {
@@ -234,8 +232,8 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
 
     /**
      * Outputs an MBUInt to the stream
-     * @param $uint
-     * @return unknown_type
+     *
+     * @param $uint  The data to write.
      */
     private function _outMBUInt($uint)
     {
@@ -254,20 +252,21 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     /**
      * Output a string along with the terminator.
      *
-     * @param string $content  The string
-     *
-     * @return void
+     * @param mixed $content  A string or a stream resource.
      */
     private function _outTermStr($content)
     {
-        fwrite($this->_stream, $content);
+        if (is_resource($content)) {
+            rewind($content);
+            stream_copy_to_stream($content, $this->_stream);
+        } else {
+            fwrite($this->_stream, $content);
+        }
         fwrite($this->_stream, chr(0));
     }
 
     /**
      * Output attributes
-     *
-     * @return void
      */
     private function _outAttributes()
     {
@@ -279,9 +278,9 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     }
 
     /**
+     * Switch code page.
      *
-     * @param $page
-     * @return unknown_type
+     * @param integer $page  The code page to switch to.
      */
     private function _outSwitchPage($page)
     {
