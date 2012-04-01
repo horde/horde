@@ -547,7 +547,7 @@ class Horde_ActiveSync_Imap_Adapter
      */
     public function queryMailbox($query)
     {
-        return $this->_doQuery($query['query']);
+        return $this->_doQuery($query['query'], $query['range']);
     }
 
     /**
@@ -561,16 +561,15 @@ class Horde_ActiveSync_Imap_Adapter
      *
      * @throws Horde_ActiveSync_Exception
      */
-    protected function _doQuery(array $query)
+    protected function _doQuery(array $query, $range = null)
     {
         $imap_query = new Horde_Imap_Client_Search_Query();
         foreach ($query as $q) {
             switch ($q['op']) {
             case Horde_ActiveSync_Request_Search::SEARCH_AND:
-                return $this->_doQuery(array($q['value']));
+                return $this->_doQuery(array($q['value']), $range);
             default:
                 foreach ($q as $key => $value) {
-
                     switch ($key) {
                     case 'FolderType':
                         if ($value != Horde_ActiveSync::CLASS_EMAIL) {
@@ -582,13 +581,13 @@ class Horde_ActiveSync_Imap_Adapter
                         break;
                     case Horde_ActiveSync_Message_Mail::POOMMAIL_DATERECEIVED:
                         if ($q['op'] == Horde_ActiveSync_Request_Search::SEARCH_GREATERTHAN) {
-                            $range = Horde_Imap_Client_Search_Query::DATE_SINCE;
+                            $query_range = Horde_Imap_Client_Search_Query::DATE_SINCE;
                         } elseif ($q['op'] == Horde_ActiveSync_Request_Search::SEARCH_LESSTHAN) {
-                            $range = Horde_Imap_Client_Search_Query::DATE_BEFORE;
+                            $query_range = Horde_Imap_Client_Search_Query::DATE_BEFORE;
                         } else {
-                            $range = Horde_Imap_Client_Search_Query::DATE_ON;
+                            $query_range = Horde_Imap_Client_Search_Query::DATE_ON;
                         }
-                        $imap_query->dateSearch($value, $range);
+                        $imap_query->dateSearch($value, $query_range);
                         break;
                     case Horde_ActiveSync_Request_Search::SEARCH_FREETEXT:
                         $imap_query->text($value, false);
@@ -610,8 +609,15 @@ class Horde_ActiveSync_Imap_Adapter
         if ($search_res['count'] == 0) {
             return array();
         }
+
+        $ids = $search_res['match']->ids;
+        if (!empty($range)) {
+            preg_match('/(.*)\-(.*)/', $range, $matches);
+            $return_count = $matches[2] - $matches[1];
+            $ids = array_slice($ids, $matches[1], $return_count + 1, true);
+        }
         $results = array();
-        foreach ($search_res['match']->ids as $id) {
+        foreach ($ids as $id) {
             $results[] = array('uniqueid' => $mbox->utf8 . ':' . $id, 'searchfolderid' => $mbox->utf8);
         }
 
