@@ -27,20 +27,18 @@
  * @link       http://www.horde.org/apps/nag
  * @license    http://www.horde.org/licenses/gpl GNU General Public License, version 2
  */
-class Nag_Unit_Form_Task_Sql_Base extends Nag_Unit_Form_Task_Base
+abstract class Nag_Unit_Form_Task_Sql_Base extends Nag_Unit_Form_Task_Base
 {
-    static $callback;
-
     static public function setUpBeforeClass()
     {
         parent::setUpBeforeClass();
-        self::getDb();
+        static::getDb();
         self::createSqlShares(self::$setup);
         list($share, $other_share) = self::_createDefaultShares();
     }
 
-    static protected function getDb()
+    /*abstract*/ static protected function getDb()
     {
-        call_user_func_array(self::$callback, array());
+        throw new Exception('This method must be extended by the sub-class.');
     }
 }
