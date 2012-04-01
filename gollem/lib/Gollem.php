@@ -336,8 +336,9 @@ class Gollem
         $shares = $GLOBALS['injector']->getInstance('Gollem_Shares');
         $backend = $GLOBALS['session']->get('gollem', 'backend_key');
         try {
-            $shares->getShare($backend . '|' . $oldDir . '/' . $old)
-                ->set('name', $backend . '|' . $newDir . '/' . $new, true);
+            $share = $shares->getShare($backend . '|' . $oldDir . '/' . $old);
+            $shares->renameShare($share, $backend . '|' . $newDir . '/' . $new);
+            $share->set('name', $new, true);
         } catch (Horde_Exception_NotFound $e) {
         } catch (Horde_Share_Exception $e) {
             throw new Gollem_Exception($e);
