@@ -151,4 +151,15 @@ class Horde_Imap_Client_Exception extends Horde_Exception_Wrapped
     const CATENATE_BADURL = 13;
     const BADSEARCH = 16;
 
+
+    /**
+     * Allow the error code to be altered.
+     *
+     * @param integer $code  Error code.
+     */
+    public function setCode($code)
+    {
+        $this->code = intval($code);
+    }
+
 }
