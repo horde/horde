@@ -679,6 +679,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * @param string $longid   The unique search result identifier.
      * @param array $bodypref  The bodypreference array.
      * @param boolean $mime    Mimesupport flag.
+     *
+     * @return Horde_ActiveSync_Message_Base  The message requested.
      */
     public function itemOperationsFetchMailbox($searchlongid, array $bodypreference, $mimesupport)
     {
@@ -967,7 +969,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *
      * @return array  The results array. @see self::getSearchResults()
      */
-    public function _searchMailbox($query)
+    protected function _searchMailbox($query)
     {
         return $this->_imap->queryMailbox($query);
     }
