@@ -327,7 +327,7 @@ if ($numitem) {
     $template->set('list_count', false, true);
 }
 
-$template->set('actions', $edit_perms | $perms_delete);
+$template->set('actions', $edit_perms | $delete_perms);
 
 $icon_cache = array();
 $total = 0;
