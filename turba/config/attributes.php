@@ -276,44 +276,50 @@ $attributes['email'] = array(
     'label' => _("Email"),
     'type' => 'email',
     'required' => false,
-    'params' => array('allow_multi' => false, 'strip_domain' => false, 'link_compose' => true)
+    'params' => array('allow_multi' => false, 'strip_domain' => false, 'link_compose' => true, 'link_name' => null, 'delimiters' => ',', 'size' => null)
 );
 $attributes['emails'] = array(
     'label' => _("Emails"),
     'type' => 'email',
     'required' => false,
-    'params' => array('allow_multi' => true, 'strip_domain' => false, 'link_compose' => true)
+    'params' => array('allow_multi' => true, 'strip_domain' => false, 'link_compose' => true, 'link_name' => null, 'delimiters' => ',', 'size' => null)
 );
 $attributes['homePhone'] = array(
     'label' => _("Home Phone"),
     'type' => 'phone',
-    'required' => false
+    'required' => false,
+    'params' => array('size' => 15)
 );
 $attributes['homePhone2'] = array(
     'label' => _("Home Phone"),
     'type' => 'phone',
-    'required' => false
+    'required' => false,
+    'params' => array('size' => 15)
 );
 
 $attributes['workPhone'] = array(
     'label' => _("Work Phone"),
     'type' => 'phone',
-    'required' => false
+    'required' => false,
+    'params' => array('size' => 15)
 );
 $attributes['workPhone2'] = array(
     'label' => _("Work Phone"),
     'type' => 'phone',
-    'required' => false
+    'required' => false,
+    'params' => array('size' => 15)
 );
 $attributes['assistPhone'] = array(
     'label' => _("Assistant Phone"),
     'type' => 'phone',
-    'required' => false
+    'required' => false,
+    'params' => array('size' => 15)
 );
 $attributes['companyPhone'] = array(
     'label' => _("Company Phone"),
     'type' => 'phone',
-    'required' => false
+    'required' => false,
+    'params' => array('size' => 15)
 );
 $attributes['cellPhone'] = array(
     'label' => _("Mobile Phone"),
@@ -323,27 +329,32 @@ $attributes['cellPhone'] = array(
 $attributes['carPhone'] = array(
     'label' => _("Car Phone"),
     'type' => 'phone',
-    'required' => false
+    'required' => false,
+    'params' => array('size' => 15)
 );
 $attributes['radioPhone'] = array(
     'label' => _("Radio Phone"),
     'type' => 'phone',
-    'required' => false
+    'required' => false,
+    'params' => array('size' => 15)
 );
 $attributes['fax'] = array(
     'label' => _("Fax"),
     'type' => 'phone',
-    'required' => false
+    'required' => false,
+    'params' => array('size' => 15)
 );
 $attributes['homeFax'] = array(
     'label' => _("Home Fax"),
     'type' => 'phone',
-    'required' => false
+    'required' => false,
+    'params' => array('size' => 15)
 );
 $attributes['pager'] = array(
     'label' => _("Pager"),
     'type' => 'phone',
-    'required' => false
+    'required' => false,
+    'params' => array('size' => 15)
 );
 $attributes['imaddress'] = array(
     'label' => _("IM Address"),
@@ -520,28 +531,31 @@ $attributes['workEmail'] = array(
     'label' => _("Work Email"),
     'type' => 'email',
     'required' => false,
-    'params' => array('allow_multi' => false, 'strip_domain' => false, 'link_compose' => true)
+    'params' => array('allow_multi' => false, 'strip_domain' => false, 'link_compose' => true, 'link_name' => null, 'delimiters' => ',', 'size' => null)
 );
 $attributes['homeEmail'] = array(
     'label' => _("Home Email"),
     'type' => 'email',
     'required' => false,
-    'params' => array('allow_multi' => false, 'strip_domain' => false, 'link_compose' => true)
+    'params' => array('allow_multi' => false, 'strip_domain' => false, 'link_compose' => true, 'link_name' => null, 'delimiters' => ',', 'size' => null)
 );
 $attributes['phone'] = array(
     'label' => _("Common Phone"),
     'type' => 'phone',
-    'required' => false
+    'required' => false,
+    'params' => array('size' => 15)
 );
 $attributes['workFax'] = array(
     'label' => _("Work Fax"),
     'type' => 'phone',
-    'required' => false
+    'required' => false,
+    'params' => array('size' => 15)
 );
 $attributes['homeFax'] = array(
     'label' => _("Home Fax"),
     'type' => 'phone',
-    'required' => false
+    'required' => false,
+    'params' => array('size' => 15)
 );
 $attributes['workCellPhone'] = array(
     'label' => _("Work Mobile Phone"),
@@ -556,33 +570,38 @@ $attributes['homeCellPhone'] = array(
 $attributes['videoCall'] = array(
     'label' => _("Common Video Call"),
     'type' => 'phone',
-    'required' => false
+    'required' => false,
+    'params' => array('size' => 15)
 );
 $attributes['workVideoCall'] = array(
     'label' => _("Work Video Call"),
     'type' => 'phone',
-    'required' => false
+    'required' => false,
+    'params' => array('size' => 15)
 );
 $attributes['homeVideoCall'] = array(
     'label' => _("Home Video Call"),
     'type' => 'phone',
-    'required' => false
+    'required' => false,
+    'params' => array('size' => 15)
 );
 $attributes['voip'] = array(
     'label' => _("VoIP"),
     'type' => 'phone',
-    'required' => false
+    'required' => false,
+    'params' => array('size' => 15)
 );
 $attributes['sip'] = array(
     'label' => _("SIP"),
     'type' => 'email',
     'required' => false,
-    'params' => array('allow_multi' => true, 'strip_domain' => false, 'link_compose' => true)
+    'params' => array('allow_multi' => true, 'strip_domain' => false, 'link_compose' => true, 'link_name' => null, 'delimiters' => ',', 'size' => null)
 );
 $attributes['ptt'] = array(
     'label' => _("PTT"),
     'type' => 'phone',
-    'required' => false
+    'required' => false,
+    'params' => array('size' => 15)
 );
 $attributes['commonExtended'] = array(
     'label' => _("Common Address Extended"),
