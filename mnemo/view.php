@@ -112,12 +112,11 @@ if ($memo['body'] instanceof Mnemo_Exception) {
 }
 
 /* Set the page title to the current note's name, if it exists. */
-$title = $memo ? $memo['desc'] : _("Note Details");
-require $registry->get('templates', 'horde') . '/common-header.inc';
-
-$injector->getInstance('Horde_PageOutput')->addScriptFile('stripe.js', 'horde');
+$page_output->addScriptFile('stripe.js', 'horde');
+$page_output->header(array(
+    'title' => $memo ? $memo['desc'] : _("Note Details")
+));
 echo Horde::menu();
 $notification->notify();
-
 require MNEMO_TEMPLATES . '/view/memo.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

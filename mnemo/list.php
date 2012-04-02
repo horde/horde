@@ -54,14 +54,12 @@ case 'search_memos':
     break;
 }
 
-if ($prefs->getValue('show_panel')) {
-    $bodyClass = 'rightPanel';
-}
-
-$page_output = $injector->getInstance('Horde_PageOutput');
 $page_output->addScriptFile('tables.js', 'horde');
 $page_output->addScriptFile('quickfinder.js', 'horde');
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'body_class' => $prefs->getValue('show_panel') ? 'rightPanel' : null,
+    'title' => $title
+));
 echo Horde::menu();
 $notification->notify();
 require MNEMO_TEMPLATES . '/list/header.inc';
@@ -119,4 +117,4 @@ if (count($memos)) {
 }
 
 require MNEMO_TEMPLATES . '/panel.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

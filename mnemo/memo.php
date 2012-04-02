@@ -257,8 +257,10 @@ default:
 }
 
 $notepads = Mnemo::listNotepads(false, Horde_Perms::EDIT);
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 echo Horde::menu();
 $notification->notify();
 require MNEMO_TEMPLATES . '/memo/memo.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

@@ -51,9 +51,11 @@ if ($form->validate($vars)) {
 
 $vars->set('name', $notepad->get('name'));
 $vars->set('description', $notepad->get('desc'));
-$title = $form->getTitle();
-require $registry->get('templates', 'horde') . '/common-header.inc';
+
+$page_output->header(array(
+    'title' => $form->getTitle()
+));
 echo Horde::menu();
 $notification->notify();
 echo $form->renderActive($form->getRenderer(), $vars, Horde::url('notepads/edit.php'), 'post');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

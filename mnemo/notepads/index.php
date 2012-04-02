@@ -22,7 +22,6 @@ $edit_url_base = Horde::url('notepads/edit.php');
 $perms_url_base = Horde::url($registry->get('webroot', 'horde') . '/services/shares/edit.php?app=mnemo');
 $delete_url_base = Horde::url('notepads/delete.php');
 
-
 $notepads = Mnemo::listNotepads(true);
 $sorted_notepads = array();
 foreach ($notepads as $notepad) {
@@ -34,12 +33,13 @@ $edit_img = Horde::img('edit.png', _("Edit"), null);
 $perms_img = Horde::img('perms.png', _("Change Permissions"), null);
 $delete_img = Horde::img('delete.png', _("Delete"), null);
 
-$page_output = $injector->getInstance('Horde_PageOutput');
 $page_output->addScriptFile('popup.js', 'horde');
 $page_output->addScriptFile('tables.js', 'horde');
-$title = _("Manage Notepads");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+
+$page_output->header(array(
+    'title' => _("Manage Notepads")
+));
 echo Horde::menu();
 $notification->notify();
 require MNEMO_TEMPLATES . '/notepad_list.php';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

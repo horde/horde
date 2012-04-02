@@ -23,7 +23,7 @@ class Mnemo_Ajax_Imple_EditNote extends Horde_Core_Ajax_Imple
 
     public function attach()
     {
-        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        global $page_output;
         $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
         $page_output->addScriptFile('inplaceeditor.js', 'horde');
 

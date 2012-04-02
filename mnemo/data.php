@@ -198,8 +198,9 @@ if (is_array($next_step)) {
     $next_step = $data->cleanup();
 }
 
-$title = _("Import/Export Notes");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Import/Export Notes")
+));
 echo Horde::menu();
 $notification->notify();
 
@@ -209,4 +210,4 @@ if (isset($templates[$next_step])) {
     }
 }
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();
