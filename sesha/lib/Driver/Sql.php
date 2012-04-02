@@ -490,7 +490,6 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      */
     public function addProperty($info)
     {
-
         $sql = 'INSERT INTO sesha_properties (property, datatype, parameters, unit, description, priority) VALUES (?, ?, ?, ?, ?, ?)';
         $values = array(
             $info['property'],
@@ -632,7 +631,7 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
     }
 
     /**
-     * Removes all categories from a particular stock item.
+     * Removes categories from a particular stock item.
      *
      * @param integer $stock_id  The numeric ID of the stock item to update.
      * @param array $categories  The array of categories to remove.
