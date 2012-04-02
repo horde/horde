@@ -103,7 +103,7 @@ abstract class Horde_Rdo_Base implements IteratorAggregate, ArrayAccess
         // relationship is with, and fail if we can't.
         if (isset($rel['mapper'])) {
             if ($mapper->factory) {
-                $m = $mapper->factory->factory($rel['mapper']);
+                $m = $mapper->factory->create($rel['mapper']);
             } else {
             // @TODO - should be getting this instance from somewhere
             // else external, and not passing the adapter along

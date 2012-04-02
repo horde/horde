@@ -14,7 +14,6 @@
 
 /**
  * The Horde_Rdo_Factory is a caching root object for Horde_Rdo_Mapper instances
- * 
  * This should itself be injected into applications by an injector
  *
  * @category Horde
@@ -49,7 +48,7 @@ class Horde_Rdo_Factory
         return count($this->_mappers);
     }
 
-    public function factory($class, Horde_Db_Adapter $adapter = null)
+    public function create($class, Horde_Db_Adapter $adapter = null)
     {
         if (!empty($this->_mappers[$class])) {
             return $this->_mappers[$class];
@@ -61,6 +60,6 @@ class Horde_Rdo_Factory
             $adapter = $this->_adapter;
         }
         $this->_mappers[$class] = new $class($adapter);
-        return $this->_mappers[$class]->attachCache($this);
+        return $this->_mappers[$class]->setFactory($this);
     }
 }

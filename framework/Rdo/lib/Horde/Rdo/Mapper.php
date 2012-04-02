@@ -96,10 +96,11 @@ abstract class Horde_Rdo_Mapper implements Countable
     /**
      * Attach a Horde_Rdo_Factory to the mapper.
      * If called without arguments, detaches the mapper from factory
-     * @param Horde_Rdo_Factory            A Factory instance or null
+     *
+     * @param Horde_Rdo_Factory $factory  A Factory instance or null
      * @return Horde_Rdo_Mapper         this mapper
      */
-    public function attachCache(Horde_Rdo_Factory $factory = null)
+    public function setFactory(Horde_Rdo_Factory $factory = null)
     {
         $this->_factory = $factory;
         return $this;
@@ -236,7 +237,7 @@ abstract class Horde_Rdo_Mapper implements Countable
             foreach ($this->relationships as $relationship => $rel) {
                 if (isset($rel['mapper'])) {
                     if ($this->_factory) {
-                        $m = $this->_factory->factory($rel['mapper']);
+                        $m = $this->_factory->create($rel['mapper']);
                     }
                     // @TODO - should be getting this instance from somewhere
                     // else external, and not passing the adapter along
