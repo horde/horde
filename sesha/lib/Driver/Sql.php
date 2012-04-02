@@ -32,10 +32,16 @@ class Sesha_Driver_Sql extends Sesha_Driver
     /**
      * Handle for the database connection.
      * @var DB
-     * @access private
+     * @access protected
      */
     protected $_db;
 
+    /**
+     * The mapper factory
+     * @var Horde_Rdo_Factory
+     * @access protected
+     */
+    protected $_mappers;
     /**
      * This is the basic constructor for the sql driver.
      *
@@ -44,6 +50,7 @@ class Sesha_Driver_Sql extends Sesha_Driver
     public function __construct($params = array())
     {
         $this->_db = $params['db'];
+        $this->_mappers = new Horde_Rdo_Factory($this->_db);
     }
 
     /**
