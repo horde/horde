@@ -582,7 +582,6 @@ if (is_array($list) && $numitem && $read_perms) {
 }
 $template->set('itemcount', sprintf(ngettext(_("%d item"), _("%d items"), $total), $total));
 
-$page_output = $injector->getInstance('Horde_PageOutput');
 $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
 $page_output->addScriptFile('redbox.js', 'horde');
 $page_output->addScriptFile('dialog.js', 'horde');
@@ -593,9 +592,11 @@ $page_output->addInlineJsVars(array(
 ));
 
 $menu = Gollem::menu();
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 require GOLLEM_TEMPLATES . '/javascript_defs.php';
 echo $menu;
 Gollem::status();
 echo $template->fetch(GOLLEM_TEMPLATES . '/manager/manager.html');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

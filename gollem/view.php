@@ -97,9 +97,9 @@ case 'view_file':
             echo $data;
         }
     } elseif (strpos($ret[$key]['type'], 'text/html') !== false) {
-        require $registry->get('templates', 'horde') . '/common-header.inc';
+        $page_output->header();
         echo $ret[$key]['data'];
-        require $registry->get('templates', 'horde') . '/common-footer.inc';
+        $page_output->footer();
     } else {
         $browser->downloadHeaders($vars->file, $ret[$key]['type'], true, strlen($ret[$key]['data']));
         echo $ret[$key]['data'];

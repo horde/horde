@@ -176,10 +176,11 @@ if (is_array($info['list']) &&
     $t->set('nofiles', _("There are no files in this folder."), true);
 }
 
-$title = $info['title'];
-$injector->getInstance('Horde_PageOutput')->addScriptFile('selectlist.js');
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->addScriptFile('selectlist.js');
+$page_output->header(array(
+    'title' => $info['title']
+));
 require GOLLEM_TEMPLATES . '/javascript_defs.php';
 Gollem::status();
 echo $t->fetch(GOLLEM_TEMPLATES . '/selectlist/selectlist.html');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();
