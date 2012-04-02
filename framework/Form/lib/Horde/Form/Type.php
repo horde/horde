@@ -1916,7 +1916,7 @@ class Horde_Form_Type_email extends Horde_Form_Type {
 
 
         #
-        # restrictuions on domain-literals from RFC2821 section 4.1.3
+        # restrictions on domain-literals from RFC2821 section 4.1.3
         #
 
         if (strlen($bits['domain-literal'])){

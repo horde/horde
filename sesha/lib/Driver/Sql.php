@@ -490,7 +490,6 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      */
     public function addProperty($info)
     {
-
         $sql = 'INSERT INTO sesha_properties (property, datatype, parameters, unit, description, priority) VALUES (?, ?, ?, ?, ?, ?)';
         $values = array(
             $info['property'],
@@ -632,7 +631,7 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
     }
 
     /**
-     * Removes all categories from a particular stock item.
+     * Removes categories from a particular stock item.
      *
      * @param integer $stock_id  The numeric ID of the stock item to update.
      * @param array $categories  The array of categories to remove.
@@ -713,14 +712,14 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      * Updates the set of categories for a specified stock item.
      *
      * @param integer $stock_id  The numeric stock ID to update.
-     * @param array $category    The array of categories to change.
+     * @param array $categories    The array of categories to change.
      *
      * @return object  The PEAR DB_Result object from the sql query.
      */
-    public function updateCategoriesForStock($stock_id, $category = array())
+    public function updateCategoriesForStock($stock_id, $categories = array())
     {
-        if (!is_array($category)) {
-            $category = array($category);
+        if (!is_array($categories)) {
+            $categories = array($categories);
         }
         /* First clear any categories that might be set for this item. */
         $sql = 'DELETE FROM sesha_inventory_categories ' .
@@ -731,8 +730,7 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
         } catch (Sesha_Exception $e) {
             throw new Sesha_Exception($e);
         }
-        for ($i = 0; $i < count($category); $i++) {
-            $category_id = $category[$i];
+        foreach ($categories as $category_id) {
             $sql = sprintf('INSERT INTO sesha_inventory_categories ' .
                 '(stock_id, category_id) VALUES (%d, %d)',
                 $stock_id, $category_id);
