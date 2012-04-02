@@ -17,7 +17,8 @@ class Ansel_Ajax_Imple_EditFaces extends Horde_Core_Ajax_Imple
      */
     public function attach()
     {
-        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        global $page_output;
+
         $page_output->addScriptFile('editfaces.js');
 
         $url = $this->_getUrl('EditFaces', 'ansel', array('url' => rawurlencode($this->_params['selfUrl'])));

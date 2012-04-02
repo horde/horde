@@ -128,7 +128,7 @@ class Ansel_View_GalleryProperties
             $js[] = '$("background_color").observe("change", checkStyleSelection); $("thumbnail_style").observe("change", checkStyleSelection);';
         }
 
-        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        global $page_output;
         $page_output->addInlineScript($js, true);
         $page_output->addScriptFile('stripe.js', 'horde');
         $page_output->addScriptFile('popup.js', 'horde');
@@ -139,11 +139,9 @@ class Ansel_View_GalleryProperties
             'slug' => $this->_properties['slug']
         ));
 
-        require $GLOBALS['registry']->get('templates', 'horde') . '/common-header.inc';
-        echo Horde::menu();
-        $GLOBALS['notification']->notify(array('listeners' => 'status'));
+        $page_output->header();
         echo $view->render('properties');
-        require $GLOBALS['registry']->get('templates', 'horde') . '/common-footer.inc';
+        $page_output->footer();
     }
 
     /**

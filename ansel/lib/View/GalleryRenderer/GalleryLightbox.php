@@ -33,7 +33,7 @@ class Ansel_View_GalleryRenderer_GalleryLightbox extends Ansel_View_GalleryRende
         // Attach the script and CSS files here if we aren't being called via
         // the API
         if (empty($this->view->api)) {
-            $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+            global $page_output;
             $page_output->addThemeStylesheet('lightbox.css');
             $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
             $page_output->addScriptFile('popup.js', 'horde');
@@ -157,7 +157,7 @@ class Ansel_View_GalleryRenderer_GalleryLightbox extends Ansel_View_GalleryRende
 
         // Output js/css here if we are calling via the api
         if ($this->view->api) {
-            $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+            global $page_output;
             $page_output->addThemeStylesheet('lightbox.css');
             $page_output->includeStylesheetFiles(array('nobase' => true), true);
             $includes = $GLOBALS['injector']->createInstance('Horde_Script_Files');

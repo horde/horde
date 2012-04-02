@@ -43,7 +43,7 @@ class Ansel_Block_RecentlyAddedGeodata extends Horde_Core_Block
     protected function _content()
     {
         Ansel::initHordeMap();
-        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('blocks/geotag.js');
+        $GLOBALS['page_output']->addScriptFile('blocks/geotag.js');
 
         try {
             $images = $GLOBALS['injector']

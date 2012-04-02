@@ -28,6 +28,6 @@ $code['conf']['galleries'] = $galleries;
 $code['text'] = array(
     'ajax_error' => _("Error when communicating with the server."),
 );
-echo $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineJsVars(array(
+echo $GLOBALS['page_output']->addInlineJsVars(array(
     'var Ansel' => $code
 ), array('top' => true));

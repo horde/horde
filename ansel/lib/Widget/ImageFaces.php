@@ -119,7 +119,7 @@ class Ansel_Widget_ImageFaces extends Ansel_Widget_Base
         // Close up the nodes
         $html .= $faces_html . '</div></div>';
 
-        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('imagefaces.js');
+        $GLOBALS['page_output']->addScriptFile('imagefaces.js');
 
         return $html;
     }

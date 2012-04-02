@@ -92,7 +92,7 @@ class Ansel_View_Image extends Ansel_View_Ansel
 
         /* Any script files we may need if not calling via the api */
         if (empty($this->_params['api'])) {
-            $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+            global $page_output;
             $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
             $page_output->addScriptFile('stripe.js', 'horde');
         }

@@ -15,7 +15,7 @@ Horde_Registry::appInit('ansel');
 Ansel::initJSVariables();
 Ansel::initHordeMap();
 
-$injector->getInstance('Horde_PageOutput')->addScriptFile('map_edit.js');
+$page_output->addScriptFile('map_edit.js');
 
 // Get the image id to (re)locate.
 $image_id = Horde_Util::getFormData('image');
@@ -154,10 +154,12 @@ EOT;
 //$html .= Horde_Util::bufferOutput(array($ac, 'attach'));
 
 // Start the output
-include $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 echo '<div class="header">' . sprintf(_("Update position of %s"), $image->filename) . '</div>';
 echo $html;
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();
 
 // Helper function for displaying Lat/Lng values
 function _point2Deg($value, $lat = false)

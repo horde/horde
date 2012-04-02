@@ -70,6 +70,8 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
      */
     public function html()
     {
+        global $page_output;
+
         $ansel_storage = $GLOBALS['injector']->getInstance('Ansel_Storage');
         $geodata = $ansel_storage->getImagesGeodata($this->_params['images']);
         $viewType = $this->_view->viewType();
@@ -84,7 +86,6 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
         // Setup map and javascript includes
         Ansel::initHordeMap($GLOBALS['conf']['maps']);
 
-        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
         $page_output->addScriptFile('popup.js', 'horde');
         $page_output->addScriptFile('widgets/geotag.js');
 

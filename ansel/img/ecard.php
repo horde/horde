@@ -103,7 +103,9 @@ if ($editor->supportedByBrowser()) {
     $form->addHidden('', 'rtemode', 'text', false);
 }
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 $notification->notify(array('listeners' => 'status'));
 $form->renderActive($renderer, $vars, Horde::url('img/ecard.php'), 'post', 'multipart/form-data');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

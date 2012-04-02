@@ -18,6 +18,8 @@ class Ansel_Ajax_Imple_EditGalleryFaces extends Horde_Ajax_Imple_Base
      */
     public function attach()
     {
+        global $page_output;
+
         $url = $this->_getUrl('EditFaces', 'ansel');
         $image_id = $this->_params['image_id'];
         /* Start by getting the faces */
@@ -45,7 +47,6 @@ class Ansel_Ajax_Imple_EditGalleryFaces extends Horde_Ajax_Imple_Base
             return _("No faces found");
         }
 
-        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
         $page_output->addScriptFile('editfaces.js');
         $page_output->addInlineScript(array(
             "Ansel.ajax['editFaces'] = {'url':'" . $url . "', text: {loading:'" . _("Loading...") . "'}};"

@@ -70,7 +70,7 @@ class Ansel_View_EmbeddedRenderer_GalleryLink extends Ansel_View_Base
         }
         $json = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImageJson($images, null, true, $thumbsize, true);
 
-        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        global $page_output;
         $page_output->addThemeStylesheet('jsembed.css');
         Horde::startBuffer();
         $page_output->includeStylesheetFiles(array(

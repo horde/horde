@@ -33,10 +33,16 @@ $page_output->addInlineScript(
      });'
 );
 
+$page_output->header(array(
+    'title' => $title,
+    'view' => $registry::VIEW_SMARTMOBILE
+));
+
 echo $view->render('head');
 echo $view->render('galleries');
 echo $view->render('gallery');
 echo $view->render('image');
 //echo $view->render('photo');
 echo $view->render('notice');
-$registry->get('templates', 'horde') . '/common-footer-mobile.inc';
+
+$page_output->footer();

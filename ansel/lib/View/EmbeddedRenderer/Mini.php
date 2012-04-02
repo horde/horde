@@ -131,7 +131,7 @@ class Ansel_View_EmbeddedRenderer_Mini extends Ansel_View_Base
                 ->getImageJson($images, $style, true, 'screen', true);
         }
 
-        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        global $page_output;
         $page_output->addThemeStylesheet('embed.css');
 
         /* Some paths */

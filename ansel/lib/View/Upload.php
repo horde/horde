@@ -60,7 +60,7 @@ class Ansel_View_Upload
 
         Ansel::initJSVariables();
 
-        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        global $page_output;
         $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
         $page_output->addScriptFile('carousel.js');
         $page_output->addScriptFile('upload.js');
@@ -72,7 +72,7 @@ class Ansel_View_Upload
         $this->_handleFileUpload();
 
         // TODO: Configure which runtimes to allow?
-        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        global $page_output;
         $page_output->addScriptFile('plupload/plupload.js', 'horde');
         $page_output->addScriptFile('plupload/plupload.flash.js', 'horde');
         $page_output->addScriptFile('plupload/plupload.silverlight.js', 'horde');
@@ -144,7 +144,7 @@ EOT;
      */
     public function handleLegacy()
     {
-        global $conf, $notification, $browser;
+        global $conf, $notification, $page_output, $browser;
 
         $vars = Horde_Variables::getDefaultVariables();
         $form = new Ansel_Form_Upload($vars, _("Upload photos"));
@@ -153,7 +153,7 @@ EOT;
         // explicitly selected the old uploader.
         $js = $this->_doCarouselSetup();
         if (!empty($js)) {
-            $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineScript($js, true);
+            $page_output->addInlineScript($js, true);
         }
 
         if ($form->validate($vars)) {

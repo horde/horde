@@ -82,7 +82,7 @@ if ($groupby !== 'none') {
     $groupby_links[] = Ansel::getUrlFor('group', array('actionID' => 'groupby', 'groupby' => 'none'))->link() . _("none") . '</a>';
 }
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header();
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 require ANSEL_TEMPLATES . '/group/header.inc';
@@ -91,4 +91,4 @@ foreach ($groups as $group) {
 }
 require ANSEL_TEMPLATES . '/group/footer.inc';
 require ANSEL_TEMPLATES . '/group/pager.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

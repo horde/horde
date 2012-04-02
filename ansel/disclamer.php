@@ -41,8 +41,8 @@ if ($form->isSubmitted()) {
     }
 }
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header();
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 $form->renderActive(null, null, null, 'post');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

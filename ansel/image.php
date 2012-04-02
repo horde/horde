@@ -174,9 +174,11 @@ case 'modify':
     $vars->set('image_originalDate', $image->originalDate);
     $vars->set('image_uploaded', $image->uploaded);
 
-    require $registry->get('templates', 'horde') . '/common-header.inc';
+    $page_output->header(array(
+        'title' => $title
+    ));
     $form->renderActive($renderer, $vars, Horde::url('image.php'), 'post', 'multipart/form-data');
-    require $registry->get('templates', 'horde') . '/common-footer.inc';
+    $page_output->footer();
     exit;
 
 case 'savecloseimage':
@@ -354,8 +356,6 @@ case 'resizeedit':
     $title = sprintf(
         _("Edit %s :: %s"), $gallery->get('name'), $image->filename);
 
-    $page_output = $injector->getInstance('Horde_PageOutput');
-
     if ($actionID == 'cropedit') {
         $geometry = $image->getDimensions('full');
         $x1 = 0;
@@ -379,7 +379,10 @@ case 'resizeedit':
         $page_output->addScriptFile('scriptaculous/controls.js', 'horde');
         $page_output->addScriptFile('scriptaculous/dragdrop.js', 'horde');
     }
-    require $registry->get('templates', 'horde') . '/common-header.inc';
+
+    $page_output->header(array(
+        'title' => $title
+    ));
     echo Horde::menu();
     $notification->notify(array('listeners' => 'status'));
 
@@ -390,7 +393,7 @@ case 'resizeedit':
     } else {
         require ANSEL_TEMPLATES . '/image/edit_image.inc';
     }
-    require $registry->get('templates', 'horde') . '/common-footer.inc';
+    $page_output->footer();
     exit;
 
 case 'watermark':
@@ -553,9 +556,11 @@ case 'setwatermark':
     $form = new Ansel_Form_Watermark($vars, _("Watermark"));
     $renderer = new Horde_Form_Renderer();
 
-    require $registry->get('templates', 'horde') . '/common-header.inc';
+    $page_output->header(array(
+        'title' => $title
+    ));
     $form->renderActive($renderer, $vars, Horde::url('image.php'), 'post');
-    require $registry->get('templates', 'horde') . '/common-footer.inc';
+    $page_output->footer();
     exit;
 
 case 'previewcustomwatermark':
@@ -593,10 +598,12 @@ case 'previewrotate270':
     $title = sprintf(
         _("Preview changes for %s :: %s"), $gallery->get('name'), $image->filename);
 
-    require $registry->get('templates', 'horde') . '/common-header.inc';
+    $page_output->header(array(
+        'title' => $title
+    ));
     echo Horde::menu();
     require ANSEL_TEMPLATES . '/image/preview_image.inc';
-    require $registry->get('templates', 'horde') . '/common-footer.inc';
+    $page_output->footer();
     exit;
 
 case 'imagerotate90':
@@ -845,10 +852,12 @@ case 'previewcrop':
             $image->filename);
         $params = $x1 . '.' . $y1 . '.' . $x2 . '.' . $y2;
 
-        require $registry->get('templates', 'horde') . '/common-header.inc';
+        $page_output->header(array(
+            'title' => $title
+        ));
         echo Horde::menu();
         require ANSEL_TEMPLATES . '/image/preview_cropimage.inc';
-        require $registry->get('templates', 'horde') . '/common-footer.inc';
+        $page_output->footer();
     }
     exit;
 
@@ -870,8 +879,10 @@ default:
     exit;
 }
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 echo Horde::menu();
 $form->renderActive($renderer, $vars, Horde::url('image.php'), 'post',
                     'multipart/form-data');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

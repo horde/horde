@@ -26,10 +26,12 @@ try {
     exit;
 }
 
-$title = _("Face") . ' :: ' . $face['face_name'];
 $facename = htmlspecialchars($face['face_name']);
-require $registry->get('templates', 'horde') . '/common-header.inc';
+
+$page_output->header(array(
+    'title' => _("Face") . ' :: ' . $face['face_name']
+));
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 require_once ANSEL_TEMPLATES . '/faces/face.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

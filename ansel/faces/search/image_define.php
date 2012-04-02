@@ -47,15 +47,15 @@ if (count($faces) > 1) {
 $height = $x2 - $x1;
 $width = $y2 - $y1;
 
-$page_output = $injector->getInstance('Horde_PageOutput');
 $page_output->addScriptFile('scriptaculous/scriptaculous.js', 'horde');
 $page_output->addScriptFile('scriptaculous/builder.js', 'horde');
 $page_output->addScriptFile('cropper.js');
 $page_output->addScriptFile('stripe.js', 'horde');
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 require ANSEL_TEMPLATES . '/faces/define.inc';
-
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

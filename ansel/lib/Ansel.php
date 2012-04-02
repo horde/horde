@@ -880,7 +880,7 @@ class Ansel
             $code['ajax'] = new stdClass();
             $code['widgets'] = new stdClass();
 
-            $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineJsVars(array(
+            $GLOBALS['page_output']->addInlineJsVars(array(
                 'var Ansel' => $code
             ));
         }
@@ -946,7 +946,7 @@ class Ansel
         }
         $params['jsuri'] = $GLOBALS['registry']->get('jsuri', 'horde') . '/map/';
 
-        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        global $page_output;
         $page_output->addScriptFile('map/map.js', 'horde');
         $page_output->addScriptFile('map.js');
         $page_output->addInlineScript(array(

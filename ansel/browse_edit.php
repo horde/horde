@@ -24,9 +24,10 @@ if ($layout->updated()) {
     }
 }
 
-$title = _("My Photos :: Add Content");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("My Photos :: Add Content")
+));
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 require $registry->get('templates', 'horde') . '/portal/edit.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();
