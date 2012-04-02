@@ -95,9 +95,9 @@ if ($form->validate()) {
     }
 }
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 require FOLKS_TEMPLATES . '/menu.inc';
-
 require FOLKS_TEMPLATES . '/login/signup.php';
-
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

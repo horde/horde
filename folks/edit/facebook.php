@@ -29,8 +29,10 @@ try {
     Horde::url('user.php')->redirect();
 }
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 require FOLKS_TEMPLATES . '/menu.inc';
 echo $tabs->render('facebook');
 echo $block;
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

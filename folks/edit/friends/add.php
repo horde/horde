@@ -60,11 +60,13 @@ if ($user) {
 
 $friend_form = new Folks_AddFriend_Form($vars, _("Add or remove user"), 'blacklist');
 
-$injector->getInstance('Horde_PageOutput')->addScriptFile('tables.js', 'horde');
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->addScriptFile('tables.js', 'horde');
+$page_output->header(array(
+    'title' => $title
+));
 require FOLKS_TEMPLATES . '/menu.inc';
 echo $tabs->render('add');
 require FOLKS_TEMPLATES . '/edit/header.php';
 require FOLKS_TEMPLATES . '/edit/add.php';
 require FOLKS_TEMPLATES . '/edit/footer.php';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

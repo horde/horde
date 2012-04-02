@@ -62,8 +62,10 @@ if ($activities instanceof PEAR_Error) {
     Folks::getUrlFor('list', 'list')->redirect();
 }
 
-$injector->getInstance('Horde_PageOutput')->addScriptFile('stripe.js', 'horde');
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->addScriptFile('stripe.js', 'horde');
+$page_output->header(array(
+    'title' => $title
+));
 require FOLKS_TEMPLATES . '/menu.inc';
 require FOLKS_TEMPLATES . '/friends/friends.php';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

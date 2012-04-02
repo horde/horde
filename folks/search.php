@@ -80,13 +80,14 @@ if ($registry->isAuthenticated()) {
     }
 }
 
-$page_output = $injector->getInstance('Horde_PageOutput');
 $page_output->addScriptFile('stripe.js', 'horde');
 $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
 $page_output->addScriptFile('redbox.js', 'horde');
 $page_output->addScriptFile('search.js');
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 require FOLKS_TEMPLATES . '/menu.inc';
 require FOLKS_TEMPLATES . '/list/list.php';
 
@@ -96,4 +97,4 @@ if ($registry->isAuthenticated()) {
     require FOLKS_TEMPLATES . '/list/search.php';
 }
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

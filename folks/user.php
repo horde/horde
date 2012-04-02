@@ -57,12 +57,11 @@ if ($user == $GLOBALS['registry']->getAuth()) {
     }
 }
 
-$injector->getInstance('Horde_PageOutput')->addScriptFile('stripe.js', 'horde');
-
-$title = sprintf(_("%s's profile"), $user);
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->addScriptFile('stripe.js', 'horde');
+$page_output->header(array(
+    'title' => sprintf(_("%s's profile"), $user)
+));
 require FOLKS_TEMPLATES . '/menu.inc';
-
 switch ($profile['user_status']) {
 
 case 'inactive':
@@ -99,4 +98,4 @@ default:
 break;
 }
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

@@ -49,7 +49,7 @@ class Folks_Block_Recent extends Horde_Core_Block
                                 'name' => _("Send message"));
         }
 
-        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('stripe.js', 'horde');
+        $GLOBALS['page_output']->addScriptFile('stripe.js', 'horde');
 
         ob_start();
         require FOLKS_TEMPLATES . '/block/users.php';

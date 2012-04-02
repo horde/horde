@@ -47,10 +47,9 @@ if ($form->validate()) {
     }
 }
 
-$title = _("Sign up");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Sign up")
+));
 require FOLKS_TEMPLATES . '/menu.inc';
-
 require FOLKS_TEMPLATES . '/login/signup.php';
-
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

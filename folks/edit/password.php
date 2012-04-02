@@ -185,11 +185,13 @@ if (!$prefs->isLocked('security_question')) {
 $v = &$form_security->addVariable(_("Security answer"), 'security_answer', 'text', true);
 $v->setDefault($prefs->getValue('security_answer'));
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 require FOLKS_TEMPLATES . '/menu.inc';
 
 echo $tabs->render('password');
 $form->renderActive(null, null, null, 'post');
 echo '<br />';
 $form_security->renderActive(null, null, null, 'post');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();
