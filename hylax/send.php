@@ -68,6 +68,8 @@ Horde::startBuffer();
 $notification->notify(array('listeners' => 'status'));
 $template->set('notify', Horde::endBuffer());
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 echo $template->fetch(HYLAX_TEMPLATES . '/fax/fax.html');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

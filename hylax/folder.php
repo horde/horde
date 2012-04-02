@@ -99,6 +99,6 @@ Horde::startBuffer();
 $notification->notify(array('listeners' => 'status'));
 $template->set('notify', Horde::endBuffer());
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header();
 echo $template->fetch(HYLAX_TEMPLATES . '/folder/folder.html');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();
