@@ -45,7 +45,7 @@ class Jonah_Application extends Horde_Registry_Application
                 $url->add('tag_id', $tag_id);
             }
 
-            $GLOBALS['injector']->getInstance('Horde_PageOutput')->addLinkTag(array(
+            $GLOBALS['page_output']->addLinkTag(array(
                 'href' => $url,
                 'title' => 'RSS 0.91'
             ));

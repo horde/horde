@@ -71,12 +71,14 @@ class Jonah_View_StoryEdit extends Jonah_View_Base
         }
 
         /* Needed javascript. */
-        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('open_calendar.js', 'horde');
-        $title = $form->getTitle();
-        require $registry->get('templates', 'horde') . '/common-header.inc';
+        global $page_output;
+        $page_output->addScriptFile('open_calendar.js', 'horde');
+        $page_output->header(array(
+            'title' => $form->getTitle()
+        ));
         require JONAH_TEMPLATES . '/menu.inc';
         $form->renderActive($form->getRenderer(), $vars, Horde::url('stories/edit.php'), 'post');
-        require $registry->get('templates', 'horde') . '/common-footer.inc';
+        $page_output->footer();
     }
 
 }

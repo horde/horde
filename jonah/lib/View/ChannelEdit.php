@@ -58,12 +58,12 @@ class Jonah_View_ChannelEdit extends Jonah_View_Base
             }
         }
 
-        $renderer = new Horde_Form_Renderer();
-        $title = $form->getTitle();
-        require $registry->get('templates', 'horde') . '/common-header.inc';
+        $GLOBALS['page_output']->header(array(
+            'title' => $form->getTitle()
+        ));
         require JONAH_TEMPLATES . '/menu.inc';
-        $form->renderActive($renderer, $vars, Horde::url('channels/edit.php'), 'post');
-        require $registry->get('templates', 'horde') . '/common-footer.inc';
+        $form->renderActive(new Horde_Form_Renderer(), $vars, Horde::url('channels/edit.php'), 'post');
+        $GLOBALS['page_output']->footer();
     }
 
 }

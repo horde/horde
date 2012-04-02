@@ -79,10 +79,13 @@ class Jonah_View_StoryDelete extends Jonah_View_Base
             Horde::url('stories/index.php', true)->add('channel_id', $channel_id)->setRaw(true)->redirect();
             exit;
         }
-        require $registry->get('templates', 'horde') . '/common-header.inc';
+
+        $GLOBALS['page_output']->header(array(
+            'title' => $title
+        ));
         require JONAH_TEMPLATES . '/menu.inc';
         $form->renderActive(null, $vars, Horde::url('stories/delete.php'), 'post');
-        require $registry->get('templates', 'horde') . '/common-footer.inc';
+        $GLOBALS['page_output']->footer();
     }
 
 }

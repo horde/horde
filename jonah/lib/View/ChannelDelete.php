@@ -72,10 +72,12 @@ class Jonah_View_ChannelDelete extends Jonah_View_Base
             exit;
         }
 
-        require $registry->get('templates', 'horde') . '/common-header.inc';
+        $GLOBALS['page_output']->header(array(
+            'title' => $title
+        ));
         require JONAH_TEMPLATES . '/menu.inc';
         $form->renderActive(null, $vars, Horde::selfUrl(), 'post');
-        require $registry->get('templates', 'horde') . '/common-footer.inc';
+        $GLOBALS['page_output']->footer();
     }
 
 }

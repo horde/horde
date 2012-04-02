@@ -26,7 +26,7 @@ class Jonah_View_StoryView extends Jonah_View_Base
     {
         extract($this->_params, EXTR_REFS);
 
-        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        global $page_output;
         $page_output->addScriptFile('syntaxhighlighter/scripts/shCore.js', 'horde');
         $page_output->addScriptFile('syntaxhighlighter/scripts/shAutoloader.js', 'horde');
         $path = $GLOBALS['registry']->get('jsuri', 'horde') . '/syntaxhighlighter/scripts/';
@@ -75,9 +75,9 @@ EOT;
             $story = $driver->getStory($channel_id, $story_id, !$browser->isRobot());
         } catch (Exception $e) {
             $notification->push(sprintf(_("Error fetching story: %s"), $e->getMessage()), 'horde.warning');
-            require $registry->get('templates', 'horde') . '/common-header.inc';
+            $page_output->header();
             require JONAH_TEMPLATES . '/menu.inc';
-            require $registry->get('templates', 'horde') . '/common-footer.inc';
+            $page_output->footer();
             exit;
         }
 
@@ -141,10 +141,10 @@ EOT;
             }
         }
 
-        require $registry->get('templates', 'horde') . '/common-header.inc';
+        $page_output->header();
         require JONAH_TEMPLATES . '/menu.inc';
         echo $view->render('view');
-        require $registry->get('templates', 'horde') . '/common-footer.inc';
+        $page_output->footer();
     }
 
 }
