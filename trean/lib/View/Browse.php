@@ -46,7 +46,7 @@ class Trean_View_Browse
      * @var boolean
      */
     protected $_noSearch = false;
-    
+
     /**
      * Const'r
      *
@@ -145,9 +145,7 @@ class Trean_View_Browse
     {
         $ajax = new Horde_Core_Ajax();
         $ajax->init(array('app' => 'horde'));
-        $GLOBALS['injector']
-            ->getInstance('Horde_PageOutput')
-            ->addScriptFile('tables.js', 'horde');
+        $GLOBALS['page_output']->addScriptFile('tables.js', 'horde');
 
         $view = $GLOBALS['injector']->getInstance('Horde_View');
         $view->bookmarks = $bookmarks;

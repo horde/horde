@@ -41,15 +41,16 @@ $injector->getInstance('Horde_Core_Factory_Imple')->create(
     )
 );
 
-$injector->getInstance('Horde_PageOutput')->addInlineScript(array(
+$page_output->addInlineScript(array(
     'bookmarkTagAc.init()',
 ), true);
 
-$title = _("Edit Bookmark");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Edit Bookmark")
+));
 if (!Horde_Util::getFormData('popup')) {
     echo Horde::menu();
     $notification->notify(array('listeners' => 'status'));
 }
 require TREAN_TEMPLATES . '/edit.html.php';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

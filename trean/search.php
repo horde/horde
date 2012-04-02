@@ -14,8 +14,9 @@ Horde_Registry::appInit('trean');
 
 require_once TREAN_BASE . '/lib/Forms/Search.php';
 
-$title = _("Search");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Search")
+));
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 
@@ -58,4 +59,4 @@ if ($form->validate($vars)) {
     }
 }
 
-require_once $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

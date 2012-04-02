@@ -20,9 +20,10 @@ if (!$view->hasBookmarks()) {
     exit;
 }
 
-$title = _("Browse");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Browse")
+));
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 echo $view->render();
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();
