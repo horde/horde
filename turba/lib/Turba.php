@@ -625,7 +625,7 @@ class Turba
 
         /* Generate the new share. */
         try {
-            $turba_shares = $injector->getInstance('Turba_Shares');
+            $turba_shares = $GLOBALS['injector']->getInstance('Turba_Shares');
 
             $share = $turba_shares->newShare($GLOBALS['registry']->getAuth(), $share_name, $name);
 
