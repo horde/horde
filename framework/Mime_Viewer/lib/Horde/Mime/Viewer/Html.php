@@ -189,9 +189,11 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Base
                     switch (strtolower($child->tagName)) {
                     case 'a':
                         /* Strip whitespace from href links. This is bad HTML,
-                         * but may prevent viewing of the link. */
+                         * but may prevent viewing of the link. PHP DOM will
+                         * already strip this out for us, but if using tidy it
+                         * will have URL encoded the spaces. */
                         if ($child->hasAttribute('href')) {
-                            $child->setAttribute('href', trim($child->getAttribute('href')));
+                            $child->setAttribute('href', preg_replace('/^(\%20)+/', '', trim($child->getAttribute('href'))));
                         }
                         break;
 
