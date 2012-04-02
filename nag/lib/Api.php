@@ -333,7 +333,7 @@ class Nag_Api extends Horde_Registry_Api
             //
             $tasklist = substr($parts[1], 0, -4);
             if (!Nag::hasPermission($tasklist, Horde_Perms::READ)) {
-                return PEAR::raiseError(_("Invalid tasklist file requested."), 404);
+                throw new Nag_Exception(_("Invalid tasklist file requested."), 404);
             }
             $ical_data = $this->exportTasklist($tasklist, 'text/calendar');
             $result = array('data'          => $ical_data,
@@ -349,7 +349,7 @@ class Nag_Api extends Horde_Registry_Api
             // of items and represent them as files within the directory.
             //
             if (!Nag::hasPermission($parts[1], Horde_Perms::READ)) {
-                return PEAR::raiseError(_("Invalid tasklist requested."), 404);
+                throw new Nag_Exception(_("Invalid tasklist requested."), 404);
             }
             $storage = Nag_Driver::singleton($parts[1]);
             try {
@@ -854,7 +854,7 @@ class Nag_Api extends Horde_Registry_Api
     /**
      * Adds a task.
      *
-     * @param array $task  A hash with overwriting task information.
+     * @param array $task  A hash with task information.
      *
      * @throws Horde_Exception_PermissionDenied
      */
@@ -1215,7 +1215,7 @@ class Nag_Api extends Horde_Registry_Api
         $allowed_tasklists = Nag::listTasklists(false, Horde_Perms::READ);
         foreach ($categories as $tasklist) {
             if (!Nag::hasPermission($tasklist, Horde_Perms::READ)) {
-                return PEAR::raiseError(_("Permission Denied"));
+                throw new Horde_Exception_PermissionDenied();
             }
         }
 
