@@ -599,8 +599,6 @@ class Horde_Core_Prefs_Ui
 
         $content = Horde::endBuffer();
 
-        $title = Horde_Core_Translation::t("User Preferences");
-
         /* Get the menu output before we start to output the page.
          * Again, this will catch any javascript inserted into the page. */
         $menu_out = $this->vars->ajaxui
@@ -620,8 +618,11 @@ class Horde_Core_Prefs_Ui
         asort($apps);
 
         /* Ouptut screen. */
-        $GLOBALS['bodyId'] = 'services_prefs';
-        require $h_templates . '/common-header.inc';
+        $GLOBALS['page_output']->header(array(
+            'body_id' => 'services_prefs',
+            'title' => Horde_Core_Translation::t("User Preferences")
+        ));
+
         echo $menu_out;
 
         $notification->notify(array('listeners' => 'status'));
@@ -688,7 +689,7 @@ class Horde_Core_Prefs_Ui
 
         echo $content;
 
-        require $h_templates . '/common-footer.inc';
+        $GLOBALS['page_output']->footer();
     }
 
     /**
