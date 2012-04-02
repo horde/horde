@@ -2432,127 +2432,8 @@ abstract class Kronolith_Event
         }
 
         // Recurrence.
-        $recur = Horde_Util::getFormData('recur');
-        if ($recur !== null && $recur !== '') {
-            if (!isset($this->recurrence)) {
-                $this->recurrence = new Horde_Date_Recurrence($this->start);
-            } else {
-                $this->recurrence->setRecurStart($this->start);
-            }
-            if (Horde_Util::getFormData('recur_end_type') == 'date') {
-                if ($end_date = Horde_Util::getFormData('recur_end_date')) {
-                    // From ajax interface.
-                    $date_ob = Kronolith::parseDate($end_date, false);
-                    $recur_enddate = array('year'  => $date_ob->year,
-                                           'month' => $date_ob->month,
-                                           'day'  => $date_ob->mday);
-                } else {
-                    // From traditional interface.
-                    $recur_enddate = Horde_Util::getFormData('recur_end');
-                }
-                if ($this->recurrence->hasRecurEnd()) {
-                    $recurEnd = $this->recurrence->recurEnd;
-                    $recurEnd->month = $recur_enddate['month'];
-                    $recurEnd->mday = $recur_enddate['day'];
-                    $recurEnd->year = $recur_enddate['year'];
-                } else {
-                    $recurEnd = new Horde_Date(
-                        array('hour' => 23,
-                              'min' => 59,
-                              'sec' => 59,
-                              'month' => $recur_enddate['month'],
-                              'mday' => $recur_enddate['day'],
-                              'year' => $recur_enddate['year']),
-                        $this->timezone);
-                }
-                $this->recurrence->setRecurEnd($recurEnd);
-            } elseif (Horde_Util::getFormData('recur_end_type') == 'count') {
-                $this->recurrence->setRecurCount(Horde_Util::getFormData('recur_count'));
-            } elseif (Horde_Util::getFormData('recur_end_type') == 'none') {
-                $this->recurrence->setRecurCount(0);
-                $this->recurrence->setRecurEnd(null);
-            }
-
-            $this->recurrence->setRecurType($recur);
-            switch ($recur) {
-            case Horde_Date_Recurrence::RECUR_DAILY:
-                $this->recurrence->setRecurInterval(Horde_Util::getFormData('recur_daily_interval', 1));
-                break;
-
-            case Horde_Date_Recurrence::RECUR_WEEKLY:
-                $weekly = Horde_Util::getFormData('weekly');
-                $weekdays = 0;
-                if (is_array($weekly)) {
-                    foreach ($weekly as $day) {
-                        $weekdays |= $day;
-                    }
-                }
-
-                if ($weekdays == 0) {
-                    // Sunday starts at 0.
-                    switch ($this->start->dayOfWeek()) {
-                    case 0: $weekdays |= Horde_Date::MASK_SUNDAY; break;
-                    case 1: $weekdays |= Horde_Date::MASK_MONDAY; break;
-                    case 2: $weekdays |= Horde_Date::MASK_TUESDAY; break;
-                    case 3: $weekdays |= Horde_Date::MASK_WEDNESDAY; break;
-                    case 4: $weekdays |= Horde_Date::MASK_THURSDAY; break;
-                    case 5: $weekdays |= Horde_Date::MASK_FRIDAY; break;
-                    case 6: $weekdays |= Horde_Date::MASK_SATURDAY; break;
-                    }
-                }
-
-                $this->recurrence->setRecurInterval(Horde_Util::getFormData('recur_weekly_interval', 1));
-                $this->recurrence->setRecurOnDay($weekdays);
-                break;
-
-            case Horde_Date_Recurrence::RECUR_MONTHLY_DATE:
-                switch (Horde_Util::getFormData('recur_monthly_scheme')) {
-                case Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY:
-                    $this->recurrence->setRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY);
-                case Horde_Date_Recurrence::RECUR_MONTHLY_DATE:
-                    $this->recurrence->setRecurInterval(Horde_Util::getFormData('recur_monthly') ? 1 : Horde_Util::getFormData('recur_monthly_interval', 1));
-                    break;
-                default:
-                    $this->recurrence->setRecurInterval(Horde_Util::getFormData('recur_day_of_month_interval', 1));
-                    break;
-                }
-                break;
-
-            case Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY:
-                $this->recurrence->setRecurInterval(Horde_Util::getFormData('recur_week_of_month_interval', 1));
-                break;
-
-            case Horde_Date_Recurrence::RECUR_YEARLY_DATE:
-                switch (Horde_Util::getFormData('recur_yearly_scheme')) {
-                case Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY:
-                case Horde_Date_Recurrence::RECUR_YEARLY_DAY:
-                    $this->recurrence->setRecurType(Horde_Util::getFormData('recur_yearly_scheme'));
-                case Horde_Date_Recurrence::RECUR_YEARLY_DATE:
-                    $this->recurrence->setRecurInterval(Horde_Util::getFormData('recur_yearly') ? 1 : Horde_Util::getFormData('recur_yearly_interval', 1));
-                    break;
-                default:
-                    $this->recurrence->setRecurInterval(Horde_Util::getFormData('recur_yearly_interval', 1));
-                    break;
-                }
-                break;
-
-            case Horde_Date_Recurrence::RECUR_YEARLY_DAY:
-                $this->recurrence->setRecurInterval(Horde_Util::getFormData('recur_yearly_day_interval', $yearly_interval));
-                break;
-
-            case Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY:
-                $this->recurrence->setRecurInterval(Horde_Util::getFormData('recur_yearly_weekday_interval', $yearly_interval));
-                break;
-            }
-
-            if ($exceptions = Horde_Util::getFormData('exceptions')) {
-                foreach ($exceptions as $exception) {
-                    $this->recurrence->addException((int)substr($exception, 0, 4),
-                                                    (int)substr($exception, 4, 2),
-                                                    (int)substr($exception, 6, 2));
-                }
-            }
-        }
+        $this->recurrence = $this->readRecurrenceForm(
+            $this->start, $this->timezone, $this->recurrence);
 
         // Convert to local timezone.
         $this->setTimezone(false);
@@ -2614,6 +2495,135 @@ abstract class Kronolith_Event
         }
 
         $this->initialized = true;
+    }
+
+    static public function readRecurrenceForm($start, $timezone,
+                                              $recurrence = null)
+    {
+        $recur = Horde_Util::getFormData('recur');
+        if (!strlen($recur)) {
+            return $recurrence;
+        }
+        if (!isset($recurrence)) {
+            $recurrence = new Horde_Date_Recurrence($start);
+        } else {
+            $recurrence->setRecurStart($start);
+        }
+        if (Horde_Util::getFormData('recur_end_type') == 'date') {
+            if ($end_date = Horde_Util::getFormData('recur_end_date')) {
+                // From ajax interface.
+                $date_ob = Kronolith::parseDate($end_date, false);
+                $recur_enddate = array('year'  => $date_ob->year,
+                                       'month' => $date_ob->month,
+                                       'day'  => $date_ob->mday);
+            } else {
+                // From traditional interface.
+                $recur_enddate = Horde_Util::getFormData('recur_end');
+            }
+            if ($recurrence->hasRecurEnd()) {
+                $recurEnd = $recurrence->recurEnd;
+                $recurEnd->month = $recur_enddate['month'];
+                $recurEnd->mday = $recur_enddate['day'];
+                $recurEnd->year = $recur_enddate['year'];
+            } else {
+                $recurEnd = new Horde_Date(
+                    array('hour' => 23,
+                          'min' => 59,
+                          'sec' => 59,
+                          'month' => $recur_enddate['month'],
+                          'mday' => $recur_enddate['day'],
+                          'year' => $recur_enddate['year']),
+                    $timezone);
+            }
+            $recurrence->setRecurEnd($recurEnd);
+        } elseif (Horde_Util::getFormData('recur_end_type') == 'count') {
+            $recurrence->setRecurCount(Horde_Util::getFormData('recur_count'));
+        } elseif (Horde_Util::getFormData('recur_end_type') == 'none') {
+            $recurrence->setRecurCount(0);
+            $recurrence->setRecurEnd(null);
+        }
+
+        $recurrence->setRecurType($recur);
+        switch ($recur) {
+        case Horde_Date_Recurrence::RECUR_DAILY:
+            $recurrence->setRecurInterval(Horde_Util::getFormData('recur_daily_interval', 1));
+            break;
+
+        case Horde_Date_Recurrence::RECUR_WEEKLY:
+            $weekly = Horde_Util::getFormData('weekly');
+            $weekdays = 0;
+            if (is_array($weekly)) {
+                foreach ($weekly as $day) {
+                    $weekdays |= $day;
+                }
+            }
+
+            if ($weekdays == 0) {
+                // Sunday starts at 0.
+                switch ($start->dayOfWeek()) {
+                case 0: $weekdays |= Horde_Date::MASK_SUNDAY; break;
+                case 1: $weekdays |= Horde_Date::MASK_MONDAY; break;
+                case 2: $weekdays |= Horde_Date::MASK_TUESDAY; break;
+                case 3: $weekdays |= Horde_Date::MASK_WEDNESDAY; break;
+                case 4: $weekdays |= Horde_Date::MASK_THURSDAY; break;
+                case 5: $weekdays |= Horde_Date::MASK_FRIDAY; break;
+                case 6: $weekdays |= Horde_Date::MASK_SATURDAY; break;
+                }
+            }
+
+            $recurrence->setRecurInterval(Horde_Util::getFormData('recur_weekly_interval', 1));
+            $recurrence->setRecurOnDay($weekdays);
+            break;
+
+        case Horde_Date_Recurrence::RECUR_MONTHLY_DATE:
+            switch (Horde_Util::getFormData('recur_monthly_scheme')) {
+            case Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY:
+                $recurrence->setRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY);
+            case Horde_Date_Recurrence::RECUR_MONTHLY_DATE:
+                $recurrence->setRecurInterval(Horde_Util::getFormData('recur_monthly') ? 1 : Horde_Util::getFormData('recur_monthly_interval', 1));
+                break;
+            default:
+                $recurrence->setRecurInterval(Horde_Util::getFormData('recur_day_of_month_interval', 1));
+                break;
+            }
+            break;
+
+        case Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY:
+            $recurrence->setRecurInterval(Horde_Util::getFormData('recur_week_of_month_interval', 1));
+            break;
+
+        case Horde_Date_Recurrence::RECUR_YEARLY_DATE:
+            switch (Horde_Util::getFormData('recur_yearly_scheme')) {
+            case Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY:
+            case Horde_Date_Recurrence::RECUR_YEARLY_DAY:
+                $recurrence->setRecurType(Horde_Util::getFormData('recur_yearly_scheme'));
+            case Horde_Date_Recurrence::RECUR_YEARLY_DATE:
+                $recurrence->setRecurInterval(Horde_Util::getFormData('recur_yearly') ? 1 : Horde_Util::getFormData('recur_yearly_interval', 1));
+                break;
+            default:
+                $recurrence->setRecurInterval(Horde_Util::getFormData('recur_yearly_interval', 1));
+                break;
+            }
+            break;
+
+        case Horde_Date_Recurrence::RECUR_YEARLY_DAY:
+            $recurrence->setRecurInterval(Horde_Util::getFormData('recur_yearly_day_interval', $yearly_interval));
+            break;
+
+        case Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY:
+            $recurrence->setRecurInterval(Horde_Util::getFormData('recur_yearly_weekday_interval', $yearly_interval));
+            break;
+        }
+
+        if ($exceptions = Horde_Util::getFormData('exceptions')) {
+            foreach ($exceptions as $exception) {
+                $recurrence->addException((int)substr($exception, 0, 4),
+                                                (int)substr($exception, 4, 2),
+                                                (int)substr($exception, 6, 2));
+            }
+        }
+
+        return $recurrence;
     }
 
     public function html($property)

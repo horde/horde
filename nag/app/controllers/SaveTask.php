@@ -42,16 +42,8 @@ class Nag_SaveTask_Controller extends Horde_Controller_Base
          * we're adding a new task with the provided attributes. */
         if (!empty($info['task_id']) && !empty($info['old_tasklist'])) {
             $storage = Nag_Driver::singleton($info['old_tasklist']);
-            $result = $storage->modify($info['task_id'], $info['name'],
-                                       $info['desc'], $info['start'],
-                                       $info['due'], $info['priority'],
-                                       (float)$info['estimate'],
-                                       (int)$info['completed'],
-                                       $info['category']['value'],
-                                       $info['alarm'], $info['methods'],
-                                       $info['parent'], (int)$info['private'],
-                                       $registry->getAuth(), $info['assignee'], null,
-                                       $info['tasklist_id']);
+            $info['tasklist'] = $info['tasklist_id'];
+            $result = $storage->modify($info['task_id'], $info);
         } else {
             /* Check permissions. */
             $perms = $this->getInjector()->getInstance('Horde_Core_Perms');
@@ -63,16 +55,8 @@ class Nag_SaveTask_Controller extends Horde_Controller_Base
             /* Creating a new task. */
             $storage = Nag_Driver::singleton($info['tasklist_id']);
             try {
-                $storage->add(
-                    $info['name'], $info['desc'], $info['start'],
-                    $info['due'], $info['priority'],
-                    (float)$info['estimate'],
-                    (int)$info['completed'],
-                    $info['category']['value'],
-                    $info['alarm'], $info['methods'], null,
-                    $info['parent'], (int)$info['private'],
-                    $registry->getAuth(), $info['assignee']
-                );
+              $info['category'] = $info['category']['value'];
+              $storage->add($info);
             } catch (Nag_Exception $e) {
                 $notification->push(sprintf(_("There was a problem saving the task: %s."), $result->getMessage()), 'horde.error');
                 Horde::url('list.php', true)->redirect();

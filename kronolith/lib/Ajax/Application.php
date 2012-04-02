@@ -177,22 +177,21 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
 
     /**
      * Save a new or update an existing event from the AJAX event detail view.
+     *
      * Request parameters used:
-     *<pre>
-     *   -event:          The event id.
-     *   -cal:            The calendar id.
-     *   -targetcalendar: If moving events, the targetcalendar to move to.
-     *   -as_new:         Save an existing event as a new event.
-     *   -recur_edit:     If editing an instance of a recurring event series,
-     *                    how to apply the edit [current|future|all].
-     *   -rstart:         If editing an instance of a recurring event series,
-     *                    the original start datetime of this instance.
-     *   -rend:           If editing an instance of a recurring event series,
-     *                    the original ending datetime of this instance.
-     *   -sendupdates:    Should updates be sent to attendees?
-     *   -cstart:         Start time of the client cache.
-     *   -cend:           End time of the client cache.
-     *</pre>
+     * - event:          The event id.
+     * - cal:            The calendar id.
+     * - targetcalendar: If moving events, the targetcalendar to move to.
+     * - as_new:         Save an existing event as a new event.
+     * - recur_edit:     If editing an instance of a recurring event series,
+     *                   how to apply the edit [current|future|all].
+     * - rstart:         If editing an instance of a recurring event series,
+     *                   the original start datetime of this instance.
+     * - rend:           If editing an instance of a recurring event series,
+     *                   the original ending datetime of this instance.
+     * - sendupdates:    Should updates be sent to attendees?
+     * - cstart:         Start time of the client cache.
+     * - cend:           End time of the client cache.
      */
     public function saveEvent()
     {
@@ -267,7 +266,6 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
         }
 
         if ($this->_vars->recur_edit && $this->_vars->recur_edit != 'all') {
-
             switch ($this->_vars->recur_edit) {
             case 'current':
                 $attributes = new stdClass();
@@ -691,6 +689,10 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
             $task['completed'] = false;
         }
 
+        if ($this->_vars->recur && !empty($due)) {
+            $task['recurrence'] = Kronolith_Event::readRecurrenceForm($due, 'UTC');
+        }
+
         try {
             $ids = ($id && $list)
                 ? $GLOBALS['registry']->tasks->updateTask($list, $id, $task)
@@ -765,8 +767,7 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
         }
 
         try {
-            $GLOBALS['registry']->tasks->toggleCompletion($this->_vars->id, $this->_vars->list);
-            $result->toggled = true;
+            $result->toggled = $GLOBALS['registry']->tasks->toggleCompletion($this->_vars->id, $this->_vars->list);
         } catch (Exception $e) {
             $GLOBALS['notification']->push($e, 'horde.error');
         }

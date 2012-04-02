@@ -357,9 +357,9 @@ class Nag
             }
 
             if (isset($task['parent'])) {
-                $newTask = $storage->add($name, '', 0, $due, 3, 0.0, 0, '', 0, null, null, $tasks[$task['parent']]['id']);
+                $newTask = $storage->add(array('name' => $name, 'due' => $due, 'parent' => $tasks[$task['parent']]['id']));
             } else {
-                $newTask = $storage->add($name, '', 0, $due, 3);
+                $newTask = $storage->add(array('name' => $name, 'due' => $due));
             }
             $uids[] = $newTask[1];
             $task['id'] = $newTask[0];

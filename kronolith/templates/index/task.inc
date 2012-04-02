@@ -45,6 +45,7 @@
   <ul>
     <li class="activeTab"><a href="#" class="kronolithTabLink" id="kronolithTaskLinkDescription"><?php echo _("Description") ?></a></li>
     <li><a href="#" class="kronolithTabLink" id="kronolithTaskLinkReminder"><?php echo _("Reminder") ?></a></li>
+    <li><a href="#" class="kronolithTabLink" id="kronolithTaskLinkRecur"><?php echo _("Repeat") ?></a></li>
   </ul>
 </div>
 <br class="clear" />
@@ -73,6 +74,63 @@
   <label for="kronolithTaskAlarmDefaultOn">', '</label>',
   '<input type="radio" name="alarm_change_method" id="kronolithTaskAlarmDefaultOff" value="1" style="display:none" />') ?>
   <?php echo $taskAlarmMethods . $taskAlarmParams ?>
+</div>
+
+<div id="kronolithTaskTabRecur" class="kronolithTabsOption" style="display:none">
+  <div id="kronolithTaskRepeatType" style="display:none">
+    <?php printf(_("%s Don't repeat %s or repeat %s daily, %s weekly, %s monthly %s or %s yearly %s"),
+    '<label for="kronolithTaskLinkNone"><input type="radio" name="recur" value="' . Horde_Date_Recurrence::RECUR_NONE . '" checked="checked" id="kronolithTaskLinkNone" />', '</label>',
+    '<label for="kronolithTaskLinkDaily"><input type="radio" name="recur" value="' . Horde_Date_Recurrence::RECUR_DAILY . '" id="kronolithTaskLinkDaily" />', '</label>
+    <label for="kronolithTaskLinkWeekly"><input type="radio" name="recur" value="' . Horde_Date_Recurrence::RECUR_WEEKLY . '" id="kronolithTaskLinkWeekly" />', '</label>
+    <label for="kronolithTaskLinkMonthly"><input type="radio" name="recur" value="' . Horde_Date_Recurrence::RECUR_MONTHLY_DATE . '" id="kronolithTaskLinkMonthly" />', '</label>',
+    '<label for="kronolithTaskLinkYearly"><input type="radio" name="recur" value="' . Horde_Date_Recurrence::RECUR_YEARLY_DATE . '" id="kronolithTaskLinkYearly" />', '</label><br />') ?>
+  </div>
+  <div id="kronolithTaskRepeatDaily" style="display:none">
+    <?php printf(_("Repeat %s every day %s or %s every %s days %s"),
+    '<label><input type="radio" name="recur_daily" value="1" checked="checked" />', '</label>',
+    '<label><input type="radio" name="recur_daily" value="0" />', '</label>
+    <label><input type="text" size="3" name="recur_daily_interval" value="" class="kronolithEventValue" />', '</label>') ?>
+  </div>
+  <div id="kronolithTaskRepeatWeekly" style="display:none">
+    <?php printf(_("Repeat %s every week %s or %s every %s weeks %s On %s"),
+    '<label><input type="radio" name="recur_weekly" value="1" checked="checked" />', '</label>',
+    '<label><input type="radio" name="recur_weekly" value="0" />', '</label>
+    <label><input type="text" size="3" name="recur_weekly_interval" value="" class="kronolithEventValue" />', '</label><br />',
+    '<label><input type="checkbox" name="weekly[]" value="' . Horde_Date::MASK_MONDAY . '" /> ' . Horde_String::substr(_("Monday"), 0, 3) . '</label>
+    <label><input type="checkbox" name="weekly[]" value="' . Horde_Date::MASK_TUESDAY . '" /> ' . Horde_String::substr(_("Tuesday"), 0, 3) . '</label>
+    <label><input type="checkbox" name="weekly[]" value="' . Horde_Date::MASK_WEDNESDAY . '" /> ' . Horde_String::substr(_("Wednesday"), 0, 3) . '</label>
+    <label><input type="checkbox" name="weekly[]" value="' . Horde_Date::MASK_THURSDAY . '" /> ' . Horde_String::substr(_("Thursday"), 0, 3) . '</label>
+    <label><input type="checkbox" name="weekly[]" value="' . Horde_Date::MASK_FRIDAY . '" /> ' . Horde_String::substr(_("Friday"), 0, 3) . '</label>
+    <label><input type="checkbox" name="weekly[]" value="' . Horde_Date::MASK_SATURDAY . '" /> ' . Horde_String::substr(_("Saturday"), 0, 3) . '</label>
+    <label><input type="checkbox" name="weekly[]" value="' . Horde_Date::MASK_SUNDAY . '" /> ' . Horde_String::substr(_("Sunday"), 0, 3) . '</label>') ?>
+  </div>
+  <div id="kronolithTaskRepeatMonthly" style="display:none">
+    <?php printf(_("Repeat %s every month %s or %s every %s months, %s on the same %s date %s or %s weekday %s"),
+    '<label><input type="radio" name="recur_monthly" value="1" checked="checked" />', '</label>',
+    '<label><input type="radio" name="recur_monthly" value="0" />', '</label>
+    <label><input type="text" size="3" name="recur_monthly_interval" value="" class="kronolithEventValue" />', '</label>',
+    '<label><input type="radio" name="recur_monthly_scheme" value="' . Horde_Date_Recurrence::RECUR_MONTHLY_DATE . '" />', '</label>',
+    '<label><input type="radio" name="recur_monthly_scheme" value="' . Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY . '" />', '</label>') ?>
+  </div>
+  <div id="kronolithTaskRepeatYearly" style="display:none">
+    <?php printf(_("Repeat %s every year %s or %s every %s years %s on the same %s date %s day of the year %s month and weekday %s"),
+    '<label><input type="radio" name="recur_yearly" value="1" checked="checked" />', '</label>',
+    '<label><input type="radio" name="recur_yearly" value="0" />', '</label>
+    <label><input type="text" size="3" name="recur_yearly_interval" value="" class="kronolithEventValue" />', '</label>',
+    '<label><input type="radio" name="recur_yearly_scheme" value="' . Horde_Date_Recurrence::RECUR_YEARLY_DATE . '" />', '</label>
+    <label><input type="radio" name="recur_yearly_scheme" value="' . Horde_Date_Recurrence::RECUR_YEARLY_DAY . '" />', '</label>
+    <label><input type="radio" name="recur_yearly_scheme" value="' . Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY . '" />', '</label>') ?>
+  </div>
+  <div id="kronolithTaskRepeatLength" style="display:none">
+    <?php printf(_("Stop %s never%s, %s at %s or %s after %s recurrences %s"),
+    '<label><input type="radio" name="recur_end_type" value="none" checked="checked" />', '</label>',
+    '<label><input type="radio" name="recur_end_type" value="date" />', '</label>
+    <input type="text" name="recur_end_date" id="kronolithTaskRecurDate" size="10" /> '
+    . Horde::img('picker.png', _("Set end date"), 'id="kronolithTaskRecurPicker" class="kronolithDatePicker"'),
+    '<label><input type="radio" name="recur_end_type" value="count" />', '</label>
+    <label><input type="text" name="recur_count" id="kronolithTaskRecurCount" value="" size="3" class="kronolithEventValue" />', '</label>') ?>
+    <br />
+  </div>
 </div>
 
 <div class="kronolithFormActions">

@@ -190,15 +190,7 @@ if (is_array($next_step)) {
         }
 
         try {
-            $storage->add(
-                $row['name'], $row['desc'], $row['start'],
-                $row['due'], $row['priority'],
-                $row['estimate'], $row['completed'],
-                $row['category'], $row['alarm'], $row['uid'],
-                isset($row['parent']) ? $row['parent'] : '',
-                $row['private'], $GLOBALS['registry']->getAuth(),
-                $row['assignee']
-            );
+            $storage->add($row);
         } catch (Nag_Exception $e) {
             $haveError = true;
             $notification->push(sprintf(_("There was an error importing the data: %s"),
