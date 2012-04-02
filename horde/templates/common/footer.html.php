@@ -5,6 +5,6 @@
   <?php $this->pageOutput->includeScriptFiles(); ?>
   <?php $this->pageOutput->outputInlineScript(); ?>
 <?php endif; ?>
-  <?php echo $this->notifications ?>
+  <?php echo implode("\n", $this->notifications) ?>
  </body>
 </html>
