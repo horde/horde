@@ -69,6 +69,6 @@ $notification->notify(array('listeners' => 'status'));
 $template->set('notify', Horde::endBuffer());
 
 /* Render the page. */
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header();
 echo $template->fetch(VILMA_TEMPLATES . '/virtuals/index.html');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();
