@@ -435,6 +435,17 @@ class Nag_Task
         if ($this->completed) {
             $this->completed_date = null;
             $this->completed = false;
+            if ($this->recurs()) {
+                /* What do we want do delete here? All completions?
+                 * The latest completion? Any completion in the
+                 * future?. */
+                foreach ($this->recurrence->getCompletions() as $completion) {
+                    $this->recurrence->deleteCompletion(
+                        substr($completion, 0, 4),
+                        substr($completion, 4, 2),
+                        substr($completion, 6, 2));
+                }
+            }
             return;
         }
 
@@ -471,7 +482,10 @@ class Nag_Task
      */
     public function getNextDue()
     {
-        if (!$this->due || !$this->recurs()) {
+        if (!$this->due) {
+            return null;
+        }
+        if (!$this->recurs()) {
             return new Horde_Date($this->due);
         }
         return $this->recurrence->nextActiveRecurrence($this->due);
@@ -735,9 +749,8 @@ class Nag_Task
             $json->sd = Horde_String::substr($this->desc, 0, 80);
         }
         $json->cp = (boolean)$this->completed;
-        if ($this->due) {
-            $date = new Horde_Date($this->due);
-            $json->du = $date->toJson();
+        if ($this->due && ($due = $this->getNextDue())) {
+            $json->du = $due->toJson();
         }
         if ($this->start) {
             $date = new Horde_Date($this->start);
@@ -773,6 +786,7 @@ class Nag_Task
             $json->a = (int)$this->alarm;
             $json->m = $this->methods;
             //$json->pv = (boolean)$this->private;
+            $json->r = $this->recurrence->toJson();
 
             try {
                 $share = $GLOBALS['nag_shares']->getShare($this->tasklist);

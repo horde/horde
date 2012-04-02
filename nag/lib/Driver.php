@@ -295,6 +295,29 @@ abstract class Nag_Driver
             $properties['parent'] == $taskId) {
             unset($properties['parent']);
         }
+
+        /* Toggle completion. We cannot simply set the completion flag
+         * because this might be a recurring task, and marking the
+         * task complete might only shift the due date to the next
+         * recurrence. */
+        if (isset($properties['completed']) &&
+            $properties['completed'] != $task->completed) {
+            if (isset($properties['recurrence'])) {
+                if ($task->recurs()) {
+                    $completions = $task->recurrence->completions;
+                    $exceptions = $task->recurrence->exceptions;
+                } else {
+                    $completions = $exceptions = array();
+                }
+                $task->recurrence = $properties['recurrence'];
+                $task->recurrence->completions = $completions;
+                $task->recurrence->exceptions = $exceptions;
+                unset($properties['recurrence']);
+            }
+            $task->toggleComplete();
+            unset($properties['completed']);
+        }
+
         $this->_modify($taskId, array_merge($task->toHash(), $properties));
 
         $new_task = $this->get($task->id);

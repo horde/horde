@@ -896,6 +896,9 @@ class Nag_Api extends Horde_Registry_Api
      *
      * @param string $task_id      The task ID.
      * @param string $tasklist_id  The tasklist that contains the task.
+     *
+     * @return boolean|string  True if the task has been toggled, a due date if
+     *                         there are still incomplete recurrences.
      */
     public function toggleCompletion($task_id, $tasklist_id)
     {
@@ -909,8 +912,17 @@ class Nag_Api extends Horde_Registry_Api
             throw new Nag_Exception($e);
         }
         $task = Nag::getTask($tasklist_id, $task_id);
+        $completed = $task->completed;
         $task->toggleComplete();
         $task->save();
+        $due = $task->getNextDue();
+        if ($task->completed == $completed) {
+            if ($due) {
+                return $due->toJson();
+            }
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -1234,12 +1246,24 @@ class Nag_Api extends Horde_Registry_Api
                 continue;
             }
             $due_date = date('Y-m-d\TH:i:s', $task->due);
+            $recurrence = null;
+            if ($task->recurs()) {
+                $recurrence = array(
+                    'type'        => $task->recurrence->getRecurType(),
+                    'interval'    => $task->recurrence->getRecurInterval(),
+                    'end'         => $task->recurrence->getRecurEnd(),
+                    'count'       => $task->recurrence->getRecurCount(),
+                    'days'        => $task->recurrence->getRecurOnDays(),
+                    'exceptions'  => $task->recurrence->getExceptions(),
+                    'completions' => $task->recurrence->getCompletions());
+            }
             $timeobjects[$task->id] = array(
                 'id' => $task->id,
                 'title' => $task->name,
                 'description' => $task->desc,
                 'start' => $due_date,
                 'end' => $due_date,
+                'recurrence' => $recurrence,
                 'category' => $task->category,
                 'color' => $allowed_tasklists[$task->tasklist]->get('color'),
                 'owner' => $allowed_tasklists[$task->tasklist]->get('owner'),
