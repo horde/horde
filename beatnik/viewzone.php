@@ -16,10 +16,11 @@ try {
     Horde::url('listzones.php')->redirect();
 }
 
-$title = $_SESSION['beatnik']['curdomain']['zonename'];
-$injector->getInstance('Horde_PageOutput')->addScriptFile('stripe.js', 'horde');
+$page_output->addScriptFile('stripe.js', 'horde');
 Beatnik::notifyCommits();
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $_SESSION['beatnik']['curdomain']['zonename']
+));
 require BEATNIK_TEMPLATES . '/menu.inc';
 
 // Get a list of all the fields for all record typess we'll be processing
@@ -50,5 +51,4 @@ foreach ($rectypes as $type => $typedescr) {
 }
 require BEATNIK_TEMPLATES . '/view/footer.inc';
 
-
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

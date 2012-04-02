@@ -43,11 +43,9 @@ if ($form->validate($vars)) {
     }
 }
 
-
-$title = _("Delete");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Delete")
+));
 require BEATNIK_BASE . '/templates/menu.inc';
-
 $form->renderActive(null, null, Horde::url('delete.php'), 'post');
-
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();
