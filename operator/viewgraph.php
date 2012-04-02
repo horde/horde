@@ -89,9 +89,9 @@ if (!empty($stats)) {
 }
 $curgraph = $vars->get('graph');
 
-$title = _("Call Detail Records Graph");
-
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Call Detail Records Graph")
+));
 require OPERATOR_TEMPLATES . '/menu.inc';
 
 $form->renderActive($renderer, $vars, Horde::url('viewgraph.php'), 'post');
@@ -101,7 +101,7 @@ if (!empty($stats) && !empty($graphs[$curgraph])) {
     echo '<img src="' . $graphs[$curgraph] . '"/><br />';
 }
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();
 
 // Don't leave stale stats lying about
 $session->remove('operator', 'stats');
