@@ -68,11 +68,12 @@ if (isset($calendar['color'])) {
 }
 $vars->set('user', $username);
 $vars->set('password', $password);
-$title = $form->getTitle();
 $menu = Horde::menu();
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $form->getTitle()
+));
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
 echo $menu;
 $notification->notify(array('listeners' => 'status'));
 echo $form->renderActive($form->getRenderer(), $vars, Horde::url('calendars/remote_edit.php'), 'post');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

@@ -7,7 +7,7 @@ function toggleTags(domid)
 }
 </script>
 <?php
-$page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+global $page_output;
 $page_output->addScriptFile('quickfinder.js', 'horde');
 $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
 $page_output->addScriptFile('redbox.js', 'horde');

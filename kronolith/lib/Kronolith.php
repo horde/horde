@@ -1028,7 +1028,7 @@ class Kronolith
 
         $params['jsuri'] = $GLOBALS['registry']->get('jsuri', 'horde') . '/map/';
 
-        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        global $page_output;
         $page_output->addScriptFile('map/map.js', 'horde');
         $page_output->addinlineScript(
             'HordeMap.initialize(' . Horde_Serialize::serialize($params, HORDE_SERIALIZE::JSON) . ');'

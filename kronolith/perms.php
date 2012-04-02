@@ -86,11 +86,9 @@ case 'editform':
     break;
 }
 
-if (empty($share)) {
-    $title = _("Edit Permissions");
-} else {
-    $title = sprintf(_("Edit Permissions for %s"), $share->get('name'));
-}
+$title = empty($share)
+    ? _("Edit Permissions")
+    : sprintf(_("Edit Permissions for %s"), $share->get('name'));
 
 if ($auth->hasCapability('list') &&
     ($conf['auth']['list_users'] == 'list' ||
@@ -116,8 +114,10 @@ try {
     Horde::logMessage($e, 'NOTICE');
 }
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
 $notification->notify(array('listeners' => 'status'));
 require KRONOLITH_TEMPLATES . '/perms/perms.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

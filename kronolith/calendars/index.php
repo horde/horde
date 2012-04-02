@@ -72,12 +72,13 @@ $edit_img = Horde::img('edit.png', _("Edit"));
 $perms_img = Horde::img('perms.png', _("Change Permissions"));
 $delete_img = Horde::img('delete.png', _("Delete"));
 
-$injector->getInstance('Horde_PageOutput')->addScriptFile('tables.js', 'horde');
-$title = _("Manage Calendars");
+$page_output->addScriptFile('tables.js', 'horde');
 $menu = Horde::menu();
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Manage Calendars")
+));
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
 echo $menu;
 $notification->notify(array('listeners' => 'status'));
 require KRONOLITH_TEMPLATES . '/calendar_list.php';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

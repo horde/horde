@@ -81,7 +81,7 @@ class Kronolith_Block_Summary extends Horde_Core_Block
      */
     protected function _content()
     {
-        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('tooltips.js', 'horde');
+        $GLOBALS['page_output']->addScriptFile('tooltips.js', 'horde');
 
         $now = new Horde_Date($_SERVER['REQUEST_TIME']);
         $today = date('j');

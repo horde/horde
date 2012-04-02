@@ -264,9 +264,10 @@ $injector->getInstance('Horde_Core_Factory_Imple')->create(array('kronolith', 'C
     'triggerId' => 'newAttendees'
 ));
 
-$title = _("Edit attendees");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Edit attendees")
+));
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
 $notification->notify(array('listeners' => 'status'));
 require KRONOLITH_TEMPLATES . '/attendees/attendees.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

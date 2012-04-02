@@ -227,8 +227,6 @@ if (!$error && $import_format) {
     }
 }
 
-$page_output = $injector->getInstance('Horde_PageOutput');
-
 /* We have a final result set. */
 if (is_array($next_step)) {
     $events = array();
@@ -348,9 +346,10 @@ if ($GLOBALS['registry']->getAuth()) {
 }
 $export_calendars = Kronolith::listCalendars(Horde_Perms::READ, true);
 
-$title = _("Import/Export Calendar");
 $menu = Horde::menu();
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Import/Export Calendar")
+));
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
 echo $menu;
 $notification->notify(array('listeners' => 'status'));
@@ -361,4 +360,4 @@ foreach ($templates[$next_step] as $template) {
 }
 echo '</div>';
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

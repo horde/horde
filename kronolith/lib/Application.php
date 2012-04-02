@@ -49,7 +49,6 @@ class Kronolith_Application extends Horde_Registry_Application
     /**
      * Global variables defined:
      * - $kronolith_shares: TODO
-     * - $linkTags: <link> tags for common-header.inc.
      */
     protected function _init()
     {
@@ -71,9 +70,8 @@ class Kronolith_Application extends Horde_Registry_Application
             !$GLOBALS['prefs']->getValue('dynamic_view') ||
             empty($this->initParams['nodynamicinit'])) {
             Kronolith::initialize();
-            $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
             foreach ($GLOBALS['display_calendars'] as $calendar) {
-                $page_output->addLinkTag(array(
+                $GLOBALS['page_output']->addLinkTag(array(
                     'href' => Kronolith::feedUrl($calendar),
                     'type' => 'application/atom+xml'
                 ));
@@ -108,7 +106,7 @@ class Kronolith_Application extends Horde_Registry_Application
      */
     public function menu($menu)
     {
-        global $browser, $conf, $injector, $notification, $prefs, $registry;
+        global $browser, $conf, $injector, $notification, $page_output, $prefs, $registry;
 
         /* Check here for guest calendars so that we don't get multiple
          * messages after redirects, etc. */
@@ -130,7 +128,6 @@ class Kronolith_Application extends Horde_Registry_Application
                 'click_year' => true,
                 'full_weekdays' => true
             ));
-            $page_output = $injector->getInstance('Horde_PageOutput');
             $page_output->addScriptFile('goto.js');
             $page_output->addInlineJsVars(array(
                 'KronolithGoto.dayurl' => strval(Horde::url('day.php')),

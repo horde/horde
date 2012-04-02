@@ -70,8 +70,9 @@ for ($i = 0; $i < count($sa) - 1; $i += 2) {
 $display = Horde_Util::getFormData('display', 'name');
 
 /* Display the form. */
-$title = _("Address Book");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Address Book")
+));
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
 require KRONOLITH_TEMPLATES . '/contacts/contacts.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

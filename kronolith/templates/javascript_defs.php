@@ -21,7 +21,7 @@ $gettext = array(
     'loading' => _("Loading ..."),
 );
 
-$GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineJsVars(array(
+$GLOBALS['page_output']->addInlineJsVars(array(
     '-var KronolithDate' => 'new Date(' . sprintf('%d, %d, %d', $currentDate->year, $currentDate->month - 1, $currentDate->mday) . ')',
     'var KronolithText' => $gettext,
     'var KronolithVar' => $var,

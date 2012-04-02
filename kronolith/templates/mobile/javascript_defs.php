@@ -169,6 +169,6 @@ $code['text']['recur']['desc'] = array(
 );
 $code['text']['recur']['exception'] = _("Exception");
 
-echo $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineJsVars(array(
+echo $GLOBALS['page_output']->addInlineJsVars(array(
     'var Kronolith' => $code
 ), array('top' => true));

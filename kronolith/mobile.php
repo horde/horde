@@ -68,7 +68,7 @@ $page_output->addInlineScript(
      });'
 );
 
-$page_outpt->header(array(
+$page_output->header(array(
     'title' => $title,
     'view' => $registry::VIEW_SMARTMOBILE
 ));
@@ -79,4 +79,5 @@ echo $view->render('event');
 echo $view->render('month');
 echo $view->render('summary');
 echo $view->render('notice');
-$registry->get('templates', 'horde') . '/common-footer-mobile.inc';
+
+$page_output->footer();

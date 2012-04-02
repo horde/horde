@@ -17,9 +17,9 @@ if (!$GLOBALS['registry']->getAuth()) {
 }
 
 $menu = Horde::menu();
-$title = _("Edit resources");
-
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Edit resources")
+));
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
 echo $menu;
 $notification->notify(array('listeners' => 'status'));

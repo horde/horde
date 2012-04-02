@@ -38,7 +38,7 @@ class Kronolith_Ajax extends Horde_Core_Ajax
 
         $this->_addBaseVars();
 
-        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        global $page_output;
         $page_output->addScriptFile('dragdrop2.js');
         $page_output->addScriptFile('redbox.js', 'horde');
         $page_output->addScriptFile('tooltips.js', 'horde');

@@ -51,11 +51,12 @@ if ($form->validate(new Horde_Variables($_POST))) {
 }
 
 $vars->set('url', $calendar['url']);
-$title = $form->getTitle();
 $menu = Horde::menu();
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $form->getTitle()
+));
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
 echo $menu;
 $notification->notify(array('listeners' => 'status'));
 echo $form->renderActive($form->getRenderer(), $vars, Horde::url('calendars/remote_unsubscribe.php'), 'post');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

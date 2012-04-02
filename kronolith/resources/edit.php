@@ -57,10 +57,11 @@ $vars->set('category', Kronolith::getDriver('Resource')->getGroupMemberships($re
 $vars->set('responsetype', $resource->get('response_type'));
 
 $menu = Horde::menu();
-$title = $form->getTitle();
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $form->getTitle()
+));
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
 echo $menu;
 $notification->notify(array('listeners' => 'status'));
 echo $form->renderActive($form->getRenderer(), $vars, Horde::url('resources/edit.php'), 'post');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

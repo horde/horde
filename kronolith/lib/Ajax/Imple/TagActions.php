@@ -14,7 +14,7 @@ class Kronolith_Ajax_Imple_TagActions extends Horde_Core_Ajax_Imple
      */
     public function attach()
     {
-        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        global $page_output;
 
         $page_output->addScriptFile('tagactions.js');
         $dom_id = $this->_params['triggerId'];

@@ -87,7 +87,7 @@ class Kronolith_Ajax_Imple_Embed extends Horde_Core_Ajax_Imple
 
         /* CSS */
         if (empty($nocss)) {
-            $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+            global $page_output;
             $page_output->addThemeStylesheet('embed.css');
 
             Horde::startBuffer();

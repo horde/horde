@@ -60,11 +60,11 @@ class Kronolith_Block_Prevmonthlist extends Horde_Core_Block
      */
     protected function _content()
     {
-        global $registry, $prefs;
+        global $page_output, $registry, $prefs;
 
         $GLOBALS['from_block'] = true;
 
-        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('tooltips.js', 'horde');
+        $page_output->addScriptFile('tooltips.js', 'horde');
 
         $startDate = new Horde_Date(array('year' => date('Y'), 'month' => date('n') - $this->_params['months'], 'mday' => date('j')));
         $endDate = new Horde_Date(array('year' => date('Y'), 'month' => date('n'), 'mday' => date('j') - 1));

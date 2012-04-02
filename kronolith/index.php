@@ -149,7 +149,6 @@ $injector->getInstance('Kronolith_Ajax')->header();
 
 require KRONOLITH_TEMPLATES . '/index/index.inc';
 
-$page_output = $injector->getInstance('Horde_PageOutput');
 $page_output->includeScriptFiles();
 $page_output->outputInlineScript();
 

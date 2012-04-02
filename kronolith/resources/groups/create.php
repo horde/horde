@@ -31,11 +31,12 @@ if ($form->validate($vars)) {
     Horde::url('resources/groups/', true)->redirect();
 }
 
-$title = $form->getTitle();
 $menu = Horde::menu();
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $form->getTitle()
+));
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
 echo $menu;
 $notification->notify(array('listeners' => 'status'));
 echo $form->renderActive($form->getRenderer(), $vars, Horde::url('resources/groups/create.php'), 'post');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();
