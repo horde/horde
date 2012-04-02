@@ -31,9 +31,11 @@ foreach ($fl->getLog() as $lg) {
 arsort($stats);
 
 $title = sprintf(_("Statistics for %s"), $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($where, 'space2html', array('encode' => true, 'encode_all' => true)));
-$injector->getInstance('Horde_PageOutput')->addScriptFile('tables.js', 'horde');
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->addScriptFile('tables.js', 'horde');
+$page_output->header(array(
+    'title' => $title
+));
 require CHORA_TEMPLATES . '/menu.inc';
 require CHORA_TEMPLATES . '/headerbar.inc';
 require CHORA_TEMPLATES . '/stats/stats.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();
