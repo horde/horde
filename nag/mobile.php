@@ -6,9 +6,6 @@ Horde_Registry::appInit('nag');
 $vars = Horde_Variables::getDefaultVariables();
 $actionID = $vars->actionID;
 
-/* Page variables. */
-$title = _("My Tasks");
-
 /* Get the full, sorted task list. */
 try {
     $tasks = Nag::listTasks(
@@ -21,8 +18,11 @@ try {
     $tasks = new Nag_Task();
 }
 
-$injector->getInstance('Horde_PageOutput')->addScriptFile('mobile.js');
-require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
+$page_output->addScriptFile('mobile.js');
+$page_output->header(array(
+    'title' => _("My Tasks"),
+    'view' => $registry::VIEW_SMARTMOBILE
+));
 
 ?>
 <style type="text/css">
@@ -138,4 +138,4 @@ if ($tasks->hasTasks()) {
 
 </div>
 
-<?php $registry->get('templates', 'horde') . '/common-footer-mobile.inc';
+<?php $page_output->footer();

@@ -8,6 +8,6 @@ $code['conf'] = array(
     'time_format' => $GLOBALS['prefs']->getValue('twentyFour') ? 'HH:mm' : 'hh:mm tt',
 );
 
-$GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineJsVars(array(
+$GLOBALS['page_output']->addInlineJsVars(array(
     'var Nag' => $code
 ), array('top' => true));

@@ -73,7 +73,7 @@ class Nag_Application extends Horde_Registry_Application
      */
     public function menu($menu)
     {
-        global $conf, $injector;
+        global $conf, $injector, $page_output;
 
         $menu->add(Horde::url('list.php'), _("_List Tasks"), 'nag.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
 
@@ -82,7 +82,6 @@ class Nag_Application extends Horde_Registry_Application
              $injector->getInstance('Horde_Core_Perms')->hasAppPermission('max_tasks') > Nag::countTasks())) {
             $menu->add(Horde::url('task.php')->add('actionID', 'add_task'), _("_New Task"), 'add.png', null, null, null, Horde_Util::getFormData('task') ? '__noselection' : null);
             if ($GLOBALS['browser']->hasFeature('dom')) {
-                $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
                 $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
                 $page_output->addScriptFile('redbox.js', 'horde');
                 $menu->add(new Horde_Url(''), _("_Quick Add"), 'add.png', null, null, 'RedBox.showInline(\'quickAddInfoPanel\'); $(\'quickText\').focus(); return false;', Horde_Util::getFormData('task') ? 'quickAdd __noselection' : 'quickAdd');

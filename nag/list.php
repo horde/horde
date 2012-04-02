@@ -91,16 +91,15 @@ default:
     break;
 }
 
-$page_output = $injector->getInstance('Horde_PageOutput');
 $page_output->addScriptFile('tooltips.js', 'horde');
 $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
 $page_output->addScriptFile('quickfinder.js', 'horde');
 
-if ($prefs->getValue('show_panel')) {
-    $bodyClass = 'rightPanel';
-}
+$page_output->header(array(
+    'body_class' => $prefs->getValue('show_panel') ? 'rightPanel' : null,
+    'title' => $title
+));
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Nag::menu();
 Nag::status();
 echo '<div id="page">';
@@ -117,4 +116,4 @@ if (!$prefs->isLocked('show_completed')) {
 
 require NAG_TEMPLATES . '/list.html.php';
 require NAG_TEMPLATES . '/panel.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

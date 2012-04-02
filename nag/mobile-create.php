@@ -31,8 +31,10 @@ $vars->mobile = true;
 $vars->url = Horde::url('mobile.php');
 $form = new Nag_Form_Task($vars, _("New Task"), $mobile = true);
 
-$title = $form->getTitle();
-require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
+$page_output->header(array(
+    'title' => $form->getTitle(),
+    'view' => $registry::VIEW_SMARTMOBILE
+));
 
 ?>
 </head>
@@ -46,4 +48,5 @@ require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
  </div>
 </div>
 <?php
-$registry->get('templates', 'horde') . '/common-footer-mobile.inc';
+
+$page_output->footer();

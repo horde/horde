@@ -232,8 +232,9 @@ if ($GLOBALS['registry']->getAuth()) {
 }
 $export_tasklists = Nag::listTasklists(false, Horde_Perms::READ);
 
-$title = _("Import/Export Tasks");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Import/Export Tasks")
+));
 echo Nag::menu();
 Nag::status();
 
@@ -242,4 +243,4 @@ foreach ($templates[$next_step] as $template) {
     echo '<br />';
 }
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

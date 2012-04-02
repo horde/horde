@@ -126,16 +126,16 @@ if (!file_exists($GLOBALS['registry']->get('jsfs', 'horde') . '/date/' . $datejs
     $datejs = 'en-US.js';
 }
 
-$page_output = $injector->getInstance('Horde_PageOutput');
 $page_output->addScriptFile('date/' . $datejs, 'horde');
 $page_output->addScriptFile('date/date.js', 'horde');
 $page_output->addScriptFile('keynavlist.js', 'horde');
 $page_output->addScriptFile('task.js');
 
-$title = $form->getTitle();
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $form->getTitle()
+));
 require NAG_TEMPLATES . '/javascript_defs.php';
 echo Nag::menu();
 Nag::status();
 $form->renderActive();
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

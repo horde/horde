@@ -38,22 +38,19 @@ if ($search_results->count() == 1) {
 }
 
 $tasks = $search_results;
-$title = sprintf(_("Search: Results for \"%s\""), $search);
 $actionID = null;
 
-$page_output = $injector->getInstance('Horde_PageOutput');
 $page_output->addScriptFile('tooltips.js', 'horde');
 $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
 $page_output->addScriptFile('quickfinder.js', 'horde');
 
-if ($prefs->getValue('show_panel')) {
-    $bodyClass = 'rightPanel';
-}
-
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'body_class' => $prefs->getValue('show_panel') ? 'rightPanel' : null,
+    'title' => sprintf(_("Search: Results for \"%s\""), $search)
+));
 echo Nag::menu();
 Nag::status();
 echo '<div id="page">';
 require NAG_TEMPLATES . '/list.html.php';
 require NAG_TEMPLATES . '/panel.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();
