@@ -81,9 +81,28 @@ abstract class Horde_Rdo_Mapper implements Countable
      */
     protected $_defaultSort;
 
+    /**
+     * The caching factory, if used
+     *
+     * @var Horde_Rdo_Factory
+     */
+    protected $_factory = null;
+
     public function __construct(Horde_Db_Adapter $adapter)
     {
         $this->adapter = $adapter;
+    }
+
+    /**
+     * Attach a Horde_Rdo_Factory to the mapper.
+     * If called without arguments, detaches the mapper from factory
+     * @param Horde_Rdo_Factory            A Factory instance or null
+     * @return Horde_Rdo_Mapper         this mapper
+     */
+    public function attachCache(Horde_Rdo_Factory $factory = null)
+    {
+        $this->_factory = $factory;
+        return $this;
     }
 
     /**
@@ -96,6 +115,8 @@ abstract class Horde_Rdo_Mapper implements Countable
      *
      * adapter: The Horde_Db_Adapter this mapper is using to talk to
      * the database.
+     *
+     * factory: The Horde_Rdo_Factory instance, if present
      *
      * inflector: The Horde_Support_Inflector this Mapper uses to singularize
      * and pluralize PHP class, database table, and database field/key names.
@@ -145,6 +166,7 @@ abstract class Horde_Rdo_Mapper implements Countable
         case 'lazyFields':
         case 'relationships':
         case 'lazyRelationships':
+        case 'factory':
         case 'defaultSort':
             return $this->{'_' . $key};
         }
@@ -213,10 +235,15 @@ abstract class Horde_Rdo_Mapper implements Countable
         if (count($relationships)) {
             foreach ($this->relationships as $relationship => $rel) {
                 if (isset($rel['mapper'])) {
+                    if ($this->_factory) {
+                        $m = $this->_factory->factory($rel['mapper']);
+                    }
                     // @TODO - should be getting this instance from somewhere
                     // else external, and not passing the adapter along
                     // automatically.
-                    $m = new $rel['mapper']($this->adapter);
+                    else {
+                        $m = new $rel['mapper']($this->adapter);
+                    }
                 } else {
                     $m = $this->tableToMapper($relationship);
                     if (is_null($m)) {
