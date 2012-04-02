@@ -17,13 +17,7 @@ class Nag_CompleteTask_Controller extends Horde_Controller_Base
                     $result = array('error' => 'permission denied');
                     $notification->push(sprintf(_("Access denied completing task %s."), $task->name), 'horde.error');
                 } else {
-                    $task->completed = !$task->completed;
-                    if ($task->completed) {
-                        $task->completed_date = time();
-                    } else {
-                        $task->completed_date = null;
-                    }
-
+                    $task->toggleCompleted();
                     $task->save();
                     if ($task->completed) {
                         $result = array('data' => 'complete');

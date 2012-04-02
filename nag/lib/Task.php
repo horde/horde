@@ -75,6 +75,13 @@ class Nag_Task
     public $due;
 
     /**
+     * Recurrence rules for recurring tasks.
+     *
+     * @var Horde_Date_Recurrence
+     */
+    public $recurrence;
+
+    /**
      * The task priority.
      *
      * @var integer
@@ -249,12 +256,26 @@ class Nag_Task
     public function merge(array $task)
     {
         foreach ($task as $key => $val) {
-            if ($key == 'tasklist_id') {
+            switch ($key) {
+            case 'tasklist_id':
                 $key = 'tasklist';
-            } elseif ($key == 'task_id') {
+                break;
+            case 'task_id':
                 $key = 'id';
-            } elseif ($key == 'parent') {
+                break;
+            case 'parent':
                 $key = 'parent_id';
+                break;
+            case 'recurrence':
+                if (empty($task['due'])) {
+                    continue;
+                }
+                if (!is_array($val)) {
+                    break;
+                }
+                $recurrence = new Horde_Date_Recurrence($task['due']);
+                $recurrence->fromHash($val);
+                $val = $recurrence;
             }
             $this->$key = $val;
         }
@@ -402,6 +423,66 @@ class Nag_Task
             $estimate += $task->estimation();
         }
         return $estimate;
+    }
+
+    /**
+     * Returns whether this task is a recurring task.
+     *
+     * @return boolean  True if this is a recurring task.
+     */
+    public function recurs()
+    {
+        return isset($this->recurrence) &&
+            !$this->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_NONE);
+    }
+
+    /**
+     * Toggles completion status of this task. Moves a recurring task
+     * to the next occurence on completion.
+     */
+    public function toggleComplete()
+    {
+        if ($this->completed) {
+            $this->completed_date = null;
+            $this->completed = false;
+            return;
+        }
+
+        if ($this->recurs()) {
+            /* Get current occurrence (task due date) */
+            $current = new Horde_Date($this->due);
+            $this->recurrence->addCompletion($current->year,
+                                             $current->month,
+                                             $current->mday);
+            /* Advance this occurence by a day to indicate that we want the
+             * following occurence (Recurrence uses days as minimal time
+             * duration between occurrences). */
+            $current->mday++;
+            /* Only mark this due date completed if there is another
+             * occurence. */
+            if ($this->recurrence->nextActiveRecurrence($current)) {
+                $this->completed = false;
+                return;
+            }
+        }
+
+        $this->completed_date = time();
+        $this->completed = true;
+    }
+
+    /**
+     * Returns the next due date of this task.
+     *
+     * Takes recurring tasks into account.
+     *
+     * @return Horde_Date  The next due date.
+     */
+    public function getNextDue()
+    {
+        if (!$this->due || !$this->recurs()) {
+            return new Horde_Date($this->due);
+        }
+        return $this->recurrence->nextActiveRecurrence($this->due);
     }
 
     /**
@@ -638,7 +719,8 @@ class Nag_Task
                      'completed_date' => $this->completed_date,
                      'alarm' => $this->alarm,
                      'methods' => $this->methods,
-                     'private' => $this->private);
+                     'private' => $this->private,
+                     'recurrence' => $this->recurs() ? $this->recurrence->toHash() : null);
     }
 
     /**
@@ -670,6 +752,9 @@ class Nag_Task
             $json->s = $date->toJson();
         }
         $json->pr = (int)$this->priority;
+        if ($this->recurs()) {
+            $json->r = $this->recurrence->getRecurType();
+        }
 
         if ($full) {
             // @todo: do we really need all this?

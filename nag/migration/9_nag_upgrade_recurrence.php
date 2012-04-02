@@ -24,6 +24,8 @@ class NagUpgradeRecurrence extends Horde_Db_Migration_Base
         $this->addColumn('nag_tasks', 'task_recurdays', 'integer');
         $this->addColumn('nag_tasks', 'task_recurenddate', 'datetime');
         $this->addColumn('nag_tasks', 'task_recurcount', 'integer');
+        $this->addColumn('nag_tasks', 'task_exceptions', 'text');
+        $this->addColumn('nag_tasks', 'task_completions', 'text');
     }
 
     /**
@@ -36,5 +38,7 @@ class NagUpgradeRecurrence extends Horde_Db_Migration_Base
         $this->removeColumn('nag_tasks', 'task_recurdays');
         $this->removeColumn('nag_tasks', 'task_recurenddate');
         $this->removeColumn('nag_tasks', 'task_recurcount');
+        $this->removeColumn('nag_tasks', 'task_exceptions');
+        $this->removeColumn('nag_tasks', 'task_completions');
     }
 }

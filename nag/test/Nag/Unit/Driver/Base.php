@@ -122,6 +122,29 @@ class Nag_Unit_Driver_Base extends Nag_TestCase
         $this->assertEquals($start, $result->start);
     }
 
+    public function testRecurringTasks()
+    {
+        $due = time() - 1;
+        $recurrence = new Horde_Date_Recurrence($due);
+        $recurrence->setRecurType(Horde_Date_Recurrence::RECUR_DAILY);
+        $id = $this->_add(array('name' => 'TEST',
+                                'desc' => 'Some test task.',
+                                'due' => $due,
+                                'recurrence' => $recurrence));
+        $due = new Horde_Date($due);
+        $result = self::$driver->get($id[0]);
+        $next = $result->getNextDue();
+        $this->assertInstanceOf('Horde_Date', $next);
+        $this->assertEquals($due->timestamp(), $next->timestamp());
+        $result->toggleComplete();
+        $result->save();
+        $result2 = self::$driver->get($id[0]);
+        $due->mday++;
+        $next = $result2->getNextDue();
+        $this->assertInstanceOf('Horde_Date', $next);
+        $this->assertEquals($due->timestamp(), $next->timestamp());
+    }
+
     public function testModify()
     {
         $id = $this->_add(array('name' => 'TEST', 'desc' => 'Some test task.'));

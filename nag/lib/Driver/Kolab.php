@@ -115,6 +115,12 @@ class Nag_Driver_Kolab extends Nag_Driver
             unset($task['due-date']);
         }
 
+        if (isset($task['recurrence']) && isset($task['due'])) {
+            $recurrence = new Horde_Date_Recurrence($task['due']);
+            $recurrence->fromHash($task['recurrence']);
+            $task['recurrence'] = $recurrence;
+        }
+
         if (isset($task['start-date'])) {
             $task['start'] = $task['start-date'];
             unset($task['start-date']);
@@ -176,6 +182,8 @@ class Nag_Driver_Kolab extends Nag_Driver
      *     - private: (OPTIONAL, boolean) Whether the task is private.
      *     - owner: (OPTIONAL, string) The owner of the event.
      *     - assignee: (OPTIONAL, string) The assignee of the event.
+     *     - recurrence: (OPTIONAL, Horde_Date_Recurrence|array) Recurrence
+     *                   information.
      *
      * @return string  The Nag ID of the new task.
      * @throws Nag_Exception
@@ -215,6 +223,8 @@ class Nag_Driver_Kolab extends Nag_Driver
      *     - owner: (OPTIONAL, string) The owner of the event.
      *     - assignee: (OPTIONAL, string) The assignee of the event.
      *     - completed_date: (OPTIONAL, integer) The task's completion date.
+     *     - recurrence: (OPTIONAL, Horde_Date_Recurrence|array) Recurrence
+     *                   information.
      */
     protected function _modify($taskId, array $task)
     {
@@ -249,6 +259,8 @@ class Nag_Driver_Kolab extends Nag_Driver
      *     - owner: (OPTIONAL, string) The owner of the event.
      *     - assignee: (OPTIONAL, string) The assignee of the event.
      *     - completed_date: (OPTIONAL, integer) The task's completion date.
+     *     - recurrence: (OPTIONAL, Horde_Date_Recurrence|array) Recurrence
+     *                   information.
      *
      * @return array The Kolab object.
      */
@@ -268,6 +280,11 @@ class Nag_Driver_Kolab extends Nag_Driver
         }
         if ($task['due'] !== 0) {
             $object['due-date'] = $task['due'];
+        }
+        if ($task['recurrence']) {
+            $object['recurrence'] = is_array($task['recurrence'])
+                ? $task['recurrence']
+                : $task['recurrence']->toHash();
         }
         if ($task['completed']) {
             $object['completed'] = 100;

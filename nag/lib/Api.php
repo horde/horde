@@ -909,14 +909,8 @@ class Nag_Api extends Horde_Registry_Api
             throw new Nag_Exception($e);
         }
         $task = Nag::getTask($tasklist_id, $task_id);
-        $task->completed = !$task->completed;
-        if ($task->completed) {
-            $task->completed_date = time();
-        } else {
-            $task->completed_date = null;
-        }
-
-        return $task->save();
+        $task->toggleComplete();
+        $task->save();
     }
 
     /**

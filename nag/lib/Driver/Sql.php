@@ -115,6 +115,8 @@ class Nag_Driver_Sql extends Nag_Driver
      *     - private: (OPTIONAL, boolean) Whether the task is private.
      *     - owner: (OPTIONAL, string) The owner of the event.
      *     - assignee: (OPTIONAL, string) The assignee of the event.
+     *     - recurrence: (OPTIONAL, Horde_Date_Recurrence|array) Recurrence
+     *                   information.
      *
      * @return string  The Nag ID of the new task.
      * @throws Nag_Exception
@@ -127,9 +129,13 @@ class Nag_Driver_Sql extends Nag_Driver
             'INSERT INTO %s (task_owner, task_creator, task_assignee, '
             . 'task_id, task_name, task_uid, task_desc, task_start, task_due, '
             . 'task_priority, task_estimate, task_completed, task_category, '
-            . 'task_alarm, task_alarm_methods, task_private, task_parent) '
-            . 'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            . 'task_alarm, task_alarm_methods, task_private, task_parent, '
+            . 'task_recurtype, task_recurinterval, task_recurenddate, '
+            . 'task_recurcount, task_recurdays, task_exceptions, '
+            . 'task_completions) '
+            . 'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
             $this->_params['table']);
+
         $values = array($this->_tasklist,
                         $task['owner'],
                         $task['assignee'],
@@ -147,6 +153,8 @@ class Nag_Driver_Sql extends Nag_Driver
                         serialize(Horde_String::convertCharset($task['methods'], 'UTF-8', $this->_params['charset'])),
                         (int)$task['private'],
                         $task['parent']);
+
+        $this->_addRecurrenceFields($values, $task);
 
         try {
             $this->_db->insert($query, $values);
@@ -181,6 +189,8 @@ class Nag_Driver_Sql extends Nag_Driver
      *     - owner: (OPTIONAL, string) The owner of the event.
      *     - assignee: (OPTIONAL, string) The assignee of the event.
      *     - completed_date: (OPTIONAL, integer) The task's completion date.
+     *     - recurrence: (OPTIONAL, Horde_Date_Recurrence|array) Recurrence
+     *                   information.
      *
      * @throws Nag_Exception
      */
@@ -201,9 +211,17 @@ class Nag_Driver_Sql extends Nag_Driver
                          ' task_alarm = ?, ' .
                          ' task_alarm_methods = ?, ' .
                          ' task_parent = ?, ' .
-                         ' task_private = ? ' .
+                         ' task_private = ?, ' .
+                         ' task_recurtype = ?, ' .
+                         ' task_recurinterval = ?, ' .
+                         ' task_recurenddate = ?, ' .
+                         ' task_recurcount = ?, ' .
+                         ' task_recurdays = ?, ' .
+                         ' task_exceptions = ?, ' .
+                         ' task_completions = ? ' .
                          'WHERE task_owner = ? AND task_id = ?',
                          $this->_params['table']);
+
         $values = array($task['owner'],
                         $task['assignee'],
                         Horde_String::convertCharset($task['name'], 'UTF-8', $this->_params['charset']),
@@ -218,9 +236,10 @@ class Nag_Driver_Sql extends Nag_Driver
                         (int)$task['alarm'],
                         serialize(Horde_String::convertCharset($task['methods'], 'UTF-8', $this->_params['charset'])),
                         $task['parent'],
-                        (int)$task['private'],
-                        $this->_tasklist,
-                        $taskId);
+                        (int)$task['private']);
+        $this->_addRecurrenceFields($values, $task);
+        $values[] = $this->_tasklist;
+        $values[] = $taskId;
 
         try {
             $this->_db->update($query, $values);
@@ -229,6 +248,53 @@ class Nag_Driver_Sql extends Nag_Driver
         }
 
         return true;
+    }
+
+    /**
+     * Adds recurrence information to the value hash for SQL
+     * INSERT/UPDATE queries.
+     *
+     * @param array $values  The fields to update.
+     * @param array $task    The task information.
+     */
+    protected function _addRecurrenceFields(&$values, $task)
+    {
+        if (!$task['recurrence']) {
+            $values[] = 0;
+            for ($i = 0; $i < 6; $i++) {
+                $values[] = null;
+            }
+        } else {
+            if (is_array($task['recurrence'])) {
+                $recurrence = new Horde_Date_Recurrence($task['due']);
+                $recurrence->fromHash($task['recurrence']);
+            } else {
+                $recurrence = $task['recurrence'];
+            }
+            $recur = $recurrence->getRecurType();
+            if ($recurrence->hasRecurEnd()) {
+                $recur_end = clone $recurrence->recurEnd;
+                $recur_end->setTimezone('UTC');
+            } else {
+                $recur_end = new Horde_Date(array('year' => 9999, 'month' => 12, 'mday' => 31, 'hour' => 23, 'min' => 59, 'sec' => 59));
+            }
+
+            $values[] = $recur;
+            $values[] = $recurrence->getRecurInterval();
+            $values[] = $recur_end->format('Y-m-d H:i:s');
+            $values[] = $recurrence->getRecurCount();
+
+            switch ($recur) {
+            case Horde_Date_Recurrence::RECUR_WEEKLY:
+                $values[] = $recurrence->getRecurOnDays();
+                break;
+            default:
+                $values[] = null;
+                break;
+            }
+            $values[] = implode(',', $recurrence->getExceptions());
+            $values[] = implode(',', $recurrence->getCompletions());
+        }
     }
 
     /**
@@ -316,7 +382,7 @@ class Nag_Driver_Sql extends Nag_Driver
      *                            tasks).
      * @throws Nag_Exception
      */
-    function retrieve($completed = Nag::VIEW_ALL)
+    public function retrieve($completed = Nag::VIEW_ALL)
     {
         /* Build the SQL query. */
         $query = sprintf('SELECT * FROM %s WHERE task_owner = ?',
@@ -459,6 +525,32 @@ class Nag_Driver_Sql extends Nag_Driver
             } catch (Horde_Db_Exception $e) {}
         }
 
+        if (!$row['task_due'] || !$row['task_recurtype']) {
+            $recurrence = null;
+        } else {
+            $recurrence = new Horde_Date_Recurrence($row['task_due']);
+            $recurrence->setRecurType((int)$row['task_recurtype']);
+            $recurrence->setRecurInterval((int)$row['task_recurinterval']);
+            if (isset($row['task_recurenddate']) &&
+                $row['task_recurenddate'] != '9999-12-31 23:59:59') {
+                $recur_end = new Horde_Date($row['task_recurenddate'], 'UTC');
+                $recur_end->setTimezone(date_default_timezone_get());
+                $recurrence->setRecurEnd($recur_end);
+            }
+            if (isset($row['task_recurcount'])) {
+                $recurrence->setRecurCount((int)$row['task_recurcount']);
+            }
+            if (isset($row['task_recurdays'])) {
+                $recurrence->recurData = (int)$row['task_recurdays'];
+            }
+            if (!empty($row['task_exceptions'])) {
+                $recurrence->exceptions = explode(',', $row['task_exceptions']);
+            }
+            if (!empty($row['task_completions'])) {
+                $recurrence->completions = explode(',', $row['task_completions']);
+            }
+        }
+
         /* Create a new task based on $row's values. */
         return array(
             'tasklist_id' => $row['task_owner'],
@@ -478,7 +570,8 @@ class Nag_Driver_Sql extends Nag_Driver
             'completed_date' => isset($row['task_completed_date']) ? $row['task_completed_date'] : null,
             'alarm' => $row['task_alarm'],
             'methods' => Horde_String::convertCharset(@unserialize($row['task_alarm_methods']), $this->_params['charset'], 'UTF-8'),
-            'private' => $row['task_private']
+            'private' => $row['task_private'],
+            'recurrence' => $recurrence
         );
     }
 
