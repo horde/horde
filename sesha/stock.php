@@ -177,7 +177,9 @@ default:
 
 // Begin page display.
 // require SESHA_TEMPLATES . '/menu.inc';
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 require SESHA_TEMPLATES . '/menu.inc';
 $notification->notify(array('listeners' => 'status'));
 
@@ -186,4 +188,4 @@ if ($active) {
 } else {
     $form->renderInactive($renderer, $vars, Horde::selfUrl(), 'post');
 }
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

@@ -25,8 +25,10 @@ $form = new Sesha_Forms_Search($vars);
 $vars->set('location', array(SESHA_SEARCH_NAME));
 
 // Page display.
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 require SESHA_TEMPLATES . '/menu.inc';
 $notification->notify(array('listeners' => 'status'));
 $form->renderActive($renderer, $vars, Horde::url('list.php'), 'post');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

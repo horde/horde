@@ -68,12 +68,13 @@ try {
 
 }
 // Start page display.
-require $registry->get('templates', 'horde') . '/common-header.inc';
-require SESHA_TEMPLATES . '/menu.inc';
-
-$page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
 $page_output->addScriptFile('prototype.js', 'horde');
 $page_output->addScriptFile('tables.js', 'horde');
+$page_output->header(array(
+    'title' => $title
+));
+require SESHA_TEMPLATES . '/menu.inc';
+
 
 $sortby = $prefs->getValue('sortby');
 $sortdir = $prefs->getValue('sortdir');
@@ -165,4 +166,4 @@ $t->set('stock', $stock, true);
 $t->set('properties', $properties);
 
 echo $t->fetch(SESHA_TEMPLATES . '/list.html');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();
