@@ -157,7 +157,9 @@ case 'main':
     if (count($klutz_driver->listDates($next_month))) {
         $next_month_url = Horde_Util::addParameter($url, 'date', $next_month);
     }
-    require $registry->get('templates', 'horde') . '/common-header.inc';
+    $page_output->header(array(
+        'title' => $title
+    ));
     echo Horde::menu();
     require KLUTZ_TEMPLATES . '/comics/main.inc';
     break;
@@ -173,11 +175,13 @@ case 'day':
         $tomorrow_url = Horde_Util::addParameter($url, 'date', $tomorrow);
     }
 
-    require $registry->get('templates', 'horde') . '/common-header.inc';
+    $page_output->header(array(
+        'title' => $title
+    ));
     echo Horde::menu();
     require KLUTZ_TEMPLATES . '/comics/nav_bar.inc';
     if (!empty($imageApp)) {
-        $injector->getInstance('Horde_PageOutput')->addScriptFile('popup.js', 'horde');
+        $page_output->addScriptFile('popup.js', 'horde');
     }
 
     // Used for tracking dates we've already looked at.
@@ -288,11 +292,13 @@ case 'comic':
         $next_month_url = Horde_Util::addParameter($url, 'date', $next_month);
     }
 
-    require $registry->get('templates', 'horde') . '/common-header.inc';
+    $page_output->header(array(
+        'title' => $title
+    ));
     echo Horde::menu();
     require KLUTZ_TEMPLATES . '/comics/nav_bar.inc';
     if (!empty($imageApp)) {
-        $injector->getInstance('Horde_PageOutput')->addScriptFile('popup.js', 'horde');
+        $page_output->addScriptFile('popup.js', 'horde');
     }
 
     $name = $klutz->getProperty($index, 'name');
@@ -328,4 +334,4 @@ case 'comic':
     break;
 }
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

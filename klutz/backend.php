@@ -124,18 +124,21 @@ if (count($mode) == 0 || in_array('menu', $mode)) {
     $sums_url = Horde::url('backend.php');
     $sums_url = Horde_Util::addParameter($sums_url, 'mode[]', 'sums');
     $sums_url = Horde_Util::addParameter($sums_url, 'mode[]', 'menu');
-    $title = _("Comics Update");
-    require $registry->get('templates', 'horde') . '/common-header.inc';
+
+    $page_output->header(array(
+        'title' => _("Comics Update")
+    ));
     echo Horde::menu();
     require KLUTZ_TEMPLATES . '/backend.html.php';
-    require $registry->get('templates', 'horde') . '/common-footer.inc';
+    $page_output->footer();
     exit;
 }
 
 /* Make it at least look prettier if we are running from web */
 if (!$cli->runningFromCLI() && empty($redirect)) {
-    $title = _("Comics Update");
-    require $registry->get('templates', 'horde') . '/common-header.inc';
+    $page_output->header(array(
+        'title' => _("Comics Update")
+    ));
     echo Horde::menu();
 }
 
@@ -311,5 +314,5 @@ if (!empty($redirect)) {
 }
 
 if (!$cli->runningFromCLI()) {
-    require $registry->get('templates', 'horde') . '/common-footer.inc';
+    $page_output->footer();
 }
