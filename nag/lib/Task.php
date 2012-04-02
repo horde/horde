@@ -75,6 +75,13 @@ class Nag_Task
     public $due;
 
     /**
+     * Recurrence rules for recurring tasks.
+     *
+     * @var Horde_Date_Recurrence
+     */
+    public $recurrence;
+
+    /**
      * The task priority.
      *
      * @var integer
@@ -194,6 +201,13 @@ class Nag_Task
     public $lastChild;
 
     /**
+     * A storage driver.
+     *
+     * @var Nag_Driver
+     */
+    protected $_storage;
+
+    /**
      * Internal flag.
      *
      * @var boolean
@@ -221,10 +235,14 @@ class Nag_Task
      *
      * Takes a hash and returns a nice wrapper around it.
      *
-     * @param array $task  A task hash.
+     * @param Nag_Driver $storage  A storage driver.
+     * @param array $task          A task hash.
      */
-    public function __construct(array $task = null)
+    public function __construct(Nag_Driver $storage = null, array $task = null)
     {
+        if ($storage) {
+            $this->_storage = $storage;
+        }
         if ($task) {
             $this->merge($task);
         }
@@ -238,12 +256,16 @@ class Nag_Task
     public function merge(array $task)
     {
         foreach ($task as $key => $val) {
-            if ($key == 'tasklist_id') {
+            switch ($key) {
+            case 'tasklist_id':
                 $key = 'tasklist';
-            } elseif ($key == 'task_id') {
+                break;
+            case 'task_id':
                 $key = 'id';
-            } elseif ($key == 'parent') {
+                break;
+            case 'parent':
                 $key = 'parent_id';
+                break;
             }
             $this->$key = $val;
         }
@@ -251,26 +273,12 @@ class Nag_Task
 
     /**
      * Saves this task in the storage backend.
+     *
+     * @throws Nag_Exception
      */
     public function save()
     {
-        $storage = Nag_Driver::singleton($this->tasklist);
-        return $storage->modify($this->id,
-                                $this->name,
-                                $this->desc,
-                                $this->start,
-                                $this->due,
-                                $this->priority,
-                                $this->estimate,
-                                $this->completed,
-                                $this->category,
-                                $this->alarm,
-                                $this->methods,
-                                $this->parent_id,
-                                $this->private,
-                                $this->owner,
-                                $this->assignee,
-                                $this->completed_date);
+        $this->_storage->modify($this->id, $this->toHash());
     }
 
     /**
@@ -303,9 +311,8 @@ class Nag_Task
      */
     public function loadChildren()
     {
-        $storage = Nag_Driver::singleton($this->tasklist);
         try {
-            $this->children = $storage->getChildren($this->id);
+            $this->children = $this->_storage->getChildren($this->id);
         } catch (Nag_Exception $e) {}
     }
 
@@ -406,6 +413,82 @@ class Nag_Task
             $estimate += $task->estimation();
         }
         return $estimate;
+    }
+
+    /**
+     * Returns whether this task is a recurring task.
+     *
+     * @return boolean  True if this is a recurring task.
+     */
+    public function recurs()
+    {
+        return isset($this->recurrence) &&
+            !$this->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_NONE);
+    }
+
+    /**
+     * Toggles completion status of this task. Moves a recurring task
+     * to the next occurence on completion.
+     */
+    public function toggleComplete()
+    {
+        if ($this->completed) {
+            $this->completed_date = null;
+            $this->completed = false;
+            if ($this->recurs()) {
+                /* What do we want do delete here? All completions?
+                 * The latest completion? Any completion in the
+                 * future?. */
+                foreach ($this->recurrence->getCompletions() as $completion) {
+                    $this->recurrence->deleteCompletion(
+                        substr($completion, 0, 4),
+                        substr($completion, 4, 2),
+                        substr($completion, 6, 2));
+                }
+            }
+            return;
+        }
+
+        if ($this->recurs()) {
+            /* Get current occurrence (task due date) */
+            $current = $this->recurrence->nextActiveRecurrence(new Horde_Date($this->due));
+            if ($current) {
+                $this->recurrence->addCompletion($current->year,
+                                                 $current->month,
+                                                 $current->mday);
+                /* Advance this occurence by a day to indicate that we
+                 * want the following occurence (Recurrence uses days
+                 * as minimal time duration between occurrences). */
+                $current->mday++;
+                /* Only mark this due date completed if there is another
+                 * occurence. */
+                if ($this->recurrence->nextActiveRecurrence($current)) {
+                    $this->completed = false;
+                    return;
+                }
+            }
+        }
+
+        $this->completed_date = time();
+        $this->completed = true;
+    }
+
+    /**
+     * Returns the next due date of this task.
+     *
+     * Takes recurring tasks into account.
+     *
+     * @return Horde_Date  The next due date.
+     */
+    public function getNextDue()
+    {
+        if (!$this->due) {
+            return null;
+        }
+        if (!$this->recurs()) {
+            return new Horde_Date($this->due);
+        }
+        return $this->recurrence->nextActiveRecurrence($this->due);
     }
 
     /**
@@ -642,7 +725,8 @@ class Nag_Task
                      'completed_date' => $this->completed_date,
                      'alarm' => $this->alarm,
                      'methods' => $this->methods,
-                     'private' => $this->private);
+                     'private' => $this->private,
+                     'recurrence' => $this->recurrence);
     }
 
     /**
@@ -665,15 +749,17 @@ class Nag_Task
             $json->sd = Horde_String::substr($this->desc, 0, 80);
         }
         $json->cp = (boolean)$this->completed;
-        if ($this->due) {
-            $date = new Horde_Date($this->due);
-            $json->du = $date->toJson();
+        if ($this->due && ($due = $this->getNextDue())) {
+            $json->du = $due->toJson();
         }
         if ($this->start) {
             $date = new Horde_Date($this->start);
             $json->s = $date->toJson();
         }
         $json->pr = (int)$this->priority;
+        if ($this->recurs()) {
+            $json->r = $this->recurrence->getRecurType();
+        }
 
         if ($full) {
             // @todo: do we really need all this?
@@ -700,6 +786,7 @@ class Nag_Task
             $json->a = (int)$this->alarm;
             $json->m = $this->methods;
             //$json->pv = (boolean)$this->private;
+            $json->r = $this->recurrence->toJson();
 
             try {
                 $share = $GLOBALS['nag_shares']->getShare($this->tasklist);
@@ -982,8 +1069,7 @@ class Nag_Task
                 if (empty($params[$id]['RELTYPE']) ||
                     Horde_String::upper($params[$id]['RELTYPE']) == 'PARENT') {
 
-                    $storage = Nag_Driver::singleton($this->tasklist);
-                    $parent = $storage->getByUID($relation);
+                    $parent = $this->_storage->getByUID($relation);
                     $this->parent_id = $parent->id;
                     break;
                 }

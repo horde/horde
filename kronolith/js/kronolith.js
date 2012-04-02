@@ -2350,6 +2350,10 @@ KronolithCore = {
             }
             col.insert(new Element('span', { className: 'kronolithSeparator' }).update(' &middot; '));
             col.insert(new Element('span', { className: 'kronolithDate' }).update(task.value.due.toString(Kronolith.conf.date_format)));
+            if (task.value.r) {
+                col.insert(' ')
+                    .insert(new Element('img', { src: Kronolith.conf.images.recur.replace(/fff/, Kronolith.conf.calendars.tasklists['tasks/' + task.value.l].fg.substr(1)), title: Kronolith.text.recur[task.value.r] }));
+            }
         }
 
         if (!Object.isUndefined(task.value.sd)) {
@@ -2408,10 +2412,13 @@ KronolithCore = {
     /**
      * Completes/uncompletes a task.
      *
-     * @param string tasklist  The task list to which the tasks belongs
-     * @param string taskid    The id of the task
+     * @param string tasklist          The task list to which the tasks belongs.
+     * @param string taskid            The id of the task.
+     * @param boolean|string complete  True if the task is completed, a
+     *                                 due date if there are still
+     *                                 incomplete recurrences.
      */
-    toggleCompletion: function(tasklist, taskid)
+    toggleCompletion: function(tasklist, taskid, complete)
     {
         // Update the cache.
         var task = this.tcache.inject(null, function(acc, list) {
@@ -2427,12 +2434,16 @@ KronolithCore = {
             this.toggleCompletionClass(taskid);
             return;
         }
-        task.cp = !task.cp;
+        if (Object.isUndefined(complete) || complete === true) {
+            task.cp = !task.cp;
+        }
 
         if (this.tcache.get(task.cp ? 'complete' : 'incomplete')) {
             this.tcache.get(task.cp ? 'complete' : 'incomplete').get(tasklist).set(taskid, task);
         }
-        this.tcache.get(task.cp ? 'incomplete' : 'complete').get(tasklist).unset(taskid);
+        if (this.tcache.get(task.cp ? 'incomplete' : 'complete')) {
+            this.tcache.get(task.cp ? 'incomplete' : 'complete').get(tasklist).unset(taskid);
+        }
 
         // Remove row if necessary.
         var row = this.getTaskRow(taskid);
@@ -2448,6 +2459,17 @@ KronolithCore = {
                     row.remove();
                 }
             });
+        }
+
+        // Update due date if necessary.
+        if (!Object.isUndefined(complete) && complete !== true) {
+            var now = new Date(), due = Date.parse(complete);
+            row.down('span.kronolithDate')
+                .update(due.toString(Kronolith.conf.date_format));
+            if (now.isBefore(due)) {
+                row.down('td.kronolithTaskCol')
+                    .removeClassName('kronolithTaskDue');
+            }
         }
     },
 
@@ -2526,6 +2548,7 @@ KronolithCore = {
             if (Kronolith.conf.tasks.default_due) {
                 this.setDefaultDue();
             }
+            this.toggleRecurrence(false, 'None');
             $('kronolithTaskDelete').hide();
             this.redBoxLoading = true;
             RedBox.showHtml($('kronolithTaskDialog').show());
@@ -2598,6 +2621,13 @@ KronolithCore = {
             }
         } else {
             $('kronolithTaskAlarmOff').setValue(true);
+        }
+
+        /* Recurrence */
+        if (task.r) {
+            this.setRecurrenceFields(false, task.r);
+        } else {
+            this.toggleRecurrence(false, 'None');
         }
 
         if (!task.pe) {
@@ -4099,7 +4129,15 @@ KronolithCore = {
             case 'kronolithEventLinkMonthly':
             case 'kronolithEventLinkYearly':
             case 'kronolithEventLinkLength':
-                this.toggleRecurrence(id.substring(18));
+            case 'kronolithTaskLinkNone':
+            case 'kronolithTaskLinkDaily':
+            case 'kronolithTaskLinkWeekly':
+            case 'kronolithTaskLinkMonthly':
+            case 'kronolithTaskLinkYearly':
+            case 'kronolithTaskLinkLength':
+                this.toggleRecurrence(
+                    id.startsWith('kronolithEvent'),
+                    id.substring(id.startsWith('kronolithEvent') ? 18 : 17));
                 break;
 
             case 'kronolithEventRepeatDaily':
@@ -4107,7 +4145,14 @@ KronolithCore = {
             case 'kronolithEventRepeatMonthly':
             case 'kronolithEventRepeatYearly':
             case 'kronolithEventRepeatLength':
-                this.toggleRecurrence(id.substring(20));
+            case 'kronolithTaskRepeatDaily':
+            case 'kronolithTaskRepeatWeekly':
+            case 'kronolithTaskRepeatMonthly':
+            case 'kronolithTaskRepeatYearly':
+            case 'kronolithTaskRepeatLength':
+                this.toggleRecurrence(
+                    id.startsWith('kronolithEvent'),
+                    id.substring(id.startsWith('kronolithEvent') ? 20 : 19));
                 break;
 
             case 'kronolithEventSave':
@@ -4669,7 +4714,10 @@ KronolithCore = {
                 }, {
                     callback: function(r) {
                         if (r.toggled) {
-                            this.toggleCompletion(tasklist, taskid);
+                            this.toggleCompletion(tasklist, taskid, r.toggled);
+                            if (r.toggled !== true) {
+                                this.toggleCompletionClass(taskid);
+                            }
                         } else {
                             this.toggleCompletionClass(taskid);
                         }
@@ -5206,7 +5254,7 @@ KronolithCore = {
             $('kronolithEventEndTime').setValue(d.toString(Kronolith.conf.time_format));
             $('kronolithEventLinkExport').up('span').hide();
             $('kronolithEventSaveAsNew').hide();
-            this.toggleRecurrence('None');
+            this.toggleRecurrence(true, 'None');
             $('kronolithEventEditRecur').hide();
             this.enableAlarm('Event', Kronolith.conf.default_alarm);
             // Need to clear any existing handler for new events, as they are
@@ -5450,37 +5498,7 @@ KronolithCore = {
 
         /* Recurrence */
         if (ev.r) {
-            var scheme = Kronolith.conf.recur[ev.r.t],
-                schemeLower = scheme.toLowerCase(),
-                div = $('kronolithEventRepeat' + scheme);
-            $('kronolithEventLink' + scheme).setValue(true);
-            if (scheme == 'Monthly' || scheme == 'Yearly') {
-                div.down('input[name=recur_' + schemeLower + '_scheme][value=' + ev.r.t + ']').setValue(true);
-            }
-            if (scheme == 'Weekly') {
-                div.select('input[type=checkbox]').each(function(input) {
-                    if (input.name == 'weekly[]' &&
-                        input.value & ev.r.d) {
-                        input.setValue(true);
-                    }
-                });
-            }
-            if (ev.r.i == 1) {
-                div.down('input[name=recur_' + schemeLower + '][value=1]').setValue(true);
-            } else {
-                div.down('input[name=recur_' + schemeLower + '][value=0]').setValue(true);
-                div.down('input[name=recur_' + schemeLower + '_interval]').setValue(ev.r.i);
-            }
-            if (!Object.isUndefined(ev.r.e)) {
-                $('kronolithEventRepeatLength').down('input[name=recur_end_type][value=date]').setValue(true);
-                $('kronolithEventRecurDate').setValue(Date.parse(ev.r.e).toString(Kronolith.conf.date_format));
-            } else if (!Object.isUndefined(ev.r.c)) {
-                $('kronolithEventRepeatLength').down('input[name=recur_end_type][value=count]').setValue(true);
-                $('kronolithEventRecurCount').setValue(ev.r.c);
-            } else {
-                $('kronolithEventRepeatLength').down('input[name=recur_end_type][value=none]').setValue(true);
-            }
-            this.toggleRecurrence(scheme);
+            this.setRecurrenceFields(true, ev.r);
             $('kronolithRecurDelete').show();
             $('kronolithNoRecurDelete').hide();
             $('kronolithEventEditRecur').show();
@@ -5490,12 +5508,12 @@ KronolithCore = {
             $('kronolithEventEditRecur').hide();
             var div = $('kronolithEventRepeatException');
             div.down('span').update(ev.eod);
-            this.toggleRecurrence('Exception');
+            this.toggleRecurrence(true, 'Exception');
         } else {
             $('kronolithRecurDelete').hide();
             $('kronolithNoRecurDelete').show();
             $('kronolithEventEditRecur').hide();
-            this.toggleRecurrence('None');
+            this.toggleRecurrence(true, 'None');
         }
 
         /* Attendees */
@@ -5870,27 +5888,29 @@ KronolithCore = {
     },
 
     /**
-     * Toggles the recurrence fields of the event edit form.
+     * Toggles the recurrence fields of the event and task edit forms.
      *
-     * @param string recur  The recurrence part of the field name, i.e. 'None',
-     *                      'Daily', etc.
+     * @param boolean event  Whether to use the event form.
+     * @param string recur   The recurrence part of the field name, i.e. 'None',
+     *                       'Daily', etc.
      */
-    toggleRecurrence: function(recur)
+    toggleRecurrence: function(event, recur)
     {
+        var prefix = 'kronolith' + (event ? 'Event' : 'Task');
         if (recur == 'Exception') {
-            if (!$('kronolithEventRepeatException').visible()) {
-                $('kronolithEventTabRecur').select('div').invoke('hide');
-                $('kronolithEventRepeatException').show();
+            if (!$(prefix + 'RepeatException').visible()) {
+                $(prefix + 'TabRecur').select('div').invoke('hide');
+                $(prefix + 'RepeatException').show();
             }
         } else if (recur != 'None') {
-            var div = $('kronolithEventRepeat' + recur),
-                length = $('kronolithEventRepeatLength');
+            var div = $(prefix + 'Repeat' + recur),
+                length = $(prefix + 'RepeatLength');
             this.lastRecurType = recur;
             if (!div.visible()) {
-                $('kronolithEventTabRecur').select('div').invoke('hide');
+                $(prefix + 'TabRecur').select('div').invoke('hide');
                 div.show();
                 length.show();
-                $('kronolithEventRepeatType').show();
+                $(prefix + 'RepeatType').show();
             }
             switch (recur) {
             case 'Daily':
@@ -5907,21 +5927,63 @@ KronolithCore = {
             }
 
             if (length.down('input[name=recur_end_type][value=date]').checked) {
-                $('kronolithEventRecurDate').enable();
-                $('kronolithEventRecurPicker').setStyle({ visibility: 'visible' });
+                $(prefix + 'RecurDate').enable();
+                $(prefix + 'RecurPicker').setStyle({ visibility: 'visible' });
             } else {
-                $('kronolithEventRecurDate').disable();
-                $('kronolithEventRecurPicker').setStyle({ visibility: 'hidden' });
+                $(prefix + 'RecurDate').disable();
+                $(prefix + 'RecurPicker').setStyle({ visibility: 'hidden' });
             }
             if (length.down('input[name=recur_end_type][value=count]').checked) {
-                $('kronolithEventRecurCount').enable();
+                $(prefix + 'RecurCount').enable();
             } else {
-                $('kronolithEventRecurCount').disable();
+                $(prefix + 'RecurCount').disable();
             }
         } else {
-            $('kronolithEventTabRecur').select('div').invoke('hide');
-            $('kronolithEventRepeatType').show();
+            $(prefix + 'TabRecur').select('div').invoke('hide');
+            $(prefix + 'RepeatType').show();
         }
+    },
+
+    /**
+     * Fills the recurrence fields of the event and task edit forms.
+     *
+     * @param boolean event  Whether to use the event form.
+     * @param object recur   The recurrence object from the ajax response.
+     */
+    setRecurrenceFields: function(event, recur)
+    {
+        var scheme = Kronolith.conf.recur[recur.t],
+            schemeLower = scheme.toLowerCase(),
+            prefix = 'kronolith' + (event ? 'Event' : 'Task'),
+            div = $(prefix + 'Repeat' + scheme);
+        $(prefix + 'Link' + scheme).setValue(true);
+        if (scheme == 'Monthly' || scheme == 'Yearly') {
+            div.down('input[name=recur_' + schemeLower + '_scheme][value=' + recur.t + ']').setValue(true);
+        }
+        if (scheme == 'Weekly') {
+            div.select('input[type=checkbox]').each(function(input) {
+                if (input.name == 'weekly[]' &&
+                    input.value & recur.d) {
+                    input.setValue(true);
+                }
+            });
+        }
+        if (recur.i == 1) {
+            div.down('input[name=recur_' + schemeLower + '][value=1]').setValue(true);
+        } else {
+            div.down('input[name=recur_' + schemeLower + '][value=0]').setValue(true);
+            div.down('input[name=recur_' + schemeLower + '_interval]').setValue(recur.i);
+        }
+        if (!Object.isUndefined(recur.e)) {
+            $(prefix + 'RepeatLength').down('input[name=recur_end_type][value=date]').setValue(true);
+            $(prefix + 'RecurDate').setValue(Date.parse(recur.e).toString(Kronolith.conf.date_format));
+        } else if (!Object.isUndefined(recur.c)) {
+            $(prefix + 'RepeatLength').down('input[name=recur_end_type][value=count]').setValue(true);
+            $(prefix + 'RecurCount').setValue(recur.c);
+        } else {
+            $(prefix + 'RepeatLength').down('input[name=recur_end_type][value=none]').setValue(true);
+        }
+        this.toggleRecurrence(event, scheme);
     },
 
     /**

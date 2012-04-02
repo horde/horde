@@ -556,6 +556,10 @@ class Kronolith
                 if ($loopDate->compareDate($eventEnd) != 0) {
                     $addEvent->last = false;
                 }
+                if ($addEvent->recurs() &&
+                    $addEvent->recurrence->hasCompletion($loopDate->year, $loopDate->month, $loopDate->mday)) {
+                    $addEvent->status = Kronolith::STATUS_CANCELLED;
+                }
                 $results[$loopDate->dateString()][$addEvent->id] = $json ? $addEvent->toJson($allDay) : $addEvent;
             }
             $loopDate->mday++;

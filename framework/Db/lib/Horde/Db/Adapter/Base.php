@@ -777,7 +777,7 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
         $paramCount = substr_count($sql, '?');
         if (count($args) != $paramCount) {
             $this->_logError('Parameter count mismatch: ' . $sql, 'Horde_Db_Adapter_Base::_replaceParameters');
-            throw new Horde_Db_Exception('Parameter count mismatch');
+            throw new Horde_Db_Exception(sprintf('Parameter count mismatch, expecting %d, got %d', $paramCount, count($args)));
         }
 
         $sqlPieces = explode('?', $sql);
