@@ -30,7 +30,7 @@ $baseUrl = $registry->get('webroot', 'sesha');
 // Determine action.
 switch ($actionId) {
 case 'add_stock':
-    $url = $baseUrl . '/stock.php';
+    $url = new Horde_Url($baseUrl . '/stock.php');
     $vars = Horde_Variables::getDefaultVariables();
     $vars->set('actionId', $actionId);
     $vars->set('stock_id', $stock_id);
@@ -63,9 +63,8 @@ case 'add_stock':
         $sesha_driver->updatePropertiesForStock($stock_id,
                                             $vars->get('property'));
 
-        $url = Horde_Util::addParameter($url, array('actionId' => 'view_stock',
-                                              'stock_id' => $stock_id),
-                                  null, false);
+        $url->add(array('actionId' => 'view_stock',
+                        'stock_id' => $stock_id));
         header('Location: ' . $url);
         exit;
     }
