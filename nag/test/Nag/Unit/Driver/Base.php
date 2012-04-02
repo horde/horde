@@ -150,6 +150,11 @@ class Nag_Unit_Driver_Base extends Nag_TestCase
         $next = $result3->getNextDue();
         $this->assertInstanceOf('Horde_Date', $next);
         $this->assertEquals($due->timestamp(), $next->timestamp());
+        $this->assertFalse($result3->recurrence->hasCompletion($due->year, $due->month, $due->mday));
+        $due->mday--;
+        $this->assertTrue($result3->recurrence->hasCompletion($due->year, $due->month, $due->mday));
+        $due->mday--;
+        $this->assertTrue($result3->recurrence->hasCompletion($due->year, $due->month, $due->mday));
     }
 
     public function testModify()
