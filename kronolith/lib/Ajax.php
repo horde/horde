@@ -58,7 +58,7 @@ class Kronolith_Ajax extends Horde_Core_Ajax
         ), array('top' => true));
 
         parent::header(array(
-            'bodyid' => 'kronolithAjax'
+            'body_id' => 'kronolithAjax'
         ));
     }
 

@@ -36,8 +36,6 @@ class IMP_Ajax extends Horde_Core_Ajax
     {
         global $injector, $page_output, $prefs;
 
-        $inlinescript = false;
-
         $this->init(array(
             'growler_log' => ($page == 'main')
         ));
@@ -114,21 +112,17 @@ class IMP_Ajax extends Horde_Core_Ajax
                 $this->_addComposeVars();
             }
             break;
-
-        default:
-            $inlinescript = true;
-            break;
         }
 
         $page_output->addInlineJsVars(array(
             'var DIMP' => $this->_jsvars
         ), array('top' => true));
+        $page_output->deferScripts = true;
 
         parent::header(array(
-            'css' => array(
+            'stylesheet_opts' => array(
                 'sub' => 'dimp'
             ),
-            'inlinescript' => $inlinescript,
             'title' => $title
         ));
     }

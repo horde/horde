@@ -373,8 +373,14 @@ class Ansel_View_Image extends Ansel_View_Ansel
         /* Output the js if we are calling via the api */
         if (!empty($this->_params['api'])) {
             $includes = $GLOBALS['injector']->createInstance('Horde_Script_Files');
-            $includes->add('scriptaculous/effects.js', 'horde',true, true);
-            $includes->add('stripe.js', 'horde', true, true);
+            $includes->add('scriptaculous/effects.js', array(
+                'app' => 'horde',
+                'full' => true
+            ));
+            $includes->add('stripe.js', array(
+                'app' => 'horde',
+                'full' => true
+            ));
             $includes->includeFiles();
         }
 

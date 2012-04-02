@@ -117,31 +117,13 @@ class Horde_Core_Ajax
      * Initialize the JS browser environment and output everything up to, and
      * including, the <body> tag.
      *
-     * @param array $opts  Configuration options:
-     *   - bodyid: (string) An ID to use for the BODY tag.
-     *   - css: (array) Arguments to pass to Horde::includeStylesheetFiles().
-     *   - inlinescript: (boolean) Output inline scripts?
-     *   - title: (string) The title of the page.
+     * @param array $opts  Arguments to pass to Horde_PageOutput#header().
      */
     public function header(array $opts = array())
     {
         $this->init();
 
-        $header_opts = array(
-            'outputJs' => !empty($opts['inlinescript'])
-        );
-
-        if (isset($opts['bodyid'])) {
-            $header_opts['body_id'] = $opts['bodyid'];
-        }
-        if (isset($opts['css'])) {
-            $header_opts['stylesheet_opts'] = $opts['css'];
-        }
-        if (isset($opts['title'])) {
-            $header_opts['title'] = $opts['title'];
-        }
-
-        $GLOBALS['page_output']->header($header_opts);
+        $GLOBALS['page_output']->header($opts);
 
         // Send what we have currently output so the browser can start
         // loading CSS/JS. See:

@@ -23,6 +23,13 @@ class Horde_PageOutput
     public $css;
 
     /**
+     * Defer loading of scripts until end of page?
+     *
+     * @var boolean
+     */
+    public $deferScripts = false;
+
+    /**
      * Script files object.
      *
      * @var Horde_Script_Files
@@ -89,7 +96,11 @@ class Horde_PageOutput
     public function addScriptFile($file, $app = null, array $opts = array())
     {
         if (empty($opts['external'])) {
-            $this->hsf->add($file, $app, !empty($opts['full']));
+            $this->hsf->add($file, array(
+                'app' => $app,
+                'full' => !empty($opts['full']),
+                'no_output' => $this->deferScripts
+            ));
         } else {
             $this->hsf->addExternal($file, $app);
         }
@@ -273,7 +284,7 @@ class Horde_PageOutput
 
         // If headers have already been sent, we need to output a
         // <script> tag directly.
-        if (Horde::contentSent()) {
+        if (!$this->deferScripts && Horde::contentSent()) {
             $this->outputInlineScript();
         }
     }
@@ -506,7 +517,6 @@ class Horde_PageOutput
      *   - body_class: (string)
      *   - body_id: (string)
      *   - html_id: (string)
-     *   - nojs: (boolean)
      *   - stylesheet_opts: (array)
      *   - title: (string)
      *   - view: (integer)
@@ -520,7 +530,7 @@ class Horde_PageOutput
         ));
 
         $view->minimalView = false;
-        $view->outputJs = empty($opts['nojs']);
+        $view->outputJs = !$this->deferScripts;
         $view->stylesheetOpts = isset($opts['stylesheet_opts'])
             ? $opts['stylesheet_opts']
             : array();
@@ -608,6 +618,8 @@ class Horde_PageOutput
         $view->notifications = $browser->isMobile()
             ? ''
             : $notification->notify(array('listeners' => array('audio')));
+        $view->outputJs = $this->deferScripts;
+        $view->pageOutput = $this;
         $view->sidebarLoaded = $this->sidebarLoaded;
 
         echo $view->render('footer.html.php');

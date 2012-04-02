@@ -49,21 +49,29 @@ class Horde_Script_Files
      * Adds the javascript code to the output (if output has already started)
      * or to the list of script files to include.
      *
-     * @param string $file   The full javascript file name.
-     * @param string $app    The application name. Defaults to the current
-     *                       application.
-     * @param boolean $full  Output a full url?
+     * @param string $file  The full javascript file name.
+     * @param array $opts   Additional options:
+     *   - app: (string) The application name.
+     *          DEFAULT: Currently pushed application
+     *   - full: (boolean) Output a full URL?
+     *           DEFAULT: false
+     *   - no_output: (boolean) Don't output scripts if content has already
+     *                been sent?
+     *                DEFAULT: false
      */
-    public function add($file, $app = null, $full = false)
+    public function add($file, array $opts = array())
     {
         if ($file == 'prototype.js') {
             $this->prototype = true;
             return;
         }
-        if ($full && !$this->_full) {
+
+        if (!empty($opts['full'])) {
             $this->_full = true;
         }
-        if (($this->_add($file, $app, $full) === false) ||
+
+        if (($this->_add($file, isset($opts['app']) ? $opts['app'] : null) === false) ||
+            !empty($opts['no_output']) ||
             !Horde::contentSent()) {
             return;
         }
@@ -106,7 +114,7 @@ class Horde_Script_Files
      *
      * @return boolean  True if the file needs to be output.
      */
-    public function _add($file, $app, $full)
+    public function _add($file, $app)
     {
         global $registry;
 
@@ -121,10 +129,10 @@ class Horde_Script_Files
         $this->_included[$app][$file] = true;
 
         if ($file[0] == '/') {
-            $url = Horde::url($registry->get('webroot', $app) . $file, $full, -1);
+            $url = Horde::url($registry->get('webroot', $app) . $file, $this->_full, -1);
             $path = $registry->get('fileroot', $app);
         } else {
-            $url = Horde::url($registry->get('jsuri', $app) . '/' . $file, $full, -1);
+            $url = Horde::url($registry->get('jsuri', $app) . '/' . $file, $this->_full, -1);
             $path = $registry->get('jsfs', $app) . '/';
         }
 
@@ -178,13 +186,13 @@ class Horde_Script_Files
             if (!isset($this->_included['horde']['prototype.js'])) {
                 $old = $this->_files['horde'];
                 $this->_files['horde'] = array();
-                $this->_add('prototype.js', 'horde', $this->_full);
+                $this->_add('prototype.js', 'horde');
                 $this->_files['horde'] = array_merge($this->_files['horde'], $old);
             }
 
             /* Add accesskeys.js if access keys are enabled. */
             if ($GLOBALS['prefs']->getValue('widget_accesskey')) {
-                $this->_add('accesskeys.js', 'horde', false);
+                $this->_add('accesskeys.js', 'horde');
             }
         } elseif (empty($this->_files['horde'])) {
             /* Remove horde entry if nothing in it (was added on creation to

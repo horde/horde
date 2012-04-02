@@ -59,7 +59,7 @@ class Hermes_Ajax extends Horde_Core_Ajax
         ), array('top' => true));
 
         parent::header(array(
-            'bodyid' => 'hermesAjax'
+            'body_id' => 'hermesAjax'
         ));
     }
 

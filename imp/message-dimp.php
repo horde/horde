@@ -183,12 +183,8 @@ $t->set('status', Horde::endBuffer());
 $injector->getInstance('IMP_Ajax')->header('message', $show_msg_result['title']);
 
 Horde::startBuffer();
-$page_output->includeScriptFiles();
-$page_output->outputInlineScript();
-$t->set('script', Horde::endBuffer());
-
-Horde::startBuffer();
 require IMP_TEMPLATES . '/dimp/common.inc';
 $t->set('common', Horde::endBuffer());
 
 echo $t->fetch(IMP_TEMPLATES . '/dimp/message/message.html');
+$page_output->footer();

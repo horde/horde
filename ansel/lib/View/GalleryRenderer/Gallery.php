@@ -102,7 +102,10 @@ class Ansel_View_GalleryRenderer_Gallery extends Ansel_View_GalleryRenderer_Base
         Horde::startBuffer();
         if (!empty($this->view->api)) {
             $includes = $GLOBALS['injector']->createInstance('Horde_Script_Files');
-            $includes->add('prototype.js', 'horde', true, true);
+            $includes->add('prototype.js', array(
+                'app' => 'horde',
+                'full' => true
+            ));
             $includes->includeFiles();
         }
 

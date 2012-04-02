@@ -313,9 +313,5 @@ $t->set('status', Horde::endBuffer());
 
 $injector->getInstance('IMP_Ajax')->header('compose', $title);
 
-Horde::startBuffer();
-$page_output->includeScriptFiles();
-$page_output->outputInlineScript();
-$t->set('script', Horde::endBuffer());
-
 echo $t->fetch(IMP_TEMPLATES . '/dimp/compose/compose-base.html');
+$page_output->footer();
