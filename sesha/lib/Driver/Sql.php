@@ -37,13 +37,6 @@ class Sesha_Driver_Sql extends Sesha_Driver
     protected $_db;
 
     /**
-     * Flag for the SQL server connection.
-     * @var boolean
-     * @access private
-     */
-    protected $_connected;
-
-    /**
      * This is the basic constructor for the sql driver.
      *
      * @param array $params  Hash containing the connection parameters.
