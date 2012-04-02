@@ -16,16 +16,11 @@ require_once SHOUT_BASE . '/lib/Forms/AccountForm.php';
 
 $RENDERER = new Horde_Form_Renderer();
 
-$title = _("Accounts: ");
-
-$injector->getInstance('Horde_PageOutput')->addScriptFile('stripe.js', 'horde');
-
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->addScriptFile('stripe.js', 'horde');
+$page_output->header(array(
+    'title' => _("Accounts: ")
+));
 require SHOUT_TEMPLATES . '/menu.inc';
-
 $notification->notify();
-
 Shout::getAdminTabs();
-
-require $registry->get('templates', 'horde') . '/common-footer.inc';
-
+$page_output->footer();

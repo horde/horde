@@ -97,9 +97,10 @@ try {
     $extensions = array();
 }
 
-$injector->getInstance('Horde_PageOutput')->addScriptFile('stripe.js', 'horde');
-
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->addScriptFile('stripe.js', 'horde');
+$page_output->header(array(
+    'title' => $title
+));
 require SHOUT_TEMPLATES . '/menu.inc';
 
 $notification->notify();
@@ -107,5 +108,4 @@ $notification->notify();
 Shout::getAdminTabs();
 
 require SHOUT_TEMPLATES . '/admin/accounts/' . $action . '.inc';
-
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

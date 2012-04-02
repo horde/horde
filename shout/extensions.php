@@ -27,15 +27,13 @@ try {
     $extensions = array();
 }
 
-$page_output = $injector->getInstance('Horde_PageOutput');
 $page_output->addScriptFile('stripe.js', 'horde');
 $page_output->addScriptFile('scriptaculous.js', 'horde');
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 require SHOUT_TEMPLATES . '/menu.inc';
-
 $notification->notify();
-
 require SHOUT_TEMPLATES . '/extensions.inc.php';
-
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();
