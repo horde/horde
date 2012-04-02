@@ -19,7 +19,6 @@
  * @category Horde
  * @package Rdo
  */
-
 class Horde_Rdo_Factory
 {
 
@@ -33,21 +32,38 @@ class Horde_Rdo_Factory
      * The database connection to pass to the Horde_Rdo_Mapper classes
      * @var Horde_Db_Adapter
      */
-
     protected $_adapter;
 
-
+    /**
+     * Constructor.
+     *
+     * @param Horde_Db_Adapter $adapter  A database adapter.
+     * @return Horde_Rdo_Factory  The Horde_Rdo_Factory
+     */
     public function __construct(Horde_Db_Adapter $adapter)
     {
         $this->_adapter = $adapter;
     }
 
-
+    /**
+     * Counts the number of cached mappers.
+     *
+     * @return integer  The number of cached mappers.
+     */
     public function count()
     {
         return count($this->_mappers);
     }
 
+    /**
+     * Return the mapper instance.
+     *
+     * @param string $class              The mapper class.
+     * @param Horde_Db_Adapter $adapter  A database adapter.
+     *
+     * @return Horde_Rdo_Mapper  The Horde_Rdo_Mapper descendant instance.
+     * @throws Horde_Rdo_Exception
+     */
     public function create($class, Horde_Db_Adapter $adapter = null)
     {
         if (!empty($this->_mappers[$class])) {
