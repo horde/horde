@@ -45,9 +45,10 @@ case 'show_active':
     break;
 }
 
-$title = _("Filter Script Display");
 $menu = Ingo::menu();
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Filter Script Display")
+));
 echo $menu;
 Ingo::status();
 require INGO_TEMPLATES . '/script/header.inc';
@@ -66,4 +67,4 @@ if (!empty($script)) {
 }
 
 require INGO_TEMPLATES . '/script/footer.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

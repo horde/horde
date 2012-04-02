@@ -49,7 +49,7 @@ class Ingo
     static public function flistSelect($value = null, $form = null,
                                        $tagname = 'actionvalue')
     {
-        global $conf, $registry;
+        global $conf, $page_output, $registry;
 
         if ($registry->hasMethod('mail/mailboxList')) {
             try {
@@ -73,7 +73,6 @@ class Ingo
                     );
                 }
 
-                $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
                 $page_output->addScriptFile('new_folder.js');
                 $page_output->addInlineJsVars(array(
                     'IngoNewFolder.folderprompt' => _("Please enter the name of the new folder:")

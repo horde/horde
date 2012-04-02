@@ -81,10 +81,11 @@ if (!empty($fwd_rule['disable'])) {
 $form_title .= ' ' . Horde_Help::link('ingo', 'forward');
 $form->setTitle($form_title);
 
-$title = _("Forwards Edit");
 $menu = Ingo::menu();
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Forwards Edit")
+));
 echo $menu;
 Ingo::status();
 $form->renderActive(new Horde_Form_Renderer(array('encode_title' => false)), $vars, Horde::url('forward.php'), 'post');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

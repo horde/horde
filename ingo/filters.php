@@ -132,12 +132,13 @@ case 'apply_filters':
 /* Get the list of rules now. */
 $filter_list = $filters->getFilterList();
 
-$page_output = $injector->getInstance('Horde_PageOutput');
 $page_output->addScriptFile('stripe.js', 'horde');
 $page_output->addScriptFile('filters.js');
 $menu = Ingo::menu();
-$title = _("Filter Rules");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+
+$page_output->header(array(
+    'title' => _("Filter Rules")
+));
 echo $menu;
 Ingo::status();
 require INGO_TEMPLATES . '/filters/header.inc';
@@ -328,4 +329,4 @@ if ($on_demand && $edit_allowed) {
     require INGO_TEMPLATES . '/filters/settings.inc';
 }
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();
