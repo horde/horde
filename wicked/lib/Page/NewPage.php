@@ -86,7 +86,7 @@ class Wicked_Page_NewPage extends Wicked_Page {
             $page_text = '';
         }
 
-        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineScript(array(
+        $GLOBALS['page_output']->addInlineScript(array(
             'if (document.editform && document.editform.page_text) document.editform.changelog.page_text()'
         ), true);
 

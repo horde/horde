@@ -158,7 +158,7 @@ class Wicked_Page_EditPage extends Wicked_Page {
             $changelog = Horde_Util::getFormData('changelog');
             if ($conf['wicked']['require_change_log'] && empty($changelog)) {
                 $notification->push(_("You must provide a change log."), 'horde.error');
-                $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineScript(array(
+                $GLOBALS['page_output']->addInlineScript(array(
                     'if (document.editform && document.editform.changelog) document.editform.changelog.focus()'
                 ), true);
                 return;

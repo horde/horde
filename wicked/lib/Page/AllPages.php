@@ -52,7 +52,7 @@ class Wicked_Page_AllPages extends Wicked_Page {
         $template->set('pages', $pages, true);
         $template->set('hits', false, true);
 
-        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('tables.js', 'horde');
+        $GLOBALS['page_output']->addScriptFile('tables.js', 'horde');
 
         // Show search form and page header.
         ob_start();

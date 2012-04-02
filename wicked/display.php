@@ -135,15 +135,16 @@ if ($page->isLocked()) {
 
 $history = $session->get('wicked', 'history', Horde_Session::TYPE_ARRAY);
 
-$title = $page->pageTitle();
 Horde::startBuffer();
 $page->render(Wicked::MODE_DISPLAY, $params);
 $content = Horde::endBuffer();
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $page->pageTitle()
+));
 require WICKED_TEMPLATES . '/menu.inc';
 echo $content;
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();
 
 if ($page instanceof Wicked_Page_StandardPage &&
     (!isset($history[0]) ||

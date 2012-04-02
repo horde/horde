@@ -30,7 +30,7 @@ class Text_Wiki_Render_Xhtml_Toc extends Text_Wiki_Render
 
         switch ($type) {
         case 'list_start':
-            $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('toc.js', 'wicked');
+            $GLOBALS['page_output']->addScriptFile('toc.js', 'wicked');
 
             // Add the div, class, and id.
             $html = '<div';

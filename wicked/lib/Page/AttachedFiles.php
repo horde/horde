@@ -140,7 +140,7 @@ class Wicked_Page_AttachedFiles extends Wicked_Page {
         $template->set('referrer', $this->referrer());
         $template->set('formInput', Horde_Util::formInput());
 
-        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('stripe.js', 'horde');
+        $GLOBALS['page_output']->addScriptFile('stripe.js', 'horde');
         echo $template->fetch(WICKED_TEMPLATES . '/display/AttachedFiles.html');
     }
 

@@ -57,7 +57,7 @@ class Wicked_Page_LeastPopular extends Wicked_Page {
         $template->set('hits', true, true);
         $hits = true;
 
-        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('tables.js', 'horde');
+        $GLOBALS['page_output']->addScriptFile('tables.js', 'horde');
 
         ob_start();
         require WICKED_TEMPLATES . '/pagelist/header.inc';
