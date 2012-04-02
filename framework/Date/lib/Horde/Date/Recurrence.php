@@ -1208,13 +1208,13 @@ class Horde_Date_Recurrence
     }
 
     /**
-     * Parses the recurrence data from a hash.
+     * Parses the recurrence data from a Kolab hash.
      *
      * @param array $hash  The hash to convert.
      *
      * @return boolean  True if the hash seemed valid, false otherwise.
      */
-    public function fromHash($hash)
+    public function fromKolab($hash)
     {
         $this->reset();
 
@@ -1405,23 +1405,23 @@ class Horde_Date_Recurrence
         }
 
         // Exceptions.
-        if (isset($hash['exceptions'])) {
-            $this->exceptions = $hash['exceptions'];
+        if (isset($hash['exclusion'])) {
+            $this->exceptions = $hash['exclusion'];
         }
 
-        if (isset($hash['completions'])) {
-            $this->completions = $hash['completions'];
+        if (isset($hash['complete'])) {
+            $this->completions = $hash['complete'];
         }
 
         return true;
     }
 
     /**
-     * Export this object into a hash.
+     * Export this object into a Kolab hash.
      *
      * @return array  The recurrence hash.
      */
-    public function toHash()
+    public function toKolab()
     {
         if ($this->getRecurType() == self::RECUR_NONE) {
             return array();
@@ -1526,8 +1526,8 @@ class Horde_Date_Recurrence
         }
 
         // Recurrence exceptions
-        $hash['exceptions'] = $this->exceptions;
-        $hash['completions'] = $this->completions;
+        $hash['exclusion'] = $this->exceptions;
+        $hash['complete'] = $this->completions;
 
         return $hash;
     }

@@ -266,16 +266,6 @@ class Nag_Task
             case 'parent':
                 $key = 'parent_id';
                 break;
-            case 'recurrence':
-                if (empty($task['due'])) {
-                    continue;
-                }
-                if (!is_array($val)) {
-                    break;
-                }
-                $recurrence = new Horde_Date_Recurrence($task['due']);
-                $recurrence->fromHash($val);
-                $val = $recurrence;
             }
             $this->$key = $val;
         }
@@ -720,7 +710,7 @@ class Nag_Task
                      'alarm' => $this->alarm,
                      'methods' => $this->methods,
                      'private' => $this->private,
-                     'recurrence' => $this->recurs() ? $this->recurrence->toHash() : null);
+                     'recurrence' => $this->recurrence);
     }
 
     /**

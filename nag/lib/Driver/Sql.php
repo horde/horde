@@ -265,12 +265,7 @@ class Nag_Driver_Sql extends Nag_Driver
                 $values[] = null;
             }
         } else {
-            if (is_array($task['recurrence'])) {
-                $recurrence = new Horde_Date_Recurrence($task['due']);
-                $recurrence->fromHash($task['recurrence']);
-            } else {
-                $recurrence = $task['recurrence'];
-            }
+            $recurrence = $task['recurrence'];
             $recur = $recurrence->getRecurType();
             if ($recurrence->hasRecurEnd()) {
                 $recur_end = clone $recurrence->recurEnd;
