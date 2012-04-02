@@ -757,8 +757,8 @@ class Horde_Date_Recurrence
     /**
      * Adds an exception to a recurring event.
      *
-     * @param integer $year   The year of the execption.
-     * @param integer $month  The month of the execption.
+     * @param integer $year   The year of the exception.
+     * @param integer $month  The month of the exception.
      * @param integer $mday   The day of the month of the exception.
      */
     public function addException($year, $month, $mday)
@@ -769,8 +769,8 @@ class Horde_Date_Recurrence
     /**
      * Deletes an exception from a recurring event.
      *
-     * @param integer $year   The year of the execption.
-     * @param integer $month  The month of the execption.
+     * @param integer $year   The year of the exception.
+     * @param integer $month  The month of the exception.
      * @param integer $mday   The day of the month of the exception.
      */
     public function deleteException($year, $month, $mday)
@@ -810,8 +810,8 @@ class Horde_Date_Recurrence
     /**
      * Adds a completion to a recurring event.
      *
-     * @param integer $year   The year of the execption.
-     * @param integer $month  The month of the execption.
+     * @param integer $year   The year of the exception.
+     * @param integer $month  The month of the exception.
      * @param integer $mday   The day of the month of the completion.
      */
     public function addCompletion($year, $month, $mday)
@@ -822,8 +822,8 @@ class Horde_Date_Recurrence
     /**
      * Deletes a completion from a recurring event.
      *
-     * @param integer $year   The year of the execption.
-     * @param integer $month  The month of the execption.
+     * @param integer $year   The year of the exception.
+     * @param integer $month  The month of the exception.
      * @param integer $mday   The day of the month of the completion.
      */
     public function deleteCompletion($year, $month, $mday)
@@ -837,7 +837,7 @@ class Horde_Date_Recurrence
     /**
      * Checks if a completion exists for a given reccurence of an event.
      *
-     * @param integer $year   The year of the reucrance.
+     * @param integer $year   The year of the recurrance.
      * @param integer $month  The month of the recurrance.
      * @param integer $mday   The day of the month of the recurrance.
      *
