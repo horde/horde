@@ -45,8 +45,9 @@ case 'deletedeliverable':
     break;
 }
 
-$title = _("Deliverables");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Deliverables")
+));
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 
@@ -111,4 +112,4 @@ if ($vars->exists('deliverable_id') || $vars->exists('new')) {
     require HERMES_TEMPLATES . '/deliverables/list.inc';
 }
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

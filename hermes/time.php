@@ -62,11 +62,11 @@ $template->set('postUrl', Horde::url('time.php', false, -1));
 $template->set('sessionId', Horde_Util::formInput());
 $template->set('table', $table->render());
 
-$title = _("My Time");
-
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("My Time")
+));
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 echo $tabs;
 echo $template->fetch(HERMES_TEMPLATES . '/time/form.html');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

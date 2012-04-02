@@ -125,8 +125,10 @@ if ($form->validate()) {
 
 $renderer = new Horde_Form_Renderer(array('varrenderer_driver' => 'tableset_html'));
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 $form->renderActive($renderer, null, Horde::url('invoicing.php'), 'post');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

@@ -42,7 +42,7 @@ class Hermes_Ajax extends Horde_Core_Ajax
         if (!file_exists($GLOBALS['registry']->get('jsfs', 'horde') . '/date/' . $datejs)) {
             $datejs = 'en-US.js';
         }
-        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        global $page_output;
         $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
         $page_output->addScriptFile('horde.js', 'horde');
         $page_output->addScriptFile('growler.js', 'horde');
