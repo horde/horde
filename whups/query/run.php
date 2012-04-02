@@ -72,10 +72,12 @@ if ($isvalid) {
 }
 
 if ($whups_query->id) {
-    $injector->getInstance('Horde_PageOutput')->addLinkTag($whups_query->feedLink());
+    $page_output->addLinkTag($whups_query->feedLink());
 }
-$title = $whups_query->name ? $whups_query->name : _("Query Results");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+
+$page_output->header(array(
+    'title' => $whups_query->name ? $whups_query->name : _("Query Results")
+));
 require WHUPS_TEMPLATES . '/menu.inc';
 
 echo $tabs->render($vars->get('action') ? $vars->get('action') : 'run');
@@ -109,6 +111,6 @@ if (!is_null($tickets)) {
     $form->close($renderer);
 }
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();
 
 $session->set('whups', 'query', $whups_query);

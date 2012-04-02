@@ -18,7 +18,8 @@ class Horde_Form_Action_whups_reload extends Horde_Form_Action {
 
     function getActionScript($form, $renderer, $varname)
     {
-        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        global $page_output;
+
         $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
         $page_output->addScriptFile('redbox.js', 'horde');
         return 'if (this.value) { document.' . $form->getName()

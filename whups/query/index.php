@@ -166,10 +166,12 @@ $qops = array(
 
 // Start the page.
 if ($whups_query->id) {
-    $injector->getInstance('Horde_PageOutput')->addLinkTag($whups_query->feedLink());
+    $page_output->addLinkTag($whups_query->feedLink());
 }
-$title = _("Query Builder");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+
+$page_output->header(array(
+    'title' => _("Query Builder")
+));
 require WHUPS_TEMPLATES . '/menu.inc';
 
 echo $queryTabs->render(Horde_Util::getFormData('action', 'edit'));
@@ -241,6 +243,6 @@ if ($showEditQuery) {
     $renderer->end();
 }
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();
 
 $session->set('whups', 'query', $whups_query);

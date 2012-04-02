@@ -45,7 +45,7 @@ class Whups_Application extends Horde_Registry_Application
     protected function _init()
     {
         $GLOBALS['whups_driver'] = $GLOBALS['injector']->getInstance('Whups_Factory_Driver')->create();
-        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addLinkTag(array(
+        $GLOBALS['page_output']->addLinkTag(array(
             'href' => Horde::url('opensearch.php', true, -1),
             'rel' => 'search',
             'type' => 'application/opensearchdescription+xml',

@@ -49,7 +49,9 @@ function _open($isopened = false)
 
         $opened = true;
         $title = _("Administration");
-        require $registry->get('templates', 'horde') . '/common-header.inc';
+        $GLOBALS['page_output']->header(array(
+            'title' => $title
+        ));
         require WHUPS_TEMPLATES . '/menu.inc';
         echo $tabs->render($vars->get('action'));
     }
@@ -1218,4 +1220,4 @@ if (!_open(true)) {
 }
 
 _open();
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();
