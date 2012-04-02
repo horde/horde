@@ -1892,7 +1892,15 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         try {
             $this->_sendLine($cmd);
         } catch (Horde_Imap_Client_Exception $e) {
-            if (empty($this->_temp['search_retry'])) {
+            if (isset($this->_temp['parseresperr']['response']) &&
+                ($this->_temp['parseresperr']['response'] == 'NO')) {
+                /* RFC 3501 [6.4.4]: BADCHARSET response code is only a
+                 * SHOULD return. If it doesn't exist, need to check for
+                 * command status of 'NO'. List of supported charsets in
+                 * the BADCHARSET response has already been parsed and stored
+                 * at this point. */
+                $e->setCode(Horde_Imap_Client_Exception::BADCHARSET);
+            } elseif (empty($this->_temp['search_retry'])) {
                 $this->_temp['search_retry'] = true;
 
                 /* Bug #9842: Workaround broken Cyrus servers (as of
