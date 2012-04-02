@@ -103,9 +103,10 @@ Horde::startBuffer();
 $form->renderActive(new Horde_Form_Renderer(), $vars, Horde::url('edit.php'), 'post');
 $view->main = Horde::endBuffer();
 
-$title = _("Edit Forms");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Edit Forms")
+));
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 echo $view->render('main');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

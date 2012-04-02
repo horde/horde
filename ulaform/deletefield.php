@@ -59,8 +59,8 @@ Horde::startBuffer();
 $fieldform->renderActive(new Horde_Form_Renderer(), $vars, Horde::url('deletefield.php'), 'post');
 $view->main = Horde::endBuffer();
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header();
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 echo $view->render('main');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

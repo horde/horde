@@ -55,8 +55,8 @@ $main = Horde::endBuffer();
 $view = new Horde_View(array('templatePath' => ULAFORM_TEMPLATES));
 $view->main = $main;
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header();
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 echo $view->render('main');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

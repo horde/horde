@@ -119,9 +119,10 @@ $view->images = $images;
 $view->fields = $fields_list;
 
 /* Render the page. */
-$title = _("Form Fields");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Form Fields")
+));
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 echo $view->render('fields');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

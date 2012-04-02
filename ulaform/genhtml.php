@@ -103,8 +103,10 @@ $form->renderActive(new Horde_Form_Renderer(), $vars, Horde::url('genhtml.php'),
 $view->inputform = Horde::endBuffer();
 $view->html = $html;
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 echo $view->render('genhtml');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();
