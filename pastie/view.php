@@ -37,13 +37,10 @@ try {
     $output = _("Error parsing the paste.");
 }
 
-$title = _("View Paste");
-
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("View Paste")
+));
 require PASTIE_TEMPLATES . '/menu.inc';
-
 require PASTIE_TEMPLATES . '/view.inc';
-
 $form->renderActive(null, null, $pasteurl, 'post');
-
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

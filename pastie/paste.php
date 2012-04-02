@@ -40,12 +40,9 @@ try {
     $notification->push($e);
 }
 
-
-$title = $form->getTitle();
-
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $form->getTitle()
+));
 require PASTIE_TEMPLATES . '/menu.inc';
-
 require PASTIE_TEMPLATES . '/paste.inc';
-
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();
