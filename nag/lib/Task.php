@@ -440,19 +440,21 @@ class Nag_Task
 
         if ($this->recurs()) {
             /* Get current occurrence (task due date) */
-            $current = new Horde_Date($this->due);
-            $this->recurrence->addCompletion($current->year,
-                                             $current->month,
-                                             $current->mday);
-            /* Advance this occurence by a day to indicate that we want the
-             * following occurence (Recurrence uses days as minimal time
-             * duration between occurrences). */
-            $current->mday++;
-            /* Only mark this due date completed if there is another
-             * occurence. */
-            if ($this->recurrence->nextActiveRecurrence($current)) {
-                $this->completed = false;
-                return;
+            $current = $this->recurrence->nextActiveRecurrence(new Horde_Date($this->due));
+            if ($current) {
+                $this->recurrence->addCompletion($current->year,
+                                                 $current->month,
+                                                 $current->mday);
+                /* Advance this occurence by a day to indicate that we
+                 * want the following occurence (Recurrence uses days
+                 * as minimal time duration between occurrences). */
+                $current->mday++;
+                /* Only mark this due date completed if there is another
+                 * occurence. */
+                if ($this->recurrence->nextActiveRecurrence($current)) {
+                    $this->completed = false;
+                    return;
+                }
             }
         }
 

@@ -143,6 +143,13 @@ class Nag_Unit_Driver_Base extends Nag_TestCase
         $next = $result2->getNextDue();
         $this->assertInstanceOf('Horde_Date', $next);
         $this->assertEquals($due->timestamp(), $next->timestamp());
+        $result2->toggleComplete();
+        $result2->save();
+        $result3 = self::$driver->get($id[0]);
+        $due->mday++;
+        $next = $result3->getNextDue();
+        $this->assertInstanceOf('Horde_Date', $next);
+        $this->assertEquals($due->timestamp(), $next->timestamp());
     }
 
     public function testModify()
