@@ -990,7 +990,7 @@ class Turba_Driver implements Countable
                 try {
                     $val = Horde::callHook(
                         'decode_attribute',
-                        array($attribute, $this->attributes[$attribute], $this),
+                        array($key, $val, $object),
                         'turba');
                 } catch (Turba_Exception $e) {}
             }
