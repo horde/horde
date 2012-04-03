@@ -36,6 +36,10 @@ try {
 }
 
 $category_id = Horde_Util::getFormData('category_id');
+$driver = $GLOBALS['injector']->getInstance('Sesha_Factory_Driver')->create();
+if ($category_id) {
+    $selectedCategory = $driver->getCategory($category_id);
+}
 
 // Search variables
 $what = Horde_Util::getFormData('criteria');
@@ -51,7 +55,7 @@ if (!is_null($what) && !is_null($where)) {
     $table_header = _("Matching Inventory");
 } else {
     $table_header = $category_id ?
-        sprintf(_("Available Inventory in %s"), $categories[$category_id]['category']) : _("Available Inventory");
+        sprintf(_("Available Inventory in %s"), $selectedCategory->category) : _("Available Inventory");
 }
 
 // Get the inventory
@@ -88,7 +92,7 @@ $item_count = count($inventory) == 1
     : sprintf(_("%d Items"), count($inventory));
 
 foreach ($categories as $id => $category) {
-     $category->selected = $id == $category_id ? ' selected="selected"' : '';
+     $category->selected = $category->category_id == $category_id ? ' selected="selected"' : '';
 }
 
 $prefs_url = Horde::url($registry->get('webroot', 'horde') . '/services/prefs/', true);
@@ -159,7 +163,17 @@ $t->set('header', $table_header);
 $t->set('count', $item_count);
 $t->set('form_url', Horde::url('list.php'));
 $t->set('form_input', Horde_Util::pformInput());
-$t->set('categories', $categories);
+
+/* Ugly - the template engine doesn't cope with objects. Workaround until we migrate to views */
+$catArray = array();
+foreach ($categories as $category) {
+    $catArray[$category->category_id] = array(
+                        'category_id' => $category->category_id,
+                        'selected' => $category->selected,
+                        'category' => $category->category
+                    );
+}
+$t->set('categories', $catArray);
 $t->set('prefs_url', $prefs_url);
 $t->set('column_headers', $column_headers);
 $t->set('stock', $stock, true);
