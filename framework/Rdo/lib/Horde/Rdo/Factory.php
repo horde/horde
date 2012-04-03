@@ -8,7 +8,6 @@
  * @package  Test
  * @author   Ralf Lang <lang@b1-systems.de>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL
- * @link     http://www.horde.org/components/Horde_Factory
  */
 
 
