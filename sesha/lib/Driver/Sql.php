@@ -301,7 +301,8 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
     {
         $cm = $this->_mappers->create('Sesha_Entity_CategoryMapper');
         if (is_int($stock_id)) {
-            $stock = $cm->find($stock_id);
+            $sm = $this->_mappers->create('Sesha_Entity_StockMapper');
+            $stock = $sm->findOne($stock_id);
             return $stock->categories;
         } elseif (is_int($category_ids)) {
             return $cm->find($category_ids);
