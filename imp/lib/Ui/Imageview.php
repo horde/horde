@@ -38,11 +38,10 @@ class IMP_Ui_Imageview
             return true;
         }
 
-        if (!$contents) {
+        if (!$contents ||
+            !($from = $contents->getHeader()->getOb('from'))) {
             return false;
         }
-
-        $from = $contents->getHeader()->getOb('from');
 
         if ($session->get('imp', 'csearchavail')) {
             $sparams = IMP::getAddressbookSearchParams();
