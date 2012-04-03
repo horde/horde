@@ -88,7 +88,7 @@ $item_count = count($inventory) == 1
     : sprintf(_("%d Items"), count($inventory));
 
 foreach ($categories as $id => $category) {
-    $categories[$id]['selected'] = $id == $category_id ? ' selected="selected"' : '';
+     $category->selected = $id == $category_id ? ' selected="selected"' : '';
 }
 
 $prefs_url = Horde::url($registry->get('webroot', 'horde') . '/services/prefs/', true);

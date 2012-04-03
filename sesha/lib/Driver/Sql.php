@@ -276,49 +276,44 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
     }
 
     /**
-     * This will return the first category found matching a specific id.
+     * This will return the category found matching a specific id.
      *
      * @param integer $category_id  The integer ID of the category to find.
      *
-     * @return array  The category on success
+     * @return Sesha_Entity_Category  The category on success
      */
     public function getCategory($category_id)
     {
-        $categories = $this->getCategories(null, $category_id);
-        return array_shift($categories);
+        return $this->_mappers->create('Sesha_Entity_CategoryMapper')->findOne($category_id);
     }
 
     /**
-     * This function return all the categories matching an id.
+     * This function return all the categories matching an id or category list.
      *
-     * @param integer $stock_id     The stock ID of categories to fetch.
-     *                              Returns all categories if null.
-     * @param integer $category_id  The numeric ID of the categories to find.
-     *
-     * @return array  The array of matching categories on success, an empty
-     *                array otherwise.
+     * @param integer $stock_id      The stock ID of categories to fetch.
+     *                               Overrides category_ids
+     * @param integer $category_ids  The numeric IDs of the categories to find.
+     *                               If both $stock_id and $category_ids are null,
+     *                               all categories are returned
+     * @return Horde_Rdo_List  The kist of matching categories
      */
-    public function getCategories($stock_id = null, $category_id = null)
+    public function getCategories($stock_id = null, array $category_ids = null)
     {
-        $where = ' WHERE 1 = 1 ';
-        $sql = 'SELECT c.category_id AS id, c.category_id AS category_id, c.category AS category, c.description AS description, c.priority AS priority FROM sesha_categories c';
-        if (!empty($stock_id)) {
-            $sql .= ', sesha_inventory_categories dc ';
-            $where .= sprintf('AND c.category_id = dc.category_id AND ' .
-                'dc.stock_id = %d', $stock_id);
+        $cm = $this->_mappers->create('Sesha_Entity_CategoryMapper');
+        if (is_int($stock_id)) {
+            $stock = $cm->find($stock_id);
+            return $stock->categories;
+        } elseif (is_int($category_ids)) {
+            return $cm->find($category_ids);
         }
-        if (!empty($category_id)) {
-            $where .= sprintf(' AND category_id = %d', $category_id);
-        }
-        $sql .= $where . ' ORDER BY c.priority DESC, c.category';
-
-        try {
-            $rows = $this->_db->selectAll($sql);
-        } catch (Horde_Db_Exception $e) {
-            throw new Sesha_Exception($e);
+        elseif (is_array($category_ids)) {
+            $query = new Horde_Rdo_Query($cm);
+            $query->addTest('category_id', 'IN', $category_ids);
+            return $cm->find($query);
+        } else {
+            return iterator_to_array($cm->find(), true);
         }
 
-        return $rows;
     }
 
     /**
