@@ -265,6 +265,7 @@ class Horde_Rdo_Query
             switch ($args['type']) {
             case Horde_Rdo::ONE_TO_ONE:
             case Horde_Rdo::MANY_TO_ONE:
+            case Horde_Rdo::MANY_TO_MANY:
                 $args['join_type'] = 'INNER JOIN';
                 break;
 
