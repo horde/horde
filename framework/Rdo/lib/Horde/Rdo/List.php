@@ -234,7 +234,7 @@ class Horde_Rdo_List implements ArrayAccess, Iterator, Countable
      */
     public function offsetSet($offset, $item)
     {
-        new Horde_Rdo_Exception('You cannot add objects to a result set');
+        throw new Horde_Rdo_Exception('You cannot add objects to a result set');
     }
 
     /**
@@ -249,7 +249,7 @@ class Horde_Rdo_List implements ArrayAccess, Iterator, Countable
      */
     public function offsetUnset($offset)
     {
-        new Horde_Rdo_Exception('You cannot remove objects from a result set');
+        throw new Horde_Rdo_Exception('You cannot remove objects from a result set');
     }
 
     /**
