@@ -233,6 +233,15 @@ class Horde_Rdo_Query
     }
 
     /**
+     * Add a relationship type to a query
+     * @param string $relationship  The name of the relationship as defined in the mapper
+     * @param array $args           The parameter array as defined in the mapper
+     *                              'mapper'     The mapper object of the result class
+     *                              'table'      Optional name of the table to use
+     *                              'tableAlias' Optional alias name for the base table
+     *                              'join_type'  Optional explicitly control the type of join
+     *                              'type'       The type of relation, any of the Constants in Horde_Rdo
+     * @return Horde_Rdo_Query  this
      */
     public function addRelationship($relationship, $args)
     {
