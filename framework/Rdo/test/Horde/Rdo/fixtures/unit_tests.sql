@@ -16,3 +16,18 @@ INSERT INTO test_someeagerbaseobjects (baseobject_id, relatedthing_id, atextprop
 INSERT INTO test_someeagerbaseobjects (baseobject_id, relatedthing_id, atextproperty) VALUES ('4', '', 'Fourth Base Thing with empty string relation');
 INSERT INTO test_relatedthings (relatedthing_id, relatedthing_textproperty, relatedthing_intproperty) VALUES ('1', 'First Related Thing', '100');
 INSERT INTO test_relatedthings (relatedthing_id, relatedthing_textproperty, relatedthing_intproperty) VALUES ('2', 'Second Related Thing', '200');
+
+INSERT INTO test_manytomanya (a_id, a_intproperty) VALUES ('1', '200');
+INSERT INTO test_manytomanya (a_id, a_intproperty) VALUES ('2', '220');
+INSERT INTO test_manytomanya (a_id, a_intproperty) VALUES ('3', '230');
+INSERT INTO test_manytomanya (a_id, a_intproperty) VALUES ('4', '240');
+INSERT INTO test_manytomanya (a_id, a_intproperty) VALUES ('5', '250');
+
+INSERT INTO test_manytomanyb (b_id, b_intproperty) VALUES ('11', '400');
+INSERT INTO test_manytomanyb (b_id, b_intproperty) VALUES ('12', '420');
+INSERT INTO test_manytomanyb (b_id, b_intproperty) VALUES ('13', '430');
+INSERT INTO test_manytomanyb (b_id, b_intproperty) VALUES ('14', '440');
+INSERT INTO test_manytomanyb (b_id, b_intproperty) VALUES ('15', '450');
+
+INSERT INTO test_manythrough (a_id, b_id)  VALUES (2, 12);
+INSERT INTO test_manythrough (a_id, b_id)  VALUES (2, 14);
