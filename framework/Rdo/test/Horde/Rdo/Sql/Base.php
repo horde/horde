@@ -137,6 +137,18 @@ class Horde_Rdo_Test_Sql_Base extends Horde_Rdo_Test_Base
         $this->assertTrue($objectA->hasRelation('manybs', $objectB));
     }
 
+    public function testHasRelationOneToOne()
+    {
+        $objectA1 = self::$LazyBaseObjectMapper->findOne(1);
+        $objectA2 = self::$LazyBaseObjectMapper->findOne(4);
+        $objectB1 = self::$LazyBaseObjectMapper->findOne(1);
+
+        $this->assertTrue($objectA1->hasRelation('lazyRelatedThing', $objectB1));
+        $this->assertFalse($objectA2->hasRelation('lazyRelatedThing', $objectB1));
+        $this->assertTrue($objectA1->hasRelation('lazyRelatedThing'));
+        $this->assertFalse($objectA2->hasRelation('lazyRelatedThing'));
+    }
+
     public function testAddRelationManyToMany()
     {
         $objectA = self::$MtmaMapper->findOne(1);
