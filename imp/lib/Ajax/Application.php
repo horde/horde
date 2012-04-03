@@ -783,7 +783,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $this->_queue->poll(array_keys($indices->indices()));
         }
 
-        $this->addTask('vp', $change ? $this->_viewPortData(true) : $this->_viewPortOb());
+        $this->addTask('viewport', $change ? $this->_viewPortData(true) : $this->_viewPortOb());
 
         return true;
     }
