@@ -218,7 +218,7 @@ class Horde_Rdo_List implements ArrayAccess, Iterator, Countable
     {
         $query = Horde_Rdo_Query::create($this->_query);
         $query->limit(1, $offset);
-        return $this->_mapper->findOne($query);
+        return $this->_mapper->find($query)->current();
     }
 
     /**
