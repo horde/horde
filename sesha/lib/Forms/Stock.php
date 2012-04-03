@@ -35,7 +35,7 @@ class Sesha_Forms_Stock extends Horde_Form {
         $cat = array();
         $categories = $sesha_driver->getCategories();
         foreach ($categories as $c) {
-            $cat[$c->category_id] = $c->category_id;
+            $cat[$c->category_id] = $c->category;
         }
         // Get the list of selected categories
         $categoryIds = array();
