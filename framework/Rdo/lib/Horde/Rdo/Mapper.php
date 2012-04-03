@@ -98,7 +98,7 @@ abstract class Horde_Rdo_Mapper implements Countable
      * If called without arguments, detaches the mapper from factory
      *
      * @param Horde_Rdo_Factory $factory  A Factory instance or null
-     * @return Horde_Rdo_Mapper         this mapper
+     * @return Horde_Rdo_Mapper  this mapper
      */
     public function setFactory(Horde_Rdo_Factory $factory = null)
     {
