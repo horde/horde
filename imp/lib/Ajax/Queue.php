@@ -31,6 +31,13 @@ class IMP_Ajax_Queue
     protected $_mailboxOpts = array();
 
     /**
+     * Message queue.
+     *
+     * @var array
+     */
+    protected $_messages = array();
+
+    /**
      * Poll mailboxes.
      *
      * @var array
@@ -62,6 +69,8 @@ class IMP_Ajax_Queue
      *   - expand: (integer) Expand subfolders on load.
      *   - noexpand: (integer) TODO
      *
+     * For message preview data (key: 'message'), an array with these keys:
+     *
      * For poll data (key: 'poll'), an array with keys as base64url encoded
      * mailbox names, values as the number of unseen messages.
      *
@@ -73,6 +82,24 @@ class IMP_Ajax_Queue
      */
     public function add(IMP_Ajax_Application $ajax)
     {
+        /* Add message information. Needs to come first since it may affect
+         * flags. */
+        if (!empty($this->_messages)) {
+            $messages = array();
+
+            foreach ($this->_messages as $val) {
+                $show_msg = new IMP_Views_ShowMessage($val['mailbox'], $val['uid']);
+                $msg = (object)$show_msg->showMessage(array(
+                    'preview' => $val['preview']
+                ));
+                $msg->save_as = strval($msg->save_as);
+
+                $messages[] = $msg;
+            }
+
+            $ajax->addTask('message', $messages);
+        }
+
         /* Add flag information. */
         if (!empty($this->_flag)) {
             $ajax->addTask('flag', $this->_flag);
@@ -146,6 +173,22 @@ class IMP_Ajax_Queue
             $result->uids = $indices->formTo();
             $this->_flag[] = $result;
         }
+    }
+
+    /**
+     * Add message data to output.
+     *
+     * @param string $mailbox   The mailbox name.
+     * @param string $uid       The message UID.
+     * @param boolean $preview  Preview data?
+     */
+    public function message($mailbox, $uid, $preview = false)
+    {
+        $this->_messages[] = array(
+            'mailbox' => $mailbox,
+            'preview' => $preview,
+            'uid' => $uid
+        );
     }
 
     /**

@@ -922,41 +922,39 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * _checkUidvalidity().  Additional variables used:
      *   - preview: (integer) If set, return preview data. Otherwise, return
      *              full data.
-     *   - uid: (string) Index of the messages to display (IMAP sequence
+     *   - uid: (string) Index of the message to display (IMAP sequence
      *          string; mailbox is base64url encoded) - must be single index.
      *
-     * @return mixed  If viewing full message, on error will return null.
-     *                Otherwise an object with the following entries:
-     *   - message: (object) Return from IMP_Views_ShowMessage::showMessage().
-     *              If viewing preview, on error this object will contain
-     *              error and errortype properties.
+     * @return object  Object with the following entries:
+     *   - error: (string) On error, the error string.
+     *   - errortype: (string) On error, the error type.
+     *   - mbox: (string) The message mailbox (base64url encoded).
+     *   - uid: (string) The message UID.
+     *   - view: (string) The view ID.
      */
     public function showMessage()
     {
         $indices = new IMP_Indices_Form($this->_vars->uid);
-        list($mbox, $idx) = $indices->getSingle();
+        list($mbox, $uid) = $indices->getSingle();
+
+        if (!$uid) {
+            throw new IMP_Exception(_("Requested message not found."));
+        }
 
         $result = new stdClass;
+        $result->mbox = $mbox->form_to;
+        $result->uid = $uid;
+        $result->view = $this->_vars->view;
 
         try {
-            if (!$idx) {
-                throw new IMP_Exception(_("Requested message not found."));
-            }
-
             $change = $this->_changed(false);
             if (is_null($change)) {
                 throw new IMP_Exception(_("Could not open mailbox."));
             }
 
-            $show_msg = new IMP_Views_ShowMessage($mbox, $idx);
-            $msg = (object)$show_msg->showMessage(array(
-                'preview' => $this->_vars->preview
-            ));
-            $msg->view = $this->_vars->view;
-            $msg->save_as = (string)$msg->save_as;
+            $this->_queue->message($mbox, $uid, $this->_vars->preview);
 
             if ($this->_vars->preview) {
-                $result->preview = $msg;
                 if ($change) {
                     $this->addTask('viewport', $this->_viewPortData(true));
                 } elseif ($this->_mbox->cacheid_date != $this->_vars->cacheid) {
@@ -966,19 +964,10 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
                 }
 
                 $this->_queue->poll($mbox);
-            } else {
-                $result->message = $msg;
             }
         } catch (Exception $e) {
-            if (!$this->_vars->preview) {
-                throw $e;
-            }
-
-            $result->preview->error = $e->getMessage();
-            $result->preview->errortype = 'horde.error';
-            $result->preview->mbox = $mbox->form_to;
-            $result->preview->uid = $idx;
-            $result->preview->view = $this->_vars->view;
+            $result->error = $e->getMessage();
+            $result->errortype = 'horde.error';
         }
 
         return $result;
@@ -1473,12 +1462,11 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * See the list of variables needed for _changed() and
      * _checkUidvalidity().  Additional variables used:
      *   - uid: (string) Index of the messages to preview (IMAP sequence
-     *          string; bsae64url encoded) - must be single index.
+     *          string; base64url encoded) - must be single index.
      *
-     * @return mixed  False on failure, the return from showMessage() on
-     *                success along with these properties:
-     *   - oldmbox: (string) Mailbox of old message (base64url encoded).
-     *   - olduid: (integer) UID of old message.
+     * @return mixed  False on failure, or an object with these properties:
+     *   - newmbox: (string) Mailbox of new message (base64url encoded).
+     *   - newuid: (integer) UID of new message.
      */
     public function stripAttachment()
     {
@@ -1501,14 +1489,13 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         $GLOBALS['notification']->push(_("Attachment successfully stripped."), 'horde.success');
 
-        $this->_vars->preview = 1;
-        $this->_vars->uid = $new_indices->formTo();
-        $result = $this->showMessage();
+        $tmp = $new_indices->getSingle();
 
-        $old_indices_list = $indices->getSingle();
-        $result->oldmbox = $old_indices_list[0]->form_to;
-        $result->olduid = $old_indices_list[1];
+        $result = new stdClass;
+        $result->newmbox = $tmp[0]->form_to;
+        $result->newuid = $tmp[1];
 
+        $this->_queue->message($tmp[0], $tmp[1], true);
         $this->addTask('viewport', $this->_viewPortData(true));
 
         return $result;

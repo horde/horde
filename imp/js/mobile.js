@@ -22,6 +22,9 @@ var ImpMobile = {
     // /* Cache ID for the current mailbox view. */
     // mailboxCache,
     //
+    // /* The current message data. */
+    // message,
+    //
     // /* Search parameters for the viewPort Ajax request. */
     // search,
     //
@@ -458,11 +461,12 @@ var ImpMobile = {
      */
     messageLoaded: function(r)
     {
-        if (!r || !r.message || r.message.error) {
+        // TODO: Error handling.
+        if (r.error || !ImpMobile.message || r.view != ImpMobile.mailbox) {
             return;
         }
 
-        var data = r.message,
+        var data = ImpMobile.message,
             headers = $('#imp-message-headers tbody'),
             args = '&mbox=' + data.mbox + '&uid=' + data.uid,
             ham = spam = 'show', spambar;
@@ -578,6 +582,8 @@ var ImpMobile = {
                 $.globalEval(js);
             });
         }
+
+        delete ImpMobile.message;
     },
 
     /**
@@ -1064,6 +1070,10 @@ var ImpMobile = {
     {
         $.each(d, function(key, value) {
             switch (key) {
+            case 'imp:message':
+                ImpMobile.message = value.shift();
+                break;
+
             case 'imp:poll':
                 ImpMobile.updateFolders(value);
                 break;

@@ -230,10 +230,7 @@ var DimpBase = {
             type = 'mbox';
             msg = DimpCore.parseUIDString(data);
             data = Object.keys(msg).first();
-            this.uid = {
-                type: 'VP_id',
-                uid: msg[data].first()
-            };
+            this.uid = msg[data].first();
             // Fall through to the 'mbox' check below.
         }
 
@@ -460,7 +457,7 @@ var DimpBase = {
             this.view = f;
         }
 
-        if (this.uid && this.uid.type == 'VP_id') {
+        if (this.uid) {
             opts.search = { uid: this.uid.uid };
         }
 
@@ -630,9 +627,7 @@ var DimpBase = {
             },
             onContentOffset: function(offset) {
                 if (this.uid) {
-                    var s = {};
-                    s[this.uid.type] = { equal: [ this.uid.uid ] };
-                    this.rownum = this.viewport.createSelectionBuffer().search(s).get('rownum').first();
+                    this.rownum = this.viewport.createSelectionBuffer().search({ VP_id: { equal: [ this.uid ] } }).get('rownum').first();
                     delete this.uid;
                 }
 
@@ -1615,8 +1610,11 @@ var DimpBase = {
             pp_uid = this._getPPId(data.uid, data.mbox);
 
             if (this.ppfifo.indexOf(pp_uid) != -1) {
-                this.flag('\\seen', true, { mailbox: data.mbox, uid: data.uid });
-                return this._loadPreviewCallback(this.ppcache[pp_uid]);
+                this.flag('\\seen', true, {
+                    mailbox: data.mbox,
+                    uid: data.uid
+                });
+                return this._loadPreview(data.uid, data.mbox);
             }
 
             params = {};
@@ -1625,37 +1623,30 @@ var DimpBase = {
         params.preview = 1;
         this.loadingImg('msg', true);
 
-        DimpCore.doAction('showMessage', this.viewport.addRequestParams(params), { uids: this.viewport.createSelection('dataob', this.pp), callback: this._loadPreviewCallback.bind(this) });
+        DimpCore.doAction('showMessage', this.viewport.addRequestParams(params), {
+            callback: function(r) {
+                if (this.view == r.view &&
+                    this.pp &&
+                    this.pp.uid == r.uid &&
+                    this.pp.mbox == r.mbox) {
+                    this._loadPreview(r.uid, r.mbox);
+                }
+            }.bind(this),
+            uids: this.viewport.createSelection('dataob', this.pp)
+        });
     },
 
-    _loadPreviewCallback: function(resp)
+    _loadPreview: function(uid, mbox)
     {
-        var bg, ppuid, tmp,
+        var tmp,
             pm = $('previewMsg'),
-            r = resp.preview,
-            vs = this.viewport.getSelection();
+            r = this.ppcache[this._getPPId(uid, mbox)];
 
-        bg = (!this.pp ||
-              this.pp.uid != r.uid ||
-              this.pp.mbox != r.mbox);
-
-        if (r.error || vs.size() != 1) {
-            if (!bg) {
-                if (r.error) {
-                    HordeCore.notify(r.error, r.errortype);
-                }
-                this.clearPreviewPane();
+        if (!r || r.error) {
+            if (r) {
+                HordeCore.notify(r.error, r.errortype);
             }
-            return;
-        }
-
-        // Store in cache.
-        ppuid = this._getPPId(r.uid, r.mbox);
-        this._expirePPCache([ ppuid ]);
-        this.ppcache[ppuid] = resp;
-        this.ppfifo.push(ppuid);
-
-        if (bg) {
+            this.clearPreviewPane();
             return;
         }
 
@@ -1706,11 +1697,11 @@ var DimpBase = {
             $('msg_template').up().show();
         } else {
             $('msg_template').up().hide();
-            [ $('msg_resume_draft').up() ].invoke(this.isDraft(vs) ? 'show' : 'hide');
+            [ $('msg_resume_draft').up() ].invoke(this.isDraft(this.viewport.getSelection()) ? 'show' : 'hide');
         }
 
-        this.pp.save_as = r.save_as;
         this.pp.hide_all = r.onepart;
+        this.pp.save_as = r.save_as;
 
         $('messageBody').update(
             (r.msgtext === null)
@@ -1731,6 +1722,17 @@ var DimpBase = {
         if (r.js) {
             eval(r.js.join(';'));
         }
+    },
+
+    messageCallback: function(r)
+    {
+        // Store messages in cache.
+        r.each(function(msg) {
+            ppuid = this._getPPId(msg.uid, msg.mbox);
+            this._expirePPCache([ ppuid ]);
+            this.ppcache[ppuid] = msg;
+            this.ppfifo.push(ppuid);
+        }, this);
     },
 
     _dragAtc: function(e)
@@ -1769,18 +1771,6 @@ var DimpBase = {
         (hdr == 'from' ? $('previewMsg').select('.' + hdr) : [ $('msgHeadersContent').down('THEAD').down('.' + hdr) ]).each(function(elt) {
             elt.replace(DimpCore.buildAddressLinks(data, elt.clone(false), limit));
         });
-    },
-
-    _stripAttachmentCallback: function(r)
-    {
-        if (this.pp &&
-            this.pp.uid == r.olduid &&
-            this.pp.mbox == r.oldmbox) {
-            this.uid = {
-                type: 'uid',
-                uid: r.preview.uid
-            };
-        }
     },
 
     _mimeTreeCallback: function(r)
@@ -2793,7 +2783,14 @@ var DimpBase = {
                     return;
                 } else if (elt.hasClassName('stripAtc')) {
                     this.loadingImg('msg', true);
-                    DimpCore.doAction('stripAttachment', this.viewport.addRequestParams({ id: elt.readAttribute('mimeid') }), { uids: this.viewport.createSelection('dataob', this.pp), callback: this._stripAttachmentCallback.bind(this) });
+                    DimpCore.doAction('stripAttachment', this.viewport.addRequestParams({ id: elt.readAttribute('mimeid') }), {
+                        callback: function(r) {
+                            if (!this.pp) {
+                                this.viewport.select(this.viewport.createSelectionBuffer().search({ mbox: { equal: [ r.newmbox ] }, uid: { equal: [ r.newuid ] } }).get('rownum'));
+                            }
+                        }.bind(this),
+                        uids: this.viewport.createSelection('dataob', this.pp)
+                    });
                     e.stop();
                     return;
                 }
@@ -3593,6 +3590,10 @@ var DimpBase = {
 
         if (t['imp:flag']) {
             this.flagCallback(t['imp:flag']);
+        }
+
+        if (t['imp:message']) {
+            this.messageCallback(t['imp:message']);
         }
 
         if (t['imp:poll']) {
