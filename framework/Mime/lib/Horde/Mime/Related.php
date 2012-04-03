@@ -20,7 +20,7 @@ class Horde_Mime_Related implements IteratorAggregate
      *
      * @var array
      */
-    protected $_cids;
+    protected $_cids = array();
 
     /**
      * Start ID.
