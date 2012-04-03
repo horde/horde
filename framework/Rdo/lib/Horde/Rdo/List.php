@@ -202,7 +202,7 @@ class Horde_Rdo_List implements ArrayAccess, Iterator, Countable
      */
     public function offsetExists($offset)
     {
-        $query = new Horde_Rdo_Query($this->_query);
+        $query = Horde_Rdo_Query::create($this->_query);
         $query->limit(1, $offset);
         return $this->_mapper->exists($query);
     }
@@ -216,7 +216,7 @@ class Horde_Rdo_List implements ArrayAccess, Iterator, Countable
      */
     public function offsetGet($offset)
     {
-        $query = new Horde_Rdo_Query($this->_query);
+        $query = Horde_Rdo_Query::create($this->_query);
         $query->limit(1, $offset);
         return $this->_mapper->findOne($query);
     }
