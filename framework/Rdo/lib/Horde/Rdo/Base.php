@@ -315,6 +315,90 @@ abstract class Horde_Rdo_Base implements IteratorAggregate, ArrayAccess
     }
 
     /**
+     * Add a relation to one of the relationships defined in the mapper
+     * For to-one relations, simply update the relation field
+     * For one-to-many relations, update the related object's relation field
+     * For many-to-many, add an entry in the through table
+     * Perform a no-op if the peer is already related
+     * This is a proxy to the mapper's addRelation method.
+     *
+     * @param string $relationship  The relationship key in the mapper
+     * @param Horde_Rdo_Base $peer  The object to add the relation
+     *
+     * @return boolean Success.
+     */
+    public function addRelation($relationship, Horde_Rdo_Base $peer)
+    {
+        return $this->mapper->addRelation($relationship, $this, $peer);
+    }
+
+    /**
+     * Check a relation to a peer through one of the relationships defined in the mapper
+     *
+     * @param string $relationship  The relationship key in the mapper
+     * @param Horde_Rdo_Base $peer  The object to check for the relation
+     *                              If this is null, check if there is any peer for this relation
+     *
+     * @return boolean  true if related, false if not.
+     */
+    public function hasRelation($relationship, Horde_Rdo_Base $peer = null)
+    {
+        $mapper = $this->getMapper();
+        if (isset($mapper->relationships[$relationship])) {
+            $rel = $mapper->relationships[$relationship];
+        } elseif (isset($mapper->lazyRelationships[$relationship])) {
+            $rel = $mapper->lazyRelationships[$relationship];
+        } else {
+            throw new Horde_Rdo_Exception('The requested relation is not defined in the mapper');
+        }
+
+        $result = $this->$relationship;
+
+        switch ($rel['type']) {
+        case Horde_Rdo::ONE_TO_ONE:
+        case Horde_Rdo::MANY_TO_ONE:
+            if (empty($peer) || empty($result)) {
+                return (bool) $result;
+            }
+            $key = $result->mapper->primaryKey;
+            return $result->$key == $peer->$key;
+            break;
+        case Horde_Rdo::ONE_TO_MANY:
+        case Horde_Rdo::MANY_TO_MANY:
+            if (empty($peer)) {
+                return (bool) count($result);
+            }
+            $key = $peer->mapper->primaryKey;
+            foreach ($result as $item) {
+                if ($item->$key == $peer->$key) {
+                    return true;
+                }
+            }
+            break;
+        }
+        return false;
+    }
+
+    /**
+     * Remove a relation to one of the relationships defined in the mapper
+     * For to-one relations and one-to-many, simply set the relation field to 0
+     * For many-to-many, either delete all relations to this object or just the relation
+     * to a given peer object
+     *
+     * Perform a no-op if the peer is already unrelated
+     * This is a proxy to the mapper's removeRelation method.
+     *
+     * @param string $relationship  The relationship key in the mapper
+     * @param Horde_Rdo_Base $peer  The object to remove from the relation
+     *
+     * @return boolean Success.
+     */
+    public function removeRelation($relationship, Horde_Rdo_Base $peer = null)
+    {
+        return $this->mapper->removeRelation($relationship, $this, $peer);
+    }
+
+    /**
      * Save any changes to the backend.
      *
      * @return boolean Success.
