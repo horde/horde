@@ -80,6 +80,68 @@ class Horde_Rdo_Test_Sql_Base extends Horde_Rdo_Test_Base
 
     }
 
+    public function testListOffsetExistsReturnFalseForTooBigOffset()
+    {
+        $list = self::$LazyBaseObjectMapper->find();
+        $this->assertFalse(isset($list[$list->count()]), "return false for index not in list");
+    }
+
+    public function testListOffsetExistsReturnFalseFor0inemptylist()
+    {
+        $list = self::$LazyBaseObjectMapper->find(5000);
+        $this->assertFalse(isset($list[0]), "return false for first index in empty list");
+    }
+
+    public function testListOffsetExistsReturnTrueForFirst()
+    {
+        $list = self::$LazyBaseObjectMapper->find();
+        $this->assertTrue(isset($list[0]), "return true for first index in list");
+    }
+
+    public function testListOffsetExistsReturnTrueForLast()
+    {
+        $list = self::$LazyBaseObjectMapper->find();
+        $this->assertTrue(isset($list[$list->count() - 1]), "return true for last index in list");
+    }
+
+    public function testListOffsetGetReturnNullForTooBig()
+    {
+        $list = self::$LazyBaseObjectMapper->find();
+        $this->assertNull($list[$list->count()], "return Null for one after last index in list");
+    }
+
+    public function testListOffsetGetReturnObjectForLast()
+    {
+        $list = self::$LazyBaseObjectMapper->find();
+        $this->assertTrue($list[$list->count()-1] instanceof Horde_Rdo_Test_Objects_SomeLazyBaseObject, "return Object for last index in list");
+    }
+
+    public function testListOffsetGetReturnObjectForFirst()
+    {
+        $list = self::$LazyBaseObjectMapper->find();
+        $this->assertTrue($list[0] instanceof Horde_Rdo_Test_Objects_SomeLazyBaseObject, "return Object for first index in list");
+    }
+
+   /**
+    * @expectedException Horde_Rdo_Exception
+    */
+    public function testListOffsetSetThrowException()
+    {
+        $list = self::$LazyBaseObjectMapper->find();
+        $list[0] = $list[0];
+        $this->assertTrue($list[0] instanceof Horde_Rdo_Test_Objects_SomeLazyBaseObject, "Throw exception when trying to set a new element to the list");
+    }
+
+   /**
+    * @expectedException Horde_Rdo_Exception
+    */
+    public function testListOffsetUnsetThrowException()
+    {
+        $list = self::$LazyBaseObjectMapper->find();
+        unset($list[0]);
+        $this->assertTrue($list[0] instanceof Horde_Rdo_Test_Objects_SomeLazyBaseObject, "Throw exception when trying to unset an element");
+    }
+
     public function testFindReturnsHordeRdoList()
     {
         $result = self::$LazyBaseObjectMapper->find();
