@@ -44,12 +44,13 @@ class Sesha_Entity_CategoryMapper extends Horde_Rdo_Mapper
      * @access protected
      */
     protected $_lazyRelationships = array(
-       'properties' => array('type' => Horde_Rdo::;MANY_TO_MANY,
+       'properties' => array('type' => Horde_Rdo::MANY_TO_MANY,
                             'mapper' => 'Sesha_Entity_PropertyMapper',
                             'through' => 'sesha_relations'),
-       'stock' => array('type' => Horde_Rdo::;MANY_TO_MANY,
+       'stock' => array('type' => Horde_Rdo::MANY_TO_MANY,
                         'mapper' => 'Sesha_Entity_StockMapper',
-                        'through' => 'sesha_inventory_categories'),
+                        'through' => 'sesha_inventory_categories')
         );
 
 }
+

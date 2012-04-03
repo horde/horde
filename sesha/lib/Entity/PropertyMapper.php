@@ -46,3 +46,4 @@ class Sesha_Entity_PropertyMapper extends Horde_Rdo_Mapper
     protected $_lazyRelationships = array();
 
 }
+
