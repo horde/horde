@@ -12,7 +12,7 @@
  * @category Horde
  * @package  Rdo
  */
-class Horde_Rdo_List implements Iterator, Countable
+class Horde_Rdo_List implements ArrayAccess, Iterator, Countable
 {
     /**
      * Rdo Query
@@ -191,6 +191,65 @@ class Horde_Rdo_List implements Iterator, Countable
         }
 
         return $this->_current;
+    }
+
+    /**
+     * Implementation of the offsetExists() method for ArrayAccess
+     * This method is executed when using isset() or empty() on Horde_Rdo_List objects
+     * @param integer $offset  The offset to check.
+     *
+     * @return boolean  Whether or not an offset exists.
+     */
+    public function offsetExists($offset)
+    {
+        $query = new Horde_Rdo_Query($this->_query);
+        $query->limit(1, $offset);
+        return $this->_mapper->exists($query);
+    }
+
+    /**
+     * Implementation of the offsetGet() method for ArrayAccess
+     * This method is executed when using isset() or empty() on Horde_Rdo_List objects
+     * @param integer $offset  The offset to retrieve.
+     *
+     * @return Horde_Rdo_Base  An entity object at the offset position or null
+     */
+    public function offsetGet($offset)
+    {
+        $query = new Horde_Rdo_Query($this->_query);
+        $query->limit(1, $offset);
+        return $this->_mapper->findOne($query);
+    }
+
+    /**
+     * Not implemented.
+     *
+     * Stub of the offsetSet() method for ArrayAccess
+     * This method is executed when adding an item to the Horde_Rdo_List
+     * @param Horde_Rdo_Base $item  The item to add to the list.
+     * @param integer $offset  The offset to add or change.
+     * @param Horde_Rdo_Base $offset  The item to add to the list.
+     * 
+     * @return Horde_Rdo_Base  An entity object at the offset position or null
+     */
+    public function offsetSet($offset, $item)
+    {
+        new Horde_Rdo_Exception('You cannot add objects to a result set');
+    }
+
+    /**
+     * Not implemented.
+     *
+     * Stub of the offsetUnset() method for ArrayAccess
+     * This method is executed when calling unset on a Horde_Rdo_List index
+     * @param Horde_Rdo_Base $item  The item to add to the list.
+     * @param integer $offset  The offset to unset.
+     *
+     * @return Horde_Rdo_Base  An entity object at the offset position or null
+     */
+    public function offsetUnset($offset)
+    {
+        new Horde_Rdo_Exception('You cannot remove objects from a result set');
     }
 
     /**
