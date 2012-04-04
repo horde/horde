@@ -34,6 +34,25 @@ define('SESHA_SEARCH_PROPERTY', 8);
  */
 class Sesha
 {
+    /** Sort by stock id. */
+    const SESHA_SORT_STOCKID = 100;
+    /** Sort by stock name. */
+    const SESHA_SORT_NAME = 101;
+    /** Sort by stock note. */
+    const SESHA_SORT_NOTE = 102;
+    /** Sort in ascending order. */
+    const SESHA_SORT_ASCEND = 0;
+    /** Sort in descending order. */
+    const SESHA_SORT_DESCEND = 1;
+
+    // Search Field Constants
+
+    const SESHA_SEARCH_ID = 1;
+    const SESHA_SEARCH_NAME = 2;
+    const SESHA_SEARCH_NOTE = 4;
+    const SESHA_SEARCH_PROPERTY = 8;
+
+
     /**
      * This function will return the inventory based on current category
      * filters.
@@ -77,7 +96,7 @@ class Sesha
 
         // Sort the inventory if there is a sort function defined
         if (count($inventory)) {
-            $prefix = ($sortdir == SESHA_SORT_DESCEND) ? '_rsort' : '_sort';
+            $prefix = ($sortdir == self::SESHA_SORT_DESCEND) ? '_rsort' : '_sort';
             if (isset($sort_functions[$sortby])) {
                 uasort($inventory, array('Sesha', $prefix .
                     $sort_functions[$sortby]));

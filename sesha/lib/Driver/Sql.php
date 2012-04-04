@@ -278,7 +278,7 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
     /**
      * This will return the category found matching a specific id.
      *
-     * @param integer $category_id  The integer ID of the category to find.
+     * @param integer|array $category_id  The integer ID or key => value hash of the category to find.
      *
      * @return Sesha_Entity_Category  The category on success
      */
@@ -288,7 +288,7 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
     }
 
     /**
-     * This function return all the categories matching an id or category list.
+     * This function returns all the categories matching an id or category list.
      *
      * @param integer $stock_id      The stock ID of categories to fetch.
      *                               Overrides category_ids

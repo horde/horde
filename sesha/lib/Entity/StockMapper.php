@@ -49,5 +49,20 @@ class Sesha_Entity_StockMapper extends Horde_Rdo_Mapper
                         'through' => 'sesha_inventory_categories'),
         );
 
+
+    /**
+     * Deletes a stock item from the backend. $object can be either a
+     * primary key, an Rdo_Query object, or a Sesha_Entity_Stock object.
+     * This also cleans up attached attributes and categories
+     *
+     * @param string|Sesha_Entity_Stock|Horde_Rdo_Query $object The Rdo object,
+     * Horde_Rdo_Query, or unique id to delete.
+     *
+     * @return integer Number of objects deleted.
+     */
+    public function delete($object)
+    {
+        return parent::delete($object);
+    }
 }
 

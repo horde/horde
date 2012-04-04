@@ -22,7 +22,7 @@ $actionId = Horde_Util::getFormData('actionId');
 $vars = Horde_Variables::getDefaultVariables();
 $renderer = new Horde_Form_Renderer();
 $form = new Sesha_Forms_Search($vars);
-$vars->set('location', array(SESHA_SEARCH_NAME));
+$vars->set('location', array(Sesha::SESHA_SEARCH_NAME));
 
 // Page display.
 $page_output->header(array(

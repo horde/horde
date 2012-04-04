@@ -99,13 +99,13 @@ $prefs_url = Horde::url($registry->get('webroot', 'horde') . '/services/prefs/',
 $sortdirclass = $sortdir ? 'sortup' : 'sortdown';
 $baseurl = Horde::url('list.php');
 $column_headers = array(
-    array('id' => 's' . SESHA_SORT_STOCKID,
-          'class' => $sortby == SESHA_SORT_STOCKID ? ' class="' . $sortdirclass . '"' : '',
-          'link' => Horde::link(Horde_Util::addParameter($baseurl, 'sortby', SESHA_SORT_STOCKID), _("Sort by stock ID"), 'sortlink') . _("Stock ID") . '</a>',
+    array('id' => 's' . Sesha::SESHA_SORT_STOCKID,
+          'class' => $sortby == Sesha::SESHA_SORT_STOCKID ? ' class="' . $sortdirclass . '"' : '',
+          'link' => Horde::link(Horde_Util::addParameter($baseurl, 'sortby', Sesha::SESHA_SORT_STOCKID), _("Sort by stock ID"), 'sortlink') . _("Stock ID") . '</a>',
           'width' => ' width="5%"'),
-    array('id' => 's' . SESHA_SORT_NAME,
-          'class' => $sortby == SESHA_SORT_NAME ? ' class="' . $sortdirclass . '"' : '',
-          'link' => Horde::link(Horde_Util::addParameter($baseurl, 'sortby', SESHA_SORT_NAME), _("Sort by item name"), 'sortlink') . _("Item Name") . '</a>',
+    array('id' => 's' . Sesha::SESHA_SORT_NAME,
+          'class' => $sortby == Sesha::SESHA_SORT_NAME ? ' class="' . $sortdirclass . '"' : '',
+          'link' => Horde::link(Horde_Util::addParameter($baseurl, 'sortby', Sesha::SESHA_SORT_NAME), _("Sort by item name"), 'sortlink') . _("Item Name") . '</a>',
           'width' => '')
 );
 foreach ($properties as $property_id => $property) {
@@ -117,9 +117,9 @@ foreach ($properties as $property_id => $property) {
     );
 }
 $column_headers[] = array(
-    'id' => 's' . SESHA_SORT_NOTE,
-    'class' => $sortby == SESHA_SORT_NOTE ? ' class="' . $sortdirclass . '"' : '',
-    'link' => Horde::link(Horde_Util::addParameter($baseurl, 'sortby', SESHA_SORT_NOTE), _("Sort by note"), 'sortlink') . _("Note") . '</a>',
+    'id' => 's' . Sesha::SESHA_SORT_NOTE,
+    'class' => $sortby == Sesha::SESHA_SORT_NOTE ? ' class="' . $sortdirclass . '"' : '',
+    'link' => Horde::link(Horde_Util::addParameter($baseurl, 'sortby', Sesha::SESHA_SORT_NOTE), _("Sort by note"), 'sortlink') . _("Note") . '</a>',
     'width' => '',
 );
 
