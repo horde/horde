@@ -120,4 +120,21 @@ To: recipient2@example.com"
             $hdrs->getValue('to')
         );
     }
+
+    public function testAddHeaderWithGroup()
+    {
+        $email = 'Test: foo@example.com, bar@example.com;';
+
+        $rfc822 = new Horde_Mail_Rfc822();
+        $ob = $rfc822->parseAddressList($email);
+
+        $hdrs = new Horde_Mime_Headers();
+        $hdrs->addHeader('To', $ob);
+
+        $this->assertEquals(
+            $email,
+            $hdrs->getValue('to')
+        );
+    }
+
 }
