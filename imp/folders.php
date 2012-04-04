@@ -221,7 +221,6 @@ case 'delete_mbox_confirm':
 case 'empty_mbox_confirm':
     if (!empty($mbox_list)) {
         $loop = array();
-        $rowct = 0;
         foreach ($mbox_list as $val) {
             switch ($vars->actionID) {
             case 'delete_mbox_confirm':
@@ -246,7 +245,6 @@ case 'empty_mbox_confirm':
             }
 
             $data = array(
-                'class' => 'item' . (++$rowct % 2),
                 'name' => $val->display_html,
                 'msgs' => $elt_info ? $elt_info['messages'] : 0,
                 'val' => $val->form_to
@@ -257,6 +255,8 @@ case 'empty_mbox_confirm':
         if (!count($loop)) {
             break;
         }
+
+        $page_output->addScriptFile('stripe.js', 'horde');
 
         $menu = IMP::menu();
         IMP::header(_("Folder Actions - Confirmation"));
@@ -278,23 +278,14 @@ case 'empty_mbox_confirm':
 
 case 'mbox_size':
     if (!empty($mbox_list)) {
-        $page_output->addScriptFile('tables.js', 'horde');
-
-        $menu = IMP::menu();
-        IMP::header(_("Mailbox Sizes"));
-        echo $menu;
-        IMP::status();
-        IMP::quota();
-
         $loop = array();
-        $rowct = $sum = 0;
+        $sum = 0;
 
         $imp_message = $injector->getInstance('IMP_Message');
 
         foreach ($mbox_list as $val) {
             $size = $imp_message->sizeMailbox($val, false);
             $data = array(
-                'class' => 'item' . (++$rowct % 2),
                 'name' => $val->display_html,
                 'size' => sprintf(_("%.2fMB"), $size / (1024 * 1024)),
                 'sort' => $size
@@ -308,6 +299,16 @@ case 'mbox_size':
         $template->set('mboxes', $loop);
         $template->set('mboxes_sum', sprintf(_("%.2fMB"), $sum / (1024 * 1024)));
         $template->set('folders_url', $folders_url);
+
+        $page_output->addScriptFile('stripe.js', 'horde');
+        $page_output->addScriptFile('tables.js', 'horde');
+
+        $menu = IMP::menu();
+        IMP::header(_("Mailbox Sizes"));
+        echo $menu;
+        IMP::status();
+        IMP::quota();
+
         echo $template->fetch(IMP_TEMPLATES . '/imp/folders/folders_size.html');
 
         $page_output->footer();
