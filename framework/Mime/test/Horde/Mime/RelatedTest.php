@@ -60,7 +60,7 @@ class Horde_Mime_RelatedTest extends PHPUnit_Framework_TestCase
 
     public function testReplace()
     {
-        $text = $this->_relatedOb->cidReplace(
+        $ob = $this->_relatedOb->cidReplace(
             $this->_part->getPart('1')->getContents(),
             array($this, 'callbackTestReplace')
         );
@@ -77,7 +77,7 @@ EOT;
 
         $this->assertEquals(
             $expected,
-            $text
+            $ob->returnHtml()
         );
     }
 
