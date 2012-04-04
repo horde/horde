@@ -396,13 +396,14 @@ class Horde_Core_ActiveSync_Connector
     {
         if ($setting['oofstate'] == Horde_ActiveSync_Request_Settings::OOF_STATE_ENABLED) {
             // Only support a single message, the APPLIESTOINTERNAL message.
-            foreach ($settings['oofmsgs'] as $msg) {
+            foreach ($setting['oofmsgs'] as $msg) {
                 if ($msg['appliesto'] == Horde_ActiveSync_Request_Settings::SETTINGS_APPLIESTOINTERNAL) {
                     $vacation = array(
                         'reason' => $msg['replymessage'],
                         'subject' => Horde_Core_Translation::t('Out Of Office')
                     );
                     $this->_registry->filter->setVacation($vacation);
+                    return;
                 }
             }
         }
