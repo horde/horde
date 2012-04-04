@@ -165,8 +165,7 @@ class Ingo_Api extends Horde_Registry_Api
         $filters->ruleEnable($vacation_rule_id);
 
         try {
-            $ingo_storage->store($filters);
-
+            $ingo_storage->store($vacation);
             if ($GLOBALS['prefs']->getValue('auto_update')) {
                 Ingo::updateScript();
             }
