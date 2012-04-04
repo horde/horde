@@ -464,11 +464,11 @@ class Horde_Registry
             break;
         }
 
-        $GLOBALS['notification'] = $injector->getInstance('Horde_Notification');
-        $GLOBALS['notification']->attach('status', null, $notify_class);
-
         /* Initialize global page output object. */
         $GLOBALS['page_output'] = $injector->getInstance('Horde_PageOutput');
+
+        $GLOBALS['notification'] = $injector->getInstance('Horde_Notification');
+        $GLOBALS['notification']->attach('status', null, $notify_class);
 
         register_shutdown_function(array($this, 'shutdown'));
     }
