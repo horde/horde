@@ -1609,7 +1609,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                 }
 
                 if ($ob = $h->getOb($val)) {
-                    $ob->setIteratorFilter(0, $all_addrs);
+                    $ob->setIteratorFilter($ob::BASE_ELEMENTS, $all_addrs);
 
                     if ($first_ob = $ob[0]) {
                         if ($first_ob instanceof Horde_Mail_Rfc822_Group) {
