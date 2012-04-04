@@ -67,7 +67,13 @@ try {
 
 // Properties being displayed
 try {
-    $properties = $GLOBALS['injector']->getInstance('Sesha_Factory_Driver')->create()->getProperties(@unserialize($prefs->getValue('list_properties')));
+    $property_ids = @unserialize($prefs->getValue('list_properties'));
+    if (empty($property_ids)) {
+        /* The driver understands an empty filter as "all" but if none are selected, we want none */
+        $properties = array();
+    } else {
+        $properties = $GLOBALS['injector']->getInstance('Sesha_Factory_Driver')->create()->getProperties($property_ids);
+    }
 } catch (Sesha_Exception $e) {
 
 }
