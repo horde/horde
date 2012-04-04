@@ -406,6 +406,8 @@ class Horde_Core_ActiveSync_Connector
                     return;
                 }
             }
+        } else {
+            $this->_registry->filter->disableVacation();
         }
     }
 
