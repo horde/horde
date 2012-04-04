@@ -1339,7 +1339,9 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         if (isset($this->_vars->atc_indices)) {
             $imp_compose = $GLOBALS['injector']->getInstance('IMP_Factory_Compose')->create($this->_vars->imp_compose);
             foreach (Horde_Serialize::unserialize($this->_vars->atc_indices, Horde_Serialize::JSON) as $val) {
-                $GLOBALS['notification']->push(sprintf(_("Deleted attachment \"%s\"."), Horde_Mime::decode($imp_compose[$val]['part']->getName(true), 'UTF-8')), 'horde.success');
+                if ($part = $imp_compose[$val]['part']) {
+                    $GLOBALS['notification']->push(sprintf(_("Deleted attachment \"%s\"."), Horde_Mime::decode($part->getName(true), 'UTF-8')), 'horde.success');
+                }
                 unset($imp_compose[$val]);
             }
         }
