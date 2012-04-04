@@ -57,6 +57,9 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
     const SETTINGS_ENABLEOUTBOUNDSMS        = 'Settings:EnableOutboundSMS';
     const SETTINGS_MOBILEOPERATOR           = 'Settings:MobileOperator';
 
+    const STATUS_SUCCESS                    = 1;
+    const STATUS_ERROR                      = 2;
+
     /**
      * Handle the request.
      *
@@ -84,13 +87,13 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
                     case self::SETTINGS_OOF:
                         if ($this->_decoder->getElementStartTag(self::SETTINGS_BODYTYPE)) {
                             if (($bodytype = $this->_decoder->getElementContent()) !== false) {
-                                if(!$this->_decoder->getElementEndTag()) {
-                                    return false; // end self::SETTINGS BODYTYPE
+                                if (!$this->_decoder->getElementEndTag()) {
+                                    throw new Horde_ActiveSync_Exception('Protocol Error'); // end self::SETTINGS BODYTYPE
                                 }
                             }
                         }
                         if (!$this->_decoder->getElementEndTag()) {
-                            return false; // end self::SETTINGS_OOF
+                            throw new Horde_ActiveSync_Exception('Protocol Error'); // end self::SETTINGS_OOF
                         }
                         $request['get']['oof']['bodytype'] = $bodytype;
                         break;
@@ -99,7 +102,7 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
                         break;
                     }
                     if (!$this->_decoder->getElementEndTag()) {
-                        return false; // end self::SETTINGS GET
+                        throw new Horde_ActiveSync_Exception('Protocol Error'); // end self::SETTINGS GET
                     }
                     break;
                 case self::SETTINGS_SET:
@@ -201,7 +204,7 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
 
                     // end self::SETTINGS_SET
                     if (!$this->_decoder->getElementEndTag()) {
-                        return false;
+                        throw new Horde_ActiveSync_Exception('Protocol Error');
                     }
                     break;
                 }
@@ -221,7 +224,7 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
         $this->_encoder->startWBXML();
         $this->_encoder->startTag(self::SETTINGS_SETTINGS);
         $this->_encoder->startTag(self::SETTINGS_STATUS);
-        $this->_encoder->content(1);
+        $this->_encoder->content(self::STATUS_SUCCESS);
         $this->_encoder->endTag(); // end self::SETTINGS_STATUS
         if (isset($request['set']['oof'])) {
             $this->_encoder->startTag(self::SETTINGS_OOF);
