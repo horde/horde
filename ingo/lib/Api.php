@@ -110,11 +110,12 @@ class Ingo_Api extends Horde_Registry_Api
     /**
      * Set vacation
      *
-     * @param array $info  Vacation details.
+     * @param array $info      Vacation details.
+     * @param boolean $enable  Enable the filter?
      *
      * @return boolean  True on success.
      */
-    public function setVacation($info)
+    public function setVacation($info, $enable = true)
     {
         if (empty($info)) {
             return true;
@@ -162,7 +163,11 @@ class Ingo_Api extends Horde_Registry_Api
             $vacation->setVacationEnd($info['end']);
         }
 
-        $filters->ruleEnable($vacation_rule_id);
+        if ($enable) {
+            $filters->ruleEnable($vacation_rule_id);
+        } else {
+            $filters->ruleDisable($vacation_rule_id);
+        }
 
         try {
             $ingo_storage->store($vacation);
