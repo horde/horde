@@ -2932,10 +2932,17 @@ var DimpBase = {
     /* Mailbox action callback functions. */
     mailboxCallback: function(r)
     {
-        var nm = $('normalmboxes');
+        var base,
+            nm = $('normalmboxes');
+
+        if (r.base) {
+            // Need to find the submailbox and look to parent to ensure we get
+            // the non-special container.
+            base = this.getSubMboxElt(r.base).previous();
+        }
 
         if (r.expand) {
-            this.expandmbox = r.base ? this.getMboxElt(r.base) : true;
+            this.expandmbox = base ? base : true;
         }
 
         if (r.d) {
@@ -2950,8 +2957,8 @@ var DimpBase = {
 
         this.expandmbox = false;
 
-        if (r.base) {
-            this._toggleSubFolder(this.getMboxElt(r.base), r.all ? 'expall' : 'tog', false, true);
+        if (base) {
+            this._toggleSubFolder(base, r.all ? 'expall' : 'tog', false, true);
         }
 
         if (this.view) {
@@ -3200,10 +3207,6 @@ var DimpBase = {
         }
 
         if (f_node) {
-            tmp2 = f_node.previous();
-            if (tmp2.hasClassName('subfolders')) {
-                f_node = tmp2;
-            }
             f_node.insert({ before: li });
         } else {
             parent_e.insert(li);
