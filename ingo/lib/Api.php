@@ -181,6 +181,24 @@ class Ingo_Api extends Horde_Registry_Api
     }
 
     /**
+     * Return the vacation message properties.
+     *
+     * @return array  The property hash
+     */
+    public function getVacation()
+    {
+        /* Get vacation filter. */
+        $ingo_storage = $GLOBALS['injector']
+            ->getInstance('Ingo_Factory_Storage')
+            ->create();
+        $filters = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
+        $vacation_rule_id = $filters->findRuleId(Ingo_Storage::ACTION_VACATION);
+        $vacation = $ingo_storage->retrieve(Ingo_Storage::ACTION_VACATION);
+
+        return $vacation->toArray();
+    }
+
+    /**
      * Disable vacation
      *
      * @return boolean  True on success.

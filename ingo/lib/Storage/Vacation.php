@@ -206,4 +206,23 @@ class Ingo_Storage_Vacation extends Ingo_Storage_Rule
         return date('j', $this->_end);
     }
 
+    /**
+     * Return the properties of this object as a hash.
+     *
+     * @return array  The property hash
+     */
+    public function toArray()
+    {
+        return array(
+            'start' => $this->getVacationStart(),
+            'end' => $this->getVacationEnd(),
+            'subject' => $this->getVacationSubject(),
+            'reason' => $this->getVacationReason(),
+            'ignorelist' => $this->getVacationIgnorelist(),
+            'excludes' => $this->getVacationExcludes(),
+            'days' => $this->getVacationDays(),
+            'addresses' => $this->getVacationAddresses()
+        );
+    }
+
 }
