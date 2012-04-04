@@ -478,8 +478,8 @@ class IMP_Views_ListMessages
             $msg['date'] = htmlspecialchars($imp_ui->getDate($ob['envelope']->date), ENT_QUOTES, 'UTF-8');
 
             /* Format the From: Header. */
-            $getfrom = $imp_ui->getFrom($ob['envelope'], array('specialchars' => 'UTF-8'));
-            $msg['from'] = $getfrom['from'];
+            $getfrom = $imp_ui->getFrom($ob['envelope']);
+            $msg['from'] = htmlspecialchars($getfrom['from'], ENT_QUOTES, 'UTF-8');
 
             /* Format the Subject: Header. */
             $msg['subject'] = $imp_ui->getSubject($ob['envelope']->subject, true);

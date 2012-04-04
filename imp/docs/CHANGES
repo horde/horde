@@ -2,6 +2,8 @@
 v6.0-git
 --------
 
+[mms] Improved handling of messages with multiple From addresses in mailbox
+      views.
 [mms] Replying to a multipart/related message in HTML mode now correctly
       attaches data from the original message.
 [mms] Allow deletion of all subfolders at once in dynamic view.

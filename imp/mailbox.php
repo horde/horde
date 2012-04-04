@@ -872,19 +872,23 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     }
 
     /* Format the From: Header. */
-    $getfrom = $imp_ui->getFrom($ob['envelope'], array('fullfrom' => true, 'specialchars' => 'UTF-8'));
-    $msg['from'] = $getfrom['from'];
-    $msg['fullfrom'] = $getfrom['fullfrom'];
+    $getfrom = $imp_ui->getFrom($ob['envelope']);
+    $msg['from'] = htmlspecialchars($getfrom['from'], ENT_QUOTES, 'UTF-8');
     switch ($fromlinkstyle) {
     case 0:
-        if (!$getfrom['error']) {
-            $msg['from'] = call_user_func_array(array('Horde', $preview_tooltip ? 'linkTooltip' : 'link'), array(IMP::composeLink(array(), array('actionID' => 'mailto', 'thismailbox' => $ob['mailbox'], 'uid' => $ob['uid'], 'mailto' => $getfrom['to'])), sprintf(_("New Message to %s"), $msg['fullfrom']))) . $msg['from'] . '</a>';
+        $from_tmp = array();
+        foreach ($getfrom['from_list']->base_addresses as $from_ob) {
+            $from_tmp[] = call_user_func_array(array('Horde', $preview_tooltip ? 'linkTooltip' : 'link'), array(IMP::composeLink(array(), array('actionID' => 'mailto_link', 'to' => strval($from_ob))), sprintf(_("New Message to %s"), $from_ob->label))) . htmlspecialchars($from_ob->label, ENT_QUOTES, 'UTF-8') . '</a>';
+        }
+
+        if (!empty($from_tmp)) {
+            $msg['from'] = implode(', ', $from_tmp);
         }
         break;
 
     case 1:
         $from_uri = IMP::mailbox()->url('message.php', $ob['uid'], $ob['mailbox']);
-        $msg['from'] = Horde::link($from_uri, $msg['fullfrom']) . $msg['from'] . '</a>';
+        $msg['from'] = Horde::link($from_uri) . $msg['from'] . '</a>';
         break;
     }
 

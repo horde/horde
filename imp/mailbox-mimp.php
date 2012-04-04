@@ -163,7 +163,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
 
     /* Format the from header. */
     $getfrom = $imp_ui->getFrom($ob['envelope']);
-    $msg['from'] = Horde_String::truncate($getfrom['from'], 50);
+    $msg['from'] = htmlspecialchars(Horde_String::truncate($getfrom['from'], 50), ENT_QUOTES, 'UTF-8');
 
     /* Get flag information. */
     $flag_parse = $injector->getInstance('IMP_Flags')->parse(array(

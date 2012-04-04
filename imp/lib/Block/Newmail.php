@@ -59,7 +59,6 @@ class IMP_Block_Newmail extends Horde_Core_Block
         if (empty($indices)) {
             $html .= '<tr><td><em>' . _("No unread messages") . '</em></td></tr>';
         } else {
-            $charset = 'UTF-8';
             $imp_ui = new IMP_Ui_Mailbox($inbox);
             $shown = empty($this->_params['msgs_shown'])
                 ? 3
@@ -82,14 +81,14 @@ class IMP_Block_Newmail extends Horde_Core_Block
                 $envelope = $ob->getEnvelope();
 
                 $date = $imp_ui->getDate($envelope->date);
-                $from = $imp_ui->getFrom($envelope, array('specialchars' => $charset));
+                $from = $imp_ui->getFrom($envelope);
                 $subject = $imp_ui->getSubject($envelope->subject, true);
 
                 $html .= '<tr style="cursor:pointer" class="text"><td>' .
                     $inbox->url('message.php', $uid)->link() .
-                    '<strong>' . $from['from'] . '</strong><br />' .
+                    '<strong>' . htmlspecialchars($from['from'], ENT_QUOTES, 'UTF-8') . '</strong><br />' .
                     $subject . '</a></td>' .
-                    '<td>' . htmlspecialchars($date, ENT_QUOTES, $charset) . '</td></tr>';
+                    '<td>' . htmlspecialchars($date, ENT_QUOTES, 'UTF-8') . '</td></tr>';
             }
 
             $more_msgs = count($indices) - $shown;

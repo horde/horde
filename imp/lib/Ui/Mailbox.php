@@ -46,22 +46,16 @@ class IMP_Ui_Mailbox
      * Get From address information for display on mailbox page.
      *
      * @param Horde_Imap_Client_Data_Envelope $ob  An envelope object.
-     * @param array $opts                          Additional opts:
-     *   - fullfrom: (boolean) If true, returns 'fullfrom' information.
-     *               DEFAULT: false
-     *   - specialchars: (string) If set, run 'from' return through
-     *                   htmlspecialchars() using the given charset.
      *
      * @return array  An array of information:
-     *   - error: (boolean) True on error.
-     *   - from: (string) The personal part of the From address.
-     *   - fullfrom: (string) The full From address.
+     *   - from: (string) The personal part(s) of the From address.
+     *   - from_list: (Horde_Mail_Rfc822_List) From address list.
      *   - to: (boolean) True if this is who the message was sent to.
      */
-    public function getFrom($ob, array $opts = array())
+    public function getFrom($ob)
     {
         $ret = array(
-            'error' => false,
+            'from' => '',
             'to' => false
         );
 
@@ -69,60 +63,39 @@ class IMP_Ui_Mailbox
             $this->_cache['drafts_sm_folder'] = $this->_mailbox->special_outgoing;
         }
 
-        if (!($from = $ob->from[0])) {
-            $ret['from'] = _("Invalid Address");
-            $ret['error'] = true;
+        if ($GLOBALS['injector']->getInstance('IMP_Identity')->hasAddress($ob->from)) {
+            if (!$this->_cache['drafts_sm_folder']) {
+                $ret['from'] = _("To:") . ' ';
+            }
+            $ret['to'] = true;
+            $addrs = $ob->to;
+
+            if (!count($addrs)) {
+                $ret['from'] .= _("Undisclosed Recipients");
+                $ret['from_list'] = new Horde_Mail_Rfc822_List();
+                return $ret;
+            }
         } else {
-            if ($GLOBALS['injector']->getInstance('IMP_Identity')->hasAddress($from->bare_address)) {
-                /* This message was sent by one of the user's identity
-                 * addresses - show To: information instead. */
-                if ($first_to = $ob->to[0]) {
-                    if ($first_to instanceof Horde_Mail_Rfc822_Group) {
-                        $ret['from'] = $first_to->groupname;
-                    } else {
-                        $ret['from'] = is_null($first_to->personal)
-                            ? $first_to->bare_address
-                            : $first_to->personal;
-                    }
-                    if (!empty($opts['fullfrom'])) {
-                        $ret['fullfrom'] = strval($first_to);
-                    }
-                } else {
-                    $ret['from'] = _("Undisclosed Recipients");
-                    $ret['error'] = true;
-                }
-                if (!$this->_cache['drafts_sm_folder']) {
-                    $ret['from'] = _("To") . ': ' . $ret['from'];
-                }
-                $ret['to'] = true;
-            } else {
-                if ($first_to instanceof Horde_Mail_Rfc822_Group) {
-                    $ret['from'] = $from->groupname;
-                } else {
-                    $ret['from'] = is_null($from->personal)
-                            ? $from->bare_address
-                            : $from->personal;
-                }
-                if ($this->_cache['drafts_sm_folder']) {
-                    $ret['from'] = _("From") . ': ' . $ret['from'];
-                }
-                if (!empty($opts['fullfrom'])) {
-                    $ret['fullfrom'] = strval($from);
-                }
+            $addrs = $ob->from;
+            if ($this->_cache['drafts_sm_folder']) {
+                $ret['from'] = _("From:") . ' ';
+            }
+
+            if (!count($addrs)) {
+                $ret['from'] = _("Invalid Address");
+                $ret['from_list'] = new Horde_Mail_Rfc822_List();
+                return $ret;
             }
         }
 
-        if (!empty($opts['fullfrom']) && !isset($ret['fullfrom'])) {
-            $ret['fullfrom'] = $ret['from'];
+        $parts = array();
+
+        foreach ($addrs->base_addresses as $val) {
+            $parts[] = $val->label;
         }
 
-        if (!empty($ret['from']) && !empty($opts['specialchars'])) {
-            $res = @htmlspecialchars($ret['from'], ENT_QUOTES, $opts['specialchars']);
-            if (empty($res)) {
-                $res = @htmlspecialchars($ret['from']);
-            }
-            $ret['from'] = $res;
-        }
+        $ret['from'] .= implode(', ', $parts);
+        $ret['from_list'] = $addrs;
 
         return $ret;
     }
