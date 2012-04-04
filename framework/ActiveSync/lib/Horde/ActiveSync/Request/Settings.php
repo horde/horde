@@ -232,10 +232,10 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
         if (isset($request['set']['oof'])) {
             $this->_encoder->startTag(self::SETTINGS_OOF);
             $this->_encoder->startTag(self::SETTINGS_STATUS);
-            if (!isset($result['set']['oof']['status'])) {
+            if (!isset($result['set']['oof'])) {
                 $this->_encoder->content(0);
             } else {
-                $this->_encoder->content($result['set']['oof']['status']);
+                $this->_encoder->content($result['set']['oof']);
             }
             $this->_encoder->endTag(); // end self::SETTINGS_STATUS
             $this->_encoder->endTag(); // end self::SETTINGS_OOF
@@ -243,10 +243,10 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
         if (isset($request['set']['deviceinformation'])) {
             $this->_encoder->startTag(self::SETTINGS_DEVICEINFORMATION);
             $this->_encoder->startTag(self::SETTINGS_STATUS);
-            if (!isset($result['set']['deviceinformation']['status'])) {
+            if (!isset($result['set']['deviceinformation'])) {
                 $this->_encoder->content(0);
             } else {
-                $this->_encoder->content($result['set']['deviceinformation']['status']);
+                $this->_encoder->content($result['set']['deviceinformation']);
             }
             $this->_encoder->endTag(); // end self::SETTINGS_STATUS
             $this->_encoder->endTag(); // end self::SETTINGS_DEVICEINFORMATION
@@ -254,10 +254,10 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
         if (isset($request['set']['devicepassword'])) {
             $this->_encoder->startTag(self::SETTINGS_DEVICEPASSWORD);
             $this->_encoder->startTag(self::SETTINGS_STATUS);
-            if (!isset($result['set']['devicepassword']['status'])) {
+            if (!isset($result['set']['devicepassword'])) {
                 $this->_encoder->content(0);
             } else {
-                $this->_encoder->content($result['set']['devicepassword']['status']);
+                $this->_encoder->content($result['set']['devicepassword']);
             }
             $this->_encoder->endTag(); // end self::SETTINGS_STATUS
             $this->_encoder->endTag(); // end self::SETTINGS_DEVICEPASSWORD
