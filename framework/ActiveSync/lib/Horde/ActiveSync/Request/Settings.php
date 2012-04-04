@@ -60,6 +60,9 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
     const STATUS_SUCCESS                    = 1;
     const STATUS_ERROR                      = 2;
 
+    const OOF_STATE_ENABLED                 = 1;
+    const OOF_STATE_DISABLED                = 0;
+
     /**
      * Handle the request.
      *

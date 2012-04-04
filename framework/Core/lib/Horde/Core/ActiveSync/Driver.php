@@ -1175,7 +1175,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $vacation = $this->_connector->filters_getVacation();
                 $res['oof'] = array(
                     'status' => Horde_ActiveSync_Request_Settings::STATUS_SUCCESS,
-                    'oofstate' => ($vacation['disabled'] ? 0 : 1),
+                    'oofstate' => ($vacation['disabled']
+                        ? Horde_ActiveSync_Request_Settings::OOF_STATE_DISABLED
+                        : Horde_ActiveSync_Request_Settings::OOF_STATE_ENABLED),
                     'oofmsgs' => array()
                 );
                 $res['oof']['oofmsgs'][] = array(
