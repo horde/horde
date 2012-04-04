@@ -614,4 +614,26 @@ abstract class Horde_ActiveSync_Driver_Base
      * @return array  An array of provisionable properties and values.
      */
     abstract public function getCurrentPolicy($policyType);
+
+    /**
+     * Return settings from the backend for a SETTINGS request.
+     *
+     * @param array $settings  An array of settings to return.
+     * @param stdClass $devId  The device to obtain settings for.
+     *
+     * @return array  The requested settigns.
+     */
+    abstract public function getSettings(array $settings, $device);
+
+    /**
+     * Set backend settings from a SETTINGS request.
+     *
+     * @param array $settings   The settings to store.
+     * @param stdClass $device  The device to store settings for.
+     *
+     * @return array  An array of status responses for each set request. e.g.,:
+     *   array('oof' => Horde_ActiveSync_Request_Settings::STATUS_SUCCESS,
+     *         'deviceinformation' => Horde_ActiveSync_Request_Settings::STATUS_SUCCESS);
+     */
+    abstract public function setSettings(array $settings, $device);
 }
