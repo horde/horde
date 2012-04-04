@@ -275,7 +275,7 @@ if (IMP::canCompose()) {
 
     $addr_ob = clone($envelope->to);
     $addr_ob->add($envelope->cc);
-    $addr_ob->setIteratorFilter(0, array_keys($user_identity->getAllFromAddresses(true)));
+    $addr_ob->setIteratorFilter(0, $user_identity->getAllFromAddresses());
 
     if (count($addr_ob)) {
         $menu[] = array(_("Reply All"), IMP::composeLink(array(), array('a' => 'ra') + $compose_params));

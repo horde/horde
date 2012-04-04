@@ -1074,7 +1074,7 @@ class IMP_Prefs_Ui
                 $t->set('fullname', $imp_identity->getFullname());
                 $t->set('personalkey-create-name-help', Horde_Help::link('imp', 'pgp-personalkey-create-name'));
                 $t->set('personalkey-create-comment-help', Horde_Help::link('imp', 'pgp-personalkey-create-comment'));
-                $t->set('fromaddr', $imp_identity->getFromAddress());
+                $t->set('fromaddr', strval($imp_identity->getFromAddress()));
                 $t->set('personalkey-create-email-help', Horde_Help::link('imp', 'pgp-personalkey-create-email'));
                 $t->set('personalkey-create-keylength-help', Horde_Help::link('imp', 'pgp-personalkey-create-keylength'));
                 $t->set('personalkey-create-passphrase-help', Horde_Help::link('imp', 'pgp-personalkey-create-passphrase'));

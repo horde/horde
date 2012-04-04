@@ -24,12 +24,9 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
      */
     protected $_cached = array(
         'aliases' => array(),
-        'fromList' => array(),
-        'froms' => array(),
+        'from' => array(),
         'names' => array(),
-        // 'own_addresses'
         'signatures' => array()
-        // 'tie_addresses'
     );
 
     /**
@@ -110,49 +107,22 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
      *                              identity is selected and the from_addr
      *                              preference is locked.
      *
-     * @return string  A full From: header in the format
-     *                 'Fullname <user@example.com>'.
+     * @return Horde_Mail_Rfc822_Address  The address to use for From header.
      * @throws Horde_Exception
      */
     public function getFromLine($ident = null, $from_address = '')
     {
-        if (isset($this->_cached['froms'][$ident])) {
-            return $this->_cached['froms'][$ident];
-        }
-
-        if (!isset($ident)) {
-            $address = $from_address;
-        }
+        $address = is_null($ident)
+            ? $from_address
+            : null;
 
         if (empty($address) ||
             $this->_prefs->isLocked($this->_prefnames['from_addr'])) {
-            $address = $this->getFromAddress($ident);
+            return $this->getFromAddress($ident);
         }
 
         $result = IMP::parseAddressList($address);
-        $ob = $result[0];
-
-        if (is_null($ob->personal)) {
-            $ob->personal = $this->getFullname($ident);
-        }
-
-        $from = $ob->writeAddress();
-        $this->_cached['froms'][$ident] = $from;
-
-        return $from;
-    }
-
-    /**
-     * Returns an array with From: headers from all identities
-     *
-     * @return array  The From: headers from all identities
-     */
-    public function getAllFromLines()
-    {
-        foreach (array_keys($this->_identities) as $ident) {
-            $list[$ident] = $this->getFromAddress($ident);
-        }
-        return $list;
+        return $result[0];
     }
 
     /**
@@ -163,10 +133,12 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
      */
     public function getSelectList()
     {
-        $ids = $this->getAll($this->_prefnames['id']);
-        foreach ($ids as $key => $id) {
-            $list[$key] = $this->getFromAddress($key) . ' (' . $id . ')';
+        $list = array();
+
+        foreach ($this->getAll($this->_prefnames['id']) as $k => $v) {
+            $list[$k] = strval($this->getFromAddress($k)) . ' (' . $v . ')';
         }
+
         return $list;
     }
 
@@ -174,14 +146,21 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
      * Returns true if the given address belongs to one of the identities.
      * This function will search aliases for an identity automatically.
      *
-     * @param string $address  The address to search for in the identities.
+     * @param mixed $address  The address(es) to search for in the identities.
      *
      * @return boolean  True if the address was found.
      */
     public function hasAddress($address)
     {
-        $list = $this->getAllFromAddresses(true);
-        return isset($list[Horde_String::lower($address)]);
+        $from_addr = $this->getAllFromAddresses();
+
+        foreach (IMP::parseAddressList($address)->bare_addresses as $val) {
+            if ($from_addr->contains($val)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -191,13 +170,13 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
      *
      * @param integer $ident  The identity to retrieve the address from.
      *
-     * @return string  A valid from address.
+     * @return Horde_Mail_Rfc822_Address  A valid from address.
      */
     public function getFromAddress($ident = null)
     {
-        if (!isset($this->_cached['fromList'][$ident])) {
+        if (!isset($this->_cached['from'][$ident])) {
             $val = $this->getValue($this->_prefnames['from_addr'], $ident);
-            if (empty($val)) {
+            if (!strlen($val)) {
                 $val = $GLOBALS['registry']->getAuth();
             }
 
@@ -205,10 +184,16 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
                 $val .= '@' . $GLOBALS['session']->get('imp', 'maildomain');
             }
 
-            $this->_cached['fromList'][$ident] = $val;
+            $ob = new Horde_Mail_Rfc822_Address($val);
+
+            if (is_null($ob->personal)) {
+                $ob->personal = $this->getFullname($ident);
+            }
+
+            $this->_cached['from'][$ident] = $ob;
         }
 
-        return $this->_cached['fromList'][$ident];
+        return $this->_cached['from'][$ident];
     }
 
     /**
@@ -216,69 +201,75 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
      *
      * @param integer $ident  The identity to retrieve the aliases from.
      *
-     * @return array  Aliases for the identity.
+     * @return Horde_Mail_Rfc822_List  Aliases for the identity.
      */
     public function getAliasAddress($ident)
     {
         if (!isset($this->_cached['aliases'][$ident])) {
-            $this->_cached['aliases'][$ident] = @array_merge(
-                (array)$this->getValue('alias_addr', $ident),
-                array($this->getValue('replyto_addr', $ident))
-            );
+            $list = new Horde_Mail_Rfc822_List($this->getValue('alias_addr', $ident));
+            $list->add($this->getValue('replyto_addr', $ident));
+            $this->_cached['aliases'][$ident] = $list;
         }
 
         return $this->_cached['aliases'][$ident];
     }
 
     /**
-     * Returns an array with all identities' from addresses.
+     * Returns all From addresses for one identity.
      *
-     * @param boolean $alias  Include aliases?
+     * @param integer $ident  The identity to retrieve the from addresses
+     *                        from.
      *
-     * @return array  The array with
-     *                KEY - address
-     *                VAL - identity number
+     * @return Horde_Mail_Rfc822_List  Address list.
      */
-    public function getAllFromAddresses($alias = false)
+    public function getFromAddresses($ident = null)
     {
-        $list = array();
+        $list = new Horde_Mail_Rfc822_List($this->getFromAddress($ident));
+        $list->add($this->getAliasAddress($ident));
 
-        foreach ($this->_identitiesWithDefaultLast() as $key => $identity) {
-            /* Get From Addresses. */
-            $list[Horde_String::lower($this->getFromAddress($key))] = $key;
+        return $list;
+    }
 
-            /* Get Aliases. */
-            if ($alias) {
-                $addrs = $this->getAliasAddress($key);
-                if (!empty($addrs)) {
-                    foreach (array_filter($addrs) as $val) {
-                        $list[Horde_String::lower($val)] = $key;
-                    }
-                }
-            }
+    /**
+     * Returns all identities' From addresses.
+     *
+     * @return Horde_Mail_Rfc822_List  Address list.
+     */
+    public function getAllFromAddresses()
+    {
+        $list = new Horde_Mail_Rfc822_List();
+
+        foreach (array_keys($this->_identities) as $key) {
+            $list->add($this->getFromAddresses($key));
         }
 
         return $list;
     }
 
     /**
+     * Get tie-to addresses.
+     *
+     * @param integer $ident  The identity to retrieve the tie-to addresses
+     *                        from.
+     *
+     * @return array  Tie-to addresses.
+     */
+    public function getTieAddresses($ident = null)
+    {
+        return $this->getValue('tieto_addr', $ident);
+    }
+
+    /**
      * Get all 'tie to' address/identity pairs.
      *
-     * @return array  The array with
-     *                KEY - address
-     *                VAL - identity number
+     * @return Horde_Mail_Rfc822_List  A list of e-mail addresses.
      */
     public function getAllTieAddresses()
     {
-        $list = array();
+        $list = new Horde_Mail_Rfc822_List();
 
-        foreach ($this->_identitiesWithDefaultLast() as $key => $identity) {
-            $tieaddr = $this->getValue('tieto_addr', $key);
-            if (!empty($tieaddr)) {
-                foreach ($tieaddr as $val) {
-                    $list[$val] = $key;
-                }
-            }
+        foreach (array_keys($this->_identities) as $key) {
+            $list->add($this->getTieAddresses($key));
         }
 
         return $list;
@@ -288,31 +279,28 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
      * Returns a list of all e-mail addresses from all identities, including
      * both from addresses and tie addreses.
      *
-     * @return array  A list of e-mail addresses.
+     * @return Horde_Mail_Rfc822_List  A list of e-mail addresses.
      */
     public function getAllIdentityAddresses()
     {
-        /* Combine the keys (which contain the e-mail addresses). */
-        return array_merge(
-            array_keys($this->getAllFromAddresses(true)),
-            array_keys($this->getAllTieAddresses())
-        );
+        $list = $this->getAllFromAddresses();
+        $list->add($this->getAllTieAddresses());
+
+        return $list;
     }
 
     /**
      * Returns the list of identities with the default identity positioned
      * last.
      *
-     * @return array  The identities list with the default identity last.
+     * @return array  The identity keys with the default identity last.
      */
     protected function _identitiesWithDefaultLast()
     {
         $ids = $this->_identities;
         $default = $this->getDefault();
-        $tmp = $ids[$default];
         unset($ids[$default]);
-        $ids[$default] = $tmp;
-        return $ids;
+        return array_merge(array_keys($ids), $default);
     }
 
     /**
@@ -341,30 +329,24 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
      */
     public function getMatchingIdentity($addresses, $search_own = true)
     {
-        if (!isset($this->_cached['tie_addresses'])) {
-            $this->_cached['tie_addresses'] = $this->getAllTieAddresses();
-            $this->_cached['own_addresses'] = $this->getAllFromAddresses(true);
-        }
+        $addresses = IMP::parseAddressList($addresses);
 
-        foreach (IMP::parseAddressList($addresses) as $address) {
-            $bare_address = $address->bare_address;
+        foreach ($this->_identitiesWithDefaultLast() as $key) {
+            $tie_addr = $this->getTieAddresses($key);
 
-            /* Search 'tieto' addresses first. Check for this address
-             * explicitly. */
-            if (isset($this->_cached['tie_addresses'][$bare_address])) {
-                return $this->_cached['tie_addresses'][$bare_address];
-            }
-
-            /* If we didn't find the address, check for the domain. */
-            if (!is_null($address->host) &&
-                isset($this->_cached['tie_addresses']['@' . $address->host])) {
-                return $this->_cached['tie_addresses']['@' . $address->host];
+            /* Search 'tieto' addresses first. Check for address first
+             * and, if not found, check for the domain. */
+            foreach ($addresses as $val) {
+                if ((array_search($val->bare_address, $tie_addr) !== false) ||
+                    (array_search('@' . $val->host, $tie_addr) !== false)) {
+                    return $key;
+                }
             }
 
             /* Next, search all from addresses. */
             if ($search_own &&
-                isset($this->_cached['own_addresses'][$bare_address])) {
-                return $this->_cached['own_addresses'][$bare_address];
+                $this->getFromAddresses($key)->contains($addresses)) {
+                return $key;
             }
         }
 

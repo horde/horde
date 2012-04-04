@@ -33,19 +33,9 @@ class IMP_Flag_System_Personal extends IMP_Flag_System_Match_Address
      */
     public function match($data)
     {
-        if ($data instanceof Horde_Mail_Rfc822_List) {
-            $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
-
-            foreach ($data->bare_addresses as $val) {
-                if ($identity->hasAddress($val)) {
-                    return true;
-                }
-            }
-        } else if (!is_null($data)) {
-            return true;
-        }
-
-        return false;
+        return ($data instanceof Horde_Mail_Rfc822_List)
+            ? $GLOBALS['injector']->getInstance('IMP_Identity')->hasAddress($data)
+            : !is_null($data);
     }
 
 }

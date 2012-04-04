@@ -35,7 +35,7 @@ class IMP_Search_Element_Personal extends IMP_Search_Element
         $and_ob = new Horde_Imap_Client_Search_Query();
         $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
 
-        foreach ($identity->getAllIdentityAddresses() as $val) {
+        foreach ($identity->getAllIdentityAddresses()->bare_addresses as $val) {
             $ob = new Horde_Imap_Client_Search_Query();
             $ob->headerText('to', $val, $this->_data);
             $and_ob->orSearch(array($ob));

@@ -551,7 +551,7 @@ if (!$disable_compose) {
 
     $addr_ob = clone $envelope->to;
     $addr_ob->add($envelope->cc);
-    $addr_ob->setIteratorFilter(0, array_keys($user_identity->getAllFromAddresses(true)));
+    $addr_ob->setIteratorFilter(0, $user_identity->getAllFromAddresses());
 
     if (count($addr_ob)) {
         $a_template->set('show_reply_all', Horde::widget(IMP::composeLink(array(), array('actionID' => 'reply_all') + $compose_params), _("To All"), 'widget', '', '', _("To _All"), true));

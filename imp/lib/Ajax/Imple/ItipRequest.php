@@ -407,7 +407,7 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
 
                     $identity->setDefault($vars->identity);
                     $replyto = $identity->getValue('replyto_addr');
-                    if (!empty($replyto) && ($replyto != $email)) {
+                    if (!empty($replyto) && !$email->match($replyto)) {
                         $msg_headers->addHeader('Reply-To', $replyto);
                     }
                     $msg_headers->addHeader('Subject', _("Free/Busy Request Response"));

@@ -255,7 +255,7 @@ case _("Send"):
     }
 
     try {
-        $header['from'] = $identity->getFromLine(null, $vars->from);
+        $header['from'] = strval($identity->getFromLine(null, $vars->from));
     } catch (Horde_Exception $e) {
         $header['from'] = '';
     }

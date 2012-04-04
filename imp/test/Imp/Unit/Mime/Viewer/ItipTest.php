@@ -126,7 +126,7 @@ extends PHPUnit_Framework_TestCase
                     ->will($this->returnCallback(array($this, '_identityGetDefault')));
                 $identity->expects($this->any())
                     ->method('getFromAddress')
-                    ->will($this->returnValue('test@example.org'));
+                    ->will($this->returnValue(new Horde_Mail_Rfc822_Address('test@example.org')));
                 $identity->expects($this->any())
                     ->method('getValue')
                     ->will($this->returnCallback(array($this, '_identityGetValue')));

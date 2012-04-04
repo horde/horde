@@ -1592,7 +1592,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 
             /* Filter out our own address from the addresses we reply to. */
             $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
-            $all_addrs = new Horde_Mail_Rfc822_List(array_keys($identity->getAllFromAddresses(true)));
+            $all_addrs = $identity->getAllFromAddresses();
 
             /* Build the To: header. It is either:
              * 1) the Reply-To address (if not a personal address)

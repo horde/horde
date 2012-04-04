@@ -1794,7 +1794,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         /* Set up the From address based on the identity. */
         $headers = array(
-            'from' => $identity->getFromLine(null, $this->_vars->from)
+            'from' => strval($identity->getFromLine(null, $this->_vars->from))
         );
 
         $headers['to'] = $this->_vars->to;

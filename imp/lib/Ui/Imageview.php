@@ -55,7 +55,7 @@ class IMP_Ui_Imageview
             // Don't allow personal addresses by default - this is the only
             // e-mail address a Spam sender for sure knows you will recognize
             // so it is too much of a loophole.
-            $res->setIteratorFilter(0, array_keys($injector->getInstance('IMP_Identity')->getAllFromAddresses(true)));
+            $res->setIteratorFilter(0, $injector->getInstance('IMP_Identity')->getAllFromAddresses());
 
             foreach ($from as $val) {
                 if ($res->contains($val)) {
