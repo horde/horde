@@ -306,9 +306,8 @@ if ($mime_headers->getValue('face')) {
 /* Build To/Cc/Bcc links. */
 foreach (array('to', 'cc', 'bcc') as $val) {
     $msgAddresses[] = $mime_headers->getValue($val);
-    $addr_val = $imp_ui->buildAddressLinks($envelope->$val, $self_link);
-    if (!empty($addr_val)) {
-        $display_headers[$val] = $addr_val;
+    if (($val == 'to') || count($envelope->$val)) {
+        $display_headers[$val] = $imp_ui->buildAddressLinks($envelope->$val, $self_link);
     }
 }
 
