@@ -387,9 +387,25 @@ class Horde_Core_ActiveSync_Connector
         return $this->_registry->filter->getVacation();
     }
 
-    public function filters_setVacation()
+    /**
+     * Set vacation message properties.
+     *
+     * @param array $setting  The vacation details.
+     */
+    public function filters_setVacation(array $setting)
     {
-
+        if ($setting['oofstate'] == Horde_ActiveSync_Request_Settings::OOF_STATE_ENABLED) {
+            // Only support a single message, the APPLIESTOINTERNAL message.
+            foreach ($settings['oofmsgs'] as $msg) {
+                if ($msg['appliesto'] == Horde_ActiveSync_Request_Settings::SETTINGS_APPLIESTOINTERNAL) {
+                    $vacation = array(
+                        'reason' => $msg['replymessage'],
+                        'subject' => Horde_Core_Translation::t('Out Of Office')
+                    );
+                    $this->_registry->filter->setVacation($vacation);
+                }
+            }
+        }
     }
 
     /**
