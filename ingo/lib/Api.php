@@ -193,9 +193,12 @@ class Ingo_Api extends Horde_Registry_Api
             ->create();
         $filters = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
         $vacation_rule_id = $filters->findRuleId(Ingo_Storage::ACTION_VACATION);
+        $rule = $filters->getRule($vacation_rule_id);
         $vacation = $ingo_storage->retrieve(Ingo_Storage::ACTION_VACATION);
+        $res = $vacation->toArray();
+        $res['disabled'] = $rule['disable'];
 
-        return $vacation->toArray();
+        return $res;
     }
 
     /**
