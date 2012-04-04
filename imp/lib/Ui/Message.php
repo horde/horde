@@ -306,7 +306,7 @@ class IMP_Ui_Message
                         : htmlspecialchars(strval($ad));
 
                     if ($link) {
-                        $ret = Horde::link(IMP::composeLink(array('to' => $ad['address'])), sprintf(_("New Message to %s"), $ad['inner'])) . htmlspecialchars(strval($ad)) . '</a>';
+                        $ret = Horde::link(IMP::composeLink(array('to' => strval($ad))), sprintf(_("New Message to %s"), strval($ad))) . htmlspecialchars(strval($ad)) . '</a>';
                     }
 
                     /* Append the add address icon to every address if contact
