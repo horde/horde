@@ -619,24 +619,23 @@ if ($list_info['exists'] && !$list_headers) {
 }
 
 $hdrs = array();
-$i = 1;
 
 /* Prepare the main message template. */
 $m_template = $injector->createInstance('Horde_Template');
 if (!$all_headers) {
     foreach ($display_headers as $head => $val) {
-        $hdrs[] = array('name' => $basic_headers[$head], 'val' => $val, 'i' => (++$i % 2));
+        $hdrs[] = array('name' => $basic_headers[$head], 'val' => $val);
     }
 }
 foreach ($full_headers as $head => $val) {
     if (is_array($val)) {
-        $hdrs[] = array('name' => $head, 'val' => '<ul style="margin:0;padding-left:15px"><li>' . implode("</li>\n<li>", array_map('htmlspecialchars', $val)) . '</li></ul>', 'i' => (++$i % 2));
+        $hdrs[] = array('name' => $head, 'val' => '<ul style="margin:0;padding-left:15px"><li>' . implode("</li>\n<li>", array_map('htmlspecialchars', $val)) . '</li></ul>');
     } else {
-        $hdrs[] = array('name' => $head, 'val' => htmlspecialchars($val), 'i' => (++$i % 2));
+        $hdrs[] = array('name' => $head, 'val' => htmlspecialchars($val));
     }
 }
 foreach ($all_list_headers as $head => $val) {
-    $hdrs[] = array('name' => $list_headers_lookup[$head], 'val' => $val, 'i' => (++$i % 2));
+    $hdrs[] = array('name' => $list_headers_lookup[$head], 'val' => $val);
 }
 
 /* Determine the fields that will appear in the MIME info entries. */
@@ -729,8 +728,7 @@ if (!empty($inlineout['atc_parts'])) {
     $hdrs[] = array(
         'class' => 'msgheaderParts',
         'name' => ($show_parts == 'all') ? _("Parts") : _("Attachments"),
-        'val' => $val,
-        'i' => (++$i % 2)
+        'val' => $val
     );
 }
 
@@ -742,8 +740,10 @@ $page_output->addInlineScript($inlineout['js_onload'], true);
 $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
 $page_output->addScriptFile('imp.js');
 $page_output->addScriptFile('message.js');
+$page_output->addScriptFile('stripe.js', 'horde');
 
-if (!empty($conf['tasklist']['use_notepad']) || !empty($conf['tasklist']['use_tasklist'])) {
+if (!empty($conf['tasklist']['use_notepad']) ||
+    !empty($conf['tasklist']['use_tasklist'])) {
     $page_output->addScriptFile('redbox.js', 'horde');
     $page_output->addScriptFile('dialog.js', 'horde');
 }
