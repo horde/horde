@@ -76,25 +76,33 @@ class IMP_Ui_Mailbox
             if ($GLOBALS['injector']->getInstance('IMP_Identity')->hasAddress($from->bare_address)) {
                 /* This message was sent by one of the user's identity
                  * addresses - show To: information instead. */
-                if (!$first_to = $ob->to[0]) {
-                    $ret['from'] = _("Undisclosed Recipients");
-                    $ret['error'] = true;
-                } else {
-                    $ret['from'] = is_null($first_to->personal)
-                        ? $first_to->bare_address
-                        : $first_to->personal;
+                if ($first_to = $ob->to[0]) {
+                    if ($first_to instanceof Horde_Mail_Rfc822_Group) {
+                        $ret['from'] = $first_to->groupname;
+                    } else {
+                        $ret['from'] = is_null($first_to->personal)
+                            ? $first_to->bare_address
+                            : $first_to->personal;
+                    }
                     if (!empty($opts['fullfrom'])) {
                         $ret['fullfrom'] = strval($first_to);
                     }
+                } else {
+                    $ret['from'] = _("Undisclosed Recipients");
+                    $ret['error'] = true;
                 }
                 if (!$this->_cache['drafts_sm_folder']) {
                     $ret['from'] = _("To") . ': ' . $ret['from'];
                 }
                 $ret['to'] = true;
             } else {
-                $ret['from'] = is_null($from->personal)
-                    ? $from->bare_address
-                    : $from->personal;
+                if ($first_to instanceof Horde_Mail_Rfc822_Group) {
+                    $ret['from'] = $from->groupname;
+                } else {
+                    $ret['from'] = is_null($from->personal)
+                            ? $from->bare_address
+                            : $from->personal;
+                }
                 if ($this->_cache['drafts_sm_folder']) {
                     $ret['from'] = _("From") . ': ' . $ret['from'];
                 }
