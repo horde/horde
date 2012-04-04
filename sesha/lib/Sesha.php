@@ -1,25 +1,4 @@
 <?php
-
-// Sorting Constants
-
-/** Sort by stock id. */
-define('SESHA_SORT_STOCKID', 100);
-/** Sort by stock name. */
-define('SESHA_SORT_NAME', 101);
-/** Sort by stock note. */
-define('SESHA_SORT_NOTE', 102);
-/** Sort in ascending order. */
-define('SESHA_SORT_ASCEND', 0);
-/** Sort in descending order. */
-define('SESHA_SORT_DESCEND', 1);
-
-// Search Field Constants
-
-define('SESHA_SEARCH_ID', 1);
-define('SESHA_SEARCH_NAME', 2);
-define('SESHA_SEARCH_NOTE', 4);
-define('SESHA_SEARCH_PROPERTY', 8);
-
 /**
  * This is the base Sesha class.
  *
