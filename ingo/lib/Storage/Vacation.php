@@ -211,7 +211,7 @@ class Ingo_Storage_Vacation extends Ingo_Storage_Rule
      *
      * @return array  The property hash
      */
-    public function toArray()
+    public function toHash()
     {
         return array(
             'start' => $this->getVacationStart(),
