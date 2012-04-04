@@ -2,6 +2,7 @@
 v3.0-git
 --------
 
+[mjr] Add ability to retrieve vacation message details from the API.
 [jan] Validate start and end dates of vacation rules (Request #10879).
 
 
