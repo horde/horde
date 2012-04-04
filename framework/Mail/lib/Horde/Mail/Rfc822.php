@@ -129,6 +129,10 @@ class Horde_Mail_Rfc822
      */
     public function parseAddressList($address, array $params = array())
     {
+        if ($address instanceof Horde_Mail_Rfc822_List) {
+            return $address;
+        }
+
         $this->_params = array_merge(array(
             'default_domain' => null,
             'limit' => 0,

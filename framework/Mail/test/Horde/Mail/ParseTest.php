@@ -514,4 +514,16 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testParseOfGroupObject()
+    {
+        $email = 'Test: foo@example.com, bar@example.com;';
+        $ob = $this->rfc822->parseAddressList($email);
+        $ob2 = $this->rfc822->parseAddressList($ob);
+
+        $this->assertEquals(
+            2,
+            count($ob2)
+        );
+    }
+
 }
