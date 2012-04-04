@@ -539,7 +539,7 @@ class Horde_PageOutput
             $opts['view'] = $registry->getView();
         }
 
-        switch ($registry->getView()) {
+        switch ($opts['view']) {
         case $registry::VIEW_MINIMAL:
             $view->minimalView = true;
             break;
