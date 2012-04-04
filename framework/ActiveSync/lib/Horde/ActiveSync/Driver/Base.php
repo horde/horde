@@ -305,18 +305,6 @@ abstract class Horde_ActiveSync_Driver_Base
     }
 
     /**
-     *
-     * @param $folderid
-     * @param $id
-     * @param $flags
-     * @return unknown_type
-     */
-    public function setReadFlag($folderid, $id, $flags)
-    {
-        return false;
-    }
-
-    /**
      * Change the name and/or type of a folder.
      *
      * @param string $parent
@@ -533,6 +521,15 @@ abstract class Horde_ActiveSync_Driver_Base
      * @return array|boolean    A stat array if successful, otherwise false.
      */
     abstract public function changeMessage($folderid, $id, Horde_ActiveSync_Message_Base $message, $device);
+
+    /**
+     * Set the read (\seen) flag on the specified message.
+     *
+     * @param string $folderid  The folder id containing the message.
+     * @param string $uid       The message uid.
+     * @param integer $flag     The value to set the flag to.
+     */
+    abstract public function setReadFlag($folderid, $id, $flags);
 
     /**
      * Sends the email represented by the rfc822 string received by the PIM.

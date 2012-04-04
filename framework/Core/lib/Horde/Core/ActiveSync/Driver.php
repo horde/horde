@@ -31,42 +31,42 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *
      * @var array
      */
-    private $_displayMap = array();
+    protected $_displayMap = array();
 
     /**
      * Cache message stats
      *
      * @var array  An array of stat hashes
      */
-    private $_modCache;
+    protected $_modCache;
 
     /**
      * Horde connector instance
      *
      * @var Horde_Core_ActiveSync_Connector
      */
-    private $_connector;
+    protected $_connector;
 
     /**
      * Folder cache
      *
      * @var array
      */
-    private $_folders = array();
+    protected $_folders = array();
 
     /**
      * Imap client adapter
      *
      * @var Horde_ActiveSync_Imap_Adapter
      */
-    private $_imap;
+    protected $_imap;
 
     /**
      * Authentication object
      *
      * @var Horde_Auth_Base
      */
-    private $_auth;
+    protected $_auth;
 
     /**
      * Const'r
@@ -639,8 +639,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $this->_endBuffer();
             throw new Horde_ActiveSync_Exception('Unsupported type');
         }
-
         $this->_endBuffer();
+
         return $message;
     }
 
@@ -929,8 +929,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 return false;
             }
         }
-
         $this->_endBuffer();
+
         return $stat;
     }
 
@@ -950,7 +950,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *  - rows:   An array of search results
      *  - status: The search store status code.
      */
-    public function getSearchResults($type, $query)
+    public function getSearchResults($type, array $query)
     {
         switch (strtolower($type)) {
         case 'gal':
@@ -960,71 +960,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 'rows' => $this->_searchMailbox($query),
                 'status' => Horde_ActiveSync_Request_Search::STORE_STATUS_SUCCESS);
         }
-    }
-
-    /**
-     * Perform a search of the email store.
-     *
-     * @param array $query  A query array. @see self::getSearchResults()
-     *
-     * @return array  The results array. @see self::getSearchResults()
-     */
-    protected function _searchMailbox($query)
-    {
-        return $this->_imap->queryMailbox($query);
-    }
-
-    /**
-     * Perform a search of the Global Address Book.
-     *
-     * @param array $query  A query array. @see self::getSearchResults()
-     *
-     * @return array  The results array. @see self::getSearchResults()
-     */
-    protected function _searchGal($query)
-    {
-        ob_start();
-        $return = array(
-            'rows' => array(),
-            'status' => Horde_ActiveSync_Request_Search::STORE_STATUS_SUCCESS
-        );
-        try {
-            $results = $this->_connector->contacts_search($query['query']);
-        } catch (Horde_ActiveSync_Exception $e) {
-            $this->_logger->err($e);
-            $this->_endBuffer();
-            return $return;
-        }
-
-        // Honor range, and don't bother if no results
-        $count = count($results);
-        if (!$count) {
-            $this->_endBuffer();
-            return $return;
-        }
-        $this->_logger->info('Horde::getSearchResults found ' . $count . ' matches.');
-
-        preg_match('/(.*)\-(.*)/', $query['range'], $matches);
-        $return_count = $matches[2] - $matches[1];
-        $rows = array_slice($results, $matches[1], $return_count + 1, true);
-        $rows = array_pop($rows);
-        foreach ($rows as $row) {
-            $return['rows'][] = array(
-                Horde_ActiveSync::GAL_ALIAS => !empty($row['alias']) ? $row['alias'] : '',
-                Horde_ActiveSync::GAL_DISPLAYNAME => $row['name'],
-                Horde_ActiveSync::GAL_EMAILADDRESS => !empty($row['email']) ? $row['email'] : '',
-                Horde_ActiveSync::GAL_FIRSTNAME => $row['firstname'],
-                Horde_ActiveSync::GAL_LASTNAME => $row['lastname'],
-                Horde_ActiveSync::GAL_COMPANY => !empty($row['company']) ? $row['company'] : '',
-                Horde_ActiveSync::GAL_HOMEPHONE => !empty($row['homePhone']) ? $row['homePhone'] : '',
-                Horde_ActiveSync::GAL_PHONE => !empty($row['workPhone']) ? $row['workPhone'] : '',
-                Horde_ActiveSync::GAL_MOBILEPHONE => !empty($row['cellPhone']) ? $row['cellPhone'] : '',
-                Horde_ActiveSync::GAL_TITLE => !empty($row['title']) ? $row['title'] : '',
-            );
-        }
-
-        $this->_endBuffer();
-        return $return;
     }
 
     /**
@@ -1153,6 +1088,11 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     }
 
     /**
+     * Set the read (\seen) flag on the specified message.
+     *
+     * @param string $folderid  The folder id containing the message.
+     * @param string $uid       The message uid.
+     * @param integer $flag     The value to set the flag to.
      */
     public function setReadFlag($folderId, $id, $flags)
     {
@@ -1160,89 +1100,12 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     }
 
     /**
-     * Return the list of mail server folders.
+     * Return the server id of the specified special folder type.
      *
-     * @return array  An array of Horde_ActiveSync_Message_Folder objects.
+     * @param string $type  The self::SPECIAL_* constant.
+     *
+     * @return string  The folder's server id.
      */
-    private function _getMailFolders()
-    {
-        if (empty($this->_mailFolders)) {
-            if (empty($this->_imap)) {
-                $this->_mailFolders = array($this->_getMailFolder('INBOX', array('label' => 'Inbox')));
-            } else {
-                $this->_logger->debug('Polling Horde_ActiveSync_Driver_Horde::_getMailFolders()');
-                $folders = array();
-                $imap_folders = $this->_imap->getMailboxes();
-                foreach ($imap_folders as $folder) {
-                    $folders[] = $this->_getMailFolder($folder['ob']->utf8, $folder);
-                }
-                $this->_mailFolders = $folders;
-            }
-        }
-
-        return $this->_mailFolders;
-    }
-
-    /**
-     * Return a folder object representing an email folder. Attempt to detect
-     * special folders appropriately.
-     *
-     * @param string $sid   The server name.
-     * @param array $f      An array describing the folder, as returned from
-     *                      mail/folderlist.
-     *
-     * @return Horde_ActiveSync_Message_Folder
-     */
-    private function _getMailFolder($sid, $f)
-    {
-        $folder = new Horde_ActiveSync_Message_Folder();
-        $folder->serverid = $sid;
-        $folder->displayname = $f['label'];
-        $folder->parentid = '0';
-        // Short circuit for INBOX
-        if (strcasecmp($sid, 'INBOX') === 0) {
-            $folder->type = Horde_ActiveSync::FOLDER_TYPE_INBOX;
-            return $folder;
-        }
-        $specialFolders = $this->_imap->getSpecialMailboxes();
-
-        // Check for known, supported special folders.
-        foreach ($specialFolders as $key => $value) {
-            if (!is_array($value)) {
-                $value = array($value);
-            }
-            foreach ($value as $mailbox) {
-                if (!is_null($mailbox)) {
-                    switch ($key) {
-                    case self::SPECIAL_SENT:
-                        if ($sid == $mailbox->basename) {
-                            $folder->type = Horde_ActiveSync::FOLDER_TYPE_SENTMAIL;
-                            return $folder;
-                        }
-                        break;
-                    case self::SPECIAL_TRASH:
-                        if ($sid == $mailbox->basename) {
-                            $folder->type = Horde_ActiveSync::FOLDER_TYPE_WASTEBASKET;
-                            return $folder;
-                        }
-                        break;
-
-                    case self::SPECIAL_DRAFTS:
-                        if ($sid == $mailbox->basename) {
-                            $folder->type = Horde_ActiveSync::FOLDER_TYPE_DRAFTS;
-                            return $folder;
-                        }
-                        break;
-                    }
-                }
-            }
-        }
-
-        // Not a known folder, set it to user mail.
-        $folder->type = Horde_ActiveSync::FOLDER_TYPE_USER_MAIL;
-        return $folder;
-    }
-
     public function getSpecialFolderNameByType($type)
     {
         $folders = $this->_imap->getSpecialMailboxes();
@@ -1273,13 +1136,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         // track flag conflicts.
         // $messages = $this->_imap->getImapMessage(
         //     $folderid, array($id), array('structure' => false));
-
-            $res = array(
-                'id' => $id,
-                'mod' => 0,
-                'flags' => false);//$messages[$id]->getFlag(Horde_Imap_Client::FLAG_SEEN));
-
-        return $res;
+        return array(
+            'id' => $id,
+            'mod' => 0,
+            'flags' => false);//$messages[$id]->getFlag(Horde_Imap_Client::FLAG_SEEN));
     }
 
     /**
@@ -1306,7 +1166,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *
      * @return  Horde_ActiveSync_Message_Folder  The folder object.
      */
-    private function _buildNonMailFolder($id, $parent, $type, $name)
+    protected function _buildNonMailFolder($id, $parent, $type, $name)
     {
         $folder = new Horde_ActiveSync_Message_Folder();
         $folder->serverid = $id;
@@ -1318,6 +1178,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     }
 
     /**
+     * Stat a backend item, optionally using the cached value if available.
      *
      * @param string  $folderid  The folder id
      * @param string  $id        The message id
@@ -1325,7 +1186,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *
      * @return message stat hash
      */
-    private function _smartStatMessage($folderid, $id, $hint)
+    protected function _smartStatMessage($folderid, $id, $hint)
     {
         ob_start();
         $this->_logger->debug('ActiveSync_Driver_Horde::_smartStatMessage:' . $folderid . ':' . $id);
@@ -1375,7 +1236,160 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         return $message;
     }
 
-    private function _endBuffer()
+   /**
+     * Return the list of mail server folders.
+     *
+     * @return array  An array of Horde_ActiveSync_Message_Folder objects.
+     */
+    protected function _getMailFolders()
+    {
+        if (empty($this->_mailFolders)) {
+            if (empty($this->_imap)) {
+                $this->_mailFolders = array($this->_getMailFolder('INBOX', array('label' => 'Inbox')));
+            } else {
+                $this->_logger->debug('Polling Horde_ActiveSync_Driver_Horde::_getMailFolders()');
+                $folders = array();
+                $imap_folders = $this->_imap->getMailboxes();
+                foreach ($imap_folders as $folder) {
+                    $folders[] = $this->_getMailFolder($folder['ob']->utf8, $folder);
+                }
+                $this->_mailFolders = $folders;
+            }
+        }
+
+        return $this->_mailFolders;
+    }
+
+    /**
+     * Return a folder object representing an email folder. Attempt to detect
+     * special folders appropriately.
+     *
+     * @param string $sid   The server name.
+     * @param array $f      An array describing the folder, as returned from
+     *                      mail/folderlist.
+     *
+     * @return Horde_ActiveSync_Message_Folder
+     */
+    protected function _getMailFolder($sid, array $f)
+    {
+        $folder = new Horde_ActiveSync_Message_Folder();
+        $folder->serverid = $sid;
+        $folder->displayname = $f['label'];
+        $folder->parentid = '0';
+        // Short circuit for INBOX
+        if (strcasecmp($sid, 'INBOX') === 0) {
+            $folder->type = Horde_ActiveSync::FOLDER_TYPE_INBOX;
+            return $folder;
+        }
+        $specialFolders = $this->_imap->getSpecialMailboxes();
+
+        // Check for known, supported special folders.
+        foreach ($specialFolders as $key => $value) {
+            if (!is_array($value)) {
+                $value = array($value);
+            }
+            foreach ($value as $mailbox) {
+                if (!is_null($mailbox)) {
+                    switch ($key) {
+                    case self::SPECIAL_SENT:
+                        if ($sid == $mailbox->basename) {
+                            $folder->type = Horde_ActiveSync::FOLDER_TYPE_SENTMAIL;
+                            return $folder;
+                        }
+                        break;
+                    case self::SPECIAL_TRASH:
+                        if ($sid == $mailbox->basename) {
+                            $folder->type = Horde_ActiveSync::FOLDER_TYPE_WASTEBASKET;
+                            return $folder;
+                        }
+                        break;
+
+                    case self::SPECIAL_DRAFTS:
+                        if ($sid == $mailbox->basename) {
+                            $folder->type = Horde_ActiveSync::FOLDER_TYPE_DRAFTS;
+                            return $folder;
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+
+        // Not a known folder, set it to user mail.
+        $folder->type = Horde_ActiveSync::FOLDER_TYPE_USER_MAIL;
+        return $folder;
+    }
+
+    /**
+     * Perform a search of the email store.
+     *
+     * @param array $query  A query array. @see self::getSearchResults()
+     *
+     * @return array  The results array. @see self::getSearchResults()
+     */
+    protected function _searchMailbox(array $query)
+    {
+        return $this->_imap->queryMailbox($query);
+    }
+
+    /**
+     * Perform a search of the Global Address Book.
+     *
+     * @param array $query  A query array. @see self::getSearchResults()
+     *
+     * @return array  The results array. @see self::getSearchResults()
+     */
+    protected function _searchGal(array $query)
+    {
+        ob_start();
+        $return = array(
+            'rows' => array(),
+            'status' => Horde_ActiveSync_Request_Search::STORE_STATUS_SUCCESS
+        );
+        try {
+            $results = $this->_connector->contacts_search($query['query']);
+        } catch (Horde_ActiveSync_Exception $e) {
+            $this->_logger->err($e);
+            $this->_endBuffer();
+            return $return;
+        }
+
+        // Honor range, and don't bother if no results
+        $count = count($results);
+        if (!$count) {
+            $this->_endBuffer();
+            return $return;
+        }
+        $this->_logger->info('Horde::getSearchResults found ' . $count . ' matches.');
+
+        preg_match('/(.*)\-(.*)/', $query['range'], $matches);
+        $return_count = $matches[2] - $matches[1];
+        $rows = array_slice($results, $matches[1], $return_count + 1, true);
+        $rows = array_pop($rows);
+        foreach ($rows as $row) {
+            $return['rows'][] = array(
+                Horde_ActiveSync::GAL_ALIAS => !empty($row['alias']) ? $row['alias'] : '',
+                Horde_ActiveSync::GAL_DISPLAYNAME => $row['name'],
+                Horde_ActiveSync::GAL_EMAILADDRESS => !empty($row['email']) ? $row['email'] : '',
+                Horde_ActiveSync::GAL_FIRSTNAME => $row['firstname'],
+                Horde_ActiveSync::GAL_LASTNAME => $row['lastname'],
+                Horde_ActiveSync::GAL_COMPANY => !empty($row['company']) ? $row['company'] : '',
+                Horde_ActiveSync::GAL_HOMEPHONE => !empty($row['homePhone']) ? $row['homePhone'] : '',
+                Horde_ActiveSync::GAL_PHONE => !empty($row['workPhone']) ? $row['workPhone'] : '',
+                Horde_ActiveSync::GAL_MOBILEPHONE => !empty($row['cellPhone']) ? $row['cellPhone'] : '',
+                Horde_ActiveSync::GAL_TITLE => !empty($row['title']) ? $row['title'] : '',
+            );
+        }
+        $this->_endBuffer();
+
+        return $return;
+    }
+
+    /**
+     * End output buffering, log any unexpected output.
+     *
+     */
+    protected function _endBuffer()
     {
         if ($output = ob_get_clean()) {
             $this->_logger->err('Unexpected output: ' . $output);
