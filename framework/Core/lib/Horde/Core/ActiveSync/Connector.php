@@ -378,6 +378,21 @@ class Horde_Core_ActiveSync_Connector
     }
 
     /**
+     * Return the currently set vacation message details.
+     *
+     * @return array  The vacation rule properties.
+     */
+    public function filters_getVacation()
+    {
+        return $this->_registry->filter->getVacation();
+    }
+
+    public function filters_setVacation()
+    {
+
+    }
+
+    /**
      * Get all server changes for the specified collection
      *
      * @param string $collection  The collection type (calendar, contacts, tasks)

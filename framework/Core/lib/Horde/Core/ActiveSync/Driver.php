@@ -1157,6 +1157,77 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     }
 
     /**
+     * Return settings from the backend for a SETTINGS request.
+     *
+     * @param array $settings  An array of settings to return. Currently
+     *                         supported:
+     *  - oof: The out of office message information.
+     *
+     * @param stdClass $device  The device to obtain settings for.
+     *
+     * @return array  The requested settigns.
+     */
+    public function getSettings(array $settings, $device)
+    {
+        foreach ($settings as $key => $setting) {
+            switch ($key) {
+            case 'oof':
+                $vacation = $this->_connector->filters_getVacation();
+                $res['oof'] = array(
+                    'status' => Horde_ActiveSync_Request_Settings::STATUS_SUCCESS,
+                    'oofstate' => ($vacation['disabled'] ? 0 : 1),
+                    'oofmsgs' => array()
+                );
+                $res['oof']['oofmsgs'][] = array(
+                    'appliesto' => Horde_ActiveSync_Request_Settings::SETTINGS_APPLIESTOINTERNAL,
+                    'replymessage' => $vacation['reason'],
+                    'enabled' => !$vacation['disabled'],
+                    'bodytype' => $setting['bodytype'],
+                    'subject' => $vacation['subject']
+                );
+                break;
+            default:
+                //$res[$key]['status'] = 0;
+            }
+        }
+
+        return $res;
+    }
+
+    /**
+     * Set backend settings from a SETTINGS request.
+     *
+     * @param array $settings   The settings to store. Currently supported:
+     *  - oof: (array) The Out of Office message.
+     *
+     * @param stdClass $device  The device to store settings for.
+     *
+     * @return array  An array of status responses for each set request. e.g.,:
+     *   array('oof' => Horde_ActiveSync_Request_Settings::STATUS_SUCCESS,
+     *         'deviceinformation' => Horde_ActiveSync_Request_Settings::STATUS_SUCCESS);
+     */
+    public function setSettings(array $settings, $device)
+    {
+        $res = array();
+        foreach ($settings as $key => $setting) {
+            switch ($key) {
+            case 'oof':
+                try {
+                    $this->_connector->filters_setVacation($setting);
+                    $res['oof'] = Horde_ActiveSync_Request_Settings::STATUS_SUCCESS;
+                } catch (Horde_Exception $e) {
+                    $res['oof'] = Horde_ActiveSync_Request_Settings::STATUS_ERROR;
+                }
+                break;
+            default:
+                // ??
+            }
+        }
+
+        return $res;
+    }
+
+    /**
      * Helper to build a folder object for non-email folders.
      *
      * @param string $id      The folder's server id.
