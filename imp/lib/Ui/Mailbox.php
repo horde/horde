@@ -46,7 +46,7 @@ class IMP_Ui_Mailbox
      * Get From address information for display on mailbox page.
      *
      * @param Horde_Imap_Client_Data_Envelope $ob  An envelope object.
-     * @param array $options                       Additional options:
+     * @param array $opts                          Additional opts:
      *   - fullfrom: (boolean) If true, returns 'fullfrom' information.
      *               DEFAULT: false
      *   - specialchars: (string) If set, run 'from' return through
@@ -58,7 +58,7 @@ class IMP_Ui_Mailbox
      *   - fullfrom: (string) The full From address.
      *   - to: (boolean) True if this is who the message was sent to.
      */
-    public function getFrom($ob, $options = array())
+    public function getFrom($ob, array $opts = array())
     {
         $ret = array(
             'error' => false,
@@ -83,7 +83,7 @@ class IMP_Ui_Mailbox
                     $ret['from'] = is_null($first_to->personal)
                         ? $first_to->bare_address
                         : $first_to->personal;
-                    if (!empty($options['fullfrom'])) {
+                    if (!empty($opts['fullfrom'])) {
                         $ret['fullfrom'] = strval($first_to);
                     }
                 }
@@ -98,18 +98,18 @@ class IMP_Ui_Mailbox
                 if ($this->_cache['drafts_sm_folder']) {
                     $ret['from'] = _("From") . ': ' . $ret['from'];
                 }
-                if (!empty($options['fullfrom'])) {
+                if (!empty($opts['fullfrom'])) {
                     $ret['fullfrom'] = strval($from);
                 }
             }
         }
 
-        if (!empty($options['fullfrom']) && !isset($ret['fullfrom'])) {
+        if (!empty($opts['fullfrom']) && !isset($ret['fullfrom'])) {
             $ret['fullfrom'] = $ret['from'];
         }
 
-        if (!empty($ret['from']) && !empty($options['specialchars'])) {
-            $res = @htmlspecialchars($ret['from'], ENT_QUOTES, $options['specialchars']);
+        if (!empty($ret['from']) && !empty($opts['specialchars'])) {
+            $res = @htmlspecialchars($ret['from'], ENT_QUOTES, $opts['specialchars']);
             if (empty($res)) {
                 $res = @htmlspecialchars($ret['from']);
             }
