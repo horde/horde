@@ -64,7 +64,262 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
      */
     protected function _handle()
     {
+        if (!$this->_decoder->getElementStartTag(self::SETTINGS_SETTINGS)) {
+            throw new Horde_ActiveSync_Exception('Protocol Errror');
+        }
 
+        $request = array();
+        while (($reqtype = ($this->_decoder->getElementStartTag(self::SETTINGS_OOF) ? self::SETTINGS_OOF :
+                           ($this->_decoder->getElementStartTag(self::SETTINGS_DEVICEINFORMATION) ? self::SETTINGS_DEVICEINFORMATION :
+                           ($this->_decoder->getElementStartTag(self::SETTINGS_USERINFORMATION) ?   self::SETTINGS_USERINFORMATION :
+                           ($this->_decoder->getElementStartTag(self::SETTINGS_DEVICEPASSWORD) ?   self::SETTINGS_DEVICEPASSWORD :
+                           -1))))) != -1) {
+            while (($querytype = ($this->_decoder->getElementStartTag(self::SETTINGS_GET) ? self::SETTINGS_GET :
+                                 ($this->_decoder->getElementStartTag(self::SETTINGS_SET) ? self::SETTINGS_SET :
+                                    -1))) != -1) {
+
+                switch ($querytype) {
+                case self::SETTINGS_GET:
+                    switch ($reqtype) {
+                    case self::SETTINGS_OOF:
+                        if ($this->_decoder->getElementStartTag(self::SETTINGS_BODYTYPE)) {
+                            if (($bodytype = $this->_decoder->getElementContent()) !== false) {
+                                if(!$this->_decoder->getElementEndTag()) {
+                                    return false; // end self::SETTINGS BODYTYPE
+                                }
+                            }
+                        }
+                        if (!$this->_decoder->getElementEndTag()) {
+                            return false; // end self::SETTINGS_OOF
+                        }
+                        $request['get']['oof']['bodytype'] = $bodytype;
+                        break;
+                    case self::SETTINGS_USERINFORMATION:
+                        $request['get']['userinformation'] = array();
+                        break;
+                    }
+                    if (!$this->_decoder->getElementEndTag()) {
+                        return false; // end self::SETTINGS GET
+                    }
+                    break;
+                case self::SETTINGS_SET:
+                    switch ($reqtype) {
+                    case self::SETTINGS_OOF:
+                        while (($type = ($this->_decoder->getElementStartTag(self::SETTINGS_OOFSTATE) ? self::SETTINGS_OOFSTATE :
+                                        ($this->_decoder->getElementStartTag(self::SETTINGS_STARTTIME)? self::SETTINGS_STARTTIME :
+                                        ($this->_decoder->getElementStartTag(self::SETTINGS_ENDTIME) ? self::SETTINGS_ENDTIME :
+                                        ($this->_decoder->getElementStartTag(self::SETTINGS_OOFMESSAGE) ? self::SETTINGS_OOFMESSAGE :
+                                        -1))))) != -1) {
+
+                            switch ($type) {
+                            case self::SETTINGS_OOFSTATE:
+                                if (($oofstate = $this->_decoder->getElementContent()) !== false) {
+                                    $this->_decoder->getElementEndTag();
+                                }
+                                $request['set']['oof']['oofstate'] = $oofstate;
+                                break;
+                            case self::SETTINGS_STARTTIME:
+                                if (($starttime = $this->_decoder->getElementContent()) !== false) {
+                                    $this->_decoder->getElementEndTag();
+                                }
+                                $request['set']['oof']['starttime'] = $starttime;
+                                break;
+                            case self::SETTINGS_ENDTIME:
+                                if (($endtime = $this->_decoder->getElementContent()) !== false) {
+                                    $this->_decoder->getElementEndTag();
+                                }
+                                $request['set']['oof']['endtime'] = $endtime;
+                                break;
+                            case self::SETTINGS_OOFMESSAGE:
+                                while (($type = ($this->_decoder->getElementStartTag(self::SETTINGS_APPLIESTOINTERNAL) ? self::SETTINGS_APPLIESTOINTERNAL :
+                                                ($this->_decoder->getElementStartTag(self::SETTINGS_APPLIESTOEXTERNALKNOWN) ? self::SETTINGS_APPLIESTOEXTERNALKNOWN :
+                                                ($this->_decoder->getElementStartTag(self::SETTINGS_APPLIESTOEXTERNALUNKNOWN) ? self::SETTINGS_APPLIESTOEXTERNALUNKNOWN :
+                                                -1)))) != -1) {
+                                    $oof = array();
+                                    $oof['appliesto'] = $type;
+                                    while (($type = ($this->_decoder->getElementStartTag(self::SETTINGS_ENABLED) ? self::SETTINGS_ENABLED :
+                                                    ($this->_decoder->getElementStartTag(self::SETTINGS_REPLYMESSAGE) ? self::SETTINGS_REPLYMESSAGE :
+                                                    ($this->_decoder->getElementStartTag(self::SETTINGS_BODYTYPE) ? self::SETTINGS_BODYTYPE :
+                                                    -1)))) != -1) {
+
+                                        switch ($type) {
+                                        case self::SETTINGS_ENABLED:
+                                            if (($oof['enabled'] = $this->_decoder->getElementContent()) !== false) {
+                                                $this->_decoder->getElementEndTag(); // end self::SETTINGS_ENABLED
+                                            }
+                                            break;
+                                        case self::SETTINGS_REPLYMESSAGE:
+                                            if (($oof['replymessage'] = $this->_decoder->getElementContent()) !== false) {
+                                                $this->_decoder->getElementEndTag(); // end self::SETTINGS_REPLYMESSAGE
+                                            }
+                                            break;
+                                        case self::SETTINGS_BODYTYPE:
+                                            if (($oof['bodytype'] = $this->_decoder->getElementContent()) != false) {
+                                                $this->_decoder->getElementEndTag(); // end self::SETTINGS_BODYTYPE
+                                            }
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (!isset($request['set']['oof']['oofmsgs'])) {
+                                    $request['set']['oof']['oofmsgs'] = array();
+                                }
+                                $request['set']['oof']['oofmsgs'][] = $oof;
+                                $this->_decoder->getElementEndTag(); // end self::SETTINGS_OOFMESSAGE
+                                break;
+                            }
+                        }
+                        $this->_decoder->getElementEndTag(); // end self::SETTINGS_OOF
+                        break;
+                    case self::SETTINGS_DEVICEINFORMATION :
+                        while (($field = ($this->_decoder->getElementStartTag(self::SETTINGS_MODEL) ? self::SETTINGS_MODEL :
+                                         ($this->_decoder->getElementStartTag(self::SETTINGS_IMEI) ? self::SETTINGS_IMEI :
+                                         ($this->_decoder->getElementStartTag(self::SETTINGS_FRIENDLYNAME) ? self::SETTINGS_FRIENDLYNAME :
+                                         ($this->_decoder->getElementStartTag(self::SETTINGS_OS) ? self::SETTINGS_OS :
+                                         ($this->_decoder->getElementStartTag(self::SETTINGS_OSLANGUAGE) ? self::SETTINGS_OSLANGUAGE :
+                                         ($this->_decoder->getElementStartTag(self::SETTINGS_PHONENUMBER) ? self::SETTINGS_PHONENUMBER :
+                                         ($this->_decoder->getElementStartTag(self::SETTINGS_USERAGENT) ? self::SETTINGS_USERAGENT :
+                                         ($this->_decoder->getElementStartTag(self::SETTINGS_MOBILEOPERATOR) ? self::SETTINGS_MOBILEOPERATOR :
+                                         ($this->_decoder->getElementStartTag(self::SETTINGS_ENABLEOUTBOUNDSMS) ? self::SETTINGS_ENABLEOUTBOUNDSMS :
+                                         -1)))))))))) != -1) {
+                            if (($deviceinfo[$field] = $this->_decoder->getElementContent()) !== false) {
+                                $this->_decoder->getElementEndTag(); // end $field
+                            }
+                        }
+                        $request['set']['deviceinformation'] = $deviceinfo;
+                        $this->_decoder->getElementEndTag(); // end self::SETTINGS_DEVICEINFORMATION
+                        break;
+                    case self::SETTINGS_DEVICEPASSWORD :
+                        $this->_decoder->getElementStartTag(self::SETTINGS_PASSWORD);
+                        if (($password = $this->_decoder->getElementContent()) !== false) {
+                            $this->_decoder->getElementEndTag(); // end $field
+                        }
+                        $request['set']['devicepassword'] = $password;
+                        $this->_decoder->getElementEndTag(); // end self::SETTINGS_DEVICEPASSWORD
+                        break;
+                    }
+
+                    // end self::SETTINGS_SET
+                    if (!$this->_decoder->getElementEndTag()) {
+                        return false;
+                    }
+                    break;
+                }
+            }
+        }
+        $this->_decoder->getElementEndTag(); // end self::SETTINGS_SETTINGS
+
+        // Tell the backend
+        if (isset($request['set'])) {
+            $result['set'] = $backend->setSettings($request['set'],$devid);
+        }
+        if (isset($request['get'])) {
+            $result['get'] = $backend->getSettings($request['get'],$devid);
+        }
+
+        // Output response
+        $this->_encoder->startWBXML();
+        $this->_encoder->startTag(self::SETTINGS_SETTINGS);
+        $this->_encoder->startTag(self::SETTINGS_STATUS);
+        $this->_encoder->content(1);
+        $this->_encoder->endTag(); // end self::SETTINGS_STATUS
+        if (isset($request['set']['oof'])) {
+            $this->_encoder->startTag(self::SETTINGS_OOF);
+            $this->_encoder->startTag(self::SETTINGS_STATUS);
+            if (!isset($result['set']['oof']['status'])) {
+                $this->_encoder->content(0);
+            } else {
+                $this->_encoder->content($result['set']['oof']['status']);
+            }
+            $this->_encoder->endTag(); // end self::SETTINGS_STATUS
+            $this->_encoder->endTag(); // end self::SETTINGS_OOF
+        }
+        if (isset($request['set']['deviceinformation'])) {
+            $this->_encoder->startTag(self::SETTINGS_DEVICEINFORMATION);
+            $this->_encoder->startTag(self::SETTINGS_STATUS);
+            if (!isset($result['set']['deviceinformation']['status'])) {
+                $this->_encoder->content(0);
+            } else {
+                $this->_encoder->content($result['set']['deviceinformation']['status']);
+            }
+            $this->_encoder->endTag(); // end self::SETTINGS_STATUS
+            $this->_encoder->endTag(); // end self::SETTINGS_DEVICEINFORMATION
+        }
+        if (isset($request['set']['devicepassword'])) {
+            $this->_encoder->startTag(self::SETTINGS_DEVICEPASSWORD);
+            $this->_encoder->startTag(self::SETTINGS_STATUS);
+            if (!isset($result['set']['devicepassword']['status'])) {
+                $this->_encoder->content(0);
+            } else {
+                $this->_encoder->content($result['set']['devicepassword']['status']);
+            }
+            $this->_encoder->endTag(); // end self::SETTINGS_STATUS
+            $this->_encoder->endTag(); // end self::SETTINGS_DEVICEPASSWORD
+        }
+        if (isset($request['get']['userinformation'])) {
+            $this->_encoder->startTag(self::SETTINGS_USERINFORMATION);
+            $this->_encoder->startTag(self::SETTINGS_STATUS);
+            $this->_encoder->content($result['get']['userinformation']['status']);
+            $this->_encoder->endTag(); // end self::SETTINGS_STATUS
+            $this->_encoder->startTag(self::SETTINGS_GET);
+            $this->_encoder->startTag(self::SETTINGS_EMAILADDRESSES);
+            foreach($result['get']['userinformation']['emailaddresses'] as $value) {
+                $this->_encoder->startTag(self::SETTINGS_SMTPADDRESS);
+                $this->_encoder->content($value);
+                $this->_encoder->endTag(); // end self::SETTINGS_SMTPADDRESS
+            }
+            $this->_encoder->endTag(); // end self::SETTINGS_EMAILADDRESSES
+            $this->_encoder->endTag(); // end self::SETTINGS_GET
+            $this->_encoder->endTag(); // end self::SETTINGS_USERINFORMATION
+        }
+        if (isset($request['get']['oof'])) {
+            $this->_encoder->startTag(self::SETTINGS_OOF);
+            $this->_encoder->startTag(self::SETTINGS_STATUS);
+            $this->_encoder->content(1);
+            $this->_encoder->endTag(); // end self::SETTINGS_STATUS
+
+            $this->_encoder->startTag(self::SETTINGS_GET);
+            $this->_encoder->startTag(self::SETTINGS_OOFSTATE);
+            $this->_encoder->content($result['get']['oof']['oofstate']);
+            $this->_encoder->endTag(); // end self::SETTINGS_OOFSTATE
+            // This we maybe need later on (OOFSTATE=2). It shows that OOF
+            // Messages could be send depending on Time being set in here.
+            // Unfortunately cannot proof it working on my device.
+            if ($result['get']['oof']['oofstate'] == 2) {
+                $this->_encoder->startTag(self::SETTINGS_STARTTIME);
+                $this->_encoder->content(gmdate('Y-m-d\TH:i:s.000', $result['get']['oof']['starttime']));
+                $this->_encoder->endTag(); // end self::SETTINGS_STARTTIME
+                $this->_encoder->startTag(self::SETTINGS_ENDTIME);
+                $this->_encoder->content(gmdate('Y-m-d\TH:i:s.000', $result['get']['oof']['endtime']));
+                $this->_encoder->endTag(); // end self::SETTINGS_ENDTIME
+            }
+            foreach($result['get']['oof']['oofmsgs'] as $oofentry) {
+                $this->_encoder->startTag(self::SETTINGS_OOFMESSAGE);
+                $this->_encoder->startTag($oofentry['appliesto'],false,true);
+                $this->_encoder->startTag(self::SETTINGS_ENABLED);
+                $this->_encoder->content($oofentry['enabled']);
+                $this->_encoder->endTag(); // end self::SETTINGS_ENABLED
+                $this->_encoder->startTag(self::SETTINGS_REPLYMESSAGE);
+                $this->_encoder->content($oofentry['replymessage']);
+                $this->_encoder->endTag(); // end self::SETTINGS_REPLYMESSAGE
+                $this->_encoder->startTag(self::SETTINGS_BODYTYPE);
+                switch (strtolower($oofentry['bodytype'])) {
+                case 'text':
+                    $this->_encoder->content('Text');
+                    break;
+                case 'HTML':
+                    $this->_encoder->content('HTML');
+                }
+                $this->_encoder->endTag(); // end self::SETTINGS_BODYTYPE
+                $this->_encoder->endTag(); // end self::SETTINGS_OOFMESSAGE
+            }
+            $this->_encoder->endTag(); // end self::SETTINGS_GET
+            $this->_encoder->endTag(); // end self::SETTINGS_OOF
+        }
+
+        $this->_encoder->endTag(); // end self::SETTINGS_SETTINGS
+
+        return true;
     }
 
 }
