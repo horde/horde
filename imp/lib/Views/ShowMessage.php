@@ -361,20 +361,27 @@ class IMP_Views_ShowMessage
             : $this->_envelope->$header;
         $addr_array = $out = array();
 
-        foreach ($addrlist as $ob) {
+        foreach ($addrlist->base_addresses as $ob) {
             if (!is_null($limit) && (--$limit < 0)) {
                 $out['addr_limit'][$header] = count($addrlist);
                 break;
             }
 
-            try {
+            if ($ob instanceof Horde_Mail_Rfc822_Group) {
                 $tmp = array(
-                    'raw' => Horde::callHook('dimp_addressformatting', array($ob), 'imp')
+                    'count' => count($ob),
+                    'group' => $ob->groupname
                 );
-            } catch (Horde_Exception_HookNotSet $e) {
-                $tmp = array('inner' => $ob->bare_address);
-                if (!is_null($ob->personal)) {
-                    $tmp['personal'] = $ob->personal;
+            } else {
+                try {
+                    $tmp = array(
+                        'raw' => Horde::callHook('dimp_addressformatting', array($ob), 'imp')
+                    );
+                } catch (Horde_Exception_HookNotSet $e) {
+                    $tmp = array('inner' => $ob->bare_address);
+                    if (!is_null($ob->personal)) {
+                        $tmp['personal'] = $ob->personal;
+                    }
                 }
             }
 

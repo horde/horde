@@ -341,7 +341,9 @@ var DimpCore = {
 
         alist.each(function(o, i) {
             var a;
-            if (o.raw) {
+            if (o.group) {
+                a = o.group.escapeHTML();
+            } else if (o.raw) {
                 a = o.raw;
             } else {
                 a = new Element('A', { className: 'address' }).store({ personal: o.personal, email: o.inner });
