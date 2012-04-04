@@ -798,6 +798,9 @@ class IMP_Mailbox implements Serializable
      *     DEFAULT: false
      *   - subfolders: (boolean) Delete all subfolders?
      *     DEFAULT: false
+     *   - subfolders_only: (boolean) If deleting subfolders, delete only
+     *                      subfolders (not current mailbox)?
+     *     DEFAULT: false
      *
      * @return boolean  True on success.
      */
@@ -820,9 +823,13 @@ class IMP_Mailbox implements Serializable
 
         $deleted = array();
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
-        $to_delete = empty($opts['subfolders'])
-            ? array($this)
-            : $this->subfolders;
+        if (empty($opts['subfolders'])) {
+            $to_delete = array($this);
+        } else {
+            $to_delete = empty($opts['subfolders_only'])
+                ? $this->subfolders
+                : $this->subfolders_only;
+        }
 
         foreach ($to_delete as $val) {
             if ((empty($opts['force']) && $val->fixed) ||

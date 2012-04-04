@@ -907,13 +907,17 @@ var DimpBase = {
             });
             break;
 
+        case 'ctx_container_delete':
+            this._mailboxPromptCallback('delete', { elt: e.findElement('LI') });
+            break;
+
         case 'ctx_mbox_delete':
         case 'ctx_vfolder_delete':
             tmp = e.findElement('LI');
             DimpCore.doAction('deleteMailboxPrepare', {
                 mbox: tmp.retrieve('mbox'),
                 type: 'delete'
-            },{
+            }, {
                 callback: this._mailboxPromptCallback.bind(this, 'delete', { elt: tmp })
             });
             break;
@@ -2838,6 +2842,7 @@ var DimpBase = {
         case 'delete':
             this.viewaction = function(e) {
                 DimpCore.doAction('deleteMailbox', {
+                    container: params.elt.hasClassName('container'),
                     mbox: params.elt.retrieve('mbox'),
                     subfolders: e.element().down('[name=delete_subfolders]').getValue()
                 });
@@ -2847,10 +2852,10 @@ var DimpBase = {
                 form: new Element('DIV').insert(
                     new Element('INPUT', { name: 'delete_subfolders', type: 'checkbox' })
                 ).insert(
-                    DIMP.text.delete_mbox_subfolders
+                    DIMP.text.delete_mbox_subfolders.sub('%s', this.fullMboxDisplay(params.elt))
                 ),
                 ok_text: DIMP.text.ok,
-                text: DIMP.text.delete_mbox.sub('%s', this.fullMboxDisplay(params.elt))
+                text: params.elt.hasClassName('container') ? null : DIMP.text.delete_mbox.sub('%s', this.fullMboxDisplay(params.elt))
             });
             break;
 

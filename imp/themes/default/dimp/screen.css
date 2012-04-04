@@ -1041,7 +1041,7 @@ span.dimpactionFilter {
 #ctx_mbox_search span.iconImg, #ctx_mbox_searchsub span.iconImg, #ctx_container_search span.iconImg, #ctx_container_searchsub span.iconImg {
     background-image: url("../graphics/search.png");
 }
-#ctx_mbox_delete span.iconImg, #ctx_vfolder_delete span.iconImg {
+#ctx_container_delete span.iconImg, #ctx_mbox_delete span.iconImg, #ctx_vfolder_delete span.iconImg {
     background-image: url("../graphics/folders/delete.png");
 }
 #ctx_mbox_export span.iconImg, #ctx_mbox_import span.iconImg, #ctx_preview_save span.iconImg {

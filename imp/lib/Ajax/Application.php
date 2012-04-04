@@ -191,6 +191,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * AJAX action: Delete a mailbox.
      *
      * Variables used:
+     *   - container: (boolean) True if base element is a container.
      *   - mbox: (string) The full mailbox name to delete (base64url encoded).
      *   - subfolders: (boolean) Delete all subfolders?
      *
@@ -198,7 +199,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      */
     public function deleteMailbox()
     {
-        return ($this->_vars->mbox && IMP_Mailbox::formFrom($this->_vars->mbox)->delete(array('subfolders' => !empty($this->_vars->subfolders))));
+        return ($this->_vars->mbox && IMP_Mailbox::formFrom($this->_vars->mbox)->delete(array('subfolders' => !empty($this->_vars->subfolders), 'subfolders_only' => !empty($this->_vars->container))));
     }
 
     /**
