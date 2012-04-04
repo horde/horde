@@ -297,7 +297,7 @@ class IMP_Ui_Message
         }
 
         $addrlist->setIteratorFilter();
-        foreach ($addrlist as $ob) {
+        foreach ($addrlist->base_addresses as $ob) {
             if ($ob instanceof Horde_Mail_Rfc822_Group) {
                 $group_array = array();
                 foreach ($ob->addresses as $ad) {
