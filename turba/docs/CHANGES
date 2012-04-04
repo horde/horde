@@ -9,6 +9,8 @@ v4.0-git
 v3.0.13-git
 -----------
 
+[jan] Fix decode_attribute hook when exporting to vCard (kd@tu-cottbus.de, Bug
+      #11123).
 [jan] Update Hungarian translation (Zoltán Németh <nemeth.zoltan@etit.hu>).
 [jan] Only connect to LDAP driver for read/write requests (Dominique Lalot
       <dom.lalot@gmail.com>, Request #11082).

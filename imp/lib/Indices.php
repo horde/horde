@@ -161,7 +161,7 @@ class IMP_Indices implements ArrayAccess, Countable, Iterator
         $val = reset($this->_indices);
         return array(
             IMP_Mailbox::get(key($this->_indices)),
-            $all ? $val : reset($val)
+            $all ? $val : (is_array($val) ? reset($val) : null)
         );
     }
 
