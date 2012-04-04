@@ -101,7 +101,7 @@ class Horde_SessionHandler_Storage_Memcache extends Horde_SessionHandler_Storage
                 if ($this->_logger) {
                     $this->_logger->log('Error retrieving session data (id = ' . $id . ')', 'DEBUG');
                 }
-                return false;
+                return '';
             }
         }
 

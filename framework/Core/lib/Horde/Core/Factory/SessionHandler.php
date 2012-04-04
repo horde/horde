@@ -43,12 +43,6 @@ class Horde_Core_Factory_SessionHandler extends Horde_Core_Factory_Injector
             $noset = true;
             break;
 
-        case 'ldap':
-            $params['ldap'] = $injector
-                ->getInstances('Horde_Core_Factory_Ldap')
-                ->create('horde', 'sessionhandler');
-            break;
-
         case 'memcache':
             $params['memcache'] = $injector->getInstance('Horde_Memcache');
             break;
