@@ -172,7 +172,11 @@ class Ingo_Api extends Horde_Registry_Api
             }
             $ingo_storage->store($filters);
             if ($GLOBALS['prefs']->getValue('auto_update')) {
-                Ingo::updateScript();
+                $result = Ingo::updateScript();
+            }
+
+            if (!$result) {
+                return false;
             }
 
             /* Update the timestamp for the rules. */
