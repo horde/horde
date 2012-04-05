@@ -1043,6 +1043,10 @@ var ImpMobile = {
                 }
                 return;
 
+            case 'imp-compose-cancel':
+                $.mobile.changePage('#folders');
+                return;
+
             case 'imp-compose-submit':
                 if (!ImpMobile.disabled) {
                     var action = $('#imp-compose-form').is(':hidden')
