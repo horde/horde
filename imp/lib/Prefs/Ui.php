@@ -1736,8 +1736,7 @@ class IMP_Prefs_Ui
      *
      * @return boolean  True if preferences were updated.
      */
-    protected function _updateSpecialMboxes($pref, IMP_Mailbox $form, $new,
-                                            $type, $ui)
+    protected function _updateSpecialMboxes($pref, $form, $new, $type, $ui)
     {
         global $injector, $prefs;
 
