@@ -592,7 +592,14 @@ class Horde_Mime_Headers implements Serializable
             self::$defaultCharset
         );
 
-        if (Horde_Mime::is8bit($data)) {
+        /* 8-bit check: if quoted-printable encoding detected, there were
+         * non-ASCII characters. Additionally, for some reason converting the
+         * DECODED value will correctly fix things when directly converting
+         * the original value won't. */
+        $data_encode = quoted_printable_encode($data);
+        if (strlen($data_encode) != strlen($data)) {
+            $data = quoted_printable_decode($data);
+
             /* Assumption: broken charset in headers is generally either
              * UTF-8 or ISO-8859-1/Windows-1252. Test these charsets
              * first before using default charset. This may be a
