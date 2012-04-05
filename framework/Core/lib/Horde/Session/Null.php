@@ -25,6 +25,9 @@ class Horde_Session_Null extends Horde_Session
      */
     public function __construct()
     {
+        // We must start a session to ensure that session_id() is available.
+        // Places such as Horde_Secret use it as an encryption key.
+        session_start();
     }
 
     /**
@@ -40,7 +43,6 @@ class Horde_Session_Null extends Horde_Session
     public function setup($start = true, $cache_limiter = null,
                           $session_id = null)
     {
-
     }
 
     /**
@@ -68,6 +70,7 @@ class Horde_Session_Null extends Horde_Session
      */
     public function close()
     {
+        session_destroy();
     }
 
     /**
@@ -76,6 +79,7 @@ class Horde_Session_Null extends Horde_Session
     public function destroy()
     {
         $this->clean();
+        session_destroy();
     }
 
     /**
