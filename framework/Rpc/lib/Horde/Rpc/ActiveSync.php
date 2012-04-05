@@ -17,73 +17,54 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
      *
      * @var array
      */
-    private $_get;
+    protected $_get;
 
     /**
      * The ActiveSync server object
      *
      * @var Horde_ActiveSync
      */
-    private $_server;
-
-    /**
-     * The backend data driver.
-     *
-     * @var Horde_ActiveSync_Driver_Base
-     */
-    private $_backend;
+    protected $_server;
 
     /**
      * Content type header to send in response.
      *
      * @var string
      */
-    private $_contentType = 'application/vnd.ms-sync.wbxml';
+    protected $_contentType = 'application/vnd.ms-sync.wbxml';
+
+    /**
+     * Do we need an authenticated user?
+     *
+     * ActiveSync handles the authentication directly.
+     *
+     * @var boolean
+     */
+    protected $_requireAuthorization = false;
 
     /**
      * Constructor.
      *
      * @param Horde_Controller_Request_Http  The request object.
      *
-     * @param array $params  A hash containing any additional configuration or
-     *                       connection parameters this class might need:
-     *   'backend'      = Horde_ActiveSync_Driver_Base [REQUIRED]
-     *   'server'       = Horde_ActiveSync [REQUIRED]
-     *   'provisioning' = Require device provisioning? [OPTIONAL]
+     * @param array $params  A hash containing configuration parameters:
+     *   - server: (Horde_ActiveSync) The ActiveSync server object.
+     *             DEFAULT: none, REQUIRED
+     *   - provisioning: (mixed) Require device provisioning? Takes a
+     *                   Horde_ActiveSync::PROVISIONING_* constant.
+     *                   DEFAULT: Horde_ActiveSync::PROVISIONING_NONE
+     *                   (do not require provisioning).
      */
     public function __construct(Horde_Controller_Request_Http $request, array $params = array())
     {
         parent::__construct($request, $params);
-
-        // Check for requirements
         $this->_get = $request->getGetVars();
-
         if ($request->getMethod() == 'POST' &&
             (empty($this->_get['Cmd']) || empty($this->_get['DeviceId']) || empty($this->_get['DeviceType']))) {
 
             $this->_logger->err('Missing required parameters.');
             throw new Horde_Rpc_Exception('Your device requested the ActiveSync URL wihtout required parameters.');
         }
-
-        // Some devices (incorrectly) only send the username in the httpauth
-        if ($request->getMethod() == 'POST' &&  empty($this->_get['User'])) {
-            $serverVars = $this->_request->getServerVars();
-            if ($serverVars['PHP_AUTH_USER']) {
-                $this->_get['User'] = $serverVars['PHP_AUTH_USER'];
-            } elseif ($serverVars['Authorization']) {
-                $hash = str_replace('Basic ', '', $serverVars['Authorization']);
-                $hash = base64_decode($hash);
-                if (strpos($hash, ':') !== false) {
-                    list($this->_get['User'], $pass) = explode(':', $hash, 2);
-                }
-            }
-            if (empty($this->_get['User'])) {
-                $this->_logger->err('Missing required parameters.');
-                throw new Horde_Rpc_Exception('Your device requested the ActiveSync URL wihtout required parameters.');
-            }
-        }
-
-        $this->_backend = $params['backend'];
         $this->_server = $params['server'];
         $this->_server->setProvisioning(empty($params['provisioning']) ? false : $params['provisioning']);
     }
@@ -177,58 +158,6 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
         header('Content-Type: ' . $this->_contentType);
         header('Content-Length: ' . $len);
         echo $data;
-    }
-
-    /**
-     * Check authentication. Different backends may handle
-     * authentication in different ways. The base class implementation
-     * checks for HTTP Authentication against the Horde auth setup.
-     *
-     * @return boolean  Returns true if authentication is successful.
-     */
-    public function authorize()
-    {
-        $this->_logger->debug('Horde_Rpc_ActiveSync::authorize() starting');
-        if (!$this->_requireAuthorization) {
-            return true;
-        }
-
-        /* Get user and possibly domain */
-        $serverVars = $this->_request->getServerVars();
-        $user = !empty($serverVars['PHP_AUTH_USER']) ? $serverVars['PHP_AUTH_USER'] : '';
-        $pos = strrpos($user, '\\');
-        if ($pos !== false) {
-            $domain = substr($user, 0, $pos);
-            $user = substr($user, $pos + 1);
-        } else {
-            $domain = null;
-        }
-
-        /* Get passwd */
-        $pass = !empty($serverVars['PHP_AUTH_PW']) ? $serverVars['PHP_AUTH_PW'] : '';
-
-        /* Attempt to auth to backend */
-        $results = $this->_backend->logon($user, $pass, $domain);
-        if (!$results && empty($this->_policykey)) {
-            header('HTTP/1.1 401 Unauthorized');
-            header('WWW-Authenticate: Basic realm="Horde RPC"');
-            $this->_logger->info('Access denied for user: ' . $user . '. Username or password incorrect.');
-        }
-
-        /* Successfully authenticated to backend, try to setup the backend */
-        if (empty($this->_get['User'])) {
-            return false;
-        }
-        $results = $this->_backend->setup($this->_get['User']);
-        if (!$results) {
-            header('HTTP/1.1 401 Unauthorized');
-            header('WWW-Authenticate: Basic realm="Horde RPC"');
-            echo 'Access denied or user ' . $this->_get['User'] . ' unknown.';
-        }
-
-        $this->_logger->debug('Horde_Rpc_ActiveSync::authorize() exiting');
-
-        return true;
     }
 
     /**
