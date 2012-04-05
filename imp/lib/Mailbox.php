@@ -1072,24 +1072,17 @@ class IMP_Mailbox implements Serializable
             : null;
 
         if (is_null($delhide)) {
-            $use_trash = $prefs->getValue('use_trash');
-
-            if ($use_trash &&
-                $this->get($prefs->getValue('trash_folder'))->vtrash) {
-                if ($this->vtrash) {
-                    $delhide = false;
-                }
-            } elseif ($prefs->getValue('delhide') && !$use_trash) {
-                if ($this->search) {
-                    $delhide = true;
-                }
+            if ($prefs->getValue('use_trash')) {
+                /* If using Virtual Trash, only show deleted messages in
+                 * the Virtual Trash mailbox. */
+                $delhide = $this->get($prefs->getValue('trash_folder'))->vtrash
+                    ? $this->vtrash
+                    : $deleted;
+            } elseif (!$prefs->getValue('delhide')) {
+                $delhide = false;
             } else {
-                $delhide = $deleted
-                    ? $use_trash
-                    : false;
-            }
-
-            if (is_null($delhide)) {
+                /* Even if delhide is true, need to not hide if we are doing
+                 * thread sort. */
                 $delhide = ($this->getSort()->sortby != Horde_Imap_Client::SORT_THREAD);
             }
         }
