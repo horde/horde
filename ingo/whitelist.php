@@ -32,7 +32,6 @@ case 'rule_update':
         $ingo_storage->store($whitelist);
         $notification->push(_("Changes saved."), 'horde.success');
         if ($prefs->getValue('auto_update')) {
-            /* This does its own $notification->push() on error: */
             Ingo::updateScript();
         }
 

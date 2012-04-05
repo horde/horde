@@ -157,7 +157,11 @@ case 'rule_delete':
         $notification->push(_("Changes saved."), 'horde.success');
 
         if ($prefs->getValue('auto_update')) {
-            Ingo::updateScript();
+            try {
+                Ingo::updateScript();
+            } catch (Ingo_Exception $e) {
+                $notification->push($e->getMessage(), 'horde.error');
+            }
         }
 
         header('Location: ' . Horde::url('filters.php'));
