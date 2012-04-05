@@ -142,7 +142,6 @@ class IMP_Mailbox implements Serializable
     const CACHE_HASICONHOOK = 'ih';
     const CACHE_ICONHOOK = 'ic';
     const CACHE_HASLABELHOOK = 'lh';
-    const CACHE_HIDEDELETED = 'hd';
     const CACHE_READONLYHOOK = 'roh';
     const CACHE_SPECIALMBOXES = 's';
 
@@ -1067,31 +1066,15 @@ class IMP_Mailbox implements Serializable
             return $imp_imap->imap;
         }
 
-        $delhide = isset(self::$_temp[self::CACHE_HIDEDELETED])
-            ? self::$_temp[self::CACHE_HIDEDELETED]
-            : null;
-
-        if (is_null($delhide)) {
-            if ($prefs->getValue('use_trash')) {
-                /* If using Virtual Trash, only show deleted messages in
-                 * the Virtual Trash mailbox. */
-                $delhide = $this->get($prefs->getValue('trash_folder'))->vtrash
-                    ? $this->vtrash
-                    : $deleted;
-            } elseif (!$prefs->getValue('delhide')) {
-                $delhide = false;
-            } else {
-                /* Even if delhide is true, need to not hide if we are doing
-                 * thread sort. */
-                $delhide = ($this->getSort()->sortby != Horde_Imap_Client::SORT_THREAD);
-            }
+        if ($prefs->getValue('use_trash')) {
+            /* If using Virtual Trash, only show deleted messages in
+             * the Virtual Trash mailbox. */
+            return $this->get($prefs->getValue('trash_folder'))->vtrash
+                ? $this->vtrash
+                : $deleted;
         }
 
-        if (!$deleted) {
-            self::$_temp[self::CACHE_HIDEDELETED] = $delhide;
-        }
-
-        return $delhide;
+        return $prefs->getValue('delhide');
     }
 
     /**
@@ -1102,7 +1085,6 @@ class IMP_Mailbox implements Serializable
     public function setHideDeletedMsgs($value)
     {
         $GLOBALS['prefs']->setValue('delhide', $value);
-        $this->expire(IMP_Mailbox::CACHE_HIDEDELETED);
         $GLOBALS['injector']->getInstance('IMP_Factory_MailboxList')->expireAll();
     }
 
