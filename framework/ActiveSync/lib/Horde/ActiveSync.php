@@ -26,36 +26,6 @@
  * Consult COPYING file for details
  */
 
-// POOMMAIL
-
-//
-//// ResolveRecipients
-//const SYNC_RESOLVERECIPIENTS_RESOLVERECIPIENTS = ResolveRecipients:ResolveRecipients');
-//const SYNC_RESOLVERECIPIENTS_RESPONSE = ResolveRecipients:Response');
-//const SYNC_RESOLVERECIPIENTS_STATUS = ResolveRecipients:Status');
-//const SYNC_RESOLVERECIPIENTS_TYPE = ResolveRecipients:Type');
-//const SYNC_RESOLVERECIPIENTS_RECIPIENT = ResolveRecipients:Recipient');
-//const SYNC_RESOLVERECIPIENTS_DISPLAYNAME = ResolveRecipients:DisplayName');
-//const SYNC_RESOLVERECIPIENTS_EMAILADDRESS = ResolveRecipients:EmailAddress');
-//const SYNC_RESOLVERECIPIENTS_CERTIFICATES = ResolveRecipients:Certificates');
-//const SYNC_RESOLVERECIPIENTS_CERTIFICATE = ResolveRecipients:Certificate');
-//const SYNC_RESOLVERECIPIENTS_MINICERTIFICATE = ResolveRecipients:MiniCertificate');
-//const SYNC_RESOLVERECIPIENTS_OPTIONS = ResolveRecipients:Options');
-//const SYNC_RESOLVERECIPIENTS_TO = ResolveRecipients:To');
-//const SYNC_RESOLVERECIPIENTS_CERTIFICATERETRIEVAL = ResolveRecipients:CertificateRetrieval');
-//const SYNC_RESOLVERECIPIENTS_RECIPIENTCOUNT = ResolveRecipients:RecipientCount');
-//const SYNC_RESOLVERECIPIENTS_MAXCERTIFICATES = ResolveRecipients:MaxCertificates');
-//const SYNC_RESOLVERECIPIENTS_MAXAMBIGUOUSRECIPIENTS = ResolveRecipients:MaxAmbiguousRecipients');
-//const SYNC_RESOLVERECIPIENTS_CERTIFICATECOUNT = ResolveRecipients:CertificateCount');
-//
-//// ValidateCert
-//const SYNC_VALIDATECERT_VALIDATECERT = ValidateCert:ValidateCert');
-//const SYNC_VALIDATECERT_CERTIFICATES = ValidateCert:Certificates');
-//const SYNC_VALIDATECERT_CERTIFICATE = ValidateCert:Certificate');
-//const SYNC_VALIDATECERT_CERTIFICATECHAIN = ValidateCert:CertificateChain');
-//const SYNC_VALIDATECERT_CHECKCRL = ValidateCert:CheckCRL');
-//const SYNC_VALIDATECERT_STATUS = ValidateCert:Status');
-
 /**
  * Main ActiveSync class. Entry point for performing all ActiveSync operations
  *
@@ -365,6 +335,70 @@ class Horde_ActiveSync
     }
 
     /**
+     * Authenticate to the backend.
+     */
+    public function authenticate()
+    {
+        // Get credentials
+        $serverVars = $this->_request->getServerVars();
+        $user = !empty($serverVars['PHP_AUTH_USER'])
+            ? $serverVars['PHP_AUTH_USER']
+            : '';
+        $pos = strrpos($user, '\\');
+        if ($pos !== false) {
+            $domain = substr($user, 0, $pos);
+            $user = substr($user, $pos + 1);
+        } else {
+            $domain = null;
+        }
+        $pass = !empty($serverVars['PHP_AUTH_PW'])
+            ? $serverVars['PHP_AUTH_PW']
+            : '';
+
+        // Authenticate
+        $results = $this->_driver->logon($user, $pass, $domain);
+        if (!$results) {
+            header('HTTP/1.1 401 Unauthorized');
+            header('WWW-Authenticate: Basic realm="Horde RPC"');
+
+            return false;
+        }
+
+        // Some devices (incorrectly) only send the username in the httpauth
+        $get = $this->_request->getGetVars();
+        if ($this->_request->getMethod() == 'POST' &&  empty($get['User'])) {
+            if ($serverVars['PHP_AUTH_USER']) {
+                $get['User'] = $serverVars['PHP_AUTH_USER'];
+            } elseif ($serverVars['Authorization']) {
+                $hash = str_replace('Basic ', '', $serverVars['Authorization']);
+                $hash = base64_decode($hash);
+                if (strpos($hash, ':') !== false) {
+                    list($get['User'], $pass) = explode(':', $hash, 2);
+                }
+            }
+            if (empty($get['User'])) {
+                $this->_logger->err('Missing required parameters.');
+                throw new Horde_ActiveSync_Exception('Your device requested the ActiveSync URL wihtout required parameters.');
+            }
+        }
+
+        /* Successfully authenticated to backend, try to setup the backend */
+        if (empty($get['User'])) {
+            return false;
+        }
+
+        $results = $this->_driver->setup($get['User']);
+        if (!$results) {
+            header('HTTP/1.1 401 Unauthorized');
+            header('WWW-Authenticate: Basic realm="Horde RPC"');
+            echo 'Access denied or user ' . $this->_get['User'] . ' unknown.';
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Allow to force the highest version to support.
      *
      * @param float $version  The highest version
@@ -448,6 +482,11 @@ class Horde_ActiveSync
      */
     public function handleRequest($cmd, $devId)
     {
+
+        if (!$this->authenticate()) {
+            throw new Horde_ActiveSync_Exception('Failed to authenticate');
+        }
+
         $this->_logger->debug(sprintf(
             "[%s] %s request received for user %s",
             $devId,
