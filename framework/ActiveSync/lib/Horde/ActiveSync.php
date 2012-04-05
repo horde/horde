@@ -356,11 +356,9 @@ class Horde_ActiveSync
             : '';
 
         // Authenticate
-        $results = $this->_driver->logon($user, $pass, $domain);
-        if (!$results) {
+        if (!$this->_driver->logon($user, $pass, $domain)) {
             header('HTTP/1.1 401 Unauthorized');
             header('WWW-Authenticate: Basic realm="Horde RPC"');
-
             return false;
         }
 
@@ -387,8 +385,7 @@ class Horde_ActiveSync
             return false;
         }
 
-        $results = $this->_driver->setup($get['User']);
-        if (!$results) {
+        if (!$this->_driver->setup($get['User'])) {
             header('HTTP/1.1 401 Unauthorized');
             header('WWW-Authenticate: Basic realm="Horde RPC"');
             echo 'Access denied or user ' . $this->_get['User'] . ' unknown.';
@@ -482,11 +479,6 @@ class Horde_ActiveSync
      */
     public function handleRequest($cmd, $devId)
     {
-
-        if (!$this->authenticate()) {
-            throw new Horde_ActiveSync_Exception('Failed to authenticate');
-        }
-
         $this->_logger->debug(sprintf(
             "[%s] %s request received for user %s",
             $devId,
@@ -500,6 +492,10 @@ class Horde_ActiveSync
             $this->versionHeader();
             $this->commandsHeader();
             return true;
+        }
+
+        if (!$this->authenticate()) {
+            throw new Horde_ActiveSync_Exception('Failed to authenticate');
         }
 
         // These are all handled in the same class.
