@@ -18,9 +18,9 @@
     <div data-role="fieldcontain">
       <label for="imp-compose-identity"><?php echo _("From:") ?></label>
       <select id="imp-compose-identity" name="identity">
-        <?php foreach ($this->identities as $identity): ?>
-        <option value="<?php echo $identity['val'] ?>"<?php if ($identity['sel']) echo ' selected="selected"' ?>><?php echo $this->h($identity['label']) ?></option>
-        <?php endforeach ?>>
+<?php foreach ($this->identities as $identity): ?>
+        <option value="<?php echo $this->h($identity['val']) ?>"<?php if ($identity['sel']) echo ' selected="selected"' ?>><?php echo $this->h($identity['label']) ?></option>
+<?php endforeach ?>>
       </select>
 
       <label for="imp-compose-to"><?php echo _("To:") ?></label>

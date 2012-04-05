@@ -51,9 +51,9 @@ if ($view->canCompose = IMP::canCompose()) {
     $view->identities = array();
     foreach ($identity->getSelectList() as $id => $from) {
         $view->identities[] = array(
-            'label' => htmlspecialchars($from),
-            'sel' => $id == $identity->getDefault(),
-            'val' => htmlspecialchars($id)
+            'label' => $from,
+            'sel' => ($id == $identity->getDefault()),
+            'val' => $id
         );
     }
 
