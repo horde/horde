@@ -188,6 +188,8 @@ class Ingo
 
     /**
      * Does all the work in updating the script on the server.
+     *
+     * @return boolean True on success, false on failure.
      */
     static public function updateScript()
     {
@@ -196,9 +198,10 @@ class Ingo
                 $ingo_script = $GLOBALS['injector']->getInstance('Ingo_Script');
 
                 /* Generate and activate the script. */
-                self::activateScript($ingo_script->generate(),
-                                     false,
-                                     $ingo_script->additionalScripts());
+                return self::activateScript(
+                    $ingo_script->generate(),
+                    false,
+                    $ingo_script->additionalScripts());
             } catch (Ingo_Exception $e) {
                 $GLOBALS['notification']->push(_("Script not updated."), 'horde.error');
             }
