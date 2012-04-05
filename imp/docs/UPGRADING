@@ -29,6 +29,16 @@ Administration => Configuration and update anything that's highlighted as
 outdated.
 
 
+Upgrading IMP From 5.0.x To 5.0.20
+==================================
+
+Preferences (prefs.php)
+-----------------------
+
+The 'delhide_trash' preference has been added.
+
+
+
 Upgrading IMP From 5.0.x To 5.0.15
 ==================================
 

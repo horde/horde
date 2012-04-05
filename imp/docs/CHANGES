@@ -2,6 +2,7 @@
 v5.0.20-git
 -----------
 
+[mms] Added the 'delhide_trash' preference.
 [jan] Update Hungarian translation (Zoltán Németh <nemeth.zoltan@etit.hu>).
 [mms] Ensure that PGP & S/MIME signed message bodies are not altered after the
       signature is calculated (Bug #11058).
