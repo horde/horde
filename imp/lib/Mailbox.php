@@ -1030,11 +1030,13 @@ class IMP_Mailbox implements Serializable
                 $delhide = $this->get($prefs->getValue('trash_folder'))->vtrash
                     ? $this->vtrash
                     : $prefs->getValue('delhide_trash') ? true : $deleted;
-            } elseif (!$prefs->getValue('delhide')) {
-                $delhide = false;
             } else {
-                /* Even if delhide is true, need to not hide if we are doing
-                 * thread sort. */
+                $delhide = $prefs->getValue('delhide');
+            }
+
+            /* Even if delhide is true, need to not hide if we are doing
+             * thread sort. */
+            if ($delhide) {
                 $sortpref = $this->getSort();
                 $delhide = ($sortpref['by'] != Horde_Imap_Client::SORT_THREAD);
             }
