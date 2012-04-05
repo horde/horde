@@ -425,7 +425,6 @@ class Horde_Registry
             /* Never start a session if the session flags include
                SESSION_NONE. */
             $GLOBALS['session'] = $session = new Horde_Session_Null();
-            //$session->setup(false, $args['session_cache_limiter']);
         } else {
             $GLOBALS['session'] = $session = new Horde_Session();
             $session->setup(true, $args['session_cache_limiter']);
