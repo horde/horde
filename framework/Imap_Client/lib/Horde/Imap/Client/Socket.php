@@ -2642,11 +2642,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $cmd = array(
             ($options['ids']->sequence ? null : 'UID'),
             'FETCH',
-            $seq,
-            $fetch
+            $seq
         );
 
-        if (!empty($options['changedsince'])) {
+        if (empty($options['changedsince'])) {
+            $cmd[] = $fetch;
+        } else {
             if (empty($this->_temp['mailbox']['highestmodseq'])) {
                 $this->_exception(Horde_Imap_Client_Translation::t("Mailbox does not support mod-sequences."), 'MBOXNOMODSEQ');
             }
@@ -2661,6 +2662,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $t['fetch_vanished'] = true;
             }
 
+            /* We might just want the list of UIDs changed since a given
+             * modseq. In that case, we don't have any other FETCH attributes,
+             * but RFC 3501 requires at least one attribute to be
+             * specified. */
+            $cmd[] = empty($fetch)
+                ? 'UID'
+                : $fetch;
             $cmd[] = $fetch_opts;
         }
 
