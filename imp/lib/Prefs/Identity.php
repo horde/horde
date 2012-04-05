@@ -300,7 +300,7 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
         $ids = $this->_identities;
         $default = $this->getDefault();
         unset($ids[$default]);
-        return array_merge(array_keys($ids), $default);
+        return array_merge(array_keys($ids), array($default));
     }
 
     /**
