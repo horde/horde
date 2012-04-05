@@ -106,7 +106,11 @@ case 'rule_enable':
     /* Save changes */
     $ingo_storage->store($filters);
     if ($prefs->getValue('auto_update')) {
-        Ingo::updateScript();
+        try {
+            Ingo::updateScript();
+        } catch (Ingo_Exception $e) {
+            $notification->push($e->getMessage(), 'horde.error');
+        }
     }
     break;
 

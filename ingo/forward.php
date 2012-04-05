@@ -39,7 +39,6 @@ $form = new Ingo_Form_Forward($vars);
 if ($form->validate($vars)) {
     $forward->setForwardAddresses($vars->addresses);
     $forward->setForwardKeep($vars->keep_copy == 'on');
-    $success = true;
     try {
         $ingo_storage->store($forward);
         $notification->push(_("Changes saved."), 'horde.success');
@@ -54,13 +53,11 @@ if ($form->validate($vars)) {
             $notification->push(_("Rule Disabled"), 'horde.success');
             $fwd_rule['disable'] = true;
         }
+        if ($prefs->getValue('auto_update')) {
+            Ingo::updateScript();
+        }
     } catch (Ingo_Exception $e) {
         $notification->push($e);
-        $success = false;
-    }
-
-    if ($success && $prefs->getValue('auto_update')) {
-        Ingo::updateScript();
     }
 }
 

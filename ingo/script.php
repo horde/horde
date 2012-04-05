@@ -21,18 +21,25 @@ $ingo_script = $injector->getInstance('Ingo_Script');
 $script = $ingo_script->generate();
 $additional = $ingo_script->additionalScripts();
 
-/* Activate/deactivate script if requested.
-   activateScript() does its own $notification->push() on error. */
+/* Activate/deactivate script if requested. */
 $actionID = Horde_Util::getFormData('actionID');
 switch ($actionID) {
 case 'action_activate':
     if (!empty($script)) {
-        Ingo::activateScript($script, false, $additional);
+        try {
+            Ingo::activateScript($script, false, $additional);
+        } catch (Ingo_Exception $e) {
+            $notification->push($e);
+        }
     }
     break;
 
 case 'action_deactivate':
-    Ingo::activateScript('', true, $additional);
+    try {
+        Ingo::activateScript('', true, $additional);
+    } catch (Ingo_Exception $e) {
+        $notification->push($e);
+    }
     break;
 
 case 'show_active':

@@ -47,7 +47,6 @@ if ($form->validate($vars)) {
     $vacation->setVacationStart($info['start']);
     $vacation->setVacationEnd($info['end']);
 
-    $success = true;
     try {
         $ingo_storage->store($vacation);
         $notification->push(_("Changes saved."), 'horde.success');
@@ -62,13 +61,11 @@ if ($form->validate($vars)) {
             $notification->push(_("Rule Disabled"), 'horde.success');
             $vac_rule['disable'] = true;
         }
+        if ($prefs->getValue('auto_update')) {
+            Ingo::updateScript();
+        }
     } catch (Ingo_Exception $e) {
         $notification->push($result);
-        $success = false;
-    }
-
-    if ($success && $prefs->getValue('auto_update')) {
-        Ingo::updateScript();
     }
 
     /* Update the timestamp for the rules. */

@@ -170,8 +170,8 @@ class Ingo_Api extends Horde_Registry_Api
             $filters->ruleDisable($vacation_rule_id);
         }
         $ingo_storage->store($filters);
-        if ($GLOBALS['prefs']->getValue('auto_update') && !Ingo::updateScript()) {
-            throw new Ingo_Exception('Transport failed');
+        if ($GLOBALS['prefs']->getValue('auto_update')) {
+            Ingo::updateScript();
         }
 
         /* Update the timestamp for the rules. */
@@ -212,8 +212,8 @@ class Ingo_Api extends Horde_Registry_Api
         $vacation_rule_id = $filters->findRuleId(Ingo_Storage::ACTION_VACATION);
         $filters->ruleDisable($vacation_rule_id);
         $ingo_storage->store($filters);
-        if ($GLOBALS['prefs']->getValue('auto_update') && !Ingo::updateScript()) {
-            throw new Ingo_Exception('Transport failed');
+        if ($GLOBALS['prefs']->getValue('auto_update')) {
+            Ingo::updateScript();
         }
 
         /* Update the timestamp for the rules. */

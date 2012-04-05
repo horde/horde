@@ -153,27 +153,26 @@ class Ingo
      *                             script as deactivated instead of activated.
      * @param array $additional    Any additional scripts that need to uploaded.
      *
-     * @return boolean  True on success, false on failure.
+     * @throws Ingo_Exception
      */
     static public function activateScript($script, $deactivate = false,
                                           $additional = array())
     {
         try {
-            $GLOBALS['injector']->getInstance('Ingo_Transport')->setScriptActive($script, $additional);
+            $GLOBALS['injector']
+                ->getInstance('Ingo_Transport')
+                ->setScriptActive($script, $additional);
         } catch (Ingo_Exception $e) {
             $msg = $deactivate
               ? _("There was an error deactivating the script.")
               : _("There was an error activating the script.");
-            $GLOBALS['notification']->push($msg . ' ' . _("The driver said: ") . $e->getMessage(), 'horde.error');
-            return false;
+            throw new Ingo_Exception(sprintf(_("%s The driver said: %s"), $msg, $e->getMessage()));
         }
 
         $msg = ($deactivate)
             ? _("Script successfully deactivated.")
             : _("Script successfully activated.");
         $GLOBALS['notification']->push($msg, 'horde.success');
-
-        return true;
     }
 
     /**
@@ -189,7 +188,7 @@ class Ingo
     /**
      * Does all the work in updating the script on the server.
      *
-     * @return boolean True on success, false on failure.
+     * @throws Ingo_Exception
      */
     static public function updateScript()
     {
@@ -198,12 +197,12 @@ class Ingo
                 $ingo_script = $GLOBALS['injector']->getInstance('Ingo_Script');
 
                 /* Generate and activate the script. */
-                return self::activateScript(
+                self::activateScript(
                     $ingo_script->generate(),
                     false,
                     $ingo_script->additionalScripts());
             } catch (Ingo_Exception $e) {
-                $GLOBALS['notification']->push(_("Script not updated."), 'horde.error');
+                throw new Ingo_Exception(sprintf(_("Script not updated: %s"), $e->getMessage()));
             }
         }
     }
