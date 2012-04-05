@@ -1071,7 +1071,7 @@ class IMP_Mailbox implements Serializable
              * the Virtual Trash mailbox. */
             return $this->get($prefs->getValue('trash_folder'))->vtrash
                 ? $this->vtrash
-                : $deleted;
+                : ($prefs->getValue('delhide_trash') ? true : $deleted);
         }
 
         return $prefs->getValue('delhide');
