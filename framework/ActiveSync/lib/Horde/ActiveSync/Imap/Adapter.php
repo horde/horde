@@ -564,6 +564,8 @@ class Horde_ActiveSync_Imap_Adapter
     protected function _doQuery(array $query, $range = null)
     {
         $imap_query = new Horde_Imap_Client_Search_Query();
+        $mboxes = array();
+        $results = array();
         foreach ($query as $q) {
             switch ($q['op']) {
             case Horde_ActiveSync_Request_Search::SEARCH_AND:
@@ -577,7 +579,7 @@ class Horde_ActiveSync_Imap_Adapter
                         }
                         break;
                     case 'FolderId':
-                        $mbox = new Horde_Imap_Client_Mailbox($value);
+                        $mboxes[] = new Horde_Imap_Client_Mailbox($value);
                         break;
                     case Horde_ActiveSync_Message_Mail::POOMMAIL_DATERECEIVED:
                         if ($q['op'] == Horde_ActiveSync_Request_Search::SEARCH_GREATERTHAN) {
@@ -598,27 +600,30 @@ class Horde_ActiveSync_Imap_Adapter
                 }
             }
         }
-        if (empty($mbox)) {
-            throw new Horde_ActiveSync_Exception('No folder id provided');
+        if (empty($mboxes)) {
+            foreach ($this->getMailboxes() as $mailbox) {
+                $mboxes[] = new Horde_Imap_Client_Mailbox($mailbox);
+            }
         }
-        try {
-            $search_res = $this->_getImapOb()->search($mbox, $imap_query);
-        } catch (Horde_Imap_Client_Exception $e) {
-            throw new Horde_ActiveSync_Exception($e);
-        }
-        if ($search_res['count'] == 0) {
-            return array();
-        }
+        foreach ($mboxes as $mbox) {
+            try {
+                $search_res = $this->_getImapOb()->search($mbox, $imap_query);
+            } catch (Horde_Imap_Client_Exception $e) {
+                throw new Horde_ActiveSync_Exception($e);
+            }
+            if ($search_res['count'] == 0) {
+                return array();
+            }
 
-        $ids = $search_res['match']->ids;
-        if (!empty($range)) {
-            preg_match('/(.*)\-(.*)/', $range, $matches);
-            $return_count = $matches[2] - $matches[1];
-            $ids = array_slice($ids, $matches[1], $return_count + 1, true);
-        }
-        $results = array();
-        foreach ($ids as $id) {
-            $results[] = array('uniqueid' => $mbox->utf8 . ':' . $id, 'searchfolderid' => $mbox->utf8);
+            $ids = $search_res['match']->ids;
+            if (!empty($range)) {
+                preg_match('/(.*)\-(.*)/', $range, $matches);
+                $return_count = $matches[2] - $matches[1];
+                $ids = array_slice($ids, $matches[1], $return_count + 1, true);
+            }
+            foreach ($ids as $id) {
+                $results[] = array('uniqueid' => $mbox->utf8 . ':' . $id, 'searchfolderid' => $mbox->utf8);
+            }
         }
 
         return $results;
