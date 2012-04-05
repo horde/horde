@@ -477,7 +477,17 @@ var ImpMobile = {
         $('#imp-message-title').html(data.title);
         document.title = $('#imp-message-title').text();
         $('#imp-message-subject').html(data.subject);
-        $('#imp-message-from').text(data.from[0].personal || data.from[0].inner);
+
+        if (data.from.raw) {
+            $('#imp-message-from').text(data.from.raw);
+        } else if (data.from.addr[0].g) {
+            $('#imp-message-from').text(data.from.addr[0].g);
+        } else if (data.from.addr[0].p) {
+            $('#imp-message-from').text(data.from.addr[0].p);
+        } else {
+            $('#imp-message-from').text(data.from.addr[0].b);
+        }
+
         $('#imp-message-body').html(data.msgtext);
         $('#imp-message-date').text('');
         $('#imp-message-more').parent().show();
