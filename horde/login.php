@@ -371,14 +371,7 @@ if ($browser->isMobile() &&
         );
     }
 
-    /* Show notifications. */
-    $response = new Horde_Core_Ajax_Response_Notifications();
-    if ($json_notify = $response->jsonData()) {
-        $page_output->addInlineScript(
-            'window.setTimeout(function(){HordeMobile.showNotifications('
-            . Horde_Serialize::serialize($json_notify, Horde_Serialize::JSON)
-            . ');},0);');
-    }
+    $notification->notify(array('listeners' => 'status'));
 
     $page_output->header(array(
         'title' => $title,
