@@ -113,7 +113,7 @@ class Ingo_Api extends Horde_Registry_Api
      * @param array $info      Vacation details.
      * @param boolean $enable  Enable the filter?
      *
-     * @return boolean  True on success.
+     * @throws Ingo_Exception
      */
     public function setVacation($info, $enable = true)
     {
@@ -163,29 +163,19 @@ class Ingo_Api extends Horde_Registry_Api
             $vacation->setVacationEnd($info['end']);
         }
 
-        try {
-            $ingo_storage->store($vacation);
-            if ($enable) {
-                $filters->ruleEnable($vacation_rule_id);
-            } else {
-                $filters->ruleDisable($vacation_rule_id);
-            }
-            $ingo_storage->store($filters);
-            if ($GLOBALS['prefs']->getValue('auto_update')) {
-                $result = Ingo::updateScript();
-            }
+        $ingo_storage->store($vacation);
+        if ($enable) {
+            $filters->ruleEnable($vacation_rule_id);
+        } else {
+            $filters->ruleDisable($vacation_rule_id);
+        }
+        $ingo_storage->store($filters);
+        if ($GLOBALS['prefs']->getValue('auto_update') && !Ingo::updateScript()) {
+            throw new Ingo_Exception('Transport failed');
+        }
 
-            if (!$result) {
-                return false;
-            }
-
-            /* Update the timestamp for the rules. */
-            $GLOBALS['session']->set('ingo', 'change', time());
-
-            return true;
-        } catch (Ingo_Exception $e) {}
-
-        return false;
+        /* Update the timestamp for the rules. */
+        $GLOBALS['session']->set('ingo', 'change', time());
     }
 
     /**
@@ -212,7 +202,7 @@ class Ingo_Api extends Horde_Registry_Api
     /**
      * Disable vacation
      *
-     * @return boolean  True on success.
+     * @throws Ingo_Exception
      */
     public function disableVacation()
     {
@@ -220,23 +210,14 @@ class Ingo_Api extends Horde_Registry_Api
         $ingo_storage = $GLOBALS['injector']->getInstance('Ingo_Factory_Storage')->create();
         $filters = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
         $vacation_rule_id = $filters->findRuleId(Ingo_Storage::ACTION_VACATION);
-
         $filters->ruleDisable($vacation_rule_id);
+        $ingo_storage->store($filters);
+        if ($GLOBALS['prefs']->getValue('auto_update') && !Ingo::updateScript()) {
+            throw new Ingo_Exception('Transport failed');
+        }
 
-        try {
-            $ingo_storage->store($filters);
-
-            if ($GLOBALS['prefs']->getValue('auto_update')) {
-                Ingo::updateScript();
-            }
-
-            /* Update the timestamp for the rules. */
-            $GLOBALS['session']->set('ingo', 'change', time());
-
-            return true;
-        } catch (Ingo_Exception $e) {}
-
-        return false;
+        /* Update the timestamp for the rules. */
+        $GLOBALS['session']->set('ingo', 'change', time());
     }
 
 }
