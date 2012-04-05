@@ -2248,7 +2248,7 @@ var DimpBase = {
             } else if (this.isSelected('domid', id)) {
                 if (!args.right) {
                     if (e.memo.element().hasClassName('msCheck')) {
-                        this.msgSelect(id, { ctrl: true });
+                        this.msgSelect(id, { ctrl: true, right: true });
                     } else {
                         d.selectIfNoDrag = true;
                     }
