@@ -79,7 +79,10 @@ the 'image_replacement_addrs' preference can now be used.
 
 Hooks (hooks.php)
 -----------------
+
 The 'mbox_sort' and 'mbox_special' hooks have been added.
+
+The 'dimp_addressformatting' hook has been removed.
 
 
 Preferences (prefs.php)

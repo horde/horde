@@ -58,7 +58,7 @@ try {
 $ajax_queue = $injector->getInstance('IMP_Ajax_Queue');
 $ajax_queue->poll(IMP::mailbox());
 
-foreach (array('from', 'to', 'cc', 'bcc', 'replyTo', 'log', 'uid', 'mbox', 'addr_limit') as $val) {
+foreach (array('from', 'to', 'cc', 'bcc', 'replyTo', 'log', 'uid', 'mbox') as $val) {
     if (!empty($show_msg_result[$val])) {
         $js_vars['DimpMessage.' . $val] = $show_msg_result[$val];
     }

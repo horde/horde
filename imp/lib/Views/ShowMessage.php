@@ -87,8 +87,6 @@ class IMP_Views_ShowMessage
      *   - preview: (boolean) Is this the preview view?
      *
      * @return array  Array with the following keys:
-     *   - addr_limit: Address field hit the limit; this indicates the total
-     *                 number of addresses.
      *   - atc_download: The download all link
      *   - atc_label: The label to use for Attachments
      *   - atc_list: The list (HTML code) of attachments
@@ -149,7 +147,9 @@ class IMP_Views_ShowMessage
         foreach (array('from', 'to', 'cc', 'bcc', 'reply-to') as $val) {
             if (isset($headers_list[$val]) &&
                 (!$preview || ($val != 'reply-to'))) {
-                $result = array_merge($result, $this->getAddressHeader($val));
+                if ($tmp = $this->getAddressHeader($val)) {
+                    $result[$val] = $tmp;
+                }
                 if ($preview) {
                     unset($headers_list[$val]);
                 }
@@ -349,10 +349,16 @@ class IMP_Views_ShowMessage
      * Return data to build an address header.
      *
      * @param string $header  The address header.
-     * @param integer $limit  Limit display to this many addresses.  If null,
+     * @param integer $limit  Limit display to this many addresses. If null,
      *                        shows all addresses.
      *
-     * @return array  The address list used by DimpCore.buildAddressLinks().
+     * @return array  An array with the following entries:
+     *   - addr: (array) List of addresses/groups.
+     *           Group keys: 'a' (list of addresses); 'g' (group name)
+     *           Address keys: 'b' (bare address); 'p' (personal part)
+     *   - limit: (integer) If limit was reached, the number of total
+     *            addresses.
+     *   - raw: (string) A raw string to display instead of addresses.
      */
     public function getAddressHeader($header, $limit = 50)
     {
@@ -360,38 +366,44 @@ class IMP_Views_ShowMessage
             ? $this->_envelope->reply_to
             : $this->_envelope->$header;
         $addr_array = $out = array();
+        $count = 0;
 
         foreach ($addrlist->base_addresses as $ob) {
-            if (!is_null($limit) && (--$limit < 0)) {
-                $out['addr_limit'][$header] = count($addrlist);
-                break;
-            }
-
             if ($ob instanceof Horde_Mail_Rfc822_Group) {
                 $tmp = array(
-                    'count' => count($ob),
-                    'group' => $ob->groupname
+                    'g' => $ob->groupname
                 );
-            } else {
-                try {
-                    $tmp = array(
-                        'raw' => Horde::callHook('dimp_addressformatting', array($ob), 'imp')
-                    );
-                } catch (Horde_Exception_HookNotSet $e) {
-                    $tmp = array('inner' => $ob->bare_address);
-                    if (!is_null($ob->personal)) {
-                        $tmp['personal'] = $ob->personal;
+
+                $count += count($ob->addresses);
+                if (is_null($limit) || ($count <= $limit)) {
+                    $tmp['a'] = array();
+                    foreach ($ob->addresses as $val) {
+                        $tmp['a'][] = array_filter(array(
+                            'b' => $val->bare_address,
+                            'p' => $val->personal
+                        ));
                     }
                 }
+            } else {
+                $tmp = array_filter(array(
+                    'b' => $ob->bare_address,
+                    'p' => $ob->personal
+                ));
+                ++$count;
             }
 
             $addr_array[] = $tmp;
+
+            if (!is_null($limit) && ($count > $limit)) {
+                $out['limit'] = count($addrlist);
+                break;
+            }
         }
 
         if (!empty($addr_array)) {
-            $out[$header] = $addr_array;
+            $out['addr'] = $addr_array;
         } elseif ($header == 'to') {
-            $out[$header] = array(array('raw' => _("Undisclosed Recipients")));
+            $out['raw'] = _("Undisclosed Recipients");
         }
 
         return $out;

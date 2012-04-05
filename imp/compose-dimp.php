@@ -5,17 +5,18 @@
  * List of URL parameters:
  * -----------------------
  *   - bcc: BCC addresses.
+ *   - bcc_json: JSON encoded addresses to send to. Overwrites 'bcc'.
  *   - body: Message body text.
  *   - cc: CC addresses.
+ *   - cc_json: JSON encoded addresses to send to. Overwrites 'cc'.
  *   - identity: Force message to use this identity by default.
  *   - subject: Subject to use.
  *   - type: redirect, reply, reply_auto, reply_all, reply_list,
  *           forward_attach, forward_auto, forward_body, forward_both,
  *           forward_redirect, resume, new, editasnew, template, template_edit,
  *           template_new
- *   - to: Address to send to.
- *   - toname: If set, will be used as personal part of e-mail address
- *             (requires 'to' parameter also).
+ *   - to: Addresses to send to.
+ *   - to_json: JSON encoded addresses to send to. Overwrites 'to'.
  *   - uids: UIDs of message to forward (only used when forwarding a message).
  *
  * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
@@ -52,12 +53,11 @@ foreach (array('to', 'cc', 'bcc', 'subject') as $val) {
     }
 }
 
-/* Check for personal information for 'to' address. */
-if (isset($header['to']) && isset($vars->toname)) {
-    $result = IMP::parseAddressList($header['to']);
-    if ($tmp = $result[0]) {
-        $tmp->personal = $vars->toname;
-        $header['to'] = $tmp->writeAddress();
+/* Check for JSON encoded information. */
+foreach (array('to', 'cc', 'bcc') as $val) {
+    $var_name = $val . '_json';
+    if (isset($vars->$var_name)) {
+        $header[$val] = strval(IMP_Dimp::parseDimpAddressList($vars->$var_name));
     }
 }
 

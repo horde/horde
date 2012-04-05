@@ -843,25 +843,6 @@ class IMP_Hooks
 
 
     /**
-     * DIMP: Allows alteration of address formatting in email message headers.
-     *
-     * @param Horde_Mail_Rfc822_Address $ob  An address object.
-     *
-     * @return string  The raw string to display for that address. This value
-     *                 must be properly escaped (i.e. htmlspecialchars() used
-     *                 on the portions of the string where appropriate).
-     */
-//    public function dimp_addressformatting($ob)
-//    {
-//         // Example #1: Display only the raw text of the personal name
-//         // or, if not set, the e-mail address.
-//         return is_null($ob->personal)
-//             ? htmlspecialchars($ob->bare_address)
-//             : htmlspecialchars($ob->personal);
-//    }
-
-
-    /**
      * MIMP: Activate various advanced features in the mobile view.
      *
      * The combination of the rapid pace of development for both mobile

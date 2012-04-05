@@ -1669,7 +1669,7 @@ var DimpBase = {
         // Add from/to/cc/bcc headers
         [ 'from', 'to', 'cc', 'bcc' ].each(function(h) {
             if (r[h]) {
-                this.updateHeader(h, r[h], r.addr_limit && r.addr_limit[h] ? r.addr_limit[h] : 0);
+                this.updateHeader(h, r[h], true);
                 $('msgHeader' + h.capitalize()).show();
             } else {
                 $('msgHeader' + h.capitalize()).hide();
@@ -1766,7 +1766,7 @@ var DimpBase = {
     {
         this.loadingImg('msg', false);
         $H(r.hdr_data).each(function(d) {
-            this.updateHeader(d.key, d.value, 0);
+            this.updateHeader(d.key, d.value);
         }, this);
     },
 

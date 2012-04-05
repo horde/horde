@@ -824,21 +824,26 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * AJAX action: Add contact.
      *
      * Variables used:
-     *   - email: (string) The email address to name.
-     *   - name: (string) The name associated with the email address.
+     *   - addr: (string) [JSON array] Address list.
      *
      * @return boolean  True on success, false on failure.
      */
     public function addContact()
     {
-        // Allow name to be empty.
-        if (!$this->_vars->email) {
+        $addr_ob = IMP_Dimp::parseDimpAddressList($this->_vars->addr);
+
+        // TODO: Currently supports only a single, non-group contact.
+        $ob = $addr_ob[0];
+        if (!$ob) {
+            return false;
+        } elseif ($ob instanceof Horde_Mail_Rfc822_Group) {
+            $GLOBALS['notification']->push(_("Adding group lists not currently supported."), 'horde.warning');
             return false;
         }
 
         try {
-            IMP::addAddress($this->_vars->email, $this->_vars->name);
-            $GLOBALS['notification']->push(sprintf(_("%s was successfully added to your address book."), $this->_vars->name ? $this->_vars->name : $this->_vars->email), 'horde.success');
+            IMP::addAddress($ob->bare_address, $ob->personal);
+            $GLOBALS['notification']->push(sprintf(_("%s was successfully added to your address book."), $ob->label), 'horde.success');
             return true;
         } catch (Horde_Exception $e) {
             $GLOBALS['notification']->push($e);
@@ -1039,8 +1044,10 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         $show_msg = new IMP_Views_ShowMessage($mbox, $idx);
 
+        $hdr = $this->_vars->header;
+
         $result = new stdClass;
-        $result->hdr_data = (object)$show_msg->getAddressHeader($this->_vars->header, null);
+        $result->hdr_data->$hdr = (object)$show_msg->getAddressHeader($this->_vars->header, null);
 
         return $result;
     }

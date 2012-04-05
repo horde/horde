@@ -231,32 +231,29 @@ var DimpCore = {
         }, this);
     },
 
+    // args: params, uids
     compose: function(type, args)
     {
-        var params = {};
+        args = args || {};
+        if (!args.params) {
+            args.params = {};
+        }
         if (type) {
-            params.type = type;
+            args.params.type = type;
         }
 
-        if (type.startsWith('forward') || !args || !args.uids) {
+        if (type.startsWith('forward') || !args.uids) {
             if (type.startsWith('forward')) {
-                params.uids = this.toUIDString(this.selectionToRange(args.uids));
-            } else if (args) {
-                if (args.to) {
-                    params.to = args.to;
-                }
-                if (args.toname) {
-                    params.toname = args.toname;
-                }
+                args.params.uids = this.toUIDString(this.selectionToRange(args.uids));
             }
-            HordeCore.popupWindow(DIMP.conf.URI_COMPOSE, params, {
+            HordeCore.popupWindow(DIMP.conf.URI_COMPOSE, args.params, {
                 name: 'compose' + new Date().getTime()
             });
         } else {
             args.uids.get('dataob').each(function(d) {
-                params.mailbox = d.mbox;
-                params.uid = d.uid;
-                HordeCore.popupWindow(DIMP.conf.URI_COMPOSE, params, {
+                args.params.mailbox = d.mbox;
+                args.params.uid = d.uid;
+                HordeCore.popupWindow(DIMP.conf.URI_COMPOSE, args.params, {
                     name: 'compose' + new Date().getTime()
                 });
             }, this);
@@ -324,43 +321,48 @@ var DimpCore = {
     buildAddressLinks: function(alist, elt, limit)
     {
         var base, tmp,
-            cnt = alist.size();
+            df = document.createDocumentFragment();
 
-        if (cnt > 15) {
+        if (alist.raw) {
+            df.appendChild(document.createTextNode(alist.raw));
+        } else {
+            alist.addr.each(function(o) {
+                var a = new Element('A', { className: 'address' }).store({ email: o });
+                df.appendChild(a);
+                df.appendChild(document.createTextNode(', '));
+
+                if (o.g) {
+                    a.insert(o.g.escapeHTML());
+                } else if (o.p) {
+                    a.writeAttribute({ title: o.b }).insert(o.p.escapeHTML());
+                } else if (o.b) {
+                    a.insert(o.b.escapeHTML());
+                }
+
+                this.DMenu.addElement(a.identify(), 'ctx_contacts', { offset: a, left: true });
+            }, this);
+
+            // Remove trailing comma
+            df.removeChild(df.lastChild);
+        }
+
+        if (alist.addr.size() > 15) {
             tmp = $('largeaddrspan').clone(true).addClassName('largeaddrspan_active');
             elt.insert(tmp);
             base = tmp.down('.dispaddrlist');
             tmp = tmp.down('.largeaddrlist');
-            tmp.setText(tmp.textContent.replace('%d', limit ? limit : cnt));
-            if (limit) {
+            if (limit && alist.limit) {
                 base.down('.largeaddrlistlimit').show();
+                tmp.setText(tmp.textContent.replace('%d', alist.limit));
+            } else {
+                tmp.setText(tmp.textContent.replace('%d', alist.addr.size()));
             }
         } else {
             base = elt;
         }
 
-        alist.each(function(o, i) {
-            var a;
-            if (o.group) {
-                a = o.group.escapeHTML();
-            } else if (o.raw) {
-                a = o.raw;
-            } else {
-                a = new Element('A', { className: 'address' }).store({ personal: o.personal, email: o.inner });
-                if (o.personal) {
-                    a.writeAttribute({ title: o.inner }).insert(o.personal.escapeHTML());
-                } else if (o.inner) {
-                    a.insert(o.inner.escapeHTML());
-                }
-                this.DMenu.addElement(a.identify(), 'ctx_contacts', { offset: a, left: true });
-            }
-            base.insert(a);
-            if (i + 1 != cnt) {
-                base.insert(', ');
-            }
-        }, this);
-
-        if (limit) {
+        base.appendChild(df);
+        if (limit && alist.limit) {
             base.insert(', [...]');
         }
 
@@ -452,11 +454,17 @@ var DimpCore = {
 
         switch (e.memo.elt.readAttribute('id')) {
         case 'ctx_contacts_new':
-            this.compose('new', { to: baseelt.retrieve('email'), toname: baseelt.retrieve('personal') });
+            this.compose('new', {
+                params: {
+                    to_json: Object.toJSON(baseelt.retrieve('email'))
+                }
+            });
             break;
 
         case 'ctx_contacts_add':
-            this.doAction('addContact', { name: baseelt.retrieve('personal'), email: baseelt.retrieve('email') });
+            this.doAction('addContact', {
+                addr: Object.toJSON(baseelt.retrieve('email'))
+            });
             break;
         }
     },
@@ -475,10 +483,10 @@ var DimpCore = {
 
             // Add e-mail info to context menu if personal name is shown on
             // page.
-            if (e.element().retrieve('personal')) {
+            if ((tmp = e.element().retrieve('email')) && !tmp.g && tmp.p) {
                 $(e.memo)
                     .insert({ top: new Element('DIV', { className: 'sep' }) })
-                    .insert({ top: new Element('DIV', { className: 'contactAddr' }).insert(e.element().retrieve('email').escapeHTML()) });
+                    .insert({ top: new Element('DIV', { className: 'contactAddr' }).insert(tmp.b.escapeHTML()) });
             }
             break;
         }

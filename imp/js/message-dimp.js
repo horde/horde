@@ -101,7 +101,7 @@ var DimpMessage = {
     _updateAddressHeaderCallback: function(r)
     {
         $H(r.hdr_data).each(function(d) {
-            this.updateHeader(d.key, d.value, 0);
+            this.updateHeader(d.key, d.value);
         }, this);
     },
 
@@ -318,7 +318,7 @@ var DimpMessage = {
         /* Set up address linking. */
         [ 'from', 'to', 'cc', 'bcc', 'replyTo' ].each(function(a) {
             if (this[a]) {
-                this.updateHeader(a, this[a], this.addr_limit && this.addr_limit[a] ? this.addr_limit[a] : 0);
+                this.updateHeader(a, this[a], true);
                 delete this[a];
             }
         }, this);
