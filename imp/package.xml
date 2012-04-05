@@ -2690,6 +2690,7 @@
    <date>2012-02-28</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Added the &apos;delhide_trash&apos; preference.
 * [jan] Update Hungarian translation (Zoltán Németh &lt;nemeth.zoltan@etit.hu&gt;).
 * [mms] Ensure that PGP &amp; S/MIME signed message bodies are not altered after the signature is calculated (Bug #11058).
 * [mms] Fix internal storage of date searches (Bug #11109).

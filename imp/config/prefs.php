@@ -1043,7 +1043,8 @@ $prefGroups['delmove'] = array(
     'desc' => _("Set preferences for what happens when you move and delete messages."),
     'members' => array(
         'mailbox_return', 'delete_mark_seen', 'use_trash', 'trashselect',
-        'empty_trash_menu', 'purge_trash_interval', 'purge_trash_keep'
+        'delhide_trash', 'empty_trash_menu', 'purge_trash_interval',
+        'purge_trash_keep'
     )
 );
 
@@ -1083,6 +1084,19 @@ $_prefs['trash_folder'] = array(
     'value' => 'Trash'
     // Exchange servers use this default value instead.
     // 'value' => 'Deleted Items'
+);
+
+// hide deleted when using a Trash mailbox. This REALLY should be disabled;
+// other clients may not be configured the same as IMP so it is very
+// dangerous to hide messages that still exist in the mailbox (enabling Trash
+// indicates that the user wants to ignore the \Deleted flag in IMP).
+$_prefs['delhide_trash'] = array(
+    // Disabled and locked by default
+    'value' => 0,
+    'locked' => true,
+    'advanced' => true,
+    'type' => 'checkbox',
+    'desc' => _("Hide deleted messages even if using the Trash mailbox?")
 );
 
 // display the 'Empty Trash' link in the menubar?
