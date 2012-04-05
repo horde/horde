@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-03-14</date>
- <time>16:59:39</time>
+ <date>2012-04-05</date>
+ <time>00:04:54</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -154,6 +154,9 @@
       <dir name="Db">
        <file name="Migration.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Db -->
+      <dir name="Editor">
+       <file name="Ckeditor.php" role="php" />
+      </dir> <!-- /lib/Horde/Core/Editor -->
       <dir name="Factory">
        <file name="ActiveSyncBackend.php" role="php" />
        <file name="ActiveSyncServer.php" role="php" />
@@ -1159,6 +1162,7 @@
    <install as="Horde/Core/Controller/RequestMapper.php" name="lib/Horde/Core/Controller/RequestMapper.php" />
    <install as="Horde/Core/Controller/SettingsFinder.php" name="lib/Horde/Core/Controller/SettingsFinder.php" />
    <install as="Horde/Core/Db/Migration.php" name="lib/Horde/Core/Db/Migration.php" />
+   <install as="Horde/Core/Editor/Ckeditor.php" name="lib/Horde/Core/Editor/Ckeditor.php" />
    <install as="Horde/Core/Factory/ActiveSyncBackend.php" name="lib/Horde/Core/Factory/ActiveSyncBackend.php" />
    <install as="Horde/Core/Factory/ActiveSyncServer.php" name="lib/Horde/Core/Factory/ActiveSyncServer.php" />
    <install as="Horde/Core/Factory/ActiveSyncState.php" name="lib/Horde/Core/Factory/ActiveSyncState.php" />
