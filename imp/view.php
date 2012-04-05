@@ -49,7 +49,7 @@ require_once __DIR__ . '/lib/Application.php';
 $vars = Horde_Variables::getDefaultVariables();
 Horde_Registry::appInit('imp', array(
     'nocompress' => (($vars->actionID == 'download_all') || $vars->zip),
-    'session_control' => (Horde_Util::getFormData('ajax') ? null : 'readonly')
+    'session_control' => ($vars->ajax ? null : 'readonly')
 ));
 
 /* We may reach this page from the download script - need to check for

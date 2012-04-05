@@ -201,7 +201,7 @@ case 'mailto':
     break;
 
 case 'mailto_link':
-    $args = IMP::getComposeArgs();
+    $args = IMP::getComposeArgs($vars);
     if (isset($args['body'])) {
         $msg = $args['body'];
     }

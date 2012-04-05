@@ -257,16 +257,18 @@ class IMP
      * Checks for To:, Subject:, Cc:, and other compose window arguments and
      * pass back an associative array of those that are present.
      *
+     * @param Horde_Variables $vars  Form variables.
+     *
      * @return string  An associative array with compose arguments.
      */
-    static public function getComposeArgs()
+    static public function getComposeArgs(Horde_Variables $vars)
     {
         $args = array();
         $fields = array('to', 'cc', 'bcc', 'message', 'body', 'subject');
 
         foreach ($fields as $val) {
-            if (($$val = Horde_Util::getFormData($val))) {
-                $args[$val] = $$val;
+            if (isset($vars->$val)) {
+                $args[$val] = $vars->$val;
             }
         }
 

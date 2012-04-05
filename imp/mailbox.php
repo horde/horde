@@ -130,7 +130,7 @@ case 'template_edit':
         $options = array_merge(array(
             'actionID' => $compose_actions[$actionID],
             'msglist' => strval($indices)
-        ), IMP::getComposeArgs());
+        ), IMP::getComposeArgs($vars));
 
         if ($prefs->getValue('compose_popup')) {
             $page_output->addInlineScript(array(
