@@ -602,27 +602,28 @@ class Horde_ActiveSync_Imap_Adapter
         }
         if (empty($mboxes)) {
             foreach ($this->getMailboxes() as $mailbox) {
-                $mboxes[] = new Horde_Imap_Client_Mailbox($mailbox);
+                $mboxes[] = $mailbox['ob'];
             }
         }
         foreach ($mboxes as $mbox) {
             try {
                 $search_res = $this->_getImapOb()->search($mbox, $imap_query);
             } catch (Horde_Imap_Client_Exception $e) {
+                Horde::debug($e);
                 throw new Horde_ActiveSync_Exception($e);
             }
             if ($search_res['count'] == 0) {
-                return array();
+                continue;
             }
 
             $ids = $search_res['match']->ids;
+            foreach ($ids as $id) {
+                $results[] = array('uniqueid' => $mbox->utf8 . ':' . $id, 'searchfolderid' => $mbox->utf8);
+            }
             if (!empty($range)) {
                 preg_match('/(.*)\-(.*)/', $range, $matches);
                 $return_count = $matches[2] - $matches[1];
-                $ids = array_slice($ids, $matches[1], $return_count + 1, true);
-            }
-            foreach ($ids as $id) {
-                $results[] = array('uniqueid' => $mbox->utf8 . ':' . $id, 'searchfolderid' => $mbox->utf8);
+                $results = array_slice($results, $matches[1], $return_count + 1, true);
             }
         }
 
