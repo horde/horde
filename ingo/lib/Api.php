@@ -128,6 +128,7 @@ class Ingo_Api extends Horde_Registry_Api
 
         /* Set vacation object and rules. */
         $vacation = $ingo_storage->retrieve(Ingo_Storage::ACTION_VACATION);
+        $old_vacation = clone $vacation;
 
         /* Make sure we have at least one address. */
         if (empty($info['addresses'])) {
@@ -176,6 +177,14 @@ class Ingo_Api extends Horde_Registry_Api
             }
 
             if (!$result) {
+                // Attempt to revert
+                $ingo_storage->store($old_vacation);
+                if ($old_vacation['disabled']) {
+                    $filters->ruleDisable($vacation_rule_id);
+                } else {
+                    $filters->ruleEnable($vacation_rule_id);
+                }
+                $ingo_storage->store($filters);
                 return false;
             }
 
