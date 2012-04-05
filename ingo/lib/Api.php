@@ -140,7 +140,7 @@ class Ingo_Api extends Horde_Registry_Api
             }
         }
 
-        $vacation->setVacationAddresses($addresses);
+        $vacation->setVacationAddresses($info['addresses']);
 
         if (isset($info['days'])) {
             $vacation->setVacationDays($info['days']);
