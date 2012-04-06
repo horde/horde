@@ -560,7 +560,7 @@ class Horde_PageOutput
 
             $this->addMetaTag('viewport', 'width=device-width, minimum-scale=1, maximum-scale=1');
 
-            $this->stylesheetOpts = array(
+            $view->stylesheetOpts = array(
                 'nobase' => true,
                 'nocache' => true
             );
