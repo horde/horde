@@ -324,27 +324,28 @@ var DimpCore = {
             df = document.createDocumentFragment();
 
         if (alist.raw) {
-            df.appendChild(document.createTextNode(alist.raw));
-        } else {
-            alist.addr.each(function(o) {
-                var a = new Element('A', { className: 'address' }).store({ email: o });
-                df.appendChild(a);
-                df.appendChild(document.createTextNode(', '));
-
-                if (o.g) {
-                    a.insert(o.g.escapeHTML());
-                } else if (o.p) {
-                    a.writeAttribute({ title: o.b }).insert(o.p.escapeHTML());
-                } else if (o.b) {
-                    a.insert(o.b.escapeHTML());
-                }
-
-                this.DMenu.addElement(a.identify(), 'ctx_contacts', { offset: a, left: true });
-            }, this);
-
-            // Remove trailing comma
-            df.removeChild(df.lastChild);
+            elt.insert(alist.raw);
+            return elt;
         }
+
+        alist.addr.each(function(o) {
+            var a = new Element('A', { className: 'address' }).store({ email: o });
+            df.appendChild(a);
+            df.appendChild(document.createTextNode(', '));
+
+            if (o.g) {
+                a.insert(o.g.escapeHTML());
+            } else if (o.p) {
+                a.writeAttribute({ title: o.b }).insert(o.p.escapeHTML());
+            } else if (o.b) {
+                a.insert(o.b.escapeHTML());
+            }
+
+            this.DMenu.addElement(a.identify(), 'ctx_contacts', { offset: a, left: true });
+        }, this);
+
+        // Remove trailing comma
+        df.removeChild(df.lastChild);
 
         if (alist.addr.size() > 15) {
             tmp = $('largeaddrspan').clone(true).addClassName('largeaddrspan_active');
