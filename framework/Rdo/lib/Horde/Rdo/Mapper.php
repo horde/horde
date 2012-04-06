@@ -513,21 +513,28 @@ abstract class Horde_Rdo_Mapper implements Countable
     }
 
     /**
-     * Add a relation
-     * For to-one relations, simply update the relation field
-     * For one-to-many relations, update the related object's relation field
-     * For many-to-many, add an entry in the through table
-     * Perform a no-op if the peer is already related
+     * Adds a relation.
      *
-     * @param string $relationship    The relationship key in the mapper
-     * @param Horde_Rdo_Base $ours    The object from this mapper to add the relation
-     * @param Horde_Rdo_Base $theirs  The other object from any mapper to add the relation
+     * - For one-to-one relations, simply updates the relation field.
+     * - For one-to-many relations, updates the related object's relation field.
+     * - For many-to-many relations, adds an entry in the "through" table.
+     * - Performs a no-op if the peer is already related.
      *
-     * @return boolean Success.
+     * @param string $relationship    The relationship key in the mapper.
+     * @param Horde_Rdo_Base $ours    The object from this mapper to add the
+     *                                relation.
+     * @param Horde_Rdo_Base $theirs  The other object from any mapper to add
+     *                                the relation.
+     *
+     * @throws Horde_Rdo_Exception
      */
-    public function addRelation($relationship, Horde_Rdo_Base $ours, Horde_Rdo_Base $theirs)
+    public function addRelation($relationship, Horde_Rdo_Base $ours,
+                                Horde_Rdo_Base $theirs)
     {
-        if ($ours->hasRelation($relationship, $theirs)) return false;
+        if ($ours->hasRelation($relationship, $theirs)) {
+            return;
+        }
+
         $ourKey = $this->primaryKey;
         $theirKey = $theirs->mapper->primaryKey;
 
@@ -544,44 +551,51 @@ abstract class Horde_Rdo_Mapper implements Countable
         case Horde_Rdo::MANY_TO_ONE:
             $ours->$rel['foreignKey'] = $theirs->$theirKey;
             $ours->save();
-        break;
+            break;
+
         case Horde_Rdo::ONE_TO_MANY:
             $theirs->$rel['foreignKey'] = $ours->$ourKey;
             $theirs->save();
-        break;
+            break;
+
         case Horde_Rdo::MANY_TO_MANY:
             $sql = sprintf('INSERT INTO %s (%s, %s) VALUES (?, ?)',
-                        $this->adapter->quoteTableName($rel['through']),
-                        $this->adapter->quoteColumnName($ourKey),
-                        $this->adapter->quoteColumnName($theirKey)
-                    );
+                           $this->adapter->quoteTableName($rel['through']),
+                           $this->adapter->quoteColumnName($ourKey),
+                           $this->adapter->quoteColumnName($theirKey));
             try {
                 $this->adapter->insert($sql, array($ours->$ourKey, $theirs->$theirKey));
             } catch (Horde_Db_Exception $e) {
                 throw new Horde_Rdo_Exception($e);
             }
-        break;
+            break;
         }
-        return true;
     }
+
     /**
-     * Remove a relation to one of the relationships defined in the mapper
-     * For to-one relations and one-to-many, simply set the relation field to 0
-     * For many-to-many, either delete all relations to this object or just the relation
-     * to a given peer object
+     * Removes a relation to one of the relationships defined in the mapper.
      *
-     * Perform a no-op if the peer is already unrelated
+     * - For one-to-one and one-to-many relations, simply sets the relation
+     *   field to 0.
+     * - For many-to-many, either deletes all relations to this object or just
+     *   the relation to a given peer object.
+     * - Performs a no-op if the peer is already unrelated.
+     *
      * This is a proxy to the mapper's removeRelation method.
      *
-     * @param string $relationship    The relationship key in the mapper
-     * @param Horde_Rdo_Base $ours    The object from this mapper
-     * @param Horde_Rdo_Base $theirs  The object to remove from the relation
+     * @param string $relationship    The relationship key in the mapper.
+     * @param Horde_Rdo_Base $ours    The object from this mapper.
+     * @param Horde_Rdo_Base $theirs  The object to remove from the relation.
      *
-     * @return boolean Success.
+     * @throws Horde_Rdo_Exception
      */
-    public function removeRelation($relationship, Horde_Rdo_Base $ours, Horde_Rdo_Base $theirs = null)
+    public function removeRelation($relationship, Horde_Rdo_Base $ours,
+                                   Horde_Rdo_Base $theirs = null)
     {
-         if (!($ours->hasRelation($relationship, $theirs))) return false;
+        if (!$ours->hasRelation($relationship, $theirs)) {
+            return;
+        }
+
         $ourKey = $this->primaryKey;
 
         if (isset($this->relationships[$relationship])) {
@@ -597,22 +611,22 @@ abstract class Horde_Rdo_Mapper implements Countable
         case Horde_Rdo::MANY_TO_ONE:
             $ours->$rel['foreignKey'] = null;
             $ours->save();
-        break;
+            break;
+
         case Horde_Rdo::ONE_TO_MANY:
             $theirs->$rel['foreignKey'] = null;
             $theirs->save();
-        break;
+            break;
+
         case Horde_Rdo::MANY_TO_MANY:
             $sql = sprintf('DELETE FROM %s WHERE %s = ? ',
-                        $this->adapter->quoteTableName($rel['through']),
-                        $this->adapter->quoteColumnName($ourKey)
-                    );
+                           $this->adapter->quoteTableName($rel['through']),
+                           $this->adapter->quoteColumnName($ourKey));
             $values = array($ours->$ourKey);
             if (!empty($theirs)) {
                 $theirKey = $theirs->mapper->primaryKey;
                 $sql .= sprintf(' AND %s = ?',
-                    $this->adapter->quoteColumnName($theirKey)
-                );
+                                $this->adapter->quoteColumnName($theirKey));
                 $values[] = $theirs->$theirKey;
             }
             try {
@@ -620,9 +634,8 @@ abstract class Horde_Rdo_Mapper implements Countable
             } catch (Horde_Db_Exception $e) {
                 throw new Horde_Rdo_Exception($e);
             }
-        break;
+            break;
         }
-        return true;
     }
 
     /**

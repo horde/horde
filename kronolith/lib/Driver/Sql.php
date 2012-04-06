@@ -544,31 +544,35 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
     }
 
     /**
-     * build a history hash for a modified event
-     * We don't write it in here because we don't want to
-     * commit history before the actual changes are made
+     * Builds a history hash for a modified event.
+     *
+     * We don't write it in here because we don't want to commit history before
+     * the actual changes are made.
      *
      * @param Kronolith_Event $event  The event to log.
      *
-     * @return array The change log.
+     * @return array  The change log.
      * @throws Horde_Mime_Exception
      * @throws Kronolith_Exception
      */
-    protected function _buildEventHistory(Kronolith_Event $Event)
+    protected function _buildEventHistory(Kronolith_Event $event)
     {
         $changes = array('action' => 'modify');
-        /* We cannot use getEvent because of caching */
-        $oldProperties = $this->getbyUID($Event->uid,  array($Event->calendar))->toProperties();
-        $newProperties = $Event->toProperties();
+
+        /* We cannot use getEvent() because of caching. */
+        $oldProperties = $this->getbyUID(
+            $event->uid,
+            array($event->calendar))->toProperties();
+        $newProperties = $event->toProperties();
         if (empty($oldProperties)) {
             return $changes;
         }
 
         foreach (array_keys($newProperties) as $property) {
-                if ($oldProperties[$property] != $newProperties[$property]) {
-                    $changes['new'][$property] = $newProperties[$property];
-                    $changes['old'][$property] = $oldProperties[$property];
-                }
+            if ($oldProperties[$property] != $newProperties[$property]) {
+                $changes['new'][$property] = $newProperties[$property];
+                $changes['old'][$property] = $oldProperties[$property];
+            }
         }
 
         return $changes;
