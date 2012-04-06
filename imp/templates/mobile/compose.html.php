@@ -39,7 +39,7 @@
 
   <div data-role="footer" class="ui-bar">
     <a href="" data-role="button" id="imp-compose-submit"><?php echo _("Send Message") ?></a>
-    <a href="" data-role="button" id="imp-compose-cancel"><?php echo _("Cancel") ?></a>
+    <a href="#folders" data-role="button" data-rel="back"><?php echo _("Cancel") ?></a>
   </div>
 </div>
 
