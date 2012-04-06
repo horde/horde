@@ -11,8 +11,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-03-20</date>
- <time>10:43:18</time>
+ <date>2012-04-06</date>
+ <time>15:25:33</time>
  <version>
   <release>1.2.1</release>
   <api>1.2.0</api>
@@ -57,6 +57,7 @@
       </dir> <!-- /lib/Horde/Rdo/Query -->
       <file name="Base.php" role="php" />
       <file name="Exception.php" role="php" />
+      <file name="Factory.php" role="php" />
       <file name="Iterator.php" role="php" />
       <file name="List.php" role="php" />
       <file name="Mapper.php" role="php" />
@@ -72,6 +73,10 @@
        <file name="unit_tests.sql" role="test" />
       </dir> <!-- /test/Horde/Rdo/fixtures -->
       <dir name="Objects">
+       <file name="ManyToManyA.php" role="test" />
+       <file name="ManyToManyAMapper.php" role="test" />
+       <file name="ManyToManyB.php" role="test" />
+       <file name="ManyToManyBMapper.php" role="test" />
        <file name="RelatedThing.php" role="test" />
        <file name="RelatedThingMapper.php" role="test" />
        <file name="SomeEagerBaseObject.php" role="test" />
@@ -137,6 +142,7 @@
    <install as="Horde/Rdo.php" name="lib/Horde/Rdo.php" />
    <install as="Horde/Rdo/Base.php" name="lib/Horde/Rdo/Base.php" />
    <install as="Horde/Rdo/Exception.php" name="lib/Horde/Rdo/Exception.php" />
+   <install as="Horde/Rdo/Factory.php" name="lib/Horde/Rdo/Factory.php" />
    <install as="Horde/Rdo/Iterator.php" name="lib/Horde/Rdo/Iterator.php" />
    <install as="Horde/Rdo/List.php" name="lib/Horde/Rdo/List.php" />
    <install as="Horde/Rdo/Mapper.php" name="lib/Horde/Rdo/Mapper.php" />
@@ -147,6 +153,10 @@
    <install as="Horde/Rdo/Base.php" name="test/Horde/Rdo/Base.php" />
    <install as="Horde/Rdo/phpunit.xml" name="test/Horde/Rdo/phpunit.xml" />
    <install as="Horde/Rdo/fixtures/unit_tests.sql" name="test/Horde/Rdo/fixtures/unit_tests.sql" />
+   <install as="Horde/Rdo/Objects/ManyToManyA.php" name="test/Horde/Rdo/Objects/ManyToManyA.php" />
+   <install as="Horde/Rdo/Objects/ManyToManyAMapper.php" name="test/Horde/Rdo/Objects/ManyToManyAMapper.php" />
+   <install as="Horde/Rdo/Objects/ManyToManyB.php" name="test/Horde/Rdo/Objects/ManyToManyB.php" />
+   <install as="Horde/Rdo/Objects/ManyToManyBMapper.php" name="test/Horde/Rdo/Objects/ManyToManyBMapper.php" />
    <install as="Horde/Rdo/Objects/RelatedThing.php" name="test/Horde/Rdo/Objects/RelatedThing.php" />
    <install as="Horde/Rdo/Objects/RelatedThingMapper.php" name="test/Horde/Rdo/Objects/RelatedThingMapper.php" />
    <install as="Horde/Rdo/Objects/SomeEagerBaseObject.php" name="test/Horde/Rdo/Objects/SomeEagerBaseObject.php" />
@@ -278,7 +288,7 @@ Major improvements including inflection, eager or lazy loading of relationships 
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-03-20</date>
+   <date>2012-04-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
