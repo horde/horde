@@ -587,16 +587,20 @@ abstract class Kronolith_Event
         $created = $modified = null;
         try {
             $history = $GLOBALS['injector']->getInstance('Horde_History');
-            $created = $history->getActionTimestamp('kronolith:' . $this->calendar . ':' . $this->uid, 'add');
-            $modified = $history->getActionTimestamp('kronolith:' . $this->calendar . ':' . $this->uid, 'modify');
-            /* The history driver returns 0 for not found. If 0 or null does not matter, strip this */
+            $created = $history->getActionTimestamp(
+                'kronolith:' . $this->calendar . ':' . $this->uid, 'add');
+            $modified = $history->getActionTimestamp(
+                'kronolith:' . $this->calendar . ':' . $this->uid, 'modify');
+            /* The history driver returns 0 for not found. If 0 or null does
+             * not matter, strip this. */
             if ($created == 0) {
-                $created == null;
+                $created = null;
             }
             if ($modified == 0) {
-                $modified == null;
+                $modified = null;
             }
-        } catch (Exception $e) {}
+        } catch (Exception $e) {
+        }
         if (!empty($created)) {
             $vEvent->setAttribute($v1 ? 'DCREATED' : 'CREATED', $created);
             if (empty($modified)) {
