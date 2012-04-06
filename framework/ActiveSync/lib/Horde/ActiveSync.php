@@ -358,7 +358,7 @@ class Horde_ActiveSync
         // Authenticate
         if (!$this->_driver->logon($user, $pass, $domain)) {
             header('HTTP/1.1 401 Unauthorized');
-            header('WWW-Authenticate: Basic realm="Horde RPC"');
+            header('WWW-Authenticate: Basic realm="Horde ActiveSync"');
             return false;
         }
 
@@ -387,7 +387,7 @@ class Horde_ActiveSync
 
         if (!$this->_driver->setup($get['User'])) {
             header('HTTP/1.1 401 Unauthorized');
-            header('WWW-Authenticate: Basic realm="Horde RPC"');
+            header('WWW-Authenticate: Basic realm="Horde ActiveSync"');
             echo 'Access denied or user ' . $this->_get['User'] . ' unknown.';
             return false;
         }
