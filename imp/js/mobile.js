@@ -75,6 +75,19 @@ var ImpMobile = {
     },
 
     /**
+     * Checks if the current page matches the ID.
+     *
+     * @param string  The ID to check.
+     *
+     * @return boolean  True if page is equal to ID.
+     */
+    currentPage: function(page)
+    {
+        return ($.mobile.activePage &&
+                $.mobile.activePage.attr('id') == page);
+    },
+
+    /**
      * Event handler for the pagebeforechange event that implements loading of
      * deep-linked pages.
      *
@@ -141,8 +154,7 @@ var ImpMobile = {
             title = $('#imp-mailbox-' + mailbox).text(),
             params = {}, ob;
 
-        if ($.mobile.activePage &&
-            $.mobile.activePage.attr('id') == 'mailbox') {
+        if (ImpMobile.currentPage('mailbox')) {
             // Need to update history manually, because jqm exits too early
             // if calling changePage() with the same page but different hash
             // parameters.
@@ -245,8 +257,7 @@ var ImpMobile = {
             ob.disappear(r.disappear);
         }
 
-        if ($.mobile.activePage &&
-            $.mobile.activePage.attr('id') == 'mailbox') {
+        if (ImpMobile.currentPage('mailbox')) {
             ImpMobile.refreshMailbox(ob);
         }
     },
@@ -360,8 +371,7 @@ var ImpMobile = {
             return;
         }
 
-        if ($.mobile.activePage &&
-            $.mobile.activePage.attr('id') == 'message') {
+        if (ImpMobile.currentPage('message')) {
             // Need to update history manually, because jqm exits too early
             // if calling changePage() with the same page but different hash
             // parameters.
@@ -962,7 +972,7 @@ var ImpMobile = {
             }
         });
 
-        if ($.mobile.activePage == $.mobile.firstPage) {
+        if (ImpMobile.currentPage('folders')) {
             $('#imp-folders-list').listview('refresh');
         }
     },
@@ -1123,7 +1133,7 @@ var ImpMobile = {
             });
         }
 
-        if ($.mobile.activePage != $.mobile.firstPage) {
+        if (location.hash) {
             $.mobile.changePage(location.hash);
         }
     }
