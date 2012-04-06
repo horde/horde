@@ -137,16 +137,4 @@ To: recipient2@example.com"
         );
     }
 
-    public function testUnencodedMimeHeader()
-    {
-        // The header is base64 encoded to preserve charaset data.
-        $hdr = 'RnJvbTogqSBWSUFHUkEgriBPZmZpY2lhbCBTaXRlIDxzbHVzYXJza2lAZ29sZGVud2FyZS5jb20+DQo=';
-        $hdrs = Horde_Mime_Headers::parseHeaders(base64_decode($hdr));
-
-        $this->assertEquals(
-            '© VIAGRA ® Official Site <slusarski@goldenware.com>',
-            $hdrs->getValue('from')
-        );
-    }
-
 }
