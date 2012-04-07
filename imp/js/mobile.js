@@ -210,11 +210,10 @@ var ImpMobile = {
     {
         params = params || {};
 
-        var from = 1, o = {}, ob;
+        var from = 1, ob;
 
         if (ob = ImpMobile.cache[ImpMobile.mailbox]) {
-            o[ImpMobile.mailbox] = ob.cachedIds();
-            params.cache = ImpMobile.toUIDString(o);
+            params.cache = ImpMobile.toUIDStringSingle(ImpMobile.mailbox, ob.cacheIds());
             params.cacheid = ob.cacheid;
             params.checkcache = 1;
             from = ob.from;
@@ -358,8 +357,7 @@ var ImpMobile = {
      */
     toMessage: function(url, options)
     {
-        var match = /\?view=(.*?)&uid=(.*)/.exec(url.hash),
-            o = {};
+        var match = /\?view=(.*?)&uid=(.*)/.exec(url.hash);
 
         if (!ImpMobile.mailbox) {
             // Deep-linked message page. Load mailbox first to allow navigation
@@ -390,12 +388,10 @@ var ImpMobile = {
 
         $('#imp-message-body').text('');
 
-        o[match[1]] = [ match[2] ];
-
         HordeMobile.doAction(
             'showMessage',
             {
-                uid: ImpMobile.toUIDString(o),
+                uid: ImpMobile.toUIDStringSingle(match[1], [ match[2] ]),
                 view: match[1]
             },
             ImpMobile.messageLoaded
@@ -625,8 +621,7 @@ var ImpMobile = {
         }
 
         var type = match[1], mailbox = match[2], uid = match[3],
-            func, cache, o = {}, params = {};
-        o[mailbox] = [ uid ];
+            func, cache, params = {};
 
         $('#imp-compose-form').show();
         $('#imp-redirect-form').hide();
@@ -671,7 +666,7 @@ var ImpMobile = {
             $.extend(params, {
                 type: type,
                 imp_compose: $(cache).val(),
-                uid: ImpMobile.toUIDString(o)
+                uid: ImpMobile.toUIDStringSingle(mailbox, [ uid ])
             }),
             function(r) { ImpMobile.composeLoaded(r, options); });
     },
@@ -854,16 +849,10 @@ var ImpMobile = {
      */
     confirmed: function(url, options)
     {
-        var match, mailbox, uid, o = {};
+        var match;
 
         match = /\?action=(.*?)&(?:(?:view|mbox)=(.*?)&uid=(.*)|(.*))/
             .exec(url.hash);
-
-        if (match[2]) {
-            mailbox = match[2];
-            uid = match[3];
-            o[mailbox] = [ uid ];
-        }
 
         switch (match[1]) {
         case 'delete':
@@ -885,7 +874,7 @@ var ImpMobile = {
                 'reportSpam',
                 ImpMobile.addMboxParams({
                     spam: Number(match[1] == 'spam'),
-                    uid: ImpMobile.toUIDString(o),
+                    uid: ImpMobile.toUIDStringSingle(match[2], [ match[3] ]),
                     view: mailbox
                 }),
                 function() {
@@ -925,7 +914,7 @@ var ImpMobile = {
                 ? $('#imp-target-list')
                 : $('#imp-target-new'),
             value = target.val(),
-            func, o = {};
+            func;
 
         if (value === '') {
             $('#imp-target-newdiv').show();
@@ -935,14 +924,13 @@ var ImpMobile = {
         func = ($('#imp-target-header').text() == IMP.text.copy)
             ? 'copyMessages'
             : 'moveMessages';
-        o[source] = [ $('#imp-target-uid').val() ];
 
         HordeMobile.doAction(
             func,
             $.extend(ImpMobile.addMboxParams({}), {
                 mboxto: value,
                 newmbox: $('#imp-target-new').val(),
-                uid: ImpMobile.toUIDString(o),
+                uid: ImpMobile.toUIDStringSingle(source, [ $('#imp-target-uid').val() ]),
                 view: source
             }),
             (IMP.conf.mailbox_return || func == 'moveMessages')
@@ -1017,6 +1005,15 @@ var ImpMobile = {
         });
 
         return str;
+    },
+
+    /**
+     */
+    toUIDStringSingle: function(mbox, uid)
+    {
+        var o = {};
+        o[mbox] = uid;
+        return ImpMobile.toUIDString(o);
     },
 
     /**
