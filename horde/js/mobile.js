@@ -49,7 +49,7 @@ var HordeMobile = {
             {
                 'url': HordeMobile.urls.ajax + action,
                 'data': params,
-                'error': HordeMobile.errorCallback,
+                'error': $.noop,
                 'success': function(d, t, x) { HordeMobile.doActionComplete(d, callback); },
                 'type': 'post'
             },
@@ -112,6 +112,7 @@ var HordeMobile = {
                 break;
             }
         });
+
         if (list.html()) {
             $.mobile.changePage($('#notification'), { transition: 'pop' });
         }
@@ -121,11 +122,6 @@ var HordeMobile = {
     {
         HordeMobile.is_logout = true;
         window.location = (url || HordeMobile.urls.ajax + 'logOut');
-    },
-
-    errorCallback: function(x, t, e)
-    {
-
     },
 
     onDocumentReady: function()
