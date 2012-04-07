@@ -81,18 +81,18 @@ $page_output->header(array(
     'title' => _("Mobile Mail"),
     'view' => $registry::VIEW_SMARTMOBILE
 ));
-echo $view->render('head.html.php');
-echo $view->render('folders.html.php');
-echo $view->render('mailbox.html.php');
-echo $view->render('message.html.php');
+echo $view->render('head');
+echo $view->render('folders');
+echo $view->render('mailbox');
+echo $view->render('message');
 if (IMP::canCompose()) {
-    echo $view->render('compose.html.php');
+    echo $view->render('compose');
 }
 if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
-    echo $view->render('search.html.php');
+    echo $view->render('search');
 }
-echo $view->render('confirm.html.php');
+echo $view->render('confirm');
 if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
-    echo $view->render('target.html.php');
+    echo $view->render('target');
 }
 $page_output->footer();
