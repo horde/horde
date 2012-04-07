@@ -15,20 +15,3 @@
     </ul>
   </div>
 </div>
-<div id="notification" data-role="dialog">
-  <div data-role="header">
-    <h1><?php echo _("Notice")?></h1>
-  </div>
-  <div data-role="content" class="ui-body">
-    <ul id="horde-notification" data-role="listview">
-    </ul>
-  </div>
-</div>
-<script type="text/javascript">
-// workaround for listview items not being clickable for links with
-// rel="external"
-$('li.extlink').click(function() {
-  window.location = $(this).find('a').attr('href');
-  return false;
-});
-</script>

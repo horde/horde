@@ -43,6 +43,5 @@ echo $view->render('galleries');
 echo $view->render('gallery');
 echo $view->render('image');
 //echo $view->render('photo');
-echo $view->render('notice');
 
 $page_output->footer();

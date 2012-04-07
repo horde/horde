@@ -627,6 +627,7 @@ class Horde_PageOutput
         $view->outputJs = $this->deferScripts;
         $view->pageOutput = $this;
         $view->sidebarLoaded = $this->sidebarLoaded;
+        $view->smartmobileView = ($registry->getView() == $registry::VIEW_SMARTMOBILE);
 
         echo $view->render('footer.html.php');
     }

@@ -91,7 +91,6 @@ if (IMP::canCompose()) {
 if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
     echo $view->render('search.html.php');
 }
-echo $view->render('notice.html.php');
 echo $view->render('confirm.html.php');
 if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
     echo $view->render('target.html.php');

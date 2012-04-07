@@ -78,6 +78,5 @@ echo $view->render('day');
 echo $view->render('event');
 echo $view->render('month');
 echo $view->render('summary');
-echo $view->render('notice');
 
 $page_output->footer();

@@ -114,7 +114,7 @@ var HordeMobile = {
         });
 
         if (list.html()) {
-            $.mobile.changePage($('#notification'), { transition: 'pop' });
+            $.mobile.changePage($('#smartmobile-notification'), { transition: 'pop' });
         }
     },
 
@@ -135,7 +135,18 @@ var HordeMobile = {
                 return data.replace(filter, "$1");
             }
         });
-        $('#notification').live('pagebeforeshow', function() { $('#horde-notification').listview('refresh'); });
+
+        $('#smartmobile-notification').live('pagebeforeshow', function() {
+            $('#horde-notification').listview('refresh');
+        });
+
+        // Workaround for listview items not being clickable for links with
+        // rel="external".
+        $('li.extlink').click(function() {
+            window.location = $(this).find('a').attr('href');
+            return false;
+        });
     }
 };
+
 $(HordeMobile.onDocumentReady);
