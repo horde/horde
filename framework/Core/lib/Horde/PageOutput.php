@@ -398,14 +398,18 @@ class Horde_PageOutput
     }
 
     /**
-     * Adds a META http-equiv tag to the page output.
+     * Adds a META tag to the page output.
      *
-     * @param string $type     The http-equiv type value.
-     * @param string $content  The content of the META tag.
+     * @param string $name         The name value.
+     * @param string $content      The content of the META tag.
+     * @param boolean $http_equiv  Output http-equiv instead of name?
      */
-    public function addMetaTag($type, $content)
+    public function addMetaTag($type, $content, $http_equiv = true)
     {
-        $this->metaTags[$type] = $content;
+        $this->metaTags[$type] = array(
+            'c' => $content,
+            'h' => $http_equiv
+        );
     }
 
     /**
@@ -436,7 +440,9 @@ class Horde_PageOutput
     public function outputMetaTags()
     {
         foreach ($this->metaTags as $key => $val) {
-            echo '<meta http-equiv="' . $key . '" content="' . $val . "\" />\n";
+            echo '<meta content="' . $val['c'] . '" ' .
+                ($val['h'] ? 'http-equiv' : 'name') .
+                '="' . $key . "\" />\n";
         }
 
         $this->metaTags = array();
@@ -558,7 +564,7 @@ class Horde_PageOutput
             $this->addScriptFile('mobile.js', 'horde');
             $this->addScriptFile('jquery.mobile/jquery.mobile.min.js', 'horde');
 
-            $this->addMetaTag('viewport', 'width=device-width, minimum-scale=1, maximum-scale=1');
+            $this->addMetaTag('viewport', 'width=device-width, initial-scale=1', false);
 
             $view->stylesheetOpts = array(
                 'nobase' => true,
