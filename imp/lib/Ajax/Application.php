@@ -616,7 +616,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $this->_mbox->setHideDeletedMsgs($this->_vars->delhide);
         }
 
-        $changed = $this->_changed(false);
+        $changed = $this->_changed(true);
 
         if (is_null($changed)) {
             $list_msg = new IMP_Views_ListMessages();
@@ -864,7 +864,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      */
     public function reportSpam()
     {
-        $change = $this->_changed(false);
+        $change = $this->_changed(true);
         $indices = new IMP_Indices_Form($this->_vars->uid);
 
         if (IMP_Spam::reportSpam($indices, $this->_vars->spam ? 'spam' : 'notspam')) {
@@ -953,7 +953,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $result->view = $this->_vars->view;
 
         try {
-            $change = $this->_changed(false);
+            $change = $this->_changed(true);
             if (is_null($change)) {
                 throw new IMP_Exception(_("Could not open mailbox."));
             }
@@ -1485,7 +1485,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             return false;
         }
 
-        $change = $this->_changed(false);
+        $change = $this->_changed(true);
         if (is_null($change)) {
             return false;
         }
