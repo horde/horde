@@ -15,7 +15,6 @@
 var HordeMobile = {
 
     notify_handler: function(m) { return HordeMobile.showNotifications(m); },
-
     serverError: 0,
 
     /**
@@ -39,21 +38,20 @@ var HordeMobile = {
      * @param string action      The AJAX request method.
      * @param object params      The parameter hash for the AJAX request.
      * @param function callback  A callback function for successful request.
-     * @param object opts        Additional options for jQuery.ajax() (since
-     *                           Horde 4.1).
+     * @param object opts        Additional options for jQuery.ajax().
      */
     doAction: function(action, params, callback, opts)
     {
         $.mobile.showPageLoadingMsg();
-        var options = $.extend(
-            {
-                'url': HordeMobile.urls.ajax + action,
-                'data': params,
-                'error': $.noop,
-                'success': function(d, t, x) { HordeMobile.doActionComplete(d, callback); },
-                'type': 'post'
+        var options = $.extend({
+            'data': params,
+            'error': $.noop,
+            'success': function(d, t, x) {
+                HordeMobile.doActionComplete(d, callback);
             },
-            opts || {});
+            'type': 'post',
+            'url': HordeMobile.urls.ajax + action,
+        }, opts || {});
         $.ajax(options);
     },
 
@@ -128,8 +126,7 @@ var HordeMobile = {
     {
         // Global ajax options.
         $.ajaxSetup({
-            dataFilter: function(data, type)
-            {
+            dataFilter: function(data, type) {
                 // Remove json security token
                 filter = /^\/\*-secure-([\s\S]*)\*\/s*$/;
                 return data.replace(filter, "$1");
