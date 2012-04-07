@@ -1111,7 +1111,7 @@ var DimpBase = {
             break;
 
         case 'ctx_message_undelete':
-        case 'ctx_oa_undeleted':
+        case 'ctx_oa_undelete':
             this.flag(DIMP.conf.FLAG_DELETED, false);
             break;
 
