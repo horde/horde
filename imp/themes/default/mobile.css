@@ -32,6 +32,9 @@
     float: right;
     margin: 0;
 }
+.imp-message-spacer {
+    margin: 16px;
+}
 
 /* Style for HTML data iframe. */
 .htmlMsgData {

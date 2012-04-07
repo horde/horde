@@ -213,7 +213,7 @@ var ImpMobile = {
         var from = 1, ob;
 
         if (ob = ImpMobile.cache[ImpMobile.mailbox]) {
-            params.cache = ImpMobile.toUIDStringSingle(ImpMobile.mailbox, ob.cacheIds());
+            params.cache = ImpMobile.toUIDStringSingle(ImpMobile.mailbox, ob.cachedIds());
             params.cacheid = ob.cacheid;
             params.checkcache = 1;
             from = ob.from;
@@ -553,9 +553,6 @@ var ImpMobile = {
             $('#imp-message-delete,#imp-message-move').hide();
         } else {
             $('#imp-message-delete,#imp-message-move').show();
-            $('#imp-message-delete').attr(
-                'href',
-                '#confirm?action=delete' + args);
             if (IMP.conf.allow_folders) {
                 $('#imp-message-move').attr(
                     'href',
@@ -855,19 +852,6 @@ var ImpMobile = {
             .exec(url.hash);
 
         switch (match[1]) {
-        case 'delete':
-            HordeMobile.doAction(
-                'deleteMessages',
-                ImpMobile.addMboxParams({
-                    uid: ImpMobile.toUIDString(o),
-                    view: mailbox
-                }),
-                function() {
-                    ImpMobile.changePage('#mailbox?mbox=' + mailbox);
-                }
-            );
-            break;
-
         case 'spam':
         case 'ham':
             HordeMobile.doAction(
@@ -1029,6 +1013,17 @@ var ImpMobile = {
             id = elt.attr('id');
 
             switch (id) {
+            case 'imp-message-delete':
+                HordeMobile.doAction(
+                    'deleteMessages',
+                    ImpMobile.addMboxParams({
+                        uid: ImpMobile.toUIDStringSingle(ImpMobile.mailbox, [ ImpMobile.uid ]),
+                        view: ImpMobile.mailbox
+                    })
+                );
+                $.mobile.changePage('#mailbox?mbox=' + ImpMobile.mailbox);
+                return;
+
             case 'imp-message-more':
                 elt.parent().hide();
                 elt.parent().next().show();
