@@ -2,6 +2,8 @@
 v6.0-git
 --------
 
+[mms] Allow Edit As New to be used as the default forward action (Request
+      #11135).
 [mms] Improved handling of messages with multiple From addresses in mailbox
       views.
 [mms] Replying to a multipart/related message in HTML mode now correctly

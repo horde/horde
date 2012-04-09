@@ -333,7 +333,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      */
     public function editAsNew($indices)
     {
-        $ret = $this->_resumeDraft($indices, false, self::EDITASNEW);
+        $ret = $this->_resumeDraft($indices, self::EDITASNEW);
         $ret['type'] = self::EDITASNEW;
         return $ret;
     }
@@ -373,7 +373,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      */
     public function resumeDraft($indices)
     {
-        $res = $this->_resumeDraft($indices, true);
+        $res = $this->_resumeDraft($indices, self::RESUME);
         $this->_metadata['draft_uid_resume'] = $indices;
         return $res;
     }
@@ -391,7 +391,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      */
     public function useTemplate($indices)
     {
-        $ret = $this->_resumeDraft($indices, true, self::TEMPLATE);
+        $ret = $this->_resumeDraft($indices, self::TEMPLATE);
         $ret['type'] = self::TEMPLATE;
         return $ret;
     }
@@ -400,14 +400,13 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      * Resumes a previously saved draft message.
      *
      * @param IMP_Indices $indices  See resumeDraft().
-     * @param boolean $addheaders   Populate header entries?
      * @param integer $type         Compose type.
      *
      * @return mixed  See resumeDraft().
      *
      * @throws IMP_Compose_Exception
      */
-    protected function _resumeDraft($indices, $addheaders, $type = null)
+    protected function _resumeDraft($indices, $type)
     {
         global $injector, $prefs, $registry;
 
@@ -518,12 +517,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             $identity_id = $identity->getMatchingIdentity($fromaddr);
         }
 
-        if ($addheaders) {
+        if ($type != self::EDITASNEW) {
             $header = array(
                 'to' => strval($headers->getOb('to')),
                 'cc' => strval($headers->getOb('cc')),
-                'bcc' => strval($headers->getOb('bcc')),
-                'subject' => $headers->getValue('subject')
+                'bcc' => strval($headers->getOb('bcc'))
             );
 
             if ($val = $headers->getValue('references')) {
@@ -554,6 +552,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                 } catch (Exception $e) {}
             }
         }
+
+        $header['subject'] = $headers->getValue('subject');
 
         $imp_ui_hdrs = new IMP_Ui_Headers();
         $priority = $imp_ui_hdrs->getPriority($headers);
@@ -1900,6 +1900,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             case 'both':
                 $type = self::FORWARD_BOTH;
                 break;
+
+            case 'editasnew':
+                $ret = $this->editAsNew(new IMP_Indices($contents));
+                $ret['headers']['title'] = _("New Message");
+                return $ret;
 
             case 'attach':
             default:

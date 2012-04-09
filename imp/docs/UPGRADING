@@ -114,6 +114,8 @@ will automatically be converted to 'bottom'.
 The 'add_printedby', 'image_replacement_addrs', and 'reply_charset'
 preferences were added.
 
+The 'forward_default' preferencenow contains the 'editasnew' option.
+
 
 API Changes
 -----------

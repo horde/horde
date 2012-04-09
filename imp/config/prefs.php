@@ -669,7 +669,8 @@ $_prefs['forward_default'] = array(
     'enum' => array(
         'attach' => _("As attachment"),
         'body' => _("In the body text"),
-        'both' => _("As both body text and an attachment")
+        'both' => _("As both body text and an attachment"),
+        'editasnew' => _("Edit as New")
     ),
     'desc' => _("How should messages be forwarded by default?")
 );

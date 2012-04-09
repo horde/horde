@@ -182,6 +182,7 @@ case 'forward_both':
         }
 
         $fwd_map = array(
+            'editasnew' => IMP_Compose::EDITASNEW,
             'forward_attach' => IMP_Compose::FORWARD_ATTACH,
             'forward_auto' => IMP_Compose::FORWARD_AUTO,
             'forward_body' => IMP_Compose::FORWARD_BODY,
