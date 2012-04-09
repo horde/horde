@@ -13,7 +13,7 @@ $vilma = Horde_Registry::appInit('vilma');
 
 /* Only admin should be using this. */
 if (!$registry->isAdmin()) {
-    $registry->authenticateFailure('vilma');
+    throw new Horde_Exception_AuthenticationFailure();
 }
 
 $vars = Horde_Variables::getDefaultVariables();

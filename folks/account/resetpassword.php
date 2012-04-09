@@ -19,7 +19,7 @@ if ($registry->isAuthenticated()) {
 $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
 if (!$auth->hasCapability('resetpassword')) {
     $notification->push(_("Cannot reset password automatically, contact your administrator."), 'horde.error');
-    $registry->authenticateFailure('folks');
+    throw new Horde_Exception_AuthenticationFailure();
 }
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -64,7 +64,7 @@ if ($form->validate()) {
     $email = Folks::getUserEmail($info['username']);
     if ($email instanceof PEAR_Error) {
         $notification->push($email);
-        $registry->authenticateFailure('folks');
+        throw new Horde_Exception_AuthenticationFailure();
     }
 
     /* Check the given values with the prefs stored ones. */
@@ -75,7 +75,7 @@ if ($form->validate()) {
         $password = $auth->resetPassword($info['username']);
         if ($password instanceof PEAR_Error) {
             $notification->push($password);
-            $registry->authenticateFailure('folks');
+        throw new Horde_Exception_AuthenticationFailure();
         }
 
         $body = sprintf(_("Your new password for %s is: %s. \n\n It was requested by %s on %s"),
@@ -87,7 +87,7 @@ if ($form->validate()) {
         Folks::sendMail($email, _("Your password has been reset"), $body);
 
         $notification->push(sprintf(_("Your password has been reset, check your email (%s) and log in with your new password."), $email), 'horde.success');
-        $registry->authenticateFailure('folks');
+        throw new Horde_Exception_AuthenticationFailure();
     } else {
         /* Info submitted does not match what is in prefs, redirect user back
          * to login. */

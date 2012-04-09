@@ -13,7 +13,7 @@ $vilma = Horde_Registry::appInit('vilma');
 
 /* Only admin should be using this. */
 if (!Vilma::hasPermission()) {
-    $registry->authenticateFailure('vilma');
+    throw new Horde_Exception_AuthenticationFailure();
 }
 
 // Having a current domain doesn't make sense on this page

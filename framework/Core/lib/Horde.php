@@ -138,6 +138,30 @@ class Horde
             } catch (Exception $e) {}
         }
 
+        if (is_object($error)) {
+            switch (get_class($error)) {
+            case 'Horde_Exception_AuthenticationFailure':
+                if (Horde_Cli::runningFromCLI()) {
+                    $cli = new Horde_Cli();
+                    $cli->fatal($e ? $e : Horde_Core_Translation::t("You are not authenticated."));
+                }
+
+                $params = array(
+                    'app' => $e->application,
+                    'reason' => $e->getCode()
+                );
+
+                switch ($e->getCode()) {
+                case Horde_Auth::REASON_MESSAGE:
+                    $params['msg'] = $e->getMessage();
+                    break;
+                }
+
+                header('Location: ' . $this->getLogoutUrl($params));
+                exit;
+            }
+        }
+
         header('Content-type: text/html; charset=UTF-8');
         try {
             $admin = $GLOBALS['registry']->isAdmin();

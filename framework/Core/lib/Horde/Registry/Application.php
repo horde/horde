@@ -143,7 +143,7 @@ class Horde_Registry_Application
      * Application-specific code to run if application auth fails.
      * Called from Horde_Registry::appInit().
      *
-     * @param Horde_Exception $e  The exception object.
+     * @param Horde_Exception_PushApp $e  The exception object.
      */
     public function appInitFailure($e)
     {

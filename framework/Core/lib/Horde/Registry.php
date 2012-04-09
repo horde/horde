@@ -152,7 +152,6 @@ class Horde_Registry
      *            DEFAULT: false
      *   - authentication: (string) The type of authentication to use:
      *     - none: Do not authenticate
-     *     - throw: Authenticate; on no auth, throw a Horde_Exception
      *     - [DEFAULT]: Authenticate; on no auth redirect to login screen
      *   - cli: (boolean) Initialize a CLI interface. Setting this to true
      *          implicits setting 'authentication' to 'none' and 'admin' and
@@ -250,19 +249,31 @@ class Horde_Registry
         $appob->initParams = $args;
 
         try {
-            $registry->pushApp($app, array('check_perms' => ($args['authentication'] != 'none'), 'logintasks' => !$args['nologintasks'], 'notransparent' => !empty($args['notransparent'])));
+            $registry->pushApp($app, array(
+                'check_perms' => ($args['authentication'] != 'none'),
+                'logintasks' => !$args['nologintasks'],
+                'notransparent' => !empty($args['notransparent'])
+            ));
 
             if ($args['admin'] && !$registry->isAdmin()) {
                 throw new Horde_Exception(Horde_Core_Translation::t("Not an admin"));
             }
-        } catch (Horde_Exception $e) {
+        } catch (Horde_Exception_PushApp $e) {
             $appob->appInitFailure($e);
 
-            if ($args['authentication'] == 'throw') {
-                throw $e;
+            switch ($e->getCode()) {
+            case self::AUTH_FAILURE:
+                $failure = new Horde_Exception_AuthenticationFailure();
+                $failure->application = $app;
+                throw $failure;
+
+            case self::PERMISSION_DENIED:
+                $failure = new Horde_Exception_AuthenticationFailure($e->getMessage(), Horde_Auth::REASON_MESSAGE);
+                $failure->application = $app;
+                throw $failure;
             }
 
-            $registry->authenticateFailure($app, $e);
+            throw $e;
         }
 
         if ($args['timezone']) {
@@ -1030,7 +1041,7 @@ class Horde_Registry
      *   - noperms: (boolean) If true, don't check the perms.
      *
      * @return mixed  Return from application call.
-     * @throws Horde_Exception
+     * @throws Horde_Exception_PushApp
      */
     public function callByPackage($app, $call, array $args = array(),
                                   array $options = array())
@@ -1053,7 +1064,9 @@ class Horde_Registry
         /* Switch application contexts now, if necessary, before
          * including any files which might do it for us. Return an
          * error immediately if pushApp() fails. */
-        $pushed = $this->pushApp($app, array('check_perms' => !in_array($call, $this->_apis[$app]['noperms']) && empty($options['noperms']) && $this->_args['authentication'] != 'none'));
+        $pushed = $this->pushApp($app, array(
+            'check_perms' => !in_array($call, $this->_apis[$app]['noperms']) && empty($options['noperms']) && $this->_args['authentication'] != 'none'
+        ));
 
         try {
             $result = call_user_func_array(array($api, $call), $args);
@@ -1092,6 +1105,7 @@ class Horde_Registry
      *
      * @throws Horde_Exception  Application methods should throw this if there
      *                          is a fatal error.
+     * @throws Horde_Exception_PushApp
      */
     public function callAppMethod($app, $call, array $options = array())
     {
@@ -1115,7 +1129,9 @@ class Horde_Registry
         /* Switch application contexts now, if necessary, before
          * including any files which might do it for us. Return an
          * error immediately if pushApp() fails. */
-        $pushed = $this->pushApp($app, array('check_perms' => empty($options['noperms']) && $this->_args['authentication'] != 'none'));
+        $pushed = $this->pushApp($app, array(
+            'check_perms' => empty($options['noperms']) && $this->_args['authentication'] != 'none'
+        ));
 
         try {
             $result = call_user_func_array(array($api, $call), empty($options['args']) ? array() : $options['args']);
@@ -1285,15 +1301,9 @@ class Horde_Registry
      *                    DEFAULT: false
      *
      * @return boolean  Whether or not the _appStack was modified.
-     * @throws Horde_Exception
-     *         Code can be one of the following:
-     *         Horde_Registry::AUTH_FAILURE
-     *         Horde_Registry::NOT_ACTIVE
-     *         Horde_Registry::PERMISSION_DENIED
-     *         Horde_Registry::HOOK_FATAL
-     *         Horde_Registry::INITCALLBACK_FATAL
+     * @throws Horde_Exception_PushApp
      */
-    public function pushApp($app, $options = array())
+    public function pushApp($app, array $options = array())
     {
         if ($app == $this->getApp()) {
             return false;
@@ -1301,7 +1311,7 @@ class Horde_Registry
 
         /* Bail out if application is not present or inactive. */
         if (!isset($this->applications[$app]) || $this->isInactive($app)) {
-            throw new Horde_Exception($app . ' is not activated.', self::NOT_ACTIVE);
+            throw new Horde_Exception_PushApp($app . ' is not activated.', self::NOT_ACTIVE, $app);
         }
 
         $app_mappers = array(
@@ -1334,16 +1344,16 @@ class Horde_Registry
          *  - To anyone who is allowed by an explicit ACL on $app. */
         if ($checkPerms) {
             if ($this->getAuth() && !$this->checkExistingAuth()) {
-                throw new Horde_Exception('User is not authorized', self::AUTH_FAILURE);
+                throw new Horde_Exception_PushApp('User is not authorized', self::AUTH_FAILURE, $app);
             }
 
             if (!$this->hasPermission($app, Horde_Perms::READ, array('notransparent' => !empty($options['notransparent'])))) {
                 if (!$this->isAuthenticated(array('app' => $app))) {
-                    throw new Horde_Exception('User is not authorized for ' . $app, self::AUTH_FAILURE);
+                    throw new Horde_Exception_PushApp('User is not authorized for ' . $app, self::AUTH_FAILURE, $app);
                 }
 
                 Horde::logMessage(sprintf('%s does not have READ permission for %s', $this->getAuth() ? 'User ' . $this->getAuth() : 'Guest user', $app), 'DEBUG');
-                throw new Horde_Exception(sprintf('%s is not authorized for %s.', $this->getAuth() ? 'User ' . $this->getAuth() : 'Guest user', $this->applications[$app]['name']), self::PERMISSION_DENIED);
+                throw new Horde_Exception(sprintf('%s is not authorized for %s.', $this->getAuth() ? 'User ' . $this->getAuth() : 'Guest user', $this->applications[$app]['name']), self::PERMISSION_DENIED, $app);
             }
         }
 
@@ -1414,7 +1424,7 @@ class Horde_Registry
      * @param Exception $e    The thrown Exception.
      * @param integer $error  The pushApp() error type.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Exception_PushApp
      */
     protected function _pushAppError(Exception $e, $error)
     {
@@ -1427,10 +1437,11 @@ class Horde_Registry
             Horde::logMessage($e);
         }
 
-        $this->applications[$this->getApp()]['status'] = 'inactive';
+        $app = $this->getApp();
+        $this->applications[$app]['status'] = 'inactive';
         $this->popApp();
 
-        throw new Horde_Exception($e, $error);
+        throw new Horde_Exception_PushApp($e, $error, $app);
     }
 
     /**
@@ -1989,43 +2000,6 @@ class Horde_Registry
             Horde::logMessage($e);
             return false;
         }
-    }
-
-    /**
-     * Handle authentication failures, redirecting to the login page
-     * when appropriate.
-     *
-     * @param string $app         The app which failed authentication.
-     * @param Horde_Exception $e  An exception thrown by pushApp().
-     *
-     * @throws Horde_Exception
-     */
-    public function authenticateFailure($app = 'horde', $e = null)
-    {
-        if (Horde_Cli::runningFromCLI()) {
-            $cli = new Horde_Cli();
-            $cli->fatal($e ? $e : Horde_Core_Translation::t("You are not authenticated."));
-        }
-
-        if (is_null($e)) {
-            $params = array();
-        } else {
-            switch ($e->getCode()) {
-            case self::PERMISSION_DENIED:
-                $params = array('app' => $app, 'reason' => Horde_Auth::REASON_MESSAGE, 'msg' => $e->getMessage());
-                break;
-
-            case self::AUTH_FAILURE:
-                $params = array('app' => $app);
-                break;
-
-            default:
-                throw $e;
-            }
-        }
-
-        header('Location: ' . $this->getLogoutUrl($params));
-        exit;
     }
 
     /**

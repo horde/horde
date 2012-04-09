@@ -13,7 +13,7 @@ require_once __DIR__ . '/lib/base.php';
 require_once FOLKS_BASE . '/lib/Forms/Activity.php';
 
 if (!$registry->isAuthenticated()) {
-    $registry->authenticateFailure('folks');
+    throw new Horde_Exception_AuthenticationFailure();
 }
 
 $title = _("Friends");

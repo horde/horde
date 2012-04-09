@@ -64,8 +64,7 @@ class IMP_Factory_Imap extends Horde_Core_Factory_Base
         } catch (Exception $e) {
             // This indicates an unserialize() error.  This is fatal, so
             // logout.
-            $injector->getInstance('Horde_Core_Factory_Auth')->create()->setError(Horde_Auth::REASON_SESSION);
-            $registry->authenticateFailure('imp');
+            throw new Horde_Exception_AuthenticationFailure();
         }
 
         if (!$ob) {

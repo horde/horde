@@ -32,15 +32,15 @@ if (empty($action)) {
 }
 
 try {
-    Horde_Registry::appInit($app, array('authentication' => 'throw'));
-} catch (Horde_Exception $e) {
+    Horde_Registry::appInit($app);
+} catch (Horde_Exception_AuthenticationFailure $e) {
     if ($action != 'logOut') {
         /* Handle session timeouts when they come from an AJAX request. */
-        if ($e->getCode() == Horde_Registry::AUTH_FAILURE) {
+        if ($e->getCode() == Horde_Auth::REASON_SESSION) {
             $ajax = $injector->getInstance('Horde_Core_Factory_Ajax')->create($app, Horde_Variables::getDefaultVariables())->sessionTimeout();
         }
 
-        $registry->authenticateFailure($app, $e);
+        throw $e;
     }
 } catch (Exception $e) {
     // Uncaught exception.  Sending backtrace info back via AJAX is just a

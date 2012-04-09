@@ -16,13 +16,13 @@ $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
 if ($conf['signup']['allow'] !== true ||
     !$auth->hasCapability('add')) {
     $notification->push(_("User Registration has been disabled for this site."), 'horde.error');
-    $registry->authenticateFailure('folks');
+    throw new Horde_Exception_AuthenticationFailure();
 }
 
 $signup = $injector->getInstance('Horde_Core_Auth_Signup');
 if ($signup instanceof PEAR_Error) {
     $notification->push($signup, 'horde.error');
-    $registry->authenticateFailure('folks');
+    throw new Horde_Exception_AuthenticationFailure();
 }
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -41,7 +41,7 @@ if ($form->validate()) {
             $success_message = sprintf(_("Added \"%s\" to the system. You can log in now."), $info['user_name']);
         }
         $notification->push($success_message, 'horde.success');
-        $registry->authenticateFailure('folks');
+        throw new Horde_Exception_AuthenticationFailure();
     } catch (Horde_Exception $e) {
         $notification->push(sprintf(_("There was a problem adding \"%s\" to the system: %s"), $info['user_name'], $e->getMessage()), 'horde.error');
     }

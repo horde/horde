@@ -18,13 +18,9 @@ require_once HORDE_BASE . '/lib/core.php';
 
 // Registry.
 $registry = new Horde_Registry();
-try {
-    $registry->pushApp('folks', array('check_perms' => (Horde_Util::nonInputVar('folks_authentication') != 'none')));
-} catch (Horde_Exception $e) {
-    $registry->authenticateFailure('folks', $e);
-}
+$registry->pushApp('folks', array('check_perms' => (Horde_Util::nonInputVar('folks_authentication') != 'none')));
+
 $conf = &$GLOBALS['conf'];
-define('FOLKS_TEMPLATES', $registry->get('templates'));
 
 // Define the base file path of Folks.
 if (!defined('FOLKS_BASE')) {

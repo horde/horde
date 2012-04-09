@@ -30,7 +30,7 @@ class Jonah_View_StoryList extends Jonah_View_Base
         $channel = $GLOBALS['injector']->getInstance('Jonah_Driver')->getChannel($channel_id);
         if (!Jonah::checkPermissions(Jonah::typeToPermName($channel['channel_type']), Horde_Perms::EDIT, $channel_id)) {
             $notification->push(_("You are not authorised for this action."), 'horde.warning');
-            $registry->authenticateFailure();
+            throw new Horde_Exception_AuthenticationFailure();
         }
 
         /* Check if a URL has been passed. */
