@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2012-04-09</date>
- <time>13:28:38</time>
+ <time>13:28:53</time>
  <version>
-  <release>1.5.2</release>
+  <release>1.5.3</release>
   <api>1.5.0</api>
  </version>
  <stability>
@@ -22,13 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix CHANGEDSINCE search if no FETCH attributes were specified (Bug #11132).
-* [mms] Fix search charset detection for servers that do not send the BADCHARSET response code (Bug #11117).
-* [mms] Workaround IMAP servers with broken CATENATE implementations (Bug #11111).
-* [jan] Fix sending ID requests.
-* [jan] Add Finnish translation (Leena Heino &lt;liinu@uta.fi&gt;).
-* [mms] Rewrite of caching system. Fixes a few bugs, and should be more efficient.
-* [mms] Clear imapproxy status when logging out.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -832,6 +826,19 @@
 * [jan] Add Finnish translation (Leena Heino &lt;liinu@uta.fi&gt;).
 * [mms] Rewrite of caching system. Fixes a few bugs, and should be more efficient.
 * [mms] Clear imapproxy status when logging out.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.5.3</release>
+    <api>1.5.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-04-09</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
