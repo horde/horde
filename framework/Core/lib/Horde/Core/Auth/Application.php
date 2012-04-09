@@ -566,10 +566,10 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
 
         try {
             $result = Horde::callHook($type, array($userId, $credentials), $this->_app);
-        } catch (Horde_Exception $e) {
-            throw new Horde_Auth_Exception($e);
         } catch (Horde_Exception_HookNotSet $e) {
             return $ret_array;
+        } catch (Horde_Exception $e) {
+            throw new Horde_Auth_Exception($e);
         }
 
         unset($credentials['authMethod']);
