@@ -45,8 +45,8 @@ $horde_ajax->init(array(
 $vars = Horde_Variables::getDefaultVariables();
 
 /* The headers of the message. */
-$header = array();
 $args = IMP::getComposeArgs($vars);
+$header = array();
 foreach (array('to', 'cc', 'bcc', 'subject') as $val) {
     if (isset($args[$val])) {
         $header[$val] = $args[$val];
@@ -67,6 +67,7 @@ $fillform_opts = array(
 );
 $msg = strval($vars->body);
 
+$msg_type = null;
 $js = array();
 
 $identity = $injector->getInstance('IMP_Identity');
@@ -104,6 +105,8 @@ case 'reply_list':
 
     $msg = $reply_msg['body'];
     $header = $reply_msg['headers'];
+    $msg_type = $reply_msg['type'];
+
     if ($vars->type == 'reply_auto') {
         $fillform_opts['auto'] = array_search($reply_msg['type'], $reply_map);
 
@@ -188,7 +191,9 @@ case 'forward_both':
         $fwd_msg = $imp_compose->forwardMessage($fwd_map[$vars->type], $contents);
         $msg = $fwd_msg['body'];
         $header = $fwd_msg['headers'];
+        $msg_type = $fwd_msg['type'];
         $title = $header['title'];
+
         if ($fwd_msg['format'] == 'html') {
             $show_editor = true;
         }
@@ -242,15 +247,16 @@ case 'template_edit':
             break;
         }
 
-        if ($result['mode'] == 'html') {
+        if ($result['format'] == 'html') {
             $show_editor = true;
         }
-        $msg = $result['msg'];
+        $msg = $result['body'];
+        $msg_type = $result['type'];
         if (!is_null($result['identity']) &&
             !$prefs->isLocked('default_identity')) {
             $identity->setDefault($result['identity']);
         }
-        $header = array_merge($header, $result['header']);
+        $header = array_merge($header, $result['headers']);
         $fillform_opts['priority'] = $result['priority'];
         $fillform_opts['readreceipt'] = $result['readreceipt'];
         $fillform_opts['focus'] = 'to';
@@ -291,7 +297,7 @@ $t->set('title', $title);
 
 $compose_result = $injector->getInstance('IMP_Views_Compose')->showCompose(array(
     'composeCache' => $imp_compose->getCacheId(),
-    'fwdattach' => (isset($fwd_msg) && ($fwd_msg['type'] != IMP_Compose::FORWARD_BODY)),
+    'fwdattach' => in_array($msg_type, array(IMP_Compose::FORWARD_ATTACH, IMP_Compose::FORWARD_BOTH)),
     'redirect' => ($vars->type == 'redirect'),
     'show_editor' => $show_editor,
     'template' => in_array($vars->type, array('template_edit', 'template_new'))

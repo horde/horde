@@ -125,8 +125,8 @@ case 't':
             break;
         }
 
-        $msg = $result['msg'];
-        $header = array_merge($header, $result['header']);
+        $msg = $result['body'];
+        $header = array_merge($header, $result['headers']);
         if (!is_null($result['identity']) &&
             ($result['identity'] != $identity->getDefault()) &&
             !$prefs->isLocked('default_identity')) {

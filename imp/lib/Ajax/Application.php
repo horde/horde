@@ -1303,9 +1303,9 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *                entries:
      *   - body: (string) The body text of the message.
      *   - format: (string) Either 'text' or 'html'.
-     *   - imp_compose: (string) The IMP_Compose cache identifier.
      *   - header: (array) The headers of the message.
      *   - identity: (integer) The identity ID to use for this message.
+     *   - imp_compose: (string) The IMP_Compose cache identifier.
      *   - opts: (array) Additional options (fwd_list, priority, readreceipt).
      *   - type: (string) The input 'type' value.
      */
@@ -1337,9 +1337,9 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             }
 
             $result = new stdClass;
-            $result->header = $resume['header'];
-            $result->body = $resume['msg'];
-            $result->format = $resume['mode'];
+            $result->body = $resume['body'];
+            $result->header = $resume['headers'];
+            $result->format = $resume['format'];
             $result->identity = $resume['identity'];
             $result->imp_compose = $imp_compose->getCacheId();
 

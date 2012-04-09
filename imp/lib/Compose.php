@@ -36,6 +36,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     const FORWARD_BODY = 9;
     const FORWARD_BOTH = 10;
     const REDIRECT = 11;
+    const RESUME = 12;
+    const EDITASNEW = 13;
+    const TEMPLATE = 14;
 
     /* The blockquote tag to use to indicate quoted text in HTML data. */
     const HTML_BLOCKQUOTE = '<blockquote type="cite" style="border-left:2px solid blue;margin-left:2px;padding-left:12px;">';
@@ -330,7 +333,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      */
     public function editAsNew($indices)
     {
-        return $this->_resumeDraft($indices, false);
+        $ret = $this->_resumeDraft($indices, false);
+        $ret['type'] = self::EDITASNEW;
+        return $ret;
     }
 
     /**
@@ -356,12 +361,13 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      * @param IMP_Indices $indices  An indices object.
      *
      * @return mixed  An array with the following keys:
-     *   - header: (array) A list of headers to add to the outgoing message.
-     *   - identity: (integer) The identity used to create the message.
-     *   - mode: (string) 'html' or 'text'.
-     *   - msg: (string) The message text.
+     *   - body: (string) The text of the body part.
+     *   - format: (string) The format of the body message ('html', 'text').
+     *   - headers: (array) The list of headers to add to the outgoing message.
+     *   - identity: (mixed) See Imp_Prefs_Identity#getMatchingIdentity().
      *   - priority: (string) The message priority.
      *   - readreceipt: (boolean) Add return receipt headers?
+     *   - type: (integer) - The compose type.
      *
      * @throws IMP_Compose_Exception
      */
@@ -385,7 +391,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      */
     public function useTemplate($indices)
     {
-        return $this->_resumeDraft($indices, true);
+        $ret = $this->_resumeDraft($indices, true);
+        $ret['type'] = self::TEMPLATE;
+        return $ret;
     }
 
     /**
@@ -459,8 +467,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         ));
 
         if (empty($msg_text)) {
-            $message = '';
-            $mode = 'text';
+            $body = '';
+            $format = 'text';
             $text_id = 0;
         } else {
             /* Use charset at time of initial composition if this is an IMP
@@ -468,8 +476,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             if ($imp_draft !== false) {
                 $this->charset = $msg_text['charset'];
             }
-            $message = $msg_text['text'];
-            $mode = $msg_text['mode'];
+            $body = $msg_text['text'];
+            $format = $msg_text['mode'];
             $text_id = $msg_text['id'];
         }
 
@@ -547,10 +555,10 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         $this->changed = 'changed';
 
         return array(
-            'header' => $header,
+            'body' => $body,
+            'format' => $format,
+            'headers' => $header,
             'identity' => $identity_id,
-            'mode' => $mode,
-            'msg' => $message,
             'priority' => $priority,
             'readreceipt' => $readreceipt
         );
@@ -1858,28 +1866,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      * @param boolean $attach         Attach the forwarded message?
      *
      * @return array  An array with the following keys:
-     * <ul>
-     *  <li>
-     *   body: (string) The text of the body part.
-     *  </li>
-     *  <li>
-     *   format: (string) The format of the body message ('html', 'text').
-     *  </li>
-     *  <li>
-     *   headers: (array) The headers of the message to use for the reply.
-     *  </li>
-     *  <li>
-     *   identity: (mixed) See Imp_Prefs_Identity#getMatchingIdentity().
-     *  </li>
-     *  <li>
-     *   type: (integer) - The forward type used. Either:
-     *   <ul>
-     *    <li>self::FORWARD_ATTACH</li>
-     *    <li>self::FORWARD_BODY</li>
-     *    <li>self::FORWARD_BOTH</li>
-     *   </ul>
-     *  </li>
-     * </ul>
+     *   - body: (string) The text of the body part.
+     *   - format: (string) The format of the body message ('html', 'text').
+     *   - headers: (array) The list of headers to add to the outgoing message.
+     *   - identity: (mixed) See Imp_Prefs_Identity#getMatchingIdentity().
+     *   - type: (integer) - The compose type.
      */
     public function forwardMessage($type, $contents, $attach = true)
     {
