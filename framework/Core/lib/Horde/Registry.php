@@ -209,7 +209,7 @@ class Horde_Registry
         if ($args['cli']) {
             /* Make sure no one runs from the web. */
             if (!Horde_Cli::runningFromCLI()) {
-                throw new Horde_Exception('Script must be run from the command line');
+                throw new Horde_Exception(Horde_Core_Translation::t("Script must be run from the command line"));
             }
 
             /* Load the CLI environment - make sure there's no time limit,
@@ -253,7 +253,7 @@ class Horde_Registry
             $registry->pushApp($app, array('check_perms' => ($args['authentication'] != 'none'), 'logintasks' => !$args['nologintasks'], 'notransparent' => !empty($args['notransparent'])));
 
             if ($args['admin'] && !$registry->isAdmin()) {
-                throw new Horde_Exception('Not an admin');
+                throw new Horde_Exception(Horde_Core_Translation::t("Not an admin"));
             }
         } catch (Horde_Exception $e) {
             $appob->appInitFailure($e);
@@ -275,7 +275,7 @@ class Horde_Registry
 
         if ($args['user_admin']) {
             if (empty($GLOBALS['conf']['auth']['admins'])) {
-                throw new Horde_Exception('No admin users defined in configuration.');
+                throw new Horde_Exception(Horde_Core_Translation::t("Admin authentication requested, but no admin users defined in configuration."));
             }
             $registry->setAuth(reset($GLOBALS['conf']['auth']['admins']), array());
         }
