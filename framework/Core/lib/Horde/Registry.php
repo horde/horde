@@ -163,6 +163,10 @@ class Horde_Registry
      *   - nologintasks: (boolean) If set, don't perform logintasks (never
      *                   performed if authentication is 'none').
      *                   DEFAULT: false
+     *   - permission: (array) The permission required by the user to access
+     *                 the page. The first element (REQUIRED) is the permission
+     *                 name. The second element (OPTION; defaults to SHOW) is
+     *                 the permission level.
      *   - session_cache_limiter: (string) Use this value for the session
      *                            cache limiter.
      *                            DEFAULT: Uses the value in the config.
@@ -182,7 +186,7 @@ class Horde_Registry
      * @return Horde_Registry_Application  The application object.
      * @throws Horde_Exception
      */
-    static public function appInit($app, $args = array())
+    static public function appInit($app, array $args = array())
     {
         if (isset($GLOBALS['registry'])) {
             return $GLOBALS['registry']->getApiInstance($app, 'application');
@@ -194,6 +198,7 @@ class Horde_Registry
             'cli' => null,
             'nocompress' => false,
             'nologintasks' => false,
+            'permission' => false,
             'session_cache_limiter' => null,
             'session_control' => null,
             'timezone' => false,
@@ -273,6 +278,16 @@ class Horde_Registry
                 throw new Horde_Exception('No admin users defined in configuration.');
             }
             $registry->setAuth(reset($GLOBALS['conf']['auth']['admins']), array());
+        }
+
+        if ($args['permission']) {
+            $admin_opts = array(
+                'permission' => $args['permission'][0],
+                'permlevel' => (isset($args['permission'][1]) ? $args['permission'][1] : Horde_Perms::SHOW)
+            );
+            if (!$registry->isAdmin($admin_opts)) {
+                throw new Horde_Exception_PermissionDenied(Horde_Core_Translation::t("Permission denied."));
+            }
         }
 
         return $appob;
