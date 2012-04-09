@@ -72,7 +72,7 @@ $js_out = $page_output->addInlineJsVars($js_vars, array('ret_vars' => true));
 $disable_compose = !IMP::canCompose();
 
 if (!$disable_compose) {
-    $compose_result = IMP_Views_Compose::showCompose(array(
+    $compose_result = $injector->getInstance('IMP_Views_Compose')->showCompose(array(
         'qreply' => true
     ));
 
