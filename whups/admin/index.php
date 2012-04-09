@@ -9,11 +9,9 @@
  */
 
 require_once __DIR__ . '/../lib/Application.php';
-Horde_Registry::appInit('whups');
-
-if (!$registry->isAdmin(array('permission' => 'whups:admin'))) {
-    $registry->authenticateFailure('whups', $e);
-}
+Horde_Registry::appInit('whups', array(
+    'permission' => array('whups:admin', Horde_Perms::EDIT)
+));
 
 // Set up the page config vars.
 $showExtraForm = null;

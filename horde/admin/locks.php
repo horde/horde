@@ -9,12 +9,9 @@
  */
 
 require_once __DIR__ . '/../lib/Application.php';
-$permission = 'locks';
-Horde_Registry::appInit('horde');
-if (!$registry->isAdmin() &&
-    !$injector->getInstance('Horde_Perms')->hasPermission('horde:administration:' . $permission, $registry->getAuth(), Horde_Perms::SHOW)) {
-    $registry->authenticateFailure('horde', new Horde_Exception(sprintf("Not an admin and no %s permission", $permission)));
-}
+Horde_Registry::appInit('horde', array(
+    'permission' => array('horde:administration:locks')
+));
 
 $horde_lock = $injector->getInstance('Horde_Lock');
 

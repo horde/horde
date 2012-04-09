@@ -27,12 +27,9 @@ function _addTree($parent, $parent_id, $datatree, $tree, $indent = 1)
 }
 
 require_once __DIR__ . '/../lib/Application.php';
-$permission = 'datatree';
-Horde_Registry::appInit('horde');
-if (!$registry->isAdmin() &&
-    !$injector->getInstance('Horde_Perms')->hasPermission('horde:administration:'.$permission, $registry->getAuth(), Horde_Perms::SHOW)) {
-    $registry->authenticateFailure('horde', new Horde_Exception(sprintf("Not an admin and no %s permission", $permission)));
-}
+Horde_Registry::appInit('horde', array(
+    'permission' => array('horde:administration:datatree')
+));
 
 $tree = $injector->getInstance('Horde_Core_Factory_Tree')->create('datatree', 'Javascript', array(
     'alternate' => true
