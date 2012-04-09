@@ -784,7 +784,7 @@ var DimpCompose = {
                 u.observe('change', this.changeHandler.bindAsEventListener(this));
             }
 
-            u.clear().up().show().next().show();
+            u.clear().up().show();
         }
     },
 
@@ -856,7 +856,7 @@ var DimpCompose = {
     {
         var u = $('upload');
         this.uniqueSubmit('addAttachment');
-        u.up().hide().next().hide();
+        u.up().hide();
         $('upload_wait').update(DIMP.text.uploading + ' (' + $F(u) + ')').show();
     },
 
