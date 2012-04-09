@@ -333,7 +333,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      */
     public function editAsNew($indices)
     {
-        $ret = $this->_resumeDraft($indices, false);
+        $ret = $this->_resumeDraft($indices, false, self::EDITASNEW);
         $ret['type'] = self::EDITASNEW;
         return $ret;
     }
@@ -391,7 +391,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      */
     public function useTemplate($indices)
     {
-        $ret = $this->_resumeDraft($indices, true);
+        $ret = $this->_resumeDraft($indices, true, self::TEMPLATE);
         $ret['type'] = self::TEMPLATE;
         return $ret;
     }
@@ -401,12 +401,13 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      *
      * @param IMP_Indices $indices  See resumeDraft().
      * @param boolean $addheaders   Populate header entries?
+     * @param integer $type         Compose type.
      *
      * @return mixed  See resumeDraft().
      *
      * @throws IMP_Compose_Exception
      */
-    protected function _resumeDraft($indices, $addheaders)
+    protected function _resumeDraft($indices, $addheaders, $type = null)
     {
         global $injector, $prefs, $registry;
 
@@ -419,15 +420,18 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         $header = array();
         $headers = $contents->getHeader();
         $imp_draft = false;
-        $reply_type = null;
 
         if ($draft_url = $headers->getValue('x-imp-draft-reply')) {
-            if (!($reply_type = $headers->getValue('x-imp-draft-reply-type'))) {
-                $reply_type = self::REPLY;
+            if (is_null($type) &&
+                !($type = $headers->getValue('x-imp-draft-reply-type'))) {
+                $type = self::REPLY;
             }
             $imp_draft = self::REPLY;
         } elseif ($draft_url = $headers->getValue('x-imp-draft-forward')) {
-            $imp_draft = $reply_type = self::FORWARD;
+            $imp_draft = self::FORWARD;
+            if (is_null($type)) {
+                $type = self::FORWARD;
+            }
         } elseif ($headers->getValue('x-imp-draft')) {
             $imp_draft = self::COMPOSE;
         }
@@ -437,7 +441,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         } elseif ($prefs->getValue('compose_html')) {
             $compose_html = true;
         } else {
-            switch ($reply_type) {
+            switch ($type) {
+            case self::EDITASNEW:
             case self::FORWARD:
             case self::FORWARD_BODY:
             case self::FORWARD_BOTH:
@@ -449,6 +454,10 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             case self::REPLY_LIST:
             case self::REPLY_SENDER:
                 $compose_html = $prefs->getValue('reply_format');
+                break;
+
+            case self::TEMPLATE:
+                $compose_html = true;
                 break;
 
             default:
