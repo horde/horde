@@ -117,7 +117,6 @@ class IMP_Ajax extends Horde_Core_Ajax
         $page_output->addInlineJsVars(array(
             'var DIMP' => $this->_jsvars
         ), array('top' => true));
-        $page_output->deferScripts = true;
 
         parent::header(array(
             'stylesheet_opts' => array(

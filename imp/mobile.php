@@ -76,7 +76,6 @@ $page_output->addInlineScript(
      });'
 );
 
-$page_output->deferScripts = true;
 $page_output->header(array(
     'title' => _("Mobile Mail"),
     'view' => $registry::VIEW_SMARTMOBILE

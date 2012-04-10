@@ -106,7 +106,6 @@ class IMP
             break;
         }
 
-        $GLOBALS['page_output']->deferScripts = true;
         $GLOBALS['page_output']->header(array(
             'stylesheet_opts' => $stylesheet_opts,
             'title' => $title

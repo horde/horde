@@ -27,7 +27,7 @@ class Horde_PageOutput
      *
      * @var boolean
      */
-    public $deferScripts = false;
+    public $deferScripts = true;
 
     /**
      * Script files object.
