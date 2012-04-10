@@ -29,9 +29,9 @@
   <active>yes</active>
  </developer>
  <date>2012-04-10</date>
- <time>19:22:13</time>
+ <time>19:23:50</time>
  <version>
-  <release>1.9.0</release>
+  <release>1.9.1</release>
   <api>1.9.0</api>
  </version>
  <stability>
@@ -40,9 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Add parameters to specify field size of phone and email fields.
-* [jan] Log details too, if logging an exception.
-* [jan] Fix showing applications with &apos;admin&apos; status in the sidebar.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1756,6 +1754,19 @@
 * [jan] Add parameters to specify field size of phone and email fields.
 * [jan] Log details too, if logging an exception.
 * [jan] Fix showing applications with &apos;admin&apos; status in the sidebar.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.9.1</release>
+    <api>1.9.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-04-10</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
