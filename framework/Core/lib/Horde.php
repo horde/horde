@@ -157,7 +157,7 @@ class Horde
                     break;
                 }
 
-                header('Location: ' . $this->getLogoutUrl($params));
+                header('Location: ' . $GLOBALS['registry']->getLogoutUrl($params));
                 exit;
             }
         }
