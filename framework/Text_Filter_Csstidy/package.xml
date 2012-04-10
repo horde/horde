@@ -11,8 +11,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:22:02</time>
+ <date>2012-04-10</date>
+ <time>19:50:53</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -27,6 +27,17 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Text">
+      <dir name="Filter">
+       <dir name="Csstidy">
+        <file name="COPYING" role="doc" />
+       </dir> <!-- /doc/Horde/Text/Filter/Csstidy -->
+      </dir> <!-- /doc/Horde/Text/Filter -->
+     </dir> <!-- /doc/Horde/Text -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Text">
@@ -66,6 +77,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Text/Filter/Csstidy/COPYING" />
    <install as="Horde/Text/Filter/Csstidy.php" name="lib/Horde/Text/Filter/Csstidy.php" />
    <install as="Horde/Text/Filter/Csstidy/class.csstidy.php" name="lib/Horde/Text/Filter/Csstidy/class.csstidy.php" />
    <install as="Horde/Text/Filter/Csstidy/class.csstidy_optimise.php" name="lib/Horde/Text/Filter/Csstidy/class.csstidy_optimise.php" />
@@ -156,7 +168,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2012-04-10</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [rla] Add license file.
