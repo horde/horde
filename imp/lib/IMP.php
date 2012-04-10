@@ -154,12 +154,12 @@ class IMP
             $vars = $GLOBALS['injector']->getInstance('Horde_Variables');
 
             $mailbox = isset($vars->mailbox)
-                ? IMP_Mailbox::get('INBOX')
-                : IMP_Mailbox::formFrom($vars->mailbox);
+                ? IMP_Mailbox::formFrom($vars->mailbox)
+                : IMP_Mailbox::get('INBOX');
 
             $thismailbox = isset($vars->thismailbox)
-                ? $mailbox
-                : IMP_Mailbox::formFrom($vars->thismailbox);
+                ? IMP_Mailbox::formFrom($vars->thismailbox)
+                : $mailbox;
 
             $uid = $vars->uid;
         } else {
