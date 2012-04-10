@@ -18,9 +18,9 @@
   <active>yes</active>
  </lead>
  <date>2012-04-10</date>
- <time>19:36:55</time>
+ <time>19:37:11</time>
  <version>
-  <release>1.6.0</release>
+  <release>1.6.1</release>
   <api>1.6.0</api>
  </version>
  <stability>
@@ -29,8 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Work around broken messages with multiple address headers.
-* [mms] Add option to allow encoding options to be defined for Horde_Mime_Part#send() (Bug #11058).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -899,6 +898,19 @@
    <notes>
 * [jan] Work around broken messages with multiple address headers.
 * [mms] Add option to allow encoding options to be defined for Horde_Mime_Part#send() (Bug #11058).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.6.1</release>
+    <api>1.6.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-04-10</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
