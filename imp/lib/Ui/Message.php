@@ -330,8 +330,8 @@ class IMP_Ui_Message
                 $addr_array[] = $groupname . ':' . (count($group_array) ? ' ' . implode(', ', $group_array) : '');
             } else {
                 $ret = $mimp_view
-                    ? strval($ad)
-                    : htmlspecialchars(strval($ad));
+                    ? strval($ob)
+                    : htmlspecialchars(strval($ob));
 
                 if ($link) {
                     $ret = Horde::link(IMP::composeLink(array('to' => strval($ob))), sprintf(_("New Message to %s"), strval($ob))) . htmlspecialchars(strval($ob)) . '</a>';
