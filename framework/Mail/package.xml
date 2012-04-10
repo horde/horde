@@ -284,7 +284,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-02-27</date>
+   <date>2012-04-10</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mms] Added Horde_Mail_Rfc822_Address#encoded property.
@@ -297,6 +297,19 @@
 * [mms] First argument to Horde_Mail_Rfc822#parseAddressList() can now be an array of addresses.
 * [mms] Add Horde_Mail_Rfc822#encode().
 * [mms] Workaround unexpected return from PHP_EOL in Mail transport drivers.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.1</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-04-10</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

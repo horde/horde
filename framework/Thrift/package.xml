@@ -10,10 +10,10 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-27</date>
- <time>16:42:20</time>
+ <date>2012-04-10</date>
+ <time>19:51:45</time>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -26,6 +26,13 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Thrift">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/Thrift -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Thrift">
@@ -75,6 +82,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Thrift/COPYING" />
    <install as="Horde/Thrift.php" name="lib/Horde/Thrift.php" />
    <install as="Horde/Thrift/thrift_root/Thrift.php" name="lib/Horde/Thrift/thrift_root/Thrift.php" />
    <install as="Horde/Thrift/thrift_root/packages/fb303/FacebookBase.php" name="lib/Horde/Thrift/thrift_root/packages/fb303/FacebookBase.php" />
@@ -117,7 +125,20 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-27</date>
+   <date>2012-04-10</date>
+   <license uri="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</license>
+   <notes>
+* [rla] Add license file.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-04-10</date>
    <license uri="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</license>
    <notes>
 * 

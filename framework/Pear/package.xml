@@ -10,10 +10,10 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-11-13</date>
- <time>18:39:55</time>
+ <date>2012-04-10</date>
+ <time>19:41:02</time>
  <version>
-  <release>1.0.0beta1</release>
+  <release>1.0.0</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -22,9 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix tests to work with PHPUnit 3.6.
-* [gwr] Fix retrieving the package.xml from the server.
-* [gwr] Basic support for reading PEAR package.xml v1 files.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -435,17 +433,30 @@
   </release>
   <release>
    <version>
-    <release>1.0.0beta1</release>
+    <release>1.0.0alpha2</release>
     <api>1.0.0</api></version>
    <stability>
     <release>alpha</release>
     <api>alpha</api></stability>
-   <date>2011-11-13</date>
+   <date>2012-04-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix tests to work with PHPUnit 3.6.
 * [gwr] Fix retrieving the package.xml from the server.
 * [gwr] Basic support for reading PEAR package.xml v1 files.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api></stability>
+   <date>2012-04-10</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

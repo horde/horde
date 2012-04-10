@@ -22,10 +22,10 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-03-20</date>
- <time>10:34:31</time>
+ <date>2012-04-10</date>
+ <time>19:26:37</time>
  <version>
-  <release>1.0.7</release>
+  <release>1.0.8</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -748,7 +748,20 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-03-20</date>
+   <date>2012-04-10</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update Brazilian Portuguese translation (Luis Felipe Marzagao &lt;duli@easylifeproject.org&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.8</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-04-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

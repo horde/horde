@@ -11,10 +11,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-02-10</date>
- <time>00:09:33</time>
+ <date>2012-04-10</date>
+ <time>19:51:07</time>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -186,7 +186,20 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-02-10</date>
+   <date>2012-04-10</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [rla] Add license file.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-04-10</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * 

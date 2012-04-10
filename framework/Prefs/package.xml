@@ -22,10 +22,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-12-13</date>
- <time>12:01:54</time>
+ <date>2012-04-10</date>
+ <time>19:43:18</time>
  <version>
-  <release>1.1.8</release>
+  <release>1.1.9</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -840,7 +840,20 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-12-13</date>
+   <date>2012-04-10</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update translations.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.9</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-04-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

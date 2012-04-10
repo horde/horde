@@ -22,10 +22,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-04-04</date>
- <time>20:03:20</time>
+ <date>2012-04-10</date>
+ <time>19:47:22</time>
  <version>
-  <release>1.0.5</release>
+  <release>1.0.6</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -34,9 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix SQL driver with PostgreSQL.
-* [jan] Fix reading sessions with the External driver.
-* [jan] Add test suite.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -377,12 +375,25 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-04-04</date>
+   <date>2012-04-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix SQL driver with PostgreSQL.
 * [jan] Fix reading sessions with the External driver.
 * [jan] Add test suite.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.6</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-04-10</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

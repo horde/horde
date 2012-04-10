@@ -10,10 +10,10 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-08-11</date>
- <time>12:29:57</time>
+ <date>2012-04-10</date>
+ <time>19:34:38</time>
  <version>
-  <release>1.1.1</release>
+  <release>1.1.2</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -22,10 +22,19 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix enabling TLS encryption (Bug #11034).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Kolab">
+      <dir name="Session">
+       <file name="COPYING" role="doc" />
+      </dir> <!-- /doc/Horde/Kolab/Session -->
+     </dir> <!-- /doc/Horde/Kolab -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Kolab">
@@ -147,6 +156,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Kolab/Session/COPYING" />
    <install as="Horde/Kolab/Session.php" name="lib/Horde/Kolab/Session.php" />
    <install as="Horde/Kolab/Session/Abstract.php" name="lib/Horde/Kolab/Session/Abstract.php" />
    <install as="Horde/Kolab/Session/Base.php" name="lib/Horde/Kolab/Session/Base.php" />
@@ -281,10 +291,24 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-11</date>
+   <date>2012-04-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [rla] Add license file.
 * [jan] Fix enabling TLS encryption (Bug #11034).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.2</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-04-10</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
