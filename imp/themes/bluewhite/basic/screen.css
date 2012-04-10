@@ -1,0 +1,11 @@
+.folders {
+    font-size: 90%;
+}
+.folders select {
+    font-size: 112%;
+}
+
+div.composebody {
+    background: #f3f3f9;
+    border: 1px solid #669;
+}

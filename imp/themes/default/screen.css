@@ -3,203 +3,12 @@
     font-size: 110%;
     text-align: left;
 }
-.mboxheader .pageCount {
-    padding-right: 10px;
-}
-
-table.mboxactions {
-    border-collapse: collapse;
-    width: 100%;
-}
-
-#checkheader {
-    width: 8%;
-}
-#checkheader input {
-    float: left;
-}
-
-#mboxdate {
-    width: 14%;
-}
-
-#mboxto, #mboxfrom {
-    width: 20%;
-}
-
-#mboxthread, #mboxsubject {
-    width: 52%;
-}
-
-#mboxsize {
-    width: 6%;
-}
-
-.actionsSelectSection {
-    font-weight: bold;
-}
 
 .sortup {
     background-image: url("graphics/arrow_down.png");
 }
 .sortdown {
     background-image: url("graphics/arrow_up.png");
-}
-
-table.messageList .sortup, table.messageList .sortdown {
-    padding-left: 0;
-}
-
-/* Message list table styles. */
-.searchmbox a.smallheader {
-    display: block;
-}
-.messageList {
-    table-layout: fixed;
-    width: 100%;
-    border-collapse: collapse;
-}
-.messageList tr {
-    height: 20px;
-}
-.messageList th {
-    border-top: 1px solid #999;
-    border-left: 1px solid #ddd;
-    cursor: pointer;
-    overflow: hidden;
-    padding: 0 0 1px 2px;
-    text-align: left;
-    white-space: nowrap;
-}
-.messageList th .toggleSort {
-    font-size: 90%;
-}
-.messageList td {
-    padding-top: 0;
-    padding-bottom: 0;
-    text-indent: 1px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    -o-text-overflow: ellipsis;
-    overflow: hidden;
-    border: 1px solid #ddd;
-    vertical-align: middle;
-}
-.messageList td label input {
-    vertical-align: middle;
-}
-.messageList td span.flagUser {
-    font-size: 80%;
-    margin-right: 3px;
-}
-
-#messages h1.header {
-    font-size: 110%;
-    vertical-align: bottom;
-}
-#messages h1.header span.flagUser {
-    font-size: 80%;
-    margin-left: 3px;
-}
-
-/* Newmail alerts. */
-#newmail {
-    padding: 1em;
-    background: #ffc;
-    border: 2px solid #ccc;
-}
-#newmail ul {
-    list-style: none;
-    margin-bottom: 1em;
-}
-
-/* Navbar action styling. */
-table.navbaractions {
-    border-collapse: collapse;
-    width: 100%;
-}
-ul.msgactions, ul.msgactions ul {
-    list-style: none;
-}
-.msgactions li {
-    float: left;
-    padding: 1px 3px;
-    border-right: 1px solid #888;
-    position: relative;
-}
-.msgactions li.lastnavbar {
-    border-right: 0;
-}
-.msgactions a.hasmenu {
-    padding-right: 15px;
-    margin-right: -3px;
-    background: url("graphics/popdown.png") no-repeat center right;
-}
-.msgactions li a {
-    font-size: 90%;
-    white-space: nowrap;
-}
-.folders .msgactions li a {
-    font-size: 100%;
-}
-.msgactions li ul {
-    background: #f4f4f4;
-    border: 1px solid #d4d4d4;
-    display: none;
-    padding: 1px;
-    position: absolute;
-    z-index: 99;
-}
-.bottomborder .msgactions li ul {
-    top: 1.25em;
-}
-.topborder .msgactions li ul {
-    bottom: 1.25em;
-}
-.msgactions li ul a:hover, .msgactions li ul a:active {
-    background: gray;
-    color: #fff;
-}
-.msgactions li:hover ul, .msgactions li.hover ul {
-    display: block;
-}
-.msgactions li ul li {
-    float: none;
-    padding: 0;
-    border: none;
-    display: inline;
-}
-.msgactions li ul li a {
-    display: block;
-    padding: 2px;
-}
-.mboxcontrol {
-    color: #000;
-    background: #ccc;
-}
-.bottomborder {
-    border-bottom: 1px solid #999;
-    padding-bottom: 0;
-    padding-top: 0;
-}
-.topborder {
-    border-top: 1px solid #999;
-}
-
-table.msgActionTable, #fmanager table {
-    width: 100%;
-    border-collapse: collapse;
-}
-div.msgActions, #fmanager div.folderActions {
-    padding-left: 15px;
-}
-
-/* Message headers styling. */
-#msgheaders table {
-    border-collapse: collapse;
-}
-#msgheaders td {
-    vertical-align: top;
 }
 
 /* Attachment tree styling. */
@@ -209,12 +18,6 @@ div.partsTreeDiv span span:last-child {
 }
 
 /* Message body styling. */
-.messageBody {
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-    background: #fff;
-    padding: 8px;
-}
 .messageBody div.mimePartData {
     margin-bottom: 8px;
 }
@@ -294,15 +97,7 @@ div.partsTreeDiv span span:last-child {
     padding-top: 5px;
 }
 
-/* Folder view. */
-#checkAll0, #checkAll1, #fmanager input.checkbox {
-    vertical-align: middle;
-}
-
-#fmanager div.folderChoose {
-    padding-left: 5px;
-}
-
+/* Folder images. */
 span.folderImg {
     background-image: url("graphics/folders/folder.png");
 }
@@ -330,13 +125,6 @@ span.trashImg {
     font-style: italic;
 }
 
-/* Style for div that fixes KHTML browsers. */
-.ohide {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -o-text-overflow: ellipsis;
-}
-
 /* Style for HTML data iframe. */
 .htmlMsgData {
     margin: 2px 0;
@@ -344,10 +132,7 @@ span.trashImg {
 }
 
 /* Compose view */
-.composebody {
-    padding: 2px;
-}
-#text_identity, #to, #cc, #bcc, #subject {
+#to, #cc, #bcc, #subject {
     width: 500px;
 }
 .spellcheck {
@@ -360,9 +145,6 @@ span.trashImg {
     white-space: pre-line;
     word-wrap: break-word;
 }
-#compose td.light {
-    vertical-align: top;
-}
 
 #compose span.notices {
     margin: 0;
@@ -372,25 +154,6 @@ span.trashImg {
 }
 .replyAllNoticeUnderline {
     text-decoration: underline;
-}
-
-.folders {
-    font-size: 100%;
-}
-.seen {
-    background: #fff;
-}
-
-.addressTr {
-    width: 580px;
-}
-.addressTr span {
-    vertical-align: top;
-}
-
-.attachList {
-    width: 100%;
-    border-collapse: collapse;
 }
 
 /* Message flags definitions.
@@ -408,9 +171,6 @@ span.trashImg {
 }
 .msgflags.flagHighpriority {
     background-image: url("graphics/mail_priority_high.png");
-}
-tr.flagLowpriority {
-    font-weight: normal !important;
 }
 .msgflags.flagLowpriority {
     background-image: url("graphics/mail_priority_low.png");
@@ -433,9 +193,6 @@ tr.flagLowpriority {
 .msgflags.flagNotJunk, span.iconImg.flagNotJunk {
     background-image: url("graphics/ham.png");
 }
-tr.flagUnseen {
-    font-weight: bold;
-}
 span.iconImg.flagSeen {
     background-image: url("graphics/mail_seen.png");
 }
@@ -453,9 +210,6 @@ span.iconImg.flagSeen {
 }
 .msgflags.flagFlagged, span.iconImg.flagFlagged {
     background-image: url("graphics/mail_flagged.png");
-}
-tr.flagDeleted * {
-    text-decoration: line-through;
 }
 .msgflags.flagDeleted, span.iconImg.flagDeleted {
     background-image: url("graphics/mail_deleted.png");
@@ -537,6 +291,15 @@ table.searchesmanagement .vfolderenabled {
 }
 
 /* Quota styles. */
+#quota {
+    border-collapse: collapse;
+    width: 100%;
+}
+#quota td {
+    padding: 3px;
+    vertical-align: middle;
+    text-align: center;
+}
 .quotawarn {
     color: #000;
     background: yellow;
@@ -544,15 +307,6 @@ table.searchesmanagement .vfolderenabled {
 .quotaalert {
     color: #fff;
     background: #f00;
-}
-
-/* Pad the addressbook icon in header compose links. */
-td.msgheader {
-    width: 100%;
-}
-.msgheader img {
-    padding: 0 1px 0 2px;
-    vertical-align: bottom;
 }
 
 /* Contacts styles. */
@@ -584,41 +338,6 @@ span.spellcheckPopdownImg {
 }
 .largeaddrlist:hover, .largeaddrlistlimit:hover {
     text-decoration: underline;
-}
-
-/* Thread page */
-.threadSummary {
-    margin: 5px 3px;
-}
-.threadSummary div {
-    height: 16px;
-}
-.threadBox {
-    margin: 3px;
-}
-.threadBox div.rowEven {
-    padding: 1px 2px;
-}
-.threadBox span.threadlink {
-    float: right;
-}
-.threadBox .messageBody {
-    border-bottom: 0;
-}
-
-/* Expand/Collapse graphic. */
-span.arrowCollapsed {
-    background-image: url("graphics/arrow_collapsed.png");
-    cursor: pointer;
-}
-span.arrowExpanded {
-    background-image: url("graphics/arrow_expanded.png");
-    cursor: pointer;
-}
-
-/* Loading graphic */
-td.addressTr span.loadingImg {
-    padding: 0 0 0 16px;
 }
 
 /* Key import popup. */
@@ -775,15 +494,4 @@ span.mimePartInfoSize {
 
 .itipconflicts tr.itipnearcollision {
     background-color: #ee0;
-}
-
-/* Quota styles. */
-#quota {
-    border-collapse: collapse;
-    width: 100%;
-}
-#quota td {
-    padding: 3px;
-    vertical-align: middle;
-    text-align: center;
 }

@@ -1,5 +1,5 @@
-div.composebody {
-    border: 1px solid #999;
+#quota {
+    border-top: 1px solid #999;
 }
 
 .sortup {
@@ -7,27 +7,6 @@ div.composebody {
 }
 .sortdown {
     background-image: url("graphics/arrow_up.png");
-}
-
-#quota {
-    border-top: 1px solid #999;
-}
-#quota .control {
-    border-bottom-width: 0;
-}
-.headerbox #quota {
-    border-top-width: 0;
-}
-.headerbox #quota .control {
-    border-bottom-width: 1px;
-}
-
-#newmail {
-    border-width: 1px;
-}
-
-.smallheader.searchmbox {
-    border-bottom-width: 0;
 }
 
 span.spellcheckPopdownImg {

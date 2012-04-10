@@ -617,7 +617,6 @@ div.dimpActionsMsg #windowclose {
 /* Message body formatting. */
 .messageBody {
     background: #fff url("../graphics/backhead_shadow.png") top repeat-x;
-    border: 0;
     padding: 7px 5px 5px;
 }
 .msgfullread div.messageBody {
