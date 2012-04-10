@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-11-22</date>
- <time>15:21:18</time>
+ <date>2012-04-10</date>
+ <time>19:27:58</time>
  <version>
   <release>1.0.9</release>
   <api>1.0.0</api>
@@ -645,7 +645,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-22</date>
+   <date>2012-04-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Inherit details from wrapped exception.
