@@ -371,6 +371,10 @@ if ($browser->isMobile() &&
         );
     }
 
+    /* Ensure that we are using the smartmobile status listener. */
+    $notification->detach('status');
+    $notification->attach('status', null, 'Horde_Core_Notification_Listener_SmartmobileStatus');
+
     $notification->notify(array('listeners' => 'status'));
 
     $page_output->header(array(
@@ -378,6 +382,9 @@ if ($browser->isMobile() &&
         'view' => $registry::VIEW_SMARTMOBILE
     ));
     require $registry->get('templates', 'horde') . '/login/mobile.inc';
+    $page_output->footer(array(
+        'view' => $registry::VIEW_SMARTMOBILE
+    ));
 } else {
     if (!empty($js_files)) {
         foreach ($js_files as $val) {
@@ -391,6 +398,5 @@ if ($browser->isMobile() &&
         'title' => $title
     ));
     require $registry->get('templates', 'horde') . '/login/login.inc';
+    $page_output->footer();
 }
-
-$page_output->footer();

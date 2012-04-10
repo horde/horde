@@ -535,7 +535,6 @@ class Horde_PageOutput
             'templatePath' => $registry->get('templates', 'horde') . '/common'
         ));
 
-        $view->minimalView = false;
         $view->outputJs = !$this->deferScripts;
         $view->stylesheetOpts = isset($opts['stylesheet_opts'])
             ? $opts['stylesheet_opts']
@@ -606,16 +605,20 @@ class Horde_PageOutput
             header('Vary: Accept-Language');
         }
 
-        echo $view->render('header.html.php');
+        echo $view->render('header');
     }
 
     /**
      * @param array $opts  Options:
-     *   - No options currently defined.
+     *   - view: (integer)
      */
     public function footer(array $opts = array())
     {
         global $browser, $notification, $registry;
+
+        if (!isset($opts['view'])) {
+            $opts['view'] = $registry->getView();
+        }
 
         $view = new Horde_View(array(
             'templatePath' => $registry->get('templates', 'horde') . '/common'
@@ -627,9 +630,14 @@ class Horde_PageOutput
         $view->outputJs = $this->deferScripts;
         $view->pageOutput = $this;
         $view->sidebarLoaded = $this->sidebarLoaded;
-        $view->smartmobileView = ($registry->getView() == $registry::VIEW_SMARTMOBILE);
 
-        echo $view->render('footer.html.php');
+        switch ($opts['view']) {
+        case $registry::VIEW_SMARTMOBILE:
+            $view->smartmobileView = true;
+            break;
+        }
+
+        echo $view->render('footer');
     }
 
 }
