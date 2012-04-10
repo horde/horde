@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2012-04-10</date>
- <time>19:52:07</time>
+ <time>19:52:24</time>
  <version>
-  <release>1.1.7</release>
+  <release>1.1.8</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Update Brazilian Portuguese translation (Luis Felipe Marzagao &lt;duli@easylifeproject.org&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -778,6 +778,19 @@ Converted to package.xml 2.0 for pear.horde.org
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Update Brazilian Portuguese translation (Luis Felipe Marzagao &lt;duli@easylifeproject.org&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.8</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-04-10</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
