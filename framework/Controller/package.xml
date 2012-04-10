@@ -17,8 +17,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-27</date>
- <time>16:20:51</time>
+ <date>2012-04-10</date>
+ <time>19:18:32</time>
  <version>
   <release>1.0.2</release>
   <api>1.0.0</api>
@@ -33,6 +33,13 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Controller">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/Controller -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Controller">
@@ -138,6 +145,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Controller/COPYING" />
    <install as="Horde/Controller.php" name="lib/Horde/Controller.php" />
    <install as="Horde/Controller/Base.php" name="lib/Horde/Controller/Base.php" />
    <install as="Horde/Controller/Exception.php" name="lib/Horde/Controller/Exception.php" />
@@ -281,7 +289,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-27</date>
+   <date>2012-04-10</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [rla] Add license file.
