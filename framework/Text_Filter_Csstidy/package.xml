@@ -23,7 +23,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [rla] Add license file.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -159,7 +159,7 @@
    <date>2011-04-06</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [rla] Add license file.
    </notes>
   </release>
  </changelog>
