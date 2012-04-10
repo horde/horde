@@ -38,11 +38,6 @@
  * @package  IMP
  */
 
-function _sanitizeName($name)
-{
-    return trim(preg_replace('/[^\pL\pN-+_. ]/u', '_', $name), ' _');
-}
-
 require_once __DIR__ . '/lib/Application.php';
 
 /* Don't compress if we are already sending in compressed format. */
@@ -96,7 +91,7 @@ default:
 switch ($vars->actionID) {
 case 'download_all':
     $headers = $contents->getHeader();
-    $zipfile = _sanitizeName($headers->getValue('subject'));
+    $zipfile = trim(preg_replace('/[^\pL\pN-+_. ]/u', '_', $headers->getValue('subject')), ' _');
     if (empty($zipfile)) {
         $zipfile = _("attachments.zip");
     } else {
@@ -204,7 +199,7 @@ case 'view_source':
 
     if ($vars->actionID == 'save_message') {
         $name = ($subject = $contents->getHeader()->getValue('subject'))
-            ? _sanitizeName($subject)
+            ? trim(preg_replace('/[^\pL\pN-+_. ]/u', '_', $subject), ' _')
             : 'saved_message';
         $browser->downloadHeaders($name . '.eml', 'message/rfc822', false, ftell($msg));
     } else {
