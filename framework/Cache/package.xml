@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [rla] Add license file.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -311,7 +311,7 @@ Initial packaging.
    <date>2011-07-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [rla] Add license file.
    </notes>
   </release>
  </changelog>
