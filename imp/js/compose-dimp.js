@@ -840,7 +840,7 @@ var DimpCompose = {
              * that size by the available height, round down to the lowest
              * integer row, and resize the textarea. */
             msg = $('composeMessage');
-            rows = parseInt(mah / (msg.getHeight() / msg.readAttribute('rows')), 10);
+            rows = Math.max(0, parseInt(mah / (msg.getHeight() / msg.readAttribute('rows')), 10));
 
             if (!isNaN(rows)) {
                 /* Due to the funky (broken) way some browsers (FF) count
