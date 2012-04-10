@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2012-04-10</date>
- <time>19:44:44</time>
+ <time>19:44:57</time>
  <version>
-  <release>1.0.2</release>
+  <release>1.0.3</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">Apache 2.0</license>
  <notes>
-* [rla] Add license file.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -181,6 +181,19 @@
    <license uri="http://www.horde.org/licenses/apache">Apache 2.0</license>
    <notes>
 * [rla] Add license file.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-04-10</date>
+   <license uri="http://www.horde.org/licenses/apache">Apache 2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
