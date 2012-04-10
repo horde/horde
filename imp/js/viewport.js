@@ -1644,6 +1644,7 @@ ViewPort_Buffer = Class.create({
             newsize = rowsize - rownums.size();
 
         return this.rowlist.keys().each(function(n) {
+            n = parseInt(n, 10);
             if (n >= minrow) {
                 var id = this.rowlist.get(n), r;
                 if (rownums.include(n)) {
