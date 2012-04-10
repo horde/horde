@@ -18,7 +18,7 @@ Horde_Registry::appInit('imp');
 
 $imp_pgp = $injector->getInstance('IMP_Crypt_Pgp');
 $secure_check = Horde::isConnectionSecure();
-$vars = Horde_Variables::getDefaultVariables();
+$vars = $injector->getInstance('Horde_Variables');
 
 /* Run through the action handlers */
 switch ($vars->actionID) {

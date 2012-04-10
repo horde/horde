@@ -36,7 +36,7 @@ $imptree = $injector->getInstance('IMP_Imap_Tree');
 $mask = 0;
 
 /* Toggle subscribed view, if necessary. */
-if ($subscribe && Horde_Util::getFormData('ts')) {
+if ($subscribe && $injector->getInstance('Horde_Variables')->ts) {
     $showAll = !$showAll;
     $session->set('imp', 'showunsub', $showAll);
     $imptree->showUnsubscribed($showAll);

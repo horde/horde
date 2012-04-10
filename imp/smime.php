@@ -18,7 +18,7 @@ require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('imp');
 
 $imp_smime = $injector->getInstance('IMP_Crypt_Smime');
-$vars = Horde_Variables::getDefaultVariables();
+$vars = $injector->getInstance('Horde_Variables');
 
 /* Run through the action handlers */
 switch ($vars->actionID) {

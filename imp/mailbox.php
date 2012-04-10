@@ -50,7 +50,7 @@ try {
 
 /* Is this a search mailbox? */
 $search_mbox = IMP::mailbox()->search;
-$vars = Horde_Variables::getDefaultVariables();
+$vars = $injector->getInstance('Horde_Variables');
 
 /* There is a chance that this page is loaded directly via message.php. If so,
  * don't re-include config files, and the following variables will already be

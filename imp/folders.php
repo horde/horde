@@ -33,7 +33,7 @@ $showAll = (!$subscribe || $session->get('imp', 'showunsub'));
 
 $page_output->addScriptFile('folders.js');
 
-$vars = Horde_Variables::getDefaultVariables();
+$vars = $injector->getInstance('Horde_Variables');
 
 /* Get the base URL for this page. */
 $folders_url = Horde::selfUrl();

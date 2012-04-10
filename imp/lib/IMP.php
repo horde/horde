@@ -151,17 +151,17 @@ class IMP
     static public function setMailboxInfo($mbox = null)
     {
         if (is_null($mbox)) {
-            $mbox = Horde_Util::getFormData('mailbox');
-            $mailbox = is_null($mbox)
+            $vars = $GLOBALS['injector']->getInstance('Horde_Variables');
+
+            $mailbox = isset($vars->mailbox)
                 ? IMP_Mailbox::get('INBOX')
-                : IMP_Mailbox::formFrom($mbox);
+                : IMP_Mailbox::formFrom($vars->mailbox);
 
-            $mbox = Horde_Util::getFormData('thismailbox');
-            $thismailbox = is_null($mbox)
+            $thismailbox = isset($vars->thismailbox)
                 ? $mailbox
-                : IMP_Mailbox::formFrom($mbox);
+                : IMP_Mailbox::formFrom($vars->thismailbox);
 
-            $uid = Horde_Util::getFormData('uid');
+            $uid = $vars->uid;
         } else {
             $mailbox = $thismailbox = IMP_Mailbox::get($mbox);
             $uid = null;

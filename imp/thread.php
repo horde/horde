@@ -23,7 +23,7 @@ Horde_Registry::appInit('imp', array(
  * DEFAULT/'thread' - Thread mode
  * 'msgview' - Multiple message view
  */
-$vars = Horde_Variables::getDefaultVariables();
+$vars = $injector->getInstance('Horde_Variables');
 $mode = $vars->mode
     ? $vars->mode
     : 'thread';

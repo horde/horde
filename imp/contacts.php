@@ -28,7 +28,7 @@ if (!$session->get('imp', 'csearchavail')) {
     Horde::fatal(new IMP_Exception('Addressbook not available on this system.'), false);
 }
 
-$vars = Horde_Variables::getDefaultVariables();
+$vars = $injector->getInstance('Horde_Variables');
 
 /* Get the lists of address books through the API. */
 $source_list = $registry->call('contacts/sources');

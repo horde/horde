@@ -27,14 +27,16 @@ class IMP_Mime_Viewer_Zip extends Horde_Mime_Viewer_Zip
      */
     protected function _render()
     {
-        if (!($zip_atc = Horde_Util::getFormData('zip_attachment'))) {
+        $vars = $GLOBALS['injector']->getInstance('Horde_Variables');
+
+        if (!isset($vars->zip_attachment)) {
             return array();
         }
 
         /* Send the requested file. Its position in the zip archive is located
          * in 'zip_attachment'. */
         $data = $this->_mimepart->getContents();
-        $fileKey = $zip_atc - 1;
+        $fileKey = $vars->zip_attachment - 1;
 
         if (!($zip = $this->getConfigParam('zip'))) {
             $zip = Horde_Compress::factory('Zip');

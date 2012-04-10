@@ -32,7 +32,7 @@ if (!$injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCE
 }
 
 $imp_search = $injector->getInstance('IMP_Search');
-$vars = Horde_Variables::getDefaultVariables();
+$vars = $injector->getInstance('Horde_Variables');
 
 /* If search_basic is set, we are processing the search query. */
 if ($vars->search_basic) {

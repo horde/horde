@@ -51,7 +51,7 @@ $imp_message = $injector->getInstance('IMP_Message');
 $user_identity = $injector->getInstance('IMP_Identity');
 
 /* Run through action handlers. */
-$vars = Horde_Variables::getDefaultVariables();
+$vars = $injector->getInstance('Horde_Variables');
 if ($vars->actionID) {
     switch ($vars->actionID) {
     case 'strip_attachment':

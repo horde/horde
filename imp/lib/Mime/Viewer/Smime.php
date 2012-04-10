@@ -89,7 +89,7 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
         /* Check to see if S/MIME support is available. */
         $this->_initSmime();
 
-        if (Horde_Util::getFormData('view_smime_key')) {
+        if ($GLOBALS['injector']->getInstance('Horde_Variables')->view_smime_key) {
             return $this->_outputSmimeKey();
         }
 
@@ -261,7 +261,7 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
         $sig_result = null;
 
         if ($GLOBALS['prefs']->getValue('smime_verify') ||
-            Horde_Util::getFormData('smime_verify_msg')) {
+            $GLOBALS['injector']->getInstance('Horde_Variables')->smime_verify_msg) {
             try {
                 $sig_result = $this->_impsmime->verifySignature($raw_text);
                 if ($sig_result->verify) {

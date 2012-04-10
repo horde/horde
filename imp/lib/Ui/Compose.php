@@ -176,9 +176,11 @@ class IMP_Ui_Compose
             $url = Horde::url('mailbox.php');
         }
 
+        $vars = $GLOBALS['injector']->getInstance('Horde_Variables');
+
         foreach (array('start', 'page', 'mailbox', 'thismailbox') as $key) {
-            if (($param = Horde_Util::getFormData($key))) {
-                $url->add($key, $param);
+            if (isset($vars->$key)) {
+                $url->add($key, $vars->$key);
             }
         }
 

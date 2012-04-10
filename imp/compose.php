@@ -20,7 +20,7 @@ Horde_Registry::appInit('imp', array(
     'session_control' => 'netscape'
 ));
 
-$vars = Horde_Variables::getDefaultVariables();
+$vars = $injector->getInstance('Horde_Variables');
 
 /* Mailto link handler: redirect based on current view. */
 if ($vars->actionID == 'mailto_link') {

@@ -72,9 +72,11 @@ class IMP_Application extends Horde_Registry_Application
      */
     public function appInitFailure($e)
     {
+        global $injector;
+
         if (($e->getCode() == Horde_Registry::AUTH_FAILURE) &&
-            Horde_Util::getFormData('composeCache')) {
-            $GLOBALS['injector']->getInstance('IMP_Factory_Compose')->create()->sessionExpireDraft(Horde_Variables::getDefaultVariables());
+            $injector->getInstance('Horde_Variables')->composeCache) {
+            $injector->getInstance('IMP_Factory_Compose')->create()->sessionExpireDraft($injector->getInstance('Horde_Variables'));
         }
     }
 
@@ -359,7 +361,7 @@ class IMP_Application extends Horde_Registry_Application
             $servers = IMP_Imap::loadServerConfig();
             $server_list = array();
             $selected = is_null($this->_oldserver)
-                ? Horde_Util::getFormData('imp_server_key', IMP_Auth::getAutoLoginServer())
+                ? $GLOBALS['injector']->getInstance('Horde_Variables')->get('imp_server_key', IMP_Auth::getAutoLoginServer())
                 : $this->_oldserver;
 
             foreach ($servers as $key => $val) {

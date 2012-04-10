@@ -77,7 +77,7 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
     {
         global $conf, $injector, $notification, $registry;
 
-        $vars = Horde_Variables::getDefaultVariables();
+        $vars = $injector->getInstance('Horde_Variables');
 
         $actions = $vars->get('itip_action', array());
         $result = 0;

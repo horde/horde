@@ -79,7 +79,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
     {
         switch ($this->_mimepart->getType()) {
         case 'application/pgp-keys':
-            $vars = Horde_Variables::getDefaultVariables();
+            $vars = $GLOBALS['injector']->getInstance('Horde_Variables');
             if ($vars->pgp_view_key) {
                 // Throws exception on error.
                 return array(
@@ -408,7 +408,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
         $status->addText(_("The data in this part has been digitally signed via PGP."));
 
         if ($GLOBALS['prefs']->getValue('pgp_verify') ||
-            Horde_Util::getFormData('pgp_verify_msg')) {
+            $GLOBALS['injector']->getInstance('Horde_Variables')->pgp_verify_msg) {
             $sig_part = $this->getConfigParam('imp_contents')->getMIMEPart($sig_id);
 
             $status2 = new IMP_Mime_Status();

@@ -17,7 +17,7 @@
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('imp', array('impmode' => 'dimp'));
 
-$vars = Horde_Variables::getDefaultVariables();
+$vars = $injector->getInstance('Horde_Variables');
 
 if (!IMP::uid() || !IMP::mailbox()) {
     exit;

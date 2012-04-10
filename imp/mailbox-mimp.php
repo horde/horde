@@ -31,7 +31,7 @@ Horde_Registry::appInit('imp', array(
 $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 $imp_search = $injector->getInstance('IMP_Search');
 $imp_ui_mimp = $injector->getInstance('IMP_Ui_Mimp');
-$vars = Horde_Variables::getDefaultVariables();
+$vars = $injector->getInstance('Horde_Variables');
 
 /* Initialize Horde_Template. */
 $t = $injector->createInstance('Horde_Template');

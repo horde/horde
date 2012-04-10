@@ -36,7 +36,7 @@ Horde_Registry::appInit('imp', array(
     'timezone' => true
 ));
 
-$vars = Horde_Variables::getDefaultVariables();
+$vars = $injector->getInstance('Horde_Variables');
 
 /* The message text and headers. */
 $expand = array();

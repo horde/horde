@@ -93,7 +93,7 @@ class IMP_Ajax_Imple_ImportEncryptKey extends Horde_Core_Ajax_Imple
         global $injector, $notification;
 
         $result = 0;
-        $vars = Horde_Variables::getDefaultVariables();
+        $vars = $injector->getInstance('Horde_Variables');
 
         /* Retrieve the key from the message. */
         try {

@@ -39,7 +39,7 @@ class Horde_Core_Factory_Data extends Horde_Core_Factory_Base
     public function create($driver, array $params = array())
     {
         $params['browser'] = $this->_injector->getInstance('Horde_Browser');
-        $params['vars'] = Horde_Variables::getDefaultVariables();
+        $params['vars'] = $this->_injector->getInstance('Horde_Variables');
 
         if (strcasecmp($driver, 'csv') === 0) {
             $params['charset'] = 'UTF-8';

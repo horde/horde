@@ -87,7 +87,7 @@ class IMP_Ajax_Imple_ImageUnblock extends Horde_Core_Ajax_Imple
         global $injector, $notification;
 
         $result = 0;
-        $vars = Horde_Variables::getDefaultVariables();
+        $vars = $injector->getInstance('Horde_Variables');
 
         try {
             $contents = $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices(IMP_Mailbox::formFrom($vars->mailbox), $vars->uid));

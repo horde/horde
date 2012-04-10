@@ -31,9 +31,11 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
      */
     public function canRender($mode)
     {
+        global $registry;
+
         /* For mimp - allow rendering of attachments inline (on the view
          * parts page). */
-        return (($mode == 'inline') && ($GLOBALS['registry']->getView() == Horde_Registry::VIEW_MINIMAL))
+        return (($mode == 'inline') && ($registry->getView() == $registry::VIEW_MINIMAL))
             ? true
             : parent::canRender($mode);
     }
@@ -52,7 +54,7 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
      */
     protected function _render()
     {
-        switch (Horde_Util::getFormData('imp_img_view')) {
+        switch ($GLOBALS['injector']->getInstance('Horde_Variables')->imp_img_view) {
         case 'data':
             /* If calling page is asking us to output data, do that without
              * any further delay and exit. */

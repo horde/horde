@@ -120,11 +120,13 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
      */
     protected function _IMPrender($inline)
     {
+        global $registry;
+
         $data = $this->_mimepart->getContents();
 
         $contents = $this->getConfigParam('imp_contents');
-        $convert_text = ($GLOBALS['registry']->getView() == Horde_Registry::VIEW_MINIMAL) ||
-                        Horde_Util::getFormData('convert_text');
+        $convert_text = ($registry->getView() == $registry::VIEW_MINIMAL) ||
+                        $GLOBALS['injector']->getInstance('Horde_Variables')->convert_text;
 
         /* Don't do IMP DOM processing if in mimp mode or converting to
          * text. */

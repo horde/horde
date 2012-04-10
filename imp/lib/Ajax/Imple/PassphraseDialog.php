@@ -123,7 +123,7 @@ class IMP_Ajax_Imple_PassphraseDialog extends Horde_Core_Ajax_Imple
 
         $dynamic_view = ($registry->getView() == Horde_Registry::VIEW_DYNAMIC);
         $error = $success = null;
-        $vars = Horde_Variables::getDefaultVariables();
+        $vars = $injector->getInstance('Horde_Variables');
 
         try {
             Horde::requireSecureConnection();

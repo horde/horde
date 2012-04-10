@@ -42,7 +42,7 @@ $horde_ajax->init(array(
     'app' => 'imp'
 ));
 
-$vars = Horde_Variables::getDefaultVariables();
+$vars = $injector->getInstance('Horde_Variables');
 
 /* The headers of the message. */
 $args = IMP::getComposeArgs($vars);

@@ -26,7 +26,7 @@ Horde_Registry::appInit('imp', array(
     'timezone' => true
 ));
 
-$vars = Horde_Variables::getDefaultVariables();
+$vars = $injector->getInstance('Horde_Variables');
 
 /* Make sure we have a valid index. */
 $imp_mailbox = IMP::mailbox()->getListOb(IMP::mailbox(true)->getIndicesOb(IMP::uid()));

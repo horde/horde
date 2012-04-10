@@ -37,7 +37,7 @@ try {
     if ($action != 'logOut') {
         /* Handle session timeouts when they come from an AJAX request. */
         if ($e->getCode() == Horde_Auth::REASON_SESSION) {
-            $ajax = $injector->getInstance('Horde_Core_Factory_Ajax')->create($app, Horde_Variables::getDefaultVariables())->sessionTimeout();
+            $ajax = $injector->getInstance('Horde_Core_Factory_Ajax')->create($app, $injector->getInstance('Horde_Variables'))->sessionTimeout();
         }
 
         throw $e;
@@ -52,7 +52,7 @@ try {
 // encoding.
 Horde::startBuffer();
 
-$ajax = $injector->getInstance('Horde_Core_Factory_Ajax')->create($app, Horde_Variables::getDefaultVariables(), $action);
+$ajax = $injector->getInstance('Horde_Core_Factory_Ajax')->create($app, $injector->getInstance('Horde_Variables'), $action);
 try {
     $ajax->doAction();
 } catch (Exception $e) {

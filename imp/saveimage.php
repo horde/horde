@@ -22,7 +22,7 @@ if (!$registry->hasMethod('images/selectGalleries') ||
 }
 
 /* Run through the action handlers. */
-$vars = Horde_Variables::getDefaultVariables();
+$vars = $injector->getInstance('Horde_Variables');
 switch ($vars->actionID) {
 case 'save_image':
     $contents = $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($vars->mbox, $vars->uid));
