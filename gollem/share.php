@@ -26,7 +26,7 @@ $backend = Gollem_Auth::getBackend($backend_key);
 
 if (!$backend || empty($backend['shares']) ||
     strpos($dir, $backend['home']) !== 0) {
-    Horde::fatal(_("You are not allowed to share this folder"));
+    throw new Gollem_Excception(_("You are not allowed to share this folder"));
 }
 
 /* Create a folder share if it doesn't exist yet. */

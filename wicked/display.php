@@ -119,7 +119,7 @@ default:
 
 if (!$page->allows(Wicked::MODE_DISPLAY)) {
     if ($page->pageName() == 'Wiki/Home') {
-        Horde::fatal(_("You don't have permission to view this page."));
+        throw new Wicked_Exception(_("You don't have permission to view this page."));
     }
     $notification->push(_("You don't have permission to view this page."),
                         'horde.error');

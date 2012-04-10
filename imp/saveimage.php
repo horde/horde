@@ -18,7 +18,9 @@ Horde_Registry::appInit('imp');
 
 if (!$registry->hasMethod('images/selectGalleries') ||
     !$registry->hasMethod('images/saveImage')) {
-    Horde::fatal(new IMP_Exception('Image saving is not available.'), false);
+    $e = new IMP_Exception('Image saving is not available.');
+    $e->logged = true;
+    throw $e;
 }
 
 /* Run through the action handlers. */

@@ -50,7 +50,9 @@ Horde_Registry::appInit('imp', array(
 /* We may reach this page from the download script - need to check for
  * an authenticated user. */
 if (!$registry->isAuthenticated(array('app' => 'imp'))) {
-    Horde::fatal(new IMP_Exception(_("User is not authenticated.")), false);
+    $e = new IMP_Exception(_("User is not authenticated."));
+    $e->logged = true;
+    throw $e;
 }
 
 switch ($vars->actionID) {
@@ -60,7 +62,9 @@ case 'compose_attach_preview':
      * the necessary data for Horde_Mime_Part. */
     $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($vars->composeCache);
     if (!$mime = $imp_compose->buildAttachment($vars->id)) {
-        Horde::fatal(new IMP_Exception(_("Could not display attachment data.")), false);
+        $e = new IMP_Exception(_("Could not display attachment data."));
+        $e->logged = true;
+        throw $e;
     }
     $mime->setMimeId($vars->id);
 
