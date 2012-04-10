@@ -353,8 +353,7 @@ if ($reason) {
 
 if ($browser->isMobile() &&
     (!isset($conf['user']['force_view']) ||
-     ($conf['user']['force_view'] != 'traditional' &&
-      $conf['user']['force_view'] != 'dynamic'))) {
+     !in_array($conf['user']['force_view'], array('dynamic', 'traditional')))) {
     /* Build the <select> widget containing the available languages. */
     if (!$is_auth && !$prefs->isLocked('language')) {
         $tmp = array();
@@ -370,6 +369,13 @@ if ($browser->isMobile() &&
             'value' => $tmp
         );
     }
+
+    $page_output->addInlineScript(array(
+         '$($("#horde-login-button").click(function() {' .
+             '$("#horde-login-post").val(1);' .
+             '$(this).closest("form").submit();' .
+         '}));'
+    ));
 
     /* Ensure that we are using the smartmobile status listener. */
     $notification->detach('status');

@@ -1,27 +1,15 @@
-<script type="text/javascript">
-$(function() {
-    $('#horde-login-button').click(function() {
-        $('#horde-login-post').val(1);
-        $(this).closest('form').submit();
-    });
-});
-</script>
-</head>
-<body>
-
 <div data-role="page" data-theme="a">
+ <div data-role="header" data-nobackbtn="true">
+  <h1><?php echo $title ?></h1>
+ </div>
+ <div data-role="content" style="max-width:480px; margin:0 auto;">
+  <form action="<?php echo Horde::url('login.php') ?>" method="post" data-ajax="false">
+   <input type="hidden" name="anchor_string" value="<?php echo htmlspecialchars(strval($vars->anchor_string)) ?>">
+   <input type="hidden" name="app" value="<?php echo htmlspecialchars($vars->app) ?>">
+   <input type="hidden" name="url" value="<?php echo htmlspecialchars($vars->url) ?>">
+   <input type="hidden" id="horde-login-post" name="login_post">
 
-<div data-role="header" data-nobackbtn="true"><h1><?php echo $title ?></h1></div>
-
-<div data-role="content" style="max-width:480px; margin:0 auto;">
-
-<form action="<?php echo Horde::url('login.php') ?>" method="post" data-ajax="false">
-  <input type="hidden" name="anchor_string" value="<?php echo htmlspecialchars(strval($vars->anchor_string)) ?>">
-  <input type="hidden" name="app" value="<?php echo htmlspecialchars($vars->app) ?>">
-  <input type="hidden" name="url" value="<?php echo htmlspecialchars($vars->url) ?>">
-  <input type="hidden" id="horde-login-post" name="login_post">
-
-  <fieldset>
+   <fieldset>
 <?php
 foreach ($loginparams as $key => $val) {
     if ($key == 'new_lang') {
@@ -50,12 +38,11 @@ foreach ($loginparams as $key => $val) {
     }
 }
 ?>
-  </fieldset>
+   </fieldset>
 
-  <fieldset data-role="controlgroup">
+   <fieldset data-role="controlgroup">
     <input type="button" data-theme="a" id="horde-login-button" value="<?php echo htmlspecialchars($title) ?>">
-  </fieldset>
-
-</form>
-</div>
+   </fieldset>
+  </form>
+ </div>
 </div>
