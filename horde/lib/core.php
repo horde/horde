@@ -51,7 +51,7 @@ $__autoloader->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/
 /* Default exception handler for uncaught exceptions. The default fatal
  * exception handler output may include things like passwords, etc. so don't
  * output this unless an admin. */
-set_exception_handler(array('Horde', 'fatal'));
+set_exception_handler(array('Horde_ErrorHandler', 'fatal'));
 
 /* Catch errors. */
-set_error_handler(array('Horde', 'errorHandler'), E_ALL);
+set_error_handler(array('Horde_ErrorHandler', 'errorHandler'), E_ALL);
