@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">Apache 2.0</license>
  <notes>
-* 
+* [rla] Add license file.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -178,7 +178,7 @@
    <date>2011-07-27</date>
    <license uri="http://www.horde.org/licenses/apache">Apache 2.0</license>
    <notes>
-* 
+* [rla] Add license file.
    </notes>
   </release>
  </changelog>
