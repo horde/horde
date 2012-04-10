@@ -143,17 +143,17 @@ class Horde
             case 'Horde_Exception_AuthenticationFailure':
                 if (Horde_Cli::runningFromCLI()) {
                     $cli = new Horde_Cli();
-                    $cli->fatal($e ? $e : Horde_Core_Translation::t("You are not authenticated."));
+                    $cli->fatal($error ? $error : Horde_Core_Translation::t("You are not authenticated."));
                 }
 
                 $params = array(
-                    'app' => $e->application,
-                    'reason' => $e->getCode()
+                    'app' => $error->application,
+                    'reason' => $error->getCode()
                 );
 
-                switch ($e->getCode()) {
+                switch ($error->getCode()) {
                 case Horde_Auth::REASON_MESSAGE:
-                    $params['msg'] = $e->getMessage();
+                    $params['msg'] = $error->getMessage();
                     break;
                 }
 
