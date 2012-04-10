@@ -1281,6 +1281,8 @@ class Horde_Registry
      *                 'check_perms' is also true. System tasks are always
      *                 peformed if the user is authorized.
      *                 DEFAULT: false
+     *   - notransparent: (boolean) Do not attempt transparent authentication.
+     *                    DEFAULT: false
      *
      * @return boolean  Whether or not the _appStack was modified.
      * @throws Horde_Exception
