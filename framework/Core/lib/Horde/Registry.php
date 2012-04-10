@@ -365,6 +365,7 @@ class Horde_Registry
             'Horde_SessionHandler' => 'Horde_Core_Factory_SessionHandler',
             'Horde_Template' => 'Horde_Core_Factory_Template',
             'Horde_Token' => 'Horde_Core_Factory_Token',
+            'Horde_Variables' => 'Horde_Core_Factory_Variables',
             'Horde_View' => 'Horde_Core_Factory_View',
             'Horde_View_Base' => 'Horde_Core_Factory_View',
             'Horde_Weather' => 'Horde_Core_Factory_Weather',

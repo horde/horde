@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-04-09</date>
- <time>20:22:01</time>
+ <date>2012-04-10</date>
+ <time>00:29:42</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -218,6 +218,7 @@
        <file name="Tree.php" role="php" />
        <file name="Twitter.php" role="php" />
        <file name="UrlShortener.php" role="php" />
+       <file name="Variables.php" role="php" />
        <file name="Vfs.php" role="php" />
        <file name="View.php" role="php" />
        <file name="Weather.php" role="php" />
@@ -1225,6 +1226,7 @@
    <install as="Horde/Core/Factory/Tree.php" name="lib/Horde/Core/Factory/Tree.php" />
    <install as="Horde/Core/Factory/Twitter.php" name="lib/Horde/Core/Factory/Twitter.php" />
    <install as="Horde/Core/Factory/UrlShortener.php" name="lib/Horde/Core/Factory/UrlShortener.php" />
+   <install as="Horde/Core/Factory/Variables.php" name="lib/Horde/Core/Factory/Variables.php" />
    <install as="Horde/Core/Factory/Vfs.php" name="lib/Horde/Core/Factory/Vfs.php" />
    <install as="Horde/Core/Factory/View.php" name="lib/Horde/Core/Factory/View.php" />
    <install as="Horde/Core/Factory/Weather.php" name="lib/Horde/Core/Factory/Weather.php" />
