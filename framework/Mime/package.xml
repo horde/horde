@@ -17,8 +17,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-03-20</date>
- <time>10:41:06</time>
+ <date>2012-04-10</date>
+ <time>19:36:55</time>
  <version>
   <release>1.6.0</release>
   <api>1.6.0</api>
@@ -894,7 +894,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-03-20</date>
+   <date>2012-04-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Work around broken messages with multiple address headers.
