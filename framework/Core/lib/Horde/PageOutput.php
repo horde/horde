@@ -571,7 +571,7 @@ class Horde_PageOutput
                 'nocache' => true
             );
 
-            $this->smartmobileView = true;
+            $view->smartmobileView = true;
             break;
         }
 
