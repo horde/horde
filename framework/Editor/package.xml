@@ -16,8 +16,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-05-25</date>
- <time>16:07:25</time>
+ <date>2012-04-10</date>
+ <time>19:27:23</time>
  <version>
   <release>1.0.2</release>
   <api>1.0.0</api>
@@ -32,6 +32,13 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Editor">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/Editor -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="js">
     <dir name="images">
      <file name="spacer.gif" role="horde" />
@@ -479,6 +486,7 @@
  </usesrole>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Editor/COPYING" />
    <install as="js/ckeditor.js" name="js/ckeditor.js" />
    <install as="js/ckeditor_basic.js" name="js/ckeditor_basic.js" />
    <install as="js/config.js" name="js/config.js" />
@@ -828,7 +836,7 @@ Initial packaging
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-05-25</date>
+   <date>2012-04-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [rla] Add license file.
