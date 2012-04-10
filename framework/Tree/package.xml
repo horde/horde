@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2012-04-10</date>
- <time>19:53:17</time>
+ <time>19:53:31</time>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [rla] Add license file.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -233,6 +233,19 @@ Converted to package.xml 2.0 for pear.horde.org
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [rla] Add license file.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-04-10</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
