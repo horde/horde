@@ -1428,8 +1428,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $this->_sendLine($cmd);
         } catch (Horde_Imap_Client_Exception $e) {
             switch ($e->getCode()) {
-            case $e::CATENATE_BADURL:
-            case $e::CATENATE_TOOBIG:
+            case Horde_Imap_Client_Exception::CATENATE_BADURL:
+            case Horde_Imap_Client_Exception::CATENATE_TOOBIG:
                 /* Cyrus 2.4 (at least as of .14) has a broken CATENATE (see
                  * Bug #11111). Regardless, if CATENATE is broken, we can try
                  * to fallback to APPEND. */
