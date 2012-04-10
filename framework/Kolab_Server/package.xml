@@ -24,6 +24,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [rla] Add license file.
 * [jan] Fix tests to work with PHPUnit 3.6.
  </notes>
  <contents>
@@ -776,6 +777,7 @@
    <date>2011-10-31</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [rla] Add license file.
 * [jan] Fix tests to work with PHPUnit 3.6.
    </notes>
   </release>
