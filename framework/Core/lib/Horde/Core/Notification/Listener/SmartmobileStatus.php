@@ -24,6 +24,10 @@ class Horde_Core_Notification_Listener_SmartmobileStatus extends Horde_Notificat
      */
     public function notify($events, $options = array())
     {
+        if (empty($events)) {
+            return;
+        }
+
         // TODO: Need to add delay to allow browser to correctly populate
         // location of original page, or else closing notification reloads
         // previous page (Ticket #11103).
