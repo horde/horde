@@ -2,10 +2,10 @@
 <html<?php echo $this->htmlAttr ?>>
  <head>
   <?php $this->pageOutput->outputMetaTags(); ?>
+  <?php $this->pageOutput->includeStylesheetFiles($this->stylesheetOpts); ?>
 <?php if (!$this->minimalView): ?>
   <?php $this->pageOutput->includeFavicon(); ?>
   <?php $this->pageOutput->outputLinkTags(); ?>
-  <?php $this->pageOutput->includeStylesheetFiles($this->stylesheetOpts); ?>
 <?php if ($this->outputJs): ?>
   <?php $this->pageOutput->includeScriptFiles(); ?>
   <?php $this->pageOutput->outputInlineScript(); ?>
