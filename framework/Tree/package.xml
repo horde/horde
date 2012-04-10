@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:22:58</time>
+ <date>2012-04-10</date>
+ <time>19:53:17</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -38,6 +38,13 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Tree">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/Tree -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Tree">
@@ -91,6 +98,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Tree/COPYING" />
    <install as="Horde/Tree.php" name="lib/Horde/Tree.php" />
    <install as="Horde/Tree/Base.php" name="lib/Horde/Tree/Base.php" />
    <install as="Horde/Tree/Exception.php" name="lib/Horde/Tree/Exception.php" />
@@ -221,7 +229,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2012-04-10</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [rla] Add license file.
