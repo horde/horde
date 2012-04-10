@@ -119,9 +119,6 @@ class IMP_Ajax extends Horde_Core_Ajax
         ), array('top' => true));
 
         parent::header(array(
-            'stylesheet_opts' => array(
-                'sub' => 'dimp'
-            ),
             'title' => $title
         ));
     }

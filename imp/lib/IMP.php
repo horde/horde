@@ -59,8 +59,6 @@ class IMP
     {
         global $conf, $injector, $page_output, $registry;
 
-        $stylesheet_opts = array();
-
         switch ($registry->getView()) {
         case Horde_Registry::VIEW_BASIC:
             $code = array(
@@ -96,18 +94,9 @@ class IMP
                 'type' => null
             ));
             break;
-
-        case Horde_Registry::VIEW_MINIMAL:
-            $stylesheet_opts = array(
-                'nohorde' => true,
-                'sub' => 'mimp',
-                'subonly' => true
-            );
-            break;
         }
 
         $GLOBALS['page_output']->header(array(
-            'stylesheet_opts' => $stylesheet_opts,
             'title' => $title
         ));
     }

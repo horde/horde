@@ -536,26 +536,29 @@ class Horde_PageOutput
         ));
 
         $view->outputJs = !$this->deferScripts;
-        $view->stylesheetOpts = isset($opts['stylesheet_opts'])
-            ? $opts['stylesheet_opts']
-            : array();
+        $view->stylesheetOpts = array();
 
         if (!isset($opts['view'])) {
             $opts['view'] = $registry->getView();
         }
 
         switch ($opts['view']) {
+        case $registry::VIEW_BASIC:
+            $view->stylesheetOpts['sub'] = 'basic';
+            break;
+
+        case $registry::VIEW_DYNAMIC:
+            $view->stylesheetOpts['sub'] = 'dynamic';
+            break;
+
         case $registry::VIEW_MINIMAL:
+            $view->stylesheetOpts['sub'] = 'minimal';
+            $view->stylesheetOpts['subonly'] = true;
+
             $view->minimalView = true;
             break;
 
         case $registry::VIEW_SMARTMOBILE:
-            $this->addStylesheet(
-                $registry->get('jsfs', 'horde') . '/jquery.mobile/jquery.mobile.min.css',
-                $registry->get('jsuri', 'horde') . '/jquery.mobile/jquery.mobile.min.css'
-            );
-            $this->addThemeStylesheet('mobile.css');
-
             /* JS Files. */
             $this->hsf->prototypejs = false;
             $this->addScriptFile('jquery.mobile/jquery.min.js', 'horde');
@@ -565,13 +568,21 @@ class Horde_PageOutput
 
             $this->addMetaTag('viewport', 'width=device-width, initial-scale=1', false);
 
-            $view->stylesheetOpts = array(
-                'nobase' => true,
-                'nocache' => true
+            $view->stylesheetOpts['nocache'] = true;
+            $view->stylesheetOpts['sub'] = 'smartmobile';
+            $view->stylesheetOpts['subonly'] = true;
+
+            $this->addStylesheet(
+                $registry->get('jsfs', 'horde') . '/jquery.mobile/jquery.mobile.min.css',
+                $registry->get('jsuri', 'horde') . '/jquery.mobile/jquery.mobile.min.css'
             );
 
             $view->smartmobileView = true;
             break;
+        }
+
+        if (isset($opts['stylesheet_opts'])) {
+            $view->stylesheetOpts = array_merge($view->stylesheetOpts, $opts['stylesheet_opts']);
         }
 
         $html = '';
