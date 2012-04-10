@@ -41,7 +41,7 @@
 require_once __DIR__ . '/lib/Application.php';
 
 /* Don't compress if we are already sending in compressed format. */
-$vars = $injector->getInstance('Horde_Variables');
+$vars = Horde_Variables::getDefaultVariables();
 Horde_Registry::appInit('imp', array(
     'nocompress' => (($vars->actionID == 'download_all') || $vars->zip),
     'session_control' => ($vars->ajax ? null : 'readonly')
