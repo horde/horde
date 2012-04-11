@@ -6,8 +6,14 @@ v4.0-git
 
 
 -----------
-v3.0.13-git
+v3.0.14-git
 -----------
+
+
+
+-------
+v3.0.13
+-------
 
 [jan] Fix decode_attribute hook when exporting to vCard (kd@tu-cottbus.de, Bug
       #11123).

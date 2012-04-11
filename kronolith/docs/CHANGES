@@ -27,6 +27,10 @@ v4.0-git
 v3.0.17-git
 -----------
 
+[jan] Catch if external client doesn't send LAST-MODIFIED attributes (Bug
+      #11130).
+[jan] Don't stop agenda script if there is an error with a single user (Bug
+      #11129).
 [jan] Update Hungarian translation (Zoltán Németh <nemeth.zoltan@etit.hu>).
 [jan] Show round corners only on the start and end of multi-day events
       (Request #11067).

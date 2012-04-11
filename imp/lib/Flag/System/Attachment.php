@@ -37,7 +37,7 @@ class IMP_Flag_System_Attachment extends IMP_Flag_System_Match_Header
             return false;
         }
 
-        list($primary, $sub) = explode('/', $ctype, 2);
+        @list($primary, $sub) = explode('/', $ctype, 2);
         return (($primary == 'multipart') &&
             !in_array($sub, array('alternative', 'encrypt', 'related', 'signed')));
     }
