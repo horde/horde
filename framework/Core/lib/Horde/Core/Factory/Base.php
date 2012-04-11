@@ -47,4 +47,27 @@ class Horde_Core_Factory_Base
         $this->_injector = $injector;
     }
 
+    /**
+     * Return the classname of the driver to load.
+     *
+     * @param string $driver  Driver name.
+     * @param string $base    The base classname.
+     *
+     * @return string  Classname.
+     * @throws Horde_Exception
+     */
+    protected function _getDriverName($driver, $base)
+    {
+        $class = $base . '_' . Horde_String::ucfirst($driver);
+        if (class_exists($class)) {
+            return $class;
+        }
+
+        if (class_exists($driver)) {
+            return $driver;
+        }
+
+        throw new Horde_Exception('"' . $driver . '" driver (for ' . $base . ' not found).');
+    }
+
 }

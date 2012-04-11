@@ -13,7 +13,7 @@ class Horde_Core_Factory_Perms extends Horde_Core_Factory_Injector
      * Attempts to return a concrete instance based on $driver.
      *
      * @return Horde_Perms  The newly created concrete instance.
-     * @throws Horde_Perms_Exception
+     * @throws Horde_Exception
      */
     public function create(Horde_Injector $injector)
     {
@@ -29,14 +29,8 @@ class Horde_Core_Factory_Perms extends Horde_Core_Factory_Injector
         $params['cache'] = $injector->getInstance('Horde_Cache');
         $params['logger'] = $injector->getInstance('Horde_Log_Logger');
 
-        $class = is_null($driver)
-            ? 'Horde_Perms_Null'
-            : 'Horde_Perms' . '_' . ucfirst(basename($driver));
-
-        if (class_exists($class)) {
-            return new $class($params);
-        }
-
-        throw new Horde_Perms_Exception('Unknown driver: ' . $driver);
+        $class = $this->_getDriverName(is_null($driver) ? 'Null' : $driver, 'Horde_Perms');
+        return new $class($params);
     }
+
 }

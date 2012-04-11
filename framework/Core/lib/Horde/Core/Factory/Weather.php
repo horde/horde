@@ -37,14 +37,13 @@ class Horde_Core_Factory_Weather extends Horde_Core_Factory_Injector
             break;
         }
 
+        $class = $this->_getDriverName($driver, 'Horde_Service_Weather');
+
         try {
-            $class = 'Horde_Service_Weather_' . $driver;
-            $driver = new $class($params);
+            return new $class($params);
         } catch (InvalidArgumentException $e) {
             throw new Horde_Exception($e);
         }
-
-        return $driver;
     }
 
 }

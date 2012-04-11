@@ -27,15 +27,8 @@ class Horde_Core_Factory_Token extends Horde_Core_Factory_Injector
             $params['token_lifetime'] = $GLOBALS['conf']['urls']['token_lifetime'] * 60;
         }
 
-        $params['secret'] = $injector->getInstance('Horde_Secret')->getKey('auth');
-        $params['logger'] = $injector->getInstance('Horde_Log_Logger');
-
-        $class = 'Horde_Token_' . ucfirst($driver);
-        if (class_exists($class)) {
-            return new $class($params);
-        }
-
-        throw new Horde_Token_Exception('Driver ' . $driver . ' not found.');
+        $class = $this->_getDriverName($driver, 'Horde_Token');
+        return new $class($params);
     }
 
 }

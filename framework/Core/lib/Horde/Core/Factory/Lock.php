@@ -33,13 +33,8 @@ class Horde_Core_Factory_Lock extends Horde_Core_Factory_Injector
             $params['db'] = $injector->getInstance('Horde_Db_Adapter');
         }
 
-        $driver = Horde_String::ucfirst(basename($driver));
-        $class = 'Horde_Lock_' . $driver;
-
-        if (class_exists($class)) {
-            return new $class($params);
-        }
-
-        throw new Horde_Lock_Exception('Horde_Lock driver (' . $class . ') not found');
+        $class = $this->_getDriverName($driver, 'Horde_Lock');
+        return new $class($params);
     }
+
 }

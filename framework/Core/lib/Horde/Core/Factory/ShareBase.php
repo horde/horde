@@ -52,11 +52,7 @@ class Horde_Core_Factory_ShareBase extends Horde_Core_Factory_Base
             return $this->_instances[$sig];
         }
 
-        $class = 'Horde_Share_' . ucfirst(basename($driver));
-        if (!class_exists($class)) {
-            throw new Horde_Exception(sprintf(Horde_Core_Translation::t("\"%s\" share driver not found."), $driver));
-        }
-
+        $class = $this->_getDriverName($driver, 'Horde_Share');
         $ob = new $class($app, $GLOBALS['registry']->getAuth(), $this->_injector->getInstance('Horde_Perms'), $this->_injector->getInstance('Horde_Group'));
         $cb = new Horde_Core_Share_FactoryCallback($app, $driver);
         $ob->setShareCallback(array($cb, 'create'));
