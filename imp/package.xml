@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-02-28</date>
- <time>12:44:42</time>
+ <date>2012-04-11</date>
+ <time>12:34:55</time>
  <version>
   <release>5.0.20</release>
   <api>5.0.0</api>
@@ -2692,7 +2692,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-02-28</date>
+   <date>2012-04-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Added the &apos;delhide_trash&apos; preference.
