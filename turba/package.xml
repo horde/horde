@@ -29,9 +29,9 @@
   <active>yes</active>
  </lead>
  <date>2012-04-11</date>
- <time>12:38:20</time>
+ <time>12:39:15</time>
  <version>
-  <release>3.0.13</release>
+  <release>3.0.14</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -40,10 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* [jan] Fix decode_attribute hook when exporting to vCard (kd@tu-cottbus.de, Bug #11123).
-* [jan] Update Hungarian translation (Zoltán Németh &lt;nemeth.zoltan@etit.hu&gt;).
-* [jan] Only connect to LDAP driver for read/write requests (Dominique Lalot &lt;dom.lalot@gmail.com&gt;, Request #11082).
-* [mjr] Fix bug that caused time shifting of contact birthday and anniversary values from ActiveSync devices for users in certain timezones.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1403,6 +1400,19 @@
 * [jan] Update Hungarian translation (Zoltán Németh &lt;nemeth.zoltan@etit.hu&gt;).
 * [jan] Only connect to LDAP driver for read/write requests (Dominique Lalot &lt;dom.lalot@gmail.com&gt;, Request #11082).
 * [mjr] Fix bug that caused time shifting of contact birthday and anniversary values from ActiveSync devices for users in certain timezones.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.14</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-04-11</date>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
