@@ -45,7 +45,8 @@ class Horde_Core_Factory_Data extends Horde_Core_Factory_Base
             $params['charset'] = 'UTF-8';
         }
 
-        return Horde_Data::factory($driver, $params);
+        $class = $this->_getDriverName($driver, 'Horde_Data');
+        return new $class($params);
     }
 
 }
