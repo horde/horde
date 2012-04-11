@@ -41,20 +41,19 @@ class Horde_Data_Csv extends Horde_Data_Base
     protected $_extension = 'csv';
 
     /**
-     * Constructor.
-     *
      * @param array $params  Optional parameters:
      *   - charset: (string) The default charset.
      *              DEFAULT: NONE
      */
-    public function __construct(array $params = array())
+    public function __construct(Horde_Data_Storage $storage,
+                                array $params = array())
     {
         if (isset($params['charset'])) {
             $this->_charset = $params['charset'];
             unset($params['charset']);
         }
 
-        parent::__construct($params);
+        parent::__construct($storage, $params);
     }
 
     /**
@@ -213,8 +212,6 @@ class Horde_Data_Csv extends Horde_Data_Base
      */
     public function nextStep($action, array $param = array())
     {
-        $session = $GLOBALS['injector']->getInstance('Horde_Session');
-
         switch ($action) {
         case Horde_Data::IMPORT_FILE:
             parent::nextStep($action, $param);
@@ -225,10 +222,10 @@ class Horde_Data_Csv extends Horde_Data_Base
             if (!move_uploaded_file($_FILES['import_file']['tmp_name'], $file_name)) {
                 throw new Horde_Data_Exception(Horde_Data_Translation::t("The uploaded file could not be saved."));
             }
-            $session->set('horde', 'import_data/file_name', $file_name);
+            $this->_storage->set('file_name', $file_name);
 
             /* Check if charset was specified. */
-            $session->set('horde', 'import_data/charset', $this->_vars->charset);
+            $this->_storage->set('charset', $this->_vars->charset);
 
             /* Read the file's first two lines to show them to the user. */
             $first_lines = '';
@@ -243,36 +240,36 @@ class Horde_Data_Csv extends Horde_Data_Base
                     }
                 }
             }
-            $session->set('horde', 'import_data/first_lines', $first_lines);
+            $this->_storage->set('first_lines', $first_lines);
 
             /* Import the first line to guess the number of fields. */
             if ($first_lines) {
                 rewind($fp);
                 $line = Horde_Util::getCsv($fp);
                 if ($line) {
-                    $session->set('horde', 'import_data/fields', count($line));
+                    $this->_storage->set('fields', count($line));
                 }
             }
 
             return Horde_Data::IMPORT_CSV;
 
         case Horde_Data::IMPORT_CSV:
-            $session->set('horde', 'import_data/header', $this->_vars->header);
+            $this->_storage->set('header', $this->_vars->header);
             $import_mapping = array();
             if (isset($param['import_mapping'])) {
                 $import_mapping = $param['import_mapping'];
             }
-            $session->set('horde', 'import_data/data', $this->importFile(
-                $session->get('horde', 'import_data/file_name'),
+            $this->_storage->set('data', $this->importFile(
+                $this->_storage->get('file_name'),
                 $this->_vars->header,
                 $this->_vars->sep,
                 $this->_vars->quote,
                 $this->_vars->fields,
                 $import_mapping,
-                $session->get('horde', 'import_data/charset'),
-                $session->get('horde', 'import_data/crlf')
+                $this->_storage->get('charset'),
+                $this->_storage->get('crlf')
             ));
-            $session->remove('horde', 'import_data/map');
+            $this->_storage->set('map');
             return Horde_Data::IMPORT_MAPPED;
 
         default:

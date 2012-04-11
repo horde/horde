@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-04-10</date>
- <time>19:26:37</time>
+ <date>2012-04-11</date>
+ <time>17:48:26</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -53,6 +53,7 @@
        <file name="Yahoo.csv" role="doc" />
       </dir> <!-- /doc/Horde/Data/examples -->
       <file name="COPYING" role="doc" />
+      <file name="UPGRADING" role="doc" />
      </dir> <!-- /doc/Horde/Data -->
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
@@ -65,6 +66,7 @@
       <file name="Icalendar.php" role="php" />
       <file name="Imc.php" role="php" />
       <file name="Outlookcsv.php" role="php" />
+      <file name="Storage.php" role="php" />
       <file name="Translation.php" role="php">
        <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
       </file>
@@ -411,19 +413,11 @@
     <exclude>2.0.0</exclude>
    </package>
   </required>
-  <optional>
-   <package>
-    <name>Horde_Util</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
-   </package>
-  </optional>
  </dependencies>
  <phprelease>
   <filelist>
    <install as="COPYING" name="doc/Horde/Data/COPYING" />
+   <install as="UPGRADING" name="doc/Horde/Data/UPGRADING" />
    <install as="examples/Eudora.txt" name="doc/Horde/Data/examples/Eudora.txt" />
    <install as="examples/Gmail.csv" name="doc/Horde/Data/examples/Gmail.csv" />
    <install as="examples/KMail.csv" name="doc/Horde/Data/examples/KMail.csv" />
@@ -440,6 +434,7 @@
    <install as="Horde/Data/Icalendar.php" name="lib/Horde/Data/Icalendar.php" />
    <install as="Horde/Data/Imc.php" name="lib/Horde/Data/Imc.php" />
    <install as="Horde/Data/Outlookcsv.php" name="lib/Horde/Data/Outlookcsv.php" />
+   <install as="Horde/Data/Storage.php" name="lib/Horde/Data/Storage.php" />
    <install as="Horde/Data/Translation.php" name="lib/Horde/Data/Translation.php" />
    <install as="Horde/Data/Tsv.php" name="lib/Horde/Data/Tsv.php" />
    <install as="Horde/Data/Vcard.php" name="lib/Horde/Data/Vcard.php" />

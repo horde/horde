@@ -18,3 +18,12 @@ Upgrading to 2.0
 
     The factory method has been removed. Directly instantiate a transport
     driver instead.
+
+  - Horde_Data_Base
+
+    The constructor now requires a Horde_Data_Storage object to be passed in
+    as the first argument.
+
+  - Horde_Data_Storage
+
+    Temporary data storage has been abstracted out to this class.

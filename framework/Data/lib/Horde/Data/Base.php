@@ -43,6 +43,13 @@ abstract class Horde_Data_Base
     protected $_extension = '';
 
     /**
+     * Storage object.
+     *
+     * @var Horde_Data_Storage
+     */
+    protected $_storage;
+
+    /**
      * Variables object.
      *
      * @var Horde_Variables
@@ -59,13 +66,17 @@ abstract class Horde_Data_Base
     /**
      * Constructor.
      *
-     * @param array $params  Optional parameters:
+     * @param Horde_Data_Storage  A storage object.
+     * @param array $params       Optional parameters:
      *   - browser: (Horde_Browser) A browser object.
      *   - cleanup: (callback) A callback to call at cleanup time.
      *   - vars: (Horde_Variables) Form data.
      */
-    public function __construct(array $params = array())
+    public function __construct(Horde_Data_Storage $storage,
+                                array $params = array())
     {
+        $this->_storage = $storage;
+
         if (isset($params['browser'])) {
             $this->_browser = $params['browser'];
         }
@@ -171,13 +182,12 @@ abstract class Horde_Data_Base
      * @param string $type   One of 'date', 'time' or 'datetime'.
      * @param array $params  Two-dimensional array with additional information
      *                       about the formatting. Possible keys are:
-     *                       - delimiter - The character that seperates the
-     *                         different date/time parts.
-     *                       - format - If 'ampm' and $date contains a time we
-     *                         assume that it is in AM/PM format.
-     *                       - order - If $type is 'datetime' the order of the
-     *                         day and time parts: -1 (timestamp), 0
-     *                         (day/time), 1 (time/day).
+     *   - delimiter: The character that seperates the different date/time
+     *                parts.
+     *   - format: If 'ampm' and $date contains a time we assume that it is in
+     *             AM/PM format.
+     *   - order: If $type is 'datetime' the order of the day and time parts:
+     *           -1 (timestamp), 0 (day/time), 1 (time/day).
      * @param integer $key   The key to use for $params.
      *
      * @return string  The date or time in ISO format.
@@ -225,16 +235,16 @@ abstract class Horde_Data_Base
                list($time, $day) = explode(' ', $date, 2);
                break;
             }
-            $date = $this->_mapDate($day, 'date',
-                                   array('delimiter' => $params['day_delimiter'],
-                                         'format' => $params['day_format']),
-                                   $key);
-            $time = $this->_mapDate($time, 'time',
-                                   array('delimiter' => $params['time_delimiter'],
-                                         'format' => $params['time_format']),
-                                   $key);
-            return $date . ' ' . $time;
+            $date = $this->_mapDate($day, 'date', array(
+                'delimiter' => $params['day_delimiter'],
+                'format' => $params['day_format']
+            ), $key);
+            $time = $this->_mapDate($time, 'time', array(
+                'delimiter' => $params['time_delimiter'],
+                'format' => $params['time_format']
+            ), $key);
 
+            return $date . ' ' . $time;
         }
     }
 
@@ -257,9 +267,6 @@ abstract class Horde_Data_Base
             return Horde_Data::IMPORT_FILE;
         }
 
-        // TODO - Must be injected
-        $session = $GLOBALS['injector']->getInstance('Horde_Session');
-
         switch ($action) {
         case Horde_Data::IMPORT_FILE:
             if (!isset($this->_browser)) {
@@ -274,7 +281,7 @@ abstract class Horde_Data_Base
             if ($_FILES['import_file']['size'] <= 0) {
                 throw new Horde_Data_Exception(Horde_Data_Translation::t("The file contained no data."));
             }
-            $session->set('horde', 'import_data/format', $this->_vars->import_format);
+            $this->_storage->set('format', $this->_vars->import_format);
             break;
 
         case Horde_Data::IMPORT_MAPPED:
@@ -283,10 +290,11 @@ abstract class Horde_Data_Base
             }
             $dataKeys = explode("\t", $this->_vars->dataKeys);
             $appKeys = explode("\t", $this->_vars->appKeys);
-            $map = array();
-            $dates = array();
+            $dates = $map = array();
 
-            $import_data = $session->get('horde', 'import_data/data', Horde_Session::TYPE_ARRAY);
+            if (!$import_data = $this->_storage->get('data')) {
+                $import_data = array();
+            }
 
             foreach ($appKeys as $key => $app) {
                 $map[$dataKeys[$key]] = $app;
@@ -306,11 +314,11 @@ abstract class Horde_Data_Base
                 }
             }
 
-            $session->set('horde', 'import_data/map', $map);
+            $this->_storage->set('map', $map);
             if (count($dates) > 0) {
                 foreach ($dates as $key => $data) {
                     if (count($data['values'])) {
-                        $session->set('horde', 'import_data/dates', $dates);
+                        $this->_storage->set('dates', $dates);
                         return Horde_Data::IMPORT_DATETIME;
                     }
                 }
@@ -331,15 +339,15 @@ abstract class Horde_Data_Base
                 );
             }
 
-            if (!$session->exists('horde', 'import_data/data')) {
+            if (!$this->_storage->exists('data')) {
                 throw new Horde_Data_Exception(Horde_Data_Translation::t("The uploaded data was lost since the previous step."));
             }
 
             /* Build the result data set as an associative array. */
             $data = array();
-            $data_map = $session->get('horde', 'import_data/map', Horde_Session::TYPE_ARRAY);
+            $data_map = $this->_storage->get('map');
 
-            foreach ($session->get('horde', 'import_data/data') as $row) {
+            foreach ($this->_storage->get('data') as $row) {
                 $data_row = array();
                 foreach ($row as $key => $val) {
                     if (isset($data_map[$key])) {
@@ -361,21 +369,17 @@ abstract class Horde_Data_Base
     }
 
     /**
-     * Cleans the session data up and removes any uploaded and moved
-     * files.
+     * Removes any uploaded and moved files.
      *
      * @return mixed  If callback called, the return value of this call.
      *                This should be the value of the first import step.
      */
     public function cleanup()
     {
-        // TODO - Must be injected
-        $session = $GLOBALS['injector']->getInstance('Horde_Session');
-
-        if ($filename = $session->get('horde', 'import_data/file_name')) {
+        if ($filename = $this->_storage->get('file_name')) {
             @unlink($filename);
         }
-        $session->remove('horde', 'import_data');
+        $this->_storage->clear();
 
         if ($this->_cleanupCallback) {
             return call_user_func($this->_cleanupCallback);

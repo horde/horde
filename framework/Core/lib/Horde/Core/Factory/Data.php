@@ -46,7 +46,8 @@ class Horde_Core_Factory_Data extends Horde_Core_Factory_Base
         }
 
         $class = $this->_getDriverName($driver, 'Horde_Data');
-        return new $class($params);
+
+        return new $class(new Horde_Core_Data_Storage(), $params);
     }
 
 }
