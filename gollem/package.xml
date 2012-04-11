@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-22</date>
- <time>22:58:29</time>
+ <date>2012-04-11</date>
+ <time>12:40:54</time>
  <version>
   <release>2.0.2</release>
   <api>2.0.0</api>
@@ -57,6 +57,7 @@
    <dir name="js">
     <file name="clipboard.js" role="horde" />
     <file name="edit.js" role="horde" />
+    <file name="login.js" role="horde" />
     <file name="manager.js" role="horde" />
     <file name="selectlist.js" role="horde" />
    </dir> <!-- /js -->
@@ -320,6 +321,7 @@
       <file name="cut.png" role="horde" />
       <file name="download.png" role="horde" />
       <file name="edit.png" role="horde" />
+      <file name="favicon.ico" role="horde" />
       <file name="folder.png" role="horde" />
       <file name="folder_create.png" role="horde" />
       <file name="folder_goto.png" role="horde" />
@@ -508,6 +510,7 @@
    <install as="UPGRADING" name="docs/UPGRADING" />
    <install as="gollem/js/clipboard.js" name="js/clipboard.js" />
    <install as="gollem/js/edit.js" name="js/edit.js" />
+   <install as="gollem/js/login.js" name="js/login.js" />
    <install as="gollem/js/manager.js" name="js/manager.js" />
    <install as="gollem/js/selectlist.js" name="js/selectlist.js" />
    <install as="gollem/lib/Api.php" name="lib/Api.php" />
@@ -620,6 +623,7 @@
    <install as="gollem/themes/silver/graphics/cut.png" name="themes/silver/graphics/cut.png" />
    <install as="gollem/themes/silver/graphics/download.png" name="themes/silver/graphics/download.png" />
    <install as="gollem/themes/silver/graphics/edit.png" name="themes/silver/graphics/edit.png" />
+   <install as="gollem/themes/silver/graphics/favicon.ico" name="themes/silver/graphics/favicon.ico" />
    <install as="gollem/themes/silver/graphics/folder.png" name="themes/silver/graphics/folder.png" />
    <install as="gollem/themes/silver/graphics/folder_create.png" name="themes/silver/graphics/folder_create.png" />
    <install as="gollem/themes/silver/graphics/folder_goto.png" name="themes/silver/graphics/folder_goto.png" />
@@ -728,7 +732,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-22</date>
+   <date>2012-04-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Don&apos;t show user name and password fields on login page if not required.
