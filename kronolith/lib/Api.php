@@ -336,20 +336,25 @@ class Kronolith_Api extends Horde_Registry_Api
                                     break;
                                 }
                             }
-                        } catch (Exception $e) {}
+                        } catch (Horde_Exception $e) {
+                        }
                         if (empty($modified) && !empty($created)) {
                             $modified = $created;
                         }
-                        if (!empty($modified) &&
-                            $modified >= $content->getAttribute('LAST-MODIFIED')) {
+                        try {
+                            if (!empty($modified) &&
+                                $modified >= $content->getAttribute('LAST-MODIFIED')) {
                                 // LAST-MODIFIED timestamp of existing entry
                                 // is newer: don't replace it.
                                 continue;
                             }
+                        } catch (Horde_Icalendar_Exception $e) {
+                        }
 
                         // Don't change creator/owner.
                         $event->creator = $existing_event->creator;
-                    } catch (Horde_Exception_NotFound $e) {}
+                    } catch (Horde_Exception_NotFound $e) {
+                    }
 
                     // Save entry.
                     $saved = $event->save();
