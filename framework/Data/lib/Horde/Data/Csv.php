@@ -44,12 +44,8 @@ class Horde_Data_Csv extends Horde_Data_Base
      * Constructor.
      *
      * @param array $params  Optional parameters:
-     * <pre>
-     * 'charset' - (string) The default charset.
-     *             DEFAULT: NONE
-     * </pre>
-     *
-     * @throws InvalidArgumentException
+     *   - charset: (string) The default charset.
+     *              DEFAULT: NONE
      */
     public function __construct(array $params = array())
     {
@@ -215,7 +211,7 @@ class Horde_Data_Csv extends Horde_Data_Base
      *                data set after the final step.
      * @throws Horde_Data_Exception
      */
-    public function nextStep($action, $param = array())
+    public function nextStep($action, array $param = array())
     {
         $session = $GLOBALS['injector']->getInstance('Horde_Session');
 

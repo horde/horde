@@ -59,14 +59,10 @@ abstract class Horde_Data_Base
     /**
      * Constructor.
      *
-     * @param array $params  Parameters:
-     * <pre>
-     * OPTIONAL:
-     * ---------
-     * browser - (Horde_Browser) A browser object.
-     * cleanup - (callback) A callback to call at cleanup time.
-     * vars - (Horde_Variables) Form data.
-     * </pre>
+     * @param array $params  Optional parameters:
+     *   - browser: (Horde_Browser) A browser object.
+     *   - cleanup: (callback) A callback to call at cleanup time.
+     *   - vars: (Horde_Variables) Form data.
      */
     public function __construct(array $params = array())
     {

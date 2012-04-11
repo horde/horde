@@ -287,10 +287,11 @@ case 'export':
         exit;
 
     case 'ldif':
-        $ldif = new Turba_Data_Ldif(
-            array('browser' => $injector->getInstance('Horde_Browser'),
-                  'vars' => Horde_Variables::getDefaultVariables(),
-                  'cleanup' => '_cleanupData'));
+        $ldif = new Turba_Data_Ldif(array(
+            'browser' => $injector->getInstance('Horde_Browser'),
+            'vars' => Horde_Variables::getDefaultVariables(),
+            'cleanup' => '_cleanupData'
+        ));
         $ldif->exportFile(_("contacts.ldif"), $data, true);
         exit;
     }

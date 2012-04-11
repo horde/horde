@@ -418,10 +418,10 @@ class Horde_Util
      *
      * @param resource $file  A file pointer.
      * @param array $params   Optional parameters. Possible values:
-     *                        - 'separator': The field delimiter.
-     *                        - 'quote': The quote character.
-     *                        - 'escape': The escape character.
-     *                        - 'length': The expected number of fields.
+     *   - escape: The escape character.
+     *   - length: The expected number of fields.
+     *   - quote: The quote character.
+     *   - separator: The field delimiter.
      *
      * @return array|boolean  A row from the CSV file or false on error or end
      *                        of file.
