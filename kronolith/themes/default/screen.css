@@ -96,6 +96,9 @@ table.monthgrid th, table.monthgrid td {
 .block-monthgrid .today {
     border: 1px solid #446;
 }
+.block-upcomingday td {
+    border-top: 1px solid #ddd;
+}
 
 /* background-color will always be overridden for the
  * *-eventbox classes */
