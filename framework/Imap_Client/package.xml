@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2012-04-11</date>
- <time>15:09:15</time>
+ <time>15:09:36</time>
  <version>
-  <release>1.5.3</release>
+  <release>1.5.4</release>
   <api>1.5.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fixed PHP 5.2 incompatibility (Bug #11137).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -839,6 +839,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fixed PHP 5.2 incompatibility (Bug #11137).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.5.4</release>
+    <api>1.5.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-04-11</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
