@@ -28,8 +28,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-02-28</date>
- <time>12:47:48</time>
+ <date>2012-04-11</date>
+ <time>12:38:20</time>
  <version>
   <release>3.0.13</release>
   <api>3.0.0</api>
@@ -1396,7 +1396,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-02-28</date>
+   <date>2012-04-11</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
 * [jan] Fix decode_attribute hook when exporting to vCard (kd@tu-cottbus.de, Bug #11123).
