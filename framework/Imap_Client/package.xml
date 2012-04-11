@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-04-09</date>
- <time>13:28:53</time>
+ <date>2012-04-11</date>
+ <time>15:09:15</time>
  <version>
   <release>1.5.3</release>
   <api>1.5.0</api>
@@ -835,7 +835,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-04-09</date>
+   <date>2012-04-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fixed PHP 5.2 incompatibility (Bug #11137).
