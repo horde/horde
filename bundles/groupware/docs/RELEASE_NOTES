@@ -15,7 +15,7 @@ $this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG, Horde_Release
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Horde Groupware
-version 4.0.6.
+version 4.0.7.
 
 Horde Groupware is a free, enterprise ready, browser based collaboration
 suite. Users can manage and share calendars, contacts, tasks and notes with the
@@ -27,24 +27,39 @@ http://www.horde.org/apps/groupware/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/groupware/docs/INSTALL
 
-The major changes compared to the Horde Groupware version 4.0.5 are:
+The major changes compared to the Horde Groupware version 4.0.6 are:
 
 General changes:
+    * Added override for broken Sendmail implementations.
+    * Improved ActiveSync policy configuration.
+    * Updated Brazilian Portuguese, Finnish, German, Hungarian, and Spanish
+      translations.
     * Small bugfixes and improvements.
 
-Calendar changes:
-    * Display event time in dynamic view if requested.
-
 Address book changes:
-    * Improved vCard compatibility.
-    * Updated Japanese translation.
+    * Improved LDAP performance.
+    * Improved navigation when editing group entries.
+    * Fixed phone number synchronization with newer Funambol clients.
+
+Calendar changes:
+    * Improved attendee auto-completion.
+    * Fixed migration script.
+
+Notes changes:
+    * Added missing method required for sychronization.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Display event time in dynamic calendar view if requested.
-Improved vCard compatibility.
-Updated Japanese translation.
+Added override for broken Sendmail implementations.
+Added missing method required for notes sychronization.
+Improved ActiveSync policy configuration.
+Improved LDAP address book performance.
+Improved navigation when editing contact group entries.
+Improved event attendee auto-completion.
+Fixed phone number synchronization with newer Funambol clients.
+Fixed calendar migration script.
+Updated Brazilian Portuguese, Finnish, German, Hungarian, and Spanish translations.
 Small bugfixes and improvements.
 FM;
 
