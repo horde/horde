@@ -1806,7 +1806,7 @@ class Kronolith
         try {
             self::getDriver()->delete($calendar->getName());
         } catch (Exception $e) {
-            throw new Kronolith_Exception(sprintf(_("Unable to delete \"%s\": %s"), $calendar->get('name'), $ed->getMessage()));
+            throw new Kronolith_Exception(sprintf(_("Unable to delete \"%s\": %s"), $calendar->get('name'), $e->getMessage()));
         }
 
         // Remove share and all groups/permissions.
