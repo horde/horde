@@ -14,7 +14,7 @@ class Horde_Core_Factory_Lock extends Horde_Core_Factory_Injector
      * Attempts to return a concrete instance based on the configured driver.
      *
      * @return Horde_Lock  The newly created concrete instance.
-     * @throws Horde_Lock_Exception
+     * @throws Horde_Exception
      */
     public function create(Horde_Injector $injector)
     {

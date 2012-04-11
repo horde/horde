@@ -45,6 +45,7 @@ class Horde_Core_Factory_Alarm extends Horde_Core_Factory_Base
      * Return a Horde_Alarm instance.
      *
      * @return Horde_Alarm
+     * @throws Horde_Exception
      */
     public function create()
     {

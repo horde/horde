@@ -42,7 +42,7 @@ class Horde_Core_Factory_Imple extends Horde_Core_Factory_Base
      * @throws Horde_Exception
      */
     public function create($driver, array $params = array(),
-                             $noattach = false)
+                           $noattach = false)
     {
         if (is_array($driver)) {
             list($app, $driv_name) = $driver;

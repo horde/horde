@@ -8,7 +8,9 @@ class Horde_Core_Factory_Image extends Horde_Core_Factory_Base
     /**
      * Returns an appropriate Horde_Image object based on Horde's configuration.
      *
-     * @param array $params  An array of image parameters. @see Horde_Image_Base
+     * @param array $params  An array of image parameters. @see
+     *                       Horde_Image_Base
+     *
      * @return Horde_Image
      * @throws Horde_Exception
      */
