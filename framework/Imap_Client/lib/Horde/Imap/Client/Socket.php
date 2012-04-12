@@ -3721,7 +3721,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         $res = parent::_getSeqUidLookup($ids, $reverse);
 
-        if (empty($ob['uids'])) {
+        if (!count($ob['uids'])) {
             return $res;
         }
 
