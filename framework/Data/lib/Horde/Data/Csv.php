@@ -95,7 +95,7 @@ class Horde_Data_Csv extends Horde_Data_Base
 
         /* Strip and keep the first line if it contains the field names. */
         if ($header) {
-            $head = Horde_Util::getCsv($fp, $conf);
+            $head = self::getCsv($fp, $conf);
             if (!$head) {
                 return array();
             }
@@ -105,7 +105,7 @@ class Horde_Data_Csv extends Horde_Data_Base
         }
 
         $data = array();
-        while ($line = Horde_Util::getCsv($fp, $conf)) {
+        while ($line = self::getCsv($fp, $conf)) {
             if (!empty($charset)) {
                 $line = Horde_String::convertCharset($line, $charset, $this->_charset);
             }
@@ -245,7 +245,7 @@ class Horde_Data_Csv extends Horde_Data_Base
             /* Import the first line to guess the number of fields. */
             if ($first_lines) {
                 rewind($fp);
-                $line = Horde_Util::getCsv($fp);
+                $line = self::getCsv($fp);
                 if ($line) {
                     $this->_storage->set('fields', count($line));
                 }
@@ -275,6 +275,68 @@ class Horde_Data_Csv extends Horde_Data_Base
         default:
             return parent::nextStep($action, $param);
         }
+    }
+
+    /* Static utility method. */
+
+    /**
+     * Wrapper around fgetcsv().
+     *
+     * Empty lines will be skipped. If the 'length' parameter is provided, all
+     * rows are filled up with empty strings up to this length, or stripped
+     * down to this length.
+     *
+     * @param resource $file  A file pointer.
+     * @param array $params   Optional parameters. Possible values:
+     *   - escape: The escape character.
+     *   - length: The expected number of fields.
+     *   - quote: The quote character.
+     *   - separator: The field delimiter.
+     *
+     * @return array|boolean  A row from the CSV file or false on error or end
+     *                        of file.
+     */
+    static public function getCsv($file, array $params = array())
+    {
+        $params += array(
+            'escape' => '\\',
+            'quote' => '"',
+            'separator' => ','
+        );
+
+        // fgetcsv() throws a warning if the quote character is empty.
+        if (!strlen($params['quote']) && ($params['escape'] != '\\')) {
+            $params['quote'] = '"';
+        }
+
+        // Detect Mac line endings.
+        $old = ini_get('auto_detect_line_endings');
+        ini_set('auto_detect_line_endings', 1);
+
+        do {
+            $row = strlen($params['quote'])
+                ? fgetcsv($file, 0, $params['separator'], $params['quote'], $params['escape'])
+                : fgetcsv($file, 0, $params['separator']);
+        } while ($row && is_null($row[0]));
+
+        ini_set('auto_detect_line_endings', $old);
+
+        if ($row) {
+            $row = (strlen($params['quote']) && strlen($params['escape']))
+                ? array_map(create_function('$a', 'return str_replace(\'' . str_replace('\'', '\\\'', $params['escape'] . $params['quote']) . '\', \'' . str_replace('\'', '\\\'', $params['quote']) . '\', $a);'), $row)
+                : array_map('trim', $row);
+
+            if (!empty($params['length'])) {
+                $length = count($row);
+                if ($length < $params['length']) {
+                    $row += array_fill($length, $params['length'] - $length, '');
+                } elseif ($length > $params['length']) {
+                    array_splice($row, $params['length']);
+                }
+            }
+        }
+
+        return $row;
     }
 
 }

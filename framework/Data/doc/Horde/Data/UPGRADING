@@ -24,6 +24,10 @@ Upgrading to 2.0
     The constructor now requires a Horde_Data_Storage object to be passed in
     as the first argument.
 
+  - Horde_Data_Csv
+
+    The static helper method getCsv() was added.
+
   - Horde_Data_Storage
 
     Temporary data storage has been abstracted out to this class.

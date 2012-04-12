@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-04-11</date>
- <time>17:48:26</time>
+ <date>2012-04-12</date>
+ <time>14:00:52</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -343,6 +343,33 @@
     <dir name="Horde">
      <dir name="Data">
       <dir name="fixtures">
+       <dir name="getcsv">
+        <file name="001.csv" role="test" />
+        <file name="002.csv" role="test" />
+        <file name="003.csv" role="test" />
+        <file name="004.csv" role="test" />
+        <file name="005.csv" role="test" />
+        <file name="bug_3839.csv" role="test" />
+        <file name="bug_4025.csv" role="test" />
+        <file name="bug_6311.csv" role="test" />
+        <file name="bug_6370.csv" role="test" />
+        <file name="bug_6372.csv" role="test" />
+        <file name="columns1.csv" role="test" />
+        <file name="columns2.csv" role="test" />
+        <file name="multiline1.csv" role="test" />
+        <file name="notrailing_crlf.csv" role="test" />
+        <file name="notrailing_lf.csv" role="test" />
+        <file name="quote1.csv" role="test" />
+        <file name="quote2.csv" role="test" />
+        <file name="quote3.csv" role="test" />
+        <file name="quote4.csv" role="test" />
+        <file name="quote5.csv" role="test" />
+        <file name="quote6.csv" role="test" />
+        <file name="quote7.csv" role="test" />
+        <file name="simple_cr.csv" role="test" />
+        <file name="simple_crlf.csv" role="test" />
+        <file name="simple_lf.csv" role="test" />
+       </dir> <!-- /test/Horde/Data/fixtures/getcsv -->
        <file name="quotes1.csv" role="test" />
        <file name="quotes2.csv" role="test" />
        <file name="simple_dos.csv" role="test" />
@@ -350,6 +377,7 @@
       </dir> <!-- /test/Horde/Data/fixtures -->
       <file name="AllTests.php" role="test" />
       <file name="CsvTest.php" role="test" />
+      <file name="GetCsvTest.php" role="test" />
      </dir> <!-- /test/Horde/Data -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -529,10 +557,36 @@
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Data.po" name="locale/zh_TW/LC_MESSAGES/Horde_Data.po" />
    <install as="Horde/Data/AllTests.php" name="test/Horde/Data/AllTests.php" />
    <install as="Horde/Data/CsvTest.php" name="test/Horde/Data/CsvTest.php" />
+   <install as="Horde/Data/GetCsvTest.php" name="test/Horde/Data/GetCsvTest.php" />
    <install as="Horde/Data/fixtures/quotes1.csv" name="test/Horde/Data/fixtures/quotes1.csv" />
    <install as="Horde/Data/fixtures/quotes2.csv" name="test/Horde/Data/fixtures/quotes2.csv" />
    <install as="Horde/Data/fixtures/simple_dos.csv" name="test/Horde/Data/fixtures/simple_dos.csv" />
    <install as="Horde/Data/fixtures/simple_unix.csv" name="test/Horde/Data/fixtures/simple_unix.csv" />
+   <install as="Horde/Data/fixtures/getcsv/001.csv" name="test/Horde/Data/fixtures/getcsv/001.csv" />
+   <install as="Horde/Data/fixtures/getcsv/002.csv" name="test/Horde/Data/fixtures/getcsv/002.csv" />
+   <install as="Horde/Data/fixtures/getcsv/003.csv" name="test/Horde/Data/fixtures/getcsv/003.csv" />
+   <install as="Horde/Data/fixtures/getcsv/004.csv" name="test/Horde/Data/fixtures/getcsv/004.csv" />
+   <install as="Horde/Data/fixtures/getcsv/005.csv" name="test/Horde/Data/fixtures/getcsv/005.csv" />
+   <install as="Horde/Data/fixtures/getcsv/bug_3839.csv" name="test/Horde/Data/fixtures/getcsv/bug_3839.csv" />
+   <install as="Horde/Data/fixtures/getcsv/bug_4025.csv" name="test/Horde/Data/fixtures/getcsv/bug_4025.csv" />
+   <install as="Horde/Data/fixtures/getcsv/bug_6311.csv" name="test/Horde/Data/fixtures/getcsv/bug_6311.csv" />
+   <install as="Horde/Data/fixtures/getcsv/bug_6370.csv" name="test/Horde/Data/fixtures/getcsv/bug_6370.csv" />
+   <install as="Horde/Data/fixtures/getcsv/bug_6372.csv" name="test/Horde/Data/fixtures/getcsv/bug_6372.csv" />
+   <install as="Horde/Data/fixtures/getcsv/columns1.csv" name="test/Horde/Data/fixtures/getcsv/columns1.csv" />
+   <install as="Horde/Data/fixtures/getcsv/columns2.csv" name="test/Horde/Data/fixtures/getcsv/columns2.csv" />
+   <install as="Horde/Data/fixtures/getcsv/multiline1.csv" name="test/Horde/Data/fixtures/getcsv/multiline1.csv" />
+   <install as="Horde/Data/fixtures/getcsv/notrailing_crlf.csv" name="test/Horde/Data/fixtures/getcsv/notrailing_crlf.csv" />
+   <install as="Horde/Data/fixtures/getcsv/notrailing_lf.csv" name="test/Horde/Data/fixtures/getcsv/notrailing_lf.csv" />
+   <install as="Horde/Data/fixtures/getcsv/quote1.csv" name="test/Horde/Data/fixtures/getcsv/quote1.csv" />
+   <install as="Horde/Data/fixtures/getcsv/quote2.csv" name="test/Horde/Data/fixtures/getcsv/quote2.csv" />
+   <install as="Horde/Data/fixtures/getcsv/quote3.csv" name="test/Horde/Data/fixtures/getcsv/quote3.csv" />
+   <install as="Horde/Data/fixtures/getcsv/quote4.csv" name="test/Horde/Data/fixtures/getcsv/quote4.csv" />
+   <install as="Horde/Data/fixtures/getcsv/quote5.csv" name="test/Horde/Data/fixtures/getcsv/quote5.csv" />
+   <install as="Horde/Data/fixtures/getcsv/quote6.csv" name="test/Horde/Data/fixtures/getcsv/quote6.csv" />
+   <install as="Horde/Data/fixtures/getcsv/quote7.csv" name="test/Horde/Data/fixtures/getcsv/quote7.csv" />
+   <install as="Horde/Data/fixtures/getcsv/simple_cr.csv" name="test/Horde/Data/fixtures/getcsv/simple_cr.csv" />
+   <install as="Horde/Data/fixtures/getcsv/simple_crlf.csv" name="test/Horde/Data/fixtures/getcsv/simple_crlf.csv" />
+   <install as="Horde/Data/fixtures/getcsv/simple_lf.csv" name="test/Horde/Data/fixtures/getcsv/simple_lf.csv" />
   </filelist>
  </phprelease>
  <changelog>
