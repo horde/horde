@@ -260,7 +260,7 @@ abstract class Horde_Data_Base
      *                data set after the final step.
      * @throws Horde_Data_Exception
      */
-    public function nextStep($action, $param = array())
+    public function nextStep($action, array $param = array())
     {
         /* First step. */
         if (is_null($action)) {
