@@ -59,10 +59,11 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
     {
         /* Non-javascript browsers can't handle IFRAME resizing, so it isn't
          * possible to view inline. */
-        if (!$this->getConfigParam('browser')->hasFeature('javascript')) {
+        if ((IMP::getViewMode() == 'mimp') ||
+            !$this->getConfigParam('browser')->hasFeature('javascript')) {
             $status = new IMP_Mime_Status(array(
                 _("This message part contains HTML data, but this data can not be displayed inline."),
-                $this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', _("View HTML data in new window."))
+                $this->getConfigParam('imp_contents')->linkView($this->_mimepart, 'view_attach', _("View HTML data in new window."))
             ));
             $status->icon('mime/html.png');
 
@@ -76,17 +77,13 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         }
 
         $data = $this->_IMPrender(true);
+        $uid = strval(new Horde_Support_Randomid());
 
-        /* Catches case where using mimp on a javascript browser. */
-        if (IMP::getViewMode() != 'mimp') {
-            $uid = strval(new Horde_Support_Randomid());
+        Horde::addScriptFile('imp.js', 'imp');
 
-            Horde::addScriptFile('imp.js', 'imp');
-
-            $data['js'] = array('IMP_JS.iframeInject("' . $uid . '", ' . Horde_Serialize::serialize($data['data'], Horde_Serialize::JSON, $this->_mimepart->getCharset()) . ')');
-            $data['data'] = '<div>' . _("Loading...") . '</div><iframe class="htmlMsgData" id="' . $uid . '" src="javascript:false" frameborder="0" style="display:none"></iframe>';
-            $data['type'] = 'text/html; charset=UTF-8';
-        }
+        $data['js'] = array('IMP_JS.iframeInject("' . $uid . '", ' . Horde_Serialize::serialize($data['data'], Horde_Serialize::JSON, $this->_mimepart->getCharset()) . ')');
+        $data['data'] = '<div>' . _("Loading...") . '</div><iframe class="htmlMsgData" id="' . $uid . '" src="javascript:false" frameborder="0" style="display:none"></iframe>';
+        $data['type'] = 'text/html; charset=UTF-8';
 
         return array(
             $this->_mimepart->getMimeId() => $data
