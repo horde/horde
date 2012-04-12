@@ -69,12 +69,8 @@ class IMP_Factory_Quota extends Horde_Core_Factory_Injector
 
         $params['username'] = $imap_ob->getParam('username');
 
-        $class = 'IMP_Quota_' . ucfirst($driver);
-        if (class_exists($class)) {
-            return new $class($params);
-        }
-
-        throw new IMP_Exception('Could not create quota instance: ' . $class);
+        $class = $this->_getDriverName($driver, 'IMP_Quota');
+        return new $class($params);
     }
 
 }
