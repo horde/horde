@@ -2063,6 +2063,7 @@
    <date>2012-03-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Improve print styles.
 * [jan] Catch if external client doesn&apos;t send LAST-MODIFIED attributes (Bug #11130).
 * [jan] Don&apos;t stop agenda script if there is an error with a single user (Bug #11129).
 * [jan] Update Hungarian translation (Zoltán Németh &lt;nemeth.zoltan@etit.hu&gt;).

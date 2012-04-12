@@ -114,7 +114,6 @@ class Kronolith_Block_Monthlist extends Horde_Core_Block
 
             /* Output month header. */
             if ($current_month != $day->month) {
-                $current_month = $day->strftime('%m');
                 $html .= '<tr><td colspan="4" class="control"><strong>' . $day->strftime('%B') . '</strong></td></tr>';
             }
 
@@ -133,7 +132,11 @@ class Kronolith_Block_Monthlist extends Horde_Core_Block
                 }
 
                 if ($firstevent) {
-                    $html .= '<tr><td class="text" valign="top" align="right"><strong>';
+                    $html .= '<tr';
+                    if ($current_month == $day->month) {
+                        $html .= ' class="block-upcomingday"';
+                    }
+                    $html .= '><td class="text" valign="top" align="right"><strong>';
                     if ($day->isToday()) {
                         $html .= _("Today");
                     } elseif ($day->isTomorrow()) {
@@ -167,6 +170,8 @@ class Kronolith_Block_Monthlist extends Horde_Core_Block
 
                 $totalevents++;
             }
+
+            $current_month = $day->strftime('%m');
         }
 
         if (empty($html)) {

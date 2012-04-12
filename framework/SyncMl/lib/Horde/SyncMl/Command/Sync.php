@@ -141,7 +141,6 @@ class Horde_SyncMl_Command_Sync extends Horde_SyncMl_Command
                     // Set CmdID to the current CmdId, not the initial one
                     // from the first message.
                     $this->_curItem->cmdID = $this->_itemCmdID;
-                    unset($state->curSyncItem);
                 } else {
                     $this->_curItem = new Horde_SyncMl_SyncElement(
                         $state->getSync($this->_targetURI),
@@ -192,6 +191,13 @@ class Horde_SyncMl_Command_Sync extends Horde_SyncMl_Command
                     $this->_syncElements[] = $this->_curItem;
                     // @todo: check if size matches strlen(content) when
                     // size>0, esp. in case of <MoreData>.
+
+                    // Unset the saved state item if it was not unset in
+                    // endElement().
+                    if (isset($GLOBALS['backend']->state->curSyncItem)) {
+                        unset($GLOBALS['backend']->state->curSyncItem);
+                    }
+
                     unset($this->_curItem);
                 }
                 break;
@@ -215,8 +221,16 @@ class Horde_SyncMl_Command_Sync extends Horde_SyncMl_Command
                 }
                 break;
             case 'Data':
-                // Don't trim, because we have to check the raw content's size.
-                $this->_curItem->content .= $this->_chars;
+                // Trim only if we had a MoreData tag before to not corrupt
+                // pictures.
+                if (isset($GLOBALS['backend']->state->curSyncItem)) {
+                    $this->_curItem->content .= ltrim($this->_chars);
+                    unset($GLOBALS['backend']->state->curSyncItem);
+                } else {
+                    // Don't trim, because we have to check the raw content's
+                    // size.
+                    $this->_curItem->content .= $this->_chars;
+                }
                 break;
             case 'MoreData':
                 $this->_itemMoreData = true;
