@@ -326,7 +326,7 @@ class IMP_Imap implements Serializable
     {
         if (!$this->ob || !method_exists($this->ob, $method)) {
             if ($GLOBALS['registry']->getAuth()) {
-                throw new Horde_Exception_AuthenticationFailure();
+                throw new Horde_Exception_AuthenticationFailure('', Horde_Auth::REASON_SESSION);
             } else {
                 throw new BadMethodCallException(sprintf('%s: Invalid method call "%s".', __CLASS__, $method));
             }

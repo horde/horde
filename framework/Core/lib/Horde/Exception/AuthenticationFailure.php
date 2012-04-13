@@ -22,10 +22,10 @@ class Horde_Exception_AuthenticationFailure extends Horde_Exception
     public $application;
 
     /**
-     * Default authentuication failure is seesion expiration.
+     * Authentication failure reason.
      *
      * @var integer
      */
-    protected $code = Horde_Auth::REASON_SESSION;
+    protected $code = 0;
 
 }
