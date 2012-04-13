@@ -3718,12 +3718,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         $res = parent::_getSeqUidLookup($ids, $reverse);
 
-        if (!count($ob['uids'])) {
-            return $res;
+        if (!empty($res['lookup'])) {
+            $ob['lookup'] = array_merge($ob['lookup'], $res['lookup']);
         }
-
-        $ob['lookup'] = array_merge($ob['lookup'], $res['lookup']);
-        $ob['uids']->add($res['uids']);
+        if (isset($res['uids'])) {
+            $ob['uids']->add($res['uids']);
+        }
 
         return $ob;
     }
