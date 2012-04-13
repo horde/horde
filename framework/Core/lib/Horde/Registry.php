@@ -2438,7 +2438,7 @@ class Horde_Registry
     {
         return ($charset = $this->nlsconfig->curr_charset)
             ? $charset
-            : 'UTF-8';
+            : 'ISO-8859-1';
     }
 
     /**
