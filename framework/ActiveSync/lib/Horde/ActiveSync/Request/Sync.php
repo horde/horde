@@ -375,12 +375,14 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                             break;
                         case Horde_ActiveSync::CLASS_CALENDAR:
                             $appdata = new Horde_ActiveSync_Message_Appointment(
-                                array('logger' => $this->_logger));
+                                array('logger' => $this->_logger,
+                                      'protocolversion' => $this->_version));
                             $appdata->decodeStream($this->_decoder);
                             break;
                         case Horde_ActiveSync::CLASS_TASKS:
                             $appdata = new Horde_ActiveSync_Message_Task(
-                                array('logger' => $this->_logger));
+                                array('logger' => $this->_logger,
+                                      'protocolversion' => $this->_version));
                             $appdata->decodeStream($this->_decoder);
                             break;
                         }
