@@ -1011,7 +1011,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 // Message gone
                 return false;
             }
-            $data = $imap_message->getMessageBody();
+            $data = $imap_message->getMessageBodyData();
             if ($data['charset'] != 'UTF-8') {
                 $quoted = Horde_String::convertCharset(
                     $data['text'],
