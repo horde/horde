@@ -174,7 +174,7 @@ class Kronolith_Block_Monthlist extends Horde_Core_Block
                         }
                     }
                     $html .= '</strong>&nbsp;</td>';
-                    $firstevent = false;
+                    $firstevent = $isMultiDay;
                 } else {
                     $html .= '<tr><td class="text">&nbsp;</td>';
                 }
