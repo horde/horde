@@ -95,7 +95,7 @@ class Kronolith_Block_Monthlist extends Horde_Core_Block
                     $endDate,
                     array('show_recurrence' => true,
                           'has_alarm' => !empty($this->_params['alarms']),
-                          'cover_dates' => true)
+                          'cover_dates' => false)
                 );
             } else {
                 $all_events = Kronolith::listEvents(
@@ -103,7 +103,7 @@ class Kronolith_Block_Monthlist extends Horde_Core_Block
                     $endDate,
                     $GLOBALS['display_calendars'], array(
                         'has_alarm' => !empty($this->_params['alarms']),
-                        'cover_dates' => true)
+                        'cover_dates' => false)
                 );
             }
         } catch (Exception $e) {
@@ -111,8 +111,9 @@ class Kronolith_Block_Monthlist extends Horde_Core_Block
         }
 
         /* How many days do we need to check. */
-        $days = Date_Calc::dateDiff($startDate->mday, $startDate->month, $startDate->year,
-                                    $endDate->mday, $endDate->month, $endDate->year);
+        $days = Date_Calc::dateDiff(
+            $startDate->mday, $startDate->month, $startDate->year,
+            $endDate->mday, $endDate->month, $endDate->year);
 
         /* Loop through the days. */
         $totalevents = 0;
@@ -138,18 +139,19 @@ class Kronolith_Block_Monthlist extends Horde_Core_Block
             $firstevent = true;
             $tomorrow = $day->getTomorrow();
             foreach ($all_events[$date_stamp] as $event) {
+                $isMultiDay = false;
                 if ($event->start->compareDate($day) < 0) {
                     $event->start = new Horde_Date($day);
                 }
-                if ($event->end->compareDate($tomorrow) >= 0) {
-                    $event->end = $tomorrow;
+                if ($event->end->compareDate($tomorrow) >= 1) {
+                    $isMultiDay = true;
                 }
                 if (($event->end->compareDate($now) < 0 && !$event->isAllDay()) ||
                     (!empty($this->_params['alarms']) && !$event->alarm)) {
                     continue;
                 }
 
-                if ($firstevent) {
+                if ($firstevent || $isMultiDay) {
                     $html .= '<tr';
                     if ($current_month == $day->month) {
                         $html .= ' class="block-upcomingday"';
@@ -161,6 +163,15 @@ class Kronolith_Block_Monthlist extends Horde_Core_Block
                         $html .= _("Tomorrow");
                     } else {
                         $html .= $day->mday;
+                    }
+                    if ($isMultiDay) {
+                        $endDay = new Kronolith_Day($event->end->month, $event->end->mday);
+                        $html .= ' - ';
+                        if ($endDay->isTomorrow()) {
+                            $html .= _("Tomorrow");
+                        } else {
+                            $html .= $event->end->mday;
+                        }
                     }
                     $html .= '</strong>&nbsp;</td>';
                     $firstevent = false;
