@@ -444,9 +444,9 @@ class Kronolith_Api extends Horde_Registry_Api
      * events that represent exceptions, making this method useful for syncing
      * purposes. For more control, use the listEvents method.
      *
-     * @param string $calendars      The calendar to check for events.
-     * @param object $startstamp    The start of the time range.
-     * @param object $endstamp      The end of the time range.
+     * @param string $calendars    The calendar to check for events.
+     * @param object $startstamp   The start of the time range.
+     * @param object $endstamp     The end of the time range.
      *
      * @return array  The event ids happening in this time period.
      * @throws Kronolith_Exception
