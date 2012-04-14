@@ -120,7 +120,10 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
         }
         try {
             session_write_close();
-            $events = $kronolith_driver->listEvents($start, $end, true, false, true);
+            $events = $kronolith_driver->listEvents($start, $end, array(
+                'show_recurrence' => true,
+                'json' => true)
+            );
             session_start();
             if (count($events)) {
                 $result->events = $events;

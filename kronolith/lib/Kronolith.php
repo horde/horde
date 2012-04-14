@@ -171,12 +171,17 @@ class Kronolith
      *
      * @return array  The events happening in this time period.
      */
-    static public function listEvents($startDate, $endDate, $calendars = null,
-                                      $showRecurrence = true,
-                                      $alarmsOnly = false, $showRemote = true,
-                                      $hideExceptions = false,
-                                      $coverDates = true, $fetchTags = false)
+    static public function listEvents(
+        $startDate, $endDate, $calendars = null, array $options = array())
     {
+        $options = array_merge(array(
+            'show_recurrence' => true,
+            'has_alarm' => false,
+            'show_remote' => true,
+            'hide_exceptions' => false,
+            'cover_dates' => true,
+            'fetch_tags' => false), $options);
+
         $results = array();
 
         /* Internal calendars. */
@@ -187,29 +192,23 @@ class Kronolith
         foreach ($calendars as $calendar) {
             try {
                 $driver->open($calendar);
-                $events = $driver->listEvents($startDate, $endDate,
-                                              $showRecurrence, $alarmsOnly,
-                                              false, $coverDates,
-                                              $hideExceptions, $fetchTags);
+                $events = $driver->listEvents($startDate, $endDate, $options);
                 self::mergeEvents($results, $events);
             } catch (Kronolith_Exception $e) {
                 $GLOBALS['notification']->push($e);
             }
         }
 
-        /* Resource calendars (this would only be populated if explicitly
-         * requested in the request, so include them if this is set regardless
-         * of $calendars value).
-         *
-         * @TODO: Should we disallow even *viewing* these if the user is not an
-         *        admin?
-         */
+        // Resource calendars (this would only be populated if explicitly
+        // requested in the request, so include them if this is set regardless
+        // of $calendars value).
         if (!empty($GLOBALS['display_resource_calendars'])) {
             $driver = self::getDriver('Resource');
             foreach ($GLOBALS['display_resource_calendars'] as $calendar) {
                 try {
                     $driver->open($calendar);
-                    $events = $driver->listEvents($startDate, $endDate, $showRecurrence);
+                    $events = $driver->listEvents(
+                        $startDate, $endDate, array('show_recurrence' => $options['show_recurrence']));
                     self::mergeEvents($results, $events);
                 } catch (Kronolith_Exception $e) {
                     $GLOBALS['notification']->push($e);
@@ -224,7 +223,8 @@ class Kronolith
                 foreach ($GLOBALS['display_external_calendars'] as $external_cal) {
                     try {
                         $driver->open($external_cal);
-                        $events = $driver->listEvents($startDate, $endDate, $showRecurrence);
+                        $events = $driver->listEvents(
+                            $startDate, $endDate, array('show_recurrence' => $options['show_recurrence']));
                         self::mergeEvents($results, $events);
                     } catch (Kronolith_Exception $e) {
                         $GLOBALS['notification']->push($e);
@@ -236,7 +236,8 @@ class Kronolith
             foreach ($GLOBALS['display_remote_calendars'] as $url) {
                 try {
                     $driver = self::getDriver('Ical', $url);
-                    $events = $driver->listEvents($startDate, $endDate, $showRecurrence);
+                    $events = $driver->listEvents(
+                        $startDate, $endDate, array('show_recurrence' => $options['show_recurrence']));
                     self::mergeEvents($results, $events);
                 } catch (Kronolith_Exception $e) {
                     $GLOBALS['notification']->push($e);
@@ -249,7 +250,8 @@ class Kronolith
                 foreach ($GLOBALS['display_holidays'] as $holiday) {
                     try {
                         $driver->open($holiday);
-                        $events = $driver->listEvents($startDate, $endDate, $showRecurrence);
+                        $events = $driver->listEvents(
+                            $startDate, $endDate, array('show_recurrence' => $options['show_recurrence']));
                         self::mergeEvents($results, $events);
                     } catch (Kronolith_Exception $e) {
                         $GLOBALS['notification']->push($e);
@@ -2953,8 +2955,9 @@ class Kronolith
         }
 
         try {
-            $shares = $GLOBALS['injector']->getInstance('Kronolith_Shares')->listShares(
-                $user, array('perm' => Horde_Perms::EDIT));
+            $shares = $GLOBALS['injector']
+                ->getInstance('Kronolith_Shares')
+                ->listShares($user, array('perm' => Horde_Perms::EDIT));
         } catch (Horde_Share_Exception $e) {
             Horde::logMessage($shares, 'ERR');
             throw new Kronolith_Exception($shares);
@@ -2962,7 +2965,7 @@ class Kronolith
 
         foreach (array_keys($shares) as $calendar) {
             $driver = self::getDriver(null, $calendar);
-            $events = $driver->listEvents(null, null, false, false, false);
+            $events = $driver->listEvents(null, null, array('cover_dates' => false));
             $uids = array();
             foreach ($events as $dayevents) {
                 foreach ($dayevents as $event) {

@@ -473,12 +473,9 @@ class Kronolith_Api extends Horde_Registry_Api
                 $events = $driver->listEvents(
                     $startstamp ? new Horde_Date($startstamp) : null,
                     $endstamp   ? new Horde_Date($endstamp)   : null,
-                    false,  // recurrence
-                    false,  // alarm
-                    false,  // no json cache
-                    false,  // Don't cover dates
-                    true,   // Hide exceptions
-                    false); // No tags
+                    array('cover_dates' => false,
+                          'hide_exceptions' => true)
+                );
                 Kronolith::mergeEvents($results, $events);
             } catch (Kronolith_Exception $e) {
                 Horde::logMessage($e);
@@ -821,7 +818,6 @@ class Kronolith_Api extends Horde_Registry_Api
      *                                            this is specified in rfc2445)
      *                             text/x-vcalendar (old VCALENDAR 1.0 format.
      *                                              Still in wide use)
-     *                             activesync (Horde_ActiveSync_Message_Appointment)
      *                             </pre>
      *
      * @return string  The iCalendar representation of the calendar.
@@ -834,15 +830,18 @@ class Kronolith_Api extends Horde_Registry_Api
         }
 
         $kronolith_driver = Kronolith::getDriver(null, $calendar);
-        $events = $kronolith_driver->listEvents(null, null, false, false, false, false, false, true);
-
+        $events = $kronolith_driver->listEvents(null, null, array(
+            'cover_dates' => false,
+            'hide_exceptions' => true)
+        );
         $version = '2.0';
         switch ($contentType) {
         case 'text/x-vcalendar':
             $version = '1.0';
         case 'text/calendar':
-            $share = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($calendar);
-
+            $share = $GLOBALS['injector']
+                ->getInstance('Kronolith_Shares')
+                ->getShare($calendar);
             $iCal = new Horde_Icalendar($version);
             $iCal->setAttribute('X-WR-CALNAME', $share->get('name'));
             if (strlen($share->get('desc'))) {
@@ -858,7 +857,10 @@ class Kronolith_Api extends Horde_Registry_Api
             return $iCal->exportvCalendar();
         }
 
-        throw new Kronolith_Exception(sprintf(_("Unsupported Content-Type: %s"), $contentType));
+        throw new Kronolith_Exception(sprintf(
+            _("Unsupported Content-Type: %s"),
+            $contentType)
+        );
     }
 
     /**
@@ -1184,13 +1186,14 @@ class Kronolith_Api extends Horde_Registry_Api
         return Kronolith::listEvents(
             new Horde_Date($startstamp),
             new Horde_Date($endstamp),
-            $calendars,
-            $showRecurrence,
-            $alarmsOnly,
-            $showRemote,
-            $hideExceptions,
-            $coverDates,
-            $fetchTags);
+            $calendars, array(
+                'show_recurrence' => $showRecurrence,
+                'has_alarm' => $alarmsOnly,
+                'show_remote' => $showRemote,
+                'hide_exceptions' => $hideExceptions,
+                'cover_dates' => $coverDates,
+                'fetch_tags' => $fetchTags)
+        );
     }
 
     /**

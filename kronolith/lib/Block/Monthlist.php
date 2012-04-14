@@ -69,8 +69,14 @@ class Kronolith_Block_Monthlist extends Horde_Core_Block
         $today = date('j');
         $current_month = '';
 
-        $startDate = new Horde_Date(array('year' => date('Y'), 'month' => date('n'), 'mday' => date('j')));
-        $endDate = new Horde_Date(array('year' => date('Y'), 'month' => date('n') + $this->_params['months'], 'mday' => date('j') - 1));
+        $startDate = new Horde_Date(array(
+            'year' => date('Y'),
+            'month' => date('n'),
+            'mday' => date('j')));
+        $endDate = new Horde_Date(array(
+            'year' => date('Y'),
+            'month' => date('n') + $this->_params['months'],
+            'mday' => date('j') - 1));
 
         try {
             if (isset($this->_params['calendar']) &&
@@ -84,9 +90,21 @@ class Kronolith_Block_Monthlist extends Horde_Core_Block
                 }
                 list($type, $calendar) = explode('_', $this->_params['calendar'], 2);
                 $driver = Kronolith::getDriver($type, $calendar);
-                $all_events = $driver->listEvents($startDate, $endDate, true);
+                $all_events = $driver->listEvents(
+                    $startDate,
+                    $endDate,
+                    array('show_recurrence' => true,
+                          'has_alarm' => !empty($this->_params['alarms']),
+                          'cover_dates' => true)
+                );
             } else {
-                $all_events = Kronolith::listEvents($startDate, $endDate, $GLOBALS['display_calendars']);
+                $all_events = Kronolith::listEvents(
+                    $startDate,
+                    $endDate,
+                    $GLOBALS['display_calendars'], array(
+                        'has_alarm' => !empty($this->_params['alarms']),
+                        'cover_dates' => true)
+                );
             }
         } catch (Exception $e) {
             return '<em>' . $e->getMessage() . '</em>';

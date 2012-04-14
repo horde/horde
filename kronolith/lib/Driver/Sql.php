@@ -72,7 +72,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      */
     public function listAlarms($date, $fullevent = false)
     {
-        $allevents = $this->listEvents($date, null, false, true);
+        $allevents = $this->listEvents($date, null, array('has_alarm' => true));
         $events = array();
         foreach ($allevents as $dayevents) {
             foreach ($dayevents as $event) {
@@ -243,29 +243,28 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      * Lists all events in the time range, optionally restricting results to
      * only events with alarms.
      *
-     * @param Horde_Date $startDate      Start of range date object.
-     * @param Horde_Date $endDate        End of range data object.
-     * @param boolean $showRecurrence    Return every instance of a recurring
-     *                                   event? If false, will only return
-     *                                   recurring events once inside the
-     *                                   $startDate - $endDate range.
-     * @param boolean $hasAlarm          Only return events with alarms?
-     * @param boolean $json              Store the results of the events'
-     *                                   toJson() method?
-     * @param boolean $coverDates        Whether to add the events to all days
-     *                                   that they cover.
-     * @param boolean $hideExceptions    Hide events that represent exceptions
-     *                                   to a recurring event (baseid is set)?
-     * @param boolean $fetchTags         Whether to fetch tags for all events
+     * @param Horde_Date $startDate  The start of range date.
+     * @param Horde_Date $endDate    The end of date range.
+     * @param array $options         Additional options:
+     *   - show_recurrence: (boolean) Return every instance of a recurring event?
+     *                      DEFAULT: false (Only return recurring events once
+     *                      inside $startDate - $endDate range).
+     *   - has_alarm: (boolean) Only return events with alarms.
+     *                DEFAULT: false (Return all events)
+     *   - json: (boolean) Store the results of the event's toJson() method?
+     *           DEFAULT: false
+     *   - cover_dates: (boolean) Add the events to all days that they cover?
+     *                  DEFAULT: true
+     *   - hide_exceptions: (boolean) Hide events that represent exceptions to
+     *                      a recurring event.
+     *                      DEFAULT: false (Do not hide exception events)
+     *   - fetch_tags: (boolean) Fetch tags for all events.
+     *                 DEFAULT: false (Do not fetch event tags)
      *
-     * @return array  Events in the given time range.
      * @throws Kronolith_Exception
      */
-    public function listEvents(Horde_Date $startDate = null,
-                               Horde_Date $endDate = null,
-                               $showRecurrence = false, $hasAlarm = false,
-                               $json = false, $coverDates = true,
-                               $hideExceptions = false, $fetchTags = false)
+    protected function _listEvents(
+        Horde_Date $startDate = null, Horde_Date $endDate = null, array $options = array())
     {
         if (!is_null($startDate)) {
             $startDate = clone $startDate;
@@ -277,9 +276,9 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             $endDate->min = $endDate->sec = 59;
         }
 
-        $conditions =  $hasAlarm ? 'event_alarm > ?' : '';
-        $values = $hasAlarm ? array(0) : array();
-        if ($hideExceptions) {
+        $conditions =  $options['has_alarm'] ? 'event_alarm > ?' : '';
+        $values = $options['has_alarm'] ? array(0) : array();
+        if ($options['hide_exceptions']) {
             if (!empty($conditions)) {
                 $conditions .= ' AND ';
             }
@@ -288,7 +287,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
         $events = $this->_listEventsConditional($startDate, $endDate, $conditions, $values);
         $results = array();
-        if ($fetchTags && count($events)) {
+        if ($options['fetch_tags'] && count($events)) {
             $tags = Kronolith::getTagger()->getTags(array_keys($events));
         }
         foreach ($events as $id) {
@@ -296,8 +295,9 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             if (isset($tags) && !empty($tags[$event->uid])) {
                 $event->tags = $tags[$event->uid];
             }
-            Kronolith::addEvents($results, $event, $startDate, $endDate,
-                                 $showRecurrence, $json, $coverDates);
+            Kronolith::addEvents(
+                $results, $event, $startDate, $endDate, $options['show_recurrence'],
+                $options['json'], $options['cover_dates']);
         }
 
         return $results;
@@ -797,7 +797,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
     {
         $oldCalendar = $this->calendar;
         $this->open($calendar);
-        $events = $this->listEvents(null, null, false, false, false);
+        $events = $this->listEvents(null, null, array('cover_dates' => false));
         $uids = array();
         foreach ($events as $dayevents) {
             foreach ($dayevents as $event) {

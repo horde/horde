@@ -79,8 +79,10 @@ class Kronolith_FreeBusy
             }
             try {
                 $driver = Kronolith::getDriver($type, $calendar);
-                $events = $driver->listEvents(new Horde_Date($startstamp),
-                                              $enddate, true);
+                $events = $driver->listEvents(
+                    new Horde_Date($startstamp),
+                    $enddate,
+                    array('show_recurrence' => true));
                 Kronolith::mergeEvents($busy, $events);
             } catch (Exception $e) {
             }
