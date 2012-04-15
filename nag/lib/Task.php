@@ -786,7 +786,9 @@ class Nag_Task
             $json->a = (int)$this->alarm;
             $json->m = $this->methods;
             //$json->pv = (boolean)$this->private;
-            $json->r = $this->recurrence->toJson();
+            if ($this->recurs()) {
+                $json->r = $this->recurrence->toJson();
+            }
 
             try {
                 $share = $GLOBALS['nag_shares']->getShare($this->tasklist);
