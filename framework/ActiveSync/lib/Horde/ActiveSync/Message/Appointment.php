@@ -677,7 +677,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      */
     public function addCategory($category)
     {
-        $this->_properties['categories'] = $category;
+        $this->_properties['categories'][] = $category;
     }
 
     public function getCategories()
