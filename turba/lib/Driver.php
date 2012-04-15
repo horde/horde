@@ -2600,7 +2600,7 @@ class Turba_Driver implements Countable
                     // EAS 2.5
                     $message->body = $value;
                     $message->bodysize = strlen($message->body);
-                    $message->bodytruncated = false;
+                    $message->bodytruncated = 0;
                 }
                 break;
 
