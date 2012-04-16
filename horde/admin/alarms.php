@@ -59,7 +59,7 @@ if ($form->validate()) {
 
     // Full path to any sound files.
     if (!empty($params['notify']['sound'])) {
-        $params['notify']['sound'] = $registry->get('themesuri', 'horde') . '/sounds/' . $params['notify']['sound'];
+        $params['notify']['sound'] = (string)Horde_Themes::sound($params['notify']['sound']);
     }
 
     try {
