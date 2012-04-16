@@ -2710,7 +2710,8 @@
    <date>2012-04-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Update Slovak translation (Marika Schvarczova &lt;schvarczova.marika@domeny.sk&gt;).
+* [jan] Update Czech translation (Michal Foist &lt;michal@foist.cz&gt;).
    </notes>
   </release>
  </changelog>
