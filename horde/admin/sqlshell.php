@@ -37,9 +37,10 @@ if (Horde_Util::getFormData('list-tables')) {
     }
 }
 
+$title = _("SQL Shell");
 $page_output->addScriptFile('stripe.js', 'horde');
 $page_output->header(array(
-    'title' => _("SQL Shell")
+    'title' => $title
 ));
 require HORDE_TEMPLATES . '/admin/menu.inc';
 

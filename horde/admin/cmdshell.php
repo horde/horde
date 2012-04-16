@@ -13,8 +13,9 @@ Horde_Registry::appInit('horde', array(
     'permission' => array('horde:administration:cmdshell')
 ));
 
+$title = _("Command Shell");
 $page_output->header(array(
-    'title' => _("Command Shell")
+    'title' => $title
 ));
 require HORDE_TEMPLATES . '/admin/menu.inc';
 
