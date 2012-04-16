@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: filters.php:167
 msgid " and"
@@ -404,8 +404,8 @@ msgid ""
 "Maximum number of blacklisted addresses exceeded (Total addresses: %s, "
 "Maximum addresses: %s).  Could not add new addresses to blacklist."
 msgstr ""
-"Byl překročen maximální limit adres na černé listině (Celkový počet adres: %"
-"s, Maximální počet adres: %s). Nelze přidat adresu na černou listinu."
+"Byl překročen maximální limit adres na černé listině (Celkový počet adres: "
+"%s, Maximální počet adres: %s). Nelze přidat adresu na černou listinu."
 
 #: lib/Storage.php:541
 #, php-format
@@ -413,8 +413,8 @@ msgid ""
 "Maximum number of whitelisted addresses exceeded (Total addresses: %s, "
 "Maximum addresses: %s).  Could not add new addresses to whitelist."
 msgstr ""
-"Byl překročen maximální limit adres na bílé listině (Celkový počet adres: %"
-"s, Maximální počet adres: %s). Nelze přidat adresu na bílou listinu."
+"Byl překročen maximální limit adres na bílé listině (Celkový počet adres: "
+"%s, Maximální počet adres: %s). Nelze přidat adresu na bílou listinu."
 
 #: lib/Script/sieve.php:1646
 msgid "Missing address to redirect message to"
