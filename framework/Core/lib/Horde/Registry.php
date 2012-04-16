@@ -263,7 +263,7 @@ class Horde_Registry
 
             switch ($e->getCode()) {
             case self::AUTH_FAILURE:
-                $failure = new Horde_Exception_AuthenticationFailure();
+                $failure = new Horde_Exception_AuthenticationFailure($e->getMessage());
                 $failure->application = $app;
                 throw $failure;
 
