@@ -216,9 +216,9 @@ class Horde_ActiveSync_Imap_Adapter
             throw new Horde_ActiveSync_Exception_FolderGone($e);
         }
         if ($qresync) {
-            $modseq = $status['highestmodseq'];
+            $modseq = $status[Horde_ActiveSync_Folder_Imap::MODSEQ];
         } else {
-            $modseq = $status[Horde_ActiveSync_Folder_Imap::HIGHESTMODSEQ] = 0;
+            $modseq = $status[Horde_ActiveSync_Folder_Imap::MODSEQ] = 0;
         }
         $this->_logger->debug('IMAP status: ' . print_r($status, true));
         if ($qresync && $folder->modseq() > 0 && $folder->modseq() < $modseq) {
