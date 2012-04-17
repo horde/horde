@@ -213,7 +213,10 @@ class Horde_ActiveSync_Imap_Message
             'peek' => true
         );
 
-        // Get HTML body information
+        // Get body information
+        // @TODO: We might need to check for body length < truncation size as
+        // a way of determining if the message was truncated for servers that
+        // do not have the BINARY extension.
         // @TODO: AllorNone
         if ($version >= Horde_ActiveSync::VERSION_TWELVE) {
             $html_query_opts = $body_query_opts;
