@@ -281,7 +281,9 @@ class Ingo_Script_Maildrop extends Ingo_Script
                             'disable' => $disable);
             $recipe = new Ingo_Script_Maildrop_Recipe($params, $this->_params);
             $this->addItem($recipe);
-            $this->_reason = $vacation->getVacationReason();
+            $this->_reason = Ingo::getReason($vacation->getVacationReason(),
+                                             $vacation->getVacationStart(),
+                                             $vacation->getVacationEnd());
         }
     }
 

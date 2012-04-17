@@ -326,6 +326,36 @@ class Ingo
     }
 
     /**
+     * Returns the vacation reason with all placeholder replaced.
+     *
+     * @param string $reason  The vacation reason including placeholders.
+     * @param integer $start  The vacation start timestamp.
+     * @param integer $end    The vacation end timestamp.
+     *
+     * @return string  The vacation reason suitable for usage in the filter
+     *                 scripts.
+     */
+    static public function getReason($reason, $start, $end)
+    {
+        $identity = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Identity')
+            ->create(Ingo::getUser());
+        $format = $GLOBALS['prefs']->getValue('date_format');
+
+        return str_replace(array('%NAME%',
+                                 '%EMAIL%',
+                                 '%SIGNATURE%',
+                                 '%STARTDATE%',
+                                 '%ENDDATE%'),
+                           array($identity->getName(),
+                                 $identity->getDefaultFromAddress(),
+                                 $identity->getValue('signature'),
+                                 $start ? strftime($format, $start) : '',
+                                 $end ? strftime($format, $end) : ''),
+                           $reason);
+    }
+
+    /**
      * Create ingo's menu.
      *
      * @return string  The menu text.

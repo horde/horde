@@ -261,9 +261,17 @@
     <para>An die angebenen Emailadressen werden keine Abwesenheitsnachrichten
     verschickt. Jede Adresse muss in einer eigenen Zeile stehen.</para>
   </entry>
-  <entry id="vacation-reason" md5="d4da2f3a0d357e00950ec57d984cbcee" state="uptodate">
+  <entry id="vacation-reason" md5="d4da2f3a0d357e00950ec57d984cbcee" state="changed">
     <title>Abwesenheit: Grund</title>
     <para>Dieser Text wird in Ihren Abwesenheitsnachrichten verwendet.</para>
+    <para>Sie können Platzhalter verwenden, um die Abwesenheitsnachricht
+    dynamisch aus Informationen Ihrer Identitäten oder andere Quellen zu
+    erzeugen:</para>
+    <para>%NAME%: Der vollständige Name Ihrer Standard-Identität</para>
+    <para>%EMAIL%: Die E-Mail-Adresse Ihrer Standard-Identität</para>
+    <para>%SIGNATURE%: Die Signatur Ihrer Standard-Identität</para>
+    <para>%STARTDATE%: Der Beginn Ihrer Abwesenheit</para>
+    <para>%ENDDATE%: Das Ende Ihrer Abwesenheit</para>
   </entry>
   <entry id="vacation-subject" md5="ce16c7c6a08993821208cfbee0b188a0" state="uptodate">
     <title>Abwesenheit: Betreff</title>

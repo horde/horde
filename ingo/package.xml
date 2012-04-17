@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
+* [jan] Allow to use placeholder variables in vacation messages (Request #10316).
 * [mjr] Add ability to retrieve vacation message details from the API.
 * [jan] Validate start and end dates of vacation rules (Request #10879).
 * [mms] Application initialization should only be done on first access.
