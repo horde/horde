@@ -66,12 +66,15 @@ class Horde_Help
             }
             break;
         }
-        /* SimpleXML cannot deal with mixed text/data nodes. Convert all text descendants of para to <text> tags */
+
+        /* SimpleXML cannot deal with mixed text/data nodes. Convert all text
+         * descendants of para to <text> tags */
         $dom = dom_import_simplexml($this->_xml);
         $xpath = new DOMXpath($dom->ownerDocument);
         $textnodes = $xpath->query('//para/text()');
         foreach ($textnodes as $text) {
-            $text->parentNode->replaceChild(new DOMElement('text', $text->nodeValue), $text);
+            $text->parentNode->replaceChild(
+                new DOMElement('text', $text->nodeValue), $text);
         }
         $this->_xml = simplexml_import_dom($dom);
     }
