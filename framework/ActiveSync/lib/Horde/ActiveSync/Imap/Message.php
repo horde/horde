@@ -254,18 +254,19 @@ class Horde_ActiveSync_Imap_Message
             $this->_envelope = $data->getEnvelope();
         }
 
-        $text = $data->getBodyPart($text_id);
-        if (!$data->getBodyPartDecode($text_id)) {
-            $text_body_part->setContents($data->getBodyPart($text_id));
-            $text = $text_body_part->getContents();
+        if (!empty($text_id)) {
+            $text = $data->getBodyPart($text_id);
+            if (!$data->getBodyPartDecode($text_id)) {
+                $text_body_part->setContents($data->getBodyPart($text_id));
+                $text = $text_body_part->getContents();
+            }
+            $text_size = $data->getBodyPartSize($text_id);
+            $return = array('plain' => array(
+                'charset' => $charset,
+                'body' => $text,
+                'truncated' => $text_size > strlen($text),
+                'size' => $text_size));
         }
-        $text_size = $data->getBodyPartSize($text_id);
-        $return = array('plain' => array(
-            'charset' => $charset,
-            'body' => $text,
-            'truncated' => $text_size > strlen($text),
-            'size' => $text_size));
-
         if (!empty($html_id)) {
             $html_body_part->setContents($data->getBodyPart($html_id));
             $html = $html_body_part->getContents();
