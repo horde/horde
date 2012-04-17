@@ -1340,31 +1340,24 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             try {
                 switch ($encrypt) {
                 case IMP_Crypt_Pgp::SIGN:
-                    $base = $imp_pgp->impSignMimePart($base);
+                    $base = $imp_pgp->IMPsignMIMEPart($base);
                     $this->_metadata['encrypt_sign'] = true;
                     break;
 
                 case IMP_Crypt_Pgp::ENCRYPT:
-                case IMP_Crypt_Pgp::SIGNENC:
                 case IMP_Crypt_Pgp::SYM_ENCRYPT:
+                    $to_list = empty($options['from'])
+                        ? $to
+                        : array_keys(array_flip(array_merge($to, array($options['from']))));
+                    $base = $imp_pgp->IMPencryptMIMEPart($base, $to_list, ($encrypt == IMP_Crypt_Pgp::SYM_ENCRYPT) ? $symmetric_passphrase : null);
+                    break;
+
+                case IMP_Crypt_Pgp::SIGNENC:
                 case IMP_Crypt_Pgp::SYM_SIGNENC:
                     $to_list = empty($options['from'])
-                        ? array()
-                        : array($options['from']);
-                    foreach ($to as $val) {
-                        $to_list[] = Horde_Mime_Address::addrObject2String($val);
-                    }
-
-                    switch ($encrypt) {
-                    case IMP_Crypt_Pgp::ENCRYPT:
-                    case IMP_Crypt_Pgp::SYM_ENCRYPT:
-                        $base = $imp_pgp->impEncryptMimePart($base, array_unique($to_list), ($encrypt == IMP_Crypt_Pgp::SYM_ENCRYPT) ? $symmetric_passphrase : null);
-                        break;
-
-                    default:
-                        $base = $imp_pgp->impSignAndEncryptMimePart($base, array_unique($to_list), ($encrypt == IMP_Crypt_Pgp::SYM_SIGNENC) ? $symmetric_passphrase : null);
-                        break;
-                    }
+                        ? $to
+                        : array_keys(array_flip(array_merge($to, array($options['from']))));
+                    $base = $imp_pgp->IMPsignAndEncryptMIMEPart($base, $to_list, ($encrypt == IMP_Crypt_Pgp::SYM_SIGNENC) ? $symmetric_passphrase : null);
                     break;
                 }
             } catch (Horde_Exception $e) {
