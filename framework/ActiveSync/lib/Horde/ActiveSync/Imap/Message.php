@@ -260,7 +260,7 @@ class Horde_ActiveSync_Imap_Message
                 $text_body_part->setContents($data->getBodyPart($text_id));
                 $text = $text_body_part->getContents();
             }
-            $text_size = $data->getBodyPartSize($text_id);
+            $text_size = !is_null($data->getBodyPartSize($text_id)) ? $data->getBodyPartSize($text_id) : strlen($text);
             $return = array('plain' => array(
                 'charset' => $charset,
                 'body' => $text,
@@ -270,12 +270,16 @@ class Horde_ActiveSync_Imap_Message
         if (!empty($html_id)) {
             $html_body_part->setContents($data->getBodyPart($html_id));
             $html = $html_body_part->getContents();
-            $html_size = !empty($html_query_opts['length']) ? $data->getBodyPartSize($html_id) : strlen($html);
+            if (isset($html_query_opts['length'])) {
+                $html_size = !is_null($data->getBodyPartSize($html_id)) ? $data->getBodyPartSize($html_id) : strlen($html);
+            } else {
+                $html_size = strlen($html);
+            }
             $return['html'] = array(
                 'charset' => $html_charset,
                 'body' => $html,
-                'estimated_size' => $size,
-                'truncated' => $size > strlen($html));
+                'estimated_size' => $html_size,
+                'truncated' => ($html_size > strlen($html)) ? 1 : 0 );
         }
 
         return $return;
