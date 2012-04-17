@@ -179,7 +179,7 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Base
             return;
         }
 
-        switch (strtolower($node->tagName)) {
+        switch (Horde_String::lower($node->tagName)) {
         case 'a':
             /* Strip whitespace from href links. This is bad HTML, but may
              * prevent viewing of the link. PHP DOM will already strip this
