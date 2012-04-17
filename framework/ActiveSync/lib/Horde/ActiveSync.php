@@ -101,6 +101,7 @@ class Horde_ActiveSync
     const SYNC_SOFTDELETE               = 'SoftDelete';
     const SYNC_MIMESUPPORT              = 'MIMESupport';
     const SYNC_MIMETRUNCATION           = 'MIMETruncation';
+    const SYNC_CONVERSATIONMODE         = 'ConversationMode';
 
     /* Document library */
     const SYNC_DOCUMENTLIBRARY_LINKID           = 'DocumentLibrary:LinkId';
