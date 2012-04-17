@@ -559,7 +559,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *   - bodyprefs: (array)  The bodypref array from the device.
      *
      * @return Horde_ActiveSync_Message_Base The message data
-     * @throws Horde_ActiveSync_Exception
+     * @throws Horde_ActiveSync_Exception, Horde_Exception_NotFound
      */
     public function getMessage($folderid, $id, array $collection)
     {
@@ -583,7 +583,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 $this->_endBuffer();
-                throw new Horde_ActiveSync_Exception('Not Found');
+                throw new Horde_ActiveSync_Exception($e);
             }
             break;
 
@@ -597,7 +597,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 $this->_endBuffer();
-                throw new Horde_ActiveSync_Exception('Not Found');
+                throw new Horde_ActiveSync_Exception($e);
             }
             break;
 
@@ -607,7 +607,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 $this->_endBuffer();
-                throw new Horde_ActiveSync_Exception('Not Found');
+                throw new Horde_ActiveSync_Exception($e);
             }
             break;
 
@@ -634,7 +634,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
             $this->_endBuffer();
             if (empty($messages)) {
-                throw new Horde_ActiveSync_Exception('Not Found');
+                throw new Horde_Exception_NotFound();
             }
             return current($messages);
             break;
