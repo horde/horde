@@ -155,19 +155,24 @@ class Kronolith
      * @param Horde_Date $startDate    The start of the time range.
      * @param Horde_Date $endDate      The end of the time range.
      * @param array $calendars         The calendars to check for events.
-     * @param boolean $showRecurrence  Return every instance of a recurring
-     *                                 event? If false, will only return
-     *                                 recurring events once inside the
-     *                                 $startDate - $endDate range.
-     *                                 Defaults to true
-     * @param boolean $alarmsOnly      Filter results for events with alarms
-     *                                 Defaults to false
-     * @param boolean $showRemote      Return events from remote and
-     *                                 listTimeObjects as well?
-     * @param boolean $hideExceptions  Hide events that represent exceptions to
-     *                                 a recurring event?
-     * @param boolean $fetchTags       Should we fetch each event's tags from
-     *                                 storage?
+     * @param array $options         Additional options:
+     *   - show_recurrence: (boolean) Return every instance of a recurring
+     *                       event?
+     *                      DEFAULT: false (Only return recurring events once
+     *                      inside $startDate - $endDate range)
+     *   - has_alarm:       (boolean) Only return events with alarms.
+     *                      DEFAULT: false (Return all events)
+     *   - json:            (boolean) Store the results of the event's toJson()
+     *                      method?
+     *                      DEFAULT: false
+     *   - cover_dates:     (boolean) Add the events to all days that they
+     *                      cover?
+     *                      DEFAULT: true
+     *   - hide_exceptions: (boolean) Hide events that represent exceptions to
+     *                      a recurring event.
+     *                      DEFAULT: false (Do not hide exception events)
+     *   - fetch_tags:      (boolean) Fetch tags for all events.
+     *                      DEFAULT: false (Do not fetch event tags)
      *
      * @return array  The events happening in this time period.
      */
@@ -216,7 +221,7 @@ class Kronolith
             }
         }
 
-        if ($showRemote) {
+        if ($options['show_remote']) {
             /* Horde applications providing listTimeObjects. */
             if (count($GLOBALS['display_external_calendars'])) {
                 $driver = self::getDriver('Horde');
