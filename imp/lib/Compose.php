@@ -1340,7 +1340,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             try {
                 switch ($encrypt) {
                 case IMP_Crypt_Pgp::SIGN:
-                    $base = $imp_pgp->IMPsignMIMEPart($base);
+                    $base = $imp_pgp->impSignMimePart($base);
                     $this->_metadata['encrypt_sign'] = true;
                     break;
 
@@ -1349,7 +1349,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                     $to_list = empty($options['from'])
                         ? $to
                         : array_keys(array_flip(array_merge($to, array($options['from']))));
-                    $base = $imp_pgp->IMPencryptMIMEPart($base, $to_list, ($encrypt == IMP_Crypt_Pgp::SYM_ENCRYPT) ? $symmetric_passphrase : null);
+                    $base = $imp_pgp->impEncryptMimePart($base, $to_list, ($encrypt == IMP_Crypt_Pgp::SYM_ENCRYPT) ? $symmetric_passphrase : null);
                     break;
 
                 case IMP_Crypt_Pgp::SIGNENC:
@@ -1357,7 +1357,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                     $to_list = empty($options['from'])
                         ? $to
                         : array_keys(array_flip(array_merge($to, array($options['from']))));
-                    $base = $imp_pgp->IMPsignAndEncryptMIMEPart($base, $to_list, ($encrypt == IMP_Crypt_Pgp::SYM_SIGNENC) ? $symmetric_passphrase : null);
+                    $base = $imp_pgp->impSignAndEncryptMimePart($base, $to_list, ($encrypt == IMP_Crypt_Pgp::SYM_SIGNENC) ? $symmetric_passphrase : null);
                     break;
                 }
             } catch (Horde_Exception $e) {
