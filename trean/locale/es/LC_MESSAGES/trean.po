@@ -9,8 +9,9 @@ msgstr ""
 "Project-Id-Version: Trean 1.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-05-18 12:23+0200\n"
-"PO-Revision-Date: 2008-03-19 09:53+0100\n"
-"Last-Translator: Manuel P. Ayala <mayala@unex.es>\n"
+"PO-Revision-Date: 2012-04-20 20:30+0200\n"
+"Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
+"<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -347,7 +348,7 @@ msgstr "Carpeta"
 
 #: templates/browse.php:72 templates/browse.php:73
 msgid "Folder Actions"
-msgstr "Acciones de carpeta"
+msgstr "Acc. de carpeta"
 
 #: lib/Bookmarks.php:342
 msgid "Folder names must be non-empty"
@@ -664,7 +665,7 @@ msgstr "Seleccionar todas/nada"
 
 #: templates/search.php:66
 msgid "Select None"
-msgstr "Seleccionar nada"
+msgstr "No seleccionar nada"
 
 #: templates/search.php:64
 #, php-format
@@ -782,7 +783,7 @@ msgstr "URL"
 
 #: lib/Trean.php:177
 msgid "Unauthorized"
-msgstr "No autorizado"
+msgstr "Sin autorización"
 
 #: templates/reports.php:100
 #, php-format

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Horde_Image \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-01-17 12:38+0100\n"
-"PO-Revision-Date: 2012-01-17 12:38+0100\n"
+"PO-Revision-Date: 2012-04-20 20:30+0200\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
 "<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -1064,7 +1064,7 @@ msgstr "Pequeño"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:290
 msgid "Snow"
-msgstr "Nevada"
+msgstr "Nieve"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:112
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:113

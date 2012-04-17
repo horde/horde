@@ -9,8 +9,9 @@ msgstr ""
 "Project-Id-Version: Agora 1.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-05-18 12:23+0200\n"
-"PO-Revision-Date: 2008-03-17 11:11+0100\n"
-"Last-Translator: Manuel P. Ayala <mayala@unex.es>\n"
+"PO-Revision-Date: 2012-04-20 20:30+0200\n"
+"Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
+"<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -598,6 +599,7 @@ msgstr ""
 #: lib/Form/Forum.php:37
 msgid "Optional email address to recieve a copy of each posted message"
 msgstr ""
+"Dirección de correo opcional para recibir una copia de cada mensaje publicado"
 
 #: templates/forums.html.php:34
 msgid "Options"
@@ -982,6 +984,8 @@ msgid ""
 "Your message has been enqueued and is awaiting moderation.  It will become "
 "visible after moderator approval."
 msgstr ""
+"Su mensaje ha sido encolado y está en epsera de moderación.  Será visible "
+"cuando lo apruebe el moderador."
 
 #: lib/Application.php:82
 msgid "_Forums"
