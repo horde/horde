@@ -139,7 +139,7 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
         // terminator. For now, only check if we don't have a stream. Not sure
         // how to do this with a stream.
         if (!is_resource($content)) {
-            $content = str_replace('\0', '', $content);
+            $content = str_replace("\0", '', $content);
             if ('x' . $content == 'x') {
              return;
             }
