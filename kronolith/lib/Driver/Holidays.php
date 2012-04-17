@@ -63,7 +63,7 @@ class Kronolith_Driver_Holidays extends Kronolith_Driver
             $endDate = clone $startDate;
             $endDate->year++;
         }
-        if ($hasAlarm || is_null($startDate) || is_null($endDate)) {
+        if ($options['has_alarm'] || is_null($startDate) || is_null($endDate)) {
             return array();
         }
 
