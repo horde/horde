@@ -676,6 +676,7 @@ class Horde_ActiveSync_Imap_Adapter
      *            DEFAULT: true (Fetch message flags).
      *
      * @return array An array of Horde_Imap_Client_Data_Fetch objects.
+     * @throws Horde_ActiveSync_Exception
      */
     protected function _getMailMessages(
         Horde_Imap_Client_Mailbox $mbox, array $uids, array $options = array())

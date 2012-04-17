@@ -630,9 +630,12 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 $this->_endBuffer();
-                throw new Horde_ActiveSync_Exception('Not Found');
+                throw new Horde_ActiveSync_Exception($e);
             }
             $this->_endBuffer();
+            if (empty($messages)) {
+                throw new Horde_ActiveSync_Exception('Not Found');
+            }
             return current($messages);
             break;
         default:
