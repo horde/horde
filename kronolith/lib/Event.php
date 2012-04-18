@@ -1538,24 +1538,28 @@ abstract class Kronolith_Event
             foreach ($this->attendees as $email => $properties) {
                 $attendee = new Horde_ActiveSync_Message_Attendee();
                 $attendee->email = $email;
-                // AS only as required or optional
-                //$attendee->type = ($properties['attendance'] !== Kronolith::PART_REQUIRED ? Kronolith::PART_OPTIONAL : Kronolith::PART_REQUIRED);
-                //$attendee->status = $properties['response'];
+                // AS only has required or optional, and only EAS Version > 2.5
+                if ($options['protocolversion'] > Horde_ActiveSync::VERSION_TWOFIVE) {
+                    $attendee->type = ($properties['attendance'] !== Kronolith::PART_REQUIRED ? Kronolith::PART_OPTIONAL : Kronolith::PART_REQUIRED);
+                    $attendee->status = $properties['response'];
+                }
                 $message->addAttendee($attendee);
             }
         }
 
-//        /* Resources */
-//        $r = $this->getResources();
-//        foreach ($r as $id => $data) {
-//            $resource = Kronolith::getDriver('Resource')->getResource($id);
-//            $attendee = new Horde_ActiveSync_Message_Attendee();
-//            $attendee->email = $resource->get('email');
-//            $attendee->type = Horde_ActiveSync_Message_Attendee::TYPE_RESOURCE;
-//            $attendee->name = $data['name'];
-//            $attendee->status = $data['response'];
-//            $message->addAttendee($attendee);
-//        }
+       // Resources
+       if ($options['protocolversion'] > Horde_ActiveSync::VERSION_TWOFIVE) {
+           $r = $this->getResources();
+           foreach ($r as $id => $data) {
+               $resource = Kronolith::getDriver('Resource')->getResource($id);
+               $attendee = new Horde_ActiveSync_Message_Attendee();
+               $attendee->email = $resource->get('email');
+               $attendee->type = Horde_ActiveSync_Message_Attendee::TYPE_RESOURCE;
+               $attendee->name = $data['name'];
+               $attendee->status = $data['response'];
+               $message->addAttendee($attendee);
+           }
+        }
 
         // Reminder
         if ($this->alarm) {
