@@ -264,8 +264,9 @@ $injector->getInstance('Horde_Core_Factory_Imple')->create(array('kronolith', 'C
     'triggerId' => 'newAttendees'
 ));
 
+$title = _("Edit attendees");
 $page_output->header(array(
-    'title' => _("Edit attendees")
+    'title' => $title
 ));
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
 $notification->notify(array('listeners' => 'status'));
