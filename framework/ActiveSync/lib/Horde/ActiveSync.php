@@ -484,6 +484,10 @@ class Horde_ActiveSync
             $this->_driver->getUser())
         );
 
+        if (!$this->authenticate()) {
+            throw new Horde_ActiveSync_Exception('Failed to authenticate');
+        }
+
         // Don't bother with everything else if all we want are Options
         if ($cmd == 'Options') {
             $this->activeSyncHeader();
@@ -495,10 +499,6 @@ class Horde_ActiveSync
         if ($cmd == 'Autodiscover') {
             $request = new Horde_ActiveSync_Request_Autodiscover($this, new stdClass());
             return $request->handle();
-        }
-
-        if (!$this->authenticate()) {
-            throw new Horde_ActiveSync_Exception('Failed to authenticate');
         }
 
         // These are all handled in the same class.
