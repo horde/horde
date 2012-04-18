@@ -330,9 +330,6 @@ class Horde_ActiveSync
         // Wbxml handlers
         $this->_encoder = $encoder;
         $this->_decoder = $decoder;
-
-        // Read the initial Wbxml header
-        $this->_decoder->readWbxmlHeader();
     }
 
     /**
@@ -513,6 +510,9 @@ class Horde_ActiveSync
         if (is_null($devId)) {
             throw new Horde_ActiveSync_Exception_InvalidRequest('Device failed to send device id.');
         }
+
+        // Read the initial Wbxml header
+        $this->_decoder->readWbxmlHeader();
 
         // Does device exist AND does the user have an account on the device?
         if (!empty($devId) && !$this->_state->deviceExists($devId, $this->_driver->getUser())) {
