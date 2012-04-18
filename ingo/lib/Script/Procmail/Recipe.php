@@ -396,21 +396,16 @@ class Ingo_Script_Procmail_Recipe
     public function procmailPath($folder)
     {
         /* NOTE: '$DEFAULT' here is a literal, not a PHP variable. */
+        if (empty($folder) || ($folder == 'INBOX')) {
+            return '$DEFAULT';
+        }
         if (isset($this->_params) &&
             ($this->_params['path_style'] == 'maildir')) {
-            if (empty($folder) || ($folder == 'INBOX')) {
-                return '$DEFAULT/';
-            }
             if (substr($folder, 0, 6) == 'INBOX.') {
                 $folder = substr($folder, 6);
             }
-            return '"$DEFAULT/.' . escapeshellcmd($folder) . '/"';
-        } else {
-            if (empty($folder) || ($folder == 'INBOX')) {
-                return '$DEFAULT';
-            }
-            return str_replace(' ', '\ ', escapeshellcmd($folder));
+            return '".' . escapeshellcmd($folder) . '/"';
         }
+        return str_replace(' ', '\ ', escapeshellcmd($folder));
     }
-
 }
