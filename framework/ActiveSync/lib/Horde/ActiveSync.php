@@ -495,6 +495,11 @@ class Horde_ActiveSync
             return true;
         }
 
+        if ($cmd == 'Autodiscover') {
+            $request = new Horde_ActiveSync_Request_Autodiscover($this, new stdClass());
+            return $request->handle();
+        }
+
         if (!$this->authenticate()) {
             throw new Horde_ActiveSync_Exception('Failed to authenticate');
         }
