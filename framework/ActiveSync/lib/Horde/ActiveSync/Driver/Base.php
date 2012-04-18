@@ -633,4 +633,15 @@ abstract class Horde_ActiveSync_Driver_Base
      *         'deviceinformation' => Horde_ActiveSync_Request_Settings::STATUS_SUCCESS);
      */
     abstract public function setSettings(array $settings, $device);
+
+    /**
+     * Return properties for an AUTODISCOVER request.
+     *
+     * @param string $email  The email address for the user that is attempting
+     *                       to autodiscover.
+     *
+     * @return array  An array of properties.
+     */
+    abstract function autoDiscover($email);
+
 }

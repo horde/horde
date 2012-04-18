@@ -1233,6 +1233,29 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     }
 
     /**
+     * Attempt to autodiscover
+     *
+     * @param string $email  The user's email address
+     *
+     * @return array
+     */
+    public function autoDiscover($email)
+    {
+        $results = array();
+        $ident = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Identity')
+            ->create($this->_user);
+        $results['display_name'] = $ident->getValue('fullname');
+        $results['email'] = $ident->getValue('from_addr');
+        $url = parse_url((string)Horde::url(null, true));
+        $results['url'] = $url['scheme'] . '://' . $url['domain'] . '/Microsoft-Server-ActiveSync';
+        // As of Exchange 2007, this always returns en:en
+        $results['culture'] = 'en:en';
+
+        return $results;
+    }
+
+    /**
      * Helper to build a folder object for non-email folders.
      *
      * @param string $id      The folder's server id.
