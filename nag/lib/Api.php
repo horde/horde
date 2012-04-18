@@ -826,7 +826,9 @@ class Nag_Api extends Horde_Registry_Api
                         $storage->modify($existing->id, $task->toHash());
                         $ids[] = $task->uid;
                     } else {
-                        $newTask = $storage->add($task->toHash());
+                        $hash = $task->toHash();
+                        unset($hash['uid']);
+                        $newTask = $storage->add($hash);
                         // use UID rather than ID
                         $ids[] = $newTask[1];
                     }
@@ -842,7 +844,9 @@ class Nag_Api extends Horde_Registry_Api
         case 'activesync':
             $task = new Nag_Task();
             $task->fromASTask($content);
-            $results = $storage->add($task->toHash());
+            $hash = $task->toHash();
+            unset($hash['uid']);
+            $results = $storage->add($hash);
 
             /* array index 0 is id, 1 is uid */
             return $results[1];
