@@ -117,6 +117,7 @@ try {
 } catch (Horde_Rpc_Exception $e) {
     Horde::logMessage($e, 'ERR');
     header('HTTP/1.1 501 Not Implemented');
+    exit;
 }
 
 // Let the backend check authentication. By default, we look for HTTP

@@ -59,8 +59,9 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
     {
         parent::__construct($request, $params);
         $this->_get = $request->getGetVars();
+	$serverVars = $request->getServerVars();
         if ($request->getMethod() == 'POST' &&
-            (empty($this->_get['Cmd']) || empty($this->_get['DeviceId']) || empty($this->_get['DeviceType']))) {
+            ((empty($this->_get['Cmd']) || empty($this->_get['DeviceId']) || empty($this->_get['DeviceType'])) && $serverVars['REQUEST_URI'] != '/autodiscover/autodiscover.xml')) {
 
             $this->_logger->err('Missing required parameters.');
             throw new Horde_Rpc_Exception('Your device requested the ActiveSync URL wihtout required parameters.');
@@ -118,8 +119,8 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
         case 'POST':
             $this->_logger->debug('Horde_Rpc_ActiveSync::getResponse() starting for ' . $this->_get['Cmd']);
             // Autodiscover Request
-            if (!empty($serverVars['REQUEST_URI']) && $serverVars['REQUEST_URI'] == '/autodiscover/autodiscover.xml') {
-                $this->_get['Cmd'] == 'Autodiscover';
+            if ($serverVars['REQUEST_URI'] == '/autodiscover/autodiscover.xml') {
+                $this->_get['Cmd'] = 'Autodiscover';
                 $this->_get['DeviceId'] = null;
             }
             try {
