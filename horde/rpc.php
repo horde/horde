@@ -34,7 +34,8 @@ $params = array();
  * and determine what kind of request this is. */
 if ((!empty($_SERVER['CONTENT_TYPE']) &&
      (strpos($_SERVER['CONTENT_TYPE'], 'application/vnd.ms-sync.wbxml') !== false)) ||
-   (strpos($_SERVER['REQUEST_URI'], 'Microsoft-Server-ActiveSync') !== false)) {
+   (strpos($_SERVER['REQUEST_URI'], 'Microsoft-Server-ActiveSync') !== false) ||
+   (strpos($_SERVER['REQUEST_URI'], 'autodiscover/autodiscover.xml'))) {
     /* ActiveSync Request */
     $conf['cookie']['path'] = '/Microsoft-Server-ActiveSync';
     $serverType = 'ActiveSync';
