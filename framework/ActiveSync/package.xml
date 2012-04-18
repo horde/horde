@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-03-26</date>
- <time>13:00:36</time>
+ <date>2012-04-18</date>
+ <time>09:24:22</time>
  <version>
   <release>1.2.6</release>
   <api>1.2.0</api>
@@ -79,6 +79,7 @@
        <file name="Mail.php" role="php" />
        <file name="Recurrence.php" role="php" />
        <file name="Task.php" role="php" />
+       <file name="TaskRecurrence.php" role="php" />
       </dir> <!-- /lib/Horde/ActiveSync/Message -->
       <dir name="Request">
        <file name="Base.php" role="php" />
@@ -245,6 +246,7 @@
    <install as="Horde/ActiveSync/Message/Mail.php" name="lib/Horde/ActiveSync/Message/Mail.php" />
    <install as="Horde/ActiveSync/Message/Recurrence.php" name="lib/Horde/ActiveSync/Message/Recurrence.php" />
    <install as="Horde/ActiveSync/Message/Task.php" name="lib/Horde/ActiveSync/Message/Task.php" />
+   <install as="Horde/ActiveSync/Message/TaskRecurrence.php" name="lib/Horde/ActiveSync/Message/TaskRecurrence.php" />
    <install as="Horde/ActiveSync/Request/Base.php" name="lib/Horde/ActiveSync/Request/Base.php" />
    <install as="Horde/ActiveSync/Request/FolderCreate.php" name="lib/Horde/ActiveSync/Request/FolderCreate.php" />
    <install as="Horde/ActiveSync/Request/FolderSync.php" name="lib/Horde/ActiveSync/Request/FolderSync.php" />
@@ -637,7 +639,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-03-26</date>
+   <date>2012-04-18</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Add Email support

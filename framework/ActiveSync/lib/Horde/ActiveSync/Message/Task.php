@@ -60,7 +60,7 @@ class Horde_ActiveSync_Message_Task extends Horde_ActiveSync_Message_Base
         self::POOMTASKS_DUEDATE       => array (self::KEY_ATTRIBUTE => 'duedate', self::KEY_TYPE => self::TYPE_DATE_DASHES),
         self::POOMTASKS_UTCDUEDATE    => array (self::KEY_ATTRIBUTE => 'utcduedate', self::KEY_TYPE => self::TYPE_DATE_DASHES),
         self::POOMTASKS_IMPORTANCE    => array (self::KEY_ATTRIBUTE => 'importance'),
-        self::POOMTASKS_RECURRENCE    => array (self::KEY_ATTRIBUTE => 'recurrence', self::KEY_TYPE => 'SyncTaskRecurrence'),
+        self::POOMTASKS_RECURRENCE    => array (self::KEY_ATTRIBUTE => 'recurrence', self::KEY_TYPE => 'Horde_ActiveSync_Message_TaskRecurrence'),
         self::POOMTASKS_REGENERATE    => array (self::KEY_ATTRIBUTE => 'regenerate'),
         self::POOMTASKS_DEADOCCUR     => array (self::KEY_ATTRIBUTE => 'deadoccur'),
         self::POOMTASKS_REMINDERSET   => array (self::KEY_ATTRIBUTE => 'reminderset'),
@@ -273,6 +273,115 @@ class Horde_ActiveSync_Message_Task extends Horde_ActiveSync_Message_Base
     public function getClass()
     {
         return 'Tasks';
+    }
+
+    /**
+     * Set recurrence information for this task
+     *
+     * @param Horde_Date_Recurrence $recurrence
+     */
+    public function setRecurrence(Horde_Date_Recurrence $recurrence)
+    {
+        $r = new Horde_ActiveSync_Message_TaskRecurrence();
+
+        // Map the type fields
+        switch ($recurrence->recurType) {
+        case Horde_Date_Recurrence::RECUR_DAILY:
+            $r->type = Horde_ActiveSync_Message_Recurrence::TYPE_DAILY;
+            break;
+        case Horde_Date_Recurrence::RECUR_WEEKLY;
+            $r->type = Horde_ActiveSync_Message_Recurrence::TYPE_WEEKLY;
+            $r->dayofweek = $recurrence->getRecurOnDays();
+            break;
+        case Horde_Date_Recurrence::RECUR_MONTHLY_DATE:
+            $r->type = Horde_ActiveSync_Message_Recurrence::TYPE_MONTHLY;
+            break;
+        case Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY;
+            $r->type = Horde_ActiveSync_Message_Recurrence::TYPE_MONTHLY_NTH;
+            $r->weekofmonth = ceil($recurrence->start->mday / 7);
+            $r->dayofweek = $this->_dayOfWeekMap[$recurrence->start->dayOfWeek()];
+            break;
+        case Horde_Date_Recurrence::RECUR_YEARLY_DATE:
+            $r->type = Horde_ActiveSync_Message_Recurrence::TYPE_YEARLY;
+            break;
+        case Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY:
+            $r->type = Horde_ActiveSync_Message_Recurrence::TYPE_YEARLYNTH;
+            $r->dayofweek = $this->_dayOfWeekMap[$recurrence->start->dayOfWeek()];
+            $r->weekofmonth = ceil($recurrence->start->mday / 7);
+            $r->monthofyear = $recurrence->start->month;
+            break;
+        }
+        if (!empty($recurrence->recurInterval)) {
+            $r->interval = $recurrence->recurInterval;
+        }
+
+        // AS messages can only have one or the other (or none), not both
+        if ($recurrence->hasRecurCount()) {
+            $r->occurrences = $recurrence->getRecurCount();
+        } elseif ($recurrence->hasRecurEnd()) {
+            $r->until = $recurrence->getRecurEnd();
+        }
+
+        // Not sure when a recurring task would ever not regenerate.... but the
+        // protocol requires this.
+        $r->regenerate = true;
+
+        $this->_properties['recurrence'] = $r;
+    }
+
+    /**
+     * Obtain a recurrence object. Note this returns a Horde_Date_Recurrence
+     * object, not Horde_ActiveSync_Message_Recurrence.
+     *
+     * @return Horde_Date_Recurrence
+     */
+    public function getRecurrence()
+    {
+        if (!$recurrence = $this->_getAttribute('recurrence')) {
+            return false;
+        }
+
+        $d = clone($this->getDueDate());
+        //  $d->setTimezone($this->getTimezone());
+
+        $rrule = new Horde_Date_Recurrence($d);
+
+        /* Map MS AS type field to Horde_Date_Recurrence types */
+        switch ($recurrence->type) {
+        case Horde_ActiveSync_Message_Recurrence::TYPE_DAILY:
+            $rrule->setRecurType(Horde_Date_Recurrence::RECUR_DAILY);
+             break;
+        case Horde_ActiveSync_Message_Recurrence::TYPE_WEEKLY:
+            $rrule->setRecurType(Horde_Date_Recurrence::RECUR_WEEKLY);
+            $rrule->setRecurOnDay($recurrence->dayofweek);
+            break;
+        case Horde_ActiveSync_Message_Recurrence::TYPE_MONTHLY:
+            $rrule->setRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_DATE);
+            break;
+        case Horde_ActiveSync_Message_Recurrence::TYPE_MONTHLY_NTH:
+            $rrule->setRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY);
+            $rrule->setRecurOnDay($recurrence->dayofweek);
+            break;
+        case Horde_ActiveSync_Message_Recurrence::TYPE_YEARLY:
+            $rrule->setRecurType(Horde_Date_Recurrence::RECUR_YEARLY_DATE);
+            break;
+        case Horde_ActiveSync_Message_Recurrence::TYPE_YEARLYNTH:
+            $rrule->setRecurType(Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY);
+            $rrule->setRecurOnDay($recurrence->dayofweek);
+            break;
+        }
+
+        if ($rcnt = $recurrence->occurrences) {
+            $rrule->setRecurCount($rcnt);
+        }
+        if ($runtil = $recurrence->until) {
+            $rrule->setRecurEnd(new Horde_Date($runtil));
+        }
+        if ($interval = $recurrence->interval) {
+            $rrule->setRecurInterval($interval);
+        }
+
+        return $rrule;
     }
 
     protected function _checkSendEmpty($tag)

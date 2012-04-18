@@ -1036,6 +1036,11 @@ class Nag_Task
             $message->setReminder(new Horde_Date($this->due - $this->alarm));
         }
 
+        /* Recurrence */
+        if ($this->recurs()) {
+            $message->setRecurrence($this->recurrence);
+        }
+
         return $message;
     }
 
@@ -1188,6 +1193,10 @@ class Nag_Task
 
         if (($alarm = $message->getReminder()) && $this->due) {
             $this->alarm = $this->due - $alarm->timestamp();
+        }
+
+        if ($rrule = $message->getRecurrence()) {
+            $this->recurrence = $rrule;
         }
 
         $this->tasklist = $GLOBALS['prefs']->getValue('default_tasklist');
