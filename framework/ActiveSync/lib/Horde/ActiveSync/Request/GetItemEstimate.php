@@ -189,11 +189,13 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
             $this->_encoder->startTag(self::FOLDERID);
             $this->_encoder->content($collection['id']);
             $this->_encoder->endTag();
-            $this->_encoder->startTag(self::ESTIMATE);
-            $sync = $this->_getSyncObject();
-            $sync->init($this->_stateDriver, null, $collection);
-            $this->_encoder->content($sync->GetChangeCount());
-            $this->_encoder->endTag();
+            if ($status[$collection['id']] == self::STATUS_SUCCESS) {
+                $this->_encoder->startTag(self::ESTIMATE);
+                $sync = $this->_getSyncObject();
+                $sync->init($this->_stateDriver, null, $collection);
+                $this->_encoder->content($sync->GetChangeCount());
+                $this->_encoder->endTag();
+            }
             $this->_encoder->endTag();
             $this->_encoder->endTag();
         }
