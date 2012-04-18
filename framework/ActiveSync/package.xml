@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2012-04-18</date>
- <time>09:24:22</time>
+ <time>13:44:57</time>
  <version>
   <release>1.2.6</release>
   <api>1.2.0</api>
@@ -82,6 +82,7 @@
        <file name="TaskRecurrence.php" role="php" />
       </dir> <!-- /lib/Horde/ActiveSync/Message -->
       <dir name="Request">
+       <file name="Autoconfigure.php" role="php" />
        <file name="Base.php" role="php" />
        <file name="FolderCreate.php" role="php" />
        <file name="FolderSync.php" role="php" />
@@ -247,6 +248,7 @@
    <install as="Horde/ActiveSync/Message/Recurrence.php" name="lib/Horde/ActiveSync/Message/Recurrence.php" />
    <install as="Horde/ActiveSync/Message/Task.php" name="lib/Horde/ActiveSync/Message/Task.php" />
    <install as="Horde/ActiveSync/Message/TaskRecurrence.php" name="lib/Horde/ActiveSync/Message/TaskRecurrence.php" />
+   <install as="Horde/ActiveSync/Request/Autoconfigure.php" name="lib/Horde/ActiveSync/Request/Autoconfigure.php" />
    <install as="Horde/ActiveSync/Request/Base.php" name="lib/Horde/ActiveSync/Request/Base.php" />
    <install as="Horde/ActiveSync/Request/FolderCreate.php" name="lib/Horde/ActiveSync/Request/FolderCreate.php" />
    <install as="Horde/ActiveSync/Request/FolderSync.php" name="lib/Horde/ActiveSync/Request/FolderSync.php" />

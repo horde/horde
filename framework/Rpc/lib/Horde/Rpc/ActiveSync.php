@@ -17,7 +17,7 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
      *
      * @var array
      */
-    protected $_get;
+    protected $_get = array();
 
     /**
      * The ActiveSync server object
@@ -117,6 +117,11 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
 
         case 'POST':
             $this->_logger->debug('Horde_Rpc_ActiveSync::getResponse() starting for ' . $this->_get['Cmd']);
+            // Autodiscover Request
+            if (!empty($serverVars['REQUEST_URI']) && $serverVars['REQUEST_URI'] == '/autodiscover/autodiscover.xml') {
+                $this->_get['Cmd'] == 'Autodiscover';
+                $this->_get['DeviceId'] = null;
+            }
             try {
                 $ret = $this->_server->handleRequest($this->_get['Cmd'], $this->_get['DeviceId']);
                 if ($ret === false) {
