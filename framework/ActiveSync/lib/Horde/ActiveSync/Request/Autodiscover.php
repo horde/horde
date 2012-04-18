@@ -21,7 +21,7 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
      *
      * @return boolean
      */
-    protected function _handle()
+    public function handle()
     {
         $input_stream = $this->_decoder->getStream();
         $parser = xml_parser_create();
@@ -32,6 +32,10 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
             $this->_buildResponseString($this->_driver->autoDiscover($email)));
 
         return true;
+    }
+   
+    protected function _handle()
+    {
     }
 
     protected function _buildResponseString($properties)
