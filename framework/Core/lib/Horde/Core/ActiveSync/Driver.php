@@ -1248,10 +1248,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $results['display_name'] = $ident->getValue('fullname');
         $results['email'] = $ident->getValue('from_addr');
         $url = parse_url((string)Horde::url(null, true));
-        $results['url'] = $url['scheme'] . '://' . $url['domain'] . '/Microsoft-Server-ActiveSync';
+        $results['url'] = $url['scheme'] . '://' . $url['host'] . '/Microsoft-Server-ActiveSync';
         // As of Exchange 2007, this always returns en:en
         $results['culture'] = 'en:en';
-
         return $results;
     }
 
