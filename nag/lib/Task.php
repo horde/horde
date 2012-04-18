@@ -1148,6 +1148,9 @@ class Nag_Task
      */
     function fromASTask(Horde_ActiveSync_Message_Task $message)
     {
+        /* Owner is always current user for ActiveSync */
+        $this->owner = $GLOBALS['registry']->getAuth();
+
         /* Notes and Title */
         $this->desc = $message->getBody();
         $this->name = $message->getSubject();
