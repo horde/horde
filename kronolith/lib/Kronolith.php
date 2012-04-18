@@ -2013,7 +2013,7 @@ class Kronolith
          * of it. We allow email addresses (john@example.com), email
          * address with user information (John Doe <john@example.com>),
          * and plain names (John Doe). */
-        $result = $parser->parseAddressList($newAttendee);
+        $result = $parser->parseAddressList($newAttendees);
         $result->setIteratorFilter(Horde_Mail_Rfc822_List::HIDE_GROUPS);
 
         foreach ($result as $newAttendee) {
