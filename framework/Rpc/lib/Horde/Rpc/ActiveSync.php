@@ -59,7 +59,7 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
     {
         parent::__construct($request, $params);
         $this->_get = $request->getGetVars();
-	$serverVars = $request->getServerVars();
+        $serverVars = $request->getServerVars();
         if ($request->getMethod() == 'POST' &&
             ((empty($this->_get['Cmd']) || empty($this->_get['DeviceId']) || empty($this->_get['DeviceType'])) && $serverVars['REQUEST_URI'] != '/autodiscover/autodiscover.xml')) {
 
