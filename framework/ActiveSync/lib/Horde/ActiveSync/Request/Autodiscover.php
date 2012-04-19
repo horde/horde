@@ -28,15 +28,20 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
         xml_parse_into_struct($parser, stream_get_contents($input_stream), $values);
         $email = $values[2]['value'];
         $username = $this->_driver->getUsernameFromEmail($email);
-        $this->_activeSync->authenticate($username);
+        if (!$this->_activeSync->authenticate($username)) {
+            fwrite(
+                $this->_encoder->getStream(),
+                $this->_buildFailureResponse($email));
 
+            return true;
+        }
         fwrite(
             $this->_encoder->getStream(),
             $this->_buildResponseString($this->_driver->autoDiscover()));
 
         return true;
     }
-   
+
     protected function _handle()
     {
     }
@@ -61,6 +66,26 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
                     </autodiscover:Action>
                 </autodiscover:Response>
             </Autodiscover>';
+    }
+
+    protected function _buildFailureResponse($email)
+    {
+        return '<?xml version="1.0" encoding="utf-8"?>
+            <Autodiscover xmlns:autodiscover="http://schemas.microsoft.com/exchange/autodiscover/mobilesync/responseschema/2006">
+            <autodiscover:Response>
+                <autodiscover:Culture>en:us</autodiscover:Culture>
+                <autodiscover:User>
+                   <autodiscover:EMailAddress>' . $email . '</autodiscover:EMailAddress>
+               </autodiscover:User>
+               <autodiscover:Action>
+                   <autodiscover:Error>
+                       <Status>500</Status>
+                       <Message>Unable to autoconfigure the supplied email address.</Message>
+                       <DebugData>MailUser</DebugData>
+                   </autodiscover:Error>
+               </autodiscover:Action>
+            </autodiscover:Response>
+        </Autodiscover>'
     }
 
 }
