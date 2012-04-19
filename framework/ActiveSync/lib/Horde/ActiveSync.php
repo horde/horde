@@ -248,6 +248,7 @@ class Horde_ActiveSync
 
     const VERSION_TWOFIVE                       = 2.5;
     const VERSION_TWELVE                        = 12;
+    const VERSION_TWELVEONE                     = 12.1;
 
     /**
      * Logger
