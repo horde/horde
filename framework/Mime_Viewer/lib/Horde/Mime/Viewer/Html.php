@@ -83,7 +83,7 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Base
         $html = $this->_cleanHTML($this->_mimepart->getContents(), array('inline' => false));
 
         return $this->_renderReturn(
-            $html,
+            $html->returnHtml(),
             $this->_mimepart->getType(true)
         );
     }
@@ -98,7 +98,7 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Base
         $html = $this->_cleanHTML($this->_mimepart->getContents(), array('inline' => true));
 
         return $this->_renderReturn(
-            Horde_String::convertCharset($html, $this->_mimepart->getCharset(), 'UTF-8'),
+            Horde_String::convertCharset($html->returnHtml(), $this->_mimepart->getCharset(), 'UTF-8'),
             'text/html; charset=UTF-8'
         );
     }
@@ -122,7 +122,7 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Base
      *               inline.
      *               DEFAULT: false.
      *
-     * @return string  The cleaned HTML string.
+     * @return Horde_Domhtml  The cleaned HTML data.
      */
     protected function _cleanHTML($data, $options = array())
     {
@@ -164,7 +164,7 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Base
             $this->_node($data->dom, $node);
         }
 
-        return $data->returnHtml();
+        return $data;
     }
 
     /**

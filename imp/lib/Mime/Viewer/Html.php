@@ -170,6 +170,13 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             'phishing' => $inline
         ));
 
+        if (!empty($this->_imptmp['style'])) {
+            $this->_processDomDocument($data->dom);
+        }
+
+        $data = $data->returnHtml();
+
+
         $status = array();
         if ($this->_phishWarn) {
             $status[] = new IMP_Mime_Status(array(
@@ -267,84 +274,10 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
     {
         parent::_node($doc, $node);
 
-        if ($node instanceof DOMDocument) {
-            if (!empty($this->_imptmp['style'])) {
-                $this->_processDomDocument($node);
-            }
-        } elseif ($node instanceof DOMElement) {
-            if (!empty($this->_imptmp)) {
-                $this->_processDomElement($doc, $node);
-            }
-        }
-    }
-
-    /**
-     */
-    protected function _processDomDocument($doc)
-    {
-        /* Sanitize and optimize style tags. */
-        try {
-            // Csstidy may not be available.
-            $style = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter(implode("\n", $this->_imptmp['style']), 'csstidy', array(
-                'ob' => true,
-                'preserve_css' => false
-            ));
-        } catch (Horde_Exception $e) {
+        if (empty($this->_imptmp) || !($node instanceof DOMElement)) {
             return;
         }
 
-        $blocked = array();
-        foreach ($style->import as $val) {
-            $blocked[] = '@import "' . $val . '";';
-        }
-        $style->import = array();
-
-        foreach ($style->css as $key => $val) {
-            foreach ($val as $key2 => $val2) {
-                foreach ($val2 as $key3 => $val3) {
-                    foreach ($val3['p'] as $key4 => $val4) {
-                        if (preg_match('/^\s*url\(["\']?.*?["\']?\)/i', $val4)) {
-                            $blocked[] = $key2 . '{' . $key3 . ':' . $val4 . ';}';
-                            unset($style->css[$key][$key2][$key3]['p'][$key4]);
-                        }
-                    }
-                }
-            }
-        }
-
-        $css_text = $style->print->plain();
-
-        if ($css_text || !empty($blocked)) {
-            /* Gets the HEAD element or creates one if it doesn't exist. */
-            $head = $doc->getElementsByTagName('head');
-            if ($head->length) {
-                $headelt = $head->item(0);
-            } else {
-                $headelt = $doc->createElement('head');
-                $doc->appendChild($headelt);
-            }
-        }
-
-        if ($css_text) {
-            $style_elt = $doc->createElement('style', $css_text);
-            $style_elt->setAttribute('type', 'text/css');
-            $headelt->appendChild($style_elt);
-        }
-
-        /* Store all the blocked CSS in a bogus style element in the HTML
-         * output - then we simply need to change the type attribute to
-         * text/css, and the browser should load the definitions on-demand. */
-        if (!empty($blocked)) {
-            $block_elt = $doc->createElement('style', implode('', $blocked));
-            $block_elt->setAttribute('type', 'text/x-imp-cssblocked');
-            $headelt->appendChild($block_elt);
-        }
-    }
-
-    /**
-     */
-    protected function _processDomElement($doc, $node)
-    {
         $tag = Horde_String::lower($node->tagName);
 
         switch ($tag) {
@@ -497,6 +430,69 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                     $node->setAttribute('style', $style);
                 }
             }
+        }
+    }
+
+    /**
+     */
+    protected function _processDomDocument($doc)
+    {
+        /* Sanitize and optimize style tags. */
+        try {
+            // Csstidy may not be available.
+            $style = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter(implode("\n", $this->_imptmp['style']), 'csstidy', array(
+                'ob' => true,
+                'preserve_css' => false
+            ));
+        } catch (Horde_Exception $e) {
+            return;
+        }
+
+        $blocked = array();
+        foreach ($style->import as $val) {
+            $blocked[] = '@import "' . $val . '";';
+        }
+        $style->import = array();
+
+        foreach ($style->css as $key => $val) {
+            foreach ($val as $key2 => $val2) {
+                foreach ($val2 as $key3 => $val3) {
+                    foreach ($val3['p'] as $key4 => $val4) {
+                        if (preg_match('/^\s*url\(["\']?.*?["\']?\)/i', $val4)) {
+                            $blocked[] = $key2 . '{' . $key3 . ':' . $val4 . ';}';
+                            unset($style->css[$key][$key2][$key3]['p'][$key4]);
+                        }
+                    }
+                }
+            }
+        }
+
+        $css_text = $style->print->plain();
+
+        if ($css_text || !empty($blocked)) {
+            /* Gets the HEAD element or creates one if it doesn't exist. */
+            $head = $doc->getElementsByTagName('head');
+            if ($head->length) {
+                $headelt = $head->item(0);
+            } else {
+                $headelt = $doc->createElement('head');
+                $doc->appendChild($headelt);
+            }
+        }
+
+        if ($css_text) {
+            $style_elt = $doc->createElement('style', $css_text);
+            $style_elt->setAttribute('type', 'text/css');
+            $headelt->appendChild($style_elt);
+        }
+
+        /* Store all the blocked CSS in a bogus style element in the HTML
+         * output - then we simply need to change the type attribute to
+         * text/css, and the browser should load the definitions on-demand. */
+        if (!empty($blocked)) {
+            $block_elt = $doc->createElement('style', implode('', $blocked));
+            $block_elt->setAttribute('type', 'text/x-imp-cssblocked');
+            $headelt->appendChild($block_elt);
         }
     }
 
