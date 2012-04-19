@@ -46,7 +46,7 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
         return '<?xml version="1.0" encoding="utf-8"?>
             <Autodiscover xmlns:autodiscover="http://schemas.microsoft.com/exchange/autodiscover/mobilesync/responseschema/2006">
                 <autodiscover:Response>
-                    <autodiscover:Culture>' . $properties['culture'] . '/autodiscover:Culture>
+                    <autodiscover:Culture>' . $properties['culture'] . '</autodiscover:Culture>
                     <autodiscover:User>
                         <autodiscover:DisplayName>' . $properties['display_name'] . '</autodiscover:DisplayName>
                         <autodiscover:EMailAddress>' . $properties['email'] . '</autodiscover:EMailAddress>
