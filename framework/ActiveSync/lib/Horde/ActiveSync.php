@@ -387,7 +387,7 @@ class Horde_ActiveSync
         }
 
         // Some devices (incorrectly) only send the username in the httpauth
-        $get = $this->_request->getGetVars();
+        $get = $this->getGetVars();
         if ($this->_request->getMethod() == 'POST' && empty($get['User'])) {
             if ($serverVars['PHP_AUTH_USER']) {
                 $get['User'] = $serverVars['PHP_AUTH_USER'];
@@ -550,7 +550,7 @@ class Horde_ActiveSync
                 $d = $this->_state->loadDeviceInfo($devId, '');;
             }
             $device->policykey = 0;
-            $get = $this->_request->getGetVars();
+            $get = $this->getGetVars();
             $device->userAgent = $this->_request->getHeader('User-Agent');
             $device->deviceType = !empty($get['DeviceType']) ? $get['DeviceType'] : '';
             $device->rwstatus = self::RWSTATUS_NA;
