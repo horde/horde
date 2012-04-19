@@ -1,5 +1,17 @@
 <?php
 /**
+ * Horde_ActiveSync_Timezone::
+ *
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
+ *            Version 2, the distribution of the Horde_ActiveSync module in or
+ *            to the United States of America is excluded from the scope of this
+ *            license.
+ * @copyright 2009-2012 Horde LLC (http://www.horde.org)
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @package   ActiveSync
+ */
+/**
  * Utility functions for dealing with Microsoft ActiveSync's Timezone format.
  *
  * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
@@ -10,10 +22,14 @@
  * Code dealing with searching for a timezone identifier from an AS timezone
  * blob inspired by code in the Tine20 Project (http://tine20.org).
  *
- * @author   Michael J. Rubinsky <mrubinsk@horde.org>
- *
- * @category Horde
- * @package  ActiveSync
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
+ *            Version 2, the distribution of the Horde_ActiveSync module in or
+ *            to the United States of America is excluded from the scope of this
+ *            license.
+ * @copyright 2009-2012 Horde LLC (http://www.horde.org)
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @package   ActiveSync
  */
 class Horde_ActiveSync_Timezone
 {
