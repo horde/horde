@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Add EAS version 12.0 support.
 * [mjr] Add Email support
  </notes>
  <contents>
@@ -644,6 +645,7 @@
    <date>2012-04-19</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Add EAS version 12.0 support.
 * [mjr] Add Email support
    </notes>
   </release>
