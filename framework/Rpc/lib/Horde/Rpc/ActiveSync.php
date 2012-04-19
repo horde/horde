@@ -110,7 +110,9 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
             }
             $this->_logger->debug('Horde_Rpc_ActiveSync::getResponse() starting for OPTIONS');
             try {
-                $this->_server->handleRequest('Options', null, null);
+                if (!$this->_server->handleRequest('Options', null, null)) {
+                    throw new Horde_Exception('Unknown Error');
+                }
             } catch (Horde_Exception $e) {
                 $this->_handleError($e);
             }
