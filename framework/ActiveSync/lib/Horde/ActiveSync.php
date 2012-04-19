@@ -408,7 +408,7 @@ class Horde_ActiveSync
         if (!$this->_driver->setup($user)) {
             header('HTTP/1.1 401 Unauthorized');
             header('WWW-Authenticate: Basic realm="Horde ActiveSync"');
-            echo 'Access denied or user ' . $this->_get['User'] . ' unknown.';
+            echo 'Access denied or user ' . $user . ' unknown.';
             return false;
         }
 
