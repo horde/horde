@@ -62,6 +62,7 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
                                 <autodiscover:Type>MobileSync</autodiscover:Type>
                                 <autodiscover:Url>' . $properties['url'] . '</autodiscover:Url>
                                 <autodiscover:Name>' . $properties['url'] . '</autodiscover:Name>
+                            </autodiscover:Server>
                         </autodiscover:Settings>
                     </autodiscover:Action>
                 </autodiscover:Response>
