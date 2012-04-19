@@ -19,7 +19,7 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
     /**
      * Handle request
      *
-     * @return boolean
+     * @return text  The content type of the response (text/html).
      */
     public function handle()
     {
@@ -33,13 +33,13 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
                 $this->_encoder->getStream(),
                 $this->_buildFailureResponse($email));
 
-            return true;
+            return 'text/xml';
         }
         fwrite(
             $this->_encoder->getStream(),
             $this->_buildResponseString($this->_driver->autoDiscover()));
 
-        return true;
+        return 'text/xml';
     }
 
     protected function _handle()
