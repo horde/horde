@@ -550,7 +550,7 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
         foreach ($var->type->getSounds() as $sound) {
             $sound = htmlspecialchars($sound);
             $html .= '<li><label><input type="radio" id="' . $this->_genID($var->getVarName(), false) . '" name="' . htmlspecialchars($var->getVarName()) . '" value="' . $sound . '"' . ($value == $sound ? ' checked="checked"' : '') . ' />' . $sound . '</label>'
-                . ' <embed autostart="false" src="'. $GLOBALS['registry']->get('themesuri', 'horde') . '/sounds/' . $sound . '" /></li>';
+                . ' <embed autostart="false" src="'. Horde_Themes::sound($sound) . '" /></li>';
         }
         return $html . '</ul>';
     }

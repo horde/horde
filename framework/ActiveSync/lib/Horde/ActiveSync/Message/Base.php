@@ -121,6 +121,18 @@ class Horde_ActiveSync_Message_Base
     }
 
     /**
+     * Check the existence of a property in this message.
+     *
+     * @param string $property  The property name
+     *
+     * @return boolean
+     */
+    public function propertyExists($property)
+    {
+        return array_key_exists($property, $this->_properties);
+    }
+
+    /**
      * Accessor
      *
      * @param string $property  Property to get.

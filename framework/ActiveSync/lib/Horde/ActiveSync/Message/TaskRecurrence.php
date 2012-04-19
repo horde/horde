@@ -1,0 +1,49 @@
+<?php
+/**
+ * Horde_ActiveSync_Message_Recurrence class represents a single ActiveSync
+ * recurrence sub-object.
+ *
+ * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ *
+ * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @package ActiveSync
+ */
+class Horde_ActiveSync_Message_TaskRecurrence extends Horde_ActiveSync_Message_Base
+{
+    /* MS AS Recurrence types */
+    const TYPE_DAILY       = 0;
+    const TYPE_WEEKLY      = 1;
+    const TYPE_MONTHLY     = 2;
+    const TYPE_MONTHLY_NTH = 3;
+    const TYPE_YEARLY      = 5;
+    const TYPE_YEARLYNTH   = 6;
+
+    protected $_mapping = array (
+        Horde_ActiveSync_Message_Task::POOMTASKS_TYPE        => array(self::KEY_ATTRIBUTE => 'type'),
+        Horde_ActiveSync_Message_Task::POOMTASKS_START       => array(self::KEY_ATTRIBUTE => 'start', self::KEY_TYPE => self::TYPE_DATE),
+        Horde_ActiveSync_Message_Task::POOMTASKS_DEADOCCUR   => array(self::KEY_ATTRIBUTE => 'deadoccur'),
+        Horde_ActiveSync_Message_Task::POOMTASKS_REGENERATE  => array(self::KEY_ATTRIBUTE => 'regenerate'),
+        Horde_ActiveSync_Message_Task::POOMTASKS_UNTIL       => array(self::KEY_ATTRIBUTE => 'until', self::KEY_TYPE => self::TYPE_DATE),
+        Horde_ActiveSync_Message_Task::POOMTASKS_OCCURRENCES => array(self::KEY_ATTRIBUTE => 'occurrences'),
+        Horde_ActiveSync_Message_Task::POOMTASKS_INTERVAL    => array(self::KEY_ATTRIBUTE => 'interval'),
+        Horde_ActiveSync_Message_Task::POOMTASKS_DAYOFWEEK   => array(self::KEY_ATTRIBUTE => 'dayofweek'),
+        Horde_ActiveSync_Message_Task::POOMTASKS_DAYOFMONTH  => array(self::KEY_ATTRIBUTE => 'dayofmonth'),
+        Horde_ActiveSync_Message_Task::POOMTASKS_WEEKOFMONTH => array(self::KEY_ATTRIBUTE => 'weekofmonth'),
+        Horde_ActiveSync_Message_Task::POOMTASKS_MONTHOFYEAR => array(self::KEY_ATTRIBUTE => 'monthofyear'),
+    );
+
+    protected $_properties = array(
+        'type'        => false,
+        'start'       => false,
+        'deadoccur'   => false,
+        'regenerate'  => false,
+        'until'       => false,
+        'occurrences' => false,
+        'interval'    => false,
+        'dayofweek'   => false,
+        'dayofmonth'  => false,
+        'weekofmonth' => false,
+        'monthofyear' => false,
+    );
+
+}

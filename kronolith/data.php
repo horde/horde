@@ -105,13 +105,10 @@ case 'export':
         list($type, $cal) = explode('_', $calendar, 2);
         $kronolith_driver = Kronolith::getDriver($type, $cal);
         $events[$calendar] = $kronolith_driver->listEvents(
-            $start, // Start date
-            $end,   // End date
-            false,  // Only return recurrences once
-            false,  // Don't limit to alarms
-            false,  // Don't cache json
-            false,  // Don't add events to all days
-            ($exportID == Horde_Data::EXPORT_ICALENDAR) ? true : false);  // Don't return exception events
+            $start, $end, array(
+                'cover_dates' => false,
+                'hide_exceptions' => ($exportID == Horde_Data::EXPORT_ICALENDAR) ? true : false)
+        );
     }
 
     if (!$events) {

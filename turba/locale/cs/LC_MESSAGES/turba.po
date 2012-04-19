@@ -1,243 +1,319 @@
-# translation of turba.po to Cestina
 # Turba Czech Translation.
 # Copyright 2004-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde package.
 # Pavel Chytil <pavel@chytil.tk>, 2001-2004.
+# Petra Kostinkova <kostinkova.petra@active24.cz>, 2012
+# Michal Foist <foist.michal@active24.cz>, 2012
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: turba\n"
+"Project-Id-Version: Turba 2.0.5\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2007-03-30 18:15+0200\n"
-"PO-Revision-Date: 2007-04-05 11:35+0200\n"
-"Last-Translator: Jan Krivanek <honza@atack.cz>\n"
-"Language-Team: Cestina <cs@li.org>\n"
+"POT-Creation-Date: 2012-01-20 11:03+0100\n"
+"PO-Revision-Date: 2012-04-16 15:24+0200\n"
+"Last-Translator: Michal Foist <michal@foist.cz>\n"
+"Language-Team: Czech <dev@lists.horde.org>\n"
+"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms:  nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: templates/prefs/imsp_opt.inc:40
-msgid " Add an IMSP Address Book"
-msgstr "Přidat IMSP Adresář"
-
-#: templates/prefs/imsp_opt.inc:29
-msgid " Delete IMSP Address Book"
-msgstr "Smazat IMSP Adresář"
-
-#: data.php:333
+#: data.php:465
 #, php-format
 msgid "\"%s\" already exists and was not imported."
-msgstr "\"%s\" již existuje a nebyl naimportován."
+msgstr "\"%s\" již existuje a nebylo importováno."
 
-#: browse.php:140
+#: lib/Form/EditContact.php:84
+#, php-format
+msgid "\"%s\" updated, but saving the uploaded file failed: %s"
+msgstr "\"%s\" aktualizováno, ale nahrání souboru selhalo: %s"
+
+#: lib/Form/EditContact.php:82 lib/Form/EditContact.php:87
+#, php-format
+msgid "\"%s\" updated."
+msgstr "\"%s\" aktualizováno."
+
+#: lib/View/Browse.php:219
 #, php-format
 msgid "\"%s\" was not copied because it is a list."
-msgstr "\"%s\" nebyl zkopírován, protože je to seznam."
+msgstr "\"%s\" nebyl zkopírován, jelikož je to seznam."
 
-#: browse.php:138
+#: lib/View/Browse.php:214
 #, php-format
 msgid "\"%s\" was not moved because it is a list."
-msgstr "\"%s\" nebyl přesunut, protože je to seznam."
+msgstr "\"%s\" nebyl přesunut, jelikož je to seznam."
 
-#: config/prefs.php.dist:137
+#: config/prefs.php:120 config/prefs.php:132
 msgid "\"Firstname Lastname\"  (ie. John Doe)"
-msgstr "\"Jméno příjmení\" (např. Josef Novák)"
+msgstr "\"Jméno Příjmení\" (např. Jan Novák)"
 
-#: config/prefs.php.dist:136
+#: config/prefs.php:119 config/prefs.php:131
 msgid "\"Lastname, Firstname\" (ie. Doe, John)"
-msgstr "\"Příjmení, jméno\" (např. Novák, Josef) "
+msgstr "\"Příjmení, Jméno\" (např. Novák, Jan) "
 
-#: add.php:112
+#: lib/Driver.php:662
+#, php-format
+msgid "%d. %s of %s"
+msgstr "%d. %s z %s"
+
+#: lib/Form/AddContact.php:89
 #, php-format
 msgid "%s added."
 msgstr "%s přidán."
 
-#: data.php:357
+#: data.php:495
 #, php-format
-msgid "%s file successfully imported"
-msgstr "%s soubor byl úspěšně importován"
+msgid "%s file successfully imported."
+msgstr "%s soubor byl úspěšně importován."
 
-#: templates/browse/footer.inc:5
+#: lib/Api.php:1435
+#, php-format
+msgid "%s in %s"
+msgstr "%s v %s"
+
+#: templates/list/numPager.inc:6
 #, php-format
 msgid "%s to %s of %s"
 msgstr "%s až %s z %s"
 
-#: lib/Turba.php:458
-#, php-format
-msgid "%s's Address Book"
-msgstr "Adresář %s"
+#: templates/search/duplicate/contact_header.html.php:14
+msgid "<< Merge this into the first contact"
+msgstr "<< Sloučit do prvního kontaktu"
 
-#: lib/Block/minisearch.php:42
-msgid "A browser that supports iFrames is required"
-msgstr "Je nutné použít prohlížeč podporující iFrames."
+#: lib/Block/Minisearch.php:62
+msgid "A browser that supports iframes is required"
+msgstr "Je nutné použít prohlížeč, který podporuje iFrame"
 
-#: config/prefs.php.dist:160
-msgid "Above search form"
-msgstr "Výše uvedený formulář pro vyhledávání"
-
-#: view.php:52
+#: view.php:49
 #, php-format
 msgid "Access denied to %s"
-msgstr "Do %s byl přístup zamítnut"
+msgstr "Přístup do %s zakázán"
 
-#: add.php:56 templates/browse/actions.inc:29
+#: themes/active/info.php:8
+msgid "Active 24"
+msgstr "Active 24"
+
+#: lib/Form/AddContact.php:17 templates/browse/actions.inc:30
 msgid "Add"
 msgstr "Přidat"
 
-#: templates/prefs/addressbookselect.inc:174
-msgid "Add address book"
-msgstr "Přidat Adresář"
-
-#: config/prefs.php.dist:48
-msgid "Add and Delete IMSP address books"
-msgstr "Přidat a smazat IMSP adresáře"
-
-#: templates/prefs/columnselect.inc:237
-msgid "Add column"
-msgstr "Přidat sloupec"
-
-#: edit.php:135
+#: lib/Form/EditContact.php:33
 msgid "Add file"
 msgstr "Přidat soubor"
 
-#: templates/browse/actions.inc:29
+#: templates/browse/actions.inc:30
 msgid "Add to"
 msgstr "Přidat do"
 
-#: lib/Driver/null.php:57
-msgid "Adding contacts is not available."
-msgstr "Přidávání kontaktů není k dispozici."
+#: lib/Api.php:1605
+#, php-format
+msgid "Added or updated %d contact, but at least one contact failed:"
+msgid_plural "Added or updated %d contacts, but at least one contact failed:"
+msgstr[0] "Přidán a aktualizován %d kontakt, ale nejméně jeden selhal."
+msgstr[1] ""
+"Přidány a aktualizovány %d kontakty, ale nejméně jeden kontakt selhal."
+msgstr[2] ""
+"Přidáno a aktualizováno %d kontaktů, ale nejméně jeden kontakt selhal."
 
-#: templates/addressbooks.inc:93
+#: lib/Driver.php:2878
+msgid "Adding contacts is not available."
+msgstr "Přidávání kontaktů není možné."
+
+#: templates/addressbook_list.php:16 templates/search/advanced.html.php:11
 msgid "Address Book"
 msgstr "Adresář"
 
-#: browse.php:28 config/prefs.php.dist:125
-msgid "Address Book Listing"
-msgstr "Výpis adresáře"
+#: templates/addressbook_list.php:12
+msgid "Address Book List"
+msgstr "Seznam adresářů"
 
-#: config/prefs.php.dist:10
+#: config/prefs.php:108 lib/View/Browse.php:65
+msgid "Address Book Listing"
+msgstr "Výpis kontaktů"
+
+#: config/prefs.php:12 config/prefs.php:13 config/prefs.php:19
+#: lib/Block/Minisearch.php:43
 msgid "Address Books"
 msgstr "Adresáře"
 
-#: add.php:111
-msgid "Address book entry"
-msgstr "Položka adresáře"
+#: lib/Turba.php:630
+#, php-format
+msgid "Address book of %s"
+msgstr "Adresáře %s"
 
-#: data.php:313
+#: data.php:440
 msgid "Address book successfully purged."
-msgstr "Adresář byl úspěšně vyčistěný."
+msgstr "Kontakty byly úspěšně vyčistěny."
 
-#: templates/addressbooks.inc:69
-msgid "Address book to delete "
-msgstr "Adresář ke smazání "
-
-#: templates/prefs/addressbookselect.inc:170
+#: lib/Application.php:259
 msgid "Address books that will not be displayed:"
-msgstr "Adresáře, které nebudou zobrazeny:"
+msgstr "Adresáře, které se nezobrazí:"
 
-#: search.php:88 templates/browse/search.inc:38
+#: search.php:207 search.php:248
 msgid "Advanced Search"
-msgstr "Pokročilé vyhledávání"
+msgstr "Rozšířené hledání"
 
-#: config/attributes.php.dist:64
+#: config/attributes.php:84
 msgid "Alias"
-msgstr "Alias"
+msgstr "Přezdívka"
 
-#: templates/browse/footerAlpha.inc:7 templates/browse/footerAlpha.inc:10
-#: templates/browse/actions.inc:48
+#: templates/list/alphaPager.inc:7 templates/list/alphaPager.inc:9
 msgid "All"
 msgstr "Vše"
 
-#: lib/api.php:607
+#: lib/Application.php:373
+msgid ""
+"All state removed for your ActiveSync devices. They will resynchronize next "
+"time they connect to the server."
+msgstr ""
+"Veškeré stavy  pro Vaše ActiveSync zařízení odstraněny. Budou "
+"resynchronizovány při příštím připojení k serveru."
+
+#: lib/Api.php:736
 msgid "Already Exists"
 msgstr "Již existuje"
 
-#: templates/browse/javascript.inc:93
+#: config/attributes.php:107
+msgid "Anniversaries"
+msgstr "Výročí"
+
+#: config/attributes.php:103
+msgid "Anniversary"
+msgstr "Výročí"
+
+#: lib/Turba.php:676
 #, php-format
 msgid "Are you sure that you want to delete %s?"
-msgstr "Jste si jistí, že chcete smazat %s?"
+msgstr "Skutečně chcete smazat %s?"
 
-#: templates/browse/javascript.inc:67
-msgid "Are you sure that you want to delete the selected entries?"
-msgstr "Jste si jistí, že chcete smazat vybrané položky?"
+#: lib/Turba.php:681
+msgid "Are you sure that you want to delete the selected contacts?"
+msgstr "Skutečně chcete smazat vybrané kontakty?"
 
-#: config/prefs.php.dist:96
-msgid "Ascending"
-msgstr "Vzestupně"
+#: config/attributes.php:490
+msgid "Assistant"
+msgstr "Asistent"
 
-#: search.php:85 templates/browse/search.inc:37
+#: config/attributes.php:309
+msgid "Assistant Phone"
+msgstr "Telefonní asistent"
+
+#: search.php:206 search.php:241
 msgid "Basic Search"
 msgstr "Vyhledat"
 
-#: config/prefs.php.dist:159
-msgid "Below search form"
-msgstr "Pod formulářem pro vyhledávání"
-
-#: lib/Driver/ldap.php:77 lib/Driver/ldap.php:80
+#: lib/Driver/Ldap.php:92
 #, php-format
 msgid "Bind failed: (%s) %s"
 msgstr "Spojení selhalo: (%s) %s"
 
-#: config/attributes.php.dist:178
+#: config/attributes.php:96
 msgid "Birthday"
 msgstr "Narozeniny"
 
-#: templates/menu.inc:7
-msgid "Browse"
-msgstr "Prohlížet"
+#: config/attributes.php:100
+msgid "Birthdays"
+msgstr "Narozeniny"
 
-#: config/attributes.php.dist:173
+#: contact.php:111 templates/browse/row.inc:10
+msgid "Blank name"
+msgstr "Prázdné jméno"
+
+#: templates/browse/actions.inc:51
+msgid "Both"
+msgstr "Obojí"
+
+#: addressbooks/index.php:39 templates/addressbook_list.php:29
+#: templates/menu.inc:8
+msgid "Browse"
+msgstr "Procházet"
+
+#: config/attributes.php:381
 msgid "Business Category"
 msgstr "Obchodní kategorie"
 
-#: data.php:49
+#: data.php:95
 msgid "CSV"
 msgstr "CSV"
 
-#: lib/Object/Group.php:57
+#: lib/Object/Group.php:65
 msgid "Can't add a group to itself."
-msgstr "Nelze přidat skupinu sama sobě."
+msgstr "Nelze vložit skupinu do sebe sama."
 
-#: templates/browse/column_headers.inc:7
+#: lib/Form/DeleteAddressBook.php:33 lib/Form/DeleteAddressBook.php:44
+msgid "Cancel"
+msgstr "Zrušit"
+
+#: config/attributes.php:324
+msgid "Car Phone"
+msgstr "Telefon do auta"
+
+#: config/attributes.php:458
+msgid "Category"
+msgstr "Kategorie"
+
+#: templates/browse/column_headers.inc:25
+#, php-format
+msgid "Change %s sort to %s"
+msgstr "Změnit %s setřídit do %s"
+
+#: addressbooks/index.php:41 templates/addressbook_list.php:33
+msgid "Change Permissions"
+msgstr "Změnit Práva"
+
+#: templates/browse/column_headers.inc:8
+msgid "Check All/None"
+msgstr "Vybrat vše/žádné"
+
+#: templates/browse/column_headers.inc:8
 msgid "Check _All/None"
 msgstr "Vybrat _vše/žádné"
 
-#: templates/addressbooks.inc:51
-msgid "Choose a name"
-msgstr "Zvolte název"
+#: config/attributes.php:116
+msgid "Children"
+msgstr "Děti"
 
-#: add.php:48
+#: lib/Form/AddContact.php:28
 msgid "Choose an address book"
-msgstr "Vyberte adresář"
+msgstr "Vyberte kontakty"
 
-#: templates/prefs/columnselect.inc:221
-msgid "Choose an address book:"
-msgstr "Zvolte Adresář:"
-
-#: templates/prefs/addressbookselect.inc:165
+#: lib/Application.php:253
 msgid "Choose which address books to display, and in what order:"
-msgstr "Zvolte adresáře k zobrazení a jejich pořadí:"
+msgstr "Vyberte jaké a v jakém pořadí se mají zobrazit dané adresáře:"
 
-#: config/prefs.php.dist:11
+#: config/prefs.php:21
+msgid ""
+"Choose which address books to use for synchronization with external devices."
+msgstr ""
+"Vyberte adresáře, které mají být použity pro synchronizaci s externími "
+"zařízeními:"
+
+#: config/prefs.php:14
 msgid "Choose which address books to use."
-msgstr "Vyberte adresář, který chcete používat."
+msgstr "Vyberte adresář, který se má použít."
 
-#: templates/prefs/columnselect.inc:228
-msgid "Choose which columns to display and in what order:"
-msgstr "Vyberte sloupce k zobrazení a jejich pořadí:"
+#: templates/prefs/column.html:7
+msgid ""
+"Click an address book to sort its columns. Drag columns to re-arrange them. "
+"Check a column to enable it."
+msgstr ""
+"Klepněte na adresář pro setřídění sloupců. Přetahujte sloupce pro "
+"přerovnání. Zaškrtněte sloupec pro aktivování."
 
-#: config/prefs.php.dist:17
-msgid "Column Options"
-msgstr "Možnosti sloupce"
+#: templates/block/minisearch.inc:21
+msgid "Close"
+msgstr "Zavřít"
 
-#: templates/prefs/columnselect.inc:233
-msgid "Columns that will not be displayed:"
-msgstr "Sloupce, které nebudou zobrazeny:"
+#: templates/browse/header.inc:7
+msgid "Close Search"
+msgstr "Zavřít vyhledávání"
 
-#: templates/data/import.inc:13 templates/data/export.inc:12
+#: config/prefs.php:27
+msgid "Column Preferences"
+msgstr "Nastavení sloupce"
+
+#: templates/data/export.inc:12 templates/data/import.inc:13
 msgid "Comma separated values"
 msgstr "Čárkou oddělené hodnoty"
 
@@ -245,30 +321,75 @@ msgstr "Čárkou oddělené hodnoty"
 msgid "Comma separated values (Microsoft Outlook)"
 msgstr "Čárkou oddělené hodnoty (Microsoft Outlook)"
 
-#: config/attributes.php.dist:76
+#: config/attributes.php:588
+msgid "Common Address Extended"
+msgstr "Společné rozšířené adresy"
+
+#: config/attributes.php:606
+msgid "Common City"
+msgstr "Společné město"
+
+#: config/attributes.php:624
+msgid "Common Country"
+msgstr "Společná země"
+
+#: config/attributes.php:532
+msgid "Common Phone"
+msgstr "Společný telefón"
+
+#: config/attributes.php:600
+msgid "Common Post Office Box"
+msgstr "Společná poštovní schránka"
+
+#: config/attributes.php:618
+msgid "Common Postal Code"
+msgstr "Společné PSČ"
+
+#: config/attributes.php:612
+msgid "Common State/Province"
+msgstr "Společný Stát/Provincie"
+
+#: config/attributes.php:594
+msgid "Common Street"
+msgstr "Společná ulice"
+
+#: config/attributes.php:557
+msgid "Common Video Call"
+msgstr "Společný Videohovor"
+
+#: config/backends.php:338
+msgid "Communications"
+msgstr "Komunikace"
+
+#: config/attributes.php:387
 msgid "Company"
 msgstr "Firma"
 
-#: config/attributes.php.dist:144
+#: config/attributes.php:220
 msgid "Company Address"
 msgstr "Adresa firmy"
 
-#: lib/api.php:319 lib/api.php:364 lib/api.php:414 lib/api.php:546
-#: lib/api.php:660 lib/api.php:747 lib/api.php:805 lib/api.php:886
-#: lib/api.php:1086 lib/api.php:1175
-#, php-format
-msgid "Connection failed: %s"
-msgstr "Spojení selhalo: %s"
+#: config/attributes.php:314
+msgid "Company Phone"
+msgstr "Telefon do práce"
 
-#: lib/Driver/ldap.php:58
+#: lib/Driver/Ldap.php:59
 msgid "Connection failure"
 msgstr "Spojení selhalo"
 
-#: lib/Block/minisearch.php:3 lib/Block/minisearch.php:26
+#: lib/Block/Minisearch.php:25
 msgid "Contact Search"
-msgstr "Vyhledat kontakt"
+msgstr "Vyhledávání kontaktů"
 
-#: browse.php:306
+#: lib/Driver/Kolab.php:648
+msgid "Contacts"
+msgstr "Kontakty"
+
+#: templates/list/numPager.inc:3
+msgid "Contacts displayed:"
+msgstr "Zobrazené kontakty:"
+
+#: lib/View/Browse.php:463
 #, php-format
 msgid "Contacts in list: %s"
 msgstr "Kontakty v seznamu: %s"
@@ -277,629 +398,842 @@ msgstr "Kontakty v seznamu: %s"
 msgid "Copy"
 msgstr "Kopírovat"
 
-#: templates/addressbooks.inc:60
+#: templates/search/duplicate/list.html.php:11
+msgid "Count"
+msgstr "Počet"
+
+#: lib/Form/CreateAddressBook.php:27
 msgid "Create"
 msgstr "Vytvořit"
 
-#: templates/addressbooks.inc:47
+#: lib/Form/CreateAddressBook.php:22
 msgid "Create Address Book"
 msgstr "Vytvořit Adresář"
 
-#: lib/ListView.php:348
-msgid "Create a new Contact List in:"
-msgstr "Vytvořit nový seznam kontaktů v:"
+#: templates/addressbook_list.php:8
+msgid "Create a new Address Book"
+msgstr "Vytvořit nový adresář"
 
-#: lib/ObjectView.php:133
+#: lib/View/List.php:466
+msgid "Create a new Contact List in:"
+msgstr "Vytvořit nový adresář v:"
+
+#: lib/View/Contact.php:48
 msgid "Created"
 msgstr "Vytvořeno"
 
-#: config/prefs.php.dist:98
-msgid "Default sorting direction:"
-msgstr "Implicitní směr třídění:"
+#: contact.php:86
+msgid "De_lete"
+msgstr "Sm_azat"
 
-#: lib/Renderer.php:47 lib/Renderer.php:50 lib/Object.php:328
-#: templates/addressbooks.inc:83 templates/browse/actions.inc:3
+#: addressbooks/index.php:42 lib/Form/DeleteAddressBook.php:33
+#: lib/View/DeleteContact.php:61 templates/addressbook_list.php:35
+#: templates/browse/actions.inc:3
+#: templates/search/duplicate/contact_header.html.php:22
 msgid "Delete"
 msgstr "Smazat"
 
-#: templates/addressbooks.inc:65
-msgid "Delete Address Book"
-msgstr "Smazat Adresář"
+#: lib/Form/DeleteAddressBook.php:28 lib/View/DeleteContact.php:30
+#, php-format
+msgid "Delete %s"
+msgstr "Smazat %s"
 
-#: config/prefs.php.dist:38
-msgid "Delete Confirmation"
-msgstr "Potvrzení smazání"
+#: lib/Api.php:414
+msgid "Delete denied."
+msgstr "Smazání zakázáno."
 
-#: config/prefs.php.dist:39
-msgid "Delete button behaviour"
-msgstr "Vlastnosti tlačítka pro smazání"
-
-#: lib/Driver/ldap.php:270
+#: lib/Driver/Ldap.php:328
 #, php-format
 msgid "Delete failed: (%s) %s"
 msgstr "Smazaní selhalo: (%s) %s"
 
-#: lib/Driver/null.php:62
+#: lib/Driver.php:2891
 msgid "Deleting contacts is not available."
-msgstr "Mazání kontaktů není k dispozici."
+msgstr "Mazání kontaktů není možné."
 
-#: delete.php:38
+#: delete.php:41
 msgid "Deletion failed"
 msgstr "Smazaní selhalo"
 
-#: config/attributes.php.dist:213
+#: config/attributes.php:393
 msgid "Department"
 msgstr "Oddělění"
 
-#: config/prefs.php.dist:97
-msgid "Descending"
-msgstr "Sestupně"
-
-#: templates/addressbooks.inc:122
+#: lib/Form/CreateAddressBook.php:25 lib/Form/EditAddressBook.php:34
 msgid "Description"
 msgstr "Popis"
 
-#: templates/browse/search.inc:119
-msgid "Directory"
-msgstr "Adresář"
-
-#: config/prefs.php.dist:24
+#: config/prefs.php:34
 msgid "Display"
 msgstr "Zobrazit"
 
-#: config/prefs.php.dist:9 config/prefs.php.dist:16 config/prefs.php.dist:23
-#: config/prefs.php.dist:30
-msgid "Display Options"
-msgstr "Zobrazit možnosti"
+#: config/prefs.php:26 config/prefs.php:33 config/prefs.php:40
+msgid "Display Preferences"
+msgstr "Nastavení zobrazení"
 
-#: config/prefs.php.dist:177
-msgid "Do you want to confirm deleting entries?"
-msgstr "Chcete potvrdit smazání položek?"
-
-#: lib/Object.php:297
+#: lib/Object.php:425
 msgid "Download"
 msgstr "Stáhnout"
 
-#: templates/browse/row.inc:17 templates/browse/contactrow.inc:25
+#: templates/browse/column_headers.inc:14 templates/browse/row.inc:26
 msgid "Download vCard"
-msgstr "Stahnout vCard"
+msgstr "Stáhnout vCard"
 
-#: lib/Renderer.php:42 templates/addressbooks.inc:109
-#: templates/browse/row.inc:25 templates/browse/column_headers.inc:10
-#: templates/browse/contactrow.inc:33 templates/browse/actions.inc:6
+#: search.php:209 search.php:255
+msgid "Duplicate Search"
+msgstr "Vyhledávání duplikátů"
+
+#: templates/search/duplicate/list.html.php:6
+#, php-format
+msgid "Duplicates of %s"
+msgstr "Duplikáty %s"
+
+#: templates/search/duplicate/header.html.php:2
+#, php-format
+msgid "Duplicates of %s \"%s\""
+msgstr "Duplikáty %s \"%s\""
+
+#: addressbooks/index.php:40 templates/addressbook_list.php:31
+#: templates/browse/actions.inc:6 templates/browse/column_headers.inc:11
+#: templates/browse/row.inc:37
+#: templates/search/duplicate/contact_header.html.php:29
 msgid "Edit"
 msgstr "Upravit"
 
-#: templates/browse/row.inc:25 templates/browse/contactrow.inc:33
+#: edit.php:90
 #, php-format
 msgid "Edit \"%s\""
 msgstr "Upravit \"%s\""
 
-#: templates/addressbooks.inc:88
-msgid "Edit Address Books"
-msgstr "Upravit Adresáře"
-
-#: edit.php:85 edit.php:161
+#: lib/Form/EditAddressBook.php:30 lib/View/EditContact.php:29
 #, php-format
-msgid "Edit entry for %s"
-msgstr "Upravit položku pro %s"
+msgid "Edit %s"
+msgstr "Upravit %s"
 
-#: config/attributes.php.dist:58
+#: config/attributes.php:276
 msgid "Email"
 msgstr "Email"
 
-#: edit.php:154
-#, php-format
-msgid "Entry for %s updated, but saving the uploaded file failed: %s"
-msgstr ""
-"Položka pro  %s byla zaktualizována, ale selhalo uložení poslaného soubory: %"
-"s"
+#: config/attributes.php:282
+msgid "Emails"
+msgstr "Emaily"
 
-#: edit.php:156 edit.php:159
-#, php-format
-msgid "Entry for %s updated."
-msgstr "Položky pro %s byly aktualizovány."
-
-#: browse.php:216 browse.php:264
+#: lib/View/Browse.php:350 lib/View/Browse.php:417
 #, php-format
 msgid "Error adding %d contact(s) to list."
-msgstr "Chyba při přidávání %d kontaktu(ů) do seznamu."
+msgstr "Chyba přidávání %d kontaktu(ů) do adresáře."
 
-#: browse.php:218 browse.php:266
+#: lib/View/Browse.php:355 lib/View/Browse.php:422
 #, php-format
 msgid "Error adding %d of %d requested contact(s) to list."
-msgstr "Chyba při přidávání %d z %d požadovaných kontaktů do seznamu."
+msgstr "Chyba přidávání %d z %d požadovaného(ných) kontaktu(ů) do adresáře."
 
-#: browse.php:86
+#: lib/View/Browse.php:138
 #, php-format
-msgid "Error deleting %d contact(s)."
-msgstr "Chyba při mazání %d kontaktu(ů)."
+msgid "Error deleting %d contact."
+msgid_plural "Error deleting %d contacts."
+msgstr[0] "Chyba při odstraňování %d kontaktu."
+msgstr[1] "Chyba při odstraňování%d kontaktů."
+msgstr[2] "Chyba při odstraňování %d kontaktů."
 
-#: browse.php:88
+#: lib/View/Browse.php:143
 #, php-format
-msgid "Error deleting %d of %d requested contacts(s)."
-msgstr "Chyba při odstraňování %d z požadovaných %d kontaktů."
+msgid "Error deleting %d of %d requested contact."
+msgid_plural "Error deleting %d of %d requested contacts."
+msgstr[0] "Chyba při odstraňování %d z %d požadovaného kontaktu."
+msgstr[1] "Chyba při odstraňování %d z %d požadovaných kontaktů."
+msgstr[2] "Chyba při odstraňování %d z %d požadovaných kontaktů."
 
-#: browse.php:66
+#: lib/View/Browse.php:109
 #, php-format
 msgid "Error removing %d contact(s) from list."
-msgstr "Chyba při odstraňování %d kontakt(ů) ze seznamu."
+msgstr "Chyba odstraňování %d kontaktu(ů) ze seznamu."
 
-#: browse.php:68
+#: lib/View/Browse.php:114
 #, php-format
 msgid "Error removing %d of %d requested contact(s) from list."
-msgstr "Chyba při odstraňování %d z požadovaných %d kontaktů ze seznamu."
+msgstr "Chyba odstraňování %d z %d požadovaného(ných) kontaktu(ů) ze seznamu."
 
-#: lib/api.php:420
+#: lib/Api.php:466
 #, php-format
 msgid "Error searching the address book: %s"
-msgstr "Chyba při hledání v Adresáři: %s"
+msgstr "Chyba vyhledávání adresářů: %s"
 
-#: templates/browse/actions.inc:10 templates/data/export.inc:41
+#: templates/browse/actions.inc:10 templates/data/export.inc:43
 msgid "Export"
 msgstr "Exportovat"
 
 #: templates/data/export.inc:6
 msgid "Export Address Book"
-msgstr "Exportovat adresář"
+msgstr "Exportovat kontakty"
 
-#: templates/data/export.inc:21
+#: templates/data/export.inc:23
 msgid "Export only the selected contacts."
 msgstr "Exportovat pouze vybrané kontakty."
 
-#: templates/data/export.inc:27
+#: templates/data/export.inc:29
 msgid "Export the following address book completely."
-msgstr "Kompletně exportovat následující adresář."
+msgstr "Exportovat všechny kontakty."
 
-#: data.php:134 data.php:228 data.php:302 browse.php:35 browse.php:103
-#: browse.php:130 search.php:37 add.php:67
-#, php-format
-msgid "Failed to access the address book: %s"
-msgstr "Nelze přistoupit k adresáři: %s"
+#: config/backends.php:651
+msgid "Facebook Friends"
+msgstr "Přátelé z facebooku"
 
-#: browse.php:158
+#: lib/View/Browse.php:249
 #, php-format
 msgid "Failed to add %s to %s: %s"
 msgstr "Selhalo přidání %s do %s: %s"
 
-#: browse.php:312
+#: lib/View/Browse.php:481
 msgid "Failed to browse list"
 msgstr "Nelze prohlédnout seznam"
 
-#: browse.php:350
-msgid "Failed to browse the directory"
-msgstr "Nelze prohlédnout adresář"
-
-#: lib/Driver/ldap.php:303
+#: lib/Driver/Ldap.php:369
 #, php-format
 msgid "Failed to change name: (%s) %s; Old DN = %s, New DN = %s, Root = %s"
 msgstr "Selhala změna jména: (%s) %s; staré DN = %s, nové DN = %s, Root = %s"
 
-#: browse.php:134
+#: lib/View/Browse.php:205
 #, php-format
 msgid "Failed to find object to be added: %s"
 msgstr "Nelze nalézt objekt k přidání: %s"
 
-#: search.php:79
+#: search.php:181
 msgid "Failed to search the address book"
-msgstr "Hledání v adresáři je nedostupné"
+msgstr "Adresář nelze nalézt."
 
-#: data.php:149
+#: data.php:258
 #, php-format
 msgid "Failed to search the directory: %s"
-msgstr "Nelze prohledat kontakty: %s"
+msgstr "Nemůže prohledat kontakty: %s"
 
-#: config/attributes.php.dist:167
+#: config/backends.php:620
+msgid "Favourite Recipients"
+msgstr "Oblíbení příjemci"
+
+#: config/attributes.php:334
 msgid "Fax"
 msgstr "Fax"
 
-#: edit.php:131 display.php:99
+#: lib/Form/Contact.php:37
 msgid "Files"
 msgstr "Soubory"
 
-#: templates/browse/search.inc:71
+#: templates/search/basic.html.php:15
 msgid "Find"
 msgstr "Hledat"
 
-#: edit.php:104 edit.php:195
+#: lib/Form/EditContactGroup.php:21 lib/Form/EditContactGroup.php:25
+#: lib/Form/EditContactGroup.php:29 lib/Form/EditContactGroup.php:34
+#: lib/Form/EditContactGroup.php:69
 msgid "Finish"
-msgstr "Konec"
+msgstr "Skončit"
 
-#: config/attributes.php.dist:48
+#: config/attributes.php:54
 msgid "First Name"
-msgstr "Jméno"
+msgstr "Křestní jméno"
 
-#: config/attributes.php.dist:202
+#: config/attributes.php:431
 msgid "Freebusy URL"
-msgstr "Free/Busy URL"
+msgstr "Volná/Obsazená URL"
 
-#: templates/browse/search.inc:84
+#: templates/search/basic.html.php:7
 msgid "From"
 msgstr "Od"
 
-#: config/sources.php.dist:589
-msgid "Global Address Book"
-msgstr "Globální adresář"
+#: config/attributes.php:496
+msgid "Gender"
+msgstr "Pohlaví"
 
-#: templates/browse/row.inc:43 templates/browse/contactrow.inc:44
+#: templates/browse/row.inc:56
 msgid "Group"
 msgstr "Skupina"
 
-#: config/attributes.php.dist:82
+#: config/attributes.php:136
 msgid "Home Address"
 msgstr "Adresa domů"
 
-#: config/attributes.php.dist:93
+#: config/attributes.php:658
+msgid "Home Address Extended"
+msgstr "Rozšířená adresa domů"
+
+#: config/attributes.php:154
 msgid "Home City"
-msgstr "Město adresy domů"
+msgstr "Město domů"
 
-#: config/attributes.php.dist:108
+#: config/attributes.php:172
 msgid "Home Country"
-msgstr "Země adresy domů"
+msgstr "Země domů"
 
-#: config/attributes.php.dist:150
+#: config/attributes.php:526
+msgid "Home Email"
+msgstr "Domácí E-mail"
+
+#: config/attributes.php:339 config/attributes.php:542
+msgid "Home Fax"
+msgstr "Domácí Fax"
+
+#: config/attributes.php:664
+msgid "Home Latitude"
+msgstr "Domovská zeměpisná šířka"
+
+#: config/attributes.php:669
+msgid "Home Longitude"
+msgstr "Domovská zeměpisná délka"
+
+#: config/attributes.php:552
+msgid "Home Mobile Phone"
+msgstr "Domácí Mobilní telefon"
+
+#: config/attributes.php:288 config/attributes.php:293
 msgid "Home Phone"
 msgstr "Telefon domů"
 
-#: config/attributes.php.dist:103
+#: config/attributes.php:148
+msgid "Home Post Office Box"
+msgstr "Domácí poštovní schránka"
+
+#: config/attributes.php:166
 msgid "Home Postal Code"
 msgstr "PSČ domů"
 
-#: config/attributes.php.dist:98
+#: config/attributes.php:160
 msgid "Home State/Province"
-msgstr "Stát/provincie adresy domů"
+msgstr "Stát/Okres domů"
 
-#: config/attributes.php.dist:88
+#: config/attributes.php:142
 msgid "Home Street Address"
-msgstr "Ulice adresy domů"
+msgstr "Ulice domů"
 
-#: config/sources.php.dist:491
+#: config/attributes.php:567
+msgid "Home Video Call"
+msgstr "Domácí Videohovor"
+
+#: config/attributes.php:652
+msgid "Home Website URL"
+msgstr "Domácí stránka URL"
+
+#: config/attributes.php:349 config/attributes.php:355
+#: config/attributes.php:361
+msgid "IM Address"
+msgstr "Adresa IM (Instand Messaging kecálků)"
+
+#: config/backends.php:776
 msgid "IMSP"
 msgstr "IMSP"
-
-#: config/prefs.php.dist:47
-msgid "IMSP Address Book Administration"
-msgstr "Správa IMSP Adresáře"
 
 #: templates/data/import.inc:7
 #, php-format
 msgid "Import Address Book, Step %d"
-msgstr "Importovat adresář, krok %d"
+msgstr "Importovat kontakty, krok %d"
 
-#: data.php:375
+#: data.php:513
 msgid "Import/Export Address Books"
-msgstr "Importovat/exportovat adresáře"
+msgstr "Import/Export kontaktů"
 
-#: lib/api.php:655 lib/api.php:742
+#: config/attributes.php:472
+msgid "Initials"
+msgstr "Iniciály"
+
+#: config/attributes.php:478
+msgid "Instant Messenger"
+msgstr "Instant Messenger"
+
+#: lib/Api.php:801 lib/Api.php:971
 msgid "Invalid ID"
 msgstr "Neplatné ID"
 
-#: lib/api.php:231 lib/api.php:1158
-msgid "Invalid address book"
-msgstr "Neplatný adresář"
-
-#: lib/api.php:409 lib/api.php:541 lib/api.php:651 lib/api.php:738
-#: lib/api.php:795
+#: lib/Api.php:102 lib/Api.php:458 lib/Api.php:522 lib/Api.php:610
+#: lib/Api.php:657 lib/Api.php:797 lib/Api.php:967 lib/Api.php:1029
+#: lib/Api.php:1615
 #, php-format
 msgid "Invalid address book: %s"
-msgstr "Neplatný Adresář: %s"
+msgstr "Nesprávný adresář: %s"
 
-#: lib/api.php:1162 lib/api.php:1236 lib/api.php:1292
+#: lib/Api.php:1033
+msgid "Invalid contact unique ID"
+msgstr "Nesprávné unikátní ID kontaktu"
+
+#: lib/Api.php:1619 lib/Api.php:1704 lib/Api.php:1775
 msgid "Invalid email"
 msgstr "Neplatný email"
 
-#: lib/api.php:1170
+#: lib/Api.php:1627
 msgid "Invalid entry"
 msgstr "Neplatná položka"
 
-#: lib/Driver/ldap.php:266
+#: lib/Driver/Ldap.php:324
 msgid "Invalid key specified."
-msgstr "Byl poskytnut neplatný klíč."
+msgstr "Neplatný klíč."
 
-#: lib/api.php:1166
+#: lib/Api.php:1623
 msgid "Invalid name"
 msgstr "Neplatné jméno"
 
-#: lib/api.php:799
-msgid "Invalid objectId"
-msgstr "Neplatné ID objektu"
+#: config/attributes.php:369
+msgid "Job Title"
+msgstr "Název úlohy"
 
-#: lib/Driver/ldap.php:30
+#: config/attributes.php:466
+msgid "Kolab Home Server"
+msgstr "Kolab domácí server"
+
+#: lib/Driver/Ldap.php:43
 msgid ""
 "LDAP support is required but the LDAP module is not available or not loaded."
-msgstr "Je vyžadován LDAP, ale tento modul není dostupný nebo instalovaný."
+msgstr ""
+"Je vyžadována podpora databáze LDAP, ale LDAP modul není dostupný, nebo "
+"nainstalovaný."
 
-#: lib/ObjectView.php:138
+#: data.php:100 templates/data/export.inc:17 templates/data/import.inc:18
+msgid "LDIF Address Book"
+msgstr "LDIF Adresář"
+
+#: config/attributes.php:502
+msgid "Language"
+msgstr "Jazyk"
+
+#: lib/View/Contact.php:48
 msgid "Last Modified"
-msgstr "Naposledy změněno"
+msgstr "Poslední změna"
 
-#: config/attributes.php.dist:53
+#: config/attributes.php:60
 msgid "Last Name"
 msgstr "Příjmení"
 
-#: templates/browse/column_headers.inc:16
+#: templates/search/duplicate/contact_header.html.php:4
+msgid "Last change: "
+msgstr "Poslední změna:"
+
+#: config/attributes.php:508
+msgid "Latitude"
+msgstr "Zeměpisná šířka"
+
+#: templates/browse/column_headers.inc:17
 msgid "List"
 msgstr "Seznam"
 
-#: templates/browse/search.inc:78
+#: config/backends.php:333
+msgid "Location"
+msgstr "Místo"
+
+#: config/attributes.php:405
+msgid "Logo"
+msgstr "Logo"
+
+#: config/attributes.php:411
+msgid "Logo MIME Type"
+msgstr "Logo MIME typ"
+
+#: config/attributes.php:513
+msgid "Longitude"
+msgstr "Zeměpisná délka"
+
+#: lib/Api.php:386
+msgid "Malformed request."
+msgstr "Chybně zadaný požadavek."
+
+#: addressbooks/index.php:45 templates/addressbook_list.php:2
+msgid "Manage Address Books"
+msgstr "Spravovat adresáře"
+
+#: config/attributes.php:484
+msgid "Manager"
+msgstr "Správce"
+
+#: contact.php:99
+msgid "Mark this as your own contact"
+msgstr "Označte toto jako Váš vlastní kontakt"
+
+#: templates/search/basic.html.php:23
 msgid "Matching"
 msgstr "Shodující se s"
 
-#: lib/api.php:206
+#: lib/Application.php:147
 msgid "Maximum Number of Contacts"
 msgstr "Maximální počet kontaktů"
 
-#: config/prefs.php.dist:107
+#: config/prefs.php:93
 msgid "Maximum number of pages"
-msgstr "Maximální počet stránek"
+msgstr "Maximální počet stran"
 
-#: lib/Block/tree_menu.php:3
-msgid "Menu List"
-msgstr "Seznam nabídky"
+#: config/attributes.php:66
+msgid "Middle Names"
+msgstr "Prostřední jméno"
 
-#: lib/Driver/ldap.php:296
+#: lib/Driver/Ldap.php:362
 msgid "Missing DN in LDAP source configuration."
 msgstr "Chybějící DN u konfigurace zdroje LDAP."
 
-#: config/attributes.php.dist:162
+#: config/attributes.php:319
 msgid "Mobile Phone"
 msgstr "Mobilní telefon"
 
-#: lib/Driver/ldap.php:325 lib/Driver/ldap.php:341
+#: lib/Driver/Ldap.php:390 lib/Driver/Ldap.php:416
 #, php-format
 msgid "Modify failed: (%s) %s"
 msgstr "Selhala úprava: (%s) %s"
 
-#: lib/api.php:1277
+#: templates/browse/header.inc:8
+msgid "More Options..."
+msgstr "Další možnosti..."
+
+#: lib/Api.php:1751
 msgid "More than 1 entry found"
 msgstr "Byla nalezena více než 1 položka"
 
 #: templates/browse/actions.inc:16
 msgid "Move"
-msgstr "Přesunout"
+msgstr "Posunout"
 
-#: templates/prefs/addressbookselect.inc:184
-#: templates/prefs/columnselect.inc:247
-msgid "Move left"
-msgstr "Přesunout vlevo"
-
-#: templates/prefs/addressbookselect.inc:186
-#: templates/prefs/columnselect.inc:249
-msgid "Move right"
-msgstr "Přesunout vpravo"
-
-#: data.php:52 templates/data/import.inc:16
+#: data.php:98 templates/data/import.inc:16
 msgid "Mulberry Address Book"
-msgstr "Mulberry adresář"
+msgstr "Mulberry kontakty"
 
-#: lib/api.php:1194
+#: lib/Api.php:1045
+msgid "Multiple contacts found with same unique ID."
+msgstr "Nalezeno více kontaktů se stejným unikátním ID."
+
+#: lib/Api.php:1650
 #, php-format
 msgid ""
 "Multiple persons with address [%s], but none with name [%s] already exist"
-msgstr "Více osob s adresou [%s], ale se jménem [%s] neexistuje nikdo"
+msgstr "Více osob s adresou [%s], ale nikdo neexistuje se jménem [%s]"
 
-#: config/sources.php.dist:114
+#: config/backends.php:493
 msgid "My Address Book"
-msgstr "Můj Adresář"
+msgstr "Osobní kontakty"
 
-#: addressbooks.php:119
-msgid "My Address Books"
-msgstr "Mé Adresáře"
-
-#: templates/addressbooks.inc:114 config/attributes.php.dist:42
+#: config/attributes.php:48 lib/Form/CreateAddressBook.php:24
+#: lib/Form/EditAddressBook.php:33
 msgid "Name"
 msgstr "Jméno"
 
-#: config/prefs.php.dist:31
+#: config/prefs.php:41
 msgid "Name Format"
 msgstr "Formát jména"
 
-#: add.php:36 add.php:127 lib/Block/tree_menu.php:27
+#: config/attributes.php:72
+msgid "Name Prefixes"
+msgstr "Předpona jména"
+
+#: config/attributes.php:78
+msgid "Name Suffixes"
+msgstr "Přípona jména"
+
+#: templates/search/vbook.html.php:6
+msgid "Name:"
+msgstr "Jméno:"
+
+#: add.php:71 lib/Application.php:496
 msgid "New Contact"
 msgstr "Nový kontakt"
 
-#: edit.php:95 edit.php:102 edit.php:210 templates/data/import.inc:45
+#: lib/Form/EditContactGroup.php:24 lib/Form/EditContactGroup.php:33
+#: lib/Form/EditContactGroup.php:83 templates/data/import.inc:46
 msgid "Next"
 msgstr "Další"
 
-#: config/attributes.php.dist:218
+#: config/attributes.php:90
 msgid "Nickname"
-msgstr "Přezdívka/alias"
+msgstr "Přezdívka/Alias"
 
-#: lib/api.php:1280 lib/api.php:1329
+#: lib/Api.php:1754 lib/Api.php:1812
 #, php-format
 msgid "No %s entry found for %s"
 msgstr "Žádná položka %s nebyla nalezena pro %s"
 
-#: lib/api.php:1245
-msgid "No address books found."
-msgstr "Nebyl nalezen žádný adresář."
+#: data.php:87
+msgid ""
+"No Address Books are currently available. Import and Export is disabled."
+msgstr "Žádné adresáře nejsou dostupné. Import a Export je vypnutý."
 
-#: minisearch.php:81
+#: search.php:74
+msgid "No Address Books are currently available. Searching is disabled."
+msgstr "Žádné adresáře nejsou momentálně dostupné. Vyhledávání je vypnuté."
+
+#: lib/Api.php:452 lib/Api.php:510 lib/Api.php:603 lib/Api.php:792
+#: lib/Api.php:962 lib/Api.php:1024
+msgid "No address book specified"
+msgstr "Adresář neurčen"
+
+#: minisearch.php:75
 msgid "No contacts found"
-msgstr "Nebyly nalezeny žádné kontakty."
+msgstr "Nebyly nalezeny žádné kontakty"
 
-#: lib/api.php:566 lib/api.php:830
+#: templates/browse/column_headers.inc:44
+msgid "No contacts match the current filter."
+msgstr "Žádný kontakt neodpovídá aktuálnímu filtru."
+
+#: lib/View/List.php:235
+msgid "No matching contacts"
+msgstr "žádné shodující se kontakty"
+
+#: lib/Driver/Favourites.php:147
+msgid "No source for favourite recipients exists."
+msgstr "Neexistuje žádný zdroj pro oblíbené příjemce."
+
+#: lib/Api.php:689 lib/Api.php:1064
 msgid "No vCard data was found."
-msgstr "Nebyly nalezeny žádná vCard data."
+msgstr "Nebyly nalezeny žádné vCard data."
 
-#: templates/browse/footer.inc:7
+#: lib/Application.php:407 templates/list/numPager.inc:8
 msgid "None"
 msgstr "Žádný"
 
-#: config/attributes.php.dist:184
+#: lib/View/Contact.php:26 lib/View/DeleteContact.php:28
+#: lib/View/EditContact.php:27
+msgid "Not Found"
+msgstr "Nenalezeno"
+
+#: deletefile.php:18 edit.php:44
+msgid "Not found"
+msgstr "Nenalezeno"
+
+#: config/attributes.php:419
 msgid "Notes"
 msgstr "Poznámka"
 
-#: config/prefs.php.dist:115
+#: config/prefs.php:99
 msgid "Number of items per page"
 msgstr "Počet položek na stránku"
 
-#: lib/api.php:671 lib/api.php:811
+#: lib/Api.php:856 lib/Api.php:1100
 msgid "Object not found"
 msgstr "Objekt nebyl nalezen"
 
-#: config/attributes.php.dist:223
+#: lib/Driver/Kolab.php:479
+#, php-format
+msgid "Object with UID %s does not exist!"
+msgstr "Objekt s UID %s neexistuje!"
+
+#: config/attributes.php:375
+msgid "Occupation"
+msgstr "Zaměstnání"
+
+#: config/attributes.php:399
 msgid "Office"
 msgstr "Kancelář"
 
-#: templates/prefs/imsp_opt.inc:22
-msgid ""
-"Once you save this option page, the address book will be permanently "
-"deleted. If this is not what you want, then you must change your selection "
-"to \"None\"."
-msgstr ""
-"Po uložení tohoto nastavení bude Adresář nenávratně odstraněn. Jestliže si "
-"to nepřejete, musíte změnit Vaši volbu na \"Žádný\"."
-
-#: lib/api.php:838
+#: lib/Api.php:1072
 msgid "Only one vcard supported."
-msgstr "Je podporávána jen jedna vCard."
+msgstr "Jen jedna Vcard podporována."
 
-#: config/prefs.php.dist:37 config/prefs.php.dist:46
-msgid "Other Options"
-msgstr "Další možnosti"
+#: config/backends.php:342
+msgid "Organization"
+msgstr "Organizace"
 
-#: config/attributes.php.dist:190
+#: config/backends.php:343
+msgid "Other"
+msgstr "Ostatní"
+
+#: config/attributes.php:226
+msgid "Other Address"
+msgstr "Další adresa:"
+
+#: config/attributes.php:238
+msgid "Other City"
+msgstr "Další město:"
+
+#: config/attributes.php:256
+msgid "Other Country"
+msgstr "Další země:"
+
+#: config/attributes.php:262
+msgid "Other Post Office Box"
+msgstr "Další poštovní schránka"
+
+#: config/attributes.php:250
+msgid "Other Postal Code"
+msgstr "Další PSČ"
+
+#: config/attributes.php:244
+msgid "Other State/Province"
+msgstr "Další Stát/Okres"
+
+#: config/attributes.php:232
+msgid "Other Street Address"
+msgstr "Další adresa ulice"
+
+#: config/attributes.php:438 config/attributes.php:445
 msgid "PGP Public Key"
 msgstr "Veřejný PGP klíč"
 
-#: lib/api.php:550 lib/api.php:664 lib/api.php:751 lib/api.php:1014
-#: lib/api.php:1179
-msgid "Permission Denied"
-msgstr "Nepovolený přístup"
+#: config/attributes.php:583
+msgid "PTT"
+msgstr "PTT"
 
-#: lib/Driver.php:554
+#: config/attributes.php:344
+msgid "Pager"
+msgstr "Pager"
+
+#: lib/View/DeleteContact.php:60
+msgid "Permanently delete this contact?"
+msgstr "Trvale odstranit tento kontakt?"
+
+#: deletefile.php:32 lib/Api.php:665 lib/Api.php:1633 lib/Driver.php:859
+#: lib/Driver/Sql.php:645
 msgid "Permission denied"
 msgstr "Nepovolený přístup"
 
-#: templates/addressbooks.inc:106
-msgid "Permissions"
-msgstr "Oprávnění"
+#: config/backends.php:330
+msgid "Personal"
+msgstr "Osobní"
 
-#: data.php:53 templates/data/import.inc:17
+#: config/attributes.php:122
+msgid "Photo"
+msgstr "Foto"
+
+#: config/attributes.php:128
+msgid "Photo MIME Type"
+msgstr "Foto MIME typ"
+
+#: data.php:99 templates/data/import.inc:17
 msgid "Pine Address Book"
-msgstr "Pine adresář"
+msgstr "Pine kontakty"
 
-#: templates/browse/javascript.inc:28
+#: lib/Turba.php:679
 msgid "Please name the new contact list:"
-msgstr "Zadejte jméno nového seznamu kontaktů:"
+msgstr "Prosím pojmenujte nový seznam kontaktů:"
 
-#: edit.php:98 edit.php:101 edit.php:202
+#: lib/Form/EditContactGroup.php:28 lib/Form/EditContactGroup.php:32
+#: lib/Form/EditContactGroup.php:76
 msgid "Previous"
 msgstr "Předchozí"
 
-#: lib/Driver/ldap.php:147
+#: config/backends.php:582
+msgid "Private Address Book"
+msgstr "Soukromý adresář"
+
+#: lib/Driver/Ldap.php:189
 #, php-format
 msgid "Query failed: (%s) %s"
-msgstr "Vyhledávání selhalo: (%s) %s"
+msgstr "Vyhledání selhalo: (%s) %s"
 
-#: templates/block/minisearch.inc:15
-msgid "Quick Search"
-msgstr "Rychlé vyhledávání"
+#: config/attributes.php:329
+msgid "Radio Phone"
+msgstr "Radiotelefon"
 
-#: lib/Driver/ldap.php:191 lib/Driver/ldap.php:199 lib/Driver/ldap.php:435
+#: lib/Driver/Ldap.php:236 lib/Driver/Ldap.php:245 lib/Driver/Ldap.php:512
 #, php-format
 msgid "Read failed: (%s) %s"
 msgstr "Čtení selhalo: (%s) %s"
 
-#: lib/Driver/null.php:52
+#: lib/Driver.php:2865
 msgid "Reading contacts is not available."
-msgstr "Čtení kontaktů není dostupné."
+msgstr "Čtení kontaktů není možné."
 
-#: lib/Renderer.php:49
-msgid "Really delete this contact?"
-msgstr "Skutečně odstranit tento kontakt?"
-
-#: templates/browse/footer.inc:2
-msgid "Records displayed:"
-msgstr "Zobrazené záznamy:"
-
-#: templates/prefs/addressbookselect.inc:176
-msgid "Remove address book"
-msgstr "Odstranit Adresář"
-
-#: templates/prefs/columnselect.inc:239
-msgid "Remove column"
-msgstr "Odstranit sloupec"
+#: lib/Form/DeleteAddressBook.php:31
+#, php-format
+msgid ""
+"Really delete the address book \"%s\"? This cannot be undone and all "
+"contacts in this address book will be permanently removed."
+msgstr ""
+"Opravdu smazat adresář \"%s\"? Tato operace nemůže být vrácena zpět a "
+"všechny kontakty v tomto adresáři budou ztraceny."
 
 #: templates/browse/actions.inc:3
 msgid "Remove from this list"
 msgstr "Odstranit ze seznamu"
 
-#: templates/data/import.inc:21
+#: lib/Driver.php:2916
+msgid ""
+"Removing user data is not supported in the current address book storage "
+"driver."
+msgstr ""
+"Odstranění uživatelských dat není podporováno v ovladači ukládání tohoto "
+"adresáře."
+
+#: templates/data/import.inc:22
 msgid ""
 "Replace existing address book with the imported one? <strong>Warning: This "
 "deletes all entries in your current address book.</strong>"
 msgstr ""
-"Nahratit existující adresář importovaným? <strong>Upozornění: Tato operace "
-"smaže všechny dosavadní položky v adresáři.</strong>"
+"Přepsat existující adresář importovaným adresářem? <strong>Varování: toto "
+"vymaže všechny položky ve Vašem aktuálním adresáři.</strong>"
 
-#: lib/Driver.php:442
+#: lib/Driver.php:739
 msgid "Requested object not found."
 msgstr "Požadovaný objekt nebyl nalezen."
 
-#: add.php:37 templates/browse/search.inc:114
+#: templates/search/advanced.html.php:6
 msgid "Reset to Defaults"
-msgstr "Nastavit výchozí implicitní hodnoty"
+msgstr "Zpět na implicitní nastavení"
 
-#: config/attributes.php.dist:196
+#: config/attributes.php:452
 msgid "S/MIME Public Certificate"
 msgstr "S/MIME veřejný certifikát"
 
-#: lib/Driver/ldap.php:69
+#: config/attributes.php:577
+msgid "SIP"
+msgstr "SIP"
+
+#: lib/Driver/Ldap.php:80
 #, php-format
 msgid "STARTTLS failed: (%s) %s"
-msgstr "STARTTLS selhalo: (%s) %s"
+msgstr "Selhalo STARTTLS: (%s) %s"
 
-#: edit.php:106 add.php:37 templates/addressbooks.inc:131
+#: lib/Form/EditAddressBook.php:36 lib/Form/EditContact.php:26
 msgid "Save"
 msgstr "Uložit"
 
-#: lib/Driver/null.php:67
-msgid "Saving contacts is not available."
-msgstr "Ukládání kontaktů není dostupné."
+#: templates/search/vbook.html.php:4
+msgid "Save search as a virtual address book?"
+msgstr "Uložit vyhledávání jako virtuální adresář?"
 
-#: lib/Block/tree_menu.php:49 templates/browse/search.inc:97
-#: templates/browse/search.inc:113 templates/block/minisearch.inc:18
-#: config/prefs.php.dist:126
+#: lib/Driver.php:2904
+msgid "Saving contacts is not available."
+msgstr "Ukládání kontaktů není možné."
+
+#: config/prefs.php:109 lib/Application.php:539
+#: templates/block/minisearch.inc:20 templates/browse/header.inc:3
+#: templates/search/advanced.html.php:5 templates/search/basic.html.php:25
+#: templates/search/duplicate.html.php:12
 msgid "Search"
 msgstr "Hledat"
 
-#: lib/api.php:1091
+#: templates/search/duplicate.html.php:1
+msgid "Search duplicates in:"
+msgstr "Vyhledat duplikáty v:"
+
+#: lib/Api.php:1405
 msgid "Search failed"
 msgstr "Hledání selhalo"
 
-#: lib/api.php:1184 lib/api.php:1190 lib/api.php:1199 lib/api.php:1212
+#: lib/Api.php:1639 lib/Api.php:1646 lib/Api.php:1656 lib/Api.php:1670
 #, php-format
 msgid "Search failed: %s"
 msgstr "Hledání selhalo: %s"
 
-#: lib/Driver/null.php:47
+#: templates/block/minisearch.inc:17
+msgid "Search for: "
+msgstr "Vyhledat:"
+
+#: lib/Driver.php:2847
 msgid "Searching is not available."
-msgstr "Hledání není dostupné."
+msgstr "Vyhledávání není možné."
 
-#: templates/block/minisearch.inc:19
-msgid "Searching..."
-msgstr "Vyhledávám..."
+#: templates/browse/row.inc:47
+msgid "Select contact"
+msgstr "Vybrat kontakt"
 
-#: templates/addressbooks.inc:73
-msgid "Select an address book to delete"
-msgstr "Vyberte Adresář k odstranění"
-
-#: templates/addressbooks.inc:97
-msgid "Select an address book to edit"
-msgstr "Vyberte Adresář k úpravě"
-
-#: templates/data/export.inc:32
+#: templates/data/export.inc:34
 msgid "Select the address book to export from:"
-msgstr "Vyberte adresář, ze kterého budete exportovat:"
+msgstr "Vyberte kontakty, z kterých budete exportovat:"
 
-#: templates/data/import.inc:26
+#: templates/data/import.inc:27
 msgid "Select the address book to import to:"
-msgstr "Vyberte adresář, do kterého se bude importovat:"
+msgstr "Vyberte kam se bude importovat:"
 
-#: templates/data/import.inc:35
+#: config/prefs.php:66
+msgid ""
+"Select the address books that should be used for synchronization with "
+"external devices:"
+msgstr ""
+"Vyberte adresáře, které mají být používané pro synchronizaci s externími "
+"zařízeními:"
+
+#: templates/data/import.inc:36
 msgid "Select the charset of the source file:"
 msgstr "Vyberte znakovou sadu zdrojového souboru:"
 
@@ -907,7 +1241,7 @@ msgstr "Vyberte znakovou sadu zdrojového souboru:"
 msgid "Select the export format:"
 msgstr "Veberte formát exportu:"
 
-#: templates/data/import.inc:43
+#: templates/data/import.inc:44
 msgid "Select the file to import:"
 msgstr "Vyberte soubor k importování:"
 
@@ -915,152 +1249,235 @@ msgstr "Vyberte soubor k importování:"
 msgid "Select the format of the source file:"
 msgstr "Vyberte formát zdrojového souboru:"
 
-#: config/prefs.php.dist:135
-msgid "Select the format used to display names:"
-msgstr "Vyberte formát zobrazení jmen:"
+#: config/prefs.php:117
+msgid "Select the format used to <em>display</em> names:"
+msgstr "Vyberte formát používaný k <em>display</em> jmen:"
 
-#: config/prefs.php.dist:25
-msgid "Select view to display by default, sort options, and paging options."
-msgstr "Zvolte implicitní zobrazení, možnosti třídění a možnosti stránkování."
+#: config/prefs.php:129
+msgid "Select the format used to <em>sort</em> names:"
+msgstr "Vyberte formát používaný k<em>sort</em> jmen:"
 
-#: config/prefs.php.dist:18
+#: config/prefs.php:35
+msgid "Select view to display by default and paging preferences."
+msgstr "Vyberte variantu pro výchozí zobrazení a možnosti stránkování."
+
+#: config/prefs.php:28
 msgid "Select which fields to display in the address lists."
-msgstr "Volba polí, která mají být zobrazena v seznamu adres."
+msgstr "Vyberte, která pole mají být zobrazena v seznamu adres."
 
-#: config/prefs.php.dist:32
+#: config/prefs.php:42
 msgid "Select which format to display names."
-msgstr "Volba formátu zobrazení jmen."
+msgstr "Vyberte formát zobrazení jmen."
 
-#: add.php:54
+#: lib/Form/AddContact.php:34
 #, php-format
 msgid "Selected address book \"%s\"."
-msgstr "Zvolený Adresář \"%s\"."
+msgstr "Vybrané kontakty \"%s\"."
 
-#: templates/browse/actions.inc:46
+#: config/backends.php:232
+msgid "Shared Address Books"
+msgstr "Sdílený adresář"
+
+#: config/backends.php:375
+msgid "Shared Directory"
+msgstr "Sdílená složka"
+
+#: templates/browse/actions.inc:49
 #, php-format
 msgid "Show %s"
 msgstr "Zobrazit %s"
 
-#: templates/browse/actions.inc:48
-msgid "Show All"
-msgstr "Zobrazit vše"
+#: templates/browse/actions.inc:51
+msgid "Show Both"
+msgstr "Zobrazit obojí"
 
-#: templates/browse/actions.inc:47
+#: templates/browse/actions.inc:50
 msgid "Show Contacts"
 msgstr "Zobrazit kontakty"
 
-#: templates/browse/actions.inc:46
+#: templates/browse/actions.inc:49
 msgid "Show Lists"
 msgstr "Zobrazit seznamy"
 
-#: templates/browse/column_headers.inc:21
-#: templates/browse/column_headers.inc:36
+#: lib/View/List.php:312 lib/View/List.php:318
 msgid "Sort Direction"
 msgstr "Směr třídění"
 
-#: lib/api.php:199
+#: templates/browse/column_headers.inc:32
+#, php-format
+msgid "Sort by %s"
+msgstr "Seřadit podle %s"
+
+#: templates/browse/column_headers.inc:27
+#, php-format
+msgid "Sort by %s only"
+msgstr "Seřadit pouze podle %s"
+
+#: templates/browse/column_headers.inc:30
+#, php-format
+msgid "Sort by %s, then by %s"
+msgstr "Seřadit podle %s, potom podle %s"
+
+#: templates/menu.inc:6
+msgid "Source:"
+msgstr "Zdroj:"
+
+#: lib/Application.php:137
 msgid "Sources"
 msgstr "Zdroje"
 
-#: config/prefs.php.dist:158
-msgid "Specify where you want advanced search results to appear."
-msgstr "Určete kam si přejete zobrazit výsledky pokročilého vyhledávání."
+#: config/attributes.php:110
+msgid "Spouse"
+msgstr "Druh/družka"
 
-#: browse.php:214 browse.php:262
+#: lib/View/Browse.php:345 lib/View/Browse.php:412
 #, php-format
 msgid "Successfully added %d contact(s) to list."
-msgstr "Do seznamu bylo úspěšně přidáno %d kontakt(ů)."
+msgstr "Úspěšně přidán(y) %d kontakt(y) do seznamu."
 
-#: browse.php:160
+#: lib/View/Browse.php:258
 #, php-format
 msgid "Successfully added %s to %s"
-msgstr "Úspěšně přidáno %s do %s"
+msgstr "%s bylo úspěšně přidáno do %s."
 
-#: browse.php:248
+#: lib/View/Browse.php:396
 #, php-format
 msgid "Successfully created the contact list \"%s\"."
-msgstr "Seznam kontaktů \"%s\" byl úspěšně vytvořen."
+msgstr "Úspěšně vytvořen seznam kontaktů \"%s\"."
 
-#: browse.php:84
+#: search.php:147
 #, php-format
-msgid "Successfully deleted %d contact(s)."
-msgstr "%d kontakt(ů) bylo úspěšně odstraněno."
+msgid "Successfully created virtual address book \"%s\""
+msgstr "Úspěšně vytvořen virtuální adresář \"%s\""
 
-#: browse.php:64
+#: lib/View/Browse.php:133
+#, php-format
+msgid "Successfully deleted %d contact."
+msgid_plural "Successfully deleted %d contacts."
+msgstr[0] "Úspěšně smazán %d kontakt."
+msgstr[1] "Úspěšně smazány %d kontakty."
+msgstr[2] "Úspěšně smazáno %d kontaktů."
+
+#: merge.php:33
+msgid "Successfully merged two contacts."
+msgstr "Úspěšně sloučeny dva kontakty."
+
+#: lib/View/Browse.php:104
 #, php-format
 msgid "Successfully removed %d contact(s) from list."
-msgstr "%d kontakt(ů) bylo úspěšně odstraněno ze seznamu."
+msgstr "Úspěšně smazán(y) %d kontakt(y) ze seznamu."
 
-#: data.php:50
+#: config/prefs.php:20
+msgid "Synchronization Preferences"
+msgstr "Nastavení synchronizace"
+
+#: data.php:96
 msgid "TSV"
 msgstr "TSV"
 
-#: templates/data/import.inc:14 templates/data/export.inc:14
+#: templates/data/export.inc:14 templates/data/import.inc:14
 msgid "Tab separated values"
 msgstr "Tab oddělené hodnoty"
 
-#: data.php:304
+#: templates/browse/actions.inc:20
+msgid "Target Address Book"
+msgstr "Cílový adresář"
+
+#: templates/browse/actions.inc:31
+msgid "Target Contact List"
+msgstr "Cílový seznam kontaktů"
+
+#: data.php:433
 #, php-format
 msgid "The %s file didn't contain any contacts."
 msgstr "Soubor %s neobsahoval žádné kontakty."
 
-#: view.php:15
+#: view.php:17
 msgid "The VFS backend needs to be configured to enable attachment uploads."
-msgstr "Pro odesílání příloh musí být nastaven VSF systém."
+msgstr ""
+"VFS backendový systém potřebuje v nastavení zapnout nahrávání (upload) "
+"příloh."
 
-#: lib/Driver.php:1157
+#: lib/Factory/Driver.php:56
 #, php-format
 msgid "The address book \"%s\" does not exist."
 msgstr "Adresář \"%s\" neexistuje."
 
-#: addressbooks.php:48
+#: addressbooks/create.php:29
 #, php-format
-msgid "The address book \"%s\" was created successfully."
-msgstr "Adresář \"%s\" byl úspěšně založen."
+msgid "The address book \"%s\" has been created."
+msgstr "Adresář \"%s\" vytvořen."
 
-#: addressbooks.php:71
-#, php-format
-msgid "The address book \"%s\" was removed successfully."
-msgstr "Adresář \"%s\" byl úspěšně odstraněn."
-
-#: addressbooks.php:89
-#, php-format
-msgid "The address book \"%s\" was successfully updated."
-msgstr "Adresář \"%s\" byl úspěšně aktualizován."
-
-#: data.php:311
+#: data.php:442
 #, php-format
 msgid "The address book could not be purged: %s"
-msgstr "Nelze vyčistit adresář: %s"
+msgstr "Nelze vyčistit kontakty: %s"
 
-#: edit.php:51 view.php:26 display.php:23 vcard.php:22
+#: lib/Api.php:906
+msgid "The address book with your own contact doesn't exist anymore."
+msgstr "Adresář s Vašimi vlastními kontakty již neexistuje."
+
+#: addressbooks/delete.php:48
+#, php-format
+msgid "The addressbook \"%s\" has been deleted."
+msgstr "Adresář  \"%s\" byl smazán."
+
+#: addressbooks/edit.php:43
+#, php-format
+msgid "The addressbook \"%s\" has been renamed to \"%s\"."
+msgstr "Adresář \"%s\" přejmenován na \"%s\"."
+
+#: addressbooks/edit.php:45
+#, php-format
+msgid "The addressbook \"%s\" has been saved."
+msgstr "Adresář \"%s\" uložen."
+
+#: contact.php:19 vcard.php:18 view.php:28
 msgid "The contact you requested does not exist."
 msgstr "Požadovaný kontakt neexistuje."
 
-#: edit.php:123
+#: deletefile.php:40
 #, php-format
-msgid "The file \"%s\" has successfully been deleted."
-msgstr "\"%s\" soubor byl úspěšně smazán."
+msgid "The file \"%s\" has been deleted."
+msgstr "Soubor  \"%s\" byl smazán."
 
-#: data.php:284
+#: data.php:407
 msgid "The import can be finished despite the warnings."
-msgstr "Import může být dokončen navzdory upozorněním."
+msgstr "Import může být dokončen i přes varování."
 
-#: browse.php:31
+#: lib/View/Contact.php:37 lib/View/DeleteContact.php:38
+#: lib/View/EditContact.php:37
+msgid "The requested contact was not found."
+msgstr "Požadovaný kontakt nebyl nalezen."
+
+#: lib/View/Browse.php:67
 msgid "There are no browseable address books."
-msgstr "Nejsou dostupné žadné adresáře k prohlížení."
+msgstr "Nejsou dostupné žadné kontakty k prohlížení."
 
-#: add.php:29
+#: add.php:27
 msgid ""
 "There are no writeable address books. None of the available address books "
 "are configured to allow you to add new entries to them. If you believe this "
 "is an error, please contact your system administrator."
 msgstr ""
-"Nejsou zde žádné adresáře s možností zápisu. Žádné adresáře nejsou "
-"nakonfigurovány pro zápis nových položek. Pokud si myslíte, že je to chyba, "
-"prosím kontaktujte svého systémového administrátora."
+"Nejsou zde žádná úložiště kontaktů s možností zápisu. Pro zápis nových "
+"kontaktů nejsou nakonfigurována žádná úložiště kontaktů. Pokud si myslíte, "
+"že je to chyba, prosím kontaktujte svého systémového administrátora."
 
-#: add.php:124
+#: lib/View/Browse.php:473
+#, php-format
+msgid "There is %d contact in this list that is not viewable to you"
+msgid_plural "There are %d contacts in this list that are not viewable to you"
+msgstr[0] "V seznamu je %d kontakt, který je pro Vás neviditelný"
+msgstr[1] "V seznamu jsou %d kontakty, které jsou pro Vás neviditelné"
+msgstr[2] "V seznamu je %d kontaktů, které jsou pro Vás neviditelné"
+
+#: search.php:143
+#, php-format
+msgid "There was a problem creating the virtual address book: %s"
+msgstr "Nastala chyba vytváření virtuálního adresáře: %s"
+
+#: lib/Form/AddContact.php:99
 msgid ""
 "There was an error adding the new contact. Contact your system administrator "
 "for further help."
@@ -1068,198 +1485,276 @@ msgstr ""
 "Nastala chyba při vkládání nového kontaktu. Kontaktujte Vašeho systémového "
 "administrátora."
 
-#: browse.php:271
+#: lib/Application.php:375
+#, php-format
+msgid "There was an error communicating with the ActiveSync server: %s"
+msgstr "Nastala chyba při komunikaci s ActiveSync serverem: %s"
+
+#: lib/View/Browse.php:387
 msgid "There was an error creating a new list."
 msgstr "Nastala chyba při vytváření nového seznamu."
 
-#: addressbooks.php:38
-#, php-format
-msgid "There was an error creating this address book: %s"
-msgstr "Nastala chyba při vytváření tohoto Adresáře: %s"
-
-#: browse.php:166
+#: lib/View/Browse.php:270
 #, php-format
 msgid "There was an error deleting \"%s\" from the source address book."
-msgstr "Nastala chyba při mazání \"%s\" ze zdrojového adresáře."
+msgstr "Nastala chyba při smazávání \"%s\"  ze zdrojového adresáře."
 
-#: delete.php:37
+#: delete.php:38
 #, php-format
 msgid "There was an error deleting this contact: %s"
-msgstr "Nastala chyba při mazání tohoto kontaktu: %s"
+msgstr "Nastala chyba při smazávání tohoto kontaktu: %s"
 
-#: browse.php:318
+#: lib/View/Browse.php:458
 msgid "There was an error displaying the list"
 msgstr "Nastala chyba při zobrazování seznamu"
 
-#: data.php:343
+#: data.php:482
 #, php-format
 msgid "There was an error importing the data: %s"
-msgstr "Nastala chyba při importování dat: %s"
+msgstr "Nastala chyba při importování dat: %s."
 
-#: lib/api.php:562 lib/api.php:825
+#: lib/Api.php:685 lib/Api.php:1059
 msgid "There was an error importing the iCalendar data."
 msgstr "Při importování iCalendar dat došlo k chybě."
 
-#: addressbooks.php:58 addressbooks.php:63 addressbooks.php:69
+#: lib/Application.php:433 lib/Application.php:463 lib/Application.php:476
 #, php-format
-msgid "There was an error removing this address book: %s"
-msgstr "Nastala chyba při odstraňování tohoto Adresáře: %s"
+msgid "There was an error removing an address book for %s"
+msgstr "Nastala chyba při odstraňování adresáře %s"
 
-#: addressbooks.php:87
-#, php-format
-msgid "There was an error updating this address book: %s"
-msgstr "Nastala chyba při aktualizaci tohoto Adresáře: %s"
+#: lib/Form/EditContact.php:75
+msgid ""
+"There was an error saving the contact. Contact your system administrator for "
+"further help."
+msgstr ""
+"Nastala chyba při ukládání kontaktu. Kontaktujte Vašeho systémového "
+"administrátora pro pomoc s tímto problémem."
 
-#: edit.php:165
-#, php-format
-msgid "There was an error updating this entry: %s"
-msgstr "Nastala chyba při aktualizaci této položky: %s"
-
-#: data.php:179
+#: data.php:290
 msgid "There were no addresses to export."
 msgstr "Žádné kontakty pro exportování."
 
-#: templates/prefs/addressbookselect.inc:180
+#: lib/Application.php:254
 msgid "These address books will display in this order:"
-msgstr "Tyto Adresáře se zobrazí v tomto pořadí:"
+msgstr "Tyto adresáře se zobrazí v tomto pořadí:"
 
-#: templates/prefs/columnselect.inc:243
-msgid "These columns will display in this order:"
-msgstr "Tyto sloupečky se zobrazí v tomto pořadí:"
+#: addressbooks/delete.php:25
+msgid "This address book cannot be deleted"
+msgstr "Tento adresář memůže být smazán"
 
-#: data.php:269
+#: contact.php:54
+msgid "This contact has been marked as your own."
+msgstr "Tento kontakt byl označen jako Váš vlastní."
+
+#: data.php:391
 msgid "This file format is not supported."
 msgstr "Tento formát souboru nelze použít."
 
-#: lib/api.php:1203 lib/api.php:1216
+#: lib/Api.php:1660 lib/Api.php:1674
 #, php-format
 msgid "This person already has a %s entry in the address book"
-msgstr "Tato osoba se již nachází ve Vašem adresáři jako %s."
+msgstr "Tato osoba se již nachází ve Vašich kontaktech jako %s"
 
-#: config/prefs.php.dist:148
+#: config/prefs.php:143
 msgid ""
 "This will be the default address book when adding or importing contacts."
-msgstr "Toto bude implicitní Adresář pro přidávání nebo importování kontaktů."
+msgstr "Toto bude základní adresář pro přidávání nebo import kontaktů."
 
-#: config/attributes.php.dist:70
-msgid "Title"
-msgstr "Titul"
+#: config/attributes.php:268
+msgid "Time Zone"
+msgstr "Časové pásmo"
 
-#: lib/Turba.php:443
-#, php-format
-msgid "Unable to create new share. Missing source type."
-msgstr "Nelze vytvořit novou sdílenou složku. Chybí typ zdroje."
+#: lib/Driver/Share.php:102
+msgid "Unable to find contact owner."
+msgstr "Nelze nalézt vlastníka kontaktu."
 
-#: lib/Driver.php:1081
+#: lib/Factory/Driver.php:64
 #, php-format
 msgid "Unable to load the definition of %s."
-msgstr "Nelze dosáhnout definici %s."
+msgstr "Nelze načíst definici %s."
 
-#: edit.php:95 edit.php:98 edit.php:101 edit.php:106 edit.php:204
-msgid "Undo Changes"
-msgstr "Storno změn"
+#: lib/Form/EditAddressBook.php:47
+#, php-format
+msgid "Unable to save address book \"%s\": %s"
+msgstr "Nelze uložit adresář \"%s\": %s"
 
-#: lib/api.php:595 lib/api.php:696 lib/api.php:843
+#: lib/Api.php:724 lib/Api.php:853 lib/Api.php:1088
 #, php-format
 msgid "Unsupported Content-Type: %s"
-msgstr "Nepodporovaný typ obsahu (Content-Type): %s"
+msgstr "Nepodporovaný typ obsahu: %s"
 
-#: templates/browse/row.inc:19 templates/browse/contactrow.inc:27
-#, php-format
-msgid "View \"%s\""
-msgstr "Zobrazit \"%s\""
-
-#: minisearch.php:76
+#: minisearch.php:67 minisearch.php:68
 msgid "View Contact"
 msgstr "Zobrazit kontakt"
 
-#: config/prefs.php.dist:124
+#: config/prefs.php:106
 msgid "View to display by default:"
 msgstr "Implicitní zobrazení:"
 
-#: config/attributes.php.dist:208
+#: config/attributes.php:572
+msgid "VoIP"
+msgstr "VoIP"
+
+#: config/attributes.php:425
 msgid "Website URL"
-msgstr "URL www stránky"
+msgstr "URL webstránky"
 
-#: config/attributes.php.dist:113
+#: config/attributes.php:178
 msgid "Work Address"
-msgstr "Adresa do zaměstnání"
+msgstr "Adresa do práce"
 
-#: config/attributes.php.dist:124
+#: config/attributes.php:636
+msgid "Work Address Extended"
+msgstr "Rozšířená pracovní adresa"
+
+#: config/attributes.php:196
 msgid "Work City"
-msgstr "Město adresy do zaměstnání"
+msgstr "Město do práce"
 
-#: config/attributes.php.dist:139
+#: config/attributes.php:214
 msgid "Work Country"
-msgstr "Země adresy do zaměstnání"
+msgstr "Země do práce"
 
-#: config/attributes.php.dist:156
+#: config/attributes.php:520
+msgid "Work Email"
+msgstr "Pracovní E-mail"
+
+#: config/attributes.php:537
+msgid "Work Fax"
+msgstr "Pracovní Fax"
+
+#: config/attributes.php:642
+msgid "Work Latitude"
+msgstr "Zeměpisná šířka práce"
+
+#: config/attributes.php:647
+msgid "Work Longitude"
+msgstr "Pracovní "
+
+#: config/attributes.php:547
+msgid "Work Mobile Phone"
+msgstr "Pracovní mobil"
+
+#: config/attributes.php:299 config/attributes.php:304
 msgid "Work Phone"
-msgstr "Telefon do zaměstnání"
+msgstr "Telefon do práce"
 
-#: config/attributes.php.dist:134
+#: config/attributes.php:190
+msgid "Work Post Office Box"
+msgstr "Pracovní poštovní schránka"
+
+#: config/attributes.php:208
 msgid "Work Postal Code"
-msgstr "PSČ do zaměstnání"
+msgstr "PSČ do práce"
 
-#: config/attributes.php.dist:129
+#: config/attributes.php:202
 msgid "Work State/Province"
-msgstr "Stát/provincie adresy do zaměstnání"
+msgstr "Stát/Okres do práce"
 
-#: config/attributes.php.dist:119
+#: config/attributes.php:184
 msgid "Work Street Address"
-msgstr "Ulice adresy do zaměstnání"
+msgstr "Ulice do práce"
 
-#: data.php:237 browse.php:106 browse.php:227 add.php:73
+#: config/attributes.php:562
+msgid "Work Video Call"
+msgstr "Pracovní Videohovor"
+
+#: config/attributes.php:630
+msgid "Work Website URL"
+msgstr "URL pracovní schránky"
+
+#: addressbooks/edit.php:32
+msgid "You are not allowed to change this addressbook."
+msgstr "Nemáte oprávnění změnit tento adresář."
+
+#: add.php:51 data.php:352 lib/View/Browse.php:176 lib/View/Browse.php:370
 #, php-format
 msgid "You are not allowed to create more than %d contacts in \"%s\"."
-msgstr "Nejste oprávněn vytvořit více než %d kontaktů v \"%s\"."
+msgstr "Nemůžete vytvořit více než %d kontaktů v \"%s\"."
 
-#: edit.php:73 view.php:36 display.php:52
+#: addressbooks/delete.php:38
+msgid "You are not allowed to delete this addressbook."
+msgstr "Nemáte oprávnění smazat tento adresář."
+
+#: lib/Driver/Facebook.php:165
+msgid ""
+"You are not connected to Facebook. Create a Facebook connection in the "
+"Global Preferences."
+msgstr ""
+"Nejste připojeni k Facebooku. Vytvořte připojení k Facebooku v globálním "
+"nastavení.."
+
+#: lib/Driver/Vbook.php:114
+msgid "You cannot add new contacts to a virtual address book"
+msgstr "Nemáte oprávnění přidat kontakty do virtuálního adresáře."
+
+#: lib/Driver/Vbook.php:125
+msgid "You cannot delete contacts from a virtual address book"
+msgstr "Nemáte oprávnění mazat kontakty z virtuálního adresáře."
+
+#: lib/Api.php:901
+msgid "You didn't mark a contact as your own yet."
+msgstr "Ještě jste neoznačil kontakt jako Váš vlastní."
+
+#: edit.php:61 lib/View/DeleteContact.php:44 lib/View/EditContact.php:43
+#: view.php:36
 msgid "You do not have permission to view this contact."
 msgstr "Nedostatečná práva pro prohlížení tohoto kontaktu."
 
-#: vcard.php:40
+#: vcard.php:34
 msgid "You do not have permission to view this object."
 msgstr "Nedostatečná práva pro prohlížení tohoto objektu."
 
-#: lib/Turba.php:534
-msgid "You do not have permissions to delete this source."
-msgstr "Nedostatečná práva pro smazání tohoto zdroje."
+#: lib/Form/DeleteAddressBook.php:50
+msgid "You do not have permissions to delete this address book."
+msgstr "Nemáte oprávnění smazat tento adresář."
 
-#: templates/browse/javascript.inc:55
+#: lib/Api.php:912
+msgid ""
+"You don't have sufficient permissions to read the address book that contains "
+"your own contact."
+msgstr ""
+"Máte nedostatečná práva pro prohlížení adresáře, který obsahuje váš vlastní "
+"kontakt."
+
+#: search.php:125
+msgid "You must provide a name for virtual address books."
+msgstr "Nejdříve musíte uvést název virtuálního adresáře."
+
+#: lib/Turba.php:680
 msgid "You must select a target address book."
-msgstr "Musíte nejdříve vybrat cílový adresář."
+msgstr "Musíte nejdříve vybrat cílové kontakty."
 
-#: templates/browse/javascript.inc:23
-msgid "You must select a target list."
-msgstr "Musíte nejdříve vybrat cílový seznam."
+#: lib/Turba.php:678
+msgid "You must select a target contact list."
+msgstr "Musíte vybrat cílový seznam kontaktů."
 
-#: edit.php:32
+#: edit.php:28 lib/Turba.php:677
 msgid "You must select at least one contact first."
-msgstr "Musíte nejdříve vybrat alespoň jeden kontakt."
+msgstr "Musíte nejdříve vybrat nejméně jeden kontakt."
 
-#: templates/browse/javascript.inc:17 templates/browse/javascript.inc:49
-#: templates/browse/javascript.inc:72
-msgid "You must select at least one entry first."
-msgstr "Musíte nejdříve vybrat alespoň jednu položku."
-
-#: edit.php:77
+#: edit.php:64 lib/View/DeleteContact.php:47 lib/View/EditContact.php:46
 msgid "You only have permission to view this contact."
 msgstr "Vaše práva dovolují pouze prohlížení tohoto kontaktu."
 
-#: browse.php:325
+#: lib/View/Browse.php:489
 msgid "Your default address book is not browseable."
-msgstr "Váš implicitní adresář nelze procházet."
+msgstr "Váš adresář neumožňuje procházení."
 
-#: templates/browse/row.inc:6 templates/browse/contactrow.inc:12
-msgid "[no value]"
-msgstr "[žádná hodnota]"
+#: contact.php:92 contact.php:93 templates/browse/row.inc:14
+#: templates/browse/row.inc:15
+msgid "Your own contact"
+msgstr "Váš vlastní kontakt"
 
-#: lib/Turba.php:557
+#: lib/Api.php:918
+msgid "Your own contact cannot be found in the address book."
+msgstr "Váš vlastní kontakt nemůže být v adresáři nalezen."
+
+#: lib/Application.php:164
 msgid "_Browse"
 msgstr "_Prohlížet"
 
-#: templates/browse/actions.inc:47
+#: templates/browse/actions.inc:50
 msgid "_Contacts"
 msgstr "_Kontakty"
 
@@ -1267,19 +1762,23 @@ msgstr "_Kontakty"
 msgid "_Delete"
 msgstr "_Smazat"
 
-#: lib/Turba.php:566
-msgid "_Import/Export"
-msgstr "_Importovat/exportovat"
+#: contact.php:82
+msgid "_Edit"
+msgstr "_Upravit"
 
-#: templates/browse/actions.inc:46
+#: lib/Application.php:175
+msgid "_Import/Export"
+msgstr "_Import/Export"
+
+#: templates/browse/actions.inc:49
 msgid "_Lists"
 msgstr "_Seznamy"
 
-#: lib/Turba.php:554
+#: lib/Application.php:160
 msgid "_My Address Books"
-msgstr "_Mé Adresáře"
+msgstr "_Moje adresáře"
 
-#: lib/Turba.php:560
+#: lib/Application.php:168
 msgid "_New Contact"
 msgstr "_Nový kontakt"
 
@@ -1287,43 +1786,80 @@ msgstr "_Nový kontakt"
 msgid "_Remove from this list"
 msgstr "_Odstranit z tohoto seznamu"
 
-#: lib/Turba.php:562
+#: lib/Application.php:171
 msgid "_Search"
 msgstr "_Vyhledat"
 
-#: vcard.php:46
-msgid "contact.vcf"
-msgstr "kontakty.vcf"
+#: contact.php:79
+msgid "_View"
+msgstr "_Zobrazit"
 
-#: data.php:199 data.php:204 templates/data/export.inc:1
+#: templates/browse/column_headers.inc:25
+msgid "ascending"
+msgstr "vzestupně"
+
+#: lib/Object.php:237
+#, php-format
+msgid "by %s"
+msgstr "s %s"
+
+#: lib/Object.php:239
+msgid "by me"
+msgstr "mnou"
+
+#: vcard.php:40
+msgid "contact"
+msgstr "kontakt"
+
+#: data.php:309 data.php:313 templates/data/export.inc:1
 msgid "contacts.csv"
 msgstr "kontakty.csv"
 
-#: data.php:209
+#: data.php:330
+msgid "contacts.ldif"
+msgstr "kontakty.ldif"
+
+#: data.php:317
 msgid "contacts.tsv"
 msgstr "kontakty.tsv"
 
-#: data.php:219
+#: data.php:322
 msgid "contacts.vcf"
 msgstr "kontakty.vcf"
 
-#: config/prefs.php.dist:138
+#: templates/browse/column_headers.inc:25
+msgid "descending"
+msgstr "sestupně"
+
+#: config/attributes.php:499
+msgid "female"
+msgstr "žena"
+
+#: lib/Application.php:509
+#, php-format
+msgid "in %s"
+msgstr "v %s"
+
+#: config/attributes.php:499
+msgid "male"
+msgstr "muž"
+
+#: config/prefs.php:121 config/prefs.php:133
 msgid "no formatting"
 msgstr "bez formátování"
 
-#: templates/prefs/imsp_opt.inc:32
-msgid "none"
-msgstr "žádný"
-
-#: templates/browse/actions.inc:31
+#: templates/browse/actions.inc:33
 msgid "to a Contact List"
-msgstr "do seznamu kontaktů"
+msgstr "do Seznamu kontaktů"
 
-#: templates/browse/actions.inc:21
+#: templates/browse/actions.inc:22
 msgid "to a different Address Book"
-msgstr "do jiného Adresáře"
+msgstr "do jiného adresáře"
 
-#: data.php:51 templates/browse/column_headers.inc:13
-#: templates/data/import.inc:15 templates/data/export.inc:15
+#: data.php:97 templates/data/export.inc:15 templates/data/import.inc:15
 msgid "vCard"
 msgstr "vCard"
+
+#: templates/data/export.inc:16
+msgid "vCard (3.0)"
+msgstr "vCard (3.0)"

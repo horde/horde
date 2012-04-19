@@ -101,10 +101,13 @@ class Kronolith_Block_Summary extends Horde_Core_Block
                 }
                 list($type, $calendar) = explode('_', $this->_params['calendar'], 2);
                 $driver = Kronolith::getDriver($type, $calendar);
-                $all_events = Kronolith::sortEvents($driver->listEvents($startDate, $endDate, true));
+                $all_events = Kronolith::sortEvents(
+                    $driver->listEvents(
+                        $startDate, $endDate, array('show_recurrence' => true))
+                );
             } else {
-                $all_events = Kronolith::listEvents($startDate, $endDate,
-                                                    $GLOBALS['display_calendars']);
+                $all_events = Kronolith::listEvents(
+                    $startDate, $endDate, $GLOBALS['display_calendars']);
             }
         } catch (Exception $e) {
             return '<em>' . $e->getMessage() . '</em>';

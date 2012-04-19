@@ -21,4 +21,9 @@ class Horde_ActiveSync_Message_AirSyncBaseBody extends Horde_ActiveSync_Message_
         'truncated'         => false,
         'data'              => false
     );
+
+    public function getClass()
+    {
+        return 'AirSyncBaseBody';
+    }
 }

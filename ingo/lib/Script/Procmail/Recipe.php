@@ -160,14 +160,16 @@ class Ingo_Script_Procmail_Recipe
                     $this->_action[] = '      | (formail -rI"Precedence: junk" \\';
                     $this->_action[] = '       -a"From: <' . $address . '>" \\';
                     $this->_action[] = '       -A"X-Loop: ' . $address . '" \\';
-                    if (Horde_Mime::is8bit($params['action-value']['reason'])) {
+                    $reason = Ingo::getReason($params['action-value']['reason'],
+                                              $params['action-value']['start'],
+                                              $params['action-value']['end']);
+                    if (Horde_Mime::is8bit($reason)) {
                         $this->_action[] = '       -i"Subject: ' . Horde_Mime::encode($params['action-value']['subject'] . ' (Re: $SUBJECT)') . '" \\';
                         $this->_action[] = '       -i"Content-Transfer-Encoding: quoted-printable" \\';
                         $this->_action[] = '       -i"Content-Type: text/plain; charset=UTF-8" ; \\';
-                        $reason = Horde_Mime::quotedPrintableEncode($params['action-value']['reason'], "\n");
+                        $reason = Horde_Mime::quotedPrintableEncode($reason, "\n");
                     } else {
                         $this->_action[] = '       -i"Subject: ' . Horde_Mime::encode($params['action-value']['subject'] . ' (Re: $SUBJECT)') . '" ; \\';
-                        $reason = $params['action-value']['reason'];
                     }
                     $reason = addcslashes($reason, "\\\n\r\t\"`");
                     $this->_action[] = '       ' . $this->_params['echo'] . ' -e "' . $reason . '" \\';

@@ -204,17 +204,21 @@ class Horde_ActiveSync_Sync
                     try {
                         $message = $this->_backend->getMessage(
                             $this->_folderId, $change['id'], $this->_collection);
-                    } catch (Horde_ActiveSync_Exception $e) {
+                        // copy the flag to the message
+                        // @TODO: Rename this to ->new or ->status or *anything* other than flags!!
+                        $message->flags = (isset($change['flags'])) ? $change['flags'] : 0;
+                        if ($flags & Horde_ActiveSync::BACKEND_IGNORE_DATA ||
+                            $this->_exporter->messageChange($change['id'], $message) == true) {
+
+                            $this->_stateDriver->updateState(
+                                Horde_ActiveSync::CHANGE_TYPE_CHANGE, $change);
+                        }
+                    } catch (Horde_Exception_NotFound $e) {
                         $this->_logger->debug('Message gone? Possibly a MoreItems that has since disappeared.');
                         $flags = $flags | Horde_ActiveSync::BACKEND_IGNORE_DATA;
-                    }
-
-                    // copy the flag to the message
-                    // @TODO: Rename this to ->new or ->status or *anything* other than flags!!
-                    $message->flags = (isset($change['flags'])) ? $change['flags'] : 0;
-                    if ($flags & Horde_ActiveSync::BACKEND_IGNORE_DATA || $this->_exporter->messageChange($change['id'], $message) == true) {
-                        $this->_stateDriver->updateState(
-                            Horde_ActiveSync::CHANGE_TYPE_CHANGE, $change);
+                        $this->_stateDriver->updateState(Horde_ActiveSync::CHANGE_TYPE_CHANGE, $change);
+                    } catch (Horde_ActiveSync_Exception $e) {
+                        return false;
                     }
                     break;
 

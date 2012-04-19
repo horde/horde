@@ -559,7 +559,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *   - bodyprefs: (array)  The bodypref array from the device.
      *
      * @return Horde_ActiveSync_Message_Base The message data
-     * @throws Horde_ActiveSync_Exception
+     * @throws Horde_ActiveSync_Exception, Horde_Exception_NotFound
      */
     public function getMessage($folderid, $id, array $collection)
     {
@@ -583,7 +583,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 $this->_endBuffer();
-                throw new Horde_ActiveSync_Exception('Not Found');
+                throw new Horde_ActiveSync_Exception($e);
             }
             break;
 
@@ -597,7 +597,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 $this->_endBuffer();
-                throw new Horde_ActiveSync_Exception('Not Found');
+                throw new Horde_ActiveSync_Exception($e);
             }
             break;
 
@@ -607,7 +607,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 $this->_endBuffer();
-                throw new Horde_ActiveSync_Exception('Not Found');
+                throw new Horde_ActiveSync_Exception($e);
             }
             break;
 
@@ -630,9 +630,12 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 $this->_endBuffer();
-                throw new Horde_ActiveSync_Exception('Not Found');
+                throw new Horde_ActiveSync_Exception($e);
             }
             $this->_endBuffer();
+            if (empty($messages)) {
+                throw new Horde_Exception_NotFound();
+            }
             return current($messages);
             break;
         default:
@@ -1011,7 +1014,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 // Message gone
                 return false;
             }
-            $data = $imap_message->getMessageBody();
+            $data = $imap_message->getMessageBodyData();
             if ($data['charset'] != 'UTF-8') {
                 $quoted = Horde_String::convertCharset(
                     $data['text'],
@@ -1227,6 +1230,28 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         }
 
         return $res;
+    }
+
+    /**
+     * Attempt to autodiscover
+     *
+     * @param string $email  The user's email address
+     *
+     * @return array
+     */
+    public function autoDiscover($email)
+    {
+        $results = array();
+        $ident = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Identity')
+            ->create($this->_user);
+        $results['display_name'] = $ident->getValue('fullname');
+        $results['email'] = $ident->getValue('from_addr');
+        $url = parse_url((string)Horde::url(null, true));
+        $results['url'] = $url['scheme'] . '://' . $url['host'] . '/Microsoft-Server-ActiveSync';
+        // As of Exchange 2007, this always returns en:en
+        $results['culture'] = 'en:en';
+        return $results;
     }
 
     /**

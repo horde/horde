@@ -786,7 +786,9 @@ class Nag_Task
             $json->a = (int)$this->alarm;
             $json->m = $this->methods;
             //$json->pv = (boolean)$this->private;
-            $json->r = $this->recurrence->toJson();
+            if ($this->recurs()) {
+                $json->r = $this->recurrence->toJson();
+            }
 
             try {
                 $share = $GLOBALS['nag_shares']->getShare($this->tasklist);
@@ -1034,6 +1036,11 @@ class Nag_Task
             $message->setReminder(new Horde_Date($this->due - $this->alarm));
         }
 
+        /* Recurrence */
+        if ($this->recurs()) {
+            $message->setRecurrence($this->recurrence);
+        }
+
         return $message;
     }
 
@@ -1146,6 +1153,9 @@ class Nag_Task
      */
     function fromASTask(Horde_ActiveSync_Message_Task $message)
     {
+        /* Owner is always current user for ActiveSync */
+        $this->owner = $GLOBALS['registry']->getAuth();
+
         /* Notes and Title */
         $this->desc = $message->getBody();
         $this->name = $message->getSubject();
@@ -1183,6 +1193,10 @@ class Nag_Task
 
         if (($alarm = $message->getReminder()) && $this->due) {
             $this->alarm = $this->due - $alarm->timestamp();
+        }
+
+        if ($rrule = $message->getRecurrence()) {
+            $this->recurrence = $rrule;
         }
 
         $this->tasklist = $GLOBALS['prefs']->getValue('default_tasklist');

@@ -263,7 +263,7 @@ class Horde_Registry
 
             switch ($e->getCode()) {
             case self::AUTH_FAILURE:
-                $failure = new Horde_Exception_AuthenticationFailure();
+                $failure = new Horde_Exception_AuthenticationFailure($e->getMessage());
                 $failure->application = $app;
                 throw $failure;
 
@@ -2438,7 +2438,7 @@ class Horde_Registry
     {
         return ($charset = $this->nlsconfig->curr_charset)
             ? $charset
-            : 'UTF-8';
+            : 'ISO-8859-1';
     }
 
     /**

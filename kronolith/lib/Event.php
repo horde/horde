@@ -1538,24 +1538,28 @@ abstract class Kronolith_Event
             foreach ($this->attendees as $email => $properties) {
                 $attendee = new Horde_ActiveSync_Message_Attendee();
                 $attendee->email = $email;
-                // AS only as required or optional
-                //$attendee->type = ($properties['attendance'] !== Kronolith::PART_REQUIRED ? Kronolith::PART_OPTIONAL : Kronolith::PART_REQUIRED);
-                //$attendee->status = $properties['response'];
+                // AS only has required or optional, and only EAS Version > 2.5
+                if ($options['protocolversion'] > Horde_ActiveSync::VERSION_TWOFIVE) {
+                    $attendee->type = ($properties['attendance'] !== Kronolith::PART_REQUIRED ? Kronolith::PART_OPTIONAL : Kronolith::PART_REQUIRED);
+                    $attendee->status = $properties['response'];
+                }
                 $message->addAttendee($attendee);
             }
         }
 
-//        /* Resources */
-//        $r = $this->getResources();
-//        foreach ($r as $id => $data) {
-//            $resource = Kronolith::getDriver('Resource')->getResource($id);
-//            $attendee = new Horde_ActiveSync_Message_Attendee();
-//            $attendee->email = $resource->get('email');
-//            $attendee->type = Horde_ActiveSync_Message_Attendee::TYPE_RESOURCE;
-//            $attendee->name = $data['name'];
-//            $attendee->status = $data['response'];
-//            $message->addAttendee($attendee);
-//        }
+       // Resources
+       if ($options['protocolversion'] > Horde_ActiveSync::VERSION_TWOFIVE) {
+           $r = $this->getResources();
+           foreach ($r as $id => $data) {
+               $resource = Kronolith::getDriver('Resource')->getResource($id);
+               $attendee = new Horde_ActiveSync_Message_Attendee();
+               $attendee->email = $resource->get('email');
+               $attendee->type = Horde_ActiveSync_Message_Attendee::TYPE_RESOURCE;
+               $attendee->name = $data['name'];
+               $attendee->status = $data['response'];
+               $message->addAttendee($attendee);
+           }
+        }
 
         // Reminder
         if ($this->alarm) {
@@ -2517,9 +2521,10 @@ abstract class Kronolith_Event
             if ($end_date = Horde_Util::getFormData('recur_end_date')) {
                 // From ajax interface.
                 $date_ob = Kronolith::parseDate($end_date, false);
-                $recur_enddate = array('year'  => $date_ob->year,
-                                       'month' => $date_ob->month,
-                                       'day'  => $date_ob->mday);
+                $recur_enddate = array(
+                    'year'  => $date_ob->year,
+                    'month' => $date_ob->month,
+                    'day'  => $date_ob->mday);
             } else {
                 // From traditional interface.
                 $recur_enddate = Horde_Util::getFormData('recur_end');
@@ -2584,7 +2589,11 @@ abstract class Kronolith_Event
             case Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY:
                 $recurrence->setRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY);
             case Horde_Date_Recurrence::RECUR_MONTHLY_DATE:
-                $recurrence->setRecurInterval(Horde_Util::getFormData('recur_monthly') ? 1 : Horde_Util::getFormData('recur_monthly_interval', 1));
+                $recurrence->setRecurInterval(
+                    Horde_Util::getFormData('recur_monthly')
+                        ? 1
+                        : Horde_Util::getFormData('recur_monthly_interval', 1)
+                );
                 break;
             default:
                 $recurrence->setRecurInterval(Horde_Util::getFormData('recur_day_of_month_interval', 1));
@@ -2602,7 +2611,11 @@ abstract class Kronolith_Event
             case Horde_Date_Recurrence::RECUR_YEARLY_DAY:
                 $recurrence->setRecurType(Horde_Util::getFormData('recur_yearly_scheme'));
             case Horde_Date_Recurrence::RECUR_YEARLY_DATE:
-                $recurrence->setRecurInterval(Horde_Util::getFormData('recur_yearly') ? 1 : Horde_Util::getFormData('recur_yearly_interval', 1));
+                $recurrence->setRecurInterval(
+                    Horde_Util::getFormData('recur_yearly')
+                        ? 1
+                        : Horde_Util::getFormData('recur_yearly_interval', 1)
+                );
                 break;
             default:
                 $recurrence->setRecurInterval(Horde_Util::getFormData('recur_yearly_interval', 1));
@@ -2621,9 +2634,10 @@ abstract class Kronolith_Event
 
         if ($exceptions = Horde_Util::getFormData('exceptions')) {
             foreach ($exceptions as $exception) {
-                $recurrence->addException((int)substr($exception, 0, 4),
-                                                (int)substr($exception, 4, 2),
-                                                (int)substr($exception, 6, 2));
+                $recurrence->addException(
+                    (int)substr($exception, 0, 4),
+                    (int)substr($exception, 4, 2),
+                    (int)substr($exception, 6, 2));
             }
         }
 

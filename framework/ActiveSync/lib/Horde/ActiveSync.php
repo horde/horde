@@ -101,6 +101,7 @@ class Horde_ActiveSync
     const SYNC_SOFTDELETE               = 'SoftDelete';
     const SYNC_MIMESUPPORT              = 'MIMESupport';
     const SYNC_MIMETRUNCATION           = 'MIMETruncation';
+    const SYNC_CONVERSATIONMODE         = 'ConversationMode';
 
     /* Document library */
     const SYNC_DOCUMENTLIBRARY_LINKID           = 'DocumentLibrary:LinkId';
@@ -329,9 +330,6 @@ class Horde_ActiveSync
         // Wbxml handlers
         $this->_encoder = $encoder;
         $this->_decoder = $decoder;
-
-        // Read the initial Wbxml header
-        $this->_decoder->readWbxmlHeader();
     }
 
     /**
@@ -486,6 +484,10 @@ class Horde_ActiveSync
             $this->_driver->getUser())
         );
 
+        if (!$this->authenticate()) {
+            throw new Horde_ActiveSync_Exception('Failed to authenticate');
+        }
+
         // Don't bother with everything else if all we want are Options
         if ($cmd == 'Options') {
             $this->activeSyncHeader();
@@ -494,8 +496,9 @@ class Horde_ActiveSync
             return true;
         }
 
-        if (!$this->authenticate()) {
-            throw new Horde_ActiveSync_Exception('Failed to authenticate');
+        if ($cmd == 'Autodiscover') {
+            $request = new Horde_ActiveSync_Request_Autodiscover($this, new stdClass());
+            return $request->handle();
         }
 
         // These are all handled in the same class.
@@ -507,6 +510,9 @@ class Horde_ActiveSync
         if (is_null($devId)) {
             throw new Horde_ActiveSync_Exception_InvalidRequest('Device failed to send device id.');
         }
+
+        // Read the initial Wbxml header
+        $this->_decoder->readWbxmlHeader();
 
         // Does device exist AND does the user have an account on the device?
         if (!empty($devId) && !$this->_state->deviceExists($devId, $this->_driver->getUser())) {

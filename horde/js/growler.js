@@ -210,7 +210,7 @@
                         e.stop();
                         this.growler.fire('Growler:linkClick', e);
                     }
-                });
+                }.bindAsEventListener(this));
             }
         },
 

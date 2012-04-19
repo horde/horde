@@ -763,7 +763,10 @@ class Horde_Date_Recurrence
      */
     public function addException($year, $month, $mday)
     {
-        $this->exceptions[] = sprintf('%04d%02d%02d', $year, $month, $mday);
+        $key = sprintf('%04d%02d%02d', $year, $month, $mday);
+        if (array_search($key, $this->exceptions) === false) {
+            $this->exceptions[] = sprintf('%04d%02d%02d', $year, $month, $mday);
+        }
     }
 
     /**
