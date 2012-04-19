@@ -372,7 +372,7 @@ class Horde_ActiveSync
         if ($this->_request->getMethod() == 'POST' && empty($get['User'])) {
             if ($serverVars['PHP_AUTH_USER']) {
                 $get['User'] = $serverVars['PHP_AUTH_USER'];
-            } elseif ($serverVars['Authorization']) {
+            } elseif ($serverVars['HTTP_AUTHORIZATION']) {
                 $hash = str_replace('Basic ', '', $serverVars['Authorization']);
                 $hash = base64_decode($hash);
                 if (strpos($hash, ':') !== false) {
