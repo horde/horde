@@ -110,6 +110,9 @@ class Horde_ActiveSync_Wbxml
                 0x21 => 'SoftDelete',
                 0x22 => 'MIMESupport',
                 0x23 => 'MIMETruncation',
+                0x24 => 'Wait',
+                0x25 => 'Limit',
+                0x26 => 'Partial',
             ),
             /* POOMCONTACTS */
             1 => array (
@@ -276,6 +279,15 @@ class Horde_ActiveSync_Wbxml
                 // EAS 12.0
                 0x29 => 'Attendee_Status',
                 0x2A => 'Attendee_Type',
+                // EAS 12.1
+                0x2B => 'Attachment',
+                0x2C => 'Attachments',
+                0x2D => 'AttName',
+                0x2E => 'AttSize',
+                0x2F => 'AttOid',
+                0x30 => 'AttMethod',
+                0x31 => 'AttRemoved',
+                0x32 => 'DisplayName',
             ),
             /* MOVE */
             5 => array (
@@ -416,12 +428,14 @@ class Horde_ActiveSync_Wbxml
             /* PING */
             0xd => array (
                 0x05 => 'Ping',
+                0x06 => 'AutdState',
                 0x07 => 'Status',
                 0x08 => 'HeartbeatInterval',
                 0x09 => 'Folders',
                 0x0a => 'Folder',
                 0x0b => 'ServerEntryId',
                 0x0c => 'FolderType',
+                0x0d => 'MaxFolders'
             ),
             /* PROVISION */
             0xe => array (
@@ -448,6 +462,39 @@ class Horde_ActiveSync_Wbxml
                 0x18 => 'AllowSimpleDevicePassword',
                 0x19 => 'DevicePasswordExpiration',
                 0x1A => 'DevicePasswordHistory',
+                // EAS 12.1
+                0x1B => 'AllowStorageCard',
+                0x1C => 'AllowCamera',
+                0x1D => 'RequireDeviceEncryption',
+                0x1E => 'AllowUnsignedApplications',
+                0x1F => 'AllowUnsignedInstallationPackages',
+                0x20 => 'MinDevicePasswordComplexCharacters',
+                0x21 => 'AllowWiFi',
+                0x22 => 'AllowTextMessaging',
+                0x23 => 'AllowPOPIMAPEmail',
+                0x24 => 'AllowBluetooth',
+                0x25 => 'AllowIrDA',
+                0x26 => 'RequireManualSyncWhenRoaming',
+                0x27 => 'AllowDesktopSync',
+                0x28 => 'MaxCalendarAgeFilter',
+                0x29 => 'AllowHTMLEmail',
+                0x2A => 'MaxEmailAgeFilter',
+                0x2B => 'MaxEmailBodyTruncationSize',
+                0x2C => 'MaxHTMLBodyTruncationSize',
+                0x2D => 'RequireSignedSMIMEMessages',
+                0x2E => 'RequireEncryptedSMIMEMessages',
+                0x2F => 'RequireSignedSMIMEAlgorithm',
+                0x30 => 'RequireEncryptedSMIMEAlgorithm',
+                0x31 => 'AllowSMIMEEncryptionAlgorithmNegotiation',
+                0x32 => 'AllowSMIMESoftCerts',
+                0x33 => 'AllowBrowser',
+                0x34 => 'AllowConsumerEmail',
+                0x35 => 'AllowRemoteDesktop',
+                0x36 => 'AllowInternetSharing',
+                0x37 => 'UnapprovedInROMApplicationList',
+                0x38 => 'ApplicationName',
+                0x39 => 'ApprovedApplicationList',
+                0x3A => 'Hash',
             ),
             /* SEARCH */
             0xf => array(
@@ -474,6 +521,10 @@ class Horde_ActiveSync_Wbxml
                 0x1B => 'GreaterThan',
                 0x1C => 'Schema',
                 0x1D => 'Supported',
+                // EAS 12.1
+                0x1E => 'UserName',
+                0x1F => 'Password',
+                0x20 => 'ConversationId',
             ),
             /* GAL (Global Address List) */
             0x10 => array(
@@ -543,6 +594,8 @@ class Horde_ActiveSync_Wbxml
                 0x1D => 'UserInformation',
                 0x1E => 'EmailAddresses',
                 0x1F => 'SmtpAddress',
+                // EAS 12.1
+                0x20 => 'UserAgent',
             ),
 
             /* Document Library */
@@ -573,7 +626,10 @@ class Horde_ActiveSync_Wbxml
                 0x10 => 'Schema',
                 0x11 => 'Part',
                 0x12 => 'EmptyFolderContent',
-                0x13 => 'DeleteSubFolders'
+                0x13 => 'DeleteSubFolders',
+                // EAS 12.1
+                0x14 => 'UserName',
+                0x15 => 'Password',
             ),
 
             /* POOMMAIL2 */
