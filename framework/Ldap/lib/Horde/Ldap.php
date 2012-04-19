@@ -135,6 +135,9 @@ class Horde_Ldap
      */
     public function __construct($config = array())
     {
+        if (!Horde_Util::loadExtension('ldap')) {
+            throw new Horde_Ldap_Exception('No PHP LDAP extension');
+        }
         $this->setConfig($config);
         $this->bind();
     }
