@@ -1144,13 +1144,15 @@ class Horde_Date_Recurrence
             break;
 
         case self::RECUR_WEEKLY:
-            $rrule = 'FREQ=WEEKLY;INTERVAL=' . $this->recurInterval . ';BYDAY=';
+            $rrule = 'FREQ=WEEKLY;INTERVAL=' . $this->recurInterval;
             $vcaldays = array('SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA');
 
             for ($i = $flag = 0; $i <= 7; ++$i) {
                 if ($this->recurOnDay(pow(2, $i))) {
                     if ($flag) {
                         $rrule .= ',';
+                    } else {
+                        $rrule .= ';BYDAY=';
                     }
                     $rrule .= $vcaldays[$i];
                     $flag = true;
