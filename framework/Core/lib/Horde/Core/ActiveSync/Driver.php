@@ -1267,11 +1267,11 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function getUsernameFromEmail($email)
     {
-        switch ($GLOBALS['conf']['activesync']['autodiscover']) {
+        switch ($GLOBALS['conf']['activesync']['autodiscovery']) {
         case 'full':
             return $email;
         case 'user':
-            return substr($email, 0, strpos($email, '@') - 1);
+            return substr($email, 0, strpos($email, '@'));
         case 'hook':
             try {
                 return Horde::callHook('activesync_get_autodiscover_username', array($email));
