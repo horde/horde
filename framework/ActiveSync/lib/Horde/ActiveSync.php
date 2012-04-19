@@ -334,14 +334,21 @@ class Horde_ActiveSync
 
     /**
      * Authenticate to the backend.
+     *
+     * @param string $user  Override the username from the request.
+     *
+     * @return boolean  True on successful authentication to the backend.
+     * @throws Horde_ActiveSyncException
      */
-    public function authenticate()
+    public function authenticate($user = null)
     {
         // Get credentials
         $serverVars = $this->_request->getServerVars();
-        $user = !empty($serverVars['PHP_AUTH_USER'])
-            ? $serverVars['PHP_AUTH_USER']
-            : '';
+        $user = !empty($user)
+            ? $user
+            : (!empty($serverVars['PHP_AUTH_USER'])
+                ? $serverVars['PHP_AUTH_USER']
+                : '');
         $pos = strrpos($user, '\\');
         if ($pos !== false) {
             $domain = substr($user, 0, $pos);
