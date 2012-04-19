@@ -1233,18 +1233,23 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     }
 
     /**
-     * Attempt to autodiscover
-     *
-     * @param string $email  The user's email address
+     * Attempt to autodiscover. Autodiscovery happens before the user is
+     * authenticated, and ALWAYS uses the user's email address. We have to
+     * do our best to translate email address to username. If this fails, the
+     * device simply falls back to requiring full user configuration.
      *
      * @return array
+     *
+     * @throws Horde_Exception_PermissionDenied
      */
-    public function autoDiscover($email)
+    public function autoDiscover()
     {
         $results = array();
+
+        // Attempt to get a username from the email address.
         $ident = $GLOBALS['injector']
             ->getInstance('Horde_Core_Factory_Identity')
-            ->create($this->_user);
+            ->create($GLOBALS['registry']->getAuth());
         $results['display_name'] = $ident->getValue('fullname');
         $results['email'] = $ident->getValue('from_addr');
         $url = parse_url((string)Horde::url(null, true));
@@ -1252,6 +1257,32 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         // As of Exchange 2007, this always returns en:en
         $results['culture'] = 'en:en';
         return $results;
+    }
+
+    /**
+     * Attempt to guess a username based on the email address passed from
+     * EAS Autodiscover requests.
+     *
+     * @param string $email  The email address
+     *
+     * @return string  The username to use to authenticate to Horde with.
+     */
+    public function getUsernameFromEmail($email)
+    {
+        switch ($GLOBALS['conf']['activesync']['autodiscover']) {
+        case 'full':
+            return $email;
+        case 'user':
+            return substr($email, 0, strpos($email, '@') - 1);
+        case 'hook':
+            try {
+                return Horde::callHook('activesync_get_autodiscover_username', array($email));
+            } catch (Horde_Exception_HookNotSet $e) {
+                return $email;
+            }
+        default:
+            return $email;
+        }
     }
 
     /**

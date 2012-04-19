@@ -1961,7 +1961,7 @@
  <configtab name="activesync" desc="ActiveSync">
   <configsection name="activesync">
    <configdescription>To enable ActiveSync support, you must create an alias on
-   your webserver to redirect /Microsoft-Servers-ActiveSync to /horde/rpc.php.
+   your webserver to point /Microsoft-Servers-ActiveSync to /horde/rpc.php.
    See http://wiki.horde.org/ActiveSync for more information.
    </configdescription>
    <configswitch name="enabled" quote="false" desc="Enable ActiveSync server?">true
@@ -1970,6 +1970,24 @@
      <configheader>Email</configheader>
       <configboolean name="emailsync" desc="Enable Email support?">false
       </configboolean>
+     <configheader>Autodiscovery</configheader>
+     <configenum name="autodiscovery" desc="Some devices attempt to use an
+     Autodiscovery service to configure the device's account using only the
+     user's email address and password. For this to work you must create an
+     alias on your webserver to point /autodiscover/autodiscover.xml to
+     /horde/rpc.php. Also, Horde must be able to determine the user's username
+     given the email address. Set the method you want Horde to use to attempt to
+     determine this below. If this fails, the device will fall back to requiring
+     manual account configuration. See http://wiki.horde.org/ActiveSync for more
+     information">
+      <values>
+       <value desc="Use the full email address as the username">full</value>
+       <value desc="Use only the username - everything after and including the
+       first @ will be stripped.">user</value>
+       <value desc="Use a custom hook. You must create this hook in the
+       hooks.php file.">hook</value>
+      </values>
+     </configenum>
      <configheader>Logging</configheader>
      <configsection name="logging">
       <configswitch name="type" desc="For debugging, it may be useful to send

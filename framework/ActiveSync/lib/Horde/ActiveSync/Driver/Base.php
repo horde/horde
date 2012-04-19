@@ -637,11 +637,18 @@ abstract class Horde_ActiveSync_Driver_Base
     /**
      * Return properties for an AUTODISCOVER request.
      *
-     * @param string $email  The email address for the user that is attempting
-     *                       to autodiscover.
-     *
      * @return array  An array of properties.
      */
-    abstract function autoDiscover($email);
+    abstract public function autoDiscover();
+
+    /**
+     * Attempt to guess a username based on the email address passed from
+     * EAS Autodiscover requests.
+     *
+     * @param string $email  The email address
+     *
+     * @return string  The username to use to authenticate to Horde with.
+     */
+    abstract public function getUsernameFromEmail($email);
 
 }

@@ -491,6 +491,12 @@ class Horde_ActiveSync
             $this->_driver->getUser())
         );
 
+        // Autodiscovery handles authentication on it's own.
+        if ($cmd == 'Autodiscover') {
+            $request = new Horde_ActiveSync_Request_Autodiscover($this, new stdClass());
+            return $request->handle();
+        }
+
         if (!$this->authenticate()) {
             throw new Horde_ActiveSync_Exception('Failed to authenticate');
         }
@@ -501,11 +507,6 @@ class Horde_ActiveSync
             $this->versionHeader();
             $this->commandsHeader();
             return true;
-        }
-
-        if ($cmd == 'Autodiscover') {
-            $request = new Horde_ActiveSync_Request_Autodiscover($this, new stdClass());
-            return $request->handle();
         }
 
         // These are all handled in the same class.
