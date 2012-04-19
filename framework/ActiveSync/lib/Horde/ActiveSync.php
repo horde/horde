@@ -369,7 +369,7 @@ class Horde_ActiveSync
 
         // Some devices (incorrectly) only send the username in the httpauth
         $get = $this->_request->getGetVars();
-        if ($this->_request->getMethod() == 'POST' &&  empty($get['User'])) {
+        if ($this->_request->getMethod() == 'POST' && empty($get['User'])) {
             if ($serverVars['PHP_AUTH_USER']) {
                 $get['User'] = $serverVars['PHP_AUTH_USER'];
             } elseif ($serverVars['Authorization']) {
