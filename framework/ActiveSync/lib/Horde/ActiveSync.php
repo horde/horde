@@ -379,6 +379,7 @@ class Horde_ActiveSync
                     list($get['User'], $pass) = explode(':', $hash, 2);
                 }
             }
+
             if (empty($get['User'])) {
                 $this->_logger->err('Missing required parameters.');
                 throw new Horde_ActiveSync_Exception('Your device requested the ActiveSync URL wihtout required parameters.');
@@ -386,11 +387,11 @@ class Horde_ActiveSync
         }
 
         /* Successfully authenticated to backend, try to setup the backend */
-        if (empty($get['User'])) {
+        if (empty($user)) {
             return false;
         }
 
-        if (!$this->_driver->setup($get['User'])) {
+        if (!$this->_driver->setup($user)) {
             header('HTTP/1.1 401 Unauthorized');
             header('WWW-Authenticate: Basic realm="Horde ActiveSync"');
             echo 'Access denied or user ' . $this->_get['User'] . ' unknown.';
@@ -480,7 +481,9 @@ class Horde_ActiveSync
      * @return string|boolean  false if failed, true if succeeded and response
      *                         content is wbxml, otherwise the
      *                         content-type string to send in the response.
-     * @throws Horde_ActiveSync_Exception, Horde_ActiveSync_Exception_InvalidRequest
+     * @throws Horde_ActiveSync_Exception
+     * @throws Horde_ActiveSync_Exception_InvalidRequest
+     * @throws Horde_ActiveSync_PermissionDenied
      */
     public function handleRequest($cmd, $devId)
     {
