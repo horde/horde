@@ -292,6 +292,33 @@ class Horde_ActiveSync
     protected $_compression = false;
 
     /**
+     * Map of commands when query string is base64 encoded (EAS 12.1)
+     *
+     * @var array
+     */
+    protected $_commandMap = array(
+        0  => 'Sync',
+        1  => 'SendMail',
+        2  => 'SmartForward',
+        3  => 'SmartReply',
+        4  => 'GetAttachment',
+        9  => 'FolderSync',
+        10 => 'FolderCreate',
+        11 => 'FolderDelete',
+        12 => 'FolderUpdate',
+        13 => 'MoveItems',
+        14 => 'GetItemEstimate',
+        15 => 'MeetingResponse',
+        16 => 'Search',
+        17 => 'Settings',
+        18 => 'Ping',
+        19 => 'ItemOperations',
+        20 => 'Provision',
+        21 => 'ResolveRecipients',
+        22 => 'ValidateCert'
+    );
+
+    /**
      * Const'r
      *
      * @param Horde_ActiveSync_Driver_Base $driver      The backend driver.
@@ -300,7 +327,7 @@ class Horde_ActiveSync
      * @param Horde_ActiveSync_State_Base $state        The state driver.
      * @param Horde_Controller_Request_Http $request    The HTTP request object.
      *
-     * @return Horde_ActiveSync
+     * @return Horde_ActiveSync  The ActiveSync server object.
      */
     public function __construct(
         Horde_ActiveSync_Driver_Base $driver,
@@ -654,6 +681,120 @@ class Horde_ActiveSync
         }
 
         return $this->_version;
+    }
+
+    /**
+     * Return the GET variables passed from the device, decoding from
+     * base64 if needed.
+     *
+     * @return array  A hash of get variables => values.
+     */
+    public function getGetVars()
+    {
+        $results = array();
+        $get = $this->_request->getGetVars();
+        if (!isset($get['Cmd']) && !isset($get['DeviceId']) && !isset($get['DeviceType'])) {
+            $serverVars = $this->_request->getServerVars();
+            if (isset($serverVars['QUERY_STRING']) && strlen($serverVars['QUERY_STRING']) >= 10) {
+                $decoded = $this->_decodeBase64($serverVars['QUERY_STRING']);
+                $results['DeviceId'] = $decoded['DevID'];
+                switch ($decoded['DevType']) {
+                case 'PPC':
+                    $results['DeviceType'] = 'PocketPC';
+                    break;
+                case 'SP':
+                    $results['DeviceType'] = 'SmartPhone';
+                }
+                $results['Cmd'] = $this->_commandMap[$decoded['Command']];
+                if (isset($decoded['AttachmentName'])) {
+                    $results['AttachmentName'] = $decoded['AttachmentName'];
+                }
+                if (isset($decoded['ItemId'])) {
+                    $results['ItemId'] = $decoded['ItemId'];
+                }
+                if (isset($decoded['CollectionId'])) {
+                    $results['CollectionId'] = $decoded['CollectionId'];
+                }
+                if (isset($decoded['CollectionName'])) {
+                    $results['CollectionName'] = $decoded['CollectionName'];
+                }
+                if (isset($decoded['ParentId'])) {
+                    $results['ParentId'] = $decoded['ParentId'];
+                }
+                if (isset($decoded['LongId'])) {
+                    $results['LongId'] = $decoded['LongId'];
+                }
+                if (isset($decoded['Occurrence'])) {
+                    $results['Occurrence'] = $decoded['Occurrence'];
+                }
+                if (isset($decoded['Options'])) {
+                    $decoded['Options'] = bin2hex($decoded['Options']) * 1;
+                }
+                if (isset($decoded['User'])) {
+                    $results['User'] = $decoded['User'];
+                }
+                $this->_logger->debug('Decoded BASE64 request: ' . print_r($results, true));
+
+                return $results;
+            }
+        } else {
+            return $get;
+        }
+    }
+
+    protected function _decodeBase64($uri)
+    {
+        $uri = base64_decode($uri);
+        $lenDevID = ord($uri{4});
+        $lenPolKey = ord($uri{4 + (1 + $lenDevID)});
+        $lenDevType = ord($uri{4 + (1 + $lenDevID) + (1 + $lenPolKey)});
+        $arr_ret = unpack(
+            'CProtVer/CCommand/vLocale/CDevIDLen/H' . ($lenDevID * 2)
+                . 'DevID/CPolKeyLen' . ($lenPolKey == 4 ? '/VPolKey' : '')
+                . '/CDevTypeLen/A' . $lenDevType . 'DevType', $uri);
+        $pos = (7 + $lenDevType + $lenPolKey + $lenDevID);
+        $uri = substr($uri, $pos);
+        while (strlen($uri) > 0) {
+            $lenToken = ord($uri{1});
+            switch (ord($uri{0})) {
+            case 0:
+                $type = 'AttachmentName';
+                break;
+            case 1:
+                $type = 'CollectionId';
+                break;
+            case 2:
+                $type = 'CollectionName';
+                break;
+            case 3:
+                $type = 'ItemId';
+                break;
+            case 4:
+                $type = 'LongId';
+                break;
+            case 5:
+                $type = 'ParentId';
+                break;
+            case 6:
+                $type = 'Occurrence';
+                break;
+            case 7:
+                $type = 'Options';
+                break;
+            case 8:
+                $type = 'User';
+                break;
+            default:
+                $type = 'unknown' . ord($uri{0});
+                break;
+            }
+           $value = unpack('CType/CLength/A' . $lenToken . 'Value', $uri);
+           $arr_ret[$type] = $value['Value'];
+           $pos = 2 + $lenToken;
+           $uri = substr($uri, $pos);
+        }
+
+        return $arr_ret;
     }
 
     /**
