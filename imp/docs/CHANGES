@@ -74,6 +74,7 @@ v6.0-git
 v5.0.21-git
 -----------
 
+[jan] Fix regression in sending PGP encrypted messages (Bug #11150).
 [jan] Update Slovak translation (Marika Schvarczova
       <schvarczova.marika@domeny.sk>).
 [jan] Update Czech translation (Michal Foist <michal@foist.cz>).

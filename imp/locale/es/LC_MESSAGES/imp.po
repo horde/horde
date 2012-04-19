@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: IMP H4 (5.0.18-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-01-17 12:38+0100\n"
-"PO-Revision-Date: 2012-01-17 12:38+0100\n"
+"PO-Revision-Date: 2012-04-20 20:30+0200\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
 "<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -2132,11 +2132,11 @@ msgstr "Carpeta"
 
 #: templates/dimp/index.inc:96
 msgid "Folder Actions"
-msgstr "Acc. de carpetas"
+msgstr "Acc. de carpeta"
 
 #: folders.php:250 templates/imp/folders/folders_confirm.html:6
 msgid "Folder Actions - Confirmation"
-msgstr "Acciones de carpetas - Confirmación"
+msgstr "Acciones de carpeta - Confirmación"
 
 #: config/prefs.php:1061
 msgid "Folder Display"
@@ -3245,7 +3245,7 @@ msgstr "Sin participantes"
 #: templates/prefs/sentmail.html:7 templates/prefs/spam.html:7
 #: templates/prefs/trash.html:7
 msgid "None"
-msgstr "Ninguno"
+msgstr "Ninguna"
 
 #: compose.php:856 templates/dimp/javascript_defs.php:230
 msgid "Normal"
