@@ -1239,8 +1239,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * device simply falls back to requiring full user configuration.
      *
      * @return array
-     *
-     * @throws Horde_Exception_PermissionDenied
      */
     public function autoDiscover()
     {
