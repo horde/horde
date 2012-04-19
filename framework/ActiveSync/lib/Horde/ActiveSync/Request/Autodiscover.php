@@ -85,7 +85,7 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
                    </autodiscover:Error>
                </autodiscover:Action>
             </autodiscover:Response>
-        </Autodiscover>'
+        </Autodiscover>';
     }
 
 }
