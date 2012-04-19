@@ -348,7 +348,7 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
         $this->_encoder->startTag(Horde_ActiveSync::PROVISION_POLICIES);
         $this->_encoder->startTag(Horde_ActiveSync::PROVISION_POLICY);
         $this->_encoder->startTag(Horde_ActiveSync::PROVISION_STATUS);
-        $this->_encoder->content(Horde_ActivSync::STATUS_NOTDEFINED);
+        $this->_encoder->content(self::STATUS_NOTDEFINED);
         $this->_encoder->endTag();
         $this->_encoder->endTag();
         $this->_encoder->endTag();
