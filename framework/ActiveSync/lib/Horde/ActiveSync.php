@@ -405,11 +405,6 @@ class Horde_ActiveSync
             }
         }
 
-        /* Successfully authenticated to backend, try to setup the backend */
-        if (empty($user)) {
-            return false;
-        }
-
         if (!$this->_driver->setup($user)) {
             header('HTTP/1.1 401 Unauthorized');
             header('WWW-Authenticate: Basic realm="Horde ActiveSync"');
