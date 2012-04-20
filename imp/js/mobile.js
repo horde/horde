@@ -341,7 +341,6 @@ var ImpMobile = {
         }
 
         list.listview('refresh');
-        $.mobile.fixedToolbars.show();
 
         if (ImpMobile.mailboxCallback) {
             ImpMobile.mailboxCallback.apply();
