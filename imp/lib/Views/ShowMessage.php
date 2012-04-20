@@ -133,7 +133,9 @@ class IMP_Views_ShowMessage
         /* Set the current time zone. */
         $GLOBALS['registry']->setTimeZone();
 
-        $mime_headers = $this->_contents->getHeaderAndMarkAsSeen();
+        $mime_headers = $this->_peek
+            ? $this->_contents->getHeader()
+            : $this->_contents->getHeaderAndMarkAsSeen();
         $headers = array();
 
         /* Initialize variables. */
