@@ -1132,20 +1132,11 @@ var DimpCompose = {
         } else {
             document.observe('change', this.changeHandler.bindAsEventListener(this));
         }
-        Event.observe(window, 'resize', this.resizeMsgArea.bindAsEventListener(this));
         $('compose').observe('submit', Event.stop);
 
         HordeCore.handleSubmit($('compose'), {
             callback: this.uniqueSubmitCallback.bind(this)
         });
-
-        // Initialize spell checker
-        document.observe('SpellChecker:noerror', this._onSpellCheckNoError.bind(this));
-        if (DIMP.conf.rte_avail) {
-            document.observe('SpellChecker:after', this._onSpellCheckAfter.bind(this));
-            document.observe('SpellChecker:before', this._onSpellCheckBefore.bind(this));
-            document.observe('SpellChecker:error', this._onSpellCheckError.bind(this));
-        }
 
         tmp = $('msg_other_options');
         if (tmp.childElements().size()) {
@@ -1208,6 +1199,9 @@ var DimpCompose = {
 
 /* Attach event handlers. */
 document.observe('dom:loaded', DimpCompose.onDomLoad.bind(DimpCompose));
+Event.observe(window, 'resize', DimpCompose.resizeMsgArea.bindAsEventListener(DimpCompose));
+
+/* Other UI event handlers. */
 document.observe('ImpContacts:update', DimpCompose.onContactsUpdate.bindAsEventListener(DimpCompose));
 document.observe('TextareaResize:resize', DimpCompose.resizeMsgArea.bind(DimpCompose));
 
@@ -1217,6 +1211,12 @@ DimpCore.contextOnShow = DimpCore.contextOnShow.wrap(DimpCompose.contextOnShow.b
 
 /* Click handler. */
 DimpCore.clickHandler = DimpCore.clickHandler.wrap(DimpCompose.clickHandler.bind(DimpCompose));
+
+/* Initialize spellchecker. */
+document.observe('SpellChecker:after', DimpCompose._onSpellCheckAfter.bind(DimpCompose));
+document.observe('SpellChecker:before', DimpCompose._onSpellCheckBefore.bind(DimpCompose));
+document.observe('SpellChecker:error', DimpCompose._onSpellCheckError.bind(DimpCompose));
+document.observe('SpellChecker:noerror', DimpCompose._onSpellCheckNoError.bind(DimpCompose));
 
 /* Catch dialog actions. */
 document.observe('HordeDialog:success', function(e) {

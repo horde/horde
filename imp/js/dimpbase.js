@@ -3621,10 +3621,7 @@ var DimpBase = {
         var DM = DimpCore.DMenu, tmp;
 
         /* Register global handlers now. */
-        document.observe('keydown', this.keydownHandler.bindAsEventListener(this));
         IMP_JS.keydownhandler = this.keydownHandler.bind(this);
-        document.observe('dblclick', this.dblclickHandler.bindAsEventListener(this));
-        Event.observe(window, 'resize', this.onResize.bind(this));
 
         /* Initialize variables. */
         DIMP.conf.sort = $H(DIMP.conf.sort);
@@ -3748,10 +3745,6 @@ var DimpBase = {
 
         if (!$('GrowlerLog')) {
             $('alertsloglink').remove();
-        } else {
-            document.observe('Growler:toggled', function(e) {
-                $('alertsloglink').down('A').update(e.memo.visible ? DIMP.text.hidealog : DIMP.text.showalog);
-            });
         }
 
         /* Check for new mail. */
@@ -3841,6 +3834,11 @@ DimpBase._mboxDropConfig = {
     keypress: true
 };
 
+/* Basic event handlers. */
+document.observe('keydown', DimpBase.keydownHandler.bindAsEventListener(DimpBase));
+document.observe('dblclick', DimpBase.dblclickHandler.bindAsEventListener(DimpBase));
+Event.observe(window, 'resize', DimpBase.onResize.bind(DimpBase));
+
 /* Drag/drop listeners. */
 document.observe('DragDrop2:start', DimpBase.onDragStart.bindAsEventListener(DimpBase));
 document.observe('DragDrop2:drop', DimpBase.mboxDropHandler.bindAsEventListener(DimpBase));
@@ -3882,3 +3880,8 @@ document.observe('dom:loaded', DimpBase.onDomLoad.bind(DimpBase));
 
 /* DimpCore handlers. */
 document.observe('DimpCore:updateAddressHeader', DimpBase.updateAddressHeader.bindAsEventListener(DimpBase));
+
+/* Growler handlers. */
+document.observe('Growler:toggled', function(e) {
+    $('alertsloglink').down('A').update(e.memo.visible ? DIMP.text.hidealog : DIMP.text.showalog);
+});
