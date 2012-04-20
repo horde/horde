@@ -482,7 +482,9 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
         $this->_encoder->startTag(Horde_ActiveSync::SYNC_FOLDERS);
         foreach ($collections as $collection) {
             $changecount = 0;
-            if (isset($collection['getchanges'])) {
+            // According to spec, GETCHANGES is optional and is true by default
+            if ((isset($collection['getchanges']) && $collection['getchanges'] == true) ||
+                !isset($collection['getchanges'])) {
                 $filtertype = isset($collection['filtertype']) ? $collection['filtertype'] : false;
                 $exporter = new Horde_ActiveSync_Connector_Exporter($this->_encoder, $collection['class']);
                 $sync = $this->_getSyncObject();
