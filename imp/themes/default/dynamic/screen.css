@@ -228,16 +228,16 @@ div.flagDeleted * {
 }
 
 /* Checkbox images */
-div.msCheck {
+.msCheck {
     background-image: url("../graphics/checkbox_off.png");
 }
-div.msCheck:hover {
+.msCheck:hover {
     background-image: url("../graphics/checkbox_over.png") !important;
 }
-div.msCheckOn, div.vpRowSelected div.msCheck {
+.msCheckOn, div.vpRowSelected div.msCheck {
     background-image: url("../graphics/checkbox_on.png");
 }
-div.contextMenu div.msCheck, div.contextMenu div.msCheckOn {
+div.contextMenu .msCheck, div.contextMenu .msCheckOn {
     margin-right: 2px;
 }
 

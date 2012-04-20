@@ -1048,19 +1048,35 @@ var DimpCompose = {
 
     contextOnClick: function(parentfunc, e)
     {
-        var id = e.memo.elt.readAttribute('id'), tmp;
+        var id = e.memo.elt.readAttribute('id');
 
         switch (id) {
         case 'ctx_msg_other_rr':
-            tmp = !$F('request_read_receipt');
-            $('request_read_receipt').setValue(tmp);
-            DimpCore.toggleCheck($('ctx_msg_other_rr').down('DIV'), tmp);
+            $('request_read_receipt').setValue(!$F('request_read_receipt'));
             break;
 
         case 'ctx_msg_other_saveatc':
-            tmp = !$F('save_attachments_select');
-            $('save_attachments_select').setValue(tmp);
-            DimpCore.toggleCheck($('ctx_msg_other_saveatc').down('DIV'), tmp);
+            $('save_attachments_select').setValue(!$F('save_attachments_select'));
+            break;
+
+        default:
+            parentfunc(e);
+            break;
+        }
+    },
+
+    contextOnShow: function(parentfunc, e)
+    {
+        var tmp;
+
+        switch (e.memo) {
+        case 'ctx_msg_other':
+            if (tmp = $('ctx_msg_other_rr')) {
+                DimpCore.toggleCheck(tmp.down('SPAN'), $F('request_read_receipt'));
+            }
+            if (tmp = $('ctx_msg_other_saveatc')) {
+                DimpCore.toggleCheck(tmp.down('SPAN'), $F('save_attachments_select'));
+            }
             break;
 
         default:
@@ -1136,12 +1152,6 @@ var DimpCompose = {
             DimpCore.addPopdown(tmp.down('A'), 'msg_other', {
                 trigger: true
             });
-            if (tmp = $('ctx_msg_other_rr')) {
-                DimpCore.toggleCheck(tmp.down('DIV'), $F('request_read_receipt'));
-            }
-            if (tmp = $('ctx_msg_other_saveatc')) {
-                DimpCore.toggleCheck(tmp.down('DIV'), $F('save_attachments_select'));
-            }
         } else {
             tmp.hide();
         }
@@ -1203,6 +1213,7 @@ document.observe('TextareaResize:resize', DimpCompose.resizeMsgArea.bind(DimpCom
 
 /* ContextSensitive functions. */
 DimpCore.contextOnClick = DimpCore.contextOnClick.wrap(DimpCompose.contextOnClick.bind(DimpCompose));
+DimpCore.contextOnShow = DimpCore.contextOnShow.wrap(DimpCompose.contextOnShow.bind(DimpCompose));
 
 /* Click handler. */
 DimpCore.clickHandler = DimpCore.clickHandler.wrap(DimpCompose.clickHandler.bind(DimpCompose));

@@ -551,17 +551,17 @@ class IMP_Ajax extends Horde_Core_Ajax
         /* Context menu definitions. */
         $context = array(
             'ctx_msg_other' => array(
-                '*rr' => _("Read Receipt"),
-                '*saveatc' => _("Save Attachments in Sent Mailbox")
+                'rr' => _("Read Receipt"),
+                'saveatc' => _("Save Attachments in Sent Mailbox")
             )
         );
 
         if ($prefs->getValue('request_mdn') == 'never') {
-            unset($context['ctx_msg_other']['*rr']);
+            unset($context['ctx_msg_other']['rr']);
         }
 
         if (strpos($prefs->getValue('save_attachments'), 'prompt') === false) {
-            unset($context['ctx_msg_other']['*saveatc']);
+            unset($context['ctx_msg_other']['saveatc']);
         }
 
         $this->_jsvars['context'] += $context;
