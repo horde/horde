@@ -1642,7 +1642,7 @@ var DimpBase = {
 
     _loadPreview: function(uid, mbox)
     {
-        var tmp,
+        var curr, row, rows, tmp,
             pm = $('previewMsg'),
             r = this.ppcache[this._getPPId(uid, mbox)];
 
@@ -1725,6 +1725,31 @@ var DimpBase = {
 
         if (r.js) {
             eval(r.js.join(';'));
+        }
+
+        // If single message is loaded, and this is the INBOX, try to preload
+        // next unseen message that exists in current buffer.
+        if (mbox == this.INBOX) {
+            curr = this.viewport.getSelected().get('rownum').first();
+            rows = this.viewport.createSelectionBuffer().search({
+                flag: { notinclude: DIMP.conf.FLAG_SEEN }
+            }).get('rownum').diff([ curr ]).numericSort();
+
+            if (rows.size()) {
+                row = rows.detect(function(r) {
+                    return (r > curr);
+                });
+                if (!row) {
+                    row = rows.last();
+                }
+
+                DimpCore.doAction('showMessage', this.viewport.addRequestParams({
+                    peek: 1,
+                    preview: 1
+                }), {
+                    uids: this.viewport.createSelection('rownum', row)
+                });
+            }
         }
     },
 

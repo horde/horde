@@ -926,6 +926,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * See the list of variables needed for _changed() and
      * _checkUidvalidity().  Additional variables used:
+     *   - peek: (integer) If set, don't set seen flag.
      *   - preview: (integer) If set, return preview data. Otherwise, return
      *              full data.
      *   - uid: (string) Index of the message to display (IMAP sequence
@@ -958,7 +959,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
                 throw new IMP_Exception(_("Could not open mailbox."));
             }
 
-            $this->_queue->message($mbox, $uid, $this->_vars->preview);
+            $this->_queue->message($mbox, $uid, $this->_vars->preview, $this->_vars->peek);
 
             if ($this->_vars->preview) {
                 if ($change) {

@@ -88,7 +88,7 @@ class IMP_Ajax_Queue
             $messages = array();
 
             foreach ($this->_messages as $val) {
-                $show_msg = new IMP_Views_ShowMessage($val['mailbox'], $val['uid']);
+                $show_msg = new IMP_Views_ShowMessage($val['mailbox'], $val['uid'], $val['peek']);
                 $msg = (object)$show_msg->showMessage(array(
                     'preview' => $val['preview']
                 ));
@@ -181,11 +181,13 @@ class IMP_Ajax_Queue
      * @param string $mailbox   The mailbox name.
      * @param string $uid       The message UID.
      * @param boolean $preview  Preview data?
+     * @param boolean $peek     Don't set seen flag?
      */
-    public function message($mailbox, $uid, $preview = false)
+    public function message($mailbox, $uid, $preview = false, $peek = false)
     {
         $this->_messages[] = array(
             'mailbox' => $mailbox,
+            'peek' => $peek,
             'preview' => $preview,
             'uid' => $uid
         );

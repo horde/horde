@@ -29,6 +29,13 @@ class IMP_Views_ShowMessage
     protected $_envelope;
 
     /**
+     * Don't seen seen flag?
+     *
+     * @var boolean
+     */
+    protected $_peek;
+
+    /**
      * Mailbox.
      *
      * @var IMP_Mailbox
@@ -47,8 +54,9 @@ class IMP_Views_ShowMessage
      *
      * @param IMP_Mailbox $mbox  The mailbox of the message.
      * @param integer $uid       The UID of the message.
+     * @param boolean $peek      Don't set seen flag?
      */
-    public function __construct(IMP_Mailbox $mbox, $uid)
+    public function __construct(IMP_Mailbox $mbox, $uid, $peek = false)
     {
         global $injector;
 
@@ -75,6 +83,7 @@ class IMP_Views_ShowMessage
         $this->_contents = $imp_contents;
         $this->_envelope = $fetch_ret[$uid]->getEnvelope();
         $this->_mbox = $mbox;
+        $this->_peek = $peek;
         $this->_uid = $uid;
     }
 
@@ -335,7 +344,7 @@ class IMP_Views_ShowMessage
 
         /* Add changed flag information. */
         $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
-        if ($imp_imap->imap) {
+        if (!$this->_peek && $imp_imap->imap) {
             $status = $imp_imap->status($this->_mbox, Horde_Imap_Client::STATUS_PERMFLAGS);
             if (in_array(Horde_Imap_Client::FLAG_SEEN, $status['permflags'])) {
                 $GLOBALS['injector']->getInstance('IMP_Ajax_Queue')->flag(array(Horde_Imap_Client::FLAG_SEEN), true, $this->_mbox->getIndicesOb($this->_uid));
