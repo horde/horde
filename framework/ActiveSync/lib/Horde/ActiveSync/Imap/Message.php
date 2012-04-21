@@ -232,7 +232,8 @@ class Horde_ActiveSync_Imap_Message
             }
             if (!empty($html_id)) {
                 $query->bodyPart($html_id, $html_query_opts);
-            } elseif (!empty($text_id)) {
+            }
+            if (!empty($text_id)) {
                 $query->bodyPart($text_id, $body_query_opts);
                 $query->bodyPartSize($text_id);
             }

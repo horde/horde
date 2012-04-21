@@ -983,8 +983,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $headers = Horde_Mime_Headers::parseHeaders($rfc822);
         $message = Horde_Mime_Part::parseMessage($rfc822);
 
-        // Message requests do not contain the From, since it is assumed to
-        // be from the user of the AS account.
+        // Message requests might not contain the From, since it can be assumed
+        // to be from the user of the AS account.
         $ident = $GLOBALS['injector']
             ->getInstance('Horde_Core_Factory_Identity')
             ->create($this->_user);
@@ -1015,14 +1015,14 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 return false;
             }
             $data = $imap_message->getMessageBodyData();
-            if ($data['charset'] != 'UTF-8') {
+            if ($data['plain']['charset'] != 'UTF-8') {
                 $quoted = Horde_String::convertCharset(
-                    $data['text'],
-                    $data['charset'],
+                    $data['plain']['body'],
+                    $data['plain']['charset'],
                     'UTF-8'
                 );
             } else {
-                $quoted = $data['text'];
+                $quoted = $data['plain']['body'];
             }
             $newbody_text .= "\r\n" . $quoted;
         } elseif ($forward && $parent) {
