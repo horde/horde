@@ -538,10 +538,11 @@ class Horde_PageOutput
         $view->outputJs = !$this->deferScripts;
         $view->stylesheetOpts = array();
 
-        if (!isset($opts['view'])) {
-            $opts['view'] = $registry->getView();
+        if (empty($opts['view'])) {
+            $opts['view'] = $registry->hasView($registry->getView())
+                ? $registry->getView()
+                : Horde_Registry::VIEW_BASIC;
         }
-
         switch ($opts['view']) {
         case $registry::VIEW_BASIC:
             $view->stylesheetOpts['sub'] = 'basic';
@@ -628,7 +629,9 @@ class Horde_PageOutput
         global $browser, $notification, $registry;
 
         if (!isset($opts['view'])) {
-            $opts['view'] = $registry->getView();
+            $opts['view'] = $registry->hasView($registry->getView())
+                ? $registry->getView()
+                : Horde_Registry::VIEW_BASIC;
         }
 
         $view = new Horde_View(array(
