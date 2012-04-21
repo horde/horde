@@ -1675,7 +1675,7 @@ class Horde_Registry
      *
      * @return boolean  True if the application has the feature.
      */
-    public function hasFeature($view, $app = null)
+    public function hasFeature($id, $app = null)
     {
         if (empty($app)) {
             $app = $this->getApp();
@@ -1687,7 +1687,7 @@ class Horde_Registry
             return false;
         }
 
-        return !empty($api->features[$view]);
+        return !empty($api->features[$id]);
     }
 
     /**
