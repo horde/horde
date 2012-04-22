@@ -5,7 +5,7 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author Michael J Rubinsky <mrubinsk@horde.org>
  */
 
 require_once __DIR__ . '/lib/Application.php';
@@ -135,23 +135,16 @@ $html = <<<EOT
 <div class="control">
  <input class="button" id="saveButton" type="submit" value="{$save}" /><input class="button" type="submit" onclick="window.close();" value="{$returnText}" />
 </div>
-<script type="text/javascript">
-    var mapEdit = new AnselMapEdit({$json}, {
+EOT;
+
+$page_output->addInlineScript(
+    "var mapEdit = new AnselMapEdit({$json}, {
         'geocoder': Ansel.conf.maps.geocoder,
         'image_id': {$image_id},
         'ajaxuri': '{$gtUrl}' });
     $('saveButton').observe('click', mapEdit.save.bind(mapEdit));
-    $('locationAction').observe('click', function(e) { mapEdit.geocode($('locationInput').value); e.stop(); });
-</script>
-EOT;
-
-// Autocompleter for locations we already have in our DB
-// $injector->getInstance('Horde_Core_Factory_Imple')->create(array('ansel', 'LocationAutoCompleter'), array(
-//     'map' => 'mapEdit',
-//     'resultsId' => 'locationInput_results',
-//     'triggerId' => 'locationInput'
-//));
-//$html .= Horde_Util::bufferOutput(array($ac, 'attach'));
+    $('locationAction').observe('click', function(e) { mapEdit.geocode($('locationInput').value); e.stop(); });",
+    true);
 
 // Start the output
 $page_output->header(array(
