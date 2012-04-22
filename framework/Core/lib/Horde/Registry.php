@@ -1702,17 +1702,17 @@ class Horde_Registry
     public function hasView($view, $app = null)
     {
         switch ($view) {
-        case VIEW_BASIC:
+        case self::VIEW_BASIC:
             // For now, consider all apps to have BASIC view.
             return true;
 
-        case VIEW_DYNAMIC:
+        case self::VIEW_DYNAMIC:
             return $this->hasFeature('dynamicView', $app);
 
-        case VIEW_MINIMAL:
+        case self::VIEW_MINIMAL:
             return $this->hasFeature('minimalView', $app);
 
-        case VIEW_SMARTMOBILE:
+        case self::VIEW_SMARTMOBILE:
             return $this->hasFeature('smartmobileView', $app);
         }
     }
