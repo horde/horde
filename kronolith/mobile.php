@@ -65,7 +65,10 @@ $page_output->addInlineScript(
            KronolithMobile.haveOverview = true;
          }
        });
-     });'
+     });',
+     false,
+     false,
+     true
 );
 
 $page_output->header(array(

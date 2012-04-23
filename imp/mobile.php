@@ -73,7 +73,10 @@ $page_output->addInlineScript(
        $.mobile.page.prototype.options.backBtnText = "' . _("Back") .'";
        $.mobile.dialog.prototype.options.closeBtnText = "' . _("Close") .'";
        $.mobile.loadingMessage = "' . _("loading") . '";
-     });'
+     });',
+    false,
+    false,
+    true
 );
 
 $page_output->header(array(

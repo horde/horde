@@ -30,7 +30,10 @@ $page_output->addInlineScript(
     '$(window.document).bind("mobileinit", function() {
        $.mobile.page.prototype.options.backBtnText = "' . _("Back") .'";
        $.mobile.loadingMessage = "' . _("loading") . '";
-     });'
+     });',
+    false,
+    false,
+    true
 );
 
 $page_output->header(array(
