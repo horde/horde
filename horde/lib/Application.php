@@ -25,6 +25,12 @@ class Horde_Application extends Horde_Registry_Application
 
     /**
      */
+    public $features = array(
+        'smartmobileView' => true
+    );
+
+    /**
+     */
     public function logout()
     {
         // Destroy any session-only temp files (since Horde_Core 1.7.0).
