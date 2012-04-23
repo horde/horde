@@ -41,7 +41,6 @@ $page_output->header(array(
     'view' => $registry::VIEW_SMARTMOBILE
 ));
 
-echo $view->render('head');
 echo $view->render('galleries');
 echo $view->render('gallery');
 echo $view->render('image');

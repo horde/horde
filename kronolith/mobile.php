@@ -48,7 +48,6 @@ $page_output->header(array(
     'view' => $registry::VIEW_SMARTMOBILE
 ));
 $page_output->addScriptFile('mobile.js');
-echo $view->render('head');
 echo $view->render('day');
 echo $view->render('event');
 echo $view->render('month');

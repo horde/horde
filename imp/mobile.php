@@ -84,7 +84,7 @@ $page_output->header(array(
     'view' => $registry::VIEW_SMARTMOBILE
 ));
 $page_output->addScriptFile('mobile.js');
-echo $view->render('head');
+
 echo $view->render('folders');
 echo $view->render('mailbox');
 echo $view->render('message');
