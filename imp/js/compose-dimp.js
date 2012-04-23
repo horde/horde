@@ -923,6 +923,12 @@ var DimpCompose = {
             orig = elt,
             atc_num, id;
 
+        /* Needed because reply/forward buttons need to be of type="submit"
+         * for FF to correctly size. */
+        if (elt.readAttribute('type') == 'submit') {
+            return;
+        }
+
         while (Object.isElement(elt)) {
             id = elt.readAttribute('id');
 
