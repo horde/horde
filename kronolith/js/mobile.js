@@ -756,11 +756,48 @@
         }
     },
 
+    loadPage: function()
+    {
+        if (!$.mobile.activePage) {
+            return;
+        }
+        var hash = $.mobile.activePage.context.location.hash,
+        match = /^#(dayview|monthview|overview)/.exec(hash);
+        if (match) {
+            KronolithMobile.toView(match[1]);
+        }
+    },
+
+    toView: function(v)
+    {
+        switch (v) {
+        case 'dayview':
+            KronolithMobile.view = "day";
+            $(".kronolithDayDate").html(KronolithMobile.date.toString("ddd") + " " + KronolithMobile.date.toString("d"));
+            KronolithMobile.loadEvents(KronolithMobile.date, KronolithMobile.date, "day");
+            break;
+        case 'monthview':
+            KronolithMobile.view = "month";
+            // (re)build the minical only if we need to
+            if (!$(".kronolithMinicalDate").data("date") ||
+                ($(".kronolithMinicalDate").data("date").toString("M") != KronolithMobile.date.toString("M"))) {
+              KronolithMobile.moveToMonth(KronolithMobile.date);
+            }
+            break;
+        case 'overview':
+            KronolithMobile.view = "overview";
+            if (!KronolithMobile.haveOverview) {
+              KronolithMobile.loadEvents(KronolithMobile.date, KronolithMobile.date.clone().addDays(7), "overview");
+              KronolithMobile.haveOverview = true;
+            }
+        }
+    },
+
     onDocumentReady: function()
     {
         // Set up HordeMobile.
         HordeMobile.urls.ajax = Kronolith.conf.URI_AJAX;
-
+        KronolithMobile.date = new Date();
         // Build list of calendars we want.
         $.each(Kronolith.conf.calendars, function(key, value) {
             $.each(value, function(cal, info) {
@@ -774,6 +811,16 @@
         $(document).bind('vclick', KronolithMobile.clickHandler);
         $('body').bind('swipeleft', KronolithMobile.handleSwipe);
         $('body').bind('swiperight', KronolithMobile.handleSwipe);
+        $(document).bind('pagebeforeshow', KronolithMobile.loadPage);
+        $("#eventview").live("pageshow", function(event, ui) {
+            KronolithMobile.view = "event";
+        });
+        if (location.hash) {
+            var promise = $.mobile.loadPage('#dayview');
+            promise.done(KronolithMobile.loadPage);
+        } else {
+            KronolithMobile.toView('dayview');
+        }
     }
 };
 $(KronolithMobile.onDocumentReady);
