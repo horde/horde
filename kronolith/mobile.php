@@ -27,10 +27,9 @@ $datejs = str_replace('_', '-', $GLOBALS['language']) . '.js';
 if (!file_exists($GLOBALS['registry']->get('jsfs', 'horde') . '/date/' . $datejs)) {
     $datejs = 'en-US.js';
 }
-
+$page_output->deferScripts = false;
 $page_output->addScriptFile('date/' . $datejs, 'horde');
 $page_output->addScriptFile('date/date.js', 'horde');
-$page_output->addScriptFile('mobile.js');
 require KRONOLITH_TEMPLATES . '/mobile/javascript_defs.php';
 
 /* Inline script. */
@@ -75,7 +74,7 @@ $page_output->header(array(
     'title' => $title,
     'view' => $registry::VIEW_SMARTMOBILE
 ));
-
+$page_output->addScriptFile('mobile.js');
 echo $view->render('head');
 echo $view->render('day');
 echo $view->render('event');

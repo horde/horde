@@ -631,12 +631,12 @@ class Horde_PageOutput
         //if ($view == Horde_Registry::VIEW_SMARTMOBILE) {
             $this->deferScripts = false;
             $this->addScriptFile('jquery.mobile/jquery.min.js', 'horde');
-            $this->addScriptFile('horde-jquery.js', 'horde');
-            $this->addScriptFile('mobile.js', 'horde');
             if (!empty($this->mobileScript)) {
                 echo Horde::wrapInlineScript($this->mobileScript);
             }
             $this->addScriptFile('jquery.mobile/jquery.mobile.min.js', 'horde');
+            $this->addScriptFile('horde-jquery.js', 'horde');
+            $this->addScriptFile('mobile.js', 'horde');
         //}
     }
 

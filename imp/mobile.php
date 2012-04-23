@@ -62,11 +62,11 @@ if ($view->canCompose = IMP::canCompose()) {
     $view->composeLink->pathInfo = 'addAttachment';
 }
 
-$page_output->addScriptFile('mobile.js');
 require IMP_TEMPLATES . '/mobile/javascript_defs.php';
 $notification->notify(array('listeners' => 'status'));
 
 /* Inline script. */
+$page_output->deferScripts = false;
 $page_output->addInlineScript(
     '$(window.document).bind("mobileinit", function() {
        $.mobile.page.prototype.options.addBackBtn = true;
@@ -83,6 +83,7 @@ $page_output->header(array(
     'title' => _("Mobile Mail"),
     'view' => $registry::VIEW_SMARTMOBILE
 ));
+$page_output->addScriptFile('mobile.js');
 echo $view->render('head');
 echo $view->render('folders');
 echo $view->render('mailbox');
