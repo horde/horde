@@ -39,7 +39,7 @@ class Kronolith_Application extends Horde_Registry_Application
     public $features = array(
         'alarmHandler' => true,
         'dynamicView' => true,
-        'smartphoneView' => true
+        'smartmobileView' => true
     );
 
     /**
