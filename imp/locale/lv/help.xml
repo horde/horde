@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <help>
 
-<entry id="keyboard-navigation" state="uptodate" md5="885a83e5ce7c455f8d7d40a17ca901df">
+<entry id="keyboard-navigation" state="uptodate">
     <title>Klaviatūra: Navigācija</title>
     <para>Pastāv iespēja izmantot klaviatūru, lai pārvietotos sarakstā no vēstules uz vēstuli, uz iepriekšējo vai nākošo vēstuli, kamēr lasāt atvērto vēstuli vai pa pastkastes vēstuļu saraksta lappusēm.
       </para>
@@ -22,7 +22,7 @@
 </entry>
 -->
 
-<entry id="compose-buttons" state="uptodate" md5="bd0e2b0eff15d7c5cf7df9b7ef4ac40a">
+<entry id="compose-buttons" state="uptodate">
     <title>Vēstules rakstīšana: Darbības</title>
     <heading>Darbības</heading>
     <para>
@@ -39,7 +39,7 @@
     </para>
  </entry>
 
-<entry id="compose-identity" state="uptodate" md5="9841f0cde4bf109a8f637c3e5a2cf8cf">
+<entry id="compose-identity" state="uptodate">
     <title>Vēstules rakstīšana: Identitāte</title>
     <heading>Identitāte</heading>
     <para>
@@ -47,7 +47,7 @@
     </para>
 </entry>
 
-<entry id="compose-from" md5="4395043c22323cc80d50709c5d20637e" state="uptodate">
+<entry id="compose-from">
     <title>Vēstules rakstīšana: No</title>
     <heading>No</heading>
     <para>
@@ -212,7 +212,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="folder-options" state="uptodate" md5="08ee3e450a82431727763b9db082ec08">
+<entry id="folder-options" state="uptodate">
     <title>Mapes: Mapju vadība</title>
     <para>
       Mapes var izvēlēties atķeksējot kreisajā malā esošās rūtiņas. Pēc izvēles pabeigšanas, izvēlieties darbību no izkrītošās Darbību izvēlnes.
@@ -329,7 +329,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="filter-any-mailbox" state="uptodate" md5="71c51e83909f9d0bd440d220772ee3c6">
+<entry id="filter-any-mailbox" state="uptodate">
     <title>Filtri: Filtrēt ikvienu pastkasti</title>
     <heading>Pielietot filtrēšanas likumus ikvienai pastkastei?</heading>
     <para>
@@ -337,15 +337,15 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="pgp-compose-attach-pubkey" state="uptodate" md5="2550f39bd071650d6e4ebeba1af76e25">
+<entry id="pgp-compose-attach-pubkey" state="uptodate">
     <title>PGP: Pievienot publisko atslēgu</title>
     <heading>Pievienot publisko atslēgu</heading>
     <para>
-     Ja atzīmēts šis iestatījums, tad izejošajām vēstulēm tiks pievienots Jūsu PGP Publiskās atslēgas kopija (ja tāda eksistē). Noklusēto darbību varat iestatīt PGP iestatījumu lapā.
+     Ja atzīmēts šis iestatījums, tad izejošajām vēstulēm tiks pievienots Jūsu PGP Publiskās atslēgas kopija (ja tāda eksistē). Noklusēto darbību varat iestatīt PGP iestatījumu lapā. 
     </para>
 </entry>
 
-<entry id="pgp-option-scan-body" state="uptodate" md5="6baaada0d46dc1ab0941087f235f359b">
+<entry id="pgp-option-scan-body" state="uptodate">
     <title>PGP: Pārbaudīt vēstules tekstu</title>
     <heading>Pārbaudīt vēstules tekstu</heading>
     <para>
@@ -353,7 +353,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="pgp-option-reply-pubkey" state="uptodate" md5="9eeec8178d39bd61ecbd74d175179587">
+<entry id="pgp-option-reply-pubkey" state="uptodate">
     <title>PGP: Atbildot pārbaudīt PGP publisko atslēgu</title>
     <heading>Atbildot pārbaudīt PGP publisko atslēgu</heading>
     <para>
@@ -361,7 +361,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="compose-options-encrypt" state="uptodate" md5="78ff9bd91687efb91d2798ca0458b5cb">
+<entry id="compose-options-encrypt" state="uptodate">
     <title>Vēstules rakstīšana: Šifrēšanas iestatījumi</title>
     <heading>Nešifrēts</heading>
     <para>
@@ -401,7 +401,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="pgp-overview" state="uptodate" md5="24b5138b4b53f73b5f2f2739e4c1858d">
+<entry id="pgp-overview" state="uptodate">
     <title>PGP: Apskats</title>
     <heading>Kas ir PGP?</heading>
     <para>
@@ -413,7 +413,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="pgp-option-attach-pubkey" state="uptodate" md5="561ce43370ac4afbcc3f9818c8fbc2f6">
+<entry id="pgp-option-attach-pubkey" state="uptodate">
     <title>PGP: Iespējas - Pievienot publisko atslēgu</title>
     <heading>Iespējas - Pievienot publisko atslēgu</heading>
     <para>
@@ -421,7 +421,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="pgp-manage-pubkey" state="uptodate" md5="b289ea5824b7f69f35c0751497f4e1c3">
+<entry id="pgp-manage-pubkey" state="uptodate">
     <title>PGP: Publisko atslēgu vadība</title>
     <heading>Pārskats</heading>
     <para>
@@ -441,7 +441,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="pgp-import-pubkey" state="uptodate" md5="6ee1130b46e9ff1ca9ad3a3a47e7b382">
+<entry id="pgp-import-pubkey" state="uptodate">
     <title>PGP: Publisko atslēgu vadība - Imports</title>
     <heading>Importēt Publiskās atslēgas</heading>
     <para>
@@ -449,7 +449,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="pgp-overview-personalkey" state="uptodate" md5="220af2b74a58f430efd72d6d6b1f993f">
+<entry id="pgp-overview-personalkey" state="uptodate">
     <title>PGP: Personīgo atslēgu vadība</title>
     <heading>Pārskats</heading>
     <para>
@@ -465,7 +465,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="pgp-personalkey-public" state="uptodate" md5="3c844d4ff8fdda3e0d446b47a63117e0">
+<entry id="pgp-personalkey-public" state="uptodate">
     <title>PGP: Personīgo atslēgu vadība - Publiskā atslēga</title>
     <heading>Apskatīt</heading>
     <para>
@@ -477,7 +477,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="pgp-personalkey-private" state="uptodate" md5="1851b67a1aeef1242fc3a2b94af75c03">
+<entry id="pgp-personalkey-private" state="uptodate">
     <title>PGP: Personīgo atslēgu vadība - Privātā atslēga</title>
     <heading>Ievadiet paroli</heading>
     <para>
@@ -497,7 +497,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="pgp-personalkey-delete" state="uptodate" md5="dbd8cbe6bce71c4fb592dd1b3b27b7ce">
+<entry id="pgp-personalkey-delete" state="uptodate">
     <title>PGP: Personīgo atslēgu vadība - Dzēst</title>
     <heading>Dzēst Personīgo atslēgu</heading>
     <para>
@@ -505,7 +505,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="pgp-personalkey-create-name" state="uptodate" md5="748cb124b7ff52820792e278037a8c27">
+<entry id="pgp-personalkey-create-name" state="uptodate">
     <title>PGP: Izveidot Personīgo atslēgu - Vārds</title>
     <heading>Vārds</heading>
     <para>
@@ -513,7 +513,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="pgp-personalkey-create-comment" state="uptodate" md5="e666eb9f0ee4b49fe04f74fc18db8640">
+<entry id="pgp-personalkey-create-comment" state="uptodate">
     <title>PGP: Izveidot Personīgo atslēgu - Komentārs</title>
     <heading>Komentārs</heading>
     <para>
@@ -521,7 +521,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="pgp-personalkey-create-email" state="uptodate" md5="c729f70fdb3a73cbb7ba5ef5888e3092">
+<entry id="pgp-personalkey-create-email" state="uptodate">
     <title>PGP: Izveidot Personīgo atslēgu - e-pasta adrese</title>
     <heading>e-pasta adrese</heading>
     <para>
@@ -529,7 +529,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="pgp-personalkey-create-keylength" state="uptodate" md5="24ca641c63fb5ff310a39ee0d3b1ee55">
+<entry id="pgp-personalkey-create-keylength" state="uptodate">
     <title>PGP: Izveidot Personīgo atslēgu - Atslēgas garums</title>
     <heading>Atslēgas garums</heading>
     <para>
@@ -537,7 +537,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="pgp-personalkey-create-passphrase" state="uptodate" md5="2fb9372970bf33f51e988ba39dbd7193">
+<entry id="pgp-personalkey-create-passphrase" state="uptodate">
     <title>PGP: Izveidot Personīgo atslēgu - Parole</title>
     <heading>Parole</heading>
     <para>
@@ -545,7 +545,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="pgp-personalkey-create-actions" state="uptodate" md5="0f8234935b964c83533b4ec4c15eb712">
+<entry id="pgp-personalkey-create-actions" state="uptodate">
     <title>PGP: Izveidot Personīgo atslēgu - Darbības</title>
     <heading>Izveidot atslēgas</heading>
     <para>
@@ -557,7 +557,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="smime-overview" state="uptodate" md5="d3c752b1345fb2eccfe575c07461963f">
+<entry id="smime-overview" state="uptodate">
     <title>S/MIME: Apskats</title>
     <heading>Kas ir S/MIME?</heading>
     <para>
@@ -565,19 +565,19 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
     <heading>Ieslēgt S/MIME funkcionalitāti?</heading>
     <para>
-    Ja šis iestatījums ir iespējots, Jūs varēsiet importēt savu personīgo S/MIME sertifikātu, lasīt šifrētu pastu, pārbaudīt elektroniskos parakstus un šifrēt/parakstīt izejošo korespondenci.
+    Ja šis iestatījums ir iespējots, Jūs varēsiet importēt savu personīgo S/MIME sertifikātu, lasīt šifrētu pastu, pārbaudīt elektroniskos parakstus un šifrēt/parakstīt izejošo korespondenci.  
     </para>
 </entry>
 
-<entry id="smime-overview-personalkey" state="uptodate" md5="9f4f36ae72cb4abc731067d338be3b98">
+<entry id="smime-overview-personalkey" state="uptodate">
     <title>S/MIME: Personīgās atslēgas</title>
     <heading>Apskats</heading>
     <para>
-    Ja vēlaties elektroniski parakstīt vai šifrēt vēstules, Jums ir nepieciešams publiskais/privātais S/MIME atslēgu pāris.
+    Ja vēlaties elektroniski parakstīt vai šifrēt vēstules, Jums ir nepieciešams publiskais/privātais S/MIME atslēgu pāris.  
     </para>
 </entry>
 
-<entry id="smime-import-personal-certs" state="uptodate" md5="cf0ed2e3e24d30dedf8cfef2c2645759">
+<entry id="smime-import-personal-certs" state="uptodate">
     <title>S/MIME: Importēt personīgos sertifikātus</title>
     <heading>Importēt personīgos sertifikātus</heading>
     <para>
@@ -585,7 +585,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="smime-delete-personal-certs" state="uptodate" md5="018bb6b61a7e416892de288ad1c880f4">
+<entry id="smime-delete-personal-certs" state="uptodate">
     <title>S/MIME: Dzēst personīgos sertifikātus</title>
     <heading>Dzēst personīgos sertifikātus</heading>
     <para>
@@ -593,7 +593,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="smime-manage-pubkey" state="uptodate" md5="8b6c63684d3d73b3d084025a78fe7e88">
+<entry id="smime-manage-pubkey" state="uptodate">
     <title>S/MIME: Publisko atslēgu vadība</title>
     <heading>S/MIME: Publisko atslēgu vadība</heading>
     <para>
@@ -613,7 +613,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="printing" state="uptodate" md5="f233c11b6b4a6bedeb68f1d5a2a976db">
+<entry id="printing" state="uptodate">
     <title>Drukāšana</title>
     <heading>Drukāt vēstuli</heading>
     <para>
@@ -621,7 +621,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="sorting" state="uptodate" md5="18cdeac38027fe5c42bab693f2a4260a">
+<entry id="sorting" state="uptodate">
     <title>Šķirošana un pavedieni</title>
     <heading>Šķirot ierakstus</heading>
     <para>
@@ -633,14 +633,14 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="prefs-rename_sentmail_monthly" state="uptodate" md5="767b05efbb4370c32783ea4dc1808f91">
+<entry id="prefs-rename_sentmail_monthly" state="uptodate">
     <title>Iestatījumi: ik mēnesi pārdēvēt nosūtīto vēstuļu mapi</title>
     <para>
-    Izmantojiet šo iestatījumu, ja vēlaties pārdēvēt nosūtīto vēstuļu mapi katra mēneša sākumā. Mapes nosaukumam tiks pievienots gads un mēnesis un izveidota jauna nosūtīto vēstuļu mape.
+    Izmantojiet šo iestatījumu, ja vēlaties pārdēvēt nosūtīto vēstuļu mapi katra mēneša sākumā. Mapes nosaukumam tiks pievienots gads un mēnesis un izveidota jauna nosūtīto vēstuļu mape.  
     </para>
 </entry>
 
-<entry id="prefs-delete_sentmail_monthly_keep" state="uptodate" md5="041cf1a5b14058dbfd680f5af2c0fd52">
+<entry id="prefs-delete_sentmail_monthly_keep" state="uptodate">
     <title>Iestatījumi: ik mēnesi dzēst nosūtīto vēstuļu mapi</title>
     <para>
     Šī iestatījuma izmantošana ļauj katra mēneša sākumā atbrīvoties no iepriekš noteiktus mēnešus vecām nosūtīto vēstuļu mapēm. Visas nosūtīto vēstuļu mapes, kas ir vecākas par iestatīto lielumu, tiks izdzēstas.
@@ -648,56 +648,56 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="prefs-purge_sentmail_interval" state="uptodate" md5="6b8d80249b439bb08dbc1a31d00a7286">
+<entry id="prefs-purge_sentmail_interval" state="uptodate">
     <title>Iestatījumi: tīrīt nosūtītās vēstules</title>
     <para>
     Nosaka, cik bieži tīrīt nosūtīto vēstuļu mapi(-es).
     </para>
 </entry>
 
-<entry id="prefs-purge_sentmail_keep" state="uptodate" md5="07df30a1ca8ef9ff46ca1c7407eb9004">
+<entry id="prefs-purge_sentmail_keep" state="uptodate">
     <title>Iestatījumi: tīrot nosūtītās vēstules saglabāt</title>
     <para>
     Gadījumā, ja tīrāt vēstules no nosūtīto vēstuļu mapes(-ēm), nosaka, par cik dienām vecākas vēstules dzēst.
     </para>
 </entry>
 
-<entry id="prefs-delete_attachments_monthly_keep" state="uptodate" md5="79d70b75d5a282bc06366b80311b115b">
+<entry id="prefs-delete_attachments_monthly_keep" state="uptodate">
     <title>Iestatījumi: ik mēnesi dzēst piesaistītos pielikumus</title>
     <para>
     Ja Jūsu konta konfigurācija pieļauj saistīto pielikumu nosūtīšanu, šis iestatījums nosaka pēc cik mēnešiem vecie saistītie pielikumi tiks iztīrīti. Visi saistītie pielikumi, kas vecāki par norādīto vērtību, tiks izdzēsti. Tas var būt noderīgi, ja Jums, piemēram, ir noteikts pieļaujamais pastkastes apjoms (kvota).
     </para>
 </entry>
 
-<entry id="prefs-purge_trash_interval" state="uptodate" md5="e805e6311aeae336cfa1cca10bdcfa35">
+<entry id="prefs-purge_trash_interval" state="uptodate">
     <title>Iestatījumi: Apkope: tīrīt miskasti</title>
     <para>
     Cik bieži tīrīt miskasti?
     </para>
 </entry>
 
-<entry id="prefs-purge_trash_keep" state="uptodate" md5="3cb5a2b5b80b7ac1179ae005f983970e">
+<entry id="prefs-purge_trash_keep" state="uptodate">
     <title>Iestatījumi: Apkope: saglabāt tīrot miskasti</title>
     <para>
     Par cik dienām vecākas vēstules dzēst tīrot miskasti?
     </para>
 </entry>
 
-<entry id="prefs-purge_spam_interval" state="uptodate" md5="dacc3d8a1d90ff928fdb72db9ceb76e1">
+<entry id="prefs-purge_spam_interval" state="uptodate">
     <title>Iestatījumi: Apkope: tīrīt mēstuļkasti</title>
     <para>
     Cik bieži tīrīt mēstuļu mapi?
     </para>
 </entry>
 
-<entry id="prefs-purge_spam_keep" state="uptodate" md5="f4748aba20cf4a9b6ce92822bd185de6">
+<entry id="prefs-purge_spam_keep" state="uptodate">
     <title>Iestatījumi: Apkope: saglabāt tīrot mēstuļkasti</title>
     <para>
     Par cik dienām vecākas mēstules dzēst tīrot mēstuļkasti?
     </para>
 </entry>
 
-<entry id="prefs-attrib_text" state="uptodate" md5="721a09d7ca028c97e3bd2b38c597fff7">
+<entry id="prefs-attrib_text" state="uptodate">
      <title>Iestatījumi: Vēstules rakstīšana: Ievadteksts</title>
      <para>
      Šeit Jūs varat ievadīt frāzi, kas parādīsies pirms citētā teksta atbildes vēstulē.
@@ -720,28 +720,28 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
 
 </entry>
 
-<entry id="prefs-default_msg_charset" state="uptodate" md5="4ef4fb2090e703f6f8e03f39ab96e717">
+<entry id="prefs-default_msg_charset" state="uptodate">
     <title>Iestatījumi: Noklusētais vēstules teksta kodējums</title>
     <para>
     Nosaka noklusēto teksta kodējumu vēstules daļām, kurām nav skaidri norādīta kodējuma informācija. Atbilstoši RFC 2045 vēstules ar nenorādītu kodējuma informāciju tiek attēlota izmantojot US-ASCII kodējumu. Vienlaikus, atsevišķi īpaši greizi pasta klienti var nosūtīt vēstules citos kodējumos, nenorādot korektu kodējuma informāciju vēstules galvenēs. Iestatiet šo parametru atbilstoši vajadzībām vai izvēlieties noklusēto, lai izmantotu MIME noklusēto kodējumu.
     </para>
 </entry>
 
-<entry id="prefs-request_mdn" state="uptodate" md5="d1848b54921777465fd46758a2f59ddc">
+<entry id="prefs-request_mdn" state="uptodate">
     <title>Iestatījumi: Pieprasīt izlasīšanas apstiprinājumu</title>
     <para>
     "Pieprasīt izlasīšanas apstiprinājumu" nosūta vēstules adresātam pieprasījumu apstiprināt izlasīšanu lai informētu Jūs par vēstules atvēršanas faktu. Ne visi pasta klientu atbalsta šo funkcionalitāti.
     </para>
 </entry>
 
-<entry id="prefs-send_mdn" state="uptodate" md5="13244cac1f471ef717e8e380e6aed4ab">
+<entry id="prefs-send_mdn" state="uptodate">
     <title>Iestatījumi: Nosūtīt izlasīšanas apstiprinājumu</title>
     <para>
-    "Nosūtīt izlasīšanas apstiprinājumu" nosūta izlasīšanas apstiprinājumu adresātam, kurš ir pieprasījis apstiprinājumu par vēstules izlasīšanu. Pēc noklusēšanas Jums tiks piedāvāta iespēja nosūtīt šo apstiprinājumu.
+    "Nosūtīt izlasīšanas apstiprinājumu" nosūta izlasīšanas apstiprinājumu adresātam, kurš ir pieprasījis apstiprinājumu par vēstules izlasīšanu. Pēc noklusēšanas Jums tiks piedāvāta iespēja nosūtīt šo apstiprinājumu. 
     </para>
 </entry>
 
-<entry id="prefs-delete_spam_after_report" state="uptodate" md5="8d1eb1fb6f3c10802d20630a5f5ad132">
+<entry id="prefs-delete_spam_after_report" state="uptodate">
     <title>Iestatījumi: Dzēst mēstuli pēc ziņošanas</title>
     <para>
     Varat izvēlēties vienu no trim darbībām pēc paziņojuma par mēstules (spama) saņemšanu nosūtīšanas.
@@ -757,7 +757,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="prefs-move_ham_after_report" state="uptodate" md5="4b971b84ed993e6a6fff8d45a50d03c5">
+<entry id="prefs-move_ham_after_report" state="uptodate">
     <title>Iestatījumi: Pārvietot pēc paziņojuma par nevainīgumu</title>
     <para>
      Varat izvēlēties vienu no divām darbībām pēc paziņojuma par nevainīgumu nosūtīšanas vēstulei, kas iepriekš bijusi atzīmēta kā mēstule.
@@ -770,31 +770,31 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="prefs-image_replacement" state="uptodate" md5="f518db9fb16b91e44b4a39b8d3bdcb8a">
+<entry id="prefs-image_replacement" state="uptodate">
     <title>Iestatījumi: Attēlu aizvietošana</title>
     <para>
     Apskatot vēstules iekļautā veidā, bloķēt visus attēlus līdz brīdim, kad pieprasīsiet to attēlošanu? Ņemiet vērā, ja izvēlēts režīms Rādīt kā pielikumu, attēli tiks rādīti vienmēr.
     </para>
 </entry>
 
-<entry id="prefs-image_addrbook" state="uptodate" md5="0110ec5a179c32ae36cbda1d10000c5f">
+<entry id="prefs-image_addrbook" state="uptodate">
     <title>Iestatījumi: Attēlu aizvietošana/Rādīt, ja ir adrešu grāmatā</title>
     <para>
     Ja bloķējat attēlus no attēlošanas iekļautā veidā, vai rādīt attēlus automātiski, ja autors ir Jūsu adrešu grāmatā?
     </para>
 </entry>
 
-<entry id="prefs-mailbox_start" state="uptodate" md5="62fcc38a15f54dae7eb8bdafa93ed341">
+<entry id="prefs-mailbox_start" state="uptodate">
     <title>Iestatījumi: Pastkastes pirmā lapa</title>
     <para>
     Nosaka, kura pastkastes lapa tiks atvērta pieslēdzoties pastkastei.
     </para>
 </entry>
 
-<entry id="prefs-save_attachments" state="uptodate" md5="d61dfb1fd20829a48af8d04402f857cb">
+<entry id="prefs-save_attachments" state="uptodate">
     <title>Iestatījumi: Saglabāt nosūtīto vēstuļu pielikumus</title>
     <para>
-     Ja saglabājat nosūtītās vēstules Nosūtīto vēstuļu mapē, varat izvēlēties, ko darīt ar pielikumu datiem. Pastāv sekojošas iespējas:
+     Ja saglabājat nosūtītās vēstules Nosūtīto vēstuļu mapē, varat izvēlēties, ko darīt ar pielikumu datiem. Pastāv sekojošas iespējas: 
     </para>
 
     <para>* "Vienmēr saglabāt pielikumus" - NEKAD nerādīt jautājumu par pielikuma saglabāšanu rakstīšanas logā, pielikumi vienmēr tiks saglabāti kopā ar vēstuli.</para>
@@ -803,14 +803,14 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
      <para>* "Nekad nesaglabāt pielikumus" - NEKAD nerādīt jautājumu par pielikuma saglabāšanu rakstīšanas logā, pielikumi netiks saglabāti kopā ar vēstuli.</para>
 </entry>
 
-<entry id="virtual_inbox" state="uptodate" md5="a91e01732bb8129cbc6a7f5c6dca3ab3">
+<entry id="virtual_inbox" state="uptodate">
     <title>Mapes: Virtuālais Inbox</title>
     <para>
-    Virtuālais Inbox ir saglabātais vaicājums, kas atbrīvo Jūs no nepieciešamības pārlūkot visas mapes jauno vēstuļu meklējumos. Tā vietā visas parakstītās mapes tiek pārlūkotas automātiski un rezultāts tiek parādīts vienā (virtuālajā) mapē.
+    Virtuālais Inbox ir saglabātais vaicājums, kas atbrīvo Jūs no nepieciešamības pārlūkot visas mapes jauno vēstuļu meklējumos. Tā vietā visas parakstītās mapes tiek pārlūkotas automātiski un rezultāts tiek parādīts vienā (virtuālajā) mapē.  
     </para>
 </entry>
 
-<entry id="virtual_trash" state="uptodate" md5="b83f73ed56dff0addcbd4702e5a21a3d">
+<entry id="virtual_trash" state="uptodate">
     <title>Mapes: Virtuālā miskaste</title>
     <para>
     Virtuālā miskaste ir saglabātais vaicājums, kas atbrīvo no nepieciešamības ierīkot atsevišķu miskastes mapi. Tā vietā, lai dzēstās vēstules pārvietotu uz centrālo miskasti, tās tiek atzīmētas kā dzēstas un paliek tajā pašā mapē. Ja iestatījums 'Rādīt dzēstās vēstules' ir izslēgts, dzēstās vēstules neparādīsies attiecīgajās mapēs. Ja lietotājs uzklikšķina Virtuālai miskastei, tiek pārbaudītas *visas* mapes un visas tajās atrodamās vēstules, kas atzīmētas kā dzēstas, tiek parādītas vienā mapē.

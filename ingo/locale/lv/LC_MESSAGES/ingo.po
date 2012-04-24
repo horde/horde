@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ingo H3 (1.1.5)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-10-21 16:36+0300\n"
+"POT-Creation-Date: 2012-04-12 11:29+0300\n"
 "PO-Revision-Date: 2011-07-21 10:27+0300\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -104,8 +104,8 @@ msgstr "Sākas ar"
 msgid "Bind failed: (%s) %s"
 msgstr "Neizdevās pieslēgties: (%s) %s"
 
-#: filters.php:179 templates/blacklist/blacklist.inc:6
-#: lib/Block/Overview.php:84 lib/Block/Overview.php:87
+#: filters.php:179 lib/Block/Overview.php:84 lib/Block/Overview.php:87
+#: templates/blacklist/blacklist.inc:6
 msgid "Blacklist"
 msgstr "Melnais saraksts"
 
@@ -165,7 +165,7 @@ msgstr "Nevar pārbaudīt IMAP pastkasti."
 msgid "Create new folder"
 msgstr "Izveidot jaunu mapi"
 
-#: lib/Script/Procmail/Comment.php:35 lib/Script/Maildrop/Comment.php:35
+#: lib/Script/Maildrop/Comment.php:35 lib/Script/Procmail/Comment.php:35
 msgid "DISABLED: "
 msgstr "IZSLĒGTS: "
 
@@ -215,9 +215,9 @@ msgstr "Mērķis (To,Cc,Bcc, utt.)"
 msgid "Disable %s"
 msgstr "Izslēgt %s"
 
-#: forward.php:88 spam.php:132 vacation.php:137
-#: templates/whitelist/whitelist.inc:8 templates/rule/header.inc:13
-#: templates/blacklist/blacklist.inc:9
+#: forward.php:88 spam.php:132 templates/blacklist/blacklist.inc:9
+#: templates/rule/header.inc:13 templates/whitelist/whitelist.inc:8
+#: vacation.php:137
 msgid "Disabled"
 msgstr "Izslēgts"
 
@@ -253,9 +253,9 @@ msgstr "Neeksistē"
 msgid "Doesn't match (with placeholders)"
 msgstr "Neatbilst (ar vietturiem)"
 
-#: templates/filters/header.inc:11 lib/Block/Overview.php:52
-#: lib/Block/Overview.php:61 lib/Block/Overview.php:76
-#: lib/Block/Overview.php:86 lib/Block/Overview.php:96
+#: lib/Block/Overview.php:52 lib/Block/Overview.php:61
+#: lib/Block/Overview.php:76 lib/Block/Overview.php:86
+#: lib/Block/Overview.php:96 templates/filters/header.inc:11
 msgid "Edit"
 msgstr "Labot"
 
@@ -566,8 +566,8 @@ msgstr "Pārvietot augšup"
 msgid "My email addresses:"
 msgstr "Jūsu e-pasta adreses:"
 
-#: templates/filters/filter-none.inc:3 templates/filters/footer.inc:6
-#: lib/Storage/Filters.php:90
+#: lib/Storage/Filters.php:90 templates/filters/filter-none.inc:3
+#: templates/filters/footer.inc:6
 msgid "New Rule"
 msgstr "Jauns likums"
 
@@ -683,9 +683,9 @@ msgstr "Pārsūtīts"
 msgid "Return to Filters List"
 msgstr "Atgriezties pie filtru saraksta"
 
-#: forward.php:30 forward.php:77 spam.php:56 spam.php:119 vacation.php:30
-#: vacation.php:102 templates/whitelist/whitelist.inc:24
-#: templates/blacklist/blacklist.inc:41
+#: forward.php:30 forward.php:77 spam.php:56 spam.php:119
+#: templates/blacklist/blacklist.inc:41 templates/whitelist/whitelist.inc:24
+#: vacation.php:30 vacation.php:102
 msgid "Return to Rules List"
 msgstr "Atgriezties pie likumu saraksta"
 
@@ -738,9 +738,9 @@ msgstr "STARTTLS kļūme: (%s) %s"
 msgid "S_pam"
 msgstr "Mēstules"
 
-#: forward.php:40 spam.php:71 vacation.php:54
-#: templates/whitelist/whitelist.inc:23 templates/rule/footer.inc:60
-#: templates/blacklist/blacklist.inc:40
+#: forward.php:40 spam.php:71 templates/blacklist/blacklist.inc:40
+#: templates/rule/footer.inc:60 templates/whitelist/whitelist.inc:23
+#: vacation.php:54
 msgid "Save"
 msgstr "Saglabāt"
 
@@ -831,8 +831,8 @@ msgstr "Izmērs"
 msgid "Source (From, Reply-to, etc.)"
 msgstr "Avots (From,Reply-to, utt.)"
 
-#: filters.php:203 lib/Script/Maildrop.php:304 lib/Script/Sieve.php:442
-#: lib/Block/Overview.php:94 lib/Block/Overview.php:97
+#: filters.php:203 lib/Block/Overview.php:94 lib/Block/Overview.php:97
+#: lib/Script/Maildrop.php:304 lib/Script/Sieve.php:442
 msgid "Spam Filter"
 msgstr "Mēstuļu filtrs"
 
@@ -903,9 +903,9 @@ msgstr "Nevar ielasīt %s nosacījumus."
 msgid "User header"
 msgstr "Lietotāja galvene"
 
-#: filters.php:191 vacation.php:135 lib/Script/Maildrop.php:278
-#: lib/Script/Procmail.php:278 lib/Script/Sieve.php:416
-#: lib/Block/Overview.php:50 lib/Block/Overview.php:53
+#: filters.php:191 lib/Block/Overview.php:50 lib/Block/Overview.php:53
+#: lib/Script/Maildrop.php:278 lib/Script/Procmail.php:278
+#: lib/Script/Sieve.php:416 vacation.php:135
 msgid "Vacation"
 msgstr "Brīvdienas"
 
@@ -925,8 +925,8 @@ msgstr "Vērtība"
 msgid "Wh_itelist addresses:"
 msgstr "Baltā saraksta adreses"
 
-#: filters.php:185 templates/whitelist/whitelist.inc:5
-#: lib/Block/Overview.php:74 lib/Block/Overview.php:77
+#: filters.php:185 lib/Block/Overview.php:74 lib/Block/Overview.php:77
+#: templates/whitelist/whitelist.inc:5
 msgid "Whitelist"
 msgstr "Baltais saraksts"
 
