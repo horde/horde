@@ -86,6 +86,13 @@ var HordeMobile = {
             return;
         }
 
+        if (!$.mobile.pageContainer) {
+            window.setTimeout(function() {
+                HordeMobile.showNotifications(msgs);
+            }, 100);
+            return;
+        }
+
         var list = $('#horde-notification'), li;
         list.html('');
 
