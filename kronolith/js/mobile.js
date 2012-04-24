@@ -821,4 +821,5 @@
         }
     }
 };
+
 $(KronolithMobile.onDocumentReady);
