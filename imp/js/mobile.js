@@ -1097,7 +1097,7 @@ var ImpMobile = {
     },
 
     /**
-     * Event handlder for the document-ready event, responsible for the inital
+     * Event handler for the document-ready event, responsible for the initial
      * setup.
      */
     onDocumentReady: function()
@@ -1122,10 +1122,6 @@ var ImpMobile = {
                 $('#imp-target-list').selectmenu('refresh', true);
                 $('#imp-target-newdiv').hide();
             });
-        }
-
-        if (location.hash) {
-            $.mobile.changePage(location.hash);
         }
     }
 
