@@ -194,6 +194,18 @@ class Horde_Themes_Css
         $cache = $GLOBALS['injector']->getInstance('Horde_Core_Factory_ThemesCache')->create($curr_app, $theme);
         $this->_cacheid = $cache->getCacheId();
 
+        /* Add external stylesheets first, since they are ALWAYS overwritable
+         * by Horde code. */
+        foreach ($this->_cssFiles as $f => $u) {
+            if (file_exists($f)) {
+                $css_out[] = array(
+                    'fs' => $f,
+                    'uri' => $u
+                );
+            }
+        }
+
+        /* Add theme stylesheets. */
         foreach ($css_list as $css_name) {
             if (empty($opts['subonly'])) {
                 $css_out = array_merge($css_out, array_reverse($cache->getAll($css_name, $mask)));
@@ -204,24 +216,15 @@ class Horde_Themes_Css
             }
         }
 
-        /* Add additional stylesheets added by code. */
-        foreach ($this->_cssFiles as $f => $u) {
-            if (file_exists($f)) {
-                $add_css[$f] = $u;
-            }
-        }
-
         /* Add user-defined additional stylesheets. */
         try {
             $add_css = array_merge($add_css, Horde::callHook('cssfiles', array($theme), 'horde'));
-        } catch (Horde_Exception_HookNotSet $e) {
-        }
+        } catch (Horde_Exception_HookNotSet $e) {}
 
         if ($curr_app != 'horde') {
             try {
                 $add_css = array_merge($add_css, Horde::callHook('cssfiles', array($theme), $curr_app));
-            } catch (Horde_Exception_HookNotSet $e) {
-            }
+            } catch (Horde_Exception_HookNotSet $e) {}
         }
 
         foreach ($add_css as $f => $u) {
