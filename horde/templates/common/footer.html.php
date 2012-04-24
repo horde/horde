@@ -13,8 +13,8 @@
 <?php endif; ?>
 <?php if ($this->outputJs): ?>
   <?php if ($this->smartmobileView): $this->pageOutput->outputMobileScript(); endif; ?>
+  <?php $this->pageOutput->includeScriptFiles(); ?>
   <?php $this->pageOutput->outputInlineScript(); ?>
-<?php $this->pageOutput->includeScriptFiles(); ?>
 <?php endif; ?>
   <?php echo implode("\n", $this->notifications) ?>
  </body>
