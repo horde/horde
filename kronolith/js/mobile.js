@@ -224,7 +224,7 @@
                     haveEvent = false;
                     day.next().day();
                 }
-                $("#overview :jqmData(role='conent')").append(list).trigger('create');
+                $("#overview :jqmData(role='content')").append(list).trigger('create');
                 break;
         }
         KronolithMobile.running = false;
