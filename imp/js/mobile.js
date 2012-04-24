@@ -858,10 +858,10 @@ var ImpMobile = {
                 ImpMobile.addMboxParams({
                     spam: Number(match[1] == 'spam'),
                     uid: ImpMobile.toUIDStringSingle(match[2], [ match[3] ]),
-                    view: mailbox
+                    view: match[2]
                 }),
                 function() {
-                    ImpMobile.changePage('#mailbox?mbox=' + mailbox);
+                    ImpMobile.changePage('#mailbox?mbox=' + match[2]);
                 }
             );
             break;
