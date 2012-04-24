@@ -189,7 +189,7 @@
                     if (!list.children().length) {
                         list.append($('<li>').text(Kronolith.text.noevents));
                     }
-                    $('#dayview [data-role=content]').append(list).trigger('create');
+                    $("#dayview :jqmData(role='content')").append(list).trigger('create');
                 }
                 break;
 
@@ -224,7 +224,7 @@
                     haveEvent = false;
                     day.next().day();
                 }
-                $('#overview [data-role=content]').append(list).trigger('create');
+                $("#overview :jqmData(role='conent')").append(list).trigger('create');
                 break;
         }
         KronolithMobile.running = false;
@@ -269,7 +269,7 @@
                    backgroundColor: Kronolith.conf.calendars[type][c].bg })
             .attr({ href: '#eventview', 'class': 'kronolithEvent' })
             .click(function(ev) {
-                $('#eventview [data-role=content] ul').detach();
+                $("#eventview :jqmData(role='content') ul").detach();
                 KronolithMobile.loadEvent(cal, event.id, Date.parse(event.e));
             })
             .append(d);
@@ -306,7 +306,7 @@
 
          var event = data.event;
          var ul = KronolithMobile.buildEventView(event);
-         $('#eventview [data-role=content]').append(ul).trigger('create');
+         $("#eventview :jqmData(role='content')").append(ul).trigger('create');
     },
 
     /**
@@ -400,10 +400,10 @@
             $('.kronolithDayDetail ul').detach();
             break;
         case 'day':
-            $('#dayview [data-role=content] ul').detach();
+            $("#dayview :jqmData(role='content') ul").detach();
             break;
         case 'overview':
-            $('#overview [data-role=content] ul').detach();
+            $("#overview :jqmData(role='content') ul").detach();
         }
     },
 
@@ -554,7 +554,7 @@
             }
 
             // Insert day cell.
-            td = $('<td>').attr({ 'id': 'kronolithMonth' + dateString, 'class': 'kronolithMonthDay' }).data('date', dateString);
+            td = $('<td>').attr({ 'id': 'kronolithMonth' + dateString, 'class': 'kronolithMonthDay' }).jqmData('date', dateString);
             if (day.getMonth() != date.getMonth()) {
                 td.addClass('kronolithMinicalEmpty');
             }
@@ -746,7 +746,7 @@
                 return;
             }
             if (elt.hasClass('kronolithMonthDay')) {
-                KronolithMobile.selectMonthDay(elt.data('date'));
+                KronolithMobile.selectMonthDay(elt.jqmData('date'));
                 return;
             }
             elt = elt.parent();
@@ -778,8 +778,8 @@
         case 'monthview':
             KronolithMobile.view = "month";
             // (re)build the minical only if we need to
-            if (!$(".kronolithMinicalDate").data("date") ||
-                ($(".kronolithMinicalDate").data("date").toString("M") != KronolithMobile.date.toString("M"))) {
+            if (!$(".kronolithMinicalDate").jqmData("date") ||
+                ($(".kronolithMinicalDate").jqmData("date").toString("M") != KronolithMobile.date.toString("M"))) {
               KronolithMobile.moveToMonth(KronolithMobile.date);
             }
             break;
