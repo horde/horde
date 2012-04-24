@@ -389,27 +389,24 @@ var ImpMobile = {
      */
     navigate: function(dir)
     {
-        switch ($.mobile.activePage.attr('id')) {
-        case 'message':
-            var next = ImpMobile.nextMessage(dir);
-            if (next) {
+        var next, ob, page;
+
+        if (HordeMobile.currentPage('message')) {
+            if (next = ImpMobile.nextMessage(dir)) {
                 $.mobile.changePage('#message?view=' + next[0] + '&uid=' + next[1]);
             }
-            break;
-
-        case 'mailbox':
+        } else if (HordeMobile.currentPage('mailbox')) {
             if (typeof dir == 'object') {
                 dir = dir.type == 'swipeleft' ? 1 : -1;
             }
 
-            var ob = ImpMobile.cache[ImpMobile.mailbox],
-                     page = Math.min(Math.max(ob.from, ob.totalrows - 24),
-                                     Math.max(1, ob.from + dir * 25));
+            ob = ImpMobile.cache[ImpMobile.mailbox];
+            page = Math.min(Math.max(ob.from, ob.totalrows - 24),
+                            Math.max(1, ob.from + dir * 25));
+
             if (page != ob.from) {
-                $.mobile.changePage('#mailbox?mbox=' + ImpMobile.mailbox
-                                    + '&from=' + page);
+                $.mobile.changePage('#mailbox?mbox=' + ImpMobile.mailbox + '&from=' + page);
             }
-            break;
         }
     },
 
@@ -744,9 +741,9 @@ var ImpMobile = {
 
     delayedCloseCompose: function()
     {
-        if ($.mobile.activePage.attr('id') == 'compose') {
+        if (HordeMobile.currentPage('compose')) {
             window.history.back();
-        } else if ($.mobile.activePage.attr('id') == 'notification') {
+        } else if (HordeMobile.currentPage('notification')) {
             $.mobile.activePage.bind('pagehide', function (e) {
                 $(e.currentTarget).unbind(e);
                 window.setTimeout(ImpMobile.delayedCloseCompose, 0);
