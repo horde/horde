@@ -136,13 +136,6 @@ var HordeMobile = {
         $('#smartmobile-notification').live('pagebeforeshow', function() {
             $('#horde-notification').listview('refresh');
         });
-
-        // Workaround for listview items not being clickable for links with
-        // rel="external".
-        $('li.extlink').click(function() {
-            window.location = $(this).find('a').attr('href');
-            return false;
-        });
     }
 };
 
