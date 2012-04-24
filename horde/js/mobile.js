@@ -166,6 +166,19 @@ var HordeMobile = {
         HordeMobile.onDialogClose(function() { $.mobile.changePage(page); });
     },
 
+    /**
+     * Checks if the current page matches the ID.
+     *
+     * @param string  The ID to check.
+     *
+     * @return boolean  True if page is equal to ID.
+     */
+    currentPage: function(page)
+    {
+        return ($.mobile.activePage &&
+                $.mobile.activePage.attr('id') == page);
+    },
+
     onDocumentReady: function()
     {
         // Global ajax options.

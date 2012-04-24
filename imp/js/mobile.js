@@ -42,19 +42,6 @@ var ImpMobile = {
 
 
     /**
-     * Checks if the current page matches the ID.
-     *
-     * @param string  The ID to check.
-     *
-     * @return boolean  True if page is equal to ID.
-     */
-    currentPage: function(page)
-    {
-        return ($.mobile.activePage &&
-                $.mobile.activePage.attr('id') == page);
-    },
-
-    /**
      * Event handler for the pagebeforechange event that implements loading of
      * deep-linked pages.
      *
@@ -121,7 +108,7 @@ var ImpMobile = {
             title = $('#imp-mailbox-' + mailbox).text(),
             params = {}, ob;
 
-        if (ImpMobile.currentPage('mailbox')) {
+        if (HordeMobile.currentPage('mailbox')) {
             // Need to update history manually, because jqm exits too early
             // if calling changePage() with the same page but different hash
             // parameters.
@@ -223,7 +210,7 @@ var ImpMobile = {
             ob.disappear(r.disappear);
         }
 
-        if (ImpMobile.currentPage('mailbox')) {
+        if (HordeMobile.currentPage('mailbox')) {
             ImpMobile.refreshMailbox(ob);
         }
     },
@@ -335,7 +322,7 @@ var ImpMobile = {
             return;
         }
 
-        if (ImpMobile.currentPage('message')) {
+        if (HordeMobile.currentPage('message')) {
             // Need to update history manually, because jqm exits too early
             // if calling changePage() with the same page but different hash
             // parameters.
@@ -911,7 +898,7 @@ var ImpMobile = {
             }
         });
 
-        if (ImpMobile.currentPage('folders')) {
+        if (HordeMobile.currentPage('folders')) {
             $('#imp-folders-list').listview('refresh');
         }
     },
