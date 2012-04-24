@@ -3,7 +3,9 @@
     min-height: 1.1em;
     text-align: center;
     font-size: 16px;
-    margin: 0 20px .1em;
+    margin: 0 20px 0.2em;
+    text-overflow: ellipsis;
+    overflow: hidden;
     white-space: nowrap;
 }
 
