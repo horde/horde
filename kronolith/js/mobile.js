@@ -762,6 +762,8 @@
         match = /^#(dayview|monthview|overview)/.exec(hash);
         if (match) {
             KronolithMobile.toView(match[1]);
+        } else {
+            KronolithMobile.toView('dayview');
         }
     },
 
