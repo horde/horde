@@ -159,24 +159,21 @@
         var key = dates[0].dateString() + dates[1].dateString() + view + cal,
         d = [dates[0].clone(), dates[1].clone()], date, events, list, key, day;
 
-        switch (view) {
-        case 'day':
-        case 'overview':
-            // Make sure all calendars are loaded before rendering the view.
-            // @TODO: Implement LIFO queue as in kronolith.js
-            if (KronolithMobile.loadedCalendars.length != KronolithMobile.calendars.length) {
-                if (KronolithMobile.deferHash[key]) {
-                    return;
-                } else {
-                    KronolithMobile.deferHash[key] = window.setTimeout(function() { KronolithMobile.insertEvents(d, view, cal); }, 0);
-                    return;
-                }
-            }
+        // Make sure all calendars are loaded before rendering the view.
+        // @TODO: Implement LIFO queue as in kronolith.js
+        if (KronolithMobile.loadedCalendars.length != KronolithMobile.calendars.length) {
             if (KronolithMobile.deferHash[key]) {
-                window.clearTimeout(KronolithMobile.deferHash[key]);
-                KronolithMobile.deferHash[key] = false;
+                return;
+            } else {
+                KronolithMobile.deferHash[key] = window.setTimeout(function() { KronolithMobile.insertEvents(d, view, cal); }, 0);
+                return;
             }
         }
+        if (KronolithMobile.deferHash[key]) {
+            window.clearTimeout(KronolithMobile.deferHash[key]);
+            KronolithMobile.deferHash[key] = false;
+        }
+
         KronolithMobile.running = true;
         switch (view) {
             case 'day':
