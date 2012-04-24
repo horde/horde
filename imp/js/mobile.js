@@ -139,7 +139,7 @@ var ImpMobile = {
 
         if (ob = ImpMobile.cache[mailbox]) {
             if (match && match[2]) {
-                ob.from = match[2];
+                ob.from = Number(match[2]);
             }
 
             ImpMobile.refreshMailbox(ob);
