@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<help>
+
+<entry id="overview" state="uptodate" md5="df2fe059a57c3b7fb286dd279e155bad">
+  <title>Pārskats</title>
+  <heading>Ievads</heading>
+  <para>
+    Šī aplikācija nodrošina darbības ar attēliem, to glabāšanu un attēlošanu sniedzot iespēju izveidot tiešsaistes attēlu galerijas un albumus. Jūs varat attēlus mērogot, griezt un citādi mainīt tos, organizēt, nosaukt un ievadīt to aprakstus.
+  </para>
+</entry>
+
+<entry id="upload" state="uptodate" md5="ca8e50685a92d0dd33690d9a24d23fb9">
+  <title>Attēlu augšupielāde: Pārskats</title>
+  <para>
+    Iespējams augšupielādēt vairumu no ierasto formātu attēliem. Gadījumu, ja ar augšupielādēto attēlu kaut kas nav kārtībā, sistēma par to brīdinās, līdz ar to - ja ir šaubas, tad izmēģiniet. Ja augšupielādējamo attēlu ir daudz, Jums ir divas iespējas, lai augšupielādētu tos vienā paņēmienā - Jūs varat augšupielādēt attēlus kā visu attēlu ZIP arhīvu vai, ja izmantojat Windows XP, varat izmantot <ref ENTRY="xppublish" MODULE="ansel">XP Publishing Wizard</ref>.
+  </para>
+</entry>
+
+<entry id="xppublish" state="uptodate" md5="f4067b7d23111b69a9b69920eb17d794">
+  <title>Attēlu augšupielāde: publicēt no Windows XP</title>
+  <heading>Windows XP's Publish to the Web iespējas izmantošana</heading>
+
+  <para>
+    Windows XP ir iebūvēta funkcija, kas ļauj nepastarpināti publicēt attēlus no Jūsu darba virsmas uz tīmekla servisu.
+  </para>
+
+  <para><b>1. Iestatīšana</b></para>
+
+  <para>
+    Lejupielādējiet <href url="xppublish.php" app="ansel">XP
+    Configuration file</href> failu un saglabājiet to uz darba virsmas, pārliecinieties, ka lejupielādētā faila paplašinājums ir .reg. Ja nav, atbilstoši pārdēvējiet failu un uz Windows pieprasījumu apstirpināt faila tipa maiņu atbildiet apstiprinoši.
+  </para>
+
+  <para>
+    uzklikšķiniet install-registry.reg. Jums tiks uzdots jautājums vai tiešām vēlaties ievadīt informāciju Windows reģistrā. Uz to jāatbild apstiprinoši un saņemsiet paziņojumu par veiksmīgu informācijas importu reģistrā. Tagad esat gatavi attēlu augšupielādei.
+  </para>
+
+  <para><b>2. Augšupielāde</b></para>
+
+  <para>
+    Open Windows Explorer and browse to the folder that you want to
+    upload, or that contains the file(s) that you'd like to upload.
+    Make sure that you can see "File and Folder Tasks" on
+    the left of your Explorer window. You should see an option to
+    "Publish this folder to the Web" or, if you have a
+    specific file selected, "Publish this file to the Web".
+    Click this link and then follow the instructions to select which
+    files you want to upload (you will get to select anything in the
+    folder during the process), log in, select a gallery or create a
+    new one, and publish the image(s).
+  </para>
+</entry>
+
+</help>
