@@ -23,19 +23,8 @@ $view->portal = Horde::getServiceLink('portal', 'horde')->setRaw(false);
 $view->logout = Horde::getServiceLink('logout')->setRaw(false);
 
 require ANSEL_TEMPLATES . '/mobile/javascript_defs.php';
-$page_output->deferScripts = false;
 $page_output->addScriptFile('mobile.js');
 // TODO: Figure out how to force load the gallerylist page.
-$page_output->addInlineScript(
-    '$(window.document).bind("mobileinit", function() {
-       $.mobile.page.prototype.options.backBtnText = "' . _("Back") .'";
-       $.mobile.loadingMessage = "' . _("loading") . '";
-     });',
-    false,
-    false,
-    true
-);
-
 $page_output->header(array(
     'title' => $title,
     'view' => $registry::VIEW_SMARTMOBILE

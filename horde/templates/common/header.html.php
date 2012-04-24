@@ -7,9 +7,11 @@
   <?php $this->pageOutput->includeFavicon(); ?>
   <?php $this->pageOutput->outputLinkTags(); ?>
 <?php if ($this->outputJs): ?>
-  <?php if ($this->smartmobileView): $this->pageOutput->outputMobileScript(); endif; ?>
-  <?php $this->pageOutput->outputInlineScript(); ?>
   <?php $this->pageOutput->includeScriptFiles(); ?>
+  <?php $this->pageOutput->outputInlineScript(); ?>
+<?php if ($this->smartmobileView): ?>
+  <?php $this->pageOutput->outputSmartmobileFiles(); ?>
+<?php endif; ?>
 <?php endif; ?>
 <?php endif; ?>
   <title><?php echo $this->pageTitle ?></title>

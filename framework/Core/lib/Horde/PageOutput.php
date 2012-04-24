@@ -263,9 +263,8 @@ class Horde_PageOutput
      * @param boolean $onload  Load the script after the page (DOM) has
      *                         loaded?
      * @param boolean $top     Add script to top of stack?
-     * @param boolean $mobile  If true, this represents a mobile init function.
      */
-    public function addInlineScript($script, $onload = false, $top = false, $mobile = false)
+    public function addInlineScript($script, $onload = false, $top = false)
     {
         $script = is_array($script)
             ? implode(';', array_map('trim', $script))
@@ -277,10 +276,6 @@ class Horde_PageOutput
         $onload = intval($onload);
         $script = rtrim($script, ';') . ';';
 
-        if ($mobile) {
-            $this->mobileScript[] = $script;
-            return;
-        }
         if ($top && isset($this->inlineScript[$onload])) {
             array_unshift($this->inlineScript[$onload], $script);
         } else {
@@ -528,6 +523,7 @@ class Horde_PageOutput
      *   - body_class: (string)
      *   - body_id: (string)
      *   - html_id: (string)
+     *   - smartmobileinit: (string)
      *   - stylesheet_opts: (array)
      *   - title: (string)
      *   - view: (integer)
@@ -565,9 +561,19 @@ class Horde_PageOutput
             break;
 
         case $registry::VIEW_SMARTMOBILE:
-            /* JS Files. Indicate no prototype here, but the mobile  js files
-             * are output during the footer. */
             $this->hsf->prototypejs = false;
+
+            $this->addScriptFile('jquery.mobile/jquery.min.js', 'horde');
+            $this->addScriptFile('horde-jquery.js', 'horde');
+            $this->addScriptFile('mobile.js', 'horde');
+
+            $init_js = implode('', array_merge(array(
+                '$.mobile.page.prototype.options.backBtnText = "' . _("Back") .'";',
+                '$.mobile.dialog.prototype.options.closeBtnText = "' . _("Close") .'";',
+                '$.mobile.loadingMessage = "' . _("loading") . '";'
+            ), isset($opts['smartmobileinit']) ? $opts['smartmobileinit'] : array()));
+            $this->addInlineScript('$(window.document).bind("mobileinit", function() {' . $init_js . '});');
+
             $this->addMetaTag('viewport', 'width=device-width, initial-scale=1', false);
 
             $view->stylesheetOpts['nocache'] = true;
@@ -622,22 +628,11 @@ class Horde_PageOutput
     }
 
     /**
-     * Output mobile related javascript. To be called after output has already
-     * started sicne we MUST be able to output $this->mobileScript between
-     * jquery.js and jquery-mobile.js.
+     * Output files needed for smartmobile mode.
      */
-    public function outputMobileScript()
+    public function outputSmartmobileFiles()
     {
-        //if ($view == Horde_Registry::VIEW_SMARTMOBILE) {
-            $this->deferScripts = false;
-            $this->addScriptFile('jquery.mobile/jquery.min.js', 'horde');
-            if (!empty($this->mobileScript)) {
-                echo Horde::wrapInlineScript($this->mobileScript);
-            }
-            $this->addScriptFile('jquery.mobile/jquery.mobile.min.js', 'horde');
-            $this->addScriptFile('horde-jquery.js', 'horde');
-            $this->addScriptFile('mobile.js', 'horde');
-        //}
+        $this->addScriptFile('jquery.mobile/jquery.mobile.min.js', 'horde');
     }
 
     /**
@@ -664,6 +659,8 @@ class Horde_PageOutput
         $view->outputJs = $this->deferScripts;
         $view->pageOutput = $this;
         $view->sidebarLoaded = $this->sidebarLoaded;
+
+        $this->deferScripts = false;
 
         switch ($opts['view']) {
         case $registry::VIEW_SMARTMOBILE:
