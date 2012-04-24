@@ -42,39 +42,6 @@ var ImpMobile = {
 
 
     /**
-     * Safe wrapper that makes sure that no dialog is still open before calling
-     * a function.
-     *
-     * @param function func    A function to execute after the current dialog
-     *                         has been closed
-     * @param array whitelist  A list of page IDs that should not be waited for.
-     */
-    onDialogClose: function(func, whitelist)
-    {
-        whitelist = whitelist || [];
-        if ($.mobile.activePage.jqmData('role') == 'dialog' &&
-            $.inArray($.mobile.activePage.attr('id'), whitelist) == -1) {
-            $.mobile.activePage.bind('pagehide', function(e) {
-                $(e.currentTarget).unbind(e);
-                window.setTimeout(function () { ImpMobile.onDialogClose(func, whitelist); }, 0);
-            });
-            return;
-        }
-        func();
-    },
-
-    /**
-     * Safe wrapper around $.mobile.changePage() that makes sure that no dialog
-     * is still open before changing to the new page.
-     *
-     * @param string|object page  The page to navigate to.
-     */
-    changePage: function(page)
-    {
-        ImpMobile.onDialogClose(function() { $.mobile.changePage(page); });
-    },
-
-    /**
      * Checks if the current page matches the ID.
      *
      * @param string  The ID to check.
@@ -709,7 +676,8 @@ var ImpMobile = {
             $('#imp-compose-' + (r.opts.focus || 'to').replace(/composeMessage/, 'message'))[0].focus();
             //this.fillFormHash();
         }
-        ImpMobile.changePage($('#compose'), options);
+
+        HordeMobile.changePage($('#compose'), options);
     },
 
     uniqueSubmit: function(action)
@@ -861,7 +829,7 @@ var ImpMobile = {
                     view: match[2]
                 }),
                 function() {
-                    ImpMobile.changePage('#mailbox?mbox=' + match[2]);
+                    HordeMobile.changePage('#mailbox?mbox=' + match[2]);
                 }
             );
             break;

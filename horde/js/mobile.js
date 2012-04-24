@@ -129,6 +129,43 @@ var HordeMobile = {
         window.location = (url || HordeMobile.urls.ajax + 'logOut');
     },
 
+    /**
+     * Safe wrapper that makes sure that no dialog is still open before
+     * calling a function.
+     *
+     * @param function func    A function to execute after the current dialog
+     *                         has been closed
+     * @param array whitelist  A list of page IDs that should not be waited
+                               for.
+     */
+    onDialogClose: function(func, whitelist)
+    {
+        whitelist = whitelist || [];
+
+        if ($.mobile.activePage.jqmData('role') == 'dialog' &&
+            $.inArray($.mobile.activePage.attr('id'), whitelist) == -1) {
+            $.mobile.activePage.bind('pagehide', function(e) {
+                $(e.currentTarget).unbind(e);
+                window.setTimeout(function() {
+                    HordeMobile.onDialogClose(func, whitelist);
+                }, 0);
+            });
+        } else {
+            func();
+        }
+    },
+
+    /**
+     * Safe wrapper around $.mobile.changePage() that makes sure that no
+     * dialog is still open before changing to the new page.
+     *
+     * @param string|object page  The page to navigate to.
+     */
+    changePage: function(page)
+    {
+        HordeMobile.onDialogClose(function() { $.mobile.changePage(page); });
+    },
+
     onDocumentReady: function()
     {
         // Global ajax options.
