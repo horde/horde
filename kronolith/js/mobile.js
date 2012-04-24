@@ -815,8 +815,7 @@
             KronolithMobile.view = "event";
         });
         if (location.hash) {
-            var promise = $.mobile.loadPage('#dayview');
-            promise.done(KronolithMobile.loadPage);
+            KronolithMobile.loadPage();
         } else {
             KronolithMobile.toView('dayview');
         }
