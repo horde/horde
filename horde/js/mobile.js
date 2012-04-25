@@ -179,6 +179,32 @@ var HordeMobile = {
                 $.mobile.activePage.attr('id') == page);
     },
 
+    /**
+     * Parses a URL and returns the current view/parameter information.
+     *
+     * @param string  The URL.
+     *
+     * @return object  Object with the following keys:
+     *   - params: (object) List of URL parameters.
+     *   - parsed: (object) Parsed URL object.
+     *   - view: (string) The current view (URL hash value).
+     */
+    parseUrl: function(url)
+    {
+        if (typeof url != 'string') {
+            return {};
+        }
+
+        var parsed = $.mobile.path.parseUrl(url),
+            match = /^#([^?]*)/.exec(parsed.hash);
+
+        return {
+            params: parsed.hash.toQueryParams(),
+            parsed: parsed,
+            view: match ? match[1] : undefined
+        };
+    },
+
     onDocumentReady: function()
     {
         // Global ajax options.
