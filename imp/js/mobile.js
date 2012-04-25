@@ -574,18 +574,12 @@ var ImpMobile = {
         $('#imp-redirect-form').hide();
 
         switch (type) {
-        case 'reply':
-        case 'reply_all':
         case 'reply_auto':
-        case 'reply_list':
             func = 'getReplyData';
             cache = '#imp-compose-cache';
             break;
 
         case 'forward_auto':
-        case 'forward_attach':
-        case 'forward_body':
-        case 'forward_both':
             func = 'getForwardData';
             cache = '#imp-compose-cache';
             break;
@@ -600,7 +594,6 @@ var ImpMobile = {
         case 'editasnew':
         case 'resume':
         case 'template':
-        case 'template_edit':
             func = 'getResumeData';
             cache = '#imp-compose-cache';
             params.type = type;
