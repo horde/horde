@@ -82,7 +82,7 @@ var DimpBase = {
         if (tmp.hasClassName('msCheckOn')) {
             this.resetSelected();
         } else {
-            this.viewport.select($A($R(1, this.viewport.getMetaData('total_rows'))));
+            this.viewport.select($A($R(1, this.viewport.getMetaData('total_rows'))), { right: true });
             this.toggleCheck(tmp, true);
         }
     },
