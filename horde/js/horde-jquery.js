@@ -4,6 +4,9 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  */
+
+/**
+ */
 Date.prototype.getRealWeek = function()
 {
     var monday = this;
@@ -55,6 +58,8 @@ Date.prototype.dateString = function()
     return this.toString('yyyyMMdd');
 };
 
+/**
+ */
 Number.prototype.toPaddedString = function(len,pad)
 {
     len=(len) ? Number(len) : 2;
@@ -78,6 +83,8 @@ Number.prototype.toPaddedString = function(len,pad)
 
 String.prototype.toPaddedString = Number.prototype.toPaddedString;
 
+/**
+ */
 Array.prototype.numericSort = function()
 {
     return $.map(this, function(n) {
@@ -85,4 +92,32 @@ Array.prototype.numericSort = function()
     }).sort(function(a, b) {
         return (a > b) ? 1 : ((a < b) ? -1 : 0);
     });
+}
+
+/**
+ */
+String.prototype.toQueryParams = function()
+{
+    var pList = this.substring(this.indexOf('?') + 1).split('#')[0].split('&'),
+        params = {},
+        i, j, key, value, pair;
+
+    for (i = 0, j = pList.length; i < j; ++i) {
+        pair = pList[i].split('=');
+        key = decodeURIComponent(pair[0]);
+        value = pair[1]
+            ? decodeURIComponent(pair[1])
+            : undefined;
+
+        if (params[key]) {
+            if (typeof params[key] == "string") {
+                params[key] = [ params[key] ];
+            }
+            params[key].push(value);
+        } else {
+            params[key] = value;
+        }
+    }
+
+    return params;
 }
