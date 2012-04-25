@@ -145,12 +145,7 @@ class Horde_Share_Kolab extends Horde_Share_Base
     private function _idEncode($id)
     {
         $folder = $this->getList()->getFolder($id);
-        if (!method_exists($folder, 'getPrefix')) {
-            //@todo BC (remove this option later)
-            return $this->constructId($folder->getOwner(), $folder->getSubpath());
-        } else {
-            return $this->constructId($folder->getOwner(), $folder->getSubpath(), $folder->getPrefix());
-        }
+        return $this->constructId($folder->getOwner(), $folder->getSubpath(), $folder->getPrefix());
     }
 
     /**
