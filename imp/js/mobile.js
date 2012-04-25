@@ -40,6 +40,9 @@ var ImpMobile = {
     // Mailbox data cache.
     cache: {},
 
+    // Rows per mailbox page.
+    mbox_rows: 25,
+
 
     /**
      * Event handler for the pagebeforechange event that implements loading of
@@ -103,7 +106,7 @@ var ImpMobile = {
     {
         var mailbox = url.params.mbox || 'SU5CT1g',
             title = $('#imp-mailbox-' + mailbox).text(),
-            params = {}, ob;
+            params = {}, ob, vp_params;
 
         if (HordeMobile.currentPage('mailbox')) {
             HordeMobile.updateHash(url);
@@ -133,21 +136,26 @@ var ImpMobile = {
         if (ob = ImpMobile.cache[mailbox]) {
             if (url.params.from) {
                 ob.from = Number(url.params.from);
+            } else {
+                ImpMobile.refreshMailbox(ob);
+                if (options.noajax) {
+                    return;
+                }
             }
+        }
 
-            ImpMobile.refreshMailbox(ob);
+        vp_params = $.extend(ImpMobile.addMboxParams(params), {
+            requestid: 1,
+            view: mailbox
+        })
 
-            if (options.noajax) {
-                return;
-            }
+        if (ob && url.params.from) {
+            delete vp_params.checkcache;
         }
 
         HordeMobile.doAction(
             'viewPort',
-            $.extend(ImpMobile.addMboxParams(params), {
-                requestid: 1,
-                view: mailbox
-            })
+            vp_params
         );
     },
 
@@ -166,7 +174,7 @@ var ImpMobile = {
             from = ob.from;
         }
 
-        params.slice = from + ':' + (from + 24);
+        params.slice = from + ':' + (from + ImpMobile.mbox_rows - 1);
 
         return params;
     },
@@ -228,7 +236,7 @@ var ImpMobile = {
         list = $('#imp-mailbox-list');
         list.empty();
 
-        $.each(ob.data || [], function(key, data) {
+        $.each(ob.rows(), function(key, data) {
             c = '';
             url = '#message?view=' + data.mbox + '&uid=' + data.uid;
 
@@ -260,7 +268,7 @@ var ImpMobile = {
         if (ob.totalrows > list.children().length) {
             var navtext = IMP.text.nav
                 .replace(/%d/, ob.from)
-                .replace(/%d/, Math.min(ob.from + 24, ob.totalrows))
+                .replace(/%d/, Math.min(ob.from + ImpMobile.mbox_rows - 1, ob.totalrows))
                 .replace(/%d/, ob.totalrows);
             $('#imp-mailbox-navtop,#imp-mailbox-navbottom').show();
             $('#imp-mailbox-navtop h2,#imp-mailbox-navbottom h2')
@@ -274,7 +282,7 @@ var ImpMobile = {
                     .removeClass('ui-disabled')
                     .attr('aria-disabled', false);
             }
-            if (ob.from + 24 >= ob.totalrows) {
+            if ((ob.from + ImpMobile.mbox_rows - 1) >= ob.totalrows) {
                 $('#imp-mailbox-next1,#imp-mailbox-next2')
                     .addClass('ui-disabled')
                     .attr('aria-disabled', true);
@@ -377,7 +385,7 @@ var ImpMobile = {
      */
     navigate: function(dir)
     {
-        var next, ob, page;
+        var from, next, ob;
 
         if (HordeMobile.currentPage('message')) {
             if (next = ImpMobile.nextMessage(dir)) {
@@ -389,11 +397,10 @@ var ImpMobile = {
             }
 
             ob = ImpMobile.cache[ImpMobile.mailbox];
-            page = Math.min(Math.max(ob.from, ob.totalrows - 24),
-                            Math.max(1, ob.from + dir * 25));
+            from = Math.min(ob.totalrows, Math.max(1, ob.from + (dir * 25)));
 
-            if (page != ob.from) {
-                $.mobile.changePage('#mailbox?mbox=' + ImpMobile.mailbox + '&from=' + page);
+            if (from != ob.from) {
+                $.mobile.changePage('#mailbox?mbox=' + ImpMobile.mailbox + '&from=' + from);
             }
         }
     },
@@ -1097,6 +1104,24 @@ var ImpMobileMbox = {
         $.each(ids, function(key, value) {
             delete t.data[value];
             delete t.rowlist[value];
+        });
+    },
+
+    rows: function(start)
+    {
+        start = start || this.from;
+
+        var mbox_data = this.data,
+            end = Math.min(start + ImpMobile.mbox_rows - 1, this.totalrows);
+
+        return $.map($.map(this.rowlist, function(value, key) {
+            return (value >= start && value <= end)
+                ? { sort: value, uid: key }
+                : null;
+        }).sort(function(a, b) {
+            return (a.sort < b.sort) ? -1 : 1;
+        }), function(value, key) {
+            return mbox_data[value.uid]
         });
     }
 
