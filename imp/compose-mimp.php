@@ -113,15 +113,21 @@ case 't':
 
         switch ($vars->a) {
         case 'd':
-            $result = $imp_compose->resumeDraft($indices_ob);
+            $result = $imp_compose->resumeDraft($indices_ob, array(
+                'format' => 'text'
+            ));
             break;
 
         case 'en':
-            $result = $imp_compose->editAsNew($indices_ob);
+            $result = $imp_compose->editAsNew($indices_ob, array(
+                'format' => 'text'
+            ));
             break;
 
         case 't':
-            $result = $imp_compose->useTemplate($indices_ob);
+            $result = $imp_compose->useTemplate($indices_ob, array(
+                'format' => 'text'
+            ));
             break;
         }
 
@@ -175,7 +181,10 @@ case 'rl':
         'rl' => IMP_Compose::REPLY_LIST
     );
 
-    $reply_msg = $imp_compose->replyMessage($actions[$vars->a], $imp_contents, $header['to']);
+    $reply_msg = $imp_compose->replyMessage($actions[$vars->a], $imp_contents, array(
+        'format' => 'text',
+        'to' => $header['to']
+    ));
     $header = $reply_msg['headers'];
 
     $notification->push(_("Reply text will be automatically appended to your outgoing message."), 'horde.message');
@@ -242,7 +251,9 @@ case _("Send"):
 
     switch ($imp_compose->replyType(true)) {
     case IMP_Compose::REPLY:
-        $reply_msg = $imp_compose->replyMessage(IMP_Compose::REPLY_SENDER, $imp_compose->getContentsOb(), $f_to);
+        $reply_msg = $imp_compose->replyMessage(IMP_Compose::REPLY_SENDER, $imp_compose->getContentsOb(), array(
+            'to' => $f_to
+        ));
         $msg = $reply_msg['body'];
         $message .= "\n" . $msg;
         break;

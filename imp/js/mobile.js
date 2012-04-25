@@ -577,6 +577,7 @@ var ImpMobile = {
         case 'reply_auto':
             func = 'getReplyData';
             cache = '#imp-compose-cache';
+            params.format = 'text';
             break;
 
         case 'forward_auto':
@@ -596,6 +597,7 @@ var ImpMobile = {
         case 'template':
             func = 'getResumeData';
             cache = '#imp-compose-cache';
+            params.format = 'text';
             params.type = type;
             break;
         }
@@ -604,8 +606,8 @@ var ImpMobile = {
         HordeMobile.doAction(
             func,
             $.extend(params, {
-                type: type,
                 imp_compose: $(cache).val(),
+                type: type,
                 uid: ImpMobile.toUIDStringSingle(mailbox, [ uid ])
             }),
             function(r) { ImpMobile.composeLoaded(r, options); });

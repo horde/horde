@@ -326,14 +326,17 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      * @see resumeDraft().
      *
      * @param IMP_Indices $indices  An indices object.
+     * @param array $opts           Additional options:
+     *   - format: (string) Force to this format.
+     *             DEFAULT: Auto-determine.
      *
      * @return mixed  See resumeDraft().
      *
      * @throws IMP_Compose_Exception
      */
-    public function editAsNew($indices)
+    public function editAsNew($indices, array $opts = array())
     {
-        $ret = $this->_resumeDraft($indices, self::EDITASNEW);
+        $ret = $this->_resumeDraft($indices, self::EDITASNEW, $opts);
         $ret['type'] = self::EDITASNEW;
         return $ret;
     }
@@ -359,6 +362,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      * Resumes a previously saved draft message.
      *
      * @param IMP_Indices $indices  An indices object.
+     * @param array $opts           Additional options:
+     *   - format: (string) Force to this format.
+     *             DEFAULT: Auto-determine.
      *
      * @return mixed  An array with the following keys:
      *   - body: (string) The text of the body part.
@@ -371,9 +377,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      *
      * @throws IMP_Compose_Exception
      */
-    public function resumeDraft($indices)
+    public function resumeDraft($indices, array $opts = array())
     {
-        $res = $this->_resumeDraft($indices, self::RESUME);
+        $res = $this->_resumeDraft($indices, self::RESUME, $opts);
         $this->_metadata['draft_uid_resume'] = $indices;
         return $res;
     }
@@ -384,14 +390,17 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      * @see resumeDraft().
      *
      * @param IMP_Indices $indices  An indices object.
+     * @param array $opts           Additional options:
+     *   - format: (string) Force to this format.
+     *             DEFAULT: Auto-determine.
      *
      * @return mixed  See resumeDraft().
      *
      * @throws IMP_Compose_Exception
      */
-    public function useTemplate($indices)
+    public function useTemplate($indices, array $opts = array())
     {
-        $ret = $this->_resumeDraft($indices, self::TEMPLATE);
+        $ret = $this->_resumeDraft($indices, self::TEMPLATE, $opts);
         $ret['type'] = self::TEMPLATE;
         return $ret;
     }
@@ -401,14 +410,17 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      *
      * @param IMP_Indices $indices  See resumeDraft().
      * @param integer $type         Compose type.
+     * @param array $opts           Additional options:
+     *   - format: (string) Force to this format.
+     *             DEFAULT: Auto-determine.
      *
      * @return mixed  See resumeDraft().
      *
      * @throws IMP_Compose_Exception
      */
-    protected function _resumeDraft($indices, $type)
+    protected function _resumeDraft($indices, $type, $opts)
     {
-        global $injector, $prefs, $registry;
+        global $injector, $prefs;
 
         try {
             $contents = $injector->getInstance('IMP_Factory_Contents')->create($indices);
@@ -435,8 +447,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             $imp_draft = self::COMPOSE;
         }
 
-        if ($registry->getView() == Horde_Registry::VIEW_MINIMAL) {
-            $compose_html = false;
+        if (!empty($opts['format'])) {
+            $compose_html = ($opts['format'] == 'html');
         } elseif ($prefs->getValue('compose_html')) {
             $compose_html = true;
         } else {
@@ -1521,8 +1533,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      *
      * @param integer $type           The reply type (self::REPLY* constant).
      * @param IMP_Contents $contents  An IMP_Contents object.
-     * @param string $to              The recipient of the reply. Overrides
-     *                                the automatically determined value.
+     * @param array $opts             Additional options:
+     *   - format: (string) Force to this format.
+     *             DEFAULT: Auto-determine.
+     *   - to: (string) The recipient of the reply. Overrides the
+     *         automatically determined value.
      *
      * @return array  An array with the following keys:
      *   - body: The text of the body part
@@ -1537,7 +1552,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      *   - type: The reply type used (either self::REPLY_ALL,
      *           self::REPLY_LIST, or self::REPLY_SENDER).
      */
-    public function replyMessage($type, $contents, $to = null)
+    public function replyMessage($type, $contents, array $opts = array())
     {
         global $prefs;
 
@@ -1578,7 +1593,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 
         $force = false;
         if (in_array($type, array(self::REPLY_AUTO, self::REPLY_SENDER))) {
-            if (($header['to'] = $to) ||
+            if ((isset($opts['to']) && ($header['to'] = $opts['to'])) ||
                 ($header['to'] = strval($h->getOb('reply-to')))) {
                 $force = true;
             } else {
@@ -1706,7 +1721,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             $this->changed = 'changed';
         }
 
-        $ret = $this->replyMessageText($contents);
+        $ret = $this->replyMessageText($contents, array(
+            'format' => isset($opts['format']) ? $opts['format'] : null
+        ));
         if ($prefs->getValue('reply_charset') &&
             ($ret['charset'] != $this->charset)) {
             $this->charset = $ret['charset'];
@@ -1852,9 +1869,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      */
     protected function _msgTextFormat($opts, $pref_name)
     {
-        if ($GLOBALS['registry']->getView() == Horde_Registry::VIEW_MINIMAL) {
-            $compose_html = $force_html = false;
-        } elseif (!empty($opts['format'])) {
+        if (!empty($opts['format'])) {
             $compose_html = $force_html = ($opts['format'] == 'html');
         } elseif ($GLOBALS['prefs']->getValue('compose_html')) {
             $compose_html = $force_html = true;

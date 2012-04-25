@@ -101,7 +101,9 @@ case 'reply_list':
         'reply_list' => IMP_Compose::REPLY_LIST
     );
 
-    $reply_msg = $imp_compose->replyMessage($reply_map[$vars->type], $contents, isset($header['to']) ? $header['to'] : null);
+    $reply_msg = $imp_compose->replyMessage($reply_map[$vars->type], $contents, array(
+        'to' => isset($header['to']) ? $header['to'] : null
+    ));
 
     $msg = $reply_msg['body'];
     $header = $reply_msg['headers'];

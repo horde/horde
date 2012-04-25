@@ -274,7 +274,9 @@ case 'reply_list':
         'reply_list' => IMP_Compose::REPLY_LIST
     );
 
-    $reply_msg = $imp_compose->replyMessage($reply_map[$vars->actionID], $contents, $vars->to);
+    $reply_msg = $imp_compose->replyMessage($reply_map[$vars->actionID], $contents, array(
+        'to' => $vars->to
+    ));
     $msg = $reply_msg['body'];
     $header = $reply_msg['headers'];
     $format = $reply_msg['format'];

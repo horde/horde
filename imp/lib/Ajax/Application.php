@@ -1209,6 +1209,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * variables used:
      *   - headeronly: (boolean) Only return header information (DEFAULT:
      *                 false).
+     *   - format: (string) The format to force to ('text' or 'html')
+     *             (DEFAULT: Auto-determined).
      *   - imp_compose: (string) The IMP_Compose cache identifier.
      *   - type: (string) See IMP_Compose::replyMessage().
      *   - uid: (string) Indices of the messages to reply to (IMAP sequence
@@ -1236,7 +1238,9 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
                 'reply_list' => IMP_Compose::REPLY_LIST
             );
 
-            $reply_msg = $imp_compose->replyMessage($reply_map[$this->_vars->type], $imp_contents);
+            $reply_msg = $imp_compose->replyMessage($reply_map[$this->_vars->type], $imp_contents, array(
+                'format' => $this->_vars->format
+            ));
 
             /* Can't open session read-only since we need to store the message
              * cache id. */
@@ -1295,6 +1299,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * See the list of variables needed for _checkUidvalidity(). Additional
      * variables used:
+     *   - format: (string) The format to force to ('text' or 'html')
+     *             (DEFAULT: Auto-determined).
      *   - imp_compose: (string) The IMP_Compose cache identifier.
      *   - type: (string) Resume type, on of 'editasnew', 'resume', 'template'
      *           'template_edit'.
@@ -1321,16 +1327,22 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
             switch ($this->_vars->type) {
             case 'editasnew':
-                $resume = $imp_compose->editAsNew($indices_ob);
+                $resume = $imp_compose->editAsNew($indices_ob, array(
+                    'format' => $this->_vars->format
+                ));
                 $opts->fwd_list = $this->_getAttachmentInfo($imp_compose);
                 break;
 
             case 'resume':
-                $resume = $imp_compose->resumeDraft($indices_ob);
+                $resume = $imp_compose->resumeDraft($indices_ob, array(
+                    'format' => $this->_vars->format
+                ));
                 break;
 
             case 'template':
-                $resume = $imp_compose->useTemplate($indices_ob);
+                $resume = $imp_compose->useTemplate($indices_ob, array(
+                    'format' => $this->_vars->format
+                ));
                 break;
 
             case 'template_edit':
