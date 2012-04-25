@@ -102,7 +102,7 @@ var DimpBase = {
         if (tmp.hasClassName('msCheckOn')) {
             this.resetSelected();
         } else {
-            this.viewport.select($A($R(1, this.viewport.getMetaData('total_rows'))));
+            this.viewport.select($A($R(1, this.viewport.getMetaData('total_rows'))), { right: true });
             DimpCore.toggleCheck(tmp, true);
             $('previewInfo').highlight({ queue: 'end', keepBackgroundImage: true, duration: 2.0 })
         }
