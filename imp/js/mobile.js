@@ -50,75 +50,66 @@ var ImpMobile = {
      */
     toPage: function(e, data)
     {
-        if (typeof data.toPage != 'string') {
-            return;
-        }
+        var url = HordeMobile.parseUrl(data.toPage);
 
-        var url = $.mobile.path.parseUrl(data.toPage),
-            match = /^#(mailbox|message|compose|confirm(ed)?|target)/.exec(url.hash);
-
-        if (match) {
-            switch (match[1]) {
-            case 'mailbox':
-                ImpMobile.toMailbox(url, { opts: data.options });
-                break;
-
-            case 'message':
-                ImpMobile.toMessage(url, data.options);
-                break;
-
-            case 'compose':
-                if (!IMP.conf.disable_compose) {
-                    ImpMobile.compose(url, data.options);
-                }
-                break;
-
-            case 'confirm':
-                ImpMobile.confirm(url, data.options);
-                break;
-
-            case 'confirmed':
-                ImpMobile.confirmed(url, data.options);
-                break;
-
-            case 'target':
-                if (IMP.conf.allow_folders) {
-                    ImpMobile.target(url, data.options);
-                }
-                break;
+        switch (url.view) {
+        case 'compose':
+            if (!IMP.conf.disable_compose) {
+                ImpMobile.compose(url, data.options);
             }
-
             e.preventDefault();
-        } else {
+            break;
+
+        case 'confirm':
+            ImpMobile.confirm(url, data.options);
+            e.preventDefault();
+            break;
+
+        case 'confirmed':
+            ImpMobile.confirmed(url, data.options);
+            e.preventDefault();
+            break;
+
+        case 'folders':
             HordeMobile.doAction('poll');
+            break;
+
+        case 'mailbox':
+            ImpMobile.toMailbox(url, { opts: data.options });
+            e.preventDefault();
+            break;
+
+        case 'message':
+            ImpMobile.toMessage(url, data.options);
+            e.preventDefault();
+            break;
+
+        case 'target':
+            if (IMP.conf.allow_folders) {
+                ImpMobile.target(url, data.options);
+            }
+            e.preventDefault();
+            break;
         }
     },
 
     /**
      * Switches to the mailbox view and loads a mailbox.
      *
-     * @param object url      Page URL from $.mobile.path.parseUrl().
+     * @param object url      Parsed URL object.
      * @param object options  Page change options.
      */
     toMailbox: function(url, options)
     {
-        var match = /\?mbox=(.*)&from=(.*)/.exec(url.hash) ||
-                    /\?mbox=(.*)/.exec(url.hash),
-            mailbox = match ? match[1] : 'SU5CT1g',
+        var mailbox = url.params.mbox || 'SU5CT1g',
             title = $('#imp-mailbox-' + mailbox).text(),
             params = {}, ob;
 
-        if (HordeMobile.currentPage('mailbox')) {
-            // Need to update history manually, because jqm exits too early
-            // if calling changePage() with the same page but different hash
-            // parameters.
-            $.mobile.urlHistory.ignoreNextHashChange = true;
-            $.mobile.path.set(url.hash);
-        } else {
+        if (!HordeMobile.currentPage('mailbox')) {
             if (!options.opts) {
                 options.opts = {};
             }
-            options.opts.dataUrl = url.href;
+            options.opts.dataUrl = url.parsed.href;
             $.mobile.changePage($('#mailbox'), options.opts);
         }
 
@@ -138,8 +129,8 @@ var ImpMobile = {
         }
 
         if (ob = ImpMobile.cache[mailbox]) {
-            if (match && match[2]) {
-                ob.from = Number(match[2]);
+            if (url.params.from) {
+                ob.from = Number(url.params.from);
             }
 
             ImpMobile.refreshMailbox(ob);
@@ -305,36 +296,29 @@ var ImpMobile = {
     /**
      * Switches to the message view and loads a message.
      *
-     * @param object url      Page URL from $.mobile.path.parseUrl().
+     * @param object url      Parsed URL object.
      * @param object options  Page change options.
      */
     toMessage: function(url, options)
     {
-        var match = /\?view=(.*?)&uid=(.*)/.exec(url.hash);
-
         if (!ImpMobile.mailbox) {
             // Deep-linked message page. Load mailbox first to allow navigation
             // between messages.
             ImpMobile.mailboxCallback = function() {
-                $.mobile.changePage(url.hash);
+                $.mobile.changePage(url.parsed.hash);
             };
-            $.mobile.changePage('#mailbox?mbox=' + match[1]);
+            $.mobile.changePage('#mailbox?mbox=' + url.params.view);
             return;
         }
 
-        if (HordeMobile.currentPage('message')) {
-            // Need to update history manually, because jqm exits too early
-            // if calling changePage() with the same page but different hash
-            // parameters.
-            $.mobile.urlHistory.ignoreNextHashChange = true;
-            $.mobile.path.set(url.hash);
-        } else {
-            options.dataUrl = url.href;
+        if (!HordeMobile.currentPage('message')) {
+            options.dataUrl = url.parsed.href;
             $.mobile.changePage($('#message'), options);
         }
 
         // Page is cached.
-        if (ImpMobile.uid == match[2] && ImpMobile.uid_mbox == match[1]) {
+        if (ImpMobile.uid == url.params.uid &&
+            ImpMobile.uid_mbox == url.params.view) {
             document.title = $('#imp-message-title').text();
             return;
         }
@@ -344,8 +328,8 @@ var ImpMobile = {
         HordeMobile.doAction(
             'showMessage',
             {
-                uid: ImpMobile.toUIDStringSingle(match[1], [ match[2] ]),
-                view: match[1]
+                uid: ImpMobile.toUIDStringSingle(url.params.view, [ url.params.uid ]),
+                view: url.params.view
             },
             ImpMobile.messageLoaded
         );
@@ -553,27 +537,25 @@ var ImpMobile = {
      * Switches to the compose view and loads a message if replying or
      * forwarding.
      *
-     * @param object url      Page URL from $.mobile.path.parseUrl().
+     * @param object url      Parsed URL object.
      * @param object options  Page change options.
      */
     compose: function(url, options)
     {
-        var match = /\?type=(.*?)&mbox=(.*?)&uid=(.*)/.exec(url.hash);
+        var func, cache,
+            params = {};
 
         $('#imp-compose-title').html(IMP.text.new_message);
 
-        if (!match) {
+        if (!url.params.mbox) {
             $.mobile.changePage($('#compose'));
             return;
         }
 
-        var type = match[1], mailbox = match[2], uid = match[3],
-            func, cache, params = {};
-
         $('#imp-compose-form').show();
         $('#imp-redirect-form').hide();
 
-        switch (type) {
+        switch (url.params.type) {
         case 'reply_auto':
             func = 'getReplyData';
             cache = '#imp-compose-cache';
@@ -598,17 +580,16 @@ var ImpMobile = {
             func = 'getResumeData';
             cache = '#imp-compose-cache';
             params.format = 'text';
-            params.type = type;
             break;
         }
 
-        options.dataUrl = url.href;
+        options.dataUrl = url.parsed.href;
         HordeMobile.doAction(
             func,
             $.extend(params, {
                 imp_compose: $(cache).val(),
-                type: type,
-                uid: ImpMobile.toUIDStringSingle(mailbox, [ uid ])
+                type: url.params.type,
+                uid: ImpMobile.toUIDStringSingle(url.params.mbox, [ url.params.uid ])
             }),
             function(r) { ImpMobile.composeLoaded(r, options); });
     },
@@ -768,47 +749,44 @@ var ImpMobile = {
     /**
      * Opens a confirmation dialog.
      *
-     * @param object url      Page URL from $.mobile.path.parseUrl().
+     * @param object url      Parsed URL object.
      * @param object options  Page change options.
      */
     confirm: function(url, options)
     {
-        var match = /\?action=(.*?)&(.*)/.exec(url.hash);
-
         $.mobile.changePage($('#confirm'), options);
 
-        $('#imp-confirm-text').html(IMP.text.confirm.text[match[1]]);
+        $('#imp-confirm-text').html(IMP.text.confirm.text[url.params.action]);
         $('#imp-confirm-action')
-            .attr('href', url.hash.replace(/confirm/, 'confirmed'));
+            .attr('href', url.parsed.hash.replace(/confirm/, 'confirmed'));
         $('#imp-confirm-action .ui-btn-text')
-            .text(IMP.text.confirm.action[match[1]]);
+            .text(IMP.text.confirm.action[url.params.action]);
     },
 
     /**
      * Executes confirmed actions.
      *
-     * @param object url      Page URL from $.mobile.path.parseUrl().
+     * @param object url      Parsed URL object.
      * @param object options  Page change options.
      */
     confirmed: function(url, options)
     {
-        var match;
+        if (!url.params.mbox) {
+            url.params.mbox = url.params.view;
+        }
 
-        match = /\?action=(.*?)&(?:(?:view|mbox)=(.*?)&uid=(.*)|(.*))/
-            .exec(url.hash);
-
-        switch (match[1]) {
+        switch (url.params.action) {
         case 'spam':
         case 'ham':
             HordeMobile.doAction(
                 'reportSpam',
                 ImpMobile.addMboxParams({
-                    spam: Number(match[1] == 'spam'),
-                    uid: ImpMobile.toUIDStringSingle(match[2], [ match[3] ]),
-                    view: match[2]
+                    spam: Number(url.params.action == 'spam'),
+                    uid: ImpMobile.toUIDStringSingle(url.params.mbox, [ url.params.uid ]),
+                    view: url.params.mbox
                 }),
                 function() {
-                    HordeMobile.changePage('#mailbox?mbox=' + match[2]);
+                    HordeMobile.changePage('#mailbox?mbox=' + url.params.mbox);
                 }
             );
             break;
@@ -820,16 +798,15 @@ var ImpMobile = {
     /**
      * Opens a target mailbox dialog.
      *
-     * @param object url      Page URL from $.mobile.path.parseUrl().
+     * @param object url      Parsed URL object.
      * @param object options  Page change options.
      */
     target: function(url, options)
     {
-        var match = /\?action=(.*?)&mbox=(.*?)&uid=(.*)/.exec(url.hash);
         $.mobile.changePage($('#target'), options);
-        $('#imp-target-header').text(IMP.text[match[1]]);
-        $('#imp-target-mbox').val(match[2]);
-        $('#imp-target-uid').val(match[3]);
+        $('#imp-target-header').text(IMP.text[url.params.action]);
+        $('#imp-target-mbox').val(url.params.mbox);
+        $('#imp-target-uid').val(url.params.uid);
     },
 
     /**
@@ -864,7 +841,9 @@ var ImpMobile = {
                 view: source
             }),
             (IMP.conf.mailbox_return || func == 'moveMessages')
-                ? function(r) { ImpMobile.toMailbox($.mobile.path.parseUrl('#mailbox?mbox=' + source), { noajax: true }); }
+                ? function(r) {
+                      ImpMobile.toMailbox(HordeMobile.parseUrl('#mailbox?mbox=' + source), { noajax: true });
+                  }
                 : null
         );
 
