@@ -105,7 +105,9 @@ var ImpMobile = {
             title = $('#imp-mailbox-' + mailbox).text(),
             params = {}, ob;
 
-        if (!HordeMobile.currentPage('mailbox')) {
+        if (HordeMobile.currentPage('mailbox')) {
+            HordeMobile.updateHash(url);
+        } else {
             if (!options.opts) {
                 options.opts = {};
             }
@@ -311,7 +313,9 @@ var ImpMobile = {
             return;
         }
 
-        if (!HordeMobile.currentPage('message')) {
+        if (HordeMobile.currentPage('message')) {
+            HordeMobile.updateHash(url);
+        } else {
             options.dataUrl = url.parsed.href;
             $.mobile.changePage($('#message'), options);
         }

@@ -205,6 +205,18 @@ var HordeMobile = {
         };
     },
 
+    /**
+     * Manually update hash: jqm exits too early if calling changePage() with
+     * the same page but different hash parameters.
+     *
+     * @param object url  A URL object from parseUrl().
+     */
+    updateHash: function(url)
+    {
+        $.mobile.urlHistory.ignoreNextHashChange = true;
+        $.mobile.path.set(url.parsed.hash);
+    },
+
     onDocumentReady: function()
     {
         // Global ajax options.
