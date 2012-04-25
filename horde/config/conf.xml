@@ -997,12 +997,14 @@
      You can use different driver types for the Horde Share
      system. The default driver is the SQL-NG driver.
    </configdescription>
-   <configswitch name="driver" desc="What backend should we use for Horde
+   <configenum name="driver" desc="What backend should we use for Horde
    Shares?">Sqlng
-     <case name="Kolab" desc="Kolab"/>
-     <case name="Sqlng" desc="Next-Generation SQL"/>
-     <case name="Sql" desc="SQL"/>
-   </configswitch>
+    <values>
+     <value desc="Kolab">Kolab</value>
+     <value desc="Next-Generation SQL">Sqlng</value>
+     <value desc="SQL">Sql</value>
+    </values>
+   </configenum>
   </configsection>
  </configtab>
 
