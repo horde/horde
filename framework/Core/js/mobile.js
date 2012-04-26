@@ -105,7 +105,7 @@ var HordeMobile = {
             case 'horde.warning':
                 $('#horde-notification').growler('notify', m.message, m.type, {
                     raw: (m.flags && $.inArray('content.raw', m.flags) != -1),
-                    sticky: (m.type == horde.error)
+                    sticky: (m.type == 'horde.error')
                 });
                 break;
             }
