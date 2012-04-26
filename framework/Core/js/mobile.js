@@ -93,9 +93,6 @@ var HordeMobile = {
             return;
         }
 
-        var list = $('#horde-notification'), li;
-        list.html('');
-
         $.each(msgs, function(key, m) {
             switch (m.type) {
             case 'horde.ajaxtimeout':
@@ -103,24 +100,16 @@ var HordeMobile = {
                 return false;
 
             case 'horde.error':
-            case 'horde.warning':
             case 'horde.message':
             case 'horde.success':
-                li = $('<li class="' + m.type.replace('.', '-') + '">');
-                if (m.flags && $.inArray('content.raw', m.flags) != -1) {
-                    // TODO: This needs some fixing:
-                    li.html(m.message.replace('<a href=', '<a rel="external" href='));
-                } else {
-                    li.text(m.message);
-                }
-                list.append(li);
+            case 'horde.warning':
+                $('#horde-notification').growler('notify', m.message, m.type, {
+                    raw: (m.flags && $.inArray('content.raw', m.flags) != -1),
+                    sticky: (m.type == horde.error)
+                });
                 break;
             }
         });
-
-        if (list.html()) {
-            $.mobile.changePage($('#smartmobile-notification'), { transition: 'pop' });
-        }
     },
 
     logout: function(url)
@@ -217,6 +206,9 @@ var HordeMobile = {
         $.mobile.path.set(url.parsed.hash);
     },
 
+    /**
+     * Commands to run when the DOM is ready.
+     */
     onDocumentReady: function()
     {
         // Global ajax options.
@@ -228,9 +220,8 @@ var HordeMobile = {
             }
         });
 
-        $('#smartmobile-notification').live('pagebeforeshow', function() {
-            $('#horde-notification').listview('refresh');
-        });
+        // Setup notifications
+        $('#horde-notification').growler();
     }
 };
 

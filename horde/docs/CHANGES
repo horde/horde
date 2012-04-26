@@ -2,6 +2,7 @@
 v5.0-git
 --------
 
+[mms] Implement growler-like notifications for smartmobile view.
 [mms] Modified pushapp hook behavior.
 [mms] Removed pushapp_post hook.
 [mms] AJAX core features now contained within Horde_Core.

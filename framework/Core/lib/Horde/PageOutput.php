@@ -564,6 +564,7 @@ class Horde_PageOutput
             $this->hsf->prototypejs = false;
 
             $this->addScriptFile('jquery.mobile/jquery.min.js', 'horde');
+            $this->addScriptFile('growler-jquery.js', 'horde');
             $this->addScriptFile('horde-jquery.js', 'horde');
             $this->addScriptFile('mobile.js', 'horde');
 
