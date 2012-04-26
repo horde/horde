@@ -265,7 +265,7 @@ var ImpMobile = {
                             $('<p align="right">').text(data.date)))));
         });
 
-        if (ob.totalrows > list.children().length) {
+        if (ob.totalrows > ImpMobile.mbox_rows) {
             var navtext = IMP.text.nav
                 .replace(/%d/, ob.from)
                 .replace(/%d/, Math.min(ob.from + ImpMobile.mbox_rows - 1, ob.totalrows))
