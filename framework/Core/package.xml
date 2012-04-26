@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-04-11</date>
- <time>17:49:41</time>
+ <date>2012-04-26</date>
+ <time>14:47:44</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Moved smartmobile core javascript from the Horde application.
 * [mms] Added Horde_PageOutput.
 * [mms] Added Horde_Core_Ajax_Imple_ContactAutoCompleter.
 * [mjr] Use local member storage when no session is available (Bug # 9733).
@@ -70,6 +71,7 @@
     <file name="hordetree.js" role="horde" />
     <file name="identityselect.js" role="horde" />
     <file name="liquidmetal.js" role="horde" />
+    <file name="mobile.js" role="horde" />
     <file name="open_html_helper.js" role="horde" />
     <file name="prefs.js" role="horde" />
     <file name="prettyautocomplete.js" role="horde" />
@@ -1104,6 +1106,7 @@
    <install as="js/hordetree.js" name="js/hordetree.js" />
    <install as="js/identityselect.js" name="js/identityselect.js" />
    <install as="js/liquidmetal.js" name="js/liquidmetal.js" />
+   <install as="js/mobile.js" name="js/mobile.js" />
    <install as="js/open_html_helper.js" name="js/open_html_helper.js" />
    <install as="js/prefs.js" name="js/prefs.js" />
    <install as="js/prettyautocomplete.js" name="js/prettyautocomplete.js" />
