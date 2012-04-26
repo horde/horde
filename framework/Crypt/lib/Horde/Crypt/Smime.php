@@ -474,6 +474,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
         $text .= "<strong>" . Horde_Crypt_Translation::t("Certificate Owner") . ":</strong>\n";
 
         foreach ($details['subject'] as $key => $value) {
+            $value = $this->_implodeValues($value);
             $text .= isset($fieldnames[$key])
                 ? sprintf("&nbsp;&nbsp;%s: %s\n", $fieldnames[$key], $value)
                 : sprintf("&nbsp;&nbsp;*%s: %s\n", $key, $value);
@@ -484,6 +485,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
         $text .= "<strong>" . Horde_Crypt_Translation::t("Issuer") . ":</strong>\n";
 
         foreach ($details['issuer'] as $key => $value) {
+            $value = $this->_implodeValues($value);
             $text .= isset($fieldnames[$key])
                 ? sprintf("&nbsp;&nbsp;%s: %s\n", $fieldnames[$key], $value)
                 : sprintf("&nbsp;&nbsp;*%s: %s\n", $key, $value);
@@ -501,6 +503,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
             $text .= "<strong>" . Horde_Crypt_Translation::t("X509v3 extensions") . ":</strong>\n";
 
             foreach ($details['extensions'] as $key => $value) {
+                $value = $this->_implodeValues($value, 6);
                 $text .= isset($fieldnames[$key])
                     ? sprintf("&nbsp;&nbsp;%s:\n&nbsp;&nbsp;&nbsp;&nbsp;%s\n", $fieldnames[$key], trim($value))
                     : sprintf("&nbsp;&nbsp;*%s:\n&nbsp;&nbsp;&nbsp;&nbsp;%s\n", $key, trim($value));
@@ -515,6 +518,23 @@ class Horde_Crypt_Smime extends Horde_Crypt
             sprintf("&nbsp;&nbsp;%s: %d\n", Horde_Crypt_Translation::t("Serial Number"), $details['serialNumber']);
 
         return $text . "\n</pre>";
+    }
+
+    /**
+     * Formats a multi-value cert field.
+     *
+     * @param array|string $value  A cert field value.
+     * @param integer $indent      The indention level.
+     *
+     * @return string  The formatted cert field value(s).
+     */
+    protected function _implodeValues($value, $indent = 4)
+    {
+        if (is_array($value)) {
+            $value = "\n" . str_repeat('&nbsp;', $indent)
+                . implode("\n" . str_repeat('&nbsp;', $indent), $value);
+        }
+        return $value;
     }
 
     /**
