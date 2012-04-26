@@ -472,14 +472,14 @@ class IMP_Views_ListMessages
             }
 
             /* Format size information. */
-            $msg['size'] = htmlspecialchars($imp_ui->getSize($ob['size']), ENT_QUOTES, 'UTF-8');
+            $msg['size'] = $imp_ui->getSize($ob['size']);
 
             /* Format the Date: Header. */
-            $msg['date'] = htmlspecialchars($imp_ui->getDate($ob['envelope']->date), ENT_QUOTES, 'UTF-8');
+            $msg['date'] = $imp_ui->getDate($ob['envelope']->date);
 
             /* Format the From: Header. */
             $getfrom = $imp_ui->getFrom($ob['envelope']);
-            $msg['from'] = htmlspecialchars($getfrom['from'], ENT_QUOTES, 'UTF-8');
+            $msg['from'] = $getfrom['from'];
 
             /* Format the Subject: Header. */
             $msg['subject'] = $imp_ui->getSubject($ob['envelope']->subject, true);
@@ -521,7 +521,7 @@ class IMP_Views_ListMessages
         $ob = new stdClass;
         $ob->cacheid = 0;
         $ob->data = array();
-        $ob->label = htmlspecialchars($mbox->label);
+        $ob->label = $mbox->label;
         $ob->metadata = new stdClass;
         $ob->rowlist = array();
         $ob->totalrows = 0;

@@ -489,6 +489,13 @@ var DimpBase = {
                 r.subjectdata = r.status = '';
                 r.subjecttitle = r.subject;
 
+                /* HTML escape the date, from, and size entries. */
+                [ 'date', 'from', 'size' ].each(function(i) {
+                    if (r[i]) {
+                        r[i] = r[i].escapeHTML();
+                    }
+                });
+
                 // Add thread graphics
                 if (tsort && mode != 'vert') {
                     u = thread.get(r.uid);
@@ -659,8 +666,7 @@ var DimpBase = {
 
         container.observe('ViewPort:contentComplete', function() {
             var flags, ssc, tmp,
-                ham = spam = 'show',
-                l = this.viewport.getMetaData('label');
+                ham = spam = 'show';
 
             this.setMessageListTitle();
             this.setMsgHash();
@@ -1494,10 +1500,9 @@ var DimpBase = {
             unseen = elt.retrieve('u');
         }
 
-        // Label is HTML encoded - but this is not HTML code so unescape.
-        this.setTitle(label.unescapeHTML(), unseen);
+        this.setTitle(label, unseen);
         if (name) {
-            $('mailboxName').update(label);
+            $('mailboxName').update(label.escapeHTML());
         }
     },
 
