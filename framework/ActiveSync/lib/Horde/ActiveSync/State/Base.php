@@ -630,4 +630,11 @@ abstract class Horde_ActiveSync_State_Base
      */
     abstract public function getLastSyncTimestamp();
 
+    /**
+     * Return a sync cache for 12.1 SYNC requests.
+     *
+     * @return
+     */
+    abstract public function getSyncCache();
+
 }

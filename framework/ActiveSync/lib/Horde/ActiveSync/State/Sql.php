@@ -1182,6 +1182,16 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      }
 
     /**
+     * Return a sync cache for 12.1 SYNC requests.
+     *
+     * @return
+     */
+    public function getSyncCache()
+    {
+        // @TODO
+    }
+
+    /**
      * Get a timestamp from the map table for the last PIM-initiated change for
      * the provided uid. Used to avoid mirroring back changes to the PIM that it
      * sent to the server.
