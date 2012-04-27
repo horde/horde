@@ -94,6 +94,11 @@ class Horde_ActiveSync
     const SYNC_SOFTDELETE                       = 'SoftDelete';
     const SYNC_MIMESUPPORT                      = 'MIMESupport';
     const SYNC_MIMETRUNCATION                   = 'MIMETruncation';
+    const SYNC_NEWMESSAGE                       = 'NewMessage';
+    const SYNC_PARTIAL                          = 'Partial';
+    const SYNC_WAIT                             = 'Wait';
+    const SYNC_LIMIT                            = 'Limit';
+    const SYNC_HEARTBEATINTERVAL                = 'HeartbeatInterval';
     const SYNC_CONVERSATIONMODE                 = 'ConversationMode';
 
     /* Document library */
