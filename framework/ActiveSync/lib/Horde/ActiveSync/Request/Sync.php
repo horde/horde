@@ -33,6 +33,10 @@
  * @copyright 2009-2012 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
+ *
+ *
+ * @TODO: _handleError methods
+ * @TODO: SYNC_SUPPORTED not allowed in 12.1????
  */
 class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
 {
@@ -44,8 +48,20 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
     const STATUS_SERVERERROR = 5;
     const STATUS_FOLDERSYNC_REQUIRED = 12;
 
+    const STATUS_INVALID_WAIT_HEARTBEAT = 14;
+
     /* Maximum window size */
     const MAX_WINDOW_SIZE    = 512;
+
+    /* Maximum HEARTBEAT value (seconds) */
+    const MAX_HEARTBEAT      = 3540;
+
+    /**
+     * Flag to indicate we successfully initialized the sync state.
+     *
+     * @var booleean
+     */
+    protected $_stateInit = false;
 
     /**
      * Handle the sync request
@@ -67,413 +83,486 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
 
         $this->_statusCode = self::STATUS_SUCCESS;
         $collections = array();
+        $partial = false;
 
         // Start decoding request
         if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_SYNCHRONIZE)) {
+            // @TODO: Empty sync request for 12.1
+
             throw new Horde_ActiveSync_Exception('Protocol error');
-        }
-        if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FOLDERS)) {
-            throw new Horde_ActiveSync_Exception('Protocol error');
-        }
+        } else {
+            // Non-empty SYNC request. Either < 12.1 or a full 12.1 reqeust.
+            // @TODO SYNCCACHE
+            // $sync_cache = $this->_stateDriver->getSyncCache();
+            // $sync_cache->wait = false;
+            // $sync_cache->hbinterval = false;
 
-        while ($this->_statusCode == self::STATUS_SUCCESS &&
-               $this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FOLDER)) {
+            while (($sync_tag = ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_WINDOWSIZE) ? Horde_ActiveSync::SYNC_WINDOWSIZE :
+                   ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FOLDERS) ? Horde_ActiveSync::SYNC_FOLDERS :
+                   ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_PARTIAL) ? Horde_ActiveSync::SYNC_PARTIAL :
+                   ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_WAIT) ? Horde_ActiveSync::SYNC_WAIT :
+                   ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_HEARTBEATINTERVAL) ? Horde_ActiveSync::SYNC_HEARTBEATINTERVAL :
+                   -1)))))) != -1 ) {
 
-            // Defaults
-            $collection = array();
-            $collection['truncation'] = Horde_ActiveSync::TRUNCATION_ALL;
-            $collection['clientids'] = array();
-            $collection['fetchids'] = array();
-            $collection['windowsize'] = 100;
-            $collection['conflict'] = Horde_ActiveSync::CONFLICT_OVERWRITE_PIM;
-
-            if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FOLDERTYPE)) {
-                throw new Horde_ActiveSync_Exception('Protocol error');
-            }
-            $collection['class'] = $this->_decoder->getElementContent();
-            $this->_logger->info(sprintf(
-                "[%s] Syncing folder class: %s",
-                $this->_device->id,
-                $collection['class'])
-            );
-            if (!$this->_decoder->getElementEndTag()) {
-                throw new Horde_ActiveSync_Exception('Protocol error');
-            }
-
-            if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_SYNCKEY)) {
-                throw new Horde_ActiveSync_Exception('Protocol error');
-            }
-            $collection['synckey'] = $this->_decoder->getElementContent();
-            if (!$this->_decoder->getElementEndTag()) {
-                throw new Horde_ActiveSync_Exception('Protocol error');
-            }
-
-            if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FOLDERID)) {
-                $collection['id'] = $this->_decoder->getElementContent();
-                $this->_logger->info(sprintf(
-                    "[%s] Folder server id: %s",
-                    $this->_device->id,
-                    $collection['id'])
-                );
-                if (!$this->_decoder->getElementEndTag()) {
-                    throw new Horde_ActiveSync_Exception('Protocol error');
-                }
-            }
-
-            // SYNC_SUPPORTED
-            if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_SUPPORTED)) {
-                // Only allowed on initial sync request
-                if ($collection['synckey'] != 0) {
-                    $this->_statusCode = self::STATUS_PROTERROR;
-                    $this->_handleError($collection);
-                    exit;
-                }
-                while (1) {
-                    $el = $this->_decoder->getElement();
-                    if ($el[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_TYPE_ENDTAG) {
-                        break;
+                switch($sync_tag) {
+                case Horde_ActiveSync::SYNC_HEARTBEATINTERVAL:
+                    if ($sync_cahce->hbinterval = $this->_decoder->getElementContent()) {
+                        $this->_decoder->getElementEndTag();
                     }
-                    $collection['supported'][] = $el[2];
-                }
-            }
-
-            if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_DELETESASMOVES)) {
-                if ($collection['deletesasmoves'] = $this->_decoder->getElementContent()) {
+                    $this->_logger->debug(sprintf(
+                        "[%s] HeartbeatInterval ( %s ) Seconds.",
+                        $this->_device->id,
+                        $sync_cache->hbinterval)
+                    );
+                    if ($sync_cache->hbinterval > (self::MAX_HEARTBEAT)) {
+                        $this->_logger->err(sprintf(
+                            "[%s] HeartbeatInterval outside of allowed range.",
+                            $this->_device->id)
+                        );
+                        $this->_handleSyncError(
+                            self::STATUS_INVALID_WAIT_HEARTBEATINTERVAL,
+                            self::MAX_HEARTBEAT
+                        );
+                        return true;
+                    }
+                    break;
+                case Horde_ActiveSync::SYNC_WAIT:
+                    if ($sync_cache->wait = $this->_decoder->getElementContent()) {
+                        $this->_decoder->getElementEndTag();
+                    }
+                    $this->_logger->debug(sprintf(
+                        "[%s] Wait  ( %s ) Minutes.",
+                        $this->_device->id,
+                        $sync_cache->wait)
+                    );
+                    if ($sync_cache->wait > (self::MAX_HEARTBEAT / 60)) {
+                        $this->_logger->err(sprintf(
+                            "[%s] Wait value outside of allowed range.",
+                            $this->_device->id)
+                        );
+                        $this->_handleSyncError(
+                            self::STATUS_INVALID_WAIT_HEARTBEATINTERVAL,
+                            (self::MAX_HEARBEAT / 60));
+                        return true;
+                    }
+                    break;
+                case Horde_ActiveSync::SYNC_PARTIAL:
+                    if ($this->_decoder->getElementContent(Horde_ActiveSync::SYNC_PARTIAL)) {
+                        $this->_decoder->getElementEndTag();
+                    }
+                    $partial = true;
+                    break;
+                case Horde_ActiveSync::SYNC_WINDOWSIZE:
+                    $default_maxitems = $this->_decoder->getElementContent();
+                    $this->_logger->debug(sprintf(
+                        "[%s] WINDOWSIZE set to %s",
+                        $this->_device->id,
+                        $default_maxitems));
                     if (!$this->_decoder->getElementEndTag()) {
-                        throw new Horde_ActiveSync_Exception('Protocol Error');
+                        return false;
                     }
-                } else {
-                    $collection['deletesasmoves'] = true;
-                }
-            }
+                    break;
+                case Horde_ActiveSync::SYNC_FOLDERS:
+                    while ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FOLDER)) {
+                        // Defaults
+                        $collection = array();
+                        $collection['truncation'] = Horde_ActiveSync::TRUNCATION_ALL;
+                        $collection['clientids'] = array();
+                        $collection['fetchids'] = array();
+                        $collection['windowsize'] = 100;
+                        $collection['conflict'] = Horde_ActiveSync::CONFLICT_OVERWRITE_PIM;
 
-            if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_GETCHANGES)) {
-                if ($collection['getchanges'] = $this->_decoder->getElementContent()) {
-                    if (!$this->_decoder->getElementEndTag()) {
-                        throw new Horde_ActiveSync_Exception('Protocol Error');
-                    }
-                } else {
-                    $collection['getchanges'] = true;
-                }
-            }
+                        while (($folder_tag = ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FOLDERTYPE) ? Horde_ActiveSync::SYNC_FOLDERTYPE :
+                               ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_SYNCKEY) ? Horde_ActiveSync::SYNC_SYNCKEY :
+                               ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FOLDERID) ? Horde_ActiveSync::SYNC_FOLDERID :
+                               ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_WINDOWSIZE) ? Horde_ActiveSync::SYNC_WINDOWSIZE :
+                               ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_SUPPORTED) ? Horde_ActiveSync::SYNC_SUPPORTED :
+                               ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_DELETESASMOVES) ? Horde_ActiveSync::SYNC_DELETESASMOVES :
+                               ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_GETCHANGES) ? Horde_ActiveSync::SYNC_GETCHANGES :
+                               ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_OPTIONS) ? Horde_ActiveSync::SYNC_OPTIONS :
+                               ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_COMMANDS) ? Horde_ActiveSync::SYNC_COMMANDS :
+                               -1)))))))))) != -1) {
 
-            if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_WINDOWSIZE)) {
-                $collection['windowsize'] = $this->_decoder->getElementContent();
-                if (!$this->_decoder->getElementEndTag()) {
-                    $this->_statusCode = self::STATUS_PROTERROR;
-                    $this->_handleError($collection);
-                    exit;
-                }
+                            switch ($folder_tag) {
+                            case Horde_ActiveSync::SYNC_FOLDERTYPE:
+                                $collection['class'] = $this->_decoder->getElementContent();
+                                $this->_logger->info(sprintf(
+                                    "[%s] Syncing folder class: %s",
+                                    $this->_device->id,
+                                    $collection['class'])
+                                );
+                                if (!$this->_decoder->getElementEndTag()) {
+                                    throw new Horde_ActiveSync_Exception('Protocol error');
+                                }
+                                $this->_initState($collection);
+                                break;
 
-                // Ensure appropriate window size
-                if ($collection['windowsize'] < 1 || $collection['windowsize'] > self::MAX_WINDOW_SIZE) {
-                    $this->_logger->debug('[' . $this->_device->id . '] Bad windowsize sent, defaulting to 512');
-                    $collection['windowsize'] = self::MAX_WINDOW_SIZE;
-                }
-            }
+                            case Horde_ActiveSync::SYNC_SYNCKEY:
+                                $collection['synckey'] = $this->_decoder->getElementContent();
+                                if (!$this->_decoder->getElementEndTag()) {
+                                    throw new Horde_ActiveSync_Exception('Protocol error');
+                                }
+                                $this->_initState($collection);
+                                break;
 
-            if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_OPTIONS)) {
-                while(1) {
-                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FILTERTYPE)) {
-                        $collection['filtertype'] = $this->_decoder->getElementContent();
-                        if (!$this->_decoder->getElementEndTag()) {
-                            $this->_statusCode = self::STATUS_PROTERROR;
-                            $this->_handleError($collection);
-                            exit;
-                        }
-                    }
-                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_TRUNCATION)) {
-                        $collection['truncation'] = $this->_decoder->getElementContent();
-                        if (!$this->_decoder->getElementEndTag()) {
-                            $this->_statusCode = self::STATUS_PROTERROR;
-                            $this->_handleError($collection);
-                            exit;
-                        }
-                    }
-                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_RTFTRUNCATION)) {
-                        $collection['rtftruncation'] = $this->_decoder->getElementContent();
-                        if (!$this->_decoder->getElementEndTag()) {
-                            $this->_statusCode = self::STATUS_PROTERROR;
-                            $this->_handleError($collection);
-                            exit;
-                        }
-                    }
+                            case Horde_ActiveSync::SYNC_FOLDERID:
+                                $collection['id'] = $this->_decoder->getElementContent();
+                                $this->_logger->info(sprintf(
+                                    "[%s] Folder server id: %s",
+                                    $this->_device->id,
+                                    $collection['id'])
+                                );
+                                if (!$this->_decoder->getElementEndTag()) {
+                                    throw new Horde_ActiveSync_Exception('Protocol error');
+                                }
+                                $this->_initState($collection);
+                                break;
 
-                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_MIMESUPPORT)) {
-                        $collection['mimesupport'] = $this->_decoder->getElementContent();
-                        if (!$this->_decoder->getElementEndTag()) {
-                            $this->_statusCode = self::STATUS_PROTERROR;
-                            $this->_handleError($collection);
-                            exit;
-                        }
-                    }
-
-                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_MIMETRUNCATION)) {
-                        $collection['mimetruncation'] = $this->_decoder->getElementContent();
-                        if (!$this->_decoder->getElementEndTag()) {
-                            $this->_statusCode = self::STATUS_PROTERROR;
-                            $this->_handleError($collection);
-                            exit;
-                        }
-                    }
-
-                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_CONFLICT)) {
-                        $collection['conflict'] = $this->_decoder->getElementContent();
-                        if (!$this->_decoder->getElementEndTag()) {
-                            $this->_statusCode = self::STATUS_PROTERROR;
-                            $this->_handleError;
-                            exit;
-                        }
-                    }
-
-                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_BODYPREFERENCE)) {
-                        $body_pref = array();
-                        while (1) {
-                            if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_TYPE)) {
-                                $body_pref['type'] = $this->_decoder->getElementContent();
+                            case Horde_ActiveSync::SYNC_WINDOWSIZE:
+                                $collection['windowsize'] = $this->_decoder->getElementContent();
                                 if (!$this->_decoder->getElementEndTag()) {
                                     $this->_statusCode = self::STATUS_PROTERROR;
                                     $this->_handleError($collection);
                                     exit;
                                 }
-                            }
+                                if ($collection['windowsize'] < 1 || $collection['windowsize'] > self::MAX_WINDOW_SIZE) {
+                                    $this->_logger->error('[' . $this->_device->id . '] Bad windowsize sent, defaulting to 512');
+                                    $collection['windowsize'] = self::MAX_WINDOW_SIZE;
+                                }
+                                $this->_logger->debug(sprintf(
+                                    "[%s] WINDOWSIZE set to %s",
+                                    $this->_device->id,
+                                    $colelction['windowsize']));
+                                break;
 
-                            if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_TRUNCATIONSIZE)) {
-                                $body_pref['truncationsize'] = $this->_decoder->getElementContent();
-                                if (!$this->_decoder->getElementEndTag()) {
+                            case Horde_ActiveSync::SYNC_SUPPORTED:
+                                // Only allowed on initial sync request
+                                if ($collection['synckey'] != 0) {
                                     $this->_statusCode = self::STATUS_PROTERROR;
                                     $this->_handleError($collection);
                                     exit;
                                 }
-                            }
+                                while (1) {
+                                    $el = $this->_decoder->getElement();
+                                    if ($el[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_TYPE_ENDTAG) {
+                                        break;
+                                    }
+                                    $collection['supported'][] = $el[2];
+                                }
+                                if (!empty($collection['supported'])) {
+                                    // Initial sync and we have SUPPORTED data - save it
+                                    if (empty($this->_device->supported)) {
+                                        $this->_device->supported = array();
+                                    }
+                                    $this->_device->supported[$collection['class']] = $collection['supported'];
+                                    $this->_stateDriver->setDeviceInfo($this->_device);
+                                }
+                                break;
 
-                            if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_ALLORNONE)) {
-                                $body_pref['allornone'] = $this->_decoder->getElementContent();
-                                $this->_logger->debug($body_pref['allornone']);
-                                if (!$this->_decoder->getElementEndTag()) {
-                                    $this->_logger->debug('foobar');
+                            case Horde_ActiveSync::SYNC_DELETESASMOVES:
+                                if ($collection['deletesasmoves'] = $this->_decoder->getElementContent()) {
+                                    if (!$this->_decoder->getElementEndTag()) {
+                                        throw new Horde_ActiveSync_Exception('Protocol Error');
+                                    }
+                                } else {
+                                    $collection['deletesasmoves'] = true;
+                                }
+                                break;
+
+                            case Horde_ActiveSync::SYNC_GETCHANGES:
+                                if ($collection['getchanges'] = $this->_decoder->getElementContent()) {
+                                    if (!$this->_decoder->getElementEndTag()) {
+                                        throw new Horde_ActiveSync_Exception('Protocol Error');
+                                    }
+                                } else {
+                                    $collection['getchanges'] = true;
+                                }
+                                break;
+
+                            case Horde_ActiveSync::SYNC_OPTIONS:
+                                while(1) {
+                                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FILTERTYPE)) {
+                                        $collection['filtertype'] = $this->_decoder->getElementContent();
+                                        if (!$this->_decoder->getElementEndTag()) {
+                                            $this->_statusCode = self::STATUS_PROTERROR;
+                                            $this->_handleError($collection);
+                                            exit;
+                                        }
+                                    }
+                                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_TRUNCATION)) {
+                                        $collection['truncation'] = $this->_decoder->getElementContent();
+                                        if (!$this->_decoder->getElementEndTag()) {
+                                            $this->_statusCode = self::STATUS_PROTERROR;
+                                            $this->_handleError($collection);
+                                            exit;
+                                        }
+                                    }
+                                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_RTFTRUNCATION)) {
+                                        $collection['rtftruncation'] = $this->_decoder->getElementContent();
+                                        if (!$this->_decoder->getElementEndTag()) {
+                                            $this->_statusCode = self::STATUS_PROTERROR;
+                                            $this->_handleError($collection);
+                                            exit;
+                                        }
+                                    }
+
+                                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_MIMESUPPORT)) {
+                                        $collection['mimesupport'] = $this->_decoder->getElementContent();
+                                        if (!$this->_decoder->getElementEndTag()) {
+                                            $this->_statusCode = self::STATUS_PROTERROR;
+                                            $this->_handleError($collection);
+                                            exit;
+                                        }
+                                    }
+
+                                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_MIMETRUNCATION)) {
+                                        $collection['mimetruncation'] = $this->_decoder->getElementContent();
+                                        if (!$this->_decoder->getElementEndTag()) {
+                                            $this->_statusCode = self::STATUS_PROTERROR;
+                                            $this->_handleError($collection);
+                                            exit;
+                                        }
+                                    }
+
+                                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_CONFLICT)) {
+                                        $collection['conflict'] = $this->_decoder->getElementContent();
+                                        if (!$this->_decoder->getElementEndTag()) {
+                                            $this->_statusCode = self::STATUS_PROTERROR;
+                                            $this->_handleError;
+                                            exit;
+                                        }
+                                    }
+
+                                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_BODYPREFERENCE)) {
+                                        $body_pref = array();
+                                        while (1) {
+                                            if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_TYPE)) {
+                                                $body_pref['type'] = $this->_decoder->getElementContent();
+                                                if (!$this->_decoder->getElementEndTag()) {
+                                                    $this->_statusCode = self::STATUS_PROTERROR;
+                                                    $this->_handleError($collection);
+                                                    exit;
+                                                }
+                                            }
+
+                                            if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_TRUNCATIONSIZE)) {
+                                                $body_pref['truncationsize'] = $this->_decoder->getElementContent();
+                                                if (!$this->_decoder->getElementEndTag()) {
+                                                    $this->_statusCode = self::STATUS_PROTERROR;
+                                                    $this->_handleError($collection);
+                                                    exit;
+                                                }
+                                            }
+
+                                            if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_ALLORNONE)) {
+                                                $body_pref['allornone'] = $this->_decoder->getElementContent();
+                                                $this->_logger->debug($body_pref['allornone']);
+                                                if (!$this->_decoder->getElementEndTag()) {
+                                                    $this->_logger->debug('foobar');
+                                                    $this->_statusCode = self::STATUS_PROTERROR;
+                                                    $this->_handleError($collection);
+                                                    exit;
+                                                }
+                                            }
+
+                                            $e = $this->_decoder->peek();
+                                            if ($e[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_TYPE_ENDTAG) {
+                                                $this->_decoder->getElementEndTag();
+                                                if (isset($body_pref['type']) &&
+                                                    !isset($collection['bodyprefs']['wanted'])) {
+
+                                                    $collection['bodyprefs']['wanted'] = $body_pref['type'];
+                                                }
+                                                $collection['bodyprefs'][$body_pref['type']] = $body_pref;
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    $e = $this->_decoder->peek();
+                                    if ($e[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_TYPE_ENDTAG) {
+                                        $this->_decoder->getElementEndTag();
+                                        break;
+                                    }
+                                }
+                                break;
+
+                            case Horde_ActiveSync::SYNC_COMMANDS:
+                                // Some broken clients send SYNC_COMMANDS with a synckey of 0.
+                                // This is a violation of the spec, and could lead to all kinds
+                                // of data integrity issues.
+                                if (empty($collection['synckey'])) {
                                     $this->_statusCode = self::STATUS_PROTERROR;
                                     $this->_handleError($collection);
                                     exit;
                                 }
-                            }
 
-                            $e = $this->_decoder->peek();
-                            if ($e[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_TYPE_ENDTAG) {
-                                $this->_decoder->getElementEndTag();
-                                if (isset($body_pref['type']) &&
-                                    !isset($collection['bodyprefs']['wanted'])) {
+                                // Configure importer with last state
+                                $importer = $this->_getImporter();
+                                $importer->init($this->_stateDriver, $collection['id'], $collection['conflict']);
+                                $nchanges = 0;
+                                while (1) {
+                                    // MODIFY or REMOVE or ADD or FETCH
+                                    $element = $this->_decoder->getElement();
+                                    if ($element[Horde_ActiveSync_Wbxml::EN_TYPE] != Horde_ActiveSync_Wbxml::EN_TYPE_STARTTAG) {
+                                        $this->_decoder->_ungetElement($element);
+                                        break;
+                                    }
 
-                                    $collection['bodyprefs']['wanted'] = $body_pref['type'];
+                                    $nchanges++;
+
+                                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_SERVERENTRYID)) {
+                                        $serverid = $this->_decoder->getElementContent();
+
+                                        if (!$this->_decoder->getElementEndTag()) {// end serverid
+                                            $this->_statusCode = self::STATUS_PROTERROR;
+                                            $this->_handleError($collection);
+                                            exit;
+                                        }
+                                    } else {
+                                        $serverid = false;
+                                    }
+
+                                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_CLIENTENTRYID)) {
+                                        $clientid = $this->_decoder->getElementContent();
+
+                                        if (!$this->_decoder->getElementEndTag()) { // end clientid
+                                            $this->_statusCode = self::STATUS_PROTERROR;
+                                            $this->_handleError($collection);
+                                            exit;
+                                        }
+                                    } else {
+                                        $clientid = false;
+                                    }
+
+                                    // Create Message object from messages passed from PIM
+                                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_DATA)) {
+                                        switch ($collection['class']) {
+                                        case Horde_ActiveSync::CLASS_EMAIL:
+                                            $appdata = new Horde_ActiveSync_Message_Mail(
+                                                array('logger' => $this->_logger,
+                                                      'protocolversion' => $this->_version)
+                                            );
+                                            $appdata->decodeStream($this->_decoder);
+                                            break;
+                                        case Horde_ActiveSync::CLASS_CONTACTS:
+                                            $appdata = new Horde_ActiveSync_Message_Contact(
+                                                array('logger' => $this->_logger,
+                                                      'protocolversion' => $this->_version));
+                                            $appdata->decodeStream($this->_decoder);
+                                            break;
+                                        case Horde_ActiveSync::CLASS_CALENDAR:
+                                            $appdata = new Horde_ActiveSync_Message_Appointment(
+                                                array('logger' => $this->_logger,
+                                                      'protocolversion' => $this->_version));
+                                            $appdata->decodeStream($this->_decoder);
+                                            break;
+                                        case Horde_ActiveSync::CLASS_TASKS:
+                                            $appdata = new Horde_ActiveSync_Message_Task(
+                                                array('logger' => $this->_logger,
+                                                      'protocolversion' => $this->_version));
+                                            $appdata->decodeStream($this->_decoder);
+                                            break;
+                                        }
+                                        if (!$this->_decoder->getElementEndTag()) {
+                                            // End application data
+                                            $this->_statusCode = self::STATUS_PROTERROR;
+                                            break;
+                                        }
+                                    }
+                                    switch ($element[Horde_ActiveSync_Wbxml::EN_TAG]) {
+                                    case Horde_ActiveSync::SYNC_MODIFY:
+                                        if (isset($appdata)) {
+                                            // Currently, 'read' is only sent by the PDA when it
+                                            // is ONLY setting the read flag.
+                                            if ($appdata->propertyExists('read') && $appdata->read !== false) {
+                                                $importer->importMessageReadFlag($serverid, $appdata->read, $this->_device->id);
+                                            } else {
+                                                $importer->importMessageChange($serverid, $appdata, $this->_device, false);
+                                            }
+                                            $collection['importedchanges'] = true;
+                                        }
+                                        break;
+
+                                    case Horde_ActiveSync::SYNC_ADD:
+                                        if (isset($appdata)) {
+                                            $id = $importer->importMessageChange(false, $appdata, $this->_device, $clientid);
+                                            if ($clientid && $id) {
+                                                $collection['clientids'][$clientid] = $id;
+                                                $collection['importedchanges'] = true;
+                                            }
+                                        }
+                                        break;
+
+                                    case Horde_ActiveSync::SYNC_REMOVE:
+                                        $collection['removes'][] = $serverid;
+                                        break;
+
+                                    case Horde_ActiveSync::SYNC_FETCH:
+                                        array_push($collection['fetchids'], $serverid);
+                                        break;
+                                    }
+
+                                    if (!$this->_decoder->getElementEndTag()) {
+                                        // end change/delete/move
+                                        $this->_statusCode = self::STATUS_PROTERROR;
+                                        $this->_handleError($collection);
+                                        exit;
+                                    }
                                 }
-                                $collection['bodyprefs'][$body_pref['type']] = $body_pref;
+
+                                // Do all the SYNC_REMOVE requests at once
+                                if (!empty($collection['removes'])) {
+                                    if (isset($collection['deletesasmoves']) &&
+                                        $folderid = $this->_driver->getWasteBasket($collection['class'])) {
+
+                                        $importer->importMessageMove($collection['removes'], $folderid);
+                                        $collection['importedchanges'] = true;
+                                        break;
+                                    }
+                                    $importer->importMessageDeletion($collection['removes'], $collection['class']);
+                                    unset($collection['removes']);
+                                    $collection['importedchanges'] = true;
+                                }
+
+                                $this->_logger->debug(sprintf('[%s] Processed %d incoming changes', $this->_device->id, $nchanges));
+
+                                if (!$this->_decoder->getElementEndTag()) {
+                                    // end commands
+                                    $this->_statusCode = self::STATUS_PROTERROR;
+                                    $this->_handleError($collection);
+                                    exit;
+                                }
                                 break;
                             }
-                        }
-                    }
-
-                    $e = $this->_decoder->peek();
-                    if ($e[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_TYPE_ENDTAG) {
-                        $this->_decoder->getElementEndTag();
-                        break;
-                    }
-                }
-            }
-
-            if ($this->_statusCode == self::STATUS_SUCCESS) {
-                // Initialize the state
-                $this->_stateDriver->init($collection);
-                if (!empty($collection['supported'])) {
-                    // Initial sync and we have SUPPORTED data - save it
-                    if (empty($this->_device->supported)) {
-                        $this->_device->supported = array();
-                    }
-                    $this->_device->supported[$collection['class']] = $collection['supported'];
-                    $this->_stateDriver->setDeviceInfo($this->_device);
-                }
-
-                // Compatibility mode - get folderid from the state
-                if (!isset($collection['id'])) {
-                    $collection['id'] = $this->_stateDriver->getFolderData(
-                        $this->_device->id, $collection['class']);
-                }
-
-                try {
-                    $this->_stateDriver->loadState(
-                        $collection['synckey'],
-                        Horde_ActiveSync::REQUEST_TYPE_SYNC,
-                        $collection['id']);
-                } catch (Horde_ActiveSync_Exception $e) {
-                    $this->_statusCode = self::STATUS_KEYMISM;
-                    $this->_handleError($collection);
-                    exit;
-                }
-            }
-
-            if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_COMMANDS)) {
-                // Some broken clients send SYNC_COMMANDS with a synckey of 0.
-                // This is a violation of the spec, and could lead to all kinds
-                // of data integrity issues.
-                if (empty($collection['synckey'])) {
-                    $this->_statusCode = self::STATUS_PROTERROR;
-                    $this->_handleError($collection);
-                    exit;
-                }
-
-                // Configure importer with last state
-                $importer = $this->_getImporter();
-                $importer->init($this->_stateDriver, $collection['id'], $collection['conflict']);
-                $nchanges = 0;
-                while (1) {
-                    // MODIFY or REMOVE or ADD or FETCH
-                    $element = $this->_decoder->getElement();
-                    if ($element[Horde_ActiveSync_Wbxml::EN_TYPE] != Horde_ActiveSync_Wbxml::EN_TYPE_STARTTAG) {
-                        $this->_decoder->_ungetElement($element);
-                        break;
-                    }
-
-                    $nchanges++;
-
-                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_SERVERENTRYID)) {
-                        $serverid = $this->_decoder->getElementContent();
-
-                        if (!$this->_decoder->getElementEndTag()) {// end serverid
-                            $this->_statusCode = self::STATUS_PROTERROR;
-                            $this->_handleError($collection);
-                            exit;
-                        }
-                    } else {
-                        $serverid = false;
-                    }
-
-                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_CLIENTENTRYID)) {
-                        $clientid = $this->_decoder->getElementContent();
-
-                        if (!$this->_decoder->getElementEndTag()) { // end clientid
-                            $this->_statusCode = self::STATUS_PROTERROR;
-                            $this->_handleError($collection);
-                            exit;
-                        }
-                    } else {
-                        $clientid = false;
-                    }
-
-                    // Create Message object from messages passed from PIM
-                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_DATA)) {
-                        switch ($collection['class']) {
-                        case Horde_ActiveSync::CLASS_EMAIL:
-                            $appdata = new Horde_ActiveSync_Message_Mail(
-                                array('logger' => $this->_logger,
-                                      'protocolversion' => $this->_version)
-                            );
-                            $appdata->decodeStream($this->_decoder);
-                            break;
-                        case Horde_ActiveSync::CLASS_CONTACTS:
-                            $appdata = new Horde_ActiveSync_Message_Contact(
-                                array('logger' => $this->_logger,
-                                      'protocolversion' => $this->_version));
-                            $appdata->decodeStream($this->_decoder);
-                            break;
-                        case Horde_ActiveSync::CLASS_CALENDAR:
-                            $appdata = new Horde_ActiveSync_Message_Appointment(
-                                array('logger' => $this->_logger,
-                                      'protocolversion' => $this->_version));
-                            $appdata->decodeStream($this->_decoder);
-                            break;
-                        case Horde_ActiveSync::CLASS_TASKS:
-                            $appdata = new Horde_ActiveSync_Message_Task(
-                                array('logger' => $this->_logger,
-                                      'protocolversion' => $this->_version));
-                            $appdata->decodeStream($this->_decoder);
-                            break;
-                        }
+                        } // End while FOLDERTAG
                         if (!$this->_decoder->getElementEndTag()) {
-                            // End application data
                             $this->_statusCode = self::STATUS_PROTERROR;
-                            break;
+                            $this->_handleError($collection);
+                            exit;
                         }
-                    }
-                    switch ($element[Horde_ActiveSync_Wbxml::EN_TAG]) {
-                    case Horde_ActiveSync::SYNC_MODIFY:
-                        if (isset($appdata)) {
-                            // Currently, 'read' is only sent by the PDA when it
-                            // is ONLY setting the read flag.
-                            if ($appdata->propertyExists('read') && $appdata->read !== false) {
-                                $importer->importMessageReadFlag($serverid, $appdata->read, $this->_device->id);
-                            } else {
-                                $importer->importMessageChange($serverid, $appdata, $this->_device, false);
-                            }
-                            $collection['importedchanges'] = true;
-                        }
-                        break;
-                    case Horde_ActiveSync::SYNC_ADD:
-                        if (isset($appdata)) {
-                            $id = $importer->importMessageChange(false, $appdata, $this->_device, $clientid);
-                            if ($clientid && $id) {
-                                $collection['clientids'][$clientid] = $id;
-                                $collection['importedchanges'] = true;
-                            }
-                        }
-                        break;
-                    case Horde_ActiveSync::SYNC_REMOVE:
-                        $collection['removes'][] = $serverid;
-                        break;
-
-                    case Horde_ActiveSync::SYNC_FETCH:
-                        array_push($collection['fetchids'], $serverid);
-                        break;
-                    }
+                        array_push($collections, $collection);
+                    } // End while SYNC_FOLDER
 
                     if (!$this->_decoder->getElementEndTag()) {
-                        // end change/delete/move
-                        $this->_statusCode = self::STATUS_PROTERROR;
-                        $this->_handleError($collection);
-                        exit;
+                        // end collections
+                        return false;
                     }
-                }
 
-                // Do all the SYNC_REMOVE requests at once
-                if (!empty($collection['removes'])) {
-                    if (isset($collection['deletesasmoves']) &&
-                        $folderid = $this->_driver->getWasteBasket($collection['class'])) {
-
-                        $importer->importMessageMove($collection['removes'], $folderid);
-                        $collection['importedchanges'] = true;
-                        break;
-                    }
-                    $importer->importMessageDeletion($collection['removes'], $collection['class']);
-                    unset($collection['removes']);
-                    $collection['importedchanges'] = true;
-                }
-
-                $this->_logger->debug(sprintf('[%s] Processed %d incoming changes', $this->_device->id, $nchanges));
-
-                if (!$this->_decoder->getElementEndTag()) {
-                    // end commands
-                    $this->_statusCode = self::STATUS_PROTERROR;
-                    $this->_handleError($collection);
-                    exit;
-                }
-            }
-
-            if (!$this->_decoder->getElementEndTag()) {
-                // end collection
-                $this->_statusCode = self::STATUS_PROTERROR;
-                $this->_handleError($collection);
-                exit;
-            }
-
-            array_push($collections, $collection);
+                } // End switch SYNC_TAG
+            } // End while SYNC_TAG
         }
 
-        if (!$this->_decoder->getElementEndTag()) {
-            // end collections
-            return false;
-        }
 
         if (!$this->_decoder->getElementEndTag()) {
             // end sync
             return false;
+        }
+
+        if (!$this->_initState) {
+            $this->_statusCode = self::STATUS_PROTERROR;
+            $this->_handleError($collection);
+            exit;
         }
 
         // Start output to PIM
@@ -638,6 +727,34 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
         $this->_encoder->endTag();
 
         return true;
+    }
+
+    /**
+     * Attempt to initialize the sync state if we have everything we need.
+     *
+     * @param array $collection  The collection array
+     */
+    protected function _initState($collection)
+    {
+        if ($this->_stateInit ||
+            empty($collection['id']) ||
+            empty($collection['class']) ||
+            !isset($collection['synckey'])) {
+            return;
+        }
+
+        // Initialize the state
+        $this->_stateDriver->init($collection);
+        try {
+            $this->_stateDriver->loadState(
+                $collection['synckey'],
+                Horde_ActiveSync::REQUEST_TYPE_SYNC,
+                $collection['id']);
+        } catch (Horde_ActiveSync_Exception $e) {
+            $this->_statusCode = self::STATUS_KEYMISM;
+            $this->_handleError($collection);
+            exit;
+        }
     }
 
     /**
