@@ -335,7 +335,10 @@ var ImpMobile = {
             return;
         }
 
-        $('#imp-message-body').text('');
+        $('#message').children().not('.ui-header').hide();
+        $('#imp-message-title').text('');
+        document.title = '';
+        $.mobile.showPageLoadingMsg();
 
         HordeMobile.doAction(
             'showMessage',
@@ -412,6 +415,8 @@ var ImpMobile = {
      */
     messageLoaded: function(r)
     {
+        $.mobile.hidePageLoadingMsg();
+
         // TODO: Error handling.
         if (r.error || !ImpMobile.message || r.view != ImpMobile.mailbox) {
             return;
@@ -441,8 +446,6 @@ var ImpMobile = {
 
         $('#imp-message-body').html(data.msgtext);
         $('#imp-message-date').text('');
-        $('#imp-message-more').parent().show();
-        $('#imp-message-less').parent().hide();
 
         data.headers.push({ name: 'Subject', value: data.subject });
 
@@ -540,6 +543,8 @@ var ImpMobile = {
                 $.globalEval(js);
             });
         }
+
+        $('#message').children().not('.ui-header, #imp-message-less-parent').show();
 
         delete ImpMobile.message;
     },

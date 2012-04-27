@@ -12,7 +12,7 @@
     <span id="imp-message-subject-from">(<?php echo _("from") ?> <span id="imp-message-from"></span>)</span><br>
     <span id="imp-message-date"></span>
   </div>
-  <div class="ui-body ui-body-c" style="display:hidden">
+  <div id="imp-message-less-parent" class="ui-body ui-body-c" style="display:hidden">
     <a id="imp-message-less" href="#" data-role="button" data-icon="arrow-u" data-iconpos="notext"><?php echo _("Show less") ?></a>
     <table id="imp-message-headers"><tbody></tbody></table>
   </div>
