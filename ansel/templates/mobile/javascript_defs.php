@@ -7,7 +7,6 @@ $style = Ansel::getStyleDefinition('ansel_mobile');
 
 /* Variables used in core javascript files. */
 $code['conf'] = array(
-    'URI_AJAX' => (string)Horde::getServiceLink('ajax', 'ansel'),
     'SESSION_ID' => defined('SID') ? SID : '',
     'thumbWidth' => ($style->width) ? $style->width : 75,
     'thumbHeight' => ($style->height) ? $style->height : 75,

@@ -573,6 +573,9 @@ class Horde_PageOutput
                 '$.mobile.dialog.prototype.options.closeBtnText = "' . _("Close") .'";',
                 '$.mobile.loadingMessage = "' . _("loading") . '";'
             ), isset($opts['smartmobileinit']) ? $opts['smartmobileinit'] : array()));
+            $this->addInlineJsVars(array(
+                'HordeMobile.urls.ajax' => Horde::getServiceLink('ajax', $registry->getApp())->url
+            ));
             $this->addInlineScript('$(window.document).bind("mobileinit", function() {' . $init_js . '});');
 
             $this->addMetaTag('viewport', 'width=device-width, initial-scale=1', false);

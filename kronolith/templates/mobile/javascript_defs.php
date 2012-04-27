@@ -7,7 +7,6 @@ $has_tasks = Kronolith::hasApiPermission('tasks');
 
 /* Variables used in core javascript files. */
 $code['conf'] = array(
-    'URI_AJAX' => (string)Horde::getServiceLink('ajax', 'kronolith'),
     'images' => array(
         'attendees' => (string)Horde_Themes::img('attendees-fff.png'),
         'alarm'     => (string)Horde_Themes::img('alarm-fff.png'),

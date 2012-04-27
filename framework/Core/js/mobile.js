@@ -20,8 +20,8 @@ var HordeMobile = {
     /**
      * Common URLs.
      *
-     * Required properties to be set from calling applications:
-     * - ajax: AJAX endpoint.
+     * Set by Horde_PageOutput:
+     *   - ajax: AJAX endpoint.
      */
     urls: {},
 

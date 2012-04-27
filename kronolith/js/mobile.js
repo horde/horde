@@ -794,8 +794,6 @@
 
     onDocumentReady: function()
     {
-        // Set up HordeMobile.
-        HordeMobile.urls.ajax = Kronolith.conf.URI_AJAX;
         KronolithMobile.date = new Date();
         // Build list of calendars we want.
         $.each(Kronolith.conf.calendars, function(key, value) {

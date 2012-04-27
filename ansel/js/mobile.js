@@ -297,9 +297,6 @@ var AnselMobile = {
      */
     onDocumentReady: function()
     {
-        // Set up HordeMobile.
-        HordeMobile.urls.ajax = Ansel.conf.URI_AJAX;
-
         // Bind click and swipe events
         $(document).bind('vclick', AnselMobile.clickHandler);
         $('body').bind('swipeleft', AnselMobile.handleSwipe);

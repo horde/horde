@@ -12,10 +12,6 @@ $code = array();
 
 /* Variables. */
 $code['conf'] = array_filter(array(
-    // URL variables
-    'URI_AJAX' => Horde::getServiceLink('ajax', 'imp')->url,
-
-    // Other variables
     'allow_folders' => $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS),
     'disable_compose' => !IMP::canCompose(),
     'ham_spammbox' => !empty($GLOBALS['conf']['notspam']['spamfolder']),
