@@ -25,6 +25,9 @@ var HordeMobile = {
      */
     urls: {},
 
+    /**
+     * Debug.
+     */
     debug: function(label, e)
     {
         if (!HordeMobile.is_logout && window.console && window.console.error) {
@@ -80,6 +83,11 @@ var HordeMobile = {
         $.mobile.hidePageLoadingMsg();
     },
 
+    /**
+     * Output a notification.
+     *
+     * @param object msgs
+     */
     showNotifications: function(msgs)
     {
         if (!msgs.length || HordeMobile.is_logout) {
@@ -112,6 +120,11 @@ var HordeMobile = {
         });
     },
 
+    /**
+     * Logout.
+     *
+     * @param string url  Use this URL instead of the default.
+     */
     logout: function(url)
     {
         HordeMobile.is_logout = true;

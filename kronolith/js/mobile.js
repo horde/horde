@@ -12,7 +12,7 @@
  * @license  http://www.horde.org/licenses/gpl GPL
  * @package  Kronolith
  */
- var KronolithMobile = {
+var KronolithMobile = {
 
     /**
      * List of calendars we are displaying
@@ -795,6 +795,7 @@
     onDocumentReady: function()
     {
         KronolithMobile.date = new Date();
+
         // Build list of calendars we want.
         $.each(Kronolith.conf.calendars, function(key, value) {
             $.each(value, function(cal, info) {

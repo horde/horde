@@ -19,7 +19,7 @@ $code['conf'] = array_filter(array(
     'pop3' => intval($GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->pop3),
     'qsearchid' => IMP_Mailbox::formTo(IMP_Search::MBOX_PREFIX . IMP_Search::DIMP_QUICKSEARCH),
     'spam_mbox' => IMP_Mailbox::formTo($GLOBALS['prefs']->getValue('spam_folder')),
-    'spam_spammbox' => !empty($GLOBALS['conf']['spam']['spamfolder']),
+    'spam_spammbox' => !empty($GLOBALS['conf']['spam']['spamfolder'])
 ));
 
 /* Gettext strings. */
