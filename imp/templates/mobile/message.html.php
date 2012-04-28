@@ -37,11 +37,11 @@
       <a href="#" id="imp-message-copy" data-role="button" data-rel="dialog" data-icon="plus"><?php echo _("Copy") ?></a>
       <a href="#" id="imp-message-move" data-role="button" data-rel="dialog" data-icon="minus"><?php echo _("Move") ?></a>
 <?php endif ?>
-<?php if ($this->canSpam): ?>
-      <a href="#" id="imp-message-spam" data-role="button" data-rel="dialog" data-icon="alert"><?php echo _("Spam") ?></a>
-<?php endif ?>
 <?php if ($this->canHam): ?>
       <a href="#" id="imp-message-ham" data-role="button" data-rel="dialog" data-icon="check" style="display:hidden"><?php echo _("Innocent") ?></a>
+<?php endif ?>
+<?php if ($this->canSpam): ?>
+      <a href="#" id="imp-message-spam" data-role="button" data-rel="dialog" data-icon="alert"><?php echo _("Spam") ?></a>
 <?php endif ?>
     </div>
   </div>
