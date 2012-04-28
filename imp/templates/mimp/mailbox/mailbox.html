@@ -12,8 +12,8 @@
     <th></th>
 </if:checkbox>
     <th></th>
-    <th><tag:hdr_from /></th>
-    <th><tag:hdr_subject /><if:hdr_subject_minor> <small>[<tag:hdr_subject_minor />]</small></if:hdr_subject_minor></th>
+    <th><gettext>From</gettext></th>
+    <th><gettext>Subject</gettext></th>
    </tr>
 <loop:msgs>
    <tr>
@@ -22,7 +22,7 @@
 </if:checkbox>
     <td><tag:msgs.status /></td>
     <td><tag:msgs.from /></td>
-    <td><tag:msgs.thread /> <a href="<tag:msgs.target />"><tag:msgs.subject /></a></td>
+    <td><a href="<tag:msgs.target />"><tag:msgs.subject /></a></td>
    </tr>
 </loop:msgs>
   </table>

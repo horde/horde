@@ -1,6 +1,6 @@
 <?php
 /**
- * Manage sortpref preference when using the smartmobile display mode.
+ * A fixed (read-only) implementation of the sortpref preference.
  *
  * Copyright 2012 Horde LLC (http://www.horde.org/)
  *
@@ -12,7 +12,7 @@
  * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
-class IMP_Prefs_Sort_Mobile extends IMP_Prefs_Sort
+class IMP_Prefs_Sort_Fixed extends IMP_Prefs_Sort
 {
     /**
      * Constructor.

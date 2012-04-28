@@ -6,8 +6,6 @@
  *   'a' = (string) actionID
  *   'p' = (integer) page
  *   's' = (integer) start
- *   'sb' = (integer) change sort: by
- *   'sd' = (integer) change sort: dir
  *   'search' = (sring) The search string
  *
  * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
@@ -83,11 +81,6 @@ case 'e':
     $injector->getInstance('IMP_Message')->expungeMailbox(array(strval(IMP::mailbox()) => 1));
     break;
 
-// 'c' = change sort
-case 'c':
-    IMP::mailbox()->setSort($vars->sb, $vars->sd);
-    break;
-
 // 's' = search
 case 's':
     $title = sprintf(_("Search %s"), IMP::mailbox()->label);
@@ -142,16 +135,10 @@ if ($readonly) {
 }
 $t->set('title', $title);
 
-$curr_time = time();
-$curr_time -= $curr_time % 60;
-$msgs = array();
-$sortpref = IMP::mailbox()->getSort();
-$thread_sort = ($sortpref->sortby == Horde_Imap_Client::SORT_THREAD);
-
-$imp_ui = new IMP_Ui_Mailbox(IMP::mailbox());
-
 /* Build the array of message information. */
+$imp_ui = new IMP_Ui_Mailbox(IMP::mailbox());
 $mbox_info = $imp_mailbox->getMailboxArray(range($pageOb['begin'], $pageOb['end']), array('headers' => true));
+$msgs = array();
 
 while (list(,$ob) = each($mbox_info['overview'])) {
     /* Initialize the header fields. */
@@ -181,14 +168,6 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     }
 
     $msg['subject'] = Horde_String::truncate($msg['subject'], 50);
-
-    /* Thread display. */
-    if ($sort_thread) {
-        $t_ob =  $imp_mailbox[$ob['idx']]['t'];
-        $msg['thread'] = str_replace(' ', '&nsbp;', ($sortpref->sortdir ? $t_ob->reverse_txt : $t_ob->txt));
-    } else {
-        $msg['thread'] = '';
-    }
 
     /* Generate the target link. */
     if (IMP::mailbox()->templates) {
@@ -222,36 +201,6 @@ if (!$prefs->getValue('use_trash') &&
     !$imp_search->isVinbox(IMP::mailbox()) &&
     IMP::mailbox()->access_expunge) {
     $menu[] = array(_("Purge Deleted"), $mailbox->copy()->add('a', 'e'));
-}
-
-/* Create header links. */
-$hdr_list = array(
-    'hdr_from' => array(_("From"), Horde_Imap_Client::SORT_FROM),
-    'hdr_subject' => array(_("Subject"), Horde_Imap_Client::SORT_SUBJECT),
-    'hdr_thread' => array(_("Thread"), Horde_Imap_Client::SORT_THREAD)
-);
-foreach ($hdr_list as $key => $val) {
-    if ($sortpref->sortby == $val[1]) {
-        $sort_link = $val[0];
-        if ($sortpref->sortdir_locked) {
-            $sort_link .= ' <a href="' . $mailbox->copy()->add(array('a' => 'c', 'sb' => $val[1], 'sd' => intval(!$sortpref->sortdir))) . '">' . ($sortpref->sortdir ? '^' : 'v') . '</a>';
-        }
-    } else {
-        $sort_link = $sortpref->sortby_locked
-            ? $val[0]
-            : '<a href="' . $mailbox->copy()->add(array('a' => 'c', 'sb' => $val[1])) . '">' . $val[0] . '</a>';
-    }
-    $t->set($key, strval($val[0]));
-}
-
-/* Add thread header entry. */
-if (!$sortpref->sortby_locked && IMP::mailbox()->access_sortthread) {
-    if ($sortpref->sortby == Horde_Imap_Client::SORT_THREAD) {
-        $t->set('hdr_subject_minor', $t->get('hdr_thread'));
-    } else {
-        $t->set('hdr_subject_minor', $t->get('hdr_subject'));
-        $t->set('hdr_subject', $t->get('hdr_thread'));
-    }
 }
 
 /* Add search link. */
