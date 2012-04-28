@@ -2042,17 +2042,17 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             );
         }
 
-        if (!$this->_vars->search) {
-            list($slice_start, $slice_end) = explode(':', $this->_vars->slice, 2);
-            $args += array(
-                'slice_start' => intval($slice_start),
-                'slice_end' => intval($slice_end)
-            );
-        } else {
+        if ($this->_vars->search) {
             $search = Horde_Serialize::unserialize($this->_vars->search, Horde_Serialize::JSON);
             $args += array(
                 'search_uid' => isset($search->uid) ? $search->uid : null,
                 'search_unseen' => isset($search->unseen) ? $search->unseen : null
+            );
+        } else {
+            list($slice_start, $slice_end) = explode(':', $this->_vars->slice, 2);
+            $args += array(
+                'slice_start' => intval($slice_start),
+                'slice_end' => intval($slice_end)
             );
         }
 
