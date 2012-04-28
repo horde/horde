@@ -301,7 +301,7 @@ class IMP_Views_ListMessages
          * starting location based on user's preferences. */
         $rownum = ($initial || (isset($rownum) && is_null($rownum)))
                 ? intval($mailbox_list->mailboxStart($msgcount))
-                : null;
+                : (isset($rownum) ? ($rownum + 1) : null);
 
         /* Determine the row slice to process. */
         if (is_null($rownum)) {
