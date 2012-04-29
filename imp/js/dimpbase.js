@@ -3787,14 +3787,13 @@ var DimpBase = {
         this.splitbar.setStyle({ height: document.viewport.getHeight() + 'px' });
     },
 
-    /* Extend AJAX exception handling. */
-    onAjaxException: function(parentfunc, r, e)
+    /* AJAX exception handling. */
+    onAjaxException: function()
     {
         /* Make sure loading images are closed. */
         this.loadingImg('msg', false);
         this.loadingImg('viewport', false);
         HordeCore.notify(HordeCoreText.ajax_error, 'horde.error');
-        parentfunc(r, e);
     }
 
 };
@@ -3879,7 +3878,8 @@ document.observe('HordeDialog:onClick', function(e) {
     }
 }.bindAsEventListener(DimpBase));
 
-/* Handle AJAX response tasks. */
+/* AJAX related events. */
+document.observe('HordeCore:ajaxException', DimpBase.onAjaxException.bind(DimpBase));
 document.observe('HordeCore:runTasks', function(e) {
     this.tasksHandler(e.memo);
 }.bindAsEventListener(DimpBase));
@@ -3891,9 +3891,6 @@ document.observe('click', DimpBase.clickHandler.bindAsEventListener(DimpBase));
 document.observe('ContextSensitive:click', DimpBase.contextOnClick.bindAsEventListener(DimpBase));
 document.observe('ContextSensitive:show', DimpBase.contextOnShow.bindAsEventListener(DimpBase));
 document.observe('ContextSensitive:trigger', DimpBase.contextOnTrigger.bindAsEventListener(DimpBase));
-
-/* Extend AJAX exception handling. */
-HordeCore.onException = HordeCore.onException.wrap(DimpBase.onAjaxException.bind(DimpBase));
 
 /* Initialize onload handler. */
 document.observe('dom:loaded', DimpBase.onDomLoad.bind(DimpBase));

@@ -4,6 +4,8 @@
  * This file requires prototypejs v1.8.0+.
  *
  * Events fired:
+ *   - HordeCore:ajaxException
+ *   - HordeCore:ajaxFailure
  *   - HordeCore:doActionComplete
  *   - HordeCore:runTasks
  *   - HordeCore:showNotifications
@@ -44,12 +46,14 @@ var HordeCore = {
     onException: function(r, e)
     {
         this.debug('onException', e);
+        document.fire('HordeCore:ajaxException', [ r, e ]);
     },
 
     onFailure: function(t, o)
     {
         this.debug('onFailure', t);
         this.notify(HordeCoreText.ajax_error, 'horde.error');
+        document.fire('HordeCore:ajaxFailure', [ t, o ]);
     },
 
     // opts: (Object) ajaxopts, callback
