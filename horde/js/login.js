@@ -48,9 +48,6 @@ var HordeLogin = {
 
     onDomLoad: function()
     {
-        document.observe('change', this._changeHandler.bindAsEventListener(this));
-        document.observe('click', this._clickHandler.bindAsEventListener(this));
-
         // Need to capture hash information if it exists in URL
         if (location.hash) {
             $('anchor_string').setValue(this._removeHash(location.hash));
@@ -64,7 +61,7 @@ var HordeLogin = {
             $('login-button').focus();
         }
 
-        /* Activate dynamic view. */
+        /* Activate dynamic view(s). */
         var s = $('horde_select_view');
         if (s) {
             s.down('option[value=dynamic]').show();
@@ -75,7 +72,7 @@ var HordeLogin = {
         }
     },
 
-    _changeHandler: function(e)
+    changeHandler: function(e)
     {
         switch (e.element().readAttribute('id')) {
         case 'new_lang':
@@ -84,7 +81,7 @@ var HordeLogin = {
         }
     },
 
-    _clickHandler: function(e)
+    clickHandler: function(e)
     {
         if (e.isRightClick()) {
             return;
@@ -109,3 +106,5 @@ var HordeLogin = {
 };
 
 document.observe('dom:loaded', HordeLogin.onDomLoad.bind(HordeLogin));
+document.observe('change', HordeLogin.changeHandler.bindAsEventListener(HordeLogin));
+document.observe('click', HordeLogin.clickHandler.bindAsEventListener(HordeLogin));
