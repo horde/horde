@@ -510,13 +510,6 @@ class Horde_ActiveSync
      */
     public function handleRequest($cmd, $devId)
     {
-        $this->_logger->debug(sprintf(
-            "[%s] %s request received for user %s",
-            $devId,
-            strtoupper($cmd),
-            $this->_driver->getUser())
-        );
-
         // Autodiscovery handles authentication on it's own.
         if ($cmd == 'Autodiscover') {
             $request = new Horde_ActiveSync_Request_Autodiscover($this, new stdClass());
@@ -526,6 +519,13 @@ class Horde_ActiveSync
         if (!$this->authenticate()) {
             throw new Horde_ActiveSync_Exception('Failed to authenticate');
         }
+
+        $this->_logger->debug(sprintf(
+            "[%s] %s request received for user %s",
+            $devId,
+            strtoupper($cmd),
+            $this->_driver->getUser())
+        );
 
         // Don't bother with everything else if all we want are Options
         if ($cmd == 'Options') {
