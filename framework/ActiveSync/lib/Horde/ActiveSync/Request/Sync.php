@@ -91,15 +91,21 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             return true;
         }
 
+        // Defaults
         $this->_statusCode = self::STATUS_SUCCESS;
         $partial = false;
 
         // Start decoding request
         if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_SYNCHRONIZE)) {
             if ($this->_version >= Horde_ActiveSync::VERSION_TWELVEONE) {
-                if (!($this->_syncCache = $this->_stateDriver->getSyncCache($this->_device->id, $this->_device->user)) ||
-                    !empty($this->_syncCache['collections'])) {
-
+                try {
+                    $this->_syncCache = $this->_stateDriver->getSyncCache($this->_device->id, $this->_device->user);
+                } catch (Horde_ActiveSync_Exception $e) {
+                    $this->_statusCode = self::STATUS_SERVERERROR;
+                    $this->_handleGlobalSynError();
+                    return true;
+                }
+                if (empty($this->_syncCache['collections'])) {
                     $this->_logger->err('Empty SYNC request but no SyncCache or SyncCache with no collections.');
                     $this->_statusCode = self::STATUS_REQUEST_INCOMPLETE;
                     $this->_handleGlobalSyncError();
