@@ -99,28 +99,34 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
         if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_SYNCHRONIZE)) {
             if ($this->_version >= Horde_ActiveSync::VERSION_TWELVEONE) {
                 try {
-                    $this->_syncCache = $this->_stateDriver->getSyncCache($this->_device->id, $this->_device->user);
+                    $this->_syncCache = $this->_stateDriver->getSyncCache(
+                        $this->_device->id, $this->_device->user);
                 } catch (Horde_ActiveSync_Exception $e) {
                     $this->_statusCode = self::STATUS_SERVERERROR;
                     $this->_handleGlobalSynError();
                     return true;
                 }
                 if (empty($this->_syncCache['collections'])) {
-                    $this->_logger->err('Empty SYNC request but no SyncCache or SyncCache with no collections.');
+                    $this->_logger->err(
+                        'Empty SYNC request but no SyncCache or SyncCache with no collections.');
                     $this->_statusCode = self::STATUS_REQUEST_INCOMPLETE;
                     $this->_handleGlobalSyncError();
                     return true;
                 } else {
                     if (count($this->_syncCache['confirmed_synckeys']) > 0) {
-                        $this->_logger->err('Unconfirmed synckeys, but handling a short request. Request full SYNC.');
+                        $this->_logger->err(
+                            'Unconfirmed synckeys, but handling a short request. Request full SYNC.');
                         $this->_statusCode = self::STATUS_REQUEST_INCOMPLETE;
-                        $this->_handleGlobalSYncError();
+                        $this->_handleGlobalSyncError();
                         return true;
                     }
                     $shortsyncreq = true;
                     $this->_syncCache['timestamp'] = time();
-                    $this->_stateDriver->saveSyncCache($this->_syncCache, $this->_device->id, $this->_device->user);
-                    $this->_logger->debug('Empty Sync request and taken info from SyncCache.');
+                    $this->_stateDriver->saveSyncCache(
+                        $this->_syncCache,
+                        $this->_device->id,
+                        $this->_device->user);
+                    $this->_logger->debug('Empty Sync request taking info from SyncCache.');
                     foreach ($this->_syncCache['collections'] as $key => $value) {
                         $collection = $value;
                         $collection['id'] = $key;
@@ -147,8 +153,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 $this->_syncCache = $this->_stateDriver->getSyncCache();
                 $this->_syncCache['wait'] = false;
                 $this->_syncCache['hbinterval'] = false;
-            } else {
-                $this->_syncCache = false;
             }
 
             while (($sync_tag = ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_WINDOWSIZE) ? Horde_ActiveSync::SYNC_WINDOWSIZE :
@@ -164,7 +168,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                         $this->_decoder->getElementEndTag();
                     }
                     $this->_logger->debug(sprintf(
-                        "[%s] HeartbeatInterval ( %s ) Seconds.",
+                        "[%s] HeartbeatInterval %s Seconds.",
                         $this->_device->id,
                         $this->_syncCache['hbinterval'])
                     );
@@ -173,10 +177,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                             "[%s] HeartbeatInterval outside of allowed range.",
                             $this->_device->id)
                         );
-                        $this->_handleSyncError(
-                            self::STATUS_INVALID_WAIT_HEARTBEATINTERVAL,
-                            self::MAX_HEARTBEAT
-                        );
+                        $this->_statusCode = self::STATUS_INVALID_WAIT_HEARTBEATINTERVAL;
+                        $this->_handleGlobalSyncError(self::MAX_HEARTBEAT);
                         return true;
                     }
                     break;
@@ -185,7 +187,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                         $this->_decoder->getElementEndTag();
                     }
                     $this->_logger->debug(sprintf(
-                        "[%s] Wait  ( %s ) Minutes.",
+                        "[%s] Wait %s Minutes.",
                         $this->_device->id,
                         $this->_syncCache['wait'])
                     );
@@ -194,9 +196,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                             "[%s] Wait value outside of allowed range.",
                             $this->_device->id)
                         );
-                        $this->_handleSyncError(
-                            self::STATUS_INVALID_WAIT_HEARTBEATINTERVAL,
-                            (self::MAX_HEARBEAT / 60));
+                        $this->_statusCode = self::STATUS_INVALID_WAIT_HEARTBEATINTERVAL;
+                        $this->_handleGlobalSyncError(self::MAX_HEARBEAT / 60);
                         return true;
                     }
                     break;
