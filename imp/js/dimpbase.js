@@ -875,7 +875,7 @@ var DimpBase = {
         }
     },
 
-    contextOnClick: function(parentfunc, e)
+    contextOnClick: function(e)
     {
         var tmp,
             elt = e.memo.elt,
@@ -1213,14 +1213,12 @@ var DimpBase = {
                     not: menu.endsWith('_flagnot')
                 };
                 this.go('mbox', DIMP.conf.fsearchid);
-            } else {
-                parentfunc(e);
             }
             break;
         }
     },
 
-    contextOnShow: function(parentfunc, e)
+    contextOnShow: function(e)
     {
         var baseelt, elts, flags, ob, sel, tmp,
             ctx_id = e.memo;
@@ -1428,17 +1426,11 @@ var DimpBase = {
         case 'ctx_template':
             [ $('ctx_template_edit') ].invoke(this.viewport.getSelected().size() == 1 ? 'show' : 'hide');
             break;
-
-        default:
-            parentfunc(e);
-            break;
         }
     },
 
-    contextOnTrigger: function(parentfunc, e)
+    contextOnTrigger: function(e)
     {
-        parentfunc(e);
-
         switch (e.memo) {
         case 'ctx_flag':
         case 'ctx_flag_search':
@@ -2587,7 +2579,7 @@ var DimpBase = {
         }
     },
 
-    clickHandler: function(parentfunc, e)
+    clickHandler: function(e)
     {
         if (e.isRightClick() || DimpCore.DMenu.operaCheck(e)) {
             return;
@@ -2832,8 +2824,6 @@ var DimpBase = {
 
             elt = elt.up();
         }
-
-        parentfunc(e);
     },
 
     mouseoverHandler: function(e)
@@ -3895,12 +3885,12 @@ document.observe('HordeCore:runTasks', function(e) {
 }.bindAsEventListener(DimpBase));
 
 /* Click handler. */
-DimpCore.clickHandler = DimpCore.clickHandler.wrap(DimpBase.clickHandler.bind(DimpBase));
+document.observe('click', DimpBase.clickHandler.bindAsEventListener(DimpBase));
 
 /* ContextSensitive handlers. */
-DimpCore.contextOnClick = DimpCore.contextOnClick.wrap(DimpBase.contextOnClick.bind(DimpBase));
-DimpCore.contextOnShow = DimpCore.contextOnShow.wrap(DimpBase.contextOnShow.bind(DimpBase));
-DimpCore.contextOnTrigger = DimpCore.contextOnTrigger.wrap(DimpBase.contextOnTrigger.bind(DimpBase));
+document.observe('ContextSensitive:click', DimpBase.contextOnClick.bindAsEventListener(DimpBase));
+document.observe('ContextSensitive:show', DimpBase.contextOnShow.bindAsEventListener(DimpBase));
+document.observe('ContextSensitive:trigger', DimpBase.contextOnTrigger.bindAsEventListener(DimpBase));
 
 /* Extend AJAX exception handling. */
 HordeCore.onException = HordeCore.onException.wrap(DimpBase.onAjaxException.bind(DimpBase));

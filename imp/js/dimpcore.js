@@ -550,13 +550,7 @@ var DimpCore = {
 
         if (typeof ContextSensitive != 'undefined') {
             this.DMenu = new ContextSensitive();
-            document.observe('ContextSensitive:click', this.contextOnClick.bindAsEventListener(this));
-            document.observe('ContextSensitive:show', this.contextOnShow.bindAsEventListener(this));
-            document.observe('ContextSensitive:trigger', this.contextOnTrigger.bindAsEventListener(this));
         }
-
-        /* Add click handler. */
-        document.observe('click', DimpCore.clickHandler.bindAsEventListener(DimpCore));
 
         /* Catch dialog actions. */
         document.observe('HordeDialog:success', function(e) {
@@ -602,3 +596,11 @@ var DimpCore = {
     }
 
 };
+
+/* Browser native events. */
+document.observe('click', DimpCore.clickHandler.bindAsEventListener(DimpCore));
+
+/* ContextSensitive events. */
+document.observe('ContextSensitive:click', DimpCore.contextOnClick.bindAsEventListener(DimpCore));
+document.observe('ContextSensitive:show', DimpCore.contextOnShow.bindAsEventListener(DimpCore));
+document.observe('ContextSensitive:trigger', DimpCore.contextOnTrigger.bindAsEventListener(DimpCore));

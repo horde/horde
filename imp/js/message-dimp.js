@@ -115,7 +115,7 @@ var DimpMessage = {
     },
 
     /* Click handlers. */
-    clickHandler: function(parentfunc, e)
+    clickHandler: function(e)
     {
         if (e.isRightClick()) {
             return;
@@ -255,11 +255,9 @@ var DimpMessage = {
 
             elt = elt.up();
         }
-
-        parentfunc(e);
     },
 
-    contextOnClick: function(parentfunc, e)
+    contextOnClick: function(e)
     {
         var id = e.memo.elt.readAttribute('id');
 
@@ -276,10 +274,6 @@ var DimpMessage = {
         case 'ctx_forward_editasnew':
         case 'ctx_forward_redirect':
             this.quickreply(id.substring(4));
-            break;
-
-        default:
-            parentfunc(e);
             break;
         }
     },
@@ -346,15 +340,13 @@ var DimpMessage = {
 
 };
 
-/* ContextSensitive functions. */
-DimpCore.contextOnClick = DimpCore.contextOnClick.wrap(DimpMessage.contextOnClick.bind(DimpMessage));
-
-/* Click handler. */
-DimpCore.clickHandler = DimpCore.clickHandler.wrap(DimpMessage.clickHandler.bind(DimpMessage));
-
 /* Attach event handlers. */
 document.observe('dom:loaded', DimpMessage.onDomLoad.bind(DimpMessage));
+document.observe('click', DimpMessage.clickHandler.bindAsEventListener(DimpMessage));
 Event.observe(window, 'resize', DimpMessage.resizeWindow.bind(DimpMessage));
+
+/* ContextSensitive events. */
+document.observe('ContextSensitive:click', DimpMessage.contextOnClick.bindAsEventListener(DimpMessage));
 
 /* DimpCore handlers. */
 document.observe('DimpCore:updateAddressHeader', DimpMessage.updateAddressHeader.bindAsEventListener(DimpMessage));

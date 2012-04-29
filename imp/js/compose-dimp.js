@@ -899,7 +899,7 @@ var DimpCompose = {
     },
 
     /* Click observe handler. */
-    clickHandler: function(parentfunc, e)
+    clickHandler: function(e)
     {
         if (e.isRightClick()) {
             return;
@@ -1033,8 +1033,6 @@ var DimpCompose = {
 
             elt = elt.up();
         }
-
-        parentfunc(e);
     },
 
     changeHandler: function(e)
@@ -1053,11 +1051,9 @@ var DimpCompose = {
         }
     },
 
-    contextOnClick: function(parentfunc, e)
+    contextOnClick: function(e)
     {
-        var id = e.memo.elt.readAttribute('id');
-
-        switch (id) {
+        switch (e.memo.elt.readAttribute('id')) {
         case 'ctx_msg_other_rr':
             $('request_read_receipt').setValue(!$F('request_read_receipt'));
             break;
@@ -1065,14 +1061,10 @@ var DimpCompose = {
         case 'ctx_msg_other_saveatc':
             $('save_attachments_select').setValue(!$F('save_attachments_select'));
             break;
-
-        default:
-            parentfunc(e);
-            break;
         }
     },
 
-    contextOnShow: function(parentfunc, e)
+    contextOnShow: function(e)
     {
         var tmp;
 
@@ -1084,10 +1076,6 @@ var DimpCompose = {
             if (tmp = $('ctx_msg_other_saveatc')) {
                 DimpCore.toggleCheck(tmp.down('SPAN'), $F('save_attachments_select'));
             }
-            break;
-
-        default:
-            parentfunc(e);
             break;
         }
     },
@@ -1206,6 +1194,7 @@ var DimpCompose = {
 
 /* Attach event handlers. */
 document.observe('dom:loaded', DimpCompose.onDomLoad.bind(DimpCompose));
+document.observe('click', DimpCompose.clickHandler.bindAsEventListener(DimpCompose));
 Event.observe(window, 'resize', DimpCompose.resizeMsgArea.bindAsEventListener(DimpCompose));
 
 /* Other UI event handlers. */
@@ -1213,11 +1202,8 @@ document.observe('ImpContacts:update', DimpCompose.onContactsUpdate.bindAsEventL
 document.observe('TextareaResize:resize', DimpCompose.resizeMsgArea.bind(DimpCompose));
 
 /* ContextSensitive functions. */
-DimpCore.contextOnClick = DimpCore.contextOnClick.wrap(DimpCompose.contextOnClick.bind(DimpCompose));
-DimpCore.contextOnShow = DimpCore.contextOnShow.wrap(DimpCompose.contextOnShow.bind(DimpCompose));
-
-/* Click handler. */
-DimpCore.clickHandler = DimpCore.clickHandler.wrap(DimpCompose.clickHandler.bind(DimpCompose));
+document.observe('ContextSensitive:click', DimpCompose.contextOnClick.bindAsEventListener(DimpCompose));
+document.observe('ContextSensitive:show', DimpCompose.contextOnShow.bindAsEventListener(DimpCompose));
 
 /* Initialize spellchecker. */
 document.observe('SpellChecker:after', DimpCompose._onSpellCheckAfter.bind(DimpCompose));
