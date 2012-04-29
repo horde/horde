@@ -222,28 +222,10 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 }
             }
 
-            // Ensure we have syncable collections, using the cache if needed.
-            if ($this->_version == Horde_ActiveSync::VERSION_TWELVEONE &&
-                empty($this->_collections)) {
-                $this->_logger->debug(sprintf(
-                    "No collections - looking in sync_cache: %s",
-                    print_r($this->_sycnCache, true))
-                );
-                $found = false;
-                // Look for at least one primed collection
-                foreach ($this->_syncCache['collections'] as $value) {
-                    if (isset($value['synckey'])) {
-                        $found = true;
-                        break;
-                    }
-                }
-                if (!$found) {
-                    $this->_syncCache['lastuntil'] = time();
-                    $this->_stateDriver->saveSyncCache($this->_syncCache, $this->_device->id, $this->_device->user);
-                    $this->_statusCode = self::STATUS_REQUEST_INCOMPLETE;
-                    $this->_handleGlobalSyncError();
-                    return true;
-                }
+            if (!$this->_haveSyncableCollections()) {
+                $this->_statusCode = self::STATUS_REQUEST_INCOMPLETE;
+                $this->_handleGlobalSyncError();
+                return true;
             }
 
             // Fill in missing values from the cache.
@@ -1480,6 +1462,38 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
         $this->_encoder->endTag(); // Horde_ActiveSync::SYNC_FOLDER
         $this->_encoder->endTag();
         $this->_encoder->endTag();
+    }
+
+    /**
+     * Check if we have at least one syncable collection for a hanging SYNC.
+     *
+     * @return boolean
+     */
+    protected function _haveSyncableCollections()
+    {
+        // Ensure we have syncable collections, using the cache if needed.
+        if ($this->_version == Horde_ActiveSync::VERSION_TWELVEONE &&
+            empty($this->_collections)) {
+            $this->_logger->debug('No collections - looking in sync_cache.');
+            $found = false;
+            foreach ($this->_syncCache['collections'] as $value) {
+                if (isset($value['synckey'])) {
+                    $found = true;
+                    break;
+                }
+            }
+            if (!$found) {
+                $this->_syncCache['lastuntil'] = time();
+                $this->_stateDriver->saveSyncCache(
+                    $this->_syncCache,
+                    $this->_device->id,
+                    $this->_device->user);
+            }
+
+            return $found;
+        }
+
+        return true;
     }
 
 }
