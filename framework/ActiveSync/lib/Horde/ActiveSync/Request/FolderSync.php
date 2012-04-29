@@ -228,7 +228,9 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
         $this->_encoder->startTag(Horde_ActiveSync::FOLDERHIERARCHY_SYNCKEY);
         $this->_encoder->content((($changes || $exporter->count > 0) ? $newsynckey : $synckey));
         $this->_encoder->endTag();
-        $sync_cache['hierarchy']['synckey'] = (($changes || $exporter->count > 0) ? $newsynckey : $synckey);
+        if ($sync_cache !== false) {
+            $sync_cache['hierarchy']['synckey'] = (($changes || $exporter->count > 0) ? $newsynckey : $synckey);
+        }
         $this->_encoder->startTag(Horde_ActiveSync::FOLDERHIERARCHY_CHANGES);
 
         // Remove unnecessary folder updates. Need to do this here, instead of
@@ -307,6 +309,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
             $this->_stateDriver->save();
         }
         $this->_cleanUpAfterPairing();
+
         if ($sync_cache !== false) {
             $this->_stateDriver->saveSyncCache($sync_cache, $this->_device->id, $this->_device->user);
         }

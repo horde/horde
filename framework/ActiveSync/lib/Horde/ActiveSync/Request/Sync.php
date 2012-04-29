@@ -130,21 +130,25 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     if (count($this->_collections) == 0) {
                         $this->_logger->err('Do not have any collections. Enforce full SYNC');
                         $this->_statusCode = self::STATUS_REQUEST_INCOMPLETE;
-                        $this->_handleError();
+                        $this->_handleGlobalSyncError();
                         return true;
                     }
                 }
             } else {
                 $this->_statusCode = self::STATUS_REQUEST_INCOMPLETE;
-                $this->_handleError();
+                $this->_handleGlobalSyncError();
                 $this->_logger->err('Empty Sync request and protocolversion < 12.1');
                 return true;
             }
         } else {
             // Non-empty SYNC request. Either < 12.1 or a full 12.1 reqeust.
-            $this->_syncCache = $this->_stateDriver->getSyncCache();
-            $this->_syncCache['wait'] = false;
-            $this->_syncCache['hbinterval'] = false;
+            if ($this->_version == Horde_ActiveSync::VERSION_TWELVEONE) {
+                $this->_syncCache = $this->_stateDriver->getSyncCache();
+                $this->_syncCache['wait'] = false;
+                $this->_syncCache['hbinterval'] = false;
+            } else {
+                $this->_syncCache = false;
+            }
 
             while (($sync_tag = ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_WINDOWSIZE) ? Horde_ActiveSync::SYNC_WINDOWSIZE :
                    ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FOLDERS) ? Horde_ActiveSync::SYNC_FOLDERS :
@@ -217,7 +221,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             }
 
             // Ensure we have syncable collections, using the cache if needed.
-            if (empty($this->_collections)) {
+            if ($this->_version == Horde_ActiveSync::VERSION_TWELVEONE &&
+                empty($this->_collections)) {
                 $this->_logger->debug(sprintf(
                     "No collections - looking in sync_cache: %s",
                     print_r($this->_sycnCache, true))
@@ -234,62 +239,62 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     $this->_syncCache['lastuntil'] = time();
                     $this->_stateDriver->saveSyncCache($this->_syncCache, $this->_device->id, $this->_device->user);
                     $this->_statusCode = self::STATUS_REQUEST_INCOMPLETE;
-                    $this->_handleError();
+                    $this->_handleGlobalSyncError();
                     return true;
                 }
             }
 
             // Fill in missing values from the cache.
-            foreach ($this->_collections as $key => $values) {
-                if (!isset($values['class']) && isset($this->_syncCache['folders'][$values['id']]['class'])) {
-                    $this->_collections[$key]['class'] = $this->_syncCache['folders'][$values['id']]['class'];
-                }
-                if (!isset($values['filtertype']) && isset($this->_syncCache['collections'][$values['id']]['filtertype'])) {
-                    $this->_collections[$key]['filtertype'] = $this->_syncCache['collections'][$values['id']]['filtertype'];
-                }
-                if (!isset($values['mimesupport']) && isset($this->_syncCache['collections'][$values['id']]['mimesupport'])) {
-                    $this->_collections[$key]['mimesupport'] = $this->_syncCache['collections'][$values['id']]['mimesupport'];
-                }
-                if (!isset($values['bodyprefs']) && isset($this->_syncCache['collections'][$values['id']]['bodyprefs'])) {
-                    $this->_collections[$key]['bodyprefs'] = $this->_syncCache['collections'][$values['id']]['bodyprefs'];
-                }
+            if ($this->_version == Horde_ActiveSync::VERSION_TWELVEONE) {
+                foreach ($this->_collections as $key => $values) {
+                    if (!isset($values['class']) && isset($this->_syncCache['folders'][$values['id']]['class'])) {
+                        $this->_collections[$key]['class'] = $this->_syncCache['folders'][$values['id']]['class'];
+                    }
+                    if (!isset($values['filtertype']) && isset($this->_syncCache['collections'][$values['id']]['filtertype'])) {
+                        $this->_collections[$key]['filtertype'] = $this->_syncCache['collections'][$values['id']]['filtertype'];
+                    }
+                    if (!isset($values['mimesupport']) && isset($this->_syncCache['collections'][$values['id']]['mimesupport'])) {
+                        $this->_collections[$key]['mimesupport'] = $this->_syncCache['collections'][$values['id']]['mimesupport'];
+                    }
+                    if (!isset($values['bodyprefs']) && isset($this->_syncCache['collections'][$values['id']]['bodyprefs'])) {
+                        $this->_collections[$key]['bodyprefs'] = $this->_syncCache['collections'][$values['id']]['bodyprefs'];
+                    }
 
-                if (!isset($values['windowsize']))
-                    $this->_collections[$key]['windowsize'] =
-                        isset($this->_syncCache['collections'][$values['id']]['windowsize'])
-                            ? $this->_syncCache['collections'][$values['id']]['windowsize']
-                            : 100;
-                // in case the maxitems (windowsize) is above 512 or 0 it should be interpreted as 512 according to specs.
-                if ($this->_collections[$key]['windowsize'] > self::MAX_WINDOW_SIZE ||
-                    $this->_collections[$key]['windowsize'] == 0) {
+                    if (!isset($values['windowsize']))
+                        $this->_collections[$key]['windowsize'] =
+                            isset($this->_syncCache['collections'][$values['id']]['windowsize'])
+                                ? $this->_syncCache['collections'][$values['id']]['windowsize']
+                                : 100;
+                    // in case the maxitems (windowsize) is above 512 or 0 it should be interpreted as 512 according to specs.
+                    if ($this->_collections[$key]['windowsize'] > self::MAX_WINDOW_SIZE ||
+                        $this->_collections[$key]['windowsize'] == 0) {
 
-                    $this->_collections[$key]['windowsize'] = self::MAX_WINDOW_SIZE;
+                        $this->_collections[$key]['windowsize'] = self::MAX_WINDOW_SIZE;
+                    }
+
+                    if (isset($values['synckey']) &&
+                        $values['synckey'] == '0' &&
+                        isset($this->_syncCache['collections'][$values['id']]['synckey']) &&
+                        $this->_syncCache['collections'][$values['id']]['synckey'] != '0') {
+
+                        unset($this->_syncCache['collections'][$values['id']]['synckey']);
+                    }
                 }
-
-                if (isset($values['synckey']) &&
-                    $values['synckey'] == '0' &&
-                    isset($this->_syncCache['collections'][$values['id']]['synckey']) &&
-                    $this->_syncCache['collections'][$values['id']]['synckey'] != '0') {
-
-                    unset($this->_syncCache['collections'][$values['id']]['synckey']);
+                // Give up in case we don't have a synched hierarchy synckey
+                // @TODO: We can proabably move this earlier in the code.
+                if (!isset($this->_syncCache['hierarchy']['synckey'])) {
+                    $this->_logger->debug('No HIERARCHY SYNCKEY in sync_cache, invalidating.');
+                    $this->_statusCode = self::STATUS_FOLDERSYNC_REQUIRED;
+                    $this->_handleGlobalSyncError();
+                    return true;
                 }
-            }
-
-            // Give up in case we don't have a synched hierarchy synckey
-            // @TODO: We can proabably move this earlier in the code.
-            if (!isset($this->_syncCache['hierarchy']['synckey'])) {
-                $this->_logger->debug('No HIERARCHY SYNCKEY in sync_cache, invalidating.');
-                $this->_statusCode = self::STATUS_FOLDERSYNC_REQUIRED;
-                $this->_handleError();
-                return true;
-            }
-
-            // Sanity check. These are not allowed in the same request.
-            if ($this->_syncCache['hbinterval'] !== false && $this->_syncCache['wait'] !== false) {
-                $this->_logger->err('Received both HBINTERVAL and WAIT interval in same request. VIOLATION.');
-                $this->_statusCode = self::STATUS_PROTERROR;
-                $this->_handleError();
-                return true;
+                // Sanity check. These are not allowed in the same request.
+                if ($this->_syncCache['hbinterval'] !== false && $this->_syncCache['wait'] !== false) {
+                    $this->_logger->err('Received both HBINTERVAL and WAIT interval in same request. VIOLATION.');
+                    $this->_statusCode = self::STATUS_PROTERROR;
+                    $this->_handleGlobalSyncError();
+                    return true;
+                }
             }
 
             // Handle PARTIALSYNC requests
@@ -445,7 +450,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     }
                 }
                 unset($tempSyncCache);
-            } else {
+            } elseif ($this->_version == Horde_ActiveSync::VERSION_TWELVEONE) {
                 // We got a full sync so we don't need to look after any confirmed
                 // synckey in array since device only knows keys that it sends now
                 $this->_syncCache['confirmed_synckeys'] = array();
@@ -460,77 +465,81 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             }
 
             // Update the sync_cache
-            foreach ($this->_collections as $value) {
-                // @TODO: Remove this?
-                $this->_logger->debug('UPDATING SYNC CACHE ONE');
-                if (isset($value['id'])) {
-                    if (isset($value['synckey'])) {
+            if ($this->_version == Horde_ActiveSync::VERSION_TWELVEONE) {
+                foreach ($this->_collections as $value) {
+                    // @TODO: Remove this?
+                    $this->_logger->debug('UPDATING SYNC CACHE ONE');
+                    if (isset($value['id'])) {
+                        if (isset($value['synckey'])) {
+                            $this->_logger->debug(sprintf(
+                                'Adding SyncCache[synckey] from collection',
+                                $value['id'])
+                            );
+                            $this->_syncCache['collections'][$value['id']]['synckey'] = $value['synckey'];
+                        }
+                        if (isset($value['class'])) {
+                            $this->_syncCache['collections'][$value['id']]['class'] = $value['class'];
+                        }
+                        if (isset($value['windowsize'])) {
+                            $this->_syncCache['collections'][$value['id']]['windowsize'] = $value['windowsize'];
+                        }
+                        if (isset($value['deletesasmoves'])) {
+                            $this->_syncCache['collections'][$value['id']]['deletesasmoves'] = $value['deletesasmoves'];
+                        }
+                        if (isset($value['filtertype'])) {
+                            $this->_SyncCache['collections'][$value['id']]['filtertype'] = $value['filtertype'];
+                        }
+                        if (isset($value['truncation'])) {
+                            $this->_syncCache['collections'][$value['id']]['truncation'] = $value['truncation'];
+                        }
+                        if (isset($value['rtftruncation'])) {
+                            $this->_syncCache['collections'][$value['id']]['rtftruncation'] = $value['rtftruncation'];
+                        }
+                        if (isset($value['mimesupport'])) {
+                            $this->_syncCache['collections'][$value['id']]['mimesupport'] = $value['mimesupport'];
+                        }
+                        if (isset($value['mimetruncation'])) {
+                            $this->_syncCache['collections'][$value['id']]['mimetruncation'] = $value['mimetruncation'];
+                        }
+                        if (isset($value['conflict'])) {
+                            $this->_syncCache['collections'][$value['id']]['conflict'] = $value['conflict'];
+                        }
+                        if (isset($value['bodyprefs'])) {
+                            $this->_syncCache['collections'][$value['id']]['bodyprefs'] = $value['bodyprefs'];
+                        }
+                    } else {
                         $this->_logger->debug(sprintf(
-                            'Adding SyncCache[synckey] from collection',
-                            $value['id'])
+                            'Collection without id found: %s',
+                            print_r($value, true))
                         );
-                        $this->_syncCache['collections'][$value['id']]['synckey'] = $value['synckey'];
                     }
-                    if (isset($value['class'])) {
-                        $this->_syncCache['collections'][$value['id']]['class'] = $value['class'];
-                    }
-                    if (isset($value['windowsize'])) {
-                        $this->_syncCache['collections'][$value['id']]['windowsize'] = $value['windowsize'];
-                    }
-                    if (isset($value['deletesasmoves'])) {
-                        $this->_syncCache['collections'][$value['id']]['deletesasmoves'] = $value['deletesasmoves'];
-                    }
-                    if (isset($value['filtertype'])) {
-                        $this->_SyncCache['collections'][$value['id']]['filtertype'] = $value['filtertype'];
-                    }
-                    if (isset($value['truncation'])) {
-                        $this->_syncCache['collections'][$value['id']]['truncation'] = $value['truncation'];
-                    }
-                    if (isset($value['rtftruncation'])) {
-                        $this->_syncCache['collections'][$value['id']]['rtftruncation'] = $value['rtftruncation'];
-                    }
-                    if (isset($value['mimesupport'])) {
-                        $this->_syncCache['collections'][$value['id']]['mimesupport'] = $value['mimesupport'];
-                    }
-                    if (isset($value['mimetruncation'])) {
-                        $this->_syncCache['collections'][$value['id']]['mimetruncation'] = $value['mimetruncation'];
-                    }
-                    if (isset($value['conflict'])) {
-                        $this->_syncCache['collections'][$value['id']]['conflict'] = $value['conflict'];
-                    }
-                    if (isset($value['bodyprefs'])) {
-                        $this->_syncCache['collections'][$value['id']]['bodyprefs'] = $value['bodyprefs'];
-                    }
-                } else {
-                    $this->_logger->debug(sprintf(
-                        'Collection without id found: %s',
-                        print_r($value, true))
-                    );
                 }
             }
 
             // End SYNC tag.
             if (!$this->_decoder->getElementEndTag()) {
                 $this->_statusCode = self::STATUS_PROTERROR;
-                $this->_handleError();
+                $this->_handleGlobalSyncError();
                 return false;
             }
 
             // In case some synckeys didn't get confirmed by device we issue a full sync
-            if (count($this->_syncCache['confirmed_synckeys']) > 0) {
-                $this->_logger->debug(sprintf(
-                    'Confirmed Synckeys contains %s',
-                    print_r($this->_syncCache['confirmed_synckeys'], true))
-                );
-                $this->_logger->error('Some synckeys were not confirmed. Requesting full SYNC');
-                unset($this->_syncCache['confirmed_synckeys']);
-                $this->_stateDriver->saveSyncCache($this->_syncCache);
-                $this->_statusCode = self::STATUS_REQUEST_INCOMPLETE;
-                $this->_handleError();
-                return true;
-            } else {
-                $this->_logger->debug('All synckeys confirmed. Continueing with SYNC');
-                $this->_stateDriver->saveSyncCache($this->_syncCache);
+            if ($this->_version == Horde_ActiveSync::VERSION_TWELVEONE) {
+                if (count($this->_syncCache['confirmed_synckeys']) > 0) {
+                    $this->_logger->debug(sprintf(
+                        'Confirmed Synckeys contains %s',
+                        print_r($this->_syncCache['confirmed_synckeys'], true))
+                    );
+                    $this->_logger->error('Some synckeys were not confirmed. Requesting full SYNC');
+                    unset($this->_syncCache['confirmed_synckeys']);
+                    $this->_stateDriver->saveSyncCache($this->_syncCache);
+                    $this->_statusCode = self::STATUS_REQUEST_INCOMPLETE;
+                    $this->_handleGlobalSyncError();
+                    return true;
+                } else {
+                    $this->_logger->debug('All synckeys confirmed. Continueing with SYNC');
+                    $this->_stateDriver->saveSyncCache($this->_syncCache);
+                }
             }
         } // End of non-empty SYNC request.
 
@@ -879,49 +888,51 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             }
 
             // Do we need to add the new synckey to the syncCache?
-            if (trim($collection['newsynckey']) != trim($collection['synckey'])) {
-                $this->_syncCache['confirmed_synckeys'][$collection['newsynckey']] = true;
-            }
+            if ($this->_version == Horde_ActiveSync::VERSION_TWELVEONE) {
+                if (trim($collection['newsynckey']) != trim($collection['synckey'])) {
+                    $this->_syncCache['confirmed_synckeys'][$collection['newsynckey']] = true;
+                }
 
-            // @TODO: would this ever not be set???
-            if (isset($collection['id'])) {
-                // @TODO: REmove this? Is this duplicative?
-                $this->_logger->debug('UPDATING SYNCCACHE TWO');
-                if (isset($collection['newsynckey'])) {
-                    $this->_syncCache['collections'][$collection['id']]['synckey'] = $collection['newsynckey'];
-                } else {
-                    $this->_syncCache['collections'][$collection['id']]['synckey'] = $collection['synckey'];
-                }
-                if (isset($collection['class'])) {
-                    $this->_syncCache['collections'][$collection['id']]['class'] = $collection['class'];
-                }
-                if (isset($collection['windowsize'])) {
-                    $this->_syncCache['collections'][$collection['id']]['windowsize'] = $collection['windowsize'];
-                }
-                if (isset($collection['deletesasmoves'])) {
-                    $this->_syncCache['collections'][$collection['id']]['deletesasmoves'] = $collection['deletesasmoves'];
-                }
-                unset($this->_syncCache['collections'][$collection['id']]['getchanges']);
-                if (isset($collection['filtertype'])) {
-                    $this->_SyncCache['collections'][$collection['id']]['filtertype'] = $collection['filtertype'];
-                }
-                if (isset($collection['truncation'])) {
-                    $this->_syncCache['collections'][$collection['id']]['truncation'] = $collection['truncation'];
-                }
-                if (isset($collection['rtftruncation'])) {
-                    $this->_syncCache['collections'][$collection['id']]['rtftruncation'] = $collection['rtftruncation'];
-                }
-                if (isset($collection['mimesupport'])) {
-                    $this->_syncCache['collections'][$collection['id']]['mimesupport'] = $collection['mimesupport'];
-                }
-                if (isset($collection['mimetruncation'])) {
-                    $this->_syncCache['collections'][$collection['id']]['mimetruncation'] = $collection['mimetruncation'];
-                }
-                if (isset($collection['conflict'])) {
-                    $this->_syncCache['collections'][$collection['id']]['conflict'] = $collection['conflict'];
-                }
-                if (isset($collection['bodyprefs'])) {
-                    $this->_syncCache['collections'][$collection['id']]['bodyprefs'] = $collection['bodyprefs'];
+                // @TODO: would this ever not be set???
+                if (isset($collection['id'])) {
+                    // @TODO: REmove this? Is this duplicative?
+                    $this->_logger->debug('UPDATING SYNCCACHE TWO');
+                    if (isset($collection['newsynckey'])) {
+                        $this->_syncCache['collections'][$collection['id']]['synckey'] = $collection['newsynckey'];
+                    } else {
+                        $this->_syncCache['collections'][$collection['id']]['synckey'] = $collection['synckey'];
+                    }
+                    if (isset($collection['class'])) {
+                        $this->_syncCache['collections'][$collection['id']]['class'] = $collection['class'];
+                    }
+                    if (isset($collection['windowsize'])) {
+                        $this->_syncCache['collections'][$collection['id']]['windowsize'] = $collection['windowsize'];
+                    }
+                    if (isset($collection['deletesasmoves'])) {
+                        $this->_syncCache['collections'][$collection['id']]['deletesasmoves'] = $collection['deletesasmoves'];
+                    }
+                    unset($this->_syncCache['collections'][$collection['id']]['getchanges']);
+                    if (isset($collection['filtertype'])) {
+                        $this->_SyncCache['collections'][$collection['id']]['filtertype'] = $collection['filtertype'];
+                    }
+                    if (isset($collection['truncation'])) {
+                        $this->_syncCache['collections'][$collection['id']]['truncation'] = $collection['truncation'];
+                    }
+                    if (isset($collection['rtftruncation'])) {
+                        $this->_syncCache['collections'][$collection['id']]['rtftruncation'] = $collection['rtftruncation'];
+                    }
+                    if (isset($collection['mimesupport'])) {
+                        $this->_syncCache['collections'][$collection['id']]['mimesupport'] = $collection['mimesupport'];
+                    }
+                    if (isset($collection['mimetruncation'])) {
+                        $this->_syncCache['collections'][$collection['id']]['mimetruncation'] = $collection['mimetruncation'];
+                    }
+                    if (isset($collection['conflict'])) {
+                        $this->_syncCache['collections'][$collection['id']]['conflict'] = $collection['conflict'];
+                    }
+                    if (isset($collection['bodyprefs'])) {
+                        $this->_syncCache['collections'][$collection['id']]['bodyprefs'] = $collection['bodyprefs'];
+                    }
                 }
             }
         }
@@ -929,14 +940,16 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
         $this->_encoder->endTag();
         $this->_encoder->endTag();
 
-        $tempSyncCache = $this->_stateDriver->getSyncCache($this->_device->id, $this->_device->user);
-        if (isset($this->_syncCache['timestamp']) &&
-            $tempSyncCache['timestamp'] > $this->_syncCache['timestamp']) {
-            $this->_logger->err('Changes detected in sync_cache during wait interval, exiting without updating cache.');
-            return true;
-        } else {
-            $this->_syncCache['lastsyncendnormal'] = time();
-            $this->_stateDriver->saveSyncCache($this->_syncCache, $this->_device->id, $this->_device->user);
+        if ($this->_version == Horde_ActiveSync::VERSION_TWELVEONE) {
+            $tempSyncCache = $this->_stateDriver->getSyncCache($this->_device->id, $this->_device->user);
+            if (isset($this->_syncCache['timestamp']) &&
+                $tempSyncCache['timestamp'] > $this->_syncCache['timestamp']) {
+                $this->_logger->err('Changes detected in sync_cache during wait interval, exiting without updating cache.');
+                return true;
+            } else {
+                $this->_syncCache['lastsyncendnormal'] = time();
+                $this->_stateDriver->saveSyncCache($this->_syncCache, $this->_device->id, $this->_device->user);
+            }
         }
 
         return true;
@@ -980,7 +993,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     if (!$this->_decoder->getElementEndTag()) {
                         throw new Horde_ActiveSync_Exception('Protocol error');
                     }
-                    $this->_initState($collection);
                     break;
 
                 case Horde_ActiveSync::SYNC_SYNCKEY:
@@ -988,7 +1000,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     if (!$this->_decoder->getElementEndTag()) {
                         throw new Horde_ActiveSync_Exception('Protocol error');
                     }
-                    $this->_initState($collection);
                     break;
 
                 case Horde_ActiveSync::SYNC_FOLDERID:
@@ -1001,7 +1012,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     if (!$this->_decoder->getElementEndTag()) {
                         throw new Horde_ActiveSync_Exception('Protocol error');
                     }
-                    $this->_initState($collection);
                     break;
 
                 case Horde_ActiveSync::SYNC_WINDOWSIZE:
@@ -1108,17 +1118,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
      */
     protected function _parseSyncCommands(&$collection)
     {
-        // Make sure we have initialized the state, if not, send a key mismatch
-        // error to force a complete resync.
-        if (!$this->_stateInit) {
-            $this->_logger->err(sprintf(
-                "[%s] Attempting a SYNC_COMMANDS, but could find no state. Resetting.",
-                $this->_device->id));
-            $this->_statusCode = self::STATUS_KEYMISM;
-            $this->_handleError();
-            exit;
-        }
-
         // Some broken clients send SYNC_COMMANDS with a synckey of 0.
         // This is a violation of the spec, and could lead to all kinds
         // of data integrity issues.
