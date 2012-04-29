@@ -230,40 +230,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
 
             // Fill in missing values from the cache.
             if ($this->_version == Horde_ActiveSync::VERSION_TWELVEONE) {
-                foreach ($this->_collections as $key => $values) {
-                    if (!isset($values['class']) && isset($this->_syncCache['folders'][$values['id']]['class'])) {
-                        $this->_collections[$key]['class'] = $this->_syncCache['folders'][$values['id']]['class'];
-                    }
-                    if (!isset($values['filtertype']) && isset($this->_syncCache['collections'][$values['id']]['filtertype'])) {
-                        $this->_collections[$key]['filtertype'] = $this->_syncCache['collections'][$values['id']]['filtertype'];
-                    }
-                    if (!isset($values['mimesupport']) && isset($this->_syncCache['collections'][$values['id']]['mimesupport'])) {
-                        $this->_collections[$key]['mimesupport'] = $this->_syncCache['collections'][$values['id']]['mimesupport'];
-                    }
-                    if (!isset($values['bodyprefs']) && isset($this->_syncCache['collections'][$values['id']]['bodyprefs'])) {
-                        $this->_collections[$key]['bodyprefs'] = $this->_syncCache['collections'][$values['id']]['bodyprefs'];
-                    }
+                $this->_validateCollectionsFromCache();
 
-                    if (!isset($values['windowsize']))
-                        $this->_collections[$key]['windowsize'] =
-                            isset($this->_syncCache['collections'][$values['id']]['windowsize'])
-                                ? $this->_syncCache['collections'][$values['id']]['windowsize']
-                                : 100;
-                    // in case the maxitems (windowsize) is above 512 or 0 it should be interpreted as 512 according to specs.
-                    if ($this->_collections[$key]['windowsize'] > self::MAX_WINDOW_SIZE ||
-                        $this->_collections[$key]['windowsize'] == 0) {
-
-                        $this->_collections[$key]['windowsize'] = self::MAX_WINDOW_SIZE;
-                    }
-
-                    if (isset($values['synckey']) &&
-                        $values['synckey'] == '0' &&
-                        isset($this->_syncCache['collections'][$values['id']]['synckey']) &&
-                        $this->_syncCache['collections'][$values['id']]['synckey'] != '0') {
-
-                        unset($this->_syncCache['collections'][$values['id']]['synckey']);
-                    }
-                }
                 // Give up in case we don't have a synched hierarchy synckey
                 // @TODO: We can proabably move this earlier in the code.
                 if (!isset($this->_syncCache['hierarchy']['synckey'])) {
@@ -1494,6 +1462,45 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
         }
 
         return true;
+    }
+
+    protected function _validateCollectionsFromCache()
+    {
+        foreach ($this->_collections as $key => $values) {
+            if (!isset($values['class']) && isset($this->_syncCache['folders'][$values['id']]['class'])) {
+                $this->_collections[$key]['class'] = $this->_syncCache['folders'][$values['id']]['class'];
+            }
+            if (!isset($values['filtertype']) && isset($this->_syncCache['collections'][$values['id']]['filtertype'])) {
+                $this->_collections[$key]['filtertype'] = $this->_syncCache['collections'][$values['id']]['filtertype'];
+            }
+            if (!isset($values['mimesupport']) && isset($this->_syncCache['collections'][$values['id']]['mimesupport'])) {
+                $this->_collections[$key]['mimesupport'] = $this->_syncCache['collections'][$values['id']]['mimesupport'];
+            }
+            if (!isset($values['bodyprefs']) && isset($this->_syncCache['collections'][$values['id']]['bodyprefs'])) {
+                $this->_collections[$key]['bodyprefs'] = $this->_syncCache['collections'][$values['id']]['bodyprefs'];
+            }
+
+            if (!isset($values['windowsize']))
+                $this->_collections[$key]['windowsize'] =
+                    isset($this->_syncCache['collections'][$values['id']]['windowsize'])
+                        ? $this->_syncCache['collections'][$values['id']]['windowsize']
+                        : 100;
+            // in case the maxitems (windowsize) is above 512 or 0 it should be
+            // interpreted as 512 according to specs.
+            if ($this->_collections[$key]['windowsize'] > self::MAX_WINDOW_SIZE ||
+                $this->_collections[$key]['windowsize'] == 0) {
+
+                $this->_collections[$key]['windowsize'] = self::MAX_WINDOW_SIZE;
+            }
+
+            if (isset($values['synckey']) &&
+                $values['synckey'] == '0' &&
+                isset($this->_syncCache['collections'][$values['id']]['synckey']) &&
+                $this->_syncCache['collections'][$values['id']]['synckey'] != '0') {
+
+                unset($this->_syncCache['collections'][$values['id']]['synckey']);
+            }
+        }
     }
 
 }
