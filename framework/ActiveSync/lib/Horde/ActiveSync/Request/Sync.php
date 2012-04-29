@@ -264,11 +264,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 foreach ($this->_collections as $key => $value) {
                     // Discover if any collection changed
                     $v1 = $this->_collections[$key];
-                    if (isset($v1['id'])) unset($v1['id']);
-                    if (isset($v1['clientids'])) unset($v1['clientids']);
-                    if (isset($v1['fetchids'])) unset($v1['fetchids']);
-                    if (isset($v1['getchanges'])) unset($v1['getchanges']);
-                    if (isset($v1['changeids'])) unset($v1['changeids']);
+                    unset($v1['id'], $v1['clientids'], $v1['fetchids'],
+                          $v1['getchanges'], $v1['changeids']);
                     $v2 = $tempSyncCache['collections'][$value['id']];
                     ksort($v1);
                     if (isset($v1['bodyprefs'])) {
