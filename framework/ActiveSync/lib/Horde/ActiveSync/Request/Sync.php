@@ -47,14 +47,16 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
     const STATUS_KEYMISM                = 3;
     const STATUS_PROTERROR              = 4;
     const STATUS_SERVERERROR            = 5;
+
+    // 12.1
     const STATUS_FOLDERSYNC_REQUIRED    = 12;
     const STATUS_REQUEST_INCOMPLETE     = 13;
     const STATUS_INVALID_WAIT_HEARTBEAT = 14;
 
-    /* Maximum window size */
+    /* Maximum window size (12.1 only) */
     const MAX_WINDOW_SIZE    = 512;
 
-    /* Maximum HEARTBEAT value (seconds) */
+    /* Maximum HEARTBEAT value (seconds) (12.1 only) */
     const MAX_HEARTBEAT      = 3540;
 
     /**
@@ -65,7 +67,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
     protected $_collections = array();
 
     /**
-     * The sync cache
+     * The sync cache - used in 12.1 requests only.
      *
      * @var array
      */
