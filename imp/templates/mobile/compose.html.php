@@ -32,7 +32,7 @@
       <input type="text" id="imp-compose-subject" name="subject" />
 
       <label for="imp-compose-message"><?php echo _("Text:") ?></label>
-      <textarea id="imp-compose-message" name="message" rows="20" class="fixed"></textarea>
+      <textarea id="imp-compose-message" name="message" rows="15" class="fixed"></textarea>
 
     </div>
   </form>
