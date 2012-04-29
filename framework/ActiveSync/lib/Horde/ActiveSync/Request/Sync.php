@@ -278,7 +278,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     if (isset($v2['bodyprefs'])) {
                         ksort($v2['bodyprefs']);
                         foreach (array_keys($v2['bodyprefs']) as $k) {
-                            ksort($v2['BodyPreference'][$k]);
+                            ksort($v2['bodyprefs'][$k]);
                         }
                     }
 
