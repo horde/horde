@@ -100,13 +100,13 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
 
                     $this->_logger->err('Empty SYNC request but no SyncCache or SyncCache with no collections.');
                     $this->_statusCode = self::STATUS_REQUEST_INCOMPLETE;
-                    $this->_handleError();
+                    $this->_handleGlobalSyncError();
                     return true;
                 } else {
                     if (count($this->_syncCache['confirmed_synckeys']) > 0) {
                         $this->_logger->err('Unconfirmed synckeys, but handling a short request. Request full SYNC.');
                         $this->_statusCode = self::STATUS_REQUEST_INCOMPLETE;
-                        $this->_handleError();
+                        $this->_handleGlobalSYncError();
                         return true;
                     }
                     $shortsyncreq = true;
@@ -395,7 +395,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
 
                     $this->_logger->debug('lasthbsyncstarted is larger than lastsyncendnormal. Request a full SYNC');
                     $this->_statusCode = self::STATUS_REQUEST_INCOMPLETE;
-                    $this->_handleError();
+                    $this->_handleGlobalSyncError();
                     return true;
                 }
 
@@ -422,7 +422,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
 
                     $this->_logger->debug('Partial Request with completely unchanged collections. Request a full SYNC');
                     $this->_statusCode = self::STATUS_REQUEST_INCOMPLETE;
-                    $this->_handleError();
+                    $this->_handleGlobalSyncError();
                     return true;
                 }
 
@@ -582,7 +582,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     $rwstatus = $this->_stateDriver->getDeviceRWStatus($this->_device->id);
                     if ($rwstatus == Horde_ActiveSync::RWSTATUS_PENDING || $rwstatus == Horde_ActiveSync::RWSTATUS_WIPED) {
                         $this->_statusCode = self::STATUS_FOLDERSYNC_REQUIRED;
-                        $this->_handleError();
+                        $this->_handleGlobalSyncError();
                         return true;
                     }
                 }
@@ -598,11 +598,11 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                             $this->_device->id)
                         );
                         $this->_statusCode = self::STATUS_REQUEST_INCOMPLETE;
-                        $this->_handleError();
+                        $this->_handleGlobalSyncError();
                         return true;
                     } catch (Horde_ActiveSync_Exception $e) {
                         $this->_statusCode = self::STATUS_SERVERERROR;
-                        $this->_handleError();
+                        $this->_handleGlobalSyncError();
                         return true;
                     }
                     $sync = $this->_getSyncObject();
@@ -623,7 +623,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                             $e->getMessage())
                         );
                         $this->_statusCode = self::STATUS_FOLDERSYNC_REQUIRED;
-                        $this->_handleError();
+                        $this->_handleGlobalSyncError();
                         return true;
                     } catch (Horde_ActiveSync_Exception $e) {
                         $this->_logger->err(sprintf(
@@ -715,11 +715,11 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                         $this->_device->id)
                     );
                     $this->_statusCode = self::STATUS_REQUEST_INCOMPLETE;
-                    $this->_handleError();
+                    $this->_handleGlobalSyncError();
                     return true;
                 } catch (Horde_ActiveSync_Exception $e) {
                     $this->_statusCode = self::STATUS_SERVERERROR;
-                    $this->_handleError();
+                    $this->_handleGlobalSyncError();
                     return true;
                 }
 
@@ -1406,12 +1406,27 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             $this->_device->id));
     }
 
+    protected function _handleGlobalSyncError($limit = false)
+    {
+        $this->_encoder->StartWBXML();
+        $this->_encoder->startTag(Horde_ActiveSync::SYNC_SYNCHRONIZE);
+        $this->_encoder->startTag(Horde_ActiveSync::SYNC_STATUS);
+        $this->_encoder->content($this->_statusCode);
+        $this->_encoder->endTag();
+        if ($limit !== false) {
+            $this->_encoder->startTag(Horde_ActiveSync::SYNC_LIMIT);
+            $this->_encoder->content($limit);
+            $this->_encoder->endTag();
+        }
+        $this->_encoder->endTag();
+    }
+
     /**
      * Helper for handling sync errors
      *
      * @param <type> $collection
      */
-    private function _handleError($collection)
+    protected function _handleError($collection)
     {
         $this->_encoder->startWBXML();
         $this->_encoder->startTag(Horde_ActiveSync::SYNC_SYNCHRONIZE);
