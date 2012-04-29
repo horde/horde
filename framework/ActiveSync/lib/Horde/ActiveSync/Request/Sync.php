@@ -285,9 +285,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     if (md5(serialize($v1)) == md5(serialize($v2))) {
                         $unchanged_count++;
                     }
-                    unset($v1);
-                    unset($v2);
-
                     // Unset in tempSyncCache in case we already have it
                     if (isset($tempSyncCache['collections'][$value['id']])) {
                         $this->_logger->debug(sprintf(
@@ -311,7 +308,10 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                         $synckey_count++;
                     }
                 }
+                unset($v1);
+                unset($v2);
 
+                // @TODO: Remove after testing.
                 $CacheKeys = 0;
                 foreach ($this->_syncCache['collections'] as $value) {
                     // Count all cached Collections with SyncKey set
