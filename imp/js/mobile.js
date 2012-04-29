@@ -103,7 +103,7 @@ var ImpMobile = {
     {
         var mailbox = url.params.mbox || 'SU5CT1g',
             title = $('#imp-mailbox-' + mailbox).text(),
-            params = {}, ob, vp_params;
+            params = {}, ob;
 
         if (HordeMobile.currentPage('mailbox')) {
             HordeMobile.updateHash(url);
@@ -138,21 +138,16 @@ var ImpMobile = {
                 if (options.noajax) {
                     return;
                 }
+                params.checkcache = 1;
             }
-        }
-
-        vp_params = $.extend(ImpMobile.addMboxParams(params), {
-            requestid: 1,
-            view: mailbox
-        })
-
-        if (ob && url.params.from) {
-            delete vp_params.checkcache;
         }
 
         HordeMobile.doAction(
             'viewPort',
-            vp_params
+            $.extend(ImpMobile.addMboxParams(params), {
+                requestid: 1,
+                view: mailbox
+            })
         );
     },
 
@@ -167,7 +162,6 @@ var ImpMobile = {
         if (ob = ImpMobile.cache[ImpMobile.mailbox]) {
             params.cache = ImpMobile.toUIDStringSingle(ImpMobile.mailbox, ob.cachedIds());
             params.cacheid = ob.cacheid;
-            params.checkcache = 1;
             from = ob.from;
         }
 
@@ -783,6 +777,7 @@ var ImpMobile = {
             HordeMobile.doAction(
                 'reportSpam',
                 ImpMobile.addMboxParams({
+                    checkcache: 1,
                     spam: Number(url.params.action == 'spam'),
                     uid: ImpMobile.toUIDStringSingle(url.params.mbox, [ url.params.uid ]),
                     view: url.params.mbox
@@ -837,6 +832,7 @@ var ImpMobile = {
         HordeMobile.doAction(
             func,
             $.extend(ImpMobile.addMboxParams({}), {
+                checkcache: 1,
                 mboxto: value,
                 newmbox: $('#imp-target-new').val(),
                 uid: ImpMobile.toUIDStringSingle(source, [ $('#imp-target-uid').val() ]),
@@ -944,6 +940,7 @@ var ImpMobile = {
                 HordeMobile.doAction(
                     'deleteMessages',
                     ImpMobile.addMboxParams({
+                        checkcache: 1,
                         uid: ImpMobile.toUIDStringSingle(ImpMobile.mailbox, [ ImpMobile.uid ]),
                         view: ImpMobile.mailbox
                     })
