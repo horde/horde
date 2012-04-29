@@ -286,13 +286,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                         $unchanged_count++;
                     }
                     // Unset in tempSyncCache in case we already have it
-                    if (isset($tempSyncCache['collections'][$value['id']])) {
-                        $this->_logger->debug(sprintf(
-                            'Removing %s from tempSyncCache',
-                            $value['id'])
-                        );
-                        unset($tempSyncCache['collections'][$value['id']]);
-                    }
+                    unset($tempSyncCache['collections'][$value['id']]);
 
                     // Remove keys from confirmed synckeys array and count them
                     if (isset($value['synckey'])) {
