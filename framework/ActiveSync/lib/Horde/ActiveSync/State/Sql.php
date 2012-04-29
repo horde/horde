@@ -1198,7 +1198,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             throw new Horde_ActiveSync_Exception($e);
         }
         if (!$data = unserialize($data)) {
-            return new array(
+            return array(
                 'confirmed_synckeys' => array(),
                 'lasthbsyncstarted' => false,
                 'lastsyncendnormal' => false,
@@ -1228,7 +1228,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             . ' WHERE cache_devid = ? AND cache_userid = ?';
         try {
             $have = $this->_db->selectValue($sql, array($devid, $user));
-        } catach (Horde_Db_Exception $e) {
+        } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
         if ($have) {
@@ -1240,7 +1240,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                     array(serialize($cache), $devid, $user)
                 );
             } catch (Horde_Db_Exception $e) {
-                thrown new Horde_ActiveSync_Exception($e);
+                throw new Horde_ActiveSync_Exception($e);
             }
         } else {
             $sql = 'INSERT INTO ' . $this->_syncCacheTable
@@ -1270,7 +1270,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             . ' WHERE cache_user = ? AND cache_devid = ?';
 
         try {
-            $this->_db->delete($sql, array($)
+            $this->_db->delete($sql, array($user, $devid));
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }

@@ -271,7 +271,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     isset($this->_syncCache['collections'][$values['id']]['synckey']) &&
                     $this->_syncCache['collections'][$values['id']]['synckey'] != '0') {
 
-                    unset($this->_syncCache['collections'][$values['id']]['synckey'] != '0');
+                    unset($this->_syncCache['collections'][$values['id']]['synckey']);
                 }
             }
 
@@ -297,7 +297,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             if ($partial === true) {
                 $this->_logger->debug('PARTIAL SYNC');
                 $tempSyncCache = $this->_stateDriver->getSyncCache(
-                    $this->_device->id, $this->_device->user));
+                    $this->_device->id, $this->_device->user);
 
                 // Remove all we already have information on
                 $CollectionsUnchanged = 0;
@@ -409,7 +409,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
 
                     $this->_logger->debug('Current Time is lower than lastuntil. Request a full SYNC');
                     $this->_statusCode = self::STATUS_REQUEST_INCOMPLETE;
-                    $this->_handError():
+                    $this->_handError();
                     return true;
                 }
 
@@ -450,7 +450,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 // synckey in array since device only knows keys that it sends now
                 $this->_syncCache['confirmed_synckeys'] = array();
                 $this->_syncCache['lastuntil'] = time();
-                foreach (array_keys(this->_syncCache['collections']) as $key) {
+                foreach (array_keys($this->_syncCache['collections']) as $key) {
                     $this->_logger->debug(sprintf(
                         'Not a partial sync. Removing SyncCache[synckey] from collection',
                         $key)
@@ -692,7 +692,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
 
             $this->_logger->debug('Sending an empty SYNC response.');
             $this->_syncCache['lastsyncendnormal'] = time();
-            $this->_stateDriver->saveSyncCache($this->_syncCache, $this->_device->id, $this->_device->user));
+            $this->_stateDriver->saveSyncCache($this->_syncCache, $this->_device->id, $this->_device->user);
             return true;
         }
 
@@ -929,7 +929,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
         $this->_encoder->endTag();
         $this->_encoder->endTag();
 
-        $tempSyncCache = $this>_stateDriver->getSyncCache($this->_device->id, $this->_device->user));
+        $tempSyncCache = $this->_stateDriver->getSyncCache($this->_device->id, $this->_device->user);
         if (isset($this->_syncCache['timestamp']) &&
             $tempSyncCache['timestamp'] > $this->_syncCache['timestamp']) {
             $this->_logger->err('Changes detected in sync_cache during wait interval, exiting without updating cache.');
