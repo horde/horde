@@ -1,10 +1,26 @@
 <?php
+/**
+ * Nag smartmobile view.
+ *
+ * Copyright 2012 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
+ *
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @package  Nag
+ */
 
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('nag');
 
 $vars = Horde_Variables::getDefaultVariables();
-$actionID = $vars->actionID;
+$view = new Horde_View(array('templatePath' => NAG_TEMPLATES . '/smartmobile'));
+new Horde_View_Helper_Text($view);
+
+$view->portal = Horde::getServiceLink('portal', 'horde')->setRaw(false);
+$view->logout = Horde::getServiceLink('logout')->setRaw(false);
 
 /* Get the full, sorted task list. */
 try {
@@ -18,51 +34,11 @@ try {
     $tasks = new Nag_Task();
 }
 
-$page_output->addScriptFile('smartmobile.js');
-$page_output->header(array(
-    'title' => _("My Tasks"),
-    'view' => $registry::VIEW_SMARTMOBILE
-));
-
-?>
-<style type="text/css">
-.ui-icon-nag-unchecked {
-    background-image: none;
-}
-.overdue {
-    color: #f00;
-}
-.closed {
-    color: #aaa;
-}
-.closed a {
-    text-decoration: line-through;
-}
-</style>
-<script>
-var NagConf = {
-    completeUrl: '<?php echo Horde::url('t/complete?format=json') ?>',
-    showCompleted: <?php echo $prefs->getValue('show_completed') ?>
-};
-</script>
-</head>
-
-<body>
-<div data-role="page" id="nag-tasklist">
-
-<div data-role="header">
- <h1>My Tasks</h1>
- <a rel="external" href="<?php echo Horde::getServiceLink('portal', 'horde')?>"><?php echo _("Applications")?></a>
- <?php if (Horde::getServiceLink('logout')): ?>
- <a href="<?php echo Horde::getServiceLink('logout')->setRaw(false) ?>" rel="external" data-theme="e" data-icon="delete"><?php echo _("Log out") ?></a>
- <?php endif ?>
-</div>
-<div data-role="content">
- <ul data-role="listview">
-<?php
 if ($tasks->hasTasks()) {
+    $auth = $registry->getAuth();
     $dateFormat = $prefs->getValue('date_format');
     $dynamic_sort = true;
+    $li = array();
 
     $tasks->reset();
     while ($task = $tasks->each()) {
@@ -70,35 +46,34 @@ if ($tasks->hasTasks()) {
 
         $style = '';
         $overdue = false;
+
         if (!empty($task->completed)) {
             $style = 'closed';
         } elseif (!empty($task->due) && $task->due < time()) {
             $style = 'overdue';
             $overdue = true;
         }
-        if ($style) { $style = ' class="' . $style . '"'; }
 
         if ($task->tasklist == '**EXTERNAL**') {
             // Just use a new share that this user owns for tasks from
             // external calls - if the API gives them back, we'll trust it.
-            $share = $GLOBALS['nag_shares']->newShare($GLOBALS['registry']->getAuth(), '**EXTERNAL**', $task->tasklist_name);
+            $share = $nag_shares->newShare($auth, '**EXTERNAL**', $task->tasklist_name);
             $owner = $task->tasklist_name;
         } else {
             try {
-                $share = $GLOBALS['nag_shares']->getShare($task->tasklist);
+                $share = $nag_shares->getShare($task->tasklist);
                 $owner = $share->get('name');
             } catch (Horde_Share_Exception $e) {
                 $owner = $task->tasklist;
             }
         }
 
-        $task_link = '#';
-        if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
-            $task_link = $task->view_link;
-        }
+        $task_link = $share->hasPermission($auth, Horde_Perms::READ)
+            ? $task->view_link
+            : '#';
 
         $task_complete_class = '';
-        if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
+        if ($share->hasPermission($auth, Horde_Perms::EDIT)) {
             if (!$task->completed) {
                 $icon = 'nag-unchecked';
                 if (!$task->childrenCompleted()) {
@@ -125,17 +100,55 @@ if ($tasks->hasTasks()) {
                 $icon = 'nag-unchecked';
             }
         }
-        if ($task_complete_class) { $task_complete_class = ' class="' . $task_complete_class . '"'; }
 
-        echo '<li' . $style . '><a data-rel="dialog" data-transition="slideup" href="' . str_replace('view.php', 'smartmobile-view.php', $task_link) . '"><h3>' . htmlspecialchars($task->name) . '</h3><p>' . htmlspecialchars(substr($task->desc, 0, 1000)) . '</p><p class="ui-li-aside' . ($overdue ? ' overdue' : '') . '"><strong>' . ($task->due ? strftime($dateFormat, $task->due) : '&nbsp;') . '</strong></p></a><a data-task="' . htmlspecialchars($task->id) . '" data-tasklist="' . htmlspecialchars($task->tasklist) . '" data-icon="' . $icon . '" href="#"' . $task_complete_class . '>' . $label . '</a></li>';
+        $li[] = array(
+            'desc' => substr($task->desc, 0, 1000),
+            'due' => ($task->due ? strftime($dateFormat, $task->due) : '&nbsp;'),
+            'href' => str_replace('view.php', 'smartmobile-view.php', $task_link),
+            'icon' => $icon,
+            'id' => $task->id,
+            'label' => $label,
+            'name' => $task->name,
+            'overdue' => $overdue,
+            'style' => $style,
+            'tasklist' => $tasklist,
+            'tcc' => $task_complete_class
+        );
     }
+
+    $view->li = $li;
 }
-?>
- </ul>
-</div>
 
-<?php require NAG_TEMPLATES . '/smartmobile-footer.html.php'; ?>
+/* Task creation page. */
+$max_tasks = $GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('max_tasks');
+if (($max_tasks === true) || ($max_tasks > Nag::countTasks())) {
+    $task_vars = clone $vars;
+    if (!$vars->exists('tasklist_id')) {
+        $vars->set('tasklist_id', Nag::getDefaultTasklist(Horde_Perms::EDIT));
+    }
+    $vars->mobile = true;
+    $vars->url = Horde::url('smartmobile.php');
 
-</div>
+    $view->create_form = new Nag_Form_Task($vars, _("New Task"), $mobile = true);
+    $view->create_title = $view->create_form->getTitle();
+}
 
-<?php $page_output->footer();
+$page_output->addScriptFile('smartmobile.js');
+$page_output->addInlineJsVars(array(
+    'var NagConf' => array(
+        'completeUrl' => strval(Horde::url('t/complete?format=json')),
+        'showCompleted' => $prefs->getValue('show_completed')
+    )
+), array('top' => true));
+
+$page_output->header(array(
+    'title' => _("My Tasks"),
+    'view' => $registry::VIEW_SMARTMOBILE
+));
+
+echo $view->render('main');
+if ($view->create_form) {
+    echo $view->render('create');
+}
+
+$page_output->footer();
