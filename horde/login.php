@@ -237,7 +237,7 @@ if (!empty($GLOBALS['conf']['user']['select_view'])) {
                 'hidden' => true,
             ),
             'mobile' => array(
-                'name' => _("Mobile"),
+                'name' => _("Mobile (Minimal)"),
                 'selected' => $view_cookie == 'mobile'
             )
         )
