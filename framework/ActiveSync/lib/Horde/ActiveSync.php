@@ -600,9 +600,13 @@ class Horde_ActiveSync
     {
         switch ($this->_maxVersion) {
         case self::VERSION_TWOFIVE:
-        case self::VERSION_TWELVE:
             header('MS-Server-ActiveSync: 6.5.7638.1');
+            breakl;
+        case self::VERSION_TWELVE:
+            header('MS-Server-ActiveSync: 12.0');
             break;
+        case self::VERSION_TWELVEONE:
+            header('MS-Server-ActiveSync: 12.1');
         }
     }
 
@@ -618,6 +622,10 @@ class Horde_ActiveSync
             break;
         case self::VERSION_TWELVE:
             header('MS-ASProtocolVersions: 1.0,2.0,2.1,2.5,12.0');
+            break;
+        case self::VERSION_TWELVEONE:
+            header('MS-ASProtocolVersions: 1.0,2.0,2.1,2.5,12.0,12.1');
+            header("MS-ASProtocolRevisions: 12.1r1");
         }
     }
 
@@ -632,8 +640,8 @@ class Horde_ActiveSync
             header('MS-ASProtocolCommands: Sync,SendMail,SmartForward,SmartReply,GetAttachment,GetHierarchy,CreateCollection,DeleteCollection,MoveCollection,FolderSync,FolderCreate,FolderDelete,FolderUpdate,MoveItems,GetItemEstimate,MeetingResponse,ResolveRecipients,ValidateCert,Provision,Search,Ping');
             break;
         case self::VERSION_TWELVE:
+        case self::VERSION_TWELVEONE:
             header('MS-ASProtocolCommands: Sync,SendMail,SmartForward,SmartReply,GetAttachment,GetHierarchy,CreateCollection,DeleteCollection,MoveCollection,FolderSync,FolderCreate,FolderDelete,FolderUpdate,MoveItems,GetItemEstimate,MeetingResponse,ResolveRecipients,ValidateCert,Provision,Settings,Search,Ping,ItemOperations');
-            break;
         }
     }
 
