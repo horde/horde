@@ -1222,7 +1222,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      *
      * @throws Horde_ActiveSync_Exception
      */
-    public function saveSyncCache($cache, $devid, $user)
+    public function saveSyncCache(array $cache, $devid, $user)
     {
         $sql = 'SELECT count(*) FROM ' . $this->_syncCacheTable
             . ' WHERE cache_devid = ? AND cache_userid = ?';
@@ -1285,7 +1285,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      * @param Horde_ActiveSync_Message_Folder  The folder to update.
      *
      */
-    public function updateSyncCacheFolder(&$cache, $devid, $user, $folder)
+    public function updateSyncCacheFolder(array &$cache, $devid, $user, $folder)
     {
         $this->_logger->debug(sprintf(
             "[%s] Updating SyncCache folder %s",
@@ -1328,7 +1328,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      * @param string $folder  The folder to delete.
      *
      */
-    public function deleteSyncCacheFolder(&$cache, $devid, $user, $folder)
+    public function deleteSyncCacheFolder(array &$cache, $devid, $user, $folder)
     {
         $this->_logger->debug(sprintf(
             "[%s] Delete SyncCache folder %s",

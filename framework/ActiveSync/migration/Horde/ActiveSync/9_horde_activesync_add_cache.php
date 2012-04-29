@@ -10,7 +10,7 @@ class HordeActiveSyncAddCache extends Horde_Db_Migration_Base
         $t->end();
 
         $this->addIndex('horde_activesync_cache', array('cache_devid'));
-        $this->addIndex('horde_activesync_cache', array('cache_userid'));
+        $this->addIndex('horde_activesync_cache', array('cache_user'));
     }
 
     public function down()
