@@ -141,8 +141,9 @@ var DimpCompose = {
         $(k.opts.input).setValue(s);
         $(k.opts.label).writeAttribute('title', l.escapeHTML()).setText(l.truncate(15)).up(1).show();
 
+        k.knl.setSelected(s);
+
         if (id == 'sm') {
-            k.knl.setSelected(s);
             this.setSaveSentMail(true);
         }
     },
