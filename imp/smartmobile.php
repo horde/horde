@@ -16,8 +16,10 @@
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('imp', array('impmode' => 'mobile'));
 
-$view = new Horde_View(array('templatePath' => IMP_TEMPLATES . '/smartmobile'));
-new Horde_View_Helper_Text($view);
+$view = new Horde_View(array(
+    'templatePath' => IMP_TEMPLATES . '/smartmobile'
+));
+$view->addHelper('Text');
 
 /* Initialize the IMP_Imap_Tree object. */
 $imptree = $injector->getInstance('IMP_Imap_Tree');
