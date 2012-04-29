@@ -633,8 +633,54 @@ abstract class Horde_ActiveSync_State_Base
     /**
      * Return a sync cache for 12.1 SYNC requests.
      *
-     * @return
+     * @param string $devid  The device id.
+     * @param string $user   The user id.
+     *
+     * @return array  The current sync cache for the user/device combination.
      */
-    abstract public function getSyncCache();
+    abstract public function getSyncCache($devid, $user);
+
+    /**
+     * Save the provided sync_cache.
+     *
+     * @param array $cache   The cache to save.
+     * @param string $devid  The device id.
+     * @param string $user   The userid.
+     *
+     * @throws Horde_ActiveSync_Exception
+     */
+    abstract public function saveSyncCache(array $cache, $devid, $user);
+
+    /**
+     * Delete a complete sync cache
+     *
+     * @param string $devid  The device id
+     * @param string $user   The user name.
+     *
+     * @throws Horde_ActiveSync_Exception
+     */
+    abstract public function deleteSyncCache($devid, $user);
+
+    /**
+     * Update a single folder entry in the sync cache.
+     *
+     * @param array $cache                     The sync cache.
+     * @param string $devid                    The device id.
+     * @param string $user                     The user id.
+     * @param Horde_ActiveSync_Message_Folder  The folder to update.
+     *
+     */
+    abstract public function updateSyncCacheFolder(array &$cache, $devid, $user, $folder);
+
+    /**
+     * Delete a single folder entry in the sync cache.
+     *
+     * @param array $cache    The sync cache.
+     * @param string $devid   The device id.
+     * @param string $user    The user id.
+     * @param string $folder  The folder to delete.
+     *
+     */
+    abstract public function deleteSyncCacheFolder(array &$cache, $devid, $user, $folder);
 
 }

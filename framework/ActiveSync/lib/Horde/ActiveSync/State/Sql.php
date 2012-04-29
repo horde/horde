@@ -137,6 +137,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         }
         if (empty($syncKey)) {
             if ($type == Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC) {
+                // FolderSync with a synckey == 0 is an initial sync or reset.
                 $this->_folder = array();
             } else {
                 $this->_folder = ($this->_collection['class'] == Horde_ActiveSync::CLASS_EMAIL) ?
@@ -168,7 +169,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             throw new Horde_ActiveSync_Exception($e);
         }
         if (!$results) {
-            throw new Horde_ActiveSync_Exception('Sync State Not Found.');
+            throw new Horde_ActiveSync_Exception_StateGone();
         }
 
         // Load the last known sync time for this collection
@@ -1184,11 +1185,159 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     /**
      * Return a sync cache for 12.1 SYNC requests.
      *
-     * @return
+     * @return array  The sync cache for the current device id and user.
      */
-    public function getSyncCache()
+    public function getSyncCache($devid, $user)
     {
-        // @TODO
+        $sql = 'SELECT cache_data FROM ' . $this->_syncCacheTable
+            . ' WHERE cache_devid = ? AND cache_user = ?';
+        try {
+            $data = $this->_db->selectValue(
+                $sql, array($devid, $user));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_ActiveSync_Exception($e);
+        }
+        if (!$data = unserialize($data)) {
+            return new array(
+                'confirmed_synckeys' => array(),
+                'lasthbsyncstarted' => false,
+                'lastsyncendnormal' => false,
+                'lastuntil' => false,
+                'timestamp' => false,
+                'wait' => false,
+                'hbinterval' => false,
+                'folders' => array(),
+                'collections' => array());
+        } else {
+            return $data;
+        }
+    }
+
+    /**
+     * Save the provided sync_cache.
+     *
+     * @param array $cache  The cache to save.
+     * @TODO: Need to add parameter to indicate if this is an in-memory
+     * save only or save to storage??
+     *
+     * @throws Horde_ActiveSync_Exception
+     */
+    public function saveSyncCache($cache, $devid, $user)
+    {
+        $sql = 'SELECT count(*) FROM ' . $this->_syncCacheTable
+            . ' WHERE cache_devid = ? AND cache_userid = ?';
+        try {
+            $have = $this->_db->selectValue($sql, array($devid, $user));
+        } catach (Horde_Db_Exception $e) {
+            throw new Horde_ActiveSync_Exception($e);
+        }
+        if ($have) {
+            $sql = 'UPDATE ' . $this->_syncCacheTable
+                . ' SET cache_data = ? WHERE cache_devid = ? AND cache_userid = ?';
+            try {
+                $this->_db->update(
+                    $sql,
+                    array(serialize($cache), $devid, $user)
+                );
+            } catch (Horde_Db_Exception $e) {
+                thrown new Horde_ActiveSync_Exception($e);
+            }
+        } else {
+            $sql = 'INSERT INTO ' . $this->_syncCacheTable
+                . '(cache_data, cache_devid, cache_userid) VALUES (?, ?, ?)';
+            try {
+                $this->_db->insert(
+                    $sql,
+                    array(serialize($cache), $devid, $user)
+                );
+            } catch (Horde_Db_Exception $e) {
+                throw new Horde_ActiveSync_Exception($e);
+            }
+        }
+    }
+
+    /**
+     * Delete a complete sync cache
+     *
+     * @param string $devid  The device id
+     * @param string $user   The user name.
+     *
+     * @throws Horde_ActiveSync_Exception
+     */
+    public function deleteSyncCache($devid, $user)
+    {
+        $sql = 'DELETE FROM ' . $this->_syncCacheTable
+            . ' WHERE cache_user = ? AND cache_devid = ?';
+
+        try {
+            $this->_db->delete($sql, array($)
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_ActiveSync_Exception($e);
+        }
+    }
+
+    /**
+     * Update a single folder entry in the sync cache.
+     *
+     * @param array $cache                     The sync cache.
+     * @param string $devid                    The device id.
+     * @param string $user                     The user id.
+     * @param Horde_ActiveSync_Message_Folder  The folder to update.
+     *
+     */
+    public function updateSyncCacheFolder(&$cache, $devid, $user, $folder)
+    {
+        $this->_logger->debug(sprintf(
+            "[%s] Updating SyncCache folder %s",
+            $devid,
+            print_r($folder, true))
+        );
+        $cache['folders'][$folder->serverid]['parentid'] = $folder->parentid;
+        $cache['folders'][$folder->serverid]['displayname'] = $folder->displayname;
+        switch ($folder->type) {
+        case 7:
+        case 15:
+            $cache['folders'][$folder->serverid]['class'] = 'Tasks';
+            break;
+        case 8:
+        case 13:
+            $cache['folders'][$folder->serverid]['class'] = 'Calendar';
+            break;
+        case 9:
+        case 14:
+            $cache['folders'][$folder->serverid]['class'] = 'Contacts';
+            break;
+        case 17:
+        case 10:
+            $cache['folders'][$folder->serverid]['class'] = 'Notes';
+            break;
+        default:
+            $cache['folders'][$folder->serverid]['class'] = 'Email';
+        }
+        $cache['folders'][$folder->serverid]['type'] = $type;
+        $cache['folders'][$folder->serverid]['filtertype'] = '0';
+        $cache['timestamp'] = time();
+    }
+
+    /**
+     * Delete a single folder entry in the sync cache.
+     *
+     * @param array $cache    The sync cache.
+     * @param string $devid   The device id.
+     * @param string $user    The user id.
+     * @param string $folder  The folder to delete.
+     *
+     */
+    public function deleteSyncCacheFolder(&$cache, $devid, $user, $folder)
+    {
+        $this->_logger->debug(sprintf(
+            "[%s] Delete SyncCache folder %s",
+            $devid,
+            $folder)
+        );
+        unset($cache['folders'][$folder]);
+        unset($cache['collections'][$folder]);
+        $cache['timestamp'] = time();
     }
 
     /**
