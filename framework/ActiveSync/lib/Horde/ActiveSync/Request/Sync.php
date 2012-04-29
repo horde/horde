@@ -58,13 +58,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
     const MAX_HEARTBEAT      = 3540;
 
     /**
-     * Flag to indicate we successfully initialized the sync state.
-     *
-     * @var booleean
-     */
-    protected $_stateInit = false;
-
-    /**
      * Collection of all collection arrays for the current SYNC request.
      *
      * @var array
@@ -705,12 +698,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             return true;
         }
 
-        if (!$this->_stateInit) {
-            $this->_statusCode = self::STATUS_KEYMISM;
-            $this->_handleError();
-            exit;
-        }
-
         // Start output to PIM
         $this->_encoder->startWBXML();
         $this->_encoder->startTag(Horde_ActiveSync::SYNC_SYNCHRONIZE);
@@ -1074,6 +1061,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     break;
 
                 case Horde_ActiveSync::SYNC_COMMANDS:
+                    $this->_initState($collection);
                     $this->_parseSyncCommands($collection);
                 }
             }
