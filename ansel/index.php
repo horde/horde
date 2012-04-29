@@ -14,7 +14,7 @@ Horde_Registry::appInit('ansel');
 
 /* Load mobile? */
 if (in_array($registry->getView(), array(Horde_Registry::VIEW_MINIMAL, Horde_Registry::VIEW_SMARTMOBILE))) {
-    include ANSEL_BASE . '/mobile.php';
+    include ANSEL_BASE . '/smartmobile.php';
     exit;
 }
 

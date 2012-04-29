@@ -117,7 +117,7 @@ $page_output->header(array(
 
 switch ($registry->getView()) {
 case Horde_Registry::VIEW_SMARTMOBILE:
-    echo $template->fetch(HORDE_TEMPLATES . '/logintasks/mobile.html');
+    echo $template->fetch(HORDE_TEMPLATES . '/logintasks/smartmobile.html');
     break;
 
 default:

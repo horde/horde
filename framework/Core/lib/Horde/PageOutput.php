@@ -566,7 +566,7 @@ class Horde_PageOutput
             $this->addScriptFile('jquery.mobile/jquery.min.js', 'horde');
             $this->addScriptFile('growler-jquery.js', 'horde');
             $this->addScriptFile('horde-jquery.js', 'horde');
-            $this->addScriptFile('mobile.js', 'horde');
+            $this->addScriptFile('smartmobile.js', 'horde');
 
             $init_js = implode('', array_merge(array(
                 '$.mobile.page.prototype.options.backBtnText = "' . _("Back") .'";',

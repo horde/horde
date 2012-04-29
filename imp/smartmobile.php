@@ -1,6 +1,6 @@
 <?php
 /**
- * jQuery Mobile page.
+ * IMP smartmobile view.
  *
  * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
@@ -16,7 +16,7 @@
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('imp', array('impmode' => 'mobile'));
 
-$view = new Horde_View(array('templatePath' => IMP_TEMPLATES . '/mobile'));
+$view = new Horde_View(array('templatePath' => IMP_TEMPLATES . '/smartmobile'));
 new Horde_View_Helper_Text($view);
 
 /* Initialize the IMP_Imap_Tree object. */
@@ -62,10 +62,10 @@ if ($view->canCompose = IMP::canCompose()) {
     $view->composeLink->pathInfo = 'addAttachment';
 }
 
-require IMP_TEMPLATES . '/mobile/javascript_defs.php';
+require IMP_TEMPLATES . '/smartmobile/javascript_defs.php';
 $notification->notify(array('listeners' => 'status'));
 
-$page_output->addScriptFile('mobile.js');
+$page_output->addScriptFile('smartmobile.js');
 $page_output->header(array(
     'smartmobileinit' => array(
         '$.mobile.page.prototype.options.addBackBtn = true;'

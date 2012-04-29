@@ -326,7 +326,7 @@ class IMP_Auth
             if (is_null($mbox)) {
                 $result->mbox = IMP_Mailbox::get('INBOX');
             }
-            $page = 'mobile.php';
+            $page = 'smartmobile.php';
             break;
         }
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Mobile portal page.
+ * Smartmobile portal page.
  *
  * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
  *
@@ -35,5 +35,5 @@ $page_output->header(array(
     'title' => _("Welcome"),
     'view' => $registry::VIEW_SMARTMOBILE
 ));
-require HORDE_TEMPLATES . '/portal/mobile.inc';
+require HORDE_TEMPLATES . '/portal/smartmobile.inc';
 $page_output->footer();

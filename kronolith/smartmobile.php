@@ -1,6 +1,6 @@
 <?php
 /**
- * Kronolith Mobile View
+ * Kronolith smartmobile view.
  *
  * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
@@ -17,7 +17,7 @@ Horde_Registry::appInit('kronolith');
 
 $title = _("My Calendar");
 
-$view = new Horde_View(array('templatePath' => KRONOLITH_TEMPLATES . '/mobile'));
+$view = new Horde_View(array('templatePath' => KRONOLITH_TEMPLATES . '/smartmobile'));
 $view->today = new Horde_Date($_SERVER['REQUEST_TIME']);
 $view->registry = $registry;
 $view->portal = Horde::getServiceLink('portal', 'horde')->setRaw(false);
@@ -29,8 +29,8 @@ if (!file_exists($GLOBALS['registry']->get('jsfs', 'horde') . '/date/' . $datejs
 }
 $page_output->addScriptFile('date/' . $datejs, 'horde');
 $page_output->addScriptFile('date/date.js', 'horde');
-$page_output->addScriptFile('mobile.js');
-require KRONOLITH_TEMPLATES . '/mobile/javascript_defs.php';
+$page_output->addScriptFile('smartmobile.js');
+require KRONOLITH_TEMPLATES . '/smartmobile/javascript_defs.php';
 
 $page_output->header(array(
     'smartmobileinit' => array(

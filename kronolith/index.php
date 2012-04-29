@@ -13,7 +13,7 @@ Horde_Registry::appInit('kronolith', array('nodynamicinit' => true));
 switch ($registry->getView()) {
 case Horde_Registry::VIEW_MINIMAL:
 case Horde_Registry::VIEW_SMARTMOBILE:
-    include KRONOLITH_BASE . '/mobile.php';
+    include KRONOLITH_BASE . '/smartmobile.php';
     exit;
 
 case Horde_Registry::VIEW_BASIC:

@@ -1,6 +1,6 @@
 <?php
 /**
- * Ansel Mobile View
+ * Ansel smartmobile view.
  *
  * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
@@ -17,13 +17,13 @@ Horde_Registry::appInit('ansel');
 
 $title = _("Photo Galleries");
 
-$view = new Horde_View(array('templatePath' => ANSEL_TEMPLATES . '/mobile'));
+$view = new Horde_View(array('templatePath' => ANSEL_TEMPLATES . '/smartmobile'));
 $view->registry = $registry;
 $view->portal = Horde::getServiceLink('portal', 'horde')->setRaw(false);
 $view->logout = Horde::getServiceLink('logout')->setRaw(false);
 
-require ANSEL_TEMPLATES . '/mobile/javascript_defs.php';
-$page_output->addScriptFile('mobile.js');
+require ANSEL_TEMPLATES . '/smartmobile/javascript_defs.php';
+$page_output->addScriptFile('smartmobile.js');
 // TODO: Figure out how to force load the gallerylist page.
 $page_output->header(array(
     'title' => $title,

@@ -26,7 +26,7 @@ if ($uid = Horde_Util::getFormData('uid')) {
     $task_id = Horde_Util::getFormData('task');
     $tasklist_id = Horde_Util::getFormData('tasklist');
     if (!isset($task_id) || !$tasklist_id) {
-        Horde::url('mobile.php', true)->redirect();
+        Horde::url('smartmobile.php', true)->redirect();
     }
 
     /* Get the current task. */
@@ -36,7 +36,7 @@ if ($uid = Horde_Util::getFormData('uid')) {
 /* If the requested task doesn't exist, display an error message. */
 if (!isset($task) || !isset($task->id)) {
     $notification->push(_("Task not found."), 'horde.error');
-    Horde::url('mobile.php', true)->redirect();
+    Horde::url('smartmobile.php', true)->redirect();
 }
 
 /* Load child tasks */
@@ -46,7 +46,7 @@ $task->loadChildren();
 $share = $GLOBALS['nag_shares']->getShare($tasklist_id);
 if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
     $notification->push(_("You do not have permission to view this tasklist."), 'horde.error');
-    Horde::url('mobile.php', true)->redirect();
+    Horde::url('smartmobile.php', true)->redirect();
 }
 
 /* Get the task's history. */

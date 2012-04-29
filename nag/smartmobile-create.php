@@ -28,7 +28,7 @@ if (!$vars->exists('tasklist_id')) {
     $vars->set('tasklist_id', Nag::getDefaultTasklist(Horde_Perms::EDIT));
 }
 $vars->mobile = true;
-$vars->url = Horde::url('mobile.php');
+$vars->url = Horde::url('smartmobile.php');
 $form = new Nag_Form_Task($vars, _("New Task"), $mobile = true);
 
 $page_output->header(array(

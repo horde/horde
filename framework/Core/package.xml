@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-04-26</date>
- <time>14:47:44</time>
+ <date>2012-04-28</date>
+ <time>22:45:40</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -71,10 +71,10 @@
     <file name="hordetree.js" role="horde" />
     <file name="identityselect.js" role="horde" />
     <file name="liquidmetal.js" role="horde" />
-    <file name="mobile.js" role="horde" />
     <file name="open_html_helper.js" role="horde" />
     <file name="prefs.js" role="horde" />
     <file name="prettyautocomplete.js" role="horde" />
+    <file name="smartmobile.js" role="horde" />
     <file name="sourceselect.js" role="horde" />
     <file name="spellchecker.js" role="horde" />
     <file name="toggle_quotes.js" role="horde" />
@@ -1106,10 +1106,10 @@
    <install as="js/hordetree.js" name="js/hordetree.js" />
    <install as="js/identityselect.js" name="js/identityselect.js" />
    <install as="js/liquidmetal.js" name="js/liquidmetal.js" />
-   <install as="js/mobile.js" name="js/mobile.js" />
    <install as="js/open_html_helper.js" name="js/open_html_helper.js" />
    <install as="js/prefs.js" name="js/prefs.js" />
    <install as="js/prettyautocomplete.js" name="js/prettyautocomplete.js" />
+   <install as="js/smartmobile.js" name="js/smartmobile.js" />
    <install as="js/sourceselect.js" name="js/sourceselect.js" />
    <install as="js/spellchecker.js" name="js/spellchecker.js" />
    <install as="js/toggle_quotes.js" name="js/toggle_quotes.js" />

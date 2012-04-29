@@ -78,19 +78,19 @@ pre, code, .fixed, table.lineNumbered * {
 }
 .horde-error {
     background-color: #e81222 !important;
-    background-image: url("../graphics/mobile/alerts/error.png") !important;
+    background-image: url("../graphics/smartmobile/alerts/error.png") !important;
 }
 .horde-message {
     background-color: #369 !important;
-    background-image: url("../graphics/mobile/alerts/message.png") !important;
+    background-image: url("../graphics/smartmobile/alerts/message.png") !important;
 }
 .horde-success  {
     background-color: #5db110 !important;
-    background-image: url("../graphics/mobile/alerts/success.png") !important;
+    background-image: url("../graphics/smartmobile/alerts/success.png") !important;
 }
 .horde-warning {
     background-color: #ebe20c !important;
-    background-image: url("../graphics/mobile/alerts/warning.png") !important;
+    background-image: url("../graphics/smartmobile/alerts/warning.png") !important;
     color: #444 !important;
     text-shadow: 0 1px 1px #f6f6f6 !important;
 }

@@ -265,7 +265,7 @@ class Horde
 
         case 'portal':
             return ($GLOBALS['registry']->getView() == Horde_Registry::VIEW_SMARTMOBILE)
-                ? self::url('services/portal/mobile.php', false, $opts)
+                ? self::url('services/portal/smartmobile.php', false, $opts)
                 : self::url('services/portal/', false, $opts);
             break;
 

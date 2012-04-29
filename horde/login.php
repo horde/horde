@@ -387,7 +387,7 @@ if ($browser->isMobile() &&
         'title' => $title,
         'view' => $registry::VIEW_SMARTMOBILE
     ));
-    require $registry->get('templates', 'horde') . '/login/mobile.inc';
+    require $registry->get('templates', 'horde') . '/login/smartmobile.inc';
     $page_output->footer(array(
         'view' => $registry::VIEW_SMARTMOBILE
     ));

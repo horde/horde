@@ -18,7 +18,7 @@ try {
     $tasks = new Nag_Task();
 }
 
-$page_output->addScriptFile('mobile.js');
+$page_output->addScriptFile('smartmobile.js');
 $page_output->header(array(
     'title' => _("My Tasks"),
     'view' => $registry::VIEW_SMARTMOBILE
@@ -127,14 +127,14 @@ if ($tasks->hasTasks()) {
         }
         if ($task_complete_class) { $task_complete_class = ' class="' . $task_complete_class . '"'; }
 
-        echo '<li' . $style . '><a data-rel="dialog" data-transition="slideup" href="' . str_replace('view.php', 'mobile-view.php', $task_link) . '"><h3>' . htmlspecialchars($task->name) . '</h3><p>' . htmlspecialchars(substr($task->desc, 0, 1000)) . '</p><p class="ui-li-aside' . ($overdue ? ' overdue' : '') . '"><strong>' . ($task->due ? strftime($dateFormat, $task->due) : '&nbsp;') . '</strong></p></a><a data-task="' . htmlspecialchars($task->id) . '" data-tasklist="' . htmlspecialchars($task->tasklist) . '" data-icon="' . $icon . '" href="#"' . $task_complete_class . '>' . $label . '</a></li>';
+        echo '<li' . $style . '><a data-rel="dialog" data-transition="slideup" href="' . str_replace('view.php', 'smartmobile-view.php', $task_link) . '"><h3>' . htmlspecialchars($task->name) . '</h3><p>' . htmlspecialchars(substr($task->desc, 0, 1000)) . '</p><p class="ui-li-aside' . ($overdue ? ' overdue' : '') . '"><strong>' . ($task->due ? strftime($dateFormat, $task->due) : '&nbsp;') . '</strong></p></a><a data-task="' . htmlspecialchars($task->id) . '" data-tasklist="' . htmlspecialchars($task->tasklist) . '" data-icon="' . $icon . '" href="#"' . $task_complete_class . '>' . $label . '</a></li>';
     }
 }
 ?>
  </ul>
 </div>
 
-<?php require NAG_TEMPLATES . '/mobile-footer.html.php'; ?>
+<?php require NAG_TEMPLATES . '/smartmobile-footer.html.php'; ?>
 
 </div>
 
