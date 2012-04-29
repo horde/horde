@@ -258,9 +258,9 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     $this->_device->id, $this->_device->user);
 
                 // Remove all we already have information on
-                $CollectionsUnchanged = 0;
-                $CollectionKeys = 0;
-                $ConfirmedKeys = 0;
+                $unchanged_count = 0;
+                $synckey_count = 0;
+                $confirmed_synckey_count = 0;
                 foreach ($this->_collections as $key => $value) {
                     // Discover if any collection changed
                     $v1 = $this->_collections[$key];
@@ -283,7 +283,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     }
 
                     if (md5(serialize($v1)) == md5(serialize($v2))) {
-                        $CollectionsUnchanged++;
+                        $unchanged_count++;
                     }
                     unset($v1);
                     unset($v2);
@@ -306,9 +306,9 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                                 $this->_syncCache['confirmed_synckeys'][$value['synckey']])
                             );
                             unset($this->_syncCache['confirmed_synckeys'][$value['synckey']]);
-                            $ConfirmedKeys++;
+                            $confirmed_synckey_count++;
                         }
-                        $CollectionKeys++;
+                        $synckey_count++;
                     }
                 }
 
@@ -320,10 +320,10 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
 
                 $this->_logger->debug(sprintf(
                     'CollectionKeys/SyncCacheKeys: %s/%s Unchanged Collections/ConfirmedKeys: %s/%s',
-                    $CollectionKeys,
+                    $synckey_count,
                     $CacheKeys,
-                    $CollectionsUnchanged,
-                    $ConfirmedKeys)
+                    $unchanged_count,
+                    $confirmed_synckey_count)
                 );
                 $this->_logger->debug(sprintf(
                     'Wait Cache/TempCache: %s/%s',
@@ -370,9 +370,9 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
 
                 // If there are no changes within partial sync, send status 13 since
                 // sending partial elements without any changes is suspect
-                if ($CollectionKeys > 0 &&
-                    $ConfirmedKeys == 0 &&
-                    $CollectionsUnchanged == $CollectionKeys &&
+                if ($synckey_count > 0 &&
+                    $confirmed_synckey_count == 0 &&
+                    $unchanged_count == $synckey_count &&
                     time() <= $this->_syncCache['lastuntil'] &&
                     ($this->_syncCache['wait'] == false &&
                      $this->_syncCache['hbinterval'] == false)) {
