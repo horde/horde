@@ -18,7 +18,8 @@ case Horde_Registry::VIEW_SMARTMOBILE:
 
 case Horde_Registry::VIEW_BASIC:
 case Horde_Registry::VIEW_DYNAMIC:
-    if ($prefs->getValue('dynamic_view')) {
+    if ($registry->getView() == Horde_Registry::VIEW_DYNAMIC &&
+        $prefs->getValue('dynamic_view')) {
         break;
     }
     include KRONOLITH_BASE . '/' . $prefs->getValue('defaultview') . '.php';
