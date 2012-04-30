@@ -325,6 +325,7 @@ implements Horde_Kolab_Storage_List_Query_List
         $defaults = array();
 
         foreach ($this->_list->listFolders() as $folder) {
+            $folder = strval($folder);
             if (!isset($annotations[$folder])) {
                 $type = $mail_type;
             } else {
