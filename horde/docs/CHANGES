@@ -2,6 +2,8 @@
 v5.0-git
 --------
 
+[jan] Allow to use IMAP storage for shares and groupware data without a
+      complete Kolab server.
 [mms] Implement growler-like notifications for smartmobile view.
 [mms] Modified pushapp hook behavior.
 [mms] Removed pushapp_post hook.

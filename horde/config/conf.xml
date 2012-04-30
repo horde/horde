@@ -844,7 +844,7 @@
       </configsection>
      </case>
      <case name="Session" desc="PHP Sessions"/>
-     <case name="KolabImap" desc="Kolab (IMAP)" />
+     <case name="KolabImap" desc="IMAP/Kolab Server" />
      <case name="Imsp" desc="IMSP Server" />
    </configswitch>
   </configsection>
@@ -1000,7 +1000,7 @@
    <configenum name="driver" desc="What backend should we use for Horde
    Shares?">Sqlng
     <values>
-     <value desc="Kolab">Kolab</value>
+     <value desc="IMAP/Kolab">Kolab</value>
      <value desc="Next-Generation SQL">Sqlng</value>
      <value desc="SQL">Sql</value>
     </values>
@@ -1810,6 +1810,32 @@
        <configinteger name="lifetime" desc="Lifetime of the cached weather information, in seconds.">21600
        </configinteger>
       </configsection>
+    </case>
+   </configswitch>
+  </configsection>
+ </configtab>
+
+ <configtab name="imap" desc="IMAP Server">
+  <configsection name="imap">
+   <configheader>IMAP Server Settings</configheader>
+   <configdescription>
+    If you intend to store user data like shares and groupware data on an IMAP
+    server then you will need to ensure that the following fields correspond to
+    your IMAP server setup. The IMAP groupware storage will use version 2 of
+    the Kolab XML format. See http://wiki.kolab.org/Kolab_Format_Intro for
+    details.
+   </configdescription>
+   <configswitch name="enabled" quote="false" desc="Use an IMAP server?">false
+    <case name="false" desc="Disabled" />
+    <case name="true" desc="Enabled">
+     <configheader>IMAP Server Settings</configheader>
+     <configstring name="server" desc="Server
+     address:">localhost</configstring>
+     <configinteger name="port" desc="Server port:">143</configinteger>
+     <configstring name="maildomain" desc="Default
+     maildomain:">example.com</configstring>
+     <configboolean name="cache_folders" desc="Cache IMAP folders:"
+      required="true">true</configboolean>
     </case>
    </configswitch>
   </configsection>
