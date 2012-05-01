@@ -16,4 +16,16 @@ require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('imp');
 
 // Load initial page as defined by view mode & preferences.
+$page = IMP_Auth::getInitialPage();
+
+switch ($registry->getView()) {
+case $registry::VIEW_SMARTMOBILE:
+    // If loading the mailbox page, we need to redirect so that jquery mobile
+    // correctly loads deep-linked page.
+    if (!is_null($page->mbox)) {
+        $page->url->redirect();
+    }
+    break;
+}
+
 require IMP_Auth::getInitialPage()->fullpath;

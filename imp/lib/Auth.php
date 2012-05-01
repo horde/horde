@@ -322,11 +322,11 @@ class IMP_Auth
             break;
 
         case Horde_Registry::VIEW_SMARTMOBILE:
-            // TODO: Folders for mobile page?
-            if (is_null($mbox)) {
-                $result->mbox = IMP_Mailbox::get('INBOX');
-            }
             $page = 'smartmobile.php';
+            if (!is_null($mbox)) {
+                $result->url = Horde::url('smartmobile.php', true);
+                $result->url->setAnchor('mailbox?mbox=' . $mbox->form_to);
+            }
             break;
         }
 

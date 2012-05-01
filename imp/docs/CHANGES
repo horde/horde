@@ -2,6 +2,7 @@
 v6.0-git
 --------
 
+[mms] Honor initial_page preference in smartmobile view (Request #11165).
 [mms] Lock mailbox sort to descending date when using minimal view.
 [mms] Pre-fetch next unseen message in INBOX in dynamic view.
 [mms] Allow Edit As New to be used as the default forward action (Request
