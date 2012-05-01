@@ -4256,15 +4256,16 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                         'seq' => true
                     ));
                 }
-
-                /* Issue NOOP if server suggests it. */
-                if (!empty($this->_temp['run_noop'])) {
-                    unset($this->_temp['run_noop']);
-                    $this->noop();
-                }
                 break;
             }
+
             $this->_parseServerResponse($ob);
+        }
+
+        /* Issue NOOP if server suggests it. */
+        if (!empty($this->_temp['run_noop'])) {
+            unset($this->_temp['run_noop']);
+            $this->noop();
         }
     }
 
