@@ -22,7 +22,11 @@
 <?php elseif ($val['type'] == 'select'): ?>
        <select id="<?php echo $key ?>" name="<?php echo $key ?>">
 <?php foreach ($val['value'] as $k2 => $v2): ?>
+<?php if (is_null($v2)): ?>
+        <option value="" disabled="disabled">- - - - - - - - - -</option>
+<?php else: ?>
         <option value="<?php echo $k2 ?>"<?php echo !empty($v2['selected']) ?' selected="selected"' : '' ?><?php echo !empty($v2['hidden']) ? ' style="display:none"' : '' ?>><?php echo htmlspecialchars($v2['name']) ?></option>
+<?php endif; ?>
 <?php endforeach ?>
        </select>
 <?php endif; ?>

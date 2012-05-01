@@ -224,6 +224,7 @@ if (!empty($GLOBALS['conf']['user']['select_view'])) {
                 'name' => _("Automatic"),
                 'selected' => $view_cookie == 'auto',
             ),
+            'spacer' => null,
             'traditional' => array(
                 'name' => _("Traditional"),
                 'selected' => $view_cookie == 'traditional'

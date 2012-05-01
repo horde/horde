@@ -27,7 +27,11 @@ foreach ($loginparams as $key => $val) {
         if ($val['type'] == 'select') {
             echo '<select id="' . $key . '" name="' . $key . '">';
             foreach ($val['value'] as $k2 => $v2) {
-                echo '<option value="' . $k2 . '"' . (empty($v2['selected']) ? '' : ' selected="selected"') . '>' . $v2['name'] . '</option>';
+                if (is_null($v2)) {
+                    echo '<option value="" disabled="disabled">- - - - - - - - - -</option>';
+                } else {
+                    echo '<option value="' . $k2 . '"' . (empty($v2['selected']) ? '' : ' selected="selected"') . '>' . $v2['name'] . '</option>';
+                }
             }
             echo '</select>';
         } else {
