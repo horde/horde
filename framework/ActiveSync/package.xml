@@ -645,8 +645,12 @@
    <date>2012-04-19</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+<<<<<<< HEAD
 * [mjr] Add EAS version 12.0 support.
 * [mjr] Add Email support
+=======
+* [jan] Fix class name (software-horde@interfasys.ch, Bug #11164).
+>>>>>>> master
    </notes>
   </release>
  </changelog>
