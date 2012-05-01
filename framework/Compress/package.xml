@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-22</date>
- <time>12:10:57</time>
+ <date>2012-05-01</date>
+ <time>14:26:49</time>
  <version>
   <release>1.0.7</release>
   <api>1.0.0</api>
@@ -682,7 +682,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-22</date>
+   <date>2012-05-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Check for damaged ZIP data.
