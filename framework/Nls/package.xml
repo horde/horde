@@ -17,10 +17,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-03-20</date>
- <time>10:41:51</time>
+ <date>2012-05-01</date>
+ <time>14:41:10</time>
  <version>
-  <release>1.1.6</release>
+  <release>1.1.7</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Update ISO list of countries (Bug #11169).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -674,10 +674,23 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-03-20</date>
+   <date>2012-05-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Update ISO list of countries (Bug #11169).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.7</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-05-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

@@ -22,10 +22,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-04-10</date>
- <time>19:50:24</time>
+ <date>2012-05-01</date>
+ <time>14:44:10</time>
  <version>
-  <release>1.1.5</release>
+  <release>1.1.6</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Support definition lists in HTML-to-text filter (Nathan Barhorst).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -780,10 +780,23 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-04-10</date>
+   <date>2012-05-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Support definition lists in HTML-to-text filter (Nathan Barhorst).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.6</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-05-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

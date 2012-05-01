@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Ansel H4 (2.0.1-git)\n"
+"Project-Id-Version: Ansel H4 (2.0.2-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-02-22 11:20+0100\n"
+"POT-Creation-Date: 2012-05-01 14:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1202,7 +1202,7 @@ msgstr ""
 msgid "My Galleries"
 msgstr ""
 
-#: browse_edit.php:24
+#: browse_edit.php:27
 msgid "My Photos :: Add Content"
 msgstr ""
 
@@ -1398,7 +1398,7 @@ msgid "Person in photo"
 msgstr ""
 
 #: lib/Block/RecentlyAdded.php:117 lib/View/EmbeddedRenderer/Mini.php:191
-#: lib/View/GalleryRenderer/GalleryLightbox.php:141
+#: lib/View/GalleryRenderer/GalleryLightbox.php:146
 #: templates/faces/face.inc:27 templates/faces/gallery.inc:6
 msgid "Photo"
 msgstr ""
@@ -2433,7 +2433,7 @@ msgid "none"
 msgstr ""
 
 #: lib/View/EmbeddedRenderer/Mini.php:192
-#: lib/View/GalleryRenderer/GalleryLightbox.php:142
+#: lib/View/GalleryRenderer/GalleryLightbox.php:147
 msgid "of"
 msgstr ""
 

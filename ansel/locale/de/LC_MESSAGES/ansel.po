@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ansel 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-02-22 11:20+0100\n"
+"POT-Creation-Date: 2012-05-01 14:03+0200\n"
 "PO-Revision-Date: 2012-02-22 12:25+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -1226,7 +1226,7 @@ msgstr "Mehrere Fotos"
 msgid "My Galleries"
 msgstr "Meine Galerien"
 
-#: browse_edit.php:24
+#: browse_edit.php:27
 msgid "My Photos :: Add Content"
 msgstr "Meine Fotos :: Inhalt hinzufügen"
 
@@ -1428,7 +1428,7 @@ msgid "Person in photo"
 msgstr "Person im Foto"
 
 #: lib/Block/RecentlyAdded.php:117 lib/View/EmbeddedRenderer/Mini.php:191
-#: lib/View/GalleryRenderer/GalleryLightbox.php:141
+#: lib/View/GalleryRenderer/GalleryLightbox.php:146
 #: templates/faces/face.inc:27 templates/faces/gallery.inc:6
 msgid "Photo"
 msgstr "Foto"
@@ -2508,7 +2508,7 @@ msgid "none"
 msgstr "Nichts"
 
 #: lib/View/EmbeddedRenderer/Mini.php:192
-#: lib/View/GalleryRenderer/GalleryLightbox.php:142
+#: lib/View/GalleryRenderer/GalleryLightbox.php:147
 msgid "of"
 msgstr "von"
 

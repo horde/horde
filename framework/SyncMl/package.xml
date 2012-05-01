@@ -11,10 +11,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-01-17</date>
- <time>13:29:11</time>
+ <date>2012-05-01</date>
+ <time>14:43:32</time>
  <version>
-  <release>1.0.9</release>
+  <release>1.0.10</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -23,7 +23,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Don&apos;t corrupt binary data like images if sent in several messages (Jonathan Westerholt &lt;joniw@t-online.de&gt;, Bug #10864).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1222,10 +1222,23 @@ Make the SyncML package independant from Horde, provide a new Sql backend as a r
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-01-17</date>
+   <date>2012-05-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Don&apos;t corrupt binary data like images if sent in several messages (Jonathan Westerholt &lt;joniw@t-online.de&gt;, Bug #10864).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.10</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-05-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

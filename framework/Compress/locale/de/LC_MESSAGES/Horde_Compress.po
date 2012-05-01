@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Compress\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-08-02 15:24+0200\n"
+"POT-Creation-Date: 2012-05-01 14:03+0200\n"
 "PO-Revision-Date: 2010-10-13 01:27+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -22,8 +22,8 @@ msgstr ""
 msgid "Invalid RAR data."
 msgstr "Ungültige RAR-Daten."
 
-#: lib/Horde/Compress/Zip.php:202 lib/Horde/Compress/Zip.php:229
-#: lib/Horde/Compress/Zip.php:249
+#: lib/Horde/Compress/Zip.php:202 lib/Horde/Compress/Zip.php:207
+#: lib/Horde/Compress/Zip.php:234 lib/Horde/Compress/Zip.php:254
 msgid "Invalid ZIP data"
 msgstr "Ungültige ZIP-Daten."
 

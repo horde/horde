@@ -16,10 +16,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-02-22</date>
- <time>13:02:29</time>
+ <date>2012-05-01</date>
+ <time>14:29:12</time>
  <version>
-  <release>1.1.2</release>
+  <release>1.1.3</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix HTML rendering of S/MIME certificates with multi-value attributes.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -729,10 +729,23 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-02-22</date>
+   <date>2012-05-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix HTML rendering of S/MIME certificates with multi-value attributes.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.3</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-05-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

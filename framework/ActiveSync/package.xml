@@ -13,7 +13,7 @@
  <date>2012-04-19</date>
  <time>13:39:33</time>
  <version>
-  <release>1.2.6</release>
+  <release>1.2.7</release>
   <api>1.2.0</api>
  </version>
  <stability>
@@ -642,15 +642,23 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-04-19</date>
+   <date>2012-05-01</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-<<<<<<< HEAD
-* [mjr] Add EAS version 12.0 support.
-* [mjr] Add Email support
-=======
 * [jan] Fix class name (software-horde@interfasys.ch, Bug #11164).
->>>>>>> master
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.7</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-05-01</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
