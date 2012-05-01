@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-08</date>
- <time>22:21:11</time>
+ <date>2012-05-01</date>
+ <time>14:33:50</time>
  <version>
   <release>1.1.5</release>
   <api>1.1.0</api>
@@ -297,7 +297,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-08</date>
+   <date>2012-05-01</date>
    <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
    <notes>
 * [jan] Throw exception if LDAP extension is missing.
