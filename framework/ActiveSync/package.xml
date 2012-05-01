@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-03-20</date>
- <time>10:28:20</time>
+ <date>2012-05-01</date>
+ <time>14:21:20</time>
  <version>
   <release>1.2.6</release>
   <api>1.2.0</api>
@@ -587,7 +587,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-03-20</date>
+   <date>2012-05-01</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fix class name (software-horde@interfasys.ch, Bug #11164).
