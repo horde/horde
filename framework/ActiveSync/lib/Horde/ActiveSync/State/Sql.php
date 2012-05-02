@@ -1323,7 +1323,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         $this->_logger->debug(sprintf(
             "[%s] Updating SyncCache folder %s",
             $devid,
-            print_r($folder, true))
+            $folder->displayname)
         );
         $cache['folders'][$folder->serverid]['parentid'] = $folder->parentid;
         $cache['folders'][$folder->serverid]['displayname'] = $folder->displayname;
