@@ -254,6 +254,10 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             $foundsynckey = false;
             if ($partial === true) {
                 $this->_logger->debug('PARTIAL SYNC');
+
+                // @TODO: Why do we get a fresh copy here? What would have
+                // changed that we need to make sure it's fresh? Can't we
+                // just use a copy of $this->_syncCache['collections']?
                 $tempSyncCache = $this->_stateDriver->getSyncCache(
                     $this->_device->id, $this->_device->user);
 
@@ -285,7 +289,9 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     if (md5(serialize($v1)) == md5(serialize($v2))) {
                         $unchanged_count++;
                     }
-                    // Unset in tempSyncCache in case we already have it
+                    // Unset in tempSyncCache, since we have it from device.
+                    // Afterwards, anything left in tempSyncCache needs to be
+                    // added to _collections.
                     unset($tempSyncCache['collections'][$value['id']]);
 
                     // Remove keys from confirmed synckeys array and count them
@@ -362,8 +368,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     return true;
                 }
 
-                // If there are no changes within partial sync, send status 13 since
-                // sending partial elements without any changes is suspect
+                // If there are no changes within partial sync, send status 13
+                // since sending partial elements without any changes is suspect
                 if ($synckey_count > 0 &&
                     $confirmed_synckey_count == 0 &&
                     $unchanged_count == $synckey_count &&
@@ -377,12 +383,12 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     return true;
                 }
 
-                // Updating Collections with all necessary informations that we don't have informations for but with a synckey in foldercache
-                // @TODO: $key == 'id' ?????
+                // Update _collections with all data that was not sent, but we
+                // have a synckey for in the sync_cache.
                 foreach ($tempSyncCache['collections'] as $key => $value) {
                     if (isset($value['synckey'])) {
                         $collection = $value;
-                        $collection['id'] = $key; // ???
+                        $collection['id'] = $key;
                         if (isset($default_maxitems)) {
                             $collection['windowsize'] = $default_maxitems;
                         }
@@ -395,8 +401,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 }
                 unset($tempSyncCache);
             } elseif ($this->_version == Horde_ActiveSync::VERSION_TWELVEONE) {
-                // We got a full sync so we don't need to look after any confirmed
-                // synckey in array since device only knows keys that it sends now
+                // We received a full sync so don't look for missing collections
+                // since device only knows the synckeys that it is sending now.
                 $this->_syncCache['confirmed_synckeys'] = array();
                 $this->_syncCache['lastuntil'] = time();
                 foreach (array_keys($this->_syncCache['collections']) as $key) {
