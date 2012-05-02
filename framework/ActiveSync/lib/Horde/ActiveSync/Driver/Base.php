@@ -280,7 +280,7 @@ abstract class Horde_ActiveSync_Driver_Base
     public function fetch($folderid, $id, array $collection)
     {
         // Forces entire message (up to 1Mb)
-        return $this->getMessage($folderid, $id, 1024 * 1024, $collection);
+        return $this->getMessage($folderid, $id, $collection);
     }
 
     /**
