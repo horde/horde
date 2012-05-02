@@ -691,9 +691,12 @@ class Horde_ActiveSync
         }
         $this->_version = $this->_request->getHeader('MS-ASProtocolVersion');
         if (empty($this->_version)) {
-            $this->_version = '1.0';
+            $get = $this->getGetVars();
+            $this->_version = empty($get['ProtVer']) ? '1.0' : $get['ProtVer'];
+            if ($this->_version == 121) {
+                $this->_version = 12.1;
+            }
         }
-
         return $this->_version;
     }
 
@@ -747,8 +750,9 @@ class Horde_ActiveSync
                 if (isset($decoded['User'])) {
                     $results['User'] = $decoded['User'];
                 }
-                $this->_logger->debug('Decoded BASE64 request: ' . print_r($results, true));
-
+                if (isset($decoded['ProtVer'])) {
+                    $results['ProtVer'] = $decoded['ProtVer'];
+                }
                 return $results;
             }
         } else {
