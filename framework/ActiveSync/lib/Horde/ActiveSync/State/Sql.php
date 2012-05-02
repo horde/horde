@@ -168,12 +168,60 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
-        if (!$results) {
+
+        $this->_loadStateFromResults($results);
+    }
+
+    /**
+     * Loads the last known state for the specified collection/folderid.
+     *
+     * @param string $folderid  The folderid to load the state for.
+     */
+    public function loadLastKnownState($folderid)
+    {
+        $sql = 'SELECT sync_key, sync_data, sync_devid, sync_time, sync_pending FROM '
+                . $this->_syncStateTable . ' WHERE sync_folderid = ? AND '
+                . 'sync_devid = ? AND sync_user = ? ORDER BY sync_time DESC LIMIT 1';
+
+        $values = array($folderid,
+                        $this->_devId,
+                        $this->_deviceInfo->user);
+
+        try {
+            $results = $this->_db->selectOne($sql, $values);
+        } catch (Horde_Db_Exception $e) {
+            Horde::debug($e);
+            throw new Horde_ActiveSync_Exception($e);
+        }
+        $this->_logger->debug(sprintf(
+            '[%s] Loaded last known sync_state (%s) for device: %s, user: %s, folder: %s',
+            $this->_deviceInfo->id,
+            $results['sync_key'],
+            $this->_deviceInfo->id,
+            $this->_deviceInfo->user,
+            $this->_collection['id'])
+        );
+        $this->_loadStateFromResults($results);
+    }
+
+    /**
+     * Actually load the state data into the object from the query results.
+     *
+     * @param array $results  The results array from the state query.
+     * @param string $type    The type of request we are handling.
+     *
+     * @throws Horde_ActiveSync_Exception_StateGone
+     */
+    protected function _loadStateFromResults($results, $type = Horde_ActiveSync::REQUEST_TYPE_SYNC)
+    {
+       if (!$results) {
             throw new Horde_ActiveSync_Exception_StateGone();
         }
 
         // Load the last known sync time for this collection
-        $this->_lastSyncTS = !empty($results['sync_time']) ? $results['sync_time'] : 0;
+        $this->_lastSyncTS = !empty($results['sync_time'])
+            ? $results['sync_time']
+            : 0;
 
         // Pre-Populate the current sync timestamp in case this is only a
         // Client -> Server sync.
@@ -199,11 +247,11 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             );
 
 
-            $this->_logger->debug(sprintf(
-                '[%s] Loaded previous state data: %s',
-                $this->_devId,
-                print_r($this->_folder, true))
-            );
+            // $this->_logger->debug(sprintf(
+            //     '[%s] Loaded previous state data: %s',
+            //     $this->_devId,
+            //     print_r($this->_folder, true))
+            // );
 
             $this->_changes = ($pending !== false) ? $pending : null;
             if ($this->_changes) {
@@ -799,25 +847,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         if (!empty($this->_pingState['collections'][$pingCollection['id']])) {
             $this->_collection = $this->_pingState['collections'][$pingCollection['id']];
             $this->_collection['synckey'] = $this->_devId;
-            $this->_lastSyncTS = $this->_getLastSyncTS();
-            if (!isset($this->_lastSyncTS)) {
-                throw new Horde_ActiveSync_Exception_StateGone('Previous syncstate has been removed.');
-            }
-            $this->_logger->debug(sprintf(
-                "[%s] Obtained last SYNC time for %s - %s",
-                $this->_devId,
-                $pingCollection['class'],
-                $this->_lastSyncTS));
-            $this->_logger->debug(sprintf(
-                "[%s] PING for %s folder, loading last known SYNC state.",
-                $this->_devId,
-                $pingCollection['id']));
-            $this->_folder = $this->_getLastState(
-                $this->_collection['id'],
-                $this->_lastSyncTS);
-            if (!$this->_folder) {
-                throw new Horde_ActiveSync_Exception_StateGone('Previous syncstate has been removed');
-            }
+            $this->loadLastKnownState($this->_collection['id']);
         } else {
             // Initialize the collection's state.
             $this->_logger->info(sprintf(

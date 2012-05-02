@@ -433,8 +433,8 @@ abstract class Horde_ActiveSync_State_Base
     }
 
     /**
-     * Loads the initial state from storage for the specified syncKey and
-     * intializes the stateMachine for use.
+     * Loads the state from storage for the specified syncKey and intializes the
+     * object for use.
      *
      * @param string $syncKey  The key for the state to load.
      * @param string $type     Treat the loaded state data as this type of state.
@@ -443,6 +443,13 @@ abstract class Horde_ActiveSync_State_Base
      * @return array The state array
      */
     abstract public function loadState($syncKey, $type = null, $id = '');
+
+    /**
+     * Loads the last known state for the specified collection/folderid.
+     *
+     * @param string $folderid  The folderid to load the state for.
+     */
+    abstract public function loadLastKnownState($folderid);
 
     /**
      * Load/initialize the ping state for the specified device.
