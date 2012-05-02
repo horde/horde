@@ -510,6 +510,13 @@ class Horde_ActiveSync
      */
     public function handleRequest($cmd, $devId)
     {
+        $get = $this->getGetVars();
+        if (empty($cmd)) {
+            $cmd = $get['Cmd'];
+        }
+        if (empty($devId)) {
+            $devId = $get['DeviceId'];
+        }
         // Autodiscovery handles authentication on it's own.
         if ($cmd == 'Autodiscover') {
             $request = new Horde_ActiveSync_Request_Autodiscover($this, new stdClass());
@@ -556,7 +563,6 @@ class Horde_ActiveSync
                 $d = $this->_state->loadDeviceInfo($devId, '');;
             }
             $device->policykey = 0;
-            $get = $this->getGetVars();
             $device->userAgent = $this->_request->getHeader('User-Agent');
             $device->deviceType = !empty($get['DeviceType']) ? $get['DeviceType'] : '';
             $device->rwstatus = self::RWSTATUS_NA;
