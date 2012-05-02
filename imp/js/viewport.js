@@ -178,7 +178,7 @@
  * data: (object) Data for each entry. Keys are a unique ID (see also the
  *       'rowlist' entry). Values are the data objects. Internal keys for
  *       these data objects must NOT begin with the string 'VP_' (reserved
- *       keys). THese values update current cached values.
+ *       keys). These values update current cached values.
  * data_reset: (integer) If set, purge all browser cached data objects.
  * disappear: (array) The list of unique IDs that are browser cached but no
  *            longer exist on the server.
@@ -1825,16 +1825,28 @@ ViewPort_Selection = Class.create({
     //   regex - Matches the RegExp contained in the query.
     search: function(params)
     {
-        return this._search(params, this.get('dataob'));
-    },
-
-    _search: function(params, data)
-    {
-        return new ViewPort_Selection(this.buffer, 'uid', data.findAll(function(i) {
+        return new ViewPort_Selection(this.buffer, 'uid', this.get('dataob').findAll(function(i) {
             // i = data object
             return $H(params).all(function(k) {
                 // k.key = search key; k.value = search criteria
                 return $H(k.value).all(function(s) {
+                    // Normalize dynamically created values. We know the
+                    // required types for these values, and certain browsers
+                    // do strict type-checking (e.g. Chrome).
+                    switch (k.key) {
+                    case 'VP_domid':
+                    case 'VP_id':
+                        s.value = s.value.invoke('toString');
+                        break;
+
+                    case 'VP_rownum':
+                        s.value = s.value.collect(function(i) {
+                            var val = parseInt(i, 10);
+                            return isNaN(val) ? null : val;
+                        }).compact();
+                        break;
+                    }
+
                     // s.key = search type; s.value = search query
                     switch (s.key) {
                     case 'equal':
