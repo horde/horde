@@ -526,7 +526,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                             $this->_device->id,
                             $e->getMessage())
                         );
-                        $this->_stateDriver->loadState(null, $collection['id']);
+                        $this->_stateDriver->loadState(null, Horde_ActiveSync::REQUEST_TYPE_SYNC, $collection['id']);
                         $changecount = 1;
                     } catch (Horde_ActiveSync_Exception_FolderGone $e) {
                         $this->_logger->err(sprintf(
