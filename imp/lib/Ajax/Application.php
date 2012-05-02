@@ -391,6 +391,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
                 $imptree->setIteratorFilter($mask, $val);
                 foreach ($imptree as $val2) {
                     $imptree->addEltDiff($val2);
+                    $this->_queue->poll($val2);
                 }
 
                 if (!$initreload) {
