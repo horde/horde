@@ -1540,7 +1540,9 @@ abstract class Kronolith_Event
                 $attendee->email = $email;
                 // AS only has required or optional, and only EAS Version > 2.5
                 if ($options['protocolversion'] > Horde_ActiveSync::VERSION_TWOFIVE) {
-                    $attendee->type = ($properties['attendance'] !== Kronolith::PART_REQUIRED ? Kronolith::PART_OPTIONAL : Kronolith::PART_REQUIRED);
+                    $attendee->type = ($properties['attendance'] !== Kronolith::PART_REQUIRED
+                        ? Horde_ActiveSync_Message_Attendee::TYPE_OPTIONAL
+                        : Horde_ActiveSync_Message_Attendee::TYPE_REQUIRED);
                     $attendee->status = $properties['response'];
                 }
                 $message->addAttendee($attendee);
