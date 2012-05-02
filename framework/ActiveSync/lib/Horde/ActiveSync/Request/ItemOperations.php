@@ -140,11 +140,11 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_B
                                     $e = $this->_decoder->peek();
                                     if ($e[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_TYPE_ENDTAG) {
                                         $this->_decoder->getElementEndTag();
-                                        if (!isset($thisio['bodypreference']['wanted'])) {
-                                            $thisio['bodypreference']['wanted'] = $bodypreference['type'];
+                                        if (!isset($thisio['bodyprefs']['wanted'])) {
+                                            $thisio['bodyprefs']['wanted'] = $bodypreference['type'];
                                         }
                                         if (isset($bodypreference['type'])) {
-                                            $thisio['bodypreference'][$bodypreference['type']] = $bodypreference;
+                                            $thisio['bodyprefs'][$bodypreference['type']] = $bodypreference;
                                         }
                                         break;
                                     }
@@ -211,7 +211,7 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_B
                         $this->_encoder->startTag(Horde_ActiveSync::SYNC_FOLDERTYPE);
                         $this->_encoder->content('Email');
                         $this->_encoder->endTag();
-                        $msg = $this->_driver->itemOperationsFetchMailbox($value['searchlongid'], $value['bodypreference'], $mimesupport);
+                        $msg = $this->_driver->itemOperationsFetchMailbox($value['searchlongid'], $value['bodyprefs'], $mimesupport);
                     } else {
                         if (isset($value['folderid'])) {
                             $this->_encoder->startTag(Horde_ActiveSync::SYNC_FOLDERID);
