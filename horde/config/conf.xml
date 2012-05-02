@@ -1993,9 +1993,18 @@
    <configswitch name="enabled" quote="false" desc="Enable ActiveSync server?">true
     <case name="false" desc="Disabled" />
     <case name="true" desc="Enabled">
-     <configheader>Email</configheader>
+     <configheader>Capabilities</configheader>
       <configboolean name="emailsync" desc="Enable Email support?">false
       </configboolean>
+      <configenum name="version" desc="What is the highest version of EAS that
+      Horde should support? All versions are backwards compatible so selecting
+      a higher version also includes support for the lower versions as well.">
+      <values>
+       <value desc="Exchange 2003 (EAS 2.5)">2.5</value>
+       <value desc="Exchange 2007 (EAS 12.0)">12</value>
+       <value desc="Exchange 2007sp1 (EAS 12.1)">12.1</value>
+      </values>
+     </configenum>
      <configheader>Autodiscovery</configheader>
      <configenum name="autodiscovery" desc="Some devices attempt to use an
      Autodiscovery service to configure the device's account using only the
