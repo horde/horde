@@ -88,7 +88,6 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_B
         // The current itemoperation task
         $thisio = array();
         $mimesupport = 0;
-        $rightsmanagementsupport = false;
         while (($reqtype = ($this->_decoder->getElementStartTag(self::ITEMOPERATIONS_FETCH) ? self::ITEMOPERATIONS_FETCH :
                   ($this->_decoder->getElementStartTag(self::ITEMOPERATIONS_EMPTYFOLDERCONTENT) ? self::ITEMOPERATIONS_EMPTYFOLDERCONTENT  : -1))) != -1) {
 
@@ -108,9 +107,8 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_B
 
                     if ($reqtag == self::ITEMOPERATIONS_OPTIONS) {
                         while (($thisoption = ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_MIMESUPPORT) ? Horde_ActiveSync::SYNC_MIMESUPPORT :
-                                ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_AIRSYNCBASE_BODYPREFERENCE) ? Horde_ActiveSync::SYNC_AIRSYNCBASE_BODYPREFERENCE :
-                                  ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_RIGHTSMANAGEMENT_RIGHTSMANAGEMENTSUPPORT) ? Horde_ActiveSync::SYNC_RIGHTSMANAGEMENT_RIGHTSMANAGEMENTSUPPORT :
-                                  -1)))) != -1) {
+                               ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_BODYPREFERENCE) ? Horde_ActiveSync::AIRSYNCBASE_BODYPREFERENCE :
+                               -1))) != -1) {
 
                             switch ($thisoption) {
                             case Horde_ActiveSync::SYNC_MIMESUPPORT:
