@@ -958,21 +958,24 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 $this->_fetchids = true;
             }
 
-            // Update sync_cache
-            $this->_syncCache['collections'][$collection['id']] = array(
-                'class' => $collection['class'],
-                'windowsize' => isset($collection['windowsize']) ? $collection['windowsize'] : null,
-                'deletesasmoves' => isset($collection['deletesasmoves']) ? $collection['deletesasmoves'] : null,
-                'filtertype' => isset($collection['filtertype']) ? $collection['filtertype'] : null,
-                'truncation' => isset($collection['truncation']) ? $collection['truncation'] : null,
-                'rtftruncation' => isset($collection['rtftruncation']) ? $collection['rtftruncation'] : null,
-                'mimesupport' => isset($collection['mimesupport']) ? $collection['mimesupport'] : null,
-                'mimetruncation' => isset($collection['mimetruncation']) ? $collection['mimetruncation'] : null,
-                'conflict' => isset($collection['conflict']) ? $collection['conflict'] : null,
-                'bodyprefs' => isset($collection['bodyprefs']) ? $collection['bodyprefs'] : null);
+            if ($this->_version == Horde_ActiveSync::VERSION_TWELVEONE) {
+                // Update sync_cache
+                $this->_syncCache['collections'][$collection['id']] = array(
+                    'class' => $collection['class'],
+                    'windowsize' => isset($collection['windowsize']) ? $collection['windowsize'] : null,
+                    'deletesasmoves' => isset($collection['deletesasmoves']) ? $collection['deletesasmoves'] : null,
+                    'filtertype' => isset($collection['filtertype']) ? $collection['filtertype'] : null,
+                    'truncation' => isset($collection['truncation']) ? $collection['truncation'] : null,
+                    'rtftruncation' => isset($collection['rtftruncation']) ? $collection['rtftruncation'] : null,
+                    'mimesupport' => isset($collection['mimesupport']) ? $collection['mimesupport'] : null,
+                    'mimetruncation' => isset($collection['mimetruncation']) ? $collection['mimetruncation'] : null,
+                    'conflict' => isset($collection['conflict']) ? $collection['conflict'] : null,
+                    'bodyprefs' => isset($collection['bodyprefs']) ? $collection['bodyprefs'] : null);
+            }
         }
 
         if (!$this->_decoder->getElementEndTag()) {
+            $this->_logger->err('Parsing Error');
             return false;
         }
     }
