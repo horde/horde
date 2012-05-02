@@ -150,12 +150,6 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_B
                                     }
                                 }
                                 break;
-                            case Horde_ActiveSync::SYNC_RIGHTSMANAGEMENT_RIGHTSMANAGEMENTSUPPORT:
-                                $rightsmanagementsupport = $this->_decoder->getElementContent();
-                                if (!$this->_decoder->getElementEndTag()) {
-                                    throw new Horde_ActiveSync_Exception('Protocol Error');
-                                }
-                                break;
                             }
                         }
                     } elseif ($reqtag == self::ITEMOPERATIONS_STORE) {
