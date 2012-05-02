@@ -364,7 +364,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
 
                     $this->_logger->debug('Current Time is lower than lastuntil. Request a full SYNC');
                     $this->_statusCode = self::STATUS_REQUEST_INCOMPLETE;
-                    $this->_handError();
+                    $this->_handGlobalSyncError();
                     return true;
                 }
 
