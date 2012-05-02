@@ -1239,6 +1239,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 'wait' => false,
                 'hbinterval' => false,
                 'folders' => array(),
+                'hierarchy' => array(),
                 'collections' => array());
         } else {
             return $data;
