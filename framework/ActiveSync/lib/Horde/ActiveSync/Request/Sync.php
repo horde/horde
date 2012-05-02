@@ -938,7 +938,9 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
 
                 case Horde_ActiveSync::SYNC_COMMANDS:
                     $this->_initState($collection);
-                    $this->_parseSyncCommands($collection);
+                    if (!$this->_parseSyncCommands($collection)) {
+                        return true;
+                    }
                 }
             }
 
@@ -990,8 +992,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 "[%s] Attempting a SYNC_COMMANDS, but device failed to send synckey.",
                 $this->_device->id));
             $this->_statusCode = self::STATUS_PROTERROR;
-            $this->_handleError($collection);
-            exit;
+            $this->_handleGlobalSyncError();
+            return false;
         }
 
         // Sanity checking, synccahe etc..
@@ -1005,11 +1007,12 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     $collection['id'],
                     $collection['class']));
             } else {
-                $this->_handleSyncError(self::STATUS_FOLDERSYNC_REQUIRED);
+                $this->_statusCode = self::STATUS_FOLDERSYNC_REQUIRED;
+                $this->_handleGlobalSyncError();
                 $this->_logger->debug(sprintf(
                     'No collection class found for %s sending STATUS_FOLDERSYNC_REQUIRED',
                     $collection['id']));
-                exit;
+                return false;
             }
         }
 
@@ -1031,8 +1034,9 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 $serverid = $this->_decoder->getElementContent();
                 if (!$this->_decoder->getElementEndTag()) { // end serverid
                     $this->_statusCode = self::STATUS_PROTERROR;
-                    $this->_handleError($collection);
-                    exit;
+                    $this->_handleGlobalSyncError();
+                    $this->_logger->err('Parsing Error');
+                    return false;
                 }
             } else {
                 $serverid = false;
@@ -1042,8 +1046,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 $clientid = $this->_decoder->getElementContent();
                 if (!$this->_decoder->getElementEndTag()) { // end clientid
                     $this->_statusCode = self::STATUS_PROTERROR;
-                    $this->_handleError($collection);
-                    exit;
+                    $this->_handleGlobalSyncError();
+                    return false;
                 }
             } else {
                 $clientid = false;
@@ -1123,8 +1127,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             if (!$this->_decoder->getElementEndTag()) {
                 // end change/delete/move
                 $this->_statusCode = self::STATUS_PROTERROR;
-                $this->_handleError($collection);
-                exit;
+                $this->_handleGlobalSyncError();
+                return false;
             }
         }
 
@@ -1147,9 +1151,11 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
         if (!$this->_decoder->getElementEndTag()) {
             // end commands
             $this->_statusCode = self::STATUS_PROTERROR;
-            $this->_handleError($collection);
-            exit;
+            $this->_handleGlobalSyncError();
+            return false;
         }
+
+        return true;
     }
 
     /**
