@@ -104,6 +104,8 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
                 if (empty($synckey)) {
                     $sync_cache['folders'] = array();
                 } else {
+                    // @TODO: Don't think we need this. I don't think the
+                    // cache can be written without  the class value to begin with
                     foreach ($sync_cache['folders'] as $key => $value) {
                         if (empty($value['class'])) {
                             $this->_stateDriver->deleteSyncCache($this->_device->id, $this->_device->user);
