@@ -1258,7 +1258,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     public function saveSyncCache(array $cache, $devid, $user)
     {
         $sql = 'SELECT count(*) FROM ' . $this->_syncCacheTable
-            . ' WHERE cache_devid = ? AND cache_userid = ?';
+            . ' WHERE cache_devid = ? AND cache_user = ?';
         try {
             $have = $this->_db->selectValue($sql, array($devid, $user));
         } catch (Horde_Db_Exception $e) {
@@ -1266,7 +1266,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         }
         if ($have) {
             $sql = 'UPDATE ' . $this->_syncCacheTable
-                . ' SET cache_data = ? WHERE cache_devid = ? AND cache_userid = ?';
+                . ' SET cache_data = ? WHERE cache_devid = ? AND cache_user = ?';
             try {
                 $this->_db->update(
                     $sql,
@@ -1277,7 +1277,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             }
         } else {
             $sql = 'INSERT INTO ' . $this->_syncCacheTable
-                . '(cache_data, cache_devid, cache_userid) VALUES (?, ?, ?)';
+                . '(cache_data, cache_devid, cache_user) VALUES (?, ?, ?)';
             try {
                 $this->_db->insert(
                     $sql,
