@@ -99,7 +99,7 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_B
                               ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_SERVERENTRYID) ? Horde_ActiveSync::SYNC_SERVERENTRYID :
                               ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FOLDERID) ? Horde_ActiveSync::SYNC_FOLDERID :
                               ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_DOCUMENTLIBRARY_LINKID) ? Horde_ActiveSync::SYNC_DOCUMENTLIBRARY_LINKID :
-                              ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_AIRSYNCBASE_FILEREFERENCE) ? Horde_ActiveSync::SYNC_AIRSYNCBASE_FILEREFERENCE :
+                              ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_FILEREFERENCE) ? Horde_ActiveSync::AIRSYNCBASE_FILEREFERENCE :
                               ($this->_decoder->getElementStartTag(self::ITEMOPERATIONS_USERNAME) ? self::ITEMOPERATIONS_USERNAME :
                               ($this->_decoder->getElementStartTag(self::ITEMOPERATIONS_PASSWORD) ? self::ITEMOPERATIONS_PASSWORD :
                               ($this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Search::SEARCH_LONGID) ? Horde_ActiveSync_Request_Search::SYNC_SEARCH_LONGID :
@@ -115,22 +115,22 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_B
                                 $mimesupport = $this->_decoder->getElementContent();
                                 $this->_decoder->getElementEndTag();
                                 break;
-                            case Horde_ActiveSync::SYNC_AIRSYNCBASE_BODYPREFERENCE:
+                            case Horde_ActiveSync::AIRSYNCBASE_BODYPREFERENCE:
                                 $bodypreference = array();
                                 while(1) {
-                                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_AIRSYNCBASE_TYPE)) {
+                                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_TYPE)) {
                                         $bodypreference['type'] = $this->_decoder->getElementContent();
                                         if (!$this->_decoder->getElementEndTag()) {
                                             throw new Horde_ActiveSync_Exception('Protocol Error');
                                         }
                                     }
-                                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_AIRSYNCBASE_TRUNCATIONSIZE)) {
+                                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_TRUNCATIONSIZE)) {
                                         $bodypreference['truncationsize'] = $this->_decoder->getElementContent();
                                         if (!$this->_decoder->getElementEndTag()) {
                                             throw new Horde_ActiveSync_Exception('Protocol Error');
                                         }
                                     }
-                                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_AIRSYNCBASE_ALLORNONE)) {
+                                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_ALLORNONE)) {
                                         $bodypreference['allornone'] = $this->_decoder->getElementContent();
                                         if (!$this->_decoder->getElementEndTag()) {
                                             throw new Horde_ActiveSync_Exception('Protocol Error');
@@ -166,7 +166,7 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_B
                         $thisio['password'] = $this->_decoder->getElementContent();
                     } elseif ($reqtag == Horde_ActiveSync_Request_Search::SEARCH_LONGID) {
                         $thisio['searchlongid'] = $this->_decoder->getElementContent();
-                    } elseif ($reqtag == Horde_ActiveSync::SYNC_AIRSYNCBASE_FILEREFERENCE) {
+                    } elseif ($reqtag == Horde_ActiveSync::AIRSYNCBASE_FILEREFERENCE) {
                         $thisio['airsyncbasefilereference'] = $this->_decoder->getElementContent();
                     } elseif ($reqtag == Horde_ActiveSync::SYNC_SERVERENTRYID) {
                         $thisio['serverentryid'] = $this->_decoder->getElementContent();
@@ -206,7 +206,7 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_B
                     $this->_encoder->endTag();
 
                     if (isset($value['airsyncbasefilereference'])) {
-                        $this->_encoder->startTag(Horde_ActiveSync::SYNC_AIRSYNCBASE_FILEREFERENCE);
+                        $this->_encoder->startTag(Horde_ActiveSync::AIRSYNCBASE_FILEREFERENCE);
                         $this->_encoder->content($value['airsyncbasefilereference']);
                         $this->_encoder->endTag();
                         $msg = $this->_driver->itemOperationsGetAttachmentData($value['airsyncbasefilereference']);
