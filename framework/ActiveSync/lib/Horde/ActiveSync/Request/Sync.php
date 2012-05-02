@@ -150,7 +150,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
         } else {
             // Non-empty SYNC request. Either < 12.1 or a full 12.1 reqeust.
             if ($this->_version == Horde_ActiveSync::VERSION_TWELVEONE) {
-                $this->_syncCache = $this->_stateDriver->getSyncCache();
+                $this->_syncCache = $this->_stateDriver->getSyncCache($this->_device->id, $this->_device->user);
                 $this->_syncCache['wait'] = false;
                 $this->_syncCache['hbinterval'] = false;
             }
@@ -476,13 +476,13 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     );
                     $this->_logger->error('Some synckeys were not confirmed. Requesting full SYNC');
                     unset($this->_syncCache['confirmed_synckeys']);
-                    $this->_stateDriver->saveSyncCache($this->_syncCache);
+                    $this->_stateDriver->saveSyncCache($this->_syncCache, $this->_device->id, $this->_device->user);
                     $this->_statusCode = self::STATUS_REQUEST_INCOMPLETE;
                     $this->_handleGlobalSyncError();
                     return true;
                 } else {
-                    $this->_logger->debug('All synckeys confirmed. Continueing with SYNC');
-                    $this->_stateDriver->saveSyncCache($this->_syncCache);
+                    $this->_logger->debug('All synckeys confirmed. Continuing with SYNC');
+                    $this->_stateDriver->saveSyncCache($this->_syncCache, $this->_device->id, $this->_device->user);
                 }
             }
         } // End of non-empty SYNC request.
@@ -513,7 +513,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             );
             $this->_syncCache['lastuntil'] = $until;
             $this->_syncCache['lasthbsyncstarted'] = time();
-            $this->_stateDriver->saveSyncCache($this->_syncCache);
+            $this->_stateDriver->saveSyncCache($this->_syncCache, $this->_device->id, $this->_device->user);
 
             // Start the looping SYNC
             $hbrunavrgduration = 0;
@@ -1312,7 +1312,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                         $body_pref['allornone'] = $this->_decoder->getElementContent();
                         $this->_logger->debug($body_pref['allornone']);
                         if (!$this->_decoder->getElementEndTag()) {
-                            $this->_logger->debug('foobar');
                             $this->_statusCode = self::STATUS_PROTERROR;
                             $this->_handleError($collection);
                             exit;
