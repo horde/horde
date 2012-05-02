@@ -37,6 +37,7 @@ class Horde_Core_Factory_ActiveSyncServer extends Horde_Core_Factory_Injector
             $injector->getInstance('Horde_Controller_Request')
         );
 
+        $server->setSupportedVersion($conf['activesync']['version']);
         $server->setLogger($logger);
 
         return $server;
