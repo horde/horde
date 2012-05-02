@@ -449,7 +449,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
         } // End of non-empty SYNC request.
 
         // If this is 12.1, see if we want a looping SYNC.
-        if ($this->_version >= Horde_ActiveSync::VERSION_TWELVEONE &&
+        if ($this->_version == Horde_ActiveSync::VERSION_TWELVEONE &&
             $this->_statusCode == self::STATUS_SUCCESS &&
             !$this->_dataimported &&
             ($this->_syncCache['wait'] !== false ||
@@ -597,7 +597,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
         }
 
         // See if we can do an empty response
-        if ($this->_version >= Horde_ActiveSync::VERSION_TWELVEONE &&
+        if ($this->_version == Horde_ActiveSync::VERSION_TWELVEONE &&
             $this->_statusCode == SYNC_STATUS_SUCCESS &&
             $dataavailable == false &&
             $dataimported == false &&
