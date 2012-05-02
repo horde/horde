@@ -256,7 +256,7 @@ class Horde_Url
             $url .= '?' . implode($raw ? '&' : '&amp;', $url_params);
         }
         if ($this->anchor) {
-            $url .= '#' . rawurlencode($this->anchor);
+            $url .= '#' . ($raw ? $this->anchor : rawurlencode($this->anchor));
         }
 
         return strval($url);
