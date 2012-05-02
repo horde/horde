@@ -417,52 +417,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             // Update the sync_cache
             if ($this->_version == Horde_ActiveSync::VERSION_TWELVEONE) {
                 foreach ($this->_collections as $value) {
-                    // @TODO: Remove this?
-                    $this->_logger->debug('UPDATING SYNC CACHE ONE');
-                    if (isset($value['id'])) {
-                        if (isset($value['synckey'])) {
-                            $this->_logger->debug(sprintf(
-                                'Adding SyncCache[synckey] from collection',
-                                $value['id'])
-                            );
-                            $this->_syncCache['collections'][$value['id']]['synckey'] = $value['synckey'];
-                        }
-                        if (isset($value['class'])) {
-                            $this->_syncCache['collections'][$value['id']]['class'] = $value['class'];
-                        }
-                        if (isset($value['windowsize'])) {
-                            $this->_syncCache['collections'][$value['id']]['windowsize'] = $value['windowsize'];
-                        }
-                        if (isset($value['deletesasmoves'])) {
-                            $this->_syncCache['collections'][$value['id']]['deletesasmoves'] = $value['deletesasmoves'];
-                        }
-                        if (isset($value['filtertype'])) {
-                            $this->_SyncCache['collections'][$value['id']]['filtertype'] = $value['filtertype'];
-                        }
-                        if (isset($value['truncation'])) {
-                            $this->_syncCache['collections'][$value['id']]['truncation'] = $value['truncation'];
-                        }
-                        if (isset($value['rtftruncation'])) {
-                            $this->_syncCache['collections'][$value['id']]['rtftruncation'] = $value['rtftruncation'];
-                        }
-                        if (isset($value['mimesupport'])) {
-                            $this->_syncCache['collections'][$value['id']]['mimesupport'] = $value['mimesupport'];
-                        }
-                        if (isset($value['mimetruncation'])) {
-                            $this->_syncCache['collections'][$value['id']]['mimetruncation'] = $value['mimetruncation'];
-                        }
-                        if (isset($value['conflict'])) {
-                            $this->_syncCache['collections'][$value['id']]['conflict'] = $value['conflict'];
-                        }
-                        if (isset($value['bodyprefs'])) {
-                            $this->_syncCache['collections'][$value['id']]['bodyprefs'] = $value['bodyprefs'];
-                        }
-                    } else {
-                        $this->_logger->debug(sprintf(
-                            'Collection without id found: %s',
-                            print_r($value, true))
-                        );
-                    }
+                    $this->_updateSyncCacheCollection($value);
                 }
             }
 
@@ -836,48 +791,11 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 if (trim($collection['newsynckey']) != trim($collection['synckey'])) {
                     $this->_syncCache['confirmed_synckeys'][$collection['newsynckey']] = true;
                 }
-
-                // @TODO: would this ever not be set???
-                if (isset($collection['id'])) {
-                    // @TODO: REmove this? Is this duplicative?
-                    $this->_logger->debug('UPDATING SYNCCACHE TWO');
-                    if (isset($collection['newsynckey'])) {
-                        $this->_syncCache['collections'][$collection['id']]['synckey'] = $collection['newsynckey'];
-                    } else {
-                        $this->_syncCache['collections'][$collection['id']]['synckey'] = $collection['synckey'];
-                    }
-                    if (isset($collection['class'])) {
-                        $this->_syncCache['collections'][$collection['id']]['class'] = $collection['class'];
-                    }
-                    if (isset($collection['windowsize'])) {
-                        $this->_syncCache['collections'][$collection['id']]['windowsize'] = $collection['windowsize'];
-                    }
-                    if (isset($collection['deletesasmoves'])) {
-                        $this->_syncCache['collections'][$collection['id']]['deletesasmoves'] = $collection['deletesasmoves'];
-                    }
-                    unset($this->_syncCache['collections'][$collection['id']]['getchanges']);
-                    if (isset($collection['filtertype'])) {
-                        $this->_SyncCache['collections'][$collection['id']]['filtertype'] = $collection['filtertype'];
-                    }
-                    if (isset($collection['truncation'])) {
-                        $this->_syncCache['collections'][$collection['id']]['truncation'] = $collection['truncation'];
-                    }
-                    if (isset($collection['rtftruncation'])) {
-                        $this->_syncCache['collections'][$collection['id']]['rtftruncation'] = $collection['rtftruncation'];
-                    }
-                    if (isset($collection['mimesupport'])) {
-                        $this->_syncCache['collections'][$collection['id']]['mimesupport'] = $collection['mimesupport'];
-                    }
-                    if (isset($collection['mimetruncation'])) {
-                        $this->_syncCache['collections'][$collection['id']]['mimetruncation'] = $collection['mimetruncation'];
-                    }
-                    if (isset($collection['conflict'])) {
-                        $this->_syncCache['collections'][$collection['id']]['conflict'] = $collection['conflict'];
-                    }
-                    if (isset($collection['bodyprefs'])) {
-                        $this->_syncCache['collections'][$collection['id']]['bodyprefs'] = $collection['bodyprefs'];
-                    }
-                }
+                $this->_updateSyncCacheCollection(
+                    $collection,
+                    (isset($collection['newsynckey']) ? $collection['newsynckey'] : false),
+                    true
+                );
             }
         }
 
@@ -1497,6 +1415,59 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
 
                 unset($this->_syncCache['collections'][$values['id']]['synckey']);
             }
+        }
+    }
+
+    protected function _updateSyncCacheCollection($collection, $newsynckey = false, $unsetChanges = false)
+    {
+        if (!empty($collection['id'])) {
+            if ($newsynckey) {
+                $this->_syncCache['collections'][$collection['id']]['synckey'] = $collection['newsynckey'];
+            } elseif (isset($collection['synckey'])) {
+                $this->_logger->debug(sprintf(
+                    'Adding SyncCache[synckey] from collection',
+                    $collection['id'])
+                );
+                $this->_syncCache['collections'][$collection['id']]['synckey'] = $collection['synckey'];
+            }
+            if (isset($collection['class'])) {
+                $this->_syncCache['collections'][$collection['id']]['class'] = $collection['class'];
+            }
+            if (isset($collection['windowsize'])) {
+                $this->_syncCache['collections'][$collection['id']]['windowsize'] = $collection['windowsize'];
+            }
+            if (isset($collection['deletesasmoves'])) {
+                $this->_syncCache['collections'][$collection['id']]['deletesasmoves'] = $collection['deletesasmoves'];
+            }
+            if (isset($collection['filtertype'])) {
+                $this->_SyncCache['collections'][$collection['id']]['filtertype'] = $collection['filtertype'];
+            }
+            if (isset($collection['truncation'])) {
+                $this->_syncCache['collections'][$collection['id']]['truncation'] = $collection['truncation'];
+            }
+            if (isset($collection['rtftruncation'])) {
+                $this->_syncCache['collections'][$collection['id']]['rtftruncation'] = $collection['rtftruncation'];
+            }
+            if (isset($collection['mimesupport'])) {
+                $this->_syncCache['collections'][$collection['id']]['mimesupport'] = $collection['mimesupport'];
+            }
+            if (isset($collection['mimetruncation'])) {
+                $this->_syncCache['collections'][$collection['id']]['mimetruncation'] = $collection['mimetruncation'];
+            }
+            if (isset($collection['conflict'])) {
+                $this->_syncCache['collections'][$collection['id']]['conflict'] = $collection['conflict'];
+            }
+            if (isset($collection['bodyprefs'])) {
+                $this->_syncCache['collections'][$collection['id']]['bodyprefs'] = $collection['bodyprefs'];
+            }
+            if ($unsetChanges) {
+                unset($this->_synCache['collections'][$collection['id']]['getchanges']);
+            }
+        } else {
+            $this->_logger->debug(sprintf(
+                'Collection without id found: %s',
+                print_r($collection, true))
+            );
         }
     }
 
