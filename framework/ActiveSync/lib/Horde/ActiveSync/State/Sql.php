@@ -91,6 +91,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     protected $_syncMapTable;
     protected $_syncDeviceTable;
     protected $_syncUsersTable;
+    protected $_syncCacheTable;
 
     /**
      * Const'r
@@ -112,6 +113,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         $this->_syncDeviceTable  = 'horde_activesync_device';
         $this->_syncUsersTable   = 'horde_activesync_device_users';
         $this->_syncMailMapTable = 'horde_activesync_mailmap';
+        $this->_syncCacheTable   = 'horde_activesync_cache';
 
         $this->_db = $params['db'];
     }
