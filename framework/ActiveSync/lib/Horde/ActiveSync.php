@@ -606,7 +606,6 @@ class Horde_ActiveSync
             header('MS-Server-ActiveSync: 12.0');
             break;
         case self::VERSION_TWELVEONE:
-            header('MS-Server-ActiveSync: 12.1');
         }
     }
 
@@ -625,7 +624,7 @@ class Horde_ActiveSync
             break;
         case self::VERSION_TWELVEONE:
             header('MS-ASProtocolVersions: 1.0,2.0,2.1,2.5,12.0,12.1');
-            header("MS-ASProtocolRevisions: 12.1r1");
+            header('MS-ASProtocolRevisions: 12.1r1');
         }
     }
 
