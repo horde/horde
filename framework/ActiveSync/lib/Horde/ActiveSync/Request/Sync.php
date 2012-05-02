@@ -615,6 +615,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
         $this->_encoder->startTag(Horde_ActiveSync::SYNC_SYNCHRONIZE);
         $this->_encoder->startTag(Horde_ActiveSync::SYNC_FOLDERS);
         foreach ($this->_collections as $collection) {
+            $statusCode = self::STATUS_SUCCESS;
             $changecount = 0;
             if ((isset($collection['getchanges']) && $collection['getchanges'] == true) ||
                 !isset($collection['getchanges'])) {
@@ -626,40 +627,40 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                         '[%s] SYNC terminating, state not found',
                         $this->_device->id)
                     );
-                    $this->_statusCode = self::STATUS_REQUEST_INCOMPLETE;
-                    $this->_handleGlobalSyncError();
-                    return true;
+                    $statusCode = self::STATUS_KEYMISM;
+                    $collection['synckey'] = 0;
                 } catch (Horde_ActiveSync_Exception $e) {
-                    $this->_statusCode = self::STATUS_SERVERERROR;
-                    $this->_handleGlobalSyncError();
-                    return true;
+                    return false;
                 }
 
-                $exporter = new Horde_ActiveSync_Connector_Exporter($this->_encoder, $collection['class']);
-                $sync = $this->_getSyncObject();
-                try {
-                    $sync->init($this->_stateDriver, $exporter, $collection);
-                } catch (Horde_ActiveSync_Exception_StaleState $e) {
-                    $this->_logger->err(sprintf(
-                        "[%s] Force restting of state for %s. Invalid state encountered.",
-                        $this->_device->id,
-                        $collection['id']));
-                    $this->_stateDriver->loadState(null, $collection['id']);
-                    $this->_statusCode = self::STATUS_KEYMISM;
-                } catch (Horde_ActiveSync_Exception_FolderGone $e) {
-                    $this->_logger->err(sprintf(
-                        "[%s] FOLDERSYNC required, collection gone.",
-                        $this->_device->id));
-                    $this->_statusCode = self::STATUS_FOLDERSYNC_REQUIRED;
+                if ($statusCode == self::STATUS_SUCCESS) {
+                    $exporter = new Horde_ActiveSync_Connector_Exporter($this->_encoder, $collection['class']);
+                    $sync = $this->_getSyncObject();
+                    try {
+                        $sync->init($this->_stateDriver, $exporter, $collection);
+                    } catch (Horde_ActiveSync_Exception_StaleState $e) {
+                        $this->_logger->err(sprintf(
+                            "[%s] Force restting of state for %s. Invalid state encountered.",
+                            $this->_device->id,
+                            $collection['id']));
+                        $this->_stateDriver->loadState(null, Horde_ActiveSync::REQUEST_TYPE_SYNC, $collection['id']);
+                        $statusCode = self::STATUS_KEYMISM;
+                    } catch (Horde_ActiveSync_Exception_FolderGone $e) {
+                        $this->_logger->err(sprintf(
+                            "[%s] FOLDERSYNC required, collection gone.",
+                            $this->_device->id));
+                        $statusCode = self::STATUS_FOLDERSYNC_REQUIRED;
+                    }
+                    $changecount = $sync->getChangeCount();
                 }
-                $changecount = $sync->getChangeCount();
             }
 
             // Get new synckey if needed
-            if (isset($collection['importedchanges']) ||
+            if ($statusCode == self::STATUS_SUCCESS &&
+                (isset($collection['importedchanges']) ||
                 $changecount > 0 ||
                 $collection['synckey'] == '0' ||
-                !empty($collection['fetchids'])) {
+                !empty($collection['fetchids']))) {
                 try {
                     $collection['newsynckey'] = $this->_stateDriver->getNewSyncKey($collection['synckey']);
                     $this->_logger->debug(sprintf(
@@ -668,7 +669,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                         $collection['newsynckey'])
                     );
                 } catch (Horde_ActiveSync_Exception $e) {
-                    $this->_statusCode = self::STATUS_KEYMISM;
+                    $statusCode = self::STATUS_KEYMISM;
                 }
             }
 
@@ -694,7 +695,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             $this->_encoder->endTag();
 
             $this->_encoder->startTag(Horde_ActiveSync::SYNC_STATUS);
-            $this->_encoder->content($this->_statusCode);
+            $this->_encoder->content($statusCode);
             $this->_encoder->endTag();
 
             // Check the mimesupport because we need it for advanced emails
@@ -702,100 +703,102 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 $collection['mimesupport'] = 0;
             }
 
-            // Output server IDs for new items we received and added from PIM
-            if (isset($collection['clientids']) || count($collection['fetchids']) > 0) {
-                $this->_encoder->startTag(Horde_ActiveSync::SYNC_REPLIES);
-                foreach ($collection['clientids'] as $clientid => $serverid) {
-                    $this->_encoder->startTag(Horde_ActiveSync::SYNC_ADD);
-                    $this->_encoder->startTag(Horde_ActiveSync::SYNC_CLIENTENTRYID);
-                    $this->_encoder->content($clientid);
-                    $this->_encoder->endTag();
-                    $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
-                    $this->_encoder->content($serverid);
-                    $this->_encoder->endTag();
-                    $this->_encoder->startTag(Horde_ActiveSync::SYNC_STATUS);
-                    $this->_encoder->content(1);
-                    $this->_encoder->endTag();
-                    $this->_encoder->endTag();
-                }
-
-                // Output any FETCH requests
-                foreach ($collection['fetchids'] as $id) {
-                    $data = $this->_driver->fetch($collection['id'], $id, $collection['mimesupport']);
-                    if ($data !== false) {
-                        $this->_encoder->startTag(Horde_ActiveSync::SYNC_FETCH);
+            if ($statusCode == self::STATUS_SUCCESS) {
+                // Output server IDs for new items we received and added from PIM
+                if (isset($collection['clientids']) || count($collection['fetchids']) > 0) {
+                    $this->_encoder->startTag(Horde_ActiveSync::SYNC_REPLIES);
+                    foreach ($collection['clientids'] as $clientid => $serverid) {
+                        $this->_encoder->startTag(Horde_ActiveSync::SYNC_ADD);
+                        $this->_encoder->startTag(Horde_ActiveSync::SYNC_CLIENTENTRYID);
+                        $this->_encoder->content($clientid);
+                        $this->_encoder->endTag();
                         $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
-                        $this->_encoder->content($id);
+                        $this->_encoder->content($serverid);
                         $this->_encoder->endTag();
                         $this->_encoder->startTag(Horde_ActiveSync::SYNC_STATUS);
                         $this->_encoder->content(1);
                         $this->_encoder->endTag();
-                        $this->_encoder->startTag(Horde_ActiveSync::SYNC_DATA);
-                        $data->encodeStream($this->_encoder);
                         $this->_encoder->endTag();
-                        $this->_encoder->endTag();
+                    }
+
+                    // Output any FETCH requests
+                    foreach ($collection['fetchids'] as $id) {
+                        $data = $this->_driver->fetch($collection['id'], $id, $collection['mimesupport']);
+                        if ($data !== false) {
+                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_FETCH);
+                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
+                            $this->_encoder->content($id);
+                            $this->_encoder->endTag();
+                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_STATUS);
+                            $this->_encoder->content(1);
+                            $this->_encoder->endTag();
+                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_DATA);
+                            $data->encodeStream($this->_encoder);
+                            $this->_encoder->endTag();
+                            $this->_encoder->endTag();
+                        } else {
+                            $this->_logger->err(sprintf(
+                                "[%s] Unable to fetch %s",
+                                $this->_device->id,
+                                $id)
+                            );
+                        }
+                    }
+                    $this->_encoder->endTag();
+                }
+
+                // Send server changes to PIM
+                if (isset($collection['getchanges'])) {
+                    if (!empty($collection['windowsize']) && $changecount > $collection['windowsize']) {
+                        $this->_encoder->startTag(Horde_ActiveSync::SYNC_MOREAVAILABLE, false, true);
+                    }
+                    $this->_encoder->startTag(Horde_ActiveSync::SYNC_COMMANDS);
+                    $n = 0;
+                    while (1) {
+                        $progress = $sync->syncronize();
+                        if (!is_array($progress)) {
+                            break;
+                        }
+                        $n++;
+                        if (!empty($collection['windowsize']) &&
+                            $n >= $collection['windowsize']) {
+
+                            $this->_logger->info(sprintf(
+                                "[%s] Exported maxItems of messages - more available.",
+                                $this->_device->id)
+                            );
+                            break;
+                        }
+                    }
+                    $this->_encoder->endTag();
+                }
+                $this->_encoder->endTag();
+
+                // Save the sync state for the next time
+                if (isset($collection['newsynckey'])) {
+                    if (!empty($sync) || !empty($importer) || !empty($exporter) || $collection['synckey'] == 0)  {
+                        $this->_stateDriver->setNewSyncKey($collection['newsynckey']);
+                        $this->_stateDriver->save();
                     } else {
                         $this->_logger->err(sprintf(
-                            "[%s] Unable to fetch %s",
+                            "[%s] Error saving %s - no state information available.",
                             $this->_device->id,
-                            $id)
+                            $collection['newsynckey'])
                         );
                     }
                 }
-                $this->_encoder->endTag();
-            }
 
-            // Send server changes to PIM
-            if (isset($collection['getchanges'])) {
-                if (!empty($collection['windowsize']) && $changecount > $collection['windowsize']) {
-                    $this->_encoder->startTag(Horde_ActiveSync::SYNC_MOREAVAILABLE, false, true);
-                }
-                $this->_encoder->startTag(Horde_ActiveSync::SYNC_COMMANDS);
-                $n = 0;
-                while (1) {
-                    $progress = $sync->syncronize();
-                    if (!is_array($progress)) {
-                        break;
+                // Do we need to add the new synckey to the syncCache?
+                if ($this->_version == Horde_ActiveSync::VERSION_TWELVEONE) {
+                    if (trim($collection['newsynckey']) != trim($collection['synckey'])) {
+                        $this->_syncCache['confirmed_synckeys'][$collection['newsynckey']] = true;
                     }
-                    $n++;
-                    if (!empty($collection['windowsize']) &&
-                        $n >= $collection['windowsize']) {
-
-                        $this->_logger->info(sprintf(
-                            "[%s] Exported maxItems of messages - more available.",
-                            $this->_device->id)
-                        );
-                        break;
-                    }
-                }
-                $this->_encoder->endTag();
-            }
-            $this->_encoder->endTag();
-
-            // Save the sync state for the next time
-            if (isset($collection['newsynckey'])) {
-                if (!empty($sync) || !empty($importer) || !empty($exporter) || $collection['synckey'] == 0)  {
-                    $this->_stateDriver->setNewSyncKey($collection['newsynckey']);
-                    $this->_stateDriver->save();
-                } else {
-                    $this->_logger->err(sprintf(
-                        "[%s] Error saving %s - no state information available.",
-                        $this->_device->id,
-                        $collection['newsynckey'])
+                    $this->_updateSyncCacheCollection(
+                        $collection,
+                        (isset($collection['newsynckey']) ? $collection['newsynckey'] : false),
+                        true
                     );
                 }
-            }
-
-            // Do we need to add the new synckey to the syncCache?
-            if ($this->_version == Horde_ActiveSync::VERSION_TWELVEONE) {
-                if (trim($collection['newsynckey']) != trim($collection['synckey'])) {
-                    $this->_syncCache['confirmed_synckeys'][$collection['newsynckey']] = true;
-                }
-                $this->_updateSyncCacheCollection(
-                    $collection,
-                    (isset($collection['newsynckey']) ? $collection['newsynckey'] : false),
-                    true
-                );
             }
         }
 
