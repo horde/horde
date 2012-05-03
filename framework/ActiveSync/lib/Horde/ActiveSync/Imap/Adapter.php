@@ -617,7 +617,6 @@ class Horde_ActiveSync_Imap_Adapter
             try {
                 $search_res = $this->_getImapOb()->search($mbox, $imap_query);
             } catch (Horde_Imap_Client_Exception $e) {
-                Horde::debug($e);
                 throw new Horde_ActiveSync_Exception($e);
             }
             if ($search_res['count'] == 0) {
@@ -799,7 +798,6 @@ class Horde_ActiveSync_Imap_Adapter
                 if (!empty($message_body_data['plain'])) {
                     $plain_mime = new Horde_Mime_Part();
                     $plain_mime->setType('text/plain');
-                    //$plain_mime->setTransferEncoding('quoted-printable');
                     if ($message_body_data['plain']['charset'] != 'UTF-8') {
                         $message_body_data['plain']['body'] = Horde_String::convertCharset(
                             $message_body_data['plain']['body'],
@@ -814,7 +812,6 @@ class Horde_ActiveSync_Imap_Adapter
                 if (!empty($message_body_data['html'])) {
                     $html_mime = new Horde_Mime_Part();
                     $html_mime->setType('text/html');
-                    //$html_mime->setTransferEncoding('base64');
                     $html_mime->setContents($message_body_data['html']['body']);
                     $html_mime->setCharset($message_body_data['html']['charset']);
                     $mime->addPart($html_mime);
@@ -864,7 +861,7 @@ class Horde_ActiveSync_Imap_Adapter
                     );
                 }
                 $airsync_body->estimateddatasize = $message_body_data['plain']['size'];
-                $airsync_body->truncated = (string)$message_body_data['plain']['truncated'];
+                $airsync_body->truncated = $message_body_data['plain']['truncated'];
                 $airsync_body->data = $message_body_data['plain']['body'];
                 $airsync_body->type = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
                 $eas_message->airsyncbasebody = $airsync_body;

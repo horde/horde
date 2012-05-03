@@ -192,7 +192,6 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         try {
             $results = $this->_db->selectOne($sql, $values);
         } catch (Horde_Db_Exception $e) {
-            Horde::debug($e);
             throw new Horde_ActiveSync_Exception($e);
         }
         $this->_logger->debug(sprintf(
@@ -247,14 +246,6 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                     ? new Horde_ActiveSync_Folder_Imap($this->_collection['id'], Horde_ActiveSync::CLASS_EMAIL)
                     : new Horde_ActiveSync_Folder_Collection($this->_collection['id'], $this->_collection['class']))
             );
-
-
-            // $this->_logger->debug(sprintf(
-            //     '[%s] Loaded previous state data: %s',
-            //     $this->_devId,
-            //     print_r($this->_folder, true))
-            // );
-
             $this->_changes = ($pending !== false) ? $pending : null;
             if ($this->_changes) {
                 $this->_logger->debug(
