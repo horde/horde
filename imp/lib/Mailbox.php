@@ -1171,10 +1171,12 @@ class IMP_Mailbox implements Serializable
                     return Horde::url('index.php')->setAnchor($anchor);
 
                 case Horde_Registry::VIEW_SMARTMOBILE:
+                    $url = Horde::url('smartmobile.php');
                     $anchor = is_null($uid)
                         ? ('mbox=' . $this->form_to)
                         : ('msg=' . $this->getIndicesOb($uid)->formTo());
-                    return '#mailbox?' . $anchor;
+                    $url->setAnchor('mailbox?' + $anchor);
+                    return $url;
                 }
             }
 

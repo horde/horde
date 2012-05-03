@@ -324,8 +324,7 @@ class IMP_Auth
         case Horde_Registry::VIEW_SMARTMOBILE:
             $page = 'smartmobile.php';
             if (!is_null($mbox)) {
-                $result->url = Horde::url('smartmobile.php', true);
-                $result->url->setAnchor('mailbox?mbox=' . $mbox->form_to);
+                $result->url = $mbox->url('mailbox');
             }
             break;
         }
