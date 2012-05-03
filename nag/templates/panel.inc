@@ -1,8 +1,11 @@
 <?php
 
+require_once NAG_TEMPLATES . '/javascript_defs.php';
+
 global $page_output;
 $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
 $page_output->addScriptFile('redbox.js', 'horde');
+$page_output->addScriptFile('tasklist-panel.js');
 
 $info_img = Horde::img('info_icon.png', _("Task List Information"), array('class' => 'tasklist-info'));
 
@@ -19,40 +22,6 @@ foreach (Nag::listTasklists() as $id => $tl) {
 ?>
 
 <div id="pageControls">
-<script type="text/javascript">
-//<![CDATA[
-function sbarToggle()
-{
-    var pref_value;
-    if (Element.hasClassName(document.body, 'rightPanel')) {
-        pref_value = 0;
-        Element.removeClassName(document.body, 'rightPanel');
-    } else {
-        pref_value = 1;
-        Element.addClassName(document.body, 'rightPanel');
-    }
-
-    new Ajax.Request('<?php echo Horde::getServiceLink('ajax', 'nag')->url ?>setPrefValue', { parameters: { pref: 'show_panel', value: pref_value } });
-}
-
-document.observe('dom:loaded', function() {
-    $$('#pageControlsInner .tasklist-info').invoke('observe', 'click', function() {
-        RedBox.loading();
-        var tasklist_id = this.previous().down('.checkbox').value;
-        new Ajax.Request('<?php echo Horde::url('tasklists/info.php') ?>', {
-            parameters: { t: tasklist_id },
-            method: 'get',
-            onSuccess: function(transport) {
-                RedBox.showHtml('<div id="RB_info">' + transport.responseText + '<input type="button" class="button" onclick="RedBox.close();" value="<?php echo _("Close") ?>" /><' + '/div>');
-            },
-            onFailure: function(transport) {
-                RedBox.close();
-            }
-        });
-    });
-});
-//]]>
-</script>
 <a id="sbarShow" href="#" onclick="sbarToggle(); return false;"><?php echo _("Task Lists") ?></a>
 <a id="sbarHide" href="#" onclick="sbarToggle(); return false;"><?php echo _("Task Lists") ?></a>
 
