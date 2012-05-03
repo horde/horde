@@ -782,19 +782,54 @@ class Horde_ActiveSync_Imap_Adapter
             $eas_message->bodytruncated = $message_body_data['plain']['truncated'];
             $eas_message->attachments = $imap_message->getAttachments();
         } else {
-            // Body pref EAS >= 12.0
             $message_body_data = $imap_message->getMessageBodyData($options);
             if (!empty($message_body_data['html'])) {
                 $eas_message->airsyncbasenativebodytype = Horde_ActiveSync::BODYPREF_TYPE_HTML;
             } else {
                 $eas_message->airsyncbasenativebodytype = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
             }
-
-            // TODO s/MIME
-
-            if (isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML])) {
+            $haveData = false;
+            $airsync_body = new Horde_ActiveSync_Message_AirSyncBaseBody();
+            // @TODO: Sniff out a s/mime part and check for MIME_SUPPORT_SMIME
+            if (isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_MIME]) &&
+                $options['mimesupport'] == Horde_ActiveSync::MIME_SUPPORT_ALL) {
+                $this->_logger->debug('Sending MIME Message.');
+                $mime = new Horde_Mime_Part();
+                $mime->setType('multipart/alternative');
+                if (!empty($message_body_data['plain'])) {
+                    $plain_mime = new Horde_Mime_Part();
+                    $plain_mime->setType('text/plain');
+                    //$plain_mime->setTransferEncoding('quoted-printable');
+                    if ($message_body_data['plain']['charset'] != 'UTF-8') {
+                        $message_body_data['plain']['body'] = Horde_String::convertCharset(
+                            $message_body_data['plain']['body'],
+                            $message_body_data['plain']['charset'],
+                            'UTF-8'
+                        );
+                    }
+                    $plain_mime->setContents($message_body_data['plain']['body']);
+                    $plain_mime->setCharset('UTF-8');
+                    $mime->addPart($plain_mime);
+                }
+                if (!empty($message_body_data['html'])) {
+                    $html_mime = new Horde_Mime_Part();
+                    $html_mime->setType('text/html');
+                    //$html_mime->setTransferEncoding('base64');
+                    $html_mime->setContents($message_body_data['html']['body']);
+                    $html_mime->setCharset($message_body_data['html']['charset']);
+                    $mime->addPart($html_mime);
+                }
+                $airsync_body->data = $mime->toString(array('headers' => $imap_message->getHeaders()));
+                $airsync_body->type = Horde_ActiveSync::BODYPREF_TYPE_MIME;
+                $airsync_body->estimateddatasize = Horde_String::length($airsync_body->data);
+                $airsync_body->truncated = '0';
+                $eas_message->airsyncbasebody = $airsync_body;
+                $haveData = true;
+            } elseif (isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]) ||
+                      isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_RTF])) {
                 // HTML
-                $airsync_body = new Horde_ActiveSync_Message_AirSyncBaseBody();
+                $this->_logger->debug('Sending HTML Message.');
+                $haveData = true;
                 if (empty($message_body_data['html'])) {
                     $airsync_body->type = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
                     $message_body_data['html'] = array(
@@ -810,12 +845,28 @@ class Horde_ActiveSync_Imap_Adapter
                 if ($message_body_data['html']['charset'] != 'UTF-8') {
                     $message_body_data['html']['body'] = Horde_String::convertCharset(
                         $message_body_data['html']['body'],
-                        $message_body_data['html']['charset']
+                        $message_body_data['html']['charset'],
+                        'UTF-8'
                     );
                 }
                 $airsync_body->estimateddatasize = $message_body_data['html']['estimated_size'];
                 $airsync_body->truncated = $message_body_data['html']['truncated'];
                 $airsync_body->data = $message_body_data['html']['body'];
+                $eas_message->airsyncbasebody = $airsync_body;
+            } elseif (isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]) || !$haveData) {
+                $this->_logger->debug('Sending PLAINTEXT Message.');
+                $this->_logger->debug(print_r($message_body_data['plain'], true));
+                if ($message_body_data['plain']['charset'] != 'UTF-8') {
+                    $message_body_data['plain']['body'] = Horde_String::convertCharset(
+                        $message_body_data['plain']['body'],
+                        $message_body_data['plain']['charset'],
+                        'UTF-8'
+                    );
+                }
+                $airsync_body->estimateddatasize = $message_body_data['plain']['size'];
+                $airsync_body->truncated = (string)$message_body_data['plain']['truncated'];
+                $airsync_body->data = $message_body_data['plain']['body'];
+                $airsync_body->type = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
                 $eas_message->airsyncbasebody = $airsync_body;
             }
         }
