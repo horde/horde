@@ -236,7 +236,7 @@ class Horde_Menu
             }
 
             if ($registry->getAuth()) {
-                if ((!$prefs->getValue('show_sidebar') || $this->showService('logout')) &&
+                if (($this->showService('logout')) &&
                     ($logout_link = Horde::getServiceLink('logout', $app))) {
                     $this->add($logout_link, Horde_Core_Translation::t("_Log out"), 'logout.png', null, $auth_target, null, '__noselection');
                 }
