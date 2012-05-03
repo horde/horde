@@ -77,9 +77,15 @@ class Sesha_View_List extends Sesha_View_Base
 
         $this->title = _('Sesha List View');
         $this->selectedCategories = (is_array($config['selectedCategories'])) ? $config['selectedCategories'] : array($config['selectedCategories']);
+        if (empty($this->selectedCategories[0])) {array_shift($this->selectedCategories);}
         $this->shownProperties = $this->properties($config['propertyIds']);
         $this->columnHeaders = $this->columnHeaders($config['sortDir'], $config['sortBy']);
-        $this->shownStock = $this->stock();
+        $filters = array();
+        if (!empty($this->selectedCategories)) {
+            $filters[] = array('type' => 'categories', 'value' => $this->selectedCategories);
+        }
+
+        $this->shownStock = $this->stock($filters);
         parent::__construct($config);
     }
     /**
@@ -151,7 +157,7 @@ class Sesha_View_List extends Sesha_View_Base
         $driver = $GLOBALS['injector']->getInstance('Sesha_Factory_Driver')->create();
         // Get the inventory
         try {
-            $stock = $driver->findStock();
+            $stock = $driver->findStock($filters);
         } catch (Sesha_Exception $e) {
             throw new Horde_Exception($e);
         }

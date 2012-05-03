@@ -15,7 +15,6 @@ Horde_Registry::appInit('sesha');
 
 /* While switching from Horde_Template to Horde_View, try to leave only lines which strictly need to be in this file */
 // Start page display.
-
 $view = new Sesha_View_List(array('templatePath' => SESHA_TEMPLATES . '/view/',
                                 'selectedCategories' => array(Horde_Util::getFormData('category_id')),
                                 'sortDir' => Horde_Util::getFormData('sortdir'),
