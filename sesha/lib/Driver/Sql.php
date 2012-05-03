@@ -556,30 +556,19 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      * @param integer $stock_id  The numeric ID of the stock to find the
      *                           properties for.
      *
-     * @return object  The PEAR DB_Result object from the sql query.
+     * @return array of Sesha_Inventory_Property objects
      * @throws Sesha_Exception
      */
     public function getPropertiesForStock($stock_id)
     {
-        $sql = 'SELECT p.property_id AS property_id, p.property AS property, p.datatype AS datatype, ' .
-            'p.unit AS unit, p.description AS description, a.attribute_id AS attribute_id, a.int_datavalue AS int_datavalue, ' .
-            'a.txt_datavalue AS txt_datavalue FROM sesha_properties p, ' .
-            'sesha_inventory_properties a WHERE p.property_id = ' .
-            'a.property_id AND a.stock_id = ? ORDER BY p.priority DESC';
-        try {
-            $properties = $this->_db->selectAll($sql, array($stock_id));
-        } catch (Horde_Db_Exception $e) {
-            throw new Sesha_Exception($e);
+        if (($stock_id instanceof Sesha_Entity_Stock)) {
+            $stock = $stock_id;
+            $stock_id = $stock->stock_id;
+        } else {
+            $sm = $this->_mappers->create('Sesha_Entity_StockMapper');
+            $stock = $sm->findOne($stock_id);
         }
-
-        for ($i = 0; $i < count($properties); $i++) {
-            $value = @unserialize($properties[$i]['txt_datavalue']);
-            if ($value !== false) {
-                $properties[$i]['txt_datavalue'] = $value;
-            }
-        }
-
-        return $properties;
+        return $this->getPropertiesForCategories($stock->categories);
     }
 
     /**
