@@ -229,11 +229,13 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_B
                         $msg = $this->_driver->fetch(
                             $value['folderid'],
                             $value['serverentryid'],
-                            array('bodyprefs' => $value['bodypreference'], 'mimesupport' => $mimesupport)
+                            array(
+                                'bodyprefs' => $value['bodyprefs'],
+                                'mimesupport' => $mimesupport)
                         );
                     }
                     $this->_encoder->startTag(self::ITEMOPERATIONS_PROPERTIES);
-                    $msg->encode($this->_encoder);
+                    $msg->encodeStream($this->_encoder);
                     $this->_encoder->endTag();
 
                     $this->_encoder->endTag();
