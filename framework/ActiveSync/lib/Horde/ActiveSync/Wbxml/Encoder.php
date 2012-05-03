@@ -155,7 +155,7 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
         if (!is_resource($content)) {
             $content = str_replace("\0", '', $content);
             if ('x' . $content == 'x') {
-             return;
+                return;
             }
         }
         $this->_outputStack();
