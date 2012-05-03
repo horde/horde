@@ -96,7 +96,7 @@ case 'update_stock':
     // Get the stock item.
     $stock = $sesha_driver->fetch($stock_id);
     $categories = $sesha_driver->getCategories($stock_id);
-    $properties = $sesha_driver->getPropertiesForStock($stock_id);
+    $values = $sesha_driver->getValuesForStock($stock_id);
 
     $vars = Horde_Variables::getDefaultVariables();
     $vars->set('actionId', $actionId);
@@ -118,8 +118,8 @@ case 'update_stock':
 
         // Properties for categories.
         $p = array();
-        foreach ($properties as $property) {
-            $p[$property['property_id']] = $property['txt_datavalue'];
+        foreach ($values as $value) {
+            $p[$value->property_id] = $value->getDataValue();
         }
         $vars->set('property', $p);
     }
