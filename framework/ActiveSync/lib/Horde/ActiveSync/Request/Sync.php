@@ -628,7 +628,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                         $this->_device->id)
                     );
                     $statusCode = self::STATUS_KEYMISM;
-                    $collection['synckey'] = 0;
                 } catch (Horde_ActiveSync_Exception $e) {
                     return false;
                 }
