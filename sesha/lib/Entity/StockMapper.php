@@ -47,6 +47,10 @@ class Sesha_Entity_StockMapper extends Horde_Rdo_Mapper
        'categories' => array('type' => Horde_Rdo::MANY_TO_MANY,
                         'mapper' => 'Sesha_Entity_CategoryMapper',
                         'through' => 'sesha_inventory_categories'),
+       'values' => array('type' => Horde_Rdo::ONE_TO_MANY,
+                        'mapper' => 'Sesha_Entity_ValueMapper',
+                        'foreignKey' => 'stock_id',
+                        ),
         );
 
 
@@ -62,6 +66,13 @@ class Sesha_Entity_StockMapper extends Horde_Rdo_Mapper
      */
     public function delete($object)
     {
+        if (!($object instanceof Sesha_Entity_Stock)) {
+            $object = $this->findOne($object);
+        }
+        foreach ($object->values as $value) {
+            $value->delete();
+        }
+        $object->removeRelation('categories');
         return parent::delete($object);
     }
 }
