@@ -413,6 +413,10 @@ class Horde_ActiveSync_Imap_Adapter
      *                 DEFAULT: false (No truncation).
      *   - bodyprefs:  (array)  The bodypref settings, if sent from device.
      *                 DEFAULT: none (No body prefs sent, or enforced).
+     *   - mimesupport: (integer)  Indicates if MIME is supported or not.
+     *                  Possible values: 0 - Not supported 1 - Only S/MIME or
+     *                  2 - All MIME.
+     *                  DEFAULT: 0 (No MIME support)
      *   - protocolversion: (float)  The EAS protocol version to support.
      *                      DEFAULT: 2.5
      *
@@ -722,7 +726,9 @@ class Horde_ActiveSync_Imap_Adapter
      *                  DEFAULT: No truncation.
      *   - bodyprefs: (array)  Bodyprefs, if sent from device.
      *                DEFAULT: none (No body prefs sent or enforced).
-     *   - mimesupport: (integer)  Indicates if MIME is supported (1) or not (0)
+     *   - mimesupport: (integer)  Indicates if MIME is supported or not.
+     *                  Possible values: 0 - Not supported 1 - Only S/MIME or
+     *                  2 - All MIME.
      *                  DEFAULT: 0 (No MIME support)
      *   - protocolversion: (float)  The EAS protocol version to support.
      *                      DEFAULT: 2.5
