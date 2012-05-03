@@ -2,6 +2,7 @@
 v5.0.21-git
 -----------
 
+[mms] Save Bcc addresses when saving compose message as draft.
 [mms] Fix handling of RETURN keypress in the Subject input on the dynamic
       compose page.
 [jan] Fix regression in sending PGP encrypted messages (Bug #11150).

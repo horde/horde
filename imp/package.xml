@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Save Bcc addresses when saving compose message as draft.
 * [mms] Fix handling of RETURN keypress in the Subject input on the dynamic compose page.
 * [jan] Fix regression in sending PGP encrypted messages (Bug #11150).
 * [jan] Update Slovak translation (Marika Schvarczova &lt;schvarczova.marika@domeny.sk&gt;).
@@ -2711,6 +2712,7 @@
    <date>2012-04-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Save Bcc addresses when saving compose message as draft.
 * [mms] Fix handling of RETURN keypress in the Subject input on the dynamic compose page.
 * [jan] Fix regression in sending PGP encrypted messages (Bug #11150).
 * [jan] Update Slovak translation (Marika Schvarczova &lt;schvarczova.marika@domeny.sk&gt;).
