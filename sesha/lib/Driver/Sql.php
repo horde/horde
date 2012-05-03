@@ -759,10 +759,48 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
         if (empty($filters)) {
             return iterator_to_array($sm->find());
         }
-        foreach ($filters as $filter) {
-            
-        }
         $query = new Horde_Rdo_Query($sm);
+        foreach ($filters as $filter) {
+            switch ($filter['type']) {
+                case 'note':
+                case 'stock_name':
+                case 'stock_id':
+                $test = array(
+                            'field' => $filter['type'],
+                            'test' => $filter['test'] ? $filter['test'] : 'IN',
+                            'value' => is_array($filter['value']) ? $filter['value'] : array($filter['value'])
+                        );
+                $query->addTest($test);
+                break;
+                case 'categories':
+                    $cm = $this->_mappers->create('Sesha_Entity_CategoryMapper');
+                    $categories = is_array($filter['value']) ? $filter['value'] : array($filter['value']);
+                    $items = array();
+                    foreach ($categories as $category) {
+                        if ($category instanceof Insysgui_Entity_Category) {
+                            $category_id = $category->category_id;
+                        } else {
+                            $category_id = $category;
+                            $category = $cm->findOne($category_id);
+                        }
+                        foreach ($category->stock as $item) {
+                            /* prevent duplicates when an item has several categories */
+                            $items[$item->stock_id] = $item;
+                        }
+                    }
+                    if (count($filters == 1)) {
+                        return $items;
+                    }
+                    $query->addTest(
+                        array(
+                            'field' => 'stock_id',
+                            'test' => $filter['test'] ? $filter['test'] : 'IN',
+                            'value' => array_keys($items)
+                        )
+                    );
+                break;
+            }
+        }
         return iterator_to_array($sm->find($query));
     }
 }
