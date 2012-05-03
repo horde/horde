@@ -58,14 +58,16 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
     public function __construct(Horde_Controller_Request_Http $request, array $params = array())
     {
         parent::__construct($request, $params);
-        $this->_get = $request->getGetVars();
-        $serverVars = $request->getServerVars();
+        // Use the server's getGetVars() method since they might be transmitted
+        // as base64 encoded binary data.
+        $this->_get = $params['server']->getGetVars();
         if ($request->getMethod() == 'POST' &&
             ((empty($this->_get['Cmd']) || empty($this->_get['DeviceId']) || empty($this->_get['DeviceType'])) && $serverVars['REQUEST_URI'] != '/autodiscover/autodiscover.xml')) {
 
             $this->_logger->err('Missing required parameters.');
             throw new Horde_Rpc_Exception('Your device requested the ActiveSync URL wihtout required parameters.');
         }
+        $serverVars = $request->getServerVars();
         $this->_server = $params['server'];
         $this->_server->setProvisioning(empty($params['provisioning']) ? false : $params['provisioning']);
     }
