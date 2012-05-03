@@ -22,22 +22,22 @@ $prefGroups['display'] = array(
 
 // user preferred sorting column
 $_prefs['sortby'] = array(
-    'value' => Sesha::SESHA_SORT_STOCKID,
+    'value' => Sesha::SORT_STOCKID,
     'locked' => false,
     'type' => 'enum',
-    'enum' => array(Sesha::SESHA_SORT_STOCKID => _("Stock ID"),
-                    Sesha::SESHA_SORT_NAME => _("Item Name"),
-                    Sesha::SESHA_SORT_NOTE => _("Note")),
+    'enum' => array(Sesha::SORT_STOCKID => _("Stock ID"),
+                    Sesha::SORT_NAME => _("Item Name"),
+                    Sesha::SORT_NOTE => _("Note")),
     'desc' => _("Default sorting criteria:")
 );
 
 // user preferred sorting direction
 $_prefs['sortdir'] = array(
-    'value' => Sesha::SESHA_SORT_ASCEND,
+    'value' => Sesha::SORT_ASCEND,
     'locked' => false,
     'type' => 'enum',
-    'enum' => array(Sesha::SESHA_SORT_ASCEND => _("Ascending"),
-                    Sesha::SESHA_SORT_DESCEND => _("Descending")),
+    'enum' => array(Sesha::SORT_ASCEND => _("Ascending"),
+                    Sesha::SORT_DESCEND => _("Descending")),
     'desc' => _("Default sorting direction:")
 );
 

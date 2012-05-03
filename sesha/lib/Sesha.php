@@ -14,22 +14,22 @@
 class Sesha
 {
     /** Sort by stock id. */
-    const SESHA_SORT_STOCKID = 100;
+    const SORT_STOCKID = 100;
     /** Sort by stock name. */
-    const SESHA_SORT_NAME = 101;
+    const SORT_NAME = 101;
     /** Sort by stock note. */
-    const SESHA_SORT_NOTE = 102;
+    const SORT_NOTE = 102;
     /** Sort in ascending order. */
-    const SESHA_SORT_ASCEND = 0;
+    const SORT_ASCEND = 0;
     /** Sort in descending order. */
-    const SESHA_SORT_DESCEND = 1;
+    const SORT_DESCEND = 1;
 
     // Search Field Constants
 
-    const SESHA_SEARCH_ID = 1;
-    const SESHA_SEARCH_NAME = 2;
-    const SESHA_SEARCH_NOTE = 4;
-    const SESHA_SEARCH_PROPERTY = 8;
+    const SEARCH_ID = 1;
+    const SEARCH_NAME = 2;
+    const SEARCH_NOTE = 4;
+    const SEARCH_PROPERTY = 8;
 
 
     /**
@@ -58,9 +58,9 @@ class Sesha
 
         // Sorting functions
         $sort_functions = array(
-            SESHA_SORT_STOCKID => 'ByStockID',
-            SESHA_SORT_NAME    => 'ByName',
-            SESHA_SORT_NOTE    => 'ByNote',
+            SORT_STOCKID => 'ByStockID',
+            SORT_NAME    => 'ByName',
+            SORT_NOTE    => 'ByNote',
         );
 
         $list_property_ids = @unserialize($prefs->getValue('list_properties'));
@@ -75,7 +75,7 @@ class Sesha
 
         // Sort the inventory if there is a sort function defined
         if (count($inventory)) {
-            $prefix = ($sortdir == self::SESHA_SORT_DESCEND) ? '_rsort' : '_sort';
+            $prefix = ($sortdir == self::SORT_DESCEND) ? '_rsort' : '_sort';
             if (isset($sort_functions[$sortby])) {
                 uasort($inventory, array('Sesha', $prefix .
                     $sort_functions[$sortby]));

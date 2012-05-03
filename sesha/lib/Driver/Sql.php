@@ -113,7 +113,7 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      *
      * @return array  Array of results on success
      */
-    public function searchStock($what, $where = SESHA_SEARCH_NAME, $property_ids = array())
+    public function searchStock($what, $where = Sesha::SEARCH_NAME, $property_ids = array())
     {
         if (is_null($what) || is_null($where)) {
             throw new Sesha_Exception("Invalid search parameters");
@@ -134,16 +134,16 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
         // Create where clause
         $what = $this->_db->quote(sprintf('%%%s%%', $what));
         $whereClause = array();
-        if ($where & SESHA_SEARCH_ID) {
+        if ($where & Sesha::SEARCH_ID) {
             $whereClause[] = 'i.stock_id LIKE ' . $what;
         }
-        if ($where & SESHA_SEARCH_NAME) {
+        if ($where & Sesha::SEARCH_NAME) {
             $whereClause[] = 'i.stock_name LIKE ' . $what;
         }
-        if ($where & SESHA_SEARCH_NOTE) {
+        if ($where & Sesha::SEARCH_NOTE) {
             $whereClause[] = 'i.note like ' . $what;
         }
-        if ($where & SESHA_SEARCH_PROPERTY) {
+        if ($where & Sesha::SEARCH_PROPERTY) {
             $sql .= ', sesha_inventory_properties p2';
             $whereClause[] = '(p2.txt_datavalue LIKE ' . $what .
                 ' AND i.stock_id = p2.stock_id)';
