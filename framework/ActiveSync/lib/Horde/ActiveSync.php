@@ -255,6 +255,10 @@ class Horde_ActiveSync
     const VERSION_TWELVE                        = 12;
     const VERSION_TWELVEONE                     = 12.1;
 
+    const MIME_SUPPORT_NONE                     = 0;
+    const MIME_SUPPORT_SMIME                    = 1;
+    const MIME_SUPPORT_ALL                      = 2;
+
     /**
      * Logger
      *
