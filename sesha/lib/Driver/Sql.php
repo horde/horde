@@ -187,17 +187,8 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      */
     public function fetch($stock_id)
     {
-
-        // Build the query
-        $sql = 'SELECT * FROM sesha_inventory WHERE stock_id = ?';
-        $values = array((int)$stock_id);
-
-        // Perform the search
-        try {
-            return $this->_db->selectOne($sql, $values);
-        } catch (Horde_Db_Exception $e) {
-            throw new Sesha_Exception($e);
-        }
+        $sm = $this->_mappers->create('Sesha_Entity_StockMapper');
+        return $sm->findOne($stock_id);
     }
 
     /**
@@ -212,19 +203,8 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      */
     public function delete($stock_id)
     {
-
-        // Build, log, and issue the query
-        $sql = 'DELETE FROM sesha_inventory WHERE stock_id = ?';
-        $values = array((int)$stock_id);
-        try {
-            $result = $this->_db->delete($sql, $values);
-        } catch (Horde_Db_Exception $e) {
-            throw new Sesha_Exception($e);
-        }
-
-        $this->clearPropertiesForStock($stock_id);
-        $this->updateCategoriesForStock($stock_id, array());
-        return true;
+        $sm = $this->_mappers->create('Sesha_Entity_StockMapper');
+        return $sm->delete($stock_id);
     }
 
     /**
@@ -300,7 +280,7 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
     public function getCategories($stock_id = null, array $category_ids = null)
     {
         $cm = $this->_mappers->create('Sesha_Entity_CategoryMapper');
-        if (is_int($stock_id)) {
+        if ((int)$stock_id > 0) {
             $sm = $this->_mappers->create('Sesha_Entity_StockMapper');
             $stock = $sm->findOne($stock_id);
             return $stock->categories;
@@ -515,24 +495,16 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      */
     public function getPropertiesForCategories($categories = array())
     {
-        if (!is_array($categories)) {
-            $categories = array($categories);
-        }
-
-        $in = '';
+        $properties = array();
         foreach ($categories as $category) {
-            $in .= !empty($in) ? ', ' . $category : $category;
+            if (!($category instanceof Sesha_Entity_Category)) {
+                $cm = $this->_mappers->create('Sesha_Entity_CategoryMapper');
+                $category = $cm->findOne($category);
+            }
+            foreach ($category->properties as $property) {
+                $properties[$property->property_id] = $property;
+            }
         }
-        $sql = sprintf('SELECT c.category_id AS category_id, c.category AS category, p.property_id AS property_id, p.property AS property, p.unit AS unit, p.description AS description, p.datatype AS datatype, p.parameters AS parameters FROM sesha_categories c, sesha_properties p, sesha_relations cp WHERE c.category_id = cp.category_id AND cp.property_id = p.property_id AND c.category_id IN (%s) ORDER BY p.priority DESC',
-                       empty($in) ? $this->_db->quote($in) : $in);
-        try {
-            $properties = $this->_db->selectAll($sql);
-        } catch (Horde_Db_Exception $e) {
-            throw new Sesha_Exception($e);
-        }
-
-        array_walk($properties, array($this, '_unserializeParameters'));
-
         return $properties;
     }
 
@@ -609,6 +581,30 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
 
         return $properties;
     }
+
+    /**
+     * Returns a set of Value Objects for a particular stock ID number.
+     *
+     * @param integer $stock_id  The numeric ID of the stock to find the
+     *                           properties for.
+     *                           You can also pass a Sesha_Entity_Stock item
+     *
+     * @return array  the list of Sesha_Entity_Value objects
+     * @throws Sesha_Exception
+     */
+    public function getValuesForStock($stock_id)
+    {
+        if (($stock_id instanceof Sesha_Entity_Stock)) {
+            $stock = $stock_id;
+            $stock_id = $stock->stock_id;
+        } else {
+            $sm = $this->_mappers->create('Sesha_Entity_StockMapper');
+            $stock = $sm->findOne($stock_id);
+        }
+
+        return iterator_to_array($stock->values);
+    }
+
 
     /**
      * Removes categories from a particular stock item.
