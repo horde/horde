@@ -165,7 +165,7 @@ class Sesha_View_List extends Sesha_View_Base
         $itemEditImg = Horde::img('edit.png', _("Edit Item"));
         $isAdminDelete = Sesha::isAdmin(Horde_Perms::DELETE);
         $adminDeleteImg = Horde::img('delete.png', _("Delete Item"));
-
+        $stock_url = Horde::url('stock.php');
         foreach ($stock as $item) {
             $url = Horde_Util::addParameter($stock_url, 'stock_id', $item->stock_id);
             $columns = array();
