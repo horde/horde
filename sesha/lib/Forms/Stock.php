@@ -44,7 +44,6 @@ class Sesha_Forms_Stock extends Horde_Form {
             $t = array($t);
         }
         $categoryIds = array_merge($categoryIds, $t);
-
         // The stock ID should only be editable if you are adding a new item;
         // otherwise let the user know what the stock_id is, and then make a
         // read-only required hidden variable
@@ -67,34 +66,32 @@ class Sesha_Forms_Stock extends Horde_Form {
                                            array($cat));
 
         // Set the variables already stored in the Driver, if applicable
-        foreach ($categoryIds as $categoryId) {
-            try {
-                $properties = $sesha_driver->getPropertiesForCategories($categoryId);
-            } catch (Sesha_Exception $e) {
-                throw new Sesha_Exception($e);
-            }
+        try {
+            $properties = $sesha_driver->getPropertiesForCategories($categoryIds);
+        } catch (Sesha_Exception $e) {
+            throw new Sesha_Exception($e);
+        }
 
-            foreach ($properties as $property) {
-                $fieldname   = 'property[' . $property['property_id'] . ']';
-                $fieldtitle  = $property['property'];
-                $fielddesc   = $property['description'];
-                if (!empty($property['unit'])) {
-                    if (!empty($fielddesc)) {
-                        $fielddesc .= ' -- ';
-                    }
-                    $fielddesc .= _("Unit: ") . $property['unit'];
+        foreach ($properties as $property) {
+            $fieldname   = 'property[' . $property->property_id . ']';
+            $fieldtitle  = $property->property;
+            $fielddesc   = $property->description;
+            if (!empty($property->unit)) {
+                if (!empty($fielddesc)) {
+                    $fielddesc .= ' -- ';
                 }
-                $fieldtype   = $property['datatype'];
-                $fieldparams = array();
-                if (is_array($property['parameters'])) {
-                    $fieldparams = $property['parameters'];
-                    if (in_array($fieldtype, array('link', 'enum', 'multienum', 'mlenum', 'radio', 'set', 'sorter'))) {
-                        $fieldparams['values'] = Sesha::getStringlistArray($fieldparams['values']);
-                    }
-                }
-                $this->addVariable($fieldtitle, $fieldname, $fieldtype,
-                                    false, false, $fielddesc, $fieldparams);
+                $fielddesc .= _("Unit: ") . $property->unit;
             }
+            $fieldtype   = $property->datatype;
+            $fieldparams = array();
+            if (is_array($property->parameters)) {
+                $fieldparams = $property->parameters;
+                if (in_array($fieldtype, array('link', 'enum', 'multienum', 'mlenum', 'radio', 'set', 'sorter'))) {
+                    $fieldparams->values = Sesha::getStringlistArray($fieldparams->values);
+                }
+            }
+            $this->addVariable($fieldtitle, $fieldname, $fieldtype,
+                                false, false, $fielddesc, $fieldparams);
         }
         $this->addVariable(_("Note"), 'note', 'longtext', false);
 
