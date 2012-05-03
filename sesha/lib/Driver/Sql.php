@@ -314,42 +314,26 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
         } else {
             return iterator_to_array($cm->find(), true);
         }
-
     }
 
     /**
-     * This will find all the available properties matching a specified ID.
+     * This will find all the available properties matching a specified IDs.
      *
-     * @param integer $property_id  The numeric ID of properties to find.
+     * @param array $property_ids  The numeric ID of properties to find.
      *                              Matches all properties when null.
      *
      * @return array  matching properties on success
      * @throws Sesha_Exception
      */
-    public function getProperties($property_id = array())
+    public function getProperties($property_ids = array())
     {
-        $sql = 'SELECT * FROM sesha_properties';
-        if (!empty($property_id)) {
-            $sql .= ' WHERE property_id IN (';
-            foreach ($property_id as $id) {
-                $sql .= (int)$id . ',';
-            }
-            $sql = substr($sql, 0, -1) . ')';
+        $pm = $this->_mappers->create('Sesha_Entity_PropertyMapper');
+        if (empty($property_ids)) {
+            return iterator_to_array($pm->find());
         }
-
-        try {
-            $properties = $this->_db->selectAll($sql);
-        } catch (Horde_Db_Exception $e) {
-            throw new Sesha_Exception($e);
-        }
-
-        array_walk($properties, array($this, '_unserializeParameters'));
-        $keyed = array();
-        foreach ($properties as $property) {
-            $keyed[$property['property_id']] = $property;
-        }
-
-        return $keyed;
+        $query = new Horde_Rdo_Query($pm);
+        $query->addTest('property_id', 'IN', $property_ids);
+        return iterator_to_array($pm->find($query));
     }
 
     /**
@@ -765,4 +749,20 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
         return $stock;
     }
 
+    /**
+     * Rdo based inventory search
+     * @return array List of Stock items
+     */
+    public function findStock($filters = array())
+    {
+        $sm = $this->_mappers->create('Sesha_Entity_StockMapper');
+        if (empty($filters)) {
+            return iterator_to_array($sm->find());
+        }
+        foreach ($filters as $filter) {
+            
+        }
+        $query = new Horde_Rdo_Query($sm);
+        return iterator_to_array($sm->find($query));
+    }
 }
