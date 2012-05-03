@@ -799,6 +799,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     );
                 }
             }
+            $this->_encoder->endTag();
         }
 
         $this->_encoder->endTag();
