@@ -1,0 +1,1 @@
+CKEDITOR.plugins.add("docprops",{init:function(d){var c=new CKEDITOR.dialogCommand("docProps");c.modes={wysiwyg:d.config.fullPage};d.addCommand("docProps",c);CKEDITOR.dialog.add("docProps",this.path+"dialogs/docprops.js");d.ui.addButton("DocProps",{label:d.lang.docprops.label,command:"docProps"})}});
