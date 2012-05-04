@@ -460,22 +460,24 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      * @param integer   $category_id    The numeric ID of the category to update.
      * @param array     $properties     An array of property ID's to add.
      *
-     * @return integer  number of inserted row
      * @throws Sesha_Exception
      */
     public function setPropertiesForCategory($category_id, $properties = array())
     {
-        $this->clearPropertiesForCategory($category_id);
+        $cm = $this->_mappers->create('Sesha_Entity_CategoryMapper');
+        if ($category_id instanceof Insysgui_Entity_Category) {
+            $category = $category_id;
+        } else {
+            $category = $cm->findOne($category_id);
+        }
+        $pm = $this->_mappers->create('Sesha_Entity_PropertyMapper');
+        $this->clearPropertiesForCategory($category);
         foreach ($properties as $property) {
-            $sql = 'INSERT INTO sesha_relations
-                (category_id, property_id) VALUES (?, ?)';
-            try {
-                $result = $this->_db->execute($sql, array($category_id, $property));
-            } catch (Horde_Db_Exception $e) {
-                throw new Sesha_Exception($e);
+            if (!($property instanceof Sesha_Entity_Property)) {
+                $property = $pm->findOne($property);
+                $category->addRelation('properties', $property);
             }
         }
-        return $result;
     }
 
     /**
@@ -553,6 +555,11 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      */
     public function clearPropertiesForStock($stock_id, $categories = array())
     {
+
+        if ($stock_id instanceof Sesha_Entity_Stock) {
+            $stock_id = $stock_id->stock_id;
+        }
+
         if (!is_array($categories)) {
             $categories = array(0 => array('category_id' => $categories));
         }
@@ -562,24 +569,20 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
         } catch (Horde_Db_Exception $e) {
             throw new Sesha_Exception($e);
         }
-
-        $propertylist = '';
-        for ($i = 0;$i < count($properties); $i++) {
-            if (!empty($propertylist)) {
-                $propertylist .= ', ';
-            }
-            $propertylist .= $properties[$i]['property_id'];
+        $vm = $this->_mappers->create('Sesha_Entity_ValueMapper');
+        $query = new Horde_Rdo_Query::create(array('stock_id' => $stock_id), $vm);
+        $query->addTest(array(
+                'field' => 'property_id',
+                'test' => 'IN',
+                'value' => array_keys($properties)
+            )
+        );
+        $count = 0;
+        foreach ($vm->find($query) as $value) {
+            $value->delete();
+            $count++;
         }
-        $sql = sprintf('DELETE FROM sesha_inventory_properties
-                        WHERE stock_id = %d
-                        AND property_id IN (%s)',
-                            $stock_id,
-                            $propertylist);
-        try {
-            return $this->_db->execute($sql);
-        } catch (Horde_Db_Exception $e) {
-            throw new Sesha_Exception($e);
-        }
+        return $count;
     }
 
     /**
