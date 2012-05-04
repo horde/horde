@@ -54,7 +54,15 @@ Preferences (prefs.php)
 
 The 'sending_charset' preference now defaults to 'UTF-8'.
 
+ActiveSync (EAS) Integration
+----------------------
 
+Email support has been added, along with support for the EAS 12.0 and 12.1
+protocol versions. New configuration options have been added to support this.
+You MUST update Horde's ActiveSync configuration.
+
+New database migrations have been added, you MUST run these migrations for
+ActiveSync to work.
 
 Upgrading Horde from 4.0.x to 4.0.12
 ====================================
