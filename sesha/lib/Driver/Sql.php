@@ -569,7 +569,7 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
             throw new Sesha_Exception($e);
         }
         $vm = $this->_mappers->create('Sesha_Entity_ValueMapper');
-        $query = new Horde_Rdo_Query::create(array('stock_id' => $stock_id), $vm);
+        $query = Horde_Rdo_Query::create(array('stock_id' => $stock_id), $vm);
         $query->addTest(array(
                 'field' => 'property_id',
                 'test' => 'IN',
