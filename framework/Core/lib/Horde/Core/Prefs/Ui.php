@@ -399,12 +399,11 @@ class Horde_Core_Prefs_Ui
      */
     public function generateUI()
     {
-        global $notification, $prefs, $registry;
+        global $notification, $page_output, $prefs, $registry;
 
         $columns = $pref_list = array();
         $identities = false;
 
-        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
         $prefgroups = $this->_getPrefGroups();
 
         if ($this->group) {
@@ -611,9 +610,11 @@ class Horde_Core_Prefs_Ui
         asort($apps);
 
         /* Ouptut screen. */
-        $GLOBALS['page_output']->header(array(
+        $page_output->header(array(
             'body_id' => 'services_prefs',
-            'title' => Horde_Core_Translation::t("User Preferences")
+            'title' => Horde_Core_Translation::t("User Preferences"),
+            // For now, force to Basic view for preferences.
+            'view' => $registry::VIEW_BASIC
         ));
 
         echo $menu_out;
