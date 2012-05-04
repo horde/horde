@@ -212,24 +212,13 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      *
      * @param array $stock  A hash of values for the stock item.
      *
-     * @return integer  The numeric ID of the newly added item or false.
+     * @return Sesha_Entity_Stock  The newly added item or false.
      * @throws Sesha_Exception
      */
     public function add($stock)
     {
-        // Create the queries
-        $sql = 'INSERT INTO sesha_inventory(stock_name,note) VALUES(?,?)';
-
-        $values = array($stock['stock_name'], $stock['note']);
-
-        // Perform the queries
-        try {
-            $result = $this->_db->insert($sql,$values);
-        } catch (Horde_Db_Exception $e) {
-            throw new Sesha_Exception($e);
-        }
-
-        return $result;
+        $sm = $this->_mappers->create('Sesha_Entity_StockMapper');
+        return $sm->create($stock);
     }
 
     /**
@@ -242,17 +231,8 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      */
     public function modify($stock_id, $stock)
     {
-        $sql = 'UPDATE sesha_inventory SET stock_name = ?, note = ? WHERE stock_id = ?';
-
-        $values = array($stock['stock_name'],$stock['note'], $stock_id);
-        // Perform the queries
-        try { 
-            $result = $this->_db->update($sql, $values);
-        } catch (Horde_Db_Exception $e) {
-            throw new Sesha_Exception($e);
-        }
-
-        return true;
+        $sm = $this->_mappers->create('Sesha_Entity_StockMapper');
+        return $sm->update($stock_id, $stock);
     }
 
     /**
@@ -335,21 +315,13 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      *
      * @param array $info  Updated category attributes.
      *
-     * @return integer The number of affected rows
+     * @return integer Number of objects updated.
      * @throws Sesha_Exception
      */
     public function updateCategory($info)
     {
-        $sql = 'UPDATE sesha_categories' .
-               ' SET category = ?, description = ?, priority = ?' .
-               ' WHERE category_id = ?';
-        $values = array($info['category'], $info['description'], $info['priority'], $info['category_id']);
-        try {
-            return $this->_db->execute($sql, $values);
-        } catch (Horde_Db_Exception $e) {
-            throw new Sesha_Exception($e);
-        }
-
+        $cm = $this->_mappers->create('Sesha_Entity_CategoryMapper');
+        return $cm->update($info['category_id'], $info);
     }
 
     /**
@@ -369,20 +341,21 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
     /**
      * Deletes a category.
      *
-     * @param integer $category_id  The numeric ID of the category to delete.
+     * @param integer $category_id  The numeric ID of the category to delete. Also accepts Sesha_Entity_Category
      *
-     * @return integer The number of rows deleted
+     * @return integer The number of categories deleted
      */
     public function deleteCategory($category_id)
     {
-        $sql = 'DELETE FROM sesha_categories WHERE category_id = ?';
-        $values = array($category_id);
-        try {
-            return $this->_db->delete($sql, $values);
-        } catch (Horde_Db_Exception $e) {
-            throw new Sesha_Exception($e);
+        $cm = $this->_mappers->create('Sesha_Entity_CategoryMapper');
+        if ($category_id instanceof Sesha_Inventory_Category) {
+            $category = $category_id;
+            $category_id = $category->category_id;
+        } else {
+            $category = $cm->findOne($category_id);
         }
-
+        if (empty($category)) throw new Sesha_Exception(sprintf(_('The category %d could not be found', $category_id)));
+        return $category->delete();
     }
 
     /**
