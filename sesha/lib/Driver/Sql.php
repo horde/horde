@@ -362,18 +362,8 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      */
     public function addCategory($info)
     {
-
-        $sql = 'INSERT INTO sesha_categories' .
-               ' (category, description, priority)' .
-               ' VALUES (?, ?, ?)';
-        $values = array($info['category'], $info['description'], $info['priority']);
-
-        try {
-            $result = $this->_db->insert($sql, $values);
-        } catch (Horde_Db_Exception $e) {
-            throw new Sesha_Exception($e);
-        }
-        return $result;
+        $cm = $this->_mappers->create('Sesha_Entity_CategoryMapper');
+        return $cm->create($info);
     }
 
     /**
@@ -405,14 +395,11 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      */
     public function categoryExists($category)
     {
-        $sql = 'SELECT * FROM sesha_categories WHERE category = ?';
-        $values = array($category);
-
-        $result = $this->_db->selectOne($sql, $values);
-        if (count($result)) {
-            return true;
+        $cm = $this->_mappers->create('Sesha_Entity_CategoryMapper');
+        if ($category instanceof Sesha_Inventory_Category) {
+            $category = $category->category;
         }
-        return false;
+        return (boolean) $cm->findOne(array('category' => $category));
     }
 
     /**
@@ -528,12 +515,13 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      */
     public function clearPropertiesForCategory($category_id)
     {
-        $sql = 'DELETE FROM sesha_relations WHERE category_id = ?';
-        try {
-            return $this->_db->delete($sql, array($category_id));
-        } catch (Horde_Db_Exception $e) {
-            throw new Sesha_Exception($e);
+        $cm = $this->_mappers->create('Sesha_Entity_CategoryMapper');
+        if ($category_id instanceof Insysgui_Entity_Category) {
+            $category = $category_id;
+        } else {
+            $category = $cm->findOne($category_id);
         }
+        return $category->removeRelation('properties');
     }
 
     /**
@@ -587,7 +575,7 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      * @param integer $stock_id  The numeric ID of the stock item to update.
      * @param array $categories  The array of categories to remove.
      *
-     * @return object  The PEAR DB_Result object from the sql query.
+     * @return integer  the number of categories removed
      * @throws Sesha_Exception
      */
     public function clearPropertiesForStock($stock_id, $categories = array())
