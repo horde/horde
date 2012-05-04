@@ -32,7 +32,7 @@ class Horde_Core_Ajax
      */
     public function init(array $opts = array())
     {
-        global $registry;
+        global $page_output, $registry;
 
         if (self::$_init) {
             return;
@@ -42,7 +42,6 @@ class Horde_Core_Ajax
             $opts['app'] = $registry->getApp();
         }
 
-        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
         $page_output->addScriptFile('horde.js', 'horde');
         $page_output->addScriptFile('hordecore.js', 'horde');
         $page_output->addScriptFile('growler.js', 'horde');
@@ -101,8 +100,9 @@ class Horde_Core_Ajax
      */
     public function initGrowler()
     {
+        global $page_output;
+
         if (!self::$_init) {
-            $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
             $page_output->addScriptFile('hordecore.js', 'horde');
             $page_output->addScriptFile('growler.js', 'horde');
             $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
