@@ -420,25 +420,21 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      *
      * @param array $info Array with updated property values.
      *
-     * @return object  The PEAR DB_Result object from the query.
+     * @return Sesha_Inventory_Property  The changed Sesha_Inventory_Property object.
      */
-    public function updateProperty($info)
+    public function updateProperty(array $info)
     {
-        $sql = 'UPDATE sesha_properties SET property = ?, datatype = ?, parameters = ?, unit = ?, description = ?, priority = ?, WHERE property_id = ?';
-        $values = array(
-            $info['property'],
-            $info['datatype'],
-            serialize($info['parameters']),
-            $info['unit'],
-            $info['description'],
-            $info['priority'],
-            $info['property_id'],
-        );
-        try {
-            return $this->_db->query($sql, $values);
-        } catch (Horde_Db_Exception $e) {
-            throw new Sesha_Exception($e);
-        }
+        $pm = $this->_mappers->create('Sesha_Entity_PropertyMapper');
+        $property = $pm->findOne($info['property_id']);
+        if (empty($property)) throw new Sesha_Exception(sprintf(_('The property %d could not be loaded', $info['property_id'])));
+        $property->property = $info['property'];
+        $property->datatype = $info['datatype'];
+        $property->parameters = $info['parameters'];
+        $property->unit = $info['unit'];
+        $property->description = $info['description'];
+        $property->priority = $info['priority'];
+        $property->save();
+        return $property;
     }
 
     /**
@@ -446,43 +442,33 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      *
      * @param array $info Array with new property values.
      *
-     * @return object  The PEAR DB_Result from the sql query.
+     * @return Sesha_Entity_Property  
      */
     public function addProperty($info)
     {
-        $sql = 'INSERT INTO sesha_properties (property, datatype, parameters, unit, description, priority) VALUES (?, ?, ?, ?, ?, ?)';
-        $values = array(
-            $info['property'],
-            $info['datatype'],
-            serialize($info['parameters']),
-            $info['unit'],
-            $info['description'],
-            $info['priority'],
-        );
-
-        try {
-            return $this->_db->insert($sql, $values);
-        } catch (Horde_Db_Exception $e) {
-            throw new Sesha_Exception($e);
-        }
+        $pm = $this->_mappers->create('Sesha_Entity_PropertyMapper');
+        $property = $pm->create($info);
+        return $property;
     }
 
     /**
      * Deletes a property from the storage backend.
      *
-     * @param integer $property_id  The numeric ID of the property to delete.
+     * @param integer $property_id  The numeric ID of the property to delete. Also accepts a Sesha_Inventory_Property object
      *
-     * @return object  The PEAR DB_Result object from the sql query.
+     * @return integer Number of objects deleted.
      */
     public function deleteProperty($property_id)
     {
-        $sql = 'DELETE FROM sesha_properties WHERE property_id = ?';
-        $values = array($property_id);
-        try {
-            return $this->_db->delete($sql, $values);
-        } catch (Horde_Db_Exception $e) {
-            throw new Sesha_Exception($e);
+        $pm = $this->_mappers->create('Sesha_Entity_PropertyMapper');
+        if ($property_id instanceof Sesha_Inventory_Property) {
+            $property = $property_id;
+            $property_id = $property->property_id;
+        } else {
+            $property = $pm->findOne($property_id);
         }
+        if (empty($property)) throw new Sesha_Exception(sprintf(_('The property %d could not be found', $property_id)));
+        return $property->delete();
     }
 
     /**
