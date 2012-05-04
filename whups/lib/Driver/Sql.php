@@ -659,7 +659,7 @@ class Whups_Driver_Sql extends Whups_Driver
         }
 
         if (count($args) !== 1) {
-            throw InvalidArgumentException();
+            throw new InvalidArgumentException();
         }
 
         return 'NOT (' . $args[0] . ')';
