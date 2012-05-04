@@ -555,7 +555,6 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      */
     public function clearPropertiesForStock($stock_id, $categories = array())
     {
-
         if ($stock_id instanceof Sesha_Entity_Stock) {
             $stock_id = $stock_id->stock_id;
         }
@@ -629,31 +628,28 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      * @param integer $stock_id  The numeric stock ID to update.
      * @param array $categories    The array of categories to change.
      *
-     * @return object  The PEAR DB_Result object from the sql query.
      */
     public function updateCategoriesForStock($stock_id, $categories = array())
     {
+        $sm = $this->_mappers->create('Sesha_Entity_StockMapper');
+        $cm = $this->_mappers->create('Sesha_Entity_CategoryMapper');
         if (!is_array($categories)) {
             $categories = array($categories);
         }
+        if (($stock_id instanceof Sesha_Entity_Stock)) {
+            $stock = $stock_id;
+            $stock_id = $stock->stock_id;
+        } else {
+            $stock = $sm->findOne($stock_id);
+        }
         /* First clear any categories that might be set for this item. */
-        $sql = 'DELETE FROM sesha_inventory_categories ' .
-                       'WHERE stock_id = ? ';
-
-        try {
-            $result = $this->_db->execute($sql, array($stock_id));
-        } catch (Sesha_Exception $e) {
-            throw new Sesha_Exception($e);
+        $stock->removeRelation('categories');
+        foreach ($categories as $category) {
+            if (!($category instanceof Sesha_Entity_Category)) {
+                $category = $cm->findOne($category);
+            }
+            $stock->addRelation('categories', $category);
         }
-        foreach ($categories as $category_id) {
-            $sql = sprintf('INSERT INTO sesha_inventory_categories ' .
-                '(stock_id, category_id) VALUES (%d, %d)',
-                $stock_id, $category_id);
-
-            $result = $this->_db->insert($sql);
-        }
-
-        return $result;
     }
 
     /**
