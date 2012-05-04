@@ -82,7 +82,7 @@
  *
  * The UI display for a preference is controlled by the 'type' key. This key
  * controls how the preference is displayed on the preferences screen. If this
- * key is not present, the preference is treated as type 'implict'. The
+ * key is not present, the preference is treated as type 'implicit'. The
  * following is the list of types, with a description of further keys used
  * for each type.
  *
