@@ -236,7 +236,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         }
 
         /* Initalize a header object for the draft. */
-        $draft_headers = $this->_prepareHeaders($headers, $opts);
+        $draft_headers = $this->_prepareHeaders($headers, array_merge($opts, array('bcc' => true)));
 
         /* Add information necessary to log replies/forwards when finally
          * sent. */
@@ -954,6 +954,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      * @param array $headers  Array with 'from', 'to', 'cc', 'bcc', and
      *                        'subject' values.
      * @param array $opts     An array of options w/the following keys:
+     *   - bcc: (boolean) Add BCC header to output.
      *   - priority: (string) The message priority ('high', 'normal', 'low').
      *
      * @return Horde_Mime_Headers  Headers object with the appropriate headers
@@ -978,6 +979,12 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 
         if (isset($headers['cc']) && strlen($headers['cc'])) {
             $ob->addHeader('Cc', $headers['cc']);
+        }
+
+        if (!empty($opts['bcc']) &&
+            isset($headers['bcc']) &&
+            strlen($headers['bcc'])) {
+            $ob->addHeader('Bcc', $headers['bcc']);
         }
 
         if (isset($headers['subject']) && strlen($headers['subject'])) {

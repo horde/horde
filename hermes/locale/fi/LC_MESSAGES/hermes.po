@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hermes 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"POT-Creation-Date: 2012-05-01 14:03+0200\n"
 "PO-Revision-Date: 2012-03-22 14:51:51+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
@@ -156,11 +156,11 @@ msgstr "Työn tyyppi"
 msgid "Cancel"
 msgstr "Peru"
 
-#: lib/Driver/Sql.php:580
+#: lib/Driver/Sql.php:588
 msgid "Cannot delete deliverable; it has children."
 msgstr "Ei voi poistaa tuotettavaa; lapsia olemassa."
 
-#: lib/Driver/Sql.php:591
+#: lib/Driver/Sql.php:599
 msgid "Cannot delete deliverable; there is time entered on it."
 msgstr "Ei voida poistaa tuotettavaa; aikatieto olemassa."
 

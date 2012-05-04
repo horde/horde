@@ -77,6 +77,8 @@ v6.0-git
 v5.0.21-git
 -----------
 
+[jan] Update Italian translation (Emilien <emilien@wifi.e4a.it>).
+[mms] Save Bcc addresses when saving compose message as draft.
 [mms] Fix handling of RETURN keypress in the Subject input on the dynamic
       compose page.
 [jan] Fix regression in sending PGP encrypted messages (Bug #11150).

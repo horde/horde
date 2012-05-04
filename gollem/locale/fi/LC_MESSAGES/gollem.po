@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gollem 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"POT-Creation-Date: 2012-05-01 14:03+0200\n"
 "PO-Revision-Date: 2012-03-28 20:10:26+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
@@ -27,12 +27,12 @@ msgstr "\"%s\" uudelleennimettiin \"%s\""
 msgid "%.2fMB / %.2fMB  (%.2f%%)"
 msgstr "%.2fMB / %.2fMB  (%.2f%%)"
 
-#: manager.php:556
+#: manager.php:558
 #, php-format
 msgid "%d item"
 msgstr "%d objekti"
 
-#: manager.php:556
+#: manager.php:558
 #, php-format
 msgid "%d items"
 msgstr "%d objektia"
@@ -90,7 +90,7 @@ msgstr "Kysy"
 msgid "Attributes"
 msgstr "Lisämääreet"
 
-#: lib/Application.php:124
+#: lib/Application.php:139
 msgid "Backend"
 msgstr "Taustajärjestelmä"
 
@@ -102,7 +102,7 @@ msgstr "Taustajärjestelmät"
 msgid "Below is the current contents of your clipboard."
 msgstr "Alla on leikepöydän nykyinen sisältö."
 
-#: clipboard.php:24 manager.php:281 selectlist.php:81
+#: clipboard.php:24 manager.php:283 selectlist.php:81
 #: templates/edit/edit.inc:13
 msgid "Cancel"
 msgstr "Peru"
@@ -130,7 +130,7 @@ msgstr "Ei voi leikata objekteja leikepöydälle."
 msgid "Cannot paste \"%s\" (file cleared from clipboard): %s"
 msgstr "Ei voi liittää \"%s\" (tiedosto on poistettu leikepöydältä: %s"
 
-#: manager.php:307 templates/manager/manager.html:70
+#: manager.php:309 templates/manager/manager.html:70
 msgid "Change Folder"
 msgstr "Vaihda hakemistoa"
 
@@ -142,11 +142,11 @@ msgstr "Muuta oikeuksia"
 msgid "Change Server"
 msgstr "Vaihda palvelinta"
 
-#: lib/Application.php:286
+#: lib/Application.php:301
 msgid "Check Quota"
 msgstr "Tarkista kiintiö"
 
-#: manager.php:552
+#: manager.php:554
 msgid "Check _All/None"
 msgstr "Valitse _kaikki/ei mitään"
 
@@ -154,7 +154,7 @@ msgstr "Valitse _kaikki/ei mitään"
 msgid "Chmod done: "
 msgstr "Chmod suoritettu: "
 
-#: lib/Application.php:256
+#: lib/Application.php:271
 msgid "Choose which columns to display, and in what order:"
 msgstr "Valitse mitkä sarakkeet näytetään ja missä järjestyksessä:"
 
@@ -170,7 +170,7 @@ msgstr "Leikepöytä"
 msgid "Close"
 msgstr "Sulje"
 
-#: lib/Application.php:260
+#: lib/Application.php:275
 msgid "Columns that will not be displayed:"
 msgstr "Sarakkeet, joita ei näytetä:"
 
@@ -178,7 +178,7 @@ msgstr "Sarakkeet, joita ei näytetä:"
 msgid "Copy"
 msgstr "Kopioi"
 
-#: manager.php:300 templates/manager/manager.html:58
+#: manager.php:302 templates/manager/manager.html:58
 msgid "Create Folder"
 msgstr "Luo hakemisto"
 
@@ -224,7 +224,7 @@ msgid "Done"
 msgstr "Valmis"
 
 # php-format
-#: manager.php:427
+#: manager.php:429
 #, php-format
 msgid "Download %s"
 msgstr "Tallenna %s"
@@ -311,7 +311,7 @@ msgstr "Kansiot pitää tehdä VFS-taustajärjestelmään."
 msgid "Go to:"
 msgstr "Mene:"
 
-#: manager.php:531 templates/manager/manager.html:10
+#: manager.php:533 templates/manager/manager.html:10
 msgid "Group"
 msgstr "Ryhmä"
 
@@ -342,11 +342,11 @@ msgstr "Kieli"
 msgid "List folders first?"
 msgstr "Listaa ensin hakemistot."
 
-#: manager.php:501
+#: manager.php:503
 msgid "Modified"
 msgstr "Muokattu"
 
-#: manager.php:479
+#: manager.php:481
 msgid "Name"
 msgstr "Nimi"
 
@@ -366,11 +366,11 @@ msgstr "Ei"
 msgid "No quota found."
 msgstr "Kiintiötä ei löytynyt."
 
-#: manager.php:282
+#: manager.php:284
 msgid "OK"
 msgstr "OK"
 
-#: manager.php:524 templates/manager/manager.html:9
+#: manager.php:526 templates/manager/manager.html:9
 msgid "Owner"
 msgstr "Omistaja"
 
@@ -378,7 +378,7 @@ msgstr "Omistaja"
 msgid "Paste"
 msgstr "Liitä"
 
-#: manager.php:517
+#: manager.php:519
 msgid "Permission"
 msgstr "Oikeus"
 
@@ -420,7 +420,7 @@ msgstr "Kiintiönäkymä"
 msgid "Read"
 msgstr "Luku"
 
-#: manager.php:287
+#: manager.php:289
 msgid "Refresh"
 msgstr "Päivitä"
 
@@ -440,7 +440,7 @@ msgstr "Taustajärjestelmien uudelleennimeäminen ei ole sallittu."
 msgid "Reset"
 msgstr "Palauta"
 
-#: manager.php:280 templates/edit/edit.inc:11
+#: manager.php:282 templates/edit/edit.inc:11
 msgid "Save"
 msgstr "Tallenna"
 
@@ -452,7 +452,7 @@ msgstr "Valitse kaikki"
 msgid "Select None"
 msgstr "Tyhjennä valinnat"
 
-#: lib/Application.php:258
+#: lib/Application.php:273
 msgid "Select a backend:"
 msgstr "Valitse taustajärjestelmä:"
 
@@ -464,7 +464,7 @@ msgstr "Palvelin"
 msgid "Show dotfiles?"
 msgstr "Näytä pistetiedostot."
 
-#: manager.php:509
+#: manager.php:511
 msgid "Size"
 msgstr "Koko"
 
@@ -488,7 +488,7 @@ msgstr "Alkuperäinen aukaisuikkuna on suljettu. Poistutaan."
 msgid "There are no files in this folder."
 msgstr "Tässä hakemistossa ei ole tiedostoja."
 
-#: lib/Application.php:257
+#: lib/Application.php:272
 msgid "These columns will display in this order:"
 msgstr "Nämä sarakkeet näytetään tässä järjestyksessä:"
 
@@ -509,7 +509,7 @@ msgstr ""
 "tiedostonnimen vieressä valintalaatikko ja napsauta &quot;Liitä&quot;-"
 "painiketta."
 
-#: manager.php:471
+#: manager.php:473
 msgid "Type"
 msgstr "Tyyppi"
 
@@ -537,7 +537,7 @@ msgstr "Ei voi poistaa kansiota %s: %s"
 msgid "Up to %s"
 msgstr "Ylöspäin %s"
 
-#: manager.php:296
+#: manager.php:298
 msgid "Upload File(s)"
 msgstr "Tuo tiedostoja"
 
@@ -545,7 +545,7 @@ msgstr "Tuo tiedostoja"
 msgid "User Interface"
 msgstr "Käyttöliittymä"
 
-#: manager.php:291
+#: manager.php:293
 msgid "View Clipboard"
 msgstr "Näytä leikepöytä"
 
@@ -567,10 +567,10 @@ msgstr ""
 msgid "_Change Server"
 msgstr "_Vaihda palvelinta"
 
-#: lib/Application.php:273
+#: lib/Application.php:288
 msgid "_My Home"
 msgstr "_Oma koti"
 
-#: lib/Application.php:276
+#: lib/Application.php:291
 msgid "_Permissions"
 msgstr "_Oikeudet"
