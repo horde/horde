@@ -79,7 +79,7 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
 
         /* Clean up Reply-To, Alias, Tie-to, and BCC addresses. */
         foreach (array('replyto_addr', 'alias_addr', 'tieto_addr', 'bcc_addr') as $val) {
-            $ob = IMP::parseAddressList($val, array(
+            $ob = IMP::parseAddressList($this->getValue($val), array(
                 'limit' => ($val == 'replyto_addr') ? 1 : 0
             ));
 
