@@ -491,7 +491,7 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
                 $val = IMP_Compose::text2html(trim($val));
             }
 
-            $val = '<div class="impComposeSignature">' . $val . '</div>';
+            $val = '<p>&nbsp;</p><div class="impComposeSignature">' . $val . '</div>';
         }
 
         try {
