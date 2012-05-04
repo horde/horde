@@ -88,7 +88,7 @@ class Horde_Text_Filter_JavascriptMinify_JsMin
             case "\n":
                 if ($this->_b === ' ') {
                     $cmd = self::ACTION_DELETE_A_B;
-                } elseif (!strspn($this->_b, '{[(+-') &&
+                } elseif (!strspn($this->_b, '{[(+-!~') &&
                           !$this->_isAlphaNum($this->_b)) {
                     $cmd = self::ACTION_DELETE_A;
                 }
