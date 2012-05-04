@@ -17,5 +17,13 @@ class Sesha_Entity_Value extends Horde_Rdo_Base
     {
         return $this->txt_datavalue;
     }
+
+    /**
+     * Save the txt_datavalue or int_datavalue depending on context
+     */
+    public function setDataValue($value)
+    {
+        return $this->txt_datavalue = $value;
+    }
 }
 

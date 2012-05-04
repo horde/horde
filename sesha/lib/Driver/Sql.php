@@ -590,36 +590,19 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      * @param integer $stock_id  The numeric ID of the stock to update.
      * @param array $properties  The hash of properties to update.
      *
-     * @return mixed  The DB_Result object on success
      * @throws Sesha_Exception
      */
     public function updatePropertiesForStock($stock_id, $properties = array())
     {
-        $result = false;
+        $vm = $this->_mappers->create('Sesha_Entity_ValueMapper');
         foreach ($properties as $property_id => $property_value) {
-            // Now clear any existing attribute values for this property_id
-            // and stock_id.
-            $sql = 'DELETE FROM sesha_inventory_properties ' .
-                   'WHERE stock_id = ? AND property_id = ?';
-
-            try {
-                $result = $this->_db->execute($sql, array($stock_id, $property_id));
-            } catch (Horde_Db_Exception $e) {
-                throw new Sesha_Exception($e);
+            $value = $vm->findOne(array('stock_id' => $stock_id, 'property_id' => $property_id));
+            if (!$value) {
+                $value = $vm->create(array('stock_id' => $stock_id, 'property_id' => $property_id));
             }
-            if (!is_null($result) && !empty($property_value)) {
-                $sql = 'INSERT INTO sesha_inventory_properties' .
-                       ' (property_id, stock_id, txt_datavalue)' .
-                       ' VALUES (?, ?, ?)';
-                $values = array($property_id, $stock_id, is_string($property_value) ? $property_value : serialize($property_value));
-                try {
-                    $result = $this->_db->insert($sql, $values);
-                } catch (Horde_Db_Exception $e) {
-                    throw new Sesha_Exception($e);
-                }
-            }
+            $value->setDataValue($property_value);
+            $value->save();
         }
-        return $result;
     }
 
     /**
