@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Horde 4.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-02-22 11:20+0100\n"
-"PO-Revision-Date: 2012-03-28 19:27:46+0300\n"
+"PO-Revision-Date: 2012-04-22 11:03:09+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -1868,7 +1868,7 @@ msgstr "Mobiili (älypuhelin)"
 
 #: login.php:215
 msgid "Mode"
-msgstr "Tila"
+msgstr "Käyttötila"
 
 #: config/prefs.php:452
 msgid "Monday"
@@ -2253,12 +2253,12 @@ msgstr "Politiikka"
 #: services/facebook/index.php:109
 #, php-format
 msgid "Posted %s"
-msgstr "Postattu %s"
+msgstr "Lähetetty %s"
 
 #: templates/block/twitter_tweet.html.php:26
 #, php-format
 msgid "Posted %s via %s"
-msgstr "Postattu %s kautta %s"
+msgstr "Lähetetty %s kautta %s"
 
 #: themes/postnuke/info.php:2
 msgid "Postnuke"
@@ -2442,12 +2442,12 @@ msgstr "Palaa päänäkymään"
 
 #: templates/block/twitter_tweet.html.php:35
 msgid "Retweet"
-msgstr "Uusviserrä"
+msgstr "Retweet"
 
 #: templates/block/twitter_tweet.html.php:30
 #, php-format
 msgid "Retweeted by %s"
-msgstr "Uusvisertänyt %s"
+msgstr "Retweetannut %s"
 
 #: services/changepassword.php:30
 msgid "Retype new password"
@@ -3160,7 +3160,7 @@ msgstr "Turkki (ISO-8859-9)"
 
 #: templates/block/twitter-layout.html.php:15
 msgid "Tweet"
-msgstr "Viserrys"
+msgstr "Tweet"
 
 #: config/prefs.php:620
 msgid "Twitter Integration"
@@ -3173,7 +3173,7 @@ msgstr "Twitter aikajana"
 #: lib/Block/TwitterTimeline.php:57
 #, php-format
 msgid "Twitter Timeline for %s"
-msgstr "Twitter %s aikajana"
+msgstr "Twitter aikajana %s"
 
 #: services/keyboard.php:108
 msgid "U characters"

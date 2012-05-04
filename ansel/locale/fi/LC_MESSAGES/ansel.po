@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ansel 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-02-22 11:20+0100\n"
+"POT-Creation-Date: 2012-05-01 14:03+0200\n"
 "PO-Revision-Date: 2012-03-28 20:08:36+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
@@ -1216,7 +1216,7 @@ msgstr "Monia kuvia"
 msgid "My Galleries"
 msgstr "Omat galleriat"
 
-#: browse_edit.php:24
+#: browse_edit.php:27
 msgid "My Photos :: Add Content"
 msgstr "Omat valokuvat :: Lisää sisältö"
 
@@ -1419,7 +1419,7 @@ msgid "Person in photo"
 msgstr "Henkilö valokuvassa"
 
 #: lib/Block/RecentlyAdded.php:117 lib/View/EmbeddedRenderer/Mini.php:191
-#: lib/View/GalleryRenderer/GalleryLightbox.php:141
+#: lib/View/GalleryRenderer/GalleryLightbox.php:146
 #: templates/faces/face.inc:27 templates/faces/gallery.inc:6
 msgid "Photo"
 msgstr "Valokuva"
@@ -2488,7 +2488,7 @@ msgid "none"
 msgstr "ei mitään"
 
 #: lib/View/EmbeddedRenderer/Mini.php:192
-#: lib/View/GalleryRenderer/GalleryLightbox.php:142
+#: lib/View/GalleryRenderer/GalleryLightbox.php:147
 msgid "of"
 msgstr " / "
 
