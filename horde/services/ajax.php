@@ -9,9 +9,6 @@
  * 'APP' - (string) The application name.
  * 'ACTION' - (string) The AJAX action identifier.
  *
- * Reserved 'ACTION' strings:
- * 'logOut' - Logs user out of Horde.
- *
  * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -34,11 +31,9 @@ if (empty($action)) {
 try {
     Horde_Registry::appInit($app);
 } catch (Horde_Exception_AuthenticationFailure $e) {
-    if ($action != 'logOut') {
-        /* Handle session timeouts when they come from an AJAX request. */
-        $injector->getInstance('Horde_Core_Factory_Ajax')->create($app, $injector->getInstance('Horde_Variables'))->sessionTimeout();
-        throw $e;
-    }
+    /* Handle session timeouts when they come from an AJAX request. */
+    $injector->getInstance('Horde_Core_Factory_Ajax')->create($app, $injector->getInstance('Horde_Variables'))->sessionTimeout();
+    throw $e;
 } catch (Exception $e) {
     // Uncaught exception.  Sending backtrace info back via AJAX is just a
     // waste of time.

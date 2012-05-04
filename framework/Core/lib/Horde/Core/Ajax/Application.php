@@ -169,17 +169,6 @@ abstract class Horde_Core_Ajax_Application
     }
 
     /**
-     * Logs the user off the Horde session.
-     *
-     * This needs to be done here (server), rather than on the browser,
-     * because the logout tokens might otherwise expire.
-     */
-    public function logOut()
-    {
-        Horde::getServiceLink('logout', $this->_app)->setRaw(true)->redirect();
-    }
-
-    /**
      * AJAX actions performed through the endpoint are normally not a good
      * URL to return to.  Thus, by default after a session timeout, return
      * to the base of the application instead.

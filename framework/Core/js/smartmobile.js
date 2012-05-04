@@ -22,6 +22,7 @@ var HordeMobile = {
      *
      * Set by Horde_PageOutput:
      *   - ajax: AJAX endpoint.
+     *   - logout: Logout URL.
      */
     urls: {},
 
@@ -128,7 +129,7 @@ var HordeMobile = {
     logout: function(url)
     {
         HordeMobile.is_logout = true;
-        window.location = (url || HordeMobile.urls.ajax + 'logOut');
+        window.location = (url || HordeMobile.urls.logout);
     },
 
     /**

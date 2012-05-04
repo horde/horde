@@ -574,7 +574,8 @@ class Horde_PageOutput
                 '$.mobile.loadingMessage = "' . _("loading") . '";'
             ), isset($opts['smartmobileinit']) ? $opts['smartmobileinit'] : array()));
             $this->addInlineJsVars(array(
-                'HordeMobile.urls.ajax' => Horde::getServiceLink('ajax', $registry->getApp())->url
+                'HordeMobile.urls.ajax' => Horde::getServiceLink('ajax', $registry->getApp())->url,
+                'HordeMobile.urls.logout' => strval(Horde::getServiceLink('logout'))
             ));
             $this->addInlineScript('$(window.document).bind("mobileinit", function() {' . $init_js . '});');
 

@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Token protect AJAX logout link.
 * [jan] Allow to use IMAP storage for shares and groupware data without a complete Kolab server.
 * [mms] Modified pushapp hook behavior.
 * [mms] Removed pushapp_post hook.

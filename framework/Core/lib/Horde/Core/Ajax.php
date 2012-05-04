@@ -53,6 +53,7 @@ class Horde_Core_Ajax
         $js_conf = array_filter(array(
             /* URLs */
             'URI_AJAX' => Horde::getServiceLink('ajax', $opts['app'])->url,
+            'URI_LOGOUT' => strval(Horde::getServiceLink('logout')),
             'URI_SNOOZE' => strval(Horde::url($registry->get('webroot', 'horde') . '/services/snooze.php', true, -1)),
 
             /* Other constants */

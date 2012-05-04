@@ -327,7 +327,7 @@ var HordeCore = {
     logout: function(url)
     {
         this.is_logout = true;
-        this.redirect(url || (HordeCoreConf.URI_AJAX + 'logOut'));
+        this.redirect(url || HordeCoreConf.URI_LOGOUT);
     },
 
     // url: (string) URL to redirect to
