@@ -264,6 +264,7 @@ case 'template_edit':
     break;
 
 case 'new':
+default:
     $rte = $show_editor = ($prefs->getValue('compose_html') && $session->get('imp', 'rteavail'));
     if (!isset($args['to'])) {
         $fillform_opts['focus'] = 'to';
