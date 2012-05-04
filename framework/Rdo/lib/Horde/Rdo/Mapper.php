@@ -586,6 +586,7 @@ abstract class Horde_Rdo_Mapper implements Countable
      * @param string $relationship    The relationship key in the mapper.
      * @param Horde_Rdo_Base $ours    The object from this mapper.
      * @param Horde_Rdo_Base $theirs  The object to remove from the relation.
+     * @return integer  the number of affected relations
      *
      * @throws Horde_Rdo_Exception
      */
@@ -611,11 +612,13 @@ abstract class Horde_Rdo_Mapper implements Countable
         case Horde_Rdo::MANY_TO_ONE:
             $ours->$rel['foreignKey'] = null;
             $ours->save();
+            return 1;
             break;
 
         case Horde_Rdo::ONE_TO_MANY:
             $theirs->$rel['foreignKey'] = null;
             $theirs->save();
+            return 1;
             break;
 
         case Horde_Rdo::MANY_TO_MANY:
@@ -630,7 +633,7 @@ abstract class Horde_Rdo_Mapper implements Countable
                 $values[] = $theirs->$theirKey;
             }
             try {
-                $this->adapter->delete($sql, $values);
+                return $this->adapter->delete($sql, $values);
             } catch (Horde_Db_Exception $e) {
                 throw new Horde_Rdo_Exception($e);
             }

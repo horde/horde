@@ -398,12 +398,12 @@ abstract class Horde_Rdo_Base implements IteratorAggregate, ArrayAccess
      *
      * @param string $relationship  The relationship key in the mapper
      * @param Horde_Rdo_Base $peer  The object to remove from the relation
-     *
+     * @return integer  The number of relations affected
      * @throws Horde_Rdo_Exception
      */
     public function removeRelation($relationship, Horde_Rdo_Base $peer = null)
     {
-        $this->mapper->removeRelation($relationship, $this, $peer);
+        return $this->mapper->removeRelation($relationship, $this, $peer);
     }
 
     /**
