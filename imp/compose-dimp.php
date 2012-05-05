@@ -37,11 +37,6 @@ Horde_Registry::appInit('imp', array(
     'timezone' => true
 ));
 
-$horde_ajax = $injector->getInstance('Horde_Core_Ajax');
-$horde_ajax->init(array(
-    'app' => 'imp'
-));
-
 $vars = $injector->getInstance('Horde_Variables');
 
 /* The headers of the message. */
@@ -320,7 +315,7 @@ Horde::startBuffer();
 IMP::status();
 $t->set('status', Horde::endBuffer());
 
-$injector->getInstance('IMP_Ajax')->header('compose', $title);
+$injector->getInstance('IMP_Ajax')->init('compose', $title);
 
 echo $t->fetch(IMP_TEMPLATES . '/dimp/compose/compose-base.html');
 $page_output->footer();

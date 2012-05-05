@@ -12,7 +12,7 @@
  * @license  http://www.horde.org/licenses/gpl21 GPL
  * @package  IMP
  */
-class IMP_Ajax extends Horde_Core_Ajax
+class IMP_Ajax
 {
     /**
      * Javascript variables to output to the page.
@@ -22,23 +22,12 @@ class IMP_Ajax extends Horde_Core_Ajax
     protected $_jsvars = array();
 
     /**
-     */
-    public function init(array $opts = array())
-    {
-        parent::init(array_merge($opts, array('app' => 'imp')));
-    }
-
-    /**
      * @param string $page   Either 'compose', 'main', or 'message'.
      * @param string $title  The title of the page.
      */
-    public function header($page, $title = '')
+    public function init($page, $title = '')
     {
         global $injector, $page_output, $prefs;
-
-        $this->init(array(
-            'growler_log' => ($page == 'main')
-        ));
 
         $this->_addBaseVars();
 
@@ -118,7 +107,8 @@ class IMP_Ajax extends Horde_Core_Ajax
             'var DIMP' => $this->_jsvars
         ), array('top' => true));
 
-        parent::header(array(
+        $page_output->header(array(
+            'growler_log' => ($page == 'main'),
             'title' => $title
         ));
     }

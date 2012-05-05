@@ -143,9 +143,8 @@ class Trean_View_Browse
      */
     protected function _getBookmarkList($bookmarks)
     {
-        $ajax = new Horde_Core_Ajax();
-        $ajax->init(array('app' => 'horde'));
         $GLOBALS['page_output']->addScriptFile('tables.js', 'horde');
+        $GLOBALS['page_output']->header();
 
         $view = $GLOBALS['injector']->getInstance('Horde_View');
         $view->bookmarks = $bookmarks;

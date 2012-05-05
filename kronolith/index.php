@@ -146,7 +146,7 @@ if ($conf['maps']['driver']) {
     Kronolith::initEventMap($conf['maps']);
 }
 
-$injector->getInstance('Kronolith_Ajax')->header();
+$injector->getInstance('Kronolith_Ajax')->init();
 
 require KRONOLITH_TEMPLATES . '/index/index.inc';
 

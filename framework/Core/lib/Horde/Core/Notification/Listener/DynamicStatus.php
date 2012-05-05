@@ -27,9 +27,23 @@ class Horde_Core_Notification_Listener_DynamicStatus extends Horde_Notification_
      */
     public function notify($events, $options = array())
     {
+        global $page_output, $registry;
+
         if (!empty($events)) {
-            $GLOBALS['injector']->getInstance('Horde_Core_Ajax')->initGrowler();
-            $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineScript(array(
+            /* Initialize the code needed to output Growler notifications.
+             * If in dynamic mode, this is done already when creating the page
+             * header. */
+            if ($registry->getView() != $registry::VIEW_DYNAMIC) {
+                $page_output->addScriptFile('hordecore.js', 'horde');
+                $page_output->addScriptFile('growler.js', 'horde');
+                $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
+
+                $page_output->addInlineJsVars(array(
+                    'var HordeCoreConf' => array()
+                ));
+            }
+
+            $page_output->addInlineScript(array(
                 'if (window.HordeCore || parent.HordeCore) { (window.HordeCore || parent.HordeCore).showNotifications(' . Horde_Serialize::serialize($events, Horde_Serialize::JSON) . ') }'
             ), true);
         }

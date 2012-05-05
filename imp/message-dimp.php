@@ -180,7 +180,7 @@ Horde::startBuffer();
 IMP::status();
 $t->set('status', Horde::endBuffer());
 
-$injector->getInstance('IMP_Ajax')->header('message', $show_msg_result['title']);
+$injector->getInstance('IMP_Ajax')->init('message', $show_msg_result['title']);
 
 Horde::startBuffer();
 require IMP_TEMPLATES . '/dimp/common.inc';

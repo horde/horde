@@ -23,6 +23,6 @@ $render_sidebar = $dimp_menu->render();
 $dimp_menu->addJs();
 
 $page_output->noDnsPrefetch();
-$injector->getInstance('IMP_Ajax')->header('main');
+$injector->getInstance('IMP_Ajax')->init('main');
 
 require IMP_TEMPLATES . '/dimp/index.inc';

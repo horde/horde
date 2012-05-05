@@ -20,7 +20,7 @@ case Horde_Registry::VIEW_DYNAMIC:
         }
 
         $today = new Horde_Date();
-        $injector->getInstance('Hermes_Ajax')->header();
+        $injector->getInstance('Hermes_Ajax')->init();
         require HERMES_TEMPLATES . '/index/index.inc';
         $page_output->includeScriptFiles();
         $page_output->outputInlineScript();
