@@ -47,14 +47,16 @@ function _sesha_perms()
     return $perms;
 }
 
+/**
+ * List categories as ticket queues
+ * @return array  a list of ticket queues with category id as key and category caption as value
+ */
 function _sesha_listQueues()
 {
-    require_once dirname(__FILE__) . '/base.php';
-
     $queues = array();
     $categories = $GLOBALS['backend']->getCategories();
     foreach ($categories as $category) {
-        $queues[$category['category_id']] = $category['category'];
+        $queues[$category->category_id] = $category->category;
     }
     asort($queues);
 
