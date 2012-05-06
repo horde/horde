@@ -502,34 +502,6 @@ class Sesha_Driver_Rdo extends Sesha_Driver
     }
 
     /**
-     */
-    public function _unserializeParameters(&$val, $key)
-    {
-        $val['parameters'] = @unserialize($val['parameters']);
-    }
-
-    public function _normalizeStockProperties($rows, $property_ids)
-    {
-        $stock = array();
-        foreach ($rows as $row) {
-            if (!isset($stock[$row['stock_id']])) {
-                $stock[$row['stock_id']] = array(
-                    'stock_id' => $row['stock_id'],
-                    'stock_name' => $row['stock_name'],
-                    'note' => $row['note'],
-                );
-                foreach ($property_ids as $property_id) {
-                    $stock[$row['stock_id']]['p' . $property_id] = '';
-                }
-            }
-
-            $stock[$row['stock_id']]['p' . $row['property_id']] = strlen($row['txt_datavalue']) ? $row['txt_datavalue'] : $row['int_datavalue'];
-        }
-
-        return $stock;
-    }
-
-    /**
      * Inventory search
      * @param array filters  a list of filter hashes, each having keys
      *                  string type ('note', 'stock_name', 'stock_id', 'categories', 'properties')
