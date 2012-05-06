@@ -14,22 +14,22 @@
 class Sesha
 {
     /** Sort by stock id. */
-    const SESHA_SORT_STOCKID = 100;
+    const SORT_STOCKID = 100;
     /** Sort by stock name. */
-    const SESHA_SORT_NAME = 101;
+    const SORT_NAME = 101;
     /** Sort by stock note. */
-    const SESHA_SORT_NOTE = 102;
+    const SORT_NOTE = 102;
     /** Sort in ascending order. */
-    const SESHA_SORT_ASCEND = 0;
+    const SORT_ASCEND = 0;
     /** Sort in descending order. */
-    const SESHA_SORT_DESCEND = 1;
+    const SORT_DESCEND = 1;
 
     // Search Field Constants
 
-    const SESHA_SEARCH_ID = 1;
-    const SESHA_SEARCH_NAME = 2;
-    const SESHA_SEARCH_NOTE = 4;
-    const SESHA_SEARCH_PROPERTY = 8;
+    const SEARCH_ID = 1;
+    const SEARCH_NAME = 2;
+    const SEARCH_NOTE = 4;
+    const SEARCH_PROPERTY = 8;
 
     /**
      * This function will return the list of available categories.

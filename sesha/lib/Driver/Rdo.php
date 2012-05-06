@@ -1,23 +1,12 @@
 <?php
 /**
- * This is the sql implementation of the Sesha Driver.
+ * This is the Rdo ORM implementation of the Sesha Driver.
  *
  * Required values for $params:<pre>
- *      'phptype'       The database type (e.g. 'pgsql', 'mysql', etc.).
- *      'charset'       The database's internal charset.</pre>
- *
- * Required by some database implementations:<pre>
- *      'hostspec'      The hostname of the database server.
- *      'protocol'      The communication protocol ('tcp', 'unix', etc.).
- *      'database'      The name of the database.
- *      'username'      The username with which to connect to the database.
- *      'password'      The password associated with 'username'.
- *      'options'       Additional options to pass to the database.
- *      'tty'           The TTY on which to connect to the database.
- *      'port'          The port on which to connect to the database.</pre>
- *
+ *      'db'       The Horde_Db adapter
  *
  * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Based on the original Sql driver
  * Copyright 2004-2007 Andrew Coleman <mercury@appisolutions.net>
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -25,9 +14,10 @@
  *
  * @author  Bo Daley <bo@darkwork.net>
  * @author  Andrew Coleman <mercury@appisolutions.net>
+ * @author  Ralf Lang <lang@b1-systems.de>
  * @package Sesha
  */
-class Sesha_Driver_Sql extends Sesha_Driver
+class Sesha_Driver_Rdo extends Sesha_Driver
 {
     /**
      * Handle for the database connection.
@@ -43,7 +33,7 @@ class Sesha_Driver_Sql extends Sesha_Driver
      */
     protected $_mappers;
     /**
-     * This is the basic constructor for the sql driver.
+     * This is the basic constructor for the Rdo driver.
      *
      * @param array $params  Hash containing the connection parameters.
      */
@@ -58,7 +48,7 @@ class Sesha_Driver_Sql extends Sesha_Driver
      *
      * @param integer $stock_id  The numeric ID of the stock item to fetch.
      *
-     * @return array  a stock item
+     * @return Sesha_Entity_Stock  a stock item
      * @throws Sesha_Exception
      */
     public function fetch($stock_id)
@@ -131,7 +121,7 @@ class Sesha_Driver_Sql extends Sesha_Driver
      * @param integer $category_ids  The numeric IDs of the categories to find.
      *                               If both $stock_id and $category_ids are null,
      *                               all categories are returned
-     * @return Horde_Rdo_List  The kist of matching categories
+     * @return array  The list of matching categories
      */
     public function getCategories($stock_id = null, array $category_ids = null)
     {
@@ -485,7 +475,7 @@ class Sesha_Driver_Sql extends Sesha_Driver
      * Updates the set of categories for a specified stock item.
      *
      * @param integer $stock_id  The numeric stock ID to update.
-     * @param array $categories    The array of categories to change.
+     * @param array $categories  The array of categories to change.
      *
      */
     public function updateCategoriesForStock($stock_id, $categories = array())
@@ -540,8 +530,12 @@ class Sesha_Driver_Sql extends Sesha_Driver
     }
 
     /**
-     * Rdo based inventory search
-     * @return array List of Stock items
+     * Inventory search
+     * @param array filters  a list of filter hashes, each having keys
+     *                  string type ('note', 'stock_name', 'stock_id', 'categories', 'properties')
+     *                  string test
+     *                  mixed  value (string fore note, stock_name)
+     * @return array  List of Stock items
      */
     public function findStock($filters = array())
     {
