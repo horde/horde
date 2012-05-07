@@ -961,12 +961,14 @@ ul.sound-list {
 }
 #RB_window p, #RB_window ul {
     margin-bottom: 3px;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
 }
 .RB_confirm {
-    width: 20em;
-    padding: 1em;
-    border: 1px solid #ccc;
     background: #ffc;
+    border: 1px solid #ccc;
+    padding: 1em;
 }
 .RB_confirm input {
     margin: .2em;
