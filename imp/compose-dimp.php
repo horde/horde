@@ -292,7 +292,7 @@ if ($vars->type == 'redirect') {
 
 $t = $injector->createInstance('Horde_Template');
 $t->setOption('gettext', true);
-$t->set('title', $title);
+$t->set('title', htmlspecialchars($title));
 
 $compose_result = $injector->getInstance('IMP_Views_Compose')->showCompose(array(
     'composeCache' => $imp_compose->getCacheId(),
