@@ -926,8 +926,6 @@ class Ansel
             case 'Mytopo':
                 $params['conf']['apikeys']['mytopo'] = $GLOBALS['conf']['api']['mytopo'];
                 break;
-            case 'Bing':
-                $params['conf']['apikeys']['bing'] = $GLOBALS['conf']['api']['bing'];
             }
         }
 
