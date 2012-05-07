@@ -104,6 +104,8 @@ class Horde_Block_Weather extends Horde_Core_Block
 
         if (!empty($this->_refreshParams) && !empty($this->_refreshParams->location)) {
             $location = $this->_refreshParams->location;
+            $html = '';
+            $instance = '';
         } else {
             $instance = hash('md5', mt_rand());
             $GLOBALS['injector']
