@@ -2040,7 +2040,7 @@ class Horde_Registry
         if (empty($options['app']) ||
             ($options['app'] == 'horde') ||
             ($options['reason'] == Horde_Auth::REASON_LOGOUT)) {
-            $params['horde_logout_token'] = $GLOBALS['injector']->getInstance('Horde_Token')->get('horde.logout');
+            $params['horde_logout_token'] = $GLOBALS['session']->getToken();
        }
 
         if (isset($options['app'])) {
