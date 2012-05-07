@@ -2,6 +2,7 @@
 v5.0.21-git
 -----------
 
+[mms] SECURITY: Fix XSS vulnerability on the dynamic compose page.
 [jan] Re-add leading paragraph before HTML signatures to avoid writing into
       the signature.
 [jan] Use preferred editor if not opening compose window from dynamic view.
