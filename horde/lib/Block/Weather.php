@@ -72,7 +72,7 @@ class Horde_Block_Weather extends Horde_Core_Block
                 'name' => _("Units"),
                 'default' => 'standard',
                 'values' => array(
-                    Horde_Service_Weather::UNITS_STANDARD => _("Standard"),
+                    Horde_Service_Weather::UNITS_STANDARD => _("English"),
                     Horde_Service_Weather::UNITS_METRIC =>  _("Metric")
                 )
             ),
