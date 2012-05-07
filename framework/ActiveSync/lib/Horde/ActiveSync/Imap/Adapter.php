@@ -839,6 +839,10 @@ class Horde_ActiveSync_Imap_Adapter
                     }
                     $base = new Horde_Mime_Part();
                     $base->setType('multipart/signed');
+                    $params = $imap_message->getStructure()->getAllContentTypeParameters();
+                    foreach ($params as $label => $value) {
+                        $base->setContentTypeParameter($label, $value);
+                    }
                     $eas_message->messageclass = 'IPM.Note.SMIME.MultipartSigned';
                     $base->addPart($smime);
                     $base->addPart($imap_message->getMimePart(2));
