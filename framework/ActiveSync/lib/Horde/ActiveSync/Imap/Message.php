@@ -61,6 +61,8 @@ class Horde_ActiveSync_Imap_Message
      */
     protected $_lastBodyPartDecode = null;
 
+    protected $_hasAttachments = null;
+
     /**
      * Constructor
      *
@@ -176,13 +178,12 @@ class Horde_ActiveSync_Imap_Message
      * @param array $options  An options array containgin:
      *  - truncation: (integer) Truncate message body to this length.
      *                DEFAULT: none (No truncation).
-     *
      *  - bodyprefs: (array)  Bodypref settings
      *               DEFAULT: none (No bodyprefs used).
-     *
-     *  - mimesupport: (integer)  MIME supported (1) or not (0)
-     *                 DEFAULT: none (No MIME support).
-     *
+     *  - mimesupport: (integer)  Indicates if MIME is supported or not.
+     *                  Possible values: 0 - Not supported 1 - Only S/MIME or
+     *                  2 - All MIME.
+     *                  DEFAULT: 0 (No MIME support)
      *  - protocolversion: (float)  The EAS protocol we are supporting.
      *                     DEFAULT 2.5
      *
@@ -326,6 +327,19 @@ class Horde_ActiveSync_Imap_Message
         }
 
         return $ret;
+    }
+
+    public function getAttachmentsMimeParts()
+    {
+        $mime_parts = array();
+        $map = $this->_message->contentTypeMap();
+        foreach ($map as $id => $type) {
+            if ($this->isAttachment($type)) {
+                $mime_parts[] = $this->getMimePart($id);
+            }
+        }
+
+        return $mime_parts;
     }
 
     /**
@@ -624,6 +638,7 @@ class Horde_ActiveSync_Imap_Message
         case 'text/plain':
         case 'application/ms-tnef':
         case 'text/html':
+        case 'application/pkcs7-signature':
             return false;
         }
 
@@ -639,6 +654,24 @@ class Horde_ActiveSync_Imap_Message
         default:
             return true;
         }
+    }
+
+    public function hasAttachments()
+    {
+
+        if (isset($this->_hasAttachments)) {
+            return $this->_hasAttachments;
+        }
+
+        foreach ($this->contentTypeMap() as $type) {
+            if ($this->isAttachment($type)) {
+                $this->_hasAttachments = true;
+                return true;
+            }
+        }
+
+        $this->_hasAttachments = false;
+        return false;
     }
 
     /**
