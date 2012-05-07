@@ -2,7 +2,7 @@
 v5.0-git
 --------
 
-[mms] Token protect AJAX logout link.
+[mms] Token protect all AJAX actions.
 [jan] Allow to use IMAP storage for shares and groupware data without a
       complete Kolab server.
 [mms] Implement growler-like notifications for smartmobile view.

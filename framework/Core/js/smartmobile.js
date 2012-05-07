@@ -21,10 +21,11 @@ var HordeMobile = {
      * Common URLs.
      *
      * Set by Horde_PageOutput:
-     *   - ajax: AJAX endpoint.
-     *   - logout: Logout URL.
+     *   - ajax_url: AJAX endpoint.
+     *   - logout_url: Logout URL.
+     *   - token: AJAX session token.
      */
-    urls: {},
+    conf: {},
 
     /**
      * Debug.
@@ -46,7 +47,11 @@ var HordeMobile = {
      */
     doAction: function(action, params, callback, opts)
     {
+        params = params || {};
+        params.token = HordeMobile.conf.token;
+
         $.mobile.showPageLoadingMsg();
+
         var options = $.extend({
             'data': params,
             'error': $.noop,
@@ -54,7 +59,7 @@ var HordeMobile = {
                 HordeMobile.doActionComplete(d, callback);
             },
             'type': 'post',
-            'url': HordeMobile.urls.ajax + action,
+            'url': HordeMobile.conf.ajax_url + action,
         }, opts || {});
         $.ajax(options);
     },
@@ -129,7 +134,7 @@ var HordeMobile = {
     logout: function(url)
     {
         HordeMobile.is_logout = true;
-        window.location = (url || HordeMobile.urls.logout);
+        window.location = (url || HordeMobile.conf.logout_url);
     },
 
     /**

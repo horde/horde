@@ -532,7 +532,7 @@ class Horde_PageOutput
      */
     public function header(array $opts = array())
     {
-        global $language, $registry;
+        global $language, $registry, $session;
 
         $view = new Horde_View(array(
             'templatePath' => $registry->get('templates', 'horde') . '/common'
@@ -569,6 +569,7 @@ class Horde_PageOutput
 
                 /* Other constants */
                 'SID' => defined('SID') ? SID : '',
+                'TOKEN' => $session->getToken(),
 
                 /* Other config. */
                 'growler_log' => !empty($opts['growler_log']),
@@ -626,9 +627,13 @@ class Horde_PageOutput
                 '$.mobile.dialog.prototype.options.closeBtnText = "' . _("Close") .'";',
                 '$.mobile.loadingMessage = "' . _("loading") . '";'
             ), isset($opts['smartmobileinit']) ? $opts['smartmobileinit'] : array()));
+
             $this->addInlineJsVars(array(
-                'HordeMobile.urls.ajax' => Horde::getServiceLink('ajax', $registry->getApp())->url,
-                'HordeMobile.urls.logout' => strval(Horde::getServiceLink('logout'))
+                'HordeMobile.conf' => array(
+                    'ajax_url' => Horde::getServiceLink('ajax', $registry->getApp())->url,
+                    'logout_url' => strval(Horde::getServiceLink('logout')),
+                    'token' => $session->getToken()
+                )
             ));
             $this->addInlineScript('$(window.document).bind("mobileinit", function() {' . $init_js . '});');
 

@@ -116,6 +116,8 @@ var HordeCore = {
         if (HordeCoreConf.SID) {
             params.update(HordeCoreConf.SID.toQueryParams());
         }
+
+        params.set('token', HordeCoreConf.TOKEN);
     },
 
     doActionComplete: function(request, callback)

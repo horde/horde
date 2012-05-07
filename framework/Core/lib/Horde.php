@@ -213,7 +213,8 @@ class Horde
         switch ($type) {
         case 'ajax':
             $opts['noajax'] = true;
-            return self::url('services/ajax.php/' . $app . '/', false, $opts);
+            return self::url('services/ajax.php/' . $app . '/', false, $opts)
+                       ->add('token', $GLOBALS['session']->getToken());
 
         case 'cache':
             $opts['append_session'] = -1;
