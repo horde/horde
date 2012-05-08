@@ -65,6 +65,13 @@ class Horde_PageOutput
     public $sidebarLoaded = false;
 
     /**
+     * View mode.
+     *
+     * @var integer
+     */
+    protected $_view = 0;
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -541,13 +548,11 @@ class Horde_PageOutput
         $view->outputJs = !$this->deferScripts;
         $view->stylesheetOpts = array();
 
-        if (empty($opts['view'])) {
-            $opts['view'] = $registry->hasView($registry->getView())
-                ? $registry->getView()
-                : Horde_Registry::VIEW_BASIC;
-        }
+        $this->_view = empty($opts['view'])
+            ? ($registry->hasView($registry->getView()) ? $registry->getView() : Horde_Registry::VIEW_BASIC)
+            : $opts['view'];
 
-        switch ($opts['view']) {
+        switch ($this->_view) {
         case $registry::VIEW_BASIC:
             $view->stylesheetOpts['sub'] = 'basic';
             break;
@@ -705,18 +710,14 @@ class Horde_PageOutput
     }
 
     /**
+     * Output page footer.
+     *
      * @param array $opts  Options:
-     *   - view: (integer)
+     *   - NONE currently
      */
     public function footer(array $opts = array())
     {
         global $browser, $notification, $registry;
-
-        if (!isset($opts['view'])) {
-            $opts['view'] = $registry->hasView($registry->getView())
-                ? $registry->getView()
-                : Horde_Registry::VIEW_BASIC;
-        }
 
         $view = new Horde_View(array(
             'templatePath' => $registry->get('templates', 'horde') . '/common'
@@ -731,7 +732,7 @@ class Horde_PageOutput
 
         $this->deferScripts = false;
 
-        switch ($opts['view']) {
+        switch ($this->_view) {
         case $registry::VIEW_SMARTMOBILE:
             $view->smartmobileView = true;
             break;
