@@ -389,17 +389,17 @@ class IMP_Views_ShowMessage
                 if (is_null($limit) || ($count <= $limit)) {
                     $tmp['a'] = array();
                     foreach ($ob->addresses as $val) {
-                        $tmp['a'][] = array_filter(array(
+                        $tmp['a'][] = array(
                             'b' => $val->bare_address,
                             'p' => $val->personal
-                        ));
+                        );
                     }
                 }
             } else {
-                $tmp = array_filter(array(
+                $tmp = array(
                     'b' => $ob->bare_address,
                     'p' => $ob->personal
-                ));
+                );
                 ++$count;
             }
 
