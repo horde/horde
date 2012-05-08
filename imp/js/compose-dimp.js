@@ -262,14 +262,6 @@ var DimpCompose = {
 
             case 'sendMessage':
                 if (this.baseAvailable()) {
-                    if (d.flag) {
-                        HordeCore.base.DimpBase.flagCallback(d);
-                    }
-
-                    if (d.mailbox) {
-                        HordeCore.base.DimpBase.mailboxCallback(r);
-                    }
-
                     if (d.draft_delete) {
                         HordeCore.base.DimpBase.poll();
                     }
@@ -1100,6 +1092,19 @@ var DimpCompose = {
         ImpComposeBase.updateAddressField($(e.memo.field), e.memo.value);
     },
 
+    tasksHandler: function(t)
+    {
+        if (this.baseAvailable()) {
+            if (t['imp:flag']) {
+                HordeCore.base.DimpBase.flagCallback(t['imp:flag']);
+            }
+
+            if (t['imp:mailbox']) {
+                HordeCore.base.DimpBase.mailboxCallback(t['imp:mailbox']);
+            }
+        }
+    },
+
     onDomLoad: function()
     {
         var tmp;
@@ -1222,3 +1227,8 @@ document.observe('HordeDialog:success', function(e) {
         break;
     }
 });
+
+/* Catch tasks. */
+document.observe('HordeCore:runTasks', function(e) {
+    this.tasksHandler(e.memo);
+}.bindAsEventListener(DimpCompose));
