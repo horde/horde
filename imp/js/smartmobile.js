@@ -144,16 +144,16 @@ var ImpMobile = {
 
         HordeMobile.doAction(
             'viewPort',
-            $.extend(ImpMobile.addMboxParams(params), {
+            ImpMobile.addViewportParams($.extend(params, {
                 requestid: 1,
                 view: mailbox
-            })
+            }))
         );
     },
 
     /**
      */
-    addMboxParams: function(params)
+    addViewportParams: function(params)
     {
         params = params || {};
 
@@ -167,7 +167,10 @@ var ImpMobile = {
 
         params.slice = from + ':' + (from + ImpMobile.mbox_rows - 1);
 
-        return params;
+        return {
+            view: params.view,
+            viewport: JSON.stringify(params)
+        };
     },
 
     /**
@@ -312,7 +315,7 @@ var ImpMobile = {
                     before: ImpMobile.mbox_rows,
                     requestid: 1,
                     // Need to manually encode JSON here.
-                    search: '{"uid":' + url.params.uid + '}',
+                    search: JSON.stringify({ uid: url.params.uid }),
                     view: url.params.view
                 }
             );
@@ -776,11 +779,12 @@ var ImpMobile = {
         case 'ham':
             HordeMobile.doAction(
                 'reportSpam',
-                ImpMobile.addMboxParams({
+                $.extend(ImpMobile.addViewportParams({
                     checkcache: 1,
+                    view: url.params.mbox
+                }), {
                     spam: Number(url.params.action == 'spam'),
                     uid: ImpMobile.toUIDStringSingle(url.params.mbox, [ url.params.uid ]),
-                    view: url.params.mbox
                 }),
                 function() {
                     HordeMobile.changePage('#mailbox?mbox=' + url.params.mbox);
@@ -831,12 +835,13 @@ var ImpMobile = {
 
         HordeMobile.doAction(
             func,
-            $.extend(ImpMobile.addMboxParams({}), {
+            $.extend(ImpMobile.addViewportParams({
                 checkcache: 1,
+                view: source
+            }), {
                 mboxto: value,
                 newmbox: $('#imp-target-new').val(),
                 uid: ImpMobile.toUIDStringSingle(source, [ $('#imp-target-uid').val() ]),
-                view: source
             }),
             (IMP.conf.mailbox_return || func == 'moveMessages')
                 ? function(r) {
@@ -939,10 +944,11 @@ var ImpMobile = {
             case 'imp-message-delete':
                 HordeMobile.doAction(
                     'deleteMessages',
-                    ImpMobile.addMboxParams({
+                    $.extend(ImpMobile.addViewportParams({
                         checkcache: 1,
-                        uid: ImpMobile.toUIDStringSingle(ImpMobile.mailbox, [ ImpMobile.uid ]),
                         view: ImpMobile.mailbox
+                    }), {
+                        uid: ImpMobile.toUIDStringSingle(ImpMobile.mailbox, [ ImpMobile.uid ]),
                     })
                 );
                 $.mobile.changePage('#mailbox?mbox=' + ImpMobile.mailbox);

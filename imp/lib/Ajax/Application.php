@@ -57,6 +57,11 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         if (isset($vars->view)) {
             $this->_mbox = IMP_Mailbox::formFrom($vars->view);
         }
+
+        /* Make sure the viewport entry is initialized. */
+        $vars->viewport = isset($vars->viewport)
+            ? Horde_Serialize::unserialize($vars->viewport, Horde_Serialize::JSON)
+            : new stdClass;
     }
 
     /**
@@ -591,7 +596,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * AJAX action: Output ViewPort data.
      *
      * See the list of variables needed for _changed() and _viewPortData().
-     * Additional variables used:
+     * Additional variables used (contained in 'viewport' parameter):
      *   - checkcache: (integer) If 1, only send data if cache has been
      *                 invalidated.
      *   - rangeslice: (string) Range slice. See js/viewport.js.
@@ -607,14 +612,19 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             return false;
         }
 
+        $vp_vars = $this->_vars->viewport;
+
         /* Change sort preferences if necessary. */
-        if (isset($this->_vars->sortby) || isset($this->_vars->sortdir)) {
-            $this->_mbox->setSort($this->_vars->sortby, $this->_vars->sortdir);
+        if (isset($vp_vars->sortby) || isset($vp_vars->sortdir)) {
+            $this->_mbox->setSort(
+                isset($vp_vars->sortby) ? $vp_vars->sortby : null,
+                isset($vp_vars->sortdir) ? $vp_vars->sortdir : null
+            );
         }
 
         /* Toggle hide deleted preference if necessary. */
-        if (isset($this->_vars->delhide)) {
-            $this->_mbox->setHideDeletedMsgs($this->_vars->delhide);
+        if (isset($vp_vars->delhide)) {
+            $this->_mbox->setHideDeletedMsgs($vp_vars->delhide);
         }
 
         $changed = $this->_changed(true);
@@ -623,9 +633,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $list_msg = new IMP_Views_ListMessages();
             $vp = $list_msg->getBaseOb($this->_mbox);
 
-            $req_id = $this->_vars->requestid;
-            if (!is_null($req_id)) {
-                $vp->requestid = intval($req_id);
+            if (isset($vp_vars->requestid)) {
+                $vp->requestid = intval($vp_vars->requestid);
             }
 
             $this->addTask('viewport', $vp);
@@ -634,9 +643,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         $this->_queue->poll($this->_mbox);
 
-        if ($changed ||
-            $this->_vars->rangeslice ||
-            !$this->_vars->checkcache) {
+        if ($changed || $vp_vars->rangeslice || !$vp_vars->checkcache) {
             /* Ticket #7422: Listing messages may be a long-running operation
              * so close the session while we are doing it to prevent
              * deadlocks. */
@@ -647,7 +654,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             /* Reopen the session. */
             $GLOBALS['session']->start();
 
-            if (isset($this->_vars->delhide)) {
+            if (isset($vp_vars->delhide)) {
                 $vp->metadata_reset = 1;
             }
 
@@ -969,7 +976,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             if ($this->_vars->preview) {
                 if ($change) {
                     $this->addTask('viewport', $this->_viewPortData(true));
-                } elseif ($this->_mbox->cacheid_date != $this->_vars->cacheid) {
+                } elseif ($this->_mbox->cacheid_date != $this->_vars->viewport->cacheid) {
                     /* Cache ID has changed due to viewing this message. So
                      * update the cacheid in the ViewPort. */
                     $this->addTask('viewport', $this->_viewPortOb());
@@ -1983,7 +1990,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     {
         /* Only update search mailboxes on forced refreshes. */
         if ($this->_mbox->search) {
-            return !empty($this->_vars->forceUpdate);
+            return !empty($this->_vars->viewport->forceUpdate);
         }
 
         /* We know we are going to be dealing with this mailbox, so select it
@@ -1997,12 +2004,29 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             }
         }
 
-        return ($this->_mbox->cacheid_date != $this->_vars->cacheid);
+        return ($this->_mbox->cacheid_date != $this->_vars->viewport->cacheid);
     }
 
     /**
      * Generate the information necessary for a ViewPort request from/to the
      * browser.
+     *
+     * Variables used (contained in 'viewport' object):
+     *   - applyfilter
+     *   - cache
+     *   - cacheid
+     *   - delhide
+     *   - initial
+     *   - qsearch
+     *   - qsearchfield
+     *   - qsearchfilter
+     *   - qsearchflag
+     *   - qsearchflagnot
+     *   - qsearchmbox
+     *   - rangeslice
+     *   - requestid
+     *   - sortby
+     *   - sortdir
      *
      * @param boolean $change  True if cache information has changed.
      *
@@ -2021,25 +2045,29 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             'qsearchmbox', 'rangeslice', 'requestid', 'sortby', 'sortdir'
         );
 
+        $vp = $this->_vars->viewport;
+
         foreach ($params as $val) {
-            $args[$val] = $this->_vars->$val;
+            if (isset($vp->$val)) {
+                $args[$val] = $vp->$val;
+            }
         }
 
-        if ($this->_vars->search || $args['initial']) {
+        if ($vp->search || $args['initial']) {
             $args += array(
-                'after' => intval($this->_vars->after),
-                'before' => intval($this->_vars->before)
+                'after' => intval($vp->after),
+                'before' => intval($vp->before)
             );
         }
 
-        if ($this->_vars->search) {
-            $search = Horde_Serialize::unserialize($this->_vars->search, Horde_Serialize::JSON);
+        if ($vp->search) {
+            $search = Horde_Serialize::unserialize($vp->search, Horde_Serialize::JSON);
             $args += array(
                 'search_uid' => isset($search->uid) ? $search->uid : null,
                 'search_unseen' => isset($search->unseen) ? $search->unseen : null
             );
         } else {
-            list($slice_start, $slice_end) = explode(':', $this->_vars->slice, 2);
+            list($slice_start, $slice_end) = explode(':', $vp->slice, 2);
             $args += array(
                 'slice_start' => intval($slice_start),
                 'slice_end' => intval($slice_end)

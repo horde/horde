@@ -626,7 +626,13 @@ var DimpBase = {
                     params.set('cache', DimpCore.toUIDString(DimpCore.selectionToRange(this.viewport.createSelection('uid', tmp.evalJSON(tmp), view))));
                 }
 
+                params = $H({
+                    viewport: Object.toJSON(params),
+                    view: view
+                });
                 HordeCore.addRequestParams(params);
+
+                return params;
             }.bind(this),
             onAjaxResponse: function(o, h) {
                 HordeCore.doActionComplete(o);
@@ -852,6 +858,15 @@ var DimpBase = {
                 HordeCore.notify(DIMP.text.listmsg_wait, 'horde.warning');
             }
         });
+    },
+
+    addViewportParams: function(params)
+    {
+        var tmp = this.viewport.addRequestParams();
+        if (params) {
+            tmp.update(params);
+        }
+        return tmp;
     },
 
     emptyMsg: function()
@@ -1623,7 +1638,7 @@ var DimpBase = {
         params.preview = 1;
         this.loadingImg('msg', true);
 
-        DimpCore.doAction('showMessage', this.viewport.addRequestParams(params), {
+        DimpCore.doAction('showMessage', this.addViewportParams(params), {
             callback: function(r) {
                 if (!r || r.error) {
                     if (r) {
@@ -1732,7 +1747,7 @@ var DimpBase = {
                     row = rows.last();
                 }
 
-                DimpCore.doAction('showMessage', this.viewport.addRequestParams({
+                DimpCore.doAction('showMessage', this.addViewportParams({
                     peek: 1,
                     preview: 1
                 }), {
@@ -2015,7 +2030,7 @@ var DimpBase = {
         if (this.view &&
             $('dimpmain_folder').visible() &&
             this.viewport.getMetaData('label')) {
-            args = this.viewport.addRequestParams({});
+            args = this.addViewportParams();
 
             // Possible further optimization: only poll VISIBLE mailboxes.
             // Issue: it is quite expensive to determine this, since the
@@ -2211,11 +2226,11 @@ var DimpBase = {
 
             if (uids.size()) {
                 if (e.memo.dragevent.ctrlKey) {
-                    DimpCore.doAction('copyMessages', this.viewport.addRequestParams({ mboxto: mboxname }), { uids: uids });
+                    DimpCore.doAction('copyMessages', this.addViewportParams({ mboxto: mboxname }), { uids: uids });
                 } else if (this.view != mboxname) {
                     // Don't allow drag/drop to the current mailbox.
                     this.updateFlag(uids, DIMP.conf.FLAG_DELETED, true);
-                    DimpCore.doAction('moveMessages', this.viewport.addRequestParams({ mboxto: mboxname }), { uids: uids });
+                    DimpCore.doAction('moveMessages', this.addViewportParams({ mboxto: mboxname }), { uids: uids });
                 }
             }
         }
@@ -2789,7 +2804,7 @@ var DimpBase = {
                     return;
                 } else if (elt.hasClassName('stripAtc')) {
                     this.loadingImg('msg', true);
-                    DimpCore.doAction('stripAttachment', this.viewport.addRequestParams({ id: elt.readAttribute('mimeid') }), {
+                    DimpCore.doAction('stripAttachment', this.addViewportParams({ id: elt.readAttribute('mimeid') }), {
                         callback: function(r) {
                             if (!this.pp) {
                                 this.viewport.select(this.viewport.createSelectionBuffer().search({ mbox: { equal: [ r.newmbox ] }, uid: { equal: [ r.newuid ] } }).get('rownum'));
@@ -3407,7 +3422,7 @@ var DimpBase = {
             // This needs to be synchronous Ajax if we are calling from a
             // popup window because Mozilla will not correctly call the
             // callback function if the calling window has been closed.
-            DimpCore.doAction(type, this.viewport.addRequestParams(args), {
+            DimpCore.doAction(type, this.addViewportParams(args), {
                 ajaxopts: { asynchronous: !(opts.uid && opts.mailbox) },
                 callback: opts.callback,
                 uids: vs
@@ -3465,10 +3480,9 @@ var DimpBase = {
         });
 
         if (need) {
-            DimpCore.doAction('flagMessages', this.viewport.addRequestParams({
+            DimpCore.doAction('flagMessages', this.addViewportParams({
                 add: Number(add),
-                flags: Object.toJSON([ flag ]),
-                view: this.view
+                flags: Object.toJSON([ flag ])
             }), {
                 uids: vs
             });
@@ -3529,7 +3543,7 @@ var DimpBase = {
 
     purgeDeleted: function()
     {
-        DimpCore.doAction('purgeDeleted', this.viewport.addRequestParams({}));
+        DimpCore.doAction('purgeDeleted', this.addViewportParams());
     },
 
     modifyPoll: function(mbox, add)

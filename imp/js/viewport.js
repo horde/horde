@@ -54,7 +54,8 @@
  *                parameters to be added to the outgoing AJAX request.
  *                params: (Hash) The params list (the current view can be
  *                        obtained via the view property).
- *                return: NONE
+ *                return: (Hash) The params list to use for the outgoing
+ *                        request.
  * onAjaxResponse: (function) Callback function that allows user-defined code
  *                 to additionally process the AJAX return data.
  *                params: (XMLHttpRequest object)
@@ -763,7 +764,9 @@ var ViewPort = Class.create({
     // Returns a Hash object
     addRequestParams: function(args, opts)
     {
+        args = args || {};
         opts = opts || {};
+
         var cid = this.getMetaData('cacheid', opts.view),
             params = $H(),
             cached, rowlist;
@@ -786,11 +789,9 @@ var ViewPort = Class.create({
 
         params.update(args);
 
-        if (this.opts.onAjaxRequest) {
-            this.opts.onAjaxRequest(params);
-        }
-
-        return params;
+        return this.opts.onAjaxRequest
+            ? $H(this.opts.onAjaxRequest(params))
+            : params;
     },
 
     // params - (object) A list of parameters to send to server

@@ -68,6 +68,8 @@ require IMP_TEMPLATES . '/smartmobile/javascript_defs.php';
 $notification->notify(array('listeners' => 'status'));
 
 $page_output->addScriptFile('smartmobile.js');
+$page_output->addScriptFile('json2.js', 'horde');
+
 $page_output->header(array(
     'smartmobileinit' => array(
         '$.mobile.page.prototype.options.addBackBtn = true;'
