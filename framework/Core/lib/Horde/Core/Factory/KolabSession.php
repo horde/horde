@@ -72,7 +72,8 @@ class Horde_Core_Factory_KolabSession extends Horde_Core_Factory_Base
      */
     public function createSession()
     {
-        if (!isset($GLOBALS['conf']['kolab']['users'])) {
+        if (!empty($GLOBALS['conf']['kolab']['enabled']) &&
+	    !isset($GLOBALS['conf']['kolab']['users'])) {
             $session = new Horde_Kolab_Session_Base(
                 $this->_injector->getInstance('Horde_Kolab_Server_Composite'),
                 $GLOBALS['conf']['kolab']
