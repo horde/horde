@@ -763,7 +763,6 @@ class Horde_ActiveSync_Imap_Adapter
         $eas_message->cc = $imap_message->getCc();
         $eas_message->reply_to = $imap_message->getReplyTo();
         $eas_message->messageclass = 'IPM.Note';
-        $signed = strtolower($imap_message->getStructure()->getSubType()) == 'signed';
 
         if ($version == Horde_ActiveSync::VERSION_TWOFIVE || empty($options['bodyprefs'])) {
             // EAS 2.5 behavior or no bodyprefs sent
@@ -780,6 +779,7 @@ class Horde_ActiveSync_Imap_Adapter
             $eas_message->bodytruncated = $message_body_data['plain']['truncated'];
             $eas_message->attachments = $imap_message->getAttachments($version);
         } else {
+            $signed = strtolower($imap_message->getStructure()->getSubType()) == 'signed';
             $message_body_data = $imap_message->getMessageBodyData($options);
             if (!empty($message_body_data['html'])) {
                 $eas_message->airsyncbasenativebodytype = Horde_ActiveSync::BODYPREF_TYPE_HTML;
@@ -793,70 +793,55 @@ class Horde_ActiveSync_Imap_Adapter
                  ($options['mimesupport'] == Horde_ActiveSync::MIME_SUPPORT_SMIME &&
                   $signed))) {
                 $this->_logger->debug('Sending MIME Message.');
-
-                // Create the body part.
-                $mime = new Horde_Mime_Part();
-                $mime->setType('multipart/alternative');
-                if (!empty($message_body_data['plain'])) {
-                    $plain_mime = new Horde_Mime_Part();
-                    $plain_mime->setType('text/plain');
-                    if ($message_body_data['plain']['charset'] != 'UTF-8') {
-                        $message_body_data['plain']['body'] = Horde_String::convertCharset(
-                            $message_body_data['plain']['body'],
-                            $message_body_data['plain']['charset'],
-                            'UTF-8'
-                        );
+                // ActiveSync *REQUIRES* all data sent to be in UTF-8, so we
+                // must convert the body parts to UTF-8. Unfortunately if the
+                // email is signed (or encrypted for that matter) we can't
+                // alter the data in anyway or the signature will not be
+                // verified, so we fetch the entire message and hope for the best.
+                // We also can't use a stream for the message data because the
+                // data MUST include the length of the the raw data.
+                if (!$signed) {
+                    // Create the body part.
+                    $mime = new Horde_Mime_Part();
+                    $mime->setType('multipart/alternative');
+                    if (!empty($message_body_data['plain'])) {
+                        $plain_mime = new Horde_Mime_Part();
+                        $plain_mime->setType('text/plain');
+                        if ($message_body_data['plain']['charset'] != 'UTF-8') {
+                            $message_body_data['plain']['body'] = Horde_String::convertCharset(
+                                $message_body_data['plain']['body'],
+                                $message_body_data['plain']['charset'],
+                                'UTF-8'
+                            );
+                        }
+                        $plain_mime->setContents($message_body_data['plain']['body']);
+                        $plain_mime->setCharset('UTF-8');
+                        $mime->addPart($plain_mime);
                     }
-                    $plain_mime->setContents($message_body_data['plain']['body']);
-                    $plain_mime->setCharset('UTF-8');
-                    $mime->addPart($plain_mime);
-                }
-                if (!empty($message_body_data['html'])) {
-                    $html_mime = new Horde_Mime_Part();
-                    $html_mime->setType('text/html');
-                    $html_mime->setContents($message_body_data['html']['body']);
-                    $html_mime->setCharset($message_body_data['html']['charset']);
-                    $mime->addPart($html_mime);
-                }
-
-                // If we have attachments, create a multipart/mixed wrapper part.
-                if ($imap_message->hasAttachments()) {
-                    $base = new Horde_Mime_Part();
-                    $base->setType('multipart/mixed');
-                    $base->addPart($mime);
-                    $atc = $imap_message->getAttachmentsMimeParts();
-                    foreach ($atc as $atc_part) {
-                        $base->addPart($atc_part);
+                    if (!empty($message_body_data['html'])) {
+                        $html_mime = new Horde_Mime_Part();
+                        $html_mime->setType('text/html');
+                        $html_mime->setContents($message_body_data['html']['body']);
+                        $html_mime->setCharset($message_body_data['html']['charset']);
+                        $mime->addPart($html_mime);
                     }
-                }
 
-                // If the message is s/mime signed wrap with a multipart/signed.
-                if ($signed) {
-                    if (!empty($base)) {
-                        $smime = $base;
+                    // If we have attachments, create a multipart/mixed wrapper part.
+                    if ($imap_message->hasAttachments()) {
+                        $base = new Horde_Mime_Part();
+                        $base->setType('multipart/mixed');
+                        $base->addPart($mime);
+                        $atc = $imap_message->getAttachmentsMimeParts();
+                        foreach ($atc as $atc_part) {
+                            $base->addPart($atc_part);
+                        }
                     } else {
-                        $smime = $mime;
+                        $base = $mime;
                     }
-                    $base = new Horde_Mime_Part();
-                    $base->setType('multipart/signed');
-                    $params = $imap_message->getStructure()->getAllContentTypeParameters();
-                    foreach ($params as $label => $value) {
-                        $base->setContentTypeParameter($label, $value);
-                    }
-                    $eas_message->messageclass = 'IPM.Note.SMIME.MultipartSigned';
-                    $base->addPart($smime);
-                    $base->addPart($imap_message->getMimePart(2));
+                    $airsync_body->data = $base->toString(array('headers' => true));
+                } else {
+                    $airsync_body->data = $imap_message->getFullMsg();
                 }
-
-                // Ensure we have the $base variable assigned to the base part.
-                if (!$imap_message->hasAttachments() && !$signed) {
-                    $base = $mime;
-                }
-
-                // Prepare the airsync_body structure
-                // @TODO: I have no idea if/how we need to worry about truncation
-                // here when sending a full mime blob.
-                $airsync_body->data = $base->toString(array('headers' => true));
                 $airsync_body->type = Horde_ActiveSync::BODYPREF_TYPE_MIME;
                 $airsync_body->estimateddatasize = Horde_String::length($airsync_body->data);
                 $airsync_body->truncated = '0';
