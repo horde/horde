@@ -35,7 +35,7 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
             $part->getType()
         );
         $this->assertEquals(
-            1869,
+            1434,
             $part->getBytes()
         );
         $this->assertEquals(
@@ -85,6 +85,10 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
             'Content-Transfer-Encoding: base64',
             Horde_Mime_Part::getRawPartText($msg, 'header', '3')
         );
+
+        // Test the length of the resulting MIME string to ensure
+        // the incoming multipart data was not output twice.
+        $this->assertEquals(1795, strlen($part->toString()));
     }
 
     public function testArrayAccessImplementation()
