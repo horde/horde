@@ -174,7 +174,7 @@ $display_headers = $msgAddresses = array();
 
 if (($subject = $mime_headers->getValue('subject'))) {
     /* Filter the subject text, if requested. */
-    $subject = Horde_String::truncate(IMP::filterText($subject), 50);
+    $subject = htmlspecialchars(Horde_String::truncate(IMP::filterText($subject), 50), ENT_QUOTES, 'UTF-8');
 } else {
     $subject = _("[No Subject]");
 }
