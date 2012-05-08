@@ -1170,7 +1170,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             $this->_temp['toString'] = '';
             $options['_baseptr'] = &$this->_temp['toString'];
 
-            /* Any information about a message/* is embedded in the message
+            /* Any information about a message is embedded in the message
              * contents themself. Simply output the contents of the part
              * directly and return. */
             $ptype = $this->getPrimaryType();
@@ -1975,7 +1975,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
 
             if (!empty($body)) {
                 $ob->setContents($body);
-                $ob->setBytes( strlen(str_replace(array("\r\n", "\n"), array("\n", "\r\n"), $body)));
+                $ob->setBytes(strlen(str_replace(array("\r\n", "\n"), array("\n", "\r\n"), $body)));
             }
 
             return $ob;
@@ -2023,7 +2023,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         }
 
         /* Get file size (if 'body' text is set). */
-        if (!empty($body)) {
+        if (!empty($body) && $ob->getPrimaryType() != 'multipart') {
             $ob->setContents($body);
             if ($ob->getType() != '/message/rfc822') {
                 $ob->setBytes(strlen(str_replace(array("\r\n", "\n"), array("\n", "\r\n"), $body)));
