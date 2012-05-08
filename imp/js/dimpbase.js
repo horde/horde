@@ -1682,12 +1682,8 @@ var DimpBase = {
             $('msgAtc').hide();
         }
 
-        // Add message information
-        if (r.log) {
-            this.updateMsgLog(r.log);
-        } else {
-            $('msgLogInfo').hide();
-        }
+        // Add message log information
+        DimpCore.updateMsgLog(r.log);
 
         // Toggle resume link
         if (this.viewport.getMetaData('templates')) {
@@ -1820,31 +1816,19 @@ var DimpBase = {
         }
     },
 
-    // opts = mailbox, uid
-    updateMsgLog: function(log, opts)
+    maillogCallback: function(r)
     {
-        var tmp;
-
-        if (!opts ||
-            (this.pp &&
-             this.pp.uid == opts.uid &&
-             this.pp.mbox == opts.mbox)) {
-            $('msgLogInfo').show();
-
-            if (opts) {
-                $('msgloglist_col').show();
-                $('msgloglist_exp').hide();
-            }
-
-            DimpCore.updateMsgLog(log);
-        }
-
-        if (opts) {
-            tmp = this._getPPId(opts.uid, opts.mbox);
+        r.each(function(l) {
+            var tmp = this._getPPId(l.uid, l.mbox);
             if (this.ppcache[tmp]) {
-                this.ppcache[tmp].log = log;
+                this.ppcache[tmp].log = l.log;
+                if (this.pp &&
+                    this.pp.uid == l.uid &&
+                    this.pp.mbox == l.mbox) {
+                    DimpCore.updateMsgLog(l.log);
+                }
             }
-        }
+        }, this);
     },
 
     initPreviewPane: function()
@@ -3619,6 +3603,10 @@ var DimpBase = {
 
         if (t['imp:message']) {
             this.messageCallback(t['imp:message']);
+        }
+
+        if (t['imp:maillog']) {
+            this.maillogCallback(t['imp:maillog']);
         }
 
         if (t['imp:poll']) {

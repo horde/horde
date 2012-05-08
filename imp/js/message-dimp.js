@@ -318,11 +318,8 @@ var DimpMessage = {
         }, this);
         delete this.addr_limit;
 
-        /* Add message information. */
-        if (this.log) {
-            $('msgLogInfo').show();
-            DimpCore.updateMsgLog(this.log);
-        }
+        /* Add message log information. */
+        DimpCore.updateMsgLog(this.log);
 
         if (HordeCore.base.DimpBase) {
             if (this.strip) {

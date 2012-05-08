@@ -266,10 +266,6 @@ var DimpCompose = {
                         HordeCore.base.DimpBase.poll();
                     }
 
-                    if (d.log) {
-                        HordeCore.base.DimpBase.updateMsgLog(d.log, { uid: d.uid, mbox: d.mbox });
-                    }
-
                     if (!DIMP.conf.qreply) {
                         HordeCore.notify_handler = HordeCore.base.HordeCore.showNotifications.bind(HordeCore.base.HordeCore);
                     }
@@ -279,19 +275,8 @@ var DimpCompose = {
                 return this.closeCompose();
 
             case 'redirectMessage':
-                if (this.baseAvailable()) {
-                    if (d.log) {
-                        d.log.each(function(l) {
-                            HordeCore.base.DimpBase.updateMsgLog(l.log, {
-                                mbox: l.mbox,
-                                uid: l.uid
-                            });
-                        });
-                    }
-
-                    if (!DIMP.conf.qreply) {
-                        HordeCore.notify_handler = HordeCore.base.HordeCore.showNotifications.bind(HordeCore.base.HordeCore);
-                    }
+                if (this.baseAvailable() && !DIMP.conf.qreply) {
+                    HordeCore.notify_handler = HordeCore.base.HordeCore.showNotifications.bind(HordeCore.base.HordeCore);
                 }
 
                 $('attach_list').childElements().invoke('remove');
@@ -1101,6 +1086,10 @@ var DimpCompose = {
 
             if (t['imp:mailbox']) {
                 HordeCore.base.DimpBase.mailboxCallback(t['imp:mailbox']);
+            }
+
+            if (t['imp:maillog']) {
+                HordeCore.base.DimpBase.maillogCallback(t['imp:maillog']);
             }
         }
     },

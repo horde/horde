@@ -1619,7 +1619,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *   - flag: (array) See IMP_Ajax_Queue::add().
      *   - identity: (integer) If set, this is the identity that is tied to
      *               the current recipient address.
-     *   - log: (array) Maillog information
      *   - mbox: (string) Mailbox of original message (base64url encoded).
      *   - success: (integer) 1 on success, 0 on failure.
      *   - uid: (integer) IMAP UID of original message.
@@ -1706,18 +1705,12 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $result->draft_delete = 1;
         }
 
-        /* Update maillog information. */
-        if (!empty($GLOBALS['conf']['maillog']['use_maillog'])) {
-            $in_reply_to = $imp_compose->getMetadata('in_reply_to');
-            if (!empty($in_reply_to) &&
-                ($tmp = IMP_Dimp::getMsgLogInfo($in_reply_to))) {
-                $result->log = $tmp;
-            }
-        }
-
         if ($reply_mbox = $imp_compose->getMetadata('mailbox')) {
             $result->mbox = $reply_mbox->form_to;
             $result->uid = $imp_compose->getMetadata('uid');
+
+            /* Update maillog information. */
+            $this->_queue->maillog($reply_mbox, $result->uid, $imp_compose->getMetadata('in_reply_to'));
         }
 
         $imp_compose->destroy('send');
@@ -1734,7 +1727,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * @return object  An object with the following entries:
      *   - action: (string) 'redirectMessage'.
-     *   - log: (array) TODO
      *   - success: (integer) 1 on success, 0 on failure.
      */
     public function redirectMessage()
@@ -1742,8 +1734,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $result = new stdClass;
         $result->action = $this->_action;
         $result->success = 1;
-
-        $log = array();
 
         try {
             $imp_compose = $GLOBALS['injector']->getInstance('IMP_Factory_Compose')->create($this->_vars->composeCache);
@@ -1753,22 +1743,11 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
                 $subject = $val->headers->getValue('subject');
                 $GLOBALS['notification']->push(empty($subject) ? _("Message redirected successfully.") : sprintf(_("Message \"%s\" redirected successfully."), Horde_String::truncate($subject)), 'horde.success');
 
-                if (!empty($GLOBALS['conf']['maillog']['use_maillog']) &&
-                    ($tmp = IMP_Dimp::getMsgLogInfo($val->headers->getValue('message-id')))) {
-                    $log_ob = new stdClass;
-                    $log_ob->log = $tmp;
-                    $log_ob->mbox = $val->mbox->form_to;
-                    $log_ob->uid = $val->uid;
-                    $log[] = $log_ob;
-                }
+                $this->_queue->maillog($val->mbox, $val->uid, $val->headers->getValue('message-id'));
             }
         } catch (Horde_Exception $e) {
             $GLOBALS['notification']->push($e);
             $result->success = 0;
-        }
-
-        if (!empty($log)) {
-            $result->log = $log;
         }
 
         return $result;

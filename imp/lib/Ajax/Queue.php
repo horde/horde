@@ -38,6 +38,13 @@ class IMP_Ajax_Queue
     protected $_messages = array();
 
     /**
+     * Mail log queue.
+     *
+     * @var array
+     */
+    protected $_maillog = array();
+
+    /**
      * Poll mailboxes.
      *
      * @var array
@@ -68,6 +75,11 @@ class IMP_Ajax_Queue
      *   - d: (array) Mailboxes that were deleted (base64url encoded).
      *   - expand: (integer) Expand subfolders on load.
      *   - noexpand: (integer) TODO
+     *
+     * For maillog data (key: 'maillog'), an object with these properties:
+     *   - log: (array) List of log entries.
+     *   - mbox: (string) Mailbox.
+     *   - uid: (string) UID.
      *
      * For message preview data (key: 'message'), an array with these keys:
      *
@@ -114,6 +126,25 @@ class IMP_Ajax_Queue
         $out = $imptree->getAjaxResponse();
         if (!empty($out)) {
             $ajax->addTask('mailbox', array_merge($out, $this->_mailboxOpts));
+        }
+
+        /* Add mail log information. */
+        if (!empty($this->_maillog)) {
+            $maillog = array();
+
+            foreach ($this->_maillog as $val) {
+                if ($tmp = IMP_Dimp::getMsgLogInfo($val->msg_id)) {
+                    $log_ob = new stdClass;
+                    $log_ob->log = $tmp;
+                    $log_ob->mbox = $val->mbox->form_to;
+                    $log_ob->uid = $val->uid;
+                    $maillog[] = $log_ob;
+                }
+            }
+
+            if (!empty($maillog)) {
+                $ajax->addTask('maillog', $maillog);
+            }
         }
 
         /* Add poll information. */
@@ -193,6 +224,24 @@ class IMP_Ajax_Queue
             'preview' => $preview,
             'uid' => $uid
         );
+    }
+
+    /**
+     * Add mail log data to output.
+     *
+     * @param string $mailbox  The mailbox name.
+     * @param string $uid      The message UID.
+     * @param string $msg_id   The message ID of the original message.
+     */
+    public function maillog($mailbox, $uid, $msg_id)
+    {
+        if (!empty($GLOBALS['conf']['maillog']['use_maillog'])) {
+            $this->_maillog[] = array(
+                'mailbox' => $mailbox,
+                'msg_id' => $msg_id,
+                'uid' => $uid
+            );
+        }
     }
 
     /**
