@@ -63,9 +63,10 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         }
 
         /* Make sure the viewport entry is initialized. */
-        $vars->viewport = isset($vars->viewport)
+        $vp = isset($vars->viewport)
             ? Horde_Serialize::unserialize($vars->viewport, Horde_Serialize::JSON)
             : new stdClass;
+        $vars->viewport = new Horde_Support_ObjectStub($vp);
 
         /* GLOBAL TASKS */
 
@@ -2065,9 +2066,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $vp = $this->_vars->viewport;
 
         foreach ($params as $val) {
-            if (isset($vp->$val)) {
-                $args[$val] = $vp->$val;
-            }
+            $args[$val] = $vp->$val;
         }
 
         if ($vp->search || $args['initial']) {
