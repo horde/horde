@@ -379,6 +379,8 @@ class IMP_Views_ShowMessage
         $addr_array = $out = array();
         $count = 0;
 
+        $addrlist->unique();
+
         foreach ($addrlist->base_addresses as $ob) {
             if ($ob instanceof Horde_Mail_Rfc822_Group) {
                 $tmp = array(
