@@ -153,8 +153,6 @@ var HordeCore = {
         }
         this.server_error = 0;
 
-        this.notify_handler(r.msgs);
-
         if (r.tasks) {
             document.fire('HordeCore:runTasks', r.tasks);
         }
@@ -168,6 +166,8 @@ var HordeCore = {
         }
 
         document.fire('HordeCore:doActionComplete');
+
+        this.notify_handler(r.msgs);
 
         this.inAjaxCallback = false;
     },
