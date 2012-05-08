@@ -83,7 +83,7 @@ case 'e':
 
 // 's' = search
 case 's':
-    $title = sprintf(_("Search %s"), IMP::mailbox()->label);
+    $title = sprintf(_("Search %s"), IMP::mailbox()->display_html);
 
     $t->set('mailbox', IMP::mailbox()->form_to);
     $t->set('menu', $imp_ui_mimp->getMenu('search'));
@@ -116,7 +116,7 @@ $imp_mailbox = IMP::mailbox()->getListOb();
 $pageOb = $imp_mailbox->buildMailboxPage($vars->p, $vars->s);
 
 /* Generate page title. */
-$title = IMP::mailbox()->label;
+$title = IMP::mailbox()->display_html;
 
 /* Modify title for display on page. */
 if ($pageOb['msgcount']) {
@@ -144,7 +144,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     /* Initialize the header fields. */
     $msg = array(
         'status' => '',
-        'subject' => trim($imp_ui->getSubject($ob['envelope']->subject)),
+        'subject' => htmlspecialchars(trim($imp_ui->getSubject($ob['envelope']->subject)), ENT_QUOTES, 'UTF-8'),
         'uid' => strval(new IMP_Indices($ob['mailbox'], $ob['uid']))
     );
 

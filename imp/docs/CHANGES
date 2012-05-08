@@ -77,7 +77,8 @@ v6.0-git
 v5.0.21-git
 -----------
 
-[mms] SECURITY: Fix XSS vulnerability on the dynamic compose page.
+[mms] SECURITY: Fix XSS vulnerabilities on the dynamic compose page and the
+      minimal mailbox and message pages.
 [jan] Re-add leading paragraph before HTML signatures to avoid writing into
       the signature.
 [jan] Use preferred editor if not opening compose window from dynamic view.
