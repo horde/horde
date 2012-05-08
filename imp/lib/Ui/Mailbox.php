@@ -90,6 +90,7 @@ class IMP_Ui_Mailbox
 
         $parts = array();
 
+        $addrs->unique();
         foreach ($addrs->base_addresses as $val) {
             $parts[] = $val->label;
         }
