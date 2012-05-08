@@ -762,8 +762,6 @@ class Horde_ActiveSync_Imap_Adapter
         $eas_message->read = $imap_message->getFlag(Horde_Imap_Client::FLAG_SEEN);
         $eas_message->cc = $imap_message->getCc();
         $eas_message->reply_to = $imap_message->getReplyTo();
-
-        // @TODO: Parse out/detect at least meeting requests and notifications.
         $eas_message->messageclass = 'IPM.Note';
 
         if ($version == Horde_ActiveSync::VERSION_TWOFIVE || empty($options['bodyprefs'])) {
@@ -779,8 +777,9 @@ class Horde_ActiveSync_Imap_Adapter
             }
             $eas_message->bodysize = Horde_String::length($eas_message->body); // @TODO: Should this be full or sent?
             $eas_message->bodytruncated = $message_body_data['plain']['truncated'];
-            $eas_message->attachments = $imap_message->getAttachments();
+            $eas_message->attachments = $imap_message->getAttachments($version);
         } else {
+            $signed = strtolower($imap_message->getStructure()->getSubType()) == 'signed';
             $message_body_data = $imap_message->getMessageBodyData($options);
             if (!empty($message_body_data['html'])) {
                 $eas_message->airsyncbasenativebodytype = Horde_ActiveSync::BODYPREF_TYPE_HTML;
@@ -789,34 +788,60 @@ class Horde_ActiveSync_Imap_Adapter
             }
             $haveData = false;
             $airsync_body = new Horde_ActiveSync_Message_AirSyncBaseBody();
-            // @TODO: Sniff out a s/mime part and check for MIME_SUPPORT_SMIME
             if (isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_MIME]) &&
-                $options['mimesupport'] == Horde_ActiveSync::MIME_SUPPORT_ALL) {
+                ($options['mimesupport'] == Horde_ActiveSync::MIME_SUPPORT_ALL ||
+                 ($options['mimesupport'] == Horde_ActiveSync::MIME_SUPPORT_SMIME &&
+                  $signed))) {
                 $this->_logger->debug('Sending MIME Message.');
-                $mime = new Horde_Mime_Part();
-                $mime->setType('multipart/alternative');
-                if (!empty($message_body_data['plain'])) {
-                    $plain_mime = new Horde_Mime_Part();
-                    $plain_mime->setType('text/plain');
-                    if ($message_body_data['plain']['charset'] != 'UTF-8') {
-                        $message_body_data['plain']['body'] = Horde_String::convertCharset(
-                            $message_body_data['plain']['body'],
-                            $message_body_data['plain']['charset'],
-                            'UTF-8'
-                        );
+                // ActiveSync *REQUIRES* all data sent to be in UTF-8, so we
+                // must convert the body parts to UTF-8. Unfortunately if the
+                // email is signed (or encrypted for that matter) we can't
+                // alter the data in anyway or the signature will not be
+                // verified, so we fetch the entire message and hope for the best.
+                // We also can't use a stream for the message data because the
+                // data MUST include the length of the the raw data.
+                if (!$signed) {
+                    // Create the body part.
+                    $mime = new Horde_Mime_Part();
+                    $mime->setType('multipart/alternative');
+                    if (!empty($message_body_data['plain'])) {
+                        $plain_mime = new Horde_Mime_Part();
+                        $plain_mime->setType('text/plain');
+                        if ($message_body_data['plain']['charset'] != 'UTF-8') {
+                            $message_body_data['plain']['body'] = Horde_String::convertCharset(
+                                $message_body_data['plain']['body'],
+                                $message_body_data['plain']['charset'],
+                                'UTF-8'
+                            );
+                        }
+                        $plain_mime->setContents($message_body_data['plain']['body']);
+                        $plain_mime->setCharset('UTF-8');
+                        $mime->addPart($plain_mime);
                     }
-                    $plain_mime->setContents($message_body_data['plain']['body']);
-                    $plain_mime->setCharset('UTF-8');
-                    $mime->addPart($plain_mime);
+                    if (!empty($message_body_data['html'])) {
+                        $html_mime = new Horde_Mime_Part();
+                        $html_mime->setType('text/html');
+                        $html_mime->setContents($message_body_data['html']['body']);
+                        $html_mime->setCharset($message_body_data['html']['charset']);
+                        $mime->addPart($html_mime);
+                    }
+
+                    // If we have attachments, create a multipart/mixed wrapper part.
+                    if ($imap_message->hasAttachments()) {
+                        $base = new Horde_Mime_Part();
+                        $base->setType('multipart/mixed');
+                        $base->addPart($mime);
+                        $atc = $imap_message->getAttachmentsMimeParts();
+                        foreach ($atc as $atc_part) {
+                            $base->addPart($atc_part);
+                        }
+                    } else {
+                        $base = $mime;
+                    }
+                    $airsync_body->data = $base->toString(array('headers' => true));
+                } else {
+                    $airsync_body->data = $imap_message->getFullMsg();
                 }
-                if (!empty($message_body_data['html'])) {
-                    $html_mime = new Horde_Mime_Part();
-                    $html_mime->setType('text/html');
-                    $html_mime->setContents($message_body_data['html']['body']);
-                    $html_mime->setCharset($message_body_data['html']['charset']);
-                    $mime->addPart($html_mime);
-                }
-                $airsync_body->data = $mime->toString(array('headers' => $imap_message->getHeaders()));
                 $airsync_body->type = Horde_ActiveSync::BODYPREF_TYPE_MIME;
                 $airsync_body->estimateddatasize = Horde_String::length($airsync_body->data);
                 $airsync_body->truncated = '0';
@@ -824,7 +849,6 @@ class Horde_ActiveSync_Imap_Adapter
                 $haveData = true;
             } elseif (isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]) ||
                       isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_RTF])) {
-                // HTML
                 $this->_logger->debug('Sending HTML Message.');
                 $haveData = true;
                 if (empty($message_body_data['html'])) {
@@ -850,6 +874,7 @@ class Horde_ActiveSync_Imap_Adapter
                 $airsync_body->truncated = $message_body_data['html']['truncated'];
                 $airsync_body->data = $message_body_data['html']['body'];
                 $eas_message->airsyncbasebody = $airsync_body;
+                $eas_message->airsyncbaseattachments = $imap_message->getAttachments($version);
             } elseif (isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]) || !$haveData) {
                 $this->_logger->debug('Sending PLAINTEXT Message.');
                 $this->_logger->debug(print_r($message_body_data['plain'], true));
@@ -865,6 +890,7 @@ class Horde_ActiveSync_Imap_Adapter
                 $airsync_body->data = $message_body_data['plain']['body'];
                 $airsync_body->type = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
                 $eas_message->airsyncbasebody = $airsync_body;
+                $eas_message->airsyncbaseattachments = $imap_message->getAttachments($version);
             }
         }
 
@@ -877,11 +903,7 @@ class Horde_ActiveSync_Imap_Adapter
                 ? Horde_ActiveSync_Message_Flag::FLAG_STATUS_ACTIVE
                 : Horde_ActiveSync_Message_Flag::FLAG_STATUS_CLEAR;
             $poommail_flag->flagtype = Horde_Imap_Client::FLAG_FLAGGED;
-
-
             $eas_message->flag = $poommail_flag;
-
-            $eas_message->airsyncbaseattachments = $imap_message->getAttachments(array('protocolversion' => $version));
         }
 
         return $eas_message;
