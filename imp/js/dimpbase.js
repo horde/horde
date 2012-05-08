@@ -625,7 +625,6 @@ var DimpBase = {
                 if (tmp) {
                     params.set('cache', DimpCore.toUIDString(DimpCore.selectionToRange(this.viewport.createSelection('uid', tmp.evalJSON(tmp), view))));
                 }
-                params.set('view', view);
 
                 HordeCore.addRequestParams(params);
             }.bind(this),
