@@ -1237,6 +1237,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         }
 
         $newfp = $this->_writeStream($parts);
+
         array_map('fclose', $parts_close);
 
         if (!is_null($oldbaseptr)) {
