@@ -62,6 +62,17 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $vars->viewport = isset($vars->viewport)
             ? Horde_Serialize::unserialize($vars->viewport, Horde_Serialize::JSON)
             : new stdClass;
+
+        /* Check for global msgload task. */
+        if ($this->_vars->msgload) {
+            $indices = new IMP_Indices_Form($this->_vars->msgload);
+            foreach ($indices as $ob) {
+                foreach ($ob->uids as $val) {
+                    $this->_queue->message($ob->mbox, $val, $this->_vars->preview, true);
+                }
+            }
+        }
+
     }
 
     /**

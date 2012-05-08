@@ -1609,10 +1609,30 @@ var DimpBase = {
 
     loadPreview: function(data, params)
     {
-        var pp_uid;
+        var curr, msgload, row, rows, pp_uid;
 
         if (!this._getPref('preview')) {
             return;
+        }
+
+        // If single message is loaded, and this is the INBOX, try to preload
+        // next unseen message that exists in current buffer.
+        if (data.mbox == this.INBOX) {
+            curr = this.viewport.getSelected().get('rownum').first();
+            rows = this.viewport.createSelectionBuffer().search({
+                flag: { notinclude: DIMP.conf.FLAG_SEEN }
+            }).get('rownum').diff([ curr ]).numericSort();
+
+            if (rows.size()) {
+                row = rows.detect(function(r) {
+                    return (r > curr);
+                });
+                if (!row) {
+                    row = rows.last();
+                }
+
+                msgload = DimpCore.toUIDString(DimpCore.selectionToRange(this.viewport.createSelection('rownum', row)));
+            }
         }
 
         if (!params) {
@@ -1625,17 +1645,28 @@ var DimpBase = {
             pp_uid = this._getPPId(data.uid, data.mbox);
 
             if (this.ppfifo.indexOf(pp_uid) != -1) {
-                this.flag('\\seen', true, {
+                params = {
                     mailbox: data.mbox,
                     uid: data.uid
-                });
+                };
+
+                if (msgload) {
+                    params.params = { msgload: msgload };
+                }
+
+                this.flag('\\seen', true, params);
+
                 return this._loadPreview(data.uid, data.mbox);
             }
 
             params = {};
         }
 
+        if (msgload) {
+            params.msgload = msgload;
+        }
         params.preview = 1;
+
         this.loadingImg('msg', true);
 
         DimpCore.doAction('showMessage', this.addViewportParams(params), {
@@ -1658,7 +1689,7 @@ var DimpBase = {
 
     _loadPreview: function(uid, mbox)
     {
-        var curr, row, rows, tmp,
+        var tmp,
             pm = $('previewMsg'),
             r = this.ppcache[this._getPPId(uid, mbox)];
 
@@ -1729,31 +1760,6 @@ var DimpBase = {
 
         if (r.js) {
             eval(r.js.join(';'));
-        }
-
-        // If single message is loaded, and this is the INBOX, try to preload
-        // next unseen message that exists in current buffer.
-        if (mbox == this.INBOX) {
-            curr = this.viewport.getSelected().get('rownum').first();
-            rows = this.viewport.createSelectionBuffer().search({
-                flag: { notinclude: DIMP.conf.FLAG_SEEN }
-            }).get('rownum').diff([ curr ]).numericSort();
-
-            if (rows.size()) {
-                row = rows.detect(function(r) {
-                    return (r > curr);
-                });
-                if (!row) {
-                    row = rows.last();
-                }
-
-                DimpCore.doAction('showMessage', this.addViewportParams({
-                    peek: 1,
-                    preview: 1
-                }), {
-                    uids: this.viewport.createSelection('rownum', row)
-                });
-            }
         }
     },
 
@@ -3467,11 +3473,14 @@ var DimpBase = {
 
     // flag = (string) IMAP flag name
     // add = (boolean) True to add flag
-    // opts = (Object) 'mailbox', 'uid'
+    // opts = (Object) 'mailbox', 'params', 'uid'
     flag: function(flag, add, opts)
     {
+        opts = opts || {};
+
         var need,
-            vs = this._getFlagSelection(opts || {});
+            params = $H(opts.params),
+            vs = this._getFlagSelection(opts);
 
         need = vs.get('dataob').any(function(ob) {
             return add
@@ -3480,10 +3489,10 @@ var DimpBase = {
         });
 
         if (need) {
-            DimpCore.doAction('flagMessages', this.addViewportParams({
+            DimpCore.doAction('flagMessages', this.addViewportParams(params.merge({
                 add: Number(add),
                 flags: Object.toJSON([ flag ])
-            }), {
+            })), {
                 uids: vs
             });
         }
