@@ -154,7 +154,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
             /* Image filtering. */
             if ($blockimg) {
-                $this->_imptmp['blockimg'] = Horde::url(Horde_Themes::img('spacer_red.png'), true, array('append_session' => -1));
+                $this->_imptmp['blockimg'] = strval(Horde_Themes::img('spacer_red.png'));
             }
         }
 
