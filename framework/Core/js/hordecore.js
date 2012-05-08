@@ -16,6 +16,10 @@
  * did not receive this file, see http://www.horde.org/licenses/lgpl.
  */
 
+if (!HordeCoreConf) {
+    var HordeCoreConf = {};
+}
+
 var HordeCore = {
 
     // Vars used and defaulting to null/false:
