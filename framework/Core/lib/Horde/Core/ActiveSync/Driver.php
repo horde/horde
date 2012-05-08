@@ -992,6 +992,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $from_addr = $ident->getValue('from_addr');
         $from = $name . '<' . $from_addr . '>';
         $headers->addHeader('From', $from);
+        $signed = strtolower($message->getSubType()) == 'signed';
 
         $this->_logger->debug(sprintf("Setting FROM to '%s'.", $from));
         $this->_logger->debug(sprintf("TO '%s'", $headers->getValue('To')));
@@ -999,77 +1000,99 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         // Build the outgoing message.
         $mail = new Horde_Mime_Mail();
         $mail->addHeaders($headers->toArray());
-        $id = $message->findBody();
-        if ($id) {
-            $newbody_text = $message->getPart($id)->getContents();
+
+        // Use the raw base part parsed from the rfc822 message if we don't
+        // need a smart replyl or smart forward. The device will NOT send a
+        // smart reply/forward request if it is a s/mime signed.
+        if (!$parent) {
+            $mail->setBasePart($message);
         } else {
-            $newbody_text = '';
-        }
-
-        // Handle smartReplies and smartForward requests.
-        // @TODO: Incorporate the reply position prefs?
-        if ($reply && $parent) {
-            $imap_message = array_pop($this->_imap->getImapMessage($parent, $reply));
-            if (empty($imap_message)) {
-                // Message gone
-                return false;
-            }
-            $data = $imap_message->getMessageBodyData();
-            if ($data['plain']['charset'] != 'UTF-8') {
-                $quoted = Horde_String::convertCharset(
-                    $data['plain']['body'],
-                    $data['plain']['charset'],
-                    'UTF-8'
-                );
+            // The base mime object.
+            $base = new Horde_Mime_Part();
+            if ($this->_hasAttachments($message)) {
+                $atc = true;
+                $base->setType('multipart/mixed');
             } else {
-                $quoted = $data['plain']['body'];
-            }
-            $newbody_text .= "\r\n" . $quoted;
-        } elseif ($forward && $parent) {
-            $imap_message = array_pop(
-                $this->_imap->getImapMessage(
-                    $parent, $forward, array('headers' => true))
-            );
-            if (empty($imap_message)) {
-                // Message gone.
-                return false;
+                $atc = false;
+                $base->setType('text/plain');
             }
 
-            // If forwarding as attachment (sadly most devices can't display
-            // message/rfc822 content-type).
-            $fwd = new Horde_Mime_Part();
-            $fwd->setType('message/rfc822');
-            $fwd->setContents($imap_message->getFullMsg());
-            $mail->addMimePart($fwd);
-
-            $from = $imap_message->getFromAddress();
-            $part = $imap_message->getStructure();
-            $id = $part->findBody();
+            // Build message body.
+            $id = $message->findBody();
             if ($id) {
-                $obody_text = $imap_message->getMimePart($id)->getContents();
-                $fwd_headers = $imap_message->getHeaders();
-                $msg_pre = "\n----- "
-                    . ($from ? sprintf(_("Forwarded message from %s"), $from) : _("Forwarded message"))
-                    . " -----\n" . $fwd_headers . "\n";
-                $msg_post = "\n\n----- " . _("End forwarded message") . " -----\n";
-                $newbody_text .= $msg_pre . $obody_text . $msg_post;
+                $newbody_text = $message->getPart($id)->getContents();
+            } else {
+                $newbody_text = '';
             }
-            foreach ($part->contentTypeMap() as $mid => $type) {
-                if ($imap_message->isAttachment($type)) {
-                    $apart = $imap_message->getMimePart($mid);
-                    $mail->addMimePart($apart);
+
+            // Handle smartReplies and smartForward requests.
+            if ($reply && $parent) {
+                $imap_message = array_pop($this->_imap->getImapMessage($parent, $reply));
+                if (empty($imap_message)) {
+                    // Message gone
+                    return false;
+                }
+                $data = $imap_message->getMessageBodyData();
+                if ($data['plain']['charset'] != 'UTF-8') {
+                    $quoted = Horde_String::convertCharset(
+                        $data['plain']['body'],
+                        $data['plain']['charset'],
+                        'UTF-8'
+                    );
+                } else {
+                    $quoted = $data['plain']['body'];
+                }
+                $newbody_text .= "\r\n" . $quoted;
+            } elseif ($forward && $parent) {
+                $imap_message = array_pop(
+                    $this->_imap->getImapMessage(
+                        $parent, $forward, array('headers' => true))
+                );
+                if (empty($imap_message)) {
+                    // Message gone.
+                    return false;
+                }
+
+                // If forwarding as attachment (sadly most devices can't display
+                // message/rfc822 content-type).
+                $fwd = new Horde_Mime_Part();
+                $fwd->setType('message/rfc822');
+                $fwd->setContents($imap_message->getFullMsg());
+                $base->addPart($fwd);
+
+                $from = $imap_message->getFromAddress();
+                $part = $imap_message->getStructure();
+                $id = $part->findBody();
+                if ($id) {
+                    $obody_text = $imap_message->getMimePart($id)->getContents();
+                    $fwd_headers = $imap_message->getHeaders();
+                    $msg_pre = "\n----- "
+                        . ($from ? sprintf(_("Forwarded message from %s"), $from) : _("Forwarded message"))
+                        . " -----\n" . $fwd_headers . "\n";
+                    $msg_post = "\n\n----- " . _("End forwarded message") . " -----\n";
+                    $newbody_text .= $msg_pre . $obody_text . $msg_post;
+                }
+                foreach ($part->contentTypeMap() as $mid => $type) {
+                    if ($imap_message->isAttachment($type)) {
+                        $apart = $imap_message->getMimePart($mid);
+                        $base->addPart($apart);
+                    }
                 }
             }
+
+            // Set the mail email body and add any uploaded attachments.
+            $base->setContents($newbody_text);
+            if ($atc) {
+                foreach ($message->contentTypeMap() as $mid => $type) {
+                    if ($mid != 0 && $mid != $id) {
+                        $part = $message->getPart($mid);
+                        $base->addPart($part);
+                    }
+                }
+            }
+            $mail->setBasePart($base);
         }
 
-        // Set the mail email body and add any uploaded attachements.
-        $mail->setBody($newbody_text);
-        foreach ($message->contentTypeMap() as $mid => $type) {
-            if ($mid != 0 && $mid != $id) {
-                $part = $message->getPart($mid);
-                $mail->addMimePart($part);
-            }
-        }
         $this->_logger->debug('Sending Email.');
         try {
             $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
@@ -1077,6 +1100,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $this->_logger->err($e->getMessage());
             throw new Horde_Exception($e);
         }
+
         if ($save) {
             $sf = $this->getSpecialFolderNameByType(self::SPECIAL_SENT);
             if (!empty($sf)) {
@@ -1520,6 +1544,51 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     {
         if ($output = ob_get_clean()) {
             $this->_logger->err('Unexpected output: ' . $output);
+        }
+    }
+
+    protected function _hasAttachments($mime_part)
+    {
+        foreach ($mime_part->contentTypeMap() as $type) {
+            if ($this->_isAttachment($type)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Determines if a MIME type is an attachment.
+     * For our purposes, an attachment is any MIME part that can be
+     * downloaded by itself (i.e. all the data needed to view the part is
+     * contained within the download data).
+     *
+     * @param string $mime_part  The MIME type.
+     *
+     * @return boolean  True if an attachment.
+     */
+    protected function _isAttachment($mime_type)
+    {
+        switch ($mime_type) {
+        case 'text/plain':
+        case 'application/ms-tnef':
+        case 'text/html':
+        case 'application/pkcs7-signature':
+            return false;
+        }
+
+        list($ptype,) = explode('/', $mime_type, 2);
+
+        switch ($ptype) {
+        case 'message':
+            return in_array($mime_type, array('message/rfc822', 'message/disposition-notification'));
+
+        case 'multipart':
+            return false;
+
+        default:
+            return true;
         }
     }
 
