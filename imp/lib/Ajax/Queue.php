@@ -88,11 +88,13 @@ class IMP_Ajax_Queue
             $messages = array();
 
             foreach ($this->_messages as $val) {
-                $show_msg = new IMP_Views_ShowMessage($val['mailbox'], $val['uid'], $val['peek']);
-                $msg = (object)$show_msg->showMessage(array(
-                    'preview' => $val['preview']
-                ));
-                $msg->save_as = strval($msg->save_as);
+                try {
+                    $show_msg = new IMP_Views_ShowMessage($val['mailbox'], $val['uid'], $val['peek']);
+                    $msg = (object)$show_msg->showMessage(array(
+                        'preview' => $val['preview']
+                    ));
+                    $msg->save_as = strval($msg->save_as);
+                } catch (Exception $e) {}
 
                 $messages[] = $msg;
             }

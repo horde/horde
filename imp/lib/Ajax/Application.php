@@ -960,6 +960,10 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
                 throw new IMP_Exception(_("Could not open mailbox."));
             }
 
+            /* Explicitly load the message here; non-existent messages are
+             * ignored when the Ajax queue is processed. */
+            $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($indices);
+
             $this->_queue->message($mbox, $uid, $this->_vars->preview, $this->_vars->peek);
 
             if ($this->_vars->preview) {
@@ -970,12 +974,18 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
                      * update the cacheid in the ViewPort. */
                     $this->addTask('viewport', $this->_viewPortOb());
                 }
-
-                $this->_queue->poll($mbox);
             }
         } catch (Exception $e) {
             $result->error = $e->getMessage();
             $result->errortype = 'horde.error';
+
+            if ($this->_vars->preview) {
+                $this->addTask('viewport', $this->_viewPortData(true));
+            }
+        }
+
+        if ($this->_vars->preview) {
+            $this->_queue->poll($mbox);
         }
 
         return $result;

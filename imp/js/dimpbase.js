@@ -1626,10 +1626,15 @@ var DimpBase = {
 
         DimpCore.doAction('showMessage', this.viewport.addRequestParams(params), {
             callback: function(r) {
-                if (this.view == r.view &&
-                    this.pp &&
-                    this.pp.uid == r.uid &&
-                    this.pp.mbox == r.mbox) {
+                if (!r || r.error) {
+                    if (r) {
+                        HordeCore.notify(r.error, r.errortype);
+                    }
+                    this.clearPreviewPane();
+                } else if (this.view == r.view &&
+                           this.pp &&
+                           this.pp.uid == r.uid &&
+                           this.pp.mbox == r.mbox) {
                     this._loadPreview(r.uid, r.mbox);
                 }
             }.bind(this),
@@ -1642,14 +1647,6 @@ var DimpBase = {
         var curr, row, rows, tmp,
             pm = $('previewMsg'),
             r = this.ppcache[this._getPPId(uid, mbox)];
-
-        if (!r || r.error) {
-            if (r) {
-                HordeCore.notify(r.error, r.errortype);
-            }
-            this.clearPreviewPane();
-            return;
-        }
 
         pm.select('.address').each(function(elt) {
             DimpCore.DMenu.removeElement(elt.identify());
