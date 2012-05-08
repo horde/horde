@@ -2,6 +2,10 @@
 /**
  * Defines the AJAX interface for IMP.
  *
+ * Global tasks:
+ *   - msgload: (string) Indices of the messages to load in the background
+ *              (IMAP sequence string; mailboxes are base64url encoded).
+ *
  * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -63,12 +67,14 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             ? Horde_Serialize::unserialize($vars->viewport, Horde_Serialize::JSON)
             : new stdClass;
 
+        /* GLOBAL TASKS */
+
         /* Check for global msgload task. */
         if ($this->_vars->msgload) {
             $indices = new IMP_Indices_Form($this->_vars->msgload);
             foreach ($indices as $ob) {
                 foreach ($ob->uids as $val) {
-                    $this->_queue->message($ob->mbox, $val, $this->_vars->preview, true);
+                    $this->_queue->message($ob->mbox, $val, true, true);
                 }
             }
         }
