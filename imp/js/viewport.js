@@ -768,20 +768,20 @@ var ViewPort = Class.create({
             params = $H(),
             cached, rowlist;
 
-        params.update({ view: opts.view || this.view });
+        params.set('view', opts.view || this.view);
 
         if (cid) {
-            params.update({ cacheid: cid });
+            params.set('cacheid', cid);
         }
 
         if (!opts.noslice) {
             rowlist = this._getSliceBounds(this.currentOffset(), null, opts.view);
-            params.update({ slice: rowlist.start + ':' + rowlist.end });
+            params.set('slice', rowlist.start + ':' + rowlist.end);
         }
 
         cached = this._getBuffer(opts.view).getAllUIDs();
         if (cached.size()) {
-            params.update({ cache: Object.toJSON(cached) });
+            params.set('cache', Object.toJSON(cached));
         }
 
         params.update(args);
