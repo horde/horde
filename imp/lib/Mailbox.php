@@ -1175,7 +1175,7 @@ class IMP_Mailbox implements Serializable
                     $anchor = is_null($uid)
                         ? ('mbox=' . $this->form_to)
                         : ('msg=' . $this->getIndicesOb($uid)->formTo());
-                    $url->setAnchor('mailbox?' + $anchor);
+                    $url->setAnchor('mailbox?' . $anchor);
                     return $url;
                 }
             }
