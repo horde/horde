@@ -470,4 +470,12 @@ EOT
         );
     }
 
+    public function testLongStringsBreakUtf8DetectionRegex()
+    {
+        $string = str_repeat('1 A B', 10000);
+
+        /* Failing test will cause a PHP segfault here. */
+        Horde_String::validUtf8($string);
+    }
+
 }
