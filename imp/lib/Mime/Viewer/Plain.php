@@ -104,7 +104,7 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
             $filters = array(
                 'text2html' => array(
                     'charset' => $charset,
-                    'parselevel' => Horde_Text_Filter_Text2html::NOHTML
+                    'parselevel' => Horde_Text_Filter_Text2html::NOHTML_NOBREAK
                 )
             );
 
