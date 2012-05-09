@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Update Italian translation (Emilien &lt;emilien@wifi.e4a.it&gt;).
 * [jan] Update Lybian flag (Request #11169).
 * [jan] Update Slovak translation (Marika Schvarczova &lt;schvarczova.marika@domeny.sk&gt;).
 * [jan] Update Czech translation (Michal Foist &lt;michal@foist.cz&gt;).
@@ -4665,6 +4666,7 @@
    <date>2012-02-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Update Italian translation (Emilien &lt;emilien@wifi.e4a.it&gt;).
 * [jan] Update Lybian flag (Request #11169).
 * [jan] Update Slovak translation (Marika Schvarczova &lt;schvarczova.marika@domeny.sk&gt;).
 * [jan] Update Czech translation (Michal Foist &lt;michal@foist.cz&gt;).

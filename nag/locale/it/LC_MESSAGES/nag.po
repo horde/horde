@@ -955,8 +955,8 @@ msgstr ""
 #: lib/Nag.php:670
 #, php-format
 msgid ""
-"The task \"%s\" has been deleted from \"%s\" tasklist, with a due date of: %"
-"s."
+"The task \"%s\" has been deleted from \"%s\" tasklist, with a due date of: "
+"%s."
 msgstr ""
 "L'attività \"%s\" è stata eliminata dalla lista \"%s\", con scadenza: %s."
 
