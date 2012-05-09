@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Update Italian translation (Massimo Malabotta &lt;mmalabotta@units.it&gt;).
 * [jan] Fix preparing multiple backends (Bug #11023).
  </notes>
  <contents>
@@ -637,6 +638,7 @@
    <date>2012-02-28</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Update Italian translation (Massimo Malabotta &lt;mmalabotta@units.it&gt;).
 * [jan] Fix preparing multiple backends (Bug #11023).
    </notes>
   </release>

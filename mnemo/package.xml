@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [jan] Update Italian translation (Massimo Malabotta &lt;mmalabotta@units.it&gt;).
 * [jan] Update Hungarian translation (Zoltán Németh &lt;nemeth.zoltan@etit.hu&gt;).
  </notes>
  <contents>
@@ -926,6 +927,7 @@
    <date>2012-01-31</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Update Italian translation (Massimo Malabotta &lt;mmalabotta@units.it&gt;).
 * [jan] Update Hungarian translation (Zoltán Németh &lt;nemeth.zoltan@etit.hu&gt;).
    </notes>
   </release>

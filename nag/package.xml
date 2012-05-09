@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Update Italian translation (Massimo Malabotta &lt;mmalabotta@units.it&gt;).
 * [jan] Update Hungarian translation (Zoltán Németh &lt;nemeth.zoltan@etit.hu&gt;).
  </notes>
  <contents>
@@ -1114,6 +1115,7 @@
    <date>2011-12-13</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Update Italian translation (Massimo Malabotta &lt;mmalabotta@units.it&gt;).
 * [jan] Update Hungarian translation (Zoltán Németh &lt;nemeth.zoltan@etit.hu&gt;).
    </notes>
   </release>
