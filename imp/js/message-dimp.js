@@ -296,8 +296,6 @@ var DimpMessage = {
 
     onDomLoad: function()
     {
-        DimpCore.init();
-
         if (DIMP.conf.disable_compose) {
             $('reply_link', 'forward_link').compact().invoke('up', 'SPAN').invoke('remove');
             delete DIMP.context.ctx_contacts['new'];

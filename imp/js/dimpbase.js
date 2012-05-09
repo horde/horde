@@ -3635,8 +3635,6 @@ var DimpBase = {
     /* Onload function. */
     onDomLoad: function()
     {
-        DimpCore.init();
-
         var DM = DimpCore.DMenu, tmp;
 
         /* Register global handlers now. */

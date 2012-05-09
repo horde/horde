@@ -1098,8 +1098,6 @@ var DimpCompose = {
     {
         var tmp;
 
-        DimpCore.init();
-
         this.is_popup = !Object.isUndefined(HordeCore.base);
 
         /* Initialize redirect elements. */

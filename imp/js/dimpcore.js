@@ -11,7 +11,7 @@
 var DimpCore = {
 
     // Vars used and defaulting to null/false:
-    //   DMenu, is_init
+    //   DMenu
 
     // Wrapper methods around HordeCore functions.
 
@@ -389,61 +389,17 @@ var DimpCore = {
     },
 
     /* DIMP initialization function. */
-    init: function()
+    onDomLoad: function()
     {
-        if (this.is_init) {
-            return;
-        }
-        this.is_init = true;
-
         if (typeof ContextSensitive != 'undefined') {
             this.DMenu = new ContextSensitive();
         }
-
-        /* Catch dialog actions. */
-        document.observe('HordeDialog:success', function(e) {
-            switch (e.memo) {
-            case 'pgpPersonal':
-            case 'pgpSymmetric':
-            case 'smimePersonal':
-                HordeDialog.noreload = true;
-                this.reloadMessage({});
-                break;
-            }
-        }.bindAsEventListener(this));
-
-        /* Catch notification actions. */
-        document.observe('HordeCore:showNotifications', function(e) {
-            switch (e.memo.type) {
-            case 'imp.reply':
-            case 'imp.forward':
-            case 'imp.redirect':
-                HordeBase.Growler.growl(m.message.escapeHTML(), {
-                    className: m.type.replace('.', '-'),
-                    life: 8
-                });
-                break;
-            }
-        });
-
-        /* Catch image blocking actions. Put method call in function so that
-         * pages that don't load IMP_JS (i.e. compose page) won't break. */
-        document.observe('IMPImageUnblock:success', function(e) {
-            IMP_JS.unblockImages(e);
-        }.bindAsEventListener(this));
-
-        /* Disable text selection for everything but compose/message body
-         * and FORM inputs. */
-        document.observe(Prototype.Browser.IE ? 'selectstart' : 'mousedown', function(e) {
-            if (!e.element().up('.messageBody') &&
-                !e.element().match('TEXTAREA') &&
-                !e.element().match('INPUT')) {
-                e.stop();
-            }
-        });
     }
 
 };
+
+/* Initialize onload handler. */
+document.observe('dom:loaded', DimpCore.onDomLoad.bind(DimpCore));
 
 /* Browser native events. */
 document.observe('click', DimpCore.clickHandler.bindAsEventListener(DimpCore));
@@ -452,3 +408,45 @@ document.observe('click', DimpCore.clickHandler.bindAsEventListener(DimpCore));
 document.observe('ContextSensitive:click', DimpCore.contextOnClick.bindAsEventListener(DimpCore));
 document.observe('ContextSensitive:show', DimpCore.contextOnShow.bindAsEventListener(DimpCore));
 document.observe('ContextSensitive:trigger', DimpCore.contextOnTrigger.bindAsEventListener(DimpCore));
+
+/* Dialog events. */
+document.observe('HordeDialog:success', function(e) {
+    switch (e.memo) {
+    case 'pgpPersonal':
+    case 'pgpSymmetric':
+    case 'smimePersonal':
+        HordeDialog.noreload = true;
+        this.reloadMessage({});
+        break;
+    }
+}.bindAsEventListener(DimpCore));
+
+/* Notification events. */
+document.observe('HordeCore:showNotifications', function(e) {
+    switch (e.memo.type) {
+    case 'imp.reply':
+    case 'imp.forward':
+    case 'imp.redirect':
+        HordeBase.Growler.growl(m.message.escapeHTML(), {
+            className: m.type.replace('.', '-'),
+            life: 8
+        });
+        break;
+    }
+});
+
+/* Catch image blocking actions. Put method call in function so that pages
+ * don't load IMP_JS (i.e. compose page) won't break. */
+document.observe('IMPImageUnblock:success', function(e) {
+    IMP_JS.unblockImages(e);
+});
+
+/* Disable text selection for everything but compose/message body and FORM
+ * inputs. */
+document.observe(Prototype.Browser.IE ? 'selectstart' : 'mousedown', function(e) {
+    if (!e.element().up('.messageBody') &&
+        !e.element().match('TEXTAREA') &&
+        !e.element().match('INPUT')) {
+        e.stop();
+    }
+});
