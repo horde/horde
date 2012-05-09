@@ -5,6 +5,9 @@
  * Global tasks:
  *   - msgload: (string) Indices of the messages to load in the background
  *              (IMAP sequence string; mailboxes are base64url encoded).
+ *   - poll: (string) The list of mailboxes to process (JSON encoded
+ *           array; mailboxes are base64url encoded). If an empty array, polls
+ *           all mailboxes.
  *
  * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
@@ -71,7 +74,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         /* GLOBAL TASKS */
 
         /* Check for global msgload task. */
-        if ($this->_vars->msgload) {
+        if (isset($this->_vars->msgload)) {
             $indices = new IMP_Indices_Form($this->_vars->msgload);
             foreach ($indices as $ob) {
                 foreach ($ob->uids as $val) {
@@ -80,6 +83,15 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             }
         }
 
+        /* Check for global poll task. */
+        if (isset($this->_vars->poll)) {
+            $poll = Horde_Serialize::unserialize($this->_vars->poll, Horde_Serialize::JSON);
+            if (empty($poll)) {
+                $this->_queue->poll($GLOBALS['injector']->getInstance('IMP_Imap_Tree')->getPollList());
+            } else {
+                $this->_queue->poll(IMP_Mailbox::formFrom($poll));
+            }
+        }
     }
 
     /**
@@ -497,19 +509,14 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * AJAX action: Poll mailboxes.
      *
      * See the list of variables needed for _changed() and _viewPortData().
-     * Additional variables used:
-     *   - mboxes: (string) The list of mailboxes to process (JSON encoded
-     *             array; mailboxes are base64url encoded).
      *
      * @return boolean  True.
      */
     public function poll()
     {
-        if (empty($this->_vars->mboxes)) {
-            $this->_queue->poll($GLOBALS['injector']->getInstance('IMP_Imap_Tree')->getPollList());
-        } else {
-            $this->_queue->poll(IMP_Mailbox::formFrom(Horde_Serialize::unserialize($this->_vars->mboxes, Horde_Serialize::JSON)));
-        }
+        /* Actual polling handled by the global 'poll' handler. Still need
+         * separate poll action because there are other tasks done when
+         * specifically requesting a poll. */
 
         $this->_queue->quota();
 

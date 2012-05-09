@@ -2042,9 +2042,11 @@ var DimpBase = {
             // Issue: it is quite expensive to determine this, since the
             // mailbox elements themselves aren't hidden - it is one of the
             // parent containers. Probably not worth the effort.
-            args.set('mboxes', Object.toJSON($('foldersSidebar').select('.mbox').findAll(function(elt) {
+            args.set('poll', Object.toJSON($('foldersSidebar').select('.mbox').findAll(function(elt) {
                 return !Object.isUndefined(elt.retrieve('u')) && elt.visible();
             }).invoke('retrieve', 'mbox')));
+        } else {
+            args.set('poll', Object.toJSON([]));
         }
 
         if (search) {
