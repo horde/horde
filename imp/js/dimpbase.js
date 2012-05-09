@@ -479,7 +479,7 @@ var DimpBase = {
 
         this.viewport = new ViewPort({
             // Mandatory config
-            ajax_url: HordeCoreConf.URI_AJAX + 'viewPort',
+            ajax: DimpCore.doAction.bind(DimpCore, 'viewPort'),
             container: container,
             onContent: function(r, mode) {
                 var bg, re, u,
@@ -583,7 +583,6 @@ var DimpBase = {
             }.bind(this),
 
             // Optional config
-            ajax_opts: HordeCore.doActionOpts(),
             empty_msg: this.emptyMsg.bind(this),
             list_class: 'msglist',
             list_header: $('msglistHeaderContainer').remove(),
@@ -594,12 +593,6 @@ var DimpBase = {
             split_bar_class: { horiz: 'splitBarHoriz', vert: 'splitBarVert' },
 
             // Callbacks
-            onAjaxFailure: function() {
-                if ($('dimpmain_folder').visible()) {
-                    HordeCore.notify(DIMP.text.listmsg_timeout, 'horde.error');
-                }
-                this.loadingImg('viewport', false);
-            }.bind(this),
             onAjaxRequest: function(params) {
                 var tmp = params.get('cache'),
                     view = params.get('view');
@@ -634,9 +627,6 @@ var DimpBase = {
 
                 return params;
             }.bind(this),
-            onAjaxResponse: function(o, h) {
-                HordeCore.doActionComplete(o);
-            },
             onContentOffset: function(offset) {
                 if (this.uid) {
                     this.rownum = this.viewport.createSelectionBuffer().search({ VP_id: { equal: [ this.uid ] } }).get('rownum').first();

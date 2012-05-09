@@ -8,10 +8,9 @@
  *
  * Required options:
  * -----------------
- * ajax_url: (string) The URL to send the viewport requests to.
- *           This URL should return its response in an object named
- *           'ViewPort' (other information can be returned in the response and
- *           will be ignored by this class).
+ * ajax: (function) The function that will send the AJAX request to the server
+ *       endpoint. The parameters to send to the server will be passed in as
+ *       the first argument as a Hash object.
  * container: (Element/string) A DOM element/ID of the container that holds
  *            the viewport. This element should be empty and have no children.
  * onContent: (function) A function that takes 2 arguments - the data object
@@ -28,8 +27,6 @@
  *
  * Optional options:
  * -----------------
- * ajax_opts: (object) Any additional options to pass to the Ajax.Request
- *            object when sending an AJAX message.
  * buffer_pages: (integer) The number of viewable pages to send to the browser
  *               per server access when listing rows.
  * empty_msg: (string | function) A string to display when the view is empty.
@@ -44,24 +41,12 @@
  *              as a header.
  * lookbehind: (integer) What percentage of the received buffer should be
  *             used to download rows before the given row number?
- * onAjaxFailure: (function) Callback function that handles a failure response
- *                from an AJAX request.
- *                params: (XMLHttpRequest object)
- *                        (mixed) Result of evaluating the X-JSON response
- *                        header, if any (can be null).
- *                return: NONE
  * onAjaxRequest: (function) Callback function that allows additional
  *                parameters to be added to the outgoing AJAX request.
  *                params: (Hash) The params list (the current view can be
  *                        obtained via the view property).
  *                return: (Hash) The params list to use for the outgoing
  *                        request.
- * onAjaxResponse: (function) Callback function that allows user-defined code
- *                 to additionally process the AJAX return data.
- *                params: (XMLHttpRequest object)
- *                        (mixed) Result of evaluating the X-JSON response
- *                        header, if any (can be null).
- *                return: NONE
  * onContentOffset: (function) Callback function that alters the starting
  *                  offset of the content about to be rendered.
  *                  params: (integer) The current offset.
@@ -273,11 +258,6 @@ var ViewPort = Class.create({
         // Init empty string now.
         this.empty_msg = new Element('SPAN', { className: 'vpEmpty' });
 
-        // Set up AJAX response function.
-        this.ajax_response = this.opts.onAjaxResponse || function(r) {
-            this.parseJSONResponse(r.responseJSON);
-        }.bind(this);
-
         Event.observe(window, 'resize', this.onResize.bind(this));
     },
 
@@ -326,7 +306,7 @@ var ViewPort = Class.create({
         if (curr = this.views[view]) {
             this._updateContent(curr.getMetaData('offset') || 0, f_opts);
             if (!opts.background) {
-                this._ajaxRequest({ checkcache: 1 });
+                this.opts.ajax(this.addRequestParams({ checkcache: 1 }));
             }
             return;
         }
@@ -702,7 +682,10 @@ var ViewPort = Class.create({
             this._handleWait();
         }
 
-        this._ajaxRequest(params, { noslice: true, view: view });
+        this.opts.ajax(this.addRequestParams(params, {
+            noslice: true,
+            view: view
+        }));
     },
 
     // rownum = (integer) Row number
@@ -792,19 +775,6 @@ var ViewPort = Class.create({
         return this.opts.onAjaxRequest
             ? $H(this.opts.onAjaxRequest(params))
             : params;
-    },
-
-    // params - (object) A list of parameters to send to server
-    // opts - (object) Args to pass to addRequestParams().
-    _ajaxRequest: function(params, other)
-    {
-        new Ajax.Request(this.opts.ajax_url, Object.extend(this.opts.ajax_opts || {}, {
-            evalJS: false,
-            evalJSON: true,
-            onComplete: this.ajax_response,
-            onFailure: this.opts.onAjaxFailure || Prototype.emptyFunction,
-            parameters: this.addRequestParams(params, other)
-        }));
     },
 
     // r - (object) responseJSON returned from the server.
@@ -1298,7 +1268,10 @@ var ViewPort = Class.create({
             slice = this.createSelection('rownum', vs);
             if (vs.size() != slice.size()) {
                 this.opts.container.fire('ViewPort:fetch', this.view);
-                return this._ajaxRequest({ rangeslice: 1, slice: vs.min() + ':' + vs.size() });
+                return this.opts.ajax(this.addRequestParams({
+                    rangeslice: 1,
+                    slice: vs.min() + ':' + vs.size()
+                }));
             }
             vs = slice;
         }
