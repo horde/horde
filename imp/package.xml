@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2012-05-09</date>
- <time>12:30:51</time>
+ <time>12:32:47</time>
  <version>
-  <release>5.0.21</release>
+  <release>5.0.22</release>
   <api>5.0.0</api>
  </version>
  <stability>
@@ -34,15 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mms] SECURITY: Fix XSS vulnerabilities on the dynamic compose page and the minimal mailbox and message pages.
-* [jan] Re-add leading paragraph before HTML signatures to avoid writing into the signature.
-* [jan] Use preferred editor if not opening compose window from dynamic view.
-* [jan] Update Italian translation (Emilien &lt;emilien@wifi.e4a.it&gt;).
-* [mms] Save Bcc addresses when saving compose message as draft.
-* [mms] Fix handling of RETURN keypress in the Subject input on the dynamic compose page.
-* [jan] Fix regression in sending PGP encrypted messages (Bug #11150).
-* [jan] Update Slovak translation (Marika Schvarczova &lt;schvarczova.marika@domeny.sk&gt;).
-* [jan] Update Czech translation (Michal Foist &lt;michal@foist.cz&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2725,6 +2717,19 @@
 * [jan] Fix regression in sending PGP encrypted messages (Bug #11150).
 * [jan] Update Slovak translation (Marika Schvarczova &lt;schvarczova.marika@domeny.sk&gt;).
 * [jan] Update Czech translation (Michal Foist &lt;michal@foist.cz&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.22</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-05-09</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
