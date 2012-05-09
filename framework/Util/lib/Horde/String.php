@@ -727,6 +727,27 @@ class Horde_String
      */
     static public function validUtf8($text)
     {
+        /* There is bug in PHP/PCRE with larger strings; stack overflow causes
+         * PHP segfaults. See:
+         * https://bugs.php.net/bug.php?id=37793
+         *
+         * Thus, break string down into smaller chunks instead.
+         */
+        $chunk_size = 4000;
+        $length = strlen($text);
+
+        while ($length > $chunk_size) {
+            /* Can't use self::substr() here since the input may not be
+             * proper UTF-8, which is sort of the whole point of this
+             * method. */
+            if (!self::validUtf8(substr($text, 0, $chunk_size))) {
+                return false;
+            }
+
+            $text = substr($text, $chunk_size);
+            $length -= $chunk_size;
+        }
+
         /* Regex from:
          * http://stackoverflow.com/questions/1523460/ensuring-valid-utf-8-in-php
          */

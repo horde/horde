@@ -1413,6 +1413,7 @@
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
 * [jan] Update Italian translation (Emilien &lt;emilien@wifi.e4a.it&gt;).
+* [jan] Fix number of contacts in a list that cannot be displayed.
 * [jan] Update Slovak translation (Marika Schvarczova &lt;schvarczova.marika@domeny.sk&gt;).
 * [jan] Update Czech translation (Michal Foist &lt;michal@foist.cz&gt;).
    </notes>

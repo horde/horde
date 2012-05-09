@@ -393,6 +393,24 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('FREQ=MONTHLY;INTERVAL=1;BYDAY=2FR;COUNT=2', $r->toRRule20($this->ical));
     }
 
+    public function testMonthlyWeekdayFifth()
+    {
+        $r = new Horde_Date_Recurrence('2012-05-31 10:00:00');
+        $r->setRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY);
+        $r->setRecurInterval(1);
+        $this->assertEquals('MP1 5+ TH #0', $r->toRRule10($this->ical));
+        $this->assertEquals('FREQ=MONTHLY;INTERVAL=1;BYDAY=5TH', $r->toRRule20($this->ical));
+        $next = new Horde_Date('2012-06-01 00:00:00');
+        $next = $r->nextRecurrence($next);
+        $this->assertEquals('2012-08-30 10:00:00', (string)$next);
+        $next->mday++;
+        $next = $r->nextRecurrence($next);
+        $this->assertEquals('2012-11-29 10:00:00', (string)$next);
+        $next->mday++;
+        $next = $r->nextRecurrence($next);
+        $this->assertEquals('2013-01-31 10:00:00', (string)$next);
+    }
+
     public function testYearlyDateNoEnd()
     {
         $r = new Horde_Date_Recurrence('2007-03-01 10:00:00');
