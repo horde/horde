@@ -2025,7 +2025,7 @@ var DimpBase = {
     // search = (boolean) If true, update search results as well.
     poll: function(search)
     {
-        var args = {};
+        var args = $H();
 
         // Reset poll counter.
         this.setPoll();
