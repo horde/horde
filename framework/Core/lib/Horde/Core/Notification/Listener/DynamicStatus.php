@@ -30,14 +30,10 @@ class Horde_Core_Notification_Listener_DynamicStatus extends Horde_Notification_
         global $page_output;
 
         if (!empty($events)) {
-            /* Initialize code needed to output Growler notifications. */
-            $page_output->addScriptFile('hordecore.js', 'horde');
-            $page_output->addScriptFile('growler.js', 'horde');
-            $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
-
             $page_output->addInlineScript(array(
                 'window.HordeCore.showNotifications(' . Horde_Serialize::serialize($events, Horde_Serialize::JSON) . ')'
             ), true);
+            $page_output->growler = true;
         }
     }
 

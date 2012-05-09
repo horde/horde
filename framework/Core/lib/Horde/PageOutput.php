@@ -16,6 +16,13 @@
 class Horde_PageOutput
 {
     /**
+     * Output code necessary to perform AJAX operations?
+     *
+     * @var boolean
+     */
+    public $ajax = false;
+
+    /**
      * Stylesheet object.
      *
      * @var Horde_Themes_Css
@@ -28,6 +35,13 @@ class Horde_PageOutput
      * @var boolean
      */
     public $deferScripts = true;
+
+    /**
+     * Output code necessary to display growler notifications?
+     *
+     * @var boolean
+     */
+    public $growler = false;
 
     /**
      * Script files object.
@@ -529,7 +543,7 @@ class Horde_PageOutput
      * @param array $opts  Options:
      *   - body_class: (string)
      *   - body_id: (string)
-     *   - growler_log: (boolean) If true, initialized the Growler log.
+     *   - growler_log: (boolean) If true, initialize Growler log.
      *                  DEFAULT: false
      *   - html_id: (string)
      *   - smartmobileinit: (string)
@@ -558,12 +572,9 @@ class Horde_PageOutput
             break;
 
         case $registry::VIEW_DYNAMIC:
-            $this->addScriptFile('horde.js', 'horde');
-            $this->addScriptFile('hordecore.js', 'horde');
-            $this->addScriptFile('growler.js', 'horde');
+            $this->ajax = true;
+            $this->growler = true;
             $this->addScriptFile('popup.js', 'horde');
-            $this->addScriptFile('scriptaculous/effects.js', 'horde');
-            $this->addScriptFile('scriptaculous/sound.js', 'horde');
 
             /* Configuration used in core javascript files. */
             $js_conf = array_filter(array(
@@ -655,6 +666,17 @@ class Horde_PageOutput
 
             $view->smartmobileView = true;
             break;
+        }
+
+        if ($this->ajax) {
+            $this->addScriptFile('hordecore.js', 'horde');
+        }
+
+        if ($this->growler) {
+            $this->addScriptFile('hordecore.js', 'horde');
+            $this->addScriptFile('growler.js', 'horde');
+            $this->addScriptFile('scriptaculous/effects.js', 'horde');
+            $this->addScriptFile('scriptaculous/sound.js', 'horde');
         }
 
         if (isset($opts['stylesheet_opts'])) {

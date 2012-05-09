@@ -187,6 +187,7 @@ class Horde_Script_Files
                 $old = $this->_files['horde'];
                 $this->_files['horde'] = array();
                 $this->_add('prototype.js', 'horde');
+                $this->_add('horde.js', 'horde');
                 $this->_files['horde'] = array_merge($this->_files['horde'], $old);
             }
 
