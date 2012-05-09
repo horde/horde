@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-04-11</date>
- <time>12:37:05</time>
+ <date>2012-05-09</date>
+ <time>12:30:51</time>
  <version>
   <release>5.0.21</release>
   <api>5.0.0</api>
@@ -2713,7 +2713,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-04-11</date>
+   <date>2012-05-09</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] SECURITY: Fix XSS vulnerabilities on the dynamic compose page and the minimal mailbox and message pages.

@@ -1,6 +1,6 @@
------------
-v5.0.21-git
------------
+-------
+v5.0.21
+-------
 
 [mms] SECURITY: Fix XSS vulnerabilities on the dynamic compose page and the
       minimal mailbox and message pages.
