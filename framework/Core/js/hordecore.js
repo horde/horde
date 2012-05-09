@@ -69,6 +69,8 @@ var HordeCore = {
         var ajaxopts = Object.extend(this.doActionOpts, opts.ajaxopts || {});
 
         this.addRequestParams(params);
+        params.set('token', HordeCoreConf.TOKEN);
+
         ajaxopts.parameters = params;
 
         ajaxopts.onComplete = function(t, o) {
@@ -120,8 +122,6 @@ var HordeCore = {
         if (HordeCoreConf.SID) {
             params.update(HordeCoreConf.SID.toQueryParams());
         }
-
-        params.set('token', HordeCoreConf.TOKEN);
     },
 
     doActionComplete: function(request, callback)
