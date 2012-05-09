@@ -253,8 +253,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             return false;
         }
 
-        $result = false;
-
         try {
             $new_name = $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->createMailboxName(
                 isset($this->_vars->new_parent) ? IMP_Mailbox::formFrom($this->_vars->new_parent) : '',
@@ -264,14 +262,14 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $old_name = IMP_Mailbox::formFrom($this->_vars->old_name);
 
             if (($old_name != $new_name) && $old_name->rename($new_name)) {
-                $result = true;
                 $this->_queue->poll($new_name);
+                return true;
             }
         } catch (Horde_Exception $e) {
             $GLOBALS['notification']->push($e);
         }
 
-        return $result;
+        return false;
     }
 
     /**
@@ -997,26 +995,22 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($indices);
 
             $this->_queue->message($mbox, $uid, $this->_vars->preview, $this->_vars->peek);
-
-            if ($this->_vars->preview) {
-                if ($change) {
-                    $this->addTask('viewport', $this->_viewPortData(true));
-                } elseif ($this->_mbox->cacheid_date != $this->_vars->viewport->cacheid) {
-                    /* Cache ID has changed due to viewing this message. So
-                     * update the cacheid in the ViewPort. */
-                    $this->addTask('viewport', $this->_viewPortOb());
-                }
-            }
         } catch (Exception $e) {
             $result->error = $e->getMessage();
             $result->errortype = 'horde.error';
 
-            if ($this->_vars->preview) {
-                $this->addTask('viewport', $this->_viewPortData(true));
-            }
+            $change = true;
         }
 
         if ($this->_vars->preview) {
+            if ($change) {
+                $this->addTask('viewport', $this->_viewPortData(true));
+            } elseif ($this->_mbox->cacheid_date != $this->_vars->viewport->cacheid) {
+                /* Cache ID has changed due to viewing this message. So update
+                 * the cacheid in the ViewPort. */
+                $this->addTask('viewport', $this->_viewPortOb());
+            }
+
             $this->_queue->poll($mbox);
         }
 
