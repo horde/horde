@@ -276,4 +276,14 @@ abstract class Horde_Core_Ajax_Application
         return $GLOBALS['prefs']->setValue($this->_vars->pref, $this->_vars->value);
     }
 
+    /**
+     * Noop.
+     *
+     * @return boolean  True.
+     */
+    public function noop()
+    {
+        return true;
+    }
+
 }
