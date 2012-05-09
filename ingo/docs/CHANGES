@@ -11,7 +11,8 @@ v3.0-git
 v2.0.8-git
 ----------
 
-[jan] Fix folder names in Procmail rules if using Maildir (Bug 10113).
+[jan] Update Italian translation (Massimo Malabotta <mmalabotta@units.it>).
+[jan] Fix folder names in Procmail rules if using Maildir (Bug #10113).
 [jan] Update Hungarian translation (Zoltán Németh <nemeth.zoltan@etit.hu>).
 [mms] Application initialization should only be done on first access.
 

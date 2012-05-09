@@ -27,6 +27,7 @@ v4.0-git
 v3.0.17-git
 -----------
 
+[jan] Update Italian translation (Massimo Malabotta <mmalabotta@units.it>).
 [jan] Improve print styles.
 [jan] Catch if external client doesn't send LAST-MODIFIED attributes (Bug
       #11130).
