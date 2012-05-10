@@ -755,6 +755,10 @@ class Horde_PageOutput
         $this->deferScripts = false;
 
         switch ($this->_view) {
+        case $registry::VIEW_MINIMAL:
+            $view->minimalView = true;
+            break;
+
         case $registry::VIEW_SMARTMOBILE:
             $view->smartmobileView = true;
             break;
