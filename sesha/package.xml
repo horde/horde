@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-01-14</date>
- <time>15:03:30</time>
+ <date>2012-05-10</date>
+ <time>19:52:03</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -28,12 +28,17 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [rla] Use Horde_View in place of Horde_Template
+* [rla] change backend from Sql driver to Rdo driver with enhanced search capabilities
 * [jan] Add Finnish translation (Leena Heino &lt;liinu@uta.fi&gt;).
-* [rla] Converted to Horde 4 Framework
+* [rla] Convert to Horde 5 Framework
 * Initial release.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="bin">
+    <file name="sesha-add-stock" role="script" />
+   </dir> <!-- /bin -->
    <dir name="config">
     <file name="conf.xml" role="horde" />
     <file name="prefs.php" role="horde" />
@@ -45,8 +50,18 @@
    </dir> <!-- /docs -->
    <dir name="lib">
     <dir name="Driver">
-     <file name="Sql.php" role="horde" />
+     <file name="Rdo.php" role="horde" />
     </dir> <!-- /lib/Driver -->
+    <dir name="Entity">
+     <file name="Category.php" role="horde" />
+     <file name="CategoryMapper.php" role="horde" />
+     <file name="Property.php" role="horde" />
+     <file name="PropertyMapper.php" role="horde" />
+     <file name="Stock.php" role="horde" />
+     <file name="StockMapper.php" role="horde" />
+     <file name="Value.php" role="horde" />
+     <file name="ValueMapper.php" role="horde" />
+    </dir> <!-- /lib/Entity -->
     <dir name="Factory">
      <file name="Driver.php" role="horde" />
     </dir> <!-- /lib/Factory -->
@@ -68,6 +83,10 @@
       <file name="Stockedit_Html.php" role="horde" />
      </dir> <!-- /lib/Ui/VarRenderer -->
     </dir> <!-- /lib/Ui -->
+    <dir name="View">
+     <file name="Base.php" role="horde" />
+     <file name="List.php" role="horde" />
+    </dir> <!-- /lib/View -->
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Driver.php" role="horde" />
@@ -87,6 +106,12 @@
       <file name="sesha.po" role="horde" />
      </dir> <!-- /locale/es/LC_MESSAGES -->
     </dir> <!-- /locale/es -->
+    <dir name="fi">
+     <dir name="LC_MESSAGES">
+      <file name="sesha.mo" role="horde" />
+      <file name="sesha.po" role="horde" />
+     </dir> <!-- /locale/fi/LC_MESSAGES -->
+    </dir> <!-- /locale/fi -->
     <dir name="lt">
      <dir name="LC_MESSAGES">
       <file name="sesha.mo" role="horde" />
@@ -106,7 +131,9 @@
     <file name="2_sesha_upgrade_autoincrement.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="templates">
-    <file name="list.html" role="horde" />
+    <dir name="view">
+     <file name="list.php" role="horde" />
+    </dir> <!-- /templates/view -->
     <file name="menu.inc" role="horde" />
    </dir> <!-- /templates -->
    <dir name="test">
@@ -229,6 +256,7 @@
    <install as="README" name="README" />
    <install as="sesha/search.php" name="search.php" />
    <install as="sesha/stock.php" name="stock.php" />
+   <install as="sesha-add-stock" name="bin/sesha-add-stock" />
    <install as="sesha/config/conf.xml" name="config/conf.xml" />
    <install as="sesha/config/prefs.php" name="config/prefs.php" />
    <install as="CHANGES" name="docs/CHANGES" />
@@ -239,7 +267,15 @@
    <install as="sesha/lib/Driver.php" name="lib/Driver.php" />
    <install as="sesha/lib/Exception.php" name="lib/Exception.php" />
    <install as="sesha/lib/Sesha.php" name="lib/Sesha.php" />
-   <install as="sesha/lib/Driver/Sql.php" name="lib/Driver/Sql.php" />
+   <install as="sesha/lib/Driver/Rdo.php" name="lib/Driver/Rdo.php" />
+   <install as="sesha/lib/Entity/Category.php" name="lib/Entity/Category.php" />
+   <install as="sesha/lib/Entity/CategoryMapper.php" name="lib/Entity/CategoryMapper.php" />
+   <install as="sesha/lib/Entity/Property.php" name="lib/Entity/Property.php" />
+   <install as="sesha/lib/Entity/PropertyMapper.php" name="lib/Entity/PropertyMapper.php" />
+   <install as="sesha/lib/Entity/Stock.php" name="lib/Entity/Stock.php" />
+   <install as="sesha/lib/Entity/StockMapper.php" name="lib/Entity/StockMapper.php" />
+   <install as="sesha/lib/Entity/Value.php" name="lib/Entity/Value.php" />
+   <install as="sesha/lib/Entity/ValueMapper.php" name="lib/Entity/ValueMapper.php" />
    <install as="sesha/lib/Factory/Driver.php" name="lib/Factory/Driver.php" />
    <install as="sesha/lib/Forms/Category.php" name="lib/Forms/Category.php" />
    <install as="sesha/lib/Forms/CategoryDelete.php" name="lib/Forms/CategoryDelete.php" />
@@ -251,19 +287,23 @@
    <install as="sesha/lib/Forms/Stock.php" name="lib/Forms/Stock.php" />
    <install as="sesha/lib/Forms/Type/Client.php" name="lib/Forms/Type/Client.php" />
    <install as="sesha/lib/Ui/VarRenderer/Stockedit_Html.php" name="lib/Ui/VarRenderer/Stockedit_Html.php" />
+   <install as="sesha/lib/View/Base.php" name="lib/View/Base.php" />
+   <install as="sesha/lib/View/List.php" name="lib/View/List.php" />
    <install as="sesha/locale/sesha.pot" name="locale/sesha.pot" />
    <install as="sesha/locale/de/LC_MESSAGES/sesha.mo" name="locale/de/LC_MESSAGES/sesha.mo" />
    <install as="sesha/locale/de/LC_MESSAGES/sesha.po" name="locale/de/LC_MESSAGES/sesha.po" />
    <install as="sesha/locale/es/LC_MESSAGES/sesha.mo" name="locale/es/LC_MESSAGES/sesha.mo" />
    <install as="sesha/locale/es/LC_MESSAGES/sesha.po" name="locale/es/LC_MESSAGES/sesha.po" />
+   <install as="sesha/locale/fi/LC_MESSAGES/sesha.mo" name="locale/fi/LC_MESSAGES/sesha.mo" />
+   <install as="sesha/locale/fi/LC_MESSAGES/sesha.po" name="locale/fi/LC_MESSAGES/sesha.po" />
    <install as="sesha/locale/lt/LC_MESSAGES/sesha.mo" name="locale/lt/LC_MESSAGES/sesha.mo" />
    <install as="sesha/locale/lt/LC_MESSAGES/sesha.po" name="locale/lt/LC_MESSAGES/sesha.po" />
    <install as="sesha/locale/lv/LC_MESSAGES/sesha.mo" name="locale/lv/LC_MESSAGES/sesha.mo" />
    <install as="sesha/locale/lv/LC_MESSAGES/sesha.po" name="locale/lv/LC_MESSAGES/sesha.po" />
    <install as="sesha/migration/1_sesha_base_tables.php" name="migration/1_sesha_base_tables.php" />
    <install as="sesha/migration/2_sesha_upgrade_autoincrement.php" name="migration/2_sesha_upgrade_autoincrement.php" />
-   <install as="sesha/templates/list.html" name="templates/list.html" />
    <install as="sesha/templates/menu.inc" name="templates/menu.inc" />
+   <install as="sesha/templates/view/list.php" name="templates/view/list.php" />
    <install as="Sesha/AllTests.php" name="test/Sesha/AllTests.php" />
    <install as="Sesha/Autoload.php" name="test/Sesha/Autoload.php" />
    <install as="Sesha/TestCase.php" name="test/Sesha/TestCase.php" />
@@ -286,11 +326,13 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2012-01-14</date>
+   <date>2012-05-10</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [rla] Use Horde_View in place of Horde_Template
+* [rla] change backend from Sql driver to Rdo driver with enhanced search capabilities
 * [jan] Add Finnish translation (Leena Heino &lt;liinu@uta.fi&gt;).
-* [rla] Converted to Horde 4 Framework
+* [rla] Convert to Horde 5 Framework
 * Initial release.
    </notes>
   </release>
