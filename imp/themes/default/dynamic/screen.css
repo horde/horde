@@ -952,7 +952,7 @@ span.dimpactionSpam {
     width: 18px;
 }
 span.dimpactionHam {
-    background-image: url("../graphics/ham.png");
+    background-image: url("../graphics/innocent.png");
 }
 span.dimpactionCompose {
     background-image: url("../graphics/compose.png");
@@ -1049,8 +1049,8 @@ span.dimpactionFilter {
 #ctx_message_spam span.iconImg {
     background-image: url("../graphics/spam.png");
 }
-#ctx_message_ham span.iconImg {
-    background-image: url("../graphics/ham.png");
+#ctx_message_innocent span.iconImg {
+    background-image: url("../graphics/innocent.png");
 }
 #ctx_message_blacklist span.iconImg, #ctx_oa_blacklist span.iconImg {
     background-image: url("../graphics/blacklist.png");

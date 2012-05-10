@@ -401,7 +401,7 @@ var ImpMobile = {
             data = ImpMobile.message,
             headers = $('#imp-message-headers tbody'),
             args = '&mbox=' + data.mbox + '&uid=' + data.uid,
-            ham = spam = 'show', spambar;
+            innocent = spam = 'show', spambar;
 
         // TODO: Remove once we can pass viewport parameters directly to the
         // showMessage request.
@@ -499,16 +499,16 @@ var ImpMobile = {
             if (!IMP.conf.spam_spammbox) {
                 spam = 'hide';
             }
-        } else if (IMP.conf.ham_spammbox) {
-            ham = 'hide';
+        } else if (IMP.conf.innocent_spammbox) {
+            innocent = 'hide';
         }
 
-        if ($('#imp-message-ham')) {
-            $.fn[ham].call($('#imp-message-ham'));
-            $('#imp-message-ham').attr(
+        if ($('#imp-message-innocent')) {
+            $.fn[innocent].call($('#imp-message-innocent'));
+            $('#imp-message-innocent').attr(
                 'href',
-                '#confirm?action=ham' + args);
-            spambar = $('#imp-message-ham').parent();
+                '#confirm?action=innocent' + args);
+            spambar = $('#imp-message-innocent').parent();
         }
         if ($('#imp-message-spam')) {
             $.fn[spam].call($('#imp-message-spam'));
@@ -775,8 +775,8 @@ var ImpMobile = {
         }
 
         switch (url.params.action) {
+        case 'innocent':
         case 'spam':
-        case 'ham':
             HordeMobile.doAction(
                 'reportSpam',
                 $.extend(ImpMobile.addViewportParams({

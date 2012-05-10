@@ -38,7 +38,7 @@ span.spellcheckPopdownImg {
     background-image: url("graphics/spam.png");
 }
 .msgflags.flagNotJunk, span.iconImg.flagNotJunk {
-    background-image: url("graphics/ham.png");
+    background-image: url("graphics/innocent.png");
 }
 span.iconImg.flagSeen {
     background-image: url("graphics/mail_seen.png");

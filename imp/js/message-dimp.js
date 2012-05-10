@@ -139,7 +139,7 @@ var DimpMessage = {
                 return;
 
             case 'button_delete':
-            case 'button_ham':
+            case 'button_innocent':
             case 'button_spam':
                 if (HordeCore.base.DimpBase) {
                     HordeCore.base.focus();

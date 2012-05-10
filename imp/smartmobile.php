@@ -44,7 +44,7 @@ $view->portal = Horde::getServiceLink('portal', 'horde')->setRaw(false);
 $view->logout = Horde::getServiceLink('logout')->setRaw(false);
 $view->canSearch = $imp_imap->access(IMP_Imap::ACCESS_SEARCH);
 $view->canSpam = !empty($conf['spam']['reporting']);
-$view->canHam = !empty($conf['notspam']['reporting']);
+$view->canInnocent = !empty($conf['notspam']['reporting']);
 
 if ($view->canCompose = IMP::canCompose()) {
     /* Setting up identities. */

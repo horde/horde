@@ -130,7 +130,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
       <div style="display:none"><?php echo IMP_Dimp::actionButton(array('class' => 'noselectDisable', 'icon' => 'Spam', 'id' => 'button_spam', 'title' => _("Spam"))) ?></div>
 <?php endif; ?>
 <?php if (!empty($conf['notspam']['reporting'])): ?>
-      <div style="display:none"><?php echo IMP_Dimp::actionButton(array('class' => 'noselectDisable', 'icon' => 'Ham', 'id' => 'button_ham', 'title' => _("Innocent"))) ?></div>
+      <div style="display:none"><?php echo IMP_Dimp::actionButton(array('class' => 'noselectDisable', 'icon' => 'Ham', 'id' => 'button_innocent', 'title' => _("Innocent"))) ?></div>
 <?php endif; ?>
       <div style="display:none"><?php echo IMP_Dimp::actionButton(array('class' => 'noselectDisable', 'icon' => 'Resume', 'id' => 'button_resume', 'title' => _("Resume"))) ?></div>
       <div style="display:none"><?php echo IMP_Dimp::actionButton(array('icon' => 'Resume', 'id' => 'button_template', 'title' => _("Use Template"))) ?></div>

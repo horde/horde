@@ -84,6 +84,9 @@ The 'mbox_sort' and 'mbox_special' hooks have been added.
 
 The 'dimp_addressformatting' hook has been removed.
 
+The $action parameter for reporting not spam message to the 'spam_email' and
+'post_spam' hooks has been changed from 'ham' to 'innocent'.
+
 
 Preferences (prefs.php)
 -----------------------
@@ -96,7 +99,9 @@ The default values for these preferences have been changed::
    trash_folder
 
 The following preferences are no longer used and may be safely removed from
-your preference backend::
+your preference backend (only after all users have logged in - these
+preferences MAY be used to automatically upgrade to new preferences when
+a user logs into IMP 6 for the first time)::
 
    dimp_qsearch_field
    dimp_show_preview
@@ -105,6 +110,7 @@ your preference backend::
    dimp_toggle_headers
    dynamic_view
    image_addrbook
+   move_ham_after_report
    sig_first
    stationery
 

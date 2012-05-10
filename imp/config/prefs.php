@@ -1139,7 +1139,7 @@ $prefGroups['spamreport'] = array(
     'label' => _("Spam Reporting"),
     'desc' => _("Configure spam reporting."),
     'members' => array(
-        'spamselect', 'delete_spam_after_report', 'move_ham_after_report',
+        'spamselect', 'delete_spam_after_report', 'move_innocent_after_report',
         'empty_spam_menu', 'purge_spam_interval', 'purge_spam_keep'
     )
 );
@@ -1171,7 +1171,7 @@ $_prefs['delete_spam_after_report'] = array(
 );
 
 // What should we do with spam messages after reporting them as innocent?
-$_prefs['move_ham_after_report'] = array(
+$_prefs['move_innocent_after_report'] = array(
     'value' => 0,
     'type' => 'enum',
     'enum' => array(
@@ -1179,7 +1179,7 @@ $_prefs['move_ham_after_report'] = array(
         1 => _("Move to Inbox")
     ),
     'desc' => _("What should we do with messages after they have been reported as innocent?"),
-    'help' => 'prefs-move_ham_after_report'
+    'help' => 'prefs-move_innocent_after_report'
 );
 
 // display the 'Empty Spam' link in the menubar?

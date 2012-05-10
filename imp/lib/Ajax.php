@@ -173,8 +173,8 @@ class IMP_Ajax
             /* Needed to maintain flag ordering. */
             'flags_o' => array_keys($flags),
             'fsearchid' => IMP_Mailbox::formTo(IMP_Search::MBOX_PREFIX . IMP_Search::DIMP_FILTERSEARCH),
-            'ham_spammbox' => intval(!empty($conf['notspam']['spamfolder'])),
             'initial_page' => IMP_Auth::getInitialPage()->mbox->form_to,
+            'innocent_spammbox' => intval(!empty($conf['notspam']['spamfolder'])),
             'mbox_expand' => intval($prefs->getValue('nav_expanded') == 2),
             'name' => $registry->get('name', 'imp'),
             'poll_alter' => intval(!$prefs->isLocked('nav_poll') && !$prefs->getValue('nav_poll_all')),
@@ -348,7 +348,7 @@ class IMP_Ajax
             ),
             '_sep2' => null,
             'spam' => _("Report as Spam"),
-            'ham' => _("Report as Innocent"),
+            'innocent' => _("Report as Innocent"),
             'blacklist' => _("Blacklist"),
             'whitelist' => _("Whitelist"),
             'delete' => _("Delete"),
@@ -363,7 +363,7 @@ class IMP_Ajax
             unset($context['ctx_message']['spam']);
         }
         if (empty($conf['notspam']['reporting'])) {
-            unset($context['ctx_message']['ham']);
+            unset($context['ctx_message']['innocent']);
         }
         if (!$registry->hasMethod('mail/blacklistFrom')) {
             unset($context['ctx_message']['blacklist']);

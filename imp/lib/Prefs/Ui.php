@@ -150,7 +150,7 @@ class IMP_Prefs_Ui
             case 'delete_sentmail_monthly_keep':
             case 'empty_spam_menu':
             case 'initialpageselect':
-            case 'move_ham_after_report':
+            case 'move_innocent_after_report':
             case 'nav_expanded':
             case 'nav_poll_all':
             case 'purge_sentmail_interval':

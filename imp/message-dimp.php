@@ -127,9 +127,9 @@ if (!empty($conf['spam']['reporting']) &&
 
 if (!empty($conf['notspam']['reporting']) &&
     (!$conf['notspam']['spamfolder'] || IMP::mailbox()->spam)) {
-    $t->set('ham_button', IMP_Dimp::actionButton(array(
+    $t->set('innocent_button', IMP_Dimp::actionButton(array(
         'icon' => 'Ham',
-        'id' => 'button_ham',
+        'id' => 'button_innocent',
         'title' => _("Innocent")
     )));
 }

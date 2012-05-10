@@ -728,7 +728,7 @@
     </para>
 </entry>
 
-<entry id="prefs-move_ham_after_report">
+<entry id="prefs-move_innocent_after_report">
     <title>Preferences: Move Spam After Reporting As Innocent</title>
     <para>
     You may elect to do one of two items after reporting a message previously maked as spam as innocent.

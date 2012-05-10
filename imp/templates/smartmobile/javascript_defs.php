@@ -14,7 +14,7 @@ $code = array();
 $code['conf'] = array_filter(array(
     'allow_folders' => $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS),
     'disable_compose' => !IMP::canCompose(),
-    'ham_spammbox' => !empty($GLOBALS['conf']['notspam']['spamfolder']),
+    'innocent_spammbox' => !empty($GLOBALS['conf']['notspam']['spamfolder']),
     'mailbox_return' => $GLOBALS['prefs']->getValue('mailbox_return'),
     'pop3' => intval($GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->pop3),
     'qsearchid' => IMP_Mailbox::formTo(IMP_Search::MBOX_PREFIX . IMP_Search::DIMP_QUICKSEARCH),
@@ -27,13 +27,13 @@ $code['text'] = array(
     'confirm' => array(
         'text' => array(
             'delete' => _("Are you sure you want to delete this message?"),
-            'ham'    => _("Are you sure you wish to report this message as innocent?"),
-            'spam'   => _("Are you sure you wish to report this message as spam?")
+            'innocent' => _("Are you sure you wish to report this message as innocent?"),
+            'spam' => _("Are you sure you wish to report this message as spam?")
         ),
         'action' => array(
             'delete' => _("Delete"),
-            'ham'    => _("Report as Innocent"),
-            'spam'   => _("Report as Spam")
+            'innocent' => _("Report as Innocent"),
+            'spam' => _("Report as Spam")
         ),
     ),
     'copy' => _("Copy"),

@@ -250,7 +250,7 @@ class IMP_Spam
             $imp_message->flag(array('$notjunk'), $indices, true);
             $imp_message->flag(array('$junk'), $indices, false);
 
-            if (($result = $GLOBALS['prefs']->getValue('move_ham_after_report')) &&
+            if (($result = $GLOBALS['prefs']->getValue('move_innocent_after_report')) &&
                 !$imp_message->copy('INBOX', 'move', $indices, $mbox_args)) {
                 $result = 0;
             }

@@ -661,7 +661,7 @@ var DimpBase = {
 
         container.observe('ViewPort:contentComplete', function() {
             var flags, ssc, tmp,
-                ham = spam = 'show';
+                innocent = spam = 'show';
 
             this.setMessageListTitle();
             this.setMsgHash();
@@ -726,10 +726,10 @@ var DimpBase = {
 
                 if (this.viewport.getMetaData('drafts')) {
                     $('button_resume').up().show();
-                    $('button_template', 'button_reply', 'button_forward', 'button_spam', 'button_ham').compact().invoke('up').invoke('hide');
+                    $('button_template', 'button_reply', 'button_forward', 'button_spam', 'button_innocent').compact().invoke('up').invoke('hide');
                 } else if (this.viewport.getMetaData('templates')) {
                     $('button_template').up().show();
-                    $('button_resume', 'button_reply', 'button_forward', 'button_spam', 'button_ham').compact().invoke('up').invoke('hide');
+                    $('button_resume', 'button_reply', 'button_forward', 'button_spam', 'button_innocent').compact().invoke('up').invoke('hide');
                 } else {
                     $('button_resume', 'button_template').compact().invoke('up').invoke('hide');
                     $('button_reply', 'button_forward').compact().invoke('up').invoke('show');
@@ -738,12 +738,12 @@ var DimpBase = {
                         if (!DIMP.conf.spam_spammbox) {
                             spam = 'hide';
                         }
-                    } else if (DIMP.conf.ham_spammbox) {
-                        ham = 'hide';
+                    } else if (DIMP.conf.innocent_spammbox) {
+                        innocent = 'hide';
                     }
 
-                    if (tmp = $('button_ham')) {
-                        [ tmp.up() ].invoke(ham);
+                    if (tmp = $('button_innocent')) {
+                        [ tmp.up() ].invoke(innocent);
                     }
                     if (tmp = $('button_spam')) {
                         [ tmp.up() ].invoke(spam);
@@ -1041,8 +1041,8 @@ var DimpBase = {
             });
             break;
 
+        case 'ctx_message_innocent':
         case 'ctx_message_spam':
-        case 'ctx_message_ham':
             this.reportSpam(id == 'ctx_message_spam');
             break;
 
@@ -2660,7 +2660,7 @@ var DimpBase = {
                 e.stop();
                 return;
 
-            case 'button_ham':
+            case 'button_innocent':
             case 'button_spam':
                 this.reportSpam(id == 'button_spam');
                 e.stop();

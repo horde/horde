@@ -634,7 +634,7 @@ class IMP_Hooks
      * reporting software (e.g. DSPAM) which has different e-mail aliases for
      * spam reporting for each user.
      *
-     * @param string $action  Either 'spam' or 'ham'.
+     * @param string $action  Either 'spam' or 'innocent'.
      *
      * @return string  An e-mail address.
      */
@@ -647,11 +647,11 @@ class IMP_Hooks
 
 
     /**
-     * Perform an action after messages have been reported as spam/ham.
+     * Perform an action after messages have been reported as spam/innocent.
      *
-     * @param string $action        Either 'spam' or 'ham'.
+     * @param string $action        Either 'spam' or 'innocent'.
      * @param IMP_Indices $indices  The list of indices that have been
-                                    reported as spam/ham.
+                                    reported as spam/innocent.
      */
 //    public function post_spam($action, $indices)
 //    {
