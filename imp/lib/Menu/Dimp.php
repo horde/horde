@@ -83,7 +83,7 @@ class IMP_Menu_Dimp extends Horde_Menu
 
         foreach ($this->_menu as $k => $v) {
             $url = new Horde_Url($v['url']);
-            $out[$k] = strval($url->setRaw(true)->add('ajaxui', 1));
+            $out[$k] = strval($url->setRaw(true));
         }
 
         if (!empty($out)) {

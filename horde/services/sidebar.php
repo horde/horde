@@ -21,7 +21,7 @@ function _renderSidebar()
 {
     global $conf, $injector, $language, $page_output, $prefs, $registry;
 
-    if (!Horde_Util::getFormData('ajaxui') &&
+    if (($registry->getView() != $registry::VIEW_DYNAMIC) &&
         ($conf['menu']['always'] ||
          ($registry->getAuth() && $prefs->getValue('show_sidebar')))) {
         $sidebar = $injector->getInstance('Horde_Core_Sidebar');

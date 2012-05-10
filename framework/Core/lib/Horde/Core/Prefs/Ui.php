@@ -593,7 +593,7 @@ class Horde_Core_Prefs_Ui
 
         /* Get the menu output before we start to output the page.
          * Again, this will catch any javascript inserted into the page. */
-        $menu_out = $this->vars->ajaxui
+        $menu_out = ($registry->getView() == $registry::VIEW_DYNAMIC)
             ? ''
             : Horde::menu(array(
                   'app' => $this->app,
@@ -623,7 +623,6 @@ class Horde_Core_Prefs_Ui
 
         $base_ui = clone $base;
         $base_ui->set('action', $options_link);
-        $base_ui->set('ajaxui', intval($this->vars->ajaxui));
         $base_ui->set('forminput', Horde_Util::formInput());
 
         /* Show the current application and a form for switching

@@ -840,7 +840,7 @@ HermesCore = {
             view.appear({ duration: this.effectDur, queue: 'end' });
             iframe.stopObserving('load');
         }.bind(this));
-        iframe.src = HordeCore.addURLParam(loc, { ajaxui: 1 });
+        iframe.src = HordeCore.addURLParam(loc);
         this.view = 'iframe';
     },
 

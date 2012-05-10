@@ -150,11 +150,11 @@ class IMP_Ajax
         /* Variables used in core javascript files. */
         $this->_jsvars['conf'] = array_filter(array(
             // URL variables
-            'URI_COMPOSE' => strval(Horde::url('compose-dimp.php')->setRaw(true)->add('ajaxui', 1)),
+            'URI_COMPOSE' => strval(Horde::url('compose-dimp.php')->setRaw(true)),
             'URI_DIMP' => strval(Horde::url('index-dimp.php')),
-            'URI_MESSAGE' => strval(Horde::url('message-dimp.php')->setRaw(true)->add('ajaxui', 1)),
-            'URI_PORTAL' => strval(Horde::getServiceLink('portal')->setRaw(true)->add('ajaxui', 1)),
-            'URI_PREFS_IMP' => strval(Horde::getServiceLink('prefs', 'imp')->setRaw(true)->add('ajaxui', 1)),
+            'URI_MESSAGE' => strval(Horde::url('message-dimp.php')->setRaw(true)),
+            'URI_PORTAL' => strval(Horde::getServiceLink('portal')->setRaw(true)),
+            'URI_PREFS_IMP' => strval(Horde::getServiceLink('prefs', 'imp')->setRaw(true)),
             'URI_SEARCH' => strval(Horde::url('search.php')),
             'URI_VIEW' => strval(Horde::url('view.php')),
 

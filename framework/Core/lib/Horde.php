@@ -212,7 +212,6 @@ class Horde
 
         switch ($type) {
         case 'ajax':
-            $opts['noajax'] = true;
             return self::url('services/ajax.php/' . $app . '/', false, $opts)
                        ->add('token', $GLOBALS['session']->getToken());
 
@@ -225,11 +224,9 @@ class Horde
                 ->add('module', $app);
 
         case 'emailconfirm':
-            $opts['noajax'] = true;
             return self::url('services/confirm.php', false, $opts);
 
         case 'go':
-            $opts['noajax'] = true;
             return self::url('services/go.php', false, $opts);
 
         case 'help':
@@ -237,11 +234,9 @@ class Horde
                 ->add('module', $app);
 
         case 'imple':
-            $opts['noajax'] = true;
             return self::url('services/imple.php', false, $opts);
 
         case 'login':
-            $opts['noajax'] = true;
             return self::url('login.php', false, $opts);
 
         case 'logintasks':
@@ -604,8 +599,6 @@ class Horde
      * 'force_ssl' - (boolean) Ignore $conf['use_ssl'] and force creation of a
      *               SSL URL?
      *               DEFAULT: false
-     * 'noajax' - (boolean) Don't add AJAX UI parameter?
-     *            DEFAULT: false
      * </pre>
      *
      * @return Horde_Url  The URL with the session id appended (if needed).
@@ -702,12 +695,6 @@ class Horde
             (($append_session == 1) ||
              (($append_session == 0) && !isset($_COOKIE[session_name()])))) {
             $ob->add(session_name(), session_id());
-        }
-
-        if (empty($opts['noajax']) &&
-            ($append_session >= 0) &&
-            Horde_Util::getFormData('ajaxui')) {
-            $ob->add('ajaxui', 1);
         }
 
         return $ob;

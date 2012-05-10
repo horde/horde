@@ -14,7 +14,7 @@ $code['conf'] = array(
         'exception' => (string)Horde_Themes::img('exception-fff.png'),
     ),
     'user' => $GLOBALS['registry']->convertUsername($GLOBALS['registry']->getAuth(), false),
-    'prefs_url' => (string)Horde::getServiceLink('prefs', 'kronolith')->setRaw(true)->add('ajaxui', 1),
+    'prefs_url' => strval(Horde::getServiceLink('prefs', 'kronolith')->setRaw(true)),
     'name' => $registry->get('name'),
     'has_tasks' => $has_tasks,
     'default_calendar' => 'internal|' . Kronolith::getDefaultCalendar(Horde_Perms::EDIT),
