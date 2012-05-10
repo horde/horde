@@ -504,9 +504,10 @@ class Sesha_Driver_Rdo extends Sesha_Driver
     /**
      * Inventory search
      * @param array filters  a list of filter hashes, each having keys
-     *                  string type ('note', 'stock_name', 'stock_id', 'categories', 'properties')
+     *                  string type ('note', 'stock_name', 'stock_id', 'categories', 'values')
      *                  string test
-     *                  mixed  value (string fore note, stock_name)
+     *                  mixed  value (string for note, stock_name)
+     *                  For the 'values' structure, value, value is a map of [values] and optional [property]}
      * @return array  List of Stock items
      */
     public function findStock($filters = array())
@@ -526,7 +527,7 @@ class Sesha_Driver_Rdo extends Sesha_Driver
                             'test' => $filter['test'] ? $filter['test'] : 'IN',
                             'value' => is_array($filter['value']) ? $filter['value'] : array($filter['value'])
                         );
-                $query->addTest($test);
+                $query->addTest($test['field'], $test['test'], $test['value']);
                 break;
                 case 'categories':
                     $cm = $this->_mappers->create('Sesha_Entity_CategoryMapper');
@@ -547,13 +548,26 @@ class Sesha_Driver_Rdo extends Sesha_Driver
                     if (count($filters == 1)) {
                         return $items;
                     }
-                    $query->addTest(
-                        array(
-                            'field' => 'stock_id',
-                            'test' => $filter['test'] ? $filter['test'] : 'IN',
-                            'value' => array_keys($items)
-                        )
-                    );
+                    $query->addTest('stock_id',$filter['test'] ? $filter['test'] : 'IN', array_keys($items));
+                break;
+                case 'values':
+                    $vm = $this->_mappers->create('Sesha_Entity_ValueMapper');
+                    $items = array();
+                    foreach ($filter['value'] as $propTest) {
+                        $values = is_array($propTest['values']) ? $propTest['values'] : array($propTest['values']);
+                        $valueQuery = new Horde_Rdo_Query($vm);
+                        if ($propTest['property']) {
+                            $valueQuery->addTest('property_id', '=', $propTest['property']);
+                        }
+                        $valueQuery->addTest('txt_datavalue', 'IN', $values);
+                        foreach ($vm->find($valueQuery) as $value) {
+                            $items[$value->stock_id] = $value->stock;
+                        }
+                    }
+                    if (count($filters == 1)) {
+                        return $items;
+                    }
+                    $query->addTest('stock_id',$filter['test'] ? $filter['test'] : 'IN', array_keys($items));
                 break;
             }
         }
