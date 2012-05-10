@@ -74,7 +74,6 @@ class Sesha_View_List extends Sesha_View_Base
             $this->header = $category_id ?
                 sprintf(_("Available Inventory in %s"), $selectedCategory->category) : _("Available Inventory");
         }
-
         $this->title = _('Sesha List View');
         $this->selectedCategories = (is_array($config['selectedCategories'])) ? $config['selectedCategories'] : array($config['selectedCategories']);
         if (empty($this->selectedCategories[0])) {array_shift($this->selectedCategories);}
@@ -84,7 +83,18 @@ class Sesha_View_List extends Sesha_View_Base
         if (!empty($this->selectedCategories)) {
             $filters[] = array('type' => 'categories', 'value' => $this->selectedCategories);
         }
-
+        if (in_array(Sesha::SEARCH_ID, $config['loc'])) {
+            $filters[] = array('type' => 'stock_id', 'value' => $config['what']);
+        }
+        if (in_array(Sesha::SEARCH_NAME, $config['loc'])) {
+            $filters[] = array('type' => 'stock_name', 'value' => $config['what']);
+        }
+        if (in_array(Sesha::SEARCH_NOTE, $config['loc'])) {
+            $filters[] = array('type' => 'note', 'value' => $config['what']);
+        }
+        if (in_array(Sesha::SEARCH_PROPERTY, $config['loc'])) {
+            $filters[] = array('type' => 'values', 'value' => array(array('values' => array($config['what']))));
+        }
         $this->shownStock = $this->stock($filters);
         parent::__construct($config);
     }
