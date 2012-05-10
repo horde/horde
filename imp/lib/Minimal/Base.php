@@ -1,20 +1,64 @@
 <?php
 /**
- * Provides mobile view (MIMP) helper functions.
+ * Base class for minimal view pages.
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
+ * @license  http://www.horde.org/licenses/gpl21 GPL
  * @package  IMP
  */
-class IMP_Ui_Mimp
+abstract class IMP_Minimal_Base
 {
+    /**
+     * @var string
+     */
+    public $title;
+
+    /**
+     * @var Horde_Variables
+     */
+    public $vars;
+
+    /**
+     * @var Horde_View
+     */
+    public $view;
+
+    /**
+     * @var array
+     */
+    protected $_pages = array(
+        'header'
+    );
+
+    /**
+     */
+    public function __construct(Horde_Variables $vars)
+    {
+        $this->vars = $vars;
+
+        $this->view = new Horde_View(array(
+            'templatePath' => IMP_TEMPLATES . '/minimal'
+        ));
+        $this->view->addHelper('Text');
+
+        $this->_init();
+    }
+
+    /**
+     */
+    public function render()
+    {
+        foreach ($this->_pages as $val) {
+            echo $this->view->render($val);
+        }
+    }
+
     /**
      * Output the menu.
      *
@@ -29,16 +73,16 @@ class IMP_Ui_Mimp
     {
         if (!in_array($page, array('mailbox', 'message')) ||
             (IMP::mailbox() != 'INBOX')) {
-            $items[] = array(_("Inbox"), IMP_Mailbox::get('INBOX')->url('mailbox-mimp.php'));
+            $items[] = array(_("Inbox"), IMP_Minimal_Mailbox::url(array('mailbox' => 'INBOX')));
         }
 
         if (!in_array($page, array('compose', 'search')) && IMP::canCompose()) {
-            $items[] = array(_("New Message"), Horde::url('compose-mimp.php')->unique());
+            $items[] = array(_("New Message"), IMP_Minimal_Compose::url());
         }
 
         if (!in_array($page, array('folders', 'search')) &&
             $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS)) {
-            $items[] = array(_("Folders"), Horde::url('folders-mimp.php'));
+            $items[] = array(_("Folders"), IMP_Minimal_Folders::url());
         }
 
         $items[] = array(_("Log out"), Horde::getServiceLink('logout', 'imp'));
@@ -50,11 +94,15 @@ class IMP_Ui_Mimp
             }
         }
 
-        $out = '<ul class="mimpMenu">';
-        foreach ($items as $val) {
-            $out .= '<li><a href="' . $val[1] . '">' . htmlspecialchars($val[0]) . '</a></li>';
-        }
-        return $out . '</ul>';
+        return $items;
     }
+
+    /**
+     */
+    abstract protected function _init();
+
+    /**
+     */
+    abstract static public function url(array $opts = array());
 
 }

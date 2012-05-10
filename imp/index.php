@@ -19,6 +19,10 @@ Horde_Registry::appInit('imp');
 $page = IMP_Auth::getInitialPage();
 
 switch ($registry->getView()) {
+case $registry::VIEW_MINIMAL:
+    $page->url->redirect();
+    break;
+
 case $registry::VIEW_SMARTMOBILE:
     // If loading the mailbox page, we need to redirect so that jquery mobile
     // correctly loads deep-linked page.

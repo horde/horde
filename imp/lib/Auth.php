@@ -313,12 +313,10 @@ class IMP_Auth
             break;
 
         case Horde_Registry::VIEW_MINIMAL:
-            if (is_null($mbox)) {
-                $page = 'folders-mimp.php';
-            } else {
-                $page ='mailbox-mimp.php';
-                $result->url = $mbox->url($page);
-            }
+            $page = 'minimal.php';
+            $result->url = is_null($mbox)
+                ? IMP_Minimal_Folders::url()
+                : IMP_Minimal_Mailbox::url(array('mailbox' => $mbox));
             break;
 
         case Horde_Registry::VIEW_SMARTMOBILE:

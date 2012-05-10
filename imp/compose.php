@@ -30,7 +30,7 @@ if ($vars->actionID == 'mailto_link') {
         exit;
 
     case Horde_Registry::VIEW_MINIMAL:
-        require IMP_BASE . '/compose-mimp.php';
+        IMP_Minimal_Compose::url()->redirect();
         exit;
     }
 }

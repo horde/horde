@@ -340,7 +340,7 @@ class IMP
             $callback = array(__CLASS__, 'composeLinkJsCallback');
         } else {
             $url = ($view == Horde_Registry::VIEW_MINIMAL)
-                ? 'compose-mimp.php'
+                ? IMP_Minimal_Compose::url()
                 : 'compose.php';
         }
 
