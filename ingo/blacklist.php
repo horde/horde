@@ -50,9 +50,9 @@ case 'rule_update':
         break;
     }
 
-    if (($folder == Ingo::BLACKLIST_MARKER) &&
-        !$scriptor &&
-        !in_array(Ingo_Storage::ACTION_FLAGONLY, $scriptor->availableActions())) {
+    if ($folder == Ingo::BLACKLIST_MARKER &&
+        (!$scriptor ||
+         !in_array(Ingo_Storage::ACTION_FLAGONLY, $scriptor->availableActions()))) {
 
         $notification->push("Not supported by this script generator.", 'horde.error');
     } else {
