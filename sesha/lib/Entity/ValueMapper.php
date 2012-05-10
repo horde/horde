@@ -47,12 +47,12 @@ class Sesha_Entity_ValueMapper extends Horde_Rdo_Mapper
         'stock'  => array(
                 'type' => Horde_Rdo::ONE_TO_ONE,
                 'foreignKey' => 'stock_id',
-                'mapper' => 'Sesha_Entity_Stock'
+                'mapper' => 'Sesha_Entity_StockMapper'
                 ),
         'property'  => array(
                 'type' => Horde_Rdo::ONE_TO_ONE,
                 'foreignKey' => 'property_id',
-                'mapper' => 'Sesha_Entity_Property'
+                'mapper' => 'Sesha_Entity_PropertyMapper'
                 ),
             );
 
