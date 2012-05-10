@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-05-03</date>
- <time>18:44:11</time>
+ <date>2012-05-10</date>
+ <time>12:41:22</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -121,6 +121,9 @@
      <file name="ActiveSync.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="locale">
+    <file name="Horde_ActiveSync.pot" role="data" />
+   </dir> <!-- /locale -->
    <dir name="migration">
     <dir name="Horde">
      <dir name="ActiveSync">
@@ -274,6 +277,7 @@
    <install as="Horde/ActiveSync/State/Sql.php" name="lib/Horde/ActiveSync/State/Sql.php" />
    <install as="Horde/ActiveSync/Wbxml/Decoder.php" name="lib/Horde/ActiveSync/Wbxml/Decoder.php" />
    <install as="Horde/ActiveSync/Wbxml/Encoder.php" name="lib/Horde/ActiveSync/Wbxml/Encoder.php" />
+   <install as="locale/Horde_ActiveSync.pot" name="locale/Horde_ActiveSync.pot" />
    <install as="migration/1_horde_activesync_base_tables.php" name="migration/Horde/ActiveSync/1_horde_activesync_base_tables.php" />
    <install as="migration/2_horde_activesync_peruserpolicykey.php" name="migration/Horde/ActiveSync/2_horde_activesync_peruserpolicykey.php" />
    <install as="migration/3_horde_activesync_clientidmap.php" name="migration/Horde/ActiveSync/3_horde_activesync_clientidmap.php" />
@@ -659,7 +663,7 @@
    <stability>
     <release>alpha</release>
     <api>alpha</api></stability>
-   <date>2012-05-03</date>
+   <date>2012-05-10</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Add basic Autoconfigure support.
