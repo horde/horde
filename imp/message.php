@@ -23,7 +23,7 @@ function _returnToMailbox($startIndex = null, $actID = null)
 
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('imp', array(
-    'impmode' => 'imp'
+    'impmode' => Horde_Registry::VIEW_BASIC
 ));
 
 $registry->setTimeZone();

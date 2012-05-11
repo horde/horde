@@ -15,7 +15,9 @@
  */
 
 require_once __DIR__ . '/lib/Application.php';
-Horde_Registry::appInit('imp', array('impmode' => 'dimp'));
+Horde_Registry::appInit('imp', array(
+    'impmode' => Horde_Registry::VIEW_DYNAMIC
+));
 
 $vars = $injector->getInstance('Horde_Variables');
 

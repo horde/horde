@@ -122,9 +122,11 @@ class IMP_Application extends Horde_Registry_Application
      */
     protected function _init()
     {
+        global $prefs, $registry;
+
         // Set default message character set.
-        if ($GLOBALS['registry']->getAuth()) {
-            if ($def_charset = $GLOBALS['prefs']->getValue('default_msg_charset')) {
+        if ($registry->getAuth()) {
+            if ($def_charset = $prefs->getValue('default_msg_charset')) {
                 Horde_Mime_Part::$defaultCharset = $def_charset;
                 Horde_Mime_Headers::$defaultCharset = $def_charset;
             }
@@ -134,32 +136,10 @@ class IMP_Application extends Horde_Registry_Application
             Horde_Mime::$decodeWindows1252 = true;
         }
 
-        if ($GLOBALS['registry']->initialApp == 'imp') {
-            switch ($GLOBALS['registry']->getView()) {
-            case Horde_Registry::VIEW_BASIC:
-                $redirect = (!empty($this->initParams['impmode']) &&
-                             ($this->initParams['impmode'] != 'imp'));
-                break;
-
-            case Horde_Registry::VIEW_DYNAMIC:
-                $redirect = (!empty($this->initParams['impmode']) &&
-                             ($this->initParams['impmode'] != 'dimp'));
-                break;
-
-            case Horde_Registry::VIEW_MINIMAL:
-                $redirect = (empty($this->initParams['impmode']) ||
-                             ($this->initParams['impmode'] != 'mimp'));
-                break;
-
-            case Horde_Registry::VIEW_SMARTMOBILE:
-                $redirect = (!empty($this->initParams['impmode']) &&
-                             ($this->initParams['impmode'] != 'mobile'));
-                break;
-            }
-
-            if (!empty($redirect)) {
-                IMP_Auth::getInitialPage()->url->redirect();
-            }
+        if (($registry->initialApp == 'imp') &&
+            !empty($this->initParams['impmode']) &&
+            ($this->initParams['impmode'] != $registry->getView())) {
+            IMP_Auth::getInitialPage()->url->redirect();
         }
     }
 

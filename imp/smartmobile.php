@@ -14,7 +14,9 @@
  */
 
 require_once __DIR__ . '/lib/Application.php';
-Horde_Registry::appInit('imp', array('impmode' => 'mobile'));
+Horde_Registry::appInit('imp', array(
+    'impmode' => Horde_Registry::VIEW_SMARTMOBILE
+));
 
 $view = new Horde_View(array(
     'templatePath' => IMP_TEMPLATES . '/smartmobile'
