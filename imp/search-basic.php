@@ -18,11 +18,6 @@ Horde_Registry::appInit('imp', array(
     'impmode' => 'imp'
 ));
 
-/* This is a basic-view only script. */
-if ($registry->getView() != Horde_Registry::VIEW_BASIC) {
-    exit;
-}
-
 if (!$injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_SEARCH)) {
     $notification->push(_("Searching is not available."), 'horde.error');
     $from_message_page = true;
