@@ -6,16 +6,18 @@
  * ----------
  * http://example.com/horde/services/ajax.php/APP/ACTION
  *
- * 'APP' - (string) The application name.
  * 'ACTION' - (string) The AJAX action identifier.
+ * 'APP' - (string) The application name.
  *
  * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Horde
  */
 
 require_once __DIR__ . '/../lib/Application.php';
