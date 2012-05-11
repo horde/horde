@@ -87,8 +87,9 @@ class IMP_Test extends Horde_Test
     {
         $ret = '<h1>Mail Server Support Test</h1>';
 
-        if (Horde_Util::getPost('user') && Horde_Util::getPost('passwd')) {
-            $ret .= $this->_doConnectionTest();
+        $vars = Horde_Variables::getDefaultVariables();
+        if ($vars->user && $vars->passwd) {
+            $ret .= $this->_doConnectionTest($vars);
         }
 
         $self_url = Horde::selfUrl()->add('app', 'imp');
@@ -102,19 +103,21 @@ class IMP_Test extends Horde_Test
     /**
      * Perform mail server support test.
      *
+     * @param Horde_Variables $vars  Variables object.
+     *
      * @return string  HTML output.
      */
-    protected function _doConnectionTest()
+    protected function _doConnectionTest($vars)
     {
         $imap_config = array(
-            'username' => Horde_Util::getPost('user'),
-            'password' => Horde_Util::getPost('passwd'),
-            'hostspec' => Horde_Util::getPost('server'),
-            'port' => Horde_Util::getPost('port'),
-            'secure' => Horde_Util::getPost('encrypt')
+            'username' => $vars->user,
+            'password' => $vars->passwd,
+            'hostspec' => $vars->server,
+            'port' => $vars->port,
+            'secure' => $vars->encrypt
         );
 
-        $driver = (Horde_Util::getPost('server_type') == 'imap')
+        $driver = ($vars->server_type == 'imap')
             ? 'Socket'
             : 'Socket_Pop3';
 
