@@ -32,4 +32,4 @@ case $registry::VIEW_SMARTMOBILE:
     break;
 }
 
-require IMP_Auth::getInitialPage()->fullpath;
+require $page->fullpath;
