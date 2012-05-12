@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] SECURITY: Fix XSS vulnerabilities in tasks view and search view (Bug #11189).
 * [jan] Update Italian translation (Massimo Malabotta &lt;mmalabotta@units.it&gt;).
 * [jan] Improve print styles.
 * [jan] Catch if external client doesn&apos;t send LAST-MODIFIED attributes (Bug #11130).
@@ -2082,6 +2083,7 @@
    <date>2012-03-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] SECURITY: Fix XSS vulnerabilities in tasks view and search view (Bug #11189).
 * [jan] Update Italian translation (Massimo Malabotta &lt;mmalabotta@units.it&gt;).
 * [jan] Improve print styles.
 * [jan] Catch if external client doesn&apos;t send LAST-MODIFIED attributes (Bug #11130).
