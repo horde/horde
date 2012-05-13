@@ -980,44 +980,48 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     public function sendMail(
         $rfc822, $forward = null, $reply = null, $parent = null, $save = true)
     {
-        $headers = Horde_Mime_Headers::parseHeaders($rfc822);
-        $message = Horde_Mime_Part::parseMessage($rfc822);
+        $raw_message = new Horde_ActiveSync_Rfc822($rfc822);
+        $headers = $raw_message->getHeaders();
 
-        // Message requests might not contain the From, since it can be assumed
-        // to be from the user of the AS account.
-        $ident = $GLOBALS['injector']
-            ->getInstance('Horde_Core_Factory_Identity')
-            ->create($this->_user);
-        $name = $ident->getValue('fullname');
-        $from_addr = $ident->getValue('from_addr');
-        $from = $name . '<' . $from_addr . '>';
-        $headers->addHeader('From', $from);
-        $signed = strtolower($message->getSubType()) == 'signed';
+        // Add From, but only if needed.
+        if (!$headers->getValue('From')) {
+            $ident = $GLOBALS['injector']
+                ->getInstance('Horde_Core_Factory_Identity')
+                ->create($this->_user);
 
-        $this->_logger->debug(sprintf("Setting FROM to '%s'.", $from));
-        $this->_logger->debug(sprintf("TO '%s'", $headers->getValue('To')));
-
-        // Build the outgoing message.
-        $mail = new Horde_Mime_Mail();
-        $mail->addHeaders($headers->toArray());
+            $name = $ident->getValue('fullname');
+            $from_addr = $ident->getValue('from_addr');
+            $from = $name . '<' . $from_addr . '>';
+            $headers->addHeader('From', $from);
+        }
 
         // Use the raw base part parsed from the rfc822 message if we don't
-        // need a smart replyl or smart forward. The device will NOT send a
+        // need a smart reply or smart forward. The device will NOT send a
         // smart reply/forward request if it is a s/mime signed.
         if (!$parent) {
-            $mail->setBasePart($message);
-        } else {
-            // The base mime object.
-            $base = new Horde_Mime_Part();
-            if ($this->_hasAttachments($message)) {
-                $atc = true;
-                $base->setType('multipart/mixed');
-            } else {
-                $atc = false;
-                $base->setType('text/plain');
+            $mailer = $GLOBALS['injector']->getInstance('Horde_Mail');
+            $recipients = new Horde_Mail_Rfc822_List();
+            foreach (array('To', 'Cc') as $header) {
+               $recipients->add($headers->getOb($header));
             }
-
-            // Build message body.
+            $h_array = $headers->toArray();
+            if (!empty($h_array['bcc'])) {
+                $recipients->add($headers->getOb('bcc'));
+                unset($h_array['bcc']);
+            }
+            if (is_array($h_array['From'])) {
+                $h_array['From'] = current($h_array['From']);
+            }
+            try {
+                $mailer->send($recipients->writeAddress(), $h_array, $raw_message->getMessage());
+            } catch (Horde_Mail_Exception $e) {
+                $this->_logger->err($e->getMessage());
+                throw new Horde_Exception($e);
+            }
+        } else {
+            $message = $raw_message->getMimeObject();
+            $mail = new Horde_Mime_Mail();
+            $mail->addHeaders($headers->toArray());
             $id = $message->findBody();
             if ($id) {
                 $newbody_text = $message->getPart($id)->getContents();
@@ -1026,10 +1030,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
 
             // Handle smartReplies and smartForward requests.
-            if ($reply && $parent) {
+            if ($reply) {
                 $imap_message = array_pop($this->_imap->getImapMessage($parent, $reply));
                 if (empty($imap_message)) {
-                    // Message gone
                     return false;
                 }
                 $data = $imap_message->getMessageBodyData();
@@ -1043,7 +1046,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     $quoted = $data['plain']['body'];
                 }
                 $newbody_text .= "\r\n" . $quoted;
-            } elseif ($forward && $parent) {
+            } elseif ($forward) {
                 $imap_message = array_pop(
                     $this->_imap->getImapMessage(
                         $parent, $forward, array('headers' => true))
@@ -1058,7 +1061,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $fwd = new Horde_Mime_Part();
                 $fwd->setType('message/rfc822');
                 $fwd->setContents($imap_message->getFullMsg());
-                $base->addPart($fwd);
+                $mail->addMimePart($fwd);
 
                 $from = $imap_message->getFromAddress();
                 $part = $imap_message->getStructure();
@@ -1075,39 +1078,35 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 foreach ($part->contentTypeMap() as $mid => $type) {
                     if ($imap_message->isAttachment($type)) {
                         $apart = $imap_message->getMimePart($mid);
-                        $base->addPart($apart);
+                        $mail->addMimePart($apart);
                     }
                 }
             }
 
             // Set the mail email body and add any uploaded attachments.
-            $base->setContents($newbody_text);
-            if ($atc) {
-                foreach ($message->contentTypeMap() as $mid => $type) {
-                    if ($mid != 0 && $mid != $id) {
-                        $part = $message->getPart($mid);
-                        $base->addPart($part);
-                    }
+            $mail->setBody($newbody_text);
+
+            foreach ($message->contentTypeMap() as $mid => $type) {
+                if ($mid != 0 && $mid != $id) {
+                    $part = $message->getPart($mid);
+                    $mail->addMimePart($part);
                 }
             }
-            $mail->setBasePart($base);
-        }
+            try {
+                $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
+            } catch (Horde_Mail_Exception $e) {
+                $this->_logger->err($e->getMessage());
+                throw new Horde_Exception($e);
+            }
 
-        $this->_logger->debug('Sending Email.');
-        try {
-            $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
-        } catch (Horde_Mail_Exception $e) {
-            $this->_logger->err($e->getMessage());
-            throw new Horde_Exception($e);
-        }
-
-        if ($save) {
-            $sf = $this->getSpecialFolderNameByType(self::SPECIAL_SENT);
-            if (!empty($sf)) {
-                $this->_logger->debug(sprintf("Preparing to copy to '%s'", $sf));
-                $flags = array(Horde_Imap_Client::FLAG_SEEN);
-                $msg = $message->toString(array('headers' => $headers));
-                $this->_imap->appendMessage($sf, $msg, $flags);
+            if ($save) {
+                $sf = $this->getSpecialFolderNameByType(self::SPECIAL_SENT);
+                if (!empty($sf)) {
+                    $this->_logger->debug(sprintf("Preparing to copy to '%s'", $sf));
+                    $flags = array(Horde_Imap_Client::FLAG_SEEN);
+                    $msg = $message->toString(array('headers' => $headers));
+                    $this->_imap->appendMessage($sf, $msg, $flags);
+                }
             }
         }
 
