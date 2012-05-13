@@ -1031,6 +1031,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
             // Handle smartReplies and smartForward requests.
             if ($reply) {
+                $this->_logger->debug('Preparing SMART_REPLY');
                 $imap_message = array_pop($this->_imap->getImapMessage($parent, $reply));
                 if (empty($imap_message)) {
                     return false;
@@ -1047,6 +1048,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 }
                 $newbody_text .= "\r\n" . $quoted;
             } elseif ($forward) {
+                $this->_logger->debug('Preparing SMART_FORWARD');
                 $imap_message = array_pop(
                     $this->_imap->getImapMessage(
                         $parent, $forward, array('headers' => true))
