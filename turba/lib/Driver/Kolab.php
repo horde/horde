@@ -222,7 +222,7 @@ class Turba_Driver_Kolab extends Turba_Driver
         $ids = $this->_removeDuplicated($ids);
 
         /* Now we have a list of names, get the rest. */
-        $this->_read('uid', $ids, null, $fields);
+        $result = $this->_read('uid', $ids, null, $fields);
 
         Horde::logMessage(sprintf('Kolab returned %s results',
                                   count($result)), 'DEBUG');
@@ -541,12 +541,8 @@ class Turba_Driver_Kolab extends Turba_Driver
     protected function _save(Turba_Object $object)
     {
         $this->connect();
-
-        if ($object_key != 'uid') {
-            throw new Turba_Exception(sprintf('Key for saving must be \'uid\' not %s!', $object_key));
-        }
-
-        return $this->_store($attributes, $object_id);
+        return $this->_store($this->toDriverKeys($object->getAttributes()),
+                             $object->getValue('__uid'));
     }
 
     /**
