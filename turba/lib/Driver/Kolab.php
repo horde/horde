@@ -36,14 +36,14 @@ class Turba_Driver_Kolab extends Turba_Driver
      *
      * @var Horde_Kolab_Storage_Data
      */
-    private $_data;
+    protected $_data;
 
     /**
      * The current addressbook represented as share.
      *
      * @var Horde_Share_Object
      */
-    private $_share;
+    protected $_share;
 
     /**
      * What can this backend do?
@@ -77,11 +77,11 @@ class Turba_Driver_Kolab extends Turba_Driver
     }
 
     /**
-     * Return the Kolab data handler for the current notepad.
+     * Return the Kolab data handler for the current address book.
      *
      * @return Horde_Kolab_Storage_Date The data handler.
      */
-    private function _getData()
+    protected function _getData()
     {
         if ($this->_data === null) {
             if (!empty($this->_share)) {
@@ -90,13 +90,12 @@ class Turba_Driver_Kolab extends Turba_Driver
                     'contact'
                 );
                 $this->setContactOwner($this->_share->get('owner'));
-            } else if (empty($this->_name)) {
+            } elseif (empty($this->_name)) {
                 throw new Turba_Exception(
                     'The addressbook has been left undefined but is required!'
                 );
-            } else {
-                $this->_data = $this->_getDataForAddressbook($this->_name);
             }
+            $this->_data = $this->_getDataForAddressbook($this->_name);
         }
         return $this->_data;
     }
@@ -108,9 +107,11 @@ class Turba_Driver_Kolab extends Turba_Driver
      *
      * @return Horde_Kolab_Storage_Date The data handler.
      */
-    private function _getDataForAddressbook($addressbook)
+    protected function _getDataForAddressbook($addressbook)
     {
-        $share = $GLOBALS['injector']->getInstance('Turba_Shares')->getShare($addressbook);
+        $share = $GLOBALS['injector']
+            ->getInstance('Turba_Shares')
+            ->getShare($addressbook);
         $this->setContactOwner($share->get('owner'));
         return $this->_kolab->getData($share->get('folder'), 'contact');
     }
@@ -120,7 +121,7 @@ class Turba_Driver_Kolab extends Turba_Driver
      *
      * @throws Turba_Exception
      */
-    function connect()
+    public function connect()
     {
         /* Fetch the contacts first */
         $raw_contacts = $this->_getData()->getObjects();
@@ -135,7 +136,8 @@ class Turba_Driver_Kolab extends Turba_Driver
             if (isset($contact['picture'])) {
                 $name = $contact['picture'];
                 if (isset($contact['_attachments'][$name])) {
-                    $contact['photo'] =  $this->_getData()->getAttachment($contact['_attachments'][$name]['key']);
+                    $contact['photo'] = $this->_getData()
+                        ->getAttachment($contact['_attachments'][$name]['key']);
                     $contact['phototype'] = $contact['_attachments'][$name]['type'];
                 }
             }
@@ -575,7 +577,7 @@ class Turba_Driver_Kolab extends Turba_Driver
     /**
      * TODO
      */
-    function _convertMembers(&$attributes)
+    protected function _convertMembers(&$attributes)
     {
         if (isset($attributes['__members'])) {
             $member_ids = unserialize($attributes['__members']);
@@ -632,7 +634,7 @@ class Turba_Driver_Kolab extends Turba_Driver
      *
      * @return string  A unique ID for the new object.
      */
-    private function _generateUid()
+    protected function _generateUid()
     {
         return $this->_getData()->generateUID();
     }
@@ -661,7 +663,8 @@ class Turba_Driver_Kolab extends Turba_Driver
      *
      * @return boolean TODO
      */
-    public function checkDefaultShare(Horde_Share_Object $share, array $srcconfig)
+    public function checkDefaultShare(Horde_Share_Object $share,
+                                      array $srcconfig)
     {
         $params = @unserialize($share->get('params'));
         return isset($params['default'])
