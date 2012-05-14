@@ -21,7 +21,6 @@ function _renderSidebar()
 {
     global $conf, $injector, $language, $page_output, $prefs, $registry;
 
-
     if ((!$registry->hasView($registry::VIEW_DYNAMIC) ||
         $registry->getView() != $registry::VIEW_DYNAMIC) &&
         ($conf['menu']['always'] ||
