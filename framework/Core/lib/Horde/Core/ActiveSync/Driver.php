@@ -968,7 +968,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     /**
      * Sends the email represented by the rfc822 string received by the PIM.
      *
-     * @param string $rfc822            The rfc822 mime message
+     * @param mixed $rfc822     The rfc822 mime message, a string or stream
+     *                          resource.
      * @param integer $forward  The UID of the message, if forwarding.
      * @param integer $reply    The UID of the message if replying.
      * @param string $parent    The collection id of parent message if
