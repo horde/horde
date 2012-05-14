@@ -77,6 +77,36 @@ class Turba_Driver_Kolab extends Turba_Driver
     }
 
     /**
+     * Translates the keys of the first hash from the generalized Turba
+     * attributes to the driver-specific fields. The translation is based on
+     * the contents of $this->map.
+     *
+     * @param array $hash  Hash using Turba keys.
+     *
+     * @return array  Translated version of $hash.
+     */
+    public function toDriverKeys(array $hash)
+    {
+        $hash = parent::toDriverKeys($hash);
+
+        if (isset($hash['name'])) {
+            $hash['name'] = array('full-name' => $hash['name']);
+        } else {
+            $hash['name'] = array();
+        }
+        /* TODO: use Horde_Kolab_Format_Xml_Type_Composite_Name */
+        foreach (array('given-name', 'middle-names', 'last-name', 'initials',
+                       'prefix', 'suffix') as $sub) {
+            if (isset($hash[$sub])) {
+                $hash['name'][$sub] = $hash[$sub];
+                unset($hash[$sub]);
+            }
+        }
+
+        return $hash;
+    }
+
+    /**
      * Return the Kolab data handler for the current address book.
      *
      * @return Horde_Kolab_Storage_Data The data handler.
@@ -443,21 +473,6 @@ class Turba_Driver_Kolab extends Turba_Driver
     protected function _add(array $attributes, array $blob_fields = array())
     {
         $this->connect();
-
-        if (isset($attributes['last-name'])) {
-            $attributes['full-name'] = $attributes['last-name'];
-        }
-        if (isset($attributes['middle-names'])) {
-            $attributes['full-name'] = $attributes['middle-names'] . ' ' . $attributes['full-name'];
-        }
-        if (isset($attributes['given-name'])) {
-            $attributes['full-name'] = $attributes['given-name'] . ' ' . $attributes['full-name'];
-        }
-
-        $attributes['name'] = array(
-            'last-name' => $attributes['last-name'],
-        );
-
         $this->_store($attributes);
     }
 
