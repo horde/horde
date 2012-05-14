@@ -49,7 +49,7 @@ implements Horde_Kolab_Storage
      *
      * @param Horde_Kolab_Storage $storage The storage handler.
      * @param mixed               $logger  The log handler. This instance
-     *                                     must provide the info() method.
+     *                                     must provide the debug() method.
      */
     public function __construct(Horde_Kolab_Storage $storage, $logger)
     {
