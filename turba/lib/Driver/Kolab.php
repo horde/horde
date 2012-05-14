@@ -79,7 +79,7 @@ class Turba_Driver_Kolab extends Turba_Driver
     /**
      * Return the Kolab data handler for the current address book.
      *
-     * @return Horde_Kolab_Storage_Date The data handler.
+     * @return Horde_Kolab_Storage_Data The data handler.
      */
     protected function _getData()
     {
