@@ -53,7 +53,7 @@ extends Horde_Kolab_Format_Xml_Type_Base
     protected $default;
 
     /**
-     * Should the velues be merged into the parent attributes?
+     * Should the values be merged into the parent attributes?
      *
      * @var boolean
      */
