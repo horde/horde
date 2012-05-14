@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2012-05-14</date>
- <time>10:22:22</time>
+ <time>10:23:35</time>
  <version>
-  <release>3.0.17</release>
+  <release>3.0.18</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -34,13 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] SECURITY: Fix XSS vulnerabilities in tasks view and search view (Bug #11189).
-* [jan] Update Italian translation (Massimo Malabotta &lt;mmalabotta@units.it&gt;).
-* [jan] Improve print styles.
-* [jan] Catch if external client doesn&apos;t send LAST-MODIFIED attributes (Bug #11130).
-* [jan] Don&apos;t stop agenda script if there is an error with a single user (Bug #11129).
-* [jan] Update Hungarian translation (Zoltán Németh &lt;nemeth.zoltan@etit.hu&gt;).
-* [jan] Show round corners only on the start and end of multi-day events (Request #11067).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2090,6 +2084,19 @@
 * [jan] Don&apos;t stop agenda script if there is an error with a single user (Bug #11129).
 * [jan] Update Hungarian translation (Zoltán Németh &lt;nemeth.zoltan@etit.hu&gt;).
 * [jan] Show round corners only on the start and end of multi-day events (Request #11067).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.18</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-05-14</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
