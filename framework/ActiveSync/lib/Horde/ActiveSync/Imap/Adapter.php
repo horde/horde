@@ -797,8 +797,6 @@ class Horde_ActiveSync_Imap_Adapter
                 // email is signed (or encrypted for that matter) we can't
                 // alter the data in anyway or the signature will not be
                 // verified, so we fetch the entire message and hope for the best.
-                // We also can't use a stream for the message data because the
-                // data MUST include the length of the the raw data.
                 if (!$imap_message->isSigned()) {
                     // Create the body part.
                     $mime = new Horde_Mime_Part();
@@ -837,12 +835,15 @@ class Horde_ActiveSync_Imap_Adapter
                     } else {
                         $base = $mime;
                     }
-                    $airsync_body->data = $base->toString(array('headers' => true));
+                    $airsync_body->data = $base->toString(array(
+                        'headers' => true,
+                        'stream' => true)
+                    );
                 } else {
-                    $airsync_body->data = $imap_message->getFullMsg();
+                    $airsync_body->data = $imap_message->getFullMsg(true);
                 }
                 $airsync_body->type = Horde_ActiveSync::BODYPREF_TYPE_MIME;
-                $airsync_body->estimateddatasize = Horde_String::length($airsync_body->data);
+                $airsync_body->estimateddatasize = $base->getBytes();
                 $airsync_body->truncated = '0';
                 $eas_message->airsyncbasebody = $airsync_body;
                 $haveData = true;
