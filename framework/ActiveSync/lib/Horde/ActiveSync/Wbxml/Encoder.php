@@ -220,7 +220,11 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
      */
     private function _content($content)
     {
-        $this->_logContent($content);
+        if (!is_resource($content)) {
+            $this->_logContent($content);
+        } else {
+            $this->_logContent('[STREAM]');
+        }
         $this->_outByte(Horde_ActiveSync_Wbxml::STR_I);
         $this->_outTermStr($content);
     }

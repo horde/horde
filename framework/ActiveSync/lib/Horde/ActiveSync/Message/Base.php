@@ -390,7 +390,8 @@ class Horde_ActiveSync_Message_Base
                     $encoder->endTag();
                 } else {
                     // Simple type
-                    if (strlen($this->$map[self::KEY_ATTRIBUTE]) == 0) {
+                    if (!is_resource($this->$map[self::KEY_ATTRIBUTE]) &&
+                        strlen($this->$map[self::KEY_ATTRIBUTE]) == 0) {
                           // Do not output empty items except for the following:
                           if ($this->_checkSendEmpty($tag)) {
                               $encoder->startTag($tag, $this->$map[self::KEY_ATTRIBUTE], true);
