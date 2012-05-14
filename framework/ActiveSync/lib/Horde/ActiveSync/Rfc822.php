@@ -28,6 +28,13 @@ class Horde_ActiveSync_Rfc822
 {
 
     /**
+     * The memory limit for use with the PHP temp stream.
+     *
+     * @var integer
+     */
+    static public $memoryLimit = 2097152;
+
+    /**
      * The raw message.
      *
      * @var mixed string|stream resource
@@ -67,6 +74,14 @@ class Horde_ActiveSync_Rfc822
      */
     public function getMessage()
     {
+        if (is_resource($this->_rfc822)) {
+            fseek($this->_rfc822, $this->_hdr_pos + $this->_eol);
+            $fp = fopen('php://temp/maxmemory:' . self::$memoryLimit, 'r+');
+            stream_copy_to_stream($this->_rfc822, $fp);
+            rewind($fp);
+            return $fp;
+        }
+
         return substr($this->_rfc822, $this->_hdr_pos + $this->_eol);
     }
 
@@ -77,6 +92,11 @@ class Horde_ActiveSync_Rfc822
      */
     public function getHeaders()
     {
+        if (is_resource($this->_rfc822)) {
+            rewind($this->_rfc822);
+            $hdr_text = fread($this->_rfc822, $this->_hdr_pos);
+            return Horde_Mime_Headers::parseHeaders($hdr_text);
+        }
         return Horde_Mime_Headers::parseHeaders(substr($this->_rfc822, 0, $this->_hdr_pos));
     }
 
@@ -93,23 +113,41 @@ class Horde_ActiveSync_Rfc822
     /**
      * Find the location of the end of the header text.
      *
-     * @TODO: Be able to use and parse from stream.
-     * @param string $text  The text to search.
+     * @param mixed $text  The text to search. A string or stream resource.
      *
      * @return array  1st element: Header position, 2nd element: Length of
      *                trailing EOL.
      */
     protected function _findHeader($text)
     {
-        $hdr_pos = strpos($text, "\r\n\r\n");
-        if ($hdr_pos !== false) {
-            return array($hdr_pos, 4);
+        if (!is_resource($text)) {
+            $hdr_pos = strpos($text, "\r\n\r\n");
+            if ($hdr_pos !== false) {
+                return array($hdr_pos, 4);
+            }
+
+            $hdr_pos = strpos($text, "\n\n");
+            return ($hdr_pos === false)
+                ? array(strlen($text), 0)
+                : array($hdr_pos, 2);
         }
 
-        $hdr_pos = strpos($text, "\n\n");
-        return ($hdr_pos === false)
-            ? array(strlen($text), 0)
-            : array($hdr_pos, 2);
+        rewind($text);
+        $i = 0;
+        while (is_resource($text) && !feof($text)) {
+            $data = fread($text, 8192);
+            $hdr_pos = strpos($data, "\r\n\r\n");
+            if ($hdr_pos !== false) {
+                return array($hdr_pos + ($i * 8192), 4);
+            }
+            $hdr_pos = strpos($data, "\n\n");
+            if ($hdr_pos !== false) {
+                return array($hdr_pos + ($i * 8192), 2);
+            }
+            $i++;
+        }
+        fseek($text, 0, SEEK_END);
+        return array(ftell($text), 0);
     }
 
 }
