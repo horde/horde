@@ -42,8 +42,8 @@ if ($view->allowFolders = $imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
     ));
 }
 
-$view->portal = Horde::getServiceLink('portal', 'horde')->setRaw(false);
-$view->logout = Horde::getServiceLink('logout')->setRaw(false);
+$view->portal = $registry->getServiceLink('portal', 'horde')->setRaw(false);
+$view->logout = $registry->getServiceLink('logout')->setRaw(false);
 $view->canSearch = $imp_imap->access(IMP_Imap::ACCESS_SEARCH);
 $view->canSpam = !empty($conf['spam']['reporting']);
 $view->canInnocent = !empty($conf['notspam']['reporting']);
@@ -62,7 +62,7 @@ if ($view->canCompose = IMP::canCompose()) {
     }
 
     $view->composeCache = $injector->getInstance('IMP_Factory_Compose')->create()->getCacheId();
-    $view->composeLink = Horde::getServiceLink('ajax', 'imp');
+    $view->composeLink = $registry->getServiceLink('ajax', 'imp');
     $view->composeLink->pathInfo = 'addAttachment';
 }
 

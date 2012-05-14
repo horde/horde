@@ -642,7 +642,7 @@ class Gollem
     {
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
 
-        $t->set('login_url', Horde::getServiceLink('login', 'horde'));
+        $t->set('login_url', $GLOBALS['registry']->getServiceLink('login', 'horde'));
         $t->set('forminput', Horde_Util::formInput());
         $t->set('hidden', array(array('key' => 'url', 'value' => (string)Horde::url('manager.php', true)),
                                 array('key' => 'app', 'value' => 'gollem')));

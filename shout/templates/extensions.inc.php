@@ -103,7 +103,7 @@
 
 var destinations = $H();
 var devices = $H();
-var ajax_url = '<?php echo Horde::getServiceLink('ajax', 'shout') ?>';
+var ajax_url = '<?php echo $GLOBALS['registry']->getServiceLink('ajax', 'shout') ?>';
 var curexten = null;
 
 $('addExtensionWorking').hide();

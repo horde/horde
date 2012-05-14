@@ -202,7 +202,7 @@ abstract class Horde_Core_Block
      */
     protected function _ajaxUpdateUrl()
     {
-        $ajax_url = Horde::getServiceLink('ajax', 'horde');
+        $ajax_url = $GLOBALS['registry']->getServiceLink('ajax');
         $ajax_url->pathInfo = 'blockUpdate';
         $ajax_url->add('blockid', get_class($this));
 

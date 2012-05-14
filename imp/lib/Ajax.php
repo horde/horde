@@ -153,8 +153,8 @@ class IMP_Ajax
             'URI_COMPOSE' => strval(Horde::url('compose-dimp.php')->setRaw(true)),
             'URI_DIMP' => strval(Horde::url('index-dimp.php')),
             'URI_MESSAGE' => strval(Horde::url('message-dimp.php')->setRaw(true)),
-            'URI_PORTAL' => strval(Horde::getServiceLink('portal')->setRaw(true)),
-            'URI_PREFS_IMP' => strval(Horde::getServiceLink('prefs', 'imp')->setRaw(true)),
+            'URI_PORTAL' => strval($registry->getServiceLink('portal')->setRaw(true)),
+            'URI_PREFS_IMP' => strval($registry->getServiceLink('prefs', 'imp')->setRaw(true)),
             'URI_SEARCH' => strval(Horde::url('search.php')),
             'URI_VIEW' => strval(Horde::url('view.php')),
 

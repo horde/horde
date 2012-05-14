@@ -230,7 +230,7 @@ class Horde_Help
             return '';
         }
 
-        $url = Horde::getServiceLink('help', $module)->add('topic', $topic);
+        $url = $GLOBALS['registry']->getServiceLink('help', $module)->add('topic', $topic);
         return $url->link(array('title' => Horde_Core_Translation::t("Help"), 'class' => 'helplink', 'target' => 'hordehelpwin', 'onclick' => Horde::popupJs($url, array('urlencode' => true)) . 'return false;'))
             . Horde::img('help.png', Horde_Core_Translation::t("Help")) . '</a>';
     }

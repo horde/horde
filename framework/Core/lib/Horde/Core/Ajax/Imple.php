@@ -70,7 +70,7 @@ abstract class Horde_Core_Ajax_Imple
             $qstring .= '/' . $key . '=' . rawurlencode($val);
         }
 
-        return Horde::url(Horde::getServiceLink('imple')->url, $full)->setRaw(true)->add('imple', $qstring);
+        return $GLOBALS['registry']->getServiceLink('imple')->setRaw(true)->add('imple', $qstring);
     }
 
     /**

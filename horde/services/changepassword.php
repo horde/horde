@@ -15,7 +15,7 @@ Horde_Registry::appInit('horde', array('nologintasks' => true));
 $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
 if (!$auth->hasCapability('update')) {
     $notification->push(_("Changing your password is not supported with the current configuration.  Contact your administrator."), 'horde.error');
-    Horde::getServiceLink('login')->add('url', Horde_Util::getFormData('url'))->redirect();
+    $registry->getServiceLink('login')->add('url', Horde_Util::getFormData('url'))->redirect();
 }
 
 $vars = Horde_Variables::getDefaultVariables();

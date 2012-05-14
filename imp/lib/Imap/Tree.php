@@ -1664,7 +1664,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
                 if (!empty($opts['editvfolder']) && $this->isContainer($val)) {
                     $after = '&nbsp[' .
-                        Horde::getServiceLink('prefs', 'imp')->add('group', 'searches')->link(array('title' => _("Edit Virtual Folder"))) . _("Edit") . '</a>'.
+                        $GLOBALS['registry']->getServiceLink('prefs', 'imp')->add('group', 'searches')->link(array('title' => _("Edit Virtual Folder"))) . _("Edit") . '</a>'.
                         ']';
                 }
             }

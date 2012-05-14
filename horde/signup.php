@@ -17,7 +17,7 @@ $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
 if ($conf['signup']['allow'] !== true ||
     !$auth->hasCapability('add')) {
     $notification->push(_("User Registration has been disabled for this site."), 'horde.error');
-    Horde::getServiceLink('login')->redirect();
+    $registry->getServiceLink('login')->redirect();
 }
 
 try {
@@ -25,7 +25,7 @@ try {
 } catch (Horde_Exception $e) {
     Horde::logMessage($e, 'ERR');
     $notification->push(_("User Registration is not properly configured for this site."), 'horde.error');
-    Horde::getServiceLink('login')->redirect();
+    $registry->getServiceLink('login')->redirect();
 }
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -59,7 +59,7 @@ if ($formsignup->validate()) {
             $notification->push(sprintf(_("There was a problem adding \"%s\" to the system: %s"), $info['user_name'], $e->getMessage()), 'horde.error');
         } else {
             $notification->push($success_message, 'horde.success');
-            Horde::getServiceLink('login')->add('url', $info['url'])->redirect();
+            $registry->getServiceLink('login')->add('url', $info['url'])->redirect();
         }
     }
 }

@@ -873,7 +873,7 @@ class Ansel
 
             // IF
             $code['conf']['maps'] = $GLOBALS['conf']['maps'];
-            $code['conf']['pixeluri'] = (string)Horde::getServiceLink('pixel', 'ansel');
+            $code['conf']['pixeluri'] = (string)$GLOBALS['registry']->getServiceLink('pixel', 'ansel');
             $code['conf']['markeruri'] = (string)Horde_Themes::img('photomarker.png');
             $code['conf']['shadowuri'] = (string)Horde_Themes::img('photomarker-shadow.png');
             $code['conf']['havetwitter'] = !empty($GLOBALS['conf']['twitter']['enabled']);

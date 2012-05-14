@@ -69,7 +69,7 @@ class Hermes_Ajax
                 'timerpause' => (string)Horde_Themes::img('pause.png')
             ),
             'user' => $registry->convertUsername($registry->getAuth(), false),
-            'prefs_url' => strval(Horde::getServiceLink('prefs', 'hermes')->setRaw(true)),
+            'prefs_url' => strval($GLOBALS['registry']->getServiceLink('prefs', 'hermes')->setRaw(true)),
             'app_urls' => $app_urls,
             'name' => $identity->getName(),
             'use_iframe' => intval(!empty($conf['menu']['apps_iframe'])),

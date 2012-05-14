@@ -1772,7 +1772,7 @@ abstract class Kronolith_Event
             $view->dateFormat = $prefs->getValue('date_format');
             $view->timeFormat = $prefs->getValue('twentyFour') ? 'H:i' : 'h:ia';
             if (!$prefs->isLocked('event_reminder')) {
-                $view->prefsUrl = Horde::url(Horde::getServiceLink('prefs', 'kronolith'), true)->remove(session_name());
+                $view->prefsUrl = Horde::url($GLOBALS['registry']->getServiceLink('prefs', 'kronolith'), true)->remove(session_name());
             }
             if ($this->attendees) {
                 $view->attendees = Kronolith::getAttendeeEmailList($this->attendees)->addresses;

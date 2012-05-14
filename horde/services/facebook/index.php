@@ -19,7 +19,7 @@ try {
     Horde::url('index.php', false, array('app' => 'horde'))->redirect();
 }
 
-$return_url = Horde::getServiceLink('prefs', 'horde')
+$return_url = $registry->getServiceLink('prefs', 'horde')
       ->add(array('group' => 'facebook'));
 
 /* See why we are here. A $code indicates the user has *just* authenticated the

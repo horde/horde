@@ -335,7 +335,7 @@ if ($vars->criteria_form) {
             break;
 
         case 'prefs':
-            Horde::getServiceLink('prefs', 'imp')->add('group', 'searches')->redirect();
+            $registry->getServiceLink('prefs', 'imp')->add('group', 'searches')->redirect();
             break;
         }
 
@@ -354,14 +354,14 @@ if ($vars->edit_query && IMP::mailbox()->search) {
     if (IMP::mailbox()->vfolder) {
         if (!IMP::mailbox()->editvfolder) {
             $notification->push(_("Built-in Virtual Folders cannot be edited."), 'horde.error');
-            Horde::getServiceLink('prefs', 'imp')->add('group', 'searches')->redirect();
+            $registry->getServiceLink('prefs', 'imp')->add('group', 'searches')->redirect();
         }
         $t->set('edit_query', true);
         $t->set('edit_query_vfolder', IMP::mailbox()->formTo);
     } elseif ($imp_search->isFilter($q_ob)) {
         if (!$imp_search->isFilter($q_ob, true)) {
             $notification->push(_("Built-in Filters cannot be edited."), 'horde.error');
-            Horde::getServiceLink('prefs', 'imp')->add('group', 'searches')->redirect();
+            $registry->getServiceLink('prefs', 'imp')->add('group', 'searches')->redirect();
         }
         $t->set('edit_query', true);
         $t->set('edit_query_filter', IMP::mailbox()->formTo);
@@ -369,7 +369,7 @@ if ($vars->edit_query && IMP::mailbox()->search) {
 
     if ($t->get('edit_query')) {
         $t->set('search_label', htmlspecialchars($q_ob->label));
-        $js_vars['ImpSearch.prefsurl'] = strval(Horde::getServiceLink('prefs', 'imp')->add('group', 'searches')->setRaw(true));
+        $js_vars['ImpSearch.prefsurl'] = strval($registry->getServiceLink('prefs', 'imp')->add('group', 'searches')->setRaw(true));
     }
 } else {
     /* Process list of recent searches. */
@@ -448,7 +448,7 @@ if (!$t->get('edit_query_filter')) {
 
     if ($prefs->getValue('subscribe')) {
         $t->set('subscribe', true);
-        $js_vars['ImpSearch.ajaxurl'] = Horde::getServiceLink('ajax', 'imp')->url;
+        $js_vars['ImpSearch.ajaxurl'] = $registry->getServiceLink('ajax', 'imp')->url;
     }
 }
 

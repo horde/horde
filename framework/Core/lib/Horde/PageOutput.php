@@ -579,8 +579,8 @@ class Horde_PageOutput
             /* Configuration used in core javascript files. */
             $js_conf = array_filter(array(
                 /* URLs */
-                'URI_AJAX' => Horde::getServiceLink('ajax', $registry->getApp())->url,
-                'URI_LOGOUT' => strval(Horde::getServiceLink('logout')),
+                'URI_AJAX' => $registry->getServiceLink('ajax', $registry->getApp())->url,
+                'URI_LOGOUT' => strval($registry->getServiceLink('logout')),
                 'URI_SNOOZE' => strval(Horde::url($registry->get('webroot', 'horde') . '/services/snooze.php', true, -1)),
 
                 /* Other constants */
@@ -646,8 +646,8 @@ class Horde_PageOutput
 
             $this->addInlineJsVars(array(
                 'HordeMobile.conf' => array(
-                    'ajax_url' => Horde::getServiceLink('ajax', $registry->getApp())->url,
-                    'logout_url' => strval(Horde::getServiceLink('logout')),
+                    'ajax_url' => $registry->getServiceLink('ajax', $registry->getApp())->url,
+                    'logout_url' => strval($registry->getServiceLink('logout')),
                     'token' => $session->getToken()
                 )
             ));

@@ -19,8 +19,8 @@ $vars = Horde_Variables::getDefaultVariables();
 $view = new Horde_View(array('templatePath' => NAG_TEMPLATES . '/smartmobile'));
 new Horde_View_Helper_Text($view);
 
-$view->portal = Horde::getServiceLink('portal', 'horde')->setRaw(false);
-$view->logout = Horde::getServiceLink('logout')->setRaw(false);
+$view->portal = $registry->getServiceLink('portal', 'horde')->setRaw(false);
+$view->logout = $registry->getServiceLink('logout')->setRaw(false);
 
 /* Get the full, sorted task list. */
 try {

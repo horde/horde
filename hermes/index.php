@@ -14,7 +14,7 @@ switch ($registry->getView()) {
 case Horde_Registry::VIEW_DYNAMIC:
     if ($prefs->getValue('dynamic_view')) {
         $menu = new Horde_Menu();
-        $help_link = Horde::getServiceLink('help', 'hermes');
+        $help_link = $GLOBALS['registry']->getServiceLink('help', 'hermes');
         if ($help_link) {
             $help_link = Horde::widget($help_link, _("Help"), 'helplink', 'help', Horde::popupJs($help_link, array('urlencode' => true)) . 'return false;');
         }

@@ -2098,7 +2098,7 @@ class Kronolith
 
         $ident = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($event->creator);
         if (!$ident->getValue('from_addr')) {
-            $notification->push(sprintf(_("You do not have an email address configured in your Personal Information Preferences. You must set one %shere%s before event notifications can be sent."), Horde::getServiceLink('prefs', 'kronolith')->add(array('app' => 'horde', 'group' => 'identities'))->link(), '</a>'), 'horde.error', array('content.raw'));
+            $notification->push(sprintf(_("You do not have an email address configured in your Personal Information Preferences. You must set one %shere%s before event notifications can be sent."), $registry->getServiceLink('prefs', 'kronolith')->add(array('app' => 'horde', 'group' => 'identities'))->link(), '</a>'), 'horde.error', array('content.raw'));
             return;
         }
 

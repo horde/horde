@@ -1280,6 +1280,105 @@ class Horde_Registry
     }
 
     /**
+     * Returns the URL to access a Horde service.
+     *
+     * @param string $type       The service to display:
+     *   - ajax: AJAX endpoint.
+     *   - cache: Cached data output.
+     *   - download: Download link.
+     *   - emailconfirm: E-mail confirmation page.
+     *   - go: URL redirection utility.
+     *   - help: Help page.
+     *   - imple: Imple endpoint.
+     *   - login: Login page.
+     *   - logintasks: Logintasks page.
+     *   - logout: Logout page.
+     *   - pixel: Pixel generation page.
+     *   - portal: Main portal page.
+     *   - prefs: Preferences UI.
+     *   - problem: Problem reporting page.
+     *   - sidebar: Sidebar link.
+     * @param string $app        The name of the current Horde application.
+     *
+     * @return Horde_Url  The link.
+     * @throws Horde_Exception
+     */
+    public function getServiceLink($type, $app = null)
+    {
+        $opts = array('app' => 'horde');
+
+        switch ($type) {
+        case 'ajax':
+            if (is_null($app)) {
+                $app = 'horde';
+            }
+            return Horde::url('services/ajax.php/' . $app . '/', false, $opts)
+                       ->add('token', $GLOBALS['session']->getToken());
+
+        case 'cache':
+            $opts['append_session'] = -1;
+            return Horde::url('services/cache.php', false, $opts);
+
+        case 'download':
+            return Horde::url('services/download/', false, $opts)
+                ->add('module', $app);
+
+        case 'emailconfirm':
+            return Horde::url('services/confirm.php', false, $opts);
+
+        case 'go':
+            return Horde::url('services/go.php', false, $opts);
+
+        case 'help':
+            return Horde::url('services/help/', false, $opts)
+                ->add('module', $app);
+
+        case 'imple':
+            return Horde::url('services/imple.php', false, $opts);
+
+        case 'login':
+            return Horde::url('login.php', false, $opts);
+
+        case 'logintasks':
+            return Horde::url('services/logintasks.php', false, $opts)
+                ->add('app', $app);
+
+        case 'logout':
+            return $this->getLogoutUrl(array(
+                'reason' => Horde_Auth::REASON_LOGOUT
+            ));
+
+        case 'pixel':
+            return Horde::url('services/images/pixel.php', false, $opts);
+
+        case 'prefs':
+            if (!in_array($GLOBALS['conf']['prefs']['driver'], array('', 'none'))) {
+                $url = Horde::url('services/prefs.php', false, $opts);
+                if (!is_null($app)) {
+                    $url->add('app', $app);
+                }
+                return $url;
+            }
+            break;
+
+        case 'portal':
+            return ($this->getView() == Horde_Registry::VIEW_SMARTMOBILE)
+                ? Horde::url('services/portal/smartmobile.php', false, $opts)
+                : Horde::url('services/portal/', false, $opts);
+            break;
+
+        case 'problem':
+            return Horde::url('services/problem.php', false, $opts)
+                ->add('return_url', Horde::selfUrl(true, true, true));
+
+        case 'sidebar':
+            return Horde::url('services/sidebar.php', false, $opts);
+        }
+
+        throw new Horde_Exception('Invalid service provided.');
+    }
+
+    /**
      * Set the current application, adding it to the top of the Horde
      * application stack. If this is the first application to be
      * pushed, retrieve session information as well.
@@ -2056,7 +2155,7 @@ class Horde_Registry
             }
         }
 
-        return Horde::getServiceLink('login', 'horde')->add($params)->setRaw(true);
+        return $this->getServiceLink('login', 'horde')->add($params)->setRaw(true);
     }
 
     /**

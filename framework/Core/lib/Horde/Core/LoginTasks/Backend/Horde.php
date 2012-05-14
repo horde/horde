@@ -127,7 +127,7 @@ class Horde_Core_LoginTasks_Backend_Horde extends Horde_LoginTasks_Backend
      */
     public function getLoginTasksUrl()
     {
-        return Horde::getServiceLink('logintasks', $this->_app);
+        return $GLOBALS['registry']->getServiceLink('logintasks', $this->_app);
     }
 
 }

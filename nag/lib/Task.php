@@ -857,7 +857,7 @@ class Nag_Task
             $view->dateFormat = $prefs->getValue('date_format');
             $view->timeFormat = $prefs->getValue('twentyFour') ? 'H:i' : 'h:ia';
             if (!$prefs->isLocked('task_alarms')) {
-                $view->prefsUrl = Horde::url(Horde::getServiceLink('prefs', 'nag'), true)->remove(session_name());
+                $view->prefsUrl = Horde::url($GLOBALS['registry']->getServiceLink('prefs', 'nag'), true)->remove(session_name());
             }
 
             $methods['mail']['mimepart'] = Nag::buildMimeMessage($view, 'mail', $image);

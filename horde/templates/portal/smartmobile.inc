@@ -1,8 +1,8 @@
 <div id="portal-page" data-role="page">
  <div data-role="header">
   <h1><?php echo sprintf(_("Welcome, %s"), $fullname) ?></h1>
-<?php if (Horde::getServiceLink('logout')): ?>
-  <a href="<?php echo Horde::getServiceLink('logout')->setRaw(false) ?>" rel="external" class="ui-btn-right" data-theme="e" data-icon="delete"><?php echo _("Log out") ?></a>
+<?php if ($logout = $registry->getServiceLink('logout')): ?>
+  <a href="<?php echo $logout->setRaw(false) ?>" rel="external" class="ui-btn-right" data-theme="e" data-icon="delete"><?php echo _("Log out") ?></a>
 <?php endif ?>
  </div>
  <div data-role="content">

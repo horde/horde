@@ -404,7 +404,7 @@ foreach ($imaptree as $key => $val) {
 }
 
 $page_output->addInlineJsVars(array(
-    'ImpFolders.ajax' => Horde::getServiceLink('ajax', 'imp')->url,
+    'ImpFolders.ajax' => $registry->getServiceLink('ajax', 'imp')->url,
     'ImpFolders.displayNames' => $displayNames,
     'ImpFolders.fullNames' => $fullNames,
     '-ImpFolders.mbox_expand' => intval($prefs->getValue('nav_expanded') == 2)

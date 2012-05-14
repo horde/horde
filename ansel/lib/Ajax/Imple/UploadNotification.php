@@ -58,7 +58,7 @@ class Ansel_Ajax_Imple_UploadNotification extends Horde_Core_Ajax_Imple
     {
         $token = unserialize($GLOBALS['prefs']->getValue('twitter'));
         if (empty($token['key']) && empty($token['secret'])) {
-            $pref_link = Horde::getServiceLink('prefs', 'horde')->add('group', 'twitter')->link();
+            $pref_link = $GLOBALS['registry']->getServiceLink('prefs', 'horde')->add('group', 'twitter')->link();
             throw new Horde_Exception(sprintf(_("You have not properly connected your Twitter account with Horde. You should check your Twitter settings in your %s."), $pref_link . _("preferences") . '</a>'));
         }
 

@@ -74,7 +74,7 @@ function send_agendas()
     $view->imageId = $image->getContentId();
     $view->date = $runtime;
     if (!$GLOBALS['prefs']->isLocked('daily_agenda')) {
-        $view->prefsUrl = Horde::url(Horde::getServiceLink('prefs', 'kronolith'), true)->remove(session_name());
+        $view->prefsUrl = Horde::url($GLOBALS['registry']->getServiceLink('prefs', 'kronolith'), true)->remove(session_name());
     }
 
     // Loop through the users and generate an agenda for them

@@ -33,7 +33,7 @@ function _renderSidebar()
 
         $page_output->addScriptFile('sidebar.js', 'horde');
 
-        $ajax_url = Horde::getServiceLink('ajax', 'horde');
+        $ajax_url = $registry->getServiceLink('ajax', 'horde');
         $ajax_url->pathInfo = 'sidebarUpdate';
 
         $rtl = intval($registry->nlsconfig->curr_rtl);

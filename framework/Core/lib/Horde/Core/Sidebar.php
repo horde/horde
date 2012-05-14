@@ -137,7 +137,7 @@ class Horde_Core_Sidebar
                     'menu_parent' => 'prefs',
                     'name' => Horde_Core_Translation::t("Global Preferences"),
                     'status' => 'active',
-                    'url' => Horde::getServiceLink('prefs', 'horde')
+                    'url' => $registry->getServiceLink('prefs', 'horde')
                 );
                 unset($prefs_apps['horde']);
             }
@@ -149,7 +149,7 @@ class Horde_Core_Sidebar
                     'menu_parent' => 'prefs',
                     'name' => $params['name'],
                     'status' => 'active',
-                    'url' => Horde::getServiceLink('prefs', $app)
+                    'url' => $registry->getServiceLink('prefs', $app)
                 );
             }
         }
@@ -159,14 +159,14 @@ class Horde_Core_Sidebar
                 'icon' => Horde_Themes::img('logout.png'),
                 'name' => Horde_Core_Translation::t("Log out"),
                 'status' => 'active',
-                'url' => Horde::getServiceLink('logout', 'horde')
+                'url' => $registry->getServiceLink('logout')
             );
         } else {
             $menu['login'] = array(
                 'icon' => Horde_Themes::img('login.png'),
                 'name' => Horde_Core_Translation::t("Log in"),
                 'status' => 'active',
-                'url' => Horde::getServiceLink('login', 'horde')
+                'url' => $registry->getServiceLink('login')
             );
         }
 

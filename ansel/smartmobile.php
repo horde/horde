@@ -19,8 +19,8 @@ $title = _("Photo Galleries");
 
 $view = new Horde_View(array('templatePath' => ANSEL_TEMPLATES . '/smartmobile'));
 $view->registry = $registry;
-$view->portal = Horde::getServiceLink('portal', 'horde')->setRaw(false);
-$view->logout = Horde::getServiceLink('logout')->setRaw(false);
+$view->portal = $registry->getServiceLink('portal')->setRaw(false);
+$view->logout = $registry->getServiceLink('logout')->setRaw(false);
 
 require ANSEL_TEMPLATES . '/smartmobile/javascript_defs.php';
 $page_output->addScriptFile('smartmobile.js');

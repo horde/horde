@@ -23,7 +23,7 @@ $module = isset($vars->module)
     : 'horde';
 $topic = isset($vars->topic) ? $vars->topic : 'overview';
 
-$base_url = Horde::getServiceLink('help', $module);
+$base_url = $registry->getServiceLink('help', $module);
 
 $sidebar_url = Horde::url($base_url->copy()->add(array(
     'show' => 'sidebar',

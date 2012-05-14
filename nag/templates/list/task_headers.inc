@@ -15,7 +15,7 @@ function table_sortCallback(tableId, column, sortDown)
 
 function doPrefsUpdate(column, sortDown)
 {
-    baseurl = '<?php echo Horde::getServiceLink('prefsui', 'nag') ?>';
+    baseurl = '<?php echo $GLOBALS['registry']->getServiceLink('prefsui', 'nag') ?>';
     try {
         new Ajax.Request(baseurl, { parameters: { pref: 'sortby', value: encodeURIComponent(column.substring(1)) } });
         new Ajax.Request(baseurl, { parameters: { pref: 'sortdir', value: encodeURIComponent(sortDown) } });
@@ -70,7 +70,7 @@ function doPrefsUpdate(column, sortDown)
    if ($GLOBALS['registry']->getAuth() &&
        (!$GLOBALS['prefs']->isLocked('categories') ||
         !$GLOBALS['prefs']->isLocked('category_colors'))) {
-       $categoryUrl = Horde_Util::addParameter(Horde::getServiceLink('prefs', 'horde'), array('group' => 'categories'));
+       $categoryUrl = Horde_Util::addParameter($GLOBALS['registry']->getServiceLink('prefs', 'horde'), array('group' => 'categories'));
        echo ' ' . Horde::link($categoryUrl, _("Edit categories and colors"), '', '_blank', 'Horde.popup({url:this.href});Event.stop(event);return false;') . Horde::img('colorpicker.png', _("Edit categories and colors")) . '</a>';
    }
    ?>

@@ -182,101 +182,6 @@ class Horde
     }
 
     /**
-     * Returns the URL to various Horde services.
-     *
-     * @param string $type       The service to display.
-     * <pre>
-     * 'ajax'
-     * 'cache'
-     * 'download'
-     * 'emailconfirm'
-     * 'go'
-     * 'help'
-     * 'imple'
-     * 'login'
-     * 'logintasks'
-     * 'logout'
-     * 'pixel'
-     * 'portal'
-     * 'problem'
-     * 'sidebar'
-     * 'prefs'
-     * </pre>
-     * @param string $app        The name of the current Horde application.
-     *
-     * @return Horde_Url|boolean  The HTML to create the link.
-     */
-    static public function getServiceLink($type, $app = null)
-    {
-        $opts = array('app' => 'horde');
-
-        switch ($type) {
-        case 'ajax':
-            return self::url('services/ajax.php/' . $app . '/', false, $opts)
-                       ->add('token', $GLOBALS['session']->getToken());
-
-        case 'cache':
-            $opts['append_session'] = -1;
-            return self::url('services/cache.php', false, $opts);
-
-        case 'download':
-            return self::url('services/download/', false, $opts)
-                ->add('module', $app);
-
-        case 'emailconfirm':
-            return self::url('services/confirm.php', false, $opts);
-
-        case 'go':
-            return self::url('services/go.php', false, $opts);
-
-        case 'help':
-            return self::url('services/help/', false, $opts)
-                ->add('module', $app);
-
-        case 'imple':
-            return self::url('services/imple.php', false, $opts);
-
-        case 'login':
-            return self::url('login.php', false, $opts);
-
-        case 'logintasks':
-            return self::url('services/logintasks.php', false, $opts)
-                ->add('app', $app);
-
-        case 'logout':
-            return $GLOBALS['registry']->getLogoutUrl(array('reason' => Horde_Auth::REASON_LOGOUT));
-
-        case 'pixel':
-            return self::url('services/images/pixel.php', false, $opts);
-
-        case 'prefs':
-            if (!in_array($GLOBALS['conf']['prefs']['driver'], array('', 'none'))) {
-                $url = self::url('services/prefs.php', false, $opts);
-                if (!is_null($app)) {
-                    $url->add('app', $app);
-                }
-                return $url;
-            }
-            break;
-
-        case 'portal':
-            return ($GLOBALS['registry']->getView() == Horde_Registry::VIEW_SMARTMOBILE)
-                ? self::url('services/portal/smartmobile.php', false, $opts)
-                : self::url('services/portal/', false, $opts);
-            break;
-
-        case 'problem':
-            return self::url('services/problem.php', false, $opts)
-                ->add('return_url', self::selfUrl(true, true, true));
-
-        case 'sidebar':
-            return self::url('services/sidebar.php', false, $opts);
-        }
-
-        return false;
-    }
-
-    /**
      * Do necessary escaping to output JSON.
      *
      * @param mixed $data     The data to JSON-ify.
@@ -717,7 +622,7 @@ class Horde
             Horde_String::substr($url, 0, 7) == 'mailto:') {
             $ext = $url;
         } else {
-            $ext = self::getServiceLink('go', 'horde');
+            $ext = $GLOBALS['registry']->getServiceLink('go', 'horde');
 
             /* We must make sure there are no &amp's in the URL. */
             $url = preg_replace(array('/(=?.*?)&amp;(.*?=)/', '/(=?.*?)&amp;(.*?=)/'), '$1&$2', $url);
@@ -751,7 +656,7 @@ class Horde
         $horde_url = false;
 
         if (is_null($url)) {
-            $url = self::getServiceLink('download', $registry->getApp());
+            $url = $registry->getServiceLink('download', $registry->getApp());
             $horde_url = true;
         }
 

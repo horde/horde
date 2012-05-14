@@ -74,7 +74,7 @@ class IMP_Views_Compose
      */
     protected function _compose($args, Horde_Template $t)
     {
-        global $conf, $injector, $page_output, $prefs, $session;
+        global $conf, $injector, $page_output, $registry, $prefs, $session;
 
         $result = array();
 
@@ -151,7 +151,7 @@ class IMP_Views_Compose
             }
         }
 
-        $compose_link = Horde::getServiceLink('ajax', 'imp');
+        $compose_link = $registry->getServiceLink('ajax', 'imp');
         $compose_link->pathInfo = 'addAttachment';
         $t->set('compose_link', $compose_link);
 

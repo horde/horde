@@ -13,7 +13,7 @@ Horde_Registry::appInit('horde');
 
 // Make sure we don't need the mobile view.
 if ($registry->getView() == Horde_Registry::VIEW_SMARTMOBILE) {
-    Horde::getServiceLink('portal')->redirect();
+    $registry->getServiceLink('portal')->redirect();
     exit;
 }
 

@@ -3,8 +3,8 @@
 <script type="text/javascript">
 function table_sortCallback(tableId, column, sortDown)
 {
-    new Ajax.Request('<?php echo Horde::getServiceLink('ajax', 'mnemo')->url ?>setPrefValue', { parameters: { pref: 'sortby', value: column.substring(1) } });
-    new Ajax.Request('<?php echo Horde::getServiceLink('ajax', 'mnemo')->url ?>setPrefValue', { parameters: { pref: 'sortdir', value: sortDown } });
+    new Ajax.Request('<?php echo $GLOBALS['registry']->getServiceLink('ajax', 'mnemo')->url ?>setPrefValue', { parameters: { pref: 'sortby', value: column.substring(1) } });
+    new Ajax.Request('<?php echo $GLOBALS['registry']->getServiceLink('ajax', 'mnemo')->url ?>setPrefValue', { parameters: { pref: 'sortdir', value: sortDown } });
 }
 </script>
 

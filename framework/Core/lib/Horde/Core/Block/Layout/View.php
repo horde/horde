@@ -100,7 +100,7 @@ class Horde_Core_Block_Layout_View extends Horde_Core_Block_Layout
                                     : $interval;
 
                                 if (!empty($refresh_time)) {
-                                    $updateurl = Horde::getServiceLink('ajax', 'horde')->setRaw(true);
+                                    $updateurl = $GLOBALS['registry']->getServiceLink('ajax')->setRaw(true);
                                     $updateurl->pathInfo = 'blockAutoUpdate';
                                     $updateurl->add('app', $block->getApp())
                                               ->add('blockid', get_class($block));

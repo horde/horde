@@ -20,8 +20,8 @@ $title = _("My Calendar");
 $view = new Horde_View(array('templatePath' => KRONOLITH_TEMPLATES . '/smartmobile'));
 $view->today = new Horde_Date($_SERVER['REQUEST_TIME']);
 $view->registry = $registry;
-$view->portal = Horde::getServiceLink('portal', 'horde')->setRaw(false);
-$view->logout = Horde::getServiceLink('logout')->setRaw(false);
+$view->portal = $registry->getServiceLink('portal', 'horde')->setRaw(false);
+$view->logout = $registry->getServiceLink('logout')->setRaw(false);
 
 $datejs = str_replace('_', '-', $GLOBALS['language']) . '.js';
 if (!file_exists($GLOBALS['registry']->get('jsfs', 'horde') . '/date/' . $datejs)) {

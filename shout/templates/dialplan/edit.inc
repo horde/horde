@@ -91,7 +91,7 @@
 <script type="text/javascript">
 <!--
 // TODO: Convert to object
-var ajax_url = '<?php echo Horde::getServiceLink('ajax', 'shout') ?>';
+var ajax_url = '<?php echo $GLOBALS['registry']->getServiceLink('ajax', 'shout') ?>';
 var curmenu = null;
 var menuInfo = $H();
 var menuActions = $H(<?php echo Horde_Serialize::serialize(Shout::getMenuActions(), Horde_Serialize::JSON); ?>);

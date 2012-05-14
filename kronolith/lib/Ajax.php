@@ -78,7 +78,7 @@ class Kronolith_Ajax
             'user' => $registry->convertUsername($auth_name, false),
             'name' => $identity->getName(),
             'email' => $identity->getDefaultFromAddress(),
-            'prefs_url' => strval(Horde::getServiceLink('prefs', 'kronolith')->setRaw(true)),
+            'prefs_url' => strval($registry->getServiceLink('prefs', 'kronolith')->setRaw(true)),
             'app_urls' => $app_urls,
             'use_iframe' => intval(!empty($conf['menu']['apps_iframe'])),
             'name' => $registry->get('name'),

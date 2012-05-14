@@ -380,7 +380,7 @@ class Horde_Core_Prefs_Ui
      */
     public function selfUrl($options = array())
     {
-        $url = Horde::getServiceLink('prefs', $this->app);
+        $url = $GLOBALS['registry']->getServiceLink('prefs', $this->app);
         if ($this->group) {
             $url->add('group', $this->group);
         }
@@ -435,7 +435,7 @@ class Horde_Core_Prefs_Ui
             $this->nobuttons = true;
         }
 
-        $options_link = Horde::getServiceLink('prefs');
+        $options_link = $registry->getServiceLink('prefs');
         $h_templates = $registry->get('templates', 'horde');
 
         $base = $GLOBALS['injector']->createInstance('Horde_Template');
