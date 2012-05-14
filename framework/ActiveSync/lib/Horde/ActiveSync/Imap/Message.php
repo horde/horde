@@ -675,6 +675,18 @@ class Horde_ActiveSync_Imap_Message
     }
 
     /**
+     * Return the S/MIME status of this message (RFC2633)
+     *
+     * @return boolean True if message is S/MIME signed, false otherwise.
+     */
+    public function isSigned()
+    {
+        return $this->_message->getSubType() == 'signed' ||
+               ($this->_message->getType() == 'application/pkcs7-mime' &&
+                $this->_message->getContentTypeParameter('smime-type') == 'signed-data');
+    }
+
+    /**
      * Ensure that the envelope is available.
      */
     protected function _fetchEnvelope()
