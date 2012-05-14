@@ -419,14 +419,12 @@ class Turba
      */
     static public function getConfigFromShares(array $sources)
     {
-        global $injector, $notification, $registry;
-
         try {
             $shares = self::listShares();
         } catch (Horde_Share_Exception $e) {
             // Notify the user if we failed, but still return the $cfgSource
             // array.
-            $notification->push($e, 'horde.error');
+            $GLOBALS['notification']->push($e, 'horde.error');
             return $sources;
         }
 
@@ -440,7 +438,7 @@ class Turba
             }
         }
 
-        $auth_user = $registry->getAuth();
+        $auth_user = $GLOBALS['registry']->getAuth();
         $sortedSources = $defaults = $vbooks = array();
         $personal = false;
 
@@ -495,14 +493,16 @@ class Turba
                 $newSources = array_merge($newSources, $sortedSources[$source]);
             }
 
-            if (!empty($conf['share']['auto_create']) &&
+            if (!empty($GLOBALS['conf']['share']['auto_create']) &&
                 $auth_user &&
                 !$personal) {
                 // User's default share is missing.
                 try {
-                    $driver = $injector->getInstance('Turba_Factory_Driver')->create($source);
+                    $driver = $GLOBALS['injector']
+                        ->getInstance('Turba_Factory_Driver')
+                        ->create($source);
                 } catch (Turba_Exception $e) {
-                    $notification->push($e->getMessage(), 'horde.error');
+                    $GLOBALS['notification']->push($e->getMessage(), 'horde.error');
                     continue;
                 }
 
