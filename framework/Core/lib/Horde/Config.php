@@ -1548,8 +1548,12 @@ class Horde_Config
     protected function _handleSpecials($node)
     {
         $app = $node->getAttribute('application');
-        if (!in_array($app, $GLOBALS['registry']->listApps())) {
-            $app = $GLOBALS['registry']->hasInterface($app);
+        try {
+            if (!in_array($app, $GLOBALS['registry']->listApps())) {
+                $app = $GLOBALS['registry']->hasInterface($app);
+            }
+        } catch (Horde_Exception $e) {
+            return array();
         }
         if (!$app) {
             return array();
