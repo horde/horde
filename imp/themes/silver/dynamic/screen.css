@@ -48,7 +48,7 @@ span.dimpactionSpam {
     background-image: url("../graphics/spam.png");
     width: 16px;
 }
-span.dimpactionHam {
+span.dimpactionInnocent {
     background-image: url("../graphics/innocent.png");
 }
 span.dimpactionCompose {
