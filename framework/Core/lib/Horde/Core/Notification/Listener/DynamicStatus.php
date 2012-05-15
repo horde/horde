@@ -19,6 +19,15 @@
 class Horde_Core_Notification_Listener_DynamicStatus extends Horde_Notification_Listener_Status
 {
     /**
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $GLOBALS['page_output']->growler = true;
+    }
+
+    /**
      * Outputs the status line if there are any messages on the 'status'
      * message stack.
      *
@@ -27,13 +36,10 @@ class Horde_Core_Notification_Listener_DynamicStatus extends Horde_Notification_
      */
     public function notify($events, $options = array())
     {
-        global $page_output;
-
         if (!empty($events)) {
-            $page_output->addInlineScript(array(
+            $GLOBALS['page_output']->addInlineScript(array(
                 'window.HordeCore.showNotifications(' . Horde_Serialize::serialize($events, Horde_Serialize::JSON) . ')'
             ), true);
-            $page_output->growler = true;
         }
     }
 
