@@ -1767,7 +1767,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      *   - n: (boolean) [non-imap] A non-IMAP element?
      *        DEFAULT: no
      *   - pa: (string) [parent] The parent element.
-     *         DEFAULT: DIMP.conf.base_mbox
+     *         DEFAULT: DimpCore.conf.base_mbox
      *   - po: (boolean) [polled] Is the element polled?
      *         DEFAULT: no
      *   - s: (boolean) [special] Is this a "special" element?

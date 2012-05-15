@@ -1,3 +1,10 @@
+<div id="dimpLoading">
+ <?php echo _("Loading...") ?>
+ <noscript>
+  <div class="nojserror"><?php echo _("Error! This application requires javascript to be available and enabled in your browser.") ?></div>
+ </noscript>
+</div>
+
 <div style="display:none">
  <span id="largeaddrspan">
   <span class="largeaddrtoggle">

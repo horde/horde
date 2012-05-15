@@ -1,5 +1,7 @@
 <?php
 /**
+ * Base redirection page for IMP.
+ *
  * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -15,21 +17,14 @@
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('imp');
 
-// Load initial page as defined by view mode & preferences.
-$page = IMP_Auth::getInitialPage();
-
 switch ($registry->getView()) {
+case $registry::VIEW_DYNAMIC:
 case $registry::VIEW_MINIMAL:
-    $page->url->redirect();
+case $registry::VIEW_SMARTMOBILE:
+    IMP_Auth::getInitialPage()->url->redirect();
     break;
 
-case $registry::VIEW_SMARTMOBILE:
-    // If loading the mailbox page, we need to redirect so that jquery mobile
-    // correctly loads deep-linked page.
-    if (!is_null($page->mbox)) {
-        $page->url->redirect();
-    }
+default:
+    require IMP_Auth::getInitialPage()->fullpath;
     break;
 }
-
-require $page->fullpath;

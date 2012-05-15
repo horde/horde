@@ -13,6 +13,10 @@ var DimpCore = {
     // Vars used and defaulting to null/false:
     //   DMenu
 
+    conf: {},
+    context: {},
+    text: {},
+
     // Wrapper methods around HordeCore functions.
 
     // IMP specific 'opts': uids
@@ -35,7 +39,7 @@ var DimpCore = {
     // Dimp specific methods.
     toUIDString: function(ob, opts)
     {
-        if (DIMP.conf.pop3) {
+        if (DimpCore.conf.pop3) {
             opts = opts || {};
             opts.pop3 = 1;
         }
@@ -45,7 +49,7 @@ var DimpCore = {
 
     parseUIDString: function(str)
     {
-        return ImpIndices.parseUIDString(str, DIMP.conf.pop3 ? { pop3: 1 } : {});
+        return ImpIndices.parseUIDString(str, DimpCore.conf.pop3 ? { pop3: 1 } : {});
     },
 
     selectionToRange: function(s)
@@ -83,14 +87,14 @@ var DimpCore = {
             if (type.startsWith('forward')) {
                 args.params.uids = this.toUIDString(this.selectionToRange(args.uids));
             }
-            HordeCore.popupWindow(DIMP.conf.URI_COMPOSE, args.params, {
+            HordeCore.popupWindow(DimpCore.conf.URI_COMPOSE, args.params, {
                 name: 'compose' + new Date().getTime()
             });
         } else {
             args.uids.get('dataob').each(function(d) {
                 args.params.mailbox = d.mbox;
                 args.params.uid = d.uid;
-                HordeCore.popupWindow(DIMP.conf.URI_COMPOSE, args.params, {
+                HordeCore.popupWindow(DimpCore.conf.URI_COMPOSE, args.params, {
                     name: 'compose' + new Date().getTime()
                 });
             }, this);
@@ -282,12 +286,12 @@ var DimpCore = {
                     }
                 }
             } else if (elt.hasClassName('pgpVerifyMsg')) {
-                elt.replace(DIMP.text.verify);
+                elt.replace(DimpCore.text.verify);
                 DimpCore.reloadMessage({ pgp_verify_msg: 1 });
                 e.stop();
                 return;
             } else if (elt.hasClassName('smimeVerifyMsg')) {
-                elt.replace(DIMP.text.verify);
+                elt.replace(DimpCore.text.verify);
                 DimpCore.reloadMessage({ smime_verify_msg: 1 });
                 e.stop();
                 return;
@@ -343,14 +347,14 @@ var DimpCore = {
 
     contextOnTrigger: function(e)
     {
-        if (!DIMP.context[e.memo]) {
+        if (!DimpCore.context[e.memo]) {
             return;
         }
 
         var div = new Element('DIV', { className: 'context', id: e.memo }).hide();
 
-        if (!Object.isArray(DIMP.context[e.memo])) {
-            $H(DIMP.context[e.memo]).each(function(pair) {
+        if (!Object.isArray(DimpCore.context[e.memo])) {
+            $H(DimpCore.context[e.memo]).each(function(pair) {
                 div.insert(this._contextOnTrigger(pair, e.memo));
             }, this);
         }

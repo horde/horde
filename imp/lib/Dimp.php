@@ -15,36 +15,6 @@
 class IMP_Dimp
 {
     /**
-     * Output a dimp-style action (menubar) link.
-     *
-     * @param array $params  A list of parameters:
-     *   - app: (string) The application to load the icon from.
-     *   - class: (string) The CSS classname to use for the link.
-     *   - icon: (string) The icon CSS classname.
-     *   - id: (string) The DOM ID of the link.
-     *   - title: (string) The title string.
-     *
-     * @return string  An HTML link to $url.
-     */
-    static public function actionButton($params = array())
-    {
-        return Horde::link(
-            '',
-            '',
-            empty($params['class']) ? '' : $params['class'],
-            '',
-            '',
-            '',
-            Horde::getAccessKey($params['title']),
-           empty($params['id']) ? array() : array('id' => $params['id']),
-           true
-       ) . (empty($params['icon'])
-            ? ''
-            : '<span class="iconImg dimpaction' . $params['icon'] . '"></span>').
-           $params['title'] . '</a>';
-    }
-
-    /**
      * Build data structure needed by DimpCore javascript to display message
      * log information.
      *

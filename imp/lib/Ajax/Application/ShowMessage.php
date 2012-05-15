@@ -1,6 +1,6 @@
 <?php
 /**
- * Dynamic (dimp) message display logic.
+ * Message viewing action for AJAX application handler.
  *
  * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
  *
@@ -12,7 +12,7 @@
  * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
-class IMP_Views_ShowMessage
+class IMP_Ajax_Application_ShowMessage
 {
     /**
      * Contents object.

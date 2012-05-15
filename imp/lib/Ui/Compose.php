@@ -150,7 +150,7 @@ class IMP_Ui_Compose
      *
      * @param Horde_Variables $vars  The variables object.
      *
-     * @return IMP_Contents  The IMP_Contents object.
+     * @return IMP_Indices  The indices object.
      */
     public function getIndices($vars = null)
     {
@@ -236,9 +236,8 @@ class IMP_Ui_Compose
     }
 
     /**
-     * @return array
      */
-    public function identityJs()
+    public function addIdentityJs()
     {
         $identities = array();
         $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
@@ -258,9 +257,9 @@ class IMP_Ui_Compose
             );
         }
 
-        return $GLOBALS['page_output']->addInlineJsVars(array(
+        $GLOBALS['page_output']->addInlineJsVars(array(
             'ImpComposeBase.identities' => $identities
-        ), array('ret_vars' => true));
+        ));
     }
 
     /**

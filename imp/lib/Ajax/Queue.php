@@ -101,7 +101,7 @@ class IMP_Ajax_Queue
 
             foreach ($this->_messages as $val) {
                 try {
-                    $show_msg = new IMP_Views_ShowMessage($val['mailbox'], $val['uid'], $val['peek']);
+                    $show_msg = new IMP_Ajax_Application_ShowMessage($val['mailbox'], $val['uid'], $val['peek']);
                     $msg = (object)$show_msg->showMessage(array(
                         'preview' => $val['preview']
                     ));

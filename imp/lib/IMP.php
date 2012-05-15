@@ -329,7 +329,7 @@ class IMP
             $args['popup'] = 1;
 
             $url = ($view == Horde_Registry::VIEW_DYNAMIC)
-                ? 'compose-dimp.php'
+                ? IMP_Dynamic_Compose::url()
                 : 'compose.php';
             $raw = true;
             $callback = array(__CLASS__, 'composeLinkSimpleCallback');

@@ -1,6 +1,6 @@
 <?php
 /**
- * IMP wrapper for the base AJAX framework handler.
+ * Mailbox page for dynamic view.
  *
  * Copyright 2012 Horde LLC (http://www.horde.org/)
  *
@@ -12,117 +12,79 @@
  * @license  http://www.horde.org/licenses/gpl21 GPL
  * @package  IMP
  */
-class IMP_Ajax
+class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
 {
     /**
-     * Javascript variables to output to the page.
-     *
-     * @var array
      */
-    protected $_jsvars = array();
+    public $growlerLog = true;
 
     /**
-     * @param string $page   Either 'compose', 'main', or 'message'.
-     * @param string $title  The title of the page.
      */
-    public function init($page, $title = '')
+    protected function _init()
     {
-        global $injector, $page_output, $prefs;
+        global $browser, $conf, $injector, $page_output, $prefs, $registry, $session;
 
-        $this->_addBaseVars();
+        $this->view->addHelper('IMP_Dynamic_Helper_Mailbox');
 
-        $page_output->addScriptFile('dimpcore.js');
-        $page_output->addScriptFile('indices.js');
-        $page_output->addScriptFile('contextsensitive.js', 'horde');
-
-        switch ($page) {
-        case 'compose':
-            $page_output->addScriptFile('compose-base.js');
-            $page_output->addScriptFile('compose-dimp.js');
-            $page_output->addScriptFile('md5.js', 'horde');
-            $page_output->addScriptFile('textarearesize.js', 'horde');
-
-            if (!$prefs->isLocked('default_encrypt') &&
-                ($prefs->getValue('use_pgp') ||
-                 $prefs->getValue('use_smime'))) {
-                $page_output->addScriptFile('redbox.js', 'horde');
-                $page_output->addScriptFile('dialog.js', 'horde');
-            }
-
-            $this->_addComposeVars();
-            break;
-
-        case 'main':
-            $page_output->addScriptFile('dimpbase.js');
-            $page_output->addScriptFile('imp.js');
-            $page_output->addScriptFile('imageunblock.js');
-            $page_output->addScriptFile('itiprequest.js');
-            $page_output->addScriptFile('mailbox-dimp.js');
-            $page_output->addScriptFile('viewport.js');
-            $page_output->addScriptFile('dragdrop2.js', 'horde');
-            $page_output->addScriptFile('form_ghost.js', 'horde');
-            $page_output->addScriptFile('jstorage.js', 'horde');
-            $page_output->addScriptFile('redbox.js', 'horde');
-            $page_output->addScriptFile('dialog.js', 'horde');
-            $page_output->addScriptFile('slider2.js', 'horde');
-            $page_output->addScriptFile('toggle_quotes.js', 'horde');
-
-            if ($prefs->getValue('use_pgp') ||
-                $prefs->getValue('use_smime')) {
-                $page_output->addScriptFile('importencryptkey.js');
-            }
-            break;
-
-        case 'message':
-            $page_output->addScriptFile('message-dimp.js');
-            $page_output->addScriptFile('imp.js');
-            $page_output->addScriptFile('imageunblock.js');
-            $page_output->addScriptFile('itiprequest.js');
-            $page_output->addScriptFile('textarearesize.js', 'horde');
-            $page_output->addScriptFile('toggle_quotes.js', 'horde');
-
-            if ($prefs->getValue('use_pgp') ||
-                $prefs->getValue('use_smime')) {
-                $page_output->addScriptFile('importencryptkey.js');
-            }
-
-            if (IMP::canCompose()) {
-                $page_output->addScriptFile('compose-base.js');
-                $page_output->addScriptFile('compose-dimp.js');
-                $page_output->addScriptFile('md5.js', 'horde');
-
-                if (!$prefs->isLocked('default_encrypt') &&
-                    ($prefs->getValue('use_pgp') ||
-                     $prefs->getValue('use_smime'))) {
-                    $page_output->addScriptFile('redbox.js', 'horde');
-                    $page_output->addScriptFile('dialog.js', 'horde');
-                }
-
-                $this->_addComposeVars();
-            }
-            break;
+        $page_output->addScriptFile('dimpbase.js');
+        $page_output->addScriptFile('imp.js');
+        $page_output->addScriptFile('imageunblock.js');
+        $page_output->addScriptFile('itiprequest.js');
+        $page_output->addScriptFile('mailbox-dimp.js');
+        $page_output->addScriptFile('viewport.js');
+        $page_output->addScriptFile('dragdrop2.js', 'horde');
+        $page_output->addScriptFile('form_ghost.js', 'horde');
+        $page_output->addScriptFile('jstorage.js', 'horde');
+        $page_output->addScriptFile('redbox.js', 'horde');
+        $page_output->addScriptFile('dialog.js', 'horde');
+        $page_output->addScriptFile('slider2.js', 'horde');
+        $page_output->addScriptFile('toggle_quotes.js', 'horde');
+        if ($prefs->getValue('use_pgp') || $prefs->getValue('use_smime')) {
+            $page_output->addScriptFile('importencryptkey.js');
         }
 
-        $page_output->addInlineJsVars(array(
-            'var DIMP' => $this->_jsvars
-        ), array('top' => true));
+        $this->_addMailboxVars();
 
-        $page_output->header(array(
-            'growler_log' => ($page == 'main'),
-            'title' => $title
-        ));
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+
+        $this->view->filter_avail = $session->get('imp', 'filteravail');
+        $this->view->show_folders = $imp_imap->access(IMP_Imap::ACCESS_FOLDERS);
+        $this->view->show_logout = Horde_Menu::showService('logout');
+        $this->view->show_notspam = !empty($conf['notspam']['reporting']);
+        $this->view->show_quota = $session->get('imp', 'imap_quota');
+        $this->view->show_prefs = Horde_Menu::showService('prefs');
+        $this->view->show_search = $imp_imap->access(IMP_Imap::ACCESS_SEARCH);
+        $this->view->show_spam = !empty($conf['spam']['reporting']);
+
+        $this->view->is_opera = $browser->isBrowser('opera');
+
+        $status = $registry->get('status', 'horde');
+        $this->view->show_portal = (($status != 'hidden') && ($status != 'notoolbar') && empty($conf['menu']['apps_iframe']));
+
+        $dimp_menu = new IMP_Menu_Dimp(Horde_Menu::MASK_BASE);
+        $this->view->sidebar = $dimp_menu->render();
+        $dimp_menu->addJs();
+
+        $page_output->noDnsPrefetch();
+
+        $this->_pages[] = 'mailbox';
     }
 
     /**
-     * Add base javascript variables to the page.
      */
-    protected function _addBaseVars()
+    static public function url(array $opts = array())
+    {
+        return Horde::url('dynamic.php')->add('page', 'mailbox');
+    }
+
+    /**
+     */
+    protected function _addMailboxVars()
     {
         global $conf, $injector, $prefs, $registry;
 
-        $code = $flags = array();
-
         /* Generate flag array. */
+        $flags = array();
         foreach ($injector->getInstance('IMP_Flags')->getList() as $val) {
             $flags[$val->id] = array_filter(array(
                 // Indicate a flag that can be *a*ltered
@@ -147,24 +109,20 @@ class IMP_Ajax
             $acl = false;
         }
 
-        /* Variables used in core javascript files. */
-        $this->_jsvars['conf'] = array_filter(array(
-            // URL variables
-            'URI_COMPOSE' => strval(Horde::url('compose-dimp.php')->setRaw(true)),
-            'URI_DIMP' => strval(Horde::url('index-dimp.php')),
-            'URI_MESSAGE' => strval(Horde::url('message-dimp.php')->setRaw(true)),
+        $this->js_conf += array_filter(array(
+            // URLs
+            'URI_MESSAGE' => strval(IMP_Dynamic_Message::url()->setRaw(true)),
             'URI_PORTAL' => strval($registry->getServiceLink('portal')->setRaw(true)),
             'URI_PREFS_IMP' => strval($registry->getServiceLink('prefs', 'imp')->setRaw(true)),
             'URI_SEARCH' => strval(Horde::url('search.php')),
-            'URI_VIEW' => strval(Horde::url('view.php')),
 
+            // IMAP Flags
             'FLAG_DELETED' => Horde_Imap_Client::FLAG_DELETED,
             'FLAG_DRAFT' => Horde_Imap_Client::FLAG_DRAFT,
             'FLAG_SEEN' => Horde_Imap_Client::FLAG_SEEN,
 
             // Other variables
             'acl' => $acl,
-            'disable_compose' => !IMP::canCompose(),
             'filter_any' => intval($prefs->getValue('filter_any_mailbox')),
             'fixed_mboxes' => empty($conf['server']['fixed_folders'])
                 ? array()
@@ -178,7 +136,6 @@ class IMP_Ajax
             'mbox_expand' => intval($prefs->getValue('nav_expanded') == 2),
             'name' => $registry->get('name', 'imp'),
             'poll_alter' => intval(!$prefs->isLocked('nav_poll') && !$prefs->getValue('nav_poll_all')),
-            'pop3' => intval($injector->getInstance('IMP_Factory_Imap')->create()->pop3),
             'qsearchid' => IMP_Mailbox::formTo(IMP_Search::MBOX_PREFIX . IMP_Search::DIMP_QUICKSEARCH),
             'refresh_time' => intval($prefs->getValue('refresh_time')),
             'sidebar_width' => max(intval($prefs->getValue('sidebar_width')), 150),
@@ -221,24 +178,7 @@ class IMP_Ajax
             'spam_spammbox' => intval(!empty($conf['spam']['spamfolder']))
         ));
 
-        /* Context menu definitions.
-         * Keys:
-         *   - Begin with '_mbox': A mailbox name container entry
-         *   - Begin with '_sep': A separator
-         *   - Begin with '_sub': All subitems wrapped in a DIV
-         *   - Begin with a '*': No icon
-         */
         $context = array(
-            'ctx_contacts' => array(
-                'new' => _("New Message"),
-                'add' => _("Add to Address Book")
-            ),
-            'ctx_reply' => array(
-                'reply' => _("To Sender"),
-                'reply_all' => _("To All"),
-                'reply_list' => _("To List")
-            ),
-
             'ctx_container' => array(
                 '_mbox' => '',
                 '_sep1' => null,
@@ -308,25 +248,6 @@ class IMP_Ajax
                 'collapse' => _("Collapse All"),
                 '_sep1' => null,
                 'reload' => _("Rebuild Folder List")
-            );
-        }
-
-        /* Forward context menu. */
-        $context['ctx_forward'] = array(
-            'attach' => _("As Attachment"),
-            'body' => _("In Body Text"),
-            'both' => _("Attachment and Body Text"),
-            '_sep1' => null,
-            'editasnew' => _("Edit as New"),
-            '_sep2' => null,
-            'redirect' => _("Redirect")
-        );
-        if ($prefs->isLocked('forward_default')) {
-            unset(
-                $context['ctx_forward']['attach'],
-                $context['ctx_forward']['body'],
-                $context['ctx_forward']['both'],
-                $context['ctx_forward']['_sep1']
             );
         }
 
@@ -474,7 +395,6 @@ class IMP_Ajax
                 '_sep1' => null,
                 '*advanced' => _("Advanced Search...")
             );
-
             /* Generate filter array. */
             $imp_search = $injector->getInstance('IMP_Search');
             $imp_search->setIteratorFilter(IMP_Search::LIST_FILTER);
@@ -487,11 +407,9 @@ class IMP_Ajax
             }
         }
 
-        $this->_jsvars['context'] = $context;
+        $this->js_context += $context;
 
-        /* Gettext strings used in core javascript files. */
-        $this->_jsvars['text'] = array(
-            'allparts_label' => _("All Message Parts"),
+        $this->js_text += array(
             'badaddr' => _("Invalid Address"),
             'badsubject' => _("Invalid Subject"),
             'baselevel' => _("base level of the folder tree"),
@@ -508,7 +426,6 @@ class IMP_Ajax
             'import_mbox' => _("Mbox or .eml file:"),
             'listmsg_wait' => _("The server is still generating the message list."),
             'listmsg_timeout' => _("The server was unable to generate the message list."),
-            'loading' => _("Loading..."),
             'message' => _("Message"),
             'messages' => _("Messages"),
             'messagetitle' => _("%d - %d of %d Messages"),
@@ -522,100 +439,10 @@ class IMP_Ajax
             'search' => _("Search"),
             'search_time' => _("Results are %d Minutes Old"),
             'selected' => _("selected"),
-            'verify' => _("Verifying..."),
             'vfolder' => _("Virtual Folder: %s"),
             'vp_empty' => _("There are no messages in this mailbox."),
-            'vp_empty_search' => _("No messages matched the search query."),
+            'vp_empty_search' => _("No messages matched the search query.")
         );
-    }
-
-    /**
-     * Add compose javascript variables to the page.
-     */
-    protected function _addComposeVars()
-    {
-        global $browser, $conf, $prefs, $registry, $session;
-
-        $compose_cursor = $prefs->getValue('compose_cursor');
-
-        /* Context menu definitions. */
-        $context = array(
-            'ctx_msg_other' => array(
-                'rr' => _("Read Receipt"),
-                'saveatc' => _("Save Attachments in Sent Mailbox")
-            )
-        );
-
-        if ($prefs->getValue('request_mdn') == 'never') {
-            unset($context['ctx_msg_other']['rr']);
-        }
-
-        if (strpos($prefs->getValue('save_attachments'), 'prompt') === false) {
-            unset($context['ctx_msg_other']['saveatc']);
-        }
-
-        $this->_jsvars['context'] += $context;
-
-        /* Variables used in compose page. */
-        $this->_jsvars['conf'] += array_filter(array(
-            'attach_limit' => ($conf['compose']['attach_count_limit'] ? intval($conf['compose']['attach_count_limit']) : -1),
-            'auto_save_interval_val' => intval($prefs->getValue('auto_save_drafts')),
-            'bcc' => intval($prefs->getValue('compose_bcc')),
-            'cc' => intval($prefs->getValue('compose_cc')),
-            'close_draft' => intval($prefs->getValue('close_draft')),
-            'compose_cursor' => ($compose_cursor ? $compose_cursor : 'top'),
-            'drafts_mbox' => IMP_Mailbox::getPref('drafts_folder')->form_to,
-            'rte_avail' => intval($browser->hasFeature('rte')),
-            'spellcheck' => intval($prefs->getValue('compose_spellcheck')),
-            'templates_mbox' => IMP_Mailbox::getPref('composetemplates_mbox')->form_to
-        ));
-
-        /* Gettext strings used in compose page. */
-        $this->_jsvars['text'] += array(
-            'compose_cancel' => _("Cancelling this message will permanently discard its contents and will delete auto-saved drafts.\nAre you sure you want to do this?"),
-            'nosubject' => _("The message does not have a Subject entered.") . "\n" . _("Send message without a Subject?"),
-            'remove' => _("Remove"),
-            'replyall' => _("%d recipients"),
-            'spell_noerror' => _("No spelling errors found."),
-            'toggle_html' => _("Really discard all formatting information? This operation cannot be undone."),
-            'uploading' => _("Uploading..."),
-        );
-
-        if ($session->get('imp', 'csearchavail')) {
-            $this->_jsvars['conf']['URI_ABOOK'] = strval(Horde::url('contacts.php'));
-        }
-
-        if ($prefs->getValue('set_priority')) {
-            $this->_jsvars['conf']['priority'] = array(
-                array(
-                    'l' => _("High"),
-                    'v' => 'high'
-                ),
-                array(
-                    'l' => _("Normal"),
-                    's' => true,
-                    'v' => 'normal'
-                ),
-                array(
-                    'l' => _("Low"),
-                    'v' => 'low'
-                )
-            );
-        }
-
-        if (!$prefs->isLocked('default_encrypt')) {
-            $encrypt = array();
-            foreach (IMP::encryptList(null, true) as $key => $val) {
-                $encrypt[] = array(
-                    'l' => htmlspecialchars($val),
-                    'v' => $key
-                );
-            }
-
-            if (!empty($encrypt)) {
-                $this->_jsvars['conf']['encrypt'] = $encrypt;
-            }
-        }
     }
 
 }

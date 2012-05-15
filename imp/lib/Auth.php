@@ -306,10 +306,10 @@ class IMP_Auth
             break;
 
         case Horde_Registry::VIEW_DYNAMIC:
-            if (is_null($mbox)) {
-                $result->mbox = IMP_Mailbox::get('INBOX');
-            }
-            $page = 'index-dimp.php';
+            $result->url = IMP_Dynamic_Mailbox::url(array(
+                'mailbox' => is_null($mbox) ? 'INBOX' : $mbox
+            ));
+            $page = 'dynamic.php';
             break;
 
         case Horde_Registry::VIEW_MINIMAL:

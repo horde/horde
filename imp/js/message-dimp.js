@@ -69,19 +69,7 @@ var DimpMessage = {
             break;
 
         default:
-            if (r.imp_compose) {
-                $('composeCache').setValue(r.imp_compose);
-            }
-
-            if (!r.opts) {
-                r.opts = {};
-            }
-            r.opts.noupdate = true;
-            r.opts.show_editor = (r.format == 'html');
-
-            $('identity', 'last_identity').invoke('setValue', (r.identity === null) ? $F('identity') : r.identity);
-
-            DimpCompose.fillForm(r.body, r.header, r.opts);
+            DimpCompose.fillForm(r);
             break;
         }
     },
@@ -192,7 +180,7 @@ var DimpMessage = {
                 break;
 
             case 'msg_view_source':
-                HordeCore.popupWindow(DIMP.conf.URI_VIEW, {
+                HordeCore.popupWindow(DimpCore.conf.URI_VIEW, {
                     actionID: 'view_source',
                     id: 0,
                     mailbox: this.mbox,
@@ -229,7 +217,7 @@ var DimpMessage = {
 
             default:
                 if (elt.hasClassName('printAtc')) {
-                    HordeCore.popupWindow(DIMP.conf.URI_VIEW, {
+                    HordeCore.popupWindow(DimpCore.conf.URI_VIEW, {
                         actionID: 'print_attach',
                         id: elt.readAttribute('mimeid'),
                         mailbox: this.mbox,
@@ -290,20 +278,20 @@ var DimpMessage = {
         $('msg_all_parts').up().hide();
 
         $('partlist').update(r.tree);
-        $('msgAtc').down('SPAN.atcLabel').update(DIMP.text.allparts_label);
+        $('msgAtc').down('SPAN.atcLabel').update(DimpCore.text.allparts_label);
         $('msgAtc').show();
     },
 
     onDomLoad: function()
     {
-        if (DIMP.conf.disable_compose) {
+        if (DimpCore.conf.disable_compose) {
             $('reply_link', 'forward_link').compact().invoke('up', 'SPAN').invoke('remove');
-            delete DIMP.context.ctx_contacts['new'];
+            delete DimpCore.context.ctx_contacts['new'];
         } else {
             DimpCore.addPopdownButton('reply_link', 'reply');
             DimpCore.addPopdownButton('forward_link', 'forward');
             if (!this.reply_list) {
-                delete DIMP.context.ctx_reply['reply_list'];
+                delete DimpCore.context.ctx_reply['reply_list'];
             }
         }
 
@@ -328,7 +316,7 @@ var DimpMessage = {
         }
 
         $('dimpLoading').hide();
-        $('pageContainer').show();
+        $('msgData').show();
 
         this.resizeWindow();
     }

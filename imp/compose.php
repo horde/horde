@@ -23,10 +23,11 @@ Horde_Registry::appInit('imp', array(
 $vars = $injector->getInstance('Horde_Variables');
 
 /* Mailto link handler: redirect based on current view. */
+// TODO: preserve state
 if ($vars->actionID == 'mailto_link') {
     switch ($registry->getView()) {
     case Horde_Registry::VIEW_DYNAMIC:
-        require IMP_BASE . '/compose-dimp.php';
+        IMP_Dynamic_Compose::url()->redirect();
         exit;
 
     case Horde_Registry::VIEW_MINIMAL:
@@ -1097,7 +1098,7 @@ $page_output->addScriptFile('compose.js');
 $page_output->addScriptFile('md5.js', 'horde');
 $page_output->addInlineJsVars($js_vars);
 if (!$redirect) {
-    $page_output->addInlineScript($imp_ui->identityJs());
+    $imp_ui->addIdentityJs();
 }
 IMP::header($title);
 if ($showmenu) {
