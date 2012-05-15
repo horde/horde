@@ -187,7 +187,7 @@ class IMP_Views_ShowMessage
         }
 
         if (empty($result['reply-to']) ||
-            ($result['from'][0]['inner'] == $result['reply-to'][0]['inner'])) {
+            ($result['from']['addr'][0]['b'] == $result['reply-to']['addr'][0]['b'])) {
             unset($result['reply-to'], $headers['reply-to']);
         }
 
