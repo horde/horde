@@ -13,7 +13,6 @@
  </form>
 
  <form id="imp-compose-form" action="<?php echo $this->composeLink ?>" method="post" enctype="multipart/form-data" target="submit_frame">
-  <input type="hidden" id="imp-compose-last-identity" name="last_identity" value="<?php echo $this->defaultIdentity ?>" />
   <input type="hidden" id="imp-compose-cache" name="composeCache" value="<?php echo $this->h($this->composeCache) ?>" />
   <div data-role="fieldcontain">
    <label for="imp-compose-identity"><?php echo _("From:") ?></label>
