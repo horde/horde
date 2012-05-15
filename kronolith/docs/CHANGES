@@ -24,9 +24,17 @@ v4.0-git
 
 
 -----------
-v3.0.17-git
+v3.0.18-git
 -----------
 
+
+
+-------
+v3.0.17
+-------
+
+[jan] SECURITY: Fix XSS vulnerabilities in tasks view and search view (Bug
+      #11189).
 [jan] Update Italian translation (Massimo Malabotta <mmalabotta@units.it>).
 [jan] Improve print styles.
 [jan] Catch if external client doesn't send LAST-MODIFIED attributes (Bug

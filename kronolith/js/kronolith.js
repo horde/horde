@@ -622,7 +622,7 @@ KronolithCore = {
             return this.setTitle(Kronolith.text.agenda + ' ' + dates[0].toString(Kronolith.conf.date_format) + ' - ' + dates[1].toString(Kronolith.conf.date_format));
 
         case 'search':
-            return this.setTitle(Kronolith.text.searching.interpolate({ term: data }));
+            return this.setTitle(Kronolith.text.searching.interpolate({ term: data })).escapeHTML();
         }
     },
 
@@ -2358,7 +2358,7 @@ KronolithCore = {
 
         if (!Object.isUndefined(task.value.sd)) {
             col.insert(new Element('span', { className: 'kronolithSeparator' }).update(' &middot; '));
-            col.insert(new Element('span', { className: 'kronolithInfo' }).update(task.value.sd));
+            col.insert(new Element('span', { className: 'kronolithInfo' }).update(task.value.sd.escapeHTML()));
         }
 
         row.insert(col.show());
@@ -2894,7 +2894,7 @@ KronolithCore = {
                     $('kronolithCalendarholidayDriver').insert(
                         new Element('option', { value: calendar.name })
                             .setStyle({ color: calendar.fg, backgroundColor: calendar.bg })
-                            .insert(calendar.name)
+                            .insert(calendar.name.escapeHTML())
                     );
                 });
                 break;
@@ -5418,7 +5418,7 @@ KronolithCore = {
         $('kronolithEventId').setValue(ev.id);
         $('kronolithEventCalendar').setValue(ev.ty + '|' + ev.c);
         $('kronolithEventTarget').setValue(ev.ty + '|' + ev.c);
-        $('kronolithEventTargetRO').update(Kronolith.conf.calendars[ev.ty][ev.c].name);
+        $('kronolithEventTargetRO').update(Kronolith.conf.calendars[ev.ty][ev.c].name.escapeHTML());
         $('kronolithEventTitle').setValue(ev.t);
         $('kronolithEventLocation').setValue(ev.l);
         $('kronolithEventTimezone').setValue(ev.tz);

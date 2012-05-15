@@ -38,6 +38,10 @@ Horde_Registry::appInit('imp', array(
     'impmode' => Horde_Registry::VIEW_BASIC
 ));
 
+if (empty(IMP::$mailbox)) {
+    throw new IMP_Exception(_("Invalid mailbox."));
+}
+
 $registry->setTimeZone();
 
 /* Call the mailbox redirection hook, if requested. */
@@ -80,13 +84,9 @@ if ($actionID && ($actionID != 'message_missing')) {
 
 /* We know we are going to be exclusively dealing with this mailbox, so
  * select it on the IMAP server (saves some STATUS calls). Open R/W to clear
- * the RECENT flag. */
+ * the RECENT flag. This call will catch invalid mailboxes. */
 if (!$search_mbox) {
-    try {
-        $imp_imap->openMailbox(IMP::mailbox(), Horde_Imap_Client::OPEN_READWRITE);
-    } catch (IMP_Imap_Exception $e) {
-        $actionID = null;
-    }
+    $imp_imap->openMailbox(IMP::mailbox(), Horde_Imap_Client::OPEN_READWRITE);
 }
 
 /* Determine if mailbox is readonly. */

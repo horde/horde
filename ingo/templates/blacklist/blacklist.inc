@@ -15,7 +15,7 @@
     <td>
       <?php echo _("Action for blacklisted addresses:") ?><br />
       <input type="radio" name="action" id="action_delete" value="delete" <?php if (empty($blacklist_folder)) echo 'checked="checked" ' ?>/> <?php echo Horde::label('action_delete', _("_Delete message completely")) ?><br />
-<?php if ($have_mark): ?>
+<?php if ($scriptor && in_array(Ingo_Storage::ACTION_FLAGONLY, $scriptor->availableActions())): ?>
       <input type="radio" name="action" id="action_mark" value="mark" <?php if ($blacklist_folder == Ingo::BLACKLIST_MARKER) echo 'checked="checked" ' ?>/> <?php echo Horde::label('action_mark', _("Mar_k message as deleted")) ?><br />
 <?php endif; ?>
       <input type="radio" name="action" id="action_folder" value="folder" <?php if (!empty($blacklist_folder) && ($blacklist_folder != Ingo::BLACKLIST_MARKER)) echo 'checked="checked" ' ?>/> <?php echo Horde::label('action_folder', _("_Move message to folder:")) ?>

@@ -11,6 +11,7 @@ v3.0-git
 v2.0.8-git
 ----------
 
+[jan] Fix showing blacklist option to mark message as deleted (Bug #11186).
 [jan] Update Italian translation (Massimo Malabotta <mmalabotta@units.it>).
 [jan] Fix folder names in Procmail rules if using Maildir (Bug #10113).
 [jan] Update Hungarian translation (Zoltán Németh <nemeth.zoltan@etit.hu>).
