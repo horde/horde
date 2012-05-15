@@ -6,7 +6,7 @@
  *
  * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
- * @author  Jan Schneider <chuck@horde.org>
+ * @author  Jan Schneider <jan@horde.org>
  * @package webmail
  */
 class Horde_Bundle extends Horde_Core_Bundle
