@@ -33,6 +33,8 @@ if ($form->validate()) {
         $url = $vars->get('url');
         if (empty($url)) {
             $url = Horde::url('view.php')->add('gallery', $gallery->id);
+        } else {
+            $url = Horde::url($url);
         }
         $url->redirect();
         exit;

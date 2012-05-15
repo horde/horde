@@ -2,6 +2,8 @@
 v2.0.2-git
 ----------
 
+[jan] Fix redirection after setting gallery password (thpo+horde@dotrc.de, Bug
+      #11195).
 
 
 ------
