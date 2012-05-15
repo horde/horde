@@ -17,11 +17,11 @@
   <email>mike@maintainable.com</email>
   <active>yes</active>
  </lead>
- <date>2011-11-22</date>
- <time>21:31:41</time>
+ <date>2012-05-15</date>
+ <time>14:39:12</time>
  <version>
-  <release>1.0.2</release>
-  <api>1.0.0</api>
+  <release>1.1.0</release>
+  <api>1.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Added Horde_View_Helper_FormTag#optionTag().
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -341,15 +341,15 @@
   </release>
   <release>
    <version>
-    <release>1.0.2</release>
-    <api>1.0.0</api></version>
+    <release>1.1.0</release>
+    <api>1.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-22</date>
+   <date>2012-05-15</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Added Horde_View_Helper_FormTag#optionTag().
    </notes>
   </release>
  </changelog>

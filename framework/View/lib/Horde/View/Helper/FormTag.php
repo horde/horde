@@ -40,6 +40,14 @@ class Horde_View_Helper_FormTag extends Horde_View_Helper_Base
                                  array_merge(array('name' => $name, 'id' => $name), $options));
     }
 
+    public function optionTag($value = null, $label = null, $selected = false, $options = array())
+    {
+        return $this->contentTag('option', $label, array_merge(array(
+            'selected' => $selected,
+            'value' => $value
+        ), $options));
+    }
+
     public function textFieldTag($name, $value = null, $options = array())
     {
         return $this->tag('input', array_merge(array('type'  => 'text',
