@@ -278,7 +278,7 @@ class Horde_ActiveSync
      *
      * @var float
      */
-    protected $_maxVersion = self::VERSION_TWELVE;
+    protected $_maxVersion = self::VERSION_TWELVEONE;
 
     /**
      * The actual version we are supporting.
