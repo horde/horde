@@ -554,7 +554,6 @@ class Horde_ActiveSync
             $device->rwstatus = self::RWSTATUS_NA;
             $device->user = $this->_driver->getUser();
             $device->id = $devId;
-            Horde::debug($device);
             $this->_state->setDeviceInfo($device);
         } else {
             $device = $this->_state->loadDeviceInfo($devId, $this->_driver->getUser());
