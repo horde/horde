@@ -764,7 +764,7 @@ class Horde_ActiveSync_Imap_Adapter
         $eas_message->reply_to = $imap_message->getReplyTo();
         $eas_message->messageclass = 'IPM.Note';
 
-        if ($version == Horde_ActiveSync::VERSION_TWOFIVE || empty($options['bodyprefs'])) {
+        if ($version == Horde_ActiveSync::VERSION_TWOFIVE) {
             // EAS 2.5 behavior or no bodyprefs sent
             $message_body_data = $imap_message->getMessageBodyData($options);
             if ($message_body_data['plain']['charset'] != 'UTF-8') {
