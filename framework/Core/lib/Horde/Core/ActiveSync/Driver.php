@@ -622,7 +622,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     array($id),
                     array(
                         'protocolversion' => $this->_version,
-                        'truncation' => !empty($collection['truncation']) ? $collection['truncation'] : false,
+                        'truncation' => !empty($collection['truncation'])
+                            ? $collection['truncation']
+                            : (!empty($collection['mimetruncation']) ? $collection['mimetruncation'] : false),
                         'bodyprefs'  => $this->addDefaultBodyPrefTruncation($collection['bodyprefs']),
                         'mimesupport' => $collection['mimesupport']
                     )

@@ -844,7 +844,19 @@ class Horde_ActiveSync_Imap_Adapter
                 }
                 $airsync_body->type = Horde_ActiveSync::BODYPREF_TYPE_MIME;
                 $airsync_body->estimateddatasize = $base->getBytes();
-                $airsync_body->truncated = '0';
+
+                // MIME Truncation
+                if ($base->getBytes > $options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_MIME]['truncationsize']) {
+                    if (is_resource($airsync_body->data)) {
+                        ftruncate($airsync_body->data, $options['truncation']);
+                    } else {
+                        $airsync_body->data = Horde_String::substr(
+                            $airsync_body->data, 0, $options['truncation']);
+                    }
+                    $airsync_body->truncated = '1';
+                } else {
+                    $airsync_body->truncated = '0';
+                }
                 $eas_message->airsyncbasebody = $airsync_body;
                 $haveData = true;
             } elseif (isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]) ||
