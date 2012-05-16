@@ -5,7 +5,7 @@
   </div>
   <div>
    <?php echo _("Message") ?>:
-   <?php echo $this->subject ?>
+   <?php echo $this->h($this->subject) ?>
   </div>
  </div>
  <?php echo $this->qreply ?>

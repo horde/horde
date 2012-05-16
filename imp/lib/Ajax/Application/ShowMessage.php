@@ -219,14 +219,14 @@ class IMP_Ajax_Application_ShowMessage
         /* Process the subject. */
         $subject = $mime_headers->getValue('subject');
         if ($subject) {
-            $result['subject'] = $imp_ui->getDisplaySubject($subject);
+            $result['subject'] = htmlspecialchars_decode($imp_ui->getDisplaySubject($subject));
             if (!$preview) {
-                $result['title'] = htmlspecialchars($subject);
+                $result['title'] = $subject;
             }
         } else {
-            $result['subject'] = htmlspecialchars(_("[No Subject]"));
+            $result['subject'] = _("[No Subject]");
             if (!$preview) {
-                $result['title'] = htmlspecialchars(_("[No Subject]"));
+                $result['title'] = _("[No Subject]");
             }
         }
 

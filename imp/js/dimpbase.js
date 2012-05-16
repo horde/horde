@@ -1689,7 +1689,7 @@ var DimpBase = {
 
         // Add subject
         tmp = pm.select('.subject');
-        tmp.invoke('update', r.subject === null ? '[' + DimpCore.text.badsubject + ']' : r.subject);
+        tmp.invoke('update', r.subject === null ? '[' + DimpCore.text.badsubject + ']' : r.subject.escapeHTML());
 
         // Add date
         [ $('msgHeaderDate') ].flatten().invoke(r.localdate ? 'show' : 'hide');

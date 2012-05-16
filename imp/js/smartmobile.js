@@ -413,9 +413,9 @@ var ImpMobile = {
         ImpMobile.uid = data.uid;
         ImpMobile.uid_mbox = data.mbox;
 
-        $('#imp-message-title').html(data.title);
+        $('#imp-message-title').text(data.title);
         document.title = $('#imp-message-title').text();
-        $('#imp-message-subject').html(data.subject);
+        $('#imp-message-subject').text(data.subject);
 
         if (data.from.raw) {
             $('#imp-message-from').text(data.from.raw);
@@ -430,7 +430,7 @@ var ImpMobile = {
         $('#imp-message-body').html(data.msgtext);
         $('#imp-message-date').text('');
 
-        data.headers.push({ name: 'Subject', value: data.subject });
+        data.headers.push({ name: 'Subject', value: $('#imp-message-subject').html() });
 
         headers.text('');
         $.each(data.headers, function(k, header) {
