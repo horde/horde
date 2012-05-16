@@ -710,6 +710,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
          * characters can be in the address fields. */
         $recip = $this->recipientList($header);
         if (!count($recip['list'])) {
+            if ($recip['has_input']) {
+                throw new IMP_Compose_Exception(_("Invalid e-mail address."));
+            }
             throw new IMP_Compose_Exception(_("Need at least one message recipient."));
         }
         $header = array_merge($header, $recip['header']);
@@ -1220,10 +1223,12 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      * Cleans up and returns the recipient list. Method designed to parse
      * user entered data; does not encode/validate addresses.
      *
-     * @param array $hdr  An array of MIME headers.  Recipients will be
+     * @param array $hdr  An array of MIME headers. Recipients will be
      *                    extracted from the 'to', 'cc', and 'bcc' entries.
      *
      * @return array  An array with the following entries:
+     *   - has_input: (boolean) True if at least one of the headers contains
+     *                user input.
      *   - header: (array) Contains the cleaned up 'to', 'cc', and 'bcc'
      *             header strings.
      *   - list: (Horde_Mail_Rfc822_List) Recipient addresses.
@@ -1242,6 +1247,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         }
 
         return array(
+            'has_input' => isset($obs),
             'header' => $header,
             'list' => $addrlist
         );
