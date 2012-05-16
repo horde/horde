@@ -687,7 +687,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                     . ' VALUES(?, ?, ?, ?, ?)';
                 $values = array(
                     $data->deviceType,
-                    $data->userAgent,
+                    (!empty($data->userAgent) ? $data->userAgent : ''),
                     $data->rwstatus,
                     $data->id,
                     (!empty($data->supported) ? serialize($data->supported) : '')
