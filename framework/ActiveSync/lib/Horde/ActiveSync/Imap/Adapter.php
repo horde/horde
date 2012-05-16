@@ -775,7 +775,7 @@ class Horde_ActiveSync_Imap_Adapter
             } else {
                 $eas_message->body = $message_body_data['plain']['body'];
             }
-            $eas_message->bodysize = Horde_String::length($eas_message->body); // @TODO: Should this be full or sent?
+            $eas_message->bodysize = Horde_String::length($eas_message->body);
             $eas_message->bodytruncated = $message_body_data['plain']['truncated'];
             $eas_message->attachments = $imap_message->getAttachments($version);
         } else {
@@ -791,6 +791,7 @@ class Horde_ActiveSync_Imap_Adapter
                 ($options['mimesupport'] == Horde_ActiveSync::MIME_SUPPORT_ALL ||
                  ($options['mimesupport'] == Horde_ActiveSync::MIME_SUPPORT_SMIME &&
                   $imap_message->isSigned()))) {
+
                 $this->_logger->debug('Sending MIME Message.');
                 // ActiveSync *REQUIRES* all data sent to be in UTF-8, so we
                 // must convert the body parts to UTF-8. Unfortunately if the
@@ -798,7 +799,6 @@ class Horde_ActiveSync_Imap_Adapter
                 // alter the data in anyway or the signature will not be
                 // verified, so we fetch the entire message and hope for the best.
                 if (!$imap_message->isSigned()) {
-                    // Create the body part.
                     $mime = new Horde_Mime_Part();
                     $mime->setType('multipart/alternative');
                     if (!empty($message_body_data['plain'])) {

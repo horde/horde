@@ -329,6 +329,11 @@ class Horde_ActiveSync_Imap_Message
         return $ret;
     }
 
+    /**
+     * Return an array of mime parts for each message attachement.
+     *
+     * @return array
+     */
     public function getAttachmentsMimeParts()
     {
         $mime_parts = array();
