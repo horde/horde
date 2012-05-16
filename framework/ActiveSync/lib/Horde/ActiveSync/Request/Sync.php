@@ -330,7 +330,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     $this->_syncCache['wait'],
                     $tempSyncCache['wait'])
                 );
-                $this->_logger->debug(sptrinf(
+                $this->_logger->debug(sprintf(
                     'Heartbeat Cache/TempCache: %s/%s',
                     $this->_syncCache['hbinterval'],
                     $tempSyncCache['hbinterval'])

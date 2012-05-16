@@ -615,7 +615,7 @@ class Horde_ActiveSync
         switch ($this->_maxVersion) {
         case self::VERSION_TWOFIVE:
             header('MS-Server-ActiveSync: 6.5.7638.1');
-            breakl;
+            break;
         case self::VERSION_TWELVE:
             header('MS-Server-ActiveSync: 12.0');
             break;
