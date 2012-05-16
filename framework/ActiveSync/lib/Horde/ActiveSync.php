@@ -618,7 +618,6 @@ class Horde_ActiveSync
         case self::VERSION_TWELVE:
             header('MS-Server-ActiveSync: 12.0');
             break;
-        case self::VERSION_TWELVEONE:
         }
     }
 
