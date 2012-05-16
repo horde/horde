@@ -395,8 +395,6 @@ class Horde_ActiveSync
 
         // Authenticate
         if (!$this->_driver->logon($user, $pass, $domain)) {
-            header('HTTP/1.1 401 Unauthorized');
-            header('WWW-Authenticate: Basic realm="Horde ActiveSync"');
             return false;
         }
 
@@ -420,9 +418,6 @@ class Horde_ActiveSync
         }
 
         if (!$this->_driver->setup($user)) {
-            header('HTTP/1.1 401 Unauthorized');
-            header('WWW-Authenticate: Basic realm="Horde ActiveSync"');
-            echo 'Access denied or user ' . $user . ' unknown.';
             return false;
         }
 
@@ -532,7 +527,10 @@ class Horde_ActiveSync
         }
 
         if (!$this->authenticate()) {
-            throw new Horde_ActiveSync_Exception('Failed to authenticate');
+            $this->activeSyncHeader();
+            $this->versionHeader();
+            $this->commandsHeader();
+            throw new Horde_Exception_AuthenticationFailure();
         }
 
         $this->_logger->debug(sprintf(

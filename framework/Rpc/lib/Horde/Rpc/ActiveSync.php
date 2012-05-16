@@ -141,6 +141,10 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
                $this->_handleError($e);
                header('HTTP/1.1 400 Invalid Request ' . $e->getMessage());
                exit;
+            } catch (Horde_Exception_AuthenticationFailure $e) {
+                header('HTTP/1.1 401 Unauthorized');
+                header('WWW-Authenticate: Basic realm="Horde ActiveSync"');
+                exit;
             } catch (Horde_Exception $e) {
                 $this->_logger->err('Returning HTTP 500');
                 $this->_handleError($e);
