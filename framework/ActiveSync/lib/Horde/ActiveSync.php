@@ -540,6 +540,26 @@ class Horde_ActiveSync
             $this->_driver->getUser())
         );
 
+        // Does device exist AND does the user have an account on the device?
+        if (!empty($devId) && !$this->_state->deviceExists($devId, $this->_driver->getUser())) {
+
+            // Device might exist, but with a new (additional) user account
+            $device = new StdClass();
+            if ($this->_state->deviceExists($devId)) {
+                $d = $this->_state->loadDeviceInfo($devId, '');;
+            }
+            $device->policykey = 0;
+            $device->userAgent = $this->_request->getHeader('User-Agent');
+            $device->deviceType = !empty($get['DeviceType']) ? $get['DeviceType'] : '';
+            $device->rwstatus = self::RWSTATUS_NA;
+            $device->user = $this->_driver->getUser();
+            $device->id = $devId;
+            Horde::debug($device);
+            $this->_state->setDeviceInfo($device);
+        } else {
+            $device = $this->_state->loadDeviceInfo($devId, $this->_driver->getUser());
+        }
+
         // Don't bother with everything else if all we want are Options
         if ($cmd == 'Options') {
             $this->activeSyncHeader();
@@ -560,24 +580,6 @@ class Horde_ActiveSync
 
         // Read the initial Wbxml header
         $this->_decoder->readWbxmlHeader();
-
-        // Does device exist AND does the user have an account on the device?
-        if (!empty($devId) && !$this->_state->deviceExists($devId, $this->_driver->getUser())) {
-            // Device might exist, but with a new (additional) user account
-            $device = new StdClass();
-            if ($this->_state->deviceExists($devId)) {
-                $d = $this->_state->loadDeviceInfo($devId, '');;
-            }
-            $device->policykey = 0;
-            $device->userAgent = $this->_request->getHeader('User-Agent');
-            $device->deviceType = !empty($get['DeviceType']) ? $get['DeviceType'] : '';
-            $device->rwstatus = self::RWSTATUS_NA;
-            $device->user = $this->_driver->getUser();
-            $device->id = $devId;
-            $this->_state->setDeviceInfo($device);
-        } else {
-            $device = $this->_state->loadDeviceInfo($devId, $this->_driver->getUser());
-        }
 
         // Support Multipart response for ITEMOPERATIONS requests?
         $this->_multipart = $this->_request->getHeader('MS-ASAcceptMultiPart') == 'T';
