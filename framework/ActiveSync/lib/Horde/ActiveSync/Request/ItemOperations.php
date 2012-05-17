@@ -262,6 +262,8 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_B
         }
         $this->_encoder->endTag(); //end SYNC_ITEMOPERATIONS_RESPONSE
         $this->_encoder->endTag(); //end SYNC_ITEMOPERATIONS_ITEMOPERATIONS
+
+        return true;
     }
 
 }
