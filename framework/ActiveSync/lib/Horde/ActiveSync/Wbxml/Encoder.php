@@ -53,7 +53,7 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
      *
      * @var boolean
      */
-    protected $_multipart;
+    public $multipart;
 
     /**
      * Const'r
@@ -98,10 +98,20 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
      *                            binary data. See MS-ASCMD 2.2.1.8.1
      *
      */
-    public function startWBXML($mulitpart = false)
+    public function startWBXML($multipart = false)
     {
-        $this->_multipart = $multipart;
+        $this->multipart = $multipart;
         $this->outputWbxmlHeader();
+    }
+
+    /**
+     * Return the mulitpart flag.
+     *
+     * @param boolean
+     */
+    public function hasMultipart()
+    {
+        return $this->multipart;
     }
 
     /**
