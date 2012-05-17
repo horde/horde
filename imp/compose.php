@@ -479,8 +479,8 @@ case 'send_message':
             $request->requestToken = $injector->getInstance('Horde_Token')->get('imp.compose');
             $request->formToken = Horde_Token::generateId('compose');
 
-            $response = new Horde_Core_Ajax_Response_Raw($request);
-            $response->sendAndExit('json');
+            $response = new Horde_Core_Ajax_Response_HordeCore($request);
+            $response->sendAndExit();
         }
 
         break;

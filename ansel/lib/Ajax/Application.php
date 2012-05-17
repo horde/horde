@@ -13,13 +13,6 @@
 class Ansel_Ajax_Application extends Horde_Core_Ajax_Application
 {
     /**
-     * Determines if notification information is sent in response.
-     *
-     * @var boolean
-     */
-    public $notify = true;
-
-    /**
      * Obtain a gallery
      *
      * @return mixed  False on failure, object representing the gallery with

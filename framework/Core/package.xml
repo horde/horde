@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-05-05</date>
- <time>00:08:24</time>
+ <date>2012-05-18</date>
+ <time>01:48:54</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -106,8 +106,13 @@
         <file name="WeatherLocationAutoCompleter.php" role="php" />
        </dir> <!-- /lib/Horde/Core/Ajax/Imple -->
        <dir name="Response">
+        <dir name="HordeCore">
+         <file name="JsonHtml.php" role="php" />
+         <file name="SessionTimeout.php" role="php" />
+        </dir> <!-- /lib/Horde/Core/Ajax/Response/HordeCore -->
         <file name="HordeCore.php" role="php" />
         <file name="Notifications.php" role="php" />
+        <file name="Prototypejs.php" role="php" />
         <file name="Raw.php" role="php" />
        </dir> <!-- /lib/Horde/Core/Ajax/Response -->
        <file name="Application.php" role="php" />
@@ -1146,7 +1151,10 @@
    <install as="Horde/Core/Ajax/Imple/Geocoder/Geonames.php" name="lib/Horde/Core/Ajax/Imple/Geocoder/Geonames.php" />
    <install as="Horde/Core/Ajax/Response/HordeCore.php" name="lib/Horde/Core/Ajax/Response/HordeCore.php" />
    <install as="Horde/Core/Ajax/Response/Notifications.php" name="lib/Horde/Core/Ajax/Response/Notifications.php" />
+   <install as="Horde/Core/Ajax/Response/Prototypejs.php" name="lib/Horde/Core/Ajax/Response/Prototypejs.php" />
    <install as="Horde/Core/Ajax/Response/Raw.php" name="lib/Horde/Core/Ajax/Response/Raw.php" />
+   <install as="Horde/Core/Ajax/Response/HordeCore/JsonHtml.php" name="lib/Horde/Core/Ajax/Response/HordeCore/JsonHtml.php" />
+   <install as="Horde/Core/Ajax/Response/HordeCore/SessionTimeout.php" name="lib/Horde/Core/Ajax/Response/HordeCore/SessionTimeout.php" />
    <install as="Horde/Core/Alarm/Handler/Notify.php" name="lib/Horde/Core/Alarm/Handler/Notify.php" />
    <install as="Horde/Core/Auth/Application.php" name="lib/Horde/Core/Auth/Application.php" />
    <install as="Horde/Core/Auth/Composite.php" name="lib/Horde/Core/Auth/Composite.php" />

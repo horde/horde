@@ -15,13 +15,6 @@
 class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
 {
     /**
-     * Determines if notification information is sent in response.
-     *
-     * @var boolean
-     */
-    public $notify = true;
-
-    /**
      * Constructor.
      *
      * @param string $app     The application name.
@@ -783,7 +776,6 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
      */
     public function listTopTags()
     {
-        $this->notify = false;
         $tagger = new Kronolith_Tagger();
         $result = new stdClass;
         $result->tags = array();

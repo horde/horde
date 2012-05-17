@@ -33,9 +33,8 @@ if (empty($action)) {
 try {
     Horde_Registry::appInit($app);
 } catch (Horde_Exception_AuthenticationFailure $e) {
-    /* Handle session timeouts when they come from an AJAX request. */
-    $injector->getInstance('Horde_Core_Factory_Ajax')->create($app, $injector->getInstance('Horde_Variables'))->sessionTimeout();
-    throw $e;
+    $response = new Horde_Core_Ajax_Response_HordeCore_AjaxTimeout($app);
+    $response->sendAndExit();
 } catch (Exception $e) {
     // Uncaught exception.  Sending backtrace info back via AJAX is just a
     // waste of time.
