@@ -884,7 +884,6 @@ class Horde_ActiveSync_Imap_Adapter
                 $eas_message->airsyncbaseattachments = $imap_message->getAttachments($version);
             } elseif (isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]) || !$haveData) {
                 $this->_logger->debug('Sending PLAINTEXT Message.');
-                $this->_logger->debug(print_r($message_body_data['plain'], true));
                 if ($message_body_data['plain']['charset'] != 'UTF-8') {
                     $message_body_data['plain']['body'] = Horde_String::convertCharset(
                         $message_body_data['plain']['body'],
