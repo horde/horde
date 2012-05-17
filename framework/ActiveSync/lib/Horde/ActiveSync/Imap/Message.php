@@ -221,20 +221,18 @@ class Horde_ActiveSync_Imap_Message
         );
 
         // Get body information
-        // @TODO: We might need to check for body length < truncation size as
-        // a way of determining if the message was truncated for servers that
-        // do not have the BINARY extension.
         // @TODO: AllorNone
         if ($version >= Horde_ActiveSync::VERSION_TWELVE) {
             $html_query_opts = $body_query_opts;
-            if (isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize'])) {
-                $html_query_opts['length'] = $options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize'];
-                $query->bodyPartSize($html_id);
-            }
             if (!empty($html_id)) {
+                if (isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize'])) {
+                    $html_query_opts['length'] = $options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize'];
+                    $query->bodyPartSize($html_id);
+                }
                 $query->bodyPart($html_id, $html_query_opts);
             }
             if (!empty($text_id)) {
+                $body_query_opts['length'] = $options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'];
                 $query->bodyPart($text_id, $body_query_opts);
                 $query->bodyPartSize($text_id);
             }
@@ -272,10 +270,15 @@ class Horde_ActiveSync_Imap_Message
                 $text = $text_body_part->getContents();
             }
             $text_size = !is_null($data->getBodyPartSize($text_id)) ? $data->getBodyPartSize($text_id) : strlen($text);
+            $truncated = $text_size > strlen($text);
+            if ($version >= Horde_ActiveSync::VERSION_TWELVE &&
+                $truncated && $options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['allornone']) {
+                $text = '';
+            }
             $return = array('plain' => array(
                 'charset' => $charset,
                 'body' => $text,
-                'truncated' => $text_size > strlen($text),
+                'truncated' => $truncated,
                 'size' => $text_size));
         }
         if (!empty($html_id)) {
@@ -286,13 +289,16 @@ class Horde_ActiveSync_Imap_Message
             } else {
                 $html_size = strlen($html);
             }
-            $return['html'] = array(
-                'charset' => $html_charset,
-                'body' => $html,
-                'estimated_size' => $html_size,
-                'truncated' => ($html_size > strlen($html)) ? 1 : 0 );
+            $truncated = $html_size > strlen($html);
+            if ($version >= Horde_ActiveSync::VERSION_TWELVE &&
+                !($truncated && $options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]['allornone'])) {
+                $return['html'] = array(
+                    'charset' => $html_charset,
+                    'body' => $html,
+                    'estimated_size' => $html_size,
+                    'truncated' => $truncated);
+            }
         }
-
         return $return;
     }
 
