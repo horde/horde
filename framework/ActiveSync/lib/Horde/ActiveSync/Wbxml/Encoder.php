@@ -48,6 +48,14 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     private $_stack = array();
 
     /**
+     * Flag to indicate if we are outputing multipart binary data during e.g.,
+     * ITEMOPERATION requests.
+     *
+     * @var boolean
+     */
+    protected $_multipart;
+
+    /**
      * Const'r
      *
      * @param stream $output  The output stream
@@ -86,10 +94,13 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     /**
      * Starts the wbxml output.
      *
+     * @param boolean $multipart  Indicates we need to output mulitpart binary
+     *                            binary data. See MS-ASCMD 2.2.1.8.1
+     *
      */
-    public function startWBXML()
+    public function startWBXML($mulitpart = false)
     {
-        header('Content-Type: application/vnd.ms-sync.wbxml');
+        $this->_multipart = $multipart;
         $this->outputWbxmlHeader();
     }
 
