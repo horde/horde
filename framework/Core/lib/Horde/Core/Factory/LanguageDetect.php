@@ -99,10 +99,15 @@ class Horde_Core_Factory_LanguageDetect extends Horde_Core_Factory_Base
      * Return a Text_LanguageDetect instance.
      *
      * @return Text_LanguageDetect  Detection object.
+     *
+     * @throws Horde_Exception
      */
     public function create()
     {
         if (!isset($this->_detect)) {
+            if (!class_exists('Text_LanguageDetect')) {
+                throw new Horde_Exception('Language detection not available.');
+            }
             $this->_detect = new Text_LanguageDetect();
         }
 
