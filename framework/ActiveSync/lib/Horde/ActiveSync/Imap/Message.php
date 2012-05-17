@@ -192,6 +192,9 @@ class Horde_ActiveSync_Imap_Message
     public function getMessageBodyData($options = array())
     {
         $version = empty($options['protocolversion']) ? 2.5 : $options['protocolversion'];
+        if (!isset($options['trunction'])) {
+            $options['truncation'] = false;
+        }
 
         // Find and get the message body parts we will need.
         if ($version >= Horde_ActiveSync::VERSION_TWELVE && !empty($options['bodyprefs'])) {
@@ -238,11 +241,10 @@ class Horde_ActiveSync_Imap_Message
             }
         } else {
             // Plaintext body
-            if (isset($options['truncation']) && $options['truncation'] > 0) {
+            if ($options['truncation'] && $options['truncation'] > 0) {
                 $body_query_opts['length'] = $options['truncation'];
             }
-            if ((isset($options['truncation']) && $options['truncation'] > 0) ||
-                !isset($options['truncation'])) {
+            if ($options['truncation'] > 0 || $options['truncation'] === false) {
                 $query->bodyPart($text_id, $body_query_opts);
             }
             $query->bodyPartSize($text_id);
