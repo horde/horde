@@ -450,6 +450,7 @@ class Horde_ActiveSync
         case 'request':
         case 'driver':
         case 'provisioning':
+        case 'multipart':
             $property = '_' . $property;
             return $this->$property;
         default:
