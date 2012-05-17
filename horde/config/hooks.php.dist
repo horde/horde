@@ -442,7 +442,7 @@ class Horde_Hooks
 //            return $userId . '@' . $vdomain;
 //        } else {
 //            return (substr($userId, -strlen($vdomain)) == $vdomain)
-//              ? substr($userId, 0, -strlen($vdomain))
+//              ? substr($userId, 0, -strlen($vdomain) - 1)
 //              : $userId;
 //        }
 //
