@@ -162,7 +162,9 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
         }
         $this->_outputStack();
         $this->_content($content);
-
+        if (is_resource($content)) {
+            fclose($content);
+        }
         if (isset($filter)) {
             stream_filter_remove($filter);
         }
