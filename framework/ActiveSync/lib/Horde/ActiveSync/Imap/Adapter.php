@@ -844,6 +844,7 @@ class Horde_ActiveSync_Imap_Adapter
                     $raw = new Horde_ActiveSync_Rfc822($imap_message->getFullMsg(true));
                     $airsync_body->estimateddatasize = $raw->getBytes();
                     $airsync_body->data = $raw->getString();
+                    $eas_message->messageclass = 'IPM.Note.SMIME.MultipartSigned';
                 }
                 $airsync_body->type = Horde_ActiveSync::BODYPREF_TYPE_MIME;
 
