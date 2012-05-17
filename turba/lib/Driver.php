@@ -2581,7 +2581,7 @@ class Turba_Driver implements Countable
                 break;
 
             case 'notes':
-                if (!empty($options['bodyprefs'])) {
+                if ($options['protocolversion'] > Horde_ActiveSync::VERSION_TWOFIVE) {
                     $bp = $options['bodyprefs'];
                     $note = new Horde_ActiveSync_Message_AirSyncBaseBody();
                     // No HTML supported in Turba's notes. Always use plaintext.
