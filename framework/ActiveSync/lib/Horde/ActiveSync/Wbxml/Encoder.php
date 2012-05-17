@@ -105,16 +105,6 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     }
 
     /**
-     * Return the mulitpart flag.
-     *
-     * @param boolean
-     */
-    public function hasMultipart()
-    {
-        return $this->multipart;
-    }
-
-    /**
      * Output the Wbxml header to the output stream.
      *
      */
