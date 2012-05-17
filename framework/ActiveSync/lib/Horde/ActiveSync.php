@@ -568,21 +568,15 @@ class Horde_ActiveSync
             return true;
         }
 
-        // These are all handled in the same class.
-        if ($cmd == 'FolderDelete' || $cmd == 'FolderUpdate') {
-            $cmd = 'FolderCreate';
-        }
-
-        // Device id is REQUIRED
-        if (is_null($devId)) {
-            throw new Horde_ActiveSync_Exception_InvalidRequest('Device failed to send device id.');
-        }
-
         // Read the initial Wbxml header
         $this->_decoder->readWbxmlHeader();
 
         // Support Multipart response for ITEMOPERATIONS requests?
-        $this->_multipart = $this->_request->getHeader('MS-ASAcceptMultiPart') == 'T';
+        $headers = $this->_request->getHeaders();
+        if ((!empty($headers['ms-asacceptmultipart']) && $headers['ms-asacceptmultipart'] == 'T') ||
+            (isset($get['Options']) && $get['Options'] & 0x02)) {
+            $this->_multipart = true;
+        }
 
         // Support gzip encoding?
         // We have to manage it ourselves, since only portions of the data
