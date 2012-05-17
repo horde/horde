@@ -85,6 +85,15 @@ class Horde_ActiveSync_Rfc822
         return substr($this->_rfc822, $this->_hdr_pos + $this->_eol);
     }
 
+    public function getString()
+    {
+        if (is_resource($this->_rfc822)) {
+            rewind($this->_rfc822);
+        }
+
+        return $this->_rfc822;
+    }
+
     /**
      * Return the message headers.
      *
@@ -108,6 +117,17 @@ class Horde_ActiveSync_Rfc822
     public function getMimeObject()
     {
         return Horde_Mime_Part::parseMessage($this->_rfc822);
+    }
+
+    public function getBytes()
+    {
+        if (!isset($this->_bytes)) {
+            fseek($this->_rfc822, 0, SEEK_END);
+            $this->_bytes = ftell($this->_rfc822);
+            rewind($this->_rfc822);
+        }
+
+        return $this->_bytes;
     }
 
     /**
