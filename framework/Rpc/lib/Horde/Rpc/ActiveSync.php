@@ -171,9 +171,17 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
         $data = ob_get_contents();
         ob_end_clean();
 
-        header('Content-Type: ' . $this->_contentType);
-        header('Content-Length: ' . $len);
-        echo $data;
+        if (!headers_sent()) {
+            header('Content-Length: ' . $len);
+            header('Content-Type: ' . $this->_contentType);
+            flush();
+            echo $data;
+        } else {
+            flush();
+            sleep(2);
+            $this->_logger->debug('Output ' . $len . ' Bytes of data found in content buffer since output started');
+            echo $data;
+        }
     }
 
     /**

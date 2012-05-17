@@ -541,6 +541,16 @@ class Horde_ActiveSync
             $this->_driver->getUser())
         );
 
+        // These are all handled in the same class.
+        if ($cmd == 'FolderDelete' || $cmd == 'FolderUpdate') {
+            $cmd = 'FolderCreate';
+        }
+
+        // Device id is REQUIRED
+        if (is_null($devId)) {
+            throw new Horde_ActiveSync_Exception_InvalidRequest('Device failed to send device id.');
+        }
+
         // Does device exist AND does the user have an account on the device?
         if (!empty($devId) && !$this->_state->deviceExists($devId, $this->_driver->getUser())) {
 

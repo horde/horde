@@ -398,6 +398,18 @@ class Horde_ActiveSync_Message_Base
                           } else {
                             continue;
                           }
+                    } elseif ($encoder->multipart &&
+                              in_array($tag, array(
+                                Horde_ActiveSync::SYNC_DATA,
+                                Horde_ActiveSync::AIRSYNCBASE_DATA,
+                                Horde_ActiveSync_Request_ItemOperations::ITEMOPERATIONS_DATA)
+                              )) {
+                        $this->_logger->debug('HANDLING MULTIPART OUTPUT');
+                        $encoder->addPart($this->$map[self::KEY_ATTRIBUTE]);
+                        $encoder->startTag(Horde_ActiveSync_Request_ItemOperations::ITEMOPERATIONS_PART);
+                        $encoder->content((string)(count($encoder->getParts()) - 1));
+                        $encoder->endTag();
+                        continue;
                     } else {
                         $encoder->startTag($tag);
                     }
@@ -410,12 +422,29 @@ class Horde_ActiveSync_Message_Base
                     } elseif (isset($map[self::KEY_TYPE]) && $map[self::KEY_TYPE] == self::TYPE_MAPI_STREAM) {
                         $encoder->content($this->$map[self::KEY_ATTRIBUTE]);
                     } else {
-                        $encoder->content($this->$map[self::KEY_ATTRIBUTE]);
+                        $encoder->content(
+                            $this->_checkEncoding($this->$map[self::KEY_ATTRIBUTE], $tag));
                     }
                     $encoder->endTag();
                 }
             }
         }
+    }
+
+    /**
+     * Checks if the data needs to be encoded like e.g., when outputing binary
+     * data in-line during ITEMOPERATIONS requests. Concrete classes should
+     * override this if needed.
+     *
+     * @param mixed  $data  The data to check. A string or stream resource.
+     * @param string $tag   The tag we are outputing.
+     *
+     * @return mixed  The encoded data. A string or stream resource with
+     *                a filter attached.
+     */
+    protected function _checkEncoding($data, $tag)
+    {
+        return $data;
     }
 
     /**

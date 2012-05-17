@@ -179,8 +179,7 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_B
             }
         }
         $this->_decoder->getElementEndTag(); // end SYNC_ITEMOPERATIONS_ITEMOPERATIONS
-
-        $this->_encoder->startWBXML($this->_activeSync->hasMultipart());
+        $this->_encoder->startWBXML($this->_activeSync->multipart);
         $this->_encoder->startTag(self::ITEMOPERATIONS_ITEMOPERATIONS);
 
         $this->_encoder->startTag(self::ITEMOPERATIONS_STATUS);
@@ -194,17 +193,18 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_B
                 switch(strtolower($value['store'])) {
                 case 'mailbox' :
                     $this->_encoder->startTag(self::ITEMOPERATIONS_FETCH);
-
-                    $this->_encoder->startTag(self::ITEMOPERATIONS_STATUS);
-                    $this->_encoder->content(1);
-                    $this->_encoder->endTag();
-
                     if (isset($value['airsyncbasefilereference'])) {
+                        try {
+                            $msg = $this->_driver->itemOperationsGetAttachmentData($value['airsyncbasefilereference']);
+                        } catch (Horde_ActiveSync_Exception $e) {
+                            $this->_statusCode = self::STATUS_ATTINVALID;
+                        }
+                        $this->_outputStatus();
                         $this->_encoder->startTag(Horde_ActiveSync::AIRSYNCBASE_FILEREFERENCE);
                         $this->_encoder->content($value['airsyncbasefilereference']);
                         $this->_encoder->endTag();
-                        $msg = $this->_driver->itemOperationsGetAttachmentData($value['airsyncbasefilereference']);
                     } elseif (isset($value['searchlongid'])) {
+                        $this->_outputStatus();
                         $this->_encoder->startTag(Horde_ActiveSync_Request_Search::SEARCH_LONGID);
                         $this->_encoder->content($value['searchlongid']);
                         $this->_encoder->endTag();
@@ -213,6 +213,7 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_B
                         $this->_encoder->endTag();
                         $msg = $this->_driver->itemOperationsFetchMailbox($value['searchlongid'], $value['bodyprefs'], $mimesupport);
                     } else {
+                        $this->_outputStatus();
                         if (isset($value['folderid'])) {
                             $this->_encoder->startTag(Horde_ActiveSync::SYNC_FOLDERID);
                             $this->_encoder->content($value['folderid']);
@@ -234,10 +235,11 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_B
                                 'mimesupport' => $mimesupport)
                         );
                     }
-                    $this->_encoder->startTag(self::ITEMOPERATIONS_PROPERTIES);
-                    $msg->encodeStream($this->_encoder);
-                    $this->_encoder->endTag();
-
+                    if ($this->_statusCode == self::STATUS_SUCCESS) {
+                        $this->_encoder->startTag(self::ITEMOPERATIONS_PROPERTIES);
+                        $msg->encodeStream($this->_encoder);
+                        $this->_encoder->endTag();
+                    }
                     $this->_encoder->endTag();
                     break;
                 case 'documentlibrary' :
@@ -263,7 +265,16 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_B
         $this->_encoder->endTag(); //end SYNC_ITEMOPERATIONS_RESPONSE
         $this->_encoder->endTag(); //end SYNC_ITEMOPERATIONS_ITEMOPERATIONS
 
-        return true;
+        return $this->_encoder->multipart
+            ? 'application/vnd.ms-sync.multipart'
+            : 'application/vnd.ms-sync.wbxml';
+    }
+
+    protected function _outputStatus()
+    {
+        $this->_encoder->startTag(self::ITEMOPERATIONS_STATUS);
+        $this->_encoder->content($this->_statusCode);
+        $this->_encoder->endTag();
     }
 
 }

@@ -149,6 +149,43 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
         $stackelem = array_pop($this->_stack);
         if ($stackelem['sent']) {
             $this->_endTag();
+            if (count($this->_stack) == 0 && $this->multipart) {
+                $len = ob_get_length();
+                $data = ob_get_contents();
+                ob_end_clean();
+                ob_start();
+                $blockstart = ((count($this->_parts) + 1) * 2) * 4 + 4;
+                $sizeinfo = pack('iii', count($this->_parts) + 1, $blockstart, $len);
+                $this->_logger->debug('Multipart Debug Output Total parts ' . (count($this->_parts) + 1));
+                foreach ($this->_parts as $bp) {
+                    $blockstart = $blockstart + $len;
+                    if (is_resource($bp)) {
+                        rewind($bp);
+                        stream_filter_register('horde_bin2hex', 'Horde_Stream_Filter_Bin2hex');
+                        $filter = stream_filter_prepend($bp, 'horde_bin2hex', STREAM_FILTER_READ);
+                        $bp1 = fopen('php://temp/maxmemory:2097152', 'r+');
+                        stream_copy_to_stream($bp, $bp1);
+                        fseek($bp1, 0, SEEK_END);
+                        $len = ftell($bp1) / 2;
+                        stream_filter_remove($filter);
+                        fclose($bp1);
+                    } else {
+                        $len = strlen(bin2hex($bp)) / 2;
+                    }
+                    $sizeinfo .= pack('ii', $blockstart, $len);
+                }
+                fwrite($this->_stream, $sizeinfo);
+                fwrite($this->_stream, $data);
+                foreach($this->_parts as $bp) {
+                    if (is_resource($bp)) {
+                        rewind($bp);
+                        stream_copy_to_stream($bp, $this->_stream);
+                        fclose($bp);
+                    } else {
+                        fwrite($this->_stream, $bp);
+                    }
+                }
+            }
         }
     }
 
@@ -179,6 +216,26 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
         if (isset($filter)) {
             stream_filter_remove($filter);
         }
+    }
+
+    /**
+     * Add a mulitpart part to be output.
+     *
+     * @param mixed $data  The part data. A string or stream resource.
+     */
+    public function addPart($data)
+    {
+        $this->_parts[] = $data;
+    }
+
+    /**
+     * Return the parts array.
+     *
+     * @return array
+     */
+    public function getParts()
+    {
+        return $this->_parts;
     }
 
     /**
