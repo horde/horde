@@ -26,8 +26,7 @@ class Horde_Stream_Filter_NullTest extends Horde_Test_Case
 
     public function testNull()
     {
-        $params = new stdClass;
-        $filter = stream_filter_prepend($this->fp, 'horde_null', STREAM_FILTER_READ, $params);
+        $filter = stream_filter_prepend($this->fp, 'horde_null', STREAM_FILTER_READ);
         rewind($this->fp);
         $this->assertEquals(
             'abcdefghij',
