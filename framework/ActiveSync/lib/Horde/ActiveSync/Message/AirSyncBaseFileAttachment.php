@@ -37,13 +37,13 @@
 class Horde_ActiveSync_Message_AirSyncBaseFileAttachment extends Horde_ActiveSync_Message_Base
 {
     protected $_mapping = array(
-        Horde_ActiveSync::AIRSYNCBASE_CONTENTTYPE => array (self::KEY_ATTRIBUTE => 'contenttype'),
-        Horde_ActiveSync_Request_ItemOperations::ITEMOPERATIONS_DATA => array (SKEY_ATTRIBUTE => '_data'),
+        Horde_ActiveSync::AIRSYNCBASE_CONTENTTYPE => array(self::KEY_ATTRIBUTE => 'contenttype'),
+        Horde_ActiveSync_Request_ItemOperations::ITEMOPERATIONS_DATA => array(self::KEY_ATTRIBUTE => 'data'),
     );
 
     protected $_properties = array(
-        'contenttype',
-        '_data',
+        'contenttype' => false,
+        'data' => false
     );
 
     public function getClass()
