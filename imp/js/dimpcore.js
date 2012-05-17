@@ -232,13 +232,9 @@ var DimpCore = {
         }
     },
 
+    // Abstract: define in any pages that need reloadMessage().
     reloadMessage: function(params)
     {
-        if (typeof DimpMessage != 'undefined') {
-            window.location = HordeCore.addURLParam(document.location.href, params);
-        } else {
-            DimpBase.loadPreview(null, params);
-        }
     },
 
     toggleCheck: function(elt, on)

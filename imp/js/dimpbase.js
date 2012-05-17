@@ -1607,7 +1607,7 @@ var DimpBase = {
 
         // If single message is loaded, and this is the INBOX, try to preload
         // next unseen message that exists in current buffer.
-        if (data.mbox == this.INBOX) {
+        if (data && data.mbox == this.INBOX) {
             curr = this.viewport.getSelected().get('rownum').first();
             rows = this.viewport.createSelectionBuffer().search({
                 flag: { notinclude: DimpCore.conf.FLAG_SEEN }
@@ -3894,6 +3894,11 @@ document.observe('dom:loaded', DimpBase.onDomLoad.bind(DimpBase));
 
 /* DimpCore handlers. */
 document.observe('DimpCore:updateAddressHeader', DimpBase.updateAddressHeader.bindAsEventListener(DimpBase));
+
+/* Define reloadMessage() method for this page. */
+DimpCore.reloadMessage = function(params) {
+    DimpBase.loadPreview(null, params);
+};
 
 /* Growler handlers. */
 document.observe('Growler:toggled', function(e) {

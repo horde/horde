@@ -333,3 +333,8 @@ document.observe('ContextSensitive:click', DimpMessage.contextOnClick.bindAsEven
 
 /* DimpCore handlers. */
 document.observe('DimpCore:updateAddressHeader', DimpMessage.updateAddressHeader.bindAsEventListener(DimpMessage));
+
+/* Define reloadMessage() method for this page. */
+DimpCore.reloadMessage = function(params) {
+    window.location = HordeCore.addURLParam(document.location.href, params);
+};
